@@ -9,7 +9,6 @@
     <use id="fd392034-7849-419d-9071-12563d152375" name="jetbrains.mps.baseLanguage.closures" version="0" />
   </languages>
   <imports>
-    <import index="lktc" ref="134ef213-c518-42b0-b12c-c109aa13d320/java:gnu.trove(collections_trove.runtime/)" />
     <import index="33ny" ref="6354ebe7-c22a-4a0f-ac54-50b52ab9b065/java:java.util(JDK/)" />
     <import index="mhfm" ref="3f233e7f-b8a6-46d2-a57f-795d56775243/java:org.jetbrains.annotations(Annotations/)" />
     <import index="wyt6" ref="6354ebe7-c22a-4a0f-ac54-50b52ab9b065/java:java.lang(JDK/)" />
@@ -23,6 +22,7 @@
     <import index="c9mi" ref="r:e280b60e-1e31-4362-b72e-05ea0aaad63c(de.q60.mps.shadowmodels.runtime.util.pmap)" />
     <import index="3o3z" ref="ecfb9949-7433-4db5-85de-0f84d172e4ce/java:com.google.common.collect(de.q60.mps.libs/)" />
     <import index="zdal" ref="r:88aa2c17-3990-45f2-9b79-06884112d260(de.q60.mps.web.model)" />
+    <import index="5ka6" ref="ecfb9949-7433-4db5-85de-0f84d172e4ce/java:gnu.trove.map.hash(de.q60.mps.libs/)" />
   </imports>
   <registry>
     <language id="5dc5fc0d-37ef-4782-8192-8b5ce1f69f80" name="jetbrains.mps.baseLanguage.extensionMethods">
@@ -11553,7 +11553,7 @@
       </node>
       <node concept="2ShNRf" id="7A36R9$WoFH" role="33vP2m">
         <node concept="1pGfFk" id="7A36R9$WoZq" role="2ShVmc">
-          <ref role="37wK5l" to="lktc:~THashMap.&lt;init&gt;()" resolve="THashMap" />
+          <ref role="37wK5l" to="5ka6:~THashMap.&lt;init&gt;()" resolve="THashMap" />
           <node concept="17QB3L" id="7A36R9$Wpg8" role="1pMfVU" />
           <node concept="3uibUv" id="7A36R9$Wpqu" role="1pMfVU">
             <ref role="3uigEE" to="wyt6:~Object" resolve="Object" />
