@@ -119,8 +119,8 @@ public class ModelServer extends WebSocketServer {
         });
     }
 
-    public ModelServer(int port) {
-        super(new InetSocketAddress(port));
+    public ModelServer(InetSocketAddress bindTo) {
+        super(bindTo);
         redisClient = new MyRedisClient();
         store = new CachingKeyValueStore(redisClient);
     }
