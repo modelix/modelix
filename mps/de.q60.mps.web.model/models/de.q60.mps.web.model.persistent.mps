@@ -27,6 +27,8 @@
     <import index="vxxo" ref="6ed54515-acc8-4d1e-a16c-9fd6cfe951ea/java:jetbrains.mps.smodel.adapter.structure.concept(MPS.Core/)" />
     <import index="c17a" ref="8865b7a8-5271-43d3-884c-6fd1d9cfdd34/java:org.jetbrains.mps.openapi.language(MPS.OpenAPI/)" />
     <import index="7pi1" ref="87f4b21e-a3a5-459e-a54b-408fd9eb7350/java:com.google.gson.typeadapters(de.q60.mps.shadowmodels.web.lib/)" />
+    <import index="w1kc" ref="6ed54515-acc8-4d1e-a16c-9fd6cfe951ea/java:jetbrains.mps.smodel(MPS.Core/)" />
+    <import index="3hky" ref="r:bef1bfa7-20fd-413a-ae11-793b0a8ee364(de.q60.mps.shadowmodels.runtime.model.persistent)" />
   </imports>
   <registry>
     <language id="f3061a53-9226-4cc5-a443-f952ceaf5816" name="jetbrains.mps.baseLanguage">
@@ -58,6 +60,10 @@
       <concept id="1197029447546" name="jetbrains.mps.baseLanguage.structure.FieldReferenceOperation" flags="nn" index="2OwXpG">
         <reference id="1197029500499" name="fieldDeclaration" index="2Oxat5" />
       </concept>
+      <concept id="1083260308424" name="jetbrains.mps.baseLanguage.structure.EnumConstantReference" flags="nn" index="Rm8GO">
+        <reference id="1083260308426" name="enumConstantDeclaration" index="Rm8GQ" />
+        <reference id="1144432896254" name="enumClass" index="1Px2BO" />
+      </concept>
       <concept id="1164879751025" name="jetbrains.mps.baseLanguage.structure.TryCatchStatement" flags="nn" index="SfApY">
         <child id="1164879758292" name="body" index="SfCbr" />
         <child id="1164903496223" name="catchClause" index="TEbGg" />
@@ -84,6 +90,10 @@
       </concept>
       <concept id="1164991038168" name="jetbrains.mps.baseLanguage.structure.ThrowStatement" flags="nn" index="YS8fn">
         <child id="1164991057263" name="throwable" index="YScLw" />
+      </concept>
+      <concept id="1081256982272" name="jetbrains.mps.baseLanguage.structure.InstanceOfExpression" flags="nn" index="2ZW3vV">
+        <child id="1081256993305" name="classType" index="2ZW6by" />
+        <child id="1081256993304" name="leftExpression" index="2ZW6bz" />
       </concept>
       <concept id="1070534058343" name="jetbrains.mps.baseLanguage.structure.NullLiteral" flags="nn" index="10Nm6u" />
       <concept id="1070534370425" name="jetbrains.mps.baseLanguage.structure.IntegerType" flags="in" index="10Oyi0" />
@@ -4071,6 +4081,673 @@
                     </node>
                     <node concept="3uibUv" id="6TdxBJ4iwO3" role="2Ghqu4">
                       <ref role="3uigEE" to="l6bp:5gTrVpGjuL2" resolve="SConceptAdapter" />
+                    </node>
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="3clFbH" id="D$1Y7ykxY5" role="3cqZAp" />
+        <node concept="3clFbF" id="D$1Y7ykwxb" role="3cqZAp">
+          <node concept="2OqwBi" id="D$1Y7ykwxc" role="3clFbG">
+            <node concept="37vLTw" id="D$1Y7ykwxd" role="2Oq$k0">
+              <ref role="3cqZAo" node="6TdxBJ4iwNa" resolve="builder" />
+            </node>
+            <node concept="liA8E" id="D$1Y7ykwxe" role="2OqNvi">
+              <ref role="37wK5l" to="wy2b:~GsonBuilder.registerTypeAdapter(java.lang.reflect.Type,java.lang.Object)" resolve="registerTypeAdapter" />
+              <node concept="3VsKOn" id="D$1Y7ykwxf" role="37wK5m">
+                <ref role="3VsUkX" to="mjcn:5gTrVpGiUpC" resolve="IConcept" />
+              </node>
+              <node concept="2ShNRf" id="D$1Y7ykwxg" role="37wK5m">
+                <node concept="YeOm9" id="D$1Y7ykwxh" role="2ShVmc">
+                  <node concept="1Y3b0j" id="D$1Y7ykwxi" role="YeSDq">
+                    <property role="2bfB8j" value="true" />
+                    <ref role="1Y3XeK" to="wy2b:~TypeAdapter" resolve="TypeAdapter" />
+                    <ref role="37wK5l" to="wy2b:~TypeAdapter.&lt;init&gt;()" resolve="TypeAdapter" />
+                    <node concept="3Tm1VV" id="D$1Y7ykwxj" role="1B3o_S" />
+                    <node concept="3clFb_" id="D$1Y7ykwxk" role="jymVt">
+                      <property role="TrG5h" value="write" />
+                      <node concept="3Tm1VV" id="D$1Y7ykwxl" role="1B3o_S" />
+                      <node concept="3cqZAl" id="D$1Y7ykwxm" role="3clF45" />
+                      <node concept="37vLTG" id="D$1Y7ykwxn" role="3clF46">
+                        <property role="TrG5h" value="writer" />
+                        <node concept="3uibUv" id="D$1Y7ykwxo" role="1tU5fm">
+                          <ref role="3uigEE" to="c9jv:~JsonWriter" resolve="JsonWriter" />
+                        </node>
+                      </node>
+                      <node concept="37vLTG" id="D$1Y7ykwxp" role="3clF46">
+                        <property role="TrG5h" value="object" />
+                        <node concept="3uibUv" id="D$1Y7ykzHW" role="1tU5fm">
+                          <ref role="3uigEE" to="mjcn:5gTrVpGiUpC" resolve="IConcept" />
+                        </node>
+                      </node>
+                      <node concept="3uibUv" id="D$1Y7ykwxr" role="Sfmx6">
+                        <ref role="3uigEE" to="guwi:~IOException" resolve="IOException" />
+                      </node>
+                      <node concept="3clFbS" id="D$1Y7ykwxs" role="3clF47">
+                        <node concept="3clFbJ" id="D$1Y7yk$$s" role="3cqZAp">
+                          <node concept="3clFbS" id="D$1Y7yk$$u" role="3clFbx">
+                            <node concept="3clFbF" id="D$1Y7ykFB4" role="3cqZAp">
+                              <node concept="2OqwBi" id="D$1Y7ykFB5" role="3clFbG">
+                                <node concept="37vLTw" id="D$1Y7ykFB6" role="2Oq$k0">
+                                  <ref role="3cqZAo" node="D$1Y7ykwxn" resolve="writer" />
+                                </node>
+                                <node concept="liA8E" id="D$1Y7ykFB7" role="2OqNvi">
+                                  <ref role="37wK5l" to="c9jv:~JsonWriter.value(java.lang.String)" resolve="value" />
+                                  <node concept="2OqwBi" id="D$1Y7ykFB8" role="37wK5m">
+                                    <node concept="1eOMI4" id="D$1Y7ykFB9" role="2Oq$k0">
+                                      <node concept="10QFUN" id="D$1Y7ykFBa" role="1eOMHV">
+                                        <node concept="2OqwBi" id="D$1Y7ykFBb" role="10QFUP">
+                                          <node concept="1eOMI4" id="D$1Y7ykG6M" role="2Oq$k0">
+                                            <node concept="10QFUN" id="D$1Y7ykG6L" role="1eOMHV">
+                                              <node concept="37vLTw" id="D$1Y7ykG6K" role="10QFUP">
+                                                <ref role="3cqZAo" node="D$1Y7ykwxp" resolve="object" />
+                                              </node>
+                                              <node concept="3uibUv" id="D$1Y7ykGy9" role="10QFUM">
+                                                <ref role="3uigEE" to="l6bp:5gTrVpGjuL2" resolve="SConceptAdapter" />
+                                              </node>
+                                            </node>
+                                          </node>
+                                          <node concept="liA8E" id="D$1Y7ykFBd" role="2OqNvi">
+                                            <ref role="37wK5l" to="l6bp:5gTrVpGqz6x" resolve="getAdapted" />
+                                          </node>
+                                        </node>
+                                        <node concept="3uibUv" id="D$1Y7ykFBe" role="10QFUM">
+                                          <ref role="3uigEE" to="vxxo:~SAbstractConceptAdapter" resolve="SAbstractConceptAdapter" />
+                                        </node>
+                                      </node>
+                                    </node>
+                                    <node concept="liA8E" id="D$1Y7ykFBf" role="2OqNvi">
+                                      <ref role="37wK5l" to="vxxo:~SAbstractConceptAdapter.serialize()" resolve="serialize" />
+                                    </node>
+                                  </node>
+                                </node>
+                              </node>
+                            </node>
+                          </node>
+                          <node concept="2ZW3vV" id="D$1Y7yk_fa" role="3clFbw">
+                            <node concept="3uibUv" id="D$1Y7yk_$M" role="2ZW6by">
+                              <ref role="3uigEE" to="l6bp:5gTrVpGjuL2" resolve="SConceptAdapter" />
+                            </node>
+                            <node concept="37vLTw" id="D$1Y7yk$PU" role="2ZW6bz">
+                              <ref role="3cqZAo" node="D$1Y7ykwxp" resolve="object" />
+                            </node>
+                          </node>
+                          <node concept="9aQIb" id="D$1Y7ykA33" role="9aQIa">
+                            <node concept="3clFbS" id="D$1Y7ykA34" role="9aQI4">
+                              <node concept="YS8fn" id="D$1Y7ykAkk" role="3cqZAp">
+                                <node concept="2ShNRf" id="D$1Y7ykAx1" role="YScLw">
+                                  <node concept="1pGfFk" id="D$1Y7ykDh4" role="2ShVmc">
+                                    <ref role="37wK5l" to="wyt6:~RuntimeException.&lt;init&gt;(java.lang.String)" resolve="RuntimeException" />
+                                    <node concept="3cpWs3" id="D$1Y7ykEf6" role="37wK5m">
+                                      <node concept="37vLTw" id="D$1Y7ykEvg" role="3uHU7w">
+                                        <ref role="3cqZAo" node="D$1Y7ykwxp" resolve="object" />
+                                      </node>
+                                      <node concept="Xl_RD" id="D$1Y7ykDtK" role="3uHU7B">
+                                        <property role="Xl_RC" value="Unsupported: " />
+                                      </node>
+                                    </node>
+                                  </node>
+                                </node>
+                              </node>
+                            </node>
+                          </node>
+                        </node>
+                      </node>
+                      <node concept="2AHcQZ" id="D$1Y7ykwxD" role="2AJF6D">
+                        <ref role="2AI5Lk" to="wyt6:~Override" resolve="Override" />
+                      </node>
+                    </node>
+                    <node concept="2tJIrI" id="D$1Y7ykwxE" role="jymVt" />
+                    <node concept="3clFb_" id="D$1Y7ykwxF" role="jymVt">
+                      <property role="TrG5h" value="read" />
+                      <node concept="3Tm1VV" id="D$1Y7ykwxG" role="1B3o_S" />
+                      <node concept="3uibUv" id="D$1Y7yk$1X" role="3clF45">
+                        <ref role="3uigEE" to="mjcn:5gTrVpGiUpC" resolve="IConcept" />
+                      </node>
+                      <node concept="37vLTG" id="D$1Y7ykwxI" role="3clF46">
+                        <property role="TrG5h" value="reader" />
+                        <node concept="3uibUv" id="D$1Y7ykwxJ" role="1tU5fm">
+                          <ref role="3uigEE" to="c9jv:~JsonReader" resolve="JsonReader" />
+                        </node>
+                      </node>
+                      <node concept="3uibUv" id="D$1Y7ykwxK" role="Sfmx6">
+                        <ref role="3uigEE" to="guwi:~IOException" resolve="IOException" />
+                      </node>
+                      <node concept="3clFbS" id="D$1Y7ykwxL" role="3clF47">
+                        <node concept="3clFbF" id="D$1Y7ykwxM" role="3cqZAp">
+                          <node concept="2ShNRf" id="D$1Y7ykwxN" role="3clFbG">
+                            <node concept="1pGfFk" id="D$1Y7ykwxO" role="2ShVmc">
+                              <ref role="37wK5l" to="l6bp:5gTrVpGjFod" resolve="SConceptAdapter" />
+                              <node concept="2YIFZM" id="D$1Y7ykwxP" role="37wK5m">
+                                <ref role="1Pybhc" to="vxxo:~SAbstractConceptAdapter" resolve="SAbstractConceptAdapter" />
+                                <ref role="37wK5l" to="vxxo:~SAbstractConceptAdapter.deserialize(java.lang.String)" resolve="deserialize" />
+                                <node concept="2OqwBi" id="D$1Y7ykwxQ" role="37wK5m">
+                                  <node concept="37vLTw" id="D$1Y7ykwxR" role="2Oq$k0">
+                                    <ref role="3cqZAo" node="D$1Y7ykwxI" resolve="reader" />
+                                  </node>
+                                  <node concept="liA8E" id="D$1Y7ykwxS" role="2OqNvi">
+                                    <ref role="37wK5l" to="c9jv:~JsonReader.nextString()" resolve="nextString" />
+                                  </node>
+                                </node>
+                              </node>
+                            </node>
+                          </node>
+                        </node>
+                      </node>
+                      <node concept="2AHcQZ" id="D$1Y7ykwxT" role="2AJF6D">
+                        <ref role="2AI5Lk" to="wyt6:~Override" resolve="Override" />
+                      </node>
+                    </node>
+                    <node concept="3uibUv" id="D$1Y7ykJxZ" role="2Ghqu4">
+                      <ref role="3uigEE" to="mjcn:5gTrVpGiUpC" resolve="IConcept" />
+                    </node>
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="3clFbH" id="6TdxBJ4iD6U" role="3cqZAp" />
+        <node concept="3clFbF" id="6TdxBJ4iCgR" role="3cqZAp">
+          <node concept="2OqwBi" id="6TdxBJ4iCgS" role="3clFbG">
+            <node concept="37vLTw" id="6TdxBJ4iCgT" role="2Oq$k0">
+              <ref role="3cqZAo" node="6TdxBJ4iwNa" resolve="builder" />
+            </node>
+            <node concept="liA8E" id="6TdxBJ4iCgU" role="2OqNvi">
+              <ref role="37wK5l" to="wy2b:~GsonBuilder.registerTypeAdapter(java.lang.reflect.Type,java.lang.Object)" resolve="registerTypeAdapter" />
+              <node concept="3VsKOn" id="6TdxBJ4iCgV" role="37wK5m">
+                <ref role="3VsUkX" to="l6bp:5gTrVpGyZdS" resolve="SNodeReferenceAdapter" />
+              </node>
+              <node concept="2ShNRf" id="6TdxBJ4iCgW" role="37wK5m">
+                <node concept="YeOm9" id="6TdxBJ4iCgX" role="2ShVmc">
+                  <node concept="1Y3b0j" id="6TdxBJ4iCgY" role="YeSDq">
+                    <property role="2bfB8j" value="true" />
+                    <ref role="1Y3XeK" to="wy2b:~TypeAdapter" resolve="TypeAdapter" />
+                    <ref role="37wK5l" to="wy2b:~TypeAdapter.&lt;init&gt;()" resolve="TypeAdapter" />
+                    <node concept="3Tm1VV" id="6TdxBJ4iCgZ" role="1B3o_S" />
+                    <node concept="3clFb_" id="6TdxBJ4iCh0" role="jymVt">
+                      <property role="TrG5h" value="write" />
+                      <node concept="3Tm1VV" id="6TdxBJ4iCh1" role="1B3o_S" />
+                      <node concept="3cqZAl" id="6TdxBJ4iCh2" role="3clF45" />
+                      <node concept="37vLTG" id="6TdxBJ4iCh3" role="3clF46">
+                        <property role="TrG5h" value="writer" />
+                        <node concept="3uibUv" id="6TdxBJ4iCh4" role="1tU5fm">
+                          <ref role="3uigEE" to="c9jv:~JsonWriter" resolve="JsonWriter" />
+                        </node>
+                      </node>
+                      <node concept="37vLTG" id="6TdxBJ4iCh5" role="3clF46">
+                        <property role="TrG5h" value="object" />
+                        <node concept="3uibUv" id="6TdxBJ4iEFJ" role="1tU5fm">
+                          <ref role="3uigEE" to="l6bp:5gTrVpGyZdS" resolve="SNodeReferenceAdapter" />
+                        </node>
+                      </node>
+                      <node concept="3uibUv" id="6TdxBJ4iCh7" role="Sfmx6">
+                        <ref role="3uigEE" to="guwi:~IOException" resolve="IOException" />
+                      </node>
+                      <node concept="3clFbS" id="6TdxBJ4iCh8" role="3clF47">
+                        <node concept="3clFbF" id="6TdxBJ4iCh9" role="3cqZAp">
+                          <node concept="2OqwBi" id="6TdxBJ4iCha" role="3clFbG">
+                            <node concept="37vLTw" id="6TdxBJ4iChb" role="2Oq$k0">
+                              <ref role="3cqZAo" node="6TdxBJ4iCh3" resolve="writer" />
+                            </node>
+                            <node concept="liA8E" id="6TdxBJ4iChc" role="2OqNvi">
+                              <ref role="37wK5l" to="c9jv:~JsonWriter.value(java.lang.String)" resolve="value" />
+                              <node concept="2YIFZM" id="6TdxBJ4iHYP" role="37wK5m">
+                                <ref role="37wK5l" to="w1kc:~SNodePointer.serialize(org.jetbrains.mps.openapi.model.SNodeReference)" resolve="serialize" />
+                                <ref role="1Pybhc" to="w1kc:~SNodePointer" resolve="SNodePointer" />
+                                <node concept="2OqwBi" id="6TdxBJ4iGcK" role="37wK5m">
+                                  <node concept="37vLTw" id="6TdxBJ4iFW9" role="2Oq$k0">
+                                    <ref role="3cqZAo" node="6TdxBJ4iCh5" resolve="object" />
+                                  </node>
+                                  <node concept="liA8E" id="6TdxBJ4iGpk" role="2OqNvi">
+                                    <ref role="37wK5l" to="l6bp:QurUgiyYyg" resolve="getReference" />
+                                  </node>
+                                </node>
+                              </node>
+                            </node>
+                          </node>
+                        </node>
+                      </node>
+                      <node concept="2AHcQZ" id="6TdxBJ4iChl" role="2AJF6D">
+                        <ref role="2AI5Lk" to="wyt6:~Override" resolve="Override" />
+                      </node>
+                    </node>
+                    <node concept="2tJIrI" id="6TdxBJ4iChm" role="jymVt" />
+                    <node concept="3clFb_" id="6TdxBJ4iChn" role="jymVt">
+                      <property role="TrG5h" value="read" />
+                      <node concept="3Tm1VV" id="6TdxBJ4iCho" role="1B3o_S" />
+                      <node concept="3uibUv" id="6TdxBJ4iEZf" role="3clF45">
+                        <ref role="3uigEE" to="l6bp:5gTrVpGyZdS" resolve="SNodeReferenceAdapter" />
+                      </node>
+                      <node concept="37vLTG" id="6TdxBJ4iChq" role="3clF46">
+                        <property role="TrG5h" value="reader" />
+                        <node concept="3uibUv" id="6TdxBJ4iChr" role="1tU5fm">
+                          <ref role="3uigEE" to="c9jv:~JsonReader" resolve="JsonReader" />
+                        </node>
+                      </node>
+                      <node concept="3uibUv" id="6TdxBJ4iChs" role="Sfmx6">
+                        <ref role="3uigEE" to="guwi:~IOException" resolve="IOException" />
+                      </node>
+                      <node concept="3clFbS" id="6TdxBJ4iCht" role="3clF47">
+                        <node concept="3clFbF" id="6TdxBJ4iIpa" role="3cqZAp">
+                          <node concept="2ShNRf" id="6TdxBJ4iIp6" role="3clFbG">
+                            <node concept="1pGfFk" id="6TdxBJ4iJZF" role="2ShVmc">
+                              <ref role="37wK5l" to="l6bp:5gTrVpGz3n8" resolve="SNodeReferenceAdapter" />
+                              <node concept="2YIFZM" id="6TdxBJ4iMBz" role="37wK5m">
+                                <ref role="37wK5l" to="w1kc:~SNodePointer.deserialize(java.lang.String)" resolve="deserialize" />
+                                <ref role="1Pybhc" to="w1kc:~SNodePointer" resolve="SNodePointer" />
+                                <node concept="2OqwBi" id="6TdxBJ4iMDt" role="37wK5m">
+                                  <node concept="37vLTw" id="6TdxBJ4iMDu" role="2Oq$k0">
+                                    <ref role="3cqZAo" node="6TdxBJ4iChq" resolve="reader" />
+                                  </node>
+                                  <node concept="liA8E" id="6TdxBJ4iMDv" role="2OqNvi">
+                                    <ref role="37wK5l" to="c9jv:~JsonReader.nextString()" resolve="nextString" />
+                                  </node>
+                                </node>
+                              </node>
+                            </node>
+                          </node>
+                        </node>
+                      </node>
+                      <node concept="2AHcQZ" id="6TdxBJ4iCh_" role="2AJF6D">
+                        <ref role="2AI5Lk" to="wyt6:~Override" resolve="Override" />
+                      </node>
+                    </node>
+                    <node concept="3uibUv" id="6TdxBJ4iEl4" role="2Ghqu4">
+                      <ref role="3uigEE" to="l6bp:5gTrVpGyZdS" resolve="SNodeReferenceAdapter" />
+                    </node>
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="3clFbH" id="6TdxBJ4iNTg" role="3cqZAp" />
+        <node concept="3clFbF" id="6TdxBJ4iMTJ" role="3cqZAp">
+          <node concept="2OqwBi" id="6TdxBJ4iMTK" role="3clFbG">
+            <node concept="37vLTw" id="6TdxBJ4iMTL" role="2Oq$k0">
+              <ref role="3cqZAo" node="6TdxBJ4iwNa" resolve="builder" />
+            </node>
+            <node concept="liA8E" id="6TdxBJ4iMTM" role="2OqNvi">
+              <ref role="37wK5l" to="wy2b:~GsonBuilder.registerTypeAdapter(java.lang.reflect.Type,java.lang.Object)" resolve="registerTypeAdapter" />
+              <node concept="3VsKOn" id="6TdxBJ4iMTN" role="37wK5m">
+                <ref role="3VsUkX" to="3hky:6TdxBJ4iV9A" resolve="PNodeReference" />
+              </node>
+              <node concept="2ShNRf" id="6TdxBJ4iMTO" role="37wK5m">
+                <node concept="YeOm9" id="6TdxBJ4iMTP" role="2ShVmc">
+                  <node concept="1Y3b0j" id="6TdxBJ4iMTQ" role="YeSDq">
+                    <property role="2bfB8j" value="true" />
+                    <ref role="1Y3XeK" to="wy2b:~TypeAdapter" resolve="TypeAdapter" />
+                    <ref role="37wK5l" to="wy2b:~TypeAdapter.&lt;init&gt;()" resolve="TypeAdapter" />
+                    <node concept="3Tm1VV" id="6TdxBJ4iMTR" role="1B3o_S" />
+                    <node concept="3clFb_" id="6TdxBJ4iMTS" role="jymVt">
+                      <property role="TrG5h" value="write" />
+                      <node concept="3Tm1VV" id="6TdxBJ4iMTT" role="1B3o_S" />
+                      <node concept="3cqZAl" id="6TdxBJ4iMTU" role="3clF45" />
+                      <node concept="37vLTG" id="6TdxBJ4iMTV" role="3clF46">
+                        <property role="TrG5h" value="writer" />
+                        <node concept="3uibUv" id="6TdxBJ4iMTW" role="1tU5fm">
+                          <ref role="3uigEE" to="c9jv:~JsonWriter" resolve="JsonWriter" />
+                        </node>
+                      </node>
+                      <node concept="37vLTG" id="6TdxBJ4iMTX" role="3clF46">
+                        <property role="TrG5h" value="object" />
+                        <node concept="3uibUv" id="6TdxBJ4nxMx" role="1tU5fm">
+                          <ref role="3uigEE" to="3hky:6TdxBJ4iV9A" resolve="PNodeReference" />
+                        </node>
+                      </node>
+                      <node concept="3uibUv" id="6TdxBJ4iMTZ" role="Sfmx6">
+                        <ref role="3uigEE" to="guwi:~IOException" resolve="IOException" />
+                      </node>
+                      <node concept="3clFbS" id="6TdxBJ4iMU0" role="3clF47">
+                        <node concept="3clFbF" id="6TdxBJ4iMU1" role="3cqZAp">
+                          <node concept="2OqwBi" id="6TdxBJ4iMU2" role="3clFbG">
+                            <node concept="37vLTw" id="6TdxBJ4iMU3" role="2Oq$k0">
+                              <ref role="3cqZAo" node="6TdxBJ4iMTV" resolve="writer" />
+                            </node>
+                            <node concept="liA8E" id="6TdxBJ4ny7u" role="2OqNvi">
+                              <ref role="37wK5l" to="c9jv:~JsonWriter.value(long)" resolve="value" />
+                              <node concept="2OqwBi" id="6TdxBJ4nzq_" role="37wK5m">
+                                <node concept="37vLTw" id="6TdxBJ4nyQA" role="2Oq$k0">
+                                  <ref role="3cqZAo" node="6TdxBJ4iMTX" resolve="object" />
+                                </node>
+                                <node concept="liA8E" id="6TdxBJ4nzHd" role="2OqNvi">
+                                  <ref role="37wK5l" to="3hky:6TdxBJ4j76d" resolve="getId" />
+                                </node>
+                              </node>
+                            </node>
+                          </node>
+                        </node>
+                      </node>
+                      <node concept="2AHcQZ" id="6TdxBJ4iMU9" role="2AJF6D">
+                        <ref role="2AI5Lk" to="wyt6:~Override" resolve="Override" />
+                      </node>
+                    </node>
+                    <node concept="2tJIrI" id="6TdxBJ4iMUa" role="jymVt" />
+                    <node concept="3clFb_" id="6TdxBJ4iMUb" role="jymVt">
+                      <property role="TrG5h" value="read" />
+                      <node concept="3Tm1VV" id="6TdxBJ4iMUc" role="1B3o_S" />
+                      <node concept="3uibUv" id="6TdxBJ4nyi6" role="3clF45">
+                        <ref role="3uigEE" to="3hky:6TdxBJ4iV9A" resolve="PNodeReference" />
+                      </node>
+                      <node concept="37vLTG" id="6TdxBJ4iMUe" role="3clF46">
+                        <property role="TrG5h" value="reader" />
+                        <node concept="3uibUv" id="6TdxBJ4iMUf" role="1tU5fm">
+                          <ref role="3uigEE" to="c9jv:~JsonReader" resolve="JsonReader" />
+                        </node>
+                      </node>
+                      <node concept="3uibUv" id="6TdxBJ4iMUg" role="Sfmx6">
+                        <ref role="3uigEE" to="guwi:~IOException" resolve="IOException" />
+                      </node>
+                      <node concept="3clFbS" id="6TdxBJ4iMUh" role="3clF47">
+                        <node concept="3clFbF" id="6TdxBJ4iMUi" role="3cqZAp">
+                          <node concept="2ShNRf" id="6TdxBJ4iMUj" role="3clFbG">
+                            <node concept="1pGfFk" id="6TdxBJ4iMUk" role="2ShVmc">
+                              <ref role="37wK5l" to="3hky:6TdxBJ4j6Na" resolve="PNodeReference" />
+                              <node concept="2OqwBi" id="6TdxBJ4n_0o" role="37wK5m">
+                                <node concept="37vLTw" id="6TdxBJ4n_0p" role="2Oq$k0">
+                                  <ref role="3cqZAo" node="6TdxBJ4iMUe" resolve="reader" />
+                                </node>
+                                <node concept="liA8E" id="6TdxBJ4n_0q" role="2OqNvi">
+                                  <ref role="37wK5l" to="c9jv:~JsonReader.nextLong()" resolve="nextLong" />
+                                </node>
+                              </node>
+                            </node>
+                          </node>
+                        </node>
+                      </node>
+                      <node concept="2AHcQZ" id="6TdxBJ4iMUp" role="2AJF6D">
+                        <ref role="2AI5Lk" to="wyt6:~Override" resolve="Override" />
+                      </node>
+                    </node>
+                    <node concept="3uibUv" id="6TdxBJ4nxwC" role="2Ghqu4">
+                      <ref role="3uigEE" to="3hky:6TdxBJ4iV9A" resolve="PNodeReference" />
+                    </node>
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="3clFbH" id="1tnctFkYQMa" role="3cqZAp" />
+        <node concept="3clFbF" id="1tnctFkYPF4" role="3cqZAp">
+          <node concept="2OqwBi" id="1tnctFkYPF5" role="3clFbG">
+            <node concept="37vLTw" id="1tnctFkYPF6" role="2Oq$k0">
+              <ref role="3cqZAo" node="6TdxBJ4iwNa" resolve="builder" />
+            </node>
+            <node concept="liA8E" id="1tnctFkYPF7" role="2OqNvi">
+              <ref role="37wK5l" to="wy2b:~GsonBuilder.registerTypeAdapter(java.lang.reflect.Type,java.lang.Object)" resolve="registerTypeAdapter" />
+              <node concept="3VsKOn" id="1tnctFkYPF8" role="37wK5m">
+                <ref role="3VsUkX" to="mjcn:5gTrVpGiJqG" resolve="INodeReference" />
+              </node>
+              <node concept="2ShNRf" id="1tnctFkYPF9" role="37wK5m">
+                <node concept="YeOm9" id="1tnctFkYPFa" role="2ShVmc">
+                  <node concept="1Y3b0j" id="1tnctFkYPFb" role="YeSDq">
+                    <property role="2bfB8j" value="true" />
+                    <ref role="1Y3XeK" to="wy2b:~TypeAdapter" resolve="TypeAdapter" />
+                    <ref role="37wK5l" to="wy2b:~TypeAdapter.&lt;init&gt;()" resolve="TypeAdapter" />
+                    <node concept="3Tm1VV" id="1tnctFkYPFc" role="1B3o_S" />
+                    <node concept="3clFb_" id="1tnctFkYPFd" role="jymVt">
+                      <property role="TrG5h" value="write" />
+                      <node concept="3Tm1VV" id="1tnctFkYPFe" role="1B3o_S" />
+                      <node concept="3cqZAl" id="1tnctFkYPFf" role="3clF45" />
+                      <node concept="37vLTG" id="1tnctFkYPFg" role="3clF46">
+                        <property role="TrG5h" value="writer" />
+                        <node concept="3uibUv" id="1tnctFkYPFh" role="1tU5fm">
+                          <ref role="3uigEE" to="c9jv:~JsonWriter" resolve="JsonWriter" />
+                        </node>
+                      </node>
+                      <node concept="37vLTG" id="1tnctFkYPFi" role="3clF46">
+                        <property role="TrG5h" value="object" />
+                        <node concept="3uibUv" id="1tnctFkZ44E" role="1tU5fm">
+                          <ref role="3uigEE" to="mjcn:5gTrVpGiJqG" resolve="INodeReference" />
+                        </node>
+                      </node>
+                      <node concept="3uibUv" id="1tnctFkYPFk" role="Sfmx6">
+                        <ref role="3uigEE" to="guwi:~IOException" resolve="IOException" />
+                      </node>
+                      <node concept="3clFbS" id="1tnctFkYPFl" role="3clF47">
+                        <node concept="3clFbJ" id="1tnctFkZ4YU" role="3cqZAp">
+                          <node concept="3eNFk2" id="D$1Y7yk4yz" role="3eNLev">
+                            <node concept="3clFbS" id="D$1Y7yk4y_" role="3eOfB_">
+                              <node concept="3clFbF" id="1tnctFkYPFm" role="3cqZAp">
+                                <node concept="2OqwBi" id="1tnctFkYPFn" role="3clFbG">
+                                  <node concept="37vLTw" id="1tnctFkYPFo" role="2Oq$k0">
+                                    <ref role="3cqZAo" node="1tnctFkYPFg" resolve="writer" />
+                                  </node>
+                                  <node concept="liA8E" id="1tnctFkYPFp" role="2OqNvi">
+                                    <ref role="37wK5l" to="c9jv:~JsonWriter.value(long)" resolve="value" />
+                                    <node concept="2OqwBi" id="1tnctFkYPFq" role="37wK5m">
+                                      <node concept="1eOMI4" id="1tnctFkZeMD" role="2Oq$k0">
+                                        <node concept="10QFUN" id="1tnctFkZeMC" role="1eOMHV">
+                                          <node concept="37vLTw" id="1tnctFkZeMB" role="10QFUP">
+                                            <ref role="3cqZAo" node="1tnctFkYPFi" resolve="object" />
+                                          </node>
+                                          <node concept="3uibUv" id="1tnctFkZfdd" role="10QFUM">
+                                            <ref role="3uigEE" to="3hky:6TdxBJ4iV9A" resolve="PNodeReference" />
+                                          </node>
+                                        </node>
+                                      </node>
+                                      <node concept="liA8E" id="1tnctFkYPFs" role="2OqNvi">
+                                        <ref role="37wK5l" to="3hky:6TdxBJ4j76d" resolve="getId" />
+                                      </node>
+                                    </node>
+                                  </node>
+                                </node>
+                              </node>
+                            </node>
+                            <node concept="2ZW3vV" id="D$1Y7yk4Q8" role="3eO9$A">
+                              <node concept="3uibUv" id="D$1Y7yk4Q9" role="2ZW6by">
+                                <ref role="3uigEE" to="3hky:6TdxBJ4iV9A" resolve="PNodeReference" />
+                              </node>
+                              <node concept="37vLTw" id="D$1Y7yk4Qa" role="2ZW6bz">
+                                <ref role="3cqZAo" node="1tnctFkYPFi" resolve="object" />
+                              </node>
+                            </node>
+                          </node>
+                          <node concept="3clFbS" id="1tnctFkZ4YW" role="3clFbx">
+                            <node concept="3clFbF" id="D$1Y7yk32I" role="3cqZAp">
+                              <node concept="2OqwBi" id="D$1Y7yk3kD" role="3clFbG">
+                                <node concept="37vLTw" id="D$1Y7yk32G" role="2Oq$k0">
+                                  <ref role="3cqZAo" node="1tnctFkYPFg" resolve="writer" />
+                                </node>
+                                <node concept="liA8E" id="D$1Y7yk3uO" role="2OqNvi">
+                                  <ref role="37wK5l" to="c9jv:~JsonWriter.nullValue()" resolve="nullValue" />
+                                </node>
+                              </node>
+                            </node>
+                          </node>
+                          <node concept="3eNFk2" id="1tnctFkZ6nD" role="3eNLev">
+                            <node concept="2ZW3vV" id="1tnctFkZ6WS" role="3eO9$A">
+                              <node concept="3uibUv" id="1tnctFkZ7lm" role="2ZW6by">
+                                <ref role="3uigEE" to="l6bp:5gTrVpGyZdS" resolve="SNodeReferenceAdapter" />
+                              </node>
+                              <node concept="37vLTw" id="1tnctFkZ6Bw" role="2ZW6bz">
+                                <ref role="3cqZAo" node="1tnctFkYPFi" resolve="object" />
+                              </node>
+                            </node>
+                            <node concept="3clFbS" id="1tnctFkZ6nF" role="3eOfB_">
+                              <node concept="3clFbF" id="1tnctFkZhjm" role="3cqZAp">
+                                <node concept="2OqwBi" id="1tnctFkZhjn" role="3clFbG">
+                                  <node concept="37vLTw" id="1tnctFkZhjo" role="2Oq$k0">
+                                    <ref role="3cqZAo" node="1tnctFkYPFg" resolve="writer" />
+                                  </node>
+                                  <node concept="liA8E" id="1tnctFkZhjp" role="2OqNvi">
+                                    <ref role="37wK5l" to="c9jv:~JsonWriter.value(java.lang.String)" resolve="value" />
+                                    <node concept="2YIFZM" id="1tnctFkZhjq" role="37wK5m">
+                                      <ref role="37wK5l" to="w1kc:~SNodePointer.serialize(org.jetbrains.mps.openapi.model.SNodeReference)" resolve="serialize" />
+                                      <ref role="1Pybhc" to="w1kc:~SNodePointer" resolve="SNodePointer" />
+                                      <node concept="2OqwBi" id="1tnctFkZhjr" role="37wK5m">
+                                        <node concept="1eOMI4" id="1tnctFkZhHp" role="2Oq$k0">
+                                          <node concept="10QFUN" id="1tnctFkZhHo" role="1eOMHV">
+                                            <node concept="37vLTw" id="1tnctFkZhHn" role="10QFUP">
+                                              <ref role="3cqZAo" node="1tnctFkYPFi" resolve="object" />
+                                            </node>
+                                            <node concept="3uibUv" id="1tnctFkZih2" role="10QFUM">
+                                              <ref role="3uigEE" to="l6bp:5gTrVpGyZdS" resolve="SNodeReferenceAdapter" />
+                                            </node>
+                                          </node>
+                                        </node>
+                                        <node concept="liA8E" id="1tnctFkZhjt" role="2OqNvi">
+                                          <ref role="37wK5l" to="l6bp:QurUgiyYyg" resolve="getReference" />
+                                        </node>
+                                      </node>
+                                    </node>
+                                  </node>
+                                </node>
+                              </node>
+                            </node>
+                          </node>
+                          <node concept="9aQIb" id="1tnctFkZ7s_" role="9aQIa">
+                            <node concept="3clFbS" id="1tnctFkZ7sA" role="9aQI4">
+                              <node concept="YS8fn" id="1tnctFkZ7Gk" role="3cqZAp">
+                                <node concept="2ShNRf" id="1tnctFkZ7T1" role="YScLw">
+                                  <node concept="1pGfFk" id="1tnctFkZ9qa" role="2ShVmc">
+                                    <ref role="37wK5l" to="wyt6:~RuntimeException.&lt;init&gt;(java.lang.String)" resolve="RuntimeException" />
+                                    <node concept="3cpWs3" id="1tnctFkZa3J" role="37wK5m">
+                                      <node concept="2OqwBi" id="1tnctFkZbz0" role="3uHU7w">
+                                        <node concept="2OqwBi" id="1tnctFkZaD7" role="2Oq$k0">
+                                          <node concept="37vLTw" id="1tnctFkZajL" role="2Oq$k0">
+                                            <ref role="3cqZAo" node="1tnctFkYPFi" resolve="object" />
+                                          </node>
+                                          <node concept="liA8E" id="1tnctFkZaW8" role="2OqNvi">
+                                            <ref role="37wK5l" to="wyt6:~Object.getClass()" resolve="getClass" />
+                                          </node>
+                                        </node>
+                                        <node concept="liA8E" id="1tnctFkZcEm" role="2OqNvi">
+                                          <ref role="37wK5l" to="wyt6:~Class.getName()" resolve="getName" />
+                                        </node>
+                                      </node>
+                                      <node concept="Xl_RD" id="1tnctFkZ9DK" role="3uHU7B">
+                                        <property role="Xl_RC" value="Unknown refern type: " />
+                                      </node>
+                                    </node>
+                                  </node>
+                                </node>
+                              </node>
+                            </node>
+                          </node>
+                          <node concept="3clFbC" id="D$1Y7yk5vf" role="3clFbw">
+                            <node concept="10Nm6u" id="D$1Y7yk5vg" role="3uHU7w" />
+                            <node concept="37vLTw" id="D$1Y7yk5vh" role="3uHU7B">
+                              <ref role="3cqZAo" node="1tnctFkYPFi" resolve="object" />
+                            </node>
+                          </node>
+                        </node>
+                      </node>
+                      <node concept="2AHcQZ" id="1tnctFkYPFt" role="2AJF6D">
+                        <ref role="2AI5Lk" to="wyt6:~Override" resolve="Override" />
+                      </node>
+                    </node>
+                    <node concept="2tJIrI" id="1tnctFkYPFu" role="jymVt" />
+                    <node concept="3clFb_" id="1tnctFkYPFv" role="jymVt">
+                      <property role="TrG5h" value="read" />
+                      <node concept="3Tm1VV" id="1tnctFkYPFw" role="1B3o_S" />
+                      <node concept="3uibUv" id="1tnctFkZ4pp" role="3clF45">
+                        <ref role="3uigEE" to="mjcn:5gTrVpGiJqG" resolve="INodeReference" />
+                      </node>
+                      <node concept="37vLTG" id="1tnctFkYPFy" role="3clF46">
+                        <property role="TrG5h" value="reader" />
+                        <node concept="3uibUv" id="1tnctFkYPFz" role="1tU5fm">
+                          <ref role="3uigEE" to="c9jv:~JsonReader" resolve="JsonReader" />
+                        </node>
+                      </node>
+                      <node concept="3uibUv" id="1tnctFkYPF$" role="Sfmx6">
+                        <ref role="3uigEE" to="guwi:~IOException" resolve="IOException" />
+                      </node>
+                      <node concept="3clFbS" id="1tnctFkYPF_" role="3clF47">
+                        <node concept="3cpWs8" id="D$1Y7yk7t1" role="3cqZAp">
+                          <node concept="3cpWsn" id="D$1Y7yk7t2" role="3cpWs9">
+                            <property role="TrG5h" value="type" />
+                            <node concept="3uibUv" id="D$1Y7yk7sX" role="1tU5fm">
+                              <ref role="3uigEE" to="c9jv:~JsonToken" resolve="JsonToken" />
+                            </node>
+                            <node concept="2OqwBi" id="D$1Y7yk7t3" role="33vP2m">
+                              <node concept="37vLTw" id="D$1Y7yk7t4" role="2Oq$k0">
+                                <ref role="3cqZAo" node="1tnctFkYPFy" resolve="reader" />
+                              </node>
+                              <node concept="liA8E" id="D$1Y7yk7t5" role="2OqNvi">
+                                <ref role="37wK5l" to="c9jv:~JsonReader.peek()" resolve="peek" />
+                              </node>
+                            </node>
+                          </node>
+                        </node>
+                        <node concept="3clFbJ" id="1tnctFkZ$1C" role="3cqZAp">
+                          <node concept="3clFbS" id="1tnctFkZ$1E" role="3clFbx">
+                            <node concept="3cpWs6" id="1tnctFkZAhc" role="3cqZAp">
+                              <node concept="2ShNRf" id="1tnctFkZAhe" role="3cqZAk">
+                                <node concept="1pGfFk" id="1tnctFkZAhf" role="2ShVmc">
+                                  <ref role="37wK5l" to="3hky:6TdxBJ4j6Na" resolve="PNodeReference" />
+                                  <node concept="2OqwBi" id="1tnctFkZAhg" role="37wK5m">
+                                    <node concept="37vLTw" id="1tnctFkZAhh" role="2Oq$k0">
+                                      <ref role="3cqZAo" node="1tnctFkYPFy" resolve="reader" />
+                                    </node>
+                                    <node concept="liA8E" id="1tnctFkZAhi" role="2OqNvi">
+                                      <ref role="37wK5l" to="c9jv:~JsonReader.nextLong()" resolve="nextLong" />
+                                    </node>
+                                  </node>
+                                </node>
+                              </node>
+                            </node>
+                          </node>
+                          <node concept="3clFbC" id="1tnctFkZ_3d" role="3clFbw">
+                            <node concept="Rm8GO" id="1tnctFkZ_AX" role="3uHU7w">
+                              <ref role="Rm8GQ" to="c9jv:~JsonToken.NUMBER" resolve="NUMBER" />
+                              <ref role="1Px2BO" to="c9jv:~JsonToken" resolve="JsonToken" />
+                            </node>
+                            <node concept="37vLTw" id="D$1Y7yk7t6" role="3uHU7B">
+                              <ref role="3cqZAo" node="D$1Y7yk7t2" resolve="type" />
+                            </node>
+                          </node>
+                          <node concept="9aQIb" id="1tnctFkZ_Qz" role="9aQIa">
+                            <node concept="3clFbS" id="1tnctFkZ_Q$" role="9aQI4">
+                              <node concept="3cpWs6" id="1tnctFkZBah" role="3cqZAp">
+                                <node concept="2ShNRf" id="1tnctFkZBaj" role="3cqZAk">
+                                  <node concept="1pGfFk" id="1tnctFkZBak" role="2ShVmc">
+                                    <ref role="37wK5l" to="l6bp:5gTrVpGz3n8" resolve="SNodeReferenceAdapter" />
+                                    <node concept="2YIFZM" id="1tnctFkZBal" role="37wK5m">
+                                      <ref role="37wK5l" to="w1kc:~SNodePointer.deserialize(java.lang.String)" resolve="deserialize" />
+                                      <ref role="1Pybhc" to="w1kc:~SNodePointer" resolve="SNodePointer" />
+                                      <node concept="2OqwBi" id="1tnctFkZBam" role="37wK5m">
+                                        <node concept="37vLTw" id="1tnctFkZBan" role="2Oq$k0">
+                                          <ref role="3cqZAo" node="1tnctFkYPFy" resolve="reader" />
+                                        </node>
+                                        <node concept="liA8E" id="1tnctFkZBao" role="2OqNvi">
+                                          <ref role="37wK5l" to="c9jv:~JsonReader.nextString()" resolve="nextString" />
+                                        </node>
+                                      </node>
+                                    </node>
+                                  </node>
+                                </node>
+                              </node>
+                            </node>
+                          </node>
+                          <node concept="3eNFk2" id="D$1Y7yk72x" role="3eNLev">
+                            <node concept="3clFbC" id="D$1Y7yk8$b" role="3eO9$A">
+                              <node concept="Rm8GO" id="D$1Y7yk94z" role="3uHU7w">
+                                <ref role="Rm8GQ" to="c9jv:~JsonToken.NULL" resolve="NULL" />
+                                <ref role="1Px2BO" to="c9jv:~JsonToken" resolve="JsonToken" />
+                              </node>
+                              <node concept="37vLTw" id="D$1Y7yk88U" role="3uHU7B">
+                                <ref role="3cqZAo" node="D$1Y7yk7t2" resolve="type" />
+                              </node>
+                            </node>
+                            <node concept="3clFbS" id="D$1Y7yk72z" role="3eOfB_">
+                              <node concept="3cpWs6" id="D$1Y7yk9kx" role="3cqZAp">
+                                <node concept="10Nm6u" id="D$1Y7yk9UH" role="3cqZAk" />
+                              </node>
+                            </node>
+                          </node>
+                        </node>
+                      </node>
+                      <node concept="2AHcQZ" id="1tnctFkYPFG" role="2AJF6D">
+                        <ref role="2AI5Lk" to="wyt6:~Override" resolve="Override" />
+                      </node>
+                    </node>
+                    <node concept="3uibUv" id="1tnctFkZ3DP" role="2Ghqu4">
+                      <ref role="3uigEE" to="mjcn:5gTrVpGiJqG" resolve="INodeReference" />
                     </node>
                   </node>
                 </node>
