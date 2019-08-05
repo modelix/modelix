@@ -300,22 +300,6 @@
             <ref role="3bR37D" to="ffeo:mXGwHwhVPj" resolve="JDK" />
           </node>
         </node>
-        <node concept="1SiIV0" id="7gF2HTvk5Mm" role="3bR37C">
-          <node concept="1BurEX" id="7gF2HTvk5Mn" role="1SiIV1">
-            <node concept="398BVA" id="7gF2HTvk5Me" role="1BurEY">
-              <ref role="398BVh" node="7gF2HTvk5zJ" resolve="webmps.home" />
-              <node concept="2Ry0Ak" id="7gF2HTvk5Mf" role="iGT6I">
-                <property role="2Ry0Am" value="de.q60.mps.shadowmodels.web.lib" />
-                <node concept="2Ry0Ak" id="7gF2HTvk5Mg" role="2Ry0An">
-                  <property role="2Ry0Am" value="lib" />
-                  <node concept="2Ry0Ak" id="7gF2HTvk5Mh" role="2Ry0An">
-                    <property role="2Ry0Am" value="gson-2.8.0.jar" />
-                  </node>
-                </node>
-              </node>
-            </node>
-          </node>
-        </node>
         <node concept="1SiIV0" id="7gF2HTvk5Mw" role="3bR37C">
           <node concept="1BurEX" id="7gF2HTvk5Mx" role="1SiIV1">
             <node concept="398BVA" id="7gF2HTvk5Mo" role="1BurEY">
@@ -342,6 +326,38 @@
                   <property role="2Ry0Am" value="lib" />
                   <node concept="2Ry0Ak" id="7gF2HTvk5M_" role="2Ry0An">
                     <property role="2Ry0Am" value="json-20160810.jar" />
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="1SiIV0" id="6TdxBJ4ihV5" role="3bR37C">
+          <node concept="1BurEX" id="6TdxBJ4ihV6" role="1SiIV1">
+            <node concept="398BVA" id="6TdxBJ4ihUX" role="1BurEY">
+              <ref role="398BVh" node="7gF2HTvk5zJ" resolve="webmps.home" />
+              <node concept="2Ry0Ak" id="6TdxBJ4ihUY" role="iGT6I">
+                <property role="2Ry0Am" value="de.q60.mps.shadowmodels.web.lib" />
+                <node concept="2Ry0Ak" id="6TdxBJ4ihUZ" role="2Ry0An">
+                  <property role="2Ry0Am" value="lib" />
+                  <node concept="2Ry0Ak" id="6TdxBJ4ihV0" role="2Ry0An">
+                    <property role="2Ry0Am" value="gson-2.8.5.jar" />
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="1SiIV0" id="6TdxBJ4ihVf" role="3bR37C">
+          <node concept="1BurEX" id="6TdxBJ4ihVg" role="1SiIV1">
+            <node concept="398BVA" id="6TdxBJ4ihV7" role="1BurEY">
+              <ref role="398BVh" node="7gF2HTvk5zJ" resolve="webmps.home" />
+              <node concept="2Ry0Ak" id="6TdxBJ4ihV8" role="iGT6I">
+                <property role="2Ry0Am" value="de.q60.mps.shadowmodels.web.lib" />
+                <node concept="2Ry0Ak" id="6TdxBJ4ihV9" role="2Ry0An">
+                  <property role="2Ry0Am" value="lib" />
+                  <node concept="2Ry0Ak" id="6TdxBJ4ihVa" role="2Ry0An">
+                    <property role="2Ry0Am" value="gson-extras-2.8.5.jar" />
                   </node>
                 </node>
               </node>
@@ -545,6 +561,7 @@
         </node>
         <node concept="1SiIV0" id="7gF2HTvj1RM" role="3bR37C">
           <node concept="3bR9La" id="7gF2HTvj1RN" role="1SiIV1">
+            <property role="3bR36h" value="true" />
             <ref role="3bR37D" to="90a9:4iIKqJTZ5Hm" resolve="de.q60.mps.shadowmodels.runtime" />
           </node>
         </node>
@@ -807,6 +824,11 @@
                 </node>
               </node>
             </node>
+          </node>
+        </node>
+        <node concept="1SiIV0" id="6TdxBJ4ihVh" role="3bR37C">
+          <node concept="3bR9La" id="6TdxBJ4ihVi" role="1SiIV1">
+            <ref role="3bR37D" to="ffeo:1H905DlDUSw" resolve="MPS.OpenAPI" />
           </node>
         </node>
       </node>

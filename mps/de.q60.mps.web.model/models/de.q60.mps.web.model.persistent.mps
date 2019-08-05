@@ -26,6 +26,7 @@
     <import index="l6bp" ref="r:97875f9c-321e-405e-a344-6d3deab2bdba(de.q60.mps.shadowmodels.runtime.smodel)" />
     <import index="vxxo" ref="6ed54515-acc8-4d1e-a16c-9fd6cfe951ea/java:jetbrains.mps.smodel.adapter.structure.concept(MPS.Core/)" />
     <import index="c17a" ref="8865b7a8-5271-43d3-884c-6fd1d9cfdd34/java:org.jetbrains.mps.openapi.language(MPS.OpenAPI/)" />
+    <import index="7pi1" ref="87f4b21e-a3a5-459e-a54b-408fd9eb7350/java:com.google.gson.typeadapters(de.q60.mps.shadowmodels.web.lib/)" />
   </imports>
   <registry>
     <language id="f3061a53-9226-4cc5-a443-f952ceaf5816" name="jetbrains.mps.baseLanguage">
@@ -49,9 +50,6 @@
       </concept>
       <concept id="1188208481402" name="jetbrains.mps.baseLanguage.structure.HasAnnotation" flags="ng" index="2AJDlI">
         <child id="1188208488637" name="annotation" index="2AJF6D" />
-      </concept>
-      <concept id="1154032098014" name="jetbrains.mps.baseLanguage.structure.AbstractLoopStatement" flags="nn" index="2LF5Ji">
-        <child id="1154032183016" name="body" index="2LFqv$" />
       </concept>
       <concept id="1197027756228" name="jetbrains.mps.baseLanguage.structure.DotExpression" flags="nn" index="2OqwBi">
         <child id="1197027771414" name="operand" index="2Oq$k0" />
@@ -101,20 +99,12 @@
       <concept id="1068390468200" name="jetbrains.mps.baseLanguage.structure.FieldDeclaration" flags="ig" index="312cEg" />
       <concept id="1068390468198" name="jetbrains.mps.baseLanguage.structure.ClassConcept" flags="ig" index="312cEu">
         <property id="1075300953594" name="abstractClass" index="1sVAO0" />
-        <property id="1221565133444" name="isFinal" index="1EXbeo" />
         <child id="1095933932569" name="implementedInterface" index="EKbjA" />
         <child id="1165602531693" name="superclass" index="1zkMxy" />
       </concept>
       <concept id="1068431474542" name="jetbrains.mps.baseLanguage.structure.VariableDeclaration" flags="ng" index="33uBYm">
         <property id="1176718929932" name="isFinal" index="3TUv4t" />
         <child id="1068431790190" name="initializer" index="33vP2m" />
-      </concept>
-      <concept id="1109279763828" name="jetbrains.mps.baseLanguage.structure.TypeVariableDeclaration" flags="ng" index="16euLQ" />
-      <concept id="1109279851642" name="jetbrains.mps.baseLanguage.structure.GenericDeclaration" flags="ng" index="16eOlS">
-        <child id="1109279881614" name="typeVariableDeclaration" index="16eVyc" />
-      </concept>
-      <concept id="1109283449304" name="jetbrains.mps.baseLanguage.structure.TypeVariableReference" flags="in" index="16syzq">
-        <reference id="1109283546497" name="typeVariableDeclaration" index="16sUi3" />
       </concept>
       <concept id="1092119917967" name="jetbrains.mps.baseLanguage.structure.MulExpression" flags="nn" index="17qRlL" />
       <concept id="1068498886296" name="jetbrains.mps.baseLanguage.structure.VariableReference" flags="nn" index="37vLTw">
@@ -181,7 +171,6 @@
       <concept id="1204053956946" name="jetbrains.mps.baseLanguage.structure.IMethodCall" flags="ng" index="1ndlxa">
         <reference id="1068499141037" name="baseMethodDeclaration" index="37wK5l" />
         <child id="1068499141038" name="actualArgument" index="37wK5m" />
-        <child id="4972241301747169160" name="typeArgument" index="3PaCim" />
       </concept>
       <concept id="1212685548494" name="jetbrains.mps.baseLanguage.structure.ClassCreator" flags="nn" index="1pGfFk">
         <child id="1212687122400" name="typeParameter" index="1pMfVU" />
@@ -190,7 +179,6 @@
         <property id="521412098689998745" name="nonStatic" index="2bfB8j" />
         <child id="5375687026011219971" name="member" index="jymVt" unordered="true" />
       </concept>
-      <concept id="1171903607971" name="jetbrains.mps.baseLanguage.structure.WildCardType" flags="in" index="3qTvmN" />
       <concept id="1171903916106" name="jetbrains.mps.baseLanguage.structure.UpperBoundType" flags="in" index="3qUE_q">
         <child id="1171903916107" name="bound" index="3qUE_r" />
       </concept>
@@ -213,12 +201,6 @@
       </concept>
       <concept id="1178549954367" name="jetbrains.mps.baseLanguage.structure.IVisible" flags="ng" index="1B3ioH">
         <child id="1178549979242" name="visibility" index="1B3o_S" />
-      </concept>
-      <concept id="1144226303539" name="jetbrains.mps.baseLanguage.structure.ForeachStatement" flags="nn" index="1DcWWT">
-        <child id="1144226360166" name="iterable" index="1DdaDG" />
-      </concept>
-      <concept id="1144230876926" name="jetbrains.mps.baseLanguage.structure.AbstractForStatement" flags="nn" index="1DupvO">
-        <child id="1144230900587" name="variable" index="1Duv9x" />
       </concept>
       <concept id="1225892319711" name="jetbrains.mps.baseLanguage.structure.ShiftRightExpression" flags="nn" index="1GS532" />
       <concept id="1107796713796" name="jetbrains.mps.baseLanguage.structure.Interface" flags="ig" index="3HP615" />
@@ -248,14 +230,12 @@
       <concept id="5349172909345501395" name="jetbrains.mps.baseLanguage.javadoc.structure.BaseDocComment" flags="ng" index="P$AiS">
         <child id="8465538089690331502" name="body" index="TZ5H$" />
       </concept>
-      <concept id="5349172909345532724" name="jetbrains.mps.baseLanguage.javadoc.structure.MethodDocComment" flags="ng" index="P$JXv" />
       <concept id="8465538089690331500" name="jetbrains.mps.baseLanguage.javadoc.structure.CommentLine" flags="ng" index="TZ5HA">
         <child id="8970989240999019149" name="part" index="1dT_Ay" />
       </concept>
       <concept id="8970989240999019143" name="jetbrains.mps.baseLanguage.javadoc.structure.TextCommentLinePart" flags="ng" index="1dT_AC">
         <property id="8970989240999019144" name="text" index="1dT_AB" />
       </concept>
-      <concept id="2068944020170241612" name="jetbrains.mps.baseLanguage.javadoc.structure.ClassifierDocComment" flags="ng" index="3UR2Jj" />
     </language>
     <language id="ceab5195-25ea-4f22-9b92-103b95ca8c0c" name="jetbrains.mps.lang.core">
       <concept id="1133920641626" name="jetbrains.mps.lang.core.structure.BaseConcept" flags="ng" index="2VYdi">
@@ -3835,6 +3815,287 @@
     <property role="TrG5h" value="CPVersion" />
     <property role="3GE5qa" value="version" />
     <node concept="2tJIrI" id="68rqGk2XfU" role="jymVt" />
+    <node concept="Wx3nA" id="6TdxBJ4iAoy" role="jymVt">
+      <property role="TrG5h" value="GSON" />
+      <property role="3TUv4t" value="true" />
+      <node concept="3uibUv" id="6TdxBJ4iA7r" role="1tU5fm">
+        <ref role="3uigEE" to="wy2b:~Gson" resolve="Gson" />
+      </node>
+      <node concept="3Tm6S6" id="6TdxBJ4i_Ay" role="1B3o_S" />
+      <node concept="1rXfSq" id="6TdxBJ4iAiw" role="33vP2m">
+        <ref role="37wK5l" node="6TdxBJ4iz6O" resolve="gson" />
+      </node>
+    </node>
+    <node concept="2tJIrI" id="6TdxBJ4i_5J" role="jymVt" />
+    <node concept="2YIFZL" id="6TdxBJ4iz6O" role="jymVt">
+      <property role="TrG5h" value="gson" />
+      <node concept="3clFbS" id="6TdxBJ4ipXx" role="3clF47">
+        <node concept="3cpWs8" id="6TdxBJ4iwM$" role="3cqZAp">
+          <node concept="3cpWsn" id="6TdxBJ4iwM_" role="3cpWs9">
+            <property role="TrG5h" value="taf" />
+            <node concept="3uibUv" id="6TdxBJ4iwMA" role="1tU5fm">
+              <ref role="3uigEE" to="7pi1:~RuntimeTypeAdapterFactory" resolve="RuntimeTypeAdapterFactory" />
+              <node concept="3uibUv" id="6TdxBJ4iwMB" role="11_B2D">
+                <ref role="3uigEE" to="ydze:1U0efzLyBFz" resolve="IOperation" />
+              </node>
+            </node>
+            <node concept="2YIFZM" id="6TdxBJ4iwMC" role="33vP2m">
+              <ref role="1Pybhc" to="7pi1:~RuntimeTypeAdapterFactory" resolve="RuntimeTypeAdapterFactory" />
+              <ref role="37wK5l" to="7pi1:~RuntimeTypeAdapterFactory.of(java.lang.Class,java.lang.String)" resolve="of" />
+              <node concept="3VsKOn" id="6TdxBJ4iwMD" role="37wK5m">
+                <ref role="3VsUkX" to="ydze:1U0efzLyBFz" resolve="IOperation" />
+              </node>
+              <node concept="Xl_RD" id="6TdxBJ4iwME" role="37wK5m">
+                <property role="Xl_RC" value="type" />
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="3clFbF" id="6TdxBJ4iwMF" role="3cqZAp">
+          <node concept="2OqwBi" id="6TdxBJ4iwMG" role="3clFbG">
+            <node concept="37vLTw" id="6TdxBJ4iwMH" role="2Oq$k0">
+              <ref role="3cqZAo" node="6TdxBJ4iwM_" resolve="taf" />
+            </node>
+            <node concept="liA8E" id="6TdxBJ4iwMI" role="2OqNvi">
+              <ref role="37wK5l" to="7pi1:~RuntimeTypeAdapterFactory.registerSubtype(java.lang.Class)" resolve="registerSubtype" />
+              <node concept="3VsKOn" id="6TdxBJ4iwMJ" role="37wK5m">
+                <ref role="3VsUkX" to="ydze:1U0efzLAvJQ" resolve="AddNewChildOp" />
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="3clFbF" id="6TdxBJ4iwMK" role="3cqZAp">
+          <node concept="2OqwBi" id="6TdxBJ4iwML" role="3clFbG">
+            <node concept="37vLTw" id="6TdxBJ4iwMM" role="2Oq$k0">
+              <ref role="3cqZAo" node="6TdxBJ4iwM_" resolve="taf" />
+            </node>
+            <node concept="liA8E" id="6TdxBJ4iwMN" role="2OqNvi">
+              <ref role="37wK5l" to="7pi1:~RuntimeTypeAdapterFactory.registerSubtype(java.lang.Class)" resolve="registerSubtype" />
+              <node concept="3VsKOn" id="6TdxBJ4iwMO" role="37wK5m">
+                <ref role="3VsUkX" to="ydze:1U0efzLBCqH" resolve="DeleteNodeOp" />
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="3clFbF" id="6TdxBJ4iwMP" role="3cqZAp">
+          <node concept="2OqwBi" id="6TdxBJ4iwMQ" role="3clFbG">
+            <node concept="37vLTw" id="6TdxBJ4iwMR" role="2Oq$k0">
+              <ref role="3cqZAo" node="6TdxBJ4iwM_" resolve="taf" />
+            </node>
+            <node concept="liA8E" id="6TdxBJ4iwMS" role="2OqNvi">
+              <ref role="37wK5l" to="7pi1:~RuntimeTypeAdapterFactory.registerSubtype(java.lang.Class)" resolve="registerSubtype" />
+              <node concept="3VsKOn" id="6TdxBJ4iwMT" role="37wK5m">
+                <ref role="3VsUkX" to="ydze:1U0efzLDlUu" resolve="MoveNodeOp" />
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="3clFbF" id="6TdxBJ4iwMU" role="3cqZAp">
+          <node concept="2OqwBi" id="6TdxBJ4iwMV" role="3clFbG">
+            <node concept="37vLTw" id="6TdxBJ4iwMW" role="2Oq$k0">
+              <ref role="3cqZAo" node="6TdxBJ4iwM_" resolve="taf" />
+            </node>
+            <node concept="liA8E" id="6TdxBJ4iwMX" role="2OqNvi">
+              <ref role="37wK5l" to="7pi1:~RuntimeTypeAdapterFactory.registerSubtype(java.lang.Class)" resolve="registerSubtype" />
+              <node concept="3VsKOn" id="6TdxBJ4iwMY" role="37wK5m">
+                <ref role="3VsUkX" to="ydze:1U0efzLBr7u" resolve="NoOp" />
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="3clFbF" id="6TdxBJ4iwMZ" role="3cqZAp">
+          <node concept="2OqwBi" id="6TdxBJ4iwN0" role="3clFbG">
+            <node concept="37vLTw" id="6TdxBJ4iwN1" role="2Oq$k0">
+              <ref role="3cqZAo" node="6TdxBJ4iwM_" resolve="taf" />
+            </node>
+            <node concept="liA8E" id="6TdxBJ4iwN2" role="2OqNvi">
+              <ref role="37wK5l" to="7pi1:~RuntimeTypeAdapterFactory.registerSubtype(java.lang.Class)" resolve="registerSubtype" />
+              <node concept="3VsKOn" id="6TdxBJ4iwN3" role="37wK5m">
+                <ref role="3VsUkX" to="ydze:1U0efzL$1zV" resolve="SetPropertyOp" />
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="3clFbF" id="6TdxBJ4iwN4" role="3cqZAp">
+          <node concept="2OqwBi" id="6TdxBJ4iwN5" role="3clFbG">
+            <node concept="37vLTw" id="6TdxBJ4iwN6" role="2Oq$k0">
+              <ref role="3cqZAo" node="6TdxBJ4iwM_" resolve="taf" />
+            </node>
+            <node concept="liA8E" id="6TdxBJ4iwN7" role="2OqNvi">
+              <ref role="37wK5l" to="7pi1:~RuntimeTypeAdapterFactory.registerSubtype(java.lang.Class)" resolve="registerSubtype" />
+              <node concept="3VsKOn" id="6TdxBJ4iwN8" role="37wK5m">
+                <ref role="3VsUkX" to="ydze:1U0efzLAp8F" resolve="SetReferenceOp" />
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="3cpWs8" id="6TdxBJ4iwN9" role="3cqZAp">
+          <node concept="3cpWsn" id="6TdxBJ4iwNa" role="3cpWs9">
+            <property role="TrG5h" value="builder" />
+            <node concept="3uibUv" id="6TdxBJ4iwNb" role="1tU5fm">
+              <ref role="3uigEE" to="wy2b:~GsonBuilder" resolve="GsonBuilder" />
+            </node>
+            <node concept="2ShNRf" id="6TdxBJ4iwNc" role="33vP2m">
+              <node concept="1pGfFk" id="6TdxBJ4iwNd" role="2ShVmc">
+                <ref role="37wK5l" to="wy2b:~GsonBuilder.&lt;init&gt;()" resolve="GsonBuilder" />
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="3clFbF" id="6TdxBJ4iwNe" role="3cqZAp">
+          <node concept="2OqwBi" id="6TdxBJ4iwNf" role="3clFbG">
+            <node concept="37vLTw" id="6TdxBJ4iwNg" role="2Oq$k0">
+              <ref role="3cqZAo" node="6TdxBJ4iwNa" resolve="builder" />
+            </node>
+            <node concept="liA8E" id="6TdxBJ4iwNh" role="2OqNvi">
+              <ref role="37wK5l" to="wy2b:~GsonBuilder.registerTypeAdapterFactory(com.google.gson.TypeAdapterFactory)" resolve="registerTypeAdapterFactory" />
+              <node concept="37vLTw" id="6TdxBJ4iwNi" role="37wK5m">
+                <ref role="3cqZAo" node="6TdxBJ4iwM_" resolve="taf" />
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="3clFbH" id="6TdxBJ4iwNj" role="3cqZAp" />
+        <node concept="3clFbF" id="6TdxBJ4iwNk" role="3cqZAp">
+          <node concept="2OqwBi" id="6TdxBJ4iwNl" role="3clFbG">
+            <node concept="37vLTw" id="6TdxBJ4iwNm" role="2Oq$k0">
+              <ref role="3cqZAo" node="6TdxBJ4iwNa" resolve="builder" />
+            </node>
+            <node concept="liA8E" id="6TdxBJ4iwNn" role="2OqNvi">
+              <ref role="37wK5l" to="wy2b:~GsonBuilder.registerTypeAdapter(java.lang.reflect.Type,java.lang.Object)" resolve="registerTypeAdapter" />
+              <node concept="3VsKOn" id="6TdxBJ4iwNo" role="37wK5m">
+                <ref role="3VsUkX" to="l6bp:5gTrVpGjuL2" resolve="SConceptAdapter" />
+              </node>
+              <node concept="2ShNRf" id="6TdxBJ4iwNp" role="37wK5m">
+                <node concept="YeOm9" id="6TdxBJ4iwNq" role="2ShVmc">
+                  <node concept="1Y3b0j" id="6TdxBJ4iwNr" role="YeSDq">
+                    <property role="2bfB8j" value="true" />
+                    <ref role="1Y3XeK" to="wy2b:~TypeAdapter" resolve="TypeAdapter" />
+                    <ref role="37wK5l" to="wy2b:~TypeAdapter.&lt;init&gt;()" resolve="TypeAdapter" />
+                    <node concept="3Tm1VV" id="6TdxBJ4iwNs" role="1B3o_S" />
+                    <node concept="3clFb_" id="6TdxBJ4iwNt" role="jymVt">
+                      <property role="TrG5h" value="write" />
+                      <node concept="3Tm1VV" id="6TdxBJ4iwNu" role="1B3o_S" />
+                      <node concept="3cqZAl" id="6TdxBJ4iwNv" role="3clF45" />
+                      <node concept="37vLTG" id="6TdxBJ4iwNw" role="3clF46">
+                        <property role="TrG5h" value="writer" />
+                        <node concept="3uibUv" id="6TdxBJ4iwNx" role="1tU5fm">
+                          <ref role="3uigEE" to="c9jv:~JsonWriter" resolve="JsonWriter" />
+                        </node>
+                      </node>
+                      <node concept="37vLTG" id="6TdxBJ4iwNy" role="3clF46">
+                        <property role="TrG5h" value="object" />
+                        <node concept="3uibUv" id="6TdxBJ4iwNz" role="1tU5fm">
+                          <ref role="3uigEE" to="l6bp:5gTrVpGjuL2" resolve="SConceptAdapter" />
+                        </node>
+                      </node>
+                      <node concept="3uibUv" id="6TdxBJ4iwN$" role="Sfmx6">
+                        <ref role="3uigEE" to="guwi:~IOException" resolve="IOException" />
+                      </node>
+                      <node concept="3clFbS" id="6TdxBJ4iwN_" role="3clF47">
+                        <node concept="3clFbF" id="6TdxBJ4iwNA" role="3cqZAp">
+                          <node concept="2OqwBi" id="6TdxBJ4iwNB" role="3clFbG">
+                            <node concept="37vLTw" id="6TdxBJ4iwNC" role="2Oq$k0">
+                              <ref role="3cqZAo" node="6TdxBJ4iwNw" resolve="writer" />
+                            </node>
+                            <node concept="liA8E" id="6TdxBJ4iwND" role="2OqNvi">
+                              <ref role="37wK5l" to="c9jv:~JsonWriter.value(java.lang.String)" resolve="value" />
+                              <node concept="2OqwBi" id="6TdxBJ4iwNE" role="37wK5m">
+                                <node concept="1eOMI4" id="6TdxBJ4iwNF" role="2Oq$k0">
+                                  <node concept="10QFUN" id="6TdxBJ4iwNG" role="1eOMHV">
+                                    <node concept="2OqwBi" id="6TdxBJ4iwNH" role="10QFUP">
+                                      <node concept="37vLTw" id="6TdxBJ4iwNI" role="2Oq$k0">
+                                        <ref role="3cqZAo" node="6TdxBJ4iwNy" resolve="object" />
+                                      </node>
+                                      <node concept="liA8E" id="6TdxBJ4iwNJ" role="2OqNvi">
+                                        <ref role="37wK5l" to="l6bp:5gTrVpGqz6x" resolve="getAdapted" />
+                                      </node>
+                                    </node>
+                                    <node concept="3uibUv" id="6TdxBJ4iwNK" role="10QFUM">
+                                      <ref role="3uigEE" to="vxxo:~SAbstractConceptAdapter" resolve="SAbstractConceptAdapter" />
+                                    </node>
+                                  </node>
+                                </node>
+                                <node concept="liA8E" id="6TdxBJ4iwNL" role="2OqNvi">
+                                  <ref role="37wK5l" to="vxxo:~SAbstractConceptAdapter.serialize()" resolve="serialize" />
+                                </node>
+                              </node>
+                            </node>
+                          </node>
+                        </node>
+                      </node>
+                      <node concept="2AHcQZ" id="6TdxBJ4iwNM" role="2AJF6D">
+                        <ref role="2AI5Lk" to="wyt6:~Override" resolve="Override" />
+                      </node>
+                    </node>
+                    <node concept="2tJIrI" id="6TdxBJ4iwNN" role="jymVt" />
+                    <node concept="3clFb_" id="6TdxBJ4iwNO" role="jymVt">
+                      <property role="TrG5h" value="read" />
+                      <node concept="3Tm1VV" id="6TdxBJ4iwNP" role="1B3o_S" />
+                      <node concept="3uibUv" id="6TdxBJ4iwNQ" role="3clF45">
+                        <ref role="3uigEE" to="l6bp:5gTrVpGjuL2" resolve="SConceptAdapter" />
+                      </node>
+                      <node concept="37vLTG" id="6TdxBJ4iwNR" role="3clF46">
+                        <property role="TrG5h" value="reader" />
+                        <node concept="3uibUv" id="6TdxBJ4iwNS" role="1tU5fm">
+                          <ref role="3uigEE" to="c9jv:~JsonReader" resolve="JsonReader" />
+                        </node>
+                      </node>
+                      <node concept="3uibUv" id="6TdxBJ4iwNT" role="Sfmx6">
+                        <ref role="3uigEE" to="guwi:~IOException" resolve="IOException" />
+                      </node>
+                      <node concept="3clFbS" id="6TdxBJ4iwNU" role="3clF47">
+                        <node concept="3clFbF" id="6TdxBJ4iwNV" role="3cqZAp">
+                          <node concept="2ShNRf" id="6TdxBJ4iwNW" role="3clFbG">
+                            <node concept="1pGfFk" id="6TdxBJ4iwNX" role="2ShVmc">
+                              <ref role="37wK5l" to="l6bp:5gTrVpGjFod" resolve="SConceptAdapter" />
+                              <node concept="2YIFZM" id="6TdxBJ4iwNY" role="37wK5m">
+                                <ref role="1Pybhc" to="vxxo:~SAbstractConceptAdapter" resolve="SAbstractConceptAdapter" />
+                                <ref role="37wK5l" to="vxxo:~SAbstractConceptAdapter.deserialize(java.lang.String)" resolve="deserialize" />
+                                <node concept="2OqwBi" id="6TdxBJ4iwNZ" role="37wK5m">
+                                  <node concept="37vLTw" id="6TdxBJ4iwO0" role="2Oq$k0">
+                                    <ref role="3cqZAo" node="6TdxBJ4iwNR" resolve="reader" />
+                                  </node>
+                                  <node concept="liA8E" id="6TdxBJ4iwO1" role="2OqNvi">
+                                    <ref role="37wK5l" to="c9jv:~JsonReader.nextString()" resolve="nextString" />
+                                  </node>
+                                </node>
+                              </node>
+                            </node>
+                          </node>
+                        </node>
+                      </node>
+                      <node concept="2AHcQZ" id="6TdxBJ4iwO2" role="2AJF6D">
+                        <ref role="2AI5Lk" to="wyt6:~Override" resolve="Override" />
+                      </node>
+                    </node>
+                    <node concept="3uibUv" id="6TdxBJ4iwO3" role="2Ghqu4">
+                      <ref role="3uigEE" to="l6bp:5gTrVpGjuL2" resolve="SConceptAdapter" />
+                    </node>
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="3clFbH" id="6TdxBJ4iwO4" role="3cqZAp" />
+        <node concept="3clFbF" id="6TdxBJ4iwO5" role="3cqZAp">
+          <node concept="2OqwBi" id="6TdxBJ4iwO7" role="3clFbG">
+            <node concept="37vLTw" id="6TdxBJ4iwO8" role="2Oq$k0">
+              <ref role="3cqZAo" node="6TdxBJ4iwNa" resolve="builder" />
+            </node>
+            <node concept="liA8E" id="6TdxBJ4iwO9" role="2OqNvi">
+              <ref role="37wK5l" to="wy2b:~GsonBuilder.create()" resolve="create" />
+            </node>
+          </node>
+        </node>
+      </node>
+      <node concept="3uibUv" id="6TdxBJ4iqKo" role="3clF45">
+        <ref role="3uigEE" to="wy2b:~Gson" resolve="Gson" />
+      </node>
+      <node concept="3Tm6S6" id="6TdxBJ4iqg5" role="1B3o_S" />
+    </node>
+    <node concept="2tJIrI" id="6TdxBJ4ipDt" role="jymVt" />
     <node concept="2YIFZL" id="68rqGk2XfV" role="jymVt">
       <property role="TrG5h" value="deserialize" />
       <property role="DiZV1" value="false" />
@@ -3842,10 +4103,8 @@
       <node concept="3clFbS" id="68rqGk2XfW" role="3clF47">
         <node concept="3clFbF" id="68rqGk2XfX" role="3cqZAp">
           <node concept="2OqwBi" id="68rqGk2XfY" role="3clFbG">
-            <node concept="2ShNRf" id="68rqGk2XfZ" role="2Oq$k0">
-              <node concept="1pGfFk" id="68rqGk2Xg0" role="2ShVmc">
-                <ref role="37wK5l" to="wy2b:~Gson.&lt;init&gt;()" resolve="Gson" />
-              </node>
+            <node concept="37vLTw" id="6TdxBJ4iAX2" role="2Oq$k0">
+              <ref role="3cqZAo" node="6TdxBJ4iAoy" resolve="GSON" />
             </node>
             <node concept="liA8E" id="68rqGk2Xg1" role="2OqNvi">
               <ref role="37wK5l" to="wy2b:~Gson.fromJson(java.lang.String,java.lang.Class)" resolve="fromJson" />
@@ -4012,264 +4271,10 @@
       <node concept="17QB3L" id="68rqGk2XgI" role="3clF45" />
       <node concept="3Tm1VV" id="68rqGk2XgJ" role="1B3o_S" />
       <node concept="3clFbS" id="68rqGk2XgK" role="3clF47">
-        <node concept="3cpWs8" id="6TdxBJ4fTMH" role="3cqZAp">
-          <node concept="3cpWsn" id="6TdxBJ4fTMI" role="3cpWs9">
-            <property role="TrG5h" value="taf" />
-            <node concept="3uibUv" id="6TdxBJ4fTMD" role="1tU5fm">
-              <ref role="3uigEE" node="6TdxBJ4fc30" resolve="RuntimeTypeAdapterFactory" />
-              <node concept="3uibUv" id="6TdxBJ4fTMG" role="11_B2D">
-                <ref role="3uigEE" to="ydze:1U0efzLyBFz" resolve="IOperation" />
-              </node>
-            </node>
-            <node concept="2YIFZM" id="6TdxBJ4fTMJ" role="33vP2m">
-              <ref role="1Pybhc" node="6TdxBJ4fc30" resolve="RuntimeTypeAdapterFactory" />
-              <ref role="37wK5l" node="6TdxBJ4fc4$" resolve="of" />
-              <node concept="3VsKOn" id="6TdxBJ4fTMK" role="37wK5m">
-                <ref role="3VsUkX" to="ydze:1U0efzLyBFz" resolve="IOperation" />
-              </node>
-              <node concept="Xl_RD" id="6TdxBJ4fTML" role="37wK5m">
-                <property role="Xl_RC" value="type" />
-              </node>
-            </node>
-          </node>
-        </node>
-        <node concept="3clFbF" id="6TdxBJ4fEVP" role="3cqZAp">
-          <node concept="2OqwBi" id="6TdxBJ4fGmP" role="3clFbG">
-            <node concept="37vLTw" id="6TdxBJ4fTMM" role="2Oq$k0">
-              <ref role="3cqZAo" node="6TdxBJ4fTMI" resolve="taf" />
-            </node>
-            <node concept="liA8E" id="6TdxBJ4fHAD" role="2OqNvi">
-              <ref role="37wK5l" node="6TdxBJ4fc5N" resolve="registerSubtype" />
-              <node concept="3VsKOn" id="6TdxBJ4fRx7" role="37wK5m">
-                <ref role="3VsUkX" to="ydze:1U0efzLAvJQ" resolve="AddNewChildOp" />
-              </node>
-            </node>
-          </node>
-        </node>
-        <node concept="3clFbF" id="6TdxBJ4fUrb" role="3cqZAp">
-          <node concept="2OqwBi" id="6TdxBJ4fUrc" role="3clFbG">
-            <node concept="37vLTw" id="6TdxBJ4fUrd" role="2Oq$k0">
-              <ref role="3cqZAo" node="6TdxBJ4fTMI" resolve="taf" />
-            </node>
-            <node concept="liA8E" id="6TdxBJ4fUre" role="2OqNvi">
-              <ref role="37wK5l" node="6TdxBJ4fc5N" resolve="registerSubtype" />
-              <node concept="3VsKOn" id="6TdxBJ4fUrf" role="37wK5m">
-                <ref role="3VsUkX" to="ydze:1U0efzLBCqH" resolve="DeleteNodeOp" />
-              </node>
-            </node>
-          </node>
-        </node>
-        <node concept="3clFbF" id="6TdxBJ4fUY8" role="3cqZAp">
-          <node concept="2OqwBi" id="6TdxBJ4fUY9" role="3clFbG">
-            <node concept="37vLTw" id="6TdxBJ4fUYa" role="2Oq$k0">
-              <ref role="3cqZAo" node="6TdxBJ4fTMI" resolve="taf" />
-            </node>
-            <node concept="liA8E" id="6TdxBJ4fUYb" role="2OqNvi">
-              <ref role="37wK5l" node="6TdxBJ4fc5N" resolve="registerSubtype" />
-              <node concept="3VsKOn" id="6TdxBJ4fUYc" role="37wK5m">
-                <ref role="3VsUkX" to="ydze:1U0efzLDlUu" resolve="MoveNodeOp" />
-              </node>
-            </node>
-          </node>
-        </node>
-        <node concept="3clFbF" id="6TdxBJ4fV$S" role="3cqZAp">
-          <node concept="2OqwBi" id="6TdxBJ4fV$T" role="3clFbG">
-            <node concept="37vLTw" id="6TdxBJ4fV$U" role="2Oq$k0">
-              <ref role="3cqZAo" node="6TdxBJ4fTMI" resolve="taf" />
-            </node>
-            <node concept="liA8E" id="6TdxBJ4fV$V" role="2OqNvi">
-              <ref role="37wK5l" node="6TdxBJ4fc5N" resolve="registerSubtype" />
-              <node concept="3VsKOn" id="6TdxBJ4fV$W" role="37wK5m">
-                <ref role="3VsUkX" to="ydze:1U0efzLBr7u" resolve="NoOp" />
-              </node>
-            </node>
-          </node>
-        </node>
-        <node concept="3clFbF" id="6TdxBJ4fWdp" role="3cqZAp">
-          <node concept="2OqwBi" id="6TdxBJ4fWdq" role="3clFbG">
-            <node concept="37vLTw" id="6TdxBJ4fWdr" role="2Oq$k0">
-              <ref role="3cqZAo" node="6TdxBJ4fTMI" resolve="taf" />
-            </node>
-            <node concept="liA8E" id="6TdxBJ4fWds" role="2OqNvi">
-              <ref role="37wK5l" node="6TdxBJ4fc5N" resolve="registerSubtype" />
-              <node concept="3VsKOn" id="6TdxBJ4fWdt" role="37wK5m">
-                <ref role="3VsUkX" to="ydze:1U0efzL$1zV" resolve="SetPropertyOp" />
-              </node>
-            </node>
-          </node>
-        </node>
-        <node concept="3clFbF" id="6TdxBJ4fWUV" role="3cqZAp">
-          <node concept="2OqwBi" id="6TdxBJ4fWUW" role="3clFbG">
-            <node concept="37vLTw" id="6TdxBJ4fWUX" role="2Oq$k0">
-              <ref role="3cqZAo" node="6TdxBJ4fTMI" resolve="taf" />
-            </node>
-            <node concept="liA8E" id="6TdxBJ4fWUY" role="2OqNvi">
-              <ref role="37wK5l" node="6TdxBJ4fc5N" resolve="registerSubtype" />
-              <node concept="3VsKOn" id="6TdxBJ4fWUZ" role="37wK5m">
-                <ref role="3VsUkX" to="ydze:1U0efzLAp8F" resolve="SetReferenceOp" />
-              </node>
-            </node>
-          </node>
-        </node>
-        <node concept="3cpWs8" id="6TdxBJ4hjUP" role="3cqZAp">
-          <node concept="3cpWsn" id="6TdxBJ4hjUQ" role="3cpWs9">
-            <property role="TrG5h" value="builder" />
-            <node concept="3uibUv" id="6TdxBJ4hjUN" role="1tU5fm">
-              <ref role="3uigEE" to="wy2b:~GsonBuilder" resolve="GsonBuilder" />
-            </node>
-            <node concept="2ShNRf" id="6TdxBJ4hjUR" role="33vP2m">
-              <node concept="1pGfFk" id="6TdxBJ4hjUS" role="2ShVmc">
-                <ref role="37wK5l" to="wy2b:~GsonBuilder.&lt;init&gt;()" resolve="GsonBuilder" />
-              </node>
-            </node>
-          </node>
-        </node>
-        <node concept="3clFbF" id="6TdxBJ4hkOZ" role="3cqZAp">
-          <node concept="2OqwBi" id="6TdxBJ4hkP1" role="3clFbG">
-            <node concept="37vLTw" id="6TdxBJ4hkP2" role="2Oq$k0">
-              <ref role="3cqZAo" node="6TdxBJ4hjUQ" resolve="builder" />
-            </node>
-            <node concept="liA8E" id="6TdxBJ4hkP3" role="2OqNvi">
-              <ref role="37wK5l" to="wy2b:~GsonBuilder.registerTypeAdapterFactory(com.google.gson.TypeAdapterFactory)" resolve="registerTypeAdapterFactory" />
-              <node concept="37vLTw" id="6TdxBJ4hkP4" role="37wK5m">
-                <ref role="3cqZAo" node="6TdxBJ4fTMI" resolve="taf" />
-              </node>
-            </node>
-          </node>
-        </node>
-        <node concept="3clFbH" id="6TdxBJ4hlOv" role="3cqZAp" />
-        <node concept="3clFbF" id="6TdxBJ4hmlk" role="3cqZAp">
-          <node concept="2OqwBi" id="6TdxBJ4hmPV" role="3clFbG">
-            <node concept="37vLTw" id="6TdxBJ4hmli" role="2Oq$k0">
-              <ref role="3cqZAo" node="6TdxBJ4hjUQ" resolve="builder" />
-            </node>
-            <node concept="liA8E" id="6TdxBJ4hng8" role="2OqNvi">
-              <ref role="37wK5l" to="wy2b:~GsonBuilder.registerTypeAdapter(java.lang.reflect.Type,java.lang.Object)" resolve="registerTypeAdapter" />
-              <node concept="3VsKOn" id="6TdxBJ4hnA$" role="37wK5m">
-                <ref role="3VsUkX" to="l6bp:5gTrVpGjuL2" resolve="SConceptAdapter" />
-              </node>
-              <node concept="2ShNRf" id="6TdxBJ4ho1e" role="37wK5m">
-                <node concept="YeOm9" id="6TdxBJ4hoGQ" role="2ShVmc">
-                  <node concept="1Y3b0j" id="6TdxBJ4hoGT" role="YeSDq">
-                    <property role="2bfB8j" value="true" />
-                    <ref role="1Y3XeK" to="wy2b:~TypeAdapter" resolve="TypeAdapter" />
-                    <ref role="37wK5l" to="wy2b:~TypeAdapter.&lt;init&gt;()" resolve="TypeAdapter" />
-                    <node concept="3Tm1VV" id="6TdxBJ4hoGU" role="1B3o_S" />
-                    <node concept="3clFb_" id="6TdxBJ4hoH1" role="jymVt">
-                      <property role="TrG5h" value="write" />
-                      <node concept="3Tm1VV" id="6TdxBJ4hoH2" role="1B3o_S" />
-                      <node concept="3cqZAl" id="6TdxBJ4hoH4" role="3clF45" />
-                      <node concept="37vLTG" id="6TdxBJ4hoH5" role="3clF46">
-                        <property role="TrG5h" value="writer" />
-                        <node concept="3uibUv" id="6TdxBJ4hoH6" role="1tU5fm">
-                          <ref role="3uigEE" to="c9jv:~JsonWriter" resolve="JsonWriter" />
-                        </node>
-                      </node>
-                      <node concept="37vLTG" id="6TdxBJ4hoH7" role="3clF46">
-                        <property role="TrG5h" value="object" />
-                        <node concept="3uibUv" id="6TdxBJ4hqPh" role="1tU5fm">
-                          <ref role="3uigEE" to="l6bp:5gTrVpGjuL2" resolve="SConceptAdapter" />
-                        </node>
-                      </node>
-                      <node concept="3uibUv" id="6TdxBJ4hoH9" role="Sfmx6">
-                        <ref role="3uigEE" to="guwi:~IOException" resolve="IOException" />
-                      </node>
-                      <node concept="3clFbS" id="6TdxBJ4hoHa" role="3clF47">
-                        <node concept="3clFbF" id="6TdxBJ4hrB6" role="3cqZAp">
-                          <node concept="2OqwBi" id="6TdxBJ4hrSM" role="3clFbG">
-                            <node concept="37vLTw" id="6TdxBJ4hrB5" role="2Oq$k0">
-                              <ref role="3cqZAo" node="6TdxBJ4hoH5" resolve="writer" />
-                            </node>
-                            <node concept="liA8E" id="6TdxBJ4hs2X" role="2OqNvi">
-                              <ref role="37wK5l" to="c9jv:~JsonWriter.value(java.lang.String)" resolve="value" />
-                              <node concept="2OqwBi" id="6TdxBJ4ht4t" role="37wK5m">
-                                <node concept="1eOMI4" id="6TdxBJ4i1CE" role="2Oq$k0">
-                                  <node concept="10QFUN" id="6TdxBJ4i1CD" role="1eOMHV">
-                                    <node concept="2OqwBi" id="6TdxBJ4i1CA" role="10QFUP">
-                                      <node concept="37vLTw" id="6TdxBJ4i1CB" role="2Oq$k0">
-                                        <ref role="3cqZAo" node="6TdxBJ4hoH7" resolve="object" />
-                                      </node>
-                                      <node concept="liA8E" id="6TdxBJ4i1CC" role="2OqNvi">
-                                        <ref role="37wK5l" to="l6bp:5gTrVpGqz6x" resolve="getAdapted" />
-                                      </node>
-                                    </node>
-                                    <node concept="3uibUv" id="6TdxBJ4i27Z" role="10QFUM">
-                                      <ref role="3uigEE" to="vxxo:~SAbstractConceptAdapter" resolve="SAbstractConceptAdapter" />
-                                    </node>
-                                  </node>
-                                </node>
-                                <node concept="liA8E" id="6TdxBJ4i2SA" role="2OqNvi">
-                                  <ref role="37wK5l" to="vxxo:~SAbstractConceptAdapter.serialize()" resolve="serialize" />
-                                </node>
-                              </node>
-                            </node>
-                          </node>
-                        </node>
-                      </node>
-                      <node concept="2AHcQZ" id="6TdxBJ4hoHc" role="2AJF6D">
-                        <ref role="2AI5Lk" to="wyt6:~Override" resolve="Override" />
-                      </node>
-                    </node>
-                    <node concept="2tJIrI" id="6TdxBJ4hoHd" role="jymVt" />
-                    <node concept="3clFb_" id="6TdxBJ4hoHe" role="jymVt">
-                      <property role="TrG5h" value="read" />
-                      <node concept="3Tm1VV" id="6TdxBJ4hoHf" role="1B3o_S" />
-                      <node concept="3uibUv" id="6TdxBJ4hr5I" role="3clF45">
-                        <ref role="3uigEE" to="l6bp:5gTrVpGjuL2" resolve="SConceptAdapter" />
-                      </node>
-                      <node concept="37vLTG" id="6TdxBJ4hoHi" role="3clF46">
-                        <property role="TrG5h" value="reader" />
-                        <node concept="3uibUv" id="6TdxBJ4hoHj" role="1tU5fm">
-                          <ref role="3uigEE" to="c9jv:~JsonReader" resolve="JsonReader" />
-                        </node>
-                      </node>
-                      <node concept="3uibUv" id="6TdxBJ4hoHk" role="Sfmx6">
-                        <ref role="3uigEE" to="guwi:~IOException" resolve="IOException" />
-                      </node>
-                      <node concept="3clFbS" id="6TdxBJ4hoHl" role="3clF47">
-                        <node concept="3clFbF" id="6TdxBJ4i4y4" role="3cqZAp">
-                          <node concept="2ShNRf" id="6TdxBJ4i4y0" role="3clFbG">
-                            <node concept="1pGfFk" id="6TdxBJ4i5Hr" role="2ShVmc">
-                              <ref role="37wK5l" to="l6bp:5gTrVpGjFod" resolve="SConceptAdapter" />
-                              <node concept="2YIFZM" id="6TdxBJ4i5Jo" role="37wK5m">
-                                <ref role="37wK5l" to="vxxo:~SAbstractConceptAdapter.deserialize(java.lang.String)" resolve="deserialize" />
-                                <ref role="1Pybhc" to="vxxo:~SAbstractConceptAdapter" resolve="SAbstractConceptAdapter" />
-                                <node concept="2OqwBi" id="6TdxBJ4i5Jp" role="37wK5m">
-                                  <node concept="37vLTw" id="6TdxBJ4i5Jq" role="2Oq$k0">
-                                    <ref role="3cqZAo" node="6TdxBJ4hoHi" resolve="reader" />
-                                  </node>
-                                  <node concept="liA8E" id="6TdxBJ4i5Jr" role="2OqNvi">
-                                    <ref role="37wK5l" to="c9jv:~JsonReader.nextString()" resolve="nextString" />
-                                  </node>
-                                </node>
-                              </node>
-                            </node>
-                          </node>
-                        </node>
-                      </node>
-                      <node concept="2AHcQZ" id="6TdxBJ4hoHn" role="2AJF6D">
-                        <ref role="2AI5Lk" to="wyt6:~Override" resolve="Override" />
-                      </node>
-                    </node>
-                    <node concept="3uibUv" id="6TdxBJ4hq_2" role="2Ghqu4">
-                      <ref role="3uigEE" to="l6bp:5gTrVpGjuL2" resolve="SConceptAdapter" />
-                    </node>
-                  </node>
-                </node>
-              </node>
-            </node>
-          </node>
-        </node>
-        <node concept="3clFbH" id="6TdxBJ4hlQg" role="3cqZAp" />
         <node concept="3clFbF" id="68rqGk2XgL" role="3cqZAp">
           <node concept="2OqwBi" id="68rqGk2XgM" role="3clFbG">
-            <node concept="2OqwBi" id="4T11wi2j7Ut" role="2Oq$k0">
-              <node concept="37vLTw" id="6TdxBJ4hlM1" role="2Oq$k0">
-                <ref role="3cqZAo" node="6TdxBJ4hjUQ" resolve="builder" />
-              </node>
-              <node concept="liA8E" id="4T11wi2jdFz" role="2OqNvi">
-                <ref role="37wK5l" to="wy2b:~GsonBuilder.create()" resolve="create" />
-              </node>
+            <node concept="37vLTw" id="6TdxBJ4iBcx" role="2Oq$k0">
+              <ref role="3cqZAo" node="6TdxBJ4iAoy" resolve="GSON" />
             </node>
             <node concept="liA8E" id="68rqGk2XgP" role="2OqNvi">
               <ref role="37wK5l" to="wy2b:~Gson.toJson(java.lang.Object)" resolve="toJson" />
@@ -4301,1790 +4306,6 @@
     </node>
     <node concept="2tJIrI" id="68rqGk3rj7" role="jymVt" />
     <node concept="3Tm1VV" id="68rqGk2XgR" role="1B3o_S" />
-  </node>
-  <node concept="312cEu" id="6TdxBJ4fc30">
-    <property role="TrG5h" value="RuntimeTypeAdapterFactory" />
-    <property role="2bfB8j" value="true" />
-    <property role="1EXbeo" value="true" />
-    <node concept="3Tm1VV" id="6TdxBJ4fc31" role="1B3o_S" />
-    <node concept="16euLQ" id="6TdxBJ4fc32" role="16eVyc">
-      <property role="TrG5h" value="T" />
-    </node>
-    <node concept="3uibUv" id="6TdxBJ4fc33" role="EKbjA">
-      <ref role="3uigEE" to="wy2b:~TypeAdapterFactory" resolve="TypeAdapterFactory" />
-    </node>
-    <node concept="3UR2Jj" id="6TdxBJ4fca1" role="lGtFl">
-      <node concept="TZ5HA" id="6TdxBJ4fcai" role="TZ5H$">
-        <node concept="1dT_AC" id="6TdxBJ4fcaj" role="1dT_Ay">
-          <property role="1dT_AB" value=" Adapts values whose runtime type may differ from their declaration type. This" />
-        </node>
-      </node>
-      <node concept="TZ5HA" id="6TdxBJ4fcak" role="TZ5H$">
-        <node concept="1dT_AC" id="6TdxBJ4fcal" role="1dT_Ay">
-          <property role="1dT_AB" value=" is necessary when a field's type is not the same type that GSON should create" />
-        </node>
-      </node>
-      <node concept="TZ5HA" id="6TdxBJ4fcam" role="TZ5H$">
-        <node concept="1dT_AC" id="6TdxBJ4fcan" role="1dT_Ay">
-          <property role="1dT_AB" value=" when deserializing that field. For example, consider these types:" />
-        </node>
-      </node>
-      <node concept="TZ5HA" id="6TdxBJ4fcao" role="TZ5H$">
-        <node concept="1dT_AC" id="6TdxBJ4fcap" role="1dT_Ay">
-          <property role="1dT_AB" value=" &lt;pre&gt;   {@code" />
-        </node>
-      </node>
-      <node concept="TZ5HA" id="6TdxBJ4fcaq" role="TZ5H$">
-        <node concept="1dT_AC" id="6TdxBJ4fcar" role="1dT_Ay">
-          <property role="1dT_AB" value="   abstract class Shape {" />
-        </node>
-      </node>
-      <node concept="TZ5HA" id="6TdxBJ4fcas" role="TZ5H$">
-        <node concept="1dT_AC" id="6TdxBJ4fcat" role="1dT_Ay">
-          <property role="1dT_AB" value="     int x;" />
-        </node>
-      </node>
-      <node concept="TZ5HA" id="6TdxBJ4fcau" role="TZ5H$">
-        <node concept="1dT_AC" id="6TdxBJ4fcav" role="1dT_Ay">
-          <property role="1dT_AB" value="     int y;" />
-        </node>
-      </node>
-      <node concept="TZ5HA" id="6TdxBJ4fcaw" role="TZ5H$">
-        <node concept="1dT_AC" id="6TdxBJ4fcax" role="1dT_Ay">
-          <property role="1dT_AB" value="   }" />
-        </node>
-      </node>
-      <node concept="TZ5HA" id="6TdxBJ4fcay" role="TZ5H$">
-        <node concept="1dT_AC" id="6TdxBJ4fcaz" role="1dT_Ay">
-          <property role="1dT_AB" value="   class Circle extends Shape {" />
-        </node>
-      </node>
-      <node concept="TZ5HA" id="6TdxBJ4fca$" role="TZ5H$">
-        <node concept="1dT_AC" id="6TdxBJ4fca_" role="1dT_Ay">
-          <property role="1dT_AB" value="     int radius;" />
-        </node>
-      </node>
-      <node concept="TZ5HA" id="6TdxBJ4fcaA" role="TZ5H$">
-        <node concept="1dT_AC" id="6TdxBJ4fcaB" role="1dT_Ay">
-          <property role="1dT_AB" value="   }" />
-        </node>
-      </node>
-      <node concept="TZ5HA" id="6TdxBJ4fcaC" role="TZ5H$">
-        <node concept="1dT_AC" id="6TdxBJ4fcaD" role="1dT_Ay">
-          <property role="1dT_AB" value="   class Rectangle extends Shape {" />
-        </node>
-      </node>
-      <node concept="TZ5HA" id="6TdxBJ4fcaE" role="TZ5H$">
-        <node concept="1dT_AC" id="6TdxBJ4fcaF" role="1dT_Ay">
-          <property role="1dT_AB" value="     int width;" />
-        </node>
-      </node>
-      <node concept="TZ5HA" id="6TdxBJ4fcaG" role="TZ5H$">
-        <node concept="1dT_AC" id="6TdxBJ4fcaH" role="1dT_Ay">
-          <property role="1dT_AB" value="     int height;" />
-        </node>
-      </node>
-      <node concept="TZ5HA" id="6TdxBJ4fcaI" role="TZ5H$">
-        <node concept="1dT_AC" id="6TdxBJ4fcaJ" role="1dT_Ay">
-          <property role="1dT_AB" value="   }" />
-        </node>
-      </node>
-      <node concept="TZ5HA" id="6TdxBJ4fcaK" role="TZ5H$">
-        <node concept="1dT_AC" id="6TdxBJ4fcaL" role="1dT_Ay">
-          <property role="1dT_AB" value="   class Diamond extends Shape {" />
-        </node>
-      </node>
-      <node concept="TZ5HA" id="6TdxBJ4fcaM" role="TZ5H$">
-        <node concept="1dT_AC" id="6TdxBJ4fcaN" role="1dT_Ay">
-          <property role="1dT_AB" value="     int width;" />
-        </node>
-      </node>
-      <node concept="TZ5HA" id="6TdxBJ4fcaO" role="TZ5H$">
-        <node concept="1dT_AC" id="6TdxBJ4fcaP" role="1dT_Ay">
-          <property role="1dT_AB" value="     int height;" />
-        </node>
-      </node>
-      <node concept="TZ5HA" id="6TdxBJ4fcaQ" role="TZ5H$">
-        <node concept="1dT_AC" id="6TdxBJ4fcaR" role="1dT_Ay">
-          <property role="1dT_AB" value="   }" />
-        </node>
-      </node>
-      <node concept="TZ5HA" id="6TdxBJ4fcaS" role="TZ5H$">
-        <node concept="1dT_AC" id="6TdxBJ4fcaT" role="1dT_Ay">
-          <property role="1dT_AB" value="   class Drawing {" />
-        </node>
-      </node>
-      <node concept="TZ5HA" id="6TdxBJ4fcaU" role="TZ5H$">
-        <node concept="1dT_AC" id="6TdxBJ4fcaV" role="1dT_Ay">
-          <property role="1dT_AB" value="     Shape bottomShape;" />
-        </node>
-      </node>
-      <node concept="TZ5HA" id="6TdxBJ4fcaW" role="TZ5H$">
-        <node concept="1dT_AC" id="6TdxBJ4fcaX" role="1dT_Ay">
-          <property role="1dT_AB" value="     Shape topShape;" />
-        </node>
-      </node>
-      <node concept="TZ5HA" id="6TdxBJ4fcaY" role="TZ5H$">
-        <node concept="1dT_AC" id="6TdxBJ4fcaZ" role="1dT_Ay">
-          <property role="1dT_AB" value="   }" />
-        </node>
-      </node>
-      <node concept="TZ5HA" id="6TdxBJ4fcb0" role="TZ5H$">
-        <node concept="1dT_AC" id="6TdxBJ4fcb1" role="1dT_Ay">
-          <property role="1dT_AB" value=" }&lt;/pre&gt;" />
-        </node>
-      </node>
-      <node concept="TZ5HA" id="6TdxBJ4fcb2" role="TZ5H$">
-        <node concept="1dT_AC" id="6TdxBJ4fcb3" role="1dT_Ay">
-          <property role="1dT_AB" value=" &lt;p&gt;Without additional type information, the serialized JSON is ambiguous. Is" />
-        </node>
-      </node>
-      <node concept="TZ5HA" id="6TdxBJ4fcb4" role="TZ5H$">
-        <node concept="1dT_AC" id="6TdxBJ4fcb5" role="1dT_Ay">
-          <property role="1dT_AB" value=" the bottom shape in this drawing a rectangle or a diamond? &lt;pre&gt;   {@code" />
-        </node>
-      </node>
-      <node concept="TZ5HA" id="6TdxBJ4fcb6" role="TZ5H$">
-        <node concept="1dT_AC" id="6TdxBJ4fcb7" role="1dT_Ay">
-          <property role="1dT_AB" value="   {" />
-        </node>
-      </node>
-      <node concept="TZ5HA" id="6TdxBJ4fcb8" role="TZ5H$">
-        <node concept="1dT_AC" id="6TdxBJ4fcb9" role="1dT_Ay">
-          <property role="1dT_AB" value="     &quot;bottomShape&quot;: {" />
-        </node>
-      </node>
-      <node concept="TZ5HA" id="6TdxBJ4fcba" role="TZ5H$">
-        <node concept="1dT_AC" id="6TdxBJ4fcbb" role="1dT_Ay">
-          <property role="1dT_AB" value="       &quot;width&quot;: 10," />
-        </node>
-      </node>
-      <node concept="TZ5HA" id="6TdxBJ4fcbc" role="TZ5H$">
-        <node concept="1dT_AC" id="6TdxBJ4fcbd" role="1dT_Ay">
-          <property role="1dT_AB" value="       &quot;height&quot;: 5," />
-        </node>
-      </node>
-      <node concept="TZ5HA" id="6TdxBJ4fcbe" role="TZ5H$">
-        <node concept="1dT_AC" id="6TdxBJ4fcbf" role="1dT_Ay">
-          <property role="1dT_AB" value="       &quot;x&quot;: 0," />
-        </node>
-      </node>
-      <node concept="TZ5HA" id="6TdxBJ4fcbg" role="TZ5H$">
-        <node concept="1dT_AC" id="6TdxBJ4fcbh" role="1dT_Ay">
-          <property role="1dT_AB" value="       &quot;y&quot;: 0" />
-        </node>
-      </node>
-      <node concept="TZ5HA" id="6TdxBJ4fcbi" role="TZ5H$">
-        <node concept="1dT_AC" id="6TdxBJ4fcbj" role="1dT_Ay">
-          <property role="1dT_AB" value="     }," />
-        </node>
-      </node>
-      <node concept="TZ5HA" id="6TdxBJ4fcbk" role="TZ5H$">
-        <node concept="1dT_AC" id="6TdxBJ4fcbl" role="1dT_Ay">
-          <property role="1dT_AB" value="     &quot;topShape&quot;: {" />
-        </node>
-      </node>
-      <node concept="TZ5HA" id="6TdxBJ4fcbm" role="TZ5H$">
-        <node concept="1dT_AC" id="6TdxBJ4fcbn" role="1dT_Ay">
-          <property role="1dT_AB" value="       &quot;radius&quot;: 2," />
-        </node>
-      </node>
-      <node concept="TZ5HA" id="6TdxBJ4fcbo" role="TZ5H$">
-        <node concept="1dT_AC" id="6TdxBJ4fcbp" role="1dT_Ay">
-          <property role="1dT_AB" value="       &quot;x&quot;: 4," />
-        </node>
-      </node>
-      <node concept="TZ5HA" id="6TdxBJ4fcbq" role="TZ5H$">
-        <node concept="1dT_AC" id="6TdxBJ4fcbr" role="1dT_Ay">
-          <property role="1dT_AB" value="       &quot;y&quot;: 1" />
-        </node>
-      </node>
-      <node concept="TZ5HA" id="6TdxBJ4fcbs" role="TZ5H$">
-        <node concept="1dT_AC" id="6TdxBJ4fcbt" role="1dT_Ay">
-          <property role="1dT_AB" value="     }" />
-        </node>
-      </node>
-      <node concept="TZ5HA" id="6TdxBJ4fcbu" role="TZ5H$">
-        <node concept="1dT_AC" id="6TdxBJ4fcbv" role="1dT_Ay">
-          <property role="1dT_AB" value="   }}&lt;/pre&gt;" />
-        </node>
-      </node>
-      <node concept="TZ5HA" id="6TdxBJ4fcbw" role="TZ5H$">
-        <node concept="1dT_AC" id="6TdxBJ4fcbx" role="1dT_Ay">
-          <property role="1dT_AB" value=" This class addresses this problem by adding type information to the" />
-        </node>
-      </node>
-      <node concept="TZ5HA" id="6TdxBJ4fcby" role="TZ5H$">
-        <node concept="1dT_AC" id="6TdxBJ4fcbz" role="1dT_Ay">
-          <property role="1dT_AB" value=" serialized JSON and honoring that type information when the JSON is" />
-        </node>
-      </node>
-      <node concept="TZ5HA" id="6TdxBJ4fcb$" role="TZ5H$">
-        <node concept="1dT_AC" id="6TdxBJ4fcb_" role="1dT_Ay">
-          <property role="1dT_AB" value=" deserialized: &lt;pre&gt;   {@code" />
-        </node>
-      </node>
-      <node concept="TZ5HA" id="6TdxBJ4fcbA" role="TZ5H$">
-        <node concept="1dT_AC" id="6TdxBJ4fcbB" role="1dT_Ay">
-          <property role="1dT_AB" value="   {" />
-        </node>
-      </node>
-      <node concept="TZ5HA" id="6TdxBJ4fcbC" role="TZ5H$">
-        <node concept="1dT_AC" id="6TdxBJ4fcbD" role="1dT_Ay">
-          <property role="1dT_AB" value="     &quot;bottomShape&quot;: {" />
-        </node>
-      </node>
-      <node concept="TZ5HA" id="6TdxBJ4fcbE" role="TZ5H$">
-        <node concept="1dT_AC" id="6TdxBJ4fcbF" role="1dT_Ay">
-          <property role="1dT_AB" value="       &quot;type&quot;: &quot;Diamond&quot;," />
-        </node>
-      </node>
-      <node concept="TZ5HA" id="6TdxBJ4fcbG" role="TZ5H$">
-        <node concept="1dT_AC" id="6TdxBJ4fcbH" role="1dT_Ay">
-          <property role="1dT_AB" value="       &quot;width&quot;: 10," />
-        </node>
-      </node>
-      <node concept="TZ5HA" id="6TdxBJ4fcbI" role="TZ5H$">
-        <node concept="1dT_AC" id="6TdxBJ4fcbJ" role="1dT_Ay">
-          <property role="1dT_AB" value="       &quot;height&quot;: 5," />
-        </node>
-      </node>
-      <node concept="TZ5HA" id="6TdxBJ4fcbK" role="TZ5H$">
-        <node concept="1dT_AC" id="6TdxBJ4fcbL" role="1dT_Ay">
-          <property role="1dT_AB" value="       &quot;x&quot;: 0," />
-        </node>
-      </node>
-      <node concept="TZ5HA" id="6TdxBJ4fcbM" role="TZ5H$">
-        <node concept="1dT_AC" id="6TdxBJ4fcbN" role="1dT_Ay">
-          <property role="1dT_AB" value="       &quot;y&quot;: 0" />
-        </node>
-      </node>
-      <node concept="TZ5HA" id="6TdxBJ4fcbO" role="TZ5H$">
-        <node concept="1dT_AC" id="6TdxBJ4fcbP" role="1dT_Ay">
-          <property role="1dT_AB" value="     }," />
-        </node>
-      </node>
-      <node concept="TZ5HA" id="6TdxBJ4fcbQ" role="TZ5H$">
-        <node concept="1dT_AC" id="6TdxBJ4fcbR" role="1dT_Ay">
-          <property role="1dT_AB" value="     &quot;topShape&quot;: {" />
-        </node>
-      </node>
-      <node concept="TZ5HA" id="6TdxBJ4fcbS" role="TZ5H$">
-        <node concept="1dT_AC" id="6TdxBJ4fcbT" role="1dT_Ay">
-          <property role="1dT_AB" value="       &quot;type&quot;: &quot;Circle&quot;," />
-        </node>
-      </node>
-      <node concept="TZ5HA" id="6TdxBJ4fcbU" role="TZ5H$">
-        <node concept="1dT_AC" id="6TdxBJ4fcbV" role="1dT_Ay">
-          <property role="1dT_AB" value="       &quot;radius&quot;: 2," />
-        </node>
-      </node>
-      <node concept="TZ5HA" id="6TdxBJ4fcbW" role="TZ5H$">
-        <node concept="1dT_AC" id="6TdxBJ4fcbX" role="1dT_Ay">
-          <property role="1dT_AB" value="       &quot;x&quot;: 4," />
-        </node>
-      </node>
-      <node concept="TZ5HA" id="6TdxBJ4fcbY" role="TZ5H$">
-        <node concept="1dT_AC" id="6TdxBJ4fcbZ" role="1dT_Ay">
-          <property role="1dT_AB" value="       &quot;y&quot;: 1" />
-        </node>
-      </node>
-      <node concept="TZ5HA" id="6TdxBJ4fcc0" role="TZ5H$">
-        <node concept="1dT_AC" id="6TdxBJ4fcc1" role="1dT_Ay">
-          <property role="1dT_AB" value="     }" />
-        </node>
-      </node>
-      <node concept="TZ5HA" id="6TdxBJ4fcc2" role="TZ5H$">
-        <node concept="1dT_AC" id="6TdxBJ4fcc3" role="1dT_Ay">
-          <property role="1dT_AB" value="   }}&lt;/pre&gt;" />
-        </node>
-      </node>
-      <node concept="TZ5HA" id="6TdxBJ4fcc4" role="TZ5H$">
-        <node concept="1dT_AC" id="6TdxBJ4fcc5" role="1dT_Ay">
-          <property role="1dT_AB" value=" Both the type field name ({@code &quot;type&quot;}) and the type labels ({@code" />
-        </node>
-      </node>
-      <node concept="TZ5HA" id="6TdxBJ4fcc6" role="TZ5H$">
-        <node concept="1dT_AC" id="6TdxBJ4fcc7" role="1dT_Ay">
-          <property role="1dT_AB" value=" &quot;Rectangle&quot;}) are configurable." />
-        </node>
-      </node>
-      <node concept="TZ5HA" id="6TdxBJ4fcc8" role="TZ5H$">
-        <node concept="1dT_AC" id="6TdxBJ4fcc9" role="1dT_Ay">
-          <property role="1dT_AB" value="" />
-        </node>
-      </node>
-      <node concept="TZ5HA" id="6TdxBJ4fcca" role="TZ5H$">
-        <node concept="1dT_AC" id="6TdxBJ4fccb" role="1dT_Ay">
-          <property role="1dT_AB" value=" &lt;h3&gt;Registering Types&lt;/h3&gt;" />
-        </node>
-      </node>
-      <node concept="TZ5HA" id="6TdxBJ4fccc" role="TZ5H$">
-        <node concept="1dT_AC" id="6TdxBJ4fccd" role="1dT_Ay">
-          <property role="1dT_AB" value=" Create a {@code RuntimeTypeAdapterFactory} by passing the base type and type field" />
-        </node>
-      </node>
-      <node concept="TZ5HA" id="6TdxBJ4fcce" role="TZ5H$">
-        <node concept="1dT_AC" id="6TdxBJ4fccf" role="1dT_Ay">
-          <property role="1dT_AB" value=" name to the {@link #of} factory method. If you don't supply an explicit type" />
-        </node>
-      </node>
-      <node concept="TZ5HA" id="6TdxBJ4fccg" role="TZ5H$">
-        <node concept="1dT_AC" id="6TdxBJ4fcch" role="1dT_Ay">
-          <property role="1dT_AB" value=" field name, {@code &quot;type&quot;} will be used. &lt;pre&gt;   {@code" />
-        </node>
-      </node>
-      <node concept="TZ5HA" id="6TdxBJ4fcci" role="TZ5H$">
-        <node concept="1dT_AC" id="6TdxBJ4fccj" role="1dT_Ay">
-          <property role="1dT_AB" value="   RuntimeTypeAdapterFactory&lt;Shape&gt; shapeAdapterFactory" />
-        </node>
-      </node>
-      <node concept="TZ5HA" id="6TdxBJ4fcck" role="TZ5H$">
-        <node concept="1dT_AC" id="6TdxBJ4fccl" role="1dT_Ay">
-          <property role="1dT_AB" value="       = RuntimeTypeAdapterFactory.of(Shape.class, &quot;type&quot;);" />
-        </node>
-      </node>
-      <node concept="TZ5HA" id="6TdxBJ4fccm" role="TZ5H$">
-        <node concept="1dT_AC" id="6TdxBJ4fccn" role="1dT_Ay">
-          <property role="1dT_AB" value=" }&lt;/pre&gt;" />
-        </node>
-      </node>
-      <node concept="TZ5HA" id="6TdxBJ4fcco" role="TZ5H$">
-        <node concept="1dT_AC" id="6TdxBJ4fccp" role="1dT_Ay">
-          <property role="1dT_AB" value=" Next register all of your subtypes. Every subtype must be explicitly" />
-        </node>
-      </node>
-      <node concept="TZ5HA" id="6TdxBJ4fccq" role="TZ5H$">
-        <node concept="1dT_AC" id="6TdxBJ4fccr" role="1dT_Ay">
-          <property role="1dT_AB" value=" registered. This protects your application from injection attacks. If you" />
-        </node>
-      </node>
-      <node concept="TZ5HA" id="6TdxBJ4fccs" role="TZ5H$">
-        <node concept="1dT_AC" id="6TdxBJ4fcct" role="1dT_Ay">
-          <property role="1dT_AB" value=" don't supply an explicit type label, the type's simple name will be used." />
-        </node>
-      </node>
-      <node concept="TZ5HA" id="6TdxBJ4fccu" role="TZ5H$">
-        <node concept="1dT_AC" id="6TdxBJ4fccv" role="1dT_Ay">
-          <property role="1dT_AB" value=" &lt;pre&gt;   {@code" />
-        </node>
-      </node>
-      <node concept="TZ5HA" id="6TdxBJ4fccw" role="TZ5H$">
-        <node concept="1dT_AC" id="6TdxBJ4fccx" role="1dT_Ay">
-          <property role="1dT_AB" value="   shapeAdapterFactory.registerSubtype(Rectangle.class, &quot;Rectangle&quot;);" />
-        </node>
-      </node>
-      <node concept="TZ5HA" id="6TdxBJ4fccy" role="TZ5H$">
-        <node concept="1dT_AC" id="6TdxBJ4fccz" role="1dT_Ay">
-          <property role="1dT_AB" value="   shapeAdapterFactory.registerSubtype(Circle.class, &quot;Circle&quot;);" />
-        </node>
-      </node>
-      <node concept="TZ5HA" id="6TdxBJ4fcc$" role="TZ5H$">
-        <node concept="1dT_AC" id="6TdxBJ4fcc_" role="1dT_Ay">
-          <property role="1dT_AB" value="   shapeAdapterFactory.registerSubtype(Diamond.class, &quot;Diamond&quot;);" />
-        </node>
-      </node>
-      <node concept="TZ5HA" id="6TdxBJ4fccA" role="TZ5H$">
-        <node concept="1dT_AC" id="6TdxBJ4fccB" role="1dT_Ay">
-          <property role="1dT_AB" value=" }&lt;/pre&gt;" />
-        </node>
-      </node>
-      <node concept="TZ5HA" id="6TdxBJ4fccC" role="TZ5H$">
-        <node concept="1dT_AC" id="6TdxBJ4fccD" role="1dT_Ay">
-          <property role="1dT_AB" value=" Finally, register the type adapter factory in your application's GSON builder:" />
-        </node>
-      </node>
-      <node concept="TZ5HA" id="6TdxBJ4fccE" role="TZ5H$">
-        <node concept="1dT_AC" id="6TdxBJ4fccF" role="1dT_Ay">
-          <property role="1dT_AB" value=" &lt;pre&gt;   {@code" />
-        </node>
-      </node>
-      <node concept="TZ5HA" id="6TdxBJ4fccG" role="TZ5H$">
-        <node concept="1dT_AC" id="6TdxBJ4fccH" role="1dT_Ay">
-          <property role="1dT_AB" value="   Gson gson = new GsonBuilder()" />
-        </node>
-      </node>
-      <node concept="TZ5HA" id="6TdxBJ4fccI" role="TZ5H$">
-        <node concept="1dT_AC" id="6TdxBJ4fccJ" role="1dT_Ay">
-          <property role="1dT_AB" value="       .registerTypeAdapterFactory(shapeAdapterFactory)" />
-        </node>
-      </node>
-      <node concept="TZ5HA" id="6TdxBJ4fccK" role="TZ5H$">
-        <node concept="1dT_AC" id="6TdxBJ4fccL" role="1dT_Ay">
-          <property role="1dT_AB" value="       .create();" />
-        </node>
-      </node>
-      <node concept="TZ5HA" id="6TdxBJ4fccM" role="TZ5H$">
-        <node concept="1dT_AC" id="6TdxBJ4fccN" role="1dT_Ay">
-          <property role="1dT_AB" value=" }&lt;/pre&gt;" />
-        </node>
-      </node>
-      <node concept="TZ5HA" id="6TdxBJ4fccO" role="TZ5H$">
-        <node concept="1dT_AC" id="6TdxBJ4fccP" role="1dT_Ay">
-          <property role="1dT_AB" value=" Like {@code GsonBuilder}, this API supports chaining: &lt;pre&gt;   {@code" />
-        </node>
-      </node>
-      <node concept="TZ5HA" id="6TdxBJ4fccQ" role="TZ5H$">
-        <node concept="1dT_AC" id="6TdxBJ4fccR" role="1dT_Ay">
-          <property role="1dT_AB" value="   RuntimeTypeAdapterFactory&lt;Shape&gt; shapeAdapterFactory = RuntimeTypeAdapterFactory.of(Shape.class)" />
-        </node>
-      </node>
-      <node concept="TZ5HA" id="6TdxBJ4fccS" role="TZ5H$">
-        <node concept="1dT_AC" id="6TdxBJ4fccT" role="1dT_Ay">
-          <property role="1dT_AB" value="       .registerSubtype(Rectangle.class)" />
-        </node>
-      </node>
-      <node concept="TZ5HA" id="6TdxBJ4fccU" role="TZ5H$">
-        <node concept="1dT_AC" id="6TdxBJ4fccV" role="1dT_Ay">
-          <property role="1dT_AB" value="       .registerSubtype(Circle.class)" />
-        </node>
-      </node>
-      <node concept="TZ5HA" id="6TdxBJ4fccW" role="TZ5H$">
-        <node concept="1dT_AC" id="6TdxBJ4fccX" role="1dT_Ay">
-          <property role="1dT_AB" value="       .registerSubtype(Diamond.class);" />
-        </node>
-      </node>
-      <node concept="TZ5HA" id="6TdxBJ4fccY" role="TZ5H$">
-        <node concept="1dT_AC" id="6TdxBJ4fccZ" role="1dT_Ay">
-          <property role="1dT_AB" value=" }&lt;/pre&gt;" />
-        </node>
-      </node>
-    </node>
-    <node concept="312cEg" id="6TdxBJ4fc34" role="jymVt">
-      <property role="TrG5h" value="baseType" />
-      <property role="3TUv4t" value="true" />
-      <node concept="3uibUv" id="6TdxBJ4fc36" role="1tU5fm">
-        <ref role="3uigEE" to="wyt6:~Class" resolve="Class" />
-        <node concept="3qTvmN" id="6TdxBJ4fc37" role="11_B2D" />
-      </node>
-      <node concept="3Tm6S6" id="6TdxBJ4fc38" role="1B3o_S" />
-    </node>
-    <node concept="312cEg" id="6TdxBJ4fc39" role="jymVt">
-      <property role="TrG5h" value="typeFieldName" />
-      <property role="3TUv4t" value="true" />
-      <node concept="3uibUv" id="6TdxBJ4fc3b" role="1tU5fm">
-        <ref role="3uigEE" to="wyt6:~String" resolve="String" />
-      </node>
-      <node concept="3Tm6S6" id="6TdxBJ4fc3c" role="1B3o_S" />
-    </node>
-    <node concept="312cEg" id="6TdxBJ4fc3d" role="jymVt">
-      <property role="TrG5h" value="labelToSubtype" />
-      <property role="3TUv4t" value="true" />
-      <node concept="3uibUv" id="6TdxBJ4fc3f" role="1tU5fm">
-        <ref role="3uigEE" to="33ny:~Map" resolve="Map" />
-        <node concept="3uibUv" id="6TdxBJ4fc3g" role="11_B2D">
-          <ref role="3uigEE" to="wyt6:~String" resolve="String" />
-        </node>
-        <node concept="3uibUv" id="6TdxBJ4fc3h" role="11_B2D">
-          <ref role="3uigEE" to="wyt6:~Class" resolve="Class" />
-          <node concept="3qTvmN" id="6TdxBJ4fc3i" role="11_B2D" />
-        </node>
-      </node>
-      <node concept="2ShNRf" id="6TdxBJ4fez7" role="33vP2m">
-        <node concept="1pGfFk" id="6TdxBJ4fezb" role="2ShVmc">
-          <ref role="37wK5l" to="33ny:~LinkedHashMap.&lt;init&gt;()" resolve="LinkedHashMap" />
-          <node concept="3uibUv" id="6TdxBJ4fezc" role="3PaCim">
-            <ref role="3uigEE" to="wyt6:~String" resolve="String" />
-          </node>
-          <node concept="3uibUv" id="6TdxBJ4fezd" role="3PaCim">
-            <ref role="3uigEE" to="wyt6:~Class" resolve="Class" />
-            <node concept="3qTvmN" id="6TdxBJ4feze" role="11_B2D" />
-          </node>
-        </node>
-      </node>
-      <node concept="3Tm6S6" id="6TdxBJ4fc3n" role="1B3o_S" />
-    </node>
-    <node concept="312cEg" id="6TdxBJ4fc3o" role="jymVt">
-      <property role="TrG5h" value="subtypeToLabel" />
-      <property role="3TUv4t" value="true" />
-      <node concept="3uibUv" id="6TdxBJ4fc3q" role="1tU5fm">
-        <ref role="3uigEE" to="33ny:~Map" resolve="Map" />
-        <node concept="3uibUv" id="6TdxBJ4fc3r" role="11_B2D">
-          <ref role="3uigEE" to="wyt6:~Class" resolve="Class" />
-          <node concept="3qTvmN" id="6TdxBJ4fc3s" role="11_B2D" />
-        </node>
-        <node concept="3uibUv" id="6TdxBJ4fc3t" role="11_B2D">
-          <ref role="3uigEE" to="wyt6:~String" resolve="String" />
-        </node>
-      </node>
-      <node concept="2ShNRf" id="6TdxBJ4fkZ0" role="33vP2m">
-        <node concept="1pGfFk" id="6TdxBJ4fkZ4" role="2ShVmc">
-          <ref role="37wK5l" to="33ny:~LinkedHashMap.&lt;init&gt;()" resolve="LinkedHashMap" />
-          <node concept="3uibUv" id="6TdxBJ4fkZ5" role="3PaCim">
-            <ref role="3uigEE" to="wyt6:~Class" resolve="Class" />
-            <node concept="3qTvmN" id="6TdxBJ4fkZ6" role="11_B2D" />
-          </node>
-          <node concept="3uibUv" id="6TdxBJ4fkZ7" role="3PaCim">
-            <ref role="3uigEE" to="wyt6:~String" resolve="String" />
-          </node>
-        </node>
-      </node>
-      <node concept="3Tm6S6" id="6TdxBJ4fc3y" role="1B3o_S" />
-    </node>
-    <node concept="312cEg" id="6TdxBJ4fc3z" role="jymVt">
-      <property role="TrG5h" value="maintainType" />
-      <property role="3TUv4t" value="true" />
-      <node concept="10P_77" id="6TdxBJ4fc3_" role="1tU5fm" />
-      <node concept="3Tm6S6" id="6TdxBJ4fc3A" role="1B3o_S" />
-    </node>
-    <node concept="3clFbW" id="6TdxBJ4fc3B" role="jymVt">
-      <node concept="3cqZAl" id="6TdxBJ4fc3C" role="3clF45" />
-      <node concept="37vLTG" id="6TdxBJ4fc3D" role="3clF46">
-        <property role="TrG5h" value="baseType" />
-        <node concept="3uibUv" id="6TdxBJ4fc3E" role="1tU5fm">
-          <ref role="3uigEE" to="wyt6:~Class" resolve="Class" />
-          <node concept="3qTvmN" id="6TdxBJ4fc3F" role="11_B2D" />
-        </node>
-      </node>
-      <node concept="37vLTG" id="6TdxBJ4fc3G" role="3clF46">
-        <property role="TrG5h" value="typeFieldName" />
-        <node concept="3uibUv" id="6TdxBJ4fc3H" role="1tU5fm">
-          <ref role="3uigEE" to="wyt6:~String" resolve="String" />
-        </node>
-      </node>
-      <node concept="37vLTG" id="6TdxBJ4fc3I" role="3clF46">
-        <property role="TrG5h" value="maintainType" />
-        <node concept="10P_77" id="6TdxBJ4fc3J" role="1tU5fm" />
-      </node>
-      <node concept="3clFbS" id="6TdxBJ4fc3K" role="3clF47">
-        <node concept="3clFbJ" id="6TdxBJ4fc3L" role="3cqZAp">
-          <node concept="22lmx$" id="6TdxBJ4fc3M" role="3clFbw">
-            <node concept="3clFbC" id="6TdxBJ4fc3N" role="3uHU7B">
-              <node concept="37vLTw" id="6TdxBJ4fc3O" role="3uHU7B">
-                <ref role="3cqZAo" node="6TdxBJ4fc3G" resolve="typeFieldName" />
-              </node>
-              <node concept="10Nm6u" id="6TdxBJ4fc3P" role="3uHU7w" />
-            </node>
-            <node concept="3clFbC" id="6TdxBJ4fc3Q" role="3uHU7w">
-              <node concept="37vLTw" id="6TdxBJ4fc3R" role="3uHU7B">
-                <ref role="3cqZAo" node="6TdxBJ4fc3D" resolve="baseType" />
-              </node>
-              <node concept="10Nm6u" id="6TdxBJ4fc3S" role="3uHU7w" />
-            </node>
-          </node>
-          <node concept="3clFbS" id="6TdxBJ4fc3U" role="3clFbx">
-            <node concept="YS8fn" id="6TdxBJ4fc3W" role="3cqZAp">
-              <node concept="2ShNRf" id="6TdxBJ4ffhZ" role="YScLw">
-                <node concept="1pGfFk" id="6TdxBJ4ffi1" role="2ShVmc">
-                  <ref role="37wK5l" to="wyt6:~NullPointerException.&lt;init&gt;()" resolve="NullPointerException" />
-                </node>
-              </node>
-            </node>
-          </node>
-        </node>
-        <node concept="3clFbF" id="6TdxBJ4fc3X" role="3cqZAp">
-          <node concept="37vLTI" id="6TdxBJ4fc3Y" role="3clFbG">
-            <node concept="2OqwBi" id="6TdxBJ4fc3Z" role="37vLTJ">
-              <node concept="Xjq3P" id="6TdxBJ4fc40" role="2Oq$k0" />
-              <node concept="2OwXpG" id="6TdxBJ4fc41" role="2OqNvi">
-                <ref role="2Oxat5" node="6TdxBJ4fc34" resolve="baseType" />
-              </node>
-            </node>
-            <node concept="37vLTw" id="6TdxBJ4fc42" role="37vLTx">
-              <ref role="3cqZAo" node="6TdxBJ4fc3D" resolve="baseType" />
-            </node>
-          </node>
-        </node>
-        <node concept="3clFbF" id="6TdxBJ4fc43" role="3cqZAp">
-          <node concept="37vLTI" id="6TdxBJ4fc44" role="3clFbG">
-            <node concept="2OqwBi" id="6TdxBJ4fc45" role="37vLTJ">
-              <node concept="Xjq3P" id="6TdxBJ4fc46" role="2Oq$k0" />
-              <node concept="2OwXpG" id="6TdxBJ4fc47" role="2OqNvi">
-                <ref role="2Oxat5" node="6TdxBJ4fc39" resolve="typeFieldName" />
-              </node>
-            </node>
-            <node concept="37vLTw" id="6TdxBJ4fc48" role="37vLTx">
-              <ref role="3cqZAo" node="6TdxBJ4fc3G" resolve="typeFieldName" />
-            </node>
-          </node>
-        </node>
-        <node concept="3clFbF" id="6TdxBJ4fc49" role="3cqZAp">
-          <node concept="37vLTI" id="6TdxBJ4fc4a" role="3clFbG">
-            <node concept="2OqwBi" id="6TdxBJ4fc4b" role="37vLTJ">
-              <node concept="Xjq3P" id="6TdxBJ4fc4c" role="2Oq$k0" />
-              <node concept="2OwXpG" id="6TdxBJ4fc4d" role="2OqNvi">
-                <ref role="2Oxat5" node="6TdxBJ4fc3z" resolve="maintainType" />
-              </node>
-            </node>
-            <node concept="37vLTw" id="6TdxBJ4fc4e" role="37vLTx">
-              <ref role="3cqZAo" node="6TdxBJ4fc3I" resolve="maintainType" />
-            </node>
-          </node>
-        </node>
-      </node>
-      <node concept="3Tm6S6" id="6TdxBJ4fc4f" role="1B3o_S" />
-    </node>
-    <node concept="2YIFZL" id="6TdxBJ4fc4g" role="jymVt">
-      <property role="TrG5h" value="of" />
-      <node concept="16euLQ" id="6TdxBJ4fc4h" role="16eVyc">
-        <property role="TrG5h" value="T" />
-      </node>
-      <node concept="37vLTG" id="6TdxBJ4fc4i" role="3clF46">
-        <property role="TrG5h" value="baseType" />
-        <node concept="3uibUv" id="6TdxBJ4fc4j" role="1tU5fm">
-          <ref role="3uigEE" to="wyt6:~Class" resolve="Class" />
-          <node concept="16syzq" id="6TdxBJ4fc4k" role="11_B2D">
-            <ref role="16sUi3" node="6TdxBJ4fc4h" resolve="T" />
-          </node>
-        </node>
-      </node>
-      <node concept="37vLTG" id="6TdxBJ4fc4l" role="3clF46">
-        <property role="TrG5h" value="typeFieldName" />
-        <node concept="3uibUv" id="6TdxBJ4fc4m" role="1tU5fm">
-          <ref role="3uigEE" to="wyt6:~String" resolve="String" />
-        </node>
-      </node>
-      <node concept="37vLTG" id="6TdxBJ4fc4n" role="3clF46">
-        <property role="TrG5h" value="maintainType" />
-        <node concept="10P_77" id="6TdxBJ4fc4o" role="1tU5fm" />
-      </node>
-      <node concept="3clFbS" id="6TdxBJ4fc4p" role="3clF47">
-        <node concept="3cpWs6" id="6TdxBJ4fc4q" role="3cqZAp">
-          <node concept="2ShNRf" id="6TdxBJ4fekx" role="3cqZAk">
-            <node concept="1pGfFk" id="6TdxBJ4fel5" role="2ShVmc">
-              <ref role="37wK5l" node="6TdxBJ4fc3B" resolve="RuntimeTypeAdapterFactory" />
-              <node concept="37vLTw" id="6TdxBJ4fel6" role="37wK5m">
-                <ref role="3cqZAo" node="6TdxBJ4fc4i" resolve="baseType" />
-              </node>
-              <node concept="37vLTw" id="6TdxBJ4fel7" role="37wK5m">
-                <ref role="3cqZAo" node="6TdxBJ4fc4l" resolve="typeFieldName" />
-              </node>
-              <node concept="37vLTw" id="6TdxBJ4fel8" role="37wK5m">
-                <ref role="3cqZAo" node="6TdxBJ4fc4n" resolve="maintainType" />
-              </node>
-              <node concept="16syzq" id="6TdxBJ4fel9" role="3PaCim">
-                <ref role="16sUi3" node="6TdxBJ4fc4h" resolve="T" />
-              </node>
-            </node>
-          </node>
-        </node>
-      </node>
-      <node concept="3Tm1VV" id="6TdxBJ4fc4w" role="1B3o_S" />
-      <node concept="3uibUv" id="6TdxBJ4fc4x" role="3clF45">
-        <ref role="3uigEE" node="6TdxBJ4fc30" resolve="RuntimeTypeAdapterFactory" />
-        <node concept="16syzq" id="6TdxBJ4fc4y" role="11_B2D">
-          <ref role="16sUi3" node="6TdxBJ4fc4h" resolve="T" />
-        </node>
-      </node>
-      <node concept="P$JXv" id="6TdxBJ4fc4z" role="lGtFl">
-        <node concept="TZ5HA" id="6TdxBJ4fcd0" role="TZ5H$">
-          <node concept="1dT_AC" id="6TdxBJ4fcd1" role="1dT_Ay">
-            <property role="1dT_AB" value="Creates a new runtime type adapter using for {@code baseType} using {@code" />
-          </node>
-        </node>
-        <node concept="TZ5HA" id="6TdxBJ4fcd2" role="TZ5H$">
-          <node concept="1dT_AC" id="6TdxBJ4fcd3" role="1dT_Ay">
-            <property role="1dT_AB" value="typeFieldName} as the type field name. Type field names are case sensitive." />
-          </node>
-        </node>
-        <node concept="TZ5HA" id="6TdxBJ4fcd4" role="TZ5H$">
-          <node concept="1dT_AC" id="6TdxBJ4fcd5" role="1dT_Ay">
-            <property role="1dT_AB" value="{@code maintainType} flag decide if the type will be stored in pojo or not." />
-          </node>
-        </node>
-      </node>
-    </node>
-    <node concept="2YIFZL" id="6TdxBJ4fc4$" role="jymVt">
-      <property role="TrG5h" value="of" />
-      <node concept="16euLQ" id="6TdxBJ4fc4_" role="16eVyc">
-        <property role="TrG5h" value="T" />
-      </node>
-      <node concept="37vLTG" id="6TdxBJ4fc4A" role="3clF46">
-        <property role="TrG5h" value="baseType" />
-        <node concept="3uibUv" id="6TdxBJ4fc4B" role="1tU5fm">
-          <ref role="3uigEE" to="wyt6:~Class" resolve="Class" />
-          <node concept="16syzq" id="6TdxBJ4fc4C" role="11_B2D">
-            <ref role="16sUi3" node="6TdxBJ4fc4_" resolve="T" />
-          </node>
-        </node>
-      </node>
-      <node concept="37vLTG" id="6TdxBJ4fc4D" role="3clF46">
-        <property role="TrG5h" value="typeFieldName" />
-        <node concept="3uibUv" id="6TdxBJ4fc4E" role="1tU5fm">
-          <ref role="3uigEE" to="wyt6:~String" resolve="String" />
-        </node>
-      </node>
-      <node concept="3clFbS" id="6TdxBJ4fc4F" role="3clF47">
-        <node concept="3cpWs6" id="6TdxBJ4fc4G" role="3cqZAp">
-          <node concept="2ShNRf" id="6TdxBJ4fi57" role="3cqZAk">
-            <node concept="1pGfFk" id="6TdxBJ4fi5F" role="2ShVmc">
-              <ref role="37wK5l" node="6TdxBJ4fc3B" resolve="RuntimeTypeAdapterFactory" />
-              <node concept="37vLTw" id="6TdxBJ4fi5G" role="37wK5m">
-                <ref role="3cqZAo" node="6TdxBJ4fc4A" resolve="baseType" />
-              </node>
-              <node concept="37vLTw" id="6TdxBJ4fi5H" role="37wK5m">
-                <ref role="3cqZAo" node="6TdxBJ4fc4D" resolve="typeFieldName" />
-              </node>
-              <node concept="3clFbT" id="6TdxBJ4fi5I" role="37wK5m" />
-              <node concept="16syzq" id="6TdxBJ4fi5J" role="3PaCim">
-                <ref role="16sUi3" node="6TdxBJ4fc4_" resolve="T" />
-              </node>
-            </node>
-          </node>
-        </node>
-      </node>
-      <node concept="3Tm1VV" id="6TdxBJ4fc4M" role="1B3o_S" />
-      <node concept="3uibUv" id="6TdxBJ4fc4N" role="3clF45">
-        <ref role="3uigEE" node="6TdxBJ4fc30" resolve="RuntimeTypeAdapterFactory" />
-        <node concept="16syzq" id="6TdxBJ4fc4O" role="11_B2D">
-          <ref role="16sUi3" node="6TdxBJ4fc4_" resolve="T" />
-        </node>
-      </node>
-      <node concept="P$JXv" id="6TdxBJ4fc4P" role="lGtFl">
-        <node concept="TZ5HA" id="6TdxBJ4fcd6" role="TZ5H$">
-          <node concept="1dT_AC" id="6TdxBJ4fcd7" role="1dT_Ay">
-            <property role="1dT_AB" value="Creates a new runtime type adapter using for {@code baseType} using {@code" />
-          </node>
-        </node>
-        <node concept="TZ5HA" id="6TdxBJ4fcd8" role="TZ5H$">
-          <node concept="1dT_AC" id="6TdxBJ4fcd9" role="1dT_Ay">
-            <property role="1dT_AB" value="typeFieldName} as the type field name. Type field names are case sensitive." />
-          </node>
-        </node>
-      </node>
-    </node>
-    <node concept="2YIFZL" id="6TdxBJ4fc4Q" role="jymVt">
-      <property role="TrG5h" value="of" />
-      <node concept="16euLQ" id="6TdxBJ4fc4R" role="16eVyc">
-        <property role="TrG5h" value="T" />
-      </node>
-      <node concept="37vLTG" id="6TdxBJ4fc4S" role="3clF46">
-        <property role="TrG5h" value="baseType" />
-        <node concept="3uibUv" id="6TdxBJ4fc4T" role="1tU5fm">
-          <ref role="3uigEE" to="wyt6:~Class" resolve="Class" />
-          <node concept="16syzq" id="6TdxBJ4fc4U" role="11_B2D">
-            <ref role="16sUi3" node="6TdxBJ4fc4R" resolve="T" />
-          </node>
-        </node>
-      </node>
-      <node concept="3clFbS" id="6TdxBJ4fc4V" role="3clF47">
-        <node concept="3cpWs6" id="6TdxBJ4fc4W" role="3cqZAp">
-          <node concept="2ShNRf" id="6TdxBJ4fi_l" role="3cqZAk">
-            <node concept="1pGfFk" id="6TdxBJ4fi_T" role="2ShVmc">
-              <ref role="37wK5l" node="6TdxBJ4fc3B" resolve="RuntimeTypeAdapterFactory" />
-              <node concept="37vLTw" id="6TdxBJ4fi_U" role="37wK5m">
-                <ref role="3cqZAo" node="6TdxBJ4fc4S" resolve="baseType" />
-              </node>
-              <node concept="Xl_RD" id="6TdxBJ4fi_V" role="37wK5m">
-                <property role="Xl_RC" value="type" />
-              </node>
-              <node concept="3clFbT" id="6TdxBJ4fi_W" role="37wK5m" />
-              <node concept="16syzq" id="6TdxBJ4fi_X" role="3PaCim">
-                <ref role="16sUi3" node="6TdxBJ4fc4R" resolve="T" />
-              </node>
-            </node>
-          </node>
-        </node>
-      </node>
-      <node concept="3Tm1VV" id="6TdxBJ4fc52" role="1B3o_S" />
-      <node concept="3uibUv" id="6TdxBJ4fc53" role="3clF45">
-        <ref role="3uigEE" node="6TdxBJ4fc30" resolve="RuntimeTypeAdapterFactory" />
-        <node concept="16syzq" id="6TdxBJ4fc54" role="11_B2D">
-          <ref role="16sUi3" node="6TdxBJ4fc4R" resolve="T" />
-        </node>
-      </node>
-      <node concept="P$JXv" id="6TdxBJ4fc55" role="lGtFl">
-        <node concept="TZ5HA" id="6TdxBJ4fcda" role="TZ5H$">
-          <node concept="1dT_AC" id="6TdxBJ4fcdb" role="1dT_Ay">
-            <property role="1dT_AB" value="Creates a new runtime type adapter for {@code baseType} using {@code &quot;type&quot;} as" />
-          </node>
-        </node>
-        <node concept="TZ5HA" id="6TdxBJ4fcdc" role="TZ5H$">
-          <node concept="1dT_AC" id="6TdxBJ4fcdd" role="1dT_Ay">
-            <property role="1dT_AB" value="the type field name." />
-          </node>
-        </node>
-      </node>
-    </node>
-    <node concept="3clFb_" id="6TdxBJ4fc56" role="jymVt">
-      <property role="TrG5h" value="registerSubtype" />
-      <node concept="37vLTG" id="6TdxBJ4fc57" role="3clF46">
-        <property role="TrG5h" value="type" />
-        <node concept="3uibUv" id="6TdxBJ4fc58" role="1tU5fm">
-          <ref role="3uigEE" to="wyt6:~Class" resolve="Class" />
-          <node concept="3qUE_q" id="6TdxBJ4fc5a" role="11_B2D">
-            <node concept="16syzq" id="6TdxBJ4fc59" role="3qUE_r">
-              <ref role="16sUi3" node="6TdxBJ4fc32" resolve="T" />
-            </node>
-          </node>
-        </node>
-      </node>
-      <node concept="37vLTG" id="6TdxBJ4fc5b" role="3clF46">
-        <property role="TrG5h" value="label" />
-        <node concept="3uibUv" id="6TdxBJ4fc5c" role="1tU5fm">
-          <ref role="3uigEE" to="wyt6:~String" resolve="String" />
-        </node>
-      </node>
-      <node concept="3clFbS" id="6TdxBJ4fc5d" role="3clF47">
-        <node concept="3clFbJ" id="6TdxBJ4fc5e" role="3cqZAp">
-          <node concept="22lmx$" id="6TdxBJ4fc5f" role="3clFbw">
-            <node concept="3clFbC" id="6TdxBJ4fc5g" role="3uHU7B">
-              <node concept="37vLTw" id="6TdxBJ4fc5h" role="3uHU7B">
-                <ref role="3cqZAo" node="6TdxBJ4fc57" resolve="type" />
-              </node>
-              <node concept="10Nm6u" id="6TdxBJ4fc5i" role="3uHU7w" />
-            </node>
-            <node concept="3clFbC" id="6TdxBJ4fc5j" role="3uHU7w">
-              <node concept="37vLTw" id="6TdxBJ4fc5k" role="3uHU7B">
-                <ref role="3cqZAo" node="6TdxBJ4fc5b" resolve="label" />
-              </node>
-              <node concept="10Nm6u" id="6TdxBJ4fc5l" role="3uHU7w" />
-            </node>
-          </node>
-          <node concept="3clFbS" id="6TdxBJ4fc5n" role="3clFbx">
-            <node concept="YS8fn" id="6TdxBJ4fc5p" role="3cqZAp">
-              <node concept="2ShNRf" id="6TdxBJ4feks" role="YScLw">
-                <node concept="1pGfFk" id="6TdxBJ4feku" role="2ShVmc">
-                  <ref role="37wK5l" to="wyt6:~NullPointerException.&lt;init&gt;()" resolve="NullPointerException" />
-                </node>
-              </node>
-            </node>
-          </node>
-        </node>
-        <node concept="3clFbJ" id="6TdxBJ4fc5q" role="3cqZAp">
-          <node concept="22lmx$" id="6TdxBJ4fc5r" role="3clFbw">
-            <node concept="2OqwBi" id="6TdxBJ4fmSd" role="3uHU7B">
-              <node concept="37vLTw" id="6TdxBJ4fmSc" role="2Oq$k0">
-                <ref role="3cqZAo" node="6TdxBJ4fc3o" resolve="subtypeToLabel" />
-              </node>
-              <node concept="liA8E" id="6TdxBJ4fmSe" role="2OqNvi">
-                <ref role="37wK5l" to="33ny:~Map.containsKey(java.lang.Object)" resolve="containsKey" />
-                <node concept="37vLTw" id="6TdxBJ4fmSf" role="37wK5m">
-                  <ref role="3cqZAo" node="6TdxBJ4fc57" resolve="type" />
-                </node>
-              </node>
-            </node>
-            <node concept="2OqwBi" id="6TdxBJ4fgNh" role="3uHU7w">
-              <node concept="37vLTw" id="6TdxBJ4fgNg" role="2Oq$k0">
-                <ref role="3cqZAo" node="6TdxBJ4fc3d" resolve="labelToSubtype" />
-              </node>
-              <node concept="liA8E" id="6TdxBJ4fgNi" role="2OqNvi">
-                <ref role="37wK5l" to="33ny:~Map.containsKey(java.lang.Object)" resolve="containsKey" />
-                <node concept="37vLTw" id="6TdxBJ4fgNj" role="37wK5m">
-                  <ref role="3cqZAo" node="6TdxBJ4fc5b" resolve="label" />
-                </node>
-              </node>
-            </node>
-          </node>
-          <node concept="3clFbS" id="6TdxBJ4fc5x" role="3clFbx">
-            <node concept="YS8fn" id="6TdxBJ4fc5$" role="3cqZAp">
-              <node concept="2ShNRf" id="6TdxBJ4fjbS" role="YScLw">
-                <node concept="1pGfFk" id="6TdxBJ4fjc7" role="2ShVmc">
-                  <ref role="37wK5l" to="wyt6:~IllegalArgumentException.&lt;init&gt;(java.lang.String)" resolve="IllegalArgumentException" />
-                  <node concept="Xl_RD" id="6TdxBJ4fjc8" role="37wK5m">
-                    <property role="Xl_RC" value="types and labels must be unique" />
-                  </node>
-                </node>
-              </node>
-            </node>
-          </node>
-        </node>
-        <node concept="3clFbF" id="6TdxBJ4fc5_" role="3cqZAp">
-          <node concept="2OqwBi" id="6TdxBJ4fhjO" role="3clFbG">
-            <node concept="37vLTw" id="6TdxBJ4fhjN" role="2Oq$k0">
-              <ref role="3cqZAo" node="6TdxBJ4fc3d" resolve="labelToSubtype" />
-            </node>
-            <node concept="liA8E" id="6TdxBJ4fhjP" role="2OqNvi">
-              <ref role="37wK5l" to="33ny:~Map.put(java.lang.Object,java.lang.Object)" resolve="put" />
-              <node concept="37vLTw" id="6TdxBJ4fhjQ" role="37wK5m">
-                <ref role="3cqZAo" node="6TdxBJ4fc5b" resolve="label" />
-              </node>
-              <node concept="37vLTw" id="6TdxBJ4fhjR" role="37wK5m">
-                <ref role="3cqZAo" node="6TdxBJ4fc57" resolve="type" />
-              </node>
-            </node>
-          </node>
-        </node>
-        <node concept="3clFbF" id="6TdxBJ4fc5D" role="3cqZAp">
-          <node concept="2OqwBi" id="6TdxBJ4fnoU" role="3clFbG">
-            <node concept="37vLTw" id="6TdxBJ4fnoT" role="2Oq$k0">
-              <ref role="3cqZAo" node="6TdxBJ4fc3o" resolve="subtypeToLabel" />
-            </node>
-            <node concept="liA8E" id="6TdxBJ4fnoV" role="2OqNvi">
-              <ref role="37wK5l" to="33ny:~Map.put(java.lang.Object,java.lang.Object)" resolve="put" />
-              <node concept="37vLTw" id="6TdxBJ4fnoW" role="37wK5m">
-                <ref role="3cqZAo" node="6TdxBJ4fc57" resolve="type" />
-              </node>
-              <node concept="37vLTw" id="6TdxBJ4fnoX" role="37wK5m">
-                <ref role="3cqZAo" node="6TdxBJ4fc5b" resolve="label" />
-              </node>
-            </node>
-          </node>
-        </node>
-        <node concept="3cpWs6" id="6TdxBJ4fc5H" role="3cqZAp">
-          <node concept="Xjq3P" id="6TdxBJ4fc5I" role="3cqZAk" />
-        </node>
-      </node>
-      <node concept="3Tm1VV" id="6TdxBJ4fc5J" role="1B3o_S" />
-      <node concept="3uibUv" id="6TdxBJ4fc5K" role="3clF45">
-        <ref role="3uigEE" node="6TdxBJ4fc30" resolve="RuntimeTypeAdapterFactory" />
-        <node concept="16syzq" id="6TdxBJ4fc5L" role="11_B2D">
-          <ref role="16sUi3" node="6TdxBJ4fc32" resolve="T" />
-        </node>
-      </node>
-      <node concept="P$JXv" id="6TdxBJ4fc5M" role="lGtFl">
-        <node concept="TZ5HA" id="6TdxBJ4fcde" role="TZ5H$">
-          <node concept="1dT_AC" id="6TdxBJ4fcdf" role="1dT_Ay">
-            <property role="1dT_AB" value=" Registers {@code type} identified by {@code label}. Labels are case" />
-          </node>
-        </node>
-        <node concept="TZ5HA" id="6TdxBJ4fcdg" role="TZ5H$">
-          <node concept="1dT_AC" id="6TdxBJ4fcdh" role="1dT_Ay">
-            <property role="1dT_AB" value=" sensitive." />
-          </node>
-        </node>
-        <node concept="TZ5HA" id="6TdxBJ4fcdi" role="TZ5H$">
-          <node concept="1dT_AC" id="6TdxBJ4fcdj" role="1dT_Ay">
-            <property role="1dT_AB" value="" />
-          </node>
-        </node>
-        <node concept="TZ5HA" id="6TdxBJ4fcdk" role="TZ5H$">
-          <node concept="1dT_AC" id="6TdxBJ4fcdl" role="1dT_Ay">
-            <property role="1dT_AB" value=" @throws IllegalArgumentException if either {@code type} or {@code label}" />
-          </node>
-        </node>
-        <node concept="TZ5HA" id="6TdxBJ4fcdm" role="TZ5H$">
-          <node concept="1dT_AC" id="6TdxBJ4fcdn" role="1dT_Ay">
-            <property role="1dT_AB" value="     have already been registered on this type adapter." />
-          </node>
-        </node>
-      </node>
-    </node>
-    <node concept="3clFb_" id="6TdxBJ4fc5N" role="jymVt">
-      <property role="TrG5h" value="registerSubtype" />
-      <node concept="37vLTG" id="6TdxBJ4fc5O" role="3clF46">
-        <property role="TrG5h" value="type" />
-        <node concept="3uibUv" id="6TdxBJ4fc5P" role="1tU5fm">
-          <ref role="3uigEE" to="wyt6:~Class" resolve="Class" />
-          <node concept="3qUE_q" id="6TdxBJ4fc5R" role="11_B2D">
-            <node concept="16syzq" id="6TdxBJ4fc5Q" role="3qUE_r">
-              <ref role="16sUi3" node="6TdxBJ4fc32" resolve="T" />
-            </node>
-          </node>
-        </node>
-      </node>
-      <node concept="3clFbS" id="6TdxBJ4fc5S" role="3clF47">
-        <node concept="3cpWs6" id="6TdxBJ4fc5T" role="3cqZAp">
-          <node concept="1rXfSq" id="6TdxBJ4fc5U" role="3cqZAk">
-            <ref role="37wK5l" node="6TdxBJ4fc56" resolve="registerSubtype" />
-            <node concept="37vLTw" id="6TdxBJ4fc5V" role="37wK5m">
-              <ref role="3cqZAo" node="6TdxBJ4fc5O" resolve="type" />
-            </node>
-            <node concept="2OqwBi" id="6TdxBJ4feQs" role="37wK5m">
-              <node concept="37vLTw" id="6TdxBJ4feQr" role="2Oq$k0">
-                <ref role="3cqZAo" node="6TdxBJ4fc5O" resolve="type" />
-              </node>
-              <node concept="liA8E" id="6TdxBJ4feQt" role="2OqNvi">
-                <ref role="37wK5l" to="wyt6:~Class.getSimpleName()" resolve="getSimpleName" />
-              </node>
-            </node>
-          </node>
-        </node>
-      </node>
-      <node concept="3Tm1VV" id="6TdxBJ4fc5X" role="1B3o_S" />
-      <node concept="3uibUv" id="6TdxBJ4fc5Y" role="3clF45">
-        <ref role="3uigEE" node="6TdxBJ4fc30" resolve="RuntimeTypeAdapterFactory" />
-        <node concept="16syzq" id="6TdxBJ4fc5Z" role="11_B2D">
-          <ref role="16sUi3" node="6TdxBJ4fc32" resolve="T" />
-        </node>
-      </node>
-      <node concept="P$JXv" id="6TdxBJ4fc60" role="lGtFl">
-        <node concept="TZ5HA" id="6TdxBJ4fcdo" role="TZ5H$">
-          <node concept="1dT_AC" id="6TdxBJ4fcdp" role="1dT_Ay">
-            <property role="1dT_AB" value=" Registers {@code type} identified by its {@link Class#getSimpleName simple" />
-          </node>
-        </node>
-        <node concept="TZ5HA" id="6TdxBJ4fcdq" role="TZ5H$">
-          <node concept="1dT_AC" id="6TdxBJ4fcdr" role="1dT_Ay">
-            <property role="1dT_AB" value=" name}. Labels are case sensitive." />
-          </node>
-        </node>
-        <node concept="TZ5HA" id="6TdxBJ4fcds" role="TZ5H$">
-          <node concept="1dT_AC" id="6TdxBJ4fcdt" role="1dT_Ay">
-            <property role="1dT_AB" value="" />
-          </node>
-        </node>
-        <node concept="TZ5HA" id="6TdxBJ4fcdu" role="TZ5H$">
-          <node concept="1dT_AC" id="6TdxBJ4fcdv" role="1dT_Ay">
-            <property role="1dT_AB" value=" @throws IllegalArgumentException if either {@code type} or its simple name" />
-          </node>
-        </node>
-        <node concept="TZ5HA" id="6TdxBJ4fcdw" role="TZ5H$">
-          <node concept="1dT_AC" id="6TdxBJ4fcdx" role="1dT_Ay">
-            <property role="1dT_AB" value="     have already been registered on this type adapter." />
-          </node>
-        </node>
-      </node>
-    </node>
-    <node concept="3clFb_" id="6TdxBJ4fc61" role="jymVt">
-      <property role="TrG5h" value="create" />
-      <node concept="16euLQ" id="6TdxBJ4fc62" role="16eVyc">
-        <property role="TrG5h" value="R" />
-      </node>
-      <node concept="37vLTG" id="6TdxBJ4fc63" role="3clF46">
-        <property role="TrG5h" value="gson" />
-        <node concept="3uibUv" id="6TdxBJ4fc64" role="1tU5fm">
-          <ref role="3uigEE" to="wy2b:~Gson" resolve="Gson" />
-        </node>
-      </node>
-      <node concept="37vLTG" id="6TdxBJ4fc65" role="3clF46">
-        <property role="TrG5h" value="type" />
-        <node concept="3uibUv" id="6TdxBJ4fc66" role="1tU5fm">
-          <ref role="3uigEE" to="14ci:~TypeToken" resolve="TypeToken" />
-          <node concept="16syzq" id="6TdxBJ4fc67" role="11_B2D">
-            <ref role="16sUi3" node="6TdxBJ4fc62" resolve="R" />
-          </node>
-        </node>
-      </node>
-      <node concept="3clFbS" id="6TdxBJ4fc68" role="3clF47">
-        <node concept="3clFbJ" id="6TdxBJ4fc69" role="3cqZAp">
-          <node concept="3y3z36" id="6TdxBJ4fc6a" role="3clFbw">
-            <node concept="2OqwBi" id="6TdxBJ4ff5q" role="3uHU7B">
-              <node concept="37vLTw" id="6TdxBJ4ff5p" role="2Oq$k0">
-                <ref role="3cqZAo" node="6TdxBJ4fc65" resolve="type" />
-              </node>
-              <node concept="liA8E" id="6TdxBJ4ff5r" role="2OqNvi">
-                <ref role="37wK5l" to="14ci:~TypeToken.getRawType()" resolve="getRawType" />
-              </node>
-            </node>
-            <node concept="37vLTw" id="6TdxBJ4fc6c" role="3uHU7w">
-              <ref role="3cqZAo" node="6TdxBJ4fc34" resolve="baseType" />
-            </node>
-          </node>
-          <node concept="3clFbS" id="6TdxBJ4fc6e" role="3clFbx">
-            <node concept="3cpWs6" id="6TdxBJ4fc6f" role="3cqZAp">
-              <node concept="10Nm6u" id="6TdxBJ4fc6g" role="3cqZAk" />
-            </node>
-          </node>
-        </node>
-        <node concept="3cpWs8" id="6TdxBJ4fc6i" role="3cqZAp">
-          <node concept="3cpWsn" id="6TdxBJ4fc6h" role="3cpWs9">
-            <property role="3TUv4t" value="true" />
-            <property role="TrG5h" value="labelToDelegate" />
-            <node concept="3uibUv" id="6TdxBJ4fc6j" role="1tU5fm">
-              <ref role="3uigEE" to="33ny:~Map" resolve="Map" />
-              <node concept="3uibUv" id="6TdxBJ4fc6k" role="11_B2D">
-                <ref role="3uigEE" to="wyt6:~String" resolve="String" />
-              </node>
-              <node concept="3uibUv" id="6TdxBJ4fc6l" role="11_B2D">
-                <ref role="3uigEE" to="wy2b:~TypeAdapter" resolve="TypeAdapter" />
-                <node concept="3qTvmN" id="6TdxBJ4fc6m" role="11_B2D" />
-              </node>
-            </node>
-            <node concept="2ShNRf" id="6TdxBJ4fiA4" role="33vP2m">
-              <node concept="1pGfFk" id="6TdxBJ4fiA8" role="2ShVmc">
-                <ref role="37wK5l" to="33ny:~LinkedHashMap.&lt;init&gt;()" resolve="LinkedHashMap" />
-                <node concept="3uibUv" id="6TdxBJ4fiA9" role="3PaCim">
-                  <ref role="3uigEE" to="wyt6:~String" resolve="String" />
-                </node>
-                <node concept="3uibUv" id="6TdxBJ4fiAa" role="3PaCim">
-                  <ref role="3uigEE" to="wy2b:~TypeAdapter" resolve="TypeAdapter" />
-                  <node concept="3qTvmN" id="6TdxBJ4fiAb" role="11_B2D" />
-                </node>
-              </node>
-            </node>
-          </node>
-        </node>
-        <node concept="3cpWs8" id="6TdxBJ4fc6s" role="3cqZAp">
-          <node concept="3cpWsn" id="6TdxBJ4fc6r" role="3cpWs9">
-            <property role="3TUv4t" value="true" />
-            <property role="TrG5h" value="subtypeToDelegate" />
-            <node concept="3uibUv" id="6TdxBJ4fc6t" role="1tU5fm">
-              <ref role="3uigEE" to="33ny:~Map" resolve="Map" />
-              <node concept="3uibUv" id="6TdxBJ4fc6u" role="11_B2D">
-                <ref role="3uigEE" to="wyt6:~Class" resolve="Class" />
-                <node concept="3qTvmN" id="6TdxBJ4fc6v" role="11_B2D" />
-              </node>
-              <node concept="3uibUv" id="6TdxBJ4fc6w" role="11_B2D">
-                <ref role="3uigEE" to="wy2b:~TypeAdapter" resolve="TypeAdapter" />
-                <node concept="3qTvmN" id="6TdxBJ4fc6x" role="11_B2D" />
-              </node>
-            </node>
-            <node concept="2ShNRf" id="6TdxBJ4ffla" role="33vP2m">
-              <node concept="1pGfFk" id="6TdxBJ4ffle" role="2ShVmc">
-                <ref role="37wK5l" to="33ny:~LinkedHashMap.&lt;init&gt;()" resolve="LinkedHashMap" />
-                <node concept="3uibUv" id="6TdxBJ4fflf" role="3PaCim">
-                  <ref role="3uigEE" to="wyt6:~Class" resolve="Class" />
-                  <node concept="3qTvmN" id="6TdxBJ4fflg" role="11_B2D" />
-                </node>
-                <node concept="3uibUv" id="6TdxBJ4fflh" role="3PaCim">
-                  <ref role="3uigEE" to="wy2b:~TypeAdapter" resolve="TypeAdapter" />
-                  <node concept="3qTvmN" id="6TdxBJ4ffli" role="11_B2D" />
-                </node>
-              </node>
-            </node>
-          </node>
-        </node>
-        <node concept="1DcWWT" id="6TdxBJ4fc6B" role="3cqZAp">
-          <node concept="2OqwBi" id="6TdxBJ4ffvX" role="1DdaDG">
-            <node concept="37vLTw" id="6TdxBJ4ffvW" role="2Oq$k0">
-              <ref role="3cqZAo" node="6TdxBJ4fc3d" resolve="labelToSubtype" />
-            </node>
-            <node concept="liA8E" id="6TdxBJ4ffvY" role="2OqNvi">
-              <ref role="37wK5l" to="33ny:~Map.entrySet()" resolve="entrySet" />
-            </node>
-          </node>
-          <node concept="3cpWsn" id="6TdxBJ4fc6U" role="1Duv9x">
-            <property role="TrG5h" value="entry" />
-            <node concept="3uibUv" id="6TdxBJ4fc6W" role="1tU5fm">
-              <ref role="3uigEE" to="33ny:~Map$Entry" resolve="Map.Entry" />
-              <node concept="3uibUv" id="6TdxBJ4fc6X" role="11_B2D">
-                <ref role="3uigEE" to="wyt6:~String" resolve="String" />
-              </node>
-              <node concept="3uibUv" id="6TdxBJ4fc6Y" role="11_B2D">
-                <ref role="3uigEE" to="wyt6:~Class" resolve="Class" />
-                <node concept="3qTvmN" id="6TdxBJ4fc6Z" role="11_B2D" />
-              </node>
-            </node>
-          </node>
-          <node concept="3clFbS" id="6TdxBJ4fc6D" role="2LFqv$">
-            <node concept="3cpWs8" id="6TdxBJ4fc6F" role="3cqZAp">
-              <node concept="3cpWsn" id="6TdxBJ4fc6E" role="3cpWs9">
-                <property role="TrG5h" value="delegate" />
-                <node concept="3uibUv" id="6TdxBJ4fc6G" role="1tU5fm">
-                  <ref role="3uigEE" to="wy2b:~TypeAdapter" resolve="TypeAdapter" />
-                  <node concept="3qTvmN" id="6TdxBJ4fc6H" role="11_B2D" />
-                </node>
-                <node concept="2OqwBi" id="6TdxBJ4fgre" role="33vP2m">
-                  <node concept="37vLTw" id="6TdxBJ4fgrd" role="2Oq$k0">
-                    <ref role="3cqZAo" node="6TdxBJ4fc63" resolve="gson" />
-                  </node>
-                  <node concept="liA8E" id="6TdxBJ4fgrf" role="2OqNvi">
-                    <ref role="37wK5l" to="wy2b:~Gson.getDelegateAdapter(com.google.gson.TypeAdapterFactory,com.google.gson.reflect.TypeToken)" resolve="getDelegateAdapter" />
-                    <node concept="Xjq3P" id="6TdxBJ4fgrg" role="37wK5m" />
-                    <node concept="2YIFZM" id="6TdxBJ4ftwj" role="37wK5m">
-                      <ref role="1Pybhc" to="14ci:~TypeToken" resolve="TypeToken" />
-                      <ref role="37wK5l" to="14ci:~TypeToken.get(java.lang.Class)" resolve="get" />
-                      <node concept="2OqwBi" id="6TdxBJ4fzdD" role="37wK5m">
-                        <node concept="37vLTw" id="6TdxBJ4fzdC" role="2Oq$k0">
-                          <ref role="3cqZAo" node="6TdxBJ4fc6U" resolve="entry" />
-                        </node>
-                        <node concept="liA8E" id="6TdxBJ4fzdE" role="2OqNvi">
-                          <ref role="37wK5l" to="33ny:~Map$Entry.getValue()" resolve="getValue" />
-                        </node>
-                      </node>
-                    </node>
-                  </node>
-                </node>
-              </node>
-            </node>
-            <node concept="3clFbF" id="6TdxBJ4fc6M" role="3cqZAp">
-              <node concept="2OqwBi" id="6TdxBJ4feDd" role="3clFbG">
-                <node concept="37vLTw" id="6TdxBJ4feDc" role="2Oq$k0">
-                  <ref role="3cqZAo" node="6TdxBJ4fc6h" resolve="labelToDelegate" />
-                </node>
-                <node concept="liA8E" id="6TdxBJ4feDe" role="2OqNvi">
-                  <ref role="37wK5l" to="33ny:~Map.put(java.lang.Object,java.lang.Object)" resolve="put" />
-                  <node concept="2OqwBi" id="6TdxBJ4fuH2" role="37wK5m">
-                    <node concept="37vLTw" id="6TdxBJ4fuH1" role="2Oq$k0">
-                      <ref role="3cqZAo" node="6TdxBJ4fc6U" resolve="entry" />
-                    </node>
-                    <node concept="liA8E" id="6TdxBJ4fuH3" role="2OqNvi">
-                      <ref role="37wK5l" to="33ny:~Map$Entry.getKey()" resolve="getKey" />
-                    </node>
-                  </node>
-                  <node concept="37vLTw" id="6TdxBJ4feDg" role="37wK5m">
-                    <ref role="3cqZAo" node="6TdxBJ4fc6E" resolve="delegate" />
-                  </node>
-                </node>
-              </node>
-            </node>
-            <node concept="3clFbF" id="6TdxBJ4fc6Q" role="3cqZAp">
-              <node concept="2OqwBi" id="6TdxBJ4fg13" role="3clFbG">
-                <node concept="37vLTw" id="6TdxBJ4fg12" role="2Oq$k0">
-                  <ref role="3cqZAo" node="6TdxBJ4fc6r" resolve="subtypeToDelegate" />
-                </node>
-                <node concept="liA8E" id="6TdxBJ4fg14" role="2OqNvi">
-                  <ref role="37wK5l" to="33ny:~Map.put(java.lang.Object,java.lang.Object)" resolve="put" />
-                  <node concept="2OqwBi" id="6TdxBJ4fuOs" role="37wK5m">
-                    <node concept="37vLTw" id="6TdxBJ4fuOr" role="2Oq$k0">
-                      <ref role="3cqZAo" node="6TdxBJ4fc6U" resolve="entry" />
-                    </node>
-                    <node concept="liA8E" id="6TdxBJ4fuOt" role="2OqNvi">
-                      <ref role="37wK5l" to="33ny:~Map$Entry.getValue()" resolve="getValue" />
-                    </node>
-                  </node>
-                  <node concept="37vLTw" id="6TdxBJ4fg16" role="37wK5m">
-                    <ref role="3cqZAo" node="6TdxBJ4fc6E" resolve="delegate" />
-                  </node>
-                </node>
-              </node>
-            </node>
-          </node>
-        </node>
-        <node concept="3cpWs6" id="6TdxBJ4fc71" role="3cqZAp">
-          <node concept="2OqwBi" id="6TdxBJ4fc72" role="3cqZAk">
-            <node concept="2ShNRf" id="6TdxBJ4fc73" role="2Oq$k0">
-              <node concept="YeOm9" id="6TdxBJ4fc74" role="2ShVmc">
-                <node concept="1Y3b0j" id="6TdxBJ4fc75" role="YeSDq">
-                  <ref role="1Y3XeK" to="wy2b:~TypeAdapter" resolve="TypeAdapter" />
-                  <ref role="37wK5l" to="wy2b:~TypeAdapter.&lt;init&gt;()" resolve="TypeAdapter" />
-                  <node concept="3clFb_" id="6TdxBJ4fc76" role="jymVt">
-                    <property role="TrG5h" value="read" />
-                    <node concept="2AHcQZ" id="6TdxBJ4fc77" role="2AJF6D">
-                      <ref role="2AI5Lk" to="wyt6:~Override" resolve="Override" />
-                    </node>
-                    <node concept="37vLTG" id="6TdxBJ4fc78" role="3clF46">
-                      <property role="TrG5h" value="in" />
-                      <node concept="3uibUv" id="6TdxBJ4fc79" role="1tU5fm">
-                        <ref role="3uigEE" to="c9jv:~JsonReader" resolve="JsonReader" />
-                      </node>
-                    </node>
-                    <node concept="3uibUv" id="6TdxBJ4fc7a" role="Sfmx6">
-                      <ref role="3uigEE" to="guwi:~IOException" resolve="IOException" />
-                    </node>
-                    <node concept="3clFbS" id="6TdxBJ4fc7b" role="3clF47">
-                      <node concept="3cpWs8" id="6TdxBJ4fc7d" role="3cqZAp">
-                        <node concept="3cpWsn" id="6TdxBJ4fc7c" role="3cpWs9">
-                          <property role="TrG5h" value="jsonElement" />
-                          <node concept="3uibUv" id="6TdxBJ4fc7e" role="1tU5fm">
-                            <ref role="3uigEE" to="wy2b:~JsonElement" resolve="JsonElement" />
-                          </node>
-                          <node concept="2YIFZM" id="6TdxBJ4flEW" role="33vP2m">
-                            <ref role="1Pybhc" to="pl94:~Streams" resolve="Streams" />
-                            <ref role="37wK5l" to="pl94:~Streams.parse(com.google.gson.stream.JsonReader)" resolve="parse" />
-                            <node concept="37vLTw" id="6TdxBJ4flEX" role="37wK5m">
-                              <ref role="3cqZAo" node="6TdxBJ4fc78" resolve="in" />
-                            </node>
-                          </node>
-                        </node>
-                      </node>
-                      <node concept="3cpWs8" id="6TdxBJ4fc7i" role="3cqZAp">
-                        <node concept="3cpWsn" id="6TdxBJ4fc7h" role="3cpWs9">
-                          <property role="TrG5h" value="labelJsonElement" />
-                          <node concept="3uibUv" id="6TdxBJ4fc7j" role="1tU5fm">
-                            <ref role="3uigEE" to="wy2b:~JsonElement" resolve="JsonElement" />
-                          </node>
-                        </node>
-                      </node>
-                      <node concept="3clFbJ" id="6TdxBJ4fc7k" role="3cqZAp">
-                        <node concept="37vLTw" id="6TdxBJ4fc7l" role="3clFbw">
-                          <ref role="3cqZAo" node="6TdxBJ4fc3z" resolve="maintainType" />
-                        </node>
-                        <node concept="9aQIb" id="6TdxBJ4fc7v" role="9aQIa">
-                          <node concept="3clFbS" id="6TdxBJ4fc7w" role="9aQI4">
-                            <node concept="3clFbF" id="6TdxBJ4fc7x" role="3cqZAp">
-                              <node concept="37vLTI" id="6TdxBJ4fc7y" role="3clFbG">
-                                <node concept="37vLTw" id="6TdxBJ4fc7z" role="37vLTJ">
-                                  <ref role="3cqZAo" node="6TdxBJ4fc7h" resolve="labelJsonElement" />
-                                </node>
-                                <node concept="2OqwBi" id="6TdxBJ4fc7$" role="37vLTx">
-                                  <node concept="2OqwBi" id="6TdxBJ4fh6k" role="2Oq$k0">
-                                    <node concept="37vLTw" id="6TdxBJ4fh6j" role="2Oq$k0">
-                                      <ref role="3cqZAo" node="6TdxBJ4fc7c" resolve="jsonElement" />
-                                    </node>
-                                    <node concept="liA8E" id="6TdxBJ4fh6l" role="2OqNvi">
-                                      <ref role="37wK5l" to="wy2b:~JsonElement.getAsJsonObject()" resolve="getAsJsonObject" />
-                                    </node>
-                                  </node>
-                                  <node concept="liA8E" id="6TdxBJ4fc7A" role="2OqNvi">
-                                    <ref role="37wK5l" to="wy2b:~JsonObject.remove(java.lang.String)" resolve="remove" />
-                                    <node concept="37vLTw" id="6TdxBJ4fc7B" role="37wK5m">
-                                      <ref role="3cqZAo" node="6TdxBJ4fc39" resolve="typeFieldName" />
-                                    </node>
-                                  </node>
-                                </node>
-                              </node>
-                            </node>
-                          </node>
-                        </node>
-                        <node concept="3clFbS" id="6TdxBJ4fc7n" role="3clFbx">
-                          <node concept="3clFbF" id="6TdxBJ4fc7o" role="3cqZAp">
-                            <node concept="37vLTI" id="6TdxBJ4fc7p" role="3clFbG">
-                              <node concept="37vLTw" id="6TdxBJ4fc7q" role="37vLTJ">
-                                <ref role="3cqZAo" node="6TdxBJ4fc7h" resolve="labelJsonElement" />
-                              </node>
-                              <node concept="2OqwBi" id="6TdxBJ4fc7r" role="37vLTx">
-                                <node concept="2OqwBi" id="6TdxBJ4fevu" role="2Oq$k0">
-                                  <node concept="37vLTw" id="6TdxBJ4fevt" role="2Oq$k0">
-                                    <ref role="3cqZAo" node="6TdxBJ4fc7c" resolve="jsonElement" />
-                                  </node>
-                                  <node concept="liA8E" id="6TdxBJ4fevv" role="2OqNvi">
-                                    <ref role="37wK5l" to="wy2b:~JsonElement.getAsJsonObject()" resolve="getAsJsonObject" />
-                                  </node>
-                                </node>
-                                <node concept="liA8E" id="6TdxBJ4fc7t" role="2OqNvi">
-                                  <ref role="37wK5l" to="wy2b:~JsonObject.get(java.lang.String)" resolve="get" />
-                                  <node concept="37vLTw" id="6TdxBJ4fc7u" role="37wK5m">
-                                    <ref role="3cqZAo" node="6TdxBJ4fc39" resolve="typeFieldName" />
-                                  </node>
-                                </node>
-                              </node>
-                            </node>
-                          </node>
-                        </node>
-                      </node>
-                      <node concept="3clFbJ" id="6TdxBJ4fc7C" role="3cqZAp">
-                        <node concept="3clFbC" id="6TdxBJ4fc7D" role="3clFbw">
-                          <node concept="37vLTw" id="6TdxBJ4fc7E" role="3uHU7B">
-                            <ref role="3cqZAo" node="6TdxBJ4fc7h" resolve="labelJsonElement" />
-                          </node>
-                          <node concept="10Nm6u" id="6TdxBJ4fc7F" role="3uHU7w" />
-                        </node>
-                        <node concept="3clFbS" id="6TdxBJ4fc7H" role="3clFbx">
-                          <node concept="YS8fn" id="6TdxBJ4fc7Q" role="3cqZAp">
-                            <node concept="2ShNRf" id="6TdxBJ4fjtE" role="YScLw">
-                              <node concept="1pGfFk" id="6TdxBJ4fjyG" role="2ShVmc">
-                                <ref role="37wK5l" to="wy2b:~JsonParseException.&lt;init&gt;(java.lang.String)" resolve="JsonParseException" />
-                                <node concept="3cpWs3" id="6TdxBJ4fjyH" role="37wK5m">
-                                  <node concept="3cpWs3" id="6TdxBJ4fjyI" role="3uHU7B">
-                                    <node concept="3cpWs3" id="6TdxBJ4fjyJ" role="3uHU7B">
-                                      <node concept="Xl_RD" id="6TdxBJ4fjyK" role="3uHU7B">
-                                        <property role="Xl_RC" value="cannot deserialize " />
-                                      </node>
-                                      <node concept="37vLTw" id="6TdxBJ4fjyL" role="3uHU7w">
-                                        <ref role="3cqZAo" node="6TdxBJ4fc34" resolve="baseType" />
-                                      </node>
-                                    </node>
-                                    <node concept="Xl_RD" id="6TdxBJ4fjyM" role="3uHU7w">
-                                      <property role="Xl_RC" value=" because it does not define a field named " />
-                                    </node>
-                                  </node>
-                                  <node concept="37vLTw" id="6TdxBJ4fjyN" role="3uHU7w">
-                                    <ref role="3cqZAo" node="6TdxBJ4fc39" resolve="typeFieldName" />
-                                  </node>
-                                </node>
-                              </node>
-                            </node>
-                          </node>
-                        </node>
-                      </node>
-                      <node concept="3cpWs8" id="6TdxBJ4fc7S" role="3cqZAp">
-                        <node concept="3cpWsn" id="6TdxBJ4fc7R" role="3cpWs9">
-                          <property role="TrG5h" value="label" />
-                          <node concept="3uibUv" id="6TdxBJ4fc7T" role="1tU5fm">
-                            <ref role="3uigEE" to="wyt6:~String" resolve="String" />
-                          </node>
-                          <node concept="2OqwBi" id="6TdxBJ4fjY0" role="33vP2m">
-                            <node concept="37vLTw" id="6TdxBJ4fjXZ" role="2Oq$k0">
-                              <ref role="3cqZAo" node="6TdxBJ4fc7h" resolve="labelJsonElement" />
-                            </node>
-                            <node concept="liA8E" id="6TdxBJ4fjY1" role="2OqNvi">
-                              <ref role="37wK5l" to="wy2b:~JsonElement.getAsString()" resolve="getAsString" />
-                            </node>
-                          </node>
-                        </node>
-                      </node>
-                      <node concept="3cpWs8" id="6TdxBJ4fc7W" role="3cqZAp">
-                        <node concept="3cpWsn" id="6TdxBJ4fc7V" role="3cpWs9">
-                          <property role="TrG5h" value="delegate" />
-                          <node concept="3uibUv" id="6TdxBJ4fc7X" role="1tU5fm">
-                            <ref role="3uigEE" to="wy2b:~TypeAdapter" resolve="TypeAdapter" />
-                            <node concept="16syzq" id="6TdxBJ4fc7Y" role="11_B2D">
-                              <ref role="16sUi3" node="6TdxBJ4fc62" resolve="R" />
-                            </node>
-                          </node>
-                          <node concept="10QFUN" id="6TdxBJ4fc7Z" role="33vP2m">
-                            <node concept="2OqwBi" id="6TdxBJ4fkbB" role="10QFUP">
-                              <node concept="37vLTw" id="6TdxBJ4fkbA" role="2Oq$k0">
-                                <ref role="3cqZAo" node="6TdxBJ4fc6h" resolve="labelToDelegate" />
-                              </node>
-                              <node concept="liA8E" id="6TdxBJ4fkbC" role="2OqNvi">
-                                <ref role="37wK5l" to="33ny:~Map.get(java.lang.Object)" resolve="get" />
-                                <node concept="37vLTw" id="6TdxBJ4fkbD" role="37wK5m">
-                                  <ref role="3cqZAo" node="6TdxBJ4fc7R" resolve="label" />
-                                </node>
-                              </node>
-                            </node>
-                            <node concept="3uibUv" id="6TdxBJ4fc82" role="10QFUM">
-                              <ref role="3uigEE" to="wy2b:~TypeAdapter" resolve="TypeAdapter" />
-                              <node concept="16syzq" id="6TdxBJ4fc83" role="11_B2D">
-                                <ref role="16sUi3" node="6TdxBJ4fc62" resolve="R" />
-                              </node>
-                            </node>
-                          </node>
-                        </node>
-                      </node>
-                      <node concept="3clFbJ" id="6TdxBJ4fc84" role="3cqZAp">
-                        <node concept="3clFbC" id="6TdxBJ4fc85" role="3clFbw">
-                          <node concept="37vLTw" id="6TdxBJ4fc86" role="3uHU7B">
-                            <ref role="3cqZAo" node="6TdxBJ4fc7V" resolve="delegate" />
-                          </node>
-                          <node concept="10Nm6u" id="6TdxBJ4fc87" role="3uHU7w" />
-                        </node>
-                        <node concept="3clFbS" id="6TdxBJ4fc89" role="3clFbx">
-                          <node concept="YS8fn" id="6TdxBJ4fc8k" role="3cqZAp">
-                            <node concept="2ShNRf" id="6TdxBJ4fi5Q" role="YScLw">
-                              <node concept="1pGfFk" id="6TdxBJ4fibg" role="2ShVmc">
-                                <ref role="37wK5l" to="wy2b:~JsonParseException.&lt;init&gt;(java.lang.String)" resolve="JsonParseException" />
-                                <node concept="3cpWs3" id="6TdxBJ4fibh" role="37wK5m">
-                                  <node concept="3cpWs3" id="6TdxBJ4fibi" role="3uHU7B">
-                                    <node concept="3cpWs3" id="6TdxBJ4fibj" role="3uHU7B">
-                                      <node concept="3cpWs3" id="6TdxBJ4fibk" role="3uHU7B">
-                                        <node concept="Xl_RD" id="6TdxBJ4fibl" role="3uHU7B">
-                                          <property role="Xl_RC" value="cannot deserialize " />
-                                        </node>
-                                        <node concept="37vLTw" id="6TdxBJ4fibm" role="3uHU7w">
-                                          <ref role="3cqZAo" node="6TdxBJ4fc34" resolve="baseType" />
-                                        </node>
-                                      </node>
-                                      <node concept="Xl_RD" id="6TdxBJ4fibn" role="3uHU7w">
-                                        <property role="Xl_RC" value=" subtype named " />
-                                      </node>
-                                    </node>
-                                    <node concept="37vLTw" id="6TdxBJ4fibo" role="3uHU7w">
-                                      <ref role="3cqZAo" node="6TdxBJ4fc7R" resolve="label" />
-                                    </node>
-                                  </node>
-                                  <node concept="Xl_RD" id="6TdxBJ4fibp" role="3uHU7w">
-                                    <property role="Xl_RC" value="; did you forget to register a subtype?" />
-                                  </node>
-                                </node>
-                              </node>
-                            </node>
-                          </node>
-                        </node>
-                      </node>
-                      <node concept="3cpWs6" id="6TdxBJ4fc8l" role="3cqZAp">
-                        <node concept="2OqwBi" id="6TdxBJ4fk00" role="3cqZAk">
-                          <node concept="37vLTw" id="6TdxBJ4fjZZ" role="2Oq$k0">
-                            <ref role="3cqZAo" node="6TdxBJ4fc7V" resolve="delegate" />
-                          </node>
-                          <node concept="liA8E" id="6TdxBJ4fk01" role="2OqNvi">
-                            <ref role="37wK5l" to="wy2b:~TypeAdapter.fromJsonTree(com.google.gson.JsonElement)" resolve="fromJsonTree" />
-                            <node concept="37vLTw" id="6TdxBJ4fk02" role="37wK5m">
-                              <ref role="3cqZAo" node="6TdxBJ4fc7c" resolve="jsonElement" />
-                            </node>
-                          </node>
-                        </node>
-                      </node>
-                    </node>
-                    <node concept="3Tm1VV" id="6TdxBJ4fc8o" role="1B3o_S" />
-                    <node concept="16syzq" id="6TdxBJ4fc8p" role="3clF45">
-                      <ref role="16sUi3" node="6TdxBJ4fc62" resolve="R" />
-                    </node>
-                  </node>
-                  <node concept="3clFb_" id="6TdxBJ4fc8q" role="jymVt">
-                    <property role="TrG5h" value="write" />
-                    <node concept="2AHcQZ" id="6TdxBJ4fc8r" role="2AJF6D">
-                      <ref role="2AI5Lk" to="wyt6:~Override" resolve="Override" />
-                    </node>
-                    <node concept="37vLTG" id="6TdxBJ4fc8s" role="3clF46">
-                      <property role="TrG5h" value="out" />
-                      <node concept="3uibUv" id="6TdxBJ4fc8t" role="1tU5fm">
-                        <ref role="3uigEE" to="c9jv:~JsonWriter" resolve="JsonWriter" />
-                      </node>
-                    </node>
-                    <node concept="37vLTG" id="6TdxBJ4fc8u" role="3clF46">
-                      <property role="TrG5h" value="value" />
-                      <node concept="16syzq" id="6TdxBJ4fc8v" role="1tU5fm">
-                        <ref role="16sUi3" node="6TdxBJ4fc62" resolve="R" />
-                      </node>
-                    </node>
-                    <node concept="3uibUv" id="6TdxBJ4fc8w" role="Sfmx6">
-                      <ref role="3uigEE" to="guwi:~IOException" resolve="IOException" />
-                    </node>
-                    <node concept="3clFbS" id="6TdxBJ4fc8x" role="3clF47">
-                      <node concept="3cpWs8" id="6TdxBJ4fc8z" role="3cqZAp">
-                        <node concept="3cpWsn" id="6TdxBJ4fc8y" role="3cpWs9">
-                          <property role="TrG5h" value="srcType" />
-                          <node concept="3uibUv" id="6TdxBJ4fc8$" role="1tU5fm">
-                            <ref role="3uigEE" to="wyt6:~Class" resolve="Class" />
-                            <node concept="3qTvmN" id="6TdxBJ4fc8_" role="11_B2D" />
-                          </node>
-                          <node concept="2OqwBi" id="6TdxBJ4fkuJ" role="33vP2m">
-                            <node concept="37vLTw" id="6TdxBJ4fkuI" role="2Oq$k0">
-                              <ref role="3cqZAo" node="6TdxBJ4fc8u" resolve="value" />
-                            </node>
-                            <node concept="liA8E" id="6TdxBJ4fkuK" role="2OqNvi">
-                              <ref role="37wK5l" to="wyt6:~Object.getClass()" resolve="getClass" />
-                            </node>
-                          </node>
-                        </node>
-                      </node>
-                      <node concept="3cpWs8" id="6TdxBJ4fc8C" role="3cqZAp">
-                        <node concept="3cpWsn" id="6TdxBJ4fc8B" role="3cpWs9">
-                          <property role="TrG5h" value="label" />
-                          <node concept="3uibUv" id="6TdxBJ4fc8D" role="1tU5fm">
-                            <ref role="3uigEE" to="wyt6:~String" resolve="String" />
-                          </node>
-                          <node concept="2OqwBi" id="6TdxBJ4fm3g" role="33vP2m">
-                            <node concept="37vLTw" id="6TdxBJ4fm3f" role="2Oq$k0">
-                              <ref role="3cqZAo" node="6TdxBJ4fc3o" resolve="subtypeToLabel" />
-                            </node>
-                            <node concept="liA8E" id="6TdxBJ4fm3h" role="2OqNvi">
-                              <ref role="37wK5l" to="33ny:~Map.get(java.lang.Object)" resolve="get" />
-                              <node concept="37vLTw" id="6TdxBJ4fm3i" role="37wK5m">
-                                <ref role="3cqZAo" node="6TdxBJ4fc8y" resolve="srcType" />
-                              </node>
-                            </node>
-                          </node>
-                        </node>
-                      </node>
-                      <node concept="3cpWs8" id="6TdxBJ4fc8H" role="3cqZAp">
-                        <node concept="3cpWsn" id="6TdxBJ4fc8G" role="3cpWs9">
-                          <property role="TrG5h" value="delegate" />
-                          <node concept="3uibUv" id="6TdxBJ4fc8I" role="1tU5fm">
-                            <ref role="3uigEE" to="wy2b:~TypeAdapter" resolve="TypeAdapter" />
-                            <node concept="16syzq" id="6TdxBJ4fc8J" role="11_B2D">
-                              <ref role="16sUi3" node="6TdxBJ4fc62" resolve="R" />
-                            </node>
-                          </node>
-                          <node concept="10QFUN" id="6TdxBJ4fc8K" role="33vP2m">
-                            <node concept="2OqwBi" id="6TdxBJ4fjzC" role="10QFUP">
-                              <node concept="37vLTw" id="6TdxBJ4fjzB" role="2Oq$k0">
-                                <ref role="3cqZAo" node="6TdxBJ4fc6r" resolve="subtypeToDelegate" />
-                              </node>
-                              <node concept="liA8E" id="6TdxBJ4fjzD" role="2OqNvi">
-                                <ref role="37wK5l" to="33ny:~Map.get(java.lang.Object)" resolve="get" />
-                                <node concept="37vLTw" id="6TdxBJ4fjzE" role="37wK5m">
-                                  <ref role="3cqZAo" node="6TdxBJ4fc8y" resolve="srcType" />
-                                </node>
-                              </node>
-                            </node>
-                            <node concept="3uibUv" id="6TdxBJ4fc8N" role="10QFUM">
-                              <ref role="3uigEE" to="wy2b:~TypeAdapter" resolve="TypeAdapter" />
-                              <node concept="16syzq" id="6TdxBJ4fc8O" role="11_B2D">
-                                <ref role="16sUi3" node="6TdxBJ4fc62" resolve="R" />
-                              </node>
-                            </node>
-                          </node>
-                        </node>
-                      </node>
-                      <node concept="3clFbJ" id="6TdxBJ4fc8P" role="3cqZAp">
-                        <node concept="3clFbC" id="6TdxBJ4fc8Q" role="3clFbw">
-                          <node concept="37vLTw" id="6TdxBJ4fc8R" role="3uHU7B">
-                            <ref role="3cqZAo" node="6TdxBJ4fc8G" resolve="delegate" />
-                          </node>
-                          <node concept="10Nm6u" id="6TdxBJ4fc8S" role="3uHU7w" />
-                        </node>
-                        <node concept="3clFbS" id="6TdxBJ4fc8U" role="3clFbx">
-                          <node concept="YS8fn" id="6TdxBJ4fc91" role="3cqZAp">
-                            <node concept="2ShNRf" id="6TdxBJ4folz" role="YScLw">
-                              <node concept="1pGfFk" id="6TdxBJ4fos4" role="2ShVmc">
-                                <ref role="37wK5l" to="wy2b:~JsonParseException.&lt;init&gt;(java.lang.String)" resolve="JsonParseException" />
-                                <node concept="3cpWs3" id="6TdxBJ4fos5" role="37wK5m">
-                                  <node concept="3cpWs3" id="6TdxBJ4fos6" role="3uHU7B">
-                                    <node concept="Xl_RD" id="6TdxBJ4fos7" role="3uHU7B">
-                                      <property role="Xl_RC" value="cannot serialize " />
-                                    </node>
-                                    <node concept="2OqwBi" id="6TdxBJ4fos8" role="3uHU7w">
-                                      <node concept="37vLTw" id="6TdxBJ4fos9" role="2Oq$k0">
-                                        <ref role="3cqZAo" node="6TdxBJ4fc8y" resolve="srcType" />
-                                      </node>
-                                      <node concept="liA8E" id="6TdxBJ4fosa" role="2OqNvi">
-                                        <ref role="37wK5l" to="wyt6:~Class.getName()" resolve="getName" />
-                                      </node>
-                                    </node>
-                                  </node>
-                                  <node concept="Xl_RD" id="6TdxBJ4fosb" role="3uHU7w">
-                                    <property role="Xl_RC" value="; did you forget to register a subtype?" />
-                                  </node>
-                                </node>
-                              </node>
-                            </node>
-                          </node>
-                        </node>
-                      </node>
-                      <node concept="3cpWs8" id="6TdxBJ4fc93" role="3cqZAp">
-                        <node concept="3cpWsn" id="6TdxBJ4fc92" role="3cpWs9">
-                          <property role="TrG5h" value="jsonObject" />
-                          <node concept="3uibUv" id="6TdxBJ4fc94" role="1tU5fm">
-                            <ref role="3uigEE" to="wy2b:~JsonObject" resolve="JsonObject" />
-                          </node>
-                          <node concept="2OqwBi" id="6TdxBJ4fc95" role="33vP2m">
-                            <node concept="2OqwBi" id="6TdxBJ4fhaC" role="2Oq$k0">
-                              <node concept="37vLTw" id="6TdxBJ4fhaB" role="2Oq$k0">
-                                <ref role="3cqZAo" node="6TdxBJ4fc8G" resolve="delegate" />
-                              </node>
-                              <node concept="liA8E" id="6TdxBJ4fhaD" role="2OqNvi">
-                                <ref role="37wK5l" to="wy2b:~TypeAdapter.toJsonTree(java.lang.Object)" resolve="toJsonTree" />
-                                <node concept="37vLTw" id="6TdxBJ4fhaE" role="37wK5m">
-                                  <ref role="3cqZAo" node="6TdxBJ4fc8u" resolve="value" />
-                                </node>
-                              </node>
-                            </node>
-                            <node concept="liA8E" id="6TdxBJ4fc98" role="2OqNvi">
-                              <ref role="37wK5l" to="wy2b:~JsonElement.getAsJsonObject()" resolve="getAsJsonObject" />
-                            </node>
-                          </node>
-                        </node>
-                      </node>
-                      <node concept="3clFbJ" id="6TdxBJ4fc99" role="3cqZAp">
-                        <node concept="37vLTw" id="6TdxBJ4fc9a" role="3clFbw">
-                          <ref role="3cqZAo" node="6TdxBJ4fc3z" resolve="maintainType" />
-                        </node>
-                        <node concept="3clFbS" id="6TdxBJ4fc9c" role="3clFbx">
-                          <node concept="3clFbF" id="6TdxBJ4fc9d" role="3cqZAp">
-                            <node concept="2YIFZM" id="6TdxBJ4fm2q" role="3clFbG">
-                              <ref role="1Pybhc" to="pl94:~Streams" resolve="Streams" />
-                              <ref role="37wK5l" to="pl94:~Streams.write(com.google.gson.JsonElement,com.google.gson.stream.JsonWriter)" resolve="write" />
-                              <node concept="37vLTw" id="6TdxBJ4fm2r" role="37wK5m">
-                                <ref role="3cqZAo" node="6TdxBJ4fc92" resolve="jsonObject" />
-                              </node>
-                              <node concept="37vLTw" id="6TdxBJ4fm2s" role="37wK5m">
-                                <ref role="3cqZAo" node="6TdxBJ4fc8s" resolve="out" />
-                              </node>
-                            </node>
-                          </node>
-                          <node concept="3cpWs6" id="6TdxBJ4fc9h" role="3cqZAp" />
-                        </node>
-                      </node>
-                      <node concept="3cpWs8" id="6TdxBJ4fc9j" role="3cqZAp">
-                        <node concept="3cpWsn" id="6TdxBJ4fc9i" role="3cpWs9">
-                          <property role="TrG5h" value="clone" />
-                          <node concept="3uibUv" id="6TdxBJ4fc9k" role="1tU5fm">
-                            <ref role="3uigEE" to="wy2b:~JsonObject" resolve="JsonObject" />
-                          </node>
-                          <node concept="2ShNRf" id="6TdxBJ4feko" role="33vP2m">
-                            <node concept="1pGfFk" id="6TdxBJ4fekp" role="2ShVmc">
-                              <ref role="37wK5l" to="wy2b:~JsonObject.&lt;init&gt;()" resolve="JsonObject" />
-                            </node>
-                          </node>
-                        </node>
-                      </node>
-                      <node concept="3clFbJ" id="6TdxBJ4fc9m" role="3cqZAp">
-                        <node concept="2OqwBi" id="6TdxBJ4fjcR" role="3clFbw">
-                          <node concept="37vLTw" id="6TdxBJ4fjcQ" role="2Oq$k0">
-                            <ref role="3cqZAo" node="6TdxBJ4fc92" resolve="jsonObject" />
-                          </node>
-                          <node concept="liA8E" id="6TdxBJ4fjcS" role="2OqNvi">
-                            <ref role="37wK5l" to="wy2b:~JsonObject.has(java.lang.String)" resolve="has" />
-                            <node concept="37vLTw" id="6TdxBJ4fjcT" role="37wK5m">
-                              <ref role="3cqZAo" node="6TdxBJ4fc39" resolve="typeFieldName" />
-                            </node>
-                          </node>
-                        </node>
-                        <node concept="3clFbS" id="6TdxBJ4fc9q" role="3clFbx">
-                          <node concept="YS8fn" id="6TdxBJ4fc9z" role="3cqZAp">
-                            <node concept="2ShNRf" id="6TdxBJ4fezk" role="YScLw">
-                              <node concept="1pGfFk" id="6TdxBJ4feCw" role="2ShVmc">
-                                <ref role="37wK5l" to="wy2b:~JsonParseException.&lt;init&gt;(java.lang.String)" resolve="JsonParseException" />
-                                <node concept="3cpWs3" id="6TdxBJ4feCx" role="37wK5m">
-                                  <node concept="3cpWs3" id="6TdxBJ4feCy" role="3uHU7B">
-                                    <node concept="3cpWs3" id="6TdxBJ4feCz" role="3uHU7B">
-                                      <node concept="Xl_RD" id="6TdxBJ4feC$" role="3uHU7B">
-                                        <property role="Xl_RC" value="cannot serialize " />
-                                      </node>
-                                      <node concept="2OqwBi" id="6TdxBJ4fuW_" role="3uHU7w">
-                                        <node concept="37vLTw" id="6TdxBJ4fuW$" role="2Oq$k0">
-                                          <ref role="3cqZAo" node="6TdxBJ4fc8y" resolve="srcType" />
-                                        </node>
-                                        <node concept="liA8E" id="6TdxBJ4fuWA" role="2OqNvi">
-                                          <ref role="37wK5l" to="wyt6:~Class.getName()" resolve="getName" />
-                                        </node>
-                                      </node>
-                                    </node>
-                                    <node concept="Xl_RD" id="6TdxBJ4feCA" role="3uHU7w">
-                                      <property role="Xl_RC" value=" because it already defines a field named " />
-                                    </node>
-                                  </node>
-                                  <node concept="37vLTw" id="6TdxBJ4feCB" role="3uHU7w">
-                                    <ref role="3cqZAo" node="6TdxBJ4fc39" resolve="typeFieldName" />
-                                  </node>
-                                </node>
-                              </node>
-                            </node>
-                          </node>
-                        </node>
-                      </node>
-                      <node concept="3clFbF" id="6TdxBJ4fc9$" role="3cqZAp">
-                        <node concept="2OqwBi" id="6TdxBJ4fhPg" role="3clFbG">
-                          <node concept="37vLTw" id="6TdxBJ4fhPf" role="2Oq$k0">
-                            <ref role="3cqZAo" node="6TdxBJ4fc9i" resolve="clone" />
-                          </node>
-                          <node concept="liA8E" id="6TdxBJ4fhPh" role="2OqNvi">
-                            <ref role="37wK5l" to="wy2b:~JsonObject.add(java.lang.String,com.google.gson.JsonElement)" resolve="add" />
-                            <node concept="37vLTw" id="6TdxBJ4fhPi" role="37wK5m">
-                              <ref role="3cqZAo" node="6TdxBJ4fc39" resolve="typeFieldName" />
-                            </node>
-                            <node concept="2ShNRf" id="6TdxBJ4fv95" role="37wK5m">
-                              <node concept="1pGfFk" id="6TdxBJ4fv9v" role="2ShVmc">
-                                <ref role="37wK5l" to="wy2b:~JsonPrimitive.&lt;init&gt;(java.lang.String)" resolve="JsonPrimitive" />
-                                <node concept="37vLTw" id="6TdxBJ4fv9w" role="37wK5m">
-                                  <ref role="3cqZAo" node="6TdxBJ4fc8B" resolve="label" />
-                                </node>
-                              </node>
-                            </node>
-                          </node>
-                        </node>
-                      </node>
-                      <node concept="1DcWWT" id="6TdxBJ4fc9D" role="3cqZAp">
-                        <node concept="2OqwBi" id="6TdxBJ4felV" role="1DdaDG">
-                          <node concept="37vLTw" id="6TdxBJ4felU" role="2Oq$k0">
-                            <ref role="3cqZAo" node="6TdxBJ4fc92" resolve="jsonObject" />
-                          </node>
-                          <node concept="liA8E" id="6TdxBJ4felW" role="2OqNvi">
-                            <ref role="37wK5l" to="wy2b:~JsonObject.entrySet()" resolve="entrySet" />
-                          </node>
-                        </node>
-                        <node concept="3cpWsn" id="6TdxBJ4fc9K" role="1Duv9x">
-                          <property role="TrG5h" value="e" />
-                          <node concept="3uibUv" id="6TdxBJ4fc9M" role="1tU5fm">
-                            <ref role="3uigEE" to="33ny:~Map$Entry" resolve="Map.Entry" />
-                            <node concept="3uibUv" id="6TdxBJ4fc9N" role="11_B2D">
-                              <ref role="3uigEE" to="wyt6:~String" resolve="String" />
-                            </node>
-                            <node concept="3uibUv" id="6TdxBJ4fc9O" role="11_B2D">
-                              <ref role="3uigEE" to="wy2b:~JsonElement" resolve="JsonElement" />
-                            </node>
-                          </node>
-                        </node>
-                        <node concept="3clFbS" id="6TdxBJ4fc9F" role="2LFqv$">
-                          <node concept="3clFbF" id="6TdxBJ4fc9G" role="3cqZAp">
-                            <node concept="2OqwBi" id="6TdxBJ4ffiJ" role="3clFbG">
-                              <node concept="37vLTw" id="6TdxBJ4ffiI" role="2Oq$k0">
-                                <ref role="3cqZAo" node="6TdxBJ4fc9i" resolve="clone" />
-                              </node>
-                              <node concept="liA8E" id="6TdxBJ4ffiK" role="2OqNvi">
-                                <ref role="37wK5l" to="wy2b:~JsonObject.add(java.lang.String,com.google.gson.JsonElement)" resolve="add" />
-                                <node concept="2OqwBi" id="6TdxBJ4fueS" role="37wK5m">
-                                  <node concept="37vLTw" id="6TdxBJ4fueR" role="2Oq$k0">
-                                    <ref role="3cqZAo" node="6TdxBJ4fc9K" resolve="e" />
-                                  </node>
-                                  <node concept="liA8E" id="6TdxBJ4fueT" role="2OqNvi">
-                                    <ref role="37wK5l" to="33ny:~Map$Entry.getKey()" resolve="getKey" />
-                                  </node>
-                                </node>
-                                <node concept="2OqwBi" id="6TdxBJ4ffiM" role="37wK5m">
-                                  <node concept="37vLTw" id="6TdxBJ4ffiN" role="2Oq$k0">
-                                    <ref role="3cqZAo" node="6TdxBJ4fc9K" resolve="e" />
-                                  </node>
-                                  <node concept="liA8E" id="6TdxBJ4ffiO" role="2OqNvi">
-                                    <ref role="37wK5l" to="33ny:~Map$Entry.getValue()" resolve="getValue" />
-                                  </node>
-                                </node>
-                              </node>
-                            </node>
-                          </node>
-                        </node>
-                      </node>
-                      <node concept="3clFbF" id="6TdxBJ4fc9Q" role="3cqZAp">
-                        <node concept="2YIFZM" id="6TdxBJ4ffbo" role="3clFbG">
-                          <ref role="1Pybhc" to="pl94:~Streams" resolve="Streams" />
-                          <ref role="37wK5l" to="pl94:~Streams.write(com.google.gson.JsonElement,com.google.gson.stream.JsonWriter)" resolve="write" />
-                          <node concept="37vLTw" id="6TdxBJ4ffbp" role="37wK5m">
-                            <ref role="3cqZAo" node="6TdxBJ4fc9i" resolve="clone" />
-                          </node>
-                          <node concept="37vLTw" id="6TdxBJ4ffbq" role="37wK5m">
-                            <ref role="3cqZAo" node="6TdxBJ4fc8s" resolve="out" />
-                          </node>
-                        </node>
-                      </node>
-                    </node>
-                    <node concept="3Tm1VV" id="6TdxBJ4fc9U" role="1B3o_S" />
-                    <node concept="3cqZAl" id="6TdxBJ4fc9V" role="3clF45" />
-                  </node>
-                  <node concept="16syzq" id="6TdxBJ4fc9W" role="2Ghqu4">
-                    <ref role="16sUi3" node="6TdxBJ4fc62" resolve="R" />
-                  </node>
-                </node>
-              </node>
-            </node>
-            <node concept="liA8E" id="6TdxBJ4fc9X" role="2OqNvi">
-              <ref role="37wK5l" to="wy2b:~TypeAdapter.nullSafe()" resolve="nullSafe" />
-            </node>
-          </node>
-        </node>
-      </node>
-      <node concept="3Tm1VV" id="6TdxBJ4fc9Y" role="1B3o_S" />
-      <node concept="3uibUv" id="6TdxBJ4fc9Z" role="3clF45">
-        <ref role="3uigEE" to="wy2b:~TypeAdapter" resolve="TypeAdapter" />
-        <node concept="16syzq" id="6TdxBJ4fca0" role="11_B2D">
-          <ref role="16sUi3" node="6TdxBJ4fc62" resolve="R" />
-        </node>
-      </node>
-    </node>
   </node>
 </model>
 

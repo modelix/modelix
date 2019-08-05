@@ -5,15 +5,17 @@
       <sourceRoot location="models" />
     </modelRoot>
     <modelRoot contentPath="${module}/lib" type="java_classes">
-      <sourceRoot location="gson-2.8.0.jar" />
       <sourceRoot location="java_websocket.jar" />
       <sourceRoot location="json-20160810.jar" />
+      <sourceRoot location="gson-2.8.5.jar" />
+      <sourceRoot location="gson-extras-2.8.5.jar" />
     </modelRoot>
   </models>
   <stubModelEntries>
-    <stubModelEntry path="${module}/lib/gson-2.8.0.jar" />
     <stubModelEntry path="${module}/lib/java_websocket.jar" />
     <stubModelEntry path="${module}/lib/json-20160810.jar" />
+    <stubModelEntry path="${module}/lib/gson-2.8.5.jar" />
+    <stubModelEntry path="${module}/lib/gson-extras-2.8.5.jar" />
   </stubModelEntries>
   <sourcePath />
   <dependencies>
