@@ -40,7 +40,7 @@ public class ModelServer extends WebSocketServer {
                 reply.put("type", "get");
                 reply.put("key", key);
                 reply.put("value", value);
-                conn.send(reply.toString());
+                send(conn, reply.toString());
             }
         });
         messageHandlers.put("getRecursively", new MessageHandler() {
@@ -55,7 +55,7 @@ public class ModelServer extends WebSocketServer {
                 collect(key, entries, new HashSet<>());
                 reply.put("entries", entries);
 
-                conn.send(reply.toString());
+                send(conn, reply.toString());
             }
 
             private void collect(String key, JSONArray acc, Set<String> foundKeys) {
@@ -97,7 +97,7 @@ public class ModelServer extends WebSocketServer {
                         if (c == conn) {
                             continue;
                         }
-                        c.send(notificationStr);
+                        send(c, notificationStr);
                     }
                 }
 
@@ -127,7 +127,7 @@ public class ModelServer extends WebSocketServer {
 
     public void broadcast(String message) {
         for (Session session : sessions.values()) {
-            session.getConnection().send(message);
+            send(session.getConnection(), message);
         }
     }
 
@@ -143,7 +143,13 @@ public class ModelServer extends WebSocketServer {
 
     @Override
     public void onMessage(WebSocket conn, String message) {
+        System.out.println(sessions.get(conn).getId() + " R " + message);
         processMessage(conn, new JSONObject(message));
+    }
+
+    private void send(WebSocket conn, String message) {
+        System.out.println(sessions.get(conn).getId() + " S " + message);
+        conn.send(message);
     }
 
     @Override

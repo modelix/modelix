@@ -6,32 +6,39 @@ import org.java_websocket.WebSocket;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.concurrent.atomic.AtomicLong;
 
 public class Session {
+    private static final AtomicLong ID_SEQUENCE = new AtomicLong();
 
-  private WebSocket connection;
-  private Set<String> subscribedKeys = new HashSet<String>();
+    private long id = ID_SEQUENCE.incrementAndGet();
+    private WebSocket connection;
+    private Set<String> subscribedKeys = new HashSet<String>();
 
-  public Session(WebSocket conn) {
-    connection = conn;
-  }
+    public Session(WebSocket conn) {
+        connection = conn;
+    }
 
-  public void dispose() {
-  }
+    public void dispose() {
+    }
 
-  public WebSocket getConnection() {
-    return this.connection;
-  }
+    public WebSocket getConnection() {
+        return this.connection;
+    }
 
-  public boolean isSubscribed(String key) {
-    return subscribedKeys.contains(key);
-  }
+    public boolean isSubscribed(String key) {
+        return subscribedKeys.contains(key);
+    }
 
-  public void subscribe(String key) {
-    subscribedKeys.add(key);
-  }
+    public void subscribe(String key) {
+        subscribedKeys.add(key);
+    }
 
-  public void unsubscribe(String key) {
-    subscribedKeys.remove(key);
-  }
+    public void unsubscribe(String key) {
+        subscribedKeys.remove(key);
+    }
+
+    public long getId() {
+        return id;
+    }
 }
