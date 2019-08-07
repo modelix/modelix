@@ -5,3 +5,7 @@ jdk: openjdk8
 
 script:
   - ./gradlew build_languages
+  
+cache:
+  directories:
+  - artifacts
