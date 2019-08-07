@@ -9,3 +9,4 @@ script:
 cache:
   directories:
   - artifacts
+  - $HOME/.m2
