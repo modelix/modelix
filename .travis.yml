@@ -10,3 +10,4 @@ cache:
   directories:
   - artifacts
   - $HOME/.m2
+  - .gradle
