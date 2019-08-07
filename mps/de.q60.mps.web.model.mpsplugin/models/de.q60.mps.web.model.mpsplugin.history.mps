@@ -21,6 +21,7 @@
         <child id="1068498886295" name="lValue" index="37vLTJ" />
       </concept>
       <concept id="1153422305557" name="jetbrains.mps.baseLanguage.structure.LessThanOrEqualsExpression" flags="nn" index="2dkUwp" />
+      <concept id="4836112446988635817" name="jetbrains.mps.baseLanguage.structure.UndefinedType" flags="in" index="2jxLKc" />
       <concept id="1202948039474" name="jetbrains.mps.baseLanguage.structure.InstanceMethodCallOperation" flags="nn" index="liA8E" />
       <concept id="1465982738277781862" name="jetbrains.mps.baseLanguage.structure.PlaceholderMember" flags="ng" index="2tJIrI" />
       <concept id="1076505808687" name="jetbrains.mps.baseLanguage.structure.WhileStatement" flags="nn" index="2$JKZl">
@@ -117,6 +118,7 @@
     </language>
     <language id="fd392034-7849-419d-9071-12563d152375" name="jetbrains.mps.baseLanguage.closures">
       <concept id="1199569711397" name="jetbrains.mps.baseLanguage.closures.structure.ClosureLiteral" flags="nn" index="1bVj0M">
+        <property id="890797661671409019" name="forceMultiLine" index="3yWfEV" />
         <child id="1199569906740" name="parameter" index="1bW2Oz" />
         <child id="1199569916463" name="body" index="1bW5cS" />
       </concept>
@@ -127,6 +129,9 @@
       </concept>
     </language>
     <language id="83888646-71ce-4f1c-9c53-c54016f6ad4f" name="jetbrains.mps.baseLanguage.collections">
+      <concept id="1204796164442" name="jetbrains.mps.baseLanguage.collections.structure.InternalSequenceOperation" flags="nn" index="23sCx2">
+        <child id="1204796294226" name="closure" index="23t8la" />
+      </concept>
       <concept id="540871147943773365" name="jetbrains.mps.baseLanguage.collections.structure.SingleArgumentSequenceOperation" flags="nn" index="25WWJ4">
         <child id="540871147943773366" name="argument" index="25WWJ7" />
       </concept>
@@ -138,13 +143,18 @@
         <child id="1237721435807" name="elementType" index="HW$YZ" />
       </concept>
       <concept id="1227022210526" name="jetbrains.mps.baseLanguage.collections.structure.ClearAllElementsOperation" flags="nn" index="2Kehj3" />
+      <concept id="1203518072036" name="jetbrains.mps.baseLanguage.collections.structure.SmartClosureParameterDeclaration" flags="ig" index="Rh6nW" />
       <concept id="1160600644654" name="jetbrains.mps.baseLanguage.collections.structure.ListCreatorWithInit" flags="nn" index="Tc6Ow" />
       <concept id="1160612413312" name="jetbrains.mps.baseLanguage.collections.structure.AddElementOperation" flags="nn" index="TSZUe" />
       <concept id="1162935959151" name="jetbrains.mps.baseLanguage.collections.structure.GetSizeOperation" flags="nn" index="34oBXx" />
+      <concept id="1240687580870" name="jetbrains.mps.baseLanguage.collections.structure.JoinOperation" flags="nn" index="3uJxvA">
+        <child id="1240687658305" name="delimiter" index="3uJOhx" />
+      </concept>
       <concept id="1225711141656" name="jetbrains.mps.baseLanguage.collections.structure.ListElementAccessExpression" flags="nn" index="1y4W85">
         <child id="1225711182005" name="list" index="1y566C" />
         <child id="1225711191269" name="index" index="1y58nS" />
       </concept>
+      <concept id="1202128969694" name="jetbrains.mps.baseLanguage.collections.structure.SelectOperation" flags="nn" index="3$u5V9" />
     </language>
   </registry>
   <node concept="312cEu" id="2D0HTQh99kz">
@@ -512,6 +522,118 @@
             </node>
           </node>
         </node>
+        <node concept="3clFbH" id="5h91CE_h7FM" role="3cqZAp" />
+        <node concept="3cpWs8" id="5h91CE_h9Lc" role="3cqZAp">
+          <node concept="3cpWsn" id="5h91CE_h9Ld" role="3cpWs9">
+            <property role="TrG5h" value="autoMergeCheckbox" />
+            <node concept="3uibUv" id="5h91CE_h9Le" role="1tU5fm">
+              <ref role="3uigEE" to="dxuu:~JCheckBox" resolve="JCheckBox" />
+            </node>
+            <node concept="2ShNRf" id="5h91CE_hbOm" role="33vP2m">
+              <node concept="1pGfFk" id="5h91CE_hbpW" role="2ShVmc">
+                <ref role="37wK5l" to="dxuu:~JCheckBox.&lt;init&gt;(java.lang.String)" resolve="JCheckBox" />
+                <node concept="Xl_RD" id="5h91CE_hcf7" role="37wK5m">
+                  <property role="Xl_RC" value="Auto Merge" />
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="3clFbF" id="5h91CE_hdXP" role="3cqZAp">
+          <node concept="2OqwBi" id="5h91CE_hfDc" role="3clFbG">
+            <node concept="37vLTw" id="5h91CE_hdXN" role="2Oq$k0">
+              <ref role="3cqZAo" node="2D0HTQhaDde" resolve="buttons" />
+            </node>
+            <node concept="liA8E" id="5h91CE_hm4V" role="2OqNvi">
+              <ref role="37wK5l" to="z60i:~Container.add(java.awt.Component)" resolve="add" />
+              <node concept="37vLTw" id="5h91CE_hnpr" role="37wK5m">
+                <ref role="3cqZAo" node="5h91CE_h9Ld" resolve="autoMergeCheckbox" />
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="3clFbF" id="5h91CE_hGIO" role="3cqZAp">
+          <node concept="2OqwBi" id="5h91CE_hJ7G" role="3clFbG">
+            <node concept="37vLTw" id="5h91CE_hGIM" role="2Oq$k0">
+              <ref role="3cqZAo" node="5h91CE_h9Ld" resolve="autoMergeCheckbox" />
+            </node>
+            <node concept="liA8E" id="5h91CE_hLaV" role="2OqNvi">
+              <ref role="37wK5l" to="dxuu:~AbstractButton.setSelected(boolean)" resolve="setSelected" />
+              <node concept="2OqwBi" id="5h91CE_hLH2" role="37wK5m">
+                <node concept="2YIFZM" id="5h91CE_hLtf" role="2Oq$k0">
+                  <ref role="37wK5l" to="csg2:2D0HTQhbLCs" resolve="getInstance" />
+                  <ref role="1Pybhc" to="csg2:68rqGk1601" resolve="CollaborativeEditing" />
+                </node>
+                <node concept="liA8E" id="5h91CE_hMdx" role="2OqNvi">
+                  <ref role="37wK5l" to="csg2:5h91CE_gN_e" resolve="isAutoMerge" />
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="3clFbF" id="5h91CE_hVz0" role="3cqZAp">
+          <node concept="2OqwBi" id="5h91CE_hY0p" role="3clFbG">
+            <node concept="37vLTw" id="5h91CE_hVyY" role="2Oq$k0">
+              <ref role="3cqZAo" node="5h91CE_h9Ld" resolve="autoMergeCheckbox" />
+            </node>
+            <node concept="liA8E" id="5h91CE_i1KI" role="2OqNvi">
+              <ref role="37wK5l" to="dxuu:~AbstractButton.addActionListener(java.awt.event.ActionListener)" resolve="addActionListener" />
+              <node concept="1bVj0M" id="5h91CE_i2Vl" role="37wK5m">
+                <property role="3yWfEV" value="true" />
+                <node concept="37vLTG" id="5h91CE_i8Tp" role="1bW2Oz">
+                  <property role="TrG5h" value="e" />
+                  <node concept="3uibUv" id="5h91CE_i9r4" role="1tU5fm">
+                    <ref role="3uigEE" to="hyam:~ActionEvent" resolve="ActionEvent" />
+                  </node>
+                </node>
+                <node concept="3clFbS" id="5h91CE_i2Vm" role="1bW5cS">
+                  <node concept="3clFbF" id="5h91CE_i3a7" role="3cqZAp">
+                    <node concept="2OqwBi" id="5h91CE_i3a9" role="3clFbG">
+                      <node concept="2YIFZM" id="5h91CE_i3aa" role="2Oq$k0">
+                        <ref role="37wK5l" to="csg2:2D0HTQhbLCs" resolve="getInstance" />
+                        <ref role="1Pybhc" to="csg2:68rqGk1601" resolve="CollaborativeEditing" />
+                      </node>
+                      <node concept="liA8E" id="5h91CE_i3E_" role="2OqNvi">
+                        <ref role="37wK5l" to="csg2:5h91CE_g$Sw" resolve="setAutoMerge" />
+                        <node concept="2OqwBi" id="5h91CE_i5U1" role="37wK5m">
+                          <node concept="37vLTw" id="5h91CE_i4_Y" role="2Oq$k0">
+                            <ref role="3cqZAo" node="5h91CE_h9Ld" resolve="autoMergeCheckbox" />
+                          </node>
+                          <node concept="liA8E" id="5h91CE_i8ui" role="2OqNvi">
+                            <ref role="37wK5l" to="dxuu:~AbstractButton.isSelected()" resolve="isSelected" />
+                          </node>
+                        </node>
+                      </node>
+                    </node>
+                  </node>
+                  <node concept="3clFbJ" id="5h91CE_ibzv" role="3cqZAp">
+                    <node concept="3clFbS" id="5h91CE_ibzx" role="3clFbx">
+                      <node concept="3clFbF" id="5h91CE_ia9J" role="3cqZAp">
+                        <node concept="2OqwBi" id="5h91CE_iaq2" role="3clFbG">
+                          <node concept="2YIFZM" id="5h91CE_ia9L" role="2Oq$k0">
+                            <ref role="37wK5l" to="csg2:2D0HTQhbLCs" resolve="getInstance" />
+                            <ref role="1Pybhc" to="csg2:68rqGk1601" resolve="CollaborativeEditing" />
+                          </node>
+                          <node concept="liA8E" id="5h91CE_icX7" role="2OqNvi">
+                            <ref role="37wK5l" to="csg2:5oJTJC89M6r" resolve="processPendingRemoteVersion" />
+                          </node>
+                        </node>
+                      </node>
+                    </node>
+                    <node concept="2OqwBi" id="5h91CE_ibGH" role="3clFbw">
+                      <node concept="37vLTw" id="5h91CE_ibGI" role="2Oq$k0">
+                        <ref role="3cqZAo" node="5h91CE_h9Ld" resolve="autoMergeCheckbox" />
+                      </node>
+                      <node concept="liA8E" id="5h91CE_ibGJ" role="2OqNvi">
+                        <ref role="37wK5l" to="dxuu:~AbstractButton.isSelected()" resolve="isSelected" />
+                      </node>
+                    </node>
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
       </node>
     </node>
     <node concept="2tJIrI" id="2D0HTQh9kdl" role="jymVt" />
@@ -619,12 +741,41 @@
                               <ref role="37wK5l" to="jon5:2D0HTQhatcJ" resolve="getTime" />
                             </node>
                           </node>
-                          <node concept="2OqwBi" id="2D0HTQhcXvu" role="HW$Y0">
-                            <node concept="37vLTw" id="2D0HTQhcXvv" role="2Oq$k0">
-                              <ref role="3cqZAo" node="2D0HTQhc7of" resolve="version" />
+                          <node concept="2OqwBi" id="5h91CE_fDBa" role="HW$Y0">
+                            <node concept="2OqwBi" id="5h91CE_fwQV" role="2Oq$k0">
+                              <node concept="2OqwBi" id="2D0HTQhcXvu" role="2Oq$k0">
+                                <node concept="37vLTw" id="2D0HTQhcXvv" role="2Oq$k0">
+                                  <ref role="3cqZAo" node="2D0HTQhc7of" resolve="version" />
+                                </node>
+                                <node concept="liA8E" id="2D0HTQhcXvw" role="2OqNvi">
+                                  <ref role="37wK5l" to="jon5:2D0HTQhaxkO" resolve="getOperations" />
+                                </node>
+                              </node>
+                              <node concept="3$u5V9" id="5h91CE_f$fG" role="2OqNvi">
+                                <node concept="1bVj0M" id="5h91CE_f$fI" role="23t8la">
+                                  <node concept="3clFbS" id="5h91CE_f$fJ" role="1bW5cS">
+                                    <node concept="3clFbF" id="5h91CE_f_8Z" role="3cqZAp">
+                                      <node concept="2OqwBi" id="5h91CE_f_xv" role="3clFbG">
+                                        <node concept="37vLTw" id="5h91CE_f_8Y" role="2Oq$k0">
+                                          <ref role="3cqZAo" node="5h91CE_f$fK" resolve="it" />
+                                        </node>
+                                        <node concept="liA8E" id="5h91CE_fCw3" role="2OqNvi">
+                                          <ref role="37wK5l" to="wyt6:~Object.toString()" resolve="toString" />
+                                        </node>
+                                      </node>
+                                    </node>
+                                  </node>
+                                  <node concept="Rh6nW" id="5h91CE_f$fK" role="1bW2Oz">
+                                    <property role="TrG5h" value="it" />
+                                    <node concept="2jxLKc" id="5h91CE_f$fL" role="1tU5fm" />
+                                  </node>
+                                </node>
+                              </node>
                             </node>
-                            <node concept="liA8E" id="2D0HTQhcXvw" role="2OqNvi">
-                              <ref role="37wK5l" to="jon5:2D0HTQhaxkO" resolve="getOperations" />
+                            <node concept="3uJxvA" id="5h91CE_fNGu" role="2OqNvi">
+                              <node concept="Xl_RD" id="5h91CE_fY55" role="3uJOhx">
+                                <property role="Xl_RC" value=" # " />
+                              </node>
                             </node>
                           </node>
                           <node concept="2OqwBi" id="2D0HTQhcXvy" role="HW$Y0">
