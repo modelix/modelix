@@ -51,4 +51,8 @@ public class MyRedisClient implements IKeyValueStore {
     public void flushdb() {
         syncCommands.flushdb();
     }
+
+    public long incr(String key) {
+        return syncCommands.incr(key);
+    }
 }

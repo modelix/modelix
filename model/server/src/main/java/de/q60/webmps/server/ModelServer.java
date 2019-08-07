@@ -111,10 +111,22 @@ public class ModelServer extends WebSocketServer {
                 sessions.get(conn).subscribe(key);
             }
         });
-        messageHandlers.put("flushdb", new MessageHandler() {
+//        messageHandlers.put("flushdb", new MessageHandler() {
+//            @Override
+//            public void handle(WebSocket conn, JSONObject message) {
+//                redisClient.flushdb();
+//            }
+//        });
+        messageHandlers.put("counter", new MessageHandler() {
             @Override
             public void handle(WebSocket conn, JSONObject message) {
-                redisClient.flushdb();
+                String key = message.getString("key");
+                long value = redisClient.incr(key);
+                JSONObject reply = new JSONObject();
+                reply.put("type", "counter");
+                reply.put("key", key);
+                reply.put("value", value);
+                send(conn, reply.toString());
             }
         });
     }
