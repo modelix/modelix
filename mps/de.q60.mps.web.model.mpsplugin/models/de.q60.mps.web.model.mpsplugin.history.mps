@@ -446,6 +446,72 @@
             </node>
           </node>
         </node>
+        <node concept="3clFbH" id="5oJTJC8a1Ff" role="3cqZAp" />
+        <node concept="3cpWs8" id="5oJTJC8a1F9" role="3cqZAp">
+          <node concept="3cpWsn" id="5oJTJC8a1Fa" role="3cpWs9">
+            <property role="TrG5h" value="mergeButton" />
+            <node concept="3uibUv" id="5oJTJC8a1Fb" role="1tU5fm">
+              <ref role="3uigEE" to="dxuu:~JButton" resolve="JButton" />
+            </node>
+            <node concept="2ShNRf" id="5oJTJC8a1Fc" role="33vP2m">
+              <node concept="1pGfFk" id="5oJTJC8a1Fd" role="2ShVmc">
+                <ref role="37wK5l" to="dxuu:~JButton.&lt;init&gt;(java.lang.String)" resolve="JButton" />
+                <node concept="Xl_RD" id="5oJTJC8a1Fe" role="37wK5m">
+                  <property role="Xl_RC" value="Merge remote version" />
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="3clFbF" id="5oJTJC8a1F4" role="3cqZAp">
+          <node concept="2OqwBi" id="5oJTJC8a1F5" role="3clFbG">
+            <node concept="37vLTw" id="5oJTJC8a1F6" role="2Oq$k0">
+              <ref role="3cqZAo" node="2D0HTQhaDde" resolve="buttons" />
+            </node>
+            <node concept="liA8E" id="5oJTJC8a1F7" role="2OqNvi">
+              <ref role="37wK5l" to="z60i:~Container.add(java.awt.Component)" resolve="add" />
+              <node concept="37vLTw" id="5oJTJC8arlG" role="37wK5m">
+                <ref role="3cqZAo" node="5oJTJC8a1Fa" resolve="mergeButton" />
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="3clFbF" id="5oJTJC8a1EU" role="3cqZAp">
+          <node concept="2OqwBi" id="5oJTJC8a1EV" role="3clFbG">
+            <node concept="37vLTw" id="5oJTJC8a3$C" role="2Oq$k0">
+              <ref role="3cqZAo" node="5oJTJC8a1Fa" resolve="mergeButton" />
+            </node>
+            <node concept="liA8E" id="5oJTJC8a1EX" role="2OqNvi">
+              <ref role="37wK5l" to="dxuu:~AbstractButton.addActionListener(java.awt.event.ActionListener)" resolve="addActionListener" />
+              <node concept="1bVj0M" id="5oJTJC8a1EY" role="37wK5m">
+                <node concept="37vLTG" id="5oJTJC8a1EZ" role="1bW2Oz">
+                  <property role="TrG5h" value="e" />
+                  <node concept="3uibUv" id="5oJTJC8a1F0" role="1tU5fm">
+                    <ref role="3uigEE" to="hyam:~ActionEvent" resolve="ActionEvent" />
+                  </node>
+                </node>
+                <node concept="3clFbS" id="5oJTJC8a1F1" role="1bW5cS">
+                  <node concept="3clFbF" id="5oJTJC8a1F2" role="3cqZAp">
+                    <node concept="2OqwBi" id="5oJTJC8a3L6" role="3clFbG">
+                      <node concept="2YIFZM" id="5oJTJC8a3L7" role="2Oq$k0">
+                        <ref role="1Pybhc" to="csg2:68rqGk1601" resolve="CollaborativeEditing" />
+                        <ref role="37wK5l" to="csg2:2D0HTQhbLCs" resolve="getInstance" />
+                      </node>
+                      <node concept="liA8E" id="5oJTJC8a43B" role="2OqNvi">
+                        <ref role="37wK5l" to="csg2:5oJTJC89M6r" resolve="processPendingRemoteVersion" />
+                      </node>
+                    </node>
+                  </node>
+                  <node concept="3clFbF" id="5oJTJC8auYd" role="3cqZAp">
+                    <node concept="1rXfSq" id="5oJTJC8auYb" role="3clFbG">
+                      <ref role="37wK5l" node="2D0HTQh9kjZ" resolve="loadHistory" />
+                    </node>
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
       </node>
     </node>
     <node concept="2tJIrI" id="2D0HTQh9kdl" role="jymVt" />
