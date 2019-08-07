@@ -118,10 +118,27 @@
     <node concept="10PD9b" id="7gF2HTviNP9" role="10PD9s" />
     <node concept="3b7kt6" id="7gF2HTviNPa" role="10PD9s" />
     <node concept="398rNT" id="7gF2HTviNPb" role="1l3spd">
-      <property role="TrG5h" value="mps_home" />
+      <property role="TrG5h" value="mps.home" />
+    </node>
+    <node concept="398rNT" id="4jf43pv7zoM" role="1l3spd">
+      <property role="TrG5h" value="artifacts.root" />
+      <node concept="55IIr" id="4jf43pv7ztU" role="398pKh">
+        <node concept="2Ry0Ak" id="4jf43pv7z_v" role="iGT6I">
+          <property role="2Ry0Am" value=".." />
+          <node concept="2Ry0Ak" id="4jf43pv7zG8" role="2Ry0An">
+            <property role="2Ry0Am" value="artifacts" />
+          </node>
+        </node>
+      </node>
     </node>
     <node concept="398rNT" id="7gF2HTviNPg" role="1l3spd">
-      <property role="TrG5h" value="extensions.home" />
+      <property role="TrG5h" value="extensions.artifacts" />
+      <node concept="398BVA" id="4jf43pv7zIE" role="398pKh">
+        <ref role="398BVh" node="4jf43pv7zoM" resolve="artifacts.root" />
+        <node concept="2Ry0Ak" id="4jf43pv7zQf" role="iGT6I">
+          <property role="2Ry0Am" value="de.itemis.mps.extensions" />
+        </node>
+      </node>
     </node>
     <node concept="398rNT" id="7gF2HTvk5zJ" role="1l3spd">
       <property role="TrG5h" value="webmps.home" />
@@ -134,11 +151,14 @@
     <node concept="2sgV4H" id="7gF2HTviNPc" role="1l3spa">
       <ref role="1l3spb" to="ffeo:3IKDaVZmzS6" resolve="mps" />
       <node concept="398BVA" id="7gF2HTviNPd" role="2JcizS">
-        <ref role="398BVh" node="7gF2HTviNPb" resolve="mps_home" />
+        <ref role="398BVh" node="7gF2HTviNPb" resolve="mps.home" />
       </node>
     </node>
     <node concept="2sgV4H" id="7gF2HTvj1Qi" role="1l3spa">
       <ref role="1l3spb" to="90a9:2Xjt3l56m0V" resolve="de.itemis.mps.extensions" />
+      <node concept="398BVA" id="4jf43pv7KWU" role="2JcizS">
+        <ref role="398BVh" node="7gF2HTviNPg" resolve="extensions.artifacts" />
+      </node>
     </node>
     <node concept="1l3spV" id="7gF2HTviNQ7" role="1l3spN">
       <node concept="3981dG" id="7gF2HTviNQ8" role="39821P">

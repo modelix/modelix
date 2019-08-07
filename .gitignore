@@ -4,3 +4,6 @@ classes_gen
 source_gen
 source_gen.caches
 mps/build/tmp
+.gradle
+artifacts
+mps/build.xml

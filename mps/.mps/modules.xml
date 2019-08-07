@@ -11,6 +11,7 @@
       <modulePath path="$PROJECT_DIR$/de.q60.mps.web.build/de.q60.mps.web.build.msd" folder="build" />
       <modulePath path="$PROJECT_DIR$/de.q60.mps.web.model.mpsplugin/de.q60.mps.web.model.mpsplugin.msd" folder="model" />
       <modulePath path="$PROJECT_DIR$/de.q60.mps.web.model/de.q60.mps.web.model.msd" folder="model" />
+      <modulePath path="$PROJECT_DIR$/solutions/de.q60.mps.web.build.scripts/de.q60.mps.web.build.scripts.msd" folder="build" />
     </projectModules>
   </component>
 </project>
