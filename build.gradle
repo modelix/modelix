@@ -141,7 +141,7 @@ task build_rcp_branding(type: BuildLanguages, dependsOn: [allScripts, resolveMps
     script new File("$rootDir/mps/build-branding.xml")
 }
 
-task build_rcp_distribution(type: RunAntScript, dependsOn: build_rcp_branding) {
+task build_rcp(type: RunAntScript, dependsOn: build_rcp_branding) {
     scriptArgs = defaultScriptArgs
     description = "Build RCP Distribution"
     scriptClasspath = buildScriptClasspath
