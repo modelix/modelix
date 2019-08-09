@@ -13,7 +13,7 @@
     <import index="7x5y" ref="6354ebe7-c22a-4a0f-ac54-50b52ab9b065/java:java.nio.charset(JDK/)" />
     <import index="zfbc" ref="6354ebe7-c22a-4a0f-ac54-50b52ab9b065/java:java.nio(JDK/)" />
     <import index="xlxw" ref="6354ebe7-c22a-4a0f-ac54-50b52ab9b065/java:java.math(JDK/)" />
-    <import index="mxf6" ref="cceec75f-de6e-4ee7-bd91-29a3a99bfede/java:org.json(de.q60.mps.lazywebmps.runtime/)" />
+    <import index="mxf6" ref="cceec75f-de6e-4ee7-bd91-29a3a99bfede/java:org.json(de.q60.mps.web.ui.svg/)" />
     <import index="wy2b" ref="cceec75f-de6e-4ee7-bd91-29a3a99bfede/java:com.google.gson(de.q60.mps.lazywebmps.runtime/)" />
     <import index="lui2" ref="8865b7a8-5271-43d3-884c-6fd1d9cfdd34/java:org.jetbrains.mps.openapi.module(MPS.OpenAPI/)" />
     <import index="eurq" ref="6ed54515-acc8-4d1e-a16c-9fd6cfe951ea/java:jetbrains.mps.vfs.path(MPS.Core/)" />

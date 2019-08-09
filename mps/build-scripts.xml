@@ -80,6 +80,35 @@
       <zipfileset file="${basedir}/de.q60.mps.web.build/de.q60.mps.web.build.msd" prefix="module" />
       <zipfileset dir="${build.tmp}/customProcessors/copyModels/de.q60.mps.web.build-models" prefix="module/models" />
     </jar>
+    <mkdir dir="${build.tmp}/default/de.q60.mps.web.build.rcp.jar" />
+    <mkdir dir="${build.tmp}/default/de.q60.mps.web.build.rcp.jar/META-INF" />
+    <echoxml file="${build.tmp}/default/de.q60.mps.web.build.rcp.jar/META-INF/module.xml">
+      <module namespace="de.q60.mps.web.build.rcp" type="solution" uuid="5dce5e49-c451-4a17-8147-03cbb37722c3">
+        <dependencies />
+        <classpath>
+          <entry path="." />
+        </classpath>
+        <sources jar="de.q60.mps.web.build.rcp-src.jar" descriptor="de.q60.mps.web.build.rcp.msd" />
+      </module>
+    </echoxml>
+    <jar destfile="${build.tmp}/default/de.q60.mps.web.zip/de.q60.mps.web/languages/de.q60.mps.web/de.q60.mps.web.build.rcp.jar" duplicate="preserve">
+      <fileset dir="${build.tmp}/java/out/de.q60.mps.web.build.rcp" />
+      <fileset dir="${basedir}/de.q60.mps.web.build.rcp/source_gen" includes="**/trace.info, **/exports, **/*.mps, **/checkpoints" />
+      <fileset dir="${build.tmp}/default/de.q60.mps.web.build.rcp.jar" />
+    </jar>
+    <copyModels todir="${build.tmp}/customProcessors/copyModels/de.q60.mps.web.build.rcp-models">
+      <fileset dir="${basedir}/de.q60.mps.web.build.rcp/models" includes="**/*.mps, **/*.metadata, **/*.history, **/*.mpsr, **/.model" />
+    </copyModels>
+    <jar destfile="${build.tmp}/default/de.q60.mps.web.zip/de.q60.mps.web/languages/de.q60.mps.web/de.q60.mps.web.build.rcp-src.jar" duplicate="preserve">
+      <fileset dir="${basedir}/de.q60.mps.web.build.rcp/source_gen">
+        <exclude name="**/trace.info" />
+        <exclude name="**/exports" />
+        <exclude name="**/checkpoints" />
+        <exclude name="**/*.mps" />
+      </fileset>
+      <zipfileset file="${basedir}/de.q60.mps.web.build.rcp/de.q60.mps.web.build.rcp.msd" prefix="module" />
+      <zipfileset dir="${build.tmp}/customProcessors/copyModels/de.q60.mps.web.build.rcp-models" prefix="module/models" />
+    </jar>
     <zip destfile="${build.layout}/de.q60.mps.web.zip">
       <fileset dir="${build.tmp}/default/de.q60.mps.web.zip" />
     </zip>
@@ -97,7 +126,7 @@
     <delete dir="${build.layout}" />
   </target>
   
-  <target name="compileJava" depends="java.compile.de.q60.mps.web.build" />
+  <target name="compileJava" depends="java.compile.de.q60.mps.web.build, java.compile.de.q60.mps.web.build.rcp" />
   
   <target name="processResources" />
   
@@ -173,11 +202,13 @@
       <library file="${artifacts.mps}/lib/mps-tuples.jar" />
       <library file="${artifacts.mps}/plugins/mps-build/languages/build/jetbrains.mps.build.jar" />
       <library file="${artifacts.mps}/plugins/mps-build/languages/build/jetbrains.mps.build.mps.jar" />
+      <library file="${artifacts.mps}/plugins/mps-build/languages/build/jetbrains.mps.build.startup.jar" />
       <library file="${artifacts.mps}/plugins/mps-build/languages/build/jetbrains.mps.build.workflow.jar" />
       <library file="${artifacts.mps}/plugins/mps-build/languages/build/jetbrains.mps.build.workflow.preset.jar" />
       <library file="${artifacts.mps}/plugins/mps-build/languages/build/jetbrains.mps.ide.build.jar" />
       <chunk>
         <module file="${basedir}/de.q60.mps.web.build/de.q60.mps.web.build.msd" />
+        <module file="${basedir}/de.q60.mps.web.build.rcp/de.q60.mps.web.build.rcp.msd" />
       </chunk>
       <jvmargs>
         <arg value="-ea" />
@@ -209,7 +240,23 @@
     </javac>
   </target>
   
+  <target name="java.compile.de.q60.mps.web.build.rcp" depends="java.compile.de.q60.mps.web.build">
+    <mkdir dir="${basedir}/de.q60.mps.web.build.rcp/source_gen" />
+    <mkdir dir="${build.tmp}/java/out/de.q60.mps.web.build.rcp" />
+    <javac destdir="${build.tmp}/java/out/de.q60.mps.web.build.rcp" fork="true" encoding="utf8" includeantruntime="false" debug="true">
+      <compilerarg value="-Xlint:none" />
+      <src>
+        <path location="${basedir}/de.q60.mps.web.build.rcp/source_gen" />
+      </src>
+      <classpath>
+        <pathelement path="${build.tmp}/java/out/de.q60.mps.web.build" />
+        <fileset file="${artifacts.de.itemis.mps.extensions}/de.slisson.mps.all/languages/de.slisson.mps.all/de.itemis.mps.extensions.build.jar" />
+      </classpath>
+    </javac>
+  </target>
+  
   <target name="cleanSources">
     <delete dir="${basedir}/de.q60.mps.web.build/source_gen" />
+    <delete dir="${basedir}/de.q60.mps.web.build.rcp/source_gen" />
   </target>
 </project>

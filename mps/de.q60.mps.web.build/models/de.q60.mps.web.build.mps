@@ -190,8 +190,30 @@
           </node>
         </node>
         <node concept="m$_wl" id="7gF2HTvk5j6" role="39821P">
-          <ref role="m_rDy" node="7gF2HTvj4Cd" resolve="de.q60.mps.web.ui" />
+          <ref role="m_rDy" node="7gF2HTvj4Cd" resolve="de.q60.mps.web.ui.sm" />
           <node concept="pUk6x" id="7gF2HTvk5ly" role="pUk7w" />
+        </node>
+        <node concept="m$_wl" id="1_iojA27rwS" role="39821P">
+          <ref role="m_rDy" node="1_iojA26PVO" resolve="de.q60.mps.web.ui.svg" />
+          <node concept="pUk6x" id="1_iojA27rL2" role="pUk7w" />
+          <node concept="398223" id="1_iojA27rSX" role="39821P">
+            <node concept="3_J27D" id="1_iojA27rSY" role="Nbhlr">
+              <node concept="3Mxwew" id="1_iojA27s0T" role="3MwsjC">
+                <property role="3MwjfP" value="lib" />
+              </node>
+            </node>
+            <node concept="2HvfSZ" id="1_iojA27s0V" role="39821P">
+              <node concept="398BVA" id="1_iojA27s8R" role="2HvfZ0">
+                <ref role="398BVh" node="7gF2HTvk5zJ" resolve="webmps.home" />
+                <node concept="2Ry0Ak" id="1_iojA27sgP" role="iGT6I">
+                  <property role="2Ry0Am" value="de.q60.mps.web.ui.svg" />
+                  <node concept="2Ry0Ak" id="1_iojA27sgU" role="2Ry0An">
+                    <property role="2Ry0Am" value="lib" />
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
         </node>
         <node concept="m$_wl" id="7gF2HTviNQb" role="39821P">
           <ref role="m_rDy" node="7gF2HTviNPW" resolve="de.q60.mps.web.model" />
@@ -242,15 +264,15 @@
       </node>
     </node>
     <node concept="m$_wf" id="7gF2HTvj4Cd" role="3989C9">
-      <property role="m$_wk" value="de.q60.mps.web.ui" />
+      <property role="m$_wk" value="de.q60.mps.web.ui.sm" />
       <node concept="3_J27D" id="7gF2HTvj4Cf" role="m$_yQ">
         <node concept="3Mxwew" id="7gF2HTvj4Od" role="3MwsjC">
-          <property role="3MwjfP" value="de.q60.mps.web.ui" />
+          <property role="3MwjfP" value="de.q60.mps.web.ui.sm" />
         </node>
       </node>
       <node concept="3_J27D" id="7gF2HTvj4Ch" role="m_cZH">
         <node concept="3Mxwew" id="7gF2HTvj4Oe" role="3MwsjC">
-          <property role="3MwjfP" value="de.q60.mps.web.ui" />
+          <property role="3MwjfP" value="de.q60.mps.web.ui.sm" />
         </node>
       </node>
       <node concept="3_J27D" id="7gF2HTvj4Cj" role="m$_w8">
@@ -259,7 +281,7 @@
         </node>
       </node>
       <node concept="m$f5U" id="7gF2HTvj4QC" role="m$_yh">
-        <ref role="m$f5T" node="7gF2HTvj46U" resolve="de.q60.mps.web.ui" />
+        <ref role="m$f5T" node="7gF2HTvj46U" resolve="de.q60.mps.web.ui.sm" />
       </node>
       <node concept="m$_yC" id="7gF2HTvj4RP" role="m$_yJ">
         <ref role="m$_y1" to="90a9:4iIKqJTZ5I8" resolve="de.q60.shadowmodels" />
@@ -269,6 +291,33 @@
       </node>
       <node concept="m$_yC" id="7gF2HTvj5eJ" role="m$_yJ">
         <ref role="m$_y1" node="7gF2HTvj4WE" resolve="de.q60.mps.web.common" />
+      </node>
+    </node>
+    <node concept="m$_wf" id="1_iojA26PVO" role="3989C9">
+      <property role="m$_wk" value="de.q60.mps.web.ui.svg" />
+      <node concept="3_J27D" id="1_iojA26PVQ" role="m$_yQ">
+        <node concept="3Mxwew" id="1_iojA26QVg" role="3MwsjC">
+          <property role="3MwjfP" value="de.q60.mps.web.ui.svg" />
+        </node>
+      </node>
+      <node concept="3_J27D" id="1_iojA26PVS" role="m_cZH">
+        <node concept="3Mxwew" id="1_iojA26QVi" role="3MwsjC">
+          <property role="3MwjfP" value="de.q60.mps.web.ui.svg" />
+        </node>
+      </node>
+      <node concept="3_J27D" id="1_iojA26PVU" role="m$_w8">
+        <node concept="3Mxwew" id="1_iojA26R3c" role="3MwsjC">
+          <property role="3MwjfP" value="1.0" />
+        </node>
+      </node>
+      <node concept="m$f5U" id="1_iojA26Rb6" role="m$_yh">
+        <ref role="m$f5T" node="1_iojA26OW0" resolve="de.q60.mps.web.ui.svg" />
+      </node>
+      <node concept="m$_yC" id="1_iojA27r0T" role="m$_yJ">
+        <ref role="m$_y1" to="90a9:4p3FRivDLPy" resolve="org.apache.commons" />
+      </node>
+      <node concept="m$_yC" id="1_iojA27rgI" role="m$_yJ">
+        <ref role="m$_y1" to="90a9:2Xjt3l57iTJ" resolve="de.slisson.mps.hacks" />
       </node>
     </node>
     <node concept="m$_wf" id="7gF2HTviNPW" role="3989C9">
@@ -387,7 +436,7 @@
       </node>
     </node>
     <node concept="2G$12M" id="7gF2HTvj46U" role="3989C9">
-      <property role="TrG5h" value="de.q60.mps.web.ui" />
+      <property role="TrG5h" value="de.q60.mps.web.ui.sm" />
       <node concept="1E1JtD" id="7gF2HTviNPn" role="2G$12L">
         <property role="BnDLt" value="true" />
         <property role="TrG5h" value="de.q60.mps.shadowmodels.web" />
@@ -541,6 +590,703 @@
         <node concept="1SiIV0" id="7gF2HTvj1T8" role="3bR37C">
           <node concept="3bR9La" id="7gF2HTvj1T9" role="1SiIV1">
             <ref role="3bR37D" to="90a9:PE3B26QCrP" resolve="org.apache.commons" />
+          </node>
+        </node>
+      </node>
+    </node>
+    <node concept="2G$12M" id="1_iojA26OW0" role="3989C9">
+      <property role="TrG5h" value="de.q60.mps.web.ui.svg" />
+      <node concept="1E1JtA" id="1_iojA26Pac" role="2G$12L">
+        <property role="BnDLt" value="true" />
+        <property role="TrG5h" value="de.q60.mps.web.ui.svg" />
+        <property role="3LESm3" value="cceec75f-de6e-4ee7-bd91-29a3a99bfede" />
+        <node concept="55IIr" id="1_iojA26Pad" role="3LF7KH">
+          <node concept="2Ry0Ak" id="1_iojA26Pfj" role="iGT6I">
+            <property role="2Ry0Am" value="de.q60.mps.web.ui.svg" />
+            <node concept="2Ry0Ak" id="1_iojA26Pko" role="2Ry0An">
+              <property role="2Ry0Am" value="de.q60.mps.web.ui.svg.msd" />
+            </node>
+          </node>
+        </node>
+        <node concept="1SiIV0" id="1_iojA26Pnq" role="3bR37C">
+          <node concept="3bR9La" id="1_iojA26Pnr" role="1SiIV1">
+            <property role="3bR36h" value="true" />
+            <ref role="3bR37D" to="ffeo:mXGwHwhVPj" resolve="JDK" />
+          </node>
+        </node>
+        <node concept="1SiIV0" id="1_iojA26Pns" role="3bR37C">
+          <node concept="3bR9La" id="1_iojA26Pnt" role="1SiIV1">
+            <ref role="3bR37D" to="ffeo:1H905DlDUSw" resolve="MPS.OpenAPI" />
+          </node>
+        </node>
+        <node concept="1SiIV0" id="1_iojA26Pnu" role="3bR37C">
+          <node concept="3bR9La" id="1_iojA26Pnv" role="1SiIV1">
+            <ref role="3bR37D" to="90a9:64TsoMQT2qP" resolve="de.slisson.mps.hacks.editor" />
+          </node>
+        </node>
+        <node concept="1SiIV0" id="1_iojA26Pnw" role="3bR37C">
+          <node concept="3bR9La" id="1_iojA26Pnx" role="1SiIV1">
+            <ref role="3bR37D" to="ffeo:1ia2VB5guYy" resolve="MPS.IDEA" />
+          </node>
+        </node>
+        <node concept="1SiIV0" id="1_iojA26Pny" role="3bR37C">
+          <node concept="3bR9La" id="1_iojA26Pnz" role="1SiIV1">
+            <ref role="3bR37D" to="ffeo:1TaHNgiIbIZ" resolve="MPS.Editor" />
+          </node>
+        </node>
+        <node concept="1SiIV0" id="1_iojA26Pn$" role="3bR37C">
+          <node concept="3bR9La" id="1_iojA26Pn_" role="1SiIV1">
+            <ref role="3bR37D" to="90a9:PE3B26QCrP" resolve="org.apache.commons" />
+          </node>
+        </node>
+        <node concept="1SiIV0" id="1_iojA26PnA" role="3bR37C">
+          <node concept="3bR9La" id="1_iojA26PnB" role="1SiIV1">
+            <ref role="3bR37D" to="ffeo:1TaHNgiIbIQ" resolve="MPS.Core" />
+          </node>
+        </node>
+        <node concept="1SiIV0" id="1_iojA26PnC" role="3bR37C">
+          <node concept="3bR9La" id="1_iojA26PnD" role="1SiIV1">
+            <ref role="3bR37D" to="ffeo:7Kfy9QB6Lg8" resolve="jetbrains.mps.runtime" />
+          </node>
+        </node>
+        <node concept="1SiIV0" id="1_iojA26PnO" role="3bR37C">
+          <node concept="1BurEX" id="1_iojA26PnP" role="1SiIV1">
+            <node concept="398BVA" id="1_iojA26PnE" role="1BurEY">
+              <ref role="398BVh" node="7gF2HTvk5zJ" resolve="webmps.home" />
+              <node concept="2Ry0Ak" id="1_iojA26PnF" role="iGT6I">
+                <property role="2Ry0Am" value="de.q60.mps.web.ui.svg" />
+                <node concept="2Ry0Ak" id="1_iojA26PnG" role="2Ry0An">
+                  <property role="2Ry0Am" value="lib" />
+                  <node concept="2Ry0Ak" id="1_iojA26PnH" role="2Ry0An">
+                    <property role="2Ry0Am" value="batik-1.7.1" />
+                    <node concept="2Ry0Ak" id="1_iojA26PnI" role="2Ry0An">
+                      <property role="2Ry0Am" value="batik-rasterizer.jar" />
+                    </node>
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="1SiIV0" id="1_iojA26Po0" role="3bR37C">
+          <node concept="1BurEX" id="1_iojA26Po1" role="1SiIV1">
+            <node concept="398BVA" id="1_iojA26PnQ" role="1BurEY">
+              <ref role="398BVh" node="7gF2HTvk5zJ" resolve="webmps.home" />
+              <node concept="2Ry0Ak" id="1_iojA26PnR" role="iGT6I">
+                <property role="2Ry0Am" value="de.q60.mps.web.ui.svg" />
+                <node concept="2Ry0Ak" id="1_iojA26PnS" role="2Ry0An">
+                  <property role="2Ry0Am" value="lib" />
+                  <node concept="2Ry0Ak" id="1_iojA26PnT" role="2Ry0An">
+                    <property role="2Ry0Am" value="batik-1.7.1" />
+                    <node concept="2Ry0Ak" id="1_iojA26PnU" role="2Ry0An">
+                      <property role="2Ry0Am" value="batik-slideshow.jar" />
+                    </node>
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="1SiIV0" id="1_iojA26Poc" role="3bR37C">
+          <node concept="1BurEX" id="1_iojA26Pod" role="1SiIV1">
+            <node concept="398BVA" id="1_iojA26Po2" role="1BurEY">
+              <ref role="398BVh" node="7gF2HTvk5zJ" resolve="webmps.home" />
+              <node concept="2Ry0Ak" id="1_iojA26Po3" role="iGT6I">
+                <property role="2Ry0Am" value="de.q60.mps.web.ui.svg" />
+                <node concept="2Ry0Ak" id="1_iojA26Po4" role="2Ry0An">
+                  <property role="2Ry0Am" value="lib" />
+                  <node concept="2Ry0Ak" id="1_iojA26Po5" role="2Ry0An">
+                    <property role="2Ry0Am" value="batik-1.7.1" />
+                    <node concept="2Ry0Ak" id="1_iojA26Po6" role="2Ry0An">
+                      <property role="2Ry0Am" value="batik-squiggle.jar" />
+                    </node>
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="1SiIV0" id="1_iojA26Poo" role="3bR37C">
+          <node concept="1BurEX" id="1_iojA26Pop" role="1SiIV1">
+            <node concept="398BVA" id="1_iojA26Poe" role="1BurEY">
+              <ref role="398BVh" node="7gF2HTvk5zJ" resolve="webmps.home" />
+              <node concept="2Ry0Ak" id="1_iojA26Pof" role="iGT6I">
+                <property role="2Ry0Am" value="de.q60.mps.web.ui.svg" />
+                <node concept="2Ry0Ak" id="1_iojA26Pog" role="2Ry0An">
+                  <property role="2Ry0Am" value="lib" />
+                  <node concept="2Ry0Ak" id="1_iojA26Poh" role="2Ry0An">
+                    <property role="2Ry0Am" value="batik-1.7.1" />
+                    <node concept="2Ry0Ak" id="1_iojA26Poi" role="2Ry0An">
+                      <property role="2Ry0Am" value="batik-svgpp.jar" />
+                    </node>
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="1SiIV0" id="1_iojA26Po$" role="3bR37C">
+          <node concept="1BurEX" id="1_iojA26Po_" role="1SiIV1">
+            <node concept="398BVA" id="1_iojA26Poq" role="1BurEY">
+              <ref role="398BVh" node="7gF2HTvk5zJ" resolve="webmps.home" />
+              <node concept="2Ry0Ak" id="1_iojA26Por" role="iGT6I">
+                <property role="2Ry0Am" value="de.q60.mps.web.ui.svg" />
+                <node concept="2Ry0Ak" id="1_iojA26Pos" role="2Ry0An">
+                  <property role="2Ry0Am" value="lib" />
+                  <node concept="2Ry0Ak" id="1_iojA26Pot" role="2Ry0An">
+                    <property role="2Ry0Am" value="batik-1.7.1" />
+                    <node concept="2Ry0Ak" id="1_iojA26Pou" role="2Ry0An">
+                      <property role="2Ry0Am" value="batik-ttf2svg.jar" />
+                    </node>
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="1SiIV0" id="1_iojA26PoK" role="3bR37C">
+          <node concept="1BurEX" id="1_iojA26PoL" role="1SiIV1">
+            <node concept="398BVA" id="1_iojA26PoA" role="1BurEY">
+              <ref role="398BVh" node="7gF2HTvk5zJ" resolve="webmps.home" />
+              <node concept="2Ry0Ak" id="1_iojA26PoB" role="iGT6I">
+                <property role="2Ry0Am" value="de.q60.mps.web.ui.svg" />
+                <node concept="2Ry0Ak" id="1_iojA26PoC" role="2Ry0An">
+                  <property role="2Ry0Am" value="lib" />
+                  <node concept="2Ry0Ak" id="1_iojA26PoD" role="2Ry0An">
+                    <property role="2Ry0Am" value="batik-1.7.1" />
+                    <node concept="2Ry0Ak" id="1_iojA26PoE" role="2Ry0An">
+                      <property role="2Ry0Am" value="batik.jar" />
+                    </node>
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="1SiIV0" id="1_iojA26PoY" role="3bR37C">
+          <node concept="1BurEX" id="1_iojA26PoZ" role="1SiIV1">
+            <node concept="398BVA" id="1_iojA26PoM" role="1BurEY">
+              <ref role="398BVh" node="7gF2HTvk5zJ" resolve="webmps.home" />
+              <node concept="2Ry0Ak" id="1_iojA26PoN" role="iGT6I">
+                <property role="2Ry0Am" value="de.q60.mps.web.ui.svg" />
+                <node concept="2Ry0Ak" id="1_iojA26PoO" role="2Ry0An">
+                  <property role="2Ry0Am" value="lib" />
+                  <node concept="2Ry0Ak" id="1_iojA26PoP" role="2Ry0An">
+                    <property role="2Ry0Am" value="batik-1.7.1" />
+                    <node concept="2Ry0Ak" id="1_iojA26PoQ" role="2Ry0An">
+                      <property role="2Ry0Am" value="lib" />
+                      <node concept="2Ry0Ak" id="1_iojA26PoR" role="2Ry0An">
+                        <property role="2Ry0Am" value="batik-anim.jar" />
+                      </node>
+                    </node>
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="1SiIV0" id="1_iojA26Ppc" role="3bR37C">
+          <node concept="1BurEX" id="1_iojA26Ppd" role="1SiIV1">
+            <node concept="398BVA" id="1_iojA26Pp0" role="1BurEY">
+              <ref role="398BVh" node="7gF2HTvk5zJ" resolve="webmps.home" />
+              <node concept="2Ry0Ak" id="1_iojA26Pp1" role="iGT6I">
+                <property role="2Ry0Am" value="de.q60.mps.web.ui.svg" />
+                <node concept="2Ry0Ak" id="1_iojA26Pp2" role="2Ry0An">
+                  <property role="2Ry0Am" value="lib" />
+                  <node concept="2Ry0Ak" id="1_iojA26Pp3" role="2Ry0An">
+                    <property role="2Ry0Am" value="batik-1.7.1" />
+                    <node concept="2Ry0Ak" id="1_iojA26Pp4" role="2Ry0An">
+                      <property role="2Ry0Am" value="lib" />
+                      <node concept="2Ry0Ak" id="1_iojA26Pp5" role="2Ry0An">
+                        <property role="2Ry0Am" value="batik-awt-util.jar" />
+                      </node>
+                    </node>
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="1SiIV0" id="1_iojA26Ppq" role="3bR37C">
+          <node concept="1BurEX" id="1_iojA26Ppr" role="1SiIV1">
+            <node concept="398BVA" id="1_iojA26Ppe" role="1BurEY">
+              <ref role="398BVh" node="7gF2HTvk5zJ" resolve="webmps.home" />
+              <node concept="2Ry0Ak" id="1_iojA26Ppf" role="iGT6I">
+                <property role="2Ry0Am" value="de.q60.mps.web.ui.svg" />
+                <node concept="2Ry0Ak" id="1_iojA26Ppg" role="2Ry0An">
+                  <property role="2Ry0Am" value="lib" />
+                  <node concept="2Ry0Ak" id="1_iojA26Pph" role="2Ry0An">
+                    <property role="2Ry0Am" value="batik-1.7.1" />
+                    <node concept="2Ry0Ak" id="1_iojA26Ppi" role="2Ry0An">
+                      <property role="2Ry0Am" value="lib" />
+                      <node concept="2Ry0Ak" id="1_iojA26Ppj" role="2Ry0An">
+                        <property role="2Ry0Am" value="batik-bridge.jar" />
+                      </node>
+                    </node>
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="1SiIV0" id="1_iojA26PpC" role="3bR37C">
+          <node concept="1BurEX" id="1_iojA26PpD" role="1SiIV1">
+            <node concept="398BVA" id="1_iojA26Pps" role="1BurEY">
+              <ref role="398BVh" node="7gF2HTvk5zJ" resolve="webmps.home" />
+              <node concept="2Ry0Ak" id="1_iojA26Ppt" role="iGT6I">
+                <property role="2Ry0Am" value="de.q60.mps.web.ui.svg" />
+                <node concept="2Ry0Ak" id="1_iojA26Ppu" role="2Ry0An">
+                  <property role="2Ry0Am" value="lib" />
+                  <node concept="2Ry0Ak" id="1_iojA26Ppv" role="2Ry0An">
+                    <property role="2Ry0Am" value="batik-1.7.1" />
+                    <node concept="2Ry0Ak" id="1_iojA26Ppw" role="2Ry0An">
+                      <property role="2Ry0Am" value="lib" />
+                      <node concept="2Ry0Ak" id="1_iojA26Ppx" role="2Ry0An">
+                        <property role="2Ry0Am" value="batik-codec.jar" />
+                      </node>
+                    </node>
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="1SiIV0" id="1_iojA26PpQ" role="3bR37C">
+          <node concept="1BurEX" id="1_iojA26PpR" role="1SiIV1">
+            <node concept="398BVA" id="1_iojA26PpE" role="1BurEY">
+              <ref role="398BVh" node="7gF2HTvk5zJ" resolve="webmps.home" />
+              <node concept="2Ry0Ak" id="1_iojA26PpF" role="iGT6I">
+                <property role="2Ry0Am" value="de.q60.mps.web.ui.svg" />
+                <node concept="2Ry0Ak" id="1_iojA26PpG" role="2Ry0An">
+                  <property role="2Ry0Am" value="lib" />
+                  <node concept="2Ry0Ak" id="1_iojA26PpH" role="2Ry0An">
+                    <property role="2Ry0Am" value="batik-1.7.1" />
+                    <node concept="2Ry0Ak" id="1_iojA26PpI" role="2Ry0An">
+                      <property role="2Ry0Am" value="lib" />
+                      <node concept="2Ry0Ak" id="1_iojA26PpJ" role="2Ry0An">
+                        <property role="2Ry0Am" value="batik-css.jar" />
+                      </node>
+                    </node>
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="1SiIV0" id="1_iojA26Pq4" role="3bR37C">
+          <node concept="1BurEX" id="1_iojA26Pq5" role="1SiIV1">
+            <node concept="398BVA" id="1_iojA26PpS" role="1BurEY">
+              <ref role="398BVh" node="7gF2HTvk5zJ" resolve="webmps.home" />
+              <node concept="2Ry0Ak" id="1_iojA26PpT" role="iGT6I">
+                <property role="2Ry0Am" value="de.q60.mps.web.ui.svg" />
+                <node concept="2Ry0Ak" id="1_iojA26PpU" role="2Ry0An">
+                  <property role="2Ry0Am" value="lib" />
+                  <node concept="2Ry0Ak" id="1_iojA26PpV" role="2Ry0An">
+                    <property role="2Ry0Am" value="batik-1.7.1" />
+                    <node concept="2Ry0Ak" id="1_iojA26PpW" role="2Ry0An">
+                      <property role="2Ry0Am" value="lib" />
+                      <node concept="2Ry0Ak" id="1_iojA26PpX" role="2Ry0An">
+                        <property role="2Ry0Am" value="batik-dom.jar" />
+                      </node>
+                    </node>
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="1SiIV0" id="1_iojA26Pqi" role="3bR37C">
+          <node concept="1BurEX" id="1_iojA26Pqj" role="1SiIV1">
+            <node concept="398BVA" id="1_iojA26Pq6" role="1BurEY">
+              <ref role="398BVh" node="7gF2HTvk5zJ" resolve="webmps.home" />
+              <node concept="2Ry0Ak" id="1_iojA26Pq7" role="iGT6I">
+                <property role="2Ry0Am" value="de.q60.mps.web.ui.svg" />
+                <node concept="2Ry0Ak" id="1_iojA26Pq8" role="2Ry0An">
+                  <property role="2Ry0Am" value="lib" />
+                  <node concept="2Ry0Ak" id="1_iojA26Pq9" role="2Ry0An">
+                    <property role="2Ry0Am" value="batik-1.7.1" />
+                    <node concept="2Ry0Ak" id="1_iojA26Pqa" role="2Ry0An">
+                      <property role="2Ry0Am" value="lib" />
+                      <node concept="2Ry0Ak" id="1_iojA26Pqb" role="2Ry0An">
+                        <property role="2Ry0Am" value="batik-ext.jar" />
+                      </node>
+                    </node>
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="1SiIV0" id="1_iojA26Pqw" role="3bR37C">
+          <node concept="1BurEX" id="1_iojA26Pqx" role="1SiIV1">
+            <node concept="398BVA" id="1_iojA26Pqk" role="1BurEY">
+              <ref role="398BVh" node="7gF2HTvk5zJ" resolve="webmps.home" />
+              <node concept="2Ry0Ak" id="1_iojA26Pql" role="iGT6I">
+                <property role="2Ry0Am" value="de.q60.mps.web.ui.svg" />
+                <node concept="2Ry0Ak" id="1_iojA26Pqm" role="2Ry0An">
+                  <property role="2Ry0Am" value="lib" />
+                  <node concept="2Ry0Ak" id="1_iojA26Pqn" role="2Ry0An">
+                    <property role="2Ry0Am" value="batik-1.7.1" />
+                    <node concept="2Ry0Ak" id="1_iojA26Pqo" role="2Ry0An">
+                      <property role="2Ry0Am" value="lib" />
+                      <node concept="2Ry0Ak" id="1_iojA26Pqp" role="2Ry0An">
+                        <property role="2Ry0Am" value="batik-extension.jar" />
+                      </node>
+                    </node>
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="1SiIV0" id="1_iojA26PqI" role="3bR37C">
+          <node concept="1BurEX" id="1_iojA26PqJ" role="1SiIV1">
+            <node concept="398BVA" id="1_iojA26Pqy" role="1BurEY">
+              <ref role="398BVh" node="7gF2HTvk5zJ" resolve="webmps.home" />
+              <node concept="2Ry0Ak" id="1_iojA26Pqz" role="iGT6I">
+                <property role="2Ry0Am" value="de.q60.mps.web.ui.svg" />
+                <node concept="2Ry0Ak" id="1_iojA26Pq$" role="2Ry0An">
+                  <property role="2Ry0Am" value="lib" />
+                  <node concept="2Ry0Ak" id="1_iojA26Pq_" role="2Ry0An">
+                    <property role="2Ry0Am" value="batik-1.7.1" />
+                    <node concept="2Ry0Ak" id="1_iojA26PqA" role="2Ry0An">
+                      <property role="2Ry0Am" value="lib" />
+                      <node concept="2Ry0Ak" id="1_iojA26PqB" role="2Ry0An">
+                        <property role="2Ry0Am" value="batik-gui-util.jar" />
+                      </node>
+                    </node>
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="1SiIV0" id="1_iojA26PqW" role="3bR37C">
+          <node concept="1BurEX" id="1_iojA26PqX" role="1SiIV1">
+            <node concept="398BVA" id="1_iojA26PqK" role="1BurEY">
+              <ref role="398BVh" node="7gF2HTvk5zJ" resolve="webmps.home" />
+              <node concept="2Ry0Ak" id="1_iojA26PqL" role="iGT6I">
+                <property role="2Ry0Am" value="de.q60.mps.web.ui.svg" />
+                <node concept="2Ry0Ak" id="1_iojA26PqM" role="2Ry0An">
+                  <property role="2Ry0Am" value="lib" />
+                  <node concept="2Ry0Ak" id="1_iojA26PqN" role="2Ry0An">
+                    <property role="2Ry0Am" value="batik-1.7.1" />
+                    <node concept="2Ry0Ak" id="1_iojA26PqO" role="2Ry0An">
+                      <property role="2Ry0Am" value="lib" />
+                      <node concept="2Ry0Ak" id="1_iojA26PqP" role="2Ry0An">
+                        <property role="2Ry0Am" value="batik-gvt.jar" />
+                      </node>
+                    </node>
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="1SiIV0" id="1_iojA26Pra" role="3bR37C">
+          <node concept="1BurEX" id="1_iojA26Prb" role="1SiIV1">
+            <node concept="398BVA" id="1_iojA26PqY" role="1BurEY">
+              <ref role="398BVh" node="7gF2HTvk5zJ" resolve="webmps.home" />
+              <node concept="2Ry0Ak" id="1_iojA26PqZ" role="iGT6I">
+                <property role="2Ry0Am" value="de.q60.mps.web.ui.svg" />
+                <node concept="2Ry0Ak" id="1_iojA26Pr0" role="2Ry0An">
+                  <property role="2Ry0Am" value="lib" />
+                  <node concept="2Ry0Ak" id="1_iojA26Pr1" role="2Ry0An">
+                    <property role="2Ry0Am" value="batik-1.7.1" />
+                    <node concept="2Ry0Ak" id="1_iojA26Pr2" role="2Ry0An">
+                      <property role="2Ry0Am" value="lib" />
+                      <node concept="2Ry0Ak" id="1_iojA26Pr3" role="2Ry0An">
+                        <property role="2Ry0Am" value="batik-parser.jar" />
+                      </node>
+                    </node>
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="1SiIV0" id="1_iojA26Pro" role="3bR37C">
+          <node concept="1BurEX" id="1_iojA26Prp" role="1SiIV1">
+            <node concept="398BVA" id="1_iojA26Prc" role="1BurEY">
+              <ref role="398BVh" node="7gF2HTvk5zJ" resolve="webmps.home" />
+              <node concept="2Ry0Ak" id="1_iojA26Prd" role="iGT6I">
+                <property role="2Ry0Am" value="de.q60.mps.web.ui.svg" />
+                <node concept="2Ry0Ak" id="1_iojA26Pre" role="2Ry0An">
+                  <property role="2Ry0Am" value="lib" />
+                  <node concept="2Ry0Ak" id="1_iojA26Prf" role="2Ry0An">
+                    <property role="2Ry0Am" value="batik-1.7.1" />
+                    <node concept="2Ry0Ak" id="1_iojA26Prg" role="2Ry0An">
+                      <property role="2Ry0Am" value="lib" />
+                      <node concept="2Ry0Ak" id="1_iojA26Prh" role="2Ry0An">
+                        <property role="2Ry0Am" value="batik-script.jar" />
+                      </node>
+                    </node>
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="1SiIV0" id="1_iojA26PrA" role="3bR37C">
+          <node concept="1BurEX" id="1_iojA26PrB" role="1SiIV1">
+            <node concept="398BVA" id="1_iojA26Prq" role="1BurEY">
+              <ref role="398BVh" node="7gF2HTvk5zJ" resolve="webmps.home" />
+              <node concept="2Ry0Ak" id="1_iojA26Prr" role="iGT6I">
+                <property role="2Ry0Am" value="de.q60.mps.web.ui.svg" />
+                <node concept="2Ry0Ak" id="1_iojA26Prs" role="2Ry0An">
+                  <property role="2Ry0Am" value="lib" />
+                  <node concept="2Ry0Ak" id="1_iojA26Prt" role="2Ry0An">
+                    <property role="2Ry0Am" value="batik-1.7.1" />
+                    <node concept="2Ry0Ak" id="1_iojA26Pru" role="2Ry0An">
+                      <property role="2Ry0Am" value="lib" />
+                      <node concept="2Ry0Ak" id="1_iojA26Prv" role="2Ry0An">
+                        <property role="2Ry0Am" value="batik-svg-dom.jar" />
+                      </node>
+                    </node>
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="1SiIV0" id="1_iojA26PrO" role="3bR37C">
+          <node concept="1BurEX" id="1_iojA26PrP" role="1SiIV1">
+            <node concept="398BVA" id="1_iojA26PrC" role="1BurEY">
+              <ref role="398BVh" node="7gF2HTvk5zJ" resolve="webmps.home" />
+              <node concept="2Ry0Ak" id="1_iojA26PrD" role="iGT6I">
+                <property role="2Ry0Am" value="de.q60.mps.web.ui.svg" />
+                <node concept="2Ry0Ak" id="1_iojA26PrE" role="2Ry0An">
+                  <property role="2Ry0Am" value="lib" />
+                  <node concept="2Ry0Ak" id="1_iojA26PrF" role="2Ry0An">
+                    <property role="2Ry0Am" value="batik-1.7.1" />
+                    <node concept="2Ry0Ak" id="1_iojA26PrG" role="2Ry0An">
+                      <property role="2Ry0Am" value="lib" />
+                      <node concept="2Ry0Ak" id="1_iojA26PrH" role="2Ry0An">
+                        <property role="2Ry0Am" value="batik-svggen.jar" />
+                      </node>
+                    </node>
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="1SiIV0" id="1_iojA26Ps2" role="3bR37C">
+          <node concept="1BurEX" id="1_iojA26Ps3" role="1SiIV1">
+            <node concept="398BVA" id="1_iojA26PrQ" role="1BurEY">
+              <ref role="398BVh" node="7gF2HTvk5zJ" resolve="webmps.home" />
+              <node concept="2Ry0Ak" id="1_iojA26PrR" role="iGT6I">
+                <property role="2Ry0Am" value="de.q60.mps.web.ui.svg" />
+                <node concept="2Ry0Ak" id="1_iojA26PrS" role="2Ry0An">
+                  <property role="2Ry0Am" value="lib" />
+                  <node concept="2Ry0Ak" id="1_iojA26PrT" role="2Ry0An">
+                    <property role="2Ry0Am" value="batik-1.7.1" />
+                    <node concept="2Ry0Ak" id="1_iojA26PrU" role="2Ry0An">
+                      <property role="2Ry0Am" value="lib" />
+                      <node concept="2Ry0Ak" id="1_iojA26PrV" role="2Ry0An">
+                        <property role="2Ry0Am" value="batik-swing.jar" />
+                      </node>
+                    </node>
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="1SiIV0" id="1_iojA26Psg" role="3bR37C">
+          <node concept="1BurEX" id="1_iojA26Psh" role="1SiIV1">
+            <node concept="398BVA" id="1_iojA26Ps4" role="1BurEY">
+              <ref role="398BVh" node="7gF2HTvk5zJ" resolve="webmps.home" />
+              <node concept="2Ry0Ak" id="1_iojA26Ps5" role="iGT6I">
+                <property role="2Ry0Am" value="de.q60.mps.web.ui.svg" />
+                <node concept="2Ry0Ak" id="1_iojA26Ps6" role="2Ry0An">
+                  <property role="2Ry0Am" value="lib" />
+                  <node concept="2Ry0Ak" id="1_iojA26Ps7" role="2Ry0An">
+                    <property role="2Ry0Am" value="batik-1.7.1" />
+                    <node concept="2Ry0Ak" id="1_iojA26Ps8" role="2Ry0An">
+                      <property role="2Ry0Am" value="lib" />
+                      <node concept="2Ry0Ak" id="1_iojA26Ps9" role="2Ry0An">
+                        <property role="2Ry0Am" value="batik-transcoder.jar" />
+                      </node>
+                    </node>
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="1SiIV0" id="1_iojA26Psu" role="3bR37C">
+          <node concept="1BurEX" id="1_iojA26Psv" role="1SiIV1">
+            <node concept="398BVA" id="1_iojA26Psi" role="1BurEY">
+              <ref role="398BVh" node="7gF2HTvk5zJ" resolve="webmps.home" />
+              <node concept="2Ry0Ak" id="1_iojA26Psj" role="iGT6I">
+                <property role="2Ry0Am" value="de.q60.mps.web.ui.svg" />
+                <node concept="2Ry0Ak" id="1_iojA26Psk" role="2Ry0An">
+                  <property role="2Ry0Am" value="lib" />
+                  <node concept="2Ry0Ak" id="1_iojA26Psl" role="2Ry0An">
+                    <property role="2Ry0Am" value="batik-1.7.1" />
+                    <node concept="2Ry0Ak" id="1_iojA26Psm" role="2Ry0An">
+                      <property role="2Ry0Am" value="lib" />
+                      <node concept="2Ry0Ak" id="1_iojA26Psn" role="2Ry0An">
+                        <property role="2Ry0Am" value="batik-util.jar" />
+                      </node>
+                    </node>
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="1SiIV0" id="1_iojA26PsG" role="3bR37C">
+          <node concept="1BurEX" id="1_iojA26PsH" role="1SiIV1">
+            <node concept="398BVA" id="1_iojA26Psw" role="1BurEY">
+              <ref role="398BVh" node="7gF2HTvk5zJ" resolve="webmps.home" />
+              <node concept="2Ry0Ak" id="1_iojA26Psx" role="iGT6I">
+                <property role="2Ry0Am" value="de.q60.mps.web.ui.svg" />
+                <node concept="2Ry0Ak" id="1_iojA26Psy" role="2Ry0An">
+                  <property role="2Ry0Am" value="lib" />
+                  <node concept="2Ry0Ak" id="1_iojA26Psz" role="2Ry0An">
+                    <property role="2Ry0Am" value="batik-1.7.1" />
+                    <node concept="2Ry0Ak" id="1_iojA26Ps$" role="2Ry0An">
+                      <property role="2Ry0Am" value="lib" />
+                      <node concept="2Ry0Ak" id="1_iojA26Ps_" role="2Ry0An">
+                        <property role="2Ry0Am" value="batik-xml.jar" />
+                      </node>
+                    </node>
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="1SiIV0" id="1_iojA26PsU" role="3bR37C">
+          <node concept="1BurEX" id="1_iojA26PsV" role="1SiIV1">
+            <node concept="398BVA" id="1_iojA26PsI" role="1BurEY">
+              <ref role="398BVh" node="7gF2HTvk5zJ" resolve="webmps.home" />
+              <node concept="2Ry0Ak" id="1_iojA26PsJ" role="iGT6I">
+                <property role="2Ry0Am" value="de.q60.mps.web.ui.svg" />
+                <node concept="2Ry0Ak" id="1_iojA26PsK" role="2Ry0An">
+                  <property role="2Ry0Am" value="lib" />
+                  <node concept="2Ry0Ak" id="1_iojA26PsL" role="2Ry0An">
+                    <property role="2Ry0Am" value="batik-1.7.1" />
+                    <node concept="2Ry0Ak" id="1_iojA26PsM" role="2Ry0An">
+                      <property role="2Ry0Am" value="lib" />
+                      <node concept="2Ry0Ak" id="1_iojA26PsN" role="2Ry0An">
+                        <property role="2Ry0Am" value="js.jar" />
+                      </node>
+                    </node>
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="1SiIV0" id="1_iojA26Pt8" role="3bR37C">
+          <node concept="1BurEX" id="1_iojA26Pt9" role="1SiIV1">
+            <node concept="398BVA" id="1_iojA26PsW" role="1BurEY">
+              <ref role="398BVh" node="7gF2HTvk5zJ" resolve="webmps.home" />
+              <node concept="2Ry0Ak" id="1_iojA26PsX" role="iGT6I">
+                <property role="2Ry0Am" value="de.q60.mps.web.ui.svg" />
+                <node concept="2Ry0Ak" id="1_iojA26PsY" role="2Ry0An">
+                  <property role="2Ry0Am" value="lib" />
+                  <node concept="2Ry0Ak" id="1_iojA26PsZ" role="2Ry0An">
+                    <property role="2Ry0Am" value="batik-1.7.1" />
+                    <node concept="2Ry0Ak" id="1_iojA26Pt0" role="2Ry0An">
+                      <property role="2Ry0Am" value="extensions" />
+                      <node concept="2Ry0Ak" id="1_iojA26Pt1" role="2Ry0An">
+                        <property role="2Ry0Am" value="batik-rasterizer-ext.jar" />
+                      </node>
+                    </node>
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="1SiIV0" id="1_iojA26Ptm" role="3bR37C">
+          <node concept="1BurEX" id="1_iojA26Ptn" role="1SiIV1">
+            <node concept="398BVA" id="1_iojA26Pta" role="1BurEY">
+              <ref role="398BVh" node="7gF2HTvk5zJ" resolve="webmps.home" />
+              <node concept="2Ry0Ak" id="1_iojA26Ptb" role="iGT6I">
+                <property role="2Ry0Am" value="de.q60.mps.web.ui.svg" />
+                <node concept="2Ry0Ak" id="1_iojA26Ptc" role="2Ry0An">
+                  <property role="2Ry0Am" value="lib" />
+                  <node concept="2Ry0Ak" id="1_iojA26Ptd" role="2Ry0An">
+                    <property role="2Ry0Am" value="batik-1.7.1" />
+                    <node concept="2Ry0Ak" id="1_iojA26Pte" role="2Ry0An">
+                      <property role="2Ry0Am" value="extensions" />
+                      <node concept="2Ry0Ak" id="1_iojA26Ptf" role="2Ry0An">
+                        <property role="2Ry0Am" value="batik-squiggle-ext.jar" />
+                      </node>
+                    </node>
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="1SiIV0" id="1_iojA26Ptw" role="3bR37C">
+          <node concept="1BurEX" id="1_iojA26Ptx" role="1SiIV1">
+            <node concept="398BVA" id="1_iojA26Pto" role="1BurEY">
+              <ref role="398BVh" node="7gF2HTvk5zJ" resolve="webmps.home" />
+              <node concept="2Ry0Ak" id="1_iojA26Ptp" role="iGT6I">
+                <property role="2Ry0Am" value="de.q60.mps.web.ui.svg" />
+                <node concept="2Ry0Ak" id="1_iojA26Ptq" role="2Ry0An">
+                  <property role="2Ry0Am" value="lib" />
+                  <node concept="2Ry0Ak" id="1_iojA26Ptr" role="2Ry0An">
+                    <property role="2Ry0Am" value="java_websocket.jar" />
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="1SiIV0" id="1_iojA26PtE" role="3bR37C">
+          <node concept="1BurEX" id="1_iojA26PtF" role="1SiIV1">
+            <node concept="398BVA" id="1_iojA26Pty" role="1BurEY">
+              <ref role="398BVh" node="7gF2HTvk5zJ" resolve="webmps.home" />
+              <node concept="2Ry0Ak" id="1_iojA26Ptz" role="iGT6I">
+                <property role="2Ry0Am" value="de.q60.mps.web.ui.svg" />
+                <node concept="2Ry0Ak" id="1_iojA26Pt$" role="2Ry0An">
+                  <property role="2Ry0Am" value="lib" />
+                  <node concept="2Ry0Ak" id="1_iojA26Pt_" role="2Ry0An">
+                    <property role="2Ry0Am" value="json-20160810.jar" />
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="1SiIV0" id="1_iojA26PtO" role="3bR37C">
+          <node concept="1BurEX" id="1_iojA26PtP" role="1SiIV1">
+            <node concept="398BVA" id="1_iojA26PtG" role="1BurEY">
+              <ref role="398BVh" node="7gF2HTvk5zJ" resolve="webmps.home" />
+              <node concept="2Ry0Ak" id="1_iojA26PtH" role="iGT6I">
+                <property role="2Ry0Am" value="de.q60.mps.web.ui.svg" />
+                <node concept="2Ry0Ak" id="1_iojA26PtI" role="2Ry0An">
+                  <property role="2Ry0Am" value="lib" />
+                  <node concept="2Ry0Ak" id="1_iojA26PtJ" role="2Ry0An">
+                    <property role="2Ry0Am" value="gson-2.8.0.jar" />
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="1SiIV0" id="1_iojA26PtY" role="3bR37C">
+          <node concept="1BurEX" id="1_iojA26PtZ" role="1SiIV1">
+            <node concept="398BVA" id="1_iojA26PtQ" role="1BurEY">
+              <ref role="398BVh" node="7gF2HTvk5zJ" resolve="webmps.home" />
+              <node concept="2Ry0Ak" id="1_iojA26PtR" role="iGT6I">
+                <property role="2Ry0Am" value="de.q60.mps.web.ui.svg" />
+                <node concept="2Ry0Ak" id="1_iojA26PtS" role="2Ry0An">
+                  <property role="2Ry0Am" value="lib" />
+                  <node concept="2Ry0Ak" id="1_iojA26PtT" role="2Ry0An">
+                    <property role="2Ry0Am" value="commons-codec-1.10.jar" />
+                  </node>
+                </node>
+              </node>
+            </node>
           </node>
         </node>
       </node>

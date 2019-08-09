@@ -104,7 +104,7 @@
   </registry>
   <node concept="1l3spW" id="4jf43pv7edP">
     <property role="TrG5h" value="de.q60.mps.web.build.scripts" />
-    <property role="2DA0ip" value="../../" />
+    <property role="2DA0ip" value="../" />
     <property role="turDy" value="build-scripts.xml" />
     <node concept="10PD9b" id="4jf43pv7edQ" role="10PD9s" />
     <node concept="3b7kt6" id="4jf43pv7edR" role="10PD9s" />
@@ -113,10 +113,10 @@
     </node>
     <node concept="398rNT" id="4jf43pv7zoM" role="1l3spd">
       <property role="TrG5h" value="artifacts.root" />
-      <node concept="55IIr" id="4jf43pv7ztU" role="398pKh">
-        <node concept="2Ry0Ak" id="4jf43pv7z_v" role="iGT6I">
+      <node concept="55IIr" id="1_iojA27IfG" role="398pKh">
+        <node concept="2Ry0Ak" id="1_iojA27MS5" role="iGT6I">
           <property role="2Ry0Am" value=".." />
-          <node concept="2Ry0Ak" id="4jf43pv7zG8" role="2Ry0An">
+          <node concept="2Ry0Ak" id="1_iojA27MS8" role="2Ry0An">
             <property role="2Ry0Am" value="artifacts" />
           </node>
         </node>
@@ -214,6 +214,34 @@
         <node concept="1SiIV0" id="4jf43pv7rK8" role="3bR37C">
           <node concept="3bR9La" id="4jf43pv7rK9" role="1SiIV1">
             <ref role="3bR37D" to="90a9:PE3B26VOkn" resolve="de.itemis.mps.extensions.build" />
+          </node>
+        </node>
+      </node>
+      <node concept="1E1JtA" id="1_iojA27Ifr" role="2G$12L">
+        <property role="BnDLt" value="true" />
+        <property role="TrG5h" value="de.q60.mps.web.build.rcp" />
+        <property role="3LESm3" value="5dce5e49-c451-4a17-8147-03cbb37722c3" />
+        <node concept="55IIr" id="1_iojA27Ifu" role="3LF7KH">
+          <node concept="2Ry0Ak" id="1_iojA27IfT" role="iGT6I">
+            <property role="2Ry0Am" value="de.q60.mps.web.build.rcp" />
+            <node concept="2Ry0Ak" id="1_iojA27IfW" role="2Ry0An">
+              <property role="2Ry0Am" value="de.q60.mps.web.build.rcp.msd" />
+            </node>
+          </node>
+        </node>
+        <node concept="1SiIV0" id="1_iojA27IfX" role="3bR37C">
+          <node concept="3bR9La" id="1_iojA27IfY" role="1SiIV1">
+            <ref role="3bR37D" to="90a9:PE3B26VOkn" resolve="de.itemis.mps.extensions.build" />
+          </node>
+        </node>
+        <node concept="1SiIV0" id="1_iojA27IfZ" role="3bR37C">
+          <node concept="3bR9La" id="1_iojA27Ig0" role="1SiIV1">
+            <ref role="3bR37D" to="ffeo:78GwwOvB3tw" resolve="jetbrains.mps.ide.build" />
+          </node>
+        </node>
+        <node concept="1SiIV0" id="1_iojA27Ig1" role="3bR37C">
+          <node concept="3bR9La" id="1_iojA27Ig2" role="1SiIV1">
+            <ref role="3bR37D" node="4jf43pv7ee4" resolve="de.q60.mps.web.build" />
           </node>
         </node>
       </node>

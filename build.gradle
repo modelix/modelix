@@ -1,4 +1,5 @@
 import de.itemis.mps.gradle.BuildLanguages
+import de.itemis.mps.gradle.RunAntScript
 import de.itemis.mps.gradle.GenerateLibrariesXml
 import de.itemis.mps.gradle.TestLanguages
 
@@ -15,6 +16,8 @@ buildscript {
 
 group 'de.q60.mps.web'
 description = "Cloud storage and web UI for MPS"
+
+defaultTasks 'build_languages'
 
 File scriptFile(String relativePath) {
     new File("$rootDir/build/$relativePath")
@@ -129,6 +132,21 @@ task build_languages(type: BuildLanguages, dependsOn: [allScripts, resolveMps, r
     description = "Build all MPS language"
     scriptClasspath = buildScriptClasspath
     script new File("$rootDir/mps/build.xml")
+}
+
+task build_rcp_branding(type: BuildLanguages, dependsOn: [allScripts, resolveMps, resolveMpsArtifacts, build_languages]) {
+    scriptArgs = defaultScriptArgs
+    description = "Build RCP Branding"
+    scriptClasspath = buildScriptClasspath
+    script new File("$rootDir/mps/build-branding.xml")
+}
+
+task build_rcp_distribution(type: RunAntScript, dependsOn: build_rcp_branding) {
+    scriptArgs = defaultScriptArgs
+    description = "Build RCP Distribution"
+    scriptClasspath = buildScriptClasspath
+    script new File("$rootDir/mps/build-distribution.xml")
+    targets 'clean', 'assemble'
 }
 
 task run_tests(type: TestLanguages, dependsOn: build_languages) {
