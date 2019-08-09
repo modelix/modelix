@@ -407,6 +407,24 @@
     </node>
     <node concept="2sgV4H" id="1_iojA27s_8" role="1l3spa">
       <ref role="1l3spb" to="indb:7gF2HTviNP8" resolve="de.q60.mps.web" />
+      <node concept="398BVA" id="3$7Kuaikjyp" role="2JcizS">
+        <ref role="398BVh" node="7gF2HTvk5zJ" resolve="webmps.home" />
+        <node concept="2Ry0Ak" id="3$7Kuaikjyt" role="iGT6I">
+          <property role="2Ry0Am" value="build" />
+          <node concept="2Ry0Ak" id="3$7Kuaikjyy" role="2Ry0An">
+            <property role="2Ry0Am" value="de.q60.mps.web" />
+            <node concept="2Ry0Ak" id="3$7KuaikjyB" role="2Ry0An">
+              <property role="2Ry0Am" value="build" />
+              <node concept="2Ry0Ak" id="3$7KuaikjyG" role="2Ry0An">
+                <property role="2Ry0Am" value="artifacts" />
+                <node concept="2Ry0Ak" id="3$7KuaikjyL" role="2Ry0An">
+                  <property role="2Ry0Am" value="de.q60.mps.web" />
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+      </node>
     </node>
     <node concept="3jsGME" id="1_iojA26H3k" role="3989C9">
       <property role="TrG5h" value="mps-tips" />
