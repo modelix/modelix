@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<model ref="r:a5895ed5-d753-4279-9a6a-1e4f59e8cac5(de.q60.mps.lazywebmps.runtime.modelrepo)">
+<model ref="r:a5895ed5-d753-4279-9a6a-1e4f59e8cac5(de.q60.mps.web.ui.svg.modelrepo)">
   <persistence version="9" />
   <languages>
     <devkit ref="fbc25dd2-5da4-483a-8b19-70928e1b62d7(jetbrains.mps.devkit.general-purpose)" />
   </languages>
   <imports>
-    <import index="b3cn" ref="r:ef125ab6-4535-46f9-963a-bb3cf1420cc4(de.q60.mps.lazywebmps.runtime.tree)" />
-    <import index="88at" ref="r:2077b9cb-d6f5-46a2-9b75-7ca019fa40cc(de.q60.mps.lazywebmps.runtime.ot)" />
+    <import index="b3cn" ref="r:ef125ab6-4535-46f9-963a-bb3cf1420cc4(de.q60.mps.web.ui.svg.tree)" />
+    <import index="88at" ref="r:2077b9cb-d6f5-46a2-9b75-7ca019fa40cc(de.q60.mps.web.ui.svg.ot)" />
   </imports>
   <registry>
     <language id="f3061a53-9226-4cc5-a443-f952ceaf5816" name="jetbrains.mps.baseLanguage">

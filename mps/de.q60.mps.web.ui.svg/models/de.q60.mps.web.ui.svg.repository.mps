@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<model ref="r:24ed310f-f0ab-4270-aa2f-e2180b5d4c31(de.q60.mps.lazywebmps.runtime.repository)">
+<model ref="r:24ed310f-f0ab-4270-aa2f-e2180b5d4c31(de.q60.mps.web.ui.svg.repository)">
   <persistence version="9" />
   <languages>
     <devkit ref="fbc25dd2-5da4-483a-8b19-70928e1b62d7(jetbrains.mps.devkit.general-purpose)" />

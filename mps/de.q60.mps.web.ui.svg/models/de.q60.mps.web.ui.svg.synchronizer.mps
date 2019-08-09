@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<model ref="r:398dbccd-9340-4ed3-8e84-f35434f97fe1(de.q60.mps.lazywebmps.runtime.synchronizer)">
+<model ref="r:398dbccd-9340-4ed3-8e84-f35434f97fe1(de.q60.mps.web.ui.svg.synchronizer)">
   <persistence version="9" />
   <languages>
     <devkit ref="fbc25dd2-5da4-483a-8b19-70928e1b62d7(jetbrains.mps.devkit.general-purpose)" />
@@ -7,7 +7,7 @@
   <imports>
     <import index="tqvn" ref="6ed54515-acc8-4d1e-a16c-9fd6cfe951ea/java:jetbrains.mps.smodel.tempmodel(MPS.Core/)" />
     <import index="mhbf" ref="8865b7a8-5271-43d3-884c-6fd1d9cfdd34/java:org.jetbrains.mps.openapi.model(MPS.OpenAPI/)" />
-    <import index="cs9y" ref="r:a5895ed5-d753-4279-9a6a-1e4f59e8cac5(de.q60.mps.lazywebmps.runtime.modelrepo)" />
+    <import index="cs9y" ref="r:a5895ed5-d753-4279-9a6a-1e4f59e8cac5(de.q60.mps.web.ui.svg.modelrepo)" />
   </imports>
   <registry>
     <language id="f3061a53-9226-4cc5-a443-f952ceaf5816" name="jetbrains.mps.baseLanguage">

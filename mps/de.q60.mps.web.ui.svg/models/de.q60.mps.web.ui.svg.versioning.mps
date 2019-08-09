@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<model ref="r:54b04a80-dd7c-49d8-9d41-3669a637f0a7(de.q60.mps.lazywebmps.runtime.versioning)">
+<model ref="r:54b04a80-dd7c-49d8-9d41-3669a637f0a7(de.q60.mps.web.ui.svg.versioning)">
   <persistence version="9" />
   <languages>
     <use id="774bf8a0-62e5-41e1-af63-f4812e60e48b" name="jetbrains.mps.baseLanguage.checkedDots" version="0" />

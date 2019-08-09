@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<model ref="r:67f01827-db32-4a68-a879-d86303d650e8(de.q60.mps.lazywebmps.runtime.hash.mps)">
+<model ref="r:67f01827-db32-4a68-a879-d86303d650e8(de.q60.mps.web.ui.svg.hash.mps)">
   <persistence version="9" />
   <languages>
     <devkit ref="fbc25dd2-5da4-483a-8b19-70928e1b62d7(jetbrains.mps.devkit.general-purpose)" />
   </languages>
   <imports>
     <import index="bz9l" ref="r:85de55b5-84d0-4cc5-8673-25addf93c394(de.q60.mps.lazywebmps.runtime.hash)" />
-    <import index="b3cn" ref="r:ef125ab6-4535-46f9-963a-bb3cf1420cc4(de.q60.mps.lazywebmps.runtime.tree)" />
-    <import index="ns" ref="r:b1d968e4-0e15-46c9-9cce-63a8489d5bdd(de.q60.mps.lazywebmps.runtime.tree.mps)" />
+    <import index="b3cn" ref="r:ef125ab6-4535-46f9-963a-bb3cf1420cc4(de.q60.mps.web.ui.svg.tree)" />
+    <import index="ns" ref="r:b1d968e4-0e15-46c9-9cce-63a8489d5bdd(de.q60.mps.web.ui.svg.tree.mps)" />
     <import index="wyt6" ref="6354ebe7-c22a-4a0f-ac54-50b52ab9b065/java:java.lang(JDK/)" />
     <import index="mhbf" ref="8865b7a8-5271-43d3-884c-6fd1d9cfdd34/java:org.jetbrains.mps.openapi.model(MPS.OpenAPI/)" />
   </imports>

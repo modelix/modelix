@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<solution name="de.q60.mps.lazywebmps.runtime" uuid="cceec75f-de6e-4ee7-bd91-29a3a99bfede" moduleVersion="0" pluginKind="PLUGIN_CORE" compileInMPS="true">
+<solution name="de.q60.mps.web.ui.svg" uuid="cceec75f-de6e-4ee7-bd91-29a3a99bfede" moduleVersion="0" pluginKind="PLUGIN_CORE" compileInMPS="true">
   <models>
     <modelRoot contentPath="${module}" type="default">
       <sourceRoot location="models" />
@@ -110,7 +110,7 @@
     <module reference="498d89d2-c2e9-11e2-ad49-6cf049e62fe5(MPS.IDEA)" version="0" />
     <module reference="8865b7a8-5271-43d3-884c-6fd1d9cfdd34(MPS.OpenAPI)" version="0" />
     <module reference="742f6602-5a2f-4313-aa6e-ae1cd4ffdc61(MPS.Platform)" version="0" />
-    <module reference="cceec75f-de6e-4ee7-bd91-29a3a99bfede(de.q60.mps.lazywebmps.runtime)" version="0" />
+    <module reference="cceec75f-de6e-4ee7-bd91-29a3a99bfede(de.q60.mps.web.ui.svg)" version="0" />
     <module reference="f0fff802-6d26-4d2e-b89d-391357265626(de.slisson.mps.hacks.editor)" version="0" />
     <module reference="9a4afe51-f114-4595-b5df-048ce3c596be(jetbrains.mps.runtime)" version="0" />
     <module reference="b0f8641f-bd77-4421-8425-30d9088a82f7(org.apache.commons)" version="0" />

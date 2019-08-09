@@ -2,15 +2,16 @@
 <project version="4">
   <component name="MPSProject">
     <projectModules>
-      <modulePath path="$PROJECT_DIR$/de.q60.mps.shadowmodels.web.dom/de.q60.mps.shadowmodels.web.dom.mpl" folder="ui" />
-      <modulePath path="$PROJECT_DIR$/de.q60.mps.shadowmodels.web.json/de.q60.mps.shadowmodels.web.json.mpl" folder="ui" />
+      <modulePath path="$PROJECT_DIR$/de.q60.mps.shadowmodels.web.dom/de.q60.mps.shadowmodels.web.dom.mpl" folder="ui.shadowmodels" />
+      <modulePath path="$PROJECT_DIR$/de.q60.mps.shadowmodels.web.json/de.q60.mps.shadowmodels.web.json.mpl" folder="ui.shadowmodels" />
       <modulePath path="$PROJECT_DIR$/de.q60.mps.shadowmodels.web.lib/de.q60.mps.shadowmodels.web.lib.msd" folder="common" />
-      <modulePath path="$PROJECT_DIR$/de.q60.mps.shadowmodels.web.server/de.q60.mps.shadowmodels.web.server.msd" folder="ui" />
-      <modulePath path="$PROJECT_DIR$/de.q60.mps.shadowmodels.web.statemachine/de.q60.mps.shadowmodels.web.statemachine.mpl" folder="ui" />
-      <modulePath path="$PROJECT_DIR$/de.q60.mps.shadowmodels.web/de.q60.mps.shadowmodels.web.mpl" folder="ui" />
+      <modulePath path="$PROJECT_DIR$/de.q60.mps.shadowmodels.web.server/de.q60.mps.shadowmodels.web.server.msd" folder="ui.shadowmodels" />
+      <modulePath path="$PROJECT_DIR$/de.q60.mps.shadowmodels.web.statemachine/de.q60.mps.shadowmodels.web.statemachine.mpl" folder="ui.shadowmodels" />
+      <modulePath path="$PROJECT_DIR$/de.q60.mps.shadowmodels.web/de.q60.mps.shadowmodels.web.mpl" folder="ui.shadowmodels" />
       <modulePath path="$PROJECT_DIR$/de.q60.mps.web.build/de.q60.mps.web.build.msd" folder="build" />
       <modulePath path="$PROJECT_DIR$/de.q60.mps.web.model.mpsplugin/de.q60.mps.web.model.mpsplugin.msd" folder="model" />
       <modulePath path="$PROJECT_DIR$/de.q60.mps.web.model/de.q60.mps.web.model.msd" folder="model" />
+      <modulePath path="$PROJECT_DIR$/de.q60.mps.web.ui.svg/de.q60.mps.web.ui.svg.msd" folder="" />
       <modulePath path="$PROJECT_DIR$/solutions/de.q60.mps.web.build.scripts/de.q60.mps.web.build.scripts.msd" folder="build" />
     </projectModules>
   </component>
