@@ -6,8 +6,6 @@
   </languages>
   <imports>
     <import index="bz9l" ref="r:85de55b5-84d0-4cc5-8673-25addf93c394(de.q60.mps.lazywebmps.runtime.hash)" />
-    <import index="b3cn" ref="r:ef125ab6-4535-46f9-963a-bb3cf1420cc4(de.q60.mps.web.ui.svg.tree)" />
-    <import index="ns" ref="r:b1d968e4-0e15-46c9-9cce-63a8489d5bdd(de.q60.mps.web.ui.svg.tree.mps)" />
     <import index="wyt6" ref="6354ebe7-c22a-4a0f-ac54-50b52ab9b065/java:java.lang(JDK/)" />
     <import index="mhbf" ref="8865b7a8-5271-43d3-884c-6fd1d9cfdd34/java:org.jetbrains.mps.openapi.model(MPS.OpenAPI/)" />
   </imports>
@@ -39,10 +37,6 @@
       <concept id="1070462154015" name="jetbrains.mps.baseLanguage.structure.StaticFieldDeclaration" flags="ig" index="Wx3nA" />
       <concept id="1070475354124" name="jetbrains.mps.baseLanguage.structure.ThisExpression" flags="nn" index="Xjq3P" />
       <concept id="1070534058343" name="jetbrains.mps.baseLanguage.structure.NullLiteral" flags="nn" index="10Nm6u" />
-      <concept id="1070534934090" name="jetbrains.mps.baseLanguage.structure.CastExpression" flags="nn" index="10QFUN">
-        <child id="1070534934091" name="type" index="10QFUM" />
-        <child id="1070534934092" name="expression" index="10QFUP" />
-      </concept>
       <concept id="1068390468198" name="jetbrains.mps.baseLanguage.structure.ClassConcept" flags="ig" index="312cEu">
         <child id="1095933932569" name="implementedInterface" index="EKbjA" />
       </concept>
@@ -83,9 +77,6 @@
       </concept>
       <concept id="1068581242863" name="jetbrains.mps.baseLanguage.structure.LocalVariableDeclaration" flags="nr" index="3cpWsn" />
       <concept id="1068581517677" name="jetbrains.mps.baseLanguage.structure.VoidType" flags="in" index="3cqZAl" />
-      <concept id="1079359253375" name="jetbrains.mps.baseLanguage.structure.ParenthesizedExpression" flags="nn" index="1eOMI4">
-        <child id="1079359253376" name="expression" index="1eOMHV" />
-      </concept>
       <concept id="1204053956946" name="jetbrains.mps.baseLanguage.structure.IMethodCall" flags="ng" index="1ndlxa">
         <reference id="1068499141037" name="baseMethodDeclaration" index="37wK5l" />
         <child id="1068499141038" name="actualArgument" index="37wK5m" />
@@ -139,8 +130,8 @@
       <property role="TrG5h" value="set" />
       <node concept="37vLTG" id="2AThsNtKW$O" role="3clF46">
         <property role="TrG5h" value="node" />
-        <node concept="3uibUv" id="2AThsNtKW$P" role="1tU5fm">
-          <ref role="3uigEE" to="b3cn:q4IqgjMpEX" resolve="INode" />
+        <node concept="3uibUv" id="1_iojA249cs" role="1tU5fm">
+          <ref role="3uigEE" to="mhbf:~SNode" resolve="SNode" />
         </node>
       </node>
       <node concept="37vLTG" id="2AThsNtKW$Q" role="3clF46">
@@ -152,20 +143,8 @@
       <node concept="3clFbS" id="2AThsNtKW$V" role="3clF47">
         <node concept="3clFbF" id="2AThsNtKWJx" role="3cqZAp">
           <node concept="2OqwBi" id="2AThsNtL8d8" role="3clFbG">
-            <node concept="2OqwBi" id="2AThsNtKX4a" role="2Oq$k0">
-              <node concept="1eOMI4" id="2AThsNtKWJv" role="2Oq$k0">
-                <node concept="10QFUN" id="2AThsNtKWJs" role="1eOMHV">
-                  <node concept="3uibUv" id="2AThsNtKWJQ" role="10QFUM">
-                    <ref role="3uigEE" to="ns:2AThsNt_6ui" resolve="NodeAdapter" />
-                  </node>
-                  <node concept="37vLTw" id="2AThsNtKWNJ" role="10QFUP">
-                    <ref role="3cqZAo" node="2AThsNtKW$O" resolve="node" />
-                  </node>
-                </node>
-              </node>
-              <node concept="liA8E" id="2AThsNtL84B" role="2OqNvi">
-                <ref role="37wK5l" to="ns:2AThsNtL1$8" resolve="getNode" />
-              </node>
+            <node concept="37vLTw" id="1_iojA249i6" role="2Oq$k0">
+              <ref role="3cqZAo" node="2AThsNtKW$O" resolve="node" />
             </node>
             <node concept="liA8E" id="2AThsNtL8oa" role="2OqNvi">
               <ref role="37wK5l" to="mhbf:~SNode.putUserObject(java.lang.Object,java.lang.Object)" resolve="putUserObject" />
@@ -189,8 +168,8 @@
       <property role="TrG5h" value="get" />
       <node concept="37vLTG" id="2AThsNtKW$Y" role="3clF46">
         <property role="TrG5h" value="node" />
-        <node concept="3uibUv" id="2AThsNtKW$Z" role="1tU5fm">
-          <ref role="3uigEE" to="b3cn:q4IqgjMpEX" resolve="INode" />
+        <node concept="3uibUv" id="1_iojA249wY" role="1tU5fm">
+          <ref role="3uigEE" to="mhbf:~SNode" resolve="SNode" />
         </node>
       </node>
       <node concept="17QB3L" id="2AThsNtKW_0" role="3clF45" />
@@ -205,20 +184,8 @@
                 <ref role="3uigEE" to="wyt6:~String" resolve="String" />
               </node>
               <node concept="2OqwBi" id="2AThsNtLbg1" role="0kSFX">
-                <node concept="2OqwBi" id="2AThsNtLbg2" role="2Oq$k0">
-                  <node concept="1eOMI4" id="2AThsNtLbg3" role="2Oq$k0">
-                    <node concept="10QFUN" id="2AThsNtLbg4" role="1eOMHV">
-                      <node concept="3uibUv" id="2AThsNtLbg5" role="10QFUM">
-                        <ref role="3uigEE" to="ns:2AThsNt_6ui" resolve="NodeAdapter" />
-                      </node>
-                      <node concept="37vLTw" id="2AThsNtLbg6" role="10QFUP">
-                        <ref role="3cqZAo" node="2AThsNtKW$Y" resolve="node" />
-                      </node>
-                    </node>
-                  </node>
-                  <node concept="liA8E" id="2AThsNtLbg7" role="2OqNvi">
-                    <ref role="37wK5l" to="ns:2AThsNtL1$8" resolve="getNode" />
-                  </node>
+                <node concept="37vLTw" id="1_iojA249AT" role="2Oq$k0">
+                  <ref role="3cqZAo" node="2AThsNtKW$Y" resolve="node" />
                 </node>
                 <node concept="liA8E" id="2AThsNtLbg8" role="2OqNvi">
                   <ref role="37wK5l" to="mhbf:~SNode.getUserObject(java.lang.Object)" resolve="getUserObject" />

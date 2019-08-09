@@ -46,9 +46,7 @@
     <import index="qq03" ref="742f6602-5a2f-4313-aa6e-ae1cd4ffdc61/java:jetbrains.mps.ide.actions(MPS.Platform/)" />
     <import index="qr12" ref="r:24ed310f-f0ab-4270-aa2f-e2180b5d4c31(de.q60.mps.web.ui.svg.repository)" />
     <import index="8oaq" ref="b0f8641f-bd77-4421-8425-30d9088a82f7/java:org.apache.commons.io(org.apache.commons/)" />
-    <import index="xlqe" ref="r:d82392d4-c42d-4f5e-9b9c-292583ed6ce9(de.q60.mps.lazywebmps.runtime.ot.mps)" />
     <import index="mhbf" ref="8865b7a8-5271-43d3-884c-6fd1d9cfdd34/java:org.jetbrains.mps.openapi.model(MPS.OpenAPI/)" />
-    <import index="ns" ref="r:b1d968e4-0e15-46c9-9cce-63a8489d5bdd(de.q60.mps.web.ui.svg.tree.mps)" />
     <import index="tqvn" ref="6ed54515-acc8-4d1e-a16c-9fd6cfe951ea/java:jetbrains.mps.smodel.tempmodel(MPS.Core/)" />
     <import index="w1kc" ref="6ed54515-acc8-4d1e-a16c-9fd6cfe951ea/java:jetbrains.mps.smodel(MPS.Core/)" />
     <import index="g3l6" ref="6ed54515-acc8-4d1e-a16c-9fd6cfe951ea/java:jetbrains.mps.extapi.model(MPS.Core/)" />
@@ -340,10 +338,6 @@
       </concept>
     </language>
     <language id="7866978e-a0f0-4cc7-81bc-4d213d9375e1" name="jetbrains.mps.lang.smodel">
-      <concept id="559557797393017698" name="jetbrains.mps.lang.smodel.structure.ModelReferenceExpression" flags="nn" index="BaHAS">
-        <property id="559557797393021807" name="stereotype" index="BaGAP" />
-        <property id="559557797393017702" name="name" index="BaHAW" />
-      </concept>
       <concept id="1138055754698" name="jetbrains.mps.lang.smodel.structure.SNodeType" flags="in" index="3Tqbb2" />
     </language>
     <language id="ceab5195-25ea-4f22-9b92-103b95ca8c0c" name="jetbrains.mps.lang.core">
@@ -433,13 +427,6 @@
         <ref role="3uigEE" to="kvq8:5tr7YH$THZn" resolve="GlobalSelectionListener" />
       </node>
     </node>
-    <node concept="2BZ0e9" id="2AThsNtEuLV" role="2uRRBG">
-      <property role="TrG5h" value="e2o" />
-      <node concept="3Tm6S6" id="2AThsNtEuLW" role="1B3o_S" />
-      <node concept="3uibUv" id="2AThsNtHG1I" role="1tU5fm">
-        <ref role="3uigEE" to="xlqe:2AThsNtHDxJ" resolve="SynchronizingEventsToOperations" />
-      </node>
-    </node>
     <node concept="2uRRBj" id="6xm2RBlaf25" role="2uRRBE">
       <node concept="3clFbS" id="6xm2RBlaf26" role="2VODD2">
         <node concept="3clFbF" id="2$gEJgL8ThG" role="3cqZAp">
@@ -484,86 +471,6 @@
             </node>
           </node>
         </node>
-        <node concept="3clFbH" id="2AThsNtFm09" role="3cqZAp" />
-        <node concept="1X3_iC" id="1LwnBM31dHV" role="lGtFl">
-          <property role="3V$3am" value="statement" />
-          <property role="3V$3ak" value="f3061a53-9226-4cc5-a443-f952ceaf5816/1068580123136/1068581517665" />
-          <node concept="3cpWs8" id="2AThsNtFmew" role="8Wnug">
-            <node concept="3cpWsn" id="2AThsNtFmex" role="3cpWs9">
-              <property role="TrG5h" value="sourceModel" />
-              <node concept="3uibUv" id="2AThsNtFmHv" role="1tU5fm">
-                <ref role="3uigEE" to="mhbf:~SModel" resolve="SModel" />
-              </node>
-              <node concept="BaHAS" id="2AThsNtFmey" role="33vP2m">
-                <property role="BaHAW" value="de.q60.mps.lazywebmps.sandbox" />
-                <property role="BaGAP" value="" />
-              </node>
-            </node>
-          </node>
-        </node>
-        <node concept="1X3_iC" id="1LwnBM31dHW" role="lGtFl">
-          <property role="3V$3am" value="statement" />
-          <property role="3V$3ak" value="f3061a53-9226-4cc5-a443-f952ceaf5816/1068580123136/1068581517665" />
-          <node concept="3cpWs8" id="2AThsNtHIsA" role="8Wnug">
-            <node concept="3cpWsn" id="2AThsNtHIsB" role="3cpWs9">
-              <property role="TrG5h" value="targetModel" />
-              <node concept="3uibUv" id="2AThsNtHIsC" role="1tU5fm">
-                <ref role="3uigEE" to="mhbf:~SModel" resolve="SModel" />
-              </node>
-              <node concept="BaHAS" id="2AThsNtHIsD" role="33vP2m">
-                <property role="BaHAW" value="de.q60.mps.lazywebmps.sandbox2" />
-                <property role="BaGAP" value="" />
-              </node>
-            </node>
-          </node>
-        </node>
-        <node concept="1X3_iC" id="1LwnBM31dHX" role="lGtFl">
-          <property role="3V$3am" value="statement" />
-          <property role="3V$3ak" value="f3061a53-9226-4cc5-a443-f952ceaf5816/1068580123136/1068581517665" />
-          <node concept="3clFbF" id="2AThsNtHH2y" role="8Wnug">
-            <node concept="37vLTI" id="2AThsNtHHmI" role="3clFbG">
-              <node concept="2OqwBi" id="2AThsNtHH2s" role="37vLTJ">
-                <node concept="2WthIp" id="2AThsNtHH2v" role="2Oq$k0" />
-                <node concept="2BZ7hE" id="2AThsNtHH2x" role="2OqNvi">
-                  <ref role="2WH_rO" node="2AThsNtEuLV" resolve="e2o" />
-                </node>
-              </node>
-              <node concept="2ShNRf" id="2AThsNtEIsg" role="37vLTx">
-                <node concept="1pGfFk" id="2AThsNtHGRm" role="2ShVmc">
-                  <ref role="37wK5l" to="xlqe:2AThsNtHEgG" resolve="SynchronizingEventsToOperations" />
-                  <node concept="2ShNRf" id="2AThsNtHHpX" role="37wK5m">
-                    <node concept="1pGfFk" id="2AThsNtHIgo" role="2ShVmc">
-                      <ref role="37wK5l" to="ns:2AThsNtDygZ" resolve="ModelAdapter" />
-                      <node concept="37vLTw" id="2AThsNtHIy4" role="37wK5m">
-                        <ref role="3cqZAo" node="2AThsNtHIsB" resolve="targetModel" />
-                      </node>
-                    </node>
-                  </node>
-                </node>
-              </node>
-            </node>
-          </node>
-        </node>
-        <node concept="1X3_iC" id="1LwnBM31dHY" role="lGtFl">
-          <property role="3V$3am" value="statement" />
-          <property role="3V$3ak" value="f3061a53-9226-4cc5-a443-f952ceaf5816/1068580123136/1068581517665" />
-          <node concept="3clFbF" id="2AThsNtFm7y" role="8Wnug">
-            <node concept="2OqwBi" id="2AThsNtFmmv" role="3clFbG">
-              <node concept="37vLTw" id="2AThsNtFmez" role="2Oq$k0">
-                <ref role="3cqZAo" node="2AThsNtFmex" resolve="sourceModel" />
-              </node>
-              <node concept="liA8E" id="2AThsNtFmOq" role="2OqNvi">
-                <ref role="37wK5l" to="mhbf:~SModel.addChangeListener(org.jetbrains.mps.openapi.model.SNodeChangeListener)" resolve="addChangeListener" />
-                <node concept="2OqwBi" id="2AThsNtFmPi" role="37wK5m">
-                  <node concept="2WthIp" id="2AThsNtFmPl" role="2Oq$k0" />
-                  <node concept="2BZ7hE" id="2AThsNtFmPn" role="2OqNvi">
-                    <ref role="2WH_rO" node="2AThsNtEuLV" resolve="e2o" />
-                  </node>
-                </node>
-              </node>
-            </node>
-          </node>
-        </node>
       </node>
     </node>
     <node concept="2uRRBI" id="6xm2RBlaf2r" role="2uRRBF">
@@ -581,44 +488,6 @@
             </node>
           </node>
         </node>
-        <node concept="3clFbH" id="2AThsNtFmT1" role="3cqZAp" />
-        <node concept="1X3_iC" id="1LwnBM31dLd" role="lGtFl">
-          <property role="3V$3am" value="statement" />
-          <property role="3V$3ak" value="f3061a53-9226-4cc5-a443-f952ceaf5816/1068580123136/1068581517665" />
-          <node concept="3cpWs8" id="2AThsNtFmTT" role="8Wnug">
-            <node concept="3cpWsn" id="2AThsNtFmTU" role="3cpWs9">
-              <property role="TrG5h" value="model" />
-              <node concept="3uibUv" id="2AThsNtFmTV" role="1tU5fm">
-                <ref role="3uigEE" to="mhbf:~SModel" resolve="SModel" />
-              </node>
-              <node concept="BaHAS" id="2AThsNtFmTW" role="33vP2m">
-                <property role="BaHAW" value="de.q60.mps.lazywebmps.sandbox" />
-                <property role="BaGAP" value="" />
-              </node>
-            </node>
-          </node>
-        </node>
-        <node concept="1X3_iC" id="1LwnBM31dLe" role="lGtFl">
-          <property role="3V$3am" value="statement" />
-          <property role="3V$3ak" value="f3061a53-9226-4cc5-a443-f952ceaf5816/1068580123136/1068581517665" />
-          <node concept="3clFbF" id="2AThsNtFmTX" role="8Wnug">
-            <node concept="2OqwBi" id="2AThsNtFmTY" role="3clFbG">
-              <node concept="37vLTw" id="2AThsNtFmTZ" role="2Oq$k0">
-                <ref role="3cqZAo" node="2AThsNtFmTU" resolve="model" />
-              </node>
-              <node concept="liA8E" id="2AThsNtFmU0" role="2OqNvi">
-                <ref role="37wK5l" to="mhbf:~SModel.removeChangeListener(org.jetbrains.mps.openapi.model.SNodeChangeListener)" resolve="removeChangeListener" />
-                <node concept="2OqwBi" id="2AThsNtFmU1" role="37wK5m">
-                  <node concept="2WthIp" id="2AThsNtFmU2" role="2Oq$k0" />
-                  <node concept="2BZ7hE" id="2AThsNtFmU3" role="2OqNvi">
-                    <ref role="2WH_rO" node="2AThsNtEuLV" resolve="e2o" />
-                  </node>
-                </node>
-              </node>
-            </node>
-          </node>
-        </node>
-        <node concept="3clFbH" id="2AThsNtFmTc" role="3cqZAp" />
       </node>
     </node>
   </node>
