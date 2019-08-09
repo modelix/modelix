@@ -104,21 +104,36 @@
   </registry>
   <node concept="1l3spW" id="4jf43pv7edP">
     <property role="TrG5h" value="de.q60.mps.web.build.scripts" />
-    <property role="2DA0ip" value="../" />
+    <property role="2DA0ip" value="../../" />
     <property role="turDy" value="build-scripts.xml" />
-    <node concept="10PD9b" id="4jf43pv7edQ" role="10PD9s" />
-    <node concept="3b7kt6" id="4jf43pv7edR" role="10PD9s" />
-    <node concept="398rNT" id="4jf43pv7edS" role="1l3spd">
+    <node concept="398rNT" id="7gF2HTvk5zJ" role="1l3spd">
+      <property role="TrG5h" value="webmps.home" />
+      <node concept="55IIr" id="7gF2HTvk5ET" role="398pKh" />
+    </node>
+    <node concept="398rNT" id="7gF2HTviNPb" role="1l3spd">
       <property role="TrG5h" value="mps.home" />
+      <node concept="398BVA" id="3$7KuaihmH3" role="398pKh">
+        <ref role="398BVh" node="7gF2HTvk5zJ" resolve="webmps.home" />
+        <node concept="2Ry0Ak" id="3$7Kuaihn7X" role="iGT6I">
+          <property role="2Ry0Am" value="artifacts" />
+          <node concept="2Ry0Ak" id="3$7Kuaihnpo" role="2Ry0An">
+            <property role="2Ry0Am" value="mps" />
+          </node>
+        </node>
+      </node>
+    </node>
+    <node concept="398rNT" id="3$7KuaihnWs" role="1l3spd">
+      <property role="TrG5h" value="mps_home" />
+      <node concept="398BVA" id="3$7Kuaihovs" role="398pKh">
+        <ref role="398BVh" node="7gF2HTviNPb" resolve="mps.home" />
+      </node>
     </node>
     <node concept="398rNT" id="4jf43pv7zoM" role="1l3spd">
       <property role="TrG5h" value="artifacts.root" />
-      <node concept="55IIr" id="1_iojA27IfG" role="398pKh">
-        <node concept="2Ry0Ak" id="1_iojA27MS5" role="iGT6I">
-          <property role="2Ry0Am" value=".." />
-          <node concept="2Ry0Ak" id="1_iojA27MS8" role="2Ry0An">
-            <property role="2Ry0Am" value="artifacts" />
-          </node>
+      <node concept="398BVA" id="3$7KuaihlaD" role="398pKh">
+        <ref role="398BVh" node="7gF2HTvk5zJ" resolve="webmps.home" />
+        <node concept="2Ry0Ak" id="3$7Kuaihldc" role="iGT6I">
+          <property role="2Ry0Am" value="artifacts" />
         </node>
       </node>
     </node>
@@ -131,10 +146,21 @@
         </node>
       </node>
     </node>
+    <node concept="398rNT" id="3$7Kuaihl5X" role="1l3spd">
+      <property role="TrG5h" value="webmps.modules" />
+      <node concept="398BVA" id="3$7Kuaihl6U" role="398pKh">
+        <ref role="398BVh" node="7gF2HTvk5zJ" resolve="webmps.home" />
+        <node concept="2Ry0Ak" id="3$7Kuaihl8f" role="iGT6I">
+          <property role="2Ry0Am" value="mps" />
+        </node>
+      </node>
+    </node>
+    <node concept="10PD9b" id="4jf43pv7edQ" role="10PD9s" />
+    <node concept="3b7kt6" id="4jf43pv7edR" role="10PD9s" />
     <node concept="2sgV4H" id="4jf43pv7edT" role="1l3spa">
       <ref role="1l3spb" to="ffeo:3IKDaVZmzS6" resolve="mps" />
       <node concept="398BVA" id="4jf43pv7edU" role="2JcizS">
-        <ref role="398BVh" node="4jf43pv7edS" resolve="mps.home" />
+        <ref role="398BVh" node="7gF2HTviNPb" resolve="mps.home" />
       </node>
     </node>
     <node concept="2sgV4H" id="4jf43pv7rK3" role="1l3spa">
@@ -198,10 +224,11 @@
         <property role="BnDLt" value="true" />
         <property role="TrG5h" value="de.q60.mps.web.build" />
         <property role="3LESm3" value="79531264-5c70-4f13-ad1b-5c32ef78c6f6" />
-        <node concept="55IIr" id="4jf43pv7ee0" role="3LF7KH">
-          <node concept="2Ry0Ak" id="4jf43pv7ee1" role="iGT6I">
+        <node concept="398BVA" id="3$7KuaihD9b" role="3LF7KH">
+          <ref role="398BVh" node="3$7Kuaihl5X" resolve="webmps.modules" />
+          <node concept="2Ry0Ak" id="3$7KuaihD9f" role="iGT6I">
             <property role="2Ry0Am" value="de.q60.mps.web.build" />
-            <node concept="2Ry0Ak" id="4jf43pv7ee2" role="2Ry0An">
+            <node concept="2Ry0Ak" id="3$7KuaihD9g" role="2Ry0An">
               <property role="2Ry0Am" value="de.q60.mps.web.build.msd" />
             </node>
           </node>
@@ -221,10 +248,11 @@
         <property role="BnDLt" value="true" />
         <property role="TrG5h" value="de.q60.mps.web.build.rcp" />
         <property role="3LESm3" value="5dce5e49-c451-4a17-8147-03cbb37722c3" />
-        <node concept="55IIr" id="1_iojA27Ifu" role="3LF7KH">
-          <node concept="2Ry0Ak" id="1_iojA27IfT" role="iGT6I">
+        <node concept="398BVA" id="3$7KuaihD9t" role="3LF7KH">
+          <ref role="398BVh" node="3$7Kuaihl5X" resolve="webmps.modules" />
+          <node concept="2Ry0Ak" id="3$7KuaihD9x" role="iGT6I">
             <property role="2Ry0Am" value="de.q60.mps.web.build.rcp" />
-            <node concept="2Ry0Ak" id="1_iojA27IfW" role="2Ry0An">
+            <node concept="2Ry0Ak" id="3$7KuaihD9y" role="2Ry0An">
               <property role="2Ry0Am" value="de.q60.mps.web.build.rcp.msd" />
             </node>
           </node>

@@ -6,6 +6,4 @@ source_gen.caches
 mps/build/tmp
 .gradle
 artifacts
-mps/build.xml
-mps/build-branding.xml
-mps/build-distribution.xml
+build
