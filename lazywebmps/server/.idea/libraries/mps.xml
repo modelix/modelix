@@ -1,0 +1,52 @@
+<component name="libraryTable">
+  <library name="mps">
+    <CLASSES>
+      <root url="file://$mps.home$/lib" />
+      <root url="file://$mps.home$/plugins" />
+      <root url="file://$mps.home$/plugins/mps-java-workbench/lib" />
+      <root url="file://$mps.home$/plugins/mps-devkit/lib" />
+      <root url="file://$mps.home$/plugins/mps-vcs/lib" />
+      <root url="file://$mps.home$/plugins/git4idea/lib" />
+      <root url="file://$mps.home$/plugins/mps-execution-api/lib" />
+      <root url="file://$mps.home$/plugins/cvsIntegration/lib" />
+      <root url="file://$mps.home$/plugins/http-support/lib" />
+      <root url="file://$mps.home$/plugins/jetpad/lib" />
+      <root url="file://$mps.home$/plugins/mps-console/lib" />
+      <root url="file://$mps.home$/plugins/mps-debugger-api/lib" />
+      <root url="file://$mps.home$/plugins/mps-debugger-java/lib" />
+      <root url="file://$mps.home$/plugins/mps-execution-configurations/lib" />
+      <root url="file://$mps.home$/plugins/mps-execution-languages/lib" />
+      <root url="file://$mps.home$/plugins/mps-testing/lib" />
+      <root url="file://$mps.home$/plugins/svn4idea/lib" />
+      <root url="file://$mps.home$/plugins/terminal/lib" />
+      <root url="jar://$mps.home$/plugins/projectMigrations/lib/projectMigrations.jar!/" />
+      <root url="file://$mps.home$/plugins/migration/lib" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="file://$mps.home$/lib" />
+      <root url="file://$mps.home$/plugins/jetpad/lib" />
+    </SOURCES>
+    <jarDirectory url="file://$mps.home$/lib" recursive="false" />
+    <jarDirectory url="file://$mps.home$/plugins" recursive="false" />
+    <jarDirectory url="file://$mps.home$/plugins/cvsIntegration/lib" recursive="false" />
+    <jarDirectory url="file://$mps.home$/plugins/git4idea/lib" recursive="false" />
+    <jarDirectory url="file://$mps.home$/plugins/http-support/lib" recursive="false" />
+    <jarDirectory url="file://$mps.home$/plugins/jetpad/lib" recursive="false" />
+    <jarDirectory url="file://$mps.home$/plugins/migration/lib" recursive="false" />
+    <jarDirectory url="file://$mps.home$/plugins/mps-console/lib" recursive="false" />
+    <jarDirectory url="file://$mps.home$/plugins/mps-debugger-api/lib" recursive="false" />
+    <jarDirectory url="file://$mps.home$/plugins/mps-debugger-java/lib" recursive="false" />
+    <jarDirectory url="file://$mps.home$/plugins/mps-devkit/lib" recursive="false" />
+    <jarDirectory url="file://$mps.home$/plugins/mps-execution-api/lib" recursive="false" />
+    <jarDirectory url="file://$mps.home$/plugins/mps-execution-configurations/lib" recursive="false" />
+    <jarDirectory url="file://$mps.home$/plugins/mps-execution-languages/lib" recursive="false" />
+    <jarDirectory url="file://$mps.home$/plugins/mps-java-workbench/lib" recursive="false" />
+    <jarDirectory url="file://$mps.home$/plugins/mps-testing/lib" recursive="false" />
+    <jarDirectory url="file://$mps.home$/plugins/mps-vcs/lib" recursive="false" />
+    <jarDirectory url="file://$mps.home$/plugins/svn4idea/lib" recursive="false" />
+    <jarDirectory url="file://$mps.home$/plugins/terminal/lib" recursive="false" />
+    <jarDirectory url="file://$mps.home$/lib" recursive="false" type="SOURCES" />
+    <jarDirectory url="file://$mps.home$/plugins/jetpad/lib" recursive="false" type="SOURCES" />
+  </library>
+</component>
