@@ -160,8 +160,10 @@ task run_tests(type: TestLanguages, dependsOn: build_languages) {
 }
 
 task build_ui_server(dependsOn: [build_rcp]) {
-    mavenexec {
-        workingDir file("$rootDir/ui-server")
-        goals 'package'
-    }
+	doLast {
+    	mavenexec {
+        	workingDir file("$rootDir/ui-server")
+        	goals 'package'
+    	}
+	}
 }
