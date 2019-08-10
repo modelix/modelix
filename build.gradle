@@ -13,11 +13,15 @@ buildscript {
         classpath 'de.itemis.mps:mps-gradle-plugin:1.0.+'
     }
 }
+plugins {
+	id "com.github.dkorotych.gradle-maven-exec" version "2.2"
+}
+
 
 group 'de.q60.mps.web'
 description = "Cloud storage and web UI for MPS"
 
-defaultTasks 'build_languages'
+defaultTasks 'build_languages', 'build_rcp', 'build_ui_server'
 
 File scriptFile(String relativePath) {
     new File("$rootDir/build/$relativePath")
@@ -141,7 +145,7 @@ task build_rcp_branding(type: BuildLanguages, dependsOn: [allScripts, resolveMps
     script new File("$rootDir/build/de.q60.mps.web.rcp/build-branding.xml")
 }
 
-task build_rcp(type: RunAntScript, dependsOn: build_rcp_branding) {
+task build_rcp(type: RunAntScript, dependsOn: [build_rcp_branding]) {
     scriptArgs = defaultScriptArgs
     description = "Build RCP Distribution"
     scriptClasspath = buildScriptClasspath
@@ -153,4 +157,11 @@ task run_tests(type: TestLanguages, dependsOn: build_languages) {
     scriptArgs = defaultScriptArgs
     scriptClasspath = buildScriptClasspath
     script new File("$rootDir/mps/build-tests.xml")
+}
+
+task build_ui_server(dependsOn: [build_rcp]) {
+    mavenexec {
+        workingDir file("$rootDir/ui-server")
+        goals 'package'
+    }
 }
