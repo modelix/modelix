@@ -612,6 +612,16 @@
       <ref role="1l3spb" node="1_iojA26H1u" resolve="de.q60.mps.webBranding" />
     </node>
     <node concept="1l3spV" id="1_iojA26HaE" role="1l3spN">
+      <node concept="398223" id="3LgA8d6QxFo" role="39821P">
+        <node concept="3ygNvl" id="3LgA8d6QxJ1" role="39821P">
+          <ref role="3ygNvj" node="1_iojA26H3m" />
+        </node>
+        <node concept="3_J27D" id="3LgA8d6QxFq" role="Nbhlr">
+          <node concept="3Mxwew" id="3LgA8d6QxIZ" role="3MwsjC">
+            <property role="3MwjfP" value="rcp" />
+          </node>
+        </node>
+      </node>
       <node concept="1tmT9g" id="1_iojA26HbN" role="39821P">
         <property role="AB_bT" value="gzip" />
         <node concept="3ygNvl" id="1_iojA26HbO" role="39821P">

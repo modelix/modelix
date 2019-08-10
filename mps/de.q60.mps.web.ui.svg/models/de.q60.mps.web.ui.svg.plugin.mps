@@ -4472,41 +4472,6 @@
         </node>
       </node>
     </node>
-    <node concept="312cEg" id="1LwnBM2YYW6" role="jymVt">
-      <property role="TrG5h" value="window" />
-      <node concept="3Tm6S6" id="1LwnBM2YYW7" role="1B3o_S" />
-      <node concept="3uibUv" id="1LwnBM2Z3h3" role="1tU5fm">
-        <ref role="3uigEE" to="dxuu:~JWindow" resolve="JWindow" />
-      </node>
-      <node concept="2ShNRf" id="1LwnBM2Z2Ok" role="33vP2m">
-        <node concept="YeOm9" id="1LwnBM2ZB9l" role="2ShVmc">
-          <node concept="1Y3b0j" id="1LwnBM2ZB9o" role="YeSDq">
-            <property role="2bfB8j" value="true" />
-            <ref role="1Y3XeK" to="dxuu:~JWindow" resolve="JWindow" />
-            <ref role="37wK5l" to="dxuu:~JWindow.&lt;init&gt;()" resolve="JWindow" />
-            <node concept="3Tm1VV" id="1LwnBM2ZB9p" role="1B3o_S" />
-            <node concept="3clFb_" id="1LwnBM2ZByd" role="jymVt">
-              <property role="1EzhhJ" value="false" />
-              <property role="TrG5h" value="isShowing" />
-              <property role="DiZV1" value="false" />
-              <property role="od$2w" value="false" />
-              <node concept="3Tm1VV" id="1LwnBM2ZBye" role="1B3o_S" />
-              <node concept="10P_77" id="1LwnBM2ZByg" role="3clF45" />
-              <node concept="3clFbS" id="1LwnBM2ZBym" role="3clF47">
-                <node concept="3clFbF" id="1LwnBM2ZDPA" role="3cqZAp">
-                  <node concept="3clFbT" id="1LwnBM2ZDP_" role="3clFbG">
-                    <property role="3clFbU" value="true" />
-                  </node>
-                </node>
-              </node>
-              <node concept="2AHcQZ" id="1LwnBM2ZByn" role="2AJF6D">
-                <ref role="2AI5Lk" to="wyt6:~Override" resolve="Override" />
-              </node>
-            </node>
-          </node>
-        </node>
-      </node>
-    </node>
     <node concept="312cEg" id="1oBrsEKQfrF" role="jymVt">
       <property role="TrG5h" value="highlighter" />
       <property role="3TUv4t" value="false" />
@@ -4560,22 +4525,6 @@
         <node concept="3clFbF" id="EbHc1sJLUG" role="3cqZAp">
           <node concept="1rXfSq" id="EbHc1sJLUE" role="3clFbG">
             <ref role="37wK5l" to="exr9:~EditorComponent.update()" resolve="update" />
-          </node>
-        </node>
-        <node concept="3clFbF" id="1LwnBM2Zfgj" role="3cqZAp">
-          <node concept="2OqwBi" id="1LwnBM2Zj_p" role="3clFbG">
-            <node concept="2OqwBi" id="1LwnBM2ZgQG" role="2Oq$k0">
-              <node concept="37vLTw" id="1LwnBM2Zfgh" role="2Oq$k0">
-                <ref role="3cqZAo" node="1LwnBM2YYW6" resolve="window" />
-              </node>
-              <node concept="liA8E" id="1LwnBM2Zj8o" role="2OqNvi">
-                <ref role="37wK5l" to="dxuu:~JWindow.getContentPane()" resolve="getContentPane" />
-              </node>
-            </node>
-            <node concept="liA8E" id="1LwnBM2Zlto" role="2OqNvi">
-              <ref role="37wK5l" to="z60i:~Container.add(java.awt.Component)" resolve="add" />
-              <node concept="Xjq3P" id="1LwnBM2ZmH5" role="37wK5m" />
-            </node>
           </node>
         </node>
         <node concept="3clFbF" id="1oBrsEKQgjg" role="3cqZAp">
