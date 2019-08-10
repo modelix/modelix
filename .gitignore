@@ -7,3 +7,4 @@ mps/build/tmp
 .gradle
 artifacts
 build
+ui-server/target
