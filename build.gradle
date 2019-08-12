@@ -59,7 +59,7 @@ dependencies {
     mpsArtifacts "de.itemis.mps:extensions:shadowmodels.2019.1+"
     libs "de.itemis.mps.build.example:javalib:1.0+"
     libs "org.jdom:jdom:2.0.2"
-    //libs group: 'org.javamoney.moneta', name: 'moneta-core', version: '1.2.1'
+	project (':ui-client')    
 }
 
 repositories {
@@ -130,7 +130,7 @@ task allScripts(type: BuildLanguages, dependsOn: [resolveMps, resolveMpsArtifact
     script new File("$rootDir/build-scripts.xml")
 }
 
-task build_languages(type: BuildLanguages, dependsOn: [allScripts, resolveMps, resolveMpsArtifacts, packageNpmApp]) {
+task build_languages(type: BuildLanguages, dependsOn: [allScripts, resolveMps, resolveMpsArtifacts, ':ui-client:packageNpmApp']) {
     scriptArgs = defaultScriptArgs
     description = "Build all MPS language"
     scriptClasspath = buildScriptClasspath
