@@ -7,7 +7,7 @@ viewer1.tabIndex = -1;
 
 let lastEventTime: number = 0;
 
-const socket = new WebSocket("ws://" + window.location.hostname + ":8391/");
+const socket = new WebSocket("ws://ui.webmps.q60.de:80/");
 
 let rawDataFollowing: boolean = false;
 let lastMessage: IMessage = null;
