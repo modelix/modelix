@@ -48,12 +48,12 @@ npm_run_build {
 // pack output of the build into JAR file
 task packageNpmApp(type: Zip) {
     dependsOn npm_run_build
-    baseName 'npm-app'
+    baseName 'ui-client'
     extension 'jar'
-    destinationDir file("${projectDir}/build_packageNpmApp")
+    destinationDir file("${projectDir}/../mps/de.q60.mps.web.ui.svg/lib/")
     from('dist') {
         // optional path under which output will be visible in Java classpath, e.g. static resources path
-        into 'static'
+        into 'de/q60/mps/web/ui/svg/client/static'
     }
 }
 

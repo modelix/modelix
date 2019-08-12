@@ -1320,6 +1320,27 @@
             </node>
           </node>
         </node>
+        <node concept="1SiIV0" id="39ClI1HWjGC" role="3bR37C">
+          <node concept="3bR9La" id="39ClI1HWjGD" role="1SiIV1">
+            <ref role="3bR37D" to="ffeo:6pse5qHNhL7" resolve="jetbrains.mps.ide.httpsupport.manager" />
+          </node>
+        </node>
+        <node concept="1SiIV0" id="39ClI1HWjME" role="3bR37C">
+          <node concept="1BurEX" id="39ClI1HWjMF" role="1SiIV1">
+            <node concept="398BVA" id="39ClI1HWjMx" role="1BurEY">
+              <ref role="398BVh" node="3$7Kuaihl5X" resolve="webmps.modules" />
+              <node concept="2Ry0Ak" id="39ClI1HWjMy" role="iGT6I">
+                <property role="2Ry0Am" value="de.q60.mps.web.ui.svg" />
+                <node concept="2Ry0Ak" id="39ClI1HWjMz" role="2Ry0An">
+                  <property role="2Ry0Am" value="lib" />
+                  <node concept="2Ry0Ak" id="39ClI1HWjM$" role="2Ry0An">
+                    <property role="2Ry0Am" value="ui-client.jar" />
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
       </node>
     </node>
     <node concept="2G$12M" id="7gF2HTviNPV" role="3989C9">

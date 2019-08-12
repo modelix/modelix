@@ -1,6 +1,5 @@
 import "../styles/base.scss";
 import $ = require("jquery");
-//import * as react from "react-dom";
 import {JSKeyCodes, KeyCodeTranslator} from "./KeyCodeTranslator";
 
 let viewer1 = document.getElementById("viewer1");
@@ -8,7 +7,7 @@ viewer1.tabIndex = -1;
 
 let lastEventTime: number = 0;
 
-const socket = new WebSocket("ws://sl-svr2:8391/");
+const socket = new WebSocket("ws://" + window.location.hostname + ":8391/");
 
 let rawDataFollowing: boolean = false;
 let lastMessage: IMessage = null;
