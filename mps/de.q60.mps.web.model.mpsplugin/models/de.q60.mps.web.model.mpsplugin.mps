@@ -10916,15 +10916,7 @@
                         <node concept="1pGfFk" id="3WN29Vk$1o7" role="2ShVmc">
                           <ref role="37wK5l" to="zf81:~URI.&lt;init&gt;(java.lang.String)" resolve="URI" />
                           <node concept="Xl_RD" id="3WN29Vk$1o8" role="37wK5m">
-                            <property role="Xl_RC" value="ws://webmps2.q60.de:80" />
-                          </node>
-                        </node>
-                      </node>
-                      <node concept="2ShNRf" id="3WN29Vk$2wx" role="3g7hyw">
-                        <node concept="1pGfFk" id="3WN29Vk$2wy" role="2ShVmc">
-                          <ref role="37wK5l" to="zf81:~URI.&lt;init&gt;(java.lang.String)" resolve="URI" />
-                          <node concept="Xl_RD" id="3WN29Vk$2wz" role="37wK5m">
-                            <property role="Xl_RC" value="ws://webmps.q60.de:80" />
+                            <property role="Xl_RC" value="ws://model.webmps.q60.de:80" />
                           </node>
                         </node>
                       </node>
