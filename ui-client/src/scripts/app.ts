@@ -8,7 +8,7 @@ viewer1.tabIndex = -1;
 
 let lastEventTime: number = 0;
 
-const socket = new WebSocket("ws://localhost:8391/");
+const socket = new WebSocket("ws://sl-svr2:8391/");
 
 let rawDataFollowing: boolean = false;
 let lastMessage: IMessage = null;

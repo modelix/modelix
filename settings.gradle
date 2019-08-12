@@ -1,0 +1,3 @@
+rootProject.name = 'webmps'
+
+include 'ui-client'
