@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<language namespace="de.q60.mps.shadowmodels.web" uuid="78874af2-5dd2-42a7-a21d-42fab3737d1d" languageVersion="0" moduleVersion="0">
+<language namespace="de.q60.mps.web.ui.sm" uuid="78874af2-5dd2-42a7-a21d-42fab3737d1d" languageVersion="0" moduleVersion="0">
   <models>
     <modelRoot contentPath="${module}" type="default">
       <sourceRoot location="models" />
@@ -7,7 +7,7 @@
   </models>
   <accessoryModels />
   <generators>
-    <generator alias="main" namespace="de.q60.mps.shadowmodels.web#01" uuid="10ecc1c8-9e76-4395-886d-b8a9d626629f">
+    <generator alias="main" namespace="de.q60.mps.web.ui.sm#01" uuid="10ecc1c8-9e76-4395-886d-b8a9d626629f">
       <models>
         <modelRoot contentPath="${module}/generator/template" type="default">
           <sourceRoot location="." />
@@ -43,8 +43,8 @@
         <module reference="95085166-3236-4dd7-bd8e-e753c8d20885(de.q60.mps.incremental.runtime)" version="0" />
         <module reference="18463265-6d45-4514-82f1-cf7eb1222492(de.q60.mps.polymorphicfunctions.runtime)" version="0" />
         <module reference="e52a4835-844d-46a1-99f8-c06129db796f(de.q60.mps.shadowmodels.runtime)" version="0" />
-        <module reference="78874af2-5dd2-42a7-a21d-42fab3737d1d(de.q60.mps.shadowmodels.web)" version="0" />
-        <module reference="10ecc1c8-9e76-4395-886d-b8a9d626629f(de.q60.mps.shadowmodels.web#01)" version="0" />
+        <module reference="78874af2-5dd2-42a7-a21d-42fab3737d1d(de.q60.mps.web.ui.sm)" version="0" />
+        <module reference="10ecc1c8-9e76-4395-886d-b8a9d626629f(de.q60.mps.web.ui.sm#01)" version="0" />
         <module reference="ceab5195-25ea-4f22-9b92-103b95ca8c0c(jetbrains.mps.lang.core)" version="0" />
       </dependencyVersions>
       <mapping-priorities />
@@ -111,7 +111,7 @@
     <module reference="e52a4835-844d-46a1-99f8-c06129db796f(de.q60.mps.shadowmodels.runtime)" version="0" />
     <module reference="0bf7bc3b-b11d-42e4-b160-93d72af96397(de.q60.mps.shadowmodels.runtimelang)" version="0" />
     <module reference="a7322769-ef64-4daa-a2f4-fd4228fb713e(de.q60.mps.shadowmodels.target.text)" version="0" />
-    <module reference="78874af2-5dd2-42a7-a21d-42fab3737d1d(de.q60.mps.shadowmodels.web)" version="0" />
+    <module reference="78874af2-5dd2-42a7-a21d-42fab3737d1d(de.q60.mps.web.ui.sm)" version="0" />
     <module reference="6f6906a4-f244-4806-a98b-0bc781cef2a8(de.q60.mps.web.ui.sm.dom)" version="0" />
     <module reference="0f2359af-040e-43bb-b438-cf024da41518(de.q60.mps.web.ui.sm.json)" version="0" />
     <module reference="f3061a53-9226-4cc5-a443-f952ceaf5816(jetbrains.mps.baseLanguage)" version="0" />

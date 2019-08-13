@@ -465,14 +465,14 @@
       <property role="TrG5h" value="de.q60.mps.web.ui.sm" />
       <node concept="1E1JtD" id="7gF2HTviNPn" role="2G$12L">
         <property role="BnDLt" value="true" />
-        <property role="TrG5h" value="de.q60.mps.shadowmodels.web" />
+        <property role="TrG5h" value="de.q60.mps.web.ui.sm" />
         <property role="3LESm3" value="78874af2-5dd2-42a7-a21d-42fab3737d1d" />
         <node concept="398BVA" id="3$7KuaihleN" role="3LF7KH">
           <ref role="398BVh" node="3$7Kuaihl5X" resolve="webmps.modules" />
           <node concept="2Ry0Ak" id="3$7KuaihleR" role="iGT6I">
-            <property role="2Ry0Am" value="de.q60.mps.shadowmodels.web" />
-            <node concept="2Ry0Ak" id="3$7KuaihleS" role="2Ry0An">
-              <property role="2Ry0Am" value="de.q60.mps.shadowmodels.web.mpl" />
+            <property role="2Ry0Am" value="de.q60.mps.web.ui.sm" />
+            <node concept="2Ry0Ak" id="6GOzicS77UP" role="2Ry0An">
+              <property role="2Ry0Am" value="de.q60.mps.web.ui.sm.mpl" />
             </node>
           </node>
         </node>
@@ -497,7 +497,7 @@
           </node>
         </node>
         <node concept="1yeLz9" id="7gF2HTviNQl" role="1TViLv">
-          <property role="TrG5h" value="de.q60.mps.shadowmodels.web#01" />
+          <property role="TrG5h" value="de.q60.mps.web.ui.sm#01" />
           <property role="3LESm3" value="10ecc1c8-9e76-4395-886d-b8a9d626629f" />
         </node>
         <node concept="1SiIV0" id="7gF2HTviO9k" role="3bR37C">
@@ -583,7 +583,7 @@
         </node>
         <node concept="1SiIV0" id="7gF2HTviOaK" role="3bR37C">
           <node concept="3bR9La" id="7gF2HTviOaL" role="1SiIV1">
-            <ref role="3bR37D" node="7gF2HTviNPn" resolve="de.q60.mps.shadowmodels.web" />
+            <ref role="3bR37D" node="7gF2HTviNPn" resolve="de.q60.mps.web.ui.sm" />
           </node>
         </node>
         <node concept="1SiIV0" id="7gF2HTviOaM" role="3bR37C">

@@ -2,7 +2,6 @@
 <project version="4">
   <component name="MPSProject">
     <projectModules>
-      <modulePath path="$PROJECT_DIR$/de.q60.mps.shadowmodels.web/de.q60.mps.shadowmodels.web.mpl" folder="ui.shadowmodels" />
       <modulePath path="$PROJECT_DIR$/de.q60.mps.web.build.rcp/de.q60.mps.web.build.rcp.msd" folder="build" />
       <modulePath path="$PROJECT_DIR$/de.q60.mps.web.build.scripts/de.q60.mps.web.build.scripts.msd" folder="build" />
       <modulePath path="$PROJECT_DIR$/de.q60.mps.web.build/de.q60.mps.web.build.msd" folder="build" />
@@ -12,6 +11,7 @@
       <modulePath path="$PROJECT_DIR$/de.q60.mps.web.ui.sm.dom/de.q60.mps.web.ui.sm.dom.mpl" folder="ui.shadowmodels" />
       <modulePath path="$PROJECT_DIR$/de.q60.mps.web.ui.sm.json/de.q60.mps.web.ui.sm.json.mpl" folder="ui.shadowmodels" />
       <modulePath path="$PROJECT_DIR$/de.q60.mps.web.ui.sm.server/de.q60.mps.web.ui.sm.server.msd" folder="ui.shadowmodels" />
+      <modulePath path="$PROJECT_DIR$/de.q60.mps.web.ui.sm/de.q60.mps.web.ui.sm.mpl" folder="ui.shadowmodels" />
       <modulePath path="$PROJECT_DIR$/de.q60.mps.web.ui.svg/de.q60.mps.web.ui.svg.msd" folder="" />
     </projectModules>
   </component>

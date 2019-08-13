@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<model ref="r:04793d21-d20f-466e-a415-ab74bf59dc07(de.q60.mps.shadowmodels.web.editor)">
+<model ref="r:04793d21-d20f-466e-a415-ab74bf59dc07(de.q60.mps.web.ui.sm.editor)">
   <persistence version="9" />
   <languages>
     <use id="18bc6592-03a6-4e29-a83a-7ff23bde13ba" name="jetbrains.mps.lang.editor" version="12" />
