@@ -5,7 +5,6 @@
       <modulePath path="$PROJECT_DIR$/de.q60.mps.shadowmodels.web.dom/de.q60.mps.shadowmodels.web.dom.mpl" folder="ui.shadowmodels" />
       <modulePath path="$PROJECT_DIR$/de.q60.mps.shadowmodels.web.json/de.q60.mps.shadowmodels.web.json.mpl" folder="ui.shadowmodels" />
       <modulePath path="$PROJECT_DIR$/de.q60.mps.shadowmodels.web.server/de.q60.mps.shadowmodels.web.server.msd" folder="ui.shadowmodels" />
-      <modulePath path="$PROJECT_DIR$/de.q60.mps.shadowmodels.web.statemachine/de.q60.mps.shadowmodels.web.statemachine.mpl" folder="ui.shadowmodels" />
       <modulePath path="$PROJECT_DIR$/de.q60.mps.shadowmodels.web/de.q60.mps.shadowmodels.web.mpl" folder="ui.shadowmodels" />
       <modulePath path="$PROJECT_DIR$/de.q60.mps.web.build.rcp/de.q60.mps.web.build.rcp.msd" folder="build" />
       <modulePath path="$PROJECT_DIR$/de.q60.mps.web.build.scripts/de.q60.mps.web.build.scripts.msd" folder="build" />
