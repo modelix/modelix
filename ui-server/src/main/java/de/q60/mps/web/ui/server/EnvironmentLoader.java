@@ -1,5 +1,8 @@
 package de.q60.mps.web.ui.server;
 
+import com.intellij.ide.plugins.IdeaPluginDescriptorImpl;
+import com.intellij.ide.plugins.PluginManager;
+import com.intellij.ide.plugins.PluginManagerCore;
 import com.intellij.util.ReflectionUtil;
 import jetbrains.mps.project.Project;
 import jetbrains.mps.tool.environment.Environment;
@@ -8,6 +11,7 @@ import jetbrains.mps.tool.environment.IdeaEnvironment;
 import jetbrains.mps.util.PathManager;
 
 import java.io.File;
+import java.util.ArrayList;
 
 public class EnvironmentLoader {
 
@@ -41,8 +45,16 @@ public class EnvironmentLoader {
                     //.withTestingPlugin()
                     .withVcsPlugin()
                     .withWorkbenchPath()
-                    //.addMacro("extensions.home", new File("/Users/slisson/mps/mps191/MPS-Extensions"))
+                    .addPlugin("http-support", "jetbrains.mps.ide.httpsupport")
+                    .addPlugin("de.q60.mps.web.ui.svg", "de.q60.mps.web.ui.svg")
+                    .addPlugin("de.q60.mps.web.ui.sm", "de.q60.mps.web.ui.sm")
                     ;
+
+//            for (IdeaPluginDescriptorImpl plugin : PluginManagerCore.loadDescriptors(null, new ArrayList<String>())) {
+//                System.out.println("addPlugin(" + plugin.getPath() + ", " + plugin.getPluginId().getIdString() + ")");
+//                config.addPlugin(plugin.getPath().toString(), plugin.getPluginId().getIdString());
+//            }
+
             File homePath = new File(jetbrains.mps.util.PathManager.getHomePath());
             loadLangJars(config, new File(homePath,"languages"));
             loadLangJars(config, new File(homePath,"plugins"));

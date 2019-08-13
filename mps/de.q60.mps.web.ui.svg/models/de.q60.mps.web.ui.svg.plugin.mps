@@ -14,14 +14,14 @@
     <import index="vyue" ref="r:a009b15b-6386-4045-b94f-fa21b9788c19(de.q60.mps.web.ui.svg.svg)" />
     <import index="zf81" ref="6354ebe7-c22a-4a0f-ac54-50b52ab9b065/java:java.net(JDK/)" />
     <import index="guwi" ref="6354ebe7-c22a-4a0f-ac54-50b52ab9b065/java:java.io(JDK/)" />
-    <import index="mi4d" ref="cceec75f-de6e-4ee7-bd91-29a3a99bfede/java:org.java_websocket.server(de.q60.mps.lazywebmps.runtime/)" />
-    <import index="ffp0" ref="cceec75f-de6e-4ee7-bd91-29a3a99bfede/java:org.java_websocket(de.q60.mps.lazywebmps.runtime/)" />
+    <import index="mi4d" ref="cceec75f-de6e-4ee7-bd91-29a3a99bfede/java:org.java_websocket.server(de.q60.mps.web.ui.svg/)" />
+    <import index="ffp0" ref="cceec75f-de6e-4ee7-bd91-29a3a99bfede/java:org.java_websocket(de.q60.mps.web.ui.svg/)" />
     <import index="bge5" ref="cceec75f-de6e-4ee7-bd91-29a3a99bfede/java:org.java_websocket.handshake(de.q60.mps.web.ui.svg/)" />
     <import index="exr9" ref="1ed103c3-3aa6-49b7-9c21-6765ee11f224/java:jetbrains.mps.nodeEditor(MPS.Editor/)" />
     <import index="kvq8" ref="r:2e938759-cfd0-47cd-9046-896d85204f59(de.slisson.mps.hacks.editor)" />
     <import index="lwvz" ref="1ed103c3-3aa6-49b7-9c21-6765ee11f224/java:jetbrains.mps.openapi.editor.selection(MPS.Editor/)" />
     <import index="cj4x" ref="1ed103c3-3aa6-49b7-9c21-6765ee11f224/java:jetbrains.mps.openapi.editor(MPS.Editor/)" />
-    <import index="mxf6" ref="cceec75f-de6e-4ee7-bd91-29a3a99bfede/java:org.json(de.q60.mps.lazywebmps.runtime/)" />
+    <import index="mxf6" ref="cceec75f-de6e-4ee7-bd91-29a3a99bfede/java:org.json(de.q60.mps.web.ui.svg/)" />
     <import index="z60i" ref="6354ebe7-c22a-4a0f-ac54-50b52ab9b065/java:java.awt(JDK/)" />
     <import index="hyam" ref="6354ebe7-c22a-4a0f-ac54-50b52ab9b065/java:java.awt.event(JDK/)" />
     <import index="dxuu" ref="6354ebe7-c22a-4a0f-ac54-50b52ab9b065/java:javax.swing(JDK/)" />
@@ -43,7 +43,7 @@
     <import index="3a50" ref="742f6602-5a2f-4313-aa6e-ae1cd4ffdc61/java:jetbrains.mps.ide(MPS.Platform/)" />
     <import index="g51k" ref="1ed103c3-3aa6-49b7-9c21-6765ee11f224/java:jetbrains.mps.nodeEditor.cells(MPS.Editor/)" />
     <import index="q7tw" ref="6ed54515-acc8-4d1e-a16c-9fd6cfe951ea/java:org.apache.log4j(MPS.Core/)" />
-    <import index="pcow" ref="r:ad9b9e36-6a2e-49cf-96d6-a1b4ef7befcd(de.q60.mps.lazywebmps.runtime.environment)" />
+    <import index="pcow" ref="r:ad9b9e36-6a2e-49cf-96d6-a1b4ef7befcd(de.q60.mps.web.ui.svg.environment)" />
     <import index="qq03" ref="742f6602-5a2f-4313-aa6e-ae1cd4ffdc61/java:jetbrains.mps.ide.actions(MPS.Platform/)" />
     <import index="qr12" ref="r:24ed310f-f0ab-4270-aa2f-e2180b5d4c31(de.q60.mps.web.ui.svg.repository)" />
     <import index="8oaq" ref="b0f8641f-bd77-4421-8425-30d9088a82f7/java:org.apache.commons.io(org.apache.commons/)" />
