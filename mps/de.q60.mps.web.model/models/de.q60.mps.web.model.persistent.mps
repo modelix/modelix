@@ -17,11 +17,11 @@
     <import index="t6h5" ref="6354ebe7-c22a-4a0f-ac54-50b52ab9b065/java:java.lang.reflect(JDK/)" />
     <import index="zdal" ref="r:88aa2c17-3990-45f2-9b79-06884112d260(de.q60.mps.web.model)" />
     <import index="ydze" ref="r:c65aa0cf-b22b-4cca-bd88-3210b1c2f55f(de.q60.mps.web.model.operations)" />
-    <import index="14ci" ref="87f4b21e-a3a5-459e-a54b-408fd9eb7350/java:com.google.gson.reflect(de.q60.mps.shadowmodels.web.lib/)" />
+    <import index="14ci" ref="87f4b21e-a3a5-459e-a54b-408fd9eb7350/java:com.google.gson.reflect(de.q60.mps.web.lib/)" />
     <import index="c9jv" ref="87f4b21e-a3a5-459e-a54b-408fd9eb7350/java:com.google.gson.stream(de.q60.mps.shadowmodels.web.lib/)" />
     <import index="guwi" ref="6354ebe7-c22a-4a0f-ac54-50b52ab9b065/java:java.io(JDK/)" />
     <import index="6shs" ref="r:3ca2f5b1-1b25-441b-b059-2ddba424a0b1(de.q60.mps.web.model.persistent)" />
-    <import index="pl94" ref="87f4b21e-a3a5-459e-a54b-408fd9eb7350/java:com.google.gson.internal(de.q60.mps.shadowmodels.web.lib/)" />
+    <import index="pl94" ref="87f4b21e-a3a5-459e-a54b-408fd9eb7350/java:com.google.gson.internal(de.q60.mps.web.lib/)" />
     <import index="mjcn" ref="r:89ac1ee0-92ac-49e1-83e6-167854d2040e(de.q60.mps.shadowmodels.runtime.model)" />
     <import index="l6bp" ref="r:97875f9c-321e-405e-a344-6d3deab2bdba(de.q60.mps.shadowmodels.runtime.smodel)" />
     <import index="vxxo" ref="6ed54515-acc8-4d1e-a16c-9fd6cfe951ea/java:jetbrains.mps.smodel.adapter.structure.concept(MPS.Core/)" />

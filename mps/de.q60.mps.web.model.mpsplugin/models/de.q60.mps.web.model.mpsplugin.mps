@@ -60,11 +60,11 @@
     <import index="28m1" ref="6354ebe7-c22a-4a0f-ac54-50b52ab9b065/java:java.time(JDK/)" />
     <import index="tpck" ref="r:00000000-0000-4000-0000-011c89590288(jetbrains.mps.lang.core.structure)" />
     <import index="zf81" ref="6354ebe7-c22a-4a0f-ac54-50b52ab9b065/java:java.net(JDK/)" />
-    <import index="ffp0" ref="87f4b21e-a3a5-459e-a54b-408fd9eb7350/java:org.java_websocket(de.q60.mps.shadowmodels.web.lib/)" />
+    <import index="ffp0" ref="87f4b21e-a3a5-459e-a54b-408fd9eb7350/java:org.java_websocket(de.q60.mps.web.lib/)" />
     <import index="mxf6" ref="87f4b21e-a3a5-459e-a54b-408fd9eb7350/java:org.json(de.q60.mps.shadowmodels.web.lib/)" />
     <import index="3o3z" ref="ecfb9949-7433-4db5-85de-0f84d172e4ce/java:com.google.common.collect(de.q60.mps.libs/)" />
     <import index="p2o5" ref="87f4b21e-a3a5-459e-a54b-408fd9eb7350/java:org.java_websocket.client(de.q60.mps.shadowmodels.web.lib/)" />
-    <import index="bge5" ref="87f4b21e-a3a5-459e-a54b-408fd9eb7350/java:org.java_websocket.handshake(de.q60.mps.shadowmodels.web.lib/)" />
+    <import index="bge5" ref="87f4b21e-a3a5-459e-a54b-408fd9eb7350/java:org.java_websocket.handshake(de.q60.mps.web.lib/)" />
     <import index="3a50" ref="742f6602-5a2f-4313-aa6e-ae1cd4ffdc61/java:jetbrains.mps.ide(MPS.Platform/)" />
     <import index="zdal" ref="r:88aa2c17-3990-45f2-9b79-06884112d260(de.q60.mps.web.model)" />
     <import index="ydze" ref="r:c65aa0cf-b22b-4cca-bd88-3210b1c2f55f(de.q60.mps.web.model.operations)" />

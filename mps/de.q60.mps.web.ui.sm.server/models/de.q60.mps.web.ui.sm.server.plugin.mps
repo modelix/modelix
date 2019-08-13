@@ -19,13 +19,13 @@
     <devkit ref="fbc25dd2-5da4-483a-8b19-70928e1b62d7(jetbrains.mps.devkit.general-purpose)" />
   </languages>
   <imports>
-    <import index="mi4d" ref="87f4b21e-a3a5-459e-a54b-408fd9eb7350/java:org.java_websocket.server(de.q60.mps.shadowmodels.web.lib/)" />
+    <import index="mi4d" ref="87f4b21e-a3a5-459e-a54b-408fd9eb7350/java:org.java_websocket.server(de.q60.mps.web.lib/)" />
     <import index="nv3w" ref="r:18e93978-2322-49a8-aaab-61c6faf67e2a(de.q60.mps.shadowmodels.runtime.engine)" />
     <import index="od2j" ref="r:19d224b8-fac8-4b19-ae42-e7b119858f3b(de.q60.mps.polymorphicfunctions.runtime)" />
     <import index="l6bp" ref="r:97875f9c-321e-405e-a344-6d3deab2bdba(de.q60.mps.shadowmodels.runtime.smodel)" />
-    <import index="ffp0" ref="87f4b21e-a3a5-459e-a54b-408fd9eb7350/java:org.java_websocket(de.q60.mps.shadowmodels.web.lib/)" />
+    <import index="ffp0" ref="87f4b21e-a3a5-459e-a54b-408fd9eb7350/java:org.java_websocket(de.q60.mps.web.lib/)" />
     <import index="zf81" ref="6354ebe7-c22a-4a0f-ac54-50b52ab9b065/java:java.net(JDK/)" />
-    <import index="bge5" ref="87f4b21e-a3a5-459e-a54b-408fd9eb7350/java:org.java_websocket.handshake(de.q60.mps.shadowmodels.web.lib/)" />
+    <import index="bge5" ref="87f4b21e-a3a5-459e-a54b-408fd9eb7350/java:org.java_websocket.handshake(de.q60.mps.web.lib/)" />
     <import index="wyt6" ref="6354ebe7-c22a-4a0f-ac54-50b52ab9b065/java:java.lang(JDK/)" />
     <import index="mxf6" ref="87f4b21e-a3a5-459e-a54b-408fd9eb7350/java:org.json(de.q60.mps.shadowmodels.web.lib/)" />
     <import index="guwi" ref="6354ebe7-c22a-4a0f-ac54-50b52ab9b065/java:java.io(JDK/)" />

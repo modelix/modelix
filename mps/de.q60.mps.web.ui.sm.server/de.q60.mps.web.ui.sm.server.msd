@@ -10,7 +10,7 @@
     <dependency reexport="false">87f4b21e-a3a5-459e-a54b-408fd9eb7350(de.q60.mps.web.lib)</dependency>
     <dependency reexport="true">e52a4835-844d-46a1-99f8-c06129db796f(de.q60.mps.shadowmodels.runtime)</dependency>
     <dependency reexport="false">78874af2-5dd2-42a7-a21d-42fab3737d1d(de.q60.mps.shadowmodels.web)</dependency>
-    <dependency reexport="false">6f6906a4-f244-4806-a98b-0bc781cef2a8(de.q60.mps.shadowmodels.web.dom)</dependency>
+    <dependency reexport="false">6f6906a4-f244-4806-a98b-0bc781cef2a8(de.q60.mps.web.ui.sm.dom)</dependency>
     <dependency reexport="false">94b64715-a263-4c36-a138-8da14705ffa7(de.q60.mps.shadowmodels.transformation)</dependency>
     <dependency reexport="false">a7322769-ef64-4daa-a2f4-fd4228fb713e(de.q60.mps.shadowmodels.target.text)</dependency>
     <dependency reexport="false">0f2359af-040e-43bb-b438-cf024da41518(de.q60.mps.shadowmodels.web.json)</dependency>
@@ -51,9 +51,9 @@
     <module reference="a7322769-ef64-4daa-a2f4-fd4228fb713e(de.q60.mps.shadowmodels.target.text)" version="0" />
     <module reference="94b64715-a263-4c36-a138-8da14705ffa7(de.q60.mps.shadowmodels.transformation)" version="0" />
     <module reference="78874af2-5dd2-42a7-a21d-42fab3737d1d(de.q60.mps.shadowmodels.web)" version="1" />
-    <module reference="6f6906a4-f244-4806-a98b-0bc781cef2a8(de.q60.mps.shadowmodels.web.dom)" version="0" />
     <module reference="0f2359af-040e-43bb-b438-cf024da41518(de.q60.mps.shadowmodels.web.json)" version="0" />
     <module reference="87f4b21e-a3a5-459e-a54b-408fd9eb7350(de.q60.mps.web.lib)" version="0" />
+    <module reference="6f6906a4-f244-4806-a98b-0bc781cef2a8(de.q60.mps.web.ui.sm.dom)" version="0" />
     <module reference="eb8d1040-bff5-4126-8949-fdd95ef4c502(de.q60.mps.web.ui.sm.server)" version="0" />
     <module reference="f3061a53-9226-4cc5-a443-f952ceaf5816(jetbrains.mps.baseLanguage)" version="0" />
     <module reference="e39e4a59-8cb6-498e-860e-8fa8361c0d90(jetbrains.mps.baseLanguage.scopes)" version="0" />
