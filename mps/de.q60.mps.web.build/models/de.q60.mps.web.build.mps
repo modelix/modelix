@@ -502,7 +502,7 @@
         </node>
         <node concept="1SiIV0" id="7gF2HTviO9k" role="3bR37C">
           <node concept="3bR9La" id="7gF2HTviO9l" role="1SiIV1">
-            <ref role="3bR37D" node="7gF2HTviNPx" resolve="de.q60.mps.shadowmodels.web.json" />
+            <ref role="3bR37D" node="7gF2HTviNPx" resolve="de.q60.mps.web.ui.sm.json" />
           </node>
         </node>
         <node concept="1SiIV0" id="7gF2HTviO9m" role="3bR37C">
@@ -529,19 +529,19 @@
       </node>
       <node concept="1E1JtD" id="7gF2HTviNPx" role="2G$12L">
         <property role="BnDLt" value="true" />
-        <property role="TrG5h" value="de.q60.mps.shadowmodels.web.json" />
+        <property role="TrG5h" value="de.q60.mps.web.ui.sm.json" />
         <property role="3LESm3" value="0f2359af-040e-43bb-b438-cf024da41518" />
         <node concept="398BVA" id="3$7KuaihlfD" role="3LF7KH">
           <ref role="398BVh" node="3$7Kuaihl5X" resolve="webmps.modules" />
           <node concept="2Ry0Ak" id="3$7KuaihlfH" role="iGT6I">
-            <property role="2Ry0Am" value="de.q60.mps.shadowmodels.web.json" />
-            <node concept="2Ry0Ak" id="3$7KuaihlfI" role="2Ry0An">
-              <property role="2Ry0Am" value="de.q60.mps.shadowmodels.web.json.mpl" />
+            <property role="2Ry0Am" value="de.q60.mps.web.ui.sm.json" />
+            <node concept="2Ry0Ak" id="6GOzicS777L" role="2Ry0An">
+              <property role="2Ry0Am" value="de.q60.mps.web.ui.sm.json.mpl" />
             </node>
           </node>
         </node>
         <node concept="1yeLz9" id="7gF2HTviNQE" role="1TViLv">
-          <property role="TrG5h" value="de.q60.mps.shadowmodels.web.json#01" />
+          <property role="TrG5h" value="de.q60.mps.web.ui.sm.json#01" />
           <property role="3LESm3" value="7111509f-e08e-4fa2-bc4e-046235ec2a86" />
         </node>
         <node concept="1SiIV0" id="7gF2HTviO9s" role="3bR37C">
@@ -588,7 +588,7 @@
         </node>
         <node concept="1SiIV0" id="7gF2HTviOaM" role="3bR37C">
           <node concept="3bR9La" id="7gF2HTviOaN" role="1SiIV1">
-            <ref role="3bR37D" node="7gF2HTviNPx" resolve="de.q60.mps.shadowmodels.web.json" />
+            <ref role="3bR37D" node="7gF2HTviNPx" resolve="de.q60.mps.web.ui.sm.json" />
           </node>
         </node>
         <node concept="1SiIV0" id="7gF2HTviOaO" role="3bR37C">

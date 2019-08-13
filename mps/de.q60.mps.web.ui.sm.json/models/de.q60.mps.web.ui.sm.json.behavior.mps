@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<model ref="r:e87ae99a-a050-4d92-b546-f559a1ec5998(de.q60.mps.shadowmodels.web.json.behavior)">
+<model ref="r:e87ae99a-a050-4d92-b546-f559a1ec5998(de.q60.mps.web.ui.sm.json.behavior)">
   <persistence version="9" />
   <languages>
     <use id="af65afd8-f0dd-4942-87d9-63a55f2a9db1" name="jetbrains.mps.lang.behavior" version="2" />
@@ -7,7 +7,7 @@
   </languages>
   <imports>
     <import index="mxf6" ref="87f4b21e-a3a5-459e-a54b-408fd9eb7350/java:org.json(de.q60.mps.shadowmodels.web.lib/)" />
-    <import index="6y8" ref="r:84bdf498-a7b7-4050-8eec-ebd94d3bd321(de.q60.mps.shadowmodels.web.json.structure)" implicit="true" />
+    <import index="6y8" ref="r:84bdf498-a7b7-4050-8eec-ebd94d3bd321(de.q60.mps.web.ui.sm.json.structure)" implicit="true" />
     <import index="wyt6" ref="6354ebe7-c22a-4a0f-ac54-50b52ab9b065/java:java.lang(JDK/)" implicit="true" />
   </imports>
   <registry>
