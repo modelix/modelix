@@ -570,14 +570,14 @@
       </node>
       <node concept="1E1JtA" id="7gF2HTviNPU" role="2G$12L">
         <property role="BnDLt" value="true" />
-        <property role="TrG5h" value="de.q60.mps.shadowmodels.web.server" />
+        <property role="TrG5h" value="de.q60.mps.web.ui.sm.server" />
         <property role="3LESm3" value="eb8d1040-bff5-4126-8949-fdd95ef4c502" />
         <node concept="398BVA" id="3$7Kuaihlhl" role="3LF7KH">
           <ref role="398BVh" node="3$7Kuaihl5X" resolve="webmps.modules" />
           <node concept="2Ry0Ak" id="3$7Kuaihlhp" role="iGT6I">
-            <property role="2Ry0Am" value="de.q60.mps.shadowmodels.web.server" />
-            <node concept="2Ry0Ak" id="3$7Kuaihlhq" role="2Ry0An">
-              <property role="2Ry0Am" value="de.q60.mps.shadowmodels.web.server.msd" />
+            <property role="2Ry0Am" value="de.q60.mps.web.ui.sm.server" />
+            <node concept="2Ry0Ak" id="2ANCVnFcOL5" role="2Ry0An">
+              <property role="2Ry0Am" value="de.q60.mps.web.ui.sm.server.msd" />
             </node>
           </node>
         </node>

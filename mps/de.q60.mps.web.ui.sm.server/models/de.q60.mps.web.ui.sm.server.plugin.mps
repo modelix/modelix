@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<model ref="r:f8990486-c591-4463-8538-99bfa890834b(de.q60.mps.shadowmodels.web.server.plugin)">
+<model ref="r:f8990486-c591-4463-8538-99bfa890834b(de.q60.mps.web.ui.sm.server.plugin)">
   <persistence version="9" />
   <languages>
     <use id="ef7bf5ac-d06c-4342-b11d-e42104eb9343" name="jetbrains.mps.lang.plugin.standalone" version="0" />
