@@ -1256,54 +1256,6 @@
             </node>
           </node>
         </node>
-        <node concept="1SiIV0" id="3$7KuaihlS2" role="3bR37C">
-          <node concept="1BurEX" id="3$7KuaihlS3" role="1SiIV1">
-            <node concept="398BVA" id="3$7KuaihlRT" role="1BurEY">
-              <ref role="398BVh" node="3$7Kuaihl5X" resolve="webmps.modules" />
-              <node concept="2Ry0Ak" id="3$7KuaihlRU" role="iGT6I">
-                <property role="2Ry0Am" value="de.q60.mps.web.ui.svg" />
-                <node concept="2Ry0Ak" id="3$7KuaihlRV" role="2Ry0An">
-                  <property role="2Ry0Am" value="lib" />
-                  <node concept="2Ry0Ak" id="3$7KuaihlRW" role="2Ry0An">
-                    <property role="2Ry0Am" value="java_websocket.jar" />
-                  </node>
-                </node>
-              </node>
-            </node>
-          </node>
-        </node>
-        <node concept="1SiIV0" id="3$7KuaihlSd" role="3bR37C">
-          <node concept="1BurEX" id="3$7KuaihlSe" role="1SiIV1">
-            <node concept="398BVA" id="3$7KuaihlS4" role="1BurEY">
-              <ref role="398BVh" node="3$7Kuaihl5X" resolve="webmps.modules" />
-              <node concept="2Ry0Ak" id="3$7KuaihlS5" role="iGT6I">
-                <property role="2Ry0Am" value="de.q60.mps.web.ui.svg" />
-                <node concept="2Ry0Ak" id="3$7KuaihlS6" role="2Ry0An">
-                  <property role="2Ry0Am" value="lib" />
-                  <node concept="2Ry0Ak" id="3$7KuaihlS7" role="2Ry0An">
-                    <property role="2Ry0Am" value="json-20160810.jar" />
-                  </node>
-                </node>
-              </node>
-            </node>
-          </node>
-        </node>
-        <node concept="1SiIV0" id="3$7KuaihlSo" role="3bR37C">
-          <node concept="1BurEX" id="3$7KuaihlSp" role="1SiIV1">
-            <node concept="398BVA" id="3$7KuaihlSf" role="1BurEY">
-              <ref role="398BVh" node="3$7Kuaihl5X" resolve="webmps.modules" />
-              <node concept="2Ry0Ak" id="3$7KuaihlSg" role="iGT6I">
-                <property role="2Ry0Am" value="de.q60.mps.web.ui.svg" />
-                <node concept="2Ry0Ak" id="3$7KuaihlSh" role="2Ry0An">
-                  <property role="2Ry0Am" value="lib" />
-                  <node concept="2Ry0Ak" id="3$7KuaihlSi" role="2Ry0An">
-                    <property role="2Ry0Am" value="gson-2.8.0.jar" />
-                  </node>
-                </node>
-              </node>
-            </node>
-          </node>
-        </node>
         <node concept="1SiIV0" id="3$7KuaihlSz" role="3bR37C">
           <node concept="1BurEX" id="3$7KuaihlS$" role="1SiIV1">
             <node concept="398BVA" id="3$7KuaihlSq" role="1BurEY">
@@ -1339,6 +1291,11 @@
                 </node>
               </node>
             </node>
+          </node>
+        </node>
+        <node concept="1SiIV0" id="6GOzicSgelT" role="3bR37C">
+          <node concept="3bR9La" id="6GOzicSgelU" role="1SiIV1">
+            <ref role="3bR37D" node="7gF2HTviNPP" resolve="de.q60.mps.web.lib" />
           </node>
         </node>
       </node>
