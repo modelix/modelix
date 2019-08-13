@@ -12,7 +12,7 @@
       <modulePath path="$PROJECT_DIR$/de.q60.mps.web.ui.sm.json/de.q60.mps.web.ui.sm.json.mpl" folder="ui.shadowmodels" />
       <modulePath path="$PROJECT_DIR$/de.q60.mps.web.ui.sm.server/de.q60.mps.web.ui.sm.server.msd" folder="ui.shadowmodels" />
       <modulePath path="$PROJECT_DIR$/de.q60.mps.web.ui.sm/de.q60.mps.web.ui.sm.mpl" folder="ui.shadowmodels" />
-      <modulePath path="$PROJECT_DIR$/de.q60.mps.web.ui.svg/de.q60.mps.web.ui.svg.msd" folder="" />
+      <modulePath path="$PROJECT_DIR$/de.q60.mps.web.ui.svg/de.q60.mps.web.ui.svg.msd" folder="ui.svg" />
     </projectModules>
   </component>
 </project>

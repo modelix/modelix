@@ -10910,7 +10910,7 @@
                         <node concept="1pGfFk" id="3WN29Vk$1o7" role="2ShVmc">
                           <ref role="37wK5l" to="zf81:~URI.&lt;init&gt;(java.lang.String)" resolve="URI" />
                           <node concept="Xl_RD" id="3WN29Vk$1o8" role="37wK5m">
-                            <property role="Xl_RC" value="ws://model.webmps.q60.de:80" />
+                            <property role="Xl_RC" value="ws://webmps.q60.de:80/model/" />
                           </node>
                         </node>
                       </node>
