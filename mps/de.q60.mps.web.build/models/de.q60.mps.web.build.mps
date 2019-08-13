@@ -205,7 +205,7 @@
               <node concept="398BVA" id="7gF2HTvk5JG" role="2HvfZ0">
                 <ref role="398BVh" node="3$7Kuaihl5X" resolve="webmps.modules" />
                 <node concept="2Ry0Ak" id="7gF2HTvk5M8" role="iGT6I">
-                  <property role="2Ry0Am" value="de.q60.mps.shadowmodels.web.lib" />
+                  <property role="2Ry0Am" value="de.q60.mps.web.lib" />
                   <node concept="2Ry0Ak" id="7gF2HTvk5Mb" role="2Ry0An">
                     <property role="2Ry0Am" value="lib" />
                   </node>
