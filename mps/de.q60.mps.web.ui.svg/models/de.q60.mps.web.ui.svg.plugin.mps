@@ -14,14 +14,10 @@
     <import index="vyue" ref="r:a009b15b-6386-4045-b94f-fa21b9788c19(de.q60.mps.web.ui.svg.svg)" />
     <import index="zf81" ref="6354ebe7-c22a-4a0f-ac54-50b52ab9b065/java:java.net(JDK/)" />
     <import index="guwi" ref="6354ebe7-c22a-4a0f-ac54-50b52ab9b065/java:java.io(JDK/)" />
-    <import index="mi4d" ref="cceec75f-de6e-4ee7-bd91-29a3a99bfede/java:org.java_websocket.server(de.q60.mps.web.ui.svg/)" />
-    <import index="ffp0" ref="cceec75f-de6e-4ee7-bd91-29a3a99bfede/java:org.java_websocket(de.q60.mps.web.ui.svg/)" />
-    <import index="bge5" ref="cceec75f-de6e-4ee7-bd91-29a3a99bfede/java:org.java_websocket.handshake(de.q60.mps.web.ui.svg/)" />
     <import index="exr9" ref="1ed103c3-3aa6-49b7-9c21-6765ee11f224/java:jetbrains.mps.nodeEditor(MPS.Editor/)" />
     <import index="kvq8" ref="r:2e938759-cfd0-47cd-9046-896d85204f59(de.slisson.mps.hacks.editor)" />
     <import index="lwvz" ref="1ed103c3-3aa6-49b7-9c21-6765ee11f224/java:jetbrains.mps.openapi.editor.selection(MPS.Editor/)" />
     <import index="cj4x" ref="1ed103c3-3aa6-49b7-9c21-6765ee11f224/java:jetbrains.mps.openapi.editor(MPS.Editor/)" />
-    <import index="mxf6" ref="cceec75f-de6e-4ee7-bd91-29a3a99bfede/java:org.json(de.q60.mps.web.ui.svg/)" />
     <import index="z60i" ref="6354ebe7-c22a-4a0f-ac54-50b52ab9b065/java:java.awt(JDK/)" />
     <import index="hyam" ref="6354ebe7-c22a-4a0f-ac54-50b52ab9b065/java:java.awt.event(JDK/)" />
     <import index="dxuu" ref="6354ebe7-c22a-4a0f-ac54-50b52ab9b065/java:javax.swing(JDK/)" />
@@ -53,6 +49,10 @@
     <import index="g3l6" ref="6ed54515-acc8-4d1e-a16c-9fd6cfe951ea/java:jetbrains.mps.extapi.model(MPS.Core/)" />
     <import index="3ju5" ref="6ed54515-acc8-4d1e-a16c-9fd6cfe951ea/java:jetbrains.mps.vfs(MPS.Core/)" />
     <import index="4h87" ref="r:05ff02e5-9836-4ae9-a454-eab43fa58c8f(jetbrains.mps.ide.httpsupport.manager.plugin)" />
+    <import index="mi4d" ref="87f4b21e-a3a5-459e-a54b-408fd9eb7350/java:org.java_websocket.server(de.q60.mps.web.lib/)" />
+    <import index="ffp0" ref="87f4b21e-a3a5-459e-a54b-408fd9eb7350/java:org.java_websocket(de.q60.mps.web.lib/)" />
+    <import index="bge5" ref="87f4b21e-a3a5-459e-a54b-408fd9eb7350/java:org.java_websocket.handshake(de.q60.mps.web.lib/)" />
+    <import index="mxf6" ref="87f4b21e-a3a5-459e-a54b-408fd9eb7350/java:org.json(de.q60.mps.web.lib/)" />
   </imports>
   <registry>
     <language id="a247e09e-2435-45ba-b8d2-07e93feba96a" name="jetbrains.mps.baseLanguage.tuples">
@@ -643,7 +643,7 @@
       <property role="TrG5h" value="sessions" />
       <node concept="3Tm6S6" id="1qbCJZsMsiq" role="1B3o_S" />
       <node concept="3rvAFt" id="1qbCJZsM_KO" role="1tU5fm">
-        <node concept="3uibUv" id="1qbCJZsMA3j" role="3rvQeY">
+        <node concept="3uibUv" id="6GOzicSesc8" role="3rvQeY">
           <ref role="3uigEE" to="ffp0:~WebSocket" resolve="WebSocket" />
         </node>
         <node concept="3uibUv" id="1qbCJZsMAZ4" role="3rvSg0">
@@ -893,7 +893,7 @@
     </node>
     <node concept="2tJIrI" id="1qbCJZsOvpL" role="jymVt" />
     <node concept="3Tm1VV" id="6xm2RBlaf2M" role="1B3o_S" />
-    <node concept="3uibUv" id="6xm2RBlaTrL" role="1zkMxy">
+    <node concept="3uibUv" id="6GOzicSepyO" role="1zkMxy">
       <ref role="3uigEE" to="mi4d:~WebSocketServer" resolve="WebSocketServer" />
     </node>
     <node concept="3clFb_" id="6xm2RBlaYQd" role="jymVt">
@@ -911,7 +911,7 @@
       </node>
       <node concept="37vLTG" id="6xm2RBlaYQj" role="3clF46">
         <property role="TrG5h" value="handshake" />
-        <node concept="3uibUv" id="6xm2RBlaYQk" role="1tU5fm">
+        <node concept="3uibUv" id="6GOzicSetRZ" role="1tU5fm">
           <ref role="3uigEE" to="bge5:~ClientHandshake" resolve="ClientHandshake" />
         </node>
       </node>
@@ -3165,11 +3165,11 @@
             <node concept="3cpWs8" id="1qbCJZsJ6c3" role="3cqZAp">
               <node concept="3cpWsn" id="1qbCJZsJ6c4" role="3cpWs9">
                 <property role="TrG5h" value="message" />
-                <node concept="3uibUv" id="1qbCJZsJ6c5" role="1tU5fm">
+                <node concept="3uibUv" id="6GOzicSf2Q2" role="1tU5fm">
                   <ref role="3uigEE" to="mxf6:~JSONObject" resolve="JSONObject" />
                 </node>
                 <node concept="2ShNRf" id="1qbCJZsJ6c6" role="33vP2m">
-                  <node concept="1pGfFk" id="1qbCJZsJ6c7" role="2ShVmc">
+                  <node concept="1pGfFk" id="6GOzicSf39t" role="2ShVmc">
                     <ref role="37wK5l" to="mxf6:~JSONObject.&lt;init&gt;()" resolve="JSONObject" />
                   </node>
                 </node>

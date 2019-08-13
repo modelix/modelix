@@ -32,9 +32,6 @@
       <sourceRoot location="batik-1.7.1/lib/js.jar" />
       <sourceRoot location="batik-1.7.1/extensions/batik-rasterizer-ext.jar" />
       <sourceRoot location="batik-1.7.1/extensions/batik-squiggle-ext.jar" />
-      <sourceRoot location="java_websocket.jar" />
-      <sourceRoot location="json-20160810.jar" />
-      <sourceRoot location="gson-2.8.0.jar" />
       <sourceRoot location="commons-codec-1.10.jar" />
     </modelRoot>
   </models>
@@ -66,9 +63,6 @@
     <stubModelEntry path="${module}/lib/batik-1.7.1/lib/js.jar" />
     <stubModelEntry path="${module}/lib/batik-1.7.1/extensions/batik-rasterizer-ext.jar" />
     <stubModelEntry path="${module}/lib/batik-1.7.1/extensions/batik-squiggle-ext.jar" />
-    <stubModelEntry path="${module}/lib/java_websocket.jar" />
-    <stubModelEntry path="${module}/lib/json-20160810.jar" />
-    <stubModelEntry path="${module}/lib/gson-2.8.0.jar" />
     <stubModelEntry path="${module}/lib/commons-codec-1.10.jar" />
     <stubModelEntry path="${module}/lib/ui-client.jar" />
   </stubModelEntries>
@@ -83,6 +77,7 @@
     <dependency reexport="false">8865b7a8-5271-43d3-884c-6fd1d9cfdd34(MPS.OpenAPI)</dependency>
     <dependency reexport="false">9a4afe51-f114-4595-b5df-048ce3c596be(jetbrains.mps.runtime)</dependency>
     <dependency reexport="false">23865718-e2ed-41b5-a132-0da1d04e266d(jetbrains.mps.ide.httpsupport.manager)</dependency>
+    <dependency reexport="false">87f4b21e-a3a5-459e-a54b-408fd9eb7350(de.q60.mps.web.lib)</dependency>
   </dependencies>
   <languageVersions>
     <language slang="l:f3061a53-9226-4cc5-a443-f952ceaf5816:jetbrains.mps.baseLanguage" version="8" />
@@ -113,6 +108,7 @@
     <module reference="498d89d2-c2e9-11e2-ad49-6cf049e62fe5(MPS.IDEA)" version="0" />
     <module reference="8865b7a8-5271-43d3-884c-6fd1d9cfdd34(MPS.OpenAPI)" version="0" />
     <module reference="742f6602-5a2f-4313-aa6e-ae1cd4ffdc61(MPS.Platform)" version="0" />
+    <module reference="87f4b21e-a3a5-459e-a54b-408fd9eb7350(de.q60.mps.web.lib)" version="0" />
     <module reference="cceec75f-de6e-4ee7-bd91-29a3a99bfede(de.q60.mps.web.ui.svg)" version="0" />
     <module reference="f0fff802-6d26-4d2e-b89d-391357265626(de.slisson.mps.hacks.editor)" version="0" />
     <module reference="23865718-e2ed-41b5-a132-0da1d04e266d(jetbrains.mps.ide.httpsupport.manager)" version="0" />

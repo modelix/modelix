@@ -12,8 +12,8 @@
     <import index="z1c3" ref="6ed54515-acc8-4d1e-a16c-9fd6cfe951ea/java:jetbrains.mps.project(MPS.Core/)" />
     <import index="3ju5" ref="6ed54515-acc8-4d1e-a16c-9fd6cfe951ea/java:jetbrains.mps.vfs(MPS.Core/)" />
     <import index="qr12" ref="r:24ed310f-f0ab-4270-aa2f-e2180b5d4c31(de.q60.mps.web.ui.svg.repository)" />
-    <import index="wy2b" ref="cceec75f-de6e-4ee7-bd91-29a3a99bfede/java:com.google.gson(de.q60.mps.lazywebmps.runtime/)" />
     <import index="eoo2" ref="6354ebe7-c22a-4a0f-ac54-50b52ab9b065/java:java.nio.file(JDK/)" />
+    <import index="wy2b" ref="87f4b21e-a3a5-459e-a54b-408fd9eb7350/java:com.google.gson(de.q60.mps.web.lib/)" />
     <import index="wyt6" ref="6354ebe7-c22a-4a0f-ac54-50b52ab9b065/java:java.lang(JDK/)" implicit="true" />
   </imports>
   <registry>
@@ -363,7 +363,7 @@
             <node concept="2OqwBi" id="6kOYU1q1GUW" role="2Oq$k0">
               <node concept="2OqwBi" id="6kOYU1q1GDL" role="2Oq$k0">
                 <node concept="2ShNRf" id="6kOYU1q1j$8" role="2Oq$k0">
-                  <node concept="1pGfFk" id="6kOYU1q1zu7" role="2ShVmc">
+                  <node concept="1pGfFk" id="6GOzicSdGEL" role="2ShVmc">
                     <ref role="37wK5l" to="wy2b:~GsonBuilder.&lt;init&gt;()" resolve="GsonBuilder" />
                   </node>
                 </node>
@@ -396,7 +396,7 @@
         <node concept="3clFbF" id="6kOYU1q1$2J" role="3cqZAp">
           <node concept="2OqwBi" id="6kOYU1q1$pw" role="3clFbG">
             <node concept="2ShNRf" id="6kOYU1q1$2H" role="2Oq$k0">
-              <node concept="1pGfFk" id="6kOYU1q1$iy" role="2ShVmc">
+              <node concept="1pGfFk" id="6GOzicSdGEO" role="2ShVmc">
                 <ref role="37wK5l" to="wy2b:~Gson.&lt;init&gt;()" resolve="Gson" />
               </node>
             </node>

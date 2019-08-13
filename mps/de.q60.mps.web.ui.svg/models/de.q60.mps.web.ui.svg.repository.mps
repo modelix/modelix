@@ -13,8 +13,6 @@
     <import index="7x5y" ref="6354ebe7-c22a-4a0f-ac54-50b52ab9b065/java:java.nio.charset(JDK/)" />
     <import index="zfbc" ref="6354ebe7-c22a-4a0f-ac54-50b52ab9b065/java:java.nio(JDK/)" />
     <import index="xlxw" ref="6354ebe7-c22a-4a0f-ac54-50b52ab9b065/java:java.math(JDK/)" />
-    <import index="mxf6" ref="cceec75f-de6e-4ee7-bd91-29a3a99bfede/java:org.json(de.q60.mps.web.ui.svg/)" />
-    <import index="wy2b" ref="cceec75f-de6e-4ee7-bd91-29a3a99bfede/java:com.google.gson(de.q60.mps.lazywebmps.runtime/)" />
     <import index="lui2" ref="8865b7a8-5271-43d3-884c-6fd1d9cfdd34/java:org.jetbrains.mps.openapi.module(MPS.OpenAPI/)" />
     <import index="eurq" ref="6ed54515-acc8-4d1e-a16c-9fd6cfe951ea/java:jetbrains.mps.vfs.path(MPS.Core/)" />
     <import index="z1c3" ref="6ed54515-acc8-4d1e-a16c-9fd6cfe951ea/java:jetbrains.mps.project(MPS.Core/)" />
@@ -24,6 +22,7 @@
     <import index="eoo2" ref="6354ebe7-c22a-4a0f-ac54-50b52ab9b065/java:java.nio.file(JDK/)" />
     <import index="4qvk" ref="6354ebe7-c22a-4a0f-ac54-50b52ab9b065/java:java.nio.file.attribute(JDK/)" />
     <import index="wxa0" ref="cceec75f-de6e-4ee7-bd91-29a3a99bfede/java:org.apache.commons.codec.digest(de.q60.mps.lazywebmps.runtime/)" />
+    <import index="wy2b" ref="87f4b21e-a3a5-459e-a54b-408fd9eb7350/java:com.google.gson(de.q60.mps.web.lib/)" />
   </imports>
   <registry>
     <language id="f3061a53-9226-4cc5-a443-f952ceaf5816" name="jetbrains.mps.baseLanguage">
@@ -1719,7 +1718,7 @@
           <node concept="3clFbF" id="48Vb4ZfCbR7" role="3cqZAp">
             <node concept="2OqwBi" id="48Vb4ZfCcUz" role="3clFbG">
               <node concept="2ShNRf" id="48Vb4ZfCbR3" role="2Oq$k0">
-                <node concept="1pGfFk" id="48Vb4ZfCcKn" role="2ShVmc">
+                <node concept="1pGfFk" id="6GOzicSfByf" role="2ShVmc">
                   <ref role="37wK5l" to="wy2b:~Gson.&lt;init&gt;()" resolve="Gson" />
                 </node>
               </node>
