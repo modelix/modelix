@@ -379,14 +379,14 @@
       <property role="TrG5h" value="de.q60.mps.web.common" />
       <node concept="1E1JtA" id="7gF2HTviNPP" role="2G$12L">
         <property role="BnDLt" value="true" />
-        <property role="TrG5h" value="de.q60.mps.shadowmodels.web.lib" />
+        <property role="TrG5h" value="de.q60.mps.web.lib" />
         <property role="3LESm3" value="87f4b21e-a3a5-459e-a54b-408fd9eb7350" />
         <node concept="398BVA" id="3$7KuaihldX" role="3LF7KH">
           <ref role="398BVh" node="3$7Kuaihl5X" resolve="webmps.modules" />
           <node concept="2Ry0Ak" id="3$7Kuaihle1" role="iGT6I">
-            <property role="2Ry0Am" value="de.q60.mps.shadowmodels.web.lib" />
-            <node concept="2Ry0Ak" id="3$7Kuaihle2" role="2Ry0An">
-              <property role="2Ry0Am" value="de.q60.mps.shadowmodels.web.lib.msd" />
+            <property role="2Ry0Am" value="de.q60.mps.web.lib" />
+            <node concept="2Ry0Ak" id="2ANCVnFcI7i" role="2Ry0An">
+              <property role="2Ry0Am" value="de.q60.mps.web.lib.msd" />
             </node>
           </node>
         </node>
@@ -395,15 +395,15 @@
             <ref role="3bR37D" to="ffeo:mXGwHwhVPj" resolve="JDK" />
           </node>
         </node>
-        <node concept="1SiIV0" id="3$7KuaihlLd" role="3bR37C">
-          <node concept="1BurEX" id="3$7KuaihlLe" role="1SiIV1">
-            <node concept="398BVA" id="3$7KuaihlL4" role="1BurEY">
+        <node concept="1SiIV0" id="2ANCVnFcIfI" role="3bR37C">
+          <node concept="1BurEX" id="2ANCVnFcIfJ" role="1SiIV1">
+            <node concept="398BVA" id="2ANCVnFcIf_" role="1BurEY">
               <ref role="398BVh" node="3$7Kuaihl5X" resolve="webmps.modules" />
-              <node concept="2Ry0Ak" id="3$7KuaihlL5" role="iGT6I">
-                <property role="2Ry0Am" value="de.q60.mps.shadowmodels.web.lib" />
-                <node concept="2Ry0Ak" id="3$7KuaihlL6" role="2Ry0An">
+              <node concept="2Ry0Ak" id="2ANCVnFcIfA" role="iGT6I">
+                <property role="2Ry0Am" value="de.q60.mps.web.lib" />
+                <node concept="2Ry0Ak" id="2ANCVnFcIfB" role="2Ry0An">
                   <property role="2Ry0Am" value="lib" />
-                  <node concept="2Ry0Ak" id="3$7KuaihlL7" role="2Ry0An">
+                  <node concept="2Ry0Ak" id="2ANCVnFcIfC" role="2Ry0An">
                     <property role="2Ry0Am" value="java_websocket.jar" />
                   </node>
                 </node>
@@ -411,15 +411,15 @@
             </node>
           </node>
         </node>
-        <node concept="1SiIV0" id="3$7KuaihlLo" role="3bR37C">
-          <node concept="1BurEX" id="3$7KuaihlLp" role="1SiIV1">
-            <node concept="398BVA" id="3$7KuaihlLf" role="1BurEY">
+        <node concept="1SiIV0" id="2ANCVnFcIfT" role="3bR37C">
+          <node concept="1BurEX" id="2ANCVnFcIfU" role="1SiIV1">
+            <node concept="398BVA" id="2ANCVnFcIfK" role="1BurEY">
               <ref role="398BVh" node="3$7Kuaihl5X" resolve="webmps.modules" />
-              <node concept="2Ry0Ak" id="3$7KuaihlLg" role="iGT6I">
-                <property role="2Ry0Am" value="de.q60.mps.shadowmodels.web.lib" />
-                <node concept="2Ry0Ak" id="3$7KuaihlLh" role="2Ry0An">
+              <node concept="2Ry0Ak" id="2ANCVnFcIfL" role="iGT6I">
+                <property role="2Ry0Am" value="de.q60.mps.web.lib" />
+                <node concept="2Ry0Ak" id="2ANCVnFcIfM" role="2Ry0An">
                   <property role="2Ry0Am" value="lib" />
-                  <node concept="2Ry0Ak" id="3$7KuaihlLi" role="2Ry0An">
+                  <node concept="2Ry0Ak" id="2ANCVnFcIfN" role="2Ry0An">
                     <property role="2Ry0Am" value="json-20160810.jar" />
                   </node>
                 </node>
@@ -427,15 +427,15 @@
             </node>
           </node>
         </node>
-        <node concept="1SiIV0" id="3$7KuaihlLz" role="3bR37C">
-          <node concept="1BurEX" id="3$7KuaihlL$" role="1SiIV1">
-            <node concept="398BVA" id="3$7KuaihlLq" role="1BurEY">
+        <node concept="1SiIV0" id="2ANCVnFcIg4" role="3bR37C">
+          <node concept="1BurEX" id="2ANCVnFcIg5" role="1SiIV1">
+            <node concept="398BVA" id="2ANCVnFcIfV" role="1BurEY">
               <ref role="398BVh" node="3$7Kuaihl5X" resolve="webmps.modules" />
-              <node concept="2Ry0Ak" id="3$7KuaihlLr" role="iGT6I">
-                <property role="2Ry0Am" value="de.q60.mps.shadowmodels.web.lib" />
-                <node concept="2Ry0Ak" id="3$7KuaihlLs" role="2Ry0An">
+              <node concept="2Ry0Ak" id="2ANCVnFcIfW" role="iGT6I">
+                <property role="2Ry0Am" value="de.q60.mps.web.lib" />
+                <node concept="2Ry0Ak" id="2ANCVnFcIfX" role="2Ry0An">
                   <property role="2Ry0Am" value="lib" />
-                  <node concept="2Ry0Ak" id="3$7KuaihlLt" role="2Ry0An">
+                  <node concept="2Ry0Ak" id="2ANCVnFcIfY" role="2Ry0An">
                     <property role="2Ry0Am" value="gson-2.8.5.jar" />
                   </node>
                 </node>
@@ -443,15 +443,15 @@
             </node>
           </node>
         </node>
-        <node concept="1SiIV0" id="3$7KuaihlLI" role="3bR37C">
-          <node concept="1BurEX" id="3$7KuaihlLJ" role="1SiIV1">
-            <node concept="398BVA" id="3$7KuaihlL_" role="1BurEY">
+        <node concept="1SiIV0" id="2ANCVnFcIgf" role="3bR37C">
+          <node concept="1BurEX" id="2ANCVnFcIgg" role="1SiIV1">
+            <node concept="398BVA" id="2ANCVnFcIg6" role="1BurEY">
               <ref role="398BVh" node="3$7Kuaihl5X" resolve="webmps.modules" />
-              <node concept="2Ry0Ak" id="3$7KuaihlLA" role="iGT6I">
-                <property role="2Ry0Am" value="de.q60.mps.shadowmodels.web.lib" />
-                <node concept="2Ry0Ak" id="3$7KuaihlLB" role="2Ry0An">
+              <node concept="2Ry0Ak" id="2ANCVnFcIg7" role="iGT6I">
+                <property role="2Ry0Am" value="de.q60.mps.web.lib" />
+                <node concept="2Ry0Ak" id="2ANCVnFcIg8" role="2Ry0An">
                   <property role="2Ry0Am" value="lib" />
-                  <node concept="2Ry0Ak" id="3$7KuaihlLC" role="2Ry0An">
+                  <node concept="2Ry0Ak" id="2ANCVnFcIg9" role="2Ry0An">
                     <property role="2Ry0Am" value="gson-extras-2.8.5.jar" />
                   </node>
                 </node>
@@ -546,7 +546,7 @@
         </node>
         <node concept="1SiIV0" id="7gF2HTviO9s" role="3bR37C">
           <node concept="3bR9La" id="7gF2HTviO9t" role="1SiIV1">
-            <ref role="3bR37D" node="7gF2HTviNPP" resolve="de.q60.mps.shadowmodels.web.lib" />
+            <ref role="3bR37D" node="7gF2HTviNPP" resolve="de.q60.mps.web.lib" />
           </node>
         </node>
       </node>
@@ -593,7 +593,7 @@
         </node>
         <node concept="1SiIV0" id="7gF2HTviOaO" role="3bR37C">
           <node concept="3bR9La" id="7gF2HTviOaP" role="1SiIV1">
-            <ref role="3bR37D" node="7gF2HTviNPP" resolve="de.q60.mps.shadowmodels.web.lib" />
+            <ref role="3bR37D" node="7gF2HTviNPP" resolve="de.q60.mps.web.lib" />
           </node>
         </node>
         <node concept="1SiIV0" id="7gF2HTviOaQ" role="3bR37C">
@@ -1375,7 +1375,7 @@
         </node>
         <node concept="1SiIV0" id="7gF2HTviO9y" role="3bR37C">
           <node concept="3bR9La" id="7gF2HTviO9z" role="1SiIV1">
-            <ref role="3bR37D" node="7gF2HTviNPP" resolve="de.q60.mps.shadowmodels.web.lib" />
+            <ref role="3bR37D" node="7gF2HTviNPP" resolve="de.q60.mps.web.lib" />
           </node>
         </node>
         <node concept="1SiIV0" id="7gF2HTvj1RM" role="3bR37C">
@@ -1723,7 +1723,7 @@
         <node concept="1SiIV0" id="7gF2HTviO9q" role="3bR37C">
           <node concept="3bR9La" id="7gF2HTviO9r" role="1SiIV1">
             <property role="3bR36h" value="true" />
-            <ref role="3bR37D" node="7gF2HTviNPP" resolve="de.q60.mps.shadowmodels.web.lib" />
+            <ref role="3bR37D" node="7gF2HTviNPP" resolve="de.q60.mps.web.lib" />
           </node>
         </node>
         <node concept="1SiIV0" id="7gF2HTvj1RA" role="3bR37C">

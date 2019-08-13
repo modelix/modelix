@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<solution name="de.q60.mps.shadowmodels.web.lib" uuid="87f4b21e-a3a5-459e-a54b-408fd9eb7350" moduleVersion="0" compileInMPS="true">
+<solution name="de.q60.mps.web.lib" uuid="87f4b21e-a3a5-459e-a54b-408fd9eb7350" moduleVersion="0" compileInMPS="true">
   <models>
     <modelRoot contentPath="${module}" type="default">
       <sourceRoot location="models" />
@@ -28,7 +28,7 @@
   </languageVersions>
   <dependencyVersions>
     <module reference="6354ebe7-c22a-4a0f-ac54-50b52ab9b065(JDK)" version="0" />
-    <module reference="87f4b21e-a3a5-459e-a54b-408fd9eb7350(de.q60.mps.shadowmodels.web.lib)" version="0" />
+    <module reference="87f4b21e-a3a5-459e-a54b-408fd9eb7350(de.q60.mps.web.lib)" version="0" />
   </dependencyVersions>
 </solution>
 
