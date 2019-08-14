@@ -3,7 +3,7 @@ import $ = require("jquery");
 
 export class ShadowModelsBasedEditor {
 
-    constructor(private element: HTMLElement) {
+    constructor(private viewer: HTMLElement) {
         this.init();
     }
 
@@ -124,10 +124,10 @@ export class ShadowModelsBasedEditor {
                 }
 
                 const newViewer = id2dom.get("viewer");
-                const oldViewer = this.element.firstElementChild;
-                if (oldViewer !== newViewer) {
+                if (newViewer && this.viewer !== newViewer) {
                     if (!newViewer.classList.contains("smviewer")) newViewer.classList.add("smviewer");
-                    setDomChildren(this.element, [newViewer]);
+                    this.viewer.parentElement.replaceChild(newViewer, this.viewer);
+                    this.viewer = newViewer;
                 }
 
                 for (const f of postprocessors) f();

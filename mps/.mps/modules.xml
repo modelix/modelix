@@ -8,6 +8,7 @@
       <modulePath path="$PROJECT_DIR$/de.q60.mps.web.lib/de.q60.mps.web.lib.msd" folder="common" />
       <modulePath path="$PROJECT_DIR$/de.q60.mps.web.model.mpsplugin/de.q60.mps.web.model.mpsplugin.msd" folder="model" />
       <modulePath path="$PROJECT_DIR$/de.q60.mps.web.model/de.q60.mps.web.model.msd" folder="model" />
+      <modulePath path="$PROJECT_DIR$/de.q60.mps.web.ui.server/de.q60.mps.web.ui.server.msd" folder="ui" />
       <modulePath path="$PROJECT_DIR$/de.q60.mps.web.ui.sm.dom/de.q60.mps.web.ui.sm.dom.mpl" folder="ui.shadowmodels" />
       <modulePath path="$PROJECT_DIR$/de.q60.mps.web.ui.sm.json/de.q60.mps.web.ui.sm.json.mpl" folder="ui.shadowmodels" />
       <modulePath path="$PROJECT_DIR$/de.q60.mps.web.ui.sm.server/de.q60.mps.web.ui.sm.server.msd" folder="ui.shadowmodels" />
