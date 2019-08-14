@@ -1,6 +1,6 @@
 'use strict';
 
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
+var ExtractTextPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
   rules: [
