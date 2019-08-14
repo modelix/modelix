@@ -2,6 +2,7 @@
     "compilerOptions": {
         "module": "commonjs",
         "target": "es6",
+        "lib": ["dom", "es6", "es5", "es2015.core", "es2015.iterable", "es2015.collection"],
         "importHelpers": true,
         "noImplicitAny": false,
         "noEmitHelpers": true,

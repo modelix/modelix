@@ -14,7 +14,7 @@
     "@types/jasmine": "^3.4.0",
     "copy-webpack-plugin": "^5.0.4",
     "css-loader": "^3.2.0",
-    "mini-css-extract-plugin": "^0.8.0",
+    "extract-text-webpack-plugin": "^4.0.0-beta.0",
     "html-webpack-plugin": "^3.2.0",
     "istanbul-instrumenter-loader": "^3.0.1",
     "jasmine-core": "^3.4.0",
@@ -33,6 +33,7 @@
     "tslint-loader": "^3.5.4",
     "typescript": "^3.5.3",
     "webpack": "^4.39.2",
+    "webpack-cli": "^3.3.6",
     "webpack-dev-server": "^3.8.0"
   },
   "dependencies": {
