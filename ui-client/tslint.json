@@ -15,6 +15,7 @@
     "max-classes-per-file": false,
     "member-ordering": false,
     "ordered-imports": false,
-    "arrow-parens": false
+    "arrow-parens": false,
+    "no-empty": false
   }
 }

@@ -55,6 +55,8 @@ export class SvgBasedEditor {
                     element.appendChild(svg);
                     // console.log((Date.now() - lastEventTime) + " delta image");
                 }
+
+                this.fixSize();
             } else {
                 let message: IMessage = JSON.parse(event.data);
                 lastMessage = message;
@@ -68,6 +70,16 @@ export class SvgBasedEditor {
 
             // const a: HTMLElement;
         };
+
+        let nodeRef = this.element.getAttribute("nodeRef");
+        if (nodeRef) {
+            socket.onopen = () => {
+                socket.send(JSON.stringify({
+                    type: "rootNode",
+                    nodeRef: nodeRef
+                }));
+            };
+        }
 
         function parseSvg(data: string): HTMLElement {
             const parser = new DOMParser();
@@ -149,6 +161,19 @@ export class SvgBasedEditor {
             }));
             event.preventDefault();
         };
+    }
+
+    private fixSize(): void {
+        let maxW: number = 0;
+        let maxH: number = 0;
+        for (const child of this.element.children) {
+            const bounds = child.getBoundingClientRect();
+            maxW = Math.max(maxW, bounds.width);
+            maxH = Math.max(maxH, bounds.height);
+        }
+
+        this.element.style.height = maxH + "px";
+        this.element.style.width = maxW + "px";
     }
 }
 

@@ -17,7 +17,7 @@ module.exports = [
   }),
 
   new ExtractTextPlugin({
-    filename: 'css/[name].[hash].css',
+    filename: 'css/[name].css',
     disable: !isProd
   }),
 

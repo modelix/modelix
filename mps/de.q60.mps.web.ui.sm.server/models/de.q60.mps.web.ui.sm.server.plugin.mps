@@ -3689,7 +3689,7 @@
               </node>
               <node concept="3cpWs3" id="AkkmJBO7FG" role="3uHU7B">
                 <node concept="Xl_RD" id="AkkmJBO7ZE" role="3uHU7B">
-                  <property role="Xl_RC" value="&lt;html&gt;&lt;head&gt;&lt;link rel=\&quot;stylesheet\&quot; type=\&quot;text/css\&quot; href=\&quot;static?path=style.css\&quot;&gt;&lt;script type=\&quot;text/javascript\&quot; src=\&quot;static?path=script.js\&quot;&gt;&lt;/script&gt;&lt;/head&gt;&lt;body&gt;" />
+                  <property role="Xl_RC" value="&lt;html&gt;&lt;head&gt;&lt;link rel=\&quot;stylesheet\&quot; type=\&quot;text/css\&quot; href=\&quot;webmps-ui-static/css/app.css\&quot;&gt;&lt;script type=\&quot;text/javascript\&quot; src=\&quot;webmps-ui-static/scripts/app.js\&quot;&gt;&lt;/script&gt;&lt;/head&gt;&lt;body&gt;" />
                 </node>
                 <node concept="37vLTw" id="AkkmJBO7Z5" role="3uHU7w">
                   <ref role="3cqZAo" node="7NImM05781j" resolve="text" />
