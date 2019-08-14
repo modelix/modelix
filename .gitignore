@@ -1,5 +1,4 @@
 workspace.xml
-model/server/target
 classes_gen
 source_gen
 source_gen.caches
@@ -7,5 +6,4 @@ mps/build/tmp
 .gradle
 artifacts
 build
-ui-server/target
 mps/de.q60.mps.web.ui.svg/lib/ui-client.jar
