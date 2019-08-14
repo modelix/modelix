@@ -5,4 +5,7 @@ import {ShadowModelsBasedEditor} from "./ShadowModelsBasedEditor";
 
 let svgeditor = new SvgBasedEditor(document.getElementById("viewer1"));
 
-let smeditor = new ShadowModelsBasedEditor(document.getElementById("viewer2"));
+const smViewers = new Set<ShadowModelsBasedEditor>();
+for (const element of document.getElementsByClassName("smviewer")) {
+    smViewers.add(new ShadowModelsBasedEditor(element as HTMLElement));
+}

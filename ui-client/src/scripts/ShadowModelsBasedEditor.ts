@@ -7,6 +7,10 @@ export class ShadowModelsBasedEditor {
         this.init();
     }
 
+    public getViewerElement(): HTMLElement {
+        return this.viewer;
+    }
+
     private init(): void {
         const socket = new WebSocket("ws://localhost:2810/");
         const id2dom = new Map<string, HTMLElement>();
@@ -126,6 +130,8 @@ export class ShadowModelsBasedEditor {
                 const newViewer = id2dom.get("viewer");
                 if (newViewer && this.viewer !== newViewer) {
                     if (!newViewer.classList.contains("smviewer")) newViewer.classList.add("smviewer");
+                    if (!newViewer.classList.contains("connected")) newViewer.classList.add("connected");
+                    newViewer.setAttribute("nodeRef", this.viewer.getAttribute("nodeRef"));
                     this.viewer.parentElement.replaceChild(newViewer, this.viewer);
                     this.viewer = newViewer;
                 }
@@ -198,16 +204,15 @@ export class ShadowModelsBasedEditor {
             console.timeEnd("uievent");
         };
 
-        const urlString = window.location.href;
-        const url = new URL(urlString);
-        let nodeRef = url.searchParams.get("nodeRef");
-        nodeRef = "70c1041e-8481-4a44-ba79-485277dfa7dc/r:3b0acd74-c83b-4460-9d17-3162bf623968(module/model)/7724954443253448880";
-        socket.onopen = () => {
-            socket.send(JSON.stringify({
-                type: "rootNode",
-                nodeRef: nodeRef
-            }));
-        };
+        let nodeRef = this.viewer.getAttribute("nodeRef");
+        if (nodeRef) {
+            socket.onopen = () => {
+                socket.send(JSON.stringify({
+                    type: "rootNode",
+                    nodeRef: nodeRef
+                }));
+            };
+        }
 
         function setDomChildren(parent, children) {
             // TODO replace only those children that have a different/no parent

@@ -112,6 +112,7 @@
         <reference id="1068499141037" name="baseMethodDeclaration" index="37wK5l" />
         <child id="1068499141038" name="actualArgument" index="37wK5m" />
       </concept>
+      <concept id="1212685548494" name="jetbrains.mps.baseLanguage.structure.ClassCreator" flags="nn" index="1pGfFk" />
       <concept id="1107461130800" name="jetbrains.mps.baseLanguage.structure.Classifier" flags="ng" index="3pOWGL">
         <property id="521412098689998745" name="nonStatic" index="2bfB8j" />
       </concept>
@@ -125,6 +126,11 @@
       <concept id="1073239437375" name="jetbrains.mps.baseLanguage.structure.NotEqualsExpression" flags="nn" index="3y3z36" />
       <concept id="1178549954367" name="jetbrains.mps.baseLanguage.structure.IVisible" flags="ng" index="1B3ioH">
         <child id="1178549979242" name="visibility" index="1B3o_S" />
+      </concept>
+      <concept id="1163668896201" name="jetbrains.mps.baseLanguage.structure.TernaryOperatorExpression" flags="nn" index="3K4zz7">
+        <child id="1163668914799" name="condition" index="3K4Cdx" />
+        <child id="1163668922816" name="ifTrue" index="3K4E3e" />
+        <child id="1163668934364" name="ifFalse" index="3K4GZi" />
       </concept>
       <concept id="6329021646629104957" name="jetbrains.mps.baseLanguage.structure.TextCommentPart" flags="nn" index="3SKdUq">
         <property id="6329021646629104958" name="text" index="3SKdUp" />
@@ -306,7 +312,7 @@
             </node>
             <node concept="3cpWs8" id="6GOzicSi17B" role="3cqZAp">
               <node concept="3cpWsn" id="6GOzicSi17C" role="3cpWs9">
-                <property role="TrG5h" value="file" />
+                <property role="TrG5h" value="vfile" />
                 <node concept="3uibUv" id="6GOzicSi17w" role="1tU5fm">
                   <ref role="3uigEE" to="3ju5:~IFile" resolve="IFile" />
                 </node>
@@ -327,16 +333,46 @@
                 </node>
               </node>
             </node>
+            <node concept="3cpWs8" id="7trMQm2QhfU" role="3cqZAp">
+              <node concept="3cpWsn" id="7trMQm2QhfV" role="3cpWs9">
+                <property role="TrG5h" value="file" />
+                <node concept="3uibUv" id="7trMQm2Qhf4" role="1tU5fm">
+                  <ref role="3uigEE" to="guwi:~File" resolve="File" />
+                </node>
+                <node concept="3K4zz7" id="7trMQm2QhQc" role="33vP2m">
+                  <node concept="10Nm6u" id="7trMQm2QhR4" role="3K4E3e" />
+                  <node concept="3clFbC" id="7trMQm2QhGE" role="3K4Cdx">
+                    <node concept="10Nm6u" id="7trMQm2QhM1" role="3uHU7w" />
+                    <node concept="37vLTw" id="7trMQm2QhAE" role="3uHU7B">
+                      <ref role="3cqZAo" node="6GOzicSi17C" resolve="vfile" />
+                    </node>
+                  </node>
+                  <node concept="2ShNRf" id="7trMQm2QhfW" role="3K4GZi">
+                    <node concept="1pGfFk" id="7trMQm2QhfX" role="2ShVmc">
+                      <ref role="37wK5l" to="guwi:~File.&lt;init&gt;(java.lang.String)" resolve="File" />
+                      <node concept="2OqwBi" id="7trMQm2QhfY" role="37wK5m">
+                        <node concept="37vLTw" id="7trMQm2QhfZ" role="2Oq$k0">
+                          <ref role="3cqZAo" node="6GOzicSi17C" resolve="vfile" />
+                        </node>
+                        <node concept="liA8E" id="7trMQm2Qhg0" role="2OqNvi">
+                          <ref role="37wK5l" to="3ju5:~IFile.getPath()" resolve="getPath" />
+                        </node>
+                      </node>
+                    </node>
+                  </node>
+                </node>
+              </node>
+            </node>
             <node concept="3clFbJ" id="6GOzicShR7i" role="3cqZAp">
               <node concept="3clFbS" id="6GOzicShR7k" role="3clFbx">
                 <node concept="3clFbF" id="6GOzicSi5mc" role="3cqZAp">
                   <node concept="37vLTI" id="6GOzicSi5me" role="3clFbG">
-                    <node concept="2OqwBi" id="6GOzicSi3sJ" role="37vLTx">
-                      <node concept="37vLTw" id="6GOzicSi3sK" role="2Oq$k0">
-                        <ref role="3cqZAo" node="6GOzicSi17C" resolve="file" />
-                      </node>
-                      <node concept="liA8E" id="6GOzicSi3sL" role="2OqNvi">
-                        <ref role="37wK5l" to="3ju5:~IFile.openInputStream()" resolve="openInputStream" />
+                    <node concept="2ShNRf" id="7trMQm2QhXe" role="37vLTx">
+                      <node concept="1pGfFk" id="7trMQm2QigQ" role="2ShVmc">
+                        <ref role="37wK5l" to="guwi:~FileInputStream.&lt;init&gt;(java.io.File)" resolve="FileInputStream" />
+                        <node concept="37vLTw" id="7trMQm2Qijl" role="37wK5m">
+                          <ref role="3cqZAo" node="7trMQm2QhfV" resolve="file" />
+                        </node>
                       </node>
                     </node>
                     <node concept="37vLTw" id="6GOzicSi5mi" role="37vLTJ">
@@ -348,16 +384,16 @@
               <node concept="1Wc70l" id="6GOzicSi2bm" role="3clFbw">
                 <node concept="3y3z36" id="6GOzicSi2k0" role="3uHU7B">
                   <node concept="10Nm6u" id="6GOzicSi2kU" role="3uHU7w" />
-                  <node concept="37vLTw" id="6GOzicSi2cx" role="3uHU7B">
-                    <ref role="3cqZAo" node="6GOzicSi17C" resolve="file" />
+                  <node concept="37vLTw" id="7trMQm2QhTo" role="3uHU7B">
+                    <ref role="3cqZAo" node="7trMQm2QhfV" resolve="file" />
                   </node>
                 </node>
                 <node concept="2OqwBi" id="6GOzicShRwg" role="3uHU7w">
-                  <node concept="37vLTw" id="6GOzicShRnQ" role="2Oq$k0">
-                    <ref role="3cqZAo" node="6GOzicSi17C" resolve="file" />
+                  <node concept="37vLTw" id="7trMQm2QhU$" role="2Oq$k0">
+                    <ref role="3cqZAo" node="7trMQm2QhfV" resolve="file" />
                   </node>
                   <node concept="liA8E" id="6GOzicShZl6" role="2OqNvi">
-                    <ref role="37wK5l" to="3ju5:~IFile.exists()" resolve="exists" />
+                    <ref role="37wK5l" to="guwi:~File.exists()" resolve="exists" />
                   </node>
                 </node>
               </node>
