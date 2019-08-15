@@ -9,12 +9,17 @@
   user-select: none;
 
   .svgEditorImg {
-    position: absolute;
-    left: 0;
-    top: 0;
-
     text {
       text-rendering: optimizeLegibility;
     }
+  }
+
+  img.full {
+  }
+
+  img.incremental {
+    position: absolute;
+    left: 0;
+    top: 0;
   }
 }

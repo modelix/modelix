@@ -50,6 +50,7 @@ export class SvgBasedEditor {
                     let img: HTMLImageElement = document.createElement("img");
                     img.src = "data:image/svg+xml;base64," + btoa(rawData);
                     img.classList.add("svgEditorImg");
+                    img.classList.add("full");
 
                     element.appendChild(img);
                     // console.log((Date.now() - lastEventTime) + " full image");
@@ -57,6 +58,7 @@ export class SvgBasedEditor {
                     let img: HTMLImageElement = document.createElement("img");
                     img.src = "data:image/svg+xml;base64," + btoa(rawData);
                     img.classList.add("svgEditorImg");
+                    img.classList.add("incremental");
                     // let data: IImageData = lastMessage.data;
                     img.style.left = 0 + "px";
                     img.style.top = 0 + "px";
@@ -64,7 +66,7 @@ export class SvgBasedEditor {
                     // console.log((Date.now() - lastEventTime) + " delta image");
                 }
 
-                this.fixSize();
+                // this.fixSize();
             } else {
                 let message: IMessage = JSON.parse(event.data);
                 lastMessage = message;

@@ -7272,14 +7272,156 @@
             <ref role="027rv" to="70w2:7NImM053Sep" resolve="children" />
             <node concept="027og" id="7trMQm3aKke" role="027rp">
               <ref role="02LMe" to="70w2:7NImM04TdSk" resolve="HTMLDivElement" />
+              <node concept="027rt" id="4JrW6YuTynW" role="02LM9">
+                <ref role="027rv" to="70w2:7q7cTU0P3Ee" resolve="style" />
+                <node concept="027og" id="4JrW6Yv8KrK" role="027rp">
+                  <ref role="02LMe" to="70w2:7q7cTU0P41s" resolve="CSSStyleDeclaration" />
+                  <node concept="027rt" id="4JrW6Yv8Ks1" role="02LM9">
+                    <ref role="027rv" to="70w2:7q7cTU0P4oO" resolve="items" />
+                    <node concept="027og" id="4JrW6YuTyom" role="027rp">
+                      <ref role="02LMe" to="70w2:7q7cTU0P4oJ" resolve="GenericStringStyleItem" />
+                      <node concept="027oh" id="4JrW6YuTyoz" role="02LM9">
+                        <ref role="027oj" to="70w2:7q7cTU0P4oM" resolve="key" />
+                        <node concept="Xl_RD" id="4JrW6YuTypj" role="027of">
+                          <property role="Xl_RC" value="font-size" />
+                        </node>
+                      </node>
+                      <node concept="027oh" id="4JrW6YuTyoY" role="02LM9">
+                        <ref role="027oj" to="70w2:7q7cTU0P4oH" resolve="value" />
+                        <node concept="Xl_RD" id="4JrW6YuTz4U" role="027of">
+                          <property role="Xl_RC" value="15pt" />
+                        </node>
+                      </node>
+                    </node>
+                  </node>
+                  <node concept="027rt" id="4JrW6Yvc$Yc" role="02LM9">
+                    <ref role="027rv" to="70w2:7q7cTU0P4oO" resolve="items" />
+                    <node concept="027og" id="4JrW6Yvc$Yd" role="027rp">
+                      <ref role="02LMe" to="70w2:7q7cTU0P4oJ" resolve="GenericStringStyleItem" />
+                      <node concept="027oh" id="4JrW6Yvc$Ye" role="02LM9">
+                        <ref role="027oj" to="70w2:7q7cTU0P4oM" resolve="key" />
+                        <node concept="Xl_RD" id="4JrW6Yvc$Yf" role="027of">
+                          <property role="Xl_RC" value="border" />
+                        </node>
+                      </node>
+                      <node concept="027oh" id="4JrW6Yvc$Yg" role="02LM9">
+                        <ref role="027oj" to="70w2:7q7cTU0P4oH" resolve="value" />
+                        <node concept="Xl_RD" id="4JrW6Yvc$Yh" role="027of">
+                          <property role="Xl_RC" value="1px solid #ccc" />
+                        </node>
+                      </node>
+                    </node>
+                  </node>
+                  <node concept="027rt" id="4JrW6Yvc$Zt" role="02LM9">
+                    <ref role="027rv" to="70w2:7q7cTU0P4oO" resolve="items" />
+                    <node concept="027og" id="4JrW6Yvc$Zu" role="027rp">
+                      <ref role="02LMe" to="70w2:7q7cTU0P4oJ" resolve="GenericStringStyleItem" />
+                      <node concept="027oh" id="4JrW6Yvc$Zv" role="02LM9">
+                        <ref role="027oj" to="70w2:7q7cTU0P4oM" resolve="key" />
+                        <node concept="Xl_RD" id="4JrW6Yvc$Zw" role="027of">
+                          <property role="Xl_RC" value="background-color" />
+                        </node>
+                      </node>
+                      <node concept="027oh" id="4JrW6Yvc$Zx" role="02LM9">
+                        <ref role="027oj" to="70w2:7q7cTU0P4oH" resolve="value" />
+                        <node concept="Xl_RD" id="4JrW6Yvc$Zy" role="027of">
+                          <property role="Xl_RC" value="#ada" />
+                        </node>
+                      </node>
+                    </node>
+                  </node>
+                  <node concept="027rt" id="4JrW6YvgvYY" role="02LM9">
+                    <ref role="027rv" to="70w2:7q7cTU0P4oO" resolve="items" />
+                    <node concept="027og" id="4JrW6YvgvYZ" role="027rp">
+                      <ref role="02LMe" to="70w2:7q7cTU0P4oJ" resolve="GenericStringStyleItem" />
+                      <node concept="027oh" id="4JrW6YvgvZ0" role="02LM9">
+                        <ref role="027oj" to="70w2:7q7cTU0P4oM" resolve="key" />
+                        <node concept="Xl_RD" id="4JrW6YvgvZ1" role="027of">
+                          <property role="Xl_RC" value="padding" />
+                        </node>
+                      </node>
+                      <node concept="027oh" id="4JrW6YvgvZ2" role="02LM9">
+                        <ref role="027oj" to="70w2:7q7cTU0P4oH" resolve="value" />
+                        <node concept="Xl_RD" id="4JrW6YvgvZ3" role="027of">
+                          <property role="Xl_RC" value="12px" />
+                        </node>
+                      </node>
+                    </node>
+                  </node>
+                  <node concept="027rt" id="4JrW6Yvks2F" role="02LM9">
+                    <ref role="027rv" to="70w2:7q7cTU0P4oO" resolve="items" />
+                    <node concept="027og" id="4JrW6Yvks2G" role="027rp">
+                      <ref role="02LMe" to="70w2:7q7cTU0P4oJ" resolve="GenericStringStyleItem" />
+                      <node concept="027oh" id="4JrW6Yvks2H" role="02LM9">
+                        <ref role="027oj" to="70w2:7q7cTU0P4oM" resolve="key" />
+                        <node concept="Xl_RD" id="4JrW6Yvks2I" role="027of">
+                          <property role="Xl_RC" value="color" />
+                        </node>
+                      </node>
+                      <node concept="027oh" id="4JrW6Yvks2J" role="02LM9">
+                        <ref role="027oj" to="70w2:7q7cTU0P4oH" resolve="value" />
+                        <node concept="Xl_RD" id="4JrW6Yvks2K" role="027of">
+                          <property role="Xl_RC" value="black" />
+                        </node>
+                      </node>
+                    </node>
+                  </node>
+                  <node concept="027rt" id="4JrW6YvoqzX" role="02LM9">
+                    <ref role="027rv" to="70w2:7q7cTU0P4oO" resolve="items" />
+                    <node concept="027og" id="4JrW6YvoqzY" role="027rp">
+                      <ref role="02LMe" to="70w2:7q7cTU0P4oJ" resolve="GenericStringStyleItem" />
+                      <node concept="027oh" id="4JrW6YvoqzZ" role="02LM9">
+                        <ref role="027oj" to="70w2:7q7cTU0P4oM" resolve="key" />
+                        <node concept="Xl_RD" id="4JrW6Yvoq$0" role="027of">
+                          <property role="Xl_RC" value="text-align" />
+                        </node>
+                      </node>
+                      <node concept="027oh" id="4JrW6Yvoq$1" role="02LM9">
+                        <ref role="027oj" to="70w2:7q7cTU0P4oH" resolve="value" />
+                        <node concept="Xl_RD" id="4JrW6Yvoq$2" role="027of">
+                          <property role="Xl_RC" value="center" />
+                        </node>
+                      </node>
+                    </node>
+                  </node>
+                  <node concept="027rt" id="4JrW6YvsnSc" role="02LM9">
+                    <ref role="027rv" to="70w2:7q7cTU0P4oO" resolve="items" />
+                    <node concept="027og" id="4JrW6YvsnSd" role="027rp">
+                      <ref role="02LMe" to="70w2:7q7cTU0P4oJ" resolve="GenericStringStyleItem" />
+                      <node concept="027oh" id="4JrW6YvsnSe" role="02LM9">
+                        <ref role="027oj" to="70w2:7q7cTU0P4oM" resolve="key" />
+                        <node concept="Xl_RD" id="4JrW6YvsnSf" role="027of">
+                          <property role="Xl_RC" value="font-family" />
+                        </node>
+                      </node>
+                      <node concept="027oh" id="4JrW6YvsnSg" role="02LM9">
+                        <ref role="027oj" to="70w2:7q7cTU0P4oH" resolve="value" />
+                        <node concept="Xl_RD" id="4JrW6YvsnSh" role="027of">
+                          <property role="Xl_RC" value="Georgia" />
+                        </node>
+                      </node>
+                    </node>
+                  </node>
+                </node>
+              </node>
               <node concept="027rt" id="7trMQm3aKkr" role="02LM9">
                 <ref role="027rv" to="70w2:7NImM053Sep" resolve="children" />
                 <node concept="027og" id="7trMQm3aKk_" role="027rp">
                   <ref role="02LMe" to="70w2:7NImM04RGAT" resolve="HtmlText" />
                   <node concept="027oh" id="7trMQm3aKkM" role="02LM9">
                     <ref role="027oj" to="70w2:7NImM04TrPE" resolve="data" />
-                    <node concept="Xl_RD" id="7trMQm3aKl3" role="027of">
-                      <property role="Xl_RC" value="Concept" />
+                    <node concept="3cpWs3" id="4JrW6YuTvRj" role="027of">
+                      <node concept="2OqwBi" id="4JrW6YuTw83" role="3uHU7w">
+                        <node concept="2155sH" id="4JrW6YuTvRD" role="2Oq$k0">
+                          <ref role="2155sG" node="7trMQm2QQp4" resolve="node" />
+                        </node>
+                        <node concept="3TrcHB" id="4JrW6YuTxld" role="2OqNvi">
+                          <ref role="3TsBF5" to="tpck:h0TrG11" resolve="name" />
+                        </node>
+                      </node>
+                      <node concept="Xl_RD" id="7trMQm3aKl3" role="3uHU7B">
+                        <property role="Xl_RC" value="Concept: " />
+                      </node>
                     </node>
                   </node>
                 </node>
@@ -7289,7 +7431,7 @@
           <node concept="027rt" id="7trMQm2QQoO" role="02LM9">
             <ref role="027rv" to="70w2:7NImM053Sep" resolve="children" />
             <node concept="214gnc" id="7trMQm3aFwm" role="027rp">
-              <ref role="1YEVMl" node="7trMQm3aARC" resolve="nodeEditor" />
+              <ref role="1YEVMl" node="7trMQm3l_jO" resolve="aspect" />
               <node concept="214o7A" id="7trMQm3aFX_" role="214sll" />
             </node>
           </node>
@@ -7374,6 +7516,19 @@
                 <ref role="1YEVMl" node="7trMQm3l_jO" resolve="aspect" />
                 <node concept="214o7A" id="7trMQm3mm6a" role="214sll" />
               </node>
+            </node>
+          </node>
+          <node concept="027rt" id="4JrW6YvGc1i" role="02LM9">
+            <ref role="027rv" to="70w2:7NImM053Sep" resolve="children" />
+            <node concept="027og" id="4JrW6YvGcQq" role="027rp">
+              <ref role="02LMe" to="70w2:7NImM04TdSf" resolve="HTMLBRElement" />
+            </node>
+          </node>
+          <node concept="027rt" id="4JrW6Yv4WS8" role="02LM9">
+            <ref role="027rv" to="70w2:7NImM053Sep" resolve="children" />
+            <node concept="214gnc" id="4JrW6Yv4XEm" role="027rp">
+              <ref role="1YEVMl" node="7trMQm3aARC" resolve="nodeEditor" />
+              <node concept="214o7A" id="4JrW6Yv4XKn" role="214sll" />
             </node>
           </node>
         </node>
@@ -7594,8 +7749,8 @@
         </node>
       </node>
       <node concept="02i3K" id="7trMQm3l_uo" role="02i3f">
-        <node concept="02i3D" id="7trMQm3mm6N" role="02i2B">
-          <ref role="02i3$" to="tpce:2hxg_BDjKM4" resolve="IConceptAspect" />
+        <node concept="02i3D" id="4JrW6YuXsEz" role="02i2B">
+          <ref role="02i3$" to="tpck:gw2VY9q" resolve="BaseConcept" />
         </node>
       </node>
     </node>
