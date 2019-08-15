@@ -16,7 +16,7 @@ export class SvgBasedEditor {
         let lastEventTime: number = 0;
 
         let url = "ws://" + window.location.hostname + "/svgui/";
-        url = "ws://localhost:8391/";
+        // url = "ws://localhost:8391/";
         const socket = new WebSocket(url);
 
         let rawDataFollowing: boolean = false;
