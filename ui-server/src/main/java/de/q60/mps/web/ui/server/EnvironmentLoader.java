@@ -46,8 +46,9 @@ public class EnvironmentLoader {
                     .withVcsPlugin()
                     .withWorkbenchPath()
                     .addPlugin("http-support", "jetbrains.mps.ide.httpsupport")
-                    .addPlugin("de.q60.mps.web.ui.svg", "de.q60.mps.web.ui.svg")
-                    .addPlugin("de.q60.mps.web.ui.sm", "de.q60.mps.web.ui.sm")
+                    .addPlugin("de.q60.mps.web.ui", "de.q60.mps.web.ui")
+                    .addPlugin("de.q60.mps.web.model", "de.q60.mps.web.model")
+                    .addPlugin("de.q60.mps.web.common", "de.q60.mps.web.common")
                     ;
 
 //            for (IdeaPluginDescriptorImpl plugin : PluginManagerCore.loadDescriptors(null, new ArrayList<String>())) {
