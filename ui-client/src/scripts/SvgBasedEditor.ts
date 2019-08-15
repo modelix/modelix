@@ -24,6 +24,8 @@ export class SvgBasedEditor {
         let rawData: string = null;
 
         $(window).on("scroll resize", () => {
+            if (socket.readyState !== WebSocket.OPEN) return;
+
             let winh = $(window).height();
             let rect = element.getBoundingClientRect();
             let y1 = -rect.top;
