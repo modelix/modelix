@@ -429,7 +429,7 @@
                         <ref role="3cqZAo" node="39ClI1HVqvA" resolve="fileName" />
                       </node>
                       <node concept="Xl_RD" id="39ClI1HWcfO" role="3uHU7B">
-                        <property role="Xl_RC" value="de/q60/mps/web/ui/svg/client/static/" />
+                        <property role="Xl_RC" value="de/q60/mps/web/ui/client/static/" />
                       </node>
                     </node>
                   </node>

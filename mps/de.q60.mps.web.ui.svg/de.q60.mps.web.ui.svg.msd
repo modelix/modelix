@@ -64,7 +64,6 @@
     <stubModelEntry path="${module}/lib/batik-1.7.1/extensions/batik-rasterizer-ext.jar" />
     <stubModelEntry path="${module}/lib/batik-1.7.1/extensions/batik-squiggle-ext.jar" />
     <stubModelEntry path="${module}/lib/commons-codec-1.10.jar" />
-    <stubModelEntry path="${module}/lib/ui-client.jar" />
   </stubModelEntries>
   <sourcePath />
   <dependencies>

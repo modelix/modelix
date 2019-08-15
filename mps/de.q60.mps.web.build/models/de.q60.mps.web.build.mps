@@ -234,6 +234,17 @@
                 </node>
               </node>
             </node>
+            <node concept="2HvfSZ" id="62v7nyvXU45" role="39821P">
+              <node concept="398BVA" id="62v7nyvXU46" role="2HvfZ0">
+                <ref role="398BVh" node="3$7Kuaihl5X" resolve="webmps.modules" />
+                <node concept="2Ry0Ak" id="62v7nyvXU47" role="iGT6I">
+                  <property role="2Ry0Am" value="de.q60.mps.web.ui.server" />
+                  <node concept="2Ry0Ak" id="62v7nyvXU48" role="2Ry0An">
+                    <property role="2Ry0Am" value="lib" />
+                  </node>
+                </node>
+              </node>
+            </node>
           </node>
         </node>
         <node concept="m$_wl" id="7gF2HTviNQb" role="39821P">
@@ -303,6 +314,9 @@
       </node>
       <node concept="m$f5U" id="7gF2HTvj4QC" role="m$_yh">
         <ref role="m$f5T" node="7gF2HTvj46U" resolve="de.q60.mps.web.ui" />
+      </node>
+      <node concept="m$_yC" id="62v7nyvXijI" role="m$_yJ">
+        <ref role="m$_y1" to="90a9:2Xjt3l57iTJ" resolve="de.slisson.mps.hacks" />
       </node>
       <node concept="m$_yC" id="7gF2HTvj4RP" role="m$_yJ">
         <ref role="m$_y1" to="90a9:4iIKqJTZ5I8" resolve="de.q60.shadowmodels" />
@@ -1243,22 +1257,6 @@
             <ref role="3bR37D" to="ffeo:6pse5qHNhL7" resolve="jetbrains.mps.ide.httpsupport.manager" />
           </node>
         </node>
-        <node concept="1SiIV0" id="39ClI1HWjME" role="3bR37C">
-          <node concept="1BurEX" id="39ClI1HWjMF" role="1SiIV1">
-            <node concept="398BVA" id="39ClI1HWjMx" role="1BurEY">
-              <ref role="398BVh" node="3$7Kuaihl5X" resolve="webmps.modules" />
-              <node concept="2Ry0Ak" id="39ClI1HWjMy" role="iGT6I">
-                <property role="2Ry0Am" value="de.q60.mps.web.ui.svg" />
-                <node concept="2Ry0Ak" id="39ClI1HWjMz" role="2Ry0An">
-                  <property role="2Ry0Am" value="lib" />
-                  <node concept="2Ry0Ak" id="39ClI1HWjM$" role="2Ry0An">
-                    <property role="2Ry0Am" value="ui-client.jar" />
-                  </node>
-                </node>
-              </node>
-            </node>
-          </node>
-        </node>
         <node concept="1SiIV0" id="6GOzicSgelT" role="3bR37C">
           <node concept="3bR9La" id="6GOzicSgelU" role="1SiIV1">
             <ref role="3bR37D" node="7gF2HTviNPP" resolve="de.q60.mps.web.lib" />
@@ -1296,6 +1294,22 @@
         <node concept="1SiIV0" id="6GOzicSisuK" role="3bR37C">
           <node concept="3bR9La" id="6GOzicSisuL" role="1SiIV1">
             <ref role="3bR37D" to="ffeo:6pse5qHNhL7" resolve="jetbrains.mps.ide.httpsupport.manager" />
+          </node>
+        </node>
+        <node concept="1SiIV0" id="62v7nyvXUrc" role="3bR37C">
+          <node concept="1BurEX" id="62v7nyvXUrd" role="1SiIV1">
+            <node concept="398BVA" id="62v7nyvXUr3" role="1BurEY">
+              <ref role="398BVh" node="3$7Kuaihl5X" resolve="webmps.modules" />
+              <node concept="2Ry0Ak" id="62v7nyvXUr4" role="iGT6I">
+                <property role="2Ry0Am" value="de.q60.mps.web.ui.server" />
+                <node concept="2Ry0Ak" id="62v7nyvXUr5" role="2Ry0An">
+                  <property role="2Ry0Am" value="lib" />
+                  <node concept="2Ry0Ak" id="62v7nyvXUr6" role="2Ry0An">
+                    <property role="2Ry0Am" value="ui-client.jar" />
+                  </node>
+                </node>
+              </node>
+            </node>
           </node>
         </node>
       </node>
