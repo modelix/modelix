@@ -9442,7 +9442,7 @@
                       <node concept="liA8E" id="68rqGk16hJ" role="2OqNvi">
                         <ref role="37wK5l" node="26ispG7YsJH" resolve="createModule" />
                         <node concept="Xl_RD" id="68rqGk16hK" role="37wK5m">
-                          <property role="Xl_RC" value="module" />
+                          <property role="Xl_RC" value="web.module" />
                         </node>
                       </node>
                     </node>
@@ -9558,7 +9558,7 @@
                           <ref role="3cqZAo" node="68rqGk16hD" resolve="webModule" />
                         </node>
                         <node concept="Xl_RD" id="68rqGk16jJ" role="37wK5m">
-                          <property role="Xl_RC" value="model" />
+                          <property role="Xl_RC" value="web.model" />
                         </node>
                         <node concept="37vLTw" id="1U0efzLNHOn" role="37wK5m">
                           <ref role="3cqZAo" node="51I69MorShl" resolve="otBranch" />
