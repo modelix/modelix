@@ -20,7 +20,7 @@ plugins {
 group 'de.q60.mps.web'
 description = "Cloud storage and web UI for MPS"
 
-defaultTasks 'build_languages', 'build_rcp', 'build_ui_server', 'packageNpmApp', 'build_model_server'
+defaultTasks 'build_languages', 'build_rcp_branding', 'build_ui_server', 'packageNpmApp', 'build_model_server'
 
 File scriptFile(String relativePath) {
     new File("$rootDir/build/$relativePath")
@@ -158,7 +158,7 @@ task run_tests(type: TestLanguages, dependsOn: build_languages) {
     script new File("$rootDir/mps/build-tests.xml")
 }
 
-task build_ui_server(dependsOn: [build_rcp]) {
+task build_ui_server(dependsOn: [build_rcp_branding]) {
 	doLast {
     	mavenexec {
         	workingDir file("$rootDir/ui-server")
