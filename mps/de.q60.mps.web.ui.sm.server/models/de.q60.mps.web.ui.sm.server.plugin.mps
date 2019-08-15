@@ -684,6 +684,20 @@
             </node>
           </node>
         </node>
+        <node concept="3clFbF" id="4wJBxozLtsd" role="3cqZAp">
+          <node concept="2OqwBi" id="4wJBxozLtsa" role="3clFbG">
+            <node concept="10M0yZ" id="4wJBxozLtsb" role="2Oq$k0">
+              <ref role="1PxDUh" to="wyt6:~System" resolve="System" />
+              <ref role="3cqZAo" to="wyt6:~System.out" resolve="out" />
+            </node>
+            <node concept="liA8E" id="4wJBxozLtsc" role="2OqNvi">
+              <ref role="37wK5l" to="guwi:~PrintStream.println(java.lang.String)" resolve="println" />
+              <node concept="Xl_RD" id="4wJBxozLttF" role="37wK5m">
+                <property role="Xl_RC" value="Interaction Server created" />
+              </node>
+            </node>
+          </node>
+        </node>
       </node>
     </node>
     <node concept="3clFb_" id="AkkmJBTONA" role="jymVt">
