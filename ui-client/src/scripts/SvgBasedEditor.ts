@@ -43,16 +43,22 @@ export class SvgBasedEditor {
                 rawData = event.data;
 
                 if (lastMessage.type === "image.full") {
-                    let svg = parseSvg(rawData);
                     element.innerHTML = null;
-                    element.appendChild(svg);
+
+                    let img: HTMLImageElement = document.createElement("img");
+                    img.src = "data:image/svg+xml;base64," + btoa(rawData);
+                    img.classList.add("svgEditorImg");
+
+                    element.appendChild(img);
                     // console.log((Date.now() - lastEventTime) + " full image");
                 } else if (lastMessage.type === "image.fragment") {
-                    let svg = parseSvg(rawData);
+                    let img: HTMLImageElement = document.createElement("img");
+                    img.src = "data:image/svg+xml;base64," + btoa(rawData);
+                    img.classList.add("svgEditorImg");
                     // let data: IImageData = lastMessage.data;
-                    svg.style.left = 0 + "px";
-                    svg.style.top = 0 + "px";
-                    element.appendChild(svg);
+                    img.style.left = 0 + "px";
+                    img.style.top = 0 + "px";
+                    element.appendChild(img);
                     // console.log((Date.now() - lastEventTime) + " delta image");
                 }
 
