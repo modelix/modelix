@@ -491,6 +491,45 @@
     </node>
     <node concept="2uRRBj" id="7q7cTU0Y2Cf" role="2uRRBE">
       <node concept="3clFbS" id="7q7cTU0Y2Cg" role="2VODD2">
+        <node concept="3clFbF" id="7fn21XE0G4H" role="3cqZAp">
+          <node concept="2OqwBi" id="7fn21XE0G4E" role="3clFbG">
+            <node concept="10M0yZ" id="7fn21XE0G4F" role="2Oq$k0">
+              <ref role="1PxDUh" to="wyt6:~System" resolve="System" />
+              <ref role="3cqZAo" to="wyt6:~System.out" resolve="out" />
+            </node>
+            <node concept="liA8E" id="7fn21XE0G4G" role="2OqNvi">
+              <ref role="37wK5l" to="guwi:~PrintStream.println(java.lang.String)" resolve="println" />
+              <node concept="Xl_RD" id="7fn21XE0G6X" role="37wK5m">
+                <property role="Xl_RC" value="de.q60.mps.web.ui.sm.server plugin loaded" />
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="3clFbF" id="7fn21XE0Nll" role="3cqZAp">
+          <node concept="2OqwBi" id="7fn21XE0Nli" role="3clFbG">
+            <node concept="10M0yZ" id="7fn21XE0Nlj" role="2Oq$k0">
+              <ref role="1PxDUh" to="wyt6:~System" resolve="System" />
+              <ref role="3cqZAo" to="wyt6:~System.out" resolve="out" />
+            </node>
+            <node concept="liA8E" id="7fn21XE0Nlk" role="2OqNvi">
+              <ref role="37wK5l" to="guwi:~PrintStream.println(java.lang.String)" resolve="println" />
+              <node concept="3cpWs3" id="7fn21XE0Ogq" role="37wK5m">
+                <node concept="Xl_RD" id="7fn21XE0NrG" role="3uHU7B">
+                  <property role="Xl_RC" value="is headless: " />
+                </node>
+                <node concept="2OqwBi" id="4wJBxozLoZz" role="3uHU7w">
+                  <node concept="2YIFZM" id="4wJBxozLoZ$" role="2Oq$k0">
+                    <ref role="37wK5l" to="bd8o:~ApplicationManager.getApplication()" resolve="getApplication" />
+                    <ref role="1Pybhc" to="bd8o:~ApplicationManager" resolve="ApplicationManager" />
+                  </node>
+                  <node concept="liA8E" id="4wJBxozLoZ_" role="2OqNvi">
+                    <ref role="37wK5l" to="bd8o:~Application.isHeadlessEnvironment()" resolve="isHeadlessEnvironment" />
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
         <node concept="3clFbF" id="6Is9Rqa3O61" role="3cqZAp">
           <node concept="2OqwBi" id="6Is9Rqa3Ofb" role="3clFbG">
             <node concept="10M0yZ" id="6Is9Rqa3O86" role="2Oq$k0">
