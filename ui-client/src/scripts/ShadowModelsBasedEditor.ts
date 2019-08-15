@@ -12,7 +12,8 @@ export class ShadowModelsBasedEditor {
     }
 
     private init(): void {
-        const socket = new WebSocket("ws://localhost:2810/");
+        const url = "ws://" + window.location.hostname + "/smui/";
+        const socket = new WebSocket(url);
         const id2dom = new Map<string, HTMLElement>();
 
         const messageHandlers = {
