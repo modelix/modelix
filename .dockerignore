@@ -1,0 +1,7 @@
+.git
+/artifacts
+node_modules
+.gradle
+tmp
+/build/de.q60.mps.web.rcp/build/artifacts/de.q60.mps.webDistribution
+/mps
