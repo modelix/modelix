@@ -212,6 +212,17 @@
                 </node>
               </node>
             </node>
+            <node concept="2HvfSZ" id="5Sw$pxbSuza" role="39821P">
+              <node concept="398BVA" id="5Sw$pxbSuPT" role="2HvfZ0">
+                <ref role="398BVh" node="3$7Kuaihl5X" resolve="webmps.modules" />
+                <node concept="2Ry0Ak" id="5Sw$pxbSv8$" role="iGT6I">
+                  <property role="2Ry0Am" value="de.q60.mps.web.jetty" />
+                  <node concept="2Ry0Ak" id="5Sw$pxbSv8D" role="2Ry0An">
+                    <property role="2Ry0Am" value="lib" />
+                  </node>
+                </node>
+              </node>
+            </node>
           </node>
         </node>
         <node concept="m$_wl" id="7gF2HTvk5j6" role="39821P">
@@ -378,22 +389,6 @@
             <ref role="3bR37D" to="ffeo:mXGwHwhVPj" resolve="JDK" />
           </node>
         </node>
-        <node concept="1SiIV0" id="2ANCVnFcIfI" role="3bR37C">
-          <node concept="1BurEX" id="2ANCVnFcIfJ" role="1SiIV1">
-            <node concept="398BVA" id="2ANCVnFcIf_" role="1BurEY">
-              <ref role="398BVh" node="3$7Kuaihl5X" resolve="webmps.modules" />
-              <node concept="2Ry0Ak" id="2ANCVnFcIfA" role="iGT6I">
-                <property role="2Ry0Am" value="de.q60.mps.web.lib" />
-                <node concept="2Ry0Ak" id="2ANCVnFcIfB" role="2Ry0An">
-                  <property role="2Ry0Am" value="lib" />
-                  <node concept="2Ry0Ak" id="2ANCVnFcIfC" role="2Ry0An">
-                    <property role="2Ry0Am" value="java_websocket.jar" />
-                  </node>
-                </node>
-              </node>
-            </node>
-          </node>
-        </node>
         <node concept="1SiIV0" id="2ANCVnFcIfT" role="3bR37C">
           <node concept="1BurEX" id="2ANCVnFcIfU" role="1SiIV1">
             <node concept="398BVA" id="2ANCVnFcIfK" role="1BurEY">
@@ -436,6 +431,22 @@
                   <property role="2Ry0Am" value="lib" />
                   <node concept="2Ry0Ak" id="2ANCVnFcIg9" role="2Ry0An">
                     <property role="2Ry0Am" value="gson-extras-2.8.5.jar" />
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="1SiIV0" id="5Sw$pxbROXK" role="3bR37C">
+          <node concept="1BurEX" id="5Sw$pxbROXL" role="1SiIV1">
+            <node concept="398BVA" id="5Sw$pxbROXB" role="1BurEY">
+              <ref role="398BVh" node="3$7Kuaihl5X" resolve="webmps.modules" />
+              <node concept="2Ry0Ak" id="5Sw$pxbROXC" role="iGT6I">
+                <property role="2Ry0Am" value="de.q60.mps.web.lib" />
+                <node concept="2Ry0Ak" id="5Sw$pxbROXD" role="2Ry0An">
+                  <property role="2Ry0Am" value="lib" />
+                  <node concept="2Ry0Ak" id="5Sw$pxbROXE" role="2Ry0An">
+                    <property role="2Ry0Am" value="java_websocket.jar" />
                   </node>
                 </node>
               </node>
@@ -600,14 +611,14 @@
             <ref role="3bR37D" to="90a9:4iIKqJTZ5HO" resolve="de.q60.mps.shadowmodels.transformation" />
           </node>
         </node>
-        <node concept="1SiIV0" id="7gF2HTvj1T8" role="3bR37C">
-          <node concept="3bR9La" id="7gF2HTvj1T9" role="1SiIV1">
-            <ref role="3bR37D" to="90a9:PE3B26QCrP" resolve="org.apache.commons" />
-          </node>
-        </node>
         <node concept="1SiIV0" id="2iiCxFNXHZe" role="3bR37C">
           <node concept="3bR9La" id="2iiCxFNXHZf" role="1SiIV1">
             <ref role="3bR37D" to="ffeo:mXGwHwhVPj" resolve="JDK" />
+          </node>
+        </node>
+        <node concept="1SiIV0" id="5Sw$pxbQQVV" role="3bR37C">
+          <node concept="3bR9La" id="5Sw$pxbQQVW" role="1SiIV1">
+            <ref role="3bR37D" node="5Sw$pxbQPmv" resolve="de.q60.mps.web.jetty" />
           </node>
         </node>
       </node>
@@ -635,11 +646,6 @@
             <ref role="3bR37D" to="ffeo:1H905DlDUSw" resolve="MPS.OpenAPI" />
           </node>
         </node>
-        <node concept="1SiIV0" id="1_iojA26Pnu" role="3bR37C">
-          <node concept="3bR9La" id="1_iojA26Pnv" role="1SiIV1">
-            <ref role="3bR37D" to="90a9:64TsoMQT2qP" resolve="de.slisson.mps.hacks.editor" />
-          </node>
-        </node>
         <node concept="1SiIV0" id="1_iojA26Pnw" role="3bR37C">
           <node concept="3bR9La" id="1_iojA26Pnx" role="1SiIV1">
             <ref role="3bR37D" to="ffeo:1ia2VB5guYy" resolve="MPS.IDEA" />
@@ -658,11 +664,6 @@
         <node concept="1SiIV0" id="1_iojA26PnA" role="3bR37C">
           <node concept="3bR9La" id="1_iojA26PnB" role="1SiIV1">
             <ref role="3bR37D" to="ffeo:1TaHNgiIbIQ" resolve="MPS.Core" />
-          </node>
-        </node>
-        <node concept="1SiIV0" id="1_iojA26PnC" role="3bR37C">
-          <node concept="3bR9La" id="1_iojA26PnD" role="1SiIV1">
-            <ref role="3bR37D" to="ffeo:7Kfy9QB6Lg8" resolve="jetbrains.mps.runtime" />
           </node>
         </node>
         <node concept="1SiIV0" id="3$7KuaihlLV" role="3bR37C">
@@ -1257,14 +1258,1176 @@
             </node>
           </node>
         </node>
-        <node concept="1SiIV0" id="39ClI1HWjGC" role="3bR37C">
-          <node concept="3bR9La" id="39ClI1HWjGD" role="1SiIV1">
-            <ref role="3bR37D" to="ffeo:6pse5qHNhL7" resolve="jetbrains.mps.ide.httpsupport.manager" />
-          </node>
-        </node>
         <node concept="1SiIV0" id="6GOzicSgelT" role="3bR37C">
           <node concept="3bR9La" id="6GOzicSgelU" role="1SiIV1">
             <ref role="3bR37D" node="7gF2HTviNPP" resolve="de.q60.mps.web.lib" />
+          </node>
+        </node>
+        <node concept="1SiIV0" id="5Sw$pxbQQVX" role="3bR37C">
+          <node concept="3bR9La" id="5Sw$pxbQQVY" role="1SiIV1">
+            <ref role="3bR37D" node="5Sw$pxbQPmv" resolve="de.q60.mps.web.jetty" />
+          </node>
+        </node>
+      </node>
+      <node concept="1E1JtA" id="5Sw$pxbQPmv" role="2G$12L">
+        <property role="BnDLt" value="true" />
+        <property role="TrG5h" value="de.q60.mps.web.jetty" />
+        <property role="3LESm3" value="fc3c2aa8-0d4b-463f-a774-40d450aa04a0" />
+        <node concept="398BVA" id="5Sw$pxbQPzK" role="3LF7KH">
+          <ref role="398BVh" node="3$7Kuaihl5X" resolve="webmps.modules" />
+          <node concept="2Ry0Ak" id="5Sw$pxbQPOm" role="iGT6I">
+            <property role="2Ry0Am" value="de.q60.mps.web.jetty" />
+            <node concept="2Ry0Ak" id="5Sw$pxbQQ4V" role="2Ry0An">
+              <property role="2Ry0Am" value="de.q60.mps.web.jetty.msd" />
+            </node>
+          </node>
+        </node>
+        <node concept="1SiIV0" id="5Sw$pxbQQj4" role="3bR37C">
+          <node concept="3bR9La" id="5Sw$pxbQQj5" role="1SiIV1">
+            <ref role="3bR37D" to="ffeo:mXGwHwhVPj" resolve="JDK" />
+          </node>
+        </node>
+        <node concept="1SiIV0" id="5Sw$pxbQQjf" role="3bR37C">
+          <node concept="1BurEX" id="5Sw$pxbQQjg" role="1SiIV1">
+            <node concept="398BVA" id="5Sw$pxbQQj6" role="1BurEY">
+              <ref role="398BVh" node="3$7Kuaihl5X" resolve="webmps.modules" />
+              <node concept="2Ry0Ak" id="5Sw$pxbQQj7" role="iGT6I">
+                <property role="2Ry0Am" value="de.q60.mps.web.jetty" />
+                <node concept="2Ry0Ak" id="5Sw$pxbQQj8" role="2Ry0An">
+                  <property role="2Ry0Am" value="lib" />
+                  <node concept="2Ry0Ak" id="5Sw$pxbQQj9" role="2Ry0An">
+                    <property role="2Ry0Am" value="infinispan-common-9.4.20.v20190813.jar" />
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="1SiIV0" id="5Sw$pxbQQjq" role="3bR37C">
+          <node concept="1BurEX" id="5Sw$pxbQQjr" role="1SiIV1">
+            <node concept="398BVA" id="5Sw$pxbQQjh" role="1BurEY">
+              <ref role="398BVh" node="3$7Kuaihl5X" resolve="webmps.modules" />
+              <node concept="2Ry0Ak" id="5Sw$pxbQQji" role="iGT6I">
+                <property role="2Ry0Am" value="de.q60.mps.web.jetty" />
+                <node concept="2Ry0Ak" id="5Sw$pxbQQjj" role="2Ry0An">
+                  <property role="2Ry0Am" value="lib" />
+                  <node concept="2Ry0Ak" id="5Sw$pxbQQjk" role="2Ry0An">
+                    <property role="2Ry0Am" value="infinispan-embedded-query-9.4.20.v20190813.jar" />
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="1SiIV0" id="5Sw$pxbQQj_" role="3bR37C">
+          <node concept="1BurEX" id="5Sw$pxbQQjA" role="1SiIV1">
+            <node concept="398BVA" id="5Sw$pxbQQjs" role="1BurEY">
+              <ref role="398BVh" node="3$7Kuaihl5X" resolve="webmps.modules" />
+              <node concept="2Ry0Ak" id="5Sw$pxbQQjt" role="iGT6I">
+                <property role="2Ry0Am" value="de.q60.mps.web.jetty" />
+                <node concept="2Ry0Ak" id="5Sw$pxbQQju" role="2Ry0An">
+                  <property role="2Ry0Am" value="lib" />
+                  <node concept="2Ry0Ak" id="5Sw$pxbQQjv" role="2Ry0An">
+                    <property role="2Ry0Am" value="infinispan-remote-query-9.4.20.v20190813.jar" />
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="1SiIV0" id="5Sw$pxbQQjK" role="3bR37C">
+          <node concept="1BurEX" id="5Sw$pxbQQjL" role="1SiIV1">
+            <node concept="398BVA" id="5Sw$pxbQQjB" role="1BurEY">
+              <ref role="398BVh" node="3$7Kuaihl5X" resolve="webmps.modules" />
+              <node concept="2Ry0Ak" id="5Sw$pxbQQjC" role="iGT6I">
+                <property role="2Ry0Am" value="de.q60.mps.web.jetty" />
+                <node concept="2Ry0Ak" id="5Sw$pxbQQjD" role="2Ry0An">
+                  <property role="2Ry0Am" value="lib" />
+                  <node concept="2Ry0Ak" id="5Sw$pxbQQjE" role="2Ry0An">
+                    <property role="2Ry0Am" value="jetty-alpn-conscrypt-server-9.4.20.v20190813.jar" />
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="1SiIV0" id="5Sw$pxbQQjV" role="3bR37C">
+          <node concept="1BurEX" id="5Sw$pxbQQjW" role="1SiIV1">
+            <node concept="398BVA" id="5Sw$pxbQQjM" role="1BurEY">
+              <ref role="398BVh" node="3$7Kuaihl5X" resolve="webmps.modules" />
+              <node concept="2Ry0Ak" id="5Sw$pxbQQjN" role="iGT6I">
+                <property role="2Ry0Am" value="de.q60.mps.web.jetty" />
+                <node concept="2Ry0Ak" id="5Sw$pxbQQjO" role="2Ry0An">
+                  <property role="2Ry0Am" value="lib" />
+                  <node concept="2Ry0Ak" id="5Sw$pxbQQjP" role="2Ry0An">
+                    <property role="2Ry0Am" value="jetty-alpn-java-server-9.4.20.v20190813.jar" />
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="1SiIV0" id="5Sw$pxbQQk6" role="3bR37C">
+          <node concept="1BurEX" id="5Sw$pxbQQk7" role="1SiIV1">
+            <node concept="398BVA" id="5Sw$pxbQQjX" role="1BurEY">
+              <ref role="398BVh" node="3$7Kuaihl5X" resolve="webmps.modules" />
+              <node concept="2Ry0Ak" id="5Sw$pxbQQjY" role="iGT6I">
+                <property role="2Ry0Am" value="de.q60.mps.web.jetty" />
+                <node concept="2Ry0Ak" id="5Sw$pxbQQjZ" role="2Ry0An">
+                  <property role="2Ry0Am" value="lib" />
+                  <node concept="2Ry0Ak" id="5Sw$pxbQQk0" role="2Ry0An">
+                    <property role="2Ry0Am" value="jetty-alpn-openjdk8-server-9.4.20.v20190813.jar" />
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="1SiIV0" id="5Sw$pxbQQkh" role="3bR37C">
+          <node concept="1BurEX" id="5Sw$pxbQQki" role="1SiIV1">
+            <node concept="398BVA" id="5Sw$pxbQQk8" role="1BurEY">
+              <ref role="398BVh" node="3$7Kuaihl5X" resolve="webmps.modules" />
+              <node concept="2Ry0Ak" id="5Sw$pxbQQk9" role="iGT6I">
+                <property role="2Ry0Am" value="de.q60.mps.web.jetty" />
+                <node concept="2Ry0Ak" id="5Sw$pxbQQka" role="2Ry0An">
+                  <property role="2Ry0Am" value="lib" />
+                  <node concept="2Ry0Ak" id="5Sw$pxbQQkb" role="2Ry0An">
+                    <property role="2Ry0Am" value="jetty-alpn-server-9.4.20.v20190813.jar" />
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="1SiIV0" id="5Sw$pxbQQks" role="3bR37C">
+          <node concept="1BurEX" id="5Sw$pxbQQkt" role="1SiIV1">
+            <node concept="398BVA" id="5Sw$pxbQQkj" role="1BurEY">
+              <ref role="398BVh" node="3$7Kuaihl5X" resolve="webmps.modules" />
+              <node concept="2Ry0Ak" id="5Sw$pxbQQkk" role="iGT6I">
+                <property role="2Ry0Am" value="de.q60.mps.web.jetty" />
+                <node concept="2Ry0Ak" id="5Sw$pxbQQkl" role="2Ry0An">
+                  <property role="2Ry0Am" value="lib" />
+                  <node concept="2Ry0Ak" id="5Sw$pxbQQkm" role="2Ry0An">
+                    <property role="2Ry0Am" value="jetty-annotations-9.4.20.v20190813.jar" />
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="1SiIV0" id="5Sw$pxbQQkB" role="3bR37C">
+          <node concept="1BurEX" id="5Sw$pxbQQkC" role="1SiIV1">
+            <node concept="398BVA" id="5Sw$pxbQQku" role="1BurEY">
+              <ref role="398BVh" node="3$7Kuaihl5X" resolve="webmps.modules" />
+              <node concept="2Ry0Ak" id="5Sw$pxbQQkv" role="iGT6I">
+                <property role="2Ry0Am" value="de.q60.mps.web.jetty" />
+                <node concept="2Ry0Ak" id="5Sw$pxbQQkw" role="2Ry0An">
+                  <property role="2Ry0Am" value="lib" />
+                  <node concept="2Ry0Ak" id="5Sw$pxbQQkx" role="2Ry0An">
+                    <property role="2Ry0Am" value="jetty-cdi-9.4.20.v20190813.jar" />
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="1SiIV0" id="5Sw$pxbQQkM" role="3bR37C">
+          <node concept="1BurEX" id="5Sw$pxbQQkN" role="1SiIV1">
+            <node concept="398BVA" id="5Sw$pxbQQkD" role="1BurEY">
+              <ref role="398BVh" node="3$7Kuaihl5X" resolve="webmps.modules" />
+              <node concept="2Ry0Ak" id="5Sw$pxbQQkE" role="iGT6I">
+                <property role="2Ry0Am" value="de.q60.mps.web.jetty" />
+                <node concept="2Ry0Ak" id="5Sw$pxbQQkF" role="2Ry0An">
+                  <property role="2Ry0Am" value="lib" />
+                  <node concept="2Ry0Ak" id="5Sw$pxbQQkG" role="2Ry0An">
+                    <property role="2Ry0Am" value="jetty-client-9.4.20.v20190813.jar" />
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="1SiIV0" id="5Sw$pxbQQkX" role="3bR37C">
+          <node concept="1BurEX" id="5Sw$pxbQQkY" role="1SiIV1">
+            <node concept="398BVA" id="5Sw$pxbQQkO" role="1BurEY">
+              <ref role="398BVh" node="3$7Kuaihl5X" resolve="webmps.modules" />
+              <node concept="2Ry0Ak" id="5Sw$pxbQQkP" role="iGT6I">
+                <property role="2Ry0Am" value="de.q60.mps.web.jetty" />
+                <node concept="2Ry0Ak" id="5Sw$pxbQQkQ" role="2Ry0An">
+                  <property role="2Ry0Am" value="lib" />
+                  <node concept="2Ry0Ak" id="5Sw$pxbQQkR" role="2Ry0An">
+                    <property role="2Ry0Am" value="jetty-continuation-9.4.20.v20190813.jar" />
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="1SiIV0" id="5Sw$pxbQQl8" role="3bR37C">
+          <node concept="1BurEX" id="5Sw$pxbQQl9" role="1SiIV1">
+            <node concept="398BVA" id="5Sw$pxbQQkZ" role="1BurEY">
+              <ref role="398BVh" node="3$7Kuaihl5X" resolve="webmps.modules" />
+              <node concept="2Ry0Ak" id="5Sw$pxbQQl0" role="iGT6I">
+                <property role="2Ry0Am" value="de.q60.mps.web.jetty" />
+                <node concept="2Ry0Ak" id="5Sw$pxbQQl1" role="2Ry0An">
+                  <property role="2Ry0Am" value="lib" />
+                  <node concept="2Ry0Ak" id="5Sw$pxbQQl2" role="2Ry0An">
+                    <property role="2Ry0Am" value="jetty-deploy-9.4.20.v20190813.jar" />
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="1SiIV0" id="5Sw$pxbQQlj" role="3bR37C">
+          <node concept="1BurEX" id="5Sw$pxbQQlk" role="1SiIV1">
+            <node concept="398BVA" id="5Sw$pxbQQla" role="1BurEY">
+              <ref role="398BVh" node="3$7Kuaihl5X" resolve="webmps.modules" />
+              <node concept="2Ry0Ak" id="5Sw$pxbQQlb" role="iGT6I">
+                <property role="2Ry0Am" value="de.q60.mps.web.jetty" />
+                <node concept="2Ry0Ak" id="5Sw$pxbQQlc" role="2Ry0An">
+                  <property role="2Ry0Am" value="lib" />
+                  <node concept="2Ry0Ak" id="5Sw$pxbQQld" role="2Ry0An">
+                    <property role="2Ry0Am" value="jetty-gcloud-session-manager-9.4.20.v20190813.jar" />
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="1SiIV0" id="5Sw$pxbQQlu" role="3bR37C">
+          <node concept="1BurEX" id="5Sw$pxbQQlv" role="1SiIV1">
+            <node concept="398BVA" id="5Sw$pxbQQll" role="1BurEY">
+              <ref role="398BVh" node="3$7Kuaihl5X" resolve="webmps.modules" />
+              <node concept="2Ry0Ak" id="5Sw$pxbQQlm" role="iGT6I">
+                <property role="2Ry0Am" value="de.q60.mps.web.jetty" />
+                <node concept="2Ry0Ak" id="5Sw$pxbQQln" role="2Ry0An">
+                  <property role="2Ry0Am" value="lib" />
+                  <node concept="2Ry0Ak" id="5Sw$pxbQQlo" role="2Ry0An">
+                    <property role="2Ry0Am" value="jetty-hazelcast-9.4.20.v20190813.jar" />
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="1SiIV0" id="5Sw$pxbQQlD" role="3bR37C">
+          <node concept="1BurEX" id="5Sw$pxbQQlE" role="1SiIV1">
+            <node concept="398BVA" id="5Sw$pxbQQlw" role="1BurEY">
+              <ref role="398BVh" node="3$7Kuaihl5X" resolve="webmps.modules" />
+              <node concept="2Ry0Ak" id="5Sw$pxbQQlx" role="iGT6I">
+                <property role="2Ry0Am" value="de.q60.mps.web.jetty" />
+                <node concept="2Ry0Ak" id="5Sw$pxbQQly" role="2Ry0An">
+                  <property role="2Ry0Am" value="lib" />
+                  <node concept="2Ry0Ak" id="5Sw$pxbQQlz" role="2Ry0An">
+                    <property role="2Ry0Am" value="jetty-http-9.4.20.v20190813.jar" />
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="1SiIV0" id="5Sw$pxbQQlO" role="3bR37C">
+          <node concept="1BurEX" id="5Sw$pxbQQlP" role="1SiIV1">
+            <node concept="398BVA" id="5Sw$pxbQQlF" role="1BurEY">
+              <ref role="398BVh" node="3$7Kuaihl5X" resolve="webmps.modules" />
+              <node concept="2Ry0Ak" id="5Sw$pxbQQlG" role="iGT6I">
+                <property role="2Ry0Am" value="de.q60.mps.web.jetty" />
+                <node concept="2Ry0Ak" id="5Sw$pxbQQlH" role="2Ry0An">
+                  <property role="2Ry0Am" value="lib" />
+                  <node concept="2Ry0Ak" id="5Sw$pxbQQlI" role="2Ry0An">
+                    <property role="2Ry0Am" value="jetty-io-9.4.20.v20190813.jar" />
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="1SiIV0" id="5Sw$pxbQQlZ" role="3bR37C">
+          <node concept="1BurEX" id="5Sw$pxbQQm0" role="1SiIV1">
+            <node concept="398BVA" id="5Sw$pxbQQlQ" role="1BurEY">
+              <ref role="398BVh" node="3$7Kuaihl5X" resolve="webmps.modules" />
+              <node concept="2Ry0Ak" id="5Sw$pxbQQlR" role="iGT6I">
+                <property role="2Ry0Am" value="de.q60.mps.web.jetty" />
+                <node concept="2Ry0Ak" id="5Sw$pxbQQlS" role="2Ry0An">
+                  <property role="2Ry0Am" value="lib" />
+                  <node concept="2Ry0Ak" id="5Sw$pxbQQlT" role="2Ry0An">
+                    <property role="2Ry0Am" value="jetty-jaas-9.4.20.v20190813.jar" />
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="1SiIV0" id="5Sw$pxbQQma" role="3bR37C">
+          <node concept="1BurEX" id="5Sw$pxbQQmb" role="1SiIV1">
+            <node concept="398BVA" id="5Sw$pxbQQm1" role="1BurEY">
+              <ref role="398BVh" node="3$7Kuaihl5X" resolve="webmps.modules" />
+              <node concept="2Ry0Ak" id="5Sw$pxbQQm2" role="iGT6I">
+                <property role="2Ry0Am" value="de.q60.mps.web.jetty" />
+                <node concept="2Ry0Ak" id="5Sw$pxbQQm3" role="2Ry0An">
+                  <property role="2Ry0Am" value="lib" />
+                  <node concept="2Ry0Ak" id="5Sw$pxbQQm4" role="2Ry0An">
+                    <property role="2Ry0Am" value="jetty-jaspi-9.4.20.v20190813.jar" />
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="1SiIV0" id="5Sw$pxbQQml" role="3bR37C">
+          <node concept="1BurEX" id="5Sw$pxbQQmm" role="1SiIV1">
+            <node concept="398BVA" id="5Sw$pxbQQmc" role="1BurEY">
+              <ref role="398BVh" node="3$7Kuaihl5X" resolve="webmps.modules" />
+              <node concept="2Ry0Ak" id="5Sw$pxbQQmd" role="iGT6I">
+                <property role="2Ry0Am" value="de.q60.mps.web.jetty" />
+                <node concept="2Ry0Ak" id="5Sw$pxbQQme" role="2Ry0An">
+                  <property role="2Ry0Am" value="lib" />
+                  <node concept="2Ry0Ak" id="5Sw$pxbQQmf" role="2Ry0An">
+                    <property role="2Ry0Am" value="jetty-jmx-9.4.20.v20190813.jar" />
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="1SiIV0" id="5Sw$pxbQQmw" role="3bR37C">
+          <node concept="1BurEX" id="5Sw$pxbQQmx" role="1SiIV1">
+            <node concept="398BVA" id="5Sw$pxbQQmn" role="1BurEY">
+              <ref role="398BVh" node="3$7Kuaihl5X" resolve="webmps.modules" />
+              <node concept="2Ry0Ak" id="5Sw$pxbQQmo" role="iGT6I">
+                <property role="2Ry0Am" value="de.q60.mps.web.jetty" />
+                <node concept="2Ry0Ak" id="5Sw$pxbQQmp" role="2Ry0An">
+                  <property role="2Ry0Am" value="lib" />
+                  <node concept="2Ry0Ak" id="5Sw$pxbQQmq" role="2Ry0An">
+                    <property role="2Ry0Am" value="jetty-jndi-9.4.20.v20190813.jar" />
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="1SiIV0" id="5Sw$pxbQQmF" role="3bR37C">
+          <node concept="1BurEX" id="5Sw$pxbQQmG" role="1SiIV1">
+            <node concept="398BVA" id="5Sw$pxbQQmy" role="1BurEY">
+              <ref role="398BVh" node="3$7Kuaihl5X" resolve="webmps.modules" />
+              <node concept="2Ry0Ak" id="5Sw$pxbQQmz" role="iGT6I">
+                <property role="2Ry0Am" value="de.q60.mps.web.jetty" />
+                <node concept="2Ry0Ak" id="5Sw$pxbQQm$" role="2Ry0An">
+                  <property role="2Ry0Am" value="lib" />
+                  <node concept="2Ry0Ak" id="5Sw$pxbQQm_" role="2Ry0An">
+                    <property role="2Ry0Am" value="jetty-memcached-sessions-9.4.20.v20190813.jar" />
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="1SiIV0" id="5Sw$pxbQQmQ" role="3bR37C">
+          <node concept="1BurEX" id="5Sw$pxbQQmR" role="1SiIV1">
+            <node concept="398BVA" id="5Sw$pxbQQmH" role="1BurEY">
+              <ref role="398BVh" node="3$7Kuaihl5X" resolve="webmps.modules" />
+              <node concept="2Ry0Ak" id="5Sw$pxbQQmI" role="iGT6I">
+                <property role="2Ry0Am" value="de.q60.mps.web.jetty" />
+                <node concept="2Ry0Ak" id="5Sw$pxbQQmJ" role="2Ry0An">
+                  <property role="2Ry0Am" value="lib" />
+                  <node concept="2Ry0Ak" id="5Sw$pxbQQmK" role="2Ry0An">
+                    <property role="2Ry0Am" value="jetty-nosql-9.4.20.v20190813.jar" />
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="1SiIV0" id="5Sw$pxbQQn1" role="3bR37C">
+          <node concept="1BurEX" id="5Sw$pxbQQn2" role="1SiIV1">
+            <node concept="398BVA" id="5Sw$pxbQQmS" role="1BurEY">
+              <ref role="398BVh" node="3$7Kuaihl5X" resolve="webmps.modules" />
+              <node concept="2Ry0Ak" id="5Sw$pxbQQmT" role="iGT6I">
+                <property role="2Ry0Am" value="de.q60.mps.web.jetty" />
+                <node concept="2Ry0Ak" id="5Sw$pxbQQmU" role="2Ry0An">
+                  <property role="2Ry0Am" value="lib" />
+                  <node concept="2Ry0Ak" id="5Sw$pxbQQmV" role="2Ry0An">
+                    <property role="2Ry0Am" value="jetty-plus-9.4.20.v20190813.jar" />
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="1SiIV0" id="5Sw$pxbQQnc" role="3bR37C">
+          <node concept="1BurEX" id="5Sw$pxbQQnd" role="1SiIV1">
+            <node concept="398BVA" id="5Sw$pxbQQn3" role="1BurEY">
+              <ref role="398BVh" node="3$7Kuaihl5X" resolve="webmps.modules" />
+              <node concept="2Ry0Ak" id="5Sw$pxbQQn4" role="iGT6I">
+                <property role="2Ry0Am" value="de.q60.mps.web.jetty" />
+                <node concept="2Ry0Ak" id="5Sw$pxbQQn5" role="2Ry0An">
+                  <property role="2Ry0Am" value="lib" />
+                  <node concept="2Ry0Ak" id="5Sw$pxbQQn6" role="2Ry0An">
+                    <property role="2Ry0Am" value="jetty-proxy-9.4.20.v20190813.jar" />
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="1SiIV0" id="5Sw$pxbQQnn" role="3bR37C">
+          <node concept="1BurEX" id="5Sw$pxbQQno" role="1SiIV1">
+            <node concept="398BVA" id="5Sw$pxbQQne" role="1BurEY">
+              <ref role="398BVh" node="3$7Kuaihl5X" resolve="webmps.modules" />
+              <node concept="2Ry0Ak" id="5Sw$pxbQQnf" role="iGT6I">
+                <property role="2Ry0Am" value="de.q60.mps.web.jetty" />
+                <node concept="2Ry0Ak" id="5Sw$pxbQQng" role="2Ry0An">
+                  <property role="2Ry0Am" value="lib" />
+                  <node concept="2Ry0Ak" id="5Sw$pxbQQnh" role="2Ry0An">
+                    <property role="2Ry0Am" value="jetty-quickstart-9.4.20.v20190813.jar" />
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="1SiIV0" id="5Sw$pxbQQny" role="3bR37C">
+          <node concept="1BurEX" id="5Sw$pxbQQnz" role="1SiIV1">
+            <node concept="398BVA" id="5Sw$pxbQQnp" role="1BurEY">
+              <ref role="398BVh" node="3$7Kuaihl5X" resolve="webmps.modules" />
+              <node concept="2Ry0Ak" id="5Sw$pxbQQnq" role="iGT6I">
+                <property role="2Ry0Am" value="de.q60.mps.web.jetty" />
+                <node concept="2Ry0Ak" id="5Sw$pxbQQnr" role="2Ry0An">
+                  <property role="2Ry0Am" value="lib" />
+                  <node concept="2Ry0Ak" id="5Sw$pxbQQns" role="2Ry0An">
+                    <property role="2Ry0Am" value="jetty-rewrite-9.4.20.v20190813.jar" />
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="1SiIV0" id="5Sw$pxbQQnH" role="3bR37C">
+          <node concept="1BurEX" id="5Sw$pxbQQnI" role="1SiIV1">
+            <node concept="398BVA" id="5Sw$pxbQQn$" role="1BurEY">
+              <ref role="398BVh" node="3$7Kuaihl5X" resolve="webmps.modules" />
+              <node concept="2Ry0Ak" id="5Sw$pxbQQn_" role="iGT6I">
+                <property role="2Ry0Am" value="de.q60.mps.web.jetty" />
+                <node concept="2Ry0Ak" id="5Sw$pxbQQnA" role="2Ry0An">
+                  <property role="2Ry0Am" value="lib" />
+                  <node concept="2Ry0Ak" id="5Sw$pxbQQnB" role="2Ry0An">
+                    <property role="2Ry0Am" value="jetty-security-9.4.20.v20190813.jar" />
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="1SiIV0" id="5Sw$pxbQQnS" role="3bR37C">
+          <node concept="1BurEX" id="5Sw$pxbQQnT" role="1SiIV1">
+            <node concept="398BVA" id="5Sw$pxbQQnJ" role="1BurEY">
+              <ref role="398BVh" node="3$7Kuaihl5X" resolve="webmps.modules" />
+              <node concept="2Ry0Ak" id="5Sw$pxbQQnK" role="iGT6I">
+                <property role="2Ry0Am" value="de.q60.mps.web.jetty" />
+                <node concept="2Ry0Ak" id="5Sw$pxbQQnL" role="2Ry0An">
+                  <property role="2Ry0Am" value="lib" />
+                  <node concept="2Ry0Ak" id="5Sw$pxbQQnM" role="2Ry0An">
+                    <property role="2Ry0Am" value="jetty-server-9.4.20.v20190813.jar" />
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="1SiIV0" id="5Sw$pxbQQo3" role="3bR37C">
+          <node concept="1BurEX" id="5Sw$pxbQQo4" role="1SiIV1">
+            <node concept="398BVA" id="5Sw$pxbQQnU" role="1BurEY">
+              <ref role="398BVh" node="3$7Kuaihl5X" resolve="webmps.modules" />
+              <node concept="2Ry0Ak" id="5Sw$pxbQQnV" role="iGT6I">
+                <property role="2Ry0Am" value="de.q60.mps.web.jetty" />
+                <node concept="2Ry0Ak" id="5Sw$pxbQQnW" role="2Ry0An">
+                  <property role="2Ry0Am" value="lib" />
+                  <node concept="2Ry0Ak" id="5Sw$pxbQQnX" role="2Ry0An">
+                    <property role="2Ry0Am" value="jetty-servlet-9.4.20.v20190813.jar" />
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="1SiIV0" id="5Sw$pxbQQoe" role="3bR37C">
+          <node concept="1BurEX" id="5Sw$pxbQQof" role="1SiIV1">
+            <node concept="398BVA" id="5Sw$pxbQQo5" role="1BurEY">
+              <ref role="398BVh" node="3$7Kuaihl5X" resolve="webmps.modules" />
+              <node concept="2Ry0Ak" id="5Sw$pxbQQo6" role="iGT6I">
+                <property role="2Ry0Am" value="de.q60.mps.web.jetty" />
+                <node concept="2Ry0Ak" id="5Sw$pxbQQo7" role="2Ry0An">
+                  <property role="2Ry0Am" value="lib" />
+                  <node concept="2Ry0Ak" id="5Sw$pxbQQo8" role="2Ry0An">
+                    <property role="2Ry0Am" value="jetty-servlets-9.4.20.v20190813.jar" />
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="1SiIV0" id="5Sw$pxbQQop" role="3bR37C">
+          <node concept="1BurEX" id="5Sw$pxbQQoq" role="1SiIV1">
+            <node concept="398BVA" id="5Sw$pxbQQog" role="1BurEY">
+              <ref role="398BVh" node="3$7Kuaihl5X" resolve="webmps.modules" />
+              <node concept="2Ry0Ak" id="5Sw$pxbQQoh" role="iGT6I">
+                <property role="2Ry0Am" value="de.q60.mps.web.jetty" />
+                <node concept="2Ry0Ak" id="5Sw$pxbQQoi" role="2Ry0An">
+                  <property role="2Ry0Am" value="lib" />
+                  <node concept="2Ry0Ak" id="5Sw$pxbQQoj" role="2Ry0An">
+                    <property role="2Ry0Am" value="jetty-unixsocket-9.4.20.v20190813.jar" />
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="1SiIV0" id="5Sw$pxbQQo$" role="3bR37C">
+          <node concept="1BurEX" id="5Sw$pxbQQo_" role="1SiIV1">
+            <node concept="398BVA" id="5Sw$pxbQQor" role="1BurEY">
+              <ref role="398BVh" node="3$7Kuaihl5X" resolve="webmps.modules" />
+              <node concept="2Ry0Ak" id="5Sw$pxbQQos" role="iGT6I">
+                <property role="2Ry0Am" value="de.q60.mps.web.jetty" />
+                <node concept="2Ry0Ak" id="5Sw$pxbQQot" role="2Ry0An">
+                  <property role="2Ry0Am" value="lib" />
+                  <node concept="2Ry0Ak" id="5Sw$pxbQQou" role="2Ry0An">
+                    <property role="2Ry0Am" value="jetty-util-9.4.20.v20190813.jar" />
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="1SiIV0" id="5Sw$pxbQQoJ" role="3bR37C">
+          <node concept="1BurEX" id="5Sw$pxbQQoK" role="1SiIV1">
+            <node concept="398BVA" id="5Sw$pxbQQoA" role="1BurEY">
+              <ref role="398BVh" node="3$7Kuaihl5X" resolve="webmps.modules" />
+              <node concept="2Ry0Ak" id="5Sw$pxbQQoB" role="iGT6I">
+                <property role="2Ry0Am" value="de.q60.mps.web.jetty" />
+                <node concept="2Ry0Ak" id="5Sw$pxbQQoC" role="2Ry0An">
+                  <property role="2Ry0Am" value="lib" />
+                  <node concept="2Ry0Ak" id="5Sw$pxbQQoD" role="2Ry0An">
+                    <property role="2Ry0Am" value="jetty-webapp-9.4.20.v20190813.jar" />
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="1SiIV0" id="5Sw$pxbQQoU" role="3bR37C">
+          <node concept="1BurEX" id="5Sw$pxbQQoV" role="1SiIV1">
+            <node concept="398BVA" id="5Sw$pxbQQoL" role="1BurEY">
+              <ref role="398BVh" node="3$7Kuaihl5X" resolve="webmps.modules" />
+              <node concept="2Ry0Ak" id="5Sw$pxbQQoM" role="iGT6I">
+                <property role="2Ry0Am" value="de.q60.mps.web.jetty" />
+                <node concept="2Ry0Ak" id="5Sw$pxbQQoN" role="2Ry0An">
+                  <property role="2Ry0Am" value="lib" />
+                  <node concept="2Ry0Ak" id="5Sw$pxbQQoO" role="2Ry0An">
+                    <property role="2Ry0Am" value="jetty-xml-9.4.20.v20190813.jar" />
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="1SiIV0" id="5Sw$pxbQQp5" role="3bR37C">
+          <node concept="1BurEX" id="5Sw$pxbQQp6" role="1SiIV1">
+            <node concept="398BVA" id="5Sw$pxbQQoW" role="1BurEY">
+              <ref role="398BVh" node="3$7Kuaihl5X" resolve="webmps.modules" />
+              <node concept="2Ry0Ak" id="5Sw$pxbQQoX" role="iGT6I">
+                <property role="2Ry0Am" value="de.q60.mps.web.jetty" />
+                <node concept="2Ry0Ak" id="5Sw$pxbQQoY" role="2Ry0An">
+                  <property role="2Ry0Am" value="lib" />
+                  <node concept="2Ry0Ak" id="5Sw$pxbQQoZ" role="2Ry0An">
+                    <property role="2Ry0Am" value="alpn-api-1.1.3.v20160715.jar" />
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="1SiIV0" id="5Sw$pxbQQpi" role="3bR37C">
+          <node concept="1BurEX" id="5Sw$pxbQQpj" role="1SiIV1">
+            <node concept="398BVA" id="5Sw$pxbQQp7" role="1BurEY">
+              <ref role="398BVh" node="3$7Kuaihl5X" resolve="webmps.modules" />
+              <node concept="2Ry0Ak" id="5Sw$pxbQQp8" role="iGT6I">
+                <property role="2Ry0Am" value="de.q60.mps.web.jetty" />
+                <node concept="2Ry0Ak" id="5Sw$pxbQQp9" role="2Ry0An">
+                  <property role="2Ry0Am" value="lib" />
+                  <node concept="2Ry0Ak" id="5Sw$pxbQQpa" role="2Ry0An">
+                    <property role="2Ry0Am" value="annotations" />
+                    <node concept="2Ry0Ak" id="5Sw$pxbQQpb" role="2Ry0An">
+                      <property role="2Ry0Am" value="asm-7.1.jar" />
+                    </node>
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="1SiIV0" id="5Sw$pxbQQpv" role="3bR37C">
+          <node concept="1BurEX" id="5Sw$pxbQQpw" role="1SiIV1">
+            <node concept="398BVA" id="5Sw$pxbQQpk" role="1BurEY">
+              <ref role="398BVh" node="3$7Kuaihl5X" resolve="webmps.modules" />
+              <node concept="2Ry0Ak" id="5Sw$pxbQQpl" role="iGT6I">
+                <property role="2Ry0Am" value="de.q60.mps.web.jetty" />
+                <node concept="2Ry0Ak" id="5Sw$pxbQQpm" role="2Ry0An">
+                  <property role="2Ry0Am" value="lib" />
+                  <node concept="2Ry0Ak" id="5Sw$pxbQQpn" role="2Ry0An">
+                    <property role="2Ry0Am" value="annotations" />
+                    <node concept="2Ry0Ak" id="5Sw$pxbQQpo" role="2Ry0An">
+                      <property role="2Ry0Am" value="asm-analysis-7.1.jar" />
+                    </node>
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="1SiIV0" id="5Sw$pxbQQpG" role="3bR37C">
+          <node concept="1BurEX" id="5Sw$pxbQQpH" role="1SiIV1">
+            <node concept="398BVA" id="5Sw$pxbQQpx" role="1BurEY">
+              <ref role="398BVh" node="3$7Kuaihl5X" resolve="webmps.modules" />
+              <node concept="2Ry0Ak" id="5Sw$pxbQQpy" role="iGT6I">
+                <property role="2Ry0Am" value="de.q60.mps.web.jetty" />
+                <node concept="2Ry0Ak" id="5Sw$pxbQQpz" role="2Ry0An">
+                  <property role="2Ry0Am" value="lib" />
+                  <node concept="2Ry0Ak" id="5Sw$pxbQQp$" role="2Ry0An">
+                    <property role="2Ry0Am" value="annotations" />
+                    <node concept="2Ry0Ak" id="5Sw$pxbQQp_" role="2Ry0An">
+                      <property role="2Ry0Am" value="asm-commons-7.1.jar" />
+                    </node>
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="1SiIV0" id="5Sw$pxbQQpT" role="3bR37C">
+          <node concept="1BurEX" id="5Sw$pxbQQpU" role="1SiIV1">
+            <node concept="398BVA" id="5Sw$pxbQQpI" role="1BurEY">
+              <ref role="398BVh" node="3$7Kuaihl5X" resolve="webmps.modules" />
+              <node concept="2Ry0Ak" id="5Sw$pxbQQpJ" role="iGT6I">
+                <property role="2Ry0Am" value="de.q60.mps.web.jetty" />
+                <node concept="2Ry0Ak" id="5Sw$pxbQQpK" role="2Ry0An">
+                  <property role="2Ry0Am" value="lib" />
+                  <node concept="2Ry0Ak" id="5Sw$pxbQQpL" role="2Ry0An">
+                    <property role="2Ry0Am" value="annotations" />
+                    <node concept="2Ry0Ak" id="5Sw$pxbQQpM" role="2Ry0An">
+                      <property role="2Ry0Am" value="asm-tree-7.1.jar" />
+                    </node>
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="1SiIV0" id="5Sw$pxbQQq6" role="3bR37C">
+          <node concept="1BurEX" id="5Sw$pxbQQq7" role="1SiIV1">
+            <node concept="398BVA" id="5Sw$pxbQQpV" role="1BurEY">
+              <ref role="398BVh" node="3$7Kuaihl5X" resolve="webmps.modules" />
+              <node concept="2Ry0Ak" id="5Sw$pxbQQpW" role="iGT6I">
+                <property role="2Ry0Am" value="de.q60.mps.web.jetty" />
+                <node concept="2Ry0Ak" id="5Sw$pxbQQpX" role="2Ry0An">
+                  <property role="2Ry0Am" value="lib" />
+                  <node concept="2Ry0Ak" id="5Sw$pxbQQpY" role="2Ry0An">
+                    <property role="2Ry0Am" value="annotations" />
+                    <node concept="2Ry0Ak" id="5Sw$pxbQQpZ" role="2Ry0An">
+                      <property role="2Ry0Am" value="javax.annotation-api-1.3.jar" />
+                    </node>
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="1SiIV0" id="5Sw$pxbQQqj" role="3bR37C">
+          <node concept="1BurEX" id="5Sw$pxbQQqk" role="1SiIV1">
+            <node concept="398BVA" id="5Sw$pxbQQq8" role="1BurEY">
+              <ref role="398BVh" node="3$7Kuaihl5X" resolve="webmps.modules" />
+              <node concept="2Ry0Ak" id="5Sw$pxbQQq9" role="iGT6I">
+                <property role="2Ry0Am" value="de.q60.mps.web.jetty" />
+                <node concept="2Ry0Ak" id="5Sw$pxbQQqa" role="2Ry0An">
+                  <property role="2Ry0Am" value="lib" />
+                  <node concept="2Ry0Ak" id="5Sw$pxbQQqb" role="2Ry0An">
+                    <property role="2Ry0Am" value="apache-jsp" />
+                    <node concept="2Ry0Ak" id="5Sw$pxbQQqc" role="2Ry0An">
+                      <property role="2Ry0Am" value="org.eclipse.jetty.apache-jsp-9.4.20.v20190813.jar" />
+                    </node>
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="1SiIV0" id="5Sw$pxbQQqw" role="3bR37C">
+          <node concept="1BurEX" id="5Sw$pxbQQqx" role="1SiIV1">
+            <node concept="398BVA" id="5Sw$pxbQQql" role="1BurEY">
+              <ref role="398BVh" node="3$7Kuaihl5X" resolve="webmps.modules" />
+              <node concept="2Ry0Ak" id="5Sw$pxbQQqm" role="iGT6I">
+                <property role="2Ry0Am" value="de.q60.mps.web.jetty" />
+                <node concept="2Ry0Ak" id="5Sw$pxbQQqn" role="2Ry0An">
+                  <property role="2Ry0Am" value="lib" />
+                  <node concept="2Ry0Ak" id="5Sw$pxbQQqo" role="2Ry0An">
+                    <property role="2Ry0Am" value="apache-jsp" />
+                    <node concept="2Ry0Ak" id="5Sw$pxbQQqp" role="2Ry0An">
+                      <property role="2Ry0Am" value="org.eclipse.jdt.ecj-3.17.0.jar" />
+                    </node>
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="1SiIV0" id="5Sw$pxbQQqH" role="3bR37C">
+          <node concept="1BurEX" id="5Sw$pxbQQqI" role="1SiIV1">
+            <node concept="398BVA" id="5Sw$pxbQQqy" role="1BurEY">
+              <ref role="398BVh" node="3$7Kuaihl5X" resolve="webmps.modules" />
+              <node concept="2Ry0Ak" id="5Sw$pxbQQqz" role="iGT6I">
+                <property role="2Ry0Am" value="de.q60.mps.web.jetty" />
+                <node concept="2Ry0Ak" id="5Sw$pxbQQq$" role="2Ry0An">
+                  <property role="2Ry0Am" value="lib" />
+                  <node concept="2Ry0Ak" id="5Sw$pxbQQq_" role="2Ry0An">
+                    <property role="2Ry0Am" value="apache-jsp" />
+                    <node concept="2Ry0Ak" id="5Sw$pxbQQqA" role="2Ry0An">
+                      <property role="2Ry0Am" value="org.mortbay.jasper.apache-el-8.5.40.jar" />
+                    </node>
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="1SiIV0" id="5Sw$pxbQQqU" role="3bR37C">
+          <node concept="1BurEX" id="5Sw$pxbQQqV" role="1SiIV1">
+            <node concept="398BVA" id="5Sw$pxbQQqJ" role="1BurEY">
+              <ref role="398BVh" node="3$7Kuaihl5X" resolve="webmps.modules" />
+              <node concept="2Ry0Ak" id="5Sw$pxbQQqK" role="iGT6I">
+                <property role="2Ry0Am" value="de.q60.mps.web.jetty" />
+                <node concept="2Ry0Ak" id="5Sw$pxbQQqL" role="2Ry0An">
+                  <property role="2Ry0Am" value="lib" />
+                  <node concept="2Ry0Ak" id="5Sw$pxbQQqM" role="2Ry0An">
+                    <property role="2Ry0Am" value="apache-jsp" />
+                    <node concept="2Ry0Ak" id="5Sw$pxbQQqN" role="2Ry0An">
+                      <property role="2Ry0Am" value="org.mortbay.jasper.apache-jsp-8.5.40.jar" />
+                    </node>
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="1SiIV0" id="5Sw$pxbQQr7" role="3bR37C">
+          <node concept="1BurEX" id="5Sw$pxbQQr8" role="1SiIV1">
+            <node concept="398BVA" id="5Sw$pxbQQqW" role="1BurEY">
+              <ref role="398BVh" node="3$7Kuaihl5X" resolve="webmps.modules" />
+              <node concept="2Ry0Ak" id="5Sw$pxbQQqX" role="iGT6I">
+                <property role="2Ry0Am" value="de.q60.mps.web.jetty" />
+                <node concept="2Ry0Ak" id="5Sw$pxbQQqY" role="2Ry0An">
+                  <property role="2Ry0Am" value="lib" />
+                  <node concept="2Ry0Ak" id="5Sw$pxbQQqZ" role="2Ry0An">
+                    <property role="2Ry0Am" value="apache-jstl" />
+                    <node concept="2Ry0Ak" id="5Sw$pxbQQr0" role="2Ry0An">
+                      <property role="2Ry0Am" value="org.apache.taglibs.taglibs-standard-impl-1.2.5.jar" />
+                    </node>
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="1SiIV0" id="5Sw$pxbQQrk" role="3bR37C">
+          <node concept="1BurEX" id="5Sw$pxbQQrl" role="1SiIV1">
+            <node concept="398BVA" id="5Sw$pxbQQr9" role="1BurEY">
+              <ref role="398BVh" node="3$7Kuaihl5X" resolve="webmps.modules" />
+              <node concept="2Ry0Ak" id="5Sw$pxbQQra" role="iGT6I">
+                <property role="2Ry0Am" value="de.q60.mps.web.jetty" />
+                <node concept="2Ry0Ak" id="5Sw$pxbQQrb" role="2Ry0An">
+                  <property role="2Ry0Am" value="lib" />
+                  <node concept="2Ry0Ak" id="5Sw$pxbQQrc" role="2Ry0An">
+                    <property role="2Ry0Am" value="apache-jstl" />
+                    <node concept="2Ry0Ak" id="5Sw$pxbQQrd" role="2Ry0An">
+                      <property role="2Ry0Am" value="org.apache.taglibs.taglibs-standard-spec-1.2.5.jar" />
+                    </node>
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="1SiIV0" id="5Sw$pxbQQrx" role="3bR37C">
+          <node concept="1BurEX" id="5Sw$pxbQQry" role="1SiIV1">
+            <node concept="398BVA" id="5Sw$pxbQQrm" role="1BurEY">
+              <ref role="398BVh" node="3$7Kuaihl5X" resolve="webmps.modules" />
+              <node concept="2Ry0Ak" id="5Sw$pxbQQrn" role="iGT6I">
+                <property role="2Ry0Am" value="de.q60.mps.web.jetty" />
+                <node concept="2Ry0Ak" id="5Sw$pxbQQro" role="2Ry0An">
+                  <property role="2Ry0Am" value="lib" />
+                  <node concept="2Ry0Ak" id="5Sw$pxbQQrp" role="2Ry0An">
+                    <property role="2Ry0Am" value="fcgi" />
+                    <node concept="2Ry0Ak" id="5Sw$pxbQQrq" role="2Ry0An">
+                      <property role="2Ry0Am" value="fcgi-client-9.4.20.v20190813.jar" />
+                    </node>
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="1SiIV0" id="5Sw$pxbQQrI" role="3bR37C">
+          <node concept="1BurEX" id="5Sw$pxbQQrJ" role="1SiIV1">
+            <node concept="398BVA" id="5Sw$pxbQQrz" role="1BurEY">
+              <ref role="398BVh" node="3$7Kuaihl5X" resolve="webmps.modules" />
+              <node concept="2Ry0Ak" id="5Sw$pxbQQr$" role="iGT6I">
+                <property role="2Ry0Am" value="de.q60.mps.web.jetty" />
+                <node concept="2Ry0Ak" id="5Sw$pxbQQr_" role="2Ry0An">
+                  <property role="2Ry0Am" value="lib" />
+                  <node concept="2Ry0Ak" id="5Sw$pxbQQrA" role="2Ry0An">
+                    <property role="2Ry0Am" value="fcgi" />
+                    <node concept="2Ry0Ak" id="5Sw$pxbQQrB" role="2Ry0An">
+                      <property role="2Ry0Am" value="fcgi-server-9.4.20.v20190813.jar" />
+                    </node>
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="1SiIV0" id="5Sw$pxbQQrV" role="3bR37C">
+          <node concept="1BurEX" id="5Sw$pxbQQrW" role="1SiIV1">
+            <node concept="398BVA" id="5Sw$pxbQQrK" role="1BurEY">
+              <ref role="398BVh" node="3$7Kuaihl5X" resolve="webmps.modules" />
+              <node concept="2Ry0Ak" id="5Sw$pxbQQrL" role="iGT6I">
+                <property role="2Ry0Am" value="de.q60.mps.web.jetty" />
+                <node concept="2Ry0Ak" id="5Sw$pxbQQrM" role="2Ry0An">
+                  <property role="2Ry0Am" value="lib" />
+                  <node concept="2Ry0Ak" id="5Sw$pxbQQrN" role="2Ry0An">
+                    <property role="2Ry0Am" value="http2" />
+                    <node concept="2Ry0Ak" id="5Sw$pxbQQrO" role="2Ry0An">
+                      <property role="2Ry0Am" value="http2-common-9.4.20.v20190813.jar" />
+                    </node>
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="1SiIV0" id="5Sw$pxbQQs8" role="3bR37C">
+          <node concept="1BurEX" id="5Sw$pxbQQs9" role="1SiIV1">
+            <node concept="398BVA" id="5Sw$pxbQQrX" role="1BurEY">
+              <ref role="398BVh" node="3$7Kuaihl5X" resolve="webmps.modules" />
+              <node concept="2Ry0Ak" id="5Sw$pxbQQrY" role="iGT6I">
+                <property role="2Ry0Am" value="de.q60.mps.web.jetty" />
+                <node concept="2Ry0Ak" id="5Sw$pxbQQrZ" role="2Ry0An">
+                  <property role="2Ry0Am" value="lib" />
+                  <node concept="2Ry0Ak" id="5Sw$pxbQQs0" role="2Ry0An">
+                    <property role="2Ry0Am" value="http2" />
+                    <node concept="2Ry0Ak" id="5Sw$pxbQQs1" role="2Ry0An">
+                      <property role="2Ry0Am" value="http2-hpack-9.4.20.v20190813.jar" />
+                    </node>
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="1SiIV0" id="5Sw$pxbQQsl" role="3bR37C">
+          <node concept="1BurEX" id="5Sw$pxbQQsm" role="1SiIV1">
+            <node concept="398BVA" id="5Sw$pxbQQsa" role="1BurEY">
+              <ref role="398BVh" node="3$7Kuaihl5X" resolve="webmps.modules" />
+              <node concept="2Ry0Ak" id="5Sw$pxbQQsb" role="iGT6I">
+                <property role="2Ry0Am" value="de.q60.mps.web.jetty" />
+                <node concept="2Ry0Ak" id="5Sw$pxbQQsc" role="2Ry0An">
+                  <property role="2Ry0Am" value="lib" />
+                  <node concept="2Ry0Ak" id="5Sw$pxbQQsd" role="2Ry0An">
+                    <property role="2Ry0Am" value="http2" />
+                    <node concept="2Ry0Ak" id="5Sw$pxbQQse" role="2Ry0An">
+                      <property role="2Ry0Am" value="http2-server-9.4.20.v20190813.jar" />
+                    </node>
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="1SiIV0" id="5Sw$pxbQQsy" role="3bR37C">
+          <node concept="1BurEX" id="5Sw$pxbQQsz" role="1SiIV1">
+            <node concept="398BVA" id="5Sw$pxbQQsn" role="1BurEY">
+              <ref role="398BVh" node="3$7Kuaihl5X" resolve="webmps.modules" />
+              <node concept="2Ry0Ak" id="5Sw$pxbQQso" role="iGT6I">
+                <property role="2Ry0Am" value="de.q60.mps.web.jetty" />
+                <node concept="2Ry0Ak" id="5Sw$pxbQQsp" role="2Ry0An">
+                  <property role="2Ry0Am" value="lib" />
+                  <node concept="2Ry0Ak" id="5Sw$pxbQQsq" role="2Ry0An">
+                    <property role="2Ry0Am" value="jaspi" />
+                    <node concept="2Ry0Ak" id="5Sw$pxbQQsr" role="2Ry0An">
+                      <property role="2Ry0Am" value="javax.security.auth.message-1.0.0.v201108011116.jar" />
+                    </node>
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="1SiIV0" id="5Sw$pxbQQsH" role="3bR37C">
+          <node concept="1BurEX" id="5Sw$pxbQQsI" role="1SiIV1">
+            <node concept="398BVA" id="5Sw$pxbQQs$" role="1BurEY">
+              <ref role="398BVh" node="3$7Kuaihl5X" resolve="webmps.modules" />
+              <node concept="2Ry0Ak" id="5Sw$pxbQQs_" role="iGT6I">
+                <property role="2Ry0Am" value="de.q60.mps.web.jetty" />
+                <node concept="2Ry0Ak" id="5Sw$pxbQQsA" role="2Ry0An">
+                  <property role="2Ry0Am" value="lib" />
+                  <node concept="2Ry0Ak" id="5Sw$pxbQQsB" role="2Ry0An">
+                    <property role="2Ry0Am" value="jetty-schemas-3.1.jar" />
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="1SiIV0" id="5Sw$pxbQQsU" role="3bR37C">
+          <node concept="1BurEX" id="5Sw$pxbQQsV" role="1SiIV1">
+            <node concept="398BVA" id="5Sw$pxbQQsJ" role="1BurEY">
+              <ref role="398BVh" node="3$7Kuaihl5X" resolve="webmps.modules" />
+              <node concept="2Ry0Ak" id="5Sw$pxbQQsK" role="iGT6I">
+                <property role="2Ry0Am" value="de.q60.mps.web.jetty" />
+                <node concept="2Ry0Ak" id="5Sw$pxbQQsL" role="2Ry0An">
+                  <property role="2Ry0Am" value="lib" />
+                  <node concept="2Ry0Ak" id="5Sw$pxbQQsM" role="2Ry0An">
+                    <property role="2Ry0Am" value="mail" />
+                    <node concept="2Ry0Ak" id="5Sw$pxbQQsN" role="2Ry0An">
+                      <property role="2Ry0Am" value="javax.mail.glassfish-1.4.1.v201005082020.jar" />
+                    </node>
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="1SiIV0" id="5Sw$pxbQQt5" role="3bR37C">
+          <node concept="1BurEX" id="5Sw$pxbQQt6" role="1SiIV1">
+            <node concept="398BVA" id="5Sw$pxbQQsW" role="1BurEY">
+              <ref role="398BVh" node="3$7Kuaihl5X" resolve="webmps.modules" />
+              <node concept="2Ry0Ak" id="5Sw$pxbQQsX" role="iGT6I">
+                <property role="2Ry0Am" value="de.q60.mps.web.jetty" />
+                <node concept="2Ry0Ak" id="5Sw$pxbQQsY" role="2Ry0An">
+                  <property role="2Ry0Am" value="lib" />
+                  <node concept="2Ry0Ak" id="5Sw$pxbQQsZ" role="2Ry0An">
+                    <property role="2Ry0Am" value="servlet-api-3.1.jar" />
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="1SiIV0" id="5Sw$pxbQQti" role="3bR37C">
+          <node concept="1BurEX" id="5Sw$pxbQQtj" role="1SiIV1">
+            <node concept="398BVA" id="5Sw$pxbQQt7" role="1BurEY">
+              <ref role="398BVh" node="3$7Kuaihl5X" resolve="webmps.modules" />
+              <node concept="2Ry0Ak" id="5Sw$pxbQQt8" role="iGT6I">
+                <property role="2Ry0Am" value="de.q60.mps.web.jetty" />
+                <node concept="2Ry0Ak" id="5Sw$pxbQQt9" role="2Ry0An">
+                  <property role="2Ry0Am" value="lib" />
+                  <node concept="2Ry0Ak" id="5Sw$pxbQQta" role="2Ry0An">
+                    <property role="2Ry0Am" value="setuid" />
+                    <node concept="2Ry0Ak" id="5Sw$pxbQQtb" role="2Ry0An">
+                      <property role="2Ry0Am" value="jetty-setuid-java-1.0.3.jar" />
+                    </node>
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="1SiIV0" id="5Sw$pxbQQtv" role="3bR37C">
+          <node concept="1BurEX" id="5Sw$pxbQQtw" role="1SiIV1">
+            <node concept="398BVA" id="5Sw$pxbQQtk" role="1BurEY">
+              <ref role="398BVh" node="3$7Kuaihl5X" resolve="webmps.modules" />
+              <node concept="2Ry0Ak" id="5Sw$pxbQQtl" role="iGT6I">
+                <property role="2Ry0Am" value="de.q60.mps.web.jetty" />
+                <node concept="2Ry0Ak" id="5Sw$pxbQQtm" role="2Ry0An">
+                  <property role="2Ry0Am" value="lib" />
+                  <node concept="2Ry0Ak" id="5Sw$pxbQQtn" role="2Ry0An">
+                    <property role="2Ry0Am" value="spring" />
+                    <node concept="2Ry0Ak" id="5Sw$pxbQQto" role="2Ry0An">
+                      <property role="2Ry0Am" value="jetty-spring-9.4.20.v20190813.jar" />
+                    </node>
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="1SiIV0" id="5Sw$pxbQQtG" role="3bR37C">
+          <node concept="1BurEX" id="5Sw$pxbQQtH" role="1SiIV1">
+            <node concept="398BVA" id="5Sw$pxbQQtx" role="1BurEY">
+              <ref role="398BVh" node="3$7Kuaihl5X" resolve="webmps.modules" />
+              <node concept="2Ry0Ak" id="5Sw$pxbQQty" role="iGT6I">
+                <property role="2Ry0Am" value="de.q60.mps.web.jetty" />
+                <node concept="2Ry0Ak" id="5Sw$pxbQQtz" role="2Ry0An">
+                  <property role="2Ry0Am" value="lib" />
+                  <node concept="2Ry0Ak" id="5Sw$pxbQQt$" role="2Ry0An">
+                    <property role="2Ry0Am" value="transactions" />
+                    <node concept="2Ry0Ak" id="5Sw$pxbQQt_" role="2Ry0An">
+                      <property role="2Ry0Am" value="javax.transaction-api-1.3.jar" />
+                    </node>
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="1SiIV0" id="5Sw$pxbQQtT" role="3bR37C">
+          <node concept="1BurEX" id="5Sw$pxbQQtU" role="1SiIV1">
+            <node concept="398BVA" id="5Sw$pxbQQtI" role="1BurEY">
+              <ref role="398BVh" node="3$7Kuaihl5X" resolve="webmps.modules" />
+              <node concept="2Ry0Ak" id="5Sw$pxbQQtJ" role="iGT6I">
+                <property role="2Ry0Am" value="de.q60.mps.web.jetty" />
+                <node concept="2Ry0Ak" id="5Sw$pxbQQtK" role="2Ry0An">
+                  <property role="2Ry0Am" value="lib" />
+                  <node concept="2Ry0Ak" id="5Sw$pxbQQtL" role="2Ry0An">
+                    <property role="2Ry0Am" value="websocket" />
+                    <node concept="2Ry0Ak" id="5Sw$pxbQQtM" role="2Ry0An">
+                      <property role="2Ry0Am" value="javax-websocket-client-impl-9.4.20.v20190813.jar" />
+                    </node>
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="1SiIV0" id="5Sw$pxbQQu6" role="3bR37C">
+          <node concept="1BurEX" id="5Sw$pxbQQu7" role="1SiIV1">
+            <node concept="398BVA" id="5Sw$pxbQQtV" role="1BurEY">
+              <ref role="398BVh" node="3$7Kuaihl5X" resolve="webmps.modules" />
+              <node concept="2Ry0Ak" id="5Sw$pxbQQtW" role="iGT6I">
+                <property role="2Ry0Am" value="de.q60.mps.web.jetty" />
+                <node concept="2Ry0Ak" id="5Sw$pxbQQtX" role="2Ry0An">
+                  <property role="2Ry0Am" value="lib" />
+                  <node concept="2Ry0Ak" id="5Sw$pxbQQtY" role="2Ry0An">
+                    <property role="2Ry0Am" value="websocket" />
+                    <node concept="2Ry0Ak" id="5Sw$pxbQQtZ" role="2Ry0An">
+                      <property role="2Ry0Am" value="javax-websocket-server-impl-9.4.20.v20190813.jar" />
+                    </node>
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="1SiIV0" id="5Sw$pxbQQuj" role="3bR37C">
+          <node concept="1BurEX" id="5Sw$pxbQQuk" role="1SiIV1">
+            <node concept="398BVA" id="5Sw$pxbQQu8" role="1BurEY">
+              <ref role="398BVh" node="3$7Kuaihl5X" resolve="webmps.modules" />
+              <node concept="2Ry0Ak" id="5Sw$pxbQQu9" role="iGT6I">
+                <property role="2Ry0Am" value="de.q60.mps.web.jetty" />
+                <node concept="2Ry0Ak" id="5Sw$pxbQQua" role="2Ry0An">
+                  <property role="2Ry0Am" value="lib" />
+                  <node concept="2Ry0Ak" id="5Sw$pxbQQub" role="2Ry0An">
+                    <property role="2Ry0Am" value="websocket" />
+                    <node concept="2Ry0Ak" id="5Sw$pxbQQuc" role="2Ry0An">
+                      <property role="2Ry0Am" value="websocket-api-9.4.20.v20190813.jar" />
+                    </node>
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="1SiIV0" id="5Sw$pxbQQuw" role="3bR37C">
+          <node concept="1BurEX" id="5Sw$pxbQQux" role="1SiIV1">
+            <node concept="398BVA" id="5Sw$pxbQQul" role="1BurEY">
+              <ref role="398BVh" node="3$7Kuaihl5X" resolve="webmps.modules" />
+              <node concept="2Ry0Ak" id="5Sw$pxbQQum" role="iGT6I">
+                <property role="2Ry0Am" value="de.q60.mps.web.jetty" />
+                <node concept="2Ry0Ak" id="5Sw$pxbQQun" role="2Ry0An">
+                  <property role="2Ry0Am" value="lib" />
+                  <node concept="2Ry0Ak" id="5Sw$pxbQQuo" role="2Ry0An">
+                    <property role="2Ry0Am" value="websocket" />
+                    <node concept="2Ry0Ak" id="5Sw$pxbQQup" role="2Ry0An">
+                      <property role="2Ry0Am" value="websocket-client-9.4.20.v20190813.jar" />
+                    </node>
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="1SiIV0" id="5Sw$pxbQQuH" role="3bR37C">
+          <node concept="1BurEX" id="5Sw$pxbQQuI" role="1SiIV1">
+            <node concept="398BVA" id="5Sw$pxbQQuy" role="1BurEY">
+              <ref role="398BVh" node="3$7Kuaihl5X" resolve="webmps.modules" />
+              <node concept="2Ry0Ak" id="5Sw$pxbQQuz" role="iGT6I">
+                <property role="2Ry0Am" value="de.q60.mps.web.jetty" />
+                <node concept="2Ry0Ak" id="5Sw$pxbQQu$" role="2Ry0An">
+                  <property role="2Ry0Am" value="lib" />
+                  <node concept="2Ry0Ak" id="5Sw$pxbQQu_" role="2Ry0An">
+                    <property role="2Ry0Am" value="websocket" />
+                    <node concept="2Ry0Ak" id="5Sw$pxbQQuA" role="2Ry0An">
+                      <property role="2Ry0Am" value="websocket-common-9.4.20.v20190813.jar" />
+                    </node>
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="1SiIV0" id="5Sw$pxbQQuU" role="3bR37C">
+          <node concept="1BurEX" id="5Sw$pxbQQuV" role="1SiIV1">
+            <node concept="398BVA" id="5Sw$pxbQQuJ" role="1BurEY">
+              <ref role="398BVh" node="3$7Kuaihl5X" resolve="webmps.modules" />
+              <node concept="2Ry0Ak" id="5Sw$pxbQQuK" role="iGT6I">
+                <property role="2Ry0Am" value="de.q60.mps.web.jetty" />
+                <node concept="2Ry0Ak" id="5Sw$pxbQQuL" role="2Ry0An">
+                  <property role="2Ry0Am" value="lib" />
+                  <node concept="2Ry0Ak" id="5Sw$pxbQQuM" role="2Ry0An">
+                    <property role="2Ry0Am" value="websocket" />
+                    <node concept="2Ry0Ak" id="5Sw$pxbQQuN" role="2Ry0An">
+                      <property role="2Ry0Am" value="websocket-server-9.4.20.v20190813.jar" />
+                    </node>
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="1SiIV0" id="5Sw$pxbQQv7" role="3bR37C">
+          <node concept="1BurEX" id="5Sw$pxbQQv8" role="1SiIV1">
+            <node concept="398BVA" id="5Sw$pxbQQuW" role="1BurEY">
+              <ref role="398BVh" node="3$7Kuaihl5X" resolve="webmps.modules" />
+              <node concept="2Ry0Ak" id="5Sw$pxbQQuX" role="iGT6I">
+                <property role="2Ry0Am" value="de.q60.mps.web.jetty" />
+                <node concept="2Ry0Ak" id="5Sw$pxbQQuY" role="2Ry0An">
+                  <property role="2Ry0Am" value="lib" />
+                  <node concept="2Ry0Ak" id="5Sw$pxbQQuZ" role="2Ry0An">
+                    <property role="2Ry0Am" value="websocket" />
+                    <node concept="2Ry0Ak" id="5Sw$pxbQQv0" role="2Ry0An">
+                      <property role="2Ry0Am" value="websocket-servlet-9.4.20.v20190813.jar" />
+                    </node>
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="1SiIV0" id="5Sw$pxbQQvk" role="3bR37C">
+          <node concept="1BurEX" id="5Sw$pxbQQvl" role="1SiIV1">
+            <node concept="398BVA" id="5Sw$pxbQQv9" role="1BurEY">
+              <ref role="398BVh" node="3$7Kuaihl5X" resolve="webmps.modules" />
+              <node concept="2Ry0Ak" id="5Sw$pxbQQva" role="iGT6I">
+                <property role="2Ry0Am" value="de.q60.mps.web.jetty" />
+                <node concept="2Ry0Ak" id="5Sw$pxbQQvb" role="2Ry0An">
+                  <property role="2Ry0Am" value="lib" />
+                  <node concept="2Ry0Ak" id="5Sw$pxbQQvc" role="2Ry0An">
+                    <property role="2Ry0Am" value="websocket" />
+                    <node concept="2Ry0Ak" id="5Sw$pxbQQvd" role="2Ry0An">
+                      <property role="2Ry0Am" value="javax.websocket-api-1.0.jar" />
+                    </node>
+                  </node>
+                </node>
+              </node>
+            </node>
           </node>
         </node>
       </node>
@@ -1286,19 +2449,9 @@
             <ref role="3bR37D" to="ffeo:mXGwHwhVPj" resolve="JDK" />
           </node>
         </node>
-        <node concept="1SiIV0" id="6GOzicSisuG" role="3bR37C">
-          <node concept="3bR9La" id="6GOzicSisuH" role="1SiIV1">
-            <ref role="3bR37D" to="90a9:PE3B26QCrP" resolve="org.apache.commons" />
-          </node>
-        </node>
         <node concept="1SiIV0" id="6GOzicSisuI" role="3bR37C">
           <node concept="3bR9La" id="6GOzicSisuJ" role="1SiIV1">
             <ref role="3bR37D" to="ffeo:1TaHNgiIbIQ" resolve="MPS.Core" />
-          </node>
-        </node>
-        <node concept="1SiIV0" id="6GOzicSisuK" role="3bR37C">
-          <node concept="3bR9La" id="6GOzicSisuL" role="1SiIV1">
-            <ref role="3bR37D" to="ffeo:6pse5qHNhL7" resolve="jetbrains.mps.ide.httpsupport.manager" />
           </node>
         </node>
         <node concept="1SiIV0" id="62v7nyvXUrc" role="3bR37C">
@@ -1315,6 +2468,22 @@
                 </node>
               </node>
             </node>
+          </node>
+        </node>
+        <node concept="1SiIV0" id="5Sw$pxbQQvm" role="3bR37C">
+          <node concept="3bR9La" id="5Sw$pxbQQvn" role="1SiIV1">
+            <ref role="3bR37D" node="7gF2HTviNPU" resolve="de.q60.mps.web.ui.sm.server" />
+          </node>
+        </node>
+        <node concept="1SiIV0" id="5Sw$pxbQQvo" role="3bR37C">
+          <node concept="3bR9La" id="5Sw$pxbQQvp" role="1SiIV1">
+            <ref role="3bR37D" node="1_iojA26Pac" resolve="de.q60.mps.web.ui.svg" />
+          </node>
+        </node>
+        <node concept="1SiIV0" id="5Sw$pxbQRbB" role="3bR37C">
+          <node concept="3bR9La" id="5Sw$pxbQRbC" role="1SiIV1">
+            <property role="3bR36h" value="true" />
+            <ref role="3bR37D" node="5Sw$pxbQPmv" resolve="de.q60.mps.web.jetty" />
           </node>
         </node>
       </node>

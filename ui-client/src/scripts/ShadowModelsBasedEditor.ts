@@ -12,9 +12,7 @@ export class ShadowModelsBasedEditor {
     }
 
     private init(): void {
-        const url = window.location.hostname === "localhost"
-            ? "ws://localhost:2810"
-            : "ws://" + window.location.hostname + "/smui/";
+        const url = "ws://" + window.location.host + "/smui";
         const socket = new WebSocket(url);
         const id2dom = new Map<string, HTMLElement>();
 
