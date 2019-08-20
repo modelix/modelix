@@ -22,6 +22,7 @@
     <import index="ky10" ref="fc3c2aa8-0d4b-463f-a774-40d450aa04a0/java:org.eclipse.jetty.servlet(de.q60.mps.web.jetty/)" />
     <import index="67a5" ref="fc3c2aa8-0d4b-463f-a774-40d450aa04a0/java:org.eclipse.jetty.websocket.servlet(de.q60.mps.web.jetty/)" />
     <import index="o8cn" ref="r:7f6154b4-93e5-4a51-94de-d145e58184e7(de.q60.mps.web.ui.svg.plugin)" />
+    <import index="xip3" ref="fc3c2aa8-0d4b-463f-a774-40d450aa04a0/java:org.eclipse.jetty.rewrite.handler(de.q60.mps.web.jetty/)" />
     <import index="zf81" ref="6354ebe7-c22a-4a0f-ac54-50b52ab9b065/java:java.net(JDK/)" implicit="true" />
     <import index="6sky" ref="fc3c2aa8-0d4b-463f-a774-40d450aa04a0/java:org.eclipse.jetty.util.component(de.q60.mps.web.jetty/)" implicit="true" />
   </imports>
@@ -306,68 +307,6 @@
         </node>
         <node concept="SfApY" id="1MbrkMIwEdK" role="3cqZAp">
           <node concept="3clFbS" id="1MbrkMIwEdL" role="SfCbr">
-            <node concept="3cpWs8" id="1MbrkMIwEdS" role="3cqZAp">
-              <node concept="3cpWsn" id="1MbrkMIwEdT" role="3cpWs9">
-                <property role="TrG5h" value="staticFilesHandler" />
-                <node concept="3uibUv" id="1MbrkMIwEdU" role="1tU5fm">
-                  <ref role="3uigEE" to="cgcg:~ResourceHandler" resolve="ResourceHandler" />
-                </node>
-                <node concept="2ShNRf" id="1MbrkMIwEdV" role="33vP2m">
-                  <node concept="1pGfFk" id="1MbrkMIwEdW" role="2ShVmc">
-                    <ref role="37wK5l" to="cgcg:~ResourceHandler.&lt;init&gt;()" resolve="ResourceHandler" />
-                  </node>
-                </node>
-              </node>
-            </node>
-            <node concept="3clFbF" id="1MbrkMIwEdX" role="3cqZAp">
-              <node concept="2OqwBi" id="1MbrkMIwEdY" role="3clFbG">
-                <node concept="37vLTw" id="1MbrkMIwEdZ" role="2Oq$k0">
-                  <ref role="3cqZAo" node="1MbrkMIwEdT" resolve="staticFilesHandler" />
-                </node>
-                <node concept="liA8E" id="1MbrkMIwEe0" role="2OqNvi">
-                  <ref role="37wK5l" to="cgcg:~ResourceHandler.setResourceBase(java.lang.String)" resolve="setResourceBase" />
-                  <node concept="2OqwBi" id="1MbrkMIwPHs" role="37wK5m">
-                    <node concept="2OqwBi" id="1MbrkMIwLum" role="2Oq$k0">
-                      <node concept="2OqwBi" id="1MbrkMIwJxo" role="2Oq$k0">
-                        <node concept="1rXfSq" id="1MbrkMIwIJy" role="2Oq$k0">
-                          <ref role="37wK5l" to="wyt6:~Object.getClass()" resolve="getClass" />
-                        </node>
-                        <node concept="liA8E" id="1MbrkMIwLkb" role="2OqNvi">
-                          <ref role="37wK5l" to="wyt6:~Class.getClassLoader()" resolve="getClassLoader" />
-                        </node>
-                      </node>
-                      <node concept="liA8E" id="1MbrkMIwOqT" role="2OqNvi">
-                        <ref role="37wK5l" to="wyt6:~ClassLoader.getResource(java.lang.String)" resolve="getResource" />
-                        <node concept="Xl_RD" id="1MbrkMIwPtr" role="37wK5m">
-                          <property role="Xl_RC" value="de/q60/mps/web/ui/client/static/" />
-                        </node>
-                      </node>
-                    </node>
-                    <node concept="liA8E" id="1MbrkMIwT54" role="2OqNvi">
-                      <ref role="37wK5l" to="zf81:~URL.toExternalForm()" resolve="toExternalForm" />
-                    </node>
-                  </node>
-                </node>
-              </node>
-            </node>
-            <node concept="3clFbF" id="1MbrkMIwYIH" role="3cqZAp">
-              <node concept="2OqwBi" id="1MbrkMIwZ$F" role="3clFbG">
-                <node concept="37vLTw" id="1MbrkMIwYIF" role="2Oq$k0">
-                  <ref role="3cqZAo" node="1MbrkMIwEdT" resolve="staticFilesHandler" />
-                </node>
-                <node concept="liA8E" id="1MbrkMIx0t_" role="2OqNvi">
-                  <ref role="37wK5l" to="cgcg:~ResourceHandler.setWelcomeFiles(java.lang.String[])" resolve="setWelcomeFiles" />
-                  <node concept="2ShNRf" id="1MbrkMIx0vH" role="37wK5m">
-                    <node concept="3g6Rrh" id="1MbrkMIx11K" role="2ShVmc">
-                      <node concept="17QB3L" id="1MbrkMIx0Rd" role="3g7fb8" />
-                      <node concept="Xl_RD" id="1MbrkMIx14g" role="3g7hyw">
-                        <property role="Xl_RC" value="index.html" />
-                      </node>
-                    </node>
-                  </node>
-                </node>
-              </node>
-            </node>
             <node concept="3clFbH" id="1MbrkMIxh3K" role="3cqZAp" />
             <node concept="3cpWs8" id="1MbrkMIxeOY" role="3cqZAp">
               <node concept="3cpWsn" id="1MbrkMIxeOZ" role="3cpWs9">
@@ -382,6 +321,7 @@
                 </node>
               </node>
             </node>
+            <node concept="3clFbH" id="5Sw$pxbVJ7i" role="3cqZAp" />
             <node concept="3clFbF" id="1MbrkMIxVhy" role="3cqZAp">
               <node concept="2OqwBi" id="1MbrkMIxVhz" role="3clFbG">
                 <node concept="37vLTw" id="1MbrkMIxVh$" role="2Oq$k0">
@@ -525,6 +465,73 @@
               </node>
             </node>
             <node concept="3clFbH" id="5Sw$pxbLL_n" role="3cqZAp" />
+            <node concept="3SKdUt" id="5Sw$pxbVI1c" role="3cqZAp">
+              <node concept="3SKdUq" id="5Sw$pxbVI1e" role="3SKWNk">
+                <property role="3SKdUp" value="When deployed use packaged files from the jar" />
+              </node>
+            </node>
+            <node concept="3cpWs8" id="1MbrkMIwEdS" role="3cqZAp">
+              <node concept="3cpWsn" id="1MbrkMIwEdT" role="3cpWs9">
+                <property role="TrG5h" value="staticFilesHandler" />
+                <node concept="3uibUv" id="1MbrkMIwEdU" role="1tU5fm">
+                  <ref role="3uigEE" to="cgcg:~ResourceHandler" resolve="ResourceHandler" />
+                </node>
+                <node concept="2ShNRf" id="1MbrkMIwEdV" role="33vP2m">
+                  <node concept="1pGfFk" id="1MbrkMIwEdW" role="2ShVmc">
+                    <ref role="37wK5l" to="cgcg:~ResourceHandler.&lt;init&gt;()" resolve="ResourceHandler" />
+                  </node>
+                </node>
+              </node>
+            </node>
+            <node concept="3clFbF" id="1MbrkMIwEdX" role="3cqZAp">
+              <node concept="2OqwBi" id="1MbrkMIwEdY" role="3clFbG">
+                <node concept="37vLTw" id="1MbrkMIwEdZ" role="2Oq$k0">
+                  <ref role="3cqZAo" node="1MbrkMIwEdT" resolve="staticFilesHandler" />
+                </node>
+                <node concept="liA8E" id="1MbrkMIwEe0" role="2OqNvi">
+                  <ref role="37wK5l" to="cgcg:~ResourceHandler.setResourceBase(java.lang.String)" resolve="setResourceBase" />
+                  <node concept="2OqwBi" id="1MbrkMIwPHs" role="37wK5m">
+                    <node concept="2OqwBi" id="1MbrkMIwLum" role="2Oq$k0">
+                      <node concept="2OqwBi" id="1MbrkMIwJxo" role="2Oq$k0">
+                        <node concept="1rXfSq" id="1MbrkMIwIJy" role="2Oq$k0">
+                          <ref role="37wK5l" to="wyt6:~Object.getClass()" resolve="getClass" />
+                        </node>
+                        <node concept="liA8E" id="1MbrkMIwLkb" role="2OqNvi">
+                          <ref role="37wK5l" to="wyt6:~Class.getClassLoader()" resolve="getClassLoader" />
+                        </node>
+                      </node>
+                      <node concept="liA8E" id="1MbrkMIwOqT" role="2OqNvi">
+                        <ref role="37wK5l" to="wyt6:~ClassLoader.getResource(java.lang.String)" resolve="getResource" />
+                        <node concept="Xl_RD" id="1MbrkMIwPtr" role="37wK5m">
+                          <property role="Xl_RC" value="de/q60/mps/web/ui/client/static/" />
+                        </node>
+                      </node>
+                    </node>
+                    <node concept="liA8E" id="1MbrkMIwT54" role="2OqNvi">
+                      <ref role="37wK5l" to="zf81:~URL.toExternalForm()" resolve="toExternalForm" />
+                    </node>
+                  </node>
+                </node>
+              </node>
+            </node>
+            <node concept="3clFbF" id="1MbrkMIwYIH" role="3cqZAp">
+              <node concept="2OqwBi" id="1MbrkMIwZ$F" role="3clFbG">
+                <node concept="37vLTw" id="1MbrkMIwYIF" role="2Oq$k0">
+                  <ref role="3cqZAo" node="1MbrkMIwEdT" resolve="staticFilesHandler" />
+                </node>
+                <node concept="liA8E" id="1MbrkMIx0t_" role="2OqNvi">
+                  <ref role="37wK5l" to="cgcg:~ResourceHandler.setWelcomeFiles(java.lang.String[])" resolve="setWelcomeFiles" />
+                  <node concept="2ShNRf" id="1MbrkMIx0vH" role="37wK5m">
+                    <node concept="3g6Rrh" id="1MbrkMIx11K" role="2ShVmc">
+                      <node concept="17QB3L" id="1MbrkMIx0Rd" role="3g7fb8" />
+                      <node concept="Xl_RD" id="1MbrkMIx14g" role="3g7hyw">
+                        <property role="Xl_RC" value="index.html" />
+                      </node>
+                    </node>
+                  </node>
+                </node>
+              </node>
+            </node>
             <node concept="3clFbF" id="1MbrkMIxR1d" role="3cqZAp">
               <node concept="2OqwBi" id="1MbrkMIxRUp" role="3clFbG">
                 <node concept="37vLTw" id="1MbrkMIxR1b" role="2Oq$k0">
@@ -595,8 +602,14 @@
                 </node>
                 <node concept="liA8E" id="5J75zQcHYUZ" role="2OqNvi">
                   <ref role="37wK5l" to="cgcg:~HandlerCollection.addHandler(org.eclipse.jetty.server.Handler)" resolve="addHandler" />
-                  <node concept="37vLTw" id="5J75zQcI1BZ" role="37wK5m">
-                    <ref role="3cqZAo" node="7mc9A5lp8RO" resolve="wsHandler" />
+                  <node concept="1rXfSq" id="5Sw$pxbWzLs" role="37wK5m">
+                    <ref role="37wK5l" node="1MbrkMIxNMj" resolve="withContext" />
+                    <node concept="Xl_RD" id="5Sw$pxbWzTg" role="37wK5m">
+                      <property role="Xl_RC" value="/ws" />
+                    </node>
+                    <node concept="37vLTw" id="5Sw$pxbW$kb" role="37wK5m">
+                      <ref role="3cqZAo" node="7mc9A5lp8RO" resolve="wsHandler" />
+                    </node>
                   </node>
                 </node>
               </node>
@@ -618,9 +631,26 @@
               </node>
             </node>
             <node concept="3clFbH" id="5J75zQcFkzo" role="3cqZAp" />
+            <node concept="3cpWs8" id="5Sw$pxbW6Xc" role="3cqZAp">
+              <node concept="3cpWsn" id="5Sw$pxbW6Xd" role="3cpWs9">
+                <property role="TrG5h" value="handler" />
+                <node concept="3uibUv" id="5Sw$pxbW6Xe" role="1tU5fm">
+                  <ref role="3uigEE" to="m2xw:~Handler" resolve="Handler" />
+                </node>
+                <node concept="37vLTw" id="5Sw$pxbW8u3" role="33vP2m">
+                  <ref role="3cqZAo" node="1MbrkMIxeOZ" resolve="handlerList" />
+                </node>
+              </node>
+            </node>
+            <node concept="3clFbH" id="5Sw$pxbW4DV" role="3cqZAp" />
+            <node concept="3SKdUt" id="5Sw$pxbWyF0" role="3cqZAp">
+              <node concept="3SKdUq" id="5Sw$pxbWyF2" role="3SKWNk">
+                <property role="3SKdUp" value="Use the ModuleClassLoader for each request" />
+              </node>
+            </node>
             <node concept="3cpWs8" id="5J75zQcF9V$" role="3cqZAp">
               <node concept="3cpWsn" id="5J75zQcF9V_" role="3cpWs9">
-                <property role="TrG5h" value="debugHandler" />
+                <property role="TrG5h" value="classLoaderHandler" />
                 <node concept="3uibUv" id="5J75zQcHXic" role="1tU5fm">
                   <ref role="3uigEE" node="5J75zQcG6N4" resolve="ClassLoaderSettingHandler" />
                 </node>
@@ -634,17 +664,88 @@
             <node concept="3clFbF" id="5J75zQcFt7V" role="3cqZAp">
               <node concept="2OqwBi" id="5J75zQcFu_A" role="3clFbG">
                 <node concept="37vLTw" id="5J75zQcFt7T" role="2Oq$k0">
-                  <ref role="3cqZAo" node="5J75zQcF9V_" resolve="debugHandler" />
+                  <ref role="3cqZAo" node="5J75zQcF9V_" resolve="classLoaderHandler" />
                 </node>
                 <node concept="liA8E" id="5J75zQcFwI6" role="2OqNvi">
                   <ref role="37wK5l" to="cgcg:~HandlerWrapper.setHandler(org.eclipse.jetty.server.Handler)" resolve="setHandler" />
-                  <node concept="37vLTw" id="5J75zQcF_ne" role="37wK5m">
-                    <ref role="3cqZAo" node="1MbrkMIxeOZ" resolve="handlerList" />
+                  <node concept="37vLTw" id="5Sw$pxbW8Hz" role="37wK5m">
+                    <ref role="3cqZAo" node="5Sw$pxbW6Xd" resolve="handler" />
                   </node>
                 </node>
               </node>
             </node>
+            <node concept="3clFbF" id="5Sw$pxbW9P_" role="3cqZAp">
+              <node concept="37vLTI" id="5Sw$pxbWb2q" role="3clFbG">
+                <node concept="37vLTw" id="5Sw$pxbWbaA" role="37vLTx">
+                  <ref role="3cqZAo" node="5J75zQcF9V_" resolve="classLoaderHandler" />
+                </node>
+                <node concept="37vLTw" id="5Sw$pxbW9Pz" role="37vLTJ">
+                  <ref role="3cqZAo" node="5Sw$pxbW6Xd" resolve="handler" />
+                </node>
+              </node>
+            </node>
             <node concept="3clFbH" id="5J75zQcFpVd" role="3cqZAp" />
+            <node concept="3SKdUt" id="5Sw$pxbWwyH" role="3cqZAp">
+              <node concept="3SKdUq" id="5Sw$pxbWwyJ" role="3SKWNk">
+                <property role="3SKdUp" value="Make /repositoryAsHtml the default page" />
+              </node>
+            </node>
+            <node concept="3cpWs8" id="5Sw$pxbVO5S" role="3cqZAp">
+              <node concept="3cpWsn" id="5Sw$pxbVO5T" role="3cpWs9">
+                <property role="TrG5h" value="rewriteHandler" />
+                <node concept="3uibUv" id="5Sw$pxbVO5R" role="1tU5fm">
+                  <ref role="3uigEE" to="xip3:~RewriteHandler" resolve="RewriteHandler" />
+                </node>
+                <node concept="2ShNRf" id="5Sw$pxbVO5U" role="33vP2m">
+                  <node concept="1pGfFk" id="5Sw$pxbVO5V" role="2ShVmc">
+                    <ref role="37wK5l" to="xip3:~RewriteHandler.&lt;init&gt;()" resolve="RewriteHandler" />
+                  </node>
+                </node>
+              </node>
+            </node>
+            <node concept="3clFbF" id="5Sw$pxbWiST" role="3cqZAp">
+              <node concept="2OqwBi" id="5Sw$pxbWkat" role="3clFbG">
+                <node concept="37vLTw" id="5Sw$pxbWiSR" role="2Oq$k0">
+                  <ref role="3cqZAo" node="5Sw$pxbVO5T" resolve="rewriteHandler" />
+                </node>
+                <node concept="liA8E" id="5Sw$pxbWmnz" role="2OqNvi">
+                  <ref role="37wK5l" to="cgcg:~HandlerWrapper.setHandler(org.eclipse.jetty.server.Handler)" resolve="setHandler" />
+                  <node concept="37vLTw" id="5Sw$pxbWmCt" role="37wK5m">
+                    <ref role="3cqZAo" node="5Sw$pxbW6Xd" resolve="handler" />
+                  </node>
+                </node>
+              </node>
+            </node>
+            <node concept="3clFbF" id="5Sw$pxbWnPA" role="3cqZAp">
+              <node concept="2OqwBi" id="5Sw$pxbWp7y" role="3clFbG">
+                <node concept="37vLTw" id="5Sw$pxbWnP$" role="2Oq$k0">
+                  <ref role="3cqZAo" node="5Sw$pxbVO5T" resolve="rewriteHandler" />
+                </node>
+                <node concept="liA8E" id="5Sw$pxbWq8e" role="2OqNvi">
+                  <ref role="37wK5l" to="xip3:~RewriteHandler.addRule(org.eclipse.jetty.rewrite.handler.Rule)" resolve="addRule" />
+                  <node concept="2ShNRf" id="5Sw$pxbWqe2" role="37wK5m">
+                    <node concept="1pGfFk" id="5Sw$pxbWqIz" role="2ShVmc">
+                      <ref role="37wK5l" to="xip3:~RedirectPatternRule.&lt;init&gt;(java.lang.String,java.lang.String)" resolve="RedirectPatternRule" />
+                      <node concept="Xl_RD" id="5Sw$pxbWqVE" role="37wK5m" />
+                      <node concept="Xl_RD" id="5Sw$pxbWrg1" role="37wK5m">
+                        <property role="Xl_RC" value="/repositoryAsHtml" />
+                      </node>
+                    </node>
+                  </node>
+                </node>
+              </node>
+            </node>
+            <node concept="3clFbF" id="5Sw$pxbWgnK" role="3cqZAp">
+              <node concept="37vLTI" id="5Sw$pxbWhxC" role="3clFbG">
+                <node concept="37vLTw" id="5Sw$pxbWhDU" role="37vLTx">
+                  <ref role="3cqZAo" node="5Sw$pxbVO5T" resolve="rewriteHandler" />
+                </node>
+                <node concept="37vLTw" id="5Sw$pxbWgnI" role="37vLTJ">
+                  <ref role="3cqZAo" node="5Sw$pxbW6Xd" resolve="handler" />
+                </node>
+              </node>
+            </node>
+            <node concept="3clFbH" id="5Sw$pxbW1k0" role="3cqZAp" />
             <node concept="3clFbF" id="1MbrkMIwEe1" role="3cqZAp">
               <node concept="2OqwBi" id="1MbrkMIwEe2" role="3clFbG">
                 <node concept="37vLTw" id="1MbrkMIwEVN" role="2Oq$k0">
@@ -652,8 +753,8 @@
                 </node>
                 <node concept="liA8E" id="1MbrkMIwEe6" role="2OqNvi">
                   <ref role="37wK5l" to="cgcg:~HandlerWrapper.setHandler(org.eclipse.jetty.server.Handler)" resolve="setHandler" />
-                  <node concept="37vLTw" id="5J75zQcFzyh" role="37wK5m">
-                    <ref role="3cqZAo" node="5J75zQcF9V_" resolve="debugHandler" />
+                  <node concept="37vLTw" id="5Sw$pxbW8e_" role="37wK5m">
+                    <ref role="3cqZAo" node="5Sw$pxbW6Xd" resolve="handler" />
                   </node>
                 </node>
               </node>
@@ -935,7 +1036,6 @@
         </node>
       </node>
     </node>
-    <node concept="2tJIrI" id="5Sw$pxbNiVi" role="jymVt" />
     <node concept="3Tm1VV" id="1MbrkMIwDCe" role="1B3o_S" />
   </node>
   <node concept="312cEu" id="7mc9A5lp4Hq">
