@@ -16,7 +16,7 @@ public class Main {
             String portStr = System.getenv("PORT");
             InetSocketAddress bindTo = new InetSocketAddress(InetAddress.getByName("0.0.0.0"),
                     portStr == null ? 28101 : Integer.parseInt(portStr));
-            ModelServer server = new ModelServer(bindTo);
+            ModelServer server = new ModelServer(bindTo, new IgniteStoreClient());
             server.start();
             System.out.println("Server started");
         } catch (Exception ex) {

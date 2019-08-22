@@ -1,0 +1,6 @@
+FROM openjdk:8
+WORKDIR /usr/webmps-model
+EXPOSE 63320
+COPY run-model-server.sh /usr/webmps-model/
+COPY model-server/target/ /usr/webmps-model/model-server/target/
+CMD ["./run-model-server.sh"]

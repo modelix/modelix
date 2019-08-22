@@ -13,8 +13,10 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.regex.Matcher;
@@ -24,8 +26,7 @@ public class ModelServer extends WebSocketServer {
     private static final Logger LOG = LogManager.getLogger(ModelServer.class);
     private static final Pattern HASH_PATTERN = Pattern.compile("[a-zA-Z0-9\\-_]{43}");
 
-    private MyRedisClient redisClient;
-    private IKeyValueStore store;
+    private IStoreClient storeClient;
     private Map<WebSocket, Session> sessions = new HashMap<WebSocket, Session>();
     private Map<String, MessageHandler> messageHandlers = new HashMap<String, MessageHandler>();
     private Set<String> subscribedKeys = new HashSet<String>();
@@ -35,7 +36,7 @@ public class ModelServer extends WebSocketServer {
             @Override
             public void handle(WebSocket conn, JSONObject message) {
                 String key = message.getString("key");
-                String value = store.get(key);
+                String value = storeClient.get(key);
                 JSONObject reply = new JSONObject();
                 reply.put("type", "get");
                 reply.put("key", key);
@@ -50,30 +51,45 @@ public class ModelServer extends WebSocketServer {
 
                 JSONObject reply = new JSONObject();
                 reply.put("type", "getRecursively");
-
-                JSONArray entries = new JSONArray();
-                collect(key, entries, new HashSet<>());
-                reply.put("entries", entries);
+                reply.put("entries", collect(key));
 
                 send(conn, reply.toString());
             }
 
-            private void collect(String key, JSONArray acc, Set<String> foundKeys) {
-                if (foundKeys.contains(key)) return;
-                foundKeys.add(key);
+            private JSONArray collect(String rootKey) {
+                JSONArray result = new JSONArray();
+                Set<String> processed = new HashSet<>();
+                Set<String> pending = new HashSet<>();
+                pending.add(rootKey);
 
-                String value = store.get(key);
-                JSONObject entry = new JSONObject();
-                entry.put("key", key);
-                entry.put("value", value);
-                acc.put(entry);
+                while (!pending.isEmpty()) {
+                    List<String> keys = new ArrayList<>(pending);
+                    System.out.println("query " + keys.size() + " keys");
+                    pending.clear();
+                    List<String> values = storeClient.getAll(keys);
+                    for (int i = 0; i < keys.size(); i++) {
+                        String key = keys.get(i);
+                        String value = values.get(i);
+                        processed.add(key);
 
-                if (value != null) {
-                    Matcher matcher = HASH_PATTERN.matcher(value);
-                    while (matcher.find()) {
-                        collect(matcher.group(), acc, foundKeys);
+                        JSONObject entry = new JSONObject();
+                        entry.put("key", key);
+                        entry.put("value", value);
+                        result.put(entry);
+
+                        if (value != null) {
+                            Matcher matcher = HASH_PATTERN.matcher(value);
+                            while (matcher.find()) {
+                                String foundKey = matcher.group();
+                                if (!processed.contains(foundKey)) {
+                                    pending.add(foundKey);
+                                }
+                            }
+                        }
                     }
                 }
+
+                return result;
             }
         });
         messageHandlers.put("put", new MessageHandler() {
@@ -81,7 +97,7 @@ public class ModelServer extends WebSocketServer {
             public void handle(WebSocket conn, JSONObject message) {
                 String key = message.getString("key");
                 String value = message.getString("value");
-                store.put(key, value);
+                storeClient.put(key, value);
 
                 if (subscribedKeys.contains(key)) {
                     JSONObject notification = new JSONObject();
@@ -111,17 +127,11 @@ public class ModelServer extends WebSocketServer {
                 sessions.get(conn).subscribe(key);
             }
         });
-//        messageHandlers.put("flushdb", new MessageHandler() {
-//            @Override
-//            public void handle(WebSocket conn, JSONObject message) {
-//                redisClient.flushdb();
-//            }
-//        });
         messageHandlers.put("counter", new MessageHandler() {
             @Override
             public void handle(WebSocket conn, JSONObject message) {
                 String key = message.getString("key");
-                long value = redisClient.incr(key);
+                long value = storeClient.generateId(key);
                 JSONObject reply = new JSONObject();
                 reply.put("type", "counter");
                 reply.put("key", key);
@@ -131,10 +141,9 @@ public class ModelServer extends WebSocketServer {
         });
     }
 
-    public ModelServer(InetSocketAddress bindTo) {
+    public ModelServer(InetSocketAddress bindTo, IStoreClient storeClient) {
         super(bindTo);
-        redisClient = new MyRedisClient();
-        store = new CachingKeyValueStore(redisClient);
+        this.storeClient = storeClient;
     }
 
     public void broadcast(String message) {
@@ -155,12 +164,12 @@ public class ModelServer extends WebSocketServer {
 
     @Override
     public void onMessage(WebSocket conn, String message) {
-        System.out.println(sessions.get(conn).getId() + " R " + message);
+        //System.out.println(sessions.get(conn).getId() + " R " + message);
         processMessage(conn, new JSONObject(message));
     }
 
     private void send(WebSocket conn, String message) {
-        System.out.println(sessions.get(conn).getId() + " S " + message);
+        //System.out.println(sessions.get(conn).getId() + " S " + message);
         conn.send(message);
     }
 
@@ -185,7 +194,6 @@ public class ModelServer extends WebSocketServer {
                 session.dispose();
 
             }
-            redisClient.dispose();
         } catch (InterruptedException ex) {
             if (LOG.isEnabledFor(Level.ERROR)) {
                 LOG.error("", ex);

@@ -6,12 +6,15 @@ import io.lettuce.core.RedisClient;
 import io.lettuce.core.api.StatefulRedisConnection;
 import io.lettuce.core.api.sync.RedisCommands;
 
-public class MyRedisClient implements IKeyValueStore {
+import java.util.List;
+import java.util.stream.Collectors;
+
+public class RedisStoreClient implements IStoreClient {
     private RedisClient redisClient;
     private StatefulRedisConnection<String, String> connection;
     private RedisCommands<String, String> syncCommands;
 
-    public MyRedisClient() {
+    public RedisStoreClient() {
         Thread thread = Thread.currentThread();
         ClassLoader prevLoader = thread.getContextClassLoader();
         thread.setContextClassLoader(getClass().getClassLoader());
@@ -39,6 +42,11 @@ public class MyRedisClient implements IKeyValueStore {
     }
 
     @Override
+    public List<String> getAll(List<String> keys) {
+        return keys.stream().map(this::get).collect(Collectors.toList());
+    }
+
+    @Override
     public void put(String key, String value) {
         syncCommands.set(key, value);
     }
@@ -48,11 +56,8 @@ public class MyRedisClient implements IKeyValueStore {
         throw new UnsupportedOperationException();
     }
 
-    public void flushdb() {
-        syncCommands.flushdb();
-    }
-
-    public long incr(String key) {
+    @Override
+    public long generateId(String key) {
         return syncCommands.incr(key);
     }
 }

@@ -1,0 +1,3 @@
+FROM postgres:11.4
+EXPOSE 5432
+COPY initdb.sql /docker-entrypoint-initdb.d/initdb.sql
