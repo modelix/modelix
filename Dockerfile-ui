@@ -1,6 +1,6 @@
 FROM openjdk:8
 WORKDIR /usr/webmps-ui
-EXPOSE 63320
+EXPOSE 33333
 COPY run-ui-server.sh /usr/webmps-ui
 COPY ui-server/target/ /usr/webmps-ui/ui-server/target/
 COPY build/de.q60.mps.web.rcp/build/artifacts/de.q60.mps.webBranding/ /usr/webmps-ui/build/de.q60.mps.web.rcp/build/artifacts/de.q60.mps.webBranding/
