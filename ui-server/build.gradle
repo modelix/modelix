@@ -1,0 +1,18 @@
+apply plugin: 'java'
+
+group = 'de.q60.webmps'
+version = '1.0-SNAPSHOT'
+
+description = "WebMPS UI server"
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+repositories {
+        
+     maven { url "http://repo.maven.apache.org/maven2" }
+}
+
+dependencies {
+     compile fileTree(dir: '../artifacts/mps/lib', include: '*.jar')
+}

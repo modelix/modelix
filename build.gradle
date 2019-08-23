@@ -161,13 +161,4 @@ task run_tests(type: TestLanguages, dependsOn: build_languages) {
     script new File("$rootDir/mps/build-tests.xml")
 }
 
-task build_ui_server(dependsOn: [build_rcp_branding]) {
-	doLast {
-    	mavenexec {
-        	workingDir file("$rootDir/ui-server")
-        	goals 'package'
-    	}
-	}
-}
-
-task('assemble').dependsOn(build_ui_server)
+task('assemble').dependsOn(build_rcp_branding)

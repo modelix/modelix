@@ -2,7 +2,7 @@ FROM openjdk:8
 WORKDIR /usr/webmps-ui
 EXPOSE 33333
 COPY run-ui-server.sh /usr/webmps-ui
-COPY ui-server/target/ /usr/webmps-ui/ui-server/target/
+COPY ui-server/build/ /usr/webmps-ui/ui-server/build/
 COPY build/de.q60.mps.web.rcp/build/artifacts/de.q60.mps.webBranding/ /usr/webmps-ui/build/de.q60.mps.web.rcp/build/artifacts/de.q60.mps.webBranding/
 HEALTHCHECK CMD curl -f http://localhost:33333/repositoryAsHtml || exit 1;
 CMD ["./run-ui-server.sh"]

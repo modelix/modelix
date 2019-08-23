@@ -1,4 +1,5 @@
 rootProject.name = 'webmps'
 
 include 'ui-client'
-include 'model-server'   
+include 'model-server'
+include 'ui-server'
