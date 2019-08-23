@@ -32,7 +32,7 @@ services:
       - backend
       - frontend
     ports:
-      - "33333:80"
+      - "8093:33333"
     environment:
       MODEL_URI: 'ws://model:28101/'
 
