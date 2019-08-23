@@ -1,6 +1,6 @@
 # WebMPS
 
-[![Build Status](https://travis-ci.org/slisson/webmps.svg?branch=master)](https://travis-ci.org/slisson/webmps)
+<a href="https://build.mbeddr.com/project.html?projectId=WebMps_WebMpsBuild&tab=projectOverview"><img src="http://build.mbeddr.com/app/rest/builds/buildType:(id:WebMps_WebMpsBuild)/statusIcon"/></a>
 
 
 Cloud storage and web UI for MPS
