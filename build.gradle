@@ -20,7 +20,7 @@ plugins {
 group 'de.q60.mps.web'
 description = "Cloud storage and web UI for MPS"
 
-defaultTasks 'build_languages', 'build_rcp_branding', 'build_ui_server', 'packageNpmApp', 'build_model_server'
+defaultTasks 'assemble'
 
 File scriptFile(String relativePath) {
     new File("$rootDir/build/$relativePath")
@@ -60,6 +60,7 @@ dependencies {
     libs "de.itemis.mps.build.example:javalib:1.0+"
     libs "org.jdom:jdom:2.0.2"
 	project (':ui-client')    
+	project (':model-server')    
 }
 
 repositories {
@@ -137,6 +138,8 @@ task build_languages(type: BuildLanguages, dependsOn: [allScripts, resolveMps, r
     script new File("$rootDir/build/de.q60.mps.web/build.xml")
 }
 
+
+
 task build_rcp_branding(type: BuildLanguages, dependsOn: [allScripts, resolveMps, resolveMpsArtifacts, build_languages]) {
     scriptArgs = defaultScriptArgs
     description = "Build RCP Branding"
@@ -167,11 +170,4 @@ task build_ui_server(dependsOn: [build_rcp_branding]) {
 	}
 }
 
-task build_model_server() {
-	doLast {
-    	mavenexec {
-        	workingDir file("$rootDir/model-server")
-        	goals 'package'
-    	}
-	}
-}
+task('assemble').dependsOn(build_ui_server)
