@@ -1,3 +1,3 @@
 #!/bin/sh
 
-java -jar model-server/target/webmps.jar
+java -Djdbc.url=$jdbc_url -jar model-server/target/webmps.jar

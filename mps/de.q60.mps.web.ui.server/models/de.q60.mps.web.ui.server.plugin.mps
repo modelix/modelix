@@ -290,6 +290,20 @@
       <node concept="3cqZAl" id="1MbrkMIwE7X" role="3clF45" />
       <node concept="3Tm1VV" id="1MbrkMIwE7Y" role="1B3o_S" />
       <node concept="3clFbS" id="1MbrkMIwE7Z" role="3clF47">
+        <node concept="3clFbF" id="65d3h4jctgj" role="3cqZAp">
+          <node concept="2OqwBi" id="65d3h4jctgg" role="3clFbG">
+            <node concept="10M0yZ" id="65d3h4jctgh" role="2Oq$k0">
+              <ref role="1PxDUh" to="wyt6:~System" resolve="System" />
+              <ref role="3cqZAo" to="wyt6:~System.out" resolve="out" />
+            </node>
+            <node concept="liA8E" id="65d3h4jctgi" role="2OqNvi">
+              <ref role="37wK5l" to="guwi:~PrintStream.println(java.lang.String)" resolve="println" />
+              <node concept="Xl_RD" id="65d3h4jcul7" role="37wK5m">
+                <property role="Xl_RC" value="Starting UI http server" />
+              </node>
+            </node>
+          </node>
+        </node>
         <node concept="3clFbF" id="1MbrkMIwEdC" role="3cqZAp">
           <node concept="37vLTI" id="1MbrkMIwEdD" role="3clFbG">
             <node concept="2ShNRf" id="1MbrkMIwEdE" role="37vLTx">
@@ -759,7 +773,7 @@
                 </node>
               </node>
             </node>
-            <node concept="3clFbH" id="7mc9A5lmzs5" role="3cqZAp" />
+            <node concept="3clFbH" id="65d3h4jcr6i" role="3cqZAp" />
             <node concept="3clFbF" id="1MbrkMIwEdM" role="3cqZAp">
               <node concept="2OqwBi" id="1MbrkMIwEdN" role="3clFbG">
                 <node concept="37vLTw" id="1MbrkMIwEKt" role="2Oq$k0">
