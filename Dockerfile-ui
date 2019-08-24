@@ -4,5 +4,6 @@ EXPOSE 33333
 COPY run-ui-server.sh /usr/webmps-ui
 COPY ui-server/build/ /usr/webmps-ui/ui-server/build/
 COPY build/de.q60.mps.web.rcp/build/artifacts/de.q60.mps.webBranding/ /usr/webmps-ui/build/de.q60.mps.web.rcp/build/artifacts/de.q60.mps.webBranding/
-HEALTHCHECK CMD curl -f http://localhost:33333/repositoryAsHtml || exit 1;
+COPY healthcheck-ui.sh /usr/webmps-ui/
+HEALTHCHECK CMD /usr/webmps-ui/healthcheck.sh
 CMD ["./run-ui-server.sh"]
