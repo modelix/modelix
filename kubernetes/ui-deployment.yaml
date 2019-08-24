@@ -9,7 +9,7 @@ metadata:
     io.kompose.service: ui
   name: ui
 spec:
-  replicas: 1
+  replicas: 2
   strategy: {}
   template:
     metadata:
@@ -27,11 +27,20 @@ spec:
         ports:
         - containerPort: 33333
         resources: {}
+        readinessProbe:
+          httpGet:
+            path: /repositoryAsHtml
+            port: 33333
+          initialDelaySeconds: 10
+          periodSeconds: 30
+          failureThreshold: 60
+          timeoutSeconds: 3
         livenessProbe:
-          exec:
-            command:
-            - /usr/webmps-ui/healthcheck-ui.sh
-          initialDelaySeconds: 30
-          periodSeconds: 5
+          httpGet:
+            path: /repositoryAsHtml
+            port: 33333
+          initialDelaySeconds: 120
+          periodSeconds: 10
+          timeoutSeconds: 3
       restartPolicy: Always
 status: {}

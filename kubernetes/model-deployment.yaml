@@ -9,7 +9,7 @@ metadata:
     io.kompose.service: model
   name: model
 spec:
-  replicas: 1
+  replicas: 2
   strategy: {}
   template:
     metadata:
@@ -27,5 +27,16 @@ spec:
         ports:
         - containerPort: 28101
         resources: {}
+        readinessProbe:
+          tcpSocket:
+            port: 28101
+          initialDelaySeconds: 1
+          periodSeconds: 3
+          failureThreshold: 20
+        livenessProbe:
+          tcpSocket:
+            port: 28101
+          initialDelaySeconds: 60
+          periodSeconds: 10
       restartPolicy: Always
 status: {}

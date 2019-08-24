@@ -9,10 +9,12 @@ metadata:
     io.kompose.service: ui
   name: ui
 spec:
+  type: NodePort
   ports:
   - name: "8093"
     port: 8093
     targetPort: 33333
+    nodePort: 32260
   selector:
     io.kompose.service: ui
 status:
