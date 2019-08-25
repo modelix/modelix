@@ -7,3 +7,4 @@ mps/build/tmp
 artifacts
 build
 mps/de.q60.mps.web.ui.server/lib/ui-client.jar
+kubernetes/secrets

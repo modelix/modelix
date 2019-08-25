@@ -19,18 +19,20 @@ spec:
         io.kompose.service: db
     spec:
       containers:
-      - env:
-        - name: POSTGRES_PASSWORD
-          value: cloudmps
-        - name: POSTGRES_USER
-          value: cloudmps
-        image: webmps-db
-        imagePullPolicy: Never
-        name: db
-        resources: {}
+      - name: cloudsql-proxy
+        image: gcr.io/cloudsql-docker/gce-proxy:1.11
+        command: ["/cloud_sql_proxy",
+                  "-instances=cloudmps-250805:europe-west3:cloudmps=tcp:0.0.0.0:5432",
+                  "-credential_file=/secrets/cloudsql/cloudsql.json"]
+        securityContext:
+          runAsUser: 2  # non-root user
+          allowPrivilegeEscalation: false
+        ports:
+        - containerPort: 5432
         volumeMounts:
-        - mountPath: /var/lib/postgresql/data
-          name: db-data
+        - name: cloudsql-instance-credentials
+          mountPath: /secrets/cloudsql
+          readOnly: true
         readinessProbe:
           tcpSocket:
             port: 5432
@@ -44,7 +46,7 @@ spec:
           periodSeconds: 10
       restartPolicy: Always
       volumes:
-      - name: db-data
-        persistentVolumeClaim:
-          claimName: db-data
+      - name: cloudsql-instance-credentials
+        secret:
+          secretName: cloudsql-instance-credentials
 status: {}
