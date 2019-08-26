@@ -1,5 +1,6 @@
 import $ = require("jquery");
 import {KeyCodeTranslator} from "./KeyCodeTranslator";
+import {DomUtils} from "./DomUtil";
 
 
 export class SvgBasedEditor {
@@ -212,7 +213,7 @@ export class SvgBasedEditor {
         };
 
         const watchdog = setInterval(() => {
-            if (!this.element.isConnected) {
+            if (!DomUtils.isInDocument(this.element)) {
                 clearInterval(watchdog);
                 return;
             }
