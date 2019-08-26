@@ -2223,6 +2223,22 @@
             </node>
           </node>
         </node>
+        <node concept="3clFbJ" id="16LO$McC0p3" role="3cqZAp">
+          <node concept="3clFbS" id="16LO$McC0p5" role="3clFbx">
+            <node concept="3cpWs6" id="16LO$McDUKN" role="3cqZAp" />
+          </node>
+          <node concept="3clFbC" id="16LO$McDijK" role="3clFbw">
+            <node concept="10Nm6u" id="16LO$McDipd" role="3uHU7w" />
+            <node concept="2OqwBi" id="16LO$McC3k7" role="3uHU7B">
+              <node concept="1rXfSq" id="16LO$McC1S7" role="2Oq$k0">
+                <ref role="37wK5l" node="1qbCJZsJ69e" resolve="getEditorComponent" />
+              </node>
+              <node concept="liA8E" id="16LO$McDe5u" role="2OqNvi">
+                <ref role="37wK5l" to="exr9:~EditorComponent.getEditedNode()" resolve="getEditedNode" />
+              </node>
+            </node>
+          </node>
+        </node>
         <node concept="3clFbF" id="1qbCJZsJ6bF" role="3cqZAp">
           <node concept="2OqwBi" id="1qbCJZsJ6bG" role="3clFbG">
             <node concept="1rXfSq" id="1qbCJZsJ6bH" role="2Oq$k0">
@@ -3274,17 +3290,21 @@
         </node>
       </node>
       <node concept="3clFbS" id="1qbCJZsJ6iJ" role="3clF47">
-        <node concept="3clFbF" id="1qbCJZsJ6jr" role="3cqZAp">
-          <node concept="2YIFZM" id="1qbCJZsJ6js" role="3clFbG">
-            <ref role="37wK5l" to="dxuu:~SwingUtilities.invokeLater(java.lang.Runnable)" resolve="invokeLater" />
-            <ref role="1Pybhc" to="dxuu:~SwingUtilities" resolve="SwingUtilities" />
-            <node concept="1bVj0M" id="1qbCJZsJ6jt" role="37wK5m">
-              <node concept="3clFbS" id="1qbCJZsJ6ju" role="1bW5cS">
-                <node concept="3clFbF" id="1qbCJZsJ6jv" role="3cqZAp">
-                  <node concept="1rXfSq" id="1qbCJZsJ6jw" role="3clFbG">
-                    <ref role="37wK5l" node="1qbCJZsJ6bv" resolve="renderAll" />
-                    <node concept="3clFbT" id="1qbCJZsJ6jx" role="37wK5m">
-                      <property role="3clFbU" value="true" />
+        <node concept="1X3_iC" id="16LO$Mc$cum" role="lGtFl">
+          <property role="3V$3am" value="statement" />
+          <property role="3V$3ak" value="f3061a53-9226-4cc5-a443-f952ceaf5816/1068580123136/1068581517665" />
+          <node concept="3clFbF" id="1qbCJZsJ6jr" role="8Wnug">
+            <node concept="2YIFZM" id="1qbCJZsJ6js" role="3clFbG">
+              <ref role="37wK5l" to="dxuu:~SwingUtilities.invokeLater(java.lang.Runnable)" resolve="invokeLater" />
+              <ref role="1Pybhc" to="dxuu:~SwingUtilities" resolve="SwingUtilities" />
+              <node concept="1bVj0M" id="1qbCJZsJ6jt" role="37wK5m">
+                <node concept="3clFbS" id="1qbCJZsJ6ju" role="1bW5cS">
+                  <node concept="3clFbF" id="1qbCJZsJ6jv" role="3cqZAp">
+                    <node concept="1rXfSq" id="1qbCJZsJ6jw" role="3clFbG">
+                      <ref role="37wK5l" node="1qbCJZsJ6bv" resolve="renderAll" />
+                      <node concept="3clFbT" id="1qbCJZsJ6jx" role="37wK5m">
+                        <property role="3clFbU" value="true" />
+                      </node>
                     </node>
                   </node>
                 </node>

@@ -4,54 +4,46 @@ import {KeyCodeTranslator} from "./KeyCodeTranslator";
 
 export class SvgBasedEditor {
 
+    private socket: WebSocket;
+
     constructor(public readonly element: HTMLElement) {
         this.init(element);
     }
 
-    private init(element: HTMLElement): void {
-
-
-        element.tabIndex = -1;
-
-        let lastEventTime: number = 0;
-
-        const url = "ws://" + window.location.host + "/ws/svgui";
-        const socket = new WebSocket(url);
+    private connect(): void {
+        if (this.socket && this.socket.readyState !== WebSocket.CLOSED) return;
 
         let rawDataFollowing: boolean = false;
         let lastMessage: IMessage = null;
         let rawData: string = null;
 
-        $(window).on("scroll resize", () => {
-            if (socket.readyState !== WebSocket.OPEN) return;
+        const url = "ws://" + window.location.host + "/ws/svgui";
+        this.socket = new WebSocket(url);
 
-            let winh = $(window).height();
-            let rect = element.getBoundingClientRect();
-            let y1 = -rect.top;
-            let y2 = y1 + winh;
-            // console.log("rect " + y1 + ", " + (y2));
+        this.socket.onclose = (event) => {
+            setTimeout(() => {
+                this.connect();
+            }, 1000);
+        };
 
-            socket.send(JSON.stringify(<IViewRangeMessage> {
-                type: "viewrange",
-                top: y1,
-                bottom: y2
-            }));
-        });
+        this.socket.onerror = (event) => {
+            if (!this.isConnected()) this.connect();
+        };
 
-        socket.onmessage = (event) => {
+        this.socket.onmessage = (event) => {
             if (rawDataFollowing) {
                 rawDataFollowing = false;
                 rawData = event.data;
 
                 if (lastMessage.type === "image.full") {
-                    element.innerHTML = null;
+                    this.element.innerHTML = null;
 
                     let img: HTMLImageElement = document.createElement("img");
                     img.src = "data:image/svg+xml;base64," + btoa(rawData);
                     img.classList.add("svgEditorImg");
                     img.classList.add("full");
 
-                    element.appendChild(img);
+                    this.element.appendChild(img);
                     // console.log((Date.now() - lastEventTime) + " full image");
                 } else if (lastMessage.type === "image.fragment") {
                     let img: HTMLImageElement = document.createElement("img");
@@ -61,7 +53,7 @@ export class SvgBasedEditor {
                     // let data: IImageData = lastMessage.data;
                     img.style.left = 0 + "px";
                     img.style.top = 0 + "px";
-                    element.appendChild(img);
+                    this.element.appendChild(img);
                     // console.log((Date.now() - lastEventTime) + " delta image");
                 }
 
@@ -82,13 +74,61 @@ export class SvgBasedEditor {
 
         let nodeRef = this.element.getAttribute("nodeRef");
         if (nodeRef) {
-            socket.onopen = () => {
-                socket.send(JSON.stringify({
-                    type: "rootNode",
-                    nodeRef: nodeRef
-                }));
+            this.socket.onopen = () => {
+                setTimeout(() => {
+                    this.send({
+                        type: "rootNode",
+                        nodeRef: nodeRef
+                    });
+                }, 10);
             };
         }
+
+        this.simulateDisconnect();
+    }
+
+    simulateDisconnect(): void {
+        setTimeout(() => {
+            if (this.isConnected()) {
+                this.socket.close();
+            } else {
+                this.simulateDisconnect();
+            }
+        }, 10000 + Math.random() * 1000);
+    }
+
+    isConnected(): boolean {
+        return this.socket && this.socket.readyState === WebSocket.OPEN;
+    }
+
+    send(msg: object): void {
+        if (this.isConnected()) {
+            this.socket.send(JSON.stringify(msg));
+        } else {
+            this.connect();
+        }
+    }
+
+    private init(element: HTMLElement): void {
+
+        element.tabIndex = -1;
+        let lastEventTime: number = 0;
+
+        $(window).on("scroll resize", () => {
+            if (!this.isConnected()) return;
+
+            let winh = $(window).height();
+            let rect = element.getBoundingClientRect();
+            let y1 = -rect.top;
+            let y2 = y1 + winh;
+            // console.log("rect " + y1 + ", " + (y2));
+
+            this.send(<IViewRangeMessage> {
+                type: "viewrange",
+                top: y1,
+                bottom: y2
+            });
+        });
 
         function parseSvg(data: string): HTMLElement {
             const parser = new DOMParser();
@@ -112,7 +152,7 @@ export class SvgBasedEditor {
                 },
             };
 
-            socket.send(JSON.stringify(message));
+            this.send(message);
 
             element.focus();
             event.preventDefault();
@@ -141,7 +181,7 @@ export class SvgBasedEditor {
 
             lastEventTime = Date.now();
             console.log(Date.now() + " sending keydown");
-            socket.send(JSON.stringify(<IMessage> {
+            this.send(<IMessage> {
                 type: "keydown",
                 data: <IKeyData> {
                     key: event.key,
@@ -151,7 +191,7 @@ export class SvgBasedEditor {
                     shift: event.shiftKey,
                     meta: event.metaKey
                 },
-            }));
+            });
             event.preventDefault();
         };
 
@@ -161,15 +201,25 @@ export class SvgBasedEditor {
             lastEventTime = Date.now();
             // console.log(Date.now() + " sending keyup");
 
-            socket.send(JSON.stringify(<IMessage> {
+            this.send({
                 type: "keyup",
                 data: <IKeyData> {
                     key: event.key,
                     keyCode: KeyCodeTranslator.translate(event.keyCode)
                 },
-            }));
+            });
             event.preventDefault();
         };
+
+        const watchdog = setInterval(() => {
+            if (!this.element.isConnected) {
+                clearInterval(watchdog);
+                return;
+            }
+            if (!this.socket || this.socket.readyState === WebSocket.CLOSED) {
+                this.connect();
+            }
+        }, 500);
     }
 
     private fixSize(): void {
@@ -207,6 +257,7 @@ interface IKeyData {
 }
 
 interface IImageData {
+    hasRoot: boolean;
     x: number;
     y: number;
     width: number;
@@ -221,4 +272,8 @@ interface ISelectionMessage extends IMessage {
 interface IViewRangeMessage extends IMessage {
     top: number;
     bottom: number;
+}
+
+interface IRootNodeMessage extends IMessage {
+    nodeRef: string;
 }
