@@ -31,6 +31,7 @@
     <import index="zf81" ref="6354ebe7-c22a-4a0f-ac54-50b52ab9b065/java:java.net(JDK/)" />
     <import index="guwi" ref="6354ebe7-c22a-4a0f-ac54-50b52ab9b065/java:java.io(JDK/)" />
     <import index="33ny" ref="6354ebe7-c22a-4a0f-ac54-50b52ab9b065/java:java.util(JDK/)" />
+    <import index="yt15" ref="r:3b455125-c65e-4548-95e9-cf82a7781996(de.q60.mps.web.lib)" />
     <import index="tpcu" ref="r:00000000-0000-4000-0000-011c89590282(jetbrains.mps.lang.core.behavior)" implicit="true" />
     <import index="od2j" ref="r:19d224b8-fac8-4b19-ae42-e7b119858f3b(de.q60.mps.polymorphicfunctions.runtime)" implicit="true" />
     <import index="tpce" ref="r:00000000-0000-4000-0000-011c89590292(jetbrains.mps.lang.structure.structure)" implicit="true" />
@@ -154,7 +155,6 @@
       <concept id="1068581242864" name="jetbrains.mps.baseLanguage.structure.LocalVariableDeclarationStatement" flags="nn" index="3cpWs8">
         <child id="1068581242865" name="localVariableDeclaration" index="3cpWs9" />
       </concept>
-      <concept id="1068581242867" name="jetbrains.mps.baseLanguage.structure.LongType" flags="in" index="3cpWsb" />
       <concept id="1068581242863" name="jetbrains.mps.baseLanguage.structure.LocalVariableDeclaration" flags="nr" index="3cpWsn" />
       <concept id="1068581517677" name="jetbrains.mps.baseLanguage.structure.VoidType" flags="in" index="3cqZAl" />
       <concept id="1206060495898" name="jetbrains.mps.baseLanguage.structure.ElsifClause" flags="ng" index="3eNFk2">
@@ -481,9 +481,9 @@
                       <node concept="027oh" id="2HzO4VEyUIx" role="02LM9">
                         <ref role="027oj" to="70w2:7NImM04TrPE" resolve="data" />
                         <node concept="3cpWs3" id="2HzO4VEyV0j" role="027of">
-                          <node concept="10M0yZ" id="2HzO4VEyXax" role="3uHU7w">
-                            <ref role="3cqZAo" node="2HzO4VEyW58" resolve="RANDOM_STATIC_NUMBER" />
-                            <ref role="1PxDUh" node="62_qJBxL8mp" resolve="Util" />
+                          <node concept="10M0yZ" id="3ov7kT3oG6U" role="3uHU7w">
+                            <ref role="3cqZAo" to="yt15:2HzO4VEyW58" resolve="RANDOM_STATIC_NUMBER" />
+                            <ref role="1PxDUh" to="yt15:3ov7kT3oB09" resolve="RandomStaticNumber" />
                           </node>
                           <node concept="Xl_RD" id="2HzO4VEyUIy" role="3uHU7B" />
                         </node>
@@ -2169,26 +2169,6 @@
   </node>
   <node concept="312cEu" id="62_qJBxL8mp">
     <property role="TrG5h" value="Util" />
-    <node concept="Wx3nA" id="2HzO4VEyW58" role="jymVt">
-      <property role="TrG5h" value="RANDOM_STATIC_NUMBER" />
-      <property role="3TUv4t" value="true" />
-      <node concept="3cpWsb" id="2HzO4VEyOHJ" role="1tU5fm" />
-      <node concept="3Tm1VV" id="2HzO4VEyTZh" role="1B3o_S" />
-      <node concept="2YIFZM" id="2HzO4VEyPcg" role="33vP2m">
-        <ref role="37wK5l" to="wyt6:~Math.abs(long)" resolve="abs" />
-        <ref role="1Pybhc" to="wyt6:~Math" resolve="Math" />
-        <node concept="2OqwBi" id="2HzO4VEyTpq" role="37wK5m">
-          <node concept="2ShNRf" id="2HzO4VEyPwm" role="2Oq$k0">
-            <node concept="1pGfFk" id="2HzO4VEySXZ" role="2ShVmc">
-              <ref role="37wK5l" to="33ny:~Random.&lt;init&gt;()" resolve="Random" />
-            </node>
-          </node>
-          <node concept="liA8E" id="2HzO4VEyTGG" role="2OqNvi">
-            <ref role="37wK5l" to="33ny:~Random.nextLong()" resolve="nextLong" />
-          </node>
-        </node>
-      </node>
-    </node>
     <node concept="Wx3nA" id="7vWAzuELYkG" role="jymVt">
       <property role="TrG5h" value="VIEWER_STATES" />
       <property role="3TUv4t" value="true" />
