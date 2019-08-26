@@ -4,6 +4,7 @@ metadata:
   annotations:
     kompose.cmd: kompose convert
     kompose.version: 1.18.0 ()
+    beta.cloud.google.com/backend-config: '{"ports": {"80":"ui-backendconfig"}}'
   creationTimestamp: null
   labels:
     io.kompose.service: ui
