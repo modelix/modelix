@@ -84,7 +84,7 @@ export class SvgBasedEditor {
             };
         }
 
-        this.simulateDisconnect();
+        //this.simulateDisconnect();
     }
 
     simulateDisconnect(): void {

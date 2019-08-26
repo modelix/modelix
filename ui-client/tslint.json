@@ -16,6 +16,7 @@
     "member-ordering": false,
     "ordered-imports": false,
     "arrow-parens": false,
-    "no-empty": false
+    "no-empty": false,
+    "comment-format": false
   }
 }
