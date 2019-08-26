@@ -1,0 +1,44 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  annotations:
+  creationTimestamp: null
+  labels:
+    io.kompose.service: pgadmin
+  name: pgadmin
+spec:
+  replicas: 1
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        io.kompose.service: pgadmin
+    spec:
+      containers:
+        - env:
+            - name: DEFAULT_USER
+              value: cloudmps
+            - name: DEFAULT_PASSWORD
+              value: cloudmps
+          image: fenglc/pgadmin4
+          imagePullPolicy: IfNotPresent
+          name: model
+          ports:
+            - containerPort: 5050
+          resources: {}
+          readinessProbe:
+            tcpSocket:
+              port: 5050
+            initialDelaySeconds: 1
+            periodSeconds: 3
+            failureThreshold: 20
+          livenessProbe:
+            tcpSocket:
+              port: 5050
+            initialDelaySeconds: 60
+            periodSeconds: 10
+      restartPolicy: Always
+status: {}
+
+
