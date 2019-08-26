@@ -1,4 +1,5 @@
-CREATE SCHEMA cloudmps AUTHORIZATION cloudmps;
+CREATE SCHEMA cloudmps;
+GRANT ALL ON SCHEMA cloudmps TO cloudmps;
 
 CREATE TABLE cloudmps.model
 (
@@ -7,5 +8,4 @@ CREATE TABLE cloudmps.model
     reachable boolean,
     CONSTRAINT kv_pkey PRIMARY KEY (key)
 );
-
-ALTER TABLE cloudmps.model OWNER to cloudmps;
+GRANT ALL ON TABLE cloudmps.model TO cloudmps;
