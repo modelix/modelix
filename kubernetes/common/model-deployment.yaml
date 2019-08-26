@@ -22,6 +22,7 @@ spec:
         - name: jdbc_url
           value: jdbc:postgresql://db:5432/
         image: eu.gcr.io/cloudmps-250805/webmps-model
+        imagePullPolicy: IfNotPresent
         name: model
         ports:
         - containerPort: 28101

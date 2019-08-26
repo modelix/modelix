@@ -20,6 +20,7 @@ spec:
       containers:
       - name: ui
         image: eu.gcr.io/cloudmps-250805/webmps-ui
+        imagePullPolicy: IfNotPresent
         env:
         - name: MODEL_URI
           value: ws://model:28101/
