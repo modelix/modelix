@@ -9,8 +9,12 @@ metadata:
     io.kompose.service: ui
   name: ui
 spec:
-  replicas: 2
-  strategy: {}
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0
+      maxSurge: 1
   template:
     metadata:
       creationTimestamp: null
@@ -26,7 +30,13 @@ spec:
           value: ws://model:28101/
         ports:
         - containerPort: 33333
-        resources: {}
+        resources: 
+          requests:
+            memory: "1Gi"
+            cpu: "0.4"
+          limits:
+            memory: "1.5Gi"
+            cpu: "1.0"
         readinessProbe:
           httpGet:
             path: /repositoryAsHtml

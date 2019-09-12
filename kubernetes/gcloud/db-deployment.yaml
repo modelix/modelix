@@ -33,6 +33,10 @@ spec:
         - name: cloudsql-instance-credentials
           mountPath: /secrets/cloudsql
           readOnly: true
+        resources:
+          requests:
+            memory: "50Mi"
+            cpu: "0.01"          
         readinessProbe:
           tcpSocket:
             port: 5432

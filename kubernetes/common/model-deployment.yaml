@@ -9,7 +9,7 @@ metadata:
     io.kompose.service: model
   name: model
 spec:
-  replicas: 2
+  replicas: 1
   strategy: {}
   template:
     metadata:
@@ -26,7 +26,13 @@ spec:
         name: model
         ports:
         - containerPort: 28101
-        resources: {}
+        resources: 
+          requests:
+            memory: "150Mi"
+            cpu: "0.1"
+          limits:
+            memory: "300Mi"
+            cpu: "1.0"
         readinessProbe:
           tcpSocket:
             port: 28101
