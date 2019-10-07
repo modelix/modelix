@@ -10,7 +10,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'de.itemis.mps:mps-gradle-plugin:1.0.+'
+        classpath 'de.itemis.mps:mps-gradle-plugin:1.2.168.+'
     }
 }
 plugins {
@@ -26,17 +26,20 @@ File scriptFile(String relativePath) {
     new File("$rootDir/build/$relativePath")
 }
 
-// JDK_HOME required for adding tools.jar into classpath of the forked ant process
-if (!hasProperty("jdk_home")) {
-    def java_home = System.properties['java.home']
-    def jdk_home = java_home
-    if (!file("$jdk_home/lib/tools.jar").isFile()) {
-        jdk_home = jdk_home + "/.."
+def jdk_home
+if (ext.has('java11_home')) {
+    jdk_home = ext.get('java11_home')
+} else if (System.getenv('JB_JAVA11_HOME') != null) {
+    jdk_home = System.getenv('JB_JAVA11_HOME')
+} else {
+    def expected = JavaVersion.VERSION_11
+    if (JavaVersion.current() != expected) {
+        throw new GradleException("This build script requires Java 11 but you are currently using ${JavaVersion.current()}.\nWhat you can do:\n"
+            + "  * Use project property java11_home to point to the Java 11 JDK.\n"
+            + "  * Use environment variable JB_JAVA11_HOME to point to the Java 11 JDK\n"
+            + "  * Run Gradle using Java 11")
     }
-    if (!file("$jdk_home/lib/tools.jar").isFile()) {
-        throw new GradleException("Was not able to locate jdk home folder. Use 'jdk_home' project variable to specify JDK location explicitly. Current JAVA_HOME is: $java_home")
-    }
-    ext.jdk_home = jdk_home
+    jdk_home = System.getProperty('java.home')
 }
 
 //define directories
@@ -51,12 +54,12 @@ configurations {
     libs
 }
 
-ext.mpsVersion = '2019.1.5'
+ext.mpsVersion = '2019.2.2'
 
 dependencies {
     ant_lib "org.apache.ant:ant-junit:1.10.1"
     mps "com.jetbrains:mps:$mpsVersion"
-    mpsArtifacts "de.itemis.mps:extensions:shadowmodels.2019.1+"
+    mpsArtifacts "de.itemis.mps:extensions:shadowmodels.2019.2+"
     libs "de.itemis.mps.build.example:javalib:1.0+"
     libs "org.jdom:jdom:2.0.2"
 	project (':ui-client')    
@@ -79,7 +82,7 @@ ext.artifacts_dir = '-Dartifacts.root=' + new File(rootDir, 'artifacts')
 ext.defaultScriptArgs = [mps_home, project_home, artifacts_dir]
 ext.buildScriptClasspath = project.configurations.ant_lib.fileCollection({
     true
-})  + project.files("$project.jdk_home/lib/tools.jar")
+})  + project.files("$jdk_home/lib/tools.jar")
 
 
 task generateLibrariesXml(type: GenerateLibrariesXml) {

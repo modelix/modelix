@@ -1,4 +1,4 @@
-FROM openjdk:8
+FROM openjdk:11
 WORKDIR /usr/webmps-ui
 EXPOSE 33333
 COPY run-ui-server.sh /usr/webmps-ui
