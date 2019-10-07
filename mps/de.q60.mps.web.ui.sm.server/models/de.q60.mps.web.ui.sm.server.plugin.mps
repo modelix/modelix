@@ -4,12 +4,12 @@
   <languages>
     <use id="ef7bf5ac-d06c-4342-b11d-e42104eb9343" name="jetbrains.mps.lang.plugin.standalone" version="0" />
     <use id="443f4c36-fcf5-4eb6-9500-8d06ed259e3e" name="jetbrains.mps.baseLanguage.classifiers" version="0" />
-    <use id="f3061a53-9226-4cc5-a443-f952ceaf5816" name="jetbrains.mps.baseLanguage" version="8" />
+    <use id="f3061a53-9226-4cc5-a443-f952ceaf5816" name="jetbrains.mps.baseLanguage" version="9" />
     <use id="83888646-71ce-4f1c-9c53-c54016f6ad4f" name="jetbrains.mps.baseLanguage.collections" version="1" />
     <use id="760a0a8c-eabb-4521-8bfd-65db761a9ba3" name="jetbrains.mps.baseLanguage.logging" version="0" />
     <use id="63650c59-16c8-498a-99c8-005c7ee9515d" name="jetbrains.mps.lang.access" version="0" />
-    <use id="7866978e-a0f0-4cc7-81bc-4d213d9375e1" name="jetbrains.mps.lang.smodel" version="13" />
-    <use id="ceab5195-25ea-4f22-9b92-103b95ca8c0c" name="jetbrains.mps.lang.core" version="1" />
+    <use id="7866978e-a0f0-4cc7-81bc-4d213d9375e1" name="jetbrains.mps.lang.smodel" version="17" />
+    <use id="ceab5195-25ea-4f22-9b92-103b95ca8c0c" name="jetbrains.mps.lang.core" version="2" />
     <use id="fd392034-7849-419d-9071-12563d152375" name="jetbrains.mps.baseLanguage.closures" version="0" />
     <use id="94b64715-a263-4c36-a138-8da14705ffa7" name="de.q60.mps.shadowmodels.transformation" version="1" />
     <use id="817e4e70-961e-4a95-98a1-15e9f32231f1" name="jetbrains.mps.ide.httpsupport" version="0" />
@@ -229,11 +229,8 @@
         <child id="1163668922816" name="ifTrue" index="3K4E3e" />
         <child id="1163668934364" name="ifFalse" index="3K4GZi" />
       </concept>
-      <concept id="6329021646629104957" name="jetbrains.mps.baseLanguage.structure.TextCommentPart" flags="nn" index="3SKdUq">
-        <property id="6329021646629104958" name="text" index="3SKdUp" />
-      </concept>
       <concept id="6329021646629104954" name="jetbrains.mps.baseLanguage.structure.SingleLineComment" flags="nn" index="3SKdUt">
-        <child id="6329021646629175155" name="commentPart" index="3SKWNk" />
+        <child id="1350122676458893092" name="text" index="3ndbpf" />
       </concept>
       <concept id="1146644602865" name="jetbrains.mps.baseLanguage.structure.PublicVisibility" flags="nn" index="3Tm1VV" />
       <concept id="1146644623116" name="jetbrains.mps.baseLanguage.structure.PrivateVisibility" flags="nn" index="3Tm6S6" />
@@ -354,6 +351,14 @@
       </concept>
       <concept id="4452961908202556907" name="jetbrains.mps.lang.core.structure.BaseCommentAttribute" flags="ng" index="1X3_iC">
         <child id="3078666699043039389" name="commentedNode" index="8Wnug" />
+      </concept>
+    </language>
+    <language id="c7fb639f-be78-4307-89b0-b5959c3fa8c8" name="jetbrains.mps.lang.text">
+      <concept id="155656958578482948" name="jetbrains.mps.lang.text.structure.Word" flags="ng" index="3oM_SD">
+        <property id="155656958578482949" name="value" index="3oM_SC" />
+      </concept>
+      <concept id="2535923850359271782" name="jetbrains.mps.lang.text.structure.Line" flags="ng" index="1PaTwC">
+        <child id="2535923850359271783" name="elements" index="1PaTwD" />
       </concept>
     </language>
     <language id="83888646-71ce-4f1c-9c53-c54016f6ad4f" name="jetbrains.mps.baseLanguage.collections">
@@ -817,7 +822,7 @@
           </node>
         </node>
         <node concept="RRSsy" id="7vWAzuEY4Zd" role="3cqZAp">
-          <property role="RRSoG" value="error" />
+          <property role="RRSoG" value="gZ5fh_4/error" />
           <node concept="3cpWs3" id="7vWAzuEY6$T" role="RRSoy">
             <node concept="37vLTw" id="7mc9A5lnvKz" role="3uHU7w">
               <ref role="3cqZAo" node="7mc9A5lmHPW" resolve="websocketSession" />
@@ -1673,8 +1678,31 @@
                                 </node>
                               </node>
                               <node concept="3SKdUt" id="3zTK92LCCc0" role="3cqZAp">
-                                <node concept="3SKdUq" id="3zTK92LCCc2" role="3SKWNk">
-                                  <property role="3SKdUp" value="TODO index = (index + 1) % entries.size" />
+                                <node concept="1PaTwC" id="xL$$tDozt9" role="3ndbpf">
+                                  <node concept="3oM_SD" id="xL$$tDozta" role="1PaTwD">
+                                    <property role="3oM_SC" value="TODO" />
+                                  </node>
+                                  <node concept="3oM_SD" id="xL$$tDoztb" role="1PaTwD">
+                                    <property role="3oM_SC" value="index" />
+                                  </node>
+                                  <node concept="3oM_SD" id="xL$$tDoztc" role="1PaTwD">
+                                    <property role="3oM_SC" value="=" />
+                                  </node>
+                                  <node concept="3oM_SD" id="xL$$tDoztd" role="1PaTwD">
+                                    <property role="3oM_SC" value="(index" />
+                                  </node>
+                                  <node concept="3oM_SD" id="xL$$tDozte" role="1PaTwD">
+                                    <property role="3oM_SC" value="+" />
+                                  </node>
+                                  <node concept="3oM_SD" id="xL$$tDoztf" role="1PaTwD">
+                                    <property role="3oM_SC" value="1)" />
+                                  </node>
+                                  <node concept="3oM_SD" id="xL$$tDoztg" role="1PaTwD">
+                                    <property role="3oM_SC" value="%" />
+                                  </node>
+                                  <node concept="3oM_SD" id="xL$$tDozth" role="1PaTwD">
+                                    <property role="3oM_SC" value="entries.size" />
+                                  </node>
                                 </node>
                               </node>
                             </node>
@@ -1776,8 +1804,49 @@
                                 </node>
                               </node>
                               <node concept="3SKdUt" id="1HMbik_siVS" role="3cqZAp">
-                                <node concept="3SKdUq" id="1HMbik_siVT" role="3SKWNk">
-                                  <property role="3SKdUp" value="TODO index = index &gt; 0 ? (index - 1) : entries.size - 1" />
+                                <node concept="1PaTwC" id="xL$$tDozti" role="3ndbpf">
+                                  <node concept="3oM_SD" id="xL$$tDoztj" role="1PaTwD">
+                                    <property role="3oM_SC" value="TODO" />
+                                  </node>
+                                  <node concept="3oM_SD" id="xL$$tDoztk" role="1PaTwD">
+                                    <property role="3oM_SC" value="index" />
+                                  </node>
+                                  <node concept="3oM_SD" id="xL$$tDoztl" role="1PaTwD">
+                                    <property role="3oM_SC" value="=" />
+                                  </node>
+                                  <node concept="3oM_SD" id="xL$$tDoztm" role="1PaTwD">
+                                    <property role="3oM_SC" value="index" />
+                                  </node>
+                                  <node concept="3oM_SD" id="xL$$tDoztn" role="1PaTwD">
+                                    <property role="3oM_SC" value="&gt;" />
+                                  </node>
+                                  <node concept="3oM_SD" id="xL$$tDozto" role="1PaTwD">
+                                    <property role="3oM_SC" value="0" />
+                                  </node>
+                                  <node concept="3oM_SD" id="xL$$tDoztp" role="1PaTwD">
+                                    <property role="3oM_SC" value="?" />
+                                  </node>
+                                  <node concept="3oM_SD" id="xL$$tDoztq" role="1PaTwD">
+                                    <property role="3oM_SC" value="(index" />
+                                  </node>
+                                  <node concept="3oM_SD" id="xL$$tDoztr" role="1PaTwD">
+                                    <property role="3oM_SC" value="-" />
+                                  </node>
+                                  <node concept="3oM_SD" id="xL$$tDozts" role="1PaTwD">
+                                    <property role="3oM_SC" value="1)" />
+                                  </node>
+                                  <node concept="3oM_SD" id="xL$$tDoztt" role="1PaTwD">
+                                    <property role="3oM_SC" value=":" />
+                                  </node>
+                                  <node concept="3oM_SD" id="xL$$tDoztu" role="1PaTwD">
+                                    <property role="3oM_SC" value="entries.size" />
+                                  </node>
+                                  <node concept="3oM_SD" id="xL$$tDoztv" role="1PaTwD">
+                                    <property role="3oM_SC" value="-" />
+                                  </node>
+                                  <node concept="3oM_SD" id="xL$$tDoztw" role="1PaTwD">
+                                    <property role="3oM_SC" value="1" />
+                                  </node>
                                 </node>
                               </node>
                             </node>
@@ -4637,8 +4706,25 @@
                       <node concept="3clFbJ" id="3zTK92KDjYT" role="3cqZAp">
                         <node concept="3clFbS" id="3zTK92KDjYV" role="3clFbx">
                           <node concept="3SKdUt" id="3zTK92KH8OO" role="3cqZAp">
-                            <node concept="3SKdUq" id="3zTK92KH8OQ" role="3SKWNk">
-                              <property role="3SKdUp" value="TODO compare objects without using .toString" />
+                            <node concept="1PaTwC" id="xL$$tDoztx" role="3ndbpf">
+                              <node concept="3oM_SD" id="xL$$tDozty" role="1PaTwD">
+                                <property role="3oM_SC" value="TODO" />
+                              </node>
+                              <node concept="3oM_SD" id="xL$$tDoztz" role="1PaTwD">
+                                <property role="3oM_SC" value="compare" />
+                              </node>
+                              <node concept="3oM_SD" id="xL$$tDozt$" role="1PaTwD">
+                                <property role="3oM_SC" value="objects" />
+                              </node>
+                              <node concept="3oM_SD" id="xL$$tDozt_" role="1PaTwD">
+                                <property role="3oM_SC" value="without" />
+                              </node>
+                              <node concept="3oM_SD" id="xL$$tDoztA" role="1PaTwD">
+                                <property role="3oM_SC" value="using" />
+                              </node>
+                              <node concept="3oM_SD" id="xL$$tDoztB" role="1PaTwD">
+                                <property role="3oM_SC" value=".toString" />
+                              </node>
                             </node>
                           </node>
                           <node concept="3clFbJ" id="3zTK92KGo85" role="3cqZAp">
