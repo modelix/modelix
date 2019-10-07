@@ -5,8 +5,8 @@ version = '1.0-SNAPSHOT'
 
 description = "WebMPS UI server"
 
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
+sourceCompatibility = 1.11
+targetCompatibility = 1.11
 
 repositories {
         
