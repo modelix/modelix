@@ -8,6 +8,9 @@ description = "WebMPS UI server"
 sourceCompatibility = 1.11
 targetCompatibility = 1.11
 
+compileJava.options.fork = true
+compileJava.options.forkOptions.executable = new File(ext.jdk_home, 'bin/javac')
+
 repositories {
         
      maven { url "http://repo.maven.apache.org/maven2" }

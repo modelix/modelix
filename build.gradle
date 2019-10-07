@@ -52,8 +52,6 @@ if (!new File(jdk_home, "lib").exists()) {
 
 ext.jdk_home = jdk_home
 ext["itemis.mps.gradle.ant.defaultJavaExecutable"] = new File(jdk_home, 'bin/java')
-project(':ui-server').compileJava.options.fork = true
-project(':ui-server').compileJava.options.forkOptions.executable = new File(jdk_home, 'bin/javac')
 logger.info 'Using JDK at {}', jdk_home
 
 
