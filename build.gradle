@@ -51,6 +51,9 @@ if (!new File(jdk_home, "lib").exists()) {
 }
 
 ext.jdk_home = jdk_home
+ext["itemis.mps.gradle.ant.defaultJavaExecutable"] = new File(jdk_home, 'bin/java')
+compileJava.options.fork = true
+compileJava.options.forkOptions.executable = new File(jdk_home, 'bin/javac')
 logger.info 'Using JDK at {}', jdk_home
 
 
@@ -96,8 +99,6 @@ ext.defaultScriptArgs = [mps_home, project_home, artifacts_dir]
 ext.buildScriptClasspath = project.configurations.ant_lib.fileCollection({
     true
 })  + project.files("$jdk_home/lib/tools.jar")
-
-ext["itemis.mps.gradle.ant.defaultJavaExecutable"] = new File(jdk_home, 'bin/java')
 
 task generateLibrariesXml(type: GenerateLibrariesXml) {
     description "Will read project libraries from projectlibraries.properties and generate libraries.xml in .mps directory. Libraries are loaded in mps during start."
