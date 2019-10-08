@@ -52,8 +52,6 @@ if (!new File(jdk_home, "lib").exists()) {
 
 ext.jdk_home = jdk_home
 ext["itemis.mps.gradle.ant.defaultJavaExecutable"] = new File(jdk_home, 'bin/java')
-ext["org.gradle.java.home"] = jdk_home
-project(':ui-server').ext["org.gradle.java.home"] = jdk_home
 logger.info 'Using JDK at {}', jdk_home
 
 
