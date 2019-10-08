@@ -8,6 +8,32 @@ description = "WebMPS UI server"
 sourceCompatibility = 1.11
 targetCompatibility = 1.11
 
+
+def jdk_home
+
+if (ext.has('java11_home')) {
+    jdk_home = ext.get('java11_home')
+} else if (System.getenv('JB_JAVA11_HOME') != null) {
+    jdk_home = System.getenv('JB_JAVA11_HOME')
+} else {
+    def expected = JavaVersion.VERSION_11
+    if (JavaVersion.current() != expected) {
+        throw new GradleException("This build script requires Java 11 but you are currently using ${JavaVersion.current()}.\nWhat you can do:\n"
+            + "  * Use project property java11_home to point to the Java 11 JDK.\n"
+            + "  * Use environment variable JAVA11_HOME to point to the Java 11 JDK\n"
+            + "  * Run Gradle using Java 11")
+    }
+    jdk_home = System.getProperty('java.home')
+}
+
+// Check JDK location
+if (!new File(jdk_home, "lib").exists()) {
+    throw new GradleException("Unable to locate JDK home folder. Detected folder is: $jdk_home")
+}
+
+compileJava.options.fork = true
+compileJava.options.forkOptions.executable = new File(jdk_home, 'bin/javac')
+
 repositories {
         
      maven { url "http://repo.maven.apache.org/maven2" }
