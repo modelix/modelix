@@ -9744,30 +9744,28 @@
                     </node>
                   </node>
                 </node>
+                <node concept="3clFbF" id="6EruykV9Snr" role="3cqZAp">
+                  <node concept="2OqwBi" id="6EruykV9SnB" role="3clFbG">
+                    <node concept="2OqwBi" id="6EruykV9Snx" role="2Oq$k0">
+                      <node concept="37vLTw" id="6EruykV9Snt" role="2Oq$k0">
+                        <ref role="3cqZAo" node="51I69MorpZb" resolve="mpsRepository" />
+                      </node>
+                      <node concept="liA8E" id="6EruykV9Snv" role="2OqNvi">
+                        <ref role="37wK5l" to="w1kc:~MPSModuleRepository.getModelAccess()" resolve="getModelAccess" />
+                      </node>
+                    </node>
+                    <node concept="liA8E" id="6EruykV9Snz" role="2OqNvi">
+                      <ref role="37wK5l" to="lui2:~ModelAccess.addCommandListener(org.jetbrains.mps.openapi.repository.CommandListener)" resolve="addCommandListener" />
+                      <node concept="37vLTw" id="6EruykV9Sn_" role="37wK5m">
+                        <ref role="3cqZAo" node="51I69MoqMU8" resolve="commandListener" />
+                      </node>
+                    </node>
+                  </node>
+                </node>
               </node>
             </node>
           </node>
         </node>
-        <node concept="3clFbH" id="6X4eDeO6v8k" role="3cqZAp" />
-        <node concept="3clFbF" id="51I69Mor6Af" role="3cqZAp">
-          <node concept="2OqwBi" id="51I69MoraFi" role="3clFbG">
-            <node concept="2OqwBi" id="51I69Mor8s9" role="2Oq$k0">
-              <node concept="37vLTw" id="51I69MorvEa" role="2Oq$k0">
-                <ref role="3cqZAo" node="51I69MorpZb" resolve="mpsRepository" />
-              </node>
-              <node concept="liA8E" id="51I69Mora_F" role="2OqNvi">
-                <ref role="37wK5l" to="w1kc:~MPSModuleRepository.getModelAccess()" resolve="getModelAccess" />
-              </node>
-            </node>
-            <node concept="liA8E" id="51I69Mordx9" role="2OqNvi">
-              <ref role="37wK5l" to="lui2:~ModelAccess.addCommandListener(org.jetbrains.mps.openapi.repository.CommandListener)" resolve="addCommandListener" />
-              <node concept="37vLTw" id="51I69MordUm" role="37wK5m">
-                <ref role="3cqZAo" node="51I69MoqMU8" resolve="commandListener" />
-              </node>
-            </node>
-          </node>
-        </node>
-        <node concept="3clFbH" id="6X4eDeO6sW$" role="3cqZAp" />
       </node>
     </node>
     <node concept="2tJIrI" id="74SroTqJscS" role="jymVt" />
