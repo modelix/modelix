@@ -24,6 +24,8 @@ spec:
           value: cloudmps
         - name: POSTGRES_USER
           value: cloudmps
+        - name: POSTGRES_DB
+          value: cloudmps
         - name: PGDATA
           value: /var/lib/postgresql/data/pgdata
         image: eu.gcr.io/cloudmps-250805/webmps-db
