@@ -42,15 +42,14 @@ spec:
             path: /repositoryAsHtml
             port: 33333
           initialDelaySeconds: 10
-          periodSeconds: 30
-          failureThreshold: 60
+          periodSeconds: 5
           timeoutSeconds: 3
         livenessProbe:
           httpGet:
             path: /repositoryAsHtml
             port: 33333
           initialDelaySeconds: 120
-          periodSeconds: 10
-          timeoutSeconds: 3
+          periodSeconds: 20
+          timeoutSeconds: 10
       restartPolicy: Always
 status: {}
