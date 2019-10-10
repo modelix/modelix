@@ -1,3 +1,3 @@
 #!/bin/sh
-
-docker build -f Dockerfile-db -t webmps-db .
+cd db
+docker build -f Dockerfile -t webmps-db .
