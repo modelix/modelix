@@ -2058,6 +2058,13 @@
         </node>
       </node>
     </node>
+    <node concept="312cEg" id="2_7uKZL_C$9" role="jymVt">
+      <property role="TrG5h" value="treeModel" />
+      <node concept="3Tm6S6" id="2_7uKZL_C$a" role="1B3o_S" />
+      <node concept="3uibUv" id="2_7uKZL_$vc" role="1tU5fm">
+        <ref role="3uigEE" to="rgfa:~DefaultTreeModel" resolve="DefaultTreeModel" />
+      </node>
+    </node>
     <node concept="2tJIrI" id="3vsFnFV6eJQ" role="jymVt" />
     <node concept="312cEg" id="6AlUJyrx6h8" role="jymVt">
       <property role="TrG5h" value="repositoryListener" />
@@ -2455,15 +2462,25 @@
                 </node>
               </node>
               <node concept="3clFbS" id="1cRLf1A03eX" role="1bW5cS">
-                <node concept="3clFbF" id="7YhLqbpA$qR" role="3cqZAp">
-                  <node concept="2OqwBi" id="7YhLqbpAUTl" role="3clFbG">
-                    <node concept="2OqwBi" id="7YhLqbpAFwV" role="2Oq$k0">
-                      <node concept="37vLTw" id="1cRLf1A04RF" role="2Oq$k0">
+                <node concept="3clFbF" id="2_7uKZL_BPa" role="3cqZAp">
+                  <node concept="37vLTI" id="2_7uKZL_BPc" role="3clFbG">
+                    <node concept="2OqwBi" id="2_7uKZL_Bk7" role="37vLTx">
+                      <node concept="37vLTw" id="2_7uKZL_Bk8" role="2Oq$k0">
                         <ref role="3cqZAo" node="1cRLf1A03hn" resolve="tree" />
                       </node>
-                      <node concept="liA8E" id="7YhLqbpARxK" role="2OqNvi">
+                      <node concept="liA8E" id="2_7uKZL_Bk9" role="2OqNvi">
                         <ref role="37wK5l" to="7e8u:~MPSTree.getModel()" resolve="getModel" />
                       </node>
+                    </node>
+                    <node concept="37vLTw" id="2_7uKZL_BPg" role="37vLTJ">
+                      <ref role="3cqZAo" node="2_7uKZL_C$9" resolve="treeModel" />
+                    </node>
+                  </node>
+                </node>
+                <node concept="3clFbF" id="7YhLqbpA$qR" role="3cqZAp">
+                  <node concept="2OqwBi" id="7YhLqbpAUTl" role="3clFbG">
+                    <node concept="37vLTw" id="2_7uKZL_IA8" role="2Oq$k0">
+                      <ref role="3cqZAo" node="2_7uKZL_C$9" resolve="treeModel" />
                     </node>
                     <node concept="liA8E" id="7YhLqbpB9HX" role="2OqNvi">
                       <ref role="37wK5l" to="rgfa:~DefaultTreeModel.addTreeModelListener(javax.swing.event.TreeModelListener)" resolve="addTreeModelListener" />
@@ -2716,30 +2733,26 @@
             </node>
           </node>
         </node>
-        <node concept="3clFbF" id="115Xaa41$bG" role="3cqZAp">
-          <node concept="2OqwBi" id="115Xaa41$bH" role="3clFbG">
-            <node concept="2OqwBi" id="115Xaa41$bI" role="2Oq$k0">
-              <node concept="2OqwBi" id="115Xaa41$bJ" role="2Oq$k0">
-                <node concept="liA8E" id="115Xaa41$bK" role="2OqNvi">
-                  <ref role="37wK5l" to="rvbb:~ProjectPane.getTree()" resolve="getTree" />
+        <node concept="3clFbJ" id="2_7uKZL_J6J" role="3cqZAp">
+          <node concept="3clFbS" id="2_7uKZL_J6L" role="3clFbx">
+            <node concept="3clFbF" id="115Xaa41$bG" role="3cqZAp">
+              <node concept="2OqwBi" id="115Xaa41$bH" role="3clFbG">
+                <node concept="37vLTw" id="2_7uKZL_LoQ" role="2Oq$k0">
+                  <ref role="3cqZAo" node="2_7uKZL_C$9" resolve="treeModel" />
                 </node>
-                <node concept="2YIFZM" id="115Xaa41$bL" role="2Oq$k0">
-                  <ref role="1Pybhc" to="rvbb:~ProjectPane" resolve="ProjectPane" />
-                  <ref role="37wK5l" to="rvbb:~ProjectPane.getInstance(jetbrains.mps.project.Project)" resolve="getInstance" />
-                  <node concept="37vLTw" id="115Xaa41$bM" role="37wK5m">
-                    <ref role="3cqZAo" node="115Xaa3Z2NL" resolve="project" />
+                <node concept="liA8E" id="115Xaa41$bO" role="2OqNvi">
+                  <ref role="37wK5l" to="rgfa:~DefaultTreeModel.removeTreeModelListener(javax.swing.event.TreeModelListener)" resolve="removeTreeModelListener" />
+                  <node concept="37vLTw" id="115Xaa41$bP" role="37wK5m">
+                    <ref role="3cqZAo" node="115Xaa41sOA" resolve="treeListener" />
                   </node>
                 </node>
               </node>
-              <node concept="liA8E" id="115Xaa41$bN" role="2OqNvi">
-                <ref role="37wK5l" to="7e8u:~MPSTree.getModel()" resolve="getModel" />
-              </node>
             </node>
-            <node concept="liA8E" id="115Xaa41$bO" role="2OqNvi">
-              <ref role="37wK5l" to="rgfa:~DefaultTreeModel.removeTreeModelListener(javax.swing.event.TreeModelListener)" resolve="removeTreeModelListener" />
-              <node concept="37vLTw" id="115Xaa41$bP" role="37wK5m">
-                <ref role="3cqZAo" node="115Xaa41sOA" resolve="treeListener" />
-              </node>
+          </node>
+          <node concept="3y3z36" id="2_7uKZL_JXv" role="3clFbw">
+            <node concept="10Nm6u" id="2_7uKZL_K91" role="3uHU7w" />
+            <node concept="37vLTw" id="2_7uKZL_Jnw" role="3uHU7B">
+              <ref role="3cqZAo" node="2_7uKZL_C$9" resolve="treeModel" />
             </node>
           </node>
         </node>
