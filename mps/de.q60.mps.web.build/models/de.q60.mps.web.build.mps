@@ -2523,11 +2523,6 @@
             <ref role="3bR37D" to="ffeo:1TaHNgiIbIQ" resolve="MPS.Core" />
           </node>
         </node>
-        <node concept="1SiIV0" id="7gF2HTviO9y" role="3bR37C">
-          <node concept="3bR9La" id="7gF2HTviO9z" role="1SiIV1">
-            <ref role="3bR37D" node="7gF2HTviNPP" resolve="de.q60.mps.web.lib" />
-          </node>
-        </node>
         <node concept="1SiIV0" id="7gF2HTvj1RM" role="3bR37C">
           <node concept="3bR9La" id="7gF2HTvj1RN" role="1SiIV1">
             <property role="3bR36h" value="true" />
@@ -2537,11 +2532,6 @@
         <node concept="1SiIV0" id="7gF2HTvj1RO" role="3bR37C">
           <node concept="3bR9La" id="7gF2HTvj1RP" role="1SiIV1">
             <ref role="3bR37D" to="90a9:6fQhGuklQWU" resolve="de.q60.mps.libs" />
-          </node>
-        </node>
-        <node concept="1SiIV0" id="6TdxBJ4ihVh" role="3bR37C">
-          <node concept="3bR9La" id="6TdxBJ4ihVi" role="1SiIV1">
-            <ref role="3bR37D" to="ffeo:1H905DlDUSw" resolve="MPS.OpenAPI" />
           </node>
         </node>
         <node concept="1SiIV0" id="3$7KuaihlSI" role="3bR37C">
@@ -2798,6 +2788,11 @@
                 </node>
               </node>
             </node>
+          </node>
+        </node>
+        <node concept="1SiIV0" id="2uEMzXf$_LW" role="3bR37C">
+          <node concept="3bR9La" id="2uEMzXf$_LX" role="1SiIV1">
+            <ref role="3bR37D" to="ffeo:7Kfy9QB6KYb" resolve="jetbrains.mps.baseLanguage" />
           </node>
         </node>
       </node>
