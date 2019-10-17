@@ -2491,6 +2491,16 @@
             <ref role="3bR37D" node="5Sw$pxbQPmv" resolve="de.q60.mps.web.jetty" />
           </node>
         </node>
+        <node concept="1SiIV0" id="2TMlwYi2QnU" role="3bR37C">
+          <node concept="3bR9La" id="2TMlwYi2QnV" role="1SiIV1">
+            <ref role="3bR37D" to="ffeo:1H905DlDUSw" resolve="MPS.OpenAPI" />
+          </node>
+        </node>
+        <node concept="1SiIV0" id="2TMlwYi2QnW" role="3bR37C">
+          <node concept="3bR9La" id="2TMlwYi2QnX" role="1SiIV1">
+            <ref role="3bR37D" node="7gF2HTviNPs" resolve="de.q60.mps.web.model.mpsplugin" />
+          </node>
+        </node>
       </node>
     </node>
     <node concept="2G$12M" id="7gF2HTviNPV" role="3989C9">

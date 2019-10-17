@@ -15,6 +15,8 @@
     <dependency reexport="true">fc3c2aa8-0d4b-463f-a774-40d450aa04a0(de.q60.mps.web.jetty)</dependency>
     <dependency reexport="false">eb8d1040-bff5-4126-8949-fdd95ef4c502(de.q60.mps.web.ui.sm.server)</dependency>
     <dependency reexport="false">cceec75f-de6e-4ee7-bd91-29a3a99bfede(de.q60.mps.web.ui.svg)</dependency>
+    <dependency reexport="false">8865b7a8-5271-43d3-884c-6fd1d9cfdd34(MPS.OpenAPI)</dependency>
+    <dependency reexport="false">c5e5433e-201f-43e2-ad14-a6cba8c80cd6(de.q60.mps.web.model.mpsplugin)</dependency>
   </dependencies>
   <languageVersions>
     <language slang="l:654422bf-e75f-44dc-936d-188890a746ce:de.slisson.mps.reflection" version="0" />
@@ -47,6 +49,8 @@
     <module reference="18463265-6d45-4514-82f1-cf7eb1222492(de.q60.mps.polymorphicfunctions.runtime)" version="0" />
     <module reference="e52a4835-844d-46a1-99f8-c06129db796f(de.q60.mps.shadowmodels.runtime)" version="0" />
     <module reference="fc3c2aa8-0d4b-463f-a774-40d450aa04a0(de.q60.mps.web.jetty)" version="0" />
+    <module reference="87f4b21e-a3a5-459e-a54b-408fd9eb7350(de.q60.mps.web.lib)" version="0" />
+    <module reference="c5e5433e-201f-43e2-ad14-a6cba8c80cd6(de.q60.mps.web.model.mpsplugin)" version="0" />
     <module reference="39aab22b-473f-4e44-b037-0c602964897d(de.q60.mps.web.ui.server)" version="0" />
     <module reference="eb8d1040-bff5-4126-8949-fdd95ef4c502(de.q60.mps.web.ui.sm.server)" version="0" />
     <module reference="cceec75f-de6e-4ee7-bd91-29a3a99bfede(de.q60.mps.web.ui.svg)" version="0" />
