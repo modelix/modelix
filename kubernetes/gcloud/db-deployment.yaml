@@ -22,7 +22,7 @@ spec:
       - name: cloudsql-proxy
         image: gcr.io/cloudsql-docker/gce-proxy:1.11
         command: ["/cloud_sql_proxy",
-                  "-instances=cloudmps-250805:europe-west3:cloudmps=tcp:0.0.0.0:5432",
+                  "-instances=webmps:europe-west3:cloudmps=tcp:0.0.0.0:5432",
                   "-credential_file=/secrets/cloudsql/cloudsql.json"]
         securityContext:
           runAsUser: 2  # non-root user
