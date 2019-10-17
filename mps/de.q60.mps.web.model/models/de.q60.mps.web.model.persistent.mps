@@ -5501,13 +5501,13 @@
       <property role="TrG5h" value="longFromHex" />
       <node concept="3clFbS" id="3hOlfOGhNlj" role="3clF47">
         <node concept="3cpWs6" id="3hOlfOGhOyw" role="3cqZAp">
-          <node concept="2YIFZM" id="3hOlfOGhOyy" role="3cqZAk">
+          <node concept="2YIFZM" id="5j3V7E3x9oP" role="3cqZAk">
+            <ref role="37wK5l" to="wyt6:~Long.parseUnsignedLong(java.lang.String,int)" resolve="parseUnsignedLong" />
             <ref role="1Pybhc" to="wyt6:~Long" resolve="Long" />
-            <ref role="37wK5l" to="wyt6:~Long.parseLong(java.lang.String,int)" resolve="parseLong" />
-            <node concept="37vLTw" id="3hOlfOGhOyz" role="37wK5m">
+            <node concept="37vLTw" id="5j3V7E3x9oQ" role="37wK5m">
               <ref role="3cqZAo" node="3hOlfOGhND0" resolve="hex" />
             </node>
-            <node concept="3cmrfG" id="3hOlfOGhOy$" role="37wK5m">
+            <node concept="3cmrfG" id="5j3V7E3x9oR" role="37wK5m">
               <property role="3cmrfH" value="16" />
             </node>
           </node>
@@ -5546,13 +5546,13 @@
       <property role="TrG5h" value="intFromHex" />
       <node concept="3clFbS" id="3hOlfOGhOXh" role="3clF47">
         <node concept="3cpWs6" id="3hOlfOGhOXi" role="3cqZAp">
-          <node concept="2YIFZM" id="3hOlfOGhQ6z" role="3cqZAk">
-            <ref role="37wK5l" to="wyt6:~Integer.parseInt(java.lang.String,int)" resolve="parseInt" />
+          <node concept="2YIFZM" id="5j3V7E3x9n8" role="3cqZAk">
             <ref role="1Pybhc" to="wyt6:~Integer" resolve="Integer" />
-            <node concept="37vLTw" id="3hOlfOGhQ6$" role="37wK5m">
+            <ref role="37wK5l" to="wyt6:~Integer.parseUnsignedInt(java.lang.String,int)" resolve="parseUnsignedInt" />
+            <node concept="37vLTw" id="5j3V7E3x9n9" role="37wK5m">
               <ref role="3cqZAo" node="3hOlfOGhOXm" resolve="hex" />
             </node>
-            <node concept="3cmrfG" id="3hOlfOGhQ6_" role="37wK5m">
+            <node concept="3cmrfG" id="5j3V7E3x9na" role="37wK5m">
               <property role="3cmrfH" value="16" />
             </node>
           </node>
