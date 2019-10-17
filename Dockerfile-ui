@@ -2,8 +2,8 @@ FROM openjdk:11
 WORKDIR /usr/webmps-ui
 EXPOSE 33333
 COPY run-ui-server.sh /usr/webmps-ui
-COPY ui-server/build/ /usr/webmps-ui/ui-server/build/
-COPY build/de.q60.mps.web.rcp/build/artifacts/de.q60.mps.webBranding/ /usr/webmps-ui/build/de.q60.mps.web.rcp/build/artifacts/de.q60.mps.webBranding/
+COPY ui-server/build/libs/ui-server-1.0-SNAPSHOT.jar /usr/webmps-ui/ui-server.jar
+COPY build/de.q60.mps.web.rcp/build/artifacts/de.q60.mps.webBranding/ /usr/webmps-ui/mps/
 COPY healthcheck-ui.sh /usr/webmps-ui/
 HEALTHCHECK CMD /usr/webmps-ui/healthcheck.sh
 CMD ["./run-ui-server.sh"]

@@ -25,6 +25,12 @@ dependencies {
     compile group: 'org.apache.ignite', name: 'ignite-spring', version:'2.7.5'
     compile group: 'org.apache.ignite', name: 'ignite-indexing', version:'2.7.5'
     compile group: 'org.postgresql', name: 'postgresql', version:'42.2.6'
+    
+    compile group: 'org.eclipse.jetty', name: 'jetty-server', version: '9.4.21.v20190926'
+    compile group: 'org.eclipse.jetty.websocket', name: 'websocket-servlet', version: '9.4.21.v20190926'
+	compile group: 'org.eclipse.jetty', name: 'jetty-servlet', version: '9.4.21.v20190926'
+    compile group: 'org.eclipse.jetty.websocket', name: 'websocket-server', version: '9.4.21.v20190926'
+	
 }
 
 task copyLibs(type: Copy) {

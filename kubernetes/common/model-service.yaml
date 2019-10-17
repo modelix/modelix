@@ -9,6 +9,7 @@ metadata:
     io.kompose.service: model
   name: model
 spec:
+  type: NodePort
   ports:
   - name: "28101"
     port: 28101

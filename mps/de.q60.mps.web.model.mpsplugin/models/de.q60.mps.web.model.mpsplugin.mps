@@ -11009,7 +11009,24 @@
                               <node concept="1pGfFk" id="65d3h4j9VH5" role="2ShVmc">
                                 <ref role="37wK5l" to="zf81:~URI.&lt;init&gt;(java.lang.String)" resolve="URI" />
                                 <node concept="Xl_RD" id="65d3h4j9VH6" role="37wK5m">
-                                  <property role="Xl_RC" value="ws://localhost:28101" />
+                                  <property role="Xl_RC" value="ws://localhost:28101/ws" />
+                                </node>
+                              </node>
+                            </node>
+                          </node>
+                        </node>
+                      </node>
+                      <node concept="3clFbF" id="3YsHKmQxauI" role="3cqZAp">
+                        <node concept="2OqwBi" id="3YsHKmQxauJ" role="3clFbG">
+                          <node concept="37vLTw" id="3YsHKmQxauK" role="2Oq$k0">
+                            <ref role="3cqZAo" node="65d3h4j9DWB" resolve="uris" />
+                          </node>
+                          <node concept="TSZUe" id="3YsHKmQxauL" role="2OqNvi">
+                            <node concept="2ShNRf" id="3YsHKmQxauM" role="25WWJ7">
+                              <node concept="1pGfFk" id="3YsHKmQxauN" role="2ShVmc">
+                                <ref role="37wK5l" to="zf81:~URI.&lt;init&gt;(java.lang.String)" resolve="URI" />
+                                <node concept="Xl_RD" id="3YsHKmQxauO" role="37wK5m">
+                                  <property role="Xl_RC" value="ws://model.cloudmps.q60.de:80/ws" />
                                 </node>
                               </node>
                             </node>

@@ -23,7 +23,7 @@ spec:
               value: cloudmps
           image: fenglc/pgadmin4
           imagePullPolicy: IfNotPresent
-          name: model
+          name: pgadmin
           ports:
             - containerPort: 5050
           resources: {}

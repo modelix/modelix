@@ -5,14 +5,11 @@ package de.q60.webmps.server;
 import org.apache.log4j.Level;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
-import org.java_websocket.WebSocket;
-import org.java_websocket.handshake.ClientHandshake;
-import org.java_websocket.server.WebSocketServer;
+import org.eclipse.jetty.websocket.api.RemoteEndpoint;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.net.InetSocketAddress;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -22,19 +19,19 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class ModelServer extends WebSocketServer {
+public class ModelServer {
     private static final Logger LOG = LogManager.getLogger(ModelServer.class);
     private static final Pattern HASH_PATTERN = Pattern.compile("[a-zA-Z0-9\\-_]{43}");
 
     private IStoreClient storeClient;
-    private Map<WebSocket, Session> sessions = new HashMap<WebSocket, Session>();
+    private Map<RemoteEndpoint, Session> sessions = new HashMap<RemoteEndpoint, Session>();
     private Map<String, MessageHandler> messageHandlers = new HashMap<String, MessageHandler>();
     private Set<String> subscribedKeys = new HashSet<String>();
 
     {
         messageHandlers.put("get", new MessageHandler() {
             @Override
-            public void handle(WebSocket conn, JSONObject message) {
+            public void handle(RemoteEndpoint conn, JSONObject message) {
                 String key = message.getString("key");
                 String value = storeClient.get(key);
                 JSONObject reply = new JSONObject();
@@ -46,7 +43,7 @@ public class ModelServer extends WebSocketServer {
         });
         messageHandlers.put("getRecursively", new MessageHandler() {
             @Override
-            public void handle(WebSocket conn, JSONObject message) {
+            public void handle(RemoteEndpoint conn, JSONObject message) {
                 String key = message.getString("key");
 
                 JSONObject reply = new JSONObject();
@@ -94,7 +91,7 @@ public class ModelServer extends WebSocketServer {
         });
         messageHandlers.put("put", new MessageHandler() {
             @Override
-            public void handle(WebSocket conn, JSONObject message) {
+            public void handle(RemoteEndpoint conn, JSONObject message) {
                 String key = message.getString("key");
                 String value = message.getString("value");
                 storeClient.put(key, value);
@@ -109,7 +106,7 @@ public class ModelServer extends WebSocketServer {
                         if (!(session.isSubscribed(key))) {
                             continue;
                         }
-                        WebSocket c = session.getConnection();
+                        RemoteEndpoint c = session.getConnection();
                         if (c == conn) {
                             continue;
                         }
@@ -121,7 +118,7 @@ public class ModelServer extends WebSocketServer {
         });
         messageHandlers.put("subscribe", new MessageHandler() {
             @Override
-            public void handle(WebSocket conn, JSONObject message) {
+            public void handle(RemoteEndpoint conn, JSONObject message) {
                 String key = message.getString("key");
                 subscribedKeys.add(key);
                 sessions.get(conn).subscribe(key);
@@ -129,7 +126,7 @@ public class ModelServer extends WebSocketServer {
         });
         messageHandlers.put("counter", new MessageHandler() {
             @Override
-            public void handle(WebSocket conn, JSONObject message) {
+            public void handle(RemoteEndpoint conn, JSONObject message) {
                 String key = message.getString("key");
                 long value = storeClient.generateId(key);
                 JSONObject reply = new JSONObject();
@@ -141,8 +138,7 @@ public class ModelServer extends WebSocketServer {
         });
     }
 
-    public ModelServer(InetSocketAddress bindTo, IStoreClient storeClient) {
-        super(bindTo);
+    public ModelServer(IStoreClient storeClient) {
         this.storeClient = storeClient;
     }
 
@@ -152,29 +148,29 @@ public class ModelServer extends WebSocketServer {
         }
     }
 
-    @Override
-    public void onOpen(WebSocket conn, ClientHandshake handshake) {
+    public void onOpen(RemoteEndpoint conn) {
         sessions.put(conn, new Session(conn));
     }
 
-    @Override
-    public void onClose(WebSocket conn, int code, String reason, boolean remote) {
+    public void onClose(RemoteEndpoint conn, int code, String reason, boolean remote) {
         sessions.remove(conn).dispose();
     }
 
-    @Override
-    public void onMessage(WebSocket conn, String message) {
+    public void onMessage(RemoteEndpoint conn, String message) {
         //System.out.println(sessions.get(conn).getId() + " R " + message);
         processMessage(conn, new JSONObject(message));
     }
 
-    private void send(WebSocket conn, String message) {
+    private void send(RemoteEndpoint conn, String message) {
         //System.out.println(sessions.get(conn).getId() + " S " + message);
-        conn.send(message);
+        try {
+            conn.sendString(message);
+        } catch (IOException ex) {
+            LOG.error("Failed to send message: " + message, ex);
+        }
     }
 
-    @Override
-    public void onError(WebSocket conn, Exception exception) {
+    public void onError(RemoteEndpoint conn, Throwable exception) {
         System.out.println("Error " + exception.getMessage());
         exception.printStackTrace();
         if (LOG.isEnabledFor(Level.ERROR)) {
@@ -182,30 +178,22 @@ public class ModelServer extends WebSocketServer {
         }
     }
 
-    @Override
     public void onStart() {
     }
 
-    @Override
     public void stop() {
         try {
-            super.stop();
             for (Session session : sessions.values()) {
                 session.dispose();
-
             }
-        } catch (InterruptedException ex) {
-            if (LOG.isEnabledFor(Level.ERROR)) {
-                LOG.error("", ex);
-            }
-        } catch (IOException ex) {
+        } catch (Exception ex) {
             if (LOG.isEnabledFor(Level.ERROR)) {
                 LOG.error("", ex);
             }
         }
     }
 
-    public void processMessage(WebSocket conn, JSONObject message) {
+    public void processMessage(RemoteEndpoint conn, JSONObject message) {
         String type = message.getString("type");
         MessageHandler handler = messageHandlers.get(type);
         if (handler != null) {
