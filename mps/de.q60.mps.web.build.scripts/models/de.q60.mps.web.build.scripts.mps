@@ -244,35 +244,6 @@
           </node>
         </node>
       </node>
-      <node concept="1E1JtA" id="1_iojA27Ifr" role="2G$12L">
-        <property role="BnDLt" value="true" />
-        <property role="TrG5h" value="de.q60.mps.web.build.rcp" />
-        <property role="3LESm3" value="5dce5e49-c451-4a17-8147-03cbb37722c3" />
-        <node concept="398BVA" id="3$7KuaihD9t" role="3LF7KH">
-          <ref role="398BVh" node="3$7Kuaihl5X" resolve="webmps.modules" />
-          <node concept="2Ry0Ak" id="3$7KuaihD9x" role="iGT6I">
-            <property role="2Ry0Am" value="de.q60.mps.web.build.rcp" />
-            <node concept="2Ry0Ak" id="3$7KuaihD9y" role="2Ry0An">
-              <property role="2Ry0Am" value="de.q60.mps.web.build.rcp.msd" />
-            </node>
-          </node>
-        </node>
-        <node concept="1SiIV0" id="1_iojA27IfX" role="3bR37C">
-          <node concept="3bR9La" id="1_iojA27IfY" role="1SiIV1">
-            <ref role="3bR37D" to="90a9:PE3B26VOkn" resolve="de.itemis.mps.extensions.build" />
-          </node>
-        </node>
-        <node concept="1SiIV0" id="1_iojA27IfZ" role="3bR37C">
-          <node concept="3bR9La" id="1_iojA27Ig0" role="1SiIV1">
-            <ref role="3bR37D" to="ffeo:78GwwOvB3tw" resolve="jetbrains.mps.ide.build" />
-          </node>
-        </node>
-        <node concept="1SiIV0" id="1_iojA27Ig1" role="3bR37C">
-          <node concept="3bR9La" id="1_iojA27Ig2" role="1SiIV1">
-            <ref role="3bR37D" node="4jf43pv7ee4" resolve="de.q60.mps.web.build" />
-          </node>
-        </node>
-      </node>
     </node>
   </node>
 </model>

@@ -6,18 +6,22 @@ echo "Pushing tag ${TAG}"
 
 docker tag webmps-db "eu.gcr.io/webmps/webmps-db:${TAG}"
 docker tag webmps-model "eu.gcr.io/webmps/webmps-model:${TAG}"
+docker tag webmps-ui "eu.gcr.io/webmps/webmps-mps:${TAG}"
 docker tag webmps-ui "eu.gcr.io/webmps/webmps-ui:${TAG}"
 
 docker push "eu.gcr.io/webmps/webmps-db:${TAG}"
 docker push "eu.gcr.io/webmps/webmps-model:${TAG}"
+docker push "eu.gcr.io/webmps/webmps-mps:${TAG}"
 docker push "eu.gcr.io/webmps/webmps-ui:${TAG}"
 
 docker tag webmps-db "eu.gcr.io/webmps/webmps-db:latest"
 docker tag webmps-model "eu.gcr.io/webmps/webmps-model:latest"
+docker tag webmps-ui "eu.gcr.io/webmps/webmps-mps:latest"
 docker tag webmps-ui "eu.gcr.io/webmps/webmps-ui:latest"
 
 docker push "eu.gcr.io/webmps/webmps-db:latest"
 docker push "eu.gcr.io/webmps/webmps-model:latest"
+docker push "eu.gcr.io/webmps/webmps-mps:latest"
 docker push "eu.gcr.io/webmps/webmps-ui:latest"
 
 echo "Pushed tag ${TAG}"

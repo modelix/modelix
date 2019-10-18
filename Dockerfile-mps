@@ -1,0 +1,3 @@
+FROM openjdk:11
+WORKDIR /usr/webmps-ui
+COPY artifacts/mps/ /usr/webmps-ui/mps/

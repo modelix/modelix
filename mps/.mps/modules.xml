@@ -2,7 +2,6 @@
 <project version="4">
   <component name="MPSProject">
     <projectModules>
-      <modulePath path="$PROJECT_DIR$/de.q60.mps.web.build.rcp/de.q60.mps.web.build.rcp.msd" folder="build" />
       <modulePath path="$PROJECT_DIR$/de.q60.mps.web.build.scripts/de.q60.mps.web.build.scripts.msd" folder="build" />
       <modulePath path="$PROJECT_DIR$/de.q60.mps.web.build/de.q60.mps.web.build.msd" folder="build" />
       <modulePath path="$PROJECT_DIR$/de.q60.mps.web.jetty/de.q60.mps.web.jetty.msd" folder="common" />

@@ -154,27 +154,10 @@ task build_languages(type: BuildLanguages, dependsOn: [allScripts, resolveMps, r
     script new File("$rootDir/build/de.q60.mps.web/build.xml")
 }
 
-
-
-task build_rcp_branding(type: BuildLanguages, dependsOn: [allScripts, resolveMps, resolveMpsArtifacts, build_languages]) {
-    scriptArgs = defaultScriptArgs
-    description = "Build RCP Branding"
-    scriptClasspath = buildScriptClasspath
-    script new File("$rootDir/build/de.q60.mps.web.rcp/build-branding.xml")
-}
-
-task build_rcp(type: RunAntScript, dependsOn: [build_rcp_branding]) {
-    scriptArgs = defaultScriptArgs
-    description = "Build RCP Distribution"
-    scriptClasspath = buildScriptClasspath
-    script new File("$rootDir/build/de.q60.mps.web.rcp/build-distribution.xml")
-    targets 'clean', 'assemble'
-}
-
 task run_tests(type: TestLanguages, dependsOn: build_languages) {
     scriptArgs = defaultScriptArgs
     scriptClasspath = buildScriptClasspath
     script new File("$rootDir/mps/build-tests.xml")
 }
 
-task('assemble').dependsOn(build_rcp_branding)
+task('assemble').dependsOn(build_languages)
