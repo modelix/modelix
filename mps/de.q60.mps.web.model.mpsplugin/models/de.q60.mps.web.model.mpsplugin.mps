@@ -61,15 +61,19 @@
     <import index="tpck" ref="r:00000000-0000-4000-0000-011c89590288(jetbrains.mps.lang.core.structure)" />
     <import index="zf81" ref="6354ebe7-c22a-4a0f-ac54-50b52ab9b065/java:java.net(JDK/)" />
     <import index="ffp0" ref="87f4b21e-a3a5-459e-a54b-408fd9eb7350/java:org.java_websocket(de.q60.mps.web.lib/)" />
-    <import index="mxf6" ref="87f4b21e-a3a5-459e-a54b-408fd9eb7350/java:org.json(de.q60.mps.shadowmodels.web.lib/)" />
+    <import index="mxf6" ref="87f4b21e-a3a5-459e-a54b-408fd9eb7350/java:org.json(de.q60.mps.web.lib/)" />
     <import index="3o3z" ref="ecfb9949-7433-4db5-85de-0f84d172e4ce/java:com.google.common.collect(de.q60.mps.libs/)" />
-    <import index="p2o5" ref="87f4b21e-a3a5-459e-a54b-408fd9eb7350/java:org.java_websocket.client(de.q60.mps.shadowmodels.web.lib/)" />
+    <import index="p2o5" ref="87f4b21e-a3a5-459e-a54b-408fd9eb7350/java:org.java_websocket.client(de.q60.mps.web.lib/)" />
     <import index="bge5" ref="87f4b21e-a3a5-459e-a54b-408fd9eb7350/java:org.java_websocket.handshake(de.q60.mps.web.lib/)" />
     <import index="3a50" ref="742f6602-5a2f-4313-aa6e-ae1cd4ffdc61/java:jetbrains.mps.ide(MPS.Platform/)" />
     <import index="zdal" ref="r:88aa2c17-3990-45f2-9b79-06884112d260(de.q60.mps.web.model)" />
     <import index="ydze" ref="r:c65aa0cf-b22b-4cca-bd88-3210b1c2f55f(de.q60.mps.web.model.operations)" />
+    <import index="guwi" ref="6354ebe7-c22a-4a0f-ac54-50b52ab9b065/java:java.io(JDK/)" />
+    <import index="82uw" ref="6354ebe7-c22a-4a0f-ac54-50b52ab9b065/java:java.util.function(JDK/)" />
+    <import index="5zyv" ref="6354ebe7-c22a-4a0f-ac54-50b52ab9b065/java:java.util.concurrent(JDK/)" />
+    <import index="6k0i" ref="87f4b21e-a3a5-459e-a54b-408fd9eb7350/java:javax.ws.rs.sse(de.q60.mps.web.lib/)" />
+    <import index="g1y6" ref="87f4b21e-a3a5-459e-a54b-408fd9eb7350/java:javax.ws.rs.client(de.q60.mps.web.lib/)" />
     <import index="3d38" ref="r:bc160b50-5a4e-4f99-ba07-a7b7116dab7a(de.q60.mps.incremental.util)" implicit="true" />
-    <import index="guwi" ref="6354ebe7-c22a-4a0f-ac54-50b52ab9b065/java:java.io(JDK/)" implicit="true" />
   </imports>
   <registry>
     <language id="f3061a53-9226-4cc5-a443-f952ceaf5816" name="jetbrains.mps.baseLanguage">
@@ -316,6 +320,7 @@
       <concept id="1080120340718" name="jetbrains.mps.baseLanguage.structure.AndExpression" flags="nn" index="1Wc70l" />
       <concept id="1170345865475" name="jetbrains.mps.baseLanguage.structure.AnonymousClass" flags="ig" index="1Y3b0j">
         <reference id="1170346070688" name="classifier" index="1Y3XeK" />
+        <child id="1201186121363" name="typeParameter" index="2Ghqu4" />
       </concept>
       <concept id="320030840061144153" name="jetbrains.mps.baseLanguage.structure.ShiftRightUnsignedExpression" flags="nn" index="1ZsPo3" />
     </language>
@@ -11702,7 +11707,161 @@
     <node concept="3clFbW" id="5nE7Pe9bvhv" role="jymVt">
       <node concept="3cqZAl" id="5nE7Pe9bvhw" role="3clF45" />
       <node concept="3Tm1VV" id="5nE7Pe9bvhx" role="1B3o_S" />
-      <node concept="3clFbS" id="5nE7Pe9bvhz" role="3clF47" />
+      <node concept="3clFbS" id="5nE7Pe9bvhz" role="3clF47">
+        <node concept="3cpWs8" id="2hzhj5zzjKu" role="3cqZAp">
+          <node concept="3cpWsn" id="2hzhj5zzjKv" role="3cpWs9">
+            <property role="TrG5h" value="client" />
+            <node concept="3uibUv" id="2hzhj5zzjGM" role="1tU5fm">
+              <ref role="3uigEE" to="g1y6:~Client" resolve="Client" />
+            </node>
+            <node concept="2YIFZM" id="2hzhj5zzjKw" role="33vP2m">
+              <ref role="37wK5l" to="g1y6:~ClientBuilder.newClient()" resolve="newClient" />
+              <ref role="1Pybhc" to="g1y6:~ClientBuilder" resolve="ClientBuilder" />
+            </node>
+          </node>
+        </node>
+        <node concept="3cpWs8" id="2hzhj5zzpLm" role="3cqZAp">
+          <node concept="3cpWsn" id="2hzhj5zzpLn" role="3cpWs9">
+            <property role="TrG5h" value="target" />
+            <node concept="3uibUv" id="2hzhj5zzpGS" role="1tU5fm">
+              <ref role="3uigEE" to="g1y6:~WebTarget" resolve="WebTarget" />
+            </node>
+            <node concept="2OqwBi" id="2hzhj5zzpLo" role="33vP2m">
+              <node concept="37vLTw" id="2hzhj5zzpLp" role="2Oq$k0">
+                <ref role="3cqZAo" node="2hzhj5zzjKv" resolve="client" />
+              </node>
+              <node concept="liA8E" id="2hzhj5zzpLq" role="2OqNvi">
+                <ref role="37wK5l" to="g1y6:~Client.target(java.lang.String)" resolve="target" />
+                <node concept="Xl_RD" id="2hzhj5zzpLr" role="37wK5m">
+                  <property role="Xl_RC" value="http://localhost:28101/sse" />
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="3cpWs8" id="2hzhj5zz$EB" role="3cqZAp">
+          <node concept="3cpWsn" id="2hzhj5zz$EC" role="3cpWs9">
+            <property role="TrG5h" value="sse" />
+            <node concept="3uibUv" id="2hzhj5zz$AE" role="1tU5fm">
+              <ref role="3uigEE" to="6k0i:~SseEventSource" resolve="SseEventSource" />
+            </node>
+            <node concept="2OqwBi" id="2hzhj5zz$ED" role="33vP2m">
+              <node concept="2OqwBi" id="2hzhj5zz$EE" role="2Oq$k0">
+                <node concept="2YIFZM" id="2hzhj5zz$EF" role="2Oq$k0">
+                  <ref role="37wK5l" to="6k0i:~SseEventSource.target(javax.ws.rs.client.WebTarget)" resolve="target" />
+                  <ref role="1Pybhc" to="6k0i:~SseEventSource" resolve="SseEventSource" />
+                  <node concept="37vLTw" id="2hzhj5zz$EG" role="37wK5m">
+                    <ref role="3cqZAo" node="2hzhj5zzpLn" resolve="target" />
+                  </node>
+                </node>
+                <node concept="liA8E" id="2hzhj5zz$EH" role="2OqNvi">
+                  <ref role="37wK5l" to="6k0i:~SseEventSource$Builder.reconnectingEvery(long,java.util.concurrent.TimeUnit)" resolve="reconnectingEvery" />
+                  <node concept="3cmrfG" id="2hzhj5zz$EI" role="37wK5m">
+                    <property role="3cmrfH" value="10" />
+                  </node>
+                  <node concept="Rm8GO" id="2hzhj5zz$EJ" role="37wK5m">
+                    <ref role="Rm8GQ" to="5zyv:~TimeUnit.SECONDS" resolve="SECONDS" />
+                    <ref role="1Px2BO" to="5zyv:~TimeUnit" resolve="TimeUnit" />
+                  </node>
+                </node>
+              </node>
+              <node concept="liA8E" id="2hzhj5zz$EK" role="2OqNvi">
+                <ref role="37wK5l" to="6k0i:~SseEventSource$Builder.build()" resolve="build" />
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="3clFbF" id="2hzhj5zzrBl" role="3cqZAp">
+          <node concept="2OqwBi" id="2hzhj5zzs5c" role="3clFbG">
+            <node concept="37vLTw" id="2hzhj5zz_t2" role="2Oq$k0">
+              <ref role="3cqZAo" node="2hzhj5zz$EC" resolve="sse" />
+            </node>
+            <node concept="liA8E" id="2hzhj5zz_ZB" role="2OqNvi">
+              <ref role="37wK5l" to="6k0i:~SseEventSource.register(java.util.function.Consumer)" resolve="register" />
+              <node concept="2ShNRf" id="2hzhj5zzAqa" role="37wK5m">
+                <node concept="YeOm9" id="2hzhj5z$37e" role="2ShVmc">
+                  <node concept="1Y3b0j" id="2hzhj5z$37h" role="YeSDq">
+                    <property role="2bfB8j" value="true" />
+                    <ref role="1Y3XeK" to="82uw:~Consumer" resolve="Consumer" />
+                    <ref role="37wK5l" to="wyt6:~Object.&lt;init&gt;()" resolve="Object" />
+                    <node concept="3Tm1VV" id="2hzhj5z$37i" role="1B3o_S" />
+                    <node concept="3clFb_" id="2hzhj5z$37o" role="jymVt">
+                      <property role="TrG5h" value="accept" />
+                      <node concept="3Tm1VV" id="2hzhj5z$37p" role="1B3o_S" />
+                      <node concept="3cqZAl" id="2hzhj5z$37r" role="3clF45" />
+                      <node concept="37vLTG" id="2hzhj5z$37s" role="3clF46">
+                        <property role="TrG5h" value="event" />
+                        <node concept="3uibUv" id="2hzhj5z$37A" role="1tU5fm">
+                          <ref role="3uigEE" to="6k0i:~InboundSseEvent" resolve="InboundSseEvent" />
+                        </node>
+                      </node>
+                      <node concept="3clFbS" id="2hzhj5z$37u" role="3clF47">
+                        <node concept="3clFbF" id="2hzhj5z$ad0" role="3cqZAp">
+                          <node concept="2OqwBi" id="2hzhj5z$acX" role="3clFbG">
+                            <node concept="10M0yZ" id="2hzhj5z$acY" role="2Oq$k0">
+                              <ref role="3cqZAo" to="wyt6:~System.out" resolve="out" />
+                              <ref role="1PxDUh" to="wyt6:~System" resolve="System" />
+                            </node>
+                            <node concept="liA8E" id="2hzhj5z$acZ" role="2OqNvi">
+                              <ref role="37wK5l" to="guwi:~PrintStream.println(java.lang.String)" resolve="println" />
+                              <node concept="3cpWs3" id="2hzhj5z$g7j" role="37wK5m">
+                                <node concept="2OqwBi" id="2hzhj5z$ikw" role="3uHU7w">
+                                  <node concept="37vLTw" id="2hzhj5z$h0X" role="2Oq$k0">
+                                    <ref role="3cqZAo" node="2hzhj5z$37s" resolve="event" />
+                                  </node>
+                                  <node concept="liA8E" id="2hzhj5zAhYK" role="2OqNvi">
+                                    <ref role="37wK5l" to="6k0i:~InboundSseEvent.readData()" resolve="readData" />
+                                  </node>
+                                </node>
+                                <node concept="3cpWs3" id="2hzhj5z$eMB" role="3uHU7B">
+                                  <node concept="3cpWs3" id="2hzhj5z$dhW" role="3uHU7B">
+                                    <node concept="Xl_RD" id="2hzhj5z$bos" role="3uHU7B">
+                                      <property role="Xl_RC" value="Received event " />
+                                    </node>
+                                    <node concept="2OqwBi" id="2hzhj5z$egk" role="3uHU7w">
+                                      <node concept="37vLTw" id="2hzhj5z$egl" role="2Oq$k0">
+                                        <ref role="3cqZAo" node="2hzhj5z$37s" resolve="event" />
+                                      </node>
+                                      <node concept="liA8E" id="2hzhj5z$egm" role="2OqNvi">
+                                        <ref role="37wK5l" to="6k0i:~SseEvent.getName()" resolve="getName" />
+                                      </node>
+                                    </node>
+                                  </node>
+                                  <node concept="Xl_RD" id="2hzhj5z$fG0" role="3uHU7w">
+                                    <property role="Xl_RC" value=": " />
+                                  </node>
+                                </node>
+                              </node>
+                            </node>
+                          </node>
+                        </node>
+                      </node>
+                      <node concept="2AHcQZ" id="2hzhj5z$37w" role="2AJF6D">
+                        <ref role="2AI5Lk" to="wyt6:~Override" resolve="Override" />
+                      </node>
+                    </node>
+                    <node concept="3uibUv" id="2hzhj5z$37_" role="2Ghqu4">
+                      <ref role="3uigEE" to="6k0i:~InboundSseEvent" resolve="InboundSseEvent" />
+                    </node>
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="3clFbF" id="2hzhj5z$QoA" role="3cqZAp">
+          <node concept="2OqwBi" id="2hzhj5z$QWJ" role="3clFbG">
+            <node concept="37vLTw" id="2hzhj5z$Qo$" role="2Oq$k0">
+              <ref role="3cqZAo" node="2hzhj5zz$EC" resolve="sse" />
+            </node>
+            <node concept="liA8E" id="2hzhj5z$RBJ" role="2OqNvi">
+              <ref role="37wK5l" to="6k0i:~SseEventSource.open()" resolve="open" />
+            </node>
+          </node>
+        </node>
+        <node concept="3clFbH" id="2hzhj5z_gbR" role="3cqZAp" />
+        <node concept="3clFbH" id="2hzhj5zA87P" role="3cqZAp" />
+      </node>
     </node>
     <node concept="2tJIrI" id="2D0HTQgYgpH" role="jymVt" />
     <node concept="3clFb_" id="2D0HTQgYiNb" role="jymVt">
