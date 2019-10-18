@@ -223,6 +223,17 @@
                 </node>
               </node>
             </node>
+            <node concept="2HvfSZ" id="5a2LedGLbYb" role="39821P">
+              <node concept="398BVA" id="5a2LedGLbYc" role="2HvfZ0">
+                <ref role="398BVh" node="3$7Kuaihl5X" resolve="webmps.modules" />
+                <node concept="2Ry0Ak" id="5a2LedGLbYd" role="iGT6I">
+                  <property role="2Ry0Am" value="de.q60.mps.web.jersey" />
+                  <node concept="2Ry0Ak" id="5a2LedGLbYe" role="2Ry0An">
+                    <property role="2Ry0Am" value="lib" />
+                  </node>
+                </node>
+              </node>
+            </node>
           </node>
         </node>
         <node concept="m$_wl" id="7gF2HTvk5j6" role="39821P">
@@ -338,6 +349,9 @@
       <node concept="m$_yC" id="7gF2HTvj5eJ" role="m$_yJ">
         <ref role="m$_y1" node="7gF2HTvj4WE" resolve="de.q60.mps.web.common" />
       </node>
+      <node concept="m$_yC" id="5a2LedGLgE6" role="m$_yJ">
+        <ref role="m$_y1" node="7gF2HTviNPW" resolve="de.q60.mps.web.model" />
+      </node>
     </node>
     <node concept="m$_wf" id="7gF2HTviNPW" role="3989C9">
       <property role="m$_wk" value="de.q60.mps.web.model" />
@@ -447,6 +461,329 @@
                   <property role="2Ry0Am" value="lib" />
                   <node concept="2Ry0Ak" id="5Sw$pxbROXE" role="2Ry0An">
                     <property role="2Ry0Am" value="java_websocket.jar" />
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+      </node>
+      <node concept="1E1JtA" id="5a2LedGL7Zb" role="2G$12L">
+        <property role="BnDLt" value="true" />
+        <property role="TrG5h" value="de.q60.mps.web.jersey" />
+        <property role="3LESm3" value="c740997f-28c0-47e8-9b5a-e87dfdb17a21" />
+        <node concept="398BVA" id="5a2LedGL7Zc" role="3LF7KH">
+          <ref role="398BVh" node="3$7Kuaihl5X" resolve="webmps.modules" />
+          <node concept="2Ry0Ak" id="5a2LedGL7Zd" role="iGT6I">
+            <property role="2Ry0Am" value="de.q60.mps.web.jersey" />
+            <node concept="2Ry0Ak" id="5a2LedGLa4q" role="2Ry0An">
+              <property role="2Ry0Am" value="de.q60.mps.web.jersey.msd" />
+            </node>
+          </node>
+        </node>
+        <node concept="1SiIV0" id="5a2LedGL7Zf" role="3bR37C">
+          <node concept="3bR9La" id="5a2LedGL7Zg" role="1SiIV1">
+            <ref role="3bR37D" to="ffeo:mXGwHwhVPj" resolve="JDK" />
+          </node>
+        </node>
+        <node concept="1SiIV0" id="5a2LedGLaCf" role="3bR37C">
+          <node concept="1BurEX" id="5a2LedGLaCg" role="1SiIV1">
+            <node concept="398BVA" id="5a2LedGLaC6" role="1BurEY">
+              <ref role="398BVh" node="3$7Kuaihl5X" resolve="webmps.modules" />
+              <node concept="2Ry0Ak" id="5a2LedGLaC7" role="iGT6I">
+                <property role="2Ry0Am" value="de.q60.mps.web.jersey" />
+                <node concept="2Ry0Ak" id="5a2LedGLaC8" role="2Ry0An">
+                  <property role="2Ry0Am" value="lib" />
+                  <node concept="2Ry0Ak" id="5a2LedGLaC9" role="2Ry0An">
+                    <property role="2Ry0Am" value="jakarta.activation-1.2.1.jar" />
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="1SiIV0" id="5a2LedGLaCq" role="3bR37C">
+          <node concept="1BurEX" id="5a2LedGLaCr" role="1SiIV1">
+            <node concept="398BVA" id="5a2LedGLaCh" role="1BurEY">
+              <ref role="398BVh" node="3$7Kuaihl5X" resolve="webmps.modules" />
+              <node concept="2Ry0Ak" id="5a2LedGLaCi" role="iGT6I">
+                <property role="2Ry0Am" value="de.q60.mps.web.jersey" />
+                <node concept="2Ry0Ak" id="5a2LedGLaCj" role="2Ry0An">
+                  <property role="2Ry0Am" value="lib" />
+                  <node concept="2Ry0Ak" id="5a2LedGLaCk" role="2Ry0An">
+                    <property role="2Ry0Am" value="jakarta.activation-api-1.2.1.jar" />
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="1SiIV0" id="5a2LedGLaC_" role="3bR37C">
+          <node concept="1BurEX" id="5a2LedGLaCA" role="1SiIV1">
+            <node concept="398BVA" id="5a2LedGLaCs" role="1BurEY">
+              <ref role="398BVh" node="3$7Kuaihl5X" resolve="webmps.modules" />
+              <node concept="2Ry0Ak" id="5a2LedGLaCt" role="iGT6I">
+                <property role="2Ry0Am" value="de.q60.mps.web.jersey" />
+                <node concept="2Ry0Ak" id="5a2LedGLaCu" role="2Ry0An">
+                  <property role="2Ry0Am" value="lib" />
+                  <node concept="2Ry0Ak" id="5a2LedGLaCv" role="2Ry0An">
+                    <property role="2Ry0Am" value="jakarta.annotation-api-1.3.5.jar" />
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="1SiIV0" id="5a2LedGLaCK" role="3bR37C">
+          <node concept="1BurEX" id="5a2LedGLaCL" role="1SiIV1">
+            <node concept="398BVA" id="5a2LedGLaCB" role="1BurEY">
+              <ref role="398BVh" node="3$7Kuaihl5X" resolve="webmps.modules" />
+              <node concept="2Ry0Ak" id="5a2LedGLaCC" role="iGT6I">
+                <property role="2Ry0Am" value="de.q60.mps.web.jersey" />
+                <node concept="2Ry0Ak" id="5a2LedGLaCD" role="2Ry0An">
+                  <property role="2Ry0Am" value="lib" />
+                  <node concept="2Ry0Ak" id="5a2LedGLaCE" role="2Ry0An">
+                    <property role="2Ry0Am" value="jakarta.inject-2.6.1.jar" />
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="1SiIV0" id="5a2LedGLaCV" role="3bR37C">
+          <node concept="1BurEX" id="5a2LedGLaCW" role="1SiIV1">
+            <node concept="398BVA" id="5a2LedGLaCM" role="1BurEY">
+              <ref role="398BVh" node="3$7Kuaihl5X" resolve="webmps.modules" />
+              <node concept="2Ry0Ak" id="5a2LedGLaCN" role="iGT6I">
+                <property role="2Ry0Am" value="de.q60.mps.web.jersey" />
+                <node concept="2Ry0Ak" id="5a2LedGLaCO" role="2Ry0An">
+                  <property role="2Ry0Am" value="lib" />
+                  <node concept="2Ry0Ak" id="5a2LedGLaCP" role="2Ry0An">
+                    <property role="2Ry0Am" value="jakarta.validation-api-2.0.2.jar" />
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="1SiIV0" id="5a2LedGLaD6" role="3bR37C">
+          <node concept="1BurEX" id="5a2LedGLaD7" role="1SiIV1">
+            <node concept="398BVA" id="5a2LedGLaCX" role="1BurEY">
+              <ref role="398BVh" node="3$7Kuaihl5X" resolve="webmps.modules" />
+              <node concept="2Ry0Ak" id="5a2LedGLaCY" role="iGT6I">
+                <property role="2Ry0Am" value="de.q60.mps.web.jersey" />
+                <node concept="2Ry0Ak" id="5a2LedGLaCZ" role="2Ry0An">
+                  <property role="2Ry0Am" value="lib" />
+                  <node concept="2Ry0Ak" id="5a2LedGLaD0" role="2Ry0An">
+                    <property role="2Ry0Am" value="jakarta.ws.rs-api-2.1.6.jar" />
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="1SiIV0" id="5a2LedGLaDh" role="3bR37C">
+          <node concept="1BurEX" id="5a2LedGLaDi" role="1SiIV1">
+            <node concept="398BVA" id="5a2LedGLaD8" role="1BurEY">
+              <ref role="398BVh" node="3$7Kuaihl5X" resolve="webmps.modules" />
+              <node concept="2Ry0Ak" id="5a2LedGLaD9" role="iGT6I">
+                <property role="2Ry0Am" value="de.q60.mps.web.jersey" />
+                <node concept="2Ry0Ak" id="5a2LedGLaDa" role="2Ry0An">
+                  <property role="2Ry0Am" value="lib" />
+                  <node concept="2Ry0Ak" id="5a2LedGLaDb" role="2Ry0An">
+                    <property role="2Ry0Am" value="jakarta.xml.bind-api-2.3.2.jar" />
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="1SiIV0" id="5a2LedGLaDs" role="3bR37C">
+          <node concept="1BurEX" id="5a2LedGLaDt" role="1SiIV1">
+            <node concept="398BVA" id="5a2LedGLaDj" role="1BurEY">
+              <ref role="398BVh" node="3$7Kuaihl5X" resolve="webmps.modules" />
+              <node concept="2Ry0Ak" id="5a2LedGLaDk" role="iGT6I">
+                <property role="2Ry0Am" value="de.q60.mps.web.jersey" />
+                <node concept="2Ry0Ak" id="5a2LedGLaDl" role="2Ry0An">
+                  <property role="2Ry0Am" value="lib" />
+                  <node concept="2Ry0Ak" id="5a2LedGLaDm" role="2Ry0An">
+                    <property role="2Ry0Am" value="jersey-client-2.29.1.jar" />
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="1SiIV0" id="5a2LedGLaDB" role="3bR37C">
+          <node concept="1BurEX" id="5a2LedGLaDC" role="1SiIV1">
+            <node concept="398BVA" id="5a2LedGLaDu" role="1BurEY">
+              <ref role="398BVh" node="3$7Kuaihl5X" resolve="webmps.modules" />
+              <node concept="2Ry0Ak" id="5a2LedGLaDv" role="iGT6I">
+                <property role="2Ry0Am" value="de.q60.mps.web.jersey" />
+                <node concept="2Ry0Ak" id="5a2LedGLaDw" role="2Ry0An">
+                  <property role="2Ry0Am" value="lib" />
+                  <node concept="2Ry0Ak" id="5a2LedGLaDx" role="2Ry0An">
+                    <property role="2Ry0Am" value="jersey-common-2.29.1.jar" />
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="1SiIV0" id="5a2LedGLaDM" role="3bR37C">
+          <node concept="1BurEX" id="5a2LedGLaDN" role="1SiIV1">
+            <node concept="398BVA" id="5a2LedGLaDD" role="1BurEY">
+              <ref role="398BVh" node="3$7Kuaihl5X" resolve="webmps.modules" />
+              <node concept="2Ry0Ak" id="5a2LedGLaDE" role="iGT6I">
+                <property role="2Ry0Am" value="de.q60.mps.web.jersey" />
+                <node concept="2Ry0Ak" id="5a2LedGLaDF" role="2Ry0An">
+                  <property role="2Ry0Am" value="lib" />
+                  <node concept="2Ry0Ak" id="5a2LedGLaDG" role="2Ry0An">
+                    <property role="2Ry0Am" value="jersey-media-jaxb-2.29.1.jar" />
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="1SiIV0" id="5a2LedGLaDX" role="3bR37C">
+          <node concept="1BurEX" id="5a2LedGLaDY" role="1SiIV1">
+            <node concept="398BVA" id="5a2LedGLaDO" role="1BurEY">
+              <ref role="398BVh" node="3$7Kuaihl5X" resolve="webmps.modules" />
+              <node concept="2Ry0Ak" id="5a2LedGLaDP" role="iGT6I">
+                <property role="2Ry0Am" value="de.q60.mps.web.jersey" />
+                <node concept="2Ry0Ak" id="5a2LedGLaDQ" role="2Ry0An">
+                  <property role="2Ry0Am" value="lib" />
+                  <node concept="2Ry0Ak" id="5a2LedGLaDR" role="2Ry0An">
+                    <property role="2Ry0Am" value="jersey-media-sse-2.29.1.jar" />
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="1SiIV0" id="5a2LedGLaE8" role="3bR37C">
+          <node concept="1BurEX" id="5a2LedGLaE9" role="1SiIV1">
+            <node concept="398BVA" id="5a2LedGLaDZ" role="1BurEY">
+              <ref role="398BVh" node="3$7Kuaihl5X" resolve="webmps.modules" />
+              <node concept="2Ry0Ak" id="5a2LedGLaE0" role="iGT6I">
+                <property role="2Ry0Am" value="de.q60.mps.web.jersey" />
+                <node concept="2Ry0Ak" id="5a2LedGLaE1" role="2Ry0An">
+                  <property role="2Ry0Am" value="lib" />
+                  <node concept="2Ry0Ak" id="5a2LedGLaE2" role="2Ry0An">
+                    <property role="2Ry0Am" value="jersey-server-2.29.1.jar" />
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="1SiIV0" id="5a2LedGLaEj" role="3bR37C">
+          <node concept="1BurEX" id="5a2LedGLaEk" role="1SiIV1">
+            <node concept="398BVA" id="5a2LedGLaEa" role="1BurEY">
+              <ref role="398BVh" node="3$7Kuaihl5X" resolve="webmps.modules" />
+              <node concept="2Ry0Ak" id="5a2LedGLaEb" role="iGT6I">
+                <property role="2Ry0Am" value="de.q60.mps.web.jersey" />
+                <node concept="2Ry0Ak" id="5a2LedGLaEc" role="2Ry0An">
+                  <property role="2Ry0Am" value="lib" />
+                  <node concept="2Ry0Ak" id="5a2LedGLaEd" role="2Ry0An">
+                    <property role="2Ry0Am" value="osgi-resource-locator-1.0.3.jar" />
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="1SiIV0" id="5a2LedGLaEu" role="3bR37C">
+          <node concept="1BurEX" id="5a2LedGLaEv" role="1SiIV1">
+            <node concept="398BVA" id="5a2LedGLaEl" role="1BurEY">
+              <ref role="398BVh" node="3$7Kuaihl5X" resolve="webmps.modules" />
+              <node concept="2Ry0Ak" id="5a2LedGLaEm" role="iGT6I">
+                <property role="2Ry0Am" value="de.q60.mps.web.jersey" />
+                <node concept="2Ry0Ak" id="5a2LedGLaEn" role="2Ry0An">
+                  <property role="2Ry0Am" value="lib" />
+                  <node concept="2Ry0Ak" id="5a2LedGLaEo" role="2Ry0An">
+                    <property role="2Ry0Am" value="aopalliance-repackaged-2.6.1.jar" />
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="1SiIV0" id="5a2LedGLaED" role="3bR37C">
+          <node concept="1BurEX" id="5a2LedGLaEE" role="1SiIV1">
+            <node concept="398BVA" id="5a2LedGLaEw" role="1BurEY">
+              <ref role="398BVh" node="3$7Kuaihl5X" resolve="webmps.modules" />
+              <node concept="2Ry0Ak" id="5a2LedGLaEx" role="iGT6I">
+                <property role="2Ry0Am" value="de.q60.mps.web.jersey" />
+                <node concept="2Ry0Ak" id="5a2LedGLaEy" role="2Ry0An">
+                  <property role="2Ry0Am" value="lib" />
+                  <node concept="2Ry0Ak" id="5a2LedGLaEz" role="2Ry0An">
+                    <property role="2Ry0Am" value="hk2-api-2.6.1.jar" />
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="1SiIV0" id="5a2LedGLaEO" role="3bR37C">
+          <node concept="1BurEX" id="5a2LedGLaEP" role="1SiIV1">
+            <node concept="398BVA" id="5a2LedGLaEF" role="1BurEY">
+              <ref role="398BVh" node="3$7Kuaihl5X" resolve="webmps.modules" />
+              <node concept="2Ry0Ak" id="5a2LedGLaEG" role="iGT6I">
+                <property role="2Ry0Am" value="de.q60.mps.web.jersey" />
+                <node concept="2Ry0Ak" id="5a2LedGLaEH" role="2Ry0An">
+                  <property role="2Ry0Am" value="lib" />
+                  <node concept="2Ry0Ak" id="5a2LedGLaEI" role="2Ry0An">
+                    <property role="2Ry0Am" value="hk2-locator-2.6.1.jar" />
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="1SiIV0" id="5a2LedGLaEZ" role="3bR37C">
+          <node concept="1BurEX" id="5a2LedGLaF0" role="1SiIV1">
+            <node concept="398BVA" id="5a2LedGLaEQ" role="1BurEY">
+              <ref role="398BVh" node="3$7Kuaihl5X" resolve="webmps.modules" />
+              <node concept="2Ry0Ak" id="5a2LedGLaER" role="iGT6I">
+                <property role="2Ry0Am" value="de.q60.mps.web.jersey" />
+                <node concept="2Ry0Ak" id="5a2LedGLaES" role="2Ry0An">
+                  <property role="2Ry0Am" value="lib" />
+                  <node concept="2Ry0Ak" id="5a2LedGLaET" role="2Ry0An">
+                    <property role="2Ry0Am" value="hk2-utils-2.6.1.jar" />
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="1SiIV0" id="5a2LedGLaFa" role="3bR37C">
+          <node concept="1BurEX" id="5a2LedGLaFb" role="1SiIV1">
+            <node concept="398BVA" id="5a2LedGLaF1" role="1BurEY">
+              <ref role="398BVh" node="3$7Kuaihl5X" resolve="webmps.modules" />
+              <node concept="2Ry0Ak" id="5a2LedGLaF2" role="iGT6I">
+                <property role="2Ry0Am" value="de.q60.mps.web.jersey" />
+                <node concept="2Ry0Ak" id="5a2LedGLaF3" role="2Ry0An">
+                  <property role="2Ry0Am" value="lib" />
+                  <node concept="2Ry0Ak" id="5a2LedGLaF4" role="2Ry0An">
+                    <property role="2Ry0Am" value="javassist-3.22.0-CR2.jar" />
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="1SiIV0" id="5a2LedGLaFl" role="3bR37C">
+          <node concept="1BurEX" id="5a2LedGLaFm" role="1SiIV1">
+            <node concept="398BVA" id="5a2LedGLaFc" role="1BurEY">
+              <ref role="398BVh" node="3$7Kuaihl5X" resolve="webmps.modules" />
+              <node concept="2Ry0Ak" id="5a2LedGLaFd" role="iGT6I">
+                <property role="2Ry0Am" value="de.q60.mps.web.jersey" />
+                <node concept="2Ry0Ak" id="5a2LedGLaFe" role="2Ry0An">
+                  <property role="2Ry0Am" value="lib" />
+                  <node concept="2Ry0Ak" id="5a2LedGLaFf" role="2Ry0An">
+                    <property role="2Ry0Am" value="jersey-hk2-2.29.1.jar" />
                   </node>
                 </node>
               </node>
@@ -621,8 +958,8 @@
             <ref role="3bR37D" to="ffeo:mXGwHwhVPj" resolve="JDK" />
           </node>
         </node>
-        <node concept="1SiIV0" id="5Sw$pxbQQVV" role="3bR37C">
-          <node concept="3bR9La" id="5Sw$pxbQQVW" role="1SiIV1">
+        <node concept="1SiIV0" id="5a2LedGLbat" role="3bR37C">
+          <node concept="3bR9La" id="5a2LedGLbau" role="1SiIV1">
             <ref role="3bR37D" node="5Sw$pxbQPmv" resolve="de.q60.mps.web.jetty" />
           </node>
         </node>
@@ -1268,8 +1605,8 @@
             <ref role="3bR37D" node="7gF2HTviNPP" resolve="de.q60.mps.web.lib" />
           </node>
         </node>
-        <node concept="1SiIV0" id="5Sw$pxbQQVX" role="3bR37C">
-          <node concept="3bR9La" id="5Sw$pxbQQVY" role="1SiIV1">
+        <node concept="1SiIV0" id="5a2LedGLbav" role="3bR37C">
+          <node concept="3bR9La" id="5a2LedGLbaw" role="1SiIV1">
             <ref role="3bR37D" node="5Sw$pxbQPmv" resolve="de.q60.mps.web.jetty" />
           </node>
         </node>
@@ -2485,12 +2822,6 @@
             <ref role="3bR37D" node="1_iojA26Pac" resolve="de.q60.mps.web.ui.svg" />
           </node>
         </node>
-        <node concept="1SiIV0" id="5Sw$pxbQRbB" role="3bR37C">
-          <node concept="3bR9La" id="5Sw$pxbQRbC" role="1SiIV1">
-            <property role="3bR36h" value="true" />
-            <ref role="3bR37D" node="5Sw$pxbQPmv" resolve="de.q60.mps.web.jetty" />
-          </node>
-        </node>
         <node concept="1SiIV0" id="2TMlwYi2QnU" role="3bR37C">
           <node concept="3bR9La" id="2TMlwYi2QnV" role="1SiIV1">
             <ref role="3bR37D" to="ffeo:1H905DlDUSw" resolve="MPS.OpenAPI" />
@@ -2499,6 +2830,12 @@
         <node concept="1SiIV0" id="2TMlwYi2QnW" role="3bR37C">
           <node concept="3bR9La" id="2TMlwYi2QnX" role="1SiIV1">
             <ref role="3bR37D" node="7gF2HTviNPs" resolve="de.q60.mps.web.model.mpsplugin" />
+          </node>
+        </node>
+        <node concept="1SiIV0" id="5a2LedGLbsO" role="3bR37C">
+          <node concept="3bR9La" id="5a2LedGLbsP" role="1SiIV1">
+            <property role="3bR36h" value="true" />
+            <ref role="3bR37D" node="5Sw$pxbQPmv" resolve="de.q60.mps.web.jetty" />
           </node>
         </node>
       </node>
@@ -2890,6 +3227,11 @@
         <node concept="1SiIV0" id="7gF2HTvj1RC" role="3bR37C">
           <node concept="3bR9La" id="7gF2HTvj1RD" role="1SiIV1">
             <ref role="3bR37D" to="90a9:6fQhGuklQWU" resolve="de.q60.mps.libs" />
+          </node>
+        </node>
+        <node concept="1SiIV0" id="5a2LedGLbvf" role="3bR37C">
+          <node concept="3bR9La" id="5a2LedGLbvg" role="1SiIV1">
+            <ref role="3bR37D" node="5a2LedGL7Zb" resolve="de.q60.mps.web.jersey" />
           </node>
         </node>
       </node>

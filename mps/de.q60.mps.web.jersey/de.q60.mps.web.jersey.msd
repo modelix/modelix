@@ -34,6 +34,12 @@
     <stubModelEntry path="${module}/lib/jersey-media-sse-2.29.1.jar" />
     <stubModelEntry path="${module}/lib/jersey-server-2.29.1.jar" />
     <stubModelEntry path="${module}/lib/osgi-resource-locator-1.0.3.jar" />
+    <stubModelEntry path="${module}/lib/aopalliance-repackaged-2.6.1.jar" />
+    <stubModelEntry path="${module}/lib/hk2-api-2.6.1.jar" />
+    <stubModelEntry path="${module}/lib/hk2-locator-2.6.1.jar" />
+    <stubModelEntry path="${module}/lib/hk2-utils-2.6.1.jar" />
+    <stubModelEntry path="${module}/lib/javassist-3.22.0-CR2.jar" />
+    <stubModelEntry path="${module}/lib/jersey-hk2-2.29.1.jar" />
   </stubModelEntries>
   <sourcePath />
   <dependencies>
