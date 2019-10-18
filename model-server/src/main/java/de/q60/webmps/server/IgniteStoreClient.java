@@ -2,7 +2,10 @@ package de.q60.webmps.server;
 
 import org.apache.ignite.Ignite;
 import org.apache.ignite.IgniteCache;
+import org.apache.ignite.IgniteSet;
 import org.apache.ignite.Ignition;
+import org.apache.ignite.configuration.CollectionConfiguration;
+import org.apache.ignite.lang.IgniteBiPredicate;
 
 import javax.cache.processor.EntryProcessor;
 import javax.cache.processor.EntryProcessorException;
@@ -14,6 +17,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.Timer;
+import java.util.UUID;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
@@ -25,6 +29,8 @@ public class IgniteStoreClient implements IStoreClient {
     private Ignite ignite;
     private IgniteCache<String, String> cache;
     private ScheduledExecutorService timer = Executors.newScheduledThreadPool(1);
+    private final Set<String> subscribedKeys = new HashSet<>();
+    private IKeyListener keyListener = null;
 
     public IgniteStoreClient() {
         this.ignite = Ignition.start(getClass().getResource("ignite.xml"));
@@ -48,11 +54,27 @@ public class IgniteStoreClient implements IStoreClient {
     @Override
     public void put(String key, String value) {
         cache.put(key, value);
+        ignite.message().send(key, value);
     }
 
     @Override
-    public void listen(String key, IKeyListener listener) {
-        throw new UnsupportedOperationException();
+    public void listen(final String key, final IKeyListener listener) {
+        if (this.keyListener == null) {
+            this.keyListener = listener;
+        } else if (this.keyListener != listener) {
+            throw new RuntimeException("Expected the same listener for all keys");
+        }
+        synchronized (subscribedKeys) {
+            if (!subscribedKeys.contains(key)) {
+                subscribedKeys.add(key);
+                ignite.message().localListen(key, (nodeId, value) -> {
+                    if (value instanceof String) {
+                        keyListener.changed(key, (String) value);
+                    }
+                    return true;
+                });
+            }
+        }
     }
 
     @Override

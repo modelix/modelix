@@ -27,6 +27,22 @@ public class ModelServer {
     private Map<RemoteEndpoint, Session> sessions = new HashMap<RemoteEndpoint, Session>();
     private Map<String, MessageHandler> messageHandlers = new HashMap<String, MessageHandler>();
     private Set<String> subscribedKeys = new HashSet<String>();
+    private IKeyListener keyListener = (key, value) -> {
+        if (subscribedKeys.contains(key)) {
+            JSONObject notification = new JSONObject();
+            notification.put("type", "change");
+            notification.put("key", key);
+            notification.put("value", value);
+            String notificationStr = notification.toString();
+            for (Session session : sessions.values()) {
+                if (!(session.isSubscribed(key))) {
+                    continue;
+                }
+                RemoteEndpoint c = session.getConnection();
+                send(c, notificationStr);
+            }
+        }
+    };
 
     {
         messageHandlers.put("get", new MessageHandler() {
@@ -95,31 +111,13 @@ public class ModelServer {
                 String key = message.getString("key");
                 String value = message.getString("value");
                 storeClient.put(key, value);
-
-                if (subscribedKeys.contains(key)) {
-                    JSONObject notification = new JSONObject();
-                    notification.put("type", "change");
-                    notification.put("key", key);
-                    notification.put("value", value);
-                    String notificationStr = notification.toString();
-                    for (Session session : sessions.values()) {
-                        if (!(session.isSubscribed(key))) {
-                            continue;
-                        }
-                        RemoteEndpoint c = session.getConnection();
-                        if (c == conn) {
-                            continue;
-                        }
-                        send(c, notificationStr);
-                    }
-                }
-
             }
         });
         messageHandlers.put("subscribe", new MessageHandler() {
             @Override
             public void handle(RemoteEndpoint conn, JSONObject message) {
                 String key = message.getString("key");
+                storeClient.listen(key, keyListener);
                 subscribedKeys.add(key);
                 sessions.get(conn).subscribe(key);
             }
