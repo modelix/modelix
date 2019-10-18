@@ -9,9 +9,6 @@
       <sourceRoot location="json-20160810.jar" />
       <sourceRoot location="gson-extras-2.8.5.jar" />
       <sourceRoot location="gson-2.8.6.jar" />
-      <sourceRoot location="jersey-media-sse-2.29.1.jar" />
-      <sourceRoot location="javax.ws.rs-api-2.1.1.jar" />
-      <sourceRoot location="jersey-client-2.29.1.jar" />
     </modelRoot>
   </models>
   <stubModelEntries>
@@ -19,9 +16,6 @@
     <stubModelEntry path="${module}/lib/json-20160810.jar" />
     <stubModelEntry path="${module}/lib/gson-extras-2.8.5.jar" />
     <stubModelEntry path="${module}/lib/gson-2.8.6.jar" />
-    <stubModelEntry path="${module}/lib/jersey-media-sse-2.29.1.jar" />
-    <stubModelEntry path="${module}/lib/javax.ws.rs-api-2.1.1.jar" />
-    <stubModelEntry path="${module}/lib/jersey-client-2.29.1.jar" />
   </stubModelEntries>
   <sourcePath />
   <dependencies>

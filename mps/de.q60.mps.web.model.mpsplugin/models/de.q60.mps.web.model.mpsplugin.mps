@@ -71,8 +71,8 @@
     <import index="guwi" ref="6354ebe7-c22a-4a0f-ac54-50b52ab9b065/java:java.io(JDK/)" />
     <import index="82uw" ref="6354ebe7-c22a-4a0f-ac54-50b52ab9b065/java:java.util.function(JDK/)" />
     <import index="5zyv" ref="6354ebe7-c22a-4a0f-ac54-50b52ab9b065/java:java.util.concurrent(JDK/)" />
-    <import index="6k0i" ref="87f4b21e-a3a5-459e-a54b-408fd9eb7350/java:javax.ws.rs.sse(de.q60.mps.web.lib/)" />
-    <import index="g1y6" ref="87f4b21e-a3a5-459e-a54b-408fd9eb7350/java:javax.ws.rs.client(de.q60.mps.web.lib/)" />
+    <import index="g1y6" ref="c740997f-28c0-47e8-9b5a-e87dfdb17a21/java:javax.ws.rs.client(de.q60.mps.web.jersey/)" />
+    <import index="6k0i" ref="c740997f-28c0-47e8-9b5a-e87dfdb17a21/java:javax.ws.rs.sse(de.q60.mps.web.jersey/)" />
     <import index="3d38" ref="r:bc160b50-5a4e-4f99-ba07-a7b7116dab7a(de.q60.mps.incremental.util)" implicit="true" />
   </imports>
   <registry>
@@ -11711,19 +11711,19 @@
         <node concept="3cpWs8" id="2hzhj5zzjKu" role="3cqZAp">
           <node concept="3cpWsn" id="2hzhj5zzjKv" role="3cpWs9">
             <property role="TrG5h" value="client" />
-            <node concept="3uibUv" id="2hzhj5zzjGM" role="1tU5fm">
+            <node concept="3uibUv" id="5a2LedGJr4m" role="1tU5fm">
               <ref role="3uigEE" to="g1y6:~Client" resolve="Client" />
             </node>
             <node concept="2YIFZM" id="2hzhj5zzjKw" role="33vP2m">
-              <ref role="37wK5l" to="g1y6:~ClientBuilder.newClient()" resolve="newClient" />
               <ref role="1Pybhc" to="g1y6:~ClientBuilder" resolve="ClientBuilder" />
+              <ref role="37wK5l" to="g1y6:~ClientBuilder.newClient()" resolve="newClient" />
             </node>
           </node>
         </node>
         <node concept="3cpWs8" id="2hzhj5zzpLm" role="3cqZAp">
           <node concept="3cpWsn" id="2hzhj5zzpLn" role="3cpWs9">
             <property role="TrG5h" value="target" />
-            <node concept="3uibUv" id="2hzhj5zzpGS" role="1tU5fm">
+            <node concept="3uibUv" id="5a2LedGJs2k" role="1tU5fm">
               <ref role="3uigEE" to="g1y6:~WebTarget" resolve="WebTarget" />
             </node>
             <node concept="2OqwBi" id="2hzhj5zzpLo" role="33vP2m">
@@ -11742,14 +11742,14 @@
         <node concept="3cpWs8" id="2hzhj5zz$EB" role="3cqZAp">
           <node concept="3cpWsn" id="2hzhj5zz$EC" role="3cpWs9">
             <property role="TrG5h" value="sse" />
-            <node concept="3uibUv" id="2hzhj5zz$AE" role="1tU5fm">
+            <node concept="3uibUv" id="5a2LedGJssy" role="1tU5fm">
               <ref role="3uigEE" to="6k0i:~SseEventSource" resolve="SseEventSource" />
             </node>
             <node concept="2OqwBi" id="2hzhj5zz$ED" role="33vP2m">
               <node concept="2OqwBi" id="2hzhj5zz$EE" role="2Oq$k0">
                 <node concept="2YIFZM" id="2hzhj5zz$EF" role="2Oq$k0">
-                  <ref role="37wK5l" to="6k0i:~SseEventSource.target(javax.ws.rs.client.WebTarget)" resolve="target" />
                   <ref role="1Pybhc" to="6k0i:~SseEventSource" resolve="SseEventSource" />
+                  <ref role="37wK5l" to="6k0i:~SseEventSource.target(javax.ws.rs.client.WebTarget)" resolve="target" />
                   <node concept="37vLTw" id="2hzhj5zz$EG" role="37wK5m">
                     <ref role="3cqZAo" node="2hzhj5zzpLn" resolve="target" />
                   </node>
@@ -11791,7 +11791,7 @@
                       <node concept="3cqZAl" id="2hzhj5z$37r" role="3clF45" />
                       <node concept="37vLTG" id="2hzhj5z$37s" role="3clF46">
                         <property role="TrG5h" value="event" />
-                        <node concept="3uibUv" id="2hzhj5z$37A" role="1tU5fm">
+                        <node concept="3uibUv" id="5a2LedGJu4L" role="1tU5fm">
                           <ref role="3uigEE" to="6k0i:~InboundSseEvent" resolve="InboundSseEvent" />
                         </node>
                       </node>
@@ -11840,7 +11840,7 @@
                         <ref role="2AI5Lk" to="wyt6:~Override" resolve="Override" />
                       </node>
                     </node>
-                    <node concept="3uibUv" id="2hzhj5z$37_" role="2Ghqu4">
+                    <node concept="3uibUv" id="5a2LedGJtDW" role="2Ghqu4">
                       <ref role="3uigEE" to="6k0i:~InboundSseEvent" resolve="InboundSseEvent" />
                     </node>
                   </node>
@@ -11859,8 +11859,6 @@
             </node>
           </node>
         </node>
-        <node concept="3clFbH" id="2hzhj5z_gbR" role="3cqZAp" />
-        <node concept="3clFbH" id="2hzhj5zA87P" role="3cqZAp" />
       </node>
     </node>
     <node concept="2tJIrI" id="2D0HTQgYgpH" role="jymVt" />
