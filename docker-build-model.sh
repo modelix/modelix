@@ -1,4 +1,4 @@
 #!/bin/sh
 
 cd model-server
-docker build -t webmps-model .
+docker build --no-cache -t webmps-model .

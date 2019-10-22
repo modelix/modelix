@@ -1,7 +1,15 @@
 FROM webmps-mps
 WORKDIR /usr/webmps-ui
 EXPOSE 33333
-ADD build/de.q60.mps.web/build/artifacts/de.q60.mps.web/de.q60.mps.web.zip /usr/webmps-ui/mps/plugins/
+
+COPY build/de.q60.mps.web/build/artifacts/de.q60.mps.web/de.q60.mps.web.zip /usr/webmps-ui/tmp.zip
+RUN unzip /usr/webmps-ui/tmp.zip -d /usr/webmps-ui/mps/plugins/
+RUN rm /usr/webmps-ui/tmp.zip
+
+COPY artifacts/de.itemis.mps.extensions/ /usr/webmps-ui/mps/plugins/
+
+RUN ls /usr/webmps-ui/mps/plugins/
+
 COPY run-ui-server.sh /usr/webmps-ui
 COPY ui-server/build/libs/ui-server-1.0-SNAPSHOT.jar /usr/webmps-ui/ui-server.jar
 COPY healthcheck-ui.sh /usr/webmps-ui/

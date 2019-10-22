@@ -1,3 +1,3 @@
 #!/bin/sh
 
-docker build -f Dockerfile-ui -t webmps-ui .
+docker build --no-cache -f Dockerfile-ui -t webmps-ui .
