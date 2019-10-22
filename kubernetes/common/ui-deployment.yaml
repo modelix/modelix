@@ -27,7 +27,7 @@ spec:
         imagePullPolicy: IfNotPresent
         env:
         - name: MODEL_URI
-          value: ws://model:28101/ws
+          value: http://model:28101/
         ports:
         - containerPort: 33333
         resources: 
