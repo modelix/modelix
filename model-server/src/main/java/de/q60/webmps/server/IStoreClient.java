@@ -11,5 +11,6 @@ public interface IStoreClient {
   void put(String key, String value);
 
   void listen(final String key, final IKeyListener listener);
+  void removeListener(final String key, final IKeyListener listener);
   long generateId(String key);
 }

@@ -32,6 +32,9 @@ dependencies {
     compile group: 'org.eclipse.jetty.websocket', name: 'websocket-server', version: '9.4.21.v20190926'
     compile group: 'org.eclipse.jetty', name: 'jetty-servlets', version: '9.4.21.v20190926'
 
+    compile group: 'commons-io', name: 'commons-io', version: '2.6'
+    compile group: 'com.google.guava', name: 'guava', version: '28.1-jre'
+
 }
 
 task copyLibs(type: Copy) {

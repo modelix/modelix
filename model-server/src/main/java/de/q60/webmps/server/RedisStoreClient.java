@@ -57,6 +57,11 @@ public class RedisStoreClient implements IStoreClient {
     }
 
     @Override
+    public void removeListener(String key, IKeyListener listener) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public long generateId(String key) {
         return syncCommands.incr(key);
     }

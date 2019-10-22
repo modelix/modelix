@@ -68,42 +68,6 @@ public class ModelServer {
 
                 send(conn, reply.toString());
             }
-
-            private JSONArray collect(String rootKey) {
-                JSONArray result = new JSONArray();
-                Set<String> processed = new HashSet<>();
-                Set<String> pending = new HashSet<>();
-                pending.add(rootKey);
-
-                while (!pending.isEmpty()) {
-                    List<String> keys = new ArrayList<>(pending);
-                    System.out.println("query " + keys.size() + " keys");
-                    pending.clear();
-                    List<String> values = storeClient.getAll(keys);
-                    for (int i = 0; i < keys.size(); i++) {
-                        String key = keys.get(i);
-                        String value = values.get(i);
-                        processed.add(key);
-
-                        JSONObject entry = new JSONObject();
-                        entry.put("key", key);
-                        entry.put("value", value);
-                        result.put(entry);
-
-                        if (value != null) {
-                            Matcher matcher = HASH_PATTERN.matcher(value);
-                            while (matcher.find()) {
-                                String foundKey = matcher.group();
-                                if (!processed.contains(foundKey)) {
-                                    pending.add(foundKey);
-                                }
-                            }
-                        }
-                    }
-                }
-
-                return result;
-            }
         });
         messageHandlers.put("put", new MessageHandler() {
             @Override
@@ -138,6 +102,42 @@ public class ModelServer {
 
     public ModelServer(IStoreClient storeClient) {
         this.storeClient = storeClient;
+    }
+
+    public JSONArray collect(String rootKey) {
+        JSONArray result = new JSONArray();
+        Set<String> processed = new HashSet<>();
+        Set<String> pending = new HashSet<>();
+        pending.add(rootKey);
+
+        while (!pending.isEmpty()) {
+            List<String> keys = new ArrayList<>(pending);
+            System.out.println("query " + keys.size() + " keys");
+            pending.clear();
+            List<String> values = storeClient.getAll(keys);
+            for (int i = 0; i < keys.size(); i++) {
+                String key = keys.get(i);
+                String value = values.get(i);
+                processed.add(key);
+
+                JSONObject entry = new JSONObject();
+                entry.put("key", key);
+                entry.put("value", value);
+                result.put(entry);
+
+                if (value != null) {
+                    Matcher matcher = HASH_PATTERN.matcher(value);
+                    while (matcher.find()) {
+                        String foundKey = matcher.group();
+                        if (!processed.contains(foundKey)) {
+                            pending.add(foundKey);
+                        }
+                    }
+                }
+            }
+        }
+
+        return result;
     }
 
     public void broadcast(String message) {

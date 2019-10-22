@@ -56,6 +56,11 @@ public class CachingStoreClient implements IStoreClient {
         store.listen(key, listener);
     }
 
+    @Override
+    public void removeListener(String key, IKeyListener listener) {
+        store.removeListener(key, listener);
+    }
+
     protected boolean allowCaching(String key) {
         return true;
     }

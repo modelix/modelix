@@ -1,5 +1,7 @@
 package de.q60.webmps.server;
 
+import com.google.common.collect.MultimapBuilder;
+import com.google.common.collect.SetMultimap;
 import org.apache.ignite.Ignite;
 import org.apache.ignite.IgniteCache;
 import org.apache.ignite.IgniteSet;
@@ -29,8 +31,7 @@ public class IgniteStoreClient implements IStoreClient {
     private Ignite ignite;
     private IgniteCache<String, String> cache;
     private ScheduledExecutorService timer = Executors.newScheduledThreadPool(1);
-    private final Set<String> subscribedKeys = new HashSet<>();
-    private IKeyListener keyListener = null;
+    private final SetMultimap<String, IKeyListener> listeners = MultimapBuilder.hashKeys().hashSetValues().build();
 
     public IgniteStoreClient() {
         this.ignite = Ignition.start(getClass().getResource("ignite.xml"));
@@ -59,21 +60,33 @@ public class IgniteStoreClient implements IStoreClient {
 
     @Override
     public void listen(final String key, final IKeyListener listener) {
-        if (this.keyListener == null) {
-            this.keyListener = listener;
-        } else if (this.keyListener != listener) {
-            throw new RuntimeException("Expected the same listener for all keys");
-        }
-        synchronized (subscribedKeys) {
-            if (!subscribedKeys.contains(key)) {
-                subscribedKeys.add(key);
+        synchronized (listeners) {
+            boolean wasSubscribed = listeners.containsKey(key);
+            listeners.put(key, listener);
+            if (!wasSubscribed) {
                 ignite.message().localListen(key, (nodeId, value) -> {
                     if (value instanceof String) {
-                        keyListener.changed(key, (String) value);
+                        synchronized (listeners) {
+                            for (IKeyListener l : listeners.get(key)) {
+                                try {
+                                    l.changed(key, (String) value);
+                                } catch (Exception ex) {
+                                    System.out.println(ex.getMessage());
+                                    ex.printStackTrace();
+                                }
+                            }
+                        }
                     }
                     return true;
                 });
             }
+        }
+    }
+
+    @Override
+    public void removeListener(String key, IKeyListener listener) {
+        synchronized (listeners) {
+            listeners.remove(key, listener);
         }
     }
 
