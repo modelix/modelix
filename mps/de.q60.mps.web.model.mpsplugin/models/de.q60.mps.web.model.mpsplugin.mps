@@ -69,6 +69,7 @@
     <import index="6k0i" ref="c740997f-28c0-47e8-9b5a-e87dfdb17a21/java:javax.ws.rs.sse(de.q60.mps.web.jersey/)" />
     <import index="7x5y" ref="6354ebe7-c22a-4a0f-ac54-50b52ab9b065/java:java.nio.charset(JDK/)" />
     <import index="om7m" ref="c740997f-28c0-47e8-9b5a-e87dfdb17a21/java:javax.ws.rs.core(de.q60.mps.web.jersey/)" />
+    <import index="3a50" ref="742f6602-5a2f-4313-aa6e-ae1cd4ffdc61/java:jetbrains.mps.ide(MPS.Platform/)" />
     <import index="3d38" ref="r:bc160b50-5a4e-4f99-ba07-a7b7116dab7a(de.q60.mps.incremental.util)" implicit="true" />
   </imports>
   <registry>
@@ -215,9 +216,11 @@
       </concept>
       <concept id="1068580123157" name="jetbrains.mps.baseLanguage.structure.Statement" flags="nn" index="3clFbH" />
       <concept id="1068580123159" name="jetbrains.mps.baseLanguage.structure.IfStatement" flags="nn" index="3clFbJ">
+        <property id="4467513934994662257" name="forceMultiLine" index="TyiWK" />
         <child id="1082485599094" name="ifFalseStatement" index="9aQIa" />
         <child id="1068580123160" name="condition" index="3clFbw" />
         <child id="1068580123161" name="ifTrue" index="3clFbx" />
+        <child id="1206060520071" name="elsifClauses" index="3eNLev" />
       </concept>
       <concept id="1068580123136" name="jetbrains.mps.baseLanguage.structure.StatementList" flags="sn" stub="5293379017992965193" index="3clFbS">
         <child id="1068581517665" name="statement" index="3cqZAp" />
@@ -240,6 +243,10 @@
       <concept id="1068581242869" name="jetbrains.mps.baseLanguage.structure.MinusExpression" flags="nn" index="3cpWsd" />
       <concept id="1068581242863" name="jetbrains.mps.baseLanguage.structure.LocalVariableDeclaration" flags="nr" index="3cpWsn" />
       <concept id="1068581517677" name="jetbrains.mps.baseLanguage.structure.VoidType" flags="in" index="3cqZAl" />
+      <concept id="1206060495898" name="jetbrains.mps.baseLanguage.structure.ElsifClause" flags="ng" index="3eNFk2">
+        <child id="1206060619838" name="condition" index="3eO9$A" />
+        <child id="1206060644605" name="statementList" index="3eOfB_" />
+      </concept>
       <concept id="1079359253375" name="jetbrains.mps.baseLanguage.structure.ParenthesizedExpression" flags="nn" index="1eOMI4">
         <child id="1079359253376" name="expression" index="1eOMHV" />
       </concept>
@@ -11300,7 +11307,7 @@
                     <ref role="3cqZAo" node="5_gfWzaMyF8" resolve="baseUri" />
                   </node>
                   <node concept="Xl_RD" id="6lVG1TvblSi" role="37vLTx">
-                    <property role="Xl_RC" value="http://localhost:28101/" />
+                    <property role="Xl_RC" value="http://model.cloudmps.q60.de:80/" />
                   </node>
                 </node>
               </node>
@@ -11535,46 +11542,155 @@
       <node concept="17QB3L" id="5_gfWzaMea6" role="3clF45" />
       <node concept="3Tm1VV" id="5_gfWzaMea7" role="1B3o_S" />
       <node concept="3clFbS" id="5_gfWzaMea9" role="3clF47">
-        <node concept="3clFbF" id="5_gfWzaMPxT" role="3cqZAp">
-          <node concept="2OqwBi" id="5_gfWzaMLls" role="3clFbG">
-            <node concept="2OqwBi" id="5_gfWzaMLlt" role="2Oq$k0">
-              <node concept="liA8E" id="5_gfWzaMLlv" role="2OqNvi">
-                <ref role="37wK5l" to="g1y6:~WebTarget.request()" resolve="request" />
-              </node>
-              <node concept="2OqwBi" id="5_gfWzaMMBf" role="2Oq$k0">
-                <node concept="37vLTw" id="5_gfWzaMMBg" role="2Oq$k0">
-                  <ref role="3cqZAo" node="5_gfWzaMsTU" resolve="client" />
-                </node>
-                <node concept="liA8E" id="5_gfWzaMMBh" role="2OqNvi">
-                  <ref role="37wK5l" to="g1y6:~Client.target(java.lang.String)" resolve="target" />
-                  <node concept="3cpWs3" id="5_gfWzaMMBi" role="37wK5m">
-                    <node concept="3cpWs3" id="5_gfWzaMMBj" role="3uHU7B">
-                      <node concept="37vLTw" id="5_gfWzaMPy5" role="3uHU7B">
-                        <ref role="3cqZAo" node="5_gfWzaMyF8" resolve="baseUri" />
-                      </node>
-                      <node concept="Xl_RD" id="5_gfWzaMMBk" role="3uHU7w">
-                        <property role="Xl_RC" value="get/" />
+        <node concept="3clFbF" id="64iiug7UO08" role="3cqZAp">
+          <node concept="1rXfSq" id="64iiug7UO06" role="3clFbG">
+            <ref role="37wK5l" node="36zMFG3gobo" resolve="checkNotEDT" />
+          </node>
+        </node>
+        <node concept="3cpWs8" id="EXn7Yj8Ox7" role="3cqZAp">
+          <node concept="3cpWsn" id="EXn7Yj8Ox8" role="3cpWs9">
+            <property role="TrG5h" value="response" />
+            <node concept="3uibUv" id="EXn7Yj8O3s" role="1tU5fm">
+              <ref role="3uigEE" to="om7m:~Response" resolve="Response" />
+            </node>
+            <node concept="2OqwBi" id="EXn7Yj8Ox9" role="33vP2m">
+              <node concept="2OqwBi" id="EXn7Yj8Oxa" role="2Oq$k0">
+                <node concept="2OqwBi" id="EXn7Yj8Oxb" role="2Oq$k0">
+                  <node concept="liA8E" id="EXn7Yj8Oxc" role="2OqNvi">
+                    <ref role="37wK5l" to="g1y6:~WebTarget.request()" resolve="request" />
+                  </node>
+                  <node concept="2OqwBi" id="EXn7Yj8Oxd" role="2Oq$k0">
+                    <node concept="37vLTw" id="EXn7Yj8Oxe" role="2Oq$k0">
+                      <ref role="3cqZAo" node="5_gfWzaMsTU" resolve="client" />
+                    </node>
+                    <node concept="liA8E" id="EXn7Yj8Oxf" role="2OqNvi">
+                      <ref role="37wK5l" to="g1y6:~Client.target(java.lang.String)" resolve="target" />
+                      <node concept="3cpWs3" id="EXn7Yj8Oxg" role="37wK5m">
+                        <node concept="3cpWs3" id="EXn7Yj8Oxh" role="3uHU7B">
+                          <node concept="37vLTw" id="EXn7Yj8Oxi" role="3uHU7B">
+                            <ref role="3cqZAo" node="5_gfWzaMyF8" resolve="baseUri" />
+                          </node>
+                          <node concept="Xl_RD" id="EXn7Yj8Oxj" role="3uHU7w">
+                            <property role="Xl_RC" value="get/" />
+                          </node>
+                        </node>
+                        <node concept="2YIFZM" id="EXn7Yj8Oxk" role="3uHU7w">
+                          <ref role="37wK5l" to="zf81:~URLEncoder.encode(java.lang.String,java.nio.charset.Charset)" resolve="encode" />
+                          <ref role="1Pybhc" to="zf81:~URLEncoder" resolve="URLEncoder" />
+                          <node concept="37vLTw" id="EXn7Yj8Oxl" role="37wK5m">
+                            <ref role="3cqZAo" node="5_gfWzaMea4" resolve="key" />
+                          </node>
+                          <node concept="10M0yZ" id="EXn7Yj8Oxm" role="37wK5m">
+                            <ref role="1PxDUh" to="7x5y:~StandardCharsets" resolve="StandardCharsets" />
+                            <ref role="3cqZAo" to="7x5y:~StandardCharsets.UTF_8" resolve="UTF_8" />
+                          </node>
+                        </node>
                       </node>
                     </node>
-                    <node concept="2YIFZM" id="5_gfWzaMMBl" role="3uHU7w">
-                      <ref role="37wK5l" to="zf81:~URLEncoder.encode(java.lang.String,java.nio.charset.Charset)" resolve="encode" />
-                      <ref role="1Pybhc" to="zf81:~URLEncoder" resolve="URLEncoder" />
-                      <node concept="37vLTw" id="5_gfWzaMMBm" role="37wK5m">
-                        <ref role="3cqZAo" node="5_gfWzaMea4" resolve="key" />
+                  </node>
+                </node>
+                <node concept="liA8E" id="EXn7Yj8Oxn" role="2OqNvi">
+                  <ref role="37wK5l" to="g1y6:~Invocation$Builder.buildGet()" resolve="buildGet" />
+                </node>
+              </node>
+              <node concept="liA8E" id="EXn7Yj8Oxo" role="2OqNvi">
+                <ref role="37wK5l" to="g1y6:~Invocation.invoke()" resolve="invoke" />
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="3clFbJ" id="EXn7Yj8PJw" role="3cqZAp">
+          <node concept="3clFbS" id="EXn7Yj8PJy" role="3clFbx">
+            <node concept="3cpWs6" id="EXn7Yj91Vv" role="3cqZAp">
+              <node concept="2OqwBi" id="EXn7Yj91Vx" role="3cqZAk">
+                <node concept="37vLTw" id="EXn7Yj91Vy" role="2Oq$k0">
+                  <ref role="3cqZAo" node="EXn7Yj8Ox8" resolve="response" />
+                </node>
+                <node concept="liA8E" id="EXn7Yj91Vz" role="2OqNvi">
+                  <ref role="37wK5l" to="om7m:~Response.readEntity(java.lang.Class)" resolve="readEntity" />
+                  <node concept="3VsKOn" id="EXn7Yj91V$" role="37wK5m">
+                    <ref role="3VsUkX" to="wyt6:~String" resolve="String" />
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+          <node concept="3clFbC" id="EXn7Yj8TQh" role="3clFbw">
+            <node concept="2OqwBi" id="EXn7Yj8Xr3" role="3uHU7w">
+              <node concept="Rm8GO" id="EXn7Yj8Wp7" role="2Oq$k0">
+                <ref role="Rm8GQ" to="om7m:~Response$Status.OK" resolve="OK" />
+                <ref role="1Px2BO" to="om7m:~Response$Status" resolve="Response.Status" />
+              </node>
+              <node concept="liA8E" id="EXn7Yj8XTO" role="2OqNvi">
+                <ref role="37wK5l" to="om7m:~Response$Status.getStatusCode()" resolve="getStatusCode" />
+              </node>
+            </node>
+            <node concept="2OqwBi" id="EXn7Yj8Rsg" role="3uHU7B">
+              <node concept="37vLTw" id="EXn7Yj8Qxl" role="2Oq$k0">
+                <ref role="3cqZAo" node="EXn7Yj8Ox8" resolve="response" />
+              </node>
+              <node concept="liA8E" id="EXn7Yj8RGN" role="2OqNvi">
+                <ref role="37wK5l" to="om7m:~Response.getStatus()" resolve="getStatus" />
+              </node>
+            </node>
+          </node>
+          <node concept="9aQIb" id="EXn7Yj97l6" role="9aQIa">
+            <node concept="3clFbS" id="EXn7Yj97l7" role="9aQI4">
+              <node concept="YS8fn" id="EXn7Yj99eM" role="3cqZAp">
+                <node concept="2ShNRf" id="EXn7Yj99_1" role="YScLw">
+                  <node concept="1pGfFk" id="EXn7Yj9xzA" role="2ShVmc">
+                    <ref role="37wK5l" to="wyt6:~RuntimeException.&lt;init&gt;(java.lang.String)" resolve="RuntimeException" />
+                    <node concept="3cpWs3" id="EXn7Yj9$hx" role="37wK5m">
+                      <node concept="2OqwBi" id="EXn7Yj9_Yt" role="3uHU7w">
+                        <node concept="37vLTw" id="EXn7Yj9_oR" role="2Oq$k0">
+                          <ref role="3cqZAo" node="EXn7Yj8Ox8" resolve="response" />
+                        </node>
+                        <node concept="liA8E" id="EXn7Yj9AaK" role="2OqNvi">
+                          <ref role="37wK5l" to="om7m:~Response.getStatusInfo()" resolve="getStatusInfo" />
+                        </node>
                       </node>
-                      <node concept="10M0yZ" id="5_gfWzaMMBn" role="37wK5m">
-                        <ref role="1PxDUh" to="7x5y:~StandardCharsets" resolve="StandardCharsets" />
-                        <ref role="3cqZAo" to="7x5y:~StandardCharsets.UTF_8" resolve="UTF_8" />
+                      <node concept="3cpWs3" id="EXn7Yj9z6N" role="3uHU7B">
+                        <node concept="3cpWs3" id="EXn7Yj9yLW" role="3uHU7B">
+                          <node concept="Xl_RD" id="EXn7Yj9yM2" role="3uHU7B">
+                            <property role="Xl_RC" value="Request for key '" />
+                          </node>
+                          <node concept="37vLTw" id="EXn7Yj9zuX" role="3uHU7w">
+                            <ref role="3cqZAo" node="5_gfWzaMea4" resolve="key" />
+                          </node>
+                        </node>
+                        <node concept="Xl_RD" id="EXn7Yj9yM4" role="3uHU7w">
+                          <property role="Xl_RC" value="' failed: " />
+                        </node>
                       </node>
                     </node>
                   </node>
                 </node>
               </node>
             </node>
-            <node concept="liA8E" id="5_gfWzaMLlw" role="2OqNvi">
-              <ref role="37wK5l" to="g1y6:~SyncInvoker.get(java.lang.Class)" resolve="get" />
-              <node concept="3VsKOn" id="5_gfWzaMOo1" role="37wK5m">
-                <ref role="3VsUkX" to="wyt6:~String" resolve="String" />
+          </node>
+          <node concept="3eNFk2" id="EXn7Yja0VF" role="3eNLev">
+            <node concept="3clFbS" id="EXn7Yja0VH" role="3eOfB_">
+              <node concept="3cpWs6" id="EXn7Yja6qz" role="3cqZAp">
+                <node concept="10Nm6u" id="EXn7Yja6MD" role="3cqZAk" />
+              </node>
+            </node>
+            <node concept="3clFbC" id="EXn7Yja55v" role="3eO9$A">
+              <node concept="2OqwBi" id="EXn7Yja55w" role="3uHU7w">
+                <node concept="Rm8GO" id="EXn7Yja5Zk" role="2Oq$k0">
+                  <ref role="Rm8GQ" to="om7m:~Response$Status.NOT_FOUND" resolve="NOT_FOUND" />
+                  <ref role="1Px2BO" to="om7m:~Response$Status" resolve="Response.Status" />
+                </node>
+                <node concept="liA8E" id="EXn7Yja55y" role="2OqNvi">
+                  <ref role="37wK5l" to="om7m:~Response$Status.getStatusCode()" resolve="getStatusCode" />
+                </node>
+              </node>
+              <node concept="2OqwBi" id="EXn7Yja55z" role="3uHU7B">
+                <node concept="37vLTw" id="EXn7Yja55$" role="2Oq$k0">
+                  <ref role="3cqZAo" node="EXn7Yj8Ox8" resolve="response" />
+                </node>
+                <node concept="liA8E" id="EXn7Yja55_" role="2OqNvi">
+                  <ref role="37wK5l" to="om7m:~Response.getStatus()" resolve="getStatus" />
+                </node>
               </node>
             </node>
           </node>
@@ -11669,6 +11785,11 @@
       <node concept="3cqZAl" id="5_gfWzaMeaq" role="3clF45" />
       <node concept="3Tm1VV" id="5_gfWzaMear" role="1B3o_S" />
       <node concept="3clFbS" id="5_gfWzaMeat" role="3clF47">
+        <node concept="3clFbF" id="64iiug7URdS" role="3cqZAp">
+          <node concept="1rXfSq" id="64iiug7URdQ" role="3clFbG">
+            <ref role="37wK5l" node="36zMFG3gobo" resolve="checkNotEDT" />
+          </node>
+        </node>
         <node concept="3clFbF" id="5_gfWzaMQ5$" role="3cqZAp">
           <node concept="2OqwBi" id="5_gfWzaMQ5_" role="3clFbG">
             <node concept="2OqwBi" id="5_gfWzaMQ5A" role="2Oq$k0">
@@ -11764,7 +11885,13 @@
                   </node>
                   <node concept="liA8E" id="5_gfWzaPs4M" role="2OqNvi">
                     <ref role="37wK5l" to="g1y6:~SyncInvoker.post(javax.ws.rs.client.Entity)" resolve="post" />
-                    <node concept="10Nm6u" id="5_gfWzaPs4N" role="37wK5m" />
+                    <node concept="2YIFZM" id="6lVG1TveEfP" role="37wK5m">
+                      <ref role="37wK5l" to="g1y6:~Entity.text(java.lang.Object)" resolve="text" />
+                      <ref role="1Pybhc" to="g1y6:~Entity" resolve="Entity" />
+                      <node concept="Xl_RD" id="6lVG1TveFap" role="37wK5m">
+                        <property role="Xl_RC" value="" />
+                      </node>
+                    </node>
                   </node>
                 </node>
               </node>
@@ -11813,6 +11940,38 @@
         <node concept="3cpWs6" id="5_gfWzaOTFK" role="3cqZAp">
           <node concept="37vLTw" id="5_gfWzaOTFL" role="3cqZAk">
             <ref role="3cqZAo" node="5_gfWzaOXJP" resolve="clientId" />
+          </node>
+        </node>
+      </node>
+    </node>
+    <node concept="2tJIrI" id="64iiug7Uwo1" role="jymVt" />
+    <node concept="3clFb_" id="36zMFG3gobo" role="jymVt">
+      <property role="TrG5h" value="checkNotEDT" />
+      <node concept="3cqZAl" id="36zMFG3gobq" role="3clF45" />
+      <node concept="3Tmbuc" id="36zMFG3gvkZ" role="1B3o_S" />
+      <node concept="3clFbS" id="36zMFG3gobs" role="3clF47">
+        <node concept="1X3_iC" id="64iiug7Vkbu" role="lGtFl">
+          <property role="3V$3am" value="statement" />
+          <property role="3V$3ak" value="f3061a53-9226-4cc5-a443-f952ceaf5816/1068580123136/1068581517665" />
+          <node concept="3clFbJ" id="36zMFG3gK9O" role="8Wnug">
+            <property role="TyiWK" value="true" />
+            <node concept="3clFbS" id="36zMFG3gK9Q" role="3clFbx">
+              <node concept="RRSsy" id="1ws0Et6TXz3" role="3cqZAp">
+                <property role="RRSoG" value="gZ5fksE/warn" />
+                <node concept="2ShNRf" id="1ws0Et6TXVu" role="RRSow">
+                  <node concept="1pGfFk" id="1ws0Et6U35f" role="2ShVmc">
+                    <ref role="37wK5l" to="wyt6:~RuntimeException.&lt;init&gt;()" resolve="RuntimeException" />
+                  </node>
+                </node>
+                <node concept="Xl_RD" id="1ws0Et6Upf3" role="RRSoy">
+                  <property role="Xl_RC" value="Performing network operations from the EDT will make the UI unresponsive" />
+                </node>
+              </node>
+            </node>
+            <node concept="2YIFZM" id="36zMFG3gJLX" role="3clFbw">
+              <ref role="37wK5l" to="3a50:~ThreadUtils.isInEDT()" resolve="isInEDT" />
+              <ref role="1Pybhc" to="3a50:~ThreadUtils" resolve="ThreadUtils" />
+            </node>
           </node>
         </node>
       </node>

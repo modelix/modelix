@@ -57,8 +57,13 @@ public class Main {
                 @Override
                 protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
                     String key = req.getPathInfo().substring(1);
-                    resp.setContentType("text/plain");
-                    resp.getWriter().print(storeClient.get(key));
+                    String value = storeClient.get(key);
+                    if (value == null) {
+                        resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
+                    } else {
+                        resp.setContentType("text/plain");
+                        resp.getWriter().print(value);
+                    }
                 }
             }), "/get/*");
 
