@@ -4,7 +4,7 @@ metadata:
   annotations:
   creationTimestamp: null
   labels:
-    io.kompose.service: db
+    app: db
   name: db
 spec:
   replicas: 1
@@ -14,7 +14,7 @@ spec:
     metadata:
       creationTimestamp: null
       labels:
-        io.kompose.service: db
+        app: db
     spec:
       containers:
       - env:

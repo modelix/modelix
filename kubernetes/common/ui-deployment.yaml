@@ -2,11 +2,9 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   annotations:
-    kompose.cmd: kompose convert
-    kompose.version: 1.18.0 ()
   creationTimestamp: null
   labels:
-    io.kompose.service: ui
+    app: ui
   name: ui
 spec:
   replicas: 1
@@ -19,11 +17,11 @@ spec:
     metadata:
       creationTimestamp: null
       labels:
-        io.kompose.service: ui
+        app: ui
     spec:
       containers:
       - name: ui
-        image: eu.gcr.io/webmps/webmps-ui:201910171554
+        image: eu.gcr.io/webmps/webmps-ui:201910231400
         imagePullPolicy: IfNotPresent
         env:
         - name: MODEL_URI

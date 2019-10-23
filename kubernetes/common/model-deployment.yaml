@@ -4,7 +4,7 @@ metadata:
   annotations:
   creationTimestamp: null
   labels:
-    io.kompose.service: model
+    app: model
   name: model
 spec:
   replicas: 1
@@ -13,13 +13,13 @@ spec:
     metadata:
       creationTimestamp: null
       labels:
-        io.kompose.service: model
+        app: model
     spec:
       containers:
       - env:
         - name: jdbc_url
           value: jdbc:postgresql://db:5432/
-        image: eu.gcr.io/webmps/webmps-model:201910171554
+        image: eu.gcr.io/webmps/webmps-model:201910231400
         imagePullPolicy: IfNotPresent
         name: model
         ports:

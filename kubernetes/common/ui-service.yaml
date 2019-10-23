@@ -2,12 +2,10 @@ apiVersion: v1
 kind: Service
 metadata:
   annotations:
-    kompose.cmd: kompose convert
-    kompose.version: 1.18.0 ()
     beta.cloud.google.com/backend-config: '{"ports": {"80":"ui-backendconfig"}}'
   creationTimestamp: null
   labels:
-    io.kompose.service: ui
+    app: ui
   name: ui
 spec:
   type: NodePort
@@ -16,6 +14,6 @@ spec:
     port: 8093
     targetPort: 33333
   selector:
-    io.kompose.service: ui
+    app: ui
 status:
   loadBalancer: {}
