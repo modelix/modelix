@@ -92,15 +92,12 @@ public class IgniteStoreClient implements IStoreClient {
 
     @Override
     public long generateId(String key) {
-        return cache.invoke(key, new EntryProcessor<String, String, Long>() {
-            @Override
-            public Long process(MutableEntry<String, String> mutableEntry, Object... objects) throws EntryProcessorException {
-                String idStr = mutableEntry.getValue();
-                long id = idStr == null ? 0 : Long.valueOf(idStr);
-                id++;
-                mutableEntry.setValue(Long.toString(id));
-                return id;
-            }
+        return cache.invoke(key, (EntryProcessor<String, String, Long>) (mutableEntry, objects) -> {
+            String idStr = mutableEntry.getValue();
+            long id = idStr == null ? 0 : Long.parseLong(idStr);
+            id++;
+            mutableEntry.setValue(Long.toString(id));
+            return id;
         });
     }
 
