@@ -730,6 +730,22 @@
                     <ref role="3VsUkX" node="QucyCqZ7eL" resolve="HealthCheckServlet" />
                   </node>
                   <node concept="Xl_RD" id="QucyCqZwGR" role="37wK5m">
+                    <property role="Xl_RC" value="/check" />
+                  </node>
+                </node>
+              </node>
+            </node>
+            <node concept="3clFbF" id="5juhjwC7tm4" role="3cqZAp">
+              <node concept="2OqwBi" id="5juhjwC7tm5" role="3clFbG">
+                <node concept="37vLTw" id="5juhjwC7tm6" role="2Oq$k0">
+                  <ref role="3cqZAo" node="QucyCqZp7I" resolve="healthHandler" />
+                </node>
+                <node concept="liA8E" id="5juhjwC7tm7" role="2OqNvi">
+                  <ref role="37wK5l" to="ky10:~ServletContextHandler.addServlet(java.lang.Class,java.lang.String)" resolve="addServlet" />
+                  <node concept="3VsKOn" id="5juhjwC7tm8" role="37wK5m">
+                    <ref role="3VsUkX" node="QucyCqZ7eL" resolve="HealthCheckServlet" />
+                  </node>
+                  <node concept="Xl_RD" id="5juhjwC7tm9" role="37wK5m">
                     <property role="Xl_RC" value="/" />
                   </node>
                 </node>
@@ -896,8 +912,10 @@
                   <ref role="37wK5l" to="xip3:~RewriteHandler.addRule(org.eclipse.jetty.rewrite.handler.Rule)" resolve="addRule" />
                   <node concept="2ShNRf" id="5Sw$pxbWqe2" role="37wK5m">
                     <node concept="1pGfFk" id="5Sw$pxbWqIz" role="2ShVmc">
-                      <ref role="37wK5l" to="xip3:~RedirectPatternRule.&lt;init&gt;(java.lang.String,java.lang.String)" resolve="RedirectPatternRule" />
-                      <node concept="Xl_RD" id="5Sw$pxbWqVE" role="37wK5m" />
+                      <ref role="37wK5l" to="xip3:~RewriteRegexRule.&lt;init&gt;(java.lang.String,java.lang.String)" resolve="RewriteRegexRule" />
+                      <node concept="Xl_RD" id="5Sw$pxbWqVE" role="37wK5m">
+                        <property role="Xl_RC" value="/" />
+                      </node>
                       <node concept="Xl_RD" id="5Sw$pxbWrg1" role="37wK5m">
                         <property role="Xl_RC" value="/repositoryAsHtml" />
                       </node>
