@@ -3267,12 +3267,16 @@
                 </node>
                 <node concept="liA8E" id="3UX1AQYVGRu" role="2OqNvi">
                   <ref role="37wK5l" to="wyt6:~StringBuilder.append(java.lang.String)" resolve="append" />
-                  <node concept="2OqwBi" id="3UX1AQYVPIj" role="37wK5m">
-                    <node concept="3M$PaV" id="3UX1AQYVPw6" role="2Oq$k0">
-                      <ref role="3M$S_o" node="3UX1AQYVGR1" resolve="value" />
-                    </node>
-                    <node concept="liA8E" id="3UX1AQYVQeJ" role="2OqNvi">
-                      <ref role="37wK5l" to="wyt6:~Object.toString()" resolve="toString" />
+                  <node concept="2YIFZM" id="7kIB6rsMCez" role="37wK5m">
+                    <ref role="37wK5l" node="2DnfmujruGW" resolve="escape" />
+                    <ref role="1Pybhc" node="2DnfmujvuGV" resolve="SerializationUtil" />
+                    <node concept="2OqwBi" id="3UX1AQYVPIj" role="37wK5m">
+                      <node concept="3M$PaV" id="3UX1AQYVPw6" role="2Oq$k0">
+                        <ref role="3M$S_o" node="3UX1AQYVGR1" resolve="value" />
+                      </node>
+                      <node concept="liA8E" id="3UX1AQYVQeJ" role="2OqNvi">
+                        <ref role="37wK5l" to="wyt6:~Object.toString()" resolve="toString" />
+                      </node>
                     </node>
                   </node>
                 </node>
@@ -3705,12 +3709,16 @@
                               <node concept="2YIFZM" id="311pOXowHwG" role="3clFbG">
                                 <ref role="1Pybhc" node="5RRPxDXNPpX" resolve="CPElementRef" />
                                 <ref role="37wK5l" node="5RRPxDXOCrJ" resolve="fromString" />
-                                <node concept="AH0OO" id="311pOXowHwH" role="37wK5m">
-                                  <node concept="3cmrfG" id="311pOXowHwI" role="AHEQo">
-                                    <property role="3cmrfH" value="1" />
-                                  </node>
-                                  <node concept="37vLTw" id="311pOXowHwJ" role="AHHXb">
-                                    <ref role="3cqZAo" node="311pOXowHwK" resolve="it" />
+                                <node concept="2YIFZM" id="7kIB6rsMFgB" role="37wK5m">
+                                  <ref role="37wK5l" node="2Dnfmujrv9N" resolve="unescape" />
+                                  <ref role="1Pybhc" node="2DnfmujvuGV" resolve="SerializationUtil" />
+                                  <node concept="AH0OO" id="311pOXowHwH" role="37wK5m">
+                                    <node concept="3cmrfG" id="311pOXowHwI" role="AHEQo">
+                                      <property role="3cmrfH" value="1" />
+                                    </node>
+                                    <node concept="37vLTw" id="311pOXowHwJ" role="AHHXb">
+                                      <ref role="3cqZAo" node="311pOXowHwK" resolve="it" />
+                                    </node>
                                   </node>
                                 </node>
                               </node>

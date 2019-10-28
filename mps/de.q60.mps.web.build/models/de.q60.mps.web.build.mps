@@ -3234,6 +3234,11 @@
             <ref role="3bR37D" node="5a2LedGL7Zb" resolve="de.q60.mps.web.jersey" />
           </node>
         </node>
+        <node concept="1SiIV0" id="7zuOo8p5Ygw" role="3bR37C">
+          <node concept="3bR9La" id="7zuOo8p5Ygx" role="1SiIV1">
+            <ref role="3bR37D" to="ffeo:6aIAM_Qd5ki" resolve="jetbrains.mps.lang.test.matcher" />
+          </node>
+        </node>
       </node>
     </node>
   </node>

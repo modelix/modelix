@@ -687,42 +687,146 @@
       <node concept="3Tm1VV" id="AkkmJBTONB" role="1B3o_S" />
       <node concept="3cqZAl" id="AkkmJBTOND" role="3clF45" />
       <node concept="3clFbS" id="AkkmJBTONI" role="3clF47">
-        <node concept="3clFbF" id="5J75zQcFHuM" role="3cqZAp">
-          <node concept="3nyPlj" id="5J75zQcFHuK" role="3clFbG">
-            <ref role="37wK5l" to="fz1u:~WebSocketAdapter.onWebSocketConnect(org.eclipse.jetty.websocket.api.Session)" resolve="onWebSocketConnect" />
-            <node concept="37vLTw" id="5J75zQcFHN3" role="37wK5m">
-              <ref role="3cqZAo" node="7mc9A5lmp4q" resolve="websocketSession" />
-            </node>
-          </node>
-        </node>
-        <node concept="3clFbF" id="7mc9A5lmQhU" role="3cqZAp">
-          <node concept="37vLTI" id="7mc9A5lmRWb" role="3clFbG">
-            <node concept="37vLTw" id="7mc9A5lmS7Y" role="37vLTx">
-              <ref role="3cqZAo" node="7mc9A5lmp4q" resolve="websocketSession" />
-            </node>
-            <node concept="2OqwBi" id="7mc9A5lmQwH" role="37vLTJ">
-              <node concept="Xjq3P" id="7mc9A5lmQhS" role="2Oq$k0" />
-              <node concept="2OwXpG" id="7mc9A5lmRfl" role="2OqNvi">
-                <ref role="2Oxat5" node="7mc9A5lmHPW" resolve="websocketSession" />
-              </node>
-            </node>
-          </node>
-        </node>
-        <node concept="3clFbF" id="7mc9A5lnbS7" role="3cqZAp">
-          <node concept="37vLTI" id="7mc9A5lnc7m" role="3clFbG">
-            <node concept="2ShNRf" id="7mc9A5lnchd" role="37vLTx">
-              <node concept="1pGfFk" id="7mc9A5lnc9d" role="2ShVmc">
-                <ref role="37wK5l" node="6kYN8GakaOk" resolve="InteractionSession" />
-                <node concept="37vLTw" id="7mc9A5lneeD" role="37wK5m">
+        <node concept="SfApY" id="3RbPf8OKF0n" role="3cqZAp">
+          <node concept="3clFbS" id="3RbPf8OKF0p" role="SfCbr">
+            <node concept="3clFbF" id="5J75zQcFHuM" role="3cqZAp">
+              <node concept="3nyPlj" id="5J75zQcFHuK" role="3clFbG">
+                <ref role="37wK5l" to="fz1u:~WebSocketAdapter.onWebSocketConnect(org.eclipse.jetty.websocket.api.Session)" resolve="onWebSocketConnect" />
+                <node concept="37vLTw" id="5J75zQcFHN3" role="37wK5m">
                   <ref role="3cqZAo" node="7mc9A5lmp4q" resolve="websocketSession" />
                 </node>
               </node>
             </node>
-            <node concept="37vLTw" id="7mc9A5lnbS5" role="37vLTJ">
-              <ref role="3cqZAo" node="7mc9A5ln8Wh" resolve="interactionSession" />
+            <node concept="3clFbF" id="7mc9A5lmQhU" role="3cqZAp">
+              <node concept="37vLTI" id="7mc9A5lmRWb" role="3clFbG">
+                <node concept="37vLTw" id="7mc9A5lmS7Y" role="37vLTx">
+                  <ref role="3cqZAo" node="7mc9A5lmp4q" resolve="websocketSession" />
+                </node>
+                <node concept="2OqwBi" id="7mc9A5lmQwH" role="37vLTJ">
+                  <node concept="Xjq3P" id="7mc9A5lmQhS" role="2Oq$k0" />
+                  <node concept="2OwXpG" id="7mc9A5lmRfl" role="2OqNvi">
+                    <ref role="2Oxat5" node="7mc9A5lmHPW" resolve="websocketSession" />
+                  </node>
+                </node>
+              </node>
+            </node>
+            <node concept="3clFbF" id="7mc9A5lnbS7" role="3cqZAp">
+              <node concept="37vLTI" id="7mc9A5lnc7m" role="3clFbG">
+                <node concept="2ShNRf" id="7mc9A5lnchd" role="37vLTx">
+                  <node concept="1pGfFk" id="7mc9A5lnc9d" role="2ShVmc">
+                    <ref role="37wK5l" node="6kYN8GakaOk" resolve="InteractionSession" />
+                    <node concept="37vLTw" id="7mc9A5lneeD" role="37wK5m">
+                      <ref role="3cqZAo" node="7mc9A5lmp4q" resolve="websocketSession" />
+                    </node>
+                  </node>
+                </node>
+                <node concept="37vLTw" id="7mc9A5lnbS5" role="37vLTJ">
+                  <ref role="3cqZAo" node="7mc9A5ln8Wh" resolve="interactionSession" />
+                </node>
+              </node>
+            </node>
+          </node>
+          <node concept="TDmWw" id="3RbPf8OKF0q" role="TEbGg">
+            <node concept="3cpWsn" id="3RbPf8OKF0s" role="TDEfY">
+              <property role="TrG5h" value="ex" />
+              <node concept="3uibUv" id="3RbPf8OKGwC" role="1tU5fm">
+                <ref role="3uigEE" to="wyt6:~Exception" resolve="Exception" />
+              </node>
+            </node>
+            <node concept="3clFbS" id="3RbPf8OKF0w" role="TDEfX">
+              <node concept="3cpWs8" id="3RbPf8OJBdU" role="3cqZAp">
+                <node concept="3cpWsn" id="3RbPf8OJBdV" role="3cpWs9">
+                  <property role="TrG5h" value="msg" />
+                  <node concept="17QB3L" id="3RbPf8OJtD4" role="1tU5fm" />
+                  <node concept="3cpWs3" id="3RbPf8OJBdW" role="33vP2m">
+                    <node concept="2OqwBi" id="3RbPf8OJBdX" role="3uHU7w">
+                      <node concept="2OqwBi" id="3RbPf8OKEmm" role="2Oq$k0">
+                        <node concept="37vLTw" id="3RbPf8OKDVl" role="2Oq$k0">
+                          <ref role="3cqZAo" node="7mc9A5lmp4q" resolve="websocketSession" />
+                        </node>
+                        <node concept="liA8E" id="3RbPf8OKEFy" role="2OqNvi">
+                          <ref role="37wK5l" to="fz1u:~Session.getUpgradeRequest()" resolve="getUpgradeRequest" />
+                        </node>
+                      </node>
+                      <node concept="liA8E" id="3RbPf8OJBdZ" role="2OqNvi">
+                        <ref role="37wK5l" to="fz1u:~UpgradeRequest.getRequestURI()" resolve="getRequestURI" />
+                      </node>
+                    </node>
+                    <node concept="Xl_RD" id="3RbPf8OJBe0" role="3uHU7B">
+                      <property role="Xl_RC" value="Failed to create WebSocket connection for " />
+                    </node>
+                  </node>
+                </node>
+              </node>
+              <node concept="RRSsy" id="3RbPf8OKH0D" role="3cqZAp">
+                <property role="RRSoG" value="gZ5fh_4/error" />
+                <node concept="37vLTw" id="3RbPf8OKH8G" role="RRSoy">
+                  <ref role="3cqZAo" node="3RbPf8OJBdV" resolve="msg" />
+                </node>
+                <node concept="37vLTw" id="3RbPf8OKH0H" role="RRSow">
+                  <ref role="3cqZAo" node="3RbPf8OKF0s" resolve="ex" />
+                </node>
+              </node>
+              <node concept="3clFbF" id="3RbPf8OLr_c" role="3cqZAp">
+                <node concept="2OqwBi" id="3RbPf8OLr_9" role="3clFbG">
+                  <node concept="10M0yZ" id="3RbPf8OLr_a" role="2Oq$k0">
+                    <ref role="1PxDUh" to="wyt6:~System" resolve="System" />
+                    <ref role="3cqZAo" to="wyt6:~System.out" resolve="out" />
+                  </node>
+                  <node concept="liA8E" id="3RbPf8OLr_b" role="2OqNvi">
+                    <ref role="37wK5l" to="guwi:~PrintStream.println(java.lang.String)" resolve="println" />
+                    <node concept="37vLTw" id="3RbPf8OLrHO" role="37wK5m">
+                      <ref role="3cqZAo" node="3RbPf8OJBdV" resolve="msg" />
+                    </node>
+                  </node>
+                </node>
+              </node>
+              <node concept="3clFbF" id="3RbPf8OLse8" role="3cqZAp">
+                <node concept="2OqwBi" id="3RbPf8OLse5" role="3clFbG">
+                  <node concept="10M0yZ" id="3RbPf8OLse6" role="2Oq$k0">
+                    <ref role="1PxDUh" to="wyt6:~System" resolve="System" />
+                    <ref role="3cqZAo" to="wyt6:~System.out" resolve="out" />
+                  </node>
+                  <node concept="liA8E" id="3RbPf8OLse7" role="2OqNvi">
+                    <ref role="37wK5l" to="guwi:~PrintStream.println(java.lang.String)" resolve="println" />
+                    <node concept="2OqwBi" id="3RbPf8OLsJo" role="37wK5m">
+                      <node concept="37vLTw" id="3RbPf8OLso4" role="2Oq$k0">
+                        <ref role="3cqZAo" node="3RbPf8OKF0s" resolve="ex" />
+                      </node>
+                      <node concept="liA8E" id="3RbPf8OLtma" role="2OqNvi">
+                        <ref role="37wK5l" to="wyt6:~Throwable.getMessage()" resolve="getMessage" />
+                      </node>
+                    </node>
+                  </node>
+                </node>
+              </node>
+              <node concept="3clFbF" id="3RbPf8OLtKJ" role="3cqZAp">
+                <node concept="2OqwBi" id="3RbPf8OLu2L" role="3clFbG">
+                  <node concept="37vLTw" id="3RbPf8OLtKH" role="2Oq$k0">
+                    <ref role="3cqZAo" node="3RbPf8OKF0s" resolve="ex" />
+                  </node>
+                  <node concept="liA8E" id="3RbPf8OLuFO" role="2OqNvi">
+                    <ref role="37wK5l" to="wyt6:~Throwable.printStackTrace()" resolve="printStackTrace" />
+                  </node>
+                </node>
+              </node>
+              <node concept="YS8fn" id="3RbPf8OKHjN" role="3cqZAp">
+                <node concept="2ShNRf" id="3RbPf8OKHkY" role="YScLw">
+                  <node concept="1pGfFk" id="3RbPf8OKI0l" role="2ShVmc">
+                    <ref role="37wK5l" to="wyt6:~RuntimeException.&lt;init&gt;(java.lang.String,java.lang.Throwable)" resolve="RuntimeException" />
+                    <node concept="37vLTw" id="3RbPf8OKI4J" role="37wK5m">
+                      <ref role="3cqZAo" node="3RbPf8OJBdV" resolve="msg" />
+                    </node>
+                    <node concept="37vLTw" id="3RbPf8OKIfz" role="37wK5m">
+                      <ref role="3cqZAo" node="3RbPf8OKF0s" resolve="ex" />
+                    </node>
+                  </node>
+                </node>
+              </node>
             </node>
           </node>
         </node>
+        <node concept="3clFbH" id="3RbPf8OK_cm" role="3cqZAp" />
       </node>
       <node concept="2AHcQZ" id="AkkmJBTONJ" role="2AJF6D">
         <ref role="2AI5Lk" to="wyt6:~Override" resolve="Override" />

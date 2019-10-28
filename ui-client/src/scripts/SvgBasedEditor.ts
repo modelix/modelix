@@ -21,16 +21,6 @@ export class SvgBasedEditor {
         const url = "ws://" + window.location.host + "/ws/svgui";
         this.socket = new WebSocket(url);
 
-        this.socket.onclose = (event) => {
-            setTimeout(() => {
-                this.connect();
-            }, 1000);
-        };
-
-        this.socket.onerror = (event) => {
-            if (!this.isConnected()) this.connect();
-        };
-
         this.socket.onmessage = (event) => {
             if (rawDataFollowing) {
                 rawDataFollowing = false;

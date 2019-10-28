@@ -5,4 +5,4 @@ metadata:
 spec:
   backend:
     serviceName: ui
-    servicePort: 8093
+    servicePort: 33333

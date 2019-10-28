@@ -26,10 +26,10 @@ spec:
         - containerPort: 28101
         resources: 
           requests:
-            memory: "150Mi"
+            memory: "600Mi"
             cpu: "0.1"
           limits:
-            memory: "300Mi"
+            memory: "800Mi"
             cpu: "1.0"
         readinessProbe:
           tcpSocket:

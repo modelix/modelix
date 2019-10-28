@@ -4,26 +4,13 @@ import com.google.common.collect.MultimapBuilder;
 import com.google.common.collect.SetMultimap;
 import org.apache.ignite.Ignite;
 import org.apache.ignite.IgniteCache;
-import org.apache.ignite.IgniteSet;
 import org.apache.ignite.Ignition;
-import org.apache.ignite.configuration.CollectionConfiguration;
-import org.apache.ignite.lang.IgniteBiPredicate;
 
-import javax.cache.processor.EntryProcessor;
-import javax.cache.processor.EntryProcessorException;
-import javax.cache.processor.MutableEntry;
-import java.awt.event.ActionEvent;
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
-import java.util.Timer;
-import java.util.UUID;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.ScheduledThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 public class IgniteStoreClient implements IStoreClient {
@@ -36,9 +23,9 @@ public class IgniteStoreClient implements IStoreClient {
     public IgniteStoreClient() {
         this.ignite = Ignition.start(getClass().getResource("ignite.xml"));
         cache = ignite.getOrCreateCache("model");
-        timer.scheduleAtFixedRate(() -> {
-            System.out.println("stats: " + cache.metrics());
-        }, 10, 10, TimeUnit.SECONDS);
+//        timer.scheduleAtFixedRate(() -> {
+//            System.out.println("stats: " + cache.metrics());
+//        }, 10, 10, TimeUnit.SECONDS);
     }
 
     @Override
@@ -92,16 +79,11 @@ public class IgniteStoreClient implements IStoreClient {
 
     @Override
     public long generateId(String key) {
-        return cache.invoke(key, (EntryProcessor<String, String, Long>) (mutableEntry, objects) -> {
-            String idStr = mutableEntry.getValue();
-            long id = idStr == null ? 0 : Long.parseLong(idStr);
-            id++;
-            mutableEntry.setValue(Long.toString(id));
-            return id;
-        });
+        return cache.invoke(key, new ClientIdProcessor());
     }
 
     public void dispose() {
         ignite.close();
     }
+
 }

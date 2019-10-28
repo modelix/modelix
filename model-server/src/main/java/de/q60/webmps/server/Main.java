@@ -35,6 +35,7 @@ import java.util.function.Predicate;
 
 public class Main {
     public static void main(String[] args) {
+        System.out.println("Max memory (bytes): " + Runtime.getRuntime().maxMemory());
         System.out.println("Server process started");
 
         System.out.println("Waiting ");

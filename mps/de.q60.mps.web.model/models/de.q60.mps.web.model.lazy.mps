@@ -8281,7 +8281,7 @@
                                           <ref role="3cqZAo" node="4TPMxteM6yH" resolve="visitor" />
                                         </node>
                                         <node concept="liA8E" id="3jzgJ0sX1CM" role="2OqNvi">
-                                          <ref role="37wK5l" to="3hky:5QP6xyjIp0j" resolve="propertyChanged" />
+                                          <ref role="37wK5l" to="3hky:5QP6xyjIoR5" resolve="referenceChanged" />
                                           <node concept="2OqwBi" id="3jzgJ0sX1CN" role="37wK5m">
                                             <node concept="37vLTw" id="3jzgJ0sX1CO" role="2Oq$k0">
                                               <ref role="3cqZAo" node="4TPMxtfKOW8" resolve="newNode" />
@@ -10046,6 +10046,84 @@
   </node>
   <node concept="312cEu" id="2D0HTQhahjL">
     <property role="TrG5h" value="CLVersion" />
+    <node concept="2YIFZL" id="7kIB6rsK4nY" role="jymVt">
+      <property role="TrG5h" value="loadFromHash" />
+      <node concept="3clFbS" id="7kIB6rsJYdn" role="3clF47">
+        <node concept="3cpWs8" id="7kIB6rsK33A" role="3cqZAp">
+          <node concept="3cpWsn" id="7kIB6rsK33B" role="3cpWs9">
+            <property role="TrG5h" value="data" />
+            <node concept="3uibUv" id="7kIB6rsK2Zj" role="1tU5fm">
+              <ref role="3uigEE" to="6shs:68rqGk2XfT" resolve="CPVersion" />
+            </node>
+            <node concept="2OqwBi" id="7kIB6rsK33C" role="33vP2m">
+              <node concept="37vLTw" id="7kIB6rsK33D" role="2Oq$k0">
+                <ref role="3cqZAo" node="7kIB6rsK4XF" resolve="store" />
+              </node>
+              <node concept="liA8E" id="7kIB6rsK33E" role="2OqNvi">
+                <ref role="37wK5l" node="4_P7CAmwzTl" resolve="get" />
+                <node concept="37vLTw" id="7kIB6rsK33F" role="37wK5m">
+                  <ref role="3cqZAo" node="7kIB6rsK3iy" resolve="hash" />
+                </node>
+                <node concept="1bVj0M" id="7kIB6rsK33G" role="37wK5m">
+                  <node concept="37vLTG" id="7kIB6rsK33H" role="1bW2Oz">
+                    <property role="TrG5h" value="s" />
+                    <node concept="17QB3L" id="7kIB6rsK33I" role="1tU5fm" />
+                  </node>
+                  <node concept="3clFbS" id="7kIB6rsK33J" role="1bW5cS">
+                    <node concept="3clFbF" id="7kIB6rsK33K" role="3cqZAp">
+                      <node concept="2YIFZM" id="7kIB6rsK33L" role="3clFbG">
+                        <ref role="37wK5l" to="6shs:68rqGk2XfV" resolve="deserialize" />
+                        <ref role="1Pybhc" to="6shs:68rqGk2XfT" resolve="CPVersion" />
+                        <node concept="37vLTw" id="7kIB6rsK33M" role="37wK5m">
+                          <ref role="3cqZAo" node="7kIB6rsK33H" resolve="s" />
+                        </node>
+                      </node>
+                    </node>
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="3cpWs6" id="7kIB6rsK9sy" role="3cqZAp">
+          <node concept="3K4zz7" id="7kIB6rsK9s$" role="3cqZAk">
+            <node concept="10Nm6u" id="7kIB6rsK9s_" role="3K4E3e" />
+            <node concept="2ShNRf" id="7kIB6rsK9sA" role="3K4GZi">
+              <node concept="1pGfFk" id="7kIB6rsK9sB" role="2ShVmc">
+                <ref role="37wK5l" node="2D0HTQharc9" resolve="CLVersion" />
+                <node concept="37vLTw" id="7kIB6rsK9sC" role="37wK5m">
+                  <ref role="3cqZAo" node="7kIB6rsK33B" resolve="data" />
+                </node>
+                <node concept="37vLTw" id="7kIB6rsK9sD" role="37wK5m">
+                  <ref role="3cqZAo" node="7kIB6rsK4XF" resolve="store" />
+                </node>
+              </node>
+            </node>
+            <node concept="3clFbC" id="7kIB6rsK9sE" role="3K4Cdx">
+              <node concept="10Nm6u" id="7kIB6rsK9sF" role="3uHU7w" />
+              <node concept="37vLTw" id="7kIB6rsK9sG" role="3uHU7B">
+                <ref role="3cqZAo" node="7kIB6rsK33B" resolve="data" />
+              </node>
+            </node>
+          </node>
+        </node>
+      </node>
+      <node concept="37vLTG" id="7kIB6rsK3iy" role="3clF46">
+        <property role="TrG5h" value="hash" />
+        <node concept="17QB3L" id="7kIB6rsK3Fe" role="1tU5fm" />
+      </node>
+      <node concept="37vLTG" id="7kIB6rsK4XF" role="3clF46">
+        <property role="TrG5h" value="store" />
+        <node concept="3uibUv" id="7kIB6rsK4XG" role="1tU5fm">
+          <ref role="3uigEE" node="4_P7CAmwzDr" resolve="IDeserializingKeyValueStore" />
+        </node>
+      </node>
+      <node concept="3uibUv" id="7kIB6rsK2Kd" role="3clF45">
+        <ref role="3uigEE" node="2D0HTQhahjL" resolve="CLVersion" />
+      </node>
+      <node concept="3Tm1VV" id="7kIB6rsJYdm" role="1B3o_S" />
+    </node>
+    <node concept="2tJIrI" id="7kIB6rsK00b" role="jymVt" />
     <node concept="312cEg" id="2D0HTQhar3H" role="jymVt">
       <property role="TrG5h" value="store" />
       <node concept="3Tm6S6" id="2D0HTQhar6N" role="1B3o_S" />
