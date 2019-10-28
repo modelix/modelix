@@ -9313,8 +9313,8 @@
     <node concept="312cEg" id="68rqGk23e5" role="jymVt">
       <property role="TrG5h" value="store" />
       <node concept="3Tm6S6" id="68rqGk23e6" role="1B3o_S" />
-      <node concept="3uibUv" id="5nE7Pe9dAx8" role="1tU5fm">
-        <ref role="3uigEE" to="zdal:1SVbIFIiXye" resolve="IKeyValueStore" />
+      <node concept="3uibUv" id="5_JSBJzdcJK" role="1tU5fm">
+        <ref role="3uigEE" node="64iiug7VuJw" resolve="AsyncStore" />
       </node>
     </node>
     <node concept="312cEg" id="3lWEPzuCM0Q" role="jymVt">
@@ -9863,7 +9863,7 @@
                                     <ref role="3cqZAo" node="68rqGk23e5" resolve="store" />
                                   </node>
                                   <node concept="liA8E" id="51I69MotRzN" role="2OqNvi">
-                                    <ref role="37wK5l" to="zdal:1SVbIFIiX_K" resolve="put" />
+                                    <ref role="37wK5l" node="64iiug7Vvjx" resolve="put" />
                                     <node concept="Xl_RD" id="51I69MotRzO" role="37wK5m">
                                       <property role="Xl_RC" value="version" />
                                     </node>
@@ -10497,7 +10497,7 @@
                         <ref role="3cqZAo" node="68rqGk23e5" resolve="store" />
                       </node>
                       <node concept="liA8E" id="2JgPm8hGMnU" role="2OqNvi">
-                        <ref role="37wK5l" to="zdal:1SVbIFIiXyE" resolve="get" />
+                        <ref role="37wK5l" node="64iiug7Vvjf" resolve="get" />
                         <node concept="Xl_RD" id="2JgPm8hGMnV" role="37wK5m">
                           <property role="Xl_RC" value="version" />
                         </node>
@@ -10640,7 +10640,7 @@
                           <ref role="3cqZAo" node="68rqGk23e5" resolve="store" />
                         </node>
                         <node concept="liA8E" id="1ws0Et6XUpx" role="2OqNvi">
-                          <ref role="37wK5l" to="zdal:1SVbIFIiXyE" resolve="get" />
+                          <ref role="37wK5l" node="64iiug7Vvjf" resolve="get" />
                           <node concept="2OqwBi" id="3MaAuhpVUAa" role="37wK5m">
                             <node concept="37vLTw" id="3MaAuhpVSvy" role="2Oq$k0">
                               <ref role="3cqZAo" node="68rqGk3QY4" resolve="version" />
@@ -11752,6 +11752,37 @@
                 <node concept="Xl_RD" id="1UedZiFqLad" role="RRSoy" />
                 <node concept="37vLTw" id="1UedZiFqLaf" role="RRSow">
                   <ref role="3cqZAo" node="1UedZiFqKsL" resolve="ex" />
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="SfApY" id="5_JSBJzdiqz" role="3cqZAp">
+          <node concept="3clFbS" id="5_JSBJzdiq_" role="SfCbr">
+            <node concept="3clFbF" id="5_JSBJzdmgP" role="3cqZAp">
+              <node concept="2EnYce" id="5_JSBJzdmSm" role="3clFbG">
+                <node concept="37vLTw" id="5_JSBJzdmgN" role="2Oq$k0">
+                  <ref role="3cqZAo" node="68rqGk23e5" resolve="store" />
+                </node>
+                <node concept="liA8E" id="5_JSBJzdmHz" role="2OqNvi">
+                  <ref role="37wK5l" node="5_JSBJzcRvT" resolve="dispose" />
+                </node>
+              </node>
+            </node>
+          </node>
+          <node concept="TDmWw" id="5_JSBJzdiqA" role="TEbGg">
+            <node concept="3cpWsn" id="5_JSBJzdiqC" role="TDEfY">
+              <property role="TrG5h" value="ex" />
+              <node concept="3uibUv" id="5_JSBJzdiJx" role="1tU5fm">
+                <ref role="3uigEE" to="wyt6:~Exception" resolve="Exception" />
+              </node>
+            </node>
+            <node concept="3clFbS" id="5_JSBJzdiqG" role="TDEfX">
+              <node concept="RRSsy" id="5_JSBJzdm4$" role="3cqZAp">
+                <property role="RRSoG" value="gZ5fh_4/error" />
+                <node concept="Xl_RD" id="5_JSBJzdm4A" role="RRSoy" />
+                <node concept="37vLTw" id="5_JSBJzdm4C" role="RRSow">
+                  <ref role="3cqZAo" node="5_JSBJzdiqC" resolve="ex" />
                 </node>
               </node>
             </node>
@@ -13112,6 +13143,20 @@
   </node>
   <node concept="312cEu" id="64iiug7VuJw">
     <property role="TrG5h" value="AsyncStore" />
+    <node concept="312cEg" id="5_JSBJzcOzm" role="jymVt">
+      <property role="TrG5h" value="executor" />
+      <node concept="3Tm6S6" id="5_JSBJzcOzn" role="1B3o_S" />
+      <node concept="3uibUv" id="5_JSBJzcUSg" role="1tU5fm">
+        <ref role="3uigEE" to="5zyv:~ExecutorService" resolve="ExecutorService" />
+      </node>
+      <node concept="2YIFZM" id="5_JSBJzcQqB" role="33vP2m">
+        <ref role="37wK5l" to="5zyv:~Executors.newFixedThreadPool(int)" resolve="newFixedThreadPool" />
+        <ref role="1Pybhc" to="5zyv:~Executors" resolve="Executors" />
+        <node concept="3cmrfG" id="5_JSBJzcQQz" role="37wK5m">
+          <property role="3cmrfH" value="3" />
+        </node>
+      </node>
+    </node>
     <node concept="312cEg" id="64iiug7VuZv" role="jymVt">
       <property role="TrG5h" value="store" />
       <node concept="3Tm6S6" id="64iiug7VuZw" role="1B3o_S" />
@@ -13341,12 +13386,11 @@
         </node>
         <node concept="3clFbF" id="64iiug7VSt5" role="3cqZAp">
           <node concept="2OqwBi" id="64iiug7VSIk" role="3clFbG">
-            <node concept="2YIFZM" id="64iiug7VSvB" role="2Oq$k0">
-              <ref role="37wK5l" to="bd8o:~ApplicationManager.getApplication()" resolve="getApplication" />
-              <ref role="1Pybhc" to="bd8o:~ApplicationManager" resolve="ApplicationManager" />
+            <node concept="37vLTw" id="5_JSBJzcXMv" role="2Oq$k0">
+              <ref role="3cqZAo" node="5_JSBJzcOzm" resolve="executor" />
             </node>
             <node concept="liA8E" id="64iiug7VSX$" role="2OqNvi">
-              <ref role="37wK5l" to="bd8o:~Application.executeOnPooledThread(java.lang.Runnable)" resolve="executeOnPooledThread" />
+              <ref role="37wK5l" to="5zyv:~Executor.execute(java.lang.Runnable)" resolve="execute" />
               <node concept="1bVj0M" id="64iiug7VTGD" role="37wK5m">
                 <node concept="3clFbS" id="64iiug7VTGE" role="1bW5cS">
                   <node concept="1HWtB8" id="64iiug7W02h" role="3cqZAp">
@@ -13410,6 +13454,32 @@
       </node>
       <node concept="2AHcQZ" id="64iiug7VvjE" role="2AJF6D">
         <ref role="2AI5Lk" to="wyt6:~Override" resolve="Override" />
+      </node>
+    </node>
+    <node concept="2tJIrI" id="5_JSBJzcR1R" role="jymVt" />
+    <node concept="3clFb_" id="5_JSBJzcRvT" role="jymVt">
+      <property role="TrG5h" value="dispose" />
+      <node concept="3cqZAl" id="5_JSBJzcRvV" role="3clF45" />
+      <node concept="3Tm1VV" id="5_JSBJzcRvW" role="1B3o_S" />
+      <node concept="3clFbS" id="5_JSBJzcRvX" role="3clF47">
+        <node concept="3clFbF" id="5_JSBJzcSMO" role="3cqZAp">
+          <node concept="2OqwBi" id="5_JSBJzcTm4" role="3clFbG">
+            <node concept="37vLTw" id="5_JSBJzcSMN" role="2Oq$k0">
+              <ref role="3cqZAo" node="5_JSBJzcOzm" resolve="executor" />
+            </node>
+            <node concept="liA8E" id="5_JSBJzcV7X" role="2OqNvi">
+              <ref role="37wK5l" to="5zyv:~ExecutorService.shutdown()" resolve="shutdown" />
+            </node>
+          </node>
+        </node>
+        <node concept="3clFbF" id="5_JSBJzcVSB" role="3cqZAp">
+          <node concept="37vLTI" id="5_JSBJzcWsW" role="3clFbG">
+            <node concept="10Nm6u" id="5_JSBJzcWQd" role="37vLTx" />
+            <node concept="37vLTw" id="5_JSBJzcVS_" role="37vLTJ">
+              <ref role="3cqZAo" node="5_JSBJzcOzm" resolve="executor" />
+            </node>
+          </node>
+        </node>
       </node>
     </node>
   </node>
