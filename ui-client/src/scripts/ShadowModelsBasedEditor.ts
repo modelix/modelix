@@ -21,12 +21,14 @@ export class ShadowModelsBasedEditor {
             }
 
             const newViewer = this.id2dom.get("viewer");
-            if (newViewer && this.viewer !== newViewer) {
+            if (newViewer) {
+                if (this.viewer !== newViewer) {
+                    newViewer.setAttribute("nodeRef", this.viewer.getAttribute("nodeRef"));
+                    this.viewer.parentElement.replaceChild(newViewer, this.viewer);
+                    this.viewer = newViewer;
+                }
                 if (!newViewer.classList.contains("smviewer")) newViewer.classList.add("smviewer");
                 if (!newViewer.classList.contains("connected")) newViewer.classList.add("connected");
-                newViewer.setAttribute("nodeRef", this.viewer.getAttribute("nodeRef"));
-                this.viewer.parentElement.replaceChild(newViewer, this.viewer);
-                this.viewer = newViewer;
             }
 
             for (const f of this.postprocessors) f();
