@@ -4469,7 +4469,7 @@
           </node>
           <node concept="2ShNRf" id="4_P7CAmzcXu" role="37wK5m">
             <node concept="1pGfFk" id="4_P7CAmzdjs" role="2ShVmc">
-              <ref role="37wK5l" node="ifAKfhOMkk" resolve="StoreCache" />
+              <ref role="37wK5l" node="ifAKfhOMkk" resolve="ObjectStoreCache" />
               <node concept="37vLTw" id="4_P7CAmzdlY" role="37wK5m">
                 <ref role="3cqZAo" node="4_P7CAmzbCQ" resolve="store" />
               </node>
@@ -9774,7 +9774,7 @@
     </node>
   </node>
   <node concept="312cEu" id="7A36R9$Wose">
-    <property role="TrG5h" value="StoreCache" />
+    <property role="TrG5h" value="ObjectStoreCache" />
     <node concept="2tJIrI" id="7A36R9$Wotu" role="jymVt" />
     <node concept="312cEg" id="7A36R9$WotX" role="jymVt">
       <property role="TrG5h" value="store" />
