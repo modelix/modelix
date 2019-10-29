@@ -62,9 +62,6 @@
       <concept id="1081236700937" name="jetbrains.mps.baseLanguage.structure.StaticMethodCall" flags="nn" index="2YIFZM">
         <reference id="1144433194310" name="classConcept" index="1Pybhc" />
       </concept>
-      <concept id="1070533707846" name="jetbrains.mps.baseLanguage.structure.StaticFieldReference" flags="nn" index="10M0yZ">
-        <reference id="1144433057691" name="classifier" index="1PxDUh" />
-      </concept>
       <concept id="1070534058343" name="jetbrains.mps.baseLanguage.structure.NullLiteral" flags="nn" index="10Nm6u" />
       <concept id="1070534370425" name="jetbrains.mps.baseLanguage.structure.IntegerType" flags="in" index="10Oyi0" />
       <concept id="1068390468200" name="jetbrains.mps.baseLanguage.structure.FieldDeclaration" flags="ig" index="312cEg">
@@ -151,6 +148,11 @@
       <concept id="1199569711397" name="jetbrains.mps.baseLanguage.closures.structure.ClosureLiteral" flags="nn" index="1bVj0M">
         <child id="1199569906740" name="parameter" index="1bW2Oz" />
         <child id="1199569916463" name="body" index="1bW5cS" />
+      </concept>
+    </language>
+    <language id="760a0a8c-eabb-4521-8bfd-65db761a9ba3" name="jetbrains.mps.baseLanguage.logging">
+      <concept id="2034914114981261497" name="jetbrains.mps.baseLanguage.logging.structure.LogLowLevelStatement" flags="ng" index="RRSsy">
+        <child id="2034914114981261753" name="message" index="RRSoy" />
       </concept>
     </language>
     <language id="ceab5195-25ea-4f22-9b92-103b95ca8c0c" name="jetbrains.mps.lang.core">
@@ -956,22 +958,13 @@
             <ref role="3cqZAo" node="5BgWpoKyedH" resolve="modules" />
           </node>
           <node concept="3clFbS" id="5BgWpoKyedV" role="2LFqv$">
-            <node concept="3clFbF" id="5BgWpoKyedW" role="3cqZAp">
-              <node concept="2OqwBi" id="5BgWpoKyedX" role="3clFbG">
-                <node concept="10M0yZ" id="5BgWpoKyedY" role="2Oq$k0">
-                  <ref role="1PxDUh" to="wyt6:~System" resolve="System" />
-                  <ref role="3cqZAo" to="wyt6:~System.out" resolve="out" />
+            <node concept="RRSsy" id="2wu1c06OSGL" role="3cqZAp">
+              <node concept="2OqwBi" id="2wu1c06OSQK" role="RRSoy">
+                <node concept="2GrUjf" id="2wu1c06OSQL" role="2Oq$k0">
+                  <ref role="2Gs0qQ" node="5BgWpoKyedQ" resolve="module" />
                 </node>
-                <node concept="liA8E" id="5BgWpoKyedZ" role="2OqNvi">
-                  <ref role="37wK5l" to="guwi:~PrintStream.println(java.lang.String)" resolve="println" />
-                  <node concept="2OqwBi" id="5BgWpoKyee0" role="37wK5m">
-                    <node concept="2GrUjf" id="5BgWpoKyee1" role="2Oq$k0">
-                      <ref role="2Gs0qQ" node="5BgWpoKyedQ" resolve="module" />
-                    </node>
-                    <node concept="liA8E" id="5BgWpoKyee2" role="2OqNvi">
-                      <ref role="37wK5l" to="lui2:~SModule.getModuleName()" resolve="getModuleName" />
-                    </node>
-                  </node>
+                <node concept="liA8E" id="2wu1c06OSQM" role="2OqNvi">
+                  <ref role="37wK5l" to="lui2:~SModule.getModuleName()" resolve="getModuleName" />
                 </node>
               </node>
             </node>
@@ -1048,22 +1041,13 @@
             </node>
           </node>
         </node>
-        <node concept="3clFbF" id="4SLY67oa9wb" role="3cqZAp">
-          <node concept="2OqwBi" id="4SLY67oa9w8" role="3clFbG">
-            <node concept="10M0yZ" id="4SLY67oa9w9" role="2Oq$k0">
-              <ref role="1PxDUh" to="wyt6:~System" resolve="System" />
-              <ref role="3cqZAo" to="wyt6:~System.out" resolve="out" />
+        <node concept="RRSsy" id="2wu1c06OTsB" role="3cqZAp">
+          <node concept="3cpWs3" id="4SLY67oaa33" role="RRSoy">
+            <node concept="37vLTw" id="4SLY67oaa6c" role="3uHU7w">
+              <ref role="3cqZAo" node="4SLY67oa8Yi" resolve="hash" />
             </node>
-            <node concept="liA8E" id="4SLY67oa9wa" role="2OqNvi">
-              <ref role="37wK5l" to="guwi:~PrintStream.println(java.lang.String)" resolve="println" />
-              <node concept="3cpWs3" id="4SLY67oaa33" role="37wK5m">
-                <node concept="37vLTw" id="4SLY67oaa6c" role="3uHU7w">
-                  <ref role="3cqZAo" node="4SLY67oa8Yi" resolve="hash" />
-                </node>
-                <node concept="Xl_RD" id="4SLY67oa9E8" role="3uHU7B">
-                  <property role="Xl_RC" value="Config: " />
-                </node>
-              </node>
+            <node concept="Xl_RD" id="4SLY67oa9E8" role="3uHU7B">
+              <property role="Xl_RC" value="Config: " />
             </node>
           </node>
         </node>
