@@ -415,6 +415,21 @@
       </node>
     </node>
     <node concept="2tJIrI" id="51I69MopdlK" role="jymVt" />
+    <node concept="3clFb_" id="2wu1c06Rg2Q" role="jymVt">
+      <property role="TrG5h" value="getLastVersion" />
+      <node concept="3uibUv" id="2wu1c06Rm_j" role="3clF45">
+        <ref role="3uigEE" to="jon5:2D0HTQhahjL" resolve="CLVersion" />
+      </node>
+      <node concept="3Tm1VV" id="2wu1c06Rg2T" role="1B3o_S" />
+      <node concept="3clFbS" id="2wu1c06Rg2U" role="3clF47">
+        <node concept="3clFbF" id="2wu1c06Rmpp" role="3cqZAp">
+          <node concept="37vLTw" id="2wu1c06Rmpo" role="3clFbG">
+            <ref role="3cqZAo" node="51I69Mo9$zq" resolve="lastMergedVersion" />
+          </node>
+        </node>
+      </node>
+    </node>
+    <node concept="2tJIrI" id="2wu1c06ReCT" role="jymVt" />
     <node concept="3clFb_" id="51I69Mo9$19" role="jymVt">
       <property role="TrG5h" value="mergeChange" />
       <node concept="37vLTG" id="51I69Mo9$64" role="3clF46">
