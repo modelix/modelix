@@ -26,5 +26,5 @@ docker push "eu.gcr.io/webmps/webmps-ui:latest"
 
 echo "Pushed tag ${TAG}"
 
-sed -i -E "s/20[12][0-9][01][0-9][012][0-9][0-5][0-9][0-5][0-9]/${TAG}/" kubernetes/common/ui-deployment.yaml
-sed -i -E "s/20[12][0-9][01][0-9][012][0-9][0-5][0-9][0-5][0-9]/${TAG}/" kubernetes/common/model-deployment.yaml
+sed -i -E "s/20[12][0-9][01][0-9][0123][0-9][0-5][0-9][0-5][0-9]/${TAG}/" kubernetes/common/ui-deployment.yaml
+sed -i -E "s/20[12][0-9][01][0-9][0123][0-9][0-5][0-9][0-5][0-9]/${TAG}/" kubernetes/common/model-deployment.yaml
