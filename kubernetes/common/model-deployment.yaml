@@ -7,8 +7,13 @@ metadata:
     app: model
   name: model
 spec:
-  replicas: 1
-  strategy: {}
+  revisionHistoryLimit: 5
+  replicas: 3
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0
+      maxSurge: 1
   template:
     metadata:
       creationTimestamp: null
@@ -19,7 +24,7 @@ spec:
       - env:
         - name: jdbc_url
           value: jdbc:postgresql://db:5432/
-        image: eu.gcr.io/webmps/webmps-model:201910231400
+        image: eu.gcr.io/webmps/webmps-model:201910301130
         imagePullPolicy: IfNotPresent
         name: model
         ports:
