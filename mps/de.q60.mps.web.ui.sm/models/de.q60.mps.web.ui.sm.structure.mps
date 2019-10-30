@@ -60,6 +60,13 @@
       <property role="20lbJX" value="fLJekj5/_0__n" />
       <ref role="20lvS9" node="6g556hWLifk" resolve="KeyHandler" />
     </node>
+    <node concept="1TJgyj" id="67FlxU7TNsI" role="1TKVEi">
+      <property role="IQ2ns" value="7055827930335098670" />
+      <property role="20lmBu" value="fLJjDmT/aggregation" />
+      <property role="20kJfa" value="css" />
+      <property role="20lbJX" value="fLJekj5/_0__n" />
+      <ref role="20lvS9" node="67FlxU7TMZo" resolve="CellStyleItem" />
+    </node>
   </node>
   <node concept="1TIwiD" id="AkkmJBMaEC">
     <property role="EcuMT" value="690266166786566824" />
@@ -356,6 +363,22 @@
       <property role="20kJfa" value="html" />
       <property role="20lbJX" value="fLJekj4/_1" />
       <ref role="20lvS9" to="70w2:7NImM04RGAQ" resolve="HTMLElement" />
+    </node>
+  </node>
+  <node concept="1TIwiD" id="67FlxU7TMZo">
+    <property role="EcuMT" value="7055827930335096792" />
+    <property role="3GE5qa" value="cell" />
+    <property role="TrG5h" value="CellStyleItem" />
+    <ref role="1TJDcQ" to="tpck:gw2VY9q" resolve="BaseConcept" />
+    <node concept="1TJgyi" id="67FlxU7TNe1" role="1TKVEl">
+      <property role="IQ2nx" value="7055827930335097729" />
+      <property role="TrG5h" value="name" />
+      <ref role="AX2Wp" to="tpck:fKAOsGN" resolve="string" />
+    </node>
+    <node concept="1TJgyi" id="67FlxU7TNe3" role="1TKVEl">
+      <property role="IQ2nx" value="7055827930335097731" />
+      <property role="TrG5h" value="value" />
+      <ref role="AX2Wp" to="tpck:fKAOsGN" resolve="string" />
     </node>
   </node>
 </model>
