@@ -7,11 +7,12 @@ metadata:
     app: ui
   name: ui
 spec:
-  replicas: 1
+  revisionHistoryLimit: 5
+  replicas: 2
   strategy:
     type: RollingUpdate
     rollingUpdate:
-      maxUnavailable: 0
+      maxUnavailable: 1
       maxSurge: 1
   template:
     metadata:
@@ -21,7 +22,7 @@ spec:
     spec:
       containers:
       - name: ui
-        image: eu.gcr.io/webmps/webmps-ui:201910231400
+        image: eu.gcr.io/webmps/webmps-ui:201910301130
         imagePullPolicy: IfNotPresent
         env:
         - name: MODEL_URI
@@ -30,10 +31,10 @@ spec:
         - containerPort: 33333
         resources: 
           requests:
-            memory: "1.5Gi"
+            memory: "2.0Gi"
             cpu: "0.8"
           limits:
-            memory: "2Gi"
+            memory: "2.5Gi"
             cpu: "1.5"
         readinessProbe:
           httpGet:
