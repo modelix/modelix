@@ -24,7 +24,7 @@ spec:
       - env:
         - name: jdbc_url
           value: jdbc:postgresql://db:5432/
-        image: eu.gcr.io/webmps/webmps-model:201910301130
+        image: eu.gcr.io/webmps/webmps-model:201911041307
         imagePullPolicy: IfNotPresent
         name: model
         ports:

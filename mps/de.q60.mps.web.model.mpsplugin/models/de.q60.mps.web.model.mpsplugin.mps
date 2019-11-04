@@ -12116,7 +12116,7 @@
                     <ref role="3cqZAo" node="5_gfWzaMyF8" resolve="baseUri" />
                   </node>
                   <node concept="Xl_RD" id="6lVG1TvblSi" role="37vLTx">
-                    <property role="Xl_RC" value="http://model.cloudmps.q60.de:80/" />
+                    <property role="Xl_RC" value="http://cloudmps.q60.de:80/model/" />
                   </node>
                 </node>
               </node>

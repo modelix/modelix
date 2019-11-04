@@ -4,51 +4,49 @@ metadata:
   annotations:
   creationTimestamp: null
   labels:
-    app: ui
-  name: ui
+    app: proxy
+  name: proxy
 spec:
   revisionHistoryLimit: 5
-  replicas: 2
+  replicas: 1
   strategy:
     type: RollingUpdate
     rollingUpdate:
-      maxUnavailable: 1
+      maxUnavailable: 0
       maxSurge: 1
   template:
     metadata:
       creationTimestamp: null
       labels:
-        app: ui
+        app: proxy
     spec:
       containers:
-      - name: ui
-        image: eu.gcr.io/webmps/webmps-ui:201911041307
+      - name: proxy
+        image: eu.gcr.io/webmps/webmps-proxy:201911041307
         imagePullPolicy: IfNotPresent
         env:
-        - name: MODEL_URI
-          value: http://model:28101/
         ports:
-        - containerPort: 33333
+        - containerPort: 80
         resources: 
           requests:
-            memory: "2.0Gi"
-            cpu: "0.8"
+            memory: "100Mi"
+            cpu: "0.1"
           limits:
-            memory: "2.5Gi"
-            cpu: "1.5"
+            memory: "500Mi"
+            cpu: "1.0"
         readinessProbe:
           httpGet:
-            path: /health/check
-            port: 33333
-          initialDelaySeconds: 10
-          periodSeconds: 5
+            path: /
+            port: 80
+          initialDelaySeconds: 3
+          periodSeconds: 3
           timeoutSeconds: 3
         livenessProbe:
           httpGet:
-            path: /health/check
-            port: 33333
-          initialDelaySeconds: 120
-          periodSeconds: 20
+            path: /
+            port: 80
+          initialDelaySeconds: 10
+          periodSeconds: 10
           timeoutSeconds: 10
       restartPolicy: Always
 status: {}

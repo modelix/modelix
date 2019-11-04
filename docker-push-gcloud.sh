@@ -8,23 +8,31 @@ docker tag webmps-db:latest "eu.gcr.io/webmps/webmps-db:${TAG}"
 docker tag webmps-model:latest "eu.gcr.io/webmps/webmps-model:${TAG}"
 docker tag webmps-mps:latest "eu.gcr.io/webmps/webmps-mps:${TAG}"
 docker tag webmps-ui:latest "eu.gcr.io/webmps/webmps-ui:${TAG}"
+docker tag webmps-proxy:latest "eu.gcr.io/webmps/webmps-proxy:${TAG}"
 
 docker push "eu.gcr.io/webmps/webmps-db:${TAG}"
 docker push "eu.gcr.io/webmps/webmps-model:${TAG}"
 docker push "eu.gcr.io/webmps/webmps-mps:${TAG}"
 docker push "eu.gcr.io/webmps/webmps-ui:${TAG}"
+docker push "eu.gcr.io/webmps/webmps-proxy:${TAG}"
 
 docker tag webmps-db:latest "eu.gcr.io/webmps/webmps-db:latest"
 docker tag webmps-model:latest "eu.gcr.io/webmps/webmps-model:latest"
 docker tag webmps-mps:latest "eu.gcr.io/webmps/webmps-mps:latest"
 docker tag webmps-ui:latest "eu.gcr.io/webmps/webmps-ui:latest"
+docker tag webmps-proxy:latest "eu.gcr.io/webmps/webmps-proxy:latest"
 
 docker push "eu.gcr.io/webmps/webmps-db:latest"
 docker push "eu.gcr.io/webmps/webmps-model:latest"
 docker push "eu.gcr.io/webmps/webmps-mps:latest"
 docker push "eu.gcr.io/webmps/webmps-ui:latest"
+docker push "eu.gcr.io/webmps/webmps-proxy:latest"
 
 echo "Pushed tag ${TAG}"
 
 sed -i -E "s/20[12][0-9][01][0-9][0123][0-9][0-5][0-9][0-5][0-9]/${TAG}/" kubernetes/common/ui-deployment.yaml
 sed -i -E "s/20[12][0-9][01][0-9][0123][0-9][0-5][0-9][0-5][0-9]/${TAG}/" kubernetes/common/model-deployment.yaml
+sed -i -E "s/20[12][0-9][01][0-9][0123][0-9][0-5][0-9][0-5][0-9]/${TAG}/" kubernetes/common/proxy-deployment.yaml
+rm kubernetes/common/ui-deployment.yaml-E
+rm kubernetes/common/model-deployment.yaml-E
+rm kubernetes/common/proxy-deployment.yaml-E

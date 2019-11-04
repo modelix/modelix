@@ -18,7 +18,9 @@ export class SvgBasedEditor {
         let lastMessage: IMessage = null;
         let rawData: string = null;
 
-        const url = "ws://" + window.location.host + "/ws/svgui";
+        let path = window.location.pathname;
+        path = path.substring(0, path.lastIndexOf("/"));
+        const url = "ws://" + window.location.host + path + "/ws/svgui";
         this.socket = new WebSocket(url);
 
         this.socket.onmessage = (event) => {
