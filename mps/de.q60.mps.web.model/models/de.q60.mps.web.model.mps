@@ -193,10 +193,7 @@
       <concept id="8465538089690331500" name="jetbrains.mps.baseLanguage.javadoc.structure.CommentLine" flags="ng" index="TZ5HA">
         <child id="8970989240999019149" name="part" index="1dT_Ay" />
       </concept>
-      <concept id="8970989240999019143" name="jetbrains.mps.baseLanguage.javadoc.structure.TextCommentLinePart" flags="ng" index="1dT_AC">
-        <property id="8970989240999019144" name="text" index="1dT_AB" />
-      </concept>
-      <concept id="2068944020170241612" name="jetbrains.mps.baseLanguage.javadoc.structure.ClassifierDocComment" flags="ng" index="3UR2Jj" />
+      <concept id="8970989240999019143" name="jetbrains.mps.baseLanguage.javadoc.structure.TextCommentLinePart" flags="ng" index="1dT_AC" />
     </language>
     <language id="ceab5195-25ea-4f22-9b92-103b95ca8c0c" name="jetbrains.mps.lang.core">
       <concept id="1133920641626" name="jetbrains.mps.lang.core.structure.BaseConcept" flags="ng" index="2VYdi">
@@ -1762,13 +1759,6 @@
       </node>
     </node>
     <node concept="3Tm1VV" id="51I69Mo8WTV" role="1B3o_S" />
-    <node concept="3UR2Jj" id="51I69Mo8Xe7" role="lGtFl">
-      <node concept="TZ5HA" id="51I69Mo8Xe8" role="TZ5H$">
-        <node concept="1dT_AC" id="51I69Mo8Xe9" role="1dT_Ay">
-          <property role="1dT_AB" value="MPS writes to the client branch. This creates a new version with " />
-        </node>
-      </node>
-    </node>
   </node>
   <node concept="312cEu" id="3lWEPzuC4Is">
     <property role="TrG5h" value="KeyValueStoreCache" />

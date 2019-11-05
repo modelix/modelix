@@ -2,6 +2,7 @@
 <project version="4">
   <component name="MPSProject">
     <projectModules>
+      <modulePath path="$PROJECT_DIR$/de.q60.mps.web.aspect/de.q60.mps.web.aspect.mpl" folder="aspect" />
       <modulePath path="$PROJECT_DIR$/de.q60.mps.web.build.scripts/de.q60.mps.web.build.scripts.msd" folder="build" />
       <modulePath path="$PROJECT_DIR$/de.q60.mps.web.build/de.q60.mps.web.build.msd" folder="build" />
       <modulePath path="$PROJECT_DIR$/de.q60.mps.web.jersey/de.q60.mps.web.jersey.msd" folder="common" />
@@ -15,6 +16,8 @@
       <modulePath path="$PROJECT_DIR$/de.q60.mps.web.ui.sm.server/de.q60.mps.web.ui.sm.server.msd" folder="ui.shadowmodels" />
       <modulePath path="$PROJECT_DIR$/de.q60.mps.web.ui.sm/de.q60.mps.web.ui.sm.mpl" folder="ui.shadowmodels" />
       <modulePath path="$PROJECT_DIR$/de.q60.mps.web.ui.svg/de.q60.mps.web.ui.svg.msd" folder="ui.svg" />
+      <modulePath path="$PROJECT_DIR$/devkits/de.q60.mps.web.aspect.devkit/de.q60.mps.web.aspect.devkit.devkit" folder="aspect" />
+      <modulePath path="$PROJECT_DIR$/solutions/de.q60.mps.web.aspect.genplan/de.q60.mps.web.aspect.genplan.msd" folder="aspect" />
     </projectModules>
   </component>
 </project>
