@@ -251,18 +251,8 @@
       </concept>
     </language>
     <language id="ceab5195-25ea-4f22-9b92-103b95ca8c0c" name="jetbrains.mps.lang.core">
-      <concept id="1133920641626" name="jetbrains.mps.lang.core.structure.BaseConcept" flags="ng" index="2VYdi">
-        <child id="5169995583184591170" name="smodelAttribute" index="lGtFl" />
-      </concept>
       <concept id="1169194658468" name="jetbrains.mps.lang.core.structure.INamedConcept" flags="ng" index="TrEIO">
         <property id="1169194664001" name="name" index="TrG5h" />
-      </concept>
-      <concept id="709746936026466394" name="jetbrains.mps.lang.core.structure.ChildAttribute" flags="ng" index="3VBwX9">
-        <property id="709746936026609031" name="linkId" index="3V$3ak" />
-        <property id="709746936026609029" name="role_DebugInfo" index="3V$3am" />
-      </concept>
-      <concept id="4452961908202556907" name="jetbrains.mps.lang.core.structure.BaseCommentAttribute" flags="ng" index="1X3_iC">
-        <child id="3078666699043039389" name="commentedNode" index="8Wnug" />
       </concept>
     </language>
     <language id="c7fb639f-be78-4307-89b0-b5959c3fa8c8" name="jetbrains.mps.lang.text">
@@ -838,7 +828,7 @@
                   </node>
                   <node concept="2ZW3vV" id="6AlUJyrxJsh" role="3clFbw">
                     <node concept="3uibUv" id="26ispG7Zyx_" role="2ZW6by">
-                      <ref role="3uigEE" to="csg2:115Xaa43tZI" resolve="WebModule" />
+                      <ref role="3uigEE" to="csg2:115Xaa43tZI" resolve="CloudTransientModule" />
                     </node>
                     <node concept="37vLTw" id="6AlUJyrxJc3" role="2ZW6bz">
                       <ref role="3cqZAo" node="6AlUJyrxacw" resolve="m" />
@@ -1775,90 +1765,81 @@
       <node concept="3cqZAl" id="7zI2priU5Kp" role="3clF45" />
       <node concept="3Tm1VV" id="7zI2priU5Kq" role="1B3o_S" />
       <node concept="3clFbS" id="7zI2priU5Kr" role="3clF47">
-        <node concept="1X3_iC" id="1LVcV5KGdkn" role="lGtFl">
-          <property role="3V$3am" value="statement" />
-          <property role="3V$3ak" value="f3061a53-9226-4cc5-a443-f952ceaf5816/1068580123136/1068581517665" />
-          <node concept="3clFbJ" id="7zI2priUQE1" role="8Wnug">
-            <node concept="3clFbS" id="7zI2priUQE3" role="3clFbx">
-              <node concept="3clFbJ" id="7zI2priUU4y" role="3cqZAp">
-                <node concept="1Wc70l" id="7zI2priWtpc" role="3clFbw">
-                  <node concept="3y3z36" id="7zI2priWFH3" role="3uHU7w">
-                    <node concept="10Nm6u" id="7zI2priWGD$" role="3uHU7w" />
-                    <node concept="2OqwBi" id="7zI2priWvc_" role="3uHU7B">
-                      <node concept="37vLTw" id="7zI2priWuw6" role="2Oq$k0">
-                        <ref role="3cqZAo" node="115Xaa41cD5" resolve="cloudTreeNode" />
-                      </node>
-                      <node concept="liA8E" id="7zI2priWE5H" role="2OqNvi">
-                        <ref role="37wK5l" to="7e8u:~MPSTreeNode.getTree()" resolve="getTree" />
-                      </node>
+        <node concept="3clFbJ" id="7zI2priUQE1" role="3cqZAp">
+          <node concept="3clFbS" id="7zI2priUQE3" role="3clFbx">
+            <node concept="3clFbJ" id="7zI2priUU4y" role="3cqZAp">
+              <node concept="1Wc70l" id="7zI2priWtpc" role="3clFbw">
+                <node concept="3y3z36" id="7zI2priWFH3" role="3uHU7w">
+                  <node concept="10Nm6u" id="7zI2priWGD$" role="3uHU7w" />
+                  <node concept="2OqwBi" id="7zI2priWvc_" role="3uHU7B">
+                    <node concept="37vLTw" id="7zI2priWuw6" role="2Oq$k0">
+                      <ref role="3cqZAo" node="115Xaa41cD5" resolve="cloudTreeNode" />
                     </node>
-                  </node>
-                  <node concept="3y3z36" id="7zI2priV6Wa" role="3uHU7B">
-                    <node concept="2OqwBi" id="7zI2priUVsY" role="3uHU7B">
-                      <node concept="37vLTw" id="7zI2priUUeZ" role="2Oq$k0">
-                        <ref role="3cqZAo" node="115Xaa41cD5" resolve="cloudTreeNode" />
-                      </node>
-                      <node concept="liA8E" id="7zI2priV66s" role="2OqNvi">
-                        <ref role="37wK5l" to="rgfa:~DefaultMutableTreeNode.getParent()" resolve="getParent" />
-                      </node>
+                    <node concept="liA8E" id="7zI2priWE5H" role="2OqNvi">
+                      <ref role="37wK5l" to="7e8u:~MPSTreeNode.getTree()" resolve="getTree" />
                     </node>
-                    <node concept="10Nm6u" id="7zI2priV7Fq" role="3uHU7w" />
                   </node>
                 </node>
-                <node concept="3clFbS" id="7zI2priUU4$" role="3clFbx">
-                  <node concept="3clFbF" id="7zI2priVx$v" role="3cqZAp">
-                    <node concept="2OqwBi" id="7zI2priWhlQ" role="3clFbG">
-                      <node concept="2OqwBi" id="7zI2priVV0b" role="2Oq$k0">
-                        <node concept="2OqwBi" id="7zI2priVyh6" role="2Oq$k0">
-                          <node concept="37vLTw" id="7zI2priVx$t" role="2Oq$k0">
-                            <ref role="3cqZAo" node="115Xaa41cD5" resolve="cloudTreeNode" />
-                          </node>
-                          <node concept="liA8E" id="7zI2priVTDz" role="2OqNvi">
-                            <ref role="37wK5l" to="7e8u:~MPSTreeNode.getTree()" resolve="getTree" />
-                          </node>
-                        </node>
-                        <node concept="liA8E" id="7zI2priWcO4" role="2OqNvi">
-                          <ref role="37wK5l" to="7e8u:~MPSTree.getModel()" resolve="getModel" />
-                        </node>
-                      </node>
-                      <node concept="liA8E" id="7zI2priWtbV" role="2OqNvi">
-                        <ref role="37wK5l" to="rgfa:~DefaultTreeModel.removeNodeFromParent(javax.swing.tree.MutableTreeNode)" resolve="removeNodeFromParent" />
-                        <node concept="37vLTw" id="7zI2priWGT9" role="37wK5m">
+                <node concept="3y3z36" id="7zI2priV6Wa" role="3uHU7B">
+                  <node concept="2OqwBi" id="7zI2priUVsY" role="3uHU7B">
+                    <node concept="37vLTw" id="7zI2priUUeZ" role="2Oq$k0">
+                      <ref role="3cqZAo" node="115Xaa41cD5" resolve="cloudTreeNode" />
+                    </node>
+                    <node concept="liA8E" id="7zI2priV66s" role="2OqNvi">
+                      <ref role="37wK5l" to="rgfa:~DefaultMutableTreeNode.getParent()" resolve="getParent" />
+                    </node>
+                  </node>
+                  <node concept="10Nm6u" id="7zI2priV7Fq" role="3uHU7w" />
+                </node>
+              </node>
+              <node concept="3clFbS" id="7zI2priUU4$" role="3clFbx">
+                <node concept="3clFbF" id="7zI2priVx$v" role="3cqZAp">
+                  <node concept="2OqwBi" id="7zI2priWhlQ" role="3clFbG">
+                    <node concept="2OqwBi" id="7zI2priVV0b" role="2Oq$k0">
+                      <node concept="2OqwBi" id="7zI2priVyh6" role="2Oq$k0">
+                        <node concept="37vLTw" id="7zI2priVx$t" role="2Oq$k0">
                           <ref role="3cqZAo" node="115Xaa41cD5" resolve="cloudTreeNode" />
                         </node>
+                        <node concept="liA8E" id="7zI2priVTDz" role="2OqNvi">
+                          <ref role="37wK5l" to="7e8u:~MPSTreeNode.getTree()" resolve="getTree" />
+                        </node>
+                      </node>
+                      <node concept="liA8E" id="7zI2priWcO4" role="2OqNvi">
+                        <ref role="37wK5l" to="7e8u:~MPSTree.getModel()" resolve="getModel" />
                       </node>
                     </node>
-                  </node>
-                </node>
-              </node>
-            </node>
-            <node concept="3clFbC" id="7zI2priUSkf" role="3clFbw">
-              <node concept="3cmrfG" id="7zI2priUSTF" role="3uHU7w">
-                <property role="3cmrfH" value="0" />
-              </node>
-              <node concept="2OqwBi" id="7zI2priUO6U" role="3uHU7B">
-                <node concept="37vLTw" id="7zI2priUN6N" role="2Oq$k0">
-                  <ref role="3cqZAo" node="115Xaa41cD5" resolve="cloudTreeNode" />
-                </node>
-                <node concept="liA8E" id="7zI2priUPht" role="2OqNvi">
-                  <ref role="37wK5l" to="rgfa:~DefaultMutableTreeNode.getChildCount()" resolve="getChildCount" />
-                </node>
-              </node>
-            </node>
-            <node concept="9aQIb" id="7zI2priVbmy" role="9aQIa">
-              <node concept="3clFbS" id="7zI2priVbmz" role="9aQI4">
-                <node concept="3clFbF" id="7zI2priVdYM" role="3cqZAp">
-                  <node concept="1rXfSq" id="7zI2priVdYL" role="3clFbG">
-                    <ref role="37wK5l" node="115Xaa41jby" resolve="attachCloudRoot" />
+                    <node concept="liA8E" id="7zI2priWtbV" role="2OqNvi">
+                      <ref role="37wK5l" to="rgfa:~DefaultTreeModel.removeNodeFromParent(javax.swing.tree.MutableTreeNode)" resolve="removeNodeFromParent" />
+                      <node concept="37vLTw" id="7zI2priWGT9" role="37wK5m">
+                        <ref role="3cqZAo" node="115Xaa41cD5" resolve="cloudTreeNode" />
+                      </node>
+                    </node>
                   </node>
                 </node>
               </node>
             </node>
           </node>
-        </node>
-        <node concept="3clFbF" id="1LVcV5KGdUy" role="3cqZAp">
-          <node concept="1rXfSq" id="1LVcV5KGdUz" role="3clFbG">
-            <ref role="37wK5l" node="115Xaa41jby" resolve="attachCloudRoot" />
+          <node concept="3clFbC" id="7zI2priUSkf" role="3clFbw">
+            <node concept="3cmrfG" id="7zI2priUSTF" role="3uHU7w">
+              <property role="3cmrfH" value="0" />
+            </node>
+            <node concept="2OqwBi" id="7zI2priUO6U" role="3uHU7B">
+              <node concept="37vLTw" id="7zI2priUN6N" role="2Oq$k0">
+                <ref role="3cqZAo" node="115Xaa41cD5" resolve="cloudTreeNode" />
+              </node>
+              <node concept="liA8E" id="7zI2priUPht" role="2OqNvi">
+                <ref role="37wK5l" to="rgfa:~DefaultMutableTreeNode.getChildCount()" resolve="getChildCount" />
+              </node>
+            </node>
+          </node>
+          <node concept="9aQIb" id="7zI2priVbmy" role="9aQIa">
+            <node concept="3clFbS" id="7zI2priVbmz" role="9aQI4">
+              <node concept="3clFbF" id="7zI2priVdYM" role="3cqZAp">
+                <node concept="1rXfSq" id="7zI2priVdYL" role="3clFbG">
+                  <ref role="37wK5l" node="115Xaa41jby" resolve="attachCloudRoot" />
+                </node>
+              </node>
+            </node>
           </node>
         </node>
       </node>
@@ -2257,7 +2238,7 @@
                     </node>
                     <node concept="UnYns" id="115Xaa44$Do" role="2OqNvi">
                       <node concept="3uibUv" id="26ispG7ZTHs" role="UnYnz">
-                        <ref role="3uigEE" to="csg2:115Xaa43tZI" resolve="WebModule" />
+                        <ref role="3uigEE" to="csg2:115Xaa43tZI" resolve="CloudTransientModule" />
                       </node>
                     </node>
                   </node>
