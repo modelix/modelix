@@ -1239,7 +1239,7 @@
                 <node concept="1pGfFk" id="6aRQr1WTefE" role="2ShVmc">
                   <ref role="37wK5l" to="7e8u:~TextTreeNode.&lt;init&gt;(java.lang.String)" resolve="TextTreeNode" />
                   <node concept="Xl_RD" id="6aRQr1WTfNV" role="37wK5m">
-                    <property role="Xl_RC" value="Empty" />
+                    <property role="Xl_RC" value="Loading ..." />
                   </node>
                 </node>
               </node>
