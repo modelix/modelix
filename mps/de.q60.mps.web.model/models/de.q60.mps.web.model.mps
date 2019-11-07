@@ -426,6 +426,30 @@
         </node>
       </node>
     </node>
+    <node concept="2tJIrI" id="68NaTbe9FmJ" role="jymVt" />
+    <node concept="3clFb_" id="68NaTbe9GOQ" role="jymVt">
+      <property role="TrG5h" value="reset" />
+      <node concept="37vLTG" id="68NaTbe9K1e" role="3clF46">
+        <property role="TrG5h" value="version" />
+        <node concept="3uibUv" id="68NaTbe9Lo9" role="1tU5fm">
+          <ref role="3uigEE" to="jon5:2D0HTQhahjL" resolve="CLVersion" />
+        </node>
+      </node>
+      <node concept="3cqZAl" id="68NaTbe9GOS" role="3clF45" />
+      <node concept="3Tm1VV" id="68NaTbe9GOT" role="1B3o_S" />
+      <node concept="3clFbS" id="68NaTbe9GOU" role="3clF47">
+        <node concept="3clFbF" id="68NaTbe9LZs" role="3cqZAp">
+          <node concept="37vLTI" id="68NaTbe9Ml$" role="3clFbG">
+            <node concept="37vLTw" id="68NaTbe9MGT" role="37vLTx">
+              <ref role="3cqZAo" node="68NaTbe9K1e" resolve="version" />
+            </node>
+            <node concept="37vLTw" id="68NaTbe9LZr" role="37vLTJ">
+              <ref role="3cqZAo" node="51I69Mo9$zq" resolve="lastMergedVersion" />
+            </node>
+          </node>
+        </node>
+      </node>
+    </node>
     <node concept="2tJIrI" id="2wu1c06ReCT" role="jymVt" />
     <node concept="3clFb_" id="51I69Mo9$19" role="jymVt">
       <property role="TrG5h" value="mergeChange" />

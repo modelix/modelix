@@ -44,6 +44,7 @@
       <concept id="1203071646776" name="jetbrains.mps.lang.plugin.structure.ActionDeclaration" flags="ng" index="sE7Ow">
         <property id="1211298967294" name="outsideCommandExecution" index="72QZ$" />
         <property id="1205250923097" name="caption" index="2uzpH1" />
+        <child id="1203083196627" name="updateBlock" index="tmbBb" />
         <child id="1203083461638" name="executeFunction" index="tncku" />
         <child id="1217413222820" name="parameter" index="1NuT2Z" />
       </concept>
@@ -58,6 +59,7 @@
         <reference id="1203088061055" name="action" index="tCJdB" />
       </concept>
       <concept id="1213888653896" name="jetbrains.mps.lang.plugin.structure.InitBlock" flags="in" index="2xpIHi" />
+      <concept id="1205681243813" name="jetbrains.mps.lang.plugin.structure.IsApplicableBlock" flags="in" index="2ScWuX" />
       <concept id="1214307303872" name="jetbrains.mps.lang.plugin.structure.GetComponentBlock" flags="in" index="2UmK3q" />
       <concept id="6547237850567458268" name="jetbrains.mps.lang.plugin.structure.BaseToolDeclaration" flags="ng" index="2XNcJY">
         <property id="6547237850567462620" name="caption" index="2XNbzY" />
@@ -120,7 +122,18 @@
       <concept id="1081236700937" name="jetbrains.mps.baseLanguage.structure.StaticMethodCall" flags="nn" index="2YIFZM">
         <reference id="1144433194310" name="classConcept" index="1Pybhc" />
       </concept>
+      <concept id="1081256982272" name="jetbrains.mps.baseLanguage.structure.InstanceOfExpression" flags="nn" index="2ZW3vV">
+        <child id="1081256993305" name="classType" index="2ZW6by" />
+        <child id="1081256993304" name="leftExpression" index="2ZW6bz" />
+      </concept>
+      <concept id="1070533707846" name="jetbrains.mps.baseLanguage.structure.StaticFieldReference" flags="nn" index="10M0yZ">
+        <reference id="1144433057691" name="classifier" index="1PxDUh" />
+      </concept>
       <concept id="1070534058343" name="jetbrains.mps.baseLanguage.structure.NullLiteral" flags="nn" index="10Nm6u" />
+      <concept id="1070534934090" name="jetbrains.mps.baseLanguage.structure.CastExpression" flags="nn" index="10QFUN">
+        <child id="1070534934091" name="type" index="10QFUM" />
+        <child id="1070534934092" name="expression" index="10QFUP" />
+      </concept>
       <concept id="1068431474542" name="jetbrains.mps.baseLanguage.structure.VariableDeclaration" flags="ng" index="33uBYm">
         <child id="1068431790190" name="initializer" index="33vP2m" />
       </concept>
@@ -129,6 +142,7 @@
       </concept>
       <concept id="1068498886294" name="jetbrains.mps.baseLanguage.structure.AssignmentExpression" flags="nn" index="37vLTI" />
       <concept id="1225271177708" name="jetbrains.mps.baseLanguage.structure.StringType" flags="in" index="17QB3L" />
+      <concept id="1225271369338" name="jetbrains.mps.baseLanguage.structure.IsEmptyOperation" flags="nn" index="17RlXB" />
       <concept id="1225271408483" name="jetbrains.mps.baseLanguage.structure.IsNotEmptyOperation" flags="nn" index="17RvpY" />
       <concept id="4972933694980447171" name="jetbrains.mps.baseLanguage.structure.BaseVariableDeclaration" flags="ng" index="19Szcq">
         <child id="5680397130376446158" name="type" index="1tU5fm" />
@@ -152,6 +166,9 @@
         <child id="1068581242865" name="localVariableDeclaration" index="3cpWs9" />
       </concept>
       <concept id="1068581242863" name="jetbrains.mps.baseLanguage.structure.LocalVariableDeclaration" flags="nr" index="3cpWsn" />
+      <concept id="1079359253375" name="jetbrains.mps.baseLanguage.structure.ParenthesizedExpression" flags="nn" index="1eOMI4">
+        <child id="1079359253376" name="expression" index="1eOMHV" />
+      </concept>
       <concept id="1204053956946" name="jetbrains.mps.baseLanguage.structure.IMethodCall" flags="ng" index="1ndlxa">
         <reference id="1068499141037" name="baseMethodDeclaration" index="37wK5l" />
         <child id="1068499141038" name="actualArgument" index="37wK5m" />
@@ -352,7 +369,7 @@
   </node>
   <node concept="tC5Ba" id="6aRQr1WNZ9J">
     <property role="TrG5h" value="CloudRootGroup" />
-    <property role="3GE5qa" value="actions.root" />
+    <property role="3GE5qa" value="actions" />
     <node concept="ftmFs" id="6aRQr1WNZaH" role="ftER_">
       <node concept="tCFHf" id="6aRQr1WNZb5" role="ftvYc">
         <ref role="tCJdB" node="6aRQr1WNZaK" resolve="AddCloudRepository" />
@@ -360,9 +377,9 @@
     </node>
   </node>
   <node concept="sE7Ow" id="6aRQr1WNZaK">
-    <property role="3GE5qa" value="actions.root" />
+    <property role="3GE5qa" value="actions" />
     <property role="TrG5h" value="AddCloudRepository" />
-    <property role="2uzpH1" value="Add Cloud Repository" />
+    <property role="2uzpH1" value="Add Repository" />
     <property role="72QZ$" value="true" />
     <node concept="tnohg" id="6aRQr1WNZaL" role="tncku">
       <node concept="3clFbS" id="6aRQr1WNZaM" role="2VODD2">
@@ -419,6 +436,169 @@
       <property role="TrG5h" value="project" />
       <ref role="1DUlNI" to="qkt:~CommonDataKeys.PROJECT" resolve="PROJECT" />
       <node concept="1oajcY" id="6aRQr1WO_Le" role="1oa70y" />
+    </node>
+  </node>
+  <node concept="tC5Ba" id="6aRQr1XbZf3">
+    <property role="3GE5qa" value="actions" />
+    <property role="TrG5h" value="CloudRepositoryGroup" />
+    <node concept="ftmFs" id="6aRQr1XbZf5" role="ftER_">
+      <node concept="tCFHf" id="6aRQr1XbZft" role="ftvYc">
+        <ref role="tCJdB" node="6aRQr1XbZf8" resolve="AddTree" />
+      </node>
+    </node>
+  </node>
+  <node concept="sE7Ow" id="6aRQr1XbZf8">
+    <property role="3GE5qa" value="actions" />
+    <property role="TrG5h" value="AddTree" />
+    <property role="2uzpH1" value="Add Tree" />
+    <property role="72QZ$" value="true" />
+    <node concept="tnohg" id="6aRQr1XbZf9" role="tncku">
+      <node concept="3clFbS" id="6aRQr1XbZfa" role="2VODD2">
+        <node concept="3cpWs8" id="6aRQr1Xc7fU" role="3cqZAp">
+          <node concept="3cpWsn" id="6aRQr1Xc7fV" role="3cpWs9">
+            <property role="TrG5h" value="cloudRepository" />
+            <node concept="3uibUv" id="6aRQr1Xc7ff" role="1tU5fm">
+              <ref role="3uigEE" to="csg2:6aRQr1WOV$v" resolve="CloudRepository" />
+            </node>
+            <node concept="2OqwBi" id="6aRQr1Xc7fW" role="33vP2m">
+              <node concept="1eOMI4" id="6aRQr1Xc7fX" role="2Oq$k0">
+                <node concept="10QFUN" id="6aRQr1Xc7fY" role="1eOMHV">
+                  <node concept="2OqwBi" id="6aRQr1Xc7fZ" role="10QFUP">
+                    <node concept="2WthIp" id="6aRQr1Xc7g0" role="2Oq$k0" />
+                    <node concept="1DTwFV" id="6aRQr1Xc7g1" role="2OqNvi">
+                      <ref role="2WH_rO" node="6aRQr1XbZt0" resolve="treeNode" />
+                    </node>
+                  </node>
+                  <node concept="3uibUv" id="6aRQr1Xc7g2" role="10QFUM">
+                    <ref role="3uigEE" to="um17:6aRQr1WTCgk" resolve="CloudRepositoryTreeNode" />
+                  </node>
+                </node>
+              </node>
+              <node concept="liA8E" id="6aRQr1Xc7g3" role="2OqNvi">
+                <ref role="37wK5l" to="um17:6aRQr1Xc29I" resolve="getCloudRepository" />
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="3clFbH" id="6aRQr1Xcp__" role="3cqZAp" />
+        <node concept="3cpWs8" id="6aRQr1Xcpml" role="3cqZAp">
+          <node concept="3cpWsn" id="6aRQr1Xcpmm" role="3cpWs9">
+            <property role="TrG5h" value="name" />
+            <node concept="17QB3L" id="6aRQr1Xcpmn" role="1tU5fm" />
+            <node concept="2YIFZM" id="6aRQr1Xcpmo" role="33vP2m">
+              <ref role="1Pybhc" to="jkm4:~Messages" resolve="Messages" />
+              <ref role="37wK5l" to="jkm4:~Messages.showInputDialog(com.intellij.openapi.project.Project,java.lang.String,java.lang.String,javax.swing.Icon)" resolve="showInputDialog" />
+              <node concept="2OqwBi" id="6aRQr1Xcpmp" role="37wK5m">
+                <node concept="2WthIp" id="6aRQr1Xcpmq" role="2Oq$k0" />
+                <node concept="1DTwFV" id="6aRQr1Xcpmr" role="2OqNvi">
+                  <ref role="2WH_rO" node="6aRQr1Xcq1Y" resolve="project" />
+                </node>
+              </node>
+              <node concept="Xl_RD" id="6aRQr1Xcpms" role="37wK5m">
+                <property role="Xl_RC" value="Name" />
+              </node>
+              <node concept="Xl_RD" id="6aRQr1Xcpmt" role="37wK5m">
+                <property role="Xl_RC" value="Add Tree" />
+              </node>
+              <node concept="10M0yZ" id="6aRQr1XcqeS" role="37wK5m">
+                <ref role="3cqZAo" to="csg2:6aRQr1WUw7m" resolve="TREE_ICON" />
+                <ref role="1PxDUh" to="csg2:6aRQr1WMwO8" resolve="CloudIcons" />
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="3clFbJ" id="6aRQr1XcqDp" role="3cqZAp">
+          <node concept="3clFbS" id="6aRQr1XcqDr" role="3clFbx">
+            <node concept="3cpWs6" id="6aRQr1Xcsjf" role="3cqZAp" />
+          </node>
+          <node concept="2OqwBi" id="6aRQr1Xcrui" role="3clFbw">
+            <node concept="37vLTw" id="6aRQr1XcqEj" role="2Oq$k0">
+              <ref role="3cqZAo" node="6aRQr1Xcpmm" resolve="name" />
+            </node>
+            <node concept="17RlXB" id="6aRQr1Xcsfl" role="2OqNvi" />
+          </node>
+        </node>
+        <node concept="3cpWs8" id="6aRQr1Xcq7D" role="3cqZAp">
+          <node concept="3cpWsn" id="6aRQr1Xcq7E" role="3cpWs9">
+            <property role="TrG5h" value="id" />
+            <node concept="17QB3L" id="6aRQr1Xcq7F" role="1tU5fm" />
+            <node concept="2YIFZM" id="6aRQr1Xcq7G" role="33vP2m">
+              <ref role="1Pybhc" to="jkm4:~Messages" resolve="Messages" />
+              <ref role="37wK5l" to="jkm4:~Messages.showInputDialog(com.intellij.openapi.project.Project,java.lang.String,java.lang.String,javax.swing.Icon)" resolve="showInputDialog" />
+              <node concept="2OqwBi" id="6aRQr1Xcq7H" role="37wK5m">
+                <node concept="2WthIp" id="6aRQr1Xcq7I" role="2Oq$k0" />
+                <node concept="1DTwFV" id="6aRQr1Xcq7J" role="2OqNvi">
+                  <ref role="2WH_rO" node="6aRQr1Xcq1Y" resolve="project" />
+                </node>
+              </node>
+              <node concept="Xl_RD" id="6aRQr1Xcq7K" role="37wK5m">
+                <property role="Xl_RC" value="ID" />
+              </node>
+              <node concept="Xl_RD" id="6aRQr1Xcq7L" role="37wK5m">
+                <property role="Xl_RC" value="Add Tree" />
+              </node>
+              <node concept="10M0yZ" id="6aRQr1Xcqht" role="37wK5m">
+                <ref role="3cqZAo" to="csg2:6aRQr1WUw7m" resolve="TREE_ICON" />
+                <ref role="1PxDUh" to="csg2:6aRQr1WMwO8" resolve="CloudIcons" />
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="3clFbJ" id="6aRQr1Xcsr_" role="3cqZAp">
+          <node concept="3clFbS" id="6aRQr1XcsrB" role="3clFbx">
+            <node concept="3cpWs6" id="6aRQr1XctEc" role="3cqZAp" />
+          </node>
+          <node concept="2OqwBi" id="6aRQr1XcsQB" role="3clFbw">
+            <node concept="37vLTw" id="6aRQr1Xcss_" role="2Oq$k0">
+              <ref role="3cqZAo" node="6aRQr1Xcq7E" resolve="id" />
+            </node>
+            <node concept="17RlXB" id="6aRQr1XctAi" role="2OqNvi" />
+          </node>
+        </node>
+        <node concept="3clFbF" id="6aRQr1Xc0fZ" role="3cqZAp">
+          <node concept="2OqwBi" id="6aRQr1Xc7rv" role="3clFbG">
+            <node concept="37vLTw" id="6aRQr1Xc7g4" role="2Oq$k0">
+              <ref role="3cqZAo" node="6aRQr1Xc7fV" resolve="cloudRepository" />
+            </node>
+            <node concept="liA8E" id="6aRQr1Xcpda" role="2OqNvi">
+              <ref role="37wK5l" to="csg2:6aRQr1Xc8A_" resolve="addTree" />
+              <node concept="37vLTw" id="6aRQr1XctFz" role="37wK5m">
+                <ref role="3cqZAo" node="6aRQr1Xcpmm" resolve="name" />
+              </node>
+              <node concept="37vLTw" id="6aRQr1XctHG" role="37wK5m">
+                <ref role="3cqZAo" node="6aRQr1Xcq7E" resolve="id" />
+              </node>
+            </node>
+          </node>
+        </node>
+      </node>
+    </node>
+    <node concept="1DS2jV" id="6aRQr1Xcq1Y" role="1NuT2Z">
+      <property role="TrG5h" value="project" />
+      <ref role="1DUlNI" to="qkt:~CommonDataKeys.PROJECT" resolve="PROJECT" />
+      <node concept="1oajcY" id="6aRQr1Xcq1Z" role="1oa70y" />
+    </node>
+    <node concept="1DS2jV" id="6aRQr1XbZt0" role="1NuT2Z">
+      <property role="TrG5h" value="treeNode" />
+      <ref role="1DUlNI" to="qq03:~MPSCommonDataKeys.TREE_NODE" resolve="TREE_NODE" />
+      <node concept="1oajcY" id="6aRQr1XbZt1" role="1oa70y" />
+    </node>
+    <node concept="2ScWuX" id="6aRQr1XbZtm" role="tmbBb">
+      <node concept="3clFbS" id="6aRQr1XbZtn" role="2VODD2">
+        <node concept="3clFbF" id="6aRQr1XbZ$J" role="3cqZAp">
+          <node concept="2ZW3vV" id="6aRQr1XbZVX" role="3clFbG">
+            <node concept="3uibUv" id="6aRQr1Xc04O" role="2ZW6by">
+              <ref role="3uigEE" to="um17:6aRQr1WTCgk" resolve="CloudRepositoryTreeNode" />
+            </node>
+            <node concept="2OqwBi" id="6aRQr1XbZ$D" role="2ZW6bz">
+              <node concept="2WthIp" id="6aRQr1XbZ$G" role="2Oq$k0" />
+              <node concept="1DTwFV" id="6aRQr1XbZ$I" role="2OqNvi">
+                <ref role="2WH_rO" node="6aRQr1XbZt0" resolve="treeNode" />
+              </node>
+            </node>
+          </node>
+        </node>
+      </node>
     </node>
   </node>
 </model>
