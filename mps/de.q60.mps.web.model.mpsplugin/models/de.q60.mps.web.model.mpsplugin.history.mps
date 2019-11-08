@@ -1355,6 +1355,50 @@
               </node>
             </node>
           </node>
+          <node concept="3clFbJ" id="2n9WvfbmayT" role="3cqZAp">
+            <property role="TyiWK" value="true" />
+            <node concept="3clFbS" id="2n9WvfbmayU" role="3clFbx">
+              <node concept="3cpWs6" id="2n9WvfbmayV" role="3cqZAp">
+                <node concept="2YIFZM" id="2n9WvfbmayW" role="3cqZAk">
+                  <ref role="37wK5l" to="7bx7:~ActionUtils.getGroup(java.lang.String)" resolve="getGroup" />
+                  <ref role="1Pybhc" to="7bx7:~ActionUtils" resolve="ActionUtils" />
+                  <node concept="Xl_RD" id="2n9WvfbmayX" role="37wK5m">
+                    <property role="Xl_RC" value="de.q60.mps.web.model.mpsplugin.plugin.CloudTreeGroup_ActionGroup" />
+                  </node>
+                </node>
+              </node>
+            </node>
+            <node concept="2ZW3vV" id="2n9WvfbmayY" role="3clFbw">
+              <node concept="3uibUv" id="2n9Wvfbmc7i" role="2ZW6by">
+                <ref role="3uigEE" node="6aRQr1WUXn6" resolve="CloudTreeTreeNode" />
+              </node>
+              <node concept="37vLTw" id="2n9Wvfbmaz0" role="2ZW6bz">
+                <ref role="3cqZAo" node="6aRQr1WNRSn" resolve="node" />
+              </node>
+            </node>
+          </node>
+          <node concept="3clFbJ" id="2n9WvfbmUyr" role="3cqZAp">
+            <property role="TyiWK" value="true" />
+            <node concept="3clFbS" id="2n9WvfbmUys" role="3clFbx">
+              <node concept="3cpWs6" id="2n9WvfbmUyt" role="3cqZAp">
+                <node concept="2YIFZM" id="2n9WvfbmUyu" role="3cqZAk">
+                  <ref role="37wK5l" to="7bx7:~ActionUtils.getGroup(java.lang.String)" resolve="getGroup" />
+                  <ref role="1Pybhc" to="7bx7:~ActionUtils" resolve="ActionUtils" />
+                  <node concept="Xl_RD" id="2n9WvfbmUyv" role="37wK5m">
+                    <property role="Xl_RC" value="de.q60.mps.web.model.mpsplugin.plugin.CloudBranchGroup_ActionGroup" />
+                  </node>
+                </node>
+              </node>
+            </node>
+            <node concept="2ZW3vV" id="2n9WvfbmUyw" role="3clFbw">
+              <node concept="3uibUv" id="2n9WvfbmWCD" role="2ZW6by">
+                <ref role="3uigEE" node="6aRQr1X74db" resolve="CloudBranchTreeNode" />
+              </node>
+              <node concept="37vLTw" id="2n9WvfbmUyy" role="2ZW6bz">
+                <ref role="3cqZAo" node="6aRQr1WNRSn" resolve="node" />
+              </node>
+            </node>
+          </node>
           <node concept="3cpWs6" id="6aRQr1WOg5H" role="3cqZAp">
             <node concept="10Nm6u" id="6aRQr1WOhG_" role="3cqZAk" />
           </node>

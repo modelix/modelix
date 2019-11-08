@@ -1116,8 +1116,13 @@
                     <ref role="37wK5l" to="33ny:~UUID.randomUUID()" resolve="randomUUID" />
                     <ref role="1Pybhc" to="33ny:~UUID" resolve="UUID" />
                   </node>
-                  <node concept="37vLTw" id="7zuOo8p4r8T" role="37wK5m">
-                    <ref role="3cqZAo" node="7zuOo8oN5Tg" resolve="branch" />
+                  <node concept="2ShNRf" id="1VtHttxZnEE" role="37wK5m">
+                    <node concept="1pGfFk" id="1VtHttxZAvH" role="2ShVmc">
+                      <ref role="37wK5l" to="csg2:1VtHttxYWwI" resolve="SimpleIndirectBranch" />
+                      <node concept="37vLTw" id="1VtHttxZEtB" role="37wK5m">
+                        <ref role="3cqZAo" node="7zuOo8oN5Tg" resolve="branch" />
+                      </node>
+                    </node>
                   </node>
                   <node concept="10M0yZ" id="5D5xac1wvke" role="37wK5m">
                     <ref role="1PxDUh" to="3hky:4_SQzDO0jRP" resolve="PTree" />
