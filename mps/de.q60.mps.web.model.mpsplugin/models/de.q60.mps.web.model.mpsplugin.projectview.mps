@@ -2495,9 +2495,19 @@
                 </node>
               </node>
               <node concept="3clFbS" id="5tQmAwPG4aF" role="3clF47">
-                <node concept="3clFbF" id="5tQmAwPG4aG" role="3cqZAp">
-                  <node concept="1rXfSq" id="5tQmAwPG4aH" role="3clFbG">
-                    <ref role="37wK5l" to="7e8u:~MPSTreeNode.update()" resolve="update" />
+                <node concept="3clFbF" id="2lKlK7f2aCK" role="3cqZAp">
+                  <node concept="2YIFZM" id="2lKlK7f2aDw" role="3clFbG">
+                    <ref role="37wK5l" to="dxuu:~SwingUtilities.invokeLater(java.lang.Runnable)" resolve="invokeLater" />
+                    <ref role="1Pybhc" to="dxuu:~SwingUtilities" resolve="SwingUtilities" />
+                    <node concept="1bVj0M" id="2lKlK7f2bSk" role="37wK5m">
+                      <node concept="3clFbS" id="2lKlK7f2bSl" role="1bW5cS">
+                        <node concept="3clFbF" id="5tQmAwPG4aG" role="3cqZAp">
+                          <node concept="1rXfSq" id="5tQmAwPG4aH" role="3clFbG">
+                            <ref role="37wK5l" to="7e8u:~MPSTreeNode.update()" resolve="update" />
+                          </node>
+                        </node>
+                      </node>
+                    </node>
                   </node>
                 </node>
               </node>
