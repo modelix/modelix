@@ -324,6 +324,7 @@
         <child id="1225711182005" name="list" index="1y566C" />
         <child id="1225711191269" name="index" index="1y58nS" />
       </concept>
+      <concept id="1202120902084" name="jetbrains.mps.baseLanguage.collections.structure.WhereOperation" flags="nn" index="3zZkjj" />
       <concept id="1202128969694" name="jetbrains.mps.baseLanguage.collections.structure.SelectOperation" flags="nn" index="3$u5V9" />
       <concept id="1197932370469" name="jetbrains.mps.baseLanguage.collections.structure.MapElement" flags="nn" index="3EllGN">
         <child id="1197932505799" name="map" index="3ElQJh" />
@@ -3295,12 +3296,39 @@
               <ref role="3cqZAo" node="49CIzaqhuFP" resolve="bindingsTreeNode" />
             </node>
             <node concept="2OqwBi" id="2n9WvfbjOGK" role="37wK5m">
-              <node concept="2OqwBi" id="2n9WvfbjGJs" role="2Oq$k0">
-                <node concept="37vLTw" id="2n9WvfbjG5K" role="2Oq$k0">
-                  <ref role="3cqZAo" node="6aRQr1WUXnr" resolve="cloudRepository" />
+              <node concept="2OqwBi" id="7PIbTorq9xR" role="2Oq$k0">
+                <node concept="2OqwBi" id="2n9WvfbjGJs" role="2Oq$k0">
+                  <node concept="37vLTw" id="2n9WvfbjG5K" role="2Oq$k0">
+                    <ref role="3cqZAo" node="6aRQr1WUXnr" resolve="cloudRepository" />
+                  </node>
+                  <node concept="liA8E" id="2n9WvfbjOkU" role="2OqNvi">
+                    <ref role="37wK5l" to="csg2:2n9WvfbjIh4" resolve="getBindings" />
+                  </node>
                 </node>
-                <node concept="liA8E" id="2n9WvfbjOkU" role="2OqNvi">
-                  <ref role="37wK5l" to="csg2:2n9WvfbjIh4" resolve="getBindings" />
+                <node concept="3zZkjj" id="7PIbTorqagY" role="2OqNvi">
+                  <node concept="1bVj0M" id="7PIbTorqah0" role="23t8la">
+                    <node concept="3clFbS" id="7PIbTorqah1" role="1bW5cS">
+                      <node concept="3clFbF" id="7PIbTorqaVw" role="3cqZAp">
+                        <node concept="17R0WA" id="7PIbTorqbTj" role="3clFbG">
+                          <node concept="37vLTw" id="7PIbTorqcGg" role="3uHU7w">
+                            <ref role="3cqZAo" node="EMWAvBgr_o" resolve="treeId" />
+                          </node>
+                          <node concept="2OqwBi" id="7PIbTorqbiY" role="3uHU7B">
+                            <node concept="37vLTw" id="7PIbTorqaVv" role="2Oq$k0">
+                              <ref role="3cqZAo" node="7PIbTorqah2" resolve="it" />
+                            </node>
+                            <node concept="liA8E" id="7PIbTorqbwi" role="2OqNvi">
+                              <ref role="37wK5l" to="csg2:5D5xac1qR_m" resolve="getTreeId" />
+                            </node>
+                          </node>
+                        </node>
+                      </node>
+                    </node>
+                    <node concept="Rh6nW" id="7PIbTorqah2" role="1bW2Oz">
+                      <property role="TrG5h" value="it" />
+                      <node concept="2jxLKc" id="7PIbTorqah3" role="1tU5fm" />
+                    </node>
+                  </node>
                 </node>
               </node>
               <node concept="3$u5V9" id="2n9WvfbjPip" role="2OqNvi">

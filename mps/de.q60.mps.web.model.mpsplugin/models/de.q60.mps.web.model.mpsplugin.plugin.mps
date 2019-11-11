@@ -28,6 +28,7 @@
     <import index="tpck" ref="r:00000000-0000-4000-0000-011c89590288(jetbrains.mps.lang.core.structure)" />
     <import index="bd8o" ref="498d89d2-c2e9-11e2-ad49-6cf049e62fe5/java:com.intellij.openapi.application(MPS.IDEA/)" />
     <import index="mhbf" ref="8865b7a8-5271-43d3-884c-6fd1d9cfdd34/java:org.jetbrains.mps.openapi.model(MPS.OpenAPI/)" />
+    <import index="fyhk" ref="6ed54515-acc8-4d1e-a16c-9fd6cfe951ea/java:jetbrains.mps(MPS.Core/)" />
     <import index="71xd" ref="742f6602-5a2f-4313-aa6e-ae1cd4ffdc61/java:jetbrains.mps.ide.tools(MPS.Platform/)" implicit="true" />
     <import index="c17a" ref="8865b7a8-5271-43d3-884c-6fd1d9cfdd34/java:org.jetbrains.mps.openapi.language(MPS.OpenAPI/)" implicit="true" />
   </imports>
@@ -245,6 +246,7 @@
         <child id="1081773367579" name="rightExpression" index="3uHU7w" />
         <child id="1081773367580" name="leftExpression" index="3uHU7B" />
       </concept>
+      <concept id="1073239437375" name="jetbrains.mps.baseLanguage.structure.NotEqualsExpression" flags="nn" index="3y3z36" />
       <concept id="1178549954367" name="jetbrains.mps.baseLanguage.structure.IVisible" flags="ng" index="1B3ioH">
         <child id="1178549979242" name="visibility" index="1B3o_S" />
       </concept>
@@ -376,22 +378,35 @@
       <node concept="3clFbS" id="26ispG7ZZOK" role="2VODD2">
         <node concept="SfApY" id="4rrX99omHZy" role="3cqZAp">
           <node concept="3clFbS" id="4rrX99omHZ$" role="SfCbr">
-            <node concept="3clFbF" id="4rrX99okHg3" role="3cqZAp">
-              <node concept="37vLTI" id="4rrX99okHg5" role="3clFbG">
-                <node concept="2ShNRf" id="4rrX99okHcZ" role="37vLTx">
-                  <node concept="1pGfFk" id="4rrX99okHd0" role="2ShVmc">
-                    <ref role="37wK5l" node="4rrX99oiyDS" resolve="BindAllModulesToTransient" />
-                    <node concept="2YIFZM" id="4rrX99okHd1" role="37wK5m">
-                      <ref role="37wK5l" to="csg2:1LVcV5Kxxmz" resolve="getInstance" />
-                      <ref role="1Pybhc" to="csg2:1LVcV5Kxxi$" resolve="CloudRepositories" />
+            <node concept="3clFbJ" id="7PIbTorqz35" role="3cqZAp">
+              <node concept="3clFbS" id="7PIbTorqz37" role="3clFbx">
+                <node concept="3clFbF" id="4rrX99okHg3" role="3cqZAp">
+                  <node concept="37vLTI" id="4rrX99okHg5" role="3clFbG">
+                    <node concept="2ShNRf" id="4rrX99okHcZ" role="37vLTx">
+                      <node concept="1pGfFk" id="4rrX99okHd0" role="2ShVmc">
+                        <ref role="37wK5l" node="4rrX99oiyDS" resolve="BindAllModulesToTransient" />
+                        <node concept="2YIFZM" id="4rrX99okHd1" role="37wK5m">
+                          <ref role="37wK5l" to="csg2:1LVcV5Kxxmz" resolve="getInstance" />
+                          <ref role="1Pybhc" to="csg2:1LVcV5Kxxi$" resolve="CloudRepositories" />
+                        </node>
+                      </node>
+                    </node>
+                    <node concept="2OqwBi" id="4rrX99okHxo" role="37vLTJ">
+                      <node concept="2WthIp" id="4rrX99okHxr" role="2Oq$k0" />
+                      <node concept="2BZ7hE" id="4rrX99okHxt" role="2OqNvi">
+                        <ref role="2WH_rO" node="4rrX99okHlz" resolve="bindAll" />
+                      </node>
                     </node>
                   </node>
                 </node>
-                <node concept="2OqwBi" id="4rrX99okHxo" role="37vLTJ">
-                  <node concept="2WthIp" id="4rrX99okHxr" role="2Oq$k0" />
-                  <node concept="2BZ7hE" id="4rrX99okHxt" role="2OqNvi">
-                    <ref role="2WH_rO" node="4rrX99okHlz" resolve="bindAll" />
-                  </node>
+              </node>
+              <node concept="2OqwBi" id="7PIbTorqzmv" role="3clFbw">
+                <node concept="2YIFZM" id="7PIbTorqz4P" role="2Oq$k0">
+                  <ref role="37wK5l" to="bd8o:~ApplicationManager.getApplication()" resolve="getApplication" />
+                  <ref role="1Pybhc" to="bd8o:~ApplicationManager" resolve="ApplicationManager" />
+                </node>
+                <node concept="liA8E" id="7PIbTorqzBN" role="2OqNvi">
+                  <ref role="37wK5l" to="bd8o:~Application.isHeadlessEnvironment()" resolve="isHeadlessEnvironment" />
                 </node>
               </node>
             </node>
@@ -420,16 +435,29 @@
       <node concept="3clFbS" id="26ispG800pv" role="2VODD2">
         <node concept="SfApY" id="4rrX99okHHZ" role="3cqZAp">
           <node concept="3clFbS" id="4rrX99okHI1" role="SfCbr">
-            <node concept="3clFbF" id="4rrX99okI6d" role="3cqZAp">
-              <node concept="2OqwBi" id="4rrX99okIsS" role="3clFbG">
-                <node concept="2OqwBi" id="4rrX99okI67" role="2Oq$k0">
-                  <node concept="2WthIp" id="4rrX99okI6a" role="2Oq$k0" />
-                  <node concept="2BZ7hE" id="4rrX99okI6c" role="2OqNvi">
-                    <ref role="2WH_rO" node="4rrX99okHlz" resolve="bindAll" />
+            <node concept="3clFbJ" id="7PIbTorqxQh" role="3cqZAp">
+              <node concept="3clFbS" id="7PIbTorqxQj" role="3clFbx">
+                <node concept="3clFbF" id="4rrX99okI6d" role="3cqZAp">
+                  <node concept="2OqwBi" id="4rrX99okIsS" role="3clFbG">
+                    <node concept="2OqwBi" id="4rrX99okI67" role="2Oq$k0">
+                      <node concept="2WthIp" id="4rrX99okI6a" role="2Oq$k0" />
+                      <node concept="2BZ7hE" id="4rrX99okI6c" role="2OqNvi">
+                        <ref role="2WH_rO" node="4rrX99okHlz" resolve="bindAll" />
+                      </node>
+                    </node>
+                    <node concept="liA8E" id="4rrX99okJ1c" role="2OqNvi">
+                      <ref role="37wK5l" node="4rrX99ojsxh" resolve="dispose" />
+                    </node>
                   </node>
                 </node>
-                <node concept="liA8E" id="4rrX99okJ1c" role="2OqNvi">
-                  <ref role="37wK5l" node="4rrX99ojsxh" resolve="dispose" />
+              </node>
+              <node concept="3y3z36" id="7PIbTorqyML" role="3clFbw">
+                <node concept="10Nm6u" id="7PIbTorqyU$" role="3uHU7w" />
+                <node concept="2OqwBi" id="7PIbTorqy1b" role="3uHU7B">
+                  <node concept="2WthIp" id="7PIbTorqxRh" role="2Oq$k0" />
+                  <node concept="2BZ7hE" id="7PIbTorqyg9" role="2OqNvi">
+                    <ref role="2WH_rO" node="4rrX99okHlz" resolve="bindAll" />
+                  </node>
                 </node>
               </node>
             </node>
