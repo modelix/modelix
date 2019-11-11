@@ -1103,18 +1103,18 @@
                       <node concept="Xl_RD" id="7zuOo8p4r8R" role="37wK5m">
                         <property role="Xl_RC" value="testModule" />
                       </node>
-                      <node concept="2YIFZM" id="5D5xac1wNEq" role="37wK5m">
-                        <ref role="37wK5l" to="33ny:~UUID.randomUUID()" resolve="randomUUID" />
-                        <ref role="1Pybhc" to="33ny:~UUID" resolve="UUID" />
+                      <node concept="2YIFZM" id="4rrX99ogfg5" role="37wK5m">
+                        <ref role="37wK5l" to="z1c3:~ModuleId.regular()" resolve="regular" />
+                        <ref role="1Pybhc" to="z1c3:~ModuleId" resolve="ModuleId" />
                       </node>
                     </node>
                   </node>
                   <node concept="Xl_RD" id="7zuOo8p4r8S" role="37wK5m">
                     <property role="Xl_RC" value="testModule" />
                   </node>
-                  <node concept="2YIFZM" id="5D5xac1wXEB" role="37wK5m">
-                    <ref role="37wK5l" to="33ny:~UUID.randomUUID()" resolve="randomUUID" />
-                    <ref role="1Pybhc" to="33ny:~UUID" resolve="UUID" />
+                  <node concept="2YIFZM" id="4rrX99og5ip" role="37wK5m">
+                    <ref role="37wK5l" to="w1kc:~SModelId.generate()" resolve="generate" />
+                    <ref role="1Pybhc" to="w1kc:~SModelId" resolve="SModelId" />
                   </node>
                   <node concept="2ShNRf" id="1VtHttxZnEE" role="37wK5m">
                     <node concept="1pGfFk" id="1VtHttxZAvH" role="2ShVmc">

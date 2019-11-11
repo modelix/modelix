@@ -5,22 +5,14 @@ package de.q60.webmps.server;
 
 import org.apache.commons.io.IOUtils;
 import org.eclipse.jetty.server.Handler;
-import org.eclipse.jetty.server.Request;
 import org.eclipse.jetty.server.Server;
-import org.eclipse.jetty.server.handler.AbstractHandler;
 import org.eclipse.jetty.server.handler.ContextHandler;
-import org.eclipse.jetty.server.handler.DefaultHandler;
 import org.eclipse.jetty.server.handler.HandlerList;
-import org.eclipse.jetty.server.handler.ResourceHandler;
-import org.eclipse.jetty.servlet.FilterHolder;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
-import org.eclipse.jetty.servlets.CrossOriginFilter;
 import org.eclipse.jetty.servlets.EventSource;
 import org.eclipse.jetty.servlets.EventSourceServlet;
-import org.json.JSONObject;
 
-import javax.servlet.DispatcherType;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -30,10 +22,10 @@ import java.io.IOException;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.nio.charset.StandardCharsets;
-import java.util.EnumSet;
-import java.util.function.Predicate;
+import java.util.UUID;
 
 public class Main {
+    private static final String REPOSITORY_ID_KEY = "repositoryId";
     public static void main(String[] args) {
         System.out.println("Max memory (bytes): " + Runtime.getRuntime().maxMemory());
         System.out.println("Server process started");
@@ -47,6 +39,10 @@ public class Main {
             IgniteStoreClient storeClient = new IgniteStoreClient();
             ModelServer modelServer = new ModelServer(storeClient);
             final Server server = new Server(bindTo);
+
+            if (storeClient.get(REPOSITORY_ID_KEY) == null) {
+                storeClient.put(REPOSITORY_ID_KEY, UUID.randomUUID().toString().replaceAll("[^a-zA-Z0-9]", ""));
+            }
 
             ServletContextHandler servletHandler = new ServletContextHandler();
             servletHandler.addServlet(new ServletHolder(new ModelServerServlet(modelServer)), "/ws");
@@ -92,6 +88,7 @@ public class Main {
                 @Override
                 protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
                     String key = req.getPathInfo().substring(1);
+                    if (REPOSITORY_ID_KEY.equals(key)) throw new RuntimeException("Changing '" + key + "' is not allowed");
                     String value = IOUtils.toString(req.getInputStream(), StandardCharsets.UTF_8);
                     storeClient.put(key, value);
                     resp.setStatus(HttpServletResponse.SC_OK);
