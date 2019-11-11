@@ -2842,6 +2842,24 @@
     </node>
     <node concept="2G$12M" id="7gF2HTviNPV" role="3989C9">
       <property role="TrG5h" value="de.q60.mps.web.model" />
+      <node concept="1E1JtD" id="$zd_cMRR11" role="2G$12L">
+        <property role="BnDLt" value="true" />
+        <property role="TrG5h" value="de.q60.mps.web.model.runtimelang" />
+        <property role="3LESm3" value="b6980ebd-f01d-459d-a952-38740f6313b4" />
+        <node concept="398BVA" id="$zd_cMRRoN" role="3LF7KH">
+          <ref role="398BVh" node="3$7Kuaihl5X" resolve="webmps.modules" />
+          <node concept="2Ry0Ak" id="$zd_cMRS3p" role="iGT6I">
+            <property role="2Ry0Am" value="de.q60.mps.web.model.runtimelang" />
+            <node concept="2Ry0Ak" id="$zd_cMRSHY" role="2Ry0An">
+              <property role="2Ry0Am" value="de.q60.mps.web.model.runtimelang.mpl" />
+            </node>
+          </node>
+        </node>
+        <node concept="1yeLz9" id="$zd_cMRTHW" role="1TViLv">
+          <property role="TrG5h" value="de.q60.mps.web.model.runtimelang#01" />
+          <property role="3LESm3" value="1a41ca2b-5b2e-48b4-8ce0-c6444fdfc6ba" />
+        </node>
+      </node>
       <node concept="1E1JtA" id="7gF2HTviNPK" role="2G$12L">
         <property role="BnDLt" value="true" />
         <property role="TrG5h" value="de.q60.mps.web.model" />
@@ -3237,6 +3255,16 @@
         <node concept="1SiIV0" id="7zuOo8p5Ygw" role="3bR37C">
           <node concept="3bR9La" id="7zuOo8p5Ygx" role="1SiIV1">
             <ref role="3bR37D" to="ffeo:6aIAM_Qd5ki" resolve="jetbrains.mps.lang.test.matcher" />
+          </node>
+        </node>
+        <node concept="1SiIV0" id="$zd_cMRKTO" role="3bR37C">
+          <node concept="3bR9La" id="$zd_cMRKTP" role="1SiIV1">
+            <ref role="3bR37D" to="90a9:4iIKqJTZ5HI" resolve="de.q60.mps.shadowmodels.runtimelang" />
+          </node>
+        </node>
+        <node concept="1SiIV0" id="$zd_cMRUrg" role="3bR37C">
+          <node concept="3bR9La" id="$zd_cMRUrh" role="1SiIV1">
+            <ref role="3bR37D" node="$zd_cMRR11" resolve="de.q60.mps.web.model.runtimelang" />
           </node>
         </node>
       </node>
