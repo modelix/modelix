@@ -13986,7 +13986,7 @@
                         <node concept="3clFbF" id="6aRQr1XaLU5" role="3cqZAp">
                           <node concept="37vLTI" id="6aRQr1XaNt7" role="3clFbG">
                             <node concept="Xl_RD" id="6aRQr1XaNRV" role="37vLTx">
-                              <property role="Xl_RC" value="79259F72C16B0FBD441451B5A820A8F1586142D94FB717E83D151550FADC181D" />
+                              <property role="Xl_RC" value="default" />
                             </node>
                             <node concept="2OqwBi" id="6aRQr1XaMmT" role="37vLTJ">
                               <node concept="37vLTw" id="6aRQr1XaLU3" role="2Oq$k0">
@@ -14517,7 +14517,6 @@
     </node>
     <node concept="2tJIrI" id="1JFLVobh2Sj" role="jymVt" />
     <node concept="3HP615" id="1JFLVobh0lR" role="jymVt">
-      <property role="2bfB8j" value="true" />
       <property role="TrG5h" value="IListener" />
       <node concept="3clFb_" id="1JFLVobh0$a" role="jymVt">
         <property role="TrG5h" value="connectionStatusChanged" />
