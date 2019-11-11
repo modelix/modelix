@@ -1929,125 +1929,13 @@
             </node>
           </node>
         </node>
-        <node concept="3cpWs8" id="2n9WvfboccI" role="3cqZAp">
-          <node concept="3cpWsn" id="2n9WvfboccJ" role="3cpWs9">
-            <property role="TrG5h" value="treeTreeNode" />
-            <node concept="3uibUv" id="2n9WvfboccK" role="1tU5fm">
-              <ref role="3uigEE" to="um17:6aRQr1WUXn6" resolve="CloudTreeTreeNode" />
+        <node concept="3clFbF" id="1JFLVobdl9e" role="3cqZAp">
+          <node concept="2OqwBi" id="1JFLVobdlQw" role="3clFbG">
+            <node concept="37vLTw" id="1JFLVobdl9c" role="2Oq$k0">
+              <ref role="3cqZAo" node="2n9WvfboccA" resolve="branchTreeNode" />
             </node>
-            <node concept="2OqwBi" id="2n9WvfboccL" role="33vP2m">
-              <node concept="37vLTw" id="2n9WvfboccM" role="2Oq$k0">
-                <ref role="3cqZAo" node="2n9WvfboccA" resolve="branchTreeNode" />
-              </node>
-              <node concept="liA8E" id="2n9WvfboccN" role="2OqNvi">
-                <ref role="37wK5l" to="7e8u:~MPSTreeNode.getAncestor(java.lang.Class)" resolve="getAncestor" />
-                <node concept="3VsKOn" id="2n9WvfboccO" role="37wK5m">
-                  <ref role="3VsUkX" to="um17:6aRQr1WUXn6" resolve="CloudTreeTreeNode" />
-                </node>
-              </node>
-            </node>
-          </node>
-        </node>
-        <node concept="3cpWs8" id="2n9WvfboccP" role="3cqZAp">
-          <node concept="3cpWsn" id="2n9WvfboccQ" role="3cpWs9">
-            <property role="TrG5h" value="treeId" />
-            <node concept="3uibUv" id="2n9WvfboccR" role="1tU5fm">
-              <ref role="3uigEE" to="jon5:1LVcV5K_9N8" resolve="TreeId" />
-            </node>
-            <node concept="2OqwBi" id="2n9WvfboccS" role="33vP2m">
-              <node concept="37vLTw" id="2n9WvfboccT" role="2Oq$k0">
-                <ref role="3cqZAo" node="2n9WvfboccJ" resolve="treeTreeNode" />
-              </node>
-              <node concept="liA8E" id="2n9WvfboccU" role="2OqNvi">
-                <ref role="37wK5l" to="um17:EMWAvBgmbf" resolve="getTreeId" />
-              </node>
-            </node>
-          </node>
-        </node>
-        <node concept="3cpWs8" id="2n9WvfboccV" role="3cqZAp">
-          <node concept="3cpWsn" id="2n9WvfboccW" role="3cpWs9">
-            <property role="TrG5h" value="cloudRepository" />
-            <node concept="3uibUv" id="2n9WvfboccX" role="1tU5fm">
-              <ref role="3uigEE" to="csg2:6aRQr1WOV$v" resolve="CloudRepository" />
-            </node>
-            <node concept="2OqwBi" id="2n9WvfboccY" role="33vP2m">
-              <node concept="37vLTw" id="2n9WvfboccZ" role="2Oq$k0">
-                <ref role="3cqZAo" node="2n9WvfboccJ" resolve="treeTreeNode" />
-              </node>
-              <node concept="liA8E" id="2n9Wvfbocd0" role="2OqNvi">
-                <ref role="37wK5l" to="um17:EMWAvBfYQJ" resolve="getCloudRepository" />
-              </node>
-            </node>
-          </node>
-        </node>
-        <node concept="3cpWs8" id="2n9Wvfbocd1" role="3cqZAp">
-          <node concept="3cpWsn" id="2n9Wvfbocd2" role="3cpWs9">
-            <property role="TrG5h" value="infoBranch" />
-            <property role="3TUv4t" value="true" />
-            <node concept="3uibUv" id="2n9Wvfbocd3" role="1tU5fm">
-              <ref role="3uigEE" to="3hky:4_SQzDO0jT3" resolve="IBranch" />
-            </node>
-            <node concept="2OqwBi" id="2n9Wvfbocd4" role="33vP2m">
-              <node concept="37vLTw" id="2n9Wvfbocd5" role="2Oq$k0">
-                <ref role="3cqZAo" node="2n9WvfboccW" resolve="cloudRepository" />
-              </node>
-              <node concept="liA8E" id="2n9Wvfbocd6" role="2OqNvi">
-                <ref role="37wK5l" to="csg2:6aRQr1X1RCt" resolve="getInfoBranch" />
-              </node>
-            </node>
-          </node>
-        </node>
-        <node concept="3cpWs8" id="2n9WvfboiFn" role="3cqZAp">
-          <node concept="3cpWsn" id="2n9WvfboiFo" role="3cpWs9">
-            <property role="TrG5h" value="branchName" />
-            <node concept="17QB3L" id="2n9WvfboiCA" role="1tU5fm" />
-            <node concept="2OqwBi" id="2n9WvfboiFp" role="33vP2m">
-              <node concept="37vLTw" id="2n9WvfboiFq" role="2Oq$k0">
-                <ref role="3cqZAo" node="2n9Wvfbocd2" resolve="infoBranch" />
-              </node>
-              <node concept="liA8E" id="2n9WvfboiFr" role="2OqNvi">
-                <ref role="37wK5l" to="3hky:4_SQzDO0k4c" resolve="computeRead" />
-                <node concept="1bVj0M" id="2n9WvfboiFs" role="37wK5m">
-                  <node concept="3clFbS" id="2n9WvfboiFt" role="1bW5cS">
-                    <node concept="3clFbF" id="2n9WvfboiFu" role="3cqZAp">
-                      <node concept="2OqwBi" id="2n9WvfboiFv" role="3clFbG">
-                        <node concept="2OqwBi" id="2n9WvfboiFw" role="2Oq$k0">
-                          <node concept="37vLTw" id="2n9WvfboiFx" role="2Oq$k0">
-                            <ref role="3cqZAo" node="2n9WvfboccA" resolve="branchTreeNode" />
-                          </node>
-                          <node concept="liA8E" id="2n9WvfboiFy" role="2OqNvi">
-                            <ref role="37wK5l" to="um17:6aRQr1X7JDh" resolve="getBranchInfo" />
-                          </node>
-                        </node>
-                        <node concept="3TrcHB" id="2n9WvfboiFz" role="2OqNvi">
-                          <ref role="3TsBF5" to="tpck:h0TrG11" resolve="name" />
-                        </node>
-                      </node>
-                    </node>
-                  </node>
-                </node>
-              </node>
-            </node>
-          </node>
-        </node>
-        <node concept="3clFbF" id="2n9WvfboddQ" role="3cqZAp">
-          <node concept="2OqwBi" id="2n9WvfbodYX" role="3clFbG">
-            <node concept="2OqwBi" id="2n9Wvfbod_2" role="2Oq$k0">
-              <node concept="37vLTw" id="2n9WvfboddO" role="2Oq$k0">
-                <ref role="3cqZAo" node="2n9WvfboccW" resolve="cloudRepository" />
-              </node>
-              <node concept="liA8E" id="2n9WvfbodRr" role="2OqNvi">
-                <ref role="37wK5l" to="csg2:6aRQr1X24wJ" resolve="getActiveBranch" />
-                <node concept="37vLTw" id="2n9WvfbodSn" role="37wK5m">
-                  <ref role="3cqZAo" node="2n9WvfboccQ" resolve="treeId" />
-                </node>
-              </node>
-            </node>
-            <node concept="liA8E" id="2n9WvfboejN" role="2OqNvi">
-              <ref role="37wK5l" to="csg2:49CIzaqdB3a" resolve="switchBranch" />
-              <node concept="37vLTw" id="2n9WvfbojrB" role="37wK5m">
-                <ref role="3cqZAo" node="2n9WvfboiFo" resolve="branchName" />
-              </node>
+            <node concept="liA8E" id="1JFLVobdn83" role="2OqNvi">
+              <ref role="37wK5l" to="um17:1JFLVobcRa7" resolve="switchBranch" />
             </node>
           </node>
         </node>
