@@ -31,6 +31,7 @@
     <import index="fyhk" ref="6ed54515-acc8-4d1e-a16c-9fd6cfe951ea/java:jetbrains.mps(MPS.Core/)" />
     <import index="71xd" ref="742f6602-5a2f-4313-aa6e-ae1cd4ffdc61/java:jetbrains.mps.ide.tools(MPS.Platform/)" implicit="true" />
     <import index="c17a" ref="8865b7a8-5271-43d3-884c-6fd1d9cfdd34/java:org.jetbrains.mps.openapi.language(MPS.OpenAPI/)" implicit="true" />
+    <import index="5zyv" ref="6354ebe7-c22a-4a0f-ac54-50b52ab9b065/java:java.util.concurrent(JDK/)" implicit="true" />
   </imports>
   <registry>
     <language id="982eb8df-2c96-4bd7-9963-11712ea622e5" name="jetbrains.mps.lang.resources">
@@ -433,6 +434,33 @@
     </node>
     <node concept="2uRRBI" id="26ispG800pu" role="2uRRBF">
       <node concept="3clFbS" id="26ispG800pv" role="2VODD2">
+        <node concept="SfApY" id="Onv88ZOCn1" role="3cqZAp">
+          <node concept="3clFbS" id="Onv88ZOCn3" role="SfCbr">
+            <node concept="3clFbF" id="Onv88ZOCGs" role="3cqZAp">
+              <node concept="2YIFZM" id="Onv88ZOCGZ" role="3clFbG">
+                <ref role="37wK5l" to="csg2:Onv88ZOBPX" resolve="shutdownAll" />
+                <ref role="1Pybhc" to="csg2:Onv88ZNSEL" resolve="SharedExecutors" />
+              </node>
+            </node>
+          </node>
+          <node concept="TDmWw" id="Onv88ZOCn4" role="TEbGg">
+            <node concept="3cpWsn" id="Onv88ZOCn6" role="TDEfY">
+              <property role="TrG5h" value="ex" />
+              <node concept="3uibUv" id="Onv88ZOCw$" role="1tU5fm">
+                <ref role="3uigEE" to="wyt6:~Exception" resolve="Exception" />
+              </node>
+            </node>
+            <node concept="3clFbS" id="Onv88ZOCna" role="TDEfX">
+              <node concept="RRSsy" id="Onv88ZOCPg" role="3cqZAp">
+                <property role="RRSoG" value="gZ5fh_4/error" />
+                <node concept="Xl_RD" id="Onv88ZOCPi" role="RRSoy" />
+                <node concept="37vLTw" id="Onv88ZOCPk" role="RRSow">
+                  <ref role="3cqZAo" node="Onv88ZOCn6" resolve="ex" />
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
         <node concept="SfApY" id="4rrX99okHHZ" role="3cqZAp">
           <node concept="3clFbS" id="4rrX99okHI1" role="SfCbr">
             <node concept="3clFbJ" id="7PIbTorqxQh" role="3cqZAp">
@@ -2493,12 +2521,12 @@
       <node concept="3clFbS" id="4rrX99okXWB" role="3clF47">
         <node concept="3clFbF" id="4rrX99ojn6x" role="3cqZAp">
           <node concept="2OqwBi" id="4rrX99ojnE5" role="3clFbG">
-            <node concept="2YIFZM" id="4rrX99ojnsd" role="2Oq$k0">
-              <ref role="1Pybhc" to="bd8o:~ApplicationManager" resolve="ApplicationManager" />
-              <ref role="37wK5l" to="bd8o:~ApplicationManager.getApplication()" resolve="getApplication" />
+            <node concept="10M0yZ" id="Onv88ZPc_7" role="2Oq$k0">
+              <ref role="3cqZAo" to="csg2:Onv88ZOFFp" resolve="FIXED" />
+              <ref role="1PxDUh" to="csg2:Onv88ZNSEL" resolve="SharedExecutors" />
             </node>
             <node concept="liA8E" id="4rrX99ojnVm" role="2OqNvi">
-              <ref role="37wK5l" to="bd8o:~Application.executeOnPooledThread(java.lang.Runnable)" resolve="executeOnPooledThread" />
+              <ref role="37wK5l" to="5zyv:~Executor.execute(java.lang.Runnable)" resolve="execute" />
               <node concept="1bVj0M" id="4rrX99ojoAV" role="37wK5m">
                 <property role="3yWfEV" value="true" />
                 <node concept="3clFbS" id="4rrX99ojoAW" role="1bW5cS">

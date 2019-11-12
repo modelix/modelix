@@ -7402,20 +7402,6 @@
         </node>
       </node>
     </node>
-    <node concept="312cEg" id="4kxopRY50_5" role="jymVt">
-      <property role="TrG5h" value="watchdogExecutor" />
-      <node concept="3Tm6S6" id="4kxopRY50_6" role="1B3o_S" />
-      <node concept="3uibUv" id="4kxopRY56nt" role="1tU5fm">
-        <ref role="3uigEE" to="5zyv:~ScheduledExecutorService" resolve="ScheduledExecutorService" />
-      </node>
-      <node concept="2YIFZM" id="4kxopRY547s" role="33vP2m">
-        <ref role="37wK5l" to="5zyv:~Executors.newScheduledThreadPool(int)" resolve="newScheduledThreadPool" />
-        <ref role="1Pybhc" to="5zyv:~Executors" resolve="Executors" />
-        <node concept="3cmrfG" id="4kxopRY54AB" role="37wK5m">
-          <property role="3cmrfH" value="1" />
-        </node>
-      </node>
-    </node>
     <node concept="312cEg" id="1LVcV5KxSD5" role="jymVt">
       <property role="TrG5h" value="baseUrl" />
       <node concept="3Tm6S6" id="1LVcV5KxSD6" role="1B3o_S" />
@@ -7562,8 +7548,9 @@
         </node>
         <node concept="3clFbF" id="1LVcV5KykHF" role="3cqZAp">
           <node concept="2OqwBi" id="1LVcV5KykHG" role="3clFbG">
-            <node concept="37vLTw" id="1LVcV5KykHH" role="2Oq$k0">
-              <ref role="3cqZAo" node="4kxopRY50_5" resolve="watchdogExecutor" />
+            <node concept="10M0yZ" id="Onv88ZOW2a" role="2Oq$k0">
+              <ref role="3cqZAo" node="Onv88ZOBOY" resolve="SCHEDULED" />
+              <ref role="1PxDUh" node="Onv88ZNSEL" resolve="SharedExecutors" />
             </node>
             <node concept="liA8E" id="1LVcV5KykHI" role="2OqNvi">
               <ref role="37wK5l" to="5zyv:~ScheduledExecutorService.scheduleWithFixedDelay(java.lang.Runnable,long,long,java.util.concurrent.TimeUnit)" resolve="scheduleWithFixedDelay" />
@@ -7647,16 +7634,6 @@
       <node concept="3cqZAl" id="5_gfWzaN1DE" role="3clF45" />
       <node concept="3Tm1VV" id="5_gfWzaN1DF" role="1B3o_S" />
       <node concept="3clFbS" id="5_gfWzaN1DG" role="3clF47">
-        <node concept="3clFbF" id="4kxopRY7aA_" role="3cqZAp">
-          <node concept="2OqwBi" id="4kxopRY7bk5" role="3clFbG">
-            <node concept="37vLTw" id="4kxopRY7aAz" role="2Oq$k0">
-              <ref role="3cqZAo" node="4kxopRY50_5" resolve="watchdogExecutor" />
-            </node>
-            <node concept="liA8E" id="4kxopRY7bFO" role="2OqNvi">
-              <ref role="37wK5l" to="5zyv:~ExecutorService.shutdown()" resolve="shutdown" />
-            </node>
-          </node>
-        </node>
         <node concept="3clFbF" id="5_gfWzaOvR9" role="3cqZAp">
           <node concept="2OqwBi" id="5_gfWzaOx2w" role="3clFbG">
             <node concept="37vLTw" id="5_gfWzaOvR8" role="2Oq$k0">
@@ -9354,20 +9331,6 @@
   </node>
   <node concept="312cEu" id="64iiug7VuJw">
     <property role="TrG5h" value="AsyncStore" />
-    <node concept="312cEg" id="5_JSBJzcOzm" role="jymVt">
-      <property role="TrG5h" value="executor" />
-      <node concept="3Tm6S6" id="5_JSBJzcOzn" role="1B3o_S" />
-      <node concept="3uibUv" id="5_JSBJzcUSg" role="1tU5fm">
-        <ref role="3uigEE" to="5zyv:~ExecutorService" resolve="ExecutorService" />
-      </node>
-      <node concept="2YIFZM" id="5_JSBJzcQqB" role="33vP2m">
-        <ref role="37wK5l" to="5zyv:~Executors.newFixedThreadPool(int)" resolve="newFixedThreadPool" />
-        <ref role="1Pybhc" to="5zyv:~Executors" resolve="Executors" />
-        <node concept="3cmrfG" id="5_JSBJzcQQz" role="37wK5m">
-          <property role="3cmrfH" value="3" />
-        </node>
-      </node>
-    </node>
     <node concept="312cEg" id="64iiug7VuZv" role="jymVt">
       <property role="TrG5h" value="store" />
       <node concept="3Tm6S6" id="64iiug7VuZw" role="1B3o_S" />
@@ -9597,8 +9560,9 @@
         </node>
         <node concept="3clFbF" id="64iiug7VSt5" role="3cqZAp">
           <node concept="2OqwBi" id="64iiug7VSIk" role="3clFbG">
-            <node concept="37vLTw" id="5_JSBJzcXMv" role="2Oq$k0">
-              <ref role="3cqZAo" node="5_JSBJzcOzm" resolve="executor" />
+            <node concept="10M0yZ" id="Onv88ZOKxs" role="2Oq$k0">
+              <ref role="3cqZAo" node="Onv88ZOFFp" resolve="FIXED" />
+              <ref role="1PxDUh" node="Onv88ZNSEL" resolve="SharedExecutors" />
             </node>
             <node concept="liA8E" id="64iiug7VSX$" role="2OqNvi">
               <ref role="37wK5l" to="5zyv:~Executor.execute(java.lang.Runnable)" resolve="execute" />
@@ -9672,42 +9636,12 @@
       <property role="TrG5h" value="dispose" />
       <node concept="3cqZAl" id="5_JSBJzcRvV" role="3clF45" />
       <node concept="3Tm1VV" id="5_JSBJzcRvW" role="1B3o_S" />
-      <node concept="3clFbS" id="5_JSBJzcRvX" role="3clF47">
-        <node concept="3clFbF" id="5_JSBJzcSMO" role="3cqZAp">
-          <node concept="2OqwBi" id="5_JSBJzcTm4" role="3clFbG">
-            <node concept="37vLTw" id="5_JSBJzcSMN" role="2Oq$k0">
-              <ref role="3cqZAo" node="5_JSBJzcOzm" resolve="executor" />
-            </node>
-            <node concept="liA8E" id="5_JSBJzcV7X" role="2OqNvi">
-              <ref role="37wK5l" to="5zyv:~ExecutorService.shutdown()" resolve="shutdown" />
-            </node>
-          </node>
-        </node>
-        <node concept="3clFbF" id="5_JSBJzcVSB" role="3cqZAp">
-          <node concept="37vLTI" id="5_JSBJzcWsW" role="3clFbG">
-            <node concept="10Nm6u" id="5_JSBJzcWQd" role="37vLTx" />
-            <node concept="37vLTw" id="5_JSBJzcVS_" role="37vLTJ">
-              <ref role="3cqZAo" node="5_JSBJzcOzm" resolve="executor" />
-            </node>
-          </node>
-        </node>
-      </node>
+      <node concept="3clFbS" id="5_JSBJzcRvX" role="3clF47" />
     </node>
   </node>
   <node concept="312cEu" id="1UedZiFnOFj">
     <property role="TrG5h" value="VersionChangeDetector" />
     <property role="1sVAO0" value="true" />
-    <node concept="312cEg" id="1UedZiFnP7i" role="jymVt">
-      <property role="TrG5h" value="executor" />
-      <node concept="3Tm6S6" id="1UedZiFnP7j" role="1B3o_S" />
-      <node concept="3uibUv" id="1UedZiFnPgu" role="1tU5fm">
-        <ref role="3uigEE" to="5zyv:~ScheduledExecutorService" resolve="ScheduledExecutorService" />
-      </node>
-      <node concept="2YIFZM" id="1UedZiFnPJd" role="33vP2m">
-        <ref role="37wK5l" to="5zyv:~Executors.newSingleThreadScheduledExecutor()" resolve="newSingleThreadScheduledExecutor" />
-        <ref role="1Pybhc" to="5zyv:~Executors" resolve="Executors" />
-      </node>
-    </node>
     <node concept="312cEg" id="1UedZiFonEP" role="jymVt">
       <property role="TrG5h" value="keyListener" />
       <node concept="3Tm6S6" id="1UedZiFonEQ" role="1B3o_S" />
@@ -9830,12 +9764,12 @@
         </node>
         <node concept="3clFbF" id="1LVcV5KwUSm" role="3cqZAp">
           <node concept="2OqwBi" id="1LVcV5KwVtN" role="3clFbG">
-            <node concept="2YIFZM" id="1LVcV5KwV5h" role="2Oq$k0">
-              <ref role="37wK5l" to="bd8o:~ApplicationManager.getApplication()" resolve="getApplication" />
-              <ref role="1Pybhc" to="bd8o:~ApplicationManager" resolve="ApplicationManager" />
+            <node concept="10M0yZ" id="Onv88ZP9jY" role="2Oq$k0">
+              <ref role="3cqZAo" node="Onv88ZOFFp" resolve="FIXED" />
+              <ref role="1PxDUh" node="Onv88ZNSEL" resolve="SharedExecutors" />
             </node>
             <node concept="liA8E" id="1LVcV5KwVOl" role="2OqNvi">
-              <ref role="37wK5l" to="bd8o:~Application.executeOnPooledThread(java.lang.Runnable)" resolve="executeOnPooledThread" />
+              <ref role="37wK5l" to="5zyv:~Executor.execute(java.lang.Runnable)" resolve="execute" />
               <node concept="1bVj0M" id="1LVcV5KwWbG" role="37wK5m">
                 <property role="3yWfEV" value="true" />
                 <node concept="3clFbS" id="1LVcV5KwWbH" role="1bW5cS">
@@ -9887,8 +9821,9 @@
         </node>
         <node concept="3clFbF" id="1UedZiFofZm" role="3cqZAp">
           <node concept="2OqwBi" id="1UedZiFogsj" role="3clFbG">
-            <node concept="37vLTw" id="1UedZiFofZk" role="2Oq$k0">
-              <ref role="3cqZAo" node="1UedZiFnP7i" resolve="executor" />
+            <node concept="10M0yZ" id="Onv88ZOY0f" role="2Oq$k0">
+              <ref role="3cqZAo" node="Onv88ZOBOY" resolve="SCHEDULED" />
+              <ref role="1PxDUh" node="Onv88ZNSEL" resolve="SharedExecutors" />
             </node>
             <node concept="liA8E" id="1UedZiFogGV" role="2OqNvi">
               <ref role="37wK5l" to="5zyv:~ScheduledExecutorService.scheduleWithFixedDelay(java.lang.Runnable,long,long,java.util.concurrent.TimeUnit)" resolve="scheduleWithFixedDelay" />
@@ -10040,16 +9975,6 @@
               <node concept="37vLTw" id="1UedZiFor2w" role="37wK5m">
                 <ref role="3cqZAo" node="1UedZiFonEP" resolve="keyListener" />
               </node>
-            </node>
-          </node>
-        </node>
-        <node concept="3clFbF" id="1UedZiFolFn" role="3cqZAp">
-          <node concept="2OqwBi" id="1UedZiFom5$" role="3clFbG">
-            <node concept="37vLTw" id="1UedZiFolFm" role="2Oq$k0">
-              <ref role="3cqZAo" node="1UedZiFnP7i" resolve="executor" />
-            </node>
-            <node concept="liA8E" id="1UedZiFomns" role="2OqNvi">
-              <ref role="37wK5l" to="5zyv:~ExecutorService.shutdown()" resolve="shutdown" />
             </node>
           </node>
         </node>
@@ -10849,14 +10774,14 @@
           </node>
         </node>
         <node concept="3clFbH" id="6aRQr1WVobr" role="3cqZAp" />
-        <node concept="3clFbF" id="1JFLVobhobN" role="3cqZAp">
-          <node concept="2OqwBi" id="1JFLVobhovp" role="3clFbG">
-            <node concept="2YIFZM" id="1JFLVobhohx" role="2Oq$k0">
-              <ref role="37wK5l" to="bd8o:~ApplicationManager.getApplication()" resolve="getApplication" />
-              <ref role="1Pybhc" to="bd8o:~ApplicationManager" resolve="ApplicationManager" />
+        <node concept="3clFbF" id="Onv88ZP1Dg" role="3cqZAp">
+          <node concept="2OqwBi" id="Onv88ZP2lD" role="3clFbG">
+            <node concept="10M0yZ" id="Onv88ZP210" role="2Oq$k0">
+              <ref role="3cqZAo" node="Onv88ZOFFp" resolve="FIXED" />
+              <ref role="1PxDUh" node="Onv88ZNSEL" resolve="SharedExecutors" />
             </node>
-            <node concept="liA8E" id="1JFLVobhoGN" role="2OqNvi">
-              <ref role="37wK5l" to="bd8o:~Application.executeOnPooledThread(java.lang.Runnable)" resolve="executeOnPooledThread" />
+            <node concept="liA8E" id="Onv88ZP2HL" role="2OqNvi">
+              <ref role="37wK5l" to="5zyv:~Executor.execute(java.lang.Runnable)" resolve="execute" />
               <node concept="1bVj0M" id="1JFLVobhp3Y" role="37wK5m">
                 <node concept="3clFbS" id="1JFLVobhp3Z" role="1bW5cS">
                   <node concept="SfApY" id="1JFLVobhAFc" role="3cqZAp">
@@ -10927,12 +10852,12 @@
                               <node concept="37vLTw" id="6aRQr1X1K06" role="37wK5m">
                                 <ref role="3cqZAo" node="6aRQr1WVnku" resolve="client" />
                               </node>
-                              <node concept="37vLTw" id="6aRQr1X1Ksd" role="37wK5m">
+                              <node concept="37vLTw" id="Onv88ZP2QD" role="37wK5m">
                                 <ref role="3cqZAo" node="6aRQr1WVSv7" resolve="INFO_TREE_ID" />
                               </node>
                               <node concept="10M0yZ" id="49CIzaqgTa8" role="37wK5m">
-                                <ref role="3cqZAo" node="49CIzaqgI0k" resolve="DEFAULT_BRANCH_NAME" />
                                 <ref role="1PxDUh" node="49CIzaqd$Q8" resolve="ActiveBranch" />
+                                <ref role="3cqZAo" node="49CIzaqgI0k" resolve="DEFAULT_BRANCH_NAME" />
                               </node>
                             </node>
                           </node>
@@ -13213,12 +13138,8 @@
                         </node>
                         <node concept="3clFbF" id="327$otqD0BG" role="3cqZAp">
                           <node concept="2OqwBi" id="327$otqD4Bu" role="3clFbG">
-                            <node concept="2YIFZM" id="327$otqD0T_" role="2Oq$k0">
-                              <ref role="37wK5l" to="bd8o:~ApplicationManager.getApplication()" resolve="getApplication" />
-                              <ref role="1Pybhc" to="bd8o:~ApplicationManager" resolve="ApplicationManager" />
-                            </node>
                             <node concept="liA8E" id="327$otqD52D" role="2OqNvi">
-                              <ref role="37wK5l" to="bd8o:~Application.executeOnPooledThread(java.lang.Runnable)" resolve="executeOnPooledThread" />
+                              <ref role="37wK5l" to="5zyv:~Executor.execute(java.lang.Runnable)" resolve="execute" />
                               <node concept="1bVj0M" id="327$otqD65W" role="37wK5m">
                                 <property role="3yWfEV" value="true" />
                                 <node concept="3clFbS" id="327$otqD65X" role="1bW5cS">
@@ -13242,6 +13163,10 @@
                                   </node>
                                 </node>
                               </node>
+                            </node>
+                            <node concept="10M0yZ" id="Onv88ZP8o0" role="2Oq$k0">
+                              <ref role="3cqZAo" node="Onv88ZOFFp" resolve="FIXED" />
+                              <ref role="1PxDUh" node="Onv88ZNSEL" resolve="SharedExecutors" />
                             </node>
                           </node>
                         </node>
@@ -18211,6 +18136,90 @@
       </node>
     </node>
     <node concept="3Tm1VV" id="68rqGk1602" role="1B3o_S" />
+  </node>
+  <node concept="312cEu" id="Onv88ZNSEL">
+    <property role="TrG5h" value="SharedExecutors" />
+    <node concept="Wx3nA" id="Onv88ZOFFp" role="jymVt">
+      <property role="TrG5h" value="FIXED" />
+      <property role="3TUv4t" value="true" />
+      <node concept="3uibUv" id="Onv88ZOFFq" role="1tU5fm">
+        <ref role="3uigEE" to="5zyv:~ExecutorService" resolve="ExecutorService" />
+      </node>
+      <node concept="3Tm1VV" id="Onv88ZOFFr" role="1B3o_S" />
+      <node concept="2YIFZM" id="Onv88ZOGOJ" role="33vP2m">
+        <ref role="37wK5l" to="5zyv:~Executors.newFixedThreadPool(int)" resolve="newFixedThreadPool" />
+        <ref role="1Pybhc" to="5zyv:~Executors" resolve="Executors" />
+        <node concept="3cpWs3" id="Onv88ZOHy7" role="37wK5m">
+          <node concept="2OqwBi" id="Onv88ZOGIu" role="3uHU7B">
+            <node concept="2YIFZM" id="Onv88ZOGBy" role="2Oq$k0">
+              <ref role="1Pybhc" to="wyt6:~Runtime" resolve="Runtime" />
+              <ref role="37wK5l" to="wyt6:~Runtime.getRuntime()" resolve="getRuntime" />
+            </node>
+            <node concept="liA8E" id="Onv88ZOGO4" role="2OqNvi">
+              <ref role="37wK5l" to="wyt6:~Runtime.availableProcessors()" resolve="availableProcessors" />
+            </node>
+          </node>
+          <node concept="3cmrfG" id="Onv88ZOHUo" role="3uHU7w">
+            <property role="3cmrfH" value="1" />
+          </node>
+        </node>
+      </node>
+    </node>
+    <node concept="Wx3nA" id="Onv88ZOBOY" role="jymVt">
+      <property role="TrG5h" value="SCHEDULED" />
+      <property role="3TUv4t" value="true" />
+      <node concept="3uibUv" id="Onv88ZOBzS" role="1tU5fm">
+        <ref role="3uigEE" to="5zyv:~ScheduledExecutorService" resolve="ScheduledExecutorService" />
+      </node>
+      <node concept="3Tm1VV" id="Onv88ZOCRG" role="1B3o_S" />
+      <node concept="2YIFZM" id="Onv88ZOYb1" role="33vP2m">
+        <ref role="37wK5l" to="5zyv:~Executors.newScheduledThreadPool(int)" resolve="newScheduledThreadPool" />
+        <ref role="1Pybhc" to="5zyv:~Executors" resolve="Executors" />
+        <node concept="3cpWs3" id="Onv88ZOYc1" role="37wK5m">
+          <node concept="2OqwBi" id="Onv88ZOYc2" role="3uHU7B">
+            <node concept="2YIFZM" id="Onv88ZOYc3" role="2Oq$k0">
+              <ref role="37wK5l" to="wyt6:~Runtime.getRuntime()" resolve="getRuntime" />
+              <ref role="1Pybhc" to="wyt6:~Runtime" resolve="Runtime" />
+            </node>
+            <node concept="liA8E" id="Onv88ZOYc4" role="2OqNvi">
+              <ref role="37wK5l" to="wyt6:~Runtime.availableProcessors()" resolve="availableProcessors" />
+            </node>
+          </node>
+          <node concept="3cmrfG" id="Onv88ZOYc5" role="3uHU7w">
+            <property role="3cmrfH" value="1" />
+          </node>
+        </node>
+      </node>
+    </node>
+    <node concept="2tJIrI" id="Onv88ZOFHQ" role="jymVt" />
+    <node concept="2YIFZL" id="Onv88ZOBPX" role="jymVt">
+      <property role="TrG5h" value="shutdownAll" />
+      <node concept="3clFbS" id="Onv88ZOACR" role="3clF47">
+        <node concept="3clFbF" id="Onv88ZOB2a" role="3cqZAp">
+          <node concept="2OqwBi" id="Onv88ZOBke" role="3clFbG">
+            <node concept="37vLTw" id="Onv88ZOB29" role="2Oq$k0">
+              <ref role="3cqZAo" node="Onv88ZOBOY" resolve="SCHEDULED" />
+            </node>
+            <node concept="liA8E" id="Onv88ZOBM9" role="2OqNvi">
+              <ref role="37wK5l" to="5zyv:~ExecutorService.shutdown()" resolve="shutdown" />
+            </node>
+          </node>
+        </node>
+        <node concept="3clFbF" id="Onv88ZOIcq" role="3cqZAp">
+          <node concept="2OqwBi" id="Onv88ZOIxs" role="3clFbG">
+            <node concept="37vLTw" id="Onv88ZOIco" role="2Oq$k0">
+              <ref role="3cqZAo" node="Onv88ZOFFp" resolve="FIXED" />
+            </node>
+            <node concept="liA8E" id="Onv88ZOIKI" role="2OqNvi">
+              <ref role="37wK5l" to="5zyv:~ExecutorService.shutdown()" resolve="shutdown" />
+            </node>
+          </node>
+        </node>
+      </node>
+      <node concept="3cqZAl" id="Onv88ZOACP" role="3clF45" />
+      <node concept="3Tm1VV" id="Onv88ZOACQ" role="1B3o_S" />
+    </node>
+    <node concept="3Tm1VV" id="Onv88ZNSEM" role="1B3o_S" />
   </node>
 </model>
 
