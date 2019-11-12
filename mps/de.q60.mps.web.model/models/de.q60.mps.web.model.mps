@@ -344,13 +344,6 @@
         </node>
       </node>
     </node>
-    <node concept="312cEg" id="51I69Mo9$zq" role="jymVt">
-      <property role="TrG5h" value="lastMergedVersion" />
-      <node concept="3Tm6S6" id="51I69Mo9$zr" role="1B3o_S" />
-      <node concept="3uibUv" id="LXqpntZQ69" role="1tU5fm">
-        <ref role="3uigEE" to="jon5:2D0HTQhahjL" resolve="CLVersion" />
-      </node>
-    </node>
     <node concept="2tJIrI" id="51I69MoaWOE" role="jymVt" />
     <node concept="312cEg" id="51I69MoaX6I" role="jymVt">
       <property role="TrG5h" value="storeCache" />
@@ -411,50 +404,17 @@
         </node>
       </node>
     </node>
-    <node concept="2tJIrI" id="51I69MopdlK" role="jymVt" />
-    <node concept="3clFb_" id="2wu1c06Rg2Q" role="jymVt">
-      <property role="TrG5h" value="getLastVersion" />
-      <node concept="3uibUv" id="2wu1c06Rm_j" role="3clF45">
-        <ref role="3uigEE" to="jon5:2D0HTQhahjL" resolve="CLVersion" />
-      </node>
-      <node concept="3Tm1VV" id="2wu1c06Rg2T" role="1B3o_S" />
-      <node concept="3clFbS" id="2wu1c06Rg2U" role="3clF47">
-        <node concept="3clFbF" id="2wu1c06Rmpp" role="3cqZAp">
-          <node concept="37vLTw" id="2wu1c06Rmpo" role="3clFbG">
-            <ref role="3cqZAo" node="51I69Mo9$zq" resolve="lastMergedVersion" />
-          </node>
-        </node>
-      </node>
-    </node>
-    <node concept="2tJIrI" id="68NaTbe9FmJ" role="jymVt" />
-    <node concept="3clFb_" id="68NaTbe9GOQ" role="jymVt">
-      <property role="TrG5h" value="reset" />
-      <node concept="37vLTG" id="68NaTbe9K1e" role="3clF46">
-        <property role="TrG5h" value="version" />
-        <node concept="3uibUv" id="68NaTbe9Lo9" role="1tU5fm">
-          <ref role="3uigEE" to="jon5:2D0HTQhahjL" resolve="CLVersion" />
-        </node>
-      </node>
-      <node concept="3cqZAl" id="68NaTbe9GOS" role="3clF45" />
-      <node concept="3Tm1VV" id="68NaTbe9GOT" role="1B3o_S" />
-      <node concept="3clFbS" id="68NaTbe9GOU" role="3clF47">
-        <node concept="3clFbF" id="68NaTbe9LZs" role="3cqZAp">
-          <node concept="37vLTI" id="68NaTbe9Ml$" role="3clFbG">
-            <node concept="37vLTw" id="68NaTbe9MGT" role="37vLTx">
-              <ref role="3cqZAo" node="68NaTbe9K1e" resolve="version" />
-            </node>
-            <node concept="37vLTw" id="68NaTbe9LZr" role="37vLTJ">
-              <ref role="3cqZAo" node="51I69Mo9$zq" resolve="lastMergedVersion" />
-            </node>
-          </node>
-        </node>
-      </node>
-    </node>
     <node concept="2tJIrI" id="2wu1c06ReCT" role="jymVt" />
     <node concept="3clFb_" id="51I69Mo9$19" role="jymVt">
       <property role="TrG5h" value="mergeChange" />
+      <node concept="37vLTG" id="Onv88ZSQvZ" role="3clF46">
+        <property role="TrG5h" value="lastMergedVersion" />
+        <node concept="3uibUv" id="Onv88ZSRAU" role="1tU5fm">
+          <ref role="3uigEE" to="jon5:2D0HTQhahjL" resolve="CLVersion" />
+        </node>
+      </node>
       <node concept="37vLTG" id="51I69Mo9$64" role="3clF46">
-        <property role="TrG5h" value="version" />
+        <property role="TrG5h" value="newVersion" />
         <node concept="3uibUv" id="LXqpntZM5K" role="1tU5fm">
           <ref role="3uigEE" to="jon5:2D0HTQhahjL" resolve="CLVersion" />
         </node>
@@ -477,22 +437,22 @@
                 <node concept="3clFbF" id="5PN764YB3Tf" role="3cqZAp">
                   <node concept="37vLTI" id="5PN764YB4iI" role="3clFbG">
                     <node concept="37vLTw" id="5PN764YB4vG" role="37vLTx">
-                      <ref role="3cqZAo" node="51I69Mo9$64" resolve="version" />
+                      <ref role="3cqZAo" node="51I69Mo9$64" resolve="newVersion" />
                     </node>
                     <node concept="37vLTw" id="5PN764YB3Td" role="37vLTJ">
-                      <ref role="3cqZAo" node="51I69Mo9$zq" resolve="lastMergedVersion" />
+                      <ref role="3cqZAo" node="Onv88ZSQvZ" resolve="lastMergedVersion" />
                     </node>
                   </node>
                 </node>
                 <node concept="3cpWs6" id="5PN764YB4P3" role="3cqZAp">
                   <node concept="37vLTw" id="5PN764YB52j" role="3cqZAk">
-                    <ref role="3cqZAo" node="51I69Mo9$64" resolve="version" />
+                    <ref role="3cqZAo" node="51I69Mo9$64" resolve="newVersion" />
                   </node>
                 </node>
               </node>
               <node concept="3clFbC" id="5PN764YB3oW" role="3clFbw">
                 <node concept="37vLTw" id="5PN764YB2xo" role="3uHU7B">
-                  <ref role="3cqZAo" node="51I69Mo9$zq" resolve="lastMergedVersion" />
+                  <ref role="3cqZAo" node="Onv88ZSQvZ" resolve="lastMergedVersion" />
                 </node>
                 <node concept="10Nm6u" id="5PN764YB38e" role="3uHU7w" />
               </node>
@@ -502,14 +462,14 @@
                     <node concept="3clFbS" id="51I69Movht3" role="3clFbx">
                       <node concept="3cpWs6" id="51I69MovnJs" role="3cqZAp">
                         <node concept="37vLTw" id="51I69Movo7H" role="3cqZAk">
-                          <ref role="3cqZAo" node="51I69Mo9$zq" resolve="lastMergedVersion" />
+                          <ref role="3cqZAo" node="Onv88ZSQvZ" resolve="lastMergedVersion" />
                         </node>
                       </node>
                     </node>
                     <node concept="17R0WA" id="51I69MovkEh" role="3clFbw">
                       <node concept="2OqwBi" id="5PN764YAZe1" role="3uHU7w">
                         <node concept="37vLTw" id="51I69MovlaF" role="2Oq$k0">
-                          <ref role="3cqZAo" node="51I69Mo9$zq" resolve="lastMergedVersion" />
+                          <ref role="3cqZAo" node="Onv88ZSQvZ" resolve="lastMergedVersion" />
                         </node>
                         <node concept="liA8E" id="51I69Movnx8" role="2OqNvi">
                           <ref role="37wK5l" to="jon5:2D0HTQhaui_" resolve="getHash" />
@@ -517,7 +477,7 @@
                       </node>
                       <node concept="2OqwBi" id="51I69MovjSG" role="3uHU7B">
                         <node concept="37vLTw" id="51I69MoviD3" role="2Oq$k0">
-                          <ref role="3cqZAo" node="51I69Mo9$64" resolve="version" />
+                          <ref role="3cqZAo" node="51I69Mo9$64" resolve="newVersion" />
                         </node>
                         <node concept="liA8E" id="51I69Movkjp" role="2OqNvi">
                           <ref role="37wK5l" to="jon5:2D0HTQhaui_" resolve="getHash" />
@@ -538,7 +498,7 @@
                             <ref role="37wK5l" node="51I69Mobump" resolve="mergeHistory" />
                             <node concept="2OqwBi" id="51I69MooptA" role="37wK5m">
                               <node concept="37vLTw" id="51I69MooptB" role="2Oq$k0">
-                                <ref role="3cqZAo" node="51I69Mo9$zq" resolve="lastMergedVersion" />
+                                <ref role="3cqZAo" node="Onv88ZSQvZ" resolve="lastMergedVersion" />
                               </node>
                               <node concept="liA8E" id="51I69MooptC" role="2OqNvi">
                                 <ref role="37wK5l" to="jon5:2D0HTQhaui_" resolve="getHash" />
@@ -546,7 +506,7 @@
                             </node>
                             <node concept="2OqwBi" id="51I69MooptD" role="37wK5m">
                               <node concept="37vLTw" id="51I69MooptE" role="2Oq$k0">
-                                <ref role="3cqZAo" node="51I69Mo9$64" resolve="version" />
+                                <ref role="3cqZAo" node="51I69Mo9$64" resolve="newVersion" />
                               </node>
                               <node concept="liA8E" id="51I69MooptF" role="2OqNvi">
                                 <ref role="37wK5l" to="jon5:2D0HTQhaui_" resolve="getHash" />
@@ -557,16 +517,6 @@
                             <ref role="3cqZAo" node="51I69MoaX6I" resolve="storeCache" />
                           </node>
                         </node>
-                      </node>
-                    </node>
-                  </node>
-                  <node concept="3clFbF" id="51I69Mooqfs" role="3cqZAp">
-                    <node concept="37vLTI" id="51I69MooqNy" role="3clFbG">
-                      <node concept="37vLTw" id="51I69MoorfI" role="37vLTx">
-                        <ref role="3cqZAo" node="51I69Moopt$" resolve="merged" />
-                      </node>
-                      <node concept="37vLTw" id="51I69Mooqfq" role="37vLTJ">
-                        <ref role="3cqZAo" node="51I69Mo9$zq" resolve="lastMergedVersion" />
                       </node>
                     </node>
                   </node>
