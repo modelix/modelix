@@ -1085,6 +1085,16 @@
         </node>
       </node>
     </node>
+    <node concept="2tJIrI" id="4qNw5QUxECt" role="jymVt" />
+    <node concept="3clFb_" id="4qNw5QUxDtM" role="jymVt">
+      <property role="TrG5h" value="updateStatusBarMessage" />
+      <node concept="3Tm1VV" id="4qNw5QUxDtN" role="1B3o_S" />
+      <node concept="3cqZAl" id="4qNw5QUxDtP" role="3clF45" />
+      <node concept="3clFbS" id="4qNw5QUxDtQ" role="3clF47" />
+      <node concept="2AHcQZ" id="4qNw5QUxDtR" role="2AJF6D">
+        <ref role="2AI5Lk" to="wyt6:~Override" resolve="Override" />
+      </node>
+    </node>
   </node>
   <node concept="sE7Ow" id="5BgWpoK$7Ln">
     <property role="TrG5h" value="BuildEnvironment" />
