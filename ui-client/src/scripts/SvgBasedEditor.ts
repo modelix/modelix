@@ -32,7 +32,7 @@ export class SvgBasedEditor {
                     this.element.innerHTML = null;
 
                     let img: HTMLImageElement = document.createElement("img");
-                    img.src = "data:image/svg+xml;base64," + btoa(rawData);
+                    img.src = "data:image/png;base64," + rawData;
                     img.classList.add("svgEditorImg");
                     img.classList.add("full");
 
@@ -40,7 +40,7 @@ export class SvgBasedEditor {
                     // console.log((Date.now() - lastEventTime) + " full image");
                 } else if (lastMessage.type === "image.fragment") {
                     let img: HTMLImageElement = document.createElement("img");
-                    img.src = "data:image/svg+xml;base64," + btoa(rawData);
+                    img.src = "data:image/png;base64," + rawData;
                     img.classList.add("svgEditorImg");
                     img.classList.add("incremental");
                     // let data: IImageData = lastMessage.data;

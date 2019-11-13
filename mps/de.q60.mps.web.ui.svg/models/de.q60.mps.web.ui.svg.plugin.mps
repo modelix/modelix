@@ -410,7 +410,7 @@
         <node concept="3clFbF" id="6xm2RBl6gCP" role="3cqZAp">
           <node concept="2YIFZM" id="6xm2RBl6gDL" role="3clFbG">
             <ref role="37wK5l" to="vyue:6xm2RBl62kx" resolve="toSvg" />
-            <ref role="1Pybhc" to="vyue:6xm2RBl62ji" resolve="EditorToSvg" />
+            <ref role="1Pybhc" to="vyue:6xm2RBl62ji" resolve="EditorToImage" />
             <node concept="2OqwBi" id="6xm2RBl6gEp" role="37wK5m">
               <node concept="2WthIp" id="6xm2RBl6gEs" role="2Oq$k0" />
               <node concept="1DTwFV" id="6xm2RBl6gEu" role="2OqNvi">
@@ -1718,13 +1718,13 @@
       </node>
     </node>
     <node concept="312cEg" id="1qbCJZsJ67j" role="jymVt">
-      <property role="TrG5h" value="lastFullSvg" />
+      <property role="TrG5h" value="lastFullPng" />
       <node concept="3Tm6S6" id="1qbCJZsJ67k" role="1B3o_S" />
       <node concept="17QB3L" id="1qbCJZsJ67l" role="1tU5fm" />
       <node concept="10Nm6u" id="1qbCJZsJ67m" role="33vP2m" />
     </node>
     <node concept="312cEg" id="1qbCJZsJ67n" role="jymVt">
-      <property role="TrG5h" value="lastViewSvg" />
+      <property role="TrG5h" value="lastViewPng" />
       <node concept="3Tm6S6" id="1qbCJZsJ67o" role="1B3o_S" />
       <node concept="17QB3L" id="1qbCJZsJ67p" role="1tU5fm" />
       <node concept="10Nm6u" id="1qbCJZsJ67q" role="33vP2m" />
@@ -2322,15 +2322,15 @@
         <node concept="3clFbH" id="1qbCJZsJ6bQ" role="3cqZAp" />
         <node concept="3cpWs8" id="1qbCJZsJ6bR" role="3cqZAp">
           <node concept="3cpWsn" id="1qbCJZsJ6bS" role="3cpWs9">
-            <property role="TrG5h" value="svg" />
+            <property role="TrG5h" value="png" />
             <node concept="17QB3L" id="1qbCJZsJ6bT" role="1tU5fm" />
-            <node concept="2YIFZM" id="1qbCJZsJ6bU" role="33vP2m">
-              <ref role="37wK5l" to="vyue:6xm2RBl62kx" resolve="toSvg" />
-              <ref role="1Pybhc" to="vyue:6xm2RBl62ji" resolve="EditorToSvg" />
-              <node concept="1rXfSq" id="1qbCJZsJ6bV" role="37wK5m">
+            <node concept="2YIFZM" id="4qNw5QUztXL" role="33vP2m">
+              <ref role="37wK5l" to="vyue:4qNw5QUzlqD" resolve="toPngBase64" />
+              <ref role="1Pybhc" to="vyue:6xm2RBl62ji" resolve="EditorToImage" />
+              <node concept="1rXfSq" id="4qNw5QUztXM" role="37wK5m">
                 <ref role="37wK5l" node="1qbCJZsJ69e" resolve="getEditorComponent" />
               </node>
-              <node concept="10Nm6u" id="1qbCJZsJ6bW" role="37wK5m" />
+              <node concept="10Nm6u" id="4qNw5QUztXN" role="37wK5m" />
             </node>
           </node>
         </node>
@@ -2339,10 +2339,10 @@
             <node concept="3clFbF" id="1qbCJZsJ6bZ" role="3cqZAp">
               <node concept="37vLTI" id="1qbCJZsJ6c0" role="3clFbG">
                 <node concept="37vLTw" id="1qbCJZsJ6c1" role="37vLTx">
-                  <ref role="3cqZAo" node="1qbCJZsJ6bS" resolve="svg" />
+                  <ref role="3cqZAo" node="1qbCJZsJ6bS" resolve="png" />
                 </node>
                 <node concept="37vLTw" id="1qbCJZsJ6c2" role="37vLTJ">
-                  <ref role="3cqZAo" node="1qbCJZsJ67j" resolve="lastFullSvg" />
+                  <ref role="3cqZAo" node="1qbCJZsJ67j" resolve="lastFullPng" />
                 </node>
               </node>
             </node>
@@ -2436,7 +2436,7 @@
                     <node concept="liA8E" id="5Sw$pxbOYZN" role="2OqNvi">
                       <ref role="37wK5l" to="fz1u:~RemoteEndpoint.sendString(java.lang.String)" resolve="sendString" />
                       <node concept="37vLTw" id="5Sw$pxbOYZO" role="37wK5m">
-                        <ref role="3cqZAo" node="1qbCJZsJ6bS" resolve="svg" />
+                        <ref role="3cqZAo" node="1qbCJZsJ6bS" resolve="png" />
                       </node>
                     </node>
                   </node>
@@ -2489,10 +2489,10 @@
             </node>
             <node concept="17QLQc" id="1qbCJZsJ6d0" role="3uHU7w">
               <node concept="37vLTw" id="1qbCJZsJ6d1" role="3uHU7w">
-                <ref role="3cqZAo" node="1qbCJZsJ67j" resolve="lastFullSvg" />
+                <ref role="3cqZAo" node="1qbCJZsJ67j" resolve="lastFullPng" />
               </node>
               <node concept="37vLTw" id="1qbCJZsJ6d2" role="3uHU7B">
-                <ref role="3cqZAo" node="1qbCJZsJ6bS" resolve="svg" />
+                <ref role="3cqZAo" node="1qbCJZsJ6bS" resolve="png" />
               </node>
             </node>
           </node>
@@ -2619,15 +2619,15 @@
         </node>
         <node concept="3cpWs8" id="1qbCJZsJ6dQ" role="3cqZAp">
           <node concept="3cpWsn" id="1qbCJZsJ6dR" role="3cpWs9">
-            <property role="TrG5h" value="svg" />
+            <property role="TrG5h" value="png" />
             <node concept="17QB3L" id="1qbCJZsJ6dS" role="1tU5fm" />
-            <node concept="2YIFZM" id="1qbCJZsJ6dT" role="33vP2m">
-              <ref role="37wK5l" to="vyue:6xm2RBl62kx" resolve="toSvg" />
-              <ref role="1Pybhc" to="vyue:6xm2RBl62ji" resolve="EditorToSvg" />
-              <node concept="1rXfSq" id="1qbCJZsJ6dU" role="37wK5m">
+            <node concept="2YIFZM" id="4qNw5QUzukw" role="33vP2m">
+              <ref role="37wK5l" to="vyue:4qNw5QUzlqD" resolve="toPngBase64" />
+              <ref role="1Pybhc" to="vyue:6xm2RBl62ji" resolve="EditorToImage" />
+              <node concept="1rXfSq" id="4qNw5QUzukx" role="37wK5m">
                 <ref role="37wK5l" node="1qbCJZsJ69e" resolve="getEditorComponent" />
               </node>
-              <node concept="37vLTw" id="1qbCJZsJ6dV" role="37wK5m">
+              <node concept="37vLTw" id="4qNw5QUzuky" role="37wK5m">
                 <ref role="3cqZAo" node="1qbCJZsJ6dr" resolve="clip" />
               </node>
             </node>
@@ -2638,10 +2638,10 @@
             <node concept="3clFbF" id="1qbCJZsJ6dY" role="3cqZAp">
               <node concept="37vLTI" id="1qbCJZsJ6dZ" role="3clFbG">
                 <node concept="37vLTw" id="1qbCJZsJ6e0" role="37vLTx">
-                  <ref role="3cqZAo" node="1qbCJZsJ6dR" resolve="svg" />
+                  <ref role="3cqZAo" node="1qbCJZsJ6dR" resolve="png" />
                 </node>
                 <node concept="37vLTw" id="1qbCJZsJ6e1" role="37vLTJ">
-                  <ref role="3cqZAo" node="1qbCJZsJ67n" resolve="lastViewSvg" />
+                  <ref role="3cqZAo" node="1qbCJZsJ67n" resolve="lastViewPng" />
                 </node>
               </node>
             </node>
@@ -2734,7 +2734,7 @@
                     <node concept="liA8E" id="1qbCJZsJ6eK" role="2OqNvi">
                       <ref role="37wK5l" to="fz1u:~RemoteEndpoint.sendString(java.lang.String)" resolve="sendString" />
                       <node concept="37vLTw" id="1qbCJZsJ6eL" role="37wK5m">
-                        <ref role="3cqZAo" node="1qbCJZsJ6dR" resolve="svg" />
+                        <ref role="3cqZAo" node="1qbCJZsJ6dR" resolve="png" />
                       </node>
                     </node>
                   </node>
@@ -2780,10 +2780,10 @@
           </node>
           <node concept="17QLQc" id="1qbCJZsJ6eW" role="3clFbw">
             <node concept="37vLTw" id="1qbCJZsJ6eX" role="3uHU7w">
-              <ref role="3cqZAo" node="1qbCJZsJ6dR" resolve="svg" />
+              <ref role="3cqZAo" node="1qbCJZsJ6dR" resolve="png" />
             </node>
             <node concept="37vLTw" id="1qbCJZsJ6eY" role="3uHU7B">
-              <ref role="3cqZAo" node="1qbCJZsJ67n" resolve="lastViewSvg" />
+              <ref role="3cqZAo" node="1qbCJZsJ67n" resolve="lastViewPng" />
             </node>
           </node>
         </node>
@@ -2973,15 +2973,15 @@
         </node>
         <node concept="3cpWs8" id="1qbCJZsJ6gf" role="3cqZAp">
           <node concept="3cpWsn" id="1qbCJZsJ6gg" role="3cpWs9">
-            <property role="TrG5h" value="svg" />
+            <property role="TrG5h" value="png" />
             <node concept="17QB3L" id="1qbCJZsJ6gh" role="1tU5fm" />
-            <node concept="2YIFZM" id="1qbCJZsJ6gi" role="33vP2m">
-              <ref role="37wK5l" to="vyue:6xm2RBl62kx" resolve="toSvg" />
-              <ref role="1Pybhc" to="vyue:6xm2RBl62ji" resolve="EditorToSvg" />
-              <node concept="1rXfSq" id="1qbCJZsJ6gj" role="37wK5m">
+            <node concept="2YIFZM" id="4qNw5QUzuF3" role="33vP2m">
+              <ref role="37wK5l" to="vyue:4qNw5QUzlqD" resolve="toPngBase64" />
+              <ref role="1Pybhc" to="vyue:6xm2RBl62ji" resolve="EditorToImage" />
+              <node concept="1rXfSq" id="4qNw5QUzuF4" role="37wK5m">
                 <ref role="37wK5l" node="1qbCJZsJ69e" resolve="getEditorComponent" />
               </node>
-              <node concept="37vLTw" id="1qbCJZsJ6gk" role="37wK5m">
+              <node concept="37vLTw" id="4qNw5QUzuF5" role="37wK5m">
                 <ref role="3cqZAo" node="1qbCJZsJ6fV" resolve="bounds" />
               </node>
             </node>
@@ -3157,7 +3157,7 @@
                 <node concept="liA8E" id="1qbCJZsJ6ht" role="2OqNvi">
                   <ref role="37wK5l" to="fz1u:~RemoteEndpoint.sendString(java.lang.String)" resolve="sendString" />
                   <node concept="37vLTw" id="1qbCJZsJ6hu" role="37wK5m">
-                    <ref role="3cqZAo" node="1qbCJZsJ6gg" resolve="svg" />
+                    <ref role="3cqZAo" node="1qbCJZsJ6gg" resolve="png" />
                   </node>
                 </node>
               </node>
