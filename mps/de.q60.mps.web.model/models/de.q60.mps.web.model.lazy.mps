@@ -24,6 +24,7 @@
     <import index="zdal" ref="r:88aa2c17-3990-45f2-9b79-06884112d260(de.q60.mps.web.model)" />
     <import index="5ka6" ref="ecfb9949-7433-4db5-85de-0f84d172e4ce/java:gnu.trove.map.hash(de.q60.mps.libs/)" />
     <import index="ydze" ref="r:c65aa0cf-b22b-4cca-bd88-3210b1c2f55f(de.q60.mps.web.model.operations)" />
+    <import index="e8no" ref="498d89d2-c2e9-11e2-ad49-6cf049e62fe5/java:com.intellij.util.containers(MPS.IDEA/)" />
   </imports>
   <registry>
     <language id="5dc5fc0d-37ef-4782-8192-8b5ce1f69f80" name="jetbrains.mps.baseLanguage.extensionMethods">
@@ -220,9 +221,7 @@
         <child id="4972241301747169160" name="typeArgument" index="3PaCim" />
       </concept>
       <concept id="1073063089578" name="jetbrains.mps.baseLanguage.structure.SuperMethodCall" flags="nn" index="3nyPlj" />
-      <concept id="1212685548494" name="jetbrains.mps.baseLanguage.structure.ClassCreator" flags="nn" index="1pGfFk">
-        <child id="1212687122400" name="typeParameter" index="1pMfVU" />
-      </concept>
+      <concept id="1212685548494" name="jetbrains.mps.baseLanguage.structure.ClassCreator" flags="nn" index="1pGfFk" />
       <concept id="1107461130800" name="jetbrains.mps.baseLanguage.structure.Classifier" flags="ng" index="3pOWGL">
         <property id="521412098689998745" name="nonStatic" index="2bfB8j" />
         <child id="5375687026011219971" name="member" index="jymVt" unordered="true" />
@@ -9876,19 +9875,21 @@
     <node concept="312cEg" id="7A36R9$WoAD" role="jymVt">
       <property role="TrG5h" value="cache" />
       <node concept="3Tm6S6" id="7A36R9$WoAE" role="1B3o_S" />
-      <node concept="3uibUv" id="7A36R9$WoBC" role="1tU5fm">
-        <ref role="3uigEE" to="33ny:~Map" resolve="Map" />
-        <node concept="17QB3L" id="7A36R9$WoCe" role="11_B2D" />
-        <node concept="3uibUv" id="7A36R9$WoD$" role="11_B2D">
+      <node concept="3uibUv" id="7UL57Per_S2" role="1tU5fm">
+        <ref role="3uigEE" to="e8no:~SLRUMap" resolve="SLRUMap" />
+        <node concept="17QB3L" id="7UL57PerAG2" role="11_B2D" />
+        <node concept="3uibUv" id="7UL57PerB7Y" role="11_B2D">
           <ref role="3uigEE" to="wyt6:~Object" resolve="Object" />
         </node>
       </node>
       <node concept="2ShNRf" id="7A36R9$WoFH" role="33vP2m">
-        <node concept="1pGfFk" id="7A36R9$WoZq" role="2ShVmc">
-          <ref role="37wK5l" to="5ka6:~THashMap.&lt;init&gt;()" resolve="THashMap" />
-          <node concept="17QB3L" id="7A36R9$Wpg8" role="1pMfVU" />
-          <node concept="3uibUv" id="7A36R9$Wpqu" role="1pMfVU">
-            <ref role="3uigEE" to="wyt6:~Object" resolve="Object" />
+        <node concept="1pGfFk" id="7UL57PerDpI" role="2ShVmc">
+          <ref role="37wK5l" to="e8no:~SLRUMap.&lt;init&gt;(int,int)" resolve="SLRUMap" />
+          <node concept="3cmrfG" id="7UL57PerDI$" role="37wK5m">
+            <property role="3cmrfH" value="10000" />
+          </node>
+          <node concept="3cmrfG" id="7UL57PerExr" role="37wK5m">
+            <property role="3cmrfH" value="10000" />
           </node>
         </node>
       </node>
@@ -9962,7 +9963,7 @@
                   <ref role="3cqZAo" node="7A36R9$WoAD" resolve="cache" />
                 </node>
                 <node concept="liA8E" id="7A36R9$Wu7t" role="2OqNvi">
-                  <ref role="37wK5l" to="33ny:~Map.get(java.lang.Object)" resolve="get" />
+                  <ref role="37wK5l" to="e8no:~SLRUMap.get(java.lang.Object)" resolve="get" />
                   <node concept="37vLTw" id="7A36R9$Wu7u" role="37wK5m">
                     <ref role="3cqZAo" node="7A36R9$Wowx" resolve="hash" />
                   </node>
@@ -10029,7 +10030,7 @@
                   <ref role="3cqZAo" node="7A36R9$WoAD" resolve="cache" />
                 </node>
                 <node concept="liA8E" id="7A36R9$Wvd0" role="2OqNvi">
-                  <ref role="37wK5l" to="33ny:~Map.put(java.lang.Object,java.lang.Object)" resolve="put" />
+                  <ref role="37wK5l" to="e8no:~SLRUMap.put(java.lang.Object,java.lang.Object)" resolve="put" />
                   <node concept="37vLTw" id="7A36R9$Wvmo" role="37wK5m">
                     <ref role="3cqZAo" node="7A36R9$Wowx" resolve="hash" />
                   </node>
@@ -10099,7 +10100,7 @@
               <ref role="3cqZAo" node="7A36R9$WoAD" resolve="cache" />
             </node>
             <node concept="liA8E" id="4_P7CAmhgH8" role="2OqNvi">
-              <ref role="37wK5l" to="33ny:~Map.put(java.lang.Object,java.lang.Object)" resolve="put" />
+              <ref role="37wK5l" to="e8no:~SLRUMap.put(java.lang.Object,java.lang.Object)" resolve="put" />
               <node concept="37vLTw" id="4_P7CAmhgRb" role="37wK5m">
                 <ref role="3cqZAo" node="4_P7CAmhwZS" resolve="hash" />
               </node>
@@ -10123,7 +10124,7 @@
               <ref role="3cqZAo" node="7A36R9$WoAD" resolve="cache" />
             </node>
             <node concept="liA8E" id="51ssjMR$tOa" role="2OqNvi">
-              <ref role="37wK5l" to="33ny:~Map.clear()" resolve="clear" />
+              <ref role="37wK5l" to="e8no:~SLRUMap.clear()" resolve="clear" />
             </node>
           </node>
         </node>

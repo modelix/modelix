@@ -18,6 +18,7 @@
     <import index="ydze" ref="r:c65aa0cf-b22b-4cca-bd88-3210b1c2f55f(de.q60.mps.web.model.operations)" />
     <import index="5ka6" ref="ecfb9949-7433-4db5-85de-0f84d172e4ce/java:gnu.trove.map.hash(de.q60.mps.libs/)" />
     <import index="33ny" ref="6354ebe7-c22a-4a0f-ac54-50b52ab9b065/java:java.util(JDK/)" />
+    <import index="e8no" ref="498d89d2-c2e9-11e2-ad49-6cf049e62fe5/java:com.intellij.util.containers(MPS.IDEA/)" />
   </imports>
   <registry>
     <language id="f3061a53-9226-4cc5-a443-f952ceaf5816" name="jetbrains.mps.baseLanguage">
@@ -112,6 +113,9 @@
         <property id="1068580123138" name="value" index="3clFbU" />
       </concept>
       <concept id="1068580123140" name="jetbrains.mps.baseLanguage.structure.ConstructorDeclaration" flags="ig" index="3clFbW" />
+      <concept id="1068580320020" name="jetbrains.mps.baseLanguage.structure.IntegerConstant" flags="nn" index="3cmrfG">
+        <property id="1068580320021" name="value" index="3cmrfH" />
+      </concept>
       <concept id="1068581242875" name="jetbrains.mps.baseLanguage.structure.PlusExpression" flags="nn" index="3cpWs3" />
       <concept id="1068581242878" name="jetbrains.mps.baseLanguage.structure.ReturnStatement" flags="nn" index="3cpWs6">
         <child id="1068581517676" name="expression" index="3cqZAk" />
@@ -1748,15 +1752,21 @@
       <property role="TrG5h" value="cache" />
       <node concept="3Tm6S6" id="7A36R9$WoAE" role="1B3o_S" />
       <node concept="3uibUv" id="7A36R9$WoBC" role="1tU5fm">
-        <ref role="3uigEE" to="33ny:~Map" resolve="Map" />
+        <ref role="3uigEE" to="e8no:~SLRUMap" resolve="SLRUMap" />
         <node concept="17QB3L" id="7A36R9$WoCe" role="11_B2D" />
         <node concept="17QB3L" id="3lWEPzuC9Uh" role="11_B2D" />
       </node>
       <node concept="2ShNRf" id="7A36R9$WoFH" role="33vP2m">
-        <node concept="1pGfFk" id="7A36R9$WoZq" role="2ShVmc">
-          <ref role="37wK5l" to="5ka6:~THashMap.&lt;init&gt;()" resolve="THashMap" />
-          <node concept="17QB3L" id="7A36R9$Wpg8" role="1pMfVU" />
-          <node concept="17QB3L" id="3lWEPzuCahS" role="1pMfVU" />
+        <node concept="1pGfFk" id="7UL57Percoo" role="2ShVmc">
+          <ref role="37wK5l" to="e8no:~SLRUMap.&lt;init&gt;(int,int)" resolve="SLRUMap" />
+          <node concept="17QB3L" id="7UL57Perddo" role="1pMfVU" />
+          <node concept="17QB3L" id="7UL57PerdUI" role="1pMfVU" />
+          <node concept="3cmrfG" id="7UL57PermJf" role="37wK5m">
+            <property role="3cmrfH" value="10000" />
+          </node>
+          <node concept="3cmrfG" id="7UL57PernRE" role="37wK5m">
+            <property role="3cmrfH" value="10000" />
+          </node>
         </node>
       </node>
     </node>
@@ -1809,7 +1819,7 @@
                 <ref role="3cqZAo" node="7A36R9$WoAD" resolve="cache" />
               </node>
               <node concept="liA8E" id="3lWEPzuCdtc" role="2OqNvi">
-                <ref role="37wK5l" to="33ny:~Map.get(java.lang.Object)" resolve="get" />
+                <ref role="37wK5l" to="e8no:~SLRUMap.get(java.lang.Object)" resolve="get" />
                 <node concept="37vLTw" id="3lWEPzuCdtd" role="37wK5m">
                   <ref role="3cqZAo" node="3lWEPzuC4Mk" resolve="key" />
                 </node>
@@ -1843,7 +1853,7 @@
                   <ref role="3cqZAo" node="7A36R9$WoAD" resolve="cache" />
                 </node>
                 <node concept="liA8E" id="3lWEPzuCoCN" role="2OqNvi">
-                  <ref role="37wK5l" to="33ny:~Map.put(java.lang.Object,java.lang.Object)" resolve="put" />
+                  <ref role="37wK5l" to="e8no:~SLRUMap.put(java.lang.Object,java.lang.Object)" resolve="put" />
                   <node concept="37vLTw" id="3lWEPzuCp5j" role="37wK5m">
                     <ref role="3cqZAo" node="3lWEPzuC4Mk" resolve="key" />
                   </node>
@@ -1930,7 +1940,7 @@
               <ref role="3cqZAo" node="7A36R9$WoAD" resolve="cache" />
             </node>
             <node concept="liA8E" id="3lWEPzuCvfX" role="2OqNvi">
-              <ref role="37wK5l" to="33ny:~Map.put(java.lang.Object,java.lang.Object)" resolve="put" />
+              <ref role="37wK5l" to="e8no:~SLRUMap.put(java.lang.Object,java.lang.Object)" resolve="put" />
               <node concept="37vLTw" id="3lWEPzuCvFu" role="37wK5m">
                 <ref role="3cqZAo" node="3lWEPzuC4MA" resolve="key" />
               </node>
