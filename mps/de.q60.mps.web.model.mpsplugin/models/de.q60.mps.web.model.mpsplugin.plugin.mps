@@ -31,7 +31,6 @@
     <import index="fyhk" ref="6ed54515-acc8-4d1e-a16c-9fd6cfe951ea/java:jetbrains.mps(MPS.Core/)" />
     <import index="71xd" ref="742f6602-5a2f-4313-aa6e-ae1cd4ffdc61/java:jetbrains.mps.ide.tools(MPS.Platform/)" implicit="true" />
     <import index="c17a" ref="8865b7a8-5271-43d3-884c-6fd1d9cfdd34/java:org.jetbrains.mps.openapi.language(MPS.OpenAPI/)" implicit="true" />
-    <import index="5zyv" ref="6354ebe7-c22a-4a0f-ac54-50b52ab9b065/java:java.util.concurrent(JDK/)" implicit="true" />
   </imports>
   <registry>
     <language id="982eb8df-2c96-4bd7-9963-11712ea622e5" name="jetbrains.mps.lang.resources">
@@ -169,7 +168,9 @@
         <child id="1070534934091" name="type" index="10QFUM" />
         <child id="1070534934092" name="expression" index="10QFUP" />
       </concept>
-      <concept id="1068390468200" name="jetbrains.mps.baseLanguage.structure.FieldDeclaration" flags="ig" index="312cEg" />
+      <concept id="1068390468200" name="jetbrains.mps.baseLanguage.structure.FieldDeclaration" flags="ig" index="312cEg">
+        <property id="1240249534625" name="isVolatile" index="34CwA1" />
+      </concept>
       <concept id="1068390468198" name="jetbrains.mps.baseLanguage.structure.ClassConcept" flags="ig" index="312cEu">
         <child id="1095933932569" name="implementedInterface" index="EKbjA" />
       </concept>
@@ -2214,6 +2215,13 @@
         </node>
       </node>
     </node>
+    <node concept="312cEg" id="3qO8C$8ox6o" role="jymVt">
+      <property role="34CwA1" value="true" />
+      <property role="TrG5h" value="requiresUpdate" />
+      <node concept="3Tm6S6" id="3qO8C$8ox6p" role="1B3o_S" />
+      <node concept="10P_77" id="3qO8C$8ozks" role="1tU5fm" />
+      <node concept="3clFbT" id="3qO8C$8o$43" role="33vP2m" />
+    </node>
     <node concept="2tJIrI" id="4rrX99oiFE5" role="jymVt" />
     <node concept="3clFbW" id="4rrX99oiyDS" role="jymVt">
       <node concept="37vLTG" id="4rrX99oiyEk" role="3clF46">
@@ -2262,6 +2270,39 @@
         <node concept="3clFbF" id="4rrX99olp7n" role="3cqZAp">
           <node concept="1rXfSq" id="4rrX99olp7l" role="3clFbG">
             <ref role="37wK5l" node="4rrX99okXWz" resolve="updateBindingsLater" />
+          </node>
+        </node>
+        <node concept="3clFbF" id="3qO8C$8o_i0" role="3cqZAp">
+          <node concept="2YIFZM" id="3qO8C$8o_lB" role="3clFbG">
+            <ref role="37wK5l" to="csg2:4qNw5QU$ess" resolve="fixDelay" />
+            <ref role="1Pybhc" to="csg2:Onv88ZNSEL" resolve="SharedExecutors" />
+            <node concept="3cmrfG" id="3qO8C$8o_GB" role="37wK5m">
+              <property role="3cmrfH" value="500" />
+            </node>
+            <node concept="1bVj0M" id="3qO8C$8oANo" role="37wK5m">
+              <node concept="3clFbS" id="3qO8C$8oANq" role="1bW5cS">
+                <node concept="3clFbJ" id="3qO8C$8oBlk" role="3cqZAp">
+                  <node concept="3clFbS" id="3qO8C$8oBlm" role="3clFbx">
+                    <node concept="3clFbF" id="3qO8C$8oD_C" role="3cqZAp">
+                      <node concept="37vLTI" id="3qO8C$8oEiA" role="3clFbG">
+                        <node concept="3clFbT" id="3qO8C$8oEDO" role="37vLTx" />
+                        <node concept="37vLTw" id="3qO8C$8oD_A" role="37vLTJ">
+                          <ref role="3cqZAo" node="3qO8C$8ox6o" resolve="requiresUpdate" />
+                        </node>
+                      </node>
+                    </node>
+                    <node concept="3clFbF" id="3qO8C$8oFCx" role="3cqZAp">
+                      <node concept="1rXfSq" id="3qO8C$8oFCv" role="3clFbG">
+                        <ref role="37wK5l" node="4rrX99ojhAZ" resolve="updateBindings" />
+                      </node>
+                    </node>
+                  </node>
+                  <node concept="37vLTw" id="3qO8C$8oCHS" role="3clFbw">
+                    <ref role="3cqZAo" node="3qO8C$8ox6o" resolve="requiresUpdate" />
+                  </node>
+                </node>
+              </node>
+            </node>
           </node>
         </node>
       </node>
@@ -2519,24 +2560,13 @@
       <node concept="3cqZAl" id="4rrX99okXW_" role="3clF45" />
       <node concept="3Tm1VV" id="4rrX99okXWA" role="1B3o_S" />
       <node concept="3clFbS" id="4rrX99okXWB" role="3clF47">
-        <node concept="3clFbF" id="4rrX99ojn6x" role="3cqZAp">
-          <node concept="2OqwBi" id="4rrX99ojnE5" role="3clFbG">
-            <node concept="10M0yZ" id="Onv88ZPc_7" role="2Oq$k0">
-              <ref role="3cqZAo" to="csg2:Onv88ZOFFp" resolve="FIXED" />
-              <ref role="1PxDUh" to="csg2:Onv88ZNSEL" resolve="SharedExecutors" />
+        <node concept="3clFbF" id="3qO8C$8oHUu" role="3cqZAp">
+          <node concept="37vLTI" id="3qO8C$8oIDk" role="3clFbG">
+            <node concept="3clFbT" id="3qO8C$8oJeT" role="37vLTx">
+              <property role="3clFbU" value="true" />
             </node>
-            <node concept="liA8E" id="4rrX99ojnVm" role="2OqNvi">
-              <ref role="37wK5l" to="5zyv:~Executor.execute(java.lang.Runnable)" resolve="execute" />
-              <node concept="1bVj0M" id="4rrX99ojoAV" role="37wK5m">
-                <property role="3yWfEV" value="true" />
-                <node concept="3clFbS" id="4rrX99ojoAW" role="1bW5cS">
-                  <node concept="3clFbF" id="4rrX99ojpwA" role="3cqZAp">
-                    <node concept="1rXfSq" id="4rrX99ojpw$" role="3clFbG">
-                      <ref role="37wK5l" node="4rrX99ojhAZ" resolve="updateBindings" />
-                    </node>
-                  </node>
-                </node>
-              </node>
+            <node concept="37vLTw" id="3qO8C$8oHUs" role="37vLTJ">
+              <ref role="3cqZAo" node="3qO8C$8ox6o" resolve="requiresUpdate" />
             </node>
           </node>
         </node>
