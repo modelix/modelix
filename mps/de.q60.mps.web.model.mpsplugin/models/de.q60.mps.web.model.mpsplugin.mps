@@ -13014,22 +13014,32 @@
                                           <ref role="37wK5l" to="jon5:2D0HTQhaui_" resolve="getHash" />
                                         </node>
                                       </node>
-                                      <node concept="3cpWs3" id="68NaTbe8TUA" role="3uHU7B">
-                                        <node concept="3cpWs3" id="68NaTbe8Ruy" role="3uHU7B">
-                                          <node concept="Xl_RD" id="68NaTbe8R7q" role="3uHU7B">
-                                            <property role="Xl_RC" value="Merged remote " />
-                                          </node>
-                                          <node concept="2OqwBi" id="68NaTbe8TgG" role="3uHU7w">
-                                            <node concept="37vLTw" id="68NaTbe8Sy7" role="2Oq$k0">
-                                              <ref role="3cqZAo" node="6aRQr1WZHiM" resolve="remoteVersion" />
-                                            </node>
-                                            <node concept="liA8E" id="68NaTbe8TvR" role="2OqNvi">
-                                              <ref role="37wK5l" to="jon5:2D0HTQhaui_" resolve="getHash" />
-                                            </node>
-                                          </node>
-                                        </node>
-                                        <node concept="Xl_RD" id="68NaTbe8UrC" role="3uHU7w">
+                                      <node concept="3cpWs3" id="7UL57Pe_zV7" role="3uHU7B">
+                                        <node concept="Xl_RD" id="7UL57Pe_$tG" role="3uHU7w">
                                           <property role="Xl_RC" value=" -&gt; " />
+                                        </node>
+                                        <node concept="3cpWs3" id="7UL57Pe_xNd" role="3uHU7B">
+                                          <node concept="3cpWs3" id="68NaTbe8TUA" role="3uHU7B">
+                                            <node concept="3cpWs3" id="68NaTbe8Ruy" role="3uHU7B">
+                                              <node concept="Xl_RD" id="68NaTbe8R7q" role="3uHU7B">
+                                                <property role="Xl_RC" value="Merged remote " />
+                                              </node>
+                                              <node concept="2OqwBi" id="68NaTbe8TgG" role="3uHU7w">
+                                                <node concept="37vLTw" id="7UL57Pe_wY$" role="2Oq$k0">
+                                                  <ref role="3cqZAo" node="6aRQr1WZWzj" resolve="newRemoteVersion" />
+                                                </node>
+                                                <node concept="liA8E" id="68NaTbe8TvR" role="2OqNvi">
+                                                  <ref role="37wK5l" to="jon5:2D0HTQhaui_" resolve="getHash" />
+                                                </node>
+                                              </node>
+                                            </node>
+                                            <node concept="Xl_RD" id="68NaTbe8UrC" role="3uHU7w">
+                                              <property role="Xl_RC" value=" with local " />
+                                            </node>
+                                          </node>
+                                          <node concept="37vLTw" id="7UL57Pe_z7M" role="3uHU7w">
+                                            <ref role="3cqZAo" node="Onv88ZUQRR" resolve="localBase" />
+                                          </node>
                                         </node>
                                       </node>
                                     </node>
@@ -13823,16 +13833,31 @@
                                     </node>
                                   </node>
                                   <node concept="3cpWs3" id="Onv88ZUzn6" role="3uHU7B">
-                                    <node concept="3cpWs3" id="Onv88ZUzn7" role="3uHU7B">
-                                      <node concept="Xl_RD" id="Onv88ZUzn8" role="3uHU7B">
-                                        <property role="Xl_RC" value="Merged local " />
-                                      </node>
-                                      <node concept="2OqwBi" id="Onv88ZUzn9" role="3uHU7w">
-                                        <node concept="37vLTw" id="Onv88ZUzna" role="2Oq$k0">
-                                          <ref role="3cqZAo" node="6aRQr1WZGjU" resolve="localVersion" />
+                                    <node concept="3cpWs3" id="7UL57Pe_3A2" role="3uHU7B">
+                                      <node concept="2OqwBi" id="7UL57Pe_4FR" role="3uHU7w">
+                                        <node concept="37vLTw" id="7UL57Pe_4eu" role="2Oq$k0">
+                                          <ref role="3cqZAo" node="Onv88ZSX$a" resolve="remoteBase" />
                                         </node>
-                                        <node concept="liA8E" id="Onv88ZUznb" role="2OqNvi">
+                                        <node concept="liA8E" id="7UL57Pe_55z" role="2OqNvi">
                                           <ref role="37wK5l" to="jon5:2D0HTQhaui_" resolve="getHash" />
+                                        </node>
+                                      </node>
+                                      <node concept="3cpWs3" id="7UL57Pe_2Hn" role="3uHU7B">
+                                        <node concept="3cpWs3" id="Onv88ZUzn7" role="3uHU7B">
+                                          <node concept="Xl_RD" id="Onv88ZUzn8" role="3uHU7B">
+                                            <property role="Xl_RC" value="Merged local " />
+                                          </node>
+                                          <node concept="2OqwBi" id="Onv88ZUzn9" role="3uHU7w">
+                                            <node concept="37vLTw" id="7UL57Pe_2cW" role="2Oq$k0">
+                                              <ref role="3cqZAo" node="Onv88ZSwE8" resolve="newLocalVersion" />
+                                            </node>
+                                            <node concept="liA8E" id="Onv88ZUznb" role="2OqNvi">
+                                              <ref role="37wK5l" to="jon5:2D0HTQhaui_" resolve="getHash" />
+                                            </node>
+                                          </node>
+                                        </node>
+                                        <node concept="Xl_RD" id="7UL57Pe_2SV" role="3uHU7w">
+                                          <property role="Xl_RC" value=" with remote " />
                                         </node>
                                       </node>
                                     </node>
