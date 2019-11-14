@@ -66,6 +66,7 @@
         <child id="1164991057263" name="throwable" index="YScLw" />
       </concept>
       <concept id="1070534058343" name="jetbrains.mps.baseLanguage.structure.NullLiteral" flags="nn" index="10Nm6u" />
+      <concept id="1070534370425" name="jetbrains.mps.baseLanguage.structure.IntegerType" flags="in" index="10Oyi0" />
       <concept id="1070534644030" name="jetbrains.mps.baseLanguage.structure.BooleanType" flags="in" index="10P_77" />
       <concept id="1070534934090" name="jetbrains.mps.baseLanguage.structure.CastExpression" flags="nn" index="10QFUN">
         <child id="1070534934091" name="type" index="10QFUM" />
@@ -79,6 +80,13 @@
         <property id="1176718929932" name="isFinal" index="3TUv4t" />
         <child id="1068431790190" name="initializer" index="33vP2m" />
       </concept>
+      <concept id="1109279763828" name="jetbrains.mps.baseLanguage.structure.TypeVariableDeclaration" flags="ng" index="16euLQ" />
+      <concept id="1109279851642" name="jetbrains.mps.baseLanguage.structure.GenericDeclaration" flags="ng" index="16eOlS">
+        <child id="1109279881614" name="typeVariableDeclaration" index="16eVyc" />
+      </concept>
+      <concept id="1109283449304" name="jetbrains.mps.baseLanguage.structure.TypeVariableReference" flags="in" index="16syzq">
+        <reference id="1109283546497" name="typeVariableDeclaration" index="16sUi3" />
+      </concept>
       <concept id="1068498886296" name="jetbrains.mps.baseLanguage.structure.VariableReference" flags="nn" index="37vLTw">
         <reference id="1068581517664" name="variableDeclaration" index="3cqZAo" />
       </concept>
@@ -90,6 +98,7 @@
         <child id="5680397130376446158" name="type" index="1tU5fm" />
       </concept>
       <concept id="1068580123132" name="jetbrains.mps.baseLanguage.structure.BaseMethodDeclaration" flags="ng" index="3clF44">
+        <property id="4276006055363816570" name="isSynchronized" index="od$2w" />
         <child id="1068580123133" name="returnType" index="3clF45" />
         <child id="1068580123134" name="parameter" index="3clF46" />
         <child id="1068580123135" name="body" index="3clF47" />
@@ -1752,13 +1761,13 @@
       <property role="TrG5h" value="cache" />
       <node concept="3Tm6S6" id="7A36R9$WoAE" role="1B3o_S" />
       <node concept="3uibUv" id="7A36R9$WoBC" role="1tU5fm">
-        <ref role="3uigEE" to="e8no:~SLRUMap" resolve="SLRUMap" />
+        <ref role="3uigEE" node="7UL57Pezb2O" resolve="SynchronizedSLRUMap" />
         <node concept="17QB3L" id="7A36R9$WoCe" role="11_B2D" />
         <node concept="17QB3L" id="3lWEPzuC9Uh" role="11_B2D" />
       </node>
       <node concept="2ShNRf" id="7A36R9$WoFH" role="33vP2m">
         <node concept="1pGfFk" id="7UL57Percoo" role="2ShVmc">
-          <ref role="37wK5l" to="e8no:~SLRUMap.&lt;init&gt;(int,int)" resolve="SLRUMap" />
+          <ref role="37wK5l" node="7UL57PezbAy" resolve="SynchronizedSLRUMap" />
           <node concept="17QB3L" id="7UL57Perddo" role="1pMfVU" />
           <node concept="17QB3L" id="7UL57PerdUI" role="1pMfVU" />
           <node concept="3cmrfG" id="7UL57PermJf" role="37wK5m">
@@ -1819,7 +1828,7 @@
                 <ref role="3cqZAo" node="7A36R9$WoAD" resolve="cache" />
               </node>
               <node concept="liA8E" id="3lWEPzuCdtc" role="2OqNvi">
-                <ref role="37wK5l" to="e8no:~SLRUMap.get(java.lang.Object)" resolve="get" />
+                <ref role="37wK5l" node="7UL57Pezd36" resolve="get" />
                 <node concept="37vLTw" id="3lWEPzuCdtd" role="37wK5m">
                   <ref role="3cqZAo" node="3lWEPzuC4Mk" resolve="key" />
                 </node>
@@ -1853,7 +1862,7 @@
                   <ref role="3cqZAo" node="7A36R9$WoAD" resolve="cache" />
                 </node>
                 <node concept="liA8E" id="3lWEPzuCoCN" role="2OqNvi">
-                  <ref role="37wK5l" to="e8no:~SLRUMap.put(java.lang.Object,java.lang.Object)" resolve="put" />
+                  <ref role="37wK5l" node="7UL57Pezeje" resolve="put" />
                   <node concept="37vLTw" id="3lWEPzuCp5j" role="37wK5m">
                     <ref role="3cqZAo" node="3lWEPzuC4Mk" resolve="key" />
                   </node>
@@ -1940,7 +1949,7 @@
               <ref role="3cqZAo" node="7A36R9$WoAD" resolve="cache" />
             </node>
             <node concept="liA8E" id="3lWEPzuCvfX" role="2OqNvi">
-              <ref role="37wK5l" to="e8no:~SLRUMap.put(java.lang.Object,java.lang.Object)" resolve="put" />
+              <ref role="37wK5l" node="7UL57Pezeje" resolve="put" />
               <node concept="37vLTw" id="3lWEPzuCvFu" role="37wK5m">
                 <ref role="3cqZAo" node="3lWEPzuC4MA" resolve="key" />
               </node>
@@ -2009,6 +2018,155 @@
       <node concept="2AHcQZ" id="3lWEPzuC4MS" role="2AJF6D">
         <ref role="2AI5Lk" to="wyt6:~Override" resolve="Override" />
       </node>
+    </node>
+  </node>
+  <node concept="312cEu" id="7UL57Pezb2O">
+    <property role="TrG5h" value="SynchronizedSLRUMap" />
+    <node concept="312cEg" id="7UL57Pezb6Q" role="jymVt">
+      <property role="TrG5h" value="map" />
+      <property role="3TUv4t" value="true" />
+      <node concept="3Tm6S6" id="7UL57Pezb6R" role="1B3o_S" />
+      <node concept="3uibUv" id="7UL57Pezbbj" role="1tU5fm">
+        <ref role="3uigEE" to="e8no:~SLRUMap" resolve="SLRUMap" />
+        <node concept="16syzq" id="7UL57Pezbgg" role="11_B2D">
+          <ref role="16sUi3" node="7UL57Pezb3X" resolve="K" />
+        </node>
+        <node concept="16syzq" id="7UL57PezbiI" role="11_B2D">
+          <ref role="16sUi3" node="7UL57Pezb4f" resolve="V" />
+        </node>
+      </node>
+    </node>
+    <node concept="2tJIrI" id="7UL57PezbxS" role="jymVt" />
+    <node concept="3clFbW" id="7UL57PezbAy" role="jymVt">
+      <node concept="37vLTG" id="7UL57Per8EO" role="3clF46">
+        <property role="TrG5h" value="protectedQueueSize" />
+        <node concept="10Oyi0" id="7UL57Per8EN" role="1tU5fm" />
+      </node>
+      <node concept="37vLTG" id="7UL57Per8EQ" role="3clF46">
+        <property role="TrG5h" value="probationalQueueSize" />
+        <node concept="10Oyi0" id="7UL57Per8EP" role="1tU5fm" />
+      </node>
+      <node concept="3cqZAl" id="7UL57PezbA$" role="3clF45" />
+      <node concept="3Tm1VV" id="7UL57PezbA_" role="1B3o_S" />
+      <node concept="3clFbS" id="7UL57PezbAA" role="3clF47">
+        <node concept="3clFbF" id="7UL57PezbTk" role="3cqZAp">
+          <node concept="37vLTI" id="7UL57Pezc9P" role="3clFbG">
+            <node concept="2ShNRf" id="7UL57PezcqQ" role="37vLTx">
+              <node concept="1pGfFk" id="7UL57Pezcin" role="2ShVmc">
+                <ref role="37wK5l" to="e8no:~SLRUMap.&lt;init&gt;(int,int)" resolve="SLRUMap" />
+                <node concept="16syzq" id="7UL57Pezcio" role="1pMfVU">
+                  <ref role="16sUi3" node="7UL57Pezb3X" resolve="K" />
+                </node>
+                <node concept="16syzq" id="7UL57Pezcip" role="1pMfVU">
+                  <ref role="16sUi3" node="7UL57Pezb4f" resolve="V" />
+                </node>
+                <node concept="37vLTw" id="7UL57PezcE5" role="37wK5m">
+                  <ref role="3cqZAo" node="7UL57Per8EO" resolve="protectedQueueSize" />
+                </node>
+                <node concept="37vLTw" id="7UL57PezcWv" role="37wK5m">
+                  <ref role="3cqZAo" node="7UL57Per8EQ" resolve="probationalQueueSize" />
+                </node>
+              </node>
+            </node>
+            <node concept="37vLTw" id="7UL57PezbTj" role="37vLTJ">
+              <ref role="3cqZAo" node="7UL57Pezb6Q" resolve="map" />
+            </node>
+          </node>
+        </node>
+      </node>
+    </node>
+    <node concept="2tJIrI" id="7UL57PezcYg" role="jymVt" />
+    <node concept="3clFb_" id="7UL57Pezd36" role="jymVt">
+      <property role="TrG5h" value="get" />
+      <property role="od$2w" value="true" />
+      <node concept="37vLTG" id="7UL57Pezd7S" role="3clF46">
+        <property role="TrG5h" value="key" />
+        <node concept="16syzq" id="7UL57PezdcQ" role="1tU5fm">
+          <ref role="16sUi3" node="7UL57Pezb3X" resolve="K" />
+        </node>
+      </node>
+      <node concept="16syzq" id="7UL57Pezdg7" role="3clF45">
+        <ref role="16sUi3" node="7UL57Pezb4f" resolve="V" />
+      </node>
+      <node concept="3Tm1VV" id="7UL57Pezd39" role="1B3o_S" />
+      <node concept="3clFbS" id="7UL57Pezd3a" role="3clF47">
+        <node concept="3clFbF" id="7UL57Pezdvf" role="3cqZAp">
+          <node concept="2OqwBi" id="7UL57PezdM3" role="3clFbG">
+            <node concept="37vLTw" id="7UL57Pezdve" role="2Oq$k0">
+              <ref role="3cqZAo" node="7UL57Pezb6Q" resolve="map" />
+            </node>
+            <node concept="liA8E" id="7UL57PezdYt" role="2OqNvi">
+              <ref role="37wK5l" to="e8no:~SLRUMap.get(java.lang.Object)" resolve="get" />
+              <node concept="37vLTw" id="7UL57Peze7T" role="37wK5m">
+                <ref role="3cqZAo" node="7UL57Pezd7S" resolve="key" />
+              </node>
+            </node>
+          </node>
+        </node>
+      </node>
+    </node>
+    <node concept="2tJIrI" id="7UL57Pezecn" role="jymVt" />
+    <node concept="3clFb_" id="7UL57Pezeje" role="jymVt">
+      <property role="TrG5h" value="put" />
+      <property role="od$2w" value="true" />
+      <node concept="37vLTG" id="7UL57Pezeu4" role="3clF46">
+        <property role="TrG5h" value="key" />
+        <node concept="16syzq" id="7UL57PezezY" role="1tU5fm">
+          <ref role="16sUi3" node="7UL57Pezb3X" resolve="K" />
+        </node>
+      </node>
+      <node concept="37vLTG" id="7UL57Peze$w" role="3clF46">
+        <property role="TrG5h" value="value" />
+        <node concept="16syzq" id="7UL57PezeFm" role="1tU5fm">
+          <ref role="16sUi3" node="7UL57Pezb4f" resolve="V" />
+        </node>
+      </node>
+      <node concept="3cqZAl" id="7UL57Pezejg" role="3clF45" />
+      <node concept="3Tm1VV" id="7UL57Pezejh" role="1B3o_S" />
+      <node concept="3clFbS" id="7UL57Pezeji" role="3clF47">
+        <node concept="3clFbF" id="7UL57PezeU1" role="3cqZAp">
+          <node concept="2OqwBi" id="7UL57Pezfb4" role="3clFbG">
+            <node concept="37vLTw" id="7UL57PezeU0" role="2Oq$k0">
+              <ref role="3cqZAo" node="7UL57Pezb6Q" resolve="map" />
+            </node>
+            <node concept="liA8E" id="7UL57Pezfot" role="2OqNvi">
+              <ref role="37wK5l" to="e8no:~SLRUMap.put(java.lang.Object,java.lang.Object)" resolve="put" />
+              <node concept="37vLTw" id="7UL57Pezfys" role="37wK5m">
+                <ref role="3cqZAo" node="7UL57Pezeu4" resolve="key" />
+              </node>
+              <node concept="37vLTw" id="7UL57PezfIp" role="37wK5m">
+                <ref role="3cqZAo" node="7UL57Peze$w" resolve="value" />
+              </node>
+            </node>
+          </node>
+        </node>
+      </node>
+    </node>
+    <node concept="2tJIrI" id="7UL57PezkNG" role="jymVt" />
+    <node concept="3clFb_" id="7UL57PezkX_" role="jymVt">
+      <property role="TrG5h" value="clear" />
+      <property role="od$2w" value="true" />
+      <node concept="3cqZAl" id="7UL57PezkXB" role="3clF45" />
+      <node concept="3Tm1VV" id="7UL57PezkXC" role="1B3o_S" />
+      <node concept="3clFbS" id="7UL57PezkXD" role="3clF47">
+        <node concept="3clFbF" id="7UL57Pezlqg" role="3cqZAp">
+          <node concept="2OqwBi" id="7UL57PezlFr" role="3clFbG">
+            <node concept="37vLTw" id="7UL57Pezlqf" role="2Oq$k0">
+              <ref role="3cqZAo" node="7UL57Pezb6Q" resolve="map" />
+            </node>
+            <node concept="liA8E" id="7UL57Pezm4u" role="2OqNvi">
+              <ref role="37wK5l" to="e8no:~SLRUMap.clear()" resolve="clear" />
+            </node>
+          </node>
+        </node>
+      </node>
+    </node>
+    <node concept="3Tm1VV" id="7UL57Pezb2P" role="1B3o_S" />
+    <node concept="16euLQ" id="7UL57Pezb3X" role="16eVyc">
+      <property role="TrG5h" value="K" />
+    </node>
+    <node concept="16euLQ" id="7UL57Pezb4f" role="16eVyc">
+      <property role="TrG5h" value="V" />
     </node>
   </node>
 </model>

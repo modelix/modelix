@@ -9874,9 +9874,10 @@
     </node>
     <node concept="312cEg" id="7A36R9$WoAD" role="jymVt">
       <property role="TrG5h" value="cache" />
+      <property role="3TUv4t" value="true" />
       <node concept="3Tm6S6" id="7A36R9$WoAE" role="1B3o_S" />
       <node concept="3uibUv" id="7UL57Per_S2" role="1tU5fm">
-        <ref role="3uigEE" to="e8no:~SLRUMap" resolve="SLRUMap" />
+        <ref role="3uigEE" to="zdal:7UL57Pezb2O" resolve="SynchronizedSLRUMap" />
         <node concept="17QB3L" id="7UL57PerAG2" role="11_B2D" />
         <node concept="3uibUv" id="7UL57PerB7Y" role="11_B2D">
           <ref role="3uigEE" to="wyt6:~Object" resolve="Object" />
@@ -9884,7 +9885,7 @@
       </node>
       <node concept="2ShNRf" id="7A36R9$WoFH" role="33vP2m">
         <node concept="1pGfFk" id="7UL57PerDpI" role="2ShVmc">
-          <ref role="37wK5l" to="e8no:~SLRUMap.&lt;init&gt;(int,int)" resolve="SLRUMap" />
+          <ref role="37wK5l" to="zdal:7UL57PezbAy" resolve="SynchronizedSLRUMap" />
           <node concept="3cmrfG" id="7UL57PerDI$" role="37wK5m">
             <property role="3cmrfH" value="10000" />
           </node>
@@ -9963,7 +9964,7 @@
                   <ref role="3cqZAo" node="7A36R9$WoAD" resolve="cache" />
                 </node>
                 <node concept="liA8E" id="7A36R9$Wu7t" role="2OqNvi">
-                  <ref role="37wK5l" to="e8no:~SLRUMap.get(java.lang.Object)" resolve="get" />
+                  <ref role="37wK5l" to="zdal:7UL57Pezd36" resolve="get" />
                   <node concept="37vLTw" id="7A36R9$Wu7u" role="37wK5m">
                     <ref role="3cqZAo" node="7A36R9$Wowx" resolve="hash" />
                   </node>
@@ -10030,7 +10031,7 @@
                   <ref role="3cqZAo" node="7A36R9$WoAD" resolve="cache" />
                 </node>
                 <node concept="liA8E" id="7A36R9$Wvd0" role="2OqNvi">
-                  <ref role="37wK5l" to="e8no:~SLRUMap.put(java.lang.Object,java.lang.Object)" resolve="put" />
+                  <ref role="37wK5l" to="zdal:7UL57Pezeje" resolve="put" />
                   <node concept="37vLTw" id="7A36R9$Wvmo" role="37wK5m">
                     <ref role="3cqZAo" node="7A36R9$Wowx" resolve="hash" />
                   </node>
@@ -10100,7 +10101,7 @@
               <ref role="3cqZAo" node="7A36R9$WoAD" resolve="cache" />
             </node>
             <node concept="liA8E" id="4_P7CAmhgH8" role="2OqNvi">
-              <ref role="37wK5l" to="e8no:~SLRUMap.put(java.lang.Object,java.lang.Object)" resolve="put" />
+              <ref role="37wK5l" to="zdal:7UL57Pezeje" resolve="put" />
               <node concept="37vLTw" id="4_P7CAmhgRb" role="37wK5m">
                 <ref role="3cqZAo" node="4_P7CAmhwZS" resolve="hash" />
               </node>
@@ -10124,7 +10125,7 @@
               <ref role="3cqZAo" node="7A36R9$WoAD" resolve="cache" />
             </node>
             <node concept="liA8E" id="51ssjMR$tOa" role="2OqNvi">
-              <ref role="37wK5l" to="e8no:~SLRUMap.clear()" resolve="clear" />
+              <ref role="37wK5l" to="zdal:7UL57PezkX_" resolve="clear" />
             </node>
           </node>
         </node>
