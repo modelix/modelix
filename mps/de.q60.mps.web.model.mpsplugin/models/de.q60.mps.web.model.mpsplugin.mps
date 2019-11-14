@@ -13561,6 +13561,21 @@
         </node>
       </node>
     </node>
+    <node concept="2tJIrI" id="7UL57PetL6M" role="jymVt" />
+    <node concept="3clFb_" id="7UL57PetNu$" role="jymVt">
+      <property role="TrG5h" value="getVersion" />
+      <node concept="3uibUv" id="7UL57PetWji" role="3clF45">
+        <ref role="3uigEE" to="jon5:2D0HTQhahjL" resolve="CLVersion" />
+      </node>
+      <node concept="3Tm1VV" id="7UL57PetNuB" role="1B3o_S" />
+      <node concept="3clFbS" id="7UL57PetNuC" role="3clF47">
+        <node concept="3clFbF" id="7UL57PetYCr" role="3cqZAp">
+          <node concept="37vLTw" id="7UL57PetYCq" role="3clFbG">
+            <ref role="3cqZAo" node="6aRQr1WZGjU" resolve="localVersion" />
+          </node>
+        </node>
+      </node>
+    </node>
     <node concept="2tJIrI" id="2lKlK7f4QGx" role="jymVt" />
     <node concept="3clFb_" id="2lKlK7f4SRN" role="jymVt">
       <property role="TrG5h" value="createAndMergeLocalVersion" />
@@ -14789,6 +14804,26 @@
             </node>
             <node concept="liA8E" id="49CIzaqdAO4" role="2OqNvi">
               <ref role="37wK5l" node="6aRQr1WZhMC" resolve="getBranch" />
+            </node>
+          </node>
+        </node>
+      </node>
+    </node>
+    <node concept="2tJIrI" id="7UL57Pet$Bx" role="jymVt" />
+    <node concept="3clFb_" id="7UL57PetDIP" role="jymVt">
+      <property role="TrG5h" value="getVersion" />
+      <node concept="3uibUv" id="7UL57Peu03H" role="3clF45">
+        <ref role="3uigEE" to="jon5:2D0HTQhahjL" resolve="CLVersion" />
+      </node>
+      <node concept="3Tm1VV" id="7UL57PetDIS" role="1B3o_S" />
+      <node concept="3clFbS" id="7UL57PetDIT" role="3clF47">
+        <node concept="3clFbF" id="7UL57PetHiZ" role="3cqZAp">
+          <node concept="2OqwBi" id="7UL57PetHKa" role="3clFbG">
+            <node concept="37vLTw" id="7UL57PetHiY" role="2Oq$k0">
+              <ref role="3cqZAo" node="49CIzaqd$VH" resolve="replicatedTree" />
+            </node>
+            <node concept="liA8E" id="7UL57Peu1gY" role="2OqNvi">
+              <ref role="37wK5l" node="7UL57PetNu$" resolve="getVersion" />
             </node>
           </node>
         </node>
