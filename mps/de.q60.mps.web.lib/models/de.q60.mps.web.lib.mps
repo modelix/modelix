@@ -22,6 +22,7 @@
       <concept id="1081236700937" name="jetbrains.mps.baseLanguage.structure.StaticMethodCall" flags="nn" index="2YIFZM">
         <reference id="1144433194310" name="classConcept" index="1Pybhc" />
       </concept>
+      <concept id="1070534370425" name="jetbrains.mps.baseLanguage.structure.IntegerType" flags="in" index="10Oyi0" />
       <concept id="1068390468198" name="jetbrains.mps.baseLanguage.structure.ClassConcept" flags="ig" index="312cEu" />
       <concept id="1068431474542" name="jetbrains.mps.baseLanguage.structure.VariableDeclaration" flags="ng" index="33uBYm">
         <property id="1176718929932" name="isFinal" index="3TUv4t" />
@@ -30,6 +31,10 @@
       <concept id="4972933694980447171" name="jetbrains.mps.baseLanguage.structure.BaseVariableDeclaration" flags="ng" index="19Szcq">
         <child id="5680397130376446158" name="type" index="1tU5fm" />
       </concept>
+      <concept id="1068580320020" name="jetbrains.mps.baseLanguage.structure.IntegerConstant" flags="nn" index="3cmrfG">
+        <property id="1068580320021" name="value" index="3cmrfH" />
+      </concept>
+      <concept id="1068581242875" name="jetbrains.mps.baseLanguage.structure.PlusExpression" flags="nn" index="3cpWs3" />
       <concept id="1068581242867" name="jetbrains.mps.baseLanguage.structure.LongType" flags="in" index="3cpWsb" />
       <concept id="1204053956946" name="jetbrains.mps.baseLanguage.structure.IMethodCall" flags="ng" index="1ndlxa">
         <reference id="1068499141037" name="baseMethodDeclaration" index="37wK5l" />
@@ -38,6 +43,10 @@
       <concept id="1212685548494" name="jetbrains.mps.baseLanguage.structure.ClassCreator" flags="nn" index="1pGfFk" />
       <concept id="1107461130800" name="jetbrains.mps.baseLanguage.structure.Classifier" flags="ng" index="3pOWGL">
         <child id="5375687026011219971" name="member" index="jymVt" unordered="true" />
+      </concept>
+      <concept id="1081773326031" name="jetbrains.mps.baseLanguage.structure.BinaryOperation" flags="nn" index="3uHJSO">
+        <child id="1081773367579" name="rightExpression" index="3uHU7w" />
+        <child id="1081773367580" name="leftExpression" index="3uHU7B" />
       </concept>
       <concept id="1178549954367" name="jetbrains.mps.baseLanguage.structure.IVisible" flags="ng" index="1B3ioH">
         <child id="1178549979242" name="visibility" index="1B3o_S" />
@@ -53,20 +62,44 @@
   <node concept="312cEu" id="3ov7kT3oB09">
     <property role="TrG5h" value="RandomStaticNumber" />
     <node concept="Wx3nA" id="2HzO4VEyW58" role="jymVt">
-      <property role="TrG5h" value="RANDOM_STATIC_NUMBER" />
+      <property role="TrG5h" value="RANDOM_STATIC_NUMBER_4DIGIT" />
       <property role="3TUv4t" value="true" />
-      <node concept="3cpWsb" id="2HzO4VEyOHJ" role="1tU5fm" />
+      <node concept="10Oyi0" id="1me6Uesr9gW" role="1tU5fm" />
       <node concept="3Tm1VV" id="2HzO4VEyTZh" role="1B3o_S" />
-      <node concept="2YIFZM" id="2HzO4VEyPcg" role="33vP2m">
-        <ref role="1Pybhc" to="wyt6:~Math" resolve="Math" />
-        <ref role="37wK5l" to="wyt6:~Math.abs(long)" resolve="abs" />
-        <node concept="2OqwBi" id="2HzO4VEyTpq" role="37wK5m">
+      <node concept="3cpWs3" id="1me6Uesr8KL" role="33vP2m">
+        <node concept="3cmrfG" id="1me6Uesr8KW" role="3uHU7w">
+          <property role="3cmrfH" value="1000" />
+        </node>
+        <node concept="2OqwBi" id="2HzO4VEyTpq" role="3uHU7B">
           <node concept="2ShNRf" id="2HzO4VEyPwm" role="2Oq$k0">
             <node concept="1pGfFk" id="2HzO4VEySXZ" role="2ShVmc">
               <ref role="37wK5l" to="33ny:~Random.&lt;init&gt;()" resolve="Random" />
             </node>
           </node>
-          <node concept="liA8E" id="2HzO4VEyTGG" role="2OqNvi">
+          <node concept="liA8E" id="1me6Uesr7nX" role="2OqNvi">
+            <ref role="37wK5l" to="33ny:~Random.nextInt(int)" resolve="nextInt" />
+            <node concept="3cmrfG" id="1me6Uesr7T0" role="37wK5m">
+              <property role="3cmrfH" value="9000" />
+            </node>
+          </node>
+        </node>
+      </node>
+    </node>
+    <node concept="Wx3nA" id="1me6Uesr6VG" role="jymVt">
+      <property role="TrG5h" value="RANDOM_STATIC_NUMBER" />
+      <property role="3TUv4t" value="true" />
+      <node concept="3cpWsb" id="1me6Uesr6VH" role="1tU5fm" />
+      <node concept="3Tm1VV" id="1me6Uesr6VI" role="1B3o_S" />
+      <node concept="2YIFZM" id="1me6Uesr6VJ" role="33vP2m">
+        <ref role="1Pybhc" to="wyt6:~Math" resolve="Math" />
+        <ref role="37wK5l" to="wyt6:~Math.abs(long)" resolve="abs" />
+        <node concept="2OqwBi" id="1me6Uesr6VK" role="37wK5m">
+          <node concept="2ShNRf" id="1me6Uesr6VL" role="2Oq$k0">
+            <node concept="1pGfFk" id="1me6Uesr6VM" role="2ShVmc">
+              <ref role="37wK5l" to="33ny:~Random.&lt;init&gt;()" resolve="Random" />
+            </node>
+          </node>
+          <node concept="liA8E" id="1me6Uesr6VN" role="2OqNvi">
             <ref role="37wK5l" to="33ny:~Random.nextLong()" resolve="nextLong" />
           </node>
         </node>
