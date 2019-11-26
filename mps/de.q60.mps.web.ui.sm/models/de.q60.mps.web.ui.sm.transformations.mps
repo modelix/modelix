@@ -228,6 +228,7 @@
       <concept id="7335687028107243169" name="de.q60.mps.shadowmodels.transformation.structure.ChildBuilder" flags="ng" index="027rt">
         <reference id="7335687028107243171" name="link" index="027rv" />
         <child id="7335687028107243173" name="child" index="027rp" />
+        <child id="3563231453904579041" name="createHandler" index="3n20R1" />
       </concept>
       <concept id="7335687028107243170" name="de.q60.mps.shadowmodels.transformation.structure.ReferenceBuilder" flags="ng" index="027ru">
         <reference id="7335687028107243182" name="link" index="027ri" />
@@ -273,6 +274,7 @@
       <concept id="2824806335946923980" name="de.q60.mps.shadowmodels.transformation.structure.OperationThisExpression" flags="ng" index="12k2mD" />
       <concept id="4225291329826005067" name="de.q60.mps.shadowmodels.transformation.structure.TStringType" flags="ig" index="38sA1o" />
       <concept id="3563231453904357666" name="de.q60.mps.shadowmodels.transformation.structure.NullNode" flags="ng" index="3n1eO2" />
+      <concept id="3563231453904558863" name="de.q60.mps.shadowmodels.transformation.structure.ChildCreateHandler" flags="ig" index="3n2vWJ" />
       <concept id="8645954948523882538" name="de.q60.mps.shadowmodels.transformation.structure.ReferenceWriteHandler" flags="ig" index="3tdQ8t" />
       <concept id="8645954948523882618" name="de.q60.mps.shadowmodels.transformation.structure.ReferenceWriteHandler_target" flags="ng" index="3tdQ9d" />
       <concept id="6159853882139040253" name="de.q60.mps.shadowmodels.transformation.structure.OperationParameterRef" flags="ng" index="1$imI5">
@@ -5411,6 +5413,48 @@
                         <ref role="1YEVMl" node="AkkmJBNgXM" resolve="child" />
                         <node concept="214o7A" id="AkkmJBMVRf" role="214sll" />
                       </node>
+                    </node>
+                  </node>
+                </node>
+              </node>
+            </node>
+            <node concept="3n2vWJ" id="4JBHlsH1DrV" role="3n20R1">
+              <node concept="3clFbS" id="4JBHlsH1DrW" role="2VODD2">
+                <node concept="3cpWs8" id="4JBHlsGXc3U" role="3cqZAp">
+                  <node concept="3cpWsn" id="4JBHlsGXc3V" role="3cpWs9">
+                    <property role="TrG5h" value="n" />
+                    <node concept="3Tqbb2" id="4JBHlsGXc3W" role="1tU5fm">
+                      <ref role="ehGHo" to="tpck:gw2VY9q" resolve="BaseConcept" />
+                    </node>
+                    <node concept="2YIFZM" id="4JBHlsGXc3X" role="33vP2m">
+                      <ref role="37wK5l" to="l6bp:7uapjVAY0et" resolve="tryGetUnwrappedNode" />
+                      <ref role="1Pybhc" to="l6bp:30TKBrMa5zj" resolve="SNodeAPI" />
+                      <node concept="2155sH" id="4JBHlsGXdzJ" role="37wK5m">
+                        <ref role="2155sG" node="AkkmJBMpal" resolve="node" />
+                      </node>
+                    </node>
+                  </node>
+                </node>
+                <node concept="3clFbF" id="4JBHlsGXc3Z" role="3cqZAp">
+                  <node concept="2OqwBi" id="4JBHlsGXc40" role="3clFbG">
+                    <node concept="37vLTw" id="4JBHlsGXc41" role="2Oq$k0">
+                      <ref role="3cqZAo" node="4JBHlsGXc3V" resolve="n" />
+                    </node>
+                    <node concept="HtI8k" id="4JBHlsGXc42" role="2OqNvi">
+                      <node concept="2OqwBi" id="4JBHlsGXc43" role="HtI8F">
+                        <node concept="37vLTw" id="4JBHlsGXc44" role="2Oq$k0">
+                          <ref role="3cqZAo" node="4JBHlsGXc3V" resolve="n" />
+                        </node>
+                        <node concept="1$rogu" id="4JBHlsGXc45" role="2OqNvi" />
+                      </node>
+                    </node>
+                  </node>
+                </node>
+                <node concept="3cpWs6" id="4JBHlsH1EO8" role="3cqZAp">
+                  <node concept="10QFUN" id="4JBHlsH5OFq" role="3cqZAk">
+                    <node concept="10Nm6u" id="4JBHlsH5OFp" role="10QFUP" />
+                    <node concept="3Tqbb2" id="4JBHlsH5OFo" role="10QFUM">
+                      <ref role="ehGHo" to="j481:AkkmJBMaEB" resolve="Cell" />
                     </node>
                   </node>
                 </node>

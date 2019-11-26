@@ -121,6 +121,11 @@ export class ShadowModelsBasedEditor {
                 this.socket.send(JSON.stringify({
                     type: "down"
                 }));
+            } else if (event.code === "Enter") {
+                event.preventDefault();
+                this.socket.send(JSON.stringify({
+                    type: "enter"
+                }));
             } else if (event.code === "ArrowUp") {
                 event.preventDefault();
                 this.socket.send(JSON.stringify({
