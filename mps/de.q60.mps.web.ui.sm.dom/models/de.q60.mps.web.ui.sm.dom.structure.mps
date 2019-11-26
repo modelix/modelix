@@ -174,7 +174,13 @@
     <property role="EcuMT" value="9002232898239389214" />
     <property role="3GE5qa" value="dom.htmlElement" />
     <property role="TrG5h" value="HTMLImageElement" />
+    <property role="34LRSv" value="img" />
     <ref role="1TJDcQ" node="7NImM04RGAQ" resolve="HTMLElement" />
+    <node concept="1TJgyi" id="5GP2kxIJkJi" role="1TKVEl">
+      <property role="IQ2nx" value="6572169437917301714" />
+      <property role="TrG5h" value="src" />
+      <ref role="AX2Wp" to="tpck:fKAOsGN" resolve="string" />
+    </node>
   </node>
   <node concept="1TIwiD" id="7NImM04TdSv">
     <property role="EcuMT" value="9002232898239389215" />
