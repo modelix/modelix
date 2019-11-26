@@ -2838,6 +2838,11 @@
             <ref role="3bR37D" node="5Sw$pxbQPmv" resolve="de.q60.mps.web.jetty" />
           </node>
         </node>
+        <node concept="1SiIV0" id="tQiJNCmXgR" role="3bR37C">
+          <node concept="3bR9La" id="tQiJNCmXgS" role="1SiIV1">
+            <ref role="3bR37D" to="ffeo:7Kfy9QB6KYb" resolve="jetbrains.mps.baseLanguage" />
+          </node>
+        </node>
       </node>
     </node>
     <node concept="2G$12M" id="7gF2HTviNPV" role="3989C9">
