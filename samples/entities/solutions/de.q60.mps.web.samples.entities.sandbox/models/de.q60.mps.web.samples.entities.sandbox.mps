@@ -25,7 +25,7 @@
     </language>
   </registry>
   <node concept="3ZgkuH" id="wa_gCmopcC">
-    <property role="TrG5h" value="A" />
+    <property role="TrG5h" value="EntityA" />
     <node concept="3ZglaZ" id="wa_gCmo$wi" role="3Zgl95">
       <property role="TrG5h" value="a" />
       <node concept="uqNdl" id="wa_gCmo$wm" role="uqNOm" />
@@ -37,7 +37,7 @@
     <node concept="3ZglaZ" id="wa_gCmoEap" role="3Zgl95">
       <property role="TrG5h" value="c" />
       <node concept="uq3pQ" id="wa_gCmoKO6" role="uqNOm">
-        <ref role="uq35v" node="wa_gCmopcC" resolve="A" />
+        <ref role="uq35v" node="wa_gCmopcC" resolve="EntityA" />
       </node>
     </node>
   </node>

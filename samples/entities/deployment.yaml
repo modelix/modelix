@@ -4,8 +4,8 @@ metadata:
   annotations:
   creationTimestamp: null
   labels:
-    app: proxy
-  name: proxy
+    app: entities
+  name: entities
 spec:
   revisionHistoryLimit: 5
   replicas: 1
@@ -18,35 +18,39 @@ spec:
     metadata:
       creationTimestamp: null
       labels:
-        app: proxy
+        app: entities
     spec:
       containers:
-      - name: proxy
-        image: slisson/webmps-proxy:201912030949
+      - name: entities
+        image: slisson/webmps-entities:201912021800
         imagePullPolicy: IfNotPresent
         env:
+        - name: MODEL_URI
+          value: http://model:28101/
         ports:
-        - containerPort: 80
+        - containerPort: 33333
+        - containerPort: 5071
+          name: "jvm-debug"
         resources: 
           requests:
-            memory: "100Mi"
-            cpu: "0.1"
+            memory: "2.0Gi"
+            cpu: "0.8"
           limits:
-            memory: "500Mi"
-            cpu: "1.0"
+            memory: "2.5Gi"
+            cpu: "1.5"
         readinessProbe:
           httpGet:
-            path: /
-            port: 80
-          initialDelaySeconds: 3
-          periodSeconds: 3
+            path: /health/check
+            port: 33333
+          initialDelaySeconds: 10
+          periodSeconds: 5
           timeoutSeconds: 3
         livenessProbe:
           httpGet:
-            path: /
-            port: 80
-          initialDelaySeconds: 10
-          periodSeconds: 10
+            path: /health/check
+            port: 33333
+          initialDelaySeconds: 120
+          periodSeconds: 20
           timeoutSeconds: 10
       restartPolicy: Always
 status: {}

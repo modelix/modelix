@@ -98,10 +98,14 @@
       <concept id="4278635856200826393" name="jetbrains.mps.build.mps.structure.BuildMps_ModuleDependencyJar" flags="ng" index="1BurEX">
         <child id="4278635856200826394" name="path" index="1BurEY" />
       </concept>
+      <concept id="4278635856200794926" name="jetbrains.mps.build.mps.structure.BuildMps_ModuleDependencyExtendLanguage" flags="ng" index="1Busua">
+        <reference id="4278635856200794928" name="language" index="1Busuk" />
+      </concept>
       <concept id="3189788309731840247" name="jetbrains.mps.build.mps.structure.BuildMps_Solution" flags="ng" index="1E1JtA" />
       <concept id="3189788309731840248" name="jetbrains.mps.build.mps.structure.BuildMps_Language" flags="ng" index="1E1JtD">
         <child id="9200313594498201639" name="generator" index="1TViLv" />
       </concept>
+      <concept id="322010710375794190" name="jetbrains.mps.build.mps.structure.BuildMps_DevKit" flags="ng" index="3LEwk6" />
       <concept id="322010710375871467" name="jetbrains.mps.build.mps.structure.BuildMps_AbstractModule" flags="ng" index="3LEN3z">
         <property id="8369506495128725901" name="compact" index="BnDLt" />
         <property id="322010710375892619" name="uuid" index="3LESm3" />
@@ -291,6 +295,10 @@
             </node>
           </node>
         </node>
+        <node concept="m$_wl" id="6HlxtAUTmjF" role="39821P">
+          <ref role="m_rDy" node="6HlxtAUTj2a" resolve="de.q60.mps.web.langdev" />
+          <node concept="pUk6x" id="6HlxtAUTmjG" role="pUk7w" />
+        </node>
       </node>
     </node>
     <node concept="m$_wf" id="7gF2HTvj4WE" role="3989C9">
@@ -380,6 +388,36 @@
       <node concept="3_J27D" id="7gF2HTviNQ3" role="m_cZH">
         <node concept="3Mxwew" id="7gF2HTviNQ4" role="3MwsjC">
           <property role="3MwjfP" value="de.q60.mps.web.model" />
+        </node>
+      </node>
+    </node>
+    <node concept="m$_wf" id="6HlxtAUTj2a" role="3989C9">
+      <property role="m$_wk" value="de.q60.mps.web.langdev" />
+      <node concept="3_J27D" id="6HlxtAUTj2b" role="m$_yQ">
+        <node concept="3Mxwew" id="6HlxtAUTj2c" role="3MwsjC">
+          <property role="3MwjfP" value="de.q60.mps.web.langdev" />
+        </node>
+      </node>
+      <node concept="3_J27D" id="6HlxtAUTj2d" role="m$_w8">
+        <node concept="3Mxwew" id="6HlxtAUTj2e" role="3MwsjC">
+          <property role="3MwjfP" value="1.0" />
+        </node>
+      </node>
+      <node concept="m$f5U" id="6HlxtAUTjYD" role="m$_yh">
+        <ref role="m$f5T" node="6HlxtAUSD7b" resolve="de.q60.mps.web.langdev" />
+      </node>
+      <node concept="m$_yC" id="6HlxtAUTj2g" role="m$_yJ">
+        <ref role="m$_y1" to="ffeo:4k71ibbKLe8" resolve="jetbrains.mps.core" />
+      </node>
+      <node concept="m$_yC" id="6HlxtAUTj2i" role="m$_yJ">
+        <ref role="m$_y1" node="7gF2HTvj4WE" resolve="de.q60.mps.web.common" />
+      </node>
+      <node concept="m$_yC" id="6HlxtAUTlYm" role="m$_yJ">
+        <ref role="m$_y1" node="7gF2HTviNPW" resolve="de.q60.mps.web.model" />
+      </node>
+      <node concept="3_J27D" id="6HlxtAUTj2j" role="m_cZH">
+        <node concept="3Mxwew" id="6HlxtAUTj2k" role="3MwsjC">
+          <property role="3MwjfP" value="de.q60.mps.web.langdev" />
         </node>
       </node>
     </node>
@@ -3270,6 +3308,100 @@
         <node concept="1SiIV0" id="$zd_cMRUrg" role="3bR37C">
           <node concept="3bR9La" id="$zd_cMRUrh" role="1SiIV1">
             <ref role="3bR37D" node="$zd_cMRR11" resolve="de.q60.mps.web.model.runtimelang" />
+          </node>
+        </node>
+      </node>
+    </node>
+    <node concept="2G$12M" id="6HlxtAUSD7b" role="3989C9">
+      <property role="TrG5h" value="de.q60.mps.web.langdev" />
+      <node concept="1E1JtD" id="6HlxtAUSLXf" role="2G$12L">
+        <property role="BnDLt" value="true" />
+        <property role="TrG5h" value="de.q60.mps.web.aspect" />
+        <property role="3LESm3" value="375af171-bd4b-4bfb-bc9f-418fb996740b" />
+        <node concept="398BVA" id="6HlxtAUSMiE" role="3LF7KH">
+          <ref role="398BVh" node="3$7Kuaihl5X" resolve="webmps.modules" />
+          <node concept="2Ry0Ak" id="6HlxtAUSMXg" role="iGT6I">
+            <property role="2Ry0Am" value="de.q60.mps.web.aspect" />
+            <node concept="2Ry0Ak" id="6HlxtAUSNBP" role="2Ry0An">
+              <property role="2Ry0Am" value="de.q60.mps.web.aspect.mpl" />
+            </node>
+          </node>
+        </node>
+        <node concept="1SiIV0" id="6HlxtAUSOin" role="3bR37C">
+          <node concept="3bR9La" id="6HlxtAUSOio" role="1SiIV1">
+            <ref role="3bR37D" to="ffeo:1H905DlDUSw" resolve="MPS.OpenAPI" />
+          </node>
+        </node>
+        <node concept="1SiIV0" id="6HlxtAUSOip" role="3bR37C">
+          <node concept="3bR9La" id="6HlxtAUSOiq" role="1SiIV1">
+            <ref role="3bR37D" to="ffeo:mXGwHwhVPj" resolve="JDK" />
+          </node>
+        </node>
+        <node concept="1SiIV0" id="6HlxtAUSOir" role="3bR37C">
+          <node concept="3bR9La" id="6HlxtAUSOis" role="1SiIV1">
+            <ref role="3bR37D" to="ffeo:7Kfy9QB6KYb" resolve="jetbrains.mps.baseLanguage" />
+          </node>
+        </node>
+        <node concept="1SiIV0" id="6HlxtAUSOit" role="3bR37C">
+          <node concept="3bR9La" id="6HlxtAUSOiu" role="1SiIV1">
+            <ref role="3bR37D" to="ffeo:7Kfy9QB6L8Y" resolve="jetbrains.mps.lang.project" />
+          </node>
+        </node>
+        <node concept="1SiIV0" id="6HlxtAUSOiv" role="3bR37C">
+          <node concept="3bR9La" id="6HlxtAUSOiw" role="1SiIV1">
+            <ref role="3bR37D" node="7gF2HTviNPK" resolve="de.q60.mps.web.model" />
+          </node>
+        </node>
+        <node concept="1SiIV0" id="6HlxtAUSOix" role="3bR37C">
+          <node concept="3bR9La" id="6HlxtAUSOiy" role="1SiIV1">
+            <ref role="3bR37D" node="5a2LedGL7Zb" resolve="de.q60.mps.web.jersey" />
+          </node>
+        </node>
+        <node concept="1SiIV0" id="6HlxtAUSOiz" role="3bR37C">
+          <node concept="1Busua" id="6HlxtAUSOi$" role="1SiIV1">
+            <ref role="1Busuk" to="ffeo:7Kfy9QB6KYb" resolve="jetbrains.mps.baseLanguage" />
+          </node>
+        </node>
+        <node concept="1yeLz9" id="6HlxtAUSOi_" role="1TViLv">
+          <property role="TrG5h" value="de.q60.mps.web.aspect#01" />
+          <property role="3LESm3" value="be246e10-5276-4b2b-a05e-7a68bd87894d" />
+          <node concept="1SiIV0" id="6HlxtAUSOiA" role="3bR37C">
+            <node concept="3bR9La" id="6HlxtAUSOiB" role="1SiIV1">
+              <ref role="3bR37D" node="7gF2HTviNPs" resolve="de.q60.mps.web.model.mpsplugin" />
+            </node>
+          </node>
+        </node>
+        <node concept="1SiIV0" id="6HlxtAUSRXV" role="3bR37C">
+          <node concept="3bR9La" id="6HlxtAUSRXW" role="1SiIV1">
+            <ref role="3bR37D" node="6HlxtAUSLXf" resolve="de.q60.mps.web.aspect" />
+          </node>
+        </node>
+      </node>
+      <node concept="1E1JtA" id="6HlxtAUSOXT" role="2G$12L">
+        <property role="BnDLt" value="true" />
+        <property role="TrG5h" value="de.q60.mps.web.aspect.genplan" />
+        <property role="3LESm3" value="a35af0cf-8051-4b27-9686-59193edda5fc" />
+        <node concept="398BVA" id="6HlxtAUSPjD" role="3LF7KH">
+          <ref role="398BVh" node="3$7Kuaihl5X" resolve="webmps.modules" />
+          <node concept="2Ry0Ak" id="6HlxtAUTZMq" role="iGT6I">
+            <property role="2Ry0Am" value="de.q60.mps.web.aspect.genplan" />
+            <node concept="2Ry0Ak" id="6HlxtAUU0sZ" role="2Ry0An">
+              <property role="2Ry0Am" value="de.q60.mps.web.aspect.genplan.msd" />
+            </node>
+          </node>
+        </node>
+      </node>
+      <node concept="3LEwk6" id="6HlxtAUSHCt" role="2G$12L">
+        <property role="BnDLt" value="true" />
+        <property role="TrG5h" value="de.q60.mps.web.aspect.devkit" />
+        <property role="3LESm3" value="df4512e0-2de7-456b-8e87-16e2011a3e91" />
+        <node concept="398BVA" id="6HlxtAUSICk" role="3LF7KH">
+          <ref role="398BVh" node="3$7Kuaihl5X" resolve="webmps.modules" />
+          <node concept="2Ry0Ak" id="6HlxtAUSJXv" role="iGT6I">
+            <property role="2Ry0Am" value="de.q60.mps.web.aspect.devkit" />
+            <node concept="2Ry0Ak" id="6HlxtAUSKC4" role="2Ry0An">
+              <property role="2Ry0Am" value="de.q60.mps.web.aspect.devkit.devkit" />
+            </node>
           </node>
         </node>
       </node>

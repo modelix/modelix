@@ -24,11 +24,13 @@ spec:
       - env:
         - name: jdbc_url
           value: jdbc:postgresql://db:5432/
-        image: eu.gcr.io/webmps/webmps-model:201911041307
+        image: slisson/webmps-model:201912030949
         imagePullPolicy: IfNotPresent
         name: model
         ports:
         - containerPort: 28101
+        - containerPort: 5071
+          name: "jvm-debug"        
         resources: 
           requests:
             memory: "600Mi"

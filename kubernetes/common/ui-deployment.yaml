@@ -22,13 +22,15 @@ spec:
     spec:
       containers:
       - name: ui
-        image: eu.gcr.io/webmps/webmps-ui:201911041307
+        image: slisson/webmps-ui:201912030949
         imagePullPolicy: IfNotPresent
         env:
         - name: MODEL_URI
           value: http://model:28101/
         ports:
         - containerPort: 33333
+        - containerPort: 5071
+          name: "jvm-debug"
         resources: 
           requests:
             memory: "2.0Gi"

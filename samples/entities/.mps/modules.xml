@@ -3,6 +3,7 @@
   <component name="MPSProject">
     <projectModules>
       <modulePath path="$PROJECT_DIR$/languages/de.q60.mps.web.samples.entities/de.q60.mps.web.samples.entities.mpl" folder="" />
+      <modulePath path="$PROJECT_DIR$/solutions/de.q60.mps.web.samples.entities.build/de.q60.mps.web.samples.entities.build.msd" folder="" />
       <modulePath path="$PROJECT_DIR$/solutions/de.q60.mps.web.samples.entities.sandbox/de.q60.mps.web.samples.entities.sandbox.msd" folder="" />
     </projectModules>
   </component>

@@ -10,6 +10,7 @@
     <import index="csg2" ref="r:b0cc4f86-cf49-4ffc-b138-1f9973329ce1(de.q60.mps.web.model.mpsplugin)" />
     <import index="37q1" ref="r:4ee1d66b-2b61-404e-8b2c-dbe476c81318(de.q60.mps.web.model.mpsplugin.api)" />
     <import index="4dhu" ref="r:17a7af0b-7a93-4688-b13e-195872d8e289(de.q60.mps.web.aspect.behavior)" implicit="true" />
+    <import index="tpck" ref="r:00000000-0000-4000-0000-011c89590288(jetbrains.mps.lang.core.structure)" implicit="true" />
   </imports>
   <registry>
     <language id="f3061a53-9226-4cc5-a443-f952ceaf5816" name="jetbrains.mps.baseLanguage">
@@ -88,6 +89,9 @@
     </language>
     <language id="7866978e-a0f0-4cc7-81bc-4d213d9375e1" name="jetbrains.mps.lang.smodel">
       <concept id="1179409122411" name="jetbrains.mps.lang.smodel.structure.Node_ConceptMethodCall" flags="nn" index="2qgKlT" />
+      <concept id="1138056022639" name="jetbrains.mps.lang.smodel.structure.SPropertyAccess" flags="nn" index="3TrcHB">
+        <reference id="1138056395725" name="property" index="3TsBF5" />
+      </concept>
       <concept id="1138056143562" name="jetbrains.mps.lang.smodel.structure.SLinkAccess" flags="nn" index="3TrEf2">
         <reference id="1138056516764" name="link" index="3Tt5mk" />
       </concept>
@@ -163,8 +167,8 @@
               <node concept="3clFbF" id="wa_gCmq09i" role="3cqZAp">
                 <node concept="2OqwBi" id="wa_gCmq0mo" role="3clFbG">
                   <node concept="30H73N" id="wa_gCmq09h" role="2Oq$k0" />
-                  <node concept="2qgKlT" id="wa_gCmq0_h" role="2OqNvi">
-                    <ref role="37wK5l" to="4dhu:wa_gCmpGPu" resolve="getName" />
+                  <node concept="3TrcHB" id="6HlxtAUVFdA" role="2OqNvi">
+                    <ref role="3TsBF5" to="tpck:h0TrG11" resolve="name" />
                   </node>
                 </node>
               </node>

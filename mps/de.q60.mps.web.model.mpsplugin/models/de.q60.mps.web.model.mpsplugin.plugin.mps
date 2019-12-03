@@ -2618,6 +2618,22 @@
             <property role="TrG5h" value="repo" />
           </node>
           <node concept="3clFbS" id="7PIbTorpehr" role="2LFqv$">
+            <node concept="3cpWs8" id="6HlxtAUU_KA" role="3cqZAp">
+              <node concept="3cpWsn" id="6HlxtAUU_KB" role="3cpWs9">
+                <property role="TrG5h" value="info" />
+                <node concept="3Tqbb2" id="6HlxtAUUx4Z" role="1tU5fm">
+                  <ref role="ehGHo" to="w7di:6aRQr1WVbMZ" resolve="RepositoryInfo" />
+                </node>
+                <node concept="2OqwBi" id="6HlxtAUU_KC" role="33vP2m">
+                  <node concept="2GrUjf" id="6HlxtAUU_KD" role="2Oq$k0">
+                    <ref role="2Gs0qQ" node="7PIbTorpehn" resolve="repo" />
+                  </node>
+                  <node concept="liA8E" id="6HlxtAUU_KE" role="2OqNvi">
+                    <ref role="37wK5l" to="csg2:6aRQr1WVmiT" resolve="getInfo" />
+                  </node>
+                </node>
+              </node>
+            </node>
             <node concept="3cpWs8" id="7PIbTorpryy" role="3cqZAp">
               <node concept="3cpWsn" id="7PIbTorpryz" role="3cpWs9">
                 <property role="TrG5h" value="trees" />
@@ -2644,13 +2660,8 @@
                           <node concept="2OqwBi" id="7PIbTorpryG" role="3cqZAk">
                             <node concept="2OqwBi" id="7PIbTorpryH" role="2Oq$k0">
                               <node concept="2OqwBi" id="7PIbTorpryI" role="2Oq$k0">
-                                <node concept="2OqwBi" id="7PIbTorpryJ" role="2Oq$k0">
-                                  <node concept="2GrUjf" id="7PIbTorpryK" role="2Oq$k0">
-                                    <ref role="2Gs0qQ" node="7PIbTorpehn" resolve="repo" />
-                                  </node>
-                                  <node concept="liA8E" id="7PIbTorpryL" role="2OqNvi">
-                                    <ref role="37wK5l" to="csg2:6aRQr1WVmiT" resolve="getInfo" />
-                                  </node>
+                                <node concept="37vLTw" id="6HlxtAUU_KF" role="2Oq$k0">
+                                  <ref role="3cqZAo" node="6HlxtAUU_KB" resolve="info" />
                                 </node>
                                 <node concept="3Tsc0h" id="7PIbTorpryM" role="2OqNvi">
                                   <ref role="3TtcxE" to="w7di:6aRQr1WVbN2" resolve="trees" />

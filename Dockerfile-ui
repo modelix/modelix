@@ -2,9 +2,9 @@ FROM webmps-mps
 WORKDIR /usr/webmps-ui
 EXPOSE 33333
 
-RUN mkdir -p /opt/cprof && \
-  wget -q -O- https://storage.googleapis.com/cloud-profiler/java/latest/profiler_java_agent.tar.gz \
-  | tar xzv -C /opt/cprof
+#RUN mkdir -p /opt/cprof && \
+#  wget -q -O- https://storage.googleapis.com/cloud-profiler/java/latest/profiler_java_agent.tar.gz \
+#  | tar xzv -C /opt/cprof
 
 COPY build/de.q60.mps.web/build/artifacts/de.q60.mps.web/de.q60.mps.web.zip /usr/webmps-ui/tmp.zip
 RUN unzip /usr/webmps-ui/tmp.zip -d /usr/webmps-ui/mps/plugins/
