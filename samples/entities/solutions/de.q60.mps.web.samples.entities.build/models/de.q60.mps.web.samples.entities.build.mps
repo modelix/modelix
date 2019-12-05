@@ -84,6 +84,12 @@
         <child id="1500819558095907806" name="modules" index="2G$12L" />
       </concept>
       <concept id="868032131020265945" name="jetbrains.mps.build.mps.structure.BuildMPSPlugin" flags="ng" index="3b7kt6" />
+      <concept id="5253498789149381388" name="jetbrains.mps.build.mps.structure.BuildMps_Module" flags="ng" index="3bQrTs">
+        <child id="5253498789149547704" name="dependencies" index="3bR37C" />
+      </concept>
+      <concept id="5253498789149585690" name="jetbrains.mps.build.mps.structure.BuildMps_ModuleDependencyOnModule" flags="ng" index="3bR9La">
+        <reference id="5253498789149547705" name="module" index="3bR37D" />
+      </concept>
       <concept id="5507251971038816436" name="jetbrains.mps.build.mps.structure.BuildMps_Generator" flags="ng" index="1yeLz9" />
       <concept id="3189788309731840248" name="jetbrains.mps.build.mps.structure.BuildMps_Language" flags="ng" index="1E1JtD">
         <child id="9200313594498201639" name="generator" index="1TViLv" />
@@ -92,6 +98,9 @@
         <property id="8369506495128725901" name="compact" index="BnDLt" />
         <property id="322010710375892619" name="uuid" index="3LESm3" />
         <child id="322010710375956261" name="path" index="3LF7KH" />
+      </concept>
+      <concept id="7259033139236285166" name="jetbrains.mps.build.mps.structure.BuildMps_ExtractedModuleDependency" flags="nn" index="1SiIV0">
+        <child id="7259033139236285167" name="dependency" index="1SiIV1" />
       </concept>
     </language>
   </registry>
@@ -209,6 +218,12 @@
       <node concept="m$_yC" id="6HlxtAUSy6o" role="m$_yJ">
         <ref role="m$_y1" to="ffeo:4k71ibbKLe8" resolve="jetbrains.mps.core" />
       </node>
+      <node concept="m$_yC" id="1z8Uup0ooSx" role="m$_yJ">
+        <ref role="m$_y1" to="indb:7gF2HTvj4WE" resolve="de.q60.mps.web.common" />
+      </node>
+      <node concept="m$_yC" id="1z8Uup0ooSD" role="m$_yJ">
+        <ref role="m$_y1" to="indb:7gF2HTvj4Cd" resolve="de.q60.mps.web.ui" />
+      </node>
       <node concept="3_J27D" id="6HlxtAUSy6p" role="m_cZH">
         <node concept="3Mxwew" id="6HlxtAUSy6q" role="3MwsjC">
           <property role="3MwjfP" value="de.q60.mps.web.samples.entities" />
@@ -235,6 +250,21 @@
         <node concept="1yeLz9" id="6HlxtAUSy6z" role="1TViLv">
           <property role="TrG5h" value="de.q60.mps.web.samples.entities#01" />
           <property role="3LESm3" value="e2c5c617-93c2-480d-8203-5d9a4ad8787b" />
+        </node>
+        <node concept="1SiIV0" id="1z8Uup0ooSi" role="3bR37C">
+          <node concept="3bR9La" id="1z8Uup0ooSj" role="1SiIV1">
+            <ref role="3bR37D" to="indb:7gF2HTviNPn" resolve="de.q60.mps.web.ui.sm" />
+          </node>
+        </node>
+        <node concept="1SiIV0" id="1z8Uup0ooSk" role="3bR37C">
+          <node concept="3bR9La" id="1z8Uup0ooSl" role="1SiIV1">
+            <ref role="3bR37D" to="90a9:4iIKqJTZ5HI" resolve="de.q60.mps.shadowmodels.runtimelang" />
+          </node>
+        </node>
+        <node concept="1SiIV0" id="1z8Uup0ooSm" role="3bR37C">
+          <node concept="3bR9La" id="1z8Uup0ooSn" role="1SiIV1">
+            <ref role="3bR37D" to="indb:7gF2HTviNPF" resolve="de.q60.mps.web.ui.sm.dom" />
+          </node>
         </node>
       </node>
     </node>

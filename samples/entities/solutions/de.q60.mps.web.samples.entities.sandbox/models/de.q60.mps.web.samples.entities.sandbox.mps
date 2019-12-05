@@ -41,5 +41,9 @@
       </node>
     </node>
   </node>
+  <node concept="3ZgkuH" id="lpnKkXX1BR">
+    <property role="TrG5h" value="EntityB" />
+  </node>
+  <node concept="3ZgkuH" id="lpnKkXX1BS" />
 </model>
 

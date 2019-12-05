@@ -46,7 +46,27 @@
     </generator>
   </generators>
   <sourcePath />
+  <dependencies>
+    <dependency reexport="false">78874af2-5dd2-42a7-a21d-42fab3737d1d(de.q60.mps.web.ui.sm)</dependency>
+    <dependency reexport="false">0bf7bc3b-b11d-42e4-b160-93d72af96397(de.q60.mps.shadowmodels.runtimelang)</dependency>
+    <dependency reexport="false">6f6906a4-f244-4806-a98b-0bc781cef2a8(de.q60.mps.web.ui.sm.dom)</dependency>
+    <dependency reexport="false">8865b7a8-5271-43d3-884c-6fd1d9cfdd34(MPS.OpenAPI)</dependency>
+    <dependency reexport="false">ceab5195-25ea-4f22-9b92-103b95ca8c0c(jetbrains.mps.lang.core)</dependency>
+    <dependency reexport="false">e52a4835-844d-46a1-99f8-c06129db796f(de.q60.mps.shadowmodels.runtime)</dependency>
+    <dependency reexport="false">6354ebe7-c22a-4a0f-ac54-50b52ab9b065(JDK)</dependency>
+    <dependency reexport="false">a7322769-ef64-4daa-a2f4-fd4228fb713e(de.q60.mps.shadowmodels.target.text)</dependency>
+    <dependency reexport="false">fc3c2aa8-0d4b-463f-a774-40d450aa04a0(de.q60.mps.web.jetty)</dependency>
+    <dependency reexport="false">eb8d1040-bff5-4126-8949-fdd95ef4c502(de.q60.mps.web.ui.sm.server)</dependency>
+    <dependency reexport="false">94b64715-a263-4c36-a138-8da14705ffa7(de.q60.mps.shadowmodels.transformation)</dependency>
+    <dependency reexport="false">6ed54515-acc8-4d1e-a16c-9fd6cfe951ea(MPS.Core)</dependency>
+    <dependency reexport="false">87f4b21e-a3a5-459e-a54b-408fd9eb7350(de.q60.mps.web.lib)</dependency>
+  </dependencies>
   <languageVersions>
+    <language slang="l:bc963c22-d419-49b6-8543-ea411eb9d3a1:de.q60.mps.polymorphicfunctions" version="0" />
+    <language slang="l:96089812-effe-4a96-bb2e-75f8162046af:de.q60.mps.shadowmodels.gen.afterPF" version="0" />
+    <language slang="l:6f76dbc8-9615-4a2e-8034-c27700f8983b:de.q60.mps.shadowmodels.gen.desugar" version="0" />
+    <language slang="l:c6082896-edff-4380-997b-5b96de2fdc12:de.q60.mps.shadowmodels.gen.typesystem" version="0" />
+    <language slang="l:94b64715-a263-4c36-a138-8da14705ffa7:de.q60.mps.shadowmodels.transformation" version="1" />
     <language slang="l:375af171-bd4b-4bfb-bc9f-418fb996740b:de.q60.mps.web.aspect" version="0" />
     <language slang="l:f3061a53-9226-4cc5-a443-f952ceaf5816:jetbrains.mps.baseLanguage" version="9" />
     <language slang="l:443f4c36-fcf5-4eb6-9500-8d06ed259e3e:jetbrains.mps.baseLanguage.classifiers" version="0" />
@@ -55,6 +75,7 @@
     <language slang="l:f2801650-65d5-424e-bb1b-463a8781b786:jetbrains.mps.baseLanguage.javadoc" version="2" />
     <language slang="l:760a0a8c-eabb-4521-8bfd-65db761a9ba3:jetbrains.mps.baseLanguage.logging" version="0" />
     <language slang="l:a247e09e-2435-45ba-b8d2-07e93feba96a:jetbrains.mps.baseLanguage.tuples" version="0" />
+    <language slang="l:63650c59-16c8-498a-99c8-005c7ee9515d:jetbrains.mps.lang.access" version="0" />
     <language slang="l:aee9cad2-acd4-4608-aef2-0004f6a1cdbd:jetbrains.mps.lang.actions" version="4" />
     <language slang="l:af65afd8-f0dd-4942-87d9-63a55f2a9db1:jetbrains.mps.lang.behavior" version="2" />
     <language slang="l:3f4bc5f5-c6c1-4a28-8b10-c83066ffa4a1:jetbrains.mps.lang.constraints" version="5" />
@@ -84,12 +105,31 @@
     <module reference="3f233e7f-b8a6-46d2-a57f-795d56775243(Annotations)" version="0" />
     <module reference="6354ebe7-c22a-4a0f-ac54-50b52ab9b065(JDK)" version="0" />
     <module reference="6ed54515-acc8-4d1e-a16c-9fd6cfe951ea(MPS.Core)" version="0" />
+    <module reference="1ed103c3-3aa6-49b7-9c21-6765ee11f224(MPS.Editor)" version="0" />
+    <module reference="498d89d2-c2e9-11e2-ad49-6cf049e62fe5(MPS.IDEA)" version="0" />
     <module reference="8865b7a8-5271-43d3-884c-6fd1d9cfdd34(MPS.OpenAPI)" version="0" />
+    <module reference="742f6602-5a2f-4313-aa6e-ae1cd4ffdc61(MPS.Platform)" version="0" />
+    <module reference="95085166-3236-4dd7-bd8e-e753c8d20885(de.q60.mps.incremental.runtime)" version="0" />
+    <module reference="18463265-6d45-4514-82f1-cf7eb1222492(de.q60.mps.polymorphicfunctions.runtime)" version="0" />
+    <module reference="f5997610-4d27-40a3-872c-d06cf404755b(de.q60.mps.shadowmodels.genplan)" version="0" />
+    <module reference="e52a4835-844d-46a1-99f8-c06129db796f(de.q60.mps.shadowmodels.runtime)" version="0" />
+    <module reference="0bf7bc3b-b11d-42e4-b160-93d72af96397(de.q60.mps.shadowmodels.runtimelang)" version="0" />
+    <module reference="a7322769-ef64-4daa-a2f4-fd4228fb713e(de.q60.mps.shadowmodels.target.text)" version="0" />
+    <module reference="94b64715-a263-4c36-a138-8da14705ffa7(de.q60.mps.shadowmodels.transformation)" version="0" />
     <module reference="a35af0cf-8051-4b27-9686-59193edda5fc(de.q60.mps.web.aspect.genplan)" version="0" />
+    <module reference="fc3c2aa8-0d4b-463f-a774-40d450aa04a0(de.q60.mps.web.jetty)" version="0" />
+    <module reference="87f4b21e-a3a5-459e-a54b-408fd9eb7350(de.q60.mps.web.lib)" version="0" />
     <module reference="363848cf-91df-484c-9066-7089821cb609(de.q60.mps.web.samples.entities)" version="0" />
+    <module reference="78874af2-5dd2-42a7-a21d-42fab3737d1d(de.q60.mps.web.ui.sm)" version="0" />
+    <module reference="6f6906a4-f244-4806-a98b-0bc781cef2a8(de.q60.mps.web.ui.sm.dom)" version="0" />
+    <module reference="eb8d1040-bff5-4126-8949-fdd95ef4c502(de.q60.mps.web.ui.sm.server)" version="0" />
+    <module reference="f3061a53-9226-4cc5-a443-f952ceaf5816(jetbrains.mps.baseLanguage)" version="0" />
+    <module reference="e39e4a59-8cb6-498e-860e-8fa8361c0d90(jetbrains.mps.baseLanguage.scopes)" version="0" />
+    <module reference="2d3c70e9-aab2-4870-8d8d-6036800e4103(jetbrains.mps.kernel)" version="0" />
     <module reference="ceab5195-25ea-4f22-9b92-103b95ca8c0c(jetbrains.mps.lang.core)" version="0" />
     <module reference="a9e4c532-c5f5-4bb7-99ef-42abb73bbb70(jetbrains.mps.lang.descriptor.aspects)" version="0" />
     <module reference="9e98f4e2-decf-4e97-bf80-9109e8b759aa(jetbrains.mps.lang.feedback.context)" version="0" />
+    <module reference="9ded098b-ad6a-4657-bfd9-48636cfe8bc3(jetbrains.mps.lang.traceable)" version="0" />
   </dependencyVersions>
   <extendedLanguages />
 </language>

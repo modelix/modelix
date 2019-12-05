@@ -41,6 +41,8 @@
         <name>de.q60.mps.web.samples.entities</name>
         <version>1.0</version>
         <depends>jetbrains.mps.core</depends>
+        <depends>de.q60.mps.web.common</depends>
+        <depends>de.q60.mps.web.ui</depends>
         
         <extensions defaultExtensionNs="com.intellij">
           <mps.LanguageLibrary dir="/languages" />
@@ -60,6 +62,8 @@
           <module ref="8865b7a8-5271-43d3-884c-6fd1d9cfdd34(MPS.OpenAPI)" kind="rt" />
           <module ref="4c6a28d1-2c60-478d-b36e-db9b3cbb21fb(closures.runtime)" kind="rt" />
           <module ref="9b80526e-f0bf-4992-bdf5-cee39c1833f3(collections.runtime)" kind="rt" />
+          <module ref="95085166-3236-4dd7-bd8e-e753c8d20885(de.q60.mps.incremental.runtime)" kind="rt" />
+          <module ref="e52a4835-844d-46a1-99f8-c06129db796f(de.q60.mps.shadowmodels.runtime)" kind="rt" />
           <module ref="a3e4657f-a76c-45bb-bbda-c764596ecc65(jetbrains.mps.baseLanguage.logging.runtime)" kind="rt" />
           <module ref="52b81ac7-93fd-4e9e-b972-4995882da6d4(jetbrains.mps.baseLanguage.references.runtime)" kind="rt" />
           <module ref="d44dab97-aaac-44cb-9745-8a14db674c03(jetbrains.mps.baseLanguage.tuples.runtime)" kind="rt" />
@@ -69,9 +73,17 @@
           <module ref="0a98f3e2-decf-4e97-bf80-9109eccc59bb(jetbrains.mps.lang.feedback.problem.rules)" kind="rt" />
           <module ref="9abaaae2-decf-4e97-bf80-9109e8b759cc(jetbrains.mps.lang.messages.api)" kind="rt" />
           <module ref="9a4afe51-f114-4595-b5df-048ce3c596be(jetbrains.mps.runtime)" kind="rt" />
+          <module ref="f5997610-4d27-40a3-872c-d06cf404755b(de.q60.mps.shadowmodels.genplan)" kind="cl" />
+          <module ref="0bf7bc3b-b11d-42e4-b160-93d72af96397(de.q60.mps.shadowmodels.runtimelang)" kind="cl" />
+          <module ref="78874af2-5dd2-42a7-a21d-42fab3737d1d(de.q60.mps.web.ui.sm)" kind="cl" />
+          <module ref="6f6906a4-f244-4806-a98b-0bc781cef2a8(de.q60.mps.web.ui.sm.dom)" kind="cl" />
           <module ref="a9e4c532-c5f5-4bb7-99ef-42abb73bbb70(jetbrains.mps.lang.descriptor.aspects)" kind="cl" />
         </dependencies>
         <uses>
+          <language id="l:96089812-effe-4a96-bb2e-75f8162046af:de.q60.mps.shadowmodels.gen.afterPF" />
+          <language id="l:6f76dbc8-9615-4a2e-8034-c27700f8983b:de.q60.mps.shadowmodels.gen.desugar" />
+          <language id="l:c6082896-edff-4380-997b-5b96de2fdc12:de.q60.mps.shadowmodels.gen.typesystem" />
+          <language id="l:94b64715-a263-4c36-a138-8da14705ffa7:de.q60.mps.shadowmodels.transformation" />
           <language id="l:375af171-bd4b-4bfb-bc9f-418fb996740b:de.q60.mps.web.aspect" />
           <language id="l:f3061a53-9226-4cc5-a443-f952ceaf5816:jetbrains.mps.baseLanguage" />
           <language id="l:fd392034-7849-419d-9071-12563d152375:jetbrains.mps.baseLanguage.closures" />
@@ -211,18 +223,30 @@
     <echo message="generating" />
     <generate strictMode="true" parallelMode="true" parallelThreads="8" useInplaceTransform="false" hideWarnings="false" createStaticRefs="true" fork="true" skipUnmodifiedModels="${mps.generator.skipUnmodifiedModels}">
       <plugin path="${artifacts.de.itemis.mps.extensions}/de.q60.shadowmodels" />
+      <plugin path="${artifacts.de.itemis.mps.extensions}/de.slisson.mps.hacks" />
+      <plugin path="${artifacts.de.itemis.mps.extensions}/mps-apache-commons" />
       <plugin path="${artifacts.mps}/lib/mps-workbench.jar" />
+      <plugin path="${artifacts.mps}/plugins/mps-build" />
       <plugin path="${artifacts.mps}/plugins/mps-core" />
       <plugin path="${artifacts.mps}/plugins/mps-testing" />
       <plugin path="${build.tmp}/deps/de.q60.mps.web/de.q60.mps.web.zip/de.q60.mps.web.common" />
       <plugin path="${build.tmp}/deps/de.q60.mps.web/de.q60.mps.web.zip/de.q60.mps.web.langdev" />
       <plugin path="${build.tmp}/deps/de.q60.mps.web/de.q60.mps.web.zip/de.q60.mps.web.model" />
+      <plugin path="${build.tmp}/deps/de.q60.mps.web/de.q60.mps.web.zip/de.q60.mps.web.ui" />
       <library file="${artifacts.de.itemis.mps.extensions}/de.q60.shadowmodels/languages/de.q60.shadowmodels/de.q60.mps.incremental.runtime.jar" />
       <library file="${artifacts.de.itemis.mps.extensions}/de.q60.shadowmodels/languages/de.q60.shadowmodels/de.q60.mps.libs.jar" />
       <library file="${artifacts.de.itemis.mps.extensions}/de.q60.shadowmodels/languages/de.q60.shadowmodels/de.q60.mps.logging.runtime.jar" />
+      <library file="${artifacts.de.itemis.mps.extensions}/de.q60.shadowmodels/languages/de.q60.shadowmodels/de.q60.mps.polymorphicfunctions.jar" />
       <library file="${artifacts.de.itemis.mps.extensions}/de.q60.shadowmodels/languages/de.q60.shadowmodels/de.q60.mps.polymorphicfunctions.runtime.jar" />
+      <library file="${artifacts.de.itemis.mps.extensions}/de.q60.shadowmodels/languages/de.q60.shadowmodels/de.q60.mps.shadowmodels.devkit.jar" />
+      <library file="${artifacts.de.itemis.mps.extensions}/de.q60.shadowmodels/languages/de.q60.shadowmodels/de.q60.mps.shadowmodels.gen.afterPF.jar" />
+      <library file="${artifacts.de.itemis.mps.extensions}/de.q60.shadowmodels/languages/de.q60.shadowmodels/de.q60.mps.shadowmodels.gen.desugar.jar" />
+      <library file="${artifacts.de.itemis.mps.extensions}/de.q60.shadowmodels/languages/de.q60.shadowmodels/de.q60.mps.shadowmodels.gen.typesystem.jar" />
+      <library file="${artifacts.de.itemis.mps.extensions}/de.q60.shadowmodels/languages/de.q60.shadowmodels/de.q60.mps.shadowmodels.genplan.jar" />
       <library file="${artifacts.de.itemis.mps.extensions}/de.q60.shadowmodels/languages/de.q60.shadowmodels/de.q60.mps.shadowmodels.runtime.jar" />
       <library file="${artifacts.de.itemis.mps.extensions}/de.q60.shadowmodels/languages/de.q60.shadowmodels/de.q60.mps.shadowmodels.runtimelang.jar" />
+      <library file="${artifacts.de.itemis.mps.extensions}/de.q60.shadowmodels/languages/de.q60.shadowmodels/de.q60.mps.shadowmodels.target.text.jar" />
+      <library file="${artifacts.de.itemis.mps.extensions}/de.q60.shadowmodels/languages/de.q60.shadowmodels/de.q60.mps.shadowmodels.transformation.jar" />
       <library file="${artifacts.mps}/languages/baseLanguage/closures.runtime.jar" />
       <library file="${artifacts.mps}/languages/baseLanguage/collections.runtime.jar" />
       <library file="${artifacts.mps}/languages/baseLanguage/jetbrains.mps.baseLanguage.blTypes.jar" />
@@ -326,10 +350,14 @@
       <library file="${artifacts.mps}/languages/util/jetbrains.mps.runtime.jar" />
       <library file="${artifacts.mps}/languages/workbench-stub.jar" />
       <library file="${build.tmp}/deps/de.q60.mps.web/de.q60.mps.web.zip/de.q60.mps.web.common/languages/de.q60.mps.web.common/de.q60.mps.web.jersey.jar" />
+      <library file="${build.tmp}/deps/de.q60.mps.web/de.q60.mps.web.zip/de.q60.mps.web.common/languages/de.q60.mps.web.common/de.q60.mps.web.lib.jar" />
       <library file="${build.tmp}/deps/de.q60.mps.web/de.q60.mps.web.zip/de.q60.mps.web.langdev/languages/de.q60.mps.web.langdev/de.q60.mps.web.aspect.devkit.jar" />
       <library file="${build.tmp}/deps/de.q60.mps.web/de.q60.mps.web.zip/de.q60.mps.web.langdev/languages/de.q60.mps.web.langdev/de.q60.mps.web.aspect.jar" />
       <library file="${build.tmp}/deps/de.q60.mps.web/de.q60.mps.web.zip/de.q60.mps.web.model/languages/de.q60.mps.web.model/de.q60.mps.web.model.jar" />
       <library file="${build.tmp}/deps/de.q60.mps.web/de.q60.mps.web.zip/de.q60.mps.web.model/languages/de.q60.mps.web.model/de.q60.mps.web.model.mpsplugin.jar" />
+      <library file="${build.tmp}/deps/de.q60.mps.web/de.q60.mps.web.zip/de.q60.mps.web.ui/languages/de.q60.mps.web.ui/de.q60.mps.web.ui.sm.dom.jar" />
+      <library file="${build.tmp}/deps/de.q60.mps.web/de.q60.mps.web.zip/de.q60.mps.web.ui/languages/de.q60.mps.web.ui/de.q60.mps.web.ui.sm.jar" />
+      <library file="${build.tmp}/deps/de.q60.mps.web/de.q60.mps.web.zip/de.q60.mps.web.ui/languages/de.q60.mps.web.ui/de.q60.mps.web.ui.sm.json.jar" />
       <chunk>
         <module file="${basedir}/languages/de.q60.mps.web.samples.entities/de.q60.mps.web.samples.entities.mpl" />
       </chunk>
@@ -391,6 +419,13 @@
         <fileset file="${artifacts.mps}/lib/jdom.jar" />
         <fileset file="${artifacts.mps}/lib/trove4j.jar" />
         <fileset file="${artifacts.mps}/lib/ecj-4.10.jar" />
+        <fileset file="${artifacts.de.itemis.mps.extensions}/de.q60.shadowmodels/languages/de.q60.shadowmodels/de.q60.mps.incremental.runtime.jar" />
+        <fileset file="${artifacts.de.itemis.mps.extensions}/de.q60.shadowmodels/languages/de.q60.shadowmodels/de.q60.mps.polymorphicfunctions.runtime.jar" />
+        <fileset file="${artifacts.de.itemis.mps.extensions}/de.q60.shadowmodels/languages/de.q60.shadowmodels/de.q60.mps.shadowmodels.genplan.jar" />
+        <fileset file="${artifacts.de.itemis.mps.extensions}/de.q60.shadowmodels/languages/de.q60.shadowmodels/de.q60.mps.shadowmodels.runtime.jar" />
+        <fileset file="${artifacts.de.itemis.mps.extensions}/de.q60.shadowmodels/languages/de.q60.shadowmodels/de.q60.mps.shadowmodels.runtimelang.jar" />
+        <fileset file="${build.tmp}/deps/de.q60.mps.web/de.q60.mps.web.zip/de.q60.mps.web.ui/languages/de.q60.mps.web.ui/de.q60.mps.web.ui.sm.jar" />
+        <fileset file="${build.tmp}/deps/de.q60.mps.web/de.q60.mps.web.zip/de.q60.mps.web.ui/languages/de.q60.mps.web.ui/de.q60.mps.web.ui.sm.dom.jar" />
         <fileset file="${artifacts.mps}/languages/baseLanguage/jetbrains.mps.baseLanguage.logging.runtime.jar" />
         <fileset file="${artifacts.mps}/languages/languageDesign/jetbrains.mps.lang.core.jar" />
         <fileset file="${artifacts.mps}/languages/languageDesign/jetbrains.mps.lang.descriptor.aspects.jar" />

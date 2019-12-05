@@ -32,6 +32,9 @@
       </concept>
       <concept id="1202948039474" name="jetbrains.mps.baseLanguage.structure.InstanceMethodCallOperation" flags="nn" index="liA8E" />
       <concept id="1465982738277781862" name="jetbrains.mps.baseLanguage.structure.PlaceholderMember" flags="ng" index="2tJIrI" />
+      <concept id="5279705229678483897" name="jetbrains.mps.baseLanguage.structure.FloatingPointFloatConstant" flags="nn" index="2$xPTn">
+        <property id="5279705229678483899" name="value" index="2$xPTl" />
+      </concept>
       <concept id="1153952380246" name="jetbrains.mps.baseLanguage.structure.TryStatement" flags="nn" index="2GUZhq">
         <child id="1153952416686" name="body" index="2GV8ay" />
         <child id="1153952429843" name="finallyBody" index="2GVbov" />
@@ -727,11 +730,37 @@
             <node concept="17QB3L" id="1me6Uesqf1x" role="1tU5fm" />
             <node concept="3cpWs3" id="1me6Uesqf1y" role="33vP2m">
               <node concept="10M0yZ" id="1me6Uesqf1z" role="3uHU7w">
-                <ref role="3cqZAo" to="yt15:2HzO4VEyW58" resolve="RANDOM_STATIC_NUMBER" />
+                <ref role="3cqZAo" to="yt15:2HzO4VEyW58" resolve="RANDOM_STATIC_NUMBER_4DIGIT" />
                 <ref role="1PxDUh" to="yt15:3ov7kT3oB09" resolve="RandomStaticNumber" />
               </node>
               <node concept="Xl_RD" id="1me6Uesqf1$" role="3uHU7B">
                 <property role="Xl_RC" value="" />
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="3clFbF" id="lpnKkXZ4Co" role="3cqZAp">
+          <node concept="2OqwBi" id="lpnKkXZ5z2" role="3clFbG">
+            <node concept="37vLTw" id="lpnKkXZ4Cm" role="2Oq$k0">
+              <ref role="3cqZAo" node="1me6Uesqf2S" resolve="g" />
+            </node>
+            <node concept="liA8E" id="lpnKkXZ6HO" role="2OqNvi">
+              <ref role="37wK5l" to="z60i:~Graphics.setFont(java.awt.Font)" resolve="setFont" />
+              <node concept="2OqwBi" id="lpnKkXZ7Kp" role="37wK5m">
+                <node concept="2OqwBi" id="lpnKkXZ7aJ" role="2Oq$k0">
+                  <node concept="37vLTw" id="lpnKkXZ6Pb" role="2Oq$k0">
+                    <ref role="3cqZAo" node="1me6Uesqf2S" resolve="g" />
+                  </node>
+                  <node concept="liA8E" id="lpnKkXZ7uK" role="2OqNvi">
+                    <ref role="37wK5l" to="z60i:~Graphics.getFont()" resolve="getFont" />
+                  </node>
+                </node>
+                <node concept="liA8E" id="lpnKkXZ80U" role="2OqNvi">
+                  <ref role="37wK5l" to="z60i:~Font.deriveFont(float)" resolve="deriveFont" />
+                  <node concept="2$xPTn" id="lpnKkXZ8Ey" role="37wK5m">
+                    <property role="2$xPTl" value="8.0f" />
+                  </node>
+                </node>
               </node>
             </node>
           </node>
@@ -771,7 +800,7 @@
               <node concept="1eOMI4" id="1me6UesqTlt" role="10QFUP">
                 <node concept="3cpWsd" id="1me6UesqTln" role="1eOMHV">
                   <node concept="3cmrfG" id="1me6UesqTlo" role="3uHU7B">
-                    <property role="3cmrfH" value="10" />
+                    <property role="3cmrfH" value="0" />
                   </node>
                   <node concept="2OqwBi" id="1me6UesqTlp" role="3uHU7w">
                     <node concept="37vLTw" id="1me6UesqTlq" role="2Oq$k0">
@@ -793,7 +822,7 @@
             <node concept="10Oyi0" id="1me6UesqBq7" role="1tU5fm" />
             <node concept="3cpWsd" id="1me6UesqKZv" role="33vP2m">
               <node concept="3cmrfG" id="1me6UesqL59" role="3uHU7w">
-                <property role="3cmrfH" value="10" />
+                <property role="3cmrfH" value="2" />
               </node>
               <node concept="10QFUN" id="1me6UesqHrg" role="3uHU7B">
                 <node concept="10Oyi0" id="1me6UesqHr5" role="10QFUM" />
