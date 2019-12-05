@@ -10,8 +10,10 @@ Cloud storage and web UI for MPS
 
 1. ./gradlew
 1. ./docker-build-all.sh
-1. docker-compose up
-1. open http://localhost:8093/
+1. ./docker-push-hub.sh
+1. minikube start
+1. ./kubernetes-apply-local.sh
+1. minikube service proxy
 
 
 
