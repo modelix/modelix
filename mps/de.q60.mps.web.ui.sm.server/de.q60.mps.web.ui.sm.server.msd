@@ -16,6 +16,7 @@
     <dependency reexport="false">0f2359af-040e-43bb-b438-cf024da41518(de.q60.mps.web.ui.sm.json)</dependency>
     <dependency reexport="false">6354ebe7-c22a-4a0f-ac54-50b52ab9b065(JDK)</dependency>
     <dependency reexport="false">fc3c2aa8-0d4b-463f-a774-40d450aa04a0(de.q60.mps.web.jetty)</dependency>
+    <dependency reexport="false">da981293-1ec2-4df0-95e4-df162984154c(de.q60.mps.web.ui.common)</dependency>
   </dependencies>
   <languageVersions>
     <language slang="l:bc963c22-d419-49b6-8543-ea411eb9d3a1:de.q60.mps.polymorphicfunctions" version="0" />
@@ -54,6 +55,7 @@
     <module reference="94b64715-a263-4c36-a138-8da14705ffa7(de.q60.mps.shadowmodels.transformation)" version="0" />
     <module reference="fc3c2aa8-0d4b-463f-a774-40d450aa04a0(de.q60.mps.web.jetty)" version="0" />
     <module reference="87f4b21e-a3a5-459e-a54b-408fd9eb7350(de.q60.mps.web.lib)" version="0" />
+    <module reference="da981293-1ec2-4df0-95e4-df162984154c(de.q60.mps.web.ui.common)" version="0" />
     <module reference="78874af2-5dd2-42a7-a21d-42fab3737d1d(de.q60.mps.web.ui.sm)" version="1" />
     <module reference="6f6906a4-f244-4806-a98b-0bc781cef2a8(de.q60.mps.web.ui.sm.dom)" version="0" />
     <module reference="0f2359af-040e-43bb-b438-cf024da41518(de.q60.mps.web.ui.sm.json)" version="0" />

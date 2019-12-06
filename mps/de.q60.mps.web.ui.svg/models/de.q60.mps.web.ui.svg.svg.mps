@@ -23,6 +23,7 @@
     <import index="33ny" ref="6354ebe7-c22a-4a0f-ac54-50b52ab9b065/java:java.util(JDK/)" />
     <import index="dxuu" ref="6354ebe7-c22a-4a0f-ac54-50b52ab9b065/java:javax.swing(JDK/)" />
     <import index="idqn" ref="cceec75f-de6e-4ee7-bd91-29a3a99bfede/java:org.apache.batik.ext.awt.g2d(de.q60.mps.web.ui.svg/)" implicit="true" />
+    <import index="qsto" ref="r:6f19a603-f6b1-4c78-aaa5-6c24c7fbc333(de.q60.mps.web.ui.common)" implicit="true" />
   </imports>
   <registry>
     <language id="f3061a53-9226-4cc5-a443-f952ceaf5816" name="jetbrains.mps.baseLanguage">
@@ -729,9 +730,9 @@
             <property role="TrG5h" value="str" />
             <node concept="17QB3L" id="1me6Uesqf1x" role="1tU5fm" />
             <node concept="3cpWs3" id="1me6Uesqf1y" role="33vP2m">
-              <node concept="10M0yZ" id="1me6Uesqf1z" role="3uHU7w">
-                <ref role="3cqZAo" to="yt15:2HzO4VEyW58" resolve="RANDOM_STATIC_NUMBER_4DIGIT" />
-                <ref role="1PxDUh" to="yt15:3ov7kT3oB09" resolve="RandomStaticNumber" />
+              <node concept="10M0yZ" id="5npwda7lIAP" role="3uHU7w">
+                <ref role="3cqZAo" to="qsto:2HzO4VEyW58" resolve="RANDOM_STATIC_NUMBER_4DIGIT" />
+                <ref role="1PxDUh" to="qsto:3ov7kT3oB09" resolve="RandomStaticNumber" />
               </node>
               <node concept="Xl_RD" id="1me6Uesqf1$" role="3uHU7B">
                 <property role="Xl_RC" value="" />

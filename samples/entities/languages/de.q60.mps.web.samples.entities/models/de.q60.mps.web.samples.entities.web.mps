@@ -30,6 +30,7 @@
     <import index="w1kc" ref="6ed54515-acc8-4d1e-a16c-9fd6cfe951ea/java:jetbrains.mps.smodel(MPS.Core/)" />
     <import index="aero" ref="r:7a4d7ed2-9d22-4615-b536-63269a84b9a5(de.q60.mps.web.ui.sm.server.web)" />
     <import index="2zss" ref="r:16d0e306-4bc6-48dd-aa85-1b139faa6274(de.q60.mps.web.samples.entities.transformations)" />
+    <import index="qsto" ref="r:6f19a603-f6b1-4c78-aaa5-6c24c7fbc333(de.q60.mps.web.ui.common)" />
     <import index="wyt6" ref="6354ebe7-c22a-4a0f-ac54-50b52ab9b065/java:java.lang(JDK/)" implicit="true" />
   </imports>
   <registry>
@@ -356,11 +357,11 @@
             </node>
             <node concept="2OqwBi" id="7mc9A5ll70U" role="33vP2m">
               <node concept="2YIFZM" id="7mc9A5ll70V" role="2Oq$k0">
-                <ref role="1Pybhc" to="2qs1:7q7cTU0XE$r" resolve="EngineForHttp" />
-                <ref role="37wK5l" to="2qs1:7q7cTU0XF71" resolve="getInstance" />
+                <ref role="1Pybhc" to="qsto:7q7cTU0XE$r" resolve="EngineForHttp" />
+                <ref role="37wK5l" to="qsto:7q7cTU0XF71" resolve="getInstance" />
               </node>
               <node concept="liA8E" id="7mc9A5ll70W" role="2OqNvi">
-                <ref role="37wK5l" to="2qs1:7q7cTU0XXhe" resolve="getEngine" />
+                <ref role="37wK5l" to="qsto:7q7cTU0XXhe" resolve="getEngine" />
               </node>
             </node>
           </node>
@@ -422,7 +423,7 @@
                                       <node concept="2OqwBi" id="2XNuosbhE0f" role="2Oq$k0">
                                         <node concept="2tJFMh" id="2XNuosbhE0g" role="2Oq$k0">
                                           <node concept="ZC_QK" id="2XNuosbhE0h" role="2tJFKM">
-                                            <ref role="2aWVGs" to="2zss:1z8Uup0nM7q" resolve="EntitiesWebEditor" />
+                                            <ref role="2aWVGs" to="2zss:1z8Uup0nM7q" resolve="EntitiesWebPages" />
                                             <node concept="ZC_QK" id="2XNuosbhMS7" role="2aWVGa">
                                               <ref role="2aWVGs" to="2zss:2XNuosbhJYi" resolve="entitiesPage" />
                                             </node>
@@ -546,7 +547,7 @@
                                               <node concept="2OqwBi" id="7mc9A5ll71q" role="2Oq$k0">
                                                 <node concept="2tJFMh" id="7mc9A5ll71r" role="2Oq$k0">
                                                   <node concept="ZC_QK" id="7mc9A5ll71s" role="2tJFKM">
-                                                    <ref role="2aWVGs" to="2zss:1z8Uup0nM7q" resolve="EntitiesWebEditor" />
+                                                    <ref role="2aWVGs" to="2zss:1z8Uup0nM7q" resolve="EntitiesWebPages" />
                                                     <node concept="ZC_QK" id="2XNuosbhNNy" role="2aWVGa">
                                                       <ref role="2aWVGs" to="2zss:2XNuosbhJYi" resolve="entitiesPage" />
                                                     </node>

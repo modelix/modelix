@@ -43,6 +43,12 @@
   </node>
   <node concept="3ZgkuH" id="lpnKkXX1BR">
     <property role="TrG5h" value="EntityB" />
+    <node concept="3ZglaZ" id="lpnKkY07hH" role="3Zgl95">
+      <property role="TrG5h" value="e" />
+      <node concept="uq3pQ" id="lpnKkY07hL" role="uqNOm">
+        <ref role="uq35v" node="wa_gCmopcC" resolve="EntityA" />
+      </node>
+    </node>
   </node>
   <node concept="3ZgkuH" id="lpnKkXX1BS" />
 </model>

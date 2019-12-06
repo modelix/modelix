@@ -266,6 +266,61 @@
             <ref role="3bR37D" to="indb:7gF2HTviNPF" resolve="de.q60.mps.web.ui.sm.dom" />
           </node>
         </node>
+        <node concept="1SiIV0" id="5npwda83CUZ" role="3bR37C">
+          <node concept="3bR9La" id="5npwda83CV0" role="1SiIV1">
+            <ref role="3bR37D" to="indb:7gF2HTviNPU" resolve="de.q60.mps.web.ui.sm.server" />
+          </node>
+        </node>
+        <node concept="1SiIV0" id="5npwda83CV1" role="3bR37C">
+          <node concept="3bR9La" id="5npwda83CV2" role="1SiIV1">
+            <ref role="3bR37D" to="indb:5Sw$pxbQPmv" resolve="de.q60.mps.web.jetty" />
+          </node>
+        </node>
+        <node concept="1SiIV0" id="5npwda83CV3" role="3bR37C">
+          <node concept="3bR9La" id="5npwda83CV4" role="1SiIV1">
+            <ref role="3bR37D" to="90a9:4iIKqJTZ5Hm" resolve="de.q60.mps.shadowmodels.runtime" />
+          </node>
+        </node>
+        <node concept="1SiIV0" id="5npwda83CV5" role="3bR37C">
+          <node concept="3bR9La" id="5npwda83CV6" role="1SiIV1">
+            <ref role="3bR37D" to="90a9:4iIKqJTZ5HO" resolve="de.q60.mps.shadowmodels.transformation" />
+          </node>
+        </node>
+        <node concept="1SiIV0" id="5npwda83CV7" role="3bR37C">
+          <node concept="3bR9La" id="5npwda83CV8" role="1SiIV1">
+            <ref role="3bR37D" to="ffeo:1H905DlDUSw" resolve="MPS.OpenAPI" />
+          </node>
+        </node>
+        <node concept="1SiIV0" id="5npwda83CV9" role="3bR37C">
+          <node concept="3bR9La" id="5npwda83CVa" role="1SiIV1">
+            <ref role="3bR37D" to="ffeo:mXGwHwhVPj" resolve="JDK" />
+          </node>
+        </node>
+        <node concept="1SiIV0" id="5npwda83CVb" role="3bR37C">
+          <node concept="3bR9La" id="5npwda83CVc" role="1SiIV1">
+            <ref role="3bR37D" to="90a9:BRK1N8p1Qt" resolve="de.q60.mps.shadowmodels.target.text" />
+          </node>
+        </node>
+        <node concept="1SiIV0" id="5npwda83CVd" role="3bR37C">
+          <node concept="3bR9La" id="5npwda83CVe" role="1SiIV1">
+            <ref role="3bR37D" to="ffeo:7Kfy9QB6KXW" resolve="jetbrains.mps.lang.core" />
+          </node>
+        </node>
+        <node concept="1SiIV0" id="5npwda83CVf" role="3bR37C">
+          <node concept="3bR9La" id="5npwda83CVg" role="1SiIV1">
+            <ref role="3bR37D" to="ffeo:1TaHNgiIbIQ" resolve="MPS.Core" />
+          </node>
+        </node>
+        <node concept="1SiIV0" id="5npwda83CVh" role="3bR37C">
+          <node concept="3bR9La" id="5npwda83CVi" role="1SiIV1">
+            <ref role="3bR37D" to="indb:5npwda7lJQ3" resolve="de.q60.mps.web.ui.common" />
+          </node>
+        </node>
+        <node concept="1SiIV0" id="5npwda83CVj" role="3bR37C">
+          <node concept="3bR9La" id="5npwda83CVk" role="1SiIV1">
+            <ref role="3bR37D" to="indb:7gF2HTviNPP" resolve="de.q60.mps.web.lib" />
+          </node>
+        </node>
       </node>
     </node>
   </node>

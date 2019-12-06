@@ -9,6 +9,10 @@
       <sourceRoot location="json-20160810.jar" />
       <sourceRoot location="gson-extras-2.8.5.jar" />
       <sourceRoot location="gson-2.8.6.jar" />
+      <sourceRoot location="kryo-5.0.0-RC4.jar" />
+      <sourceRoot location="minlog-1.3.0.jar" />
+      <sourceRoot location="objenesis-2.6.jar" />
+      <sourceRoot location="reflectasm-1.11.6.jar" />
     </modelRoot>
   </models>
   <stubModelEntries>
@@ -16,6 +20,10 @@
     <stubModelEntry path="${module}/lib/json-20160810.jar" />
     <stubModelEntry path="${module}/lib/gson-extras-2.8.5.jar" />
     <stubModelEntry path="${module}/lib/gson-2.8.6.jar" />
+    <stubModelEntry path="${module}/lib/kryo-5.0.0-RC4.jar" />
+    <stubModelEntry path="${module}/lib/minlog-1.3.0.jar" />
+    <stubModelEntry path="${module}/lib/objenesis-2.6.jar" />
+    <stubModelEntry path="${module}/lib/reflectasm-1.11.6.jar" />
   </stubModelEntries>
   <sourcePath />
   <dependencies>
