@@ -152,6 +152,7 @@
       </concept>
       <concept id="1146644602865" name="jetbrains.mps.baseLanguage.structure.PublicVisibility" flags="nn" index="3Tm1VV" />
       <concept id="1146644623116" name="jetbrains.mps.baseLanguage.structure.PrivateVisibility" flags="nn" index="3Tm6S6" />
+      <concept id="1146644641414" name="jetbrains.mps.baseLanguage.structure.ProtectedVisibility" flags="nn" index="3Tmbuc" />
       <concept id="1116615150612" name="jetbrains.mps.baseLanguage.structure.ClassifierClassExpression" flags="nn" index="3VsKOn">
         <reference id="1116615189566" name="classifier" index="3VsUkX" />
       </concept>
@@ -172,10 +173,18 @@
       </concept>
     </language>
     <language id="83888646-71ce-4f1c-9c53-c54016f6ad4f" name="jetbrains.mps.baseLanguage.collections">
+      <concept id="1151689724996" name="jetbrains.mps.baseLanguage.collections.structure.SequenceType" flags="in" index="A3Dl8">
+        <child id="1151689745422" name="elementType" index="A3Ik2" />
+      </concept>
       <concept id="1235573135402" name="jetbrains.mps.baseLanguage.collections.structure.SingletonSequenceCreator" flags="nn" index="2HTt$P">
         <child id="1235573175711" name="elementType" index="2HTBi0" />
         <child id="1235573187520" name="singletonValue" index="2HTEbv" />
       </concept>
+      <concept id="1237721394592" name="jetbrains.mps.baseLanguage.collections.structure.AbstractContainerCreator" flags="nn" index="HWqM0">
+        <child id="1237721435808" name="initValue" index="HW$Y0" />
+        <child id="1237721435807" name="elementType" index="HW$YZ" />
+      </concept>
+      <concept id="1160600644654" name="jetbrains.mps.baseLanguage.collections.structure.ListCreatorWithInit" flags="nn" index="Tc6Ow" />
       <concept id="1184963466173" name="jetbrains.mps.baseLanguage.collections.structure.ToArrayOperation" flags="nn" index="3_kTaI" />
     </language>
   </registry>
@@ -2422,6 +2431,48 @@
       <node concept="3Tm1VV" id="7q7cTU0XEYh" role="1B3o_S" />
     </node>
     <node concept="2tJIrI" id="7q7cTU0XE_q" role="jymVt" />
+    <node concept="312cEg" id="6NhA6xmByFv" role="jymVt">
+      <property role="TrG5h" value="implementationsProvider" />
+      <node concept="3Tm6S6" id="6NhA6xmByFw" role="1B3o_S" />
+      <node concept="3uibUv" id="6NhA6xmB$Bo" role="1tU5fm">
+        <ref role="3uigEE" to="od2j:3zTK92KPl8A" resolve="ImplementationsFromGlobalRepository" />
+      </node>
+      <node concept="2ShNRf" id="1z8Uup0sajI" role="33vP2m">
+        <node concept="YeOm9" id="1z8Uup0sajJ" role="2ShVmc">
+          <node concept="1Y3b0j" id="1z8Uup0sajK" role="YeSDq">
+            <property role="2bfB8j" value="true" />
+            <ref role="37wK5l" to="od2j:3zTK92KPlai" resolve="ImplementationsFromGlobalRepository" />
+            <ref role="1Y3XeK" to="od2j:3zTK92KPl8A" resolve="ImplementationsFromGlobalRepository" />
+            <node concept="3Tm1VV" id="1z8Uup0sajL" role="1B3o_S" />
+            <node concept="3clFb_" id="1z8Uup0sajM" role="jymVt">
+              <property role="TrG5h" value="getModelNames" />
+              <node concept="A3Dl8" id="1z8Uup0sajN" role="3clF45">
+                <node concept="17QB3L" id="1z8Uup0sajO" role="A3Ik2" />
+              </node>
+              <node concept="3Tmbuc" id="1z8Uup0sajP" role="1B3o_S" />
+              <node concept="3clFbS" id="1z8Uup0sajQ" role="3clF47">
+                <node concept="3clFbF" id="1z8Uup0sajR" role="3cqZAp">
+                  <node concept="2ShNRf" id="1z8Uup0sajS" role="3clFbG">
+                    <node concept="Tc6Ow" id="1z8Uup0sajT" role="2ShVmc">
+                      <node concept="17QB3L" id="1z8Uup0sajU" role="HW$YZ" />
+                      <node concept="Xl_RD" id="1z8Uup0sajV" role="HW$Y0">
+                        <property role="Xl_RC" value="web" />
+                      </node>
+                      <node concept="Xl_RD" id="6NhA6xmBxSp" role="HW$Y0">
+                        <property role="Xl_RC" value="transformations" />
+                      </node>
+                    </node>
+                  </node>
+                </node>
+              </node>
+              <node concept="2AHcQZ" id="1z8Uup0sajW" role="2AJF6D">
+                <ref role="2AI5Lk" to="wyt6:~Override" resolve="Override" />
+              </node>
+            </node>
+          </node>
+        </node>
+      </node>
+    </node>
     <node concept="312cEg" id="7q7cTU0XFpG" role="jymVt">
       <property role="TrG5h" value="engine" />
       <node concept="3Tm6S6" id="7q7cTU0XFpH" role="1B3o_S" />
@@ -2450,9 +2501,8 @@
                         <node concept="3uibUv" id="7q7cTU0XGOm" role="2HTBi0">
                           <ref role="3uigEE" to="od2j:3jJoUQ6YpKb" resolve="IImplementationProvider" />
                         </node>
-                        <node concept="2YIFZM" id="3zTK92KPFLC" role="2HTEbv">
-                          <ref role="37wK5l" to="l6bp:3zTK92KPmA1" resolve="getInstance" />
-                          <ref role="1Pybhc" to="l6bp:3zTK92KPl8A" resolve="TransformationsFromGlobalRepository" />
+                        <node concept="37vLTw" id="6NhA6xmBzN0" role="2HTEbv">
+                          <ref role="3cqZAo" node="6NhA6xmByFv" resolve="implementationsProvider" />
                         </node>
                       </node>
                     </node>
@@ -2492,6 +2542,16 @@
             </node>
             <node concept="liA8E" id="7q7cTU0Z4_C" role="2OqNvi">
               <ref role="37wK5l" to="nv3w:7q7cTU0YTwr" resolve="dispose" />
+            </node>
+          </node>
+        </node>
+        <node concept="3clFbF" id="6NhA6xmB$1a" role="3cqZAp">
+          <node concept="2OqwBi" id="6NhA6xmB$aW" role="3clFbG">
+            <node concept="37vLTw" id="6NhA6xmB$18" role="2Oq$k0">
+              <ref role="3cqZAo" node="6NhA6xmByFv" resolve="implementationsProvider" />
+            </node>
+            <node concept="liA8E" id="6NhA6xmB_8a" role="2OqNvi">
+              <ref role="37wK5l" to="od2j:3zTK92KPneu" resolve="dispose" />
             </node>
           </node>
         </node>
