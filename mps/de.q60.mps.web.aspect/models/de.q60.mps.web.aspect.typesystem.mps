@@ -7,6 +7,7 @@
   </languages>
   <imports>
     <import index="4dhu" ref="r:17a7af0b-7a93-4688-b13e-195872d8e289(de.q60.mps.web.aspect.behavior)" />
+    <import index="dj5d" ref="r:8bca245c-17c6-44f4-9367-ad6ce25cabf5(de.q60.mps.shadowmodels.runtimelang.structure)" />
     <import index="79yt" ref="r:ded575ba-957a-4f7f-89f0-d9fc02ad1b0c(de.q60.mps.web.aspect.structure)" implicit="true" />
   </imports>
   <registry>
@@ -64,6 +65,11 @@
         <child id="1081773367580" name="leftExpression" index="3uHU7B" />
       </concept>
       <concept id="1073239437375" name="jetbrains.mps.baseLanguage.structure.NotEqualsExpression" flags="nn" index="3y3z36" />
+    </language>
+    <language id="3a13115c-633c-4c5c-bbcc-75c4219e9555" name="jetbrains.mps.lang.quotation">
+      <concept id="1196350785113" name="jetbrains.mps.lang.quotation.structure.Quotation" flags="nn" index="2c44tf">
+        <child id="1196350785114" name="quotedNode" index="2c44tc" />
+      </concept>
     </language>
     <language id="7a5dda62-9140-4668-ab76-d5ed1746f2b2" name="jetbrains.mps.lang.typesystem">
       <concept id="1185788614172" name="jetbrains.mps.lang.typesystem.structure.NormalTypeClause" flags="ng" index="mw_s8">
@@ -428,6 +434,31 @@
     <node concept="1YaCAy" id="6MQUJsz135F" role="1YuTPh">
       <property role="TrG5h" value="n" />
       <ref role="1YaFvo" to="79yt:6MQUJsz126I" resolve="UrlForHttpPageExpression" />
+    </node>
+  </node>
+  <node concept="1YbPZF" id="694yVfghHy8">
+    <property role="TrG5h" value="typeof_CloudModelExpression" />
+    <node concept="3clFbS" id="694yVfghHy9" role="18ibNy">
+      <node concept="1Z5TYs" id="694yVfghL8i" role="3cqZAp">
+        <node concept="mw_s8" id="694yVfghL8A" role="1ZfhKB">
+          <node concept="2c44tf" id="694yVfghL8y" role="mwGJk">
+            <node concept="3Tqbb2" id="694yVfghL8X" role="2c44tc">
+              <ref role="ehGHo" to="dj5d:qmkA5fOskm" resolve="Repository" />
+            </node>
+          </node>
+        </node>
+        <node concept="mw_s8" id="694yVfghL8l" role="1ZfhK$">
+          <node concept="1Z2H0r" id="694yVfghHyi" role="mwGJk">
+            <node concept="1YBJjd" id="694yVfghKXJ" role="1Z2MuG">
+              <ref role="1YBMHb" node="694yVfghHyb" resolve="n" />
+            </node>
+          </node>
+        </node>
+      </node>
+    </node>
+    <node concept="1YaCAy" id="694yVfghHyb" role="1YuTPh">
+      <property role="TrG5h" value="n" />
+      <ref role="1YaFvo" to="79yt:wa_gCmpVKR" resolve="CloudModelExpression" />
     </node>
   </node>
 </model>
