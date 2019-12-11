@@ -419,6 +419,9 @@
       <node concept="m$_yC" id="6HlxtAUTlYm" role="m$_yJ">
         <ref role="m$_y1" node="7gF2HTviNPW" resolve="de.q60.mps.web.model" />
       </node>
+      <node concept="m$_yC" id="1BXGyXtBVIa" role="m$_yJ">
+        <ref role="m$_y1" node="7gF2HTvj4Cd" resolve="de.q60.mps.web.ui" />
+      </node>
       <node concept="3_J27D" id="6HlxtAUTj2j" role="m_cZH">
         <node concept="3Mxwew" id="6HlxtAUTj2k" role="3MwsjC">
           <property role="3MwjfP" value="de.q60.mps.web.langdev" />
@@ -3568,6 +3571,19 @@
         </node>
         <node concept="1E0d5M" id="7Ya3eUXRG2W" role="1E1XAP">
           <ref role="1E0d5P" node="5npwda7lJQ3" resolve="de.q60.mps.web.ui.common" />
+        </node>
+        <node concept="1SiIV0" id="1BXGyXtBV1Z" role="3bR37C">
+          <node concept="3bR9La" id="1BXGyXtBV20" role="1SiIV1">
+            <ref role="3bR37D" to="90a9:4iIKqJTZ5HI" resolve="de.q60.mps.shadowmodels.runtimelang" />
+          </node>
+        </node>
+        <node concept="1SiIV0" id="1BXGyXtBV21" role="3bR37C">
+          <node concept="3bR9La" id="1BXGyXtBV22" role="1SiIV1">
+            <ref role="3bR37D" node="7gF2HTviNPF" resolve="de.q60.mps.web.ui.sm.dom" />
+          </node>
+        </node>
+        <node concept="1E0d5M" id="1BXGyXtBV23" role="1E1XAP">
+          <ref role="1E0d5P" node="7gF2HTviNPs" resolve="de.q60.mps.web.model.mpsplugin" />
         </node>
       </node>
       <node concept="1E1JtA" id="6HlxtAUSOXT" role="2G$12L">
