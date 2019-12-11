@@ -1,6 +1,7 @@
 import $ = require("jquery");
 import {KeyCodeTranslator} from "./KeyCodeTranslator";
 import {DomUtils} from "./DomUtil";
+import {getWebsocketUrl} from "./UrlUtil";
 
 
 export class SvgBasedEditor {
@@ -18,10 +19,7 @@ export class SvgBasedEditor {
         let lastMessage: IMessage = null;
         let rawData: string = null;
 
-        let path = window.location.pathname;
-        path = path.substring(0, path.lastIndexOf("/"));
-        const url = "ws://" + window.location.host + path + "/ws/svgui";
-        this.socket = new WebSocket(url);
+        this.socket = new WebSocket(getWebsocketUrl() + "svgui");
 
         this.socket.onmessage = (event) => {
             if (rawDataFollowing) {

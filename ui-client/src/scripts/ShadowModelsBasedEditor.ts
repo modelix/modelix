@@ -1,6 +1,7 @@
 import "../styles/sm.scss";
 import $ = require("jquery");
 import {DomUtils} from "./DomUtil";
+import {getWebsocketUrl} from "./UrlUtil";
 
 export class ShadowModelsBasedEditor {
 
@@ -73,10 +74,7 @@ export class ShadowModelsBasedEditor {
     private connect(): void {
         if (this.socket && this.socket.readyState !== WebSocket.CLOSED) return;
 
-        let path = window.location.pathname;
-        path = path.substring(0, path.lastIndexOf("/"));
-        const url = "ws://" + window.location.host + path + "/ws/smui";
-        this.socket = new WebSocket(url);
+        this.socket = new WebSocket(getWebsocketUrl() + "smui");
 
         this.socket.onmessage = (event) => {
             const message = JSON.parse(event.data);
