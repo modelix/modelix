@@ -1,0 +1,42 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    app: oauth
+  name: oauth
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: oauth
+  template:
+    metadata:
+      labels:
+        app: oauth
+    spec:
+      containers:
+        - image: bitnami/oauth2-proxy
+          name: oauth2-proxy
+          args:
+            - --email-domain=*
+            - --cookie-secure=false
+            - --cookie-secret=jLTKkbMwRJpsS7ZW
+            - --provider=google
+            - --client-secret=G3RfPLig_e0UhROUuf45dKJ3
+            - --client-id=214800094662-35dpgqu2llmn9mr5tt2ao9d7roebmtmm.apps.googleusercontent.com
+            - --upstream=http://proxy/
+            - --http-address=0.0.0.0:4180
+          readinessProbe:
+            httpGet:
+              path: /ping
+              port: 4180
+            initialDelaySeconds: 3
+            periodSeconds: 5
+            timeoutSeconds: 3
+          livenessProbe:
+            httpGet:
+              path: /ping
+              port: 4180
+            initialDelaySeconds: 3
+            periodSeconds: 10
+            timeoutSeconds: 5

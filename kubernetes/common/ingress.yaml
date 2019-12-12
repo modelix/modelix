@@ -4,5 +4,5 @@ metadata:
   name: ingress
 spec:
   backend:
-    serviceName: proxy
-    servicePort: 80
+    serviceName: oauth
+    servicePort: 4180

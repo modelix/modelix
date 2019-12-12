@@ -321,6 +321,9 @@
             <ref role="3bR37D" to="indb:7gF2HTviNPP" resolve="de.q60.mps.web.lib" />
           </node>
         </node>
+        <node concept="3bR9La" id="4Mx37Fxx66z" role="3bR37C">
+          <ref role="3bR37D" to="indb:7gF2HTviNPs" resolve="de.q60.mps.web.model.mpsplugin" />
+        </node>
       </node>
     </node>
   </node>

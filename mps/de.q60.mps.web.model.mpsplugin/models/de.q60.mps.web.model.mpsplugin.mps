@@ -519,7 +519,6 @@
       <concept id="1240325842691" name="jetbrains.mps.baseLanguage.collections.structure.AsSequenceOperation" flags="nn" index="39bAoz" />
       <concept id="3055999550620853964" name="jetbrains.mps.baseLanguage.collections.structure.RemoveWhereOperation" flags="nn" index="1aUR6E" />
       <concept id="1167380149909" name="jetbrains.mps.baseLanguage.collections.structure.RemoveElementOperation" flags="nn" index="3dhRuq" />
-      <concept id="1201792049884" name="jetbrains.mps.baseLanguage.collections.structure.TranslateOperation" flags="nn" index="3goQfb" />
       <concept id="1197683403723" name="jetbrains.mps.baseLanguage.collections.structure.MapType" flags="in" index="3rvAFt">
         <child id="1197683466920" name="keyType" index="3rvQeY" />
         <child id="1197683475734" name="valueType" index="3rvSg0" />
@@ -10676,15 +10675,7 @@
                   </node>
                 </node>
               </node>
-              <node concept="3goQfb" id="1BXGyXtAHXz" role="2OqNvi">
-                <node concept="1bVj0M" id="1BXGyXtAHX_" role="23t8la">
-                  <node concept="3clFbS" id="1BXGyXtAHXA" role="1bW5cS" />
-                  <node concept="Rh6nW" id="1BXGyXtAHXB" role="1bW2Oz">
-                    <property role="TrG5h" value="it" />
-                    <node concept="2jxLKc" id="1BXGyXtAHXC" role="1tU5fm" />
-                  </node>
-                </node>
-              </node>
+              <node concept="1uHKPH" id="4Mx37FxvICO" role="2OqNvi" />
             </node>
           </node>
         </node>
