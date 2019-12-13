@@ -12,6 +12,7 @@ import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
 import org.eclipse.jetty.servlets.EventSource;
 import org.eclipse.jetty.servlets.EventSourceServlet;
+import org.jetbrains.annotations.NotNull;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -41,19 +42,17 @@ public class Main {
             final Server server = new Server(bindTo);
 
             if (storeClient.get(REPOSITORY_ID_KEY) == null) {
-                storeClient.put(REPOSITORY_ID_KEY, UUID.randomUUID().toString().replaceAll("[^a-zA-Z0-9]", ""));
+                storeClient.put(REPOSITORY_ID_KEY, randomUUID());
             }
 
             ServletContextHandler servletHandler = new ServletContextHandler();
             servletHandler.addServlet(new ServletHolder(new ModelServerServlet(modelServer)), "/ws");
 
-            EventSourceServlet sseServlet = new SSETestServlet();
-            servletHandler.addServlet(new ServletHolder(sseServlet), "/sse");
-
             servletHandler.addServlet(new ServletHolder(new HttpServlet() {
                 @Override
                 protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
                     String key = req.getPathInfo().substring(1);
+                    if (key.startsWith(ModelServer.PROTECTED_PREFIX)) throw new RuntimeException("No permission to access " + key);
                     String value = storeClient.get(key);
                     if (value == null) {
                         resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
@@ -66,8 +65,29 @@ public class Main {
 
             servletHandler.addServlet(new ServletHolder(new HttpServlet() {
                 @Override
+                protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+                    String email = req.getHeader("X-Forwarded-Email");
+                    if (email == null || email.isEmpty()) {
+                        resp.setStatus(HttpServletResponse.SC_FORBIDDEN);
+                        resp.setContentType("text/plain");
+                        resp.getWriter().print("Not logged in.");
+                        return;
+                    }
+
+                    String token = randomUUID();
+                    storeClient.put(ModelServer.PROTECTED_PREFIX + "_token_email_" + token, email);
+                    storeClient.put(ModelServer.PROTECTED_PREFIX + "_token_expires_" + token,
+                            Long.toString(System.currentTimeMillis() + 7*24*60*60*1000));
+                    resp.setContentType("text/plain");
+                    resp.getWriter().print(token);
+                }
+            }), "/generateToken");
+
+            servletHandler.addServlet(new ServletHolder(new HttpServlet() {
+                @Override
                 protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
                     String key = req.getPathInfo().substring(1);
+                    if (key.startsWith(ModelServer.PROTECTED_PREFIX)) throw new RuntimeException("No permission to access " + key);
                     long value = storeClient.generateId(key);
                     resp.setContentType("text/plain");
                     resp.setCharacterEncoding(StandardCharsets.UTF_8.toString());
@@ -89,6 +109,7 @@ public class Main {
                 protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
                     String key = req.getPathInfo().substring(1);
                     if (REPOSITORY_ID_KEY.equals(key)) throw new RuntimeException("Changing '" + key + "' is not allowed");
+                    if (key.startsWith(ModelServer.PROTECTED_PREFIX)) throw new RuntimeException("No permission to access " + key);
                     String value = IOUtils.toString(req.getInputStream(), StandardCharsets.UTF_8);
                     storeClient.put(key, value);
                     resp.setStatus(HttpServletResponse.SC_OK);
@@ -110,6 +131,9 @@ public class Main {
                 @Override
                 protected EventSource newEventSource(HttpServletRequest req) {
                     final String subscribedKey = req.getPathInfo().substring(1);
+                    if (subscribedKey.startsWith(ModelServer.PROTECTED_PREFIX)) {
+                        throw new RuntimeException("No permission to access " + subscribedKey);
+                    }
                     return new EventSource() {
                         private Emitter emitter;
                         private IKeyListener listener = new IKeyListener() {
@@ -166,41 +190,15 @@ public class Main {
         }
     }
 
+    @NotNull
+    private static String randomUUID() {
+        return UUID.randomUUID().toString().replaceAll("[^a-zA-Z0-9]", "");
+    }
+
     private static Handler withContext(String path, Handler handler) {
         ContextHandler contextHandler = new ContextHandler();
         contextHandler.setContextPath(path);
         contextHandler.setHandler(handler);
         return contextHandler;
-    }
-
-    private static class SSETestServlet extends EventSourceServlet {
-        @Override
-        protected EventSource newEventSource(HttpServletRequest request) {
-            return new EventSource() {
-                private Emitter emitter;
-                private Timer timer = new Timer(1000, (e) -> {
-                    if (emitter == null) return;
-                    try {
-                        emitter.data("data-" + System.currentTimeMillis());
-                        emitter.event("time","time-" + System.currentTimeMillis());
-                    } catch (IOException ex) {
-                        System.out.println(ex.getMessage());
-                        ex.printStackTrace();
-                    }
-                });
-
-                @Override
-                public void onOpen(Emitter emitter) throws IOException {
-                    this.emitter = emitter;
-                    timer.start();
-                }
-
-                @Override
-                public void onClose() {
-                    timer.stop();
-                    emitter = null;
-                }
-            };
-        }
     }
 }

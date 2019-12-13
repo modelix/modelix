@@ -22,6 +22,7 @@ import java.util.regex.Pattern;
 public class ModelServer {
     private static final Logger LOG = LogManager.getLogger(ModelServer.class);
     private static final Pattern HASH_PATTERN = Pattern.compile("[a-zA-Z0-9\\-_]{43}");
+    public static final String PROTECTED_PREFIX = "$$$";
 
     private IStoreClient storeClient;
     private Map<RemoteEndpoint, Session> sessions = new HashMap<RemoteEndpoint, Session>();
@@ -49,6 +50,7 @@ public class ModelServer {
             @Override
             public void handle(RemoteEndpoint conn, JSONObject message) {
                 String key = message.getString("key");
+                if (key.startsWith(PROTECTED_PREFIX)) throw new RuntimeException("No permission to access " + key);
                 String value = storeClient.get(key);
                 JSONObject reply = new JSONObject();
                 reply.put("type", "get");
@@ -61,7 +63,7 @@ public class ModelServer {
             @Override
             public void handle(RemoteEndpoint conn, JSONObject message) {
                 String key = message.getString("key");
-
+                if (key.startsWith(PROTECTED_PREFIX)) throw new RuntimeException("No permission to access " + key);
                 JSONObject reply = new JSONObject();
                 reply.put("type", "getRecursively");
                 reply.put("entries", collect(key));
@@ -73,6 +75,7 @@ public class ModelServer {
             @Override
             public void handle(RemoteEndpoint conn, JSONObject message) {
                 String key = message.getString("key");
+                if (key.startsWith(PROTECTED_PREFIX)) throw new RuntimeException("No permission to access " + key);
                 String value = message.getString("value");
                 storeClient.put(key, value);
             }
@@ -81,6 +84,7 @@ public class ModelServer {
             @Override
             public void handle(RemoteEndpoint conn, JSONObject message) {
                 String key = message.getString("key");
+                if (key.startsWith(PROTECTED_PREFIX)) throw new RuntimeException("No permission to access " + key);
                 storeClient.listen(key, keyListener);
                 subscribedKeys.add(key);
                 sessions.get(conn).subscribe(key);
@@ -90,6 +94,7 @@ public class ModelServer {
             @Override
             public void handle(RemoteEndpoint conn, JSONObject message) {
                 String key = message.getString("key");
+                if (key.startsWith(PROTECTED_PREFIX)) throw new RuntimeException("No permission to access " + key);
                 long value = storeClient.generateId(key);
                 JSONObject reply = new JSONObject();
                 reply.put("type", "counter");

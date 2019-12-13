@@ -145,6 +145,7 @@
       <concept id="1225271177708" name="jetbrains.mps.baseLanguage.structure.StringType" flags="in" index="17QB3L" />
       <concept id="1225271221393" name="jetbrains.mps.baseLanguage.structure.NPENotEqualsExpression" flags="nn" index="17QLQc" />
       <concept id="1225271283259" name="jetbrains.mps.baseLanguage.structure.NPEEqualsExpression" flags="nn" index="17R0WA" />
+      <concept id="1225271408483" name="jetbrains.mps.baseLanguage.structure.IsNotEmptyOperation" flags="nn" index="17RvpY" />
       <concept id="4972933694980447171" name="jetbrains.mps.baseLanguage.structure.BaseVariableDeclaration" flags="ng" index="19Szcq">
         <child id="5680397130376446158" name="type" index="1tU5fm" />
       </concept>
@@ -2348,6 +2349,45 @@
                 </node>
               </node>
             </node>
+          </node>
+        </node>
+        <node concept="3cpWs8" id="2EzI5qKoPSV" role="3cqZAp">
+          <node concept="3cpWsn" id="2EzI5qKoPSW" role="3cpWs9">
+            <property role="TrG5h" value="email" />
+            <node concept="17QB3L" id="2EzI5qKoPPs" role="1tU5fm" />
+            <node concept="2OqwBi" id="2EzI5qKoPSX" role="33vP2m">
+              <node concept="37vLTw" id="2EzI5qKoPSY" role="2Oq$k0">
+                <ref role="3cqZAo" node="6aRQr1WTIFv" resolve="cloudRepository" />
+              </node>
+              <node concept="liA8E" id="2EzI5qKoPSZ" role="2OqNvi">
+                <ref role="37wK5l" to="csg2:2EzI5qKowuu" resolve="getEmail" />
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="3clFbJ" id="2EzI5qKq$wb" role="3cqZAp">
+          <node concept="3clFbS" id="2EzI5qKq$wd" role="3clFbx">
+            <node concept="3clFbF" id="2EzI5qKoST5" role="3cqZAp">
+              <node concept="d57v9" id="2EzI5qKoTvx" role="3clFbG">
+                <node concept="3cpWs3" id="2EzI5qKoTPa" role="37vLTx">
+                  <node concept="37vLTw" id="2EzI5qKoU9t" role="3uHU7w">
+                    <ref role="3cqZAo" node="2EzI5qKoPSW" resolve="email" />
+                  </node>
+                  <node concept="Xl_RD" id="2EzI5qKoTOq" role="3uHU7B">
+                    <property role="Xl_RC" value=" " />
+                  </node>
+                </node>
+                <node concept="37vLTw" id="2EzI5qKoST3" role="37vLTJ">
+                  <ref role="3cqZAo" node="1JFLVobiAsK" resolve="text" />
+                </node>
+              </node>
+            </node>
+          </node>
+          <node concept="2OqwBi" id="2EzI5qKq_Af" role="3clFbw">
+            <node concept="37vLTw" id="2EzI5qKq$TM" role="2Oq$k0">
+              <ref role="3cqZAo" node="2EzI5qKoPSW" resolve="email" />
+            </node>
+            <node concept="17RvpY" id="2EzI5qKqA13" role="2OqNvi" />
           </node>
         </node>
         <node concept="3clFbF" id="1JFLVobizZM" role="3cqZAp">

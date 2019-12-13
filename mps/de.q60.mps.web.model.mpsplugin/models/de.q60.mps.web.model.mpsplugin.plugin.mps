@@ -29,6 +29,7 @@
     <import index="bd8o" ref="498d89d2-c2e9-11e2-ad49-6cf049e62fe5/java:com.intellij.openapi.application(MPS.IDEA/)" />
     <import index="mhbf" ref="8865b7a8-5271-43d3-884c-6fd1d9cfdd34/java:org.jetbrains.mps.openapi.model(MPS.OpenAPI/)" />
     <import index="fyhk" ref="6ed54515-acc8-4d1e-a16c-9fd6cfe951ea/java:jetbrains.mps(MPS.Core/)" />
+    <import index="zf81" ref="6354ebe7-c22a-4a0f-ac54-50b52ab9b065/java:java.net(JDK/)" />
     <import index="71xd" ref="742f6602-5a2f-4313-aa6e-ae1cd4ffdc61/java:jetbrains.mps.ide.tools(MPS.Platform/)" implicit="true" />
     <import index="c17a" ref="8865b7a8-5271-43d3-884c-6fd1d9cfdd34/java:org.jetbrains.mps.openapi.language(MPS.OpenAPI/)" implicit="true" />
     <import index="5zyv" ref="6354ebe7-c22a-4a0f-ac54-50b52ab9b065/java:java.util.concurrent(JDK/)" implicit="true" />
@@ -774,6 +775,12 @@
     <node concept="ftmFs" id="6aRQr1XbZf5" role="ftER_">
       <node concept="tCFHf" id="6aRQr1XbZft" role="ftvYc">
         <ref role="tCJdB" node="6aRQr1XbZf8" resolve="AddTree" />
+      </node>
+      <node concept="tCFHf" id="7L9MJywfwHw" role="ftvYc">
+        <ref role="tCJdB" node="7L9MJywexQg" resolve="GetAuthorizationToken" />
+      </node>
+      <node concept="tCFHf" id="2EzI5qKpw6u" role="ftvYc">
+        <ref role="tCJdB" node="2EzI5qKnqcr" resolve="EnterAuthorizationToken" />
       </node>
     </node>
   </node>
@@ -3612,6 +3619,281 @@
                     </node>
                   </node>
                 </node>
+              </node>
+            </node>
+          </node>
+        </node>
+      </node>
+    </node>
+  </node>
+  <node concept="sE7Ow" id="2EzI5qKnqcr">
+    <property role="3GE5qa" value="actions.repo" />
+    <property role="TrG5h" value="EnterAuthorizationToken" />
+    <property role="2uzpH1" value="Enter Authorization Token" />
+    <property role="72QZ$" value="true" />
+    <node concept="tnohg" id="2EzI5qKnqcs" role="tncku">
+      <node concept="3clFbS" id="2EzI5qKnqct" role="2VODD2">
+        <node concept="3cpWs8" id="2EzI5qKnqcu" role="3cqZAp">
+          <node concept="3cpWsn" id="2EzI5qKnqcv" role="3cpWs9">
+            <property role="TrG5h" value="cloudRepository" />
+            <node concept="3uibUv" id="2EzI5qKnqcw" role="1tU5fm">
+              <ref role="3uigEE" to="csg2:6aRQr1WOV$v" resolve="CloudRepository" />
+            </node>
+            <node concept="2OqwBi" id="2EzI5qKnqcx" role="33vP2m">
+              <node concept="1eOMI4" id="2EzI5qKnqcy" role="2Oq$k0">
+                <node concept="10QFUN" id="2EzI5qKnqcz" role="1eOMHV">
+                  <node concept="2OqwBi" id="2EzI5qKnqc$" role="10QFUP">
+                    <node concept="2WthIp" id="2EzI5qKnqc_" role="2Oq$k0" />
+                    <node concept="1DTwFV" id="2EzI5qKnqcA" role="2OqNvi">
+                      <ref role="2WH_rO" node="2EzI5qKnqdi" resolve="treeNode" />
+                    </node>
+                  </node>
+                  <node concept="3uibUv" id="2EzI5qKnqcB" role="10QFUM">
+                    <ref role="3uigEE" to="um17:6aRQr1WTCgk" resolve="CloudRepositoryTreeNode" />
+                  </node>
+                </node>
+              </node>
+              <node concept="liA8E" id="2EzI5qKnqcC" role="2OqNvi">
+                <ref role="37wK5l" to="um17:6aRQr1Xc29I" resolve="getCloudRepository" />
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="3clFbH" id="2EzI5qKnqcD" role="3cqZAp" />
+        <node concept="3cpWs8" id="2EzI5qKnqcE" role="3cqZAp">
+          <node concept="3cpWsn" id="2EzI5qKnqcF" role="3cpWs9">
+            <property role="TrG5h" value="token" />
+            <node concept="17QB3L" id="2EzI5qKnqcG" role="1tU5fm" />
+            <node concept="2YIFZM" id="2EzI5qKnqcH" role="33vP2m">
+              <ref role="1Pybhc" to="jkm4:~Messages" resolve="Messages" />
+              <ref role="37wK5l" to="jkm4:~Messages.showInputDialog(com.intellij.openapi.project.Project,java.lang.String,java.lang.String,javax.swing.Icon)" resolve="showInputDialog" />
+              <node concept="2OqwBi" id="2EzI5qKnqcI" role="37wK5m">
+                <node concept="2WthIp" id="2EzI5qKnqcJ" role="2Oq$k0" />
+                <node concept="1DTwFV" id="2EzI5qKnqcK" role="2OqNvi">
+                  <ref role="2WH_rO" node="2EzI5qKnqdg" resolve="project" />
+                </node>
+              </node>
+              <node concept="Xl_RD" id="2EzI5qKnqcL" role="37wK5m">
+                <property role="Xl_RC" value="Token" />
+              </node>
+              <node concept="Xl_RD" id="2EzI5qKnqcM" role="37wK5m">
+                <property role="Xl_RC" value="Set Authorization Token" />
+              </node>
+              <node concept="10M0yZ" id="2EzI5qKnqcN" role="37wK5m">
+                <ref role="3cqZAo" to="csg2:6aRQr1WUw7m" resolve="TREE_ICON" />
+                <ref role="1PxDUh" to="csg2:6aRQr1WMwO8" resolve="CloudIcons" />
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="3clFbJ" id="2EzI5qKnqcO" role="3cqZAp">
+          <node concept="3clFbS" id="2EzI5qKnqcP" role="3clFbx">
+            <node concept="3cpWs6" id="2EzI5qKnqcQ" role="3cqZAp" />
+          </node>
+          <node concept="2OqwBi" id="2EzI5qKnqcR" role="3clFbw">
+            <node concept="37vLTw" id="2EzI5qKnqcS" role="2Oq$k0">
+              <ref role="3cqZAo" node="2EzI5qKnqcF" resolve="token" />
+            </node>
+            <node concept="17RlXB" id="2EzI5qKnqcT" role="2OqNvi" />
+          </node>
+        </node>
+        <node concept="3clFbF" id="2EzI5qKnqda" role="3cqZAp">
+          <node concept="2OqwBi" id="2EzI5qKnqdb" role="3clFbG">
+            <node concept="37vLTw" id="2EzI5qKnqdc" role="2Oq$k0">
+              <ref role="3cqZAo" node="2EzI5qKnqcv" resolve="cloudRepository" />
+            </node>
+            <node concept="liA8E" id="2EzI5qKnqdd" role="2OqNvi">
+              <ref role="37wK5l" to="csg2:2EzI5qKmtmw" resolve="setAuthToken" />
+              <node concept="37vLTw" id="2EzI5qKnqde" role="37wK5m">
+                <ref role="3cqZAo" node="2EzI5qKnqcF" resolve="token" />
+              </node>
+            </node>
+          </node>
+        </node>
+      </node>
+    </node>
+    <node concept="1DS2jV" id="2EzI5qKnqdg" role="1NuT2Z">
+      <property role="TrG5h" value="project" />
+      <ref role="1DUlNI" to="qkt:~CommonDataKeys.PROJECT" resolve="PROJECT" />
+      <node concept="1oajcY" id="2EzI5qKnqdh" role="1oa70y" />
+    </node>
+    <node concept="1DS2jV" id="2EzI5qKnqdi" role="1NuT2Z">
+      <property role="TrG5h" value="treeNode" />
+      <ref role="1DUlNI" to="qq03:~MPSCommonDataKeys.TREE_NODE" resolve="TREE_NODE" />
+      <node concept="1oajcY" id="2EzI5qKnqdj" role="1oa70y" />
+    </node>
+    <node concept="2ScWuX" id="2EzI5qKnqdk" role="tmbBb">
+      <node concept="3clFbS" id="2EzI5qKnqdl" role="2VODD2">
+        <node concept="3clFbF" id="2EzI5qKnqdm" role="3cqZAp">
+          <node concept="2ZW3vV" id="2EzI5qKnqdn" role="3clFbG">
+            <node concept="3uibUv" id="2EzI5qKnqdo" role="2ZW6by">
+              <ref role="3uigEE" to="um17:6aRQr1WTCgk" resolve="CloudRepositoryTreeNode" />
+            </node>
+            <node concept="2OqwBi" id="2EzI5qKnqdp" role="2ZW6bz">
+              <node concept="2WthIp" id="2EzI5qKnqdq" role="2Oq$k0" />
+              <node concept="1DTwFV" id="2EzI5qKnqdr" role="2OqNvi">
+                <ref role="2WH_rO" node="2EzI5qKnqdi" resolve="treeNode" />
+              </node>
+            </node>
+          </node>
+        </node>
+      </node>
+    </node>
+  </node>
+  <node concept="sE7Ow" id="7L9MJywexQg">
+    <property role="3GE5qa" value="actions.repo" />
+    <property role="TrG5h" value="GetAuthorizationToken" />
+    <property role="2uzpH1" value="Get Authorization Token" />
+    <property role="72QZ$" value="true" />
+    <node concept="tnohg" id="7L9MJywexQh" role="tncku">
+      <node concept="3clFbS" id="7L9MJywexQi" role="2VODD2">
+        <node concept="3cpWs8" id="7L9MJywexQj" role="3cqZAp">
+          <node concept="3cpWsn" id="7L9MJywexQk" role="3cpWs9">
+            <property role="TrG5h" value="cloudRepository" />
+            <node concept="3uibUv" id="7L9MJywexQl" role="1tU5fm">
+              <ref role="3uigEE" to="csg2:6aRQr1WOV$v" resolve="CloudRepository" />
+            </node>
+            <node concept="2OqwBi" id="7L9MJywexQm" role="33vP2m">
+              <node concept="1eOMI4" id="7L9MJywexQn" role="2Oq$k0">
+                <node concept="10QFUN" id="7L9MJywexQo" role="1eOMHV">
+                  <node concept="2OqwBi" id="7L9MJywexQp" role="10QFUP">
+                    <node concept="2WthIp" id="7L9MJywexQq" role="2Oq$k0" />
+                    <node concept="1DTwFV" id="7L9MJywexQr" role="2OqNvi">
+                      <ref role="2WH_rO" node="7L9MJywexQQ" resolve="treeNode" />
+                    </node>
+                  </node>
+                  <node concept="3uibUv" id="7L9MJywexQs" role="10QFUM">
+                    <ref role="3uigEE" to="um17:6aRQr1WTCgk" resolve="CloudRepositoryTreeNode" />
+                  </node>
+                </node>
+              </node>
+              <node concept="liA8E" id="7L9MJywexQt" role="2OqNvi">
+                <ref role="37wK5l" to="um17:6aRQr1Xc29I" resolve="getCloudRepository" />
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="3clFbH" id="7L9MJywexQu" role="3cqZAp" />
+        <node concept="3cpWs8" id="7L9MJyweEOO" role="3cqZAp">
+          <node concept="3cpWsn" id="7L9MJyweEOP" role="3cpWs9">
+            <property role="TrG5h" value="url" />
+            <node concept="17QB3L" id="7L9MJyweEOt" role="1tU5fm" />
+            <node concept="3cpWs3" id="7L9MJyweEOQ" role="33vP2m">
+              <node concept="Xl_RD" id="7L9MJyweEOR" role="3uHU7w">
+                <property role="Xl_RC" value="generateToken" />
+              </node>
+              <node concept="2OqwBi" id="7L9MJyweEOS" role="3uHU7B">
+                <node concept="37vLTw" id="7L9MJyweEOT" role="2Oq$k0">
+                  <ref role="3cqZAo" node="7L9MJywexQk" resolve="cloudRepository" />
+                </node>
+                <node concept="liA8E" id="7L9MJyweEOU" role="2OqNvi">
+                  <ref role="37wK5l" to="csg2:6aRQr1WQLS7" resolve="getBaseUrl" />
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="SfApY" id="7L9MJyweFRv" role="3cqZAp">
+          <node concept="3clFbS" id="7L9MJyweFRx" role="SfCbr">
+            <node concept="3clFbF" id="7L9MJyweF4W" role="3cqZAp">
+              <node concept="2OqwBi" id="7L9MJyweFdb" role="3clFbG">
+                <node concept="2YIFZM" id="7L9MJyweF6O" role="2Oq$k0">
+                  <ref role="37wK5l" to="z60i:~Desktop.getDesktop()" resolve="getDesktop" />
+                  <ref role="1Pybhc" to="z60i:~Desktop" resolve="Desktop" />
+                </node>
+                <node concept="liA8E" id="7L9MJyweFl9" role="2OqNvi">
+                  <ref role="37wK5l" to="z60i:~Desktop.browse(java.net.URI)" resolve="browse" />
+                  <node concept="2ShNRf" id="7L9MJyweFzM" role="37wK5m">
+                    <node concept="1pGfFk" id="7L9MJyweFzB" role="2ShVmc">
+                      <ref role="37wK5l" to="zf81:~URI.&lt;init&gt;(java.lang.String)" resolve="URI" />
+                      <node concept="37vLTw" id="7L9MJyweF$U" role="37wK5m">
+                        <ref role="3cqZAo" node="7L9MJyweEOP" resolve="url" />
+                      </node>
+                    </node>
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+          <node concept="TDmWw" id="7L9MJyweFRy" role="TEbGg">
+            <node concept="3cpWsn" id="7L9MJyweFR$" role="TDEfY">
+              <property role="TrG5h" value="ex" />
+              <node concept="3uibUv" id="7L9MJyweGaT" role="1tU5fm">
+                <ref role="3uigEE" to="wyt6:~Exception" resolve="Exception" />
+              </node>
+            </node>
+            <node concept="3clFbS" id="7L9MJyweFRC" role="TDEfX">
+              <node concept="RRSsy" id="7L9MJywferf" role="3cqZAp">
+                <property role="RRSoG" value="gZ5fh_4/error" />
+                <node concept="Xl_RD" id="7L9MJywferh" role="RRSoy" />
+                <node concept="37vLTw" id="7L9MJywferj" role="RRSow">
+                  <ref role="3cqZAo" node="7L9MJyweFR$" resolve="ex" />
+                </node>
+              </node>
+              <node concept="3clFbF" id="7L9MJywfdEB" role="3cqZAp">
+                <node concept="2YIFZM" id="7L9MJywfdF9" role="3clFbG">
+                  <ref role="37wK5l" to="jkm4:~Messages.showErrorDialog(com.intellij.openapi.project.Project,java.lang.String,java.lang.String)" resolve="showErrorDialog" />
+                  <ref role="1Pybhc" to="jkm4:~Messages" resolve="Messages" />
+                  <node concept="2OqwBi" id="7L9MJywfdFM" role="37wK5m">
+                    <node concept="2WthIp" id="7L9MJywfdFP" role="2Oq$k0" />
+                    <node concept="1DTwFV" id="7L9MJywfdFR" role="2OqNvi">
+                      <ref role="2WH_rO" node="7L9MJywexQO" resolve="project" />
+                    </node>
+                  </node>
+                  <node concept="3cpWs3" id="7L9MJywfezK" role="37wK5m">
+                    <node concept="3cpWs3" id="7L9MJywffkN" role="3uHU7B">
+                      <node concept="Xl_RD" id="7L9MJywffl3" role="3uHU7w">
+                        <property role="Xl_RC" value=": " />
+                      </node>
+                      <node concept="3cpWs3" id="7L9MJywfeZD" role="3uHU7B">
+                        <node concept="Xl_RD" id="7L9MJywfe_H" role="3uHU7B">
+                          <property role="Xl_RC" value="Failed to open " />
+                        </node>
+                        <node concept="37vLTw" id="7L9MJywfeZX" role="3uHU7w">
+                          <ref role="3cqZAo" node="7L9MJyweEOP" resolve="url" />
+                        </node>
+                      </node>
+                    </node>
+                    <node concept="2OqwBi" id="7L9MJywfe06" role="3uHU7w">
+                      <node concept="37vLTw" id="7L9MJywfdLK" role="2Oq$k0">
+                        <ref role="3cqZAo" node="7L9MJyweFR$" resolve="ex" />
+                      </node>
+                      <node concept="liA8E" id="7L9MJywfeh9" role="2OqNvi">
+                        <ref role="37wK5l" to="wyt6:~Throwable.getMessage()" resolve="getMessage" />
+                      </node>
+                    </node>
+                  </node>
+                  <node concept="Xl_RD" id="7L9MJywffuK" role="37wK5m">
+                    <property role="Xl_RC" value="Get Authorization Token" />
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+      </node>
+    </node>
+    <node concept="1DS2jV" id="7L9MJywexQO" role="1NuT2Z">
+      <property role="TrG5h" value="project" />
+      <ref role="1DUlNI" to="qkt:~CommonDataKeys.PROJECT" resolve="PROJECT" />
+      <node concept="1oajcY" id="7L9MJywexQP" role="1oa70y" />
+    </node>
+    <node concept="1DS2jV" id="7L9MJywexQQ" role="1NuT2Z">
+      <property role="TrG5h" value="treeNode" />
+      <ref role="1DUlNI" to="qq03:~MPSCommonDataKeys.TREE_NODE" resolve="TREE_NODE" />
+      <node concept="1oajcY" id="7L9MJywexQR" role="1oa70y" />
+    </node>
+    <node concept="2ScWuX" id="7L9MJywexQS" role="tmbBb">
+      <node concept="3clFbS" id="7L9MJywexQT" role="2VODD2">
+        <node concept="3clFbF" id="7L9MJywexQU" role="3cqZAp">
+          <node concept="2ZW3vV" id="7L9MJywexQV" role="3clFbG">
+            <node concept="3uibUv" id="7L9MJywexQW" role="2ZW6by">
+              <ref role="3uigEE" to="um17:6aRQr1WTCgk" resolve="CloudRepositoryTreeNode" />
+            </node>
+            <node concept="2OqwBi" id="7L9MJywexQX" role="2ZW6bz">
+              <node concept="2WthIp" id="7L9MJywexQY" role="2Oq$k0" />
+              <node concept="1DTwFV" id="7L9MJywexQZ" role="2OqNvi">
+                <ref role="2WH_rO" node="7L9MJywexQQ" resolve="treeNode" />
               </node>
             </node>
           </node>

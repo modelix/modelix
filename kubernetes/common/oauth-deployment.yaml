@@ -26,6 +26,12 @@ spec:
             - --client-id=214800094662-35dpgqu2llmn9mr5tt2ao9d7roebmtmm.apps.googleusercontent.com
             - --upstream=http://proxy/
             - --http-address=0.0.0.0:4180
+            - --skip-auth-regex=\/model\/get\/.*
+            - --skip-auth-regex=\/model\/getRecursively\/.*
+            - --skip-auth-regex=\/model\/put\/.*
+            - --skip-auth-regex=\/model\/counter\/.*
+            - --skip-auth-regex=\/model\/subscribe\/.*
+            - --skip-auth-regex=\/model\/getEmail
           readinessProbe:
             httpGet:
               path: /ping
