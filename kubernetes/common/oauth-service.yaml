@@ -11,9 +11,5 @@ spec:
       name: "http"
       protocol: TCP
       targetPort: 4180
-    - port: 4181
-      name: "https"
-      protocol: TCP
-      targetPort: 4181
   selector:
     app: oauth

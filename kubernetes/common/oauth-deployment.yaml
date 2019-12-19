@@ -37,9 +37,6 @@ spec:
             - --skip-auth-regex=\/model\/counter\/.*
             - --skip-auth-regex=\/model\/subscribe\/.*
             - --skip-auth-regex=\/model\/getEmail
-            - --https-address=0.0.0.0:4181
-            - --tls-cert-file=/secrets/sslcert/cert.crt
-            - --tls-key-file=/secrets/sslcert/key.key
             - --http-address=0.0.0.0:4180
           volumeMounts:
             - name: sslcert
@@ -48,16 +45,16 @@ spec:
           readinessProbe:
             httpGet:
               path: /ping
-              port: 4181
-              scheme: HTTPS
+              port: 4180
+              scheme: HTTP
             initialDelaySeconds: 3
             periodSeconds: 5
             timeoutSeconds: 3
           livenessProbe:
             httpGet:
               path: /ping
-              port: 4181
-              scheme: HTTPS
+              port: 4180
+              scheme: HTTP
             initialDelaySeconds: 3
             periodSeconds: 10
             timeoutSeconds: 5
