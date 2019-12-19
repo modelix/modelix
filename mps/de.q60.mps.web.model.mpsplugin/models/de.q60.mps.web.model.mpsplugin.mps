@@ -82,6 +82,7 @@
     <import index="3d38" ref="r:bc160b50-5a4e-4f99-ba07-a7b7116dab7a(de.q60.mps.incremental.util)" />
     <import index="xp29" ref="c740997f-28c0-47e8-9b5a-e87dfdb17a21/java:org.glassfish.jersey.client.authentication(de.q60.mps.web.jersey/)" />
     <import index="8oaq" ref="b0f8641f-bd77-4421-8425-30d9088a82f7/java:org.apache.commons.io(org.apache.commons/)" />
+    <import index="ia5i" ref="r:53d14de3-e820-4a3b-9328-a2833dcab0bd(de.q60.mps.web.common)" />
   </imports>
   <registry>
     <language id="a247e09e-2435-45ba-b8d2-07e93feba96a" name="jetbrains.mps.baseLanguage.tuples">
@@ -11392,9 +11393,9 @@
                                   </node>
                                   <node concept="1bVj0M" id="2EzI5qKswrH" role="37wK5m">
                                     <node concept="3clFbS" id="2EzI5qKswrJ" role="1bW5cS">
-                                      <node concept="3clFbF" id="2EzI5qKsx41" role="3cqZAp">
-                                        <node concept="37vLTw" id="2EzI5qKsx40" role="3clFbG">
-                                          <ref role="3cqZAo" node="2EzI5qKoePt" resolve="email" />
+                                      <node concept="3clFbF" id="5MA9wbc620w" role="3cqZAp">
+                                        <node concept="1rXfSq" id="5MA9wbc6dyz" role="3clFbG">
+                                          <ref role="37wK5l" node="5MA9wbc62$n" resolve="getAuthor" />
                                         </node>
                                       </node>
                                     </node>
@@ -11557,6 +11558,23 @@
         <node concept="3clFbF" id="2EzI5qKo_zq" role="3cqZAp">
           <node concept="37vLTw" id="2EzI5qKo_zp" role="3clFbG">
             <ref role="3cqZAo" node="2EzI5qKoePt" resolve="email" />
+          </node>
+        </node>
+      </node>
+    </node>
+    <node concept="2tJIrI" id="5MA9wbc68eo" role="jymVt" />
+    <node concept="3clFb_" id="5MA9wbc62$n" role="jymVt">
+      <property role="TrG5h" value="getAuthor" />
+      <node concept="17QB3L" id="5MA9wbc62$o" role="3clF45" />
+      <node concept="3Tm6S6" id="5MA9wbc6awW" role="1B3o_S" />
+      <node concept="3clFbS" id="5MA9wbc62$q" role="3clF47">
+        <node concept="3clFbF" id="5MA9wbc6czO" role="3cqZAp">
+          <node concept="2YIFZM" id="5MA9wbc6D2Y" role="3clFbG">
+            <ref role="37wK5l" to="ia5i:5MA9wbc5wh4" resolve="apply" />
+            <ref role="1Pybhc" to="ia5i:5MA9wbc5skS" resolve="AuthorOverride" />
+            <node concept="1rXfSq" id="5MA9wbc6cVQ" role="37wK5m">
+              <ref role="37wK5l" node="2EzI5qKowuu" resolve="getEmail" />
+            </node>
           </node>
         </node>
       </node>
@@ -12311,9 +12329,9 @@
                         <node concept="10Nm6u" id="49CIzaqemKJ" role="37wK5m" />
                         <node concept="1bVj0M" id="2EzI5qKsy4Q" role="37wK5m">
                           <node concept="3clFbS" id="2EzI5qKsy4S" role="1bW5cS">
-                            <node concept="3clFbF" id="2EzI5qKsyq3" role="3cqZAp">
-                              <node concept="37vLTw" id="2EzI5qKsyq2" role="3clFbG">
-                                <ref role="3cqZAo" node="2EzI5qKoePt" resolve="email" />
+                            <node concept="3clFbF" id="5MA9wbc60L1" role="3cqZAp">
+                              <node concept="1rXfSq" id="5MA9wbc6eJO" role="3clFbG">
+                                <ref role="37wK5l" node="5MA9wbc62$n" resolve="getAuthor" />
                               </node>
                             </node>
                           </node>

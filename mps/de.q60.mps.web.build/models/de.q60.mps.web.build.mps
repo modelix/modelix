@@ -328,6 +328,9 @@
       <node concept="m$_yC" id="7gF2HTvj5cl" role="m$_yJ">
         <ref role="m$_y1" to="ffeo:4k71ibbKLe8" resolve="jetbrains.mps.core" />
       </node>
+      <node concept="m$_yC" id="5MA9wbc6Ktd" role="m$_yJ">
+        <ref role="m$_y1" to="90a9:4iIKqJTZ5I8" resolve="de.q60.shadowmodels" />
+      </node>
     </node>
     <node concept="m$_wf" id="7gF2HTvj4Cd" role="3989C9">
       <property role="m$_wk" value="de.q60.mps.web.ui" />
@@ -433,6 +436,25 @@
     </node>
     <node concept="2G$12M" id="7gF2HTvj55a" role="3989C9">
       <property role="TrG5h" value="de.q60.mps.web.common" />
+      <node concept="1E1JtA" id="5MA9wbc6HlL" role="2G$12L">
+        <property role="BnDLt" value="true" />
+        <property role="TrG5h" value="de.q60.mps.web.common" />
+        <property role="3LESm3" value="acf6d2e2-4f00-4425-b7e9-fbf011feddf1" />
+        <node concept="398BVA" id="5MA9wbc6HIp" role="3LF7KH">
+          <ref role="398BVh" node="3$7Kuaihl5X" resolve="webmps.modules" />
+          <node concept="2Ry0Ak" id="5MA9wbc6Iq7" role="iGT6I">
+            <property role="2Ry0Am" value="de.q60.mps.web.common" />
+            <node concept="2Ry0Ak" id="5MA9wbc6J5O" role="2Ry0An">
+              <property role="2Ry0Am" value="de.q60.mps.web.common.msd" />
+            </node>
+          </node>
+        </node>
+        <node concept="1SiIV0" id="5MA9wbc6JrE" role="3bR37C">
+          <node concept="3bR9La" id="5MA9wbc6JrF" role="1SiIV1">
+            <ref role="3bR37D" to="90a9:6fQhGuklPrV" resolve="de.q60.mps.incremental.runtime" />
+          </node>
+        </node>
+      </node>
       <node concept="1E1JtA" id="7gF2HTviNPP" role="2G$12L">
         <property role="BnDLt" value="true" />
         <property role="TrG5h" value="de.q60.mps.web.lib" />
@@ -1769,6 +1791,11 @@
         <node concept="1SiIV0" id="5npwda835T7" role="3bR37C">
           <node concept="3bR9La" id="5npwda835T8" role="1SiIV1">
             <ref role="3bR37D" to="90a9:4iIKqJTZ5Hm" resolve="de.q60.mps.shadowmodels.runtime" />
+          </node>
+        </node>
+        <node concept="1SiIV0" id="1W$kLfSZfU9" role="3bR37C">
+          <node concept="3bR9La" id="1W$kLfSZfUa" role="1SiIV1">
+            <ref role="3bR37D" node="5MA9wbc6HlL" resolve="de.q60.mps.web.common" />
           </node>
         </node>
       </node>
@@ -3436,6 +3463,11 @@
         <node concept="1SiIV0" id="5MA9wbc4p$I" role="3bR37C">
           <node concept="3bR9La" id="5MA9wbc4p$J" role="1SiIV1">
             <ref role="3bR37D" to="90a9:PE3B26QCrP" resolve="org.apache.commons" />
+          </node>
+        </node>
+        <node concept="1SiIV0" id="1W$kLfT1eWC" role="3bR37C">
+          <node concept="3bR9La" id="1W$kLfT1eWD" role="1SiIV1">
+            <ref role="3bR37D" node="5MA9wbc6HlL" resolve="de.q60.mps.web.common" />
           </node>
         </node>
       </node>
