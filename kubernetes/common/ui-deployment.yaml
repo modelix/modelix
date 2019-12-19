@@ -22,7 +22,7 @@ spec:
     spec:
       containers:
       - name: ui
-        image: slisson/webmps-ui:201912030949
+        image: slisson/webmps-ui:201912191111
         imagePullPolicy: IfNotPresent
         env:
         - name: MODEL_URI
@@ -31,6 +31,10 @@ spec:
         - containerPort: 33333
         - containerPort: 5071
           name: "jvm-debug"
+        volumeMounts:
+          - name: modelsecret
+            mountPath: /secrets/modelsecret
+            readOnly: true
         resources: 
           requests:
             memory: "2.0Gi"
@@ -53,4 +57,8 @@ spec:
           periodSeconds: 20
           timeoutSeconds: 10
       restartPolicy: Always
+      volumes:
+        - name: modelsecret
+          secret:
+            secretName: modelsecret
 status: {}

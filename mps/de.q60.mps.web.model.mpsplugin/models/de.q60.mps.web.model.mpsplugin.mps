@@ -81,6 +81,7 @@
     <import index="pxg7" ref="87f4b21e-a3a5-459e-a54b-408fd9eb7350/java:com.esotericsoftware.kryo.io(de.q60.mps.web.lib/)" />
     <import index="3d38" ref="r:bc160b50-5a4e-4f99-ba07-a7b7116dab7a(de.q60.mps.incremental.util)" />
     <import index="xp29" ref="c740997f-28c0-47e8-9b5a-e87dfdb17a21/java:org.glassfish.jersey.client.authentication(de.q60.mps.web.jersey/)" />
+    <import index="8oaq" ref="b0f8641f-bd77-4421-8425-30d9088a82f7/java:org.apache.commons.io(org.apache.commons/)" />
   </imports>
   <registry>
     <language id="a247e09e-2435-45ba-b8d2-07e93feba96a" name="jetbrains.mps.baseLanguage.tuples">
@@ -7326,10 +7327,86 @@
     <node concept="3uibUv" id="64iiug7Vq1I" role="EKbjA">
       <ref role="3uigEE" node="64iiug7Vluc" resolve="IModelClient" />
     </node>
-    <node concept="2tJIrI" id="1LVcV5KyQp8" role="jymVt" />
-    <node concept="1Pe0a1" id="6lVG1TvbdyK" role="jymVt">
-      <node concept="3clFbS" id="6lVG1TvbdyM" role="1Pe0a2" />
+    <node concept="Wx3nA" id="5MA9wbc42QW" role="jymVt">
+      <property role="TrG5h" value="defaultToken" />
+      <node concept="17QB3L" id="5MA9wbc42iQ" role="1tU5fm" />
+      <node concept="3Tm6S6" id="5MA9wbc3Xw$" role="1B3o_S" />
     </node>
+    <node concept="2tJIrI" id="5MA9wbc3AkZ" role="jymVt" />
+    <node concept="1Pe0a1" id="6lVG1TvbdyK" role="jymVt">
+      <node concept="3clFbS" id="6lVG1TvbdyM" role="1Pe0a2">
+        <node concept="SfApY" id="5MA9wbc480$" role="3cqZAp">
+          <node concept="3clFbS" id="5MA9wbc480_" role="SfCbr">
+            <node concept="3cpWs8" id="5MA9wbc49pF" role="3cqZAp">
+              <node concept="3cpWsn" id="5MA9wbc49pG" role="3cpWs9">
+                <property role="TrG5h" value="sharedSecretFile" />
+                <node concept="3uibUv" id="5MA9wbc49pH" role="1tU5fm">
+                  <ref role="3uigEE" to="guwi:~File" resolve="File" />
+                </node>
+                <node concept="2ShNRf" id="5MA9wbc4a9q" role="33vP2m">
+                  <node concept="1pGfFk" id="5MA9wbc49LQ" role="2ShVmc">
+                    <ref role="37wK5l" to="guwi:~File.&lt;init&gt;(java.lang.String)" resolve="File" />
+                    <node concept="Xl_RD" id="5MA9wbc4axh" role="37wK5m">
+                      <property role="Xl_RC" value="/secrets/modelsecret/modelsecret.txt" />
+                    </node>
+                  </node>
+                </node>
+              </node>
+            </node>
+            <node concept="3clFbJ" id="5MA9wbc4bqs" role="3cqZAp">
+              <node concept="3clFbS" id="5MA9wbc4bqu" role="3clFbx">
+                <node concept="3clFbF" id="5MA9wbc4lOy" role="3cqZAp">
+                  <node concept="37vLTI" id="5MA9wbc4mCB" role="3clFbG">
+                    <node concept="37vLTw" id="5MA9wbc4lOx" role="37vLTJ">
+                      <ref role="3cqZAo" node="5MA9wbc42QW" resolve="defaultToken" />
+                    </node>
+                    <node concept="2YIFZM" id="5MA9wbc4iZk" role="37vLTx">
+                      <ref role="37wK5l" to="8oaq:~FileUtils.readFileToString(java.io.File,java.nio.charset.Charset)" resolve="readFileToString" />
+                      <ref role="1Pybhc" to="8oaq:~FileUtils" resolve="FileUtils" />
+                      <node concept="37vLTw" id="5MA9wbc4jJ1" role="37wK5m">
+                        <ref role="3cqZAo" node="5MA9wbc49pG" resolve="sharedSecretFile" />
+                      </node>
+                      <node concept="10M0yZ" id="5MA9wbc4kEr" role="37wK5m">
+                        <ref role="1PxDUh" to="7x5y:~StandardCharsets" resolve="StandardCharsets" />
+                        <ref role="3cqZAo" to="7x5y:~StandardCharsets.UTF_8" resolve="UTF_8" />
+                      </node>
+                    </node>
+                  </node>
+                </node>
+              </node>
+              <node concept="2OqwBi" id="5MA9wbc4cNU" role="3clFbw">
+                <node concept="37vLTw" id="5MA9wbc4c9V" role="2Oq$k0">
+                  <ref role="3cqZAo" node="5MA9wbc49pG" resolve="sharedSecretFile" />
+                </node>
+                <node concept="liA8E" id="5MA9wbc4dfx" role="2OqNvi">
+                  <ref role="37wK5l" to="guwi:~File.exists()" resolve="exists" />
+                </node>
+              </node>
+            </node>
+          </node>
+          <node concept="TDmWw" id="5MA9wbc480A" role="TEbGg">
+            <node concept="3cpWsn" id="5MA9wbc480B" role="TDEfY">
+              <property role="TrG5h" value="ex" />
+              <node concept="3uibUv" id="5MA9wbc48gh" role="1tU5fm">
+                <ref role="3uigEE" to="wyt6:~Exception" resolve="Exception" />
+              </node>
+            </node>
+            <node concept="3clFbS" id="5MA9wbc480D" role="TDEfX">
+              <node concept="RRSsy" id="5MA9wbc490n" role="3cqZAp">
+                <property role="RRSoG" value="gZ5fh_4/error" />
+                <node concept="Xl_RD" id="5MA9wbc490p" role="RRSoy">
+                  <property role="Xl_RC" value="Failed to load default token" />
+                </node>
+                <node concept="37vLTw" id="5MA9wbc490r" role="RRSow">
+                  <ref role="3cqZAo" node="5MA9wbc480B" resolve="ex" />
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+      </node>
+    </node>
+    <node concept="2tJIrI" id="5MA9wbc3x4n" role="jymVt" />
     <node concept="2YIFZL" id="1LVcV5KyMi4" role="jymVt">
       <property role="TrG5h" value="getDefaultUrl" />
       <node concept="3clFbS" id="1LVcV5KyxFw" role="3clF47">
@@ -7459,7 +7536,9 @@
       <property role="TrG5h" value="authToken" />
       <node concept="3Tm6S6" id="64RcgITRyBt" role="1B3o_S" />
       <node concept="17QB3L" id="64RcgITRBlf" role="1tU5fm" />
-      <node concept="10Nm6u" id="2EzI5qKmX2w" role="33vP2m" />
+      <node concept="37vLTw" id="5MA9wbc4onu" role="33vP2m">
+        <ref role="3cqZAo" node="5MA9wbc42QW" resolve="defaultToken" />
+      </node>
     </node>
     <node concept="2tJIrI" id="5_gfWzaMsBb" role="jymVt" />
     <node concept="3clFbW" id="5_gfWzaMrKZ" role="jymVt">

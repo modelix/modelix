@@ -24,13 +24,17 @@ spec:
       - env:
         - name: jdbc_url
           value: jdbc:postgresql://db:5432/
-        image: slisson/webmps-model:201912030949
+        image: slisson/webmps-model:201912191111
         imagePullPolicy: IfNotPresent
         name: model
         ports:
         - containerPort: 28101
         - containerPort: 5071
-          name: "jvm-debug"        
+          name: "jvm-debug"
+        volumeMounts:
+          - name: modelsecret
+            mountPath: /secrets/modelsecret
+            readOnly: true
         resources: 
           requests:
             memory: "600Mi"
@@ -49,4 +53,8 @@ spec:
           initialDelaySeconds: 60
           periodSeconds: 10
       restartPolicy: Always
+      volumes:
+        - name: modelsecret
+          secret:
+            secretName: modelsecret
 status: {}
