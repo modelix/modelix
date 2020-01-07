@@ -7,6 +7,7 @@
       <modulePath path="$PROJECT_DIR$/de.q60.mps.web.aspect/de.q60.mps.web.aspect.mpl" folder="aspect" />
       <modulePath path="$PROJECT_DIR$/de.q60.mps.web.build.scripts/de.q60.mps.web.build.scripts.msd" folder="build" />
       <modulePath path="$PROJECT_DIR$/de.q60.mps.web.build/de.q60.mps.web.build.msd" folder="build" />
+      <modulePath path="$PROJECT_DIR$/de.q60.mps.web.common/de.q60.mps.web.common.msd" folder="common" />
       <modulePath path="$PROJECT_DIR$/de.q60.mps.web.jersey/de.q60.mps.web.jersey.msd" folder="common" />
       <modulePath path="$PROJECT_DIR$/de.q60.mps.web.jetty/de.q60.mps.web.jetty.msd" folder="common" />
       <modulePath path="$PROJECT_DIR$/de.q60.mps.web.lib/de.q60.mps.web.lib.msd" folder="common" />
