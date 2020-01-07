@@ -169,12 +169,6 @@
         <ref role="398BVh" node="7gF2HTviNPg" resolve="extensions.artifacts" />
       </node>
     </node>
-    <node concept="2sgV4H" id="4jf43pv7rKP" role="1l3spa">
-      <ref role="1l3spb" to="n8nt:2Xjt3l56m0V" resolve="de.itemis.mps.extensions.allScripts" />
-      <node concept="398BVA" id="4jf43pv7Jit" role="2JcizS">
-        <ref role="398BVh" node="7gF2HTviNPg" resolve="extensions.artifacts" />
-      </node>
-    </node>
     <node concept="1l3spV" id="4jf43pv7eeh" role="1l3spN">
       <node concept="3981dG" id="4jf43pv7eei" role="39821P">
         <node concept="3_J27D" id="4jf43pv7eej" role="Nbhlr">
@@ -210,7 +204,7 @@
         <ref role="m$_y1" to="ffeo:5HVSRHdVm9a" resolve="jetbrains.mps.build" />
       </node>
       <node concept="m$_yC" id="4jf43pv7rKZ" role="m$_yJ">
-        <ref role="m$_y1" to="90a9:4hvHh3QW$Eh" resolve="de.slisson.mps.all" />
+        <ref role="m$_y1" to="90a9:4hvHh3QW$Eh" resolve="de.itemis.mps.extensions.build" />
       </node>
       <node concept="3_J27D" id="4jf43pv7eed" role="m_cZH">
         <node concept="3Mxwew" id="4jf43pv7eee" role="3MwsjC">

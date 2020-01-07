@@ -11,7 +11,6 @@
   <property name="webmps.modules" location="${webmps.home}/mps" />
   <property name="artifacts.mps" location="${mps.home}" />
   <property name="artifacts.de.itemis.mps.extensions" location="${extensions.artifacts}" />
-  <property name="artifacts.de.itemis.mps.extensions.allScripts" location="${extensions.artifacts}" />
   <property file="${artifacts.mps}/build.properties" prefix="import.mps" />
   <property file="${artifacts.de.itemis.mps.extensions}/build.properties" prefix="import.de.itemis.mps.extensions" />
   <property name="mps.build.number" value="${import.mps.mps.build.number}" />
@@ -45,7 +44,7 @@
         <version>1.0</version>
         <depends>jetbrains.mps.core</depends>
         <depends>jetbrains.mps.build</depends>
-        <depends>de.slisson.mps.all</depends>
+        <depends>de.itemis.mps.extensions.build</depends>
         
         <extensions defaultExtensionNs="com.intellij">
           <mps.LanguageLibrary dir="/languages" />
@@ -120,10 +119,10 @@
   <target name="generate" depends="declare-mps-tasks, fetchDependencies">
     <echo message="generating" />
     <generate strictMode="true" parallelMode="true" parallelThreads="8" useInplaceTransform="false" hideWarnings="false" createStaticRefs="true" fork="true" skipUnmodifiedModels="${mps.generator.skipUnmodifiedModels}">
-      <plugin path="${artifacts.de.itemis.mps.extensions}/de.slisson.mps.all" />
+      <plugin path="${artifacts.de.itemis.mps.extensions}/de.itemis.mps.extensions.build" />
       <plugin path="${artifacts.mps}/plugins/mps-build" />
       <plugin path="${artifacts.mps}/plugins/mps-core" />
-      <library file="${artifacts.de.itemis.mps.extensions}/de.slisson.mps.all/languages/de.slisson.mps.all/de.itemis.mps.extensions.build.jar" />
+      <library file="${artifacts.de.itemis.mps.extensions}/de.itemis.mps.extensions.build/languages/de.itemis.mps.extensions.build/de.itemis.mps.extensions.build.jar" />
       <library file="${artifacts.mps}/languages/baseLanguage/closures.runtime.jar" />
       <library file="${artifacts.mps}/languages/baseLanguage/collections.runtime.jar" />
       <library file="${artifacts.mps}/languages/baseLanguage/jetbrains.mps.baseLanguage.blTypes.jar" />
@@ -238,7 +237,7 @@
         <path location="${webmps.modules}/de.q60.mps.web.build/source_gen" />
       </src>
       <classpath>
-        <fileset file="${artifacts.de.itemis.mps.extensions}/de.slisson.mps.all/languages/de.slisson.mps.all/de.itemis.mps.extensions.build.jar" />
+        <fileset file="${artifacts.de.itemis.mps.extensions}/de.itemis.mps.extensions.build/languages/de.itemis.mps.extensions.build/de.itemis.mps.extensions.build.jar" />
       </classpath>
     </javac>
   </target>
