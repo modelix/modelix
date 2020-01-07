@@ -24,7 +24,7 @@ spec:
       - env:
         - name: jdbc_url
           value: jdbc:postgresql://db:5432/
-        image: slisson/webmps-model:201912191111
+        image: cloudmps/cloudmps-model:202001071045
         imagePullPolicy: IfNotPresent
         name: model
         ports:

@@ -1,21 +1,21 @@
-FROM webmps-mps
-WORKDIR /usr/webmps-ui
+FROM cloudmps-mps
+WORKDIR /usr/cloudmps-ui
 EXPOSE 33333
 
 #RUN mkdir -p /opt/cprof && \
 #  wget -q -O- https://storage.googleapis.com/cloud-profiler/java/latest/profiler_java_agent.tar.gz \
 #  | tar xzv -C /opt/cprof
 
-COPY build/de.q60.mps.web/build/artifacts/de.q60.mps.web/de.q60.mps.web.zip /usr/webmps-ui/tmp.zip
-RUN unzip /usr/webmps-ui/tmp.zip -d /usr/webmps-ui/mps/plugins/
-RUN rm /usr/webmps-ui/tmp.zip
+COPY build/de.q60.mps.web/build/artifacts/de.q60.mps.web/de.q60.mps.web.zip /usr/cloudmps-ui/tmp.zip
+RUN unzip /usr/cloudmps-ui/tmp.zip -d /usr/cloudmps-ui/mps/plugins/
+RUN rm /usr/cloudmps-ui/tmp.zip
 
-COPY artifacts/de.itemis.mps.extensions/ /usr/webmps-ui/mps/plugins/
+COPY artifacts/de.itemis.mps.extensions/ /usr/cloudmps-ui/mps/plugins/
 
-RUN ls /usr/webmps-ui/mps/plugins/
+RUN ls /usr/cloudmps-ui/mps/plugins/
 
-COPY run-ui-server.sh /usr/webmps-ui
-COPY ui-server/build/libs/ui-server-1.0-SNAPSHOT.jar /usr/webmps-ui/ui-server.jar
-COPY healthcheck-ui.sh /usr/webmps-ui/
-HEALTHCHECK CMD /usr/webmps-ui/healthcheck.sh
+COPY run-ui-server.sh /usr/cloudmps-ui
+COPY ui-server/build/libs/ui-server-1.0-SNAPSHOT.jar /usr/cloudmps-ui/ui-server.jar
+COPY healthcheck-ui.sh /usr/cloudmps-ui/
+HEALTHCHECK CMD /usr/cloudmps-ui/healthcheck.sh
 CMD ["./run-ui-server.sh"]

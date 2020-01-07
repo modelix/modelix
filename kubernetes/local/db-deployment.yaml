@@ -26,7 +26,7 @@ spec:
           value: cloudmps
         - name: PGDATA
           value: /var/lib/postgresql/data/pgdata
-        image: slisson/webmps-db
+        image: cloudmps/cloudmps-db
         imagePullPolicy: IfNotPresent
         name: db
         resources: {}

@@ -22,7 +22,7 @@ spec:
     spec:
       containers:
       - name: proxy
-        image: slisson/webmps-proxy:201912030949
+        image: cloudmps/cloudmps-proxy:202001071045
         imagePullPolicy: IfNotPresent
         env:
         ports:

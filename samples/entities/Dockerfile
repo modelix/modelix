@@ -1,5 +1,5 @@
-FROM webmps-ui
-WORKDIR /usr/webmps-ui
+FROM cloudmps-ui
+WORKDIR /usr/cloudmps-ui
 
-COPY build/artifacts/de.q60.mps.web.samples.entities/de.q60.mps.web.samples.entities.zip /usr/webmps-ui/tmp.zip
-RUN unzip /usr/webmps-ui/tmp.zip -d /usr/webmps-ui/mps/plugins/ && rm /usr/webmps-ui/tmp.zip
+COPY build/artifacts/de.q60.mps.web.samples.entities/de.q60.mps.web.samples.entities.zip /usr/cloudmps-ui/tmp.zip
+RUN unzip /usr/cloudmps-ui/tmp.zip -d /usr/cloudmps-ui/mps/plugins/ && rm /usr/cloudmps-ui/tmp.zip
