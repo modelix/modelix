@@ -37,6 +37,7 @@ spec:
             - --skip-auth-regex=\/model\/counter\/.*
             - --skip-auth-regex=\/model\/subscribe\/.*
             - --skip-auth-regex=\/model\/getEmail
+            - --skip-auth-regex=^\/$
             - --http-address=0.0.0.0:4180
           volumeMounts:
             - name: sslcert
