@@ -5,8 +5,7 @@
 
 Cloud storage and web UI for MPS
 
-
-## Build and Run in the google cloud
+## Build and run in the google cloud
 
 - https://console.cloud.google.com/kubernetes/list?project=webmps
 - Create cluster
@@ -35,4 +34,13 @@ Cloud storage and web UI for MPS
     - `./docker-push.sh`
     - `kubectl apply -f deployment.yaml -f service.yaml`
 
+## Build and run local with minikube
 
+- minikube start --cpus=6 --memory=12GB --disk-size=40GB
+
+- `kubectl create secret generic modelsecret --from-file=./kubernetes/secrets/modelsecret.txt`
+- SSL certificate
+    - `cd ssl`
+    - `./generate.sh`
+    - `./kubernetes-create-secret.sh`
+- `./kubernetes-apply-local.sh`
