@@ -23,3 +23,26 @@
     top: 0;
   }
 }
+
+.ccmenu {
+  position: absolute;
+  color: black;
+  background-color: #efeff2;
+  overflow-y: scroll;
+  max-height: 200px;
+  padding-right: 5px;
+
+  .visibleSelection {
+    background-color: #dcf0ff;
+    color: #006ec5;
+  }
+
+  .matchingText {
+    padding: 0px 10px 0px 3px;
+  }
+
+  .description {
+    float: right;
+    padding: 0px 3px 0px 10px;
+  }
+}

@@ -7031,7 +7031,7 @@
               </node>
               <node concept="3cpWs3" id="7mc9A5ll724" role="3uHU7B">
                 <node concept="Xl_RD" id="7mc9A5ll725" role="3uHU7B">
-                  <property role="Xl_RC" value="&lt;html&gt;&lt;head&gt;&lt;link rel=\&quot;stylesheet\&quot; type=\&quot;text/css\&quot; href=\&quot;css/app.css\&quot;&gt;&lt;script type=\&quot;text/javascript\&quot; src=\&quot;scripts/app.js\&quot;&gt;&lt;/script&gt;&lt;/head&gt;&lt;body&gt;" />
+                  <property role="Xl_RC" value="&lt;!DOCTYPE html&gt;&lt;html&gt;&lt;head&gt;&lt;link rel=\&quot;stylesheet\&quot; type=\&quot;text/css\&quot; href=\&quot;css/app.css\&quot;&gt;&lt;script type=\&quot;text/javascript\&quot; src=\&quot;scripts/app.js\&quot;&gt;&lt;/script&gt;&lt;/head&gt;&lt;body&gt;" />
                 </node>
                 <node concept="37vLTw" id="7mc9A5ll726" role="3uHU7w">
                   <ref role="3cqZAo" node="7mc9A5ll70N" resolve="text" />

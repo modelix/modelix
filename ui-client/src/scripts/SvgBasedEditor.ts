@@ -2,11 +2,13 @@ import $ = require("jquery");
 import {KeyCodeTranslator} from "./KeyCodeTranslator";
 import {DomUtils} from "./DomUtil";
 import {getWebsocketUrl} from "./UrlUtil";
+import {CCMenu, IAction} from "./CCMenu";
 
 
 export class SvgBasedEditor {
 
     private socket: WebSocket;
+    private ccmenu: CCMenu;
 
     constructor(public readonly element: HTMLElement) {
         this.init(element);
@@ -27,7 +29,7 @@ export class SvgBasedEditor {
                 rawData = event.data;
 
                 if (lastMessage.type === "image.full") {
-                    this.element.innerHTML = null;
+                    $(this.element).children("img").remove();
 
                     let img: HTMLImageElement = document.createElement("img");
                     img.src = "data:image/png;base64," + rawData;
@@ -57,6 +59,29 @@ export class SvgBasedEditor {
                     rawDataFollowing = true;
                 } else if (message.type === "image.full") {
                     rawDataFollowing = true;
+                } else if (message.type === "ccmenu.hide") {
+                    this.ccmenu.setVisible(false);
+                } else if (message.type === "ccmenu") {
+                    let ccmenuMessage = message as ICCMenuMessage;
+
+                    let actions: IAction[] = [];
+                    let index = 0;
+                    for (const a of ccmenuMessage.actions) {
+                        const i = index;
+                        actions.push({
+                            getMatchingText: () => a.pattern,
+                            getDescription: () => a.description,
+                            execute: () => {
+                                this.send(<IExecuteCCActionMessage> {
+                                    type: "executeCCAction",
+                                    index: i
+                                });
+                            }
+                        });
+                        index = 0;
+                    }
+
+                    this.ccmenu.show(this.element, ccmenuMessage.x, ccmenuMessage.y, ccmenuMessage.pattern, actions);
                 }
             }
 
@@ -211,6 +236,9 @@ export class SvgBasedEditor {
                 this.connect();
             }
         }, 500);
+
+        this.ccmenu = new CCMenu();
+        this.element.appendChild(this.ccmenu.getDom());
     }
 
     private fixSize(): void {
@@ -267,4 +295,15 @@ interface IViewRangeMessage extends IMessage {
 
 interface IRootNodeMessage extends IMessage {
     nodeRef: string;
+}
+
+interface ICCMenuMessage extends IMessage {
+    x: number;
+    y: number;
+    pattern: string;
+    actions: Array<{pattern: string, description: string}>;
+}
+
+interface IExecuteCCActionMessage extends IMessage {
+    index: number;
 }

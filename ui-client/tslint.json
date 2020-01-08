@@ -17,6 +17,9 @@
     "ordered-imports": false,
     "arrow-parens": false,
     "no-empty": false,
-    "comment-format": false
+    "comment-format": false,
+    "no-namespace": false,
+    "max-line-length": false,
+    "no-object-literal-type-assertion": false
   }
 }

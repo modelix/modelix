@@ -16,5 +16,9 @@ module.exports = {
 
   devServer: require('./webpack/dev-server'),
 
-  devtool: 'source-map'
+  devtool: 'source-map',
+
+  optimization: {
+    minimize: false
+  }
 };
