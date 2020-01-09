@@ -22,12 +22,14 @@ export class CCMenu {
 
     show(hostElement: HTMLElement, x: number, y: number, pattern: string, actions: IAction[]) {
         this.pattern = pattern;
-
         this.updateActions(this.pattern, actions);
+        this.move(x, y);
+        this.setVisible(true);
+    }
 
+    move(x: number, y: number): void {
         this.getDom().style.left = x + "px";
         this.getDom().style.top = y + "px";
-        this.setVisible(true);
     }
 
     updateActions(newPattern: string, actions: IAction[]) {
@@ -195,14 +197,17 @@ export class ListBox {
     }
 
     selectNext(): void {
-        this.selectedIndex++;
-        if (this.selectedIndex >= this.actions.length) this.selectedIndex = 0;
-        this.updateVisibleSelection();
+        this.setSelectedIndex(this.selectedIndex + 1)
     }
 
     selectPrevious(): void {
-        this.selectedIndex--;
+        this.setSelectedIndex(this.selectedIndex - 1);
+    }
+
+    setSelectedIndex(index: number): void {
+        this.selectedIndex = index;
         if (this.selectedIndex < 0) this.selectedIndex = Math.max(0, this.actions.length - 1);
+        if (this.selectedIndex >= this.actions.length) this.selectedIndex = 0;
         this.updateVisibleSelection();
     }
 

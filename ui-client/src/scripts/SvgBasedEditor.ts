@@ -64,24 +64,33 @@ export class SvgBasedEditor {
                 } else if (message.type === "ccmenu") {
                     let ccmenuMessage = message as ICCMenuMessage;
 
-                    let actions: IAction[] = [];
-                    let index = 0;
-                    for (const a of ccmenuMessage.actions) {
-                        const i = index;
-                        actions.push({
-                            getMatchingText: () => a.pattern,
-                            getDescription: () => a.description,
-                            execute: () => {
-                                this.send(<IExecuteCCActionMessage> {
-                                    type: "executeCCAction",
-                                    index: i
-                                });
-                            }
-                        });
-                        index = 0;
-                    }
+                    if (ccmenuMessage.actions) {
+                        let actions: IAction[] = [];
+                        let index = 0;
+                        for (const a of ccmenuMessage.actions) {
+                            const i = index;
+                            actions.push({
+                                getMatchingText: () => a.pattern,
+                                getDescription: () => a.description,
+                                execute: () => {
+                                    this.send(<IExecuteCCActionMessage> {
+                                        type: "executeCCAction",
+                                        index: i
+                                    });
+                                }
+                            });
+                            index = 0;
+                        }
 
-                    this.ccmenu.show(this.element, ccmenuMessage.x, ccmenuMessage.y, ccmenuMessage.pattern, actions);
+                        this.ccmenu.show(this.element, ccmenuMessage.x, ccmenuMessage.y, ccmenuMessage.pattern, actions);
+                    }
+                    this.ccmenu.move(ccmenuMessage.x, ccmenuMessage.y);
+                    this.ccmenu.listBox.setSelectedIndex(ccmenuMessage.selectionIndex);
+                } else if (message.type === "intentions") {
+                    let intentionsMessage = message as IIntentionsMessage;
+                    for (let intention of intentionsMessage.intentions) {
+                        console.log("Intention: " + intention.text);
+                    }
                 }
             }
 
@@ -300,10 +309,15 @@ interface IRootNodeMessage extends IMessage {
 interface ICCMenuMessage extends IMessage {
     x: number;
     y: number;
+    selectionIndex: number;
     pattern: string;
     actions: Array<{pattern: string, description: string}>;
 }
 
 interface IExecuteCCActionMessage extends IMessage {
     index: number;
+}
+
+interface IIntentionsMessage extends IMessage {
+    intentions: Array<{text: string}>;
 }
