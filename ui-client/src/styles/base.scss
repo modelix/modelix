@@ -27,14 +27,17 @@
 .ccmenu {
   position: absolute;
   color: black;
-  background-color: #efeff2;
+  border: 1px solid #bfc0bf;
+  background-color: #e9f4ff;
   overflow-y: scroll;
   max-height: 200px;
   padding-right: 5px;
+  font-family: monospace;
+  z-index: 10;
 
   .visibleSelection {
-    background-color: #dcf0ff;
-    color: #006ec5;
+    background-color: #5373af;
+    color: #fff;
   }
 
   .matchingText {
@@ -44,5 +47,37 @@
   .description {
     float: right;
     padding: 0px 3px 0px 10px;
+  }
+}
+
+.intentionsMenu {
+  color: black;
+  z-index: 15;
+  background-color: white;
+  border: 1px solid #acacac;
+  position: absolute;
+  left: 20px;
+  top: 20px;
+  box-shadow: 5px 5px 40px 0 rgba(0,0,0,0.5);
+  visibility: hidden;
+
+  .title {
+    border-bottom: 1px solid #acacac;
+    background: linear-gradient(to bottom, #ededed, #cecece);
+    font-family: Lucida Grande;
+    font-size: 10pt;
+    padding: 2px 6px;
+    text-align: center;
+  }
+
+  .entries {
+    min-height: 10px;
+    min-width: 200px;
+    font-family: Verdana;
+    font-size: 10pt;
+
+    .entry {
+      padding: 2px 6px;
+    }
   }
 }

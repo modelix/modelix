@@ -3,12 +3,14 @@ import {KeyCodeTranslator} from "./KeyCodeTranslator";
 import {DomUtils} from "./DomUtil";
 import {getWebsocketUrl} from "./UrlUtil";
 import {CCMenu, IAction} from "./CCMenu";
+import {IIntention, IntentionsMenu} from "./IntentionsMenu";
 
 
 export class SvgBasedEditor {
 
     private socket: WebSocket;
     private ccmenu: CCMenu;
+    private intentionsMenu: IntentionsMenu;
 
     constructor(public readonly element: HTMLElement) {
         this.init(element);
@@ -88,9 +90,17 @@ export class SvgBasedEditor {
                     this.ccmenu.listBox.setSelectedIndex(ccmenuMessage.selectionIndex);
                 } else if (message.type === "intentions") {
                     let intentionsMessage = message as IIntentionsMessage;
+                    let intentions: IIntention[] = [];
+
                     for (let intention of intentionsMessage.intentions) {
-                        console.log("Intention: " + intention.text);
+                        intentions.push({
+                            getText: () => intention.text
+                        });
                     }
+
+                    this.intentionsMenu.setPosition(intentionsMessage.x, intentionsMessage.y);
+                    this.intentionsMenu.loadIntentions(intentions);
+                    this.intentionsMenu.setVisible(true);
                 }
             }
 
@@ -248,6 +258,9 @@ export class SvgBasedEditor {
 
         this.ccmenu = new CCMenu();
         this.element.appendChild(this.ccmenu.getDom());
+
+        this.intentionsMenu = new IntentionsMenu();
+        this.element.appendChild(this.intentionsMenu.getDom());
     }
 
     private fixSize(): void {
@@ -319,5 +332,7 @@ interface IExecuteCCActionMessage extends IMessage {
 }
 
 interface IIntentionsMessage extends IMessage {
+    x: number;
+    y: number;
     intentions: Array<{text: string}>;
 }
