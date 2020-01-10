@@ -50,6 +50,9 @@
   }
 }
 
+.intentionsMenu:focus {
+  outline: none;
+}
 .intentionsMenu {
   color: black;
   z-index: 15;

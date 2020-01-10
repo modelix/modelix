@@ -1,7 +1,9 @@
 import $ = require("jquery");
+import {JSKeyCodes} from "./KeyCodeTranslator";
 
 export interface IIntention {
     getText(): string;
+    execute(): void;
 }
 
 export class IntentionsMenu {
@@ -16,6 +18,33 @@ export class IntentionsMenu {
     protected initDom(): void {
         this.dom = document.createElement("div");
         this.dom.classList.add("intentionsMenu");
+        this.dom.tabIndex = -1;
+        $(this.dom).blur(() => {
+            this.setVisible(false);
+        });
+        $(this.dom).keydown((e) => {
+            if (e.keyCode === JSKeyCodes.KEY_DOWN) {
+                let index = this.getSelectedIndex() + 1;
+                if (index >= this.entries.length) index = 0;
+                this.setSelectedIndex(index);
+            } else if (e.keyCode === JSKeyCodes.KEY_UP) {
+                let index = this.getSelectedIndex() - 1;
+                if (index < 0) index = this.entries.length - 1;
+                this.setSelectedIndex(index);
+            } else if (e.keyCode === JSKeyCodes.KEY_ESCAPE) {
+                this.setVisible(false);
+            } else if (e.keyCode === JSKeyCodes.KEY_ENTER || e.keyCode === JSKeyCodes.KEY_RETURN) {
+                this.setVisible(false);
+                this.getSelectedEntry().getIntention().execute();
+            }
+
+            e.stopPropagation();
+            e.preventDefault();
+        });
+        $(this.dom).keypress((e) => {
+            e.stopPropagation();
+            e.preventDefault();
+        });
 
         let title = document.createElement("div");
         title.innerText = "Intentions";
@@ -44,6 +73,11 @@ export class IntentionsMenu {
 
     setVisible(visible: boolean): void {
         this.dom.style.visibility = visible ? "visible" : "hidden";
+        if (visible) {
+            this.dom.focus();
+        } else {
+            this.dom.parentElement.focus();
+        }
     }
 
     isVisible(): boolean {

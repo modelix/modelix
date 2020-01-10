@@ -92,10 +92,21 @@ export class SvgBasedEditor {
                     let intentionsMessage = message as IIntentionsMessage;
                     let intentions: IIntention[] = [];
 
+                    let index = 0;
                     for (let intention of intentionsMessage.intentions) {
+                        const i = index;
                         intentions.push({
-                            getText: () => intention.text
+                            getText: () => intention.text,
+                            execute: () => {
+                                const eim: IExecuteIntentionMessage = {
+                                    type: "intentions.execute",
+                                    index: i,
+                                    text: intention.text
+                                };
+                                this.send(eim);
+                            }
                         });
+                        index++;
                     }
 
                     this.intentionsMenu.setPosition(intentionsMessage.x, intentionsMessage.y);
@@ -171,7 +182,7 @@ export class SvgBasedEditor {
             return svgDoc.documentElement;
         }
 
-        element.onclick = (event) => {
+        $(element).click(event => {
             lastEventTime = Date.now();
 
             const offset = $(element).offset();
@@ -191,9 +202,9 @@ export class SvgBasedEditor {
 
             element.focus();
             event.preventDefault();
-        };
+        });
 
-        element.onkeypress = (event) => {
+        $(element).keypress(event => {
             console.log("press " + event);
 
             lastEventTime = Date.now();
@@ -207,9 +218,9 @@ export class SvgBasedEditor {
             //     },
             // }));
             event.preventDefault();
-        };
+        });
 
-        element.onkeydown = (event) => {
+        $(element).keydown(event => {
             console.log("down " + event.repeat + ", " + event.which);
 
             if (KeyCodeTranslator.isModifierKey(event.keyCode)) return;
@@ -228,9 +239,9 @@ export class SvgBasedEditor {
                 },
             });
             event.preventDefault();
-        };
+        });
 
-        element.onkeyup = (event) => {
+        $(element).keyup(event => {
             console.log("up " + event);
 
             lastEventTime = Date.now();
@@ -244,7 +255,7 @@ export class SvgBasedEditor {
                 },
             });
             event.preventDefault();
-        };
+        });
 
         const watchdog = setInterval(() => {
             if (!DomUtils.isInDocument(this.element)) {
@@ -280,7 +291,7 @@ export class SvgBasedEditor {
 
 interface IMessage {
     type: string;
-    data: any;
+    data?: any;
 }
 
 interface IMouseMessge {
@@ -335,4 +346,9 @@ interface IIntentionsMessage extends IMessage {
     x: number;
     y: number;
     intentions: Array<{text: string}>;
+}
+
+interface IExecuteIntentionMessage extends IMessage {
+    index: number;
+    text: string;
 }
