@@ -13,7 +13,7 @@ defaultTasks 'build'
 
 repositories {
         
-     maven { url "http://repo.maven.apache.org/maven2" }
+     maven { url "https://repo.maven.apache.org/maven2" }
 }
 dependencies {
     compile group: 'org.json', name: 'json', version:'20180813'
