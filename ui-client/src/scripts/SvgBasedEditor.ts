@@ -45,9 +45,9 @@ export class SvgBasedEditor {
                     img.src = "data:image/png;base64," + rawData;
                     img.classList.add("svgEditorImg");
                     img.classList.add("incremental");
-                    // let data: IImageData = lastMessage.data;
-                    img.style.left = 0 + "px";
-                    img.style.top = 0 + "px";
+                    let data: IImageData = lastMessage.data;
+                    img.style.left = (data.x ? data.x : 0) + "px";
+                    img.style.top = (data.y ? data.y : 0) + "px";
                     this.element.appendChild(img);
                     // console.log((Date.now() - lastEventTime) + " delta image");
                 }
