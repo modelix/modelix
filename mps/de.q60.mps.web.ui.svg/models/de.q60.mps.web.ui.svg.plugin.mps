@@ -2297,6 +2297,14 @@
         <property role="3cmrfH" value="1" />
       </node>
     </node>
+    <node concept="312cEg" id="Cck3bmLhm6" role="jymVt">
+      <property role="TrG5h" value="lastImageTime" />
+      <node concept="3Tm6S6" id="Cck3bmLhm7" role="1B3o_S" />
+      <node concept="3cpWsb" id="Cck3bmLxhC" role="1tU5fm" />
+      <node concept="3cmrfG" id="Cck3bmLpD6" role="33vP2m">
+        <property role="3cmrfH" value="0" />
+      </node>
+    </node>
     <node concept="2tJIrI" id="7tTb3N6Qu1j" role="jymVt" />
     <node concept="312cEg" id="1qbCJZsJ67D" role="jymVt">
       <property role="TrG5h" value="project" />
@@ -2331,7 +2339,7 @@
       <node concept="3Tm6S6" id="2mcPA70wyja" role="1B3o_S" />
       <node concept="17QB3L" id="2mcPA70w_zP" role="1tU5fm" />
     </node>
-    <node concept="2tJIrI" id="1MWbHmShfd_" role="jymVt" />
+    <node concept="2tJIrI" id="Cck3bmMy_M" role="jymVt" />
     <node concept="312cEg" id="2D2$TMZuJ42" role="jymVt">
       <property role="TrG5h" value="ccMenuTimer" />
       <node concept="3Tm6S6" id="2D2$TMZuJ43" role="1B3o_S" />
@@ -2376,7 +2384,7 @@
         </node>
       </node>
     </node>
-    <node concept="2tJIrI" id="7tTb3N6JzWj" role="jymVt" />
+    <node concept="2tJIrI" id="Cck3bmEywg" role="jymVt" />
     <node concept="3clFbW" id="1qbCJZsJ67H" role="jymVt">
       <node concept="37vLTG" id="1qbCJZsJ67I" role="3clF46">
         <property role="TrG5h" value="project" />
@@ -2718,7 +2726,7 @@
                                               <ref role="3cqZAo" node="7tTb3N6XkrX" resolve="changeDetectionInterval" />
                                             </node>
                                             <node concept="3b6qkQ" id="7tTb3N6XPAo" role="3uHU7B">
-                                              <property role="$nhwW" value="1.1" />
+                                              <property role="$nhwW" value="1.5" />
                                             </node>
                                           </node>
                                         </node>
@@ -2778,6 +2786,48 @@
                                     <ref role="3cqZAo" node="7tTb3N6XzNG" resolve="counter" />
                                   </node>
                                 </node>
+                              </node>
+                            </node>
+                          </node>
+                        </node>
+                        <node concept="3clFbH" id="Cck3bmLxAM" role="3cqZAp" />
+                        <node concept="3clFbJ" id="Cck3bmLyGA" role="3cqZAp">
+                          <node concept="3clFbS" id="Cck3bmLyGC" role="3clFbx">
+                            <node concept="3clFbF" id="Cck3bmKuM3" role="3cqZAp">
+                              <node concept="1rXfSq" id="Cck3bmKuM2" role="3clFbG">
+                                <ref role="37wK5l" node="7tTb3N6T3eC" resolve="sendFullImage" />
+                                <node concept="2OqwBi" id="Cck3bmKxCX" role="37wK5m">
+                                  <node concept="37vLTw" id="Cck3bmKwJy" role="2Oq$k0">
+                                    <ref role="3cqZAo" node="7tTb3N6QEMo" resolve="imageChangeDetector" />
+                                  </node>
+                                  <node concept="liA8E" id="Cck3bmKyaG" role="2OqNvi">
+                                    <ref role="37wK5l" node="7tTb3N6P_2E" resolve="getLastImage" />
+                                  </node>
+                                </node>
+                              </node>
+                            </node>
+                          </node>
+                          <node concept="1Wc70l" id="Cck3bmLXl0" role="3clFbw">
+                            <node concept="3eOSWO" id="Cck3bmLA9O" role="3uHU7w">
+                              <node concept="3cpWsd" id="Cck3bmL$Ao" role="3uHU7B">
+                                <node concept="2YIFZM" id="Cck3bmLzPZ" role="3uHU7B">
+                                  <ref role="37wK5l" to="wyt6:~System.currentTimeMillis()" resolve="currentTimeMillis" />
+                                  <ref role="1Pybhc" to="wyt6:~System" resolve="System" />
+                                </node>
+                                <node concept="37vLTw" id="Cck3bmL_m7" role="3uHU7w">
+                                  <ref role="3cqZAo" node="Cck3bmLhm6" resolve="lastImageTime" />
+                                </node>
+                              </node>
+                              <node concept="3cmrfG" id="Cck3bmLAp$" role="3uHU7w">
+                                <property role="3cmrfH" value="3000" />
+                              </node>
+                            </node>
+                            <node concept="3y3z36" id="Cck3bmLDSs" role="3uHU7B">
+                              <node concept="3cmrfG" id="Cck3bmLEqd" role="3uHU7w">
+                                <property role="3cmrfH" value="0" />
+                              </node>
+                              <node concept="37vLTw" id="Cck3bmLCPW" role="3uHU7B">
+                                <ref role="3cqZAo" node="1qbCJZsJ67v" resolve="deltaUpdateCount" />
                               </node>
                             </node>
                           </node>
@@ -3618,8 +3668,8 @@
       <property role="TrG5h" value="sendFullImage" />
       <node concept="37vLTG" id="7tTb3N6TcQH" role="3clF46">
         <property role="TrG5h" value="img" />
-        <node concept="3uibUv" id="7tTb3N6Tjl3" role="1tU5fm">
-          <ref role="3uigEE" to="jan3:~RenderedImage" resolve="RenderedImage" />
+        <node concept="3uibUv" id="Cck3bmFZsU" role="1tU5fm">
+          <ref role="3uigEE" to="jan3:~BufferedImage" resolve="BufferedImage" />
         </node>
       </node>
       <node concept="3cqZAl" id="7tTb3N6T3eE" role="3clF45" />
@@ -3714,6 +3764,17 @@
                 </node>
               </node>
             </node>
+            <node concept="3clFbF" id="Cck3bmLqkk" role="3cqZAp">
+              <node concept="37vLTI" id="Cck3bmLrpJ" role="3clFbG">
+                <node concept="2YIFZM" id="Cck3bmLrZD" role="37vLTx">
+                  <ref role="37wK5l" to="wyt6:~System.currentTimeMillis()" resolve="currentTimeMillis" />
+                  <ref role="1Pybhc" to="wyt6:~System" resolve="System" />
+                </node>
+                <node concept="37vLTw" id="Cck3bmLqki" role="37vLTJ">
+                  <ref role="3cqZAo" node="Cck3bmLhm6" resolve="lastImageTime" />
+                </node>
+              </node>
+            </node>
           </node>
         </node>
       </node>
@@ -3723,8 +3784,8 @@
       <property role="TrG5h" value="sendPartialImage" />
       <node concept="37vLTG" id="7tTb3N6TX52" role="3clF46">
         <property role="TrG5h" value="img" />
-        <node concept="3uibUv" id="7tTb3N6U5oQ" role="1tU5fm">
-          <ref role="3uigEE" to="jan3:~RenderedImage" resolve="RenderedImage" />
+        <node concept="3uibUv" id="Cck3bmG6NJ" role="1tU5fm">
+          <ref role="3uigEE" to="jan3:~BufferedImage" resolve="BufferedImage" />
         </node>
       </node>
       <node concept="37vLTG" id="7tTb3N6U5Ej" role="3clF46">
@@ -3836,7 +3897,7 @@
                   <ref role="3cqZAo" node="7tTb3N6TX52" resolve="img" />
                 </node>
                 <node concept="liA8E" id="7tTb3N6UgxE" role="2OqNvi">
-                  <ref role="37wK5l" to="jan3:~RenderedImage.getWidth()" resolve="getWidth" />
+                  <ref role="37wK5l" to="jan3:~BufferedImage.getWidth()" resolve="getWidth" />
                 </node>
               </node>
             </node>
@@ -3857,7 +3918,7 @@
                   <ref role="3cqZAo" node="7tTb3N6TX52" resolve="img" />
                 </node>
                 <node concept="liA8E" id="7tTb3N6UhNi" role="2OqNvi">
-                  <ref role="37wK5l" to="jan3:~RenderedImage.getHeight()" resolve="getHeight" />
+                  <ref role="37wK5l" to="jan3:~BufferedImage.getHeight()" resolve="getHeight" />
                 </node>
               </node>
             </node>
@@ -3904,6 +3965,17 @@
               <node concept="3uNrnE" id="7tTb3N6UpxX" role="3clFbG">
                 <node concept="37vLTw" id="7tTb3N6UpxZ" role="2$L3a6">
                   <ref role="3cqZAo" node="1qbCJZsJ67v" resolve="deltaUpdateCount" />
+                </node>
+              </node>
+            </node>
+            <node concept="3clFbF" id="Cck3bmLuX$" role="3cqZAp">
+              <node concept="37vLTI" id="Cck3bmLwk$" role="3clFbG">
+                <node concept="2YIFZM" id="Cck3bmLx97" role="37vLTx">
+                  <ref role="37wK5l" to="wyt6:~System.currentTimeMillis()" resolve="currentTimeMillis" />
+                  <ref role="1Pybhc" to="wyt6:~System" resolve="System" />
+                </node>
+                <node concept="37vLTw" id="Cck3bmLuXy" role="37vLTJ">
+                  <ref role="3cqZAo" node="Cck3bmLhm6" resolve="lastImageTime" />
                 </node>
               </node>
             </node>
@@ -6631,6 +6703,21 @@
         </node>
       </node>
     </node>
+    <node concept="2tJIrI" id="Cck3bmFaPp" role="jymVt" />
+    <node concept="3clFb_" id="Cck3bmFd2D" role="jymVt">
+      <property role="TrG5h" value="getVisibleYRange" />
+      <node concept="3uibUv" id="Cck3bmFsWe" role="3clF45">
+        <ref role="3uigEE" node="7tTb3N6N40R" resolve="EditorChangeDetector.Range" />
+      </node>
+      <node concept="3Tm1VV" id="Cck3bmFd2G" role="1B3o_S" />
+      <node concept="3clFbS" id="Cck3bmFd2H" role="3clF47">
+        <node concept="3clFbF" id="Cck3bmFvfD" role="3cqZAp">
+          <node concept="37vLTw" id="Cck3bmFvfC" role="3clFbG">
+            <ref role="3cqZAo" node="Cck3bm$Yo6" resolve="visibleYRange" />
+          </node>
+        </node>
+      </node>
+    </node>
     <node concept="2tJIrI" id="Cck3bm_7pc" role="jymVt" />
     <node concept="3clFb_" id="7tTb3N6P_2E" role="jymVt">
       <property role="TrG5h" value="getLastImage" />
@@ -7965,7 +8052,6 @@
     </node>
     <node concept="2tJIrI" id="Cck3bm_R55" role="jymVt" />
     <node concept="312cEu" id="7tTb3N6N40R" role="jymVt">
-      <property role="2bfB8j" value="true" />
       <property role="TrG5h" value="Range" />
       <node concept="312cEg" id="7tTb3N6N7BT" role="jymVt">
         <property role="TrG5h" value="start" />
@@ -7980,7 +8066,7 @@
         <node concept="10Oyi0" id="7tTb3N6N7JV" role="1tU5fm" />
       </node>
       <node concept="2tJIrI" id="7tTb3N6N7L4" role="jymVt" />
-      <node concept="3Tm1VV" id="7tTb3N6N40S" role="1B3o_S" />
+      <node concept="3Tm1VV" id="Cck3bmFvot" role="1B3o_S" />
       <node concept="3clFbW" id="7tTb3N6N7M6" role="jymVt">
         <node concept="3cqZAl" id="7tTb3N6N7M7" role="3clF45" />
         <node concept="3Tm1VV" id="7tTb3N6N7M8" role="1B3o_S" />
