@@ -1798,6 +1798,11 @@
             <ref role="3bR37D" node="5MA9wbc6HlL" resolve="de.q60.mps.web.common" />
           </node>
         </node>
+        <node concept="1SiIV0" id="Cck3bmGIJv" role="3bR37C">
+          <node concept="3bR9La" id="Cck3bmGIJw" role="1SiIV1">
+            <ref role="3bR37D" node="7gF2HTviNPs" resolve="de.q60.mps.web.model.mpsplugin" />
+          </node>
+        </node>
       </node>
       <node concept="1E1JtA" id="5Sw$pxbQPmv" role="2G$12L">
         <property role="BnDLt" value="true" />
