@@ -16,6 +16,7 @@ import org.eclipse.jetty.servlets.EventSourceServlet;
 import org.jetbrains.annotations.NotNull;
 
 import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -76,6 +77,9 @@ public class Main {
                 @Override
                 protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
                     String email = req.getHeader("X-Forwarded-Email");
+                    if ((email == null || email.isEmpty()) && isLocalhost(req)) {
+                        email = "localhost";
+                    }
                     if (email == null || email.isEmpty()) {
                         resp.setStatus(HttpServletResponse.SC_FORBIDDEN);
                         resp.setContentType("text/plain");
@@ -238,6 +242,8 @@ public class Main {
     }
 
     private static boolean isValidAuthorization(IStoreClient store, HttpServletRequest req) {
+        if (isLocalhost(req)) return true;
+
         String header = req.getHeader("Authorization");
         if (header == null) return false;
         if (!header.startsWith("Bearer ")) return false;
@@ -251,6 +257,14 @@ public class Main {
         if (expiresStr == null) return false;
         if (System.currentTimeMillis() > Long.parseLong(expiresStr)) return false;
         return true;
+    }
+
+    private static boolean isLocalhost(String ip) {
+        return "0:0:0:0:0:0:0:1".equals(ip) || "127.0.0.1".equals(ip);
+    }
+
+    private static boolean isLocalhost(ServletRequest req) {
+        return isLocalhost(req.getRemoteAddr());
     }
 
     private static String extractToken(HttpServletRequest req) {
