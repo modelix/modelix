@@ -12939,6 +12939,24 @@
         </node>
       </node>
     </node>
+    <node concept="312cEg" id="7NpT01XGApo" role="jymVt">
+      <property role="TrG5h" value="SETTINGS_KEY_PREFIX" />
+      <node concept="3Tm6S6" id="7NpT01XGApp" role="1B3o_S" />
+      <node concept="17QB3L" id="7NpT01XGCdq" role="1tU5fm" />
+      <node concept="3cpWs3" id="7NpT01XGFCk" role="33vP2m">
+        <node concept="2OqwBi" id="7NpT01XGH1v" role="3uHU7B">
+          <node concept="3VsKOn" id="7NpT01XGGkk" role="2Oq$k0">
+            <ref role="3VsUkX" node="6aRQr1WOV$v" resolve="CloudRepository" />
+          </node>
+          <node concept="liA8E" id="7NpT01XGHBM" role="2OqNvi">
+            <ref role="37wK5l" to="wyt6:~Class.getName()" resolve="getName" />
+          </node>
+        </node>
+        <node concept="Xl_RD" id="7NpT01XGCKO" role="3uHU7w">
+          <property role="Xl_RC" value=".token/" />
+        </node>
+      </node>
+    </node>
     <node concept="2tJIrI" id="6aRQr1WVRzr" role="jymVt" />
     <node concept="312cEg" id="6aRQr1WPbDO" role="jymVt">
       <property role="TrG5h" value="baseUrl" />
@@ -13050,6 +13068,30 @@
             </node>
             <node concept="37vLTw" id="6aRQr1WPiWB" role="37vLTx">
               <ref role="3cqZAo" node="6aRQr1WPiWt" resolve="baseUrl" />
+            </node>
+          </node>
+        </node>
+        <node concept="3clFbF" id="7NpT01XGyxd" role="3cqZAp">
+          <node concept="37vLTI" id="7NpT01XGzLA" role="3clFbG">
+            <node concept="37vLTw" id="7NpT01XGyxb" role="37vLTJ">
+              <ref role="3cqZAo" node="2EzI5qKmJsA" resolve="authToken" />
+            </node>
+            <node concept="2OqwBi" id="7NpT01XG$4y" role="37vLTx">
+              <node concept="2YIFZM" id="7NpT01XG$4z" role="2Oq$k0">
+                <ref role="37wK5l" to="jmi8:~PropertiesComponent.getInstance()" resolve="getInstance" />
+                <ref role="1Pybhc" to="jmi8:~PropertiesComponent" resolve="PropertiesComponent" />
+              </node>
+              <node concept="liA8E" id="7NpT01XG$4$" role="2OqNvi">
+                <ref role="37wK5l" to="jmi8:~PropertiesComponent.getValue(java.lang.String)" resolve="getValue" />
+                <node concept="3cpWs3" id="7NpT01XGJ_h" role="37wK5m">
+                  <node concept="37vLTw" id="7NpT01XGK8e" role="3uHU7w">
+                    <ref role="3cqZAo" node="6aRQr1WPiWt" resolve="baseUrl" />
+                  </node>
+                  <node concept="37vLTw" id="7NpT01XGIWk" role="3uHU7B">
+                    <ref role="3cqZAo" node="7NpT01XGApo" resolve="SETTINGS_KEY_PREFIX" />
+                  </node>
+                </node>
+              </node>
             </node>
           </node>
         </node>
@@ -13337,6 +13379,28 @@
               <node concept="Xjq3P" id="2EzI5qKpQIa" role="2Oq$k0" />
               <node concept="2OwXpG" id="2EzI5qKpR9R" role="2OqNvi">
                 <ref role="2Oxat5" node="2EzI5qKmJsA" resolve="authToken" />
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="3clFbF" id="7NpT01XGLuN" role="3cqZAp">
+          <node concept="2OqwBi" id="7NpT01XGLuP" role="3clFbG">
+            <node concept="2YIFZM" id="7NpT01XGLuQ" role="2Oq$k0">
+              <ref role="1Pybhc" to="jmi8:~PropertiesComponent" resolve="PropertiesComponent" />
+              <ref role="37wK5l" to="jmi8:~PropertiesComponent.getInstance()" resolve="getInstance" />
+            </node>
+            <node concept="liA8E" id="7NpT01XGLuR" role="2OqNvi">
+              <ref role="37wK5l" to="jmi8:~PropertiesComponent.setValue(java.lang.String,java.lang.String)" resolve="setValue" />
+              <node concept="3cpWs3" id="7NpT01XGLuS" role="37wK5m">
+                <node concept="37vLTw" id="7NpT01XGLuT" role="3uHU7w">
+                  <ref role="3cqZAo" node="6aRQr1WPbDO" resolve="baseUrl" />
+                </node>
+                <node concept="37vLTw" id="7NpT01XGLuU" role="3uHU7B">
+                  <ref role="3cqZAo" node="7NpT01XGApo" resolve="SETTINGS_KEY_PREFIX" />
+                </node>
+              </node>
+              <node concept="37vLTw" id="7NpT01XGM6Q" role="37wK5m">
+                <ref role="3cqZAo" node="2EzI5qKmE_s" resolve="token" />
               </node>
             </node>
           </node>
