@@ -2163,7 +2163,7 @@
                                                 </node>
                                                 <node concept="3cpWs6" id="5D5xac1tEct" role="3cqZAp">
                                                   <node concept="1rXfSq" id="5D5xac1tH2q" role="3cqZAk">
-                                                    <ref role="37wK5l" node="7lI5IOrZLBi" resolve="isModelProperties" />
+                                                    <ref role="37wK5l" node="5D5xac1tfFf" resolve="isInsideModel" />
                                                     <node concept="37vLTw" id="5D5xac1tJ1y" role="37wK5m">
                                                       <ref role="3cqZAo" node="5D5xac1tmn8" resolve="parent" />
                                                     </node>
@@ -2199,7 +2199,7 @@
                                                 </node>
                                                 <node concept="3cpWs6" id="5D5xac1uGTO" role="3cqZAp">
                                                   <node concept="1rXfSq" id="5D5xac1uJKT" role="3cqZAk">
-                                                    <ref role="37wK5l" node="7lI5IOrZLBi" resolve="isModelProperties" />
+                                                    <ref role="37wK5l" node="5D5xac1tfFf" resolve="isInsideModel" />
                                                     <node concept="37vLTw" id="5D5xac1uLLn" role="37wK5m">
                                                       <ref role="3cqZAo" node="5D5xac1uy4h" resolve="nodeId" />
                                                     </node>
@@ -12685,6 +12685,57 @@
         <node concept="3cpWs6" id="1JFLVobfVr8" role="3cqZAp">
           <node concept="37vLTw" id="1JFLVobfVr9" role="3cqZAk">
             <ref role="3cqZAo" node="1JFLVobfVqS" resolve="newRepo" />
+          </node>
+        </node>
+      </node>
+    </node>
+    <node concept="2tJIrI" id="4yJY4bshti" role="jymVt" />
+    <node concept="3clFb_" id="4yJY4bssA5" role="jymVt">
+      <property role="TrG5h" value="removeRepository" />
+      <node concept="37vLTG" id="4yJY4bsB_3" role="3clF46">
+        <property role="TrG5h" value="repo" />
+        <node concept="3uibUv" id="4yJY4bsDPU" role="1tU5fm">
+          <ref role="3uigEE" node="6aRQr1WOV$v" resolve="CloudRepository" />
+        </node>
+      </node>
+      <node concept="3cqZAl" id="4yJY4bssA7" role="3clF45" />
+      <node concept="3Tm1VV" id="4yJY4bssA8" role="1B3o_S" />
+      <node concept="3clFbS" id="4yJY4bssA9" role="3clF47">
+        <node concept="3clFbF" id="4yJY4bs_RH" role="3cqZAp">
+          <node concept="2OqwBi" id="4yJY4bsAO9" role="3clFbG">
+            <node concept="37vLTw" id="4yJY4bs_RG" role="2Oq$k0">
+              <ref role="3cqZAo" node="1LVcV5KE$BQ" resolve="repositories" />
+            </node>
+            <node concept="3dhRuq" id="4yJY4bsBqi" role="2OqNvi">
+              <node concept="37vLTw" id="4yJY4bsE9a" role="25WWJ7">
+                <ref role="3cqZAo" node="4yJY4bsB_3" resolve="repo" />
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="3clFbF" id="4yJY4bsFQ1" role="3cqZAp">
+          <node concept="1rXfSq" id="4yJY4bsFPZ" role="3clFbG">
+            <ref role="37wK5l" node="1JFLVobfZbV" resolve="storeUrls" />
+          </node>
+        </node>
+        <node concept="2Gpval" id="4yJY4bsFf3" role="3cqZAp">
+          <node concept="2GrKxI" id="4yJY4bsFf5" role="2Gsz3X">
+            <property role="TrG5h" value="l" />
+          </node>
+          <node concept="37vLTw" id="4yJY4bsGFA" role="2GsD0m">
+            <ref role="3cqZAo" node="6aRQr1WPPSS" resolve="listeners" />
+          </node>
+          <node concept="3clFbS" id="4yJY4bsFf9" role="2LFqv$">
+            <node concept="3clFbF" id="4yJY4bsH0M" role="3cqZAp">
+              <node concept="2OqwBi" id="4yJY4bsH6x" role="3clFbG">
+                <node concept="2GrUjf" id="4yJY4bsH0L" role="2Oq$k0">
+                  <ref role="2Gs0qQ" node="4yJY4bsFf5" resolve="l" />
+                </node>
+                <node concept="liA8E" id="4yJY4bsHpU" role="2OqNvi">
+                  <ref role="37wK5l" node="6aRQr1WPPan" resolve="repositoriesChanged" />
+                </node>
+              </node>
+            </node>
           </node>
         </node>
       </node>
