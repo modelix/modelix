@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<language namespace="de.q60.mps.web.ui.sm" uuid="78874af2-5dd2-42a7-a21d-42fab3737d1d" languageVersion="0" moduleVersion="1">
+<language namespace="de.q60.mps.web.ui.sm" uuid="78874af2-5dd2-42a7-a21d-42fab3737d1d" languageVersion="0" moduleVersion="0">
   <models>
     <modelRoot contentPath="${module}" type="default">
       <sourceRoot location="models" />
