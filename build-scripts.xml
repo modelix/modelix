@@ -77,7 +77,7 @@
       <fileset dir="${build.tmp}/default/de.q60.mps.web.build.jar" />
     </jar>
     <copyModels todir="${build.tmp}/customProcessors/copyModels/de.q60.mps.web.build-models">
-      <fileset dir="${webmps.modules}/de.q60.mps.web.build/models" includes="**/*.mps, **/*.metadata, **/*.history, **/*.mpsr, **/.model" />
+      <fileset dir="${webmps.modules}/de.q60.mps.web.build/models" includes="**/*.mps, **/*.mpsr, **/.model" />
     </copyModels>
     <jar destfile="${build.tmp}/default/de.q60.mps.web.zip/de.q60.mps.web/languages/de.q60.mps.web/de.q60.mps.web.build-src.jar" duplicate="preserve">
       <fileset dir="${webmps.modules}/de.q60.mps.web.build/source_gen">
@@ -182,7 +182,7 @@
       <library file="${artifacts.mps}/languages/plaf/jetbrains.mps.baseLanguage.search.jar" />
       <library file="${artifacts.mps}/languages/plaf/jetbrains.mps.baseLanguage.util.jar" />
       <library file="${artifacts.mps}/languages/plaf/jetbrains.mps.ide.platform.jar" />
-      <library file="${artifacts.mps}/languages/plaf/jetbrains.mps.ide.ui.jar" />
+      <library file="${artifacts.mps}/languages/plaf/jetbrains.mps.ide.refactoring.platform.jar" />
       <library file="${artifacts.mps}/languages/runtimes/jetbrains.mps.analyzers.runtime.jar" />
       <library file="${artifacts.mps}/languages/runtimes/jetbrains.mps.dataFlow.runtime.jar" />
       <library file="${artifacts.mps}/languages/runtimes/jetbrains.mps.findUsages.runtime.jar" />

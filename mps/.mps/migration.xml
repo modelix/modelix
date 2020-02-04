@@ -3,5 +3,6 @@
   <component name="MigrationProperties">
     <entry key="jetbrains.mps.ide.mpsmigration.v191.SaveAllJavaStubMethodRefsToShortForeignFormat" value="executed" />
     <entry key="jetbrains.mps.ide.mpsmigration.v191.UpdateJavaStubMethodRefs" value="executed" />
+    <entry key="jetbrains.mps.ide.mpsmigration.v_2019_3.DefaultFacetExplicitPersistence" value="executed" />
   </component>
 </project>

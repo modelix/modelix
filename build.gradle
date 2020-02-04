@@ -68,12 +68,12 @@ configurations {
     libs
 }
 
-ext.mpsVersion = '2019.2.4'
+ext.mpsVersion = '2019.3.1'
 
 dependencies {
     ant_lib "org.apache.ant:ant-junit:1.10.1"
     mps "com.jetbrains:mps:$mpsVersion"
-    mpsArtifacts "de.itemis.mps:extensions:shadowmodels.2019.2+"
+    mpsArtifacts "de.itemis.mps:extensions:2019.3+"
     libs "de.itemis.mps.build.example:javalib:1.0+"
     libs "org.jdom:jdom:2.0.2"
 	project (':ui-client')    
