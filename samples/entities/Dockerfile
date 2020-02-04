@@ -1,4 +1,4 @@
-FROM cloudmps-ui
+FROM cloudmps/cloudmps-ui
 WORKDIR /usr/cloudmps-ui
 
 COPY build/artifacts/de.q60.mps.web.samples.entities/de.q60.mps.web.samples.entities.zip /usr/cloudmps-ui/tmp.zip

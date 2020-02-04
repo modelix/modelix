@@ -1,0 +1,137 @@
+import de.itemis.mps.gradle.BuildLanguages
+import de.itemis.mps.gradle.RunAntScript
+import de.itemis.mps.gradle.GenerateLibrariesXml
+import de.itemis.mps.gradle.TestLanguages
+
+buildscript {
+    repositories {
+        maven { url 'https://projects.itemis.de/nexus/content/repositories/mbeddr' }
+        maven { url 'https://projects.itemis.de/nexus/content/repositories/OS' }
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath 'de.itemis.mps:mps-gradle-plugin:1.2.168.+'
+    }
+}
+
+group 'de.q60.mps.web'
+description = "CloudMPS UI server with IETS3 plugins"
+
+defaultTasks 'assemble'
+
+File scriptFile(String relativePath) {
+    new File("$rootDir/build/$relativePath")
+}
+
+
+def jdk_home
+
+if (ext.has('java11_home')) {
+    jdk_home = ext.get('java11_home')
+} else if (System.getenv('JB_JAVA11_HOME') != null) {
+    jdk_home = System.getenv('JB_JAVA11_HOME')
+} else {
+    def expected = JavaVersion.VERSION_11
+    if (JavaVersion.current() != expected) {
+        throw new GradleException("This build script requires Java 11 but you are currently using ${JavaVersion.current()}.\nWhat you can do:\n"
+            + "  * Use project property java11_home to point to the Java 11 JDK.\n"
+            + "  * Use environment variable JAVA11_HOME to point to the Java 11 JDK\n"
+            + "  * Run Gradle using Java 11")
+    }
+    jdk_home = System.getProperty('java.home')
+}
+
+// Check JDK location
+if (!new File(jdk_home, "lib").exists()) {
+    throw new GradleException("Unable to locate JDK home folder. Detected folder is: $jdk_home")
+}
+
+ext.jdk_home = jdk_home
+ext["itemis.mps.gradle.ant.defaultJavaExecutable"] = new File(jdk_home, 'bin/java')
+logger.info 'Using JDK at {}', jdk_home
+
+
+
+//define directories
+ext.artifactsDir = new File(rootDir, 'artifacts')
+ext.libsDir = new File(rootDir, 'libs')
+ext.mpsDir = new File(artifactsDir, 'mps')
+
+configurations {
+    ant_lib
+    mps
+    mpsArtifacts
+    libs
+}
+
+ext.mpsVersion = '2019.3.1'
+
+dependencies {
+    ant_lib "org.apache.ant:ant-junit:1.10.1"
+    mps "com.jetbrains:mps:$mpsVersion"
+    mpsArtifacts "de.itemis.mps:extensions:2019.3+"
+    mpsArtifacts "com.mbeddr:platform:2019.3+"
+    mpsArtifacts "org.iets3:opensource:2019.3+"
+    libs "de.itemis.mps.build.example:javalib:1.0+"
+}
+
+repositories {
+    maven { url 'https://projects.itemis.de/nexus/content/groups/OS/' }
+    maven { url 'https://projects.itemis.de/nexus/content/repositories/mbeddr' }
+    mavenCentral()
+    mavenLocal()
+}
+
+ext.project_home = '-Dproject.home=' + file(rootDir).getAbsolutePath()
+ext.mps_home = '-Dmps.home=' + mpsDir.getAbsolutePath()
+ext.artifacts_dir = '-Dartifacts.root=' + new File(rootDir, 'artifacts')
+
+// default arguments for ANT
+ext.defaultScriptArgs = [mps_home, project_home, artifacts_dir]
+ext.buildScriptClasspath = project.configurations.ant_lib.fileCollection({
+    true
+})  + project.files("$jdk_home/lib/tools.jar")
+
+task generateLibrariesXml(type: GenerateLibrariesXml) {
+    description "Will read project libraries from projectlibraries.properties and generate libraries.xml in .mps directory. Libraries are loaded in mps during start."
+    defaults rootProject.file('projectlibraries.properties')
+    destination file('code/.mps/libraries.xml')
+    overrides rootProject.file('projectlibraries.overrides.properties')
+
+}
+
+task resolveLibs(type: Copy) {
+    doFirst {
+        delete libsDir
+    }
+    from {
+        configurations.libs.resolve()
+    }
+    into libsDir
+}
+
+
+task resolveMps(type: Copy) {
+    from {
+        configurations.mps.resolve().collect { zipTree(it) }
+    }
+    into mpsDir
+}
+
+
+task resolveMpsArtifacts(type: Copy) {
+    from {
+        configurations.mpsArtifacts.resolve().collect { zipTree(it) }
+    }
+    into artifactsDir
+}
+
+task setup {
+    // We resolve MPS not for the users to use it but for the distribution packaging script to be able to refer to it.
+    dependsOn resolveMpsArtifacts
+    dependsOn generateLibrariesXml
+    description 'Set up MPS project libraries. Libraries are read in from projectlibraries.properties file.'
+}
+
+task('assemble').dependsOn(resolveMpsArtifacts)
