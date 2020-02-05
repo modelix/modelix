@@ -11,6 +11,8 @@ export class SvgBasedEditor {
     private socket: WebSocket;
     private ccmenu: CCMenu;
     private intentionsMenu: IntentionsMenu;
+    private connectionStatus: HTMLElement;
+    private lastConnectionStatus: number;
 
     constructor(public readonly element: HTMLElement) {
         this.init(element);
@@ -24,6 +26,9 @@ export class SvgBasedEditor {
         let rawData: string = null;
 
         this.socket = new WebSocket(getWebsocketUrl() + "svgui");
+        this.socket.onopen = () => this.updateConnectionStatus();
+        this.socket.onclose = () => this.updateConnectionStatus();
+        this.socket.onerror = () => this.updateConnectionStatus();
 
         this.socket.onmessage = (event) => {
             if (rawDataFollowing) {
@@ -121,6 +126,7 @@ export class SvgBasedEditor {
         let nodeRef = this.element.getAttribute("nodeRef");
         if (nodeRef) {
             this.socket.onopen = () => {
+                this.updateConnectionStatus();
                 setTimeout(() => {
                     this.send({
                         type: "rootNode",
@@ -129,6 +135,8 @@ export class SvgBasedEditor {
                 }, 10);
             };
         }
+
+        this.updateConnectionStatus();
 
         //this.simulateDisconnect();
     }
@@ -148,6 +156,7 @@ export class SvgBasedEditor {
     }
 
     send(msg: object): void {
+        this.updateConnectionStatus();
         if (this.isConnected()) {
             this.socket.send(JSON.stringify(msg));
         } else {
@@ -272,6 +281,46 @@ export class SvgBasedEditor {
 
         this.intentionsMenu = new IntentionsMenu();
         this.element.appendChild(this.intentionsMenu.getDom());
+
+        this.connectionStatus = document.createElement("div");
+        this.element.appendChild(this.connectionStatus);
+        this.connectionStatus.classList.add("connectionStatus");
+        this.updateConnectionStatus();
+    }
+
+    updateConnectionStatus(): void {
+        let status = this.socket ? this.socket.readyState : WebSocket.CLOSED;
+
+        if (status === this.lastConnectionStatus) return;
+        this.lastConnectionStatus = status;
+
+        switch (status) {
+            case WebSocket.OPEN:
+                this.connectionStatus.innerText = "Connected";
+                this.connectionStatus.style.backgroundColor = "green";
+                this.connectionStatus.style.color = "white";
+                this.connectionStatus.style.opacity = "0";
+                break;
+            case WebSocket.CONNECTING:
+                this.connectionStatus.innerText = "Connecting...";
+                this.connectionStatus.style.backgroundColor = "red";
+                this.connectionStatus.style.color = "white";
+                this.connectionStatus.style.opacity = "1";
+                break;
+            case WebSocket.CLOSING:
+                this.connectionStatus.innerText = "Disconnecting...";
+                this.connectionStatus.style.backgroundColor = "red";
+                this.connectionStatus.style.color = "white";
+                this.connectionStatus.style.opacity = "1";
+                break;
+            case WebSocket.CLOSED:
+            default:
+                this.connectionStatus.innerText = "Disconnected";
+                this.connectionStatus.style.backgroundColor = "red";
+                this.connectionStatus.style.color = "white";
+                this.connectionStatus.style.opacity = "1";
+                break;
+        }
     }
 
     private fixSize(): void {
