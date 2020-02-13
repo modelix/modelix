@@ -4737,21 +4737,52 @@
                                 </node>
                               </node>
                             </node>
+                            <node concept="3cpWs8" id="1qctpygK1J4" role="3cqZAp">
+                              <node concept="3cpWsn" id="1qctpygK1J5" role="3cpWs9">
+                                <property role="TrG5h" value="mpsRepo" />
+                                <node concept="3uibUv" id="1qctpygK1Dl" role="1tU5fm">
+                                  <ref role="3uigEE" to="w1kc:~MPSModuleRepository" resolve="MPSModuleRepository" />
+                                </node>
+                                <node concept="2YIFZM" id="1qctpygK1J6" role="33vP2m">
+                                  <ref role="37wK5l" to="w1kc:~MPSModuleRepository.getInstance()" resolve="getInstance" />
+                                  <ref role="1Pybhc" to="w1kc:~MPSModuleRepository" resolve="MPSModuleRepository" />
+                                </node>
+                              </node>
+                            </node>
                             <node concept="1QHqEK" id="1qctpygFrtM" role="3cqZAp">
                               <node concept="1QHqEC" id="1qctpygFrtO" role="1QHqEI">
                                 <node concept="3clFbS" id="1qctpygFrtQ" role="1bW5cS">
-                                  <node concept="3clFbF" id="49CIzapJerA" role="3cqZAp">
-                                    <node concept="1rXfSq" id="49CIzapJer$" role="3clFbG">
-                                      <ref role="37wK5l" to="7e8u:~MPSTreeNode.setIcon(javax.swing.Icon)" resolve="setIcon" />
-                                      <node concept="2OqwBi" id="49CIzapJgCy" role="37wK5m">
-                                        <node concept="2YIFZM" id="49CIzapJgkA" role="2Oq$k0">
-                                          <ref role="37wK5l" to="sn11:5UC$YgehaLf" resolve="getInstance" />
-                                          <ref role="1Pybhc" to="sn11:192HKKPMXeL" resolve="GlobalIconManager" />
+                                  <node concept="3clFbF" id="1qctpygK4Jt" role="3cqZAp">
+                                    <node concept="2YIFZM" id="1qctpygK5$F" role="3clFbG">
+                                      <ref role="37wK5l" to="mjcn:6TdxBJ4kCc_" resolve="withAdditionalContext" />
+                                      <ref role="1Pybhc" to="mjcn:6TdxBJ4jkIl" resolve="CompositeNodeResolveContext" />
+                                      <node concept="2ShNRf" id="1qctpygK6pA" role="37wK5m">
+                                        <node concept="1pGfFk" id="1qctpygK6pB" role="2ShVmc">
+                                          <ref role="37wK5l" to="l6bp:7gxeZuyfxRC" resolve="SRepositoryResolveContext" />
+                                          <node concept="37vLTw" id="1qctpygK6pC" role="37wK5m">
+                                            <ref role="3cqZAo" node="1qctpygK1J5" resolve="mpsRepo" />
+                                          </node>
                                         </node>
-                                        <node concept="liA8E" id="49CIzapJgXV" role="2OqNvi">
-                                          <ref role="37wK5l" to="sn11:192HKKPOd3m" resolve="getIconFor" />
-                                          <node concept="37vLTw" id="49CIzapJhxG" role="37wK5m">
-                                            <ref role="3cqZAo" node="49CIzapJ5Ng" resolve="snode" />
+                                      </node>
+                                      <node concept="1bVj0M" id="1qctpygJwQT" role="37wK5m">
+                                        <property role="3yWfEV" value="true" />
+                                        <node concept="3clFbS" id="1qctpygJwQU" role="1bW5cS">
+                                          <node concept="3clFbF" id="49CIzapJerA" role="3cqZAp">
+                                            <node concept="1rXfSq" id="49CIzapJer$" role="3clFbG">
+                                              <ref role="37wK5l" to="7e8u:~MPSTreeNode.setIcon(javax.swing.Icon)" resolve="setIcon" />
+                                              <node concept="2OqwBi" id="49CIzapJgCy" role="37wK5m">
+                                                <node concept="2YIFZM" id="49CIzapJgkA" role="2Oq$k0">
+                                                  <ref role="37wK5l" to="sn11:5UC$YgehaLf" resolve="getInstance" />
+                                                  <ref role="1Pybhc" to="sn11:192HKKPMXeL" resolve="GlobalIconManager" />
+                                                </node>
+                                                <node concept="liA8E" id="49CIzapJgXV" role="2OqNvi">
+                                                  <ref role="37wK5l" to="sn11:192HKKPOd3m" resolve="getIconFor" />
+                                                  <node concept="37vLTw" id="49CIzapJhxG" role="37wK5m">
+                                                    <ref role="3cqZAo" node="49CIzapJ5Ng" resolve="snode" />
+                                                  </node>
+                                                </node>
+                                              </node>
+                                            </node>
                                           </node>
                                         </node>
                                       </node>
@@ -4759,9 +4790,8 @@
                                   </node>
                                 </node>
                               </node>
-                              <node concept="2YIFZM" id="1qctpygFvcr" role="ukAjM">
-                                <ref role="37wK5l" to="w1kc:~MPSModuleRepository.getInstance()" resolve="getInstance" />
-                                <ref role="1Pybhc" to="w1kc:~MPSModuleRepository" resolve="MPSModuleRepository" />
+                              <node concept="37vLTw" id="1qctpygK1J7" role="ukAjM">
+                                <ref role="3cqZAo" node="1qctpygK1J5" resolve="mpsRepo" />
                               </node>
                             </node>
                           </node>
