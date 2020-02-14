@@ -57,6 +57,31 @@ public class Main {
             servletHandler.addServlet(new ServletHolder(new ModelServerServlet(modelServer)), "/ws");
 
             servletHandler.addServlet(new ServletHolder(new HttpServlet() {
+                private String HEALTH_KEY = ModelServer.PROTECTED_PREFIX + "health";
+                @Override
+                protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+                    if (isHealthy()) {
+                        resp.setStatus(HttpServletResponse.SC_OK);
+                        resp.setContentType("text/plain");
+                        resp.getWriter().print("healthy");
+                    } else {
+                        resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+                        resp.setContentType("text/plain");
+                        resp.getWriter().print("not healthy");
+                    }
+                }
+
+                private boolean isHealthy() {
+                    storeClient.put(HEALTH_KEY, Long.toString(System.currentTimeMillis()));
+                    String timeStr = storeClient.get(HEALTH_KEY);
+                    if (timeStr == null) return false;
+                    long time = Long.parseLong(timeStr);
+                    if (System.currentTimeMillis() - time > 1000) return false;
+                    return true;
+                }
+            }), "/health");
+
+            servletHandler.addServlet(new ServletHolder(new HttpServlet() {
                 @Override
                 protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
                     if (!checkAuthorization(storeClient, req, resp)) return;

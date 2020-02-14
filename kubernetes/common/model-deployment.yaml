@@ -24,7 +24,7 @@ spec:
       - env:
         - name: jdbc_url
           value: jdbc:postgresql://db:5432/
-        image: cloudmps/cloudmps-model:202002041256
+        image: cloudmps/cloudmps-model:202002141058
         imagePullPolicy: IfNotPresent
         name: model
         ports:
@@ -43,15 +43,19 @@ spec:
             memory: "800Mi"
             cpu: "1.0"
         readinessProbe:
-          tcpSocket:
+          httpGet:
+            path: /health
             port: 28101
           initialDelaySeconds: 5
-          periodSeconds: 3
+          periodSeconds: 5
+          timeoutSeconds: 3
         livenessProbe:
-          tcpSocket:
+          httpGet:
+            path: /health
             port: 28101
           initialDelaySeconds: 60
           periodSeconds: 10
+          timeoutSeconds: 5            
       restartPolicy: Always
       volumes:
         - name: modelsecret
