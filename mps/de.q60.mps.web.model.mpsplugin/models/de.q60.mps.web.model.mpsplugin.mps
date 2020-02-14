@@ -14089,97 +14089,14 @@
                           </node>
                         </node>
                         <node concept="3clFbH" id="6aRQr1XaSDx" role="3cqZAp" />
-                        <node concept="3cpWs8" id="6aRQr1XaJ3Y" role="3cqZAp">
-                          <node concept="3cpWsn" id="6aRQr1XaJ3Z" role="3cpWs9">
-                            <property role="TrG5h" value="treeInfo" />
-                            <node concept="3Tqbb2" id="6aRQr1XaJ2d" role="1tU5fm">
-                              <ref role="ehGHo" to="w7di:6aRQr1WVbN0" resolve="TreeInfo" />
-                            </node>
-                            <node concept="1PxgMI" id="6aRQr1XaJ40" role="33vP2m">
-                              <node concept="chp4Y" id="6aRQr1XaJ41" role="3oSUPX">
-                                <ref role="cht4Q" to="w7di:6aRQr1WVbN0" resolve="TreeInfo" />
-                              </node>
-                              <node concept="2YIFZM" id="6aRQr1XaJ42" role="1m5AlR">
-                                <ref role="37wK5l" to="l6bp:30TKBrMe2kz" resolve="addNewChild" />
-                                <ref role="1Pybhc" to="l6bp:30TKBrMa5zj" resolve="SNodeAPI" />
-                                <node concept="37vLTw" id="6aRQr1XaJ43" role="37wK5m">
-                                  <ref role="3cqZAo" node="6aRQr1XaFFh" resolve="repoInfo" />
-                                </node>
-                                <node concept="359W_D" id="6aRQr1XaJ44" role="37wK5m">
-                                  <ref role="359W_E" to="w7di:6aRQr1WVbMZ" resolve="RepositoryInfo" />
-                                  <ref role="359W_F" to="w7di:6aRQr1WVbN2" resolve="trees" />
-                                </node>
-                              </node>
-                            </node>
-                          </node>
-                        </node>
-                        <node concept="3clFbF" id="6aRQr1XaH81" role="3cqZAp">
-                          <node concept="37vLTI" id="6aRQr1XaKJE" role="3clFbG">
-                            <node concept="Xl_RD" id="6aRQr1XaL1X" role="37vLTx">
+                        <node concept="3clFbF" id="3OcvCejdFKt" role="3cqZAp">
+                          <node concept="1rXfSq" id="3OcvCejdFKr" role="3clFbG">
+                            <ref role="37wK5l" node="6aRQr1Xc8A_" resolve="addTree" />
+                            <node concept="Xl_RD" id="3OcvCejdG9q" role="37wK5m">
                               <property role="Xl_RC" value="default tree" />
                             </node>
-                            <node concept="2OqwBi" id="6aRQr1XaJPw" role="37vLTJ">
-                              <node concept="37vLTw" id="6aRQr1XaJ45" role="2Oq$k0">
-                                <ref role="3cqZAo" node="6aRQr1XaJ3Z" resolve="treeInfo" />
-                              </node>
-                              <node concept="3TrcHB" id="6aRQr1XaK8g" role="2OqNvi">
-                                <ref role="3TsBF5" to="tpck:h0TrG11" resolve="name" />
-                              </node>
-                            </node>
-                          </node>
-                        </node>
-                        <node concept="3clFbF" id="6aRQr1XaLU5" role="3cqZAp">
-                          <node concept="37vLTI" id="6aRQr1XaNt7" role="3clFbG">
-                            <node concept="Xl_RD" id="6aRQr1XaNRV" role="37vLTx">
+                            <node concept="Xl_RD" id="3OcvCejdGX$" role="37wK5m">
                               <property role="Xl_RC" value="default" />
-                            </node>
-                            <node concept="2OqwBi" id="6aRQr1XaMmT" role="37vLTJ">
-                              <node concept="37vLTw" id="6aRQr1XaLU3" role="2Oq$k0">
-                                <ref role="3cqZAo" node="6aRQr1XaJ3Z" resolve="treeInfo" />
-                              </node>
-                              <node concept="3TrcHB" id="6aRQr1XaMDm" role="2OqNvi">
-                                <ref role="3TsBF5" to="w7di:6aRQr1WVbN6" resolve="id" />
-                              </node>
-                            </node>
-                          </node>
-                        </node>
-                        <node concept="3cpWs8" id="6aRQr1XaQwT" role="3cqZAp">
-                          <node concept="3cpWsn" id="6aRQr1XaQwU" role="3cpWs9">
-                            <property role="TrG5h" value="branchInfo" />
-                            <node concept="3Tqbb2" id="6aRQr1XaQuJ" role="1tU5fm">
-                              <ref role="ehGHo" to="w7di:6aRQr1WVbN1" resolve="BranchInfo" />
-                            </node>
-                            <node concept="1PxgMI" id="6aRQr1XaQwV" role="33vP2m">
-                              <node concept="chp4Y" id="6aRQr1XaQwW" role="3oSUPX">
-                                <ref role="cht4Q" to="w7di:6aRQr1WVbN1" resolve="BranchInfo" />
-                              </node>
-                              <node concept="2YIFZM" id="6aRQr1XaQwX" role="1m5AlR">
-                                <ref role="37wK5l" to="l6bp:30TKBrMe2kz" resolve="addNewChild" />
-                                <ref role="1Pybhc" to="l6bp:30TKBrMa5zj" resolve="SNodeAPI" />
-                                <node concept="37vLTw" id="6aRQr1XaQwY" role="37wK5m">
-                                  <ref role="3cqZAo" node="6aRQr1XaJ3Z" resolve="treeInfo" />
-                                </node>
-                                <node concept="359W_D" id="6aRQr1XaQwZ" role="37wK5m">
-                                  <ref role="359W_E" to="w7di:6aRQr1WVbN0" resolve="TreeInfo" />
-                                  <ref role="359W_F" to="w7di:6aRQr1WVbN4" resolve="branches" />
-                                </node>
-                              </node>
-                            </node>
-                          </node>
-                        </node>
-                        <node concept="3clFbF" id="6aRQr1XaOFW" role="3cqZAp">
-                          <node concept="37vLTI" id="6aRQr1XaS49" role="3clFbG">
-                            <node concept="10M0yZ" id="49CIzaqgK_X" role="37vLTx">
-                              <ref role="3cqZAo" node="49CIzaqgI0k" resolve="DEFAULT_BRANCH_NAME" />
-                              <ref role="1PxDUh" node="49CIzaqd$Q8" resolve="ActiveBranch" />
-                            </node>
-                            <node concept="2OqwBi" id="6aRQr1XaR7R" role="37vLTJ">
-                              <node concept="37vLTw" id="6aRQr1XaQx0" role="2Oq$k0">
-                                <ref role="3cqZAo" node="6aRQr1XaQwU" resolve="branchInfo" />
-                              </node>
-                              <node concept="3TrcHB" id="6aRQr1XaRsl" role="2OqNvi">
-                                <ref role="3TsBF5" to="tpck:h0TrG11" resolve="name" />
-                              </node>
                             </node>
                           </node>
                         </node>
