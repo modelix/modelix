@@ -22,7 +22,7 @@ spec:
     spec:
       containers:
       - name: proxy
-        image: cloudmps/cloudmps-proxy:202002041256
+        image: cloudmps/cloudmps-proxy:202002141541
         imagePullPolicy: IfNotPresent
         env:
         ports:
