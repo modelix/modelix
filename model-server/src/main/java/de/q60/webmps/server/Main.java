@@ -57,7 +57,7 @@ public class Main {
             servletHandler.addServlet(new ServletHolder(new ModelServerServlet(modelServer)), "/ws");
 
             servletHandler.addServlet(new ServletHolder(new HttpServlet() {
-                private String HEALTH_KEY = ModelServer.PROTECTED_PREFIX + "health";
+                private String HEALTH_KEY = ModelServer.PROTECTED_PREFIX + "health2";
                 @Override
                 protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
                     if (isHealthy()) {
@@ -72,12 +72,14 @@ public class Main {
                 }
 
                 private boolean isHealthy() {
-                    storeClient.put(HEALTH_KEY, Long.toString(System.currentTimeMillis()));
-                    String timeStr = storeClient.get(HEALTH_KEY);
-                    if (timeStr == null) return false;
-                    long time = Long.parseLong(timeStr);
-                    if (System.currentTimeMillis() - time > 1000) return false;
+                    long value = toLong(storeClient.get(HEALTH_KEY)) + 1;
+                    storeClient.put(HEALTH_KEY, Long.toString(value));
+                    if (toLong(storeClient.get(HEALTH_KEY)) < value) return false;
                     return true;
+                }
+                
+                private long toLong(String value) {
+                    return value == null || value.isEmpty() ? 0 : Long.parseLong(value);
                 }
             }), "/health");
 
