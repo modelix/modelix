@@ -34,6 +34,7 @@ spec:
             - --skip-auth-regex=\/model\/get\/.*
             - --skip-auth-regex=\/model\/getRecursively\/.*
             - --skip-auth-regex=\/model\/put\/.*
+            - --skip-auth-regex=\/model\/putAll
             - --skip-auth-regex=\/model\/counter\/.*
             - --skip-auth-regex=\/model\/subscribe\/.*
             - --skip-auth-regex=\/model\/getEmail

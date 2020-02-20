@@ -5651,6 +5651,37 @@
         <ref role="2AI5Lk" to="wyt6:~Override" resolve="Override" />
       </node>
     </node>
+    <node concept="2tJIrI" id="7tS73g$DJzE" role="jymVt" />
+    <node concept="3clFb_" id="7tS73g$DJ3h" role="jymVt">
+      <property role="TrG5h" value="putAll" />
+      <node concept="37vLTG" id="7tS73g$DJ3i" role="3clF46">
+        <property role="TrG5h" value="entries" />
+        <node concept="3rvAFt" id="7tS73g$DJ3j" role="1tU5fm">
+          <node concept="17QB3L" id="7tS73g$DJ3k" role="3rvQeY" />
+          <node concept="17QB3L" id="7tS73g$DJ3l" role="3rvSg0" />
+        </node>
+      </node>
+      <node concept="3cqZAl" id="7tS73g$DJ3m" role="3clF45" />
+      <node concept="3Tm1VV" id="7tS73g$DJ3n" role="1B3o_S" />
+      <node concept="3clFbS" id="7tS73g$DJ3p" role="3clF47">
+        <node concept="3clFbF" id="7tS73g$DKtR" role="3cqZAp">
+          <node concept="2OqwBi" id="7tS73g$DKQ$" role="3clFbG">
+            <node concept="37vLTw" id="7tS73g$DKtQ" role="2Oq$k0">
+              <ref role="3cqZAo" node="ifAKfhONyo" resolve="map" />
+            </node>
+            <node concept="liA8E" id="7tS73g$DLq6" role="2OqNvi">
+              <ref role="37wK5l" to="33ny:~Map.putAll(java.util.Map)" resolve="putAll" />
+              <node concept="37vLTw" id="7tS73g$DLQx" role="37wK5m">
+                <ref role="3cqZAo" node="7tS73g$DJ3i" resolve="entries" />
+              </node>
+            </node>
+          </node>
+        </node>
+      </node>
+      <node concept="2AHcQZ" id="7tS73g$DJ3q" role="2AJF6D">
+        <ref role="2AI5Lk" to="wyt6:~Override" resolve="Override" />
+      </node>
+    </node>
     <node concept="2tJIrI" id="4_P7CAmiY_b" role="jymVt" />
     <node concept="3clFb_" id="4_P7CAmiYH6" role="jymVt">
       <property role="TrG5h" value="getEntries" />

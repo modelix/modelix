@@ -5,6 +5,7 @@ package de.q60.webmps.server;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
+import org.apache.log4j.Logger;
 import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.ContextHandler;
@@ -14,6 +15,8 @@ import org.eclipse.jetty.servlet.ServletHolder;
 import org.eclipse.jetty.servlets.EventSource;
 import org.eclipse.jetty.servlets.EventSourceServlet;
 import org.jetbrains.annotations.NotNull;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
@@ -28,6 +31,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.UUID;
 
 public class Main {
+    private static final Logger LOG = Logger.getLogger(Main.class);
     private static final String REPOSITORY_ID_KEY = "repositoryId";
     private static String sharedSecret;
     public static void main(String[] args) {
@@ -77,7 +81,7 @@ public class Main {
                     if (toLong(storeClient.get(HEALTH_KEY)) < value) return false;
                     return true;
                 }
-                
+
                 private long toLong(String value) {
                     return value == null || value.isEmpty() ? 0 : Long.parseLong(value);
                 }
@@ -176,6 +180,33 @@ public class Main {
                     resp.getWriter().print("OK");
                 }
             }), "/put/*");
+
+            servletHandler.addServlet(new ServletHolder(new HttpServlet() {
+                @Override
+                protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+                    if (!checkAuthorization(storeClient, req, resp)) return;
+
+                    String jsonStr = IOUtils.toString(req.getInputStream(), StandardCharsets.UTF_8);
+                    JSONArray json = new JSONArray(jsonStr);
+                    for (Object entry_ : json) {
+                        JSONObject entry = (JSONObject) entry_;
+                        String key = entry.getString("key");
+                        String value = entry.getString("value");
+
+                        if (REPOSITORY_ID_KEY.equals(key)) {
+                            LOG.warn("Changing '" + key + "' is not allowed");
+                        }
+                        if (key.startsWith(ModelServer.PROTECTED_PREFIX)) {
+                            LOG.warn("No permission to access " + key);
+                        }
+                        storeClient.put(key, value);
+                    }
+                    resp.setStatus(HttpServletResponse.SC_OK);
+                    resp.setContentType("text/plain");
+                    resp.setCharacterEncoding(StandardCharsets.UTF_8.toString());
+                    resp.getWriter().print(json.length() + " entries written");
+                }
+            }), "/putAll");
 
             servletHandler.addServlet(new ServletHolder(new HttpServlet() {
                 @Override
