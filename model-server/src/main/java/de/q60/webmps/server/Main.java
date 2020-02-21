@@ -28,6 +28,8 @@ import java.io.IOException;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 public class Main {
@@ -195,9 +197,11 @@ public class Main {
 
                         if (REPOSITORY_ID_KEY.equals(key)) {
                             LOG.warn("Changing '" + key + "' is not allowed");
+                            continue;
                         }
                         if (key.startsWith(ModelServer.PROTECTED_PREFIX)) {
                             LOG.warn("No permission to access " + key);
+                            continue;
                         }
                         storeClient.put(key, value);
                     }
@@ -207,6 +211,40 @@ public class Main {
                     resp.getWriter().print(json.length() + " entries written");
                 }
             }), "/putAll");
+
+            servletHandler.addServlet(new ServletHolder(new HttpServlet() {
+                @Override
+                protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+                    if (!checkAuthorization(storeClient, req, resp)) return;
+
+                    String reqJsonStr = IOUtils.toString(req.getInputStream(), StandardCharsets.UTF_8);
+                    JSONArray reqJson = new JSONArray(reqJsonStr);
+                    JSONArray respJson = new JSONArray();
+                    List<String> keys = new ArrayList<String>(reqJson.length());
+                    for (Object entry_ : reqJson) {
+                        String key = (String) entry_;
+
+                        if (key.startsWith(ModelServer.PROTECTED_PREFIX)) {
+                            LOG.warn("No permission to access " + key);
+                            continue;
+                        }
+                        keys.add(key);
+                    }
+
+                    List<String> values = storeClient.getAll(keys);
+                    for (int i = 0; i < keys.size(); i++) {
+                        JSONObject respEntry = new JSONObject();
+                        respEntry.put("key", keys.get(i));
+                        respEntry.put("value", values.get(i));
+                        respJson.put(respEntry);
+                    }
+
+                    resp.setStatus(HttpServletResponse.SC_OK);
+                    resp.setContentType("application/json");
+                    resp.setCharacterEncoding(StandardCharsets.UTF_8.toString());
+                    resp.getWriter().print(respJson.toString());
+                }
+            }), "/getAll");
 
             servletHandler.addServlet(new ServletHolder(new HttpServlet() {
                 @Override

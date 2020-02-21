@@ -143,6 +143,9 @@
         <child id="1204796294226" name="closure" index="23t8la" />
       </concept>
       <concept id="1204980550705" name="jetbrains.mps.baseLanguage.collections.structure.VisitAllOperation" flags="nn" index="2es0OD" />
+      <concept id="1151689724996" name="jetbrains.mps.baseLanguage.collections.structure.SequenceType" flags="in" index="A3Dl8">
+        <child id="1151689745422" name="elementType" index="A3Ik2" />
+      </concept>
       <concept id="1203518072036" name="jetbrains.mps.baseLanguage.collections.structure.SmartClosureParameterDeclaration" flags="ig" index="Rh6nW" />
       <concept id="1197683403723" name="jetbrains.mps.baseLanguage.collections.structure.MapType" flags="in" index="3rvAFt">
         <child id="1197683466920" name="keyType" index="3rvQeY" />
@@ -506,6 +509,36 @@
       </node>
     </node>
     <node concept="2tJIrI" id="7tS73g$E1sl" role="jymVt" />
+    <node concept="3clFb_" id="V4LYeB$oj9" role="jymVt">
+      <property role="TrG5h" value="getAll" />
+      <node concept="37vLTG" id="V4LYeB$oja" role="3clF46">
+        <property role="TrG5h" value="keys" />
+        <node concept="A3Dl8" id="V4LYeB$ojb" role="1tU5fm">
+          <node concept="17QB3L" id="V4LYeB$ojc" role="A3Ik2" />
+        </node>
+      </node>
+      <node concept="3rvAFt" id="V4LYeB$ojd" role="3clF45">
+        <node concept="17QB3L" id="V4LYeB$oje" role="3rvQeY" />
+        <node concept="17QB3L" id="V4LYeB$ojf" role="3rvSg0" />
+      </node>
+      <node concept="3Tm1VV" id="V4LYeB$ojg" role="1B3o_S" />
+      <node concept="3clFbS" id="V4LYeB$oji" role="3clF47">
+        <node concept="YS8fn" id="V4LYeB$rpL" role="3cqZAp">
+          <node concept="2ShNRf" id="V4LYeB$rrT" role="YScLw">
+            <node concept="1pGfFk" id="V4LYeB$v9H" role="2ShVmc">
+              <ref role="37wK5l" to="wyt6:~UnsupportedOperationException.&lt;init&gt;(java.lang.String)" resolve="UnsupportedOperationException" />
+              <node concept="Xl_RD" id="V4LYeB$vfx" role="37wK5m">
+                <property role="Xl_RC" value="Not implemented" />
+              </node>
+            </node>
+          </node>
+        </node>
+      </node>
+      <node concept="2AHcQZ" id="V4LYeB$ojj" role="2AJF6D">
+        <ref role="2AI5Lk" to="wyt6:~Override" resolve="Override" />
+      </node>
+    </node>
+    <node concept="2tJIrI" id="V4LYeB$vxX" role="jymVt" />
     <node concept="3clFb_" id="7tS73g$DYvh" role="jymVt">
       <property role="TrG5h" value="putAll" />
       <node concept="37vLTG" id="7tS73g$DYvi" role="3clF46">
@@ -558,6 +591,20 @@
       </node>
     </node>
     <node concept="2tJIrI" id="68JFWayaOSy" role="jymVt" />
+    <node concept="3clFb_" id="V4LYeBDcEe" role="jymVt">
+      <property role="TrG5h" value="prefetch" />
+      <node concept="37vLTG" id="V4LYeBDcEf" role="3clF46">
+        <property role="TrG5h" value="key" />
+        <node concept="17QB3L" id="V4LYeBDcEg" role="1tU5fm" />
+      </node>
+      <node concept="3cqZAl" id="V4LYeBDcEh" role="3clF45" />
+      <node concept="3Tm1VV" id="V4LYeBDcEi" role="1B3o_S" />
+      <node concept="3clFbS" id="V4LYeBDcEk" role="3clF47" />
+      <node concept="2AHcQZ" id="V4LYeBDcEl" role="2AJF6D">
+        <ref role="2AI5Lk" to="wyt6:~Override" resolve="Override" />
+      </node>
+    </node>
+    <node concept="2tJIrI" id="V4LYeBDfKf" role="jymVt" />
     <node concept="3clFb_" id="68JFWayaRX7" role="jymVt">
       <property role="TrG5h" value="subscribe" />
       <node concept="37vLTG" id="68JFWaybdro" role="3clF46">

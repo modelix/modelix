@@ -1841,6 +1841,9 @@
       <node concept="tCFHf" id="7UL57Peu2TG" role="ftvYc">
         <ref role="tCJdB" node="7UL57PetoVd" resolve="LoadHistoryForTree" />
       </node>
+      <node concept="tCFHf" id="7ardNfhN5bk" role="ftvYc">
+        <ref role="tCJdB" node="7ardNfhN4SF" resolve="RemoveTree" />
+      </node>
     </node>
   </node>
   <node concept="sE7Ow" id="2n9Wvfbmd$q">
@@ -4204,6 +4207,78 @@
               <node concept="2WthIp" id="4yJY4bt62S" role="2Oq$k0" />
               <node concept="1DTwFV" id="4yJY4bt62T" role="2OqNvi">
                 <ref role="2WH_rO" node="4yJY4bt62K" resolve="treeNode" />
+              </node>
+            </node>
+          </node>
+        </node>
+      </node>
+    </node>
+  </node>
+  <node concept="sE7Ow" id="7ardNfhN4SF">
+    <property role="3GE5qa" value="actions.tree" />
+    <property role="TrG5h" value="RemoveTree" />
+    <property role="2uzpH1" value="Remove Tree" />
+    <node concept="1DS2jV" id="7ardNfhN4SI" role="1NuT2Z">
+      <property role="TrG5h" value="treeNode_" />
+      <ref role="1DUlNI" to="qq03:~MPSCommonDataKeys.TREE_NODE" resolve="TREE_NODE" />
+      <node concept="1oajcY" id="7ardNfhN4SJ" role="1oa70y" />
+    </node>
+    <node concept="tnohg" id="7ardNfhN4SK" role="tncku">
+      <node concept="3clFbS" id="7ardNfhN4SL" role="2VODD2">
+        <node concept="3cpWs8" id="7ardNfhN4SM" role="3cqZAp">
+          <node concept="3cpWsn" id="7ardNfhN4SN" role="3cpWs9">
+            <property role="TrG5h" value="treeNode" />
+            <node concept="3uibUv" id="7ardNfhN4SO" role="1tU5fm">
+              <ref role="3uigEE" to="um17:6aRQr1WUXn6" resolve="CloudTreeTreeNode" />
+            </node>
+            <node concept="10QFUN" id="7ardNfhN4SP" role="33vP2m">
+              <node concept="2OqwBi" id="7ardNfhN4SQ" role="10QFUP">
+                <node concept="2WthIp" id="7ardNfhN4SR" role="2Oq$k0" />
+                <node concept="1DTwFV" id="7ardNfhN4SS" role="2OqNvi">
+                  <ref role="2WH_rO" node="7ardNfhN4SI" resolve="treeNode_" />
+                </node>
+              </node>
+              <node concept="3uibUv" id="7ardNfhN4ST" role="10QFUM">
+                <ref role="3uigEE" to="um17:6aRQr1WUXn6" resolve="CloudTreeTreeNode" />
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="3cpWs8" id="7ardNfhN5h3" role="3cqZAp">
+          <node concept="3cpWsn" id="7ardNfhN5h4" role="3cpWs9">
+            <property role="TrG5h" value="cloudRepository" />
+            <node concept="3uibUv" id="7ardNfhN5ga" role="1tU5fm">
+              <ref role="3uigEE" to="csg2:6aRQr1WOV$v" resolve="CloudRepository" />
+            </node>
+            <node concept="2OqwBi" id="7ardNfhN5h5" role="33vP2m">
+              <node concept="37vLTw" id="7ardNfhN5h6" role="2Oq$k0">
+                <ref role="3cqZAo" node="7ardNfhN4SN" resolve="treeNode" />
+              </node>
+              <node concept="liA8E" id="7ardNfhN5h7" role="2OqNvi">
+                <ref role="37wK5l" to="um17:EMWAvBfYQJ" resolve="getCloudRepository" />
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="3clFbF" id="7ardNfhN8yJ" role="3cqZAp">
+          <node concept="2OqwBi" id="7ardNfhN8EV" role="3clFbG">
+            <node concept="37vLTw" id="7ardNfhN8yH" role="2Oq$k0">
+              <ref role="3cqZAo" node="7ardNfhN5h4" resolve="cloudRepository" />
+            </node>
+            <node concept="liA8E" id="7ardNfhNGIl" role="2OqNvi">
+              <ref role="37wK5l" to="csg2:7ardNfhNg14" resolve="removeTree" />
+              <node concept="2OqwBi" id="7ardNfhNI35" role="37wK5m">
+                <node concept="2OqwBi" id="7ardNfhNHfz" role="2Oq$k0">
+                  <node concept="37vLTw" id="7ardNfhNGJA" role="2Oq$k0">
+                    <ref role="3cqZAo" node="7ardNfhN4SN" resolve="treeNode" />
+                  </node>
+                  <node concept="liA8E" id="7ardNfhNHT$" role="2OqNvi">
+                    <ref role="37wK5l" to="um17:EMWAvBgmbf" resolve="getTreeId" />
+                  </node>
+                </node>
+                <node concept="liA8E" id="7ardNfhNIdy" role="2OqNvi">
+                  <ref role="37wK5l" to="jon5:1LVcV5K_9XL" resolve="getId" />
+                </node>
               </node>
             </node>
           </node>
