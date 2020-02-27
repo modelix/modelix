@@ -63,6 +63,17 @@
     <bean id="ignite.cfg" class="org.apache.ignite.configuration.IgniteConfiguration">
         <property name="peerClassLoadingEnabled" value="true"/>
 
+        <property name="dataStorageConfiguration">
+            <bean class="org.apache.ignite.configuration.DataStorageConfiguration">
+                <!-- Redefining the default region's settings -->
+                <property name="defaultDataRegionConfiguration">
+                    <bean class="org.apache.ignite.configuration.DataRegionConfiguration">
+                        <property name="maxSize" value="#{100L * 1024 * 1024}"/>
+                    </bean>
+                </property>
+            </bean>
+        </property>
+
         <property name="cacheConfiguration">
             <list>
                 <bean class="org.apache.ignite.configuration.CacheConfiguration">
@@ -75,8 +86,8 @@
                     <property name="writeThrough" value="true"/>
                     <property name="writeBehindEnabled" value="true"/>
                     <property name="writeBehindFlushFrequency" value="1000"/>
-                    <property name="writeBehindBatchSize" value="10000"/>
-                    <property name="writeBehindFlushSize" value="30000"/>
+                    <property name="writeBehindBatchSize" value="1000"/>
+                    <property name="writeBehindFlushSize" value="3000"/>
 
                     <property name="cacheStoreFactory">
                         <!--
@@ -140,15 +151,10 @@
                     <property name="evictionPolicy">
                         <bean class="org.apache.ignite.cache.eviction.lru.LruEvictionPolicy">
                             <property name="maxSize" value="10000"/>
-                            <property name="maxMemorySize" value="100000000"/>
+                            <property name="maxMemorySize" value="#{100L * 1024 * 1024}"/>
                         </bean>
                     </property>
 
-                </bean>
-                <bean class="org.apache.ignite.configuration.CacheConfiguration">
-                    <property name="name" value="types"/>
-                    <property name="atomicityMode" value="ATOMIC"/>
-                    <property name="backups" value="0"/>
                 </bean>
             </list>
         </property>
