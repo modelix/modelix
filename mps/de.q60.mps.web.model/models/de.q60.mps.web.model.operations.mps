@@ -9,6 +9,7 @@
     <import index="3hky" ref="r:bef1bfa7-20fd-413a-ae11-793b0a8ee364(de.q60.mps.shadowmodels.runtime.model.persistent)" />
     <import index="mjcn" ref="r:89ac1ee0-92ac-49e1-83e6-167854d2040e(de.q60.mps.shadowmodels.runtime.model)" />
     <import index="25x5" ref="6354ebe7-c22a-4a0f-ac54-50b52ab9b065/java:java.text(JDK/)" />
+    <import index="3a50" ref="742f6602-5a2f-4313-aa6e-ae1cd4ffdc61/java:jetbrains.mps.ide(MPS.Platform/)" />
     <import index="wyt6" ref="6354ebe7-c22a-4a0f-ac54-50b52ab9b065/java:java.lang(JDK/)" implicit="true" />
   </imports>
   <registry>
@@ -213,6 +214,8 @@
     </language>
     <language id="760a0a8c-eabb-4521-8bfd-65db761a9ba3" name="jetbrains.mps.baseLanguage.logging">
       <concept id="2034914114981261497" name="jetbrains.mps.baseLanguage.logging.structure.LogLowLevelStatement" flags="ng" index="RRSsy">
+        <property id="2034914114981261751" name="severity" index="RRSoG" />
+        <child id="2034914114981261755" name="throwable" index="RRSow" />
         <child id="2034914114981261753" name="message" index="RRSoy" />
       </concept>
     </language>
@@ -222,6 +225,13 @@
       </concept>
       <concept id="1169194658468" name="jetbrains.mps.lang.core.structure.INamedConcept" flags="ng" index="TrEIO">
         <property id="1169194664001" name="name" index="TrG5h" />
+      </concept>
+      <concept id="709746936026466394" name="jetbrains.mps.lang.core.structure.ChildAttribute" flags="ng" index="3VBwX9">
+        <property id="709746936026609031" name="linkId" index="3V$3ak" />
+        <property id="709746936026609029" name="role_DebugInfo" index="3V$3am" />
+      </concept>
+      <concept id="4452961908202556907" name="jetbrains.mps.lang.core.structure.BaseCommentAttribute" flags="ng" index="1X3_iC">
+        <child id="3078666699043039389" name="commentedNode" index="8Wnug" />
       </concept>
     </language>
     <language id="83888646-71ce-4f1c-9c53-c54016f6ad4f" name="jetbrains.mps.baseLanguage.collections">
@@ -1174,6 +1184,11 @@
         <property role="TrG5h" value="T" />
       </node>
       <node concept="3clFbS" id="1U0efzL$25e" role="3clF47">
+        <node concept="3clFbF" id="5JOZTo7lJMb" role="3cqZAp">
+          <node concept="1rXfSq" id="5JOZTo7lJM9" role="3clFbG">
+            <ref role="37wK5l" node="36zMFG3gobo" resolve="checkNotEDT" />
+          </node>
+        </node>
         <node concept="3clFbF" id="1U0efzL$tix" role="3cqZAp">
           <node concept="2OqwBi" id="1U0efzL$t_t" role="3clFbG">
             <node concept="37vLTw" id="1U0efzL$tiw" role="2Oq$k0">
@@ -1210,6 +1225,11 @@
         <property role="TrG5h" value="T" />
       </node>
       <node concept="3clFbS" id="1U0efzL$25o" role="3clF47">
+        <node concept="3clFbF" id="5JOZTo7lK1R" role="3cqZAp">
+          <node concept="1rXfSq" id="5JOZTo7lK1S" role="3clFbG">
+            <ref role="37wK5l" node="36zMFG3gobo" resolve="checkNotEDT" />
+          </node>
+        </node>
         <node concept="3clFbF" id="1U0efzL$vUG" role="3cqZAp">
           <node concept="2OqwBi" id="1U0efzL$wdK" role="3clFbG">
             <node concept="37vLTw" id="1U0efzL$vUF" role="2Oq$k0">
@@ -1311,6 +1331,11 @@
         </node>
       </node>
       <node concept="3clFbS" id="1U0efzL$261" role="3clF47">
+        <node concept="3clFbF" id="5JOZTo7lKgs" role="3cqZAp">
+          <node concept="1rXfSq" id="5JOZTo7lKgt" role="3clFbG">
+            <ref role="37wK5l" node="36zMFG3gobo" resolve="checkNotEDT" />
+          </node>
+        </node>
         <node concept="3clFbF" id="1U0efzL$yEb" role="3cqZAp">
           <node concept="2OqwBi" id="1U0efzL$yW3" role="3clFbG">
             <node concept="37vLTw" id="1U0efzL$yEa" role="2Oq$k0">
@@ -1340,6 +1365,11 @@
       <node concept="3cqZAl" id="1U0efzL$267" role="3clF45" />
       <node concept="3Tm1VV" id="1U0efzL$268" role="1B3o_S" />
       <node concept="3clFbS" id="1U0efzL$26a" role="3clF47">
+        <node concept="3clFbF" id="5JOZTo7lKuH" role="3cqZAp">
+          <node concept="1rXfSq" id="5JOZTo7lKuI" role="3clFbG">
+            <ref role="37wK5l" node="36zMFG3gobo" resolve="checkNotEDT" />
+          </node>
+        </node>
         <node concept="3clFbF" id="1U0efzL$_g$" role="3cqZAp">
           <node concept="2OqwBi" id="1U0efzL$_mR" role="3clFbG">
             <node concept="37vLTw" id="1U0efzL$_gz" role="2Oq$k0">
@@ -1430,6 +1460,39 @@
         <ref role="3uigEE" to="3hky:4_SQzDOc0eq" resolve="IWriteTransaction" />
       </node>
     </node>
+    <node concept="2tJIrI" id="5JOZTo7lIn4" role="jymVt" />
+    <node concept="3clFb_" id="36zMFG3gobo" role="jymVt">
+      <property role="TrG5h" value="checkNotEDT" />
+      <node concept="3cqZAl" id="36zMFG3gobq" role="3clF45" />
+      <node concept="3Tmbuc" id="36zMFG3gvkZ" role="1B3o_S" />
+      <node concept="3clFbS" id="36zMFG3gobs" role="3clF47">
+        <node concept="1X3_iC" id="7XbX7d1HpXP" role="lGtFl">
+          <property role="3V$3am" value="statement" />
+          <property role="3V$3ak" value="f3061a53-9226-4cc5-a443-f952ceaf5816/1068580123136/1068581517665" />
+          <node concept="3clFbJ" id="36zMFG3gK9O" role="8Wnug">
+            <property role="TyiWK" value="true" />
+            <node concept="3clFbS" id="36zMFG3gK9Q" role="3clFbx">
+              <node concept="RRSsy" id="1ws0Et6TXz3" role="3cqZAp">
+                <property role="RRSoG" value="gZ5fksE/warn" />
+                <node concept="2ShNRf" id="1ws0Et6TXVu" role="RRSow">
+                  <node concept="1pGfFk" id="1ws0Et6U35f" role="2ShVmc">
+                    <ref role="37wK5l" to="wyt6:~RuntimeException.&lt;init&gt;()" resolve="RuntimeException" />
+                  </node>
+                </node>
+                <node concept="Xl_RD" id="1ws0Et6Upf3" role="RRSoy">
+                  <property role="Xl_RC" value="Performing network operations from the EDT will make the UI unresponsive" />
+                </node>
+              </node>
+            </node>
+            <node concept="2YIFZM" id="36zMFG3gJLX" role="3clFbw">
+              <ref role="1Pybhc" to="3a50:~ThreadUtils" resolve="ThreadUtils" />
+              <ref role="37wK5l" to="3a50:~ThreadUtils.isInEDT()" resolve="isInEDT" />
+            </node>
+          </node>
+        </node>
+      </node>
+    </node>
+    <node concept="2tJIrI" id="5JOZTo7lGil" role="jymVt" />
     <node concept="3Tm1VV" id="1U0efzL$23b" role="1B3o_S" />
     <node concept="3uibUv" id="1U0efzL$242" role="EKbjA">
       <ref role="3uigEE" to="3hky:4_SQzDO0jT3" resolve="IBranch" />
