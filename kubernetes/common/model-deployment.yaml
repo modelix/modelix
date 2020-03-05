@@ -8,12 +8,12 @@ metadata:
   name: model
 spec:
   revisionHistoryLimit: 5
-  replicas: 1
+  replicas: 3
   strategy:
     type: RollingUpdate
     rollingUpdate:
-      maxUnavailable: 0
-      maxSurge: 1
+      maxUnavailable: 1
+      maxSurge: 0
   template:
     metadata:
       creationTimestamp: null
@@ -24,7 +24,7 @@ spec:
       - env:
         - name: jdbc_url
           value: jdbc:postgresql://db:5432/
-        image: cloudmps/cloudmps-model:202002141244
+        image: cloudmps/cloudmps-model:202003051030
         imagePullPolicy: IfNotPresent
         name: model
         ports:
@@ -37,10 +37,10 @@ spec:
             readOnly: true
         resources: 
           requests:
-            memory: "600Mi"
+            memory: "300Mi"
             cpu: "0.1"
           limits:
-            memory: "800Mi"
+            memory: "500Mi"
             cpu: "1.0"
         readinessProbe:
           httpGet:
