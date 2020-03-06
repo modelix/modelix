@@ -10810,10 +10810,10 @@
         <node concept="1pGfFk" id="7UL57PerDpI" role="2ShVmc">
           <ref role="37wK5l" to="zdal:7UL57PezbAy" resolve="SynchronizedSLRUMap" />
           <node concept="3cmrfG" id="7UL57PerDI$" role="37wK5m">
-            <property role="3cmrfH" value="10000" />
+            <property role="3cmrfH" value="100000" />
           </node>
           <node concept="3cmrfG" id="7UL57PerExr" role="37wK5m">
-            <property role="3cmrfH" value="10000" />
+            <property role="3cmrfH" value="100000" />
           </node>
         </node>
       </node>
