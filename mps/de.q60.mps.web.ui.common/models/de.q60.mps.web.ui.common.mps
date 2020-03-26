@@ -626,6 +626,86 @@
             </node>
           </node>
         </node>
+        <node concept="3clFbH" id="HabLxtTtzL" role="3cqZAp" />
+        <node concept="3clFbF" id="HabLxtTk_B" role="3cqZAp">
+          <node concept="2OqwBi" id="HabLxtTk_C" role="3clFbG">
+            <node concept="37vLTw" id="HabLxtTk_D" role="2Oq$k0">
+              <ref role="3cqZAo" node="5T6M7ON5QdK" resolve="kryo" />
+            </node>
+            <node concept="liA8E" id="HabLxtTk_E" role="2OqNvi">
+              <ref role="37wK5l" to="4bvh:~Kryo.register(java.lang.Class)" resolve="register" />
+              <node concept="3VsKOn" id="HabLxtTk_F" role="37wK5m">
+                <ref role="3VsUkX" to="nv3w:6EAoUhEYKNJ" resolve="LazySubgraphStageReference" />
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="3clFbF" id="HabLxtTFmY" role="3cqZAp">
+          <node concept="2OqwBi" id="HabLxtTFmZ" role="3clFbG">
+            <node concept="37vLTw" id="HabLxtTFn0" role="2Oq$k0">
+              <ref role="3cqZAo" node="5T6M7ON5QdK" resolve="kryo" />
+            </node>
+            <node concept="liA8E" id="HabLxtTFn1" role="2OqNvi">
+              <ref role="37wK5l" to="4bvh:~Kryo.register(java.lang.Class)" resolve="register" />
+              <node concept="3VsKOn" id="HabLxtTFn2" role="37wK5m">
+                <ref role="3VsUkX" to="nv3w:2dy3jLYuTaA" resolve="FinalStageReference" />
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="3clFbF" id="HabLxtTNTN" role="3cqZAp">
+          <node concept="2OqwBi" id="HabLxtTNTO" role="3clFbG">
+            <node concept="37vLTw" id="HabLxtTNTP" role="2Oq$k0">
+              <ref role="3cqZAo" node="5T6M7ON5QdK" resolve="kryo" />
+            </node>
+            <node concept="liA8E" id="HabLxtTNTQ" role="2OqNvi">
+              <ref role="37wK5l" to="4bvh:~Kryo.register(java.lang.Class)" resolve="register" />
+              <node concept="3VsKOn" id="HabLxtTNTR" role="37wK5m">
+                <ref role="3VsUkX" to="nv3w:2dy3jLYuTf2" resolve="StepStageReference" />
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="3clFbF" id="HabLxtU3_P" role="3cqZAp">
+          <node concept="2OqwBi" id="HabLxtU3_Q" role="3clFbG">
+            <node concept="37vLTw" id="HabLxtU3_R" role="2Oq$k0">
+              <ref role="3cqZAo" node="5T6M7ON5QdK" resolve="kryo" />
+            </node>
+            <node concept="liA8E" id="HabLxtU3_S" role="2OqNvi">
+              <ref role="37wK5l" to="4bvh:~Kryo.register(java.lang.Class)" resolve="register" />
+              <node concept="3VsKOn" id="HabLxtU3_T" role="37wK5m">
+                <ref role="3VsUkX" to="nv3w:2dy3jLYuTm9" resolve="SubstepStageReference" />
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="3clFbH" id="HabLxtUnqX" role="3cqZAp" />
+        <node concept="3clFbF" id="HabLxtUgSx" role="3cqZAp">
+          <node concept="2OqwBi" id="HabLxtUgSy" role="3clFbG">
+            <node concept="37vLTw" id="HabLxtUgSz" role="2Oq$k0">
+              <ref role="3cqZAo" node="5T6M7ON5QdK" resolve="kryo" />
+            </node>
+            <node concept="liA8E" id="HabLxtUgS$" role="2OqNvi">
+              <ref role="37wK5l" to="4bvh:~Kryo.register(java.lang.Class)" resolve="register" />
+              <node concept="3VsKOn" id="HabLxtUgS_" role="37wK5m">
+                <ref role="3VsUkX" to="nv3w:2dy3jLYv2of" resolve="ChildSubgraphRef" />
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="3clFbF" id="HabLxtUAk9" role="3cqZAp">
+          <node concept="2OqwBi" id="HabLxtUAka" role="3clFbG">
+            <node concept="37vLTw" id="HabLxtUAkb" role="2Oq$k0">
+              <ref role="3cqZAo" node="5T6M7ON5QdK" resolve="kryo" />
+            </node>
+            <node concept="liA8E" id="HabLxtUAkc" role="2OqNvi">
+              <ref role="37wK5l" to="4bvh:~Kryo.register(java.lang.Class)" resolve="register" />
+              <node concept="3VsKOn" id="HabLxtUAkd" role="37wK5m">
+                <ref role="3VsUkX" to="nv3w:2dy3jLYv2mv" resolve="LazyChildSubgraphRef" />
+              </node>
+            </node>
+          </node>
+        </node>
         <node concept="3clFbH" id="5T6M7ONmA0G" role="3cqZAp" />
         <node concept="3clFbF" id="5T6M7ONm$DL" role="3cqZAp">
           <node concept="2OqwBi" id="5T6M7ONm$DM" role="3clFbG">
