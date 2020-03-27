@@ -44,10 +44,25 @@ a:active {
 
     .caret {
         position: absolute;
-        background-color: #fff;
-        width: 2px;
+        border-color: #fff;
+        border-left: 2px solid;
+        width: 3px;
         height: 20px;
         display: none;
+        animation: blinker 1s linear infinite;
+        &.leftend {
+            width: 3px;
+            border-bottom: 2px solid;
+            border-top: 2px solid
+        }
+        &.rightend {
+            width: 3px;
+            background-color: transparent;
+            border-left: none;
+            border-right: 2px solid;
+            border-bottom: 2px solid;
+            border-top: 2px solid;
+        }
     }
 
     .ccmenu {
@@ -85,4 +100,11 @@ a:active {
     border: 1px solid #555;
     margin: 0 0 6px 0;
     background-color: #303030;
+}
+
+@keyframes blinker {
+    from { opacity: 100%; }
+    49% { opacity: 100%; }
+    50% { opacity: 40%; }
+    to { opacity: 40%; }
 }

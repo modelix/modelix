@@ -243,6 +243,16 @@
       <property role="TrG5h" value="position" />
       <ref role="AX2Wp" to="tpck:fKAQMTA" resolve="integer" />
     </node>
+    <node concept="1TJgyi" id="6SPevSM$DjV" role="1TKVEl">
+      <property role="IQ2nx" value="7941317281870681339" />
+      <property role="TrG5h" value="isRightEnd" />
+      <ref role="AX2Wp" to="tpck:fKAQMTB" resolve="boolean" />
+    </node>
+    <node concept="1TJgyi" id="6SPevSM$DjY" role="1TKVEl">
+      <property role="IQ2nx" value="7941317281870681342" />
+      <property role="TrG5h" value="isLeftEnd" />
+      <ref role="AX2Wp" to="tpck:fKAQMTB" resolve="boolean" />
+    </node>
     <node concept="1TJgyj" id="7vWAzuEMhrR" role="1TKVEi">
       <property role="IQ2ns" value="8645954948523693815" />
       <property role="20kJfa" value="focusCell" />
