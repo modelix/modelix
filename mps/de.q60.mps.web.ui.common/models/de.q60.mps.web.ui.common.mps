@@ -166,6 +166,10 @@
       <concept id="1178549954367" name="jetbrains.mps.baseLanguage.structure.IVisible" flags="ng" index="1B3ioH">
         <child id="1178549979242" name="visibility" index="1B3o_S" />
       </concept>
+      <concept id="1170075670744" name="jetbrains.mps.baseLanguage.structure.SynchronizedStatement" flags="nn" index="1HWtB8">
+        <child id="1170075728144" name="expression" index="1HWFw0" />
+        <child id="1170075736412" name="block" index="1HWHxc" />
+      </concept>
       <concept id="1163668896201" name="jetbrains.mps.baseLanguage.structure.TernaryOperatorExpression" flags="nn" index="3K4zz7">
         <child id="1163668914799" name="condition" index="3K4Cdx" />
         <child id="1163668922816" name="ifTrue" index="3K4E3e" />
@@ -588,7 +592,7 @@
         </node>
         <node concept="3clFbF" id="3c6J_2nBbe6" role="3cqZAp">
           <node concept="2OqwBi" id="3c6J_2nBbe7" role="3clFbG">
-            <node concept="37vLTw" id="3c6J_2nBbe8" role="2Oq$k0">
+            <node concept="37vLTw" id="5HO1kYmzcX1" role="2Oq$k0">
               <ref role="3cqZAo" node="5T6M7ON5QdK" resolve="kryo" />
             </node>
             <node concept="liA8E" id="3c6J_2nBbe9" role="2OqNvi">
@@ -2768,18 +2772,25 @@
             </node>
           </node>
         </node>
-        <node concept="3clFbF" id="5T6M7ON64PW" role="3cqZAp">
-          <node concept="2OqwBi" id="5T6M7ON66KK" role="3clFbG">
-            <node concept="37vLTw" id="5T6M7ON64PV" role="2Oq$k0">
-              <ref role="3cqZAo" node="5T6M7ON5QdK" resolve="kryo" />
-            </node>
-            <node concept="liA8E" id="5T6M7ON66UF" role="2OqNvi">
-              <ref role="37wK5l" to="4bvh:~Kryo.writeClassAndObject(com.esotericsoftware.kryo.io.Output,java.lang.Object)" resolve="writeClassAndObject" />
-              <node concept="37vLTw" id="5T6M7ON6i6s" role="37wK5m">
-                <ref role="3cqZAo" node="5T6M7ON6eEB" resolve="output" />
-              </node>
-              <node concept="37vLTw" id="5T6M7ON68Dq" role="37wK5m">
-                <ref role="3cqZAo" node="5T6M7ON5ASd" resolve="ref" />
+        <node concept="1HWtB8" id="5HO1kYmyc3t" role="3cqZAp">
+          <node concept="37vLTw" id="5HO1kYmyca7" role="1HWFw0">
+            <ref role="3cqZAo" node="5T6M7ON5QdK" resolve="kryo" />
+          </node>
+          <node concept="3clFbS" id="5HO1kYmyc3x" role="1HWHxc">
+            <node concept="3clFbF" id="5T6M7ON64PW" role="3cqZAp">
+              <node concept="2OqwBi" id="5T6M7ON66KK" role="3clFbG">
+                <node concept="37vLTw" id="5T6M7ON64PV" role="2Oq$k0">
+                  <ref role="3cqZAo" node="5T6M7ON5QdK" resolve="kryo" />
+                </node>
+                <node concept="liA8E" id="5T6M7ON66UF" role="2OqNvi">
+                  <ref role="37wK5l" to="4bvh:~Kryo.writeClassAndObject(com.esotericsoftware.kryo.io.Output,java.lang.Object)" resolve="writeClassAndObject" />
+                  <node concept="37vLTw" id="5T6M7ON6i6s" role="37wK5m">
+                    <ref role="3cqZAo" node="5T6M7ON6eEB" resolve="output" />
+                  </node>
+                  <node concept="37vLTw" id="5T6M7ON68Dq" role="37wK5m">
+                    <ref role="3cqZAo" node="5T6M7ON5ASd" resolve="ref" />
+                  </node>
+                </node>
               </node>
             </node>
           </node>
@@ -2882,33 +2893,29 @@
                                 </node>
                               </node>
                             </node>
-                            <node concept="3cpWs8" id="5npwda7vS9S" role="3cqZAp">
-                              <node concept="3cpWsn" id="5npwda7vS9T" role="3cpWs9">
-                                <property role="TrG5h" value="ref" />
-                                <node concept="3uibUv" id="5npwda7vS9U" role="1tU5fm">
-                                  <ref role="3uigEE" to="mhbf:~SNodeReference" resolve="SNodeReference" />
-                                </node>
-                                <node concept="10QFUN" id="5npwda7vS9V" role="33vP2m">
-                                  <node concept="2OqwBi" id="5npwda7vS9W" role="10QFUP">
-                                    <node concept="37vLTw" id="5npwda7vS9X" role="2Oq$k0">
-                                      <ref role="3cqZAo" node="5T6M7ON5QdK" resolve="kryo" />
-                                    </node>
-                                    <node concept="liA8E" id="5npwda7vS9Y" role="2OqNvi">
-                                      <ref role="37wK5l" to="4bvh:~Kryo.readClassAndObject(com.esotericsoftware.kryo.io.Input)" resolve="readClassAndObject" />
-                                      <node concept="37vLTw" id="5npwda7vS9Z" role="37wK5m">
-                                        <ref role="3cqZAo" node="5npwda7vS9K" resolve="input" />
+                            <node concept="1HWtB8" id="5HO1kYmyhG7" role="3cqZAp">
+                              <node concept="37vLTw" id="5HO1kYmyifS" role="1HWFw0">
+                                <ref role="3cqZAo" node="5T6M7ON5QdK" resolve="kryo" />
+                              </node>
+                              <node concept="3clFbS" id="5HO1kYmyhGb" role="1HWHxc">
+                                <node concept="3cpWs6" id="5HO1kYmyopp" role="3cqZAp">
+                                  <node concept="10QFUN" id="5HO1kYmyoWj" role="3cqZAk">
+                                    <node concept="2OqwBi" id="5HO1kYmyoWk" role="10QFUP">
+                                      <node concept="37vLTw" id="5HO1kYmyoWu" role="2Oq$k0">
+                                        <ref role="3cqZAo" node="5T6M7ON5QdK" resolve="kryo" />
+                                      </node>
+                                      <node concept="liA8E" id="5HO1kYmyoWl" role="2OqNvi">
+                                        <ref role="37wK5l" to="4bvh:~Kryo.readClassAndObject(com.esotericsoftware.kryo.io.Input)" resolve="readClassAndObject" />
+                                        <node concept="37vLTw" id="5HO1kYmyoWm" role="37wK5m">
+                                          <ref role="3cqZAo" node="5npwda7vS9K" resolve="input" />
+                                        </node>
                                       </node>
                                     </node>
-                                  </node>
-                                  <node concept="3uibUv" id="5npwda7vSa0" role="10QFUM">
-                                    <ref role="3uigEE" to="mhbf:~SNodeReference" resolve="SNodeReference" />
+                                    <node concept="3uibUv" id="5HO1kYmyoWn" role="10QFUM">
+                                      <ref role="3uigEE" to="mhbf:~SNodeReference" resolve="SNodeReference" />
+                                    </node>
                                   </node>
                                 </node>
-                              </node>
-                            </node>
-                            <node concept="3cpWs6" id="5npwda7vSa1" role="3cqZAp">
-                              <node concept="37vLTw" id="5npwda7vSa2" role="3cqZAk">
-                                <ref role="3cqZAo" node="5npwda7vS9T" resolve="ref" />
                               </node>
                             </node>
                           </node>
