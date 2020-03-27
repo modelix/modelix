@@ -52,16 +52,16 @@ a:active {
         animation: blinker 1s linear infinite;
         &.leftend {
             width: 3px;
-            border-bottom: 2px solid;
-            border-top: 2px solid
+            border-bottom: 1px solid;
+            border-top: 1px solid
         }
         &.rightend {
             width: 3px;
             background-color: transparent;
             border-left: none;
             border-right: 2px solid;
-            border-bottom: 2px solid;
-            border-top: 2px solid;
+            border-bottom: 1px solid;
+            border-top: 1px solid;
         }
     }
 
@@ -93,6 +93,9 @@ a:active {
     }
 }
 
+.focus .caret {
+    display: block;
+}
 
 
 .breadcrumbs {
