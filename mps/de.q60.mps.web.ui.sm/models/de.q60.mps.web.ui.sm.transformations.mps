@@ -5520,24 +5520,6 @@
             <ref role="027rv" to="70w2:7q7cTU0P3Ee" resolve="style" />
             <node concept="027og" id="7vWAzuF0$HS" role="027rp">
               <ref role="02LMe" to="70w2:7q7cTU0P41s" resolve="CSSStyleDeclaration" />
-              <node concept="027rt" id="7vWAzuF0$I5" role="02LM9">
-                <ref role="027rv" to="70w2:7q7cTU0P4oO" resolve="items" />
-                <node concept="027og" id="7vWAzuF0$If" role="027rp">
-                  <ref role="02LMe" to="70w2:7q7cTU0P4oJ" resolve="GenericStringStyleItem" />
-                  <node concept="027oh" id="7vWAzuF0$Is" role="02LM9">
-                    <ref role="027oj" to="70w2:7q7cTU0P4oM" resolve="key" />
-                    <node concept="Xl_RD" id="7vWAzuF0$IH" role="027of">
-                      <property role="Xl_RC" value="display" />
-                    </node>
-                  </node>
-                  <node concept="027oh" id="7vWAzuF0$J9" role="02LM9">
-                    <ref role="027oj" to="70w2:7q7cTU0P4oH" resolve="value" />
-                    <node concept="Xl_RD" id="7vWAzuF0$Ju" role="027of">
-                      <property role="Xl_RC" value="block" />
-                    </node>
-                  </node>
-                </node>
-              </node>
               <node concept="027rt" id="7vWAzuF3RVy" role="02LM9">
                 <ref role="027rv" to="70w2:7q7cTU0P4oO" resolve="items" />
                 <node concept="027og" id="7vWAzuF3RVS" role="027rp">

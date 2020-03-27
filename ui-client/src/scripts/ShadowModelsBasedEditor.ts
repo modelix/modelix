@@ -47,7 +47,7 @@ export class ShadowModelsBasedEditor {
                     const rightend: boolean = caretDom.classList.contains("rightend");
                     const leftend: boolean = caretDom.classList.contains("leftend");
                     const offsetx = rightend ? -3 : 0;
-                    const offsety = leftend || rightend ? -2 : 0;
+                    const offsety = leftend || rightend ? -1 : 0;
                     caretDom.style.left = (x - parentRect.x + offsetx) + "px";
                     caretDom.style.top = (textCellRect.y - parentRect.y + offsety) + "px";
                     caretDom.style.height = textCellRect.height + "px";
@@ -107,6 +107,12 @@ export class ShadowModelsBasedEditor {
         $(this.viewer).click(event => {
             this.viewer.focus();
             event.preventDefault();
+        });
+        $(this.viewer).focus(() => {
+            this.viewer.classList.add("focus");
+        });
+        $(this.viewer).blur(() => {
+            this.viewer.classList.remove("focus");
         });
         this.viewer.onkeypress = (event) => {
             const text = event.key;
