@@ -298,7 +298,22 @@
         </node>
       </node>
     </node>
-    <node concept="2tJIrI" id="5T6M7ON4Slb" role="jymVt" />
+    <node concept="Wx3nA" id="5HO1kYmzTOH" role="jymVt">
+      <property role="TrG5h" value="SIMPLE_NODE_PREFIX" />
+      <property role="3TUv4t" value="true" />
+      <node concept="17QB3L" id="5HO1kYmzT4q" role="1tU5fm" />
+      <node concept="3Tm6S6" id="5HO1kYmzM7E" role="1B3o_S" />
+      <node concept="2OqwBi" id="5HO1kYm$aRQ" role="33vP2m">
+        <node concept="2YIFZM" id="5HO1kYm$arM" role="2Oq$k0">
+          <ref role="37wK5l" to="33ny:~UUID.randomUUID()" resolve="randomUUID" />
+          <ref role="1Pybhc" to="33ny:~UUID" resolve="UUID" />
+        </node>
+        <node concept="liA8E" id="5HO1kYm$bnN" role="2OqNvi">
+          <ref role="37wK5l" to="33ny:~UUID.toString()" resolve="toString" />
+        </node>
+      </node>
+    </node>
+    <node concept="2tJIrI" id="5HO1kYmzArv" role="jymVt" />
     <node concept="1Pe0a1" id="5T6M7ON5P2j" role="jymVt">
       <node concept="3clFbS" id="5T6M7ON5P2l" role="1Pe0a2">
         <node concept="3clFbF" id="5T6M7ON5Q_k" role="3cqZAp">
@@ -2713,6 +2728,143 @@
                     </node>
                     <node concept="3uibUv" id="7Ya3eUXIffS" role="2Ghqu4">
                       <ref role="3uigEE" to="l6bp:qmkA5fOvE2" resolve="SRepositoryAsNode" />
+                    </node>
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="3clFbF" id="5HO1kYm$b$b" role="3cqZAp">
+          <node concept="2OqwBi" id="5HO1kYm$b$c" role="3clFbG">
+            <node concept="37vLTw" id="5HO1kYm$b$d" role="2Oq$k0">
+              <ref role="3cqZAo" node="5T6M7ON5QdK" resolve="kryo" />
+            </node>
+            <node concept="liA8E" id="5HO1kYm$b$e" role="2OqNvi">
+              <ref role="37wK5l" to="4bvh:~Kryo.register(java.lang.Class,com.esotericsoftware.kryo.Serializer)" resolve="register" />
+              <node concept="3VsKOn" id="5HO1kYm$b$f" role="37wK5m">
+                <ref role="3VsUkX" to="mjcn:7vWAzuEFUO_" resolve="SimpleNode" />
+              </node>
+              <node concept="2ShNRf" id="5HO1kYm$b$g" role="37wK5m">
+                <node concept="YeOm9" id="5HO1kYm$b$h" role="2ShVmc">
+                  <node concept="1Y3b0j" id="5HO1kYm$b$i" role="YeSDq">
+                    <property role="2bfB8j" value="true" />
+                    <ref role="37wK5l" to="4bvh:~Serializer.&lt;init&gt;()" resolve="Serializer" />
+                    <ref role="1Y3XeK" to="4bvh:~Serializer" resolve="Serializer" />
+                    <node concept="3Tm1VV" id="5HO1kYm$b$j" role="1B3o_S" />
+                    <node concept="3clFb_" id="5HO1kYm$b$k" role="jymVt">
+                      <property role="TrG5h" value="write" />
+                      <node concept="3Tm1VV" id="5HO1kYm$b$l" role="1B3o_S" />
+                      <node concept="3cqZAl" id="5HO1kYm$b$m" role="3clF45" />
+                      <node concept="37vLTG" id="5HO1kYm$b$n" role="3clF46">
+                        <property role="TrG5h" value="kryo" />
+                        <node concept="3uibUv" id="5HO1kYm$b$o" role="1tU5fm">
+                          <ref role="3uigEE" to="4bvh:~Kryo" resolve="Kryo" />
+                        </node>
+                      </node>
+                      <node concept="37vLTG" id="5HO1kYm$b$p" role="3clF46">
+                        <property role="TrG5h" value="out" />
+                        <node concept="3uibUv" id="5HO1kYm$b$q" role="1tU5fm">
+                          <ref role="3uigEE" to="pxg7:~Output" resolve="Output" />
+                        </node>
+                      </node>
+                      <node concept="37vLTG" id="5HO1kYm$b$r" role="3clF46">
+                        <property role="TrG5h" value="obj" />
+                        <node concept="3uibUv" id="5HO1kYm$s8C" role="1tU5fm">
+                          <ref role="3uigEE" to="mjcn:7vWAzuEFUO_" resolve="SimpleNode" />
+                        </node>
+                      </node>
+                      <node concept="3clFbS" id="5HO1kYm$b$t" role="3clF47">
+                        <node concept="3clFbF" id="5HO1kYm$sRb" role="3cqZAp">
+                          <node concept="2OqwBi" id="5HO1kYm$tcx" role="3clFbG">
+                            <node concept="37vLTw" id="5HO1kYm$sRa" role="2Oq$k0">
+                              <ref role="3cqZAo" node="5HO1kYm$b$p" resolve="out" />
+                            </node>
+                            <node concept="liA8E" id="5HO1kYm$tk9" role="2OqNvi">
+                              <ref role="37wK5l" to="pxg7:~Output.writeString(java.lang.String)" resolve="writeString" />
+                              <node concept="3cpWs3" id="5HO1kYm$tTU" role="37wK5m">
+                                <node concept="2YIFZM" id="5HO1kYm$ug_" role="3uHU7w">
+                                  <ref role="37wK5l" to="wyt6:~System.identityHashCode(java.lang.Object)" resolve="identityHashCode" />
+                                  <ref role="1Pybhc" to="wyt6:~System" resolve="System" />
+                                  <node concept="37vLTw" id="5HO1kYm$uol" role="37wK5m">
+                                    <ref role="3cqZAo" node="5HO1kYm$b$r" resolve="obj" />
+                                  </node>
+                                </node>
+                                <node concept="37vLTw" id="5HO1kYm$tqH" role="3uHU7B">
+                                  <ref role="3cqZAo" node="5HO1kYmzTOH" resolve="SIMPLE_NODE_PREFIX" />
+                                </node>
+                              </node>
+                            </node>
+                          </node>
+                        </node>
+                      </node>
+                      <node concept="2AHcQZ" id="5HO1kYm$b$u" role="2AJF6D">
+                        <ref role="2AI5Lk" to="wyt6:~Override" resolve="Override" />
+                      </node>
+                    </node>
+                    <node concept="2tJIrI" id="5HO1kYm$b$v" role="jymVt" />
+                    <node concept="3clFb_" id="5HO1kYm$b$w" role="jymVt">
+                      <property role="TrG5h" value="read" />
+                      <node concept="3Tm1VV" id="5HO1kYm$b$x" role="1B3o_S" />
+                      <node concept="3uibUv" id="5HO1kYm$qGb" role="3clF45">
+                        <ref role="3uigEE" to="mjcn:7vWAzuEFUO_" resolve="SimpleNode" />
+                      </node>
+                      <node concept="37vLTG" id="5HO1kYm$b$z" role="3clF46">
+                        <property role="TrG5h" value="kryo" />
+                        <node concept="3uibUv" id="5HO1kYm$b$$" role="1tU5fm">
+                          <ref role="3uigEE" to="4bvh:~Kryo" resolve="Kryo" />
+                        </node>
+                      </node>
+                      <node concept="37vLTG" id="5HO1kYm$b$_" role="3clF46">
+                        <property role="TrG5h" value="in" />
+                        <node concept="3uibUv" id="5HO1kYm$b$A" role="1tU5fm">
+                          <ref role="3uigEE" to="pxg7:~Input" resolve="Input" />
+                        </node>
+                      </node>
+                      <node concept="37vLTG" id="5HO1kYm$b$B" role="3clF46">
+                        <property role="TrG5h" value="type" />
+                        <node concept="3uibUv" id="5HO1kYm$b$C" role="1tU5fm">
+                          <ref role="3uigEE" to="wyt6:~Class" resolve="Class" />
+                          <node concept="3qUE_q" id="5HO1kYm$b$D" role="11_B2D">
+                            <node concept="3uibUv" id="5HO1kYm$rhK" role="3qUE_r">
+                              <ref role="3uigEE" to="mjcn:7vWAzuEFUO_" resolve="SimpleNode" />
+                            </node>
+                          </node>
+                        </node>
+                      </node>
+                      <node concept="3clFbS" id="5HO1kYm$b$F" role="3clF47">
+                        <node concept="YS8fn" id="5HO1kYm$uCc" role="3cqZAp">
+                          <node concept="2ShNRf" id="5HO1kYm$uDH" role="YScLw">
+                            <node concept="1pGfFk" id="5HO1kYm$vbB" role="2ShVmc">
+                              <ref role="37wK5l" to="wyt6:~RuntimeException.&lt;init&gt;(java.lang.String)" resolve="RuntimeException" />
+                              <node concept="3cpWs3" id="5HO1kYm$zK9" role="37wK5m">
+                                <node concept="Xl_RD" id="5HO1kYm$zLv" role="3uHU7w">
+                                  <property role="Xl_RC" value=" not supported" />
+                                </node>
+                                <node concept="3cpWs3" id="5HO1kYm$w5y" role="3uHU7B">
+                                  <node concept="Xl_RD" id="5HO1kYm$vj8" role="3uHU7B">
+                                    <property role="Xl_RC" value="Deserialization for " />
+                                  </node>
+                                  <node concept="2OqwBi" id="5HO1kYm$xun" role="3uHU7w">
+                                    <node concept="3VsKOn" id="5HO1kYm$wMV" role="2Oq$k0">
+                                      <ref role="3VsUkX" to="mjcn:7vWAzuEFUO_" resolve="SimpleNode" />
+                                    </node>
+                                    <node concept="liA8E" id="5HO1kYm$yer" role="2OqNvi">
+                                      <ref role="37wK5l" to="wyt6:~Class.getName()" resolve="getName" />
+                                    </node>
+                                  </node>
+                                </node>
+                              </node>
+                            </node>
+                          </node>
+                        </node>
+                      </node>
+                      <node concept="2AHcQZ" id="5HO1kYm$b$M" role="2AJF6D">
+                        <ref role="2AI5Lk" to="wyt6:~Override" resolve="Override" />
+                      </node>
+                    </node>
+                    <node concept="3uibUv" id="5HO1kYm$pYR" role="2Ghqu4">
+                      <ref role="3uigEE" to="mjcn:7vWAzuEFUO_" resolve="SimpleNode" />
                     </node>
                   </node>
                 </node>

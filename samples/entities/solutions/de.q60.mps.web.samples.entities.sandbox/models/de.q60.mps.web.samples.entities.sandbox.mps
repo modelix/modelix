@@ -40,6 +40,12 @@
         <ref role="uq35v" node="wa_gCmopcC" resolve="EntityA" />
       </node>
     </node>
+    <node concept="3ZglaZ" id="HabLxtWIaw" role="3Zgl95">
+      <property role="TrG5h" value="d" />
+      <node concept="uq3pQ" id="HabLxtWIay" role="uqNOm">
+        <ref role="uq35v" node="lpnKkXX1BR" resolve="EntityB" />
+      </node>
+    </node>
   </node>
   <node concept="3ZgkuH" id="lpnKkXX1BR">
     <property role="TrG5h" value="EntityB" />

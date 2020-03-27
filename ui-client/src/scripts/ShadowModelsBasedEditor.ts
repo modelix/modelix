@@ -82,7 +82,6 @@ export class ShadowModelsBasedEditor {
             if (handler) {
                 handler(message);
             }
-            console.timeEnd("uievent");
         };
 
         let nodeRef = this.viewer.getAttribute("nodeRef");
@@ -97,8 +96,15 @@ export class ShadowModelsBasedEditor {
     }
 
     private init(): void {
-        document.body.onkeypress = (event) => {
-            console.time("uievent");
+        this.id2dom.set("viewer", this.viewer);
+        if (this.viewer.id) this.id2dom.set(this.viewer.id, this.viewer);
+
+        this.viewer.tabIndex = -1;
+        $(this.viewer).click(event => {
+            this.viewer.focus();
+            event.preventDefault();
+        });
+        this.viewer.onkeypress = (event) => {
             const text = event.key;
             if (text.length === 1) {
                 this.socket.send(JSON.stringify({
@@ -107,8 +113,7 @@ export class ShadowModelsBasedEditor {
                 }));
             }
         };
-        document.body.onkeydown = (event) => {
-            console.time("uievent");
+        this.viewer.onkeydown = (event) => {
             if (event.code === "Space" && event.ctrlKey) {
                 event.preventDefault();
                 this.socket.send(JSON.stringify({
@@ -219,7 +224,6 @@ export class ShadowModelsBasedEditor {
             }
             if (dom.classList.contains("textCell")) {
                 dom.onclick = (event) => {
-                    console.time("uievent");
                     this.socket.send(JSON.stringify({
                         type: "click",
                         elementId: dom.id,
@@ -227,6 +231,7 @@ export class ShadowModelsBasedEditor {
                         y: event.y - dom.getBoundingClientRect().y,
                         pos: xToCaret(dom, event.x - document.body.getBoundingClientRect().left)
                     }));
+                    this.viewer.focus();
                 };
             }
             if (json.children) {
