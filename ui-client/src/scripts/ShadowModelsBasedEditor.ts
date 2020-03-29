@@ -115,66 +115,33 @@ export class ShadowModelsBasedEditor {
             this.viewer.classList.remove("focus");
         });
         this.viewer.onkeypress = (event) => {
-            const text = event.key;
-            if (text.length === 1) {
-                this.socket.send(JSON.stringify({
-                    type: "keypress",
-                    key: text
-                }));
-            }
+            event.preventDefault();
+            event.stopPropagation();
+            this.socket.send(JSON.stringify({
+                type: "keypress",
+                code: event.code,
+                key: event.key,
+                location: event.location,
+                repeat: event.repeat,
+                ctrlDown: event.ctrlKey,
+                shiftDown: event.shiftKey,
+                altDown: event.altKey,
+                metaDown: event.metaKey
+            }));
         };
         this.viewer.onkeydown = (event) => {
-            if (event.code === "Space" && event.ctrlKey) {
-                event.preventDefault();
-                this.socket.send(JSON.stringify({
-                    type: "complete"
-                }));
-            } else if (event.code === "ArrowDown") {
-                event.preventDefault();
-                this.socket.send(JSON.stringify({
-                    type: "down"
-                }));
-            } else if (event.code === "Enter") {
-                event.preventDefault();
-                this.socket.send(JSON.stringify({
-                    type: "enter"
-                }));
-            } else if (event.code === "ArrowUp") {
-                event.preventDefault();
-                this.socket.send(JSON.stringify({
-                    type: "up"
-                }));
-            } else if (event.code === "ArrowLeft") {
-                event.preventDefault();
-                this.socket.send(JSON.stringify({
-                    type: "left"
-                }));
-            } else if (event.code === "ArrowRight") {
-                event.preventDefault();
-                this.socket.send(JSON.stringify({
-                    type: "right"
-                }));
-            } else if (event.code === "Backspace") {
-                event.preventDefault();
-                this.socket.send(JSON.stringify({
-                    type: "backspace"
-                }));
-            } else if (event.code === "Tab") {
-                event.preventDefault();
-                this.socket.send(JSON.stringify({
-                    type: "tab"
-                }));
-            } else if (event.ctrlKey || event.metaKey || event.altKey) {
-                event.preventDefault();
-                this.socket.send(JSON.stringify({
-                    type: "keydown",
-                    key: event.code,
-                    ctrlDown: event.ctrlKey,
-                    shiftDown: event.shiftKey,
-                    altDown: event.altKey,
-                    metaDown: event.metaKey
-                }));
-            }
+            event.stopPropagation();
+            this.socket.send(JSON.stringify({
+                type: "keydown",
+                code: event.code,
+                key: event.key,
+                location: event.location,
+                repeat: event.repeat,
+                ctrlDown: event.ctrlKey,
+                shiftDown: event.shiftKey,
+                altDown: event.altKey,
+                metaDown: event.metaKey
+            }));
         };
 
         const watchdog = setInterval(() => {
