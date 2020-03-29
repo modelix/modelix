@@ -53,10 +53,14 @@
         <child id="1197027771414" name="operand" index="2Oq$k0" />
         <child id="1197027833540" name="operation" index="2OqNvi" />
       </concept>
+      <concept id="1197029447546" name="jetbrains.mps.baseLanguage.structure.FieldReferenceOperation" flags="nn" index="2OwXpG">
+        <reference id="1197029500499" name="fieldDeclaration" index="2Oxat5" />
+      </concept>
       <concept id="1145552977093" name="jetbrains.mps.baseLanguage.structure.GenericNewExpression" flags="nn" index="2ShNRf">
         <child id="1145553007750" name="creator" index="2ShVmc" />
       </concept>
       <concept id="1070462154015" name="jetbrains.mps.baseLanguage.structure.StaticFieldDeclaration" flags="ig" index="Wx3nA" />
+      <concept id="1070475354124" name="jetbrains.mps.baseLanguage.structure.ThisExpression" flags="nn" index="Xjq3P" />
       <concept id="1070475926800" name="jetbrains.mps.baseLanguage.structure.StringLiteral" flags="nn" index="Xl_RD">
         <property id="1070475926801" name="value" index="Xl_RC" />
       </concept>
@@ -3342,11 +3346,40 @@
         <ref role="3uigEE" to="nv3w:5gTrVpGiJ3S" resolve="TransformationEngine" />
       </node>
     </node>
+    <node concept="312cEg" id="64FHHkQ6rXb" role="jymVt">
+      <property role="TrG5h" value="pfcontext" />
+      <node concept="3Tm6S6" id="64FHHkQ6rXc" role="1B3o_S" />
+      <node concept="3uibUv" id="64FHHkQ6rm4" role="1tU5fm">
+        <ref role="3uigEE" to="od2j:3jJoUQ73oP2" resolve="DefaultPFContext" />
+      </node>
+    </node>
     <node concept="2tJIrI" id="7q7cTU0XFlB" role="jymVt" />
     <node concept="3clFbW" id="7q7cTU0XFys" role="jymVt">
       <node concept="3cqZAl" id="7q7cTU0XFyu" role="3clF45" />
       <node concept="3Tm1VV" id="7q7cTU0XFyv" role="1B3o_S" />
       <node concept="3clFbS" id="7q7cTU0XFyw" role="3clF47">
+        <node concept="3clFbF" id="64FHHkQ6rzc" role="3cqZAp">
+          <node concept="37vLTI" id="64FHHkQ6rze" role="3clFbG">
+            <node concept="2ShNRf" id="64FHHkQ6rvY" role="37vLTx">
+              <node concept="1pGfFk" id="64FHHkQ6rvZ" role="2ShVmc">
+                <ref role="37wK5l" to="od2j:3jJoUQ73p4e" resolve="DefaultPFContext" />
+                <node concept="2ShNRf" id="64FHHkQ6rw0" role="37wK5m">
+                  <node concept="2HTt$P" id="64FHHkQ6rw1" role="2ShVmc">
+                    <node concept="3uibUv" id="64FHHkQ6rw2" role="2HTBi0">
+                      <ref role="3uigEE" to="od2j:3jJoUQ6YpKb" resolve="IImplementationProvider" />
+                    </node>
+                    <node concept="37vLTw" id="64FHHkQ6rw3" role="2HTEbv">
+                      <ref role="3cqZAo" node="6NhA6xmByFv" resolve="implementationsProvider" />
+                    </node>
+                  </node>
+                </node>
+              </node>
+            </node>
+            <node concept="37vLTw" id="64FHHkQ6rzi" role="37vLTJ">
+              <ref role="3cqZAo" node="64FHHkQ6rXb" resolve="pfcontext" />
+            </node>
+          </node>
+        </node>
         <node concept="3clFbF" id="7q7cTU0XG0Y" role="3cqZAp">
           <node concept="37vLTI" id="7q7cTU0XGcM" role="3clFbG">
             <node concept="37vLTw" id="7q7cTU0XG0X" role="37vLTJ">
@@ -3355,20 +3388,8 @@
             <node concept="2ShNRf" id="7q7cTU0XGOg" role="37vLTx">
               <node concept="1pGfFk" id="7q7cTU0XGOh" role="2ShVmc">
                 <ref role="37wK5l" to="nv3w:5gTrVpGmaY5" resolve="TransformationEngine" />
-                <node concept="2ShNRf" id="7q7cTU0XGOi" role="37wK5m">
-                  <node concept="1pGfFk" id="7q7cTU0XGOj" role="2ShVmc">
-                    <ref role="37wK5l" to="od2j:3jJoUQ73p4e" resolve="DefaultPFContext" />
-                    <node concept="2ShNRf" id="7q7cTU0XGOk" role="37wK5m">
-                      <node concept="2HTt$P" id="7q7cTU0XGOl" role="2ShVmc">
-                        <node concept="3uibUv" id="7q7cTU0XGOm" role="2HTBi0">
-                          <ref role="3uigEE" to="od2j:3jJoUQ6YpKb" resolve="IImplementationProvider" />
-                        </node>
-                        <node concept="37vLTw" id="6NhA6xmBzN0" role="2HTEbv">
-                          <ref role="3cqZAo" node="6NhA6xmByFv" resolve="implementationsProvider" />
-                        </node>
-                      </node>
-                    </node>
-                  </node>
+                <node concept="37vLTw" id="64FHHkQ6rw4" role="37wK5m">
+                  <ref role="3cqZAo" node="64FHHkQ6rXb" resolve="pfcontext" />
                 </node>
               </node>
             </node>
@@ -3419,7 +3440,25 @@
         </node>
       </node>
     </node>
+    <node concept="2tJIrI" id="64FHHkQ6sMU" role="jymVt" />
     <node concept="3Tm1VV" id="7q7cTU0XE$s" role="1B3o_S" />
+    <node concept="3clFb_" id="64FHHkQ6spt" role="jymVt">
+      <property role="TrG5h" value="getPFContext" />
+      <node concept="3uibUv" id="64FHHkQ6sZH" role="3clF45">
+        <ref role="3uigEE" to="od2j:3jJoUQ71IRE" resolve="IPFContext" />
+      </node>
+      <node concept="3Tm1VV" id="64FHHkQ6spv" role="1B3o_S" />
+      <node concept="3clFbS" id="64FHHkQ6spw" role="3clF47">
+        <node concept="3clFbF" id="64FHHkQ6spx" role="3cqZAp">
+          <node concept="2OqwBi" id="64FHHkQ6spq" role="3clFbG">
+            <node concept="Xjq3P" id="64FHHkQ6spr" role="2Oq$k0" />
+            <node concept="2OwXpG" id="64FHHkQ6sps" role="2OqNvi">
+              <ref role="2Oxat5" node="64FHHkQ6rXb" resolve="pfcontext" />
+            </node>
+          </node>
+        </node>
+      </node>
+    </node>
   </node>
   <node concept="312cEu" id="6MQUJsz1f_z">
     <property role="TrG5h" value="HttpUtil" />
