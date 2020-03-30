@@ -108,12 +108,6 @@ export class ShadowModelsBasedEditor {
             this.viewer.focus();
             event.preventDefault();
         });
-        $(this.viewer).focus(() => {
-            this.viewer.classList.add("focus");
-        });
-        $(this.viewer).blur(() => {
-            this.viewer.classList.remove("focus");
-        });
         this.viewer.onkeypress = (event) => {
             event.preventDefault();
             event.stopPropagation();
@@ -151,6 +145,11 @@ export class ShadowModelsBasedEditor {
             }
             if (!this.socket || this.socket.readyState === WebSocket.CLOSED) {
                 this.connect();
+            }
+            if (this.socket && this.socket.readyState === WebSocket.OPEN) {
+                this.viewer.classList.add("connected");
+            } else {
+                this.viewer.classList.remove("connected");
             }
         }, 500);
     }
