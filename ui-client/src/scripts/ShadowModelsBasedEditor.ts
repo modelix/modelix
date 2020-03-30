@@ -125,6 +125,11 @@ export class ShadowModelsBasedEditor {
         };
         this.viewer.onkeydown = (event) => {
             event.stopPropagation();
+            if (event.code === "Tab") {
+                // no keypress event is fired if .preventDefault() is called here
+                // that's why it's called only for selected keys
+                event.preventDefault();
+            }
             this.socket.send(JSON.stringify({
                 type: "keydown",
                 code: event.code,
