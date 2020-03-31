@@ -16,6 +16,7 @@
     <use id="446c26eb-2b7b-4bf0-9b35-f83fa582753e" name="jetbrains.mps.lang.modelapi" version="0" />
     <use id="a247e09e-2435-45ba-b8d2-07e93feba96a" name="jetbrains.mps.baseLanguage.tuples" version="0" />
     <use id="bc963c22-d419-49b6-8543-ea411eb9d3a1" name="de.q60.mps.polymorphicfunctions" version="0" />
+    <use id="774bf8a0-62e5-41e1-af63-f4812e60e48b" name="jetbrains.mps.baseLanguage.checkedDots" version="0" />
     <devkit ref="fbc25dd2-5da4-483a-8b19-70928e1b62d7(jetbrains.mps.devkit.general-purpose)" />
   </languages>
   <imports>
@@ -251,6 +252,9 @@
         <child id="8974276187400348171" name="commandClosureLiteral" index="1QHqEI" />
       </concept>
       <concept id="8974276187400348181" name="jetbrains.mps.lang.access.structure.ExecuteLightweightCommandStatement" flags="nn" index="1QHqEK" />
+    </language>
+    <language id="774bf8a0-62e5-41e1-af63-f4812e60e48b" name="jetbrains.mps.baseLanguage.checkedDots">
+      <concept id="4079382982702596667" name="jetbrains.mps.baseLanguage.checkedDots.structure.CheckedDotExpression" flags="nn" index="2EnYce" />
     </language>
     <language id="fd392034-7849-419d-9071-12563d152375" name="jetbrains.mps.baseLanguage.closures">
       <concept id="1199569711397" name="jetbrains.mps.baseLanguage.closures.structure.ClosureLiteral" flags="nn" index="1bVj0M">
@@ -978,14 +982,36 @@
                           </node>
                           <node concept="3clFbF" id="7vWAzuEXqSr" role="3cqZAp">
                             <node concept="37vLTI" id="7vWAzuEXS7U" role="3clFbG">
-                              <node concept="2OqwBi" id="7vWAzuEXSHb" role="37vLTx">
-                                <node concept="37vLTw" id="7vWAzuEXSjP" role="2Oq$k0">
-                                  <ref role="3cqZAo" node="AkkmJBUaa$" resolve="message" />
+                              <node concept="2YIFZM" id="TSXTNiSo6A" role="37vLTx">
+                                <ref role="37wK5l" to="wyt6:~Math.min(int,int)" resolve="min" />
+                                <ref role="1Pybhc" to="wyt6:~Math" resolve="Math" />
+                                <node concept="2OqwBi" id="7vWAzuEXSHb" role="37wK5m">
+                                  <node concept="37vLTw" id="7vWAzuEXSjP" role="2Oq$k0">
+                                    <ref role="3cqZAo" node="AkkmJBUaa$" resolve="message" />
+                                  </node>
+                                  <node concept="liA8E" id="7vWAzuEXTcl" role="2OqNvi">
+                                    <ref role="37wK5l" to="mxf6:~JSONObject.getInt(java.lang.String)" resolve="getInt" />
+                                    <node concept="Xl_RD" id="7vWAzuEXTn1" role="37wK5m">
+                                      <property role="Xl_RC" value="pos" />
+                                    </node>
+                                  </node>
                                 </node>
-                                <node concept="liA8E" id="7vWAzuEXTcl" role="2OqNvi">
-                                  <ref role="37wK5l" to="mxf6:~JSONObject.getInt(java.lang.String)" resolve="getInt" />
-                                  <node concept="Xl_RD" id="7vWAzuEXTn1" role="37wK5m">
-                                    <property role="Xl_RC" value="pos" />
+                                <node concept="2EnYce" id="TSXTNiSzlE" role="37wK5m">
+                                  <node concept="2OqwBi" id="TSXTNiSsm6" role="2Oq$k0">
+                                    <node concept="1PxgMI" id="TSXTNiSqrd" role="2Oq$k0">
+                                      <node concept="chp4Y" id="TSXTNiSrgy" role="3oSUPX">
+                                        <ref role="cht4Q" to="j481:AkkmJBMaED" resolve="TextCell" />
+                                      </node>
+                                      <node concept="37vLTw" id="TSXTNiSpYL" role="1m5AlR">
+                                        <ref role="3cqZAo" node="7vWAzuEWBgE" resolve="cell" />
+                                      </node>
+                                    </node>
+                                    <node concept="3TrcHB" id="TSXTNiSsVe" role="2OqNvi">
+                                      <ref role="3TsBF5" to="j481:AkkmJBMou0" resolve="text" />
+                                    </node>
+                                  </node>
+                                  <node concept="liA8E" id="TSXTNiSvri" role="2OqNvi">
+                                    <ref role="37wK5l" to="wyt6:~String.length()" resolve="length" />
                                   </node>
                                 </node>
                               </node>

@@ -102,6 +102,11 @@
       <property role="TrG5h" value="text" />
       <ref role="AX2Wp" to="tpck:fKAOsGN" resolve="string" />
     </node>
+    <node concept="1TJgyi" id="TSXTNiRUzY" role="1TKVEl">
+      <property role="IQ2nx" value="1042855566661101822" />
+      <property role="TrG5h" value="placeholderText" />
+      <ref role="AX2Wp" to="tpck:fKAOsGN" resolve="string" />
+    </node>
   </node>
   <node concept="1TIwiD" id="AkkmJBMaEA">
     <property role="EcuMT" value="690266166786566822" />

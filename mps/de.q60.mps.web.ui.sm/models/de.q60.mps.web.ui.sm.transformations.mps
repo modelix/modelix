@@ -41,6 +41,7 @@
     <import index="6shs" ref="r:3ca2f5b1-1b25-441b-b059-2ddba424a0b1(de.q60.mps.web.model.persistent)" />
     <import index="tpcu" ref="r:00000000-0000-4000-0000-011c89590282(jetbrains.mps.lang.core.behavior)" implicit="true" />
     <import index="tpce" ref="r:00000000-0000-4000-0000-011c89590292(jetbrains.mps.lang.structure.structure)" implicit="true" />
+    <import index="v1cj" ref="r:2c4bc58b-9da3-4f5f-8ea2-32f043278ab7(de.q60.mps.web.ui.sm.behavior)" implicit="true" />
     <import index="tp25" ref="r:00000000-0000-4000-0000-011c89590301(jetbrains.mps.lang.smodel.structure)" implicit="true" />
     <import index="tpcn" ref="r:00000000-0000-4000-0000-011c8959028b(jetbrains.mps.lang.structure.behavior)" implicit="true" />
   </imports>
@@ -119,6 +120,7 @@
       <concept id="1068498886294" name="jetbrains.mps.baseLanguage.structure.AssignmentExpression" flags="nn" index="37vLTI" />
       <concept id="1225271177708" name="jetbrains.mps.baseLanguage.structure.StringType" flags="in" index="17QB3L" />
       <concept id="1225271283259" name="jetbrains.mps.baseLanguage.structure.NPEEqualsExpression" flags="nn" index="17R0WA" />
+      <concept id="1225271369338" name="jetbrains.mps.baseLanguage.structure.IsEmptyOperation" flags="nn" index="17RlXB" />
       <concept id="1225271408483" name="jetbrains.mps.baseLanguage.structure.IsNotEmptyOperation" flags="nn" index="17RvpY" />
       <concept id="4972933694980447171" name="jetbrains.mps.baseLanguage.structure.BaseVariableDeclaration" flags="ng" index="19Szcq">
         <child id="5680397130376446158" name="type" index="1tU5fm" />
@@ -3694,9 +3696,6 @@
     <node concept="2OrE70" id="6kYN8GaiTs8" role="02uzr" />
     <node concept="2OrE70" id="6kYN8GaiRAJ" role="02uzr" />
   </node>
-  <node concept="02vhO" id="7vWAzuE$mMP">
-    <property role="TrG5h" value="cell2json" />
-  </node>
   <node concept="02vhO" id="AkkmJBMp8J">
     <property role="TrG5h" value="node2cell" />
     <node concept="2OrE70" id="AkkmJBMp8R" role="02uzr" />
@@ -5010,7 +5009,7 @@
         <node concept="027og" id="A2HQDQC9M$" role="026TJ">
           <ref role="02LMe" to="j481:AkkmJBMaED" resolve="TextCell" />
           <node concept="027oh" id="A2HQDQCb6F" role="02LM9">
-            <ref role="027oj" to="j481:AkkmJBMou0" resolve="text" />
+            <ref role="027oj" to="j481:TSXTNiRUzY" resolve="placeholderText" />
             <node concept="3cpWs3" id="A2HQDQCc3s" role="027of">
               <node concept="Xl_RD" id="A2HQDQCbUG" role="3uHU7w">
                 <property role="Xl_RC" value="&gt;" />
@@ -5206,8 +5205,29 @@
           <ref role="02LMe" to="70w2:7NImM04TdSN" resolve="HTMLSpanElement" />
           <node concept="027oh" id="AkkmJBRcR1" role="02LM9">
             <ref role="027oj" to="70w2:AkkmJBR8z6" resolve="class" />
-            <node concept="Xl_RD" id="AkkmJBRcV8" role="027of">
-              <property role="Xl_RC" value="textCell" />
+            <node concept="3cpWs3" id="5dNALVKJdPM" role="027of">
+              <node concept="1eOMI4" id="5dNALVKJf37" role="3uHU7w">
+                <node concept="3K4zz7" id="5dNALVKJgtU" role="1eOMHV">
+                  <node concept="Xl_RD" id="5dNALVKJgwE" role="3K4E3e">
+                    <property role="Xl_RC" value=" placeholderText" />
+                  </node>
+                  <node concept="Xl_RD" id="5dNALVKJgxx" role="3K4GZi">
+                    <property role="Xl_RC" value="" />
+                  </node>
+                  <node concept="2OqwBi" id="5dNALVKJfG5" role="3K4Cdx">
+                    <node concept="2OqwBi" id="5dNALVKJfgh" role="2Oq$k0">
+                      <node concept="214o7A" id="5dNALVKJf3i" role="2Oq$k0" />
+                      <node concept="3TrcHB" id="5dNALVKJfsx" role="2OqNvi">
+                        <ref role="3TsBF5" to="j481:AkkmJBMou0" resolve="text" />
+                      </node>
+                    </node>
+                    <node concept="17RlXB" id="5dNALVKJfZp" role="2OqNvi" />
+                  </node>
+                </node>
+              </node>
+              <node concept="Xl_RD" id="AkkmJBRcV8" role="3uHU7B">
+                <property role="Xl_RC" value="textCell" />
+              </node>
             </node>
           </node>
           <node concept="027rt" id="67FlxU7U0Jp" role="02LM9">
@@ -5237,10 +5257,10 @@
               <ref role="02LMe" to="70w2:7NImM04RGAT" resolve="HtmlText" />
               <node concept="027oh" id="AkkmJBMscb" role="02LM9">
                 <ref role="027oj" to="70w2:7NImM04TrPE" resolve="data" />
-                <node concept="2OqwBi" id="AkkmJBMsj7" role="027of">
-                  <node concept="214o7A" id="AkkmJBMscq" role="2Oq$k0" />
-                  <node concept="3TrcHB" id="AkkmJBMstN" role="2OqNvi">
-                    <ref role="3TsBF5" to="j481:AkkmJBMou0" resolve="text" />
+                <node concept="2OqwBi" id="TSXTNiSbyQ" role="027of">
+                  <node concept="214o7A" id="TSXTNiSbpZ" role="2Oq$k0" />
+                  <node concept="2qgKlT" id="TSXTNiSbJq" role="2OqNvi">
+                    <ref role="37wK5l" to="v1cj:TSXTNiS5iE" resolve="getVisibleText" />
                   </node>
                 </node>
               </node>
