@@ -162,6 +162,7 @@
       <concept id="7759120791677799808" name="de.q60.mps.web.notation.structure.EmptyLine" flags="ng" index="1QS6b0" />
       <concept id="7759120791677775083" name="de.q60.mps.web.notation.structure.StaticCollectionCell" flags="ng" index="1QSceF">
         <child id="7759120791677775095" name="cells" index="1QSceR" />
+        <child id="578981756153092168" name="layout" index="3UTMMu" />
       </concept>
       <concept id="7759120791677764312" name="de.q60.mps.web.notation.structure.PropertyCell" flags="ng" index="1QSeQo">
         <reference id="7759120791677775099" name="property" index="1QSceV" />
@@ -182,6 +183,8 @@
       <concept id="7759120791678681996" name="de.q60.mps.web.notation.structure.SingleChildCell" flags="ng" index="1QXINc">
         <reference id="7759120791678682008" name="link" index="1QXINo" />
       </concept>
+      <concept id="578981756153092156" name="de.q60.mps.web.notation.structure.VerticalLayout" flags="ng" index="3UTMNE" />
+      <concept id="578981756153322531" name="de.q60.mps.web.notation.structure.IndentCell" flags="ng" index="3UYUzP" />
     </language>
     <language id="7866978e-a0f0-4cc7-81bc-4d213d9375e1" name="jetbrains.mps.lang.smodel">
       <concept id="1177026924588" name="jetbrains.mps.lang.smodel.structure.RefConcept_Reference" flags="nn" index="chp4Y">
@@ -1045,22 +1048,28 @@
     <node concept="1QS6b0" id="6IHVO0tjzJO" role="1QSY9g" />
     <node concept="1QSeQW" id="6IHVO0tjzK4" role="1QSY9g">
       <ref role="1QSeL8" to="walh:6Emz9elPWGY" resolve="Entity" />
-      <node concept="1QSceF" id="6IHVO0tlHLH" role="1QSceC">
-        <node concept="1QSTl9" id="6IHVO0tlHLK" role="1QSceR">
-          <property role="1QSTll" value="entity" />
+      <node concept="1QSceF" id="w8XdrMWPIw" role="1QSceC">
+        <node concept="1QSceF" id="6IHVO0tlHLH" role="1QSceR">
+          <node concept="1QSTl9" id="6IHVO0tlHLK" role="1QSceR">
+            <property role="1QSTll" value="entity" />
+          </node>
+          <node concept="1QSeQo" id="6IHVO0tlHLP" role="1QSceR">
+            <ref role="1QSceV" to="tpck:h0TrG11" resolve="name" />
+          </node>
+          <node concept="1QSTl9" id="6IHVO0tlHLX" role="1QSceR">
+            <property role="1QSTll" value="{" />
+          </node>
         </node>
-        <node concept="1QSeQo" id="6IHVO0tlHLP" role="1QSceR">
-          <ref role="1QSceV" to="tpck:h0TrG11" resolve="name" />
+        <node concept="1QSceF" id="w8XdrMWPKi" role="1QSceR">
+          <node concept="3UYUzP" id="w8XdrMWZc8" role="1QSceR" />
+          <node concept="1QSeQ$" id="w8XdrMWPJJ" role="1QSceR">
+            <ref role="1QXIMq" to="walh:6Emz9elPXVm" resolve="properties" />
+          </node>
         </node>
-        <node concept="1QSTl9" id="6IHVO0tlHLX" role="1QSceR">
-          <property role="1QSTll" value="{" />
-        </node>
-        <node concept="1QSeQ$" id="6IHVO0tn4CX" role="1QSceR">
-          <ref role="1QXIMq" to="walh:6Emz9elPXVm" resolve="properties" />
-        </node>
-        <node concept="1QSTl9" id="6IHVO0tlHM7" role="1QSceR">
+        <node concept="1QSTl9" id="w8XdrMWPJg" role="1QSceR">
           <property role="1QSTll" value="}" />
         </node>
+        <node concept="3UTMNE" id="w8XdrMWPIE" role="3UTMMu" />
       </node>
     </node>
     <node concept="1QSeQW" id="6IHVO0tmKdG" role="1QSY9g">
