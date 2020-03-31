@@ -39,6 +39,10 @@
         <property role="2V$B1T" value="375af171-bd4b-4bfb-bc9f-418fb996740b" />
         <property role="2V$B1Q" value="de.q60.mps.web.aspect" />
       </node>
+      <node concept="2V$Bhx" id="5Nhi$S9QAIP" role="1t_9vn">
+        <property role="2V$B1T" value="25fcb6ab-d05a-4950-8cdf-251526bdf513" />
+        <property role="2V$B1Q" value="de.q60.mps.web.notation" />
+      </node>
     </node>
     <node concept="2VgMA2" id="2XNuosbiBnp" role="2VgMA7">
       <node concept="2V$Bhx" id="2XNuosbiBnK" role="1t_9vn">

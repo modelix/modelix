@@ -1661,9 +1661,14 @@
                         <node concept="3uibUv" id="6kYN8GakaOx" role="2HTBi0">
                           <ref role="3uigEE" to="od2j:3jJoUQ6YpKb" resolve="IImplementationProvider" />
                         </node>
-                        <node concept="2YIFZM" id="3zTK92KPJx9" role="2HTEbv">
-                          <ref role="37wK5l" to="l6bp:3zTK92KPmA1" resolve="getInstance" />
-                          <ref role="1Pybhc" to="l6bp:3zTK92KPl8A" resolve="TransformationsFromGlobalRepository" />
+                        <node concept="2OqwBi" id="TSXTNiNx6z" role="2HTEbv">
+                          <node concept="2YIFZM" id="TSXTNiNwRH" role="2Oq$k0">
+                            <ref role="1Pybhc" to="qsto:7q7cTU0XE$r" resolve="EngineForHttp" />
+                            <ref role="37wK5l" to="qsto:7q7cTU0XF71" resolve="getInstance" />
+                          </node>
+                          <node concept="liA8E" id="TSXTNiNDan" role="2OqNvi">
+                            <ref role="37wK5l" to="qsto:TSXTNiNBSs" resolve="getImplementationsProvider" />
+                          </node>
                         </node>
                       </node>
                     </node>

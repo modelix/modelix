@@ -155,6 +155,34 @@
         <child id="1038241485678306127" name="parameterValues" index="1Ixn1I" />
       </concept>
     </language>
+    <language id="25fcb6ab-d05a-4950-8cdf-251526bdf513" name="de.q60.mps.web.notation">
+      <concept id="7759120791677799784" name="de.q60.mps.web.notation.structure.NotationModule" flags="ng" index="1QS68C">
+        <child id="7759120791677832464" name="content" index="1QSY9g" />
+      </concept>
+      <concept id="7759120791677799808" name="de.q60.mps.web.notation.structure.EmptyLine" flags="ng" index="1QS6b0" />
+      <concept id="7759120791677775083" name="de.q60.mps.web.notation.structure.StaticCollectionCell" flags="ng" index="1QSceF">
+        <child id="7759120791677775095" name="cells" index="1QSceR" />
+      </concept>
+      <concept id="7759120791677764312" name="de.q60.mps.web.notation.structure.PropertyCell" flags="ng" index="1QSeQo">
+        <reference id="7759120791677775099" name="property" index="1QSceV" />
+      </concept>
+      <concept id="7759120791677764324" name="de.q60.mps.web.notation.structure.ChildrenCollectionCell" flags="ng" index="1QSeQ$">
+        <reference id="7759120791678682074" name="link" index="1QXIMq" />
+      </concept>
+      <concept id="7759120791677764348" name="de.q60.mps.web.notation.structure.ConceptNotation" flags="ng" index="1QSeQW">
+        <reference id="7759120791677764360" name="concept" index="1QSeL8" />
+        <child id="7759120791677775080" name="cell" index="1QSceC" />
+      </concept>
+      <concept id="7759120791677860361" name="de.q60.mps.web.notation.structure.ConstantCell" flags="ng" index="1QSTl9">
+        <property id="7759120791677860373" name="text" index="1QSTll" />
+      </concept>
+      <concept id="7759120791678765721" name="de.q60.mps.web.notation.structure.ReferenceCell" flags="ng" index="1QWqnp">
+        <reference id="7759120791678765733" name="link" index="1QWqn_" />
+      </concept>
+      <concept id="7759120791678681996" name="de.q60.mps.web.notation.structure.SingleChildCell" flags="ng" index="1QXINc">
+        <reference id="7759120791678682008" name="link" index="1QXINo" />
+      </concept>
+    </language>
     <language id="7866978e-a0f0-4cc7-81bc-4d213d9375e1" name="jetbrains.mps.lang.smodel">
       <concept id="1177026924588" name="jetbrains.mps.lang.smodel.structure.RefConcept_Reference" flags="nn" index="chp4Y">
         <reference id="1177026940964" name="conceptDeclaration" index="cht4Q" />
@@ -1012,6 +1040,58 @@
     <node concept="Xl_RD" id="6MQUJsyVdgn" role="1engRn">
       <property role="Xl_RC" value="Entities" />
     </node>
+  </node>
+  <node concept="1QS68C" id="6IHVO0tjwO4">
+    <node concept="1QS6b0" id="6IHVO0tjzJO" role="1QSY9g" />
+    <node concept="1QSeQW" id="6IHVO0tjzK4" role="1QSY9g">
+      <ref role="1QSeL8" to="walh:6Emz9elPWGY" resolve="Entity" />
+      <node concept="1QSceF" id="6IHVO0tlHLH" role="1QSceC">
+        <node concept="1QSTl9" id="6IHVO0tlHLK" role="1QSceR">
+          <property role="1QSTll" value="entity" />
+        </node>
+        <node concept="1QSeQo" id="6IHVO0tlHLP" role="1QSceR">
+          <ref role="1QSceV" to="tpck:h0TrG11" resolve="name" />
+        </node>
+        <node concept="1QSTl9" id="6IHVO0tlHLX" role="1QSceR">
+          <property role="1QSTll" value="{" />
+        </node>
+        <node concept="1QSeQ$" id="6IHVO0tn4CX" role="1QSceR">
+          <ref role="1QXIMq" to="walh:6Emz9elPXVm" resolve="properties" />
+        </node>
+        <node concept="1QSTl9" id="6IHVO0tlHM7" role="1QSceR">
+          <property role="1QSTll" value="}" />
+        </node>
+      </node>
+    </node>
+    <node concept="1QSeQW" id="6IHVO0tmKdG" role="1QSY9g">
+      <ref role="1QSeL8" to="walh:6Emz9elPXSG" resolve="Property" />
+      <node concept="1QSceF" id="6IHVO0tmKdW" role="1QSceC">
+        <node concept="1QSeQo" id="6IHVO0tmKdZ" role="1QSceR">
+          <ref role="1QSceV" to="tpck:h0TrG11" resolve="name" />
+        </node>
+        <node concept="1QSTl9" id="6IHVO0tmKe4" role="1QSceR">
+          <property role="1QSTll" value=":" />
+        </node>
+        <node concept="1QXINc" id="6IHVO0tn4CB" role="1QSceR">
+          <ref role="1QXINo" to="walh:wa_gCmoqws" resolve="type" />
+        </node>
+      </node>
+    </node>
+    <node concept="1QSeQW" id="6IHVO0tn4Dm" role="1QSY9g">
+      <ref role="1QSeL8" to="walh:wa_gCmoqpv" resolve="StringType" />
+      <node concept="1QSTl9" id="6IHVO0tn4DF" role="1QSceC">
+        <property role="1QSTll" value="string" />
+      </node>
+    </node>
+    <node concept="1QSeQW" id="6IHVO0tn4E2" role="1QSY9g">
+      <ref role="1QSeL8" to="walh:wa_gCmoEdW" resolve="EntityType" />
+      <node concept="1QWqnp" id="6IHVO0tnlgn" role="1QSceC">
+        <ref role="1QWqn_" to="walh:wa_gCmoEhl" resolve="entity" />
+      </node>
+    </node>
+    <node concept="1QS6b0" id="6IHVO0tm8Fe" role="1QSY9g" />
+    <node concept="1QS6b0" id="6IHVO0tjzJV" role="1QSY9g" />
+    <node concept="1QS6b0" id="6IHVO0tjzJZ" role="1QSY9g" />
   </node>
 </model>
 

@@ -450,6 +450,9 @@
       <node concept="m$_yC" id="1BXGyXtBVIa" role="m$_yJ">
         <ref role="m$_y1" node="7gF2HTvj4Cd" resolve="de.q60.mps.web.ui" />
       </node>
+      <node concept="m$_yC" id="TSXTNiO0Dw" role="m$_yJ">
+        <ref role="m$_y1" to="90a9:6SVXTgIe8wD" resolve="de.itemis.mps.celllayout" />
+      </node>
       <node concept="3_J27D" id="6HlxtAUTj2j" role="m_cZH">
         <node concept="3Mxwew" id="6HlxtAUTj2k" role="3MwsjC">
           <property role="3MwjfP" value="de.q60.mps.web.langdev" />
@@ -4091,6 +4094,95 @@
           </node>
         </node>
       </node>
+      <node concept="1E1JtD" id="TSXTNiNWKE" role="2G$12L">
+        <property role="BnDLt" value="true" />
+        <property role="TrG5h" value="de.q60.mps.web.notation" />
+        <property role="3LESm3" value="25fcb6ab-d05a-4950-8cdf-251526bdf513" />
+        <node concept="398BVA" id="TSXTNiNX7X" role="3LF7KH">
+          <ref role="398BVh" node="3$7Kuaihl5X" resolve="webmps.modules" />
+          <node concept="2Ry0Ak" id="TSXTNiNXNF" role="iGT6I">
+            <property role="2Ry0Am" value="de.q60.mps.web.notation" />
+            <node concept="2Ry0Ak" id="TSXTNiNYvo" role="2Ry0An">
+              <property role="2Ry0Am" value="de.q60.mps.web.notation.mpl" />
+            </node>
+          </node>
+        </node>
+        <node concept="1SiIV0" id="TSXTNiNZdv" role="3bR37C">
+          <node concept="3bR9La" id="TSXTNiNZdw" role="1SiIV1">
+            <ref role="3bR37D" to="ffeo:1H905DlDUSw" resolve="MPS.OpenAPI" />
+          </node>
+        </node>
+        <node concept="1SiIV0" id="TSXTNiNZdx" role="3bR37C">
+          <node concept="3bR9La" id="TSXTNiNZdy" role="1SiIV1">
+            <ref role="3bR37D" to="ffeo:7Kfy9QB6KYb" resolve="jetbrains.mps.baseLanguage" />
+          </node>
+        </node>
+        <node concept="1SiIV0" id="TSXTNiNZdz" role="3bR37C">
+          <node concept="3bR9La" id="TSXTNiNZd$" role="1SiIV1">
+            <ref role="3bR37D" to="90a9:6SVXTgIel8z" resolve="de.itemis.mps.editor.celllayout.styles" />
+          </node>
+        </node>
+        <node concept="1SiIV0" id="TSXTNiNZd_" role="3bR37C">
+          <node concept="3bR9La" id="TSXTNiNZdA" role="1SiIV1">
+            <ref role="3bR37D" to="ffeo:7Kfy9QB6LaO" resolve="jetbrains.mps.lang.structure" />
+          </node>
+        </node>
+        <node concept="1BupzO" id="TSXTNiNZdI" role="3bR31x">
+          <property role="3ZfqAx" value="models" />
+          <property role="1Hdu6h" value="true" />
+          <property role="1HemKv" value="true" />
+          <node concept="3LXTmp" id="TSXTNiNZdJ" role="1HemKq">
+            <node concept="398BVA" id="TSXTNiNZdB" role="3LXTmr">
+              <ref role="398BVh" node="3$7Kuaihl5X" resolve="webmps.modules" />
+              <node concept="2Ry0Ak" id="TSXTNiNZdC" role="iGT6I">
+                <property role="2Ry0Am" value="de.q60.mps.web.notation" />
+                <node concept="2Ry0Ak" id="TSXTNiNZdD" role="2Ry0An">
+                  <property role="2Ry0Am" value="models" />
+                </node>
+              </node>
+            </node>
+            <node concept="3qWCbU" id="TSXTNiNZdK" role="3LXTna">
+              <property role="3qWCbO" value="**/*.mps, **/*.mpsr, **/.model" />
+            </node>
+          </node>
+        </node>
+        <node concept="1yeLz9" id="TSXTNiNZdL" role="1TViLv">
+          <property role="TrG5h" value="de.q60.mps.web.notation#01" />
+          <property role="3LESm3" value="e05c7284-56e4-4441-895d-d653ff88f7da" />
+          <node concept="1SiIV0" id="TSXTNiNZdM" role="3bR37C">
+            <node concept="3bR9La" id="TSXTNiNZdN" role="1SiIV1">
+              <ref role="3bR37D" node="7gF2HTviNPn" resolve="de.q60.mps.web.ui.sm" />
+            </node>
+          </node>
+          <node concept="1SiIV0" id="TSXTNiNZdO" role="3bR37C">
+            <node concept="3bR9La" id="TSXTNiNZdP" role="1SiIV1">
+              <ref role="3bR37D" to="90a9:4iIKqJTZ5HO" resolve="de.q60.mps.shadowmodels.transformation" />
+            </node>
+          </node>
+          <node concept="1BupzO" id="TSXTNiNZdZ" role="3bR31x">
+            <property role="3ZfqAx" value="generator/templates" />
+            <property role="1Hdu6h" value="true" />
+            <property role="1HemKv" value="true" />
+            <node concept="3LXTmp" id="TSXTNiNZe0" role="1HemKq">
+              <node concept="398BVA" id="TSXTNiNZdQ" role="3LXTmr">
+                <ref role="398BVh" node="3$7Kuaihl5X" resolve="webmps.modules" />
+                <node concept="2Ry0Ak" id="TSXTNiNZdR" role="iGT6I">
+                  <property role="2Ry0Am" value="de.q60.mps.web.notation" />
+                  <node concept="2Ry0Ak" id="TSXTNiNZdS" role="2Ry0An">
+                    <property role="2Ry0Am" value="generator" />
+                    <node concept="2Ry0Ak" id="TSXTNiNZdT" role="2Ry0An">
+                      <property role="2Ry0Am" value="templates" />
+                    </node>
+                  </node>
+                </node>
+              </node>
+              <node concept="3qWCbU" id="TSXTNiNZe1" role="3LXTna">
+                <property role="3qWCbO" value="**/*.mps, **/*.mpsr, **/.model" />
+              </node>
+            </node>
+          </node>
+        </node>
+      </node>
       <node concept="3LEwk6" id="6HlxtAUSHCt" role="2G$12L">
         <property role="BnDLt" value="true" />
         <property role="TrG5h" value="de.q60.mps.web.aspect.devkit" />
@@ -4109,6 +4201,9 @@
         </node>
         <node concept="3LEDTM" id="7sZTyNS9$NB" role="3LEDUa">
           <ref role="3LEDTN" node="6HlxtAUSOXT" resolve="de.q60.mps.web.aspect.genplan" />
+        </node>
+        <node concept="3LEDTy" id="TSXTNiNZXI" role="3LEDUa">
+          <ref role="3LEDTV" node="TSXTNiNWKE" resolve="de.q60.mps.web.notation" />
         </node>
       </node>
     </node>
