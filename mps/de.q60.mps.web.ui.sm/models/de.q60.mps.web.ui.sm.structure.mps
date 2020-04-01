@@ -53,6 +53,11 @@
     <property role="R5$K7" value="true" />
     <property role="3GE5qa" value="cell" />
     <ref role="1TJDcQ" to="tpck:gw2VY9q" resolve="BaseConcept" />
+    <node concept="1TJgyj" id="4j3vk5Z9tZq" role="1TKVEi">
+      <property role="IQ2ns" value="4954941735297212378" />
+      <property role="20kJfa" value="node" />
+      <ref role="20lvS9" to="tpck:gw2VY9q" resolve="BaseConcept" />
+    </node>
     <node concept="1TJgyi" id="5wHEIYJQcaT" role="1TKVEl">
       <property role="IQ2nx" value="6353922595713761977" />
       <property role="TrG5h" value="indent" />
@@ -114,6 +119,11 @@
       <property role="TrG5h" value="placeholderText" />
       <ref role="AX2Wp" to="tpck:fKAOsGN" resolve="string" />
     </node>
+    <node concept="1TJgyi" id="4b25nZ3oTN6" role="1TKVEl">
+      <property role="IQ2nx" value="4810430990468226246" />
+      <property role="TrG5h" value="editable" />
+      <ref role="AX2Wp" to="tpck:fKAQMTB" resolve="boolean" />
+    </node>
   </node>
   <node concept="1TIwiD" id="AkkmJBMaEA">
     <property role="EcuMT" value="690266166786566822" />
@@ -143,6 +153,13 @@
       <property role="20lmBu" value="fLJjDmT/aggregation" />
       <property role="20kJfa" value="ccMenu" />
       <ref role="20lvS9" node="3zTK92LqFr_" resolve="CCMenuState" />
+    </node>
+    <node concept="1TJgyj" id="4j3vk5Z863r" role="1TKVEi">
+      <property role="IQ2ns" value="4954941735296852187" />
+      <property role="20lmBu" value="fLJjDmT/aggregation" />
+      <property role="20kJfa" value="pendingSelectionRequests" />
+      <property role="20lbJX" value="fLJekj5/_0__n" />
+      <ref role="20lvS9" node="4j3vk5Z85T7" resolve="ISelectionChangeRequest" />
     </node>
   </node>
   <node concept="1TIwiD" id="AkkmJBMp9x">
@@ -622,6 +639,24 @@
     <property role="3GE5qa" value="cell" />
     <property role="TrG5h" value="ActionCell" />
     <ref role="1TJDcQ" node="AkkmJBMaEB" resolve="Cell" />
+  </node>
+  <node concept="PlHQZ" id="4j3vk5Z85T7">
+    <property role="TrG5h" value="ISelectionChangeRequest" />
+    <property role="EcuMT" value="4954941735296851199" />
+  </node>
+  <node concept="1TIwiD" id="4j3vk5Z85Yf">
+    <property role="EcuMT" value="4954941735296851855" />
+    <property role="TrG5h" value="SelectAddedNode" />
+    <ref role="1TJDcQ" to="tpck:gw2VY9q" resolve="BaseConcept" />
+    <node concept="1TJgyj" id="4j3vk5Z863p" role="1TKVEi">
+      <property role="IQ2ns" value="4954941735296852185" />
+      <property role="20kJfa" value="addedNode" />
+      <property role="20lbJX" value="fLJekj4/_1" />
+      <ref role="20lvS9" to="tpck:gw2VY9q" resolve="BaseConcept" />
+    </node>
+    <node concept="PrWs8" id="4j3vk5Z863n" role="PzmwI">
+      <ref role="PrY4T" node="4j3vk5Z85T7" resolve="ISelectionChangeRequest" />
+    </node>
   </node>
 </model>
 

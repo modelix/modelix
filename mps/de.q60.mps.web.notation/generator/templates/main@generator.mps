@@ -417,6 +417,12 @@
             <node concept="026TG" id="6IHVO0torcK" role="026TK">
               <node concept="027og" id="6IHVO0torcL" role="026TJ">
                 <ref role="02LMe" to="j481:AkkmJBMaED" resolve="TextCell" />
+                <node concept="027oh" id="4b25nZ3oYJu" role="02LM9">
+                  <ref role="027oj" to="j481:4b25nZ3oTN6" resolve="editable" />
+                  <node concept="3clFbT" id="4b25nZ3oZBP" role="027of">
+                    <property role="3clFbU" value="true" />
+                  </node>
+                </node>
                 <node concept="027oh" id="6IHVO0torcM" role="02LM9">
                   <ref role="027oj" to="j481:AkkmJBMou0" resolve="text" />
                   <node concept="2OqwBi" id="6IHVO0tot3j" role="027of">

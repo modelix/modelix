@@ -23,6 +23,7 @@
     <import index="zf81" ref="6354ebe7-c22a-4a0f-ac54-50b52ab9b065/java:java.net(JDK/)" />
     <import index="dush" ref="8865b7a8-5271-43d3-884c-6fd1d9cfdd34/java:org.jetbrains.mps.openapi.persistence(MPS.OpenAPI/)" />
     <import index="3hky" ref="r:bef1bfa7-20fd-413a-ae11-793b0a8ee364(de.q60.mps.shadowmodels.runtime.model.persistent)" />
+    <import index="pxvb" ref="r:ca10a440-fbee-42f3-927f-469fb3169c9b(de.q60.mps.shadowmodels.runtime.util)" />
   </imports>
   <registry>
     <language id="f3061a53-9226-4cc5-a443-f952ceaf5816" name="jetbrains.mps.baseLanguage">
@@ -3353,6 +3354,35 @@
         <ref role="3uigEE" to="od2j:3jJoUQ73oP2" resolve="DefaultPFContext" />
       </node>
     </node>
+    <node concept="312cEg" id="4j3vk5ZheLA" role="jymVt">
+      <property role="TrG5h" value="invalidatable" />
+      <node concept="3Tm6S6" id="4j3vk5ZheLB" role="1B3o_S" />
+      <node concept="3uibUv" id="4j3vk5ZhfbF" role="1tU5fm">
+        <ref role="3uigEE" to="pxvb:5b2TV0XztXm" resolve="Invalidatable" />
+      </node>
+      <node concept="2ShNRf" id="4j3vk5Zhfe9" role="33vP2m">
+        <node concept="1pGfFk" id="4j3vk5ZhfdR" role="2ShVmc">
+          <ref role="37wK5l" to="pxvb:5b2TV0XztZg" resolve="Invalidatable" />
+          <node concept="Xl_RD" id="4j3vk5ZhgHW" role="37wK5m">
+            <property role="Xl_RC" value="Web Descriptor Cache (EngineForHttp)" />
+          </node>
+          <node concept="1bVj0M" id="4j3vk5ZhfYl" role="37wK5m">
+            <node concept="3clFbS" id="4j3vk5ZhfYn" role="1bW5cS">
+              <node concept="3clFbF" id="4j3vk5Zhg0w" role="3cqZAp">
+                <node concept="2OqwBi" id="4j3vk5Zhgku" role="3clFbG">
+                  <node concept="37vLTw" id="4j3vk5Zhg0v" role="2Oq$k0">
+                    <ref role="3cqZAo" node="6NhA6xmByFv" resolve="implementationsProvider" />
+                  </node>
+                  <node concept="liA8E" id="4j3vk5ZhgBy" role="2OqNvi">
+                    <ref role="37wK5l" to="od2j:3zTK92KPttI" resolve="invalidate" />
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+      </node>
+    </node>
     <node concept="2tJIrI" id="7q7cTU0XFlB" role="jymVt" />
     <node concept="3clFbW" id="7q7cTU0XFys" role="jymVt">
       <node concept="3cqZAl" id="7q7cTU0XFyu" role="3clF45" />
@@ -3418,6 +3448,16 @@
       <node concept="3cqZAl" id="7q7cTU0XFiN" role="3clF45" />
       <node concept="3Tm1VV" id="7q7cTU0XFiO" role="1B3o_S" />
       <node concept="3clFbS" id="7q7cTU0XFiP" role="3clF47">
+        <node concept="3clFbF" id="4j3vk5Zhfm$" role="3cqZAp">
+          <node concept="2OqwBi" id="4j3vk5ZhfC8" role="3clFbG">
+            <node concept="37vLTw" id="4j3vk5Zhfmy" role="2Oq$k0">
+              <ref role="3cqZAo" node="4j3vk5ZheLA" resolve="invalidatable" />
+            </node>
+            <node concept="liA8E" id="4j3vk5ZhfTE" role="2OqNvi">
+              <ref role="37wK5l" to="pxvb:5b2TV0Xzw6L" resolve="dispose" />
+            </node>
+          </node>
+        </node>
         <node concept="3clFbF" id="7q7cTU0Z0P9" role="3cqZAp">
           <node concept="2OqwBi" id="7q7cTU0Z10H" role="3clFbG">
             <node concept="37vLTw" id="7q7cTU0Z0P7" role="2Oq$k0">
