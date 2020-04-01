@@ -169,6 +169,7 @@
       </concept>
       <concept id="7759120791677764324" name="de.q60.mps.web.notation.structure.ChildrenCollectionCell" flags="ng" index="1QSeQ$">
         <reference id="7759120791678682074" name="link" index="1QXIMq" />
+        <child id="578981756153245612" name="layout" index="3UYHHU" />
       </concept>
       <concept id="7759120791677764348" name="de.q60.mps.web.notation.structure.ConceptNotation" flags="ng" index="1QSeQW">
         <reference id="7759120791677764360" name="concept" index="1QSeL8" />
@@ -1064,6 +1065,7 @@
           <node concept="3UYUzP" id="w8XdrMWZc8" role="1QSceR" />
           <node concept="1QSeQ$" id="w8XdrMWPJJ" role="1QSceR">
             <ref role="1QXIMq" to="walh:6Emz9elPXVm" resolve="properties" />
+            <node concept="3UTMNE" id="5mStLMhTzeC" role="3UYHHU" />
           </node>
         </node>
         <node concept="1QSTl9" id="w8XdrMWPJg" role="1QSceR">

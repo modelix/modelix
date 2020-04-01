@@ -149,12 +149,14 @@
     <property role="EcuMT" value="690266166786626146" />
     <property role="3GE5qa" value="cell" />
     <property role="TrG5h" value="HorizontalLayout" />
+    <property role="34LRSv" value="horizontal" />
     <ref role="1TJDcQ" node="AkkmJBMp9x" resolve="Layout" />
   </node>
   <node concept="1TIwiD" id="AkkmJBMp9z">
     <property role="EcuMT" value="690266166786626147" />
     <property role="3GE5qa" value="cell" />
     <property role="TrG5h" value="VerticalLayout" />
+    <property role="34LRSv" value="vertical" />
     <ref role="1TJDcQ" node="AkkmJBMp9x" resolve="Layout" />
   </node>
   <node concept="1TIwiD" id="AkkmJBN19U">
