@@ -72,6 +72,13 @@
       <property role="20lbJX" value="fLJekj5/_0__n" />
       <ref role="20lvS9" node="67FlxU7TMZo" resolve="CellStyleItem" />
     </node>
+    <node concept="1TJgyj" id="3EG7IPowcU6" role="1TKVEi">
+      <property role="IQ2ns" value="4227788154934972038" />
+      <property role="20lmBu" value="fLJjDmT/aggregation" />
+      <property role="20kJfa" value="actions" />
+      <property role="20lbJX" value="fLJekj5/_0__n" />
+      <ref role="20lvS9" node="3EG7IPowcS9" resolve="ActionMapping" />
+    </node>
   </node>
   <node concept="1TIwiD" id="AkkmJBMaEC">
     <property role="EcuMT" value="690266166786566824" />
@@ -591,6 +598,30 @@
       <property role="20lbJX" value="fLJekj4/_1" />
       <ref role="20lvS9" node="AkkmJBMaEB" resolve="Cell" />
     </node>
+  </node>
+  <node concept="1TIwiD" id="3EG7IPowcS9">
+    <property role="EcuMT" value="4227788154934971913" />
+    <property role="3GE5qa" value="cell" />
+    <property role="TrG5h" value="ActionMapping" />
+    <ref role="1TJDcQ" to="tpck:gw2VY9q" resolve="BaseConcept" />
+    <node concept="1TJgyj" id="3EG7IPowfzp" role="1TKVEi">
+      <property role="IQ2ns" value="4227788154934982873" />
+      <property role="20lmBu" value="fLJjDmT/aggregation" />
+      <property role="20kJfa" value="action" />
+      <property role="20lbJX" value="fLJekj4/_1" />
+      <ref role="20lvS9" node="1nlzgMD9WVV" resolve="IAction" />
+    </node>
+    <node concept="1TJgyi" id="3EG7IPowfzm" role="1TKVEl">
+      <property role="IQ2nx" value="4227788154934982870" />
+      <property role="TrG5h" value="actionType" />
+      <ref role="AX2Wp" to="tpck:fKAOsGN" resolve="string" />
+    </node>
+  </node>
+  <node concept="1TIwiD" id="3EG7IPowvGK">
+    <property role="EcuMT" value="4227788154935049008" />
+    <property role="3GE5qa" value="cell" />
+    <property role="TrG5h" value="ActionCell" />
+    <ref role="1TJDcQ" node="AkkmJBMaEB" resolve="Cell" />
   </node>
 </model>
 

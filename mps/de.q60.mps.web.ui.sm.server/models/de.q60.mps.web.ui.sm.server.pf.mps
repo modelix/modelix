@@ -228,6 +228,22 @@
           </node>
         </node>
       </node>
+      <node concept="3ku1Nf" id="28lgASq$ICW" role="s0O8K">
+        <ref role="3ku1L4" to="yo94:55FR5saAszt" resolve="toString" />
+        <node concept="3clFbS" id="28lgASq$ICY" role="3ku1Le">
+          <node concept="3cpWs6" id="28lgASq$IMo" role="3cqZAp">
+            <node concept="Xl_RD" id="28lgASq$IMw" role="3cqZAk">
+              <property role="Xl_RC" value="⚡" />
+            </node>
+          </node>
+        </node>
+        <node concept="3khFPE" id="28lgASq$IGF" role="3kuS7x">
+          <property role="TrG5h" value="o" />
+          <node concept="3Tqbb2" id="28lgASq$IJZ" role="3khFNH">
+            <ref role="ehGHo" to="j481:3EG7IPowvGK" resolve="ActionCell" />
+          </node>
+        </node>
+      </node>
     </node>
   </node>
   <node concept="312cEu" id="2TbqVtHtzck">
