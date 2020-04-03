@@ -658,5 +658,28 @@
       <ref role="PrY4T" node="4j3vk5Z85T7" resolve="ISelectionChangeRequest" />
     </node>
   </node>
+  <node concept="1TIwiD" id="6X_rIqRvGvV">
+    <property role="EcuMT" value="8026943848057849851" />
+    <property role="3GE5qa" value="viewerState" />
+    <property role="TrG5h" value="CellSelection" />
+    <ref role="1TJDcQ" node="AkkmJBMaEA" resolve="Selection" />
+    <node concept="1TJgyj" id="6X_rIqRvG_R" role="1TKVEi">
+      <property role="IQ2ns" value="8026943848057850231" />
+      <property role="20kJfa" value="cell" />
+      <property role="20lbJX" value="fLJekj4/_1" />
+      <ref role="20lvS9" node="AkkmJBMaEB" resolve="Cell" />
+    </node>
+  </node>
+  <node concept="1TIwiD" id="6X_rIqRxnO8">
+    <property role="EcuMT" value="8026943848058289416" />
+    <property role="TrG5h" value="CellSelectionCell" />
+    <ref role="1TJDcQ" node="AkkmJBMaEB" resolve="Cell" />
+    <node concept="1TJgyj" id="6X_rIqRxr1g" role="1TKVEi">
+      <property role="IQ2ns" value="8026943848058302544" />
+      <property role="20kJfa" value="cell" />
+      <property role="20lbJX" value="fLJekj4/_1" />
+      <ref role="20lvS9" node="AkkmJBMaEB" resolve="Cell" />
+    </node>
+  </node>
 </model>
 

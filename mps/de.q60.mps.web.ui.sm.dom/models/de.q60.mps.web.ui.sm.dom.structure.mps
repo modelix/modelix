@@ -865,7 +865,7 @@
   </node>
   <node concept="1TIwiD" id="7vWAzuF3R_s">
     <property role="EcuMT" value="8645954948528306524" />
-    <property role="3GE5qa" value="dom" />
+    <property role="3GE5qa" value="specialStyles" />
     <property role="TrG5h" value="CaretAlignmentItem" />
     <property role="34LRSv" value="caretAlignment" />
     <ref role="1TJDcQ" node="7q7cTU0P4oF" resolve="StyleItem" />
@@ -883,13 +883,39 @@
   </node>
   <node concept="1TIwiD" id="3zTK92LqQ3j">
     <property role="EcuMT" value="4105524263009345747" />
-    <property role="3GE5qa" value="dom" />
+    <property role="3GE5qa" value="specialStyles" />
     <property role="TrG5h" value="CCAlignmentItem" />
     <property role="34LRSv" value="ccAlignment" />
     <ref role="1TJDcQ" node="7q7cTU0P4oF" resolve="StyleItem" />
     <node concept="1TJgyj" id="3zTK92LqQ3k" role="1TKVEi">
       <property role="IQ2ns" value="4105524263009345748" />
       <property role="20kJfa" value="hostElement" />
+      <property role="20lbJX" value="fLJekj4/_1" />
+      <ref role="20lvS9" node="7NImM04RGAQ" resolve="HTMLElement" />
+    </node>
+  </node>
+  <node concept="1TIwiD" id="6X_rIqRxxfr">
+    <property role="EcuMT" value="8026943848058328027" />
+    <property role="3GE5qa" value="specialStyles" />
+    <property role="TrG5h" value="BoundingBoxItem" />
+    <property role="34LRSv" value="boundingBox" />
+    <ref role="1TJDcQ" node="7q7cTU0P4oF" resolve="StyleItem" />
+    <node concept="1TJgyj" id="6X_rIqRxy0$" role="1TKVEi">
+      <property role="IQ2ns" value="8026943848058331172" />
+      <property role="20lmBu" value="fLJjDmT/aggregation" />
+      <property role="20kJfa" value="elements" />
+      <property role="20lbJX" value="fLJekj5/_0__n" />
+      <ref role="20lvS9" node="6X_rIqRxxUA" resolve="HTMLElementRef" />
+    </node>
+  </node>
+  <node concept="1TIwiD" id="6X_rIqRxxUA">
+    <property role="EcuMT" value="8026943848058330790" />
+    <property role="3GE5qa" value="specialStyles" />
+    <property role="TrG5h" value="HTMLElementRef" />
+    <ref role="1TJDcQ" to="tpck:gw2VY9q" resolve="BaseConcept" />
+    <node concept="1TJgyj" id="6X_rIqRxy0y" role="1TKVEi">
+      <property role="IQ2ns" value="8026943848058331170" />
+      <property role="20kJfa" value="element" />
       <property role="20lbJX" value="fLJekj4/_1" />
       <ref role="20lvS9" node="7NImM04RGAQ" resolve="HTMLElement" />
     </node>
