@@ -65,6 +65,31 @@ export class ShadowModelsBasedEditor {
                 }
             });
         },
+        boundingBox: (value, dom) => {
+            this.postprocessors.push(() => {
+                let minX;
+                let maxX;
+                let minY;
+                let maxY;
+                let first = true;
+                for (const cellId of value.cellIds) {
+                    const cell = document.getElementById(cellId);
+                    if (cell) {
+                        const bounds = absoluteBounds(cell);
+                        minX = first ? bounds.left : Math.min(minX, bounds.left);
+                        minY = first ? bounds.top : Math.min(minY, bounds.top);
+                        maxX = first ? bounds.right : Math.max(maxX, bounds.right);
+                        maxY = first ? bounds.bottom : Math.max(maxY, bounds.bottom);
+                        first = false;
+                    }
+                }
+                const parentRect = absoluteBounds(dom.parentElement);
+                dom.style.left = (minX - parentRect.x) + "px";
+                dom.style.top = (minY - parentRect.y) + "px";
+                dom.style.width = (maxX - minX) + "px";
+                dom.style.height = (maxY - minY) + "px";
+            });
+        },
     };
 
     constructor(private viewer: HTMLElement) {
