@@ -920,5 +920,28 @@
       <ref role="20lvS9" node="7NImM04RGAQ" resolve="HTMLElement" />
     </node>
   </node>
+  <node concept="1TIwiD" id="7zDl3zk4F1H">
+    <property role="EcuMT" value="8712587557177831533" />
+    <property role="3GE5qa" value="specialStyles" />
+    <property role="TrG5h" value="TextRangeBoxItem" />
+    <property role="34LRSv" value="textRange" />
+    <ref role="1TJDcQ" node="7q7cTU0P4oF" resolve="StyleItem" />
+    <node concept="1TJgyi" id="7zDl3zk4F2T" role="1TKVEl">
+      <property role="IQ2nx" value="8712587557177831609" />
+      <property role="TrG5h" value="start" />
+      <ref role="AX2Wp" to="tpck:fKAQMTA" resolve="integer" />
+    </node>
+    <node concept="1TJgyi" id="7zDl3zk4F2V" role="1TKVEl">
+      <property role="IQ2nx" value="8712587557177831611" />
+      <property role="TrG5h" value="length" />
+      <ref role="AX2Wp" to="tpck:fKAQMTA" resolve="integer" />
+    </node>
+    <node concept="1TJgyj" id="7zDl3zk4F2R" role="1TKVEi">
+      <property role="IQ2ns" value="8712587557177831607" />
+      <property role="20kJfa" value="textCellDom" />
+      <property role="20lbJX" value="fLJekj4/_1" />
+      <ref role="20lvS9" node="7NImM04RGAQ" resolve="HTMLElement" />
+    </node>
+  </node>
 </model>
 
