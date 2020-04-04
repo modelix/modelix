@@ -168,6 +168,22 @@ export class ShadowModelsBasedEditor {
             }));
         };
 
+        $(this.viewer).click(e => {
+            console.log(e);
+            for (const dom of document.elementsFromPoint(e.clientX, e.clientY)) {
+                if (dom.classList.contains("textCell")) {
+                    this.socket.send(JSON.stringify({
+                        type: "click",
+                        elementId: dom.id,
+                        x: e.clientX - dom.getBoundingClientRect().left,
+                        y: e.clientY - dom.getBoundingClientRect().top,
+                        pos: xToCaret(dom, e.clientX - document.body.getBoundingClientRect().left)
+                    }));
+                }
+                this.viewer.focus();
+            }
+        });
+
         const watchdog = setInterval(() => {
             if (!DomUtils.isInDocument(this.viewer)) {
                 clearInterval(watchdog);
@@ -232,18 +248,6 @@ export class ShadowModelsBasedEditor {
                 for (const key of stylesToRemove) {
                     dom.style.removeProperty(key);
                 }
-            }
-            if (dom.classList.contains("textCell")) {
-                dom.onclick = (event) => {
-                    this.socket.send(JSON.stringify({
-                        type: "click",
-                        elementId: dom.id,
-                        x: event.x - dom.getBoundingClientRect().x,
-                        y: event.y - dom.getBoundingClientRect().y,
-                        pos: xToCaret(dom, event.x - document.body.getBoundingClientRect().left)
-                    }));
-                    this.viewer.focus();
-                };
             }
             if (json.children) {
                 wiring.push({
