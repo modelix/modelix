@@ -42,6 +42,10 @@ a:active {
         font-size: 11pt;
     }
 
+    .placeholderText {
+        color: #656565;
+    }
+
     .caret {
         position: absolute;
         border-color: #fff;
@@ -63,6 +67,14 @@ a:active {
             border-bottom: 1px solid;
             border-top: 1px solid;
         }
+    }
+
+    .cellSelection {
+        border: 1px solid #fff;
+    }
+
+    .selection {
+        position: absolute;
     }
 
     .ccmenu {
