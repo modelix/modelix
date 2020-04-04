@@ -663,6 +663,17 @@
     <property role="3GE5qa" value="viewerState" />
     <property role="TrG5h" value="CellSelection" />
     <ref role="1TJDcQ" node="AkkmJBMaEA" resolve="Selection" />
+    <node concept="1TJgyi" id="2jBAMx3BsOM" role="1TKVEl">
+      <property role="IQ2nx" value="2659264702220979506" />
+      <property role="TrG5h" value="isDirectionLeft" />
+      <ref role="AX2Wp" to="tpck:fKAQMTB" resolve="boolean" />
+    </node>
+    <node concept="1TJgyj" id="2jBAMx3BsOJ" role="1TKVEi">
+      <property role="IQ2ns" value="2659264702220979503" />
+      <property role="20lmBu" value="fLJjDmT/aggregation" />
+      <property role="20kJfa" value="prevSelection" />
+      <ref role="20lvS9" node="AkkmJBMaEA" resolve="Selection" />
+    </node>
     <node concept="1TJgyj" id="6X_rIqRvG_R" role="1TKVEi">
       <property role="IQ2ns" value="8026943848057850231" />
       <property role="20kJfa" value="cell" />
