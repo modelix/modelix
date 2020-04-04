@@ -54,6 +54,24 @@ export class ShadowModelsBasedEditor {
                 }
             });
         },
+        textRange: (value, dom) => {
+            this.postprocessors.push(() => {
+                const textCell = document.getElementById(value.cellId);
+                const start = Number.parseInt(value.start, 10);
+                const length = Number.parseInt(value.length, 10);
+                const end = start + length;
+                if (textCell) {
+                    const textCellRect = absoluteBounds(textCell);
+                    const parentRect = absoluteBounds(dom.parentElement);
+                    let x1 = caretToX(textCell, start);
+                    let x2 = caretToX(textCell, end);
+                    dom.style.left = (x1 - parentRect.x - 1) + "px";
+                    dom.style.top = (textCellRect.y - parentRect.y - 1) + "px";
+                    dom.style.height = textCellRect.height + "px";
+                    dom.style.width = (x2 - x1) + "px";
+                }
+            });
+        },
         ccAlignment: (value, ccDom) => {
             this.postprocessors.push(() => {
                 const textCell = document.getElementById(value.cellId);
@@ -169,7 +187,6 @@ export class ShadowModelsBasedEditor {
         };
 
         $(this.viewer).click(e => {
-            console.log(e);
             for (const dom of document.elementsFromPoint(e.clientX, e.clientY)) {
                 if (dom.classList.contains("textCell")) {
                     this.socket.send(JSON.stringify({

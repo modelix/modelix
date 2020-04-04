@@ -69,12 +69,10 @@ a:active {
         }
     }
 
-    .cellSelection {
-        border: 1px solid #fff;
-    }
-
     .selection {
+        border: 1px solid #aaa;
         position: absolute;
+        background-color: rgba(255, 255, 255, 0.2);
     }
 
     .ccmenu {
