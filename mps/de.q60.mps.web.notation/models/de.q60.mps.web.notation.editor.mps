@@ -92,6 +92,7 @@
       <concept id="1166049232041" name="jetbrains.mps.lang.editor.structure.AbstractComponent" flags="ng" index="1XWOmA">
         <reference id="1166049300910" name="conceptDeclaration" index="1XX52x" />
       </concept>
+      <concept id="1176809959526" name="jetbrains.mps.lang.editor.structure.QueryFunction_Color" flags="in" index="3ZlJ5R" />
     </language>
     <language id="f3061a53-9226-4cc5-a443-f952ceaf5816" name="jetbrains.mps.baseLanguage">
       <concept id="1197027756228" name="jetbrains.mps.baseLanguage.structure.DotExpression" flags="nn" index="2OqwBi">
@@ -328,6 +329,28 @@
       </node>
       <node concept="PMmxH" id="6IHVO0tlyCt" role="3EZMnx">
         <ref role="PMmxG" to="tpco:2wZex4PafBj" resolve="alias" />
+        <node concept="VechU" id="7zDl3zkczr2" role="3F10Kt">
+          <node concept="3ZlJ5R" id="7zDl3zkczr4" role="VblUZ">
+            <node concept="3clFbS" id="7zDl3zkczr5" role="2VODD2">
+              <node concept="3clFbF" id="7zDl3zkczuV" role="3cqZAp">
+                <node concept="2ShNRf" id="7zDl3zkczuX" role="3clFbG">
+                  <node concept="1pGfFk" id="7zDl3zkczuY" role="2ShVmc">
+                    <ref role="37wK5l" to="z60i:~Color.&lt;init&gt;(int,int,int)" resolve="Color" />
+                    <node concept="3cmrfG" id="7zDl3zkczuZ" role="37wK5m">
+                      <property role="3cmrfH" value="34" />
+                    </node>
+                    <node concept="3cmrfG" id="7zDl3zkczv0" role="37wK5m">
+                      <property role="3cmrfH" value="97" />
+                    </node>
+                    <node concept="3cmrfG" id="7zDl3zkczv1" role="37wK5m">
+                      <property role="3cmrfH" value="163" />
+                    </node>
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
       </node>
       <node concept="3F1sOY" id="6IHVO0tlyCw" role="3EZMnx">
         <ref role="1NtTu8" to="gsqd:6IHVO0tjiOr" resolve="cell" />

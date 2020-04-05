@@ -32,34 +32,35 @@
     transition: opacity 3.0s ease-in-out;
     opacity: 1;
   }
+
+  .ccmenu {
+    position: absolute;
+    color: black;
+    border: 1px solid #bfc0bf;
+    background-color: #e9f4ff;
+    overflow-y: scroll;
+    max-height: 200px;
+    padding-right: 5px;
+    font-family: monospace;
+    z-index: 10;
+    display: none;
+
+    .visibleSelection {
+      background-color: #5373af;
+      color: #fff;
+    }
+
+    .matchingText {
+      padding: 0px 10px 0px 3px;
+    }
+
+    .description {
+      float: right;
+      padding: 0px 3px 0px 10px;
+    }
+  }
 }
 
-.ccmenu {
-  position: absolute;
-  color: black;
-  border: 1px solid #bfc0bf;
-  background-color: #e9f4ff;
-  overflow-y: scroll;
-  max-height: 200px;
-  padding-right: 5px;
-  font-family: monospace;
-  z-index: 10;
-  display: none;
-
-  .visibleSelection {
-    background-color: #5373af;
-    color: #fff;
-  }
-
-  .matchingText {
-    padding: 0px 10px 0px 3px;
-  }
-
-  .description {
-    float: right;
-    padding: 0px 3px 0px 10px;
-  }
-}
 
 .intentionsMenu:focus {
   outline: none;

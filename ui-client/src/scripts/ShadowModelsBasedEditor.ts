@@ -83,6 +83,22 @@ export class ShadowModelsBasedEditor {
                 }
             });
         },
+        sideTransformAlignment: (value, dom) => {
+            this.postprocessors.push(() => {
+                const hostCell = document.getElementById(value.cellId);
+                if (hostCell) {
+                    const left: boolean = value.left === "true";
+                    const hostCellRect = absoluteBounds(hostCell);
+                    const parentRect = absoluteBounds(dom.parentElement);
+                    if (left) {
+                        dom.style.right = (hostCellRect.x - parentRect.x) + "px";
+                    } else {
+                        dom.style.left = (hostCellRect.right - parentRect.x) + "px";
+                    }
+                    dom.style.top = (hostCellRect.y - parentRect.y - 1) + "px";
+                }
+            });
+        },
         boundingBox: (value, dom) => {
             this.postprocessors.push(() => {
                 let minX;

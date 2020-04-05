@@ -75,6 +75,7 @@
     <dependency reexport="false">87f4b21e-a3a5-459e-a54b-408fd9eb7350(de.q60.mps.web.lib)</dependency>
     <dependency reexport="false">da981293-1ec2-4df0-95e4-df162984154c(de.q60.mps.web.ui.common)</dependency>
     <dependency reexport="false">5622e615-959d-4843-9df6-ef04ee578c18(de.q60.mps.web.model)</dependency>
+    <dependency reexport="false">18463265-6d45-4514-82f1-cf7eb1222492(de.q60.mps.polymorphicfunctions.runtime)</dependency>
   </dependencies>
   <languageVersions>
     <language slang="l:bc963c22-d419-49b6-8543-ea411eb9d3a1:de.q60.mps.polymorphicfunctions" version="0" />

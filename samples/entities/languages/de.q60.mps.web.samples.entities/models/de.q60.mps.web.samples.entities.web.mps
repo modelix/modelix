@@ -35,6 +35,7 @@
     <import index="tpcu" ref="r:00000000-0000-4000-0000-011c89590282(jetbrains.mps.lang.core.behavior)" />
     <import index="walh" ref="r:7db70d3d-4d8f-421d-b146-7ea793314222(de.q60.mps.web.samples.entities.structure)" />
     <import index="tpck" ref="r:00000000-0000-4000-0000-011c89590288(jetbrains.mps.lang.core.structure)" />
+    <import index="tpee" ref="r:00000000-0000-4000-0000-011c895902ca(jetbrains.mps.baseLanguage.structure)" implicit="true" />
   </imports>
   <registry>
     <language id="f3061a53-9226-4cc5-a443-f952ceaf5816" name="jetbrains.mps.baseLanguage">
@@ -160,6 +161,9 @@
         <child id="7759120791677832464" name="content" index="1QSY9g" />
       </concept>
       <concept id="7759120791677799808" name="de.q60.mps.web.notation.structure.EmptyLine" flags="ng" index="1QS6b0" />
+      <concept id="7759120791677775117" name="de.q60.mps.web.notation.structure.OptionalCell" flags="ng" index="1QSc9d">
+        <child id="7759120791677775131" name="cell" index="1QSc9r" />
+      </concept>
       <concept id="7759120791677775083" name="de.q60.mps.web.notation.structure.StaticCollectionCell" flags="ng" index="1QSceF">
         <child id="7759120791677775095" name="cells" index="1QSceR" />
         <child id="578981756153092168" name="layout" index="3UTMMu" />
@@ -1086,6 +1090,16 @@
         <node concept="1QXINc" id="6IHVO0tn4CB" role="1QSceR">
           <ref role="1QXINo" to="walh:wa_gCmoqws" resolve="type" />
         </node>
+        <node concept="1QSc9d" id="7zDl3zkbqCH" role="1QSceR">
+          <node concept="1QSceF" id="7zDl3zkbqDl" role="1QSc9r">
+            <node concept="1QSTl9" id="7zDl3zkbqDo" role="1QSceR">
+              <property role="1QSTll" value="=" />
+            </node>
+            <node concept="1QXINc" id="7zDl3zkbqCZ" role="1QSceR">
+              <ref role="1QXINo" to="walh:7zDl3zkbpRu" resolve="initializer" />
+            </node>
+          </node>
+        </node>
       </node>
     </node>
     <node concept="1QSeQW" id="6IHVO0tn4Dm" role="1QSY9g">
@@ -1098,6 +1112,21 @@
       <ref role="1QSeL8" to="walh:wa_gCmoEdW" resolve="EntityType" />
       <node concept="1QWqnp" id="6IHVO0tnlgn" role="1QSceC">
         <ref role="1QWqn_" to="walh:wa_gCmoEhl" resolve="entity" />
+      </node>
+    </node>
+    <node concept="1QS6b0" id="7zDl3zkcrW8" role="1QSY9g" />
+    <node concept="1QSeQW" id="7zDl3zkcrX7" role="1QSY9g">
+      <ref role="1QSeL8" to="tpee:fJuHJVf" resolve="BinaryOperation" />
+      <node concept="1QSceF" id="7zDl3zkcrXE" role="1QSceC">
+        <node concept="1QXINc" id="7zDl3zkcrXH" role="1QSceR">
+          <ref role="1QXINo" to="tpee:fJuHU4s" resolve="leftExpression" />
+        </node>
+        <node concept="1QSTl9" id="7zDl3zkcrXU" role="1QSceR">
+          <property role="1QSTll" value="+" />
+        </node>
+        <node concept="1QXINc" id="7zDl3zkcrXM" role="1QSceR">
+          <ref role="1QXINo" to="tpee:fJuHU4r" resolve="rightExpression" />
+        </node>
       </node>
     </node>
     <node concept="1QS6b0" id="6IHVO0tm8Fe" role="1QSY9g" />

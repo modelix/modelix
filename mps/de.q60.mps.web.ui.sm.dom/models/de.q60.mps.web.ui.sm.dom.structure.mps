@@ -943,5 +943,23 @@
       <ref role="20lvS9" node="7NImM04RGAQ" resolve="HTMLElement" />
     </node>
   </node>
+  <node concept="1TIwiD" id="7zDl3zkexgr">
+    <property role="EcuMT" value="8712587557180412955" />
+    <property role="3GE5qa" value="specialStyles" />
+    <property role="TrG5h" value="SideTransformAlignmentItem" />
+    <property role="34LRSv" value="sideTransformAlignment" />
+    <ref role="1TJDcQ" node="7q7cTU0P4oF" resolve="StyleItem" />
+    <node concept="1TJgyi" id="7zDl3zkexhA" role="1TKVEl">
+      <property role="IQ2nx" value="8712587557180413030" />
+      <property role="TrG5h" value="left" />
+      <ref role="AX2Wp" to="tpck:fKAQMTB" resolve="boolean" />
+    </node>
+    <node concept="1TJgyj" id="7zDl3zkexgs" role="1TKVEi">
+      <property role="IQ2ns" value="4105524263009345748" />
+      <property role="20kJfa" value="hostElement" />
+      <property role="20lbJX" value="fLJekj4/_1" />
+      <ref role="20lvS9" node="7NImM04RGAQ" resolve="HTMLElement" />
+    </node>
+  </node>
 </model>
 
