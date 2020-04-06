@@ -89,21 +89,21 @@ a:active {
         overflow-y: scroll;
         max-height: 200px;
         white-space: nowrap;
-    }
 
-    .ccmenu .selection {
-        background-color: #707070;
-        padding: 0;
-    }
+        .ccSelectedEntry {
+            background-color: #707070;
+            padding: 0;
+        }
 
-    .ccmenu .matchingText {
-        padding: 0 10px 0 3px;
-        white-space: nowrap;
-    }
+        .matchingText {
+            padding: 0 10px 0 3px;
+            white-space: nowrap;
+        }
 
-    .ccmenu .description {
-        padding: 0 3px 0 10px;
-        white-space: nowrap;
+        .description {
+            padding: 0 3px 0 10px;
+            white-space: nowrap;
+        }
     }
 
     .cellContainer {
