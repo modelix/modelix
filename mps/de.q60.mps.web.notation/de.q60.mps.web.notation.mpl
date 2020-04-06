@@ -58,7 +58,7 @@
         <module reference="94b64715-a263-4c36-a138-8da14705ffa7(de.q60.mps.shadowmodels.transformation)" version="0" />
         <module reference="25fcb6ab-d05a-4950-8cdf-251526bdf513(de.q60.mps.web.notation)" version="0" />
         <module reference="e05c7284-56e4-4441-895d-d653ff88f7da(de.q60.mps.web.notation#01)" version="0" />
-        <module reference="78874af2-5dd2-42a7-a21d-42fab3737d1d(de.q60.mps.web.ui.sm)" version="0" />
+        <module reference="78874af2-5dd2-42a7-a21d-42fab3737d1d(de.q60.mps.web.ui.sm)" version="1" />
         <module reference="f3061a53-9226-4cc5-a443-f952ceaf5816(jetbrains.mps.baseLanguage)" version="0" />
         <module reference="e39e4a59-8cb6-498e-860e-8fa8361c0d90(jetbrains.mps.baseLanguage.scopes)" version="0" />
         <module reference="2d3c70e9-aab2-4870-8d8d-6036800e4103(jetbrains.mps.kernel)" version="0" />

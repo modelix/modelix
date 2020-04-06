@@ -61,6 +61,7 @@
     <import index="alof" ref="742f6602-5a2f-4313-aa6e-ae1cd4ffdc61/java:jetbrains.mps.ide.project(MPS.Platform/)" />
     <import index="j81n" ref="r:763d080d-d701-4d75-9de7-e44ee8411c4d(de.q60.mps.shadowmodels.debugview.plugin)" />
     <import index="e9hv" ref="r:3e99be64-2426-4999-853c-5db2cd8b90dc(de.q60.mps.web.ui.sm.server.pf)" />
+    <import index="gq2t" ref="r:f17c1662-bb91-47a6-b206-16c06f86f401(de.q60.mps.web.ui.sm.pf)" />
   </imports>
   <registry>
     <language id="a247e09e-2435-45ba-b8d2-07e93feba96a" name="jetbrains.mps.baseLanguage.tuples">
@@ -1033,7 +1034,7 @@
                             <node concept="3clFbS" id="7p9$dhpfYsR" role="1oD7nj">
                               <node concept="3clFbF" id="7p9$dhpfkWw" role="3cqZAp">
                                 <node concept="2M0cAz" id="7p9$dhpfkWu" role="3clFbG">
-                                  <ref role="2M0c$$" to="aero:7p9$dhpctfd" resolve="selectionChanged" />
+                                  <ref role="2M0c$$" to="gq2t:7p9$dhpctfd" resolve="selectionChanged" />
                                   <node concept="37vLTw" id="7p9$dhpfmry" role="2M0c$y">
                                     <ref role="3cqZAo" node="7vWAzuEU_F8" resolve="viewerState" />
                                   </node>
@@ -1230,7 +1231,7 @@
                             <node concept="3cpWsn" id="64FHHkQ7uZD" role="3cpWs9">
                               <property role="TrG5h" value="keyEvent" />
                               <node concept="3uibUv" id="64FHHkQ7uP7" role="1tU5fm">
-                                <ref role="3uigEE" to="aero:64FHHkQ6uBv" resolve="BrowserKeyboardEvent" />
+                                <ref role="3uigEE" to="gq2t:64FHHkQ6uBv" resolve="BrowserKeyboardEvent" />
                               </node>
                               <node concept="1rXfSq" id="64FHHkQ7uZE" role="33vP2m">
                                 <ref role="37wK5l" node="64FHHkQ6Gli" resolve="messageToEvent" />
@@ -1269,9 +1270,9 @@
                               </node>
                               <node concept="3clFbF" id="4j3vk5Z470C" role="3cqZAp">
                                 <node concept="s3uvs" id="4j3vk5Z470$" role="3clFbG">
-                                  <ref role="s3uvu" to="aero:4j3vk5Z45Gb" resolve="userInputHandlerContext" />
+                                  <ref role="s3uvu" to="gq2t:4j3vk5Z45Gb" resolve="userInputHandlerContext" />
                                   <node concept="2M0cAz" id="4j3vk5Z484X" role="s3uvw">
-                                    <ref role="2M0c$$" to="aero:64FHHkQ83_1" resolve="handleKeyboardEvent" />
+                                    <ref role="2M0c$$" to="gq2t:64FHHkQ83_1" resolve="handleKeyboardEvent" />
                                     <node concept="37vLTw" id="4j3vk5Z484Y" role="2M0c$y">
                                       <ref role="3cqZAo" node="64FHHkQ7uZD" resolve="keyEvent" />
                                     </node>
@@ -1291,7 +1292,7 @@
                               </node>
                               <node concept="3clFbF" id="7p9$dhpeAwB" role="3cqZAp">
                                 <node concept="2M0cAz" id="7p9$dhpeAw_" role="3clFbG">
-                                  <ref role="2M0c$$" to="aero:4j3vk5Z8suc" resolve="processSelectionRequests" />
+                                  <ref role="2M0c$$" to="gq2t:4j3vk5Z8suc" resolve="processSelectionRequests" />
                                   <node concept="37vLTw" id="7p9$dhpeAHT" role="2M0c$y">
                                     <ref role="3cqZAo" node="7p9$dhpesjO" resolve="viewerState" />
                                   </node>
@@ -1342,14 +1343,14 @@
         </node>
       </node>
       <node concept="3uibUv" id="64FHHkQ6W7s" role="3clF45">
-        <ref role="3uigEE" to="aero:64FHHkQ6uBv" resolve="BrowserKeyboardEvent" />
+        <ref role="3uigEE" to="gq2t:64FHHkQ6uBv" resolve="BrowserKeyboardEvent" />
       </node>
       <node concept="3Tmbuc" id="64FHHkQ6Mxa" role="1B3o_S" />
       <node concept="3clFbS" id="64FHHkQ6Glm" role="3clF47">
         <node concept="3clFbF" id="64FHHkQ6YFd" role="3cqZAp">
           <node concept="2ShNRf" id="64FHHkQ6YFb" role="3clFbG">
             <node concept="1pGfFk" id="64FHHkQ7dMG" role="2ShVmc">
-              <ref role="37wK5l" to="aero:64FHHkQ6uPN" resolve="BrowserKeyboardEvent" />
+              <ref role="37wK5l" to="gq2t:64FHHkQ6uPN" resolve="BrowserKeyboardEvent" />
               <node concept="17R0WA" id="64FHHkQ7g2b" role="37wK5m">
                 <node concept="Xl_RD" id="64FHHkQ7guE" role="3uHU7w">
                   <property role="Xl_RC" value="keydown" />
@@ -1986,7 +1987,7 @@
           <node concept="3clFbS" id="4j3vk5Z92wp" role="3clFbx">
             <node concept="3clFbF" id="4j3vk5Z9jHz" role="3cqZAp">
               <node concept="2M0cAz" id="4j3vk5Z9jHx" role="3clFbG">
-                <ref role="2M0c$$" to="aero:4j3vk5Z8suc" resolve="processSelectionRequests" />
+                <ref role="2M0c$$" to="gq2t:4j3vk5Z8suc" resolve="processSelectionRequests" />
                 <node concept="37vLTw" id="4j3vk5Z9jTZ" role="2M0c$y">
                   <ref role="3cqZAo" node="4j3vk5Z9cEQ" resolve="viewerState" />
                 </node>

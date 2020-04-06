@@ -35,6 +35,7 @@
     <import index="csg2" ref="r:b0cc4f86-cf49-4ffc-b138-1f9973329ce1(de.q60.mps.web.model.mpsplugin)" />
     <import index="3hky" ref="r:bef1bfa7-20fd-413a-ae11-793b0a8ee364(de.q60.mps.shadowmodels.runtime.model.persistent)" />
     <import index="oyp0" ref="r:ff4bc8f2-4e53-41b7-a27c-792a5dcc86cb(de.q60.mps.shadowmodels.transformation.structure)" />
+    <import index="gq2t" ref="r:f17c1662-bb91-47a6-b206-16c06f86f401(de.q60.mps.web.ui.sm.pf)" />
     <import index="tpee" ref="r:00000000-0000-4000-0000-011c895902ca(jetbrains.mps.baseLanguage.structure)" implicit="true" />
     <import index="4dhu" ref="r:17a7af0b-7a93-4688-b13e-195872d8e289(de.q60.mps.web.aspect.behavior)" implicit="true" />
     <import index="tpck" ref="r:00000000-0000-4000-0000-011c89590288(jetbrains.mps.lang.core.structure)" implicit="true" />
@@ -1916,7 +1917,7 @@
     <property role="TrG5h" value="PF_HttpPageHandlers" />
     <node concept="n94m4" id="6MQUJsyYuLa" role="lGtFl" />
     <node concept="3ku1Nf" id="6MQUJsyYv8j" role="3khUj0">
-      <ref role="3ku1L4" to="aero:1z8Uup0q61$" resolve="getHandlers" />
+      <ref role="3ku1L4" to="gq2t:1z8Uup0q61$" resolve="getHandlers" />
       <node concept="3clFbS" id="6MQUJsyYv8k" role="3ku1Le">
         <node concept="3cpWs6" id="6MQUJsyY_Ws" role="3cqZAp">
           <node concept="10M0yZ" id="6MQUJsyY_WV" role="3cqZAk">

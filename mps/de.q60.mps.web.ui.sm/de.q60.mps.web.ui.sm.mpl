@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<language namespace="de.q60.mps.web.ui.sm" uuid="78874af2-5dd2-42a7-a21d-42fab3737d1d" languageVersion="0" moduleVersion="0">
+<language namespace="de.q60.mps.web.ui.sm" uuid="78874af2-5dd2-42a7-a21d-42fab3737d1d" languageVersion="0" moduleVersion="1">
   <models>
     <modelRoot contentPath="${module}" type="default">
       <sourceRoot location="models" />
@@ -76,6 +76,7 @@
     <dependency reexport="false">da981293-1ec2-4df0-95e4-df162984154c(de.q60.mps.web.ui.common)</dependency>
     <dependency reexport="false">5622e615-959d-4843-9df6-ef04ee578c18(de.q60.mps.web.model)</dependency>
     <dependency reexport="false">18463265-6d45-4514-82f1-cf7eb1222492(de.q60.mps.polymorphicfunctions.runtime)</dependency>
+    <dependency reexport="false">fc3c2aa8-0d4b-463f-a774-40d450aa04a0(de.q60.mps.web.jetty)</dependency>
   </dependencies>
   <languageVersions>
     <language slang="l:bc963c22-d419-49b6-8543-ea411eb9d3a1:de.q60.mps.polymorphicfunctions" version="0" />
@@ -141,6 +142,7 @@
     <module reference="e52a4835-844d-46a1-99f8-c06129db796f(de.q60.mps.shadowmodels.runtime)" version="0" />
     <module reference="0bf7bc3b-b11d-42e4-b160-93d72af96397(de.q60.mps.shadowmodels.runtimelang)" version="0" />
     <module reference="a7322769-ef64-4daa-a2f4-fd4228fb713e(de.q60.mps.shadowmodels.target.text)" version="0" />
+    <module reference="fc3c2aa8-0d4b-463f-a774-40d450aa04a0(de.q60.mps.web.jetty)" version="0" />
     <module reference="87f4b21e-a3a5-459e-a54b-408fd9eb7350(de.q60.mps.web.lib)" version="0" />
     <module reference="5622e615-959d-4843-9df6-ef04ee578c18(de.q60.mps.web.model)" version="0" />
     <module reference="da981293-1ec2-4df0-95e4-df162984154c(de.q60.mps.web.ui.common)" version="0" />
