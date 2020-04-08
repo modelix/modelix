@@ -1108,6 +1108,12 @@
         <property role="1QSTll" value="string" />
       </node>
     </node>
+    <node concept="1QSeQW" id="2_ZHPvOs$pS" role="1QSY9g">
+      <ref role="1QSeL8" to="walh:1D6Sg8QmYnM" resolve="IntegerType" />
+      <node concept="1QSTl9" id="2_ZHPvOs$pT" role="1QSceC">
+        <property role="1QSTll" value="int" />
+      </node>
+    </node>
     <node concept="1QSeQW" id="6IHVO0tn4E2" role="1QSY9g">
       <ref role="1QSeL8" to="walh:wa_gCmoEdW" resolve="EntityType" />
       <node concept="1QWqnp" id="6IHVO0tnlgn" role="1QSceC">

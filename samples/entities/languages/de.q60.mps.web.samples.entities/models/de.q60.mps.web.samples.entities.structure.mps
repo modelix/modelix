@@ -99,5 +99,11 @@
       <ref role="20lvS9" node="6Emz9elPWGY" resolve="Entity" />
     </node>
   </node>
+  <node concept="1TIwiD" id="1D6Sg8QmYnM">
+    <property role="EcuMT" value="1893448092974048754" />
+    <property role="TrG5h" value="IntegerType" />
+    <property role="34LRSv" value="int" />
+    <ref role="1TJDcQ" node="wa_gCmoqm6" resolve="Type" />
+  </node>
 </model>
 

@@ -89,6 +89,7 @@ a:active {
         overflow-y: scroll;
         max-height: 200px;
         white-space: nowrap;
+        box-shadow: 5px 5px 40px 0 rgba(0,0,0,0.5);
 
         .ccSelectedEntry {
             background-color: #707070;

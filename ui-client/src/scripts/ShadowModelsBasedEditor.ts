@@ -33,6 +33,7 @@ export class ShadowModelsBasedEditor {
             }
 
             for (const f of this.postprocessors) f();
+            for (const f of this.postprocessors) f();
         }
     };
     private styleHandlers = {
@@ -184,7 +185,7 @@ export class ShadowModelsBasedEditor {
         };
         this.viewer.onkeydown = (event) => {
             event.stopPropagation();
-            if (event.code === "Tab") {
+            if (event.code === "Tab" || event.code === "ArrowDown" || event.code === "ArrowUp") {
                 // no keypress event is fired if .preventDefault() is called here
                 // that's why it's called only for selected keys
                 event.preventDefault();
