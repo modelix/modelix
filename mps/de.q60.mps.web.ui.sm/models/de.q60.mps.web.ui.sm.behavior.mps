@@ -4721,5 +4721,39 @@
       <node concept="3cqZAl" id="1D6Sg8Qq3tP" role="3clF45" />
     </node>
   </node>
+  <node concept="13h7C7" id="j7dM4mgWxi">
+    <property role="3GE5qa" value="actions" />
+    <ref role="13h7C2" to="j481:j7dM4mgWvP" resolve="CloseCCMenuAction" />
+    <node concept="13hLZK" id="j7dM4mgWxj" role="13h7CW">
+      <node concept="3clFbS" id="j7dM4mgWxk" role="2VODD2" />
+    </node>
+    <node concept="13i0hz" id="j7dM4mgWyT" role="13h7CS">
+      <property role="TrG5h" value="apply" />
+      <ref role="13i0hy" node="1nlzgMD9YAI" resolve="apply" />
+      <node concept="3Tm1VV" id="j7dM4mgWyW" role="1B3o_S" />
+      <node concept="3clFbS" id="j7dM4mgWyZ" role="3clF47">
+        <node concept="3clFbF" id="j7dM4mgWzq" role="3cqZAp">
+          <node concept="2OqwBi" id="j7dM4mgX8j" role="3clFbG">
+            <node concept="2OqwBi" id="j7dM4mgWFl" role="2Oq$k0">
+              <node concept="37vLTw" id="j7dM4mgWzp" role="2Oq$k0">
+                <ref role="3cqZAo" node="j7dM4mgWz0" resolve="viewerState" />
+              </node>
+              <node concept="3TrEf2" id="j7dM4mgWPS" role="2OqNvi">
+                <ref role="3Tt5mk" to="j481:3zTK92LqFrE" resolve="ccMenu" />
+              </node>
+            </node>
+            <node concept="3YRAZt" id="j7dM4mgXmA" role="2OqNvi" />
+          </node>
+        </node>
+      </node>
+      <node concept="37vLTG" id="j7dM4mgWz0" role="3clF46">
+        <property role="TrG5h" value="viewerState" />
+        <node concept="3Tqbb2" id="j7dM4mgWz1" role="1tU5fm">
+          <ref role="ehGHo" to="j481:AkkmJBMaEy" resolve="ViewerState" />
+        </node>
+      </node>
+      <node concept="3cqZAl" id="j7dM4mgWz2" role="3clF45" />
+    </node>
+  </node>
 </model>
 

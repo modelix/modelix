@@ -1035,5 +1035,11 @@
       <ref role="20lvS9" node="1nlzgMD9WVV" resolve="IAction" />
     </node>
   </node>
+  <node concept="1TIwiD" id="j7dM4mgWvP">
+    <property role="EcuMT" value="344304511764121589" />
+    <property role="3GE5qa" value="actions" />
+    <property role="TrG5h" value="CloseCCMenuAction" />
+    <ref role="1TJDcQ" node="5Nhi$S9QMFF" resolve="AbstractAction" />
+  </node>
 </model>
 
