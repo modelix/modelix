@@ -1041,5 +1041,45 @@
     <property role="TrG5h" value="CloseCCMenuAction" />
     <ref role="1TJDcQ" node="5Nhi$S9QMFF" resolve="AbstractAction" />
   </node>
+  <node concept="1TIwiD" id="5xDm4AOCC9">
+    <property role="EcuMT" value="99542503460604425" />
+    <property role="3GE5qa" value="actions" />
+    <property role="TrG5h" value="CompositeAction" />
+    <ref role="1TJDcQ" node="5Nhi$S9QMFF" resolve="AbstractAction" />
+    <node concept="1TJgyj" id="5xDm4AOCDD" role="1TKVEi">
+      <property role="IQ2ns" value="99542503460604521" />
+      <property role="20lmBu" value="fLJjDmT/aggregation" />
+      <property role="20kJfa" value="actions" />
+      <property role="20lbJX" value="fLJekj6/_1__n" />
+      <ref role="20lvS9" node="1nlzgMD9WVV" resolve="IAction" />
+    </node>
+  </node>
+  <node concept="1TIwiD" id="5xDm4AOLH3">
+    <property role="EcuMT" value="99542503460641603" />
+    <property role="3GE5qa" value="actions" />
+    <property role="TrG5h" value="ReplaceTextAction" />
+    <ref role="1TJDcQ" node="5Nhi$S9QMFF" resolve="AbstractAction" />
+    <node concept="1TJgyi" id="5xDm4AOLH4" role="1TKVEl">
+      <property role="IQ2nx" value="6688208620655499881" />
+      <property role="TrG5h" value="start" />
+      <ref role="AX2Wp" to="tpck:fKAQMTA" resolve="integer" />
+    </node>
+    <node concept="1TJgyi" id="5xDm4AOLH5" role="1TKVEl">
+      <property role="IQ2nx" value="6688208620655499883" />
+      <property role="TrG5h" value="length" />
+      <ref role="AX2Wp" to="tpck:fKAQMTA" resolve="integer" />
+    </node>
+    <node concept="1TJgyi" id="5xDm4AOLIz" role="1TKVEl">
+      <property role="IQ2nx" value="99542503460641699" />
+      <property role="TrG5h" value="text" />
+      <ref role="AX2Wp" to="tpck:fKAOsGN" resolve="string" />
+    </node>
+    <node concept="1TJgyj" id="5xDm4AOLH6" role="1TKVEi">
+      <property role="IQ2ns" value="6688208620655499879" />
+      <property role="20kJfa" value="targetCell" />
+      <property role="20lbJX" value="fLJekj4/_1" />
+      <ref role="20lvS9" node="AkkmJBMaED" resolve="TextCell" />
+    </node>
+  </node>
 </model>
 

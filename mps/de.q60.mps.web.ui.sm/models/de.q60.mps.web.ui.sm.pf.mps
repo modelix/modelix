@@ -5919,51 +5919,171 @@
             </node>
           </node>
         </node>
-        <node concept="3clFbF" id="64FHHkQ9x1J" role="3cqZAp">
-          <node concept="2ShNRf" id="64FHHkQ9x1K" role="3clFbG">
-            <node concept="2HTt$P" id="64FHHkQ9x1L" role="2ShVmc">
-              <node concept="2pJPEk" id="5Nhi$S9RSHo" role="2HTEbv">
-                <node concept="2pJPED" id="5Nhi$S9RSLn" role="2pJPEn">
-                  <ref role="2pJxaS" to="j481:5Nhi$S9QMEg" resolve="InsertTextAction" />
-                  <node concept="2pIpSj" id="5Nhi$S9RSPI" role="2pJxcM">
-                    <ref role="2pIpSl" to="j481:5Nhi$S9QNfi" resolve="targetCell" />
-                    <node concept="36biLy" id="5Nhi$S9RSRY" role="28nt2d">
-                      <node concept="2OqwBi" id="5Nhi$S9S5up" role="36biLW">
-                        <node concept="37vLTw" id="5Nhi$S9S5kd" role="2Oq$k0">
-                          <ref role="3cqZAo" node="3zTK92L1TYN" resolve="selection" />
-                        </node>
-                        <node concept="3TrEf2" id="5Nhi$S9S5vH" role="2OqNvi">
-                          <ref role="3Tt5mk" to="j481:7vWAzuEMigU" resolve="focusCell" />
-                        </node>
-                      </node>
-                    </node>
+        <node concept="3clFbJ" id="5xDm4AOYFT" role="3cqZAp">
+          <node concept="3clFbS" id="5xDm4AOYFV" role="3clFbx">
+            <node concept="3cpWs8" id="5xDm4AP1ty" role="3cqZAp">
+              <node concept="3cpWsn" id="5xDm4AP1tz" role="3cpWs9">
+                <property role="TrG5h" value="rangeSelection" />
+                <node concept="3Tqbb2" id="5xDm4AP1tv" role="1tU5fm">
+                  <ref role="ehGHo" to="j481:46qXl7aJR0Z" resolve="TextCellRangeSelection" />
+                </node>
+                <node concept="1PxgMI" id="5xDm4AP1t$" role="33vP2m">
+                  <node concept="chp4Y" id="5xDm4AP1t_" role="3oSUPX">
+                    <ref role="cht4Q" to="j481:46qXl7aJR0Z" resolve="TextCellRangeSelection" />
                   </node>
-                  <node concept="2pJxcG" id="5Nhi$S9RSUl" role="2pJxcM">
-                    <ref role="2pJxcJ" to="j481:5Nhi$S9QNfd" resolve="text" />
-                    <node concept="2OqwBi" id="64FHHkQ7wYB" role="28ntcv">
-                      <node concept="3kvyP4" id="64FHHkQ9HIY" role="2Oq$k0">
-                        <ref role="3kvyN1" node="64FHHkQ9x2D" resolve="event" />
-                      </node>
-                      <node concept="liA8E" id="64FHHkQ7xBp" role="2OqNvi">
-                        <ref role="37wK5l" node="64FHHkQ7nGA" resolve="getKey" />
-                      </node>
-                    </node>
-                  </node>
-                  <node concept="2pJxcG" id="5Nhi$S9S4Fp" role="2pJxcM">
-                    <ref role="2pJxcJ" to="j481:5Nhi$S9QNff" resolve="position" />
-                    <node concept="2OqwBi" id="5Nhi$S9S4Sz" role="28ntcv">
-                      <node concept="37vLTw" id="5Nhi$S9S4I0" role="2Oq$k0">
-                        <ref role="3cqZAo" node="3zTK92L1TYN" resolve="selection" />
-                      </node>
-                      <node concept="3TrcHB" id="5Nhi$S9S5hL" role="2OqNvi">
-                        <ref role="3TsBF5" to="j481:7vWAzuEL3BP" resolve="position" />
-                      </node>
-                    </node>
+                  <node concept="37vLTw" id="5xDm4AP1tA" role="1m5AlR">
+                    <ref role="3cqZAo" node="3zTK92L1TYN" resolve="selection" />
                   </node>
                 </node>
               </node>
-              <node concept="3Tqbb2" id="5Nhi$S9R761" role="2HTBi0">
-                <ref role="ehGHo" to="j481:1nlzgMD9WVV" resolve="IAction" />
+            </node>
+            <node concept="3clFbF" id="5xDm4AP073" role="3cqZAp">
+              <node concept="2ShNRf" id="5xDm4AP074" role="3clFbG">
+                <node concept="2HTt$P" id="5xDm4AP075" role="2ShVmc">
+                  <node concept="2pJPEk" id="5xDm4AP076" role="2HTEbv">
+                    <node concept="2pJPED" id="5xDm4AP077" role="2pJPEn">
+                      <ref role="2pJxaS" to="j481:5xDm4AOLH3" resolve="ReplaceTextAction" />
+                      <node concept="2pIpSj" id="5xDm4AP078" role="2pJxcM">
+                        <ref role="2pIpSl" to="j481:5xDm4AOLH6" resolve="targetCell" />
+                        <node concept="36biLy" id="5xDm4AP079" role="28nt2d">
+                          <node concept="2OqwBi" id="5xDm4AP07a" role="36biLW">
+                            <node concept="37vLTw" id="5xDm4AP07b" role="2Oq$k0">
+                              <ref role="3cqZAo" node="3zTK92L1TYN" resolve="selection" />
+                            </node>
+                            <node concept="3TrEf2" id="5xDm4AP07c" role="2OqNvi">
+                              <ref role="3Tt5mk" to="j481:7vWAzuEMigU" resolve="focusCell" />
+                            </node>
+                          </node>
+                        </node>
+                      </node>
+                      <node concept="2pJxcG" id="5xDm4AP07d" role="2pJxcM">
+                        <ref role="2pJxcJ" to="j481:5xDm4AOLIz" resolve="text" />
+                        <node concept="2OqwBi" id="5xDm4AP07e" role="28ntcv">
+                          <node concept="3kvyP4" id="5xDm4AP07f" role="2Oq$k0">
+                            <ref role="3kvyN1" node="64FHHkQ9x2D" resolve="event" />
+                          </node>
+                          <node concept="liA8E" id="5xDm4AP07g" role="2OqNvi">
+                            <ref role="37wK5l" node="64FHHkQ7nGA" resolve="getKey" />
+                          </node>
+                        </node>
+                      </node>
+                      <node concept="2pJxcG" id="5xDm4AP07h" role="2pJxcM">
+                        <ref role="2pJxcJ" to="j481:5xDm4AOLH4" resolve="start" />
+                        <node concept="2YIFZM" id="5xDm4AP1MG" role="28ntcv">
+                          <ref role="1Pybhc" to="wyt6:~Math" resolve="Math" />
+                          <ref role="37wK5l" to="wyt6:~Math.min(int,int)" resolve="min" />
+                          <node concept="2OqwBi" id="5xDm4AP2li" role="37wK5m">
+                            <node concept="37vLTw" id="5xDm4AP27r" role="2Oq$k0">
+                              <ref role="3cqZAo" node="5xDm4AP1tz" resolve="rangeSelection" />
+                            </node>
+                            <node concept="3TrcHB" id="5xDm4AP2Ch" role="2OqNvi">
+                              <ref role="3TsBF5" to="j481:46qXl7aJR11" resolve="selectionStart" />
+                            </node>
+                          </node>
+                          <node concept="2OqwBi" id="5xDm4AP48$" role="37wK5m">
+                            <node concept="37vLTw" id="5xDm4AP3$u" role="2Oq$k0">
+                              <ref role="3cqZAo" node="5xDm4AP1tz" resolve="rangeSelection" />
+                            </node>
+                            <node concept="3TrcHB" id="5xDm4AP4nT" role="2OqNvi">
+                              <ref role="3TsBF5" to="j481:7vWAzuEL3BP" resolve="position" />
+                            </node>
+                          </node>
+                        </node>
+                      </node>
+                      <node concept="2pJxcG" id="5xDm4AP4ME" role="2pJxcM">
+                        <ref role="2pJxcJ" to="j481:5xDm4AOLH5" resolve="length" />
+                        <node concept="2YIFZM" id="5xDm4AP5pE" role="28ntcv">
+                          <ref role="37wK5l" to="wyt6:~Math.abs(int)" resolve="abs" />
+                          <ref role="1Pybhc" to="wyt6:~Math" resolve="Math" />
+                          <node concept="3cpWsd" id="5xDm4AP7Ty" role="37wK5m">
+                            <node concept="2OqwBi" id="5xDm4AP8rp" role="3uHU7w">
+                              <node concept="37vLTw" id="5xDm4AP8eX" role="2Oq$k0">
+                                <ref role="3cqZAo" node="5xDm4AP1tz" resolve="rangeSelection" />
+                              </node>
+                              <node concept="3TrcHB" id="5xDm4AP8FI" role="2OqNvi">
+                                <ref role="3TsBF5" to="j481:7vWAzuEL3BP" resolve="position" />
+                              </node>
+                            </node>
+                            <node concept="2OqwBi" id="5xDm4AP67H" role="3uHU7B">
+                              <node concept="37vLTw" id="5xDm4AP5rq" role="2Oq$k0">
+                                <ref role="3cqZAo" node="5xDm4AP1tz" resolve="rangeSelection" />
+                              </node>
+                              <node concept="3TrcHB" id="5xDm4AP6nd" role="2OqNvi">
+                                <ref role="3TsBF5" to="j481:46qXl7aJR11" resolve="selectionStart" />
+                              </node>
+                            </node>
+                          </node>
+                        </node>
+                      </node>
+                    </node>
+                  </node>
+                  <node concept="3Tqbb2" id="5xDm4AP07l" role="2HTBi0">
+                    <ref role="ehGHo" to="j481:1nlzgMD9WVV" resolve="IAction" />
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+          <node concept="2OqwBi" id="5xDm4AOYRC" role="3clFbw">
+            <node concept="37vLTw" id="5xDm4AOYGZ" role="2Oq$k0">
+              <ref role="3cqZAo" node="3zTK92L1TYN" resolve="selection" />
+            </node>
+            <node concept="1mIQ4w" id="5xDm4AOZ49" role="2OqNvi">
+              <node concept="chp4Y" id="5xDm4AOZcI" role="cj9EA">
+                <ref role="cht4Q" to="j481:46qXl7aJR0Z" resolve="TextCellRangeSelection" />
+              </node>
+            </node>
+          </node>
+          <node concept="9aQIb" id="5xDm4AOZhu" role="9aQIa">
+            <node concept="3clFbS" id="5xDm4AOZhv" role="9aQI4">
+              <node concept="3clFbF" id="64FHHkQ9x1J" role="3cqZAp">
+                <node concept="2ShNRf" id="64FHHkQ9x1K" role="3clFbG">
+                  <node concept="2HTt$P" id="64FHHkQ9x1L" role="2ShVmc">
+                    <node concept="2pJPEk" id="5Nhi$S9RSHo" role="2HTEbv">
+                      <node concept="2pJPED" id="5Nhi$S9RSLn" role="2pJPEn">
+                        <ref role="2pJxaS" to="j481:5Nhi$S9QMEg" resolve="InsertTextAction" />
+                        <node concept="2pIpSj" id="5Nhi$S9RSPI" role="2pJxcM">
+                          <ref role="2pIpSl" to="j481:5Nhi$S9QNfi" resolve="targetCell" />
+                          <node concept="36biLy" id="5Nhi$S9RSRY" role="28nt2d">
+                            <node concept="2OqwBi" id="5Nhi$S9S5up" role="36biLW">
+                              <node concept="37vLTw" id="5Nhi$S9S5kd" role="2Oq$k0">
+                                <ref role="3cqZAo" node="3zTK92L1TYN" resolve="selection" />
+                              </node>
+                              <node concept="3TrEf2" id="5Nhi$S9S5vH" role="2OqNvi">
+                                <ref role="3Tt5mk" to="j481:7vWAzuEMigU" resolve="focusCell" />
+                              </node>
+                            </node>
+                          </node>
+                        </node>
+                        <node concept="2pJxcG" id="5Nhi$S9RSUl" role="2pJxcM">
+                          <ref role="2pJxcJ" to="j481:5Nhi$S9QNfd" resolve="text" />
+                          <node concept="2OqwBi" id="64FHHkQ7wYB" role="28ntcv">
+                            <node concept="3kvyP4" id="64FHHkQ9HIY" role="2Oq$k0">
+                              <ref role="3kvyN1" node="64FHHkQ9x2D" resolve="event" />
+                            </node>
+                            <node concept="liA8E" id="64FHHkQ7xBp" role="2OqNvi">
+                              <ref role="37wK5l" node="64FHHkQ7nGA" resolve="getKey" />
+                            </node>
+                          </node>
+                        </node>
+                        <node concept="2pJxcG" id="5Nhi$S9S4Fp" role="2pJxcM">
+                          <ref role="2pJxcJ" to="j481:5Nhi$S9QNff" resolve="position" />
+                          <node concept="2OqwBi" id="5Nhi$S9S4Sz" role="28ntcv">
+                            <node concept="37vLTw" id="5Nhi$S9S4I0" role="2Oq$k0">
+                              <ref role="3cqZAo" node="3zTK92L1TYN" resolve="selection" />
+                            </node>
+                            <node concept="3TrcHB" id="5Nhi$S9S5hL" role="2OqNvi">
+                              <ref role="3TsBF5" to="j481:7vWAzuEL3BP" resolve="position" />
+                            </node>
+                          </node>
+                        </node>
+                      </node>
+                    </node>
+                    <node concept="3Tqbb2" id="5Nhi$S9R761" role="2HTBi0">
+                      <ref role="ehGHo" to="j481:1nlzgMD9WVV" resolve="IAction" />
+                    </node>
+                  </node>
+                </node>
               </node>
             </node>
           </node>
