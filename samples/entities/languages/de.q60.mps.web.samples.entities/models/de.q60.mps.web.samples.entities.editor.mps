@@ -164,7 +164,13 @@
       <node concept="3F1sOY" id="wa_gCmoq$o" role="3EZMnx">
         <ref role="1NtTu8" to="walh:wa_gCmoqws" resolve="type" />
       </node>
+      <node concept="3F0ifn" id="5xDm4AXsug" role="3EZMnx">
+        <property role="3F0ifm" value="=" />
+      </node>
       <node concept="2iRfu4" id="wa_gCmoq$3" role="2iSdaV" />
+      <node concept="3F1sOY" id="5xDm4AXsus" role="3EZMnx">
+        <ref role="1NtTu8" to="walh:7zDl3zkbpRu" resolve="initializer" />
+      </node>
     </node>
   </node>
   <node concept="24kQdi" id="wa_gCmoEkR">

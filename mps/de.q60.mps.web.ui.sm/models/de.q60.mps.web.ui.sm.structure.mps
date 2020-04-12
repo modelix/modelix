@@ -769,10 +769,10 @@
     <property role="3GE5qa" value="sideTransform" />
     <property role="TrG5h" value="SideTransformState" />
     <ref role="1TJDcQ" to="tpck:gw2VY9q" resolve="BaseConcept" />
-    <node concept="1TJgyi" id="7zDl3zkbpRj" role="1TKVEl">
-      <property role="IQ2nx" value="8712587557179596243" />
-      <property role="TrG5h" value="isLeftSide" />
-      <ref role="AX2Wp" to="tpck:fKAQMTB" resolve="boolean" />
+    <node concept="1TJgyi" id="5xDm4AR$MZ" role="1TKVEl">
+      <property role="IQ2nx" value="99542503461375167" />
+      <property role="TrG5h" value="side" />
+      <ref role="AX2Wp" to="tpck:fKAOsGN" resolve="string" />
     </node>
     <node concept="1TJgyi" id="7zDl3zkbpRl" role="1TKVEl">
       <property role="IQ2nx" value="8712587557179596245" />
@@ -859,10 +859,10 @@
     <property role="3GE5qa" value="sideTransform" />
     <property role="TrG5h" value="SideTansformCell" />
     <ref role="1TJDcQ" node="AkkmJBMaED" resolve="TextCell" />
-    <node concept="1TJgyi" id="7zDl3zkenyO" role="1TKVEl">
-      <property role="IQ2nx" value="8712587557180373172" />
-      <property role="TrG5h" value="isLeftSide" />
-      <ref role="AX2Wp" to="tpck:fKAQMTB" resolve="boolean" />
+    <node concept="1TJgyi" id="5xDm4ARh4x" role="1TKVEl">
+      <property role="IQ2nx" value="99542503461294369" />
+      <property role="TrG5h" value="side" />
+      <ref role="AX2Wp" to="tpck:fKAOsGN" resolve="string" />
     </node>
     <node concept="1TJgyj" id="7zDl3zkemzt" role="1TKVEi">
       <property role="IQ2ns" value="8712587557180369117" />
@@ -933,13 +933,18 @@
   <node concept="1TIwiD" id="7p9$dhpxPP1">
     <property role="EcuMT" value="8523503011484884289" />
     <property role="3GE5qa" value="actions" />
-    <property role="TrG5h" value="SideTransformActionProvider" />
+    <property role="TrG5h" value="TransformActionProvider" />
     <ref role="1TJDcQ" to="tpck:gw2VY9q" resolve="BaseConcept" />
     <node concept="1TJgyj" id="7p9$dhpxPTM" role="1TKVEi">
       <property role="IQ2ns" value="8523503011484884594" />
       <property role="20kJfa" value="hostCell" />
       <property role="20lbJX" value="fLJekj4/_1" />
-      <ref role="20lvS9" node="AkkmJBMaED" resolve="TextCell" />
+      <ref role="20lvS9" node="AkkmJBMaEB" resolve="Cell" />
+    </node>
+    <node concept="1TJgyi" id="5xDm4ARCPi" role="1TKVEl">
+      <property role="IQ2nx" value="99542503461391698" />
+      <property role="TrG5h" value="side" />
+      <ref role="AX2Wp" to="tpck:fKAOsGN" resolve="string" />
     </node>
     <node concept="1TJgyi" id="7p9$dhpxPTK" role="1TKVEl">
       <property role="IQ2nx" value="8523503011484884592" />
@@ -947,21 +952,6 @@
       <ref role="AX2Wp" to="tpck:fKAQMTB" resolve="boolean" />
     </node>
     <node concept="PrWs8" id="7p9$dhpxPQb" role="PzmwI">
-      <ref role="PrY4T" node="7zDl3zklxEL" resolve="IActionProvider" />
-    </node>
-  </node>
-  <node concept="1TIwiD" id="1D6Sg8PwQqp">
-    <property role="EcuMT" value="1893448092959860377" />
-    <property role="3GE5qa" value="actions" />
-    <property role="TrG5h" value="SubstituteTransformActionProvider" />
-    <ref role="1TJDcQ" to="tpck:gw2VY9q" resolve="BaseConcept" />
-    <node concept="1TJgyj" id="1D6Sg8PwQtA" role="1TKVEi">
-      <property role="IQ2ns" value="1893448092959860582" />
-      <property role="20kJfa" value="cell" />
-      <property role="20lbJX" value="fLJekj4/_1" />
-      <ref role="20lvS9" node="AkkmJBMaEB" resolve="Cell" />
-    </node>
-    <node concept="PrWs8" id="1D6Sg8PwQrz" role="PzmwI">
       <ref role="PrY4T" node="7zDl3zklxEL" resolve="IActionProvider" />
     </node>
   </node>
@@ -1079,6 +1069,53 @@
       <property role="20kJfa" value="targetCell" />
       <property role="20lbJX" value="fLJekj4/_1" />
       <ref role="20lvS9" node="AkkmJBMaED" resolve="TextCell" />
+    </node>
+  </node>
+  <node concept="PlHQZ" id="5xDm4AQxxe">
+    <property role="EcuMT" value="99542503461099598" />
+    <property role="3GE5qa" value="substitute" />
+    <property role="TrG5h" value="ISubstituteContext" />
+  </node>
+  <node concept="1TIwiD" id="5xDm4AQye1">
+    <property role="EcuMT" value="99542503461102465" />
+    <property role="3GE5qa" value="substitute" />
+    <property role="TrG5h" value="ExistingNodeSubstituteContext" />
+    <ref role="1TJDcQ" to="tpck:gw2VY9q" resolve="BaseConcept" />
+    <node concept="1TJgyj" id="5xDm4AQyfx" role="1TKVEi">
+      <property role="IQ2ns" value="99542503461102561" />
+      <property role="20kJfa" value="node" />
+      <property role="20lbJX" value="fLJekj4/_1" />
+      <ref role="20lvS9" to="tpck:gw2VY9q" resolve="BaseConcept" />
+    </node>
+    <node concept="PrWs8" id="5xDm4AQyfu" role="PzmwI">
+      <ref role="PrY4T" node="5xDm4AQxxe" resolve="ISubstituteContext" />
+    </node>
+  </node>
+  <node concept="1TIwiD" id="5xDm4AQHOg">
+    <property role="EcuMT" value="99542503461149968" />
+    <property role="3GE5qa" value="substitute" />
+    <property role="TrG5h" value="PlaceholderSubstituteContext" />
+    <ref role="1TJDcQ" to="tpck:gw2VY9q" resolve="BaseConcept" />
+    <node concept="1TJgyi" id="5xDm4AQHQd" role="1TKVEl">
+      <property role="IQ2nx" value="99542503461150093" />
+      <property role="TrG5h" value="index" />
+      <ref role="AX2Wp" to="tpck:fKAQMTA" resolve="integer" />
+    </node>
+    <node concept="1TJgyj" id="5xDm4AQHPN" role="1TKVEi">
+      <property role="IQ2ns" value="99542503461150067" />
+      <property role="20lmBu" value="fLJjDmT/aggregation" />
+      <property role="20kJfa" value="link" />
+      <property role="20lbJX" value="fLJekj4/_1" />
+      <ref role="20lvS9" node="5Nhi$S9RyOj" resolve="SContainmentLinkRef" />
+    </node>
+    <node concept="1TJgyj" id="5xDm4AQHPK" role="1TKVEi">
+      <property role="IQ2ns" value="99542503461150064" />
+      <property role="20kJfa" value="parent" />
+      <property role="20lbJX" value="fLJekj4/_1" />
+      <ref role="20lvS9" to="tpck:gw2VY9q" resolve="BaseConcept" />
+    </node>
+    <node concept="PrWs8" id="5xDm4AQHPH" role="PzmwI">
+      <ref role="PrY4T" node="5xDm4AQxxe" resolve="ISubstituteContext" />
     </node>
   </node>
 </model>

@@ -34,6 +34,10 @@ export class ShadowModelsBasedEditor {
 
             for (const f of this.postprocessors) f();
             for (const f of this.postprocessors) f();
+
+            for (const e of document.getElementsByClassName("ccSelectedEntry")) {
+                e.scrollIntoView({block: "nearest"});
+            }
         }
     };
     private styleHandlers = {
@@ -88,13 +92,15 @@ export class ShadowModelsBasedEditor {
             this.postprocessors.push(() => {
                 const hostCell = document.getElementById(value.cellId);
                 if (hostCell) {
-                    const left: boolean = value.left === "true";
+                    const side: string = value.side;
                     const hostCellRect = absoluteBounds(hostCell);
                     const parentRect = absoluteBounds(dom.parentElement);
-                    if (left) {
+                    if (side === "left") {
                         dom.style.right = (hostCellRect.x - parentRect.x) + "px";
-                    } else {
+                    } else if (side === "right") {
                         dom.style.left = (hostCellRect.right - parentRect.x) + "px";
+                    } else if (side === "center") {
+                        dom.style.left = (hostCellRect.x - parentRect.x) + "px";
                     }
                     dom.style.top = (hostCellRect.y - parentRect.y - 1) + "px";
                 }

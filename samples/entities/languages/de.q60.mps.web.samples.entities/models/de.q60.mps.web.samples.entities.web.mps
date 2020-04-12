@@ -1122,7 +1122,7 @@
     </node>
     <node concept="1QS6b0" id="7zDl3zkcrW8" role="1QSY9g" />
     <node concept="1QSeQW" id="7zDl3zkcrX7" role="1QSY9g">
-      <ref role="1QSeL8" to="tpee:fJuHJVf" resolve="BinaryOperation" />
+      <ref role="1QSeL8" to="tpee:fzcpWvV" resolve="PlusExpression" />
       <node concept="1QSceF" id="7zDl3zkcrXE" role="1QSceC">
         <node concept="1QXINc" id="7zDl3zkcrXH" role="1QSceR">
           <ref role="1QXINo" to="tpee:fJuHU4s" resolve="leftExpression" />
@@ -1132,6 +1132,145 @@
         </node>
         <node concept="1QXINc" id="7zDl3zkcrXM" role="1QSceR">
           <ref role="1QXINo" to="tpee:fJuHU4r" resolve="rightExpression" />
+        </node>
+      </node>
+    </node>
+    <node concept="1QSeQW" id="5xDm4AQl7m" role="1QSY9g">
+      <ref role="1QSeL8" to="tpee:fzcpWvP" resolve="MinusExpression" />
+      <node concept="1QSceF" id="5xDm4AQl7n" role="1QSceC">
+        <node concept="1QXINc" id="5xDm4AQl7o" role="1QSceR">
+          <ref role="1QXINo" to="tpee:fJuHU4s" resolve="leftExpression" />
+        </node>
+        <node concept="1QSTl9" id="5xDm4AQl7p" role="1QSceR">
+          <property role="1QSTll" value="-" />
+        </node>
+        <node concept="1QXINc" id="5xDm4AQl7q" role="1QSceR">
+          <ref role="1QXINo" to="tpee:fJuHU4r" resolve="rightExpression" />
+        </node>
+      </node>
+    </node>
+    <node concept="1QSeQW" id="5xDm4AQl85" role="1QSY9g">
+      <ref role="1QSeL8" to="tpee:fT7qRmf" resolve="MulExpression" />
+      <node concept="1QSceF" id="5xDm4AQl86" role="1QSceC">
+        <node concept="1QXINc" id="5xDm4AQl87" role="1QSceR">
+          <ref role="1QXINo" to="tpee:fJuHU4s" resolve="leftExpression" />
+        </node>
+        <node concept="1QSTl9" id="5xDm4AQl88" role="1QSceR">
+          <property role="1QSTll" value="*" />
+        </node>
+        <node concept="1QXINc" id="5xDm4AQl89" role="1QSceR">
+          <ref role="1QXINo" to="tpee:fJuHU4r" resolve="rightExpression" />
+        </node>
+      </node>
+    </node>
+    <node concept="1QSeQW" id="5xDm4AQl8T" role="1QSY9g">
+      <ref role="1QSeL8" to="tpee:fWFJ1fq" resolve="DivExpression" />
+      <node concept="1QSceF" id="5xDm4AQl8U" role="1QSceC">
+        <node concept="1QXINc" id="5xDm4AQl8V" role="1QSceR">
+          <ref role="1QXINo" to="tpee:fJuHU4s" resolve="leftExpression" />
+        </node>
+        <node concept="1QSTl9" id="5xDm4AQl8W" role="1QSceR">
+          <property role="1QSTll" value="/" />
+        </node>
+        <node concept="1QXINc" id="5xDm4AQl8X" role="1QSceR">
+          <ref role="1QXINo" to="tpee:fJuHU4r" resolve="rightExpression" />
+        </node>
+      </node>
+    </node>
+    <node concept="1QSeQW" id="5xDm4AQl9M" role="1QSY9g">
+      <ref role="1QSeL8" to="tpee:fHeOMHZ" resolve="ParenthesizedExpression" />
+      <node concept="1QSceF" id="5xDm4AQl9N" role="1QSceC">
+        <node concept="1QSTl9" id="5xDm4AQlaP" role="1QSceR">
+          <property role="1QSTll" value="(" />
+        </node>
+        <node concept="1QXINc" id="5xDm4AQlaV" role="1QSceR">
+          <ref role="1QXINo" to="tpee:fHeOMI0" resolve="expression" />
+        </node>
+        <node concept="1QSTl9" id="5xDm4AQl9P" role="1QSceR">
+          <property role="1QSTll" value=")" />
+        </node>
+      </node>
+    </node>
+    <node concept="1QSeQW" id="5xDm4AQlbZ" role="1QSY9g">
+      <ref role="1QSeL8" to="tpee:gVK4zB9" resolve="TernaryOperatorExpression" />
+      <node concept="1QSceF" id="5xDm4AQlcX" role="1QSceC">
+        <node concept="1QXINc" id="5xDm4AQld0" role="1QSceR">
+          <ref role="1QXINo" to="tpee:gVK4C9J" resolve="condition" />
+        </node>
+        <node concept="1QSTl9" id="5xDm4AQld5" role="1QSceR">
+          <property role="1QSTll" value="?" />
+        </node>
+        <node concept="1QXINc" id="5xDm4AQldd" role="1QSceR">
+          <ref role="1QXINo" to="tpee:gVK4E70" resolve="ifTrue" />
+        </node>
+        <node concept="1QSTl9" id="5xDm4AQldn" role="1QSceR">
+          <property role="1QSTll" value=":" />
+        </node>
+        <node concept="1QXINc" id="5xDm4AQldz" role="1QSceR">
+          <ref role="1QXINo" to="tpee:gVK4GVs" resolve="ifFalse" />
+        </node>
+      </node>
+    </node>
+    <node concept="1QSeQW" id="5xDm4AQleG" role="1QSY9g">
+      <ref role="1QSeL8" to="tpee:fzcmrck" resolve="IntegerConstant" />
+      <node concept="1QSeQo" id="5xDm4AQlfS" role="1QSceC">
+        <ref role="1QSceV" to="tpee:fzcmrcl" resolve="value" />
+      </node>
+    </node>
+    <node concept="1QSeQW" id="5xDm4AQlgZ" role="1QSY9g">
+      <ref role="1QSeL8" to="tpee:gbb6qgO" resolve="FloatingPointConstant" />
+      <node concept="1QSeQo" id="5xDm4AQli6" role="1QSceC">
+        <ref role="1QSceV" to="tpee:gc$nh$Z" resolve="value" />
+      </node>
+    </node>
+    <node concept="1QSeQW" id="5xDm4AQljf" role="1QSY9g">
+      <ref role="1QSeL8" to="tpee:f$Xl_Og" resolve="StringLiteral" />
+      <node concept="1QSceF" id="5xDm4AQlko" role="1QSceC">
+        <node concept="1QSTl9" id="5xDm4AQlkr" role="1QSceR">
+          <property role="1QSTll" value="&quot;" />
+        </node>
+        <node concept="1QSeQo" id="5xDm4AQlkC" role="1QSceR">
+          <ref role="1QSceV" to="tpee:f$Xl_Oh" resolve="value" />
+        </node>
+        <node concept="1QSTl9" id="5xDm4AQlkw" role="1QSceR">
+          <property role="1QSTll" value="&quot;" />
+        </node>
+      </node>
+    </node>
+    <node concept="1QSeQW" id="5xDm4AQllS" role="1QSY9g">
+      <ref role="1QSeL8" to="tpee:hqOqwz4" resolve="DotExpression" />
+      <node concept="1QSceF" id="5xDm4AQln6" role="1QSceC">
+        <node concept="1QXINc" id="5xDm4AQlne" role="1QSceR">
+          <ref role="1QXINo" to="tpee:hqOq$gm" resolve="operand" />
+        </node>
+        <node concept="1QSTl9" id="5xDm4AQln9" role="1QSceR">
+          <property role="1QSTll" value="." />
+        </node>
+        <node concept="1QXINc" id="5xDm4AQlnm" role="1QSceR">
+          <ref role="1QXINo" to="tpee:hqOqNr4" resolve="operation" />
+        </node>
+      </node>
+    </node>
+    <node concept="1QSeQW" id="5xDm4AQloN" role="1QSY9g">
+      <ref role="1QSeL8" to="tpee:fIYIFW9" resolve="StaticMethodCall" />
+      <node concept="1QSceF" id="5xDm4AQlq6" role="1QSceC">
+        <node concept="1QWqnp" id="5xDm4AQlq9" role="1QSceR">
+          <ref role="1QWqn_" to="tpee:gDPybl6" resolve="classConcept" />
+        </node>
+        <node concept="1QSTl9" id="5xDm4AQlqe" role="1QSceR">
+          <property role="1QSTll" value="." />
+        </node>
+        <node concept="1QWqnp" id="5xDm4AQlqm" role="1QSceR">
+          <ref role="1QWqn_" to="tpee:fIYIWN3" resolve="staticMethodDeclaration" />
+        </node>
+        <node concept="1QSTl9" id="5xDm4AQlqw" role="1QSceR">
+          <property role="1QSTll" value="(" />
+        </node>
+        <node concept="1QSeQ$" id="5xDm4AQlqU" role="1QSceR">
+          <ref role="1QXIMq" to="tpee:fz7wK6I" resolve="actualArgument" />
+        </node>
+        <node concept="1QSTl9" id="5xDm4AQlqG" role="1QSceR">
+          <property role="1QSTll" value=")" />
         </node>
       </node>
     </node>

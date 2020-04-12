@@ -949,10 +949,10 @@
     <property role="TrG5h" value="SideTransformAlignmentItem" />
     <property role="34LRSv" value="sideTransformAlignment" />
     <ref role="1TJDcQ" node="7q7cTU0P4oF" resolve="StyleItem" />
-    <node concept="1TJgyi" id="7zDl3zkexhA" role="1TKVEl">
-      <property role="IQ2nx" value="8712587557180413030" />
-      <property role="TrG5h" value="left" />
-      <ref role="AX2Wp" to="tpck:fKAQMTB" resolve="boolean" />
+    <node concept="1TJgyi" id="5xDm4AReIQ" role="1TKVEl">
+      <property role="IQ2nx" value="99542503461284790" />
+      <property role="TrG5h" value="side" />
+      <ref role="AX2Wp" to="tpck:fKAOsGN" resolve="string" />
     </node>
     <node concept="1TJgyj" id="7zDl3zkexgs" role="1TKVEi">
       <property role="IQ2ns" value="4105524263009345748" />
