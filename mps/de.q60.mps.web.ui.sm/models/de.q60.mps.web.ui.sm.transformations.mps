@@ -365,7 +365,6 @@
       </concept>
     </language>
     <language id="7866978e-a0f0-4cc7-81bc-4d213d9375e1" name="jetbrains.mps.lang.smodel">
-      <concept id="1179168000618" name="jetbrains.mps.lang.smodel.structure.Node_GetIndexInParentOperation" flags="nn" index="2bSWHS" />
       <concept id="1177026924588" name="jetbrains.mps.lang.smodel.structure.RefConcept_Reference" flags="nn" index="chp4Y">
         <reference id="1177026940964" name="conceptDeclaration" index="cht4Q" />
       </concept>
@@ -5327,51 +5326,22 @@
                   <ref role="1PxDUh" to="v1cj:3EG7IPowloL" resolve="ActionTypes" />
                 </node>
               </node>
-              <node concept="027rt" id="1D6Sg8PyFCI" role="02LM9">
+              <node concept="027rt" id="7tcNvKI52b4" role="02LM9">
                 <ref role="027rv" to="j481:3EG7IPowfzp" resolve="actionProvider" />
-                <node concept="027og" id="1D6Sg8PyGog" role="027rp">
-                  <ref role="02LMe" to="j481:1D6Sg8PP0mw" resolve="ReplaceWithSubconceptProvider" />
-                  <node concept="027ru" id="1D6Sg8QiocT" role="02LM9">
-                    <ref role="027ri" to="j481:1D6Sg8QigAK" resolve="parentNode" />
-                    <node concept="3OkNDw" id="1D6Sg8QioWa" role="027rd">
-                      <node concept="2OqwBi" id="1D6Sg8Qip3h" role="3OkNDH">
-                        <node concept="2155sH" id="1D6Sg8QioWm" role="2Oq$k0">
-                          <ref role="2155sG" node="4j3vk5Z9rK3" resolve="node" />
-                        </node>
-                        <node concept="1mfA1w" id="1D6Sg8QipSN" role="2OqNvi" />
-                      </node>
-                    </node>
-                  </node>
-                  <node concept="027rt" id="1D6Sg8Qiodp" role="02LM9">
-                    <ref role="027rv" to="j481:1D6Sg8QigAT" resolve="link" />
-                    <node concept="027og" id="1D6Sg8QiqAk" role="027rp">
-                      <ref role="02LMe" to="j481:5Nhi$S9RyOj" resolve="SContainmentLinkRef" />
-                      <node concept="027oh" id="1D6Sg8QiqAx" role="02LM9">
-                        <ref role="027oj" to="j481:5Nhi$S9RyPG" resolve="serialized" />
-                        <node concept="2OqwBi" id="1D6Sg8QiqTs" role="027of">
-                          <node concept="35c_gC" id="1D6Sg8QiqAM" role="2Oq$k0">
-                            <ref role="35c_gD" to="j481:5Nhi$S9RyOj" resolve="SContainmentLinkRef" />
-                          </node>
-                          <node concept="2qgKlT" id="1D6Sg8Qircv" role="2OqNvi">
-                            <ref role="37wK5l" to="v1cj:3EG7IPowq8E" resolve="serialize" />
-                            <node concept="2OqwBi" id="1D6Sg8Qirq_" role="37wK5m">
-                              <node concept="2155sH" id="1D6Sg8QirhX" role="2Oq$k0">
-                                <ref role="2155sG" node="4j3vk5Z9rK3" resolve="node" />
-                              </node>
-                              <node concept="2NL2c5" id="1D6Sg8Qismm" role="2OqNvi" />
-                            </node>
+                <node concept="027og" id="7tcNvKI52h6" role="027rp">
+                  <ref role="02LMe" to="j481:7tcNvKI37mO" resolve="SubstituteTransformProvider" />
+                  <node concept="027rt" id="7tcNvKI52hh" role="02LM9">
+                    <ref role="027rv" to="j481:7tcNvKI37mU" resolve="context" />
+                    <node concept="027og" id="7tcNvKI52hp" role="027rp">
+                      <ref role="02LMe" to="j481:5xDm4AQye1" resolve="ExistingNodeSubstituteContext" />
+                      <node concept="027ru" id="7tcNvKI52h$" role="02LM9">
+                        <ref role="027ri" to="j481:5xDm4AQyfx" resolve="node" />
+                        <node concept="3OkNDw" id="7tcNvKI52hG" role="027rd">
+                          <node concept="2155sH" id="7tcNvKI52hQ" role="3OkNDH">
+                            <ref role="2155sG" node="4j3vk5Z9rK3" resolve="node" />
                           </node>
                         </node>
                       </node>
-                    </node>
-                  </node>
-                  <node concept="027oh" id="1D6Sg8Qioe1" role="02LM9">
-                    <ref role="027oj" to="j481:1D6Sg8QigB3" resolve="index" />
-                    <node concept="2OqwBi" id="1D6Sg8Qit5D" role="027of">
-                      <node concept="2155sH" id="1D6Sg8QisYE" role="2Oq$k0">
-                        <ref role="2155sG" node="4j3vk5Z9rK3" resolve="node" />
-                      </node>
-                      <node concept="2bSWHS" id="1D6Sg8QitIi" role="2OqNvi" />
                     </node>
                   </node>
                 </node>

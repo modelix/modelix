@@ -44,6 +44,12 @@
         <property role="2V$B1Q" value="de.q60.mps.web.notation" />
       </node>
     </node>
+    <node concept="2VgMA2" id="7tcNvKId8EJ" role="2VgMA7">
+      <node concept="2V$Bhx" id="7tcNvKId8EW" role="1t_9vn">
+        <property role="2V$B1T" value="3a13115c-633c-4c5c-bbcc-75c4219e9555" />
+        <property role="2V$B1Q" value="jetbrains.mps.lang.quotation" />
+      </node>
+    </node>
     <node concept="2VgMA2" id="2XNuosbiBnp" role="2VgMA7">
       <node concept="2V$Bhx" id="2XNuosbiBnK" role="1t_9vn">
         <property role="2V$B1T" value="63650c59-16c8-498a-99c8-005c7ee9515d" />
