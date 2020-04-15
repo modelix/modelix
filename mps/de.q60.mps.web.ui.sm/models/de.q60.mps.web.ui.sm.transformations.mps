@@ -5197,7 +5197,7 @@
       <property role="TrG5h" value="sideTransformState" />
       <node concept="026TG" id="7zDl3zkedYA" role="026TK">
         <node concept="027og" id="7zDl3zkedYB" role="026TJ">
-          <ref role="02LMe" to="j481:7zDl3zkem5w" resolve="SideTansformCell" />
+          <ref role="02LMe" to="j481:7zDl3zkem5w" resolve="SideTransformCell" />
           <node concept="027oh" id="7zDl3zkej11" role="02LM9">
             <ref role="027oj" to="j481:AkkmJBMou0" resolve="text" />
             <node concept="2OqwBi" id="7zDl3zkej9a" role="027of">
@@ -7478,7 +7478,7 @@
       <node concept="02i3K" id="7zDl3zkeo5z" role="02i3f">
         <property role="TrG5h" value="menu" />
         <node concept="02i3D" id="7zDl3zkepH4" role="02i2B">
-          <ref role="02i3$" to="j481:7zDl3zkem5w" resolve="SideTansformCell" />
+          <ref role="02i3$" to="j481:7zDl3zkem5w" resolve="SideTransformCell" />
         </node>
       </node>
       <node concept="026TG" id="7zDl3zkeo5_" role="026TK">

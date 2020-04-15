@@ -514,15 +514,9 @@
   </node>
   <node concept="1TIwiD" id="5Nhi$S9QMEg">
     <property role="EcuMT" value="6688208620655159952" />
-    <property role="3GE5qa" value="actions" />
+    <property role="3GE5qa" value="actions.changeText" />
     <property role="TrG5h" value="InsertTextAction" />
-    <ref role="1TJDcQ" node="5Nhi$S9QMFF" resolve="AbstractAction" />
-    <node concept="1TJgyj" id="5Nhi$S9QNfi" role="1TKVEi">
-      <property role="IQ2ns" value="6688208620655162322" />
-      <property role="20kJfa" value="targetCell" />
-      <property role="20lbJX" value="fLJekj4/_1" />
-      <ref role="20lvS9" node="AkkmJBMaED" resolve="TextCell" />
-    </node>
+    <ref role="1TJDcQ" node="5X1StJEJQzX" resolve="ChangeTextAction" />
     <node concept="1TJgyi" id="5Nhi$S9QNfd" role="1TKVEl">
       <property role="IQ2nx" value="6688208620655162317" />
       <property role="TrG5h" value="text" />
@@ -589,9 +583,9 @@
   </node>
   <node concept="1TIwiD" id="5Nhi$S9S5Ce">
     <property role="EcuMT" value="6688208620655499790" />
-    <property role="3GE5qa" value="actions" />
+    <property role="3GE5qa" value="actions.changeText" />
     <property role="TrG5h" value="DeleteTextAction" />
-    <ref role="1TJDcQ" node="5Nhi$S9QMFF" resolve="AbstractAction" />
+    <ref role="1TJDcQ" node="5X1StJEJQzX" resolve="ChangeTextAction" />
     <node concept="1TJgyi" id="5Nhi$S9S5DD" role="1TKVEl">
       <property role="IQ2nx" value="6688208620655499881" />
       <property role="TrG5h" value="start" />
@@ -601,12 +595,6 @@
       <property role="IQ2nx" value="6688208620655499883" />
       <property role="TrG5h" value="length" />
       <ref role="AX2Wp" to="tpck:fKAQMTA" resolve="integer" />
-    </node>
-    <node concept="1TJgyj" id="5Nhi$S9S5DB" role="1TKVEi">
-      <property role="IQ2ns" value="6688208620655499879" />
-      <property role="20kJfa" value="targetCell" />
-      <property role="20lbJX" value="fLJekj4/_1" />
-      <ref role="20lvS9" node="AkkmJBMaED" resolve="TextCell" />
     </node>
   </node>
   <node concept="1TIwiD" id="5Nhi$S9SFJ0">
@@ -843,6 +831,11 @@
     <property role="3GE5qa" value="sideTransform" />
     <property role="TrG5h" value="ChangeSideTransformState" />
     <ref role="1TJDcQ" node="5Nhi$S9QMFF" resolve="AbstractAction" />
+    <node concept="1TJgyi" id="5X1StJEUmv1" role="1TKVEl">
+      <property role="IQ2nx" value="6864015641744598977" />
+      <property role="TrG5h" value="caretPosition" />
+      <ref role="AX2Wp" to="tpck:fKAQMTA" resolve="integer" />
+    </node>
     <node concept="1TJgyj" id="7zDl3zke1Mh" role="1TKVEi">
       <property role="IQ2ns" value="8712587557180284049" />
       <property role="20lmBu" value="fLJjDmT/aggregation" />
@@ -857,7 +850,7 @@
   <node concept="1TIwiD" id="7zDl3zkem5w">
     <property role="EcuMT" value="8712587557180367200" />
     <property role="3GE5qa" value="sideTransform" />
-    <property role="TrG5h" value="SideTansformCell" />
+    <property role="TrG5h" value="SideTransformCell" />
     <ref role="1TJDcQ" node="AkkmJBMaED" resolve="TextCell" />
     <node concept="1TJgyi" id="5xDm4ARh4x" role="1TKVEl">
       <property role="IQ2nx" value="99542503461294369" />
@@ -1013,9 +1006,9 @@
   </node>
   <node concept="1TIwiD" id="5xDm4AOLH3">
     <property role="EcuMT" value="99542503460641603" />
-    <property role="3GE5qa" value="actions" />
+    <property role="3GE5qa" value="actions.changeText" />
     <property role="TrG5h" value="ReplaceTextAction" />
-    <ref role="1TJDcQ" node="5Nhi$S9QMFF" resolve="AbstractAction" />
+    <ref role="1TJDcQ" node="5X1StJEJQzX" resolve="ChangeTextAction" />
     <node concept="1TJgyi" id="5xDm4AOLH4" role="1TKVEl">
       <property role="IQ2nx" value="6688208620655499881" />
       <property role="TrG5h" value="start" />
@@ -1030,12 +1023,6 @@
       <property role="IQ2nx" value="99542503460641699" />
       <property role="TrG5h" value="text" />
       <ref role="AX2Wp" to="tpck:fKAOsGN" resolve="string" />
-    </node>
-    <node concept="1TJgyj" id="5xDm4AOLH6" role="1TKVEi">
-      <property role="IQ2ns" value="6688208620655499879" />
-      <property role="20kJfa" value="targetCell" />
-      <property role="20lbJX" value="fLJekj4/_1" />
-      <ref role="20lvS9" node="AkkmJBMaED" resolve="TextCell" />
     </node>
   </node>
   <node concept="PlHQZ" id="5xDm4AQxxe">
@@ -1125,6 +1112,22 @@
     </node>
     <node concept="PrWs8" id="7tcNvKIixoT" role="PzmwI">
       <ref role="PrY4T" node="7tcNvKIixoH" resolve="INodeInitializer" />
+    </node>
+  </node>
+  <node concept="1TIwiD" id="5X1StJEJQzX">
+    <property role="EcuMT" value="6864015641741846781" />
+    <property role="3GE5qa" value="actions.changeText" />
+    <property role="TrG5h" value="ChangeTextAction" />
+    <property role="R5$K7" value="true" />
+    <ref role="1TJDcQ" to="tpck:gw2VY9q" resolve="BaseConcept" />
+    <node concept="1TJgyj" id="5X1StJEJSDJ" role="1TKVEi">
+      <property role="IQ2ns" value="6864015641741855343" />
+      <property role="20kJfa" value="targetCell" />
+      <property role="20lbJX" value="fLJekj4/_1" />
+      <ref role="20lvS9" node="AkkmJBMaED" resolve="TextCell" />
+    </node>
+    <node concept="PrWs8" id="5X1StJEVED2" role="PzmwI">
+      <ref role="PrY4T" node="1nlzgMD9WVV" resolve="IAction" />
     </node>
   </node>
 </model>
