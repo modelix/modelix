@@ -1149,5 +1149,37 @@
       <ref role="PrY4T" node="4j3vk5Z85T7" resolve="ISelectionChangeRequest" />
     </node>
   </node>
+  <node concept="1TIwiD" id="4cPrGrnPPoR">
+    <property role="EcuMT" value="4842898774610630199" />
+    <property role="3GE5qa" value="actions" />
+    <property role="TrG5h" value="WrapperSideTransformAction" />
+    <ref role="1TJDcQ" node="5Nhi$S9QMFF" resolve="AbstractAction" />
+    <node concept="1TJgyj" id="4cPrGrnPPoW" role="1TKVEi">
+      <property role="IQ2ns" value="4842898774610630204" />
+      <property role="20lmBu" value="fLJjDmT/aggregation" />
+      <property role="20kJfa" value="wrapperConcept" />
+      <property role="20lbJX" value="fLJekj4/_1" />
+      <ref role="20lvS9" node="5Nhi$S9RM2i" resolve="SConceptRef" />
+    </node>
+    <node concept="1TJgyj" id="4cPrGrnQ6hB" role="1TKVEi">
+      <property role="IQ2ns" value="4842898774610699367" />
+      <property role="20lmBu" value="fLJjDmT/aggregation" />
+      <property role="20kJfa" value="wrapperLink" />
+      <property role="20lbJX" value="fLJekj4/_1" />
+      <ref role="20lvS9" node="5Nhi$S9RyOj" resolve="SContainmentLinkRef" />
+    </node>
+    <node concept="1TJgyj" id="4cPrGrnPPoZ" role="1TKVEi">
+      <property role="IQ2ns" value="4842898774610630207" />
+      <property role="20lmBu" value="fLJjDmT/aggregation" />
+      <property role="20kJfa" value="initializer" />
+      <ref role="20lvS9" node="7tcNvKIixoH" resolve="INodeInitializer" />
+    </node>
+    <node concept="1TJgyj" id="4cPrGrnPPoU" role="1TKVEi">
+      <property role="IQ2ns" value="4842898774610630202" />
+      <property role="20kJfa" value="nodeToWrap" />
+      <property role="20lbJX" value="fLJekj4/_1" />
+      <ref role="20lvS9" to="tpck:gw2VY9q" resolve="BaseConcept" />
+    </node>
+  </node>
 </model>
 
