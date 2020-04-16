@@ -1181,5 +1181,20 @@
       <ref role="20lvS9" to="tpck:gw2VY9q" resolve="BaseConcept" />
     </node>
   </node>
+  <node concept="1TIwiD" id="4cPrGro8wPC">
+    <property role="EcuMT" value="4842898774615526760" />
+    <property role="3GE5qa" value="actions" />
+    <property role="TrG5h" value="NodeSelectionRequest" />
+    <ref role="1TJDcQ" to="tpck:gw2VY9q" resolve="BaseConcept" />
+    <node concept="1TJgyj" id="4cPrGro8wPF" role="1TKVEi">
+      <property role="IQ2ns" value="4842898774615526763" />
+      <property role="20kJfa" value="node" />
+      <property role="20lbJX" value="fLJekj4/_1" />
+      <ref role="20lvS9" to="tpck:gw2VY9q" resolve="BaseConcept" />
+    </node>
+    <node concept="PrWs8" id="4cPrGro8wPD" role="PzmwI">
+      <ref role="PrY4T" node="4j3vk5Z85T7" resolve="ISelectionChangeRequest" />
+    </node>
+  </node>
 </model>
 
