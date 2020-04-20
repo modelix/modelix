@@ -73,6 +73,11 @@
     <property role="EcuMT" value="7759120791677764324" />
     <property role="TrG5h" value="ChildrenCollectionCell" />
     <ref role="1TJDcQ" node="6IHVO0tjgbc" resolve="Cell" />
+    <node concept="1TJgyi" id="7jIhq8MJMcP" role="1TKVEl">
+      <property role="IQ2nx" value="8425748515795182389" />
+      <property role="TrG5h" value="separator" />
+      <ref role="AX2Wp" to="tpck:fKAOsGN" resolve="string" />
+    </node>
     <node concept="1TJgyj" id="w8XdrMWyYG" role="1TKVEi">
       <property role="IQ2ns" value="578981756153245612" />
       <property role="20lmBu" value="fLJjDmT/aggregation" />
@@ -178,6 +183,9 @@
       <property role="20lbJX" value="fLJekj5/_0__n" />
       <ref role="20lvS9" node="6IHVO0tjoPO" resolve="INotationModuleContent" />
     </node>
+    <node concept="PrWs8" id="7jIhq8M9B8n" role="PzmwI">
+      <ref role="PrY4T" to="tpck:h0TrEE$" resolve="INamedConcept" />
+    </node>
   </node>
   <node concept="PlHQZ" id="6IHVO0tjoPO">
     <property role="EcuMT" value="7759120791677799796" />
@@ -249,6 +257,31 @@
     <property role="EcuMT" value="578981756153322531" />
     <property role="TrG5h" value="IndentCell" />
     <property role="34LRSv" value="--&gt;" />
+    <ref role="1TJDcQ" node="6IHVO0tjgbc" resolve="Cell" />
+  </node>
+  <node concept="1TIwiD" id="7jIhq8MsQ7y">
+    <property role="EcuMT" value="8425748515790217698" />
+    <property role="TrG5h" value="ExpressionCell" />
+    <property role="34LRSv" value="*(" />
+    <ref role="1TJDcQ" node="6IHVO0tjgbc" resolve="Cell" />
+    <node concept="1TJgyj" id="7jIhq8MsQ9J" role="1TKVEi">
+      <property role="IQ2ns" value="8425748515790217839" />
+      <property role="20lmBu" value="fLJjDmT/aggregation" />
+      <property role="20kJfa" value="expression" />
+      <property role="20lbJX" value="fLJekj4/_1" />
+      <ref role="20lvS9" to="tpee:fz3vP1J" resolve="Expression" />
+    </node>
+  </node>
+  <node concept="1TIwiD" id="7jIhq8MsXJ6">
+    <property role="EcuMT" value="8425748515790248902" />
+    <property role="TrG5h" value="NotationNodeExpression" />
+    <property role="34LRSv" value="_" />
+    <ref role="1TJDcQ" to="tpee:fz3vP1J" resolve="Expression" />
+  </node>
+  <node concept="1TIwiD" id="7jIhq8MtqS5">
+    <property role="EcuMT" value="8425748515790368261" />
+    <property role="TrG5h" value="ConceptAliasCell" />
+    <property role="34LRSv" value="alias" />
     <ref role="1TJDcQ" node="6IHVO0tjgbc" resolve="Cell" />
   </node>
 </model>

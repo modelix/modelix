@@ -8,6 +8,7 @@
   </languages>
   <imports>
     <import index="gsqd" ref="r:599c60e4-99d0-4ea8-9225-bd9adc3816a3(de.q60.mps.web.notation.structure)" />
+    <import index="tpcu" ref="r:00000000-0000-4000-0000-011c89590282(jetbrains.mps.lang.core.behavior)" />
     <import index="tpck" ref="r:00000000-0000-4000-0000-011c89590288(jetbrains.mps.lang.core.structure)" implicit="true" />
   </imports>
   <registry>
@@ -936,6 +937,33 @@
     <ref role="13h7C2" to="gsqd:6IHVO0tjgbc" resolve="Cell" />
     <node concept="13hLZK" id="4cPrGrnQqnk" role="13h7CW">
       <node concept="3clFbS" id="4cPrGrnQqnl" role="2VODD2" />
+    </node>
+  </node>
+  <node concept="13h7C7" id="7jIhq8M9HyT">
+    <ref role="13h7C2" to="gsqd:6IHVO0tjoPC" resolve="NotationModule" />
+    <node concept="13hLZK" id="7jIhq8M9HyU" role="13h7CW">
+      <node concept="3clFbS" id="7jIhq8M9HyV" role="2VODD2" />
+    </node>
+    <node concept="13i0hz" id="7jIhq8M9H_g" role="13h7CS">
+      <property role="TrG5h" value="getPresentation" />
+      <ref role="13i0hy" to="tpcu:hEwIMiw" resolve="getPresentation" />
+      <node concept="3Tm1VV" id="7jIhq8M9H_F" role="1B3o_S" />
+      <node concept="3clFbS" id="7jIhq8M9H_G" role="3clF47">
+        <node concept="3clFbF" id="7jIhq8M9HIw" role="3cqZAp">
+          <node concept="3cpWs3" id="7jIhq8M9J3z" role="3clFbG">
+            <node concept="2OqwBi" id="7jIhq8M9JoN" role="3uHU7w">
+              <node concept="13iPFW" id="7jIhq8M9Jaj" role="2Oq$k0" />
+              <node concept="3TrcHB" id="7jIhq8M9JzJ" role="2OqNvi">
+                <ref role="3TsBF5" to="tpck:h0TrG11" resolve="name" />
+              </node>
+            </node>
+            <node concept="Xl_RD" id="7jIhq8M9IRH" role="3uHU7B">
+              <property role="Xl_RC" value="Notation: " />
+            </node>
+          </node>
+        </node>
+      </node>
+      <node concept="17QB3L" id="7jIhq8M9H_H" role="3clF45" />
     </node>
   </node>
 </model>

@@ -1967,6 +1967,19 @@
             </node>
           </node>
         </node>
+        <node concept="3clFbF" id="5$pyBfNB7xw" role="3cqZAp">
+          <node concept="2OqwBi" id="5$pyBfNB7xx" role="3clFbG">
+            <node concept="37vLTw" id="5$pyBfNB7xy" role="2Oq$k0">
+              <ref role="3cqZAo" node="5T6M7ON5QdK" resolve="kryo" />
+            </node>
+            <node concept="liA8E" id="5$pyBfNB7xz" role="2OqNvi">
+              <ref role="37wK5l" to="4bvh:~Kryo.register(java.lang.Class)" resolve="register" />
+              <node concept="3VsKOn" id="5$pyBfNB7x$" role="37wK5m">
+                <ref role="3VsUkX" to="w1kc:~LazySNode" resolve="LazySNode" />
+              </node>
+            </node>
+          </node>
+        </node>
         <node concept="3clFbH" id="5npwda7qt6M" role="3cqZAp" />
         <node concept="3clFbF" id="5npwda7qcpj" role="3cqZAp">
           <node concept="2OqwBi" id="5npwda7qcpk" role="3clFbG">

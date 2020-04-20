@@ -111,6 +111,10 @@ a:active {
     .cellContainer {
         position: relative;
     }
+
+    .vertical>span {
+        display: block;
+    }
 }
 
 :focus .caret {
