@@ -582,5 +582,14 @@
       </node>
     </node>
   </node>
+  <node concept="24kQdi" id="5aNLs4JAWCw">
+    <ref role="1XX52x" to="gsqd:5aNLs4JAW_L" resolve="RemoveSpace" />
+    <node concept="PMmxH" id="5aNLs4JAWEM" role="2wV5jI">
+      <ref role="PMmxG" to="tpco:2wZex4PafBj" resolve="alias" />
+      <node concept="VechU" id="5aNLs4JAWEP" role="3F10Kt">
+        <property role="Vb096" value="fLJRk5A/lightGray" />
+      </node>
+    </node>
+  </node>
 </model>
 

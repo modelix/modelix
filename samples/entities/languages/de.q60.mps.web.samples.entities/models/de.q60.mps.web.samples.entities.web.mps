@@ -201,6 +201,7 @@
       </concept>
       <concept id="578981756153092156" name="de.q60.mps.web.notation.structure.VerticalLayout" flags="ng" index="3UTMNE" />
       <concept id="578981756153322531" name="de.q60.mps.web.notation.structure.IndentCell" flags="ng" index="3UYUzP" />
+      <concept id="5959324165459396977" name="de.q60.mps.web.notation.structure.RemoveSpace" flags="ng" index="1Xa0MK" />
     </language>
     <language id="7866978e-a0f0-4cc7-81bc-4d213d9375e1" name="jetbrains.mps.lang.smodel">
       <concept id="1177026924588" name="jetbrains.mps.lang.smodel.structure.RefConcept_Reference" flags="nn" index="chp4Y">
@@ -1267,9 +1268,11 @@
         <node concept="1QSTl9" id="7jIhq8M9Thv" role="1QSceR">
           <property role="1QSTll" value="&quot;" />
         </node>
+        <node concept="1Xa0MK" id="5aNLs4JGJcb" role="1QSceR" />
         <node concept="1QSeQo" id="7jIhq8M9Thw" role="1QSceR">
           <ref role="1QSceV" to="tpee:f$Xl_Oh" resolve="value" />
         </node>
+        <node concept="1Xa0MK" id="5aNLs4JGJcg" role="1QSceR" />
         <node concept="1QSTl9" id="7jIhq8M9Thx" role="1QSceR">
           <property role="1QSTll" value="&quot;" />
         </node>
@@ -1281,9 +1284,11 @@
         <node concept="1QXINc" id="7jIhq8M9Th$" role="1QSceR">
           <ref role="1QXINo" to="tpee:hqOq$gm" resolve="operand" />
         </node>
+        <node concept="1Xa0MK" id="5aNLs4JBBSM" role="1QSceR" />
         <node concept="1QSTl9" id="7jIhq8M9Th_" role="1QSceR">
           <property role="1QSTll" value="." />
         </node>
+        <node concept="1Xa0MK" id="5aNLs4JBBSY" role="1QSceR" />
         <node concept="1QXINc" id="7jIhq8M9ThA" role="1QSceR">
           <ref role="1QXINo" to="tpee:hqOqNr4" resolve="operation" />
         </node>
@@ -1295,19 +1300,24 @@
         <node concept="1QWqnp" id="7jIhq8M9ThD" role="1QSceR">
           <ref role="1QWqn_" to="tpee:gDPybl6" resolve="classConcept" />
         </node>
+        <node concept="1Xa0MK" id="5aNLs4JGJbp" role="1QSceR" />
         <node concept="1QSTl9" id="7jIhq8M9ThE" role="1QSceR">
           <property role="1QSTll" value="." />
         </node>
+        <node concept="1Xa0MK" id="5aNLs4JGJbx" role="1QSceR" />
         <node concept="1QWqnp" id="7jIhq8M9ThF" role="1QSceR">
           <ref role="1QWqn_" to="tpee:fIYIWN3" resolve="staticMethodDeclaration" />
         </node>
+        <node concept="1Xa0MK" id="5aNLs4JGJbE" role="1QSceR" />
         <node concept="1QSTl9" id="7jIhq8M9ThG" role="1QSceR">
           <property role="1QSTll" value="(" />
         </node>
+        <node concept="1Xa0MK" id="5aNLs4JGJbO" role="1QSceR" />
         <node concept="1QSeQ$" id="7jIhq8M9ThH" role="1QSceR">
           <property role="16kmqn" value="," />
           <ref role="1QXIMq" to="tpee:fz7wK6I" resolve="actualArgument" />
         </node>
+        <node concept="1Xa0MK" id="5aNLs4JGJbZ" role="1QSceR" />
         <node concept="1QSTl9" id="7jIhq8M9ThI" role="1QSceR">
           <property role="1QSTll" value=")" />
         </node>
@@ -1339,13 +1349,16 @@
           </node>
           <node concept="1QSc9d" id="7jIhq8Ma1zl" role="1QSceR">
             <node concept="1QSceF" id="7jIhq8Ma1zz" role="1QSc9r">
+              <node concept="1Xa0MK" id="5aNLs4JGJb7" role="1QSceR" />
               <node concept="1QSTl9" id="7jIhq8Ma1zP" role="1QSceR">
                 <property role="1QSTll" value="&lt;" />
               </node>
+              <node concept="1Xa0MK" id="5aNLs4JGJbc" role="1QSceR" />
               <node concept="1QSeQ$" id="7jIhq8Ma1yZ" role="1QSceR">
                 <property role="16kmqn" value="," />
                 <ref role="1QXIMq" to="tpee:g96eVAe" resolve="typeVariableDeclaration" />
               </node>
+              <node concept="1Xa0MK" id="5aNLs4JGJbi" role="1QSceR" />
               <node concept="1QSTl9" id="7jIhq8Ma1zX" role="1QSceR">
                 <property role="1QSTll" value="&gt;" />
               </node>
@@ -1400,6 +1413,7 @@
             </node>
           </node>
         </node>
+        <node concept="1Xa0MK" id="5aNLs4JNlcL" role="1QSceR" />
         <node concept="1QSTl9" id="7jIhq8Ma2bz" role="1QSceR">
           <property role="1QSTll" value=";" />
         </node>
@@ -1466,13 +1480,16 @@
           <node concept="1QSeQo" id="7jIhq8Ma2g9" role="1QSceR">
             <ref role="1QSceV" to="tpck:h0TrG11" resolve="name" />
           </node>
+          <node concept="1Xa0MK" id="5aNLs4JGJaw" role="1QSceR" />
           <node concept="1QSTl9" id="7jIhq8Ma2gn" role="1QSceR">
             <property role="1QSTll" value="(" />
           </node>
+          <node concept="1Xa0MK" id="5aNLs4JGJaG" role="1QSceR" />
           <node concept="1QSeQ$" id="7jIhq8Ma2hV" role="1QSceR">
             <property role="16kmqn" value="," />
             <ref role="1QXIMq" to="tpee:fzclF7Y" resolve="parameter" />
           </node>
+          <node concept="1Xa0MK" id="5aNLs4JGJaT" role="1QSceR" />
           <node concept="1QSTl9" id="7jIhq8Ma2gT" role="1QSceR">
             <property role="1QSTll" value=")" />
           </node>
@@ -1516,13 +1533,16 @@
               </node>
             </node>
           </node>
+          <node concept="1Xa0MK" id="5aNLs4JGIWO" role="1QSceR" />
           <node concept="1QSTl9" id="7jIhq8MsPZB" role="1QSceR">
             <property role="1QSTll" value="(" />
           </node>
+          <node concept="1Xa0MK" id="5aNLs4JGJ3s" role="1QSceR" />
           <node concept="1QSeQ$" id="7jIhq8MsPZC" role="1QSceR">
             <property role="16kmqn" value="," />
             <ref role="1QXIMq" to="tpee:fzclF7Y" resolve="parameter" />
           </node>
+          <node concept="1Xa0MK" id="5aNLs4JGJa5" role="1QSceR" />
           <node concept="1QSTl9" id="7jIhq8MsPZD" role="1QSceR">
             <property role="1QSTll" value=")" />
           </node>
@@ -1571,6 +1591,7 @@
         <node concept="1QWqnp" id="7jIhq8Ma4v2" role="1QSceR">
           <ref role="1QWqn_" to="tpee:2s$p4KaM3eA" resolve="classifier" />
         </node>
+        <node concept="1Xa0MK" id="5aNLs4JGIWJ" role="1QSceR" />
         <node concept="1QSTl9" id="7jIhq8Ma4vB" role="1QSceR">
           <property role="1QSTll" value="(" />
         </node>
@@ -1588,12 +1609,14 @@
         <node concept="1QSTl9" id="7jIhq8Ma4K3" role="1QSceR">
           <property role="1QSTll" value="(" />
         </node>
+        <node concept="1Xa0MK" id="5aNLs4JGIWw" role="1QSceR" />
         <node concept="1QSc9d" id="7jIhq8MdIsX" role="1QSceR">
           <node concept="1QSeQ$" id="7jIhq8MdIt6" role="1QSc9r">
             <property role="16kmqn" value="," />
             <ref role="1QXIMq" to="tpee:fz7wK6I" resolve="actualArgument" />
           </node>
         </node>
+        <node concept="1Xa0MK" id="5aNLs4JGIWB" role="1QSceR" />
         <node concept="1QSTl9" id="7jIhq8Ma4Kb" role="1QSceR">
           <property role="1QSTll" value=")" />
         </node>
@@ -1605,13 +1628,16 @@
         <node concept="1QWqnp" id="7jIhq8Ma4ON" role="1QSceR">
           <ref role="1QWqn_" to="tpee:hwllgre" resolve="instanceMethodDeclaration" />
         </node>
+        <node concept="1Xa0MK" id="5aNLs4JGIWb" role="1QSceR" />
         <node concept="1QSTl9" id="7jIhq8Ma4OS" role="1QSceR">
           <property role="1QSTll" value="(" />
         </node>
+        <node concept="1Xa0MK" id="5aNLs4JGIWh" role="1QSceR" />
         <node concept="1QSeQ$" id="7jIhq8Ma4Pa" role="1QSceR">
           <property role="16kmqn" value="," />
           <ref role="1QXIMq" to="tpee:fz7wK6I" resolve="actualArgument" />
         </node>
+        <node concept="1Xa0MK" id="5aNLs4JGIWo" role="1QSceR" />
         <node concept="1QSTl9" id="7jIhq8Ma4P0" role="1QSceR">
           <property role="1QSTll" value=")" />
         </node>
@@ -1674,6 +1700,7 @@
         <node concept="1QXINc" id="7jIhq8MkVOR" role="1QSceR">
           <ref role="1QXINo" to="tpee:fzclF8k" resolve="expression" />
         </node>
+        <node concept="1Xa0MK" id="5aNLs4JGIW7" role="1QSceR" />
         <node concept="1QSTl9" id="7jIhq8MkVOW" role="1QSceR">
           <property role="1QSTll" value=";" />
         </node>
@@ -1726,6 +1753,7 @@
         <node concept="1QXINc" id="7jIhq8MoOVT" role="1QSceR">
           <ref role="1QXINo" to="tpee:fzcqZ_G" resolve="expression" />
         </node>
+        <node concept="1Xa0MK" id="5aNLs4JGIW2" role="1QSceR" />
         <node concept="1QSTl9" id="7jIhq8MoOW1" role="1QSceR">
           <property role="1QSTll" value=";" />
         </node>
@@ -1742,19 +1770,24 @@
         <node concept="1QSTl9" id="7jIhq8Ncsxx" role="1QSceR">
           <property role="1QSTll" value="super" />
         </node>
+        <node concept="1Xa0MK" id="5aNLs4JGIUx" role="1QSceR" />
         <node concept="1QSTl9" id="7jIhq8NcsTl" role="1QSceR">
           <property role="1QSTll" value="." />
         </node>
+        <node concept="1Xa0MK" id="5aNLs4JGIUN" role="1QSceR" />
         <node concept="1QWqnp" id="7jIhq8NcsTt" role="1QSceR">
           <ref role="1QWqn_" to="tpee:fBnyPmF" resolve="instanceMethodDeclaration" />
         </node>
+        <node concept="1Xa0MK" id="5aNLs4JGIV7" role="1QSceR" />
         <node concept="1QSTl9" id="7jIhq8NcsTB" role="1QSceR">
           <property role="1QSTll" value="(" />
         </node>
+        <node concept="1Xa0MK" id="5aNLs4JGIVt" role="1QSceR" />
         <node concept="1QSeQ$" id="7jIhq8NcsU1" role="1QSceR">
           <property role="16kmqn" value="," />
           <ref role="1QXIMq" to="tpee:fz7wK6I" resolve="actualArgument" />
         </node>
+        <node concept="1Xa0MK" id="5aNLs4JGIVP" role="1QSceR" />
         <node concept="1QSTl9" id="7jIhq8NcsTN" role="1QSceR">
           <property role="1QSTll" value=")" />
         </node>

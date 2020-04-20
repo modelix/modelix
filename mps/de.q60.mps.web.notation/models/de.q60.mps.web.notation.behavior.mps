@@ -966,5 +966,24 @@
       <node concept="17QB3L" id="7jIhq8M9H_H" role="3clF45" />
     </node>
   </node>
+  <node concept="13h7C7" id="5aNLs4JHB4Q">
+    <ref role="13h7C2" to="gsqd:5aNLs4JAW_L" resolve="RemoveSpace" />
+    <node concept="13hLZK" id="5aNLs4JHB4R" role="13h7CW">
+      <node concept="3clFbS" id="5aNLs4JHB4S" role="2VODD2" />
+    </node>
+    <node concept="13i0hz" id="5aNLs4JHB7d" role="13h7CS">
+      <property role="TrG5h" value="getNotationPresentation" />
+      <ref role="13i0hy" node="1D6Sg8PsCSL" resolve="getNotationPresentation" />
+      <node concept="3Tm1VV" id="5aNLs4JHB7e" role="1B3o_S" />
+      <node concept="3clFbS" id="5aNLs4JHB7h" role="3clF47">
+        <node concept="3clFbF" id="5aNLs4JHB7G" role="3cqZAp">
+          <node concept="Xl_RD" id="5aNLs4JHB7F" role="3clFbG">
+            <property role="Xl_RC" value="&gt;&lt;" />
+          </node>
+        </node>
+      </node>
+      <node concept="17QB3L" id="5aNLs4JHB7i" role="3clF45" />
+    </node>
+  </node>
 </model>
 

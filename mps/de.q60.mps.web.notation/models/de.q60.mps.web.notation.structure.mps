@@ -284,5 +284,14 @@
     <property role="34LRSv" value="alias" />
     <ref role="1TJDcQ" node="6IHVO0tjgbc" resolve="Cell" />
   </node>
+  <node concept="1TIwiD" id="5aNLs4JAW_L">
+    <property role="EcuMT" value="5959324165459396977" />
+    <property role="TrG5h" value="RemoveSpace" />
+    <property role="34LRSv" value="&gt;&lt;" />
+    <ref role="1TJDcQ" to="tpck:gw2VY9q" resolve="BaseConcept" />
+    <node concept="PrWs8" id="5aNLs4JAWC2" role="PzmwI">
+      <ref role="PrY4T" node="6IHVO0tjgbK" resolve="ICell" />
+    </node>
+  </node>
 </model>
 
