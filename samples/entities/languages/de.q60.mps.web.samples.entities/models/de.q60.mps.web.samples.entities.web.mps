@@ -1793,6 +1793,36 @@
         </node>
       </node>
     </node>
+    <node concept="1QS6b0" id="5aNLs4JNl_9" role="1QSY9g" />
+    <node concept="1QSeQW" id="5aNLs4JNlHs" role="1QSY9g">
+      <ref role="1QSeL8" to="tpee:g96euPO" resolve="TypeVariableDeclaration" />
+      <node concept="1QSceF" id="5aNLs4JNlRp" role="1QSceC">
+        <node concept="1QSeQo" id="5aNLs4JNlRv" role="1QSceR">
+          <ref role="1QSceV" to="tpck:h0TrG11" resolve="name" />
+        </node>
+        <node concept="1QSc9d" id="5aNLs4JNlR$" role="1QSceR">
+          <node concept="1QSceF" id="5aNLs4JNlRE" role="1QSc9r">
+            <node concept="1QSTl9" id="5aNLs4JNlRJ" role="1QSceR">
+              <property role="1QSTll" value="extends" />
+            </node>
+            <node concept="1QXINc" id="5aNLs4JNlRO" role="1QSceR">
+              <ref role="1QXINo" to="tpee:hFztrQw" resolve="bound" />
+            </node>
+            <node concept="1QSc9d" id="5aNLs4JNlRW" role="1QSceR">
+              <node concept="1QSceF" id="5aNLs4JNlS3" role="1QSc9r">
+                <node concept="1QSTl9" id="5aNLs4JNlS6" role="1QSceR">
+                  <property role="1QSTll" value="&amp;" />
+                </node>
+                <node concept="1QSeQ$" id="5aNLs4JNlSb" role="1QSceR">
+                  <property role="16kmqn" value="&amp;" />
+                  <ref role="1QXIMq" to="tpee:hFD4UhQ" resolve="auxBounds" />
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+      </node>
+    </node>
     <node concept="1QS6b0" id="7jIhq8NcsfR" role="1QSY9g" />
   </node>
 </model>

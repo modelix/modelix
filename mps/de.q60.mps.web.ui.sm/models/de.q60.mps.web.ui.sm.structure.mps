@@ -1202,5 +1202,42 @@
     <property role="TrG5h" value="RemoveSpaceCell" />
     <ref role="1TJDcQ" node="AkkmJBMaEB" resolve="Cell" />
   </node>
+  <node concept="1TIwiD" id="5aNLs4JTigx">
+    <property role="EcuMT" value="5959324165464204321" />
+    <property role="3GE5qa" value="actions" />
+    <property role="TrG5h" value="NodeInitializer_SetReference" />
+    <ref role="1TJDcQ" to="tpck:gw2VY9q" resolve="BaseConcept" />
+    <node concept="1TJgyj" id="3rBy5k$uV9K" role="1TKVEi">
+      <property role="IQ2ns" value="3956280696933954160" />
+      <property role="20kJfa" value="target" />
+      <ref role="20lvS9" to="tpck:gw2VY9q" resolve="BaseConcept" />
+    </node>
+    <node concept="1TJgyj" id="5aNLs4JTigz" role="1TKVEi">
+      <property role="IQ2ns" value="8596472271735494346" />
+      <property role="20lmBu" value="fLJjDmT/aggregation" />
+      <property role="20kJfa" value="link" />
+      <property role="20lbJX" value="fLJekj4/_1" />
+      <ref role="20lvS9" node="5aNLs4JTiiP" resolve="SReferenceLinkRef" />
+    </node>
+    <node concept="PrWs8" id="5aNLs4JTig$" role="PzmwI">
+      <ref role="PrY4T" node="7tcNvKIixoH" resolve="INodeInitializer" />
+    </node>
+  </node>
+  <node concept="1TIwiD" id="5aNLs4JTiiP">
+    <property role="EcuMT" value="5959324165464204469" />
+    <property role="3GE5qa" value="conceptRef" />
+    <property role="TrG5h" value="SReferenceLinkRef" />
+    <ref role="1TJDcQ" to="tpck:gw2VY9q" resolve="BaseConcept" />
+    <node concept="1TJgyi" id="5aNLs4JTiiQ" role="1TKVEl">
+      <property role="IQ2nx" value="6688208620655357292" />
+      <property role="TrG5h" value="serialized" />
+      <ref role="AX2Wp" to="tpck:fKAOsGN" resolve="string" />
+    </node>
+    <node concept="1TJgyi" id="5aNLs4JTiiR" role="1TKVEl">
+      <property role="IQ2nx" value="6688208620655357306" />
+      <property role="TrG5h" value="linkName" />
+      <ref role="AX2Wp" to="tpck:fKAOsGN" resolve="string" />
+    </node>
+  </node>
 </model>
 
