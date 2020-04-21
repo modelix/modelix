@@ -5343,17 +5343,17 @@
                                         <property role="Xl_RC" value="[" />
                                       </node>
                                     </node>
-                                    <node concept="2YIFZM" id="3rBy5k$UWFh" role="3uHU7w">
+                                    <node concept="2YIFZM" id="3rBy5k_aXG5" role="3uHU7w">
+                                      <ref role="37wK5l" to="5b0:~NodePresentationUtil.presentation(org.jetbrains.mps.openapi.model.SNode,org.jetbrains.mps.openapi.model.SNode)" resolve="presentation" />
                                       <ref role="1Pybhc" to="5b0:~NodePresentationUtil" resolve="NodePresentationUtil" />
-                                      <ref role="37wK5l" to="5b0:~NodePresentationUtil.descriptionText(org.jetbrains.mps.openapi.model.SNode,org.jetbrains.mps.openapi.model.SNode)" resolve="descriptionText" />
-                                      <node concept="37vLTw" id="3rBy5k$UXhi" role="37wK5m">
+                                      <node concept="37vLTw" id="3rBy5k_aXG6" role="37wK5m">
                                         <ref role="3cqZAo" node="5aNLs4JTi6A" resolve="target" />
                                       </node>
-                                      <node concept="2OqwBi" id="3rBy5k$UZaE" role="37wK5m">
-                                        <node concept="3kvyP4" id="3rBy5k$UYgH" role="2Oq$k0">
+                                      <node concept="2OqwBi" id="3rBy5k_aXG7" role="37wK5m">
+                                        <node concept="3kvyP4" id="3rBy5k_aXG8" role="2Oq$k0">
                                           <ref role="3kvyN1" node="5aNLs4JSTdF" resolve="substituteContext" />
                                         </node>
-                                        <node concept="2qgKlT" id="3rBy5k$V05s" role="2OqNvi">
+                                        <node concept="2qgKlT" id="3rBy5k_aXG9" role="2OqNvi">
                                           <ref role="37wK5l" to="v1cj:1oBvzyiFE$v" resolve="getFirstExistingNode" />
                                         </node>
                                       </node>

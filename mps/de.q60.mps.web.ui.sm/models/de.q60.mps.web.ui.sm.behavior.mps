@@ -4615,13 +4615,13 @@
                     <ref role="3cqZAo" node="5X1StJFfR9C" resolve="text" />
                   </node>
                   <node concept="liA8E" id="5X1StJFfTZG" role="2OqNvi">
-                    <ref role="37wK5l" to="wyt6:~String.substring(int)" resolve="substring" />
+                    <ref role="37wK5l" to="wyt6:~String.substring(int,int)" resolve="substring" />
                     <node concept="3cmrfG" id="5X1StJFjZgr" role="37wK5m">
                       <property role="3cmrfH" value="0" />
                     </node>
                     <node concept="2YIFZM" id="5X1StJFfV9D" role="37wK5m">
-                      <ref role="37wK5l" to="wyt6:~Math.min(double,double)" resolve="min" />
                       <ref role="1Pybhc" to="wyt6:~Math" resolve="Math" />
+                      <ref role="37wK5l" to="wyt6:~Math.min(int,int)" resolve="min" />
                       <node concept="2OqwBi" id="5X1StJFfUjy" role="37wK5m">
                         <node concept="37vLTw" id="5X1StJFfU4m" role="2Oq$k0">
                           <ref role="3cqZAo" node="5X1StJFfSG9" resolve="selection" />
