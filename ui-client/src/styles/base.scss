@@ -94,5 +94,10 @@
     .entry {
       padding: 2px 6px;
     }
+
+    .entry.selected {
+      background-color: #1055d1;
+      color: white;
+    }
   }
 }

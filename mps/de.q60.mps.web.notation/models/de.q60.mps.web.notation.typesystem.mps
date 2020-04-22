@@ -8,6 +8,7 @@
   <imports>
     <import index="tp25" ref="r:00000000-0000-4000-0000-011c89590301(jetbrains.mps.lang.smodel.structure)" />
     <import index="gsqd" ref="r:599c60e4-99d0-4ea8-9225-bd9adc3816a3(de.q60.mps.web.notation.structure)" implicit="true" />
+    <import index="pgur" ref="r:0cd5e68f-034a-4a03-8011-e57fcc7cce60(de.q60.mps.web.notation.behavior)" implicit="true" />
   </imports>
   <registry>
     <language id="f3061a53-9226-4cc5-a443-f952ceaf5816" name="jetbrains.mps.baseLanguage">
@@ -15,8 +16,14 @@
         <child id="1197027771414" name="operand" index="2Oq$k0" />
         <child id="1197027833540" name="operation" index="2OqNvi" />
       </concept>
+      <concept id="1070475926800" name="jetbrains.mps.baseLanguage.structure.StringLiteral" flags="nn" index="Xl_RD">
+        <property id="1070475926801" name="value" index="Xl_RC" />
+      </concept>
       <concept id="1068580123136" name="jetbrains.mps.baseLanguage.structure.StatementList" flags="sn" stub="5293379017992965193" index="3clFbS">
         <child id="1068581517665" name="statement" index="3cqZAp" />
+      </concept>
+      <concept id="1204053956946" name="jetbrains.mps.baseLanguage.structure.IMethodCall" flags="ng" index="1ndlxa">
+        <reference id="1068499141037" name="baseMethodDeclaration" index="37wK5l" />
       </concept>
     </language>
     <language id="3a13115c-633c-4c5c-bbcc-75c4219e9555" name="jetbrains.mps.lang.quotation">
@@ -39,8 +46,17 @@
       <concept id="1185788614172" name="jetbrains.mps.lang.typesystem.structure.NormalTypeClause" flags="ng" index="mw_s8">
         <child id="1185788644032" name="normalType" index="mwGJk" />
       </concept>
+      <concept id="1175517400280" name="jetbrains.mps.lang.typesystem.structure.AssertStatement" flags="nn" index="2Mj0R9">
+        <child id="1175517761460" name="condition" index="2MkoU_" />
+      </concept>
+      <concept id="1175517767210" name="jetbrains.mps.lang.typesystem.structure.ReportErrorStatement" flags="nn" index="2MkqsV">
+        <child id="1175517851849" name="errorString" index="2MkJ7o" />
+      </concept>
       <concept id="1195213580585" name="jetbrains.mps.lang.typesystem.structure.AbstractCheckingRule" flags="ig" index="18hYwZ">
         <child id="1195213635060" name="body" index="18ibNy" />
+      </concept>
+      <concept id="3937244445246642777" name="jetbrains.mps.lang.typesystem.structure.AbstractReportStatement" flags="ng" index="1urrMJ">
+        <child id="3937244445246642781" name="nodeToReport" index="1urrMF" />
       </concept>
       <concept id="1174642788531" name="jetbrains.mps.lang.typesystem.structure.ConceptReference" flags="ig" index="1YaCAy">
         <reference id="1174642800329" name="concept" index="1YaFvo" />
@@ -68,7 +84,9 @@
       <concept id="1138411891628" name="jetbrains.mps.lang.smodel.structure.SNodeOperation" flags="nn" index="eCIE_">
         <child id="1144104376918" name="parameter" index="1xVPHs" />
       </concept>
+      <concept id="1179409122411" name="jetbrains.mps.lang.smodel.structure.Node_ConceptMethodCall" flags="nn" index="2qgKlT" />
       <concept id="1171407110247" name="jetbrains.mps.lang.smodel.structure.Node_GetAncestorOperation" flags="nn" index="2Xjw5R" />
+      <concept id="1171999116870" name="jetbrains.mps.lang.smodel.structure.Node_IsNullOperation" flags="nn" index="3w_OXm" />
       <concept id="1144101972840" name="jetbrains.mps.lang.smodel.structure.OperationParm_Concept" flags="ng" index="1xMEDy">
         <child id="1207343664468" name="conceptArgument" index="ri$Ld" />
       </concept>
@@ -127,6 +145,34 @@
     <node concept="1YaCAy" id="7jIhq8Mt6AW" role="1YuTPh">
       <property role="TrG5h" value="n" />
       <ref role="1YaFvo" to="gsqd:7jIhq8MsXJ6" resolve="NotationNodeExpression" />
+    </node>
+  </node>
+  <node concept="1YbPZF" id="eq067TFNK1">
+    <property role="TrG5h" value="typeof_SubstitutionCell" />
+    <node concept="3clFbS" id="eq067TFNK2" role="18ibNy">
+      <node concept="2Mj0R9" id="eq067TFR6m" role="3cqZAp">
+        <node concept="Xl_RD" id="eq067TFRET" role="2MkJ7o">
+          <property role="Xl_RC" value="SubstitutionCell has to be the first cell of the notation" />
+        </node>
+        <node concept="1YBJjd" id="eq067TFRym" role="1urrMF">
+          <ref role="1YBMHb" node="eq067TFNK4" resolve="n" />
+        </node>
+        <node concept="2OqwBi" id="eq067TFRmq" role="2MkoU_">
+          <node concept="2OqwBi" id="eq067TFRmr" role="2Oq$k0">
+            <node concept="1YBJjd" id="eq067TFRms" role="2Oq$k0">
+              <ref role="1YBMHb" node="eq067TFNK4" resolve="n" />
+            </node>
+            <node concept="2qgKlT" id="eq067TFRmt" role="2OqNvi">
+              <ref role="37wK5l" to="pgur:6SPevSMCszn" resolve="previousLeaf" />
+            </node>
+          </node>
+          <node concept="3w_OXm" id="eq067TFRxV" role="2OqNvi" />
+        </node>
+      </node>
+    </node>
+    <node concept="1YaCAy" id="eq067TFNK4" role="1YuTPh">
+      <property role="TrG5h" value="n" />
+      <ref role="1YaFvo" to="gsqd:eq067TtMRv" resolve="SubstitutionCell" />
     </node>
   </node>
 </model>

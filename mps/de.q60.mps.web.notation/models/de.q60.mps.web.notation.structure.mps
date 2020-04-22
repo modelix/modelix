@@ -298,5 +298,16 @@
       <ref role="PrY4T" node="6IHVO0tjgbK" resolve="ICell" />
     </node>
   </node>
+  <node concept="1TIwiD" id="eq067TtMRv">
+    <property role="EcuMT" value="259520349324389855" />
+    <property role="TrG5h" value="SubstitutionCell" />
+    <property role="34LRSv" value="substitute" />
+    <ref role="1TJDcQ" node="6IHVO0tjgbc" resolve="Cell" />
+    <node concept="1TJgyi" id="eq067TtMTK" role="1TKVEl">
+      <property role="IQ2nx" value="259520349324390000" />
+      <property role="TrG5h" value="text" />
+      <ref role="AX2Wp" to="tpck:fKAOsGN" resolve="string" />
+    </node>
+  </node>
 </model>
 

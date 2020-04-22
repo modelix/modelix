@@ -985,5 +985,24 @@
       <node concept="17QB3L" id="5aNLs4JHB7i" role="3clF45" />
     </node>
   </node>
+  <node concept="13h7C7" id="eq067TtNhG">
+    <ref role="13h7C2" to="gsqd:eq067TtMRv" resolve="SubstitutionCell" />
+    <node concept="13hLZK" id="eq067TtNhH" role="13h7CW">
+      <node concept="3clFbS" id="eq067TtNhI" role="2VODD2" />
+    </node>
+    <node concept="13i0hz" id="eq067TtNk7" role="13h7CS">
+      <property role="TrG5h" value="getNotationPresentation" />
+      <ref role="13i0hy" node="1D6Sg8PsCSL" resolve="getNotationPresentation" />
+      <node concept="3Tm1VV" id="eq067TtNk8" role="1B3o_S" />
+      <node concept="3clFbS" id="eq067TtNkb" role="3clF47">
+        <node concept="3clFbF" id="eq067TtNkq" role="3cqZAp">
+          <node concept="Xl_RD" id="eq067TtNkp" role="3clFbG">
+            <property role="Xl_RC" value="[s]" />
+          </node>
+        </node>
+      </node>
+      <node concept="17QB3L" id="eq067TtNkc" role="3clF45" />
+    </node>
+  </node>
 </model>
 

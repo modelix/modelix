@@ -201,6 +201,9 @@
         <reference id="7759120791678682008" name="link" index="1QXINo" />
       </concept>
       <concept id="578981756153092156" name="de.q60.mps.web.notation.structure.VerticalLayout" flags="ng" index="3UTMNE" />
+      <concept id="259520349324389855" name="de.q60.mps.web.notation.structure.SubstitutionCell" flags="ng" index="3UViQY">
+        <property id="259520349324390000" name="text" index="3UViSh" />
+      </concept>
       <concept id="578981756153322531" name="de.q60.mps.web.notation.structure.IndentCell" flags="ng" index="3UYUzP" />
       <concept id="5959324165459396977" name="de.q60.mps.web.notation.structure.RemoveSpace" flags="ng" index="1Xa0MK" />
     </language>
@@ -1328,6 +1331,9 @@
     <node concept="1QSeQW" id="7jIhq8Ma1vU" role="1QSY9g">
       <ref role="1QSeL8" to="tpee:fz12cDA" resolve="ClassConcept" />
       <node concept="1QSceF" id="7jIhq8Ma1wU" role="1QSceC">
+        <node concept="3UViQY" id="eq067T_73M" role="1QSceR">
+          <property role="3UViSh" value="class" />
+        </node>
         <node concept="1QSceF" id="7jIhq8MB1P$" role="1QSceR">
           <node concept="1QXINc" id="7jIhq8Ma1wX" role="1QSceR">
             <ref role="1QXINo" to="tpee:h9B3oxE" resolve="visibility" />
@@ -1387,6 +1393,9 @@
     <node concept="1QSeQW" id="7jIhq8Ma1_e" role="1QSY9g">
       <ref role="1QSeL8" to="tpee:fz12cDC" resolve="FieldDeclaration" />
       <node concept="1QSceF" id="7jIhq8Ma1BI" role="1QSceC">
+        <node concept="3UViQY" id="eq067Tuy1P" role="1QSceR">
+          <property role="3UViSh" value="field" />
+        </node>
         <node concept="1QXINc" id="7jIhq8Ma1BL" role="1QSceR">
           <ref role="1QXINo" to="tpee:h9B3oxE" resolve="visibility" />
         </node>
@@ -1424,6 +1433,9 @@
     <node concept="1QSeQW" id="7jIhq8Ma28u" role="1QSY9g">
       <ref role="1QSeL8" to="tpee:f$Wx3kv" resolve="StaticFieldDeclaration" />
       <node concept="1QSceF" id="7jIhq8Ma29P" role="1QSceC">
+        <node concept="3UViQY" id="eq067T_74n" role="1QSceR">
+          <property role="3UViSh" value="static field" />
+        </node>
         <node concept="1QXINc" id="7jIhq8Ma29S" role="1QSceR">
           <ref role="1QXINo" to="tpee:h9B3oxE" resolve="visibility" />
         </node>
@@ -1463,6 +1475,9 @@
     <node concept="1QSeQW" id="7jIhq8Ma2dS" role="1QSY9g">
       <ref role="1QSeL8" to="tpee:fzclF8t" resolve="InstanceMethodDeclaration" />
       <node concept="1QSceF" id="7jIhq8Ma2fz" role="1QSceC">
+        <node concept="3UViQY" id="eq067TuXuQ" role="1QSceR">
+          <property role="3UViSh" value="method" />
+        </node>
         <node concept="1QSceF" id="7jIhq8MFoXC" role="1QSceR">
           <node concept="1QXINc" id="7jIhq8Ma2fA" role="1QSceR">
             <ref role="1QXINo" to="tpee:h9B3oxE" resolve="visibility" />
@@ -1514,6 +1529,9 @@
     <node concept="1QSeQW" id="7jIhq8MsPZv" role="1QSY9g">
       <ref role="1QSeL8" to="tpee:fzclF84" resolve="ConstructorDeclaration" />
       <node concept="1QSceF" id="7jIhq8MsPZw" role="1QSceC">
+        <node concept="3UViQY" id="eq067TuX_X" role="1QSceR">
+          <property role="3UViSh" value="constructor" />
+        </node>
         <node concept="1QSceF" id="7jIhq8MUbmN" role="1QSceR">
           <node concept="1QXINc" id="7jIhq8MsPZx" role="1QSceR">
             <ref role="1QXINo" to="tpee:h9B3oxE" resolve="visibility" />
@@ -1763,7 +1781,10 @@
     </node>
     <node concept="1QSeQW" id="7jIhq8N7ZEI" role="1QSY9g">
       <ref role="1QSeL8" to="tpee:1hodSy9TH5A" resolve="PlaceholderMember" />
-      <node concept="1QSTl9" id="7jIhq8N7ZId" role="1QSceC" />
+      <node concept="1QSceF" id="eq067TFNIX" role="1QSceC">
+        <node concept="3UViQY" id="eq067TFNJ8" role="1QSceR" />
+        <node concept="1QSTl9" id="eq067TFNJ2" role="1QSceR" />
+      </node>
     </node>
     <node concept="1QSeQW" id="eq067SXAWS" role="1QSY9g">
       <ref role="1QSeL8" to="tpee:fz3vP1J" resolve="Expression" />
