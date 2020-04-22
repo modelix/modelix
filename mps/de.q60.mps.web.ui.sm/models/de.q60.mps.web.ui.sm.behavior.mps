@@ -7612,6 +7612,56 @@
         </node>
       </node>
     </node>
+    <node concept="13i0hz" id="6_s$eG$k4kA" role="13h7CS">
+      <property role="TrG5h" value="getTextBeforeCaret" />
+      <node concept="3Tm1VV" id="6_s$eG$k4kB" role="1B3o_S" />
+      <node concept="17QB3L" id="6_s$eG$k4nR" role="3clF45" />
+      <node concept="3clFbS" id="6_s$eG$k4kD" role="3clF47">
+        <node concept="3clFbF" id="6_s$eG$ka$d" role="3cqZAp">
+          <node concept="3K4zz7" id="6_s$eG$kdbt" role="3clFbG">
+            <node concept="Xl_RD" id="6_s$eG$kdf2" role="3K4E3e">
+              <property role="Xl_RC" value="" />
+            </node>
+            <node concept="3clFbC" id="6_s$eG$kbxc" role="3K4Cdx">
+              <node concept="3cmrfG" id="6_s$eG$kbYH" role="3uHU7w">
+                <property role="3cmrfH" value="0" />
+              </node>
+              <node concept="2OqwBi" id="6_s$eG$kaFN" role="3uHU7B">
+                <node concept="13iPFW" id="6_s$eG$ka$b" role="2Oq$k0" />
+                <node concept="3TrcHB" id="6_s$eG$kaIs" role="2OqNvi">
+                  <ref role="3TsBF5" to="j481:7vWAzuEL3BP" resolve="position" />
+                </node>
+              </node>
+            </node>
+            <node concept="2OqwBi" id="6_s$eG$kdK2" role="3K4GZi">
+              <node concept="2OqwBi" id="6_s$eG$kdK3" role="2Oq$k0">
+                <node concept="2OqwBi" id="6_s$eG$kdK4" role="2Oq$k0">
+                  <node concept="13iPFW" id="6_s$eG$kdK5" role="2Oq$k0" />
+                  <node concept="3TrEf2" id="6_s$eG$kdK6" role="2OqNvi">
+                    <ref role="3Tt5mk" to="j481:7vWAzuEMigU" resolve="focusCell" />
+                  </node>
+                </node>
+                <node concept="3TrcHB" id="6_s$eG$kdK7" role="2OqNvi">
+                  <ref role="3TsBF5" to="j481:AkkmJBMou0" resolve="text" />
+                </node>
+              </node>
+              <node concept="liA8E" id="6_s$eG$kdK8" role="2OqNvi">
+                <ref role="37wK5l" to="wyt6:~String.substring(int,int)" resolve="substring" />
+                <node concept="3cmrfG" id="6_s$eG$kdK9" role="37wK5m">
+                  <property role="3cmrfH" value="0" />
+                </node>
+                <node concept="2OqwBi" id="6_s$eG$kdKa" role="37wK5m">
+                  <node concept="13iPFW" id="6_s$eG$kdKb" role="2Oq$k0" />
+                  <node concept="3TrcHB" id="6_s$eG$kdKc" role="2OqNvi">
+                    <ref role="3TsBF5" to="j481:7vWAzuEL3BP" resolve="position" />
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+      </node>
+    </node>
   </node>
   <node concept="13h7C7" id="6_s$eGzjB_v">
     <property role="3GE5qa" value="viewerState" />
