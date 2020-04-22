@@ -90,6 +90,11 @@
       <property role="20lbJX" value="fLJekj4/_1" />
       <ref role="20lvS9" to="tpce:f_TJgxE" resolve="LinkDeclaration" />
     </node>
+    <node concept="1TJgyj" id="eq067TgiOo" role="1TKVEi">
+      <property role="IQ2ns" value="259520349320850712" />
+      <property role="20kJfa" value="subconceptToInsert" />
+      <ref role="20lvS9" to="tpce:h0PkWnZ" resolve="AbstractConceptDeclaration" />
+    </node>
   </node>
   <node concept="PlHQZ" id="6IHVO0tjgbK">
     <property role="EcuMT" value="7759120791677764336" />

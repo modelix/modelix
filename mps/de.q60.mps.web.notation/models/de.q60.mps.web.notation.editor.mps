@@ -264,6 +264,22 @@
           <ref role="1NtTu8" to="gsqd:7jIhq8MJMcP" resolve="separator" />
         </node>
       </node>
+      <node concept="3EZMnI" id="eq067TgiT7" role="3EZMnx">
+        <node concept="2iRfu4" id="eq067TgiT8" role="2iSdaV" />
+        <node concept="VPM3Z" id="eq067TgiT9" role="3F10Kt" />
+        <node concept="3F0ifn" id="eq067TgiTa" role="3EZMnx">
+          <property role="3F0ifm" value="sub-concept for new nodes:" />
+        </node>
+        <node concept="1iCGBv" id="eq067TgiTv" role="3EZMnx">
+          <ref role="1NtTu8" to="gsqd:eq067TgiOo" resolve="subconceptToInsert" />
+          <node concept="1sVBvm" id="eq067TgiTx" role="1sWHZn">
+            <node concept="3F0A7n" id="eq067TgiTG" role="2wV5jI">
+              <property role="1Intyy" value="true" />
+              <ref role="1NtTu8" to="tpck:h0TrG11" resolve="name" />
+            </node>
+          </node>
+        </node>
+      </node>
     </node>
   </node>
   <node concept="24kQdi" id="6IHVO0tly_S">
