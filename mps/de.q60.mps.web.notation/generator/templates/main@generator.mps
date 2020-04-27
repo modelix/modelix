@@ -4448,8 +4448,8 @@
                                             </node>
                                             <node concept="2OqwBi" id="4cPrGrnQqbe" role="1m5AlR">
                                               <node concept="30H73N" id="4cPrGrnQq4r" role="2Oq$k0" />
-                                              <node concept="2qgKlT" id="4cPrGrnQySH" role="2OqNvi">
-                                                <ref role="37wK5l" to="pgur:6SPevSMCszn" resolve="previousLeaf" />
+                                              <node concept="2qgKlT" id="5mkQn$DqW6L" role="2OqNvi">
+                                                <ref role="37wK5l" to="pgur:5mkQn$DqRq5" resolve="previousVisibleLeaf" />
                                               </node>
                                             </node>
                                           </node>
@@ -4474,8 +4474,8 @@
                             <node concept="2OqwBi" id="4cPrGrnQ$P$" role="3clFbG">
                               <node concept="2OqwBi" id="4cPrGrnQ$vc" role="2Oq$k0">
                                 <node concept="30H73N" id="4cPrGrnQ$vd" role="2Oq$k0" />
-                                <node concept="2qgKlT" id="4cPrGrnQ$ve" role="2OqNvi">
-                                  <ref role="37wK5l" to="pgur:6SPevSMCszn" resolve="previousLeaf" />
+                                <node concept="2qgKlT" id="5mkQn$DqWjt" role="2OqNvi">
+                                  <ref role="37wK5l" to="pgur:5mkQn$DqRq5" resolve="previousVisibleLeaf" />
                                 </node>
                               </node>
                               <node concept="1mIQ4w" id="4cPrGrnQ_2r" role="2OqNvi">
@@ -4634,8 +4634,8 @@
                                               </node>
                                               <node concept="2OqwBi" id="4cPrGrnQ_dn" role="1m5AlR">
                                                 <node concept="30H73N" id="4cPrGrnQ_do" role="2Oq$k0" />
-                                                <node concept="2qgKlT" id="4cPrGrnQAHR" role="2OqNvi">
-                                                  <ref role="37wK5l" to="pgur:5HO1kYmA37m" resolve="nextLeaf" />
+                                                <node concept="2qgKlT" id="5mkQn$DqVza" role="2OqNvi">
+                                                  <ref role="37wK5l" to="pgur:5mkQn$DqOQT" resolve="nextVisibleLeaf" />
                                                 </node>
                                               </node>
                                             </node>
@@ -4660,8 +4660,8 @@
                               <node concept="2OqwBi" id="4cPrGrnQ_dv" role="3clFbG">
                                 <node concept="2OqwBi" id="4cPrGrnQ_dw" role="2Oq$k0">
                                   <node concept="30H73N" id="4cPrGrnQ_dx" role="2Oq$k0" />
-                                  <node concept="2qgKlT" id="4cPrGrnQAwJ" role="2OqNvi">
-                                    <ref role="37wK5l" to="pgur:5HO1kYmA37m" resolve="nextLeaf" />
+                                  <node concept="2qgKlT" id="5mkQn$DqVKm" role="2OqNvi">
+                                    <ref role="37wK5l" to="pgur:5mkQn$DqOQT" resolve="nextVisibleLeaf" />
                                   </node>
                                 </node>
                                 <node concept="1mIQ4w" id="4cPrGrnQ_dz" role="2OqNvi">
@@ -4789,8 +4789,8 @@
               <node concept="2OqwBi" id="4cPrGrnVVqK" role="3uHU7w">
                 <node concept="2OqwBi" id="4cPrGrnVV3$" role="2Oq$k0">
                   <node concept="30H73N" id="4cPrGrnVUU8" role="2Oq$k0" />
-                  <node concept="2qgKlT" id="4cPrGrnVV63" role="2OqNvi">
-                    <ref role="37wK5l" to="pgur:6SPevSMCszn" resolve="previousLeaf" />
+                  <node concept="2qgKlT" id="5mkQn$DqVUe" role="2OqNvi">
+                    <ref role="37wK5l" to="pgur:5mkQn$DqRq5" resolve="previousVisibleLeaf" />
                   </node>
                 </node>
                 <node concept="1mIQ4w" id="4cPrGrnVV$W" role="2OqNvi">
@@ -4802,8 +4802,8 @@
               <node concept="2OqwBi" id="4cPrGrnVUp2" role="3uHU7B">
                 <node concept="2OqwBi" id="4cPrGrnVU60" role="2Oq$k0">
                   <node concept="30H73N" id="4cPrGrnVTXP" role="2Oq$k0" />
-                  <node concept="2qgKlT" id="4cPrGrnVU7x" role="2OqNvi">
-                    <ref role="37wK5l" to="pgur:5HO1kYmA37m" resolve="nextLeaf" />
+                  <node concept="2qgKlT" id="5mkQn$DqVn7" role="2OqNvi">
+                    <ref role="37wK5l" to="pgur:5mkQn$DqOQT" resolve="nextVisibleLeaf" />
                   </node>
                 </node>
                 <node concept="1mIQ4w" id="4cPrGrnVUA2" role="2OqNvi">
@@ -6535,9 +6535,6 @@
         </node>
       </node>
     </node>
-  </node>
-  <node concept="jVnub" id="4cPrGrnPHMz">
-    <property role="TrG5h" value="switch_wrapperSideTransform" />
   </node>
   <node concept="13MO4I" id="5$pyBfNCaad">
     <property role="TrG5h" value="template_ChildrenCollectionCell_AddNewChildAction" />

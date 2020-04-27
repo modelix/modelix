@@ -8491,6 +8491,43 @@
                     </node>
                   </node>
                 </node>
+                <node concept="3clFbF" id="5mkQn$Di4h3" role="3cqZAp">
+                  <node concept="37vLTI" id="5mkQn$Di4h4" role="3clFbG">
+                    <node concept="2YIFZM" id="5mkQn$Di4h5" role="37vLTx">
+                      <ref role="1Pybhc" to="wyt6:~Math" resolve="Math" />
+                      <ref role="37wK5l" to="wyt6:~Math.min(int,int)" resolve="min" />
+                      <node concept="37vLTw" id="5mkQn$Di4h6" role="37wK5m">
+                        <ref role="3cqZAo" node="5mkQn$D7RSb" resolve="newCaretPos" />
+                      </node>
+                      <node concept="2EnYce" id="5mkQn$Di4h7" role="37wK5m">
+                        <node concept="2OqwBi" id="5mkQn$Di4h8" role="2Oq$k0">
+                          <node concept="1PxgMI" id="5mkQn$Di4h9" role="2Oq$k0">
+                            <node concept="chp4Y" id="5mkQn$Di4ha" role="3oSUPX">
+                              <ref role="cht4Q" to="j481:AkkmJBMaED" resolve="TextCell" />
+                            </node>
+                            <node concept="2OqwBi" id="5mkQn$Di4hb" role="1m5AlR">
+                              <node concept="37vLTw" id="5mkQn$Di4hc" role="2Oq$k0">
+                                <ref role="3cqZAo" node="5mkQn$D7aaq" resolve="bestMatch" />
+                              </node>
+                              <node concept="liA8E" id="5mkQn$Di4hd" role="2OqNvi">
+                                <ref role="37wK5l" to="v1cj:5mkQn$D5jla" resolve="getCell" />
+                              </node>
+                            </node>
+                          </node>
+                          <node concept="3TrcHB" id="5mkQn$Di4he" role="2OqNvi">
+                            <ref role="3TsBF5" to="j481:AkkmJBMou0" resolve="text" />
+                          </node>
+                        </node>
+                        <node concept="liA8E" id="5mkQn$Di4hf" role="2OqNvi">
+                          <ref role="37wK5l" to="wyt6:~String.length()" resolve="length" />
+                        </node>
+                      </node>
+                    </node>
+                    <node concept="37vLTw" id="5mkQn$Di4hg" role="37vLTJ">
+                      <ref role="3cqZAo" node="5mkQn$D7RSb" resolve="newCaretPos" />
+                    </node>
+                  </node>
+                </node>
                 <node concept="3cpWs6" id="5mkQn$D7Mpq" role="3cqZAp">
                   <node concept="2ShNRf" id="5mkQn$D7Mpr" role="3cqZAk">
                     <node concept="2HTt$P" id="5mkQn$D7Mps" role="2ShVmc">
@@ -9113,6 +9150,43 @@
                       <node concept="37vLTw" id="5mkQn$DerEk" role="3uHU7B">
                         <ref role="3cqZAo" node="5mkQn$DerE2" resolve="newCaretColumn" />
                       </node>
+                    </node>
+                  </node>
+                </node>
+                <node concept="3clFbF" id="5mkQn$DhW0I" role="3cqZAp">
+                  <node concept="37vLTI" id="5mkQn$DhWvf" role="3clFbG">
+                    <node concept="2YIFZM" id="5mkQn$DhXBc" role="37vLTx">
+                      <ref role="37wK5l" to="wyt6:~Math.min(int,int)" resolve="min" />
+                      <ref role="1Pybhc" to="wyt6:~Math" resolve="Math" />
+                      <node concept="37vLTw" id="5mkQn$DhYfJ" role="37wK5m">
+                        <ref role="3cqZAo" node="5mkQn$DerEe" resolve="newCaretPos" />
+                      </node>
+                      <node concept="2EnYce" id="5mkQn$Di3k8" role="37wK5m">
+                        <node concept="2OqwBi" id="5mkQn$Di1c8" role="2Oq$k0">
+                          <node concept="1PxgMI" id="5mkQn$Di0uH" role="2Oq$k0">
+                            <node concept="chp4Y" id="5mkQn$Di0yQ" role="3oSUPX">
+                              <ref role="cht4Q" to="j481:AkkmJBMaED" resolve="TextCell" />
+                            </node>
+                            <node concept="2OqwBi" id="5mkQn$DhZu9" role="1m5AlR">
+                              <node concept="37vLTw" id="5mkQn$DhYKM" role="2Oq$k0">
+                                <ref role="3cqZAo" node="5mkQn$DerCk" resolve="bestMatch" />
+                              </node>
+                              <node concept="liA8E" id="5mkQn$DhZRp" role="2OqNvi">
+                                <ref role="37wK5l" to="v1cj:5mkQn$D5jla" resolve="getCell" />
+                              </node>
+                            </node>
+                          </node>
+                          <node concept="3TrcHB" id="5mkQn$Di1Xm" role="2OqNvi">
+                            <ref role="3TsBF5" to="j481:AkkmJBMou0" resolve="text" />
+                          </node>
+                        </node>
+                        <node concept="liA8E" id="5mkQn$Di46g" role="2OqNvi">
+                          <ref role="37wK5l" to="wyt6:~String.length()" resolve="length" />
+                        </node>
+                      </node>
+                    </node>
+                    <node concept="37vLTw" id="5mkQn$DhW0G" role="37vLTJ">
+                      <ref role="3cqZAo" node="5mkQn$DerEe" resolve="newCaretPos" />
                     </node>
                   </node>
                 </node>
