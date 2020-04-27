@@ -1329,5 +1329,51 @@
     <property role="TrG5h" value="CloseActionMenuAction" />
     <ref role="1TJDcQ" node="5Nhi$S9QMFF" resolve="AbstractAction" />
   </node>
+  <node concept="1TIwiD" id="5mkQn$DEZqq">
+    <property role="EcuMT" value="6166792904190457498" />
+    <property role="3GE5qa" value="actions" />
+    <property role="TrG5h" value="DeleteNodeAction" />
+    <ref role="1TJDcQ" node="5Nhi$S9QMFF" resolve="AbstractAction" />
+    <node concept="1TJgyj" id="2SSJwjdozjP" role="1TKVEi">
+      <property role="IQ2ns" value="3330620852275393781" />
+      <property role="20lmBu" value="fLJjDmT/aggregation" />
+      <property role="20kJfa" value="leftLeafs" />
+      <property role="20lbJX" value="fLJekj5/_0__n" />
+      <ref role="20lvS9" node="2SSJwjdozdt" resolve="CellReference" />
+    </node>
+    <node concept="1TJgyj" id="2SSJwjdozki" role="1TKVEi">
+      <property role="IQ2ns" value="3330620852275393810" />
+      <property role="20lmBu" value="fLJjDmT/aggregation" />
+      <property role="20kJfa" value="rightLeafs" />
+      <property role="20lbJX" value="fLJekj5/_0__n" />
+      <ref role="20lvS9" node="2SSJwjdozdt" resolve="CellReference" />
+    </node>
+    <node concept="1TJgyi" id="2SSJwjdl1wE" role="1TKVEl">
+      <property role="IQ2nx" value="3330620852274468906" />
+      <property role="TrG5h" value="actionType" />
+      <ref role="AX2Wp" to="tpck:fKAOsGN" resolve="string" />
+    </node>
+    <node concept="1TJgyj" id="5mkQn$DEZtj" role="1TKVEi">
+      <property role="IQ2ns" value="6166792904190457683" />
+      <property role="20kJfa" value="nodeToDelete" />
+      <property role="20lbJX" value="fLJekj4/_1" />
+      <ref role="20lvS9" to="tpck:gw2VY9q" resolve="BaseConcept" />
+    </node>
+    <node concept="PrWs8" id="2SSJwjdkYf8" role="PzmwI">
+      <ref role="PrY4T" node="4j3vk5Z85T7" resolve="ISelectionChangeRequest" />
+    </node>
+  </node>
+  <node concept="1TIwiD" id="2SSJwjdozdt">
+    <property role="EcuMT" value="3330620852275393373" />
+    <property role="3GE5qa" value="cell" />
+    <property role="TrG5h" value="CellReference" />
+    <ref role="1TJDcQ" to="tpck:gw2VY9q" resolve="BaseConcept" />
+    <node concept="1TJgyj" id="2SSJwjdozg2" role="1TKVEi">
+      <property role="IQ2ns" value="3330620852275393538" />
+      <property role="20kJfa" value="cell" />
+      <property role="20lbJX" value="fLJekj4/_1" />
+      <ref role="20lvS9" node="AkkmJBMaEB" resolve="Cell" />
+    </node>
+  </node>
 </model>
 
