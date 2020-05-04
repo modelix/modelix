@@ -268,6 +268,7 @@
           <property role="3F0ifm" value="layout:" />
         </node>
         <node concept="3F1sOY" id="w8XdrMWyZ8" role="3EZMnx">
+          <property role="1$x2rV" value="horizontal" />
           <ref role="1NtTu8" to="gsqd:w8XdrMWyYG" resolve="layout" />
         </node>
       </node>
