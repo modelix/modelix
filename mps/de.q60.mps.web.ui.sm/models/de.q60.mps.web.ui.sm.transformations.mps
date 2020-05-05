@@ -363,6 +363,9 @@
       <concept id="2573073122887437731" name="de.q60.mps.shadowmodels.transformation.structure.Duplicate" flags="ng" index="1XuIBW">
         <child id="2573073122887437734" name="sourceQuery" index="1XuIBT" />
       </concept>
+      <concept id="8710565405836969859" name="de.q60.mps.shadowmodels.transformation.structure.Transform" flags="ng" index="1Zmyal">
+        <child id="8710565405836969869" name="input" index="1Zmyar" />
+      </concept>
     </language>
     <language id="7866978e-a0f0-4cc7-81bc-4d213d9375e1" name="jetbrains.mps.lang.smodel">
       <concept id="1177026924588" name="jetbrains.mps.lang.smodel.structure.RefConcept_Reference" flags="nn" index="chp4Y">
@@ -6966,8 +6969,8 @@
         </node>
       </node>
       <node concept="026TG" id="5wHEIYKesMt" role="026TK">
-        <node concept="1XuIBW" id="5wHEIYK$uNP" role="026TJ">
-          <node concept="2OqwBi" id="5wHEIYK$x5M" role="1XuIBT">
+        <node concept="1Zmyal" id="7BujJjYWB5u" role="026TJ">
+          <node concept="2OqwBi" id="5wHEIYK$x5M" role="1Zmyar">
             <node concept="214o7A" id="5wHEIYK$vSB" role="2Oq$k0" />
             <node concept="3TrEf2" id="5wHEIYK$ykW" role="2OqNvi">
               <ref role="3Tt5mk" to="j481:5wHEIYKeog_" resolve="html" />

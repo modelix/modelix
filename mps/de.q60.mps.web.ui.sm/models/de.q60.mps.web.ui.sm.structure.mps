@@ -1375,5 +1375,39 @@
       <ref role="20lvS9" node="AkkmJBMaEB" resolve="Cell" />
     </node>
   </node>
+  <node concept="1TIwiD" id="7BujJjZ0vaL">
+    <property role="EcuMT" value="8781543137576350385" />
+    <property role="3GE5qa" value="actions" />
+    <property role="TrG5h" value="ShowIntentions" />
+    <ref role="1TJDcQ" node="5Nhi$S9QMFF" resolve="AbstractAction" />
+    <node concept="1TJgyj" id="7BujJjZ0wqA" role="1TKVEi">
+      <property role="IQ2ns" value="8781543137576355494" />
+      <property role="20kJfa" value="hostCell" />
+      <property role="20lbJX" value="fLJekj4/_1" />
+      <ref role="20lvS9" node="AkkmJBMaEB" resolve="Cell" />
+    </node>
+  </node>
+  <node concept="1TIwiD" id="7BujJjZ0QOQ">
+    <property role="EcuMT" value="8781543137576447286" />
+    <property role="3GE5qa" value="actions" />
+    <property role="TrG5h" value="ExecuteIntention" />
+    <ref role="1TJDcQ" node="5Nhi$S9QMFF" resolve="AbstractAction" />
+    <node concept="1TJgyi" id="7BujJjZ0QOT" role="1TKVEl">
+      <property role="IQ2nx" value="8781543137576447289" />
+      <property role="TrG5h" value="intentionIndex" />
+      <ref role="AX2Wp" to="tpck:fKAQMTA" resolve="integer" />
+    </node>
+    <node concept="1TJgyi" id="7BujJjZ0QOV" role="1TKVEl">
+      <property role="IQ2nx" value="8781543137576447291" />
+      <property role="TrG5h" value="intentionText" />
+      <ref role="AX2Wp" to="tpck:fKAOsGN" resolve="string" />
+    </node>
+    <node concept="1TJgyj" id="7BujJjZ0QOR" role="1TKVEi">
+      <property role="IQ2ns" value="8781543137576447287" />
+      <property role="20kJfa" value="hostCell" />
+      <property role="20lbJX" value="fLJekj4/_1" />
+      <ref role="20lvS9" node="AkkmJBMaEB" resolve="Cell" />
+    </node>
+  </node>
 </model>
 

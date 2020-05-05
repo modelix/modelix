@@ -14982,5 +14982,111 @@
     </node>
     <node concept="3khUF5" id="4YusxWNEp0w" role="3khUj0" />
   </node>
+  <node concept="3khU$T" id="7BujJjZ0rDm">
+    <property role="TrG5h" value="UserInputHandlers_Intentions" />
+    <node concept="3khUF5" id="7BujJjZ0rDn" role="3khUj0" />
+    <node concept="3ku1Nf" id="7BujJjZ0rDA" role="3khUj0">
+      <ref role="3ku1L4" node="64FHHkQ889n" resolve="getApplicableKeyEventHandlers" />
+      <node concept="3clFbS" id="7BujJjZ0rDC" role="3ku1Le">
+        <node concept="3cpWs6" id="7BujJjZ11Sq" role="3cqZAp">
+          <node concept="2ShNRf" id="7BujJjZ12KW" role="3cqZAk">
+            <node concept="2HTt$P" id="7BujJjZ13gl" role="2ShVmc">
+              <node concept="3Tqbb2" id="7BujJjZ13gY" role="2HTBi0">
+                <ref role="ehGHo" to="j481:1nlzgMD9WVV" resolve="IAction" />
+              </node>
+              <node concept="2pJPEk" id="7BujJjZ11SP" role="2HTEbv">
+                <node concept="2pJPED" id="7BujJjZ11T2" role="2pJPEn">
+                  <ref role="2pJxaS" to="j481:7BujJjZ0vaL" resolve="ShowIntentions" />
+                  <node concept="2pIpSj" id="7BujJjZ11Tj" role="2pJxcM">
+                    <ref role="2pIpSl" to="j481:7BujJjZ0wqA" resolve="hostCell" />
+                    <node concept="36biLy" id="7BujJjZ11Tz" role="28nt2d">
+                      <node concept="2OqwBi" id="7BujJjZ12wQ" role="36biLW">
+                        <node concept="2OqwBi" id="7BujJjZ123F" role="2Oq$k0">
+                          <node concept="3kvyP4" id="7BujJjZ11TY" role="2Oq$k0">
+                            <ref role="3kvyN1" node="7BujJjZ0rDS" resolve="focusOwner" />
+                          </node>
+                          <node concept="2qgKlT" id="7BujJjZ12e9" role="2OqNvi">
+                            <ref role="37wK5l" to="v1cj:6_s$eGzj_4Q" resolve="getCells" />
+                          </node>
+                        </node>
+                        <node concept="1uHKPH" id="7BujJjZ12JL" role="2OqNvi" />
+                      </node>
+                    </node>
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+      </node>
+      <node concept="3khFPE" id="7BujJjZ0rDM" role="3kuS7x">
+        <property role="TrG5h" value="event" />
+        <node concept="3uibUv" id="7BujJjZ0rDN" role="3khFNI">
+          <ref role="3uigEE" node="64FHHkQ6uBv" resolve="BrowserKeyboardEvent" />
+        </node>
+      </node>
+      <node concept="3khFPE" id="7BujJjZ0rDO" role="3kuS7x">
+        <property role="TrG5h" value="actionType" />
+        <node concept="17QB3L" id="7BujJjZ0rDP" role="3khFNI" />
+      </node>
+      <node concept="3khFPE" id="7BujJjZ0rDQ" role="3kuS7x">
+        <property role="TrG5h" value="viewerState" />
+        <node concept="3Tqbb2" id="7BujJjZ0rDR" role="3khFNI">
+          <ref role="ehGHo" to="j481:AkkmJBMaEy" resolve="ViewerState" />
+        </node>
+      </node>
+      <node concept="3khFPE" id="7BujJjZ0rDS" role="3kuS7x">
+        <property role="TrG5h" value="focusOwner" />
+        <node concept="3Tqbb2" id="7BujJjZ0rDT" role="3khFNI">
+          <ref role="ehGHo" to="j481:AkkmJBMaEA" resolve="Selection" />
+        </node>
+      </node>
+      <node concept="1Wc70l" id="7BujJjZ0tDa" role="Aqhfv">
+        <node concept="1Wc70l" id="7BujJjZ0ucI" role="3uHU7B">
+          <node concept="17R0WA" id="7BujJjZ0uIG" role="3uHU7w">
+            <node concept="Xl_RD" id="7BujJjZ0uKJ" role="3uHU7w">
+              <property role="Xl_RC" value="Enter" />
+            </node>
+            <node concept="2OqwBi" id="7BujJjZ0uiA" role="3uHU7B">
+              <node concept="3kvyP4" id="7BujJjZ0uew" role="2Oq$k0">
+                <ref role="3kvyN1" node="7BujJjZ0rDM" resolve="event" />
+              </node>
+              <node concept="liA8E" id="7BujJjZ0uOS" role="2OqNvi">
+                <ref role="37wK5l" node="64FHHkQ7nGu" resolve="getCode" />
+              </node>
+            </node>
+          </node>
+          <node concept="2OqwBi" id="7BujJjZ0tL6" role="3uHU7B">
+            <node concept="3kvyP4" id="7BujJjZ0tEW" role="2Oq$k0">
+              <ref role="3kvyN1" node="7BujJjZ0rDM" resolve="event" />
+            </node>
+            <node concept="liA8E" id="7BujJjZ2y9g" role="2OqNvi">
+              <ref role="37wK5l" node="64FHHkQ7nGm" resolve="isKeypress" />
+            </node>
+          </node>
+        </node>
+        <node concept="17R0WA" id="7BujJjZ0seH" role="3uHU7w">
+          <node concept="2OqwBi" id="7BujJjZ3BKQ" role="3uHU7w">
+            <node concept="10M0yZ" id="7BujJjZ0tAL" role="2Oq$k0">
+              <ref role="3cqZAo" node="6X_rIqRwmN$" resolve="NONE" />
+              <ref role="1PxDUh" node="6X_rIqRwlf5" resolve="BrowserKeyboardEvent.Modifiers" />
+            </node>
+            <node concept="liA8E" id="7BujJjZ3BTH" role="2OqNvi">
+              <ref role="37wK5l" node="6X_rIqRwD5y" resolve="withAlt" />
+            </node>
+          </node>
+          <node concept="2OqwBi" id="7BujJjZ0s1j" role="3uHU7B">
+            <node concept="3kvyP4" id="7BujJjZ0rV7" role="2Oq$k0">
+              <ref role="3kvyN1" node="7BujJjZ0rDM" resolve="event" />
+            </node>
+            <node concept="liA8E" id="7BujJjZ0s8A" role="2OqNvi">
+              <ref role="37wK5l" node="6X_rIqRwReb" resolve="getModifiers" />
+            </node>
+          </node>
+        </node>
+      </node>
+    </node>
+    <node concept="3khUF5" id="7BujJjZ0rDv" role="3khUj0" />
+  </node>
 </model>
 
