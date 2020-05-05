@@ -2,6 +2,7 @@
 <dev-kit name="de.q60.mps.web.aspect.devkit" uuid="df4512e0-2de7-456b-8e87-16e2011a3e91">
   <exported-language name="375af171-bd4b-4bfb-bc9f-418fb996740b(de.q60.mps.web.aspect)" />
   <exported-language name="25fcb6ab-d05a-4950-8cdf-251526bdf513(de.q60.mps.web.notation)" />
+  <exported-language name="78874af2-5dd2-42a7-a21d-42fab3737d1d(de.q60.mps.web.ui.sm)" />
   <exported-solutions>
     <exported-solution>a35af0cf-8051-4b27-9686-59193edda5fc(de.q60.mps.web.aspect.genplan)</exported-solution>
   </exported-solutions>
