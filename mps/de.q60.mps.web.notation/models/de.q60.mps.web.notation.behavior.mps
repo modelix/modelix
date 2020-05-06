@@ -1181,68 +1181,6 @@
       <node concept="17QB3L" id="eq067TtNkc" role="3clF45" />
     </node>
   </node>
-  <node concept="13h7C7" id="2FuI1MXmzBv">
-    <property role="3GE5qa" value="table" />
-    <ref role="13h7C2" to="gsqd:2FuI1MXmzAX" resolve="TableCell" />
-    <node concept="13hLZK" id="2FuI1MXmzBw" role="13h7CW">
-      <node concept="3clFbS" id="2FuI1MXmzBx" role="2VODD2" />
-    </node>
-    <node concept="13i0hz" id="2FuI1MXmzBE" role="13h7CS">
-      <property role="TrG5h" value="getNotationPresentation" />
-      <ref role="13i0hy" node="1D6Sg8PsCSL" resolve="getNotationPresentation" />
-      <node concept="3Tm1VV" id="2FuI1MXmzBF" role="1B3o_S" />
-      <node concept="3clFbS" id="2FuI1MXmzBI" role="3clF47">
-        <node concept="3clFbF" id="2FuI1MXm$wY" role="3cqZAp">
-          <node concept="3cpWs3" id="2FuI1MXm$Sn" role="3clFbG">
-            <node concept="Xl_RD" id="2FuI1MXm$Nk" role="3uHU7w">
-              <property role="Xl_RC" value=")" />
-            </node>
-            <node concept="3cpWs3" id="2FuI1MXm$Nh" role="3uHU7B">
-              <node concept="Xl_RD" id="2FuI1MXm$wX" role="3uHU7B">
-                <property role="Xl_RC" value="table(" />
-              </node>
-              <node concept="2OqwBi" id="2FuI1MXmL8b" role="3uHU7w">
-                <node concept="2OqwBi" id="2FuI1MXmFEJ" role="2Oq$k0">
-                  <node concept="2OqwBi" id="2FuI1MXm_6W" role="2Oq$k0">
-                    <node concept="13iPFW" id="2FuI1MXm$SX" role="2Oq$k0" />
-                    <node concept="3Tsc0h" id="2FuI1MXm_js" role="2OqNvi">
-                      <ref role="3TtcxE" to="gsqd:2FuI1MXmzB2" resolve="cells" />
-                    </node>
-                  </node>
-                  <node concept="3$u5V9" id="2FuI1MXmKiy" role="2OqNvi">
-                    <node concept="1bVj0M" id="2FuI1MXmKi$" role="23t8la">
-                      <node concept="3clFbS" id="2FuI1MXmKi_" role="1bW5cS">
-                        <node concept="3clFbF" id="2FuI1MXmKiA" role="3cqZAp">
-                          <node concept="2OqwBi" id="2FuI1MXmKzm" role="3clFbG">
-                            <node concept="37vLTw" id="2FuI1MXmKiB" role="2Oq$k0">
-                              <ref role="3cqZAo" node="2FuI1MXmKiC" resolve="it" />
-                            </node>
-                            <node concept="2qgKlT" id="2FuI1MXmKM1" role="2OqNvi">
-                              <ref role="37wK5l" node="1D6Sg8PsCSL" resolve="getNotationPresentation" />
-                            </node>
-                          </node>
-                        </node>
-                      </node>
-                      <node concept="Rh6nW" id="2FuI1MXmKiC" role="1bW2Oz">
-                        <property role="TrG5h" value="it" />
-                        <node concept="2jxLKc" id="2FuI1MXmKiD" role="1tU5fm" />
-                      </node>
-                    </node>
-                  </node>
-                </node>
-                <node concept="3uJxvA" id="2FuI1MXmLsv" role="2OqNvi">
-                  <node concept="Xl_RD" id="2FuI1MXmM0e" role="3uJOhx">
-                    <property role="Xl_RC" value="|" />
-                  </node>
-                </node>
-              </node>
-            </node>
-          </node>
-        </node>
-      </node>
-      <node concept="17QB3L" id="2FuI1MXmzBJ" role="3clF45" />
-    </node>
-  </node>
   <node concept="13h7C7" id="2FuI1MXmXfe">
     <property role="3GE5qa" value="layout" />
     <ref role="13h7C2" to="gsqd:w8XdrMVXw$" resolve="CollectionLayout" />

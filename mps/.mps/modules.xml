@@ -14,6 +14,7 @@
       <modulePath path="$PROJECT_DIR$/de.q60.mps.web.model.mpsplugin/de.q60.mps.web.model.mpsplugin.msd" folder="model" />
       <modulePath path="$PROJECT_DIR$/de.q60.mps.web.model.runtimelang/de.q60.mps.web.model.runtimelang.mpl" folder="model" />
       <modulePath path="$PROJECT_DIR$/de.q60.mps.web.model/de.q60.mps.web.model.msd" folder="model" />
+      <modulePath path="$PROJECT_DIR$/de.q60.mps.web.notation.impl.baseLanguage/de.q60.mps.web.notation.impl.baseLanguage.mpl" folder="aspect" />
       <modulePath path="$PROJECT_DIR$/de.q60.mps.web.notation/de.q60.mps.web.notation.mpl" folder="aspect" />
       <modulePath path="$PROJECT_DIR$/de.q60.mps.web.ui.common/de.q60.mps.web.ui.common.msd" folder="ui" />
       <modulePath path="$PROJECT_DIR$/de.q60.mps.web.ui.server/de.q60.mps.web.ui.server.msd" folder="ui" />
