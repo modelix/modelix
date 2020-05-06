@@ -76,6 +76,9 @@
         <property id="1140114345053" name="allowEmptyText" index="1O74Pk" />
         <reference id="1140103550593" name="relationDeclaration" index="1NtTu8" />
       </concept>
+      <concept id="1073389214265" name="jetbrains.mps.lang.editor.structure.EditorCellModel" flags="ng" index="3EYTF0">
+        <child id="1142887637401" name="renderingCondition" index="pqm2j" />
+      </concept>
       <concept id="1073389446423" name="jetbrains.mps.lang.editor.structure.CellModel_Collection" flags="sn" stub="3013115976261988961" index="3EZMnI">
         <child id="1106270802874" name="cellLayout" index="2iSdaV" />
         <child id="1073389446424" name="childCellModel" index="3EZMnx" />
@@ -140,6 +143,7 @@
     </language>
     <language id="7866978e-a0f0-4cc7-81bc-4d213d9375e1" name="jetbrains.mps.lang.smodel">
       <concept id="1179409122411" name="jetbrains.mps.lang.smodel.structure.Node_ConceptMethodCall" flags="nn" index="2qgKlT" />
+      <concept id="1172008320231" name="jetbrains.mps.lang.smodel.structure.Node_IsNotNullOperation" flags="nn" index="3x8VRR" />
       <concept id="1180636770613" name="jetbrains.mps.lang.smodel.structure.SNodeCreator" flags="nn" index="3zrR0B">
         <child id="1180636770616" name="createdType" index="3zrR0E" />
       </concept>
@@ -148,6 +152,9 @@
       </concept>
       <concept id="1138056022639" name="jetbrains.mps.lang.smodel.structure.SPropertyAccess" flags="nn" index="3TrcHB">
         <reference id="1138056395725" name="property" index="3TsBF5" />
+      </concept>
+      <concept id="1138056143562" name="jetbrains.mps.lang.smodel.structure.SLinkAccess" flags="nn" index="3TrEf2">
+        <reference id="1138056516764" name="link" index="3Tt5mk" />
       </concept>
     </language>
     <language id="ceab5195-25ea-4f22-9b92-103b95ca8c0c" name="jetbrains.mps.lang.core">
@@ -205,6 +212,28 @@
       <node concept="PMmxH" id="6IHVO0tjzN7" role="3EZMnx">
         <ref role="PMmxG" to="tpco:2wZex4PafBj" resolve="alias" />
       </node>
+      <node concept="3F0ifn" id="7BujJjZgedj" role="3EZMnx">
+        <property role="3F0ifm" value="?" />
+        <node concept="pkWqt" id="7BujJjZgedz" role="pqm2j">
+          <node concept="3clFbS" id="7BujJjZged$" role="2VODD2">
+            <node concept="3clFbF" id="7BujJjZgehy" role="3cqZAp">
+              <node concept="2OqwBi" id="7BujJjZgeVB" role="3clFbG">
+                <node concept="2OqwBi" id="7BujJjZgevS" role="2Oq$k0">
+                  <node concept="pncrf" id="7BujJjZgehx" role="2Oq$k0" />
+                  <node concept="3TrEf2" id="7BujJjZgeHm" role="2OqNvi">
+                    <ref role="3Tt5mk" to="gsqd:7BujJjZfHXi" resolve="condition" />
+                  </node>
+                </node>
+                <node concept="3x8VRR" id="7BujJjZgf8x" role="2OqNvi" />
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="Vb9p2" id="7BujJjZgfgu" role="3F10Kt" />
+        <node concept="11L4FC" id="7BujJjZgfhO" role="3F10Kt">
+          <property role="VOm3f" value="true" />
+        </node>
+      </node>
       <node concept="1iCGBv" id="6IHVO0tjzNc" role="3EZMnx">
         <ref role="1NtTu8" to="gsqd:6IHVO0tjgc8" resolve="concept" />
         <node concept="1sVBvm" id="6IHVO0tjzNe" role="1sWHZn">
@@ -218,6 +247,18 @@
         <ref role="1NtTu8" to="gsqd:6IHVO0tjiNC" resolve="cell" />
       </node>
       <node concept="l2Vlx" id="6IHVO0tjzN3" role="2iSdaV" />
+    </node>
+    <node concept="3EZMnI" id="7BujJjZfOz4" role="6VMZX">
+      <node concept="2iRkQZ" id="7BujJjZfOz5" role="2iSdaV" />
+      <node concept="3EZMnI" id="7BujJjZfOzd" role="3EZMnx">
+        <node concept="2iRfu4" id="7BujJjZfOze" role="2iSdaV" />
+        <node concept="3F0ifn" id="7BujJjZfOza" role="3EZMnx">
+          <property role="3F0ifm" value="condition:" />
+        </node>
+        <node concept="3F1sOY" id="7BujJjZfOzs" role="3EZMnx">
+          <ref role="1NtTu8" to="gsqd:7BujJjZfHXi" resolve="condition" />
+        </node>
+      </node>
     </node>
   </node>
   <node concept="24kQdi" id="6IHVO0tlvP2">
@@ -547,6 +588,7 @@
           <property role="3F0ifm" value="layout:" />
         </node>
         <node concept="3F1sOY" id="w8XdrMWoUD" role="3EZMnx">
+          <property role="1$x2rV" value="horizontal" />
           <ref role="1NtTu8" to="gsqd:w8XdrMVXx8" resolve="layout" />
         </node>
       </node>

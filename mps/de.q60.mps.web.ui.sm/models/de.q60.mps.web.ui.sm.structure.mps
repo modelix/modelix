@@ -191,21 +191,21 @@
   </node>
   <node concept="1TIwiD" id="AkkmJBMp9x">
     <property role="EcuMT" value="690266166786626145" />
-    <property role="3GE5qa" value="cell" />
+    <property role="3GE5qa" value="layout" />
     <property role="TrG5h" value="Layout" />
     <property role="R5$K7" value="true" />
     <ref role="1TJDcQ" to="tpck:gw2VY9q" resolve="BaseConcept" />
   </node>
   <node concept="1TIwiD" id="AkkmJBMp9y">
     <property role="EcuMT" value="690266166786626146" />
-    <property role="3GE5qa" value="cell" />
+    <property role="3GE5qa" value="layout" />
     <property role="TrG5h" value="HorizontalLayout" />
     <property role="34LRSv" value="horizontal" />
     <ref role="1TJDcQ" node="AkkmJBMp9x" resolve="Layout" />
   </node>
   <node concept="1TIwiD" id="AkkmJBMp9z">
     <property role="EcuMT" value="690266166786626147" />
-    <property role="3GE5qa" value="cell" />
+    <property role="3GE5qa" value="layout" />
     <property role="TrG5h" value="VerticalLayout" />
     <property role="34LRSv" value="vertical" />
     <ref role="1TJDcQ" node="AkkmJBMp9x" resolve="Layout" />
@@ -1408,6 +1408,25 @@
       <property role="20lbJX" value="fLJekj4/_1" />
       <ref role="20lvS9" node="AkkmJBMaEB" resolve="Cell" />
     </node>
+  </node>
+  <node concept="1TIwiD" id="2FuI1MXu1N5">
+    <property role="EcuMT" value="3089108828000099525" />
+    <property role="3GE5qa" value="layout" />
+    <property role="TrG5h" value="GridLayout" />
+    <property role="R5$K7" value="true" />
+    <ref role="1TJDcQ" node="AkkmJBMp9x" resolve="Layout" />
+  </node>
+  <node concept="1TIwiD" id="2FuI1MXu25F">
+    <property role="EcuMT" value="3089108828000100715" />
+    <property role="3GE5qa" value="layout" />
+    <property role="TrG5h" value="HorizontalGridLayout" />
+    <ref role="1TJDcQ" node="2FuI1MXu1N5" resolve="GridLayout" />
+  </node>
+  <node concept="1TIwiD" id="2FuI1MXu28S">
+    <property role="EcuMT" value="3089108828000100920" />
+    <property role="3GE5qa" value="layout" />
+    <property role="TrG5h" value="VerticalGridLayout" />
+    <ref role="1TJDcQ" node="2FuI1MXu1N5" resolve="GridLayout" />
   </node>
 </model>
 

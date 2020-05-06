@@ -122,6 +122,12 @@
       <property role="20lbJX" value="fLJekj4/_1" />
       <ref role="20lvS9" node="6IHVO0tjgbK" resolve="ICell" />
     </node>
+    <node concept="1TJgyj" id="7BujJjZfHXi" role="1TKVEi">
+      <property role="IQ2ns" value="8781543137580343122" />
+      <property role="20lmBu" value="fLJjDmT/aggregation" />
+      <property role="20kJfa" value="condition" />
+      <ref role="20lvS9" to="tpee:fz3vP1J" resolve="Expression" />
+    </node>
     <node concept="1TJgyj" id="6IHVO0tjgc8" role="1TKVEi">
       <property role="IQ2ns" value="7759120791677764360" />
       <property role="20kJfa" value="concept" />
@@ -318,6 +324,46 @@
       <property role="TrG5h" value="text" />
       <ref role="AX2Wp" to="tpck:fKAOsGN" resolve="string" />
     </node>
+  </node>
+  <node concept="1TIwiD" id="2FuI1MXmzAX">
+    <property role="EcuMT" value="3089108827998140861" />
+    <property role="TrG5h" value="TableCell" />
+    <property role="3GE5qa" value="table" />
+    <property role="34LRSv" value="table" />
+    <ref role="1TJDcQ" node="6IHVO0tjgbc" resolve="Cell" />
+    <node concept="1TJgyj" id="2FuI1MXmzB2" role="1TKVEi">
+      <property role="IQ2ns" value="3089108827998140866" />
+      <property role="20lmBu" value="fLJjDmT/aggregation" />
+      <property role="20kJfa" value="cells" />
+      <property role="20lbJX" value="fLJekj5/_0__n" />
+      <ref role="20lvS9" node="6IHVO0tjgbK" resolve="ICell" />
+    </node>
+    <node concept="1TJgyi" id="2FuI1MXmzB0" role="1TKVEl">
+      <property role="IQ2nx" value="3089108827998140864" />
+      <property role="TrG5h" value="vertical" />
+      <ref role="AX2Wp" to="tpck:fKAQMTB" resolve="boolean" />
+    </node>
+  </node>
+  <node concept="1TIwiD" id="2FuI1MXmVPY">
+    <property role="EcuMT" value="3089108827998240126" />
+    <property role="3GE5qa" value="layout" />
+    <property role="TrG5h" value="HorizontalGridLayout" />
+    <property role="34LRSv" value="horizontalGrid" />
+    <ref role="1TJDcQ" node="2FuI1MXmVQ0" resolve="GridLayout" />
+  </node>
+  <node concept="1TIwiD" id="2FuI1MXmVPZ">
+    <property role="EcuMT" value="3089108827998240127" />
+    <property role="3GE5qa" value="layout" />
+    <property role="TrG5h" value="VerticalGridLayout" />
+    <property role="34LRSv" value="verticalGrid" />
+    <ref role="1TJDcQ" node="2FuI1MXmVQ0" resolve="GridLayout" />
+  </node>
+  <node concept="1TIwiD" id="2FuI1MXmVQ0">
+    <property role="EcuMT" value="3089108827998240128" />
+    <property role="3GE5qa" value="layout" />
+    <property role="TrG5h" value="GridLayout" />
+    <property role="R5$K7" value="true" />
+    <ref role="1TJDcQ" node="w8XdrMVXw$" resolve="CollectionLayout" />
   </node>
 </model>
 

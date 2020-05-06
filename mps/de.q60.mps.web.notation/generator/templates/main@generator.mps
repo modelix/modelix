@@ -291,6 +291,7 @@
         <reference id="6198477943066252929" name="base" index="1YyVLo" />
         <child id="7335687028107245068" name="output" index="026TK" />
         <child id="7335687028107163827" name="input" index="02i3f" />
+        <child id="8156066107234763314" name="condition" index="vpezr" />
       </concept>
       <concept id="9170566427534778463" name="de.q60.mps.shadowmodels.transformation.structure.TransformationCall" flags="ng" index="214gnc">
         <reference id="6198477943068350028" name="transformation" index="1YEVMl" />
@@ -540,6 +541,23 @@
               </node>
             </node>
             <node concept="raruj" id="6IHVO0topOF" role="lGtFl" />
+            <node concept="3clFbT" id="7BujJjZfEp_" role="vpezr">
+              <property role="3clFbU" value="true" />
+              <node concept="29HgVG" id="7BujJjZfOsG" role="lGtFl">
+                <node concept="3NFfHV" id="7BujJjZfOsH" role="3NFExx">
+                  <node concept="3clFbS" id="7BujJjZfOsI" role="2VODD2">
+                    <node concept="3clFbF" id="7BujJjZfOsO" role="3cqZAp">
+                      <node concept="2OqwBi" id="7BujJjZfOsJ" role="3clFbG">
+                        <node concept="3TrEf2" id="7BujJjZfOsM" role="2OqNvi">
+                          <ref role="3Tt5mk" to="gsqd:7BujJjZfHXi" resolve="condition" />
+                        </node>
+                        <node concept="30H73N" id="7BujJjZfOsN" role="2Oq$k0" />
+                      </node>
+                    </node>
+                  </node>
+                </node>
+              </node>
+            </node>
           </node>
         </node>
       </node>
@@ -3102,6 +3120,22 @@
       <node concept="gft3U" id="5FNzXFtEnaG" role="1lVwrX">
         <node concept="027og" id="5FNzXFtErfC" role="gfFT$">
           <ref role="02LMe" to="j481:AkkmJBMp9z" resolve="VerticalLayout" />
+        </node>
+      </node>
+    </node>
+    <node concept="3aamgX" id="2FuI1MXuxU2" role="3acgRq">
+      <ref role="30HIoZ" to="gsqd:2FuI1MXmVPY" resolve="HorizontalGridLayout" />
+      <node concept="gft3U" id="2FuI1MXuxU3" role="1lVwrX">
+        <node concept="027og" id="2FuI1MXuD5D" role="gfFT$">
+          <ref role="02LMe" to="j481:2FuI1MXu25F" resolve="HorizontalGridLayout" />
+        </node>
+      </node>
+    </node>
+    <node concept="3aamgX" id="2FuI1MXuxTZ" role="3acgRq">
+      <ref role="30HIoZ" to="gsqd:2FuI1MXmVPZ" resolve="VerticalGridLayout" />
+      <node concept="gft3U" id="2FuI1MXuxU0" role="1lVwrX">
+        <node concept="027og" id="2FuI1MXuGwC" role="gfFT$">
+          <ref role="02LMe" to="j481:2FuI1MXu28S" resolve="VerticalGridLayout" />
         </node>
       </node>
     </node>

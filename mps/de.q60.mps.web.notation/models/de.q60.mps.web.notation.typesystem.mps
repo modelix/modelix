@@ -9,12 +9,16 @@
     <import index="tp25" ref="r:00000000-0000-4000-0000-011c89590301(jetbrains.mps.lang.smodel.structure)" />
     <import index="gsqd" ref="r:599c60e4-99d0-4ea8-9225-bd9adc3816a3(de.q60.mps.web.notation.structure)" implicit="true" />
     <import index="pgur" ref="r:0cd5e68f-034a-4a03-8011-e57fcc7cce60(de.q60.mps.web.notation.behavior)" implicit="true" />
+    <import index="tpee" ref="r:00000000-0000-4000-0000-011c895902ca(jetbrains.mps.baseLanguage.structure)" implicit="true" />
   </imports>
   <registry>
     <language id="f3061a53-9226-4cc5-a443-f952ceaf5816" name="jetbrains.mps.baseLanguage">
       <concept id="1197027756228" name="jetbrains.mps.baseLanguage.structure.DotExpression" flags="nn" index="2OqwBi">
         <child id="1197027771414" name="operand" index="2Oq$k0" />
         <child id="1197027833540" name="operation" index="2OqNvi" />
+      </concept>
+      <concept id="1145552977093" name="jetbrains.mps.baseLanguage.structure.GenericNewExpression" flags="nn" index="2ShNRf">
+        <child id="1145553007750" name="creator" index="2ShVmc" />
       </concept>
       <concept id="1070475926800" name="jetbrains.mps.baseLanguage.structure.StringLiteral" flags="nn" index="Xl_RD">
         <property id="1070475926801" name="value" index="Xl_RC" />
@@ -76,6 +80,7 @@
         <child id="1174660783413" name="leftExpression" index="1ZfhK$" />
         <child id="1174660783414" name="rightExpression" index="1ZfhKB" />
       </concept>
+      <concept id="1174663118805" name="jetbrains.mps.lang.typesystem.structure.CreateLessThanInequationStatement" flags="nn" index="1ZobV4" />
     </language>
     <language id="7866978e-a0f0-4cc7-81bc-4d213d9375e1" name="jetbrains.mps.lang.smodel">
       <concept id="1177026924588" name="jetbrains.mps.lang.smodel.structure.RefConcept_Reference" flags="nn" index="chp4Y">
@@ -89,6 +94,12 @@
       <concept id="1171999116870" name="jetbrains.mps.lang.smodel.structure.Node_IsNullOperation" flags="nn" index="3w_OXm" />
       <concept id="1144101972840" name="jetbrains.mps.lang.smodel.structure.OperationParm_Concept" flags="ng" index="1xMEDy">
         <child id="1207343664468" name="conceptArgument" index="ri$Ld" />
+      </concept>
+      <concept id="1180636770613" name="jetbrains.mps.lang.smodel.structure.SNodeCreator" flags="nn" index="3zrR0B">
+        <child id="1180636770616" name="createdType" index="3zrR0E" />
+      </concept>
+      <concept id="1138055754698" name="jetbrains.mps.lang.smodel.structure.SNodeType" flags="in" index="3Tqbb2">
+        <reference id="1138405853777" name="concept" index="ehGHo" />
       </concept>
       <concept id="1138056143562" name="jetbrains.mps.lang.smodel.structure.SLinkAccess" flags="nn" index="3TrEf2">
         <reference id="1138056516764" name="link" index="3Tt5mk" />
@@ -173,6 +184,38 @@
     <node concept="1YaCAy" id="eq067TFNK4" role="1YuTPh">
       <property role="TrG5h" value="n" />
       <ref role="1YaFvo" to="gsqd:eq067TtMRv" resolve="SubstitutionCell" />
+    </node>
+  </node>
+  <node concept="1YbPZF" id="7BujJjZfKcg">
+    <property role="TrG5h" value="typeof_ConceptNotation" />
+    <node concept="3clFbS" id="7BujJjZfKch" role="18ibNy">
+      <node concept="1ZobV4" id="7BujJjZfKJK" role="3cqZAp">
+        <node concept="mw_s8" id="7BujJjZfKK8" role="1ZfhKB">
+          <node concept="2ShNRf" id="7BujJjZfKK4" role="mwGJk">
+            <node concept="3zrR0B" id="7BujJjZfKQT" role="2ShVmc">
+              <node concept="3Tqbb2" id="7BujJjZfKQV" role="3zrR0E">
+                <ref role="ehGHo" to="tpee:f_0P_4Y" resolve="BooleanType" />
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="mw_s8" id="7BujJjZfKJN" role="1ZfhK$">
+          <node concept="1Z2H0r" id="7BujJjZfKcq" role="mwGJk">
+            <node concept="2OqwBi" id="7BujJjZfKn7" role="1Z2MuG">
+              <node concept="1YBJjd" id="7BujJjZfKei" role="2Oq$k0">
+                <ref role="1YBMHb" node="7BujJjZfKcj" resolve="n" />
+              </node>
+              <node concept="3TrEf2" id="7BujJjZfKzb" role="2OqNvi">
+                <ref role="3Tt5mk" to="gsqd:7BujJjZfHXi" resolve="condition" />
+              </node>
+            </node>
+          </node>
+        </node>
+      </node>
+    </node>
+    <node concept="1YaCAy" id="7BujJjZfKcj" role="1YuTPh">
+      <property role="TrG5h" value="n" />
+      <ref role="1YaFvo" to="gsqd:6IHVO0tjgbW" resolve="ConceptNotation" />
     </node>
   </node>
 </model>

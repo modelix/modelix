@@ -115,6 +115,15 @@ a:active {
     .vertical>span {
         display: block;
     }
+
+    table {
+        border-collapse: collapse;
+    }
+
+    th, td {
+        border: 1px solid #fff;
+        padding: 3px 6px;
+    }
 }
 
 :focus .caret {
