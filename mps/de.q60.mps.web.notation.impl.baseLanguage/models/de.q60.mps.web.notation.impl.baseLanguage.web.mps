@@ -4,11 +4,14 @@
   <languages>
     <use id="375af171-bd4b-4bfb-bc9f-418fb996740b" name="de.q60.mps.web.aspect" version="0" />
     <use id="7866978e-a0f0-4cc7-81bc-4d213d9375e1" name="jetbrains.mps.lang.smodel" version="17" />
+    <use id="94b64715-a263-4c36-a138-8da14705ffa7" name="de.q60.mps.shadowmodels.transformation" version="1" />
     <devkit ref="df4512e0-2de7-456b-8e87-16e2011a3e91(de.q60.mps.web.aspect.devkit)" />
   </languages>
   <imports>
     <import index="tpck" ref="r:00000000-0000-4000-0000-011c89590288(jetbrains.mps.lang.core.structure)" />
     <import index="tpee" ref="r:00000000-0000-4000-0000-011c895902ca(jetbrains.mps.baseLanguage.structure)" />
+    <import index="70w2" ref="r:59e1f3dd-5dad-4bbd-ad65-fef01059d9d2(de.q60.mps.web.ui.sm.dom.structure)" />
+    <import index="m3vg" ref="r:9bcdcf0c-f978-4630-9b17-a35339e80a73(de.q60.mps.web.ui.sm.transformations)" />
   </imports>
   <registry>
     <language id="f3061a53-9226-4cc5-a443-f952ceaf5816" name="jetbrains.mps.baseLanguage">
@@ -16,6 +19,58 @@
         <child id="1197027771414" name="operand" index="2Oq$k0" />
         <child id="1197027833540" name="operation" index="2OqNvi" />
       </concept>
+      <concept id="1070475926800" name="jetbrains.mps.baseLanguage.structure.StringLiteral" flags="nn" index="Xl_RD">
+        <property id="1070475926801" name="value" index="Xl_RC" />
+      </concept>
+    </language>
+    <language id="375af171-bd4b-4bfb-bc9f-418fb996740b" name="de.q60.mps.web.aspect">
+      <concept id="4572148810971832979" name="de.q60.mps.web.aspect.structure.HttpPageParameterRef" flags="ng" index="2PgeId">
+        <reference id="4572148810971833022" name="decl" index="2PgeIw" />
+      </concept>
+      <concept id="4572148810970664170" name="de.q60.mps.web.aspect.structure.HttpPage" flags="ng" index="2PkwnO">
+        <property id="4572148810970664186" name="path" index="2Pkwn$" />
+        <child id="4572148810971602676" name="transformation" index="2Pn5vE" />
+        <child id="4572148810971564238" name="parameters" index="2Pnc7g" />
+        <child id="7833706949021263648" name="title" index="1engRn" />
+      </concept>
+      <concept id="4572148810970665056" name="de.q60.mps.web.aspect.structure.HttpPageParameter" flags="ng" index="2Pkx_Y">
+        <child id="4572148810971751121" name="type" index="2PgqJf" />
+      </concept>
+      <concept id="4572148810970665104" name="de.q60.mps.web.aspect.structure.NodeHttpPageParameterType" flags="ng" index="2PkxAe">
+        <reference id="4572148810970665120" name="concept" index="2PkxAY" />
+      </concept>
+    </language>
+    <language id="94b64715-a263-4c36-a138-8da14705ffa7" name="de.q60.mps.shadowmodels.transformation">
+      <concept id="7335687028107245072" name="de.q60.mps.shadowmodels.transformation.structure.TransformationOutput" flags="ng" index="026TG">
+        <child id="7335687028107245075" name="output" index="026TJ" />
+      </concept>
+      <concept id="7335687028107243116" name="de.q60.mps.shadowmodels.transformation.structure.NodeBuilder" flags="ng" index="027og">
+        <reference id="7335687028107281650" name="concept" index="02LMe" />
+        <child id="7335687028107281653" name="content" index="02LM9" />
+      </concept>
+      <concept id="7335687028107243169" name="de.q60.mps.shadowmodels.transformation.structure.ChildBuilder" flags="ng" index="027rt">
+        <reference id="7335687028107243171" name="link" index="027rv" />
+        <child id="7335687028107243173" name="child" index="027rp" />
+      </concept>
+      <concept id="7335687028107163797" name="de.q60.mps.shadowmodels.transformation.structure.TConceptType" flags="ig" index="02i3D">
+        <reference id="7335687028107163800" name="concept" index="02i3$" />
+      </concept>
+      <concept id="7335687028107163788" name="de.q60.mps.shadowmodels.transformation.structure.TransformationParameter" flags="ng" index="02i3K">
+        <child id="7335687028107163867" name="type" index="02i2B" />
+      </concept>
+      <concept id="7335687028107144200" name="de.q60.mps.shadowmodels.transformation.structure.TransformationsNamespace" flags="ng" index="02vhO">
+        <child id="7335687028107145383" name="content" index="02uzr" />
+      </concept>
+      <concept id="7335687028107144742" name="de.q60.mps.shadowmodels.transformation.structure.Transformation" flags="ng" index="02vpq">
+        <child id="7335687028107245068" name="output" index="026TK" />
+        <child id="7335687028107163827" name="input" index="02i3f" />
+      </concept>
+      <concept id="9170566427534778463" name="de.q60.mps.shadowmodels.transformation.structure.TransformationCall" flags="ng" index="214gnc">
+        <reference id="6198477943068350028" name="transformation" index="1YEVMl" />
+        <child id="9170566427534794950" name="parameterValues" index="214sll" />
+      </concept>
+      <concept id="9170566427534812277" name="de.q60.mps.shadowmodels.transformation.structure.ContextNodeExpression" flags="ng" index="214o7A" />
+      <concept id="5373338300159315830" name="de.q60.mps.shadowmodels.transformation.structure.EmptyLine" flags="ng" index="2OrE70" />
     </language>
     <language id="25fcb6ab-d05a-4950-8cdf-251526bdf513" name="de.q60.mps.web.notation">
       <concept id="3089108827998240126" name="de.q60.mps.web.notation.structure.HorizontalGridLayout" flags="ng" index="2nxgly" />
@@ -916,6 +971,58 @@
       </node>
     </node>
     <node concept="1QS6b0" id="7jIhq8NcsfR" role="1QSY9g" />
+  </node>
+  <node concept="2PkwnO" id="7gdm0gzZW21">
+    <property role="2Pkwn$" value="/imageEditor" />
+    <node concept="2Pkx_Y" id="7gdm0g$0reJ" role="2Pnc7g">
+      <property role="TrG5h" value="nodeRef" />
+      <node concept="2PkxAe" id="7gdm0g$0reT" role="2PgqJf">
+        <ref role="2PkxAY" to="tpck:gw2VY9q" resolve="BaseConcept" />
+      </node>
+    </node>
+    <node concept="214gnc" id="7gdm0gzZW22" role="2Pn5vE">
+      <ref role="1YEVMl" node="62_qJBxNi5Y" resolve="imageEditor" />
+      <node concept="2PgeId" id="7gdm0g$0rf2" role="214sll">
+        <ref role="2PgeIw" node="7gdm0g$0reJ" resolve="nodeRef" />
+      </node>
+    </node>
+    <node concept="Xl_RD" id="7gdm0g$0rn6" role="1engRn">
+      <property role="Xl_RC" value="Node Image Editor" />
+    </node>
+  </node>
+  <node concept="02vhO" id="7gdm0g$0cg6">
+    <property role="TrG5h" value="pageTransformations" />
+    <node concept="2OrE70" id="7gdm0g$0cjw" role="02uzr" />
+    <node concept="02vpq" id="62_qJBxNi5Y" role="02uzr">
+      <property role="TrG5h" value="imageEditor" />
+      <node concept="026TG" id="62_qJBxNjwr" role="026TK">
+        <node concept="027og" id="62_qJBxNjws" role="026TJ">
+          <ref role="02LMe" to="70w2:7NImM04TdSk" resolve="HTMLDivElement" />
+          <node concept="027rt" id="62_qJBxNjwt" role="02LM9">
+            <ref role="027rv" to="70w2:7NImM053Sep" resolve="children" />
+            <node concept="214gnc" id="7trMQm3aJAx" role="027rp">
+              <ref role="1YEVMl" to="m3vg:7trMQm3aIaE" resolve="breadcrumbs" />
+              <node concept="214o7A" id="7trMQm3aJHz" role="214sll" />
+            </node>
+          </node>
+          <node concept="027rt" id="7fn21XE1rh_" role="02LM9">
+            <ref role="027rv" to="70w2:7NImM053Sep" resolve="children" />
+            <node concept="214gnc" id="7fn21XE1sbF" role="027rp">
+              <ref role="1YEVMl" to="m3vg:7trMQm3W2UH" resolve="svgNodeEditor" />
+              <node concept="214o7A" id="7fn21XE1sbQ" role="214sll" />
+            </node>
+          </node>
+        </node>
+      </node>
+      <node concept="02i3K" id="62_qJBxNjmr" role="02i3f">
+        <property role="TrG5h" value="node" />
+        <node concept="02i3D" id="62_qJBxNjmz" role="02i2B">
+          <ref role="02i3$" to="tpck:gw2VY9q" resolve="BaseConcept" />
+        </node>
+      </node>
+    </node>
+    <node concept="2OrE70" id="7gdm0g$0cj_" role="02uzr" />
+    <node concept="2OrE70" id="7gdm0g$0cjy" role="02uzr" />
   </node>
 </model>
 
