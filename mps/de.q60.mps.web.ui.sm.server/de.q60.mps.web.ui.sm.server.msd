@@ -20,7 +20,7 @@
     <dependency reexport="false">a7322769-ef64-4daa-a2f4-fd4228fb713e(de.q60.mps.shadowmodels.target.text)</dependency>
     <dependency reexport="false">0f2359af-040e-43bb-b438-cf024da41518(de.q60.mps.web.ui.sm.json)</dependency>
     <dependency reexport="false">6354ebe7-c22a-4a0f-ac54-50b52ab9b065(JDK)</dependency>
-    <dependency reexport="false">fc3c2aa8-0d4b-463f-a774-40d450aa04a0(de.q60.mps.web.jetty)</dependency>
+    <dependency reexport="true">fc3c2aa8-0d4b-463f-a774-40d450aa04a0(de.q60.mps.web.jetty)</dependency>
     <dependency reexport="false">da981293-1ec2-4df0-95e4-df162984154c(de.q60.mps.web.ui.common)</dependency>
     <dependency reexport="false">1008a5ca-654c-4f3d-bc8c-6d9e8a72a38c(de.q60.mps.explorer)</dependency>
     <dependency reexport="false">742f6602-5a2f-4313-aa6e-ae1cd4ffdc61(MPS.Platform)</dependency>
