@@ -300,12 +300,12 @@
         </node>
         <node concept="TZ5HA" id="1U0efzLBUv3" role="TZ5H$">
           <node concept="1dT_AC" id="1U0efzLBUv4" role="1dT_Ay">
-            <property role="1dT_AB" value="'this' needs to be replaced with an operation that applies the same intented change" />
+            <property role="1dT_AB" value="'this' needs to be replaced with an operation that applies the same intended change" />
           </node>
         </node>
         <node concept="TZ5HA" id="1U0efzLBUvt" role="TZ5H$">
           <node concept="1dT_AC" id="1U0efzLBUvu" role="1dT_Ay">
-            <property role="1dT_AB" value="on a model that was modifed by 'previous' in the mean time." />
+            <property role="1dT_AB" value="on a model that was modified by 'previous' in the mean time." />
           </node>
         </node>
       </node>
