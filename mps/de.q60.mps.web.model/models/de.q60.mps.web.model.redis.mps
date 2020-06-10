@@ -28,10 +28,6 @@
       <concept id="1188208481402" name="jetbrains.mps.baseLanguage.structure.HasAnnotation" flags="ng" index="2AJDlI">
         <child id="1188208488637" name="annotation" index="2AJF6D" />
       </concept>
-      <concept id="1153952380246" name="jetbrains.mps.baseLanguage.structure.TryStatement" flags="nn" index="2GUZhq">
-        <child id="1153952416686" name="body" index="2GV8ay" />
-        <child id="1153952429843" name="finallyBody" index="2GVbov" />
-      </concept>
       <concept id="1197027756228" name="jetbrains.mps.baseLanguage.structure.DotExpression" flags="nn" index="2OqwBi">
         <child id="1197027771414" name="operand" index="2Oq$k0" />
         <child id="1197027833540" name="operation" index="2OqNvi" />
@@ -110,8 +106,15 @@
         <child id="1081773367579" name="rightExpression" index="3uHU7w" />
         <child id="1081773367580" name="leftExpression" index="3uHU7B" />
       </concept>
+      <concept id="8276990574909231788" name="jetbrains.mps.baseLanguage.structure.FinallyClause" flags="ng" index="1wplmZ">
+        <child id="8276990574909234106" name="finallyBody" index="1wplMD" />
+      </concept>
       <concept id="1178549954367" name="jetbrains.mps.baseLanguage.structure.IVisible" flags="ng" index="1B3ioH">
         <child id="1178549979242" name="visibility" index="1B3o_S" />
+      </concept>
+      <concept id="5351203823916750322" name="jetbrains.mps.baseLanguage.structure.TryUniversalStatement" flags="ng" index="3J1_TO">
+        <child id="8276990574886367509" name="finallyClause" index="1zxBo6" />
+        <child id="8276990574886367508" name="body" index="1zxBo7" />
       </concept>
       <concept id="1146644602865" name="jetbrains.mps.baseLanguage.structure.PublicVisibility" flags="nn" index="3Tm1VV" />
       <concept id="1146644623116" name="jetbrains.mps.baseLanguage.structure.PrivateVisibility" flags="nn" index="3Tm6S6" />
@@ -270,8 +273,8 @@
             </node>
           </node>
         </node>
-        <node concept="2GUZhq" id="KwHEfXd1eh" role="3cqZAp">
-          <node concept="3clFbS" id="KwHEfXd1ej" role="2GV8ay">
+        <node concept="3J1_TO" id="KwHEfXd1eh" role="3cqZAp">
+          <node concept="3clFbS" id="KwHEfXd1ej" role="1zxBo7">
             <node concept="3clFbF" id="CLn71NqWZ4" role="3cqZAp">
               <node concept="37vLTI" id="CLn71NqWZ6" role="3clFbG">
                 <node concept="2YIFZM" id="CLn71NqELp" role="37vLTx">
@@ -379,16 +382,18 @@
               </node>
             </node>
           </node>
-          <node concept="3clFbS" id="KwHEfXd1ek" role="2GVbov">
-            <node concept="3clFbF" id="KwHEfXcYZI" role="3cqZAp">
-              <node concept="2OqwBi" id="KwHEfXcZNr" role="3clFbG">
-                <node concept="37vLTw" id="KwHEfXcYZG" role="2Oq$k0">
-                  <ref role="3cqZAo" node="KwHEfXcPmP" resolve="thread" />
-                </node>
-                <node concept="liA8E" id="KwHEfXd0tT" role="2OqNvi">
-                  <ref role="37wK5l" to="wyt6:~Thread.setContextClassLoader(java.lang.ClassLoader)" resolve="setContextClassLoader" />
-                  <node concept="37vLTw" id="KwHEfXd0vw" role="37wK5m">
-                    <ref role="3cqZAo" node="KwHEfXcS4C" resolve="prevLoader" />
+          <node concept="1wplmZ" id="5QF_6em53jI" role="1zxBo6">
+            <node concept="3clFbS" id="KwHEfXd1ek" role="1wplMD">
+              <node concept="3clFbF" id="KwHEfXcYZI" role="3cqZAp">
+                <node concept="2OqwBi" id="KwHEfXcZNr" role="3clFbG">
+                  <node concept="37vLTw" id="KwHEfXcYZG" role="2Oq$k0">
+                    <ref role="3cqZAo" node="KwHEfXcPmP" resolve="thread" />
+                  </node>
+                  <node concept="liA8E" id="KwHEfXd0tT" role="2OqNvi">
+                    <ref role="37wK5l" to="wyt6:~Thread.setContextClassLoader(java.lang.ClassLoader)" resolve="setContextClassLoader" />
+                    <node concept="37vLTw" id="KwHEfXd0vw" role="37wK5m">
+                      <ref role="3cqZAo" node="KwHEfXcS4C" resolve="prevLoader" />
+                    </node>
                   </node>
                 </node>
               </node>

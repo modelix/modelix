@@ -5,69 +5,15 @@
       <sourceRoot location="models" />
     </modelRoot>
     <modelRoot contentPath="${module}/lib" type="java_classes">
-      <sourceRoot location="batik-1.7.1/batik-rasterizer.jar" />
-      <sourceRoot location="batik-1.7.1/batik-slideshow.jar" />
-      <sourceRoot location="batik-1.7.1/batik-squiggle.jar" />
-      <sourceRoot location="batik-1.7.1/batik-svgpp.jar" />
-      <sourceRoot location="batik-1.7.1/batik-ttf2svg.jar" />
-      <sourceRoot location="batik-1.7.1/batik.jar" />
-      <sourceRoot location="batik-1.7.1/lib/batik-anim.jar" />
-      <sourceRoot location="batik-1.7.1/lib/batik-awt-util.jar" />
-      <sourceRoot location="batik-1.7.1/lib/batik-bridge.jar" />
-      <sourceRoot location="batik-1.7.1/lib/batik-codec.jar" />
-      <sourceRoot location="batik-1.7.1/lib/batik-css.jar" />
-      <sourceRoot location="batik-1.7.1/lib/batik-dom.jar" />
-      <sourceRoot location="batik-1.7.1/lib/batik-ext.jar" />
-      <sourceRoot location="batik-1.7.1/lib/batik-extension.jar" />
-      <sourceRoot location="batik-1.7.1/lib/batik-gui-util.jar" />
-      <sourceRoot location="batik-1.7.1/lib/batik-gvt.jar" />
-      <sourceRoot location="batik-1.7.1/lib/batik-parser.jar" />
-      <sourceRoot location="batik-1.7.1/lib/batik-script.jar" />
-      <sourceRoot location="batik-1.7.1/lib/batik-svg-dom.jar" />
-      <sourceRoot location="batik-1.7.1/lib/batik-svggen.jar" />
-      <sourceRoot location="batik-1.7.1/lib/batik-swing.jar" />
-      <sourceRoot location="batik-1.7.1/lib/batik-transcoder.jar" />
-      <sourceRoot location="batik-1.7.1/lib/batik-util.jar" />
-      <sourceRoot location="batik-1.7.1/lib/batik-xml.jar" />
-      <sourceRoot location="batik-1.7.1/lib/js.jar" />
-      <sourceRoot location="batik-1.7.1/extensions/batik-rasterizer-ext.jar" />
-      <sourceRoot location="batik-1.7.1/extensions/batik-squiggle-ext.jar" />
       <sourceRoot location="commons-codec-1.10.jar" />
     </modelRoot>
   </models>
   <facets>
-    <facet type="java">
+    <facet type="java" languageLevel="JAVA_8">
       <classes generated="true" path="${module}/classes_gen" />
     </facet>
   </facets>
   <stubModelEntries>
-    <stubModelEntry path="${module}/lib/batik-1.7.1/batik-rasterizer.jar" />
-    <stubModelEntry path="${module}/lib/batik-1.7.1/batik-slideshow.jar" />
-    <stubModelEntry path="${module}/lib/batik-1.7.1/batik-squiggle.jar" />
-    <stubModelEntry path="${module}/lib/batik-1.7.1/batik-svgpp.jar" />
-    <stubModelEntry path="${module}/lib/batik-1.7.1/batik-ttf2svg.jar" />
-    <stubModelEntry path="${module}/lib/batik-1.7.1/batik.jar" />
-    <stubModelEntry path="${module}/lib/batik-1.7.1/lib/batik-anim.jar" />
-    <stubModelEntry path="${module}/lib/batik-1.7.1/lib/batik-awt-util.jar" />
-    <stubModelEntry path="${module}/lib/batik-1.7.1/lib/batik-bridge.jar" />
-    <stubModelEntry path="${module}/lib/batik-1.7.1/lib/batik-codec.jar" />
-    <stubModelEntry path="${module}/lib/batik-1.7.1/lib/batik-css.jar" />
-    <stubModelEntry path="${module}/lib/batik-1.7.1/lib/batik-dom.jar" />
-    <stubModelEntry path="${module}/lib/batik-1.7.1/lib/batik-ext.jar" />
-    <stubModelEntry path="${module}/lib/batik-1.7.1/lib/batik-extension.jar" />
-    <stubModelEntry path="${module}/lib/batik-1.7.1/lib/batik-gui-util.jar" />
-    <stubModelEntry path="${module}/lib/batik-1.7.1/lib/batik-gvt.jar" />
-    <stubModelEntry path="${module}/lib/batik-1.7.1/lib/batik-parser.jar" />
-    <stubModelEntry path="${module}/lib/batik-1.7.1/lib/batik-script.jar" />
-    <stubModelEntry path="${module}/lib/batik-1.7.1/lib/batik-svg-dom.jar" />
-    <stubModelEntry path="${module}/lib/batik-1.7.1/lib/batik-svggen.jar" />
-    <stubModelEntry path="${module}/lib/batik-1.7.1/lib/batik-swing.jar" />
-    <stubModelEntry path="${module}/lib/batik-1.7.1/lib/batik-transcoder.jar" />
-    <stubModelEntry path="${module}/lib/batik-1.7.1/lib/batik-util.jar" />
-    <stubModelEntry path="${module}/lib/batik-1.7.1/lib/batik-xml.jar" />
-    <stubModelEntry path="${module}/lib/batik-1.7.1/lib/js.jar" />
-    <stubModelEntry path="${module}/lib/batik-1.7.1/extensions/batik-rasterizer-ext.jar" />
-    <stubModelEntry path="${module}/lib/batik-1.7.1/extensions/batik-squiggle-ext.jar" />
     <stubModelEntry path="${module}/lib/commons-codec-1.10.jar" />
   </stubModelEntries>
   <sourcePath />
@@ -87,7 +33,7 @@
   </dependencies>
   <languageVersions>
     <language slang="l:654422bf-e75f-44dc-936d-188890a746ce:de.slisson.mps.reflection" version="0" />
-    <language slang="l:f3061a53-9226-4cc5-a443-f952ceaf5816:jetbrains.mps.baseLanguage" version="9" />
+    <language slang="l:f3061a53-9226-4cc5-a443-f952ceaf5816:jetbrains.mps.baseLanguage" version="11" />
     <language slang="l:774bf8a0-62e5-41e1-af63-f4812e60e48b:jetbrains.mps.baseLanguage.checkedDots" version="0" />
     <language slang="l:443f4c36-fcf5-4eb6-9500-8d06ed259e3e:jetbrains.mps.baseLanguage.classifiers" version="0" />
     <language slang="l:fd392034-7849-419d-9071-12563d152375:jetbrains.mps.baseLanguage.closures" version="0" />
@@ -101,7 +47,7 @@
     <language slang="l:446c26eb-2b7b-4bf0-9b35-f83fa582753e:jetbrains.mps.lang.modelapi" version="0" />
     <language slang="l:28f9e497-3b42-4291-aeba-0a1039153ab1:jetbrains.mps.lang.plugin" version="4" />
     <language slang="l:ef7bf5ac-d06c-4342-b11d-e42104eb9343:jetbrains.mps.lang.plugin.standalone" version="0" />
-    <language slang="l:3a13115c-633c-4c5c-bbcc-75c4219e9555:jetbrains.mps.lang.quotation" version="4" />
+    <language slang="l:3a13115c-633c-4c5c-bbcc-75c4219e9555:jetbrains.mps.lang.quotation" version="5" />
     <language slang="l:7866978e-a0f0-4cc7-81bc-4d213d9375e1:jetbrains.mps.lang.smodel" version="17" />
     <language slang="l:c7fb639f-be78-4307-89b0-b5959c3fa8c8:jetbrains.mps.lang.text" version="0" />
     <language slang="l:9ded098b-ad6a-4657-bfd9-48636cfe8bc3:jetbrains.mps.lang.traceable" version="0" />
@@ -115,6 +61,7 @@
     <module reference="8865b7a8-5271-43d3-884c-6fd1d9cfdd34(MPS.OpenAPI)" version="0" />
     <module reference="742f6602-5a2f-4313-aa6e-ae1cd4ffdc61(MPS.Platform)" version="0" />
     <module reference="95085166-3236-4dd7-bd8e-e753c8d20885(de.q60.mps.incremental.runtime)" version="0" />
+    <module reference="ecfb9949-7433-4db5-85de-0f84d172e4ce(de.q60.mps.libs)" version="0" />
     <module reference="18463265-6d45-4514-82f1-cf7eb1222492(de.q60.mps.polymorphicfunctions.runtime)" version="0" />
     <module reference="e52a4835-844d-46a1-99f8-c06129db796f(de.q60.mps.shadowmodels.runtime)" version="0" />
     <module reference="acf6d2e2-4f00-4425-b7e9-fbf011feddf1(de.q60.mps.web.common)" version="0" />
