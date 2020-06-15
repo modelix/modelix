@@ -153,7 +153,7 @@
   </registry>
   <node concept="1l3spW" id="7gF2HTviNP8">
     <property role="TrG5h" value="org.modelix" />
-    <property role="2DA0ip" value="../../build/de.q60.mps.web" />
+    <property role="2DA0ip" value="../../build/org.modelix" />
     <node concept="10PD9b" id="7gF2HTviNP9" role="10PD9s" />
     <node concept="3b7kt6" id="7gF2HTviNPa" role="10PD9s" />
     <node concept="398rNT" id="7gF2HTvk5zJ" role="1l3spd">
@@ -372,7 +372,7 @@
       </node>
       <node concept="3_J27D" id="7gF2HTvj4Ch" role="m_cZH">
         <node concept="3Mxwew" id="7gF2HTvj4Oe" role="3MwsjC">
-          <property role="3MwjfP" value="de.q60.mps.web.ui" />
+          <property role="3MwjfP" value="org.modelix.ui" />
         </node>
       </node>
       <node concept="3_J27D" id="7gF2HTvj4Cj" role="m$_w8">
@@ -403,7 +403,7 @@
       <property role="m$_wk" value="org.modelix.model" />
       <node concept="3_J27D" id="7gF2HTviNPX" role="m$_yQ">
         <node concept="3Mxwew" id="7gF2HTviNPY" role="3MwsjC">
-          <property role="3MwjfP" value="de.q60.mps.web.model" />
+          <property role="3MwjfP" value="org.modelix.model" />
         </node>
       </node>
       <node concept="3_J27D" id="7gF2HTviNPZ" role="m$_w8">
@@ -428,7 +428,7 @@
       </node>
       <node concept="3_J27D" id="7gF2HTviNQ3" role="m_cZH">
         <node concept="3Mxwew" id="7gF2HTviNQ4" role="3MwsjC">
-          <property role="3MwjfP" value="de.q60.mps.web.model" />
+          <property role="3MwjfP" value="org.modelix.model" />
         </node>
       </node>
     </node>
@@ -436,7 +436,7 @@
       <property role="m$_wk" value="org.modelix.langdev" />
       <node concept="3_J27D" id="6HlxtAUTj2b" role="m$_yQ">
         <node concept="3Mxwew" id="6HlxtAUTj2c" role="3MwsjC">
-          <property role="3MwjfP" value="de.q60.mps.web.langdev" />
+          <property role="3MwjfP" value="org.modelix.langdev" />
         </node>
       </node>
       <node concept="3_J27D" id="6HlxtAUTj2d" role="m$_w8">
@@ -464,7 +464,7 @@
       </node>
       <node concept="3_J27D" id="6HlxtAUTj2j" role="m_cZH">
         <node concept="3Mxwew" id="6HlxtAUTj2k" role="3MwsjC">
-          <property role="3MwjfP" value="de.q60.mps.web.langdev" />
+          <property role="3MwjfP" value="org.modelix.langdev" />
         </node>
       </node>
     </node>

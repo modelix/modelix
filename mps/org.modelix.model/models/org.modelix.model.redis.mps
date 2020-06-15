@@ -6,10 +6,10 @@
   </languages>
   <imports>
     <import index="djpz" ref="5622e615-959d-4843-9df6-ef04ee578c18/java:io.lettuce.core(de.q60.mps.web.model/)" />
-    <import index="v6wz" ref="5622e615-959d-4843-9df6-ef04ee578c18/java:io.lettuce.core.api(de.q60.mps.web.model/)" />
+    <import index="v6wz" ref="5622e615-959d-4843-9df6-ef04ee578c18/java:io.lettuce.core.api(org.modelix.model/)" />
     <import index="wyt6" ref="6354ebe7-c22a-4a0f-ac54-50b52ab9b065/java:java.lang(JDK/)" />
     <import index="8lwm" ref="5622e615-959d-4843-9df6-ef04ee578c18/java:io.lettuce.core.api.sync(de.q60.mps.web.model/)" />
-    <import index="7gey" ref="5622e615-959d-4843-9df6-ef04ee578c18/java:io.lettuce.core.pubsub(de.q60.mps.web.model/)" />
+    <import index="7gey" ref="5622e615-959d-4843-9df6-ef04ee578c18/java:io.lettuce.core.pubsub(org.modelix.model/)" />
     <import index="y3r7" ref="5622e615-959d-4843-9df6-ef04ee578c18/java:io.lettuce.core.pubsub.api.sync(de.q60.mps.web.model/)" />
     <import index="zdal" ref="r:88aa2c17-3990-45f2-9b79-06884112d260(org.modelix.model)" />
   </imports>

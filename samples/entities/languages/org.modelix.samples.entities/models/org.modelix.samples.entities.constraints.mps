@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<model ref="r:180e0417-173f-4df0-9a4d-b5d175b322db(de.q60.mps.web.samples.entities.constraints)">
+<model ref="r:180e0417-173f-4df0-9a4d-b5d175b322db(org.modelix.samples.entities.constraints)">
   <persistence version="9" />
   <languages>
     <use id="5dae8159-ab99-46bb-a40d-0cee30ee7018" name="jetbrains.mps.lang.constraints.rules.kinds" version="0" />

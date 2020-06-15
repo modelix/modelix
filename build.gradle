@@ -17,7 +17,7 @@ plugins {
 	id "com.github.dkorotych.gradle-maven-exec" version "2.2"
 }
 
-group 'de.q60.mps.web'
+group 'org.modelix'
 description = "Cloud storage and web UI for MPS"
 
 defaultTasks 'assemble'
@@ -151,7 +151,7 @@ task build_languages(type: BuildLanguages, dependsOn: [allScripts, resolveMps, r
     scriptArgs = defaultScriptArgs
     description = "Build all MPS language"
     scriptClasspath = buildScriptClasspath
-    script new File("$rootDir/build/de.q60.mps.web/build.xml")
+    script new File("$rootDir/build/org.modelix/build.xml")
 }
 
 task run_tests(type: TestLanguages, dependsOn: build_languages) {

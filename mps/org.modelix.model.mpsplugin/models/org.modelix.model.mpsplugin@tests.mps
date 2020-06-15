@@ -61,17 +61,17 @@
     <import index="28m1" ref="6354ebe7-c22a-4a0f-ac54-50b52ab9b065/java:java.time(JDK/)" />
     <import index="tpck" ref="r:00000000-0000-4000-0000-011c89590288(jetbrains.mps.lang.core.structure)" />
     <import index="zf81" ref="6354ebe7-c22a-4a0f-ac54-50b52ab9b065/java:java.net(JDK/)" />
-    <import index="ffp0" ref="87f4b21e-a3a5-459e-a54b-408fd9eb7350/java:org.java_websocket(de.q60.mps.web.lib/)" />
-    <import index="mxf6" ref="87f4b21e-a3a5-459e-a54b-408fd9eb7350/java:org.json(de.q60.mps.web.lib/)" />
+    <import index="ffp0" ref="87f4b21e-a3a5-459e-a54b-408fd9eb7350/java:org.java_websocket(org.modelix.lib/)" />
+    <import index="mxf6" ref="87f4b21e-a3a5-459e-a54b-408fd9eb7350/java:org.json(org.modelix.lib/)" />
     <import index="zdal" ref="r:88aa2c17-3990-45f2-9b79-06884112d260(org.modelix.model)" />
     <import index="ydze" ref="r:c65aa0cf-b22b-4cca-bd88-3210b1c2f55f(org.modelix.model.operations)" />
     <import index="guwi" ref="6354ebe7-c22a-4a0f-ac54-50b52ab9b065/java:java.io(JDK/)" />
     <import index="82uw" ref="6354ebe7-c22a-4a0f-ac54-50b52ab9b065/java:java.util.function(JDK/)" />
     <import index="5zyv" ref="6354ebe7-c22a-4a0f-ac54-50b52ab9b065/java:java.util.concurrent(JDK/)" />
-    <import index="g1y6" ref="c740997f-28c0-47e8-9b5a-e87dfdb17a21/java:javax.ws.rs.client(de.q60.mps.web.jersey/)" />
-    <import index="6k0i" ref="c740997f-28c0-47e8-9b5a-e87dfdb17a21/java:javax.ws.rs.sse(de.q60.mps.web.jersey/)" />
+    <import index="g1y6" ref="c740997f-28c0-47e8-9b5a-e87dfdb17a21/java:javax.ws.rs.client(org.modelix.jersey/)" />
+    <import index="6k0i" ref="c740997f-28c0-47e8-9b5a-e87dfdb17a21/java:javax.ws.rs.sse(org.modelix.jersey/)" />
     <import index="7x5y" ref="6354ebe7-c22a-4a0f-ac54-50b52ab9b065/java:java.nio.charset(JDK/)" />
-    <import index="om7m" ref="c740997f-28c0-47e8-9b5a-e87dfdb17a21/java:javax.ws.rs.core(de.q60.mps.web.jersey/)" />
+    <import index="om7m" ref="c740997f-28c0-47e8-9b5a-e87dfdb17a21/java:javax.ws.rs.core(org.modelix.jersey/)" />
     <import index="3a50" ref="742f6602-5a2f-4313-aa6e-ae1cd4ffdc61/java:jetbrains.mps.ide(MPS.Platform/)" />
     <import index="6shs" ref="r:3ca2f5b1-1b25-441b-b059-2ddba424a0b1(org.modelix.model.persistent)" />
     <import index="y5e1" ref="r:4464540a-9650-433f-b716-ed95bbac5a69(jetbrains.mps.lang.test.matcher)" />

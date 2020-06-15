@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<model ref="r:da28a1b6-99d6-4738-8b05-00c17c0ec305(de.q60.mps.web.samples.entities.behavior)">
+<model ref="r:da28a1b6-99d6-4738-8b05-00c17c0ec305(org.modelix.samples.entities.behavior)">
   <persistence version="9" />
   <languages>
     <use id="7866978e-a0f0-4cc7-81bc-4d213d9375e1" name="jetbrains.mps.lang.smodel" version="17" />

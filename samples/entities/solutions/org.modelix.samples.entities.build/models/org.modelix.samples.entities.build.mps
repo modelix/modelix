@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<model ref="r:efdff57a-cfa9-4913-97cf-a611096e6226(de.q60.mps.web.samples.entities.build)">
+<model ref="r:efdff57a-cfa9-4913-97cf-a611096e6226(org.modelix.samples.entities.build)">
   <persistence version="9" />
   <languages>
     <use id="798100da-4f0a-421a-b991-71f8c50ce5d2" name="jetbrains.mps.build" version="0" />
@@ -47,10 +47,17 @@
         <child id="5617550519002745378" name="macros" index="1l3spd" />
         <child id="5617550519002745372" name="layout" index="1l3spN" />
       </concept>
+      <concept id="8654221991637384182" name="jetbrains.mps.build.structure.BuildFileIncludesSelector" flags="ng" index="3qWCbU">
+        <property id="8654221991637384184" name="pattern" index="3qWCbO" />
+      </concept>
       <concept id="4701820937132344003" name="jetbrains.mps.build.structure.BuildLayout_Container" flags="ng" index="1y1bJS">
         <child id="7389400916848037006" name="children" index="39821P" />
       </concept>
       <concept id="841011766566059607" name="jetbrains.mps.build.structure.BuildStringNotEmpty" flags="ng" index="3_J27D" />
+      <concept id="5248329904287794596" name="jetbrains.mps.build.structure.BuildInputFiles" flags="ng" index="3LXTmp">
+        <child id="5248329904287794598" name="dir" index="3LXTmr" />
+        <child id="5248329904287794679" name="selectors" index="3LXTna" />
+      </concept>
       <concept id="4903714810883702019" name="jetbrains.mps.build.structure.BuildTextStringPart" flags="ng" index="3Mxwew">
         <property id="4903714810883755350" name="text" index="3MwjfP" />
       </concept>
@@ -85,12 +92,19 @@
       </concept>
       <concept id="868032131020265945" name="jetbrains.mps.build.mps.structure.BuildMPSPlugin" flags="ng" index="3b7kt6" />
       <concept id="5253498789149381388" name="jetbrains.mps.build.mps.structure.BuildMps_Module" flags="ng" index="3bQrTs">
+        <child id="5253498789149547825" name="sources" index="3bR31x" />
         <child id="5253498789149547704" name="dependencies" index="3bR37C" />
       </concept>
       <concept id="5253498789149585690" name="jetbrains.mps.build.mps.structure.BuildMps_ModuleDependencyOnModule" flags="ng" index="3bR9La">
         <reference id="5253498789149547705" name="module" index="3bR37D" />
       </concept>
       <concept id="5507251971038816436" name="jetbrains.mps.build.mps.structure.BuildMps_Generator" flags="ng" index="1yeLz9" />
+      <concept id="4278635856200817744" name="jetbrains.mps.build.mps.structure.BuildMps_ModuleModelRoot" flags="ng" index="1BupzO">
+        <property id="8137134783396907368" name="convert2binary" index="1Hdu6h" />
+        <property id="8137134783396676838" name="extracted" index="1HemKv" />
+        <property id="2889113830911481881" name="deployFolderName" index="3ZfqAx" />
+        <child id="8137134783396676835" name="location" index="1HemKq" />
+      </concept>
       <concept id="3189788309731840248" name="jetbrains.mps.build.mps.structure.BuildMps_Language" flags="ng" index="1E1JtD">
         <child id="9200313594498201639" name="generator" index="1TViLv" />
       </concept>
@@ -105,7 +119,7 @@
     </language>
   </registry>
   <node concept="1l3spW" id="6HlxtAUSy61">
-    <property role="TrG5h" value="de.q60.mps.web.samples.entities" />
+    <property role="TrG5h" value="org.modelix.samples.entities" />
     <property role="2DA0ip" value="../.." />
     <node concept="10PD9b" id="6HlxtAUSy62" role="10PD9s" />
     <node concept="3b7kt6" id="6HlxtAUSy63" role="10PD9s" />
@@ -145,7 +159,7 @@
       </node>
     </node>
     <node concept="2sgV4H" id="6HlxtAUSCvo" role="1l3spa">
-      <ref role="1l3spb" to="indb:7gF2HTviNP8" resolve="de.q60.mps.web" />
+      <ref role="1l3spb" to="indb:7gF2HTviNP8" resolve="org.modelix" />
       <node concept="55IIr" id="6HlxtAUSCvu" role="2JcizS">
         <node concept="2Ry0Ak" id="6HlxtAUSCvx" role="iGT6I">
           <property role="2Ry0Am" value=".." />
@@ -154,13 +168,13 @@
             <node concept="2Ry0Ak" id="6HlxtAUSCvD" role="2Ry0An">
               <property role="2Ry0Am" value="build" />
               <node concept="2Ry0Ak" id="6HlxtAUSCvI" role="2Ry0An">
-                <property role="2Ry0Am" value="de.q60.mps.web" />
+                <property role="2Ry0Am" value="org.modelix" />
                 <node concept="2Ry0Ak" id="6HlxtAUSCvN" role="2Ry0An">
                   <property role="2Ry0Am" value="build" />
                   <node concept="2Ry0Ak" id="6HlxtAUSCvS" role="2Ry0An">
                     <property role="2Ry0Am" value="artifacts" />
                     <node concept="2Ry0Ak" id="6HlxtAUSCvX" role="2Ry0An">
-                      <property role="2Ry0Am" value="de.q60.mps.web" />
+                      <property role="2Ry0Am" value="org.modelix" />
                     </node>
                   </node>
                 </node>
@@ -191,17 +205,17 @@
       <node concept="3981dG" id="6HlxtAUSy6u" role="39821P">
         <node concept="3_J27D" id="6HlxtAUSy6v" role="Nbhlr">
           <node concept="3Mxwew" id="6HlxtAUSy6w" role="3MwsjC">
-            <property role="3MwjfP" value="de.q60.mps.web.samples.entities.zip" />
+            <property role="3MwjfP" value="org.modelix.samples.entities.zip" />
           </node>
         </node>
         <node concept="m$_wl" id="6HlxtAUSy6x" role="39821P">
-          <ref role="m_rDy" node="6HlxtAUSy6i" resolve="de.q60.mps.web.samples.entities" />
+          <ref role="m_rDy" node="6HlxtAUSy6i" resolve="org.modelix.samples.entities" />
           <node concept="pUk6x" id="6HlxtAUSy6y" role="pUk7w" />
         </node>
       </node>
     </node>
     <node concept="m$_wf" id="6HlxtAUSy6i" role="3989C9">
-      <property role="m$_wk" value="de.q60.mps.web.samples.entities" />
+      <property role="m$_wk" value="org.modelix.samples.entities" />
       <node concept="3_J27D" id="6HlxtAUSy6j" role="m$_yQ">
         <node concept="3Mxwew" id="6HlxtAUSy6k" role="3MwsjC">
           <property role="3MwjfP" value="de.q60.mps.web.samples.entities" />
@@ -219,10 +233,10 @@
         <ref role="m$_y1" to="ffeo:4k71ibbKLe8" resolve="jetbrains.mps.core" />
       </node>
       <node concept="m$_yC" id="1z8Uup0ooSx" role="m$_yJ">
-        <ref role="m$_y1" to="indb:7gF2HTvj4WE" resolve="de.q60.mps.web.common" />
+        <ref role="m$_y1" to="indb:7gF2HTvj4WE" resolve="org.modelix.common" />
       </node>
       <node concept="m$_yC" id="1z8Uup0ooSD" role="m$_yJ">
-        <ref role="m$_y1" to="indb:7gF2HTvj4Cd" resolve="de.q60.mps.web.ui" />
+        <ref role="m$_y1" to="indb:7gF2HTvj4Cd" resolve="org.modelix.ui" />
       </node>
       <node concept="3_J27D" id="6HlxtAUSy6p" role="m_cZH">
         <node concept="3Mxwew" id="6HlxtAUSy6q" role="3MwsjC">
@@ -234,26 +248,50 @@
       <property role="TrG5h" value="de.q60.mps.web.samples.entities" />
       <node concept="1E1JtD" id="6HlxtAUSy6g" role="2G$12L">
         <property role="BnDLt" value="true" />
-        <property role="TrG5h" value="de.q60.mps.web.samples.entities" />
+        <property role="TrG5h" value="org.modelix.samples.entities" />
         <property role="3LESm3" value="363848cf-91df-484c-9066-7089821cb609" />
         <node concept="55IIr" id="6HlxtAUSy6b" role="3LF7KH">
           <node concept="2Ry0Ak" id="6HlxtAUSy6c" role="iGT6I">
             <property role="2Ry0Am" value="languages" />
             <node concept="2Ry0Ak" id="6HlxtAUSy6d" role="2Ry0An">
-              <property role="2Ry0Am" value="de.q60.mps.web.samples.entities" />
+              <property role="2Ry0Am" value="org.modelix.samples.entities" />
               <node concept="2Ry0Ak" id="6HlxtAUSy6e" role="2Ry0An">
-                <property role="2Ry0Am" value="de.q60.mps.web.samples.entities.mpl" />
+                <property role="2Ry0Am" value="org.modelix.samples.entities.mpl" />
               </node>
             </node>
           </node>
         </node>
         <node concept="1yeLz9" id="6HlxtAUSy6z" role="1TViLv">
-          <property role="TrG5h" value="de.q60.mps.web.samples.entities#01" />
+          <property role="TrG5h" value="org.modelix.samples.entities#01" />
           <property role="3LESm3" value="e2c5c617-93c2-480d-8203-5d9a4ad8787b" />
+          <node concept="1BupzO" id="3$E0xk87NOq" role="3bR31x">
+            <property role="3ZfqAx" value="generator/template" />
+            <property role="1Hdu6h" value="true" />
+            <property role="1HemKv" value="true" />
+            <node concept="3LXTmp" id="3$E0xk87NOr" role="1HemKq">
+              <node concept="55IIr" id="3$E0xk87NOl" role="3LXTmr">
+                <node concept="2Ry0Ak" id="3$E0xk87NOm" role="iGT6I">
+                  <property role="2Ry0Am" value="languages" />
+                  <node concept="2Ry0Ak" id="3$E0xk87NOn" role="2Ry0An">
+                    <property role="2Ry0Am" value="org.modelix.samples.entities" />
+                    <node concept="2Ry0Ak" id="3$E0xk87NOo" role="2Ry0An">
+                      <property role="2Ry0Am" value="generator" />
+                      <node concept="2Ry0Ak" id="3$E0xk87NOp" role="2Ry0An">
+                        <property role="2Ry0Am" value="template" />
+                      </node>
+                    </node>
+                  </node>
+                </node>
+              </node>
+              <node concept="3qWCbU" id="3$E0xk87NOs" role="3LXTna">
+                <property role="3qWCbO" value="**/*.mps, **/*.mpsr, **/.model" />
+              </node>
+            </node>
+          </node>
         </node>
         <node concept="1SiIV0" id="1z8Uup0ooSi" role="3bR37C">
           <node concept="3bR9La" id="1z8Uup0ooSj" role="1SiIV1">
-            <ref role="3bR37D" to="indb:7gF2HTviNPn" resolve="de.q60.mps.web.ui.sm" />
+            <ref role="3bR37D" to="indb:7gF2HTviNPn" resolve="org.modelix.ui.sm" />
           </node>
         </node>
         <node concept="1SiIV0" id="1z8Uup0ooSk" role="3bR37C">
@@ -263,17 +301,17 @@
         </node>
         <node concept="1SiIV0" id="1z8Uup0ooSm" role="3bR37C">
           <node concept="3bR9La" id="1z8Uup0ooSn" role="1SiIV1">
-            <ref role="3bR37D" to="indb:7gF2HTviNPF" resolve="de.q60.mps.web.ui.sm.dom" />
+            <ref role="3bR37D" to="indb:7gF2HTviNPF" resolve="org.modelix.ui.sm.dom" />
           </node>
         </node>
         <node concept="1SiIV0" id="5npwda83CUZ" role="3bR37C">
           <node concept="3bR9La" id="5npwda83CV0" role="1SiIV1">
-            <ref role="3bR37D" to="indb:7gF2HTviNPU" resolve="de.q60.mps.web.ui.sm.server" />
+            <ref role="3bR37D" to="indb:7gF2HTviNPU" resolve="org.modelix.ui.sm.server" />
           </node>
         </node>
         <node concept="1SiIV0" id="5npwda83CV1" role="3bR37C">
           <node concept="3bR9La" id="5npwda83CV2" role="1SiIV1">
-            <ref role="3bR37D" to="indb:5Sw$pxbQPmv" resolve="de.q60.mps.web.jetty" />
+            <ref role="3bR37D" to="indb:5Sw$pxbQPmv" resolve="org.modelix.jetty" />
           </node>
         </node>
         <node concept="1SiIV0" id="5npwda83CV3" role="3bR37C">
@@ -313,16 +351,37 @@
         </node>
         <node concept="1SiIV0" id="5npwda83CVh" role="3bR37C">
           <node concept="3bR9La" id="5npwda83CVi" role="1SiIV1">
-            <ref role="3bR37D" to="indb:5npwda7lJQ3" resolve="de.q60.mps.web.ui.common" />
+            <ref role="3bR37D" to="indb:5npwda7lJQ3" resolve="org.modelix.ui.common" />
           </node>
         </node>
         <node concept="1SiIV0" id="5npwda83CVj" role="3bR37C">
           <node concept="3bR9La" id="5npwda83CVk" role="1SiIV1">
-            <ref role="3bR37D" to="indb:7gF2HTviNPP" resolve="de.q60.mps.web.lib" />
+            <ref role="3bR37D" to="indb:7gF2HTviNPP" resolve="org.modelix.lib" />
           </node>
         </node>
         <node concept="3bR9La" id="4Mx37Fxx66z" role="3bR37C">
-          <ref role="3bR37D" to="indb:7gF2HTviNPs" resolve="de.q60.mps.web.model.mpsplugin" />
+          <ref role="3bR37D" to="indb:7gF2HTviNPs" resolve="org.modelix.model.mpsplugin" />
+        </node>
+        <node concept="1BupzO" id="3$E0xk87NOi" role="3bR31x">
+          <property role="3ZfqAx" value="models" />
+          <property role="1Hdu6h" value="true" />
+          <property role="1HemKv" value="true" />
+          <node concept="3LXTmp" id="3$E0xk87NOj" role="1HemKq">
+            <node concept="55IIr" id="3$E0xk87NOe" role="3LXTmr">
+              <node concept="2Ry0Ak" id="3$E0xk87NOf" role="iGT6I">
+                <property role="2Ry0Am" value="languages" />
+                <node concept="2Ry0Ak" id="3$E0xk87NOg" role="2Ry0An">
+                  <property role="2Ry0Am" value="org.modelix.samples.entities" />
+                  <node concept="2Ry0Ak" id="3$E0xk87NOh" role="2Ry0An">
+                    <property role="2Ry0Am" value="models" />
+                  </node>
+                </node>
+              </node>
+            </node>
+            <node concept="3qWCbU" id="3$E0xk87NOk" role="3LXTna">
+              <property role="3qWCbO" value="**/*.mps, **/*.mpsr, **/.model" />
+            </node>
+          </node>
         </node>
       </node>
     </node>

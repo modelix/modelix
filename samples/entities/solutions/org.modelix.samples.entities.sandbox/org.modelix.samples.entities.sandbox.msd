@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<solution name="de.q60.mps.web.samples.entities.sandbox" uuid="37816bad-3884-4d62-aca8-51b1fe3a921e" moduleVersion="0" compileInMPS="true">
+<solution name="org.modelix.samples.entities.sandbox" uuid="37816bad-3884-4d62-aca8-51b1fe3a921e" moduleVersion="0" compileInMPS="true">
   <models>
     <modelRoot contentPath="${module}" type="default">
       <sourceRoot location="models" />
@@ -27,7 +27,7 @@
     <language slang="l:9ded098b-ad6a-4657-bfd9-48636cfe8bc3:jetbrains.mps.lang.traceable" version="0" />
   </languageVersions>
   <dependencyVersions>
-    <module reference="37816bad-3884-4d62-aca8-51b1fe3a921e(de.q60.mps.web.samples.entities.sandbox)" version="0" />
+    <module reference="37816bad-3884-4d62-aca8-51b1fe3a921e(org.modelix.samples.entities.sandbox)" version="0" />
   </dependencyVersions>
 </solution>
 

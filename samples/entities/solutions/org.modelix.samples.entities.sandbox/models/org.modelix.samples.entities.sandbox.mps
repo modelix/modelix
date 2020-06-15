@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<model ref="r:5d56df86-9b89-40e7-a17f-675bb0dc9ae2(de.q60.mps.web.samples.entities.sandbox)">
+<model ref="r:5d56df86-9b89-40e7-a17f-675bb0dc9ae2(org.modelix.samples.entities.sandbox)">
   <persistence version="9" />
   <languages>
     <use id="363848cf-91df-484c-9066-7089821cb609" name="de.q60.mps.web.samples.entities" version="-1" />
