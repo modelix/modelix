@@ -2,27 +2,27 @@
 <project version="4">
   <component name="MPSProject">
     <projectModules>
-      <modulePath path="$PROJECT_DIR$/de.q60.mps.web.aspect.devkit/de.q60.mps.web.aspect.devkit.devkit" folder="aspect" />
-      <modulePath path="$PROJECT_DIR$/de.q60.mps.web.aspect.genplan/de.q60.mps.web.aspect.genplan.msd" folder="aspect" />
-      <modulePath path="$PROJECT_DIR$/de.q60.mps.web.aspect/de.q60.mps.web.aspect.mpl" folder="aspect" />
-      <modulePath path="$PROJECT_DIR$/de.q60.mps.web.build.scripts/de.q60.mps.web.build.scripts.msd" folder="build" />
-      <modulePath path="$PROJECT_DIR$/de.q60.mps.web.build/de.q60.mps.web.build.msd" folder="build" />
-      <modulePath path="$PROJECT_DIR$/de.q60.mps.web.common/de.q60.mps.web.common.msd" folder="common" />
-      <modulePath path="$PROJECT_DIR$/de.q60.mps.web.jersey/de.q60.mps.web.jersey.msd" folder="common" />
-      <modulePath path="$PROJECT_DIR$/de.q60.mps.web.jetty/de.q60.mps.web.jetty.msd" folder="common" />
-      <modulePath path="$PROJECT_DIR$/de.q60.mps.web.lib/de.q60.mps.web.lib.msd" folder="common" />
-      <modulePath path="$PROJECT_DIR$/de.q60.mps.web.model.mpsplugin/de.q60.mps.web.model.mpsplugin.msd" folder="model" />
-      <modulePath path="$PROJECT_DIR$/de.q60.mps.web.model.runtimelang/de.q60.mps.web.model.runtimelang.mpl" folder="model" />
-      <modulePath path="$PROJECT_DIR$/de.q60.mps.web.model/de.q60.mps.web.model.msd" folder="model" />
-      <modulePath path="$PROJECT_DIR$/de.q60.mps.web.notation.impl.baseLanguage/de.q60.mps.web.notation.impl.baseLanguage.mpl" folder="aspect" />
-      <modulePath path="$PROJECT_DIR$/de.q60.mps.web.notation/de.q60.mps.web.notation.mpl" folder="aspect" />
-      <modulePath path="$PROJECT_DIR$/de.q60.mps.web.ui.common/de.q60.mps.web.ui.common.msd" folder="ui" />
-      <modulePath path="$PROJECT_DIR$/de.q60.mps.web.ui.server/de.q60.mps.web.ui.server.msd" folder="ui" />
-      <modulePath path="$PROJECT_DIR$/de.q60.mps.web.ui.sm.dom/de.q60.mps.web.ui.sm.dom.mpl" folder="ui.shadowmodels" />
-      <modulePath path="$PROJECT_DIR$/de.q60.mps.web.ui.sm.json/de.q60.mps.web.ui.sm.json.mpl" folder="ui.shadowmodels" />
-      <modulePath path="$PROJECT_DIR$/de.q60.mps.web.ui.sm.server/de.q60.mps.web.ui.sm.server.msd" folder="ui.shadowmodels" />
-      <modulePath path="$PROJECT_DIR$/de.q60.mps.web.ui.sm/de.q60.mps.web.ui.sm.mpl" folder="ui.shadowmodels" />
-      <modulePath path="$PROJECT_DIR$/de.q60.mps.web.ui.svg/de.q60.mps.web.ui.svg.msd" folder="ui.svg" />
+      <modulePath path="$PROJECT_DIR$/org.modelix.aspect.devkit/org.modelix.aspect.devkit.devkit" folder="aspect" />
+      <modulePath path="$PROJECT_DIR$/org.modelix.aspect.genplan/org.modelix.aspect.genplan.msd" folder="aspect" />
+      <modulePath path="$PROJECT_DIR$/org.modelix.aspect/org.modelix.aspect.mpl" folder="aspect" />
+      <modulePath path="$PROJECT_DIR$/org.modelix.build.scripts/org.modelix.build.scripts.msd" folder="build" />
+      <modulePath path="$PROJECT_DIR$/org.modelix.build/org.modelix.build.msd" folder="build" />
+      <modulePath path="$PROJECT_DIR$/org.modelix.common/org.modelix.common.msd" folder="common" />
+      <modulePath path="$PROJECT_DIR$/org.modelix.jersey/org.modelix.jersey.msd" folder="common" />
+      <modulePath path="$PROJECT_DIR$/org.modelix.jetty/org.modelix.jetty.msd" folder="common" />
+      <modulePath path="$PROJECT_DIR$/org.modelix.lib/org.modelix.lib.msd" folder="common" />
+      <modulePath path="$PROJECT_DIR$/org.modelix.model.mpsplugin/org.modelix.model.mpsplugin.msd" folder="model" />
+      <modulePath path="$PROJECT_DIR$/org.modelix.model.runtimelang/org.modelix.model.runtimelang.mpl" folder="model" />
+      <modulePath path="$PROJECT_DIR$/org.modelix.model/org.modelix.model.msd" folder="model" />
+      <modulePath path="$PROJECT_DIR$/org.modelix.notation.impl.baseLanguage/org.modelix.notation.impl.baseLanguage.mpl" folder="aspect" />
+      <modulePath path="$PROJECT_DIR$/org.modelix.notation/org.modelix.notation.mpl" folder="aspect" />
+      <modulePath path="$PROJECT_DIR$/org.modelix.ui.common/org.modelix.ui.common.msd" folder="ui" />
+      <modulePath path="$PROJECT_DIR$/org.modelix.ui.server/org.modelix.ui.server.msd" folder="ui" />
+      <modulePath path="$PROJECT_DIR$/org.modelix.ui.sm.dom/org.modelix.ui.sm.dom.mpl" folder="ui.shadowmodels" />
+      <modulePath path="$PROJECT_DIR$/org.modelix.ui.sm.json/org.modelix.ui.sm.json.mpl" folder="ui.shadowmodels" />
+      <modulePath path="$PROJECT_DIR$/org.modelix.ui.sm.server/org.modelix.ui.sm.server.msd" folder="ui.shadowmodels" />
+      <modulePath path="$PROJECT_DIR$/org.modelix.ui.sm/org.modelix.ui.sm.mpl" folder="ui.shadowmodels" />
+      <modulePath path="$PROJECT_DIR$/org.modelix.ui.svg/org.modelix.ui.svg.msd" folder="ui.svg" />
     </projectModules>
   </component>
 </project>
