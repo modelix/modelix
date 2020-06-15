@@ -372,11 +372,11 @@
       <property role="TrG5h" value="server" />
       <node concept="3Tm6S6" id="3XUQDwFPfzY" role="1B3o_S" />
       <node concept="3uibUv" id="1MbrkMIwDV5" role="1tU5fm">
-        <ref role="3uigEE" node="1MbrkMIwDCd" resolve="WebmpsServer" />
+        <ref role="3uigEE" node="1MbrkMIwDCd" resolve="UiServer" />
       </node>
       <node concept="2ShNRf" id="1MbrkMIwIdf" role="33vP2m">
         <node concept="1pGfFk" id="1MbrkMIwIde" role="2ShVmc">
-          <ref role="37wK5l" node="1MbrkMIwHXt" resolve="WebmpsServer" />
+          <ref role="37wK5l" node="1MbrkMIwHXt" resolve="UiServer" />
         </node>
       </node>
     </node>
@@ -459,7 +459,7 @@
     </node>
   </node>
   <node concept="312cEu" id="1MbrkMIwDCd">
-    <property role="TrG5h" value="WebmpsServer" />
+    <property role="TrG5h" value="UiServer" />
     <node concept="312cEg" id="1MbrkMIwDHG" role="jymVt">
       <property role="TrG5h" value="server" />
       <node concept="3Tm6S6" id="1MbrkMIwDHH" role="1B3o_S" />
@@ -629,7 +629,7 @@
                 <node concept="liA8E" id="2i1MHcnspYD" role="2OqNvi">
                   <ref role="37wK5l" to="cgcg:~HandlerCollection.addHandler(org.eclipse.jetty.server.Handler)" resolve="addHandler" />
                   <node concept="2YIFZM" id="5GP2kxII4vp" role="37wK5m">
-                    <ref role="1Pybhc" node="1MbrkMIwDCd" resolve="WebmpsServer" />
+                    <ref role="1Pybhc" node="1MbrkMIwDCd" resolve="UiServer" />
                     <ref role="37wK5l" node="1MbrkMIxNMj" resolve="withContext" />
                     <node concept="Xl_RD" id="5GP2kxII4vq" role="37wK5m">
                       <property role="Xl_RC" value="/icons" />
@@ -908,7 +908,7 @@
                       <node concept="liA8E" id="1MbrkMIwOqT" role="2OqNvi">
                         <ref role="37wK5l" to="wyt6:~ClassLoader.getResource(java.lang.String)" resolve="getResource" />
                         <node concept="Xl_RD" id="1MbrkMIwPtr" role="37wK5m">
-                          <property role="Xl_RC" value="de/q60/mps/web/ui/client/static/" />
+                          <property role="Xl_RC" value="org/modelix/ui/client/static/" />
                         </node>
                       </node>
                     </node>
@@ -1288,7 +1288,7 @@
               <node concept="RRSsy" id="1MbrkMIwEec" role="3cqZAp">
                 <property role="RRSoG" value="error" />
                 <node concept="Xl_RD" id="1MbrkMIwEed" role="RRSoy">
-                  <property role="Xl_RC" value="Failed to start WebMPS server" />
+                  <property role="Xl_RC" value="Failed to start UI server" />
                 </node>
                 <node concept="37vLTw" id="1MbrkMIwEee" role="RRSow">
                   <ref role="3cqZAo" node="1MbrkMIwEe9" resolve="ex" />

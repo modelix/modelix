@@ -218,7 +218,7 @@
       <property role="m$_wk" value="org.modelix.samples.entities" />
       <node concept="3_J27D" id="6HlxtAUSy6j" role="m$_yQ">
         <node concept="3Mxwew" id="6HlxtAUSy6k" role="3MwsjC">
-          <property role="3MwjfP" value="de.q60.mps.web.samples.entities" />
+          <property role="3MwjfP" value="org.modelix.samples.entities" />
         </node>
       </node>
       <node concept="3_J27D" id="6HlxtAUSy6l" role="m$_w8">
@@ -227,7 +227,7 @@
         </node>
       </node>
       <node concept="m$f5U" id="6HlxtAUSy6n" role="m$_yh">
-        <ref role="m$f5T" node="6HlxtAUSy6h" resolve="de.q60.mps.web.samples.entities" />
+        <ref role="m$f5T" node="6HlxtAUSy6h" resolve="org.modelix.samples.entities" />
       </node>
       <node concept="m$_yC" id="6HlxtAUSy6o" role="m$_yJ">
         <ref role="m$_y1" to="ffeo:4k71ibbKLe8" resolve="jetbrains.mps.core" />
@@ -240,12 +240,12 @@
       </node>
       <node concept="3_J27D" id="6HlxtAUSy6p" role="m_cZH">
         <node concept="3Mxwew" id="6HlxtAUSy6q" role="3MwsjC">
-          <property role="3MwjfP" value="de.q60.mps.web.samples.entities" />
+          <property role="3MwjfP" value="org.modelix.samples.entities" />
         </node>
       </node>
     </node>
     <node concept="2G$12M" id="6HlxtAUSy6h" role="3989C9">
-      <property role="TrG5h" value="de.q60.mps.web.samples.entities" />
+      <property role="TrG5h" value="org.modelix.samples.entities" />
       <node concept="1E1JtD" id="6HlxtAUSy6g" role="2G$12L">
         <property role="BnDLt" value="true" />
         <property role="TrG5h" value="org.modelix.samples.entities" />

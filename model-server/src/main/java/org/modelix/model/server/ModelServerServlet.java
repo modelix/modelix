@@ -1,4 +1,4 @@
-package de.q60.webmps.server;
+package org.modelix.model.server;
 
 import org.eclipse.jetty.websocket.api.RemoteEndpoint;
 import org.eclipse.jetty.websocket.api.Session;
@@ -8,9 +8,6 @@ import org.eclipse.jetty.websocket.servlet.ServletUpgradeResponse;
 import org.eclipse.jetty.websocket.servlet.WebSocketCreator;
 import org.eclipse.jetty.websocket.servlet.WebSocketServlet;
 import org.eclipse.jetty.websocket.servlet.WebSocketServletFactory;
-
-import java.net.InetSocketAddress;
-import java.nio.ByteBuffer;
 
 public class ModelServerServlet extends WebSocketServlet {
 

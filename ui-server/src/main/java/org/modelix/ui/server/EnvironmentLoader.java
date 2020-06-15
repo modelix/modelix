@@ -1,4 +1,4 @@
-package de.q60.mps.web.ui.server;
+package org.modelix.ui.server;
 
 import com.intellij.ide.plugins.IdeaPluginDescriptorImpl;
 import com.intellij.ide.plugins.PluginManager;
@@ -46,9 +46,9 @@ public class EnvironmentLoader {
                     .withVcsPlugin()
                     .withWorkbenchPath()
                     .addPlugin("http-support", "jetbrains.mps.ide.httpsupport")
-                    .addPlugin("de.q60.mps.web.ui", "de.q60.mps.web.ui")
-                    .addPlugin("de.q60.mps.web.model", "de.q60.mps.web.model")
-                    .addPlugin("de.q60.mps.web.common", "de.q60.mps.web.common")
+                    .addPlugin("org.modelix.ui", "org.modelix.ui")
+                    .addPlugin("org.modelix.model", "org.modelix.model")
+                    .addPlugin("org.modelix.common", "org.modelix.common")
                     ;
 
 //            for (IdeaPluginDescriptorImpl plugin : PluginManagerCore.loadDescriptors(null, new ArrayList<String>())) {

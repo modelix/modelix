@@ -53,7 +53,7 @@ task packageNpmApp(type: Zip) {
     destinationDir file("${projectDir}/../mps/org.modelix.ui.server/lib/")
     from('dist') {
         // optional path under which output will be visible in Java classpath, e.g. static resources path
-        into 'de/q60/mps/web/ui/client/static'
+        into 'org/modelix/ui/client/static'
     }
 }
 

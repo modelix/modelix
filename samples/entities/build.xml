@@ -33,12 +33,12 @@
   <target name="assemble" depends="classes, declare-mps-tasks">
     <mkdir dir="${build.layout}" />
     <mkdir dir="${build.tmp}/default/org.modelix.samples.entities.zip" />
-    <mkdir dir="${build.tmp}/default/org.modelix.samples.entities.zip/de.q60.mps.web.samples.entities" />
-    <mkdir dir="${build.tmp}/default/org.modelix.samples.entities.zip/de.q60.mps.web.samples.entities/META-INF" />
-    <echoxml file="${build.tmp}/default/org.modelix.samples.entities.zip/de.q60.mps.web.samples.entities/META-INF/plugin.xml">
+    <mkdir dir="${build.tmp}/default/org.modelix.samples.entities.zip/org.modelix.samples.entities" />
+    <mkdir dir="${build.tmp}/default/org.modelix.samples.entities.zip/org.modelix.samples.entities/META-INF" />
+    <echoxml file="${build.tmp}/default/org.modelix.samples.entities.zip/org.modelix.samples.entities/META-INF/plugin.xml">
       <idea-plugin xmlns:xi="http://www.w3.org/2001/XInclude">
         <id>org.modelix.samples.entities</id>
-        <name>de.q60.mps.web.samples.entities</name>
+        <name>org.modelix.samples.entities</name>
         <version>1.0</version>
         <depends>jetbrains.mps.core</depends>
         <depends>org.modelix.common</depends>
@@ -49,8 +49,8 @@
         </extensions>
       </idea-plugin>
     </echoxml>
-    <mkdir dir="${build.tmp}/default/org.modelix.samples.entities.zip/de.q60.mps.web.samples.entities/languages" />
-    <mkdir dir="${build.tmp}/default/org.modelix.samples.entities.zip/de.q60.mps.web.samples.entities/languages/de.q60.mps.web.samples.entities" />
+    <mkdir dir="${build.tmp}/default/org.modelix.samples.entities.zip/org.modelix.samples.entities/languages" />
+    <mkdir dir="${build.tmp}/default/org.modelix.samples.entities.zip/org.modelix.samples.entities/languages/org.modelix.samples.entities" />
     <mkdir dir="${build.tmp}/default/org.modelix.samples.entities.jar" />
     <mkdir dir="${build.tmp}/default/org.modelix.samples.entities.jar/META-INF" />
     <echoxml file="${build.tmp}/default/org.modelix.samples.entities.jar/META-INF/module.xml">
@@ -146,7 +146,7 @@
         <sources jar="org.modelix.samples.entities-src.jar" descriptor="org.modelix.samples.entities.mpl" />
       </module>
     </echoxml>
-    <jar destfile="${build.tmp}/default/org.modelix.samples.entities.zip/de.q60.mps.web.samples.entities/languages/de.q60.mps.web.samples.entities/org.modelix.samples.entities.jar" duplicate="preserve">
+    <jar destfile="${build.tmp}/default/org.modelix.samples.entities.zip/org.modelix.samples.entities/languages/org.modelix.samples.entities/org.modelix.samples.entities.jar" duplicate="preserve">
       <fileset dir="${build.tmp}/java/out/org.modelix.samples.entities" />
       <fileset dir="${basedir}/languages/org.modelix.samples.entities/source_gen" includes="**/trace.info, **/exports, **/*.mps, **/checkpoints" />
       <fileset dir="${build.tmp}/default/org.modelix.samples.entities.jar" />
@@ -190,7 +190,7 @@
         <sources jar="org.modelix.samples.entities-src.jar" descriptor="org.modelix.samples.entities.mpl" />
       </module>
     </echoxml>
-    <jar destfile="${build.tmp}/default/org.modelix.samples.entities.zip/de.q60.mps.web.samples.entities/languages/de.q60.mps.web.samples.entities/org.modelix.samples.entities-generator.jar" duplicate="preserve">
+    <jar destfile="${build.tmp}/default/org.modelix.samples.entities.zip/org.modelix.samples.entities/languages/org.modelix.samples.entities/org.modelix.samples.entities-generator.jar" duplicate="preserve">
       <fileset dir="${build.tmp}/java/out/org.modelix.samples.entities#01" />
       <fileset dir="${basedir}/languages/org.modelix.samples.entities/generator/source_gen" includes="**/trace.info, **/exports, **/*.mps, **/checkpoints" />
       <fileset dir="${build.tmp}/default/org.modelix.samples.entities-generator.jar" />
@@ -201,7 +201,7 @@
     <copyModels todir="${build.tmp}/customProcessors/copyModels/languages-org.modelix.samples.entities-generator-template">
       <fileset dir="${basedir}/languages/org.modelix.samples.entities/generator/template" includes="**/*.mps, **/*.mpsr, **/.model" />
     </copyModels>
-    <jar destfile="${build.tmp}/default/org.modelix.samples.entities.zip/de.q60.mps.web.samples.entities/languages/de.q60.mps.web.samples.entities/org.modelix.samples.entities-src.jar" duplicate="preserve">
+    <jar destfile="${build.tmp}/default/org.modelix.samples.entities.zip/org.modelix.samples.entities/languages/org.modelix.samples.entities/org.modelix.samples.entities-src.jar" duplicate="preserve">
       <fileset dir="${basedir}/languages/org.modelix.samples.entities/generator/source_gen">
         <exclude name="**/trace.info" />
         <exclude name="**/exports" />

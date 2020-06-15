@@ -6,7 +6,7 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="webmps-ui-server" />
+        <module name="modelix-ui-server" />
       </profile>
     </annotationProcessing>
   </component>

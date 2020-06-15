@@ -1,4 +1,4 @@
-package de.q60.webmps.server;
+package org.modelix.model.server;
 
 import com.google.common.collect.MultimapBuilder;
 import com.google.common.collect.SetMultimap;

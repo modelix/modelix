@@ -28,7 +28,7 @@
 
     <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <property name="location">
-            <value>de/q60/webmps/server/database.properties</value>
+            <value>org/modelix/model/server/database.properties</value>
         </property>
         <property name="systemPropertiesMode" value="2"/>
     </bean>

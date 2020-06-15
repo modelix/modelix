@@ -1,10 +1,10 @@
 
 apply plugin: 'java'
 
-group = 'de.q60.webmps'
+group = 'org.modelix'
 version = '1.0-SNAPSHOT'
 
-description = "WebMPS model server"
+description = "modelix model server"
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8

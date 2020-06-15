@@ -1,4 +1,4 @@
-package de.q60.mps.web.ui.server;
+package org.modelix.ui.server;
 
 import org.apache.log4j.Logger;
 
