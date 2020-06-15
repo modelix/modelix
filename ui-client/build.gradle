@@ -50,7 +50,7 @@ task packageNpmApp(type: Zip) {
     dependsOn npm_run_build
     baseName 'ui-client'
     extension 'jar'
-    destinationDir file("${projectDir}/../mps/de.q60.mps.web.ui.server/lib/")
+    destinationDir file("${projectDir}/../mps/org.modelix.ui.server/lib/")
     from('dist') {
         // optional path under which output will be visible in Java classpath, e.g. static resources path
         into 'de/q60/mps/web/ui/client/static'

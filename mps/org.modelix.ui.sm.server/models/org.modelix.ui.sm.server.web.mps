@@ -8,7 +8,7 @@
     <devkit ref="fbc25dd2-5da4-483a-8b19-70928e1b62d7(jetbrains.mps.devkit.general-purpose)" />
   </languages>
   <imports>
-    <import index="m2xw" ref="fc3c2aa8-0d4b-463f-a774-40d450aa04a0/java:org.eclipse.jetty.server(de.q60.mps.web.jetty/)" />
+    <import index="m2xw" ref="fc3c2aa8-0d4b-463f-a774-40d450aa04a0/java:org.eclipse.jetty.server(org.modelix.jetty/)" />
     <import index="v1cj" ref="r:2c4bc58b-9da3-4f5f-8ea2-32f043278ab7(org.modelix.ui.sm.behavior)" />
     <import index="l6bp" ref="r:97875f9c-321e-405e-a344-6d3deab2bdba(de.q60.mps.shadowmodels.runtime.smodel)" />
     <import index="m3vg" ref="r:9bcdcf0c-f978-4630-9b17-a35339e80a73(org.modelix.ui.sm.transformations)" />

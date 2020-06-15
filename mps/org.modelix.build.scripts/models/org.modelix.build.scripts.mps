@@ -48,10 +48,17 @@
         <child id="5617550519002745378" name="macros" index="1l3spd" />
         <child id="5617550519002745372" name="layout" index="1l3spN" />
       </concept>
+      <concept id="8654221991637384182" name="jetbrains.mps.build.structure.BuildFileIncludesSelector" flags="ng" index="3qWCbU">
+        <property id="8654221991637384184" name="pattern" index="3qWCbO" />
+      </concept>
       <concept id="4701820937132344003" name="jetbrains.mps.build.structure.BuildLayout_Container" flags="ng" index="1y1bJS">
         <child id="7389400916848037006" name="children" index="39821P" />
       </concept>
       <concept id="841011766566059607" name="jetbrains.mps.build.structure.BuildStringNotEmpty" flags="ng" index="3_J27D" />
+      <concept id="5248329904287794596" name="jetbrains.mps.build.structure.BuildInputFiles" flags="ng" index="3LXTmp">
+        <child id="5248329904287794598" name="dir" index="3LXTmr" />
+        <child id="5248329904287794679" name="selectors" index="3LXTna" />
+      </concept>
       <concept id="4903714810883702019" name="jetbrains.mps.build.structure.BuildTextStringPart" flags="ng" index="3Mxwew">
         <property id="4903714810883755350" name="text" index="3MwjfP" />
       </concept>
@@ -86,10 +93,17 @@
       </concept>
       <concept id="868032131020265945" name="jetbrains.mps.build.mps.structure.BuildMPSPlugin" flags="ng" index="3b7kt6" />
       <concept id="5253498789149381388" name="jetbrains.mps.build.mps.structure.BuildMps_Module" flags="ng" index="3bQrTs">
+        <child id="5253498789149547825" name="sources" index="3bR31x" />
         <child id="5253498789149547704" name="dependencies" index="3bR37C" />
       </concept>
       <concept id="5253498789149585690" name="jetbrains.mps.build.mps.structure.BuildMps_ModuleDependencyOnModule" flags="ng" index="3bR9La">
         <reference id="5253498789149547705" name="module" index="3bR37D" />
+      </concept>
+      <concept id="4278635856200817744" name="jetbrains.mps.build.mps.structure.BuildMps_ModuleModelRoot" flags="ng" index="1BupzO">
+        <property id="8137134783396907368" name="convert2binary" index="1Hdu6h" />
+        <property id="8137134783396676838" name="extracted" index="1HemKv" />
+        <property id="2889113830911481881" name="deployFolderName" index="3ZfqAx" />
+        <child id="8137134783396676835" name="location" index="1HemKq" />
       </concept>
       <concept id="3189788309731840247" name="jetbrains.mps.build.mps.structure.BuildMps_Solution" flags="ng" index="1E1JtA" />
       <concept id="322010710375871467" name="jetbrains.mps.build.mps.structure.BuildMps_AbstractModule" flags="ng" index="3LEN3z">
@@ -103,7 +117,7 @@
     </language>
   </registry>
   <node concept="1l3spW" id="4jf43pv7edP">
-    <property role="TrG5h" value="de.q60.mps.web.build.scripts" />
+    <property role="TrG5h" value="org.modelix.build.scripts" />
     <property role="2DA0ip" value="../../" />
     <property role="turDy" value="build-scripts.xml" />
     <node concept="398rNT" id="7gF2HTvk5zJ" role="1l3spd">
@@ -177,16 +191,16 @@
           </node>
         </node>
         <node concept="m$_wl" id="4jf43pv7eel" role="39821P">
-          <ref role="m_rDy" node="4jf43pv7ee6" resolve="de.q60.mps.web" />
+          <ref role="m_rDy" node="4jf43pv7ee6" resolve="org.modelix" />
           <node concept="pUk6x" id="4jf43pv7eem" role="pUk7w" />
         </node>
       </node>
     </node>
     <node concept="m$_wf" id="4jf43pv7ee6" role="3989C9">
-      <property role="m$_wk" value="de.q60.mps.web" />
+      <property role="m$_wk" value="org.modelix" />
       <node concept="3_J27D" id="4jf43pv7ee7" role="m$_yQ">
         <node concept="3Mxwew" id="4jf43pv7ee8" role="3MwsjC">
-          <property role="3MwjfP" value="de.q60.mps.web" />
+          <property role="3MwjfP" value="org.modelix" />
         </node>
       </node>
       <node concept="3_J27D" id="4jf43pv7ee9" role="m$_w8">
@@ -195,7 +209,7 @@
         </node>
       </node>
       <node concept="m$f5U" id="4jf43pv7eeb" role="m$_yh">
-        <ref role="m$f5T" node="4jf43pv7ee5" resolve="de.q60.mps.web" />
+        <ref role="m$f5T" node="4jf43pv7ee5" resolve="org.modelix" />
       </node>
       <node concept="m$_yC" id="4jf43pv7eec" role="m$_yJ">
         <ref role="m$_y1" to="ffeo:4k71ibbKLe8" resolve="jetbrains.mps.core" />
@@ -208,22 +222,22 @@
       </node>
       <node concept="3_J27D" id="4jf43pv7eed" role="m_cZH">
         <node concept="3Mxwew" id="4jf43pv7eee" role="3MwsjC">
-          <property role="3MwjfP" value="de.q60.mps.web" />
+          <property role="3MwjfP" value="org.modelix" />
         </node>
       </node>
     </node>
     <node concept="2G$12M" id="4jf43pv7ee5" role="3989C9">
-      <property role="TrG5h" value="de.q60.mps.web" />
+      <property role="TrG5h" value="org.modelix" />
       <node concept="1E1JtA" id="4jf43pv7ee4" role="2G$12L">
         <property role="BnDLt" value="true" />
-        <property role="TrG5h" value="de.q60.mps.web.build" />
+        <property role="TrG5h" value="org.modelix.build" />
         <property role="3LESm3" value="79531264-5c70-4f13-ad1b-5c32ef78c6f6" />
         <node concept="398BVA" id="3$7KuaihD9b" role="3LF7KH">
           <ref role="398BVh" node="3$7Kuaihl5X" resolve="webmps.modules" />
           <node concept="2Ry0Ak" id="3$7KuaihD9f" role="iGT6I">
-            <property role="2Ry0Am" value="de.q60.mps.web.build" />
+            <property role="2Ry0Am" value="org.modelix.build" />
             <node concept="2Ry0Ak" id="3$7KuaihD9g" role="2Ry0An">
-              <property role="2Ry0Am" value="de.q60.mps.web.build.msd" />
+              <property role="2Ry0Am" value="org.modelix.build.msd" />
             </node>
           </node>
         </node>
@@ -235,6 +249,25 @@
         <node concept="1SiIV0" id="4jf43pv7rK8" role="3bR37C">
           <node concept="3bR9La" id="4jf43pv7rK9" role="1SiIV1">
             <ref role="3bR37D" to="90a9:PE3B26VOkn" resolve="de.itemis.mps.extensions.build" />
+          </node>
+        </node>
+        <node concept="1BupzO" id="4tfK3zZNRux" role="3bR31x">
+          <property role="3ZfqAx" value="models" />
+          <property role="1Hdu6h" value="true" />
+          <property role="1HemKv" value="true" />
+          <node concept="3LXTmp" id="4tfK3zZNRuy" role="1HemKq">
+            <node concept="398BVA" id="4tfK3zZNRum" role="3LXTmr">
+              <ref role="398BVh" node="3$7Kuaihl5X" resolve="webmps.modules" />
+              <node concept="2Ry0Ak" id="4tfK3zZNRun" role="iGT6I">
+                <property role="2Ry0Am" value="org.modelix.build" />
+                <node concept="2Ry0Ak" id="4tfK3zZNRuo" role="2Ry0An">
+                  <property role="2Ry0Am" value="models" />
+                </node>
+              </node>
+            </node>
+            <node concept="3qWCbU" id="4tfK3zZNRuz" role="3LXTna">
+              <property role="3qWCbO" value="**/*.mps, **/*.mpsr, **/.model" />
+            </node>
           </node>
         </node>
       </node>
