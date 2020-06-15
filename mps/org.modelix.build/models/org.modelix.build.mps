@@ -152,7 +152,7 @@
     </language>
   </registry>
   <node concept="1l3spW" id="7gF2HTviNP8">
-    <property role="TrG5h" value="de.q60.mps.web" />
+    <property role="TrG5h" value="org.modelix" />
     <property role="2DA0ip" value="../../build/de.q60.mps.web" />
     <node concept="10PD9b" id="7gF2HTviNP9" role="10PD9s" />
     <node concept="3b7kt6" id="7gF2HTviNPa" role="10PD9s" />
@@ -228,11 +228,11 @@
       <node concept="3981dG" id="7gF2HTviNQ8" role="39821P">
         <node concept="3_J27D" id="7gF2HTviNQ9" role="Nbhlr">
           <node concept="3Mxwew" id="7gF2HTviNQa" role="3MwsjC">
-            <property role="3MwjfP" value="de.q60.mps.web.zip" />
+            <property role="3MwjfP" value="org.modelix.zip" />
           </node>
         </node>
         <node concept="m$_wl" id="7gF2HTvk5ef" role="39821P">
-          <ref role="m_rDy" node="7gF2HTvj4WE" resolve="de.q60.mps.web.common" />
+          <ref role="m_rDy" node="7gF2HTvj4WE" resolve="org.modelix.common" />
           <node concept="pUk6x" id="7gF2HTvk5gF" role="pUk7w" />
           <node concept="398223" id="7gF2HTvk5p8" role="39821P">
             <node concept="3_J27D" id="7gF2HTvk5p9" role="Nbhlr">
@@ -276,7 +276,7 @@
           </node>
         </node>
         <node concept="m$_wl" id="7gF2HTvk5j6" role="39821P">
-          <ref role="m_rDy" node="7gF2HTvj4Cd" resolve="de.q60.mps.web.ui" />
+          <ref role="m_rDy" node="7gF2HTvj4Cd" resolve="org.modelix.ui" />
           <node concept="pUk6x" id="7gF2HTvk5ly" role="pUk7w" />
           <node concept="398223" id="1_iojA27rSX" role="39821P">
             <node concept="3_J27D" id="1_iojA27rSY" role="Nbhlr">
@@ -309,7 +309,7 @@
           </node>
         </node>
         <node concept="m$_wl" id="7gF2HTviNQb" role="39821P">
-          <ref role="m_rDy" node="7gF2HTviNPW" resolve="de.q60.mps.web.model" />
+          <ref role="m_rDy" node="7gF2HTviNPW" resolve="org.modelix.model" />
           <node concept="pUk6x" id="7gF2HTviNQc" role="pUk7w" />
           <node concept="398223" id="7gF2HTvmh$r" role="39821P">
             <node concept="3_J27D" id="7gF2HTvmh$s" role="Nbhlr">
@@ -331,21 +331,21 @@
           </node>
         </node>
         <node concept="m$_wl" id="6HlxtAUTmjF" role="39821P">
-          <ref role="m_rDy" node="6HlxtAUTj2a" resolve="de.q60.mps.web.langdev" />
+          <ref role="m_rDy" node="6HlxtAUTj2a" resolve="org.modelix.langdev" />
           <node concept="pUk6x" id="6HlxtAUTmjG" role="pUk7w" />
         </node>
       </node>
     </node>
     <node concept="m$_wf" id="7gF2HTvj4WE" role="3989C9">
-      <property role="m$_wk" value="de.q60.mps.web.common" />
+      <property role="m$_wk" value="org.modelix.common" />
       <node concept="3_J27D" id="7gF2HTvj4WG" role="m$_yQ">
         <node concept="3Mxwew" id="7gF2HTvj51y" role="3MwsjC">
-          <property role="3MwjfP" value="de.q60.mps.web.common" />
+          <property role="3MwjfP" value="org.modelix.common" />
         </node>
       </node>
       <node concept="3_J27D" id="7gF2HTvj4WI" role="m_cZH">
         <node concept="3Mxwew" id="7gF2HTvj51z" role="3MwsjC">
-          <property role="3MwjfP" value="de.q60.mps.web.common" />
+          <property role="3MwjfP" value="org.modelix.common" />
         </node>
       </node>
       <node concept="3_J27D" id="7gF2HTvj4WK" role="m$_w8">
@@ -354,7 +354,7 @@
         </node>
       </node>
       <node concept="m$f5U" id="7gF2HTvj5b8" role="m$_yh">
-        <ref role="m$f5T" node="7gF2HTvj55a" resolve="de.q60.mps.web.common" />
+        <ref role="m$f5T" node="7gF2HTvj55a" resolve="org.modelix.common" />
       </node>
       <node concept="m$_yC" id="7gF2HTvj5cl" role="m$_yJ">
         <ref role="m$_y1" to="ffeo:4k71ibbKLe8" resolve="jetbrains.mps.core" />
@@ -364,10 +364,10 @@
       </node>
     </node>
     <node concept="m$_wf" id="7gF2HTvj4Cd" role="3989C9">
-      <property role="m$_wk" value="de.q60.mps.web.ui" />
+      <property role="m$_wk" value="org.modelix.ui" />
       <node concept="3_J27D" id="7gF2HTvj4Cf" role="m$_yQ">
         <node concept="3Mxwew" id="7gF2HTvj4Od" role="3MwsjC">
-          <property role="3MwjfP" value="de.q60.mps.web.ui" />
+          <property role="3MwjfP" value="org.modelix.ui" />
         </node>
       </node>
       <node concept="3_J27D" id="7gF2HTvj4Ch" role="m_cZH">
@@ -381,7 +381,7 @@
         </node>
       </node>
       <node concept="m$f5U" id="7gF2HTvj4QC" role="m$_yh">
-        <ref role="m$f5T" node="7gF2HTvj46U" resolve="de.q60.mps.web.ui" />
+        <ref role="m$f5T" node="7gF2HTvj46U" resolve="org.modelix.ui" />
       </node>
       <node concept="m$_yC" id="62v7nyvXijI" role="m$_yJ">
         <ref role="m$_y1" to="90a9:2Xjt3l57iTJ" resolve="de.slisson.mps.hacks" />
@@ -393,14 +393,14 @@
         <ref role="m$_y1" to="90a9:4p3FRivDLPy" resolve="org.apache.commons" />
       </node>
       <node concept="m$_yC" id="7gF2HTvj5eJ" role="m$_yJ">
-        <ref role="m$_y1" node="7gF2HTvj4WE" resolve="de.q60.mps.web.common" />
+        <ref role="m$_y1" node="7gF2HTvj4WE" resolve="org.modelix.common" />
       </node>
       <node concept="m$_yC" id="5a2LedGLgE6" role="m$_yJ">
-        <ref role="m$_y1" node="7gF2HTviNPW" resolve="de.q60.mps.web.model" />
+        <ref role="m$_y1" node="7gF2HTviNPW" resolve="org.modelix.model" />
       </node>
     </node>
     <node concept="m$_wf" id="7gF2HTviNPW" role="3989C9">
-      <property role="m$_wk" value="de.q60.mps.web.model" />
+      <property role="m$_wk" value="org.modelix.model" />
       <node concept="3_J27D" id="7gF2HTviNPX" role="m$_yQ">
         <node concept="3Mxwew" id="7gF2HTviNPY" role="3MwsjC">
           <property role="3MwjfP" value="de.q60.mps.web.model" />
@@ -412,7 +412,7 @@
         </node>
       </node>
       <node concept="m$f5U" id="7gF2HTviNQ1" role="m$_yh">
-        <ref role="m$f5T" node="7gF2HTviNPV" resolve="de.q60.mps.web.model" />
+        <ref role="m$f5T" node="7gF2HTviNPV" resolve="org.modelix.model" />
       </node>
       <node concept="m$_yC" id="7gF2HTviNQ2" role="m$_yJ">
         <ref role="m$_y1" to="ffeo:4k71ibbKLe8" resolve="jetbrains.mps.core" />
@@ -421,7 +421,7 @@
         <ref role="m$_y1" to="90a9:4iIKqJTZ5I8" resolve="de.q60.shadowmodels" />
       </node>
       <node concept="m$_yC" id="7gF2HTvj5kI" role="m$_yJ">
-        <ref role="m$_y1" node="7gF2HTvj4WE" resolve="de.q60.mps.web.common" />
+        <ref role="m$_y1" node="7gF2HTvj4WE" resolve="org.modelix.common" />
       </node>
       <node concept="m$_yC" id="5MA9wbc4qh3" role="m$_yJ">
         <ref role="m$_y1" to="90a9:4p3FRivDLPy" resolve="org.apache.commons" />
@@ -433,7 +433,7 @@
       </node>
     </node>
     <node concept="m$_wf" id="6HlxtAUTj2a" role="3989C9">
-      <property role="m$_wk" value="de.q60.mps.web.langdev" />
+      <property role="m$_wk" value="org.modelix.langdev" />
       <node concept="3_J27D" id="6HlxtAUTj2b" role="m$_yQ">
         <node concept="3Mxwew" id="6HlxtAUTj2c" role="3MwsjC">
           <property role="3MwjfP" value="de.q60.mps.web.langdev" />
@@ -445,19 +445,19 @@
         </node>
       </node>
       <node concept="m$f5U" id="6HlxtAUTjYD" role="m$_yh">
-        <ref role="m$f5T" node="6HlxtAUSD7b" resolve="de.q60.mps.web.langdev" />
+        <ref role="m$f5T" node="6HlxtAUSD7b" resolve="org.modelix.langdev" />
       </node>
       <node concept="m$_yC" id="6HlxtAUTj2g" role="m$_yJ">
         <ref role="m$_y1" to="ffeo:4k71ibbKLe8" resolve="jetbrains.mps.core" />
       </node>
       <node concept="m$_yC" id="6HlxtAUTj2i" role="m$_yJ">
-        <ref role="m$_y1" node="7gF2HTvj4WE" resolve="de.q60.mps.web.common" />
+        <ref role="m$_y1" node="7gF2HTvj4WE" resolve="org.modelix.common" />
       </node>
       <node concept="m$_yC" id="6HlxtAUTlYm" role="m$_yJ">
-        <ref role="m$_y1" node="7gF2HTviNPW" resolve="de.q60.mps.web.model" />
+        <ref role="m$_y1" node="7gF2HTviNPW" resolve="org.modelix.model" />
       </node>
       <node concept="m$_yC" id="1BXGyXtBVIa" role="m$_yJ">
-        <ref role="m$_y1" node="7gF2HTvj4Cd" resolve="de.q60.mps.web.ui" />
+        <ref role="m$_y1" node="7gF2HTvj4Cd" resolve="org.modelix.ui" />
       </node>
       <node concept="m$_yC" id="TSXTNiO0Dw" role="m$_yJ">
         <ref role="m$_y1" to="90a9:6SVXTgIe8wD" resolve="de.itemis.mps.celllayout" />
@@ -469,7 +469,7 @@
       </node>
     </node>
     <node concept="2G$12M" id="7gF2HTvj55a" role="3989C9">
-      <property role="TrG5h" value="de.q60.mps.web.common" />
+      <property role="TrG5h" value="org.modelix.common" />
       <node concept="1E1JtA" id="5MA9wbc6HlL" role="2G$12L">
         <property role="BnDLt" value="true" />
         <property role="TrG5h" value="org.modelix.common" />
@@ -1060,7 +1060,7 @@
       </node>
     </node>
     <node concept="2G$12M" id="7gF2HTvj46U" role="3989C9">
-      <property role="TrG5h" value="de.q60.mps.web.ui" />
+      <property role="TrG5h" value="org.modelix.ui" />
       <node concept="1E1JtA" id="5npwda7lJQ3" role="2G$12L">
         <property role="BnDLt" value="true" />
         <property role="TrG5h" value="org.modelix.ui.common" />
@@ -3053,7 +3053,7 @@
       </node>
     </node>
     <node concept="2G$12M" id="7gF2HTviNPV" role="3989C9">
-      <property role="TrG5h" value="de.q60.mps.web.model" />
+      <property role="TrG5h" value="org.modelix.model" />
       <node concept="1E1JtD" id="$zd_cMRR11" role="2G$12L">
         <property role="BnDLt" value="true" />
         <property role="TrG5h" value="org.modelix.model.runtimelang" />
@@ -3640,7 +3640,7 @@
       </node>
     </node>
     <node concept="2G$12M" id="6HlxtAUSD7b" role="3989C9">
-      <property role="TrG5h" value="de.q60.mps.web.langdev" />
+      <property role="TrG5h" value="org.modelix.langdev" />
       <node concept="1E1JtD" id="6HlxtAUSLXf" role="2G$12L">
         <property role="BnDLt" value="true" />
         <property role="TrG5h" value="org.modelix.aspect" />

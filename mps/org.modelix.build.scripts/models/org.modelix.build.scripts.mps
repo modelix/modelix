@@ -187,7 +187,7 @@
       <node concept="3981dG" id="4jf43pv7eei" role="39821P">
         <node concept="3_J27D" id="4jf43pv7eej" role="Nbhlr">
           <node concept="3Mxwew" id="4jf43pv7eek" role="3MwsjC">
-            <property role="3MwjfP" value="de.q60.mps.web.zip" />
+            <property role="3MwjfP" value="org.modelix.zip" />
           </node>
         </node>
         <node concept="m$_wl" id="4jf43pv7eel" role="39821P">
