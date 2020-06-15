@@ -173,7 +173,7 @@
                   <property role="2Ry0Am" value="build" />
                   <node concept="2Ry0Ak" id="6HlxtAUSCvS" role="2Ry0An">
                     <property role="2Ry0Am" value="artifacts" />
-                    <node concept="2Ry0Ak" id="6HlxtAUSCvX" role="2Ry0An">
+                    <node concept="2Ry0Ak" id="3$E0xk89mY6" role="2Ry0An">
                       <property role="2Ry0Am" value="org.modelix" />
                     </node>
                   </node>

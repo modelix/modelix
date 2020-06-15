@@ -7,7 +7,7 @@
   <property name="mps.home" location="${basedir}/../../artifacts/mps" />
   <property name="mps_home" location="${mps.home}" />
   <property name="artifacts.mps" location="${mps.home}" />
-  <property name="artifacts.org.modelix" location="${basedir}/../../build/de.q60.mps.web/build/artifacts/de.q60.mps.web" />
+  <property name="artifacts.org.modelix" location="${basedir}/../../build/org.modelix/build/artifacts/org.modelix" />
   <property name="artifacts.de.itemis.mps.extensions" location="${basedir}/../../artifacts/de.itemis.mps.extensions" />
   <property file="${artifacts.mps}/build.properties" prefix="import.mps" />
   <property file="${artifacts.org.modelix}/build.properties" prefix="import.org.modelix" />
@@ -260,10 +260,10 @@
       <plugin path="${artifacts.mps}/plugins/mps-build" />
       <plugin path="${artifacts.mps}/plugins/mps-core" />
       <plugin path="${artifacts.mps}/plugins/mps-testing" />
-      <plugin path="${build.tmp}/deps/org.modelix/org.modelix.zip/de.q60.mps.web.langdev" />
-      <plugin path="${build.tmp}/deps/org.modelix/org.modelix.zip/de.q60.mps.web.model" />
-      <plugin path="${build.tmp}/deps/org.modelix/org.modelix.zip/de.q60.mps.web.ui" />
       <plugin path="${build.tmp}/deps/org.modelix/org.modelix.zip/org.modelix.common" />
+      <plugin path="${build.tmp}/deps/org.modelix/org.modelix.zip/org.modelix.langdev" />
+      <plugin path="${build.tmp}/deps/org.modelix/org.modelix.zip/org.modelix.model" />
+      <plugin path="${build.tmp}/deps/org.modelix/org.modelix.zip/org.modelix.ui" />
       <library file="${artifacts.de.itemis.mps.extensions}/de.60.mps.libs/languages/de.q60.mps.libs/de.q60.mps.libs.jar" />
       <library file="${artifacts.de.itemis.mps.extensions}/de.itemis.mps.celllayout/languages/de.itemis.mps.celllayout/de.itemis.mps.editor.celllayout.styles.jar" />
       <library file="${artifacts.de.itemis.mps.extensions}/de.q60.shadowmodels/languages/de.q60.shadowmodels/de.q60.mps.incremental.runtime.jar" />
@@ -395,22 +395,22 @@
       <library file="${artifacts.mps}/languages/util/jetbrains.mps.runtime.jar" />
       <library file="${artifacts.mps}/languages/workbench-stub.jar" />
       <library file="${artifacts.mps}/plugins/mps-testing/languages/languageDesign/jetbrains.mps.lang.test.matcher.jar" />
-      <library file="${build.tmp}/deps/org.modelix/org.modelix.zip/de.q60.mps.web.langdev/languages/org.modelix.langdev/org.modelix.aspect.devkit.jar" />
-      <library file="${build.tmp}/deps/org.modelix/org.modelix.zip/de.q60.mps.web.langdev/languages/org.modelix.langdev/org.modelix.aspect.genplan.jar" />
-      <library file="${build.tmp}/deps/org.modelix/org.modelix.zip/de.q60.mps.web.langdev/languages/org.modelix.langdev/org.modelix.aspect.jar" />
-      <library file="${build.tmp}/deps/org.modelix/org.modelix.zip/de.q60.mps.web.langdev/languages/org.modelix.langdev/org.modelix.notation.jar" />
-      <library file="${build.tmp}/deps/org.modelix/org.modelix.zip/de.q60.mps.web.model/languages/org.modelix.model/org.modelix.model.jar" />
-      <library file="${build.tmp}/deps/org.modelix/org.modelix.zip/de.q60.mps.web.model/languages/org.modelix.model/org.modelix.model.mpsplugin.jar" />
-      <library file="${build.tmp}/deps/org.modelix/org.modelix.zip/de.q60.mps.web.model/languages/org.modelix.model/org.modelix.model.runtimelang.jar" />
-      <library file="${build.tmp}/deps/org.modelix/org.modelix.zip/de.q60.mps.web.ui/languages/org.modelix.ui/org.modelix.jetty.jar" />
-      <library file="${build.tmp}/deps/org.modelix/org.modelix.zip/de.q60.mps.web.ui/languages/org.modelix.ui/org.modelix.ui.common.jar" />
-      <library file="${build.tmp}/deps/org.modelix/org.modelix.zip/de.q60.mps.web.ui/languages/org.modelix.ui/org.modelix.ui.sm.dom.jar" />
-      <library file="${build.tmp}/deps/org.modelix/org.modelix.zip/de.q60.mps.web.ui/languages/org.modelix.ui/org.modelix.ui.sm.jar" />
-      <library file="${build.tmp}/deps/org.modelix/org.modelix.zip/de.q60.mps.web.ui/languages/org.modelix.ui/org.modelix.ui.sm.json.jar" />
-      <library file="${build.tmp}/deps/org.modelix/org.modelix.zip/de.q60.mps.web.ui/languages/org.modelix.ui/org.modelix.ui.sm.server.jar" />
       <library file="${build.tmp}/deps/org.modelix/org.modelix.zip/org.modelix.common/languages/org.modelix.common/org.modelix.common.jar" />
       <library file="${build.tmp}/deps/org.modelix/org.modelix.zip/org.modelix.common/languages/org.modelix.common/org.modelix.jersey.jar" />
       <library file="${build.tmp}/deps/org.modelix/org.modelix.zip/org.modelix.common/languages/org.modelix.common/org.modelix.lib.jar" />
+      <library file="${build.tmp}/deps/org.modelix/org.modelix.zip/org.modelix.langdev/languages/org.modelix.langdev/org.modelix.aspect.devkit.jar" />
+      <library file="${build.tmp}/deps/org.modelix/org.modelix.zip/org.modelix.langdev/languages/org.modelix.langdev/org.modelix.aspect.genplan.jar" />
+      <library file="${build.tmp}/deps/org.modelix/org.modelix.zip/org.modelix.langdev/languages/org.modelix.langdev/org.modelix.aspect.jar" />
+      <library file="${build.tmp}/deps/org.modelix/org.modelix.zip/org.modelix.langdev/languages/org.modelix.langdev/org.modelix.notation.jar" />
+      <library file="${build.tmp}/deps/org.modelix/org.modelix.zip/org.modelix.model/languages/org.modelix.model/org.modelix.model.jar" />
+      <library file="${build.tmp}/deps/org.modelix/org.modelix.zip/org.modelix.model/languages/org.modelix.model/org.modelix.model.mpsplugin.jar" />
+      <library file="${build.tmp}/deps/org.modelix/org.modelix.zip/org.modelix.model/languages/org.modelix.model/org.modelix.model.runtimelang.jar" />
+      <library file="${build.tmp}/deps/org.modelix/org.modelix.zip/org.modelix.ui/languages/org.modelix.ui/org.modelix.jetty.jar" />
+      <library file="${build.tmp}/deps/org.modelix/org.modelix.zip/org.modelix.ui/languages/org.modelix.ui/org.modelix.ui.common.jar" />
+      <library file="${build.tmp}/deps/org.modelix/org.modelix.zip/org.modelix.ui/languages/org.modelix.ui/org.modelix.ui.sm.dom.jar" />
+      <library file="${build.tmp}/deps/org.modelix/org.modelix.zip/org.modelix.ui/languages/org.modelix.ui/org.modelix.ui.sm.jar" />
+      <library file="${build.tmp}/deps/org.modelix/org.modelix.zip/org.modelix.ui/languages/org.modelix.ui/org.modelix.ui.sm.json.jar" />
+      <library file="${build.tmp}/deps/org.modelix/org.modelix.zip/org.modelix.ui/languages/org.modelix.ui/org.modelix.ui.sm.server.jar" />
       <chunk>
         <module file="${basedir}/languages/org.modelix.samples.entities/org.modelix.samples.entities.mpl" />
       </chunk>
@@ -488,14 +488,14 @@
         <fileset file="${artifacts.mps}/languages/languageDesign/jetbrains.mps.lang.scopes.runtime.jar" />
         <fileset file="${artifacts.mps}/languages/languageDesign/jetbrains.mps.lang.traceable.jar" />
         <fileset file="${artifacts.de.itemis.mps.extensions}/mps-apache-commons/languages/mps-apache-commons-math/org.apache.commons.jar" />
-        <fileset file="${build.tmp}/deps/org.modelix/org.modelix.zip/de.q60.mps.web.langdev/languages/org.modelix.langdev/org.modelix.aspect.genplan.jar" />
-        <fileset file="${build.tmp}/deps/org.modelix/org.modelix.zip/de.q60.mps.web.ui/languages/org.modelix.ui/org.modelix.jetty.jar" />
+        <fileset file="${build.tmp}/deps/org.modelix/org.modelix.zip/org.modelix.langdev/languages/org.modelix.langdev/org.modelix.aspect.genplan.jar" />
+        <fileset file="${build.tmp}/deps/org.modelix/org.modelix.zip/org.modelix.ui/languages/org.modelix.ui/org.modelix.jetty.jar" />
         <fileset file="${build.tmp}/deps/org.modelix/org.modelix.zip/org.modelix.common/languages/org.modelix.common/org.modelix.lib.jar" />
-        <fileset file="${build.tmp}/deps/org.modelix/org.modelix.zip/de.q60.mps.web.model/languages/org.modelix.model/org.modelix.model.mpsplugin.jar" />
-        <fileset file="${build.tmp}/deps/org.modelix/org.modelix.zip/de.q60.mps.web.ui/languages/org.modelix.ui/org.modelix.ui.common.jar" />
-        <fileset file="${build.tmp}/deps/org.modelix/org.modelix.zip/de.q60.mps.web.ui/languages/org.modelix.ui/org.modelix.ui.sm.jar" />
-        <fileset file="${build.tmp}/deps/org.modelix/org.modelix.zip/de.q60.mps.web.ui/languages/org.modelix.ui/org.modelix.ui.sm.dom.jar" />
-        <fileset file="${build.tmp}/deps/org.modelix/org.modelix.zip/de.q60.mps.web.ui/languages/org.modelix.ui/org.modelix.ui.sm.server.jar" />
+        <fileset file="${build.tmp}/deps/org.modelix/org.modelix.zip/org.modelix.model/languages/org.modelix.model/org.modelix.model.mpsplugin.jar" />
+        <fileset file="${build.tmp}/deps/org.modelix/org.modelix.zip/org.modelix.ui/languages/org.modelix.ui/org.modelix.ui.common.jar" />
+        <fileset file="${build.tmp}/deps/org.modelix/org.modelix.zip/org.modelix.ui/languages/org.modelix.ui/org.modelix.ui.sm.jar" />
+        <fileset file="${build.tmp}/deps/org.modelix/org.modelix.zip/org.modelix.ui/languages/org.modelix.ui/org.modelix.ui.sm.dom.jar" />
+        <fileset file="${build.tmp}/deps/org.modelix/org.modelix.zip/org.modelix.ui/languages/org.modelix.ui/org.modelix.ui.sm.server.jar" />
         <fileset dir="${artifacts.de.itemis.mps.extensions}/de.60.mps.libs/lib" includes="trove4j-3.0.3.jar" />
         <fileset dir="${artifacts.de.itemis.mps.extensions}/de.60.mps.libs/lib" includes="vavr-0.9.3.jar" />
         <fileset dir="${artifacts.de.itemis.mps.extensions}/de.60.mps.libs/lib" includes="guava-27.1-jre.jar" />
