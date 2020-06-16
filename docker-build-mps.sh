@@ -1,3 +1,3 @@
 #!/bin/sh
 
-docker build -f Dockerfile-mps -t cloudmps-mps .
+docker build -f Dockerfile-mps -t modelix-mps .

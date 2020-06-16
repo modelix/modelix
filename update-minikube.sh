@@ -3,7 +3,7 @@
 kubectx minikube
 eval $(minikube docker-env)
 ./docker-build-all.sh
-docker tag webmps-ui eu.gcr.io/cloudmps-250805/webmps-ui
-docker tag webmps-model eu.gcr.io/cloudmps-250805/webmps-model
-docker tag webmps-db eu.gcr.io/cloudmps-250805/webmps-db
+docker tag modelix-ui modelix/modelix-ui
+docker tag modelix-model modelix/modelix-model
+docker tag modelix-db modelix/modelix-db
 ./kubernetes-apply-local.sh

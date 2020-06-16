@@ -1,4 +1,4 @@
-rootProject.name = 'webmps'
+rootProject.name = 'modelix'
 
 include 'ui-client'
 include 'model-server'

@@ -1,21 +1,19 @@
-FROM cloudmps-mps
-WORKDIR /usr/cloudmps-ui
+FROM modelix-mps
+WORKDIR /usr/modelix-ui
 EXPOSE 33333
 
 #RUN mkdir -p /opt/cprof && \
 #  wget -q -O- https://storage.googleapis.com/cloud-profiler/java/latest/profiler_java_agent.tar.gz \
 #  | tar xzv -C /opt/cprof
 
-COPY build/de.q60.mps.web/build/artifacts/de.q60.mps.web/de.q60.mps.web.zip /usr/cloudmps-ui/tmp.zip
-RUN unzip /usr/cloudmps-ui/tmp.zip -d /usr/cloudmps-ui/mps/plugins/
-RUN rm /usr/cloudmps-ui/tmp.zip
+COPY build/org.modelix/build/artifacts/org.modelix/org.modelix.zip /usr/modelix-ui/tmp.zip
+RUN unzip /usr/modelix-ui/tmp.zip -d /usr/modelix-ui/mps/plugins/
+RUN rm /usr/modelix-ui/tmp.zip
 
-COPY artifacts/de.itemis.mps.extensions/ /usr/cloudmps-ui/mps/plugins/
+COPY artifacts/de.itemis.mps.extensions/ /usr/modelix-ui/mps/plugins/
 
-RUN ls /usr/cloudmps-ui/mps/plugins/
+RUN ls /usr/modelix-ui/mps/plugins/
 
-COPY run-ui-server.sh /usr/cloudmps-ui
-COPY ui-server/build/libs/ui-server-1.0-SNAPSHOT.jar /usr/cloudmps-ui/ui-server.jar
-COPY healthcheck-ui.sh /usr/cloudmps-ui/
-HEALTHCHECK CMD /usr/cloudmps-ui/healthcheck.sh
+COPY run-ui-server.sh /usr/modelix-ui
+COPY ui-server/build/libs/ui-server-1.0-SNAPSHOT.jar /usr/modelix-ui/ui-server.jar
 CMD ["./run-ui-server.sh"]

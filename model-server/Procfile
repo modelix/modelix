@@ -1,1 +1,1 @@
-web: java -jar target/webmps-server-1.0-SNAPSHOT-jar-with-dependencies.jar
+web: java -jar target/modelix-server-1.0-SNAPSHOT-jar-with-dependencies.jar
