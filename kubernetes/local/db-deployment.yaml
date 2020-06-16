@@ -19,14 +19,14 @@ spec:
       containers:
       - env:
         - name: POSTGRES_PASSWORD
-          value: cloudmps
+          value: modelix
         - name: POSTGRES_USER
-          value: cloudmps
+          value: modelix
         - name: POSTGRES_DB
-          value: cloudmps
+          value: modelix
         - name: PGDATA
           value: /var/lib/postgresql/data/pgdata
-        image: cloudmps/cloudmps-db
+        image: modelix/modelix-db
         imagePullPolicy: IfNotPresent
         name: db
         resources: {}

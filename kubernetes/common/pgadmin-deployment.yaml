@@ -18,9 +18,9 @@ spec:
       containers:
         - env:
             - name: DEFAULT_USER
-              value: cloudmps
+              value: modelix
             - name: DEFAULT_PASSWORD
-              value: cloudmps
+              value: modelix
           image: fenglc/pgadmin4
           imagePullPolicy: IfNotPresent
           name: pgadmin

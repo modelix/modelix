@@ -22,7 +22,7 @@ spec:
     spec:
       containers:
       - name: proxy
-        image: cloudmps/cloudmps-proxy:202002141541
+        image: modelix/modelix-proxy:202006161724
         imagePullPolicy: IfNotPresent
         env:
         ports:

@@ -22,7 +22,7 @@ spec:
     spec:
       containers:
       - name: ui
-        image: cloudmps/cloudmps-ui:202002041256
+        image: modelix/modelix-ui:202006161724
         imagePullPolicy: IfNotPresent
         env:
         - name: MODEL_URI
