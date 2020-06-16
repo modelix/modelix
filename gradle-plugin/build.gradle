@@ -3,7 +3,7 @@ plugins {
     id 'maven'
 }
 
-group 'de.q60.cloudmps'
+group 'org.modelix'
 version '1.0-SNAPSHOT'
 
 sourceCompatibility = 1.8

@@ -1,4 +1,4 @@
-package de.q60.cloudmps.gradle.model;
+package org.modelix.gradle.model;
 
 import org.gradle.api.Plugin;
 import org.gradle.api.Project;
