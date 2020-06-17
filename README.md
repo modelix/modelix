@@ -9,18 +9,18 @@ Cloud storage and web UI for MPS
 
 - https://console.cloud.google.com/kubernetes/list?project=webmps
 - Create cluster
-    - Name: cloudmps
+    - Name: modelix
     - Zone: europe-west-3c
     - Pool
         - Number of nodes: 1
         - Machine type: n1-standard-2
-- `gcloud container clusters get-credentials cloudmps`
+- `gcloud container clusters get-credentials modelix`
 - `./gradlew`
 - `./docker-build-all.sh`
 - `./docker-push-hub.sh`
 - `kubectl create secret generic cloudsql-instance-credentials --from-file=./kubernetes/secrets/cloudsql.json`
-- `kubectl create secret generic modelsecret --from-file=./kubernetes/secrets/modelsecret.txt`
-- SSL certificate
+- `./kubernetes-modelsecret.sh`
+- SSL certificate (not supported yet)
     - `cd ssl`
     - `./generate.sh`
     - `./kubernetes-create-secret.sh`
@@ -38,9 +38,21 @@ Cloud storage and web UI for MPS
 
 - minikube start --cpus=6 --memory=12GB --disk-size=40GB
 
-- `kubectl create secret generic modelsecret --from-file=./kubernetes/secrets/modelsecret.txt`
-- SSL certificate
+- `./kubernetes-modelsecret.sh`
+- SSL certificate (not supported yet)
     - `cd ssl`
     - `./generate.sh`
     - `./kubernetes-create-secret.sh`
 - `./kubernetes-apply-local.sh`
+
+## Run without kubernetes
+
+- database
+    - Change the port in `model-server/src/main/resources/org/modelix/model/server/database.properties` to 54333 or change the port in `./docker-run-db.sh` to 5432
+    - `./docker-run-db.sh`
+- model server
+    - `cd model-server`
+    - `./gradlew run
+- UI server
+    - open the project in the folder "mps" with MPS
+    - <http://localhost:33333/>
