@@ -1525,7 +1525,7 @@
                   <ref role="37wK5l" to="7bx7:~ActionUtils.getGroup(java.lang.String)" resolve="getGroup" />
                   <ref role="1Pybhc" to="7bx7:~ActionUtils" resolve="ActionUtils" />
                   <node concept="Xl_RD" id="6aRQr1WOkvN" role="37wK5m">
-                    <property role="Xl_RC" value="de.q60.mps.web.model.mpsplugin.plugin.CloudRootGroup_ActionGroup" />
+                    <property role="Xl_RC" value="org.modelix.model.mpsplugin.plugin.CloudRootGroup_ActionGroup" />
                   </node>
                 </node>
               </node>
@@ -1547,7 +1547,7 @@
                   <ref role="37wK5l" to="7bx7:~ActionUtils.getGroup(java.lang.String)" resolve="getGroup" />
                   <ref role="1Pybhc" to="7bx7:~ActionUtils" resolve="ActionUtils" />
                   <node concept="Xl_RD" id="6aRQr1XcUXW" role="37wK5m">
-                    <property role="Xl_RC" value="de.q60.mps.web.model.mpsplugin.plugin.CloudRepositoryGroup_ActionGroup" />
+                    <property role="Xl_RC" value="org.modelix.model.mpsplugin.plugin.CloudRepositoryGroup_ActionGroup" />
                   </node>
                 </node>
               </node>
@@ -1569,7 +1569,7 @@
                   <ref role="37wK5l" to="7bx7:~ActionUtils.getGroup(java.lang.String)" resolve="getGroup" />
                   <ref role="1Pybhc" to="7bx7:~ActionUtils" resolve="ActionUtils" />
                   <node concept="Xl_RD" id="49CIzaqr07$" role="37wK5m">
-                    <property role="Xl_RC" value="de.q60.mps.web.model.mpsplugin.plugin.CloudNodeGroup_ActionGroup" />
+                    <property role="Xl_RC" value="org.modelix.model.mpsplugin.plugin.CloudNodeGroup_ActionGroup" />
                   </node>
                 </node>
               </node>
@@ -1591,7 +1591,7 @@
                   <ref role="37wK5l" to="7bx7:~ActionUtils.getGroup(java.lang.String)" resolve="getGroup" />
                   <ref role="1Pybhc" to="7bx7:~ActionUtils" resolve="ActionUtils" />
                   <node concept="Xl_RD" id="2n9WvfbmayX" role="37wK5m">
-                    <property role="Xl_RC" value="de.q60.mps.web.model.mpsplugin.plugin.CloudTreeGroup_ActionGroup" />
+                    <property role="Xl_RC" value="org.modelix.model.mpsplugin.plugin.CloudTreeGroup_ActionGroup" />
                   </node>
                 </node>
               </node>
@@ -1613,7 +1613,7 @@
                   <ref role="37wK5l" to="7bx7:~ActionUtils.getGroup(java.lang.String)" resolve="getGroup" />
                   <ref role="1Pybhc" to="7bx7:~ActionUtils" resolve="ActionUtils" />
                   <node concept="Xl_RD" id="2n9WvfbmUyv" role="37wK5m">
-                    <property role="Xl_RC" value="de.q60.mps.web.model.mpsplugin.plugin.CloudBranchGroup_ActionGroup" />
+                    <property role="Xl_RC" value="org.modelix.model.mpsplugin.plugin.CloudBranchGroup_ActionGroup" />
                   </node>
                 </node>
               </node>

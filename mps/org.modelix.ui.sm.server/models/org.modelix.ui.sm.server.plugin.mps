@@ -520,7 +520,7 @@
       <node concept="3clFbS" id="7q7cTU0Y2Cg" role="2VODD2">
         <node concept="RRSsy" id="2wu1c06OJqL" role="3cqZAp">
           <node concept="Xl_RD" id="2wu1c06OJD$" role="RRSoy">
-            <property role="Xl_RC" value="de.q60.mps.web.ui.sm.server plugin loaded" />
+            <property role="Xl_RC" value="org.modelix.ui.sm.server plugin loaded" />
           </node>
         </node>
         <node concept="RRSsy" id="2wu1c06OJZ6" role="3cqZAp">
