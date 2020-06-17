@@ -105,7 +105,7 @@
                                 <list>
                                     <bean class="org.apache.ignite.cache.store.jdbc.JdbcType">
                                         <property name="cacheName" value="model"/>
-                                        <property name="databaseSchema" value="cloudmps"/>
+                                        <property name="databaseSchema" value="${jdbc.schema}"/>
                                         <property name="databaseTable" value="model"/>
                                         <property name="keyType" value="java.lang.String"/>
                                         <property name="valueType" value="java.lang.String"/>
