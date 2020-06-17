@@ -9514,7 +9514,7 @@
             <node concept="3clFbS" id="65d3h4jaOSe" role="9aQI4">
               <node concept="3cpWs6" id="1LVcV5KyY8w" role="3cqZAp">
                 <node concept="Xl_RD" id="6lVG1TvblSi" role="3cqZAk">
-                  <property role="Xl_RC" value="http://cloudmps.q60.de:80/model/" />
+                  <property role="Xl_RC" value="http://modelix.q60.de:80/model/" />
                 </node>
               </node>
             </node>
