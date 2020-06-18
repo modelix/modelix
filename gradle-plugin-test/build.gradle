@@ -27,3 +27,8 @@ dependencies {
 }
 
 apply plugin: 'modelix-gradle-plugin'
+
+downloadModel {
+    serverUrl = "http://localhost:28101/"
+    treeId = "defaultTree"
+}
