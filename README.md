@@ -14,16 +14,16 @@ You need a PostgreSQL database, the model server and the MPS plugin for the UI s
 
 While you can install PostgreSQL locally it's easier to just run the docker image.
 This gives you an empty ready to use database each time you restart the docker image.
-If you still want to install a PostgreSQL server check the files [./db/initdb.sql] and
-[./model-server/src/main/resources/org/modelix/model/server/database.properties].
+If you still want to install a PostgreSQL server check the files [./db/initdb.sql](./db/initdb.sql) and
+[./model-server/src/main/resources/org/modelix/model/server/database.properties](./model-server/src/main/resources/org/modelix/model/server/database.properties).
 
 - database
-    - Change the port in [./model-server/src/main/resources/org/modelix/model/server/database.properties] to 54333 or change the port in [./docker-run-db.sh] to 5432
+    - Change the port in [./model-server/src/main/resources/org/modelix/model/server/database.properties](./model-server/src/main/resources/org/modelix/model/server/database.properties) to 54333 or change the port in [./docker-run-db.sh](./docker-run-db.sh) to 5432
 	- `./docker-build-db.sh`
     - `./docker-run-db.sh`
 - model server
     - `cd model-server`
-    - `./gradlew run
+    - `./gradlew run`
 - UI server
     - open the project in the folder "mps" with MPS
     - <http://localhost:33333/>
