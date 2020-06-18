@@ -18,10 +18,12 @@ You need a PostgreSQL database, the model server and the MPS plugin for the UI s
 
 Obviously you first have to clone this repository. At this time there are no builds or releases available.
 
-## Installing MPS
 
-While the MPS that is used for the build is downloaded automatically, you have to install MPS yourself to use it as the client. Currently we rely on MPS 2020.1 which you can get from https://www.jetbrains.com/mps/
+## Editing the sources
 
+- run `gradlew` in the main directory to download dependencies and build the project
+- While the MPS that is used for the build is downloaded automatically, you have to install MPS yourself to use it as the client. Currently we rely on MPS 2020.1 which you can get from https://www.jetbrains.com/mps/
+- open the project in the folder "mps" with MPS; you might want to rebuild it in the IDE
 
 
 ## Running without kubernetes
@@ -35,13 +37,12 @@ If you still want to install a PostgreSQL server check the files [./db/initdb.sq
 
 - database
     - Change the port in [./model-server/src/main/resources/org/modelix/model/server/database.properties](./model-server/src/main/resources/org/modelix/model/server/database.properties) to 54333; that number is then mentioned twice, before and after the colon
-    - `./docker-build-db.sh`
-    - `./docker-run-db.sh`
+    - set up the database via `./docker-build-db.sh` (in the main modelix directory)
+    - run the database via `./docker-run-db.sh`
 - model server
     - `cd model-server`
     - `./gradlew run`
-- UI server
-    - open the project in the folder "mps" with MPS
+- Browser Client
     - <http://localhost:33333/>
 
 ## Running with minikube
