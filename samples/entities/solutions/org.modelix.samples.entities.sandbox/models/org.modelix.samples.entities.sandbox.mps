@@ -2,7 +2,7 @@
 <model ref="r:5d56df86-9b89-40e7-a17f-675bb0dc9ae2(org.modelix.samples.entities.sandbox)">
   <persistence version="9" />
   <languages>
-    <use id="363848cf-91df-484c-9066-7089821cb609" name="de.q60.mps.web.samples.entities" version="-1" />
+    <use id="363848cf-91df-484c-9066-7089821cb609" name="org.modelix.samples.entities" version="-1" />
     <devkit ref="fbc25dd2-5da4-483a-8b19-70928e1b62d7(jetbrains.mps.devkit.general-purpose)" />
   </languages>
   <imports />
@@ -76,15 +76,15 @@
       <concept id="1146644602865" name="jetbrains.mps.baseLanguage.structure.PublicVisibility" flags="nn" index="3Tm1VV" />
       <concept id="1146644623116" name="jetbrains.mps.baseLanguage.structure.PrivateVisibility" flags="nn" index="3Tm6S6" />
     </language>
-    <language id="363848cf-91df-484c-9066-7089821cb609" name="de.q60.mps.web.samples.entities">
-      <concept id="579439372628304764" name="de.q60.mps.web.samples.entities.structure.EntityType" flags="ng" index="uq3pQ">
+    <language id="363848cf-91df-484c-9066-7089821cb609" name="org.modelix.samples.entities">
+      <concept id="579439372628304764" name="org.modelix.samples.entities.structure.EntityType" flags="ng" index="uq3pQ">
         <reference id="579439372628304981" name="entity" index="uq35v" />
       </concept>
-      <concept id="579439372628239967" name="de.q60.mps.web.samples.entities.structure.StringType" flags="ng" index="uqNdl" />
-      <concept id="7680480780028988222" name="de.q60.mps.web.samples.entities.structure.Entity" flags="ng" index="3ZgkuH">
+      <concept id="579439372628239967" name="org.modelix.samples.entities.structure.StringType" flags="ng" index="uqNdl" />
+      <concept id="7680480780028988222" name="org.modelix.samples.entities.structure.Entity" flags="ng" index="3ZgkuH">
         <child id="7680480780028993238" name="properties" index="3Zgl95" />
       </concept>
-      <concept id="7680480780028993068" name="de.q60.mps.web.samples.entities.structure.Property" flags="ng" index="3ZglaZ">
+      <concept id="7680480780028993068" name="org.modelix.samples.entities.structure.Property" flags="ng" index="3ZglaZ">
         <child id="579439372628240412" name="type" index="uqNOm" />
       </concept>
     </language>
