@@ -8,12 +8,15 @@ The modelix project develops a next generation language workbench that is native
 * Database/Cloud storage for MPS models with realtime collaboration
 * Server-based execution of MPS and browser-based editors
 
-
 # How to run modelix
 
 In production modelix uses docker images running in a kubernetes cluster.
 During development you can run the different components without docker/kubernetes.
 You need a PostgreSQL database, the model server and the MPS plugin for the UI server.
+
+## Clone the repo
+
+Obviously you first have to clone this repository. At this time there are no builds or releases available.
 
 ## Installing MPS
 
