@@ -1,8 +1,13 @@
-# modelix
-
 <a href="https://build.mbeddr.com/project.html?projectId=WebMps_WebMpsBuild&tab=projectOverview"><img src="http://build.mbeddr.com/app/rest/builds/buildType:(id:WebMps_WebMpsBuild)/statusIcon"/></a>
 
-Cloud storage and web UI for MPS
+
+# The modelix Project
+
+The modelix project develops a next generation language workbench that is native to the web and the cloud, inspired by [this document](http://voelter.de/data/pub/APlatformForSystemsAndBusinessModeling.pdf). On the path to this final vision, the short-term goal is to use MPS as the backend. To this end, we currently develop two components:
+
+* Database/Cloud storage for MPS models with realtime collaboration
+* Server-based execution of MPS and browser-based editors
+
 
 # How to run modelix
 
