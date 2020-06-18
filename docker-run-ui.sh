@@ -1,3 +1,3 @@
 #!/bin/sh
 
-docker run --rm -it -p 80:63320/tcp modelix-ui
+docker run --rm -it -p 33333:33333/tcp modelix-ui
