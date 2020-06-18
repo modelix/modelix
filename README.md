@@ -1,5 +1,4 @@
-[![Build Status](https://travis-ci.org/modelix/modelix.svg?branch=master)](https://travis-ci.org/modelix/modelix) <a href="https://build.mbeddr.com/project.html?projectId=WebMps_WebMpsBuild&tab=projectOverview"><img src="http://build.mbeddr.com/app/rest/builds/buildType:(id:WebMps_WebMpsBuild)/statusIcon"/></a>
-
+[![Build Status](https://travis-ci.org/modelix/modelix.svg?branch=master)](https://travis-ci.org/modelix/modelix) 
 
 # The modelix Project
 
