@@ -42,6 +42,8 @@ If you still want to install a PostgreSQL server check the files [./db/initdb.sq
 - model server
     - `cd model-server`
     - `./gradlew run`
+- Web Server + Backend
+    - open the project in the folder "mps" with MPS; you might want to rebuild it in the IDE; MPS runs the web server and is necessary to modify models.
 - Browser Client
     - <http://localhost:33333/>
 
