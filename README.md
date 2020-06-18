@@ -8,23 +8,24 @@ The modelix project develops a next generation language workbench that is native
 * Database/Cloud storage for MPS models with realtime collaboration
 * Server-based execution of MPS and browser-based editors
 
-# How to run modelix
 
-In production modelix uses docker images running in a kubernetes cluster.
-During development you can run the different components without docker/kubernetes.
-You need a PostgreSQL database, the model server and the MPS plugin for the UI server.
-
-## Clone the repo
+# Clone the repo
 
 Obviously you first have to clone this repository. At this time there are no builds or releases available.
 
 
-## Editing the sources
+# Editing the sources
 
 - run `gradlew` in the main directory to download dependencies and build the project
 - While the MPS that is used for the build is downloaded automatically, you have to install MPS yourself to use it as the client. Currently we rely on MPS 2020.1 which you can get from https://www.jetbrains.com/mps/
 - open the project in the folder "mps" with MPS; you might want to rebuild it in the IDE
 
+
+# How to run modelix
+
+In production modelix uses docker images running in a kubernetes cluster.
+During development you can run the different components without docker/kubernetes.
+You need a PostgreSQL database, the model server and the MPS plugin for the UI server.
 
 ## Running without kubernetes
 
@@ -40,12 +41,12 @@ If you still want to install a PostgreSQL server check the files [./db/initdb.sq
     - set up the database via `./docker-build-db.sh` (in the main modelix directory)
     - run the database via `./docker-run-db.sh`
 - model server
-    - `cd model-server`
-    - `./gradlew run`
+    - change to the `model-server` directory
+    - run `./gradlew run`
 - Web Server + Backend
     - open the project in the folder "mps" with MPS; you might want to rebuild it in the IDE; MPS runs the web server and is necessary to modify models.
 - Browser Client
-    - <http://localhost:33333/>
+    - point your browser to <http://localhost:33333/>
 
 ## Running with minikube
 
