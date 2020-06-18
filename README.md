@@ -34,8 +34,8 @@ If you still want to install a PostgreSQL server check the files [./db/initdb.sq
 - docker: you need Docker on your machine; get it from https://docs.docker.com/docker-for-mac/install/ and then run it via `docker.app`.
 
 - database
-    - Change the port in [./model-server/src/main/resources/org/modelix/model/server/database.properties](./model-server/src/main/resources/org/modelix/model/server/database.properties) to 54333 or change the port in [./docker-run-db.sh](./docker-run-db.sh) to 5432
-	- `./docker-build-db.sh`
+    - Change the port in [./model-server/src/main/resources/org/modelix/model/server/database.properties](./model-server/src/main/resources/org/modelix/model/server/database.properties) to 54333; that number is then mentioned twice, before and after the colon
+    - `./docker-build-db.sh`
     - `./docker-run-db.sh`
 - model server
     - `cd model-server`
