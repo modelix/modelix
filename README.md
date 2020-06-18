@@ -15,12 +15,20 @@ In production modelix uses docker images running in a kubernetes cluster.
 During development you can run the different components without docker/kubernetes.
 You need a PostgreSQL database, the model server and the MPS plugin for the UI server.
 
+## Installing MPS
+
+While the MPS that is used for the build is downloaded automatically, you have to install MPS yourself to use it as the client. Currently we rely on MPS 2020.1 which you can get from https://www.jetbrains.com/mps/
+
+
+
 ## Running without kubernetes
 
 While you can install PostgreSQL locally it's easier to just run the docker image.
 This gives you an empty ready to use database each time you restart the docker image.
 If you still want to install a PostgreSQL server check the files [./db/initdb.sql](./db/initdb.sql) and
-[./model-server/src/main/resources/org/modelix/model/server/database.properties](./model-server/src/main/resources/org/modelix/model/server/database.properties).
+[./model-server/src/main/resources/org/modelix/model/server/database.properties](./model-server/src/main/resources/org/modelix/model/server/database.properties). 
+
+- docker: you need Docker on your machine; get it from https://docs.docker.com/docker-for-mac/install/ and then run it via `docker.app`.
 
 - database
     - Change the port in [./model-server/src/main/resources/org/modelix/model/server/database.properties](./model-server/src/main/resources/org/modelix/model/server/database.properties) to 54333 or change the port in [./docker-run-db.sh](./docker-run-db.sh) to 5432
