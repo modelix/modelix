@@ -328,9 +328,6 @@
       <concept id="1203518072036" name="jetbrains.mps.baseLanguage.collections.structure.SmartClosureParameterDeclaration" flags="ig" index="Rh6nW" />
       <concept id="1160600644654" name="jetbrains.mps.baseLanguage.collections.structure.ListCreatorWithInit" flags="nn" index="Tc6Ow" />
       <concept id="1160612413312" name="jetbrains.mps.baseLanguage.collections.structure.AddElementOperation" flags="nn" index="TSZUe" />
-      <concept id="4611582986551314327" name="jetbrains.mps.baseLanguage.collections.structure.OfTypeOperation" flags="nn" index="UnYns">
-        <child id="4611582986551314344" name="requestedType" index="UnYnz" />
-      </concept>
       <concept id="1160666733551" name="jetbrains.mps.baseLanguage.collections.structure.AddAllElementsOperation" flags="nn" index="X8dFx" />
       <concept id="1201792049884" name="jetbrains.mps.baseLanguage.collections.structure.TranslateOperation" flags="nn" index="3goQfb" />
       <concept id="1197683403723" name="jetbrains.mps.baseLanguage.collections.structure.MapType" flags="in" index="3rvAFt">
@@ -2206,77 +2203,49 @@
         <node concept="3clFbH" id="2TMlwYi2E7p" role="3cqZAp" />
         <node concept="3J1_TO" id="2TMlwYi2CCK" role="3cqZAp">
           <node concept="3clFbS" id="2TMlwYi2CCM" role="1zxBo7">
-            <node concept="3cpWs8" id="QucyCqZCkH" role="3cqZAp">
-              <node concept="3cpWsn" id="QucyCqZCkI" role="3cpWs9">
+            <node concept="2Gpval" id="4cICdlebhqk" role="3cqZAp">
+              <node concept="2GrKxI" id="4cICdlebhqm" role="2Gsz3X">
                 <property role="TrG5h" value="repo" />
-                <node concept="3uibUv" id="QucyCqZC0Q" role="1tU5fm">
-                  <ref role="3uigEE" to="w1kc:~MPSModuleRepository" resolve="MPSModuleRepository" />
-                </node>
-                <node concept="2YIFZM" id="QucyCqZCkJ" role="33vP2m">
-                  <ref role="37wK5l" to="w1kc:~MPSModuleRepository.getInstance()" resolve="getInstance" />
-                  <ref role="1Pybhc" to="w1kc:~MPSModuleRepository" resolve="MPSModuleRepository" />
-                </node>
               </node>
-            </node>
-            <node concept="3clFbF" id="QucyCqZCCq" role="3cqZAp">
-              <node concept="2OqwBi" id="QucyCqZFlN" role="3clFbG">
-                <node concept="2OqwBi" id="QucyCqZDcu" role="2Oq$k0">
-                  <node concept="37vLTw" id="QucyCqZCCo" role="2Oq$k0">
-                    <ref role="3cqZAo" node="QucyCqZCkI" resolve="repo" />
-                  </node>
-                  <node concept="liA8E" id="QucyCqZFdK" role="2OqNvi">
-                    <ref role="37wK5l" to="w1kc:~MPSModuleRepository.getModelAccess()" resolve="getModelAccess" />
-                  </node>
-                </node>
-                <node concept="liA8E" id="QucyCqZFwP" role="2OqNvi">
-                  <ref role="37wK5l" to="lui2:~ModelAccess.runReadAction(java.lang.Runnable)" resolve="runReadAction" />
-                  <node concept="1bVj0M" id="QucyCqZFBQ" role="37wK5m">
-                    <node concept="3clFbS" id="QucyCqZFBR" role="1bW5cS">
-                      <node concept="3cpWs8" id="QucyCqZhXe" role="3cqZAp">
-                        <node concept="3cpWsn" id="QucyCqZhXf" role="3cpWs9">
-                          <property role="TrG5h" value="modules" />
-                          <node concept="A3Dl8" id="QucyCqZiiY" role="1tU5fm">
-                            <node concept="3uibUv" id="QucyCqZij0" role="A3Ik2">
-                              <ref role="3uigEE" to="lui2:~SModule" resolve="SModule" />
-                            </node>
-                          </node>
-                          <node concept="2OqwBi" id="QucyCqZhXg" role="33vP2m">
-                            <node concept="37vLTw" id="QucyCqZCkK" role="2Oq$k0">
-                              <ref role="3cqZAo" node="QucyCqZCkI" resolve="repo" />
-                            </node>
-                            <node concept="liA8E" id="QucyCqZhXi" role="2OqNvi">
-                              <ref role="37wK5l" to="w1kc:~MPSModuleRepository.getModules()" resolve="getModules" />
-                            </node>
-                          </node>
-                        </node>
-                      </node>
-                      <node concept="3clFbJ" id="QucyCqZksk" role="3cqZAp">
-                        <node concept="3clFbS" id="QucyCqZksm" role="3clFbx">
-                          <node concept="3clFbF" id="QucyCqZGc_" role="3cqZAp">
-                            <node concept="37vLTI" id="QucyCqZGAX" role="3clFbG">
-                              <node concept="3clFbT" id="QucyCqZGHP" role="37vLTx" />
-                              <node concept="37vLTw" id="QucyCqZGcy" role="37vLTJ">
-                                <ref role="3cqZAo" node="QucyCqZDKP" resolve="healthy" />
-                              </node>
-                            </node>
-                          </node>
-                        </node>
-                        <node concept="2OqwBi" id="QucyCqZjzH" role="3clFbw">
-                          <node concept="2OqwBi" id="QucyCqZizU" role="2Oq$k0">
-                            <node concept="37vLTw" id="QucyCqZhXj" role="2Oq$k0">
-                              <ref role="3cqZAo" node="QucyCqZhXf" resolve="modules" />
-                            </node>
-                            <node concept="UnYns" id="QucyCqZj3m" role="2OqNvi">
-                              <node concept="3uibUv" id="QucyCqZji6" role="UnYnz">
-                                <ref role="3uigEE" to="csg2:115Xaa43tZI" resolve="CloudTransientModule" />
-                              </node>
-                            </node>
-                          </node>
-                          <node concept="1v1jN8" id="QucyCqZk4R" role="2OqNvi" />
+              <node concept="3clFbS" id="4cICdlebhqq" role="2LFqv$">
+                <node concept="3clFbJ" id="4cICdlebGPH" role="3cqZAp">
+                  <node concept="3clFbS" id="4cICdlebGPJ" role="3clFbx">
+                    <node concept="3clFbF" id="4cICdlebIOR" role="3cqZAp">
+                      <node concept="37vLTI" id="4cICdlebJl4" role="3clFbG">
+                        <node concept="3clFbT" id="4cICdlebJxz" role="37vLTx" />
+                        <node concept="37vLTw" id="4cICdlebIOP" role="37vLTJ">
+                          <ref role="3cqZAo" node="QucyCqZDKP" resolve="healthy" />
                         </node>
                       </node>
                     </node>
                   </node>
+                  <node concept="3clFbC" id="4cICdlebHmy" role="3clFbw">
+                    <node concept="3cmrfG" id="4cICdlebHIM" role="3uHU7w">
+                      <property role="3cmrfH" value="0" />
+                    </node>
+                    <node concept="2OqwBi" id="4cICdlebKaG" role="3uHU7B">
+                      <node concept="2OqwBi" id="4cICdlebGUY" role="2Oq$k0">
+                        <node concept="2GrUjf" id="4cICdlebGUZ" role="2Oq$k0">
+                          <ref role="2Gs0qQ" node="4cICdlebhqm" resolve="repo" />
+                        </node>
+                        <node concept="liA8E" id="4cICdlebGV0" role="2OqNvi">
+                          <ref role="37wK5l" to="csg2:2n9Wvfbnqym" resolve="getClient" />
+                        </node>
+                      </node>
+                      <node concept="liA8E" id="4cICdlebKM9" role="2OqNvi">
+                        <ref role="37wK5l" to="csg2:64iiug7VnKl" resolve="getClientId" />
+                      </node>
+                    </node>
+                  </node>
+                </node>
+              </node>
+              <node concept="2OqwBi" id="4cICdlebhCM" role="2GsD0m">
+                <node concept="2YIFZM" id="4cICdlebhCN" role="2Oq$k0">
+                  <ref role="1Pybhc" to="csg2:1LVcV5Kxxi$" resolve="CloudRepositories" />
+                  <ref role="37wK5l" to="csg2:1LVcV5Kxxmz" resolve="getInstance" />
+                </node>
+                <node concept="liA8E" id="4cICdlebhCO" role="2OqNvi">
+                  <ref role="37wK5l" to="csg2:1LVcV5KxBgM" resolve="getRepositories" />
                 </node>
               </node>
             </node>

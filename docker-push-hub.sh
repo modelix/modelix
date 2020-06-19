@@ -30,9 +30,11 @@ docker push "modelix/modelix-proxy:latest"
 
 echo "Pushed tag ${TAG}"
 
+sed -i -E "s/20[12][0-9][01][0-9][0123][0-9][0-5][0-9][0-5][0-9]/${TAG}/" kubernetes/local/db-deployment.yaml
 sed -i -E "s/20[12][0-9][01][0-9][0123][0-9][0-5][0-9][0-5][0-9]/${TAG}/" kubernetes/common/ui-deployment.yaml
 sed -i -E "s/20[12][0-9][01][0-9][0123][0-9][0-5][0-9][0-5][0-9]/${TAG}/" kubernetes/common/model-deployment.yaml
 sed -i -E "s/20[12][0-9][01][0-9][0123][0-9][0-5][0-9][0-5][0-9]/${TAG}/" kubernetes/common/proxy-deployment.yaml
+rm kubernetes/local/db-deployment.yaml-E
 rm kubernetes/common/ui-deployment.yaml-E
 rm kubernetes/common/model-deployment.yaml-E
 rm kubernetes/common/proxy-deployment.yaml-E

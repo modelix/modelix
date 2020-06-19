@@ -8,7 +8,7 @@ metadata:
   name: model
 spec:
   revisionHistoryLimit: 5
-  replicas: 3
+  replicas: 1
   strategy:
     type: RollingUpdate
     rollingUpdate:
@@ -27,7 +27,7 @@ spec:
       - env:
         - name: jdbc_url
           value: jdbc:postgresql://db:5432/
-        image: modelix/modelix-model:202006161724
+        image: modelix/modelix-model:202006191556
         imagePullPolicy: IfNotPresent
         name: model
         ports:
