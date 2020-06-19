@@ -22,6 +22,8 @@ Obviously you first have to clone this repository. At this time there are no bui
 
 # How to run modelix
 
+You can run modelix locally and in the Google cloud. The details are described [https://github.com/modelix/modelix/wiki/Running-Modelix](on this wiki page).
+
 In production modelix uses docker images running in a kubernetes cluster.
 During development you can run the different components without docker/kubernetes.
 You need a PostgreSQL database, the model server and the MPS plugin for the UI server.
