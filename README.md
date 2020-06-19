@@ -10,7 +10,7 @@ The modelix project develops a next generation language workbench that is native
 
 # Clone the repo
 
-Obviously you first have to clone this repository. At this time there are no builds or releases available.
+At this time there are no builds or releases available. You have to clone the repo to use modelix.
 
 
 # Editing the sources
