@@ -16,6 +16,9 @@ TBD.
 
 At this time there are no builds or releases available. You have to clone the repo to use modelix.
 
+# How to run modelix
+
+You can run modelix locally and in the Google cloud. The details are described [https://github.com/modelix/modelix/wiki/Running-Modelix](on this wiki page).
 
 # Editing the sources
 
@@ -24,7 +27,5 @@ At this time there are no builds or releases available. You have to clone the re
 - open the project in the folder "mps" with MPS; you might want to rebuild it in the IDE
 
 
-# How to run modelix
 
-You can run modelix locally and in the Google cloud. The details are described [https://github.com/modelix/modelix/wiki/Running-Modelix](on this wiki page).
 
