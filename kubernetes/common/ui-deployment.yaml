@@ -1,4 +1,4 @@
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   annotations:
@@ -14,6 +14,9 @@ spec:
     rollingUpdate:
       maxUnavailable: 0
       maxSurge: 1
+  selector:
+    matchLabels:
+      app: ui
   template:
     metadata:
       creationTimestamp: null
