@@ -18,7 +18,8 @@ At this time there are no builds or releases available. You have to clone the re
 
 # How to run modelix
 
-You can run modelix locally and in the Google cloud. The details are described [on this wiki page](https://github.com/modelix/modelix/wiki/Running-Modelix).
+- You can run modelix locally and in the Google cloud. The details are described [on this wiki page](https://github.com/modelix/modelix/wiki/Running-Modelix).
+- Then check out some of the [samples](https://github.com/modelix/modelix/wiki/Samples).
 
 # Editing the sources
 
