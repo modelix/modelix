@@ -1,5 +1,5 @@
-FROM cloudmps/cloudmps-ui
-WORKDIR /usr/cloudmps-ui
+FROM modelix/modelix-ui
+WORKDIR /usr/modelix-ui
 
-COPY artifacts/com.mbeddr.platform/ /usr/cloudmps-ui/mps/plugins/
-COPY artifacts/org.iets3.opensource/ /usr/cloudmps-ui/mps/plugins/
+COPY artifacts/com.mbeddr.platform/ /usr/modelix-ui/mps/plugins/
+COPY artifacts/org.iets3.opensource/ /usr/modelix-ui/mps/plugins/

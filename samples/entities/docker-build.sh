@@ -1,3 +1,3 @@
 #!/bin/sh
 
-docker build --no-cache -f Dockerfile -t cloudmps-entities .
+docker build --no-cache -f Dockerfile -t modelix-entities .
