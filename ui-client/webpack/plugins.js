@@ -13,7 +13,7 @@ module.exports = [
 
   new HtmlWebpackPlugin({
     template: 'public/index.html',
-    chunksSortMode: 'dependency'
+    chunksSortMode: 'auto'
   }),
 
   new ExtractTextPlugin({
@@ -21,5 +21,9 @@ module.exports = [
     disable: !isProd
   }),
 
-  new CopyWebpackPlugin([{from: 'public'}])
+  new CopyWebpackPlugin({
+    patterns: [
+        {from: 'public'}
+    ]
+  })
 ];

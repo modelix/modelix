@@ -34,10 +34,10 @@
   
   <target name="assemble" depends="classes, declare-mps-tasks">
     <mkdir dir="${build.layout}" />
-    <mkdir dir="${build.tmp}/default/de.q60.mps.web.zip" />
-    <mkdir dir="${build.tmp}/default/de.q60.mps.web.zip/org.modelix" />
-    <mkdir dir="${build.tmp}/default/de.q60.mps.web.zip/org.modelix/META-INF" />
-    <echoxml file="${build.tmp}/default/de.q60.mps.web.zip/org.modelix/META-INF/plugin.xml">
+    <mkdir dir="${build.tmp}/default/org.modelix.zip" />
+    <mkdir dir="${build.tmp}/default/org.modelix.zip/org.modelix" />
+    <mkdir dir="${build.tmp}/default/org.modelix.zip/org.modelix/META-INF" />
+    <echoxml file="${build.tmp}/default/org.modelix.zip/org.modelix/META-INF/plugin.xml">
       <idea-plugin xmlns:xi="http://www.w3.org/2001/XInclude">
         <id>org.modelix</id>
         <name>org.modelix</name>
@@ -51,8 +51,8 @@
         </extensions>
       </idea-plugin>
     </echoxml>
-    <mkdir dir="${build.tmp}/default/de.q60.mps.web.zip/org.modelix/languages" />
-    <mkdir dir="${build.tmp}/default/de.q60.mps.web.zip/org.modelix/languages/org.modelix" />
+    <mkdir dir="${build.tmp}/default/org.modelix.zip/org.modelix/languages" />
+    <mkdir dir="${build.tmp}/default/org.modelix.zip/org.modelix/languages/org.modelix" />
     <mkdir dir="${build.tmp}/default/org.modelix.build.jar" />
     <mkdir dir="${build.tmp}/default/org.modelix.build.jar/META-INF" />
     <echoxml file="${build.tmp}/default/org.modelix.build.jar/META-INF/module.xml">
@@ -71,7 +71,7 @@
         <sources jar="org.modelix.build-src.jar" descriptor="org.modelix.build.msd" />
       </module>
     </echoxml>
-    <jar destfile="${build.tmp}/default/de.q60.mps.web.zip/org.modelix/languages/org.modelix/org.modelix.build.jar" duplicate="preserve">
+    <jar destfile="${build.tmp}/default/org.modelix.zip/org.modelix/languages/org.modelix/org.modelix.build.jar" duplicate="preserve">
       <fileset dir="${build.tmp}/java/out/org.modelix.build" />
       <fileset dir="${webmps.modules}/org.modelix.build/source_gen" includes="**/trace.info, **/exports, **/*.mps, **/checkpoints" />
       <fileset dir="${build.tmp}/default/org.modelix.build.jar" />
@@ -79,7 +79,7 @@
     <copyModels todir="${build.tmp}/customProcessors/copyModels/org.modelix.build-models">
       <fileset dir="${webmps.modules}/org.modelix.build/models" includes="**/*.mps, **/*.mpsr, **/.model" />
     </copyModels>
-    <jar destfile="${build.tmp}/default/de.q60.mps.web.zip/org.modelix/languages/org.modelix/org.modelix.build-src.jar" duplicate="preserve">
+    <jar destfile="${build.tmp}/default/org.modelix.zip/org.modelix/languages/org.modelix/org.modelix.build-src.jar" duplicate="preserve">
       <fileset dir="${webmps.modules}/org.modelix.build/source_gen">
         <exclude name="**/trace.info" />
         <exclude name="**/exports" />
@@ -89,8 +89,8 @@
       <zipfileset file="${webmps.modules}/org.modelix.build/org.modelix.build.msd" prefix="module" />
       <zipfileset dir="${build.tmp}/customProcessors/copyModels/org.modelix.build-models" prefix="module/models" />
     </jar>
-    <zip destfile="${build.layout}/de.q60.mps.web.zip">
-      <fileset dir="${build.tmp}/default/de.q60.mps.web.zip" />
+    <zip destfile="${build.layout}/org.modelix.zip">
+      <fileset dir="${build.tmp}/default/org.modelix.zip" />
     </zip>
     <echo file="${build.layout}/build.properties">mps.build.number=${mps.build.number}${line.separator}mps.date=${mps.date}${line.separator}mps.build.vcs.number=${mps.build.vcs.number}${line.separator}mps.teamcity.buildConfName=${mps.teamcity.buildConfName}${line.separator}mps.idea.platform.build.number=${mps.idea.platform.build.number}${line.separator}mps.mps.build.counter=${mps.mps.build.counter}${line.separator}mpsBootstrapCore.version=${mpsBootstrapCore.version}${line.separator}de.itemis.mps.extensions.versionNumber=${de.itemis.mps.extensions.versionNumber}</echo>
   </target>
