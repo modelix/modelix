@@ -3,6 +3,9 @@ import de.itemis.mps.gradle.RunAntScript
 import de.itemis.mps.gradle.GenerateLibrariesXml
 import de.itemis.mps.gradle.TestLanguages
 
+
+
+
 buildscript {
     repositories {
         maven { url 'https://projects.itemis.de/nexus/content/repositories/mbeddr' }
@@ -35,9 +38,8 @@ if (ext.has('java11_home')) {
 } else if (System.getenv('JB_JAVA11_HOME') != null) {
     jdk_home = System.getenv('JB_JAVA11_HOME')
 } else {
-    def expected = JavaVersion.VERSION_11
-    if (JavaVersion.current() != expected) {
-        throw new GradleException("This build script requires Java 11 but you are currently using ${JavaVersion.current()}.\nWhat you can do:\n"
+    if (!JavaVersion.current().isJava11Compatible()) {
+        throw new GradleException("This build script requires Java >=11 but you are currently using ${JavaVersion.current()}.\nWhat you can do:\n"
             + "  * Use project property java11_home to point to the Java 11 JDK.\n"
             + "  * Use environment variable JAVA11_HOME to point to the Java 11 JDK\n"
             + "  * Run Gradle using Java 11")

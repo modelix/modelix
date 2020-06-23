@@ -1,7 +1,9 @@
 language: java
 install: true
 
-jdk: openjdk11
+jdk: 
+  - openjdk11
+  - openjdk14
 
 script:
   - ./gradlew
