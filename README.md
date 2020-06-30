@@ -20,6 +20,37 @@ The modelix project develops a next generation language workbench that is native
 - While the MPS that is used for the build is downloaded automatically, you have to install MPS yourself to use it as the client. Currently we rely on MPS 2020.1 which you can get from https://www.jetbrains.com/mps/
 - open the project in the folder "mps" with MPS
 
+# Architecture
+
+modelix provides an editor in the browser for the languages implemented in MPS.
+This can be an image based editor that renders the editor in MPS using the default editor definition
+or an HTML based editor that requires a separate editor definition in a language provided by modelix.
+
+Common to both approaches is that the user input (keyboard, mouse) is processed on the server
+and the update of the projection after a model change also happens on the server.
+Even in case of the HTML based editor the resulting HTML is computed on the server side.
+This removes the need to replicate the model into the browser, which would result in a bad performance in case of big models.
+
+Running MPS in the cloud requires an alternative to the file system for storing models.
+modelix implements a data structure that allows replication between all MPS instances connected to the same model server.
+It is very similar to the [git storage format](https://git-scm.com/book/en/v2/Git-Internals-Git-Objects),
+but instead of files it stores nodes in its key-value data store.
+
+To support realtime collaboration, in addition to the snapshot of a version it also stores the operations that were applied on the previous version to produce the new version.
+Conflicts between concurrent modification are resolved using [operational transformation](https://en.wikipedia.org/wiki/Operational_transformation) (OT).
+The usually hard part of OT is to guarantee convergence, meaning that all clients end up with the same result indepent of the order in which they receive changes.
+This problem becomes trivial, because versions are identified by a hash over all the content.
+Any divergence will result in a different hash which can easily be detected.
+
+The remaining problem is what to do when a divergence is detected.
+From git we know that switching between versions is fast, because it only has to apply the difference between these versions.
+The same is true here.
+Fixing a divergence is as easy as switching to the correct version.
+If a client doesn't have any local changes it doesn't even need to apply the change operations itself.
+It can just switch to the new version.
+So in the rare case of a divergence fixing it is nothing special.
+It's an operation that happens all the time.
+
 # Content of the root directory
 
 File | Description
