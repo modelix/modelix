@@ -22,6 +22,36 @@ The modelix project develops a next generation language workbench that is native
 
 # Architecture
 
+![Architecture Overview](doc/images/overview.svg "Architecture Overview")
+
+The image above shows the components that modelix currently consists of.
+
+MPS is running in headless mode on the server with an HTTP server installed as a plugin.
+The browser connects to that server and receives the HTML and JavaScript code required for the interactive model editor.
+
+A second plugin connects to a model server and replicates the data into MPS' internal module repository.
+All MPS instances connected to that model server will stay synchronized.
+This can also be a local MPS instance without a web editor.
+Both options are supported at the same time.
+
+The next image gives an overview over the different docker images running in the kubernetes cluster. 
+
+![Kubernetes](doc/images/kubernetes.svg "Kubernetes")
+
+The model server uses an Apache Ignite cluster and just provides a REST API on top of it.
+A high load can be distributed over multiple instances.
+
+Running multiple MPS instances for scalability is possible,
+because the model has the same state on all instances.
+
+If you want to run MPS instances with different configurations (languages, plugins)
+or allow external instances to connect to the model server,
+a reverse proxy is used to forward the request to the correct instance.
+
+To access the web editor a user has to login in with a google account first.
+An OAuth proxy takes care of that and adds an HTTP header with the users e-mail address to the request. 
+
+## Editor
 modelix provides an editor in the browser for the languages implemented in MPS.
 This can be an image based editor that renders the editor in MPS using the default editor definition
 or an HTML based editor that requires a separate editor definition in a language provided by modelix.
@@ -30,6 +60,8 @@ Common to both approaches is that the user input (keyboard, mouse) is processed 
 and the update of the projection after a model change also happens on the server.
 Even in case of the HTML based editor the resulting HTML is computed on the server side.
 This removes the need to replicate the model into the browser, which would result in a bad performance in case of big models.
+
+## Model
 
 Running MPS in the cloud requires an alternative to the file system for storing models.
 modelix implements a data structure that allows replication between all MPS instances connected to the same model server.
