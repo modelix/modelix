@@ -98,4 +98,14 @@ File | Description
 [update-gcloud.sh](update-gcloud.sh) | If you want to build and run your own images inside you cluster.
 [update-minikube.sh](update-minikube.sh) | If you want to build and run your own images inside you cluster.
 
+# Roadmap
 
+Here are some open topics that we may work on in the future. The order doesn't have any meaning.
+
+- CI integration
+  - Gradle plugin for downloading models from the model server
+- Code review tool based on modelix
+  - Git integration: Allow to specify a repository and a branch/version that is then loaded into an MPS instance running in kubernetes
+- Collaborative editing in MPS
+  - Show list of active users working on the same model
+  - Show cursors/selection of other users
