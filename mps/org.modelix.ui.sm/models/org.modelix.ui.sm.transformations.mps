@@ -1242,7 +1242,7 @@
             <node concept="027rt" id="7fn21XE1rh_" role="8Wnug">
               <ref role="027rv" to="70w2:7NImM053Sep" resolve="children" />
               <node concept="214gnc" id="7fn21XE1sbF" role="027rp">
-                <ref role="1YEVMl" node="7trMQm3W2UH" resolve="svgNodeEditor" />
+                <ref role="1YEVMl" node="7trMQm3W2UH" resolve="imageNodeEditor" />
                 <node concept="214o7A" id="7fn21XE1sbQ" role="214sll" />
               </node>
             </node>
@@ -1256,7 +1256,7 @@
           <node concept="027rt" id="62_qJBxNm_g" role="02LM9">
             <ref role="027rv" to="70w2:7NImM053Sep" resolve="children" />
             <node concept="214gnc" id="7trMQm3aFic" role="027rp">
-              <ref role="1YEVMl" node="7trMQm3aARC" resolve="nodeEditor" />
+              <ref role="1YEVMl" node="7trMQm3W2UH" resolve="imageNodeEditor" />
               <node concept="214o7A" id="7trMQm3aFiA" role="214sll" />
             </node>
           </node>
@@ -1271,7 +1271,7 @@
     </node>
     <node concept="2OrE70" id="7vWAzuELdpZ" role="02uzr" />
     <node concept="02vpq" id="7trMQm3aARC" role="02uzr">
-      <property role="TrG5h" value="nodeEditor" />
+      <property role="TrG5h" value="htmlNodeEditor" />
       <node concept="02i3K" id="7trMQm3aC3$" role="02i3f">
         <property role="TrG5h" value="node" />
         <node concept="02i3D" id="7trMQm3aCa4" role="02i2B">
@@ -1381,7 +1381,7 @@
     </node>
     <node concept="2OrE70" id="7trMQm3W4dc" role="02uzr" />
     <node concept="02vpq" id="7trMQm3W2UH" role="02uzr">
-      <property role="TrG5h" value="svgNodeEditor" />
+      <property role="TrG5h" value="imageNodeEditor" />
       <node concept="02i3K" id="7trMQm3W2UI" role="02i3f">
         <property role="TrG5h" value="node" />
         <node concept="02i3D" id="7trMQm3W2UJ" role="02i2B">
@@ -9342,7 +9342,7 @@
           <node concept="027rt" id="4JrW6Yv4WS8" role="02LM9">
             <ref role="027rv" to="70w2:7NImM053Sep" resolve="children" />
             <node concept="214gnc" id="4JrW6Yv4XEm" role="027rp">
-              <ref role="1YEVMl" node="7trMQm3aARC" resolve="nodeEditor" />
+              <ref role="1YEVMl" node="7trMQm3aARC" resolve="htmlNodeEditor" />
               <node concept="214o7A" id="4JrW6Yv4XKn" role="214sll" />
             </node>
           </node>
@@ -9557,7 +9557,7 @@
           <node concept="027rt" id="7trMQm3mukV" role="02LM9">
             <ref role="027rv" to="70w2:7NImM053Sep" resolve="children" />
             <node concept="214gnc" id="7trMQm3muDH" role="027rp">
-              <ref role="1YEVMl" node="7trMQm3W2UH" resolve="svgNodeEditor" />
+              <ref role="1YEVMl" node="7trMQm3W2UH" resolve="imageNodeEditor" />
               <node concept="214o7A" id="7trMQm3muDO" role="214sll" />
             </node>
           </node>

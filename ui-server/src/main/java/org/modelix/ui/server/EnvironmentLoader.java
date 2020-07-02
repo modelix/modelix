@@ -23,7 +23,7 @@ public class EnvironmentLoader {
         ourProject = project;
     }
 
-    public static Project loadEnvironment() {
+    public static Project loadEnvironment(File gitRepoDir) {
         if (ourProject == null) {
             // If you get the exception "Could not find installation home path"
             // Set "-Didea.home" in the VM options
@@ -50,6 +50,9 @@ public class EnvironmentLoader {
                     .addPlugin("org.modelix.model", "org.modelix.model")
                     .addPlugin("org.modelix.common", "org.modelix.common")
                     ;
+            if (gitRepoDir != null) {
+                config.addLib(gitRepoDir.getAbsolutePath());
+            }
 
 //            for (IdeaPluginDescriptorImpl plugin : PluginManagerCore.loadDescriptors(null, new ArrayList<String>())) {
 //                System.out.println("addPlugin(" + plugin.getPath() + ", " + plugin.getPluginId().getIdString() + ")");
