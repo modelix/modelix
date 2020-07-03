@@ -5,28 +5,44 @@ import io.kubernetes.client.openapi.ApiException;
 import io.kubernetes.client.openapi.Configuration;
 import io.kubernetes.client.openapi.apis.AppsV1Api;
 import io.kubernetes.client.openapi.apis.CoreV1Api;
-import io.kubernetes.client.openapi.models.*;
+import io.kubernetes.client.openapi.models.V1Deployment;
+import io.kubernetes.client.openapi.models.V1DeploymentBuilder;
+import io.kubernetes.client.openapi.models.V1DeploymentList;
+import io.kubernetes.client.openapi.models.V1Service;
+import io.kubernetes.client.openapi.models.V1ServiceBuilder;
+import io.kubernetes.client.openapi.models.V1ServiceList;
 import io.kubernetes.client.util.ClientBuilder;
 import io.kubernetes.client.util.Yaml;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.log4j.Logger;
 import org.eclipse.jetty.proxy.ProxyServlet;
+import org.eclipse.jetty.server.Request;
 import org.eclipse.jetty.server.Server;
+import org.eclipse.jetty.server.handler.DefaultHandler;
+import org.eclipse.jetty.server.handler.HandlerList;
+import org.eclipse.jetty.server.handler.HandlerWrapper;
 import org.eclipse.jetty.servlet.ServletContextHandler;
+import org.eclipse.jetty.servlet.ServletHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
+import org.eclipse.jetty.websocket.servlet.ServletUpgradeRequest;
+import org.eclipse.jetty.websocket.servlet.WebSocketServlet;
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.errors.GitAPIException;
 import org.eclipse.jgit.lib.Ref;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Random;
 import java.util.function.Supplier;
 
 public class Main {
     private static final Logger LOG = Logger.getLogger(Main.class);
+    private static final String DEPLOYMENT_PREFIX = "ui-git-";
 
     public static void main(String[] args) {
         try {
@@ -35,7 +51,7 @@ public class Main {
             System.out.println("code: " + ex.getCode());
             System.out.println("body: " + ex.getResponseBody());
         } catch (Exception ex) {
-            LOG.error(ex);
+            LOG.error("", ex);
             ex.printStackTrace();
             Throwable cause = ex.getCause();
             if (cause != null) {
@@ -47,6 +63,38 @@ public class Main {
 
     private static void startServer() throws Exception {
         Server server = new Server(33332);
+        HandlerList handlerList = new HandlerList();
+        server.setHandler(handlerList);
+
+
+        WebSocketServlet webSocketServlet = new WebSocketProxyServlet() {
+            @Override
+            protected URI redirect(ServletUpgradeRequest request) {
+                String path = request.getRequestURI().getPath();
+                String[] repoUrlAndRemainingPath = repoUrlFromRequest(path);
+                String repoUrl = repoUrlAndRemainingPath[0];
+                String remainingPath = repoUrlAndRemainingPath[1];
+                String deploymentName = repoUrlTodeploymentName(repoUrl);
+                try {
+                    return new URI(targetUrl(deploymentName, remainingPath, true));
+                } catch (URISyntaxException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        };
+        HandlerWrapper webSocketHandlerCondition = new HandlerWrapper() {
+            @Override
+            public void handle(String target, Request baseRequest, HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+                if (!baseRequest.getRequestURI().contains("/ws/")) return;
+                super.handle(target, baseRequest, request, response);
+            }
+        };
+        ServletContextHandler webSocketHandler = new ServletContextHandler();
+        webSocketHandler.addServlet(new ServletHolder(webSocketServlet), "/*");
+        webSocketHandlerCondition.setHandler(webSocketHandler);
+        handlerList.addHandler(webSocketHandlerCondition);
+
+
         ProxyServlet proxyServlet = new ProxyServlet() {
             @Override
             protected String rewriteTarget(HttpServletRequest clientRequest) {
@@ -67,7 +115,7 @@ public class Main {
                                     .setHeads(true)
                                     .call();
                         } catch (GitAPIException e) {
-                            LOG.error(e);
+                            LOG.error("", e);
                             return false;
                         }
                         for (Ref ref : refs) {
@@ -81,7 +129,7 @@ public class Main {
                     });
                     if (deploymentName == null) return null;
 
-                    String newTarget = "http://" + deploymentName + ":33333" + remainingPath;
+                    String newTarget = targetUrl(deploymentName, remainingPath, false);
                     if (clientRequest.getQueryString() != null && clientRequest.getQueryString().length() != 0) {
                         newTarget += "?" + clientRequest.getQueryString();
                     }
@@ -93,9 +141,12 @@ public class Main {
 
             }
         };
-        ServletContextHandler servletHandler = new ServletContextHandler();
-        servletHandler.addServlet(new ServletHolder(proxyServlet), "/*");
-        server.setHandler(servletHandler);
+
+        ServletContextHandler proxyHandler = new ServletContextHandler();
+        proxyHandler.addServlet(new ServletHolder(proxyServlet), "/*");
+        handlerList.addHandler(proxyHandler);
+
+        handlerList.addHandler(new DefaultHandler());
         server.start();
 
         Runtime.getRuntime().addShutdownHook(new Thread() {
@@ -111,18 +162,25 @@ public class Main {
         });
     }
 
+    private static String repoUrlTodeploymentName(String repoUrl) {
+        return DEPLOYMENT_PREFIX + DigestUtils.sha1Hex(repoUrl);
+    }
+
+    private static String targetUrl(String deploymentName, String remainingPath, boolean websocket) {
+        return (websocket ? "ws" : "http")  + "://" + deploymentName + ":33333" + remainingPath;
+    }
+
     private static String createDeployment(String gitRepoUrl, Supplier<Boolean> urlValidator) throws IOException, ApiException {
         Configuration.setDefaultApiClient(ClientBuilder.cluster().build());
 
-        String namePrefix = "ui-git-";
-        String name = namePrefix + DigestUtils.sha1Hex(gitRepoUrl);
+        String name = repoUrlTodeploymentName(gitRepoUrl);
 
         AppsV1Api appsApi = new AppsV1Api();
 
         V1DeploymentList deployments = appsApi.listNamespacedDeployment("default", null, null, null, null, null, null, null, 5, false);
         boolean deploymentExists = deployments.getItems().stream().anyMatch(d -> name.equals(d.getMetadata().getName()));
         if (!deploymentExists) {
-            long numExisting = deployments.getItems().stream().filter(d -> d.getMetadata().getName().startsWith(namePrefix)).count();
+            long numExisting = deployments.getItems().stream().filter(d -> d.getMetadata().getName().startsWith(DEPLOYMENT_PREFIX)).count();
             if (numExisting > 10) throw new RuntimeException("Too many existing deployments");
 
             if (!urlValidator.get()) {
@@ -131,68 +189,68 @@ public class Main {
 
             V1Deployment deployment = new V1DeploymentBuilder()
                     .withNewMetadata()
-                    .withName(name)
-                    .addToLabels("app", name)
+                        .withName(name)
+                        .addToLabels("app", name)
                     .endMetadata()
                     .withNewSpec()
-                    .withNewSelector()
-                    .addToMatchLabels("app", name)
-                    .endSelector()
-                    .withNewTemplate()
-                    .withNewMetadata()
-                    .addToLabels("app", name)
-                    .endMetadata()
-                    .withNewSpec()
-                    .addNewContainer()
-                    .withName("ui")
-                    .withImage("modelix/modelix-ui:latest")
-                    .withImagePullPolicy("IfNotPresent")
-                    .addNewEnv()
-                    .withName("GIT_REPO_URI")
-                    .withValue(gitRepoUrl)
-                    .endEnv()
-                    .addNewPort()
-                    .withContainerPort(33333)
-                    .endPort()
-                    .addNewVolumeMount()
-                    .withName("modelsecret")
-                    .withMountPath("/secrets/modelsecret")
-                    .withReadOnly(true)
-                    .endVolumeMount()
-                    .withNewResources()
-                    .addToRequests("memory", new Quantity("2.0Gi"))
-                    .addToRequests("cpu", new Quantity("0.8"))
-                    .addToLimits("memory", new Quantity("2.5Gi"))
-                    .addToLimits("cpu", new Quantity("1.5"))
-                    .endResources()
-                    .withNewReadinessProbe()
-                    .withNewHttpGet()
-                    .withNewPath("/health/check")
-                    .withNewPort(33333)
-                    .endHttpGet()
-                    .withInitialDelaySeconds(10)
-                    .withPeriodSeconds(5)
-                    .withTimeoutSeconds(3)
-                    .endReadinessProbe()
-                    .withNewLivenessProbe()
-                    .withNewHttpGet()
-                    .withNewPath("/health/check")
-                    .withNewPort(33333)
-                    .endHttpGet()
-                    .withInitialDelaySeconds(120)
-                    .withPeriodSeconds(20)
-                    .withTimeoutSeconds(10)
-                    .endLivenessProbe()
-                    .endContainer()
-                    .withNewRestartPolicy("Always")
-                    .addNewVolume()
-                    .withName("modelsecret")
-                    .withNewSecret()
-                    .withNewSecretName("modelsecret")
-                    .endSecret()
-                    .endVolume()
-                    .endSpec()
-                    .endTemplate()
+                        .withNewSelector()
+                        .addToMatchLabels("app", name)
+                        .endSelector()
+                        .withNewTemplate()
+                            .withNewMetadata()
+                                .addToLabels("app", name)
+                            .endMetadata()
+                            .withNewSpec()
+                                .addNewContainer()
+                                    .withName("ui")
+                                    .withImage("modelix/modelix-ui:latest")
+                                    .withImagePullPolicy("IfNotPresent")
+                                    .addNewEnv()
+                                        .withName("GIT_REPO_URI")
+                                        .withValue(gitRepoUrl)
+                                    .endEnv()
+                                    .addNewPort()
+                                        .withContainerPort(33333)
+                                    .endPort()
+                                    .addNewVolumeMount()
+                                        .withName("modelsecret")
+                                        .withMountPath("/secrets/modelsecret")
+                                        .withReadOnly(true)
+                                    .endVolumeMount()
+                                    .withNewResources()
+                                        .addToRequests("memory", new Quantity("2.0Gi"))
+                                        .addToRequests("cpu", new Quantity("0.8"))
+                                        .addToLimits("memory", new Quantity("2.5Gi"))
+                                        .addToLimits("cpu", new Quantity("1.5"))
+                                    .endResources()
+                                    .withNewReadinessProbe()
+                                        .withNewHttpGet()
+                                            .withNewPath("/health/check")
+                                            .withNewPort(33333)
+                                        .endHttpGet()
+                                        .withInitialDelaySeconds(10)
+                                        .withPeriodSeconds(5)
+                                        .withTimeoutSeconds(3)
+                                    .endReadinessProbe()
+                                    .withNewLivenessProbe()
+                                        .withNewHttpGet()
+                                            .withNewPath("/health/check")
+                                            .withNewPort(33333)
+                                        .endHttpGet()
+                                        .withInitialDelaySeconds(120)
+                                        .withPeriodSeconds(20)
+                                        .withTimeoutSeconds(10)
+                                    .endLivenessProbe()
+                                .endContainer()
+                                .withNewRestartPolicy("Always")
+                                .addNewVolume()
+                                    .withName("modelsecret")
+                                    .withNewSecret()
+                                        .withNewSecretName("modelsecret")
+                                    .endSecret()
+                                .endVolume()
+                            .endSpec()
+                        .endTemplate()
                     .endSpec()
                     .build();
             System.out.println("Creating deployment: ");
