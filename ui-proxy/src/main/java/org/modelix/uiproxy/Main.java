@@ -16,8 +16,10 @@ import io.kubernetes.client.util.Yaml;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.log4j.Logger;
 import org.eclipse.jetty.proxy.ProxyServlet;
+import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Request;
 import org.eclipse.jetty.server.Server;
+import org.eclipse.jetty.server.handler.AbstractHandler;
 import org.eclipse.jetty.server.handler.DefaultHandler;
 import org.eclipse.jetty.server.handler.HandlerList;
 import org.eclipse.jetty.server.handler.HandlerWrapper;
@@ -42,7 +44,7 @@ import java.util.function.Supplier;
 
 public class Main {
     private static final Logger LOG = Logger.getLogger(Main.class);
-    private static final String DEPLOYMENT_PREFIX = "ui-git-";
+
 
     public static void main(String[] args) {
         try {
@@ -66,17 +68,69 @@ public class Main {
         HandlerList handlerList = new HandlerList();
         server.setHandler(handlerList);
 
+        Handler deploymentManagingHandler = new AbstractHandler() {
+            @Override
+            public void handle(String target, Request baseRequest, HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+                try {
+                    System.out.println("requestURI: " + request.getRequestURI());
+                    RedirectedURL redirectedURL = RedirectedURL.redirect(request);
+                    if (redirectedURL == null) throw new RuntimeException("Invalid request: " + request.getRequestURI());
+                    System.out.println("repo URL: " + redirectedURL.getRepositoryUrl());
+                    boolean deploymentCreated = createDeployment(redirectedURL, () -> {
+                        Collection<Ref> refs = null;
+                        try {
+                            refs = Git.lsRemoteRepository()
+                                    .setRemote(redirectedURL.getRepositoryUrl())
+                                    .setTags(false)
+                                    .setHeads(true)
+                                    .call();
+                        } catch (GitAPIException e) {
+                            LOG.error("", e);
+                            return false;
+                        }
+                        for (Ref ref : refs) {
+                            System.out.println("Ref: " + ref.getName() + " -> " + ref.getObjectId().getName());
+                            if ("refs/heads/master".equals(ref.getName())) {
+                                System.out.println("commit ID: " + ref.getObjectId().getName());
+                                return true;
+                            }
+                        }
+                        return false;
+                    });
+                    if (!deploymentCreated) throw new RuntimeException("Not git repository found at " + redirectedURL.getRepositoryUrl());
+
+                    V1Deployment deployment = getDeployment(redirectedURL.getDeploymentName());
+                    if (deployment == null) throw new RuntimeException("Failed to create deployment");
+
+                    Integer readyReplicas = deployment.getStatus() != null ? deployment.getStatus().getReadyReplicas() : null;
+                    if (readyReplicas == null || readyReplicas == 0) {
+                        baseRequest.setHandled(true);
+                        response.setContentType("text/html");
+                        response.setStatus(HttpServletResponse.SC_OK);
+                        response.getWriter()
+                                .append("<html>")
+                                .append("<head>")
+                                .append("<meta http-equiv=\"refresh\" content=\"5\">")
+                                .append("</head>")
+                                .append("<body>")
+                                .append("Starting MPS and loading " + redirectedURL.getRepositoryUrl() + " ...")
+                                .append("</body>")
+                                .append("</html>");
+                    }
+                } catch (Exception ex) {
+                    throw new RuntimeException(ex);
+                }
+            }
+        };
+        handlerList.addHandler(deploymentManagingHandler);
 
         WebSocketServlet webSocketServlet = new WebSocketProxyServlet() {
             @Override
             protected URI redirect(ServletUpgradeRequest request) {
                 String path = request.getRequestURI().getPath();
-                String[] repoUrlAndRemainingPath = repoUrlFromRequest(path);
-                String repoUrl = repoUrlAndRemainingPath[0];
-                String remainingPath = repoUrlAndRemainingPath[1];
-                String deploymentName = repoUrlTodeploymentName(repoUrl);
+                RedirectedURL redirectedURL = RedirectedURL.redirect(request.getHttpServletRequest());
                 try {
-                    return new URI(targetUrl(deploymentName, remainingPath, true));
+                    return new URI(redirectedURL.getRedirectedUrl(true));
                 } catch (URISyntaxException e) {
                     throw new RuntimeException(e);
                 }
@@ -98,47 +152,8 @@ public class Main {
         ProxyServlet proxyServlet = new ProxyServlet() {
             @Override
             protected String rewriteTarget(HttpServletRequest clientRequest) {
-                System.out.println("requestURI: " + clientRequest.getRequestURI());
-                String[] repoUrlAndRemainingPath = repoUrlFromRequest(clientRequest.getRequestURI());
-                if (repoUrlAndRemainingPath == null) return null;
-                String repoUrl = repoUrlAndRemainingPath[0];
-                String remainingPath = repoUrlAndRemainingPath[1];
-                String deploymentName;
-                System.out.println("repo URL: " + repoUrl);
-                try {
-                    deploymentName = createDeployment(repoUrl, () -> {
-                        Collection<Ref> refs = null;
-                        try {
-                            refs = Git.lsRemoteRepository()
-                                    .setRemote(repoUrl)
-                                    .setTags(false)
-                                    .setHeads(true)
-                                    .call();
-                        } catch (GitAPIException e) {
-                            LOG.error("", e);
-                            return false;
-                        }
-                        for (Ref ref : refs) {
-                            System.out.println("Ref: " + ref.getName() + " -> " + ref.getObjectId().getName());
-                            if ("refs/heads/master".equals(ref.getName())) {
-                                System.out.println("commit ID: " + ref.getObjectId().getName());
-                                return true;
-                            }
-                        }
-                        return false;
-                    });
-                    if (deploymentName == null) return null;
-
-                    String newTarget = targetUrl(deploymentName, remainingPath, false);
-                    if (clientRequest.getQueryString() != null && clientRequest.getQueryString().length() != 0) {
-                        newTarget += "?" + clientRequest.getQueryString();
-                    }
-                    System.out.println("Redirecting to " + newTarget);
-                    return newTarget;
-                } catch (Exception ex) {
-                    throw new RuntimeException(ex);
-                }
-
+                RedirectedURL redirectedURL = RedirectedURL.redirect(clientRequest);
+                return redirectedURL.getRedirectedUrl(false);
             }
         };
 
@@ -162,29 +177,36 @@ public class Main {
         });
     }
 
-    private static String repoUrlTodeploymentName(String repoUrl) {
-        return DEPLOYMENT_PREFIX + DigestUtils.sha1Hex(repoUrl);
+    private static boolean isDeploymentReady(String name) throws ApiException {
+        V1Deployment deployment = getDeployment(name);
+        if (deployment == null) return false;
+        return deployment.getStatus().getReadyReplicas() > 0;
     }
 
-    private static String targetUrl(String deploymentName, String remainingPath, boolean websocket) {
-        return (websocket ? "ws" : "http")  + "://" + deploymentName + ":33333" + remainingPath;
+    private static V1Deployment getDeployment(String name) throws ApiException {
+        AppsV1Api appsApi = new AppsV1Api();
+        V1DeploymentList deployments = appsApi.listNamespacedDeployment("default", null, null, null, null, null, null, null, null, null);
+        for (V1Deployment deployment : deployments.getItems()) {
+            if (name.equals(deployment.getMetadata().getName())) return deployment;
+        }
+        return null;
     }
 
-    private static String createDeployment(String gitRepoUrl, Supplier<Boolean> urlValidator) throws IOException, ApiException {
+    private static boolean createDeployment(RedirectedURL gitRepoUrl, Supplier<Boolean> urlValidator) throws IOException, ApiException {
         Configuration.setDefaultApiClient(ClientBuilder.cluster().build());
 
-        String name = repoUrlTodeploymentName(gitRepoUrl);
+        String name = gitRepoUrl.getDeploymentName();
 
         AppsV1Api appsApi = new AppsV1Api();
 
         V1DeploymentList deployments = appsApi.listNamespacedDeployment("default", null, null, null, null, null, null, null, 5, false);
         boolean deploymentExists = deployments.getItems().stream().anyMatch(d -> name.equals(d.getMetadata().getName()));
         if (!deploymentExists) {
-            long numExisting = deployments.getItems().stream().filter(d -> d.getMetadata().getName().startsWith(DEPLOYMENT_PREFIX)).count();
+            long numExisting = deployments.getItems().stream().filter(d -> d.getMetadata().getName().startsWith(RedirectedURL.DEPLOYMENT_PREFIX)).count();
             if (numExisting > 10) throw new RuntimeException("Too many existing deployments");
 
             if (!urlValidator.get()) {
-                return null;
+                return false;
             }
 
             V1Deployment deployment = new V1DeploymentBuilder()
@@ -207,7 +229,7 @@ public class Main {
                                     .withImagePullPolicy("IfNotPresent")
                                     .addNewEnv()
                                         .withName("GIT_REPO_URI")
-                                        .withValue(gitRepoUrl)
+                                        .withValue(gitRepoUrl.getRepositoryUrl())
                                     .endEnv()
                                     .addNewPort()
                                         .withContainerPort(33333)
@@ -283,20 +305,6 @@ public class Main {
             coreApi.createNamespacedService("default", service, null, null, null);
         }
 
-        return name;
-    }
-
-    private static String[] repoUrlFromRequest(String path) {
-        String[] parts = path.split("/", -1);
-        if (parts.length < 4) return null;
-        if (parts[0].length() != 0) return null;
-        if (!"github".equals(parts[1])) return null;
-        String remainingPath = Arrays.asList(parts).subList(4, parts.length).stream().reduce("/", (a, b) -> a + "/" + b);
-        if (!remainingPath.startsWith("/")) remainingPath = "/" + remainingPath;
-        if (remainingPath.startsWith("//")) remainingPath = remainingPath.substring(1);
-        return new String[]{
-                "https://github.com/" + parts[2] + "/" + parts[3] + ".git",
-                remainingPath
-        };
+        return true;
     }
 }
