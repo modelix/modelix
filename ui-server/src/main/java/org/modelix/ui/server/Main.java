@@ -15,6 +15,9 @@ public class Main {
 
     public static void main(String[] args) throws Exception {
         try {
+            System.out.println("env: " + System.getenv());
+            System.out.println("properties: " + System.getProperties());
+
             File gitRepoDir = null;
 
             String gitRepoUri = System.getProperty("GIT_REPO_URI");

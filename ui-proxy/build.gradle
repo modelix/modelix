@@ -1,0 +1,37 @@
+plugins {
+    id 'java'
+}
+
+group 'org.modelix'
+version '1.0-SNAPSHOT'
+
+description = "modelix UI proxy"
+
+sourceCompatibility = 1.11
+targetCompatibility = 1.11
+
+defaultTasks 'build'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+    compile 'io.kubernetes:client-java:8.0.2'
+    compile group: 'log4j', name: 'log4j', version: '1.2.17'
+    compile group: 'commons-codec', name: 'commons-codec', version: '1.14'
+
+    ext.jettyVersion = '9.4.30.v20200611'
+    compile group: 'org.eclipse.jetty', name: 'jetty-server', version: jettyVersion
+    compile group: 'org.eclipse.jetty', name: 'jetty-proxy', version: jettyVersion
+    compile group: 'org.eclipse.jetty', name: 'jetty-servlet', version: jettyVersion
+    compile group: 'org.eclipse.jgit', name: 'org.eclipse.jgit', version: '5.8.0.202006091008-r'
+}
+
+task copyRuntimeLibs(type: Copy) {
+    into "$buildDir/dependencies"
+    from configurations.runtime
+}
+
+assemble.dependsOn copyRuntimeLibs
