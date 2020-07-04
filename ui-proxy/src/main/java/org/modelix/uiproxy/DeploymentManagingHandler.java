@@ -13,6 +13,7 @@ import io.kubernetes.client.openapi.models.V1ServiceBuilder;
 import io.kubernetes.client.openapi.models.V1ServiceList;
 import io.kubernetes.client.util.ClientBuilder;
 import io.kubernetes.client.util.Yaml;
+import org.apache.commons.collections4.map.HashedMap;
 import org.apache.log4j.Logger;
 import org.eclipse.jetty.server.Request;
 import org.eclipse.jetty.server.handler.AbstractHandler;
@@ -25,10 +26,44 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.Map;
+import java.util.Timer;
+import java.util.concurrent.Executors;
 import java.util.function.Supplier;
 
 public class DeploymentManagingHandler extends AbstractHandler {
     private static final Logger LOG = Logger.getLogger(DeploymentManagingHandler.class);
+    public static final String KUBERNETES_NAMESPACE = "default";
+
+    private Map<String, Long> deploymentTimeouts = Collections.synchronizedMap(new HashedMap<>());
+    private Thread cleanupThread = new Thread() {
+        @Override
+        public void run() {
+            while (true) {
+                try {
+                    cleanupDeployments();
+                } catch (Exception ex) {
+                    LOG.error("", ex);
+                }
+                try {
+                    Thread.sleep(10_000);
+                } catch (InterruptedException e) {
+                    return;
+                }
+            }
+        }
+    };
+
+    public DeploymentManagingHandler() {
+        try {
+            Configuration.setDefaultApiClient(ClientBuilder.cluster().build());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        cleanupThread.start();
+    }
+
     @Override
     public void handle(String target, Request baseRequest, HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         try {
@@ -82,6 +117,7 @@ public class DeploymentManagingHandler extends AbstractHandler {
                 return;
             }
 
+            deploymentTimeouts.put(redirectedURL.getDeploymentName(), System.currentTimeMillis() + 600_000);
             boolean deploymentCreated = createDeployment(redirectedURL, () -> {
                 Collection<Ref> refs = null;
                 try {
@@ -123,11 +159,36 @@ public class DeploymentManagingHandler extends AbstractHandler {
                         .append("</body>")
                         .append("</html>");
             }
+
+            cleanupDeployments();
         } catch (Exception ex) {
             throw new RuntimeException(ex);
         }
     }
 
+    private final Object cleanupLock = new Object();
+    private void cleanupDeployments() {
+        // TODO doesn't work with multiple instances of UI proxy
+        synchronized (cleanupLock) {
+            try {
+                AppsV1Api appsApi = new AppsV1Api();
+                CoreV1Api coreApi = new CoreV1Api();
+                V1DeploymentList deployments = null;
+                deployments = appsApi.listNamespacedDeployment(KUBERNETES_NAMESPACE, null, null, null, null, null, null, null, null, null);
+                for (V1Deployment deployment : deployments.getItems()) {
+                    String name = deployment.getMetadata().getName();
+                    if (!name.startsWith(RedirectedURL.DEPLOYMENT_PREFIX)) continue;
+                    Long timeout = deploymentTimeouts.get(name);
+                    if (timeout != null && timeout > System.currentTimeMillis()) continue;
+                    deploymentTimeouts.remove(name);
+                    appsApi.deleteNamespacedDeployment(name, KUBERNETES_NAMESPACE, null, null, null, null, null, null);
+                    coreApi.deleteNamespacedService(name, KUBERNETES_NAMESPACE, null, null, null, null, null, null);
+                }
+            } catch (ApiException e) {
+                LOG.error("Deployment cleanup failed", e);
+            }
+        }
+    }
 
     private boolean isDeploymentReady(String name) throws ApiException {
         V1Deployment deployment = getDeployment(name);
@@ -137,7 +198,7 @@ public class DeploymentManagingHandler extends AbstractHandler {
 
     private V1Deployment getDeployment(String name) throws ApiException {
         AppsV1Api appsApi = new AppsV1Api();
-        V1DeploymentList deployments = appsApi.listNamespacedDeployment("default", null, null, null, null, null, null, null, null, null);
+        V1DeploymentList deployments = appsApi.listNamespacedDeployment(KUBERNETES_NAMESPACE, null, null, null, null, null, null, null, null, null);
         for (V1Deployment deployment : deployments.getItems()) {
             if (name.equals(deployment.getMetadata().getName())) return deployment;
         }
@@ -145,13 +206,11 @@ public class DeploymentManagingHandler extends AbstractHandler {
     }
 
     private boolean createDeployment(RedirectedURL gitRepoUrl, Supplier<Boolean> urlValidator) throws IOException, ApiException {
-        Configuration.setDefaultApiClient(ClientBuilder.cluster().build());
-
         String name = gitRepoUrl.getDeploymentName();
 
         AppsV1Api appsApi = new AppsV1Api();
 
-        V1DeploymentList deployments = appsApi.listNamespacedDeployment("default", null, null, null, null, null, null, null, 5, false);
+        V1DeploymentList deployments = appsApi.listNamespacedDeployment(KUBERNETES_NAMESPACE, null, null, null, null, null, null, null, 5, false);
         boolean deploymentExists = deployments.getItems().stream().anyMatch(d -> name.equals(d.getMetadata().getName()));
         if (!deploymentExists) {
             long numExisting = deployments.getItems().stream().filter(d -> d.getMetadata().getName().startsWith(RedirectedURL.DEPLOYMENT_PREFIX)).count();
@@ -233,11 +292,11 @@ public class DeploymentManagingHandler extends AbstractHandler {
                     .build();
             System.out.println("Creating deployment: ");
             System.out.println(Yaml.dump(deployment));
-            appsApi.createNamespacedDeployment("default", deployment, null, null, null);
+            appsApi.createNamespacedDeployment(KUBERNETES_NAMESPACE, deployment, null, null, null);
         }
 
         CoreV1Api coreApi = new CoreV1Api();
-        V1ServiceList services = coreApi.listNamespacedService("default", null, null, null, null, null, null, null, 5, false);
+        V1ServiceList services = coreApi.listNamespacedService(KUBERNETES_NAMESPACE, null, null, null, null, null, null, null, 5, false);
         boolean serviceExists = services.getItems().stream().anyMatch(s -> name.equals(s.getMetadata().getName()));
         if (!serviceExists) {
             V1Service service = new V1ServiceBuilder()
@@ -258,7 +317,7 @@ public class DeploymentManagingHandler extends AbstractHandler {
             System.out.println("Creating service: ");
             System.out.println(Yaml.dump(service));
 
-            coreApi.createNamespacedService("default", service, null, null, null);
+            coreApi.createNamespacedService(KUBERNETES_NAMESPACE, service, null, null, null);
         }
 
         return true;
