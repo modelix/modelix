@@ -4,33 +4,49 @@ import org.apache.commons.codec.digest.DigestUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class RedirectedURL {
     public static final String DEPLOYMENT_PREFIX = "ui-git-";
 
     public static RedirectedURL redirect(HttpServletRequest req) {
-        String[] parts = req.getRequestURI().split("/", -1);
-        if (parts.length < 4) return null;
-        if (parts[0].length() != 0) return null;
-        if (!"github".equals(parts[1])) return null;
-        String remainingPath = Arrays.asList(parts).subList(4, parts.length).stream().reduce("/", (a, b) -> a + "/" + b);
-        if (!remainingPath.startsWith("/")) remainingPath = "/" + remainingPath;
-        if (remainingPath.startsWith("//")) remainingPath = remainingPath.substring(1);
-        if (req.getQueryString() != null && req.getQueryString().length() > 0) {
+        List<String> parts = Arrays.asList(req.getRequestURI().split("/", -1));
+        if (parts.size() > 0 && parts.get(0).length() == 0) parts = parts.subList(1, parts.size());
+
+        if (parts.size() < 3) return null;
+        if (!parts.get(0).equals("github")) return null;
+
+        String repositoryUrl = "https://github.com/" + parts.get(1) + "/" + parts.get(2) + ".git";
+        parts = parts.subList(3, parts.size());
+
+        String commitId = null;
+        if (parts.size() >= 2 && parts.get(0).equals("commit")) {
+            commitId = parts.get(1);
+            parts = parts.subList(2, parts.size());
+        }
+
+        String remainingPath = parts.stream().reduce((a, b) -> a + "/" + b).orElse(null);
+        if (remainingPath != null) remainingPath = "/" + remainingPath;
+        if (remainingPath != null && req.getQueryString() != null && req.getQueryString().length() > 0) {
             remainingPath += "?" + req.getQueryString();
         }
         return new RedirectedURL(
                 remainingPath,
-                "https://github.com/" + parts[2] + "/" + parts[3] + ".git"
+                repositoryUrl,
+                commitId
         );
     }
 
     private String remainingPath;
     private String repositoryUrl;
+    private String commitId;
 
-    public RedirectedURL(String remainingPath, String repositoryUrl) {
+    public RedirectedURL(String remainingPath, String repositoryUrl, String commitId) {
         this.remainingPath = remainingPath;
         this.repositoryUrl = repositoryUrl;
+        this.commitId = commitId;
     }
 
     public String getRemainingPath() {
@@ -41,8 +57,13 @@ public class RedirectedURL {
         return repositoryUrl;
     }
 
+    public String getCommitId() {
+        return commitId;
+    }
+
     public String getDeploymentName() {
-        return DEPLOYMENT_PREFIX + DigestUtils.sha1Hex(getRepositoryUrl());
+        if (getCommitId() == null) throw new RuntimeException("No commit ID provided");
+        return DEPLOYMENT_PREFIX + DigestUtils.sha1Hex(getRepositoryUrl() + "@" + commitId);
     }
 
     public String getRedirectedUrl(boolean websocket) {
