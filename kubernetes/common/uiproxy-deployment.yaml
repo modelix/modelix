@@ -21,6 +21,7 @@ spec:
       labels:
         app: uiproxy
     spec:
+      serviceAccountName: uiproxy
       containers:
       - image: modelix/modelix-uiproxy:latest
         imagePullPolicy: IfNotPresent
