@@ -9555,11 +9555,15 @@
               </node>
             </node>
           </node>
-          <node concept="027rt" id="7trMQm3mukV" role="02LM9">
-            <ref role="027rv" to="70w2:7NImM053Sep" resolve="children" />
-            <node concept="214gnc" id="7trMQm3muDH" role="027rp">
-              <ref role="1YEVMl" node="7trMQm3W2UH" resolve="imageNodeEditor" />
-              <node concept="214o7A" id="7trMQm3muDO" role="214sll" />
+          <node concept="1X3_iC" id="6pXrrBnvqRk" role="lGtFl">
+            <property role="3V$3am" value="content" />
+            <property role="3V$3ak" value="94b64715-a263-4c36-a138-8da14705ffa7/7335687028107243116/7335687028107281653" />
+            <node concept="027rt" id="7trMQm3mukV" role="8Wnug">
+              <ref role="027rv" to="70w2:7NImM053Sep" resolve="children" />
+              <node concept="214gnc" id="7trMQm3muDH" role="027rp">
+                <ref role="1YEVMl" node="7trMQm3W2UH" resolve="imageNodeEditor" />
+                <node concept="214o7A" id="7trMQm3muDO" role="214sll" />
+              </node>
             </node>
           </node>
         </node>
