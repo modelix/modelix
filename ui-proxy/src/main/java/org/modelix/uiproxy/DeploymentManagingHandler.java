@@ -1,5 +1,6 @@
 package org.modelix.uiproxy;
 
+import io.kubernetes.client.PodLogs;
 import io.kubernetes.client.custom.Quantity;
 import io.kubernetes.client.openapi.ApiException;
 import io.kubernetes.client.openapi.Configuration;
@@ -8,12 +9,16 @@ import io.kubernetes.client.openapi.apis.CoreV1Api;
 import io.kubernetes.client.openapi.models.V1Deployment;
 import io.kubernetes.client.openapi.models.V1DeploymentBuilder;
 import io.kubernetes.client.openapi.models.V1DeploymentList;
+import io.kubernetes.client.openapi.models.V1Pod;
+import io.kubernetes.client.openapi.models.V1PodList;
 import io.kubernetes.client.openapi.models.V1Service;
 import io.kubernetes.client.openapi.models.V1ServiceBuilder;
 import io.kubernetes.client.openapi.models.V1ServiceList;
 import io.kubernetes.client.util.ClientBuilder;
 import io.kubernetes.client.util.Yaml;
 import org.apache.commons.collections4.map.HashedMap;
+import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.log4j.Logger;
 import org.eclipse.jetty.server.Request;
 import org.eclipse.jetty.server.handler.AbstractHandler;
@@ -25,6 +30,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Map;
@@ -149,13 +156,23 @@ public class DeploymentManagingHandler extends AbstractHandler {
                 baseRequest.setHandled(true);
                 response.setContentType("text/html");
                 response.setStatus(HttpServletResponse.SC_OK);
+                String podLogs = getPodLogs(redirectedURL.getDeploymentName());
+
                 response.getWriter()
                         .append("<html>")
                         .append("<head>")
                         .append("<meta http-equiv=\"refresh\" content=\"5\">")
                         .append("</head>")
                         .append("<body>")
-                        .append("Starting MPS and loading " + redirectedURL.getRepositoryUrl() + " ...")
+                        .append("<div>Starting MPS ...</div>");
+
+                if (podLogs != null) {
+                    response.getWriter().append("<br/><hr/><br/><pre>");
+                    StringEscapeUtils.escapeHtml(response.getWriter(), podLogs);
+                    response.getWriter().append("</pre>");
+                }
+
+                response.getWriter()
                         .append("</body>")
                         .append("</html>");
             }
@@ -202,6 +219,26 @@ public class DeploymentManagingHandler extends AbstractHandler {
         for (V1Deployment deployment : deployments.getItems()) {
             if (name.equals(deployment.getMetadata().getName())) return deployment;
         }
+        return null;
+    }
+
+    private String getPodLogs(String deploymentName) {
+        try {
+            CoreV1Api coreApi = new CoreV1Api();
+            V1PodList pods = coreApi.listNamespacedPod(KUBERNETES_NAMESPACE, null, null, null, null, null, null, null, null, null);
+            for (V1Pod pod : pods.getItems()) {
+                if (!pod.getMetadata().getName().startsWith(deploymentName)) continue;
+                return coreApi.readNamespacedPodLog(
+                        pod.getMetadata().getName(),
+                        KUBERNETES_NAMESPACE,
+                        pod.getSpec().getContainers().get(0).getName(),
+                        null, null, "true", null, null, null, null);
+            }
+        } catch (Exception e) {
+            LOG.error("", e);
+            return null;
+        }
+
         return null;
     }
 
