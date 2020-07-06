@@ -232,7 +232,7 @@ public class DeploymentManagingHandler extends AbstractHandler {
                         pod.getMetadata().getName(),
                         KUBERNETES_NAMESPACE,
                         pod.getSpec().getContainers().get(0).getName(),
-                        null, null, "true", null, null, null, null);
+                        null, null, "true", null, null, 10_000, null);
             }
         } catch (Exception e) {
             LOG.error("", e);
