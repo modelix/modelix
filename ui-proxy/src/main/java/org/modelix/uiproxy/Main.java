@@ -70,6 +70,7 @@ public class Main {
             protected URI redirect(ServletUpgradeRequest request) {
                 String path = request.getRequestURI().getPath();
                 RedirectedURL redirectedURL = RedirectedURL.redirect(request.getHttpServletRequest());
+                if (redirectedURL == null) return null;
                 try {
                     return new URI(redirectedURL.getRedirectedUrl(true));
                 } catch (URISyntaxException e) {
@@ -80,6 +81,7 @@ public class Main {
         HandlerWrapper webSocketHandlerCondition = new HandlerWrapper() {
             @Override
             public void handle(String target, Request baseRequest, HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+                if (RedirectedURL.redirect(request) == null) return;
                 if (!baseRequest.getRequestURI().contains("/ws/")) return;
                 super.handle(target, baseRequest, request, response);
             }
@@ -94,9 +96,11 @@ public class Main {
             @Override
             protected String rewriteTarget(HttpServletRequest clientRequest) {
                 RedirectedURL redirectedURL = RedirectedURL.redirect(clientRequest);
+                if (redirectedURL == null) return null;
                 return redirectedURL.getRedirectedUrl(false);
             }
         };
+        proxyServlet.setTimeout(60_000);
 
         ServletContextHandler proxyHandler = new ServletContextHandler();
         proxyHandler.addServlet(new ServletHolder(proxyServlet), "/*");

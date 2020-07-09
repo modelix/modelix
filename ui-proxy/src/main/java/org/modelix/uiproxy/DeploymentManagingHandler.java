@@ -75,7 +75,7 @@ public class DeploymentManagingHandler extends AbstractHandler {
     public void handle(String target, Request baseRequest, HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         try {
             RedirectedURL redirectedURL = RedirectedURL.redirect(request);
-            if (redirectedURL == null) throw new RuntimeException("Invalid request: " + request.getRequestURI());
+            if (redirectedURL == null) return;
 
             if (redirectedURL.getRemainingPath() == null) {
                 if (request.getRequestURI().endsWith("/")) {

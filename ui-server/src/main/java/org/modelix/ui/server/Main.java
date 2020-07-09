@@ -1,14 +1,40 @@
 package org.modelix.ui.server;
 
 import com.google.common.io.Files;
+import com.intellij.diff.DiffContext;
+import com.intellij.diff.requests.ContentDiffRequest;
+import com.intellij.diff.requests.DiffRequest;
+import com.intellij.dvcs.repo.VcsRepositoryManager;
+import com.intellij.openapi.progress.EmptyProgressIndicator;
+import com.intellij.openapi.util.Key;
+import com.intellij.openapi.util.UserDataHolder;
+import com.intellij.openapi.util.UserDataHolderBase;
+import com.intellij.openapi.vcs.changes.Change;
+import com.intellij.openapi.vcs.changes.actions.diff.ChangeDiffRequestProducer;
+import com.intellij.openapi.vcs.diff.ItemLatestState;
+import com.intellij.openapi.vfs.LocalFileSystem;
+import com.intellij.openapi.vfs.VirtualFile;
+import com.intellij.vcsUtil.VcsUtil;
+import git4idea.GitCommit;
+import git4idea.history.GitHistoryUtils;
+import git4idea.repo.GitRepository;
+import git4idea.repo.GitRepositoryImpl;
+import jetbrains.mps.ide.project.ProjectHelper;
+import jetbrains.mps.project.MPSProject;
+import jetbrains.mps.project.Project;
+import jetbrains.mps.vcs.platform.integration.ModelDiffViewer;
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.revwalk.RevCommit;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
+import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class Main {
@@ -43,6 +69,8 @@ public class Main {
                 System.out.println("Searching in " + gitRepoDir);
                 collectMPSFiles(gitRepoDir, files);
                 files.forEach(f -> System.out.println("MPS related file found: " + f));
+
+
             }
 
             LOG.error("Test error");
@@ -50,10 +78,53 @@ public class Main {
             LOG.info("Test info");
             LOG.debug("Test debug");
             LOG.trace("Test trace");
-            EnvironmentLoader.loadEnvironment(gitRepoDir);
+            Project mpsProject = EnvironmentLoader.loadEnvironment(gitRepoDir);
             LOG.debug("idea.load.plugins.id: " + System.getProperty("idea.load.plugins.id"));
+
+            if (gitRepoDir != null) {
+                VirtualFile repoRoot = LocalFileSystem.getInstance().findFileByIoFile(gitRepoDir);
+                final com.intellij.openapi.project.Project project = ((MPSProject) mpsProject).getProject();
+
+                VcsRepositoryManager vcsManager = VcsRepositoryManager.getInstance(project);
+                vcsManager.addExternalRepository(
+                        repoRoot,
+                        GitRepositoryImpl.createInstance(repoRoot, project, vcsManager, false)
+                );
+
+                List<GitCommit> history = GitHistoryUtils.history(project, repoRoot, "-n1");
+                Change change = history.get(0).getChanges().stream().findFirst().orElse(null);
+                System.out.println("Change: " + change);
+                DiffContext context = new DiffContext() {
+                    @Nullable
+                    @Override
+                    public com.intellij.openapi.project.Project getProject() {
+                        return project;
+                    }
+
+                    @Override
+                    public boolean isWindowFocused() {
+                        return false;
+                    }
+
+                    @Override
+                    public boolean isFocusedInWindow() {
+                        return false;
+                    }
+
+                    @Override
+                    public void requestFocusInWindow() {
+
+                    }
+                };
+                ChangeDiffRequestProducer changeDiffRequestProducer = ChangeDiffRequestProducer.create(project, change);
+                System.out.println("ChangeDiffRequestProducer: " + changeDiffRequestProducer);
+                DiffRequest diffRequest = changeDiffRequestProducer.process(context, new EmptyProgressIndicator());
+                System.out.println("DiffRequest: " + diffRequest);
+                JComponent viewer = new ModelDiffViewer(context, (ContentDiffRequest) diffRequest).getComponent();
+                System.out.println("Viewer: " + viewer);
+            }
         } catch (Exception ex) {
-            LOG.error(ex);
+            LOG.error("", ex);
         }
     }
 

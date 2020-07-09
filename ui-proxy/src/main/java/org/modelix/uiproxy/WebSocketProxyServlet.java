@@ -26,7 +26,8 @@ public abstract class WebSocketProxyServlet extends WebSocketServlet {
         factory.setCreator(new WebSocketCreator() {
             @Override
             public Object createWebSocket(ServletUpgradeRequest req, ServletUpgradeResponse resp) {
-
+                URI redirectURL = redirect(req);
+                if (redirectURL == null) return null;
                 return new WebSocketListener() {
                     private WebSocketClient client = new WebSocketClient();
                     private Session sessionA;
@@ -38,6 +39,7 @@ public abstract class WebSocketProxyServlet extends WebSocketServlet {
                         try {
                             client.start();
                             client.getPolicy().setMaxTextMessageSize(20 * 1024 * 1024);
+                            URI redirectURL = redirect(req);
                             client.connect(new WebSocketListener() {
                                 @Override
                                 public void onWebSocketBinary(byte[] payload, int offset, int len) {
@@ -67,7 +69,7 @@ public abstract class WebSocketProxyServlet extends WebSocketServlet {
                                 public void onWebSocketError(Throwable cause) {
                                     LOG.error("", cause);
                                 }
-                            }, redirect(req), new ClientUpgradeRequest()).get();
+                            }, redirectURL, new ClientUpgradeRequest()).get();
                         } catch (Exception e) {
                             throw new RuntimeException(e);
                         }
