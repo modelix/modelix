@@ -4,11 +4,19 @@ import com.google.common.collect.MultimapBuilder;
 import com.google.common.collect.SetMultimap;
 import org.apache.ignite.Ignite;
 import org.apache.ignite.IgniteCache;
+import org.apache.ignite.IgniteCheckedException;
 import org.apache.ignite.Ignition;
+import org.apache.ignite.configuration.IgniteConfiguration;
+import org.apache.ignite.internal.IgnitionEx;
 
+import javax.annotation.Nullable;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.stream.Collectors;
@@ -20,7 +28,25 @@ public class IgniteStoreClient implements IStoreClient {
     private ScheduledExecutorService timer = Executors.newScheduledThreadPool(1);
     private final SetMultimap<String, IKeyListener> listeners = MultimapBuilder.hashKeys().hashSetValues().build();
 
-    public IgniteStoreClient() {
+    public IgniteStoreClient(@Nullable File jdbcConfFile) {
+        if (jdbcConfFile != null) {
+            // Given that systemPropertiesMode is set to 2 (SYSTEM_PROPERTIES_MODE_OVERRIDE) in ignite.xml, we can override
+            // the properties through system properties
+            try {
+                Properties properties = new Properties();
+                properties.load(new FileReader(jdbcConfFile));
+                for (String pn : properties.stringPropertyNames()) {
+                    if (pn.startsWith("jdbc.")) {
+                        System.setProperty(pn, properties.getProperty(pn));
+                    } else {
+                        throw new RuntimeException("Properties not related to jdbc are not permitted. Check file " + jdbcConfFile.getAbsolutePath());
+                    }
+                }
+            } catch (IOException e) {
+                throw new RuntimeException("We are unable to load the JDBC configuration from " + jdbcConfFile.getAbsolutePath(), e);
+            }
+        }
+
         this.ignite = Ignition.start(getClass().getResource("ignite.xml"));
         cache = ignite.getOrCreateCache("model");
 //        timer.scheduleAtFixedRate(() -> {
