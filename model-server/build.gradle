@@ -14,9 +14,9 @@ targetCompatibility = 1.8
 defaultTasks 'build'
 
 repositories {
-        
      maven { url "https://repo.maven.apache.org/maven2" }
 }
+
 dependencies {
     compile group: 'org.json', name: 'json', version:'20180813'
     compile group: 'org.java-websocket', name: 'Java-WebSocket', version:'1.4.0'
@@ -26,7 +26,7 @@ dependencies {
     compile group: 'org.apache.ignite', name: 'ignite-core', version:'2.7.5'
     compile group: 'org.apache.ignite', name: 'ignite-spring', version:'2.7.5'
     compile group: 'org.apache.ignite', name: 'ignite-indexing', version:'2.7.5'
-    compile group: 'org.postgresql', name: 'postgresql', version:'42.2.6'
+    compile group: 'org.postgresql', name: 'postgresql', version:'42.2.14'
     
     compile group: 'org.eclipse.jetty', name: 'jetty-server', version: '9.4.21.v20190926'
     compile group: 'org.eclipse.jetty.websocket', name: 'websocket-servlet', version: '9.4.21.v20190926'
@@ -36,7 +36,7 @@ dependencies {
 
     compile group: 'commons-io', name: 'commons-io', version: '2.6'
     compile group: 'com.google.guava', name: 'guava', version: '28.1-jre'
-
+    compile group: 'com.beust', name: 'jcommander', version: '1.7'
 }
 
 task copyLibs(type: Copy) {
