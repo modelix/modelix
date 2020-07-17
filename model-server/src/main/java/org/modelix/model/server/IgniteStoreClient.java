@@ -1,15 +1,22 @@
+/*
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *  http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License. 
+ */
+
 package org.modelix.model.server;
 
 import com.google.common.collect.MultimapBuilder;
 import com.google.common.collect.SetMultimap;
-import org.apache.ignite.Ignite;
-import org.apache.ignite.IgniteCache;
-import org.apache.ignite.IgniteCheckedException;
-import org.apache.ignite.Ignition;
-import org.apache.ignite.configuration.IgniteConfiguration;
-import org.apache.ignite.internal.IgnitionEx;
-
-import javax.annotation.Nullable;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
@@ -20,17 +27,23 @@ import java.util.Properties;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.stream.Collectors;
+import javax.annotation.Nullable;
+import org.apache.ignite.Ignite;
+import org.apache.ignite.IgniteCache;
+import org.apache.ignite.Ignition;
 
 public class IgniteStoreClient implements IStoreClient {
 
     private Ignite ignite;
     private IgniteCache<String, String> cache;
     private ScheduledExecutorService timer = Executors.newScheduledThreadPool(1);
-    private final SetMultimap<String, IKeyListener> listeners = MultimapBuilder.hashKeys().hashSetValues().build();
+    private final SetMultimap<String, IKeyListener> listeners =
+            MultimapBuilder.hashKeys().hashSetValues().build();
 
     public IgniteStoreClient(@Nullable File jdbcConfFile) {
         if (jdbcConfFile != null) {
-            // Given that systemPropertiesMode is set to 2 (SYSTEM_PROPERTIES_MODE_OVERRIDE) in ignite.xml, we can override
+            // Given that systemPropertiesMode is set to 2 (SYSTEM_PROPERTIES_MODE_OVERRIDE) in
+            // ignite.xml, we can override
             // the properties through system properties
             try {
                 Properties properties = new Properties();
@@ -39,19 +52,24 @@ public class IgniteStoreClient implements IStoreClient {
                     if (pn.startsWith("jdbc.")) {
                         System.setProperty(pn, properties.getProperty(pn));
                     } else {
-                        throw new RuntimeException("Properties not related to jdbc are not permitted. Check file " + jdbcConfFile.getAbsolutePath());
+                        throw new RuntimeException(
+                                "Properties not related to jdbc are not permitted. Check file "
+                                        + jdbcConfFile.getAbsolutePath());
                     }
                 }
             } catch (IOException e) {
-                throw new RuntimeException("We are unable to load the JDBC configuration from " + jdbcConfFile.getAbsolutePath(), e);
+                throw new RuntimeException(
+                        "We are unable to load the JDBC configuration from "
+                                + jdbcConfFile.getAbsolutePath(),
+                        e);
             }
         }
 
         this.ignite = Ignition.start(getClass().getResource("ignite.xml"));
         cache = ignite.getOrCreateCache("model");
-//        timer.scheduleAtFixedRate(() -> {
-//            System.out.println("stats: " + cache.metrics());
-//        }, 10, 10, TimeUnit.SECONDS);
+        //        timer.scheduleAtFixedRate(() -> {
+        //            System.out.println("stats: " + cache.metrics());
+        //        }, 10, 10, TimeUnit.SECONDS);
     }
 
     @Override
@@ -77,21 +95,24 @@ public class IgniteStoreClient implements IStoreClient {
             boolean wasSubscribed = listeners.containsKey(key);
             listeners.put(key, listener);
             if (!wasSubscribed) {
-                ignite.message().localListen(key, (nodeId, value) -> {
-                    if (value instanceof String) {
-                        synchronized (listeners) {
-                            for (IKeyListener l : listeners.get(key)) {
-                                try {
-                                    l.changed(key, (String) value);
-                                } catch (Exception ex) {
-                                    System.out.println(ex.getMessage());
-                                    ex.printStackTrace();
-                                }
-                            }
-                        }
-                    }
-                    return true;
-                });
+                ignite.message()
+                        .localListen(
+                                key,
+                                (nodeId, value) -> {
+                                    if (value instanceof String) {
+                                        synchronized (listeners) {
+                                            for (IKeyListener l : listeners.get(key)) {
+                                                try {
+                                                    l.changed(key, (String) value);
+                                                } catch (Exception ex) {
+                                                    System.out.println(ex.getMessage());
+                                                    ex.printStackTrace();
+                                                }
+                                            }
+                                        }
+                                    }
+                                    return true;
+                                });
             }
         }
     }
@@ -111,5 +132,4 @@ public class IgniteStoreClient implements IStoreClient {
     public void dispose() {
         ignite.close();
     }
-
 }
