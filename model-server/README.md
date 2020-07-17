@@ -19,3 +19,14 @@ To reformat and add license header to all files run:
 ```
 ./gradlew spotlessApply
 ```
+
+## Perform a release
+
+Insert your bintray credentials under `~/.gradle/gradle.properties`:
+
+```
+bintray_user=yourusername
+bintray_api_key=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+```
+
+Note that you cannot publish versions ending with 'SNAPSHOT'.
