@@ -1,10 +1,12 @@
 plugins {
     id "application"
     id "com.diffplug.gradle.spotless" version "4.5.1"
+    id 'maven-publish'
 }
 apply plugin: 'java'
 
 group = 'org.modelix'
+description = 'Model Server offering access to model storage'
 version = '1.0-SNAPSHOT'
 
 description = "modelix model server"
@@ -69,5 +71,16 @@ spotless {
                 ' * under the License. \n' +
                 ' */\n' +
                 '\n'
+    }
+}
+
+publishing {
+    publications {
+        modelServer(MavenPublication) {
+            groupId project.group
+            version project.version
+
+            from components.java
+        }
     }
 }
