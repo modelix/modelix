@@ -1,10 +1,13 @@
 plugins {
     id "application"
     id "com.diffplug.gradle.spotless" version "4.5.1"
+    id 'maven-publish'
+    id "com.jfrog.bintray" version "1.8.5"
 }
 apply plugin: 'java'
 
 group = 'org.modelix'
+description = 'Model Server offering access to model storage'
 version = '1.0-SNAPSHOT'
 
 description = "modelix model server"
@@ -53,7 +56,7 @@ application {
 
 spotless {
     java {
-        googleJavaFormat('1.8').aosp()
+        googleJavaFormat(sourceCompatibility.toString()).aosp()
         licenseHeader '/*\n' +
                 ' * Licensed under the Apache License, Version 2.0 (the "License");\n' +
                 ' * you may not use this file except in compliance with the License.\n' +
@@ -70,4 +73,38 @@ spotless {
                 ' */\n' +
                 '\n'
     }
+}
+
+publishing {
+    publications {
+        modelServer(MavenPublication) {
+            groupId project.group
+            version project.version
+
+            from components.java
+        }
+    }
+}
+
+bintray {
+    user = rootProject.findProperty('bintray_user')
+    key = rootProject.findProperty('bintray_api_key')
+    pkg {
+        repo = 'modelix-oss-maven'
+        name = project.name
+        userOrg = 'modelix'
+        licenses = ['Apache-2.0']
+        vcsUrl = 'https://github.com/modelix/modelix.git'
+        version {
+            name = 'v' + project.version
+            desc = 'Version ' + project.version
+            released = new Date()
+            vcsTag = 'v'+project.version
+        }
+    }
+
+    publications = ['modelServer']
+    dryRun = false
+    publish = true
+    override = true
 }
