@@ -19,13 +19,12 @@
 
 package org.modelix.model.server;
 
-import org.apache.commons.collections4.map.LRUMap;
-
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.UUID;
 import java.util.stream.Collectors;
+import org.apache.commons.collections4.map.LRUMap;
 
 public class CachingStoreClient implements IStoreClient {
     private static final String NULL_STRING = UUID.randomUUID().toString();

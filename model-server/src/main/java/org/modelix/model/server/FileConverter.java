@@ -20,7 +20,6 @@
 package org.modelix.model.server;
 
 import com.beust.jcommander.IStringConverter;
-
 import java.io.File;
 
 public class FileConverter implements IStringConverter<File> {

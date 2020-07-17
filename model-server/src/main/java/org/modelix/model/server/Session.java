@@ -19,12 +19,10 @@
 
 package org.modelix.model.server;
 
-import org.eclipse.jetty.websocket.api.RemoteEndpoint;
-import org.java_websocket.WebSocket;
-
 import java.util.HashSet;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicLong;
+import org.eclipse.jetty.websocket.api.RemoteEndpoint;
 
 public class Session {
     private static final AtomicLong ID_SEQUENCE = new AtomicLong();
@@ -37,8 +35,7 @@ public class Session {
         connection = conn;
     }
 
-    public void dispose() {
-    }
+    public void dispose() {}
 
     public RemoteEndpoint getConnection() {
         return this.connection;

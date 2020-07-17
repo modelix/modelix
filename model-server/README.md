@@ -11,3 +11,11 @@ You may also want to specify a different jdbc configuration. You can do that in 
 ```
 ./gradlew run --args='-jdbcconf path-to-my-database.properties'
 ```
+
+## Development
+
+To reformat and add license header to all files run:
+
+```
+./gradlew spotlessApply
+```

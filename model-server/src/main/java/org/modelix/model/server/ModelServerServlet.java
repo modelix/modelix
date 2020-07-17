@@ -38,37 +38,40 @@ public class ModelServerServlet extends WebSocketServlet {
 
     @Override
     public void configure(WebSocketServletFactory factory) {
-        factory.setCreator(new WebSocketCreator() {
-            @Override
-            public Object createWebSocket(ServletUpgradeRequest req, ServletUpgradeResponse resp) {
-                return new WebSocketAdapter() {
-                    private RemoteEndpoint connection;
+        factory.setCreator(
+                new WebSocketCreator() {
                     @Override
-                    public void onWebSocketClose(int statusCode, String reason) {
-                        super.onWebSocketClose(statusCode, reason);
-                        modelServer.onClose(connection, statusCode, reason, true);
-                    }
+                    public Object createWebSocket(
+                            ServletUpgradeRequest req, ServletUpgradeResponse resp) {
+                        return new WebSocketAdapter() {
+                            private RemoteEndpoint connection;
 
-                    @Override
-                    public void onWebSocketConnect(Session sess) {
-                        super.onWebSocketConnect(sess);
-                        this.connection = sess.getRemote();
-                        modelServer.onOpen(sess.getRemote());
-                    }
+                            @Override
+                            public void onWebSocketClose(int statusCode, String reason) {
+                                super.onWebSocketClose(statusCode, reason);
+                                modelServer.onClose(connection, statusCode, reason, true);
+                            }
 
-                    @Override
-                    public void onWebSocketError(Throwable cause) {
-                        super.onWebSocketError(cause);
-                        modelServer.onError(connection, cause);
-                    }
+                            @Override
+                            public void onWebSocketConnect(Session sess) {
+                                super.onWebSocketConnect(sess);
+                                this.connection = sess.getRemote();
+                                modelServer.onOpen(sess.getRemote());
+                            }
 
-                    @Override
-                    public void onWebSocketText(String message) {
-                        super.onWebSocketText(message);
-                        modelServer.onMessage(connection, message);
+                            @Override
+                            public void onWebSocketError(Throwable cause) {
+                                super.onWebSocketError(cause);
+                                modelServer.onError(connection, cause);
+                            }
+
+                            @Override
+                            public void onWebSocketText(String message) {
+                                super.onWebSocketText(message);
+                                modelServer.onMessage(connection, message);
+                            }
+                        };
                     }
-                };
-            }
-        });
+                });
     }
 }
