@@ -96,8 +96,6 @@ public class Main {
             }
 
             ServletContextHandler servletHandler = new ServletContextHandler();
-            servletHandler.addServlet(
-                    new ServletHolder(new ModelServerServlet(modelServer)), "/ws");
 
             servletHandler.addServlet(
                     new ServletHolder(
