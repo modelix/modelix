@@ -16,8 +16,6 @@ repositories {
 
 dependencies {
     compileOnly fileTree(dir: '../artifacts/mps/lib', include: '*.jar')
-    compileOnly fileTree(dir: '../artifacts/mps/plugins/git4idea/lib', include: '*.jar')
-    compileOnly fileTree(dir: '../artifacts/mps/plugins/mps-vcs/lib', include: '*.jar')
     compile group: 'org.eclipse.jgit', name: 'org.eclipse.jgit', version: '5.8.0.202006091008-r'
     compile group: 'commons-io', name: 'commons-io', version: '2.7'
 }
