@@ -2,6 +2,8 @@
 <model ref="r:b50a408d-f48c-4aa2-b27f-8ef56a3217d6(main@generator)">
   <persistence version="9" />
   <languages>
+    <use id="798100da-4f0a-421a-b991-71f8c50ce5d2" name="jetbrains.mps.build" version="0" />
+    <use id="479c7a8c-02f9-43b5-9139-d910cb22f298" name="jetbrains.mps.core.xml" version="0" />
     <devkit ref="a2eb3a43-fcc2-4200-80dc-c60110c4862d(jetbrains.mps.devkit.templates)" />
   </languages>
   <imports>
@@ -13,9 +15,25 @@
     <language id="f3061a53-9226-4cc5-a443-f952ceaf5816" name="jetbrains.mps.baseLanguage">
       <concept id="1225271177708" name="jetbrains.mps.baseLanguage.structure.StringType" flags="in" index="17QB3L" />
     </language>
+    <language id="479c7a8c-02f9-43b5-9139-d910cb22f298" name="jetbrains.mps.core.xml">
+      <concept id="6666499814681541919" name="jetbrains.mps.core.xml.structure.XmlTextValue" flags="ng" index="2pMdtt">
+        <property id="6666499814681541920" name="text" index="2pMdty" />
+      </concept>
+      <concept id="6666499814681415858" name="jetbrains.mps.core.xml.structure.XmlElement" flags="ng" index="2pNNFK">
+        <property id="6666499814681415862" name="tagName" index="2pNNFO" />
+        <property id="6999033275467544021" name="shortEmptyNotation" index="qg3DV" />
+        <child id="6666499814681415861" name="attributes" index="2pNNFR" />
+      </concept>
+      <concept id="6666499814681447923" name="jetbrains.mps.core.xml.structure.XmlAttribute" flags="ng" index="2pNUuL">
+        <property id="6666499814681447926" name="attrName" index="2pNUuO" />
+        <child id="6666499814681541918" name="value" index="2pMdts" />
+      </concept>
+    </language>
     <language id="b401a680-8325-4110-8fd3-84331ff25bef" name="jetbrains.mps.lang.generator">
-      <concept id="1202776937179" name="jetbrains.mps.lang.generator.structure.AbandonInput_RuleConsequence" flags="lg" index="b5Tf3" />
       <concept id="1095416546421" name="jetbrains.mps.lang.generator.structure.MappingConfiguration" flags="ig" index="bUwia" />
+      <concept id="1177093525992" name="jetbrains.mps.lang.generator.structure.InlineTemplate_RuleConsequence" flags="lg" index="gft3U">
+        <child id="1177093586806" name="templateNode" index="gfFT$" />
+      </concept>
       <concept id="1112730859144" name="jetbrains.mps.lang.generator.structure.TemplateSwitch" flags="ig" index="jVnub">
         <reference id="1112820671508" name="modifiedSwitch" index="phYkn" />
         <child id="1167340453568" name="reductionMappingRule" index="3aUrZf" />
@@ -32,6 +50,11 @@
       </concept>
       <concept id="1805153994415891174" name="jetbrains.mps.lang.generator.structure.TemplateParameterDeclaration" flags="ng" index="1N15co">
         <child id="1805153994415893199" name="type" index="1N15GL" />
+      </concept>
+    </language>
+    <language id="798100da-4f0a-421a-b991-71f8c50ce5d2" name="jetbrains.mps.build">
+      <concept id="8056730377013322101" name="jetbrains.mps.build.structure.BuildSource_JavaDependencyFileset" flags="ng" index="3di3y">
+        <child id="7926701909975791137" name="classpath" index="2IxjH2" />
       </concept>
     </language>
     <language id="7866978e-a0f0-4cc7-81bc-4d213d9375e1" name="jetbrains.mps.lang.smodel">
@@ -53,8 +76,27 @@
     <ref role="phYkn" to="7kwb:4gIjTorxzAe" resolve="switch_ExternalJar" />
     <node concept="3aamgX" id="27MnIraud$j" role="3aUrZf">
       <property role="36QftV" value="true" />
-      <ref role="30HIoZ" to="a4f1:27MnIratvuB" resolve="BuildLayout_Hack" />
-      <node concept="b5Tf3" id="27MnIraud$n" role="1lVwrX" />
+      <ref role="30HIoZ" to="a4f1:27MnIratvuB" resolve="BuildLayout_Git4IdeaHack" />
+      <node concept="gft3U" id="6REpCQESYc0" role="1lVwrX">
+        <node concept="3di3y" id="4gIjToryezf" role="gfFT$">
+          <node concept="2pNNFK" id="4gIjToryezh" role="2IxjH2">
+            <property role="2pNNFO" value="fileset" />
+            <property role="qg3DV" value="true" />
+            <node concept="2pNUuL" id="4gIjTorylgG" role="2pNNFR">
+              <property role="2pNUuO" value="dir" />
+              <node concept="2pMdtt" id="4gIjTorylgH" role="2pMdts">
+                <property role="2pMdty" value="${mps_home}/plugins/git4idea/lib/" />
+              </node>
+            </node>
+            <node concept="2pNUuL" id="4gIjToryezl" role="2pNNFR">
+              <property role="2pNUuO" value="includes" />
+              <node concept="2pMdtt" id="4gIjToryfpu" role="2pMdts">
+                <property role="2pMdty" value="*.jar" />
+              </node>
+            </node>
+          </node>
+        </node>
+      </node>
     </node>
     <node concept="1N15co" id="27MnIraud$C" role="1s_3oS">
       <property role="TrG5h" value="currentModule" />
