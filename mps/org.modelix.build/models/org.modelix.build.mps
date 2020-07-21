@@ -4,6 +4,7 @@
   <languages>
     <use id="798100da-4f0a-421a-b991-71f8c50ce5d2" name="jetbrains.mps.build" version="0" />
     <use id="0cf935df-4699-4e9c-a132-fa109541cba3" name="jetbrains.mps.build.mps" version="7" />
+    <use id="692446e8-74c9-4c9a-86dd-9828438db54b" name="org.modelix.buildhacks" version="0" />
   </languages>
   <imports>
     <import index="ffeo" ref="r:874d959d-e3b4-4d04-b931-ca849af130dd(jetbrains.mps.ide.build)" />
@@ -69,6 +70,9 @@
       <concept id="4903714810883702019" name="jetbrains.mps.build.structure.BuildTextStringPart" flags="ng" index="3Mxwew">
         <property id="4903714810883755350" name="text" index="3MwjfP" />
       </concept>
+    </language>
+    <language id="692446e8-74c9-4c9a-86dd-9828438db54b" name="org.modelix.buildhacks">
+      <concept id="2446121892947818407" name="org.modelix.buildhacks.structure.BuildLayout_Hack" flags="ng" index="3FxU_1" />
     </language>
     <language id="ceab5195-25ea-4f22-9b92-103b95ca8c0c" name="jetbrains.mps.lang.core">
       <concept id="1169194658468" name="jetbrains.mps.lang.core.structure.INamedConcept" flags="ng" index="TrEIO">
@@ -225,6 +229,7 @@
       </node>
     </node>
     <node concept="1l3spV" id="7gF2HTviNQ7" role="1l3spN">
+      <node concept="3FxU_1" id="27MnIratyRP" role="39821P" />
       <node concept="3981dG" id="7gF2HTviNQ8" role="39821P">
         <node concept="3_J27D" id="7gF2HTviNQ9" role="Nbhlr">
           <node concept="3Mxwew" id="7gF2HTviNQa" role="3MwsjC">
@@ -277,7 +282,6 @@
         </node>
         <node concept="m$_wl" id="7gF2HTvk5j6" role="39821P">
           <ref role="m_rDy" node="7gF2HTvj4Cd" resolve="org.modelix.ui" />
-          <node concept="pUk6x" id="7gF2HTvk5ly" role="pUk7w" />
           <node concept="398223" id="1_iojA27rSX" role="39821P">
             <node concept="3_J27D" id="1_iojA27rSY" role="Nbhlr">
               <node concept="3Mxwew" id="1_iojA27s0T" role="3MwsjC">
@@ -307,6 +311,7 @@
               </node>
             </node>
           </node>
+          <node concept="pUk6x" id="7gF2HTvk5ly" role="pUk7w" />
         </node>
         <node concept="m$_wl" id="7gF2HTviNQb" role="39821P">
           <ref role="m_rDy" node="7gF2HTviNPW" resolve="org.modelix.model" />
