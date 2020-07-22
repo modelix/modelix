@@ -8,6 +8,7 @@ import io.kubernetes.client.openapi.apis.CoreV1Api;
 import io.kubernetes.client.openapi.models.V1Deployment;
 import io.kubernetes.client.openapi.models.V1DeploymentBuilder;
 import io.kubernetes.client.openapi.models.V1DeploymentList;
+import io.kubernetes.client.openapi.models.V1EnvVar;
 import io.kubernetes.client.openapi.models.V1Pod;
 import io.kubernetes.client.openapi.models.V1PodList;
 import io.kubernetes.client.openapi.models.V1Service;
@@ -33,6 +34,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -88,7 +90,7 @@ public class DeploymentManagingHandler extends AbstractHandler {
                 return;
             }
 
-            if (redirectedURL.getCommitId() == null) {
+            if ("/".equals(redirectedURL.getRemainingPath())) {
                 Collection<Ref> refs = null;
                 try {
                     refs = Git.lsRemoteRepository()
@@ -126,23 +128,27 @@ public class DeploymentManagingHandler extends AbstractHandler {
                                 pullRequest.getBase().getRepository().getFullName());
                         response.getWriter()
                                 .append("<div>");
-                        if (sameRepo) response.getWriter()
-                                .append("<a href=\"")
-                                .append("commit/")
-                                .append(pullRequest.getHead().getSha())
-                                .append("/diff/")
-                                .append(pullRequest.getBase().getSha())
-                                .append("/")
-                                .append(pullRequest.getHead().getSha())
-                                .append("/")
-                                .append("\">");
                         response.getWriter()
                                 .append("#")
                                 .append(Integer.toString(pullRequest.getNumber()))
                                 .append(" - ")
                                 .append(StringEscapeUtils.escapeHtml(pullRequest.getTitle()));
-                        if (sameRepo) response.getWriter()
-                                .append("</a>");
+                        if (sameRepo) {
+                            response.getWriter()
+                                    .append(" (<a href=\"")
+                                    .append("commit/")
+                                    .append(pullRequest.getHead().getSha())
+                                    .append("/")
+                                    .append("\">Open Version</a>)")
+                                    .append("")
+                                    .append(" (<a href=\"")
+                                    .append("diff/")
+                                    .append(pullRequest.getBase().getSha())
+                                    .append("/")
+                                    .append(pullRequest.getHead().getSha())
+                                    .append("/")
+                                    .append("\">Show Diff</a>)");
+                        }
                         response.getWriter()
                                 .append("</div>");
                     }
@@ -318,6 +324,7 @@ public class DeploymentManagingHandler extends AbstractHandler {
                                         .withName("GIT_COMMIT_ID")
                                         .withValue(gitRepoUrl.getCommitId())
                                     .endEnv()
+                                    .removeMatchingFromEnv(e -> e.getValue() == null)
                                     .addNewPort()
                                         .withContainerPort(33333)
                                     .endPort()

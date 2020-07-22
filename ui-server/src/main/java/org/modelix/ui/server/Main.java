@@ -34,9 +34,9 @@ public class Main {
                 Git git = Git.cloneRepository()
                         .setURI(gitRepoUri)
                         .setDirectory(gitRepoDir)
-                        .setNoCheckout(gitCommitId != null)
+                        .setNoCheckout(gitCommitId != null && gitCommitId.length() > 0)
                         .call();
-                if (gitCommitId != null) {
+                if (gitCommitId != null && gitCommitId.length() > 0) {
                     System.out.println("Checkout " + gitCommitId);
                     git.checkout().setName(gitCommitId).call();
                 }

@@ -70,7 +70,6 @@ public class RedirectedURL {
     }
 
     public String getDeploymentName() {
-        if (getCommitId() == null) throw new RuntimeException("No commit ID provided");
         return DEPLOYMENT_PREFIX + DigestUtils.sha1Hex(getRepositoryUrl() + "@" + commitId);
     }
 
