@@ -19,6 +19,7 @@ public class RedirectedURL {
         if (!parts.get(0).equals("github")) return null;
 
         String repositoryUrl = "https://github.com/" + parts.get(1) + "/" + parts.get(2) + ".git";
+        String githubRepositoryName = parts.get(1) + "/" + parts.get(2);
         parts = parts.subList(3, parts.size());
 
         String commitId = null;
@@ -35,18 +36,21 @@ public class RedirectedURL {
         return new RedirectedURL(
                 remainingPath,
                 repositoryUrl,
-                commitId
+                commitId,
+                githubRepositoryName
         );
     }
 
     private String remainingPath;
     private String repositoryUrl;
     private String commitId;
+    private String githubRepositoryName;
 
-    public RedirectedURL(String remainingPath, String repositoryUrl, String commitId) {
+    public RedirectedURL(String remainingPath, String repositoryUrl, String commitId, String githubRepositoryName) {
         this.remainingPath = remainingPath;
         this.repositoryUrl = repositoryUrl;
         this.commitId = commitId;
+        this.githubRepositoryName = githubRepositoryName;
     }
 
     public String getRemainingPath() {
@@ -59,6 +63,10 @@ public class RedirectedURL {
 
     public String getCommitId() {
         return commitId;
+    }
+
+    public String getGithubRepositoryName() {
+        return githubRepositoryName;
     }
 
     public String getDeploymentName() {

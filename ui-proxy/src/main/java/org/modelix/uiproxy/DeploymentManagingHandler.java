@@ -1,6 +1,5 @@
 package org.modelix.uiproxy;
 
-import io.kubernetes.client.PodLogs;
 import io.kubernetes.client.custom.Quantity;
 import io.kubernetes.client.openapi.ApiException;
 import io.kubernetes.client.openapi.Configuration;
@@ -17,7 +16,6 @@ import io.kubernetes.client.openapi.models.V1ServiceList;
 import io.kubernetes.client.util.ClientBuilder;
 import io.kubernetes.client.util.Yaml;
 import org.apache.commons.collections4.map.HashedMap;
-import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.log4j.Logger;
 import org.eclipse.jetty.server.Request;
@@ -25,18 +23,20 @@ import org.eclipse.jetty.server.handler.AbstractHandler;
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.errors.GitAPIException;
 import org.eclipse.jgit.lib.Ref;
+import org.kohsuke.github.GHIssueState;
+import org.kohsuke.github.GHPullRequest;
+import org.kohsuke.github.GHRepository;
+import org.kohsuke.github.GitHub;
+import org.kohsuke.github.GitHubBuilder;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.InputStream;
-import java.nio.charset.StandardCharsets;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 import java.util.Map;
-import java.util.Timer;
-import java.util.concurrent.Executors;
 import java.util.function.Supplier;
 
 public class DeploymentManagingHandler extends AbstractHandler {
@@ -104,7 +104,8 @@ public class DeploymentManagingHandler extends AbstractHandler {
                         .append("<html>")
                         .append("<head>")
                         .append("</head>")
-                        .append("<body>");
+                        .append("<body>")
+                        .append("<h1>Tags and Branches</h1>");
 
                 for (Ref ref : refs) {
                     response.getWriter()
@@ -113,6 +114,40 @@ public class DeploymentManagingHandler extends AbstractHandler {
                             .append("/\">")
                             .append(ref.getName())
                             .append("</a></div>");
+                }
+
+                response.getWriter().append("<h1>Pull Requests</h1>");
+                try {
+                    GitHub github = new GitHubBuilder().build();
+                    GHRepository ghRepo = github.getRepository(redirectedURL.getGithubRepositoryName());
+                    List<GHPullRequest> pullRequests = ghRepo.getPullRequests(GHIssueState.ALL);
+                    for (GHPullRequest pullRequest : pullRequests) {
+                        boolean sameRepo = pullRequest.getHead().getRepository().getFullName().equals(
+                                pullRequest.getBase().getRepository().getFullName());
+                        response.getWriter()
+                                .append("<div>");
+                        if (sameRepo) response.getWriter()
+                                .append("<a href=\"")
+                                .append("commit/")
+                                .append(pullRequest.getHead().getSha())
+                                .append("/diff/")
+                                .append(pullRequest.getBase().getSha())
+                                .append("/")
+                                .append(pullRequest.getHead().getSha())
+                                .append("/")
+                                .append("\">");
+                        response.getWriter()
+                                .append("#")
+                                .append(Integer.toString(pullRequest.getNumber()))
+                                .append(" - ")
+                                .append(StringEscapeUtils.escapeHtml(pullRequest.getTitle()));
+                        if (sameRepo) response.getWriter()
+                                .append("</a>");
+                        response.getWriter()
+                                .append("</div>");
+                    }
+                } catch (Exception ex) {
+                    response.getWriter().append("<div>").append(ex.getMessage()).append("</div");
                 }
 
                 response.getWriter()
