@@ -1,7 +1,5 @@
 package org.modelix.model.lazy;
 
-
-
 import java.util.UUID;
 import org.jetbrains.annotations.NotNull;
 

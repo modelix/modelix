@@ -1,7 +1,5 @@
 package org.modelix.model.mpsplugin.history;
 
-
-
 import javax.swing.JPanel;
 import jetbrains.mps.ide.ui.tree.MPSTree;
 import java.awt.BorderLayout;

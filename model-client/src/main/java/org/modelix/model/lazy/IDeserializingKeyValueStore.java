@@ -1,7 +1,5 @@
 package org.modelix.model.lazy;
 
-
-
 import org.modelix.model.IKeyValueStore;
 import jetbrains.mps.baseLanguage.closures.runtime._FunctionTypes;
 

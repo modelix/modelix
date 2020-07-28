@@ -1,7 +1,5 @@
 package org.modelix.model;
 
-
-
 import com.intellij.util.containers.SLRUMap;
 
 public class SynchronizedSLRUMap<K, V> {

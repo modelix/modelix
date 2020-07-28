@@ -1,7 +1,5 @@
 package org.modelix.model.mpsplugin.plugin;
 
-
-
 import jetbrains.mps.workbench.action.BaseAction;
 import org.apache.log4j.Logger;
 import org.apache.log4j.LogManager;

@@ -1,7 +1,5 @@
 package org.modelix.model.mpsplugin.plugin;
 
-
-
 import jetbrains.mps.plugins.part.ProjectPluginPart;
 import jetbrains.mps.project.MPSProject;
 import org.modelix.model.mpsplugin.projectview.CloudProjectViewExtension;

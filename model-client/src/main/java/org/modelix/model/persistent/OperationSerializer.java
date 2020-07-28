@@ -1,7 +1,5 @@
 package org.modelix.model.persistent;
 
-
-
 import org.modelix.model.operations.AddNewChildOp;
 import org.modelix.model.operations.DeleteNodeOp;
 import org.modelix.model.operations.MoveNodeOp;

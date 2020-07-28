@@ -1,7 +1,5 @@
 package org.modelix.model.persistent;
 
-
-
 import java.util.regex.Pattern;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;

@@ -1,7 +1,5 @@
 package org.modelix.model.mpsplugin;
 
-
-
 import de.q60.mps.shadowmodels.runtime.model.persistent.IBranch;
 import de.q60.mps.shadowmodels.runtime.model.persistent.PNodeAdapter;
 import de.q60.mps.shadowmodels.runtime.smodel.NodeToSNodeAdapter;

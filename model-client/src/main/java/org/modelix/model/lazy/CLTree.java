@@ -1,7 +1,5 @@
 package org.modelix.model.lazy;
 
-
-
 import de.q60.mps.shadowmodels.runtime.model.persistent.ITree;
 import org.modelix.model.persistent.CPTree;
 import jetbrains.mps.baseLanguage.closures.runtime._FunctionTypes;

@@ -1,8 +1,5 @@
 package org.modelix.model.lazy;
 
-
-
-
 public class CLElementRef {
   private long id;
 

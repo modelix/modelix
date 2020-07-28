@@ -1,7 +1,5 @@
 package org.modelix.model.mpsplugin;
 
-
-
 import org.jetbrains.mps.openapi.module.SRepository;
 import org.jetbrains.mps.openapi.module.ModelAccess;
 import com.intellij.openapi.application.ApplicationManager;

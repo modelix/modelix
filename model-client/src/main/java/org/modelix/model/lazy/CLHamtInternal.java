@@ -1,7 +1,5 @@
 package org.modelix.model.lazy;
 
-
-
 import org.modelix.model.persistent.CPHamtInternal;
 import org.modelix.model.persistent.HashUtil;
 import jetbrains.mps.baseLanguage.closures.runtime._FunctionTypes;

@@ -1,7 +1,5 @@
 package org.modelix.model.mpsplugin.history;
 
-
-
 import javax.swing.tree.TreeNode;
 import java.util.List;
 import jetbrains.mps.internal.collections.runtime.Sequence;

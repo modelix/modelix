@@ -1,7 +1,5 @@
 package org.modelix.model.persistent;
 
-
-
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.net.URLDecoder;

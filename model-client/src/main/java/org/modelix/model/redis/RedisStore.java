@@ -1,7 +1,5 @@
 package org.modelix.model.redis;
 
-
-
 import org.modelix.model.IKeyValueStore;
 import io.lettuce.core.RedisClient;
 import io.lettuce.core.api.StatefulRedisConnection;

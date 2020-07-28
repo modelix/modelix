@@ -1,7 +1,5 @@
 package org.modelix.model.mpsplugin.history;
 
-
-
 import jetbrains.mps.ide.ui.tree.TextTreeNode;
 import org.modelix.model.mpsplugin.CloudRepositories;
 import org.modelix.model.mpsplugin.CloudIcons;

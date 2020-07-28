@@ -1,7 +1,5 @@
 package org.modelix.model.operations;
 
-
-
 import de.q60.mps.shadowmodels.runtime.model.persistent.IBranch;
 import de.q60.mps.shadowmodels.runtime.model.persistent.IIdGenerator;
 import java.util.List;

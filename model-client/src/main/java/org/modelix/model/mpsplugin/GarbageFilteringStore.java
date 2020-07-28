@@ -1,7 +1,5 @@
 package org.modelix.model.mpsplugin;
 
-
-
 import org.modelix.model.IKeyValueStore;
 import java.util.Map;
 import jetbrains.mps.internal.collections.runtime.MapSequence;

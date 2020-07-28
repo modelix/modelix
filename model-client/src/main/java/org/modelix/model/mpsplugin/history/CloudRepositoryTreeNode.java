@@ -1,7 +1,5 @@
 package org.modelix.model.mpsplugin.history;
 
-
-
 import jetbrains.mps.ide.ui.tree.TextTreeNode;
 import de.q60.mps.shadowmodels.runtime.model.persistent.IBranchListener;
 import de.q60.mps.shadowmodels.runtime.model.persistent.ITree;

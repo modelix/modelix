@@ -1,7 +1,5 @@
 package org.modelix.model.mpsplugin.plugin;
 
-
-
 import org.modelix.model.mpsplugin.CloudRepositories;
 import org.modelix.model.mpsplugin.CloudRepository;
 import de.q60.mps.shadowmodels.runtime.model.persistent.IBranchListener;

@@ -1,7 +1,5 @@
 package org.modelix.model.lazy;
 
-
-
 import jetbrains.mps.baseLanguage.closures.runtime._FunctionTypes;
 
 public abstract class LazyLoaded<E> {

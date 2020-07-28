@@ -1,7 +1,5 @@
 package org.modelix.model.lazy;
 
-
-
 import org.modelix.model.persistent.CPHamtNode;
 import org.modelix.model.persistent.CPHamtLeaf;
 import org.modelix.model.persistent.CPHamtInternal;

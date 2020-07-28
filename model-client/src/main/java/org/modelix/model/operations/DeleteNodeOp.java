@@ -1,7 +1,5 @@
 package org.modelix.model.operations;
 
-
-
 import de.q60.mps.shadowmodels.runtime.model.persistent.IWriteTransaction;
 import de.q60.mps.shadowmodels.runtime.model.IConcept;
 import java.util.Objects;

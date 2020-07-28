@@ -1,8 +1,5 @@
 package org.modelix.model.operations;
 
-
-
-
 public abstract class AbstractOperation implements IOperation {
   public AbstractOperation() {
   }

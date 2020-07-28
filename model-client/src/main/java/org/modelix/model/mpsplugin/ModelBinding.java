@@ -1,7 +1,5 @@
 package org.modelix.model.mpsplugin;
 
-
-
 import org.modelix.model.lazy.TreeId;
 import org.jetbrains.mps.openapi.module.SModule;
 

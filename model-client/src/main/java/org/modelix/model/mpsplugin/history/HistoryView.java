@@ -1,7 +1,5 @@
 package org.modelix.model.mpsplugin.history;
 
-
-
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JTable;

@@ -1,8 +1,5 @@
 package org.modelix.model.persistent;
 
-
-
-
 public class CPHamtLeaf extends CPHamtNode {
 
   public final long key;

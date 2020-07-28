@@ -1,7 +1,5 @@
 package org.modelix.model.mpsplugin;
 
-
-
 import java.util.List;
 import jetbrains.mps.internal.collections.runtime.ListSequence;
 import java.util.ArrayList;

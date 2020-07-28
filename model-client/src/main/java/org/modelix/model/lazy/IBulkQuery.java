@@ -1,7 +1,5 @@
 package org.modelix.model.lazy;
 
-
-
 import java.util.List;
 import jetbrains.mps.baseLanguage.closures.runtime._FunctionTypes;
 

@@ -1,8 +1,5 @@
 package org.modelix.model.persistent;
 
-
-
-
 public class CPTree {
 
   public static CPTree deserialize(String input) {

@@ -1,7 +1,5 @@
 package org.modelix.model.mpsplugin.plugin;
 
-
-
 import jetbrains.mps.plugins.applicationplugins.BaseApplicationPlugin;
 import com.intellij.openapi.extensions.PluginId;
 import org.jetbrains.annotations.NotNull;

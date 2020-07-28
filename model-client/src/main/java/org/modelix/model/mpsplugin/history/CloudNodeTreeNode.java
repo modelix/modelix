@@ -1,7 +1,5 @@
 package org.modelix.model.mpsplugin.history;
 
-
-
 import jetbrains.mps.ide.ui.tree.TextTreeNode;
 import org.apache.log4j.Logger;
 import org.apache.log4j.LogManager;

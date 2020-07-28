@@ -1,7 +1,5 @@
 package org.modelix.model;
 
-
-
 import org.apache.log4j.Logger;
 import org.apache.log4j.LogManager;
 import java.util.Set;

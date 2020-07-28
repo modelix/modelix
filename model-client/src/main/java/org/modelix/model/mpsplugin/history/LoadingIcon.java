@@ -1,7 +1,5 @@
 package org.modelix.model.mpsplugin.history;
 
-
-
 import javax.swing.Icon;
 import java.util.Set;
 import jetbrains.mps.ide.ui.tree.MPSTreeNode;

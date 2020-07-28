@@ -1,7 +1,5 @@
 package org.modelix.model.mpsplugin;
 
-
-
 import javax.swing.Icon;
 import de.q60.mps.shadowmodels.runtime.plugin.ShadowIcon;
 import java.awt.Color;

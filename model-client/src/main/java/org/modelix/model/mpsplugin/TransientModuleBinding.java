@@ -1,7 +1,5 @@
 package org.modelix.model.mpsplugin;
 
-
-
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.Map;
 import de.q60.mps.shadowmodels.runtime.model.INode;

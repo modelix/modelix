@@ -1,7 +1,5 @@
 package org.modelix.model.mpsplugin;
 
-
-
 import org.modelix.model.IKeyValueStore;
 import org.apache.log4j.Logger;
 import org.apache.log4j.LogManager;

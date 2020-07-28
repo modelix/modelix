@@ -1,8 +1,5 @@
 package org.modelix.model.persistent;
 
-
-
-
 public abstract class CPElement {
 
   public static CPElement deserialize(String input) {

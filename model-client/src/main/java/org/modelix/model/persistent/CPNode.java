@@ -1,7 +1,5 @@
 package org.modelix.model.persistent;
 
-
-
 import org.apache.log4j.Logger;
 import org.apache.log4j.LogManager;
 import jetbrains.mps.baseLanguage.closures.runtime._FunctionTypes;

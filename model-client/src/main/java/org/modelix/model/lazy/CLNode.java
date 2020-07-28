@@ -1,7 +1,5 @@
 package org.modelix.model.lazy;
 
-
-
 import org.modelix.model.persistent.CPNode;
 import org.modelix.model.persistent.CPElementRef;
 import jetbrains.mps.baseLanguage.closures.runtime._FunctionTypes;

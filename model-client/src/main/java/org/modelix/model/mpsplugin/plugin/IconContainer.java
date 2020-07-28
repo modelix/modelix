@@ -1,7 +1,5 @@
 package org.modelix.model.mpsplugin.plugin;
 
-
-
 import javax.swing.Icon;
 import jetbrains.mps.ide.icons.IconLoadingUtil;
 

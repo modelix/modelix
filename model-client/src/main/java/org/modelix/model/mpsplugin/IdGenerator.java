@@ -1,7 +1,5 @@
 package org.modelix.model.mpsplugin;
 
-
-
 import de.q60.mps.shadowmodels.runtime.model.persistent.IIdGenerator;
 import java.util.concurrent.atomic.AtomicLong;
 

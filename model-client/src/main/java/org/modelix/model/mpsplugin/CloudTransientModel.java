@@ -1,7 +1,5 @@
 package org.modelix.model.mpsplugin;
 
-
-
 import jetbrains.mps.smodel.EditableModelDescriptor;
 import org.jetbrains.mps.openapi.model.EditableSModel;
 import de.q60.mps.shadowmodels.runtime.util.IUserObjectContainer;

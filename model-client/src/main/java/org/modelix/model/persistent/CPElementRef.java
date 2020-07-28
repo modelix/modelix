@@ -1,8 +1,5 @@
 package org.modelix.model.persistent;
 
-
-
-
 public abstract class CPElementRef {
 
   /*package*/ CPElementRef() {

@@ -1,7 +1,5 @@
 package org.modelix.model.mpsplugin;
 
-
-
 import org.apache.log4j.Logger;
 import org.apache.log4j.LogManager;
 import java.io.File;

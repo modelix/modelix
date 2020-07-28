@@ -1,7 +1,5 @@
 package org.modelix.model;
 
-
-
 import java.util.Map;
 
 public interface IKeyValueStore {

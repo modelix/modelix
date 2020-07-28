@@ -1,7 +1,5 @@
 package org.modelix.model.mpsplugin.projectview;
 
-
-
 import jetbrains.mps.ide.ui.tree.module.ProjectModuleTreeNode;
 import org.jetbrains.mps.openapi.module.SModuleListenerBase;
 import org.jetbrains.mps.openapi.module.SModule;

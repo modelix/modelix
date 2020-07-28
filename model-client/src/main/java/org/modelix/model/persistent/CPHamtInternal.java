@@ -1,7 +1,5 @@
 package org.modelix.model.persistent;
 
-
-
 import jetbrains.mps.internal.collections.runtime.IterableUtils;
 import jetbrains.mps.internal.collections.runtime.Sequence;
 

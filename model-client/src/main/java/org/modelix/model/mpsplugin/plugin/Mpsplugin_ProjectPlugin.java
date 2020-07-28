@@ -1,7 +1,5 @@
 package org.modelix.model.mpsplugin.plugin;
 
-
-
 import jetbrains.mps.plugins.projectplugins.BaseProjectPlugin;
 import java.util.List;
 import jetbrains.mps.ide.tools.BaseTool;

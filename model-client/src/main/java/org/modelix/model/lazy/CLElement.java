@@ -1,7 +1,5 @@
 package org.modelix.model.lazy;
 
-
-
 import org.modelix.model.persistent.CPElement;
 import org.modelix.model.persistent.CPNode;
 import de.q60.mps.shadowmodels.runtime.model.persistent.ITree;

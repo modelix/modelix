@@ -1,7 +1,5 @@
 package org.modelix.model.persistent;
 
-
-
 import org.modelix.model.IKeyValueStore;
 import java.util.Map;
 import gnu.trove.map.hash.THashMap;

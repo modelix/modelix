@@ -1,7 +1,5 @@
 package org.modelix.model.lazy;
 
-
-
 import org.modelix.model.persistent.CPHamtLeaf;
 import org.modelix.model.persistent.HashUtil;
 import org.modelix.model.persistent.CPHamtNode;

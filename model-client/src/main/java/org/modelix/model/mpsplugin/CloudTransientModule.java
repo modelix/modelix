@@ -1,7 +1,5 @@
 package org.modelix.model.mpsplugin;
 
-
-
 import jetbrains.mps.project.AbstractModule;
 import de.q60.mps.shadowmodels.runtime.util.IUserObjectContainer;
 import jetbrains.mps.extapi.module.TransientSModule;

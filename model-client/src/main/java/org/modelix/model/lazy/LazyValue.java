@@ -1,7 +1,5 @@
 package org.modelix.model.lazy;
 
-
-
 import org.modelix.model.IKeyValueStore;
 
 public abstract class LazyValue<E> {

@@ -1,7 +1,5 @@
 package org.modelix.model.mpsplugin.plugin;
 
-
-
 import jetbrains.mps.plugins.tool.GeneratedTool;
 import javax.swing.Icon;
 import org.modelix.model.mpsplugin.history.HistoryView;

@@ -1,7 +1,5 @@
 package org.modelix.model;
 
-
-
 import org.modelix.model.lazy.IDeserializingKeyValueStore;
 import de.q60.mps.shadowmodels.runtime.model.persistent.IIdGenerator;
 import org.jetbrains.annotations.NotNull;
