@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: uiproxy
+  name: uiproxy
+spec:
+  revisionHistoryLimit: 5
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 0
+  selector:
+    matchLabels:
+      app: uiproxy
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: uiproxy
+    spec:
+      serviceAccountName: uiproxy
+      containers:
+      - image: modelix/modelix-uiproxy:latest
+        imagePullPolicy: IfNotPresent
+        name: uiproxy
+        ports:
+        - containerPort: 33332
+        resources: 
+          requests:
+            memory: "100Mi"
+            cpu: "0.1"
+          limits:
+            memory: "200Mi"
+            cpu: "1.0"           
+      restartPolicy: Always

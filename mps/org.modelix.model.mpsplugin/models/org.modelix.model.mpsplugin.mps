@@ -9393,6 +9393,15 @@
   </node>
   <node concept="312cEu" id="5_gfWzaM1GX">
     <property role="TrG5h" value="RestWebModelClient" />
+    <node concept="Wx3nA" id="6pXrrBnpi2s" role="jymVt">
+      <property role="TrG5h" value="MODEL_URI_VAR_NAME" />
+      <property role="3TUv4t" value="true" />
+      <node concept="17QB3L" id="6pXrrBnp9rl" role="1tU5fm" />
+      <node concept="3Tm1VV" id="6pXrrBnpqMg" role="1B3o_S" />
+      <node concept="Xl_RD" id="6pXrrBnpejL" role="33vP2m">
+        <property role="Xl_RC" value="MODEL_URI" />
+      </node>
+    </node>
     <node concept="3Tm1VV" id="5_gfWzaM1N8" role="1B3o_S" />
     <node concept="3uibUv" id="64iiug7Vq1I" role="EKbjA">
       <ref role="3uigEE" node="64iiug7Vluc" resolve="IModelClient" />
@@ -9480,6 +9489,56 @@
       </node>
     </node>
     <node concept="2tJIrI" id="5MA9wbc3x4n" role="jymVt" />
+    <node concept="2YIFZL" id="6pXrrBnqdX7" role="jymVt">
+      <property role="TrG5h" value="getModelUrlFromEnv" />
+      <node concept="3clFbS" id="6pXrrBnpAKp" role="3clF47">
+        <node concept="3cpWs8" id="6pXrrBnqkN4" role="3cqZAp">
+          <node concept="3cpWsn" id="6pXrrBnqkN7" role="3cpWs9">
+            <property role="TrG5h" value="url" />
+            <node concept="17QB3L" id="6pXrrBnqkN3" role="1tU5fm" />
+            <node concept="2YIFZM" id="6pXrrBnqlf1" role="33vP2m">
+              <ref role="37wK5l" to="wyt6:~System.getProperty(java.lang.String)" resolve="getProperty" />
+              <ref role="1Pybhc" to="wyt6:~System" resolve="System" />
+              <node concept="37vLTw" id="6pXrrBnqm2_" role="37wK5m">
+                <ref role="3cqZAo" node="6pXrrBnpi2s" resolve="MODEL_URI_VAR_NAME" />
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="3clFbJ" id="6pXrrBnqoVX" role="3cqZAp">
+          <node concept="3clFbS" id="6pXrrBnqoVZ" role="3clFbx">
+            <node concept="3clFbF" id="6pXrrBnqsUd" role="3cqZAp">
+              <node concept="37vLTI" id="6pXrrBnqtAb" role="3clFbG">
+                <node concept="2YIFZM" id="6pXrrBnquVH" role="37vLTx">
+                  <ref role="1Pybhc" to="wyt6:~System" resolve="System" />
+                  <ref role="37wK5l" to="wyt6:~System.getenv(java.lang.String)" resolve="getenv" />
+                  <node concept="37vLTw" id="6pXrrBnqvN_" role="37wK5m">
+                    <ref role="3cqZAo" node="6pXrrBnpi2s" resolve="MODEL_URI_VAR_NAME" />
+                  </node>
+                </node>
+                <node concept="37vLTw" id="6pXrrBnqsUb" role="37vLTJ">
+                  <ref role="3cqZAo" node="6pXrrBnqkN7" resolve="url" />
+                </node>
+              </node>
+            </node>
+          </node>
+          <node concept="2OqwBi" id="6pXrrBnqsgD" role="3clFbw">
+            <node concept="37vLTw" id="6pXrrBnqpkX" role="2Oq$k0">
+              <ref role="3cqZAo" node="6pXrrBnqkN7" resolve="url" />
+            </node>
+            <node concept="17RlXB" id="6pXrrBnqsx3" role="2OqNvi" />
+          </node>
+        </node>
+        <node concept="3cpWs6" id="6pXrrBnqnj4" role="3cqZAp">
+          <node concept="37vLTw" id="6pXrrBnqnFZ" role="3cqZAk">
+            <ref role="3cqZAo" node="6pXrrBnqkN7" resolve="url" />
+          </node>
+        </node>
+      </node>
+      <node concept="17QB3L" id="6pXrrBnq8nq" role="3clF45" />
+      <node concept="3Tm1VV" id="6pXrrBnpAKo" role="1B3o_S" />
+    </node>
+    <node concept="2tJIrI" id="6pXrrBnpwea" role="jymVt" />
     <node concept="2YIFZL" id="1LVcV5KyMi4" role="jymVt">
       <property role="TrG5h" value="getDefaultUrl" />
       <node concept="3clFbS" id="1LVcV5KyxFw" role="3clF47">
@@ -9487,12 +9546,8 @@
           <node concept="3cpWsn" id="65d3h4ja5p9" role="3cpWs9">
             <property role="TrG5h" value="urlFromEnv" />
             <node concept="17QB3L" id="65d3h4ja9up" role="1tU5fm" />
-            <node concept="2YIFZM" id="65d3h4ja5pa" role="33vP2m">
-              <ref role="1Pybhc" to="wyt6:~System" resolve="System" />
-              <ref role="37wK5l" to="wyt6:~System.getProperty(java.lang.String)" resolve="getProperty" />
-              <node concept="Xl_RD" id="65d3h4ja5pb" role="37wK5m">
-                <property role="Xl_RC" value="MODEL_URI" />
-              </node>
+            <node concept="1rXfSq" id="6pXrrBnqyhk" role="33vP2m">
+              <ref role="37wK5l" node="6pXrrBnqdX7" resolve="getModelUrlFromEnv" />
             </node>
           </node>
         </node>

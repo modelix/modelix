@@ -1,4 +1,4 @@
-FROM modelix-mps
+FROM modelix/modelix-mps
 WORKDIR /usr/modelix-ui
 EXPOSE 33333
 
@@ -15,5 +15,6 @@ COPY artifacts/de.itemis.mps.extensions/ /usr/modelix-ui/mps/plugins/
 RUN ls /usr/modelix-ui/mps/plugins/
 
 COPY run-ui-server.sh /usr/modelix-ui
-COPY ui-server/build/libs/ui-server-1.0-SNAPSHOT.jar /usr/modelix-ui/ui-server.jar
+COPY ui-server/build/libs/* /usr/modelix-ui/
+COPY ui-server/build/dependencies/ /usr/modelix-ui/dependencies/
 CMD ["./run-ui-server.sh"]

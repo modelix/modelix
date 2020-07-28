@@ -4,11 +4,11 @@ TAG=$(date +"%Y%m%d%H%M")
 
 echo "Pushing tag ${TAG}"
 
-docker tag modelix-db:latest "eu.gcr.io/webmps/modelix-db:${TAG}"
-docker tag modelix-model:latest "eu.gcr.io/webmps/modelix-model:${TAG}"
-docker tag modelix-mps:latest "eu.gcr.io/webmps/modelix-mps:${TAG}"
-docker tag modelix-ui:latest "eu.gcr.io/webmps/modelix-ui:${TAG}"
-docker tag modelix-proxy:latest "eu.gcr.io/webmps/modelix-proxy:${TAG}"
+docker tag modelix/modelix-db:latest "eu.gcr.io/webmps/modelix-db:${TAG}"
+docker tag modelix/modelix-model:latest "eu.gcr.io/webmps/modelix-model:${TAG}"
+docker tag modelix/modelix-mps:latest "eu.gcr.io/webmps/modelix-mps:${TAG}"
+docker tag modelix/modelix-ui:latest "eu.gcr.io/webmps/modelix-ui:${TAG}"
+docker tag modelix/modelix-proxy:latest "eu.gcr.io/webmps/modelix-proxy:${TAG}"
 
 docker push "eu.gcr.io/webmps/modelix-db:${TAG}"
 docker push "eu.gcr.io/webmps/modelix-model:${TAG}"
@@ -16,11 +16,11 @@ docker push "eu.gcr.io/webmps/modelix-mps:${TAG}"
 docker push "eu.gcr.io/webmps/modelix-ui:${TAG}"
 docker push "eu.gcr.io/webmps/modelix-proxy:${TAG}"
 
-docker tag modelix-db:latest "eu.gcr.io/webmps/modelix-db:latest"
-docker tag modelix-model:latest "eu.gcr.io/webmps/modelix-model:latest"
-docker tag modelix-mps:latest "eu.gcr.io/webmps/modelix-mps:latest"
-docker tag modelix-ui:latest "eu.gcr.io/webmps/modelix-ui:latest"
-docker tag modelix-proxy:latest "eu.gcr.io/webmps/modelix-proxy:latest"
+docker tag modelix/modelix-db:latest "eu.gcr.io/webmps/modelix-db:latest"
+docker tag modelix/modelix-model:latest "eu.gcr.io/webmps/modelix-model:latest"
+docker tag modelix/modelix-mps:latest "eu.gcr.io/webmps/modelix-mps:latest"
+docker tag modelix/modelix-ui:latest "eu.gcr.io/webmps/modelix-ui:latest"
+docker tag modelix/modelix-proxy:latest "eu.gcr.io/webmps/modelix-proxy:latest"
 
 docker push "eu.gcr.io/webmps/modelix-db:latest"
 docker push "eu.gcr.io/webmps/modelix-model:latest"
