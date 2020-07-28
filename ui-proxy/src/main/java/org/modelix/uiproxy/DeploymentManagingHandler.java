@@ -90,7 +90,7 @@ public class DeploymentManagingHandler extends AbstractHandler {
                 return;
             }
 
-            if ("/".equals(redirectedURL.getRemainingPath())) {
+            if ("/".equals(redirectedURL.getRemainingPath()) && redirectedURL.getCommitId() == null) {
                 Collection<Ref> refs = null;
                 try {
                     refs = Git.lsRemoteRepository()
