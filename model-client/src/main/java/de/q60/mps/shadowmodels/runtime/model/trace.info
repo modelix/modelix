@@ -1,0 +1,497 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<debug-info version="2">
+  <concept fqn="c:f3061a53-9226-4cc5-a443-f952ceaf5816/1082485599095:jetbrains.mps.baseLanguage.structure.BlockStatement" />
+  <concept fqn="c:f3061a53-9226-4cc5-a443-f952ceaf5816/1068580123140:jetbrains.mps.baseLanguage.structure.ConstructorDeclaration" />
+  <concept fqn="c:f3061a53-9226-4cc5-a443-f952ceaf5816/1068580123155:jetbrains.mps.baseLanguage.structure.ExpressionStatement" />
+  <concept fqn="c:f3061a53-9226-4cc5-a443-f952ceaf5816/1068390468200:jetbrains.mps.baseLanguage.structure.FieldDeclaration" />
+  <concept fqn="c:f3061a53-9226-4cc5-a443-f952ceaf5816/1068580123159:jetbrains.mps.baseLanguage.structure.IfStatement" />
+  <concept fqn="c:f3061a53-9226-4cc5-a443-f952ceaf5816/1068580123165:jetbrains.mps.baseLanguage.structure.InstanceMethodDeclaration" />
+  <concept fqn="c:f3061a53-9226-4cc5-a443-f952ceaf5816/1068581242864:jetbrains.mps.baseLanguage.structure.LocalVariableDeclarationStatement" />
+  <concept fqn="c:f3061a53-9226-4cc5-a443-f952ceaf5816/1068581242878:jetbrains.mps.baseLanguage.structure.ReturnStatement" />
+  <concept fqn="c:f3061a53-9226-4cc5-a443-f952ceaf5816/1068580123157:jetbrains.mps.baseLanguage.structure.Statement" />
+  <concept fqn="c:f3061a53-9226-4cc5-a443-f952ceaf5816/1070462154015:jetbrains.mps.baseLanguage.structure.StaticFieldDeclaration" />
+  <concept fqn="c:f3061a53-9226-4cc5-a443-f952ceaf5816/1081236700938:jetbrains.mps.baseLanguage.structure.StaticMethodDeclaration" />
+  <concept fqn="c:f3061a53-9226-4cc5-a443-f952ceaf5816/1178893518978:jetbrains.mps.baseLanguage.structure.ThisConstructorInvocation" />
+  <concept fqn="c:f3061a53-9226-4cc5-a443-f952ceaf5816/1164991038168:jetbrains.mps.baseLanguage.structure.ThrowStatement" />
+  <root nodeRef="r:89ac1ee0-92ac-49e1-83e6-167854d2040e(de.q60.mps.shadowmodels.runtime.model)/1789955712759013334">
+    <file name="NodeExtensions.java">
+      <node id="1789955712759029325" at="10,24,11,18" concept="7" />
+      <node id="1789955712759018566" at="13,68,14,19" concept="7" />
+      <node id="1789955712759022913" at="15,5,16,69" concept="7" />
+      <node id="1789955712759013334" at="7,0,9,0" concept="1" trace="NodeExtensions#()V" />
+      <node id="1789955712759028298" at="9,90,12,5" concept="4" />
+      <node id="1789955712759013549" at="12,5,15,5" concept="4" />
+      <node id="1789955712759013344" at="9,0,18,0" concept="10" trace="ancestor#(Lde/q60/mps/shadowmodels/runtime/model/INode;Lde/q60/mps/shadowmodels/runtime/model/IConcept;Z)Lde/q60/mps/shadowmodels/runtime/model/INode;" />
+      <scope id="1789955712759013334" at="7,27,7,27" />
+      <scope id="1789955712759028300" at="10,24,11,18" />
+      <scope id="1789955712759013551" at="13,68,14,19" />
+      <scope id="1789955712759013334" at="7,0,9,0" />
+      <scope id="1789955712759013347" at="9,90,16,69" />
+      <scope id="1789955712759013344" at="9,0,18,0">
+        <var name="_this" id="1789955712759013344" />
+        <var name="concept" id="1789955712759013394" />
+        <var name="includeSelf" id="1789955712759013455" />
+      </scope>
+      <unit id="1789955712759013334" at="6,0,19,0" name="de.q60.mps.shadowmodels.runtime.model.NodeExtensions" />
+    </file>
+  </root>
+  <root nodeRef="r:89ac1ee0-92ac-49e1-83e6-167854d2040e(de.q60.mps.shadowmodels.runtime.model)/2484602005374331748">
+    <file name="NodeUtil.java">
+      <node id="2484602005374332232" at="10,22,11,127" concept="7" />
+      <node id="2484602005374343743" at="14,52,15,42" concept="7" />
+      <node id="2484602005374343188" at="14,0,17,0" concept="5" trace="translate#(Lde/q60/mps/shadowmodels/runtime/model/INode;)Ljava/lang/Iterable;" />
+      <node id="2484602005374339942" at="12,12,17,9" concept="7" />
+      <node id="2484602005374339808" at="12,10,18,5" concept="0" />
+      <node id="2484602005374332165" at="9,81,18,5" concept="4" />
+      <node id="2484602005374332083" at="9,0,20,0" concept="10" trace="getDescendants#(Lde/q60/mps/shadowmodels/runtime/model/INode;Z)Ljava/lang/Iterable;" />
+      <scope id="2484602005374332167" at="10,22,11,127" />
+      <scope id="2484602005374343189" at="14,52,15,42" />
+      <scope id="2484602005374343188" at="14,0,17,0">
+        <var name="it" id="2484602005374343188" />
+      </scope>
+      <scope id="2484602005374339809" at="12,12,17,9" />
+      <scope id="2484602005374331806" at="9,81,18,5" />
+      <scope id="2484602005374332083" at="9,0,20,0">
+        <var name="includeSelf" id="2484602005374331948" />
+        <var name="node" id="2484602005374331894" />
+      </scope>
+      <unit id="2484602005374343188" at="13,72,17,7" name="de.q60.mps.shadowmodels.runtime.model.NodeUtil$1" />
+      <unit id="2484602005374331748" at="8,0,21,0" name="de.q60.mps.shadowmodels.runtime.model.NodeUtil" />
+    </file>
+  </root>
+  <root nodeRef="r:89ac1ee0-92ac-49e1-83e6-167854d2040e(de.q60.mps.shadowmodels.runtime.model)/2573073122887669116">
+    <file name="IProperty.java">
+      <node id="2573073122887669149" at="8,0,9,0" concept="5" trace="getName#()Ljava/lang/String;" />
+      <scope id="2573073122887669149" at="8,0,9,0" />
+      <unit id="2573073122887669116" at="6,0,11,0" name="de.q60.mps.shadowmodels.runtime.model.IProperty" />
+    </file>
+  </root>
+  <root nodeRef="r:89ac1ee0-92ac-49e1-83e6-167854d2040e(de.q60.mps.shadowmodels.runtime.model)/2573073122887669212">
+    <file name="IChildLink.java">
+      <node id="2573073122887669246" at="7,0,8,0" concept="5" trace="getName#()Ljava/lang/String;" />
+      <node id="4225291329824389841" at="8,0,9,0" concept="5" trace="isMultiple#()Z" />
+      <scope id="2573073122887669246" at="7,0,8,0" />
+      <scope id="4225291329824389841" at="8,0,9,0" />
+      <unit id="2573073122887669212" at="6,0,10,0" name="de.q60.mps.shadowmodels.runtime.model.IChildLink" />
+    </file>
+  </root>
+  <root nodeRef="r:89ac1ee0-92ac-49e1-83e6-167854d2040e(de.q60.mps.shadowmodels.runtime.model)/2573073122887669438">
+    <file name="IReferenceLink.java">
+      <node id="2573073122887669439" at="7,0,8,0" concept="5" trace="getName#()Ljava/lang/String;" />
+      <scope id="2573073122887669439" at="7,0,8,0" />
+      <unit id="2573073122887669438" at="6,0,9,0" name="de.q60.mps.shadowmodels.runtime.model.IReferenceLink" />
+    </file>
+  </root>
+  <root nodeRef="r:89ac1ee0-92ac-49e1-83e6-167854d2040e(de.q60.mps.shadowmodels.runtime.model)/3360837644952457030">
+    <file name="__KnownContainment.java">
+      <node id="3360837644952477266" at="9,0,10,0" concept="9" trace="NULL" />
+      <node id="3360837644952464009" at="11,78,12,56" concept="7" />
+      <node id="3360837644952457119" at="15,0,16,0" concept="3" trace="parent" />
+      <node id="3360837644952457206" at="16,0,17,0" concept="3" trace="roleInParent" />
+      <node id="3360837644952457433" at="19,69,20,21" concept="2" />
+      <node id="3360837644952457453" at="20,21,21,33" concept="2" />
+      <node id="3360837644952461719" at="25,28,26,18" concept="7" />
+      <node id="3360837644952461851" at="30,35,31,24" concept="7" />
+      <node id="3875630774917681702" at="36,20,37,18" concept="7" />
+      <node id="3875630774917681708" at="39,55,40,19" concept="7" />
+      <node id="3875630774917681721" at="41,5,42,0" concept="8" />
+      <node id="3875630774917681722" at="42,0,43,53" concept="6" />
+      <node id="3875630774917681740" at="44,81,45,19" concept="7" />
+      <node id="3875630774917681759" at="47,116,48,19" concept="7" />
+      <node id="3875630774917681776" at="49,5,50,0" concept="8" />
+      <node id="3875630774917681777" at="50,0,51,16" concept="7" />
+      <node id="3875630774917681784" at="55,25,56,19" concept="6" />
+      <node id="3875630774917681797" at="56,19,57,81" concept="2" />
+      <node id="3875630774917681816" at="57,81,58,98" concept="2" />
+      <node id="3875630774917681828" at="58,98,59,18" concept="7" />
+      <node id="3360837644952463320" at="11,0,14,0" concept="10" trace="create#(Lde/q60/mps/shadowmodels/runtime/model/INode;Ljava/lang/String;)Lde/q60/mps/shadowmodels/runtime/model/__KnownContainment;" />
+      <node id="3875630774917681700" at="35,35,38,5" concept="4" />
+      <node id="3875630774917681706" at="38,5,41,5" concept="4" />
+      <node id="3875630774917681738" at="43,53,46,5" concept="4" />
+      <node id="3875630774917681757" at="46,5,49,5" concept="4" />
+      <node id="3360837644952458442" at="24,0,28,0" concept="5" trace="getParent#()Lde/q60/mps/shadowmodels/runtime/model/INode;" />
+      <node id="3360837644952459586" at="29,0,33,0" concept="5" trace="getRoleInParent#()Ljava/lang/String;" />
+      <node id="3360837644952457425" at="18,0,23,0" concept="1" trace="__KnownContainment#(Lde/q60/mps/shadowmodels/runtime/model/INode;Ljava/lang/String;)V" />
+      <node id="3875630774917681779" at="54,0,61,0" concept="5" trace="hashCode#()I" />
+      <node id="3875630774917681696" at="34,0,53,0" concept="5" trace="equals#(Ljava/lang/Object;)Z" />
+      <scope id="3360837644952462800" at="11,78,12,56" />
+      <scope id="3360837644952458446" at="25,28,26,18" />
+      <scope id="3360837644952459590" at="30,35,31,24" />
+      <scope id="3875630774917681701" at="36,20,37,18" />
+      <scope id="3875630774917681707" at="39,55,40,19" />
+      <scope id="3875630774917681739" at="44,81,45,19" />
+      <scope id="3875630774917681758" at="47,116,48,19" />
+      <scope id="3360837644952457429" at="19,69,21,33" />
+      <scope id="3360837644952463320" at="11,0,14,0">
+        <var name="parent" id="3360837644952463606" />
+        <var name="roleInParent" id="3360837644952463682" />
+      </scope>
+      <scope id="3360837644952458442" at="24,0,28,0" />
+      <scope id="3360837644952459586" at="29,0,33,0" />
+      <scope id="3875630774917681782" at="55,25,59,18">
+        <var name="result" id="3875630774917681785" />
+      </scope>
+      <scope id="3360837644952457425" at="18,0,23,0">
+        <var name="parent1" id="3360837644952457432" />
+        <var name="roleInParent1" id="3360837644952457452" />
+      </scope>
+      <scope id="3875630774917681779" at="54,0,61,0" />
+      <scope id="3875630774917681699" at="35,35,51,16">
+        <var name="that" id="3875630774917681723" />
+      </scope>
+      <scope id="3875630774917681696" at="34,0,53,0">
+        <var name="o" id="3875630774917681728" />
+      </scope>
+      <unit id="3360837644952457030" at="6,0,62,0" name="de.q60.mps.shadowmodels.runtime.model.__KnownContainment" />
+    </file>
+  </root>
+  <root nodeRef="r:89ac1ee0-92ac-49e1-83e6-167854d2040e(de.q60.mps.shadowmodels.runtime.model)/6069004802150030253">
+    <file name="INode.java">
+      <node id="5782622473576513508" at="8,0,9,0" concept="5" trace="isValid#()Z" />
+      <node id="6069004802154033386" at="9,0,10,0" concept="5" trace="getReference#()Lde/q60/mps/shadowmodels/runtime/model/INodeReference;" />
+      <node id="6069004802150160075" at="11,0,12,0" concept="5" trace="getConcept#()Lde/q60/mps/shadowmodels/runtime/model/IConcept;" />
+      <node id="6069004802150316761" at="12,0,13,0" concept="5" trace="getRoleInParent#()Ljava/lang/String;" />
+      <node id="6069004802154164769" at="13,0,14,0" concept="5" trace="getParent#()Lde/q60/mps/shadowmodels/runtime/model/INode;" />
+      <node id="6069004802150077726" at="15,0,16,0" concept="5" trace="getChildren#(Ljava/lang/String;)Ljava/lang/Iterable;" />
+      <node id="6069004802150080055" at="16,0,17,0" concept="5" trace="getAllChildren#()Ljava/lang/Iterable;" />
+      <node id="6069004802150080806" at="17,0,18,0" concept="5" trace="addChild#(Ljava/lang/String;ILde/q60/mps/shadowmodels/runtime/model/INode;)V" />
+      <node id="4226813538224994343" at="18,0,19,0" concept="5" trace="addNewChild#(Ljava/lang/String;ILde/q60/mps/shadowmodels/runtime/model/IConcept;)Lde/q60/mps/shadowmodels/runtime/model/INode;" />
+      <node id="8645954948529219099" at="19,0,20,0" concept="5" trace="removeChild#(Lde/q60/mps/shadowmodels/runtime/model/INode;)V" />
+      <node id="6069004802150077909" at="21,0,22,0" concept="5" trace="getReferenceTarget#(Ljava/lang/String;)Lde/q60/mps/shadowmodels/runtime/model/INode;" />
+      <node id="6069004802150078143" at="22,0,23,0" concept="5" trace="setReferenceTarget#(Ljava/lang/String;Lde/q60/mps/shadowmodels/runtime/model/INode;)V" />
+      <node id="6069004802150078736" at="24,0,25,0" concept="5" trace="getPropertyValue#(Ljava/lang/String;)Ljava/lang/String;" />
+      <node id="6069004802150079154" at="25,0,26,0" concept="5" trace="setPropertyValue#(Ljava/lang/String;Ljava/lang/String;)V" />
+      <scope id="5782622473576513508" at="8,0,9,0" />
+      <scope id="6069004802154033386" at="9,0,10,0" />
+      <scope id="6069004802150160075" at="11,0,12,0" />
+      <scope id="6069004802150316761" at="12,0,13,0" />
+      <scope id="6069004802154164769" at="13,0,14,0" />
+      <scope id="6069004802150077726" at="15,0,16,0">
+        <var name="role" id="6069004802150077767" />
+      </scope>
+      <scope id="6069004802150080055" at="16,0,17,0" />
+      <scope id="6069004802150080806" at="17,0,18,0">
+        <var name="index" id="4226813538224956110" />
+        <var name="node" id="6069004802150081272" />
+        <var name="role" id="6069004802150081169" />
+      </scope>
+      <scope id="4226813538224994343" at="18,0,19,0">
+        <var name="concept" id="4226813538224994348" />
+        <var name="index" id="4226813538224994346" />
+        <var name="role" id="4226813538224994344" />
+      </scope>
+      <scope id="8645954948529219099" at="19,0,20,0">
+        <var name="child" id="8645954948529221610" />
+      </scope>
+      <scope id="6069004802150077909" at="21,0,22,0">
+        <var name="role" id="6069004802150078029" />
+      </scope>
+      <scope id="6069004802150078143" at="22,0,23,0">
+        <var name="role" id="6069004802150078415" />
+        <var name="target" id="6069004802150078498" />
+      </scope>
+      <scope id="6069004802150078736" at="24,0,25,0">
+        <var name="role" id="6069004802150078919" />
+      </scope>
+      <scope id="6069004802150079154" at="25,0,26,0">
+        <var name="role" id="6069004802150079478" />
+        <var name="value" id="6069004802150079581" />
+      </scope>
+      <unit id="6069004802150030253" at="7,0,27,0" name="de.q60.mps.shadowmodels.runtime.model.INode" />
+    </file>
+  </root>
+  <root nodeRef="r:89ac1ee0-92ac-49e1-83e6-167854d2040e(de.q60.mps.shadowmodels.runtime.model)/6069004802150037164">
+    <file name="INodeReference.java">
+      <node id="6346149633696279899" at="12,0,14,0" concept="5" trace="resolveNode#(Lde/q60/mps/shadowmodels/runtime/model/INodeResolveContext;)Lde/q60/mps/shadowmodels/runtime/model/INode;" />
+      <scope id="6346149633696279899" at="12,0,14,0">
+        <var name="context" id="6346149633696279996" />
+      </scope>
+      <unit id="6069004802150037164" at="11,0,15,0" name="de.q60.mps.shadowmodels.runtime.model.INodeReference" />
+    </file>
+  </root>
+  <root nodeRef="r:89ac1ee0-92ac-49e1-83e6-167854d2040e(de.q60.mps.shadowmodels.runtime.model)/6069004802150082152">
+    <file name="IConcept.java">
+      <node id="6069004802150096314" at="7,0,8,0" concept="5" trace="isSubconceptOf#(Lde/q60/mps/shadowmodels/runtime/model/IConcept;)Z" />
+      <node id="6069004802150097056" at="8,0,9,0" concept="5" trace="isExactly#(Lde/q60/mps/shadowmodels/runtime/model/IConcept;)Z" />
+      <node id="2573073122887668993" at="10,0,11,0" concept="5" trace="getProperties#()Ljava/lang/Iterable;" />
+      <node id="2573073122887670328" at="11,0,12,0" concept="5" trace="getChildLinks#()Ljava/lang/Iterable;" />
+      <node id="2573073122887670520" at="12,0,13,0" concept="5" trace="getReferenceLinks#()Ljava/lang/Iterable;" />
+      <node id="4225291329825426233" at="14,0,15,0" concept="5" trace="getProperty#(Ljava/lang/String;)Lde/q60/mps/shadowmodels/runtime/model/IProperty;" />
+      <node id="4225291329825428408" at="15,0,16,0" concept="5" trace="getChildLink#(Ljava/lang/String;)Lde/q60/mps/shadowmodels/runtime/model/IChildLink;" />
+      <node id="4225291329825428737" at="16,0,17,0" concept="5" trace="getReferenceLink#(Ljava/lang/String;)Lde/q60/mps/shadowmodels/runtime/model/IReferenceLink;" />
+      <scope id="6069004802150096314" at="7,0,8,0">
+        <var name="superConcept" id="6069004802150096400" />
+      </scope>
+      <scope id="6069004802150097056" at="8,0,9,0">
+        <var name="concept" id="6069004802150097211" />
+      </scope>
+      <scope id="2573073122887668993" at="10,0,11,0" />
+      <scope id="2573073122887670328" at="11,0,12,0" />
+      <scope id="2573073122887670520" at="12,0,13,0" />
+      <scope id="4225291329825426233" at="14,0,15,0">
+        <var name="name" id="4225291329825428121" />
+      </scope>
+      <scope id="4225291329825428408" at="15,0,16,0">
+        <var name="name" id="4225291329825428409" />
+      </scope>
+      <scope id="4225291329825428737" at="16,0,17,0">
+        <var name="name" id="4225291329825428738" />
+      </scope>
+      <unit id="6069004802150082152" at="6,0,18,0" name="de.q60.mps.shadowmodels.runtime.model.IConcept" />
+    </file>
+  </root>
+  <root nodeRef="r:89ac1ee0-92ac-49e1-83e6-167854d2040e(de.q60.mps.shadowmodels.runtime.model)/6346149633696279966">
+    <file name="INodeResolveContext.java">
+      <node id="981344519289677398" at="8,0,9,0" concept="9" trace="CONTEXT_VALUE" />
+      <node id="981344519289677488" at="9,0,10,0" concept="5" trace="resolve#(Lde/q60/mps/shadowmodels/runtime/model/INodeReference;)Lde/q60/mps/shadowmodels/runtime/model/INode;" />
+      <scope id="981344519289677488" at="9,0,10,0">
+        <var name="ref" id="981344519289677574" />
+      </scope>
+      <unit id="6346149633696279966" at="7,0,11,0" name="de.q60.mps.shadowmodels.runtime.model.INodeResolveContext" />
+    </file>
+  </root>
+  <root nodeRef="r:89ac1ee0-92ac-49e1-83e6-167854d2040e(de.q60.mps.shadowmodels.runtime.model)/7948156783511292821">
+    <file name="CompositeNodeResolveContext.java">
+      <node id="7948156783511644626" at="12,92,13,85" concept="6" />
+      <node id="7948156783511646845" at="14,32,15,67" concept="2" />
+      <node id="7948156783511649215" at="16,12,17,115" concept="2" />
+      <node id="7948156783511292955" at="21,0,22,0" concept="3" trace="contexts" />
+      <node id="7948156783511293158" at="23,78,24,69" concept="2" />
+      <node id="7948156783511302522" at="27,71,28,39" concept="11" />
+      <node id="7948156783511393122" at="34,51,35,31" concept="7" />
+      <node id="7948156783511529658" at="38,39,39,26" concept="7" />
+      <node id="7948156783511646798" at="16,10,18,5" concept="0" />
+      <node id="7948156783511293149" at="23,0,26,0" concept="1" trace="CompositeNodeResolveContext#(Ljava/lang/Iterable;)V" />
+      <node id="7948156783511301840" at="27,0,30,0" concept="1" trace="CompositeNodeResolveContext#(null)V" />
+      <node id="7948156783511392342" at="34,0,37,0" concept="5" trace="select#(Lde/q60/mps/shadowmodels/runtime/model/INodeResolveContext;)Lde/q60/mps/shadowmodels/runtime/model/INode;" />
+      <node id="7948156783511528734" at="38,0,41,0" concept="5" trace="accept#(Lde/q60/mps/shadowmodels/runtime/model/INode;)Z" />
+      <node id="7948156783511646073" at="13,85,18,5" concept="4" />
+      <node id="7948156783511634725" at="12,0,20,0" concept="10" trace="withAdditionalContext#(Lde/q60/mps/shadowmodels/runtime/model/INodeResolveContext;Ljava/lang/Runnable;)V" />
+      <node id="7948156783511312525" at="32,50,41,7" concept="7" />
+      <node id="7948156783511311845" at="31,0,43,0" concept="5" trace="resolve#(Lde/q60/mps/shadowmodels/runtime/model/INodeReference;)Lde/q60/mps/shadowmodels/runtime/model/INode;" />
+      <scope id="7948156783511646075" at="14,32,15,67" />
+      <scope id="7948156783511646799" at="16,12,17,115" />
+      <scope id="7948156783511293153" at="23,78,24,69" />
+      <scope id="7948156783511301844" at="27,71,28,39" />
+      <scope id="7948156783511392343" at="34,51,35,31" />
+      <scope id="7948156783511528735" at="38,39,39,26" />
+      <scope id="7948156783511293149" at="23,0,26,0">
+        <var name="contexts" id="7948156783511293157" />
+      </scope>
+      <scope id="7948156783511301840" at="27,0,30,0">
+        <var name="contexts" id="7948156783511302334" />
+      </scope>
+      <scope id="7948156783511392342" at="34,0,37,0">
+        <var name="it" id="7948156783511392342" />
+      </scope>
+      <scope id="7948156783511528734" at="38,0,41,0">
+        <var name="it" id="7948156783511528734" />
+      </scope>
+      <scope id="7948156783511631722" at="12,92,18,5">
+        <var name="activeContext" id="7948156783511644627" />
+      </scope>
+      <scope id="7948156783511634725" at="12,0,20,0">
+        <var name="context" id="7948156783511636692" />
+        <var name="runnable" id="7948156783511637028" />
+      </scope>
+      <scope id="7948156783511311851" at="32,50,41,7" />
+      <scope id="7948156783511311845" at="31,0,43,0">
+        <var name="ref" id="7948156783511311846" />
+      </scope>
+      <unit id="7948156783511392342" at="33,54,37,5" name="de.q60.mps.shadowmodels.runtime.model.CompositeNodeResolveContext$1" />
+      <unit id="7948156783511528734" at="37,21,41,5" name="de.q60.mps.shadowmodels.runtime.model.CompositeNodeResolveContext$2" />
+      <unit id="7948156783511292821" at="11,0,44,0" name="de.q60.mps.shadowmodels.runtime.model.CompositeNodeResolveContext" />
+    </file>
+  </root>
+  <root nodeRef="r:89ac1ee0-92ac-49e1-83e6-167854d2040e(de.q60.mps.shadowmodels.runtime.model)/8645954948522028325">
+    <file name="SimpleNode.java">
+      <node id="8645954948522040350" at="17,0,18,0" concept="3" trace="concept" />
+      <node id="8645954948522046181" at="18,0,19,0" concept="3" trace="containment" />
+      <node id="8645954948522051046" at="19,0,20,0" concept="3" trace="children" />
+      <node id="8645954948522861585" at="20,0,21,0" concept="3" trace="references" />
+      <node id="8645954948522896236" at="21,0,22,0" concept="3" trace="properties" />
+      <node id="8645954948522823335" at="23,39,24,27" concept="2" />
+      <node id="8645954948522031294" at="28,28,29,16" concept="7" />
+      <node id="8645954948522035754" at="32,40,33,16" concept="7" />
+      <node id="6346149633696540498" at="37,57,38,16" concept="7" />
+      <node id="8645954948522917968" at="41,32,42,19" concept="7" />
+      <node id="8645954948522062524" at="45,35,46,41" concept="7" />
+      <node id="8645954948522072657" at="49,28,50,35" concept="7" />
+      <node id="8645954948522167458" at="55,39,56,58" concept="7" />
+      <node id="8645954948522095765" at="61,43,62,20" concept="7" />
+      <node id="8645954948523074784" at="66,41,67,114" concept="12" />
+      <node id="8645954948523062293" at="69,36,70,67" concept="12" />
+      <node id="8645954948523121321" at="71,5,72,0" concept="8" />
+      <node id="8645954948526864501" at="73,28,74,56" concept="2" />
+      <node id="8645954948522560796" at="77,41,78,60" concept="7" />
+      <node id="8645954948522743720" at="81,31,82,58" concept="2" />
+      <node id="8645954948522640862" at="83,14,84,77" concept="6" />
+      <node id="8645954948522645294" at="84,77,85,73" concept="2" />
+      <node id="8645954948523126041" at="87,5,88,77" concept="2" />
+      <node id="8645954948522856097" at="91,80,92,50" concept="6" />
+      <node id="8645954948522815326" at="92,50,93,36" concept="2" />
+      <node id="8645954948522858285" at="93,36,94,20" concept="7" />
+      <node id="8645954948529382731" at="97,40,98,63" concept="6" />
+      <node id="8645954948529392242" at="99,22,100,71" concept="12" />
+      <node id="8645954948529508646" at="101,5,102,63" concept="2" />
+      <node id="8645954948529418611" at="102,63,103,59" concept="2" />
+      <node id="8645954948522883679" at="106,48,107,53" concept="7" />
+      <node id="8645954948522888239" at="110,61,111,54" concept="2" />
+      <node id="8645954948522903935" at="114,47,115,53" concept="7" />
+      <node id="8645954948522909811" at="118,59,119,53" concept="2" />
+      <node id="8596472271741603678" at="123,28,124,41" concept="7" />
+      <node id="8645954948522823327" at="23,0,26,0" concept="1" trace="SimpleNode#(Lde/q60/mps/shadowmodels/runtime/model/IConcept;)V" />
+      <node id="8645954948522166745" at="55,0,58,0" concept="5" trace="accept#(Lde/q60/mps/shadowmodels/runtime/model/INode;)Z" />
+      <node id="8645954948523067421" at="65,73,68,5" concept="4" />
+      <node id="8645954948523056921" at="68,5,71,5" concept="4" />
+      <node id="8645954948522560794" at="77,0,80,0" concept="5" trace="accept#(Lde/q60/mps/shadowmodels/runtime/model/INode;)Z" />
+      <node id="8645954948522741634" at="83,12,86,7" concept="0" />
+      <node id="8645954948529385659" at="98,63,101,5" concept="4" />
+      <node id="8645954948522029118" at="27,0,31,0" concept="5" trace="isValid#()Z" />
+      <node id="8645954948522029126" at="31,0,35,0" concept="5" trace="getReference#()Lde/q60/mps/shadowmodels/runtime/model/INodeReference;" />
+      <node id="8645954948522029134" at="40,0,44,0" concept="5" trace="getConcept#()Lde/q60/mps/shadowmodels/runtime/model/IConcept;" />
+      <node id="8645954948522029142" at="44,0,48,0" concept="5" trace="getRoleInParent#()Ljava/lang/String;" />
+      <node id="8645954948522029148" at="48,0,52,0" concept="5" trace="getParent#()Lde/q60/mps/shadowmodels/runtime/model/INode;" />
+      <node id="8645954948522029165" at="60,0,64,0" concept="5" trace="getAllChildren#()Ljava/lang/Iterable;" />
+      <node id="8645954948522029199" at="105,0,109,0" concept="5" trace="getReferenceTarget#(Ljava/lang/String;)Lde/q60/mps/shadowmodels/runtime/model/INode;" />
+      <node id="8645954948522029209" at="109,0,113,0" concept="5" trace="setReferenceTarget#(Ljava/lang/String;Lde/q60/mps/shadowmodels/runtime/model/INode;)V" />
+      <node id="8645954948522029219" at="113,0,117,0" concept="5" trace="getPropertyValue#(Ljava/lang/String;)Ljava/lang/String;" />
+      <node id="8645954948522029227" at="117,0,121,0" concept="5" trace="setPropertyValue#(Ljava/lang/String;Ljava/lang/String;)V" />
+      <node id="8596472271741588818" at="122,0,126,0" concept="5" trace="toString#()Ljava/lang/String;" />
+      <node id="6346149633696533470" at="35,0,40,0" concept="5" trace="resolveNode#(Lde/q60/mps/shadowmodels/runtime/model/INodeResolveContext;)Lde/q60/mps/shadowmodels/runtime/model/INode;" />
+      <node id="8645954948522097321" at="53,57,58,7" concept="7" />
+      <node id="8645954948522560787" at="75,12,80,35" concept="6" />
+      <node id="8645954948522739389" at="80,35,86,7" concept="4" />
+      <node id="8645954948522029184" at="90,0,96,0" concept="5" trace="addNewChild#(Ljava/lang/String;ILde/q60/mps/shadowmodels/runtime/model/IConcept;)Lde/q60/mps/shadowmodels/runtime/model/INode;" />
+      <node id="8645954948522029156" at="52,0,60,0" concept="5" trace="getChildren#(Ljava/lang/String;)Ljava/lang/Iterable;" />
+      <node id="8645954948529303316" at="96,0,105,0" concept="5" trace="removeChild#(Lde/q60/mps/shadowmodels/runtime/model/INode;)V" />
+      <node id="8645954948526938406" at="75,10,87,5" concept="0" />
+      <node id="8645954948526851470" at="72,0,87,5" concept="4" />
+      <node id="8645954948522029172" at="64,0,90,0" concept="5" trace="addChild#(Ljava/lang/String;ILde/q60/mps/shadowmodels/runtime/model/INode;)V" />
+      <scope id="8645954948522823331" at="23,39,24,27" />
+      <scope id="8645954948522029122" at="28,28,29,16" />
+      <scope id="8645954948522029130" at="32,40,33,16" />
+      <scope id="6346149633696533477" at="37,57,38,16" />
+      <scope id="8645954948522029138" at="41,32,42,19" />
+      <scope id="8645954948522029146" at="45,35,46,41" />
+      <scope id="8645954948522029152" at="49,28,50,35" />
+      <scope id="8645954948522166746" at="55,39,56,58" />
+      <scope id="8645954948522029170" at="61,43,62,20" />
+      <scope id="8645954948523067423" at="66,41,67,114" />
+      <scope id="8645954948523056923" at="69,36,70,67" />
+      <scope id="8645954948526851472" at="73,28,74,56" />
+      <scope id="8645954948522560795" at="77,41,78,60" />
+      <scope id="8645954948522739391" at="81,31,82,58" />
+      <scope id="8645954948529385661" at="99,22,100,71" />
+      <scope id="8645954948522029205" at="106,48,107,53" />
+      <scope id="8645954948522029217" at="110,61,111,54" />
+      <scope id="8645954948522029225" at="114,47,115,53" />
+      <scope id="8645954948522029235" at="118,59,119,53" />
+      <scope id="8596472271741588822" at="123,28,124,41" />
+      <scope id="8645954948522741635" at="83,14,85,73">
+        <var name="indexInAll" id="8645954948522640863" />
+      </scope>
+      <scope id="8645954948522823327" at="23,0,26,0">
+        <var name="concept" id="8645954948522823334" />
+      </scope>
+      <scope id="8645954948522166745" at="55,0,58,0">
+        <var name="it" id="8645954948522166745" />
+      </scope>
+      <scope id="8645954948522560794" at="77,0,80,0">
+        <var name="it" id="8645954948522560794" />
+      </scope>
+      <scope id="8645954948522029195" at="91,80,94,20">
+        <var name="newChild" id="8645954948522856098" />
+      </scope>
+      <scope id="8645954948522029118" at="27,0,31,0" />
+      <scope id="8645954948522029126" at="31,0,35,0" />
+      <scope id="8645954948522029134" at="40,0,44,0" />
+      <scope id="8645954948522029142" at="44,0,48,0" />
+      <scope id="8645954948522029148" at="48,0,52,0" />
+      <scope id="8645954948522029165" at="60,0,64,0" />
+      <scope id="8645954948522029199" at="105,0,109,0">
+        <var name="role" id="8645954948522029200" />
+      </scope>
+      <scope id="8645954948522029209" at="109,0,113,0">
+        <var name="role" id="8645954948522029210" />
+        <var name="target" id="8645954948522029212" />
+      </scope>
+      <scope id="8645954948522029219" at="113,0,117,0">
+        <var name="role" id="8645954948522029220" />
+      </scope>
+      <scope id="8645954948522029227" at="117,0,121,0">
+        <var name="role" id="8645954948522029228" />
+        <var name="value" id="8645954948522029230" />
+      </scope>
+      <scope id="8596472271741588818" at="122,0,126,0" />
+      <scope id="6346149633696533470" at="35,0,40,0">
+        <var name="context" id="6346149633696533471" />
+      </scope>
+      <scope id="8645954948522029163" at="53,57,58,7" />
+      <scope id="8645954948522029184" at="90,0,96,0">
+        <var name="concept" id="8645954948522029189" />
+        <var name="index" id="8645954948522029187" />
+        <var name="role" id="8645954948522029185" />
+      </scope>
+      <scope id="8645954948529303322" at="97,40,103,59">
+        <var name="index" id="8645954948529382732" />
+      </scope>
+      <scope id="8645954948522029156" at="52,0,60,0">
+        <var name="role" id="8645954948522029157" />
+      </scope>
+      <scope id="8645954948529303316" at="96,0,105,0">
+        <var name="child" id="8645954948529303317" />
+      </scope>
+      <scope id="8645954948526938407" at="75,12,86,7">
+        <var name="childAfter" id="8645954948522560788" />
+      </scope>
+      <scope id="8645954948522029182" at="65,73,88,77" />
+      <scope id="8645954948522029172" at="64,0,90,0">
+        <var name="child" id="8645954948522029177" />
+        <var name="indexInRole" id="8645954948522029175" />
+        <var name="role" id="8645954948522029173" />
+      </scope>
+      <unit id="8645954948522166745" at="54,53,58,5" name="de.q60.mps.shadowmodels.runtime.model.SimpleNode$1" />
+      <unit id="8645954948522560794" at="76,67,80,7" name="de.q60.mps.shadowmodels.runtime.model.SimpleNode$2" />
+      <unit id="8645954948522028325" at="15,0,127,0" name="de.q60.mps.shadowmodels.runtime.model.SimpleNode" />
+    </file>
+  </root>
+  <root nodeRef="r:89ac1ee0-92ac-49e1-83e6-167854d2040e(de.q60.mps.shadowmodels.runtime.model)/9155712576885252510">
+    <file name="__IContainment.java">
+      <node id="9155712576885252547" at="9,0,10,0" concept="5" trace="getParent#()Lde/q60/mps/shadowmodels/runtime/model/INode;" />
+      <node id="9155712576885252631" at="10,0,11,0" concept="5" trace="getRoleInParent#()Ljava/lang/String;" />
+      <node id="9155712576885267852" at="14,30,15,108" concept="12" />
+      <node id="9155712576885267861" at="18,37,19,108" concept="12" />
+      <node id="9155712576885267848" at="13,0,17,0" concept="5" trace="getParent#()Lde/q60/mps/shadowmodels/runtime/model/INode;" />
+      <node id="9155712576885267857" at="17,0,21,0" concept="5" trace="getRoleInParent#()Ljava/lang/String;" />
+      <node id="9155712576885257505" at="12,0,22,0" concept="9" trace="UNKNOWN" />
+      <scope id="9155712576885252547" at="9,0,10,0" />
+      <scope id="9155712576885252631" at="10,0,11,0" />
+      <scope id="9155712576885267851" at="14,30,15,108" />
+      <scope id="9155712576885267860" at="18,37,19,108" />
+      <scope id="9155712576885267848" at="13,0,17,0" />
+      <scope id="9155712576885267857" at="17,0,21,0" />
+      <unit id="9155712576885258299" at="12,31,21,3" name="de.q60.mps.shadowmodels.runtime.model.__IContainment$1" />
+      <unit id="9155712576885252510" at="6,0,23,0" name="de.q60.mps.shadowmodels.runtime.model.__IContainment" />
+    </file>
+  </root>
+  <root nodeRef="r:89ac1ee0-92ac-49e1-83e6-167854d2040e(de.q60.mps.shadowmodels.runtime.model)/9155712576885286255">
+    <file name="__LazyContainment.java">
+      <node id="9155712576885286358" at="13,0,14,0" concept="5" trace="getContainment#()Lde/q60/mps/shadowmodels/runtime/model/__IContainment;" />
+      <node id="9155712576885286957" at="16,28,17,40" concept="7" />
+      <node id="9155712576885288871" at="21,35,22,46" concept="7" />
+      <node id="3875630774916342191" at="9,0,12,0" concept="1" trace="__LazyContainment#()V" />
+      <node id="9155712576885286574" at="15,0,19,0" concept="5" trace="getParent#()Lde/q60/mps/shadowmodels/runtime/model/INode;" />
+      <node id="9155712576885286582" at="20,0,24,0" concept="5" trace="getRoleInParent#()Ljava/lang/String;" />
+      <scope id="3875630774916342195" at="10,30,10,30" />
+      <scope id="9155712576885286358" at="13,0,14,0" />
+      <scope id="9155712576885286578" at="16,28,17,40" />
+      <scope id="9155712576885286586" at="21,35,22,46" />
+      <scope id="3875630774916342191" at="9,0,12,0" />
+      <scope id="9155712576885286574" at="15,0,19,0" />
+      <scope id="9155712576885286582" at="20,0,24,0" />
+      <unit id="9155712576885286255" at="6,0,25,0" name="de.q60.mps.shadowmodels.runtime.model.__LazyContainment" />
+    </file>
+  </root>
+</debug-info>
+
