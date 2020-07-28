@@ -97,6 +97,7 @@ File | Description
 [samples](samples) | Projects that show you how to build your own kubernetes cluster running MPS with custom languages.
 [ssl](ssl) | SSL support inside the kubernetes cluster
 [ui-client](ui-client) | A typescript project that implements the browser part of the editor. This is generic and doesn't contain anything language specific. All language specific parts are implements on the server side in MPS.
+[ui-proxy](ui-proxy) | Starts MPS instaces on demand with cloned github repositories. Also supports showing diffs for pull requests. 
 [ui-server](ui-server) | A small Java project that configures and starts MPS in headless mode.
 [.dockerignore](.dockerignore) | 
 [.gitignore](.gitignore) | 
@@ -113,6 +114,7 @@ File | Description
 [docker-build-mps.sh](docker-build-mps.sh) | 
 [docker-build-proxy.sh](docker-build-proxy.sh) | 
 [docker-build-ui.sh](docker-build-ui.sh) | 
+[docker-build-uiproxy.sh](docker-build-uiproxy.sh) | 
 [docker-push-gcloud.sh](docker-push-gcloud.sh) | 
 [docker-push-hub.sh](docker-push-hub.sh) | Pushes all docker images to [hub.docker.com](https://hub.docker.com/u/modelix) and updates the version numbers in the kubernetes YAML files.
 [docker-run-db.sh](docker-run-db.sh) | If you want to run the PostgresSQL database locally without a kubernetes cluster
