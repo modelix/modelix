@@ -1,53 +1,45 @@
 package org.modelix.model.mpsplugin;
 
-import org.apache.log4j.Logger;
-import org.apache.log4j.LogManager;
-import java.io.File;
-import org.apache.commons.io.FileUtils;
-import java.nio.charset.StandardCharsets;
-import org.apache.log4j.Level;
-import javax.ws.rs.client.Client;
-import java.util.List;
-import jetbrains.mps.internal.collections.runtime.ListSequence;
-import java.util.ArrayList;
-import org.modelix.model.IKeyValueStore;
-import org.modelix.model.lazy.ObjectStoreCache;
-import org.modelix.model.KeyValueStoreCache;
-import java.util.concurrent.ScheduledFuture;
-import javax.ws.rs.client.ClientBuilder;
-import javax.ws.rs.client.ClientRequestFilter;
-import javax.ws.rs.client.ClientRequestContext;
-import java.io.IOException;
-import javax.ws.rs.core.HttpHeaders;
-import jetbrains.mps.internal.collections.runtime.IVisitor;
-import org.modelix.model.persistent.HashUtil;
-import javax.ws.rs.core.Response;
-import java.net.URLEncoder;
-import java.util.Map;
-import jetbrains.mps.internal.collections.runtime.Sequence;
-import jetbrains.mps.internal.collections.runtime.MapSequence;
-import java.util.HashMap;
-import org.json.JSONArray;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.client.Entity;
-import java.util.LinkedHashMap;
-import org.json.JSONObject;
-import org.modelix.model.IKeyListener;
-import jetbrains.mps.internal.collections.runtime.IWhereFilter;
-import java.util.Objects;
-import jetbrains.mps.baseLanguage.closures.runtime._FunctionTypes;
-import jetbrains.mps.internal.collections.runtime.IMapping;
-import org.modelix.model.lazy.IDeserializingKeyValueStore;
 import de.q60.mps.shadowmodels.runtime.model.persistent.IIdGenerator;
-import jetbrains.mps.ide.ThreadUtils;
-import jetbrains.mps.internal.collections.runtime.NotNullWhereFilter;
-import jetbrains.mps.internal.collections.runtime.ISelector;
-import jetbrains.mps.internal.collections.runtime.ILeftCombinator;
+import org.apache.commons.io.FileUtils;
+import org.apache.log4j.Level;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+import org.json.JSONArray;
+import org.json.JSONObject;
+import org.modelix.StreamUtil;
+import org.modelix.model.IKeyListener;
+import org.modelix.model.IKeyValueStore;
+import org.modelix.model.KeyValueStoreCache;
+import org.modelix.model.lazy.IDeserializingKeyValueStore;
+import org.modelix.model.lazy.ObjectStoreCache;
+import org.modelix.model.persistent.HashUtil;
+
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.client.ClientRequestContext;
+import javax.ws.rs.client.ClientRequestFilter;
+import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.WebTarget;
+import javax.ws.rs.core.HttpHeaders;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.sse.InboundSseEvent;
 import javax.ws.rs.sse.SseEventSource;
+import java.io.File;
+import java.io.IOException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Consumer;
-import javax.ws.rs.sse.InboundSseEvent;
+import java.util.stream.Stream;
 
 public class RestWebModelClient implements IModelClient {
   private static final Logger LOG = LogManager.getLogger(RestWebModelClient.class);
@@ -86,7 +78,7 @@ public class RestWebModelClient implements IModelClient {
 
   private int clientId = 0;
   private Client client;
-  private final List<SseListener> listeners = ListSequence.fromList(new ArrayList<SseListener>());
+  private final List<SseListener> listeners = new ArrayList<>();
   private String baseUrl;
   private IKeyValueStore asyncStore = new GarbageFilteringStore(new AsyncStore(this));
   private ObjectStoreCache cache = new ObjectStoreCache(new KeyValueStoreCache(asyncStore));
@@ -117,9 +109,9 @@ public class RestWebModelClient implements IModelClient {
       public void run() {
         List<SseListener> ls;
         synchronized (listeners) {
-          ls = ListSequence.fromListWithValues(new ArrayList<SseListener>(), listeners);
+          ls = new ArrayList<SseListener>(listeners);
         }
-        for (SseListener l : ListSequence.fromList(ls)) {
+        for (SseListener l : ls) {
           try {
             l.ensureConnected();
           } catch (Exception ex) {
@@ -139,18 +131,13 @@ public class RestWebModelClient implements IModelClient {
   public void dispose() {
     watchDogTask.cancel(false);
     synchronized (listeners) {
-      ListSequence.fromList(listeners).visitAll(new IVisitor<SseListener>() {
-        public void visit(SseListener it) {
-          it.dispose();
-        }
-      });
-      ListSequence.fromList(listeners).clear();
+      listeners.forEach(SseListener::dispose);
+      listeners.clear();
     }
   }
 
   @Override
   public String get(String key) {
-    checkNotEDT();
     boolean isHash = HashUtil.isSha256(key);
     if (isHash) {
       if (LOG.isDebugEnabled()) {
@@ -177,13 +164,8 @@ public class RestWebModelClient implements IModelClient {
 
   @Override
   public Map<String, String> getAll(Iterable<String> keys) {
-    checkNotEDT();
-    if (Sequence.fromIterable(keys).isEmpty()) {
-      return MapSequence.fromMap(new HashMap<String, String>());
-    }
-
-    if (LOG.isDebugEnabled()) {
-      LOG.debug("GET " + Sequence.fromIterable(keys).count() + " entries: " + Sequence.fromIterable(keys).first() + ", ..., " + Sequence.fromIterable(keys).last());
+    if (!keys.iterator().hasNext()) {
+      return new HashMap<>();
     }
 
     JSONArray json = new JSONArray();
@@ -197,18 +179,18 @@ public class RestWebModelClient implements IModelClient {
     if (response.getStatus() == Response.Status.OK.getStatusCode()) {
       String jsonStr = response.readEntity(String.class);
       JSONArray responseJson = new JSONArray(jsonStr);
-      Map<String, String> result = MapSequence.fromMap(new LinkedHashMap<String, String>(16, (float) 0.75, false));
+      Map<String, String> result = new LinkedHashMap<>(16, (float) 0.75, false);
       for (Object entry_ : responseJson) {
         JSONObject entry = (JSONObject) entry_;
-        MapSequence.fromMap(result).put(entry.getString("key"), entry.optString("value"));
+        result.put(entry.getString("key"), entry.optString("value"));
       }
       long end = System.currentTimeMillis();
-      if (LOG.isDebugEnabled()) {
-        LOG.debug("GET " + Sequence.fromIterable(keys).count() + " entries took " + (end - start) + " ms");
-      }
       return result;
     } else {
-      throw new RuntimeException("Request for " + Sequence.fromIterable(keys).count() + " keys failed (" + Sequence.fromIterable(keys).first() + ", ..., " + Sequence.fromIterable(keys).last() + "): " + response.getStatusInfo());
+      throw new RuntimeException(String.format("Request for %d keys failed (%s, ...): %s",
+              keys.spliterator().getExactSizeIfKnown(),
+              StreamUtil.toStream(keys).findFirst().orElse(null),
+              response.getStatusInfo()));
     }
   }
 
@@ -217,7 +199,6 @@ public class RestWebModelClient implements IModelClient {
   }
 
   public String getEmail() {
-    checkNotEDT();
     Response response = client.target(baseUrl + "getEmail").request().buildGet().invoke();
     if (response.getStatus() == Response.Status.OK.getStatusCode()) {
       return response.readEntity(String.class);
@@ -230,24 +211,19 @@ public class RestWebModelClient implements IModelClient {
   public void listen(final String key, final IKeyListener keyListener) {
     SseListener sseListener = new SseListener(key, keyListener);
     synchronized (listeners) {
-      ListSequence.fromList(listeners).addElement(sseListener);
+      listeners.add(sseListener);
     }
   }
 
   @Override
   public void removeListener(final String key, final IKeyListener listener) {
     synchronized (listeners) {
-      ListSequence.fromList(listeners).removeWhere(new IWhereFilter<SseListener>() {
-        public boolean accept(SseListener it) {
-          return Objects.equals(it.key, key) && it.keyListener == listener;
-        }
-      });
+      listeners.removeIf(it -> Objects.equals(it.key, key) && it.keyListener == listener);
     }
   }
 
   @Override
   public void put(String key, String value) {
-    checkNotEDT();
     if (!(key.matches("[a-zA-Z0-9-_]{43}"))) {
       if (LOG.isDebugEnabled()) {
         LOG.debug("PUT " + key + " = " + value);
@@ -261,46 +237,47 @@ public class RestWebModelClient implements IModelClient {
 
   @Override
   public void putAll(final Map<String, String> entries) {
-    checkNotEDT();
-
-    _FunctionTypes._void_P1_E0<? super JSONArray> sendBatch = new _FunctionTypes._void_P1_E0<JSONArray>() {
-      public void invoke(JSONArray json) {
+    Consumer<JSONArray> sendBatch = new Consumer<JSONArray>() {
+      public void accept(JSONArray json) {
         if (LOG.isDebugEnabled()) {
           LOG.debug("PUT batch of " + json.length() + " entries");
         }
         Response response = client.target(baseUrl + "putAll").request(MediaType.APPLICATION_JSON).put(Entity.text(json.toString()));
         if (response.getStatusInfo().getFamily() != Response.Status.Family.SUCCESSFUL) {
-          throw new RuntimeException("Failed to store " + MapSequence.fromMap(entries).count() + "entries (" + response.getStatusInfo() + ") " + MapSequence.fromMap(entries).first().key() + " = " + MapSequence.fromMap(entries).first().value() + ", ..., " + MapSequence.fromMap(entries).last().key() + " = " + MapSequence.fromMap(entries).last().value());
+          throw new RuntimeException(String.format("Failed to store %d entries (%s) %s",
+                  entries.size(),
+                  response.getStatusInfo(),
+                  entries.entrySet().stream().map(e -> e.getKey() + " = " + e.getValue() + ", ...").findFirst().orElse("")));
         }
       }
     };
 
     if (LOG.isDebugEnabled()) {
-      LOG.debug("PUT " + MapSequence.fromMap(entries).count() + " entries");
+      LOG.debug("PUT " + entries.size() + " entries");
     }
     JSONArray json = new JSONArray();
     int approxSize = 0;
-    for (IMapping<String, String> entry : MapSequence.fromMap(entries)) {
+    for (var entry : entries.entrySet()) {
       JSONObject jsonEntry = new JSONObject();
-      jsonEntry.put("key", entry.key());
-      jsonEntry.put("value", entry.value());
-      approxSize += entry.key().length();
-      approxSize += entry.value().length();
+      jsonEntry.put("key", entry.getKey());
+      jsonEntry.put("value", entry.getValue());
+      approxSize += entry.getKey().length();
+      approxSize += entry.getValue().length();
       json.put(jsonEntry);
-      if (!(entry.key().matches("[a-zA-Z0-9-_]{43}"))) {
+      if (!(entry.getKey().matches("[a-zA-Z0-9-_]{43}"))) {
         if (LOG.isDebugEnabled()) {
-          LOG.debug("PUT " + entry.key() + " = " + entry.value());
+          LOG.debug("PUT " + entry.getKey() + " = " + entry.getValue());
         }
       }
 
       if (json.length() >= 5000 || approxSize > 10000000) {
-        sendBatch.invoke(json);
+        sendBatch.accept(json);
         json = new JSONArray();
         approxSize = 0;
       }
     }
     if (json.length() > 0) {
-      sendBatch.invoke(json);
+      sendBatch.accept(json);
     }
   }
 
@@ -333,14 +310,6 @@ public class RestWebModelClient implements IModelClient {
       idGenerator = new IdGenerator(getClientId());
     }
     return idGenerator;
-  }
-
-  protected void checkNotEDT() {
-    if (ThreadUtils.isInEDT()) {
-      if (LOG.isEnabledFor(Level.WARN)) {
-        LOG.warn("Performing network operations from the EDT will make the UI unresponsive", new RuntimeException());
-      }
-    }
   }
 
   public class SseListener {
@@ -391,15 +360,7 @@ public class RestWebModelClient implements IModelClient {
         }
       }
 
-      long youngest = Sequence.fromIterable(Sequence.fromArray(sse)).where(new NotNullWhereFilter<Sse>()).select(new ISelector<Sse, Long>() {
-        public Long select(Sse it) {
-          return it.birth;
-        }
-      }).foldLeft(0L, new ILeftCombinator<Long, Long>() {
-        public Long combine(Long s, Long it) {
-          return Math.max(s, it);
-        }
-      });
+      long youngest = Stream.of(sse).filter(Objects::nonNull).mapToLong(it -> it.birth).reduce(0L, Math::max);
 
       if (System.currentTimeMillis() - youngest < 5000) {
         return;

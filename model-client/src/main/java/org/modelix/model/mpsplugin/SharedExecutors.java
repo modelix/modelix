@@ -20,14 +20,12 @@ public class SharedExecutors {
   }
 
   public static ScheduledFuture<?> fixDelay(int milliSeconds, final Runnable r) {
-    return SCHEDULED.scheduleWithFixedDelay(new Runnable() {
-      public void run() {
-        try {
-          r.run();
-        } catch (Exception ex) {
-          if (LOG.isEnabledFor(Level.ERROR)) {
-            LOG.error("", ex);
-          }
+    return SCHEDULED.scheduleWithFixedDelay(() -> {
+      try {
+        r.run();
+      } catch (Exception ex) {
+        if (LOG.isEnabledFor(Level.ERROR)) {
+          LOG.error("", ex);
         }
       }
     }, milliSeconds, milliSeconds, TimeUnit.MILLISECONDS);

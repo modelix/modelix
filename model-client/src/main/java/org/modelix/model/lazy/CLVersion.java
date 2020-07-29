@@ -1,19 +1,15 @@
 package org.modelix.model.lazy;
 
-import org.modelix.model.persistent.CPVersion;
-import jetbrains.mps.baseLanguage.closures.runtime._FunctionTypes;
+import org.jetbrains.annotations.NotNull;
 import org.modelix.model.operations.IOperation;
 import org.modelix.model.persistent.CPOperationsList;
-import org.jetbrains.annotations.NotNull;
-import jetbrains.mps.internal.collections.runtime.Sequence;
+import org.modelix.model.persistent.CPVersion;
+
+import java.util.Arrays;
 
 public class CLVersion {
   public static CLVersion loadFromHash(String hash, IDeserializingKeyValueStore store) {
-    CPVersion data = store.get(hash, new _FunctionTypes._return_P1_E0<CPVersion, String>() {
-      public CPVersion invoke(String s) {
-        return CPVersion.deserialize(s);
-      }
-    });
+    CPVersion data = store.get(hash, CPVersion::deserialize);
     return (data == null ? null : new CLVersion(data, store));
   }
 
@@ -33,11 +29,7 @@ public class CLVersion {
   }
 
   public CLVersion(String hash, IDeserializingKeyValueStore store) {
-    this(store.get(hash, new _FunctionTypes._return_P1_E0<CPVersion, String>() {
-      public CPVersion invoke(String s) {
-        return CPVersion.deserialize(s);
-      }
-    }), store);
+    this(store.get(hash, CPVersion::deserialize), store);
   }
 
   public CLVersion(@NotNull CPVersion data, IDeserializingKeyValueStore store) {
@@ -84,11 +76,7 @@ public class CLVersion {
     if (data.previousVersion == null) {
       return null;
     }
-    CPVersion previousVersion = store.get(data.previousVersion, new _FunctionTypes._return_P1_E0<CPVersion, String>() {
-      public CPVersion invoke(String s) {
-        return CPVersion.deserialize(s);
-      }
-    });
+    CPVersion previousVersion = store.get(data.previousVersion, CPVersion::deserialize);
     if (previousVersion == null) {
       return null;
     }
@@ -96,11 +84,10 @@ public class CLVersion {
   }
 
   public Iterable<IOperation> getOperations() {
-    return (data.operationsHash == null ? Sequence.fromArray(data.operations) : Sequence.fromArray(store.get(data.operationsHash, new _FunctionTypes._return_P1_E0<CPOperationsList, String>() {
-      public CPOperationsList invoke(String serialized) {
-        return CPOperationsList.deserialize(serialized);
-      }
-    }).operations));
+    IOperation[] ops = data.operationsHash == null
+            ? data.operations
+            : store.get(data.operationsHash, CPOperationsList::deserialize).operations;
+    return Arrays.stream(ops)::iterator;
   }
 
   public int getNumberOfOperations() {

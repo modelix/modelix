@@ -58,9 +58,9 @@ public class COWArrays {
     Arrays.sort(sortedValues);
     long[] filtered = new long[array.length];
     int cursor = 0;
-    for (int i = 0; i < array.length; i++) {
-      if (Arrays.binarySearch(sortedValues, array[i]) < 0) {
-        filtered[cursor++] = array[i];
+    for (long l : array) {
+      if (Arrays.binarySearch(sortedValues, l) < 0) {
+        filtered[cursor++] = l;
       }
     }
     return Arrays.copyOf(filtered, cursor);

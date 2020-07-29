@@ -1,36 +1,33 @@
 package org.modelix.model.lazy;
 
-import de.q60.mps.shadowmodels.runtime.model.persistent.ITree;
-import org.modelix.model.persistent.CPTree;
-import jetbrains.mps.baseLanguage.closures.runtime._FunctionTypes;
-import org.jetbrains.annotations.Nullable;
-import org.jetbrains.annotations.NotNull;
-import org.modelix.model.persistent.CPElementRef;
-import org.modelix.model.persistent.HashUtil;
-import org.modelix.model.persistent.CPHamtNode;
-import org.modelix.model.persistent.CPElement;
-import org.modelix.model.persistent.CPNode;
-import de.q60.mps.shadowmodels.runtime.model.IConcept;
-import de.q60.mps.shadowmodels.runtime.util.pmap.COWArrays;
-import jetbrains.mps.internal.collections.runtime.Sequence;
-import de.q60.mps.shadowmodels.runtime.model.INodeReference;
-import de.q60.mps.shadowmodels.runtime.model.persistent.PNodeReference;
-import de.q60.mps.shadowmodels.runtime.smodel.SNodeReferenceAdapter;
-import jetbrains.mps.smodel.SNodePointer;
-import jetbrains.mps.internal.collections.runtime.ISelector;
-import jetbrains.mps.internal.collections.runtime.IWhereFilter;
-import java.util.Objects;
-import de.q60.mps.shadowmodels.runtime.model.persistent.ITreeChangeVisitor;
 import com.google.common.collect.ListMultimap;
 import com.google.common.collect.MultimapBuilder;
-import jetbrains.mps.internal.collections.runtime.IVisitor;
-import java.util.Set;
-import jetbrains.mps.internal.collections.runtime.SetSequence;
+import de.q60.mps.shadowmodels.runtime.model.IConcept;
+import de.q60.mps.shadowmodels.runtime.model.INodeReference;
+import de.q60.mps.shadowmodels.runtime.model.persistent.ITree;
+import de.q60.mps.shadowmodels.runtime.model.persistent.ITreeChangeVisitor;
+import de.q60.mps.shadowmodels.runtime.model.persistent.PNodeReference;
+import de.q60.mps.shadowmodels.runtime.util.pmap.COWArrays;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+import org.modelix.StreamUtil;
+import org.modelix.model.persistent.CPElement;
+import org.modelix.model.persistent.CPElementRef;
+import org.modelix.model.persistent.CPHamtNode;
+import org.modelix.model.persistent.CPNode;
+import org.modelix.model.persistent.CPTree;
+import org.modelix.model.persistent.HashUtil;
+
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
-import jetbrains.mps.internal.collections.runtime.ListSequence;
-import jetbrains.mps.smodel.adapter.structure.concept.SAbstractConceptAdapter;
-import de.q60.mps.shadowmodels.runtime.smodel.SConceptAdapter;
+import java.util.Objects;
+import java.util.OptionalLong;
+import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.LongStream;
+import java.util.stream.Stream;
+import java.util.stream.StreamSupport;
 
 public class CLTree implements ITree {
 
@@ -38,11 +35,7 @@ public class CLTree implements ITree {
   protected CPTree data;
 
   public CLTree(String hash, IDeserializingKeyValueStore store) {
-    this(store.get(hash, new _FunctionTypes._return_P1_E0<CPTree, String>() {
-      public CPTree invoke(String serialized) {
-        return CPTree.deserialize(serialized);
-      }
-    }), null, store);
+    this(store.get(hash, serialized -> CPTree.deserialize(serialized)), null, store);
   }
 
   public CLTree(IDeserializingKeyValueStore store) {
@@ -89,11 +82,7 @@ public class CLTree implements ITree {
   }
 
   public CLHamtNode getNodesMap() {
-    return CLHamtNode.create(store.get(data.idToHash, new _FunctionTypes._return_P1_E0<CPHamtNode, String>() {
-      public CPHamtNode invoke(String s) {
-        return CPHamtNode.deserialize(s);
-      }
-    }), store);
+    return CLHamtNode.create(store.get(data.idToHash, s -> CPHamtNode.deserialize(s)), store);
   }
 
   public String getId() {
@@ -174,7 +163,16 @@ public class CLTree implements ITree {
     CLNode child = (CLNode) resolveElement(childId);
     CPNode childData = child.getData();
 
-    CPNode newChildData = CPNode.create(childData.getId(), childData.getConcept(), parentId, role, childData.getChildrenIdArray(), childData.getPropertyRoles(), childData.getPropertyValues(), childData.getReferenceRoles(), childData.getReferenceTargets());
+    CPNode newChildData = CPNode.create(
+            childData.getId(),
+            childData.getConcept(),
+            parentId,
+            role,
+            childData.getChildrenIdArray(),
+            childData.getPropertyRoles(),
+            childData.getPropertyValues(),
+            childData.getReferenceRoles(),
+            childData.getReferenceTargets());
     newIdToHash = newIdToHash.put(newChildData);
     IDeserializingKeyValueStore_extensions.put(store, newChildData);
 
@@ -182,14 +180,26 @@ public class CLTree implements ITree {
     if (index == -1) {
       newChildrenArray = COWArrays.add(newChildrenArray, childData.getId());
     } else {
-      Long anchor = Sequence.fromIterable(getChildren(parentId, role)).skip(index).first();
-      if (anchor == null) {
+      OptionalLong anchor = getChildren(parentId, role).skip(index).findFirst();
+      if (anchor.isEmpty()) {
         newChildrenArray = COWArrays.add(newChildrenArray, childData.getId());
       } else {
-        newChildrenArray = COWArrays.insert(newChildrenArray, COWArrays.indexOf(newChildrenArray, anchor), childData.getId());
+        newChildrenArray = COWArrays.insert(
+                newChildrenArray,
+                COWArrays.indexOf(newChildrenArray, anchor.getAsLong()),
+                childData.getId());
       }
     }
-    CPNode newParentData = CPNode.create(parent.getId(), parent.getConcept(), parent.getData().getParentId(), parent.getRoleInParent(), newChildrenArray, parent.getData().getPropertyRoles(), parent.getData().getPropertyValues(), parent.getData().getReferenceRoles(), parent.getData().getReferenceTargets());
+    CPNode newParentData = CPNode.create(
+            parent.getId(),
+            parent.getConcept(),
+            parent.getData().getParentId(),
+            parent.getRoleInParent(),
+            newChildrenArray,
+            parent.getData().getPropertyRoles(),
+            parent.getData().getPropertyValues(),
+            parent.getData().getReferenceRoles(),
+            parent.getData().getReferenceTargets());
 
     newIdToHash = newIdToHash.put(newParentData);
     IDeserializingKeyValueStore_extensions.put(store, newParentData);
@@ -200,7 +210,7 @@ public class CLTree implements ITree {
 
   @Override
   public ITree setReferenceTarget(long sourceId, String role, INodeReference targetRef) {
-    CLNode source = ((CLNode) resolveElement(sourceId));
+    CLNode source = resolveElement(sourceId);
 
     CLNode target = null;
     CPElementRef refData = null;
@@ -208,9 +218,9 @@ public class CLTree implements ITree {
     } else if (targetRef instanceof PNodeReference) {
       long targetId = ((PNodeReference) targetRef).getId();
       refData = CPElementRef.local(targetId);
-      target = ((CLNode) resolveElement(targetId));
-    } else if (targetRef instanceof SNodeReferenceAdapter) {
-      refData = CPElementRef.mps(SNodePointer.serialize(((SNodeReferenceAdapter) targetRef).getReference()));
+      target = resolveElement(targetId);
+//    } else if (targetRef instanceof SNodeReferenceAdapter) {
+//      refData = CPElementRef.mps(SNodePointer.serialize(((SNodeReferenceAdapter) targetRef).getReference()));
     } else {
       throw new RuntimeException("Unsupported reference type: " + targetRef.getClass().getSimpleName());
     }
@@ -259,82 +269,72 @@ public class CLTree implements ITree {
     return getNodesMap().get(nodeId) != null;
   }
   @Override
-  public Iterable<Long> getAllChildren(long parentId) {
+  public LongStream getAllChildren(long parentId) {
     CLNode parent = (CLNode) resolveElement(parentId);
-    return Sequence.fromIterable(parent.getChildren(new BulkQuery(store)).execute()).select(new ISelector<CLNode, Long>() {
-      public Long select(CLNode it) {
-        return it.getId();
-      }
-    });
+    Iterable<CLNode> children = parent.getChildren(new BulkQuery(store)).execute();
+    return StreamSupport.stream(children.spliterator(), false).mapToLong(CLElement::getId);
   }
   public Iterable<CLNode> getDescendants(long root, boolean includeSelf) {
-    CLNode parent = (CLNode) resolveElement(root);
+    CLNode parent = resolveElement(root);
     return parent.getDescendants(new BulkQuery(store), includeSelf).execute();
   }
   @Override
-  public Iterable<Long> getChildren(long parentId, final String role) {
-    CLNode parent = (CLNode) resolveElement(parentId);
-    return Sequence.fromIterable(parent.getChildren(new BulkQuery(store)).execute()).where(new IWhereFilter<CLNode>() {
-      public boolean accept(CLNode it) {
-        return Objects.equals(it.getRoleInParent(), role);
-      }
-    }).select(new ISelector<CLNode, Long>() {
-      public Long select(CLNode it) {
-        return it.getId();
-      }
-    });
+  public LongStream getChildren(long parentId, final String role) {
+    CLNode parent = resolveElement(parentId);
+    Iterable<CLNode> children = parent.getChildren(new BulkQuery(store)).execute();
+    return StreamSupport.stream(children.spliterator(), false)
+            .filter(it -> Objects.equals(it.getRoleInParent(), role))
+            .mapToLong(CLNode::getId);
   }
   @Override
   public Iterable<String> getChildRoles(long sourceId) {
-    CLNode parent = (CLNode) resolveElement(sourceId);
-    return Sequence.fromIterable(parent.getChildren(new BulkQuery(store)).execute()).select(new ISelector<CLNode, String>() {
-      public String select(CLNode it) {
-        return it.getRoleInParent();
-      }
-    }).distinct();
+    CLNode parent = resolveElement(sourceId);
+    Iterable<CLNode> children = parent.getChildren(new BulkQuery(store)).execute();
+    return StreamSupport.stream(children.spliterator(), false)
+            .map(CLNode::getRoleInParent).distinct()::iterator;
   }
   @Override
   public IConcept getConcept(long nodeId) {
-    CLNode node = (CLNode) resolveElement(nodeId);
+    CLNode node = resolveElement(nodeId);
     return deserializeConcept(node.getConcept());
   }
   @Override
   public long getParent(long nodeId) {
-    CLNode node = (CLNode) resolveElement(nodeId);
+    CLNode node = resolveElement(nodeId);
     return node.getData().getParentId();
   }
   @Override
   public String getProperty(long nodeId, String role) {
-    CLNode node = (CLNode) resolveElement(nodeId);
+    CLNode node = resolveElement(nodeId);
     return node.getData().getPropertyValue(role);
   }
   @Override
   public Iterable<String> getPropertyRoles(long sourceId) {
-    CLNode node = (CLNode) resolveElement(sourceId);
-    return Sequence.fromArray(node.getData().getPropertyRoles());
+    CLNode node = resolveElement(sourceId);
+    return Arrays.asList(node.getData().getPropertyRoles());
   }
   @Override
   public Iterable<String> getReferenceRoles(long sourceId) {
-    CLNode node = (CLNode) resolveElement(sourceId);
-    return Sequence.fromArray(node.getData().getReferenceRoles());
+    CLNode node = resolveElement(sourceId);
+    return Arrays.asList(node.getData().getReferenceRoles());
   }
   @Override
   public INodeReference getReferenceTarget(long sourceId, String role) {
-    CLNode node = (CLNode) resolveElement(sourceId);
+    CLNode node = resolveElement(sourceId);
     CPElementRef targetRef = node.getData().getReferenceTarget(role);
     if (targetRef == null) {
       return null;
     } else if (targetRef.isLocal()) {
       return new PNodeReference(targetRef.getElementId());
-    } else if (targetRef instanceof CPElementRef.MpsRef) {
-      return new SNodeReferenceAdapter(SNodePointer.deserialize(((CPElementRef.MpsRef) targetRef).getSerializedRef()));
+//    } else if (targetRef instanceof CPElementRef.MpsRef) {
+//      return new SNodeReferenceAdapter(SNodePointer.deserialize(((CPElementRef.MpsRef) targetRef).getSerializedRef()));
     } else {
       throw new UnsupportedOperationException("Unsupported reference: " + targetRef);
     }
   }
   @Override
   public String getRole(long nodeId) {
-    CLNode node = (CLNode) resolveElement(nodeId);
+    CLNode node = resolveElement(nodeId);
     return node.getRoleInParent();
   }
   @Override
@@ -344,7 +344,7 @@ public class CLTree implements ITree {
       if (oldParent == targetParentId) {
         String oldRole = getRole(childId);
         if (Objects.equals(oldRole, targetRole)) {
-          int oldIndex = Sequence.fromIterable(getChildren(oldParent, oldRole)).indexOf(childId);
+          int oldIndex = StreamUtil.indexOf(getChildren(oldParent, oldRole), childId);
           if (oldIndex == targetIndex) {
             return this;
           }
@@ -378,46 +378,29 @@ public class CLTree implements ITree {
         CLNode oldNode = (CLNode) oldElement;
         CLNode newNode = (CLNode) newElement;
 
-        for (String role : Sequence.fromIterable(Sequence.fromArray(oldNode.getData().getPropertyRoles())).concat(Sequence.fromIterable(Sequence.fromArray(newNode.getData().getPropertyRoles()))).distinct()) {
+        Stream.concat(
+                Arrays.stream(oldNode.getData().getPropertyRoles()),
+                Arrays.stream(newNode.getData().getPropertyRoles()))
+                .distinct()
+                .forEach(role -> {
           if (!(Objects.equals(oldNode.getData().getPropertyValue(role), newNode.getData().getPropertyValue(role)))) {
             visitor.propertyChanged(newNode.getId(), role);
           }
-        }
-        for (String role : Sequence.fromIterable(Sequence.fromArray(oldNode.getData().getReferenceRoles())).concat(Sequence.fromIterable(Sequence.fromArray(newNode.getData().getReferenceRoles()))).distinct()) {
-          if (!(Objects.equals(oldNode.getData().getReferenceTarget(role), newNode.getData().getReferenceTarget(role)))) {
-            visitor.referenceChanged(newNode.getId(), role);
-          }
-        }
-
-        final ListMultimap<String, CLNode> oldChildren = MultimapBuilder.hashKeys().arrayListValues().<String,CLNode>build();
-        final ListMultimap<String, CLNode> newChildren = MultimapBuilder.hashKeys().arrayListValues().<String,CLNode>build();
-        Sequence.fromIterable(oldNode.getChildren(new BulkQuery(store)).execute()).visitAll(new IVisitor<CLNode>() {
-          public void visit(CLNode it) {
-            oldChildren.put(it.getRoleInParent(), it);
-          }
-        });
-        Sequence.fromIterable(newNode.getChildren(new BulkQuery(store)).execute()).visitAll(new IVisitor<CLNode>() {
-          public void visit(CLNode it) {
-            newChildren.put(it.getRoleInParent(), it);
-          }
         });
 
-        Set<String> roles = SetSequence.fromSet(new HashSet<String>());
-        SetSequence.fromSet(roles).addSequence(SetSequence.fromSet(oldChildren.keySet()));
-        SetSequence.fromSet(roles).addSequence(SetSequence.fromSet(newChildren.keySet()));
+        final ListMultimap<String, CLNode> oldChildren = MultimapBuilder.hashKeys().arrayListValues().build();
+        final ListMultimap<String, CLNode> newChildren = MultimapBuilder.hashKeys().arrayListValues().build();
+        oldNode.getChildren(new BulkQuery(store)).execute().forEach(it -> oldChildren.put(it.getRoleInParent(), it));
+        newNode.getChildren(new BulkQuery(store)).execute().forEach(it -> newChildren.put(it.getRoleInParent(), it));
+
+        Set<String> roles = new HashSet<>();
+        roles.addAll(oldChildren.keySet());
+        roles.addAll(newChildren.keySet());
         for (String role : roles) {
           List<CLNode> oldChildrenInRole = oldChildren.get(role);
           List<CLNode> newChildrenInRole = newChildren.get(role);
-          List<Long> oldValues = ListSequence.fromList(oldChildrenInRole).select(new ISelector<CLNode, Long>() {
-            public Long select(CLNode it) {
-              return it.getId();
-            }
-          }).toListSequence();
-          List<Long> newValues = ListSequence.fromList(newChildrenInRole).select(new ISelector<CLNode, Long>() {
-            public Long select(CLNode it) {
-              return it.getId();
-            }
-          }).toListSequence();
+          List<Long> oldValues = oldChildrenInRole.stream().map(CLNode::getId).collect(Collectors.toList());
+          List<Long> newValues = newChildrenInRole.stream().map(CLNode::getId).collect(Collectors.toList());
           if (!(Objects.equals(oldValues, newValues))) {
             visitor.childrenChanged(newNode.getId(), role);
           }
@@ -432,11 +415,7 @@ public class CLTree implements ITree {
     if (element instanceof CPNode) {
       for (long childId : ((CPNode) element).getChildrenIds()) {
         String childHash = idToHash.get(childId);
-        CPElement child = store.get(childHash, new _FunctionTypes._return_P1_E0<CPElement, String>() {
-          public CPElement invoke(String serialized) {
-            return CPElement.deserialize(serialized);
-          }
-        });
+        CPElement child = store.get(childHash, CPElement::deserialize);
         newIdToHash = deleteElements(child, newIdToHash);
       }
     }
@@ -479,29 +458,20 @@ public class CLTree implements ITree {
   }
 
   public IBulkQuery.Value<List<CLNode>> resolveElements(Iterable<Long> ids, final IBulkQuery bulkQuery) {
-    return getNodesMap().getAll(ids, bulkQuery).mapBulk(new _FunctionTypes._return_P1_E0<IBulkQuery.Value<List<CLNode>>, List<String>>() {
-      public IBulkQuery.Value<List<CLNode>> invoke(List<String> hashes) {
-        return createElements(hashes, bulkQuery);
-      }
-    });
+    IBulkQuery.Value<List<String>> a = getNodesMap().getAll(ids, bulkQuery);
+    return a.mapBulk(hashes -> createElements(hashes, bulkQuery));
   }
 
   public IBulkQuery.Value<CLNode> createElement(final String hash, IBulkQuery query) {
     if (hash == null) {
       return query.<CLNode>constant(null);
     }
-    return query.get(hash, new _FunctionTypes._return_P1_E0<CPNode, String>() {
-      public CPNode invoke(String s) {
-        if (s == null) {
-          throw new RuntimeException("Element doesn't exist: " + hash);
-        }
-        return CPNode.deserialize(s);
+    return query.get(hash, s -> {
+      if (s == null) {
+        throw new RuntimeException("Element doesn't exist: " + hash);
       }
-    }).map(new _FunctionTypes._return_P1_E0<CLNode, CPNode>() {
-      public CLNode invoke(CPNode n) {
-        return CLNode.create(CLTree.this, n);
-      }
-    });
+      return CPNode.deserialize(s);
+    }).map(n -> CLNode.create(CLTree.this, n));
   }
 
   public CLNode createElement(String hash) {
@@ -509,35 +479,25 @@ public class CLTree implements ITree {
   }
 
   public IBulkQuery.Value<List<CLNode>> createElements(List<String> hashes, final IBulkQuery bulkQuery) {
-    return bulkQuery.map(hashes, new _FunctionTypes._return_P1_E0<IBulkQuery.Value<CLNode>, String>() {
-      public IBulkQuery.Value<CLNode> invoke(final String hash) {
-        return bulkQuery.get(hash, new _FunctionTypes._return_P1_E0<CPNode, String>() {
-          public CPNode invoke(String s) {
-            if (s == null) {
-              throw new RuntimeException("Element doesn't exist: " + hash);
-            }
-            return CPNode.deserialize(s);
-          }
-        }).map(new _FunctionTypes._return_P1_E0<CLNode, CPNode>() {
-          public CLNode invoke(CPNode n) {
-            return CLNode.create(CLTree.this, n);
-          }
-        });
+    return bulkQuery.map(hashes, hash -> bulkQuery.get(hash, s -> {
+      if (s == null) {
+        throw new RuntimeException("Element doesn't exist: " + hash);
       }
-    });
+      return CPNode.deserialize(s);
+    }).map(n -> CLNode.create(CLTree.this, n)));
   }
 
   protected String serializeConcept(IConcept concept) {
-    if (concept == null) {
+//    if (concept == null) {
       return null;
-    }
-    return ((SAbstractConceptAdapter) ((SConceptAdapter) concept).getAdapted()).serialize();
+//    }
+//    return ((SAbstractConceptAdapter) ((SConceptAdapter) concept).getAdapted()).serialize();
   }
 
   protected IConcept deserializeConcept(String serialized) {
-    if (serialized == null) {
+//    if (serialized == null) {
       return null;
-    }
-    return SConceptAdapter.wrap(SAbstractConceptAdapter.deserialize(serialized));
+//    }
+//    return SConceptAdapter.wrap(SAbstractConceptAdapter.deserialize(serialized));
   }
 }

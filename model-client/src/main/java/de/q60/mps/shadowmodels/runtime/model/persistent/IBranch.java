@@ -1,12 +1,12 @@
 package de.q60.mps.shadowmodels.runtime.model.persistent;
 
-import jetbrains.mps.baseLanguage.closures.runtime._FunctionTypes;
+import java.util.function.Supplier;
 
 public interface IBranch {
-  void runRead(_FunctionTypes._void_P0_E0 runnable);
-  <T> T computeRead(_FunctionTypes._return_P0_E0<? extends T> computable);
-  void runWrite(_FunctionTypes._void_P0_E0 runnable);
-  <T> T computeWrite(_FunctionTypes._return_P0_E0<? extends T> computable);
+  void runRead(Runnable runnable);
+  <T> T computeRead(Supplier<T> computable);
+  void runWrite(Runnable runnable);
+  <T> T computeWrite(Supplier<T> computable);
 
   boolean canRead();
   boolean canWrite();

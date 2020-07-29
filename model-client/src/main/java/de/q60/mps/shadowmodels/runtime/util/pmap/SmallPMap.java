@@ -1,8 +1,11 @@
 package de.q60.mps.shadowmodels.runtime.util.pmap;
 
-import jetbrains.mps.internal.collections.runtime.Sequence;
-import jetbrains.mps.internal.collections.runtime.ISelector;
+import org.modelix.StreamUtil;
+
+import java.util.Collections;
 import java.util.Objects;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public abstract class SmallPMap<K, V> implements CustomPMap<K, V> {
   private static final SmallPMap EMPTY = new Multiple(new Object[0], new Object[0]);
@@ -20,17 +23,9 @@ public abstract class SmallPMap<K, V> implements CustomPMap<K, V> {
   }
 
   public static <K, V> SmallPMap<K, V> createS(Iterable<K> keys, Iterable<V> values) {
-    return create(Sequence.fromIterable(keys).select(new ISelector<K, Object>() {
-      public Object select(K it) {
-        Object element = it;
-        return element;
-      }
-    }).toGenericArray(Object.class), Sequence.fromIterable(values).select(new ISelector<V, Object>() {
-      public Object select(V it) {
-        Object element = it;
-        return element;
-      }
-    }).toGenericArray(Object.class));
+    return create(
+            StreamUtil.toStream(keys).toArray(Object[]::new),
+            StreamUtil.toStream(values).toArray(Object[]::new));
   }
 
   @Override
@@ -58,7 +53,7 @@ public abstract class SmallPMap<K, V> implements CustomPMap<K, V> {
     }
     @Override
     public Iterable<K> keys() {
-      return Sequence.<K>singleton(key);
+      return Collections.singleton(key);
     }
     @Override
     public SmallPMap<K, V> put(K key, V value) {
@@ -80,7 +75,7 @@ public abstract class SmallPMap<K, V> implements CustomPMap<K, V> {
     }
     @Override
     public Iterable<V> values() {
-      return Sequence.<V>singleton(value);
+      return Collections.singleton(value);
     }
     @Override
     public boolean containsKey(K key) {
@@ -137,12 +132,12 @@ public abstract class SmallPMap<K, V> implements CustomPMap<K, V> {
 
     @Override
     public Iterable<K> keys() {
-      return Sequence.fromArray(((K[]) keys));
+      return Stream.of(keys).map(it -> (K)it).collect(Collectors.toList());
     }
 
     @Override
     public Iterable<V> values() {
-      return Sequence.fromArray(((V[]) values));
+      return Stream.of(values).map(it -> (V)it).collect(Collectors.toList());
     }
 
     @Override

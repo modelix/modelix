@@ -1,17 +1,18 @@
 package org.modelix.model.operations;
 
-import de.q60.mps.shadowmodels.runtime.model.persistent.IWriteTransaction;
-import org.apache.log4j.Logger;
-import org.apache.log4j.LogManager;
-import de.q60.mps.shadowmodels.runtime.model.persistent.IIdGenerator;
-import jetbrains.mps.internal.collections.runtime.Sequence;
-import de.q60.mps.shadowmodels.runtime.model.INodeReference;
 import de.q60.mps.shadowmodels.runtime.model.IConcept;
-import de.q60.mps.shadowmodels.runtime.model.persistent.IBranch;
-import de.q60.mps.shadowmodels.runtime.model.persistent.ITree;
-import jetbrains.mps.baseLanguage.closures.runtime._FunctionTypes;
 import de.q60.mps.shadowmodels.runtime.model.INode;
+import de.q60.mps.shadowmodels.runtime.model.INodeReference;
+import de.q60.mps.shadowmodels.runtime.model.persistent.IBranch;
+import de.q60.mps.shadowmodels.runtime.model.persistent.IIdGenerator;
+import de.q60.mps.shadowmodels.runtime.model.persistent.ITree;
+import de.q60.mps.shadowmodels.runtime.model.persistent.IWriteTransaction;
 import de.q60.mps.shadowmodels.runtime.model.persistent.PNodeAdapter;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+import org.modelix.StreamUtil;
+
+import java.util.stream.LongStream;
 
 public class OTWriteTransaction implements IWriteTransaction {
   private static final Logger LOG = LogManager.getLogger(OTWriteTransaction.class);
@@ -38,9 +39,9 @@ public class OTWriteTransaction implements IWriteTransaction {
   public void moveChild(long newParentId, String newRole, int newIndex, long childId) {
     long oldparent = getParent(childId);
     String oldRole = getRole(childId);
-    int oldIndex = Sequence.fromIterable(getChildren(oldparent, oldRole)).indexOf(childId);
+    int oldIndex = StreamUtil.indexOf(getChildren(oldparent, oldRole), childId);
     if (newIndex == -1) {
-      newIndex = Sequence.fromIterable(getChildren(newParentId, newRole)).count();
+      newIndex = (int) getChildren(newParentId, newRole).count();
     }
     apply(new MoveNodeOp(childId, oldparent, oldRole, oldIndex, newParentId, newRole, newIndex));
   }
@@ -58,7 +59,7 @@ public class OTWriteTransaction implements IWriteTransaction {
   @Override
   public void addNewChild(long parentId, String role, int index, long childId, IConcept concept) {
     if (index == -1) {
-      index = Sequence.fromIterable(getChildren(parentId, role)).count();
+      index = (int) getChildren(parentId, role).count();
     }
     apply(new AddNewChildOp(parentId, role, index, childId, concept));
   }
@@ -67,7 +68,7 @@ public class OTWriteTransaction implements IWriteTransaction {
   public void deleteNode(long nodeId) {
     long parent = getParent(nodeId);
     String role = getRole(nodeId);
-    int index = Sequence.fromIterable(getChildren(parent, role)).indexOf(nodeId);
+    int index = StreamUtil.indexOf(getChildren(parent, role), nodeId);
     apply(new DeleteNodeOp(parent, role, index, nodeId));
   }
 
@@ -78,19 +79,11 @@ public class OTWriteTransaction implements IWriteTransaction {
     return childId;
   }
   @Override
-  public long addNewLazyChild(long parentId, String role, int index, IConcept concept) {
-    throw new UnsupportedOperationException();
-  }
-  @Override
   public boolean containsNode(long nodeId) {
     return transaction.containsNode(nodeId);
   }
   @Override
-  public void ensureLoaded(long nodeId) {
-    throw new UnsupportedOperationException();
-  }
-  @Override
-  public Iterable<Long> getAllChildren(long parentId) {
+  public LongStream getAllChildren(long parentId) {
     return transaction.getAllChildren(parentId);
   }
   @Override
@@ -98,7 +91,7 @@ public class OTWriteTransaction implements IWriteTransaction {
     return otBranch;
   }
   @Override
-  public Iterable<Long> getChildren(long parentId, String role) {
+  public LongStream getChildren(long parentId, String role) {
     return transaction.getChildren(parentId, role);
   }
   @Override
@@ -126,33 +119,8 @@ public class OTWriteTransaction implements IWriteTransaction {
     return transaction.getTree();
   }
   @Override
-  public Object getUserObject(long nodeId, Object key) {
-    return transaction.getUserObject(nodeId, key);
-  }
-  @Override
-  public boolean isLoaded(long nodeId) {
-    throw new UnsupportedOperationException();
-  }
-  @Override
-  public void loadNode(long nodeId) {
-    throw new UnsupportedOperationException();
-  }
-  @Override
   public void setTree(ITree tree) {
     throw new UnsupportedOperationException();
-  }
-  @Override
-  public void setUserObject(long nodeId, Object key, Object value) {
-    throw new UnsupportedOperationException();
-  }
-
-  @Override
-  public void visitNodes(final _FunctionTypes._return_P1_E0<? extends Boolean, ? super INode> visitor) {
-    transaction.visitNodes(new _FunctionTypes._return_P1_E0<Boolean, INode>() {
-      public Boolean invoke(INode node) {
-        return visitor.invoke(wrap(node));
-      }
-    });
   }
 
   protected INode wrap(INode node) {

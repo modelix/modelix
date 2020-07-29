@@ -9,7 +9,7 @@ public class WriteTransaction extends Transaction implements IWriteTransaction {
   private boolean closed = false;
   protected IIdGenerator idGenerator;
 
-  public WriteTransaction(@NotNull ITree tree, PBranch branch, IIdGenerator idGenerator) {
+  public WriteTransaction(@NotNull ITree tree, IBranch branch, IIdGenerator idGenerator) {
     super(branch);
     this.tree = tree;
     this.idGenerator = idGenerator;
@@ -23,11 +23,6 @@ public class WriteTransaction extends Transaction implements IWriteTransaction {
     if (closed) {
       throw new IllegalStateException("Transaction is already closed");
     }
-  }
-
-  @Override
-  public PTree getPTree() {
-    return (PTree) tree;
   }
 
   @Override
@@ -45,12 +40,6 @@ public class WriteTransaction extends Transaction implements IWriteTransaction {
   public void setProperty(long nodeId, String role, String value) {
     checkNotClosed();
     tree = getTree().setProperty(nodeId, role, value);
-  }
-
-  @Override
-  public void setUserObject(long nodeId, Object key, Object value) {
-    checkNotClosed();
-    tree = getPTree().setUserObject(nodeId, key, value);
   }
 
   @Override
@@ -80,22 +69,9 @@ public class WriteTransaction extends Transaction implements IWriteTransaction {
   }
 
   @Override
-  public long addNewLazyChild(long parentId, String role, int index, IConcept concept) {
-    throw new RuntimeException("Lazy nodes require a nodeLoader");
-  }
-
-  @Override
   public void deleteNode(long nodeId) {
     checkNotClosed();
-    for (long child : getTree().getAllChildren(nodeId)) {
-      deleteNode(child);
-    }
+    getTree().getAllChildren(nodeId).forEach(this::deleteNode);
     tree = getTree().deleteNode(nodeId);
-  }
-
-  @Override
-  public void loadNode(long nodeId) {
-    checkNotClosed();
-    tree = getPTree().loadNode(nodeId);
   }
 }

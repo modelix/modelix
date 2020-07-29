@@ -1,11 +1,12 @@
 package org.modelix.model.lazy;
 
-import org.modelix.model.persistent.CPHamtNode;
-import org.modelix.model.persistent.CPHamtLeaf;
-import org.modelix.model.persistent.CPHamtInternal;
-import java.util.List;
-import jetbrains.mps.baseLanguage.closures.runtime._FunctionTypes;
 import org.modelix.model.persistent.CPElement;
+import org.modelix.model.persistent.CPHamtInternal;
+import org.modelix.model.persistent.CPHamtLeaf;
+import org.modelix.model.persistent.CPHamtNode;
+
+import java.util.List;
+import java.util.function.BiPredicate;
 
 public abstract class CLHamtNode<E extends CPHamtNode> {
 
@@ -47,11 +48,7 @@ public abstract class CLHamtNode<E extends CPHamtNode> {
   }
 
   public IBulkQuery.Value<List<String>> getAll(Iterable<Long> keys, final IBulkQuery bulkQuery) {
-    return bulkQuery.map(keys, new _FunctionTypes._return_P1_E0<IBulkQuery.Value<String>, Long>() {
-      public IBulkQuery.Value<String> invoke(Long key) {
-        return get(key, 0, bulkQuery);
-      }
-    });
+    return bulkQuery.map(keys, key -> get(key, 0, bulkQuery));
   }
 
   public CLHamtNode put(long key, String value) {
@@ -78,7 +75,7 @@ public abstract class CLHamtNode<E extends CPHamtNode> {
   public abstract CLHamtNode put(long key, String value, int shift);
   public abstract CLHamtNode remove(long key, int shift);
 
-  public abstract boolean visitEntries(_FunctionTypes._return_P2_E0<? extends Boolean, ? super Long, ? super String> visitor);
+  public abstract boolean visitEntries(BiPredicate<Long, String> visitor);
   public abstract void visitChanges(CLHamtNode oldNode, IChangeVisitor visitor);
 
   public interface IChangeVisitor {

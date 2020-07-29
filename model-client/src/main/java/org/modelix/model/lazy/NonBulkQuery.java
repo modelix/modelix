@@ -1,9 +1,11 @@
 package org.modelix.model.lazy;
 
+import org.modelix.StreamUtil;
+
 import java.util.List;
-import jetbrains.mps.baseLanguage.closures.runtime._FunctionTypes;
-import jetbrains.mps.internal.collections.runtime.Sequence;
-import jetbrains.mps.internal.collections.runtime.ISelector;
+import java.util.function.Consumer;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 public class NonBulkQuery implements IBulkQuery {
 
@@ -14,16 +16,8 @@ public class NonBulkQuery implements IBulkQuery {
   }
 
   @Override
-  public <I, O> IBulkQuery.Value<List<O>> map(Iterable<I> input, final _FunctionTypes._return_P1_E0<? extends IBulkQuery.Value<O>, ? super I> f) {
-    List<O> list = Sequence.fromIterable(input).select(new ISelector<I, IBulkQuery.Value<O>>() {
-      public IBulkQuery.Value<O> select(I it) {
-        return f.invoke(it);
-      }
-    }).select(new ISelector<IBulkQuery.Value<O>, O>() {
-      public O select(IBulkQuery.Value<O> it) {
-        return it.execute();
-      }
-    }).toListSequence();
+  public <I, O> IBulkQuery.Value<List<O>> map(Iterable<I> input, final Function<I, IBulkQuery.Value<O>> f) {
+    List<O> list = StreamUtil.toStream(input).map(f).map(IBulkQuery.Value::execute).collect(Collectors.toList());
     return new Value<List<O>>(list);
   }
 
@@ -33,12 +27,12 @@ public class NonBulkQuery implements IBulkQuery {
   }
 
   @Override
-  public <T> IBulkQuery.Value<T> get(String hash, _FunctionTypes._return_P1_E0<? extends T, ? super String> deserializer) {
+  public <T> IBulkQuery.Value<T> get(String hash, Function<String, T> deserializer) {
     return constant(store.get(hash, deserializer));
   }
 
-  public class Value<T> implements IBulkQuery.Value<T> {
-    private T value;
+  public static class Value<T> implements IBulkQuery.Value<T> {
+    private final T value;
     public Value(T value) {
       this.value = value;
     }
@@ -47,16 +41,16 @@ public class NonBulkQuery implements IBulkQuery {
       return value;
     }
     @Override
-    public <R> IBulkQuery.Value<R> mapBulk(final _FunctionTypes._return_P1_E0<? extends IBulkQuery.Value<R>, ? super T> handler) {
-      return handler.invoke(value);
+    public <R> IBulkQuery.Value<R> mapBulk(final Function<T, IBulkQuery.Value<R>> handler) {
+      return handler.apply(value);
     }
     @Override
-    public <R> IBulkQuery.Value<R> map(_FunctionTypes._return_P1_E0<? extends R, ? super T> handler) {
-      return new Value<R>(handler.invoke(value));
+    public <R> IBulkQuery.Value<R> map(Function<T, R> handler) {
+      return new Value<R>(handler.apply(value));
     }
     @Override
-    public void onSuccess(_FunctionTypes._void_P1_E0<? super T> handler) {
-      handler.invoke(value);
+    public void onSuccess(Consumer<T> handler) {
+      handler.accept(value);
     }
   }
 }

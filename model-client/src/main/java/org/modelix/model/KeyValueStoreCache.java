@@ -1,30 +1,29 @@
 package org.modelix.model;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.collections4.map.LRUMap;
 import org.apache.log4j.LogManager;
-import java.util.Set;
-import jetbrains.mps.internal.collections.runtime.SetSequence;
-import java.util.HashSet;
-import java.util.List;
-import jetbrains.mps.internal.collections.runtime.ListSequence;
-import java.util.ArrayList;
-import java.util.Map;
-import jetbrains.mps.internal.collections.runtime.IMapping;
-import jetbrains.mps.internal.collections.runtime.MapSequence;
+import org.apache.log4j.Logger;
+import org.modelix.StreamUtil;
 import org.modelix.model.persistent.HashUtil;
-import jetbrains.mps.internal.collections.runtime.Sequence;
-import java.util.LinkedHashMap;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.Iterator;
-import jetbrains.mps.internal.collections.runtime.IWhereFilter;
-import jetbrains.mps.internal.collections.runtime.IVisitor;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public class KeyValueStoreCache implements IKeyValueStore {
   private static final Logger LOG = LogManager.getLogger(KeyValueStoreCache.class);
 
   private IKeyValueStore store;
-  private SynchronizedSLRUMap<String, String> cache = new SynchronizedSLRUMap<String, String>(300000, 300000, true);
-  private final Set<String> pendingPrefetches = SetSequence.fromSet(new HashSet<String>());
-  private final List<GetRequest> activeRequests = ListSequence.fromList(new ArrayList<GetRequest>());
+  private Map<String, String> cache = Collections.synchronizedMap(new LRUMap<>(300000));
+  private final Set<String> pendingPrefetches = new HashSet<>();
+  private final List<GetRequest> activeRequests = new ArrayList<>();
 
   public KeyValueStoreCache(IKeyValueStore store) {
     this.store = store;
@@ -32,79 +31,76 @@ public class KeyValueStoreCache implements IKeyValueStore {
 
   @Override
   public void prefetch(String rootKey) {
-    Set<String> processedKeys = SetSequence.fromSet(new HashSet<String>());
-    SetSequence.fromSet(processedKeys).addElement(rootKey);
-    List<String> newKeys = ListSequence.fromListAndArray(new ArrayList<String>(), rootKey);
-    while (ListSequence.fromList(newKeys).isNotEmpty() && SetSequence.fromSet(processedKeys).count() + ListSequence.fromList(newKeys).count() <= 100000) {
+    Set<String> processedKeys = new HashSet<>();
+    processedKeys.add(rootKey);
+    List<String> newKeys = Arrays.asList(rootKey);
+    while (!newKeys.isEmpty() && processedKeys.size() + newKeys.size() <= 100000) {
       synchronized (pendingPrefetches) {
-        ListSequence.fromList(newKeys).removeSequence(SetSequence.fromSet(pendingPrefetches));
+        newKeys.remove(pendingPrefetches);
       }
       List<String> currentKeys = newKeys;
-      newKeys = ListSequence.fromList(new ArrayList<String>());
+      newKeys = new ArrayList<>();
       Map<String, String> loadedEntries;
       synchronized (pendingPrefetches) {
-        SetSequence.fromSet(pendingPrefetches).addSequence(ListSequence.fromList(currentKeys));
+        pendingPrefetches.addAll(currentKeys);
       }
       try {
         loadedEntries = getAll(currentKeys);
-        for (IMapping<String, String> entry : MapSequence.fromMap(loadedEntries)) {
-          SetSequence.fromSet(processedKeys).addElement(entry.key());
-          for (String childKey : HashUtil.extractSha256(entry.value())) {
-            if (SetSequence.fromSet(processedKeys).contains(childKey)) {
+        for (var entry : loadedEntries.entrySet()) {
+          processedKeys.add(entry.getKey());
+          for (String childKey : HashUtil.extractSha256(entry.getValue())) {
+            if (processedKeys.contains(childKey)) {
               continue;
             }
-            ListSequence.fromList(newKeys).addElement(childKey);
+            newKeys.add(childKey);
           }
         }
       } finally {
-        SetSequence.fromSet(pendingPrefetches).removeSequence(ListSequence.fromList(currentKeys));
+        pendingPrefetches.removeAll(currentKeys);
       }
     }
   }
 
   @Override
   public String get(String key) {
-    return MapSequence.fromMap(getAll(Sequence.<String>singleton(key))).get(key);
+    return getAll(Collections.singleton(key)).get(key);
   }
 
   @Override
   public Map<String, String> getAll(Iterable<String> keys_) {
-    List<String> remainingKeys = ListSequence.fromListWithValues(new ArrayList<String>(), keys_);
-    Map<String, String> result = MapSequence.fromMap(new LinkedHashMap<String, String>(16, (float) 0.75, false));
+    List<String> remainingKeys = StreamUtil.toStream(keys_).collect(Collectors.toList());
+    Map<String, String> result = new LinkedHashMap<>(16, (float) 0.75, false);
     synchronized (cache) {
-      Iterator<String> itr = ListSequence.fromList(remainingKeys).iterator();
+      Iterator<String> itr = remainingKeys.iterator();
       while (itr.hasNext()) {
         String key = itr.next();
         String value = cache.get(key);
         // always put even if null to have the same order in the linked hash map as in the input 
-        MapSequence.fromMap(result).put(key, value);
+        result.put(key, value);
         if (value != null) {
           itr.remove();
         }
       }
     }
 
-    if (ListSequence.fromList(remainingKeys).isNotEmpty()) {
-      List<GetRequest> requiredRequest = ListSequence.fromList(new ArrayList<GetRequest>());
+    if (!remainingKeys.isEmpty()) {
+      List<GetRequest> requiredRequest = new ArrayList<>();
       GetRequest newRequest = null;
       synchronized (activeRequests) {
-        for (final GetRequest r : ListSequence.fromList(activeRequests)) {
-          if (ListSequence.fromList(remainingKeys).any(new IWhereFilter<String>() {
-            public boolean accept(String it) {
-              return SetSequence.fromSet(r.keys).contains(it);
-            }
-          })) {
+        for (final GetRequest r : activeRequests) {
+          if (remainingKeys.stream().anyMatch(r.keys::contains)) {
             if (LOG.isDebugEnabled()) {
-              LOG.debug("Reusing an active request: " + SetSequence.fromSet(r.keys).intersect(ListSequence.fromList(remainingKeys)).first() + " (" + SetSequence.fromSet(r.keys).intersect(ListSequence.fromList(remainingKeys)).count() + ")");
+              Set<String> intersection = StreamUtil.intersection(remainingKeys.stream(), r.keys);
+              LOG.debug("Reusing an active request: " + intersection.stream().findFirst().orElse(null) + " (" + intersection.size() + ")");
             }
-            ListSequence.fromList(requiredRequest).addElement(r);
-            ListSequence.fromList(remainingKeys).removeSequence(SetSequence.fromSet(r.keys));
+            requiredRequest.add(r);
+            remainingKeys.removeAll(r.keys);
           }
         }
-        if (ListSequence.fromList(remainingKeys).isNotEmpty()) {
-          newRequest = new GetRequest(SetSequence.fromSetWithValues(new HashSet<String>(), remainingKeys));
-          ListSequence.fromList(requiredRequest).addElement(newRequest);
-          ListSequence.fromList(activeRequests).addElement(newRequest);
+        if (!remainingKeys.isEmpty()) {
+          newRequest = new GetRequest(new HashSet<>(remainingKeys));
+          requiredRequest.add(newRequest);
+          activeRequests.add(newRequest);
         }
       }
 
@@ -113,16 +109,16 @@ public class KeyValueStoreCache implements IKeyValueStore {
           newRequest.execute();
         } finally {
           synchronized (activeRequests) {
-            ListSequence.fromList(activeRequests).removeElement(newRequest);
+            activeRequests.remove(newRequest);
           }
         }
       }
 
-      for (GetRequest req : ListSequence.fromList(requiredRequest)) {
+      for (GetRequest req : requiredRequest) {
         Map<String, String> reqResult = req.waitForResult();
-        for (IMapping<String, String> entry : MapSequence.fromMap(reqResult)) {
-          if (MapSequence.fromMap(result).containsKey(entry.key())) {
-            MapSequence.fromMap(result).put(entry.key(), entry.value());
+        for (var entry : reqResult.entrySet()) {
+          if (result.containsKey(entry.getKey())) {
+            result.put(entry.getKey(), entry.getValue());
           }
         }
       }
@@ -144,11 +140,7 @@ public class KeyValueStoreCache implements IKeyValueStore {
 
   @Override
   public void putAll(Map<String, String> entries) {
-    MapSequence.fromMap(entries).visitAll(new IVisitor<IMapping<String, String>>() {
-      public void visit(IMapping<String, String> it) {
-        cache.put(it.key(), it.value());
-      }
-    });
+    entries.forEach((key, value) -> cache.put(key, value));
     store.putAll(entries);
   }
 
@@ -169,8 +161,8 @@ public class KeyValueStoreCache implements IKeyValueStore {
     public void execute() {
       try {
         Map<String, String> entriesFromStore = store.getAll(keys);
-        for (IMapping<String, String> entry : MapSequence.fromMap(entriesFromStore)) {
-          cache.put(entry.key(), entry.value());
+        for (var entry : entriesFromStore.entrySet()) {
+          cache.put(entry.getKey(), entry.getValue());
         }
         putResult(entriesFromStore);
       } catch (Exception ex) {

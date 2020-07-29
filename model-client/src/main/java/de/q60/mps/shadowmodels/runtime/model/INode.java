@@ -2,6 +2,8 @@ package de.q60.mps.shadowmodels.runtime.model;
 
 import org.jetbrains.annotations.Nullable;
 
+import java.util.stream.Stream;
+
 public interface INode {
   boolean isValid();
   INodeReference getReference();
@@ -10,8 +12,8 @@ public interface INode {
   String getRoleInParent();
   INode getParent();
 
-  Iterable<INode> getChildren(String role);
-  Iterable<INode> getAllChildren();
+  Stream<INode> getChildren(String role);
+  Stream<INode> getAllChildren();
   void addChild(String role, int index, INode node);
   INode addNewChild(String role, int index, @Nullable IConcept concept);
   void removeChild(INode child);

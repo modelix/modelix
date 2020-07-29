@@ -1,11 +1,10 @@
 package de.q60.mps.shadowmodels.runtime.util.pmap;
 
-import org.jetbrains.mps.annotations.Immutable;
-import jetbrains.mps.baseLanguage.closures.runtime._FunctionTypes;
+import org.apache.commons.lang3.mutable.MutableObject;
 import org.jetbrains.annotations.Nullable;
-import jetbrains.mps.baseLanguage.closures.runtime.Wrappers;
 
-@Immutable
+import java.util.function.BiPredicate;
+
 public class LongKeyPMap<V> {
 
   private static final int BITS_PER_LEVEL = 5;
@@ -36,7 +35,7 @@ public class LongKeyPMap<V> {
     return new LongKeyPMap(root.remove(key, 0));
   }
 
-  public void visitEntries(_FunctionTypes._return_P2_E0<? extends Boolean, ? super Long, ? super V> visitor) {
+  public void visitEntries(BiPredicate<Long, V> visitor) {
     root.visitEntries(visitor);
   }
 
@@ -48,7 +47,7 @@ public class LongKeyPMap<V> {
     INode put(long key, @Nullable V value, int shift);
     INode remove(long key, int shift);
     V get(long key, int shift);
-    boolean visitEntries(_FunctionTypes._return_P2_E0<? extends Boolean, ? super Long, ? super V> visitor);
+    boolean visitEntries(BiPredicate<Long, V> visitor);
     void visitChanges(INode<V> oldNode, IChangeVisitor<V> visitor);
   }
 
@@ -58,7 +57,6 @@ public class LongKeyPMap<V> {
     void entryChanged(long key, V oldValue, V newValue);
   }
 
-  @Immutable
   public static class InternalNode<V> implements INode<V> {
     private static INode[] EMPTY_CHILDREN = new INode[0];
     public static final InternalNode EMPTY = new InternalNode(0, EMPTY_CHILDREN);
@@ -145,7 +143,7 @@ public class LongKeyPMap<V> {
     }
 
     @Override
-    public boolean visitEntries(_FunctionTypes._return_P2_E0<? extends Boolean, ? super Long, ? super V> visitor) {
+    public boolean visitEntries(BiPredicate<Long, V> visitor) {
       for (INode<V> child : children) {
         boolean continueVisit = child.visitEntries(visitor);
         if (!(continueVisit)) {
@@ -175,20 +173,16 @@ public class LongKeyPMap<V> {
               if (oldChild == null) {
                 // no change 
               } else {
-                oldChild.visitEntries(new _FunctionTypes._return_P2_E0<Boolean, Long, V>() {
-                  public Boolean invoke(Long key, V value) {
-                    visitor.entryRemoved(key, value);
-                    return true;
-                  }
+                oldChild.visitEntries((key, value) -> {
+                  visitor.entryRemoved(key, value);
+                  return true;
                 });
               }
             } else {
               if (oldChild == null) {
-                child.visitEntries(new _FunctionTypes._return_P2_E0<Boolean, Long, V>() {
-                  public Boolean invoke(Long key, V value) {
-                    visitor.entryAdded(key, value);
-                    return true;
-                  }
+                child.visitEntries((key, value) -> {
+                  visitor.entryAdded(key, value);
+                  return true;
                 });
               } else {
                 child.visitChanges(oldChild, visitor);
@@ -197,17 +191,15 @@ public class LongKeyPMap<V> {
           }
         }
       } else if (oldNode instanceof LeafNode) {
-        visitEntries(new _FunctionTypes._return_P2_E0<Boolean, Long, V>() {
-          public Boolean invoke(Long k, V v) {
-            if (k == ((LeafNode<V>) oldNode).key) {
-              if (v != ((LeafNode<V>) oldNode).value) {
-                visitor.entryChanged(k, ((LeafNode<V>) oldNode).value, v);
-              }
-            } else {
-              visitor.entryAdded(k, v);
+        visitEntries((k, v) -> {
+          if (k == ((LeafNode<V>) oldNode).key) {
+            if (v != ((LeafNode<V>) oldNode).value) {
+              visitor.entryChanged(k, ((LeafNode<V>) oldNode).value, v);
             }
-            return true;
+          } else {
+            visitor.entryAdded(k, v);
           }
+          return true;
         });
       } else {
         throw new RuntimeException("Unknown type: " + oldNode.getClass().getName());
@@ -266,8 +258,8 @@ public class LongKeyPMap<V> {
     }
 
     @Override
-    public boolean visitEntries(_FunctionTypes._return_P2_E0<? extends Boolean, ? super Long, ? super V> visitor) {
-      return visitor.invoke(key, value);
+    public boolean visitEntries(BiPredicate<Long, V> visitor) {
+      return visitor.test(key, value);
     }
 
     @Override
@@ -276,22 +268,20 @@ public class LongKeyPMap<V> {
         return;
       }
 
-      final Wrappers._T<V> oldValue = new Wrappers._T<V>(null);
-      oldNode.visitEntries(new _FunctionTypes._return_P2_E0<Boolean, Long, V>() {
-        public Boolean invoke(Long k, V v) {
-          if (k == LeafNode.this.key) {
-            oldValue.value = v;
-          } else {
-            visitor.entryRemoved(k, v);
-          }
-          return true;
+      final MutableObject<V> oldValue = new MutableObject<>();
+      oldNode.visitEntries((k, v) -> {
+        if (k == LeafNode.this.key) {
+          oldValue.setValue(v);
+        } else {
+          visitor.entryRemoved(k, v);
         }
+        return true;
       });
 
-      if (oldValue.value == null) {
+      if (oldValue.getValue() == null) {
         visitor.entryAdded(key, value);
-      } else if (oldValue.value != this.value) {
-        visitor.entryChanged(this.key, oldValue.value, this.value);
+      } else if (oldValue.getValue() != this.value) {
+        visitor.entryChanged(this.key, oldValue.getValue(), this.value);
       }
     }
   }
@@ -317,7 +307,7 @@ public class LongKeyPMap<V> {
     }
 
     @Override
-    public boolean visitEntries(_FunctionTypes._return_P2_E0<? extends Boolean, ? super Long, ? super V> visitor) {
+    public boolean visitEntries(BiPredicate<Long, V> visitor) {
       return true;
     }
 
@@ -327,11 +317,9 @@ public class LongKeyPMap<V> {
         return;
       }
 
-      oldNode.visitEntries(new _FunctionTypes._return_P2_E0<Boolean, Long, V>() {
-        public Boolean invoke(Long k, V v) {
-          visitor.entryRemoved(k, v);
-          return true;
-        }
+      oldNode.visitEntries((k, v) -> {
+        visitor.entryRemoved(k, v);
+        return true;
       });
     }
   }

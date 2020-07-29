@@ -1,15 +1,14 @@
 package de.q60.mps.shadowmodels.runtime.model.persistent;
 
-import de.q60.mps.shadowmodels.runtime.model.INode;
-import java.util.Objects;
-import de.q60.mps.incremental.runtime.DependencyBroadcaster;
-import org.jetbrains.annotations.Nullable;
 import de.q60.mps.shadowmodels.runtime.model.IConcept;
-import jetbrains.mps.internal.collections.runtime.Sequence;
-import jetbrains.mps.internal.collections.runtime.ISelector;
-import jetbrains.mps.baseLanguage.closures.runtime._FunctionTypes;
+import de.q60.mps.shadowmodels.runtime.model.INode;
 import de.q60.mps.shadowmodels.runtime.model.INodeReference;
 import de.q60.mps.shadowmodels.runtime.model.INodeResolveContext;
+import org.jetbrains.annotations.Nullable;
+import org.modelix.StreamUtil;
+
+import java.util.Objects;
+import java.util.stream.Stream;
 
 public class PNodeAdapter implements INode {
   public static INode wrap(long id, IBranch branch) {
@@ -52,7 +51,7 @@ public class PNodeAdapter implements INode {
   }
 
   protected void notifyAccess() {
-    DependencyBroadcaster.INSTANCE.dependencyAccessed(new PNodeDependency(branch, nodeId));
+//    DependencyBroadcaster.INSTANCE.dependencyAccessed(new PNodeDependency(branch, nodeId));
   }
 
   @Override
@@ -64,37 +63,25 @@ public class PNodeAdapter implements INode {
     return wrap(branch.getWriteTransaction().addNewChild(nodeId, role, index, concept));
   }
   @Override
-  public Iterable<INode> getAllChildren() {
+  public Stream<INode> getAllChildren() {
     notifyAccess();
-    return Sequence.fromIterable(branch.getTransaction().getAllChildren(nodeId)).select(new ISelector<Long, INode>() {
-      public INode select(Long it) {
-        return wrap(it);
-      }
-    });
+    return branch.getTransaction().getAllChildren(nodeId).mapToObj(this::wrap);
   }
   @Override
-  public Iterable<INode> getChildren(String role) {
+  public Stream<INode> getChildren(String role) {
     notifyAccess();
-    return Sequence.fromIterable(branch.getTransaction().getChildren(nodeId, role)).select(new ISelector<Long, INode>() {
-      public INode select(Long it) {
-        return wrap(it);
-      }
-    });
+    return branch.getTransaction().getChildren(nodeId, role).mapToObj(this::wrap);
   }
   @Override
   public IConcept getConcept() {
     notifyAccess();
-    return branch.computeRead(new _FunctionTypes._return_P0_E0<IConcept>() {
-      public IConcept invoke() {
-        return branch.getTransaction().getConcept(nodeId);
-      }
-    });
+    return branch.computeRead(() -> branch.getTransaction().getConcept(nodeId));
   }
   @Override
   public INode getParent() {
     notifyAccess();
     long parent = branch.getTransaction().getParent(nodeId);
-    if (parent == 0 || parent == PTree.ROOT_ID) {
+    if (parent == 0 || parent == ITree.ROOT_ID) {
       return null;
     }
     return wrap(parent);
@@ -103,10 +90,6 @@ public class PNodeAdapter implements INode {
   public String getPropertyValue(String role) {
     notifyAccess();
     return branch.getTransaction().getProperty(nodeId, role);
-  }
-  public Object getUserObject(Object key) {
-    notifyAccess();
-    return branch.getTransaction().getUserObject(nodeId, key);
   }
   @Override
   public INodeReference getReference() {
@@ -143,9 +126,6 @@ public class PNodeAdapter implements INode {
   @Override
   public void setPropertyValue(String role, String value) {
     branch.getWriteTransaction().setProperty(nodeId, role, value);
-  }
-  public void setUserObject(Object key, Object value) {
-    branch.getWriteTransaction().setUserObject(nodeId, key, value);
   }
   @Override
   public void setReferenceTarget(String role, INode target) {
@@ -187,11 +167,7 @@ public class PNodeAdapter implements INode {
   public String toString() {
     IConcept concept = null;
     try {
-      concept = branch.computeRead(new _FunctionTypes._return_P0_E0<IConcept>() {
-        public IConcept invoke() {
-          return branch.getTransaction().getConcept(nodeId);
-        }
-      });
+      concept = branch.computeRead(() -> branch.getTransaction().getConcept(nodeId));
     } catch (Exception ex) {
     }
     String str = "PNode" + nodeId;

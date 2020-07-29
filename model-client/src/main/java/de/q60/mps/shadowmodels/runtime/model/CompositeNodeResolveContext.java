@@ -1,10 +1,11 @@
 package de.q60.mps.shadowmodels.runtime.model;
 
+import org.modelix.StreamUtil;
+
+import java.util.Arrays;
 import java.util.List;
-import jetbrains.mps.internal.collections.runtime.Sequence;
-import jetbrains.mps.internal.collections.runtime.ListSequence;
-import jetbrains.mps.internal.collections.runtime.ISelector;
-import jetbrains.mps.internal.collections.runtime.IWhereFilter;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class CompositeNodeResolveContext implements INodeResolveContext {
   public static void withAdditionalContext(INodeResolveContext context, Runnable runnable) {
@@ -19,23 +20,15 @@ public class CompositeNodeResolveContext implements INodeResolveContext {
   private List<INodeResolveContext> contexts;
 
   public CompositeNodeResolveContext(Iterable<INodeResolveContext> contexts) {
-    this.contexts = Sequence.fromIterable(contexts).toListSequence();
+    this.contexts = StreamUtil.toStream(contexts).collect(Collectors.toList());
   }
 
   public CompositeNodeResolveContext(INodeResolveContext... contexts) {
-    this(Sequence.fromArray(contexts));
+    this(Arrays.asList(contexts));
   }
 
   @Override
   public INode resolve(final INodeReference ref) {
-    return ListSequence.fromList(contexts).select(new ISelector<INodeResolveContext, INode>() {
-      public INode select(INodeResolveContext it) {
-        return it.resolve(ref);
-      }
-    }).findFirst(new IWhereFilter<INode>() {
-      public boolean accept(INode it) {
-        return it != null;
-      }
-    });
+    return contexts.stream().map(it -> it.resolve(ref)).filter(Objects::nonNull).findFirst().orElse(null);
   }
 }

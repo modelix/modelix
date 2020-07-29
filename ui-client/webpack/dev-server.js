@@ -10,6 +10,6 @@ module.exports = {
   historyApiFallback: false,
   watchOptions: {
     aggregateTimeout: 300,
-    poll: 500
+    poll: 500.
   }
 };

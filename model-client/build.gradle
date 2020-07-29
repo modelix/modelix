@@ -12,4 +12,14 @@ repositories {
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
     compile group: 'org.jetbrains', name: 'annotations', version: '19.0.0'
+    compile group: 'io.vavr', name: 'vavr', version: '0.10.3'
+    compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.11'
+    compile group: 'com.google.guava', name: 'guava', version: '29.0-jre'
+    compile group: 'log4j', name: 'log4j', version:'1.2.17'
+    compile group: 'org.glassfish.jersey.core', name: 'jersey-client', version: '2.31'
+    compile group: 'commons-io', name: 'commons-io', version: '2.7'
+    compile group: 'org.json', name: 'json', version: '20200518'
+    compile group: 'net.sf.trove4j', name: 'trove4j', version: '3.0.3'
+    compile group: 'org.apache.commons', name: 'commons-collections4', version: '4.4'
+
 }

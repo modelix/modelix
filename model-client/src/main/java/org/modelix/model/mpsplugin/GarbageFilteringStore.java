@@ -1,23 +1,22 @@
 package org.modelix.model.mpsplugin;
 
-import org.modelix.model.IKeyValueStore;
-import java.util.Map;
-import jetbrains.mps.internal.collections.runtime.MapSequence;
-import java.util.HashMap;
-import java.util.Collections;
-import java.util.List;
-import jetbrains.mps.internal.collections.runtime.ListSequence;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.Iterator;
-import jetbrains.mps.internal.collections.runtime.IMapping;
-import org.modelix.model.persistent.HashUtil;
+import org.modelix.StreamUtil;
 import org.modelix.model.IKeyListener;
+import org.modelix.model.IKeyValueStore;
+import org.modelix.model.persistent.HashUtil;
+
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public class GarbageFilteringStore implements IKeyValueStore {
 
   private IKeyValueStore store;
-  private Map<String, String> pendingEntries = MapSequence.fromMap(new HashMap<String, String>());
+  private Map<String, String> pendingEntries = new HashMap<>();
 
   public GarbageFilteringStore(IKeyValueStore store) {
     this.store = store;
@@ -25,7 +24,7 @@ public class GarbageFilteringStore implements IKeyValueStore {
 
   @Override
   public String get(String key) {
-    return (MapSequence.fromMap(pendingEntries).containsKey(key) ? MapSequence.fromMap(pendingEntries).get(key) : store.get(key));
+    return (pendingEntries.containsKey(key) ? pendingEntries.get(key) : store.get(key));
   }
 
   @Override
@@ -35,39 +34,39 @@ public class GarbageFilteringStore implements IKeyValueStore {
 
   @Override
   public Map<String, String> getAll(Iterable<String> keys_) {
-    List<String> keys = ListSequence.fromListWithValues(new ArrayList<String>(), keys_);
-    Map<String, String> result = MapSequence.fromMap(new LinkedHashMap<String, String>(16, (float) 0.75, false));
+    List<String> keys = StreamUtil.toStream(keys_).collect(Collectors.toList());
+    Map<String, String> result = new LinkedHashMap<>(16, (float) 0.75, false);
     synchronized (pendingEntries) {
-      Iterator<String> itr = ListSequence.fromList(keys).iterator();
+      Iterator<String> itr = keys.iterator();
       while (itr.hasNext()) {
         String key = itr.next();
         // always put even if null to have the same order in the linked hash map as in the input 
-        MapSequence.fromMap(result).put(key, MapSequence.fromMap(pendingEntries).get(key));
-        if (MapSequence.fromMap(pendingEntries).containsKey(key)) {
+        result.put(key, pendingEntries.get(key));
+        if (pendingEntries.containsKey(key)) {
           itr.remove();
         }
       }
     }
-    if (ListSequence.fromList(keys).isNotEmpty()) {
-      MapSequence.fromMap(result).putAll(store.getAll(keys));
+    if (!keys.isEmpty()) {
+      result.putAll(store.getAll(keys));
     }
     return result;
   }
 
   @Override
   public void putAll(Map<String, String> entries) {
-    Map<String, String> entriesToWrite = MapSequence.fromMap(new LinkedHashMap<String, String>(16, (float) 0.75, false));
-    for (IMapping<String, String> entry : MapSequence.fromMap(entries)) {
-      if (HashUtil.isSha256(entry.key())) {
-        MapSequence.fromMap(pendingEntries).put(entry.key(), entry.value());
+    Map<String, String> entriesToWrite = new LinkedHashMap<String, String>(16, (float) 0.75, false);
+    for (var entry : entries.entrySet()) {
+      if (HashUtil.isSha256(entry.getKey())) {
+        pendingEntries.put(entry.getKey(), entry.getValue());
       } else {
-        collectDependencies(entry.key(), entry.value(), entriesToWrite);
+        collectDependencies(entry.getKey(), entry.getValue(), entriesToWrite);
       }
     }
-    if (MapSequence.fromMap(entriesToWrite).isNotEmpty()) {
-      if (MapSequence.fromMap(entriesToWrite).count() == 1) {
-        IMapping<String, String> entry = MapSequence.fromMap(entriesToWrite).first();
-        store.put(entry.key(), entry.value());
+    if (!entriesToWrite.isEmpty()) {
+      var entry = entriesToWrite.entrySet().stream().findFirst();
+      if (entry.isPresent()) {
+        store.put(entry.get().getKey(), entry.get().getValue());
       } else {
         store.putAll(entriesToWrite);
       }
@@ -76,12 +75,12 @@ public class GarbageFilteringStore implements IKeyValueStore {
 
   protected void collectDependencies(String key, String value, Map<String, String> acc) {
     for (String depKey : HashUtil.extractSha256(value)) {
-      if (MapSequence.fromMap(pendingEntries).containsKey(depKey)) {
-        String depValue = MapSequence.fromMap(pendingEntries).removeKey(depKey);
+      if (pendingEntries.containsKey(depKey)) {
+        String depValue = pendingEntries.remove(depKey);
         collectDependencies(depKey, depValue, acc);
       }
     }
-    MapSequence.fromMap(acc).put(key, value);
+    acc.put(key, value);
   }
 
   @Override

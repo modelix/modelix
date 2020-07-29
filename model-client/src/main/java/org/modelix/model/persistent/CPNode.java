@@ -1,28 +1,20 @@
 package org.modelix.model.persistent;
 
-import org.apache.log4j.Logger;
-import org.apache.log4j.LogManager;
-import jetbrains.mps.baseLanguage.closures.runtime._FunctionTypes;
-import org.apache.log4j.Level;
-import jetbrains.mps.internal.collections.runtime.IterableUtils;
-import jetbrains.mps.internal.collections.runtime.Sequence;
-import jetbrains.mps.internal.collections.runtime.ArrayUtils;
-import jetbrains.mps.internal.collections.runtime.ISelector;
-import java.util.Arrays;
-import java.util.List;
-import jetbrains.mps.internal.collections.runtime.ListSequence;
-import java.util.Iterator;
-import jetbrains.mps.internal.collections.runtime.IWhereFilter;
 import de.q60.mps.shadowmodels.runtime.util.pmap.COWArrays;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.List;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 public class CPNode extends CPElement {
   private static final Logger LOG = LogManager.getLogger(CPNode.class);
   private static final long[] EMPTY_LONG_ARRAY = new long[0];
-  public static final _FunctionTypes._return_P1_E0<? extends CPNode, ? super String> DESERIALIZER = new _FunctionTypes._return_P1_E0<CPNode, String>() {
-    public CPNode invoke(String s) {
-      return deserialize(s);
-    }
-  };
+  public static final Function<String, CPNode> DESERIALIZER = s -> deserialize(s);
 
   public static CPNode create(long id, String concept, long parentId, String roleInParent, long[] childrenIds, String[] propertyRoles, String[] propertyValues, String[] referenceRoles, CPElementRef[] referenceTargets) {
     checkForDuplicates(childrenIds);
@@ -45,18 +37,6 @@ public class CPNode extends CPElement {
   protected CPNode(long id1, String concept, long parentId1, String roleInParent1, long[] childrenIds1, String[] propertyRoles, String[] propertyValues, String[] referenceRoles, CPElementRef[] referenceTargets) {
     super(id1, parentId1, roleInParent1);
 
-    // TODO remove this fix once there is no more broken data 
-    if (hasDuplicates(childrenIds1)) {
-      if (LOG.isEnabledFor(Level.WARN)) {
-        LOG.warn("Duplicate children fixed in " + Long.toHexString(id1) + ": " + IterableUtils.join(Sequence.fromIterable(ArrayUtils.fromLongArray(childrenIds1)).select(new ISelector<Long, String>() {
-          public String select(Long it) {
-            return Long.toHexString(it);
-          }
-        }), ", "), new Exception());
-      }
-      childrenIds1 = removeDuplicates(childrenIds1);
-    }
-
     this.childrenIds = childrenIds1;
     this.concept = concept;
     this.propertyRoles = propertyRoles;
@@ -75,25 +55,6 @@ public class CPNode extends CPElement {
       }
     }
   }
-  private static boolean hasDuplicates(long[] values) {
-    long[] copy = new long[values.length];
-    System.arraycopy(values, 0, copy, 0, values.length);
-    Arrays.sort(copy);
-    for (int i = 1; i < copy.length; i++) {
-      if (copy[i - 1] == copy[i]) {
-        return true;
-      }
-    }
-    return false;
-  }
-  private static long[] removeDuplicates(long[] values) {
-    List<Long> noDuplicates = Sequence.fromIterable(ArrayUtils.fromLongArray(values)).distinct().toListSequence();
-    long[] result = new long[ListSequence.fromList(noDuplicates).count()];
-    for (int i = 0; i < result.length; i++) {
-      result[i] = ListSequence.fromList(noDuplicates).getElement(i);
-    }
-    return result;
-  }
 
   @Override
   public String serialize() {
@@ -107,16 +68,12 @@ public class CPNode extends CPElement {
     sb.append("/");
     sb.append(SerializationUtil.escape(roleInParent));
     sb.append("/");
-    sb.append(IterableUtils.join(Sequence.fromIterable(ArrayUtils.fromLongArray(childrenIds)).select(new ISelector<Long, String>() {
-      public String select(Long it) {
-        return SerializationUtil.longToHex(it);
-      }
-    }), ","));
+    sb.append(Arrays.stream(childrenIds).mapToObj(SerializationUtil::longToHex).reduce((a, b) -> a + ", " + b));
     sb.append("/");
     boolean first = true;
     {
-      Iterator<String> role_it = Sequence.fromArray(propertyRoles).iterator();
-      Iterator<String> value_it = Sequence.fromArray(propertyValues).iterator();
+      Iterator<String> role_it = Arrays.stream(propertyRoles).iterator();
+      Iterator<String> value_it = Arrays.stream(propertyValues).iterator();
       String role_var;
       String value_var;
       while (role_it.hasNext() && value_it.hasNext()) {
@@ -133,8 +90,8 @@ public class CPNode extends CPElement {
     sb.append("/");
     first = true;
     {
-      Iterator<String> role_it = Sequence.fromArray(referenceRoles).iterator();
-      Iterator<CPElementRef> value_it = Sequence.fromArray(referenceTargets).iterator();
+      Iterator<String> role_it = Arrays.stream(referenceRoles).iterator();
+      Iterator<CPElementRef> value_it = Arrays.stream(referenceTargets).iterator();
       String role_var;
       CPElementRef value_var;
       while (role_it.hasNext() && value_it.hasNext()) {
@@ -156,57 +113,38 @@ public class CPNode extends CPElement {
     try {
       String[] parts = input.split("/", -1);
 
-      Iterable<String[]> properties = Sequence.fromIterable(Sequence.fromArray(parts[5].split(","))).where(new IWhereFilter<String>() {
-        public boolean accept(String it) {
-          return (it != null && it.length() > 0);
-        }
-      }).select(new ISelector<String, String[]>() {
-        public String[] select(String it) {
-          return it.split("=", -1);
-        }
-      });
-      Iterable<String[]> references = Sequence.fromIterable(Sequence.fromArray(parts[6].split(","))).where(new IWhereFilter<String>() {
-        public boolean accept(String it) {
-          return (it != null && it.length() > 0);
-        }
-      }).select(new ISelector<String, String[]>() {
-        public String[] select(String it) {
-          return it.split("=", -1);
-        }
-      });
+      List<String[]> properties = Arrays.stream(parts[5].split(","))
+              .filter(StringUtils::isNotEmpty)
+              .map(it -> it.split("=", -1))
+              .collect(Collectors.toList());
+      List<String[]> references = Arrays.stream(parts[6].split(","))
+              .filter(StringUtils::isNotEmpty)
+              .map(it -> it.split("=", -1))
+              .collect(Collectors.toList());
 
-      return new CPNode(SerializationUtil.longFromHex(parts[0]), SerializationUtil.unescape(parts[1]), SerializationUtil.longFromHex(parts[2]), SerializationUtil.unescape(parts[3]), ArrayUtils.toLongArray(Sequence.fromIterable(Sequence.fromArray(parts[4].split(","))).where(new IWhereFilter<String>() {
-        public boolean accept(String it) {
-          return (it != null && it.length() > 0);
-        }
-      }).select(new ISelector<String, Long>() {
-        public Long select(String it) {
-          return SerializationUtil.longFromHex(it);
-        }
-      })), Sequence.fromIterable(properties).select(new ISelector<String[], String>() {
-        public String select(String[] it) {
-          return SerializationUtil.unescape(it[0]);
-        }
-      }).toGenericArray(String.class), Sequence.fromIterable(properties).select(new ISelector<String[], String>() {
-        public String select(String[] it) {
-          return SerializationUtil.unescape(it[1]);
-        }
-      }).toGenericArray(String.class), Sequence.fromIterable(references).select(new ISelector<String[], String>() {
-        public String select(String[] it) {
-          return SerializationUtil.unescape(it[0]);
-        }
-      }).toGenericArray(String.class), Sequence.fromIterable(references).select(new ISelector<String[], CPElementRef>() {
-        public CPElementRef select(String[] it) {
-          return CPElementRef.fromString(SerializationUtil.unescape(it[1]));
-        }
-      }).toGenericArray(CPElementRef.class));
+      return new CPNode(
+              SerializationUtil.longFromHex(parts[0]),
+              SerializationUtil.unescape(parts[1]),
+              SerializationUtil.longFromHex(parts[2]),
+              SerializationUtil.unescape(parts[3]),
+              Arrays.stream(parts[4].split(","))
+                      .filter(StringUtils::isNotEmpty)
+                      .mapToLong(SerializationUtil::longFromHex)
+                      .toArray(),
+              properties.stream().map(it -> SerializationUtil.unescape(it[0])).toArray(String[]::new),
+              properties.stream().map(it -> SerializationUtil.unescape(it[1])).toArray(String[]::new),
+              references.stream().map(it -> SerializationUtil.unescape(it[0])).toArray(String[]::new),
+              references.stream()
+                      .map(it -> CPElementRef.fromString(SerializationUtil.unescape(it[1])))
+                      .toArray(CPElementRef[]::new)
+      );
     } catch (Exception ex) {
       throw new RuntimeException("Failed to deserialize " + input, ex);
     }
   }
 
   public Iterable<Long> getChildrenIds() {
-    return ArrayUtils.fromLongArray(childrenIds);
+    return Arrays.stream(childrenIds)::iterator;
   }
 
   public long[] getChildrenIdArray() {

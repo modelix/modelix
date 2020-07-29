@@ -1,32 +1,30 @@
 package org.modelix.model;
 
-import org.modelix.model.lazy.IDeserializingKeyValueStore;
-import de.q60.mps.shadowmodels.runtime.model.persistent.IIdGenerator;
-import org.jetbrains.annotations.NotNull;
-import org.modelix.model.lazy.CLVersion;
-import java.util.Objects;
-import java.util.List;
-import jetbrains.mps.baseLanguage.closures.runtime.Wrappers;
-import org.modelix.model.lazy.CLTree;
 import de.q60.mps.shadowmodels.runtime.model.persistent.IBranch;
-import de.q60.mps.shadowmodels.runtime.model.persistent.PBranch;
-import jetbrains.mps.internal.collections.runtime.ListSequence;
-import jetbrains.mps.internal.collections.runtime.ILeftCombinator;
-import jetbrains.mps.baseLanguage.closures.runtime._FunctionTypes;
+import de.q60.mps.shadowmodels.runtime.model.persistent.IIdGenerator;
+import de.q60.mps.shadowmodels.runtime.model.persistent.ITree;
 import de.q60.mps.shadowmodels.runtime.model.persistent.IWriteTransaction;
-import org.modelix.model.operations.IAppliedOperation;
-import java.util.ArrayList;
+import de.q60.mps.shadowmodels.runtime.model.persistent.PBranch;
 import gnu.trove.set.TLongSet;
 import gnu.trove.set.hash.TLongHashSet;
-import org.modelix.model.operations.IOperation;
-import jetbrains.mps.internal.collections.runtime.ISelector;
-import jetbrains.mps.internal.collections.runtime.Sequence;
+import org.apache.commons.lang3.mutable.MutableObject;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import java.util.Set;
-import jetbrains.mps.internal.collections.runtime.SetSequence;
-import java.util.HashSet;
-import de.q60.mps.shadowmodels.runtime.model.persistent.ITree;
+import org.modelix.StreamUtil;
+import org.modelix.model.lazy.CLTree;
+import org.modelix.model.lazy.CLVersion;
+import org.modelix.model.lazy.IDeserializingKeyValueStore;
+import org.modelix.model.operations.IAppliedOperation;
+import org.modelix.model.operations.IOperation;
 import org.modelix.model.persistent.CPVersion;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public class VersionMerger {
 
@@ -72,7 +70,7 @@ public class VersionMerger {
     final List<CLVersion> leftHistory = getHistory(leftVersionHash, commonBase);
     final List<CLVersion> rightHistory = getHistory(rightVersionHash, commonBase);
 
-    final Wrappers._T<CLVersion> mergedVersion = new Wrappers._T<CLVersion>(null);
+    final MutableObject<CLVersion> mergedVersion = new MutableObject<>();
 
     CLTree tree = getVersion(commonBase).getTree();
     if (tree == null) {
@@ -80,67 +78,67 @@ public class VersionMerger {
     }
     final IBranch branch = new PBranch(tree);
 
-    if (ListSequence.fromList(rightHistory).isEmpty() || ListSequence.fromList(leftHistory).isEmpty()) {
-      List<CLVersion> fastForwardHistory = (ListSequence.fromList(leftHistory).isEmpty() ? rightHistory : leftHistory);
-      int numOps = ListSequence.fromList(fastForwardHistory).foldLeft(0, new ILeftCombinator<CLVersion, Integer>() {
-        public Integer combine(Integer s, CLVersion it) {
-          return Math.max(0, it.getNumberOfOperations());
-        }
-      });
+    if (rightHistory.isEmpty() || leftHistory.isEmpty()) {
+      List<CLVersion> fastForwardHistory = leftHistory.isEmpty() ? rightHistory : leftHistory;
+      int numOps = fastForwardHistory.stream().map(CLVersion::getNumberOfOperations).reduce(0, Math::max);
       if (numOps > 100) {
-        return ListSequence.fromList(fastForwardHistory).first();
+        return fastForwardHistory.get(0);
       }
       // A small number of changes may be faster to compute locally. 
     }
 
-    branch.runWrite(new _FunctionTypes._void_P0_E0() {
-      public void invoke() {
-        IWriteTransaction t = branch.getWriteTransaction();
+    branch.runWrite(() -> {
+      IWriteTransaction t = branch.getWriteTransaction();
 
-        List<IAppliedOperation> leftAppliedOps = ListSequence.fromList(new ArrayList<IAppliedOperation>());
-        List<IAppliedOperation> rightAppliedOps = ListSequence.fromList(new ArrayList<IAppliedOperation>());
-        TLongSet appliedVersionIds = new TLongHashSet();
-        while (ListSequence.fromList(leftHistory).isNotEmpty() || ListSequence.fromList(rightHistory).isNotEmpty()) {
-          boolean useLeft = ListSequence.fromList(rightHistory).isEmpty() || ListSequence.fromList(leftHistory).isNotEmpty() && ListSequence.fromList(leftHistory).last().getId() < ListSequence.fromList(rightHistory).last().getId();
-          CLVersion versionToApply = (useLeft ? ListSequence.fromList(leftHistory).removeLastElement() : ListSequence.fromList(rightHistory).removeLastElement());
-          if (appliedVersionIds.contains(versionToApply.getId())) {
-            continue;
-          }
-          appliedVersionIds.add(versionToApply.getId());
-          final Iterable<IOperation> oppositeAppliedOps = ListSequence.fromList(((useLeft ? rightAppliedOps : leftAppliedOps))).select(new ISelector<IAppliedOperation, IOperation>() {
-            public IOperation select(IAppliedOperation it) {
-              return it.getOriginalOp();
-            }
-          });
-          List<IOperation> operationsToApply = Sequence.fromIterable(versionToApply.getOperations()).select(new ISelector<IOperation, IOperation>() {
-            public IOperation select(IOperation it) {
-              return transformOperation(it, oppositeAppliedOps);
-            }
-          }).toListSequence();
-          for (IOperation op : ListSequence.fromList(operationsToApply)) {
-            IAppliedOperation appliedOp = op.apply(t);
-            if (useLeft) {
-              ListSequence.fromList(leftAppliedOps).addElement(appliedOp);
-            } else {
-              ListSequence.fromList(rightAppliedOps).addElement(appliedOp);
-            }
-          }
-
-          mergedVersion.value = new CLVersion(versionToApply.getId(), versionToApply.getTime(), versionToApply.getAuthor(), ((CLTree) t.getTree()).getHash(), (mergedVersion.value != null ? mergedVersion.value.getHash() : versionToApply.getPreviousHash()), ListSequence.fromList(operationsToApply).toGenericArray(IOperation.class), storeCache);
+      List<IAppliedOperation> leftAppliedOps = new ArrayList<>();
+      List<IAppliedOperation> rightAppliedOps = new ArrayList<>();
+      TLongSet appliedVersionIds = new TLongHashSet();
+      while (!leftHistory.isEmpty() || !rightHistory.isEmpty()) {
+        boolean useLeft = rightHistory.isEmpty() || !leftHistory.isEmpty() && StreamUtil.last(leftHistory).getId() < StreamUtil.last(rightHistory).getId();
+        CLVersion versionToApply = StreamUtil.removeLast(useLeft ? leftHistory : rightHistory);
+        if (appliedVersionIds.contains(versionToApply.getId())) {
+          continue;
         }
+        appliedVersionIds.add(versionToApply.getId());
+        final List<IOperation> oppositeAppliedOps = (useLeft ? rightAppliedOps : leftAppliedOps).stream()
+                .map(IAppliedOperation::getOriginalOp)
+                .collect(Collectors.toList());
+        List<IOperation> operationsToApply = StreamUtil.toStream(versionToApply.getOperations())
+                .map(it -> transformOperation(it, oppositeAppliedOps))
+                .collect(Collectors.toList());
+        for (IOperation op : operationsToApply) {
+          IAppliedOperation appliedOp = op.apply(t);
+          if (useLeft) {
+            leftAppliedOps.add(appliedOp);
+          } else {
+            rightAppliedOps.add(appliedOp);
+          }
+        }
+
+        mergedVersion.setValue(new CLVersion(
+                versionToApply.getId(),
+                versionToApply.getTime(),
+                versionToApply.getAuthor(),
+                ((CLTree) t.getTree()).getHash(),
+                mergedVersion.getValue() != null
+                        ? mergedVersion.getValue().getHash()
+                        : versionToApply.getPreviousHash(),
+                operationsToApply.toArray(new IOperation[operationsToApply.size()]),
+                storeCache
+        ));
       }
     });
 
-    if (mergedVersion.value == null) {
+    if (mergedVersion.getValue() == null) {
       throw new RuntimeException("Failed to merge " + leftVersionHash + " and " + rightVersionHash);
     }
 
-    return mergedVersion.value;
+    return mergedVersion.getValue();
   }
 
   protected IOperation transformOperation(IOperation opToTransform, Iterable<IOperation> previousOps) {
     IOperation result = opToTransform;
-    for (IOperation previous : Sequence.fromIterable(previousOps)) {
+    for (IOperation previous : previousOps) {
       result = result.transform(previous);
     }
     return result;
@@ -154,7 +152,7 @@ public class VersionMerger {
    * @return Newest version first
    */
   protected List<CLVersion> getHistory(@NotNull String fromVersion, @Nullable String toVersionExclusive) {
-    List<CLVersion> history = ListSequence.fromList(new ArrayList<CLVersion>());
+    List<CLVersion> history = new ArrayList<CLVersion>();
     if (Objects.equals(fromVersion, toVersionExclusive)) {
       return history;
     }
@@ -163,7 +161,7 @@ public class VersionMerger {
       if (version == null) {
         break;
       }
-      ListSequence.fromList(history).addElement(version);
+      history.add(version);
       if (version.getPreviousHash() == null) {
         break;
       }
@@ -177,40 +175,40 @@ public class VersionMerger {
 
   protected String commonBaseVersion(String leftHash, String rightHash) {
 
-    Set<String> leftVersions = SetSequence.fromSet(new HashSet<String>());
-    Set<String> rightVersions = SetSequence.fromSet(new HashSet<String>());
+    Set<String> leftVersions = new HashSet<>();
+    Set<String> rightVersions = new HashSet<>();
 
     while (leftHash != null || rightHash != null) {
       if (leftHash != null) {
-        SetSequence.fromSet(leftVersions).addElement(leftHash);
+        leftVersions.add(leftHash);
       }
       if (rightHash != null) {
-        SetSequence.fromSet(rightVersions).addElement(rightHash);
+        rightVersions.add(rightHash);
       }
 
       if (leftHash != null) {
-        if (SetSequence.fromSet(rightVersions).contains(leftHash)) {
+        if (rightVersions.contains(leftHash)) {
           return leftHash;
         }
       }
       if (rightHash != null) {
-        if (SetSequence.fromSet(leftVersions).contains(rightHash)) {
+        if (leftVersions.contains(rightHash)) {
           return rightHash;
         }
       }
 
       if (leftHash != null) {
-        leftHash = check_bh6rd5_a0a0g0e0s(getVersion(leftHash), this);
+        leftHash = Optional.ofNullable(getVersion(leftHash)).map(CLVersion::getPreviousHash).orElse(null);
       }
       if (rightHash != null) {
-        rightHash = check_bh6rd5_a0a0h0e0s(getVersion(rightHash), this);
+        rightHash = Optional.ofNullable(getVersion(rightHash)).map(CLVersion::getPreviousHash).orElse(null);
       }
     }
 
     return null;
   }
 
-  private CLVersion getVersion(String hash) {
+  private @Nullable CLVersion getVersion(String hash) {
     if (hash == null) {
       return null;
     }
@@ -222,17 +220,5 @@ public class VersionMerger {
       return null;
     }
     return new CLTree(version.treeHash, storeCache);
-  }
-  private static String check_bh6rd5_a0a0g0e0s(CLVersion checkedDotOperand, VersionMerger checkedDotThisExpression) {
-    if (null != checkedDotOperand) {
-      return checkedDotOperand.getPreviousHash();
-    }
-    return null;
-  }
-  private static String check_bh6rd5_a0a0h0e0s(CLVersion checkedDotOperand, VersionMerger checkedDotThisExpression) {
-    if (null != checkedDotOperand) {
-      return checkedDotOperand.getPreviousHash();
-    }
-    return null;
   }
 }

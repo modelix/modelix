@@ -1,25 +1,25 @@
 package org.modelix.model.operations;
 
 import de.q60.mps.shadowmodels.runtime.model.persistent.IBranch;
-import de.q60.mps.shadowmodels.runtime.model.persistent.IIdGenerator;
-import java.util.List;
-import jetbrains.mps.internal.collections.runtime.ListSequence;
-import java.util.ArrayList;
-import jetbrains.mps.baseLanguage.tuples.runtime.Tuples;
-import de.q60.mps.shadowmodels.runtime.model.persistent.ITree;
-import jetbrains.mps.baseLanguage.tuples.runtime.MultiTuple;
-import jetbrains.mps.baseLanguage.closures.runtime._FunctionTypes;
 import de.q60.mps.shadowmodels.runtime.model.persistent.IBranchListener;
+import de.q60.mps.shadowmodels.runtime.model.persistent.IIdGenerator;
 import de.q60.mps.shadowmodels.runtime.model.persistent.IReadTransaction;
 import de.q60.mps.shadowmodels.runtime.model.persistent.ITransaction;
+import de.q60.mps.shadowmodels.runtime.model.persistent.ITree;
 import de.q60.mps.shadowmodels.runtime.model.persistent.IWriteTransaction;
+import io.vavr.Tuple;
+import io.vavr.Tuple2;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Supplier;
 
 public class OTBranch implements IBranch {
 
   private IBranch branch;
   private IIdGenerator idGenerator;
-  private List<IAppliedOperation> operations = ListSequence.fromList(new ArrayList<IAppliedOperation>());
-  private Object operationsLock = new Object();
+  private List<IAppliedOperation> operations = new ArrayList<>();
+  private final Object operationsLock = new Object();
 
   public OTBranch(IBranch branch, IIdGenerator idGenerator) {
     this.branch = branch;
@@ -28,25 +28,21 @@ public class OTBranch implements IBranch {
 
   public void operationApplied(IAppliedOperation op) {
     synchronized (operationsLock) {
-      ListSequence.fromList(operations).addElement(op);
+      operations.add(op);
     }
   }
 
   public List<IAppliedOperation> getNewOperations() {
     synchronized (operationsLock) {
       List<IAppliedOperation> result = operations;
-      operations = ListSequence.fromList(new ArrayList<IAppliedOperation>());
+      operations = new ArrayList<IAppliedOperation>();
       return result;
     }
   }
 
-  public Tuples._2<List<IAppliedOperation>, ITree> getOperationsAndTree() {
+  public Tuple2<List<IAppliedOperation>, ITree> getOperationsAndTree() {
     synchronized (operationsLock) {
-      return MultiTuple.<List<IAppliedOperation>,ITree>from(getNewOperations(), computeRead(new _FunctionTypes._return_P0_E0<ITree>() {
-        public ITree invoke() {
-          return getTransaction().getTree();
-        }
-      }));
+      return Tuple.of(getNewOperations(), computeRead(() -> getTransaction().getTree()));
     }
   }
 
@@ -67,12 +63,12 @@ public class OTBranch implements IBranch {
     return branch.canWrite();
   }
   @Override
-  public <T> T computeRead(_FunctionTypes._return_P0_E0<? extends T> computable) {
+  public <T> T computeRead(Supplier<T> computable) {
     checkNotEDT();
     return branch.computeRead(computable);
   }
   @Override
-  public <T> T computeWrite(_FunctionTypes._return_P0_E0<? extends T> computable) {
+  public <T> T computeWrite(Supplier<T> computable) {
     checkNotEDT();
     return branch.computeWrite(computable);
   }
@@ -89,12 +85,12 @@ public class OTBranch implements IBranch {
     return wrap(branch.getWriteTransaction());
   }
   @Override
-  public void runRead(_FunctionTypes._void_P0_E0 runnable) {
+  public void runRead(Runnable runnable) {
     checkNotEDT();
     branch.runRead(runnable);
   }
   @Override
-  public void runWrite(_FunctionTypes._void_P0_E0 runnable) {
+  public void runWrite(Runnable runnable) {
     checkNotEDT();
     branch.runWrite(runnable);
   }

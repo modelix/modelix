@@ -1,23 +1,23 @@
 package org.modelix.model.lazy;
 
+import org.apache.commons.collections4.map.LRUMap;
+import org.modelix.StreamUtil;
 import org.modelix.model.IKeyValueStore;
-import org.modelix.model.SynchronizedSLRUMap;
-import jetbrains.mps.baseLanguage.closures.runtime._FunctionTypes;
-import java.util.List;
-import jetbrains.mps.internal.collections.runtime.Sequence;
-import java.util.Map;
-import jetbrains.mps.internal.collections.runtime.MapSequence;
-import java.util.HashMap;
-import jetbrains.mps.internal.collections.runtime.ListSequence;
+
 import java.util.ArrayList;
-import jetbrains.mps.internal.collections.runtime.IMapping;
-import jetbrains.mps.internal.collections.runtime.ISelector;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.function.BiFunction;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 public class ObjectStoreCache implements IDeserializingKeyValueStore {
   private static final Object NULL = new Object();
 
   private IKeyValueStore store;
-  private final SynchronizedSLRUMap<String, Object> cache = new SynchronizedSLRUMap(100000, 100000);
+  private final Map<String, Object> cache = Collections.synchronizedMap(new LRUMap<>(100000));
 
   public ObjectStoreCache(IKeyValueStore store1) {
     store = store1;
@@ -29,42 +29,38 @@ public class ObjectStoreCache implements IDeserializingKeyValueStore {
   }
 
   @Override
-  public <T> Iterable<T> getAll(Iterable<String> hashes_, _FunctionTypes._return_P2_E0<? extends T, ? super String, ? super String> deserializer) {
-    List<String> hashes = Sequence.fromIterable(hashes_).toListSequence();
-    final Map<String, T> result = MapSequence.fromMap(new HashMap<String, T>());
-    List<String> nonCachedHashes = ListSequence.fromList(new ArrayList<String>(ListSequence.fromList(hashes).count()));
+  public <T> Iterable<T> getAll(Iterable<String> hashes_, BiFunction<String, String, T> deserializer) {
+    List<String> hashes = StreamUtil.toStream(hashes_).collect(Collectors.toList());
+    final Map<String, T> result = new HashMap<>();
+    List<String> nonCachedHashes = new ArrayList<>(hashes.size());
 
     for (String hash : hashes) {
       T deserialized = (T) cache.get(hash);
       if (deserialized == null) {
-        ListSequence.fromList(nonCachedHashes).addElement(hash);
+        nonCachedHashes.add(hash);
       } else {
-        MapSequence.fromMap(result).put(hash, (deserialized == NULL ? null : deserialized));
+        result.put(hash, (deserialized == NULL ? null : deserialized));
       }
     }
 
-    if (ListSequence.fromList(nonCachedHashes).isNotEmpty()) {
-      for (IMapping<String, String> entry : MapSequence.fromMap(store.getAll(nonCachedHashes))) {
-        String hash = entry.key();
-        String serialized = entry.value();
+    if (!nonCachedHashes.isEmpty()) {
+      for (Map.Entry<String, String> entry : store.getAll(nonCachedHashes).entrySet()) {
+        String hash = entry.getKey();
+        String serialized = entry.getValue();
         if (serialized == null) {
-          MapSequence.fromMap(result).put(hash, null);
+          result.put(hash, null);
         } else {
-          T deserialized = deserializer.invoke(hash, serialized);
+          T deserialized = deserializer.apply(hash, serialized);
           cache.put(hash, (deserialized == null ? NULL : deserialized));
-          MapSequence.fromMap(result).put(hash, deserialized);
+          result.put(hash, deserialized);
         }
       }
     }
 
-    return ListSequence.fromList(hashes).select(new ISelector<String, T>() {
-      public T select(String it) {
-        return MapSequence.fromMap(result).get(it);
-      }
-    });
+    return hashes.stream().map(result::get)::iterator;
   }
 
-  public <T> T get(String hash, _FunctionTypes._return_P1_E0<? extends T, ? super String> deserializer) {
+  public <T> T get(String hash, Function<String, T> deserializer) {
     if (hash == null) {
       return null;
     }
@@ -74,7 +70,7 @@ public class ObjectStoreCache implements IDeserializingKeyValueStore {
       if (serialized == null) {
         return null;
       }
-      deserialized = deserializer.invoke(serialized);
+      deserialized = deserializer.apply(serialized);
       cache.put(hash, (deserialized == null ? NULL : deserialized));
     }
     return (deserialized == NULL ? null : deserialized);

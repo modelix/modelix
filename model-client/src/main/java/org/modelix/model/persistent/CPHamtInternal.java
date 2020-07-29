@@ -1,7 +1,6 @@
 package org.modelix.model.persistent;
 
-import jetbrains.mps.internal.collections.runtime.IterableUtils;
-import jetbrains.mps.internal.collections.runtime.Sequence;
+import java.util.Arrays;
 
 public class CPHamtInternal extends CPHamtNode {
 
@@ -19,6 +18,6 @@ public class CPHamtInternal extends CPHamtNode {
 
   @Override
   public String serialize() {
-    return "I/" + SerializationUtil.intToHex(bitmap) + "/" + IterableUtils.join(Sequence.fromIterable(Sequence.fromArray(children)), ",");
+    return "I/" + SerializationUtil.intToHex(bitmap) + "/" + Arrays.stream(children).reduce((a, b) -> a + ", " + b);
   }
 }

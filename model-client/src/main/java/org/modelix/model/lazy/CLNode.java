@@ -1,14 +1,12 @@
 package org.modelix.model.lazy;
 
-import org.modelix.model.persistent.CPNode;
 import org.modelix.model.persistent.CPElementRef;
-import jetbrains.mps.baseLanguage.closures.runtime._FunctionTypes;
-import jetbrains.mps.internal.collections.runtime.ISequence;
-import jetbrains.mps.internal.collections.runtime.Sequence;
-import jetbrains.mps.internal.collections.runtime.ISelector;
+import org.modelix.model.persistent.CPNode;
+
 import java.util.List;
-import jetbrains.mps.internal.collections.runtime.ListSequence;
-import jetbrains.mps.internal.collections.runtime.ITranslator2;
+import java.util.function.Function;
+import java.util.stream.Stream;
+import java.util.stream.StreamSupport;
 
 public class CLNode extends CLElement {
 
@@ -26,42 +24,22 @@ public class CLNode extends CLElement {
   }
 
   public IBulkQuery.Value<Iterable<CLNode>> getChildren(IBulkQuery bulkQuery) {
-    return tree.resolveElements(getData().getChildrenIds(), bulkQuery).map(new _FunctionTypes._return_P1_E0<ISequence<CLNode>, Iterable<CLNode>>() {
-      public ISequence<CLNode> invoke(Iterable<CLNode> elements) {
-        return Sequence.fromIterable(elements).select(new ISelector<CLNode, CLNode>() {
-          public CLNode select(CLNode it) {
-            return (CLNode) it;
-          }
-        });
-      }
-    });
+    return tree.resolveElements(getData().getChildrenIds(), bulkQuery).map(elements -> elements);
   }
 
   public IBulkQuery.Value<Iterable<CLNode>> getDescendants(final IBulkQuery bulkQuery, boolean includeSelf) {
     if (includeSelf) {
-      return getDescendants(bulkQuery, false).map(new _FunctionTypes._return_P1_E0<ISequence<CLNode>, Iterable<CLNode>>() {
-        public ISequence<CLNode> invoke(Iterable<CLNode> descendants) {
-          return Sequence.fromIterable(Sequence.<CLNode>singleton(CLNode.this)).concat(Sequence.fromIterable(descendants));
-        }
-      });
+      return getDescendants(bulkQuery, false)
+              .map(descendants -> Stream.concat(
+                      Stream.of(this),
+                      StreamSupport.stream(descendants.spliterator(), false)
+              )::iterator);
     } else {
-      return getChildren(bulkQuery).mapBulk(new _FunctionTypes._return_P1_E0<IBulkQuery.Value<Iterable<CLNode>>, Iterable<CLNode>>() {
-        public IBulkQuery.Value<Iterable<CLNode>> invoke(Iterable<CLNode> children) {
-          IBulkQuery.Value<Iterable<CLNode>> d = bulkQuery.map(children, new _FunctionTypes._return_P1_E0<IBulkQuery.Value<Iterable<CLNode>>, CLNode>() {
-            public IBulkQuery.Value<Iterable<CLNode>> invoke(CLNode child) {
-              return child.getDescendants(bulkQuery, true);
-            }
-          }).map(new _FunctionTypes._return_P1_E0<ISequence<CLNode>, List<Iterable<CLNode>>>() {
-            public ISequence<CLNode> invoke(List<Iterable<CLNode>> it) {
-              return ListSequence.fromList(it).translate(new ITranslator2<Iterable<CLNode>, CLNode>() {
-                public Iterable<CLNode> translate(Iterable<CLNode> it) {
-                  return it;
-                }
-              });
-            }
-          });
-          return d;
-        }
+      return getChildren(bulkQuery).mapBulk(children -> {
+        IBulkQuery.Value<Iterable<CLNode>> d = bulkQuery
+                .map(children, child -> child.getDescendants(bulkQuery, true))
+                .map(it -> it.stream().flatMap(n -> StreamSupport.stream(n.spliterator(), false))::iterator);
+        return d;
       });
     }
   }

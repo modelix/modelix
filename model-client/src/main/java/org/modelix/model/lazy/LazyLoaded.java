@@ -1,7 +1,5 @@
 package org.modelix.model.lazy;
 
-import jetbrains.mps.baseLanguage.closures.runtime._FunctionTypes;
-
 public abstract class LazyLoaded<E> {
 
   protected String hash;
@@ -17,11 +15,7 @@ public abstract class LazyLoaded<E> {
       return;
     }
     try {
-      E deserialized = store.get(hash, new _FunctionTypes._return_P1_E0<E, String>() {
-        public E invoke(String serialized) {
-          return deserialize(serialized);
-        }
-      });
+      E deserialized = store.get(hash, this::deserialize);
       init(deserialized);
     } finally {
       store = null;

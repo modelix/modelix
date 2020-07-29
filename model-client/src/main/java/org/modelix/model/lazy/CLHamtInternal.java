@@ -1,12 +1,13 @@
 package org.modelix.model.lazy;
 
-import org.modelix.model.persistent.CPHamtInternal;
-import org.modelix.model.persistent.HashUtil;
-import jetbrains.mps.baseLanguage.closures.runtime._FunctionTypes;
-import org.modelix.model.persistent.CPHamtNode;
-import de.q60.mps.shadowmodels.runtime.util.pmap.LongKeyPMap;
 import de.q60.mps.shadowmodels.runtime.util.pmap.COWArrays;
+import de.q60.mps.shadowmodels.runtime.util.pmap.LongKeyPMap;
+import org.modelix.model.persistent.CPHamtInternal;
+import org.modelix.model.persistent.CPHamtNode;
+import org.modelix.model.persistent.HashUtil;
+
 import java.util.Objects;
+import java.util.function.BiPredicate;
 
 public class CLHamtInternal extends CLHamtNode<CPHamtInternal> {
 
@@ -51,13 +52,11 @@ public class CLHamtInternal extends CLHamtNode<CPHamtInternal> {
   @Override
   public IBulkQuery.Value<String> get(final long key, final int shift, final IBulkQuery bulkQuery) {
     int childIndex = (int) ((key >>> shift) & LEVEL_MASK);
-    return getChild(childIndex, bulkQuery).mapBulk(new _FunctionTypes._return_P1_E0<IBulkQuery.Value<String>, CLHamtNode>() {
-      public IBulkQuery.Value<String> invoke(CLHamtNode child) {
-        if (child == null) {
-          return bulkQuery.<String>constant(null);
-        }
-        return child.get(key, shift + BITS_PER_LEVEL, bulkQuery);
+    return getChild(childIndex, bulkQuery).mapBulk(child -> {
+      if (child == null) {
+        return bulkQuery.<String>constant(null);
       }
+      return child.get(key, shift + BITS_PER_LEVEL, bulkQuery);
     });
   }
 
@@ -70,11 +69,7 @@ public class CLHamtInternal extends CLHamtNode<CPHamtInternal> {
   }
 
   protected IBulkQuery.Value<CLHamtNode> getChild(String childHash, IBulkQuery bulkQuery) {
-    return bulkQuery.get(childHash, CPHamtNode.DESERIALIZER).map(new _FunctionTypes._return_P1_E0<CLHamtNode, CPHamtNode>() {
-      public CLHamtNode invoke(CPHamtNode childData) {
-        return CLHamtNode.create(childData, store);
-      }
-    });
+    return bulkQuery.get(childHash, CPHamtNode.DESERIALIZER).map(childData -> CLHamtNode.create(childData, store));
   }
 
   protected CLHamtNode getChild(int logicalIndex) {
@@ -120,7 +115,7 @@ public class CLHamtInternal extends CLHamtNode<CPHamtInternal> {
   }
 
   @Override
-  public boolean visitEntries(_FunctionTypes._return_P2_E0<? extends Boolean, ? super Long, ? super String> visitor) {
+  public boolean visitEntries(BiPredicate<Long, String> visitor) {
     for (String childHash : data.children) {
       CLHamtNode child = getChild(childHash);
       boolean continueVisit = child.visitEntries(visitor);
@@ -152,8 +147,8 @@ public class CLHamtInternal extends CLHamtNode<CPHamtInternal> {
             if (oldChild == null) {
               // no change 
             } else {
-              oldChild.visitEntries(new _FunctionTypes._return_P2_E0<Boolean, Long, String>() {
-                public Boolean invoke(Long key, String value) {
+              oldChild.visitEntries(new BiPredicate<Long, String>() {
+                public boolean test(Long key, String value) {
                   visitor.entryRemoved(key, value);
                   return true;
                 }
@@ -161,8 +156,8 @@ public class CLHamtInternal extends CLHamtNode<CPHamtInternal> {
             }
           } else {
             if (oldChild == null) {
-              child.visitEntries(new _FunctionTypes._return_P2_E0<Boolean, Long, String>() {
-                public Boolean invoke(Long key, String value) {
+              child.visitEntries(new BiPredicate<Long, String>() {
+                public boolean test(Long key, String value) {
                   visitor.entryAdded(key, value);
                   return true;
                 }
@@ -175,8 +170,8 @@ public class CLHamtInternal extends CLHamtNode<CPHamtInternal> {
       }
     } else if (oldNode instanceof CLHamtLeaf) {
       final CLHamtLeaf oldLeafNode = ((CLHamtLeaf) oldNode);
-      visitEntries(new _FunctionTypes._return_P2_E0<Boolean, Long, String>() {
-        public Boolean invoke(Long k, String v) {
+      visitEntries(new BiPredicate<Long, String>() {
+        public boolean test(Long k, String v) {
           if (k == oldLeafNode.getKey()) {
             String oldValue = oldLeafNode.getValue();
             if (!(Objects.equals(v, oldValue))) {

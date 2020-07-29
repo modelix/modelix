@@ -1,27 +1,26 @@
 package org.modelix.model.mpsplugin;
 
-import org.modelix.model.IKeyValueStore;
-import org.apache.log4j.Logger;
-import org.apache.log4j.LogManager;
-import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.Map;
-import jetbrains.mps.internal.collections.runtime.MapSequence;
-import java.util.LinkedHashMap;
-import org.modelix.model.IKeyListener;
-import java.util.List;
-import jetbrains.mps.internal.collections.runtime.ListSequence;
-import java.util.ArrayList;
-import java.util.Iterator;
-import jetbrains.mps.internal.collections.runtime.IMapping;
-import java.util.Objects;
 import org.apache.log4j.Level;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+import org.modelix.StreamUtil;
+import org.modelix.model.IKeyListener;
+import org.modelix.model.IKeyValueStore;
+
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.stream.Collectors;
 
 public class AsyncStore implements IKeyValueStore {
   private static final Logger LOG = LogManager.getLogger(AsyncStore.class);
   private IKeyValueStore store;
 
   private final AtomicBoolean consumerActive = new AtomicBoolean();
-  private Map<String, String> pendingWrites = MapSequence.fromMap(new LinkedHashMap<String, String>(16, (float) 0.75, false));
+  private final Map<String, String> pendingWrites = new LinkedHashMap<>(16, (float) 0.75, false);
 
   public AsyncStore(IKeyValueStore store) {
     this.store = store;
@@ -30,8 +29,8 @@ public class AsyncStore implements IKeyValueStore {
   @Override
   public String get(String key) {
     synchronized (pendingWrites) {
-      if (MapSequence.fromMap(pendingWrites).containsKey(key)) {
-        return MapSequence.fromMap(pendingWrites).get(key);
+      if (pendingWrites.containsKey(key)) {
+        return pendingWrites.get(key);
       }
     }
     return store.get(key);
@@ -50,28 +49,28 @@ public class AsyncStore implements IKeyValueStore {
   @Override
   public void put(final String key, final String value) {
     synchronized (pendingWrites) {
-      MapSequence.fromMap(pendingWrites).put(key, value);
+      pendingWrites.put(key, value);
     }
     processQueue();
   }
 
   @Override
   public Map<String, String> getAll(Iterable<String> keys_) {
-    List<String> keys = ListSequence.fromListWithValues(new ArrayList<String>(), keys_);
-    Map<String, String> result = MapSequence.fromMap(new LinkedHashMap<String, String>(16, (float) 0.75, false));
+    List<String> keys = StreamUtil.toStream(keys_).collect(Collectors.toList());
+    Map<String, String> result = new LinkedHashMap<>(16, (float) 0.75, false);
     synchronized (pendingWrites) {
-      Iterator<String> itr = ListSequence.fromList(keys).iterator();
+      Iterator<String> itr = keys.iterator();
       while (itr.hasNext()) {
         String key = itr.next();
         // always put even if null to have the same order in the linked hash map as in the input 
-        MapSequence.fromMap(result).put(key, MapSequence.fromMap(pendingWrites).get(key));
-        if (MapSequence.fromMap(pendingWrites).containsKey(key)) {
+        result.put(key, pendingWrites.get(key));
+        if (pendingWrites.containsKey(key)) {
           itr.remove();
         }
       }
     }
-    if (ListSequence.fromList(keys).isNotEmpty()) {
-      MapSequence.fromMap(result).putAll(store.getAll(keys));
+    if (!keys.isEmpty()) {
+      result.putAll(store.getAll(keys));
     }
     return result;
   }
@@ -79,7 +78,7 @@ public class AsyncStore implements IKeyValueStore {
   @Override
   public void putAll(Map<String, String> entries) {
     synchronized (pendingWrites) {
-      MapSequence.fromMap(pendingWrites).putAll(entries);
+      pendingWrites.putAll(entries);
     }
     processQueue();
   }
@@ -94,17 +93,17 @@ public class AsyncStore implements IKeyValueStore {
       SharedExecutors.FIXED.execute(new Runnable() {
         public void run() {
           try {
-            while (MapSequence.fromMap(pendingWrites).isNotEmpty()) {
+            while (!pendingWrites.isEmpty()) {
               try {
-                Map<String, String> entries = MapSequence.fromMap(new LinkedHashMap<String, String>(16, (float) 0.75, false));
+                Map<String, String> entries = new LinkedHashMap<String, String>(16, (float) 0.75, false);
                 synchronized (pendingWrites) {
-                  MapSequence.fromMap(entries).putAll(pendingWrites);
+                  entries.putAll(pendingWrites);
                 }
                 store.putAll(entries);
                 synchronized (pendingWrites) {
-                  for (IMapping<String, String> entry : MapSequence.fromMap(entries)) {
-                    if (Objects.equals(MapSequence.fromMap(pendingWrites).get(entry.key()), entry.value())) {
-                      MapSequence.fromMap(pendingWrites).removeKey(entry.key());
+                  for (var entry : entries.entrySet()) {
+                    if (Objects.equals(pendingWrites.get(entry.getKey()), entry.getValue())) {
+                      pendingWrites.remove(entry.getKey());
                     }
                   }
                 }

@@ -1,11 +1,11 @@
 package org.modelix.model.persistent;
 
-import org.modelix.model.IKeyValueStore;
-import java.util.Map;
 import gnu.trove.map.hash.THashMap;
-import jetbrains.mps.internal.collections.runtime.MapSequence;
-import java.util.LinkedHashMap;
 import org.modelix.model.IKeyListener;
+import org.modelix.model.IKeyValueStore;
+
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 public class MapBaseStore implements IKeyValueStore {
 
@@ -23,9 +23,9 @@ public class MapBaseStore implements IKeyValueStore {
 
   @Override
   public Map<String, String> getAll(Iterable<String> keys) {
-    Map<String, String> result = MapSequence.fromMap(new LinkedHashMap<String, String>(16, (float) 0.75, false));
+    Map<String, String> result = new LinkedHashMap<>(16, (float) 0.75, false);
     for (String key : keys) {
-      MapSequence.fromMap(result).put(key, map.get(key));
+      result.put(key, map.get(key));
     }
     return result;
   }

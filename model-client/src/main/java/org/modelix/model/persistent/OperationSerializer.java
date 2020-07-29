@@ -1,22 +1,18 @@
 package org.modelix.model.persistent;
 
+import de.q60.mps.shadowmodels.runtime.model.IConcept;
+import de.q60.mps.shadowmodels.runtime.model.INodeReference;
+import de.q60.mps.shadowmodels.runtime.model.persistent.PNodeReference;
 import org.modelix.model.operations.AddNewChildOp;
 import org.modelix.model.operations.DeleteNodeOp;
+import org.modelix.model.operations.IOperation;
 import org.modelix.model.operations.MoveNodeOp;
 import org.modelix.model.operations.NoOp;
 import org.modelix.model.operations.SetPropertyOp;
 import org.modelix.model.operations.SetReferenceOp;
-import java.util.Map;
-import org.modelix.model.operations.IOperation;
-import jetbrains.mps.internal.collections.runtime.MapSequence;
+
 import java.util.HashMap;
-import de.q60.mps.shadowmodels.runtime.model.IConcept;
-import jetbrains.mps.smodel.adapter.structure.concept.SAbstractConceptAdapter;
-import de.q60.mps.shadowmodels.runtime.smodel.SConceptAdapter;
-import de.q60.mps.shadowmodels.runtime.model.INodeReference;
-import de.q60.mps.shadowmodels.runtime.model.persistent.PNodeReference;
-import de.q60.mps.shadowmodels.runtime.smodel.SNodeReferenceAdapter;
-import jetbrains.mps.smodel.SNodePointer;
+import java.util.Map;
 
 public class OperationSerializer {
 
@@ -99,19 +95,19 @@ public class OperationSerializer {
 
   private static final String SEPARATOR = ";";
 
-  private Map<Class<? extends IOperation>, Serializer> serializers = MapSequence.fromMap(new HashMap<Class<? extends IOperation>, Serializer>());
-  private Map<String, Serializer> deserializers = MapSequence.fromMap(new HashMap<String, Serializer>());
+  private Map<Class<? extends IOperation>, Serializer> serializers = new HashMap<>();
+  private Map<String, Serializer> deserializers = new HashMap<>();
 
   private OperationSerializer() {
   }
 
   public <T extends IOperation> void registerSerializer(Class<T> type, Serializer<T> serializer) {
-    MapSequence.fromMap(serializers).put(type, serializer);
-    MapSequence.fromMap(deserializers).put(type.getSimpleName(), serializer);
+    serializers.put(type, serializer);
+    deserializers.put(type.getSimpleName(), serializer);
   }
 
   public String serialize(IOperation op) {
-    Serializer serializer = MapSequence.fromMap(serializers).get(op.getClass());
+    Serializer serializer = serializers.get(op.getClass());
     if (serializer == null) {
       throw new RuntimeException("Unknown operation type: " + op.getClass().getSimpleName());
     }
@@ -120,7 +116,7 @@ public class OperationSerializer {
 
   public IOperation deserialize(String serialized) {
     String[] parts = serialized.split(SEPARATOR, 2);
-    Serializer deserializer = MapSequence.fromMap(deserializers).get(parts[0]);
+    Serializer deserializer = deserializers.get(parts[0]);
     if (deserializer == null) {
       throw new RuntimeException("Unknown operation type: " + parts[0]);
     }
@@ -134,11 +130,13 @@ public class OperationSerializer {
   }
 
   public static String serializeConcept(IConcept concept) {
-    return SerializationUtil.escape(((SAbstractConceptAdapter) ((SConceptAdapter) concept).getAdapted()).serialize());
+//    return SerializationUtil.escape(((SAbstractConceptAdapter) ((SConceptAdapter) concept).getAdapted()).serialize());
+    throw new UnsupportedOperationException();
   }
 
   public static IConcept deserializeConcept(String serialized) {
-    return new SConceptAdapter(SAbstractConceptAdapter.deserialize(SerializationUtil.unescape(serialized)));
+//    return new SConceptAdapter(SAbstractConceptAdapter.deserialize(SerializationUtil.unescape(serialized)));
+    throw new UnsupportedOperationException();
   }
 
   public static String serializeReference(INodeReference object) {
@@ -146,8 +144,8 @@ public class OperationSerializer {
       return "";
     } else if (object instanceof PNodeReference) {
       return SerializationUtil.longToHex(((PNodeReference) object).getId());
-    } else if (object instanceof SNodeReferenceAdapter) {
-      return SerializationUtil.escape(SNodePointer.serialize(((SNodeReferenceAdapter) object).getReference()));
+//    } else if (object instanceof SNodeReferenceAdapter) {
+//      return SerializationUtil.escape(SNodePointer.serialize(((SNodeReferenceAdapter) object).getReference()));
     } else {
       throw new RuntimeException("Unknown reference type: " + object.getClass().getName());
     }
@@ -160,6 +158,7 @@ public class OperationSerializer {
     if (serialized.matches("[a-fA-F0-9]+")) {
       return new PNodeReference(SerializationUtil.longFromHex(serialized));
     }
-    return new SNodeReferenceAdapter(SNodePointer.deserialize(SerializationUtil.unescape(serialized)));
+//    return new SNodeReferenceAdapter(SNodePointer.deserialize(SerializationUtil.unescape(serialized)));
+    throw new RuntimeException("Cannot deserialize concept: " + serialized);
   }
 }

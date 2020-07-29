@@ -1,19 +1,20 @@
 package org.modelix.model.lazy;
 
-import java.util.List;
-import jetbrains.mps.baseLanguage.tuples.runtime.Tuples;
-import jetbrains.mps.baseLanguage.closures.runtime._FunctionTypes;
-import jetbrains.mps.internal.collections.runtime.ListSequence;
+import io.vavr.Tuple;
+import io.vavr.Tuple3;
+import org.apache.commons.lang3.mutable.MutableInt;
+
 import java.util.ArrayList;
-import java.util.Map;
-import jetbrains.mps.internal.collections.runtime.MapSequence;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
-import jetbrains.mps.internal.collections.runtime.Sequence;
-import jetbrains.mps.baseLanguage.tuples.runtime.MultiTuple;
-import jetbrains.mps.internal.collections.runtime.ISelector;
-import java.util.Collections;
-import jetbrains.mps.baseLanguage.closures.runtime.Wrappers;
+import java.util.List;
+import java.util.Map;
+import java.util.function.Consumer;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 /**
  * Not thread safe
@@ -21,45 +22,37 @@ import jetbrains.mps.baseLanguage.closures.runtime.Wrappers;
 public class BulkQuery implements IBulkQuery {
 
   private IDeserializingKeyValueStore store;
-  private List<Tuples._3<String, _FunctionTypes._return_P1_E0<? extends Object, ? super String>, _FunctionTypes._void_P1_E0<? super Object>>> queue = ListSequence.fromList(new ArrayList<Tuples._3<String, _FunctionTypes._return_P1_E0<? extends Object, ? super String>, _FunctionTypes._void_P1_E0<? super Object>>>());
+  private List<Tuple3<String, Function<String, ?>, Consumer<Object>>> queue = new ArrayList<>();
   private boolean processing = false;
 
   public BulkQuery(IDeserializingKeyValueStore store) {
     this.store = store;
   }
 
-  protected Map<String, Object> executeBulkQuery(Iterable<String> keys, final Map<String, _FunctionTypes._return_P1_E0<? extends Object, ? super String>> deserializers) {
-    Iterable<Object> values = store.getAll(keys, new _FunctionTypes._return_P2_E0<Object, String, String>() {
-      public Object invoke(String key, String serialized) {
-        return MapSequence.fromMap(deserializers).get(key).invoke(serialized);
-      }
-    });
-    Map<String, Object> result = MapSequence.fromMap(new HashMap<String, Object>());
+  protected Map<String, Object> executeBulkQuery(Iterable<String> keys, final Map<String, Function<String, ?>> deserializers) {
+    Iterable<Object> values = store.getAll(keys, (key, serialized) -> deserializers.get(key).apply(serialized));
+    Map<String, Object> result = new HashMap<>();
     {
-      Iterator<String> key_it = Sequence.fromIterable(keys).iterator();
-      Iterator<Object> value_it = Sequence.fromIterable(values).iterator();
+      Iterator<String> key_it = keys.iterator();
+      Iterator<Object> value_it = values.iterator();
       String key_var;
       Object value_var;
       while (key_it.hasNext() && value_it.hasNext()) {
         key_var = key_it.next();
         value_var = value_it.next();
-        MapSequence.fromMap(result).put(key_var, value_var);
+        result.put(key_var, value_var);
       }
     }
     return result;
   }
 
-  public void query(String key, _FunctionTypes._return_P1_E0<? extends Object, ? super String> deserializer, _FunctionTypes._void_P1_E0<? super Object> callback) {
-    ListSequence.fromList(queue).addElement(MultiTuple.<String,_FunctionTypes._return_P1_E0<? extends Object, ? super String>,_FunctionTypes._void_P1_E0<? super Object>>from(key, deserializer, callback));
+  public void query(String key, Function<String, ?> deserializer, Consumer<Object> callback) {
+    queue.add(Tuple.of(key, deserializer, callback));
   }
 
-  public <T> IBulkQuery.Value<T> get(String hash, _FunctionTypes._return_P1_E0<? extends T, ? super String> deserializer) {
-    final Value<T> result = new Value<T>();
-    query(hash, deserializer, new _FunctionTypes._void_P1_E0<Object>() {
-      public void invoke(Object value) {
-        result.success((T) value);
-      }
-    });
+  public <T> IBulkQuery.Value<T> get(String hash, Function<String, T> deserializer) {
+    final Value<T> result = new Value<>();
+    query(hash, deserializer, value -> result.success((T) value));
     return result;
   }
 
@@ -73,22 +66,18 @@ public class BulkQuery implements IBulkQuery {
     }
     processing = true;
     try {
-      while (!(ListSequence.fromList(queue).isEmpty())) {
-        final List<Tuples._3<String, _FunctionTypes._return_P1_E0<? extends Object, ? super String>, _FunctionTypes._void_P1_E0<? super Object>>> currentRequests = queue;
-        queue = ListSequence.fromList(new ArrayList<Tuples._3<String, _FunctionTypes._return_P1_E0<? extends Object, ? super String>, _FunctionTypes._void_P1_E0<? super Object>>>());
+      while (!queue.isEmpty()) {
+        final List<Tuple3<String, Function<String, ?>, Consumer<Object>>> currentRequests = queue;
+        queue = new ArrayList<>();
 
-        Map<String, _FunctionTypes._return_P1_E0<? extends Object, ? super String>> deserializers = MapSequence.fromMap(new HashMap<String, _FunctionTypes._return_P1_E0<? extends Object, ? super String>>());
-        for (Tuples._3<String, _FunctionTypes._return_P1_E0<? extends Object, ? super String>, _FunctionTypes._void_P1_E0<? super Object>> request : ListSequence.fromList(currentRequests)) {
-          MapSequence.fromMap(deserializers).put(request._0(), request._1());
+        Map<String, Function<String, ?>> deserializers = new HashMap<>();
+        for (Tuple3<String, Function<String, ?>, Consumer<Object>> request : currentRequests) {
+          deserializers.put(request._1(), request._2());
         }
 
-        final Map<String, Object> entries = executeBulkQuery(ListSequence.fromList(currentRequests).select(new ISelector<Tuples._3<String, _FunctionTypes._return_P1_E0<? extends Object, ? super String>, _FunctionTypes._void_P1_E0<? super Object>>, String>() {
-          public String select(Tuples._3<String, _FunctionTypes._return_P1_E0<? extends Object, ? super String>, _FunctionTypes._void_P1_E0<? super Object>> it) {
-            return it._0();
-          }
-        }).distinct(), deserializers);
-        for (Tuples._3<String, _FunctionTypes._return_P1_E0<? extends Object, ? super String>, _FunctionTypes._void_P1_E0<? super Object>> request : ListSequence.fromList(currentRequests)) {
-          request._2().invoke(MapSequence.fromMap(entries).get(request._0()));
+        final Map<String, Object> entries = executeBulkQuery(currentRequests.stream().map(Tuple3::_1).distinct()::iterator, deserializers);
+        for (Tuple3<String, Function<String, ?>, Consumer<Object>> request : currentRequests) {
+          request._3().accept(entries.get(request._1()));
         }
       }
     } finally {
@@ -96,31 +85,27 @@ public class BulkQuery implements IBulkQuery {
     }
   }
 
-  public <I, O> IBulkQuery.Value<List<O>> map(Iterable<I> input_, _FunctionTypes._return_P1_E0<? extends IBulkQuery.Value<O>, ? super I> f) {
-    List<I> input = Sequence.fromIterable(input_).toListSequence();
-    if (ListSequence.fromList(input).isEmpty()) {
+  public <I, O> IBulkQuery.Value<List<O>> map(Iterable<I> input_, Function<I, IBulkQuery.Value<O>> f) {
+    List<I> input = StreamSupport.stream(input_.spliterator(), false).collect(Collectors.toList());
+    if (input.isEmpty()) {
       return constant(Collections.<O>emptyList());
     }
-    final Object[] output = new Object[ListSequence.fromList(input).count()];
-    final boolean[] done = new boolean[ListSequence.fromList(input).count()];
-    final Wrappers._int remaining = new Wrappers._int(ListSequence.fromList(input).count());
-    final Value<List<O>> result = new Value();
-    for (int i_ = 0; i_ < ListSequence.fromList(input).count(); i_++) {
+    final Object[] output = new Object[input.size()];
+    final boolean[] done = new boolean[input.size()];
+    final MutableInt remaining = new MutableInt(input.size());
+    final Value<List<O>> result = new Value<>();
+    for (int i_ = 0; i_ < input.size(); i_++) {
       final int i = i_;
-      f.invoke(ListSequence.fromList(input).getElement(i)).onSuccess(new _FunctionTypes._void_P1_E0<O>() {
-        public void invoke(O value) {
+      f.apply(input.get(i)).onSuccess(new Consumer<O>() {
+        public void accept(O value) {
           if (done[i]) {
             return;
           }
           output[i] = value;
           done[i] = true;
-          remaining.value--;
-          if (remaining.value == 0) {
-            result.success(Sequence.fromIterable(Sequence.fromArray(output)).select(new ISelector<Object, O>() {
-              public O select(Object it) {
-                return (O) it;
-              }
-            }).toListSequence());
+          remaining.decrement();
+          if (remaining.intValue() == 0) {
+            result.success(Arrays.stream(output).map(e -> (O) e).collect(Collectors.toList()));
           }
         }
       });
@@ -129,7 +114,7 @@ public class BulkQuery implements IBulkQuery {
   }
 
   public class Value<T> implements IBulkQuery.Value<T> {
-    private List<_FunctionTypes._void_P1_E0<? super T>> handlers = ListSequence.fromList(new ArrayList<_FunctionTypes._void_P1_E0<? super T>>());
+    private List<Consumer<T>> handlers = new ArrayList<>();
     private T value;
     private boolean done = false;
 
@@ -147,18 +132,18 @@ public class BulkQuery implements IBulkQuery {
       } else {
         this.value = value;
         this.done = true;
-        for (_FunctionTypes._void_P1_E0<? super T> handler : ListSequence.fromList(handlers)) {
-          handler.invoke(value);
+        for (Consumer<T> handler : handlers) {
+          handler.accept(value);
         }
         handlers = null;
       }
     }
 
-    public synchronized void onSuccess(_FunctionTypes._void_P1_E0<? super T> handler) {
+    public synchronized void onSuccess(Consumer<T> handler) {
       if (done) {
-        handler.invoke(value);
+        handler.accept(value);
       } else {
-        ListSequence.fromList(handlers).addElement(handler);
+        handlers.add(handler);
       }
     }
 
@@ -170,27 +155,15 @@ public class BulkQuery implements IBulkQuery {
       return value;
     }
 
-    public <R> IBulkQuery.Value<R> map(final _FunctionTypes._return_P1_E0<? extends R, ? super T> handler) {
-      final Value<R> result = new Value();
-      onSuccess(new _FunctionTypes._void_P1_E0<T>() {
-        public void invoke(T v) {
-          result.success(handler.invoke(v));
-        }
-      });
+    public <R> IBulkQuery.Value<R> map(final Function<T, R> handler) {
+      final Value<R> result = new Value<>();
+      onSuccess(v -> result.success(handler.apply(v)));
       return result;
     }
 
-    public <R> IBulkQuery.Value<R> mapBulk(final _FunctionTypes._return_P1_E0<? extends IBulkQuery.Value<R>, ? super T> handler) {
-      final Value<R> result = new Value();
-      onSuccess(new _FunctionTypes._void_P1_E0<T>() {
-        public void invoke(T v) {
-          handler.invoke(v).onSuccess(new _FunctionTypes._void_P1_E0<R>() {
-            public void invoke(R r) {
-              result.success(r);
-            }
-          });
-        }
-      });
+    public <R> IBulkQuery.Value<R> mapBulk(final Function<T, IBulkQuery.Value<R>> handler) {
+      final Value<R> result = new Value<>();
+      onSuccess(v -> handler.apply(v).onSuccess(result::success));
       return result;
     }
   }

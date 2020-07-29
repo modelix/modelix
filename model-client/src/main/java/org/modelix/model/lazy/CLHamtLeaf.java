@@ -1,11 +1,12 @@
 package org.modelix.model.lazy;
 
+import org.apache.commons.lang3.mutable.MutableObject;
 import org.modelix.model.persistent.CPHamtLeaf;
-import org.modelix.model.persistent.HashUtil;
 import org.modelix.model.persistent.CPHamtNode;
+import org.modelix.model.persistent.HashUtil;
+
 import java.util.Objects;
-import jetbrains.mps.baseLanguage.closures.runtime._FunctionTypes;
-import jetbrains.mps.baseLanguage.closures.runtime.Wrappers;
+import java.util.function.BiPredicate;
 
 public class CLHamtLeaf extends CLHamtNode<CPHamtLeaf> {
 
@@ -77,8 +78,8 @@ public class CLHamtLeaf extends CLHamtNode<CPHamtLeaf> {
   }
 
   @Override
-  public boolean visitEntries(_FunctionTypes._return_P2_E0<? extends Boolean, ? super Long, ? super String> visitor) {
-    return visitor.invoke(data.key, data.value);
+  public boolean visitEntries(BiPredicate<Long, String> visitor) {
+    return visitor.test(data.key, data.value);
   }
 
   @Override
@@ -87,11 +88,11 @@ public class CLHamtLeaf extends CLHamtNode<CPHamtLeaf> {
       return;
     }
 
-    final Wrappers._T<String> oldValue = new Wrappers._T<String>(null);
-    oldNode.visitEntries(new _FunctionTypes._return_P2_E0<Boolean, Long, String>() {
-      public Boolean invoke(Long k, String v) {
+    final MutableObject<String> oldValue = new MutableObject<>();
+    oldNode.visitEntries(new BiPredicate<Long, String>() {
+      public boolean test(Long k, String v) {
         if (Objects.equals(k, data.key)) {
-          oldValue.value = v;
+          oldValue.setValue(v);
         } else {
           visitor.entryRemoved(k, v);
         }
@@ -99,10 +100,10 @@ public class CLHamtLeaf extends CLHamtNode<CPHamtLeaf> {
       }
     });
 
-    if (oldValue.value == null) {
+    if (oldValue.getValue() == null) {
       visitor.entryAdded(data.key, data.value);
-    } else if (oldValue.value != data.value) {
-      visitor.entryChanged(data.key, oldValue.value, data.value);
+    } else if (oldValue.getValue() != data.value) {
+      visitor.entryChanged(data.key, oldValue.getValue(), data.value);
     }
   }
 }

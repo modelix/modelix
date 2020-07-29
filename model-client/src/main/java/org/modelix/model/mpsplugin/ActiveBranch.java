@@ -1,18 +1,18 @@
 package org.modelix.model.mpsplugin;
 
-import org.apache.log4j.Logger;
-import org.apache.log4j.LogManager;
-import org.modelix.model.lazy.TreeId;
-import jetbrains.mps.baseLanguage.closures.runtime._FunctionTypes;
-import de.q60.mps.shadowmodels.runtime.model.persistent.ITree;
-import de.q60.mps.shadowmodels.runtime.model.persistent.IBranchListener;
-import java.util.List;
-import jetbrains.mps.internal.collections.runtime.ListSequence;
-import java.util.ArrayList;
 import de.q60.mps.shadowmodels.runtime.model.persistent.IBranch;
-import org.modelix.model.lazy.CLVersion;
-import java.util.Objects;
+import de.q60.mps.shadowmodels.runtime.model.persistent.IBranchListener;
+import de.q60.mps.shadowmodels.runtime.model.persistent.ITree;
 import org.apache.log4j.Level;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+import org.modelix.model.lazy.CLVersion;
+import org.modelix.model.lazy.TreeId;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+import java.util.function.Supplier;
 
 public class ActiveBranch implements IIndirectBranch {
   private static final Logger LOG = LogManager.getLogger(ActiveBranch.class);
@@ -21,18 +21,13 @@ public class ActiveBranch implements IIndirectBranch {
   private IModelClient client;
   private TreeId tree;
   private String branchName;
-  private _FunctionTypes._return_P0_E0<? extends String> user;
+  private Supplier<String> user;
   private ReplicatedTree replicatedTree;
   private ITree lastKnownTree = null;
-  private IBranchListener forwardingListener = new IBranchListener() {
-    @Override
-    public void treeChanged(ITree oldTree, ITree newTree) {
-      notifyListeners(newTree);
-    }
-  };
-  private List<IBranchListener> listeners = ListSequence.fromList(new ArrayList<IBranchListener>());
+  private IBranchListener forwardingListener = (oldTree, newTree) -> notifyListeners(newTree);
+  private List<IBranchListener> listeners = new ArrayList<>();
 
-  public ActiveBranch(IModelClient client, TreeId tree, String branchName, _FunctionTypes._return_P0_E0<? extends String> user) {
+  public ActiveBranch(IModelClient client, TreeId tree, String branchName, Supplier<String> user) {
     if ((branchName == null || branchName.length() == 0)) {
       branchName = DEFAULT_BRANCH_NAME;
     }
@@ -41,11 +36,7 @@ public class ActiveBranch implements IIndirectBranch {
     this.branchName = branchName;
     this.user = user;
     replicatedTree = new ReplicatedTree(client, tree, branchName, user);
-    lastKnownTree = replicatedTree.getBranch().computeRead(new _FunctionTypes._return_P0_E0<ITree>() {
-      public ITree invoke() {
-        return replicatedTree.getBranch().getTransaction().getTree();
-      }
-    });
+    lastKnownTree = replicatedTree.getBranch().computeRead(() -> replicatedTree.getBranch().getTransaction().getTree());
     replicatedTree.getBranch().addListener(forwardingListener);
   }
 
@@ -68,14 +59,14 @@ public class ActiveBranch implements IIndirectBranch {
   }
 
   public void addListener(IBranchListener l) {
-    List<IBranchListener> newListeners = ListSequence.fromListWithValues(new ArrayList<IBranchListener>(), listeners);
-    ListSequence.fromList(newListeners).addElement(l);
+    List<IBranchListener> newListeners = new ArrayList<>(listeners);
+    newListeners.add(l);
     listeners = newListeners;
   }
 
   public void removeListener(IBranchListener l) {
-    List<IBranchListener> newListeners = ListSequence.fromListWithValues(new ArrayList<IBranchListener>(), listeners);
-    ListSequence.fromList(newListeners).removeElement(l);
+    List<IBranchListener> newListeners = new ArrayList<>(listeners);
+    newListeners.remove(l);
     listeners = newListeners;
   }
 
@@ -89,18 +80,14 @@ public class ActiveBranch implements IIndirectBranch {
     replicatedTree = new ReplicatedTree(client, tree, branchName, user);
     replicatedTree.getBranch().addListener(forwardingListener);
     final IBranch b = replicatedTree.getBranch();
-    ITree newTree = b.computeRead(new _FunctionTypes._return_P0_E0<ITree>() {
-      public ITree invoke() {
-        return b.getTransaction().getTree();
-      }
-    });
+    ITree newTree = b.computeRead(() -> b.getTransaction().getTree());
     notifyListeners(newTree);
   }
 
   protected void notifyListeners(ITree newTree) {
     ITree oldTree = lastKnownTree;
     lastKnownTree = newTree;
-    for (IBranchListener l : ListSequence.fromList(listeners)) {
+    for (IBranchListener l : listeners) {
       try {
         l.treeChanged(oldTree, newTree);
       } catch (Exception ex) {

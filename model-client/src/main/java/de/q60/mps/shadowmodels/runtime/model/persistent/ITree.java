@@ -3,11 +3,16 @@ package de.q60.mps.shadowmodels.runtime.model.persistent;
 import de.q60.mps.shadowmodels.runtime.model.IConcept;
 import de.q60.mps.shadowmodels.runtime.model.INodeReference;
 
+import java.util.stream.LongStream;
+
 public interface ITree {
+  public static final long ROOT_ID = 1L;
+  public static final String DETACHED_NODES_ROLE = "detached";
+
   void visitChanges(ITree oldVersion, ITreeChangeVisitor visitor);
   boolean containsNode(long nodeId);
   String getProperty(long nodeId, String role);
-  Iterable<Long> getChildren(long parentId, String role);
+  LongStream getChildren(long parentId, String role);
 
   IConcept getConcept(long nodeId);
 
@@ -27,7 +32,7 @@ public interface ITree {
 
   Iterable<String> getChildRoles(long sourceId);
 
-  Iterable<Long> getAllChildren(long parentId);
+  LongStream getAllChildren(long parentId);
 
   ITree moveChild(long newParentId, String newRole, int newIndex, long childId);
 
