@@ -75,7 +75,12 @@ public class BulkQuery implements IBulkQuery {
           deserializers.put(request._1(), request._2());
         }
 
-        final Map<String, Object> entries = executeBulkQuery(currentRequests.stream().map(Tuple3::_1).distinct()::iterator, deserializers);
+        final Map<String, Object> entries = executeBulkQuery(
+                currentRequests.stream()
+                        .map(Tuple3::_1)
+                        .distinct()
+                        .collect(Collectors.toList()),
+                deserializers);
         for (Tuple3<String, Function<String, ?>, Consumer<Object>> request : currentRequests) {
           request._3().accept(entries.get(request._1()));
         }
