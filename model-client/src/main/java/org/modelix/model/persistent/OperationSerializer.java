@@ -1,8 +1,8 @@
 package org.modelix.model.persistent;
 
-import de.q60.mps.shadowmodels.runtime.model.IConcept;
-import de.q60.mps.shadowmodels.runtime.model.INodeReference;
-import de.q60.mps.shadowmodels.runtime.model.persistent.PNodeReference;
+import org.modelix.model.api.IConcept;
+import org.modelix.model.api.INodeReference;
+import org.modelix.model.api.PNodeReference;
 import org.modelix.model.operations.AddNewChildOp;
 import org.modelix.model.operations.DeleteNodeOp;
 import org.modelix.model.operations.IOperation;

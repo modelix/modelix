@@ -3,7 +3,7 @@ package org.modelix.model;
 import org.apache.commons.collections4.map.LRUMap;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
-import org.modelix.StreamUtil;
+import org.modelix.model.util.StreamUtils;
 import org.modelix.model.persistent.HashUtil;
 
 import java.util.ArrayList;
@@ -68,7 +68,7 @@ public class KeyValueStoreCache implements IKeyValueStore {
 
   @Override
   public Map<String, String> getAll(Iterable<String> keys_) {
-    List<String> remainingKeys = StreamUtil.toStream(keys_).collect(Collectors.toList());
+    List<String> remainingKeys = StreamUtils.toStream(keys_).collect(Collectors.toList());
     Map<String, String> result = new LinkedHashMap<>(16, (float) 0.75, false);
     synchronized (cache) {
       Iterator<String> itr = remainingKeys.iterator();
@@ -90,7 +90,7 @@ public class KeyValueStoreCache implements IKeyValueStore {
         for (final GetRequest r : activeRequests) {
           if (remainingKeys.stream().anyMatch(r.keys::contains)) {
             if (LOG.isDebugEnabled()) {
-              Set<String> intersection = StreamUtil.intersection(remainingKeys.stream(), r.keys);
+              Set<String> intersection = StreamUtils.intersection(remainingKeys.stream(), r.keys);
               LOG.debug("Reusing an active request: " + intersection.stream().findFirst().orElse(null) + " (" + intersection.size() + ")");
             }
             requiredRequest.add(r);

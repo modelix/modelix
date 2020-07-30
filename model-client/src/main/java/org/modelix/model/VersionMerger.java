@@ -1,16 +1,16 @@
 package org.modelix.model;
 
-import de.q60.mps.shadowmodels.runtime.model.persistent.IBranch;
-import de.q60.mps.shadowmodels.runtime.model.persistent.IIdGenerator;
-import de.q60.mps.shadowmodels.runtime.model.persistent.ITree;
-import de.q60.mps.shadowmodels.runtime.model.persistent.IWriteTransaction;
-import de.q60.mps.shadowmodels.runtime.model.persistent.PBranch;
+import org.modelix.model.api.IBranch;
+import org.modelix.model.api.IIdGenerator;
+import org.modelix.model.api.ITree;
+import org.modelix.model.api.IWriteTransaction;
+import org.modelix.model.api.PBranch;
 import gnu.trove.set.TLongSet;
 import gnu.trove.set.hash.TLongHashSet;
 import org.apache.commons.lang3.mutable.MutableObject;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import org.modelix.StreamUtil;
+import org.modelix.model.util.StreamUtils;
 import org.modelix.model.lazy.CLTree;
 import org.modelix.model.lazy.CLVersion;
 import org.modelix.model.lazy.IDeserializingKeyValueStore;
@@ -94,8 +94,8 @@ public class VersionMerger {
       List<IAppliedOperation> rightAppliedOps = new ArrayList<>();
       TLongSet appliedVersionIds = new TLongHashSet();
       while (!leftHistory.isEmpty() || !rightHistory.isEmpty()) {
-        boolean useLeft = rightHistory.isEmpty() || !leftHistory.isEmpty() && StreamUtil.last(leftHistory).getId() < StreamUtil.last(rightHistory).getId();
-        CLVersion versionToApply = StreamUtil.removeLast(useLeft ? leftHistory : rightHistory);
+        boolean useLeft = rightHistory.isEmpty() || !leftHistory.isEmpty() && StreamUtils.last(leftHistory).getId() < StreamUtils.last(rightHistory).getId();
+        CLVersion versionToApply = StreamUtils.removeLast(useLeft ? leftHistory : rightHistory);
         if (appliedVersionIds.contains(versionToApply.getId())) {
           continue;
         }
@@ -103,7 +103,7 @@ public class VersionMerger {
         final List<IOperation> oppositeAppliedOps = (useLeft ? rightAppliedOps : leftAppliedOps).stream()
                 .map(IAppliedOperation::getOriginalOp)
                 .collect(Collectors.toList());
-        List<IOperation> operationsToApply = StreamUtil.toStream(versionToApply.getOperations())
+        List<IOperation> operationsToApply = StreamUtils.toStream(versionToApply.getOperations())
                 .map(it -> transformOperation(it, oppositeAppliedOps))
                 .collect(Collectors.toList());
         for (IOperation op : operationsToApply) {

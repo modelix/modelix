@@ -1,12 +1,12 @@
 package org.modelix.model.operations;
 
-import de.q60.mps.shadowmodels.runtime.model.persistent.IBranch;
-import de.q60.mps.shadowmodels.runtime.model.persistent.IBranchListener;
-import de.q60.mps.shadowmodels.runtime.model.persistent.IIdGenerator;
-import de.q60.mps.shadowmodels.runtime.model.persistent.IReadTransaction;
-import de.q60.mps.shadowmodels.runtime.model.persistent.ITransaction;
-import de.q60.mps.shadowmodels.runtime.model.persistent.ITree;
-import de.q60.mps.shadowmodels.runtime.model.persistent.IWriteTransaction;
+import org.modelix.model.api.IBranch;
+import org.modelix.model.api.IBranchListener;
+import org.modelix.model.api.IIdGenerator;
+import org.modelix.model.api.IReadTransaction;
+import org.modelix.model.api.ITransaction;
+import org.modelix.model.api.ITree;
+import org.modelix.model.api.IWriteTransaction;
 import io.vavr.Tuple;
 import io.vavr.Tuple2;
 

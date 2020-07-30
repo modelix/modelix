@@ -1,6 +1,6 @@
 package org.modelix.model.lazy;
 
-import org.modelix.StreamUtil;
+import org.modelix.model.util.StreamUtils;
 
 import java.util.List;
 import java.util.function.Consumer;
@@ -17,7 +17,7 @@ public class NonBulkQuery implements IBulkQuery {
 
   @Override
   public <I, O> IBulkQuery.Value<List<O>> map(Iterable<I> input, final Function<I, IBulkQuery.Value<O>> f) {
-    List<O> list = StreamUtil.toStream(input).map(f).map(IBulkQuery.Value::execute).collect(Collectors.toList());
+    List<O> list = StreamUtils.toStream(input).map(f).map(IBulkQuery.Value::execute).collect(Collectors.toList());
     return new Value<List<O>>(list);
   }
 

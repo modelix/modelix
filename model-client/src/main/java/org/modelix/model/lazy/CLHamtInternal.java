@@ -1,7 +1,7 @@
 package org.modelix.model.lazy;
 
-import de.q60.mps.shadowmodels.runtime.util.pmap.COWArrays;
-import de.q60.mps.shadowmodels.runtime.util.pmap.LongKeyPMap;
+import org.modelix.model.util.pmap.COWArrays;
+import org.modelix.model.util.pmap.LongKeyPMap;
 import org.modelix.model.persistent.CPHamtInternal;
 import org.modelix.model.persistent.CPHamtNode;
 import org.modelix.model.persistent.HashUtil;

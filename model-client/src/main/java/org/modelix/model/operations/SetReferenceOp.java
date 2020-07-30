@@ -1,7 +1,7 @@
 package org.modelix.model.operations;
 
-import de.q60.mps.shadowmodels.runtime.model.INodeReference;
-import de.q60.mps.shadowmodels.runtime.model.persistent.IWriteTransaction;
+import org.modelix.model.api.INodeReference;
+import org.modelix.model.api.IWriteTransaction;
 import java.text.MessageFormat;
 
 public class SetReferenceOp extends AbstractOperation {

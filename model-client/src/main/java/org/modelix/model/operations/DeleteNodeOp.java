@@ -1,7 +1,7 @@
 package org.modelix.model.operations;
 
-import de.q60.mps.shadowmodels.runtime.model.persistent.IWriteTransaction;
-import de.q60.mps.shadowmodels.runtime.model.IConcept;
+import org.modelix.model.api.IWriteTransaction;
+import org.modelix.model.api.IConcept;
 import java.util.Objects;
 import java.text.MessageFormat;
 

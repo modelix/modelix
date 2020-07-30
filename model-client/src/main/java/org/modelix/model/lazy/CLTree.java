@@ -2,15 +2,15 @@ package org.modelix.model.lazy;
 
 import com.google.common.collect.ListMultimap;
 import com.google.common.collect.MultimapBuilder;
-import de.q60.mps.shadowmodels.runtime.model.IConcept;
-import de.q60.mps.shadowmodels.runtime.model.INodeReference;
-import de.q60.mps.shadowmodels.runtime.model.persistent.ITree;
-import de.q60.mps.shadowmodels.runtime.model.persistent.ITreeChangeVisitor;
-import de.q60.mps.shadowmodels.runtime.model.persistent.PNodeReference;
-import de.q60.mps.shadowmodels.runtime.util.pmap.COWArrays;
+import org.modelix.model.api.IConcept;
+import org.modelix.model.api.INodeReference;
+import org.modelix.model.api.ITree;
+import org.modelix.model.api.ITreeChangeVisitor;
+import org.modelix.model.api.PNodeReference;
+import org.modelix.model.util.pmap.COWArrays;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import org.modelix.StreamUtil;
+import org.modelix.model.util.StreamUtils;
 import org.modelix.model.persistent.CPElement;
 import org.modelix.model.persistent.CPElementRef;
 import org.modelix.model.persistent.CPHamtNode;
@@ -344,7 +344,7 @@ public class CLTree implements ITree {
       if (oldParent == targetParentId) {
         String oldRole = getRole(childId);
         if (Objects.equals(oldRole, targetRole)) {
-          int oldIndex = StreamUtil.indexOf(getChildren(oldParent, oldRole), childId);
+          int oldIndex = StreamUtils.indexOf(getChildren(oldParent, oldRole), childId);
           if (oldIndex == targetIndex) {
             return this;
           }

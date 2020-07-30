@@ -1,7 +1,7 @@
 package org.modelix.model.lazy;
 
 import org.apache.commons.collections4.map.LRUMap;
-import org.modelix.StreamUtil;
+import org.modelix.model.util.StreamUtils;
 import org.modelix.model.IKeyValueStore;
 
 import java.util.ArrayList;
@@ -30,7 +30,7 @@ public class ObjectStoreCache implements IDeserializingKeyValueStore {
 
   @Override
   public <T> Iterable<T> getAll(Iterable<String> hashes_, BiFunction<String, String, T> deserializer) {
-    List<String> hashes = StreamUtil.toStream(hashes_).collect(Collectors.toList());
+    List<String> hashes = StreamUtils.toStream(hashes_).collect(Collectors.toList());
     final Map<String, T> result = new HashMap<>();
     List<String> nonCachedHashes = new ArrayList<>(hashes.size());
 

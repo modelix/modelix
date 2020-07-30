@@ -1,6 +1,6 @@
 package org.modelix.model.persistent;
 
-import de.q60.mps.shadowmodels.runtime.util.pmap.COWArrays;
+import org.modelix.model.util.pmap.COWArrays;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;

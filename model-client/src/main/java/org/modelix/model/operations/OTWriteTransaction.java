@@ -1,16 +1,16 @@
 package org.modelix.model.operations;
 
-import de.q60.mps.shadowmodels.runtime.model.IConcept;
-import de.q60.mps.shadowmodels.runtime.model.INode;
-import de.q60.mps.shadowmodels.runtime.model.INodeReference;
-import de.q60.mps.shadowmodels.runtime.model.persistent.IBranch;
-import de.q60.mps.shadowmodels.runtime.model.persistent.IIdGenerator;
-import de.q60.mps.shadowmodels.runtime.model.persistent.ITree;
-import de.q60.mps.shadowmodels.runtime.model.persistent.IWriteTransaction;
-import de.q60.mps.shadowmodels.runtime.model.persistent.PNodeAdapter;
+import org.modelix.model.api.IConcept;
+import org.modelix.model.api.INode;
+import org.modelix.model.api.INodeReference;
+import org.modelix.model.api.IBranch;
+import org.modelix.model.api.IIdGenerator;
+import org.modelix.model.api.ITree;
+import org.modelix.model.api.IWriteTransaction;
+import org.modelix.model.api.PNodeAdapter;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
-import org.modelix.StreamUtil;
+import org.modelix.model.util.StreamUtils;
 
 import java.util.stream.LongStream;
 
@@ -39,7 +39,7 @@ public class OTWriteTransaction implements IWriteTransaction {
   public void moveChild(long newParentId, String newRole, int newIndex, long childId) {
     long oldparent = getParent(childId);
     String oldRole = getRole(childId);
-    int oldIndex = StreamUtil.indexOf(getChildren(oldparent, oldRole), childId);
+    int oldIndex = StreamUtils.indexOf(getChildren(oldparent, oldRole), childId);
     if (newIndex == -1) {
       newIndex = (int) getChildren(newParentId, newRole).count();
     }
@@ -68,7 +68,7 @@ public class OTWriteTransaction implements IWriteTransaction {
   public void deleteNode(long nodeId) {
     long parent = getParent(nodeId);
     String role = getRole(nodeId);
-    int index = StreamUtil.indexOf(getChildren(parent, role), nodeId);
+    int index = StreamUtils.indexOf(getChildren(parent, role), nodeId);
     apply(new DeleteNodeOp(parent, role, index, nodeId));
   }
 
