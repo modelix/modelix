@@ -18,6 +18,9 @@ public class CPHamtInternal extends CPHamtNode {
 
   @Override
   public String serialize() {
-    return "I/" + SerializationUtil.intToHex(bitmap) + "/" + Arrays.stream(children).reduce((a, b) -> a + ", " + b);
+    return String.format("I/%s/%s",
+            SerializationUtil.intToHex(bitmap),
+            Arrays.stream(children).reduce((a, b) -> a + "," + b).orElse("")
+    );
   }
 }
