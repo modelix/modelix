@@ -2,11 +2,12 @@ package org.modelix.model.client;
 
 import org.apache.log4j.Logger;
 import org.apache.log4j.LogManager;
-import org.modelix.model.IKeyListener;
-import org.modelix.model.IKeyValueStore;
+
 import java.util.concurrent.ScheduledFuture;
 import java.util.Objects;
 import org.apache.log4j.Level;
+import org.modelix.model.IKeyListener;
+import org.modelix.model.IKeyValueStore;
 
 public abstract class VersionChangeDetector {
   private static final Logger LOG = LogManager.getLogger(VersionChangeDetector.class);

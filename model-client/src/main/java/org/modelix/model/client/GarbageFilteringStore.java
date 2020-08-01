@@ -1,8 +1,8 @@
 package org.modelix.model.client;
 
-import org.modelix.model.util.StreamUtils;
 import org.modelix.model.IKeyListener;
 import org.modelix.model.IKeyValueStore;
+import org.modelix.model.util.StreamUtils;
 import org.modelix.model.persistent.HashUtil;
 
 import java.util.Collections;

@@ -3,9 +3,9 @@ package org.modelix.model.client;
 import org.apache.log4j.Level;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
-import org.modelix.model.util.StreamUtils;
 import org.modelix.model.IKeyListener;
 import org.modelix.model.IKeyValueStore;
+import org.modelix.model.util.StreamUtils;
 
 import java.util.Iterator;
 import java.util.LinkedHashMap;

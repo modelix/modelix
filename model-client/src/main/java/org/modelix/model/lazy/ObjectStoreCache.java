@@ -1,8 +1,8 @@
 package org.modelix.model.lazy;
 
 import org.apache.commons.collections4.map.LRUMap;
-import org.modelix.model.util.StreamUtils;
 import org.modelix.model.IKeyValueStore;
+import org.modelix.model.util.StreamUtils;
 
 import java.util.ArrayList;
 import java.util.Collections;

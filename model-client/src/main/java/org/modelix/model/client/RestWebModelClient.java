@@ -1,5 +1,7 @@
 package org.modelix.model.client;
 
+import org.modelix.model.IKeyListener;
+import org.modelix.model.IKeyValueStore;
 import org.modelix.model.api.IIdGenerator;
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Level;
@@ -8,8 +10,6 @@ import org.apache.log4j.Logger;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.modelix.model.util.StreamUtils;
-import org.modelix.model.IKeyListener;
-import org.modelix.model.IKeyValueStore;
 import org.modelix.model.KeyValueStoreCache;
 import org.modelix.model.lazy.IDeserializingKeyValueStore;
 import org.modelix.model.lazy.ObjectStoreCache;
