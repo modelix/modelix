@@ -31,7 +31,7 @@ class ActiveBranch(client: IModelClient, tree: TreeId, branchName: String?, user
         get() = replicatedTree!!.branch
 
     val version: CLVersion
-        get() = replicatedTree!!.version
+        get() = replicatedTree!!.version!!
 
     fun dispose() {
         replicatedTree!!.branch.removeListener(forwardingListener)
