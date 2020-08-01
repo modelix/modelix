@@ -1,5 +1,33 @@
+buildscript {
+    ext.kotlinVersion = '1.3.72'
+}
+
 plugins {
     id 'java'
+    id "org.jetbrains.kotlin.jvm" version "${kotlinVersion}"
+}
+
+configurations {
+    ktlint
+}
+
+dependencies {
+    ktlint "com.pinterest:ktlint:0.37.2"
+}
+
+task ktlint(type: JavaExec, group: "verification") {
+    description = "Check Kotlin code style."
+    classpath = configurations.ktlint
+    main = "com.pinterest.ktlint.Main"
+    args "src/**/*.kt"
+}
+check.dependsOn ktlint
+
+task ktlintFormat(type: JavaExec, group: "formatting") {
+    description = "Fix Kotlin code style deviations."
+    classpath = configurations.ktlint
+    main = "com.pinterest.ktlint.Main"
+    args "-F", "src/**/*.kt"
 }
 
 group 'org.modelix'
@@ -21,5 +49,4 @@ dependencies {
     compile group: 'org.json', name: 'json', version: '20200518'
     compile group: 'net.sf.trove4j', name: 'trove4j', version: '3.0.3'
     compile group: 'org.apache.commons', name: 'commons-collections4', version: '4.4'
-
 }
