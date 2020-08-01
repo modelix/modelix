@@ -34,7 +34,7 @@ public class OperationSerializer {
     INSTANCE.registerSerializer(DeleteNodeOp.class, new Serializer<DeleteNodeOp>() {
       @Override
       public String serialize(DeleteNodeOp op) {
-        return SerializationUtil.longToHex(op.parentId) + SEPARATOR + SerializationUtil.escape(op.role) + SEPARATOR + op.index + SEPARATOR + SerializationUtil.longToHex(op.childId);
+        return SerializationUtil.longToHex(op.getParentId()) + SEPARATOR + SerializationUtil.escape(op.getRole()) + SEPARATOR + op.getIndex() + SEPARATOR + SerializationUtil.longToHex(op.getChildId());
       }
 
       @Override

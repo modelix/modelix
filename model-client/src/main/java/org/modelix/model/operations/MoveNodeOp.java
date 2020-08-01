@@ -43,9 +43,9 @@ public class MoveNodeOp extends AbstractOperation implements IModifiesChildrenOp
       return withIndex(o.adjustIndex(sourceParentId, sourceRole, sourceIndex), o.adjustIndex(targetParentId, targetRole, targetIndex));
     } else if (previous instanceof DeleteNodeOp) {
       DeleteNodeOp o = ((DeleteNodeOp) previous);
-      if (Objects.equals(o.parentId, sourceParentId) && Objects.equals(o.role, sourceRole) && Objects.equals(o.index, sourceIndex)) {
-        if (!(Objects.equals(o.childId, childId))) {
-          throw new RuntimeException(sourceParentId + "." + sourceRole + "[" + sourceIndex + "] expected to be " + childId + ", but was " + o.childId);
+      if (Objects.equals(o.getParentId(), sourceParentId) && Objects.equals(o.getRole(), sourceRole) && Objects.equals(o.getIndex(), sourceIndex)) {
+        if (!(Objects.equals(o.getChildId(), childId))) {
+          throw new RuntimeException(sourceParentId + "." + sourceRole + "[" + sourceIndex + "] expected to be " + childId + ", but was " + o.getChildId());
         }
         return new NoOp();
       } else {

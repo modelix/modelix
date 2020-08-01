@@ -32,7 +32,7 @@ public class SetPropertyOp extends AbstractOperation {
       return this;
     } else if (previous instanceof DeleteNodeOp) {
       DeleteNodeOp o = ((DeleteNodeOp) previous);
-      if (nodeId == o.childId) {
+      if (nodeId == o.getChildId()) {
         return new NoOp();
       } else {
         return this;

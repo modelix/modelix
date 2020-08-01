@@ -33,7 +33,7 @@ public class SetReferenceOp extends AbstractOperation {
       return this;
     } else if (previous instanceof DeleteNodeOp) {
       DeleteNodeOp o = ((DeleteNodeOp) previous);
-      if (sourceId == o.parentId) {
+      if (sourceId == o.getParentId()) {
         return new NoOp();
       } else {
         return this;
