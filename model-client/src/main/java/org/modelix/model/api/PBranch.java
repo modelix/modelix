@@ -21,7 +21,7 @@ public class PBranch implements IBranch {
   private IIdGenerator idGenerator;
 
   public PBranch(ITree initialTree) {
-    this(initialTree, DefaultIdGenerator.getInstance());
+    this(initialTree, DefaultIdGenerator.Companion.getInstance());
   }
 
   public PBranch(ITree initialTree, @Nullable IIdGenerator idGenerator) {
