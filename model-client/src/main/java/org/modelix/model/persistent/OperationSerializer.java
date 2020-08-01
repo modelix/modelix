@@ -81,7 +81,7 @@ public class OperationSerializer {
     INSTANCE.registerSerializer(SetReferenceOp.class, new Serializer<SetReferenceOp>() {
       @Override
       public String serialize(SetReferenceOp op) {
-        return SerializationUtil.longToHex(op.sourceId) + SEPARATOR + SerializationUtil.escape(op.role) + SEPARATOR + serializeReference(op.target);
+        return SerializationUtil.longToHex(op.getSourceId()) + SEPARATOR + SerializationUtil.escape(op.getRole()) + SEPARATOR + serializeReference(op.getTarget());
       }
 
       @Override

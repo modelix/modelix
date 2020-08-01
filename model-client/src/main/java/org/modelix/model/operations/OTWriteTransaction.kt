@@ -30,7 +30,7 @@ class OTWriteTransaction(private val transaction: IWriteTransaction, private val
     }
 
     override fun setReferenceTarget(sourceId: Long, role: String?, target: INodeReference?) {
-        apply(SetReferenceOp(sourceId, role, target))
+        apply(SetReferenceOp(sourceId, role!!, target!!))
     }
 
     override fun addNewChild(parentId: Long, role: String?, index: Int, childId: Long, concept: IConcept?) {
