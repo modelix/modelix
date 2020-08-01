@@ -4,7 +4,7 @@ import java.util.stream.LongStream
 
 interface ITransaction {
     val branch: IBranch?
-    val tree: ITree?
+    var tree: ITree?
     fun containsNode(nodeId: Long): Boolean
     fun getConcept(nodeId: Long): IConcept?
     fun getParent(nodeId: Long): Long
