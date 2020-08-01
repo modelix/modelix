@@ -22,7 +22,7 @@ public class OperationSerializer {
     INSTANCE.registerSerializer(AddNewChildOp.class, new Serializer<AddNewChildOp>() {
       @Override
       public String serialize(AddNewChildOp op) {
-        return SerializationUtil.longToHex(op.parentId) + SEPARATOR + SerializationUtil.escape(op.role) + SEPARATOR + op.index + SEPARATOR + SerializationUtil.longToHex(op.childId) + SEPARATOR + serializeConcept(op.concept);
+        return SerializationUtil.longToHex(op.getParentId()) + SEPARATOR + SerializationUtil.escape(op.getRole()) + SEPARATOR + op.getIndex() + SEPARATOR + SerializationUtil.longToHex(op.getChildId()) + SEPARATOR + serializeConcept(op.getConcept());
       }
 
       @Override

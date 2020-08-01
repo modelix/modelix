@@ -50,8 +50,8 @@ public class DeleteNodeOp extends AbstractOperation implements IModifiesChildren
       }
     } else if (previous instanceof AddNewChildOp) {
       AddNewChildOp o = ((AddNewChildOp) previous);
-      if (Objects.equals(parentId, o.parentId) && Objects.equals(role, o.role)) {
-        if (o.index <= index) {
+      if (Objects.equals(parentId, o.getParentId()) && Objects.equals(role, o.getRole())) {
+        if (o.getIndex() <= index) {
           return new DeleteNodeOp(parentId, role, index + 1, childId);
         } else {
           return this;
