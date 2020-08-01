@@ -46,7 +46,7 @@ public class OperationSerializer {
     INSTANCE.registerSerializer(MoveNodeOp.class, new Serializer<MoveNodeOp>() {
       @Override
       public String serialize(MoveNodeOp op) {
-        return SerializationUtil.longToHex(op.childId) + SEPARATOR + SerializationUtil.longToHex(op.sourceParentId) + SEPARATOR + SerializationUtil.escape(op.sourceRole) + SEPARATOR + op.sourceIndex + SEPARATOR + SerializationUtil.longToHex(op.targetParentId) + SEPARATOR + SerializationUtil.escape(op.targetRole) + SEPARATOR + op.targetIndex;
+        return SerializationUtil.longToHex(op.getChildId()) + SEPARATOR + SerializationUtil.longToHex(op.getSourceParentId()) + SEPARATOR + SerializationUtil.escape(op.getSourceRole()) + SEPARATOR + op.getSourceIndex() + SEPARATOR + SerializationUtil.longToHex(op.getTargetParentId()) + SEPARATOR + SerializationUtil.escape(op.getTargetRole()) + SEPARATOR + op.getTargetIndex();
       }
 
       @Override
