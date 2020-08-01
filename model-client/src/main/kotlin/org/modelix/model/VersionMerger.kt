@@ -62,7 +62,7 @@ class VersionMerger(private val storeCache: IDeserializingKeyValueStore, private
             }
             // A small number of changes may be faster to compute locally. 
         }
-        branch.runWrite {
+        branch.runWrite(Runnable {
             val t = branch.writeTransaction
             val leftAppliedOps: MutableList<IAppliedOperation> = ArrayList()
             val rightAppliedOps: MutableList<IAppliedOperation> = ArrayList()
@@ -92,13 +92,13 @@ class VersionMerger(private val storeCache: IDeserializingKeyValueStore, private
                         versionToApply.id,
                         versionToApply.time,
                         versionToApply.author,
-                        (t.tree as CLTree).hash,
+                        (t!!.tree as CLTree).hash,
                         if (mergedVersion.value != null) mergedVersion.value.hash else versionToApply.previousHash,
                         operationsToApply.toTypedArray(),
                         storeCache
                 )
             }
-        }
+        })
         if (mergedVersion.value == null) {
             throw RuntimeException("Failed to merge $leftVersionHash and $rightVersionHash")
         }
