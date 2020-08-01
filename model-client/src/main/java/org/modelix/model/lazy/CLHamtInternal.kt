@@ -6,6 +6,7 @@ import org.modelix.model.persistent.HashUtil
 import org.modelix.model.util.pmap.COWArrays
 import org.modelix.model.util.pmap.LongKeyPMap
 import java.util.function.BiPredicate
+import java.util.function.Function
 
 class CLHamtInternal : CLHamtNode<CPHamtInternal?> {
     private val data: CPHamtInternal
@@ -41,26 +42,28 @@ class CLHamtInternal : CLHamtNode<CPHamtInternal?> {
         }
     }
 
-    override fun get(key: Long, shift: Int, bulkQuery: IBulkQuery): IBulkQuery.Value<String> {
+    override fun get(key: Long, shift: Int, bulkQuery: IBulkQuery): IBulkQuery.Value<String?>? {
         val childIndex = (key ushr shift and LEVEL_MASK.toLong()).toInt()
-        return getChild(childIndex, bulkQuery).mapBulk<String> { child: CLHamtNode<*>? ->
+        // getChild(logicalIndex: Int, bulkQuery: IBulkQuery): IBulkQuery.Value<CLHamtNode<*>?> {
+        return getChild(childIndex, bulkQuery).mapBulk<String?>(Function { child: CLHamtNode<*>? ->
             if (child == null) {
-                return@mapBulk bulkQuery.constant<String?>(null)
+                bulkQuery.constant<String?>(null)
+            } else {
+                child[key, shift + BITS_PER_LEVEL, bulkQuery]
             }
-            child[key, shift + BITS_PER_LEVEL, bulkQuery]
-        }
+        })
     }
 
     protected fun getChild(logicalIndex: Int, bulkQuery: IBulkQuery): IBulkQuery.Value<CLHamtNode<*>?> {
         if (isBitNotSet(data.bitmap, logicalIndex)) {
-            return bulkQuery.constant(null)
+            return bulkQuery.constant(null) as IBulkQuery.Value<CLHamtNode<*>?>
         }
         val physicalIndex = logicalToPhysicalIndex(data.bitmap, logicalIndex)
         return getChild(data.children[physicalIndex], bulkQuery)
     }
 
     protected fun getChild(childHash: String?, bulkQuery: IBulkQuery): IBulkQuery.Value<CLHamtNode<*>?> {
-        return bulkQuery.get(childHash, CPHamtNode.DESERIALIZER).map { childData: CPHamtNode? -> create(childData, store) }
+        return bulkQuery.get(childHash, CPHamtNode.DESERIALIZER)!!.map(Function { childData: CPHamtNode? -> create(childData, store) })!!
     }
 
     protected fun getChild(logicalIndex: Int): CLHamtNode<*>? {
