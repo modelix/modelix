@@ -9,5 +9,4 @@ class PNodeResolveContext(val branch: IBranch) : INodeResolveContext {
             null
         }
     }
-
 }

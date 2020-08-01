@@ -7,5 +7,5 @@ interface IWriteTransaction : ITransaction {
     fun addNewChild(parentId: Long, role: String?, index: Int, concept: IConcept?): Long
     fun addNewChild(parentId: Long, role: String?, index: Int, childId: Long, concept: IConcept?)
     fun deleteNode(nodeId: Long)
-    //fun setTree(tree: ITree?)
+    // fun setTree(tree: ITree?)
 }

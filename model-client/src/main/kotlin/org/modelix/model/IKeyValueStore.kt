@@ -1,6 +1,5 @@
 package org.modelix.model
 
-
 interface IKeyValueStore {
     operator fun get(key: String?): String?
     fun put(key: String?, value: String?)

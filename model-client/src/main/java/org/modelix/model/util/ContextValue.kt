@@ -1,6 +1,5 @@
 package org.modelix.model.util
 
-import java.util.*
 import java.util.function.Supplier
 
 class ContextValue<E> {

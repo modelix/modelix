@@ -32,5 +32,4 @@ class PNodeReference(val id: Long) : INodeReference {
     override fun toString(): String {
         return "PNodeReference{id=$id}"
     }
-
 }

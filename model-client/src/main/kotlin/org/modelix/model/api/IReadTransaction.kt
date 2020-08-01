@@ -1,3 +1,3 @@
 package org.modelix.model.api
 
-interface IReadTransaction : ITransaction 
+interface IReadTransaction : ITransaction

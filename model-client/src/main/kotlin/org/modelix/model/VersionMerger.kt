@@ -14,8 +14,10 @@ import org.modelix.model.operations.IAppliedOperation
 import org.modelix.model.operations.IOperation
 import org.modelix.model.persistent.CPVersion
 import org.modelix.model.util.StreamUtils
-import java.util.*
+import java.util.Optional
 import java.util.stream.Collectors
+import kotlin.collections.ArrayList
+import kotlin.collections.HashSet
 
 class VersionMerger(private val storeCache: IDeserializingKeyValueStore, private val idGenerator: IIdGenerator) {
     private val mergeLock = Any()
@@ -62,33 +64,34 @@ class VersionMerger(private val storeCache: IDeserializingKeyValueStore, private
             }
             // A small number of changes may be faster to compute locally. 
         }
-        branch.runWrite(Runnable {
-            val t = branch.writeTransaction
-            val leftAppliedOps: MutableList<IAppliedOperation> = ArrayList()
-            val rightAppliedOps: MutableList<IAppliedOperation> = ArrayList()
-            val appliedVersionIds: TLongSet = TLongHashSet()
-            while (!leftHistory.isEmpty() || !rightHistory.isEmpty()) {
-                val useLeft = rightHistory.isEmpty() || !leftHistory.isEmpty() && StreamUtils.last(leftHistory)!!.id < StreamUtils.last(rightHistory)!!.id
-                val versionToApply = StreamUtils.removeLast(if (useLeft) leftHistory else rightHistory)
-                if (appliedVersionIds.contains(versionToApply!!.id)) {
-                    continue
-                }
-                appliedVersionIds.add(versionToApply.id)
-                val oppositeAppliedOps = (if (useLeft) rightAppliedOps else leftAppliedOps).stream()
+        branch.runWrite(
+            Runnable {
+                val t = branch.writeTransaction
+                val leftAppliedOps: MutableList<IAppliedOperation> = ArrayList()
+                val rightAppliedOps: MutableList<IAppliedOperation> = ArrayList()
+                val appliedVersionIds: TLongSet = TLongHashSet()
+                while (!leftHistory.isEmpty() || !rightHistory.isEmpty()) {
+                    val useLeft = rightHistory.isEmpty() || !leftHistory.isEmpty() && StreamUtils.last(leftHistory)!!.id < StreamUtils.last(rightHistory)!!.id
+                    val versionToApply = StreamUtils.removeLast(if (useLeft) leftHistory else rightHistory)
+                    if (appliedVersionIds.contains(versionToApply!!.id)) {
+                        continue
+                    }
+                    appliedVersionIds.add(versionToApply.id)
+                    val oppositeAppliedOps = (if (useLeft) rightAppliedOps else leftAppliedOps).stream()
                         .map { obj: IAppliedOperation -> obj.originalOp }
                         .collect(Collectors.toList())
-                val operationsToApply = StreamUtils.toStream(versionToApply.operations)
+                    val operationsToApply = StreamUtils.toStream(versionToApply.operations)
                         .map { it: IOperation -> transformOperation(it, oppositeAppliedOps) }
                         .collect(Collectors.toList())
-                for (op in operationsToApply) {
-                    val appliedOp = op.apply(t)
-                    if (useLeft) {
-                        leftAppliedOps.add(appliedOp!!)
-                    } else {
-                        rightAppliedOps.add(appliedOp!!)
+                    for (op in operationsToApply) {
+                        val appliedOp = op.apply(t)
+                        if (useLeft) {
+                            leftAppliedOps.add(appliedOp!!)
+                        } else {
+                            rightAppliedOps.add(appliedOp!!)
+                        }
                     }
-                }
-                mergedVersion.value = CLVersion(
+                    mergedVersion.value = CLVersion(
                         versionToApply.id,
                         versionToApply.time,
                         versionToApply.author,
@@ -96,9 +99,10 @@ class VersionMerger(private val storeCache: IDeserializingKeyValueStore, private
                         if (mergedVersion.value != null) mergedVersion.value.hash else versionToApply.previousHash,
                         operationsToApply.toTypedArray(),
                         storeCache
-                )
+                    )
+                }
             }
-        })
+        )
         if (mergedVersion.value == null) {
             throw RuntimeException("Failed to merge $leftVersionHash and $rightVersionHash")
         }
@@ -185,5 +189,4 @@ class VersionMerger(private val storeCache: IDeserializingKeyValueStore, private
             null
         } else CLTree(version.treeHash, storeCache)
     }
-
 }

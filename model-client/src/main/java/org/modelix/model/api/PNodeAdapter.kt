@@ -1,6 +1,5 @@
 package org.modelix.model.api
 
-import org.modelix.model.api.INodeResolveContext
 import java.util.function.Supplier
 import java.util.stream.Stream
 
@@ -73,7 +72,7 @@ class PNodeAdapter(val nodeId: Long, val branch: IBranch?) : INode {
             return targetRef.resolveNode(PNodeResolveContext(branch))
         }
         val context = INodeResolveContext.CONTEXT_VALUE.getValue()
-                ?: throw RuntimeException(INodeResolveContext::class.java.simpleName + " not available")
+            ?: throw RuntimeException(INodeResolveContext::class.java.simpleName + " not available")
         return targetRef?.resolveNode(context)
     }
 
@@ -141,12 +140,12 @@ class PNodeAdapter(val nodeId: Long, val branch: IBranch?) : INode {
         return str
     }
 
-    //companion object {
-        @JvmOverloads
-        fun wrap(id: Long, branch: IBranch? = this.branch): INode? {
-            return if (id == 0L) null else PNodeAdapter(id, branch)
-        }
-    //}
+    // companion object {
+    @JvmOverloads
+    fun wrap(id: Long, branch: IBranch? = this.branch): INode? {
+        return if (id == 0L) null else PNodeAdapter(id, branch)
+    }
+    // }
 
     init {
         notifyAccess()

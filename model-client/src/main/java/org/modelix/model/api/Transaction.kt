@@ -35,5 +35,4 @@ abstract class Transaction(override val branch: IBranch?) : ITransaction {
     override fun getAllChildren(parentId: Long): LongStream? {
         return tree!!.getAllChildren(parentId)
     }
-
 }
