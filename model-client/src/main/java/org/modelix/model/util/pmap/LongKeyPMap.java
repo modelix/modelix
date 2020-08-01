@@ -119,9 +119,9 @@ public class LongKeyPMap<V> {
 
       int physicalIndex = logicalToPhysicalIndex(bitmap, logicalIndex);
       if (isBitNotSet(bitmap, logicalIndex)) {
-        return new InternalNode<V>(bitmap | (1 << logicalIndex), COWArrays.insert(children, physicalIndex, child));
+        return new InternalNode<V>(bitmap | (1 << logicalIndex), COWArrays.INSTANCE.insert(children, physicalIndex, child));
       } else {
-        return new InternalNode<V>(bitmap, COWArrays.set(children, physicalIndex, child));
+        return new InternalNode<V>(bitmap, COWArrays.INSTANCE.set(children, physicalIndex, child));
       }
     }
 
@@ -135,7 +135,7 @@ public class LongKeyPMap<V> {
         return null;
       }
 
-      INode<V>[] newChildren = COWArrays.removeAt(children, physicalIndex);
+      INode<V>[] newChildren = COWArrays.INSTANCE.removeAt(children, physicalIndex);
       if (newChildren.length == 1 && newChildren[0] instanceof LeafNode) {
         return newChildren[0];
       }

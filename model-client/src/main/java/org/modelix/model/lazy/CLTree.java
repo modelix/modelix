@@ -178,13 +178,13 @@ public class CLTree implements ITree {
 
     long[] newChildrenArray = parent.getData().getChildrenIdArray();
     if (index == -1) {
-      newChildrenArray = COWArrays.add(newChildrenArray, childData.getId());
+      newChildrenArray = COWArrays.INSTANCE.add(newChildrenArray, childData.getId());
     } else {
       OptionalLong anchor = getChildren(parentId, role).skip(index).findFirst();
       if (anchor.isEmpty()) {
-        newChildrenArray = COWArrays.add(newChildrenArray, childData.getId());
+        newChildrenArray = COWArrays.INSTANCE.add(newChildrenArray, childData.getId());
       } else {
-        newChildrenArray = COWArrays.insert(
+        newChildrenArray = COWArrays.INSTANCE.insert(
                 newChildrenArray,
                 COWArrays.indexOf(newChildrenArray, anchor.getAsLong()),
                 childData.getId());

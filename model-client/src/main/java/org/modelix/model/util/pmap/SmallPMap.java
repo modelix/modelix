@@ -108,23 +108,23 @@ public abstract class SmallPMap<K, V> implements CustomPMap<K, V> {
         return remove(key);
       }
 
-      int index = COWArrays.indexOf(keys, key);
+      int index = COWArrays.INSTANCE.indexOf(keys, key);
       if (index != -1) {
         if (Objects.equals(value, values[index])) {
           return this;
         } else {
-          return create(keys, COWArrays.set(values, index, value));
+          return create(keys, COWArrays.INSTANCE.set(values, index, value));
         }
       } else {
-        return create(COWArrays.add(keys, key), COWArrays.add(values, value));
+        return create(COWArrays.INSTANCE.add(keys, key), COWArrays.INSTANCE.add(values, value));
       }
     }
 
     @Override
     public SmallPMap<K, V> remove(K key) {
-      int index = COWArrays.indexOf(keys, key);
+      int index = COWArrays.INSTANCE.indexOf(keys, key);
       if (index != -1) {
-        return create(COWArrays.removeAt(keys, index), COWArrays.removeAt(values, index));
+        return create(COWArrays.INSTANCE.removeAt(keys, index), COWArrays.INSTANCE.removeAt(values, index));
       } else {
         return this;
       }

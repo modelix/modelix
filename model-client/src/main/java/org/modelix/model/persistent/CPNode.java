@@ -179,14 +179,14 @@ public class CPNode extends CPElement {
       if (index < 0) {
         return this;
       } else {
-        return create(id, concept, parentId, roleInParent, childrenIds, COWArrays.removeAt(propertyRoles, index), COWArrays.removeAt(propertyValues, index), referenceRoles, referenceTargets);
+        return create(id, concept, parentId, roleInParent, childrenIds, COWArrays.INSTANCE.removeAt(propertyRoles, index), COWArrays.INSTANCE.removeAt(propertyValues, index), referenceRoles, referenceTargets);
       }
     } else {
       if (index < 0) {
         index = -(index + 1);
-        return create(id, concept, parentId, roleInParent, childrenIds, COWArrays.insert(propertyRoles, index, role), COWArrays.insert(propertyValues, index, value), referenceRoles, referenceTargets);
+        return create(id, concept, parentId, roleInParent, childrenIds, COWArrays.INSTANCE.insert(propertyRoles, index, role), COWArrays.INSTANCE.insert(propertyValues, index, value), referenceRoles, referenceTargets);
       } else {
-        return create(id, concept, parentId, roleInParent, childrenIds, propertyRoles, COWArrays.set(propertyValues, index, value), referenceRoles, referenceTargets);
+        return create(id, concept, parentId, roleInParent, childrenIds, propertyRoles, COWArrays.INSTANCE.set(propertyValues, index, value), referenceRoles, referenceTargets);
       }
     }
   }
@@ -197,14 +197,14 @@ public class CPNode extends CPElement {
       if (index < 0) {
         return this;
       } else {
-        return create(id, concept, parentId, roleInParent, childrenIds, propertyRoles, propertyValues, COWArrays.removeAt(referenceRoles, index), COWArrays.removeAt(referenceTargets, index));
+        return create(id, concept, parentId, roleInParent, childrenIds, propertyRoles, propertyValues, COWArrays.INSTANCE.removeAt(referenceRoles, index), COWArrays.INSTANCE.removeAt(referenceTargets, index));
       }
     } else {
       if (index < 0) {
         index = -(index + 1);
-        return create(id, concept, parentId, roleInParent, childrenIds, propertyRoles, propertyValues, COWArrays.insert(referenceRoles, index, role), COWArrays.insert(referenceTargets, index, target));
+        return create(id, concept, parentId, roleInParent, childrenIds, propertyRoles, propertyValues, COWArrays.INSTANCE.insert(referenceRoles, index, role), COWArrays.INSTANCE.insert(referenceTargets, index, target));
       } else {
-        return create(id, concept, parentId, roleInParent, childrenIds, propertyRoles, propertyValues, referenceRoles, COWArrays.set(referenceTargets, index, target));
+        return create(id, concept, parentId, roleInParent, childrenIds, propertyRoles, propertyValues, referenceRoles, COWArrays.INSTANCE.set(referenceTargets, index, target));
       }
     }
   }
