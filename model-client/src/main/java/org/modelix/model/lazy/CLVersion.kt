@@ -24,7 +24,7 @@ class CLVersion {
     }
 
     constructor(hash: String?, store: IDeserializingKeyValueStore) : this(store.get<CPVersion>(hash, Function { input: String? -> CPVersion.deserialize(input) }), store) {}
-    constructor(data: CPVersion, store: IDeserializingKeyValueStore) {
+    constructor(data: CPVersion?, store: IDeserializingKeyValueStore) {
         if (data == null) {
             throw NullPointerException("data is null")
         }
@@ -65,7 +65,7 @@ class CLVersion {
 
     val operations: Iterable<IOperation>
         get() {
-            val ops = if (data!!.operationsHash == null) data!!.operations else store.get(data!!.operationsHash, Function { input: String? -> CPOperationsList.deserialize(input) }).operations
+            val ops = if (data!!.operationsHash == null) data!!.operations else store.get(data!!.operationsHash, Function { input: String? -> CPOperationsList.deserialize(input) })!!.operations
             return Iterable { Arrays.stream(ops).iterator() }
         }
 

@@ -16,7 +16,7 @@ class NonBulkQuery(private val store: IDeserializingKeyValueStore) : IBulkQuery 
     }
 
     override fun <T> get(hash: String, deserializer: Function<String?, T>): IBulkQuery.Value<T> {
-        return constant(store.get(hash, deserializer))
+        return constant(store.get(hash, deserializer)!!)
     }
 
     class Value<T>(private val value: T) : IBulkQuery.Value<T> {
