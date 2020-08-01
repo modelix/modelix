@@ -5,7 +5,7 @@ import org.modelix.model.persistent.HashUtil
 
 object IDeserializingKeyValueStore_extensions {
     fun put(_this: IDeserializingKeyValueStore, deserialized: Any?, serialized: String?) {
-        _this.put(HashUtil.sha256(serialized), deserialized, serialized)
+        _this.put(HashUtil.sha256(serialized!!), deserialized, serialized)
     }
 
     @JvmStatic
