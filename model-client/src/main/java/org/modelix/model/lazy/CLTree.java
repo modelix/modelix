@@ -57,7 +57,7 @@ public class CLTree implements ITree {
       CLHamtNode idToHash = storeElement(root, new CLHamtInternal(store));
       this.data = new CPTree(treeId.getId(), 1, HashUtil.sha256(idToHash.getData().serialize()));
 
-      IDeserializingKeyValueStore_extensions.put(store, this.data, this.data.serialize());
+      IDeserializingKeyValueStore_extensions.INSTANCE.put(store, this.data, this.data.serialize());
     } else {
       this.store = store;
       this.data = data;
@@ -70,7 +70,7 @@ public class CLTree implements ITree {
     }
     this.store = store;
     this.data = new CPTree(treeId, rootId, HashUtil.sha256(idToHash.getData().serialize()));
-    IDeserializingKeyValueStore_extensions.put(store, data, data.serialize());
+    IDeserializingKeyValueStore_extensions.INSTANCE.put(store, data, data.serialize());
   }
 
   public void prefetchAll() {
