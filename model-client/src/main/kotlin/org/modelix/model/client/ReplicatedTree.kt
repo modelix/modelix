@@ -90,7 +90,7 @@ class ReplicatedTree(private val client: IModelClient, private val treeId: TreeI
 
     protected fun createAndMergeLocalVersion() {
         checkDisposed()
-        var opsAndTree: Tuple2<List<IAppliedOperation?>, ITree>
+        var opsAndTree: Tuple2<List<IAppliedOperation>, ITree>
         var localBase: CLVersion?
         val remoteBase = MutableObject<CLVersion?>()
         val newLocalVersion = MutableObject<CLVersion>()
@@ -232,7 +232,7 @@ class ReplicatedTree(private val client: IModelClient, private val treeId: TreeI
         version = initialVersion
         remoteVersion = initialVersion
         localBranch = PBranch(initialTree.value)
-        localOTBranch = OTBranch(localBranch, client.idGenerator)
+        localOTBranch = OTBranch(localBranch, client.idGenerator!!)
         merger = VersionMerger(client.storeCache!!, client.idGenerator!!)
         versionChangeDetector = object : VersionChangeDetector(client, treeId.getBranchKey(branchName)) {
             override fun processVersionChange(oldVersionHash: String?, newVersionHash: String?) {

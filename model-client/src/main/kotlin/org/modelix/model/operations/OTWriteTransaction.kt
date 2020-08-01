@@ -18,7 +18,7 @@ class OTWriteTransaction(private val transaction: IWriteTransaction, private val
             LOG.debug("apply: $op")
         }
         val appliedOp = op.apply(transaction)
-        otBranch.operationApplied(appliedOp)
+        otBranch.operationApplied(appliedOp!!)
     }
 
     override fun moveChild(newParentId: Long, newRole: String?, newIndex: Int, childId: Long) {
