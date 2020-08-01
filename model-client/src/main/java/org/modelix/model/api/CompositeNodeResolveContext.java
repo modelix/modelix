@@ -20,7 +20,7 @@ public class CompositeNodeResolveContext implements INodeResolveContext {
   private List<INodeResolveContext> contexts;
 
   public CompositeNodeResolveContext(Iterable<INodeResolveContext> contexts) {
-    this.contexts = StreamUtils.toStream(contexts).collect(Collectors.toList());
+    this.contexts = StreamUtils.INSTANCE.toStream(contexts).collect(Collectors.toList());
   }
 
   public CompositeNodeResolveContext(INodeResolveContext... contexts) {

@@ -189,7 +189,7 @@ public class RestWebModelClient implements IModelClient {
     } else {
       throw new RuntimeException(String.format("Request for %d keys failed (%s, ...): %s",
               keys.spliterator().getExactSizeIfKnown(),
-              StreamUtils.toStream(keys).findFirst().orElse(null),
+              StreamUtils.INSTANCE.toStream(keys).findFirst().orElse(null),
               response.getStatusInfo()));
     }
   }

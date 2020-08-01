@@ -68,7 +68,7 @@ public class KeyValueStoreCache implements IKeyValueStore {
 
   @Override
   public Map<String, String> getAll(Iterable<String> keys_) {
-    List<String> remainingKeys = StreamUtils.toStream(keys_).collect(Collectors.toList());
+    List<String> remainingKeys = StreamUtils.INSTANCE.toStream(keys_).collect(Collectors.toList());
     Map<String, String> result = new LinkedHashMap<>(16, (float) 0.75, false);
     synchronized (cache) {
       Iterator<String> itr = remainingKeys.iterator();
@@ -90,7 +90,7 @@ public class KeyValueStoreCache implements IKeyValueStore {
         for (final GetRequest r : activeRequests) {
           if (remainingKeys.stream().anyMatch(r.keys::contains)) {
             if (LOG.isDebugEnabled()) {
-              Set<String> intersection = StreamUtils.intersection(remainingKeys.stream(), r.keys);
+              Set<String> intersection = StreamUtils.INSTANCE.intersection(remainingKeys.stream(), r.keys);
               LOG.debug("Reusing an active request: " + intersection.stream().findFirst().orElse(null) + " (" + intersection.size() + ")");
             }
             requiredRequest.add(r);

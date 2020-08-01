@@ -68,9 +68,9 @@ class VersionMerger(private val storeCache: IDeserializingKeyValueStore, private
             val rightAppliedOps: MutableList<IAppliedOperation> = ArrayList()
             val appliedVersionIds: TLongSet = TLongHashSet()
             while (!leftHistory.isEmpty() || !rightHistory.isEmpty()) {
-                val useLeft = rightHistory.isEmpty() || !leftHistory.isEmpty() && StreamUtils.last(leftHistory).id < StreamUtils.last(rightHistory).id
+                val useLeft = rightHistory.isEmpty() || !leftHistory.isEmpty() && StreamUtils.last(leftHistory)!!.id < StreamUtils.last(rightHistory)!!.id
                 val versionToApply = StreamUtils.removeLast(if (useLeft) leftHistory else rightHistory)
-                if (appliedVersionIds.contains(versionToApply.id)) {
+                if (appliedVersionIds.contains(versionToApply!!.id)) {
                     continue
                 }
                 appliedVersionIds.add(versionToApply.id)
@@ -120,7 +120,7 @@ class VersionMerger(private val storeCache: IDeserializingKeyValueStore, private
      * @param toVersionExclusive The oldest version
      * @return Newest version first
      */
-    protected fun getHistory(fromVersion: String, toVersionExclusive: String?): List<CLVersion> {
+    protected fun getHistory(fromVersion: String, toVersionExclusive: String?): MutableList<CLVersion> {
         val history: MutableList<CLVersion> = ArrayList()
         if (fromVersion == toVersionExclusive) {
             return history

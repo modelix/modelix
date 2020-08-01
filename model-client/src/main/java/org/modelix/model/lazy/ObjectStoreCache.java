@@ -30,7 +30,7 @@ public class ObjectStoreCache implements IDeserializingKeyValueStore {
 
   @Override
   public <T> Iterable<T> getAll(Iterable<String> hashes_, BiFunction<String, String, T> deserializer) {
-    List<String> hashes = StreamUtils.toStream(hashes_).collect(Collectors.toList());
+    List<String> hashes = StreamUtils.INSTANCE.toStream(hashes_).collect(Collectors.toList());
     final Map<String, T> result = new HashMap<>();
     List<String> nonCachedHashes = new ArrayList<>(hashes.size());
 

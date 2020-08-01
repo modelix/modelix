@@ -17,7 +17,7 @@ public class NonBulkQuery implements IBulkQuery {
 
   @Override
   public <I, O> IBulkQuery.Value<List<O>> map(Iterable<I> input, final Function<I, IBulkQuery.Value<O>> f) {
-    List<O> list = StreamUtils.toStream(input).map(f).map(IBulkQuery.Value::execute).collect(Collectors.toList());
+    List<O> list = StreamUtils.INSTANCE.toStream(input).map(f).map(IBulkQuery.Value::execute).collect(Collectors.toList());
     return new Value<List<O>>(list);
   }
 

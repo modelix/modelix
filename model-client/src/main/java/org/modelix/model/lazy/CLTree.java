@@ -344,7 +344,7 @@ public class CLTree implements ITree {
       if (oldParent == targetParentId) {
         String oldRole = getRole(childId);
         if (Objects.equals(oldRole, targetRole)) {
-          int oldIndex = StreamUtils.indexOf(getChildren(oldParent, oldRole), childId);
+          int oldIndex = StreamUtils.INSTANCE.indexOf(getChildren(oldParent, oldRole), childId);
           if (oldIndex == targetIndex) {
             return this;
           }

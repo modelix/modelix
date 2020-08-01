@@ -56,7 +56,7 @@ public class AsyncStore implements IKeyValueStore {
 
   @Override
   public Map<String, String> getAll(Iterable<String> keys_) {
-    List<String> keys = StreamUtils.toStream(keys_).collect(Collectors.toList());
+    List<String> keys = StreamUtils.INSTANCE.toStream(keys_).collect(Collectors.toList());
     Map<String, String> result = new LinkedHashMap<>(16, (float) 0.75, false);
     synchronized (pendingWrites) {
       Iterator<String> itr = keys.iterator();

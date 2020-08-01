@@ -24,8 +24,8 @@ public abstract class SmallPMap<K, V> implements CustomPMap<K, V> {
 
   public static <K, V> SmallPMap<K, V> createS(Iterable<K> keys, Iterable<V> values) {
     return create(
-            StreamUtils.toStream(keys).toArray(Object[]::new),
-            StreamUtils.toStream(values).toArray(Object[]::new));
+            StreamUtils.INSTANCE.toStream(keys).toArray(Object[]::new),
+            StreamUtils.INSTANCE.toStream(values).toArray(Object[]::new));
   }
 
   @Override

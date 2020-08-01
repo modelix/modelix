@@ -39,7 +39,7 @@ public class OTWriteTransaction implements IWriteTransaction {
   public void moveChild(long newParentId, String newRole, int newIndex, long childId) {
     long oldparent = getParent(childId);
     String oldRole = getRole(childId);
-    int oldIndex = StreamUtils.indexOf(getChildren(oldparent, oldRole), childId);
+    int oldIndex = StreamUtils.INSTANCE.indexOf(getChildren(oldparent, oldRole), childId);
     if (newIndex == -1) {
       newIndex = (int) getChildren(newParentId, newRole).count();
     }
@@ -68,7 +68,7 @@ public class OTWriteTransaction implements IWriteTransaction {
   public void deleteNode(long nodeId) {
     long parent = getParent(nodeId);
     String role = getRole(nodeId);
-    int index = StreamUtils.indexOf(getChildren(parent, role), nodeId);
+    int index = StreamUtils.INSTANCE.indexOf(getChildren(parent, role), nodeId);
     apply(new DeleteNodeOp(parent, role, index, nodeId));
   }
 
