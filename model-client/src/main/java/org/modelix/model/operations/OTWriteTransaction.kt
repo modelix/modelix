@@ -26,7 +26,7 @@ class OTWriteTransaction(private val transaction: IWriteTransaction, private val
     }
 
     override fun setProperty(nodeId: Long, role: String?, value: String?) {
-        apply(SetPropertyOp(nodeId, role, value))
+        apply(SetPropertyOp(nodeId, role!!, value!!))
     }
 
     override fun setReferenceTarget(sourceId: Long, role: String?, target: INodeReference?) {

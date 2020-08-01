@@ -69,7 +69,7 @@ public class OperationSerializer {
     INSTANCE.registerSerializer(SetPropertyOp.class, new Serializer<SetPropertyOp>() {
       @Override
       public String serialize(SetPropertyOp op) {
-        return SerializationUtil.longToHex(op.nodeId) + SEPARATOR + SerializationUtil.escape(op.role) + SEPARATOR + SerializationUtil.escape(op.value);
+        return SerializationUtil.longToHex(op.getNodeId()) + SEPARATOR + SerializationUtil.escape(op.getRole()) + SEPARATOR + SerializationUtil.escape(op.getValue());
       }
 
       @Override
