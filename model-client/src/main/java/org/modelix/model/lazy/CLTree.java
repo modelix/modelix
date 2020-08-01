@@ -82,11 +82,11 @@ public class CLTree implements ITree {
   }
 
   public CLHamtNode getNodesMap() {
-    return CLHamtNode.create(store.get(data.idToHash, s -> CPHamtNode.deserialize(s)), store);
+    return CLHamtNode.create(store.get(data.getIdToHash(), s -> CPHamtNode.deserialize(s)), store);
   }
 
   public String getId() {
-    return data.id;
+    return data.getId();
   }
 
   protected CLHamtNode storeElement(CLElement element, CLHamtNode id2hash) {
@@ -102,7 +102,7 @@ public class CLTree implements ITree {
   }
 
   public CLNode getRoot() {
-    return (CLNode) resolveElement(data.rootId);
+    return (CLNode) resolveElement(data.getRootId());
   }
 
   @Override
@@ -115,7 +115,7 @@ public class CLTree implements ITree {
     newIdToHash = newIdToHash.put(newNodeData);
     IDeserializingKeyValueStore_extensions.put(store, newNodeData);
 
-    CLTree newTree = new CLTree(data.id, data.rootId, newIdToHash, store);
+    CLTree newTree = new CLTree(data.getId(), data.getRootId(), newIdToHash, store);
     return newTree;
   }
 
@@ -148,7 +148,7 @@ public class CLTree implements ITree {
     newIdToHash = newIdToHash.put(newChildData);
     IDeserializingKeyValueStore_extensions.put(store, newChildData);
 
-    CLTree newTree = new CLTree(data.id, data.rootId, newIdToHash, store);
+    CLTree newTree = new CLTree(data.getId(), data.getRootId(), newIdToHash, store);
     return newTree;
   }
 
@@ -204,7 +204,7 @@ public class CLTree implements ITree {
     newIdToHash = newIdToHash.put(newParentData);
     IDeserializingKeyValueStore_extensions.put(store, newParentData);
 
-    CLTree newTree = new CLTree(data.id, data.rootId, newIdToHash, store);
+    CLTree newTree = new CLTree(data.getId(), data.getRootId(), newIdToHash, store);
     return newTree;
   }
 
@@ -232,7 +232,7 @@ public class CLTree implements ITree {
     newIdToHash = newIdToHash.put(newNodeData);
     IDeserializingKeyValueStore_extensions.put(store, newNodeData);
 
-    CLTree newTree = new CLTree(data.id, data.rootId, newIdToHash, store);
+    CLTree newTree = new CLTree(data.getId(), data.getRootId(), newIdToHash, store);
     return newTree;
   }
 
@@ -259,7 +259,7 @@ public class CLTree implements ITree {
       newIdToHash = deleteElements(node.getData(), newIdToHash);
     }
 
-    CLTree newTree = new CLTree(data.id, data.rootId, newIdToHash, store);
+    CLTree newTree = new CLTree(data.getId(), data.getRootId(), newIdToHash, store);
     return newTree;
   }
 
@@ -437,8 +437,8 @@ public class CLTree implements ITree {
     if (ref == null) {
       return null;
     }
-    if (ref.isGLobal() && !(ref.getTreeId().equals(this.data.id))) {
-      throw new RuntimeException("Cannot resolve " + ref + " in tree " + this.data.id);
+    if (ref.isGLobal() && !(ref.getTreeId().equals(this.data.getId()))) {
+      throw new RuntimeException("Cannot resolve " + ref + " in tree " + this.data.getId());
     }
     if (ref.isLocal()) {
       return resolveElement(ref.getElementId());
