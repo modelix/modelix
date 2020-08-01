@@ -2,7 +2,6 @@ package org.modelix.model.operations
 
 import org.modelix.model.api.INodeReference
 import org.modelix.model.api.IWriteTransaction
-import org.modelix.model.operations.SetReferenceOp
 import java.text.MessageFormat
 
 class SetReferenceOp(val sourceId: Long, val role: String, val target: INodeReference) : AbstractOperation() {
@@ -47,7 +46,5 @@ class SetReferenceOp(val sourceId: Long, val role: String, val target: INodeRefe
         override fun toString(): String {
             return super.toString() + ", oldValue: " + oldValue
         }
-
     }
-
 }

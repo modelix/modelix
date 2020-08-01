@@ -1,6 +1,6 @@
 package org.modelix.model.util.pmap
 
-import java.util.*
+import java.util.Arrays
 
 object COWArrays {
     fun <T> insert(array: Array<T>, index: Int, element: T): Array<T> {

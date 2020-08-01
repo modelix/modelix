@@ -3,11 +3,13 @@ package org.modelix.model.lazy
 import io.vavr.Tuple
 import io.vavr.Tuple3
 import org.apache.commons.lang3.mutable.MutableInt
-import java.util.*
+import java.util.Arrays
 import java.util.function.Consumer
 import java.util.function.Function
 import java.util.stream.Collectors
 import java.util.stream.StreamSupport
+import kotlin.collections.ArrayList
+import kotlin.collections.HashMap
 
 /**
  * Not thread safe
@@ -60,11 +62,12 @@ class BulkQuery(private val store: IDeserializingKeyValueStore) : IBulkQuery {
                     deserializers[request._1()] = request._2()
                 }
                 val entries = executeBulkQuery(
-                        currentRequests.stream()
-                                .map { obj: Tuple3<String, Function<String, *>, Consumer<Any?>> -> obj._1() }
-                                .distinct()
-                                .collect(Collectors.toList()),
-                        deserializers)
+                    currentRequests.stream()
+                        .map { obj: Tuple3<String, Function<String, *>, Consumer<Any?>> -> obj._1() }
+                        .distinct()
+                        .collect(Collectors.toList()),
+                    deserializers
+                )
                 for (request in currentRequests) {
                     request._3().accept(entries[request._1()])
                 }
@@ -84,17 +87,19 @@ class BulkQuery(private val store: IDeserializingKeyValueStore) : IBulkQuery {
         val remaining = MutableInt(input.size)
         val result = Value<List<O>>()
         for (i_ in input.indices) {
-            f.apply(input[i_]).onSuccess(Consumer { value ->
-                if (done[i_]) {
-                    return@Consumer
+            f.apply(input[i_]).onSuccess(
+                Consumer { value ->
+                    if (done[i_]) {
+                        return@Consumer
+                    }
+                    output[i_] = value
+                    done[i_] = true
+                    remaining.decrement()
+                    if (remaining.toInt() == 0) {
+                        result.success(Arrays.stream(output).map { e: Any? -> e as O }.collect(Collectors.toList()))
+                    }
                 }
-                output[i_] = value
-                done[i_] = true
-                remaining.decrement()
-                if (remaining.toInt() == 0) {
-                    result.success(Arrays.stream(output).map { e: Any? -> e as O }.collect(Collectors.toList()))
-                }
-            })
+            )
         }
         return result
     }
@@ -150,5 +155,4 @@ class BulkQuery(private val store: IDeserializingKeyValueStore) : IBulkQuery {
             return result
         }
     }
-
 }

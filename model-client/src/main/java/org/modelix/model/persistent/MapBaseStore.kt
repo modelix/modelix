@@ -3,7 +3,6 @@ package org.modelix.model.persistent
 import gnu.trove.map.hash.THashMap
 import org.modelix.model.IKeyListener
 import org.modelix.model.IKeyValueStore
-import java.util.*
 
 class MapBaseStore : IKeyValueStore {
     private val map: MutableMap<String?, String?> = THashMap()

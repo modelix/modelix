@@ -1,7 +1,6 @@
 package org.modelix.model.operations
 
 import org.modelix.model.api.IWriteTransaction
-import org.modelix.model.operations.MoveNodeOp
 import java.text.MessageFormat
 
 class MoveNodeOp(val childId: Long, val sourceParentId: Long, val sourceRole: String, val sourceIndex: Int, val targetParentId: Long, val targetRole: String, val targetIndex: Int) : AbstractOperation(), IModifiesChildrenOp {
@@ -65,5 +64,4 @@ class MoveNodeOp(val childId: Long, val sourceParentId: Long, val sourceRole: St
             return MoveNodeOp(childId, targetParentId, targetRole, targetIndex, sourceParentId, sourceRole, sourceIndex)
         }
     }
-
 }

@@ -95,7 +95,5 @@ class DeleteNodeOp(val parentId: Long, val role: String, val index: Int, val chi
         override fun toString(): String {
             return super.toString() + ", concept: " + concept
         }
-
     }
-
 }

@@ -61,5 +61,4 @@ class AddNewChildOp(val parentId: Long, val role: String, val index: Int, val ch
             return DeleteNodeOp(parentId, role, index, childId)
         }
     }
-
 }

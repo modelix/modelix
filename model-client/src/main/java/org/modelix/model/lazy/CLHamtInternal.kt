@@ -1,6 +1,5 @@
 package org.modelix.model.lazy
 
-import org.modelix.model.lazy.CLHamtLeaf
 import org.modelix.model.persistent.CPHamtInternal
 import org.modelix.model.persistent.CPHamtNode
 import org.modelix.model.persistent.HashUtil
@@ -133,17 +132,21 @@ class CLHamtInternal : CLHamtNode<CPHamtInternal?> {
                         if (oldChild == null) {
                             // no change 
                         } else {
-                            oldChild.visitEntries(BiPredicate { key, value ->
-                                visitor.entryRemoved(key!!, value)
-                                true
-                            })
+                            oldChild.visitEntries(
+                                BiPredicate { key, value ->
+                                    visitor.entryRemoved(key!!, value)
+                                    true
+                                }
+                            )
                         }
                     } else {
                         if (oldChild == null) {
-                            child.visitEntries(BiPredicate { key, value ->
-                                visitor.entryAdded(key!!, value)
-                                true
-                            })
+                            child.visitEntries(
+                                BiPredicate { key, value ->
+                                    visitor.entryAdded(key!!, value)
+                                    true
+                                }
+                            )
                         } else {
                             child.visitChanges(oldChild, visitor)
                         }
@@ -152,17 +155,19 @@ class CLHamtInternal : CLHamtNode<CPHamtInternal?> {
             }
         } else if (oldNode is CLHamtLeaf) {
             val oldLeafNode = oldNode
-            visitEntries(BiPredicate<Long, String> { k, v ->
-                if (k == oldLeafNode.key) {
-                    val oldValue = oldLeafNode.value
-                    if (v != oldValue) {
-                        visitor.entryChanged(k, oldValue, v)
+            visitEntries(
+                BiPredicate<Long, String> { k, v ->
+                    if (k == oldLeafNode.key) {
+                        val oldValue = oldLeafNode.value
+                        if (v != oldValue) {
+                            visitor.entryChanged(k, oldValue, v)
+                        }
+                    } else {
+                        visitor.entryAdded(k, v)
                     }
-                } else {
-                    visitor.entryAdded(k, v)
+                    true
                 }
-                true
-            })
+            )
         } else {
             throw RuntimeException("Unknown type: " + oldNode.javaClass.name)
         }

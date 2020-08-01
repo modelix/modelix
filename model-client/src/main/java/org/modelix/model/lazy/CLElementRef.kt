@@ -20,5 +20,4 @@ class CLElementRef(val id: Long) {
         result = 31 * result + (id xor (id shr 32)).toInt()
         return result
     }
-
 }

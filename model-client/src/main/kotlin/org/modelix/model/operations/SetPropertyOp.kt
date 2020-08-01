@@ -1,7 +1,6 @@
 package org.modelix.model.operations
 
 import org.modelix.model.api.IWriteTransaction
-import org.modelix.model.operations.SetPropertyOp
 import java.text.MessageFormat
 
 class SetPropertyOp(val nodeId: Long, val role: String, val value: String) : AbstractOperation() {
@@ -46,7 +45,5 @@ class SetPropertyOp(val nodeId: Long, val role: String, val value: String) : Abs
         override fun toString(): String {
             return super.toString() + ", oldValue: " + oldValue
         }
-
     }
-
 }
