@@ -83,9 +83,9 @@ class VersionMerger(private val storeCache: IDeserializingKeyValueStore, private
                 for (op in operationsToApply) {
                     val appliedOp = op.apply(t)
                     if (useLeft) {
-                        leftAppliedOps.add(appliedOp)
+                        leftAppliedOps.add(appliedOp!!)
                     } else {
-                        rightAppliedOps.add(appliedOp)
+                        rightAppliedOps.add(appliedOp!!)
                     }
                 }
                 mergedVersion.value = CLVersion(
@@ -108,7 +108,7 @@ class VersionMerger(private val storeCache: IDeserializingKeyValueStore, private
     protected fun transformOperation(opToTransform: IOperation, previousOps: Iterable<IOperation?>): IOperation {
         var result = opToTransform
         for (previous in previousOps) {
-            result = result.transform(previous)
+            result = result.transform(previous)!!
         }
         return result
     }
