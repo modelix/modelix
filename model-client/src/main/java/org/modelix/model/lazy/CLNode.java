@@ -24,7 +24,7 @@ public class CLNode extends CLElement {
   }
 
   public IBulkQuery.Value<Iterable<CLNode>> getChildren(IBulkQuery bulkQuery) {
-    return ((CLTree) getTree()).resolveElements(getData().getChildrenIds(), bulkQuery).map(elements -> elements);
+    return tree.resolveElements(getData().getChildrenIds(), bulkQuery).map(elements -> elements);
   }
 
   public IBulkQuery.Value<Iterable<CLNode>> getDescendants(final IBulkQuery bulkQuery, boolean includeSelf) {
