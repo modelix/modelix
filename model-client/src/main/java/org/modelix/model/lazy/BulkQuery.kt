@@ -4,6 +4,7 @@ import io.vavr.Tuple
 import io.vavr.Tuple3
 import org.apache.commons.lang3.mutable.MutableInt
 import java.util.Arrays
+import java.util.function.BiFunction
 import java.util.function.Consumer
 import java.util.function.Function
 import java.util.stream.Collectors
@@ -18,11 +19,11 @@ class BulkQuery(private val store: IDeserializingKeyValueStore) : IBulkQuery {
     private var queue: MutableList<Tuple3<String, Function<String, *>, Consumer<Any?>>> = ArrayList()
     private var processing = false
     protected fun executeBulkQuery(keys: Iterable<String>, deserializers: Map<String, Function<String, *>>): Map<String, Any> {
-        val values = store.getAll(keys) { key: String?, serialized: String? -> deserializers[key]!!.apply(serialized!!) }
+        val values = store.getAll(keys, BiFunction<String?, String?, Any> { key: String?, serialized: String? -> deserializers[key]!!.apply(serialized!!) })
         val result: MutableMap<String, Any> = HashMap()
         run {
             val key_it = keys.iterator()
-            val value_it: Iterator<Any> = values.iterator()
+            val value_it: Iterator<Any> = values!!.iterator()
             var key_var: String
             var value_var: Any
             while (key_it.hasNext() && value_it.hasNext()) {
