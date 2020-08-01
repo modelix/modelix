@@ -4,7 +4,8 @@ import org.modelix.model.IKeyListener
 import org.modelix.model.IKeyValueStore
 import org.modelix.model.persistent.HashUtil
 import org.modelix.model.util.StreamUtils.toStream
-import java.util.*
+import java.util.Collections
+import java.util.Optional
 import java.util.stream.Collectors
 
 class GarbageFilteringStore(private val store: IKeyValueStore) : IKeyValueStore {
@@ -77,5 +78,4 @@ class GarbageFilteringStore(private val store: IKeyValueStore) : IKeyValueStore 
     override fun removeListener(key: String?, listener: IKeyListener?) {
         store.removeListener(key, listener)
     }
-
 }

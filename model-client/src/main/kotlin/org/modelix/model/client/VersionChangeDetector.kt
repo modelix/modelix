@@ -46,17 +46,20 @@ abstract class VersionChangeDetector(private val store: IKeyValueStore, private 
             }
         }
         SharedExecutors.FIXED.execute { store.listen(key, keyListener) }
-        pollingTask = fixDelay(3000, object : Runnable {
-            override fun run() {
-                val version = store[key]
-                if (version == lastVersionHash) {
-                    return
+        pollingTask = fixDelay(
+            3000,
+            object : Runnable {
+                override fun run() {
+                    val version = store[key]
+                    if (version == lastVersionHash) {
+                        return
+                    }
+                    if (LOG.isDebugEnabled) {
+                        LOG.debug("New version detected by polling: $version")
+                    }
+                    versionChanged(version)
                 }
-                if (LOG.isDebugEnabled) {
-                    LOG.debug("New version detected by polling: $version")
-                }
-                versionChanged(version)
             }
-        })
+        )
     }
 }

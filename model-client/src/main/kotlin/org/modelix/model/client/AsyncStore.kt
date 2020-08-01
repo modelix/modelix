@@ -6,7 +6,7 @@ import org.modelix.model.IKeyListener
 import org.modelix.model.IKeyValueStore
 import org.modelix.model.util.StreamUtils.toStream
 import java.lang.Runnable
-import java.util.*
+import java.util.Objects
 import java.util.concurrent.atomic.AtomicBoolean
 import java.util.stream.Collectors
 
@@ -66,35 +66,37 @@ class AsyncStore(private val store: IKeyValueStore) : IKeyValueStore {
 
     protected fun processQueue() {
         if (consumerActive.compareAndSet(false, true)) {
-            SharedExecutors.FIXED.execute(Runnable {
-                try {
-                    while (!pendingWrites.isEmpty()) {
-                        try {
-                            val entries: MutableMap<String?, String?> = LinkedHashMap(16, 0.75.toFloat(), false)
-                            synchronized(pendingWrites) { entries.putAll(pendingWrites) }
-                            store.putAll(entries)
-                            synchronized(pendingWrites) {
-                                for (entry: Map.Entry<String?, String?> in entries.entries) {
-                                    if (Objects.equals(pendingWrites.get(entry.key), entry.value)) {
-                                        pendingWrites.remove(entry.key)
+            SharedExecutors.FIXED.execute(
+                Runnable {
+                    try {
+                        while (!pendingWrites.isEmpty()) {
+                            try {
+                                val entries: MutableMap<String?, String?> = LinkedHashMap(16, 0.75.toFloat(), false)
+                                synchronized(pendingWrites) { entries.putAll(pendingWrites) }
+                                store.putAll(entries)
+                                synchronized(pendingWrites) {
+                                    for (entry: Map.Entry<String?, String?> in entries.entries) {
+                                        if (Objects.equals(pendingWrites.get(entry.key), entry.value)) {
+                                            pendingWrites.remove(entry.key)
+                                        }
                                     }
                                 }
-                            }
-                        } catch (ex: Exception) {
-                            if (LOG.isEnabledFor(Level.ERROR)) {
-                                LOG.error("", ex)
-                            }
-                            try {
-                                Thread.sleep(1000)
-                            } catch (ex2: InterruptedException) {
-                                return@Runnable
+                            } catch (ex: Exception) {
+                                if (LOG.isEnabledFor(Level.ERROR)) {
+                                    LOG.error("", ex)
+                                }
+                                try {
+                                    Thread.sleep(1000)
+                                } catch (ex2: InterruptedException) {
+                                    return@Runnable
+                                }
                             }
                         }
+                    } finally {
+                        consumerActive.set(false)
                     }
-                } finally {
-                    consumerActive.set(false)
                 }
-            })
+            )
         }
     }
 
@@ -103,5 +105,4 @@ class AsyncStore(private val store: IKeyValueStore) : IKeyValueStore {
     companion object {
         private val LOG = LogManager.getLogger(AsyncStore::class.java)
     }
-
 }

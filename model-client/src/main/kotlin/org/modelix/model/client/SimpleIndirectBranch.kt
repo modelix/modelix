@@ -11,5 +11,4 @@ class SimpleIndirectBranch(override val branch: IBranch) : IIndirectBranch {
     override fun removeListener(l: IBranchListener?) {
         branch.removeListener(l)
     }
-
 }

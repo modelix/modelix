@@ -5,7 +5,8 @@ import org.apache.log4j.LogManager
 import org.modelix.model.persistent.HashUtil
 import org.modelix.model.util.StreamUtils.intersection
 import org.modelix.model.util.StreamUtils.toStream
-import java.util.*
+import java.util.Arrays
+import java.util.Collections
 import java.util.concurrent.locks.ReentrantLock
 import java.util.stream.Collectors
 
@@ -16,7 +17,7 @@ class KeyValueStoreCache(private val store: IKeyValueStore) : IKeyValueStore {
     override fun prefetch(rootKey: String?) {
         val processedKeys: MutableSet<String?> = HashSet()
         processedKeys.add(rootKey)
-        var newKeys : MutableList<String?> = Arrays.asList(rootKey).toMutableList()
+        var newKeys: MutableList<String?> = Arrays.asList(rootKey).toMutableList()
         while (!newKeys.isEmpty() && processedKeys.size + newKeys.size <= 100000) {
             synchronized(pendingPrefetches) { newKeys.removeAll(pendingPrefetches) }
             val currentKeys = newKeys
@@ -161,11 +162,9 @@ class KeyValueStoreCache(private val store: IKeyValueStore) : IKeyValueStore {
                 throw RuntimeException(exception)
             }
         }
-
     }
 
     companion object {
         private val LOG = LogManager.getLogger(KeyValueStoreCache::class.java)
     }
-
 }

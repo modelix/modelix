@@ -3,7 +3,7 @@ package org.modelix.model.lazy
 import org.modelix.model.operations.IOperation
 import org.modelix.model.persistent.CPOperationsList
 import org.modelix.model.persistent.CPVersion
-import java.util.*
+import java.util.Arrays
 
 class CLVersion {
     private var store: IDeserializingKeyValueStore
@@ -58,7 +58,7 @@ class CLVersion {
                 return null
             }
             val previousVersion = store.get(data!!.previousVersion) { input: String? -> CPVersion.deserialize(input) }
-                    ?: return null
+                ?: return null
             return CLVersion(previousVersion, store)
         }
 

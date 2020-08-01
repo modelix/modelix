@@ -1,9 +1,6 @@
 package org.modelix.model.api
 
-import org.modelix.model.util.StreamUtils.toStream
-import java.util.*
-import java.util.function.Predicate
-import java.util.stream.Collectors
+import java.util.Objects
 
 class CompositeNodeResolveContext(contexts: Iterable<INodeResolveContext?>) : INodeResolveContext {
     private val contexts: List<INodeResolveContext?>

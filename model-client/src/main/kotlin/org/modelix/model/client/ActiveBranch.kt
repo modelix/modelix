@@ -5,10 +5,8 @@ import org.apache.log4j.LogManager
 import org.modelix.model.api.IBranch
 import org.modelix.model.api.IBranchListener
 import org.modelix.model.api.ITree
-import org.modelix.model.client.ActiveBranch
 import org.modelix.model.lazy.CLVersion
 import org.modelix.model.lazy.TreeId
-import java.util.*
 import java.util.function.Supplier
 
 class ActiveBranch(client: IModelClient, tree: TreeId, branchName: String?, user: Supplier<String>) : IIndirectBranch {

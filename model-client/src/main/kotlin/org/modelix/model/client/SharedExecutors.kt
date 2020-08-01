@@ -18,14 +18,17 @@ object SharedExecutors {
 
     @JvmStatic
     fun fixDelay(milliSeconds: Int, r: Runnable): ScheduledFuture<*> {
-        return SCHEDULED.scheduleWithFixedDelay({
-            try {
-                r.run()
-            } catch (ex: Exception) {
-                if (LOG.isEnabledFor(Level.ERROR)) {
-                    LOG.error("", ex)
+        return SCHEDULED.scheduleWithFixedDelay(
+            {
+                try {
+                    r.run()
+                } catch (ex: Exception) {
+                    if (LOG.isEnabledFor(Level.ERROR)) {
+                        LOG.error("", ex)
+                    }
                 }
-            }
-        }, milliSeconds.toLong(), milliSeconds.toLong(), TimeUnit.MILLISECONDS)
+            },
+            milliSeconds.toLong(), milliSeconds.toLong(), TimeUnit.MILLISECONDS
+        )
     }
 }

@@ -17,18 +17,25 @@ import java.io.File
 import java.io.IOException
 import java.net.URLEncoder
 import java.nio.charset.StandardCharsets
-import java.util.*
+import java.util.Objects
 import java.util.concurrent.ScheduledFuture
 import java.util.concurrent.TimeUnit
 import java.util.function.Consumer
 import java.util.function.Predicate
 import java.util.function.ToLongFunction
 import java.util.stream.Stream
-import javax.ws.rs.client.*
+import javax.ws.rs.client.Client
+import javax.ws.rs.client.ClientBuilder
+import javax.ws.rs.client.ClientRequestContext
+import javax.ws.rs.client.ClientRequestFilter
+import javax.ws.rs.client.Entity
 import javax.ws.rs.core.HttpHeaders
 import javax.ws.rs.core.MediaType
 import javax.ws.rs.core.Response
 import javax.ws.rs.sse.SseEventSource
+import kotlin.collections.ArrayList
+import kotlin.collections.HashMap
+import kotlin.collections.LinkedHashMap
 
 class RestWebModelClient @JvmOverloads constructor(var baseUrl: String? = null) : IModelClient {
     companion object {
@@ -154,10 +161,14 @@ class RestWebModelClient @JvmOverloads constructor(var baseUrl: String? = null) 
             val end = System.currentTimeMillis()
             result
         } else {
-            throw RuntimeException(String.format("Request for %d keys failed (%s, ...): %s",
+            throw RuntimeException(
+                String.format(
+                    "Request for %d keys failed (%s, ...): %s",
                     keys.spliterator().exactSizeIfKnown,
                     toStream(keys).findFirst().orElse(null),
-                    response.statusInfo))
+                    response.statusInfo
+                )
+            )
         }
     }
 
@@ -203,10 +214,14 @@ class RestWebModelClient @JvmOverloads constructor(var baseUrl: String? = null) 
             }
             val response = client.target(baseUrl + "putAll").request(MediaType.APPLICATION_JSON).put(Entity.text(json.toString()))
             if (response.statusInfo.family != Response.Status.Family.SUCCESSFUL) {
-                throw RuntimeException(String.format("Failed to store %d entries (%s) %s",
+                throw RuntimeException(
+                    String.format(
+                        "Failed to store %d entries (%s) %s",
                         entries!!.size,
                         response.statusInfo,
-                        entries.entries.stream().map { e: Map.Entry<String?, String?> -> e.key.toString() + " = " + e.value + ", ..." }.findFirst().orElse("")))
+                        entries.entries.stream().map { e: Map.Entry<String?, String?> -> e.key.toString() + " = " + e.value + ", ..." }.findFirst().orElse("")
+                    )
+                )
             }
         }
         if (LOG.isDebugEnabled) {
@@ -297,21 +312,24 @@ class RestWebModelClient @JvmOverloads constructor(var baseUrl: String? = null) 
                 }
                 val target = client.target(url)
                 sse[i] = Sse(SseEventSource.target(target).reconnectingEvery(1, TimeUnit.SECONDS).build())
-                sse[i]!!.sse.register(Consumer { event ->
-                    val value = event.readData()
-                    synchronized(notificationLock) {
-                        if (!((value == lastValue))) {
-                            lastValue = value
-                            keyListener!!.changed(key, value)
+                sse[i]!!.sse.register(
+                    Consumer { event ->
+                        val value = event.readData()
+                        synchronized(notificationLock) {
+                            if (!((value == lastValue))) {
+                                lastValue = value
+                                keyListener!!.changed(key, value)
+                            }
+                        }
+                    },
+                    object : Consumer<Throwable?> {
+                        override fun accept(ex: Throwable?) {
+                            if (LOG.isEnabledFor(Level.ERROR)) {
+                                LOG.error("", ex)
+                            }
                         }
                     }
-                }, object : Consumer<Throwable?> {
-                    override fun accept(ex: Throwable?) {
-                        if (LOG.isEnabledFor(Level.ERROR)) {
-                            LOG.error("", ex)
-                        }
-                    }
-                })
+                )
                 if (disposed) {
                     return
                 }
@@ -327,9 +345,7 @@ class RestWebModelClient @JvmOverloads constructor(var baseUrl: String? = null) 
             var birth = System.currentTimeMillis()
             val age: Long
                 get() = System.currentTimeMillis() - birth
-
         }
-
     }
 
     init {
@@ -345,20 +361,23 @@ class RestWebModelClient @JvmOverloads constructor(var baseUrl: String? = null) 
                 ctx.headers.add(HttpHeaders.AUTHORIZATION, "Bearer $authToken")
             }
         }).build()
-        watchDogTask = fixDelay(1000, object : Runnable {
-            override fun run() {
-                var ls: List<SseListener>
-                synchronized(listeners) { ls = ArrayList(listeners) }
-                for (l: SseListener in ls) {
-                    try {
-                        l.ensureConnected()
-                    } catch (ex: Exception) {
-                        if (LOG.isEnabledFor(Level.ERROR)) {
-                            LOG.error("", ex)
+        watchDogTask = fixDelay(
+            1000,
+            object : Runnable {
+                override fun run() {
+                    var ls: List<SseListener>
+                    synchronized(listeners) { ls = ArrayList(listeners) }
+                    for (l: SseListener in ls) {
+                        try {
+                            l.ensureConnected()
+                        } catch (ex: Exception) {
+                            if (LOG.isEnabledFor(Level.ERROR)) {
+                                LOG.error("", ex)
+                            }
                         }
                     }
                 }
             }
-        })
+        )
     }
 }
