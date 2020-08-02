@@ -9,7 +9,7 @@ import java.util.stream.Stream
 class CPOperationsList(val operations: Array<IOperation?>) {
     fun serialize(): String {
         return Stream.of(*operations)
-            .map { op: IOperation? -> OperationSerializer.INSTANCE.serialize(op) }
+            .map { op: IOperation? -> OperationSerializer.INSTANCE.serialize(op!!) }
             .reduce { a: String, b: String -> "$a,$b" }
             .orElse("")
     }
@@ -22,7 +22,7 @@ class CPOperationsList(val operations: Array<IOperation?>) {
             return CPOperationsList(
                 Stream.of(*input.split(",").toTypedArray())
                     .filter { cs: String? -> StringUtils.isNotEmpty(cs) }
-                    .map { serialized: String? -> OperationSerializer.INSTANCE.deserialize(serialized) }
+                    .map { serialized: String? -> OperationSerializer.INSTANCE.deserialize(serialized!!) }
                     .collect(Collectors.toList()).toTypedArray()
             )
         }

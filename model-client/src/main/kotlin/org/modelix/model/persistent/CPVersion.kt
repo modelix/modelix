@@ -32,7 +32,7 @@ class CPVersion(id: Long, time: String?, author: String?, treeHash: String?, pre
     fun serialize(): String {
         val opsPart = operationsHash
             ?: operations!!.toList().stream()
-                .map(Function<IOperation?, String> { op: IOperation? -> OperationSerializer.INSTANCE.serialize(op) })
+                .map(Function<IOperation?, String> { op: IOperation? -> OperationSerializer.INSTANCE.serialize(op!!) })
                 .reduce { a: String, b: String -> "$a,$b" }
                 .orElse("")
         var serialized = longToHex(id) +
@@ -61,7 +61,7 @@ class CPVersion(id: Long, time: String?, author: String?, treeHash: String?, pre
             } else {
                 ops = Stream.of(*parts[5].split(",").toTypedArray())
                     .filter { cs: String? -> StringUtils.isNotEmpty(cs) }
-                    .map { serialized: String? -> OperationSerializer.INSTANCE.deserialize(serialized) }
+                    .map { serialized: String? -> OperationSerializer.INSTANCE.deserialize(serialized!!) }
                     .collect(Collectors.toList()).toTypedArray()
             }
             val numOps = if (parts.size >= 7) parts[6].toInt() else -1
