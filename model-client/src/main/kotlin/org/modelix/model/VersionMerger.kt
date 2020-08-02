@@ -81,7 +81,7 @@ class VersionMerger(private val storeCache: IDeserializingKeyValueStore, private
                         .map { obj: IAppliedOperation -> obj.originalOp }
                         .collect(Collectors.toList())
                     val operationsToApply = StreamUtils.toStream(versionToApply.operations)
-                        .map { it: IOperation -> transformOperation(it, oppositeAppliedOps) }
+                        .map { it: IOperation? -> transformOperation(it!!, oppositeAppliedOps) }
                         .collect(Collectors.toList())
                     for (op in operationsToApply) {
                         val appliedOp = op.apply(t)
