@@ -65,7 +65,7 @@ class CLVersion {
 
     val operations: Iterable<IOperation?>
         get() {
-            val ops = if (data!!.operationsHash == null) data!!.operations else store.get(data!!.operationsHash, Function { input: String? -> CPOperationsList.deserialize(input) })!!.operations
+            val ops = if (data!!.operationsHash == null) data!!.operations else store.get(data!!.operationsHash, Function { input: String? -> CPOperationsList.deserialize(input!!) })!!.operations
             return Iterable { Arrays.stream(ops).iterator() }
         }
 
