@@ -96,14 +96,21 @@ class CPNode protected constructor(id1: Long, val concept: String?, parentId1: L
             if (index < 0) {
                 this
             } else {
-                create(id, concept, parentId, roleInParent, childrenIds, removeAt(propertyRoles, index), removeAt(propertyValues, index), referenceRoles, referenceTargets)
+                create(id, concept, parentId, roleInParent, childrenIds, removeAt(propertyRoles, index) as Array<String?>, removeAt(propertyValues, index) as Array<String?>,
+                        referenceRoles as Array<String?>, referenceTargets as Array<CPElementRef?>)
             }
         } else {
             if (index < 0) {
                 index = -(index + 1)
-                create(id, concept, parentId, roleInParent, childrenIds, insert(propertyRoles, index, role), insert(propertyValues, index, value), referenceRoles, referenceTargets)
+                create(id, concept, parentId, roleInParent, childrenIds,
+                        insert(propertyRoles, index, role) as Array<String?>,
+                        insert(propertyValues, index, value) as Array<String?>,
+                        referenceRoles as Array<String?>, referenceTargets as Array<CPElementRef?>)
             } else {
-                create(id, concept, parentId, roleInParent, childrenIds, propertyRoles, set(propertyValues, index, value), referenceRoles, referenceTargets)
+                create(id, concept, parentId, roleInParent, childrenIds,
+                        propertyRoles as Array<String?>,
+                        set(propertyValues, index, value) as Array<String?>,
+                        referenceRoles as Array<String?>, referenceTargets as Array<CPElementRef?>)
             }
         }
     }
@@ -114,14 +121,21 @@ class CPNode protected constructor(id1: Long, val concept: String?, parentId1: L
             if (index < 0) {
                 this
             } else {
-                create(id, concept, parentId, roleInParent, childrenIds, propertyRoles, propertyValues, removeAt(referenceRoles, index), removeAt(referenceTargets, index))
+                create(id, concept, parentId, roleInParent, childrenIds,
+                        propertyRoles as Array<String?>, propertyValues as Array<String?>,
+                        removeAt(referenceRoles, index) as Array<String?>, removeAt(referenceTargets, index) as Array<CPElementRef?>)
             }
         } else {
             if (index < 0) {
                 index = -(index + 1)
-                create(id, concept, parentId, roleInParent, childrenIds, propertyRoles, propertyValues, insert(referenceRoles, index, role), insert(referenceTargets, index, target))
+                create(id, concept, parentId, roleInParent, childrenIds,
+                        propertyRoles as Array<String?>, propertyValues as Array<String?>,
+                        insert(referenceRoles, index, role) as Array<String?>,
+                        insert(referenceTargets, index, target) as Array<CPElementRef?>)
             } else {
-                create(id, concept, parentId, roleInParent, childrenIds, propertyRoles, propertyValues, referenceRoles, set(referenceTargets, index, target))
+                create(id, concept, parentId, roleInParent, childrenIds,
+                        propertyRoles as Array<String?>, propertyValues as Array<String?>,
+                        referenceRoles as Array<String?>, set(referenceTargets, index, target) as Array<CPElementRef?>)
             }
         }
     }
@@ -131,11 +145,13 @@ class CPNode protected constructor(id1: Long, val concept: String?, parentId1: L
         private val EMPTY_LONG_ARRAY = LongArray(0)
         val DESERIALIZER = Function { s: String -> deserialize(s) }
         @JvmStatic
-        fun create(id: Long, concept: String?, parentId: Long, roleInParent: String?, childrenIds: LongArray, propertyRoles: Array<String>, propertyValues: Array<String>, referenceRoles: Array<String>, referenceTargets: Array<CPElementRef>): CPNode {
+        fun create(id: Long, concept: String?, parentId: Long, roleInParent: String?, childrenIds: LongArray, propertyRoles: Array<String?>, propertyValues: Array<String?>, referenceRoles: Array<String?>, referenceTargets: Array<CPElementRef?>): CPNode {
             checkForDuplicates(childrenIds)
             require(propertyRoles.size == propertyValues.size) { propertyRoles.size.toString() + " != " + propertyValues.size }
             require(referenceRoles.size == referenceTargets.size) { referenceRoles.size.toString() + " != " + referenceTargets.size }
-            return CPNode(id, concept, parentId, roleInParent, childrenIds, propertyRoles, propertyValues, referenceRoles, referenceTargets)
+            return CPNode(id, concept, parentId, roleInParent, childrenIds,
+                    propertyRoles as Array<String>, propertyValues as Array<String>,
+                    referenceRoles as Array<String>, referenceTargets as Array<CPElementRef>)
         }
 
         private fun checkForDuplicates(values: LongArray) {

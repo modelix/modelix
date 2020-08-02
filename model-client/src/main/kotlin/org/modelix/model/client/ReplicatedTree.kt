@@ -220,11 +220,11 @@ class ReplicatedTree(private val client: IModelClient, private val treeId: TreeI
         var initialVersion = loadFromHash(versionHash, client.storeCache!!)
         val initialTree = MutableObject<CLTree>()
         if (initialVersion == null) {
-            initialTree.setValue(CLTree(treeId, client.storeCache))
+            initialTree.setValue(CLTree(treeId, client.storeCache!!))
             initialVersion = createVersion(initialTree.value, arrayOfNulls(0), null)
             client.put(treeId.getBranchKey(branchName), initialVersion.hash)
         } else {
-            initialTree.setValue(CLTree(initialVersion.treeHash, client.storeCache))
+            initialTree.setValue(CLTree(initialVersion.treeHash, client.storeCache!!))
         }
 
         // prefetch to avoid HTTP request in command listener 
