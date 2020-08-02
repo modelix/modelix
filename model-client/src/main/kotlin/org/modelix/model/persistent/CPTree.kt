@@ -1,10 +1,13 @@
 package org.modelix.model.persistent
 
-class CPTree(val id: String, val rootId: Long,
-             /**
-              * SHA to CPHamtNode
-              */
-             var idToHash: String) {
+class CPTree(
+    val id: String,
+    val rootId: Long,
+    /**
+     * SHA to CPHamtNode
+     */
+    var idToHash: String
+) {
 
     fun serialize(): String {
         return "$id/$rootId/$idToHash"
@@ -17,5 +20,4 @@ class CPTree(val id: String, val rootId: Long,
             return CPTree(parts[0], parts[1].toLong(), parts[2])
         }
     }
-
 }

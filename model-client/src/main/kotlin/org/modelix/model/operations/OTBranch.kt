@@ -81,5 +81,4 @@ class OTBranch(private val branch: IBranch, private val idGenerator: IIdGenerato
     }
 
     protected fun checkNotEDT() {}
-
 }

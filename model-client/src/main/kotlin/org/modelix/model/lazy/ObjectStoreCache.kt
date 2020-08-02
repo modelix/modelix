@@ -66,5 +66,4 @@ class ObjectStoreCache(override val keyValueStore: IKeyValueStore) : IDeserializ
     companion object {
         private val NULL = Any()
     }
-
 }

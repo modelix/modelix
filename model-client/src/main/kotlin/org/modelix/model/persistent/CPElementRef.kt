@@ -1,6 +1,6 @@
 package org.modelix.model.persistent
 
-abstract class CPElementRef  /*package*/
+abstract class CPElementRef /*package*/
 internal constructor() {
     abstract val isGlobal: Boolean
     abstract val isLocal: Boolean
@@ -44,7 +44,6 @@ internal constructor() {
             result = 31 * result + (id xor (id shr 32)).toInt()
             return result
         }
-
     }
 
     private class GlobalRef(treeId1: String, elementId1: Long) : CPElementRef() {

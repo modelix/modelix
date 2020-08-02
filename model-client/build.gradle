@@ -5,6 +5,7 @@ buildscript {
 plugins {
     id 'java'
     id "org.jetbrains.kotlin.jvm" version "${kotlinVersion}"
+    id "org.jlleitschuh.gradle.ktlint" version "9.3.0"
 }
 
 configurations {
@@ -15,20 +16,11 @@ dependencies {
     ktlint "com.pinterest:ktlint:0.37.2"
 }
 
-task ktlint(type: JavaExec, group: "verification") {
-    description = "Check Kotlin code style."
-    classpath = configurations.ktlint
-    main = "com.pinterest.ktlint.Main"
-    args "src/**/*.kt"
+ktlint {
+    disabledRules = ["no-wildcard-imports"]
 }
-check.dependsOn ktlint
 
-task ktlintFormat(type: JavaExec, group: "formatting") {
-    description = "Fix Kotlin code style deviations."
-    classpath = configurations.ktlint
-    main = "com.pinterest.ktlint.Main"
-    args "-F", "src/**/*.kt"
-}
+check.dependsOn ktlintCheck
 
 group 'org.modelix'
 version '1.0-SNAPSHOT'

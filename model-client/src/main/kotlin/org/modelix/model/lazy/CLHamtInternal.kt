@@ -45,13 +45,15 @@ class CLHamtInternal : CLHamtNode<CPHamtInternal?> {
     override fun get(key: Long, shift: Int, bulkQuery: IBulkQuery): IBulkQuery.Value<String?>? {
         val childIndex = (key ushr shift and LEVEL_MASK.toLong()).toInt()
         // getChild(logicalIndex: Int, bulkQuery: IBulkQuery): IBulkQuery.Value<CLHamtNode<*>?> {
-        return getChild(childIndex, bulkQuery).mapBulk<String?>(Function { child: CLHamtNode<*>? ->
-            if (child == null) {
-                bulkQuery.constant<String?>(null)
-            } else {
-                child[key, shift + BITS_PER_LEVEL, bulkQuery]
+        return getChild(childIndex, bulkQuery).mapBulk<String?>(
+            Function { child: CLHamtNode<*>? ->
+                if (child == null) {
+                    bulkQuery.constant<String?>(null)
+                } else {
+                    child[key, shift + BITS_PER_LEVEL, bulkQuery]
+                }
             }
-        })
+        )
     }
 
     protected fun getChild(logicalIndex: Int, bulkQuery: IBulkQuery): IBulkQuery.Value<CLHamtNode<*>?> {

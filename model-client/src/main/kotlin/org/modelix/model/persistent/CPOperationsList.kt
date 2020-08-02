@@ -9,9 +9,9 @@ import java.util.stream.Stream
 class CPOperationsList(val operations: Array<IOperation?>) {
     fun serialize(): String {
         return Stream.of(*operations)
-                .map { op: IOperation? -> OperationSerializer.INSTANCE.serialize(op) }
-                .reduce { a: String, b: String -> "$a,$b" }
-                .orElse("")
+            .map { op: IOperation? -> OperationSerializer.INSTANCE.serialize(op) }
+            .reduce { a: String, b: String -> "$a,$b" }
+            .orElse("")
     }
 
     val hash: String
@@ -20,12 +20,11 @@ class CPOperationsList(val operations: Array<IOperation?>) {
     companion object {
         fun deserialize(input: String): CPOperationsList {
             return CPOperationsList(
-                    Stream.of(*input.split(",").toTypedArray())
-                            .filter { cs: String? -> StringUtils.isNotEmpty(cs) }
-                            .map { serialized: String? -> OperationSerializer.INSTANCE.deserialize(serialized) }
-                            .collect(Collectors.toList()).toTypedArray()
+                Stream.of(*input.split(",").toTypedArray())
+                    .filter { cs: String? -> StringUtils.isNotEmpty(cs) }
+                    .map { serialized: String? -> OperationSerializer.INSTANCE.deserialize(serialized) }
+                    .collect(Collectors.toList()).toTypedArray()
             )
         }
     }
-
 }

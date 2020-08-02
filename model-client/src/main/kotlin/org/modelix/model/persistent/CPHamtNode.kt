@@ -18,10 +18,11 @@ abstract class CPHamtNode {
                 CPHamtLeaf(longFromHex(parts[1]), parts[2])
             } else if ("I" == parts[0]) {
                 CPHamtInternal(
-                        intFromHex(parts[1]),
-                        Arrays.stream(parts[2].split(",").toTypedArray())
-                                .filter { it: String? -> it != null && it.length > 0 }
-                                .collect(Collectors.toList()).toTypedArray())
+                    intFromHex(parts[1]),
+                    Arrays.stream(parts[2].split(",").toTypedArray())
+                        .filter { it: String? -> it != null && it.length > 0 }
+                        .collect(Collectors.toList()).toTypedArray()
+                )
             } else {
                 throw RuntimeException("Unknown type: " + parts[0] + ", input: " + input)
             }

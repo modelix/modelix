@@ -35,7 +35,5 @@ class NonBulkQuery(private val store: IDeserializingKeyValueStore) : IBulkQuery 
         override fun onSuccess(handler: Consumer<T?>?) {
             handler!!.accept(value)
         }
-
     }
-
 }

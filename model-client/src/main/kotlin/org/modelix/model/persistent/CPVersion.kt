@@ -31,16 +31,16 @@ class CPVersion(id: Long, time: String?, author: String?, treeHash: String?, pre
     val numberOfOperations: Int
     fun serialize(): String {
         val opsPart = operationsHash
-                ?: operations!!.toList().stream()
-                        .map(Function<IOperation?, String> { op: IOperation? -> OperationSerializer.INSTANCE.serialize(op) })
-                        .reduce { a: String, b: String -> "$a,$b" }
-                        .orElse("")
+            ?: operations!!.toList().stream()
+                .map(Function<IOperation?, String> { op: IOperation? -> OperationSerializer.INSTANCE.serialize(op) })
+                .reduce { a: String, b: String -> "$a,$b" }
+                .orElse("")
         var serialized = longToHex(id) +
-                "/" + escape(time) +
-                "/" + escape(author) +
-                "/" + nullAsEmptyString(treeHash) +
-                "/" + nullAsEmptyString(previousVersion) +
-                "/" + opsPart
+            "/" + escape(time) +
+            "/" + escape(author) +
+            "/" + nullAsEmptyString(treeHash) +
+            "/" + nullAsEmptyString(previousVersion) +
+            "/" + opsPart
         if (numberOfOperations >= 0) {
             serialized += "/$numberOfOperations"
         }
@@ -60,20 +60,21 @@ class CPVersion(id: Long, time: String?, author: String?, treeHash: String?, pre
                 opsHash = parts[5]
             } else {
                 ops = Stream.of(*parts[5].split(",").toTypedArray())
-                        .filter { cs: String? -> StringUtils.isNotEmpty(cs) }
-                        .map { serialized: String? -> OperationSerializer.INSTANCE.deserialize(serialized) }
-                        .collect(Collectors.toList()).toTypedArray()
+                    .filter { cs: String? -> StringUtils.isNotEmpty(cs) }
+                    .map { serialized: String? -> OperationSerializer.INSTANCE.deserialize(serialized) }
+                    .collect(Collectors.toList()).toTypedArray()
             }
             val numOps = if (parts.size >= 7) parts[6].toInt() else -1
             return CPVersion(
-                    longFromHex(parts[0]),
-                    unescape(parts[1]),
-                    unescape(parts[2]),
-                    emptyStringAsNull(parts[3]),
-                    emptyStringAsNull(parts[4]),
-                    ops,
-                    opsHash,
-                    numOps)
+                longFromHex(parts[0]),
+                unescape(parts[1]),
+                unescape(parts[2]),
+                emptyStringAsNull(parts[3]),
+                emptyStringAsNull(parts[4]),
+                ops,
+                opsHash,
+                numOps
+            )
         }
     }
 

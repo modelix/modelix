@@ -18,5 +18,4 @@ abstract class LazyLoaded<E>(protected var hash: String?, protected var store: I
 
     protected abstract fun init(data: E?)
     abstract fun deserialize(serialized: String?): E
-
 }
