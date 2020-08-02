@@ -9,7 +9,7 @@ import java.util.function.BiPredicate
 class CLHamtLeaf : CLHamtNode<CPHamtLeaf?> {
     private val data: CPHamtLeaf
 
-    constructor(data: CPHamtLeaf, store: IDeserializingKeyValueStore?) : super(store) {
+    constructor(data: CPHamtLeaf, store: IDeserializingKeyValueStore?) : super(store!!) {
         this.data = data
     }
 
@@ -29,7 +29,7 @@ class CLHamtLeaf : CLHamtNode<CPHamtLeaf?> {
     val value: String
         get() = data.value
 
-    override fun put(key: Long, value: String, shift: Int): CLHamtNode<*>? {
+    override fun put(key: Long, value: String?, shift: Int): CLHamtNode<*>? {
         return if (key == data.key) {
             if (value == data.value) {
                 this
@@ -40,7 +40,7 @@ class CLHamtLeaf : CLHamtNode<CPHamtLeaf?> {
             if (shift > MAX_SHIFT) {
                 throw RuntimeException("$shift > $MAX_SHIFT")
             }
-            var result = createEmptyNode()
+            var result : CLHamtNode<*>?= createEmptyNode()
             result = result!!.put(data.key, data.value, shift)
             if (result == null) {
                 result = createEmptyNode()
@@ -58,31 +58,31 @@ class CLHamtLeaf : CLHamtNode<CPHamtLeaf?> {
         }
     }
 
-    override fun get(key: Long, shift: Int, bulkQuery: IBulkQuery): IBulkQuery.Value<String?> {
-        return bulkQuery.constant<String?>(if (data.key == key) data.value else null)!!
+    override fun get(key: Long, shift: Int, bulkQuery: IBulkQuery?): IBulkQuery.Value<String?> {
+        return bulkQuery!!.constant<String?>(if (data.key == key) data.value else null)!!
     }
 
-    override fun visitEntries(visitor: BiPredicate<Long, String>): Boolean {
-        return visitor.test(data.key, data.value)
+    override fun visitEntries(visitor: BiPredicate<Long?, String?>?): Boolean {
+        return visitor!!.test(data.key, data.value)
     }
 
-    override fun visitChanges(oldNode: CLHamtNode<*>, visitor: IChangeVisitor) {
+    override fun visitChanges(oldNode: CLHamtNode<*>?, visitor: IChangeVisitor?) {
         if (oldNode === this) {
             return
         }
         val oldValue = MutableObject<String?>()
-        oldNode.visitEntries { k, v ->
+        val bp : BiPredicate<Long?, String?> = BiPredicate { k, v ->
             if (k == data.key) {
                 oldValue.setValue(v)
             } else {
-                visitor.entryRemoved(k!!, v)
+                visitor!!.entryRemoved(k!!, v)
             }
-            true
-        }
+            true  }
+        oldNode!!.visitEntries(bp)
         if (oldValue.value == null) {
-            visitor.entryAdded(data.key, data.value)
+            visitor!!.entryAdded(data.key, data.value)
         } else if (oldValue.value !== data.value) {
-            visitor.entryChanged(data.key, oldValue.value, data.value)
+            visitor!!.entryChanged(data.key, oldValue.value, data.value)
         }
     }
 

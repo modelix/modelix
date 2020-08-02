@@ -55,7 +55,7 @@ public class CLTree implements ITree {
 
       CLNode root = new CLNode(this, 1, null, 0, null, new long[0], new String[0], new String[0], new String[0], new CPElementRef[0]);
       CLHamtNode idToHash = storeElement(root, new CLHamtInternal(store));
-      this.data = new CPTree(treeId.getId(), 1, HashUtil.sha256(idToHash.getData().serialize()));
+      this.data = new CPTree(treeId.getId(), 1, HashUtil.INSTANCE.sha256(idToHash.getData().serialize()));
 
       IDeserializingKeyValueStore_extensions.INSTANCE.put(store, this.data, this.data.serialize());
     } else {
@@ -69,7 +69,7 @@ public class CLTree implements ITree {
       treeId = TreeId.random().getId();
     }
     this.store = store;
-    this.data = new CPTree(treeId, rootId, HashUtil.sha256(idToHash.getData().serialize()));
+    this.data = new CPTree(treeId, rootId, HashUtil.INSTANCE.sha256(idToHash.getData().serialize()));
     IDeserializingKeyValueStore_extensions.INSTANCE.put(store, data, data.serialize());
   }
 
