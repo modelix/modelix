@@ -24,10 +24,10 @@ class CLHamtLeaf : CLHamtNode<CPHamtLeaf?> {
     }
 
     val key: Long
-        get() = data.getKey()
+        get() = data.key
 
     val value: String
-        get() = data.getValue()
+        get() = data.value
 
     override fun put(key: Long, value: String, shift: Int): CLHamtNode<*>? {
         return if (key == data.key) {
