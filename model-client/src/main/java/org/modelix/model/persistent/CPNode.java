@@ -60,13 +60,13 @@ public class CPNode extends CPElement {
   public String serialize() {
     StringBuilder sb = new StringBuilder();
 
-    sb.append(SerializationUtil.longToHex(id));
+    sb.append(SerializationUtil.longToHex(getId()));
     sb.append("/");
     sb.append(SerializationUtil.escape(concept));
     sb.append("/");
-    sb.append(SerializationUtil.longToHex(parentId));
+    sb.append(SerializationUtil.longToHex(getParentId()));
     sb.append("/");
-    sb.append(SerializationUtil.escape(roleInParent));
+    sb.append(SerializationUtil.escape(getRoleInParent()));
     sb.append("/");
     sb.append(Arrays.stream(childrenIds).mapToObj(SerializationUtil::longToHex).reduce((a, b) -> a + ", " + b));
     sb.append("/");
@@ -179,14 +179,14 @@ public class CPNode extends CPElement {
       if (index < 0) {
         return this;
       } else {
-        return create(id, concept, parentId, roleInParent, childrenIds, COWArrays.INSTANCE.removeAt(propertyRoles, index), COWArrays.INSTANCE.removeAt(propertyValues, index), referenceRoles, referenceTargets);
+        return create(getId(), concept, getParentId(), getRoleInParent(), childrenIds, COWArrays.INSTANCE.removeAt(propertyRoles, index), COWArrays.INSTANCE.removeAt(propertyValues, index), referenceRoles, referenceTargets);
       }
     } else {
       if (index < 0) {
         index = -(index + 1);
-        return create(id, concept, parentId, roleInParent, childrenIds, COWArrays.INSTANCE.insert(propertyRoles, index, role), COWArrays.INSTANCE.insert(propertyValues, index, value), referenceRoles, referenceTargets);
+        return create(getId(), concept, getParentId(), getRoleInParent(), childrenIds, COWArrays.INSTANCE.insert(propertyRoles, index, role), COWArrays.INSTANCE.insert(propertyValues, index, value), referenceRoles, referenceTargets);
       } else {
-        return create(id, concept, parentId, roleInParent, childrenIds, propertyRoles, COWArrays.INSTANCE.set(propertyValues, index, value), referenceRoles, referenceTargets);
+        return create(getId(), concept, getParentId(), getRoleInParent(), childrenIds, propertyRoles, COWArrays.INSTANCE.set(propertyValues, index, value), referenceRoles, referenceTargets);
       }
     }
   }
@@ -197,14 +197,14 @@ public class CPNode extends CPElement {
       if (index < 0) {
         return this;
       } else {
-        return create(id, concept, parentId, roleInParent, childrenIds, propertyRoles, propertyValues, COWArrays.INSTANCE.removeAt(referenceRoles, index), COWArrays.INSTANCE.removeAt(referenceTargets, index));
+        return create(getId(), concept, getParentId(), getRoleInParent(), childrenIds, propertyRoles, propertyValues, COWArrays.INSTANCE.removeAt(referenceRoles, index), COWArrays.INSTANCE.removeAt(referenceTargets, index));
       }
     } else {
       if (index < 0) {
         index = -(index + 1);
-        return create(id, concept, parentId, roleInParent, childrenIds, propertyRoles, propertyValues, COWArrays.INSTANCE.insert(referenceRoles, index, role), COWArrays.INSTANCE.insert(referenceTargets, index, target));
+        return create(getId(), concept, getParentId(), getRoleInParent(), childrenIds, propertyRoles, propertyValues, COWArrays.INSTANCE.insert(referenceRoles, index, role), COWArrays.INSTANCE.insert(referenceTargets, index, target));
       } else {
-        return create(id, concept, parentId, roleInParent, childrenIds, propertyRoles, propertyValues, referenceRoles, COWArrays.INSTANCE.set(referenceTargets, index, target));
+        return create(getId(), concept, getParentId(), getRoleInParent(), childrenIds, propertyRoles, propertyValues, referenceRoles, COWArrays.INSTANCE.set(referenceTargets, index, target));
       }
     }
   }
