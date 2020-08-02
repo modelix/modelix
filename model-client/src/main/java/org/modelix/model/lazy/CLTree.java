@@ -437,7 +437,7 @@ public class CLTree implements ITree {
     if (ref == null) {
       return null;
     }
-    if (ref.isGLobal() && !(ref.getTreeId().equals(this.data.getId()))) {
+    if (ref.isGlobal() && !(ref.getTreeId().equals(this.data.getId()))) {
       throw new RuntimeException("Cannot resolve " + ref + " in tree " + this.data.getId());
     }
     if (ref.isLocal()) {
