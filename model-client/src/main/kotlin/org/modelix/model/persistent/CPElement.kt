@@ -11,7 +11,7 @@ abstract class CPElement(val id: Long, val parentId: Long, val roleInParent: Str
     companion object {
         @JvmStatic
         open fun deserialize(input: String?): CPElement {
-            return CPNode.deserialize(input)
+            return CPNode.deserialize(input!!)
         }
     }
 
