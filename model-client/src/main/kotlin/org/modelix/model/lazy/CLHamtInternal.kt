@@ -63,7 +63,7 @@ class CLHamtInternal : CLHamtNode<CPHamtInternal?> {
     }
 
     protected fun getChild(childHash: String?, bulkQuery: IBulkQuery): IBulkQuery.Value<CLHamtNode<*>?> {
-        return bulkQuery.get(childHash, CPHamtNode.DESERIALIZER)!!.map(Function { childData: CPHamtNode? -> create(childData, store) })!!
+        return bulkQuery.get(childHash, CPHamtNode.DESERIALIZER)!!.map(Function { childData: CPHamtNode -> create(childData, store) })!!
     }
 
     protected fun getChild(logicalIndex: Int): CLHamtNode<*>? {
@@ -78,7 +78,7 @@ class CLHamtInternal : CLHamtNode<CPHamtInternal?> {
         if (child == null) {
             return deleteChild(logicalIndex)
         }
-        val childHash = HashUtil.sha256(child.data.serialize())
+        val childHash = HashUtil.sha256(child.data.serialize()!!)
         val physicalIndex = logicalToPhysicalIndex(data.bitmap, logicalIndex)
         return if (LongKeyPMap.isBitNotSet(data.bitmap, logicalIndex)) {
             CLHamtInternal(data.bitmap or (1 shl logicalIndex), COWArrays.insert(data.children, physicalIndex, childHash), store)
