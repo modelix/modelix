@@ -34,9 +34,9 @@ abstract class SmallPMap<K, V> : CustomPMap<K, V> {
                     Single<K, V>(key, value) as SmallPMap<K, V?>?
                 }
             } else {
-                var res : SmallPMap<K, V?>?
-                val p1 : Array<Any?> = arrayOf(this.key, key)
-                val p2 : Array<Any?> = arrayOf(this.value, value)
+                var res: SmallPMap<K, V?>?
+                val p1: Array<Any?> = arrayOf(this.key, key)
+                val p2: Array<Any?> = arrayOf(this.value, value)
                 res = create<K, V?>(p1, p2) as SmallPMap<K, V?>?
                 return res as SmallPMap<K, V?>?
             }
@@ -53,7 +53,6 @@ abstract class SmallPMap<K, V> : CustomPMap<K, V> {
         override fun containsKey(key: K): Boolean {
             return key == this.key
         }
-
     }
 
     class Multiple<K, V>(private val keys: Array<Any?>, private val values: Array<Any?>) : SmallPMap<K, V?>() {
@@ -75,17 +74,17 @@ abstract class SmallPMap<K, V> : CustomPMap<K, V> {
                 if (value == values[index]) {
                     this as SmallPMap<K, V?>?
                 } else {
-                    create<K,V?>(keys, set(values, index, value)) as SmallPMap<K, V?>?
+                    create<K, V?>(keys, set(values, index, value)) as SmallPMap<K, V?>?
                 }
             } else {
-                create<K,V?>(add(keys, key), add(values, value)) as SmallPMap<K, V?>?
+                create<K, V?>(add(keys, key), add(values, value)) as SmallPMap<K, V?>?
             }
         }
 
         override fun remove(key: K): SmallPMap<K, V?>? {
             val index = indexOf(keys, key)
             return if (index != -1) {
-                create<K,V?>(removeAt(keys, index), removeAt(values, index)) as SmallPMap<K, V?>?
+                create<K, V?>(removeAt(keys, index), removeAt(values, index)) as SmallPMap<K, V?>?
             } else {
                 this
             }
@@ -107,7 +106,6 @@ abstract class SmallPMap<K, V> : CustomPMap<K, V> {
             }
             return false
         }
-
     }
 
     companion object {
@@ -126,9 +124,10 @@ abstract class SmallPMap<K, V> : CustomPMap<K, V> {
         }
 
         fun <K, V> createS(keys: Iterable<K>?, values: Iterable<V>?): SmallPMap<K, V> {
-            return create<K,V>(
-                    toStream(keys!!).collect(Collectors.toList()).toTypedArray(),
-                    toStream(values!!).collect(Collectors.toList()).toTypedArray()) as SmallPMap<K, V>
+            return create<K, V>(
+                toStream(keys!!).collect(Collectors.toList()).toTypedArray(),
+                toStream(values!!).collect(Collectors.toList()).toTypedArray()
+            ) as SmallPMap<K, V>
         }
     }
 }

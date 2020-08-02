@@ -40,7 +40,7 @@ class CLHamtLeaf : CLHamtNode<CPHamtLeaf?> {
             if (shift > MAX_SHIFT) {
                 throw RuntimeException("$shift > $MAX_SHIFT")
             }
-            var result : CLHamtNode<*>?= createEmptyNode()
+            var result: CLHamtNode<*>? = createEmptyNode()
             result = result!!.put(data.key, data.value, shift)
             if (result == null) {
                 result = createEmptyNode()
@@ -71,13 +71,14 @@ class CLHamtLeaf : CLHamtNode<CPHamtLeaf?> {
             return
         }
         val oldValue = MutableObject<String?>()
-        val bp : BiPredicate<Long?, String?> = BiPredicate { k, v ->
+        val bp: BiPredicate<Long?, String?> = BiPredicate { k, v ->
             if (k == data.key) {
                 oldValue.setValue(v)
             } else {
                 visitor!!.entryRemoved(k!!, v)
             }
-            true  }
+            true
+        }
         oldNode!!.visitEntries(bp)
         if (oldValue.value == null) {
             visitor!!.entryAdded(data.key, data.value)

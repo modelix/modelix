@@ -2,9 +2,7 @@ package org.modelix.model.lazy
 
 import com.google.common.collect.MultimapBuilder
 import org.modelix.model.api.*
-import org.modelix.model.lazy.CLElement
 import org.modelix.model.lazy.CLHamtNode.Companion.create
-import org.modelix.model.lazy.CLNode
 import org.modelix.model.lazy.IDeserializingKeyValueStore_extensions.put
 import org.modelix.model.lazy.TreeId.Companion.random
 import org.modelix.model.persistent.*
@@ -128,15 +126,16 @@ class CLTree : ITree {
         var newIdToHash = nodesMap
         val childData = resolveElement(childId)!!.getData()
         val newChildData = create(
-                childData!!.id,
-                childData.concept,
-                parentId,
-                role,
-                childData.childrenIdArray,
-                childData.propertyRoles as Array<String?>,
-                childData.propertyValues as Array<String?>,
-                childData.referenceRoles as Array<String?>,
-                childData.referenceTargets as Array<CPElementRef?>)
+            childData!!.id,
+            childData.concept,
+            parentId,
+            role,
+            childData.childrenIdArray,
+            childData.propertyRoles as Array<String?>,
+            childData.propertyValues as Array<String?>,
+            childData.referenceRoles as Array<String?>,
+            childData.referenceTargets as Array<CPElementRef?>
+        )
         newIdToHash = newIdToHash!!.put(newChildData)
         put(store!!, newChildData)
         var newChildrenArray = parent!!.getData()!!.childrenIdArray
@@ -148,21 +147,23 @@ class CLTree : ITree {
                 add(newChildrenArray, childData.id)
             } else {
                 insert(
-                        newChildrenArray,
-                        indexOf(newChildrenArray, anchor.asLong),
-                        childData.id)
+                    newChildrenArray,
+                    indexOf(newChildrenArray, anchor.asLong),
+                    childData.id
+                )
             }
         }
         val newParentData = create(
-                parent.id,
-                parent.concept,
-                parent.getData()!!.parentId,
-                parent.roleInParent,
-                newChildrenArray,
-                parent.getData()!!.propertyRoles as Array<String?>,
-                parent.getData()!!.propertyValues as Array<String?>,
-                parent.getData()!!.referenceRoles as Array<String?>,
-                parent.getData()!!.referenceTargets as Array<CPElementRef?>)
+            parent.id,
+            parent.concept,
+            parent.getData()!!.parentId,
+            parent.roleInParent,
+            newChildrenArray,
+            parent.getData()!!.propertyRoles as Array<String?>,
+            parent.getData()!!.propertyValues as Array<String?>,
+            parent.getData()!!.referenceRoles as Array<String?>,
+            parent.getData()!!.referenceTargets as Array<CPElementRef?>
+        )
         newIdToHash = newIdToHash!!.put(newParentData)
         put(store!!, newParentData)
         return CLTree(data!!.id, data!!.rootId, newIdToHash!!, store)
@@ -202,11 +203,13 @@ class CLTree : ITree {
         val node = resolveElement(nodeId)
         val parent = resolveElement(node!!.getData()!!.parentId)
         var newIdToHash = nodesMap
-        val newParentData = create(parent!!.id, parent.concept, parent.getData()!!.parentId, parent.getData()!!.roleInParent, remove(parent.getData()!!.childrenIdArray, node.id),
-                parent.getData()!!.propertyRoles as Array<String?>,
-                parent.getData()!!.propertyValues as Array<String?>,
-                parent.getData()!!.referenceRoles as Array<String?>,
-                parent.getData()!!.referenceTargets as Array<CPElementRef?>)
+        val newParentData = create(
+            parent!!.id, parent.concept, parent.getData()!!.parentId, parent.getData()!!.roleInParent, remove(parent.getData()!!.childrenIdArray, node.id),
+            parent.getData()!!.propertyRoles as Array<String?>,
+            parent.getData()!!.propertyValues as Array<String?>,
+            parent.getData()!!.referenceRoles as Array<String?>,
+            parent.getData()!!.referenceTargets as Array<CPElementRef?>
+        )
         newIdToHash = newIdToHash!!.put(newParentData)
         put(store!!, newParentData)
         if (recursive) {
@@ -233,8 +236,8 @@ class CLTree : ITree {
         val parent = resolveElement(parentId)
         val children = parent!!.getChildren(BulkQuery(store!!))!!.execute()
         return StreamSupport.stream(children!!.spliterator(), false)
-                .filter { it: CLNode -> it.roleInParent == role }
-                .mapToLong(CLNode::id)
+            .filter { it: CLNode -> it.roleInParent == role }
+            .mapToLong(CLNode::id)
     }
 
     override fun getChildRoles(sourceId: Long): Iterable<String?>? {
@@ -242,7 +245,7 @@ class CLTree : ITree {
         val children = parent!!.getChildren(BulkQuery(store!!))!!.execute()
         return Iterable {
             StreamSupport.stream(children!!.spliterator(), false)
-                    .map<String>(CLNode::roleInParent).distinct().iterator()
+                .map<String>(CLNode::roleInParent).distinct().iterator()
         }
     }
 
@@ -311,52 +314,56 @@ class CLTree : ITree {
     }
 
     override fun visitChanges(oldVersion: ITree?, visitor: ITreeChangeVisitor?) {
-        nodesMap!!.visitChanges((oldVersion as CLTree?)!!.nodesMap, object : CLHamtNode.IChangeVisitor {
-            override fun entryAdded(key: Long, value: String?) {
-                val element = createElement(value)
-                visitor!!.nodeAdded(element!!.id)
-            }
-
-            override fun entryRemoved(key: Long, value: String?) {
-                val element = (oldVersion as CLTree).createElement(value)
-                visitor!!.nodeRemoved(element!!.id)
-            }
-
-            override fun entryChanged(key: Long, oldHash: String?, newHash: String?) {
-                val oldElement = (oldVersion as CLTree).createElement(oldHash)
-                val newElement = createElement(newHash)
-                if (oldElement!!.javaClass != newElement!!.javaClass) {
-                    throw RuntimeException("Unsupported type change of element " + key + "from " + oldElement.javaClass.getSimpleName() + " to " + newElement.javaClass.getSimpleName())
+        nodesMap!!.visitChanges(
+            (oldVersion as CLTree?)!!.nodesMap,
+            object : CLHamtNode.IChangeVisitor {
+                override fun entryAdded(key: Long, value: String?) {
+                    val element = createElement(value)
+                    visitor!!.nodeAdded(element!!.id)
                 }
-                val oldNode = oldElement
-                val newNode = newElement
-                Stream.concat(
+
+                override fun entryRemoved(key: Long, value: String?) {
+                    val element = (oldVersion as CLTree).createElement(value)
+                    visitor!!.nodeRemoved(element!!.id)
+                }
+
+                override fun entryChanged(key: Long, oldHash: String?, newHash: String?) {
+                    val oldElement = (oldVersion as CLTree).createElement(oldHash)
+                    val newElement = createElement(newHash)
+                    if (oldElement!!.javaClass != newElement!!.javaClass) {
+                        throw RuntimeException("Unsupported type change of element " + key + "from " + oldElement.javaClass.getSimpleName() + " to " + newElement.javaClass.getSimpleName())
+                    }
+                    val oldNode = oldElement
+                    val newNode = newElement
+                    Stream.concat(
                         Arrays.stream(oldNode!!.getData()!!.propertyRoles),
-                        Arrays.stream(newNode!!.getData()!!.propertyRoles))
+                        Arrays.stream(newNode!!.getData()!!.propertyRoles)
+                    )
                         .distinct()
                         .forEach { role: String? ->
                             if (oldNode!!.getData()!!.getPropertyValue(role) != newNode.getData()!!.getPropertyValue(role)) {
                                 visitor!!.propertyChanged(newNode.id, role)
                             }
                         }
-                val oldChildren = MultimapBuilder.hashKeys().arrayListValues().build<String, CLNode>()
-                val newChildren = MultimapBuilder.hashKeys().arrayListValues().build<String, CLNode>()
-                oldNode!!.getChildren(BulkQuery(store!!))!!.execute()!!.forEach(Consumer { it: CLNode -> oldChildren.put(it.roleInParent, it) })
-                newNode.getChildren(BulkQuery(store!!))!!.execute()!!.forEach(Consumer { it: CLNode -> newChildren.put(it.roleInParent, it) })
-                val roles: MutableSet<String> = HashSet()
-                roles.addAll(oldChildren.keySet())
-                roles.addAll(newChildren.keySet())
-                for (role in roles) {
-                    val oldChildrenInRole = oldChildren[role]
-                    val newChildrenInRole = newChildren[role]
-                    val oldValues = oldChildrenInRole.stream().map(CLNode::id).collect(Collectors.toList())
-                    val newValues = newChildrenInRole.stream().map(CLNode::id).collect(Collectors.toList())
-                    if (oldValues != newValues) {
-                        visitor!!.childrenChanged(newNode.id, role)
+                    val oldChildren = MultimapBuilder.hashKeys().arrayListValues().build<String, CLNode>()
+                    val newChildren = MultimapBuilder.hashKeys().arrayListValues().build<String, CLNode>()
+                    oldNode!!.getChildren(BulkQuery(store!!))!!.execute()!!.forEach(Consumer { it: CLNode -> oldChildren.put(it.roleInParent, it) })
+                    newNode.getChildren(BulkQuery(store!!))!!.execute()!!.forEach(Consumer { it: CLNode -> newChildren.put(it.roleInParent, it) })
+                    val roles: MutableSet<String> = HashSet()
+                    roles.addAll(oldChildren.keySet())
+                    roles.addAll(newChildren.keySet())
+                    for (role in roles) {
+                        val oldChildrenInRole = oldChildren[role]
+                        val newChildrenInRole = newChildren[role]
+                        val oldValues = oldChildrenInRole.stream().map(CLNode::id).collect(Collectors.toList())
+                        val newValues = newChildrenInRole.stream().map(CLNode::id).collect(Collectors.toList())
+                        if (oldValues != newValues) {
+                            visitor!!.childrenChanged(newNode.id, role)
+                        }
                     }
                 }
             }
-        })
+        )
     }
 
     protected fun deleteElements(element: CPElement?, idToHash: CLHamtNode<*>?): CLHamtNode<*>? {
@@ -409,12 +416,15 @@ class CLTree : ITree {
     fun createElement(hash: String?, query: IBulkQuery): IBulkQuery.Value<CLNode?>? {
         return if (hash == null) {
             query.constant(null)
-        } else query.get(hash, Function { s: String? ->
-            if (s == null) {
-                throw RuntimeException("Element doesn't exist: $hash")
+        } else query.get(
+            hash,
+            Function { s: String? ->
+                if (s == null) {
+                    throw RuntimeException("Element doesn't exist: $hash")
+                }
+                CPNode.deserialize(s)
             }
-            CPNode.deserialize(s)
-        })!!.map(Function { n: CPNode -> CLElement.create(this@CLTree, n) })
+        )!!.map(Function { n: CPNode -> CLElement.create(this@CLTree, n) })
     }
 
     fun createElement(hash: String?): CLNode? {
@@ -422,14 +432,20 @@ class CLTree : ITree {
     }
 
     fun createElements(hashes: List<String?>?, bulkQuery: IBulkQuery): IBulkQuery.Value<List<CLNode?>?>? {
-        return bulkQuery.map(hashes, Function { hash: String? ->
-            bulkQuery.get(hash, Function { s: String? ->
-                if (s == null) {
-                    throw RuntimeException("Element doesn't exist: $hash")
-                }
-                CPNode.deserialize(s)
-            })!!.map(Function<CPNode, CLNode?> { n: CPNode? -> CLElement.create(this@CLTree, n) })
-        })
+        return bulkQuery.map(
+            hashes,
+            Function { hash: String? ->
+                bulkQuery.get(
+                    hash,
+                    Function { s: String? ->
+                        if (s == null) {
+                            throw RuntimeException("Element doesn't exist: $hash")
+                        }
+                        CPNode.deserialize(s)
+                    }
+                )!!.map(Function<CPNode, CLNode?> { n: CPNode? -> CLElement.create(this@CLTree, n) })
+            }
+        )
     }
 
     protected fun serializeConcept(concept: IConcept?): String? {

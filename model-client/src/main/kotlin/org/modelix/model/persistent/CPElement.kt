@@ -14,5 +14,4 @@ abstract class CPElement(val id: Long, val parentId: Long, val roleInParent: Str
             return CPNode.deserialize(input!!)
         }
     }
-
 }

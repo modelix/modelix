@@ -45,5 +45,4 @@ class TreeTestUtil(private val tree: ITree, private val rand: Random) {
 
     val randomLeafNode: Long
         get() = getRandomNode(allNodes.filter { it: Long -> !tree.getAllChildren(it)!!.iterator().hasNext() }.toArray())
-
 }

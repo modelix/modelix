@@ -1,6 +1,5 @@
 package org.modelix.model.lazy
 
-import org.modelix.model.lazy.CLHamtInternal
 import org.modelix.model.persistent.CPElement
 import org.modelix.model.persistent.CPHamtInternal
 import org.modelix.model.persistent.CPHamtLeaf
@@ -13,7 +12,7 @@ abstract class CLHamtNode<E : CPHamtNode?>(protected var store: IDeserializingKe
         return create(CPHamtInternal(0, arrayOfNulls(0)), store)!!
     }
 
-    abstract fun getData() : CPHamtNode?
+    abstract fun getData(): CPHamtNode?
 
     operator fun get(key: Long): String? {
         val bulkQuery: IBulkQuery = NonBulkQuery(store)
@@ -84,5 +83,4 @@ abstract class CLHamtNode<E : CPHamtNode?>(protected var store: IDeserializingKe
             return bitmap and (1 shl logicalIndex) == 0
         }
     }
-
 }

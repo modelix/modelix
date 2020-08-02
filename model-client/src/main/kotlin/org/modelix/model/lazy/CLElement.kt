@@ -33,5 +33,4 @@ abstract class CLElement(protected val tree_: CLTree, protected val data_: CPEle
             } else CLNode(tree, data as CPNode?)
         }
     }
-
 }

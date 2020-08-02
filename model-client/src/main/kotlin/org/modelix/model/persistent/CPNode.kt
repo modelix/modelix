@@ -96,21 +96,27 @@ class CPNode protected constructor(id1: Long, val concept: String?, parentId1: L
             if (index < 0) {
                 this
             } else {
-                create(id, concept, parentId, roleInParent, childrenIds, removeAt(propertyRoles, index) as Array<String?>, removeAt(propertyValues, index) as Array<String?>,
-                        referenceRoles as Array<String?>, referenceTargets as Array<CPElementRef?>)
+                create(
+                    id, concept, parentId, roleInParent, childrenIds, removeAt(propertyRoles, index) as Array<String?>, removeAt(propertyValues, index) as Array<String?>,
+                    referenceRoles as Array<String?>, referenceTargets as Array<CPElementRef?>
+                )
             }
         } else {
             if (index < 0) {
                 index = -(index + 1)
-                create(id, concept, parentId, roleInParent, childrenIds,
-                        insert(propertyRoles, index, role) as Array<String?>,
-                        insert(propertyValues, index, value) as Array<String?>,
-                        referenceRoles as Array<String?>, referenceTargets as Array<CPElementRef?>)
+                create(
+                    id, concept, parentId, roleInParent, childrenIds,
+                    insert(propertyRoles, index, role) as Array<String?>,
+                    insert(propertyValues, index, value) as Array<String?>,
+                    referenceRoles as Array<String?>, referenceTargets as Array<CPElementRef?>
+                )
             } else {
-                create(id, concept, parentId, roleInParent, childrenIds,
-                        propertyRoles as Array<String?>,
-                        set(propertyValues, index, value) as Array<String?>,
-                        referenceRoles as Array<String?>, referenceTargets as Array<CPElementRef?>)
+                create(
+                    id, concept, parentId, roleInParent, childrenIds,
+                    propertyRoles as Array<String?>,
+                    set(propertyValues, index, value) as Array<String?>,
+                    referenceRoles as Array<String?>, referenceTargets as Array<CPElementRef?>
+                )
             }
         }
     }
@@ -121,21 +127,27 @@ class CPNode protected constructor(id1: Long, val concept: String?, parentId1: L
             if (index < 0) {
                 this
             } else {
-                create(id, concept, parentId, roleInParent, childrenIds,
-                        propertyRoles as Array<String?>, propertyValues as Array<String?>,
-                        removeAt(referenceRoles, index) as Array<String?>, removeAt(referenceTargets, index) as Array<CPElementRef?>)
+                create(
+                    id, concept, parentId, roleInParent, childrenIds,
+                    propertyRoles as Array<String?>, propertyValues as Array<String?>,
+                    removeAt(referenceRoles, index) as Array<String?>, removeAt(referenceTargets, index) as Array<CPElementRef?>
+                )
             }
         } else {
             if (index < 0) {
                 index = -(index + 1)
-                create(id, concept, parentId, roleInParent, childrenIds,
-                        propertyRoles as Array<String?>, propertyValues as Array<String?>,
-                        insert(referenceRoles, index, role) as Array<String?>,
-                        insert(referenceTargets, index, target) as Array<CPElementRef?>)
+                create(
+                    id, concept, parentId, roleInParent, childrenIds,
+                    propertyRoles as Array<String?>, propertyValues as Array<String?>,
+                    insert(referenceRoles, index, role) as Array<String?>,
+                    insert(referenceTargets, index, target) as Array<CPElementRef?>
+                )
             } else {
-                create(id, concept, parentId, roleInParent, childrenIds,
-                        propertyRoles as Array<String?>, propertyValues as Array<String?>,
-                        referenceRoles as Array<String?>, set(referenceTargets, index, target) as Array<CPElementRef?>)
+                create(
+                    id, concept, parentId, roleInParent, childrenIds,
+                    propertyRoles as Array<String?>, propertyValues as Array<String?>,
+                    referenceRoles as Array<String?>, set(referenceTargets, index, target) as Array<CPElementRef?>
+                )
             }
         }
     }
@@ -149,9 +161,11 @@ class CPNode protected constructor(id1: Long, val concept: String?, parentId1: L
             checkForDuplicates(childrenIds)
             require(propertyRoles.size == propertyValues.size) { propertyRoles.size.toString() + " != " + propertyValues.size }
             require(referenceRoles.size == referenceTargets.size) { referenceRoles.size.toString() + " != " + referenceTargets.size }
-            return CPNode(id, concept, parentId, roleInParent, childrenIds,
-                    propertyRoles as Array<String>, propertyValues as Array<String>,
-                    referenceRoles as Array<String>, referenceTargets as Array<CPElementRef>)
+            return CPNode(
+                id, concept, parentId, roleInParent, childrenIds,
+                propertyRoles as Array<String>, propertyValues as Array<String>,
+                referenceRoles as Array<String>, referenceTargets as Array<CPElementRef>
+            )
         }
 
         private fun checkForDuplicates(values: LongArray) {
@@ -170,33 +184,32 @@ class CPNode protected constructor(id1: Long, val concept: String?, parentId1: L
             return try {
                 val parts = input.split("/").dropLastWhile { it.isEmpty() }.toTypedArray()
                 val properties = Arrays.stream(parts[5].split(",").toTypedArray())
-                        .filter { cs: String? -> StringUtils.isNotEmpty(cs) }
-                        .map { it: String -> it.split("=").dropLastWhile { it.isEmpty() }.toTypedArray() }
-                        .collect(Collectors.toList())
+                    .filter { cs: String? -> StringUtils.isNotEmpty(cs) }
+                    .map { it: String -> it.split("=").dropLastWhile { it.isEmpty() }.toTypedArray() }
+                    .collect(Collectors.toList())
                 val references = Arrays.stream(parts[6].split(",").toTypedArray())
-                        .filter { cs: String? -> StringUtils.isNotEmpty(cs) }
-                        .map { it: String -> it.split("=").dropLastWhile { it.isEmpty() }.toTypedArray() }
-                        .collect(Collectors.toList())
+                    .filter { cs: String? -> StringUtils.isNotEmpty(cs) }
+                    .map { it: String -> it.split("=").dropLastWhile { it.isEmpty() }.toTypedArray() }
+                    .collect(Collectors.toList())
                 CPNode(
-                        longFromHex(parts[0]),
-                        unescape(parts[1]),
-                        longFromHex(parts[2]),
-                        unescape(parts[3]),
-                        Arrays.stream(parts[4].split(",").toTypedArray())
-                                .filter { cs: String? -> StringUtils.isNotEmpty(cs) }
-                                .mapToLong { obj: String -> SerializationUtil.longFromHex(obj) }
-                                .toArray(),
-                        properties.stream().map { it: Array<String> -> unescape(it[0])!! }.collect(Collectors.toList()).toTypedArray(),
-                        properties.stream().map { it: Array<String> -> unescape(it[1])!! }.collect(Collectors.toList()).toTypedArray(),
-                        references.stream().map { it: Array<String> -> unescape(it[0])!! }.collect(Collectors.toList()).toTypedArray(),
-                        references.stream()
-                                .map { it: Array<String> -> fromString(unescape(it[1])!!) }
-                                .collect(Collectors.toList()).toTypedArray()
+                    longFromHex(parts[0]),
+                    unescape(parts[1]),
+                    longFromHex(parts[2]),
+                    unescape(parts[3]),
+                    Arrays.stream(parts[4].split(",").toTypedArray())
+                        .filter { cs: String? -> StringUtils.isNotEmpty(cs) }
+                        .mapToLong { obj: String -> SerializationUtil.longFromHex(obj) }
+                        .toArray(),
+                    properties.stream().map { it: Array<String> -> unescape(it[0])!! }.collect(Collectors.toList()).toTypedArray(),
+                    properties.stream().map { it: Array<String> -> unescape(it[1])!! }.collect(Collectors.toList()).toTypedArray(),
+                    references.stream().map { it: Array<String> -> unescape(it[0])!! }.collect(Collectors.toList()).toTypedArray(),
+                    references.stream()
+                        .map { it: Array<String> -> fromString(unescape(it[1])!!) }
+                        .collect(Collectors.toList()).toTypedArray()
                 )
             } catch (ex: Exception) {
                 throw RuntimeException("Failed to deserialize $input", ex)
             }
         }
     }
-
 }

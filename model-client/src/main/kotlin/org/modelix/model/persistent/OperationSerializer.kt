@@ -9,7 +9,6 @@ import org.modelix.model.persistent.SerializationUtil.longFromHex
 import org.modelix.model.persistent.SerializationUtil.longToHex
 import org.modelix.model.persistent.SerializationUtil.unescape
 import java.lang.IllegalArgumentException
-import java.lang.IllegalStateException
 import java.util.*
 
 class OperationSerializer private constructor() {
@@ -49,65 +48,83 @@ class OperationSerializer private constructor() {
         }
 
         init {
-            INSTANCE.registerSerializer(AddNewChildOp::class.java, object : Serializer<AddNewChildOp> {
-                override fun serialize(op: AddNewChildOp): String {
-                    return longToHex(op.parentId) + SEPARATOR + escape(op.role) + SEPARATOR + op.index + SEPARATOR + longToHex(op.childId) + SEPARATOR + serializeConcept(op.concept)
-                }
+            INSTANCE.registerSerializer(
+                AddNewChildOp::class.java,
+                object : Serializer<AddNewChildOp> {
+                    override fun serialize(op: AddNewChildOp): String {
+                        return longToHex(op.parentId) + SEPARATOR + escape(op.role) + SEPARATOR + op.index + SEPARATOR + longToHex(op.childId) + SEPARATOR + serializeConcept(op.concept)
+                    }
 
-                override fun deserialize(serialized: String): AddNewChildOp {
-                    val parts = serialized.split(SEPARATOR).dropLastWhile { it.isEmpty() }.toTypedArray()
-                    return AddNewChildOp(longFromHex(parts[0]), unescape(parts[1])!!, parts[2].toInt(), longFromHex(parts[3]), deserializeConcept(parts[4]))
+                    override fun deserialize(serialized: String): AddNewChildOp {
+                        val parts = serialized.split(SEPARATOR).dropLastWhile { it.isEmpty() }.toTypedArray()
+                        return AddNewChildOp(longFromHex(parts[0]), unescape(parts[1])!!, parts[2].toInt(), longFromHex(parts[3]), deserializeConcept(parts[4]))
+                    }
                 }
-            })
-            INSTANCE.registerSerializer(DeleteNodeOp::class.java, object : Serializer<DeleteNodeOp> {
-                override fun serialize(op: DeleteNodeOp): String {
-                    return longToHex(op.parentId) + SEPARATOR + escape(op.role) + SEPARATOR + op.index + SEPARATOR + longToHex(op.childId)
-                }
+            )
+            INSTANCE.registerSerializer(
+                DeleteNodeOp::class.java,
+                object : Serializer<DeleteNodeOp> {
+                    override fun serialize(op: DeleteNodeOp): String {
+                        return longToHex(op.parentId) + SEPARATOR + escape(op.role) + SEPARATOR + op.index + SEPARATOR + longToHex(op.childId)
+                    }
 
-                override fun deserialize(serialized: String): DeleteNodeOp {
-                    val parts = serialized.split(SEPARATOR).dropLastWhile { it.isEmpty() }.toTypedArray()
-                    return DeleteNodeOp(longFromHex(parts[0]), unescape(parts[1])!!, parts[2].toInt(), longFromHex(parts[3]))
+                    override fun deserialize(serialized: String): DeleteNodeOp {
+                        val parts = serialized.split(SEPARATOR).dropLastWhile { it.isEmpty() }.toTypedArray()
+                        return DeleteNodeOp(longFromHex(parts[0]), unescape(parts[1])!!, parts[2].toInt(), longFromHex(parts[3]))
+                    }
                 }
-            })
-            INSTANCE.registerSerializer(MoveNodeOp::class.java, object : Serializer<MoveNodeOp> {
-                override fun serialize(op: MoveNodeOp): String {
-                    return longToHex(op.childId) + SEPARATOR + longToHex(op.sourceParentId) + SEPARATOR + escape(op.sourceRole) + SEPARATOR + op.sourceIndex + SEPARATOR + longToHex(op.targetParentId) + SEPARATOR + escape(op.targetRole) + SEPARATOR + op.targetIndex
-                }
+            )
+            INSTANCE.registerSerializer(
+                MoveNodeOp::class.java,
+                object : Serializer<MoveNodeOp> {
+                    override fun serialize(op: MoveNodeOp): String {
+                        return longToHex(op.childId) + SEPARATOR + longToHex(op.sourceParentId) + SEPARATOR + escape(op.sourceRole) + SEPARATOR + op.sourceIndex + SEPARATOR + longToHex(op.targetParentId) + SEPARATOR + escape(op.targetRole) + SEPARATOR + op.targetIndex
+                    }
 
-                override fun deserialize(serialized: String): MoveNodeOp {
-                    val parts = serialized.split(SEPARATOR).dropLastWhile { it.isEmpty() }.toTypedArray()
-                    return MoveNodeOp(longFromHex(parts[0]), longFromHex(parts[1]), unescape(parts[2])!!, parts[3].toInt(), longFromHex(parts[4]), unescape(parts[5])!!, parts[6].toInt())
+                    override fun deserialize(serialized: String): MoveNodeOp {
+                        val parts = serialized.split(SEPARATOR).dropLastWhile { it.isEmpty() }.toTypedArray()
+                        return MoveNodeOp(longFromHex(parts[0]), longFromHex(parts[1]), unescape(parts[2])!!, parts[3].toInt(), longFromHex(parts[4]), unescape(parts[5])!!, parts[6].toInt())
+                    }
                 }
-            })
-            INSTANCE.registerSerializer<NoOp>(NoOp::class.java, object : Serializer<NoOp> {
-                override fun serialize(op: NoOp): String {
-                    return ""
-                }
+            )
+            INSTANCE.registerSerializer<NoOp>(
+                NoOp::class.java,
+                object : Serializer<NoOp> {
+                    override fun serialize(op: NoOp): String {
+                        return ""
+                    }
 
-                override fun deserialize(serialized: String): NoOp {
-                    return NoOp()
+                    override fun deserialize(serialized: String): NoOp {
+                        return NoOp()
+                    }
                 }
-            })
-            INSTANCE.registerSerializer(SetPropertyOp::class.java, object : Serializer<SetPropertyOp> {
-                override fun serialize(op: SetPropertyOp): String {
-                    return longToHex(op.nodeId) + SEPARATOR + escape(op.role) + SEPARATOR + escape(op.value)
-                }
+            )
+            INSTANCE.registerSerializer(
+                SetPropertyOp::class.java,
+                object : Serializer<SetPropertyOp> {
+                    override fun serialize(op: SetPropertyOp): String {
+                        return longToHex(op.nodeId) + SEPARATOR + escape(op.role) + SEPARATOR + escape(op.value)
+                    }
 
-                override fun deserialize(serialized: String): SetPropertyOp {
-                    val parts = serialized.split(SEPARATOR).dropLastWhile { it.isEmpty() }.toTypedArray()
-                    return SetPropertyOp(longFromHex(parts[0]), unescape(parts[1])!!, unescape(parts[2])!!)
+                    override fun deserialize(serialized: String): SetPropertyOp {
+                        val parts = serialized.split(SEPARATOR).dropLastWhile { it.isEmpty() }.toTypedArray()
+                        return SetPropertyOp(longFromHex(parts[0]), unescape(parts[1])!!, unescape(parts[2])!!)
+                    }
                 }
-            })
-            INSTANCE.registerSerializer(SetReferenceOp::class.java, object : Serializer<SetReferenceOp> {
-                override fun serialize(op: SetReferenceOp): String {
-                    return longToHex(op.sourceId) + SEPARATOR + escape(op.role) + SEPARATOR + serializeReference(op.target)
-                }
+            )
+            INSTANCE.registerSerializer(
+                SetReferenceOp::class.java,
+                object : Serializer<SetReferenceOp> {
+                    override fun serialize(op: SetReferenceOp): String {
+                        return longToHex(op.sourceId) + SEPARATOR + escape(op.role) + SEPARATOR + serializeReference(op.target)
+                    }
 
-                override fun deserialize(serialized: String): SetReferenceOp {
-                    val parts = serialized.split(SEPARATOR).dropLastWhile { it.isEmpty() }.toTypedArray()
-                    return SetReferenceOp(longFromHex(parts[0]), unescape(parts[1])!!, deserializeReference(parts[2])!!)
+                    override fun deserialize(serialized: String): SetReferenceOp {
+                        val parts = serialized.split(SEPARATOR).dropLastWhile { it.isEmpty() }.toTypedArray()
+                        return SetReferenceOp(longFromHex(parts[0]), unescape(parts[1])!!, deserializeReference(parts[2])!!)
+                    }
                 }
-            })
+            )
         }
     }
 
@@ -119,20 +136,20 @@ class OperationSerializer private constructor() {
     }
 
     fun serialize(op: IOperation): String {
-        val serializer : Serializer<*> = serializers[op.javaClass]
-                ?: throw RuntimeException("Unknown operation type: " + op.javaClass.simpleName)
+        val serializer: Serializer<*> = serializers[op.javaClass]
+            ?: throw RuntimeException("Unknown operation type: " + op.javaClass.simpleName)
         return op.javaClass.simpleName + SEPARATOR + serializer.genericSerialize(op)
     }
 
     fun deserialize(serialized: String): IOperation {
         val parts = serialized.split(Regex(SEPARATOR), 2).toTypedArray()
         val deserializer = deserializers[parts[0]]
-                ?: throw RuntimeException("Unknown operation type: " + parts[0])
+            ?: throw RuntimeException("Unknown operation type: " + parts[0])
         return deserializer.deserialize(parts[1])!!
     }
 
     interface Serializer<E : IOperation?> {
-        fun genericSerialize(op: Any) : String {
+        fun genericSerialize(op: Any): String {
             val p = op as? E
             if (p == null) {
                 throw IllegalArgumentException()

@@ -30,89 +30,91 @@ class Tree_Test {
         val expectedDeletes: MutableSet<Long> = HashSet()
         for (i in 0..9999) {
             when (rand.nextInt(5)) {
-                0 ->           // Delete node 
-                {
-                    val nodeToDelete = TreeTestUtil(tree!!, rand).randomLeafNode
-                    if (nodeToDelete != 0L && nodeToDelete != ITree.ROOT_ID) {
-                        if (DEBUG) {
-                            println("Delete $nodeToDelete")
-                        }
-                        tree = tree.deleteNode(nodeToDelete)
-                        removeChild(expectedParents[nodeToDelete]!!, expectedRoles[nodeToDelete], nodeToDelete)
-                        expectedParents[nodeToDelete] = 0L
-                        expectedRoles.remove(nodeToDelete)
-                        expectedDeletes.add(nodeToDelete)
-                    }
-                }
-                1 ->           // New node 
-                {
-                    val parent = TreeTestUtil(tree!!, rand).randomNodeWithRoot
-                    if (parent != 0L) {
-                        val childId = ++idSequence
-                        val role = roles[rand.nextInt(roles.size)]
-                        val index = if (rand.nextBoolean()) rand.nextInt(tree.getChildren(parent, role)!!.count().toInt() + 1) else -1
-                        if (DEBUG) {
-                            println("AddNew $childId to $parent.$role[$index]")
-                        }
-                        tree = tree.addNewChild(parent, role, index, childId, null)
-                        expectedParents[childId] = parent
-                        expectedRoles[childId] = role
-                        insertChild(parent, role, index, childId)
-                    }
-                }
-                2 ->           // Set property 
-                {
-                    val nodeId = TreeTestUtil(tree!!, rand).randomNodeWithoutRoot
-                    if (nodeId != 0L) {
-                        val role = roles[rand.nextInt(roles.size)]
-                        val value = java.lang.Long.toString(rand.nextLong())
-                        if (DEBUG) {
-                            println("SetProperty $nodeId.$role = $value")
-                        }
-                        tree = tree.setProperty(nodeId, role, value)
-                    }
-                }
-                3 ->           // Set reference 
-                {
-                    val sourceId = TreeTestUtil(tree!!, rand).randomNodeWithoutRoot
-                    val targetId = TreeTestUtil(tree, rand).randomNodeWithoutRoot
-                    if (sourceId != 0L && targetId != 0L) {
-                        val role = roles[rand.nextInt(roles.size)]
-                        if (DEBUG) {
-                            println("SetReference $sourceId.$role = $targetId")
-                        }
-                        tree = tree.setReferenceTarget(sourceId, role, PNodeReference(targetId))
-                    }
-                }
-                4 ->           // Move node  
-                {
-                    val util = TreeTestUtil(tree!!, rand)
-                    val childId = util.randomNodeWithoutRoot
-                    val parent = util.getRandomNode(util
-                            .allNodes
-                            .filter { it: Long -> util.getAncestors(it, true).noneMatch { it2: Long -> it2 == childId } }
-                            .toArray())
-                    if (childId != 0L && parent != 0L) {
-                        val role = roles[rand.nextInt(roles.size)]
-                        var index = if (rand.nextBoolean()) rand.nextInt(tree.getChildren(parent, role)!!.count().toInt() + 1) else -1
-                        if (DEBUG) {
-                            println("MoveNode $childId to $parent.$role[$index]")
-                        }
-                        tree = tree.moveChild(parent, role, index, childId)
-                        val oldParent = expectedParents[childId]!!
-                        val oldRole = expectedRoles[childId]
-                        if (oldParent == parent && oldRole == role) {
-                            val oldIndex = expectedChildren!![Tuple.of(oldParent, oldRole)]!!.indexOf(childId)
-                            if (oldIndex < index) {
-                                index--
+                0 -> // Delete node 
+                    {
+                        val nodeToDelete = TreeTestUtil(tree!!, rand).randomLeafNode
+                        if (nodeToDelete != 0L && nodeToDelete != ITree.ROOT_ID) {
+                            if (DEBUG) {
+                                println("Delete $nodeToDelete")
                             }
+                            tree = tree.deleteNode(nodeToDelete)
+                            removeChild(expectedParents[nodeToDelete]!!, expectedRoles[nodeToDelete], nodeToDelete)
+                            expectedParents[nodeToDelete] = 0L
+                            expectedRoles.remove(nodeToDelete)
+                            expectedDeletes.add(nodeToDelete)
                         }
-                        removeChild(oldParent, oldRole, childId)
-                        expectedParents[childId] = parent
-                        expectedRoles[childId] = role
-                        insertChild(parent, role, index, childId)
                     }
-                }
+                1 -> // New node 
+                    {
+                        val parent = TreeTestUtil(tree!!, rand).randomNodeWithRoot
+                        if (parent != 0L) {
+                            val childId = ++idSequence
+                            val role = roles[rand.nextInt(roles.size)]
+                            val index = if (rand.nextBoolean()) rand.nextInt(tree.getChildren(parent, role)!!.count().toInt() + 1) else -1
+                            if (DEBUG) {
+                                println("AddNew $childId to $parent.$role[$index]")
+                            }
+                            tree = tree.addNewChild(parent, role, index, childId, null)
+                            expectedParents[childId] = parent
+                            expectedRoles[childId] = role
+                            insertChild(parent, role, index, childId)
+                        }
+                    }
+                2 -> // Set property 
+                    {
+                        val nodeId = TreeTestUtil(tree!!, rand).randomNodeWithoutRoot
+                        if (nodeId != 0L) {
+                            val role = roles[rand.nextInt(roles.size)]
+                            val value = java.lang.Long.toString(rand.nextLong())
+                            if (DEBUG) {
+                                println("SetProperty $nodeId.$role = $value")
+                            }
+                            tree = tree.setProperty(nodeId, role, value)
+                        }
+                    }
+                3 -> // Set reference 
+                    {
+                        val sourceId = TreeTestUtil(tree!!, rand).randomNodeWithoutRoot
+                        val targetId = TreeTestUtil(tree, rand).randomNodeWithoutRoot
+                        if (sourceId != 0L && targetId != 0L) {
+                            val role = roles[rand.nextInt(roles.size)]
+                            if (DEBUG) {
+                                println("SetReference $sourceId.$role = $targetId")
+                            }
+                            tree = tree.setReferenceTarget(sourceId, role, PNodeReference(targetId))
+                        }
+                    }
+                4 -> // Move node  
+                    {
+                        val util = TreeTestUtil(tree!!, rand)
+                        val childId = util.randomNodeWithoutRoot
+                        val parent = util.getRandomNode(
+                            util
+                                .allNodes
+                                .filter { it: Long -> util.getAncestors(it, true).noneMatch { it2: Long -> it2 == childId } }
+                                .toArray()
+                        )
+                        if (childId != 0L && parent != 0L) {
+                            val role = roles[rand.nextInt(roles.size)]
+                            var index = if (rand.nextBoolean()) rand.nextInt(tree.getChildren(parent, role)!!.count().toInt() + 1) else -1
+                            if (DEBUG) {
+                                println("MoveNode $childId to $parent.$role[$index]")
+                            }
+                            tree = tree.moveChild(parent, role, index, childId)
+                            val oldParent = expectedParents[childId]!!
+                            val oldRole = expectedRoles[childId]
+                            if (oldParent == parent && oldRole == role) {
+                                val oldIndex = expectedChildren!![Tuple.of(oldParent, oldRole)]!!.indexOf(childId)
+                                if (oldIndex < index) {
+                                    index--
+                                }
+                            }
+                            removeChild(oldParent, oldRole, childId)
+                            expectedParents[childId] = parent
+                            expectedRoles[childId] = role
+                            insertChild(parent, role, index, childId)
+                        }
+                    }
             }
             for ((key, expectedParent) in expectedParents) {
                 if (expectedParent == 0L) {

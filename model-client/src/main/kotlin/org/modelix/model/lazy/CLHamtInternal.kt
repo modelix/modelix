@@ -124,7 +124,7 @@ class CLHamtInternal : CLHamtNode<CPHamtInternal?> {
             return
         }
         if (oldNode is CLHamtInternal) {
-            val oldInternalNode : CLHamtInternal = oldNode
+            val oldInternalNode: CLHamtInternal = oldNode
             if (data_.bitmap == oldInternalNode.data_.bitmap) {
                 for (i in data_.children.indices) {
                     getChild(data_.children[i])!!.visitChanges(oldInternalNode.getChild(oldInternalNode.data_.children[i]), visitor)
