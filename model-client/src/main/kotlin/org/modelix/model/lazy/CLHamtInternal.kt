@@ -23,15 +23,15 @@ import org.modelix.model.util.pmap.LongKeyPMap
 import java.util.function.BiPredicate
 import java.util.function.Function
 
-class CLHamtInternal : CLHamtNode<CPHamtInternal?> {
+class CLHamtInternal : CLHamtNode<CPHamtInternal> {
     private val data_: CPHamtInternal
 
-    constructor(store: IDeserializingKeyValueStore) : this(0, arrayOfNulls<String>(0), store) {}
+    constructor(store: IDeserializingKeyValueStore) : this(0, arrayOf<String>(), store) {}
     constructor(data: CPHamtInternal, store: IDeserializingKeyValueStore?) : super(store!!) {
         this.data_ = data
     }
 
-    private constructor(bitmap: Int, childHashes: Array<String?>, store: IDeserializingKeyValueStore) : super(store) {
+    private constructor(bitmap: Int, childHashes: Array<String>, store: IDeserializingKeyValueStore) : super(store) {
         data_ = CPHamtInternal(bitmap, childHashes)
         val serialized = data_.serialize()
         store.put(HashUtil.sha256(serialized), data_, serialized)
@@ -57,7 +57,7 @@ class CLHamtInternal : CLHamtNode<CPHamtInternal?> {
         }
     }
 
-    override fun get(key: Long, shift: Int, bulkQuery: IBulkQuery?): IBulkQuery.Value<String?>? {
+    override fun get(key: Long, shift: Int, bulkQuery: IBulkQuery): IBulkQuery.Value<String?> {
         val childIndex = (key ushr shift and LEVEL_MASK.toLong()).toInt()
         // getChild(logicalIndex: Int, bulkQuery: IBulkQuery): IBulkQuery.Value<CLHamtNode<*>?> {
         return getChild(childIndex, bulkQuery!!).mapBulk<String?>(
@@ -79,15 +79,15 @@ class CLHamtInternal : CLHamtNode<CPHamtInternal?> {
         return getChild(data_.children[physicalIndex], bulkQuery)
     }
 
-    protected fun getChild(childHash: String?, bulkQuery: IBulkQuery): IBulkQuery.Value<CLHamtNode<*>?> {
-        return bulkQuery.get(childHash, CPHamtNode.DESERIALIZER)!!.map(Function { childData: CPHamtNode -> create(childData, store) })!!
+    protected fun getChild(childHash: String, bulkQuery: IBulkQuery): IBulkQuery.Value<CLHamtNode<*>?> {
+        return bulkQuery.get(childHash, CPHamtNode.DESERIALIZER).map(Function { childData -> create(childData, store) })
     }
 
     protected fun getChild(logicalIndex: Int): CLHamtNode<*>? {
         return getChild(logicalIndex, NonBulkQuery(store)).execute()
     }
 
-    protected fun getChild(childHash: String?): CLHamtNode<*>? {
+    protected fun getChild(childHash: String): CLHamtNode<*>? {
         return getChild(childHash, NonBulkQuery(store)).execute()
     }
 

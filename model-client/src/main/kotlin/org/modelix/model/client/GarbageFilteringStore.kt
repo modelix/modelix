@@ -25,17 +25,17 @@ import java.util.stream.Collectors
 
 class GarbageFilteringStore(private val store: IKeyValueStore) : IKeyValueStore {
     private val pendingEntries: MutableMap<String?, String?> = HashMap()
-    override fun get(key: String?): String? {
-        return if (pendingEntries.containsKey(key)) pendingEntries[key] else store[key]
+    override fun get(key: String): String? {
+        return if (pendingEntries.containsKey(key)) pendingEntries[key] else store.get(key)
     }
 
-    override fun put(key: String?, value: String?) {
+    override fun put(key: String, value: String?) {
         putAll(Collections.singletonMap(key, value))
     }
 
-    override fun getAll(keys_: Iterable<String?>?): Map<String?, String?>? {
-        val keys = toStream(keys_!!).collect(Collectors.toList())
-        val result: MutableMap<String?, String?> = LinkedHashMap(16, 0.75.toFloat(), false)
+    override fun getAll(keys_: Iterable<String>): Map<String, String?> {
+        val keys = toStream(keys_).collect(Collectors.toList())
+        val result: MutableMap<String, String?> = LinkedHashMap(16, 0.75.toFloat(), false)
         synchronized(pendingEntries) {
             val itr = keys.iterator()
             while (itr.hasNext()) {
@@ -53,9 +53,9 @@ class GarbageFilteringStore(private val store: IKeyValueStore) : IKeyValueStore 
         return result
     }
 
-    override fun putAll(entries: Map<String?, String?>?) {
-        val entriesToWrite: MutableMap<String?, String?> = LinkedHashMap(16, 0.75.toFloat(), false)
-        for ((key, value) in entries!!) {
+    override fun putAll(entries: Map<String, String?>) {
+        val entriesToWrite: MutableMap<String, String?> = LinkedHashMap(16, 0.75.toFloat(), false)
+        for ((key, value) in entries) {
             if (HashUtil.isSha256(key)) {
                 pendingEntries[key] = value
             } else {
@@ -63,7 +63,7 @@ class GarbageFilteringStore(private val store: IKeyValueStore) : IKeyValueStore 
             }
         }
         if (!entriesToWrite.isEmpty()) {
-            val entry: Optional<MutableMap.MutableEntry<String?, String?>> = entriesToWrite.entries.stream().findFirst()
+            val entry: Optional<MutableMap.MutableEntry<String, String?>> = entriesToWrite.entries.stream().findFirst()
             if (entry.isPresent) {
                 store.put(entry.get().key, entry.get().value)
             } else {
@@ -72,7 +72,7 @@ class GarbageFilteringStore(private val store: IKeyValueStore) : IKeyValueStore 
         }
     }
 
-    protected fun collectDependencies(key: String?, value: String?, acc: MutableMap<String?, String?>) {
+    protected fun collectDependencies(key: String, value: String?, acc: MutableMap<String, String?>) {
         for (depKey in HashUtil.extractSha256(value)) {
             if (pendingEntries.containsKey(depKey)) {
                 val depValue = pendingEntries.remove(depKey)
@@ -82,15 +82,15 @@ class GarbageFilteringStore(private val store: IKeyValueStore) : IKeyValueStore 
         acc[key] = value
     }
 
-    override fun prefetch(key: String?) {
+    override fun prefetch(key: String) {
         store.prefetch(key)
     }
 
-    override fun listen(key: String?, listener: IKeyListener?) {
+    override fun listen(key: String, listener: IKeyListener) {
         store.listen(key, listener)
     }
 
-    override fun removeListener(key: String?, listener: IKeyListener?) {
+    override fun removeListener(key: String, listener: IKeyListener) {
         store.removeListener(key, listener)
     }
 }

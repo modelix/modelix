@@ -54,7 +54,7 @@ class SetReferenceOp(val sourceId: Long, val role: String, val target: INodeRefe
         override val originalOp: IOperation
             get() = this@SetReferenceOp
 
-        override fun invert(): IOperation? {
+        override fun invert(): IOperation {
             return SetReferenceOp(sourceId, role, oldValue)
         }
 

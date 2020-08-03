@@ -19,7 +19,7 @@ import org.modelix.model.persistent.CPElement
 import org.modelix.model.persistent.HashUtil
 
 object IDeserializingKeyValueStore_extensions {
-    fun put(_this: IDeserializingKeyValueStore, deserialized: Any?, serialized: String?) {
+    fun put(_this: IDeserializingKeyValueStore, deserialized: Any, serialized: String?) {
         _this.put(HashUtil.sha256(serialized!!), deserialized, serialized)
     }
 

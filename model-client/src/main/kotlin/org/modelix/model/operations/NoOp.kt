@@ -29,7 +29,7 @@ class NoOp : AbstractOperation(), IAppliedOperation {
     override val originalOp: IOperation
         get() = this
 
-    override fun invert(): IOperation? {
+    override fun invert(): IOperation {
         return this
     }
 }

@@ -31,7 +31,7 @@ import java.util.function.Function
 import java.util.stream.Collectors
 import java.util.stream.Stream
 
-class CPVersion(id: Long, time: String?, author: String?, treeHash: String?, previousVersion: String?, operations: Array<IOperation?>?, operationsHash: String?, numberOfOperations: Int) {
+class CPVersion(id: Long, time: String?, author: String?, treeHash: String?, previousVersion: String?, operations: Array<IOperation>?, operationsHash: String?, numberOfOperations: Int) {
     val id: Long
     val time: String?
     val author: String?
@@ -41,7 +41,7 @@ class CPVersion(id: Long, time: String?, author: String?, treeHash: String?, pre
      */
     val treeHash: String?
     val previousVersion: String?
-    val operations: Array<IOperation?>?
+    val operations: Array<IOperation>?
     val operationsHash: String?
     val numberOfOperations: Int
     fun serialize(): String {
@@ -70,7 +70,7 @@ class CPVersion(id: Long, time: String?, author: String?, treeHash: String?, pre
         fun deserialize(input: String): CPVersion {
             val parts = input.split("/").dropLastWhile { it.isEmpty() }.toTypedArray()
             var opsHash: String? = null
-            var ops: Array<IOperation?>? = null
+            var ops: Array<IOperation>? = null
             if (isSha256(parts[5])) {
                 opsHash = parts[5]
             } else {

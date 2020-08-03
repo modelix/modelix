@@ -42,11 +42,11 @@ class OTBranch(private val branch: IBranch, private val idGenerator: IIdGenerato
             synchronized(operationsLock) { return Tuple.of(newOperations, computeRead<ITree>(Supplier<ITree> { transaction.tree!! })) }
         }
 
-    override fun addListener(l: IBranchListener?) {
+    override fun addListener(l: IBranchListener) {
         branch.addListener(l)
     }
 
-    override fun removeListener(l: IBranchListener?) {
+    override fun removeListener(l: IBranchListener) {
         branch.removeListener(l)
     }
 
@@ -58,17 +58,17 @@ class OTBranch(private val branch: IBranch, private val idGenerator: IIdGenerato
         return branch.canWrite()
     }
 
-    override fun <T> computeRead(computable: Supplier<T>?): T {
+    override fun <T> computeRead(computable: Supplier<T>): T {
         checkNotEDT()
         return branch.computeRead(computable)
     }
 
-    override fun <T> computeWrite(computable: Supplier<T>?): T {
+    override fun <T> computeWrite(computable: Supplier<T>): T {
         checkNotEDT()
         return branch.computeWrite(computable)
     }
 
-    override val readTransaction: IReadTransaction?
+    override val readTransaction: IReadTransaction
         get() = branch.readTransaction
 
     override val transaction: ITransaction
@@ -77,12 +77,12 @@ class OTBranch(private val branch: IBranch, private val idGenerator: IIdGenerato
     override val writeTransaction: IWriteTransaction
         get() = wrap(branch.writeTransaction)
 
-    override fun runRead(runnable: Runnable?) {
+    override fun runRead(runnable: Runnable) {
         checkNotEDT()
         branch.runRead(runnable)
     }
 
-    override fun runWrite(runnable: Runnable?) {
+    override fun runWrite(runnable: Runnable) {
         checkNotEDT()
         branch.runWrite(runnable)
     }

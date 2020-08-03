@@ -25,7 +25,7 @@ abstract class CPHamtNode {
     abstract fun serialize(): String?
 
     companion object {
-        val DESERIALIZER = Function { s: String? -> deserialize(s!!) }
+        val DESERIALIZER = Function { s: String -> deserialize(s) }
         @JvmStatic
         fun deserialize(input: String): CPHamtNode {
             val parts = input.split("/").dropLastWhile { it.isEmpty() }.toTypedArray()

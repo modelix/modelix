@@ -22,26 +22,26 @@ import org.modelix.model.util.StreamUtils.intersection
 import org.modelix.model.util.StreamUtils.toStream
 import java.util.Arrays
 import java.util.Collections
-import java.util.concurrent.locks.ReentrantLock
+import java.util.concurrent.CompletableFuture
 import java.util.stream.Collectors
 
 class KeyValueStoreCache(private val store: IKeyValueStore) : IKeyValueStore {
-    private val cache = Collections.synchronizedMap(LRUMap<String?, String?>(300000))
-    private val pendingPrefetches: MutableSet<String?> = HashSet()
+    private val cache = Collections.synchronizedMap(LRUMap<String, String?>(300000))
+    private val pendingPrefetches: MutableSet<String> = HashSet()
     private val activeRequests: MutableList<GetRequest> = ArrayList()
-    override fun prefetch(rootKey: String?) {
+    override fun prefetch(rootKey: String) {
         val processedKeys: MutableSet<String?> = HashSet()
         processedKeys.add(rootKey)
-        var newKeys: MutableList<String?> = Arrays.asList(rootKey).toMutableList()
+        var newKeys: MutableList<String> = Arrays.asList(rootKey).toMutableList()
         while (!newKeys.isEmpty() && processedKeys.size + newKeys.size <= 100000) {
             synchronized(pendingPrefetches) { newKeys.removeAll(pendingPrefetches) }
             val currentKeys = newKeys
             newKeys = ArrayList()
-            var loadedEntries: Map<String?, String?>?
+            var loadedEntries: Map<String, String?>?
             synchronized(pendingPrefetches) { pendingPrefetches.addAll(currentKeys) }
             try {
                 loadedEntries = getAll(currentKeys)
-                for ((key, value) in loadedEntries!!) {
+                for ((key, value) in loadedEntries) {
                     processedKeys.add(key)
                     for (childKey in HashUtil.extractSha256(value)) {
                         if (processedKeys.contains(childKey)) {
@@ -56,13 +56,13 @@ class KeyValueStoreCache(private val store: IKeyValueStore) : IKeyValueStore {
         }
     }
 
-    override fun get(key: String?): String? {
-        return getAll(setOf(key))!![key]
+    override fun get(key: String): String? {
+        return getAll(setOf(key))[key]
     }
 
-    override fun getAll(keys_: Iterable<String?>?): Map<String?, String?>? {
-        val remainingKeys = toStream(keys_!!).collect(Collectors.toList())
-        val result: MutableMap<String?, String?> = LinkedHashMap(16, 0.75.toFloat(), false)
+    override fun getAll(keys_: Iterable<String>): Map<String, String?> {
+        val remainingKeys = toStream(keys_).collect(Collectors.toList())
+        val result: MutableMap<String, String?> = LinkedHashMap(16, 0.75.toFloat(), false)
         synchronized(cache) {
             val itr = remainingKeys.iterator()
             while (itr.hasNext()) {
@@ -114,68 +114,40 @@ class KeyValueStoreCache(private val store: IKeyValueStore) : IKeyValueStore {
         return result
     }
 
-    override fun listen(key: String?, listener: IKeyListener?) {
+    override fun listen(key: String, listener: IKeyListener) {
         store.listen(key, listener)
     }
 
-    override fun put(key: String?, value: String?) {
+    override fun put(key: String, value: String?) {
         cache[key] = value
         store.put(key, value)
     }
 
-    override fun putAll(entries: Map<String?, String?>?) {
-        entries!!.forEach { (key: String?, value: String?) -> cache[key] = value }
+    override fun putAll(entries: Map<String, String?>) {
+        entries.forEach { (key: String, value: String?) -> cache[key] = value }
         store.putAll(entries)
     }
 
-    override fun removeListener(key: String?, listener: IKeyListener?) {
+    override fun removeListener(key: String, listener: IKeyListener) {
         store.removeListener(key, listener)
     }
 
-    private inner class GetRequest(val keys: Set<String?>) {
-        private var result: Map<String?, String?>? = null
-        private var exception: Exception? = null
+    private inner class GetRequest(val keys: Set<String>) {
+        private val future: CompletableFuture<Map<String, String?>> = CompletableFuture()
         fun execute() {
             try {
                 val entriesFromStore = store.getAll(keys)
-                for ((key, value) in entriesFromStore!!) {
+                for ((key, value) in entriesFromStore) {
                     cache[key] = value
                 }
-                putResult(entriesFromStore)
+                future.complete(entriesFromStore)
             } catch (ex: Exception) {
-                putException(ex)
+                future.completeExceptionally(ex)
             }
         }
 
-        private val lock = ReentrantLock()
-        private val condition = lock.newCondition()
-
-        @Synchronized
-        fun putException(ex: Exception?) {
-            exception = ex
-            condition.signalAll()
-        }
-
-        @Synchronized
-        fun putResult(result: Map<String?, String?>?) {
-            this.result = result
-            condition.signalAll()
-        }
-
-        @Synchronized
-        fun waitForResult(): Map<String?, String?> {
-            while (result == null && exception == null) {
-                try {
-                    condition.await()
-                } catch (ex: InterruptedException) {
-                    throw RuntimeException()
-                }
-            }
-            return if (result != null) {
-                result!!
-            } else {
-                throw RuntimeException(exception)
-            }
+        fun waitForResult(): Map<String, String?> {
+            return future.get()
         }
     }
 

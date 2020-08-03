@@ -47,11 +47,11 @@ class OTWriteTransaction(private val transaction: IWriteTransaction, private val
         apply(MoveNodeOp(childId, oldparent, oldRole!!, oldIndex, newParentId, newRole!!, newIndex))
     }
 
-    override fun setProperty(nodeId: Long, role: String?, value: String?) {
+    override fun setProperty(nodeId: Long, role: String, value: String?) {
         apply(SetPropertyOp(nodeId, role!!, value!!))
     }
 
-    override fun setReferenceTarget(sourceId: Long, role: String?, target: INodeReference?) {
+    override fun setReferenceTarget(sourceId: Long, role: String, target: INodeReference?) {
         apply(SetReferenceOp(sourceId, role!!, target!!))
     }
 
@@ -80,14 +80,14 @@ class OTWriteTransaction(private val transaction: IWriteTransaction, private val
         return transaction.containsNode(nodeId)
     }
 
-    override fun getAllChildren(parentId: Long): LongStream? {
+    override fun getAllChildren(parentId: Long): LongStream {
         return transaction.getAllChildren(parentId)
     }
 
     override val branch: IBranch
         get() = otBranch
 
-    override fun getChildren(parentId: Long, role: String?): LongStream? {
+    override fun getChildren(parentId: Long, role: String?): LongStream {
         return transaction.getChildren(parentId, role)
     }
 
@@ -99,11 +99,11 @@ class OTWriteTransaction(private val transaction: IWriteTransaction, private val
         return transaction.getParent(nodeId)
     }
 
-    override fun getProperty(nodeId: Long, role: String?): String? {
+    override fun getProperty(nodeId: Long, role: String): String? {
         return transaction.getProperty(nodeId, role)
     }
 
-    override fun getReferenceTarget(sourceId: Long, role: String?): INodeReference? {
+    override fun getReferenceTarget(sourceId: Long, role: String): INodeReference? {
         return transaction.getReferenceTarget(sourceId, role)
     }
 
@@ -111,7 +111,7 @@ class OTWriteTransaction(private val transaction: IWriteTransaction, private val
         return transaction.getRole(nodeId)
     }
 
-    override var tree: ITree?
+    override var tree: ITree
         get() = transaction.tree
         set(tree) {
             throw UnsupportedOperationException()

@@ -103,7 +103,7 @@ class DeleteNodeOp(val parentId: Long, val role: String, val index: Int, val chi
         override val originalOp: IOperation
             get() = this@DeleteNodeOp
 
-        override fun invert(): IOperation? {
+        override fun invert(): IOperation {
             return AddNewChildOp(parentId, role, index, childId, concept)
         }
 

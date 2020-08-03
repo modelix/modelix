@@ -34,7 +34,7 @@ class BulkQuery(private val store: IDeserializingKeyValueStore) : IBulkQuery {
     private var queue: MutableList<Tuple3<String, Function<String?, *>, Consumer<Any?>>> = ArrayList()
     private var processing = false
     protected fun executeBulkQuery(keys: Iterable<String>, deserializers: Map<String, Function<String?, *>>): Map<String, Any> {
-        val values = store.getAll(keys, BiFunction<String?, String?, Any> { key: String?, serialized: String? -> deserializers[key]!!.apply(serialized!!) })
+        val values = store.getAll(keys, BiFunction<String, String, Any> { key: String, serialized: String -> deserializers[key]!!.apply(serialized) })
         val result: MutableMap<String, Any> = HashMap()
         run {
             val key_it = keys.iterator()
@@ -54,9 +54,9 @@ class BulkQuery(private val store: IDeserializingKeyValueStore) : IBulkQuery {
         queue.add(Tuple.of<String, Function<String?, *>, Consumer<Any?>>(key, deserializer, callback))
     }
 
-    override fun <T> get(hash: String?, deserializer: Function<String?, T>?): IBulkQuery.Value<T>? {
-        val result = Value<T>()
-        query(hash!!, deserializer as Function<String?, *>, Consumer { value: Any? -> result.success(value as T) })
+    override fun <T> get(hash: String, deserializer: Function<String, T>): IBulkQuery.Value<T?> {
+        val result = Value<T?>()
+        query(hash, deserializer as Function<String?, *>, Consumer { value: Any? -> result.success(value as T) })
         return result
     }
 
@@ -93,17 +93,17 @@ class BulkQuery(private val store: IDeserializingKeyValueStore) : IBulkQuery {
         }
     }
 
-    override fun <I, O> map(input_: Iterable<I>?, f: Function<I, IBulkQuery.Value<O>?>?): IBulkQuery.Value<List<O>?>? {
-        val input = StreamSupport.stream(input_!!.spliterator(), false).collect(Collectors.toList())
+    override fun <I, O> map(input_: Iterable<I>, f: Function<I, IBulkQuery.Value<O>>): IBulkQuery.Value<List<O>> {
+        val input = StreamSupport.stream(input_.spliterator(), false).collect(Collectors.toList())
         if (input.isEmpty()) {
             return constant(emptyList())
         }
         val output = arrayOfNulls<Any>(input.size)
         val done = BooleanArray(input.size)
         val remaining = MutableInt(input.size)
-        val result = Value<List<O>?>()
+        val result = Value<List<O>>()
         for (i_ in input.indices) {
-            f!!.apply(input[i_])!!.onSuccess(
+            f.apply(input[i_]).onSuccess(
                 Consumer { value ->
                     if (done[i_]) {
                         return@Consumer
@@ -143,7 +143,7 @@ class BulkQuery(private val store: IDeserializingKeyValueStore) : IBulkQuery {
         }
 
         @Synchronized
-        override fun onSuccess(handler: Consumer<T?>?) {
+        override fun onSuccess(handler: Consumer<T?>) {
             if (done) {
                 handler!!.accept(value!!)
             } else {
@@ -159,13 +159,13 @@ class BulkQuery(private val store: IDeserializingKeyValueStore) : IBulkQuery {
             return value!!
         }
 
-        override fun <R> map(handler: Function<T, R>?): Value<R>? {
+        override fun <R> map(handler: Function<T, R>): IBulkQuery.Value<R> {
             val result = Value<R>()
             onSuccess(Consumer { v: T? -> result.success(handler!!.apply(v!!)) })
             return result
         }
 
-        override fun <R> mapBulk(handler: Function<T, IBulkQuery.Value<R>?>?): IBulkQuery.Value<R>? {
+        override fun <R> mapBulk(handler: Function<T, IBulkQuery.Value<R>>): IBulkQuery.Value<R> {
             val result = Value<R>()
             onSuccess(Consumer { v: T? -> handler!!.apply(v!!)!!.onSuccess(Consumer { value: R? -> result.success(value!!) }) })
             return result

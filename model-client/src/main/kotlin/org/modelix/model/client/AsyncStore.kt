@@ -27,36 +27,36 @@ import java.util.stream.Collectors
 
 class AsyncStore(private val store: IKeyValueStore) : IKeyValueStore {
     private val consumerActive = AtomicBoolean()
-    private val pendingWrites: MutableMap<String?, String?> = LinkedHashMap(16, 0.75.toFloat(), false)
-    override fun get(key: String?): String? {
+    private val pendingWrites: MutableMap<String, String?> = LinkedHashMap(16, 0.75.toFloat(), false)
+    override fun get(key: String): String? {
         synchronized(pendingWrites) {
             if (pendingWrites.containsKey(key)) {
                 return pendingWrites.get(key)
             }
         }
-        return store[key]
+        return store.get(key)
     }
 
-    override fun listen(key: String?, listener: IKeyListener?) {
+    override fun listen(key: String, listener: IKeyListener) {
         store.listen(key, listener)
     }
 
-    override fun removeListener(key: String?, listener: IKeyListener?) {
+    override fun removeListener(key: String, listener: IKeyListener) {
         store.removeListener(key, listener)
     }
 
-    override fun put(key: String?, value: String?) {
+    override fun put(key: String, value: String?) {
         synchronized(pendingWrites) { pendingWrites.put(key, value) }
         processQueue()
     }
 
-    override fun getAll(keys_: Iterable<String?>?): Map<String?, String?>? {
-        val keys = toStream((keys_)!!).collect(Collectors.toList())
-        val result: MutableMap<String?, String?> = LinkedHashMap(16, 0.75.toFloat(), false)
+    override fun getAll(keys_: Iterable<String>): Map<String, String?> {
+        val keys = toStream(keys_).collect(Collectors.toList())
+        val result: MutableMap<String, String?> = LinkedHashMap(16, 0.75.toFloat(), false)
         synchronized(pendingWrites) {
-            val itr: MutableIterator<String?> = keys.iterator()
+            val itr: MutableIterator<String> = keys.iterator()
             while (itr.hasNext()) {
-                val key: String? = itr.next()
+                val key: String = itr.next()
                 // always put even if null to have the same order in the linked hash map as in the input 
                 result.put(key, pendingWrites.get(key))
                 if (pendingWrites.containsKey(key)) {
@@ -70,12 +70,12 @@ class AsyncStore(private val store: IKeyValueStore) : IKeyValueStore {
         return result
     }
 
-    override fun putAll(entries: Map<String?, String?>?) {
+    override fun putAll(entries: Map<String, String?>) {
         synchronized(pendingWrites) { pendingWrites.putAll((entries)!!) }
         processQueue()
     }
 
-    override fun prefetch(key: String?) {
+    override fun prefetch(key: String) {
         store.prefetch(key)
     }
 
@@ -86,7 +86,7 @@ class AsyncStore(private val store: IKeyValueStore) : IKeyValueStore {
                     try {
                         while (!pendingWrites.isEmpty()) {
                             try {
-                                val entries: MutableMap<String?, String?> = LinkedHashMap(16, 0.75.toFloat(), false)
+                                val entries: MutableMap<String, String?> = LinkedHashMap(16, 0.75.toFloat(), false)
                                 synchronized(pendingWrites) { entries.putAll(pendingWrites) }
                                 store.putAll(entries)
                                 synchronized(pendingWrites) {

@@ -15,10 +15,11 @@
 
 package org.modelix.model.api
 
+import java.lang.IllegalArgumentException
 import java.util.function.Supplier
 import java.util.stream.Stream
 
-class PNodeAdapter(val nodeId: Long, val branch: IBranch?) : INode {
+class PNodeAdapter(val nodeId: Long, val branch: IBranch) : INode {
 
     protected fun unwrap(node: INode?): Long {
         if (node == null) {
@@ -38,51 +39,51 @@ class PNodeAdapter(val nodeId: Long, val branch: IBranch?) : INode {
 //    DependencyBroadcaster.INSTANCE.dependencyAccessed(new PNodeDependency(branch, nodeId));
     }
 
-    override fun addChild(role: String?, index: Int, node: INode?) {
+    override fun addChild(role: String?, index: Int, node: INode) {
         throw UnsupportedOperationException("Not implemented")
     }
 
-    override fun addNewChild(role: String?, index: Int, concept: IConcept?): INode? {
-        return wrap(branch!!.writeTransaction!!.addNewChild(nodeId, role, index, concept))
+    override fun addNewChild(role: String?, index: Int, concept: IConcept?): INode {
+        return PNodeAdapter(branch.writeTransaction.addNewChild(nodeId, role, index, concept), branch)
     }
 
     override val allChildren: Stream<INode>
         get() {
             notifyAccess()
-            return branch!!.transaction!!.getAllChildren(nodeId)!!.mapToObj { id: Long -> wrap(id) }
+            return branch.transaction.getAllChildren(nodeId).mapToObj { id: Long -> wrap(id) }
         }
 
-    override fun getChildren(role: String?): Stream<INode?>? {
+    override fun getChildren(role: String?): Stream<INode> {
         notifyAccess()
-        return branch!!.transaction!!.getChildren(nodeId, role)!!.mapToObj { id: Long -> wrap(id) }
+        return branch.transaction.getChildren(nodeId, role).mapToObj { id: Long -> wrap(id) }
     }
 
     override val concept: IConcept?
         get() {
             notifyAccess()
-            return branch!!.computeRead(Supplier { branch.transaction!!.getConcept(nodeId) })
+            return branch.computeRead(Supplier { branch.transaction.getConcept(nodeId) })
         }
 
     override val parent: INode?
         get() {
             notifyAccess()
-            val parent = branch!!.transaction!!.getParent(nodeId)
+            val parent = branch.transaction.getParent(nodeId)
             return if (parent == 0L || parent == ITree.ROOT_ID) {
                 null
             } else wrap(parent)
         }
 
-    override fun getPropertyValue(role: String?): String? {
+    override fun getPropertyValue(role: String): String? {
         notifyAccess()
-        return branch!!.transaction!!.getProperty(nodeId, role)
+        return branch.transaction.getProperty(nodeId, role)
     }
 
     override val reference: INodeReference
         get() = PNodeReference(nodeId)
 
-    override fun getReferenceTarget(role: String?): INode? {
+    override fun getReferenceTarget(role: String): INode? {
         notifyAccess()
-        val targetRef = branch!!.transaction!!.getReferenceTarget(nodeId, role)
+        val targetRef = branch.transaction.getReferenceTarget(nodeId, role)
         if (targetRef is PNodeReference) {
             return targetRef.resolveNode(PNodeResolveContext(branch))
         }
@@ -94,29 +95,29 @@ class PNodeAdapter(val nodeId: Long, val branch: IBranch?) : INode {
     override val roleInParent: String?
         get() {
             notifyAccess()
-            return branch!!.transaction!!.getRole(nodeId)
+            return branch.transaction.getRole(nodeId)
         }
 
     override val isValid: Boolean
         get() {
             notifyAccess()
-            return branch!!.transaction!!.containsNode(nodeId)
+            return branch.transaction.containsNode(nodeId)
         }
 
-    override fun removeChild(child: INode?) {
-        branch!!.writeTransaction!!.deleteNode(unwrap(child))
+    override fun removeChild(child: INode) {
+        branch.writeTransaction.deleteNode(unwrap(child))
     }
 
-    override fun setPropertyValue(role: String?, value: String?) {
-        branch!!.writeTransaction!!.setProperty(nodeId, role, value)
+    override fun setPropertyValue(role: String, value: String?) {
+        branch.writeTransaction.setProperty(nodeId, role, value)
     }
 
-    override fun setReferenceTarget(role: String?, target: INode?) {
-        branch!!.writeTransaction!!.setReferenceTarget(nodeId, role, target?.reference)
+    override fun setReferenceTarget(role: String, target: INode?) {
+        branch.writeTransaction.setReferenceTarget(nodeId, role, target?.reference)
     }
 
-    fun setReferenceTarget(role: String?, target: INodeReference?) {
-        branch!!.writeTransaction!!.setReferenceTarget(nodeId, role, target)
+    fun setReferenceTarget(role: String, target: INodeReference?) {
+        branch.writeTransaction.setReferenceTarget(nodeId, role, target)
     }
 
     override fun equals(o: Any?): Boolean {
@@ -145,7 +146,7 @@ class PNodeAdapter(val nodeId: Long, val branch: IBranch?) : INode {
     override fun toString(): String {
         var concept: IConcept? = null
         try {
-            concept = branch!!.computeRead(Supplier { branch.transaction!!.getConcept(nodeId) })
+            concept = branch.computeRead(Supplier { branch.transaction.getConcept(nodeId) })
         } catch (ex: Exception) {
         }
         var str = "PNode$nodeId"
@@ -155,14 +156,18 @@ class PNodeAdapter(val nodeId: Long, val branch: IBranch?) : INode {
         return str
     }
 
-    // companion object {
-    @JvmOverloads
-    fun wrap(id: Long, branch: IBranch? = this.branch): INode? {
-        return if (id == 0L) null else PNodeAdapter(id, branch)
+    private fun wrap(id: Long): INode? {
+        return Companion.wrap(id, this.branch)
     }
-    // }
+
+    companion object {
+        fun wrap(id: Long, branch: IBranch): INode? {
+            return if (id == 0L) null else PNodeAdapter(id, branch)
+        }
+    }
 
     init {
+        if (this.nodeId == 0L) throw IllegalArgumentException("ID 0 not allowed")
         notifyAccess()
     }
 }

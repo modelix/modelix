@@ -33,11 +33,11 @@ class ActiveBranch(client: IModelClient, tree: TreeId, branchName: String?, user
     private var replicatedTree: ReplicatedTree?
     private var lastKnownTree: ITree? = null
     private val forwardingListener: IBranchListener = object : IBranchListener {
-        override fun treeChanged(oldTree: ITree?, newTree: ITree?) {
+        override fun treeChanged(oldTree: ITree?, newTree: ITree) {
             notifyListeners(newTree)
         }
     }
-    private var listeners: List<IBranchListener?> = ArrayList()
+    private var listeners: List<IBranchListener> = ArrayList()
 
     @get:Synchronized
     override val branch: IBranch
@@ -52,14 +52,14 @@ class ActiveBranch(client: IModelClient, tree: TreeId, branchName: String?, user
         replicatedTree = null
     }
 
-    override fun addListener(l: IBranchListener?) {
-        val newListeners: MutableList<IBranchListener?> = ArrayList(listeners)
+    override fun addListener(l: IBranchListener) {
+        val newListeners: MutableList<IBranchListener> = ArrayList(listeners)
         newListeners.add(l)
         listeners = newListeners
     }
 
-    override fun removeListener(l: IBranchListener?) {
-        val newListeners: MutableList<IBranchListener?> = ArrayList(listeners)
+    override fun removeListener(l: IBranchListener) {
+        val newListeners: MutableList<IBranchListener> = ArrayList(listeners)
         newListeners.remove(l)
         listeners = newListeners
     }
@@ -75,16 +75,16 @@ class ActiveBranch(client: IModelClient, tree: TreeId, branchName: String?, user
         replicatedTree = ReplicatedTree(client, tree, branchName!!, user)
         replicatedTree!!.branch.addListener(forwardingListener)
         val b = replicatedTree!!.branch
-        val newTree = b.computeRead(Supplier { b.transaction!!.tree })
+        val newTree = b.computeRead(Supplier { b.transaction.tree })
         notifyListeners(newTree)
     }
 
-    protected fun notifyListeners(newTree: ITree?) {
+    protected fun notifyListeners(newTree: ITree) {
         val oldTree = lastKnownTree
         lastKnownTree = newTree
         for (l in listeners) {
             try {
-                l!!.treeChanged(oldTree, newTree)
+                l.treeChanged(oldTree, newTree)
             } catch (ex: Exception) {
                 if (LOG.isEnabledFor(Level.ERROR)) {
                     LOG.error("", ex)

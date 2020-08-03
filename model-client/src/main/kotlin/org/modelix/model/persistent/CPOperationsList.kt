@@ -21,7 +21,7 @@ import org.modelix.model.persistent.HashUtil.sha256
 import java.util.stream.Collectors
 import java.util.stream.Stream
 
-class CPOperationsList(val operations: Array<IOperation?>) {
+class CPOperationsList(val operations: Array<IOperation>) {
     fun serialize(): String {
         return Stream.of(*operations)
             .map { op: IOperation? -> OperationSerializer.INSTANCE.serialize(op!!) }

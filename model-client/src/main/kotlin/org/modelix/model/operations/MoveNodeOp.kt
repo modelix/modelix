@@ -75,7 +75,7 @@ class MoveNodeOp(val childId: Long, val sourceParentId: Long, val sourceRole: St
         override val originalOp: IOperation
             get() = this@MoveNodeOp
 
-        override fun invert(): IOperation? {
+        override fun invert(): IOperation {
             return MoveNodeOp(childId, targetParentId, targetRole, targetIndex, sourceParentId, sourceRole, sourceIndex)
         }
     }

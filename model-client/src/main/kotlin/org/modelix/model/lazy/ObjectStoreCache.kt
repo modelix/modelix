@@ -26,10 +26,10 @@ import java.util.stream.Collectors
 class ObjectStoreCache(override val keyValueStore: IKeyValueStore) : IDeserializingKeyValueStore {
     private val cache = Collections.synchronizedMap(LRUMap<String?, Any>(100000))
 
-    override fun <T> getAll(hashes_: Iterable<String?>?, deserializer: BiFunction<String?, String?, T>?): Iterable<T>? {
+    override fun <T> getAll(hashes_: Iterable<String>, deserializer: BiFunction<String, String, T>): Iterable<T> {
         val hashes = toStream(hashes_!!).collect(Collectors.toList())
         val result: MutableMap<String?, T?> = HashMap()
-        val nonCachedHashes: MutableList<String?> = ArrayList(hashes.size)
+        val nonCachedHashes: MutableList<String> = ArrayList(hashes.size)
         for (hash in hashes) {
             val deserialized = cache[hash] as T?
             if (deserialized == null) {
@@ -52,20 +52,17 @@ class ObjectStoreCache(override val keyValueStore: IKeyValueStore) : IDeserializ
         return Iterable<T> { hashes.stream().map { key: String? -> result[key] }.iterator() as Iterator<T> }
     }
 
-    override fun <T> get(hash: String?, deserializer: Function<String?, T>?): T? {
-        if (hash == null) {
-            return null
-        }
+    override fun <T> get(hash: String, deserializer: Function<String, T>): T? {
         var deserialized = cache[hash] as T?
         if (deserialized == null) {
             val serialized = keyValueStore[hash] ?: return null
-            deserialized = deserializer!!.apply(serialized)
+            deserialized = deserializer.apply(serialized)
             cache[hash] = deserialized ?: NULL
         }
         return if (deserialized === NULL) null else deserialized
     }
 
-    override fun put(hash: String?, deserialized: Any?, serialized: String?) {
+    override fun put(hash: String, deserialized: Any, serialized: String) {
         keyValueStore.put(hash, serialized)
         cache[hash] = deserialized ?: NULL
     }
@@ -74,7 +71,7 @@ class ObjectStoreCache(override val keyValueStore: IKeyValueStore) : IDeserializ
         cache.clear()
     }
 
-    override fun prefetch(hash: String?) {
+    override fun prefetch(hash: String) {
         keyValueStore.prefetch(hash)
     }
 

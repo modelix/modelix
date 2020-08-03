@@ -23,7 +23,7 @@ class CPHamtInternal(
     /**
      * SHA to CPHamtNode
      */
-    val children: Array<String?>
+    val children: Array<String>
 ) : CPHamtNode() {
 
     override fun serialize(): String {

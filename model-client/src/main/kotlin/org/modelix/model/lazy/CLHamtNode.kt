@@ -24,18 +24,18 @@ import java.util.function.Function
 
 abstract class CLHamtNode<E : CPHamtNode?>(protected var store: IDeserializingKeyValueStore) {
     protected fun createEmptyNode(): CLHamtNode<*> {
-        return create(CPHamtInternal(0, arrayOfNulls(0)), store)!!
+        return create(CPHamtInternal(0, arrayOf()), store)!!
     }
 
     abstract fun getData(): CPHamtNode?
 
     operator fun get(key: Long): String? {
         val bulkQuery: IBulkQuery = NonBulkQuery(store)
-        return get(key, 0, bulkQuery)!!.execute()
+        return get(key, 0, bulkQuery).execute()
     }
 
-    fun getAll(keys: Iterable<Long>?, bulkQuery: IBulkQuery): IBulkQuery.Value<List<String?>?>? {
-        val f: Function<Long, IBulkQuery.Value<String?>?>? = Function { key: Long -> get(key, 0, bulkQuery) }
+    fun getAll(keys: Iterable<Long>, bulkQuery: IBulkQuery): IBulkQuery.Value<List<String?>> {
+        val f: Function<Long, IBulkQuery.Value<String?>> = Function { key: Long -> get(key, 0, bulkQuery) }
         return bulkQuery.map(keys, f)
     }
 
@@ -59,7 +59,7 @@ abstract class CLHamtNode<E : CPHamtNode?>(protected var store: IDeserializingKe
         return remove(element.id)
     }
 
-    abstract operator fun get(key: Long, shift: Int, bulkQuery: IBulkQuery?): IBulkQuery.Value<String?>?
+    abstract operator fun get(key: Long, shift: Int, bulkQuery: IBulkQuery): IBulkQuery.Value<String?>
     abstract fun put(key: Long, value: String?, shift: Int): CLHamtNode<*>?
     abstract fun remove(key: Long, shift: Int): CLHamtNode<*>?
     abstract fun visitEntries(visitor: BiPredicate<Long?, String?>?): Boolean

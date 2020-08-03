@@ -26,7 +26,7 @@ class CLVersion {
     var data: CPVersion? = null
         private set
 
-    constructor(id: Long, time: String?, author: String?, treeHash: String?, previousVersion: String?, operations: Array<IOperation?>, store: IDeserializingKeyValueStore) {
+    constructor(id: Long, time: String?, author: String?, treeHash: String?, previousVersion: String?, operations: Array<IOperation>, store: IDeserializingKeyValueStore) {
         this.store = store
         if (operations.size <= 10) {
             data = CPVersion(id, time, author, treeHash, previousVersion, operations, null, operations.size)
@@ -35,10 +35,10 @@ class CLVersion {
             IDeserializingKeyValueStore_extensions.put(store, opsList, opsList.serialize())
             data = CPVersion(id, time, author, treeHash, previousVersion, null, opsList.hash, operations.size)
         }
-        IDeserializingKeyValueStore_extensions.put(store, data, data!!.serialize())
+        IDeserializingKeyValueStore_extensions.put(store, data!!, data!!.serialize())
     }
 
-    constructor(hash: String?, store: IDeserializingKeyValueStore) : this(store.get<CPVersion>(hash, Function { input: String? -> CPVersion.deserialize(input!!) }), store) {}
+    constructor(hash: String, store: IDeserializingKeyValueStore) : this(store.get<CPVersion>(hash, Function { input: String? -> CPVersion.deserialize(input!!) }), store) {}
     constructor(data: CPVersion?, store: IDeserializingKeyValueStore) {
         if (data == null) {
             throw NullPointerException("data is null")
@@ -70,17 +70,24 @@ class CLVersion {
 
     val previousVersion: CLVersion?
         get() {
-            if (data!!.previousVersion == null) {
+            val previousVersionHash = data!!.previousVersion
+            if (previousVersionHash == null) {
                 return null
             }
-            val previousVersion = store.get(data!!.previousVersion, Function { input: String? -> CPVersion.deserialize(input!!) })
+            val previousVersion = store.get(previousVersionHash, Function { input: String -> CPVersion.deserialize(input) })
                 ?: return null
             return CLVersion(previousVersion, store)
         }
 
-    val operations: Iterable<IOperation?>
+    val operations: Iterable<IOperation>
         get() {
-            val ops = if (data!!.operationsHash == null) data!!.operations else store.get(data!!.operationsHash, Function { input: String? -> CPOperationsList.deserialize(input!!) })!!.operations
+            val operationsHash = data!!.operationsHash
+            val ops = if (operationsHash == null) data!!.operations else
+            (
+                store.get(operationsHash, Function { input: String -> CPOperationsList.deserialize(input) })
+                    ?: throw RuntimeException("Missing entry for key $operationsHash")
+                )
+                .operations
             return Iterable { Arrays.stream(ops).iterator() }
         }
 
@@ -93,9 +100,10 @@ class CLVersion {
 
     companion object {
         @JvmStatic
-        fun loadFromHash(hash: String?, store: IDeserializingKeyValueStore): CLVersion? {
-            val data = store.get(hash, Function { input: String? -> CPVersion.deserialize(input!!) })
-            return data?.let { CLVersion(it, store) }
+        fun loadFromHash(hash: String, store: IDeserializingKeyValueStore): CLVersion? {
+            val data = store.get(hash, Function { input: String -> CPVersion.deserialize(input) })
+                ?: throw RuntimeException("Version with hash $hash not found")
+            return CLVersion(data, store)
         }
     }
 }

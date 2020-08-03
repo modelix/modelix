@@ -53,7 +53,7 @@ abstract class VersionChangeDetector(private val store: IKeyValueStore, private 
 
     init {
         keyListener = object : IKeyListener {
-            override fun changed(key: String?, versionHash: String?) {
+            override fun changed(key: String, versionHash: String?) {
                 if (LOG.isDebugEnabled) {
                     LOG.debug("Listener received new version $versionHash")
                 }

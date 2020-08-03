@@ -129,7 +129,7 @@ class RestWebModelClient @JvmOverloads constructor(var baseUrl: String? = null) 
         }
     }
 
-    override fun get(key: String?): String? {
+    override fun get(key: String): String? {
         val isHash = HashUtil.isSha256(key)
         if (isHash) {
             if (LOG.isDebugEnabled) {
@@ -154,7 +154,7 @@ class RestWebModelClient @JvmOverloads constructor(var baseUrl: String? = null) 
         }
     }
 
-    override fun getAll(keys: Iterable<String?>?): Map<String?, String?>? {
+    override fun getAll(keys: Iterable<String>): Map<String, String?> {
         if (!keys!!.iterator().hasNext()) {
             return HashMap()
         }
@@ -168,7 +168,7 @@ class RestWebModelClient @JvmOverloads constructor(var baseUrl: String? = null) 
         return if (response.status == Response.Status.OK.statusCode) {
             val jsonStr = response.readEntity(String::class.java)
             val responseJson = JSONArray(jsonStr)
-            val result: MutableMap<String?, String?> = LinkedHashMap(16, 0.75.toFloat(), false)
+            val result: MutableMap<String, String?> = LinkedHashMap(16, 0.75.toFloat(), false)
             for (entry_: Any in responseJson) {
                 val entry = entry_ as JSONObject
                 result[entry.getString("key")] = entry.optString("value")
@@ -201,16 +201,16 @@ class RestWebModelClient @JvmOverloads constructor(var baseUrl: String? = null) 
             }
         }
 
-    override fun listen(key: String?, keyListener: IKeyListener?) {
+    override fun listen(key: String, keyListener: IKeyListener) {
         val sseListener = SseListener(key, keyListener)
         synchronized(listeners) { listeners.add(sseListener) }
     }
 
-    override fun removeListener(key: String?, listener: IKeyListener?) {
+    override fun removeListener(key: String, listener: IKeyListener) {
         synchronized(listeners) { listeners.removeIf({ it: SseListener -> Objects.equals(it.key, key) && it.keyListener === listener }) }
     }
 
-    override fun put(key: String?, value: String?) {
+    override fun put(key: String, value: String?) {
         if (!key!!.matches(Regex("[a-zA-Z0-9-_]{43}"))) {
             if (LOG.isDebugEnabled) {
                 LOG.debug("PUT $key = $value")
@@ -222,7 +222,7 @@ class RestWebModelClient @JvmOverloads constructor(var baseUrl: String? = null) 
         }
     }
 
-    override fun putAll(entries: Map<String?, String?>?) {
+    override fun putAll(entries: Map<String, String?>) {
         val sendBatch = Consumer<JSONArray> { json ->
             if (LOG.isDebugEnabled) {
                 LOG.debug("PUT batch of " + json.length() + " entries")
@@ -267,12 +267,12 @@ class RestWebModelClient @JvmOverloads constructor(var baseUrl: String? = null) 
         }
     }
 
-    override fun prefetch(key: String?) {}
+    override fun prefetch(key: String) {}
 
     override val storeCache: IDeserializingKeyValueStore
         get() = cache
 
-    inner class SseListener(val key: String?, val keyListener: IKeyListener?) {
+    inner class SseListener(val key: String, val keyListener: IKeyListener?) {
         private val notificationLock = Any()
         private var lastValue: String? = null
         private val sse = arrayOfNulls<Sse>(2)

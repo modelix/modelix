@@ -48,4 +48,8 @@ object StreamUtils {
     fun <T> removeLast(list: MutableList<T>): T? {
         return if (list.isEmpty()) null else list.removeAt(list.size - 1)
     }
+
+    fun <T> toList(iterable: Iterable<T>): List<T> {
+        return if (iterable is List) iterable else toStream(iterable).collect(Collectors.toList())
+    }
 }

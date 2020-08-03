@@ -32,18 +32,18 @@ class CLNode(tree: CLTree?, data: CPNode?) : CLElement(tree!!, data!!) {
             )
         ) {}
 
-    override fun getData(): CPNode? {
-        return super.getData() as CPNode?
+    override fun getData(): CPNode {
+        return super.getData() as CPNode
     }
 
-    fun getChildren(bulkQuery: IBulkQuery?): IBulkQuery.Value<Iterable<CLNode>?>? {
-        return (getTree() as CLTree).resolveElements(getData()!!.getChildrenIds().toList(), bulkQuery!!)!!
-            .map(Function<List<CLNode?>?, Iterable<CLNode>?> { elements: List<CLNode?>? -> elements as Iterable<CLNode> })
+    fun getChildren(bulkQuery: IBulkQuery): IBulkQuery.Value<Iterable<CLNode>> {
+        return (getTree() as CLTree).resolveElements(getData().getChildrenIds().toList(), bulkQuery)
+            .map(Function { elements -> elements })
     }
 
-    fun getDescendants(bulkQuery: IBulkQuery, includeSelf: Boolean): IBulkQuery.Value<Iterable<CLNode>>? {
+    fun getDescendants(bulkQuery: IBulkQuery, includeSelf: Boolean): IBulkQuery.Value<Iterable<CLNode>> {
         return if (includeSelf) {
-            getDescendants(bulkQuery, false)!!
+            getDescendants(bulkQuery, false)
                 .map(
                     Function { descendants: Iterable<CLNode> ->
                         Iterable<CLNode> {
@@ -55,11 +55,11 @@ class CLNode(tree: CLTree?, data: CPNode?) : CLElement(tree!!, data!!) {
                     }
                 )
         } else {
-            getChildren(bulkQuery)!!.mapBulk(
-                Function { children: Iterable<CLNode>? ->
-                    val d = bulkQuery
-                        .map(children, Function { child: CLNode -> child.getDescendants(bulkQuery, true) })!!
-                        .map(Function { it: List<Iterable<CLNode>>? -> Iterable<CLNode> { it!!.stream().flatMap { n: Iterable<CLNode> -> StreamSupport.stream(n.spliterator(), false) }.iterator() } })
+            getChildren(bulkQuery).mapBulk(
+                Function { children: Iterable<CLNode> ->
+                    val d: IBulkQuery.Value<Iterable<CLNode>> = bulkQuery
+                        .map(children, Function { child: CLNode -> child.getDescendants(bulkQuery, true) })
+                        .map(Function { it: List<Iterable<CLNode>> -> Iterable<CLNode> { it.stream().flatMap { n: Iterable<CLNode> -> StreamSupport.stream(n.spliterator(), false) }.iterator() } })
                     d
                 }
             )

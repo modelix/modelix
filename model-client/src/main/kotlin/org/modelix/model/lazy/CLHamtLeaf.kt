@@ -73,8 +73,8 @@ class CLHamtLeaf : CLHamtNode<CPHamtLeaf?> {
         }
     }
 
-    override fun get(key: Long, shift: Int, bulkQuery: IBulkQuery?): IBulkQuery.Value<String?> {
-        return bulkQuery!!.constant<String?>(if (data.key == key) data.value else null)!!
+    override fun get(key: Long, shift: Int, bulkQuery: IBulkQuery): IBulkQuery.Value<String?> {
+        return bulkQuery.constant<String?>(if (data.key == key) data.value else null)
     }
 
     override fun visitEntries(visitor: BiPredicate<Long?, String?>?): Boolean {

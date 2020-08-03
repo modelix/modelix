@@ -113,7 +113,7 @@ class ReplicatedTree(private val client: IModelClient, private val treeId: TreeI
             opsAndTree = localOTBranch.operationsAndTree
             localBase = version
             remoteBase.setValue(remoteVersion)
-            val ops: Array<IOperation?> = opsAndTree._1.map { it?.originalOp }.toTypedArray()
+            val ops: Array<IOperation> = opsAndTree._1.map { it.originalOp }.toTypedArray()
             // val ops: Array<IOperation?> = opsAndTree._1().stream().map(IAppliedOperation::originalOp).toArray(IntFunction<Array<IOperation>> { _Dummy_.__Array__() })
             if (ops.size == 0) {
                 return
@@ -190,9 +190,9 @@ class ReplicatedTree(private val client: IModelClient, private val treeId: TreeI
                 localBranch.runWrite(
                     Runnable {
                         val newTree = version.tree
-                        val currentTree = localBranch.transaction!!.tree as CLTree?
+                        val currentTree = localBranch.transaction.tree as CLTree?
                         if (getHash(newTree) != getHash(currentTree)) {
-                            localBranch.writeTransaction!!.tree = newTree
+                            localBranch.writeTransaction.tree = newTree
                         }
                     }
                 )
@@ -200,10 +200,10 @@ class ReplicatedTree(private val client: IModelClient, private val treeId: TreeI
         }
     }
 
-    fun createVersion(tree: CLTree, operations: Array<IOperation?>?, previousVersion: String?): CLVersion {
+    fun createVersion(tree: CLTree, operations: Array<IOperation>, previousVersion: String?): CLVersion {
         checkDisposed()
         val time = LocalDateTime.now().toString()
-        return CLVersion(client.idGenerator!!.generate(), time, user.get(), tree.hash, previousVersion, operations!!, client.storeCache!!)
+        return CLVersion(client.idGenerator!!.generate(), time, user.get(), tree.hash, previousVersion, operations, client.storeCache!!)
     }
 
     fun dispose() {
@@ -232,11 +232,11 @@ class ReplicatedTree(private val client: IModelClient, private val treeId: TreeI
 
     init {
         val versionHash = client[treeId.getBranchKey(branchName)]
-        var initialVersion = loadFromHash(versionHash, client.storeCache!!)
+        var initialVersion = if (versionHash == null) null else loadFromHash(versionHash, client.storeCache!!)
         val initialTree = MutableObject<CLTree>()
         if (initialVersion == null) {
             initialTree.setValue(CLTree(treeId, client.storeCache!!))
-            initialVersion = createVersion(initialTree.value, arrayOfNulls(0), null)
+            initialVersion = createVersion(initialTree.value, arrayOf(), null)
             client.put(treeId.getBranchKey(branchName), initialVersion.hash)
         } else {
             initialTree.setValue(CLTree(initialVersion.treeHash, client.storeCache!!))
@@ -315,7 +315,7 @@ class ReplicatedTree(private val client: IModelClient, private val treeId: TreeI
             }
         }
         localOTBranch.addListener(object : IBranchListener {
-            override fun treeChanged(oldTree: ITree?, newTree: ITree?) {
+            override fun treeChanged(oldTree: ITree?, newTree: ITree) {
                 if (disposed) {
                     return
                 }

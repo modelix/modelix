@@ -53,7 +53,7 @@ class SetPropertyOp(val nodeId: Long, val role: String, val value: String) : Abs
         override val originalOp: IOperation
             get() = this@SetPropertyOp
 
-        override fun invert(): IOperation? {
+        override fun invert(): IOperation {
             return SetPropertyOp(nodeId, role, oldValue)
         }
 
