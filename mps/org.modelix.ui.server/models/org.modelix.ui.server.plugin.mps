@@ -43,6 +43,7 @@
     <import index="m3vg" ref="r:9bcdcf0c-f978-4630-9b17-a35339e80a73(org.modelix.ui.sm.transformations)" />
     <import index="gq2t" ref="r:f17c1662-bb91-47a6-b206-16c06f86f401(org.modelix.ui.sm.pf)" />
     <import index="lvkz" ref="r:ab9ceea2-f32a-4ea6-be78-3e6c2d4ef84b(org.modelix.ui.diff)" />
+    <import index="5440" ref="0a2651ab-f212-45c2-a2f0-343e76cbc26b/java:org.modelix.model.client(org.modelix.model.client/)" />
     <import index="zf81" ref="6354ebe7-c22a-4a0f-ac54-50b52ab9b065/java:java.net(JDK/)" implicit="true" />
     <import index="6sky" ref="fc3c2aa8-0d4b-463f-a774-40d450aa04a0/java:org.eclipse.jetty.util.component(org.modelix.jetty/)" implicit="true" />
     <import index="c17a" ref="8865b7a8-5271-43d3-884c-6fd1d9cfdd34/java:org.jetbrains.mps.openapi.language(MPS.OpenAPI/)" implicit="true" />
@@ -2286,7 +2287,7 @@
                             </node>
                           </node>
                           <node concept="liA8E" id="4cICdlebKM9" role="2OqNvi">
-                            <ref role="37wK5l" to="csg2:64iiug7VnKl" resolve="getClientId" />
+                            <ref role="37wK5l" to="5440:~IModelClient.getClientId()" resolve="getClientId" />
                           </node>
                         </node>
                       </node>
@@ -2304,9 +2305,14 @@
                 </node>
               </node>
               <node concept="2OqwBi" id="6pXrrBnq$6G" role="3clFbw">
-                <node concept="2YIFZM" id="6pXrrBnqzIE" role="2Oq$k0">
-                  <ref role="37wK5l" to="csg2:6pXrrBnqdX7" resolve="getModelUrlFromEnv" />
-                  <ref role="1Pybhc" to="csg2:5_gfWzaM1GX" resolve="RestWebModelClient" />
+                <node concept="2OqwBi" id="1yReInCMnq" role="2Oq$k0">
+                  <node concept="10M0yZ" id="1yReInCMe7" role="2Oq$k0">
+                    <ref role="3cqZAo" to="5440:~RestWebModelClient.Companion" resolve="Companion" />
+                    <ref role="1PxDUh" to="5440:~RestWebModelClient" resolve="RestWebModelClient" />
+                  </node>
+                  <node concept="liA8E" id="1yReInCNdX" role="2OqNvi">
+                    <ref role="37wK5l" to="5440:~RestWebModelClient$Companion.getModelUrlFromEnv()" resolve="getModelUrlFromEnv" />
+                  </node>
                 </node>
                 <node concept="17RvpY" id="6pXrrBnq$tg" role="2OqNvi" />
               </node>

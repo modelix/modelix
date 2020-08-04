@@ -6,7 +6,7 @@ mps/build/tmp
 .gradle
 artifacts
 build
-mps/org.modelix.ui.server/lib/ui-client.jar
+mps/org.modelix.ui.server/lib/ui-client-*.jar
 kubernetes/secrets
 test_gen
 test_gen.caches

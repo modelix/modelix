@@ -1,14 +1,8 @@
 apply plugin: 'java'
 
-group = 'org.modelix'
-version = '1.0-SNAPSHOT'
-
 description = "modelix UI server"
 
 defaultTasks 'build'
-
-sourceCompatibility = 1.11
-targetCompatibility = 1.11
 
 repositories {
     maven { url "https://repo.maven.apache.org/maven2" }

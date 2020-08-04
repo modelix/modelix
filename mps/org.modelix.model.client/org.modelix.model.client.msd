@@ -5,7 +5,6 @@
       <sourceRoot location="models" />
     </modelRoot>
     <modelRoot contentPath="${module}/lib" type="java_classes">
-      <sourceRoot location="modelix-model-client-1.0-SNAPSHOT.jar" />
       <sourceRoot location="annotations-19.0.0.jar" />
       <sourceRoot location="kotlin-stdlib-1.3.72.jar" />
       <sourceRoot location="kotlin-stdlib-common-1.3.72.jar" />
@@ -23,6 +22,7 @@
       <sourceRoot location="jersey-media-jaxb-2.31.jar" />
       <sourceRoot location="jersey-media-sse-2.31.jar" />
       <sourceRoot location="jersey-server-2.31.jar" />
+      <sourceRoot location="model-client-2020.1-SNAPSHOT.jar" />
     </modelRoot>
   </models>
   <facets>
@@ -62,11 +62,11 @@
     <stubModelEntry path="${module}/lib/kotlin-stdlib-1.3.72.jar" />
     <stubModelEntry path="${module}/lib/kotlin-stdlib-common-1.3.72.jar" />
     <stubModelEntry path="${module}/lib/listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar" />
-    <stubModelEntry path="${module}/lib/modelix-model-client-1.0-SNAPSHOT.jar" />
     <stubModelEntry path="${module}/lib/osgi-resource-locator-1.0.3.jar" />
     <stubModelEntry path="${module}/lib/trove4j-3.0.3.jar" />
     <stubModelEntry path="${module}/lib/vavr-0.10.3.jar" />
     <stubModelEntry path="${module}/lib/vavr-match-0.10.3.jar" />
+    <stubModelEntry path="${module}/lib/model-client-2020.1-SNAPSHOT.jar" />
   </stubModelEntries>
   <sourcePath />
   <dependencies>

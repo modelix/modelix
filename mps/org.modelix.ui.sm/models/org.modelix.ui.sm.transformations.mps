@@ -45,10 +45,10 @@
     <import index="pxg7" ref="87f4b21e-a3a5-459e-a54b-408fd9eb7350/java:com.esotericsoftware.kryo.io(org.modelix.lib/)" />
     <import index="od2j" ref="r:19d224b8-fac8-4b19-ae42-e7b119858f3b(de.q60.mps.polymorphicfunctions.runtime)" />
     <import index="qsto" ref="r:6f19a603-f6b1-4c78-aaa5-6c24c7fbc333(org.modelix.ui.common)" />
-    <import index="6shs" ref="r:3ca2f5b1-1b25-441b-b059-2ddba424a0b1(org.modelix.model.persistent)" />
     <import index="v1cj" ref="r:2c4bc58b-9da3-4f5f-8ea2-32f043278ab7(de.q60.mps.web.ui.sm.behavior)" />
     <import index="m2xw" ref="fc3c2aa8-0d4b-463f-a774-40d450aa04a0/java:org.eclipse.jetty.server(org.modelix.jetty/)" />
     <import index="gq2t" ref="r:f17c1662-bb91-47a6-b206-16c06f86f401(org.modelix.ui.sm.pf)" />
+    <import index="geos" ref="0a2651ab-f212-45c2-a2f0-343e76cbc26b/java:org.modelix.model.persistent(org.modelix.model.client/)" />
     <import index="tpcu" ref="r:00000000-0000-4000-0000-011c89590282(jetbrains.mps.lang.core.behavior)" implicit="true" />
     <import index="tpce" ref="r:00000000-0000-4000-0000-011c89590292(jetbrains.mps.lang.structure.structure)" implicit="true" />
     <import index="tp25" ref="r:00000000-0000-4000-0000-011c89590301(jetbrains.mps.lang.smodel.structure)" implicit="true" />
@@ -1285,8 +1285,8 @@
             <ref role="027oj" to="70w2:AkkmJBUItt" resolve="id" />
             <node concept="3cpWs3" id="7trMQm3aBIR" role="027of">
               <node concept="2YIFZM" id="5npwda7V6po" role="3uHU7w">
-                <ref role="37wK5l" to="6shs:8pH3FQ2RAP" resolve="sha256" />
-                <ref role="1Pybhc" to="6shs:5RRPxDXOMRL" resolve="HashUtil" />
+                <ref role="1Pybhc" to="geos:~HashUtil" resolve="HashUtil" />
+                <ref role="37wK5l" to="geos:~HashUtil.sha256(java.lang.String)" resolve="sha256" />
                 <node concept="2YIFZM" id="5npwda7V5nt" role="37wK5m">
                   <ref role="37wK5l" to="qsto:5T6M7OO0vKo" resolve="serialize" />
                   <ref role="1Pybhc" to="qsto:5T6M7ON4Si7" resolve="NodeReferenceSerializer" />
@@ -1398,8 +1398,8 @@
                 <property role="Xl_RC" value="svgNodeEditor_" />
               </node>
               <node concept="2YIFZM" id="5npwda7V7fe" role="3uHU7w">
-                <ref role="1Pybhc" to="6shs:5RRPxDXOMRL" resolve="HashUtil" />
-                <ref role="37wK5l" to="6shs:8pH3FQ2RAP" resolve="sha256" />
+                <ref role="1Pybhc" to="geos:~HashUtil" resolve="HashUtil" />
+                <ref role="37wK5l" to="geos:~HashUtil.sha256(java.lang.String)" resolve="sha256" />
                 <node concept="2YIFZM" id="5npwda7V7ff" role="37wK5m">
                   <ref role="1Pybhc" to="qsto:5T6M7ON4Si7" resolve="NodeReferenceSerializer" />
                   <ref role="37wK5l" to="qsto:5T6M7OO0vKo" resolve="serialize" />
@@ -2804,8 +2804,8 @@
       <node concept="3clFbS" id="AkkmJBUK1X" role="3clF47">
         <node concept="3clFbF" id="3c6J_2nDJs4" role="3cqZAp">
           <node concept="2YIFZM" id="3c6J_2nDJYE" role="3clFbG">
-            <ref role="37wK5l" to="6shs:8pH3FQ2RAP" resolve="sha256" />
-            <ref role="1Pybhc" to="6shs:5RRPxDXOMRL" resolve="HashUtil" />
+            <ref role="1Pybhc" to="geos:~HashUtil" resolve="HashUtil" />
+            <ref role="37wK5l" to="geos:~HashUtil.sha256(java.lang.String)" resolve="sha256" />
             <node concept="2YIFZM" id="3c6J_2nDJZz" role="37wK5m">
               <ref role="37wK5l" to="qsto:5T6M7OO0vKo" resolve="serialize" />
               <ref role="1Pybhc" to="qsto:5T6M7ON4Si7" resolve="NodeReferenceSerializer" />

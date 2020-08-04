@@ -1,19 +1,14 @@
 plugins {
+    id "java"
     id "application"
-    id "com.diffplug.gradle.spotless" version "4.5.1"
+    id "com.diffplug.gradle.spotless"
     id 'maven-publish'
-    id "com.jfrog.bintray" version "1.8.5"
+    id "com.jfrog.bintray"
 }
-apply plugin: 'java'
 
 group = 'org.modelix'
 description = 'Model Server offering access to model storage'
 version = '1.0-SNAPSHOT'
-
-description = "modelix model server"
-
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
 
 defaultTasks 'build'
 
@@ -52,27 +47,6 @@ assemble.finalizedBy(copyLibs)
 
 application {
     mainClassName = "org.modelix.model.server.Main"
-}
-
-spotless {
-    java {
-        googleJavaFormat(sourceCompatibility.toString()).aosp()
-        licenseHeader '/*\n' +
-                ' * Licensed under the Apache License, Version 2.0 (the "License");\n' +
-                ' * you may not use this file except in compliance with the License.\n' +
-                ' * You may obtain a copy of the License at\n' +
-                ' *\n' +
-                ' *  http://www.apache.org/licenses/LICENSE-2.0\n' +
-                ' *\n' +
-                ' * Unless required by applicable law or agreed to in writing,\n' +
-                ' * software distributed under the License is distributed on an\n' +
-                ' * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY\n' +
-                ' * KIND, either express or implied.  See the License for the\n' +
-                ' * specific language governing permissions and limitations\n' +
-                ' * under the License. \n' +
-                ' */\n' +
-                '\n'
-    }
 }
 
 publishing {
