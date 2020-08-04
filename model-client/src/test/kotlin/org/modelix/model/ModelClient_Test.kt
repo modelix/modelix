@@ -16,13 +16,12 @@
 package org.modelix.model
 
 import org.junit.Assert
-import org.junit.Test
 import org.modelix.model.client.RestWebModelClient
 import java.util.*
 
 class ModelClient_Test {
     // Disabled because it requires a running model server
-    //@Test
+    // @Test
     fun test_t1() {
         val rand = Random(67845)
         val url = "http://localhost:28101/"

@@ -76,23 +76,23 @@ class CPVersion(id: Long, time: String?, author: String?, treeHash: String?, pre
                     opsHash = parts[5]
                 } else {
                     ops = Stream.of(*parts[5].split(",").toTypedArray())
-                            .filter { cs: String? -> StringUtils.isNotEmpty(cs) }
-                            .map { serialized: String? -> OperationSerializer.INSTANCE.deserialize(serialized!!) }
-                            .collect(Collectors.toList()).toTypedArray()
+                        .filter { cs: String? -> StringUtils.isNotEmpty(cs) }
+                        .map { serialized: String? -> OperationSerializer.INSTANCE.deserialize(serialized!!) }
+                        .collect(Collectors.toList()).toTypedArray()
                 }
                 val numOps = if (parts.size >= 7) parts[6].toInt() else -1
                 return CPVersion(
-                        longFromHex(parts[0]),
-                        unescape(parts[1]),
-                        unescape(parts[2]),
-                        emptyStringAsNull(parts[3]),
-                        emptyStringAsNull(parts[4]),
-                        ops,
-                        opsHash,
-                        numOps
+                    longFromHex(parts[0]),
+                    unescape(parts[1]),
+                    unescape(parts[2]),
+                    emptyStringAsNull(parts[3]),
+                    emptyStringAsNull(parts[4]),
+                    ops,
+                    opsHash,
+                    numOps
                 )
             } catch (ex: Exception) {
-                throw RuntimeException("Failed to deserialize version: $input", ex);
+                throw RuntimeException("Failed to deserialize version: $input", ex)
             }
         }
     }
