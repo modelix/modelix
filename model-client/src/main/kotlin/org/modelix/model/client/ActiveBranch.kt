@@ -24,7 +24,7 @@ import org.modelix.model.lazy.CLVersion
 import org.modelix.model.lazy.TreeId
 import java.util.function.Supplier
 
-class ActiveBranch(client: IModelClient, tree: TreeId, branchName: String?, user: Supplier<String>) : IIndirectBranch {
+open class ActiveBranch(client: IModelClient, tree: TreeId, branchName: String?, user: Supplier<String>) : IIndirectBranch {
     private val client: IModelClient
     private val tree: TreeId
     var branchName: String?
@@ -46,7 +46,7 @@ class ActiveBranch(client: IModelClient, tree: TreeId, branchName: String?, user
     val version: CLVersion
         get() = replicatedTree!!.version!!
 
-    fun dispose() {
+    open fun dispose() {
         replicatedTree!!.branch.removeListener(forwardingListener)
         replicatedTree!!.dispose()
         replicatedTree = null
@@ -93,6 +93,14 @@ class ActiveBranch(client: IModelClient, tree: TreeId, branchName: String?, user
         }
     }
 
+    protected open fun createReplicatedTree(
+        client: IModelClient,
+        treeId: TreeId,
+        branchName: String,
+        user: Supplier<String>
+    ): ReplicatedTree =
+        ReplicatedTree(client, treeId, branchName, user)
+
     companion object {
         private val LOG = LogManager.getLogger(ActiveBranch::class.java)
         const val DEFAULT_BRANCH_NAME = "master"
@@ -107,7 +115,7 @@ class ActiveBranch(client: IModelClient, tree: TreeId, branchName: String?, user
         this.tree = tree
         this.branchName = branchName
         this.user = user
-        replicatedTree = ReplicatedTree(client, tree, branchName!!, user)
+        replicatedTree = createReplicatedTree(client, tree, branchName!!, user)
         lastKnownTree = replicatedTree!!.branch.computeRead(Supplier { replicatedTree!!.branch.transaction!!.tree })
         replicatedTree!!.branch.addListener(forwardingListener)
     }

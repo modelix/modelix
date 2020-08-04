@@ -19,7 +19,7 @@ import java.lang.IllegalArgumentException
 import java.util.function.Supplier
 import java.util.stream.Stream
 
-class PNodeAdapter(val nodeId: Long, val branch: IBranch) : INode {
+open class PNodeAdapter(val nodeId: Long, val branch: IBranch) : INode {
 
     protected fun unwrap(node: INode?): Long {
         if (node == null) {

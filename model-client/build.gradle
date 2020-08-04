@@ -38,6 +38,9 @@ dependencies {
     compile group: 'com.google.guava', name: 'guava', version: '29.0-jre'
     compile group: 'log4j', name: 'log4j', version:'1.2.17'
     compile group: 'org.glassfish.jersey.core', name: 'jersey-client', version: '2.31'
+    compile group: 'org.glassfish.jersey.inject', name: 'jersey-hk2', version: '2.31'
+    compile group: 'org.glassfish.jersey.media', name: 'jersey-media-sse', version: '2.31'
+    compile group: 'javax.xml.bind', name: 'jaxb-api', version: '2.3.1'
     compile group: 'commons-io', name: 'commons-io', version: '2.7'
     compile group: 'org.json', name: 'json', version: '20200518'
     compile group: 'net.sf.trove4j', name: 'trove4j', version: '3.0.3'
@@ -70,3 +73,17 @@ spotless {
                 '\n'
     }
 }
+
+task copyLibs(type: Copy) {
+    into "$buildDir/libs"
+    from configurations.default
+}
+
+assemble.finalizedBy(copyLibs)
+
+task copyModelClientToMps(type: Copy, dependsOn: copyLibs) {
+    from "$buildDir/libs"
+    into "$projectDir/../mps/org.modelix.model.client/lib"
+}
+
+assemble.finalizedBy(copyModelClientToMps)

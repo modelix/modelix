@@ -11,3 +11,4 @@ kubernetes/secrets
 test_gen
 test_gen.caches
 ssl/cert
+mps/org.modelix.model.client/lib

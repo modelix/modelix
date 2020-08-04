@@ -2,5 +2,6 @@ rootProject.name = 'modelix'
 
 include 'ui-client'
 include 'model-server'
+include 'model-client'
 include 'ui-server'
 include 'ui-proxy'

@@ -38,7 +38,7 @@ import java.util.concurrent.ScheduledFuture
 import java.util.concurrent.atomic.AtomicBoolean
 import java.util.function.Supplier
 
-class ReplicatedTree(private val client: IModelClient, private val treeId: TreeId, private val branchName: String, private val user: Supplier<String>) {
+open class ReplicatedTree(private val client: IModelClient, private val treeId: TreeId, private val branchName: String, private val user: Supplier<String>) {
     private val localBranch: IBranch
     private val localOTBranch: OTBranch
     private val mergeLock = Any()
@@ -206,7 +206,7 @@ class ReplicatedTree(private val client: IModelClient, private val treeId: TreeI
         return CLVersion(client.idGenerator!!.generate(), time, user.get(), tree.hash, previousVersion, operations, client.storeCache!!)
     }
 
-    fun dispose() {
+    open fun dispose() {
         checkDisposed()
         disposed = true
         versionChangeDetector.dispose()

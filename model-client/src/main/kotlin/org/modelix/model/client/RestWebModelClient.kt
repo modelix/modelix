@@ -171,7 +171,7 @@ class RestWebModelClient @JvmOverloads constructor(var baseUrl: String? = null) 
             val result: MutableMap<String, String?> = LinkedHashMap(16, 0.75.toFloat(), false)
             for (entry_: Any in responseJson) {
                 val entry = entry_ as JSONObject
-                result[entry.getString("key")] = entry.optString("value")
+                result[entry.getString("key")] = entry.optString("value", null)
             }
             val end = System.currentTimeMillis()
             result

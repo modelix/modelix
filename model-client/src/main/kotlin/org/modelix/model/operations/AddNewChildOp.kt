@@ -19,17 +19,17 @@ import org.modelix.model.api.IConcept
 import org.modelix.model.api.IWriteTransaction
 import java.text.MessageFormat
 
-class AddNewChildOp(val parentId: Long, val role: String, val index: Int, val childId: Long, val concept: IConcept) : AbstractOperation(), IModifiesChildrenOp {
+class AddNewChildOp(val parentId: Long, val role: String?, val index: Int, val childId: Long, val concept: IConcept?) : AbstractOperation(), IModifiesChildrenOp {
     fun withIndex(newIndex: Int): AddNewChildOp {
         return if (newIndex == index) this else AddNewChildOp(parentId, role, newIndex, childId, concept)
     }
 
-    override fun apply(transaction: IWriteTransaction?): IAppliedOperation? {
-        transaction!!.addNewChild(parentId, role, index, childId, concept)
+    override fun apply(transaction: IWriteTransaction): IAppliedOperation {
+        transaction.addNewChild(parentId, role, index, childId, concept)
         return Applied()
     }
 
-    override fun transform(previous: IOperation?): IOperation? {
+    override fun transform(previous: IOperation): IOperation {
         return if (previous is AddNewChildOp) {
             val o = previous
             if (o.parentId == parentId && o.role == role) {

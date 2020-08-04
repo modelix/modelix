@@ -18,6 +18,7 @@ package org.modelix.model.persistent
 import org.modelix.model.api.IConcept
 import org.modelix.model.api.INodeReference
 import org.modelix.model.api.PNodeReference
+import org.modelix.model.lazy.IConceptSerializer
 import org.modelix.model.operations.*
 import org.modelix.model.persistent.SerializationUtil.escape
 import org.modelix.model.persistent.SerializationUtil.longFromHex
@@ -31,13 +32,11 @@ class OperationSerializer private constructor() {
         val INSTANCE = OperationSerializer()
         private const val SEPARATOR = ";"
         fun serializeConcept(concept: IConcept?): String {
-//    return SerializationUtil.escape(((SAbstractConceptAdapter) ((SConceptAdapter) concept).getAdapted()).serialize());
-            throw UnsupportedOperationException()
+            return SerializationUtil.escape(IConceptSerializer.serialize(concept))
         }
 
-        fun deserializeConcept(serialized: String?): IConcept {
-//    return new SConceptAdapter(SAbstractConceptAdapter.deserialize(SerializationUtil.unescape(serialized)));
-            throw UnsupportedOperationException()
+        fun deserializeConcept(serialized: String?): IConcept? {
+            return IConceptSerializer.deserialize(SerializationUtil.unescape(serialized))
         }
 
         fun serializeReference(`object`: INodeReference?): String {

@@ -13,7 +13,6 @@
   </languages>
   <imports>
     <import index="dxuu" ref="6354ebe7-c22a-4a0f-ac54-50b52ab9b065/java:javax.swing(JDK/)" />
-    <import index="y9oj" ref="r:3014a312-a1f1-41c3-9ecc-5491810305c3(de.q60.mps.shadowmodels.runtime.plugin)" />
     <import index="z60i" ref="6354ebe7-c22a-4a0f-ac54-50b52ab9b065/java:java.awt(JDK/)" />
     <import index="4nm9" ref="498d89d2-c2e9-11e2-ad49-6cf049e62fe5/java:com.intellij.openapi.project(MPS.IDEA/)" />
     <import index="z1c3" ref="742f6602-5a2f-4313-aa6e-ae1cd4ffdc61/java:jetbrains.mps.project(MPS.Platform/)" />
@@ -29,18 +28,11 @@
     <import index="csg2" ref="r:b0cc4f86-cf49-4ffc-b138-1f9973329ce1(de.q60.mps.web.model.mpsplugin)" />
     <import index="bd8o" ref="498d89d2-c2e9-11e2-ad49-6cf049e62fe5/java:com.intellij.openapi.application(MPS.IDEA/)" />
     <import index="mhbf" ref="8865b7a8-5271-43d3-884c-6fd1d9cfdd34/java:org.jetbrains.mps.openapi.model(MPS.OpenAPI/)" />
-    <import index="pxvb" ref="r:ca10a440-fbee-42f3-927f-469fb3169c9b(de.q60.mps.shadowmodels.runtime.util)" />
     <import index="paf" ref="86441d7a-e194-42da-81a5-2161ec62a379/java:jetbrains.mps.ide.projectPane.logicalview(MPS.Workbench/)" />
     <import index="hyam" ref="6354ebe7-c22a-4a0f-ac54-50b52ab9b065/java:java.awt.event(JDK/)" />
     <import index="rvbb" ref="86441d7a-e194-42da-81a5-2161ec62a379/java:jetbrains.mps.ide.projectPane(MPS.Workbench/)" />
     <import index="kxvg" ref="742f6602-5a2f-4313-aa6e-ae1cd4ffdc61/java:jetbrains.mps.ide.ui.tree.module(MPS.Platform/)" />
     <import index="xr52" ref="742f6602-5a2f-4313-aa6e-ae1cd4ffdc61/java:jetbrains.mps.ide.ui.tree.smodel(MPS.Platform/)" />
-    <import index="3hky" ref="r:bef1bfa7-20fd-413a-ae11-793b0a8ee364(de.q60.mps.shadowmodels.runtime.model.persistent)" />
-    <import index="jon5" ref="r:49169b91-8585-49ee-98e0-962a243b40d4(org.modelix.model.lazy)" />
-    <import index="zdal" ref="r:88aa2c17-3990-45f2-9b79-06884112d260(org.modelix.model)" />
-    <import index="ydze" ref="r:c65aa0cf-b22b-4cca-bd88-3210b1c2f55f(org.modelix.model.operations)" />
-    <import index="28m1" ref="6354ebe7-c22a-4a0f-ac54-50b52ab9b065/java:java.time(JDK/)" />
-    <import index="nvd4" ref="8865b7a8-5271-43d3-884c-6fd1d9cfdd34/java:org.jetbrains.mps.openapi.repository(MPS.OpenAPI/)" />
     <import index="zy2h" ref="r:ec0fe8c4-38e5-4216-9425-8861454eaf8a(de.q60.mps.util.invalidation)" />
   </imports>
   <registry>
@@ -339,7 +331,7 @@
       </node>
       <node concept="2ShNRf" id="4NO8rntVj_a" role="33vP2m">
         <node concept="1pGfFk" id="4NO8rntVkUG" role="2ShVmc">
-          <ref role="37wK5l" to="y9oj:5wnrAmTLyBN" resolve="ShadowIcon" />
+          <ref role="37wK5l" to="csg2:5wnrAmTLyBN" resolve="LetterInSquareIcon" />
           <node concept="Xl_RD" id="4NO8rntVld_" role="37wK5m">
             <property role="Xl_RC" value="C" />
           </node>
@@ -372,7 +364,7 @@
       </node>
       <node concept="2ShNRf" id="4NO8rntVqQV" role="33vP2m">
         <node concept="1pGfFk" id="4NO8rntVsct" role="2ShVmc">
-          <ref role="37wK5l" to="y9oj:5wnrAmTLyBN" resolve="ShadowIcon" />
+          <ref role="37wK5l" to="csg2:5wnrAmTLyBN" resolve="LetterInSquareIcon" />
           <node concept="Xl_RD" id="4NO8rntVsvn" role="37wK5m">
             <property role="Xl_RC" value="M" />
           </node>
@@ -405,7 +397,7 @@
       </node>
       <node concept="2ShNRf" id="4NO8rntVwVw" role="33vP2m">
         <node concept="1pGfFk" id="4NO8rntVyh2" role="2ShVmc">
-          <ref role="37wK5l" to="y9oj:5wnrAmTLyBN" resolve="ShadowIcon" />
+          <ref role="37wK5l" to="csg2:5wnrAmTLyBN" resolve="LetterInSquareIcon" />
           <node concept="Xl_RD" id="4NO8rntVyzX" role="37wK5m">
             <property role="Xl_RC" value="m" />
           </node>

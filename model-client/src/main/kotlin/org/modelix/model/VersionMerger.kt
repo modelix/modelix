@@ -124,10 +124,10 @@ class VersionMerger(private val storeCache: IDeserializingKeyValueStore, private
         return mergedVersion.value
     }
 
-    protected fun transformOperation(opToTransform: IOperation, previousOps: Iterable<IOperation?>): IOperation {
+    protected fun transformOperation(opToTransform: IOperation, previousOps: Iterable<IOperation>): IOperation {
         var result = opToTransform
         for (previous in previousOps) {
-            result = result.transform(previous)!!
+            result = result.transform(previous)
         }
         return result
     }

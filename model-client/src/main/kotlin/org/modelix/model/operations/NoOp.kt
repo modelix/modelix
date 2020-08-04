@@ -18,12 +18,12 @@ package org.modelix.model.operations
 import org.modelix.model.api.IWriteTransaction
 
 class NoOp : AbstractOperation(), IAppliedOperation {
-    override fun apply(transaction: IWriteTransaction?): IAppliedOperation? {
+    override fun apply(transaction: IWriteTransaction): IAppliedOperation {
         return this
     }
 
-    override fun transform(previous: IOperation?): IOperation? {
-        return null
+    override fun transform(previous: IOperation): IOperation {
+        return this
     }
 
     override val originalOp: IOperation

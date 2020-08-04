@@ -68,28 +68,32 @@ class CPVersion(id: Long, time: String?, author: String?, treeHash: String?, pre
     companion object {
         private val LOG = LogManager.getLogger(CPVersion::class.java)
         fun deserialize(input: String): CPVersion {
-            val parts = input.split("/").dropLastWhile { it.isEmpty() }.toTypedArray()
-            var opsHash: String? = null
-            var ops: Array<IOperation>? = null
-            if (isSha256(parts[5])) {
-                opsHash = parts[5]
-            } else {
-                ops = Stream.of(*parts[5].split(",").toTypedArray())
-                    .filter { cs: String? -> StringUtils.isNotEmpty(cs) }
-                    .map { serialized: String? -> OperationSerializer.INSTANCE.deserialize(serialized!!) }
-                    .collect(Collectors.toList()).toTypedArray()
+            try {
+                val parts = input.split("/").dropLastWhile { it.isEmpty() }.toTypedArray()
+                var opsHash: String? = null
+                var ops: Array<IOperation>? = null
+                if (isSha256(parts[5])) {
+                    opsHash = parts[5]
+                } else {
+                    ops = Stream.of(*parts[5].split(",").toTypedArray())
+                            .filter { cs: String? -> StringUtils.isNotEmpty(cs) }
+                            .map { serialized: String? -> OperationSerializer.INSTANCE.deserialize(serialized!!) }
+                            .collect(Collectors.toList()).toTypedArray()
+                }
+                val numOps = if (parts.size >= 7) parts[6].toInt() else -1
+                return CPVersion(
+                        longFromHex(parts[0]),
+                        unescape(parts[1]),
+                        unescape(parts[2]),
+                        emptyStringAsNull(parts[3]),
+                        emptyStringAsNull(parts[4]),
+                        ops,
+                        opsHash,
+                        numOps
+                )
+            } catch (ex: Exception) {
+                throw RuntimeException("Failed to deserialize version: $input", ex);
             }
-            val numOps = if (parts.size >= 7) parts[6].toInt() else -1
-            return CPVersion(
-                longFromHex(parts[0]),
-                unescape(parts[1]),
-                unescape(parts[2]),
-                emptyStringAsNull(parts[3]),
-                emptyStringAsNull(parts[4]),
-                ops,
-                opsHash,
-                numOps
-            )
         }
     }
 

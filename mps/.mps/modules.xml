@@ -12,6 +12,7 @@
       <modulePath path="$PROJECT_DIR$/org.modelix.jersey/org.modelix.jersey.msd" folder="common" />
       <modulePath path="$PROJECT_DIR$/org.modelix.jetty/org.modelix.jetty.msd" folder="common" />
       <modulePath path="$PROJECT_DIR$/org.modelix.lib/org.modelix.lib.msd" folder="common" />
+      <modulePath path="$PROJECT_DIR$/org.modelix.model.client/org.modelix.model.client.msd" folder="model" />
       <modulePath path="$PROJECT_DIR$/org.modelix.model.mpsplugin/org.modelix.model.mpsplugin.msd" folder="model" />
       <modulePath path="$PROJECT_DIR$/org.modelix.model.runtimelang/org.modelix.model.runtimelang.mpl" folder="model" />
       <modulePath path="$PROJECT_DIR$/org.modelix.model/org.modelix.model.msd" folder="model" />

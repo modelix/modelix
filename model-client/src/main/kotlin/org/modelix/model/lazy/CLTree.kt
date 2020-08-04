@@ -477,16 +477,10 @@ class CLTree : ITree {
     }
 
     protected fun serializeConcept(concept: IConcept?): String? {
-//    if (concept == null) {
-        return null
-        //    }
-//    return ((SAbstractConceptAdapter) ((SConceptAdapter) concept).getAdapted()).serialize();
+        return IConceptSerializer.serialize(concept)
     }
 
     protected fun deserializeConcept(serialized: String?): IConcept? {
-//    if (serialized == null) {
-        return null
-        //    }
-//    return SConceptAdapter.wrap(SAbstractConceptAdapter.deserialize(serialized));
+        return IConceptSerializer.deserialize(serialized)
     }
 }

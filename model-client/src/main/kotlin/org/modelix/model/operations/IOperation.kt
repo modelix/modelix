@@ -18,7 +18,7 @@ package org.modelix.model.operations
 import org.modelix.model.api.IWriteTransaction
 
 interface IOperation {
-    fun apply(transaction: IWriteTransaction?): IAppliedOperation?
+    fun apply(transaction: IWriteTransaction): IAppliedOperation
 
     /**
      * The 'previous' operation is the one that is inserted before this operation
@@ -27,5 +27,5 @@ interface IOperation {
      * 'this' needs to be replaced with an operation that applies the same intended change
      * on a model that was modified by 'previous' in the mean time.
      */
-    fun transform(previous: IOperation?): IOperation?
+    fun transform(previous: IOperation): IOperation
 }

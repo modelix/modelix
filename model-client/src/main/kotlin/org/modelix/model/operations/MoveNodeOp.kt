@@ -18,17 +18,17 @@ package org.modelix.model.operations
 import org.modelix.model.api.IWriteTransaction
 import java.text.MessageFormat
 
-class MoveNodeOp(val childId: Long, val sourceParentId: Long, val sourceRole: String, val sourceIndex: Int, val targetParentId: Long, val targetRole: String, val targetIndex: Int) : AbstractOperation(), IModifiesChildrenOp {
+class MoveNodeOp(val childId: Long, val sourceParentId: Long, val sourceRole: String?, val sourceIndex: Int, val targetParentId: Long, val targetRole: String?, val targetIndex: Int) : AbstractOperation(), IModifiesChildrenOp {
     fun withIndex(newSourceIndex: Int, newTargetIndex: Int): MoveNodeOp {
         return if (newSourceIndex == sourceIndex && newTargetIndex == targetIndex) this else MoveNodeOp(childId, sourceParentId, sourceRole, newSourceIndex, targetParentId, targetRole, newTargetIndex)
     }
 
-    override fun apply(transaction: IWriteTransaction?): IAppliedOperation? {
-        transaction!!.moveChild(targetParentId, targetRole, targetIndex, childId)
+    override fun apply(transaction: IWriteTransaction): IAppliedOperation {
+        transaction.moveChild(targetParentId, targetRole, targetIndex, childId)
         return Applied()
     }
 
-    override fun transform(previous: IOperation?): IOperation? {
+    override fun transform(previous: IOperation): IOperation {
         return if (previous is AddNewChildOp) {
             val o = previous
             withIndex(o.adjustIndex(sourceParentId, sourceRole, sourceIndex), o.adjustIndex(targetParentId, targetRole, targetIndex))

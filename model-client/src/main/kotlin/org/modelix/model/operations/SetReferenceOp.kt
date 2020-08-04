@@ -19,14 +19,14 @@ import org.modelix.model.api.INodeReference
 import org.modelix.model.api.IWriteTransaction
 import java.text.MessageFormat
 
-class SetReferenceOp(val sourceId: Long, val role: String, val target: INodeReference) : AbstractOperation() {
-    override fun apply(transaction: IWriteTransaction?): IAppliedOperation? {
-        val oldValue = transaction!!.getReferenceTarget(sourceId, role)
+class SetReferenceOp(val sourceId: Long, val role: String, val target: INodeReference?) : AbstractOperation() {
+    override fun apply(transaction: IWriteTransaction): IAppliedOperation {
+        val oldValue = transaction.getReferenceTarget(sourceId, role)
         transaction.setReferenceTarget(sourceId, role, target)
         return Applied(oldValue!!)
     }
 
-    override fun transform(previous: IOperation?): IOperation? {
+    override fun transform(previous: IOperation): IOperation {
         return if (previous is SetPropertyOp) {
             this
         } else if (previous is SetReferenceOp) {

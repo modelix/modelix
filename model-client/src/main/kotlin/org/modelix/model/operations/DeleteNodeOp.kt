@@ -19,18 +19,18 @@ import org.modelix.model.api.IConcept
 import org.modelix.model.api.IWriteTransaction
 import java.text.MessageFormat
 
-class DeleteNodeOp(val parentId: Long, val role: String, val index: Int, val childId: Long) : AbstractOperation(), IModifiesChildrenOp {
+class DeleteNodeOp(val parentId: Long, val role: String?, val index: Int, val childId: Long) : AbstractOperation(), IModifiesChildrenOp {
     fun withIndex(newIndex: Int): DeleteNodeOp {
         return if (newIndex == index) this else DeleteNodeOp(parentId, role, newIndex, childId)
     }
 
-    override fun apply(transaction: IWriteTransaction?): IAppliedOperation? {
-        val concept = transaction!!.getConcept(childId)
+    override fun apply(transaction: IWriteTransaction): IAppliedOperation {
+        val concept = transaction.getConcept(childId)
         transaction.deleteNode(childId)
         return Applied(concept!!)
     }
 
-    override fun transform(previous: IOperation?): IOperation? {
+    override fun transform(previous: IOperation): IOperation {
         return if (previous is DeleteNodeOp) {
             val o = previous
             if (parentId == o.parentId && role == o.role) {

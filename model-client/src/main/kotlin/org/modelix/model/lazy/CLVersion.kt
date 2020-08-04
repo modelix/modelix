@@ -47,23 +47,23 @@ class CLVersion {
         this.store = store
     }
 
-    val author: String
-        get() = data!!.author!!
+    val author: String?
+        get() = data!!.author
 
     val id: Long
         get() = data!!.id
 
-    val time: String
-        get() = data!!.time!!
+    val time: String?
+        get() = data!!.time
 
     val hash: String
         get() = data!!.hash
 
-    val previousHash: String
-        get() = data!!.previousVersion!!
+    val previousHash: String?
+        get() = data!!.previousVersion
 
-    val treeHash: String
-        get() = data!!.treeHash!!
+    val treeHash: String?
+        get() = data!!.treeHash
 
     val tree: CLTree
         get() = CLTree(treeHash, store)
