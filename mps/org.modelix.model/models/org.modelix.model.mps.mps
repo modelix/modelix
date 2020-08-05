@@ -20,14 +20,11 @@
     <import index="n7xv" ref="0a2651ab-f212-45c2-a2f0-343e76cbc26b/java:org.modelix.model.util.pmap(org.modelix.model.client/)" />
     <import index="1ctc" ref="6354ebe7-c22a-4a0f-ac54-50b52ab9b065/java:java.util.stream(JDK/)" />
     <import index="wyt6" ref="6354ebe7-c22a-4a0f-ac54-50b52ab9b065/java:java.lang(JDK/)" />
-    <import index="urs3" ref="r:fc76aa36-3cff-41c7-b94b-eee0e8341932(jetbrains.mps.internal.collections.runtime)" />
     <import index="18ew" ref="6ed54515-acc8-4d1e-a16c-9fd6cfe951ea/java:jetbrains.mps.util(MPS.Core/)" />
     <import index="dj5d" ref="r:8bca245c-17c6-44f4-9367-ad6ce25cabf5(de.q60.mps.shadowmodels.runtimelang.structure)" />
     <import index="3p1j" ref="0a2651ab-f212-45c2-a2f0-343e76cbc26b/java:org.modelix.model.util(org.modelix.model.client/)" />
     <import index="tqvn" ref="6ed54515-acc8-4d1e-a16c-9fd6cfe951ea/java:jetbrains.mps.smodel.tempmodel(MPS.Core/)" />
-    <import index="vndm" ref="6ed54515-acc8-4d1e-a16c-9fd6cfe951ea/java:jetbrains.mps.smodel.language(MPS.Core/)" />
     <import index="xkhl" ref="0a2651ab-f212-45c2-a2f0-343e76cbc26b/java:org.modelix.model.lazy(org.modelix.model.client/)" />
-    <import index="mhfn" ref="0a2651ab-f212-45c2-a2f0-343e76cbc26b/java:org.jetbrains.annotations(org.modelix.model.client/)" />
     <import index="vxxo" ref="6ed54515-acc8-4d1e-a16c-9fd6cfe951ea/java:jetbrains.mps.smodel.adapter.structure.concept(MPS.Core/)" />
     <import index="2k9e" ref="6ed54515-acc8-4d1e-a16c-9fd6cfe951ea/java:jetbrains.mps.smodel.adapter.structure(MPS.Core/)" />
   </imports>
@@ -393,7 +390,7 @@
                       <property role="TrG5h" value="serialize" />
                       <node concept="3Tm1VV" id="1cGcLVgvFrJ" role="1B3o_S" />
                       <node concept="2AHcQZ" id="1cGcLVgvFrL" role="2AJF6D">
-                        <ref role="2AI5Lk" to="mhfn:~Nullable" resolve="Nullable" />
+                        <ref role="2AI5Lk" to="mhfm:~Nullable" resolve="Nullable" />
                       </node>
                       <node concept="17QB3L" id="1cGcLVgvGst" role="3clF45" />
                       <node concept="37vLTG" id="1cGcLVgvFrN" role="3clF46">
@@ -402,7 +399,7 @@
                           <ref role="3uigEE" to="jks5:~IConcept" resolve="IConcept" />
                         </node>
                         <node concept="2AHcQZ" id="1cGcLVgvFrP" role="2AJF6D">
-                          <ref role="2AI5Lk" to="mhfn:~NotNull" resolve="NotNull" />
+                          <ref role="2AI5Lk" to="mhfm:~NotNull" resolve="NotNull" />
                         </node>
                       </node>
                       <node concept="3clFbS" id="1cGcLVgvFrQ" role="3clF47">
@@ -443,7 +440,7 @@
                       <property role="TrG5h" value="deserialize" />
                       <node concept="3Tm1VV" id="1cGcLVgvFrV" role="1B3o_S" />
                       <node concept="2AHcQZ" id="1cGcLVgvFrX" role="2AJF6D">
-                        <ref role="2AI5Lk" to="mhfn:~Nullable" resolve="Nullable" />
+                        <ref role="2AI5Lk" to="mhfm:~Nullable" resolve="Nullable" />
                       </node>
                       <node concept="3uibUv" id="1cGcLVgvFrY" role="3clF45">
                         <ref role="3uigEE" to="jks5:~IConcept" resolve="IConcept" />
@@ -452,7 +449,7 @@
                         <property role="TrG5h" value="serialized" />
                         <node concept="17QB3L" id="1cGcLVgvG6r" role="1tU5fm" />
                         <node concept="2AHcQZ" id="1cGcLVgvFs1" role="2AJF6D">
-                          <ref role="2AI5Lk" to="mhfn:~NotNull" resolve="NotNull" />
+                          <ref role="2AI5Lk" to="mhfm:~NotNull" resolve="NotNull" />
                         </node>
                       </node>
                       <node concept="3clFbS" id="1cGcLVgvFs2" role="3clF47">

@@ -1333,6 +1333,19 @@
             <ref role="3bR37D" to="ffeo:1TaHNgiIbIZ" resolve="MPS.Editor" />
           </node>
         </node>
+        <node concept="3rtmxn" id="1yReInH2Rk" role="3bR31x">
+          <node concept="3LXTmp" id="1yReInH2Rl" role="3rtmxm">
+            <node concept="398BVA" id="1yReInH2Rm" role="3LXTmr">
+              <ref role="398BVh" node="3$7Kuaihl5X" resolve="modelix.modules" />
+              <node concept="2Ry0Ak" id="1yReInH2Rn" role="iGT6I">
+                <property role="2Ry0Am" value="org.modelix.ui.sm" />
+              </node>
+            </node>
+            <node concept="3qWCbU" id="1yReInH2Rp" role="3LXTna">
+              <property role="3qWCbO" value="icons/**, resources/**" />
+            </node>
+          </node>
+        </node>
       </node>
       <node concept="1E1JtD" id="7gF2HTviNPx" role="2G$12L">
         <property role="BnDLt" value="true" />
@@ -1428,6 +1441,19 @@
             </node>
           </node>
         </node>
+        <node concept="3rtmxn" id="1yReInH3aX" role="3bR31x">
+          <node concept="3LXTmp" id="1yReInH3aY" role="3rtmxm">
+            <node concept="398BVA" id="1yReInH3aZ" role="3LXTmr">
+              <ref role="398BVh" node="3$7Kuaihl5X" resolve="modelix.modules" />
+              <node concept="2Ry0Ak" id="1yReInH3b0" role="iGT6I">
+                <property role="2Ry0Am" value="org.modelix.ui.sm.json" />
+              </node>
+            </node>
+            <node concept="3qWCbU" id="1yReInH3b2" role="3LXTna">
+              <property role="3qWCbO" value="icons/**, resources/**" />
+            </node>
+          </node>
+        </node>
       </node>
       <node concept="1E1JtD" id="7gF2HTviNPF" role="2G$12L">
         <property role="BnDLt" value="true" />
@@ -1515,6 +1541,19 @@
             </node>
             <node concept="3qWCbU" id="4tfK3zZNThI" role="3LXTna">
               <property role="3qWCbO" value="**/*.mps, **/*.mpsr, **/.model" />
+            </node>
+          </node>
+        </node>
+        <node concept="3rtmxn" id="1yReInH3uA" role="3bR31x">
+          <node concept="3LXTmp" id="1yReInH3uB" role="3rtmxm">
+            <node concept="398BVA" id="1yReInH3uC" role="3LXTmr">
+              <ref role="398BVh" node="3$7Kuaihl5X" resolve="modelix.modules" />
+              <node concept="2Ry0Ak" id="1yReInH3uD" role="iGT6I">
+                <property role="2Ry0Am" value="org.modelix.ui.sm.dom" />
+              </node>
+            </node>
+            <node concept="3qWCbU" id="1yReInH3uF" role="3LXTna">
+              <property role="3qWCbO" value="icons/**, resources/**" />
             </node>
           </node>
         </node>
@@ -3377,22 +3416,6 @@
             <ref role="3bR37D" to="ffeo:mXGwHwhVPj" resolve="JDK" />
           </node>
         </node>
-        <node concept="1SiIV0" id="7Hbm57D_HRx" role="3bR37C">
-          <node concept="1BurEX" id="7Hbm57D_HRy" role="1SiIV1">
-            <node concept="398BVA" id="7Hbm57D_HRo" role="1BurEY">
-              <ref role="398BVh" node="3$7Kuaihl5X" resolve="modelix.modules" />
-              <node concept="2Ry0Ak" id="7Hbm57D_HRp" role="iGT6I">
-                <property role="2Ry0Am" value="org.modelix.model.client" />
-                <node concept="2Ry0Ak" id="7Hbm57D_HRq" role="2Ry0An">
-                  <property role="2Ry0Am" value="lib" />
-                  <node concept="2Ry0Ak" id="7Hbm57D_HRr" role="2Ry0An">
-                    <property role="2Ry0Am" value="annotations-19.0.0.jar" />
-                  </node>
-                </node>
-              </node>
-            </node>
-          </node>
-        </node>
         <node concept="1SiIV0" id="7Hbm57D_HRG" role="3bR37C">
           <node concept="1BurEX" id="7Hbm57D_HRH" role="1SiIV1">
             <node concept="398BVA" id="7Hbm57D_HRz" role="1BurEY">
@@ -3972,6 +3995,22 @@
             </node>
           </node>
         </node>
+        <node concept="1SiIV0" id="1yReInHWaw" role="3bR37C">
+          <node concept="1BurEX" id="1yReInHWax" role="1SiIV1">
+            <node concept="398BVA" id="1yReInHWan" role="1BurEY">
+              <ref role="398BVh" node="3$7Kuaihl5X" resolve="modelix.modules" />
+              <node concept="2Ry0Ak" id="1yReInHWao" role="iGT6I">
+                <property role="2Ry0Am" value="org.modelix.model.client" />
+                <node concept="2Ry0Ak" id="1yReInHWap" role="2Ry0An">
+                  <property role="2Ry0Am" value="lib" />
+                  <node concept="2Ry0Ak" id="1yReInHWaq" role="2Ry0An">
+                    <property role="2Ry0Am" value="model-client-jvm-2020.1-SNAPSHOT.jar" />
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
       </node>
       <node concept="1E1JtA" id="7gF2HTviNPs" role="2G$12L">
         <property role="BnDLt" value="true" />
@@ -4343,6 +4382,19 @@
             </node>
           </node>
         </node>
+        <node concept="3rtmxn" id="1yReInH45S" role="3bR31x">
+          <node concept="3LXTmp" id="1yReInH45T" role="3rtmxm">
+            <node concept="398BVA" id="1yReInH45U" role="3LXTmr">
+              <ref role="398BVh" node="3$7Kuaihl5X" resolve="modelix.modules" />
+              <node concept="2Ry0Ak" id="1yReInH45V" role="iGT6I">
+                <property role="2Ry0Am" value="org.modelix.aspect" />
+              </node>
+            </node>
+            <node concept="3qWCbU" id="1yReInH45X" role="3LXTna">
+              <property role="3qWCbO" value="icons/**, resources/**" />
+            </node>
+          </node>
+        </node>
       </node>
       <node concept="1E1JtA" id="6HlxtAUSOXT" role="2G$12L">
         <property role="BnDLt" value="true" />
@@ -4565,6 +4617,19 @@
             <ref role="3bR37D" node="7gF2HTviNPP" resolve="org.modelix.lib" />
           </node>
         </node>
+        <node concept="3rtmxn" id="1yReInH3Mf" role="3bR31x">
+          <node concept="3LXTmp" id="1yReInH3Mg" role="3rtmxm">
+            <node concept="398BVA" id="1yReInH3Mh" role="3LXTmr">
+              <ref role="398BVh" node="3$7Kuaihl5X" resolve="modelix.modules" />
+              <node concept="2Ry0Ak" id="1yReInH3Mi" role="iGT6I">
+                <property role="2Ry0Am" value="org.modelix.notation" />
+              </node>
+            </node>
+            <node concept="3qWCbU" id="1yReInH3Mk" role="3LXTna">
+              <property role="3qWCbO" value="icons/**, resources/**" />
+            </node>
+          </node>
+        </node>
       </node>
       <node concept="3LEwk6" id="6HlxtAUSHCt" role="2G$12L">
         <property role="BnDLt" value="true" />
@@ -4591,10 +4656,10 @@
         <node concept="3LEDTy" id="7BujJjYSJ9v" role="3LEDUa">
           <ref role="3LEDTV" node="7gF2HTviNPn" resolve="org.modelix.ui.sm" />
         </node>
-        <node concept="3LEDTy" id="1yReInD1ms" role="3LEDUa">
+        <node concept="3LEDTy" id="1yReInHWbn" role="3LEDUa">
           <ref role="3LEDTV" to="ffeo:7Kfy9QB6KZc" resolve="jetbrains.mps.baseLanguage.checkedDots" />
         </node>
-        <node concept="3LEDTy" id="1yReInD1mt" role="3LEDUa">
+        <node concept="3LEDTy" id="1yReInHWbo" role="3LEDUa">
           <ref role="3LEDTV" to="ffeo:7Kfy9QB6L9c" resolve="jetbrains.mps.lang.quotation" />
         </node>
       </node>
@@ -4725,6 +4790,19 @@
         <node concept="1SiIV0" id="54CQ1_kE73J" role="3bR37C">
           <node concept="3bR9La" id="54CQ1_kE73K" role="1SiIV1">
             <ref role="3bR37D" node="7gF2HTviNPF" resolve="org.modelix.ui.sm.dom" />
+          </node>
+        </node>
+        <node concept="3rtmxn" id="1yReInH4px" role="3bR31x">
+          <node concept="3LXTmp" id="1yReInH4py" role="3rtmxm">
+            <node concept="398BVA" id="1yReInH4pz" role="3LXTmr">
+              <ref role="398BVh" node="3$7Kuaihl5X" resolve="modelix.modules" />
+              <node concept="2Ry0Ak" id="1yReInH4p$" role="iGT6I">
+                <property role="2Ry0Am" value="org.modelix.notation.impl.baseLanguage" />
+              </node>
+            </node>
+            <node concept="3qWCbU" id="1yReInH4pA" role="3LXTna">
+              <property role="3qWCbO" value="icons/**, resources/**" />
+            </node>
           </node>
         </node>
       </node>

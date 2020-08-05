@@ -66,6 +66,7 @@
     <stubModelEntry path="${module}/lib/vavr-0.10.3.jar" />
     <stubModelEntry path="${module}/lib/vavr-match-0.10.3.jar" />
     <stubModelEntry path="${module}/lib/model-client-2020.1-SNAPSHOT.jar" />
+    <stubModelEntry path="${module}/lib/model-client-jvm-2020.1-SNAPSHOT.jar" />
   </stubModelEntries>
   <sourcePath />
   <dependencies>
