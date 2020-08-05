@@ -14,4 +14,4 @@ jobs:
       with:
         java-version: 11
     - name: Run tests for model client
-      run: cd model-client && ./gradlew check
+      run: ./gradlew :model-client:check
