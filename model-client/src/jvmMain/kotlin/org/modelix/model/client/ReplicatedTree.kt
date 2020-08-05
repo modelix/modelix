@@ -86,7 +86,7 @@ open class ReplicatedTree(private val client: IModelClient, private val treeId: 
     protected fun deleteDetachedNodes() {
         val hasDetachedNodes = localOTBranch.computeRead {
             localOTBranch.transaction!!
-                    .getChildren(ITree.ROOT_ID, ITree.DETACHED_NODES_ROLE)!!.iterator().hasNext()
+                .getChildren(ITree.ROOT_ID, ITree.DETACHED_NODES_ROLE)!!.iterator().hasNext()
         }
         // avoid unnecessary write
         if (hasDetachedNodes) {

@@ -16,8 +16,6 @@
 package org.modelix.model.api
 
 import java.lang.IllegalArgumentException
-import java.util.function.Supplier
-import java.util.stream.Stream
 
 open class PNodeAdapter(val nodeId: Long, val branch: IBranch) : INode {
 
@@ -51,13 +49,13 @@ open class PNodeAdapter(val nodeId: Long, val branch: IBranch) : INode {
         get() {
             notifyAccess()
             return branch.transaction.getAllChildren(nodeId)
-                    .map { id: Long -> wrap(id) ?: throw RuntimeException("Unexpected null child") }
+                .map { id: Long -> wrap(id) ?: throw RuntimeException("Unexpected null child") }
         }
 
     override fun getChildren(role: String?): Iterable<INode> {
         notifyAccess()
         return branch.transaction.getChildren(nodeId, role)
-                .map { id: Long -> wrap(id) ?: throw RuntimeException("Unexpected null child") }
+            .map { id: Long -> wrap(id) ?: throw RuntimeException("Unexpected null child") }
     }
 
     override val concept: IConcept?

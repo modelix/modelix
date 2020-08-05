@@ -32,32 +32,32 @@ class TreeTestUtil(private val tree: ITree, private val rand: Random) {
         }
     }
 
-    val allNodes: LongStream
+    val allNodes: Iterable<Long>
         get() = getDescendants(ITree.ROOT_ID, true)
 
-    val allNodesWithoutRoot: LongStream
+    val allNodesWithoutRoot: Iterable<Long>
         get() = getDescendants(ITree.ROOT_ID, false)
 
-    fun getDescendants(parent: Long, includeSelf: Boolean): LongStream {
+    fun getDescendants(parent: Long, includeSelf: Boolean): Iterable<Long> {
         return if (includeSelf) {
-            LongStream.concat(LongStream.of(parent), getDescendants(parent, false))
+            (sequenceOf(parent) + getDescendants(parent, false)).asIterable()
         } else {
-            tree.getAllChildren(parent)!!.flatMap { it: Long -> getDescendants(it, true) }
+            tree.getAllChildren(parent).flatMap { it: Long -> getDescendants(it, true) }
         }
     }
 
     val randomNodeWithoutRoot: Long
-        get() = getRandomNode(allNodesWithoutRoot.toArray())
+        get() = getRandomNode(allNodesWithoutRoot)
 
     val randomNodeWithRoot: Long
-        get() = getRandomNode(allNodes.toArray())
+        get() = getRandomNode(allNodes)
 
-    fun getRandomNode(nodes: LongArray): Long {
-        return if (nodes.size == 0) {
+    fun getRandomNode(nodes: Iterable<Long>): Long {
+        return if (nodes.count() == 0) {
             0L
-        } else LongStream.of(*nodes).skip(rand.nextInt(nodes.size).toLong()).findFirst().orElse(0L)
+        } else nodes.drop(rand.nextInt(nodes.count())).first()
     }
 
     val randomLeafNode: Long
-        get() = getRandomNode(allNodes.filter { it: Long -> !tree.getAllChildren(it)!!.iterator().hasNext() }.toArray())
+        get() = getRandomNode(allNodes.filter { tree.getAllChildren(it).count() == 0 })
 }

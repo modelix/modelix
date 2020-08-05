@@ -21,7 +21,6 @@ import org.apache.log4j.LogManager
 import org.modelix.model.api.DefaultIdGenerator.Companion.instance
 import org.modelix.model.util.ContextValue
 import org.modelix.model.util.pmap.COWArrays
-import java.util.function.Supplier
 
 class PBranch @JvmOverloads constructor(@field:Volatile private var tree: ITree, private val idGenerator: IIdGenerator = instance) : IBranch {
     private val writeLock = Any()

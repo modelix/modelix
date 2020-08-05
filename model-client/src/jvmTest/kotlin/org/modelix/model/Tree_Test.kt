@@ -26,6 +26,7 @@ import org.modelix.model.lazy.CLTree
 import org.modelix.model.lazy.ObjectStoreCache
 import org.modelix.model.persistent.MapBaseStore
 import java.util.*
+import kotlin.streams.toList
 
 class Tree_Test {
     private val DEBUG = false
@@ -107,7 +108,6 @@ class Tree_Test {
                             util
                                 .allNodes
                                 .filter { it: Long -> util.getAncestors(it, true).noneMatch { it2: Long -> it2 == childId } }
-                                .toArray()
                         )
                         if (childId != 0L && parent != 0L) {
                             val role = roles[rand.nextInt(roles.size)]
@@ -143,9 +143,9 @@ class Tree_Test {
                 if (expectedDeletes.contains(key._1() as Long)) {
                     continue
                 }
-                val expected = value.stream().mapToLong { it: Long? -> it!! }.toArray()
-                val actual = tree!!.getChildren(key._1() as Long, key._2())!!.toArray()
-                Assert.assertArrayEquals(expected, actual)
+                val expected = value.toList()
+                val actual = tree!!.getChildren(key._1() as Long, key._2()).toList()
+                Assert.assertEquals(expected, actual)
             }
             for ((key, value) in expectedRoles) {
                 Assert.assertEquals(value, tree!!.getRole(key))

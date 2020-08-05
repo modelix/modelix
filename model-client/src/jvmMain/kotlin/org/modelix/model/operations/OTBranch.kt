@@ -19,7 +19,6 @@ import io.vavr.Tuple
 import io.vavr.Tuple2
 import org.modelix.model.api.*
 import java.util.*
-import java.util.function.Supplier
 
 class OTBranch(private val branch: IBranch, private val idGenerator: IIdGenerator) : IBranch {
     private var operations: MutableList<IAppliedOperation> = ArrayList()

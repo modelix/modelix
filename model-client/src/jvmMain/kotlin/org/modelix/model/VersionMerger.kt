@@ -92,11 +92,11 @@ class VersionMerger(private val storeCache: IDeserializingKeyValueStore, private
                 }
                 appliedVersionIds.add(versionToApply.id)
                 val oppositeAppliedOps = (if (useLeft) rightAppliedOps else leftAppliedOps).stream()
-                        .map { obj: IAppliedOperation -> obj.originalOp }
-                        .collect(Collectors.toList())
+                    .map { obj: IAppliedOperation -> obj.originalOp }
+                    .collect(Collectors.toList())
                 val operationsToApply = StreamUtils.toStream(versionToApply.operations)
-                        .map { it: IOperation? -> transformOperation(it!!, oppositeAppliedOps) }
-                        .collect(Collectors.toList())
+                    .map { it: IOperation? -> transformOperation(it!!, oppositeAppliedOps) }
+                    .collect(Collectors.toList())
                 for (op in operationsToApply) {
                     val appliedOp = op.apply(t)
                     if (useLeft) {
@@ -106,13 +106,13 @@ class VersionMerger(private val storeCache: IDeserializingKeyValueStore, private
                     }
                 }
                 mergedVersion.value = CLVersion(
-                        versionToApply.id,
-                        versionToApply.time,
-                        versionToApply.author,
-                        (t!!.tree as CLTree).hash,
-                        if (mergedVersion.value != null) mergedVersion.value.hash else versionToApply.previousHash,
-                        operationsToApply.toTypedArray(),
-                        storeCache
+                    versionToApply.id,
+                    versionToApply.time,
+                    versionToApply.author,
+                    (t!!.tree as CLTree).hash,
+                    if (mergedVersion.value != null) mergedVersion.value.hash else versionToApply.previousHash,
+                    operationsToApply.toTypedArray(),
+                    storeCache
                 )
             }
         }
