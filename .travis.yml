@@ -6,7 +6,7 @@ jdk:
   - openjdk14
 
 script:
-  - ./gradlew
+  - ./gradlew build
   
 cache:
   directories:
