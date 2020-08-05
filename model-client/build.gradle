@@ -1,7 +1,8 @@
 
 plugins {
     id 'java'
-    id 'org.jetbrains.kotlin.jvm'
+    id 'maven-publish'
+    id 'org.jetbrains.kotlin.multiplatform'
     id "com.diffplug.gradle.spotless"
     id "org.jlleitschuh.gradle.ktlint"
 }
@@ -10,46 +11,88 @@ repositories {
     mavenCentral()
 }
 
-dependencies {
-    testCompile group: 'junit', name: 'junit', version: '4.12'
-    compile group: 'org.jetbrains', name: 'annotations', version: '19.0.0'
-    compile group: 'io.vavr', name: 'vavr', version: '0.10.3'
-    compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.11'
-    compile group: 'com.google.guava', name: 'guava', version: '29.0-jre'
-    compile group: 'log4j', name: 'log4j', version:'1.2.17'
-    compile group: 'org.glassfish.jersey.core', name: 'jersey-client', version: '2.31'
-    compile group: 'org.glassfish.jersey.inject', name: 'jersey-hk2', version: '2.31'
-    compile group: 'org.glassfish.jersey.media', name: 'jersey-media-sse', version: '2.31'
-    compile group: 'javax.xml.bind', name: 'jaxb-api', version: '2.3.1'
-    compile group: 'commons-io', name: 'commons-io', version: '2.7'
-    compile group: 'org.json', name: 'json', version: '20200518'
-    compile group: 'net.sf.trove4j', name: 'trove4j', version: '3.0.3'
-    compile group: 'org.apache.commons', name: 'commons-collections4', version: '4.4'
-    compile group: 'org.jetbrains.kotlin', name: 'kotlin-stdlib', version: kotlinVersion
-}
-
 tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
     kotlinOptions {
         jvmTarget = "11"
     }
 }
 
-task copyLibs(type: Copy) {
-    into "$buildDir/libs"
-    from configurations.default
-}
-
-assemble.finalizedBy(copyLibs)
-
-task copyModelClientToMps(type: Copy, dependsOn: copyLibs) {
-    from "$buildDir/libs"
-    into "$projectDir/../mps/org.modelix.model.client/lib"
-}
-
-assemble.finalizedBy(copyModelClientToMps)
-
 ktlint {
     disabledRules = ["no-wildcard-imports"]
 }
 
 check.dependsOn ktlintCheck
+
+
+kotlin {
+    jvm()
+    js {
+        browser {
+        }
+        nodejs {
+        }
+    }
+    sourceSets {
+        commonMain {
+            dependencies {
+                implementation kotlin('stdlib-common')
+            }
+        }
+        commonTest {
+            dependencies {
+                implementation kotlin('test-common')
+                implementation kotlin('test-annotations-common')
+            }
+        }
+        jvmMain {
+            dependencies {
+                implementation kotlin('stdlib-jdk8')
+
+
+                implementation group: 'io.vavr', name: 'vavr', version: '0.10.3'
+                implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.11'
+                implementation group: 'com.google.guava', name: 'guava', version: '29.0-jre'
+                implementation group: 'log4j', name: 'log4j', version:'1.2.17'
+                implementation group: 'org.glassfish.jersey.core', name: 'jersey-client', version: '2.31'
+                implementation group: 'org.glassfish.jersey.inject', name: 'jersey-hk2', version: '2.31'
+                implementation group: 'org.glassfish.jersey.media', name: 'jersey-media-sse', version: '2.31'
+                implementation group: 'javax.xml.bind', name: 'jaxb-api', version: '2.3.1'
+                implementation group: 'commons-io', name: 'commons-io', version: '2.7'
+                implementation group: 'org.json', name: 'json', version: '20200518'
+                implementation group: 'net.sf.trove4j', name: 'trove4j', version: '3.0.3'
+                implementation group: 'org.apache.commons', name: 'commons-collections4', version: '4.4'
+            }
+        }
+        jvmTest {
+            dependencies {
+                implementation kotlin('test')
+                implementation kotlin('test-junit')
+            }
+        }
+        jsMain {
+            dependencies {
+                implementation kotlin('stdlib-js')
+            }
+        }
+        jsTest {
+            dependencies {
+                implementation kotlin('test-js')
+            }
+        }
+    }
+}
+
+task deleteMpsLibs() {
+    delete "$projectDir/../mps/org.modelix.model.client/lib"
+}
+clean {
+    deleteMpsLibs
+}
+
+task copyModelClientToMps(type: Copy, dependsOn: [deleteMpsLibs]) {
+    from configurations.jvmDefault
+    from "$buildDir/libs"
+    into "$projectDir/../mps/org.modelix.model.client/lib"
+}
+
+assemble.finalizedBy(copyModelClientToMps)
