@@ -44,7 +44,6 @@ kotlin {
             dependencies {
                 implementation kotlin('stdlib-jdk8')
 
-
                 implementation group: 'io.vavr', name: 'vavr', version: '0.10.3'
                 implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.11'
                 implementation group: 'com.google.guava', name: 'guava', version: '29.0-jre'

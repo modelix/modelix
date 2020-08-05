@@ -16,13 +16,12 @@
 package org.modelix.model.client
 
 import org.modelix.model.api.IIdGenerator
-import java.util.concurrent.atomic.AtomicLong
 
 actual class IdGenerator actual constructor(clientId: Int) : IIdGenerator {
-    private val idSequence: AtomicLong
+    private var idSequence: Long
     private val clientId: Long = clientId.toLong()
     actual override fun generate(): Long {
-        val id = idSequence.incrementAndGet()
+        val id = ++idSequence
         if (id ushr 32 != clientId) {
             throw RuntimeException("End of ID range")
         }
@@ -30,6 +29,6 @@ actual class IdGenerator actual constructor(clientId: Int) : IIdGenerator {
     }
 
     init {
-        idSequence = AtomicLong(this.clientId shl 32)
+        idSequence = this.clientId shl 32
     }
 }

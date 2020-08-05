@@ -13,23 +13,26 @@
  * under the License. 
  */
 
-package org.modelix.model.client
+package org.modelix.model.lazy
 
-import org.modelix.model.api.IIdGenerator
-import java.util.concurrent.atomic.AtomicLong
+class CLElementRef(val id: Long) {
 
-actual class IdGenerator actual constructor(clientId: Int) : IIdGenerator {
-    private val idSequence: AtomicLong
-    private val clientId: Long = clientId.toLong()
-    actual override fun generate(): Long {
-        val id = idSequence.incrementAndGet()
-        if (id ushr 32 != clientId) {
-            throw RuntimeException("End of ID range")
+    override fun equals(o: Any?): Boolean {
+        if (this === o) {
+            return true
         }
-        return id
+        if (o == null || this::class != o::class) {
+            return false
+        }
+        val that = o as CLElementRef
+        return if (id != that.id) {
+            false
+        } else true
     }
 
-    init {
-        idSequence = AtomicLong(this.clientId shl 32)
+    override fun hashCode(): Int {
+        var result = 0
+        result = 31 * result + (id xor (id shr 32)).toInt()
+        return result
     }
 }

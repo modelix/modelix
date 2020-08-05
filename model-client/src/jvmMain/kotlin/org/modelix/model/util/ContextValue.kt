@@ -15,14 +15,12 @@
 
 package org.modelix.model.util
 
-import java.util.function.Supplier
-
-class ContextValue<E> {
+actual class ContextValue<E> {
     private var defaultValue: E? = null
     private val value = ThreadLocal<MutableList<E>>()
 
-    constructor() {}
-    constructor(defaultValue: E) {
+    actual constructor() {}
+    actual constructor(defaultValue: E) {
         this.defaultValue = defaultValue
     }
 
@@ -36,7 +34,7 @@ class ContextValue<E> {
             return stack
         }
 
-    fun runWith(newValue: E, r: () -> Unit) {
+    actual fun runWith(newValue: E, r: () -> Unit) {
         try {
             stack.add(newValue)
             r()
@@ -46,17 +44,17 @@ class ContextValue<E> {
         }
     }
 
-    fun <T> computeWith(newValue: E, r: Supplier<T>): T {
+    actual fun <T> computeWith(newValue: E, r: () -> T): T {
         return try {
             stack.add(newValue)
-            r.get()
+            r()
         } finally {
             val stack: MutableList<E> = stack
             stack.removeAt(stack.size - 1)
         }
     }
 
-    fun getValue(): E? {
+    actual fun getValue(): E? {
         val stack: List<E> = stack
         return if (stack.isEmpty()) defaultValue else stack[stack.size - 1]
     }

@@ -15,21 +15,13 @@
 
 package org.modelix.model.client
 
+import org.modelix.model.IKeyValueStore
 import org.modelix.model.api.IIdGenerator
-import java.util.concurrent.atomic.AtomicLong
+import org.modelix.model.lazy.IDeserializingKeyValueStore
 
-actual class IdGenerator actual constructor(clientId: Int) : IIdGenerator {
-    private val idSequence: AtomicLong
-    private val clientId: Long = clientId.toLong()
-    actual override fun generate(): Long {
-        val id = idSequence.incrementAndGet()
-        if (id ushr 32 != clientId) {
-            throw RuntimeException("End of ID range")
-        }
-        return id
-    }
-
-    init {
-        idSequence = AtomicLong(this.clientId shl 32)
-    }
+interface IModelClient : IKeyValueStore {
+    val clientId: Int
+    val idGenerator: IIdGenerator
+    val storeCache: IDeserializingKeyValueStore?
+    val asyncStore: IKeyValueStore?
 }

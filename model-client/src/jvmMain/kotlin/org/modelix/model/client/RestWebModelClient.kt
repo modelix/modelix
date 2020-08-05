@@ -23,6 +23,7 @@ import org.json.JSONObject
 import org.modelix.model.IKeyListener
 import org.modelix.model.IKeyValueStore
 import org.modelix.model.KeyValueStoreCache
+import org.modelix.model.api.IIdGenerator
 import org.modelix.model.client.SharedExecutors.fixDelay
 import org.modelix.model.lazy.IDeserializingKeyValueStore
 import org.modelix.model.lazy.ObjectStoreCache
@@ -110,13 +111,7 @@ class RestWebModelClient @JvmOverloads constructor(var baseUrl: String? = null) 
     private val cache = ObjectStoreCache(KeyValueStoreCache(asyncStore))
 
     @get:Synchronized
-    override var idGenerator: IdGenerator? = null
-        get() {
-            if (field == null) {
-                field = IdGenerator(clientId)
-            }
-            return field
-        }
+    override var idGenerator: IIdGenerator = IdGenerator(clientId)
         private set
     private val watchDogTask: ScheduledFuture<*>
     private var authToken = defaultToken

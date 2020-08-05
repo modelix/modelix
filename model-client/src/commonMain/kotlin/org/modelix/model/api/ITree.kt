@@ -28,7 +28,7 @@ interface ITree {
     fun setReferenceTarget(sourceId: Long, role: String, target: INodeReference?): ITree
     fun getReferenceRoles(sourceId: Long): Iterable<String>
     fun getPropertyRoles(sourceId: Long): Iterable<String>
-    fun getChildRoles(sourceId: Long): Iterable<String>
+    fun getChildRoles(sourceId: Long): Iterable<String?>
     fun getAllChildren(parentId: Long): Iterable<Long>
     fun moveChild(newParentId: Long, newRole: String?, newIndex: Int, childId: Long): ITree
     fun addNewChild(parentId: Long, role: String?, index: Int, childId: Long, concept: IConcept?): ITree

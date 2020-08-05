@@ -13,23 +13,19 @@
  * under the License. 
  */
 
-package org.modelix.model.client
+package org.modelix.model.lazy
 
-import org.modelix.model.api.IIdGenerator
-import java.util.concurrent.atomic.AtomicLong
+import org.modelix.model.persistent.CPElement
+import org.modelix.model.persistent.HashUtil
+import kotlin.jvm.JvmStatic
 
-actual class IdGenerator actual constructor(clientId: Int) : IIdGenerator {
-    private val idSequence: AtomicLong
-    private val clientId: Long = clientId.toLong()
-    actual override fun generate(): Long {
-        val id = idSequence.incrementAndGet()
-        if (id ushr 32 != clientId) {
-            throw RuntimeException("End of ID range")
-        }
-        return id
+object IDeserializingKeyValueStore_extensions {
+    fun put(_this: IDeserializingKeyValueStore, deserialized: Any, serialized: String?) {
+        _this.put(HashUtil.sha256(serialized!!), deserialized, serialized)
     }
 
-    init {
-        idSequence = AtomicLong(this.clientId shl 32)
+    @JvmStatic
+    fun put(_this: IDeserializingKeyValueStore, element: CPElement) {
+        put(_this, element, element.serialize())
     }
 }

@@ -13,23 +13,28 @@
  * under the License. 
  */
 
-package org.modelix.model.client
+package org.modelix.model.persistent
 
-import org.modelix.model.api.IIdGenerator
-import java.util.concurrent.atomic.AtomicLong
+import kotlin.jvm.JvmStatic
 
-actual class IdGenerator actual constructor(clientId: Int) : IIdGenerator {
-    private val idSequence: AtomicLong
-    private val clientId: Long = clientId.toLong()
-    actual override fun generate(): Long {
-        val id = idSequence.incrementAndGet()
-        if (id ushr 32 != clientId) {
-            throw RuntimeException("End of ID range")
-        }
-        return id
+class CPTree(
+    val id: String,
+    val rootId: Long,
+    /**
+     * SHA to CPHamtNode
+     */
+    var idToHash: String
+) {
+
+    fun serialize(): String {
+        return "$id/$rootId/$idToHash"
     }
 
-    init {
-        idSequence = AtomicLong(this.clientId shl 32)
+    companion object {
+        @JvmStatic
+        fun deserialize(input: String): CPTree {
+            val parts = input.split("/").dropLastWhile { it.isEmpty() }.toTypedArray()
+            return CPTree(parts[0], parts[1].toLong(), parts[2])
+        }
     }
 }

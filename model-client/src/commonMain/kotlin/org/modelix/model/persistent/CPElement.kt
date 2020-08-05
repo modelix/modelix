@@ -13,23 +13,19 @@
  * under the License. 
  */
 
-package org.modelix.model.client
+package org.modelix.model.persistent
 
-import org.modelix.model.api.IIdGenerator
-import java.util.concurrent.atomic.AtomicLong
+import org.modelix.model.persistent.HashUtil.sha256
 
-actual class IdGenerator actual constructor(clientId: Int) : IIdGenerator {
-    private val idSequence: AtomicLong
-    private val clientId: Long = clientId.toLong()
-    actual override fun generate(): Long {
-        val id = idSequence.incrementAndGet()
-        if (id ushr 32 != clientId) {
-            throw RuntimeException("End of ID range")
+abstract class CPElement(val id: Long, val parentId: Long, val roleInParent: String?) {
+
+    abstract fun serialize(): String?
+    val hash: String
+        get() = sha256(serialize()!!)
+
+    companion object {
+        open fun deserialize(input: String?): CPElement {
+            return CPNode.deserialize(input!!)
         }
-        return id
-    }
-
-    init {
-        idSequence = AtomicLong(this.clientId shl 32)
     }
 }

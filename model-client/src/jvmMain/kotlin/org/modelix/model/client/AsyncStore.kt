@@ -19,15 +19,13 @@ import org.apache.log4j.Level
 import org.apache.log4j.LogManager
 import org.modelix.model.IKeyListener
 import org.modelix.model.IKeyValueStore
-import org.modelix.model.util.StreamUtils.toStream
 import java.lang.Runnable
 import java.util.Objects
 import java.util.concurrent.atomic.AtomicBoolean
-import java.util.stream.Collectors
 
 class AsyncStore(private val store: IKeyValueStore) : IKeyValueStore {
     private val consumerActive = AtomicBoolean()
-    private val pendingWrites: MutableMap<String, String?> = LinkedHashMap(16, 0.75.toFloat(), false)
+    private val pendingWrites: MutableMap<String, String?> = LinkedHashMap()
     override fun get(key: String): String? {
         synchronized(pendingWrites) {
             if (pendingWrites.containsKey(key)) {
@@ -51,8 +49,8 @@ class AsyncStore(private val store: IKeyValueStore) : IKeyValueStore {
     }
 
     override fun getAll(keys_: Iterable<String>): Map<String, String?> {
-        val keys = toStream(keys_).collect(Collectors.toList())
-        val result: MutableMap<String, String?> = LinkedHashMap(16, 0.75.toFloat(), false)
+        val keys = keys_.toMutableList()
+        val result: MutableMap<String, String?> = LinkedHashMap()
         synchronized(pendingWrites) {
             val itr: MutableIterator<String> = keys.iterator()
             while (itr.hasNext()) {

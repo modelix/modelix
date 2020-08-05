@@ -38,14 +38,14 @@ import java.util.concurrent.ScheduledFuture
 import java.util.concurrent.atomic.AtomicBoolean
 import java.util.function.Supplier
 
-open class ReplicatedTree(private val client: IModelClient, private val treeId: TreeId, private val branchName: String, private val user: Supplier<String>) {
+actual open class ReplicatedTree actual constructor(private val client: IModelClient, private val treeId: TreeId, private val branchName: String, private val user: () -> String) {
     private val localBranch: IBranch
     private val localOTBranch: OTBranch
     private val mergeLock = Any()
     private val merger: VersionMerger
 
     @Volatile
-    var version: CLVersion?
+    actual var version: CLVersion?
         private set
 
     @Volatile
@@ -55,7 +55,7 @@ open class ReplicatedTree(private val client: IModelClient, private val treeId: 
     private var disposed = false
     private var divergenceTime = 0
     private val convergenceWatchdog: ScheduledFuture<*>
-    val branch: IBranch
+    actual val branch: IBranch
         get() {
             checkDisposed()
             return localOTBranch
@@ -100,7 +100,7 @@ open class ReplicatedTree(private val client: IModelClient, private val treeId: 
 
     protected fun createAndMergeLocalVersion() {
         checkDisposed()
-        var opsAndTree: Tuple2<List<IAppliedOperation>, ITree>
+        var opsAndTree: Pair<List<IAppliedOperation>, ITree>
         var localBase: CLVersion?
         val remoteBase = MutableObject<CLVersion?>()
         val newLocalVersion = MutableObject<CLVersion>()
@@ -108,12 +108,11 @@ open class ReplicatedTree(private val client: IModelClient, private val treeId: 
             opsAndTree = localOTBranch.operationsAndTree
             localBase = version
             remoteBase.setValue(remoteVersion)
-            val ops: Array<IOperation> = opsAndTree._1.map { it.originalOp }.toTypedArray()
-            // val ops: Array<IOperation?> = opsAndTree._1().stream().map(IAppliedOperation::originalOp).toArray(IntFunction<Array<IOperation>> { _Dummy_.__Array__() })
-            if (ops.size == 0) {
+            val ops: Array<IOperation> = opsAndTree.first.map { it.originalOp }.toTypedArray()
+            if (ops.isEmpty()) {
                 return
             }
-            newLocalVersion.setValue(createVersion(opsAndTree._2() as CLTree, ops, localBase!!.hash))
+            newLocalVersion.setValue(createVersion(opsAndTree.second as CLTree, ops, localBase!!.hash))
             version = newLocalVersion.value
             divergenceTime = 0
         }
@@ -196,10 +195,10 @@ open class ReplicatedTree(private val client: IModelClient, private val treeId: 
     fun createVersion(tree: CLTree, operations: Array<IOperation>, previousVersion: String?): CLVersion {
         checkDisposed()
         val time = LocalDateTime.now().toString()
-        return CLVersion(client.idGenerator!!.generate(), time, user.get(), tree.hash, previousVersion, operations, client.storeCache!!)
+        return CLVersion(client.idGenerator!!.generate(), time, user(), tree.hash, previousVersion, operations, client.storeCache!!)
     }
 
-    open fun dispose() {
+    actual open fun dispose() {
         checkDisposed()
         disposed = true
         versionChangeDetector.dispose()
@@ -239,9 +238,9 @@ open class ReplicatedTree(private val client: IModelClient, private val treeId: 
         SharedExecutors.FIXED.execute { initialTree.value.getChildren(ITree.ROOT_ID, ITree.DETACHED_NODES_ROLE) }
         version = initialVersion
         remoteVersion = initialVersion
-        localBranch = PBranch(initialTree.value)
-        localOTBranch = OTBranch(localBranch, client.idGenerator!!)
-        merger = VersionMerger(client.storeCache!!, client.idGenerator!!)
+        localBranch = PBranch(initialTree.value, client.idGenerator)
+        localOTBranch = OTBranch(localBranch, client.idGenerator)
+        merger = VersionMerger(client.storeCache!!, client.idGenerator)
         versionChangeDetector = object : VersionChangeDetector(client, treeId.getBranchKey(branchName)) {
             override fun processVersionChange(oldVersionHash: String?, newVersionHash: String?) {
                 if (disposed) {

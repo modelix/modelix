@@ -13,23 +13,22 @@
  * under the License. 
  */
 
-package org.modelix.model.client
+package org.modelix.model.persistent
 
-import org.modelix.model.api.IIdGenerator
-import java.util.concurrent.atomic.AtomicLong
+import org.modelix.model.persistent.SerializationUtil.intToHex
 
-actual class IdGenerator actual constructor(clientId: Int) : IIdGenerator {
-    private val idSequence: AtomicLong
-    private val clientId: Long = clientId.toLong()
-    actual override fun generate(): Long {
-        val id = idSequence.incrementAndGet()
-        if (id ushr 32 != clientId) {
-            throw RuntimeException("End of ID range")
-        }
-        return id
-    }
+class CPHamtInternal(
+    var bitmap: Int,
+    /**
+     * SHA to CPHamtNode
+     */
+    val children: Array<String>
+) : CPHamtNode() {
 
-    init {
-        idSequence = AtomicLong(this.clientId shl 32)
+    override fun serialize(): String {
+        return "I/" +
+                intToHex(bitmap) +
+                "/" +
+                (if (children.isEmpty()) "" else children.reduce { a: String?, b: String? -> "$a,$b" })
     }
 }

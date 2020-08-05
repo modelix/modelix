@@ -5,9 +5,9 @@
       <configuration version="3" platform="JVM 11" allPlatforms="JVM [11]" useProjectSettings="false" isTestModule="true" externalProjectId=":model-client">
         <dependsOnModuleNames>:model-client:commonTest</dependsOnModuleNames>
         <sourceSets>
-          <sourceSet>modelix.model-client.commonTest~1</sourceSet>
-          <sourceSet>modelix.model-client.jvmMain~1</sourceSet>
           <sourceSet>modelix.model-client.commonMain~1</sourceSet>
+          <sourceSet>modelix.model-client.jvmMain~1</sourceSet>
+          <sourceSet>modelix.model-client.commonTest~1</sourceSet>
         </sourceSets>
         <newMppModelJpsModuleKind>COMPILATION_AND_SOURCE_SET_HOLDER</newMppModelJpsModuleKind>
         <externalSystemTestTasks>jvmTest|:model-client:jvmTest|jvm</externalSystemTestTasks>
