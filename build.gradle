@@ -8,11 +8,14 @@ buildscript {
 
     repositories {
         maven { url 'https://projects.itemis.de/nexus/content/repositories/mbeddr' }
+        maven { url "https://repo.maven.apache.org/maven2" }
+        maven { url 'https://plugins.gradle.org/m2/' }
         mavenCentral()
     }
 
     dependencies {
         classpath 'de.itemis.mps:mps-gradle-plugin:1.2.168.+'
+        classpath 'com.google.googlejavaformat:google-java-format:1.8+'
     }
 }
 
@@ -24,13 +27,7 @@ plugins {
     id "com.jfrog.bintray" version "1.8.5"
 }
 
-repositories {
-    maven {
-        url 'https://projects.itemis.de/nexus/content/groups/OS/'
-    }
-    mavenCentral()
-    mavenLocal()
-}
+
 
 configurations {
     ktlint
@@ -39,6 +36,13 @@ configurations {
 allprojects {
     group 'org.modelix'
     version '2020.1-SNAPSHOT'
+
+    repositories {
+        maven { url 'https://projects.itemis.de/nexus/content/groups/OS/' }
+        maven { url "https://repo.maven.apache.org/maven2" }
+        mavenCentral()
+        mavenLocal()
+    }
 }
 description = "Cloud storage and web UI for MPS"
 
@@ -149,43 +153,4 @@ task runMpsTests(type: TestLanguages, dependsOn: buildMpsModules) {
     scriptArgs = defaultAntScriptArgs
     scriptClasspath = buildScriptClasspath
     script new File("$rootDir/build/test.org.modelix/build-tests.xml")
-}
-
-spotless {
-    java {
-        googleJavaFormat(sourceCompatibility.toString()).aosp()
-        licenseHeader '/*\n' +
-                ' * Licensed under the Apache License, Version 2.0 (the "License");\n' +
-                ' * you may not use this file except in compliance with the License.\n' +
-                ' * You may obtain a copy of the License at\n' +
-                ' *\n' +
-                ' *  http://www.apache.org/licenses/LICENSE-2.0\n' +
-                ' *\n' +
-                ' * Unless required by applicable law or agreed to in writing,\n' +
-                ' * software distributed under the License is distributed on an\n' +
-                ' * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY\n' +
-                ' * KIND, either express or implied.  See the License for the\n' +
-                ' * specific language governing permissions and limitations\n' +
-                ' * under the License. \n' +
-                ' */\n' +
-                '\n'
-    }
-
-    kotlin {
-        licenseHeader '/*\n' +
-                ' * Licensed under the Apache License, Version 2.0 (the "License");\n' +
-                ' * you may not use this file except in compliance with the License.\n' +
-                ' * You may obtain a copy of the License at\n' +
-                ' *\n' +
-                ' *  http://www.apache.org/licenses/LICENSE-2.0\n' +
-                ' *\n' +
-                ' * Unless required by applicable law or agreed to in writing,\n' +
-                ' * software distributed under the License is distributed on an\n' +
-                ' * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY\n' +
-                ' * KIND, either express or implied.  See the License for the\n' +
-                ' * specific language governing permissions and limitations\n' +
-                ' * under the License. \n' +
-                ' */\n' +
-                '\n'
-    }
 }
