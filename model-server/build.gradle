@@ -12,9 +12,6 @@ version = '1.0-SNAPSHOT'
 
 defaultTasks 'build'
 
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
-
 dependencies {
     compile group: 'org.json', name: 'json', version:'20180813'
     compile group: 'org.java-websocket', name: 'Java-WebSocket', version:'1.4.0'
@@ -84,7 +81,7 @@ bintray {
 
 spotless {
     java {
-        googleJavaFormat(sourceCompatibility.toString()).aosp()
+        googleJavaFormat("1.8").aosp()
         licenseHeader '/*\n' +
                 ' * Licensed under the Apache License, Version 2.0 (the "License");\n' +
                 ' * you may not use this file except in compliance with the License.\n' +
