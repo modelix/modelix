@@ -36,10 +36,10 @@ class ContextValue<E> {
             return stack
         }
 
-    fun runWith(newValue: E, r: Runnable) {
+    fun runWith(newValue: E, r: () -> Unit) {
         try {
             stack.add(newValue)
-            r.run()
+            r()
         } finally {
             val stack: MutableList<E> = stack
             stack.removeAt(stack.size - 1)

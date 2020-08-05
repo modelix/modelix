@@ -15,13 +15,11 @@
 
 package org.modelix.model.api
 
-import java.util.stream.LongStream
-
 interface ITree {
     fun visitChanges(oldVersion: ITree, visitor: ITreeChangeVisitor)
     fun containsNode(nodeId: Long): Boolean
     fun getProperty(nodeId: Long, role: String): String?
-    fun getChildren(parentId: Long, role: String?): LongStream
+    fun getChildren(parentId: Long, role: String?): Iterable<Long>
     fun getConcept(nodeId: Long): IConcept?
     fun getParent(nodeId: Long): Long
     fun getRole(nodeId: Long): String?
@@ -31,7 +29,7 @@ interface ITree {
     fun getReferenceRoles(sourceId: Long): Iterable<String>
     fun getPropertyRoles(sourceId: Long): Iterable<String>
     fun getChildRoles(sourceId: Long): Iterable<String>
-    fun getAllChildren(parentId: Long): LongStream
+    fun getAllChildren(parentId: Long): Iterable<Long>
     fun moveChild(newParentId: Long, newRole: String?, newIndex: Int, childId: Long): ITree
     fun addNewChild(parentId: Long, role: String?, index: Int, childId: Long, concept: IConcept?): ITree
     fun addNewChildren(parentId: Long, role: String?, index: Int, newIds: LongArray, concepts: Array<IConcept?>): ITree

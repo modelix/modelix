@@ -15,17 +15,17 @@
 
 package org.modelix.model.api
 
-import java.util.stream.LongStream
+import org.modelix.model.util.ContextValue
 
-interface ITransaction {
-    val branch: IBranch
-    val tree: ITree
-    fun containsNode(nodeId: Long): Boolean
-    fun getConcept(nodeId: Long): IConcept?
-    fun getParent(nodeId: Long): Long
-    fun getRole(nodeId: Long): String?
-    fun getProperty(nodeId: Long, role: String): String?
-    fun getReferenceTarget(sourceId: Long, role: String): INodeReference?
-    fun getChildren(parentId: Long, role: String?): LongStream
-    fun getAllChildren(parentId: Long): LongStream
+object ContextNodeResolveContext {
+    val CONTEXT_VALUE = ContextValue<INodeResolveContext>()
+
+    fun withAdditionalContext(context: INodeResolveContext, runnable: () -> Unit) {
+        val activeContext = CONTEXT_VALUE.getValue()
+        if (activeContext == null) {
+            CONTEXT_VALUE.runWith(context, runnable)
+        } else {
+            CONTEXT_VALUE.runWith(CompositeNodeResolveContext(context, activeContext), runnable)
+        }
+    }
 }

@@ -15,18 +15,16 @@
 
 package org.modelix.model.api
 
-import java.util.function.Supplier
+class CompositeNodeResolveContext(contexts: Iterable<INodeResolveContext>) : INodeResolveContext {
+    private val contexts: List<INodeResolveContext?>
 
-interface IBranch {
-    fun runRead(runnable: Runnable)
-    fun <T> computeRead(computable: Supplier<T>): T
-    fun runWrite(runnable: Runnable)
-    fun <T> computeWrite(computable: Supplier<T>): T
-    fun canRead(): Boolean
-    fun canWrite(): Boolean
-    val transaction: ITransaction
-    val readTransaction: IReadTransaction
-    val writeTransaction: IWriteTransaction
-    fun addListener(l: IBranchListener)
-    fun removeListener(l: IBranchListener)
+    constructor(vararg contexts: INodeResolveContext) : this(contexts.toList()) {}
+
+    override fun resolve(ref: INodeReference?): INode? {
+        return contexts.map { it?.resolve(ref) }.filterNotNull().firstOrNull()
+    }
+
+    init {
+        this.contexts = contexts.toList()
+    }
 }

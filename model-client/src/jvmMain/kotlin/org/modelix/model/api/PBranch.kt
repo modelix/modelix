@@ -27,14 +27,14 @@ class PBranch @JvmOverloads constructor(@field:Volatile private var tree: ITree,
     private val writeLock = Any()
     private val contextTransactions = ContextValue<Transaction?>()
     private var listeners = arrayOf<IBranchListener>()
-    fun runWithTransaction(transaction: ITransaction?, runnable: Runnable?) {
-        contextTransactions.runWith(transaction as Transaction?, runnable!!)
+    fun runWithTransaction(transaction: ITransaction, runnable: () -> Unit) {
+        contextTransactions.runWith(transaction as Transaction, runnable)
     }
 
-    override fun runRead(runnable: Runnable) {
+    override fun runRead(runnable: () -> Unit) {
         val prevTransaction = contextTransactions.getValue()
         if (prevTransaction is IReadTransaction) {
-            runnable.run()
+            runnable()
         } else {
             val currentTree = if (prevTransaction == null) tree else prevTransaction.tree
             val t = ReadTransaction(currentTree, this)
@@ -42,7 +42,7 @@ class PBranch @JvmOverloads constructor(@field:Volatile private var tree: ITree,
         }
     }
 
-    override fun runWrite(runnable: Runnable) {
+    override fun runWrite(runnable: () -> Unit) {
         synchronized(writeLock) {
             val prevTransaction = contextTransactions.getValue()
             check(prevTransaction !is ReadTransaction) { "Cannot run write from read" }
@@ -65,15 +65,15 @@ class PBranch @JvmOverloads constructor(@field:Volatile private var tree: ITree,
         }
     }
 
-    override fun <T> computeRead(computable: Supplier<T>): T {
+    override fun <T> computeRead(computable: () -> T): T {
         val result = MutableObject<T>()
-        runRead(Runnable { result.setValue(computable!!.get()) })
+        runRead { result.setValue(computable()) }
         return result.value
     }
 
-    override fun <T> computeWrite(computable: Supplier<T>): T {
+    override fun <T> computeWrite(computable: () -> T): T {
         val result = MutableObject<T>()
-        runWrite(Runnable { result.setValue(computable!!.get()) })
+        runWrite { result.setValue(computable()) }
         return result.value
     }
 

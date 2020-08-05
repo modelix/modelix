@@ -75,7 +75,7 @@ open class ActiveBranch(client: IModelClient, tree: TreeId, branchName: String?,
         replicatedTree = ReplicatedTree(client, tree, branchName!!, user)
         replicatedTree!!.branch.addListener(forwardingListener)
         val b = replicatedTree!!.branch
-        val newTree = b.computeRead(Supplier { b.transaction.tree })
+        val newTree = b.computeRead { b.transaction.tree }
         notifyListeners(newTree)
     }
 
@@ -116,7 +116,7 @@ open class ActiveBranch(client: IModelClient, tree: TreeId, branchName: String?,
         this.branchName = branchName
         this.user = user
         replicatedTree = createReplicatedTree(client, tree, branchName!!, user)
-        lastKnownTree = replicatedTree!!.branch.computeRead(Supplier { replicatedTree!!.branch.transaction!!.tree })
+        lastKnownTree = replicatedTree!!.branch.computeRead { replicatedTree!!.branch.transaction!!.tree }
         replicatedTree!!.branch.addListener(forwardingListener)
     }
 }

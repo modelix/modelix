@@ -158,13 +158,13 @@ class CLTree : ITree {
         newChildrenArray = if (index == -1) {
             add(newChildrenArray, childData.id)
         } else {
-            val anchor = getChildren(parentId, role)!!.skip(index.toLong()).findFirst()
-            if (anchor.isEmpty) {
+            val anchor = getChildren(parentId, role).drop(index).firstOrNull()
+            if (anchor == null) {
                 add(newChildrenArray, childData.id)
             } else {
                 insert(
                     newChildrenArray,
-                    indexOf(newChildrenArray, anchor.asLong),
+                    newChildrenArray.indexOf(anchor),
                     childData.id
                 )
             }
@@ -241,9 +241,9 @@ class CLTree : ITree {
         return nodesMap!![nodeId] != null
     }
 
-    override fun getAllChildren(parentId: Long): LongStream {
+    override fun getAllChildren(parentId: Long): Iterable<Long> {
         val children = resolveElement(parentId)!!.getChildren(BulkQuery(store!!))!!.execute()
-        return StreamSupport.stream(children!!.spliterator(), false).mapToLong(CLElement::id)
+        return children.map { it.id }
     }
 
     fun getDescendants(root: Long, includeSelf: Boolean): Iterable<CLNode> {
@@ -251,12 +251,12 @@ class CLTree : ITree {
         return parent!!.getDescendants(BulkQuery(store!!), includeSelf)!!.execute()
     }
 
-    override fun getChildren(parentId: Long, role: String?): LongStream {
+    override fun getChildren(parentId: Long, role: String?): Iterable<Long> {
         val parent = resolveElement(parentId)
         val children = parent!!.getChildren(BulkQuery(store!!))!!.execute()
-        return StreamSupport.stream(children!!.spliterator(), false)
+        return children
             .filter { it: CLNode -> it.roleInParent == role }
-            .mapToLong(CLNode::id)
+            .map { it.id }
     }
 
     override fun getChildRoles(sourceId: Long): Iterable<String> {
@@ -319,7 +319,7 @@ class CLTree : ITree {
             if (oldParent == targetParentId) {
                 val oldRole = getRole(childId)
                 if (oldRole == targetRole) {
-                    val oldIndex = indexOf(getChildren(oldParent, oldRole)!!, childId)
+                    val oldIndex = getChildren(oldParent, oldRole).indexOf(childId)
                     if (oldIndex == targetIndex) {
                         return this
                     }

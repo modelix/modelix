@@ -15,8 +15,6 @@
 
 package org.modelix.model.api
 
-import java.util.stream.LongStream
-
 abstract class Transaction(override val branch: IBranch) : ITransaction {
 
     override fun containsNode(nodeId: Long): Boolean {
@@ -43,11 +41,11 @@ abstract class Transaction(override val branch: IBranch) : ITransaction {
         return tree!!.getReferenceTarget(sourceId, role)
     }
 
-    override fun getChildren(parentId: Long, role: String?): LongStream {
+    override fun getChildren(parentId: Long, role: String?): Iterable<Long> {
         return tree!!.getChildren(parentId, role)
     }
 
-    override fun getAllChildren(parentId: Long): LongStream {
+    override fun getAllChildren(parentId: Long): Iterable<Long> {
         return tree!!.getAllChildren(parentId)
     }
 }

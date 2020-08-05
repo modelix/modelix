@@ -40,7 +40,7 @@ class OTWriteTransaction(private val transaction: IWriteTransaction, private val
         var newIndex = newIndex
         val oldparent = getParent(childId)
         val oldRole = getRole(childId)
-        val oldIndex = indexOf(getChildren(oldparent, oldRole)!!, childId)
+        val oldIndex = getChildren(oldparent, oldRole).indexOf(childId)
         if (newIndex == -1) {
             newIndex = getChildren(newParentId, newRole)!!.count().toInt()
         }
@@ -66,7 +66,7 @@ class OTWriteTransaction(private val transaction: IWriteTransaction, private val
     override fun deleteNode(nodeId: Long) {
         val parent = getParent(nodeId)
         val role = getRole(nodeId)
-        val index = indexOf(getChildren(parent, role)!!, nodeId)
+        val index = getChildren(parent, role).indexOf(nodeId)
         apply(DeleteNodeOp(parent, role!!, index, nodeId))
     }
 
@@ -80,14 +80,14 @@ class OTWriteTransaction(private val transaction: IWriteTransaction, private val
         return transaction.containsNode(nodeId)
     }
 
-    override fun getAllChildren(parentId: Long): LongStream {
+    override fun getAllChildren(parentId: Long): Iterable<Long> {
         return transaction.getAllChildren(parentId)
     }
 
     override val branch: IBranch
         get() = otBranch
 
-    override fun getChildren(parentId: Long, role: String?): LongStream {
+    override fun getChildren(parentId: Long, role: String?): Iterable<Long> {
         return transaction.getChildren(parentId, role)
     }
 

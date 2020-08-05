@@ -15,13 +15,16 @@
 
 package org.modelix.model.api
 
-import org.modelix.model.util.ContextValue
-
-interface INodeResolveContext {
-    fun resolve(ref: INodeReference?): INode?
-
-    companion object {
-        @JvmField
-        val CONTEXT_VALUE = ContextValue<INodeResolveContext>()
-    }
+interface IBranch {
+    fun runRead(runnable: () -> Unit)
+    fun <T> computeRead(computable: () -> T): T
+    fun runWrite(runnable: () -> Unit)
+    fun <T> computeWrite(computable: () -> T): T
+    fun canRead(): Boolean
+    fun canWrite(): Boolean
+    val transaction: ITransaction
+    val readTransaction: IReadTransaction
+    val writeTransaction: IWriteTransaction
+    fun addListener(l: IBranchListener)
+    fun removeListener(l: IBranchListener)
 }

@@ -47,21 +47,23 @@ open class PNodeAdapter(val nodeId: Long, val branch: IBranch) : INode {
         return PNodeAdapter(branch.writeTransaction.addNewChild(nodeId, role, index, concept), branch)
     }
 
-    override val allChildren: Stream<INode>
+    override val allChildren: Iterable<INode>
         get() {
             notifyAccess()
-            return branch.transaction.getAllChildren(nodeId).mapToObj { id: Long -> wrap(id) }
+            return branch.transaction.getAllChildren(nodeId)
+                    .map { id: Long -> wrap(id) ?: throw RuntimeException("Unexpected null child") }
         }
 
-    override fun getChildren(role: String?): Stream<INode> {
+    override fun getChildren(role: String?): Iterable<INode> {
         notifyAccess()
-        return branch.transaction.getChildren(nodeId, role).mapToObj { id: Long -> wrap(id) }
+        return branch.transaction.getChildren(nodeId, role)
+                .map { id: Long -> wrap(id) ?: throw RuntimeException("Unexpected null child") }
     }
 
     override val concept: IConcept?
         get() {
             notifyAccess()
-            return branch.computeRead(Supplier { branch.transaction.getConcept(nodeId) })
+            return branch.computeRead { branch.transaction.getConcept(nodeId) }
         }
 
     override val parent: INode?
@@ -87,8 +89,8 @@ open class PNodeAdapter(val nodeId: Long, val branch: IBranch) : INode {
         if (targetRef is PNodeReference) {
             return targetRef.resolveNode(PNodeResolveContext(branch))
         }
-        val context = INodeResolveContext.CONTEXT_VALUE.getValue()
-            ?: throw RuntimeException(INodeResolveContext::class.java.simpleName + " not available")
+        val context = ContextNodeResolveContext.CONTEXT_VALUE.getValue()
+            ?: throw RuntimeException(INodeResolveContext::class.simpleName + " not available")
         return targetRef?.resolveNode(context)
     }
 
@@ -146,7 +148,7 @@ open class PNodeAdapter(val nodeId: Long, val branch: IBranch) : INode {
     override fun toString(): String {
         var concept: IConcept? = null
         try {
-            concept = branch.computeRead(Supplier { branch.transaction.getConcept(nodeId) })
+            concept = branch.computeRead { branch.transaction.getConcept(nodeId) }
         } catch (ex: Exception) {
         }
         var str = "PNode$nodeId"

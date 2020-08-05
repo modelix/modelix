@@ -15,12 +15,10 @@
 
 package org.modelix.model.api
 
-import java.util.stream.Stream
-
 object NodeUtil {
-    fun getDescendants(node: INode, includeSelf: Boolean): Stream<INode?> {
+    fun getDescendants(node: INode, includeSelf: Boolean): Iterable<INode?> {
         return if (includeSelf) {
-            Stream.concat(Stream.of(node), getDescendants(node, false))
+            (sequenceOf(node) + getDescendants(node, false)).asIterable()
         } else {
             node.allChildren.flatMap { it: INode -> getDescendants(it, true) }
         }

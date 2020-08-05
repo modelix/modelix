@@ -84,22 +84,17 @@ open class ReplicatedTree(private val client: IModelClient, private val treeId: 
     }
 
     protected fun deleteDetachedNodes() {
-        val hasDetachedNodes = localOTBranch.computeRead(
-            Supplier<Boolean> {
-                localOTBranch.transaction!!
+        val hasDetachedNodes = localOTBranch.computeRead {
+            localOTBranch.transaction!!
                     .getChildren(ITree.ROOT_ID, ITree.DETACHED_NODES_ROLE)!!.iterator().hasNext()
-            }
-        )
+        }
         // avoid unnecessary write
         if (hasDetachedNodes) {
-            localOTBranch.runWrite(
-                Runnable {
-
-                    // clear detached nodes
-                    val t: IWriteTransaction = localOTBranch.writeTransaction!!
-                    t.getChildren(ITree.ROOT_ID, ITree.DETACHED_NODES_ROLE)!!.forEach { nodeId: Long -> t.deleteNode(nodeId) }
-                }
-            )
+            localOTBranch.runWrite {
+                // clear detached nodes
+                val t: IWriteTransaction = localOTBranch.writeTransaction!!
+                t.getChildren(ITree.ROOT_ID, ITree.DETACHED_NODES_ROLE)!!.forEach { nodeId: Long -> t.deleteNode(nodeId) }
+            }
         }
     }
 
@@ -187,15 +182,13 @@ open class ReplicatedTree(private val client: IModelClient, private val treeId: 
             if (version!!.hash != version.hash) {
                 this.version = version
                 divergenceTime = 0
-                localBranch.runWrite(
-                    Runnable {
-                        val newTree = version.tree
-                        val currentTree = localBranch.transaction.tree as CLTree?
-                        if (getHash(newTree) != getHash(currentTree)) {
-                            localBranch.writeTransaction.tree = newTree
-                        }
+                localBranch.runWrite {
+                    val newTree = version.tree
+                    val currentTree = localBranch.transaction.tree as CLTree?
+                    if (getHash(newTree) != getHash(currentTree)) {
+                        localBranch.writeTransaction.tree = newTree
                     }
-                )
+                }
             }
         }
     }
