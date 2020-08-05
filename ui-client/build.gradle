@@ -42,6 +42,10 @@ task packageNpmApp(type: Zip) {
     }
 }
 
+clean {
+    delete packageNpmApp.archiveFile
+}
+
 // declare a dedicated scope for publishing the packaged JAR
 configurations {
     npmResources
@@ -59,6 +63,7 @@ artifacts {
 
 assemble.dependsOn packageNpmApp
 
+/*
 String testsExecutedMarkerName = "${projectDir}/.tests.executed"
 
 task test(type: NpmTask) {
@@ -83,6 +88,6 @@ task test(type: NpmTask) {
 check.dependsOn test
 
 clean {
-    delete packageNpmApp.archivePath
     delete testsExecutedMarkerName
 }
+*/
