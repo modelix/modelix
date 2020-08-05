@@ -5,7 +5,6 @@
       <sourceRoot location="models" />
     </modelRoot>
     <modelRoot contentPath="${module}/lib" type="java_classes">
-      <sourceRoot location="annotations-19.0.0.jar" />
       <sourceRoot location="kotlin-stdlib-1.3.72.jar" />
       <sourceRoot location="kotlin-stdlib-common-1.3.72.jar" />
       <sourceRoot location="jersey-client-2.31.jar" />
@@ -23,6 +22,7 @@
       <sourceRoot location="jersey-media-sse-2.31.jar" />
       <sourceRoot location="jersey-server-2.31.jar" />
       <sourceRoot location="model-client-2020.1-SNAPSHOT.jar" />
+      <sourceRoot location="model-client-jvm-2020.1-SNAPSHOT.jar" />
     </modelRoot>
   </models>
   <facets>
@@ -31,7 +31,6 @@
     </facet>
   </facets>
   <stubModelEntries>
-    <stubModelEntry path="${module}/lib/annotations-19.0.0.jar" />
     <stubModelEntry path="${module}/lib/aopalliance-repackaged-2.6.1.jar" />
     <stubModelEntry path="${module}/lib/checker-qual-2.11.1.jar" />
     <stubModelEntry path="${module}/lib/commons-collections4-4.4.jar" />
