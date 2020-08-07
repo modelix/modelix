@@ -58,6 +58,7 @@
     <import index="n7xv" ref="0a2651ab-f212-45c2-a2f0-343e76cbc26b/java:org.modelix.model.util.pmap(org.modelix.model.client/)" />
     <import index="fbzs" ref="6354ebe7-c22a-4a0f-ac54-50b52ab9b065/java:java.awt.geom(JDK/)" />
     <import index="v18h" ref="0a2651ab-f212-45c2-a2f0-343e76cbc26b/java:kotlin(org.modelix.model.client/)" />
+    <import index="ouht" ref="0a2651ab-f212-45c2-a2f0-343e76cbc26b/java:kotlin.jvm.functions(org.modelix.model.client/)" />
   </imports>
   <registry>
     <language id="f3061a53-9226-4cc5-a443-f952ceaf5816" name="jetbrains.mps.baseLanguage">
@@ -306,6 +307,7 @@
       <concept id="1080120340718" name="jetbrains.mps.baseLanguage.structure.AndExpression" flags="nn" index="1Wc70l" />
       <concept id="1170345865475" name="jetbrains.mps.baseLanguage.structure.AnonymousClass" flags="ig" index="1Y3b0j">
         <reference id="1170346070688" name="classifier" index="1Y3XeK" />
+        <child id="1201186121363" name="typeParameter" index="2Ghqu4" />
       </concept>
     </language>
     <language id="63650c59-16c8-498a-99c8-005c7ee9515d" name="jetbrains.mps.lang.access">
@@ -11415,7 +11417,7 @@
                   <node concept="37vLTI" id="6aRQr1X2cuN" role="3clFbG">
                     <node concept="2ShNRf" id="6aRQr1X2cQB" role="37vLTx">
                       <node concept="1pGfFk" id="6aRQr1X2cEg" role="2ShVmc">
-                        <ref role="37wK5l" to="5440:~ActiveBranch.&lt;init&gt;(org.modelix.model.client.IModelClient,org.modelix.model.lazy.TreeId,java.lang.String,java.util.function.Supplier)" resolve="ActiveBranch" />
+                        <ref role="37wK5l" to="5440:~ActiveBranch.&lt;init&gt;(org.modelix.model.client.IModelClient,org.modelix.model.lazy.TreeId,java.lang.String,kotlin.jvm.functions.Function0)" resolve="ActiveBranch" />
                         <node concept="37vLTw" id="6aRQr1X2d2U" role="37wK5m">
                           <ref role="3cqZAo" node="6aRQr1WVnku" resolve="client" />
                         </node>
@@ -11955,6 +11957,7 @@
       </node>
       <node concept="37vLTG" id="2EzI5qKsi96" role="3clF46">
         <property role="TrG5h" value="user" />
+        <property role="3TUv4t" value="true" />
         <node concept="3uibUv" id="47nE3z_w6A0" role="1tU5fm">
           <ref role="3uigEE" to="82uw:~Supplier" resolve="Supplier" />
           <node concept="17QB3L" id="47nE3z_w6SI" role="11_B2D" />
@@ -11964,7 +11967,7 @@
       <node concept="3Tm1VV" id="6aRQr1WXtja" role="1B3o_S" />
       <node concept="3clFbS" id="6aRQr1WXtjb" role="3clF47">
         <node concept="XkiVB" id="47nE3z_w6la" role="3cqZAp">
-          <ref role="37wK5l" to="5440:~ReplicatedTree.&lt;init&gt;(org.modelix.model.client.IModelClient,org.modelix.model.lazy.TreeId,java.lang.String,java.util.function.Supplier)" resolve="ReplicatedTree" />
+          <ref role="37wK5l" to="5440:~ReplicatedTree.&lt;init&gt;(org.modelix.model.client.IModelClient,org.modelix.model.lazy.TreeId,java.lang.String,kotlin.jvm.functions.Function0)" resolve="ReplicatedTree" />
           <node concept="37vLTw" id="47nE3z_w6t2" role="37wK5m">
             <ref role="3cqZAo" node="6aRQr1WXtjz" resolve="client" />
           </node>
@@ -11974,8 +11977,36 @@
           <node concept="37vLTw" id="47nE3z_w6t4" role="37wK5m">
             <ref role="3cqZAo" node="6aRQr1WXvTI" resolve="branchName" />
           </node>
-          <node concept="37vLTw" id="47nE3z_w70Z" role="37wK5m">
-            <ref role="3cqZAo" node="2EzI5qKsi96" resolve="user" />
+          <node concept="2ShNRf" id="1ZljNrEtb1h" role="37wK5m">
+            <node concept="YeOm9" id="1ZljNrEtiYs" role="2ShVmc">
+              <node concept="1Y3b0j" id="1ZljNrEtiYv" role="YeSDq">
+                <property role="2bfB8j" value="true" />
+                <ref role="1Y3XeK" to="ouht:~Function0" resolve="Function0" />
+                <ref role="37wK5l" to="wyt6:~Object.&lt;init&gt;()" resolve="Object" />
+                <node concept="3Tm1VV" id="1ZljNrEtiYw" role="1B3o_S" />
+                <node concept="3clFb_" id="1ZljNrEtiYA" role="jymVt">
+                  <property role="TrG5h" value="invoke" />
+                  <node concept="3Tm1VV" id="1ZljNrEtiYB" role="1B3o_S" />
+                  <node concept="17QB3L" id="1ZljNrEtjkR" role="3clF45" />
+                  <node concept="3clFbS" id="1ZljNrEtiYE" role="3clF47">
+                    <node concept="3clFbF" id="1ZljNrEtj7V" role="3cqZAp">
+                      <node concept="2OqwBi" id="1ZljNrEqcZa" role="3clFbG">
+                        <node concept="37vLTw" id="1ZljNrEqcNx" role="2Oq$k0">
+                          <ref role="3cqZAo" node="2EzI5qKsi96" resolve="user" />
+                        </node>
+                        <node concept="liA8E" id="1ZljNrEqdfw" role="2OqNvi">
+                          <ref role="37wK5l" to="82uw:~Supplier.get()" resolve="get" />
+                        </node>
+                      </node>
+                    </node>
+                  </node>
+                  <node concept="2AHcQZ" id="1ZljNrEtiYG" role="2AJF6D">
+                    <ref role="2AI5Lk" to="wyt6:~Override" resolve="Override" />
+                  </node>
+                </node>
+                <node concept="17QB3L" id="1ZljNrEtjIg" role="2Ghqu4" />
+              </node>
+            </node>
           </node>
         </node>
         <node concept="3clFbF" id="2lKlK7f4DzC" role="3cqZAp">

@@ -23,6 +23,12 @@
       <sourceRoot location="jersey-server-2.31.jar" />
       <sourceRoot location="model-client-2020.1-SNAPSHOT.jar" />
       <sourceRoot location="model-client-jvm-2020.1-SNAPSHOT.jar" />
+      <sourceRoot location="kotlin-stdlib-jdk7-1.3.72.jar" />
+      <sourceRoot location="kotlin-stdlib-jdk8-1.3.72.jar" />
+      <sourceRoot location="annotations-13.0.jar" />
+      <sourceRoot location="log4j-1.2.17.jar" />
+      <sourceRoot location="model-client-js-2020.1-SNAPSHOT.jar" />
+      <sourceRoot location="model-client-metadata-2020.1-SNAPSHOT.jar" />
     </modelRoot>
   </models>
   <facets>
@@ -31,6 +37,7 @@
     </facet>
   </facets>
   <stubModelEntries>
+    <stubModelEntry path="${module}/lib/annotations-13.0.jar" />
     <stubModelEntry path="${module}/lib/aopalliance-repackaged-2.6.1.jar" />
     <stubModelEntry path="${module}/lib/checker-qual-2.11.1.jar" />
     <stubModelEntry path="${module}/lib/commons-collections4-4.4.jar" />
@@ -60,13 +67,18 @@
     <stubModelEntry path="${module}/lib/jsr305-3.0.2.jar" />
     <stubModelEntry path="${module}/lib/kotlin-stdlib-1.3.72.jar" />
     <stubModelEntry path="${module}/lib/kotlin-stdlib-common-1.3.72.jar" />
+    <stubModelEntry path="${module}/lib/kotlin-stdlib-jdk7-1.3.72.jar" />
+    <stubModelEntry path="${module}/lib/kotlin-stdlib-jdk8-1.3.72.jar" />
     <stubModelEntry path="${module}/lib/listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar" />
+    <stubModelEntry path="${module}/lib/log4j-1.2.17.jar" />
+    <stubModelEntry path="${module}/lib/model-client-2020.1-SNAPSHOT.jar" />
+    <stubModelEntry path="${module}/lib/model-client-js-2020.1-SNAPSHOT.jar" />
+    <stubModelEntry path="${module}/lib/model-client-jvm-2020.1-SNAPSHOT.jar" />
+    <stubModelEntry path="${module}/lib/model-client-metadata-2020.1-SNAPSHOT.jar" />
     <stubModelEntry path="${module}/lib/osgi-resource-locator-1.0.3.jar" />
     <stubModelEntry path="${module}/lib/trove4j-3.0.3.jar" />
     <stubModelEntry path="${module}/lib/vavr-0.10.3.jar" />
     <stubModelEntry path="${module}/lib/vavr-match-0.10.3.jar" />
-    <stubModelEntry path="${module}/lib/model-client-2020.1-SNAPSHOT.jar" />
-    <stubModelEntry path="${module}/lib/model-client-jvm-2020.1-SNAPSHOT.jar" />
   </stubModelEntries>
   <sourcePath />
   <dependencies>

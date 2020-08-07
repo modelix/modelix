@@ -371,7 +371,7 @@
               </node>
               <node concept="2ShNRf" id="7zuOo8oN5Th" role="33vP2m">
                 <node concept="1pGfFk" id="7zuOo8oN5Ti" role="2ShVmc">
-                  <ref role="37wK5l" to="jks5:~PBranch.&lt;init&gt;(org.modelix.model.api.ITree)" resolve="PBranch" />
+                  <ref role="37wK5l" to="jks5:~PBranch.&lt;init&gt;(org.modelix.model.api.ITree,org.modelix.model.api.IIdGenerator)" resolve="PBranch" />
                   <node concept="2ShNRf" id="7zuOo8oN64Q" role="37wK5m">
                     <node concept="1pGfFk" id="7zuOo8oN7AS" role="2ShVmc">
                       <ref role="37wK5l" to="xkhl:~CLTree.&lt;init&gt;(org.modelix.model.lazy.IDeserializingKeyValueStore)" resolve="CLTree" />
@@ -384,6 +384,14 @@
                             </node>
                           </node>
                         </node>
+                      </node>
+                    </node>
+                  </node>
+                  <node concept="2ShNRf" id="1ZljNrEqscW" role="37wK5m">
+                    <node concept="1pGfFk" id="1ZljNrEqxab" role="2ShVmc">
+                      <ref role="37wK5l" to="5440:~IdGenerator.&lt;init&gt;(int)" resolve="IdGenerator" />
+                      <node concept="3cmrfG" id="1ZljNrEq_9l" role="37wK5m">
+                        <property role="3cmrfH" value="1" />
                       </node>
                     </node>
                   </node>

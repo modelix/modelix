@@ -3793,18 +3793,23 @@
                       <node concept="3uibUv" id="1me6UesGLCX" role="1tU5fm">
                         <ref role="3uigEE" to="xkhl:~CLVersion" resolve="CLVersion" />
                       </node>
-                      <node concept="2YIFZM" id="1me6UesGLDK" role="33vP2m">
-                        <ref role="1Pybhc" to="xkhl:~CLVersion" resolve="CLVersion" />
-                        <ref role="37wK5l" to="xkhl:~CLVersion.loadFromHash(java.lang.String,org.modelix.model.lazy.IDeserializingKeyValueStore)" resolve="loadFromHash" />
-                        <node concept="37vLTw" id="1me6UesGLDL" role="37wK5m">
-                          <ref role="3cqZAo" node="1me6UesGJMZ" resolve="versionHash" />
+                      <node concept="2OqwBi" id="1ZljNrEqerX" role="33vP2m">
+                        <node concept="10M0yZ" id="1ZljNrEqeiX" role="2Oq$k0">
+                          <ref role="1PxDUh" to="xkhl:~CLVersion" resolve="CLVersion" />
+                          <ref role="3cqZAo" to="xkhl:~CLVersion.Companion" resolve="Companion" />
                         </node>
-                        <node concept="2OqwBi" id="1me6UesGLDM" role="37wK5m">
-                          <node concept="37vLTw" id="1me6UesGLDN" role="2Oq$k0">
-                            <ref role="3cqZAo" node="1me6UesGKJ2" resolve="client" />
+                        <node concept="liA8E" id="1ZljNrEqeAx" role="2OqNvi">
+                          <ref role="37wK5l" to="xkhl:~CLVersion$Companion.loadFromHash(java.lang.String,org.modelix.model.lazy.IDeserializingKeyValueStore)" resolve="loadFromHash" />
+                          <node concept="37vLTw" id="1ZljNrEqeEg" role="37wK5m">
+                            <ref role="3cqZAo" node="1me6UesGJMZ" resolve="versionHash" />
                           </node>
-                          <node concept="liA8E" id="1me6UesGLDO" role="2OqNvi">
-                            <ref role="37wK5l" to="5440:~IModelClient.getStoreCache()" resolve="getStoreCache" />
+                          <node concept="2OqwBi" id="1ZljNrEqeEh" role="37wK5m">
+                            <node concept="37vLTw" id="1ZljNrEqeEi" role="2Oq$k0">
+                              <ref role="3cqZAo" node="1me6UesGKJ2" resolve="client" />
+                            </node>
+                            <node concept="liA8E" id="1ZljNrEqeEj" role="2OqNvi">
+                              <ref role="37wK5l" to="5440:~IModelClient.getStoreCache()" resolve="getStoreCache" />
+                            </node>
                           </node>
                         </node>
                       </node>
