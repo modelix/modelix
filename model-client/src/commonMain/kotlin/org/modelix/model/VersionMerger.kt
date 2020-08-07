@@ -54,7 +54,6 @@ class VersionMerger(private val storeCache: IDeserializingKeyValueStore, private
         }
     }
 
-    @OptIn(ExperimentalStdlibApi::class)
     protected fun mergeHistory(leftVersionHash: String, rightVersionHash: String): CLVersion {
         val commonBase = commonBaseVersion(leftVersionHash, rightVersionHash)
         val leftHistory = getHistory(leftVersionHash, commonBase)
@@ -80,7 +79,7 @@ class VersionMerger(private val storeCache: IDeserializingKeyValueStore, private
             val appliedVersionIds: MutableSet<Long> = HashSet()
             while (!leftHistory.isEmpty() || !rightHistory.isEmpty()) {
                 val useLeft = rightHistory.isEmpty() || !leftHistory.isEmpty() && leftHistory.last().id < rightHistory.last().id
-                val versionToApply = (if (useLeft) leftHistory else rightHistory).removeLast()
+                val versionToApply = (if (useLeft) leftHistory else rightHistory).let { it.removeAt(it.size - 1) }
                 if (appliedVersionIds.contains(versionToApply.id)) {
                     continue
                 }

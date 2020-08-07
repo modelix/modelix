@@ -27,7 +27,6 @@ import org.modelix.model.util.pmap.COWArrays.set
 import kotlin.jvm.JvmStatic
 
 class CPNode protected constructor(id1: Long, val concept: String?, parentId1: Long, roleInParent1: String?, private val childrenIds: LongArray, val propertyRoles: Array<String>, val propertyValues: Array<String>, val referenceRoles: Array<String>, val referenceTargets: Array<CPElementRef>) : CPElement(id1, parentId1, roleInParent1) {
-    @OptIn(ExperimentalStdlibApi::class)
     override fun serialize(): String? {
         val sb = StringBuilder()
         sb.append(longToHex(id))
@@ -38,7 +37,7 @@ class CPNode protected constructor(id1: Long, val concept: String?, parentId1: L
         sb.append("/")
         sb.append(escape(roleInParent))
         sb.append("/")
-        sb.append(childrenIds.map { obj: Long -> longToHex(obj) }.reduceOrNull { a: String, b: String -> "$a, $b" } ?: "")
+        sb.append(if (childrenIds.isEmpty()) "" else childrenIds.map { obj: Long -> longToHex(obj) }.reduce { a: String, b: String -> "$a, $b" })
         sb.append("/")
         var first = true
         run {
