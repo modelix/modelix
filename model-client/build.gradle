@@ -23,10 +23,8 @@ check.dependsOn ktlintCheck
 kotlin {
     jvm()
     js {
-        browser {
-        }
-        nodejs {
-        }
+        //browser {}
+        nodejs {}
     }
     sourceSets {
         commonMain {

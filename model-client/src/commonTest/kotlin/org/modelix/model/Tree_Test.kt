@@ -104,7 +104,7 @@ class Tree_Test {
                         val parent = util.getRandomNode(
                             util
                                 .allNodes
-                                .filter { it: Long -> util.getAncestors(it, true).noneMatch { it2: Long -> it2 == childId } }
+                                .filter { it: Long -> util.getAncestors(it, true).none { it2: Long -> it2 == childId } }
                         )
                         if (childId != 0L && parent != 0L) {
                             val role = roles[rand.nextInt(roles.size)]
