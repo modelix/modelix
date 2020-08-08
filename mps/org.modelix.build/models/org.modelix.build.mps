@@ -3979,22 +3979,6 @@
             </node>
           </node>
         </node>
-        <node concept="1SiIV0" id="JSgV4jSLXm" role="3bR37C">
-          <node concept="1BurEX" id="JSgV4jSLXn" role="1SiIV1">
-            <node concept="398BVA" id="JSgV4jSLXd" role="1BurEY">
-              <ref role="398BVh" node="3$7Kuaihl5X" resolve="modelix.modules" />
-              <node concept="2Ry0Ak" id="JSgV4jSLXe" role="iGT6I">
-                <property role="2Ry0Am" value="org.modelix.model.client" />
-                <node concept="2Ry0Ak" id="JSgV4jSLXf" role="2Ry0An">
-                  <property role="2Ry0Am" value="lib" />
-                  <node concept="2Ry0Ak" id="JSgV4jSLXg" role="2Ry0An">
-                    <property role="2Ry0Am" value="model-client-2020.1-SNAPSHOT.jar" />
-                  </node>
-                </node>
-              </node>
-            </node>
-          </node>
-        </node>
         <node concept="1SiIV0" id="1yReInHWaw" role="3bR37C">
           <node concept="1BurEX" id="1yReInHWax" role="1SiIV1">
             <node concept="398BVA" id="1yReInHWan" role="1BurEY">
@@ -4014,6 +3998,70 @@
         <node concept="1SiIV0" id="1yReInSBLn" role="3bR37C">
           <node concept="3bR9La" id="1yReInSBLo" role="1SiIV1">
             <ref role="3bR37D" to="ffeo:44LXwdzyvTi" resolve="Annotations" />
+          </node>
+        </node>
+        <node concept="1SiIV0" id="1ZljNrEvDPP" role="3bR37C">
+          <node concept="1BurEX" id="1ZljNrEvDPQ" role="1SiIV1">
+            <node concept="398BVA" id="1ZljNrEvDPG" role="1BurEY">
+              <ref role="398BVh" node="3$7Kuaihl5X" resolve="modelix.modules" />
+              <node concept="2Ry0Ak" id="1ZljNrEvDPH" role="iGT6I">
+                <property role="2Ry0Am" value="org.modelix.model.client" />
+                <node concept="2Ry0Ak" id="1ZljNrEvDPI" role="2Ry0An">
+                  <property role="2Ry0Am" value="lib" />
+                  <node concept="2Ry0Ak" id="1ZljNrEvDPJ" role="2Ry0An">
+                    <property role="2Ry0Am" value="kotlin-stdlib-jdk7-1.3.72.jar" />
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="1SiIV0" id="1ZljNrEvDQ0" role="3bR37C">
+          <node concept="1BurEX" id="1ZljNrEvDQ1" role="1SiIV1">
+            <node concept="398BVA" id="1ZljNrEvDPR" role="1BurEY">
+              <ref role="398BVh" node="3$7Kuaihl5X" resolve="modelix.modules" />
+              <node concept="2Ry0Ak" id="1ZljNrEvDPS" role="iGT6I">
+                <property role="2Ry0Am" value="org.modelix.model.client" />
+                <node concept="2Ry0Ak" id="1ZljNrEvDPT" role="2Ry0An">
+                  <property role="2Ry0Am" value="lib" />
+                  <node concept="2Ry0Ak" id="1ZljNrEvDPU" role="2Ry0An">
+                    <property role="2Ry0Am" value="kotlin-stdlib-jdk8-1.3.72.jar" />
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="1SiIV0" id="1ZljNrEvDQk" role="3bR37C">
+          <node concept="1BurEX" id="1ZljNrEvDQl" role="1SiIV1">
+            <node concept="398BVA" id="1ZljNrEvDQb" role="1BurEY">
+              <ref role="398BVh" node="3$7Kuaihl5X" resolve="modelix.modules" />
+              <node concept="2Ry0Ak" id="1ZljNrEvDQc" role="iGT6I">
+                <property role="2Ry0Am" value="org.modelix.model.client" />
+                <node concept="2Ry0Ak" id="1ZljNrEvDQd" role="2Ry0An">
+                  <property role="2Ry0Am" value="lib" />
+                  <node concept="2Ry0Ak" id="1ZljNrEvDQe" role="2Ry0An">
+                    <property role="2Ry0Am" value="model-client-js-2020.1-SNAPSHOT.jar" />
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="1SiIV0" id="1ZljNrEvDQC" role="3bR37C">
+          <node concept="1BurEX" id="1ZljNrEvDQD" role="1SiIV1">
+            <node concept="398BVA" id="1ZljNrEvDQv" role="1BurEY">
+              <ref role="398BVh" node="3$7Kuaihl5X" resolve="modelix.modules" />
+              <node concept="2Ry0Ak" id="1ZljNrEvDQw" role="iGT6I">
+                <property role="2Ry0Am" value="org.modelix.model.client" />
+                <node concept="2Ry0Ak" id="1ZljNrEvDQx" role="2Ry0An">
+                  <property role="2Ry0Am" value="lib" />
+                  <node concept="2Ry0Ak" id="1ZljNrEvDQy" role="2Ry0An">
+                    <property role="2Ry0Am" value="model-client-metadata-2020.1-SNAPSHOT.jar" />
+                  </node>
+                </node>
+              </node>
+            </node>
           </node>
         </node>
       </node>
@@ -4661,47 +4709,11 @@
         <node concept="3LEDTy" id="7BujJjYSJ9v" role="3LEDUa">
           <ref role="3LEDTV" node="7gF2HTviNPn" resolve="org.modelix.ui.sm" />
         </node>
-        <node concept="3LEDTy" id="1yReInSBRi" role="3LEDUa">
-          <ref role="3LEDTV" to="ffeo:7Kfy9QB6L0h" resolve="jetbrains.mps.baseLanguage.collections" />
+        <node concept="3LEDTy" id="1ZljNrEvDS3" role="3LEDUa">
+          <ref role="3LEDTV" to="ffeo:7Kfy9QB6L9c" resolve="jetbrains.mps.lang.quotation" />
         </node>
-        <node concept="3LEDTy" id="1yReInSBRj" role="3LEDUa">
-          <ref role="3LEDTV" to="ffeo:14x5$qAUbkb" resolve="jetbrains.mps.lang.access" />
-        </node>
-        <node concept="3LEDTy" id="1yReInSBRk" role="3LEDUa">
-          <ref role="3LEDTV" to="90a9:4iIKqJTZ5Hs" resolve="de.q60.mps.polymorphicfunctions" />
-        </node>
-        <node concept="3LEDTy" id="1yReInSBRl" role="3LEDUa">
-          <ref role="3LEDTV" to="ffeo:7Kfy9QB6KZ0" resolve="jetbrains.mps.baseLanguageInternal" />
-        </node>
-        <node concept="3LEDTy" id="1yReInSBRm" role="3LEDUa">
-          <ref role="3LEDTV" to="ffeo:7Kfy9QB6KYb" resolve="jetbrains.mps.baseLanguage" />
-        </node>
-        <node concept="3LEDTy" id="1yReInSBRn" role="3LEDUa">
-          <ref role="3LEDTV" to="ffeo:7Kfy9QB6L2l" resolve="jetbrains.mps.baseLanguage.logging" />
-        </node>
-        <node concept="3LEDTy" id="1yReInSBRo" role="3LEDUa">
-          <ref role="3LEDTV" to="ffeo:7Kfy9QB6L2F" resolve="jetbrains.mps.baseLanguage.tuples" />
-        </node>
-        <node concept="3LEDTy" id="1yReInSBRp" role="3LEDUa">
-          <ref role="3LEDTV" to="ffeo:7Kfy9QB6L4j" resolve="jetbrains.mps.lang.actions" />
-        </node>
-        <node concept="3LEDTy" id="1yReInSBRq" role="3LEDUa">
-          <ref role="3LEDTV" to="90a9:4iIKqJTZ5HO" resolve="de.q60.mps.shadowmodels.transformation" />
-        </node>
-        <node concept="3LEDTy" id="1yReInSBRr" role="3LEDUa">
-          <ref role="3LEDTV" to="90a9:7c10t$7lQIA" resolve="de.q60.mps.shadowmodels.gen.typesystem" />
-        </node>
-        <node concept="3LEDTy" id="1yReInSBRs" role="3LEDUa">
-          <ref role="3LEDTV" to="90a9:2$QnGbtLXzL" resolve="de.q60.mps.shadowmodels.gen.desugar" />
-        </node>
-        <node concept="3LEDTy" id="1yReInSBRt" role="3LEDUa">
-          <ref role="3LEDTV" to="ffeo:7Kfy9QB6KZG" resolve="jetbrains.mps.baseLanguage.closures" />
-        </node>
-        <node concept="3LEDTy" id="1yReInSBRu" role="3LEDUa">
-          <ref role="3LEDTV" to="ffeo:7Kfy9QB6L9O" resolve="jetbrains.mps.lang.smodel" />
-        </node>
-        <node concept="3LEDTy" id="1yReInSBRv" role="3LEDUa">
-          <ref role="3LEDTV" to="90a9:4iIKqJTZ5Hg" resolve="de.q60.mps.shadowmodels.gen.afterPF" />
+        <node concept="3LEDTy" id="1ZljNrEvDS4" role="3LEDUa">
+          <ref role="3LEDTV" to="ffeo:7Kfy9QB6KZc" resolve="jetbrains.mps.baseLanguage.checkedDots" />
         </node>
       </node>
       <node concept="1E1JtD" id="7BujJjXYVmv" role="2G$12L">
