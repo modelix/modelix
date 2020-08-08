@@ -55,7 +55,7 @@ actual object SerializationUtil {
         if (str == null) {
             return ""
         }
-        if (str.length == 0) {
+        if (str.isEmpty()) {
             throw RuntimeException("Empty string not allowed")
         }
         return str
