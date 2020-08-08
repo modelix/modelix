@@ -24,6 +24,7 @@ abstract class CPHamtNode {
 
     companion object {
         val DESERIALIZER = { s: String -> deserialize(s) }
+
         @JvmStatic
         fun deserialize(input: String): CPHamtNode {
             val parts = input.split("/").dropLastWhile { it.isEmpty() }.toTypedArray()
@@ -33,10 +34,10 @@ abstract class CPHamtNode {
                 }
                 "I" == parts[0] -> {
                     CPHamtInternal(
-                            intFromHex(parts[1]),
-                            parts[2].split(",")
-                                    .filter { it: String? -> it != null && it.length > 0 }
-                                    .toTypedArray()
+                        intFromHex(parts[1]),
+                        parts[2].split(",")
+                            .filter { it: String? -> it != null && it.length > 0 }
+                            .toTypedArray()
                     )
                 }
                 else -> {

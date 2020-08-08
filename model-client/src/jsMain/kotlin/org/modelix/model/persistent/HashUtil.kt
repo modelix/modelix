@@ -4,7 +4,7 @@ import kotlin.browser.window
 
 @JsNonModule
 @JsModule("js-sha256")
-external fun sha256(s: String) : String
+external fun sha256(s: String): String
 
 // Just to avoid having this shadowed in HashUtil...
 fun wrapperSha256(s: String) = sha256(s)
