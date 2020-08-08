@@ -12,11 +12,11 @@ actual object SerializationUtil {
     }
 
     actual fun longToHex(value: Long): String {
-        TODO("Not yet implemented")
+        return value.toString(16)
     }
 
     actual fun longFromHex(hex: String): Long {
-        TODO("Not yet implemented")
+        return hex.toLong(16)
     }
 
     /**
@@ -34,7 +34,7 @@ actual object SerializationUtil {
     }
 
     actual fun intFromHex(hex: String): Int {
-        TODO("Not yet implemented")
+        return hex.toInt()
     }
 
     actual fun nullAsEmptyString(str: String?): String {

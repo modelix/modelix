@@ -27,17 +27,21 @@ abstract class CPHamtNode {
         @JvmStatic
         fun deserialize(input: String): CPHamtNode {
             val parts = input.split("/").dropLastWhile { it.isEmpty() }.toTypedArray()
-            return if ("L" == parts[0]) {
-                CPHamtLeaf(longFromHex(parts[1]), parts[2])
-            } else if ("I" == parts[0]) {
-                CPHamtInternal(
-                    intFromHex(parts[1]),
-                    parts[2].split(",")
-                        .filter { it: String? -> it != null && it.length > 0 }
-                        .toTypedArray()
-                )
-            } else {
-                throw RuntimeException("Unknown type: " + parts[0] + ", input: " + input)
+            return when {
+                "L" == parts[0] -> {
+                    CPHamtLeaf(longFromHex(parts[1]), parts[2])
+                }
+                "I" == parts[0] -> {
+                    CPHamtInternal(
+                            intFromHex(parts[1]),
+                            parts[2].split(",")
+                                    .filter { it: String? -> it != null && it.length > 0 }
+                                    .toTypedArray()
+                    )
+                }
+                else -> {
+                    throw RuntimeException("Unknown type: " + parts[0] + ", input: " + input)
+                }
             }
         }
     }
