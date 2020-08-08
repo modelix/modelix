@@ -23,5 +23,5 @@ expect object SerializationUtil {
     fun intToHex(value: Int): String
     fun intFromHex(hex: String): Int
     fun nullAsEmptyString(str: String?): String
-    fun emptyStringAsNull(str: String?): String?
+    fun emptyStringAsNull(str: String): String?
 }

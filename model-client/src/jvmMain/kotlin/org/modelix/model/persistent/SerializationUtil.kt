@@ -61,7 +61,7 @@ actual object SerializationUtil {
         return str
     }
 
-    actual fun emptyStringAsNull(str: String?): String? {
+    actual fun emptyStringAsNull(str: String): String? {
         return if (str == null || str.length == 0) null else str
     }
 }

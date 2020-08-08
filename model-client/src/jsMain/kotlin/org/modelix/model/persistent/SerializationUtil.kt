@@ -1,7 +1,5 @@
 package org.modelix.model.persistent
 
-import kotlin.js.Math
-
 actual object SerializationUtil {
     actual fun escape(value: String?): String {
         TODO("Not yet implemented")
@@ -41,7 +39,7 @@ actual object SerializationUtil {
         TODO("Not yet implemented")
     }
 
-    actual fun emptyStringAsNull(str: String?): String? {
+    actual fun emptyStringAsNull(str: String): String? {
         TODO("Not yet implemented")
     }
 }
