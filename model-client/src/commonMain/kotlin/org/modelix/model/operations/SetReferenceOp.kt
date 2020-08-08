@@ -47,7 +47,7 @@ class SetReferenceOp(val sourceId: Long, val role: String, val target: INodeRefe
     }
 
     override fun toString(): String {
-        return "SetReferenceOp ${SerializationUtil.longToHex(sourceId)}.${role} = ${target}"
+        return "SetReferenceOp ${SerializationUtil.longToHex(sourceId)}.$role = $target"
     }
 
     inner class Applied(private val oldValue: INodeReference) : AbstractOperation.Applied(), IAppliedOperation {

@@ -65,7 +65,7 @@ class AddNewChildOp(val parentId: Long, val role: String?, val index: Int, val c
     }
 
     override fun toString(): String {
-        return "AddNewChildOp ${SerializationUtil.longToHex(childId)}, ${SerializationUtil.longToHex(parentId)}.${role}[${index}], ${concept}"
+        return "AddNewChildOp ${SerializationUtil.longToHex(childId)}, ${SerializationUtil.longToHex(parentId)}.$role[$index], $concept"
     }
 
     inner class Applied : AbstractOperation.Applied(), IAppliedOperation {

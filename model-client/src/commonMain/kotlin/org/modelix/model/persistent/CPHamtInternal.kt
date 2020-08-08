@@ -27,8 +27,8 @@ class CPHamtInternal(
 
     override fun serialize(): String {
         return "I/" +
-                intToHex(bitmap) +
-                "/" +
-                (if (children.isEmpty()) "" else children.reduce { a: String?, b: String? -> "$a,$b" })
+            intToHex(bitmap) +
+            "/" +
+            (if (children.isEmpty()) "" else children.reduce { a: String?, b: String? -> "$a,$b" })
     }
 }

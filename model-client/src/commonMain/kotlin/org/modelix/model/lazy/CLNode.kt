@@ -45,8 +45,8 @@ class CLNode(tree: CLTree?, data: CPNode?) : CLElement(tree!!, data!!) {
         } else {
             getChildren(bulkQuery).mapBulk { children: Iterable<CLNode> ->
                 val d: IBulkQuery.Value<Iterable<CLNode>> = bulkQuery
-                        .map(children) { child: CLNode -> child.getDescendants(bulkQuery, true) }
-                        .map { it.flatten() }
+                    .map(children) { child: CLNode -> child.getDescendants(bulkQuery, true) }
+                    .map { it.flatten() }
                 d
             }
         }

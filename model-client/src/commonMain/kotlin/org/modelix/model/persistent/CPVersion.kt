@@ -15,7 +15,6 @@
 
 package org.modelix.model.persistent
 
-import org.modelix.model.logError
 import org.modelix.model.logWarning
 import org.modelix.model.operations.IOperation
 import org.modelix.model.persistent.HashUtil.isSha256

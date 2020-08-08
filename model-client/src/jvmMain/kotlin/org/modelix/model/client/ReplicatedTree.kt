@@ -15,7 +15,6 @@
 
 package org.modelix.model.client
 
-import io.vavr.Tuple2
 import org.apache.commons.lang3.mutable.MutableObject
 import org.apache.log4j.Level
 import org.apache.log4j.LogManager

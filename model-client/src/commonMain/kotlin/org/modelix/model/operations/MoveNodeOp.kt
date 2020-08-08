@@ -68,7 +68,7 @@ class MoveNodeOp(val childId: Long, val sourceParentId: Long, val sourceRole: St
     }
 
     override fun toString(): String {
-        return "MoveNodeOp ${SerializationUtil.longToHex(childId)}, ${SerializationUtil.longToHex(sourceParentId)}.${sourceRole}[${sourceIndex}]->${SerializationUtil.longToHex(targetParentId)}.${targetRole}[${targetIndex}]"
+        return "MoveNodeOp ${SerializationUtil.longToHex(childId)}, ${SerializationUtil.longToHex(sourceParentId)}.$sourceRole[$sourceIndex]->${SerializationUtil.longToHex(targetParentId)}.$targetRole[$targetIndex]"
     }
 
     inner class Applied : AbstractOperation.Applied(), IAppliedOperation {

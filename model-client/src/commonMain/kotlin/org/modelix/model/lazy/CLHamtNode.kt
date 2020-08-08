@@ -15,7 +15,6 @@
 
 package org.modelix.model.lazy
 
-import org.modelix.model.bitCount
 import org.modelix.model.persistent.CPElement
 import org.modelix.model.persistent.CPHamtInternal
 import org.modelix.model.persistent.CPHamtLeaf

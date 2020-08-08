@@ -357,8 +357,8 @@ class CLTree : ITree {
                     for (role in roles) {
                         val oldChildrenInRole = oldChildren[role]
                         val newChildrenInRole = newChildren[role]
-                        val oldValues = oldChildrenInRole?.map{it.id}
-                        val newValues = newChildrenInRole?.map{it.id}
+                        val oldValues = oldChildrenInRole?.map { it.id }
+                        val newValues = newChildrenInRole?.map { it.id }
                         if (oldValues != newValues) {
                             visitor.childrenChanged(newNode.id, role)
                         }
@@ -375,7 +375,7 @@ class CLTree : ITree {
                 if (newIdToHash == null) throw RuntimeException("node $childId not found")
                 val childHash: String = newIdToHash[childId] ?: throw RuntimeException("node $childId not found")
                 val child = store.get(childHash) { CPElement.deserialize(it) }
-                        ?: throw RuntimeException("element with hash $childHash not found")
+                    ?: throw RuntimeException("element with hash $childHash not found")
                 newIdToHash = deleteElements(child, newIdToHash)
             }
         }

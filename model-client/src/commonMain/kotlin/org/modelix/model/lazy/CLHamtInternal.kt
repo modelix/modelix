@@ -192,5 +192,4 @@ class CLHamtInternal : CLHamtNode<CPHamtInternal> {
     private fun logicalToPhysicalIndex(bitmap: Int, logicalIndex: Int): Int {
         return bitCount(bitmap and (1 shl logicalIndex) - 1)
     }
-
 }

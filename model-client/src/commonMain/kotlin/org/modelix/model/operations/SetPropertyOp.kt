@@ -46,7 +46,7 @@ class SetPropertyOp(val nodeId: Long, val role: String, val value: String?) : Ab
     }
 
     override fun toString(): String {
-        return "SetPropertOp ${SerializationUtil.longToHex(nodeId)}.${role} = ${value}"
+        return "SetPropertOp ${SerializationUtil.longToHex(nodeId)}.$role = $value"
     }
 
     inner class Applied(private val oldValue: String?) : AbstractOperation.Applied(), IAppliedOperation {
