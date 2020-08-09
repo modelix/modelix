@@ -75,7 +75,7 @@ class CLHamtInternal : CLHamtNode<CPHamtInternal> {
     }
 
     protected fun getChild(childHash: String, bulkQuery: IBulkQuery): IBulkQuery.Value<CLHamtNode<*>?> {
-        return bulkQuery.get(childHash, CPHamtNode.DESERIALIZER).map { childData -> create(childData, store) }
+        return bulkQuery[childHash, CPHamtNode.DESERIALIZER].map { childData -> create(childData, store) }
     }
 
     protected fun getChild(logicalIndex: Int): CLHamtNode<*>? {
