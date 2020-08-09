@@ -39,7 +39,7 @@ actual object SerializationUtil {
         TODO("Not yet implemented")
     }
 
-    actual fun emptyStringAsNull(str: String?): String? {
+    actual fun emptyStringAsNull(str: String): String? {
         TODO("Not yet implemented")
     }
 }
