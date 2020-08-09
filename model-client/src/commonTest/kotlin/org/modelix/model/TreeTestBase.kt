@@ -65,89 +65,89 @@ open class TreeTestBase {
             val t = branch.writeTransaction
             when (rand.nextInt(5)) {
                 0 -> // Delete node
-                {
-                    val nodeToDelete = TreeTestUtil(t.tree, rand).randomLeafNode
-                    if (nodeToDelete != 0L && nodeToDelete != ITree.ROOT_ID) {
-                        if (DEBUG) {
-                            println("Delete $nodeToDelete")
-                        }
-                        t.deleteNode(nodeToDelete)
-                        removeChild(expectedParents[nodeToDelete]!!, expectedRoles[nodeToDelete], nodeToDelete)
-                        expectedParents[nodeToDelete] = 0L
-                        expectedRoles.remove(nodeToDelete)
-                        expectedDeletes.add(nodeToDelete)
-                    }
-                }
-                1 -> // New node
-                {
-                    val parent = TreeTestUtil(t.tree, rand).randomNodeWithRoot
-                    if (parent != 0L) {
-                        val childId = idGenerator.generate()
-                        val role = roles[rand.nextInt(roles.size)]
-                        val index = if (rand.nextBoolean()) rand.nextInt(t.getChildren(parent, role).count().toInt() + 1) else -1
-                        if (DEBUG) {
-                            println("AddNew $childId to $parent.$role[$index]")
-                        }
-                        t.addNewChild(parent, role, index, childId, null)
-                        expectedParents[childId] = parent
-                        expectedRoles[childId] = role
-                        insertChild(parent, role, index, childId)
-                    }
-                }
-                2 -> // Set property
-                {
-                    val nodeId = TreeTestUtil(t.tree, rand).randomNodeWithoutRoot
-                    if (nodeId != 0L) {
-                        val role = roles[rand.nextInt(roles.size)]
-                        val value = rand.nextLong().toString()
-                        if (DEBUG) {
-                            println("SetProperty $nodeId.$role = $value")
-                        }
-                        t.setProperty(nodeId, role, value)
-                    }
-                }
-                3 -> // Set reference
-                {
-                    val sourceId = TreeTestUtil(t.tree, rand).randomNodeWithoutRoot
-                    val targetId = TreeTestUtil(t.tree, rand).randomNodeWithoutRoot
-                    if (sourceId != 0L && targetId != 0L) {
-                        val role = roles[rand.nextInt(roles.size)]
-                        if (DEBUG) {
-                            println("SetReference $sourceId.$role = $targetId")
-                        }
-                        t.setReferenceTarget(sourceId, role, PNodeReference(targetId))
-                    }
-                }
-                4 -> // Move node
-                {
-                    val util = TreeTestUtil(t.tree, rand)
-                    val childId = util.randomNodeWithoutRoot
-                    val parent = util.getRandomNode(
-                        util
-                            .allNodes
-                            .filter { it: Long -> util.getAncestors(it, true).none { it2: Long -> it2 == childId } }
-                    )
-                    if (childId != 0L && parent != 0L) {
-                        val role = roles[rand.nextInt(roles.size)]
-                        var index = if (rand.nextBoolean()) rand.nextInt(t.getChildren(parent, role)!!.count().toInt() + 1) else -1
-                        if (DEBUG) {
-                            println("MoveNode $childId to $parent.$role[$index]")
-                        }
-                        t.moveChild(parent, role, index, childId)
-                        val oldParent = expectedParents[childId]!!
-                        val oldRole = expectedRoles[childId]
-                        if (oldParent == parent && oldRole == role) {
-                            val oldIndex = expectedChildren!![Pair(oldParent, oldRole)]!!.indexOf(childId)
-                            if (oldIndex < index) {
-                                index--
+                    {
+                        val nodeToDelete = TreeTestUtil(t.tree, rand).randomLeafNode
+                        if (nodeToDelete != 0L && nodeToDelete != ITree.ROOT_ID) {
+                            if (DEBUG) {
+                                println("Delete $nodeToDelete")
                             }
+                            t.deleteNode(nodeToDelete)
+                            removeChild(expectedParents[nodeToDelete]!!, expectedRoles[nodeToDelete], nodeToDelete)
+                            expectedParents[nodeToDelete] = 0L
+                            expectedRoles.remove(nodeToDelete)
+                            expectedDeletes.add(nodeToDelete)
                         }
-                        removeChild(oldParent, oldRole, childId)
-                        expectedParents[childId] = parent
-                        expectedRoles[childId] = role
-                        insertChild(parent, role, index, childId)
                     }
-                }
+                1 -> // New node
+                    {
+                        val parent = TreeTestUtil(t.tree, rand).randomNodeWithRoot
+                        if (parent != 0L) {
+                            val childId = idGenerator.generate()
+                            val role = roles[rand.nextInt(roles.size)]
+                            val index = if (rand.nextBoolean()) rand.nextInt(t.getChildren(parent, role).count().toInt() + 1) else -1
+                            if (DEBUG) {
+                                println("AddNew $childId to $parent.$role[$index]")
+                            }
+                            t.addNewChild(parent, role, index, childId, null)
+                            expectedParents[childId] = parent
+                            expectedRoles[childId] = role
+                            insertChild(parent, role, index, childId)
+                        }
+                    }
+                2 -> // Set property
+                    {
+                        val nodeId = TreeTestUtil(t.tree, rand).randomNodeWithoutRoot
+                        if (nodeId != 0L) {
+                            val role = roles[rand.nextInt(roles.size)]
+                            val value = rand.nextLong().toString()
+                            if (DEBUG) {
+                                println("SetProperty $nodeId.$role = $value")
+                            }
+                            t.setProperty(nodeId, role, value)
+                        }
+                    }
+                3 -> // Set reference
+                    {
+                        val sourceId = TreeTestUtil(t.tree, rand).randomNodeWithoutRoot
+                        val targetId = TreeTestUtil(t.tree, rand).randomNodeWithoutRoot
+                        if (sourceId != 0L && targetId != 0L) {
+                            val role = roles[rand.nextInt(roles.size)]
+                            if (DEBUG) {
+                                println("SetReference $sourceId.$role = $targetId")
+                            }
+                            t.setReferenceTarget(sourceId, role, PNodeReference(targetId))
+                        }
+                    }
+                4 -> // Move node
+                    {
+                        val util = TreeTestUtil(t.tree, rand)
+                        val childId = util.randomNodeWithoutRoot
+                        val parent = util.getRandomNode(
+                            util
+                                .allNodes
+                                .filter { it: Long -> util.getAncestors(it, true).none { it2: Long -> it2 == childId } }
+                        )
+                        if (childId != 0L && parent != 0L) {
+                            val role = roles[rand.nextInt(roles.size)]
+                            var index = if (rand.nextBoolean()) rand.nextInt(t.getChildren(parent, role)!!.count().toInt() + 1) else -1
+                            if (DEBUG) {
+                                println("MoveNode $childId to $parent.$role[$index]")
+                            }
+                            t.moveChild(parent, role, index, childId)
+                            val oldParent = expectedParents[childId]!!
+                            val oldRole = expectedRoles[childId]
+                            if (oldParent == parent && oldRole == role) {
+                                val oldIndex = expectedChildren!![Pair(oldParent, oldRole)]!!.indexOf(childId)
+                                if (oldIndex < index) {
+                                    index--
+                                }
+                            }
+                            removeChild(oldParent, oldRole, childId)
+                            expectedParents[childId] = parent
+                            expectedRoles[childId] = role
+                            insertChild(parent, role, index, childId)
+                        }
+                    }
             }
         }
     }

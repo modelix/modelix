@@ -23,11 +23,10 @@ import org.modelix.model.api.INodeReference
 import org.modelix.model.api.ITree
 import org.modelix.model.api.IWriteTransaction
 import org.modelix.model.api.PNodeAdapter
-import org.modelix.model.logDebug
 
 class OTWriteTransaction(private val transaction: IWriteTransaction, private val otBranch: OTBranch, protected var idGenerator: IIdGenerator) : IWriteTransaction {
     protected fun apply(op: IOperation) {
-        //logDebug({ "apply: $op" }, OTWriteTransaction::class)
+        // logDebug({ "apply: $op" }, OTWriteTransaction::class)
         val appliedOp = op.apply(transaction)
         otBranch.operationApplied(appliedOp)
     }

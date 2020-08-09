@@ -84,8 +84,7 @@ class Hamt_Test {
         assertEquals(6, (hamt!!.getData() as CPHamtInternal).children.count())
 //        assertEquals(listOf("BLSU-2zGUnB_ZK-OgAh3kVEhS4YU3R_jA3_VdAllIQg", "p24l1N0LUzZjE_MIT6VZDCPM0bKGGsYHWBFy83BK0cU", "7cQpepwm1iTLDFWEZ7PMZLe8aQGHR9CZATg65H3DM-w",
 //            "Xwc0zD4A68wkHL4lJWWw7n9fMUzbypunVbvoflBIHHc", "A_WD9BK_TWGYP049z946Ojdu-9XaXLGszwhOiGa0GQM", "Ds14kkEICz6xo7WsN4m-CkV4Lk85l5BtiR70NT7xujw"), (hamt!!.getData() as CPHamtInternal).children.toList())
-        //assertEquals(4, logicalToPhysicalIndex(69239088, 21))
+        // assertEquals(4, logicalToPhysicalIndex(69239088, 21))
         assertEquals("-2086105010854963537", hamt!![693L])
     }
-
 }
