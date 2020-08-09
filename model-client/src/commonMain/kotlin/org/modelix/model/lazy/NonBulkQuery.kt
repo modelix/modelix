@@ -26,7 +26,6 @@ class NonBulkQuery(private val store: IDeserializingKeyValueStore) : IBulkQuery 
     }
 
     override fun <T> get(hash: String, deserializer: (String) -> T): IBulkQuery.Value<T?> {
-        require(hash.length == 64) { "hash has not expected format: '$hash'" }
         return constant(store[hash, deserializer] ?: throw RuntimeException("store expected to have entry for hash=$hash, deserializer=$deserializer"))
     }
 
