@@ -71,6 +71,7 @@ class CLHamtInternal : CLHamtNode<CPHamtInternal> {
             return bulkQuery.constant(null) as IBulkQuery.Value<CLHamtNode<*>?>
         }
         val physicalIndex = logicalToPhysicalIndex(data_.bitmap, logicalIndex)
+        require(physicalIndex < data_.children.size) { "Invalid physical index ($physicalIndex). N. children: ${data_.children.size}. Logical index: $logicalIndex" }
         val childHash = data_.children[physicalIndex]
         require(childHash.length == 64) { "Invalid child hash found for logicalIndex=$logicalIndex -> physicalIndex=$physicalIndex" }
         return getChild(childHash, bulkQuery)
