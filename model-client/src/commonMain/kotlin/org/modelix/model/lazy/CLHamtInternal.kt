@@ -71,10 +71,13 @@ class CLHamtInternal : CLHamtNode<CPHamtInternal> {
             return bulkQuery.constant(null) as IBulkQuery.Value<CLHamtNode<*>?>
         }
         val physicalIndex = logicalToPhysicalIndex(data_.bitmap, logicalIndex)
-        return getChild(data_.children[physicalIndex], bulkQuery)
+        val childHash = data_.children[physicalIndex]
+        require(childHash.length == 64) { "Invalid child hash found for logicalIndex=$logicalIndex -> physicalIndex=$physicalIndex" }
+        return getChild(childHash, bulkQuery)
     }
 
     protected fun getChild(childHash: String, bulkQuery: IBulkQuery): IBulkQuery.Value<CLHamtNode<*>?> {
+        require(childHash.length == 64) { "hash has not expected format: '$childHash'" }
         return bulkQuery[childHash, CPHamtNode.DESERIALIZER].map { childData -> create(childData, store) }
     }
 
