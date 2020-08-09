@@ -27,7 +27,7 @@ class DeleteNodeOp(val parentId: Long, val role: String?, val index: Int, val ch
     override fun apply(transaction: IWriteTransaction): IAppliedOperation {
         val concept = transaction.getConcept(childId)
         transaction.deleteNode(childId)
-        return Applied(concept!!)
+        return Applied(concept)
     }
 
     override fun transform(previous: IOperation): IOperation {
@@ -99,7 +99,7 @@ class DeleteNodeOp(val parentId: Long, val role: String?, val index: Int, val ch
         return "DeleteNodeOp ${SerializationUtil.longToHex(childId)}, ${SerializationUtil.longToHex(parentId)}.$role[$index]"
     }
 
-    inner class Applied(private val concept: IConcept) : AbstractOperation.Applied(), IAppliedOperation {
+    inner class Applied(private val concept: IConcept?) : AbstractOperation.Applied(), IAppliedOperation {
         override val originalOp: IOperation
             get() = this@DeleteNodeOp
 

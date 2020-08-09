@@ -23,7 +23,7 @@ class SetReferenceOp(val sourceId: Long, val role: String, val target: INodeRefe
     override fun apply(transaction: IWriteTransaction): IAppliedOperation {
         val oldValue = transaction.getReferenceTarget(sourceId, role)
         transaction.setReferenceTarget(sourceId, role, target)
-        return Applied(oldValue!!)
+        return Applied(oldValue)
     }
 
     override fun transform(previous: IOperation): IOperation {
@@ -50,7 +50,7 @@ class SetReferenceOp(val sourceId: Long, val role: String, val target: INodeRefe
         return "SetReferenceOp ${SerializationUtil.longToHex(sourceId)}.$role = $target"
     }
 
-    inner class Applied(private val oldValue: INodeReference) : AbstractOperation.Applied(), IAppliedOperation {
+    inner class Applied(private val oldValue: INodeReference?) : AbstractOperation.Applied(), IAppliedOperation {
         override val originalOp: IOperation
             get() = this@SetReferenceOp
 
