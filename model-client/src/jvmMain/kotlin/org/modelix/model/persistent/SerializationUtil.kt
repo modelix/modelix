@@ -50,5 +50,4 @@ actual object SerializationUtil {
     actual fun intFromHex(hex: String): Int {
         return Integer.parseUnsignedInt(hex, 16)
     }
-
 }

@@ -23,7 +23,7 @@ actual object SerializationUtil {
 
     actual fun unescape(value: String?): String? {
         if (value == NULL_ENCODING) {
-            return null;
+            return null
         }
         return decodeURIComponent(value!!)
     }
@@ -56,5 +56,4 @@ actual object SerializationUtil {
     actual fun intFromHex(hex: String): Int {
         return hex.toLong(16).toInt()
     }
-
 }
