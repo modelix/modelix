@@ -13,9 +13,8 @@ external fun sha256(s: ByteArray): String
 @JsNonModule
 @JsModule("js-sha256")
 external object sha256 {
-    fun array(s: IntArray) : IntArray
+    fun array(s: IntArray): IntArray
 }
-
 
 // Just to avoid having this shadowed in HashUtil...
 fun wrapperSha256(s: String) = sha256(s)
@@ -23,7 +22,7 @@ fun wrapperSha256(s: String) = sha256(s)
 @JsModule("js-base64")
 @JsNonModule
 external object Base64 {
-    fun fromUint8Array(input: ByteArray, uriSafe: Boolean) : String
+    fun fromUint8Array(input: ByteArray, uriSafe: Boolean): String
 }
 
 actual object HashUtil {
@@ -66,6 +65,6 @@ actual object HashUtil {
 }
 
 @ExperimentalStdlibApi
-actual fun stringToUTF8ByteArray(input: String) : ByteArray {
+actual fun stringToUTF8ByteArray(input: String): ByteArray {
     return input.encodeToByteArray()
 }

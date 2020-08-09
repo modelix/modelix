@@ -26,4 +26,4 @@ expect object HashUtil {
     fun base64decode(input: String): String
 }
 
-expect fun stringToUTF8ByteArray(input: String) : ByteArray
+expect fun stringToUTF8ByteArray(input: String): ByteArray

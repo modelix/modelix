@@ -36,7 +36,6 @@ actual object HashUtil {
 
     actual fun sha256(input: ByteArray?): String {
         val sha256Bytes = sha256asByteArray(input)
-        println("digest $sha256Bytes")
         return Base64.getUrlEncoder().withoutPadding().encodeToString(sha256Bytes)
     }
 
@@ -93,9 +92,8 @@ actual object HashUtil {
     actual fun base64decode(input: String): String {
         return String(Base64.getUrlDecoder().decode(input.toByteArray(UTF8)), UTF8)
     }
-
 }
 
-actual fun stringToUTF8ByteArray(input: String) : ByteArray {
+actual fun stringToUTF8ByteArray(input: String): ByteArray {
     return input.toByteArray(StandardCharsets.UTF_8)
 }
