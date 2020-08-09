@@ -57,11 +57,4 @@ actual object SerializationUtil {
         return hex.toLong(16).toInt()
     }
 
-    actual fun nullAsEmptyString(str: String?): String {
-        TODO("Not yet implemented")
-    }
-
-    actual fun emptyStringAsNull(str: String): String? {
-        TODO("Not yet implemented")
-    }
 }

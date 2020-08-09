@@ -19,11 +19,9 @@ import org.modelix.model.logWarning
 import org.modelix.model.operations.IOperation
 import org.modelix.model.persistent.HashUtil.isSha256
 import org.modelix.model.persistent.HashUtil.sha256
-import org.modelix.model.persistent.SerializationUtil.emptyStringAsNull
 import org.modelix.model.persistent.SerializationUtil.escape
 import org.modelix.model.persistent.SerializationUtil.longFromHex
 import org.modelix.model.persistent.SerializationUtil.longToHex
-import org.modelix.model.persistent.SerializationUtil.nullAsEmptyString
 import org.modelix.model.persistent.SerializationUtil.unescape
 
 class CPVersion(id: Long, time: String?, author: String?, treeHash: String?, previousVersion: String?, operations: Array<IOperation>?, operationsHash: String?, numberOfOperations: Int) {

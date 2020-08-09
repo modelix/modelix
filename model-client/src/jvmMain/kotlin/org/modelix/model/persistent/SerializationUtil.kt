@@ -51,17 +51,4 @@ actual object SerializationUtil {
         return Integer.parseUnsignedInt(hex, 16)
     }
 
-    actual fun nullAsEmptyString(str: String?): String {
-        if (str == null) {
-            return ""
-        }
-        if (str.isEmpty()) {
-            throw RuntimeException("Empty string not allowed")
-        }
-        return str
-    }
-
-    actual fun emptyStringAsNull(str: String): String? {
-        return if (str == null || str.length == 0) null else str
-    }
 }
