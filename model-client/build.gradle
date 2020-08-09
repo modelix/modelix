@@ -4,6 +4,8 @@ plugins {
     id 'org.jetbrains.kotlin.multiplatform'
     id "com.diffplug.gradle.spotless"
     id "org.jlleitschuh.gradle.ktlint"
+    id "java-library"
+    id 'jacoco'
 }
 
 configurations {
@@ -77,6 +79,19 @@ kotlin {
                 implementation kotlin('test-js')
             }
         }
+    }
+}
+
+tasks.jacocoTestReport {
+
+    classDirectories.setFrom("${buildDir}/classes/kotlin/jvm/")
+    sourceDirectories.setFrom(files("src/commonMain/kotlin", "src/jvmMain/kotlin"))
+
+    executionData.setFrom(files("${buildDir}/jacoco/jvmTest.exec"))
+
+    reports {
+        xml.enabled true
+        html.enabled true
     }
 }
 
