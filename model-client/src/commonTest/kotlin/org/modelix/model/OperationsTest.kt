@@ -15,18 +15,26 @@
 
 package org.modelix.model
 
-import org.modelix.model.api.ITree
+import org.modelix.model.api.PBranch
+import org.modelix.model.operations.OTBranch
 import kotlin.test.Test
 
-class Tree_Test : TreeTestBase() {
+class OperationsTest : TreeTestBase() {
     @Test
     fun test_random() {
-        var tree: ITree = initialTree
+        val branch1 = OTBranch(PBranch(initialTree, idGenerator), idGenerator)
+        val branch2 = OTBranch(PBranch(initialTree, idGenerator), idGenerator)
 
-        for (i in 0..9999) {
-            if (i % 1000 == 0) storeCache.clearCache()
-            tree = applyRandomChange(tree)
-            assertTree(tree)
+        for (i in 0..999) {
+            if (i % 100 == 0) storeCache.clearCache()
+
+            applyRandomChange(branch1)
+
+            val (ops, _) = branch1.operationsAndTree
+            branch2.runWrite { ops.forEach { it.originalOp.apply(branch2.writeTransaction) } }
+
+            assertBranch(branch1)
+            assertBranch(branch2)
         }
     }
 }

@@ -83,12 +83,12 @@ class OTBranch(private val branch: IBranch, private val idGenerator: IIdGenerato
         branch.runWrite(runnable)
     }
 
-    fun wrap(t: ITransaction?): ITransaction {
-        return if (t is IWriteTransaction) wrap(t as IWriteTransaction?) else t!!
+    fun wrap(t: ITransaction): ITransaction {
+        return if (t is IWriteTransaction) wrap(t) else t
     }
 
-    fun wrap(t: IWriteTransaction?): IWriteTransaction {
-        return OTWriteTransaction(t!!, this, idGenerator)
+    fun wrap(t: IWriteTransaction): IWriteTransaction {
+        return OTWriteTransaction(t, this, idGenerator)
     }
 
     protected fun checkNotEDT() {}

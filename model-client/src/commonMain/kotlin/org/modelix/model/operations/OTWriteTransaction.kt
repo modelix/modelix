@@ -27,7 +27,7 @@ import org.modelix.model.logDebug
 
 class OTWriteTransaction(private val transaction: IWriteTransaction, private val otBranch: OTBranch, protected var idGenerator: IIdGenerator) : IWriteTransaction {
     protected fun apply(op: IOperation) {
-        logDebug({ "apply: $op" }, OTWriteTransaction::class)
+        //logDebug({ "apply: $op" }, OTWriteTransaction::class)
         val appliedOp = op.apply(transaction)
         otBranch.operationApplied(appliedOp)
     }
@@ -40,30 +40,30 @@ class OTWriteTransaction(private val transaction: IWriteTransaction, private val
         if (newIndex == -1) {
             newIndex = getChildren(newParentId, newRole).count()
         }
-        apply(MoveNodeOp(childId, oldparent, oldRole!!, oldIndex, newParentId, newRole!!, newIndex))
+        apply(MoveNodeOp(childId, oldparent, oldRole, oldIndex, newParentId, newRole, newIndex))
     }
 
     override fun setProperty(nodeId: Long, role: String, value: String?) {
-        apply(SetPropertyOp(nodeId, role!!, value!!))
+        apply(SetPropertyOp(nodeId, role, value))
     }
 
     override fun setReferenceTarget(sourceId: Long, role: String, target: INodeReference?) {
-        apply(SetReferenceOp(sourceId, role!!, target!!))
+        apply(SetReferenceOp(sourceId, role, target))
     }
 
     override fun addNewChild(parentId: Long, role: String?, index: Int, childId: Long, concept: IConcept?) {
         var index = index
         if (index == -1) {
-            index = getChildren(parentId, role)!!.count().toInt()
+            index = getChildren(parentId, role).count().toInt()
         }
-        apply(AddNewChildOp(parentId, role!!, index, childId, concept!!))
+        apply(AddNewChildOp(parentId, role, index, childId, concept))
     }
 
     override fun deleteNode(nodeId: Long) {
         val parent = getParent(nodeId)
         val role = getRole(nodeId)
         val index = getChildren(parent, role).indexOf(nodeId)
-        apply(DeleteNodeOp(parent, role!!, index, nodeId))
+        apply(DeleteNodeOp(parent, role, index, nodeId))
     }
 
     override fun addNewChild(parentId: Long, role: String?, index: Int, concept: IConcept?): Long {
@@ -113,7 +113,7 @@ class OTWriteTransaction(private val transaction: IWriteTransaction, private val
             throw UnsupportedOperationException()
         }
 
-    protected fun wrap(node: INode?): INode {
-        return if (node is PNodeAdapter) PNodeAdapter(node.nodeId, otBranch) else node!!
+    protected fun wrap(node: INode): INode {
+        return if (node is PNodeAdapter) PNodeAdapter(node.nodeId, otBranch) else node
     }
 }
