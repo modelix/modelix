@@ -33,4 +33,13 @@ actual object HashUtil {
     actual fun base64decode(input: String): String {
         return window.atob(input)
     }
+
+    actual fun sha256asByteArray(input: ByteArray?): ByteArray {
+        TODO("Not yet implemented")
+    }
+}
+
+@ExperimentalStdlibApi
+actual fun stringToUTF8ByteArray(input: String) : ByteArray {
+    return input.encodeToByteArray()
 }

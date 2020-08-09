@@ -16,6 +16,7 @@
 package org.modelix.model.persistent
 
 expect object HashUtil {
+    fun sha256asByteArray(input: ByteArray?): ByteArray
     fun sha256(input: ByteArray?): String
     fun sha256(input: String): String
     fun isSha256(value: String?): Boolean
@@ -23,3 +24,5 @@ expect object HashUtil {
     fun base64encode(input: String): String
     fun base64decode(input: String): String
 }
+
+expect fun stringToUTF8ByteArray(input: String) : ByteArray

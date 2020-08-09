@@ -24,15 +24,20 @@ import java.util.regex.Pattern
 actual object HashUtil {
     private val HASH_PATTERN = Pattern.compile("[a-zA-Z0-9\\-_]{43}")
     private val UTF8 = StandardCharsets.UTF_8
-    actual fun sha256(input: ByteArray?): String {
+    actual fun sha256asByteArray(input: ByteArray?): ByteArray {
         return try {
             val digest = MessageDigest.getInstance("SHA-256")
             digest.update(input)
-            val sha256Bytes = digest.digest()
-            Base64.getUrlEncoder().withoutPadding().encodeToString(sha256Bytes)
+            return digest.digest()
         } catch (ex: NoSuchAlgorithmException) {
             throw RuntimeException(ex)
         }
+    }
+
+    actual fun sha256(input: ByteArray?): String {
+        val sha256Bytes = sha256asByteArray(input)
+        println("digest $sha256Bytes")
+        return Base64.getUrlEncoder().withoutPadding().encodeToString(sha256Bytes)
     }
 
     actual fun sha256(input: String): String {
@@ -84,4 +89,9 @@ actual object HashUtil {
     actual fun base64decode(input: String): String {
         return String(Base64.getUrlDecoder().decode(input.toByteArray(UTF8)), UTF8)
     }
+
+}
+
+actual fun stringToUTF8ByteArray(input: String) : ByteArray {
+    return input.toByteArray(StandardCharsets.UTF_8)
 }
