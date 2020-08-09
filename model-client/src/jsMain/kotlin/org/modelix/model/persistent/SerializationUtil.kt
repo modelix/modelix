@@ -1,12 +1,31 @@
 package org.modelix.model.persistent
 
+external fun decodeURIComponent(encodedURI: String): String
+external fun encodeURIComponent(input: String): String
+
 actual object SerializationUtil {
+
+    private val NULL_ENCODING = "%00"
+    private val SPECIAL_ENCODING = hashMapOf(
+        '!' to "%21",
+        '\'' to "%27",
+        '(' to "%28",
+        ')' to "%29",
+        '~' to "%7E"
+    )
+
     actual fun escape(value: String?): String {
-        TODO("Not yet implemented")
+        if (value == null) {
+            return NULL_ENCODING
+        }
+        return encodeURIComponent(value).map { SPECIAL_ENCODING[it] ?: it.toString() }.joinToString(separator = "")
     }
 
     actual fun unescape(value: String?): String? {
-        TODO("Not yet implemented")
+        if (value == NULL_ENCODING) {
+            return null;
+        }
+        return decodeURIComponent(value!!)
     }
 
     actual fun longToHex(value: Long): String {
