@@ -45,10 +45,12 @@ actual object HashUtil {
     }
 
     actual fun base64encode(input: String): String {
+        // QUESTION: can we do that on NodeJS?
         return window.btoa(input)
     }
 
     actual fun base64decode(input: String): String {
+        // QUESTION: can we do that on NodeJS?
         return window.atob(input)
     }
 

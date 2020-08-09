@@ -34,8 +34,10 @@ actual fun <K, V> createLRUMap(size: Int): MutableMap<K, V> {
 
 @JsModule("uuid")
 @JsNonModule
-external fun uuidv4(): String
+external object uuid {
+    fun v4(): String
+}
 
 actual fun randomUUID(): String {
-    return uuidv4()
+    return uuid.v4()
 }
