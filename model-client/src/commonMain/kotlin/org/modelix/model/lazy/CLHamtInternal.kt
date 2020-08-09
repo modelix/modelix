@@ -57,12 +57,10 @@ class CLHamtInternal : CLHamtNode<CPHamtInternal> {
 
     override fun get(key: Long, shift: Int, bulkQuery: IBulkQuery): IBulkQuery.Value<String?> {
         val childIndex = (key ushr shift and LEVEL_MASK.toLong()).toInt()
-        println("childIndex $childIndex data_.bitmap ${data_.bitmap}")
         return getChild(childIndex, bulkQuery).mapBulk { child: CLHamtNode<*>? ->
             if (child == null) {
                 bulkQuery!!.constant<String?>(null)
             } else {
-                println("getting child $key ${shift + BITS_PER_LEVEL}")
                 child[key, shift + BITS_PER_LEVEL, bulkQuery]
             }
         }
@@ -72,9 +70,7 @@ class CLHamtInternal : CLHamtNode<CPHamtInternal> {
         if (isBitNotSet(data_.bitmap, logicalIndex)) {
             return bulkQuery.constant(null) as IBulkQuery.Value<CLHamtNode<*>?>
         }
-        println("bitmap ${data_.bitmap} logicalIndex $logicalIndex")
         val physicalIndex = logicalToPhysicalIndex(data_.bitmap, logicalIndex)
-        println("  physicalIndex=$physicalIndex")
         require(physicalIndex < data_.children.size) { "Invalid physical index ($physicalIndex). N. children: ${data_.children.size}. Logical index: $logicalIndex" }
         val childHash = data_.children[physicalIndex]
         return getChild(childHash, bulkQuery)
