@@ -42,6 +42,7 @@ class Tree_Test {
         val expectedRoles: MutableMap<Long, String> = HashMap()
         val expectedDeletes: MutableSet<Long> = HashSet()
         for (i in 0..9999) {
+            if (i % 1000 == 0) storeCache.clearCache()
             when (rand.nextInt(5)) {
                 0 -> // Delete node 
                     {

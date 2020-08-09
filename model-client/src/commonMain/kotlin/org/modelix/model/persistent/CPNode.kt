@@ -37,7 +37,7 @@ class CPNode protected constructor(id1: Long, val concept: String?, parentId1: L
         sb.append("/")
         sb.append(escape(roleInParent))
         sb.append("/")
-        sb.append(if (childrenIds.isEmpty()) "" else childrenIds.map { obj: Long -> longToHex(obj) }.reduce { a: String, b: String -> "$a, $b" })
+        sb.append(if (childrenIds.isEmpty()) "" else childrenIds.map { obj: Long -> longToHex(obj) }.reduce { a: String, b: String -> "$a,$b" })
         sb.append("/")
         var first = true
         run {
@@ -191,13 +191,13 @@ class CPNode protected constructor(id1: Long, val concept: String?, parentId1: L
         @JvmStatic
         fun deserialize(input: String): CPNode {
             return try {
-                val parts = input.split("/").dropLastWhile { it.isEmpty() }.toTypedArray()
+                val parts = input.split("/")
                 val properties = parts[5].split(",")
                     .filter { cs: String? -> !cs.isNullOrEmpty() }
-                    .map { it: String -> it.split("=").dropLastWhile { it.isEmpty() }.toTypedArray() }
+                    .map { it: String -> it.split("=") }
                 val references = parts[6].split(",")
                     .filter { cs: String? -> !cs.isNullOrEmpty() }
-                    .map { it: String -> it.split("=").dropLastWhile { it.isEmpty() }.toTypedArray() }
+                    .map { it: String -> it.split("=") }
                 CPNode(
                     longFromHex(parts[0]),
                     unescape(parts[1]),
@@ -207,12 +207,10 @@ class CPNode protected constructor(id1: Long, val concept: String?, parentId1: L
                         .filter { cs: String? -> !cs.isNullOrEmpty() }
                         .map { obj: String -> SerializationUtil.longFromHex(obj) }
                         .toLongArray(),
-                    properties.map { it: Array<String> -> unescape(it[0])!! }.toTypedArray(),
-                    properties.map { it: Array<String> -> unescape(it[1])!! }.toTypedArray(),
-                    references.map { it: Array<String> -> unescape(it[0])!! }.toTypedArray(),
-                    references
-                        .map { it: Array<String> -> fromString(unescape(it[1])!!) }
-                        .toTypedArray()
+                    properties.map { unescape(it[0])!! }.toTypedArray(),
+                    properties.map { unescape(it[1])!! }.toTypedArray(),
+                    references.map { unescape(it[0])!! }.toTypedArray(),
+                    references.map { fromString(unescape(it[1])!!) }.toTypedArray()
                 )
             } catch (ex: Exception) {
                 throw RuntimeException("Failed to deserialize $input", ex)
