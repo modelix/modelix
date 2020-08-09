@@ -20,9 +20,16 @@ external object sha256 {
 // Just to avoid having this shadowed in HashUtil...
 fun wrapperSha256(s: String) = sha256(s)
 
+@JsModule("js-base64")
+@JsNonModule
+external object Base64 {
+    fun fromUint8Array(input: ByteArray, uriSafe: Boolean) : String
+}
+
 actual object HashUtil {
     actual fun sha256(input: ByteArray?): String {
-        TODO("Not yet implemented")
+        val sha256Bytes = sha256asByteArray(input)
+        return base64encode(sha256Bytes)
     }
 
     actual fun sha256(input: String): String {
@@ -49,6 +56,10 @@ actual object HashUtil {
         require(input != null)
         val preparedInput = input.map { if (it < 0) (it + 256).toInt() else it.toInt() }.toIntArray()
         return sha256.array(preparedInput).map { if (it >= 128) (it - 256).toByte() else it.toByte() }.toByteArray()
+    }
+
+    actual fun base64encode(input: ByteArray): String {
+        return Base64.fromUint8Array(input, true)
     }
 }
 

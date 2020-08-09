@@ -86,6 +86,10 @@ actual object HashUtil {
         return Base64.getUrlEncoder().withoutPadding().encodeToString(input.toByteArray(UTF8))
     }
 
+    actual fun base64encode(input: ByteArray): String {
+        return Base64.getUrlEncoder().withoutPadding().encodeToString(input)
+    }
+
     actual fun base64decode(input: String): String {
         return String(Base64.getUrlDecoder().decode(input.toByteArray(UTF8)), UTF8)
     }

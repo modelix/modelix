@@ -22,6 +22,7 @@ expect object HashUtil {
     fun isSha256(value: String?): Boolean
     fun extractSha256(input: String?): Iterable<String>
     fun base64encode(input: String): String
+    fun base64encode(input: ByteArray): String
     fun base64decode(input: String): String
 }
 
