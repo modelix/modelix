@@ -1,7 +1,5 @@
 package org.modelix.model.persistent
 
-import kotlin.math.pow
-
 actual object SerializationUtil {
     actual fun escape(value: String?): String {
         TODO("Not yet implemented")
