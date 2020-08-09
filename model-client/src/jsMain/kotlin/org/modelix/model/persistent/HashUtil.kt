@@ -6,6 +6,17 @@ import kotlin.browser.window
 @JsModule("js-sha256")
 external fun sha256(s: String): String
 
+@JsNonModule
+@JsModule("js-sha256")
+external fun sha256(s: ByteArray): String
+
+@JsNonModule
+@JsModule("js-sha256")
+external object sha256 {
+    fun array(s: IntArray) : IntArray
+}
+
+
 // Just to avoid having this shadowed in HashUtil...
 fun wrapperSha256(s: String) = sha256(s)
 
@@ -35,7 +46,9 @@ actual object HashUtil {
     }
 
     actual fun sha256asByteArray(input: ByteArray?): ByteArray {
-        TODO("Not yet implemented")
+        require(input != null)
+        val preparedInput = input.map { if (it < 0) (it + 256).toInt() else it.toInt() }.toIntArray()
+        return sha256.array(preparedInput).map { if (it >= 128) (it - 256).toByte() else it.toByte() }.toByteArray()
     }
 }
 
