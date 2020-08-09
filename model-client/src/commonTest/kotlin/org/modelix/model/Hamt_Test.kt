@@ -58,4 +58,22 @@ class Hamt_Test {
             }
         }
     }
+
+    @Test
+    fun test_random_case_causing_outofbounds_on_js() {
+        val store = MapBaseStore()
+        val storeCache = ObjectStoreCache(store)
+        var hamt: CLHamtNode<*>? = CLHamtInternal(storeCache)
+
+        hamt = hamt!!.put(965L, "-6579471327666419615")
+        hamt = hamt!!.put(949L, "4912341421267007347")
+        hamt = hamt!!.put(260L, "4166750678024106842")
+        hamt = hamt!!.put(794L, "5492533034562136353")
+        hamt = hamt!!.put(104L, "-6505928823483070382")
+        hamt = hamt!!.put(47L, "3122507882718949737")
+        hamt = hamt!!.put(693L, "-2086105010854963537")
+        storeCache.clearCache()
+        assertEquals("-2086105010854963537", hamt!![693L])
+    }
+
 }
