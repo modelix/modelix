@@ -18,6 +18,7 @@ package org.modelix.model
 import org.modelix.model.lazy.CLHamtInternal
 import org.modelix.model.lazy.CLHamtNode
 import org.modelix.model.lazy.ObjectStoreCache
+import org.modelix.model.persistent.CPHamtInternal
 import org.modelix.model.persistent.MapBaseStore
 import kotlin.random.Random
 import kotlin.test.Test
@@ -66,13 +67,24 @@ class Hamt_Test {
         var hamt: CLHamtNode<*>? = CLHamtInternal(storeCache)
 
         hamt = hamt!!.put(965L, "-6579471327666419615")
+//        assertEquals("-6579471327666419615", hamt!![965L])
+//        assertEquals(32, (hamt!!.getData() as CPHamtInternal).bitmap)
+//        assertEquals(1, (hamt!!.getData() as CPHamtInternal).children.count())
+//        assertEquals(listOf("p24l1N0LUzZjE_MIT6VZDCPM0bKGGsYHWBFy83BK0cU"), (hamt!!.getData() as CPHamtInternal).children.toList())
         hamt = hamt!!.put(949L, "4912341421267007347")
+        assertEquals("4912341421267007347", hamt!![949L])
         hamt = hamt!!.put(260L, "4166750678024106842")
+        assertEquals("4166750678024106842", hamt!![260L])
         hamt = hamt!!.put(794L, "5492533034562136353")
         hamt = hamt!!.put(104L, "-6505928823483070382")
         hamt = hamt!!.put(47L, "3122507882718949737")
         hamt = hamt!!.put(693L, "-2086105010854963537")
         storeCache.clearCache()
+        assertEquals(69239088, (hamt!!.getData() as CPHamtInternal).bitmap)
+        assertEquals(6, (hamt!!.getData() as CPHamtInternal).children.count())
+//        assertEquals(listOf("BLSU-2zGUnB_ZK-OgAh3kVEhS4YU3R_jA3_VdAllIQg", "p24l1N0LUzZjE_MIT6VZDCPM0bKGGsYHWBFy83BK0cU", "7cQpepwm1iTLDFWEZ7PMZLe8aQGHR9CZATg65H3DM-w",
+//            "Xwc0zD4A68wkHL4lJWWw7n9fMUzbypunVbvoflBIHHc", "A_WD9BK_TWGYP049z946Ojdu-9XaXLGszwhOiGa0GQM", "Ds14kkEICz6xo7WsN4m-CkV4Lk85l5BtiR70NT7xujw"), (hamt!!.getData() as CPHamtInternal).children.toList())
+        //assertEquals(4, logicalToPhysicalIndex(69239088, 21))
         assertEquals("-2086105010854963537", hamt!![693L])
     }
 

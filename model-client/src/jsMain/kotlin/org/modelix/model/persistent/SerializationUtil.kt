@@ -1,5 +1,7 @@
 package org.modelix.model.persistent
 
+import kotlin.math.pow
+
 actual object SerializationUtil {
     actual fun escape(value: String?): String {
         TODO("Not yet implemented")
@@ -26,13 +28,13 @@ actual object SerializationUtil {
      */
     actual fun intToHex(value: Int): String {
         if (value < 0) {
-            TODO("Not yet implemented")
+            return intToHex(value + 2.0.pow(32).toInt() + 0x80000001.toInt())
         }
         return value.toString(16)
     }
 
     actual fun intFromHex(hex: String): Int {
-        return hex.toInt()
+        return hex.toLong(16).toInt()
     }
 
     actual fun nullAsEmptyString(str: String?): String {

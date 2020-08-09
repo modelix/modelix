@@ -36,7 +36,7 @@ abstract class CPHamtNode {
                     CPHamtInternal(
                         intFromHex(parts[1]),
                         parts[2].split(",")
-                            .filter { it: String? -> it != null && it.length > 0 }
+                            .filter { it: String? -> it != null && it.isNotEmpty() }
                             .toTypedArray()
                     )
                 }

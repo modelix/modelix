@@ -65,4 +65,10 @@ class SerializationUtil_intHex_Test {
     fun intFromHex_msb() {
         assertEquals(1 shl 31, SerializationUtil.intFromHex("80000000"))
     }
+
+    // This value seems connected to an issue
+    @Test
+    fun intToHex965() {
+        assertEquals("3c5", SerializationUtil.intToHex(965))
+    }
 }

@@ -23,4 +23,13 @@ class PlatformSpecific_Test {
             }
         }
     }
+
+    @Test
+    fun testBitCount() {
+        fun logicalToPhysicalIndex(bitmap: Int, logicalIndex: Int): Int {
+            return bitCount(bitmap and (1 shl logicalIndex) - 1)
+        }
+        assertEquals(4, logicalToPhysicalIndex(69239088, 21))
+        assertEquals(7, logicalToPhysicalIndex(20200000, 21))
+    }
 }
