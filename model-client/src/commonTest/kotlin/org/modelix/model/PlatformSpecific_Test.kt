@@ -4,8 +4,8 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 
-fun Char.assertIsHexDigit(){
-        assertTrue("Character expected to be hexadecimal digit but is '$this'") {this in '0'..'9' || this in 'a'..'f' }
+fun Char.assertIsHexDigit() {
+    assertTrue("Character expected to be hexadecimal digit but is '$this'") { this in '0'..'9' || this in 'a'..'f' }
 }
 
 class PlatformSpecific_Test {
@@ -16,13 +16,11 @@ class PlatformSpecific_Test {
         assertEquals(36, res.count())
         val separators = listOf(8, 13, 18, 23)
         for (i in 0 until res.count()) {
-             if (i in separators) {
+            if (i in separators) {
                 assertEquals('-', res[i])
-             } else {
+            } else {
                 res[i].assertIsHexDigit()
-             }
+            }
         }
-
     }
 }
-
