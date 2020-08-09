@@ -12,11 +12,14 @@ actual object SerializationUtil {
     }
 
     actual fun longToHex(value: Long): String {
+        if (value < 0) {
+            return value.toULong().toString(16)
+        }
         return value.toString(16)
     }
 
     actual fun longFromHex(hex: String): Long {
-        return hex.toLong(16)
+        return hex.toULong(16).toLong()
     }
 
     /**
@@ -28,7 +31,7 @@ actual object SerializationUtil {
      */
     actual fun intToHex(value: Int): String {
         if (value < 0) {
-            return intToHex(value + 2.0.pow(32).toInt() + 0x80000001.toInt())
+            return value.toUInt().toString(16)
         }
         return value.toString(16)
     }

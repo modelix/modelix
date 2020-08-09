@@ -32,6 +32,11 @@ class SerializationUtil_longHex_Test {
     }
 
     @Test
+    fun longToHex_minus3() {
+        assertEquals("fffffffffffffffd", SerializationUtil.longToHex(-3L))
+    }
+
+    @Test
     fun longFromHex_minus1() {
         assertEquals(-1L, SerializationUtil.longFromHex("ffffffffffffffff"))
     }

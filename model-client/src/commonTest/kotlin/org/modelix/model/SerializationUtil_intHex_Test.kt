@@ -37,6 +37,11 @@ class SerializationUtil_intHex_Test {
     }
 
     @Test
+    fun intFromHex_minus3() {
+        assertEquals(-3, SerializationUtil.intFromHex("fffffffd"))
+    }
+
+    @Test
     fun intToHex_0() {
         assertEquals("0", SerializationUtil.intToHex(0))
     }
