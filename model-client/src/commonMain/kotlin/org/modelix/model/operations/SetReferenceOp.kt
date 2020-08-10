@@ -27,22 +27,20 @@ class SetReferenceOp(val sourceId: Long, val role: String, val target: INodeRefe
     }
 
     override fun transform(previous: IOperation): IOperation {
-        return if (previous is SetPropertyOp) {
-            this
-        } else if (previous is SetReferenceOp) {
-            this
-        } else if (previous is AddNewChildOp) {
-            this
-        } else if (previous is DeleteNodeOp) {
-            if (sourceId == previous.parentId) {
-                NoOp()
-            } else {
-                this
+        return when (previous) {
+            is SetPropertyOp -> this
+            is SetReferenceOp -> this
+            is AddNewChildOp -> this
+            is DeleteNodeOp -> {
+                if (sourceId == previous.childId) {
+                    NoOp()
+                } else {
+                    this
+                }
             }
-        } else if (previous is MoveNodeOp) {
-            this
-        } else {
-            throw RuntimeException("Unknown type: " + previous::class.simpleName)
+            is MoveNodeOp -> this
+            is NoOp -> this
+            else -> throw RuntimeException("Unknown type: " + previous::class.simpleName)
         }
     }
 

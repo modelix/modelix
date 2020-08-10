@@ -22,11 +22,12 @@ class Tree_Test : TreeTestBase() {
     @Test
     fun test_random() {
         var tree: ITree = initialTree
+        val expectedTree = ExpectedTreeData()
 
-        for (i in 0..9999) {
-            if (i % 1000 == 0) storeCache.clearCache()
-            tree = applyRandomChange(tree)
-            assertTree(tree)
+        for (i in 0..999) {
+            if (i % 100 == 0) storeCache.clearCache()
+            tree = applyRandomChange(tree, expectedTree)
+            assertTree(tree, expectedTree)
         }
     }
 }

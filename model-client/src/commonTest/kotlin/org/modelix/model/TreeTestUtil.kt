@@ -39,7 +39,7 @@ class TreeTestUtil(private val tree: ITree, private val rand: Random) {
 
     fun getDescendants(parent: Long, includeSelf: Boolean): Iterable<Long> {
         return if (includeSelf) {
-            (sequenceOf(parent) + getDescendants(parent, false)).asIterable()
+            sequenceOf(parent).plus(getDescendants(parent, false)).asIterable()
         } else {
             tree.getAllChildren(parent).flatMap { it: Long -> getDescendants(it, true) }
         }

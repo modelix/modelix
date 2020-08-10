@@ -15,6 +15,7 @@
 
 package org.modelix.model.operations
 
+import org.modelix.model.api.ITree
 import org.modelix.model.api.IWriteTransaction
 import org.modelix.model.persistent.SerializationUtil
 
@@ -29,30 +30,28 @@ class MoveNodeOp(val childId: Long, val sourceParentId: Long, val sourceRole: St
     }
 
     override fun transform(previous: IOperation): IOperation {
-        return if (previous is AddNewChildOp) {
-            val o = previous
-            withIndex(o.adjustIndex(sourceParentId, sourceRole, sourceIndex), o.adjustIndex(targetParentId, targetRole, targetIndex))
-        } else if (previous is DeleteNodeOp) {
-            val o = previous
-            if (o.parentId == sourceParentId && o.role == sourceRole && o.index == sourceIndex) {
-                if (o.childId != childId) {
-                    throw RuntimeException(sourceParentId.toString() + "." + sourceRole + "[" + sourceIndex + "] expected to be " + childId + ", but was " + o.childId)
-                }
-                NoOp()
-            } else {
+        return when (previous) {
+            is AddNewChildOp -> {
+                val o = previous
                 withIndex(o.adjustIndex(sourceParentId, sourceRole, sourceIndex), o.adjustIndex(targetParentId, targetRole, targetIndex))
             }
-        } else if (previous is MoveNodeOp) {
-            val o = previous
-            withIndex(o.adjustIndex(sourceParentId, sourceRole, sourceIndex), o.adjustIndex(targetParentId, targetRole, targetIndex))
-        } else if (previous is SetPropertyOp) {
-            this
-        } else if (previous is SetReferenceOp) {
-            this
-        } else if (previous is NoOp) {
-            this
-        } else {
-            throw RuntimeException("Unknown type: " + previous::class.simpleName)
+            is DeleteNodeOp -> {
+                if (previous.parentId == sourceParentId && previous.role == sourceRole && previous.index == sourceIndex) {
+                    if (previous.childId != childId) {
+                        throw RuntimeException(sourceParentId.toString() + "." + sourceRole + "[" + sourceIndex + "] expected to be " + childId + ", but was " + previous.childId)
+                    }
+                    NoOp()
+                } else {
+                    withIndex(previous.adjustIndex(sourceParentId, sourceRole, sourceIndex), previous.adjustIndex(targetParentId, targetRole, targetIndex))
+                }
+            }
+            is MoveNodeOp -> withIndex(previous.adjustIndex(sourceParentId, sourceRole, sourceIndex), previous.adjustIndex(targetParentId, targetRole, targetIndex))
+            is SetPropertyOp -> this
+            is SetReferenceOp -> this
+            is NoOp -> this
+            else -> {
+                throw RuntimeException("Unknown type: " + previous::class.simpleName)
+            }
         }
     }
 

@@ -175,24 +175,20 @@ class CLTree : ITree {
     }
 
     override fun setReferenceTarget(sourceId: Long, role: String, targetRef: INodeReference?): ITree {
-        val source = resolveElement(sourceId)
-        var target: CLNode? = null
-        var refData: CPElementRef? = null
-        if (targetRef == null) {
-        } else if (targetRef is PNodeReference) {
-            val targetId = targetRef.id
-            refData = local(targetId)
-            target = resolveElement(targetId)
-            //    } else if (targetRef instanceof SNodeReferenceAdapter) {
-//      refData = CPElementRef.mps(SNodePointer.serialize(((SNodeReferenceAdapter) targetRef).getReference()));
-        } else {
-            throw RuntimeException("Unsupported reference type: " + targetRef::class.simpleName)
+        val source = resolveElement(sourceId)!!
+        val refData: CPElementRef? = when (targetRef) {
+            null -> null
+            is PNodeReference -> {
+                local(targetRef.id)
+            }
+            //is SNodeReferenceAdapter -> CPElementRef.mps(SNodePointer.serialize(((SNodeReferenceAdapter) targetRef).getReference()))
+            else -> throw RuntimeException("Unsupported reference type: " + targetRef::class.simpleName)
         }
         var newIdToHash = nodesMap
-        val newNodeData = source!!.getData()!!.withReferenceTarget(role!!, refData)
+        val newNodeData = source.getData().withReferenceTarget(role, refData)
         newIdToHash = newIdToHash!!.put(newNodeData)
-        put(store!!, newNodeData)
-        return CLTree(data!!.id, data!!.rootId, newIdToHash!!, store)
+        put(store, newNodeData)
+        return CLTree(data.id, data.rootId, newIdToHash!!, store)
     }
 
     override fun deleteNode(nodeId: Long): ITree {
@@ -409,8 +405,8 @@ class CLTree : ITree {
         if (id == 0L) {
             return null
         }
-        val hash = nodesMap!![id] ?: throw RuntimeException("Element doesn't exist: $id")
-        return createElement(hash, NonBulkQuery(store!!))!!.execute()
+        val hash = nodesMap!![id] ?: throw RuntimeException("Element doesn't exist: ${SerializationUtil.longToHex(id)}")
+        return createElement(hash, NonBulkQuery(store)).execute()
     }
 
     fun resolveElements(ids_: Iterable<Long>, bulkQuery: IBulkQuery): IBulkQuery.Value<List<CLNode>> {

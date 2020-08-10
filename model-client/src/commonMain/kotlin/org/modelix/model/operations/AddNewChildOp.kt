@@ -16,6 +16,7 @@
 package org.modelix.model.operations
 
 import org.modelix.model.api.IConcept
+import org.modelix.model.api.ITree
 import org.modelix.model.api.IWriteTransaction
 import org.modelix.model.persistent.SerializationUtil
 
@@ -30,29 +31,30 @@ class AddNewChildOp(val parentId: Long, val role: String?, val index: Int, val c
     }
 
     override fun transform(previous: IOperation): IOperation {
-        return if (previous is AddNewChildOp) {
-            val o = previous
-            if (o.parentId == parentId && o.role == role) {
-                if (o.index <= index) {
-                    AddNewChildOp(parentId, role, index + 1, childId, concept)
+        return when (previous) {
+            is AddNewChildOp -> {
+                if (previous.parentId == parentId && previous.role == role) {
+                    if (previous.index <= index) {
+                        AddNewChildOp(parentId, role, index + 1, childId, concept)
+                    } else {
+                        this
+                    }
                 } else {
                     this
                 }
-            } else {
-                this
             }
-        } else if (previous is DeleteNodeOp) {
-            withIndex(previous.adjustIndex(parentId, role, index))
-        } else if (previous is MoveNodeOp) {
-            withIndex(previous.adjustIndex(parentId, role, index))
-        } else if (previous is SetPropertyOp) {
-            this
-        } else if (previous is SetReferenceOp) {
-            this
-        } else if (previous is NoOp) {
-            this
-        } else {
-            throw RuntimeException("Unknown type: " + previous::class.simpleName)
+            is DeleteNodeOp -> {
+                if (previous.childId == this.parentId) {
+                    AddNewChildOp(ITree.ROOT_ID, ITree.DETACHED_NODES_ROLE, 0, this.childId, this.concept)
+                } else {
+                    withIndex(previous.adjustIndex(parentId, role, index))
+                }
+            }
+            is MoveNodeOp -> withIndex(previous.adjustIndex(parentId, role, index))
+            is SetPropertyOp -> this
+            is SetReferenceOp -> this
+            is NoOp -> this
+            else -> throw RuntimeException("Unknown type: " + previous::class.simpleName)
         }
     }
 

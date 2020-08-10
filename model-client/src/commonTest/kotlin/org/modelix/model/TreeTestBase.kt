@@ -30,37 +30,29 @@ import kotlin.test.assertFalse
 
 open class TreeTestBase {
     protected val DEBUG = false
-    protected var expectedChildren: MutableMap<Pair<Long, String?>, MutableList<Long?>>? = null
     protected val roles: List<String> = listOf("role1", "role2", "role3")
     protected var rand: Random = Random(83569)
     protected var store: MapBaseStore = MapBaseStore()
     protected var storeCache: ObjectStoreCache = ObjectStoreCache(store)
     protected var idGenerator: IdGenerator = IdGenerator(3)
     protected var initialTree: CLTree = CLTree(storeCache)
-    protected var expectedParents: MutableMap<Long, Long> = HashMap()
-    protected var expectedRoles: MutableMap<Long, String> = HashMap()
-    protected var expectedDeletes: MutableSet<Long> = HashSet()
 
     @BeforeTest
     fun setUp() {
-        expectedChildren = HashMap()
         rand = Random(83569)
         store = MapBaseStore()
         storeCache = ObjectStoreCache(store)
-        idGenerator = IdGenerator(3)
+        idGenerator = IdGenerator(255)
         initialTree = CLTree(storeCache)
-        expectedParents = HashMap()
-        expectedRoles = HashMap()
-        expectedDeletes = HashSet()
     }
 
-    fun applyRandomChange(tree: ITree): ITree {
+    fun applyRandomChange(tree: ITree, expectedTree: ExpectedTreeData): ITree {
         val branch = PBranch(tree, idGenerator)
-        applyRandomChange(branch)
+        applyRandomChange(branch, expectedTree)
         return branch.computeRead { branch.transaction.tree }
     }
 
-    fun applyRandomChange(branch: IBranch) {
+    fun applyRandomChange(branch: IBranch, expectedTree: ExpectedTreeData) {
         branch.runWrite {
             val t = branch.writeTransaction
             when (rand.nextInt(5)) {
@@ -72,10 +64,10 @@ open class TreeTestBase {
                                 println("Delete $nodeToDelete")
                             }
                             t.deleteNode(nodeToDelete)
-                            removeChild(expectedParents[nodeToDelete]!!, expectedRoles[nodeToDelete], nodeToDelete)
-                            expectedParents[nodeToDelete] = 0L
-                            expectedRoles.remove(nodeToDelete)
-                            expectedDeletes.add(nodeToDelete)
+                            expectedTree.removeChild(expectedTree.expectedParents[nodeToDelete]!!, expectedTree.expectedRoles[nodeToDelete], nodeToDelete)
+                            expectedTree.expectedParents[nodeToDelete] = 0L
+                            expectedTree.expectedRoles.remove(nodeToDelete)
+                            expectedTree.expectedDeletes.add(nodeToDelete)
                         }
                     }
                 1 -> // New node
@@ -89,9 +81,9 @@ open class TreeTestBase {
                                 println("AddNew $childId to $parent.$role[$index]")
                             }
                             t.addNewChild(parent, role, index, childId, null)
-                            expectedParents[childId] = parent
-                            expectedRoles[childId] = role
-                            insertChild(parent, role, index, childId)
+                            expectedTree.expectedParents[childId] = parent
+                            expectedTree.expectedRoles[childId] = role
+                            expectedTree.insertChild(parent, role, index, childId)
                         }
                     }
                 2 -> // Set property
@@ -129,35 +121,35 @@ open class TreeTestBase {
                         )
                         if (childId != 0L && parent != 0L) {
                             val role = roles[rand.nextInt(roles.size)]
-                            var index = if (rand.nextBoolean()) rand.nextInt(t.getChildren(parent, role)!!.count().toInt() + 1) else -1
+                            var index = if (rand.nextBoolean()) rand.nextInt(t.getChildren(parent, role).count() + 1) else -1
                             if (DEBUG) {
                                 println("MoveNode $childId to $parent.$role[$index]")
                             }
                             t.moveChild(parent, role, index, childId)
-                            val oldParent = expectedParents[childId]!!
-                            val oldRole = expectedRoles[childId]
+                            val oldParent = expectedTree.expectedParents[childId]!!
+                            val oldRole = expectedTree.expectedRoles[childId]
                             if (oldParent == parent && oldRole == role) {
-                                val oldIndex = expectedChildren!![Pair(oldParent, oldRole)]!!.indexOf(childId)
+                                val oldIndex = expectedTree.expectedChildren[Pair(oldParent, oldRole)]!!.indexOf(childId)
                                 if (oldIndex < index) {
                                     index--
                                 }
                             }
-                            removeChild(oldParent, oldRole, childId)
-                            expectedParents[childId] = parent
-                            expectedRoles[childId] = role
-                            insertChild(parent, role, index, childId)
+                            expectedTree.removeChild(oldParent, oldRole, childId)
+                            expectedTree.expectedParents[childId] = parent
+                            expectedTree.expectedRoles[childId] = role
+                            expectedTree.insertChild(parent, role, index, childId)
                         }
                     }
             }
         }
     }
 
-    fun assertBranch(branch: IBranch) {
-        assertTree(branch.computeRead { branch.transaction.tree })
+    fun assertBranch(branch: IBranch, expectedTree: ExpectedTreeData) {
+        assertTree(branch.computeRead { branch.transaction.tree }, expectedTree)
     }
 
-    fun assertTree(tree: ITree) {
-        for ((key, expectedParent) in expectedParents) {
+    fun assertTree(tree: ITree, expectedTree: ExpectedTreeData) {
+        for ((key, expectedParent) in expectedTree.expectedParents) {
             if (expectedParent == 0L) {
                 assertFalse(tree.containsNode(key))
             } else {
@@ -165,33 +157,19 @@ open class TreeTestBase {
                 assertEquals(expectedParent, actualParent)
             }
         }
-        for ((key, value) in expectedChildren!!) {
-            if (expectedDeletes.contains(key.first)) {
+        for ((key, value) in expectedTree.expectedChildren) {
+            if (expectedTree.expectedDeletes.contains(key.first)) {
                 continue
             }
             val expected = value.toList()
             val actual = tree.getChildren(key.first, key.second).toList()
             assertEquals(expected, actual)
         }
-        for ((key, value) in expectedRoles) {
+        for ((key, value) in expectedTree.expectedRoles) {
             assertEquals(value, tree.getRole(key))
         }
-        for (node in expectedDeletes) {
+        for (node in expectedTree.expectedDeletes) {
             assertFalse(tree.containsNode(node))
         }
-    }
-
-    fun insertChild(parent: Long, role: String?, index: Int, child: Long) {
-        val list = expectedChildren!!.getOrPut(Pair(parent, role), { ArrayList() })
-        if (index == -1) {
-            list.add(child)
-        } else {
-            list.add(index, child)
-        }
-    }
-
-    fun removeChild(parent: Long, role: String?, child: Long) {
-        val list = expectedChildren!!.getOrPut(Pair(parent, role), { ArrayList() })
-        list.remove(child)
     }
 }

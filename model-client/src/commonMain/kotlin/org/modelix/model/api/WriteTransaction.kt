@@ -69,7 +69,7 @@ class WriteTransaction(_tree: ITree, branch: IBranch, idGenerator: IIdGenerator)
 
     override fun deleteNode(nodeId: Long) {
         checkNotClosed()
-        tree.getAllChildren(nodeId).forEach { nodeId: Long -> deleteNode(nodeId) }
+        tree.getAllChildren(nodeId).forEach { deleteNode(it) }
         tree = tree.deleteNode(nodeId)
     }
 

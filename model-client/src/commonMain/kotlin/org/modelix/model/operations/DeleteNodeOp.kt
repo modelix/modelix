@@ -25,65 +25,66 @@ class DeleteNodeOp(val parentId: Long, val role: String?, val index: Int, val ch
     }
 
     override fun apply(transaction: IWriteTransaction): IAppliedOperation {
+        if (transaction.getAllChildren(childId).count() != 0) {
+            throw RuntimeException("Attempt to delete non-leaf node: $childId")
+        }
+
+        val actualNode = transaction.getChildren(parentId, role).toList()[index]
+        if (actualNode != childId) {
+            throw RuntimeException("Node at ${parentId.toString(16)}.$role[$index] is expected to be ${childId.toString(16)}, but was ${actualNode.toString(16)}")
+        }
         val concept = transaction.getConcept(childId)
         transaction.deleteNode(childId)
         return Applied(concept)
     }
 
     override fun transform(previous: IOperation): IOperation {
-        return if (previous is DeleteNodeOp) {
-            val o = previous
-            if (parentId == o.parentId && role == o.role) {
-                if (o.index < index) {
-                    DeleteNodeOp(parentId, role, index - 1, childId)
-                } else if (o.index == index) {
-                    if (o.childId != childId) {
-                        throw RuntimeException("Both operations delete " + parentId + "." + role + "[" + index + "] but with different expected IDs " + childId + " and " + o.childId)
+        return when (previous) {
+            is DeleteNodeOp -> {
+                if (parentId == previous.parentId && role == previous.role) {
+                    if (previous.index < index) {
+                        DeleteNodeOp(parentId, role, index - 1, childId)
+                    } else if (previous.index == index) {
+                        if (previous.childId != childId) {
+                            throw RuntimeException("Both operations delete " + parentId + "." + role + "[" + index + "] but with different expected IDs " + childId + " and " + previous.childId)
+                        }
+                        NoOp()
+                    } else {
+                        this
                     }
-                    NoOp()
                 } else {
                     this
                 }
-            } else {
-                this
             }
-        } else if (previous is AddNewChildOp) {
-            val o = previous
-            if (parentId == o.parentId && role == o.role) {
-                if (o.index <= index) {
-                    DeleteNodeOp(parentId, role, index + 1, childId)
+            is AddNewChildOp -> {
+                if (parentId == previous.parentId && role == previous.role) {
+                    if (previous.index <= index) {
+                        DeleteNodeOp(parentId, role, index + 1, childId)
+                    } else {
+                        this
+                    }
                 } else {
                     this
                 }
-            } else {
-                this
             }
-        } else if (previous is MoveNodeOp) {
-            val o = previous
-            if (o.childId == childId) {
-                if (o.sourceParentId != parentId || o.sourceRole != role || o.sourceIndex != index) {
-                    throw RuntimeException("node " + childId + " expected to be at " + parentId + "." + role + "[" + index + "]" + " but was " + o.sourceParentId + "." + o.sourceRole + "[" + o.sourceIndex + "]")
-                }
-                DeleteNodeOp(o.targetParentId, o.targetRole, o.targetIndex, childId)
-            } else if (parentId == o.targetParentId && role == o.targetRole) {
-                withIndex(o.adjustIndex(parentId, role, index))
-            } else if (parentId == o.sourceParentId && role == o.sourceRole) {
-                if (o.sourceIndex == index) {
-                    throw RuntimeException("Node at " + parentId + "." + role + "[" + index + "] is expected to be " + childId + ", but was " + o.childId)
+            is MoveNodeOp -> {
+                if (previous.childId == childId) {
+                    if (previous.sourceParentId != parentId || previous.sourceRole != role || previous.sourceIndex != index) {
+                        throw RuntimeException("node " + childId + " expected to be at " + parentId + "." + role + "[" + index + "]" + " but was " + previous.sourceParentId + "." + previous.sourceRole + "[" + previous.sourceIndex + "]")
+                    }
+                    DeleteNodeOp(previous.targetParentId, previous.targetRole, previous.targetIndex, childId)
+                } else if (parentId == previous.targetParentId && role == previous.targetRole) {
+                    withIndex(previous.adjustIndex(parentId, role, index))
+                } else if (parentId == previous.sourceParentId && role == previous.sourceRole) {
+                    withIndex(previous.adjustIndex(parentId, role, index))
                 } else {
-                    withIndex(o.adjustIndex(parentId, role, index))
+                    this
                 }
-            } else {
-                this
             }
-        } else if (previous is SetPropertyOp) {
-            this
-        } else if (previous is SetReferenceOp) {
-            this
-        } else if (previous is NoOp) {
-            this
-        } else {
-            throw RuntimeException("Unknown type: " + previous::class.simpleName)
+            is SetPropertyOp -> this
+            is SetReferenceOp -> this
+            is NoOp -> this
+            else -> throw RuntimeException("Unknown type: " + previous::class.simpleName)
         }
     }
 

@@ -32,4 +32,8 @@ class NoOp : AbstractOperation(), IAppliedOperation {
     override fun invert(): IOperation {
         return this
     }
+
+    override fun toString(): String {
+        return "NoOp"
+    }
 }

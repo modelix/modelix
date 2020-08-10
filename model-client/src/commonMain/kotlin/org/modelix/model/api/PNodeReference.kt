@@ -15,6 +15,8 @@
 
 package org.modelix.model.api
 
+import org.modelix.model.persistent.SerializationUtil
+
 class PNodeReference(val id: Long) : INodeReference {
 
     override fun resolveNode(context: INodeResolveContext?): INode? {
@@ -45,6 +47,6 @@ class PNodeReference(val id: Long) : INodeReference {
     }
 
     override fun toString(): String {
-        return "PNodeReference{id=$id}"
+        return "PNodeReference_${SerializationUtil.longToHex(id)}"
     }
 }

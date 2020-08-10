@@ -78,7 +78,11 @@ class VersionMerger(private val storeCache: IDeserializingKeyValueStore, private
             val rightAppliedOps: MutableList<IAppliedOperation> = ArrayList()
             val appliedVersionIds: MutableSet<Long> = HashSet()
             while (!leftHistory.isEmpty() || !rightHistory.isEmpty()) {
-                val useLeft = rightHistory.isEmpty() || !leftHistory.isEmpty() && leftHistory.last().id < rightHistory.last().id
+                val useLeft = when {
+                    rightHistory.isEmpty() -> true
+                    leftHistory.isEmpty() -> false
+                    else -> leftHistory.last().id < rightHistory.last().id
+                }
                 val versionToApply = (if (useLeft) leftHistory else rightHistory).let { it.removeAt(it.size - 1) }
                 if (appliedVersionIds.contains(versionToApply.id)) {
                     continue
@@ -87,9 +91,10 @@ class VersionMerger(private val storeCache: IDeserializingKeyValueStore, private
                 val oppositeAppliedOps = (if (useLeft) rightAppliedOps else leftAppliedOps)
                     .map { obj: IAppliedOperation -> obj.originalOp }
                     .toList()
-                val operationsToApply = versionToApply.operations
-                    .map { it: IOperation? -> transformOperation(it!!, oppositeAppliedOps) }
-                    .toList()
+                var operationsToApply: List<IOperation> = versionToApply.operations.toList()
+                for (oppositeAppliedOp in oppositeAppliedOps) {
+                    operationsToApply = operationsToApply.map { transformOperation(it, oppositeAppliedOp) }.toList()
+                }
                 for (op in operationsToApply) {
                     val appliedOp = op.apply(t)
                     if (useLeft) {
@@ -115,10 +120,11 @@ class VersionMerger(private val storeCache: IDeserializingKeyValueStore, private
         return mergedVersion!!
     }
 
-    protected fun transformOperation(opToTransform: IOperation, previousOps: Iterable<IOperation>): IOperation {
+    protected fun transformOperation(opToTransform: IOperation, previousOp: IOperation): IOperation {
         var result = opToTransform
-        for (previous in previousOps) {
-            result = result.transform(previous)
+        result = result.transform(previousOp)
+        if (opToTransform.toString() != result.toString()) {
+            logDebug({ "transformed: $opToTransform --> $result ## $previousOp" }, VersionMerger::class)
         }
         return result
     }
