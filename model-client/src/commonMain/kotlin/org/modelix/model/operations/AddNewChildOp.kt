@@ -31,8 +31,9 @@ class AddNewChildOp(val parentId: Long, val role: String?, val index: Int, val c
     }
 
     override fun transform(previous: IOperation, indexAdjustments: IndexAdjustments): IOperation {
+        val adjusted = withAdjustedIndex(indexAdjustments)
         return when (previous) {
-            is AddNewChildOp -> this
+            is AddNewChildOp -> adjusted
             is DeleteNodeOp -> {
                 if (previous.childId == this.parentId) {
                     AddNewChildOp(ITree.ROOT_ID, ITree.DETACHED_NODES_ROLE, 0, this.childId, this.concept)
@@ -40,10 +41,10 @@ class AddNewChildOp(val parentId: Long, val role: String?, val index: Int, val c
                     this
                 }
             }
-            is MoveNodeOp -> this
-            is SetPropertyOp -> this
-            is SetReferenceOp -> this
-            is NoOp -> this
+            is MoveNodeOp -> adjusted
+            is SetPropertyOp -> adjusted
+            is SetReferenceOp -> adjusted
+            is NoOp -> adjusted
             else -> throw RuntimeException("Unknown type: " + previous::class.simpleName)
         }
     }

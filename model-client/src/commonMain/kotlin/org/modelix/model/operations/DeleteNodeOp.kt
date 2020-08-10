@@ -39,6 +39,7 @@ class DeleteNodeOp(val parentId: Long, val role: String?, val index: Int, val ch
     }
 
     override fun transform(previous: IOperation, indexAdjustments: IndexAdjustments): IOperation {
+        val adjusted = withAdjustedIndex(indexAdjustments)
         return when (previous) {
             is DeleteNodeOp -> {
                 if (parentId == previous.parentId && role == previous.role && previous.index == index) {
@@ -46,23 +47,21 @@ class DeleteNodeOp(val parentId: Long, val role: String?, val index: Int, val ch
                         // revert the adjustment of the other DeleteOp
                         indexAdjustments.nodeAdded(parentId, role, index+1)
                         NoOp()
-                    } else this
-                } else this
+                    } else adjusted
+                } else adjusted
             }
-            is AddNewChildOp -> this
+            is AddNewChildOp -> adjusted
             is MoveNodeOp -> {
                 if (previous.childId == childId) {
                     if (previous.sourceParentId != parentId || previous.sourceRole != role || previous.sourceIndex != index) {
                         throw RuntimeException("node " + childId + " expected to be at " + parentId + "." + role + "[" + index + "]" + " but was " + previous.sourceParentId + "." + previous.sourceRole + "[" + previous.sourceIndex + "]")
                     }
                     DeleteNodeOp(previous.targetParentId, previous.targetRole, previous.targetIndex, childId)
-                } else {
-                    this
-                }
+                } else adjusted
             }
-            is SetPropertyOp -> this
-            is SetReferenceOp -> this
-            is NoOp -> this
+            is SetPropertyOp -> adjusted
+            is SetReferenceOp -> adjusted
+            is NoOp -> adjusted
             else -> throw RuntimeException("Unknown type: " + previous::class.simpleName)
         }
     }

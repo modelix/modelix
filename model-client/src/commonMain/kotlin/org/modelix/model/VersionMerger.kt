@@ -124,12 +124,11 @@ class VersionMerger(private val storeCache: IDeserializingKeyValueStore, private
     }
 
     protected fun transformOperation(opToTransform: IOperation, previousOp: IOperation, indexAdjustments: IndexAdjustments): IOperation {
-        var result = opToTransform.withAdjustedIndex(indexAdjustments)
-        result = result.transform(previousOp, indexAdjustments)
-        if (opToTransform.toString() != result.toString()) {
-            logDebug({ "transformed: $opToTransform --> $result ## $previousOp" }, VersionMerger::class)
+        val transformed = opToTransform.transform(previousOp, indexAdjustments)
+        if (opToTransform.toString() != transformed.toString()) {
+            logDebug({ "transformed: $opToTransform --> $transformed ## $previousOp" }, VersionMerger::class)
         }
-        return result
+        return transformed
     }
 
     /**
