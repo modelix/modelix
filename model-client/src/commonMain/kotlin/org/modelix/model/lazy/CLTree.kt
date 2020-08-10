@@ -343,10 +343,10 @@ class CLTree : ITree {
                                 visitor.propertyChanged(newNode.id, role)
                             }
                         }
-                    val oldChildren: Map<String?, MutableList<CLNode>> = HashMap()
-                    val newChildren: Map<String?, MutableList<CLNode>> = HashMap()
-                    oldNode.getChildren(BulkQuery(store)).execute().forEach { oldChildren.getOrElse(it.roleInParent, { ArrayList() }).add(it) }
-                    newNode.getChildren(BulkQuery(store)).execute().forEach { newChildren.getOrElse(it.roleInParent, { ArrayList() }).add(it) }
+                    val oldChildren: MutableMap<String?, MutableList<CLNode>> = HashMap()
+                    val newChildren: MutableMap<String?, MutableList<CLNode>> = HashMap()
+                    oldNode.getChildren(BulkQuery(store)).execute().forEach { oldChildren.getOrPut(it.roleInParent, { ArrayList() }).add(it) }
+                    newNode.getChildren(BulkQuery(store)).execute().forEach { newChildren.getOrPut(it.roleInParent, { ArrayList() }).add(it) }
                     val roles: MutableSet<String?> = HashSet()
                     roles.addAll(oldChildren.keys)
                     roles.addAll(newChildren.keys)

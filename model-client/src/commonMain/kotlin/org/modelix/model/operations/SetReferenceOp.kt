@@ -26,7 +26,7 @@ class SetReferenceOp(val sourceId: Long, val role: String, val target: INodeRefe
         return Applied(oldValue)
     }
 
-    override fun transform(previous: IOperation): IOperation {
+    override fun transform(previous: IOperation, indexAdjustments: IndexAdjustments): IOperation {
         return when (previous) {
             is SetPropertyOp -> this
             is SetReferenceOp -> this

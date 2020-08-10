@@ -25,7 +25,7 @@ class SetPropertyOp(val nodeId: Long, val role: String, val value: String?) : Ab
         return Applied(oldValue)
     }
 
-    override fun transform(previous: IOperation): IOperation {
+    override fun transform(previous: IOperation, indexAdjustments: IndexAdjustments): IOperation {
         return when (previous) {
             is SetPropertyOp -> this
             is SetReferenceOp -> this

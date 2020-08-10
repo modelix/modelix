@@ -21,4 +21,12 @@ abstract class AbstractOperation : IOperation {
             return "applied:" + this@AbstractOperation.toString()
         }
     }
+
+    override fun loadAdjustment(indexAdjustments: IndexAdjustments) {
+
+    }
+
+    override fun withAdjustedIndex(indexAdjustments: IndexAdjustments): IOperation {
+        return this
+    }
 }

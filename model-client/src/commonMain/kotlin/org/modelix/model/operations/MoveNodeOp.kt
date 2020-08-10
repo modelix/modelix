@@ -15,13 +15,24 @@
 
 package org.modelix.model.operations
 
-import org.modelix.model.api.ITree
 import org.modelix.model.api.IWriteTransaction
-import org.modelix.model.persistent.SerializationUtil
 
-class MoveNodeOp(val childId: Long, val sourceParentId: Long, val sourceRole: String?, val sourceIndex: Int, val targetParentId: Long, val targetRole: String?, val targetIndex: Int) : AbstractOperation(), IModifiesChildrenOp {
+class MoveNodeOp(
+    val childId: Long,
+    val sourceParentId: Long,
+    val sourceRole: String?,
+    val sourceIndex: Int,
+    val targetParentId: Long,
+    val targetRole: String?,
+    val targetIndex: Int
+) : AbstractOperation() {
     fun withIndex(newSourceIndex: Int, newTargetIndex: Int): MoveNodeOp {
-        return if (newSourceIndex == sourceIndex && newTargetIndex == targetIndex) this else MoveNodeOp(childId, sourceParentId, sourceRole, newSourceIndex, targetParentId, targetRole, newTargetIndex)
+        return if (newSourceIndex == sourceIndex && newTargetIndex == targetIndex) {
+            this
+        } else {
+            MoveNodeOp(childId, sourceParentId, sourceRole, newSourceIndex,
+                targetParentId, targetRole, newTargetIndex)
+        }
     }
 
     override fun apply(transaction: IWriteTransaction): IAppliedOperation {
@@ -29,23 +40,21 @@ class MoveNodeOp(val childId: Long, val sourceParentId: Long, val sourceRole: St
         return Applied()
     }
 
-    override fun transform(previous: IOperation): IOperation {
+    override fun transform(previous: IOperation, indexAdjustments: IndexAdjustments): IOperation {
         return when (previous) {
-            is AddNewChildOp -> {
-                val o = previous
-                withIndex(o.adjustIndex(sourceParentId, sourceRole, sourceIndex), o.adjustIndex(targetParentId, targetRole, targetIndex))
-            }
+            is AddNewChildOp -> this
             is DeleteNodeOp -> {
                 if (previous.parentId == sourceParentId && previous.role == sourceRole && previous.index == sourceIndex) {
                     if (previous.childId != childId) {
-                        throw RuntimeException(sourceParentId.toString() + "." + sourceRole + "[" + sourceIndex + "] expected to be " + childId + ", but was " + previous.childId)
+                        throw RuntimeException("$sourceParentId.$sourceRole[$sourceIndex] expected to be ${childId.toString(16)}, but was ${previous.childId.toString(16)}")
                     }
+                    indexAdjustments.nodeRemoved(targetParentId, targetRole, targetIndex)
                     NoOp()
                 } else {
-                    withIndex(previous.adjustIndex(sourceParentId, sourceRole, sourceIndex), previous.adjustIndex(targetParentId, targetRole, targetIndex))
+                    this
                 }
             }
-            is MoveNodeOp -> withIndex(previous.adjustIndex(sourceParentId, sourceRole, sourceIndex), previous.adjustIndex(targetParentId, targetRole, targetIndex))
+            is MoveNodeOp -> this
             is SetPropertyOp -> this
             is SetReferenceOp -> this
             is NoOp -> this
@@ -55,19 +64,20 @@ class MoveNodeOp(val childId: Long, val sourceParentId: Long, val sourceRole: St
         }
     }
 
-    override fun adjustIndex(otherParentId: Long, otherRole: String?, otherIndex: Int): Int {
-        var adjustedIndex = otherIndex
-        if (otherParentId == sourceParentId && otherRole == sourceRole && sourceIndex < otherIndex) {
-            adjustedIndex--
-        }
-        if (otherParentId == targetParentId && otherRole == targetRole && targetIndex <= otherIndex) {
-            adjustedIndex++
-        }
-        return adjustedIndex
+    override fun loadAdjustment(indexAdjustments: IndexAdjustments) {
+        indexAdjustments.nodeRemoved(sourceParentId, sourceRole, sourceIndex)
+        indexAdjustments.nodeAdded(targetParentId, targetRole, targetIndex)
+    }
+
+    override fun withAdjustedIndex(indexAdjustments: IndexAdjustments): IOperation {
+        return withIndex(
+            indexAdjustments.getAdjustedIndex(sourceParentId, sourceRole, sourceIndex),
+            indexAdjustments.getAdjustedIndex(targetParentId, targetRole, targetIndex)
+        )
     }
 
     override fun toString(): String {
-        return "MoveNodeOp ${SerializationUtil.longToHex(childId)}, ${SerializationUtil.longToHex(sourceParentId)}.$sourceRole[$sourceIndex]->${SerializationUtil.longToHex(targetParentId)}.$targetRole[$targetIndex]"
+        return "MoveNodeOp ${childId.toString(16)}, ${sourceParentId.toString(16)}.$sourceRole[$sourceIndex]->${targetParentId.toString(16)}.$targetRole[$targetIndex]"
     }
 
     inner class Applied : AbstractOperation.Applied(), IAppliedOperation {

@@ -20,7 +20,7 @@ import org.modelix.model.api.ITree
 import org.modelix.model.api.IWriteTransaction
 import org.modelix.model.persistent.SerializationUtil
 
-class AddNewChildOp(val parentId: Long, val role: String?, val index: Int, val childId: Long, val concept: IConcept?) : AbstractOperation(), IModifiesChildrenOp {
+class AddNewChildOp(val parentId: Long, val role: String?, val index: Int, val childId: Long, val concept: IConcept?) : AbstractOperation() {
     fun withIndex(newIndex: Int): AddNewChildOp {
         return if (newIndex == index) this else AddNewChildOp(parentId, role, newIndex, childId, concept)
     }
@@ -30,27 +30,17 @@ class AddNewChildOp(val parentId: Long, val role: String?, val index: Int, val c
         return Applied()
     }
 
-    override fun transform(previous: IOperation): IOperation {
+    override fun transform(previous: IOperation, indexAdjustments: IndexAdjustments): IOperation {
         return when (previous) {
-            is AddNewChildOp -> {
-                if (previous.parentId == parentId && previous.role == role) {
-                    if (previous.index <= index) {
-                        AddNewChildOp(parentId, role, index + 1, childId, concept)
-                    } else {
-                        this
-                    }
-                } else {
-                    this
-                }
-            }
+            is AddNewChildOp -> this
             is DeleteNodeOp -> {
                 if (previous.childId == this.parentId) {
                     AddNewChildOp(ITree.ROOT_ID, ITree.DETACHED_NODES_ROLE, 0, this.childId, this.concept)
                 } else {
-                    withIndex(previous.adjustIndex(parentId, role, index))
+                    this
                 }
             }
-            is MoveNodeOp -> withIndex(previous.adjustIndex(parentId, role, index))
+            is MoveNodeOp -> this
             is SetPropertyOp -> this
             is SetReferenceOp -> this
             is NoOp -> this
@@ -58,12 +48,12 @@ class AddNewChildOp(val parentId: Long, val role: String?, val index: Int, val c
         }
     }
 
-    override fun adjustIndex(otherParentId: Long, otherRole: String?, otherIndex: Int): Int {
-        var adjustedIndex = otherIndex
-        if (otherParentId == parentId && otherRole == role && index <= otherIndex) {
-            adjustedIndex++
-        }
-        return adjustedIndex
+    override fun loadAdjustment(indexAdjustments: IndexAdjustments) {
+        indexAdjustments.nodeAdded(parentId, role, index)
+    }
+
+    override fun withAdjustedIndex(indexAdjustments: IndexAdjustments): IOperation {
+        return withIndex(indexAdjustments.getAdjustedIndex(parentId, role, index))
     }
 
     override fun toString(): String {

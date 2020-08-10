@@ -24,6 +24,7 @@ import org.modelix.model.lazy.CLVersion
 import org.modelix.model.lazy.IDeserializingKeyValueStore
 import org.modelix.model.operations.IAppliedOperation
 import org.modelix.model.operations.IOperation
+import org.modelix.model.operations.IndexAdjustments
 import org.modelix.model.persistent.CPVersion
 import kotlin.math.max
 
@@ -77,7 +78,8 @@ class VersionMerger(private val storeCache: IDeserializingKeyValueStore, private
             val leftAppliedOps: MutableList<IAppliedOperation> = ArrayList()
             val rightAppliedOps: MutableList<IAppliedOperation> = ArrayList()
             val appliedVersionIds: MutableSet<Long> = HashSet()
-            while (!leftHistory.isEmpty() || !rightHistory.isEmpty()) {
+            val indexAdjustments = IndexAdjustments()
+            while (leftHistory.isNotEmpty() || rightHistory.isNotEmpty()) {
                 val useLeft = when {
                     rightHistory.isEmpty() -> true
                     leftHistory.isEmpty() -> false
@@ -93,7 +95,8 @@ class VersionMerger(private val storeCache: IDeserializingKeyValueStore, private
                     .toList()
                 var operationsToApply: List<IOperation> = versionToApply.operations.toList()
                 for (oppositeAppliedOp in oppositeAppliedOps) {
-                    operationsToApply = operationsToApply.map { transformOperation(it, oppositeAppliedOp) }.toList()
+                    oppositeAppliedOp.loadAdjustment(indexAdjustments)
+                    operationsToApply = operationsToApply.map { transformOperation(it, oppositeAppliedOp, indexAdjustments) }.toList()
                 }
                 for (op in operationsToApply) {
                     val appliedOp = op.apply(t)
@@ -120,9 +123,9 @@ class VersionMerger(private val storeCache: IDeserializingKeyValueStore, private
         return mergedVersion!!
     }
 
-    protected fun transformOperation(opToTransform: IOperation, previousOp: IOperation): IOperation {
-        var result = opToTransform
-        result = result.transform(previousOp)
+    protected fun transformOperation(opToTransform: IOperation, previousOp: IOperation, indexAdjustments: IndexAdjustments): IOperation {
+        var result = opToTransform.withAdjustedIndex(indexAdjustments)
+        result = result.transform(previousOp, indexAdjustments)
         if (opToTransform.toString() != result.toString()) {
             logDebug({ "transformed: $opToTransform --> $result ## $previousOp" }, VersionMerger::class)
         }

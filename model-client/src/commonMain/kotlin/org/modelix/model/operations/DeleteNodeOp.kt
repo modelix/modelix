@@ -19,7 +19,7 @@ import org.modelix.model.api.IConcept
 import org.modelix.model.api.IWriteTransaction
 import org.modelix.model.persistent.SerializationUtil
 
-class DeleteNodeOp(val parentId: Long, val role: String?, val index: Int, val childId: Long) : AbstractOperation(), IModifiesChildrenOp {
+class DeleteNodeOp(val parentId: Long, val role: String?, val index: Int, val childId: Long) : AbstractOperation() {
     fun withIndex(newIndex: Int): DeleteNodeOp {
         return if (newIndex == index) this else DeleteNodeOp(parentId, role, newIndex, childId)
     }
@@ -38,45 +38,24 @@ class DeleteNodeOp(val parentId: Long, val role: String?, val index: Int, val ch
         return Applied(concept)
     }
 
-    override fun transform(previous: IOperation): IOperation {
+    override fun transform(previous: IOperation, indexAdjustments: IndexAdjustments): IOperation {
         return when (previous) {
             is DeleteNodeOp -> {
-                if (parentId == previous.parentId && role == previous.role) {
-                    if (previous.index < index) {
-                        DeleteNodeOp(parentId, role, index - 1, childId)
-                    } else if (previous.index == index) {
-                        if (previous.childId != childId) {
-                            throw RuntimeException("Both operations delete " + parentId + "." + role + "[" + index + "] but with different expected IDs " + childId + " and " + previous.childId)
-                        }
+                if (parentId == previous.parentId && role == previous.role && previous.index == index) {
+                    if (previous.childId == childId) {
+                        // revert the adjustment of the other DeleteOp
+                        indexAdjustments.nodeAdded(parentId, role, index+1)
                         NoOp()
-                    } else {
-                        this
-                    }
-                } else {
-                    this
-                }
+                    } else this
+                } else this
             }
-            is AddNewChildOp -> {
-                if (parentId == previous.parentId && role == previous.role) {
-                    if (previous.index <= index) {
-                        DeleteNodeOp(parentId, role, index + 1, childId)
-                    } else {
-                        this
-                    }
-                } else {
-                    this
-                }
-            }
+            is AddNewChildOp -> this
             is MoveNodeOp -> {
                 if (previous.childId == childId) {
                     if (previous.sourceParentId != parentId || previous.sourceRole != role || previous.sourceIndex != index) {
                         throw RuntimeException("node " + childId + " expected to be at " + parentId + "." + role + "[" + index + "]" + " but was " + previous.sourceParentId + "." + previous.sourceRole + "[" + previous.sourceIndex + "]")
                     }
                     DeleteNodeOp(previous.targetParentId, previous.targetRole, previous.targetIndex, childId)
-                } else if (parentId == previous.targetParentId && role == previous.targetRole) {
-                    withIndex(previous.adjustIndex(parentId, role, index))
-                } else if (parentId == previous.sourceParentId && role == previous.sourceRole) {
-                    withIndex(previous.adjustIndex(parentId, role, index))
                 } else {
                     this
                 }
@@ -88,12 +67,12 @@ class DeleteNodeOp(val parentId: Long, val role: String?, val index: Int, val ch
         }
     }
 
-    override fun adjustIndex(otherParentId: Long, otherRole: String?, otherIndex: Int): Int {
-        var adjustedIndex = otherIndex
-        if (otherParentId == parentId && otherRole == role && index < otherIndex) {
-            adjustedIndex--
-        }
-        return adjustedIndex
+    override fun loadAdjustment(indexAdjustments: IndexAdjustments) {
+        indexAdjustments.nodeRemoved(parentId, role, index)
+    }
+
+    override fun withAdjustedIndex(indexAdjustments: IndexAdjustments): IOperation {
+        return withIndex(indexAdjustments.getAdjustedIndex(parentId, role, index))
     }
 
     override fun toString(): String {
