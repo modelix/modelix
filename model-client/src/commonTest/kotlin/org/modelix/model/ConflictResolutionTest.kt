@@ -1,6 +1,5 @@
 package org.modelix.model
 
-import org.modelix.model.api.INode
 import org.modelix.model.api.ITree
 import org.modelix.model.api.ITreeChangeVisitor
 import org.modelix.model.api.PBranch
@@ -8,7 +7,6 @@ import org.modelix.model.lazy.CLTree
 import org.modelix.model.lazy.CLVersion
 import org.modelix.model.operations.IAppliedOperation
 import org.modelix.model.operations.OTBranch
-import kotlin.math.max
 import kotlin.test.Test
 import kotlin.test.fail
 

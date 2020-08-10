@@ -39,29 +39,30 @@ class DeleteNodeOp(val parentId: Long, val role: String?, val index: Int, val ch
     }
 
     override fun transform(previous: IOperation, indexAdjustments: IndexAdjustments): IOperation {
-        val adjusted = withAdjustedIndex(indexAdjustments)
+        val adjusted = { withAdjustedIndex(indexAdjustments) }
         return when (previous) {
             is DeleteNodeOp -> {
                 if (parentId == previous.parentId && role == previous.role && previous.index == index) {
                     if (previous.childId == childId) {
-                        // revert the adjustment of the other DeleteOp
-                        indexAdjustments.nodeAdded(parentId, role, index+1)
+                        indexAdjustments.undoNodeRemoved(previous.parentId, previous.role, previous.index)
                         NoOp()
-                    } else adjusted
-                } else adjusted
+                    } else adjusted()
+                } else adjusted()
             }
-            is AddNewChildOp -> adjusted
+            is AddNewChildOp -> adjusted()
             is MoveNodeOp -> {
                 if (previous.childId == childId) {
                     if (previous.sourceParentId != parentId || previous.sourceRole != role || previous.sourceIndex != index) {
                         throw RuntimeException("node " + childId + " expected to be at " + parentId + "." + role + "[" + index + "]" + " but was " + previous.sourceParentId + "." + previous.sourceRole + "[" + previous.sourceIndex + "]")
                     }
+                    indexAdjustments.undoNodeRemoved(previous.sourceParentId, previous.sourceRole, previous.sourceIndex)
+                    indexAdjustments.undoNodeAdded(previous.targetParentId, previous.targetRole, previous.targetIndex)
                     DeleteNodeOp(previous.targetParentId, previous.targetRole, previous.targetIndex, childId)
-                } else adjusted
+                } else adjusted()
             }
-            is SetPropertyOp -> adjusted
-            is SetReferenceOp -> adjusted
-            is NoOp -> adjusted
+            is SetPropertyOp -> adjusted()
+            is SetReferenceOp -> adjusted()
+            is NoOp -> adjusted()
             else -> throw RuntimeException("Unknown type: " + previous::class.simpleName)
         }
     }

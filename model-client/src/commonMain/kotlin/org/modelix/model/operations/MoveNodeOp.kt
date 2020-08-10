@@ -41,9 +41,9 @@ class MoveNodeOp(
     }
 
     override fun transform(previous: IOperation, indexAdjustments: IndexAdjustments): IOperation {
-        val adjusted = withAdjustedIndex(indexAdjustments)
+        val adjusted = { withAdjustedIndex(indexAdjustments) }
         return when (previous) {
-            is AddNewChildOp -> adjusted
+            is AddNewChildOp -> adjusted()
             is DeleteNodeOp -> {
                 if (previous.parentId == sourceParentId && previous.role == sourceRole && previous.index == sourceIndex) {
                     if (previous.childId != childId) {
@@ -51,12 +51,12 @@ class MoveNodeOp(
                     }
                     indexAdjustments.nodeRemoved(targetParentId, targetRole, targetIndex)
                     NoOp()
-                } else adjusted
+                } else adjusted()
             }
-            is MoveNodeOp -> adjusted
-            is SetPropertyOp -> adjusted
-            is SetReferenceOp -> adjusted
-            is NoOp -> adjusted
+            is MoveNodeOp -> adjusted()
+            is SetPropertyOp -> adjusted()
+            is SetReferenceOp -> adjusted()
+            is NoOp -> adjusted()
             else -> throw RuntimeException("Unknown type: " + previous::class.simpleName)
         }
     }
