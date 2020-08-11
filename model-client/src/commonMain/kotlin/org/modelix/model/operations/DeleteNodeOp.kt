@@ -44,7 +44,7 @@ class DeleteNodeOp(val parentId: Long, val role: String?, val index: Int, val ch
             is DeleteNodeOp -> {
                 if (parentId == previous.parentId && role == previous.role && previous.index == index) {
                     if (previous.childId == childId) {
-                        indexAdjustments.undoNodeRemoved(previous.parentId, previous.role, previous.index)
+                        previous.undoAdjustment(indexAdjustments)
                         NoOp()
                     } else adjusted()
                 } else adjusted()
@@ -55,8 +55,7 @@ class DeleteNodeOp(val parentId: Long, val role: String?, val index: Int, val ch
                     if (previous.sourceParentId != parentId || previous.sourceRole != role || previous.sourceIndex != index) {
                         throw RuntimeException("node " + childId + " expected to be at " + parentId + "." + role + "[" + index + "]" + " but was " + previous.sourceParentId + "." + previous.sourceRole + "[" + previous.sourceIndex + "]")
                     }
-                    indexAdjustments.undoNodeRemoved(previous.sourceParentId, previous.sourceRole, previous.sourceIndex)
-                    indexAdjustments.undoNodeAdded(previous.targetParentId, previous.targetRole, previous.targetIndex)
+                    previous.undoAdjustment(indexAdjustments)
                     DeleteNodeOp(previous.targetParentId, previous.targetRole, previous.targetIndex, childId)
                 } else adjusted()
             }
@@ -69,6 +68,10 @@ class DeleteNodeOp(val parentId: Long, val role: String?, val index: Int, val ch
 
     override fun loadAdjustment(indexAdjustments: IndexAdjustments) {
         indexAdjustments.nodeRemoved(parentId, role, index)
+    }
+
+    override fun undoAdjustment(indexAdjustments: IndexAdjustments) {
+        indexAdjustments.undoNodeRemoved(parentId, role, index)
     }
 
     override fun withAdjustedIndex(indexAdjustments: IndexAdjustments): IOperation {

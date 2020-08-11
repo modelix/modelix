@@ -30,6 +30,7 @@ interface IOperation {
     fun transform(previous: IOperation, indexAdjustments: IndexAdjustments): IOperation
 
     fun loadAdjustment(indexAdjustments: IndexAdjustments)
+    fun undoAdjustment(indexAdjustments: IndexAdjustments)
 
     fun withAdjustedIndex(indexAdjustments: IndexAdjustments): IOperation
 }

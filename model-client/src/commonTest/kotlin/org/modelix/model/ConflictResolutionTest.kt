@@ -13,22 +13,41 @@ import kotlin.test.fail
 class ConflictResolutionTest : TreeTestBase() {
 
     @Test
-    fun random() {
+    fun randomTest01() {
+        randomTest(30, 3, 50)
+    }
+
+    @Test
+    fun randomTest02() {
+        randomTest(10, 5, 10)
+    }
+
+    @Test
+    fun randomTest03() {
+        randomTest(10, 5, 20)
+    }
+
+    @Test
+    fun randomTest04() {
+        randomTest(0, 50, 3)
+    }
+
+    fun randomTest(baseChanges: Int, numBranches: Int, branchChanges: Int) {
         val merger = VersionMerger(storeCache, idGenerator)
         val baseExpectedTreeData = ExpectedTreeData()
         val baseBranch = OTBranch(PBranch(initialTree, idGenerator), idGenerator)
         logDebug({ "Random changes to base" }, ConflictResolutionTest::class)
-        for (i in 0..30) {
+        for (i in 0 until baseChanges) {
             applyRandomChange(baseBranch, baseExpectedTreeData)
         }
         val baseVersion = createVersion(baseBranch.operationsAndTree, null)
 
-        val maxIndex = 2
+        val maxIndex = numBranches - 1
         val branches = (0..maxIndex).map { OTBranch(PBranch(baseVersion.tree, idGenerator), idGenerator) }.toList()
         val versions = branches.map { branch ->
             val expectedTreeData = baseExpectedTreeData.clone()
             logDebug({ "Random changes to branch" }, ConflictResolutionTest::class)
-            for (i in 0..50) {
+            for (i in 0 until branchChanges) {
                 applyRandomChange(branch, expectedTreeData)
             }
             createVersion(branch.operationsAndTree, baseVersion)

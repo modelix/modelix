@@ -53,6 +53,10 @@ class AddNewChildOp(val parentId: Long, val role: String?, val index: Int, val c
         indexAdjustments.nodeAdded(parentId, role, index)
     }
 
+    override fun undoAdjustment(indexAdjustments: IndexAdjustments) {
+        indexAdjustments.undoNodeAdded(parentId, role, index)
+    }
+
     override fun withAdjustedIndex(indexAdjustments: IndexAdjustments): IOperation {
         return withIndex(indexAdjustments.getAdjustedIndex(parentId, role, index))
     }

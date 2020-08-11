@@ -53,7 +53,19 @@ class MoveNodeOp(
                     NoOp()
                 } else adjusted()
             }
-            is MoveNodeOp -> adjusted()
+            is MoveNodeOp -> {
+                if (previous.childId == childId) {
+                    if (previous.sourceParentId != sourceParentId || previous.sourceRole != sourceRole || previous.sourceIndex != sourceIndex) {
+                        throw RuntimeException("Both operations move node ${childId.toString(16)} but from ${sourceParentId.toString(16)}.$sourceRole[$sourceIndex] and ${previous.sourceParentId.toString(16)}.${previous.sourceRole}[${previous.sourceIndex}]")
+                    }
+                    previous.undoAdjustment(indexAdjustments)
+                    MoveNodeOp(
+                        childId,
+                        previous.targetParentId, previous.targetRole, previous.targetIndex,
+                        targetParentId, targetRole, targetIndex
+                    )
+                } else adjusted()
+            }
             is SetPropertyOp -> adjusted()
             is SetReferenceOp -> adjusted()
             is NoOp -> adjusted()
@@ -64,6 +76,11 @@ class MoveNodeOp(
     override fun loadAdjustment(indexAdjustments: IndexAdjustments) {
         indexAdjustments.nodeRemoved(sourceParentId, sourceRole, sourceIndex)
         indexAdjustments.nodeAdded(targetParentId, targetRole, targetIndex)
+    }
+
+    override fun undoAdjustment(indexAdjustments: IndexAdjustments) {
+        indexAdjustments.undoNodeAdded(targetParentId, targetRole, targetIndex)
+        indexAdjustments.undoNodeRemoved(sourceParentId, sourceRole, sourceIndex)
     }
 
     override fun withAdjustedIndex(indexAdjustments: IndexAdjustments): IOperation {

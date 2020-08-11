@@ -78,7 +78,6 @@ class VersionMerger(private val storeCache: IDeserializingKeyValueStore, private
             val leftAppliedOps: MutableList<IAppliedOperation> = ArrayList()
             val rightAppliedOps: MutableList<IAppliedOperation> = ArrayList()
             val appliedVersionIds: MutableSet<Long> = HashSet()
-            val indexAdjustments = IndexAdjustments()
             while (leftHistory.isNotEmpty() || rightHistory.isNotEmpty()) {
                 val useLeft = when {
                     rightHistory.isEmpty() -> true
@@ -95,6 +94,7 @@ class VersionMerger(private val storeCache: IDeserializingKeyValueStore, private
                     .toList()
                 var operationsToApply: List<IOperation> = versionToApply.operations.toList()
                 for (oppositeAppliedOp in oppositeAppliedOps) {
+                    val indexAdjustments = IndexAdjustments()
                     oppositeAppliedOp.loadAdjustment(indexAdjustments)
                     operationsToApply = operationsToApply.map { transformOperation(it, oppositeAppliedOp, indexAdjustments) }.toList()
                 }
