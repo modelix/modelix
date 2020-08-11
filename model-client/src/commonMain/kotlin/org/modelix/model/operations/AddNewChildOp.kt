@@ -58,7 +58,7 @@ class AddNewChildOp(val parentId: Long, val role: String?, val index: Int, val c
     }
 
     override fun withAdjustedIndex(indexAdjustments: IndexAdjustments): IOperation {
-        return withIndex(indexAdjustments.getAdjustedIndex(parentId, role, index))
+        return withIndex(indexAdjustments.getAdjustedIndex(parentId, role, index, true))
     }
 
     override fun toString(): String {

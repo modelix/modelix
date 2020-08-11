@@ -188,6 +188,21 @@ class ConflictResolutionTest : TreeTestBase() {
         // 1.role1[0] expected to be ff00000011, but was ff00000010
     }
 
+    @Test
+    fun knownIssue07() {
+        knownIssueTest({ t ->
+            t.addNewChild(0x1, "role1", 0, 0xff0000000e, null)
+            t.addNewChild(0xff0000000e, "role3", 0, 0xff00000010, null)
+            t.addNewChild(0xff00000010, "role2", 0, 0xff00000011, null)
+        }, { t -> // 0
+            t.deleteNode(0xff00000011)
+        }, { t -> // 1
+            t.moveChild(0x1, "role2", 0, 0xff00000011)
+            t.addNewChild(0x1, "role2", 0, 0xff00000032, null)
+        })
+        // Attempt to access a deleted location: 1
+    }
+
     fun createVersion(opsAndTree: Pair<List<IAppliedOperation>, ITree>, previousVersion: CLVersion?): CLVersion {
         return CLVersion(
             idGenerator.generate(),

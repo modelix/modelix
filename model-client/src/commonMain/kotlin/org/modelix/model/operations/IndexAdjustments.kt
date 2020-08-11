@@ -26,8 +26,8 @@ class IndexAdjustments {
         apply(ranges, Range(index, Int.MAX_VALUE, Adjustment(-1)))
     }
 
-    fun getAdjustedIndex(parentId: Long, role: String?, index: Int): Int {
-        return adjustments[Role(parentId, role)]?.find { it.contains(index) }?.adjustment?.adjust(index) ?: index
+    fun getAdjustedIndex(parentId: Long, role: String?, index: Int, allowDeleted: Boolean = false): Int {
+        return adjustments[Role(parentId, role)]?.find { it.contains(index) }?.adjustment?.adjust(index, allowDeleted) ?: index
     }
 
     private fun apply(ranges: MutableList<Range>, newAdjustment: Range) {
@@ -86,8 +86,8 @@ private class Adjustment(val amount: Int, val deleted: Boolean = false, val undo
             false
         )
     }
-    fun adjust(index: Int): Int {
-        if (deleted) {
+    fun adjust(index: Int, allowDeleted: Boolean): Int {
+        if (!allowDeleted && deleted) {
             throw RuntimeException("Attempt to access a deleted location: $index")
         }
         return index + amount
