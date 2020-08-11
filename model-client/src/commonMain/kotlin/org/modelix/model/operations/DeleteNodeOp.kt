@@ -42,19 +42,14 @@ class DeleteNodeOp(val parentId: Long, val role: String?, val index: Int, val ch
         val adjusted = { withAdjustedIndex(indexAdjustments) }
         return when (previous) {
             is DeleteNodeOp -> {
-                if (parentId == previous.parentId && role == previous.role && previous.index == index) {
-                    if (previous.childId == childId) {
-                        previous.undoAdjustment(indexAdjustments)
-                        NoOp()
-                    } else adjusted()
+                if (previous.childId == childId) {
+                    previous.undoAdjustment(indexAdjustments)
+                    NoOp()
                 } else adjusted()
             }
             is AddNewChildOp -> adjusted()
             is MoveNodeOp -> {
                 if (previous.childId == childId) {
-                    if (previous.sourceParentId != parentId || previous.sourceRole != role || previous.sourceIndex != index) {
-                        throw RuntimeException("node " + childId + " expected to be at " + parentId + "." + role + "[" + index + "]" + " but was " + previous.sourceParentId + "." + previous.sourceRole + "[" + previous.sourceIndex + "]")
-                    }
                     previous.undoAdjustment(indexAdjustments)
                     DeleteNodeOp(previous.targetParentId, previous.targetRole, previous.targetIndex, childId)
                 } else adjusted()

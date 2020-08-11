@@ -30,7 +30,7 @@ class ConflictResolutionTest : TreeTestBase() {
 
     @Test
     fun randomTest04() {
-        randomTest(0, 50, 3)
+        randomTest(100, 5, 100)
     }
 
     fun randomTest(baseChanges: Int, numBranches: Int, branchChanges: Int) {
@@ -168,6 +168,24 @@ class ConflictResolutionTest : TreeTestBase() {
             t.addNewChild(0x1, "role3", 0, 0xff00000011, null)
             t.deleteNode(0xff00000011)
         })
+    }
+
+    @Test
+    fun knownIssue06() {
+        knownIssueTest({ t ->
+            t.addNewChild(0x1, "role1", 0, 0xff0000000e, null)
+            t.addNewChild(0x1, "role2", 0, 0xff00000011, null)
+            t.addNewChild(0xff00000011, "role1", 0, 0xff00000010, null)
+        }, { t -> // 0
+            t.moveChild(0x1, "role1", 0, 0xff00000010)
+            t.deleteNode(0xff00000010)
+        }, { t -> // 1
+            t.deleteNode(0xff0000000e)
+            t.moveChild(0x1, "role1", 0, 0xff00000011)
+            t.deleteNode(0xff00000010)
+            t.moveChild(0x1, "role1", 0, 0xff00000011)
+        })
+        // 1.role1[0] expected to be ff00000011, but was ff00000010
     }
 
     fun createVersion(opsAndTree: Pair<List<IAppliedOperation>, ITree>, previousVersion: CLVersion?): CLVersion {

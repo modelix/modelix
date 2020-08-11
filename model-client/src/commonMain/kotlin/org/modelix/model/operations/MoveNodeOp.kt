@@ -45,19 +45,13 @@ class MoveNodeOp(
         return when (previous) {
             is AddNewChildOp -> adjusted()
             is DeleteNodeOp -> {
-                if (previous.parentId == sourceParentId && previous.role == sourceRole && previous.index == sourceIndex) {
-                    if (previous.childId != childId) {
-                        throw RuntimeException("$sourceParentId.$sourceRole[$sourceIndex] expected to be ${childId.toString(16)}, but was ${previous.childId.toString(16)}")
-                    }
+                if (previous.childId == childId) {
                     indexAdjustments.nodeRemoved(targetParentId, targetRole, targetIndex)
                     NoOp()
                 } else adjusted()
             }
             is MoveNodeOp -> {
                 if (previous.childId == childId) {
-                    if (previous.sourceParentId != sourceParentId || previous.sourceRole != sourceRole || previous.sourceIndex != sourceIndex) {
-                        throw RuntimeException("Both operations move node ${childId.toString(16)} but from ${sourceParentId.toString(16)}.$sourceRole[$sourceIndex] and ${previous.sourceParentId.toString(16)}.${previous.sourceRole}[${previous.sourceIndex}]")
-                    }
                     previous.undoAdjustment(indexAdjustments)
                     MoveNodeOp(
                         childId,

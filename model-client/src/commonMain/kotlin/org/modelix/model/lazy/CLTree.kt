@@ -295,6 +295,15 @@ class CLTree : ITree {
     }
 
     override fun moveChild(targetParentId: Long, targetRole: String?, targetIndex: Int, childId: Long): ITree {
+        if (childId == ITree.ROOT_ID) throw RuntimeException("Moving the root node is not allowed")
+        var ancestor = targetParentId
+        while (ancestor != ITree.ROOT_ID) {
+            if (ancestor == childId) {
+                throw RuntimeException("${targetParentId.toString(16)} is a descendant of ${childId.toString(16)}")
+            }
+            ancestor = getParent(ancestor)
+        }
+
         var targetIndex = targetIndex
         if (targetIndex != -1) {
             val oldParent = getParent(childId)
