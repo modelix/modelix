@@ -80,7 +80,7 @@ class MoveNodeOp(
     override fun withAdjustedIndex(indexAdjustments: IndexAdjustments): IOperation {
         return withIndex(
             indexAdjustments.getAdjustedIndex(sourceParentId, sourceRole, sourceIndex),
-            indexAdjustments.getAdjustedIndex(targetParentId, targetRole, targetIndex)
+            indexAdjustments.getAdjustedIndex(targetParentId, targetRole, targetIndex, true)
         )
     }
 
