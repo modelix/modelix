@@ -38,7 +38,7 @@ class AddNewChildOp(val parentId: Long, val role: String?, val index: Int, val c
                 if (previous.childId == this.parentId) {
                     AddNewChildOp(ITree.ROOT_ID, ITree.DETACHED_NODES_ROLE, 0, this.childId, this.concept)
                 } else {
-                    this
+                    adjusted()
                 }
             }
             is MoveNodeOp -> adjusted()
@@ -63,6 +63,10 @@ class AddNewChildOp(val parentId: Long, val role: String?, val index: Int, val c
 
     override fun toString(): String {
         return "AddNewChildOp ${SerializationUtil.longToHex(childId)}, ${SerializationUtil.longToHex(parentId)}.$role[$index], $concept"
+    }
+
+    override fun toCode(): String {
+        return """t.addNewChild(0x${parentId.toString(16)}, "$role", $index, 0x${childId.toString(16)}, null)"""
     }
 
     inner class Applied : AbstractOperation.Applied(), IAppliedOperation {

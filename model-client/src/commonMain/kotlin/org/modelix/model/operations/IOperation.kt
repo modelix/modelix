@@ -33,4 +33,5 @@ interface IOperation {
     fun undoAdjustment(indexAdjustments: IndexAdjustments)
 
     fun withAdjustedIndex(indexAdjustments: IndexAdjustments): IOperation
+    fun toCode(): String
 }

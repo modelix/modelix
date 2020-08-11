@@ -30,4 +30,8 @@ abstract class AbstractOperation : IOperation {
     override fun withAdjustedIndex(indexAdjustments: IndexAdjustments): IOperation {
         return this
     }
+
+    override fun toCode(): String {
+        return ""
+    }
 }

@@ -27,7 +27,7 @@ class IndexAdjustments {
     }
 
     fun getAdjustedIndex(parentId: Long, role: String?, index: Int): Int {
-        return adjustments[Role(parentId, role)]?.find { it.contains(index) }?.adjustment?.adjust(index) ?: 0
+        return adjustments[Role(parentId, role)]?.find { it.contains(index) }?.adjustment?.adjust(index) ?: index
     }
 
     private fun apply(ranges: MutableList<Range>, newAdjustment: Range) {
@@ -74,6 +74,9 @@ private class Range(val from: Int, val to: Int, val adjustment: Adjustment) {
     fun intersects(other: Range) = contains(other.from) || contains(other.to) || other.contains(from) || other.contains(to)
     fun contains(index: Int) = index in from..to
     fun contains(other: Range) = other.from in from..to && other.to in from..to
+    override fun toString(): String {
+        return "$from..${if (to == Int.MAX_VALUE) "" else to}/$adjustment"
+    }
 }
 private class Adjustment(val amount: Int, val deleted: Boolean = false, val undoDelete: Boolean = false) {
     fun combine(other: Adjustment): Adjustment {
@@ -84,9 +87,23 @@ private class Adjustment(val amount: Int, val deleted: Boolean = false, val undo
         )
     }
     fun adjust(index: Int): Int {
-        if (deleted) throw RuntimeException("Attempt to access a deleted location: $index")
+        if (deleted) {
+            throw RuntimeException("Attempt to access a deleted location: $index")
+        }
         return index + amount
     }
+
+    override fun toString(): String {
+        return when {
+            undoDelete -> "UNDO_DELETE"
+            deleted -> "DELETED"
+            else -> amount.toString()
+        }
+    }
 }
-private data class Role(val nodeId: Long, val role: String?) {}
+private data class Role(val nodeId: Long, val role: String?) {
+    override fun toString(): String {
+        return "${nodeId.toString(16)}.$role"
+    }
+}
 

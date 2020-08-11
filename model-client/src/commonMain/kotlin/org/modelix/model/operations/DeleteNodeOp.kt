@@ -82,6 +82,10 @@ class DeleteNodeOp(val parentId: Long, val role: String?, val index: Int, val ch
         return "DeleteNodeOp ${SerializationUtil.longToHex(childId)}, ${SerializationUtil.longToHex(parentId)}.$role[$index]"
     }
 
+    override fun toCode(): String {
+        return """t.deleteNode(0x${childId.toString(16)})"""
+    }
+
     inner class Applied(private val concept: IConcept?) : AbstractOperation.Applied(), IAppliedOperation {
         override val originalOp: IOperation
             get() = this@DeleteNodeOp

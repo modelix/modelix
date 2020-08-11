@@ -94,6 +94,10 @@ class MoveNodeOp(
         return "MoveNodeOp ${childId.toString(16)}, ${sourceParentId.toString(16)}.$sourceRole[$sourceIndex]->${targetParentId.toString(16)}.$targetRole[$targetIndex]"
     }
 
+    override fun toCode(): String {
+        return """t.moveChild(0x${targetParentId.toString(16)}, "$targetRole", $targetIndex, 0x${childId.toString(16)})"""
+    }
+
     inner class Applied : AbstractOperation.Applied(), IAppliedOperation {
         override val originalOp: IOperation
             get() = this@MoveNodeOp

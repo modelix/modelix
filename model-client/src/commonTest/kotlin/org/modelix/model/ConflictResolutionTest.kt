@@ -2,6 +2,7 @@ package org.modelix.model
 
 import org.modelix.model.api.ITree
 import org.modelix.model.api.ITreeChangeVisitor
+import org.modelix.model.api.IWriteTransaction
 import org.modelix.model.api.PBranch
 import org.modelix.model.lazy.CLTree
 import org.modelix.model.lazy.CLVersion
@@ -44,9 +45,9 @@ class ConflictResolutionTest : TreeTestBase() {
 
         val maxIndex = numBranches - 1
         val branches = (0..maxIndex).map { OTBranch(PBranch(baseVersion.tree, idGenerator), idGenerator) }.toList()
-        val versions = branches.map { branch ->
+        val versions = branches.mapIndexed { index, branch ->
             val expectedTreeData = baseExpectedTreeData.clone()
-            logDebug({ "Random changes to branch" }, ConflictResolutionTest::class)
+            logDebug({ "Random changes to branch $index" }, ConflictResolutionTest::class)
             for (i in 0 until branchChanges) {
                 applyRandomChange(branch, expectedTreeData)
             }
@@ -65,38 +66,24 @@ class ConflictResolutionTest : TreeTestBase() {
         }
     }
 
-    @Test
-    fun knownIssue01() {
+    fun knownIssueTest(baseChanges: (IWriteTransaction) -> Unit, vararg branchChanges: (IWriteTransaction) -> Unit) {
         val merger = VersionMerger(storeCache, idGenerator)
         val baseBranch = OTBranch(PBranch(initialTree, idGenerator), idGenerator)
 
         baseBranch.runWrite {
-            val t = baseBranch.writeTransaction
-            t.addNewChild(ITree.ROOT_ID, "role1", 0, 0xe, null)
-            t.addNewChild(ITree.ROOT_ID, "role2", 0, 0x12, null)
+            logDebug({ "Changes to base branch" }, ConflictResolutionTest::class)
+            baseChanges(baseBranch.writeTransaction)
         }
 
         val baseVersion = createVersion(baseBranch.operationsAndTree, null)
 
-        val maxIndex = 1
+        val maxIndex = branchChanges.size - 1
         val branches = (0..maxIndex).map { OTBranch(PBranch(baseVersion.tree, idGenerator), idGenerator) }.toList()
-        branches[0].runWrite {
-            val t = branches[0].writeTransaction
-            // role1: [e]   role2: [12]   role3: []
-            t.moveChild(ITree.ROOT_ID, "role3", 0, 0xe)
-            // role1: []   role2: [12]   role3: [e]
-            t.deleteNode(0xe)
-            // role1: []   role2: [12]   role3: []
-        }
-        branches[1].runWrite {
-            val t = branches[1].writeTransaction
-            // role1: [e]   role2: [12]
-            t.moveChild(ITree.ROOT_ID, "role1", 1, 0x12)
-            // role1: [e, 12]   role2: []
-            t.deleteNode(0xe)
-            // role1: [12]   role2: []
-            t.deleteNode(0x12) // transforming this fails: Node at 1.role1[0] is expected to be 12, but was e
-            // role1: []   role2: []
+        for (i in 0..maxIndex) {
+            branches[i].runWrite {
+                logDebug({ "Changes to branch $i" }, ConflictResolutionTest::class)
+                branchChanges[i](branches[i].writeTransaction)
+            }
         }
         val versions = branches.map { branch ->
             createVersion(branch.operationsAndTree, baseVersion)
@@ -116,55 +103,58 @@ class ConflictResolutionTest : TreeTestBase() {
     }
 
     @Test
+    fun knownIssue01() {
+        knownIssueTest({ t ->
+            t.addNewChild(ITree.ROOT_ID, "role1", 0, 0xe, null)
+            t.addNewChild(ITree.ROOT_ID, "role2", 0, 0x12, null)
+        }, { t ->
+            t.moveChild(ITree.ROOT_ID, "role3", 0, 0xe)
+            t.deleteNode(0xe)
+        }, { t ->
+            t.moveChild(ITree.ROOT_ID, "role1", 1, 0x12)
+            t.deleteNode(0xe)
+            t.deleteNode(0x12)
+        })
+    }
+
+    @Test
     fun knownIssue02() {
-        val merger = VersionMerger(storeCache, idGenerator)
-        val baseBranch = OTBranch(PBranch(initialTree, idGenerator), idGenerator)
-
-        baseBranch.runWrite {
-            val t = baseBranch.writeTransaction
+        knownIssueTest({ t ->
             t.addNewChild(ITree.ROOT_ID, "role2", 0, 0x3, null)
-        }
-
-        val baseVersion = createVersion(baseBranch.operationsAndTree, null)
-
-        val maxIndex = 1
-        val branches = (0..maxIndex).map { OTBranch(PBranch(baseVersion.tree, idGenerator), idGenerator) }.toList()
-        branches[0].runWrite {
-            val t = branches[0].writeTransaction
+        }, { t ->
             t.deleteNode(0x3)
-            //t.addNewChild(ITree.ROOT_ID, "role2", 0, 0xe, null)
-            //t.moveChild(ITree.ROOT_ID, "role2", 1, 0xe)
-            //t.deleteNode(0xe)
-        }
-        branches[1].runWrite {
-            val t = branches[1].writeTransaction
+        }, { t ->
             t.deleteNode(0x3)
-
-            //t.addNewChild(ITree.ROOT_ID, "role3", 1, 0x13, null)
-            //t.moveChild(ITree.ROOT_ID, "role2", 0, 0x13)
             t.addNewChild(ITree.ROOT_ID, "role2", 0, 0x13, null)
+            t.deleteNode(0x13)
+        })
+    }
 
-            //t.addNewChild(ITree.ROOT_ID, "role5", 0, 0x17, null)
-            //t.moveChild(ITree.ROOT_ID, "role2", 1, 0x17)
-            //t.moveChild(ITree.ROOT_ID, "role1", 0, 0x17)
-            //t.moveChild(ITree.ROOT_ID, "role6", 0, 0x17)
-            t.deleteNode(0x13) // transforming this fails: Both operations delete 1.role2[0] but with different expected IDs ff00000013 and ff00000003
-        }
-        val versions = branches.map { branch ->
-            createVersion(branch.operationsAndTree, baseVersion)
-        }.toList()
+    @Test
+    fun knownIssue03() {
+        knownIssueTest({ t ->
+        }, { t ->
+            t.addNewChild(1, "role2", 0, 0xff00000007, null)
+            t.deleteNode(0xff00000007)
+        }, { t ->
+            t.addNewChild(1, "role2", 0, 0xff0000000a, null)
+            t.deleteNode(0xff0000000a)
+        }, { t ->
+            t.addNewChild(1, "role2", 0, 0xff0000000e, null)
+            t.deleteNode(0xff0000000e)
+        })
+    }
 
-        val mergedVersions = ArrayList(versions)
-
-        for (i in 0..maxIndex) for (i2 in 0..maxIndex) {
-            if (i == i2) continue
-            logDebug({ "Merge branch $i2 into $i" }, ConflictResolutionTest::class)
-            mergedVersions[i] = merger.mergeChange(mergedVersions[i], mergedVersions[i2])
-        }
-
-        for (i in 1..maxIndex) {
-            assertSameTree(mergedVersions[0].tree, mergedVersions[i].tree)
-        }
+    @Test
+    fun knownIssue04() {
+        knownIssueTest({ t ->
+        }, { t ->
+            t.addNewChild(1, "role3", 0, 0xff00000006, null)
+            t.addNewChild(0xff00000006, "role3", 0, 0xff00000008, null)
+            t.moveChild(1, "role1", 0, 0xff00000006)
+        }, { t ->
+            t.addNewChild(1, "role3", 0, 0xff0000000e, null)
+        })
     }
 
     fun createVersion(opsAndTree: Pair<List<IAppliedOperation>, ITree>, previousVersion: CLVersion?): CLVersion {
