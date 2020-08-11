@@ -75,9 +75,10 @@ class VersionMerger(private val storeCache: IDeserializingKeyValueStore, private
         }
         branch.runWrite {
             val t = branch.writeTransaction
-            val leftAppliedOps: MutableList<IAppliedOperation> = ArrayList()
-            val rightAppliedOps: MutableList<IAppliedOperation> = ArrayList()
-            val appliedVersionIds: MutableSet<Long> = HashSet()
+            val appliedOpsForVersion: MutableMap<Long, List<IAppliedOperation>> = LinkedHashMap()
+            val appliedVersionIds: MutableSet<Long> = LinkedHashSet()
+            val leftKnownVersions = leftHistory.map { it.id }.toSet()
+            val rightKnownVersions = rightHistory.map { it.id }.toSet()
             while (leftHistory.isNotEmpty() || rightHistory.isNotEmpty()) {
                 val useLeft = when {
                     rightHistory.isEmpty() -> true
@@ -89,21 +90,22 @@ class VersionMerger(private val storeCache: IDeserializingKeyValueStore, private
                     continue
                 }
                 appliedVersionIds.add(versionToApply.id)
-                val oppositeAppliedOps = (if (useLeft) rightAppliedOps else leftAppliedOps)
-                    .map { obj: IAppliedOperation -> obj.originalOp }
-                    .toList()
+                val knownVersions = if (useLeft) leftKnownVersions else rightKnownVersions
+                val concurrentAppliedOps = appliedOpsForVersion
+                    .filterKeys { !knownVersions.contains(it) }
+                    .flatMap { it.value }
+                    .map { it.originalOp }
                 var operationsToApply: List<IOperation> = versionToApply.operations.toList()
-                for (oppositeAppliedOp in oppositeAppliedOps) {
+                for (oppositeAppliedOp in concurrentAppliedOps) {
                     val indexAdjustments = IndexAdjustments()
                     oppositeAppliedOp.loadAdjustment(indexAdjustments)
                     operationsToApply = operationsToApply.map { transformOperation(it, oppositeAppliedOp, indexAdjustments) }.toList()
                 }
-                for (op in operationsToApply) {
-                    val appliedOp = op.apply(t)
-                    if (useLeft) {
-                        leftAppliedOps.add(appliedOp)
-                    } else {
-                        rightAppliedOps.add(appliedOp)
+                appliedOpsForVersion[versionToApply.id] = operationsToApply.map {
+                    try {
+                        it.apply(t)
+                    } catch (ex: Exception) {
+                        throw RuntimeException("Operation failed: $it", ex)
                     }
                 }
                 mergedVersion = CLVersion(
