@@ -96,10 +96,10 @@ class VersionMerger(private val storeCache: IDeserializingKeyValueStore, private
                     .flatMap { it.value }
                     .map { it.originalOp }
                 var operationsToApply: List<IOperation> = versionToApply.operations.toList()
-                for (oppositeAppliedOp in concurrentAppliedOps) {
+                for (concurrentAppliedOp in concurrentAppliedOps) {
                     val indexAdjustments = IndexAdjustments()
-                    oppositeAppliedOp.loadAdjustment(indexAdjustments)
-                    operationsToApply = operationsToApply.map { transformOperation(it, oppositeAppliedOp, indexAdjustments) }.toList()
+                    concurrentAppliedOp.loadAdjustment(indexAdjustments)
+                    operationsToApply = operationsToApply.map { transformOperation(it, concurrentAppliedOp, indexAdjustments) }.toList()
                 }
                 appliedOpsForVersion[versionToApply.id] = operationsToApply.map {
                     try {

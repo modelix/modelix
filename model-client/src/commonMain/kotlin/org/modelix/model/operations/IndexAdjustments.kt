@@ -16,12 +16,24 @@ class IndexAdjustments {
         apply(ranges, Range(index + 1, Int.MAX_VALUE, Adjustment(1)))
     }
 
-    fun nodeAdded(parent: Long, role: String?, index: Int) {
+    fun concurrentNodeAdd(parent: Long, role: String?, index: Int) {
         val ranges = adjustments.getOrPut(Role(parent, role), { mutableListOf(Range(0, Int.MAX_VALUE, Adjustment(0))) })
         apply(ranges, Range(index, Int.MAX_VALUE, Adjustment(1)))
     }
 
-    fun undoNodeAdded(parent: Long, role: String?, index: Int) {
+    fun nodeAdd(parent: Long, role: String?, index: Int) {
+        val amount = getAdjustedIndex(parent, role, index, true) - index
+        var ranges = adjustments.getOrPut(Role(parent, role), { mutableListOf(Range(0, Int.MAX_VALUE, Adjustment(0))) })
+        ensureRangeBorders(ranges, index, Int.MAX_VALUE)
+        ranges = (ranges.filter { it.from < index }
+                + Range(index, index, Adjustment(amount))
+                + ranges.filter { it.from >= index }.map { Range(it.from + 1, if (it.to < Int.MAX_VALUE) it.to + 1 else Int.MAX_VALUE, it.adjustment) }
+            ).toMutableList()
+        mergeRanges(ranges)
+        adjustments[Role(parent, role)] = ranges
+    }
+
+    fun undoConcurrentNodeAdd(parent: Long, role: String?, index: Int) {
         val ranges = adjustments.getOrPut(Role(parent, role), { mutableListOf(Range(0, Int.MAX_VALUE, Adjustment(0))) })
         apply(ranges, Range(index, Int.MAX_VALUE, Adjustment(-1)))
     }
@@ -31,18 +43,7 @@ class IndexAdjustments {
     }
 
     private fun apply(ranges: MutableList<Range>, newAdjustment: Range) {
-        var i = 0;
-        while (i < ranges.size) {
-            if (ranges[i].contains(newAdjustment.from) && ranges[i].from != newAdjustment.from) {
-                ranges.add(i + 1, Range(newAdjustment.from, ranges[i].to, ranges[i].adjustment))
-                ranges[i] = Range(ranges[i].from, newAdjustment.from - 1, ranges[i].adjustment)
-            }
-            if (ranges[i].contains(newAdjustment.to) && ranges[i].to != newAdjustment.to) {
-                ranges.add(i + 1, Range(newAdjustment.to + 1, ranges[i].to, ranges[i].adjustment))
-                ranges[i] = Range(ranges[i].from, newAdjustment.to, ranges[i].adjustment)
-            }
-            i++
-        }
+        ensureRangeBorders(ranges, newAdjustment.from, newAdjustment.to)
         for (i in ranges.indices) {
             if (ranges[i].intersects(newAdjustment)) {
                 require(newAdjustment.contains(ranges[i]))
@@ -54,6 +55,21 @@ class IndexAdjustments {
             }
         }
         mergeRanges(ranges)
+    }
+
+    private fun ensureRangeBorders(ranges: MutableList<Range>, from: Int, to: Int) {
+        var i = 0;
+        while (i < ranges.size) {
+            if (ranges[i].contains(from) && ranges[i].from != from) {
+                ranges.add(i + 1, Range(from, ranges[i].to, ranges[i].adjustment))
+                ranges[i] = Range(ranges[i].from, from - 1, ranges[i].adjustment)
+            }
+            if (ranges[i].contains(to) && ranges[i].to != to) {
+                ranges.add(i + 1, Range(to + 1, ranges[i].to, ranges[i].adjustment))
+                ranges[i] = Range(ranges[i].from, to, ranges[i].adjustment)
+            }
+            i++
+        }
     }
 
     private fun mergeRanges(ranges: MutableList<Range>) {
@@ -78,16 +94,16 @@ private class Range(val from: Int, val to: Int, val adjustment: Adjustment) {
         return "$from..${if (to == Int.MAX_VALUE) "" else to}/$adjustment"
     }
 }
-private class Adjustment(val amount: Int, val deleted: Boolean = false, val undoDelete: Boolean = false) {
+private class Adjustment(val amount: Int, val invalid: Boolean = false, val undoInvalid: Boolean = false) {
     fun combine(other: Adjustment): Adjustment {
         return Adjustment(
             amount + other.amount,
-            (deleted || other.deleted) && !(undoDelete || other.undoDelete),
+            (invalid || other.invalid) && !(undoInvalid || other.undoInvalid),
             false
         )
     }
     fun adjust(index: Int, allowDeleted: Boolean): Int {
-        if (!allowDeleted && deleted) {
+        if (!allowDeleted && invalid) {
             throw RuntimeException("Attempt to access a deleted location: $index")
         }
         return index + amount
@@ -95,8 +111,8 @@ private class Adjustment(val amount: Int, val deleted: Boolean = false, val undo
 
     override fun toString(): String {
         return when {
-            undoDelete -> "UNDO_DELETE"
-            deleted -> "DELETED"
+            undoInvalid -> "UNDO_DELETE"
+            invalid -> "DELETED"
             else -> amount.toString()
         }
     }

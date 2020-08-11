@@ -218,6 +218,46 @@ class ConflictResolutionTest : TreeTestBase() {
         // Attempt to access a deleted location: 0
     }
 
+    @Test
+    fun knownIssue09a() {
+        knownIssueTest({ t ->
+            t.addNewChild(0x1, "role1", 0, 0xff0000000e, null)
+            t.addNewChild(0x1, "role2", 0, 0xff00000011, null)
+        }, { t -> // 0
+            t.moveChild(0x1, "role6", 0, 0xff0000000e)
+        }, { t -> // 1
+            t.moveChild(0x1, "role1", 0, 0xff00000011)
+            t.deleteNode(0xff00000011)
+        })
+    }
+
+    @Test
+    fun knownIssue09b() {
+        knownIssueTest({ t ->
+            t.addNewChild(0x1, "role1", 0, 0xff0000000e, null)
+            t.addNewChild(0x1, "role2", 0, 0xff00000011, null)
+        }, { t -> // 0
+            t.moveChild(0x1, "role6", 0, 0xff0000000e)
+        }, { t -> // 1
+            t.moveChild(0x1, "role1", 1, 0xff00000011)
+            t.deleteNode(0xff00000011)
+        })
+    }
+
+    @Test
+    fun knownIssue09c() {
+        knownIssueTest({ t ->
+            t.addNewChild(0x1, "role1", 0, 0xff000000aa, null)
+            t.addNewChild(0x1, "role1", 1, 0xff0000000e, null)
+            t.addNewChild(0x1, "role2", 0, 0xff00000011, null)
+        }, { t -> // 0
+            t.moveChild(0x1, "role6", 0, 0xff0000000e)
+        }, { t -> // 1
+            t.moveChild(0x1, "role1", 0, 0xff00000011)
+            t.deleteNode(0xff00000011)
+        })
+    }
+
     fun createVersion(opsAndTree: Pair<List<IAppliedOperation>, ITree>, previousVersion: CLVersion?): CLVersion {
         return CLVersion(
             idGenerator.generate(),

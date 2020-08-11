@@ -31,7 +31,11 @@ class AddNewChildOp(val parentId: Long, val role: String?, val index: Int, val c
     }
 
     override fun transform(previous: IOperation, indexAdjustments: IndexAdjustments): IOperation {
-        val adjusted = { withAdjustedIndex(indexAdjustments) }
+        val adjusted = {
+            val a = withAdjustedIndex(indexAdjustments)
+//            indexAdjustments.nodeAdd(parentId, role, index)
+            a
+        }
         return when (previous) {
             is AddNewChildOp -> adjusted()
             is DeleteNodeOp -> {
@@ -50,11 +54,11 @@ class AddNewChildOp(val parentId: Long, val role: String?, val index: Int, val c
     }
 
     override fun loadAdjustment(indexAdjustments: IndexAdjustments) {
-        indexAdjustments.nodeAdded(parentId, role, index)
+        indexAdjustments.concurrentNodeAdd(parentId, role, index)
     }
 
     override fun undoAdjustment(indexAdjustments: IndexAdjustments) {
-        indexAdjustments.undoNodeAdded(parentId, role, index)
+        indexAdjustments.undoConcurrentNodeAdd(parentId, role, index)
     }
 
     override fun withAdjustedIndex(indexAdjustments: IndexAdjustments): IOperation {

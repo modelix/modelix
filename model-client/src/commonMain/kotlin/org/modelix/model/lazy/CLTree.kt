@@ -147,13 +147,14 @@ class CLTree : ITree {
         newChildrenArray = if (index == -1) {
             add(newChildrenArray, childData.id)
         } else {
-            val anchor = getChildren(parentId, role).drop(index).firstOrNull()
-            if (anchor == null) {
+            val children = getChildren(parentId, role).toList()
+            if (index > children.size) throw RuntimeException("Invalid index $index. There are only ${children.size} nodes in ${parentId.toString(16)}.$role")
+            if (index == children.size) {
                 add(newChildrenArray, childData.id)
             } else {
                 insert(
                     newChildrenArray,
-                    newChildrenArray.indexOf(anchor),
+                    index,
                     childData.id
                 )
             }
