@@ -55,8 +55,10 @@ class MoveNodeOp(
                     indexAdjustments.nodeRemoved(targetParentId, targetRole, targetIndex)
                     NoOp()
                 } else if (sourceParentId == previous.childId) {
+                    indexAdjustments.undoConcurrentNodeAdd(ITree.ROOT_ID, ITree.DETACHED_NODES_ROLE, 0)
                     MoveNodeOp(childId, ITree.ROOT_ID, ITree.DETACHED_NODES_ROLE, 0, targetParentId, targetRole, targetIndex)
                 } else if (targetParentId == previous.childId) {
+                    indexAdjustments.concurrentNodeAdd(ITree.ROOT_ID, ITree.DETACHED_NODES_ROLE, 0)
                     MoveNodeOp(childId, sourceParentId, sourceRole, sourceIndex, ITree.ROOT_ID, ITree.DETACHED_NODES_ROLE, 0)
                 } else adjusted()
             }
