@@ -18,48 +18,39 @@ package org.modelix.model.operations
 import org.modelix.model.api.ITree
 import org.modelix.model.api.IWriteTransaction
 
-class MoveNodeOp(
-    val childId: Long,
-    val sourceParentId: Long,
-    val sourceRole: String?,
-    val sourceIndex: Int,
-    val targetParentId: Long,
-    val targetRole: String?,
-    val targetIndex: Int
-) : AbstractOperation() {
+class MoveNodeOp(val childId: Long, val sourcePosition: PositionInRole, val targetPosition: PositionInRole) : AbstractOperation() {
     fun withIndex(newSourceIndex: Int, newTargetIndex: Int): MoveNodeOp {
-        return if (newSourceIndex == sourceIndex && newTargetIndex == targetIndex) {
+        return if (newSourceIndex == sourcePosition.index && newTargetIndex == targetPosition.index) {
             this
         } else {
-            MoveNodeOp(childId, sourceParentId, sourceRole, newSourceIndex,
-                targetParentId, targetRole, newTargetIndex)
+            MoveNodeOp(childId, sourcePosition.withIndex(newSourceIndex), targetPosition.withIndex(newTargetIndex))
         }
     }
 
     override fun apply(transaction: IWriteTransaction): IAppliedOperation {
-        transaction.moveChild(targetParentId, targetRole, targetIndex, childId)
+        transaction.moveChild(targetPosition.nodeId, targetPosition.role, targetPosition.index, childId)
         return Applied()
     }
 
     override fun transform(previous: IOperation, indexAdjustments: IndexAdjustments): IOperation {
         val adjusted = {
             val a = withAdjustedIndex(indexAdjustments)
-            indexAdjustments.nodeAdd(targetParentId, targetRole, targetIndex)
-            indexAdjustments.nodeRemove(sourceParentId, sourceRole, sourceIndex)
+            indexAdjustments.nodeAdd(targetPosition)
+            indexAdjustments.nodeRemove(sourcePosition)
             a
         }
         return when (previous) {
             is AddNewChildOp -> adjusted()
             is DeleteNodeOp -> {
                 if (previous.childId == childId) {
-                    indexAdjustments.nodeRemoved(targetParentId, targetRole, targetIndex)
+                    indexAdjustments.nodeRemoved(targetPosition)
                     NoOp()
-                } else if (sourceParentId == previous.childId) {
-                    indexAdjustments.undoConcurrentNodeAdd(ITree.ROOT_ID, ITree.DETACHED_NODES_ROLE, 0)
-                    MoveNodeOp(childId, ITree.ROOT_ID, ITree.DETACHED_NODES_ROLE, 0, targetParentId, targetRole, targetIndex)
-                } else if (targetParentId == previous.childId) {
-                    indexAdjustments.concurrentNodeAdd(ITree.ROOT_ID, ITree.DETACHED_NODES_ROLE, 0)
-                    MoveNodeOp(childId, sourceParentId, sourceRole, sourceIndex, ITree.ROOT_ID, ITree.DETACHED_NODES_ROLE, 0)
+                } else if (sourcePosition.nodeId == previous.childId) {
+                    indexAdjustments.undoConcurrentNodeAdd(PositionInRole(ITree.ROOT_ID, ITree.DETACHED_NODES_ROLE, 0))
+                    MoveNodeOp(childId, PositionInRole(ITree.ROOT_ID, ITree.DETACHED_NODES_ROLE, 0), targetPosition)
+                } else if (targetPosition.nodeId == previous.childId) {
+                    indexAdjustments.concurrentNodeAdd(PositionInRole(DETACHED_ROLE, 0))
+                    MoveNodeOp(childId, sourcePosition, PositionInRole(DETACHED_ROLE, 0))
                 } else adjusted()
             }
             is MoveNodeOp -> {
@@ -67,8 +58,8 @@ class MoveNodeOp(
                     previous.undoAdjustment(indexAdjustments)
                     MoveNodeOp(
                         childId,
-                        previous.targetParentId, previous.targetRole, previous.targetIndex,
-                        targetParentId, targetRole, targetIndex
+                        previous.targetPosition,
+                        targetPosition
                     )
                 } else adjusted()
             }
@@ -80,28 +71,28 @@ class MoveNodeOp(
     }
 
     override fun loadAdjustment(indexAdjustments: IndexAdjustments) {
-        indexAdjustments.nodeRemoved(sourceParentId, sourceRole, sourceIndex)
-        indexAdjustments.concurrentNodeAdd(targetParentId, targetRole, targetIndex)
+        indexAdjustments.nodeRemoved(sourcePosition)
+        indexAdjustments.concurrentNodeAdd(targetPosition)
     }
 
     override fun undoAdjustment(indexAdjustments: IndexAdjustments) {
-        indexAdjustments.undoConcurrentNodeAdd(targetParentId, targetRole, targetIndex)
-        indexAdjustments.undoNodeRemoved(sourceParentId, sourceRole, sourceIndex)
+        indexAdjustments.undoConcurrentNodeAdd(targetPosition)
+        indexAdjustments.undoNodeRemoved(sourcePosition)
     }
 
     override fun withAdjustedIndex(indexAdjustments: IndexAdjustments): MoveNodeOp {
         return withIndex(
-            indexAdjustments.getAdjustedIndex(sourceParentId, sourceRole, sourceIndex),
-            indexAdjustments.getAdjustedIndex(targetParentId, targetRole, targetIndex, true)
+            indexAdjustments.getAdjustedIndex(sourcePosition),
+            indexAdjustments.getAdjustedIndex(targetPosition, true)
         )
     }
 
     override fun toString(): String {
-        return "MoveNodeOp ${childId.toString(16)}, ${sourceParentId.toString(16)}.$sourceRole[$sourceIndex]->${targetParentId.toString(16)}.$targetRole[$targetIndex]"
+        return "MoveNodeOp ${childId.toString(16)}, $sourcePosition->$targetPosition"
     }
 
     override fun toCode(): String {
-        return """t.moveChild(0x${targetParentId.toString(16)}, "$targetRole", $targetIndex, 0x${childId.toString(16)})"""
+        return """t.moveChild(0x${targetPosition.nodeId.toString(16)}, "${targetPosition.role}", ${targetPosition.index}, 0x${childId.toString(16)})"""
     }
 
     inner class Applied : AbstractOperation.Applied(), IAppliedOperation {
@@ -109,7 +100,7 @@ class MoveNodeOp(
             get() = this@MoveNodeOp
 
         override fun invert(): IOperation {
-            return MoveNodeOp(childId, targetParentId, targetRole, targetIndex, sourceParentId, sourceRole, sourceIndex)
+            return MoveNodeOp(childId, targetPosition, sourcePosition)
         }
     }
 }

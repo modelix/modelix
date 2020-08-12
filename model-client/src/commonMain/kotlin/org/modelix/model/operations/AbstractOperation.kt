@@ -15,7 +15,11 @@
 
 package org.modelix.model.operations
 
+import org.modelix.model.api.ITree
+
 abstract class AbstractOperation : IOperation {
+    protected val DETACHED_ROLE = RoleInNode(ITree.ROOT_ID, ITree.DETACHED_NODES_ROLE)
+
     abstract inner class Applied {
         override fun toString(): String {
             return "applied:" + this@AbstractOperation.toString()

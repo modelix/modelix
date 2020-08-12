@@ -65,12 +65,12 @@ class OperationSerializer private constructor() {
                 AddNewChildOp::class,
                 object : Serializer<AddNewChildOp> {
                     override fun serialize(op: AddNewChildOp): String {
-                        return longToHex(op.parentId) + SEPARATOR + escape(op.role) + SEPARATOR + op.index + SEPARATOR + longToHex(op.childId) + SEPARATOR + serializeConcept(op.concept)
+                        return longToHex(op.position.nodeId) + SEPARATOR + escape(op.position.role) + SEPARATOR + op.position.index + SEPARATOR + longToHex(op.childId) + SEPARATOR + serializeConcept(op.concept)
                     }
 
                     override fun deserialize(serialized: String): AddNewChildOp {
                         val parts = serialized.split(SEPARATOR).dropLastWhile { it.isEmpty() }.toTypedArray()
-                        return AddNewChildOp(longFromHex(parts[0]), unescape(parts[1])!!, parts[2].toInt(), longFromHex(parts[3]), deserializeConcept(parts[4]))
+                        return AddNewChildOp(PositionInRole(longFromHex(parts[0]), unescape(parts[1]), parts[2].toInt()), longFromHex(parts[3]), deserializeConcept(parts[4]))
                     }
                 }
             )
@@ -78,12 +78,12 @@ class OperationSerializer private constructor() {
                 DeleteNodeOp::class,
                 object : Serializer<DeleteNodeOp> {
                     override fun serialize(op: DeleteNodeOp): String {
-                        return longToHex(op.parentId) + SEPARATOR + escape(op.role) + SEPARATOR + op.index + SEPARATOR + longToHex(op.childId)
+                        return longToHex(op.position.nodeId) + SEPARATOR + escape(op.position.role) + SEPARATOR + op.position.index + SEPARATOR + longToHex(op.childId)
                     }
 
                     override fun deserialize(serialized: String): DeleteNodeOp {
                         val parts = serialized.split(SEPARATOR).dropLastWhile { it.isEmpty() }.toTypedArray()
-                        return DeleteNodeOp(longFromHex(parts[0]), unescape(parts[1])!!, parts[2].toInt(), longFromHex(parts[3]))
+                        return DeleteNodeOp(PositionInRole(longFromHex(parts[0]), unescape(parts[1]), parts[2].toInt()), longFromHex(parts[3]))
                     }
                 }
             )
@@ -91,12 +91,12 @@ class OperationSerializer private constructor() {
                 MoveNodeOp::class,
                 object : Serializer<MoveNodeOp> {
                     override fun serialize(op: MoveNodeOp): String {
-                        return longToHex(op.childId) + SEPARATOR + longToHex(op.sourceParentId) + SEPARATOR + escape(op.sourceRole) + SEPARATOR + op.sourceIndex + SEPARATOR + longToHex(op.targetParentId) + SEPARATOR + escape(op.targetRole) + SEPARATOR + op.targetIndex
+                        return longToHex(op.childId) + SEPARATOR + longToHex(op.sourcePosition.nodeId) + SEPARATOR + escape(op.sourcePosition.role) + SEPARATOR + op.sourcePosition.index + SEPARATOR + longToHex(op.targetPosition.nodeId) + SEPARATOR + escape(op.targetPosition.role) + SEPARATOR + op.targetPosition.index
                     }
 
                     override fun deserialize(serialized: String): MoveNodeOp {
                         val parts = serialized.split(SEPARATOR).dropLastWhile { it.isEmpty() }.toTypedArray()
-                        return MoveNodeOp(longFromHex(parts[0]), longFromHex(parts[1]), unescape(parts[2])!!, parts[3].toInt(), longFromHex(parts[4]), unescape(parts[5])!!, parts[6].toInt())
+                        return MoveNodeOp(longFromHex(parts[0]), PositionInRole(longFromHex(parts[1]), unescape(parts[2]), parts[3].toInt()), PositionInRole(longFromHex(parts[4]), unescape(parts[5]), parts[6].toInt()))
                     }
                 }
             )

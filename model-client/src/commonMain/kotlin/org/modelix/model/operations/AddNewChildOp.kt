@@ -20,28 +20,29 @@ import org.modelix.model.api.ITree
 import org.modelix.model.api.IWriteTransaction
 import org.modelix.model.persistent.SerializationUtil
 
-class AddNewChildOp(val parentId: Long, val role: String?, val index: Int, val childId: Long, val concept: IConcept?) : AbstractOperation() {
+class AddNewChildOp(val position: PositionInRole, val childId: Long, val concept: IConcept?) : AbstractOperation() {
+
     fun withIndex(newIndex: Int): AddNewChildOp {
-        return if (newIndex == index) this else AddNewChildOp(parentId, role, newIndex, childId, concept)
+        return if (newIndex == position.index) this else AddNewChildOp(position.withIndex(newIndex), childId, concept)
     }
 
     override fun apply(transaction: IWriteTransaction): IAppliedOperation {
-        transaction.addNewChild(parentId, role, index, childId, concept)
+        transaction.addNewChild(position.nodeId, position.role, position.index, childId, concept)
         return Applied()
     }
 
     override fun transform(previous: IOperation, indexAdjustments: IndexAdjustments): IOperation {
         val adjusted = {
             val a = withAdjustedIndex(indexAdjustments)
-            indexAdjustments.nodeAdd(parentId, role, index)
+            indexAdjustments.nodeAdd(position)
             a
         }
         return when (previous) {
             is AddNewChildOp -> adjusted()
             is DeleteNodeOp -> {
-                if (previous.childId == this.parentId) {
-                    indexAdjustments.concurrentNodeAdd(ITree.ROOT_ID, ITree.DETACHED_NODES_ROLE, 0)
-                    AddNewChildOp(ITree.ROOT_ID, ITree.DETACHED_NODES_ROLE, 0, this.childId, this.concept)
+                if (previous.childId == position.nodeId) {
+                    indexAdjustments.concurrentNodeAdd(PositionInRole(ITree.ROOT_ID, ITree.DETACHED_NODES_ROLE, 0))
+                    AddNewChildOp(PositionInRole(ITree.ROOT_ID, ITree.DETACHED_NODES_ROLE, 0), this.childId, this.concept)
                 } else {
                     adjusted()
                 }
@@ -55,23 +56,23 @@ class AddNewChildOp(val parentId: Long, val role: String?, val index: Int, val c
     }
 
     override fun loadAdjustment(indexAdjustments: IndexAdjustments) {
-        indexAdjustments.concurrentNodeAdd(parentId, role, index)
+        indexAdjustments.concurrentNodeAdd(position)
     }
 
     override fun undoAdjustment(indexAdjustments: IndexAdjustments) {
-        indexAdjustments.undoConcurrentNodeAdd(parentId, role, index)
+        indexAdjustments.undoConcurrentNodeAdd(position)
     }
 
     override fun withAdjustedIndex(indexAdjustments: IndexAdjustments): IOperation {
-        return withIndex(indexAdjustments.getAdjustedIndex(parentId, role, index, true))
+        return withIndex(indexAdjustments.getAdjustedIndex(position, true))
     }
 
     override fun toString(): String {
-        return "AddNewChildOp ${SerializationUtil.longToHex(childId)}, ${SerializationUtil.longToHex(parentId)}.$role[$index], $concept"
+        return "AddNewChildOp ${SerializationUtil.longToHex(childId)}, $position, $concept"
     }
 
     override fun toCode(): String {
-        return """t.addNewChild(0x${parentId.toString(16)}, "$role", $index, 0x${childId.toString(16)}, null)"""
+        return """t.addNewChild(0x${position.nodeId.toString(16)}, "${position.role}", ${position.index}, 0x${childId.toString(16)}, null)"""
     }
 
     inner class Applied : AbstractOperation.Applied(), IAppliedOperation {
@@ -79,7 +80,7 @@ class AddNewChildOp(val parentId: Long, val role: String?, val index: Int, val c
             get() = this@AddNewChildOp
 
         override fun invert(): IOperation {
-            return DeleteNodeOp(parentId, role, index, childId)
+            return DeleteNodeOp(position, childId)
         }
     }
 }

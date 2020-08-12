@@ -20,9 +20,9 @@ import org.modelix.model.api.ITree
 import org.modelix.model.api.IWriteTransaction
 import org.modelix.model.persistent.SerializationUtil
 
-class DeleteNodeOp(val parentId: Long, val role: String?, val index: Int, val childId: Long) : AbstractOperation() {
+class DeleteNodeOp(val position: PositionInRole, val childId: Long) : AbstractOperation() {
     fun withIndex(newIndex: Int): DeleteNodeOp {
-        return if (newIndex == index) this else DeleteNodeOp(parentId, role, newIndex, childId)
+        return if (newIndex == position.index) this else DeleteNodeOp(position.withIndex(newIndex), childId)
     }
 
     override fun apply(transaction: IWriteTransaction): IAppliedOperation {
@@ -30,9 +30,9 @@ class DeleteNodeOp(val parentId: Long, val role: String?, val index: Int, val ch
             throw RuntimeException("Attempt to delete non-leaf node: ${childId.toString(16)}")
         }
 
-        val actualNode = transaction.getChildren(parentId, role).toList()[index]
+        val actualNode = transaction.getChildren(position.nodeId, position.role).toList()[position.index]
         if (actualNode != childId) {
-            throw RuntimeException("Node at ${parentId.toString(16)}.$role[$index] is expected to be ${childId.toString(16)}, but was ${actualNode.toString(16)}")
+            throw RuntimeException("Node at $position is expected to be ${childId.toString(16)}, but was ${actualNode.toString(16)}")
         }
         val concept = transaction.getConcept(childId)
         transaction.deleteNode(childId)
@@ -42,7 +42,7 @@ class DeleteNodeOp(val parentId: Long, val role: String?, val index: Int, val ch
     override fun transform(previous: IOperation, indexAdjustments: IndexAdjustments): IOperation {
         val adjusted = {
             val a = withAdjustedIndex(indexAdjustments)
-            indexAdjustments.nodeRemove(parentId, role, index)
+            indexAdjustments.nodeRemove(position)
             a
         }
         return when (previous) {
@@ -50,15 +50,15 @@ class DeleteNodeOp(val parentId: Long, val role: String?, val index: Int, val ch
                 if (previous.childId == childId) {
                     previous.undoAdjustment(indexAdjustments)
                     NoOp()
-                } else if (previous.childId == this.parentId) {
-                    DeleteNodeOp(ITree.ROOT_ID, ITree.DETACHED_NODES_ROLE, 0, this.childId)
+                } else if (previous.childId == position.nodeId) {
+                    DeleteNodeOp(PositionInRole(ITree.ROOT_ID, ITree.DETACHED_NODES_ROLE, 0), this.childId)
                 } else adjusted()
             }
             is AddNewChildOp -> adjusted()
             is MoveNodeOp -> {
                 if (previous.childId == childId) {
                     previous.undoAdjustment(indexAdjustments)
-                    DeleteNodeOp(previous.targetParentId, previous.targetRole, previous.targetIndex, childId)
+                    DeleteNodeOp(previous.targetPosition, childId)
                 } else adjusted()
             }
             is SetPropertyOp -> adjusted()
@@ -69,19 +69,19 @@ class DeleteNodeOp(val parentId: Long, val role: String?, val index: Int, val ch
     }
 
     override fun loadAdjustment(indexAdjustments: IndexAdjustments) {
-        indexAdjustments.nodeRemoved(parentId, role, index)
+        indexAdjustments.nodeRemoved(position)
     }
 
     override fun undoAdjustment(indexAdjustments: IndexAdjustments) {
-        indexAdjustments.undoNodeRemoved(parentId, role, index)
+        indexAdjustments.undoNodeRemoved(position)
     }
 
     override fun withAdjustedIndex(indexAdjustments: IndexAdjustments): IOperation {
-        return withIndex(indexAdjustments.getAdjustedIndex(parentId, role, index))
+        return withIndex(indexAdjustments.getAdjustedIndex(position))
     }
 
     override fun toString(): String {
-        return "DeleteNodeOp ${SerializationUtil.longToHex(childId)}, ${SerializationUtil.longToHex(parentId)}.$role[$index]"
+        return "DeleteNodeOp ${SerializationUtil.longToHex(childId)}, $position"
     }
 
     override fun toCode(): String {
@@ -93,7 +93,7 @@ class DeleteNodeOp(val parentId: Long, val role: String?, val index: Int, val ch
             get() = this@DeleteNodeOp
 
         override fun invert(): IOperation {
-            return AddNewChildOp(parentId, role, index, childId, concept)
+            return AddNewChildOp(position, childId, concept)
         }
 
         override fun toString(): String {

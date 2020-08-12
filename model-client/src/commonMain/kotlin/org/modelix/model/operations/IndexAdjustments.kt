@@ -2,52 +2,52 @@ package org.modelix.model.operations
 
 
 class IndexAdjustments {
-    private val adjustments: MutableMap<Role, MutableList<Range>> = HashMap()
+    private val adjustments: MutableMap<RoleInNode, MutableList<Range>> = HashMap()
 
-    fun nodeRemoved(parent: Long, role: String?, index: Int) {
-        val ranges = adjustments.getOrPut(Role(parent, role), { mutableListOf(Range(0, Int.MAX_VALUE, Adjustment(0))) })
-        apply(ranges, Range(index, index, Adjustment(0, true, false)))
-        apply(ranges, Range(index + 1, Int.MAX_VALUE, Adjustment(-1)))
+    fun nodeRemoved(position: PositionInRole) {
+        val ranges = adjustments.getOrPut(position.roleInNode, { mutableListOf(Range(0, Int.MAX_VALUE, Adjustment(0))) })
+        apply(ranges, Range(position.index, position.index, Adjustment(0, true, false)))
+        apply(ranges, Range(position.index + 1, Int.MAX_VALUE, Adjustment(-1)))
     }
 
-    fun undoNodeRemoved(parent: Long, role: String?, index: Int) {
-        val ranges = adjustments.getOrPut(Role(parent, role), { mutableListOf(Range(0, Int.MAX_VALUE, Adjustment(0))) })
-        apply(ranges, Range(index, index, Adjustment(0, false, true)))
-        apply(ranges, Range(index + 1, Int.MAX_VALUE, Adjustment(1)))
+    fun undoNodeRemoved(position: PositionInRole) {
+        val ranges = adjustments.getOrPut(position.roleInNode, { mutableListOf(Range(0, Int.MAX_VALUE, Adjustment(0))) })
+        apply(ranges, Range(position.index, position.index, Adjustment(0, false, true)))
+        apply(ranges, Range(position.index + 1, Int.MAX_VALUE, Adjustment(1)))
     }
 
-    fun concurrentNodeAdd(parent: Long, role: String?, index: Int) {
-        val ranges = adjustments.getOrPut(Role(parent, role), { mutableListOf(Range(0, Int.MAX_VALUE, Adjustment(0))) })
-        apply(ranges, Range(index, Int.MAX_VALUE, Adjustment(1)))
+    fun concurrentNodeAdd(position: PositionInRole) {
+        val ranges = adjustments.getOrPut(position.roleInNode, { mutableListOf(Range(0, Int.MAX_VALUE, Adjustment(0))) })
+        apply(ranges, Range(position.index, Int.MAX_VALUE, Adjustment(1)))
     }
 
-    fun nodeAdd(parent: Long, role: String?, index: Int) {
-        val amount = getAdjustedIndex(parent, role, index, true) - index
-        var ranges = adjustments.getOrPut(Role(parent, role), { mutableListOf(Range(0, Int.MAX_VALUE, Adjustment(0))) })
-        ensureRangeBorders(ranges, index, Int.MAX_VALUE)
-        ranges = (ranges.filter { it.from < index }
-                + Range(index, index, Adjustment(amount))
-                + ranges.filter { it.from >= index }.map { Range(it.from + 1, if (it.to < Int.MAX_VALUE) it.to + 1 else Int.MAX_VALUE, it.adjustment) }
+    fun nodeAdd(position: PositionInRole) {
+        val amount = getAdjustedIndex(position, true) - position.index
+        var ranges = adjustments.getOrPut(position.roleInNode, { mutableListOf(Range(0, Int.MAX_VALUE, Adjustment(0))) })
+        ensureRangeBorders(ranges, position.index, Int.MAX_VALUE)
+        ranges = (ranges.filter { it.from < position.index }
+                + Range(position.index, position.index, Adjustment(amount))
+                + ranges.filter { it.from >= position.index }.map { Range(it.from + 1, if (it.to < Int.MAX_VALUE) it.to + 1 else Int.MAX_VALUE, it.adjustment) }
             ).toMutableList()
         mergeRanges(ranges)
-        adjustments[Role(parent, role)] = ranges
+        adjustments[position.roleInNode] = ranges
     }
 
-    fun nodeRemove(parent: Long, role: String?, index: Int) {
-        var ranges = adjustments.getOrPut(Role(parent, role), { mutableListOf(Range(0, Int.MAX_VALUE, Adjustment(0))) })
-        ensureRangeBorders(ranges, index, Int.MAX_VALUE)
-        ranges = ranges.filter { it.from == index }.toMutableList()
+    fun nodeRemove(position: PositionInRole) {
+        var ranges = adjustments.getOrPut(position.roleInNode, { mutableListOf(Range(0, Int.MAX_VALUE, Adjustment(0))) })
+        ensureRangeBorders(ranges, position.index, Int.MAX_VALUE)
+        ranges = ranges.filter { it.from == position.index }.toMutableList()
         mergeRanges(ranges)
-        adjustments[Role(parent, role)] = ranges
+        adjustments[position.roleInNode] = ranges
     }
 
-    fun undoConcurrentNodeAdd(parent: Long, role: String?, index: Int) {
-        val ranges = adjustments.getOrPut(Role(parent, role), { mutableListOf(Range(0, Int.MAX_VALUE, Adjustment(0))) })
-        apply(ranges, Range(index, Int.MAX_VALUE, Adjustment(-1)))
+    fun undoConcurrentNodeAdd(position: PositionInRole) {
+        val ranges = adjustments.getOrPut(position.roleInNode, { mutableListOf(Range(0, Int.MAX_VALUE, Adjustment(0))) })
+        apply(ranges, Range(position.index, Int.MAX_VALUE, Adjustment(-1)))
     }
 
-    fun getAdjustedIndex(parentId: Long, role: String?, index: Int, allowDeleted: Boolean = false): Int {
-        return adjustments[Role(parentId, role)]?.find { it.contains(index) }?.adjustment?.adjust(index, allowDeleted) ?: index
+    fun getAdjustedIndex(position: PositionInRole, allowDeleted: Boolean = false): Int {
+        return adjustments[position.roleInNode]?.find { it.contains(position.index) }?.adjustment?.adjust(position.index, allowDeleted) ?: position.index
     }
 
     private fun apply(ranges: MutableList<Range>, newAdjustment: Range) {
@@ -125,9 +125,3 @@ private class Adjustment(val amount: Int, val invalid: Boolean = false, val undo
         }
     }
 }
-private data class Role(val nodeId: Long, val role: String?) {
-    override fun toString(): String {
-        return "${nodeId.toString(16)}.$role"
-    }
-}
-

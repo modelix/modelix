@@ -41,7 +41,7 @@ class OTWriteTransaction(private val transaction: IWriteTransaction, private val
         if (newIndex == -1) {
             newIndex = getChildren(newParentId, newRole).count()
         }
-        apply(MoveNodeOp(childId, oldparent, oldRole, oldIndex, newParentId, newRole, newIndex))
+        apply(MoveNodeOp(childId, PositionInRole(oldparent, oldRole, oldIndex), PositionInRole(newParentId, newRole, newIndex)))
     }
 
     override fun setProperty(nodeId: Long, role: String, value: String?) {
@@ -57,7 +57,7 @@ class OTWriteTransaction(private val transaction: IWriteTransaction, private val
         if (index == -1) {
             index = getChildren(parentId, role).count().toInt()
         }
-        apply(AddNewChildOp(parentId, role, index, childId, concept))
+        apply(AddNewChildOp(PositionInRole(parentId, role, index), childId, concept))
     }
 
     override fun deleteNode(nodeId: Long) {
@@ -66,7 +66,7 @@ class OTWriteTransaction(private val transaction: IWriteTransaction, private val
         val parent = getParent(nodeId)
         val role = getRole(nodeId)
         val index = getChildren(parent, role).indexOf(nodeId)
-        apply(DeleteNodeOp(parent, role, index, nodeId))
+        apply(DeleteNodeOp(PositionInRole(parent, role, index), nodeId))
     }
 
     override fun addNewChild(parentId: Long, role: String?, index: Int, concept: IConcept?): Long {
