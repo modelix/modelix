@@ -33,6 +33,14 @@ class IndexAdjustments {
         adjustments[Role(parent, role)] = ranges
     }
 
+    fun nodeRemove(parent: Long, role: String?, index: Int) {
+        var ranges = adjustments.getOrPut(Role(parent, role), { mutableListOf(Range(0, Int.MAX_VALUE, Adjustment(0))) })
+        ensureRangeBorders(ranges, index, Int.MAX_VALUE)
+        ranges = ranges.filter { it.from == index }.toMutableList()
+        mergeRanges(ranges)
+        adjustments[Role(parent, role)] = ranges
+    }
+
     fun undoConcurrentNodeAdd(parent: Long, role: String?, index: Int) {
         val ranges = adjustments.getOrPut(Role(parent, role), { mutableListOf(Range(0, Int.MAX_VALUE, Adjustment(0))) })
         apply(ranges, Range(index, Int.MAX_VALUE, Adjustment(-1)))

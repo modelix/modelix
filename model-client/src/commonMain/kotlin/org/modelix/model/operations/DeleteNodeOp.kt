@@ -39,7 +39,11 @@ class DeleteNodeOp(val parentId: Long, val role: String?, val index: Int, val ch
     }
 
     override fun transform(previous: IOperation, indexAdjustments: IndexAdjustments): IOperation {
-        val adjusted = { withAdjustedIndex(indexAdjustments) }
+        val adjusted = {
+            val a = withAdjustedIndex(indexAdjustments)
+            indexAdjustments.nodeRemove(parentId, role, index)
+            a
+        }
         return when (previous) {
             is DeleteNodeOp -> {
                 if (previous.childId == childId) {

@@ -44,6 +44,7 @@ class MoveNodeOp(
         val adjusted = {
             val a = withAdjustedIndex(indexAdjustments)
             indexAdjustments.nodeAdd(targetParentId, targetRole, targetIndex)
+            indexAdjustments.nodeRemove(sourceParentId, sourceRole, sourceIndex)
             a
         }
         return when (previous) {

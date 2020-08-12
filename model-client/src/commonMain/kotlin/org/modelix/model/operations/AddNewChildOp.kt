@@ -33,7 +33,7 @@ class AddNewChildOp(val parentId: Long, val role: String?, val index: Int, val c
     override fun transform(previous: IOperation, indexAdjustments: IndexAdjustments): IOperation {
         val adjusted = {
             val a = withAdjustedIndex(indexAdjustments)
-//            indexAdjustments.nodeAdd(parentId, role, index)
+            indexAdjustments.nodeAdd(parentId, role, index)
             a
         }
         return when (previous) {
