@@ -16,6 +16,7 @@
 package org.modelix.model.operations
 
 import org.modelix.model.api.IConcept
+import org.modelix.model.api.ITree
 import org.modelix.model.api.IWriteTransaction
 import org.modelix.model.persistent.SerializationUtil
 
@@ -26,7 +27,7 @@ class DeleteNodeOp(val parentId: Long, val role: String?, val index: Int, val ch
 
     override fun apply(transaction: IWriteTransaction): IAppliedOperation {
         if (transaction.getAllChildren(childId).count() != 0) {
-            throw RuntimeException("Attempt to delete non-leaf node: $childId")
+            throw RuntimeException("Attempt to delete non-leaf node: ${childId.toString(16)}")
         }
 
         val actualNode = transaction.getChildren(parentId, role).toList()[index]
@@ -49,6 +50,8 @@ class DeleteNodeOp(val parentId: Long, val role: String?, val index: Int, val ch
                 if (previous.childId == childId) {
                     previous.undoAdjustment(indexAdjustments)
                     NoOp()
+                } else if (previous.childId == this.parentId) {
+                    DeleteNodeOp(ITree.ROOT_ID, ITree.DETACHED_NODES_ROLE, 0, this.childId)
                 } else adjusted()
             }
             is AddNewChildOp -> adjusted()
