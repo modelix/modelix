@@ -15,6 +15,7 @@
 
 package org.modelix.model.operations
 
+import org.modelix.model.api.ITree
 import org.modelix.model.api.IWriteTransaction
 
 class MoveNodeOp(
@@ -53,6 +54,10 @@ class MoveNodeOp(
                 if (previous.childId == childId) {
                     indexAdjustments.nodeRemoved(targetParentId, targetRole, targetIndex)
                     NoOp()
+                } else if (sourceParentId == previous.childId) {
+                    MoveNodeOp(childId, ITree.ROOT_ID, ITree.DETACHED_NODES_ROLE, 0, targetParentId, targetRole, targetIndex)
+                } else if (targetParentId == previous.childId) {
+                    MoveNodeOp(childId, sourceParentId, sourceRole, sourceIndex, ITree.ROOT_ID, ITree.DETACHED_NODES_ROLE, 0)
                 } else adjusted()
             }
             is MoveNodeOp -> {
