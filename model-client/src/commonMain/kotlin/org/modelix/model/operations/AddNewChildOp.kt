@@ -16,14 +16,13 @@
 package org.modelix.model.operations
 
 import org.modelix.model.api.IConcept
-import org.modelix.model.api.ITree
 import org.modelix.model.api.IWriteTransaction
 import org.modelix.model.persistent.SerializationUtil
 
 class AddNewChildOp(val position: PositionInRole, val childId: Long, val concept: IConcept?) : AbstractOperation() {
 
-    fun withIndex(newIndex: Int): AddNewChildOp {
-        return if (newIndex == position.index) this else AddNewChildOp(position.withIndex(newIndex), childId, concept)
+    fun withPosition(newPos: PositionInRole): AddNewChildOp {
+        return if (newPos == position) this else AddNewChildOp(newPos, childId, concept)
     }
 
     override fun apply(transaction: IWriteTransaction): IAppliedOperation {
@@ -33,16 +32,17 @@ class AddNewChildOp(val position: PositionInRole, val childId: Long, val concept
 
     override fun transform(previous: IOperation, indexAdjustments: IndexAdjustments): IOperation {
         val adjusted = {
-            val a = withAdjustedIndex(indexAdjustments)
-            indexAdjustments.nodeAdd(position)
+            val a = withAdjustedPosition(indexAdjustments)
+//            indexAdjustments.nodeAdded(a, position)
             a
         }
         return when (previous) {
             is AddNewChildOp -> adjusted()
             is DeleteNodeOp -> {
                 if (previous.childId == position.nodeId) {
-                    indexAdjustments.concurrentNodeAdd(PositionInRole(ITree.ROOT_ID, ITree.DETACHED_NODES_ROLE, 0))
-                    AddNewChildOp(PositionInRole(ITree.ROOT_ID, ITree.DETACHED_NODES_ROLE, 0), this.childId, this.concept)
+                    val redirected = AddNewChildOp(PositionInRole(DETACHED_ROLE, 0), this.childId, this.concept)
+                    indexAdjustments.redirectedAdd(this, position, redirected.position)
+                    redirected
                 } else {
                     adjusted()
                 }
@@ -56,15 +56,11 @@ class AddNewChildOp(val position: PositionInRole, val childId: Long, val concept
     }
 
     override fun loadAdjustment(indexAdjustments: IndexAdjustments) {
-        indexAdjustments.concurrentNodeAdd(position)
+        indexAdjustments.nodeAdded(this, position)
     }
 
-    override fun undoAdjustment(indexAdjustments: IndexAdjustments) {
-        indexAdjustments.undoConcurrentNodeAdd(position)
-    }
-
-    override fun withAdjustedIndex(indexAdjustments: IndexAdjustments): IOperation {
-        return withIndex(indexAdjustments.getAdjustedIndex(position, true))
+    override fun withAdjustedPosition(indexAdjustments: IndexAdjustments): IOperation {
+        return withPosition(indexAdjustments.getAdjustedPositionForInsert(position))
     }
 
     override fun toString(): String {

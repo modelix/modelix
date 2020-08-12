@@ -28,10 +28,8 @@ abstract class AbstractOperation : IOperation {
 
     override fun loadAdjustment(indexAdjustments: IndexAdjustments) {
     }
-    override fun undoAdjustment(indexAdjustments: IndexAdjustments) {
-    }
 
-    override fun withAdjustedIndex(indexAdjustments: IndexAdjustments): IOperation {
+    override fun withAdjustedPosition(indexAdjustments: IndexAdjustments): IOperation {
         return this
     }
 

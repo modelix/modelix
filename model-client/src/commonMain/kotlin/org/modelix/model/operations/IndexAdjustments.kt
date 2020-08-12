@@ -1,127 +1,132 @@
 package org.modelix.model.operations
 
+typealias AdjustmentFunction = (PositionInRole, forInsert: Boolean) -> PositionInRole
 
 class IndexAdjustments {
-    private val adjustments: MutableMap<RoleInNode, MutableList<Range>> = HashMap()
+    private val adjustments: MutableList<OwnerAndAdjustment> = ArrayList()
 
-    fun nodeRemoved(position: PositionInRole) {
-        val ranges = adjustments.getOrPut(position.roleInNode, { mutableListOf(Range(0, Int.MAX_VALUE, Adjustment(0))) })
-        apply(ranges, Range(position.index, position.index, Adjustment(0, true, false)))
-        apply(ranges, Range(position.index + 1, Int.MAX_VALUE, Adjustment(-1)))
+    fun getAdjustedIndex(position: PositionInRole, forInsert: Boolean = false): Int {
+        return getAdjustedPosition(position, forInsert).index
     }
 
-    fun undoNodeRemoved(position: PositionInRole) {
-        val ranges = adjustments.getOrPut(position.roleInNode, { mutableListOf(Range(0, Int.MAX_VALUE, Adjustment(0))) })
-        apply(ranges, Range(position.index, position.index, Adjustment(0, false, true)))
-        apply(ranges, Range(position.index + 1, Int.MAX_VALUE, Adjustment(1)))
+    fun getAdjustedPositionForInsert(position: PositionInRole): PositionInRole {
+        return getAdjustedPosition(position, true)
     }
 
-    fun concurrentNodeAdd(position: PositionInRole) {
-        val ranges = adjustments.getOrPut(position.roleInNode, { mutableListOf(Range(0, Int.MAX_VALUE, Adjustment(0))) })
-        apply(ranges, Range(position.index, Int.MAX_VALUE, Adjustment(1)))
-    }
-
-    fun nodeAdd(position: PositionInRole) {
-        val amount = getAdjustedIndex(position, true) - position.index
-        var ranges = adjustments.getOrPut(position.roleInNode, { mutableListOf(Range(0, Int.MAX_VALUE, Adjustment(0))) })
-        ensureRangeBorders(ranges, position.index, Int.MAX_VALUE)
-        ranges = (ranges.filter { it.from < position.index }
-                + Range(position.index, position.index, Adjustment(amount))
-                + ranges.filter { it.from >= position.index }.map { Range(it.from + 1, if (it.to < Int.MAX_VALUE) it.to + 1 else Int.MAX_VALUE, it.adjustment) }
-            ).toMutableList()
-        mergeRanges(ranges)
-        adjustments[position.roleInNode] = ranges
-    }
-
-    fun nodeRemove(position: PositionInRole) {
-        var ranges = adjustments.getOrPut(position.roleInNode, { mutableListOf(Range(0, Int.MAX_VALUE, Adjustment(0))) })
-        ensureRangeBorders(ranges, position.index, Int.MAX_VALUE)
-        ranges = ranges.filter { it.from == position.index }.toMutableList()
-        mergeRanges(ranges)
-        adjustments[position.roleInNode] = ranges
-    }
-
-    fun undoConcurrentNodeAdd(position: PositionInRole) {
-        val ranges = adjustments.getOrPut(position.roleInNode, { mutableListOf(Range(0, Int.MAX_VALUE, Adjustment(0))) })
-        apply(ranges, Range(position.index, Int.MAX_VALUE, Adjustment(-1)))
-    }
-
-    fun getAdjustedIndex(position: PositionInRole, allowDeleted: Boolean = false): Int {
-        return adjustments[position.roleInNode]?.find { it.contains(position.index) }?.adjustment?.adjust(position.index, allowDeleted) ?: position.index
-    }
-
-    private fun apply(ranges: MutableList<Range>, newAdjustment: Range) {
-        ensureRangeBorders(ranges, newAdjustment.from, newAdjustment.to)
-        for (i in ranges.indices) {
-            if (ranges[i].intersects(newAdjustment)) {
-                require(newAdjustment.contains(ranges[i]))
-                ranges[i] = Range(
-                    ranges[i].from,
-                    ranges[i].to,
-                    ranges[i].adjustment.combine(newAdjustment.adjustment)
-                )
-            }
+    fun getAdjustedPosition(position: PositionInRole, forInsert: Boolean = false): PositionInRole {
+        var result = position
+        for (adj in adjustments) {
+            result = adj.adj(result, forInsert)
         }
-        mergeRanges(ranges)
+        return result
     }
 
-    private fun ensureRangeBorders(ranges: MutableList<Range>, from: Int, to: Int) {
-        var i = 0;
-        while (i < ranges.size) {
-            if (ranges[i].contains(from) && ranges[i].from != from) {
-                ranges.add(i + 1, Range(from, ranges[i].to, ranges[i].adjustment))
-                ranges[i] = Range(ranges[i].from, from - 1, ranges[i].adjustment)
-            }
-            if (ranges[i].contains(to) && ranges[i].to != to) {
-                ranges.add(i + 1, Range(to + 1, ranges[i].to, ranges[i].adjustment))
-                ranges[i] = Range(ranges[i].from, to, ranges[i].adjustment)
-            }
-            i++
-        }
+    fun addAdjustment(owner: IOperation, adj: AdjustmentFunction) {
+        adjustments.add(OwnerAndAdjustment(owner, adj))
+    }
+    
+    fun removeAdjustment(owner: IOperation) {
+        adjustments.removeAll { it.owner == owner }
     }
 
-    private fun mergeRanges(ranges: MutableList<Range>) {
-        var i = 0;
-        while (i < ranges.size - 1) {
-            if (ranges[i].adjustment == ranges[i + 1].adjustment) {
-                require(ranges[i].to + 1 == ranges[i + 1].from)
-                ranges[i] = Range(ranges[i].from, ranges[i + 1].to, ranges[i].adjustment)
-                ranges.removeAt(i + 1)
+    fun nodeAdded(owner: IOperation, addedPos: PositionInRole) {
+        addAdjustment(owner) { posToTransform, forInsert ->
+            if (posToTransform.roleInNode == addedPos.roleInNode && posToTransform.index >= addedPos.index) {
+                posToTransform.withIndex(posToTransform.index + 1)
             } else {
-                i++
+                posToTransform
+            }
+        }
+    }
+
+    fun redirectedAdd(owner: IOperation, originalPos: PositionInRole, redirectedPos: PositionInRole) {
+        addAdjustment(owner) { posToTransform, forInsert ->
+            if (posToTransform.roleInNode == redirectedPos.roleInNode && posToTransform.index >= redirectedPos.index) {
+                posToTransform.withIndex(posToTransform.index + 1)
+            } else {
+                posToTransform
+            }
+        }
+        redirectReads(owner, originalPos, redirectedPos)
+    }
+
+    fun redirectedMove(owner: IOperation, source: PositionInRole, originalTarget: PositionInRole, redirectedTarget: PositionInRole) {
+        addAdjustment(owner) { posToTransform, forInsert ->
+            when {
+                posToTransform == originalTarget -> {
+                    if (forInsert) posToTransform else redirectedTarget
+                }
+                posToTransform.roleInNode == originalTarget.roleInNode -> {
+                    when {
+                        posToTransform.index > originalTarget.index -> posToTransform.withIndex(posToTransform.index - 1)
+                        posToTransform.index == originalTarget.index -> {
+                            if (forInsert) posToTransform
+                            else throw RuntimeException("$originalTarget was removed")
+                        }
+                        else -> posToTransform
+                    }
+                }
+                posToTransform.roleInNode == redirectedTarget.roleInNode -> {
+                    if (posToTransform.index >= redirectedTarget.index) {
+                        posToTransform.withIndex(posToTransform.index + 1)
+                    } else {
+                        posToTransform
+                    }
+                }
+                else -> posToTransform
+            }
+        }
+    }
+
+    fun redirectReads(owner: IOperation, originalPos: PositionInRole, redirectedPos: PositionInRole) {
+        addAdjustment(owner) { posToTransform, forInsert ->
+            if (!forInsert && posToTransform == originalPos) redirectedPos else posToTransform
+        }
+    }
+
+    fun nodeRemoved(owner: IOperation, removedPos: PositionInRole) {
+        addAdjustment(owner) { posToTransform, forInsert ->
+            if (posToTransform.roleInNode == removedPos.roleInNode) {
+                when {
+                    posToTransform.index > removedPos.index -> posToTransform.withIndex(posToTransform.index - 1)
+                    posToTransform.index == removedPos.index -> {
+                        if (forInsert) posToTransform
+                        else throw RuntimeException("$removedPos was removed")
+                    }
+                    else -> posToTransform
+                }
+            } else {
+                posToTransform
+            }
+        }
+    }
+
+    fun nodeMoved(owner: IOperation, sourcePos: PositionInRole, targetPos: PositionInRole) {
+        addAdjustment(owner) { posToTransform, forInsert ->
+            when (posToTransform.roleInNode) {
+                sourcePos.roleInNode -> {
+                    when {
+                        posToTransform.index > sourcePos.index -> posToTransform.withIndex(posToTransform.index - 1)
+                        posToTransform.index == sourcePos.index -> {
+                            if (forInsert) posToTransform
+                            else targetPos
+                        }
+                        else -> posToTransform
+                    }
+                }
+                targetPos.roleInNode -> {
+                    when {
+                        posToTransform.index >= targetPos.index -> posToTransform.withIndex(posToTransform.index + 1)
+                        else -> posToTransform
+                    }
+
+                }
+                else -> {
+                    posToTransform
+                }
             }
         }
     }
 }
 
-private class Range(val from: Int, val to: Int, val adjustment: Adjustment) {
-    fun intersects(other: Range) = contains(other.from) || contains(other.to) || other.contains(from) || other.contains(to)
-    fun contains(index: Int) = index in from..to
-    fun contains(other: Range) = other.from in from..to && other.to in from..to
-    override fun toString(): String {
-        return "$from..${if (to == Int.MAX_VALUE) "" else to}/$adjustment"
-    }
-}
-private class Adjustment(val amount: Int, val invalid: Boolean = false, val undoInvalid: Boolean = false) {
-    fun combine(other: Adjustment): Adjustment {
-        return Adjustment(
-            amount + other.amount,
-            (invalid || other.invalid) && !(undoInvalid || other.undoInvalid),
-            false
-        )
-    }
-    fun adjust(index: Int, allowDeleted: Boolean): Int {
-        if (!allowDeleted && invalid) {
-            throw RuntimeException("Attempt to access a deleted location: $index")
-        }
-        return index + amount
-    }
-
-    override fun toString(): String {
-        return when {
-            undoInvalid -> "UNDO_DELETE"
-            invalid -> "DELETED"
-            else -> amount.toString()
-        }
-    }
-}
+data class OwnerAndAdjustment(val owner: IOperation, val adj: AdjustmentFunction) {}

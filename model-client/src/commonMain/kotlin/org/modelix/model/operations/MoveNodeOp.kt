@@ -19,11 +19,11 @@ import org.modelix.model.api.ITree
 import org.modelix.model.api.IWriteTransaction
 
 class MoveNodeOp(val childId: Long, val sourcePosition: PositionInRole, val targetPosition: PositionInRole) : AbstractOperation() {
-    fun withIndex(newSourceIndex: Int, newTargetIndex: Int): MoveNodeOp {
-        return if (newSourceIndex == sourcePosition.index && newTargetIndex == targetPosition.index) {
+    fun withPos(newSource: PositionInRole, newTarget: PositionInRole): MoveNodeOp {
+        return if (newSource == sourcePosition && newTarget == targetPosition) {
             this
         } else {
-            MoveNodeOp(childId, sourcePosition.withIndex(newSourceIndex), targetPosition.withIndex(newTargetIndex))
+            MoveNodeOp(childId, newSource, newTarget)
         }
     }
 
@@ -34,28 +34,29 @@ class MoveNodeOp(val childId: Long, val sourcePosition: PositionInRole, val targ
 
     override fun transform(previous: IOperation, indexAdjustments: IndexAdjustments): IOperation {
         val adjusted = {
-            val a = withAdjustedIndex(indexAdjustments)
-            indexAdjustments.nodeAdd(targetPosition)
-            indexAdjustments.nodeRemove(sourcePosition)
+            val a = withAdjustedPosition(indexAdjustments)
+//            indexAdjustments.nodeMoved(a, sourcePosition, targetPosition)
             a
         }
         return when (previous) {
             is AddNewChildOp -> adjusted()
             is DeleteNodeOp -> {
                 if (previous.childId == childId) {
-                    indexAdjustments.nodeRemoved(targetPosition)
+                    indexAdjustments.nodeRemoved(this, targetPosition)
                     NoOp()
                 } else if (sourcePosition.nodeId == previous.childId) {
-                    indexAdjustments.undoConcurrentNodeAdd(PositionInRole(ITree.ROOT_ID, ITree.DETACHED_NODES_ROLE, 0))
+                    val redirectedTarget = PositionInRole(DETACHED_ROLE, 0)
+                    indexAdjustments.redirectedMove(this, sourcePosition, targetPosition, redirectedTarget)
                     MoveNodeOp(childId, PositionInRole(ITree.ROOT_ID, ITree.DETACHED_NODES_ROLE, 0), targetPosition)
                 } else if (targetPosition.nodeId == previous.childId) {
-                    indexAdjustments.concurrentNodeAdd(PositionInRole(DETACHED_ROLE, 0))
-                    MoveNodeOp(childId, sourcePosition, PositionInRole(DETACHED_ROLE, 0))
+                    val redirectedTarget = PositionInRole(DETACHED_ROLE, 0)
+                    indexAdjustments.redirectedMove(this, sourcePosition, targetPosition, redirectedTarget)
+                    MoveNodeOp(childId, sourcePosition, redirectedTarget)
                 } else adjusted()
             }
             is MoveNodeOp -> {
                 if (previous.childId == childId) {
-                    previous.undoAdjustment(indexAdjustments)
+//                    previous.undoAdjustment(indexAdjustments)
                     MoveNodeOp(
                         childId,
                         previous.targetPosition,
@@ -71,19 +72,13 @@ class MoveNodeOp(val childId: Long, val sourcePosition: PositionInRole, val targ
     }
 
     override fun loadAdjustment(indexAdjustments: IndexAdjustments) {
-        indexAdjustments.nodeRemoved(sourcePosition)
-        indexAdjustments.concurrentNodeAdd(targetPosition)
+        indexAdjustments.nodeMoved(this, sourcePosition, targetPosition)
     }
 
-    override fun undoAdjustment(indexAdjustments: IndexAdjustments) {
-        indexAdjustments.undoConcurrentNodeAdd(targetPosition)
-        indexAdjustments.undoNodeRemoved(sourcePosition)
-    }
-
-    override fun withAdjustedIndex(indexAdjustments: IndexAdjustments): MoveNodeOp {
-        return withIndex(
-            indexAdjustments.getAdjustedIndex(sourcePosition),
-            indexAdjustments.getAdjustedIndex(targetPosition, true)
+    override fun withAdjustedPosition(indexAdjustments: IndexAdjustments): MoveNodeOp {
+        return withPos(
+            indexAdjustments.getAdjustedPosition(sourcePosition),
+            indexAdjustments.getAdjustedPositionForInsert(targetPosition)
         )
     }
 

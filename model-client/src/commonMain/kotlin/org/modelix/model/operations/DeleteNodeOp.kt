@@ -21,8 +21,8 @@ import org.modelix.model.api.IWriteTransaction
 import org.modelix.model.persistent.SerializationUtil
 
 class DeleteNodeOp(val position: PositionInRole, val childId: Long) : AbstractOperation() {
-    fun withIndex(newIndex: Int): DeleteNodeOp {
-        return if (newIndex == position.index) this else DeleteNodeOp(position.withIndex(newIndex), childId)
+    fun withPosition(newPos: PositionInRole): DeleteNodeOp {
+        return if (newPos == position) this else DeleteNodeOp(newPos, childId)
     }
 
     override fun apply(transaction: IWriteTransaction): IAppliedOperation {
@@ -41,23 +41,23 @@ class DeleteNodeOp(val position: PositionInRole, val childId: Long) : AbstractOp
 
     override fun transform(previous: IOperation, indexAdjustments: IndexAdjustments): IOperation {
         val adjusted = {
-            val a = withAdjustedIndex(indexAdjustments)
-            indexAdjustments.nodeRemove(position)
+            val a = withAdjustedPosition(indexAdjustments)
+//            indexAdjustments.nodeRemoved(a, position)
             a
         }
         return when (previous) {
             is DeleteNodeOp -> {
                 if (previous.childId == childId) {
-                    previous.undoAdjustment(indexAdjustments)
+                    indexAdjustments.removeAdjustment(previous)
                     NoOp()
-                } else if (previous.childId == position.nodeId) {
-                    DeleteNodeOp(PositionInRole(ITree.ROOT_ID, ITree.DETACHED_NODES_ROLE, 0), this.childId)
+//                } else if (previous.childId == position.nodeId) {
+//                    DeleteNodeOp(PositionInRole(ITree.ROOT_ID, ITree.DETACHED_NODES_ROLE, 0), this.childId)
                 } else adjusted()
             }
             is AddNewChildOp -> adjusted()
             is MoveNodeOp -> {
                 if (previous.childId == childId) {
-                    previous.undoAdjustment(indexAdjustments)
+//                    previous.undoAdjustment(indexAdjustments)
                     DeleteNodeOp(previous.targetPosition, childId)
                 } else adjusted()
             }
@@ -69,15 +69,11 @@ class DeleteNodeOp(val position: PositionInRole, val childId: Long) : AbstractOp
     }
 
     override fun loadAdjustment(indexAdjustments: IndexAdjustments) {
-        indexAdjustments.nodeRemoved(position)
+        indexAdjustments.nodeRemoved(this, position)
     }
 
-    override fun undoAdjustment(indexAdjustments: IndexAdjustments) {
-        indexAdjustments.undoNodeRemoved(position)
-    }
-
-    override fun withAdjustedIndex(indexAdjustments: IndexAdjustments): IOperation {
-        return withIndex(indexAdjustments.getAdjustedIndex(position))
+    override fun withAdjustedPosition(indexAdjustments: IndexAdjustments): IOperation {
+        return withPosition(indexAdjustments.getAdjustedPosition(position))
     }
 
     override fun toString(): String {

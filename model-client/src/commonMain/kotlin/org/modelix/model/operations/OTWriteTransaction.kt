@@ -27,7 +27,7 @@ import org.modelix.model.logDebug
 
 class OTWriteTransaction(private val transaction: IWriteTransaction, private val otBranch: OTBranch, protected var idGenerator: IIdGenerator) : IWriteTransaction {
     protected fun apply(op: IOperation) {
-        val opCode = op.toCode()
+        val opCode = op.toString()
         if (opCode.isNotEmpty()) logDebug({ opCode }, OTWriteTransaction::class)
         val appliedOp = op.apply(transaction)
         otBranch.operationApplied(appliedOp)
