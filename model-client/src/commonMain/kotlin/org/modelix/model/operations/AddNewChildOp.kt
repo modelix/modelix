@@ -40,6 +40,7 @@ class AddNewChildOp(val parentId: Long, val role: String?, val index: Int, val c
             is AddNewChildOp -> adjusted()
             is DeleteNodeOp -> {
                 if (previous.childId == this.parentId) {
+                    indexAdjustments.concurrentNodeAdd(ITree.ROOT_ID, ITree.DETACHED_NODES_ROLE, 0)
                     AddNewChildOp(ITree.ROOT_ID, ITree.DETACHED_NODES_ROLE, 0, this.childId, this.concept)
                 } else {
                     adjusted()
