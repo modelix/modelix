@@ -98,7 +98,7 @@ class CLVersion {
 
     companion object {
         fun loadFromHash(hash: String, store: IDeserializingKeyValueStore): CLVersion? {
-            val data = store.get(hash, { CPVersion.deserialize(it) })
+            val data = store[hash, { CPVersion.deserialize(it) }]
                 ?: throw RuntimeException("Version with hash $hash not found")
             return CLVersion(data, store)
         }
