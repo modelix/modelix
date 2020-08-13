@@ -17,17 +17,16 @@ package org.modelix.model.server;
 
 import com.beust.jcommander.JCommander;
 import com.beust.jcommander.Parameter;
+import org.apache.commons.io.FileUtils;
+import org.apache.log4j.Logger;
+import org.eclipse.jetty.server.Server;
+import org.eclipse.jetty.server.handler.HandlerList;
+import org.eclipse.jetty.servlet.ServletContextHandler;
+
 import java.io.File;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.nio.charset.StandardCharsets;
-import org.apache.commons.io.FileUtils;
-import org.apache.log4j.Logger;
-import org.eclipse.jetty.server.Handler;
-import org.eclipse.jetty.server.Server;
-import org.eclipse.jetty.server.handler.ContextHandler;
-import org.eclipse.jetty.server.handler.HandlerList;
-import org.eclipse.jetty.servlet.ServletContextHandler;
 
 class CmdLineArgs {
 
@@ -46,6 +45,7 @@ class CmdLineArgs {
 
 public class Main {
     private static final Logger LOG = Logger.getLogger(Main.class);
+    public static final int DEFAULT_PORT = 28101;
 
     public static void main(String[] args) {
         CmdLineArgs cmdLineArgs = new CmdLineArgs();
@@ -61,7 +61,7 @@ public class Main {
             InetSocketAddress bindTo =
                     new InetSocketAddress(
                             InetAddress.getByName("0.0.0.0"),
-                            portStr == null ? 28101 : Integer.parseInt(portStr));
+                            portStr == null ? DEFAULT_PORT : Integer.parseInt(portStr));
             IgniteStoreClient storeClient = new IgniteStoreClient(cmdLineArgs.jdbcConfFile);
             RestModelServer modelServer = new RestModelServer(storeClient);
 
@@ -82,27 +82,17 @@ public class Main {
 
             Runtime.getRuntime()
                     .addShutdownHook(
-                            new Thread() {
-                                @Override
-                                public void run() {
-                                    try {
-                                        server.stop();
-                                    } catch (Exception ex) {
-                                        System.out.println(ex.getMessage());
-                                        ex.printStackTrace();
-                                    }
+                            new Thread(() -> {
+                                try {
+                                    server.stop();
+                                } catch (Exception ex) {
+                                    System.out.println(ex.getMessage());
+                                    ex.printStackTrace();
                                 }
-                            });
+                            }));
         } catch (Exception ex) {
             System.out.println("Server failed: " + ex.getMessage());
             ex.printStackTrace();
         }
-    }
-
-    private static Handler withContext(String path, Handler handler) {
-        ContextHandler contextHandler = new ContextHandler();
-        contextHandler.setContextPath(path);
-        contextHandler.setHandler(handler);
-        return contextHandler;
     }
 }
