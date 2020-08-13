@@ -45,6 +45,7 @@ public class RestModelServer {
     public static final Pattern HASH_PATTERN = Pattern.compile("[a-zA-Z0-9\\-_]{43}");
     public static final String PROTECTED_PREFIX = "$$$";
     private static final String REPOSITORY_ID_KEY = "repositoryId";
+    private static final String TEXT_PLAIN = "text/plain";
     private String sharedSecret;
 
     private IStoreClient storeClient;
@@ -72,11 +73,11 @@ public class RestModelServer {
                                     throws ServletException, IOException {
                                 if (isHealthy()) {
                                     resp.setStatus(HttpServletResponse.SC_OK);
-                                    resp.setContentType("text/plain");
+                                    resp.setContentType(TEXT_PLAIN);
                                     resp.getWriter().print("healthy");
                                 } else {
                                     resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-                                    resp.setContentType("text/plain");
+                                    resp.setContentType(TEXT_PLAIN);
                                     resp.getWriter().print("not healthy");
                                 }
                             }
@@ -84,8 +85,8 @@ public class RestModelServer {
                             private boolean isHealthy() {
                                 long value = toLong(storeClient.get(HEALTH_KEY)) + 1;
                                 storeClient.put(HEALTH_KEY, Long.toString(value));
-                                if (toLong(storeClient.get(HEALTH_KEY)) < value) return false;
-                                return true;
+                                boolean healthy = toLong(storeClient.get(HEALTH_KEY)) >= value;
+                                return healthy;
                             }
 
                             private long toLong(String value) {
@@ -110,7 +111,7 @@ public class RestModelServer {
                                 if (value == null) {
                                     resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
                                 } else {
-                                    resp.setContentType("text/plain");
+                                    resp.setContentType(TEXT_PLAIN);
                                     resp.getWriter().print(value);
                                 }
                             }
@@ -129,7 +130,7 @@ public class RestModelServer {
                                 }
                                 if (email == null || email.isEmpty()) {
                                     resp.setStatus(HttpServletResponse.SC_FORBIDDEN);
-                                    resp.setContentType("text/plain");
+                                    resp.setContentType(TEXT_PLAIN);
                                     resp.getWriter().print("Not logged in.");
                                     return;
                                 }
@@ -141,7 +142,7 @@ public class RestModelServer {
                                         Long.toString(
                                                 System.currentTimeMillis()
                                                         + 7 * 24 * 60 * 60 * 1000));
-                                resp.setContentType("text/plain");
+                                resp.setContentType(TEXT_PLAIN);
                                 resp.getWriter().print(token);
                             }
                         }),
@@ -158,7 +159,7 @@ public class RestModelServer {
                                 String token = extractToken(req);
                                 String email =
                                         storeClient.get(PROTECTED_PREFIX + "_token_email_" + token);
-                                resp.setContentType("text/plain");
+                                resp.setContentType(TEXT_PLAIN);
                                 resp.getWriter().print(email);
                             }
                         }),
@@ -177,7 +178,7 @@ public class RestModelServer {
                                     throw new RuntimeException("No permission to access " + key);
                                 }
                                 long value = storeClient.generateId(key);
-                                resp.setContentType("text/plain");
+                                resp.setContentType(TEXT_PLAIN);
                                 resp.setCharacterEncoding(StandardCharsets.UTF_8.toString());
                                 resp.getWriter().print(Long.toString(value));
                             }
@@ -220,7 +221,7 @@ public class RestModelServer {
                                                 req.getInputStream(), StandardCharsets.UTF_8);
                                 storeClient.put(key, value);
                                 resp.setStatus(HttpServletResponse.SC_OK);
-                                resp.setContentType("text/plain");
+                                resp.setContentType(TEXT_PLAIN);
                                 resp.setCharacterEncoding(StandardCharsets.UTF_8.toString());
                                 resp.getWriter().print("OK");
                             }
@@ -255,7 +256,7 @@ public class RestModelServer {
                                     storeClient.put(key, value);
                                 }
                                 resp.setStatus(HttpServletResponse.SC_OK);
-                                resp.setContentType("text/plain");
+                                resp.setContentType(TEXT_PLAIN);
                                 resp.setCharacterEncoding(StandardCharsets.UTF_8.toString());
                                 resp.getWriter().print(json.length() + " entries written");
                             }
@@ -308,7 +309,7 @@ public class RestModelServer {
                             @Override
                             protected void doGet(HttpServletRequest req, HttpServletResponse resp)
                                     throws ServletException, IOException {
-                                resp.setContentType("text/plain");
+                                resp.setContentType(TEXT_PLAIN);
                                 resp.getWriter().println("Model Server");
                             }
                         }),
@@ -324,7 +325,7 @@ public class RestModelServer {
                                 final String subscribedKey = req.getPathInfo().substring(1);
                                 if (subscribedKey.startsWith(PROTECTED_PREFIX)) {
                                     resp.setStatus(HttpServletResponse.SC_FORBIDDEN);
-                                    resp.setContentType("text/plain");
+                                    resp.setContentType(TEXT_PLAIN);
                                     resp.getWriter()
                                             .print("No permission to access " + subscribedKey);
                                 }
@@ -413,7 +414,7 @@ public class RestModelServer {
             return true;
         } else {
             resp.setStatus(HttpServletResponse.SC_FORBIDDEN);
-            resp.setContentType("text/plain");
+            resp.setContentType(TEXT_PLAIN);
             resp.getWriter().print("Not logged in.");
             return false;
         }
