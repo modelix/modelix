@@ -61,6 +61,7 @@ public class Main {
 
         LOG.info("Max memory (bytes): " + Runtime.getRuntime().maxMemory());
         LOG.info("Server process started");
+        LOG.info("In memory: " + cmdLineArgs.inmemory);
         LOG.info("Path to secret file: " + cmdLineArgs.secretFile);
         LOG.info("Path to JDBC configuration file: " + cmdLineArgs.jdbcConfFile);
 
@@ -72,6 +73,9 @@ public class Main {
                             portStr == null ? 28101 : Integer.parseInt(portStr));
             IStoreClient storeClient;
             if (cmdLineArgs.inmemory) {
+                if (cmdLineArgs.jdbcConfFile != null) {
+                    LOG.warn("JDBC conf file is ignored when in-memory flag is set");
+                }
                 storeClient = new InMemoryStoreClient();
             } else {
                 storeClient = new IgniteStoreClient(cmdLineArgs.jdbcConfFile);
