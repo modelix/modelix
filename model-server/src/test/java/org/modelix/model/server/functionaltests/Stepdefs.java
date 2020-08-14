@@ -3,28 +3,33 @@ package org.modelix.model.server.functionaltests;
 import com.google.common.base.Charsets;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
-import io.cucumber.java.en.When;
 import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.ConnectException;
-import java.net.HttpURLConnection;
 import java.net.URI;
-import java.net.URL;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.util.Arrays;
+import java.util.regex.Pattern;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class Stepdefs {
 
     private Process p;
     private HttpResponse<String> stringResponse;
     private int nRetries;
+
+    private static final boolean VERBOSE_SERVER = false;
+    private static final boolean VERBOSE_CONNECTION = false;
 
     @Before
     public void prepare() {
@@ -57,12 +62,16 @@ public class Stepdefs {
                 try {
                     String s;
                     while ((s = stdInput.readLine()) != null) {
-                        System.out.println(s);
+                        if (VERBOSE_SERVER) {
+                            System.out.println(s);
+                        }
                     }
 
                     // read any errors from the attempted command
                     while ((s = stdError.readLine()) != null) {
-                        System.out.println(s);
+                        if (VERBOSE_SERVER) {
+                            System.out.println(s);
+                        }
                     }
                 } catch (IOException e) {
                     // this may happen when closing
@@ -90,7 +99,9 @@ public class Stepdefs {
             stringResponse = client.send(request, HttpResponse.BodyHandlers.ofString(Charsets.UTF_8));
         } catch (ConnectException e) {
             if (nRetries > 0) {
-                System.out.println("  (connection failed, retrying in a bit. nRetries=" + nRetries + ")");
+                if (VERBOSE_CONNECTION) {
+                    System.out.println("  (connection failed, retrying in a bit. nRetries=" + nRetries + ")");
+                }
                 nRetries--;
                 try {
                     Thread.sleep(1000);
@@ -119,7 +130,9 @@ public class Stepdefs {
             stringResponse = client.send(request, HttpResponse.BodyHandlers.ofString(Charsets.UTF_8));
         } catch (ConnectException e) {
             if (nRetries > 0) {
-                System.out.println("  (connection failed, retrying in a bit. nRetries=" + nRetries + ")");
+                if (VERBOSE_CONNECTION) {
+                    System.out.println("  (connection failed, retrying in a bit. nRetries=" + nRetries + ")");
+                }
                 nRetries--;
                 try {
                     Thread.sleep(1000);
@@ -150,4 +163,13 @@ public class Stepdefs {
         assertEquals(expectedText.strip(), stringResponse.body().strip());
     }
 
+    @Then("the text of the page should be {int} characters long")
+    public void theTextOfThePageShouldBeCharactersLong(int nLength) {
+        assertEquals(nLength, stringResponse.body().length());
+    }
+
+    @Then("the text of the page contains only hexadecimal digits")
+    public void theTextOfThePageContainsOnlyHexadecimalDigits() {
+        Pattern.matches("[a-f0-9]+", stringResponse.body());
+    }
 }
