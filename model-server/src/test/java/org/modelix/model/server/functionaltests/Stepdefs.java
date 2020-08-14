@@ -10,6 +10,7 @@ import io.cucumber.java.en.Then;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.ConnectException;
 import java.net.HttpURLConnection;
 import java.net.URI;
 import java.net.URL;
@@ -23,17 +24,22 @@ public class Stepdefs {
 
     private Process p;
     private HttpResponse<String> stringResponse;
+    private int nRetries;
 
     @Before
     public void prepare() {
-
+        nRetries = 10;
     }
 
     @After
     public void cleanup() {
         if (p != null) {
-            p.destroyForcibly();
+            p.destroy();
             p = null;
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+            }
         }
         stringResponse = null;
     }
@@ -47,24 +53,26 @@ public class Stepdefs {
             BufferedReader stdError = new BufferedReader(new
                     InputStreamReader(p.getErrorStream()));
 
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                        String s;
-                        while ((s = stdInput.readLine()) != null) {
-                            System.out.println(s);
-                        }
-
-                        // read any errors from the attempted command
-                        while ((s = stdError.readLine()) != null) {
-                            System.out.println(s);
-                        }
-                    } catch (IOException e) {
-                        e.printStackTrace();;
+            new Thread(() -> {
+                try {
+                    String s;
+                    while ((s = stdInput.readLine()) != null) {
+                        System.out.println(s);
                     }
+
+                    // read any errors from the attempted command
+                    while ((s = stdError.readLine()) != null) {
+                        System.out.println(s);
+                    }
+                } catch (IOException e) {
+                    // this may happen when closing
                 }
             }).start();
+
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+            }
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -80,6 +88,48 @@ public class Stepdefs {
                     .build();
 
             stringResponse = client.send(request, HttpResponse.BodyHandlers.ofString(Charsets.UTF_8));
+        } catch (ConnectException e) {
+            if (nRetries > 0) {
+                System.out.println("  (connection failed, retrying in a bit. nRetries=" + nRetries + ")");
+                nRetries--;
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e2) {
+
+                }
+                i_visit(path);
+            } else {
+                throw new RuntimeException(e);
+            }
+        } catch (IOException|InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @When("I PUT on {string} the value {string}")
+    public void i_put_on_the_value(String path, String value) {
+        try {
+            var client = HttpClient.newHttpClient();
+            var request = HttpRequest.newBuilder(
+                    URI.create("http://localhost:28101" + path))
+                    .method("PUT", HttpRequest.BodyPublishers.ofString(value))
+                    .header("accept", "application/json")
+                    .build();
+
+            stringResponse = client.send(request, HttpResponse.BodyHandlers.ofString(Charsets.UTF_8));
+        } catch (ConnectException e) {
+            if (nRetries > 0) {
+                System.out.println("  (connection failed, retrying in a bit. nRetries=" + nRetries + ")");
+                nRetries--;
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e2) {
+
+                }
+                i_put_on_the_value(path, value);
+            } else {
+                throw new RuntimeException(e);
+            }
         } catch (IOException|InterruptedException e) {
             e.printStackTrace();
         }
@@ -87,13 +137,17 @@ public class Stepdefs {
 
     @Then("I should get an OK response")
     public void i_should_get_an_ok_response() {
-        Assert.assertEquals(200, stringResponse.statusCode());
+        assertEquals(200, stringResponse.statusCode());
+    }
+
+    @Then("I should get a NOT FOUND response")
+    public void i_should_get_a_not_found_response() {
+        assertEquals(404, stringResponse.statusCode());
     }
 
     @Then("the text of the page should be {string}")
-    public void the_text_of_the_page_should_be(String string) {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
+    public void the_text_of_the_page_should_be(String expectedText) {
+        assertEquals(expectedText.strip(), stringResponse.body().strip());
     }
 
 }

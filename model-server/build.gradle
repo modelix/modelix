@@ -33,6 +33,7 @@ dependencies {
     compile group: 'com.google.guava', name: 'guava', version: '28.1-jre'
     compile group: 'com.beust', name: 'jcommander', version: '1.7'
 
+    testImplementation group: 'junit', name: 'junit', version: '4.12'
     testImplementation group: 'io.cucumber', name: 'cucumber-java', version: '6.2.2'
 }
 

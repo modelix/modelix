@@ -9,8 +9,8 @@ import java.util.stream.Collectors;
 
 public class InMemoryStoreClient implements IStoreClient {
 
-    private Map<String, String> values = new HashMap<>();
-    private Map<String, List<IKeyListener>> listeners = new HashMap<>();
+    private final Map<String, String> values = new HashMap<>();
+    private final Map<String, List<IKeyListener>> listeners = new HashMap<>();
 
     @Override
     public String get(String key) {
