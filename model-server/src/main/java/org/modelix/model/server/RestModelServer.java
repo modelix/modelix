@@ -239,8 +239,15 @@ public class RestModelServer {
                                         IOUtils.toString(
                                                 req.getInputStream(), StandardCharsets.UTF_8);
                                 JSONArray json = new JSONArray(jsonStr);
+                                int writtenEntries = 0;
                                 for (Object entry_ : json) {
                                     JSONObject entry = (JSONObject) entry_;
+                                    if (!entry.has("key") || !entry.has("value")) {
+                                        // We skip invalid entries instead of failing because we do not
+                                        // want to fail after having written some entries
+                                        LOG.warn("Skipping invalid entry: " + entry);
+                                        continue;
+                                    }
                                     String key = entry.getString("key");
                                     String value = entry.getString("value");
 
@@ -253,11 +260,12 @@ public class RestModelServer {
                                         continue;
                                     }
                                     storeClient.put(key, value);
+                                    writtenEntries++;
                                 }
                                 resp.setStatus(HttpServletResponse.SC_OK);
                                 resp.setContentType("text/plain");
                                 resp.setCharacterEncoding(StandardCharsets.UTF_8.toString());
-                                resp.getWriter().print(json.length() + " entries written");
+                                resp.getWriter().print(writtenEntries + " entries written");
                             }
                         }),
                 "/putAll");
@@ -275,7 +283,7 @@ public class RestModelServer {
                                                 req.getInputStream(), StandardCharsets.UTF_8);
                                 JSONArray reqJson = new JSONArray(reqJsonStr);
                                 JSONArray respJson = new JSONArray();
-                                List<String> keys = new ArrayList<String>(reqJson.length());
+                                List<String> keys = new ArrayList<>(reqJson.length());
                                 for (Object entry_ : reqJson) {
                                     String key = (String) entry_;
 
