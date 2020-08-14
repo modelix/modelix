@@ -1,12 +1,16 @@
 package org.modelix.model.server.functionaltests;
 
 import com.google.common.base.Charsets;
+import io.cucumber.gherkin.internal.com.eclipsesource.json.JsonValue;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import io.cucumber.messages.internal.com.google.gson.JsonElement;
+import io.cucumber.messages.internal.com.google.gson.JsonParser;
+import io.cucumber.messages.internal.com.google.gson.stream.JsonReader;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -171,5 +175,11 @@ public class Stepdefs {
     @Then("the text of the page contains only hexadecimal digits")
     public void theTextOfThePageContainsOnlyHexadecimalDigits() {
         Pattern.matches("[a-f0-9]+", stringResponse.body());
+    }
+
+    @Then("the text of the page should be this JSON {string}")
+    public void theTextOfThePageShouldBeThisJSON(String expectedJsonStr) {
+        JsonElement expectedJson = JsonParser.parseString(expectedJsonStr);
+        assertEquals(expectedJson, JsonParser.parseString(stringResponse.body()));
     }
 }
