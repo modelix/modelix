@@ -21,6 +21,8 @@ import java.io.File;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.nio.charset.StandardCharsets;
+
+import com.beust.jcommander.converters.BooleanConverter;
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
 import org.eclipse.jetty.server.Handler;
@@ -42,6 +44,12 @@ class CmdLineArgs {
             description = "Path to the JDBC configuration file",
             converter = FileConverter.class)
     File jdbcConfFile = null;
+
+    @Parameter(
+            names = "-inmemory",
+            description = "Use in-memory storage",
+            converter = BooleanConverter.class)
+    Boolean inmemory = false;
 }
 
 public class Main {
@@ -62,7 +70,12 @@ public class Main {
                     new InetSocketAddress(
                             InetAddress.getByName("0.0.0.0"),
                             portStr == null ? 28101 : Integer.parseInt(portStr));
-            IgniteStoreClient storeClient = new IgniteStoreClient(cmdLineArgs.jdbcConfFile);
+            IStoreClient storeClient;
+            if (cmdLineArgs.inmemory) {
+                storeClient = new InMemoryStoreClient();
+            } else {
+                storeClient = new IgniteStoreClient(cmdLineArgs.jdbcConfFile);
+            }
             RestModelServer modelServer = new RestModelServer(storeClient);
 
             File sharedSecretFile = cmdLineArgs.secretFile;
