@@ -1,4 +1,4 @@
-package org.modelix.model.server;
+package org.modelix.model.server.functionaltests;
 
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.When;
