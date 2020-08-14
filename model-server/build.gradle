@@ -32,6 +32,8 @@ dependencies {
     compile group: 'commons-io', name: 'commons-io', version: '2.6'
     compile group: 'com.google.guava', name: 'guava', version: '28.1-jre'
     compile group: 'com.beust', name: 'jcommander', version: '1.7'
+
+    testCompile group: 'junit', name: 'junit', version: '4.12'
 }
 
 task copyLibs(type: Copy) {
