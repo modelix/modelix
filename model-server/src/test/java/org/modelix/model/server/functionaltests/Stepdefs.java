@@ -11,7 +11,13 @@ import io.cucumber.java.en.When;
 import io.cucumber.messages.internal.com.google.gson.JsonElement;
 import io.cucumber.messages.internal.com.google.gson.JsonParser;
 import io.cucumber.messages.internal.com.google.gson.stream.JsonReader;
+import org.apache.cxf.interceptor.Fault;
 
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.client.WebTarget;
+import javax.ws.rs.sse.InboundSseEvent;
+import javax.ws.rs.sse.SseEventSource;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -21,6 +27,9 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.function.Consumer;
 import java.util.regex.Pattern;
 
 import static org.junit.Assert.assertEquals;
@@ -31,6 +40,8 @@ public class Stepdefs {
     private Process p;
     private HttpResponse<String> stringResponse;
     private int nRetries;
+    private SseEventSource source;
+    private List<InboundSseEvent> events = new LinkedList<InboundSseEvent>();
 
     private static final boolean VERBOSE_SERVER = false;
     private static final boolean VERBOSE_CONNECTION = false;
@@ -51,6 +62,11 @@ public class Stepdefs {
             }
         }
         stringResponse = null;
+        if (source != null) {
+            source.close();
+        }
+        source = null;
+        events.clear();
     }
 
     @Given("the server has been started with in-memory storage")
@@ -181,5 +197,39 @@ public class Stepdefs {
     public void theTextOfThePageShouldBeThisJSON(String expectedJsonStr) {
         JsonElement expectedJson = JsonParser.parseString(expectedJsonStr);
         assertEquals(expectedJson, JsonParser.parseString(stringResponse.body()));
+    }
+
+    @Then("I should get an event {string}")
+    public void iShouldGetAnEvent(String expectedEventValue) {
+        assertTrue(events.stream().anyMatch(e -> e.getComment().equals(expectedEventValue)));
+    }
+
+    @When("I prepare to receive events from {string}")
+    public void iPrepareToReceiveEvents(String path) {
+        try {
+            Thread.sleep(8000);
+            Client client = ClientBuilder.newClient();
+            WebTarget target = client.target("http://localhost:28101" + path);
+
+            source = SseEventSource.target(target).build();
+            source.register(inboundSseEvent -> events.add(inboundSseEvent));
+            source.open();
+        } catch (Throwable e) {
+            System.err.println("GOTCHA");
+            if (e.getCause() instanceof ConnectException && nRetries > 0) {
+                if (VERBOSE_CONNECTION) {
+                    System.out.println("  (connection failed, retrying in a bit. nRetries=" + nRetries + ")");
+                }
+                nRetries--;
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e2) {
+
+                }
+                iPrepareToReceiveEvents(path);
+            } else {
+                throw new RuntimeException(e);
+            }
+        }
     }
 }
