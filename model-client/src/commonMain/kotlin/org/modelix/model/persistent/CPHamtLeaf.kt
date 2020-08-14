@@ -26,6 +26,6 @@ class CPHamtLeaf(
 ) : CPHamtNode() {
 
     override fun serialize(): String {
-        return "L/" + longToHex(key) + "/" + value
+        return """L/${longToHex(key)}/$value"""
     }
 }

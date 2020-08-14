@@ -53,5 +53,5 @@ class CLNode(tree: CLTree?, data: CPNode?) : CLElement(tree!!, data!!) {
     }
 
     val concept: String?
-        get() = getData()!!.concept
+        get() = getData().concept
 }

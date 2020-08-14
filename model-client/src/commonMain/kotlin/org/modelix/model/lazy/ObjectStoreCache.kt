@@ -33,7 +33,7 @@ class ObjectStoreCache(override val keyValueStore: IKeyValueStore) : IDeserializ
                 result[hash] = if (deserialized === NULL) null else deserialized
             }
         }
-        if (!nonCachedHashes.isEmpty()) {
+        if (nonCachedHashes.isNotEmpty()) {
             for ((hash, serialized) in keyValueStore.getAll(nonCachedHashes)) {
                 if (serialized == null) {
                     result[hash] = null

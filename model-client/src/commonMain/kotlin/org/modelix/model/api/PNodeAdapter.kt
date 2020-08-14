@@ -26,7 +26,7 @@ open class PNodeAdapter(val nodeId: Long, val branch: IBranch) : INode {
         }
         val adapter = node
         if (adapter.branch != branch) {
-            throw RuntimeException("Node belongs to a different branch. Expected " + branch + " but was " + adapter.branch)
+            throw RuntimeException("Node belongs to a different branch. Expected $branch but was ${adapter.branch}")
         }
         return adapter.nodeId
     }
@@ -126,12 +126,10 @@ open class PNodeAdapter(val nodeId: Long, val branch: IBranch) : INode {
             return false
         }
         val that = o as PNodeAdapter
-        if (if (branch != null) branch != that.branch else that.branch != null) {
+        if (branch != that.branch) {
             return false
         }
-        return if (nodeId != that.nodeId) {
-            false
-        } else true
+        return nodeId == that.nodeId
     }
 
     override fun hashCode(): Int {

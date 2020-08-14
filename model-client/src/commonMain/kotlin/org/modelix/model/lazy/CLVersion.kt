@@ -68,11 +68,8 @@ class CLVersion {
 
     val previousVersion: CLVersion?
         get() {
-            val previousVersionHash = data!!.previousVersion
-            if (previousVersionHash == null) {
-                return null
-            }
-            val previousVersion = store.get(previousVersionHash, { input: String -> CPVersion.deserialize(input) })
+            val previousVersionHash = data!!.previousVersion ?: return null
+            val previousVersion = store[previousVersionHash, { input: String -> CPVersion.deserialize(input) }]
                 ?: return null
             return CLVersion(previousVersion, store)
         }
@@ -82,7 +79,7 @@ class CLVersion {
             val operationsHash = data!!.operationsHash
             val ops = if (operationsHash == null) data!!.operations else
             (
-                store.get(operationsHash, { CPOperationsList.deserialize(it) })
+                store[operationsHash, { CPOperationsList.deserialize(it) }]
                     ?: throw RuntimeException("Missing entry for key $operationsHash")
                 )
                 .operations
