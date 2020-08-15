@@ -154,7 +154,7 @@ class RestWebModelClient @JvmOverloads constructor(var baseUrl: String? = null) 
     }
 
     override fun getAll(keys: Iterable<String>): Map<String, String?> {
-        if (!keys!!.iterator().hasNext()) {
+        if (!keys.iterator().hasNext()) {
             return HashMap()
         }
         val json = JSONArray()
@@ -243,7 +243,7 @@ class RestWebModelClient @JvmOverloads constructor(var baseUrl: String? = null) 
         }
         var json = JSONArray()
         var approxSize = 0
-        for ((key, value) in entries!!) {
+        for ((key, value) in entries) {
             val jsonEntry = JSONObject()
             jsonEntry.put("key", key)
             jsonEntry.put("value", value)
