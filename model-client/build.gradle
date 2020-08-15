@@ -82,6 +82,8 @@ kotlin {
     }
 }
 
+jvmTest.dependsOn ":model-server:fatJar"
+
 tasks.jacocoTestReport {
 
     classDirectories.setFrom("${buildDir}/classes/kotlin/jvm/")
