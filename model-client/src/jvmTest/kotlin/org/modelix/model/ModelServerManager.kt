@@ -26,6 +26,15 @@ class ModelServerManager {
         }
     }
 
+    fun isUp() : Boolean {
+        return try {
+            httpRequest("GET", "/")
+            true
+        } catch (e: ConnectException) {
+            false
+        }
+    }
+
     fun waitItIsUp() {
         httpRequest("GET", "/")
     }
@@ -50,7 +59,7 @@ class ModelServerManager {
                 }
                 httpRequest(method, path, nRetries - 1)
             } else {
-                throw RuntimeException(e)
+                throw e
             }
         } catch (e: IOException) {
             e.printStackTrace()

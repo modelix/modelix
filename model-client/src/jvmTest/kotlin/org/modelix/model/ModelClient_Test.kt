@@ -20,6 +20,7 @@ import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
 import org.modelix.model.client.RestWebModelClient
+import java.lang.IllegalStateException
 import java.util.*
 
 class ModelClient_Test {
@@ -28,6 +29,9 @@ class ModelClient_Test {
 
     @Before
     fun prepare() {
+        if (modelServer.isUp()) {
+            throw IllegalStateException("The model-server is already up")
+        }
         modelServer.startServerInMemory(emptyMap())
         modelServer.waitItIsUp()
     }
@@ -62,15 +66,19 @@ class ModelClient_Test {
             val key = "test_" + rand.nextInt(10)
             val value = rand.nextLong().toString()
             expected[key] = value
-            println("put $key = $value")
-            clients[rand.nextInt(clients.size)].put(key, value)
+            println(" put $key = $value")
+            val client = rand.nextInt(clients.size)
+            clients[client].put(key, value)
+            println(" put to client $client")
             for (client in clients) {
                 Assert.assertEquals(expected[key], client[key])
             }
+            println(" verified")
             Thread.sleep(100)
             for (l in listeners) {
                 Assert.assertEquals(expected[l.key], l.lastValue)
             }
+            println(" verified also on listeners")
         }
         for (client in clients) {
             client.dispose()
