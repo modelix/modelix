@@ -1,4 +1,4 @@
-name: ModelClient_BuildAndTest
+name: ModelServer
 
 on: [push]
 
