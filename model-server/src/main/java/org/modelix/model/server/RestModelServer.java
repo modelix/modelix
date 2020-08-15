@@ -153,9 +153,15 @@ public class RestModelServer {
                             @Override
                             protected void doGet(HttpServletRequest req, HttpServletResponse resp)
                                     throws ServletException, IOException {
-                                if (!checkAuthorization(storeClient, req, resp)) return;
+                                if (!checkAuthorization(storeClient, req, resp)) {
+                                    return;
+                                }
 
                                 String token = extractToken(req);
+                                if (token == null) {
+                                    resp.setStatus(HttpServletResponse.SC_NO_CONTENT);
+                                    return;
+                                }
                                 String email =
                                         storeClient.get(PROTECTED_PREFIX + "_token_email_" + token);
                                 resp.setContentType("text/plain");

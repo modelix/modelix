@@ -178,6 +178,11 @@ public class Stepdefs {
         assertEquals(404, stringResponse.statusCode());
     }
 
+    @Then("I should get an NO CONTENT response")
+    public void iShouldGetAnNOCONTENTResponse() {
+        assertEquals(204, stringResponse.statusCode());
+    }
+
     @Then("the text of the page should be {string}")
     public void the_text_of_the_page_should_be(String expectedText) {
         assertEquals(expectedText.strip(), stringResponse.body().strip());
@@ -231,5 +236,4 @@ public class Stepdefs {
         source.register(inboundSseEvent -> events.add(inboundSseEvent));
         source.open();
     }
-
 }
