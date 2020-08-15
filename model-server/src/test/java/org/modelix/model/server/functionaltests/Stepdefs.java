@@ -152,18 +152,35 @@ public class Stepdefs {
         }
     }
 
+    @When("I visit {string} with headers {string}")
+    public void iVisitWithHeaders(String path, String headersStr) {
+        Map<String, String> headers = new HashMap<>();
+        Arrays.stream(headersStr.split(",")).forEach(s -> {
+            String[] parts = s.split("=");
+            headers.put(parts[0].strip(), parts[1].strip());
+        });
+        visitPath(path, headers);
+    }
+
     @When("I visit {string} with header {string} set to {string}")
     public void iVisitWithHeaderSetTo(String path, String header, String value) {
-        if (value.contains("#TEXT_OF_LAST_PAGE#")) {
-            value = value.replaceAll("#TEXT_OF_LAST_PAGE#", stringResponse.body().strip());
-        }
+        visitPath(path, Collections.singletonMap(header, value));
+    }
+
+    private void visitPath(String path, Map<String, String> headers) {
         try {
             var client = HttpClient.newHttpClient();
-            var request = HttpRequest.newBuilder(
+            var builder = HttpRequest.newBuilder(
                     URI.create("http://localhost:28101" + path))
-                    .header("accept", "application/json")
-                    .header(header, value)
-                    .build();
+                    .header("accept", "application/json");
+            for (Map.Entry<String, String> e : headers.entrySet()) {
+                String value = e.getValue();
+                if (value.contains("#TEXT_OF_LAST_PAGE#")) {
+                    value = value.replaceAll("#TEXT_OF_LAST_PAGE#", stringResponse.body().strip());
+                }
+                builder = builder.header(e.getKey(), value);
+            }
+            var request = builder.build();
 
             stringResponse = client.send(request, HttpResponse.BodyHandlers.ofString(Charsets.UTF_8));
         } catch (ConnectException e) {
@@ -177,7 +194,7 @@ public class Stepdefs {
                 } catch (InterruptedException e2) {
 
                 }
-                iVisitWithHeaderSetTo(path, header, value);
+                visitPath(path, headers);
             } else {
                 throw new RuntimeException(e);
             }
@@ -290,5 +307,4 @@ public class Stepdefs {
         source.register(inboundSseEvent -> events.add(inboundSseEvent));
         source.open();
     }
-
 }

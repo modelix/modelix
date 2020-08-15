@@ -20,3 +20,10 @@ Feature: Basic routes
      When I visit "/getEmail" with header "Authorization" set to "Bearer #TEXT_OF_LAST_PAGE#"
      Then I should get an OK response
       And the text of the page should be "localhost"
+
+  Scenario: Get correct email after token is generated with email
+    Given the server has been started with in-memory storage
+    And I visit "/generateToken" with headers "X-Forwarded-Email=my@email.com"
+    When I visit "/getEmail" with headers "Authorization=Bearer #TEXT_OF_LAST_PAGE#"
+    Then I should get an OK response
+    And the text of the page should be "my@email.com"
