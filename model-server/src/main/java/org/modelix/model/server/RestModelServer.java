@@ -213,24 +213,30 @@ public class RestModelServer {
                             @Override
                             protected void doPut(HttpServletRequest req, HttpServletResponse resp)
                                     throws ServletException, IOException {
-                                if (!checkAuthorization(storeClient, req, resp)) return;
+                                try {
+                                    if (!checkAuthorization(storeClient, req, resp)) return;
 
-                                String key = req.getPathInfo().substring(1);
-                                if (REPOSITORY_ID_KEY.equals(key)) {
-                                    throw new RuntimeException(
-                                            "Changing '" + key + "' is not allowed");
+                                    String key = req.getPathInfo().substring(1);
+                                    if (REPOSITORY_ID_KEY.equals(key)) {
+                                        throw new RuntimeException(
+                                                "Changing '" + key + "' is not allowed");
+                                    }
+                                    if (key.startsWith(PROTECTED_PREFIX)) {
+                                        throw new RuntimeException("No permission to access " + key);
+                                    }
+                                    String value =
+                                            IOUtils.toString(
+                                                    req.getInputStream(), StandardCharsets.UTF_8);
+                                    storeClient.put(key, value);
+                                    resp.setStatus(HttpServletResponse.SC_OK);
+                                    resp.setContentType(TEXT_PLAIN);
+                                    resp.setCharacterEncoding(StandardCharsets.UTF_8.toString());
+                                    resp.getWriter().print("OK");
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                    resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+                                    resp.getWriter().print(e.getMessage());
                                 }
-                                if (key.startsWith(PROTECTED_PREFIX)) {
-                                    throw new RuntimeException("No permission to access " + key);
-                                }
-                                String value =
-                                        IOUtils.toString(
-                                                req.getInputStream(), StandardCharsets.UTF_8);
-                                storeClient.put(key, value);
-                                resp.setStatus(HttpServletResponse.SC_OK);
-                                resp.setContentType(TEXT_PLAIN);
-                                resp.setCharacterEncoding(StandardCharsets.UTF_8.toString());
-                                resp.getWriter().print("OK");
                             }
                         }),
                 "/put/*");
@@ -363,7 +369,7 @@ public class RestModelServer {
                                                         try {
                                                             emitter.data(value);
                                                         } catch (IOException e) {
-                                                            System.out.println(e.getMessage());
+                                                            System.err.println("Exception: " + e.getMessage());
                                                             e.printStackTrace();
                                                         }
                                                     }

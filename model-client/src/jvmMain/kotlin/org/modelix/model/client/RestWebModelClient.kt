@@ -18,6 +18,8 @@ package org.modelix.model.client
 import org.apache.commons.io.FileUtils
 import org.apache.log4j.Level
 import org.apache.log4j.LogManager
+import org.glassfish.jersey.client.ClientConfig
+import org.glassfish.jersey.client.ClientProperties
 import org.json.JSONArray
 import org.json.JSONObject
 import org.modelix.model.IKeyListener
@@ -102,6 +104,7 @@ class RestWebModelClient @JvmOverloads constructor(var baseUrl: String? = null) 
         }
         private set
     private val client: Client
+    private val sseClient: Client
     private val listeners: MutableList<SseListener> = ArrayList()
     override val asyncStore: IKeyValueStore = GarbageFilteringStore(AsyncStore(this))
     private val cache = ObjectStoreCache(KeyValueStoreCache(asyncStore))
@@ -212,9 +215,15 @@ class RestWebModelClient @JvmOverloads constructor(var baseUrl: String? = null) 
             }
         }
         val url = baseUrl + "put/" + URLEncoder.encode(key, StandardCharsets.UTF_8)
-        val response = client.target(url).request(MediaType.TEXT_PLAIN).put(Entity.text(value))
-        if (response.statusInfo.family != Response.Status.Family.SUCCESSFUL) {
-            throw RuntimeException("Failed to store entry (${response.statusInfo} ${response.status}) $key = $value. URL: $url")
+        println("put with url $url")
+        try {
+            val response = client.target(url).request(MediaType.TEXT_PLAIN).put(Entity.text(value))
+            println("put with url $url got response $response")
+            if (response.statusInfo.family != Response.Status.Family.SUCCESSFUL) {
+                throw RuntimeException("Failed to store entry (${response.statusInfo} ${response.status}) $key = $value. URL: $url")
+            }
+        } catch (e: Exception) {
+            throw RuntimeException("Failed executing a put to $url", e)
         }
     }
 
@@ -321,7 +330,7 @@ class RestWebModelClient @JvmOverloads constructor(var baseUrl: String? = null) 
                 if (LOG.isTraceEnabled) {
                     LOG.trace("Connecting to $url")
                 }
-                val target = client.target(url)
+                val target = sseClient.target(url)
                 sse[i] = Sse(SseEventSource.target(target).reconnectingEvery(1, TimeUnit.SECONDS).build())
                 sse[i]!!.sse.register(
                     { event ->
@@ -364,12 +373,15 @@ class RestWebModelClient @JvmOverloads constructor(var baseUrl: String? = null) 
         if (!(baseUrl!!.endsWith("/"))) {
             baseUrl += "/"
         }
-        client = ClientBuilder.newBuilder().register(object : ClientRequestFilter {
-            @Throws(IOException::class)
-            override fun filter(ctx: ClientRequestContext) {
-                ctx.headers.add(HttpHeaders.AUTHORIZATION, "Bearer $authToken")
-            }
-        }).build()
+        // a read timeout could be an issue for the usage of SSE but a connect timeout
+        // is useful to recognize when the server is down
+        client = ClientBuilder.newBuilder()
+            .connectTimeout(1000, TimeUnit.MILLISECONDS)
+            .readTimeout(1000, TimeUnit.MILLISECONDS)
+            .register(ClientRequestFilter { ctx -> ctx.headers.add(HttpHeaders.AUTHORIZATION, "Bearer $authToken") }).build()
+        sseClient = ClientBuilder.newBuilder()
+            .connectTimeout(1000, TimeUnit.MILLISECONDS)
+            .register(ClientRequestFilter { ctx -> ctx.headers.add(HttpHeaders.AUTHORIZATION, "Bearer $authToken") }).build()
         idGenerator = IdGenerator(clientId)
         watchDogTask = fixDelay(
             1000,

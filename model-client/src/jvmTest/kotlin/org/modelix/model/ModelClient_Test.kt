@@ -15,13 +15,15 @@
 
 package org.modelix.model
 
+import org.glassfish.jersey.client.ClientConfig
+import org.glassfish.jersey.client.ClientProperties
 import org.junit.After
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
 import org.modelix.model.client.RestWebModelClient
-import java.lang.IllegalStateException
 import java.util.*
+
 
 class ModelClient_Test {
 
@@ -68,6 +70,7 @@ class ModelClient_Test {
             expected[key] = value
             println(" put $key = $value")
             val client = rand.nextInt(clients.size)
+            println(" client is $client")
             clients[client].put(key, value)
             println(" put to client $client")
             for (client in clients) {

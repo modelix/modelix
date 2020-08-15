@@ -114,7 +114,7 @@ public class Main {
                                 try {
                                     server.stop();
                                 } catch (Exception ex) {
-                                    System.out.println(ex.getMessage());
+                                    System.err.println("Exception: " + ex.getMessage());
                                     ex.printStackTrace();
                                 }
                             }));
