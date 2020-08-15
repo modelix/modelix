@@ -154,6 +154,9 @@ public class Stepdefs {
 
     @When("I visit {string} with header {string} set to {string}")
     public void iVisitWithHeaderSetTo(String path, String header, String value) {
+        if (value.contains("#TEXT_OF_LAST_PAGE#")) {
+            value = value.replaceAll("#TEXT_OF_LAST_PAGE#", stringResponse.body().strip());
+        }
         try {
             var client = HttpClient.newHttpClient();
             var request = HttpRequest.newBuilder(

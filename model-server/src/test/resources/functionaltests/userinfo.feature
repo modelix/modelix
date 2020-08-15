@@ -13,3 +13,10 @@ Feature: Basic routes
      When I visit "/getEmail" with header "Authorization" set to "Bearer mySpectacularToken"
      Then I should get an OK response
       And the text of the page should be "cool@mail.com"
+
+  Scenario: Default email after token is generated
+    Given the server has been started with in-memory storage
+      And I visit "/generateToken"
+     When I visit "/getEmail" with header "Authorization" set to "Bearer #TEXT_OF_LAST_PAGE#"
+     Then I should get an OK response
+      And the text of the page should be "localhost"
