@@ -137,6 +137,37 @@ public class Stepdefs {
         }
     }
 
+    @When("I visit {string} with header {string} set to {string}")
+    public void iVisitWithHeaderSetTo(String path, String header, String value) {
+        try {
+            var client = HttpClient.newHttpClient();
+            var request = HttpRequest.newBuilder(
+                    URI.create("http://localhost:28101" + path))
+                    .header("accept", "application/json")
+                    .header(header, value)
+                    .build();
+
+            stringResponse = client.send(request, HttpResponse.BodyHandlers.ofString(Charsets.UTF_8));
+        } catch (ConnectException e) {
+            if (nRetries > 0) {
+                if (VERBOSE_CONNECTION) {
+                    System.out.println("  (connection failed, retrying in a bit. nRetries=" + nRetries + ")");
+                }
+                nRetries--;
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e2) {
+
+                }
+                iVisitWithHeaderSetTo(path, header, value);
+            } else {
+                throw new RuntimeException(e);
+            }
+        } catch (IOException|InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
     @When("I PUT on {string} the value {string}")
     public void i_put_on_the_value(String path, String value) {
         try {
@@ -236,4 +267,5 @@ public class Stepdefs {
         source.register(inboundSseEvent -> events.add(inboundSseEvent));
         source.open();
     }
+
 }
