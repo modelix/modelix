@@ -13,7 +13,7 @@ jobs:
       uses: actions/setup-java@v1
       with:
         java-version: 11
-    - name: Run tests for model client
+    - name: Assemble
       run: cd model-server && ../gradlew assemble
 
   unitTests:
@@ -26,8 +26,8 @@ jobs:
       uses: actions/setup-java@v1
       with:
         java-version: 11
-    - name: Run tests for model client
-      run: cd model-server && ../gradlew yest
+    - name: Run unit tests
+      run: cd model-server && ../gradlew test
 
   lint:
 
@@ -39,7 +39,7 @@ jobs:
       uses: actions/setup-java@v1
       with:
         java-version: 11
-    - name: Run tests for model client
+    - name: Run linter
       run: cd model-server && ../gradlew spotlessCheck
 
   functionalTests:
@@ -52,5 +52,5 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 11
-      - name: Run tests for model client
+      - name: Run functional tests
         run: cd model-server && ../gradlew cucumber

@@ -13,7 +13,7 @@ jobs:
       uses: actions/setup-java@v1
       with:
         java-version: 11
-    - name: Run tests for model client
+    - name: Assemble
       run: cd model-client && ../gradlew compileKotlinJs compileKotlinJvm
 
   jvmTest:
@@ -26,7 +26,7 @@ jobs:
       uses: actions/setup-java@v1
       with:
         java-version: 11
-    - name: Run tests for model client
+    - name: Run JVM unit tests
       run: cd model-client && ../gradlew jvmTest
 
   jsTest:
@@ -39,7 +39,7 @@ jobs:
       uses: actions/setup-java@v1
       with:
         java-version: 11
-    - name: Run tests for model client
+    - name: Run JS unit tests
       run: cd model-client && ../gradlew jsTest      
 
   lint:
@@ -52,5 +52,5 @@ jobs:
       uses: actions/setup-java@v1
       with:
         java-version: 11
-    - name: Run tests for model client
+    - name: Run linter
       run: cd model-client && ../gradlew ktlintCheck
