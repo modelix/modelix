@@ -327,7 +327,7 @@ class RestWebModelClient @JvmOverloads constructor(var baseUrl: String? = null) 
                 val target = client.target(url)
                 sse[i] = Sse(SseEventSource.target(target).reconnectingEvery(1, TimeUnit.SECONDS).build())
                 sse[i]!!.sse.register(
-                    Consumer { event ->
+                    { event ->
                         val value = event.readData()
                         synchronized(notificationLock) {
                             if (!((value == lastValue))) {
@@ -336,11 +336,9 @@ class RestWebModelClient @JvmOverloads constructor(var baseUrl: String? = null) 
                             }
                         }
                     },
-                    object : Consumer<Throwable?> {
-                        override fun accept(ex: Throwable?) {
-                            if (LOG.isEnabledFor(Level.ERROR)) {
-                                LOG.error("", ex)
-                            }
+                    { ex ->
+                        if (LOG.isEnabledFor(Level.ERROR)) {
+                            LOG.error("", ex)
                         }
                     }
                 )
