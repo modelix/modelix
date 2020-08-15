@@ -393,7 +393,6 @@ public class RestModelServer {
 
         while (!pending.isEmpty()) {
             List<String> keys = new ArrayList<>(pending);
-            System.out.println("query " + keys.size() + " keys");
             pending.clear();
             List<String> values = storeClient.getAll(keys);
             for (int i = 0; i < keys.size(); i++) {

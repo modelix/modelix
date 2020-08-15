@@ -4,6 +4,7 @@ plugins {
     id "com.diffplug.gradle.spotless"
     id 'maven-publish'
     id "com.jfrog.bintray"
+    id 'com.adarshr.test-logger' version '2.1.0'
 }
 
 group = 'org.modelix'
