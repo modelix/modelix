@@ -32,15 +32,16 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 
 public class Stepdefs {
 
     private Process p;
-    private HttpResponse<String> stringResponse;
     private int nRetries;
     private SseEventSource source;
     private List<InboundSseEvent> events = new LinkedList<InboundSseEvent>();
+    private List<HttpResponse<String>> allStringResponses = new LinkedList<>();
 
     private static final boolean VERBOSE_SERVER = false;
     private static final boolean VERBOSE_CONNECTION = false;
@@ -60,12 +61,12 @@ public class Stepdefs {
             } catch (InterruptedException e) {
             }
         }
-        stringResponse = null;
         if (source != null) {
             source.close();
         }
         source = null;
         events.clear();
+        allStringResponses.clear();
     }
 
     @Given("the server has been started with in-memory storage")
@@ -124,14 +125,19 @@ public class Stepdefs {
 
     @When("I visit {string}")
     public void i_visit(String path) {
+        httpRequest("GET", path);
+    }
+
+    private void httpRequest(String method, String path) {
         try {
             var client = HttpClient.newHttpClient();
             var request = HttpRequest.newBuilder(
                     URI.create("http://localhost:28101" + path))
+                    .method(method, HttpRequest.BodyPublishers.noBody())
                     .header("accept", "application/json")
                     .build();
 
-            stringResponse = client.send(request, HttpResponse.BodyHandlers.ofString(Charsets.UTF_8));
+            allStringResponses.add(client.send(request, HttpResponse.BodyHandlers.ofString(Charsets.UTF_8)));
         } catch (ConnectException e) {
             if (nRetries > 0) {
                 if (VERBOSE_CONNECTION) {
@@ -143,13 +149,18 @@ public class Stepdefs {
                 } catch (InterruptedException e2) {
 
                 }
-                i_visit(path);
+                httpRequest(method, path);
             } else {
                 throw new RuntimeException(e);
             }
         } catch (IOException|InterruptedException e) {
             e.printStackTrace();
         }
+    }
+
+    @When("I POST {string}")
+    public void iPOST(String path) {
+        httpRequest("POST", path);
     }
 
     @When("I visit {string} with headers {string}")
@@ -167,6 +178,14 @@ public class Stepdefs {
         visitPath(path, Collections.singletonMap(header, value));
     }
 
+    private String lastStringResponse() {
+        return allStringResponses.get(allStringResponses.size() - 1).body().strip();
+    }
+
+    private int lastStatusCode() {
+        return allStringResponses.get(allStringResponses.size() - 1).statusCode();
+    }
+
     private void visitPath(String path, Map<String, String> headers) {
         try {
             var client = HttpClient.newHttpClient();
@@ -176,13 +195,13 @@ public class Stepdefs {
             for (Map.Entry<String, String> e : headers.entrySet()) {
                 String value = e.getValue();
                 if (value.contains("#TEXT_OF_LAST_PAGE#")) {
-                    value = value.replaceAll("#TEXT_OF_LAST_PAGE#", stringResponse.body().strip());
+                    value = value.replaceAll("#TEXT_OF_LAST_PAGE#", lastStringResponse());
                 }
                 builder = builder.header(e.getKey(), value);
             }
             var request = builder.build();
 
-            stringResponse = client.send(request, HttpResponse.BodyHandlers.ofString(Charsets.UTF_8));
+            allStringResponses.add(client.send(request, HttpResponse.BodyHandlers.ofString(Charsets.UTF_8)));
         } catch (ConnectException e) {
             if (nRetries > 0) {
                 if (VERBOSE_CONNECTION) {
@@ -213,7 +232,7 @@ public class Stepdefs {
                     .header("accept", "application/json")
                     .build();
 
-            stringResponse = client.send(request, HttpResponse.BodyHandlers.ofString(Charsets.UTF_8));
+            allStringResponses.add(client.send(request, HttpResponse.BodyHandlers.ofString(Charsets.UTF_8)));
         } catch (ConnectException e) {
             if (nRetries > 0) {
                 if (VERBOSE_CONNECTION) {
@@ -236,43 +255,43 @@ public class Stepdefs {
 
     @Then("I should get an OK response")
     public void i_should_get_an_ok_response() {
-        assertEquals(200, stringResponse.statusCode());
+        assertEquals(200, lastStatusCode());
     }
 
     @Then("I should get a NOT FOUND response")
     public void i_should_get_a_not_found_response() {
-        assertEquals(404, stringResponse.statusCode());
+        assertEquals(404, lastStatusCode());
     }
 
     @Then("I should get an NO CONTENT response")
     public void iShouldGetAnNOCONTENTResponse() {
-        assertEquals(204, stringResponse.statusCode());
+        assertEquals(204, lastStatusCode());
     }
 
     @Then("I should get a FORBIDDEN response")
     public void iShouldGetAFORBIDDENResponse() {
-        assertEquals(403, stringResponse.statusCode());
+        assertEquals(403, lastStatusCode());
     }
 
     @Then("the text of the page should be {string}")
     public void the_text_of_the_page_should_be(String expectedText) {
-        assertEquals(expectedText.strip(), stringResponse.body().strip());
+        assertEquals(expectedText.strip(), lastStringResponse());
     }
 
     @Then("the text of the page should be {int} characters long")
     public void theTextOfThePageShouldBeCharactersLong(int nLength) {
-        assertEquals(nLength, stringResponse.body().length());
+        assertEquals(nLength, lastStringResponse().length());
     }
 
     @Then("the text of the page contains only hexadecimal digits")
     public void theTextOfThePageContainsOnlyHexadecimalDigits() {
-        Pattern.matches("[a-f0-9]+", stringResponse.body());
+        Pattern.matches("[a-f0-9]+", lastStringResponse());
     }
 
     @Then("the text of the page should be this JSON {string}")
     public void theTextOfThePageShouldBeThisJSON(String expectedJsonStr) {
         JsonElement expectedJson = JsonParser.parseString(expectedJsonStr);
-        assertEquals(expectedJson, JsonParser.parseString(stringResponse.body()));
+        assertEquals(expectedJson, JsonParser.parseString(lastStringResponse()));
     }
 
     @Then("I should get an event {string}")
@@ -306,5 +325,19 @@ public class Stepdefs {
         source = SseEventSource.target(target).build();
         source.register(inboundSseEvent -> events.add(inboundSseEvent));
         source.open();
+    }
+
+    @Then("the text of the page should be the same as before")
+    public void theTextOfThePageShouldBeTheSameAsBefore() {
+        String last = allStringResponses.get(allStringResponses.size() - 1).body().strip();
+        String secondToLast = allStringResponses.get(allStringResponses.size() - 2).body().strip();
+        assertEquals(secondToLast, last);
+    }
+
+    @Then("the text of the page should be different than before")
+    public void theTextOfThePageShouldBeDifferentThanBefore() {
+        String last = allStringResponses.get(allStringResponses.size() - 1).body().strip();
+        String secondToLast = allStringResponses.get(allStringResponses.size() - 2).body().strip();
+        assertNotEquals(secondToLast, last);
     }
 }
