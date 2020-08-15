@@ -13,6 +13,11 @@ Feature: Storing routes
      When I visit "/get/abc"
      Then I should get a NOT FOUND response
 
+  Scenario: Retrieving forbidden key
+    Given the server has been started with in-memory storage
+    When I visit "/get/$$$_abc"
+    Then I should get a FORBIDDEN response
+
   Scenario: Retrieving multiple keys, all existing
     Given the server has been started with in-memory storage
      When I PUT on "/put/aaa" the value "value1"

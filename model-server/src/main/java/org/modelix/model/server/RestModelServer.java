@@ -104,7 +104,8 @@ public class RestModelServer {
 
                                 String key = req.getPathInfo().substring(1);
                                 if (key.startsWith(PROTECTED_PREFIX)) {
-                                    throw new RuntimeException("No permission to access " + key);
+                                    resp.setStatus(HttpServletResponse.SC_FORBIDDEN);
+                                    return;
                                 }
                                 String value = storeClient.get(key);
                                 if (value == null) {
@@ -437,18 +438,29 @@ public class RestModelServer {
         if (isLocalhost(req)) return true;
 
         String header = req.getHeader("Authorization");
-        if (header == null) return false;
-        if (!header.startsWith("Bearer ")) return false;
+        if (header == null) {
+            return false;
+        }
+        if (!header.startsWith("Bearer ")) {
+            return false;
+        }
         String token = extractToken(req);
-        if (token == null) return false;
+        if (token == null) {
+            return false;
+        }
 
         // Used by MPS instances running in the same kubernetes cluster
-        if (sharedSecret != null && sharedSecret.length() > 0 && token.equals(sharedSecret))
+        if (sharedSecret != null && sharedSecret.length() > 0 && token.equals(sharedSecret)) {
             return true;
+        }
 
         String expiresStr = store.get(PROTECTED_PREFIX + "_token_expires_" + token);
-        if (expiresStr == null) return false;
-        if (System.currentTimeMillis() > Long.parseLong(expiresStr)) return false;
+        if (expiresStr == null) {
+            return false;
+        }
+        if (System.currentTimeMillis() > Long.parseLong(expiresStr)) {
+            return false;
+        }
         return true;
     }
 

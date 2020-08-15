@@ -45,8 +45,18 @@ configurations {
     }
 }
 
+task fatJar(type: Jar) {
+    manifest {
+        attributes 'Main-Class': 'org.modelix.model.server.Main'
+    }
+    archiveBaseName = 'model-server-fatJar'
+    archiveVersion = 'latest'
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
+}
+
 task cucumber() {
-    dependsOn assemble, compileTestJava
+    dependsOn fatJar, compileTestJava
     doLast {
         javaexec {
             main = "io.cucumber.core.cli.Main"

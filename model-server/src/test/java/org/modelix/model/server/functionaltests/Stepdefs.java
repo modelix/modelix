@@ -1,17 +1,13 @@
 package org.modelix.model.server.functionaltests;
 
 import com.google.common.base.Charsets;
-import io.cucumber.gherkin.internal.com.eclipsesource.json.JsonValue;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
-import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.cucumber.messages.internal.com.google.gson.JsonElement;
 import io.cucumber.messages.internal.com.google.gson.JsonParser;
-import io.cucumber.messages.internal.com.google.gson.stream.JsonReader;
-import org.apache.cxf.interceptor.Fault;
 
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
@@ -27,10 +23,13 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.function.Consumer;
+import java.util.Map;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -71,8 +70,25 @@ public class Stepdefs {
 
     @Given("the server has been started with in-memory storage")
     public void the_server_has_been_started_with_in_memory_storage() {
+        startServerInMemory(Collections.emptyMap());
+    }
+
+    @Given("the server has been started with in-memory storage loaded with {string}")
+    public void theServerHasBeenStartedWithInMemoryStorageLoadedWith(String presetValuesStr) {
+        Map<String, String> presetValues = new HashMap<>();
+        Arrays.stream(presetValuesStr.split(",")).forEach(s -> {
+            String[] parts = s.split("=");
+            presetValues.put(parts[0].strip(), parts[1].strip());
+        });
+        startServerInMemory(presetValues);
+    }
+
+    private void startServerInMemory(Map<String, String> presetValues) {
         try {
-            p = Runtime.getRuntime().exec("../gradlew run --args='-inmemory'");BufferedReader stdInput = new BufferedReader(new
+            String argsToSetValues = presetValues.entrySet().stream().map(e -> " -set " + e.getKey()+ " " + e.getValue()).collect(Collectors.joining());
+            String commandLine = "java -jar build/libs/model-server-fatJar-latest.jar -inmemory" + argsToSetValues;
+            p = Runtime.getRuntime().exec(commandLine);
+            BufferedReader stdInput = new BufferedReader(new
                     InputStreamReader(p.getInputStream()));
 
             BufferedReader stdError = new BufferedReader(new
@@ -83,14 +99,13 @@ public class Stepdefs {
                     String s;
                     while ((s = stdInput.readLine()) != null) {
                         if (VERBOSE_SERVER) {
-                            System.out.println(s);
+                            System.out.println("SERVER OUT " + s);
                         }
                     }
 
-                    // read any errors from the attempted command
                     while ((s = stdError.readLine()) != null) {
                         if (VERBOSE_SERVER) {
-                            System.out.println(s);
+                            System.out.println("SERVER ERR " + s);
                         }
                     }
                 } catch (IOException e) {
@@ -212,6 +227,11 @@ public class Stepdefs {
     @Then("I should get an NO CONTENT response")
     public void iShouldGetAnNOCONTENTResponse() {
         assertEquals(204, stringResponse.statusCode());
+    }
+
+    @Then("I should get a FORBIDDEN response")
+    public void iShouldGetAFORBIDDENResponse() {
+        assertEquals(403, stringResponse.statusCode());
     }
 
     @Then("the text of the page should be {string}")
