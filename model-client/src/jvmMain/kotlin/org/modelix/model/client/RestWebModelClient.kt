@@ -61,7 +61,7 @@ class RestWebModelClient @JvmOverloads constructor(var baseUrl: String? = null) 
         val modelUrlFromEnv: String?
             get() {
                 var url = System.getProperty(MODEL_URI_VAR_NAME)
-                if (url == null || url.length == 0) {
+                if (url.isNullOrEmpty()) {
                     url = System.getenv(MODEL_URI_VAR_NAME)
                 }
                 return url
@@ -70,16 +70,12 @@ class RestWebModelClient @JvmOverloads constructor(var baseUrl: String? = null) 
         val defaultUrl: String
             get() {
                 val urlFromEnv = modelUrlFromEnv
-                return if ((urlFromEnv != null && urlFromEnv.isNotEmpty())) {
-                    urlFromEnv
-                } else {
+                return if (urlFromEnv.isNullOrEmpty()) {
                     "http://modelix.q60.de:80/model/"
+                } else {
+                    urlFromEnv
                 }
             }
-
-        private fun isEmptyString(str: String?): Boolean {
-            return str == null || str.isEmpty()
-        }
 
         init {
             try {
@@ -361,7 +357,7 @@ class RestWebModelClient @JvmOverloads constructor(var baseUrl: String? = null) 
     }
 
     init {
-        if (isEmptyString(baseUrl)) {
+        if (baseUrl.isNullOrEmpty()) {
             baseUrl = defaultUrl
         }
         if (!(baseUrl!!.endsWith("/"))) {
