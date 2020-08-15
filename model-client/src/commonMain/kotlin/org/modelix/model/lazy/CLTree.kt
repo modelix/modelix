@@ -425,12 +425,14 @@ class CLTree : ITree {
     fun createElement(hash: String?, query: IBulkQuery): IBulkQuery.Value<CLNode?> {
         return if (hash == null) {
             query.constant(null)
-        } else query[hash, { s: String ->
-            if (s == null) {
-                throw RuntimeException("Element doesn't exist: $hash")
+        } else query[
+            hash, { s: String ->
+                if (s == null) {
+                    throw RuntimeException("Element doesn't exist: $hash")
+                }
+                CPNode.deserialize(s)
             }
-            CPNode.deserialize(s)
-        }].map { n: CPNode? -> CLElement.create(this@CLTree, n) }
+        ].map { n: CPNode? -> CLElement.create(this@CLTree, n) }
     }
 
     fun createElement(hash: String?): CLNode? {
@@ -439,12 +441,14 @@ class CLTree : ITree {
 
     fun createElements(hashes: List<String>, bulkQuery: IBulkQuery): IBulkQuery.Value<List<CLNode>> {
         return bulkQuery.map(hashes) { hash: String ->
-            bulkQuery[hash, { s: String ->
-                if (s == null) {
-                    throw RuntimeException("Element doesn't exist: $hash")
+            bulkQuery[
+                hash, { s: String ->
+                    if (s == null) {
+                        throw RuntimeException("Element doesn't exist: $hash")
+                    }
+                    CPNode.deserialize(s)
                 }
-                CPNode.deserialize(s)
-            }].map { n: CPNode? -> CLElement.create(this@CLTree, n)!! }
+            ].map { n: CPNode? -> CLElement.create(this@CLTree, n)!! }
         }
     }
 
