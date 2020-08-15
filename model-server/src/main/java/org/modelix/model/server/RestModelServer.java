@@ -250,7 +250,8 @@ public class RestModelServer {
                                 for (Object entry_ : json) {
                                     JSONObject entry = (JSONObject) entry_;
                                     if (!entry.has("key") || !entry.has("value")) {
-                                        // We skip invalid entries instead of failing because we do not
+                                        // We skip invalid entries instead of failing because we do
+                                        // not
                                         // want to fail after having written some entries
                                         LOG.warn("Skipping invalid entry: " + entry);
                                         continue;

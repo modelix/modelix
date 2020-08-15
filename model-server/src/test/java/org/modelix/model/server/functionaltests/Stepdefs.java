@@ -1,4 +1,23 @@
+/*
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *  http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License. 
+ */
+
 package org.modelix.model.server.functionaltests;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertTrue;
 
 import com.google.common.base.Charsets;
 import io.cucumber.java.After;
@@ -8,12 +27,6 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.cucumber.messages.internal.com.google.gson.JsonElement;
 import io.cucumber.messages.internal.com.google.gson.JsonParser;
-
-import javax.ws.rs.client.Client;
-import javax.ws.rs.client.ClientBuilder;
-import javax.ws.rs.client.WebTarget;
-import javax.ws.rs.sse.InboundSseEvent;
-import javax.ws.rs.sse.SseEventSource;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -30,10 +43,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertTrue;
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.client.WebTarget;
+import javax.ws.rs.sse.InboundSseEvent;
+import javax.ws.rs.sse.SseEventSource;
 
 public class Stepdefs {
 
@@ -77,42 +91,49 @@ public class Stepdefs {
     @Given("the server has been started with in-memory storage loaded with {string}")
     public void theServerHasBeenStartedWithInMemoryStorageLoadedWith(String presetValuesStr) {
         Map<String, String> presetValues = new HashMap<>();
-        Arrays.stream(presetValuesStr.split(",")).forEach(s -> {
-            String[] parts = s.split("=");
-            presetValues.put(parts[0].strip(), parts[1].strip());
-        });
+        Arrays.stream(presetValuesStr.split(","))
+                .forEach(
+                        s -> {
+                            String[] parts = s.split("=");
+                            presetValues.put(parts[0].strip(), parts[1].strip());
+                        });
         startServerInMemory(presetValues);
     }
 
     private void startServerInMemory(Map<String, String> presetValues) {
         try {
-            String argsToSetValues = presetValues.entrySet().stream().map(e -> " -set " + e.getKey()+ " " + e.getValue()).collect(Collectors.joining());
-            String commandLine = "java -jar build/libs/model-server-fatJar-latest.jar -inmemory" + argsToSetValues;
+            String argsToSetValues =
+                    presetValues.entrySet().stream()
+                            .map(e -> " -set " + e.getKey() + " " + e.getValue())
+                            .collect(Collectors.joining());
+            String commandLine =
+                    "java -jar build/libs/model-server-fatJar-latest.jar -inmemory"
+                            + argsToSetValues;
             p = Runtime.getRuntime().exec(commandLine);
-            BufferedReader stdInput = new BufferedReader(new
-                    InputStreamReader(p.getInputStream()));
+            BufferedReader stdInput = new BufferedReader(new InputStreamReader(p.getInputStream()));
 
-            BufferedReader stdError = new BufferedReader(new
-                    InputStreamReader(p.getErrorStream()));
+            BufferedReader stdError = new BufferedReader(new InputStreamReader(p.getErrorStream()));
 
-            new Thread(() -> {
-                try {
-                    String s;
-                    while ((s = stdInput.readLine()) != null) {
-                        if (VERBOSE_SERVER) {
-                            System.out.println("SERVER OUT " + s);
-                        }
-                    }
+            new Thread(
+                            () -> {
+                                try {
+                                    String s;
+                                    while ((s = stdInput.readLine()) != null) {
+                                        if (VERBOSE_SERVER) {
+                                            System.out.println("SERVER OUT " + s);
+                                        }
+                                    }
 
-                    while ((s = stdError.readLine()) != null) {
-                        if (VERBOSE_SERVER) {
-                            System.out.println("SERVER ERR " + s);
-                        }
-                    }
-                } catch (IOException e) {
-                    // this may happen when closing
-                }
-            }).start();
+                                    while ((s = stdError.readLine()) != null) {
+                                        if (VERBOSE_SERVER) {
+                                            System.out.println("SERVER ERR " + s);
+                                        }
+                                    }
+                                } catch (IOException e) {
+                                    // this may happen when closing
+                                }
+                            })
+                    .start();
 
             try {
                 Thread.sleep(1000);
@@ -131,17 +152,19 @@ public class Stepdefs {
     private void httpRequest(String method, String path) {
         try {
             var client = HttpClient.newHttpClient();
-            var request = HttpRequest.newBuilder(
-                    URI.create("http://localhost:28101" + path))
-                    .method(method, HttpRequest.BodyPublishers.noBody())
-                    .header("accept", "application/json")
-                    .build();
+            var request =
+                    HttpRequest.newBuilder(URI.create("http://localhost:28101" + path))
+                            .method(method, HttpRequest.BodyPublishers.noBody())
+                            .header("accept", "application/json")
+                            .build();
 
-            allStringResponses.add(client.send(request, HttpResponse.BodyHandlers.ofString(Charsets.UTF_8)));
+            allStringResponses.add(
+                    client.send(request, HttpResponse.BodyHandlers.ofString(Charsets.UTF_8)));
         } catch (ConnectException e) {
             if (nRetries > 0) {
                 if (VERBOSE_CONNECTION) {
-                    System.out.println("  (connection failed, retrying in a bit. nRetries=" + nRetries + ")");
+                    System.out.println(
+                            "  (connection failed, retrying in a bit. nRetries=" + nRetries + ")");
                 }
                 nRetries--;
                 try {
@@ -153,7 +176,7 @@ public class Stepdefs {
             } else {
                 throw new RuntimeException(e);
             }
-        } catch (IOException|InterruptedException e) {
+        } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }
     }
@@ -166,10 +189,12 @@ public class Stepdefs {
     @When("I visit {string} with headers {string}")
     public void iVisitWithHeaders(String path, String headersStr) {
         Map<String, String> headers = new HashMap<>();
-        Arrays.stream(headersStr.split(",")).forEach(s -> {
-            String[] parts = s.split("=");
-            headers.put(parts[0].strip(), parts[1].strip());
-        });
+        Arrays.stream(headersStr.split(","))
+                .forEach(
+                        s -> {
+                            String[] parts = s.split("=");
+                            headers.put(parts[0].strip(), parts[1].strip());
+                        });
         visitPath(path, headers);
     }
 
@@ -189,9 +214,9 @@ public class Stepdefs {
     private void visitPath(String path, Map<String, String> headers) {
         try {
             var client = HttpClient.newHttpClient();
-            var builder = HttpRequest.newBuilder(
-                    URI.create("http://localhost:28101" + path))
-                    .header("accept", "application/json");
+            var builder =
+                    HttpRequest.newBuilder(URI.create("http://localhost:28101" + path))
+                            .header("accept", "application/json");
             for (Map.Entry<String, String> e : headers.entrySet()) {
                 String value = e.getValue();
                 if (value.contains("#TEXT_OF_LAST_PAGE#")) {
@@ -201,11 +226,13 @@ public class Stepdefs {
             }
             var request = builder.build();
 
-            allStringResponses.add(client.send(request, HttpResponse.BodyHandlers.ofString(Charsets.UTF_8)));
+            allStringResponses.add(
+                    client.send(request, HttpResponse.BodyHandlers.ofString(Charsets.UTF_8)));
         } catch (ConnectException e) {
             if (nRetries > 0) {
                 if (VERBOSE_CONNECTION) {
-                    System.out.println("  (connection failed, retrying in a bit. nRetries=" + nRetries + ")");
+                    System.out.println(
+                            "  (connection failed, retrying in a bit. nRetries=" + nRetries + ")");
                 }
                 nRetries--;
                 try {
@@ -217,7 +244,7 @@ public class Stepdefs {
             } else {
                 throw new RuntimeException(e);
             }
-        } catch (IOException|InterruptedException e) {
+        } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }
     }
@@ -226,17 +253,19 @@ public class Stepdefs {
     public void i_put_on_the_value(String path, String value) {
         try {
             var client = HttpClient.newHttpClient();
-            var request = HttpRequest.newBuilder(
-                    URI.create("http://localhost:28101" + path))
-                    .method("PUT", HttpRequest.BodyPublishers.ofString(value))
-                    .header("accept", "application/json")
-                    .build();
+            var request =
+                    HttpRequest.newBuilder(URI.create("http://localhost:28101" + path))
+                            .method("PUT", HttpRequest.BodyPublishers.ofString(value))
+                            .header("accept", "application/json")
+                            .build();
 
-            allStringResponses.add(client.send(request, HttpResponse.BodyHandlers.ofString(Charsets.UTF_8)));
+            allStringResponses.add(
+                    client.send(request, HttpResponse.BodyHandlers.ofString(Charsets.UTF_8)));
         } catch (ConnectException e) {
             if (nRetries > 0) {
                 if (VERBOSE_CONNECTION) {
-                    System.out.println("  (connection failed, retrying in a bit. nRetries=" + nRetries + ")");
+                    System.out.println(
+                            "  (connection failed, retrying in a bit. nRetries=" + nRetries + ")");
                 }
                 nRetries--;
                 try {
@@ -248,7 +277,7 @@ public class Stepdefs {
             } else {
                 throw new RuntimeException(e);
             }
-        } catch (IOException|InterruptedException e) {
+        } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }
     }
