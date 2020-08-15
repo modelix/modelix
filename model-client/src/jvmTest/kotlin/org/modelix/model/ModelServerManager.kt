@@ -12,7 +12,7 @@ import java.net.http.HttpResponse
 import java.util.stream.Collectors
 
 class ModelServerManager {
-    private val VERBOSE_SERVER = false
+    private val VERBOSE_SERVER = true
     private val VERBOSE_CONNECTION = false
     private var p: Process? = null
     fun kill() {

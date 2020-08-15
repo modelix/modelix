@@ -211,9 +211,10 @@ class RestWebModelClient @JvmOverloads constructor(var baseUrl: String? = null) 
                 LOG.debug("PUT $key = $value")
             }
         }
-        val response = client.target(baseUrl + "put/" + URLEncoder.encode(key, StandardCharsets.UTF_8)).request(MediaType.TEXT_PLAIN).put(Entity.text(value))
+        val url = baseUrl + "put/" + URLEncoder.encode(key, StandardCharsets.UTF_8)
+        val response = client.target(url).request(MediaType.TEXT_PLAIN).put(Entity.text(value))
         if (response.statusInfo.family != Response.Status.Family.SUCCESSFUL) {
-            throw RuntimeException("Failed to store entry (" + response.statusInfo + ") " + key + " = " + value)
+            throw RuntimeException("Failed to store entry (${response.statusInfo} ${response.status}) $key = $value. URL: $url")
         }
     }
 
