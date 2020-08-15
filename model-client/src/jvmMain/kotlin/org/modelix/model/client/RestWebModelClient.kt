@@ -78,7 +78,7 @@ class RestWebModelClient @JvmOverloads constructor(var baseUrl: String? = null) 
             }
 
         private fun isEmptyString(str: String?): Boolean {
-            return str == null || str.length == 0
+            return str == null || str.isEmpty()
         }
 
         init {
@@ -206,11 +206,11 @@ class RestWebModelClient @JvmOverloads constructor(var baseUrl: String? = null) 
     }
 
     override fun removeListener(key: String, listener: IKeyListener) {
-        synchronized(listeners) { listeners.removeIf({ it: SseListener -> Objects.equals(it.key, key) && it.keyListener === listener }) }
+        synchronized(listeners) { listeners.removeIf { Objects.equals(it.key, key) && it.keyListener === listener } }
     }
 
     override fun put(key: String, value: String?) {
-        if (!key!!.matches(Regex("[a-zA-Z0-9-_]{43}"))) {
+        if (!key.matches(Regex("[a-zA-Z0-9-_]{43}"))) {
             if (LOG.isDebugEnabled) {
                 LOG.debug("PUT $key = $value")
             }
@@ -231,7 +231,7 @@ class RestWebModelClient @JvmOverloads constructor(var baseUrl: String? = null) 
                 throw RuntimeException(
                     String.format(
                         "Failed to store %d entries (%s) %s",
-                        entries!!.size,
+                        entries.size,
                         response.statusInfo,
                         entries.entries.stream().map { e: Map.Entry<String?, String?> -> e.key.toString() + " = " + e.value + ", ..." }.findFirst().orElse("")
                     )
@@ -239,7 +239,7 @@ class RestWebModelClient @JvmOverloads constructor(var baseUrl: String? = null) 
             }
         }
         if (LOG.isDebugEnabled) {
-            LOG.debug("PUT " + entries!!.size + " entries")
+            LOG.debug("PUT " + entries.size + " entries")
         }
         var json = JSONArray()
         var approxSize = 0
@@ -247,7 +247,7 @@ class RestWebModelClient @JvmOverloads constructor(var baseUrl: String? = null) 
             val jsonEntry = JSONObject()
             jsonEntry.put("key", key)
             jsonEntry.put("value", value)
-            approxSize += key!!.length
+            approxSize += key.length
             approxSize += value!!.length
             json.put(jsonEntry)
             if (!key.matches(Regex("[a-zA-Z0-9-_]{43}"))) {
@@ -378,17 +378,15 @@ class RestWebModelClient @JvmOverloads constructor(var baseUrl: String? = null) 
         idGenerator = IdGenerator(clientId)
         watchDogTask = fixDelay(
             1000,
-            object : Runnable {
-                override fun run() {
-                    var ls: List<SseListener>
-                    synchronized(listeners) { ls = ArrayList(listeners) }
-                    for (l: SseListener in ls) {
-                        try {
-                            l.ensureConnected()
-                        } catch (ex: Exception) {
-                            if (LOG.isEnabledFor(Level.ERROR)) {
-                                LOG.error("", ex)
-                            }
+            Runnable {
+                var ls: List<SseListener>
+                synchronized(listeners) { ls = ArrayList(listeners) }
+                for (l: SseListener in ls) {
+                    try {
+                        l.ensureConnected()
+                    } catch (ex: Exception) {
+                        if (LOG.isEnabledFor(Level.ERROR)) {
+                            LOG.error("", ex)
                         }
                     }
                 }
