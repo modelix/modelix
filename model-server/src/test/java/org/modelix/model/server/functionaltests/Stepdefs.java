@@ -201,35 +201,35 @@ public class Stepdefs {
 
     @Then("I should get an event {string}")
     public void iShouldGetAnEvent(String expectedEventValue) {
-        assertTrue(events.stream().anyMatch(e -> e.getComment().equals(expectedEventValue)));
+        try {
+            Thread.sleep(200);
+        } catch (InterruptedException e) {
+
+        }
+        assertTrue(events.stream().anyMatch(e -> e.readData().equals(expectedEventValue)));
+    }
+
+    @Then("I should NOT get an event {string}")
+    public void iShouldNOTGetAnEvent(String expectedEventValue) {
+        try {
+            Thread.sleep(200);
+        } catch (InterruptedException e) {
+
+        }
+        assertTrue(events.stream().noneMatch(e -> e.readData().equals(expectedEventValue)));
     }
 
     @When("I prepare to receive events from {string}")
     public void iPrepareToReceiveEvents(String path) {
-        try {
-            Thread.sleep(8000);
-            Client client = ClientBuilder.newClient();
-            WebTarget target = client.target("http://localhost:28101" + path);
+        // wait for server to be up
+        i_visit("/");
 
-            source = SseEventSource.target(target).build();
-            source.register(inboundSseEvent -> events.add(inboundSseEvent));
-            source.open();
-        } catch (Throwable e) {
-            System.err.println("GOTCHA");
-            if (e.getCause() instanceof ConnectException && nRetries > 0) {
-                if (VERBOSE_CONNECTION) {
-                    System.out.println("  (connection failed, retrying in a bit. nRetries=" + nRetries + ")");
-                }
-                nRetries--;
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException e2) {
+        Client client = ClientBuilder.newClient();
+        WebTarget target = client.target("http://localhost:28101" + path);
 
-                }
-                iPrepareToReceiveEvents(path);
-            } else {
-                throw new RuntimeException(e);
-            }
-        }
+        source = SseEventSource.target(target).build();
+        source.register(inboundSseEvent -> events.add(inboundSseEvent));
+        source.open();
     }
+
 }
