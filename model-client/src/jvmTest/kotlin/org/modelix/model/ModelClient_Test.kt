@@ -15,21 +15,39 @@
 
 package org.modelix.model
 
+import org.junit.After
 import org.junit.Assert
+import org.junit.Before
+import org.junit.Test
 import org.modelix.model.client.RestWebModelClient
 import java.util.*
 
 class ModelClient_Test {
-    // Disabled because it requires a running model server
-    // @Test
+
+    private var modelServer = ModelServerManager()
+
+    @Before
+    fun prepare() {
+        modelServer.startServerInMemory(emptyMap())
+        modelServer.waitItIsUp()
+    }
+
+    @After
+    fun cleaning() {
+        modelServer.kill()
+    }
+
+    // This test requires a running model server
+    @Test
     fun test_t1() {
         val rand = Random(67845)
         val url = "http://localhost:28101/"
-        val clients = Arrays.asList(RestWebModelClient(url), RestWebModelClient(url), RestWebModelClient(url))
+        val clients = listOf(RestWebModelClient(url), RestWebModelClient(url), RestWebModelClient(url))
         val listeners: MutableList<Listener> = ArrayList()
         val expected: MutableMap<String, String> = HashMap()
         for (client in clients) {
             for (i in 0..9) {
+                println("Phase A: client $client i=$i of 10")
                 Thread.sleep(1000)
                 val key = "test_$i"
                 val l = Listener(key, client)
@@ -38,9 +56,11 @@ class ModelClient_Test {
             }
         }
         for (i in 0..99) {
-            Thread.sleep(400)
+            println("Phase B: i=$i of 100")
+            //Thread.sleep(400)
+            Thread.sleep(200)
             val key = "test_" + rand.nextInt(10)
-            val value = java.lang.Long.toString(rand.nextLong())
+            val value = rand.nextLong().toString()
             expected[key] = value
             println("put $key = $value")
             clients[rand.nextInt(clients.size)].put(key, value)
