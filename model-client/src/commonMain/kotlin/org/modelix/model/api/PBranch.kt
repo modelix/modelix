@@ -24,6 +24,7 @@ class PBranch constructor(@field:Volatile private var tree: ITree, private val i
     private val writeLock = Any()
     private val contextTransactions = ContextValue<Transaction?>()
     private var listeners = arrayOf<IBranchListener>()
+
     fun runWithTransaction(transaction: ITransaction, runnable: () -> Unit) {
         contextTransactions.runWith(transaction as Transaction, runnable)
     }
@@ -33,7 +34,7 @@ class PBranch constructor(@field:Volatile private var tree: ITree, private val i
         if (prevTransaction is IReadTransaction) {
             runnable()
         } else {
-            val currentTree = if (prevTransaction == null) tree else prevTransaction.tree
+            val currentTree = prevTransaction?.tree ?: tree
             val t = ReadTransaction(currentTree, this)
             contextTransactions.runWith(t, runnable)
         }
@@ -44,10 +45,10 @@ class PBranch constructor(@field:Volatile private var tree: ITree, private val i
             val prevTransaction = contextTransactions.getValue()
             check(prevTransaction !is ReadTransaction) { "Cannot run write from read" }
             val prevWrite = prevTransaction as WriteTransaction?
-            val oldTree: ITree = if (prevWrite == null) tree else prevWrite.tree
-            val newWrite = WriteTransaction(oldTree, this, idGenerator!!)
+            val oldTree: ITree = prevWrite?.tree ?: tree
+            val newWrite = WriteTransaction(oldTree, this, idGenerator)
             try {
-                contextTransactions.runWith(newWrite, runnable!!)
+                contextTransactions.runWith(newWrite, runnable)
                 newWrite.close()
                 val newTree: ITree = newWrite.tree
                 if (prevWrite == null) {
@@ -113,7 +114,7 @@ class PBranch constructor(@field:Volatile private var tree: ITree, private val i
         }
         for (l in listeners) {
             try {
-                l!!.treeChanged(oldTree, newTree)
+                l.treeChanged(oldTree, newTree)
             } catch (ex: Exception) {
                 logError("Exception in branch listener", ex, PBranch::class)
             }

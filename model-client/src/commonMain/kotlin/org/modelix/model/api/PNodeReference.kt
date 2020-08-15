@@ -33,9 +33,7 @@ class PNodeReference(val id: Long) : INodeReference {
             return false
         }
         val that = o as PNodeReference
-        return if (id != that.id) {
-            false
-        } else true
+        return id == that.id
     }
 
     override fun hashCode(): Int {

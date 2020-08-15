@@ -79,12 +79,16 @@ abstract class CLHamtNode<E : CPHamtNode?>(protected var store: IDeserializingKe
             if (data == null) {
                 return null
             }
-            return if (data is CPHamtLeaf) {
-                CLHamtLeaf((data as CPHamtLeaf?)!!, store)
-            } else if (data is CPHamtInternal) {
-                CLHamtInternal((data as CPHamtInternal?)!!, store)
-            } else {
-                throw RuntimeException("Unknown type: " + data::class.simpleName)
+            return when (data) {
+                is CPHamtLeaf -> {
+                    CLHamtLeaf((data as CPHamtLeaf?)!!, store)
+                }
+                is CPHamtInternal -> {
+                    CLHamtInternal((data as CPHamtInternal?)!!, store)
+                }
+                else -> {
+                    throw RuntimeException("Unknown type: ${data::class.simpleName}")
+                }
             }
         }
     }

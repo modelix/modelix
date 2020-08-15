@@ -70,7 +70,7 @@ class RestWebModelClient @JvmOverloads constructor(var baseUrl: String? = null) 
         val defaultUrl: String
             get() {
                 val urlFromEnv = modelUrlFromEnv
-                return if ((urlFromEnv != null && urlFromEnv.length > 0)) {
+                return if ((urlFromEnv != null && urlFromEnv.isNotEmpty())) {
                     urlFromEnv
                 } else {
                     "http://modelix.q60.de:80/model/"
@@ -111,7 +111,7 @@ class RestWebModelClient @JvmOverloads constructor(var baseUrl: String? = null) 
     private val cache = ObjectStoreCache(KeyValueStoreCache(asyncStore))
 
     @get:Synchronized
-    override var idGenerator: IIdGenerator = IdGenerator(clientId)
+    override lateinit var idGenerator: IIdGenerator
         private set
     private val watchDogTask: ScheduledFuture<*>
     private var authToken = defaultToken
@@ -133,19 +133,23 @@ class RestWebModelClient @JvmOverloads constructor(var baseUrl: String? = null) 
         }
         val start = System.currentTimeMillis()
         val response = client.target(baseUrl + "get/" + URLEncoder.encode(key, StandardCharsets.UTF_8)).request().buildGet().invoke()
-        return if (response.status == Response.Status.OK.statusCode) {
-            val value = response.readEntity(String::class.java)
-            val end = System.currentTimeMillis()
-            if (isHash) {
-                if (LOG.isDebugEnabled) {
-                    LOG.debug("GET " + key + " took " + (end - start) + " ms: " + value)
+        return when (response.status) {
+            Response.Status.OK.statusCode -> {
+                val value = response.readEntity(String::class.java)
+                val end = System.currentTimeMillis()
+                if (isHash) {
+                    if (LOG.isDebugEnabled) {
+                        LOG.debug("GET " + key + " took " + (end - start) + " ms: " + value)
+                    }
                 }
+                value
             }
-            value
-        } else if (response.status == Response.Status.NOT_FOUND.statusCode) {
-            null
-        } else {
-            throw RuntimeException("Request for key '" + key + "' failed: " + response.statusInfo)
+            Response.Status.NOT_FOUND.statusCode -> {
+                null
+            }
+            else -> {
+                throw RuntimeException("Request for key '" + key + "' failed: " + response.statusInfo)
+            }
         }
     }
 
@@ -371,6 +375,7 @@ class RestWebModelClient @JvmOverloads constructor(var baseUrl: String? = null) 
                 ctx.headers.add(HttpHeaders.AUTHORIZATION, "Bearer $authToken")
             }
         }).build()
+        idGenerator = IdGenerator(clientId)
         watchDogTask = fixDelay(
             1000,
             object : Runnable {

@@ -76,25 +76,25 @@ class CLTree : ITree {
 
     protected fun storeElement(element: CLElement, id2hash: CLHamtNode<*>): CLHamtNode<*> {
         val data = element.getData()
-        val serialized = data!!.serialize()
+        val serialized = data.serialize()
         val hash = sha256(serialized!!)
-        store!!.put(hash, data, serialized)
+        store.put(hash, data, serialized)
         var newMap = id2hash.put(element.id, hash)
         if (newMap == null) {
-            newMap = CLHamtInternal(store!!)
+            newMap = CLHamtInternal(store)
         }
         return newMap
     }
 
     val root: CLNode?
-        get() = resolveElement(data!!.rootId)
+        get() = resolveElement(data.rootId)
 
     override fun setProperty(nodeId: Long, role: String, value: String?): ITree {
         var newIdToHash = nodesMap
-        val newNodeData = resolveElement(nodeId)!!.getData()!!.withPropertyValue(role!!, value)
+        val newNodeData = resolveElement(nodeId)!!.getData().withPropertyValue(role, value)
         newIdToHash = newIdToHash!!.put(newNodeData)
-        put(store!!, newNodeData)
-        return CLTree(data!!.id, data!!.rootId, newIdToHash!!, store)
+        put(store, newNodeData)
+        return CLTree(data.id, data.rootId, newIdToHash!!, store)
     }
 
     override fun addNewChild(parentId: Long, role: String?, index: Int, childId: Long, concept: IConcept?): ITree {
@@ -119,8 +119,8 @@ class CLTree : ITree {
         var newIdToHash = nodesMap
         val newChildData = create(nodeId, serializeConcept(concept), 0, null, LongArray(0), arrayOfNulls(0), arrayOfNulls(0), arrayOfNulls(0), arrayOfNulls(0))
         newIdToHash = newIdToHash!!.put(newChildData)
-        put(store!!, newChildData)
-        return CLTree(data!!.id, data!!.rootId, newIdToHash!!, store)
+        put(store, newChildData)
+        return CLTree(data.id, data.rootId, newIdToHash!!, store)
     }
 
     /**
@@ -131,7 +131,7 @@ class CLTree : ITree {
         var newIdToHash = nodesMap
         val childData = resolveElement(childId)!!.getData()
         val newChildData = create(
-            childData!!.id,
+            childData.id,
             childData.concept,
             parentId,
             role,
@@ -142,8 +142,8 @@ class CLTree : ITree {
             childData.referenceTargets as Array<CPElementRef?>
         )
         newIdToHash = newIdToHash!!.put(newChildData)
-        put(store!!, newChildData)
-        var newChildrenArray = parent!!.getData()!!.childrenIdArray
+        put(store, newChildData)
+        var newChildrenArray = parent!!.getData().childrenIdArray
         newChildrenArray = if (index == -1) {
             add(newChildrenArray, childData.id)
         } else {
@@ -161,17 +161,17 @@ class CLTree : ITree {
         val newParentData = create(
             parent.id,
             parent.concept,
-            parent.getData()!!.parentId,
+            parent.getData().parentId,
             parent.roleInParent,
             newChildrenArray,
-            parent.getData()!!.propertyRoles as Array<String?>,
-            parent.getData()!!.propertyValues as Array<String?>,
-            parent.getData()!!.referenceRoles as Array<String?>,
-            parent.getData()!!.referenceTargets as Array<CPElementRef?>
+            parent.getData().propertyRoles as Array<String?>,
+            parent.getData().propertyValues as Array<String?>,
+            parent.getData().referenceRoles as Array<String?>,
+            parent.getData().referenceTargets as Array<CPElementRef?>
         )
         newIdToHash = newIdToHash!!.put(newParentData)
-        put(store!!, newParentData)
-        return CLTree(data!!.id, data!!.rootId, newIdToHash!!, store)
+        put(store, newParentData)
+        return CLTree(data.id, data.rootId, newIdToHash!!, store)
     }
 
     override fun setReferenceTarget(sourceId: Long, role: String, targetRef: INodeReference?): ITree {
@@ -191,8 +191,8 @@ class CLTree : ITree {
         var newIdToHash = nodesMap
         val newNodeData = source!!.getData()!!.withReferenceTarget(role!!, refData)
         newIdToHash = newIdToHash!!.put(newNodeData)
-        put(store!!, newNodeData)
-        return CLTree(data!!.id, data!!.rootId, newIdToHash!!, store)
+        put(store, newNodeData)
+        return CLTree(data.id, data.rootId, newIdToHash!!, store)
     }
 
     override fun deleteNode(nodeId: Long): ITree {
@@ -261,22 +261,22 @@ class CLTree : ITree {
 
     override fun getParent(nodeId: Long): Long {
         val node = resolveElement(nodeId)
-        return node!!.getData()!!.parentId
+        return node!!.getData().parentId
     }
 
     override fun getProperty(nodeId: Long, role: String): String? {
         val node = resolveElement(nodeId)
-        return node!!.getData()!!.getPropertyValue(role)
+        return node!!.getData().getPropertyValue(role)
     }
 
     override fun getPropertyRoles(sourceId: Long): Iterable<String> {
         val node = resolveElement(sourceId)
-        return node!!.getData()!!.propertyRoles.toList()
+        return node!!.getData().propertyRoles.toList()
     }
 
     override fun getReferenceRoles(sourceId: Long): Iterable<String> {
         val node = resolveElement(sourceId)
-        return node!!.getData()!!.referenceRoles.toList()
+        return node!!.getData().referenceRoles.toList()
     }
 
     override fun getReferenceTarget(sourceId: Long, role: String): INodeReference? {
@@ -425,12 +425,14 @@ class CLTree : ITree {
     fun createElement(hash: String?, query: IBulkQuery): IBulkQuery.Value<CLNode?> {
         return if (hash == null) {
             query.constant(null)
-        } else query.get(hash) { s: String ->
-            if (s == null) {
-                throw RuntimeException("Element doesn't exist: $hash")
+        } else query[
+            hash, { s: String ->
+                if (s == null) {
+                    throw RuntimeException("Element doesn't exist: $hash")
+                }
+                CPNode.deserialize(s)
             }
-            CPNode.deserialize(s)
-        }.map { n: CPNode? -> CLElement.create(this@CLTree, n) }
+        ].map { n: CPNode? -> CLElement.create(this@CLTree, n) }
     }
 
     fun createElement(hash: String?): CLNode? {
@@ -439,12 +441,14 @@ class CLTree : ITree {
 
     fun createElements(hashes: List<String>, bulkQuery: IBulkQuery): IBulkQuery.Value<List<CLNode>> {
         return bulkQuery.map(hashes) { hash: String ->
-            bulkQuery.get(hash) { s: String ->
-                if (s == null) {
-                    throw RuntimeException("Element doesn't exist: $hash")
+            bulkQuery[
+                hash, { s: String ->
+                    if (s == null) {
+                        throw RuntimeException("Element doesn't exist: $hash")
+                    }
+                    CPNode.deserialize(s)
                 }
-                CPNode.deserialize(s)
-            }.map { n: CPNode? -> CLElement.create(this@CLTree, n)!! }
+            ].map { n: CPNode? -> CLElement.create(this@CLTree, n)!! }
         }
     }
 

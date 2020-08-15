@@ -34,15 +34,19 @@ class DeleteNodeOp(val parentId: Long, val role: String?, val index: Int, val ch
         return if (previous is DeleteNodeOp) {
             val o = previous
             if (parentId == o.parentId && role == o.role) {
-                if (o.index < index) {
-                    DeleteNodeOp(parentId, role, index - 1, childId)
-                } else if (o.index == index) {
-                    if (o.childId != childId) {
-                        throw RuntimeException("Both operations delete " + parentId + "." + role + "[" + index + "] but with different expected IDs " + childId + " and " + o.childId)
+                when {
+                    o.index < index -> {
+                        DeleteNodeOp(parentId, role, index - 1, childId)
                     }
-                    NoOp()
-                } else {
-                    this
+                    o.index == index -> {
+                        if (o.childId != childId) {
+                            throw RuntimeException("Both operations delete " + parentId + "." + role + "[" + index + "] but with different expected IDs " + childId + " and " + o.childId)
+                        }
+                        NoOp()
+                    }
+                    else -> {
+                        this
+                    }
                 }
             } else {
                 this
