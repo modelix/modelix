@@ -32,6 +32,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.io.IOUtils;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
+import org.eclipse.jetty.io.EofException;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
 import org.eclipse.jetty.servlets.EventSource;
@@ -227,7 +228,17 @@ public class RestModelServer {
                                     String value =
                                             IOUtils.toString(
                                                     req.getInputStream(), StandardCharsets.UTF_8);
-                                    storeClient.put(key, value);
+                                    try {
+                                        storeClient.put(key, value);
+                                    } catch (Throwable t) {
+                                        System.err.println("failed to write value");
+                                        t.printStackTrace();
+                                        resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+                                        resp.setContentType(TEXT_PLAIN);
+                                        resp.setCharacterEncoding(StandardCharsets.UTF_8.toString());
+                                        resp.getWriter().print("Put failed on server side: " + t.getMessage());
+                                        return;
+                                    }
                                     resp.setStatus(HttpServletResponse.SC_OK);
                                     resp.setContentType(TEXT_PLAIN);
                                     resp.setCharacterEncoding(StandardCharsets.UTF_8.toString());
@@ -368,6 +379,9 @@ public class RestModelServer {
                                                     if (subscribedKey.equals(changedKey)) {
                                                         try {
                                                             emitter.data(value);
+                                                        } catch (EofException e) {
+                                                            System.err.println("The peer has probably closed the connection, therefore we are unable to notify them of changes. We will not retry");
+                                                            emitter = null;
                                                         } catch (IOException e) {
                                                             System.err.println("Exception: " + e.getMessage());
                                                             e.printStackTrace();

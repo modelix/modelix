@@ -15,8 +15,6 @@
 
 package org.modelix.model
 
-import org.glassfish.jersey.client.ClientConfig
-import org.glassfish.jersey.client.ClientProperties
 import org.junit.After
 import org.junit.Assert
 import org.junit.Before
@@ -36,6 +34,17 @@ class ModelClient_Test {
         }
         modelServer.startServerInMemory(emptyMap())
         modelServer.waitItIsUp()
+
+        Runtime.getRuntime()
+            .addShutdownHook(
+                Thread(Runnable {
+                    try {
+                        modelServer.kill()
+                    } catch (ex: Exception) {
+                        System.err.println("Exception: " + ex.message)
+                        ex.printStackTrace()
+                    }
+                }))
     }
 
     @After
@@ -44,6 +53,7 @@ class ModelClient_Test {
     }
 
     // This test requires a running model server
+    // It should be marked as a slow test and run separately from unit tests
     @Test
     fun test_t1() {
         val rand = Random(67845)
@@ -63,8 +73,10 @@ class ModelClient_Test {
         }
         for (i in 0..99) {
             println("Phase B: i=$i of 100")
-            //Thread.sleep(400)
             Thread.sleep(200)
+            if (!modelServer.isUp()) {
+                throw IllegalStateException("The model-server is not up")
+            }
             val key = "test_" + rand.nextInt(10)
             val value = rand.nextLong().toString()
             expected[key] = value
