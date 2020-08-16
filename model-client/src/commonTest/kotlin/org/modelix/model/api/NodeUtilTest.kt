@@ -3,12 +3,40 @@ package org.modelix.model.api
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
-class SimpleNode : INode {
+class SimpleConcept : IConcept {
+    override fun isSubconceptOf(superConcept: IConcept?): Boolean {
+        return this == superConcept
+    }
+
+    override fun isExactly(concept: IConcept?): Boolean {
+        return this == concept
+    }
+
+    override val properties: Iterable<IProperty>
+        get() = TODO("Not yet implemented")
+    override val childLinks: Iterable<IChildLink>
+        get() = TODO("Not yet implemented")
+    override val referenceLinks: Iterable<IReferenceLink>
+        get() = TODO("Not yet implemented")
+
+    override fun getProperty(name: String): IProperty {
+        TODO("Not yet implemented")
+    }
+
+    override fun getChildLink(name: String): IChildLink {
+        TODO("Not yet implemented")
+    }
+
+    override fun getReferenceLink(name: String): IReferenceLink {
+        TODO("Not yet implemented")
+    }
+
+}
+
+class SimpleNode(override val concept: IConcept? = null) : INode {
     override val isValid: Boolean
         get() = TODO("Not yet implemented")
     override val reference: INodeReference
-        get() = TODO("Not yet implemented")
-    override val concept: IConcept?
         get() = TODO("Not yet implemented")
     override var roleInParent: String? = null
     override var parent: INode? = null
@@ -101,6 +129,71 @@ class NodeUtilTest {
         assertEquals(hashSetOf( grandChildA, grandChildB, grandChildC), child1.getDescendants(false).toSet())
         assertEquals(hashSetOf(), child2.getDescendants(false).toSet())
         assertEquals(hashSetOf(child1, child2, grandChildA, grandChildB, grandChildC), rootNode.getDescendants(false).toSet())
+    }
 
+    @Test
+    fun getAncestorIncludingItself() {
+        val concept1 = SimpleConcept()
+        val concept2 = SimpleConcept()
+        val concept3 = SimpleConcept()
+        val concept4 = SimpleConcept()
+        val rootNode = SimpleNode(concept1)
+        val child1 = SimpleNode(concept2)
+        val grandChildA = SimpleNode(concept3)
+        rootNode.addChild("link_a", 0, child1)
+        child1.addChild("link_c", 0, grandChildA)
+        assertEquals(null, null.getAncestor(null, true))
+        assertEquals(null, null.getAncestor(concept1, true))
+        assertEquals(null, null.getAncestor(concept2, true))
+        assertEquals(null, null.getAncestor(concept3, true))
+        assertEquals(null, null.getAncestor(concept4, true))
+        assertEquals(null, rootNode.getAncestor(null, true))
+        assertEquals(rootNode, rootNode.getAncestor(concept1, true))
+        assertEquals(null, rootNode.getAncestor(concept2, true))
+        assertEquals(null, rootNode.getAncestor(concept3, true))
+        assertEquals(null, rootNode.getAncestor(concept4, true))
+        assertEquals(null, child1.getAncestor(null, true))
+        assertEquals(rootNode, child1.getAncestor(concept1, true))
+        assertEquals(child1, child1.getAncestor(concept2, true))
+        assertEquals(null, child1.getAncestor(concept3, true))
+        assertEquals(null, child1.getAncestor(concept4, true))
+        assertEquals(null, grandChildA.getAncestor(null, true))
+        assertEquals(rootNode, grandChildA.getAncestor(concept1, true))
+        assertEquals(child1, grandChildA.getAncestor(concept2, true))
+        assertEquals(grandChildA, grandChildA.getAncestor(concept3, true))
+        assertEquals(null, grandChildA.getAncestor(concept4, true))
+    }
+
+    @Test
+    fun getAncestorNotIncludingItself() {
+        val concept1 = SimpleConcept()
+        val concept2 = SimpleConcept()
+        val concept3 = SimpleConcept()
+        val concept4 = SimpleConcept()
+        val rootNode = SimpleNode(concept1)
+        val child1 = SimpleNode(concept2)
+        val grandChildA = SimpleNode(concept3)
+        rootNode.addChild("link_a", 0, child1)
+        child1.addChild("link_c", 0, grandChildA)
+        assertEquals(null, null.getAncestor(null, false))
+        assertEquals(null, null.getAncestor(concept1, false))
+        assertEquals(null, null.getAncestor(concept2, false))
+        assertEquals(null, null.getAncestor(concept3, false))
+        assertEquals(null, null.getAncestor(concept4, false))
+        assertEquals(null, rootNode.getAncestor(null, false))
+        assertEquals(null, rootNode.getAncestor(concept1, false))
+        assertEquals(null, rootNode.getAncestor(concept2, false))
+        assertEquals(null, rootNode.getAncestor(concept3, false))
+        assertEquals(null, rootNode.getAncestor(concept4, false))
+        assertEquals(null, child1.getAncestor(null, false))
+        assertEquals(rootNode, child1.getAncestor(concept1, false))
+        assertEquals(null, child1.getAncestor(concept2, false))
+        assertEquals(null, child1.getAncestor(concept3, false))
+        assertEquals(null, child1.getAncestor(concept4, false))
+        assertEquals(null, grandChildA.getAncestor(null, false))
+        assertEquals(rootNode, grandChildA.getAncestor(concept1, false))
+        assertEquals(child1, grandChildA.getAncestor(concept2, false))
+        assertEquals(null, grandChildA.getAncestor(concept3, false))
+        assertEquals(null, grandChildA.getAncestor(concept4, false))
     }
 }
