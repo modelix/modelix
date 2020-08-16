@@ -1,11 +1,25 @@
-package org.modelix.model.server;
+/*
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *  http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License. 
+ */
 
-import org.junit.Assert;
-import org.junit.Test;
+package org.modelix.model.server;
 
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
+import org.junit.Assert;
+import org.junit.Test;
 
 public class CachingStoreClientTest {
 
@@ -71,7 +85,9 @@ public class CachingStoreClientTest {
     public void getAllCacheMiss() {
         DummyStore dummyStore = new DummyStore();
         CachingStoreClient csc = new CachingStoreClient(dummyStore);
-        Assert.assertEquals(Arrays.asList("foo_value", "bar_value", "zum_value"), csc.getAll(Arrays.asList("foo", "bar", "zum")));
+        Assert.assertEquals(
+                Arrays.asList("foo_value", "bar_value", "zum_value"),
+                csc.getAll(Arrays.asList("foo", "bar", "zum")));
         Assert.assertEquals(Arrays.asList("foo", "bar", "zum"), dummyStore.requests);
     }
 
@@ -83,7 +99,9 @@ public class CachingStoreClientTest {
         csc.get("bar");
         csc.get("zum");
         dummyStore.requests.clear();
-        Assert.assertEquals(Arrays.asList("foo_value", "bar_value", "zum_value"), csc.getAll(Arrays.asList("foo", "bar", "zum")));
+        Assert.assertEquals(
+                Arrays.asList("foo_value", "bar_value", "zum_value"),
+                csc.getAll(Arrays.asList("foo", "bar", "zum")));
         Assert.assertEquals(Arrays.asList(), dummyStore.requests);
     }
 }

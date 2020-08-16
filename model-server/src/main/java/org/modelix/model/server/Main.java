@@ -18,18 +18,17 @@ package org.modelix.model.server;
 import com.beust.jcommander.JCommander;
 import com.beust.jcommander.Parameter;
 import com.beust.jcommander.converters.BooleanConverter;
-import org.apache.commons.io.FileUtils;
-import org.apache.log4j.Logger;
-import org.eclipse.jetty.server.Server;
-import org.eclipse.jetty.server.handler.HandlerList;
-import org.eclipse.jetty.servlet.ServletContextHandler;
-
 import java.io.File;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.nio.charset.StandardCharsets;
 import java.util.LinkedList;
 import java.util.List;
+import org.apache.commons.io.FileUtils;
+import org.apache.log4j.Logger;
+import org.eclipse.jetty.server.Server;
+import org.eclipse.jetty.server.handler.HandlerList;
+import org.eclipse.jetty.servlet.ServletContextHandler;
 
 class CmdLineArgs {
 
@@ -110,14 +109,15 @@ public class Main {
 
             Runtime.getRuntime()
                     .addShutdownHook(
-                            new Thread(() -> {
-                                try {
-                                    server.stop();
-                                } catch (Exception ex) {
-                                    System.err.println("Exception: " + ex.getMessage());
-                                    ex.printStackTrace();
-                                }
-                            }));
+                            new Thread(
+                                    () -> {
+                                        try {
+                                            server.stop();
+                                        } catch (Exception ex) {
+                                            System.err.println("Exception: " + ex.getMessage());
+                                            ex.printStackTrace();
+                                        }
+                                    }));
         } catch (Exception ex) {
             System.out.println("Server failed: " + ex.getMessage());
             ex.printStackTrace();

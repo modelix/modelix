@@ -26,7 +26,7 @@ class ModelServerManager {
         }
     }
 
-    fun isUp() : Boolean {
+    fun isUp(): Boolean {
         return try {
             httpRequest("GET", "/")
             true
@@ -51,7 +51,8 @@ class ModelServerManager {
             if (nRetries > 0) {
                 if (VERBOSE_CONNECTION) {
                     println(
-                        "  (connection failed, retrying in a bit. nRetries=$nRetries)")
+                        "  (connection failed, retrying in a bit. nRetries=$nRetries)"
+                    )
                 }
                 try {
                     Thread.sleep(1000)
@@ -73,8 +74,10 @@ class ModelServerManager {
             val argsToSetValues = presetValues.entries.stream()
                 .map { e: Map.Entry<String, String> -> " -set " + e.key + " " + e.value }
                 .collect(Collectors.joining())
-            val commandLine = ("java -jar ../model-server/build/libs/model-server-fatJar-latest.jar -inmemory"
-                + argsToSetValues)
+            val commandLine = (
+                "java -jar ../model-server/build/libs/model-server-fatJar-latest.jar -inmemory" +
+                    argsToSetValues
+                )
             p = Runtime.getRuntime().exec(commandLine)
             val stdInput = BufferedReader(InputStreamReader(p!!.inputStream))
             val stdError = BufferedReader(InputStreamReader(p!!.errorStream))
@@ -95,7 +98,8 @@ class ModelServerManager {
                     } catch (e: IOException) {
                         // this may happen when closing
                     }
-                })
+                }
+            )
                 .start()
             try {
                 Thread.sleep(1000)

@@ -69,7 +69,7 @@ class MyNode(val name: String) : INode {
     }
 }
 
-class MyNodeResolveContext(val knownResolutions : Map<INodeReference, INode>) : INodeResolveContext {
+class MyNodeResolveContext(val knownResolutions: Map<INodeReference, INode>) : INodeResolveContext {
     override fun resolve(ref: INodeReference?): INode? {
         return knownResolutions[ref]
     }

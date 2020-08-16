@@ -30,7 +30,6 @@ class SimpleConcept : IConcept {
     override fun getReferenceLink(name: String): IReferenceLink {
         TODO("Not yet implemented")
     }
-
 }
 
 class SimpleNode(override val concept: IConcept? = null) : INode {
@@ -84,7 +83,6 @@ class SimpleNode(override val concept: IConcept? = null) : INode {
     override fun setPropertyValue(role: String, value: String?) {
         TODO("Not yet implemented")
     }
-
 }
 
 class NodeUtilTest {
@@ -126,7 +124,7 @@ class NodeUtilTest {
         assertEquals(hashSetOf(), grandChildA.getDescendants(false).toSet())
         assertEquals(hashSetOf(), grandChildB.getDescendants(false).toSet())
         assertEquals(hashSetOf(), grandChildC.getDescendants(false).toSet())
-        assertEquals(hashSetOf( grandChildA, grandChildB, grandChildC), child1.getDescendants(false).toSet())
+        assertEquals(hashSetOf(grandChildA, grandChildB, grandChildC), child1.getDescendants(false).toSet())
         assertEquals(hashSetOf(), child2.getDescendants(false).toSet())
         assertEquals(hashSetOf(child1, child2, grandChildA, grandChildB, grandChildC), rootNode.getDescendants(false).toSet())
     }

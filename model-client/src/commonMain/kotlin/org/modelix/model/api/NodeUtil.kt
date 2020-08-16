@@ -17,7 +17,7 @@ package org.modelix.model.api
 
 fun INode.getDescendants(includeSelf: Boolean): Iterable<INode?> {
     return if (includeSelf) {
-        (sequenceOf(this) + this.getDescendants( false)).asIterable()
+        (sequenceOf(this) + this.getDescendants(false)).asIterable()
     } else {
         this.allChildren.flatMap { it.getDescendants(true) }
     }

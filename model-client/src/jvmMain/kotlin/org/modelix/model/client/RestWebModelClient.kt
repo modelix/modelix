@@ -18,8 +18,6 @@ package org.modelix.model.client
 import org.apache.commons.io.FileUtils
 import org.apache.log4j.Level
 import org.apache.log4j.LogManager
-import org.glassfish.jersey.client.ClientConfig
-import org.glassfish.jersey.client.ClientProperties
 import org.json.JSONArray
 import org.json.JSONObject
 import org.modelix.model.IKeyListener
@@ -32,7 +30,6 @@ import org.modelix.model.lazy.ObjectStoreCache
 import org.modelix.model.persistent.HashUtil
 import org.modelix.model.util.StreamUtils.toStream
 import java.io.File
-import java.io.IOException
 import java.net.URLEncoder
 import java.nio.charset.StandardCharsets
 import java.util.Objects
@@ -44,7 +41,6 @@ import java.util.function.ToLongFunction
 import java.util.stream.Stream
 import javax.ws.rs.client.Client
 import javax.ws.rs.client.ClientBuilder
-import javax.ws.rs.client.ClientRequestContext
 import javax.ws.rs.client.ClientRequestFilter
 import javax.ws.rs.client.Entity
 import javax.ws.rs.core.HttpHeaders
@@ -377,10 +373,10 @@ class RestWebModelClient @JvmOverloads constructor(var baseUrl: String? = null) 
         // is useful to recognize when the server is down
         client = ClientBuilder.newBuilder()
             .connectTimeout(1000, TimeUnit.MILLISECONDS)
-            //.readTimeout(1000, TimeUnit.MILLISECONDS)
+            // .readTimeout(1000, TimeUnit.MILLISECONDS)
             .register(ClientRequestFilter { ctx -> ctx.headers.add(HttpHeaders.AUTHORIZATION, "Bearer $authToken") }).build()
         sseClient = ClientBuilder.newBuilder()
-            //.connectTimeout(1000, TimeUnit.MILLISECONDS)
+            // .connectTimeout(1000, TimeUnit.MILLISECONDS)
             .register(ClientRequestFilter { ctx -> ctx.headers.add(HttpHeaders.AUTHORIZATION, "Bearer $authToken") }).build()
         idGenerator = IdGenerator(clientId)
         watchDogTask = fixDelay(

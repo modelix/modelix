@@ -223,7 +223,8 @@ public class RestModelServer {
                                                 "Changing '" + key + "' is not allowed");
                                     }
                                     if (key.startsWith(PROTECTED_PREFIX)) {
-                                        throw new RuntimeException("No permission to access " + key);
+                                        throw new RuntimeException(
+                                                "No permission to access " + key);
                                     }
                                     String value =
                                             IOUtils.toString(
@@ -233,10 +234,15 @@ public class RestModelServer {
                                     } catch (Throwable t) {
                                         System.err.println("failed to write value");
                                         t.printStackTrace();
-                                        resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+                                        resp.setStatus(
+                                                HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
                                         resp.setContentType(TEXT_PLAIN);
-                                        resp.setCharacterEncoding(StandardCharsets.UTF_8.toString());
-                                        resp.getWriter().print("Put failed on server side: " + t.getMessage());
+                                        resp.setCharacterEncoding(
+                                                StandardCharsets.UTF_8.toString());
+                                        resp.getWriter()
+                                                .print(
+                                                        "Put failed on server side: "
+                                                                + t.getMessage());
                                         return;
                                     }
                                     resp.setStatus(HttpServletResponse.SC_OK);
@@ -380,10 +386,12 @@ public class RestModelServer {
                                                         try {
                                                             emitter.data(value);
                                                         } catch (EofException e) {
-                                                            System.err.println("The peer has probably closed the connection, therefore we are unable to notify them of changes. We will not retry");
+                                                            System.err.println(
+                                                                    "The peer has probably closed the connection, therefore we are unable to notify them of changes. We will not retry");
                                                             emitter = null;
                                                         } catch (IOException e) {
-                                                            System.err.println("Exception: " + e.getMessage());
+                                                            System.err.println(
+                                                                    "Exception: " + e.getMessage());
                                                             e.printStackTrace();
                                                         }
                                                     }

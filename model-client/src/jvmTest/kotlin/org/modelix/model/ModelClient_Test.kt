@@ -22,7 +22,6 @@ import org.junit.Test
 import org.modelix.model.client.RestWebModelClient
 import java.util.*
 
-
 class ModelClient_Test {
 
     private var modelServer = ModelServerManager()
@@ -37,14 +36,17 @@ class ModelClient_Test {
 
         Runtime.getRuntime()
             .addShutdownHook(
-                Thread(Runnable {
-                    try {
-                        modelServer.kill()
-                    } catch (ex: Exception) {
-                        System.err.println("Exception: " + ex.message)
-                        ex.printStackTrace()
+                Thread(
+                    Runnable {
+                        try {
+                            modelServer.kill()
+                        } catch (ex: Exception) {
+                            System.err.println("Exception: " + ex.message)
+                            ex.printStackTrace()
+                        }
                     }
-                }))
+                )
+            )
     }
 
     @After
