@@ -36,7 +36,11 @@ class MoveNodeOp(val childId: Long, val sourcePosition: PositionInRole, val targ
         val adjusted = {
             val a = withAdjustedPosition(indexAdjustments)
             indexAdjustments.nodeMoved(a, false, sourcePosition, targetPosition)
-            indexAdjustments.setKnownPosition(childId, a.targetPosition)
+            var actualTargetPos = a.targetPosition
+            if (a.sourcePosition.roleInNode == a.targetPosition.roleInNode && a.targetPosition.index > a.sourcePosition.index) {
+                actualTargetPos = actualTargetPos.withIndex(actualTargetPos.index - 1)
+            }
+            indexAdjustments.setKnownPosition(childId, actualTargetPos)
             a
         }
         return when (previous) {
