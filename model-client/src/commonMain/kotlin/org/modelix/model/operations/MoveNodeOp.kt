@@ -35,28 +35,31 @@ class MoveNodeOp(val childId: Long, val sourcePosition: PositionInRole, val targ
     override fun transform(previous: IOperation, indexAdjustments: IndexAdjustments): IOperation {
         val adjusted = {
             val a = withAdjustedPosition(indexAdjustments)
-//            indexAdjustments.nodeMoved(a, sourcePosition, targetPosition)
+            indexAdjustments.nodeMoved(a, false, sourcePosition, targetPosition)
+            indexAdjustments.setKnownPosition(childId, a.targetPosition)
             a
         }
         return when (previous) {
             is AddNewChildOp -> adjusted()
             is DeleteNodeOp -> {
                 if (previous.childId == childId) {
-                    indexAdjustments.nodeRemoved(this, targetPosition)
+                    indexAdjustments.nodeRemoved(this, false, targetPosition, childId)
                     NoOp()
                 } else if (sourcePosition.nodeId == previous.childId) {
                     val redirectedTarget = PositionInRole(DETACHED_ROLE, 0)
                     indexAdjustments.redirectedMove(this, sourcePosition, targetPosition, redirectedTarget)
-                    MoveNodeOp(childId, PositionInRole(ITree.ROOT_ID, ITree.DETACHED_NODES_ROLE, 0), targetPosition)
+                    indexAdjustments.setKnownPosition(childId, redirectedTarget)
+                    MoveNodeOp(childId, redirectedTarget, targetPosition)
                 } else if (targetPosition.nodeId == previous.childId) {
                     val redirectedTarget = PositionInRole(DETACHED_ROLE, 0)
                     indexAdjustments.redirectedMove(this, sourcePosition, targetPosition, redirectedTarget)
+                    indexAdjustments.setKnownPosition(childId, redirectedTarget)
                     MoveNodeOp(childId, sourcePosition, redirectedTarget)
                 } else adjusted()
             }
             is MoveNodeOp -> {
                 if (previous.childId == childId) {
-//                    previous.undoAdjustment(indexAdjustments)
+//                    indexAdjustments.removeAdjustment(previous)
                     MoveNodeOp(
                         childId,
                         previous.targetPosition,
@@ -72,7 +75,8 @@ class MoveNodeOp(val childId: Long, val sourcePosition: PositionInRole, val targ
     }
 
     override fun loadAdjustment(indexAdjustments: IndexAdjustments) {
-        indexAdjustments.nodeMoved(this, sourcePosition, targetPosition)
+        indexAdjustments.nodeMoved(this, true, sourcePosition, targetPosition)
+        indexAdjustments.setKnownPosition(childId, targetPosition)
     }
 
     override fun withAdjustedPosition(indexAdjustments: IndexAdjustments): MoveNodeOp {

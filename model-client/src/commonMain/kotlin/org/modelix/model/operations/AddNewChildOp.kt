@@ -33,7 +33,8 @@ class AddNewChildOp(val position: PositionInRole, val childId: Long, val concept
     override fun transform(previous: IOperation, indexAdjustments: IndexAdjustments): IOperation {
         val adjusted = {
             val a = withAdjustedPosition(indexAdjustments)
-//            indexAdjustments.nodeAdded(a, position)
+            indexAdjustments.nodeAdded(a, false, position, childId)
+            indexAdjustments.setKnownPosition(childId, a.position)
             a
         }
         return when (previous) {
@@ -41,7 +42,7 @@ class AddNewChildOp(val position: PositionInRole, val childId: Long, val concept
             is DeleteNodeOp -> {
                 if (previous.childId == position.nodeId) {
                     val redirected = AddNewChildOp(PositionInRole(DETACHED_ROLE, 0), this.childId, this.concept)
-                    indexAdjustments.redirectedAdd(this, position, redirected.position)
+                    indexAdjustments.redirectedAdd(this, position, redirected.position, childId)
                     redirected
                 } else {
                     adjusted()
@@ -56,10 +57,11 @@ class AddNewChildOp(val position: PositionInRole, val childId: Long, val concept
     }
 
     override fun loadAdjustment(indexAdjustments: IndexAdjustments) {
-        indexAdjustments.nodeAdded(this, position)
+        indexAdjustments.nodeAdded(this, true, position, childId)
+        indexAdjustments.setKnownPosition(childId, position)
     }
 
-    override fun withAdjustedPosition(indexAdjustments: IndexAdjustments): IOperation {
+    override fun withAdjustedPosition(indexAdjustments: IndexAdjustments): AddNewChildOp {
         return withPosition(indexAdjustments.getAdjustedPositionForInsert(position))
     }
 

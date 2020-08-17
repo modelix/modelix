@@ -314,7 +314,7 @@ class ConflictResolutionTest : TreeTestBase() {
         })
     }
 
-    //@Test
+    @Test
     fun knownIssue14() {
         knownIssueTest({ t ->
             t.addNewChild(0x1, "role2", 0, 0xff00000001, null)

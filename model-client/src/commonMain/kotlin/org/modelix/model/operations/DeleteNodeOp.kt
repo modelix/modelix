@@ -16,7 +16,6 @@
 package org.modelix.model.operations
 
 import org.modelix.model.api.IConcept
-import org.modelix.model.api.ITree
 import org.modelix.model.api.IWriteTransaction
 import org.modelix.model.persistent.SerializationUtil
 
@@ -42,7 +41,7 @@ class DeleteNodeOp(val position: PositionInRole, val childId: Long) : AbstractOp
     override fun transform(previous: IOperation, indexAdjustments: IndexAdjustments): IOperation {
         val adjusted = {
             val a = withAdjustedPosition(indexAdjustments)
-//            indexAdjustments.nodeRemoved(a, position)
+            indexAdjustments.nodeRemoved(a, false, position, childId)
             a
         }
         return when (previous) {
@@ -69,11 +68,12 @@ class DeleteNodeOp(val position: PositionInRole, val childId: Long) : AbstractOp
     }
 
     override fun loadAdjustment(indexAdjustments: IndexAdjustments) {
-        indexAdjustments.nodeRemoved(this, position)
+        indexAdjustments.nodeRemoved(this, true, position, childId)
+        indexAdjustments.setKnownPosition(childId, position, true)
     }
 
     override fun withAdjustedPosition(indexAdjustments: IndexAdjustments): IOperation {
-        return withPosition(indexAdjustments.getAdjustedPosition(position))
+        return withPosition(indexAdjustments.getAdjustedPosition(childId, position))
     }
 
     override fun toString(): String {
