@@ -329,6 +329,20 @@ class ConflictResolutionTest : TreeTestBase() {
     @Test
     fun knownIssue15() {
         knownIssueTest({ t ->
+            t.addNewChild(0x1, "role5", 0, 0xff00000012, null)
+        }, { t -> // 0
+            t.deleteNode(0xff00000012)
+        }, { t -> // 1
+            t.addNewChild(0xff00000012, "role1", 0, 0xff00000043, null)
+            t.addNewChild(0xff00000012, "role3", 0, 0xff00000045, null)
+            t.deleteNode(0xff00000045)
+            t.deleteNode(0xff00000043)
+        })
+    }
+
+    @Test
+    fun knownIssue16() {
+        knownIssueTest({ t ->
             t.addNewChild(0x1, "role2", 0, 0xff00000001, null)
             t.moveChild(0x1, "role2", 1, 0xff00000001)
             t.deleteNode(0xff00000001)

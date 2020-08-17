@@ -41,7 +41,7 @@ class DeleteNodeOp(val position: PositionInRole, val childId: Long) : AbstractOp
     override fun transform(previous: IOperation, indexAdjustments: IndexAdjustments): IOperation {
         val adjusted = {
             val a = withAdjustedPosition(indexAdjustments)
-            indexAdjustments.nodeRemoved(a, false, position, childId)
+            indexAdjustments.nodeRemoved(a, false, a.position, childId)
             a
         }
         return when (previous) {
@@ -72,7 +72,7 @@ class DeleteNodeOp(val position: PositionInRole, val childId: Long) : AbstractOp
         indexAdjustments.setKnownPosition(childId, position, true)
     }
 
-    override fun withAdjustedPosition(indexAdjustments: IndexAdjustments): IOperation {
+    override fun withAdjustedPosition(indexAdjustments: IndexAdjustments): DeleteNodeOp {
         return withPosition(indexAdjustments.getAdjustedPosition(childId, position))
     }
 

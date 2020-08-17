@@ -55,7 +55,7 @@ class IndexAdjustments {
             if (entry.value.position.roleInNode == role) {
                 val newIndex = entryAdjustment(entry.value.position.index)
                 if (newIndex != entry.value.position.index) {
-                    entry.setValue(entry.value.withIndex(entry.value.position.index + 1))
+                    entry.setValue(entry.value.withIndex(newIndex))
                 }
             }
         }
@@ -81,9 +81,7 @@ class IndexAdjustments {
 
     fun nodeRemoved(owner: IOperation, concurrentSide: Boolean, removedPos: PositionInRole, nodeId: Long) {
         adjustKnownPositions(removedPos.roleInNode) { if (it > removedPos.index) it - 1 else it }
-        if (knownPositions[nodeId]?.deleted != true) {
-            setKnownPosition(nodeId, KnownPosition(removedPos, true))
-        }
+        setKnownPosition(nodeId, KnownPosition(removedPos, true))
         addAdjustment(NodeRemoveAdjustment(owner, concurrentSide, removedPos))
     }
 
