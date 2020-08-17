@@ -343,6 +343,29 @@ class ConflictResolutionTest : TreeTestBase() {
     @Test
     fun knownIssue16() {
         knownIssueTest({ t ->
+            t.addNewChild(0x1, "role3", 0, 0xff0000000e, null)
+            t.addNewChild(0xff0000000e, "role3", 0, 0xff00000010, null)
+            t.addNewChild(0xff00000010, "role3", 0, 0xff00000011, null)
+            t.addNewChild(0xff00000010, "role3", 0, 0xff00000012, null)
+            t.moveChild(0x1, "role2", 0, 0xff00000011)
+        }, { t -> // 0
+            t.deleteNode(0xff00000012)
+            t.addNewChild(0x1, "role2", 1, 0xff0000001c, null)
+            t.addNewChild(0xff0000001c, "role2", 0, 0xff00000022, null)
+            t.deleteNode(0xff00000010)
+            t.deleteNode(0xff0000000e)
+            t.addNewChild(0xff00000022, "role3", 0, 0xff00000023, null)
+        }, { t -> // 1
+            t.addNewChild(0xff00000012, "role3", 0, 0xff00000043, null)
+            t.addNewChild(0xff00000043, "role3", 0, 0xff00000044, null)
+            t.moveChild(0xff0000000e, "role3", 0, 0xff00000044)
+            t.deleteNode(0xff00000043)
+        })
+    }
+
+    @Test
+    fun knownIssue17() {
+        knownIssueTest({ t ->
             t.addNewChild(0x1, "role2", 0, 0xff00000001, null)
             t.moveChild(0x1, "role2", 1, 0xff00000001)
             t.deleteNode(0xff00000001)

@@ -86,8 +86,8 @@ class IndexAdjustments {
     }
 
     fun nodeMoved(owner: IOperation, concurrentSide: Boolean, sourcePos: PositionInRole, targetPos: PositionInRole) {
-        adjustKnownPositions(sourcePos.roleInNode) { if (it >= sourcePos.index) it + 1 else it }
-        adjustKnownPositions(targetPos.roleInNode) { if (it > targetPos.index) it - 1 else it }
+        adjustKnownPositions(targetPos.roleInNode) { if (it >= sourcePos.index) it + 1 else it }
+        adjustKnownPositions(sourcePos.roleInNode) { if (it > targetPos.index) it - 1 else it }
         addAdjustment(NodeInsertAdjustment(owner, concurrentSide, targetPos))
         addAdjustment(NodeRemoveAdjustment(owner, concurrentSide, sourcePos))
     }
