@@ -43,7 +43,7 @@ class MoveNodeOp(val childId: Long, val sourcePosition: PositionInRole, val targ
             is AddNewChildOp -> adjusted()
             is DeleteNodeOp -> {
                 if (previous.childId == childId) {
-                    indexAdjustments.nodeRemoved(this, false, targetPosition, childId)
+                    indexAdjustments.nodeRemoved(this, true, targetPosition, childId)
                     NoOp()
                 } else if (sourcePosition.nodeId == previous.childId) {
                     val redirectedTarget = PositionInRole(DETACHED_ROLE, 0)
