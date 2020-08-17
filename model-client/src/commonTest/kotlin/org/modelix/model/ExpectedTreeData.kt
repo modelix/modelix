@@ -16,7 +16,6 @@ class ExpectedTreeData {
         return clone
     }
 
-
     fun insertChild(parent: Long, role: String?, index: Int, child: Long) {
         val list = expectedChildren.getOrPut(Pair(parent, role), { ArrayList() })
         if (list.contains(child)) throw RuntimeException("Attempt to add a child twice")

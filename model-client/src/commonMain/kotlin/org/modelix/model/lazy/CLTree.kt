@@ -182,7 +182,7 @@ class CLTree : ITree {
             is PNodeReference -> {
                 local(targetRef.id)
             }
-            //is SNodeReferenceAdapter -> CPElementRef.mps(SNodePointer.serialize(((SNodeReferenceAdapter) targetRef).getReference()))
+            // is SNodeReferenceAdapter -> CPElementRef.mps(SNodePointer.serialize(((SNodeReferenceAdapter) targetRef).getReference()))
             else -> throw RuntimeException("Unsupported reference type: " + targetRef::class.simpleName)
         }
         var newIdToHash = nodesMap

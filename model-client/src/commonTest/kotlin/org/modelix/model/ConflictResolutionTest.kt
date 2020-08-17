@@ -104,276 +104,356 @@ class ConflictResolutionTest : TreeTestBase() {
 
     @Test
     fun knownIssue01() {
-        knownIssueTest({ t ->
-            t.addNewChild(ITree.ROOT_ID, "role1", 0, 0xe, null)
-            t.addNewChild(ITree.ROOT_ID, "role2", 0, 0x12, null)
-        }, { t ->
-            t.moveChild(ITree.ROOT_ID, "role3", 0, 0xe)
-            t.deleteNode(0xe)
-        }, { t ->
-            t.moveChild(ITree.ROOT_ID, "role1", 1, 0x12)
-            t.deleteNode(0xe)
-            t.deleteNode(0x12)
-        })
+        knownIssueTest(
+            { t ->
+                t.addNewChild(ITree.ROOT_ID, "role1", 0, 0xe, null)
+                t.addNewChild(ITree.ROOT_ID, "role2", 0, 0x12, null)
+            },
+            { t ->
+                t.moveChild(ITree.ROOT_ID, "role3", 0, 0xe)
+                t.deleteNode(0xe)
+            },
+            { t ->
+                t.moveChild(ITree.ROOT_ID, "role1", 1, 0x12)
+                t.deleteNode(0xe)
+                t.deleteNode(0x12)
+            }
+        )
     }
 
     @Test
     fun knownIssue02() {
-        knownIssueTest({ t ->
-            t.addNewChild(ITree.ROOT_ID, "role2", 0, 0x3, null)
-        }, { t ->
-            t.deleteNode(0x3)
-        }, { t ->
-            t.deleteNode(0x3)
-            t.addNewChild(ITree.ROOT_ID, "role2", 0, 0x13, null)
-            t.deleteNode(0x13)
-        })
+        knownIssueTest(
+            { t ->
+                t.addNewChild(ITree.ROOT_ID, "role2", 0, 0x3, null)
+            },
+            { t ->
+                t.deleteNode(0x3)
+            },
+            { t ->
+                t.deleteNode(0x3)
+                t.addNewChild(ITree.ROOT_ID, "role2", 0, 0x13, null)
+                t.deleteNode(0x13)
+            }
+        )
     }
 
     @Test
     fun knownIssue03() {
-        knownIssueTest({ t ->
-        }, { t ->
-            t.addNewChild(1, "role2", 0, 0xff00000007, null)
-            t.deleteNode(0xff00000007)
-        }, { t ->
-            t.addNewChild(1, "role2", 0, 0xff0000000a, null)
-            t.deleteNode(0xff0000000a)
-        }, { t ->
-            t.addNewChild(1, "role2", 0, 0xff0000000e, null)
-            t.deleteNode(0xff0000000e)
-        })
+        knownIssueTest(
+            { t ->
+            },
+            { t ->
+                t.addNewChild(1, "role2", 0, 0xff00000007, null)
+                t.deleteNode(0xff00000007)
+            },
+            { t ->
+                t.addNewChild(1, "role2", 0, 0xff0000000a, null)
+                t.deleteNode(0xff0000000a)
+            },
+            { t ->
+                t.addNewChild(1, "role2", 0, 0xff0000000e, null)
+                t.deleteNode(0xff0000000e)
+            }
+        )
     }
 
     @Test
     fun knownIssue04() {
-        knownIssueTest({ t ->
-        }, { t ->
-            t.addNewChild(1, "role3", 0, 0xff00000006, null)
-            t.addNewChild(0xff00000006, "role3", 0, 0xff00000008, null)
-            t.moveChild(1, "role1", 0, 0xff00000006)
-        }, { t ->
-            t.addNewChild(1, "role3", 0, 0xff0000000e, null)
-        })
+        knownIssueTest(
+            { t ->
+            },
+            { t ->
+                t.addNewChild(1, "role3", 0, 0xff00000006, null)
+                t.addNewChild(0xff00000006, "role3", 0, 0xff00000008, null)
+                t.moveChild(1, "role1", 0, 0xff00000006)
+            },
+            { t ->
+                t.addNewChild(1, "role3", 0, 0xff0000000e, null)
+            }
+        )
     }
 
     @Test
     fun knownIssue05() {
-        knownIssueTest({ t ->
-        }, { t -> // 0
-        }, { t -> // 1
-        }, { t -> // 2
-            t.addNewChild(0x1, "role3", 0, 0xff0000000f, null)
-        }, { t -> // 3
-            t.addNewChild(0x1, "role3", 0, 0xff00000011, null)
-            t.deleteNode(0xff00000011)
-        })
+        knownIssueTest(
+            { t ->
+            },
+            { t -> // 0
+            },
+            { t -> // 1
+            },
+            { t -> // 2
+                t.addNewChild(0x1, "role3", 0, 0xff0000000f, null)
+            },
+            { t -> // 3
+                t.addNewChild(0x1, "role3", 0, 0xff00000011, null)
+                t.deleteNode(0xff00000011)
+            }
+        )
     }
 
     @Test
     fun knownIssue06() {
-        knownIssueTest({ t ->
-            t.addNewChild(0x1, "role1", 0, 0xff0000000e, null)
-            t.addNewChild(0x1, "role2", 0, 0xff00000011, null)
-            t.addNewChild(0xff00000011, "role1", 0, 0xff00000010, null)
-        }, { t -> // 0
-            t.moveChild(0x1, "role1", 0, 0xff00000010)
-            t.deleteNode(0xff00000010)
-        }, { t -> // 1
-            t.deleteNode(0xff0000000e)
-            t.moveChild(0x1, "role1", 0, 0xff00000011)
-            t.deleteNode(0xff00000010)
-            t.moveChild(0x1, "role1", 0, 0xff00000011)
-        })
+        knownIssueTest(
+            { t ->
+                t.addNewChild(0x1, "role1", 0, 0xff0000000e, null)
+                t.addNewChild(0x1, "role2", 0, 0xff00000011, null)
+                t.addNewChild(0xff00000011, "role1", 0, 0xff00000010, null)
+            },
+            { t -> // 0
+                t.moveChild(0x1, "role1", 0, 0xff00000010)
+                t.deleteNode(0xff00000010)
+            },
+            { t -> // 1
+                t.deleteNode(0xff0000000e)
+                t.moveChild(0x1, "role1", 0, 0xff00000011)
+                t.deleteNode(0xff00000010)
+                t.moveChild(0x1, "role1", 0, 0xff00000011)
+            }
+        )
         // 1.role1[0] expected to be ff00000011, but was ff00000010
     }
 
     @Test
     fun knownIssue07() {
-        knownIssueTest({ t ->
-            t.addNewChild(0x1, "role1", 0, 0xff0000000e, null)
-            t.addNewChild(0xff0000000e, "role3", 0, 0xff00000010, null)
-            t.addNewChild(0xff00000010, "role2", 0, 0xff00000011, null)
-        }, { t -> // 0
-            t.deleteNode(0xff00000011)
-        }, { t -> // 1
-            t.moveChild(0x1, "role2", 0, 0xff00000011)
-            t.addNewChild(0x1, "role2", 0, 0xff00000032, null)
-        })
+        knownIssueTest(
+            { t ->
+                t.addNewChild(0x1, "role1", 0, 0xff0000000e, null)
+                t.addNewChild(0xff0000000e, "role3", 0, 0xff00000010, null)
+                t.addNewChild(0xff00000010, "role2", 0, 0xff00000011, null)
+            },
+            { t -> // 0
+                t.deleteNode(0xff00000011)
+            },
+            { t -> // 1
+                t.moveChild(0x1, "role2", 0, 0xff00000011)
+                t.addNewChild(0x1, "role2", 0, 0xff00000032, null)
+            }
+        )
         // Attempt to access a deleted location: 1
     }
 
     @Test
     fun knownIssue08() {
-        knownIssueTest({ t ->
-            t.addNewChild(0x1, "role1", 0, 0xff0000000e, null)
-            t.addNewChild(0x1, "role5", 0, 0xff00000010, null)
-            t.addNewChild(0xff00000010, "role2", 0, 0xff00000011, null)
-            t.addNewChild(0xff00000010, "role1", 0, 0xff00000012, null)
-        }, { t -> // 0
-            t.moveChild(0xff00000012, "role2", 0, 0xff0000000e)
-        }, { t -> // 1
-            t.moveChild(0x1, "role1", 0, 0xff00000011)
-        })
+        knownIssueTest(
+            { t ->
+                t.addNewChild(0x1, "role1", 0, 0xff0000000e, null)
+                t.addNewChild(0x1, "role5", 0, 0xff00000010, null)
+                t.addNewChild(0xff00000010, "role2", 0, 0xff00000011, null)
+                t.addNewChild(0xff00000010, "role1", 0, 0xff00000012, null)
+            },
+            { t -> // 0
+                t.moveChild(0xff00000012, "role2", 0, 0xff0000000e)
+            },
+            { t -> // 1
+                t.moveChild(0x1, "role1", 0, 0xff00000011)
+            }
+        )
         // Attempt to access a deleted location: 0
     }
 
     @Test
     fun knownIssue09a() {
-        knownIssueTest({ t ->
-            t.addNewChild(0x1, "role1", 0, 0xff0000000e, null)
-            t.addNewChild(0x1, "role2", 0, 0xff00000011, null)
-        }, { t -> // 0
-            t.moveChild(0x1, "role6", 0, 0xff0000000e)
-        }, { t -> // 1
-            t.moveChild(0x1, "role1", 0, 0xff00000011)
-            t.deleteNode(0xff00000011)
-        })
+        knownIssueTest(
+            { t ->
+                t.addNewChild(0x1, "role1", 0, 0xff0000000e, null)
+                t.addNewChild(0x1, "role2", 0, 0xff00000011, null)
+            },
+            { t -> // 0
+                t.moveChild(0x1, "role6", 0, 0xff0000000e)
+            },
+            { t -> // 1
+                t.moveChild(0x1, "role1", 0, 0xff00000011)
+                t.deleteNode(0xff00000011)
+            }
+        )
     }
 
     @Test
     fun knownIssue09b() {
-        knownIssueTest({ t ->
-            t.addNewChild(0x1, "role1", 0, 0xff0000000e, null)
-            t.addNewChild(0x1, "role2", 0, 0xff00000011, null)
-        }, { t -> // 0
-            t.moveChild(0x1, "role6", 0, 0xff0000000e)
-        }, { t -> // 1
-            t.moveChild(0x1, "role1", 1, 0xff00000011)
-            t.deleteNode(0xff00000011)
-        })
+        knownIssueTest(
+            { t ->
+                t.addNewChild(0x1, "role1", 0, 0xff0000000e, null)
+                t.addNewChild(0x1, "role2", 0, 0xff00000011, null)
+            },
+            { t -> // 0
+                t.moveChild(0x1, "role6", 0, 0xff0000000e)
+            },
+            { t -> // 1
+                t.moveChild(0x1, "role1", 1, 0xff00000011)
+                t.deleteNode(0xff00000011)
+            }
+        )
     }
 
     @Test
     fun knownIssue09c() {
-        knownIssueTest({ t ->
-            t.addNewChild(0x1, "role1", 0, 0xff000000aa, null)
-            t.addNewChild(0x1, "role1", 1, 0xff0000000e, null)
-            t.addNewChild(0x1, "role2", 0, 0xff00000011, null)
-        }, { t -> // 0
-            t.moveChild(0x1, "role6", 0, 0xff0000000e)
-        }, { t -> // 1
-            t.moveChild(0x1, "role1", 0, 0xff00000011)
-            t.deleteNode(0xff00000011)
-        })
+        knownIssueTest(
+            { t ->
+                t.addNewChild(0x1, "role1", 0, 0xff000000aa, null)
+                t.addNewChild(0x1, "role1", 1, 0xff0000000e, null)
+                t.addNewChild(0x1, "role2", 0, 0xff00000011, null)
+            },
+            { t -> // 0
+                t.moveChild(0x1, "role6", 0, 0xff0000000e)
+            },
+            { t -> // 1
+                t.moveChild(0x1, "role1", 0, 0xff00000011)
+                t.deleteNode(0xff00000011)
+            }
+        )
     }
 
     @Test
     fun knownIssue10() {
-        knownIssueTest({ t ->
-            t.addNewChild(0x1, "role1", 0, 0xff00000010, null)
-        }, { t -> // 0
-            t.deleteNode(0xff00000010)
-        }, { t -> // 1
-            t.addNewChild(0xff00000010, "role1", 0, 0xff0000002b, null)
-            t.deleteNode(0xff0000002b)
-        })
+        knownIssueTest(
+            { t ->
+                t.addNewChild(0x1, "role1", 0, 0xff00000010, null)
+            },
+            { t -> // 0
+                t.deleteNode(0xff00000010)
+            },
+            { t -> // 1
+                t.addNewChild(0xff00000010, "role1", 0, 0xff0000002b, null)
+                t.deleteNode(0xff0000002b)
+            }
+        )
     }
 
     @Test
     fun knownIssue11() {
-        knownIssueTest({ t ->
-            t.addNewChild(0x1, "role2", 0, 0xff00000011, null)
-        }, { t -> // 0
-            t.deleteNode(0xff00000011)
-        }, { t -> // 1
-            t.addNewChild(0xff00000011, "role2", 0, 0xff0000002e, null)
-            t.moveChild(0x1, "role3", 0, 0xff0000002e)
-        }, { t -> // 2
-            t.addNewChild(0xff00000011, "role3", 0, 0xff00000043, null)
-        })
+        knownIssueTest(
+            { t ->
+                t.addNewChild(0x1, "role2", 0, 0xff00000011, null)
+            },
+            { t -> // 0
+                t.deleteNode(0xff00000011)
+            },
+            { t -> // 1
+                t.addNewChild(0xff00000011, "role2", 0, 0xff0000002e, null)
+                t.moveChild(0x1, "role3", 0, 0xff0000002e)
+            },
+            { t -> // 2
+                t.addNewChild(0xff00000011, "role3", 0, 0xff00000043, null)
+            }
+        )
     }
 
     @Test
     fun knownIssue12() {
-        knownIssueTest({ t ->
-            t.addNewChild(0x1, "role1", 0, 0xff00000012, null)
-            t.addNewChild(0x1, "role3", 0, 0xff0000000e, null)
-        }, { t -> // 0
-            t.deleteNode(0xff00000012)
-            t.deleteNode(0xff0000000e)
-        }, { t -> // 1
-            t.addNewChild(0xff00000012, "role3", 0, 0xff00000043, null)
-            t.addNewChild(0xff0000000e, "role3", 0, 0xff00000044, null)
-            t.deleteNode(0xff00000043)
-        })
+        knownIssueTest(
+            { t ->
+                t.addNewChild(0x1, "role1", 0, 0xff00000012, null)
+                t.addNewChild(0x1, "role3", 0, 0xff0000000e, null)
+            },
+            { t -> // 0
+                t.deleteNode(0xff00000012)
+                t.deleteNode(0xff0000000e)
+            },
+            { t -> // 1
+                t.addNewChild(0xff00000012, "role3", 0, 0xff00000043, null)
+                t.addNewChild(0xff0000000e, "role3", 0, 0xff00000044, null)
+                t.deleteNode(0xff00000043)
+            }
+        )
     }
 
     @Test
     fun knownIssue13() {
-        knownIssueTest({ t ->
-            t.addNewChild(0x1, "role4", 0, 0xff00000012, null)
-        }, { t -> // 0
-            t.deleteNode(0xff00000012)
-        }, { t -> // 1
-            t.addNewChild(0xff00000012, "role3", 0, 0xff00000043, null)
-            t.addNewChild(0x1, "role5", 0, 0xff00000044, null)
-            t.moveChild(0xff00000012, "role5", 0, 0xff00000044)
-            t.deleteNode(0xff00000043)
-            t.deleteNode(0xff00000044)
-        })
+        knownIssueTest(
+            { t ->
+                t.addNewChild(0x1, "role4", 0, 0xff00000012, null)
+            },
+            { t -> // 0
+                t.deleteNode(0xff00000012)
+            },
+            { t -> // 1
+                t.addNewChild(0xff00000012, "role3", 0, 0xff00000043, null)
+                t.addNewChild(0x1, "role5", 0, 0xff00000044, null)
+                t.moveChild(0xff00000012, "role5", 0, 0xff00000044)
+                t.deleteNode(0xff00000043)
+                t.deleteNode(0xff00000044)
+            }
+        )
     }
 
     @Test
     fun knownIssue14() {
-        knownIssueTest({ t ->
-            t.addNewChild(0x1, "role2", 0, 0xff00000011, null)
-        }, { t -> // 0
-            t.deleteNode(0xff00000011)
-        }, { t -> // 1
-            t.moveChild(0x1, "role1", 0, 0xff00000011)
-            t.addNewChild(0x1, "role1", 1, 0xff0000002d, null)
-        })
+        knownIssueTest(
+            { t ->
+                t.addNewChild(0x1, "role2", 0, 0xff00000011, null)
+            },
+            { t -> // 0
+                t.deleteNode(0xff00000011)
+            },
+            { t -> // 1
+                t.moveChild(0x1, "role1", 0, 0xff00000011)
+                t.addNewChild(0x1, "role1", 1, 0xff0000002d, null)
+            }
+        )
     }
 
     @Test
     fun knownIssue15() {
-        knownIssueTest({ t ->
-            t.addNewChild(0x1, "role5", 0, 0xff00000012, null)
-        }, { t -> // 0
-            t.deleteNode(0xff00000012)
-        }, { t -> // 1
-            t.addNewChild(0xff00000012, "role1", 0, 0xff00000043, null)
-            t.addNewChild(0xff00000012, "role3", 0, 0xff00000045, null)
-            t.deleteNode(0xff00000045)
-            t.deleteNode(0xff00000043)
-        })
+        knownIssueTest(
+            { t ->
+                t.addNewChild(0x1, "role5", 0, 0xff00000012, null)
+            },
+            { t -> // 0
+                t.deleteNode(0xff00000012)
+            },
+            { t -> // 1
+                t.addNewChild(0xff00000012, "role1", 0, 0xff00000043, null)
+                t.addNewChild(0xff00000012, "role3", 0, 0xff00000045, null)
+                t.deleteNode(0xff00000045)
+                t.deleteNode(0xff00000043)
+            }
+        )
     }
 
     @Test
     fun knownIssue16() {
-        knownIssueTest({ t ->
-            t.addNewChild(0x1, "role3", 0, 0xff0000000e, null)
-            t.addNewChild(0xff0000000e, "role3", 0, 0xff00000010, null)
-            t.addNewChild(0xff00000010, "role3", 0, 0xff00000011, null)
-            t.addNewChild(0xff00000010, "role3", 0, 0xff00000012, null)
-            t.moveChild(0x1, "role2", 0, 0xff00000011)
-        }, { t -> // 0
-            t.deleteNode(0xff00000012)
-            t.addNewChild(0x1, "role2", 1, 0xff0000001c, null)
-            t.addNewChild(0xff0000001c, "role2", 0, 0xff00000022, null)
-            t.deleteNode(0xff00000010)
-            t.deleteNode(0xff0000000e)
-            t.addNewChild(0xff00000022, "role3", 0, 0xff00000023, null)
-        }, { t -> // 1
-            t.addNewChild(0xff00000012, "role3", 0, 0xff00000043, null)
-            t.addNewChild(0xff00000043, "role3", 0, 0xff00000044, null)
-            t.moveChild(0xff0000000e, "role3", 0, 0xff00000044)
-            t.deleteNode(0xff00000043)
-        })
+        knownIssueTest(
+            { t ->
+                t.addNewChild(0x1, "role3", 0, 0xff0000000e, null)
+                t.addNewChild(0xff0000000e, "role3", 0, 0xff00000010, null)
+                t.addNewChild(0xff00000010, "role3", 0, 0xff00000011, null)
+                t.addNewChild(0xff00000010, "role3", 0, 0xff00000012, null)
+                t.moveChild(0x1, "role2", 0, 0xff00000011)
+            },
+            { t -> // 0
+                t.deleteNode(0xff00000012)
+                t.addNewChild(0x1, "role2", 1, 0xff0000001c, null)
+                t.addNewChild(0xff0000001c, "role2", 0, 0xff00000022, null)
+                t.deleteNode(0xff00000010)
+                t.deleteNode(0xff0000000e)
+                t.addNewChild(0xff00000022, "role3", 0, 0xff00000023, null)
+            },
+            { t -> // 1
+                t.addNewChild(0xff00000012, "role3", 0, 0xff00000043, null)
+                t.addNewChild(0xff00000043, "role3", 0, 0xff00000044, null)
+                t.moveChild(0xff0000000e, "role3", 0, 0xff00000044)
+                t.deleteNode(0xff00000043)
+            }
+        )
     }
 
     @Test
-    fun knownIssue18() {
-        knownIssueTest({ t ->
-        }, { t -> // 0
-            t.addNewChild(0x1, "role1", 0, 0xff00000002, null)
-            t.deleteNode(0xff00000002)
-        }, { t -> // 1
-            t.addNewChild(0x1, "role2", 0, 0xff0000000d, null)
-            t.moveChild(0x1, "role2", 1, 0xff0000000d)
-            t.deleteNode(0xff0000000d)
-        })
+    fun knownIssue17() {
+        knownIssueTest(
+            { t ->
+            },
+            { t -> // 0
+                t.addNewChild(0x1, "role1", 0, 0xff00000002, null)
+                t.deleteNode(0xff00000002)
+            },
+            { t -> // 1
+                t.addNewChild(0x1, "role2", 0, 0xff0000000d, null)
+                t.moveChild(0x1, "role2", 1, 0xff0000000d)
+                t.deleteNode(0xff0000000d)
+            }
+        )
     }
 
     fun createVersion(opsAndTree: Pair<List<IAppliedOperation>, ITree>, previousVersion: CLVersion?): CLVersion {
@@ -389,32 +469,33 @@ class ConflictResolutionTest : TreeTestBase() {
     }
 
     fun assertSameTree(tree1: ITree, tree2: ITree) {
-        tree2.visitChanges(tree1, object : ITreeChangeVisitor {
-            override fun containmentChanged(nodeId: Long) {
-                fail("containmentChanged $nodeId")
-            }
+        tree2.visitChanges(
+            tree1,
+            object : ITreeChangeVisitor {
+                override fun containmentChanged(nodeId: Long) {
+                    fail("containmentChanged $nodeId")
+                }
 
-            override fun childrenChanged(nodeId: Long, role: String?) {
-                fail("childrenChanged $nodeId, $role")
-            }
+                override fun childrenChanged(nodeId: Long, role: String?) {
+                    fail("childrenChanged $nodeId, $role")
+                }
 
-            override fun referenceChanged(nodeId: Long, role: String) {
-                fail("referenceChanged $nodeId, $role")
-            }
+                override fun referenceChanged(nodeId: Long, role: String) {
+                    fail("referenceChanged $nodeId, $role")
+                }
 
-            override fun propertyChanged(nodeId: Long, role: String) {
-                fail("propertyChanged $nodeId, $role")
-            }
+                override fun propertyChanged(nodeId: Long, role: String) {
+                    fail("propertyChanged $nodeId, $role")
+                }
 
-            override fun nodeRemoved(nodeId: Long) {
-                fail("nodeRemoved $nodeId")
-            }
+                override fun nodeRemoved(nodeId: Long) {
+                    fail("nodeRemoved $nodeId")
+                }
 
-            override fun nodeAdded(nodeId: Long) {
-                fail("nodeAdded nodeId")
+                override fun nodeAdded(nodeId: Long) {
+                    fail("nodeAdded nodeId")
+                }
             }
-
-        })
+        )
     }
-
 }

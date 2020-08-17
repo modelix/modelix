@@ -15,7 +15,6 @@
 
 package org.modelix.model.operations
 
-import org.modelix.model.api.ITree
 import org.modelix.model.api.IWriteTransaction
 
 class MoveNodeOp(val childId: Long, val sourcePosition: PositionInRole, val targetPosition: PositionInRole) : AbstractOperation() {

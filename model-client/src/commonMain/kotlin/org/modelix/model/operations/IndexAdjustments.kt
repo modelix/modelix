@@ -45,7 +45,7 @@ class IndexAdjustments {
         }
         adjustments.add(newAdjustment)
     }
-    
+
     fun removeAdjustment(owner: IOperation) {
         adjustments.removeAll { it.owner == owner }
     }
@@ -103,7 +103,7 @@ abstract class Adjustment(val owner: IOperation) {
     abstract fun adjustSelf(addedAdjustment: Adjustment): Adjustment
 }
 
-class NodeInsertAdjustment(owner: IOperation, val concurrentSide: Boolean, val insertedPos: PositionInRole): Adjustment(owner) {
+class NodeInsertAdjustment(owner: IOperation, val concurrentSide: Boolean, val insertedPos: PositionInRole) : Adjustment(owner) {
     override fun adjust(posToTransform: PositionInRole, forInsert: Boolean): PositionInRole {
         return if (posToTransform.roleInNode == insertedPos.roleInNode) {
             if (posToTransform.index > insertedPos.index) {
