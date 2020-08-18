@@ -134,6 +134,15 @@ task copyModelClientToMps(type: Copy, dependsOn: [deleteMpsLibs]) {
     from configurations.jvmDefault
     from "$buildDir/libs"
     into "$projectDir/../mps/org.modelix.model.client/lib"
+    rename { fileName ->
+        stripVersion(fileName)
+    }
+    exclude 'log4j*.jar'
+    exclude 'annotations*.jar'
 }
 
 assemble.finalizedBy(copyModelClientToMps)
+
+String stripVersion(String fileNameWithVersion) {
+    return fileNameWithVersion.replaceAll(/-\d+(\.\d+)*(-SNAPSHOT)?/, "")
+}
