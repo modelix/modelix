@@ -33,6 +33,11 @@ class ConflictResolutionTest : TreeTestBase() {
         randomTest(100, 5, 100)
     }
 
+    @Test
+    fun randomTest06() {
+        randomTest(101, 2, 4)
+    }
+
     fun randomTest(baseChanges: Int, numBranches: Int, branchChanges: Int) {
         val merger = VersionMerger(storeCache, idGenerator)
         val baseExpectedTreeData = ExpectedTreeData()
@@ -481,6 +486,22 @@ class ConflictResolutionTest : TreeTestBase() {
             },
             { t -> // 0
                 t.addNewChild(0xff00000012, "role2", 0, 0xff00000016, null)
+            },
+            { t -> // 1
+                t.deleteNode(0xff00000012)
+            }
+        )
+    }
+
+    @Test
+    fun knownIssue20() {
+        knownIssueTest(
+            { t ->
+                t.addNewChild(0x1, "role5", 0, 0xff00000012, null)
+            },
+            { t -> // 0
+                t.addNewChild(0x1, "role6", 0, 0xff00000013, null)
+                t.moveChild(0xff00000012, "role2", 0, 0xff00000013)
             },
             { t -> // 1
                 t.deleteNode(0xff00000012)
