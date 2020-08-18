@@ -16,6 +16,8 @@
 package org.modelix.model.server;
 
 import java.io.IOException;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -127,7 +129,7 @@ public class RestModelServer {
                             protected void doGet(HttpServletRequest req, HttpServletResponse resp)
                                     throws ServletException, IOException {
                                 String email = req.getHeader("X-Forwarded-Email");
-                                if ((email == null || email.isEmpty()) && isLocalhost(req)) {
+                                if ((email == null || email.isEmpty()) && isTrustedAddress(req)) {
                                     email = "localhost";
                                 }
                                 if (email == null || email.isEmpty()) {
@@ -464,7 +466,7 @@ public class RestModelServer {
     }
 
     private boolean isValidAuthorization(IStoreClient store, HttpServletRequest req) {
-        if (isLocalhost(req)) return true;
+        if (isTrustedAddress(req)) return true;
 
         String header = req.getHeader("Authorization");
         if (header == null) {
@@ -493,12 +495,14 @@ public class RestModelServer {
         return true;
     }
 
-    private static boolean isLocalhost(String ip) {
-        return "0:0:0:0:0:0:0:1".equals(ip) || "127.0.0.1".equals(ip);
-    }
-
-    private static boolean isLocalhost(ServletRequest req) {
-        return isLocalhost(req.getRemoteAddr());
+    private static boolean isTrustedAddress(ServletRequest req) {
+        try {
+            InetAddress addr = InetAddress.getByName(req.getRemoteAddr());
+            return addr.isLoopbackAddress() || addr.isLinkLocalAddress() || addr.isSiteLocalAddress();
+        } catch (UnknownHostException e) {
+            LOG.error("", e);
+            return false;
+        }
     }
 
     private static String extractToken(HttpServletRequest req) {

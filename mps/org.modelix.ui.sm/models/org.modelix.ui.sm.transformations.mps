@@ -4,14 +4,10 @@
   <languages>
     <use id="94b64715-a263-4c36-a138-8da14705ffa7" name="de.q60.mps.shadowmodels.transformation" version="1" />
     <use id="774bf8a0-62e5-41e1-af63-f4812e60e48b" name="jetbrains.mps.baseLanguage.checkedDots" version="0" />
-    <use id="c7fb639f-be78-4307-89b0-b5959c3fa8c8" name="jetbrains.mps.lang.text" version="0" />
-    <use id="bc963c22-d419-49b6-8543-ea411eb9d3a1" name="de.q60.mps.polymorphicfunctions" version="0" />
     <use id="f3061a53-9226-4cc5-a443-f952ceaf5816" name="jetbrains.mps.baseLanguage" version="11" />
     <use id="7866978e-a0f0-4cc7-81bc-4d213d9375e1" name="jetbrains.mps.lang.smodel" version="17" />
     <use id="83888646-71ce-4f1c-9c53-c54016f6ad4f" name="jetbrains.mps.baseLanguage.collections" version="1" />
     <use id="fd392034-7849-419d-9071-12563d152375" name="jetbrains.mps.baseLanguage.closures" version="0" />
-    <use id="3a13115c-633c-4c5c-bbcc-75c4219e9555" name="jetbrains.mps.lang.quotation" version="5" />
-    <use id="da8e6b62-7ca3-4489-86bc-b70a501ca28f" name="de.q60.mps.incremental" version="0" />
     <devkit ref="a2812d5e-a72e-4739-ab3f-d01ec647c5de(de.q60.mps.shadowmodels.devkit)" />
   </languages>
   <imports>
@@ -24,7 +20,6 @@
     <import index="wyt6" ref="6354ebe7-c22a-4a0f-ac54-50b52ab9b065/java:java.lang(JDK/)" />
     <import index="j481" ref="r:b20089df-f3d6-4bf7-8b24-9a8e9c01d887(org.modelix.ui.sm.structure)" />
     <import index="tpc2" ref="r:00000000-0000-4000-0000-011c8959029e(jetbrains.mps.lang.editor.structure)" />
-    <import index="pjrh" ref="6ed54515-acc8-4d1e-a16c-9fd6cfe951ea/java:jetbrains.mps.smodel.adapter(MPS.Core/)" />
     <import index="tpck" ref="r:00000000-0000-4000-0000-011c89590288(jetbrains.mps.lang.core.structure)" />
     <import index="tpee" ref="r:00000000-0000-4000-0000-011c895902ca(jetbrains.mps.baseLanguage.structure)" />
     <import index="w1kc" ref="6ed54515-acc8-4d1e-a16c-9fd6cfe951ea/java:jetbrains.mps.smodel(MPS.Core/)" />
@@ -34,21 +29,14 @@
     <import index="3d38" ref="r:bc160b50-5a4e-4f99-ba07-a7b7116dab7a(de.q60.mps.incremental.util)" />
     <import index="6y8" ref="r:84bdf498-a7b7-4050-8eec-ebd94d3bd321(org.modelix.ui.sm.json.structure)" />
     <import index="70w2" ref="r:59e1f3dd-5dad-4bbd-ad65-fef01059d9d2(org.modelix.ui.sm.dom.structure)" />
-    <import index="18ew" ref="6ed54515-acc8-4d1e-a16c-9fd6cfe951ea/java:jetbrains.mps.util(MPS.Core/)" />
     <import index="zf81" ref="6354ebe7-c22a-4a0f-ac54-50b52ab9b065/java:java.net(JDK/)" />
     <import index="guwi" ref="6354ebe7-c22a-4a0f-ac54-50b52ab9b065/java:java.io(JDK/)" />
-    <import index="33ny" ref="6354ebe7-c22a-4a0f-ac54-50b52ab9b065/java:java.util(JDK/)" />
-    <import index="yt15" ref="r:3b455125-c65e-4548-95e9-cf82a7781996(org.modelix.lib)" />
     <import index="z1c3" ref="6ed54515-acc8-4d1e-a16c-9fd6cfe951ea/java:jetbrains.mps.project(MPS.Core/)" />
-    <import index="wy2b" ref="87f4b21e-a3a5-459e-a54b-408fd9eb7350/java:com.google.gson(org.modelix.lib/)" />
-    <import index="4bvh" ref="87f4b21e-a3a5-459e-a54b-408fd9eb7350/java:com.esotericsoftware.kryo(org.modelix.lib/)" />
-    <import index="pxg7" ref="87f4b21e-a3a5-459e-a54b-408fd9eb7350/java:com.esotericsoftware.kryo.io(org.modelix.lib/)" />
-    <import index="od2j" ref="r:19d224b8-fac8-4b19-ae42-e7b119858f3b(de.q60.mps.polymorphicfunctions.runtime)" />
     <import index="qsto" ref="r:6f19a603-f6b1-4c78-aaa5-6c24c7fbc333(org.modelix.ui.common)" />
     <import index="v1cj" ref="r:2c4bc58b-9da3-4f5f-8ea2-32f043278ab7(de.q60.mps.web.ui.sm.behavior)" />
-    <import index="m2xw" ref="fc3c2aa8-0d4b-463f-a774-40d450aa04a0/java:org.eclipse.jetty.server(org.modelix.jetty/)" />
-    <import index="gq2t" ref="r:f17c1662-bb91-47a6-b206-16c06f86f401(org.modelix.ui.sm.pf)" />
-    <import index="geos" ref="0a2651ab-f212-45c2-a2f0-343e76cbc26b/java:org.modelix.model.persistent(org.modelix.model.client/)" />
+    <import index="jgjw" ref="6354ebe7-c22a-4a0f-ac54-50b52ab9b065/java:java.security(JDK/)" />
+    <import index="7x5y" ref="6354ebe7-c22a-4a0f-ac54-50b52ab9b065/java:java.nio.charset(JDK/)" />
+    <import index="33ny" ref="6354ebe7-c22a-4a0f-ac54-50b52ab9b065/java:java.util(JDK/)" />
     <import index="tpcu" ref="r:00000000-0000-4000-0000-011c89590282(jetbrains.mps.lang.core.behavior)" implicit="true" />
     <import index="tpce" ref="r:00000000-0000-4000-0000-011c89590292(jetbrains.mps.lang.structure.structure)" implicit="true" />
     <import index="tp25" ref="r:00000000-0000-4000-0000-011c89590301(jetbrains.mps.lang.smodel.structure)" implicit="true" />
@@ -2822,16 +2810,89 @@
     <node concept="2YIFZL" id="5Q16xz4K4FF" role="jymVt">
       <property role="TrG5h" value="sha256" />
       <node concept="3clFbS" id="5Q16xz4JWPi" role="3clF47">
-        <node concept="3clFbF" id="5Q16xz4K3uL" role="3cqZAp">
-          <node concept="2OqwBi" id="5Q16xz4K3uN" role="3clFbG">
-            <node concept="10M0yZ" id="5Q16xz4K3uO" role="2Oq$k0">
-              <ref role="1PxDUh" to="geos:~HashUtil" resolve="HashUtil" />
-              <ref role="3cqZAo" to="geos:~HashUtil.INSTANCE" resolve="INSTANCE" />
+        <node concept="3J1_TO" id="1KzYa3AmoSJ" role="3cqZAp">
+          <node concept="3uVAMA" id="1KzYa3AmoSK" role="1zxBo5">
+            <node concept="3clFbS" id="1KzYa3AmoSF" role="1zc67A">
+              <node concept="YS8fn" id="1KzYa3AmwmH" role="3cqZAp">
+                <node concept="2ShNRf" id="1KzYa3Amwti" role="YScLw">
+                  <node concept="1pGfFk" id="1KzYa3Amx26" role="2ShVmc">
+                    <ref role="37wK5l" to="wyt6:~RuntimeException.&lt;init&gt;(java.lang.Throwable)" resolve="RuntimeException" />
+                    <node concept="37vLTw" id="1KzYa3Amx7d" role="37wK5m">
+                      <ref role="3cqZAo" node="1KzYa3AmoSB" resolve="ex" />
+                    </node>
+                  </node>
+                </node>
+              </node>
             </node>
-            <node concept="liA8E" id="5Q16xz4K3uP" role="2OqNvi">
-              <ref role="37wK5l" to="geos:~HashUtil.sha256(java.lang.String)" resolve="sha256" />
-              <node concept="37vLTw" id="5Q16xz4K4bx" role="37wK5m">
-                <ref role="3cqZAo" node="5Q16xz4K12p" resolve="input" />
+            <node concept="XOnhg" id="1KzYa3AmoSB" role="1zc67B">
+              <property role="TrG5h" value="ex" />
+              <node concept="nSUau" id="1KzYa3AmoSD" role="1tU5fm">
+                <node concept="3uibUv" id="1KzYa3AmvMS" role="nSUat">
+                  <ref role="3uigEE" to="jgjw:~NoSuchAlgorithmException" resolve="NoSuchAlgorithmException" />
+                </node>
+              </node>
+            </node>
+          </node>
+          <node concept="3clFbS" id="1KzYa3AmoSs" role="1zxBo7">
+            <node concept="3cpWs8" id="1KzYa3AmoSu" role="3cqZAp">
+              <node concept="3cpWsn" id="1KzYa3AmoSt" role="3cpWs9">
+                <property role="TrG5h" value="digest" />
+                <node concept="3uibUv" id="1KzYa3AmqwR" role="1tU5fm">
+                  <ref role="3uigEE" to="jgjw:~MessageDigest" resolve="MessageDigest" />
+                </node>
+                <node concept="2YIFZM" id="1KzYa3AmrnZ" role="33vP2m">
+                  <ref role="1Pybhc" to="jgjw:~MessageDigest" resolve="MessageDigest" />
+                  <ref role="37wK5l" to="jgjw:~MessageDigest.getInstance(java.lang.String)" resolve="getInstance" />
+                  <node concept="Xl_RD" id="1KzYa3Amro0" role="37wK5m">
+                    <property role="Xl_RC" value="SHA-256" />
+                  </node>
+                </node>
+              </node>
+            </node>
+            <node concept="3clFbF" id="1KzYa3AmoSy" role="3cqZAp">
+              <node concept="2OqwBi" id="1KzYa3AmpjM" role="3clFbG">
+                <node concept="37vLTw" id="1KzYa3AmpjL" role="2Oq$k0">
+                  <ref role="3cqZAo" node="1KzYa3AmoSt" resolve="digest" />
+                </node>
+                <node concept="liA8E" id="1KzYa3AmpjN" role="2OqNvi">
+                  <ref role="37wK5l" to="jgjw:~MessageDigest.update(byte[])" resolve="update" />
+                  <node concept="2OqwBi" id="1KzYa3AmzC1" role="37wK5m">
+                    <node concept="37vLTw" id="1KzYa3AmpjO" role="2Oq$k0">
+                      <ref role="3cqZAo" node="5Q16xz4K12p" resolve="input" />
+                    </node>
+                    <node concept="liA8E" id="1KzYa3Am$AW" role="2OqNvi">
+                      <ref role="37wK5l" to="wyt6:~String.getBytes(java.nio.charset.Charset)" resolve="getBytes" />
+                      <node concept="10M0yZ" id="1KzYa3Am_d7" role="37wK5m">
+                        <ref role="3cqZAo" to="7x5y:~StandardCharsets.UTF_8" resolve="UTF_8" />
+                        <ref role="1PxDUh" to="7x5y:~StandardCharsets" resolve="StandardCharsets" />
+                      </node>
+                    </node>
+                  </node>
+                </node>
+              </node>
+            </node>
+            <node concept="3cpWs6" id="1KzYa3AmoS_" role="3cqZAp">
+              <node concept="2OqwBi" id="1KzYa3AmDvQ" role="3cqZAk">
+                <node concept="2OqwBi" id="1KzYa3AmDvR" role="2Oq$k0">
+                  <node concept="2YIFZM" id="1KzYa3AmDvS" role="2Oq$k0">
+                    <ref role="37wK5l" to="33ny:~Base64.getUrlEncoder()" resolve="getUrlEncoder" />
+                    <ref role="1Pybhc" to="33ny:~Base64" resolve="Base64" />
+                  </node>
+                  <node concept="liA8E" id="1KzYa3AmDvT" role="2OqNvi">
+                    <ref role="37wK5l" to="33ny:~Base64$Encoder.withoutPadding()" resolve="withoutPadding" />
+                  </node>
+                </node>
+                <node concept="liA8E" id="1KzYa3AmDvU" role="2OqNvi">
+                  <ref role="37wK5l" to="33ny:~Base64$Encoder.encodeToString(byte[])" resolve="encodeToString" />
+                  <node concept="2OqwBi" id="1KzYa3AmDvV" role="37wK5m">
+                    <node concept="37vLTw" id="1KzYa3AmDvW" role="2Oq$k0">
+                      <ref role="3cqZAo" node="1KzYa3AmoSt" resolve="digest" />
+                    </node>
+                    <node concept="liA8E" id="1KzYa3AmDvX" role="2OqNvi">
+                      <ref role="37wK5l" to="jgjw:~MessageDigest.digest()" resolve="digest" />
+                    </node>
+                  </node>
+                </node>
               </node>
             </node>
           </node>

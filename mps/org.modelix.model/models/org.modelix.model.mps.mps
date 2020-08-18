@@ -267,6 +267,7 @@
     </language>
     <language id="760a0a8c-eabb-4521-8bfd-65db761a9ba3" name="jetbrains.mps.baseLanguage.logging">
       <concept id="2034914114981261497" name="jetbrains.mps.baseLanguage.logging.structure.LogLowLevelStatement" flags="ng" index="RRSsy">
+        <property id="2034914114981261751" name="severity" index="RRSoG" />
         <child id="2034914114981261755" name="throwable" index="RRSow" />
         <child id="2034914114981261753" name="message" index="RRSoy" />
       </concept>
@@ -466,6 +467,20 @@
                               </node>
                             </node>
                             <node concept="3clFbS" id="1cGcLVgvSkm" role="1zc67A">
+                              <node concept="RRSsy" id="1dOSuFb0kT9" role="3cqZAp">
+                                <property role="RRSoG" value="gZ5fh_4/error" />
+                                <node concept="3cpWs3" id="1dOSuFb0lt4" role="RRSoy">
+                                  <node concept="37vLTw" id="1dOSuFb0lz3" role="3uHU7w">
+                                    <ref role="3cqZAo" node="1cGcLVgvFrZ" resolve="serialized" />
+                                  </node>
+                                  <node concept="Xl_RD" id="1dOSuFb0kTb" role="3uHU7B">
+                                    <property role="Xl_RC" value="Failed to deserialize " />
+                                  </node>
+                                </node>
+                                <node concept="37vLTw" id="1dOSuFb0l81" role="RRSow">
+                                  <ref role="3cqZAo" node="1cGcLVgvSkk" resolve="ex" />
+                                </node>
+                              </node>
                               <node concept="3cpWs6" id="1cGcLVgvSEZ" role="3cqZAp">
                                 <node concept="10Nm6u" id="1cGcLVgvSI2" role="3cqZAk" />
                               </node>
@@ -498,6 +513,36 @@
           </node>
         </node>
       </node>
+    </node>
+    <node concept="2tJIrI" id="1dOSuFb0JWi" role="jymVt" />
+    <node concept="2YIFZL" id="1dOSuFb0O_c" role="jymVt">
+      <property role="TrG5h" value="init" />
+      <node concept="3clFbS" id="1dOSuFb0MwZ" role="3clF47">
+        <node concept="3SKdUt" id="1dOSuFb0QuT" role="3cqZAp">
+          <node concept="1PaTwC" id="1dOSuFb0QuU" role="1aUNEU">
+            <node concept="3oM_SD" id="1dOSuFb0QuV" role="1PaTwD">
+              <property role="3oM_SC" value="ensures" />
+            </node>
+            <node concept="3oM_SD" id="1dOSuFb0Qv8" role="1PaTwD">
+              <property role="3oM_SC" value="the" />
+            </node>
+            <node concept="3oM_SD" id="1dOSuFb0Qvb" role="1PaTwD">
+              <property role="3oM_SC" value="static" />
+            </node>
+            <node concept="3oM_SD" id="1dOSuFb0Qvn" role="1PaTwD">
+              <property role="3oM_SC" value="initializer" />
+            </node>
+            <node concept="3oM_SD" id="1dOSuFb0Qv$" role="1PaTwD">
+              <property role="3oM_SC" value="is" />
+            </node>
+            <node concept="3oM_SD" id="1dOSuFb0QvU" role="1PaTwD">
+              <property role="3oM_SC" value="executed" />
+            </node>
+          </node>
+        </node>
+      </node>
+      <node concept="3cqZAl" id="1dOSuFb0MwX" role="3clF45" />
+      <node concept="3Tm1VV" id="1dOSuFb0MwY" role="1B3o_S" />
     </node>
     <node concept="2tJIrI" id="1m9roGC3zKn" role="jymVt" />
     <node concept="2YIFZL" id="3ECE8iPIttW" role="jymVt">

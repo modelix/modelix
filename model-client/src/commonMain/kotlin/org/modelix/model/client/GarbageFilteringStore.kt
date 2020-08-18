@@ -60,9 +60,9 @@ class GarbageFilteringStore(private val store: IKeyValueStore) : IKeyValueStore 
             }
         }
         if (entriesToWrite.isNotEmpty()) {
-            val entry: MutableMap.MutableEntry<String, String?>? = entriesToWrite.entries.firstOrNull()
-            if (entry != null) {
-                store.put(entry.key, entry.value)
+            if (entriesToWrite.size == 1) {
+                val (key, value) = entriesToWrite.entries.first()
+                store.put(key, value)
             } else {
                 store.putAll(entriesToWrite)
             }

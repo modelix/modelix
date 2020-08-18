@@ -73,13 +73,9 @@
     <dependency reexport="false">18bc6592-03a6-4e29-a83a-7ff23bde13ba(jetbrains.mps.lang.editor)</dependency>
     <dependency reexport="false">0f2359af-040e-43bb-b438-cf024da41518(org.modelix.ui.sm.json)</dependency>
     <dependency reexport="false">6f6906a4-f244-4806-a98b-0bc781cef2a8(org.modelix.ui.sm.dom)</dependency>
-    <dependency reexport="false">87f4b21e-a3a5-459e-a54b-408fd9eb7350(org.modelix.lib)</dependency>
     <dependency reexport="false">da981293-1ec2-4df0-95e4-df162984154c(org.modelix.ui.common)</dependency>
-    <dependency reexport="false">5622e615-959d-4843-9df6-ef04ee578c18(org.modelix.model)</dependency>
-    <dependency reexport="false">18463265-6d45-4514-82f1-cf7eb1222492(de.q60.mps.polymorphicfunctions.runtime)</dependency>
     <dependency reexport="false">fc3c2aa8-0d4b-463f-a774-40d450aa04a0(org.modelix.jetty)</dependency>
     <dependency reexport="false">95085166-3236-4dd7-bd8e-e753c8d20885(de.q60.mps.incremental.runtime)</dependency>
-    <dependency reexport="false">3f233e7f-b8a6-46d2-a57f-795d56775243(Annotations)</dependency>
     <dependency reexport="false">ecfb9949-7433-4db5-85de-0f84d172e4ce(de.q60.mps.libs)</dependency>
     <dependency reexport="false">1ed103c3-3aa6-49b7-9c21-6765ee11f224(MPS.Editor)</dependency>
     <dependency reexport="false">34e84b8f-afa8-4364-abcd-a279fddddbe7(jetbrains.mps.editor.runtime)</dependency>
@@ -117,7 +113,6 @@
     <language slang="l:18bc6592-03a6-4e29-a83a-7ff23bde13ba:jetbrains.mps.lang.editor" version="14" />
     <language slang="l:ad93155d-79b2-4759-b10c-55123e763903:jetbrains.mps.lang.messages" version="0" />
     <language slang="l:90746344-04fd-4286-97d5-b46ae6a81709:jetbrains.mps.lang.migration" version="2" />
-    <language slang="l:9882f4ad-1955-46fe-8269-94189e5dbbf2:jetbrains.mps.lang.migration.util" version="0" />
     <language slang="l:446c26eb-2b7b-4bf0-9b35-f83fa582753e:jetbrains.mps.lang.modelapi" version="0" />
     <language slang="l:d4615e3b-d671-4ba9-af01-2b78369b0ba7:jetbrains.mps.lang.pattern" version="2" />
     <language slang="l:28f9e497-3b42-4291-aeba-0a1039153ab1:jetbrains.mps.lang.plugin" version="4" />
@@ -170,8 +165,6 @@
     <module reference="c72da2b9-7cce-4447-8389-f407dc1158b7(jetbrains.mps.lang.structure)" version="0" />
     <module reference="9ded098b-ad6a-4657-bfd9-48636cfe8bc3(jetbrains.mps.lang.traceable)" version="0" />
     <module reference="fc3c2aa8-0d4b-463f-a774-40d450aa04a0(org.modelix.jetty)" version="0" />
-    <module reference="87f4b21e-a3a5-459e-a54b-408fd9eb7350(org.modelix.lib)" version="0" />
-    <module reference="5622e615-959d-4843-9df6-ef04ee578c18(org.modelix.model)" version="0" />
     <module reference="da981293-1ec2-4df0-95e4-df162984154c(org.modelix.ui.common)" version="0" />
     <module reference="78874af2-5dd2-42a7-a21d-42fab3737d1d(org.modelix.ui.sm)" version="1" />
     <module reference="6f6906a4-f244-4806-a98b-0bc781cef2a8(org.modelix.ui.sm.dom)" version="0" />
