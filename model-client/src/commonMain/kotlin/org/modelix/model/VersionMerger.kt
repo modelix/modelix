@@ -133,9 +133,9 @@ class VersionMerger(private val storeCache: IDeserializingKeyValueStore, private
         indexAdjustments: IndexAdjustments
     ): List<IOperation> {
         val transformed = opToTransform.transform(previousOp, indexAdjustments)
-        if (transformed.size != 1 || opToTransform.toString() != transformed[0].toString()) {
-            logDebug({ "transformed: $opToTransform --> $transformed ## $previousOp" }, VersionMerger::class)
-        }
+//        if (transformed.size != 1 || opToTransform.toString() != transformed[0].toString()) {
+//            logDebug({ "transformed: $opToTransform --> $transformed ## $previousOp" }, VersionMerger::class)
+//        }
         return transformed
     }
 

@@ -29,15 +29,22 @@ class ConflictResolutionTest : TreeTestBase() {
         randomTest(10, 5, 20)
     }
 
-//    @Test
-//    fun randomTest04() {
-//        randomTest(100, 5, 100)
-//    }
-
     @Test
-    fun randomTest06() {
+    fun randomTest04() {
         randomTest(101, 2, 4)
     }
+
+//    @Test
+//    fun randomTest00() {
+//        for (i in 0..10000) {
+//            try {
+//                rand = Random(i)
+//                randomTest(10, 2, 3)
+//            } catch (ex: Exception) {
+//                throw RuntimeException("Failed for seed $i", ex)
+//            }
+//        }
+//    }
 
     fun randomTest(baseChanges: Int, numBranches: Int, branchChanges: Int) {
         val merger = VersionMerger(storeCache, idGenerator)
