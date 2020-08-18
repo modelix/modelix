@@ -27,6 +27,10 @@ class MoveNodeOp(val childId: Long, val sourcePosition: PositionInRole, val targ
     }
 
     override fun apply(transaction: IWriteTransaction): IAppliedOperation {
+        val actualNode = transaction.getChildren(sourcePosition.nodeId, sourcePosition.role).toList()[sourcePosition.index]
+        if (actualNode != childId) {
+            throw RuntimeException("Node at $sourcePosition is expected to be ${childId.toString(16)}, but was ${actualNode.toString(16)}")
+        }
         transaction.moveChild(targetPosition.nodeId, targetPosition.role, targetPosition.index, childId)
         return Applied()
     }

@@ -509,6 +509,35 @@ class ConflictResolutionTest : TreeTestBase() {
         )
     }
 
+    @Test
+    fun knownIssue21() {
+        knownIssueTest(
+            { t ->
+                t.addNewChild(0x1, "role3", 0, 0xff0000000e, null)
+                t.moveChild(0x1, "role1", 0, 0xff0000000e)
+                t.addNewChild(0xff0000000e, "role2", 0, 0xff0000000f, null)
+                t.deleteNode(0xff0000000f)
+                t.addNewChild(0xff0000000e, "role3", 0, 0xff00000010, null)
+                t.moveChild(0xff0000000e, "role3", 0, 0xff00000010)
+                t.addNewChild(0xff00000010, "role3", 0, 0xff00000011, null)
+                t.addNewChild(0xff00000010, "role3", 0, 0xff00000012, null)
+                t.moveChild(0x1, "role2", 0, 0xff00000011)
+                t.moveChild(0xff00000011, "role1", 0, 0xff00000010)
+                t.moveChild(0xff00000010, "role1", 0, 0xff00000012)
+                t.moveChild(0x1, "role2", 1, 0xff00000011)
+                t.addNewChild(0x1, "role2", 0, 0xff00000013, null)
+            },
+            { t -> // 0
+                t.moveChild(0xff00000012, "role2", 0, 0xff00000013)
+            },
+            { t -> // 1
+                t.moveChild(0x1, "role1", 1, 0xff00000010)
+                t.moveChild(0x1, "role1", 1, 0xff00000012)
+                t.deleteNode(0xff0000000e)
+            }
+        )
+    }
+
     fun createVersion(opsAndTree: Pair<List<IAppliedOperation>, ITree>, previousVersion: CLVersion?): CLVersion {
         return CLVersion(
             idGenerator.generate(),
