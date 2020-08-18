@@ -498,7 +498,9 @@ public class RestModelServer {
     private static boolean isTrustedAddress(ServletRequest req) {
         try {
             InetAddress addr = InetAddress.getByName(req.getRemoteAddr());
-            return addr.isLoopbackAddress() || addr.isLinkLocalAddress() || addr.isSiteLocalAddress();
+            return addr.isLoopbackAddress()
+                    || addr.isLinkLocalAddress()
+                    || addr.isSiteLocalAddress();
         } catch (UnknownHostException e) {
             LOG.error("", e);
             return false;
