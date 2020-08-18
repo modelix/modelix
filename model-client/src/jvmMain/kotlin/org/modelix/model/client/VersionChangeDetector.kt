@@ -27,6 +27,8 @@ abstract class VersionChangeDetector(private val store: IKeyValueStore, private 
     var lastVersionHash: String? = null
         private set
     private val pollingTask: ScheduledFuture<*>
+
+    @Synchronized
     private fun versionChanged(newVersion: String?) {
         if (newVersion == lastVersionHash) {
             return

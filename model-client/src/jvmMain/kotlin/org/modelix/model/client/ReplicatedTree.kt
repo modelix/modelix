@@ -166,22 +166,22 @@ actual open class ReplicatedTree actual constructor(private val client: IModelCl
         })
     }
 
-    protected fun writeRemoteVersion(version: CLVersion) {
+    protected fun writeRemoteVersion(newVersion: CLVersion) {
         synchronized(mergeLock) {
-            if (remoteVersion!!.hash != version.hash) {
-                remoteVersion = version
-                client.asyncStore!!.put(treeId.getBranchKey(branchName), version.hash)
+            if (remoteVersion!!.hash != newVersion.hash) {
+                remoteVersion = newVersion
+                client.asyncStore!!.put(treeId.getBranchKey(branchName), newVersion.hash)
             }
         }
     }
 
-    protected fun writeLocalVersion(version: CLVersion?) {
+    protected fun writeLocalVersion(newVersion: CLVersion?) {
         synchronized(mergeLock) {
-            if (version!!.hash != version.hash) {
-                this.version = version
+            if (newVersion!!.hash != this.version!!.hash) {
+                this.version = newVersion
                 divergenceTime = 0
                 localBranch.runWrite {
-                    val newTree = version.tree
+                    val newTree = newVersion.tree
                     val currentTree = localBranch.transaction.tree as CLTree?
                     if (getHash(newTree) != getHash(currentTree)) {
                         localBranch.writeTransaction.tree = newTree
