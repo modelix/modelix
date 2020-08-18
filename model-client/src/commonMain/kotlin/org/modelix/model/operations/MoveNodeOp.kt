@@ -35,15 +35,17 @@ class MoveNodeOp(val childId: Long, val sourcePosition: PositionInRole, val targ
         return Applied()
     }
 
+    fun getActualTargetPosition(): PositionInRole {
+        return if (sourcePosition.roleInNode == targetPosition.roleInNode && targetPosition.index > sourcePosition.index)
+            targetPosition.withIndex(targetPosition.index - 1)
+        else targetPosition
+    }
+
     override fun transform(previous: IOperation, indexAdjustments: IndexAdjustments): List<IOperation> {
         val adjusted = {
             val a = withAdjustedPosition(indexAdjustments)
             indexAdjustments.nodeMoved(a, false, sourcePosition, targetPosition)
-            var actualTargetPos = a.targetPosition
-            if (a.sourcePosition.roleInNode == a.targetPosition.roleInNode && a.targetPosition.index > a.sourcePosition.index) {
-                actualTargetPos = actualTargetPos.withIndex(actualTargetPos.index - 1)
-            }
-            indexAdjustments.setKnownPosition(childId, actualTargetPos)
+            indexAdjustments.setKnownPosition(childId, a.getActualTargetPosition())
             a
         }
         return when (previous) {
@@ -80,7 +82,7 @@ class MoveNodeOp(val childId: Long, val sourcePosition: PositionInRole, val targ
 
     override fun loadAdjustment(indexAdjustments: IndexAdjustments) {
         indexAdjustments.nodeMoved(this, true, sourcePosition, targetPosition)
-        indexAdjustments.setKnownPosition(childId, targetPosition)
+        indexAdjustments.setKnownPosition(childId, getActualTargetPosition())
     }
 
     override fun withAdjustedPosition(indexAdjustments: IndexAdjustments): MoveNodeOp {
