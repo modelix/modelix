@@ -18,7 +18,6 @@ package org.modelix.model
 import org.junit.After
 import org.junit.Assert
 import org.junit.Before
-import org.junit.Test
 import org.modelix.model.client.RestWebModelClient
 import java.util.*
 
