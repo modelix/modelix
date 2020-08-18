@@ -8,7 +8,6 @@ import org.modelix.model.lazy.CLTree
 import org.modelix.model.lazy.CLVersion
 import org.modelix.model.operations.IAppliedOperation
 import org.modelix.model.operations.OTBranch
-import kotlin.random.Random
 import kotlin.test.Test
 import kotlin.test.fail
 
