@@ -456,6 +456,23 @@ class ConflictResolutionTest : TreeTestBase() {
         )
     }
 
+    @Test
+    fun knownIssue18() {
+        knownIssueTest(
+            { t ->
+            },
+            { t -> // 0
+                t.addNewChild(0x1, "role5", 0, 0xff00000043, null)
+            },
+            { t -> // 1
+                t.addNewChild(0x1, "role3", 0, 0xff00000059, null)
+                t.addNewChild(0x1, "role5", 0, 0xff0000005c, null)
+                t.moveChild(0x1, "role3", 1, 0xff0000005c)
+                t.deleteNode(0xff00000059)
+            }
+        )
+    }
+
     fun createVersion(opsAndTree: Pair<List<IAppliedOperation>, ITree>, previousVersion: CLVersion?): CLVersion {
         return CLVersion(
             idGenerator.generate(),
