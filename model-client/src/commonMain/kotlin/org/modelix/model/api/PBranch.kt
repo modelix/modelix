@@ -16,6 +16,7 @@
 package org.modelix.model.api
 
 import org.modelix.model.logError
+import org.modelix.model.runSynchronized
 import org.modelix.model.util.ContextValue
 import org.modelix.model.util.pmap.COWArrays
 import kotlin.jvm.Volatile
@@ -41,7 +42,7 @@ class PBranch constructor(@field:Volatile private var tree: ITree, private val i
     }
 
     override fun runWrite(runnable: () -> Unit) {
-        synchronized(writeLock) {
+        runSynchronized(writeLock) {
             val prevTransaction = contextTransactions.getValue()
             check(prevTransaction !is ReadTransaction) { "Cannot run write from read" }
             val prevWrite = prevTransaction as WriteTransaction?

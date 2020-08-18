@@ -33,3 +33,7 @@ actual fun <K, V> createLRUMap(size: Int): MutableMap<K, V> {
 actual fun randomUUID(): String {
     return UUID.randomUUID().toString()
 }
+
+actual inline fun <R> runSynchronized(lock: Any, block: () -> R): R {
+    return synchronized(lock, block)
+}

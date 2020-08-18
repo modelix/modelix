@@ -41,3 +41,7 @@ external object uuid {
 actual fun randomUUID(): String {
     return uuid.v4()
 }
+
+actual inline fun <R> runSynchronized(lock: Any, block: () -> R): R {
+    return block()
+}

@@ -32,7 +32,7 @@ class VersionMerger(private val storeCache: IDeserializingKeyValueStore, private
     private val mergeLock = Any()
     fun mergeChange(lastMergedVersion: CLVersion, newVersion: CLVersion): CLVersion {
         var lastMergedVersion = lastMergedVersion
-        synchronized(mergeLock) {
+        runSynchronized(mergeLock) {
             return if (lastMergedVersion == null) {
                 lastMergedVersion = newVersion
                 newVersion

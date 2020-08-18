@@ -18,6 +18,7 @@ package org.modelix.model.client
 import org.modelix.model.IKeyListener
 import org.modelix.model.IKeyValueStore
 import org.modelix.model.persistent.HashUtil
+import org.modelix.model.runSynchronized
 
 class GarbageFilteringStore(private val store: IKeyValueStore) : IKeyValueStore {
     private val pendingEntries: MutableMap<String?, String?> = HashMap()
@@ -32,7 +33,7 @@ class GarbageFilteringStore(private val store: IKeyValueStore) : IKeyValueStore 
     override fun getAll(keys_: Iterable<String>): Map<String, String?> {
         val keys = keys_.toMutableList()
         val result: MutableMap<String, String?> = LinkedHashMap()
-        synchronized(pendingEntries) {
+        runSynchronized(pendingEntries) {
             val itr = keys.iterator()
             while (itr.hasNext()) {
                 val key = itr.next()

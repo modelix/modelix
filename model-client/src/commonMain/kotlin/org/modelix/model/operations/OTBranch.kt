@@ -16,17 +16,18 @@
 package org.modelix.model.operations
 
 import org.modelix.model.api.*
+import org.modelix.model.runSynchronized
 
 class OTBranch(private val branch: IBranch, private val idGenerator: IIdGenerator) : IBranch {
     private var operations: MutableList<IAppliedOperation> = ArrayList()
     private val operationsLock = Any()
     fun operationApplied(op: IAppliedOperation) {
-        synchronized(operationsLock) { operations.add(op) }
+        runSynchronized(operationsLock) { operations.add(op) }
     }
 
     val newOperations: List<IAppliedOperation>
         get() {
-            synchronized(operationsLock) {
+            runSynchronized(operationsLock) {
                 val result: List<IAppliedOperation> = operations
                 operations = ArrayList()
                 return result
@@ -35,7 +36,7 @@ class OTBranch(private val branch: IBranch, private val idGenerator: IIdGenerato
 
     val operationsAndTree: Pair<List<IAppliedOperation>, ITree>
         get() {
-            synchronized(operationsLock) { return Pair(newOperations, computeRead { transaction.tree }) }
+            runSynchronized(operationsLock) { return Pair(newOperations, computeRead { transaction.tree }) }
         }
 
     override fun addListener(l: IBranchListener) {

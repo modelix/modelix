@@ -9,3 +9,4 @@ expect fun logWarning(message: String, exception: Exception, contextClass: KClas
 expect fun bitCount(bits: Int): Int
 expect fun <K, V> createLRUMap(size: Int): MutableMap<K, V>
 expect fun randomUUID(): String
+expect inline fun <R> runSynchronized(lock: Any, block: () -> R): R
