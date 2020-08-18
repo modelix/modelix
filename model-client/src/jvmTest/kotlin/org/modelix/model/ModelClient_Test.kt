@@ -92,7 +92,7 @@ class ModelClient_Test {
                 Assert.assertEquals(expected[key], client[key])
             }
             println(" verified")
-            Thread.sleep(100)
+            Thread.sleep(200)
             for (l in listeners) {
                 Assert.assertEquals(expected[l.key], l.lastValue)
             }
