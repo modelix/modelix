@@ -64,18 +64,19 @@ class ModelClient_Test {
         val listeners: MutableList<Listener> = ArrayList()
         val expected: MutableMap<String, String> = HashMap()
         for (client in clients) {
-            for (i in 0..9) {
-                println("Phase A: client $client i=$i of 10")
-                Thread.sleep(1000)
+            for (i in 1..3) {
+                println("Phase A: client $client i=$i of 3")
+//                Thread.sleep(50)
                 val key = "test_$i"
                 val l = Listener(key, client)
                 client.listen(key, l)
                 listeners.add(l)
             }
         }
-        for (i in 0..99) {
-            println("Phase B: i=$i of 100")
-            Thread.sleep(200)
+        Thread.sleep(1000)
+        for (i in 1..10) {
+            println("Phase B: i=$i of 10")
+//            Thread.sleep(50)
             if (!modelServer.isUp()) {
                 throw IllegalStateException("The model-server is not up")
             }
