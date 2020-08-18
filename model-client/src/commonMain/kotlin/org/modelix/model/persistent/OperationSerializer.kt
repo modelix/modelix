@@ -51,7 +51,7 @@ class OperationSerializer private constructor() {
         }
 
         fun deserializeReference(serialized: String?): INodeReference? {
-            if (serialized == null || serialized.length == 0) {
+            if (serialized == null || serialized.isEmpty()) {
                 return null
             }
             if (serialized.matches(Regex("[a-fA-F0-9]+"))) {

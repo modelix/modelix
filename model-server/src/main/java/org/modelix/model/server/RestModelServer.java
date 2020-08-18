@@ -32,6 +32,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.io.IOUtils;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
+import org.eclipse.jetty.io.EofException;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
 import org.eclipse.jetty.servlets.EventSource;
@@ -45,6 +46,7 @@ public class RestModelServer {
     public static final Pattern HASH_PATTERN = Pattern.compile("[a-zA-Z0-9\\-_]{43}");
     public static final String PROTECTED_PREFIX = "$$$";
     private static final String REPOSITORY_ID_KEY = "repositoryId";
+    private static final String TEXT_PLAIN = "text/plain";
     private String sharedSecret;
 
     private IStoreClient storeClient;
@@ -72,11 +74,11 @@ public class RestModelServer {
                                     throws ServletException, IOException {
                                 if (isHealthy()) {
                                     resp.setStatus(HttpServletResponse.SC_OK);
-                                    resp.setContentType("text/plain");
+                                    resp.setContentType(TEXT_PLAIN);
                                     resp.getWriter().print("healthy");
                                 } else {
                                     resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-                                    resp.setContentType("text/plain");
+                                    resp.setContentType(TEXT_PLAIN);
                                     resp.getWriter().print("not healthy");
                                 }
                             }
@@ -84,8 +86,8 @@ public class RestModelServer {
                             private boolean isHealthy() {
                                 long value = toLong(storeClient.get(HEALTH_KEY)) + 1;
                                 storeClient.put(HEALTH_KEY, Long.toString(value));
-                                if (toLong(storeClient.get(HEALTH_KEY)) < value) return false;
-                                return true;
+                                boolean healthy = toLong(storeClient.get(HEALTH_KEY)) >= value;
+                                return healthy;
                             }
 
                             private long toLong(String value) {
@@ -104,13 +106,14 @@ public class RestModelServer {
 
                                 String key = req.getPathInfo().substring(1);
                                 if (key.startsWith(PROTECTED_PREFIX)) {
-                                    throw new RuntimeException("No permission to access " + key);
+                                    resp.setStatus(HttpServletResponse.SC_FORBIDDEN);
+                                    return;
                                 }
                                 String value = storeClient.get(key);
                                 if (value == null) {
                                     resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
                                 } else {
-                                    resp.setContentType("text/plain");
+                                    resp.setContentType(TEXT_PLAIN);
                                     resp.getWriter().print(value);
                                 }
                             }
@@ -129,7 +132,7 @@ public class RestModelServer {
                                 }
                                 if (email == null || email.isEmpty()) {
                                     resp.setStatus(HttpServletResponse.SC_FORBIDDEN);
-                                    resp.setContentType("text/plain");
+                                    resp.setContentType(TEXT_PLAIN);
                                     resp.getWriter().print("Not logged in.");
                                     return;
                                 }
@@ -141,7 +144,7 @@ public class RestModelServer {
                                         Long.toString(
                                                 System.currentTimeMillis()
                                                         + 7 * 24 * 60 * 60 * 1000));
-                                resp.setContentType("text/plain");
+                                resp.setContentType(TEXT_PLAIN);
                                 resp.getWriter().print(token);
                             }
                         }),
@@ -153,12 +156,18 @@ public class RestModelServer {
                             @Override
                             protected void doGet(HttpServletRequest req, HttpServletResponse resp)
                                     throws ServletException, IOException {
-                                if (!checkAuthorization(storeClient, req, resp)) return;
+                                if (!checkAuthorization(storeClient, req, resp)) {
+                                    return;
+                                }
 
                                 String token = extractToken(req);
+                                if (token == null) {
+                                    resp.setStatus(HttpServletResponse.SC_NO_CONTENT);
+                                    return;
+                                }
                                 String email =
                                         storeClient.get(PROTECTED_PREFIX + "_token_email_" + token);
-                                resp.setContentType("text/plain");
+                                resp.setContentType(TEXT_PLAIN);
                                 resp.getWriter().print(email);
                             }
                         }),
@@ -177,7 +186,7 @@ public class RestModelServer {
                                     throw new RuntimeException("No permission to access " + key);
                                 }
                                 long value = storeClient.generateId(key);
-                                resp.setContentType("text/plain");
+                                resp.setContentType(TEXT_PLAIN);
                                 resp.setCharacterEncoding(StandardCharsets.UTF_8.toString());
                                 resp.getWriter().print(Long.toString(value));
                             }
@@ -205,24 +214,46 @@ public class RestModelServer {
                             @Override
                             protected void doPut(HttpServletRequest req, HttpServletResponse resp)
                                     throws ServletException, IOException {
-                                if (!checkAuthorization(storeClient, req, resp)) return;
+                                try {
+                                    if (!checkAuthorization(storeClient, req, resp)) return;
 
-                                String key = req.getPathInfo().substring(1);
-                                if (REPOSITORY_ID_KEY.equals(key)) {
-                                    throw new RuntimeException(
-                                            "Changing '" + key + "' is not allowed");
+                                    String key = req.getPathInfo().substring(1);
+                                    if (REPOSITORY_ID_KEY.equals(key)) {
+                                        throw new RuntimeException(
+                                                "Changing '" + key + "' is not allowed");
+                                    }
+                                    if (key.startsWith(PROTECTED_PREFIX)) {
+                                        throw new RuntimeException(
+                                                "No permission to access " + key);
+                                    }
+                                    String value =
+                                            IOUtils.toString(
+                                                    req.getInputStream(), StandardCharsets.UTF_8);
+                                    try {
+                                        storeClient.put(key, value);
+                                    } catch (Throwable t) {
+                                        System.err.println("failed to write value");
+                                        t.printStackTrace();
+                                        resp.setStatus(
+                                                HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+                                        resp.setContentType(TEXT_PLAIN);
+                                        resp.setCharacterEncoding(
+                                                StandardCharsets.UTF_8.toString());
+                                        resp.getWriter()
+                                                .print(
+                                                        "Put failed on server side: "
+                                                                + t.getMessage());
+                                        return;
+                                    }
+                                    resp.setStatus(HttpServletResponse.SC_OK);
+                                    resp.setContentType(TEXT_PLAIN);
+                                    resp.setCharacterEncoding(StandardCharsets.UTF_8.toString());
+                                    resp.getWriter().print("OK");
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                    resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+                                    resp.getWriter().print(e.getMessage());
                                 }
-                                if (key.startsWith(PROTECTED_PREFIX)) {
-                                    throw new RuntimeException("No permission to access " + key);
-                                }
-                                String value =
-                                        IOUtils.toString(
-                                                req.getInputStream(), StandardCharsets.UTF_8);
-                                storeClient.put(key, value);
-                                resp.setStatus(HttpServletResponse.SC_OK);
-                                resp.setContentType("text/plain");
-                                resp.setCharacterEncoding(StandardCharsets.UTF_8.toString());
-                                resp.getWriter().print("OK");
                             }
                         }),
                 "/put/*");
@@ -239,8 +270,16 @@ public class RestModelServer {
                                         IOUtils.toString(
                                                 req.getInputStream(), StandardCharsets.UTF_8);
                                 JSONArray json = new JSONArray(jsonStr);
+                                int writtenEntries = 0;
                                 for (Object entry_ : json) {
                                     JSONObject entry = (JSONObject) entry_;
+                                    if (!entry.has("key") || !entry.has("value")) {
+                                        // We skip invalid entries instead of failing because we do
+                                        // not
+                                        // want to fail after having written some entries
+                                        LOG.warn("Skipping invalid entry: " + entry);
+                                        continue;
+                                    }
                                     String key = entry.getString("key");
                                     String value = entry.getString("value");
 
@@ -253,11 +292,12 @@ public class RestModelServer {
                                         continue;
                                     }
                                     storeClient.put(key, value);
+                                    writtenEntries++;
                                 }
                                 resp.setStatus(HttpServletResponse.SC_OK);
-                                resp.setContentType("text/plain");
+                                resp.setContentType(TEXT_PLAIN);
                                 resp.setCharacterEncoding(StandardCharsets.UTF_8.toString());
-                                resp.getWriter().print(json.length() + " entries written");
+                                resp.getWriter().print(writtenEntries + " entries written");
                             }
                         }),
                 "/putAll");
@@ -275,7 +315,7 @@ public class RestModelServer {
                                                 req.getInputStream(), StandardCharsets.UTF_8);
                                 JSONArray reqJson = new JSONArray(reqJsonStr);
                                 JSONArray respJson = new JSONArray();
-                                List<String> keys = new ArrayList<String>(reqJson.length());
+                                List<String> keys = new ArrayList<>(reqJson.length());
                                 for (Object entry_ : reqJson) {
                                     String key = (String) entry_;
 
@@ -308,7 +348,7 @@ public class RestModelServer {
                             @Override
                             protected void doGet(HttpServletRequest req, HttpServletResponse resp)
                                     throws ServletException, IOException {
-                                resp.setContentType("text/plain");
+                                resp.setContentType(TEXT_PLAIN);
                                 resp.getWriter().println("Model Server");
                             }
                         }),
@@ -324,7 +364,7 @@ public class RestModelServer {
                                 final String subscribedKey = req.getPathInfo().substring(1);
                                 if (subscribedKey.startsWith(PROTECTED_PREFIX)) {
                                     resp.setStatus(HttpServletResponse.SC_FORBIDDEN);
-                                    resp.setContentType("text/plain");
+                                    resp.setContentType(TEXT_PLAIN);
                                     resp.getWriter()
                                             .print("No permission to access " + subscribedKey);
                                 }
@@ -345,8 +385,13 @@ public class RestModelServer {
                                                     if (subscribedKey.equals(changedKey)) {
                                                         try {
                                                             emitter.data(value);
+                                                        } catch (EofException e) {
+                                                            System.err.println(
+                                                                    "The peer has probably closed the connection, therefore we are unable to notify them of changes. We will not retry");
+                                                            emitter = null;
                                                         } catch (IOException e) {
-                                                            System.out.println(e.getMessage());
+                                                            System.err.println(
+                                                                    "Exception: " + e.getMessage());
                                                             e.printStackTrace();
                                                         }
                                                     }
@@ -378,7 +423,6 @@ public class RestModelServer {
 
         while (!pending.isEmpty()) {
             List<String> keys = new ArrayList<>(pending);
-            System.out.println("query " + keys.size() + " keys");
             pending.clear();
             List<String> values = storeClient.getAll(keys);
             for (int i = 0; i < keys.size(); i++) {
@@ -413,7 +457,7 @@ public class RestModelServer {
             return true;
         } else {
             resp.setStatus(HttpServletResponse.SC_FORBIDDEN);
-            resp.setContentType("text/plain");
+            resp.setContentType(TEXT_PLAIN);
             resp.getWriter().print("Not logged in.");
             return false;
         }
@@ -423,18 +467,29 @@ public class RestModelServer {
         if (isLocalhost(req)) return true;
 
         String header = req.getHeader("Authorization");
-        if (header == null) return false;
-        if (!header.startsWith("Bearer ")) return false;
+        if (header == null) {
+            return false;
+        }
+        if (!header.startsWith("Bearer ")) {
+            return false;
+        }
         String token = extractToken(req);
-        if (token == null) return false;
+        if (token == null) {
+            return false;
+        }
 
         // Used by MPS instances running in the same kubernetes cluster
-        if (sharedSecret != null && sharedSecret.length() > 0 && token.equals(sharedSecret))
+        if (sharedSecret != null && sharedSecret.length() > 0 && token.equals(sharedSecret)) {
             return true;
+        }
 
         String expiresStr = store.get(PROTECTED_PREFIX + "_token_expires_" + token);
-        if (expiresStr == null) return false;
-        if (System.currentTimeMillis() > Long.parseLong(expiresStr)) return false;
+        if (expiresStr == null) {
+            return false;
+        }
+        if (System.currentTimeMillis() > Long.parseLong(expiresStr)) {
+            return false;
+        }
         return true;
     }
 

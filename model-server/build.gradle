@@ -4,6 +4,7 @@ plugins {
     id "com.diffplug.gradle.spotless"
     id 'maven-publish'
     id "com.jfrog.bintray"
+    id 'com.adarshr.test-logger' version '2.1.0'
 }
 
 group = 'org.modelix'
@@ -32,6 +33,38 @@ dependencies {
     compile group: 'commons-io', name: 'commons-io', version: '2.6'
     compile group: 'com.google.guava', name: 'guava', version: '28.1-jre'
     compile group: 'com.beust', name: 'jcommander', version: '1.7'
+    implementation group: 'org.apache.cxf', name: 'cxf-rt-rs-sse', version: '3.3.7'
+    implementation group: 'org.apache.cxf', name: 'cxf-rt-rs-client', version: '3.3.7'
+
+    testImplementation group: 'junit', name: 'junit', version: '4.12'
+    testImplementation group: 'io.cucumber', name: 'cucumber-java', version: '6.2.2'
+}
+
+configurations {
+    cucumberRuntime {
+        extendsFrom testImplementation
+    }
+}
+
+task fatJar(type: Jar) {
+    manifest {
+        attributes 'Main-Class': 'org.modelix.model.server.Main'
+    }
+    archiveBaseName = 'model-server-fatJar'
+    archiveVersion = 'latest'
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
+}
+
+task cucumber() {
+    dependsOn fatJar, compileTestJava
+    doLast {
+        javaexec {
+            main = "io.cucumber.core.cli.Main"
+            classpath = configurations.cucumberRuntime + sourceSets.main.output + sourceSets.test.output
+            args = ['--plugin', 'pretty', '--glue', 'org.modelix.model.server.functionaltests', 'src/test/resources/functionaltests']
+        }
+    }
 }
 
 task copyLibs(type: Copy) {

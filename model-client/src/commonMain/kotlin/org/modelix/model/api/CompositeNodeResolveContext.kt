@@ -16,15 +16,11 @@
 package org.modelix.model.api
 
 class CompositeNodeResolveContext(contexts: Iterable<INodeResolveContext>) : INodeResolveContext {
-    private val contexts: List<INodeResolveContext?>
+    private val contexts: List<INodeResolveContext> = contexts.toList()
 
-    constructor(vararg contexts: INodeResolveContext) : this(contexts.toList()) {}
+    constructor(vararg contexts: INodeResolveContext) : this(contexts.toList())
 
     override fun resolve(ref: INodeReference?): INode? {
-        return contexts.map { it?.resolve(ref) }.filterNotNull().firstOrNull()
-    }
-
-    init {
-        this.contexts = contexts.toList()
+        return contexts.mapNotNull { it.resolve(ref) }.firstOrNull()
     }
 }

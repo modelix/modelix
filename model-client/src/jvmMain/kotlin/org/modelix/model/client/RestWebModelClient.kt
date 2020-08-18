@@ -30,7 +30,6 @@ import org.modelix.model.lazy.ObjectStoreCache
 import org.modelix.model.persistent.HashUtil
 import org.modelix.model.util.StreamUtils.toStream
 import java.io.File
-import java.io.IOException
 import java.net.URLEncoder
 import java.nio.charset.StandardCharsets
 import java.util.Objects
@@ -42,7 +41,6 @@ import java.util.function.ToLongFunction
 import java.util.stream.Stream
 import javax.ws.rs.client.Client
 import javax.ws.rs.client.ClientBuilder
-import javax.ws.rs.client.ClientRequestContext
 import javax.ws.rs.client.ClientRequestFilter
 import javax.ws.rs.client.Entity
 import javax.ws.rs.core.HttpHeaders
@@ -61,7 +59,7 @@ class RestWebModelClient @JvmOverloads constructor(var baseUrl: String? = null) 
         val modelUrlFromEnv: String?
             get() {
                 var url = System.getProperty(MODEL_URI_VAR_NAME)
-                if (url == null || url.length == 0) {
+                if (url.isNullOrEmpty()) {
                     url = System.getenv(MODEL_URI_VAR_NAME)
                 }
                 return url
@@ -70,16 +68,12 @@ class RestWebModelClient @JvmOverloads constructor(var baseUrl: String? = null) 
         val defaultUrl: String
             get() {
                 val urlFromEnv = modelUrlFromEnv
-                return if ((urlFromEnv != null && urlFromEnv.length > 0)) {
-                    urlFromEnv
-                } else {
+                return if (urlFromEnv.isNullOrEmpty()) {
                     "http://modelix.q60.de:80/model/"
+                } else {
+                    urlFromEnv
                 }
             }
-
-        private fun isEmptyString(str: String?): Boolean {
-            return str == null || str.length == 0
-        }
 
         init {
             try {
@@ -106,12 +100,13 @@ class RestWebModelClient @JvmOverloads constructor(var baseUrl: String? = null) 
         }
         private set
     private val client: Client
+    private val sseClient: Client
     private val listeners: MutableList<SseListener> = ArrayList()
     override val asyncStore: IKeyValueStore = GarbageFilteringStore(AsyncStore(this))
     private val cache = ObjectStoreCache(KeyValueStoreCache(asyncStore))
 
     @get:Synchronized
-    override var idGenerator: IIdGenerator = IdGenerator(clientId)
+    override lateinit var idGenerator: IIdGenerator
         private set
     private val watchDogTask: ScheduledFuture<*>
     private var authToken = defaultToken
@@ -133,24 +128,28 @@ class RestWebModelClient @JvmOverloads constructor(var baseUrl: String? = null) 
         }
         val start = System.currentTimeMillis()
         val response = client.target(baseUrl + "get/" + URLEncoder.encode(key, StandardCharsets.UTF_8)).request().buildGet().invoke()
-        return if (response.status == Response.Status.OK.statusCode) {
-            val value = response.readEntity(String::class.java)
-            val end = System.currentTimeMillis()
-            if (isHash) {
-                if (LOG.isDebugEnabled) {
-                    LOG.debug("GET " + key + " took " + (end - start) + " ms: " + value)
+        return when (response.status) {
+            Response.Status.OK.statusCode -> {
+                val value = response.readEntity(String::class.java)
+                val end = System.currentTimeMillis()
+                if (isHash) {
+                    if (LOG.isDebugEnabled) {
+                        LOG.debug("GET " + key + " took " + (end - start) + " ms: " + value)
+                    }
                 }
+                value
             }
-            value
-        } else if (response.status == Response.Status.NOT_FOUND.statusCode) {
-            null
-        } else {
-            throw RuntimeException("Request for key '" + key + "' failed: " + response.statusInfo)
+            Response.Status.NOT_FOUND.statusCode -> {
+                null
+            }
+            else -> {
+                throw RuntimeException("Request for key '" + key + "' failed: " + response.statusInfo)
+            }
         }
     }
 
     override fun getAll(keys: Iterable<String>): Map<String, String?> {
-        if (!keys!!.iterator().hasNext()) {
+        if (!keys.iterator().hasNext()) {
             return HashMap()
         }
         val json = JSONArray()
@@ -202,18 +201,25 @@ class RestWebModelClient @JvmOverloads constructor(var baseUrl: String? = null) 
     }
 
     override fun removeListener(key: String, listener: IKeyListener) {
-        synchronized(listeners) { listeners.removeIf({ it: SseListener -> Objects.equals(it.key, key) && it.keyListener === listener }) }
+        synchronized(listeners) { listeners.removeIf { Objects.equals(it.key, key) && it.keyListener === listener } }
     }
 
     override fun put(key: String, value: String?) {
-        if (!key!!.matches(Regex("[a-zA-Z0-9-_]{43}"))) {
+        if (!key.matches(Regex("[a-zA-Z0-9-_]{43}"))) {
             if (LOG.isDebugEnabled) {
                 LOG.debug("PUT $key = $value")
             }
         }
-        val response = client.target(baseUrl + "put/" + URLEncoder.encode(key, StandardCharsets.UTF_8)).request(MediaType.TEXT_PLAIN).put(Entity.text(value))
-        if (response.statusInfo.family != Response.Status.Family.SUCCESSFUL) {
-            throw RuntimeException("Failed to store entry (" + response.statusInfo + ") " + key + " = " + value)
+        val url = baseUrl + "put/" + URLEncoder.encode(key, StandardCharsets.UTF_8)
+        println("put with url $url")
+        try {
+            val response = client.target(url).request(MediaType.TEXT_PLAIN).put(Entity.text(value))
+            println("put with url $url got response $response")
+            if (response.statusInfo.family != Response.Status.Family.SUCCESSFUL) {
+                throw RuntimeException("Failed to store entry (${response.statusInfo} ${response.status}) $key = $value. URL: $url")
+            }
+        } catch (e: Exception) {
+            throw RuntimeException("Failed executing a put to $url", e)
         }
     }
 
@@ -227,7 +233,7 @@ class RestWebModelClient @JvmOverloads constructor(var baseUrl: String? = null) 
                 throw RuntimeException(
                     String.format(
                         "Failed to store %d entries (%s) %s",
-                        entries!!.size,
+                        entries.size,
                         response.statusInfo,
                         entries.entries.stream().map { e: Map.Entry<String?, String?> -> e.key.toString() + " = " + e.value + ", ..." }.findFirst().orElse("")
                     )
@@ -235,15 +241,15 @@ class RestWebModelClient @JvmOverloads constructor(var baseUrl: String? = null) 
             }
         }
         if (LOG.isDebugEnabled) {
-            LOG.debug("PUT " + entries!!.size + " entries")
+            LOG.debug("PUT " + entries.size + " entries")
         }
         var json = JSONArray()
         var approxSize = 0
-        for ((key, value) in entries!!) {
+        for ((key, value) in entries) {
             val jsonEntry = JSONObject()
             jsonEntry.put("key", key)
             jsonEntry.put("value", value)
-            approxSize += key!!.length
+            approxSize += key.length
             approxSize += value!!.length
             json.put(jsonEntry)
             if (!key.matches(Regex("[a-zA-Z0-9-_]{43}"))) {
@@ -320,10 +326,10 @@ class RestWebModelClient @JvmOverloads constructor(var baseUrl: String? = null) 
                 if (LOG.isTraceEnabled) {
                     LOG.trace("Connecting to $url")
                 }
-                val target = client.target(url)
+                val target = sseClient.target(url)
                 sse[i] = Sse(SseEventSource.target(target).reconnectingEvery(1, TimeUnit.SECONDS).build())
                 sse[i]!!.sse.register(
-                    Consumer { event ->
+                    { event ->
                         val value = event.readData()
                         synchronized(notificationLock) {
                             if (!((value == lastValue))) {
@@ -332,11 +338,9 @@ class RestWebModelClient @JvmOverloads constructor(var baseUrl: String? = null) 
                             }
                         }
                     },
-                    object : Consumer<Throwable?> {
-                        override fun accept(ex: Throwable?) {
-                            if (LOG.isEnabledFor(Level.ERROR)) {
-                                LOG.error("", ex)
-                            }
+                    { ex ->
+                        if (LOG.isEnabledFor(Level.ERROR)) {
+                            LOG.error("", ex)
                         }
                     }
                 )
@@ -359,31 +363,33 @@ class RestWebModelClient @JvmOverloads constructor(var baseUrl: String? = null) 
     }
 
     init {
-        if (isEmptyString(baseUrl)) {
+        if (baseUrl.isNullOrEmpty()) {
             baseUrl = defaultUrl
         }
         if (!(baseUrl!!.endsWith("/"))) {
             baseUrl += "/"
         }
-        client = ClientBuilder.newBuilder().register(object : ClientRequestFilter {
-            @Throws(IOException::class)
-            override fun filter(ctx: ClientRequestContext) {
-                ctx.headers.add(HttpHeaders.AUTHORIZATION, "Bearer $authToken")
-            }
-        }).build()
+        // a read timeout could be an issue for the usage of SSE but a connect timeout
+        // is useful to recognize when the server is down
+        client = ClientBuilder.newBuilder()
+            .connectTimeout(1000, TimeUnit.MILLISECONDS)
+            // .readTimeout(1000, TimeUnit.MILLISECONDS)
+            .register(ClientRequestFilter { ctx -> ctx.headers.add(HttpHeaders.AUTHORIZATION, "Bearer $authToken") }).build()
+        sseClient = ClientBuilder.newBuilder()
+            // .connectTimeout(1000, TimeUnit.MILLISECONDS)
+            .register(ClientRequestFilter { ctx -> ctx.headers.add(HttpHeaders.AUTHORIZATION, "Bearer $authToken") }).build()
+        idGenerator = IdGenerator(clientId)
         watchDogTask = fixDelay(
             1000,
-            object : Runnable {
-                override fun run() {
-                    var ls: List<SseListener>
-                    synchronized(listeners) { ls = ArrayList(listeners) }
-                    for (l: SseListener in ls) {
-                        try {
-                            l.ensureConnected()
-                        } catch (ex: Exception) {
-                            if (LOG.isEnabledFor(Level.ERROR)) {
-                                LOG.error("", ex)
-                            }
+            Runnable {
+                var ls: List<SseListener>
+                synchronized(listeners) { ls = ArrayList(listeners) }
+                for (l: SseListener in ls) {
+                    try {
+                        l.ensureConnected()
+                    } catch (ex: Exception) {
+                        if (LOG.isEnabledFor(Level.ERROR)) {
+                            LOG.error("", ex)
                         }
                     }
                 }

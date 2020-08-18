@@ -43,8 +43,8 @@ class GarbageFilteringStore(private val store: IKeyValueStore) : IKeyValueStore 
                 }
             }
         }
-        if (!keys.isEmpty()) {
-            result.putAll(store.getAll(keys)!!)
+        if (keys.isNotEmpty()) {
+            result.putAll(store.getAll(keys))
         }
         return result
     }
@@ -58,7 +58,7 @@ class GarbageFilteringStore(private val store: IKeyValueStore) : IKeyValueStore 
                 collectDependencies(key, value, entriesToWrite)
             }
         }
-        if (!entriesToWrite.isEmpty()) {
+        if (entriesToWrite.isNotEmpty()) {
             val entry: MutableMap.MutableEntry<String, String?>? = entriesToWrite.entries.firstOrNull()
             if (entry != null) {
                 store.put(entry.key, entry.value)

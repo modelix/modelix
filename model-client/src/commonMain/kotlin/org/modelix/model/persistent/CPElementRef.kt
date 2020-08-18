@@ -49,9 +49,7 @@ internal constructor() {
                 return false
             }
             val that = o as LocalRef
-            return if (id != that.id) {
-                false
-            } else true
+            return id == that.id
         }
 
         override fun hashCode(): Int {
@@ -85,9 +83,7 @@ internal constructor() {
             if (elementId != that.elementId) {
                 return false
             }
-            return if (if (treeId != null) treeId as Any != that.treeId else that.treeId != null) {
-                false
-            } else true
+            return !if (treeId != null) treeId as Any != that.treeId else that.treeId != null
         }
 
         override fun hashCode(): Int {
@@ -107,7 +103,7 @@ internal constructor() {
         val serializedRef: String?
 
         override fun toString(): String {
-            return "M" + serializedRef
+            return "M$serializedRef"
         }
 
         override val isGlobal: Boolean
@@ -134,14 +130,12 @@ internal constructor() {
                 return false
             }
             val that = o as MpsRef
-            return if (if (serializedRef != null) serializedRef as Any != that.serializedRef else that.serializedRef != null) {
-                false
-            } else true
+            return !if (serializedRef != null) serializedRef as Any != that.serializedRef else that.serializedRef != null
         }
 
         override fun hashCode(): Int {
             var result = 0
-            result = 31 * result + if (serializedRef != null) serializedRef.toString().hashCode() else 0
+            result = 31 * result + (serializedRef?.hashCode() ?: 0)
             return result
         }
 
@@ -164,13 +158,17 @@ internal constructor() {
         }
 
         fun fromString(str: String): CPElementRef {
-            return if (str[0] == 'G') {
-                val i = str.lastIndexOf("#")
-                global(str.substring(1, i), str.substring(i + 1).toLong())
-            } else if (str[0] == 'M') {
-                mps(str.substring(1))
-            } else {
-                local(str.toLong())
+            return when {
+                str[0] == 'G' -> {
+                    val i = str.lastIndexOf("#")
+                    global(str.substring(1, i), str.substring(i + 1).toLong())
+                }
+                str[0] == 'M' -> {
+                    mps(str.substring(1))
+                }
+                else -> {
+                    local(str.toLong())
+                }
             }
         }
     }

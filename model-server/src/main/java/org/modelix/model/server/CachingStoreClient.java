@@ -26,7 +26,7 @@ public class CachingStoreClient implements IStoreClient {
     private static final String NULL_STRING = UUID.randomUUID().toString();
 
     private IStoreClient store;
-    private Map<String, String> cache = new LRUMap<String, String>(1000);
+    private Map<String, String> cache = new LRUMap<>(1000);
 
     public CachingStoreClient(IStoreClient store) {
         this.store = store;

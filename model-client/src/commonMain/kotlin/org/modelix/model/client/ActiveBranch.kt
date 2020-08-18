@@ -104,7 +104,7 @@ open class ActiveBranch(client: IModelClient, tree: TreeId, branchName: String?,
 
     init {
         var branchName = branchName
-        if (branchName == null || branchName!!.length == 0) {
+        if (branchName == null || branchName!!.isEmpty()) {
             branchName = DEFAULT_BRANCH_NAME
         }
         this.client = client
