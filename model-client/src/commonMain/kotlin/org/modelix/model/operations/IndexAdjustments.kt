@@ -39,6 +39,8 @@ class IndexAdjustments {
         return getAdjustedPosition(lastKnownPosition)
     }
 
+    fun isDeleted(nodeId: Long) = knownPositions[nodeId]?.deleted == true
+
     fun addAdjustment(newAdjustment: Adjustment) {
         for (i in adjustments.indices) {
             adjustments[i] = adjustments[i].adjustSelf(newAdjustment)
