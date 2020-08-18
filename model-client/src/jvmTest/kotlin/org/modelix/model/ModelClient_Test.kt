@@ -76,7 +76,6 @@ class ModelClient_Test {
         Thread.sleep(1000)
         for (i in 1..10) {
             println("Phase B: i=$i of 10")
-//            Thread.sleep(50)
             if (!modelServer.isUp()) {
                 throw IllegalStateException("The model-server is not up")
             }
@@ -92,7 +91,13 @@ class ModelClient_Test {
                 Assert.assertEquals(expected[key], client[key])
             }
             println(" verified")
-            Thread.sleep(200)
+            for (timeout in 0..1000) {
+                if (listeners.all { expected[it.key] == it.lastValue }) {
+                    println("All changes received after $timeout ms")
+                    break
+                }
+                Thread.sleep(1)
+            }
             for (l in listeners) {
                 Assert.assertEquals(expected[l.key], l.lastValue)
             }
