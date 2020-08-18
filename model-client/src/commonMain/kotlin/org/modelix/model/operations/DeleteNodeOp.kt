@@ -38,7 +38,7 @@ class DeleteNodeOp(val position: PositionInRole, val childId: Long) : AbstractOp
         return Applied(concept)
     }
 
-    override fun transform(previous: IOperation, indexAdjustments: IndexAdjustments): IOperation {
+    override fun transform(previous: IOperation, indexAdjustments: IndexAdjustments): List<IOperation> {
         val adjusted = {
             val a = withAdjustedPosition(indexAdjustments)
             indexAdjustments.nodeRemoved(a, false, a.position, childId)
@@ -48,21 +48,30 @@ class DeleteNodeOp(val position: PositionInRole, val childId: Long) : AbstractOp
             is DeleteNodeOp -> {
                 if (previous.childId == childId) {
                     indexAdjustments.removeAdjustment(previous)
-                    NoOp()
-//                } else if (previous.childId == position.nodeId) {
-//                    DeleteNodeOp(PositionInRole(ITree.ROOT_ID, ITree.DETACHED_NODES_ROLE, 0), this.childId)
-                } else adjusted()
+                    listOf(NoOp())
+                } else listOf(adjusted())
             }
-            is AddNewChildOp -> adjusted()
+            is AddNewChildOp -> {
+                if (previous.position.nodeId == childId) {
+                    val moveOp = MoveNodeOp(
+                        previous.childId,
+                        indexAdjustments.getAdjustedPosition(previous.childId, previous.position),
+                        PositionInRole(DETACHED_ROLE, 0)
+                    )
+                    indexAdjustments.nodeMoved(moveOp, true, moveOp.sourcePosition, moveOp.targetPosition)
+                    listOf(moveOp, adjusted())
+                } else {
+                    listOf(adjusted())
+                }
+            }
             is MoveNodeOp -> {
                 if (previous.childId == childId) {
-//                    previous.undoAdjustment(indexAdjustments)
-                    DeleteNodeOp(previous.targetPosition, childId)
-                } else adjusted()
+                    listOf(DeleteNodeOp(previous.targetPosition, childId))
+                } else listOf(adjusted())
             }
-            is SetPropertyOp -> adjusted()
-            is SetReferenceOp -> adjusted()
-            is NoOp -> adjusted()
+            is SetPropertyOp -> listOf(adjusted())
+            is SetReferenceOp -> listOf(adjusted())
+            is NoOp -> listOf(adjusted())
             else -> throw RuntimeException("Unknown type: " + previous::class.simpleName)
         }
     }

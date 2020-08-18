@@ -99,7 +99,9 @@ class VersionMerger(private val storeCache: IDeserializingKeyValueStore, private
                 for (concurrentAppliedOp in concurrentAppliedOps) {
                     val indexAdjustments = IndexAdjustments()
                     concurrentAppliedOp.loadAdjustment(indexAdjustments)
-                    operationsToApply = operationsToApply.map { transformOperation(it, concurrentAppliedOp, indexAdjustments) }.toList()
+                    operationsToApply = operationsToApply
+                        .flatMap { transformOperation(it, concurrentAppliedOp, indexAdjustments) }
+                        .toList()
                 }
                 appliedOpsForVersion[versionToApply.id] = operationsToApply.map {
                     try {
@@ -125,9 +127,13 @@ class VersionMerger(private val storeCache: IDeserializingKeyValueStore, private
         return mergedVersion!!
     }
 
-    protected fun transformOperation(opToTransform: IOperation, previousOp: IOperation, indexAdjustments: IndexAdjustments): IOperation {
+    protected fun transformOperation(
+        opToTransform: IOperation,
+        previousOp: IOperation,
+        indexAdjustments: IndexAdjustments
+    ): List<IOperation> {
         val transformed = opToTransform.transform(previousOp, indexAdjustments)
-        if (opToTransform.toString() != transformed.toString()) {
+        if (transformed.size != 1 || opToTransform.toString() != transformed[0].toString()) {
             logDebug({ "transformed: $opToTransform --> $transformed ## $previousOp" }, VersionMerger::class)
         }
         return transformed

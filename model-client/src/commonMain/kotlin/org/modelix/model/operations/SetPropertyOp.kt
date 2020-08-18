@@ -25,20 +25,20 @@ class SetPropertyOp(val nodeId: Long, val role: String, val value: String?) : Ab
         return Applied(oldValue)
     }
 
-    override fun transform(previous: IOperation, indexAdjustments: IndexAdjustments): IOperation {
+    override fun transform(previous: IOperation, indexAdjustments: IndexAdjustments): List<IOperation> {
         return when (previous) {
-            is SetPropertyOp -> this
-            is SetReferenceOp -> this
-            is AddNewChildOp -> this
+            is SetPropertyOp -> listOf(this)
+            is SetReferenceOp -> listOf(this)
+            is AddNewChildOp -> listOf(this)
             is DeleteNodeOp -> {
                 if (nodeId == previous.childId) {
-                    NoOp()
+                    listOf(NoOp())
                 } else {
-                    this
+                    listOf(this)
                 }
             }
-            is MoveNodeOp -> this
-            is NoOp -> this
+            is MoveNodeOp -> listOf(this)
+            is NoOp -> listOf(this)
             else -> throw RuntimeException("Unknown type: " + previous::class.simpleName)
         }
     }

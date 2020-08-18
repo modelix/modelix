@@ -30,7 +30,7 @@ class AddNewChildOp(val position: PositionInRole, val childId: Long, val concept
         return Applied()
     }
 
-    override fun transform(previous: IOperation, indexAdjustments: IndexAdjustments): IOperation {
+    override fun transform(previous: IOperation, indexAdjustments: IndexAdjustments): List<IOperation> {
         val adjusted = {
             val a = withAdjustedPosition(indexAdjustments)
             indexAdjustments.nodeAdded(a, false, position, childId)
@@ -38,20 +38,20 @@ class AddNewChildOp(val position: PositionInRole, val childId: Long, val concept
             a
         }
         return when (previous) {
-            is AddNewChildOp -> adjusted()
+            is AddNewChildOp -> listOf(adjusted())
             is DeleteNodeOp -> {
                 if (previous.childId == position.nodeId) {
                     val redirected = AddNewChildOp(PositionInRole(DETACHED_ROLE, 0), this.childId, this.concept)
                     indexAdjustments.redirectedAdd(this, position, redirected.position, childId)
-                    redirected
+                    listOf(redirected)
                 } else {
-                    adjusted()
+                    listOf(adjusted())
                 }
             }
-            is MoveNodeOp -> adjusted()
-            is SetPropertyOp -> adjusted()
-            is SetReferenceOp -> adjusted()
-            is NoOp -> adjusted()
+            is MoveNodeOp -> listOf(adjusted())
+            is SetPropertyOp -> listOf(adjusted())
+            is SetReferenceOp -> listOf(adjusted())
+            is NoOp -> listOf(adjusted())
             else -> throw RuntimeException("Unknown type: " + previous::class.simpleName)
         }
     }

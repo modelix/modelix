@@ -22,8 +22,8 @@ class NoOp : AbstractOperation(), IAppliedOperation {
         return this
     }
 
-    override fun transform(previous: IOperation, indexAdjustments: IndexAdjustments): IOperation {
-        return this
+    override fun transform(previous: IOperation, indexAdjustments: IndexAdjustments): List<IOperation> {
+        return listOf(this)
     }
 
     override val originalOp: IOperation
