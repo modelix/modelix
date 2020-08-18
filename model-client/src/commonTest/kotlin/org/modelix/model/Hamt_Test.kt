@@ -32,7 +32,7 @@ class Hamt_Test {
         val store = MapBaseStore()
         val storeCache = ObjectStoreCache(store)
         var hamt: CLHamtNode<*>? = CLHamtInternal(storeCache)
-        for (i in 0..9999) {
+        for (i in 0..999) {
             if (expectedMap.isEmpty() || rand.nextBoolean()) {
                 // add entry 
                 val key = rand.nextInt(1000).toLong()
