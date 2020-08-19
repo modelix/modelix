@@ -18,15 +18,12 @@ package org.modelix.model
 import org.modelix.model.api.IBranch
 import org.modelix.model.api.ITree
 import org.modelix.model.api.PBranch
-import org.modelix.model.api.PNodeReference
 import org.modelix.model.client.IdGenerator
 import org.modelix.model.lazy.CLTree
 import org.modelix.model.lazy.ObjectStoreCache
 import org.modelix.model.persistent.MapBaseStore
 import kotlin.random.Random
 import kotlin.test.BeforeTest
-import kotlin.test.assertEquals
-import kotlin.test.assertFalse
 
 open class TreeTestBase {
     protected val DEBUG = false

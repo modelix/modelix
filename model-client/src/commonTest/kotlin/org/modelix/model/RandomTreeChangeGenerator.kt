@@ -102,5 +102,4 @@ class RandomTreeChangeGenerator(private val idGenerator: IdGenerator, private va
             operations[rand.nextInt(operations.size)](t, expectedTree)
         }
     }
-
 }
