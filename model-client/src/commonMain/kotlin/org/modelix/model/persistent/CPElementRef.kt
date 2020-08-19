@@ -24,7 +24,7 @@ internal constructor() {
 
     private class LocalRef(private val id: Long) : CPElementRef() {
         override fun toString(): String {
-            return "" + id
+            return "" + id.toString(16)
         }
 
         override val isGlobal: Boolean
@@ -167,7 +167,7 @@ internal constructor() {
                     mps(str.substring(1))
                 }
                 else -> {
-                    local(str.toLong())
+                    local(str.toLong(16))
                 }
             }
         }
