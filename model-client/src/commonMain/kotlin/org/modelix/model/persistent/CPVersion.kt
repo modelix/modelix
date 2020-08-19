@@ -17,8 +17,6 @@ package org.modelix.model.persistent
 
 import org.modelix.model.logWarning
 import org.modelix.model.operations.IOperation
-import org.modelix.model.persistent.HashUtil.isSha256
-import org.modelix.model.persistent.HashUtil.sha256
 import org.modelix.model.persistent.SerializationUtil.escape
 import org.modelix.model.persistent.SerializationUtil.longFromHex
 import org.modelix.model.persistent.SerializationUtil.longToHex
@@ -55,7 +53,7 @@ class CPVersion(id: Long, time: String?, author: String?, treeHash: String?, pre
     }
 
     val hash: String
-        get() = sha256(serialize())
+        get() = HashUtil.sha256(serialize())
 
     companion object {
         fun deserialize(input: String): CPVersion {
@@ -63,7 +61,7 @@ class CPVersion(id: Long, time: String?, author: String?, treeHash: String?, pre
                 val parts = input.split("/").dropLastWhile { it.isEmpty() }.toTypedArray()
                 var opsHash: String? = null
                 var ops: Array<IOperation>? = null
-                if (isSha256(parts[5])) {
+                if (HashUtil.isSha256(parts[5])) {
                     opsHash = parts[5]
                 } else {
                     ops = parts[5].split(",")

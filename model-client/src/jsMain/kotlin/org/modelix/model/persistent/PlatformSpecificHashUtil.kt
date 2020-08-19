@@ -1,6 +1,6 @@
 package org.modelix.model.persistent
 
-import kotlin.browser.window
+import kotlinx.browser.window
 
 @JsNonModule
 @JsModule("js-sha256")
@@ -25,7 +25,7 @@ external object Base64 {
     fun fromUint8Array(input: ByteArray, uriSafe: Boolean): String
 }
 
-actual object HashUtil {
+actual object PlatformSpecificHashUtil {
     actual fun sha256(input: ByteArray?): String {
         val sha256Bytes = sha256asByteArray(input)
         return base64encode(sha256Bytes)
@@ -33,14 +33,6 @@ actual object HashUtil {
 
     actual fun sha256(input: String): String {
         return wrapperSha256(input)
-    }
-
-    actual fun isSha256(value: String?): Boolean {
-        TODO("Not yet implemented")
-    }
-
-    actual fun extractSha256(input: String?): Iterable<String> {
-        TODO("Not yet implemented")
     }
 
     actual fun base64encode(input: String): String {
@@ -62,9 +54,8 @@ actual object HashUtil {
     actual fun base64encode(input: ByteArray): String {
         return Base64.fromUint8Array(input, true)
     }
-}
 
-@ExperimentalStdlibApi
-actual fun stringToUTF8ByteArray(input: String): ByteArray {
-    return input.encodeToByteArray()
+    actual fun stringToUTF8ByteArray(input: String): ByteArray {
+        return input.encodeToByteArray(throwOnInvalidSequence = true)
+    }
 }

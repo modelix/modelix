@@ -15,15 +15,29 @@
 
 package org.modelix.model.persistent
 
-expect object HashUtil {
-    fun sha256asByteArray(input: ByteArray?): ByteArray
-    fun sha256(input: ByteArray?): String
-    fun sha256(input: String): String
-    fun isSha256(value: String?): Boolean
-    fun extractSha256(input: String?): Iterable<String>
-    fun base64encode(input: String): String
-    fun base64encode(input: ByteArray): String
-    fun base64decode(input: String): String
-}
+object HashUtil {
+    val HASH_PATTERN = Regex("""[a-zA-Z0-9\-_]{43}""")
 
-expect fun stringToUTF8ByteArray(input: String): ByteArray
+    fun sha256asByteArray(input: ByteArray?): ByteArray = PlatformSpecificHashUtil.sha256asByteArray(input)
+    fun sha256(input: ByteArray?): String = PlatformSpecificHashUtil.sha256(input)
+    fun sha256(input: String): String = PlatformSpecificHashUtil.sha256(input)
+
+    fun isSha256(value: String?): Boolean {
+        if (value == null) {
+            return false
+        }
+        return if (value.length != 43) {
+            false
+        } else value.matches(HASH_PATTERN)
+    }
+
+    fun extractSha256(input: String?): Iterable<String> {
+        if (input == null) return emptyList()
+        return HASH_PATTERN.findAll(input).map { it.groupValues.first() }.asIterable()
+    }
+
+    fun base64encode(input: String): String = PlatformSpecificHashUtil.base64encode(input)
+    fun base64encode(input: ByteArray): String = PlatformSpecificHashUtil.base64encode(input)
+    fun base64decode(input: String): String = PlatformSpecificHashUtil.base64decode(input)
+    fun stringToUTF8ByteArray(input: String): ByteArray = PlatformSpecificHashUtil.stringToUTF8ByteArray(input)
+}
