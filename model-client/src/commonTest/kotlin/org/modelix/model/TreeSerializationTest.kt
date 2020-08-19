@@ -74,8 +74,6 @@ class TreeSerializationTest {
 
     @Test
     fun backwardsCompatability() {
-        // Ensures backwards compatibility.
-
         val mapStore = MapBaseStore()
         mapStore.putAll(
             mapOf(
