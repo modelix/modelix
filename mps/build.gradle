@@ -108,4 +108,22 @@ task runMpsTests(type: TestLanguages, dependsOn: buildMpsModules) {
     script new File("$rootDir/build/test.org.modelix/build-tests.xml")
 }
 
-test.dependsOn(runMpsTests)
+task checkMpsTestOutput(dependsOn: runMpsTests) {
+    ext.testResultFile = file("$rootDir/build/test.org.modelix/TEST-jetbrains.mps.testbench.junit.suites.AntModuleTestSuite0-all.xml")
+    inputs.file testResultFile
+    doLast {
+        def testResult = new XmlParser().parse(testResultFile)
+        def failingTests = testResult.attribute("failures")
+        def totalTests = testResult.attribute("tests")
+        if (failingTests != "0") {
+            def failures = testResult.testcase.failure
+            for (failure in failures) {
+                println("Failed test: " + failure.parent().@classname + " " + failure.parent().@name)
+                println(failure.text())
+            }
+            throw new RuntimeException(failingTests + " of " + totalTests + " MPS tests are failing")
+        }
+    }
+}
+
+test.dependsOn(checkMpsTestOutput)
