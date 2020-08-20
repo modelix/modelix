@@ -2,7 +2,7 @@
 <model ref="r:50eb7766-91e1-4a37-b475-1b30e8bebcac(org.modelix.notation.impl.baseLanguage.web)">
   <persistence version="9" />
   <languages>
-    <use id="375af171-bd4b-4bfb-bc9f-418fb996740b" name="de.q60.mps.web.aspect" version="0" />
+    <use id="375af171-bd4b-4bfb-bc9f-418fb996740b" name="org.modelix.aspect" version="0" />
     <use id="7866978e-a0f0-4cc7-81bc-4d213d9375e1" name="jetbrains.mps.lang.smodel" version="17" />
     <use id="94b64715-a263-4c36-a138-8da14705ffa7" name="de.q60.mps.shadowmodels.transformation" version="1" />
     <devkit ref="df4512e0-2de7-456b-8e87-16e2011a3e91(org.modelix.aspect.devkit)" />
@@ -23,20 +23,20 @@
         <property id="1070475926801" name="value" index="Xl_RC" />
       </concept>
     </language>
-    <language id="375af171-bd4b-4bfb-bc9f-418fb996740b" name="de.q60.mps.web.aspect">
-      <concept id="4572148810971832979" name="de.q60.mps.web.aspect.structure.HttpPageParameterRef" flags="ng" index="2PgeId">
+    <language id="375af171-bd4b-4bfb-bc9f-418fb996740b" name="org.modelix.aspect">
+      <concept id="4572148810971832979" name="org.modelix.aspect.structure.HttpPageParameterRef" flags="ng" index="2PgeId">
         <reference id="4572148810971833022" name="decl" index="2PgeIw" />
       </concept>
-      <concept id="4572148810970664170" name="de.q60.mps.web.aspect.structure.HttpPage" flags="ng" index="2PkwnO">
+      <concept id="4572148810970664170" name="org.modelix.aspect.structure.HttpPage" flags="ng" index="2PkwnO">
         <property id="4572148810970664186" name="path" index="2Pkwn$" />
         <child id="4572148810971602676" name="transformation" index="2Pn5vE" />
         <child id="4572148810971564238" name="parameters" index="2Pnc7g" />
         <child id="7833706949021263648" name="title" index="1engRn" />
       </concept>
-      <concept id="4572148810970665056" name="de.q60.mps.web.aspect.structure.HttpPageParameter" flags="ng" index="2Pkx_Y">
+      <concept id="4572148810970665056" name="org.modelix.aspect.structure.HttpPageParameter" flags="ng" index="2Pkx_Y">
         <child id="4572148810971751121" name="type" index="2PgqJf" />
       </concept>
-      <concept id="4572148810970665104" name="de.q60.mps.web.aspect.structure.NodeHttpPageParameterType" flags="ng" index="2PkxAe">
+      <concept id="4572148810970665104" name="org.modelix.aspect.structure.NodeHttpPageParameterType" flags="ng" index="2PkxAe">
         <reference id="4572148810970665120" name="concept" index="2PkxAY" />
       </concept>
     </language>
@@ -72,59 +72,59 @@
       <concept id="9170566427534812277" name="de.q60.mps.shadowmodels.transformation.structure.ContextNodeExpression" flags="ng" index="214o7A" />
       <concept id="5373338300159315830" name="de.q60.mps.shadowmodels.transformation.structure.EmptyLine" flags="ng" index="2OrE70" />
     </language>
-    <language id="25fcb6ab-d05a-4950-8cdf-251526bdf513" name="de.q60.mps.web.notation">
-      <concept id="3089108827998240126" name="de.q60.mps.web.notation.structure.HorizontalGridLayout" flags="ng" index="2nxgly" />
-      <concept id="3089108827998240127" name="de.q60.mps.web.notation.structure.VerticalGridLayout" flags="ng" index="2nxglz" />
-      <concept id="8425748515790368261" name="de.q60.mps.web.notation.structure.ConceptAliasCell" flags="ng" index="16AYIB" />
-      <concept id="8425748515790217698" name="de.q60.mps.web.notation.structure.ExpressionCell" flags="ng" index="16Bih0">
+    <language id="25fcb6ab-d05a-4950-8cdf-251526bdf513" name="org.modelix.notation">
+      <concept id="3089108827998240126" name="org.modelix.notation.structure.HorizontalGridLayout" flags="ng" index="2nxgly" />
+      <concept id="3089108827998240127" name="org.modelix.notation.structure.VerticalGridLayout" flags="ng" index="2nxglz" />
+      <concept id="8425748515790368261" name="org.modelix.notation.structure.ConceptAliasCell" flags="ng" index="16AYIB" />
+      <concept id="8425748515790217698" name="org.modelix.notation.structure.ExpressionCell" flags="ng" index="16Bih0">
         <child id="8425748515790217839" name="expression" index="16Bivd" />
       </concept>
-      <concept id="8425748515790248902" name="de.q60.mps.web.notation.structure.NotationNodeExpression" flags="ng" index="16BpT$" />
-      <concept id="7759120791677799784" name="de.q60.mps.web.notation.structure.NotationModule" flags="ng" index="1QS68C">
+      <concept id="8425748515790248902" name="org.modelix.notation.structure.NotationNodeExpression" flags="ng" index="16BpT$" />
+      <concept id="7759120791677799784" name="org.modelix.notation.structure.NotationModule" flags="ng" index="1QS68C">
         <child id="7759120791677832464" name="content" index="1QSY9g" />
       </concept>
-      <concept id="7759120791677799808" name="de.q60.mps.web.notation.structure.EmptyLine" flags="ng" index="1QS6b0" />
-      <concept id="7759120791677775105" name="de.q60.mps.web.notation.structure.FlagCell" flags="ng" index="1QSc91">
+      <concept id="7759120791677799808" name="org.modelix.notation.structure.EmptyLine" flags="ng" index="1QS6b0" />
+      <concept id="7759120791677775105" name="org.modelix.notation.structure.FlagCell" flags="ng" index="1QSc91">
         <property id="7759120791677785636" name="text" index="1QSb_$" />
         <property id="7759120791677785638" name="inverted" index="1QSb_A" />
         <reference id="7759120791677775133" name="property" index="1QSc9t" />
       </concept>
-      <concept id="7759120791677775117" name="de.q60.mps.web.notation.structure.OptionalCell" flags="ng" index="1QSc9d">
+      <concept id="7759120791677775117" name="org.modelix.notation.structure.OptionalCell" flags="ng" index="1QSc9d">
         <child id="7759120791677775131" name="cell" index="1QSc9r" />
       </concept>
-      <concept id="7759120791677775083" name="de.q60.mps.web.notation.structure.StaticCollectionCell" flags="ng" index="1QSceF">
+      <concept id="7759120791677775083" name="org.modelix.notation.structure.StaticCollectionCell" flags="ng" index="1QSceF">
         <child id="7759120791677775095" name="cells" index="1QSceR" />
         <child id="578981756153092168" name="layout" index="3UTMMu" />
       </concept>
-      <concept id="7759120791677764312" name="de.q60.mps.web.notation.structure.PropertyCell" flags="ng" index="1QSeQo">
+      <concept id="7759120791677764312" name="org.modelix.notation.structure.PropertyCell" flags="ng" index="1QSeQo">
         <reference id="7759120791677775099" name="property" index="1QSceV" />
       </concept>
-      <concept id="7759120791677764324" name="de.q60.mps.web.notation.structure.ChildrenCollectionCell" flags="ng" index="1QSeQ$">
+      <concept id="7759120791677764324" name="org.modelix.notation.structure.ChildrenCollectionCell" flags="ng" index="1QSeQ$">
         <property id="8425748515795182389" name="separator" index="16kmqn" />
         <reference id="7759120791678682074" name="link" index="1QXIMq" />
         <reference id="259520349320850712" name="subconceptToInsert" index="3UQMPT" />
         <child id="578981756153245612" name="layout" index="3UYHHU" />
       </concept>
-      <concept id="7759120791677764348" name="de.q60.mps.web.notation.structure.ConceptNotation" flags="ng" index="1QSeQW">
+      <concept id="7759120791677764348" name="org.modelix.notation.structure.ConceptNotation" flags="ng" index="1QSeQW">
         <reference id="7759120791677764360" name="concept" index="1QSeL8" />
         <child id="8781543137580343122" name="condition" index="26S96A" />
         <child id="7759120791677775080" name="cell" index="1QSceC" />
       </concept>
-      <concept id="7759120791677860361" name="de.q60.mps.web.notation.structure.ConstantCell" flags="ng" index="1QSTl9">
+      <concept id="7759120791677860361" name="org.modelix.notation.structure.ConstantCell" flags="ng" index="1QSTl9">
         <property id="7759120791677860373" name="text" index="1QSTll" />
       </concept>
-      <concept id="7759120791678765721" name="de.q60.mps.web.notation.structure.ReferenceCell" flags="ng" index="1QWqnp">
+      <concept id="7759120791678765721" name="org.modelix.notation.structure.ReferenceCell" flags="ng" index="1QWqnp">
         <reference id="7759120791678765733" name="link" index="1QWqn_" />
       </concept>
-      <concept id="7759120791678681996" name="de.q60.mps.web.notation.structure.SingleChildCell" flags="ng" index="1QXINc">
+      <concept id="7759120791678681996" name="org.modelix.notation.structure.SingleChildCell" flags="ng" index="1QXINc">
         <reference id="7759120791678682008" name="link" index="1QXINo" />
       </concept>
-      <concept id="578981756153092156" name="de.q60.mps.web.notation.structure.VerticalLayout" flags="ng" index="3UTMNE" />
-      <concept id="259520349324389855" name="de.q60.mps.web.notation.structure.SubstitutionCell" flags="ng" index="3UViQY">
+      <concept id="578981756153092156" name="org.modelix.notation.structure.VerticalLayout" flags="ng" index="3UTMNE" />
+      <concept id="259520349324389855" name="org.modelix.notation.structure.SubstitutionCell" flags="ng" index="3UViQY">
         <property id="259520349324390000" name="text" index="3UViSh" />
       </concept>
-      <concept id="578981756153322531" name="de.q60.mps.web.notation.structure.IndentCell" flags="ng" index="3UYUzP" />
-      <concept id="5959324165459396977" name="de.q60.mps.web.notation.structure.RemoveSpace" flags="ng" index="1Xa0MK" />
+      <concept id="578981756153322531" name="org.modelix.notation.structure.IndentCell" flags="ng" index="3UYUzP" />
+      <concept id="5959324165459396977" name="org.modelix.notation.structure.RemoveSpace" flags="ng" index="1Xa0MK" />
     </language>
     <language id="7866978e-a0f0-4cc7-81bc-4d213d9375e1" name="jetbrains.mps.lang.smodel">
       <concept id="1177026924588" name="jetbrains.mps.lang.smodel.structure.RefConcept_Reference" flags="nn" index="chp4Y">
@@ -1008,7 +1008,7 @@
           <node concept="027rt" id="7fn21XE1rh_" role="02LM9">
             <ref role="027rv" to="70w2:7NImM053Sep" resolve="children" />
             <node concept="214gnc" id="7fn21XE1sbF" role="027rp">
-              <ref role="1YEVMl" to="m3vg:7trMQm3W2UH" resolve="svgNodeEditor" />
+              <ref role="1YEVMl" to="m3vg:7trMQm3W2UH" resolve="imageNodeEditor" />
               <node concept="214o7A" id="7fn21XE1sbQ" role="214sll" />
             </node>
           </node>

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<model ref="r:92a82b5b-5630-4856-a488-8a8104e14777(org.modelix.model.mpsplugin@tests)">
+<model ref="r:84ae45e5-149c-4ef8-beb9-97212d1f3626(test.org.modelix.model.mpsplugin@tests)">
   <persistence version="9" />
+  <attribute name="doNotGenerate" value="false" />
   <languages>
     <use id="8585453e-6bfb-4d80-98de-b16074f1d86c" name="jetbrains.mps.lang.test" version="5" />
     <use id="f61473f9-130f-42f6-b98d-6c438812c2f6" name="jetbrains.mps.baseLanguage.unitTest" version="1" />
@@ -2420,6 +2421,20 @@
                     </node>
                   </node>
                 </node>
+              </node>
+            </node>
+          </node>
+        </node>
+      </node>
+      <node concept="3s$Bmu" id="6w3CrGw0qPT" role="3s_gse">
+        <property role="3s$Bm0" value="failingTest" />
+        <node concept="3cqZAl" id="6w3CrGw0qPU" role="3clF45" />
+        <node concept="3Tm1VV" id="6w3CrGw0qPV" role="1B3o_S" />
+        <node concept="3clFbS" id="6w3CrGw0qPW" role="3clF47">
+          <node concept="3xETmq" id="6w3CrGw0rCn" role="3cqZAp">
+            <node concept="3_1$Yv" id="6w3CrGw0rCx" role="3_9lra">
+              <node concept="Xl_RD" id="6w3CrGw0rD9" role="3_1BAH">
+                <property role="Xl_RC" value="Just to make sure tests are executed" />
               </node>
             </node>
           </node>

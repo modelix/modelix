@@ -26,6 +26,8 @@
       <modulePath path="$PROJECT_DIR$/org.modelix.ui.sm.server/org.modelix.ui.sm.server.msd" folder="ui.shadowmodels" />
       <modulePath path="$PROJECT_DIR$/org.modelix.ui.sm/org.modelix.ui.sm.mpl" folder="ui.shadowmodels" />
       <modulePath path="$PROJECT_DIR$/org.modelix.ui.svg/org.modelix.ui.svg.msd" folder="ui.svg" />
+      <modulePath path="$PROJECT_DIR$/test.org.modelix.model.mpsplugin/test.org.modelix.model.mpsplugin.msd" folder="model" />
+      <modulePath path="$PROJECT_DIR$/test.org.modelix.ui.common/test.org.modelix.ui.common.msd" folder="ui" />
     </projectModules>
   </component>
 </project>
