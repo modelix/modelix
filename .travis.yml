@@ -13,3 +13,5 @@ cache:
   - artifacts
   - $HOME/.m2
   - .gradle
+  - ui-client/.gradle/nodejs
+  - ui-client/.gradle/npm
