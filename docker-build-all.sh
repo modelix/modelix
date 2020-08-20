@@ -5,3 +5,4 @@
 ./docker-build-mps.sh
 ./docker-build-ui.sh
 ./docker-build-proxy.sh
+./docker-build-uiproxy.sh
