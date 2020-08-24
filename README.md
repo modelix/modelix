@@ -10,9 +10,9 @@ The modelix project develops a next generation language workbench that is native
 # How to run modelix
 
 - At this time there are no builds or releases available. You have to clone the repo to use modelix.
-- You can run modelix locally and in the Google cloud. The details are described [on this wiki page](https://github.com/modelix/modelix/wiki/Running-Modelix).
-- Then check out some of the [samples](https://github.com/modelix/modelix/wiki/Samples).
-- Or check out the [tutorials](https://github.com/modelix/modelix/wiki/Tutorials).
+- You can run modelix locally and in the Google cloud. The details are described in [Running modelix](doc/running-modelix.md).
+- Then check out some of the [samples](doc/samples.md).
+- Or check out the [tutorials](doc/tutorials.md).
 
 # Editing the sources
 
