@@ -123,11 +123,7 @@ spotless {
     }
 }
 
-task deleteMpsLibs() {
-    delete "$projectDir/../mps/org.modelix.model.client/lib"
-}
-
-task copyModelClientToMps(type: Copy, dependsOn: [deleteMpsLibs]) {
+task copyModelClientToMps(type: Sync) {
     from configurations.jvmDefault
     from "$buildDir/libs"
     into "$projectDir/../mps/org.modelix.model.client/lib"

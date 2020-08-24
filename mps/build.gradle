@@ -92,6 +92,7 @@ task buildMpsModules(
                 resolveMps,
                 resolveMpsArtifacts,
                 ':ui-client:packageNpmApp',
+                ':model-client:assemble',
                 ':model-client:copyModelClientToMps'
         ]) {
     scriptArgs = defaultAntScriptArgs

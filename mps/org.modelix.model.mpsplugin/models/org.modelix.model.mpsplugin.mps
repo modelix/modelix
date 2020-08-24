@@ -1835,13 +1835,15 @@
       <property role="TrG5h" value="syncMuted" />
       <property role="3TUv4t" value="true" />
       <node concept="3Tm6S6" id="3l$kG67pCcz" role="1B3o_S" />
-      <node concept="3uibUv" id="3l$kG67pFmY" role="1tU5fm">
-        <ref role="3uigEE" to="i5cy:~AtomicBoolean" resolve="AtomicBoolean" />
+      <node concept="3uibUv" id="4KaF0n8PpHp" role="1tU5fm">
+        <ref role="3uigEE" to="i5cy:~AtomicInteger" resolve="AtomicInteger" />
       </node>
       <node concept="2ShNRf" id="3l$kG67pHZK" role="33vP2m">
         <node concept="1pGfFk" id="3l$kG67pHk4" role="2ShVmc">
-          <ref role="37wK5l" to="i5cy:~AtomicBoolean.&lt;init&gt;(boolean)" resolve="AtomicBoolean" />
-          <node concept="3clFbT" id="3l$kG67pJkn" role="37wK5m" />
+          <ref role="37wK5l" to="i5cy:~AtomicInteger.&lt;init&gt;(int)" resolve="AtomicInteger" />
+          <node concept="3cmrfG" id="4KaF0n8PB6F" role="37wK5m">
+            <property role="3cmrfH" value="0" />
+          </node>
         </node>
       </node>
     </node>
@@ -1937,12 +1939,17 @@
                   <node concept="3clFbS" id="3l$kG67qkul" role="3clFbx">
                     <node concept="3cpWs6" id="3l$kG67qwHj" role="3cqZAp" />
                   </node>
-                  <node concept="2OqwBi" id="3l$kG67qt35" role="3clFbw">
-                    <node concept="37vLTw" id="3l$kG67qmUT" role="2Oq$k0">
-                      <ref role="3cqZAo" node="3l$kG67pCcy" resolve="syncMuted" />
+                  <node concept="3y3z36" id="4KaF0n8PDTR" role="3clFbw">
+                    <node concept="3cmrfG" id="4KaF0n8PFBI" role="3uHU7w">
+                      <property role="3cmrfH" value="0" />
                     </node>
-                    <node concept="liA8E" id="3l$kG67qvDF" role="2OqNvi">
-                      <ref role="37wK5l" to="i5cy:~AtomicBoolean.get()" resolve="get" />
+                    <node concept="2OqwBi" id="3l$kG67qt35" role="3uHU7B">
+                      <node concept="37vLTw" id="3l$kG67qmUT" role="2Oq$k0">
+                        <ref role="3cqZAo" node="3l$kG67pCcy" resolve="syncMuted" />
+                      </node>
+                      <node concept="liA8E" id="4KaF0n8PDaZ" role="2OqNvi">
+                        <ref role="37wK5l" to="i5cy:~AtomicInteger.get()" resolve="get" />
+                      </node>
                     </node>
                   </node>
                 </node>
@@ -2726,12 +2733,17 @@
                   <node concept="3clFbS" id="4TPMxtdD_D_" role="3clFbx">
                     <node concept="3cpWs6" id="4TPMxtdD_DA" role="3cqZAp" />
                   </node>
-                  <node concept="2OqwBi" id="4TPMxtdD_DB" role="3clFbw">
-                    <node concept="37vLTw" id="4TPMxtdD_DC" role="2Oq$k0">
-                      <ref role="3cqZAo" node="3l$kG67pCcy" resolve="syncMuted" />
+                  <node concept="3y3z36" id="4KaF0n8PGKA" role="3clFbw">
+                    <node concept="3cmrfG" id="4KaF0n8PIv1" role="3uHU7w">
+                      <property role="3cmrfH" value="0" />
                     </node>
-                    <node concept="liA8E" id="4TPMxtdD_DD" role="2OqNvi">
-                      <ref role="37wK5l" to="i5cy:~AtomicBoolean.get()" resolve="get" />
+                    <node concept="2OqwBi" id="4TPMxtdD_DB" role="3uHU7B">
+                      <node concept="37vLTw" id="4TPMxtdD_DC" role="2Oq$k0">
+                        <ref role="3cqZAo" node="3l$kG67pCcy" resolve="syncMuted" />
+                      </node>
+                      <node concept="liA8E" id="4TPMxtdD_DD" role="2OqNvi">
+                        <ref role="37wK5l" to="i5cy:~AtomicInteger.get()" resolve="get" />
+                      </node>
                     </node>
                   </node>
                 </node>
@@ -2879,12 +2891,17 @@
                   <node concept="3clFbS" id="4TPMxtdD_Em" role="3clFbx">
                     <node concept="3cpWs6" id="4TPMxtdD_En" role="3cqZAp" />
                   </node>
-                  <node concept="2OqwBi" id="4TPMxtdD_Eo" role="3clFbw">
-                    <node concept="37vLTw" id="4TPMxtdD_Ep" role="2Oq$k0">
-                      <ref role="3cqZAo" node="3l$kG67pCcy" resolve="syncMuted" />
+                  <node concept="3y3z36" id="4KaF0n8PIvY" role="3clFbw">
+                    <node concept="3cmrfG" id="4KaF0n8PJWw" role="3uHU7w">
+                      <property role="3cmrfH" value="0" />
                     </node>
-                    <node concept="liA8E" id="4TPMxtdD_Eq" role="2OqNvi">
-                      <ref role="37wK5l" to="i5cy:~AtomicBoolean.get()" resolve="get" />
+                    <node concept="2OqwBi" id="4TPMxtdD_Eo" role="3uHU7B">
+                      <node concept="37vLTw" id="4TPMxtdD_Ep" role="2Oq$k0">
+                        <ref role="3cqZAo" node="3l$kG67pCcy" resolve="syncMuted" />
+                      </node>
+                      <node concept="liA8E" id="4TPMxtdD_Eq" role="2OqNvi">
+                        <ref role="37wK5l" to="i5cy:~AtomicInteger.get()" resolve="get" />
+                      </node>
                     </node>
                   </node>
                 </node>
@@ -3166,12 +3183,17 @@
                   <node concept="3clFbS" id="4TPMxtdD_E_" role="3clFbx">
                     <node concept="3cpWs6" id="4TPMxtdD_EA" role="3cqZAp" />
                   </node>
-                  <node concept="2OqwBi" id="4TPMxtdD_EB" role="3clFbw">
-                    <node concept="37vLTw" id="4TPMxtdD_EC" role="2Oq$k0">
-                      <ref role="3cqZAo" node="3l$kG67pCcy" resolve="syncMuted" />
+                  <node concept="3y3z36" id="4KaF0n8PKDd" role="3clFbw">
+                    <node concept="3cmrfG" id="4KaF0n8PLvP" role="3uHU7w">
+                      <property role="3cmrfH" value="0" />
                     </node>
-                    <node concept="liA8E" id="4TPMxtdD_ED" role="2OqNvi">
-                      <ref role="37wK5l" to="i5cy:~AtomicBoolean.get()" resolve="get" />
+                    <node concept="2OqwBi" id="4TPMxtdD_EB" role="3uHU7B">
+                      <node concept="37vLTw" id="4TPMxtdD_EC" role="2Oq$k0">
+                        <ref role="3cqZAo" node="3l$kG67pCcy" resolve="syncMuted" />
+                      </node>
+                      <node concept="liA8E" id="4TPMxtdD_ED" role="2OqNvi">
+                        <ref role="37wK5l" to="i5cy:~AtomicInteger.get()" resolve="get" />
+                      </node>
                     </node>
                   </node>
                 </node>
@@ -3550,12 +3572,17 @@
                   <node concept="3clFbS" id="4TPMxtdD_Gp" role="3clFbx">
                     <node concept="3cpWs6" id="4TPMxtdD_Gq" role="3cqZAp" />
                   </node>
-                  <node concept="2OqwBi" id="4TPMxtdD_Gr" role="3clFbw">
-                    <node concept="37vLTw" id="4TPMxtdD_Gs" role="2Oq$k0">
-                      <ref role="3cqZAo" node="3l$kG67pCcy" resolve="syncMuted" />
+                  <node concept="3y3z36" id="4KaF0n8PN0c" role="3clFbw">
+                    <node concept="3cmrfG" id="4KaF0n8PNCg" role="3uHU7w">
+                      <property role="3cmrfH" value="0" />
                     </node>
-                    <node concept="liA8E" id="4TPMxtdD_Gt" role="2OqNvi">
-                      <ref role="37wK5l" to="i5cy:~AtomicBoolean.get()" resolve="get" />
+                    <node concept="2OqwBi" id="4TPMxtdD_Gr" role="3uHU7B">
+                      <node concept="37vLTw" id="4TPMxtdD_Gs" role="2Oq$k0">
+                        <ref role="3cqZAo" node="3l$kG67pCcy" resolve="syncMuted" />
+                      </node>
+                      <node concept="liA8E" id="4TPMxtdD_Gt" role="2OqNvi">
+                        <ref role="37wK5l" to="i5cy:~AtomicInteger.get()" resolve="get" />
+                      </node>
                     </node>
                   </node>
                 </node>
@@ -3717,12 +3744,17 @@
                   <node concept="3clFbS" id="4$UNf1h81IL" role="3clFbx">
                     <node concept="3cpWs6" id="4$UNf1h81IM" role="3cqZAp" />
                   </node>
-                  <node concept="2OqwBi" id="4$UNf1h81IN" role="3clFbw">
-                    <node concept="37vLTw" id="4$UNf1h81IO" role="2Oq$k0">
-                      <ref role="3cqZAo" node="3l$kG67pCcy" resolve="syncMuted" />
+                  <node concept="3y3z36" id="4KaF0n8POnB" role="3clFbw">
+                    <node concept="3cmrfG" id="4KaF0n8PPDG" role="3uHU7w">
+                      <property role="3cmrfH" value="0" />
                     </node>
-                    <node concept="liA8E" id="4$UNf1h81IP" role="2OqNvi">
-                      <ref role="37wK5l" to="i5cy:~AtomicBoolean.get()" resolve="get" />
+                    <node concept="2OqwBi" id="4$UNf1h81IN" role="3uHU7B">
+                      <node concept="37vLTw" id="4$UNf1h81IO" role="2Oq$k0">
+                        <ref role="3cqZAo" node="3l$kG67pCcy" resolve="syncMuted" />
+                      </node>
+                      <node concept="liA8E" id="4$UNf1h81IP" role="2OqNvi">
+                        <ref role="37wK5l" to="i5cy:~AtomicInteger.get()" resolve="get" />
+                      </node>
                     </node>
                   </node>
                 </node>
@@ -3751,12 +3783,17 @@
                   <node concept="3clFbS" id="4$UNf1h7XPo" role="3clFbx">
                     <node concept="3cpWs6" id="4$UNf1h81Iz" role="3cqZAp" />
                   </node>
-                  <node concept="2OqwBi" id="4$UNf1h80kZ" role="3clFbw">
-                    <node concept="37vLTw" id="4$UNf1h7YVJ" role="2Oq$k0">
-                      <ref role="3cqZAo" node="3l$kG67pCcy" resolve="syncMuted" />
+                  <node concept="3y3z36" id="4KaF0n8PQM$" role="3clFbw">
+                    <node concept="3cmrfG" id="4KaF0n8PRBq" role="3uHU7w">
+                      <property role="3cmrfH" value="0" />
                     </node>
-                    <node concept="liA8E" id="4$UNf1h819t" role="2OqNvi">
-                      <ref role="37wK5l" to="i5cy:~AtomicBoolean.get()" resolve="get" />
+                    <node concept="2OqwBi" id="4$UNf1h80kZ" role="3uHU7B">
+                      <node concept="37vLTw" id="4$UNf1h7YVJ" role="2Oq$k0">
+                        <ref role="3cqZAo" node="3l$kG67pCcy" resolve="syncMuted" />
+                      </node>
+                      <node concept="liA8E" id="4$UNf1h819t" role="2OqNvi">
+                        <ref role="37wK5l" to="i5cy:~AtomicInteger.get()" resolve="get" />
+                      </node>
                     </node>
                   </node>
                 </node>
@@ -3785,12 +3822,17 @@
                   <node concept="3clFbS" id="4$UNf1h82sJ" role="3clFbx">
                     <node concept="3cpWs6" id="4$UNf1h82sK" role="3cqZAp" />
                   </node>
-                  <node concept="2OqwBi" id="4$UNf1h82sL" role="3clFbw">
-                    <node concept="37vLTw" id="4$UNf1h82sM" role="2Oq$k0">
-                      <ref role="3cqZAo" node="3l$kG67pCcy" resolve="syncMuted" />
+                  <node concept="3y3z36" id="4KaF0n8PS5q" role="3clFbw">
+                    <node concept="3cmrfG" id="4KaF0n8PSMo" role="3uHU7w">
+                      <property role="3cmrfH" value="0" />
                     </node>
-                    <node concept="liA8E" id="4$UNf1h82sN" role="2OqNvi">
-                      <ref role="37wK5l" to="i5cy:~AtomicBoolean.get()" resolve="get" />
+                    <node concept="2OqwBi" id="4$UNf1h82sL" role="3uHU7B">
+                      <node concept="37vLTw" id="4$UNf1h82sM" role="2Oq$k0">
+                        <ref role="3cqZAo" node="3l$kG67pCcy" resolve="syncMuted" />
+                      </node>
+                      <node concept="liA8E" id="4$UNf1h82sN" role="2OqNvi">
+                        <ref role="37wK5l" to="i5cy:~AtomicInteger.get()" resolve="get" />
+                      </node>
                     </node>
                   </node>
                 </node>
@@ -3819,12 +3861,17 @@
                   <node concept="3clFbS" id="4$UNf1h83ag" role="3clFbx">
                     <node concept="3cpWs6" id="4$UNf1h83ah" role="3cqZAp" />
                   </node>
-                  <node concept="2OqwBi" id="4$UNf1h83ai" role="3clFbw">
-                    <node concept="37vLTw" id="4$UNf1h83aj" role="2Oq$k0">
-                      <ref role="3cqZAo" node="3l$kG67pCcy" resolve="syncMuted" />
+                  <node concept="3y3z36" id="4KaF0n8PU3S" role="3clFbw">
+                    <node concept="3cmrfG" id="4KaF0n8PUK7" role="3uHU7w">
+                      <property role="3cmrfH" value="0" />
                     </node>
-                    <node concept="liA8E" id="4$UNf1h83ak" role="2OqNvi">
-                      <ref role="37wK5l" to="i5cy:~AtomicBoolean.get()" resolve="get" />
+                    <node concept="2OqwBi" id="4$UNf1h83ai" role="3uHU7B">
+                      <node concept="37vLTw" id="4$UNf1h83aj" role="2Oq$k0">
+                        <ref role="3cqZAo" node="3l$kG67pCcy" resolve="syncMuted" />
+                      </node>
+                      <node concept="liA8E" id="4$UNf1h83ak" role="2OqNvi">
+                        <ref role="37wK5l" to="i5cy:~AtomicInteger.get()" resolve="get" />
+                      </node>
                     </node>
                   </node>
                 </node>
@@ -4688,57 +4735,38 @@
       <node concept="3cqZAl" id="3l$kG67pN9L" role="3clF45" />
       <node concept="3Tmbuc" id="3l$kG67qgv3" role="1B3o_S" />
       <node concept="3clFbS" id="3l$kG67pN9N" role="3clF47">
-        <node concept="3clFbJ" id="3l$kG67q7Ew" role="3cqZAp">
-          <node concept="3clFbS" id="3l$kG67q7Ey" role="3clFbx">
-            <node concept="3J1_TO" id="1$Bf1B1aHMD" role="3cqZAp">
-              <node concept="3clFbS" id="1$Bf1B1aHMF" role="1zxBo7">
-                <node concept="3clFbF" id="3l$kG67qe4X" role="3cqZAp">
-                  <node concept="2OqwBi" id="3l$kG67qe6d" role="3clFbG">
-                    <node concept="37vLTw" id="3l$kG67qe4V" role="2Oq$k0">
-                      <ref role="3cqZAo" node="3l$kG67pWGz" resolve="r" />
-                    </node>
-                    <node concept="1Bd96e" id="3l$kG67qe_g" role="2OqNvi" />
-                  </node>
-                </node>
-              </node>
-              <node concept="1wplmZ" id="7u$whvIaqEu" role="1zxBo6">
-                <node concept="3clFbS" id="1$Bf1B1aHMG" role="1wplMD">
-                  <node concept="3clFbF" id="3l$kG67q9ov" role="3cqZAp">
-                    <node concept="2OqwBi" id="3l$kG67qaxD" role="3clFbG">
-                      <node concept="37vLTw" id="3l$kG67q9ot" role="2Oq$k0">
-                        <ref role="3cqZAo" node="3l$kG67pCcy" resolve="syncMuted" />
-                      </node>
-                      <node concept="liA8E" id="3l$kG67qcBv" role="2OqNvi">
-                        <ref role="37wK5l" to="i5cy:~AtomicBoolean.set(boolean)" resolve="set" />
-                        <node concept="3clFbT" id="3l$kG67qdkO" role="37wK5m" />
-                      </node>
-                    </node>
-                  </node>
-                </node>
-              </node>
-            </node>
-          </node>
-          <node concept="9aQIb" id="3l$kG67qfhH" role="9aQIa">
-            <node concept="3clFbS" id="3l$kG67qfhI" role="9aQI4">
-              <node concept="3clFbF" id="3l$kG67qfZn" role="3cqZAp">
-                <node concept="2OqwBi" id="3l$kG67qfZ_" role="3clFbG">
-                  <node concept="37vLTw" id="3l$kG67qfZm" role="2Oq$k0">
-                    <ref role="3cqZAo" node="3l$kG67pWGz" resolve="r" />
-                  </node>
-                  <node concept="1Bd96e" id="3l$kG67qgmC" role="2OqNvi" />
-                </node>
-              </node>
-            </node>
-          </node>
-          <node concept="2OqwBi" id="3l$kG67q2P$" role="3clFbw">
-            <node concept="37vLTw" id="3l$kG67q1Gp" role="2Oq$k0">
+        <node concept="3clFbF" id="4KaF0n8PWia" role="3cqZAp">
+          <node concept="2OqwBi" id="4KaF0n8PWic" role="3clFbG">
+            <node concept="37vLTw" id="4KaF0n8PWid" role="2Oq$k0">
               <ref role="3cqZAo" node="3l$kG67pCcy" resolve="syncMuted" />
             </node>
-            <node concept="liA8E" id="3l$kG67q56n" role="2OqNvi">
-              <ref role="37wK5l" to="i5cy:~AtomicBoolean.compareAndSet(boolean,boolean)" resolve="compareAndSet" />
-              <node concept="3clFbT" id="3l$kG67q5Ot" role="37wK5m" />
-              <node concept="3clFbT" id="3l$kG67q6CG" role="37wK5m">
-                <property role="3clFbU" value="true" />
+            <node concept="liA8E" id="4KaF0n8PWie" role="2OqNvi">
+              <ref role="37wK5l" to="i5cy:~AtomicInteger.incrementAndGet()" resolve="incrementAndGet" />
+            </node>
+          </node>
+        </node>
+        <node concept="3J1_TO" id="1$Bf1B1aHMD" role="3cqZAp">
+          <node concept="3clFbS" id="1$Bf1B1aHMF" role="1zxBo7">
+            <node concept="3clFbF" id="3l$kG67qe4X" role="3cqZAp">
+              <node concept="2OqwBi" id="3l$kG67qe6d" role="3clFbG">
+                <node concept="37vLTw" id="3l$kG67qe4V" role="2Oq$k0">
+                  <ref role="3cqZAo" node="3l$kG67pWGz" resolve="r" />
+                </node>
+                <node concept="1Bd96e" id="3l$kG67qe_g" role="2OqNvi" />
+              </node>
+            </node>
+          </node>
+          <node concept="1wplmZ" id="7u$whvIaqEu" role="1zxBo6">
+            <node concept="3clFbS" id="1$Bf1B1aHMG" role="1wplMD">
+              <node concept="3clFbF" id="3l$kG67q9ov" role="3cqZAp">
+                <node concept="2OqwBi" id="3l$kG67qaxD" role="3clFbG">
+                  <node concept="37vLTw" id="3l$kG67q9ot" role="2Oq$k0">
+                    <ref role="3cqZAo" node="3l$kG67pCcy" resolve="syncMuted" />
+                  </node>
+                  <node concept="liA8E" id="4KaF0n8PWdG" role="2OqNvi">
+                    <ref role="37wK5l" to="i5cy:~AtomicInteger.decrementAndGet()" resolve="decrementAndGet" />
+                  </node>
+                </node>
               </node>
             </node>
           </node>
