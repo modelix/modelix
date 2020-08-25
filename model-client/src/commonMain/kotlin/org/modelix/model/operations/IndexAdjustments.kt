@@ -3,6 +3,25 @@ package org.modelix.model.operations
 class IndexAdjustments {
     private val adjustments: MutableList<Adjustment> = ArrayList()
     private val knownPositions: MutableMap<Long, KnownPosition> = HashMap()
+    private val knownParents: MutableMap<Long, Long> = HashMap()
+
+    fun setKnownParent(childId: Long, parentId: Long) {
+        knownParents[childId] = parentId
+    }
+
+    fun getKnownParent(childId: Long): Long {
+        return knownParents[childId] ?: 0
+    }
+
+    fun getKnownAncestors(childId: Long): LongArray {
+        val ancestors: MutableList<Long> = ArrayList()
+        var ancestor = getKnownParent(childId)
+        while (ancestor != 0L) {
+            ancestors.add(ancestor)
+            ancestor = getKnownParent(ancestor)
+        }
+        return ancestors.toLongArray()
+    }
 
     fun setKnownPosition(nodeId: Long, pos: PositionInRole, deleted: Boolean = false) {
         setKnownPosition(nodeId, KnownPosition(pos, deleted))

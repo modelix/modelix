@@ -90,13 +90,28 @@ class OperationSerializer private constructor() {
             INSTANCE.registerSerializer(
                 MoveNodeOp::class,
                 object : Serializer<MoveNodeOp> {
+                    val ANCESTORS_SEPARATOR = "."
                     override fun serialize(op: MoveNodeOp): String {
-                        return longToHex(op.childId) + SEPARATOR + longToHex(op.sourcePosition.nodeId) + SEPARATOR + escape(op.sourcePosition.role) + SEPARATOR + op.sourcePosition.index + SEPARATOR + longToHex(op.targetPosition.nodeId) + SEPARATOR + escape(op.targetPosition.role) + SEPARATOR + op.targetPosition.index
+                        return longToHex(op.childId) + SEPARATOR +
+                            longToHex(op.sourcePosition.nodeId) + SEPARATOR +
+                            escape(op.sourcePosition.role) + SEPARATOR +
+                            op.sourcePosition.index + SEPARATOR +
+                            longToHex(op.targetPosition.nodeId) + SEPARATOR +
+                            escape(op.targetPosition.role) + SEPARATOR +
+                            op.targetPosition.index + SEPARATOR +
+                            if (op.targetAncestors == null || op.targetAncestors.isEmpty()) "" else op.targetAncestors
+                                .joinToString(ANCESTORS_SEPARATOR) { longToHex(it) }
                     }
 
                     override fun deserialize(serialized: String): MoveNodeOp {
                         val parts = serialized.split(SEPARATOR).dropLastWhile { it.isEmpty() }.toTypedArray()
-                        return MoveNodeOp(longFromHex(parts[0]), PositionInRole(longFromHex(parts[1]), unescape(parts[2]), parts[3].toInt()), PositionInRole(longFromHex(parts[4]), unescape(parts[5]), parts[6].toInt()))
+                        return MoveNodeOp(
+                            longFromHex(parts[0]),
+                            PositionInRole(longFromHex(parts[1]), unescape(parts[2]), parts[3].toInt()),
+                            PositionInRole(longFromHex(parts[4]), unescape(parts[5]), parts[6].toInt()),
+                            if (parts.size <= 7) null else parts[7].split(ANCESTORS_SEPARATOR).filter { it.isNotEmpty() }
+                                .map { longFromHex(it) }.toLongArray()
+                        )
                     }
                 }
             )

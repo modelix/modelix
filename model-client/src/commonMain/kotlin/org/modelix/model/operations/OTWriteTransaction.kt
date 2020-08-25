@@ -40,7 +40,18 @@ class OTWriteTransaction(private val transaction: IWriteTransaction, private val
         if (newIndex == -1) {
             newIndex = getChildren(newParentId, newRole).count()
         }
-        apply(MoveNodeOp(childId, PositionInRole(oldparent, oldRole, oldIndex), PositionInRole(newParentId, newRole, newIndex)))
+        val targetAncestors: MutableList<Long> = ArrayList()
+        var ancestor: Long = getParent(newParentId)
+        while (ancestor != 0L) {
+            targetAncestors.add(ancestor)
+            ancestor = getParent(ancestor)
+        }
+        apply(MoveNodeOp(
+            childId,
+            PositionInRole(oldparent, oldRole, oldIndex),
+            PositionInRole(newParentId, newRole, newIndex),
+            targetAncestors.toLongArray()
+        ))
     }
 
     override fun setProperty(nodeId: Long, role: String, value: String?) {
