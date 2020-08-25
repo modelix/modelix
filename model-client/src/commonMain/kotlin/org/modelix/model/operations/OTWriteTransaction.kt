@@ -46,12 +46,14 @@ class OTWriteTransaction(private val transaction: IWriteTransaction, private val
             targetAncestors.add(ancestor)
             ancestor = getParent(ancestor)
         }
-        apply(MoveNodeOp(
-            childId,
-            PositionInRole(oldparent, oldRole, oldIndex),
-            PositionInRole(newParentId, newRole, newIndex),
-            targetAncestors.toLongArray()
-        ))
+        apply(
+            MoveNodeOp(
+                childId,
+                PositionInRole(oldparent, oldRole, oldIndex),
+                PositionInRole(newParentId, newRole, newIndex),
+                targetAncestors.toLongArray()
+            )
+        )
     }
 
     override fun setProperty(nodeId: Long, role: String, value: String?) {

@@ -73,7 +73,6 @@ class TreeSerializationTest {
         assertTree(deserializedVersion.tree)
     }
 
-
     @Test
     fun backwardCompatibility01() {
         val mapStore = MapBaseStore()
