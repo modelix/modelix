@@ -376,7 +376,7 @@ class RestWebModelClient @JvmOverloads constructor(var baseUrl: String? = null) 
             // .readTimeout(1000, TimeUnit.MILLISECONDS)
             .register(ClientRequestFilter { ctx -> ctx.headers.add(HttpHeaders.AUTHORIZATION, "Bearer $authToken") }).build()
         sseClient = ClientBuilder.newBuilder()
-            // .connectTimeout(1000, TimeUnit.MILLISECONDS)
+            .connectTimeout(1000, TimeUnit.MILLISECONDS)
             .register(ClientRequestFilter { ctx -> ctx.headers.add(HttpHeaders.AUTHORIZATION, "Bearer $authToken") }).build()
         idGenerator = IdGenerator(clientId)
         watchDogTask = fixDelay(

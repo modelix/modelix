@@ -18,8 +18,10 @@ package org.modelix.model
 import org.junit.After
 import org.junit.Assert
 import org.junit.Before
+import org.junit.Test
 import org.modelix.model.client.RestWebModelClient
 import java.util.*
+import kotlin.test.fail
 
 class ModelClient_Test {
 
@@ -55,8 +57,7 @@ class ModelClient_Test {
 
     // This test requires a running model server
     // It should be marked as a slow test and run separately from unit tests
-    // @Test
-    // disabled because it fails sometimes but not always on the CI server
+    @Test
     fun test_t1() {
         val rand = Random(67845)
         val url = "http://localhost:28101/"
@@ -73,7 +74,7 @@ class ModelClient_Test {
                 listeners.add(l)
             }
         }
-        Thread.sleep(1000)
+        Thread.sleep(2000)
         for (i in 1..10) {
             println("Phase B: i=$i of 10")
             if (!modelServer.isUp()) {
@@ -91,15 +92,16 @@ class ModelClient_Test {
                 Assert.assertEquals(expected[key], client[key])
             }
             println(" verified")
-            for (timeout in 0..1000) {
+            for (timeout in 0..3000) {
                 if (listeners.all { expected[it.key] == it.lastValue }) {
                     println("All changes received after $timeout ms")
                     break
                 }
                 Thread.sleep(1)
             }
-            for (l in listeners) {
-                Assert.assertEquals(expected[l.key], l.lastValue)
+            val successfulListeners = listeners.filter { expected[it.key] == it.lastValue }.count()
+            if (successfulListeners < listeners.size) {
+                fail("change only received on $successfulListeners of ${listeners.size} listeners")
             }
             println(" verified also on listeners")
         }
