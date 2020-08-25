@@ -27,7 +27,11 @@ class MoveNodeOp(val childId: Long, val sourcePosition: PositionInRole, val targ
     }
 
     override fun apply(transaction: IWriteTransaction): IAppliedOperation {
-        val actualNode = transaction.getChildren(sourcePosition.nodeId, sourcePosition.role).toList()[sourcePosition.index]
+        val children = transaction.getChildren(sourcePosition.nodeId, sourcePosition.role).toList()
+        if (sourcePosition.index >= children.size) {
+            throw RuntimeException("Invalid source index ${sourcePosition.index}. There are only ${children.size} children in ${sourcePosition.roleInNode}")
+        }
+        val actualNode = children[sourcePosition.index]
         if (actualNode != childId) {
             throw RuntimeException("Node at $sourcePosition is expected to be ${childId.toString(16)}, but was ${actualNode.toString(16)}")
         }
@@ -63,14 +67,20 @@ class MoveNodeOp(val childId: Long, val sourcePosition: PositionInRole, val targ
             }
             is MoveNodeOp -> {
                 if (previous.childId == childId) {
-//                    indexAdjustments.removeAdjustment(previous)
+                    indexAdjustments.setKnownPosition(childId, targetPosition)
                     listOf(
                         MoveNodeOp(
                             childId,
-                            previous.targetPosition,
+                            previous.getActualTargetPosition(),
                             targetPosition
                         )
                     )
+                } else if (previous.childId == this.targetPosition.nodeId && previous.targetPosition.nodeId == this.childId) {
+                    // This avoids the exception: ${previous.childId} is a descendant of ${this.childId}
+                    // This exception can still happen (if there are any intermediate ancestors),
+                    // but we don't have more information to prevent them.
+                    indexAdjustments.redirectedMove(this, sourcePosition, targetPosition, sourcePosition)
+                    listOf(NoOp())
                 } else listOf(adjusted())
             }
             is SetPropertyOp -> listOf(adjusted())

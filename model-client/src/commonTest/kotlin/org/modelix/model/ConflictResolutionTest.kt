@@ -8,6 +8,7 @@ import org.modelix.model.lazy.CLTree
 import org.modelix.model.lazy.CLVersion
 import org.modelix.model.operations.IAppliedOperation
 import org.modelix.model.operations.OTBranch
+import kotlin.random.Random
 import kotlin.test.Test
 import kotlin.test.fail
 
@@ -33,17 +34,17 @@ class ConflictResolutionTest : TreeTestBase() {
         randomTest(101, 2, 4)
     }
 
-//    @Test
-//    fun randomTest00() {
-//        for (i in 0..10000) {
-//            try {
-//                rand = Random(i)
-//                randomTest(10, 2, 3)
-//            } catch (ex: Exception) {
-//                throw RuntimeException("Failed for seed $i", ex)
-//            }
-//        }
-//    }
+    @Test
+    fun randomTest00() {
+        for (i in 0..110) {
+            try {
+                rand = Random(i)
+                randomTest(10, 2, 3)
+            } catch (ex: Exception) {
+                throw RuntimeException("Failed for seed $i", ex)
+            }
+        }
+    }
 
     fun randomTest(baseChanges: Int, numBranches: Int, branchChanges: Int) {
         val merger = VersionMerger(storeCache, idGenerator)
@@ -591,6 +592,54 @@ class ConflictResolutionTest : TreeTestBase() {
             { t -> // 1
                 t.deleteNode(0xff00000004)
                 t.deleteNode(0xff00000003)
+            }
+        )
+    }
+
+    @Test
+    fun knownIssue25() {
+        knownIssueTest(
+            { t ->
+                t.addNewChild(0x1, "cRole2", 0, 0xff00000001, null)
+            },
+            { t -> // 0
+                t.moveChild(0x1, "cRole2", 1, 0xff00000001)
+            },
+            { t -> // 1
+                t.moveChild(0x1, "cRole2", 1, 0xff00000001)
+            }
+        )
+    }
+
+    @Test
+    fun knownIssue26() {
+        knownIssueTest(
+            { t ->
+                t.addNewChild(0x1, "cRole2", 0, 0xff00000002, null)
+                t.addNewChild(0x1, "cRole2", 1, 0xff00000003, null)
+            },
+            { t -> // 0
+                t.moveChild(0xff00000002, "cRole3", 0, 0xff00000003)
+            },
+            { t -> // 1
+                t.moveChild(0xff00000003, "cRole3", 0, 0xff00000002)
+            }
+        )
+    }
+
+    @Test
+    fun knownIssue27() {
+        knownIssueTest(
+            { t ->
+                t.addNewChild(0x1, "cRole1", 0, 0xff00000003, null)
+                t.addNewChild(0x1, "cRole2", 0, 0xff00000004, null)
+            },
+            { t -> // 0
+                t.moveChild(0xff00000004, "cRole3", 0, 0xff00000003)
+                t.moveChild(0xff00000004, "cRole2", 0, 0xff00000003)
+            },
+            { t -> // 1
+                t.deleteNode(0xff00000004)
             }
         )
     }

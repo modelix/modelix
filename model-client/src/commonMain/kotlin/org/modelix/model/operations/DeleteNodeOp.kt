@@ -71,8 +71,12 @@ class DeleteNodeOp(val position: PositionInRole, val childId: Long) : AbstractOp
                         indexAdjustments.getAdjustedPosition(previous.childId, previous.targetPosition),
                         PositionInRole(DETACHED_ROLE, 0)
                     )
-                    indexAdjustments.nodeMoved(moveOp, true, moveOp.sourcePosition, moveOp.targetPosition)
-                    listOf(moveOp, adjusted())
+                    if (moveOp.sourcePosition == moveOp.targetPosition) {
+                        listOf(adjusted())
+                    } else {
+                        indexAdjustments.nodeMoved(moveOp, true, moveOp.sourcePosition, moveOp.targetPosition)
+                        listOf(moveOp, adjusted())
+                    }
                 } else listOf(adjusted())
             }
             is SetPropertyOp -> listOf(adjusted())
