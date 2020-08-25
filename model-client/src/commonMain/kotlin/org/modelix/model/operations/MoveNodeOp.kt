@@ -79,7 +79,9 @@ class MoveNodeOp(val childId: Long, val sourcePosition: PositionInRole, val targ
                     // This avoids the exception: ${previous.childId} is a descendant of ${this.childId}
                     // This exception can still happen (if there are any intermediate ancestors),
                     // but we don't have more information to prevent them.
+                    val actualSourcePos = indexAdjustments.getAdjustedPosition(childId, sourcePosition)
                     indexAdjustments.redirectedMove(this, sourcePosition, targetPosition, sourcePosition)
+                    indexAdjustments.setKnownPosition(childId, actualSourcePos)
                     listOf(NoOp())
                 } else listOf(adjusted())
             }
