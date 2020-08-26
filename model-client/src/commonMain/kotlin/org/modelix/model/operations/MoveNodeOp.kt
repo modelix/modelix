@@ -36,9 +36,11 @@ class MoveNodeOp(val childId: Long, val sourcePosition: PositionInRole, val targ
             throw RuntimeException("Node at $sourcePosition is expected to be ${childId.toString(16)}, but was ${actualNode.toString(16)}")
         }
 
-        val actualTargetAncestors = getAncestors(targetPosition.nodeId, transaction)
-        if (!actualTargetAncestors.contentEquals(targetAncestors)) {
-            throw RuntimeException("Ancestors expected to be [${targetAncestors?.joinToString(", ") { it.toString(16) }}], but was [${actualTargetAncestors.joinToString(", ") { it.toString(16) }}]")
+        if (targetAncestors != null) {
+            val actualTargetAncestors = getAncestors(targetPosition.nodeId, transaction)
+            if (!actualTargetAncestors.contentEquals(targetAncestors)) {
+                throw RuntimeException("Ancestors expected to be [${targetAncestors?.joinToString(", ") { it.toString(16) }}], but was [${actualTargetAncestors.joinToString(", ") { it.toString(16) }}]")
+            }
         }
 
         val sourceAncestors = getAncestors(sourcePosition.nodeId, transaction)
