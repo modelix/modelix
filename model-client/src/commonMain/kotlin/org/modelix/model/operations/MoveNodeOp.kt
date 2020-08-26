@@ -86,15 +86,14 @@ class MoveNodeOp(val childId: Long, val sourcePosition: PositionInRole, val targ
                     indexAdjustments.nodeRemoved(this, true, targetPosition, childId)
                     listOf(NoOp())
                 } else if (targetPosition.nodeId == previous.childId) {
-                    val redirectedTarget = PositionInRole(DETACHED_ROLE, 0)
-                    indexAdjustments.redirectedMove(this, sourcePosition, targetPosition, redirectedTarget)
                     val redirectedMoveOp = MoveNodeOp(
                         childId,
-                        sourcePosition,
-                        redirectedTarget,
-                        indexAdjustments.getKnownAncestors(redirectedTarget.nodeId)
+                        indexAdjustments.getAdjustedPosition(sourcePosition),
+                        PositionInRole(DETACHED_ROLE, 0),
+                        indexAdjustments.getKnownAncestors(DETACHED_ROLE.nodeId)
                     )
-                    indexAdjustments.setKnownPosition(childId, redirectedTarget)
+                    indexAdjustments.redirectedMove(this, redirectedMoveOp.sourcePosition, targetPosition, redirectedMoveOp.targetPosition)
+                    indexAdjustments.setKnownPosition(childId, redirectedMoveOp.targetPosition)
                     redirectedMoveOp.loadKnownParents(indexAdjustments)
                     listOf(redirectedMoveOp)
                 } else listOf(adjusted())
