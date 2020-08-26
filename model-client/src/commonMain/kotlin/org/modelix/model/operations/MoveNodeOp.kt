@@ -110,16 +110,19 @@ class MoveNodeOp(val childId: Long, val sourcePosition: PositionInRole, val targ
     override fun loadAdjustment(indexAdjustments: IndexAdjustments) {
         indexAdjustments.nodeMoved(this, true, sourcePosition, targetPosition)
         indexAdjustments.setKnownPosition(childId, getActualTargetPosition())
-        indexAdjustments.setKnownParent(childId, targetPosition.nodeId)
         loadKnownParents(indexAdjustments)
     }
 
     override fun loadKnownData(indexAdjustments: IndexAdjustments) {
-        indexAdjustments.setKnownParent(childId, sourcePosition.nodeId)
-        loadKnownParents(indexAdjustments)
+        loadKnownParents(indexAdjustments, false)
     }
 
-    private fun loadKnownParents(indexAdjustments: IndexAdjustments) {
+    private fun loadKnownParents(indexAdjustments: IndexAdjustments, afterApply: Boolean = true) {
+        if (afterApply) {
+            indexAdjustments.setKnownParent(childId, targetPosition.nodeId)
+        } else {
+            indexAdjustments.setKnownParent(childId, sourcePosition.nodeId)
+        }
         if (targetAncestors != null) {
             var child = targetPosition.nodeId
             for (parent in targetAncestors) {

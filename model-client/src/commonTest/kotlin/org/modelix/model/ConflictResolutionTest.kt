@@ -16,7 +16,7 @@ class ConflictResolutionTest : TreeTestBase() {
 
     @Test
     fun randomTest00() {
-        for (i in 0..160) {
+        for (i in 0..257) {
             try {
                 rand = Random(i)
                 randomTest(5, 2, 3)
@@ -696,6 +696,25 @@ class ConflictResolutionTest : TreeTestBase() {
                 t.deleteNode(0xff00000005)
                 t.moveChild(0xff00000004, "cRole1", 0, 0xff00000002)
                 t.moveChild(0x1, "cRole1", 0, 0xff00000004)
+            }
+        )
+    }
+
+    @Test
+    fun knownIssue32() {
+        knownIssueTest(
+            { t ->
+                t.addNewChild(0x1, "cRole2", 0, 0xff00000001, null)
+                t.addNewChild(0xff00000001, "cRole3", 0, 0xff00000002, null)
+                t.addNewChild(0x1, "cRole2", 1, 0xff00000003, null)
+                t.addNewChild(0xff00000003, "cRole3", 0, 0xff00000004, null)
+            },
+            { t -> // 0
+                t.moveChild(0xff00000004, "cRole3", 0, 0xff00000001)
+            },
+            { t -> // 1
+                t.moveChild(0x1, "cRole3", 0, 0xff00000004)
+                t.moveChild(0xff00000001, "cRole3", 1, 0xff00000002)
             }
         )
     }
