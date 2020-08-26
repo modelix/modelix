@@ -35,14 +35,25 @@ class MoveNodeOp(val childId: Long, val sourcePosition: PositionInRole, val targ
         if (actualNode != childId) {
             throw RuntimeException("Node at $sourcePosition is expected to be ${childId.toString(16)}, but was ${actualNode.toString(16)}")
         }
-        val sourceAncestors: MutableList<Long> = ArrayList()
-        var ancestor: Long = transaction.getParent(sourcePosition.nodeId)
+
+        val actualTargetAncestors = getAncestors(targetPosition.nodeId, transaction)
+        if (!actualTargetAncestors.contentEquals(targetAncestors)) {
+            throw RuntimeException("Ancestors expected to be [${targetAncestors?.joinToString(", ") { it.toString(16) }}], but was [${actualTargetAncestors.joinToString(", ") { it.toString(16) }}]")
+        }
+
+        val sourceAncestors = getAncestors(sourcePosition.nodeId, transaction)
+        transaction.moveChild(targetPosition.nodeId, targetPosition.role, targetPosition.index, childId)
+        return Applied(sourceAncestors)
+    }
+
+    private fun getAncestors(nodeId: Long, transaction: IWriteTransaction): LongArray {
+        val ancestors: MutableList<Long> = ArrayList()
+        var ancestor: Long = transaction.getParent(nodeId)
         while (ancestor != 0L) {
-            sourceAncestors.add(ancestor)
+            ancestors.add(ancestor)
             ancestor = transaction.getParent(ancestor)
         }
-        transaction.moveChild(targetPosition.nodeId, targetPosition.role, targetPosition.index, childId)
-        return Applied(sourceAncestors.toLongArray())
+        return ancestors.toLongArray()
     }
 
     fun getActualTargetPosition(): PositionInRole {
@@ -86,19 +97,7 @@ class MoveNodeOp(val childId: Long, val sourcePosition: PositionInRole, val targ
                     listOf(redirectedMoveOp)
                 } else listOf(adjusted())
             }
-            is MoveNodeOp -> {
-                if (previous.childId == childId) {
-                    indexAdjustments.setKnownPosition(childId, targetPosition)
-                    listOf(
-                        MoveNodeOp(
-                            childId,
-                            previous.getActualTargetPosition(),
-                            targetPosition,
-                            targetAncestors
-                        )
-                    )
-                } else listOf(adjusted())
-            }
+            is MoveNodeOp -> listOf(adjusted())
             is SetPropertyOp -> listOf(adjusted())
             is SetReferenceOp -> listOf(adjusted())
             is NoOp -> listOf(adjusted())
@@ -109,11 +108,16 @@ class MoveNodeOp(val childId: Long, val sourcePosition: PositionInRole, val targ
     override fun loadAdjustment(indexAdjustments: IndexAdjustments) {
         indexAdjustments.nodeMoved(this, true, sourcePosition, targetPosition)
         indexAdjustments.setKnownPosition(childId, getActualTargetPosition())
+        indexAdjustments.setKnownParent(childId, targetPosition.nodeId)
+        loadKnownParents(indexAdjustments)
+    }
+
+    override fun loadKnownData(indexAdjustments: IndexAdjustments) {
+        indexAdjustments.setKnownParent(childId, sourcePosition.nodeId)
         loadKnownParents(indexAdjustments)
     }
 
     private fun loadKnownParents(indexAdjustments: IndexAdjustments) {
-        indexAdjustments.setKnownParent(childId, targetPosition.nodeId)
         if (targetAncestors != null) {
             var child = targetPosition.nodeId
             for (parent in targetAncestors) {

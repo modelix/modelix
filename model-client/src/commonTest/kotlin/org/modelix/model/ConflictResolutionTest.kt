@@ -15,31 +15,11 @@ import kotlin.test.fail
 class ConflictResolutionTest : TreeTestBase() {
 
     @Test
-    fun randomTest01() {
-        randomTest(30, 3, 50)
-    }
-
-    @Test
-    fun randomTest02() {
-        randomTest(10, 5, 10)
-    }
-
-    @Test
-    fun randomTest03() {
-        randomTest(10, 5, 20)
-    }
-
-    @Test
-    fun randomTest04() {
-        randomTest(101, 2, 4)
-    }
-
-    @Test
     fun randomTest00() {
-        for (i in 0..299) {
+        for (i in 0..160) {
             try {
                 rand = Random(i)
-                randomTest(10, 2, 3)
+                randomTest(5, 2, 3)
             } catch (ex: Exception) {
                 throw RuntimeException("Failed for seed $i", ex)
             }
@@ -52,7 +32,9 @@ class ConflictResolutionTest : TreeTestBase() {
         val baseBranch = OTBranch(PBranch(initialTree, idGenerator), idGenerator)
         logDebug({ "Random changes to base" }, ConflictResolutionTest::class)
         for (i in 0 until baseChanges) {
-            applyRandomChange(baseBranch, baseExpectedTreeData)
+            RandomTreeChangeGenerator(idGenerator, rand)
+                .addOperationOnly()
+                .applyRandomChange(baseBranch, baseExpectedTreeData)
         }
         val baseVersion = createVersion(baseBranch.operationsAndTree, null)
 
@@ -676,6 +658,44 @@ class ConflictResolutionTest : TreeTestBase() {
             },
             { t -> // 1
                 t.moveChild(0xff00000004, "cRole1", 0, 0xff00000002)
+            }
+        )
+    }
+
+    @Test
+    fun knownIssue30() {
+        knownIssueTest(
+            { t ->
+                t.addNewChild(0x1, "cRole3", 0, 0xff00000003, null)
+                t.addNewChild(0x1, "cRole2", 0, 0xff00000004, null)
+            },
+            { t -> // 0
+                t.moveChild(0xff00000004, "cRole1", 0, 0xff00000003)
+            },
+            { t -> // 1
+                t.deleteNode(0xff00000004)
+                t.moveChild(0x1, "cRole3", 1, 0xff00000003)
+            }
+        )
+    }
+
+    @Test
+    fun knownIssue31() {
+        knownIssueTest(
+            { t ->
+                t.addNewChild(0x1, "cRole2", 0, 0xff00000001, null)
+                t.addNewChild(0xff00000001, "cRole1", 0, 0xff00000002, null)
+                t.addNewChild(0xff00000002, "cRole2", 0, 0xff00000003, null)
+                t.addNewChild(0xff00000001, "cRole1", 0, 0xff00000004, null)
+                t.addNewChild(0xff00000003, "cRole2", 0, 0xff00000005, null)
+            },
+            { t -> // 0
+                t.addNewChild(0xff00000002, "cRole1", 0, 0xff00000007, null)
+            },
+            { t -> // 1
+                t.deleteNode(0xff00000005)
+                t.moveChild(0xff00000004, "cRole1", 0, 0xff00000002)
+                t.moveChild(0x1, "cRole1", 0, 0xff00000004)
             }
         )
     }

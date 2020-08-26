@@ -90,6 +90,13 @@ class RandomTreeChangeGenerator(private val idGenerator: IdGenerator, private va
         return this
     }
 
+    fun addOperationOnly(): RandomTreeChangeGenerator {
+        operations = listOf(
+            addNewOp
+        )
+        return this
+    }
+
     fun applyRandomChange(tree: ITree, expectedTree: ExpectedTreeData): ITree {
         val branch = PBranch(tree, idGenerator)
         applyRandomChange(branch, expectedTree)

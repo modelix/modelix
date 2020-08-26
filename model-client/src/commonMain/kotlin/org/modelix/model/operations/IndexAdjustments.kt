@@ -1,9 +1,15 @@
 package org.modelix.model.operations
 
+import org.modelix.model.api.ITree
+
 class IndexAdjustments {
     private val adjustments: MutableList<Adjustment> = ArrayList()
     private val knownPositions: MutableMap<Long, KnownPosition> = HashMap()
     private val knownParents: MutableMap<Long, Long> = HashMap()
+
+    init {
+        knownParents[ITree.ROOT_ID] = 0L
+    }
 
     fun setKnownParent(childId: Long, parentId: Long) {
         knownParents[childId] = parentId
@@ -15,7 +21,7 @@ class IndexAdjustments {
 
     fun getKnownAncestors(childId: Long): LongArray {
         val ancestors: MutableList<Long> = ArrayList()
-        var ancestor = getKnownParent(childId)
+        var ancestor = knownParents[childId] ?: throw RuntimeException("Parent of ${childId.toString(16)} unknown")
         while (ancestor != 0L) {
             ancestors.add(ancestor)
             ancestor = getKnownParent(ancestor)
@@ -103,6 +109,7 @@ class IndexAdjustments {
     fun nodeRemoved(owner: IOperation, concurrentSide: Boolean, removedPos: PositionInRole, nodeId: Long) {
         adjustKnownPositions(removedPos.roleInNode) { if (it > removedPos.index) it - 1 else it }
         setKnownPosition(nodeId, KnownPosition(removedPos, true))
+        setKnownParent(nodeId, 0L)
         addAdjustment(NodeRemoveAdjustment(owner, concurrentSide, removedPos))
     }
 

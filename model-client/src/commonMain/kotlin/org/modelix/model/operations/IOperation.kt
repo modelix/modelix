@@ -30,6 +30,7 @@ interface IOperation {
     fun transform(previous: IOperation, indexAdjustments: IndexAdjustments): List<IOperation>
 
     fun loadAdjustment(indexAdjustments: IndexAdjustments)
+    fun loadKnownData(indexAdjustments: IndexAdjustments)
 
     fun withAdjustedPosition(indexAdjustments: IndexAdjustments): IOperation
 
