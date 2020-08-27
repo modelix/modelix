@@ -99,11 +99,14 @@ class VersionMerger(private val storeCache: IDeserializingKeyValueStore, private
                     val transformed: List<IOperation>
                     try {
                         transformed = it.restoreIntend(t.tree)
-                        logTrace({
-                            if (transformed.size != 1 || transformed[0] != it.getOriginalOp())
-                                "transformed: ${it.getOriginalOp()} --> $transformed"
-                            else ""
-                        }, VersionMerger::class)
+                        logTrace(
+                            {
+                                if (transformed.size != 1 || transformed[0] != it.getOriginalOp())
+                                    "transformed: ${it.getOriginalOp()} --> $transformed"
+                                else ""
+                            },
+                            VersionMerger::class
+                        )
                     } catch (ex: Exception) {
                         throw RuntimeException("Operation intend failed: ${it.getOriginalOp()}", ex)
                     }

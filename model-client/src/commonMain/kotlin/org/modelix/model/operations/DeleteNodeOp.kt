@@ -70,11 +70,13 @@ class DeleteNodeOp(val position: PositionInRole, val childId: Long) : AbstractOp
                         context.adjustFutureOps { it.withAdjustedPositions(NodeInsertAdjustment(moveOp.targetPosition)) }
                         context.adjustFutureOps { it.withAdjustedNodeLocation(moveOp.childId, moveOp.targetPosition) }
                         context.adjustFutureConcurrentOps { it.withAdjustedNodeLocation(moveOp.childId, moveOp.targetPosition) }
-                        context.replaceConcurrentOp(previous.withPos(
-                            previous.sourcePosition,
-                            moveOp.targetPosition,
-                            moveOp.targetAncestors
-                        ))
+                        context.replaceConcurrentOp(
+                            previous.withPos(
+                                previous.sourcePosition,
+                                moveOp.targetPosition,
+                                moveOp.targetAncestors
+                            )
+                        )
                         return listOf(moveOp, this)
                     }
                 }

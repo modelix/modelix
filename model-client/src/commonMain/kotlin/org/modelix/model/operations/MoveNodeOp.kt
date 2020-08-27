@@ -81,11 +81,13 @@ class MoveNodeOp(val childId: Long, val sourcePosition: PositionInRole, val targ
                     context.adjustFutureOps { it.withAdjustedPositions(NodeInsertAdjustment(redirectedMoveOp.targetPosition)) }
                     return listOf(redirectedMoveOp)
                 } else {
-                    return listOf(withPos(
-                        NodeRemoveAdjustment(previous.position).adjust(sourcePosition, false),
-                        NodeRemoveAdjustment(previous.position).adjust(targetPosition, false),
-                        targetAncestors
-                    ))
+                    return listOf(
+                        withPos(
+                            NodeRemoveAdjustment(previous.position).adjust(sourcePosition, false),
+                            NodeRemoveAdjustment(previous.position).adjust(targetPosition, false),
+                            targetAncestors
+                        )
+                    )
                 }
             }
         }
@@ -167,11 +169,13 @@ class MoveNodeOp(val childId: Long, val sourcePosition: PositionInRole, val targ
         override fun restoreIntend(tree: ITree): List<IOperation> {
             if (!tree.containsNode(childId)) return listOf(NoOp())
             val newSourcePosition = getNodePosition(tree, childId)
-            if (!tree.containsNode(targetPosition.nodeId)) return listOf(withPos(
-                newSourcePosition,
-                getDetachedNodesEndPosition(tree),
-                null
-            ))
+            if (!tree.containsNode(targetPosition.nodeId)) return listOf(
+                withPos(
+                    newSourcePosition,
+                    getDetachedNodesEndPosition(tree),
+                    null
+                )
+            )
             if (getAncestors(tree, targetPosition.nodeId).contains(childId)) return listOf(NoOp())
             val newTargetPosition = if (tree.containsNode(targetPosition.nodeId)) {
                 val newTargetIndex = capturedTargetPosition.findIndex(tree.getChildren(targetPosition.nodeId, targetPosition.role).toList().toLongArray())

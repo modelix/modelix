@@ -1,8 +1,10 @@
 package org.modelix.model.operations
 
 class CapturedInsertPosition(val siblingsBefore: LongArray, val siblingsAfter: LongArray) {
-    constructor(index: Int, children: LongArray) : this(children.take(index).toLongArray(),
-        children.drop(index).toLongArray())
+    constructor(index: Int, children: LongArray) : this(
+        children.take(index).toLongArray(),
+        children.drop(index).toLongArray()
+    )
 
     fun findIndex(children: LongArray): Int {
         if (children.contentEquals(siblingsBefore + siblingsAfter)) return siblingsBefore.size

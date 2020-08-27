@@ -177,7 +177,6 @@ class NodeRemoveAdjustment_(owner: IOperation, val concurrentSide: Boolean, val 
     override fun isConcurrentSide() = concurrentSide
 }
 
-
 interface IndexAdjustment {
     fun adjust(posToTransform: PositionInRole, forInsert: Boolean): PositionInRole
     fun plus(other: IndexAdjustment): IndexAdjustment
