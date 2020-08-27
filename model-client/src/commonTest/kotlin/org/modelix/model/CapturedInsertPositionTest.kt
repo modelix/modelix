@@ -124,5 +124,4 @@ class CapturedInsertPositionTest {
         list.add(captured.findIndex(list.toLongArray()), -2L)
         assertEquals(listOf(4L, 5L, 0L, 1L, -2L, 2L, 3L), list)
     }
-
 }
