@@ -784,6 +784,7 @@ class ConflictResolutionTest : TreeTestBase() {
             null,
             (opsAndTree.second as CLTree).hash,
             previousVersion?.hash,
+            null,
             opsAndTree.first.map { it.getOriginalOp() }.toTypedArray(),
             storeCache
         )

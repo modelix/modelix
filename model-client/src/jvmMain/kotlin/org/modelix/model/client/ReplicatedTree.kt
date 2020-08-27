@@ -194,7 +194,16 @@ actual open class ReplicatedTree actual constructor(private val client: IModelCl
     fun createVersion(tree: CLTree, operations: Array<IOperation>, previousVersion: String?): CLVersion {
         checkDisposed()
         val time = LocalDateTime.now().toString()
-        return CLVersion(client.idGenerator!!.generate(), time, user(), tree.hash, previousVersion, operations, client.storeCache!!)
+        return CLVersion(
+            client.idGenerator!!.generate(),
+            time,
+            user(),
+            tree.hash,
+            previousVersion,
+            null,
+            operations,
+            client.storeCache!!
+        )
     }
 
     actual open fun dispose() {

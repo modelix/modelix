@@ -24,14 +24,14 @@ class CLVersion {
     var data: CPVersion? = null
         private set
 
-    constructor(id: Long, time: String?, author: String?, treeHash: String?, previousVersion: String?, operations: Array<IOperation>, store: IDeserializingKeyValueStore) {
+    constructor(id: Long, time: String?, author: String?, treeHash: String?, previousVersion: String?, originalVersion: String?, operations: Array<IOperation>, store: IDeserializingKeyValueStore) {
         this.store = store
         if (operations.size <= 10) {
-            data = CPVersion(id, time, author, treeHash, previousVersion, operations, null, operations.size)
+            data = CPVersion(id, time, author, treeHash, previousVersion, originalVersion, operations, null, operations.size)
         } else {
             val opsList = CPOperationsList(operations)
             IDeserializingKeyValueStore_extensions.put(store, opsList, opsList.serialize())
-            data = CPVersion(id, time, author, treeHash, previousVersion, null, opsList.hash, operations.size)
+            data = CPVersion(id, time, author, treeHash, previousVersion, originalVersion, null, opsList.hash, operations.size)
         }
         IDeserializingKeyValueStore_extensions.put(store, data!!, data!!.serialize())
     }

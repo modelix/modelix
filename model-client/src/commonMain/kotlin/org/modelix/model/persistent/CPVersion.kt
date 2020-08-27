@@ -22,7 +22,7 @@ import org.modelix.model.persistent.SerializationUtil.longFromHex
 import org.modelix.model.persistent.SerializationUtil.longToHex
 import org.modelix.model.persistent.SerializationUtil.unescape
 
-class CPVersion(id: Long, time: String?, author: String?, treeHash: String?, previousVersion: String?, operations: Array<IOperation>?, operationsHash: String?, numberOfOperations: Int) {
+class CPVersion(id: Long, time: String?, author: String?, treeHash: String?, previousVersion: String?, originalVersion: String?, operations: Array<IOperation>?, operationsHash: String?, numberOfOperations: Int) {
     val id: Long
     val time: String?
     val author: String?
@@ -32,6 +32,11 @@ class CPVersion(id: Long, time: String?, author: String?, treeHash: String?, pre
      */
     val treeHash: String?
     val previousVersion: String?
+
+    /**
+     * The version created by the original author before is was rewritten during a merge
+     */
+    val originalVersion: String?
     val operations: Array<IOperation>?
     val operationsHash: String?
     val numberOfOperations: Int
@@ -40,16 +45,14 @@ class CPVersion(id: Long, time: String?, author: String?, treeHash: String?, pre
             ?: if (operations!!.isEmpty()) "" else operations
                 .map { OperationSerializer.INSTANCE.serialize(it) }
                 .reduce { a: String, b: String -> "$a,$b" }
-        var serialized = longToHex(id) +
+        return longToHex(id) +
             "/" + escape(time) +
             "/" + escape(author) +
             "/" + nullAsEmptyString(treeHash) +
             "/" + nullAsEmptyString(previousVersion) +
-            "/" + opsPart
-        if (numberOfOperations >= 0) {
-            serialized += "/$numberOfOperations"
-        }
-        return serialized
+            "/" + opsPart +
+            "/" + numberOfOperations +
+            "/" + nullAsEmptyString(originalVersion)
     }
 
     val hash: String
@@ -69,13 +72,14 @@ class CPVersion(id: Long, time: String?, author: String?, treeHash: String?, pre
                         .map { serialized: String -> OperationSerializer.INSTANCE.deserialize(serialized) }
                         .toTypedArray()
                 }
-                val numOps = if (parts.size >= 7) parts[6].toInt() else -1
+                val numOps = if (parts.size > 6) parts[6].toInt() else -1
                 return CPVersion(
                     longFromHex(parts[0]),
                     unescape(parts[1]),
                     unescape(parts[2]),
                     emptyStringAsNull(parts[3]),
                     emptyStringAsNull(parts[4]),
+                    if (parts.size > 7) emptyStringAsNull(parts[7]) else null,
                     ops,
                     opsHash,
                     numOps
@@ -96,6 +100,7 @@ class CPVersion(id: Long, time: String?, author: String?, treeHash: String?, pre
         this.id = id
         this.author = author
         this.previousVersion = previousVersion
+        this.originalVersion = originalVersion
         this.time = time
         this.treeHash = treeHash
         this.operations = operations

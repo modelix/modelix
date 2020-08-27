@@ -75,8 +75,6 @@ class VersionMerger(private val storeCache: IDeserializingKeyValueStore, private
             val t = branch.writeTransaction
             val appliedOpsForVersion: MutableMap<Long, List<IAppliedOperation>> = LinkedHashMap()
             val appliedVersionIds: MutableSet<Long> = LinkedHashSet()
-            val leftKnownVersions = leftHistory.map { it.id }.toSet()
-            val rightKnownVersions = rightHistory.map { it.id }.toSet()
             while (leftHistory.isNotEmpty() || rightHistory.isNotEmpty()) {
                 val useLeft = when {
                     rightHistory.isEmpty() -> true
@@ -88,11 +86,6 @@ class VersionMerger(private val storeCache: IDeserializingKeyValueStore, private
                     continue
                 }
                 appliedVersionIds.add(versionToApply.id)
-                val knownVersions = if (useLeft) leftKnownVersions else rightKnownVersions
-                val concurrentAppliedOps = appliedOpsForVersion
-                    .filterKeys { !knownVersions.contains(it) }
-                    .flatMap { it.value }
-                    .map { it.getOriginalOp() }
 
                 val operationsToApply = captureIntend(versionToApply)
                 val appliedOps = operationsToApply.flatMap {
@@ -125,6 +118,7 @@ class VersionMerger(private val storeCache: IDeserializingKeyValueStore, private
                     versionToApply.author,
                     (t.tree as CLTree).hash,
                     if (mergedVersion != null) mergedVersion!!.hash else versionToApply.previousHash,
+                    versionToApply.data?.originalVersion ?: versionToApply.hash,
                     appliedOps.map { it.getOriginalOp() }.toTypedArray(),
                     storeCache
                 )
