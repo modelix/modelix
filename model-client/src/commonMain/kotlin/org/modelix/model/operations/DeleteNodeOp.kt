@@ -16,10 +16,11 @@
 package org.modelix.model.operations
 
 import org.modelix.model.api.IConcept
+import org.modelix.model.api.ITree
 import org.modelix.model.api.IWriteTransaction
 import org.modelix.model.persistent.SerializationUtil
 
-class DeleteNodeOp(val position: PositionInRole, val childId: Long) : AbstractOperation() {
+class DeleteNodeOp(val position: PositionInRole, val childId: Long) : AbstractOperation(), IOperationIntend {
     fun withPosition(newPos: PositionInRole): DeleteNodeOp {
         return if (newPos == position) this else DeleteNodeOp(newPos, childId)
     }
@@ -107,9 +108,27 @@ class DeleteNodeOp(val position: PositionInRole, val childId: Long) : AbstractOp
         return """t.deleteNode(0x${childId.toString(16)})"""
     }
 
+    override fun restoreIntend(tree: ITree): List<IOperation> {
+        if (!tree.containsNode(childId)) return listOf(NoOp())
+        val adjustedDelete = withPosition(getNodePosition(tree, childId))
+        val allChildren = tree.getAllChildren(childId).toList()
+        if (allChildren.isNotEmpty()) {
+            var index = tree.getChildren(DETACHED_ROLE.nodeId, DETACHED_ROLE.role).count()
+            return allChildren
+                .map { MoveNodeOp(it, getNodePosition(tree, it), PositionInRole(DETACHED_ROLE, index++), null) }
+                .plus(adjustedDelete)
+        }
+        return listOf(adjustedDelete)
+    }
+
+    override fun captureIntend(tree: ITree): IOperationIntend {
+        return this
+    }
+
+    override fun getOriginalOp() = this
+
     inner class Applied(private val concept: IConcept?) : AbstractOperation.Applied(), IAppliedOperation {
-        override val originalOp: IOperation
-            get() = this@DeleteNodeOp
+        override fun getOriginalOp() = this@DeleteNodeOp
 
         override fun invert(): IOperation {
             return AddNewChildOp(position, childId, concept)

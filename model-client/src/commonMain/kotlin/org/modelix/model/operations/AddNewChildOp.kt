@@ -16,6 +16,7 @@
 package org.modelix.model.operations
 
 import org.modelix.model.api.IConcept
+import org.modelix.model.api.ITree
 import org.modelix.model.api.IWriteTransaction
 import org.modelix.model.persistent.SerializationUtil
 
@@ -65,11 +66,30 @@ class AddNewChildOp(val position: PositionInRole, val childId: Long, val concept
     }
 
     inner class Applied : AbstractOperation.Applied(), IAppliedOperation {
-        override val originalOp: IOperation
-            get() = this@AddNewChildOp
+        override fun getOriginalOp() = this@AddNewChildOp
 
         override fun invert(): IOperation {
             return DeleteNodeOp(position, childId)
         }
+    }
+
+    override fun captureIntend(tree: ITree): IOperationIntend {
+        val children = tree.getChildren(position.nodeId, position.role);
+        return Intend(
+            CapturedInsertPosition(position.index, children.toList().toLongArray())
+        )
+    }
+
+    inner class Intend(val capturedPosition: CapturedInsertPosition) : IOperationIntend {
+        override fun restoreIntend(tree: ITree): List<IOperation> {
+            if (tree.containsNode(position.nodeId)) {
+                val newIndex = capturedPosition.findIndex(tree.getChildren(position.nodeId, position.role).toList().toLongArray())
+                return listOf(withPosition(position.withIndex(newIndex)))
+            } else {
+                return listOf(withPosition(getDetachedNodesEndPosition(tree)))
+            }
+        }
+
+        override fun getOriginalOp() = this@AddNewChildOp
     }
 }

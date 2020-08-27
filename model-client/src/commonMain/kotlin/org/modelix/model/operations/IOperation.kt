@@ -15,10 +15,12 @@
 
 package org.modelix.model.operations
 
+import org.modelix.model.api.ITree
 import org.modelix.model.api.IWriteTransaction
 
 interface IOperation {
     fun apply(transaction: IWriteTransaction): IAppliedOperation
+    fun captureIntend(tree: ITree): IOperationIntend
 
     /**
      * The 'previous' operation is the one that is inserted before this operation

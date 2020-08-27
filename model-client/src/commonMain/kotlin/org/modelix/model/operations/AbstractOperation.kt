@@ -47,4 +47,26 @@ abstract class AbstractOperation : IOperation {
     override fun toCode(): String {
         return ""
     }
+
+    protected fun getNodePosition(tree: ITree, nodeId: Long): PositionInRole {
+        val parent = tree.getParent(nodeId)
+        val role = tree.getRole(nodeId)
+        val index = tree.getChildren(parent, role).indexOf(nodeId)
+        return PositionInRole(RoleInNode(parent, role), index)
+    }
+
+    protected fun getAncestors(tree: ITree, nodeId: Long): LongArray {
+        val ancestors: MutableList<Long> = ArrayList()
+        var ancestor: Long = tree.getParent(nodeId)
+        while (ancestor != 0L) {
+            ancestors.add(ancestor)
+            ancestor = tree.getParent(ancestor)
+        }
+        return ancestors.toLongArray()
+    }
+
+    protected fun getDetachedNodesEndPosition(tree: ITree): PositionInRole {
+        val index = tree.getChildren(DETACHED_ROLE.nodeId, DETACHED_ROLE.role).count()
+        return PositionInRole(DETACHED_ROLE, index)
+    }
 }

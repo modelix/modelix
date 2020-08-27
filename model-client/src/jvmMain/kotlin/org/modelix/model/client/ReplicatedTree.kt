@@ -107,7 +107,7 @@ actual open class ReplicatedTree actual constructor(private val client: IModelCl
             opsAndTree = localOTBranch.operationsAndTree
             localBase = version
             remoteBase.setValue(remoteVersion)
-            val ops: Array<IOperation> = opsAndTree.first.map { it.originalOp }.toTypedArray()
+            val ops: Array<IOperation> = opsAndTree.first.map { it.getOriginalOp() }.toTypedArray()
             if (ops.isEmpty()) {
                 return
             }

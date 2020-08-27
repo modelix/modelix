@@ -416,7 +416,8 @@ class CLTree : ITree {
         if (id == 0L) {
             return null
         }
-        val hash = nodesMap!![id] ?: throw RuntimeException("Element doesn't exist: ${SerializationUtil.longToHex(id)}")
+        val hash = nodesMap!![id]
+            ?: throw RuntimeException("Element doesn't exist: ${SerializationUtil.longToHex(id)}")
         return createElement(hash, NonBulkQuery(store)).execute()
     }
 

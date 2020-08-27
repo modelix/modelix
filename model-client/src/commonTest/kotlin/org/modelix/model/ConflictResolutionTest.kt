@@ -736,6 +736,27 @@ class ConflictResolutionTest : TreeTestBase() {
         )
     }
 
+    @Test
+    fun knownIssue34() {
+        knownIssueTest(
+            { t ->
+                t.addNewChild(0x1, "cRole3", 0, 0xff00000001, null)
+                t.addNewChild(0xff00000001, "cRole2", 0, 0xff00000002, null)
+                t.addNewChild(0xff00000001, "cRole2", 1, 0xff00000003, null)
+                t.addNewChild(0xff00000002, "cRole2", 0, 0xff00000004, null)
+                t.addNewChild(0xff00000001, "cRole1", 0, 0xff00000005, null)
+            },
+            { t -> // 0
+                t.moveChild(0x1, "cRole2", 0, 0xff00000005)
+                t.moveChild(0x1, "cRole2", 0, 0xff00000003)
+            },
+            { t -> // 1
+                t.moveChild(0xff00000004, "cRole3", 0, 0xff00000003)
+                t.deleteNode(0xff00000005)
+            }
+        )
+    }
+
     fun createVersion(opsAndTree: Pair<List<IAppliedOperation>, ITree>, previousVersion: CLVersion?): CLVersion {
         return CLVersion(
             idGenerator.generate(),
@@ -743,7 +764,7 @@ class ConflictResolutionTest : TreeTestBase() {
             null,
             (opsAndTree.second as CLTree).hash,
             previousVersion?.hash,
-            opsAndTree.first.map { it.originalOp }.toTypedArray(),
+            opsAndTree.first.map { it.getOriginalOp() }.toTypedArray(),
             storeCache
         )
     }

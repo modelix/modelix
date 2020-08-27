@@ -60,7 +60,7 @@ class TreeSerializationTest {
             null,
             (tree as CLTree).hash,
             initialVersion.hash,
-            ops.map { it.originalOp }.toTypedArray(),
+            ops.map { it.getOriginalOp() }.toTypedArray(),
             objectStore
         )
         store.put("branch_master", version.hash)

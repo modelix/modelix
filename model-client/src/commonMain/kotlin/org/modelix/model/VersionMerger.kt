@@ -22,10 +22,7 @@ import org.modelix.model.api.PBranch
 import org.modelix.model.lazy.CLTree
 import org.modelix.model.lazy.CLVersion
 import org.modelix.model.lazy.IDeserializingKeyValueStore
-import org.modelix.model.operations.ConcurrentOperations
-import org.modelix.model.operations.IAppliedOperation
-import org.modelix.model.operations.IOperation
-import org.modelix.model.operations.IndexAdjustments
+import org.modelix.model.operations.*
 import org.modelix.model.persistent.CPVersion
 import kotlin.math.max
 
@@ -95,30 +92,35 @@ class VersionMerger(private val storeCache: IDeserializingKeyValueStore, private
                 val concurrentAppliedOps = appliedOpsForVersion
                     .filterKeys { !knownVersions.contains(it) }
                     .flatMap { it.value }
-                    .map { it.originalOp }
-                val operationsToApply = ConcurrentOperations(concurrentAppliedOps, versionToApply.operations.toList())
-                while (!operationsToApply.isConcurrentDone()) {
-                    logDebug({ "with concurrent: ${operationsToApply.getConcurrentOp()}" }, VersionMerger::class)
-                    while (!operationsToApply.isDone()) {
-                        operationsToApply.replace(operationsToApply.getCurrent()
-                            .transform(operationsToApply.getConcurrentOp(), operationsToApply))
-                    }
-                    operationsToApply.nextConcurrent()
-                }
-                appliedOpsForVersion[versionToApply.id] = operationsToApply.getAll().map {
+                    .map { it.getOriginalOp() }
+
+                val operationsToApply = captureIntend(versionToApply)
+                val appliedOps = operationsToApply.flatMap {
+                    val transformed: List<IOperation>
                     try {
-                        it.apply(t)
+                        transformed = it.restoreIntend(t.tree)
+                        if (transformed != it.getOriginalOp()) {
+                            logDebug({ "transformed: ${it.getOriginalOp()} --> $transformed" }, VersionMerger::class)
+                        }
                     } catch (ex: Exception) {
-                        throw RuntimeException("Operation failed: $it", ex)
+                        throw RuntimeException("Operation intend failed: ${it.getOriginalOp()}", ex)
+                    }
+                    transformed.map { o ->
+                        try {
+                            o.apply(t)
+                        } catch (ex: Exception) {
+                            throw RuntimeException("Operation failed: $o", ex)
+                        }
                     }
                 }
+                appliedOpsForVersion[versionToApply.id] = appliedOps
                 mergedVersion = CLVersion(
                     versionToApply.id,
                     versionToApply.time,
                     versionToApply.author,
                     (t.tree as CLTree).hash,
                     if (mergedVersion != null) mergedVersion!!.hash else versionToApply.previousHash,
-                    operationsToApply.getAll().toTypedArray(),
+                    appliedOps.map { it.getOriginalOp() }.toTypedArray(),
                     storeCache
                 )
             }
@@ -127,6 +129,19 @@ class VersionMerger(private val storeCache: IDeserializingKeyValueStore, private
             throw RuntimeException("Failed to merge $leftVersionHash and $rightVersionHash")
         }
         return mergedVersion!!
+    }
+
+    private fun captureIntend(version: CLVersion): List<IOperationIntend> {
+        val tree = version.previousVersion!!.tree
+        val branch = PBranch(tree, idGenerator)
+        return branch.computeWrite {
+            val a = version.operations.map {
+                val intend = it.captureIntend(branch.transaction.tree)
+                it.apply(branch.writeTransaction)
+                intend
+            }
+            a
+        }
     }
 
     protected fun transformOperation(

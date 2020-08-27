@@ -41,6 +41,6 @@ class OTBranchTest : TreeTestBase() {
     }
 
     private fun applyOps(branch: OTBranch, ops: List<IAppliedOperation>) {
-        branch.runWrite { ops.forEach { it.originalOp.apply(branch.writeTransaction) } }
+        branch.runWrite { ops.forEach { it.getOriginalOp().apply(branch.writeTransaction) } }
     }
 }

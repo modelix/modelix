@@ -15,6 +15,7 @@
 
 package org.modelix.model.operations
 
+import org.modelix.model.api.ITree
 import org.modelix.model.api.IWriteTransaction
 
 class MoveNodeOp(val childId: Long, val sourcePosition: PositionInRole, val targetPosition: PositionInRole, val targetAncestors: LongArray?) : AbstractOperation() {
@@ -146,11 +147,41 @@ class MoveNodeOp(val childId: Long, val sourcePosition: PositionInRole, val targ
     }
 
     inner class Applied(val sourceAncestors: LongArray) : AbstractOperation.Applied(), IAppliedOperation {
-        override val originalOp: IOperation
-            get() = this@MoveNodeOp
+        override fun getOriginalOp() = this@MoveNodeOp
 
         override fun invert(): IOperation {
             return MoveNodeOp(childId, targetPosition, sourcePosition, sourceAncestors)
         }
+    }
+
+    override fun captureIntend(tree: ITree): IOperationIntend {
+        val capturedTargetPosition = CapturedInsertPosition(
+            targetPosition.index,
+            tree.getChildren(targetPosition.nodeId, targetPosition.role).toList().toLongArray()
+        )
+
+        return Intend(capturedTargetPosition)
+    }
+
+    inner class Intend(val capturedTargetPosition: CapturedInsertPosition) : IOperationIntend {
+        override fun restoreIntend(tree: ITree): List<IOperation> {
+            if (!tree.containsNode(childId)) return listOf(NoOp())
+            val newSourcePosition = getNodePosition(tree, childId)
+            if (!tree.containsNode(targetPosition.nodeId)) return listOf(withPos(
+                newSourcePosition,
+                getDetachedNodesEndPosition(tree),
+                null
+            ))
+            if (getAncestors(tree, targetPosition.nodeId).contains(childId)) return listOf(NoOp())
+            val newTargetPosition = if (tree.containsNode(targetPosition.nodeId)) {
+                val newTargetIndex = capturedTargetPosition.findIndex(tree.getChildren(targetPosition.nodeId, targetPosition.role).toList().toLongArray())
+                targetPosition.withIndex(newTargetIndex)
+            } else {
+                getDetachedNodesEndPosition(tree)
+            }
+            return listOf(withPos(newSourcePosition, newTargetPosition, null))
+        }
+
+        override fun getOriginalOp() = this@MoveNodeOp
     }
 }
