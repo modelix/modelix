@@ -22,6 +22,7 @@ import org.modelix.model.api.PBranch
 import org.modelix.model.lazy.CLTree
 import org.modelix.model.lazy.CLVersion
 import org.modelix.model.lazy.IDeserializingKeyValueStore
+import org.modelix.model.operations.ConcurrentOperations
 import org.modelix.model.operations.IAppliedOperation
 import org.modelix.model.operations.IOperation
 import org.modelix.model.operations.IndexAdjustments
@@ -95,17 +96,16 @@ class VersionMerger(private val storeCache: IDeserializingKeyValueStore, private
                     .filterKeys { !knownVersions.contains(it) }
                     .flatMap { it.value }
                     .map { it.originalOp }
-                var operationsToApply: List<IOperation> = versionToApply.operations.toList()
-                for (concurrentAppliedOp in concurrentAppliedOps) {
-                    val indexAdjustments = IndexAdjustments()
-                    operationsToApply.forEach { it.loadKnownData(indexAdjustments) }
-                    concurrentAppliedOp.loadKnownData(indexAdjustments)
-                    concurrentAppliedOp.loadAdjustment(indexAdjustments)
-                    operationsToApply = operationsToApply
-                        .flatMap { transformOperation(it, concurrentAppliedOp, indexAdjustments) }
-                        .toList()
+                val operationsToApply = ConcurrentOperations(concurrentAppliedOps, versionToApply.operations.toList())
+                while (!operationsToApply.isConcurrentDone()) {
+                    logDebug({ "with concurrent: ${operationsToApply.getConcurrentOp()}" }, VersionMerger::class)
+                    while (!operationsToApply.isDone()) {
+                        operationsToApply.replace(operationsToApply.getCurrent()
+                            .transform(operationsToApply.getConcurrentOp(), operationsToApply))
+                    }
+                    operationsToApply.nextConcurrent()
                 }
-                appliedOpsForVersion[versionToApply.id] = operationsToApply.map {
+                appliedOpsForVersion[versionToApply.id] = operationsToApply.getAll().map {
                     try {
                         it.apply(t)
                     } catch (ex: Exception) {
@@ -118,7 +118,7 @@ class VersionMerger(private val storeCache: IDeserializingKeyValueStore, private
                     versionToApply.author,
                     (t.tree as CLTree).hash,
                     if (mergedVersion != null) mergedVersion!!.hash else versionToApply.previousHash,
-                    operationsToApply.toTypedArray(),
+                    operationsToApply.getAll().toTypedArray(),
                     storeCache
                 )
             }
@@ -132,12 +132,12 @@ class VersionMerger(private val storeCache: IDeserializingKeyValueStore, private
     protected fun transformOperation(
         opToTransform: IOperation,
         previousOp: IOperation,
-        indexAdjustments: IndexAdjustments
+        context: ConcurrentOperations
     ): List<IOperation> {
-        val transformed = opToTransform.transform(previousOp, indexAdjustments)
-//        if (transformed.size != 1 || opToTransform.toString() != transformed[0].toString()) {
-//            logDebug({ "transformed: $opToTransform --> $transformed ## $previousOp" }, VersionMerger::class)
-//        }
+        val transformed = opToTransform.transform(previousOp, context)
+        if (transformed.size != 1 || opToTransform.toString() != transformed[0].toString()) {
+            logDebug({ "transformed: $opToTransform --> $transformed ## $previousOp" }, VersionMerger::class)
+        }
         return transformed
     }
 

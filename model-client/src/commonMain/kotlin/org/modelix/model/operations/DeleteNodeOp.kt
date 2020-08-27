@@ -38,56 +38,50 @@ class DeleteNodeOp(val position: PositionInRole, val childId: Long) : AbstractOp
         return Applied(concept)
     }
 
-    override fun transform(previous: IOperation, indexAdjustments: IndexAdjustments): List<IOperation> {
-        val adjusted = {
-            val a = withAdjustedPosition(indexAdjustments)
-            indexAdjustments.nodeRemoved(a, false, a.position, childId)
-            a
-        }
-        return when (previous) {
+    override fun transform(previous: IOperation, context: ConcurrentOperations): List<IOperation> {
+        when (previous) {
             is DeleteNodeOp -> {
                 if (previous.childId == childId) {
-                    indexAdjustments.removeAdjustment(previous)
-                    listOf(NoOp())
-                } else listOf(adjusted())
+                    return listOf(NoOp())
+                }
             }
             is AddNewChildOp -> {
                 if (previous.position.nodeId == childId) {
                     val moveOp = MoveNodeOp(
                         previous.childId,
-                        indexAdjustments.getAdjustedPosition(previous.childId, previous.position),
+                        previous.position,
                         PositionInRole(DETACHED_ROLE, 0),
                         longArrayOf()
                     )
-                    indexAdjustments.nodeMoved(moveOp, true, moveOp.sourcePosition, moveOp.targetPosition)
-                    listOf(moveOp, adjusted())
-                } else {
-                    listOf(adjusted())
+                    context.adjustFutureOps { it.withAdjustedPositions(NodeInsertAdjustment(moveOp.targetPosition)) }
+                    return listOf(moveOp, this)
                 }
             }
             is MoveNodeOp -> {
-                if (previous.targetPosition.nodeId == childId && !indexAdjustments.isDeleted(previous.childId)) {
+                if (previous.targetPosition.nodeId == childId) {
                     val moveOp = MoveNodeOp(
                         previous.childId,
-                        indexAdjustments.getAdjustedPosition(previous.childId, previous.targetPosition),
+                        previous.targetPosition,
                         PositionInRole(DETACHED_ROLE, 0),
                         longArrayOf()
                     )
-                    if (moveOp.sourcePosition == moveOp.targetPosition) {
-                        listOf(adjusted())
-                    } else {
-                        indexAdjustments.nodeMoved(moveOp, true, moveOp.sourcePosition, moveOp.targetPosition)
-                        indexAdjustments.setKnownPosition(moveOp.childId, moveOp.targetPosition)
-                        indexAdjustments.setKnownParent(moveOp.childId, moveOp.targetPosition.nodeId)
-                        listOf(moveOp, adjusted())
+                    if (moveOp.sourcePosition != moveOp.targetPosition) {
+                        context.adjustFutureOps { it.withAdjustedPositions(NodeInsertAdjustment(moveOp.targetPosition)) }
+                        context.adjustFutureOps {
+                            if (it is MoveNodeOp && it.childId == previous.childId) {
+                                it.withPos(
+                                    moveOp.targetPosition,
+                                    NodeRemoveAdjustment(previous.sourcePosition).adjust(it.targetPosition, true),
+                                    it.targetAncestors
+                                )
+                            } else it
+                        }
+                        return listOf(moveOp, this)
                     }
-                } else listOf(adjusted())
+                }
             }
-            is SetPropertyOp -> listOf(adjusted())
-            is SetReferenceOp -> listOf(adjusted())
-            is NoOp -> listOf(adjusted())
-            else -> throw RuntimeException("Unknown type: " + previous::class.simpleName)
         }
+        return listOf(this)
     }
 
     override fun loadAdjustment(indexAdjustments: IndexAdjustments) {
@@ -97,6 +91,10 @@ class DeleteNodeOp(val position: PositionInRole, val childId: Long) : AbstractOp
 
     override fun withAdjustedPosition(indexAdjustments: IndexAdjustments): DeleteNodeOp {
         return withPosition(indexAdjustments.getAdjustedPosition(childId, position))
+    }
+
+    override fun withAdjustedPositions(adjustment: IndexAdjustment): IOperation {
+        return withPosition(adjustment.adjust(position, false))
     }
 
     override fun toString(): String {

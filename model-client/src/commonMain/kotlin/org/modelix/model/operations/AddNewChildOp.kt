@@ -30,30 +30,17 @@ class AddNewChildOp(val position: PositionInRole, val childId: Long, val concept
         return Applied()
     }
 
-    override fun transform(previous: IOperation, indexAdjustments: IndexAdjustments): List<IOperation> {
-        val adjusted = {
-            val a = withAdjustedPosition(indexAdjustments)
-            indexAdjustments.nodeAdded(a, false, position, childId)
-            indexAdjustments.setKnownPosition(childId, a.position)
-            a
-        }
-        return when (previous) {
-            is AddNewChildOp -> listOf(adjusted())
+    override fun transform(previous: IOperation, context: ConcurrentOperations): List<IOperation> {
+        when (previous) {
             is DeleteNodeOp -> {
                 if (previous.childId == position.nodeId) {
                     val redirected = AddNewChildOp(PositionInRole(DETACHED_ROLE, 0), this.childId, this.concept)
-                    indexAdjustments.redirectedAdd(this, position, redirected.position, childId)
-                    listOf(redirected)
-                } else {
-                    listOf(adjusted())
+                    context.adjustFutureOps { it.withAdjustedPositions(NodeInsertAdjustment(redirected.position)) }
+                    return listOf(redirected)
                 }
             }
-            is MoveNodeOp -> listOf(adjusted())
-            is SetPropertyOp -> listOf(adjusted())
-            is SetReferenceOp -> listOf(adjusted())
-            is NoOp -> listOf(adjusted())
-            else -> throw RuntimeException("Unknown type: " + previous::class.simpleName)
         }
+        return listOf(this)
     }
 
     override fun loadAdjustment(indexAdjustments: IndexAdjustments) {
@@ -63,6 +50,10 @@ class AddNewChildOp(val position: PositionInRole, val childId: Long, val concept
 
     override fun withAdjustedPosition(indexAdjustments: IndexAdjustments): AddNewChildOp {
         return withPosition(indexAdjustments.getAdjustedPositionForInsert(position))
+    }
+
+    override fun withAdjustedPositions(adjustment: IndexAdjustment): IOperation {
+        return withPosition(adjustment.adjust(position, true))
     }
 
     override fun toString(): String {

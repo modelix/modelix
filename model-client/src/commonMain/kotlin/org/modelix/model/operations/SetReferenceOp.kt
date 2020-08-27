@@ -26,22 +26,15 @@ class SetReferenceOp(val sourceId: Long, val role: String, val target: INodeRefe
         return Applied(oldValue)
     }
 
-    override fun transform(previous: IOperation, indexAdjustments: IndexAdjustments): List<IOperation> {
-        return when (previous) {
-            is SetPropertyOp -> listOf(this)
-            is SetReferenceOp -> listOf(this)
-            is AddNewChildOp -> listOf(this)
+    override fun transform(previous: IOperation, context: ConcurrentOperations): List<IOperation> {
+        when (previous) {
             is DeleteNodeOp -> {
                 if (sourceId == previous.childId) {
-                    listOf(NoOp())
-                } else {
-                    listOf(this)
+                    return listOf(NoOp())
                 }
             }
-            is MoveNodeOp -> listOf(this)
-            is NoOp -> listOf(this)
-            else -> throw RuntimeException("Unknown type: " + previous::class.simpleName)
         }
+        return listOf(this)
     }
 
     override fun toString(): String {

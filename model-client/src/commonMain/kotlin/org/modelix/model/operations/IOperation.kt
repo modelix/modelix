@@ -27,12 +27,13 @@ interface IOperation {
      * 'this' needs to be replaced with an operation that applies the same intended change
      * on a model that was modified by 'previous' in the mean time.
      */
-    fun transform(previous: IOperation, indexAdjustments: IndexAdjustments): List<IOperation>
+    fun transform(previous: IOperation, context: ConcurrentOperations): List<IOperation>
 
     fun loadAdjustment(indexAdjustments: IndexAdjustments)
     fun loadKnownData(indexAdjustments: IndexAdjustments)
 
     fun withAdjustedPosition(indexAdjustments: IndexAdjustments): IOperation
+    fun withAdjustedPositions(adjustment: IndexAdjustment): IOperation
 
     fun toCode(): String
 }

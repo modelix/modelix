@@ -22,7 +22,7 @@ class NoOp : AbstractOperation(), IAppliedOperation {
         return this
     }
 
-    override fun transform(previous: IOperation, indexAdjustments: IndexAdjustments): List<IOperation> {
+    override fun transform(previous: IOperation, context: ConcurrentOperations): List<IOperation> {
         return listOf(this)
     }
 

@@ -3,7 +3,7 @@ package org.modelix.model.operations
 import org.modelix.model.api.ITree
 
 class IndexAdjustments {
-    private val adjustments: MutableList<Adjustment> = ArrayList()
+    private val adjustments: MutableList<Adjustment_> = ArrayList()
     private val knownPositions: MutableMap<Long, KnownPosition> = HashMap()
     private val knownParents: MutableMap<Long, Long> = HashMap()
 
@@ -66,7 +66,7 @@ class IndexAdjustments {
 
     fun isDeleted(nodeId: Long) = knownPositions[nodeId]?.deleted == true
 
-    fun addAdjustment(newAdjustment: Adjustment) {
+    fun addAdjustment(newAdjustment: Adjustment_) {
         for (i in adjustments.indices) {
             adjustments[i] = adjustments[i].adjustSelf(newAdjustment)
         }
@@ -90,34 +90,34 @@ class IndexAdjustments {
 
     fun nodeAdded(owner: IOperation, concurrentSide: Boolean, addedPos: PositionInRole, nodeId: Long) {
         adjustKnownPositions(addedPos.roleInNode) { if (it >= addedPos.index) it + 1 else it }
-        addAdjustment(NodeInsertAdjustment(owner, concurrentSide, addedPos))
+        addAdjustment(NodeInsertAdjustment_(owner, concurrentSide, addedPos))
     }
 
     fun redirectedAdd(owner: IOperation, originalPos: PositionInRole, redirectedPos: PositionInRole, nodeId: Long) {
         adjustKnownPositions(redirectedPos.roleInNode) { if (it >= redirectedPos.index) it + 1 else it }
         adjustKnownPositions(originalPos.roleInNode) { if (it > originalPos.index) it - 1 else it }
         setKnownPosition(nodeId, redirectedPos, deleted = false)
-        addAdjustment(NodeInsertAdjustment(owner, false, redirectedPos))
+        addAdjustment(NodeInsertAdjustment_(owner, false, redirectedPos))
     }
 
     fun redirectedMove(owner: IOperation, source: PositionInRole, originalTarget: PositionInRole, redirectedTarget: PositionInRole) {
         adjustKnownPositions(redirectedTarget.roleInNode) { if (it >= redirectedTarget.index) it + 1 else it }
-        addAdjustment(NodeInsertAdjustment(owner, false, redirectedTarget))
-        addAdjustment(NodeRemoveAdjustment(owner, false, originalTarget))
+        addAdjustment(NodeInsertAdjustment_(owner, false, redirectedTarget))
+        addAdjustment(NodeRemoveAdjustment_(owner, false, originalTarget))
     }
 
     fun nodeRemoved(owner: IOperation, concurrentSide: Boolean, removedPos: PositionInRole, nodeId: Long) {
         adjustKnownPositions(removedPos.roleInNode) { if (it > removedPos.index) it - 1 else it }
         setKnownPosition(nodeId, KnownPosition(removedPos, true))
         setKnownParent(nodeId, 0L)
-        addAdjustment(NodeRemoveAdjustment(owner, concurrentSide, removedPos))
+        addAdjustment(NodeRemoveAdjustment_(owner, concurrentSide, removedPos))
     }
 
     fun nodeMoved(owner: IOperation, concurrentSide: Boolean, sourcePos: PositionInRole, targetPos: PositionInRole) {
         adjustKnownPositions(targetPos.roleInNode) { if (it >= targetPos.index) it + 1 else it }
         adjustKnownPositions(sourcePos.roleInNode) { if (it > sourcePos.index) it - 1 else it }
-        addAdjustment(NodeInsertAdjustment(owner, concurrentSide, targetPos))
-        addAdjustment(NodeRemoveAdjustment(owner, concurrentSide, sourcePos))
+        addAdjustment(NodeInsertAdjustment_(owner, concurrentSide, targetPos))
+        addAdjustment(NodeRemoveAdjustment_(owner, concurrentSide, sourcePos))
     }
 }
 
@@ -125,13 +125,13 @@ data class KnownPosition(val position: PositionInRole, val deleted: Boolean) {
     fun withIndex(newIndex: Int) = KnownPosition(position.withIndex(newIndex), deleted)
 }
 
-abstract class Adjustment(val owner: IOperation) {
+abstract class Adjustment_(val owner: IOperation) {
     abstract fun adjust(posToTransform: PositionInRole, forInsert: Boolean): PositionInRole
     abstract fun isConcurrentSide(): Boolean
-    abstract fun adjustSelf(addedAdjustment: Adjustment): Adjustment
+    abstract fun adjustSelf(addedAdjustment: Adjustment_): Adjustment_
 }
 
-class NodeInsertAdjustment(owner: IOperation, val concurrentSide: Boolean, val insertedPos: PositionInRole) : Adjustment(owner) {
+class NodeInsertAdjustment_(owner: IOperation, val concurrentSide: Boolean, val insertedPos: PositionInRole) : Adjustment_(owner) {
     override fun adjust(posToTransform: PositionInRole, forInsert: Boolean): PositionInRole {
         return if (posToTransform.roleInNode == insertedPos.roleInNode) {
             if (posToTransform.index > insertedPos.index) {
@@ -146,17 +146,17 @@ class NodeInsertAdjustment(owner: IOperation, val concurrentSide: Boolean, val i
         }
     }
 
-    override fun adjustSelf(addedAdjustment: Adjustment): Adjustment {
+    override fun adjustSelf(addedAdjustment: Adjustment_): Adjustment_ {
         if (addedAdjustment.isConcurrentSide() == isConcurrentSide()) return this
         val adjustedPos = addedAdjustment.adjust(insertedPos, false)
         if (adjustedPos == insertedPos) return this
-        return NodeInsertAdjustment(owner, concurrentSide, adjustedPos)
+        return NodeInsertAdjustment_(owner, concurrentSide, adjustedPos)
     }
 
     override fun isConcurrentSide() = concurrentSide
 }
 
-class NodeRemoveAdjustment(owner: IOperation, val concurrentSide: Boolean, val removedPos: PositionInRole) : Adjustment(owner) {
+class NodeRemoveAdjustment_(owner: IOperation, val concurrentSide: Boolean, val removedPos: PositionInRole) : Adjustment_(owner) {
     override fun adjust(posToTransform: PositionInRole, forInsert: Boolean): PositionInRole {
         return if (posToTransform.roleInNode == removedPos.roleInNode) {
             when {
@@ -168,11 +168,58 @@ class NodeRemoveAdjustment(owner: IOperation, val concurrentSide: Boolean, val r
         }
     }
 
-    override fun adjustSelf(addedAdjustment: Adjustment): Adjustment {
+    override fun adjustSelf(addedAdjustment: Adjustment_): Adjustment_ {
         if (addedAdjustment.isConcurrentSide() == isConcurrentSide()) return this
         val adjustedPos = addedAdjustment.adjust(removedPos, false)
         if (adjustedPos == removedPos) return this
-        return NodeRemoveAdjustment(owner, concurrentSide, adjustedPos)
+        return NodeRemoveAdjustment_(owner, concurrentSide, adjustedPos)
     }
     override fun isConcurrentSide() = concurrentSide
+}
+
+
+interface IndexAdjustment {
+    fun adjust(posToTransform: PositionInRole, forInsert: Boolean): PositionInRole
+    fun plus(other: IndexAdjustment): IndexAdjustment
+}
+
+class NodeInsertAdjustment(val insertedPos: PositionInRole) : IndexAdjustment {
+    override fun adjust(posToTransform: PositionInRole, forInsert: Boolean): PositionInRole {
+        return if (posToTransform.roleInNode == insertedPos.roleInNode) {
+            if (posToTransform.index > insertedPos.index) {
+                posToTransform.withIndex(posToTransform.index + 1)
+            } else if (posToTransform.index == insertedPos.index && !forInsert) {
+                posToTransform.withIndex(posToTransform.index + 1)
+            } else {
+                posToTransform
+            }
+        } else {
+            posToTransform
+        }
+    }
+
+    override fun plus(other: IndexAdjustment) = CompositeAdjustment(this, other)
+}
+
+class NodeRemoveAdjustment(val removedPos: PositionInRole) : IndexAdjustment {
+    override fun adjust(posToTransform: PositionInRole, forInsert: Boolean): PositionInRole {
+        return if (posToTransform.roleInNode == removedPos.roleInNode) {
+            when {
+                posToTransform.index > removedPos.index -> posToTransform.withIndex(posToTransform.index - 1)
+                else -> posToTransform
+            }
+        } else {
+            posToTransform
+        }
+    }
+
+    override fun plus(other: IndexAdjustment) = CompositeAdjustment(this, other)
+}
+
+class CompositeAdjustment(val adjustment1: IndexAdjustment, val adjustment2: IndexAdjustment) : IndexAdjustment {
+    override fun adjust(posToTransform: PositionInRole, forInsert: Boolean): PositionInRole {
+        return adjustment2.adjust(adjustment1.adjust(posToTransform, forInsert), forInsert)
+    }
+
+    override fun plus(other: IndexAdjustment) = CompositeAdjustment(this, other)
 }
