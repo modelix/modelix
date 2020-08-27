@@ -149,18 +149,6 @@ class VersionMerger(private val storeCache: IDeserializingKeyValueStore, private
         }
     }
 
-    protected fun transformOperation(
-        opToTransform: IOperation,
-        previousOp: IOperation,
-        context: ConcurrentOperations
-    ): List<IOperation> {
-        val transformed = opToTransform.transform(previousOp, context)
-        if (transformed.size != 1 || opToTransform.toString() != transformed[0].toString()) {
-            logDebug({ "transformed: $opToTransform --> $transformed ## $previousOp" }, VersionMerger::class)
-        }
-        return transformed
-    }
-
     /**
      *
      *

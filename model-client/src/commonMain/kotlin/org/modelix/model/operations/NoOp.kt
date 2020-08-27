@@ -23,10 +23,6 @@ class NoOp : AbstractOperation(), IAppliedOperation, IOperationIntend {
         return this
     }
 
-    override fun transform(previous: IOperation, context: ConcurrentOperations): List<IOperation> {
-        return listOf(this)
-    }
-
     override fun invert(): IOperation {
         return this
     }

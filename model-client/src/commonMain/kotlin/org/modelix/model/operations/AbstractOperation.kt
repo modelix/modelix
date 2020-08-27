@@ -26,24 +26,6 @@ abstract class AbstractOperation : IOperation {
         }
     }
 
-    override fun loadAdjustment(indexAdjustments: IndexAdjustments) {
-    }
-
-    override fun loadKnownData(indexAdjustments: IndexAdjustments) {
-    }
-
-    override fun withAdjustedPosition(indexAdjustments: IndexAdjustments): IOperation {
-        return this
-    }
-
-    override fun withAdjustedNodeLocation(nodeId: Long, position: PositionInRole): IOperation {
-        return this
-    }
-
-    override fun withAdjustedPositions(adjustment: IndexAdjustment): IOperation {
-        return this
-    }
-
     override fun toCode(): String {
         return ""
     }

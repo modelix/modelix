@@ -20,90 +20,21 @@ import org.modelix.model.api.ITree
 import org.modelix.model.api.IWriteTransaction
 import org.modelix.model.persistent.SerializationUtil
 
-class DeleteNodeOp(val position: PositionInRole, val childId: Long) : AbstractOperation(), IOperationIntend {
-    fun withPosition(newPos: PositionInRole): DeleteNodeOp {
-        return if (newPos == position) this else DeleteNodeOp(newPos, childId)
-    }
+class DeleteNodeOp(val childId: Long) : AbstractOperation(), IOperationIntend {
 
     override fun apply(transaction: IWriteTransaction): IAppliedOperation {
         if (transaction.getAllChildren(childId).count() != 0) {
             throw RuntimeException("Attempt to delete non-leaf node: ${childId.toString(16)}")
         }
 
-        val actualNode = transaction.getChildren(position.nodeId, position.role).toList()[position.index]
-        if (actualNode != childId) {
-            throw RuntimeException("Node at $position is expected to be ${childId.toString(16)}, but was ${actualNode.toString(16)}")
-        }
         val concept = transaction.getConcept(childId)
+        val position = getNodePosition(transaction.tree, childId)
         transaction.deleteNode(childId)
-        return Applied(concept)
-    }
-
-    override fun transform(previous: IOperation, context: ConcurrentOperations): List<IOperation> {
-        when (previous) {
-            is DeleteNodeOp -> {
-                if (previous.childId == childId) {
-                    return listOf(NoOp())
-                }
-            }
-            is AddNewChildOp -> {
-                if (previous.position.nodeId == childId) {
-                    val moveOp = MoveNodeOp(
-                        previous.childId,
-                        previous.position,
-                        PositionInRole(DETACHED_ROLE, 0),
-                        longArrayOf()
-                    )
-                    context.adjustFutureOps { it.withAdjustedPositions(NodeInsertAdjustment(moveOp.targetPosition)) }
-                    return listOf(moveOp, this)
-                }
-            }
-            is MoveNodeOp -> {
-                if (previous.targetPosition.nodeId == childId) {
-                    val moveOp = MoveNodeOp(
-                        previous.childId,
-                        previous.targetPosition,
-                        PositionInRole(DETACHED_ROLE, 0),
-                        longArrayOf()
-                    )
-                    if (moveOp.sourcePosition != moveOp.targetPosition) {
-                        context.adjustFutureOps { it.withAdjustedPositions(NodeInsertAdjustment(moveOp.targetPosition)) }
-                        context.adjustFutureOps { it.withAdjustedNodeLocation(moveOp.childId, moveOp.targetPosition) }
-                        context.adjustFutureConcurrentOps { it.withAdjustedNodeLocation(moveOp.childId, moveOp.targetPosition) }
-                        context.replaceConcurrentOp(
-                            previous.withPos(
-                                previous.sourcePosition,
-                                moveOp.targetPosition,
-                                moveOp.targetAncestors
-                            )
-                        )
-                        return listOf(moveOp, this)
-                    }
-                }
-            }
-        }
-        return listOf(this)
-    }
-
-    override fun loadAdjustment(indexAdjustments: IndexAdjustments) {
-        indexAdjustments.nodeRemoved(this, true, position, childId)
-        indexAdjustments.setKnownPosition(childId, position, true)
-    }
-
-    override fun withAdjustedPosition(indexAdjustments: IndexAdjustments): DeleteNodeOp {
-        return withPosition(indexAdjustments.getAdjustedPosition(childId, position))
-    }
-
-    override fun withAdjustedPositions(adjustment: IndexAdjustment): IOperation {
-        return withPosition(adjustment.adjust(position, false))
-    }
-
-    override fun withAdjustedNodeLocation(nodeId: Long, position: PositionInRole): IOperation {
-        return if (nodeId == this.childId) withPosition(position) else this
+        return Applied(position, concept)
     }
 
     override fun toString(): String {
-        return "DeleteNodeOp ${SerializationUtil.longToHex(childId)}, $position"
+        return "DeleteNodeOp ${SerializationUtil.longToHex(childId)}"
     }
 
     override fun toCode(): String {
@@ -112,16 +43,15 @@ class DeleteNodeOp(val position: PositionInRole, val childId: Long) : AbstractOp
 
     override fun restoreIntend(tree: ITree): List<IOperation> {
         if (!tree.containsNode(childId)) return listOf(NoOp())
-        val adjustedDelete = withPosition(getNodePosition(tree, childId))
         val allChildren = tree.getAllChildren(childId).toList()
         if (allChildren.isNotEmpty()) {
             val targetPos = getDetachedNodesEndPosition(tree)
             return allChildren
                 .reversed()
-                .map { MoveNodeOp(it, getNodePosition(tree, it), targetPos, null) }
-                .plus(adjustedDelete)
+                .map { MoveNodeOp(it, targetPos) }
+                .plus(this)
         }
-        return listOf(adjustedDelete)
+        return listOf(this)
     }
 
     override fun captureIntend(tree: ITree): IOperationIntend {
@@ -130,7 +60,7 @@ class DeleteNodeOp(val position: PositionInRole, val childId: Long) : AbstractOp
 
     override fun getOriginalOp() = this
 
-    inner class Applied(private val concept: IConcept?) : AbstractOperation.Applied(), IAppliedOperation {
+    inner class Applied(val position: PositionInRole, private val concept: IConcept?) : AbstractOperation.Applied(), IAppliedOperation {
         override fun getOriginalOp() = this@DeleteNodeOp
 
         override fun invert(): IOperation {

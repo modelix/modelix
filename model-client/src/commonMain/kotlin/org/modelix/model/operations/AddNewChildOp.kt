@@ -31,32 +31,6 @@ class AddNewChildOp(val position: PositionInRole, val childId: Long, val concept
         return Applied()
     }
 
-    override fun transform(previous: IOperation, context: ConcurrentOperations): List<IOperation> {
-        when (previous) {
-            is DeleteNodeOp -> {
-                if (previous.childId == position.nodeId) {
-                    val redirected = AddNewChildOp(PositionInRole(DETACHED_ROLE, 0), this.childId, this.concept)
-                    context.adjustFutureOps { it.withAdjustedPositions(NodeInsertAdjustment(redirected.position)) }
-                    return listOf(redirected)
-                }
-            }
-        }
-        return listOf(this)
-    }
-
-    override fun loadAdjustment(indexAdjustments: IndexAdjustments) {
-        indexAdjustments.nodeAdded(this, true, position, childId)
-        indexAdjustments.setKnownPosition(childId, position)
-    }
-
-    override fun withAdjustedPosition(indexAdjustments: IndexAdjustments): AddNewChildOp {
-        return withPosition(indexAdjustments.getAdjustedPositionForInsert(position))
-    }
-
-    override fun withAdjustedPositions(adjustment: IndexAdjustment): IOperation {
-        return withPosition(adjustment.adjust(position, true))
-    }
-
     override fun toString(): String {
         return "AddNewChildOp ${SerializationUtil.longToHex(childId)}, $position, $concept"
     }
@@ -69,7 +43,7 @@ class AddNewChildOp(val position: PositionInRole, val childId: Long, val concept
         override fun getOriginalOp() = this@AddNewChildOp
 
         override fun invert(): IOperation {
-            return DeleteNodeOp(position, childId)
+            return DeleteNodeOp(childId)
         }
     }
 

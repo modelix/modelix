@@ -26,17 +26,6 @@ class SetPropertyOp(val nodeId: Long, val role: String, val value: String?) : Ab
         return Applied(oldValue)
     }
 
-    override fun transform(previous: IOperation, context: ConcurrentOperations): List<IOperation> {
-        when (previous) {
-            is DeleteNodeOp -> {
-                if (nodeId == previous.childId) {
-                    return listOf(NoOp())
-                }
-            }
-        }
-        return listOf(this)
-    }
-
     override fun toString(): String {
         return "SetPropertOp ${SerializationUtil.longToHex(nodeId)}.$role = $value"
     }

@@ -27,17 +27,6 @@ class SetReferenceOp(val sourceId: Long, val role: String, val target: INodeRefe
         return Applied(oldValue)
     }
 
-    override fun transform(previous: IOperation, context: ConcurrentOperations): List<IOperation> {
-        when (previous) {
-            is DeleteNodeOp -> {
-                if (sourceId == previous.childId) {
-                    return listOf(NoOp())
-                }
-            }
-        }
-        return listOf(this)
-    }
-
     override fun toString(): String {
         return "SetReferenceOp ${SerializationUtil.longToHex(sourceId)}.$role = $target"
     }
