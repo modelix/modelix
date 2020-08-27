@@ -9,16 +9,25 @@ class CapturedInsertPosition(val siblingsBefore: LongArray, val siblingsAfter: L
     fun findIndex(children: LongArray): Int {
         if (children.contentEquals(siblingsBefore + siblingsAfter)) return siblingsBefore.size
 
-        var bestIndex: Int = 0
-        var bestRating: Int = -1
-        for (i in children.indices) {
-            val rating = children.take(i).filter { siblingsBefore.contains(it) }.size +
-                children.drop(i).filter { siblingsAfter.contains(it) }.size
-            if (rating >= bestRating) {
-                bestRating = rating
-                bestIndex = i
+        var leftIndex = 0
+        var rightIndex = children.size
+
+        for (sibling in siblingsBefore.reversed()) {
+            val index = children.indexOf(sibling)
+            if (index != -1) {
+                leftIndex = index + 1
+                break
             }
         }
-        return bestIndex
+
+        for (sibling in siblingsAfter) {
+            val index = children.indexOf(sibling)
+            if (index != -1) {
+                rightIndex = index
+                break
+            }
+        }
+
+        return if (leftIndex < rightIndex) rightIndex else leftIndex
     }
 }
