@@ -757,6 +757,26 @@ class ConflictResolutionTest : TreeTestBase() {
         )
     }
 
+    @Test
+    fun knownIssue35() {
+        knownIssueTest(
+            { t ->
+                t.addNewChild(0x1, "cRole2", 0, 0xff00000001, null)
+                t.addNewChild(0x1, "cRole3", 0, 0xff00000002, null)
+                t.addNewChild(0xff00000002, "cRole3", 0, 0xff00000003, null)
+                t.addNewChild(0xff00000001, "cRole1", 0, 0xff00000004, null)
+                t.addNewChild(0xff00000004, "cRole3", 0, 0xff00000005, null)
+            },
+            { t -> // 0
+                t.moveChild(0xff00000003, "cRole3", 0, 0xff00000004)
+                t.moveChild(0xff00000003, "cRole3", 0, 0xff00000005)
+            },
+            { t -> // 1
+                t.deleteNode(0xff00000003)
+            }
+        )
+    }
+
     fun createVersion(opsAndTree: Pair<List<IAppliedOperation>, ITree>, previousVersion: CLVersion?): CLVersion {
         return CLVersion(
             idGenerator.generate(),

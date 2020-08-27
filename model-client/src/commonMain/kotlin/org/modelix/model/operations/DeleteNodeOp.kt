@@ -113,9 +113,10 @@ class DeleteNodeOp(val position: PositionInRole, val childId: Long) : AbstractOp
         val adjustedDelete = withPosition(getNodePosition(tree, childId))
         val allChildren = tree.getAllChildren(childId).toList()
         if (allChildren.isNotEmpty()) {
-            var index = tree.getChildren(DETACHED_ROLE.nodeId, DETACHED_ROLE.role).count()
+            val targetPos = getDetachedNodesEndPosition(tree)
             return allChildren
-                .map { MoveNodeOp(it, getNodePosition(tree, it), PositionInRole(DETACHED_ROLE, index++), null) }
+                .reversed()
+                .map { MoveNodeOp(it, getNodePosition(tree, it), targetPos, null) }
                 .plus(adjustedDelete)
         }
         return listOf(adjustedDelete)
