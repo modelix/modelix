@@ -15,11 +15,23 @@ import kotlin.test.fail
 class ConflictResolutionTest : TreeTestBase() {
 
     @Test
-    fun randomTest00() {
+    fun randomTest2Branches() {
         for (i in 0..500) {
             try {
                 rand = Random(i)
                 randomTest(5, 2, 3)
+            } catch (ex: Exception) {
+                throw RuntimeException("Failed for seed $i", ex)
+            }
+        }
+    }
+
+    @Test
+    fun randomTest5Branches() {
+        for (i in 10000..10050) {
+            try {
+                rand = Random(i)
+                randomTest(5, 5, 5)
             } catch (ex: Exception) {
                 throw RuntimeException("Failed for seed $i", ex)
             }
