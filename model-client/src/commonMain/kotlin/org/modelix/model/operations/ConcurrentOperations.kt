@@ -1,6 +1,5 @@
 package org.modelix.model.operations
 
-import org.modelix.model.VersionMerger
 import org.modelix.model.logDebug
 
 class ConcurrentOperations {

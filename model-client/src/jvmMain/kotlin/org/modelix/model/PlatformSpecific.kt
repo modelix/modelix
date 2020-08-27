@@ -17,9 +17,20 @@ actual fun logWarning(message: String, exception: Exception, contextClass: KClas
     Logger.getLogger(contextClass.java).warn(message, exception)
 }
 
-actual fun logDebug(message: () -> String, contextClass: KClass<*>) {
+actual fun logDebug(message: () -> String?, contextClass: KClass<*>) {
     val logger = Logger.getLogger(contextClass.java)
-    if (logger.isDebugEnabled) logger.debug(message())
+    if (logger.isDebugEnabled) {
+        val msg = message()
+        if (!msg.isNullOrEmpty()) logger.debug(msg)
+    }
+}
+
+actual fun logTrace(message: () -> String?, contextClass: KClass<*>) {
+    val logger = Logger.getLogger(contextClass.java)
+    if (logger.isTraceEnabled) {
+        val msg = message()
+        if (!msg.isNullOrEmpty()) logger.trace(msg)
+    }
 }
 
 actual fun bitCount(bits: Int): Int {

@@ -14,8 +14,13 @@ actual fun logWarning(message: String, exception: Exception, contextClass: KClas
     console.warn(message, exception)
 }
 
-actual fun logDebug(message: () -> String, contextClass: KClass<*>) {
-    console.log(message())
+actual fun logDebug(message: () -> String?, contextClass: KClass<*>) {
+    val msg = message()
+    if (!msg.isNullOrEmpty()) console.log(msg)
+}
+
+actual fun logTrace(message: () -> String?, contextClass: KClass<*>) {
+//    console.log(message())
 }
 
 actual fun bitCount(bits: Int): Int {
