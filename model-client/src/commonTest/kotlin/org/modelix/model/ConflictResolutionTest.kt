@@ -16,7 +16,7 @@ class ConflictResolutionTest : TreeTestBase() {
 
     @Test
     fun randomTest00() {
-        for (i in 0..1000) {
+        for (i in 0..500) {
             try {
                 rand = Random(i)
                 randomTest(5, 2, 3)
