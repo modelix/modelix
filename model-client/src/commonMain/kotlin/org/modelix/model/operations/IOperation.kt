@@ -34,6 +34,7 @@ interface IOperation {
 
     fun withAdjustedPosition(indexAdjustments: IndexAdjustments): IOperation
     fun withAdjustedPositions(adjustment: IndexAdjustment): IOperation
+    fun withAdjustedNodeLocation(nodeId: Long, position: PositionInRole): IOperation
 
     fun toCode(): String
 }

@@ -133,6 +133,10 @@ class MoveNodeOp(val childId: Long, val sourcePosition: PositionInRole, val targ
         )
     }
 
+    override fun withAdjustedNodeLocation(nodeId: Long, position: PositionInRole): IOperation {
+        return if (nodeId == this.childId) withPos(position, targetPosition, targetAncestors) else this
+    }
+
     override fun toString(): String {
         return "MoveNodeOp ${childId.toString(16)}, $sourcePosition->$targetPosition"
     }

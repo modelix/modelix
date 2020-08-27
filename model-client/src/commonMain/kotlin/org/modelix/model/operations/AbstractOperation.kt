@@ -36,6 +36,10 @@ abstract class AbstractOperation : IOperation {
         return this
     }
 
+    override fun withAdjustedNodeLocation(nodeId: Long, position: PositionInRole): IOperation {
+        return this
+    }
+
     override fun withAdjustedPositions(adjustment: IndexAdjustment): IOperation {
         return this
     }

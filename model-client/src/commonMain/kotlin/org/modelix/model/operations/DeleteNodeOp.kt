@@ -67,15 +67,13 @@ class DeleteNodeOp(val position: PositionInRole, val childId: Long) : AbstractOp
                     )
                     if (moveOp.sourcePosition != moveOp.targetPosition) {
                         context.adjustFutureOps { it.withAdjustedPositions(NodeInsertAdjustment(moveOp.targetPosition)) }
-                        context.adjustFutureOps {
-                            if (it is MoveNodeOp && it.childId == previous.childId) {
-                                it.withPos(
-                                    moveOp.targetPosition,
-                                    NodeRemoveAdjustment(previous.sourcePosition).adjust(it.targetPosition, true),
-                                    it.targetAncestors
-                                )
-                            } else it
-                        }
+                        context.adjustFutureOps { it.withAdjustedNodeLocation(moveOp.childId, moveOp.targetPosition) }
+                        context.adjustFutureConcurrentOps { it.withAdjustedNodeLocation(moveOp.childId, moveOp.targetPosition) }
+                        context.replaceConcurrentOp(previous.withPos(
+                            previous.sourcePosition,
+                            moveOp.targetPosition,
+                            moveOp.targetAncestors
+                        ))
                         return listOf(moveOp, this)
                     }
                 }
@@ -95,6 +93,10 @@ class DeleteNodeOp(val position: PositionInRole, val childId: Long) : AbstractOp
 
     override fun withAdjustedPositions(adjustment: IndexAdjustment): IOperation {
         return withPosition(adjustment.adjust(position, false))
+    }
+
+    override fun withAdjustedNodeLocation(nodeId: Long, position: PositionInRole): IOperation {
+        return if (nodeId == this.childId) withPosition(position) else this
     }
 
     override fun toString(): String {

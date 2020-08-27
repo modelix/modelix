@@ -33,8 +33,18 @@ class ConcurrentOperations {
             val adjustedOp = f(opsToTransform[i])
             if (adjustedOp != opsToTransform[i]) {
                 logDebug({ "transformed future: ${opsToTransform[i]} --> $adjustedOp" }, ConcurrentOperations::class)
+                opsToTransform[i] = adjustedOp
             }
-            opsToTransform[i] = adjustedOp
+        }
+    }
+
+    fun adjustFutureConcurrentOps(f: (IOperation) -> IOperation) {
+        for (i in concurrentCursor + 1 until concurrentOps.size) {
+            val adjustedOp = f(concurrentOps[i])
+            if (adjustedOp != concurrentOps[i]) {
+                logDebug({ "transformed future concurrent: ${concurrentOps[i]} --> $adjustedOp" }, ConcurrentOperations::class)
+                concurrentOps[i] = adjustedOp
+            }
         }
     }
 
