@@ -29,6 +29,6 @@ class CPHamtInternal(
         return "I/" +
             intToHex(bitmap) +
             "/" +
-            (if (children.isEmpty()) "" else children.reduce { a: String?, b: String? -> "$a,$b" })
+            (if (children.isEmpty()) "" else children.joinToString(","))
     }
 }

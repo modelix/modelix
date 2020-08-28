@@ -23,10 +23,7 @@ object HashUtil {
     fun sha256(input: String): String = PlatformSpecificHashUtil.sha256(input)
 
     fun isSha256(value: String?): Boolean {
-        if (value == null) {
-            return false
-        }
-        return if (value.length != 43) {
+        return if (value == null || value.length != 43) {
             false
         } else value.matches(HASH_PATTERN)
     }

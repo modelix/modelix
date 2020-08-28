@@ -26,7 +26,7 @@ import org.modelix.model.util.pmap.COWArrays.removeAt
 import org.modelix.model.util.pmap.COWArrays.set
 import kotlin.jvm.JvmStatic
 
-class CPNode protected constructor(
+class CPNode private constructor(
     val id: Long,
     val concept: String?,
     val parentId: Long,
@@ -47,42 +47,16 @@ class CPNode protected constructor(
         sb.append("/")
         sb.append(escape(roleInParent))
         sb.append("/")
-        sb.append(if (childrenIds.isEmpty()) "" else childrenIds.map { obj: Long -> longToHex(obj) }.reduce { a: String, b: String -> "$a,$b" })
+        sb.append(if (childrenIds.isEmpty()) "" else childrenIds.joinToString(",") { longToHex(it) })
         sb.append("/")
-        var first = true
-        run {
-            val role_it = propertyRoles.iterator()
-            val value_it = propertyValues.iterator()
-            var role_var: String?
-            var value_var: String?
-            while (role_it.hasNext() && value_it.hasNext()) {
-                role_var = role_it.next()
-                value_var = value_it.next()
-                if (first) {
-                    first = false
-                } else {
-                    sb.append(",")
-                }
-                sb.append(escape(role_var)).append("=").append(escape(value_var))
-            }
+        propertyRoles.forEachIndexed { index, role ->
+            if (index != 0) sb.append(",")
+            sb.append(escape(role)).append("=").append(escape(propertyValues[index]))
         }
         sb.append("/")
-        first = true
-        run {
-            val role_it = referenceRoles.iterator()
-            val value_it = referenceTargets.iterator()
-            var role_var: String?
-            var value_var: CPNodeRef
-            while (role_it.hasNext() && value_it.hasNext()) {
-                role_var = role_it.next()
-                value_var = value_it.next()
-                if (first) {
-                    first = false
-                } else {
-                    sb.append(",")
-                }
-                sb.append(escape(role_var)).append("=").append(escape(value_var.toString()))
-            }
+        referenceRoles.forEachIndexed { index, role ->
+            if (index != 0) sb.append(",")
+            sb.append(escape(role)).append("=").append(escape(referenceTargets[index].toString()))
         }
         return sb.toString()
     }
@@ -121,25 +95,42 @@ class CPNode protected constructor(
                 this
             } else {
                 create(
-                    id, concept, parentId, roleInParent, childrenIds, removeAt(propertyRoles, index) as Array<String?>, removeAt(propertyValues, index) as Array<String?>,
-                    referenceRoles as Array<String?>, referenceTargets as Array<CPNodeRef?>
+                    id,
+                    concept,
+                    parentId,
+                    roleInParent,
+                    childrenIds,
+                    removeAt(propertyRoles, index),
+                    removeAt(propertyValues, index),
+                    referenceRoles,
+                    referenceTargets
                 )
             }
         } else {
             if (index < 0) {
                 index = -(index + 1)
                 create(
-                    id, concept, parentId, roleInParent, childrenIds,
-                    insert(propertyRoles, index, role) as Array<String?>,
-                    insert(propertyValues, index, value) as Array<String?>,
-                    referenceRoles as Array<String?>, referenceTargets as Array<CPNodeRef?>
+                    id,
+                    concept,
+                    parentId,
+                    roleInParent,
+                    childrenIds,
+                    insert(propertyRoles, index, role),
+                    insert(propertyValues, index, value),
+                    referenceRoles,
+                    referenceTargets
                 )
             } else {
                 create(
-                    id, concept, parentId, roleInParent, childrenIds,
-                    propertyRoles as Array<String?>,
-                    set(propertyValues, index, value) as Array<String?>,
-                    referenceRoles as Array<String?>, referenceTargets as Array<CPNodeRef?>
+                    id,
+                    concept,
+                    parentId,
+                    roleInParent,
+                    childrenIds,
+                    propertyRoles,
+                    set(propertyValues, index, value),
+                    referenceRoles,
+                    referenceTargets
                 )
             }
         }
@@ -153,24 +144,35 @@ class CPNode protected constructor(
             } else {
                 create(
                     id, concept, parentId, roleInParent, childrenIds,
-                    propertyRoles as Array<String?>, propertyValues as Array<String?>,
-                    removeAt(referenceRoles, index) as Array<String?>, removeAt(referenceTargets, index) as Array<CPNodeRef?>
+                    propertyRoles, propertyValues,
+                    removeAt(referenceRoles, index), removeAt(referenceTargets, index)
                 )
             }
         } else {
             if (index < 0) {
                 index = -(index + 1)
                 create(
-                    id, concept, parentId, roleInParent, childrenIds,
-                    propertyRoles as Array<String?>, propertyValues as Array<String?>,
-                    insert(referenceRoles, index, role) as Array<String?>,
-                    insert(referenceTargets, index, target) as Array<CPNodeRef?>
+                    id,
+                    concept,
+                    parentId,
+                    roleInParent,
+                    childrenIds,
+                    propertyRoles,
+                    propertyValues,
+                    insert(referenceRoles, index, role),
+                    insert(referenceTargets, index, target)
                 )
             } else {
                 create(
-                    id, concept, parentId, roleInParent, childrenIds,
-                    propertyRoles as Array<String?>, propertyValues as Array<String?>,
-                    referenceRoles as Array<String?>, set(referenceTargets, index, target) as Array<CPNodeRef?>
+                    id,
+                    concept,
+                    parentId,
+                    roleInParent,
+                    childrenIds,
+                    propertyRoles,
+                    propertyValues,
+                    referenceRoles,
+                    set(referenceTargets, index, target)
                 )
             }
         }
@@ -180,14 +182,30 @@ class CPNode protected constructor(
         private val EMPTY_LONG_ARRAY = LongArray(0)
         val DESERIALIZER = { s: String -> deserialize(s) }
         @JvmStatic
-        fun create(id: Long, concept: String?, parentId: Long, roleInParent: String?, childrenIds: LongArray, propertyRoles: Array<String?>, propertyValues: Array<String?>, referenceRoles: Array<String?>, referenceTargets: Array<CPNodeRef?>): CPNode {
+        fun create(
+            id: Long,
+            concept: String?,
+            parentId: Long,
+            roleInParent: String?,
+            childrenIds: LongArray,
+            propertyRoles: Array<String>,
+            propertyValues: Array<String>,
+            referenceRoles: Array<String>,
+            referenceTargets: Array<CPNodeRef>
+        ): CPNode {
             checkForDuplicates(childrenIds)
             require(propertyRoles.size == propertyValues.size) { propertyRoles.size.toString() + " != " + propertyValues.size }
             require(referenceRoles.size == referenceTargets.size) { referenceRoles.size.toString() + " != " + referenceTargets.size }
             return CPNode(
-                id, concept, parentId, roleInParent, childrenIds,
-                propertyRoles as Array<String>, propertyValues as Array<String>,
-                referenceRoles as Array<String>, referenceTargets as Array<CPNodeRef>
+                id,
+                concept,
+                parentId,
+                roleInParent,
+                childrenIds,
+                propertyRoles,
+                propertyValues,
+                referenceRoles,
+                referenceTargets
             )
         }
 
@@ -206,20 +224,17 @@ class CPNode protected constructor(
             return try {
                 val parts = input.split("/")
                 val properties = parts[5].split(",")
-                    .filter { cs: String? -> !cs.isNullOrEmpty() }
-                    .map { it: String -> it.split("=") }
+                    .filter { it.isNotEmpty() }
+                    .map { it.split("=") }
                 val references = parts[6].split(",")
-                    .filter { cs: String? -> !cs.isNullOrEmpty() }
-                    .map { it: String -> it.split("=") }
+                    .filter { it.isNotEmpty() }
+                    .map { it.split("=") }
                 CPNode(
                     longFromHex(parts[0]),
                     unescape(parts[1]),
                     longFromHex(parts[2]),
                     unescape(parts[3]),
-                    parts[4].split(",")
-                        .filter { cs: String? -> !cs.isNullOrEmpty() }
-                        .map { obj: String -> SerializationUtil.longFromHex(obj) }
-                        .toLongArray(),
+                    parts[4].split(",").filter { it.isNotEmpty() }.map { longFromHex(it) }.toLongArray(),
                     properties.map { unescape(it[0])!! }.toTypedArray(),
                     properties.map { unescape(it[1])!! }.toTypedArray(),
                     references.map { unescape(it[0])!! }.toTypedArray(),

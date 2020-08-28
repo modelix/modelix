@@ -21,8 +21,7 @@ import org.modelix.model.persistent.HashUtil.sha256
 class CPOperationsList(val operations: Array<IOperation>) {
     fun serialize(): String {
         return if (operations.isEmpty()) "" else operations
-            .map { op: IOperation -> OperationSerializer.INSTANCE.serialize(op) }
-            .reduce { a: String, b: String -> "$a,$b" }
+            .joinToString(",") { OperationSerializer.INSTANCE.serialize(it) }
     }
 
     val hash: String
@@ -32,8 +31,8 @@ class CPOperationsList(val operations: Array<IOperation>) {
         fun deserialize(input: String): CPOperationsList {
             return CPOperationsList(
                 input.split(",")
-                    .filter { cs: String? -> !cs.isNullOrEmpty() }
-                    .map { serialized: String -> OperationSerializer.INSTANCE.deserialize(serialized) }
+                    .filter { it.isNotEmpty() }
+                    .map { OperationSerializer.INSTANCE.deserialize(it) }
                     .toTypedArray()
             )
         }

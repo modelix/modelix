@@ -21,12 +21,12 @@ import org.modelix.model.persistent.CPHamtNode
 import org.modelix.model.persistent.CPNode
 import kotlin.jvm.JvmStatic
 
-abstract class CLHamtNode<E : CPHamtNode?>(protected var store: IDeserializingKeyValueStore) {
+abstract class CLHamtNode<E : CPHamtNode>(protected var store: IDeserializingKeyValueStore) {
     protected fun createEmptyNode(): CLHamtNode<*> {
         return create(CPHamtInternal(0, arrayOf()), store)!!
     }
 
-    abstract fun getData(): CPHamtNode?
+    abstract fun getData(): CPHamtNode
 
     operator fun get(key: Long): String? {
         val bulkQuery: IBulkQuery = NonBulkQuery(store)
@@ -42,7 +42,7 @@ abstract class CLHamtNode<E : CPHamtNode?>(protected var store: IDeserializingKe
     }
 
     fun put(element: CLNode): CLHamtNode<*>? {
-        return put(element.id, element.getData()!!.hash)
+        return put(element.id, element.getData().hash)
     }
 
     fun put(data: CPNode): CLHamtNode<*>? {
@@ -75,11 +75,9 @@ abstract class CLHamtNode<E : CPHamtNode?>(protected var store: IDeserializingKe
         const val MAX_BITS = 64
         const val MAX_SHIFT = MAX_BITS - BITS_PER_LEVEL
         @JvmStatic
-        fun create(data: CPHamtNode?, store: IDeserializingKeyValueStore?): CLHamtNode<*>? {
-            if (data == null) {
-                return null
-            }
+        fun create(data: CPHamtNode?, store: IDeserializingKeyValueStore): CLHamtNode<*>? {
             return when (data) {
+                null -> null
                 is CPHamtLeaf -> {
                     CLHamtLeaf((data as CPHamtLeaf?)!!, store)
                 }

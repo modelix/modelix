@@ -22,7 +22,17 @@ import org.modelix.model.persistent.SerializationUtil.longFromHex
 import org.modelix.model.persistent.SerializationUtil.longToHex
 import org.modelix.model.persistent.SerializationUtil.unescape
 
-class CPVersion(id: Long, time: String?, author: String?, treeHash: String?, previousVersion: String?, originalVersion: String?, operations: Array<IOperation>?, operationsHash: String?, numberOfOperations: Int) {
+class CPVersion(
+    id: Long,
+    time: String?,
+    author: String?,
+    treeHash: String?,
+    previousVersion: String?,
+    originalVersion: String?,
+    operations: Array<IOperation>?,
+    operationsHash: String?,
+    numberOfOperations: Int
+) {
     val id: Long
     val time: String?
     val author: String?
@@ -91,7 +101,7 @@ class CPVersion(id: Long, time: String?, author: String?, treeHash: String?, pre
     }
 
     init {
-        if (treeHash == null || treeHash.length == 0) {
+        if (treeHash.isNullOrEmpty()) {
             logWarning("No tree hash provided", RuntimeException(), CPVersion::class)
         }
         if (operations == null == (operationsHash == null)) {

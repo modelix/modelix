@@ -31,19 +31,30 @@ class CLTree : ITree {
     protected var store: IDeserializingKeyValueStore
     protected var data: CPTree
 
-    constructor(hash: String?, store: IDeserializingKeyValueStore) : this(if (hash == null) null else store.get<CPTree>(hash, { serialized: String -> CPTree.deserialize(serialized) }), null, store) {}
-    constructor(store: IDeserializingKeyValueStore) : this(null as CPTree?, null, store) {}
-    constructor(id: TreeId?, store: IDeserializingKeyValueStore) : this(null, id, store) {}
-    private constructor(data: CPTree?, treeId: TreeId?, store: IDeserializingKeyValueStore) {
-        var treeId = treeId
+    constructor(hash: String?, store: IDeserializingKeyValueStore) : this(if (hash == null) null else store.get<CPTree>(hash) { CPTree.deserialize(it) }, null, store)
+    constructor(store: IDeserializingKeyValueStore) : this(null as CPTree?, null, store)
+    constructor(id: TreeId?, store: IDeserializingKeyValueStore) : this(null, id, store)
+    private constructor(data: CPTree?, treeId_: TreeId?, store: IDeserializingKeyValueStore) {
+        var treeId = treeId_
         if (data == null) {
             this.store = store
             if (treeId == null) {
                 treeId = random()
             }
-            val root = CLNode(this, 1, null, 0, null, LongArray(0), arrayOfNulls(0), arrayOfNulls(0), arrayOfNulls(0), arrayOfNulls(0))
+            val root = CLNode(
+                this,
+                1,
+                null,
+                0,
+                null,
+                LongArray(0),
+                arrayOf(),
+                arrayOf(),
+                arrayOf(),
+                arrayOf()
+            )
             val idToHash = storeElement(root, CLHamtInternal(store))
-            this.data = CPTree(treeId.id, 1, sha256(idToHash.getData()!!.serialize()!!))
+            this.data = CPTree(treeId.id, 1, sha256(idToHash.getData().serialize()))
             put(store, this.data, this.data.serialize())
         } else {
             this.store = store
@@ -51,13 +62,13 @@ class CLTree : ITree {
         }
     }
 
-    private constructor(treeId: String, rootId: Long, idToHash: CLHamtNode<*>, store: IDeserializingKeyValueStore) {
-        var treeId: String? = treeId
+    private constructor(treeId_: String, rootId: Long, idToHash: CLHamtNode<*>, store: IDeserializingKeyValueStore) {
+        var treeId: String? = treeId_
         if (treeId == null) {
             treeId = random().id
         }
         this.store = store
-        data = CPTree(treeId, rootId, sha256(idToHash.getData()!!.serialize()!!))
+        data = CPTree(treeId, rootId, sha256(idToHash.getData().serialize()))
         put(store, data, data.serialize())
     }
 
@@ -117,7 +128,17 @@ class CLTree : ITree {
      */
     protected fun createNewNode(nodeId: Long, concept: IConcept?): CLTree {
         var newIdToHash = nodesMap
-        val newChildData = create(nodeId, serializeConcept(concept), 0, null, LongArray(0), arrayOfNulls(0), arrayOfNulls(0), arrayOfNulls(0), arrayOfNulls(0))
+        val newChildData = create(
+            nodeId,
+            serializeConcept(concept),
+            0,
+            null,
+            LongArray(0),
+            arrayOf(),
+            arrayOf(),
+            arrayOf(),
+            arrayOf()
+        )
         newIdToHash = newIdToHash!!.put(newChildData)
         put(store, newChildData)
         return CLTree(data.id, data.rootId, newIdToHash!!, store)
@@ -136,10 +157,10 @@ class CLTree : ITree {
             parentId,
             role,
             childData.childrenIdArray,
-            childData.propertyRoles as Array<String?>,
-            childData.propertyValues as Array<String?>,
-            childData.referenceRoles as Array<String?>,
-            childData.referenceTargets as Array<CPNodeRef?>
+            childData.propertyRoles,
+            childData.propertyValues,
+            childData.referenceRoles,
+            childData.referenceTargets
         )
         newIdToHash = newIdToHash!!.put(newChildData)
         put(store, newChildData)
@@ -166,25 +187,25 @@ class CLTree : ITree {
             parent.getData().parentId,
             parent.roleInParent,
             newChildrenArray,
-            parent.getData().propertyRoles as Array<String?>,
-            parent.getData().propertyValues as Array<String?>,
-            parent.getData().referenceRoles as Array<String?>,
-            parent.getData().referenceTargets as Array<CPNodeRef?>
+            parent.getData().propertyRoles,
+            parent.getData().propertyValues,
+            parent.getData().referenceRoles,
+            parent.getData().referenceTargets
         )
         newIdToHash = newIdToHash!!.put(newParentData)
         put(store, newParentData)
         return CLTree(data.id, data.rootId, newIdToHash!!, store)
     }
 
-    override fun setReferenceTarget(sourceId: Long, role: String, targetRef: INodeReference?): ITree {
+    override fun setReferenceTarget(sourceId: Long, role: String, target: INodeReference?): ITree {
         val source = resolveElement(sourceId)!!
-        val refData: CPNodeRef? = when (targetRef) {
+        val refData: CPNodeRef? = when (target) {
             null -> null
             is PNodeReference -> {
-                local(targetRef.id)
+                local(target.id)
             }
             // is SNodeReferenceAdapter -> CPElementRef.mps(SNodePointer.serialize(((SNodeReferenceAdapter) targetRef).getReference()))
-            else -> throw RuntimeException("Unsupported reference type: " + targetRef::class.simpleName)
+            else -> throw RuntimeException("Unsupported reference type: " + target::class.simpleName)
         }
         var newIdToHash = nodesMap
         val newNodeData = source.getData().withReferenceTarget(role, refData)
@@ -208,11 +229,15 @@ class CLTree : ITree {
         var newIdToHash: CLHamtNode<*> = nodesMap
             ?: throw RuntimeException("nodesMap not found for hash: " + this.data.idToHash)
         val newParentData = create(
-            parent!!.id, parent.concept, parent.getData()!!.parentId, parent.getData()!!.roleInParent, remove(parent.getData()!!.childrenIdArray, node.id),
-            parent.getData().propertyRoles as Array<String?>,
-            parent.getData().propertyValues as Array<String?>,
-            parent.getData().referenceRoles as Array<String?>,
-            parent.getData().referenceTargets as Array<CPNodeRef?>
+            parent!!.id,
+            parent.concept,
+            parent.getData().parentId,
+            parent.getData().roleInParent,
+            remove(parent.getData().childrenIdArray, node.id),
+            parent.getData().propertyRoles,
+            parent.getData().propertyValues,
+            parent.getData().referenceRoles,
+            parent.getData().referenceTargets
         )
         newIdToHash = newIdToHash.put(newParentData)
             ?: throw RuntimeException("Unexpected empty nodes map. There should be at least the root node.")
@@ -229,20 +254,20 @@ class CLTree : ITree {
     }
 
     override fun getAllChildren(parentId: Long): Iterable<Long> {
-        val children = resolveElement(parentId)!!.getChildren(BulkQuery(store!!))!!.execute()
+        val children = resolveElement(parentId)!!.getChildren(BulkQuery(store)).execute()
         return children.map { it.id }
     }
 
     fun getDescendants(root: Long, includeSelf: Boolean): Iterable<CLNode> {
         val parent = resolveElement(root)
-        return parent!!.getDescendants(BulkQuery(store!!), includeSelf)!!.execute()
+        return parent!!.getDescendants(BulkQuery(store), includeSelf).execute()
     }
 
     override fun getChildren(parentId: Long, role: String?): Iterable<Long> {
         val parent = resolveElement(parentId)
-        val children = parent!!.getChildren(BulkQuery(store!!))!!.execute()
+        val children = parent!!.getChildren(BulkQuery(store)).execute()
         return children
-            .filter { it: CLNode -> it.roleInParent == role }
+            .filter { it.roleInParent == role }
             .map { it.id }
     }
 
@@ -278,16 +303,14 @@ class CLTree : ITree {
     }
 
     override fun getReferenceTarget(sourceId: Long, role: String): INodeReference? {
-        val node = resolveElement(sourceId)
-        val targetRef = node!!.getData()!!.getReferenceTarget(role)
-        return if (targetRef == null) {
-            null
-        } else if (targetRef.isLocal) {
-            PNodeReference(targetRef.elementId)
-            //    } else if (targetRef instanceof CPElementRef.MpsRef) {
-//      return new SNodeReferenceAdapter(SNodePointer.deserialize(((CPElementRef.MpsRef) targetRef).getSerializedRef()));
-        } else {
-            throw UnsupportedOperationException("Unsupported reference: $targetRef")
+        val node = resolveElement(sourceId)!!
+        val targetRef = node.getData().getReferenceTarget(role)
+        return when {
+            targetRef == null -> null
+            targetRef.isLocal -> PNodeReference(targetRef.elementId)
+                //    } else if (targetRef instanceof CPElementRef.MpsRef) {
+    //      return new SNodeReferenceAdapter(SNodePointer.deserialize(((CPElementRef.MpsRef) targetRef).getSerializedRef()));
+            else -> throw UnsupportedOperationException("Unsupported reference: $targetRef")
         }
     }
 
@@ -296,7 +319,7 @@ class CLTree : ITree {
         return node!!.roleInParent
     }
 
-    override fun moveChild(targetParentId: Long, targetRole: String?, targetIndex: Int, childId: Long): ITree {
+    override fun moveChild(targetParentId: Long, targetRole: String?, targetIndex_: Int, childId: Long): ITree {
         if (childId == ITree.ROOT_ID) throw RuntimeException("Moving the root node is not allowed")
         var ancestor = targetParentId
         while (ancestor != ITree.ROOT_ID) {
@@ -306,7 +329,7 @@ class CLTree : ITree {
             ancestor = getParent(ancestor)
         }
 
-        var targetIndex = targetIndex
+        var targetIndex = targetIndex_
         if (targetIndex != -1) {
             val oldParent = getParent(childId)
             if (oldParent == targetParentId) {
@@ -327,37 +350,36 @@ class CLTree : ITree {
 
     override fun visitChanges(oldVersion: ITree, visitor: ITreeChangeVisitor) {
         nodesMap!!.visitChanges(
-            (oldVersion as CLTree?)!!.nodesMap,
+            (oldVersion as CLTree).nodesMap,
             object : CLHamtNode.IChangeVisitor {
                 override fun entryAdded(key: Long, value: String?) {
                     val element = createElement(value)
-                    visitor!!.nodeAdded(element!!.id)
+                    visitor.nodeAdded(element!!.id)
                 }
 
                 override fun entryRemoved(key: Long, value: String?) {
-                    val element = (oldVersion as CLTree).createElement(value)
-                    visitor!!.nodeRemoved(element!!.id)
+                    val element = oldVersion.createElement(value)
+                    visitor.nodeRemoved(element!!.id)
                 }
 
                 override fun entryChanged(key: Long, oldHash: String?, newHash: String?) {
-                    val oldElement = (oldVersion as CLTree).createElement(oldHash)
+                    val oldElement = oldVersion.createElement(oldHash)
                     val newElement = createElement(newHash)
                     if (oldElement!!::class != newElement!!::class) {
                         throw RuntimeException("Unsupported type change of element " + key + "from " + oldElement::class.simpleName + " to " + newElement::class.simpleName)
                     }
-                    val oldNode = oldElement
-                    val newNode = newElement
-                    (oldNode.getData().propertyRoles.asSequence().plus(newNode.getData().propertyRoles.asSequence()))
+                    oldElement.getData().propertyRoles.asSequence()
+                        .plus(newElement.getData().propertyRoles.asSequence())
                         .distinct()
                         .forEach { role: String ->
-                            if (oldNode.getData().getPropertyValue(role) != newNode.getData().getPropertyValue(role)) {
-                                visitor.propertyChanged(newNode.id, role)
+                            if (oldElement.getData().getPropertyValue(role) != newElement.getData().getPropertyValue(role)) {
+                                visitor.propertyChanged(newElement.id, role)
                             }
                         }
                     val oldChildren: MutableMap<String?, MutableList<CLNode>> = HashMap()
                     val newChildren: MutableMap<String?, MutableList<CLNode>> = HashMap()
-                    oldNode.getChildren(BulkQuery(store)).execute().forEach { oldChildren.getOrPut(it.roleInParent, { ArrayList() }).add(it) }
-                    newNode.getChildren(BulkQuery(store)).execute().forEach { newChildren.getOrPut(it.roleInParent, { ArrayList() }).add(it) }
+                    oldElement.getChildren(BulkQuery(store)).execute().forEach { oldChildren.getOrPut(it.roleInParent, { ArrayList() }).add(it) }
+                    newElement.getChildren(BulkQuery(store)).execute().forEach { newChildren.getOrPut(it.roleInParent, { ArrayList() }).add(it) }
                     val roles: MutableSet<String?> = HashSet()
                     roles.addAll(oldChildren.keys)
                     roles.addAll(newChildren.keys)
@@ -367,7 +389,7 @@ class CLTree : ITree {
                         val oldValues = oldChildrenInRole?.map { it.id }
                         val newValues = newChildrenInRole?.map { it.id }
                         if (oldValues != newValues) {
-                            visitor.childrenChanged(newNode.id, role)
+                            visitor.childrenChanged(newElement.id, role)
                         }
                     }
                 }

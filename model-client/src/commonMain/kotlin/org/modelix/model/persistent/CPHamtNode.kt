@@ -20,29 +20,23 @@ import org.modelix.model.persistent.SerializationUtil.longFromHex
 import kotlin.jvm.JvmStatic
 
 abstract class CPHamtNode {
-    abstract fun serialize(): String?
+    abstract fun serialize(): String
 
     companion object {
         val DESERIALIZER = { s: String -> deserialize(s) }
 
         @JvmStatic
         fun deserialize(input: String): CPHamtNode {
-            val parts = input.split("/").dropLastWhile { it.isEmpty() }.toTypedArray()
+            val parts = input.split("/")
             return when {
-                "L" == parts[0] -> {
-                    CPHamtLeaf(longFromHex(parts[1]), parts[2])
-                }
-                "I" == parts[0] -> {
-                    CPHamtInternal(
-                        intFromHex(parts[1]),
-                        parts[2].split(",")
-                            .filter { it: String? -> it != null && it.isNotEmpty() }
-                            .toTypedArray()
-                    )
-                }
-                else -> {
-                    throw RuntimeException("Unknown type: " + parts[0] + ", input: " + input)
-                }
+                "L" == parts[0] -> CPHamtLeaf(longFromHex(parts[1]), parts[2])
+                "I" == parts[0] -> CPHamtInternal(
+                    intFromHex(parts[1]),
+                    parts[2].split(",")
+                        .filter { it.isNotEmpty() }
+                        .toTypedArray()
+                )
+                else -> throw RuntimeException("Unknown type: " + parts[0] + ", input: " + input)
             }
         }
     }

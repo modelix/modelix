@@ -18,11 +18,7 @@ package org.modelix.model.lazy
 import org.modelix.model.randomUUID
 import kotlin.jvm.JvmStatic
 
-class TreeId(val id: String) {
-
-    @get:Deprecated("")
-    val masterBranchKey: String
-        get() = getBranchKey(null)
+data class TreeId(val id: String) {
 
     fun getBranchKey(branchName: String?): String {
         var branchName = branchName
@@ -30,23 +26,6 @@ class TreeId(val id: String) {
             branchName = "master"
         }
         return "branch_" + id + "_" + branchName
-    }
-
-    override fun equals(o: Any?): Boolean {
-        if (this === o) {
-            return true
-        }
-        if (o == null || this::class != o::class) {
-            return false
-        }
-        val that = o as TreeId
-        return id as Any == that.id
-    }
-
-    override fun hashCode(): Int {
-        var result = 0
-        result = 31 * result + id.hashCode()
-        return result
     }
 
     override fun toString(): String {

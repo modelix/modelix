@@ -22,7 +22,7 @@ internal constructor() {
     abstract val elementId: Long
     abstract val treeId: String?
 
-    private class LocalRef(private val id: Long) : CPNodeRef() {
+    private data class LocalRef(private val id: Long) : CPNodeRef() {
         override fun toString(): String {
             return "" + id.toString(16)
         }
@@ -40,26 +40,9 @@ internal constructor() {
             get() {
                 throw RuntimeException("Local reference")
             }
-
-        override fun equals(o: Any?): Boolean {
-            if (this === o) {
-                return true
-            }
-            if (o == null || this::class != o::class) {
-                return false
-            }
-            val that = o as LocalRef
-            return id == that.id
-        }
-
-        override fun hashCode(): Int {
-            var result = 0
-            result = 31 * result + (id xor (id shr 32)).toInt()
-            return result
-        }
     }
 
-    private class GlobalRef(treeId1: String, elementId1: Long) : CPNodeRef() {
+    private data class GlobalRef(val treeId1: String, val elementId1: Long) : CPNodeRef() {
         override val treeId: String?
         override val elementId: Long
         override fun toString(): String {
@@ -72,35 +55,13 @@ internal constructor() {
         override val isLocal: Boolean
             get() = false
 
-        override fun equals(o: Any?): Boolean {
-            if (this === o) {
-                return true
-            }
-            if (o == null || this::class != o::class) {
-                return false
-            }
-            val that = o as GlobalRef
-            if (elementId != that.elementId) {
-                return false
-            }
-            return !if (treeId != null) treeId as Any != that.treeId else that.treeId != null
-        }
-
-        override fun hashCode(): Int {
-            var result = 0
-            result = 31 * result + (elementId xor (elementId shr 32)).toInt()
-            result = 31 * result + (treeId?.hashCode() ?: 0)
-            return result
-        }
-
         init {
             treeId = treeId1
             elementId = elementId1
         }
     }
 
-    class MpsRef(ref: String) : CPNodeRef() {
-        val serializedRef: String?
+    data class MpsRef(val serializedRef: String) : CPNodeRef() {
 
         override fun toString(): String {
             return "M$serializedRef"
@@ -121,27 +82,6 @@ internal constructor() {
             get() {
                 throw RuntimeException("MPS reference")
             }
-
-        override fun equals(o: Any?): Boolean {
-            if (this === o) {
-                return true
-            }
-            if (o == null || this::class != o::class) {
-                return false
-            }
-            val that = o as MpsRef
-            return !if (serializedRef != null) serializedRef as Any != that.serializedRef else that.serializedRef != null
-        }
-
-        override fun hashCode(): Int {
-            var result = 0
-            result = 31 * result + (serializedRef?.hashCode() ?: 0)
-            return result
-        }
-
-        init {
-            serializedRef = ref
-        }
     }
 
     companion object {

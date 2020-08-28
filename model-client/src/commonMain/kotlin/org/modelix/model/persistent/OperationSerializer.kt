@@ -31,11 +31,11 @@ class OperationSerializer private constructor() {
         val INSTANCE = OperationSerializer()
         private const val SEPARATOR = ";"
         fun serializeConcept(concept: IConcept?): String {
-            return SerializationUtil.escape(IConceptSerializer.serialize(concept))
+            return escape(IConceptSerializer.serialize(concept))
         }
 
         fun deserializeConcept(serialized: String?): IConcept? {
-            return IConceptSerializer.deserialize(SerializationUtil.unescape(serialized))
+            return IConceptSerializer.deserialize(unescape(serialized))
         }
 
         fun serializeReference(obj: INodeReference?): String {
@@ -94,7 +94,6 @@ class OperationSerializer private constructor() {
             INSTANCE.registerSerializer(
                 MoveNodeOp::class,
                 object : Serializer<MoveNodeOp> {
-                    val ANCESTORS_SEPARATOR = "."
                     override fun serialize(op: MoveNodeOp): String {
                         return longToHex(op.childId) + SEPARATOR +
                             longToHex(op.targetPosition.nodeId) + SEPARATOR +
@@ -118,7 +117,7 @@ class OperationSerializer private constructor() {
                     }
                 }
             )
-            INSTANCE.registerSerializer<NoOp>(
+            INSTANCE.registerSerializer(
                 NoOp::class,
                 object : Serializer<NoOp> {
                     override fun serialize(op: NoOp): String {

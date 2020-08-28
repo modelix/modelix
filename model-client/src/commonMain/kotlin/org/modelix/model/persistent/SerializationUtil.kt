@@ -16,17 +16,13 @@
 package org.modelix.model.persistent
 
 fun nullAsEmptyString(str: String?): String {
-    if (str == null) {
-        return ""
-    }
-    if (str.isEmpty()) {
-        throw RuntimeException("Empty string not allowed")
-    }
+    if (str == null) return ""
+    if (str.isEmpty()) throw RuntimeException("Empty string not allowed")
     return str
 }
 
 fun emptyStringAsNull(str: String): String? {
-    return if (str == null || str.isEmpty()) null else str
+    return if (str.isEmpty()) null else str
 }
 
 expect object SerializationUtil {

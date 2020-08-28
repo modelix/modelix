@@ -26,11 +26,11 @@ class BulkQuery(private val store: IDeserializingKeyValueStore) : IBulkQuery {
     private var queue: MutableList<Triple<String, (String?) -> Any?, (Any?) -> Unit>> = ArrayList()
     private var processing = false
     protected fun executeBulkQuery(keys: Iterable<String>, deserializers: Map<String, (String?) -> Any?>): Map<String, Any?> {
-        val values = store.getAll(keys, { key: String, serialized: String -> deserializers[key]!!(serialized) })
+        val values = store.getAll(keys) { key: String, serialized: String -> deserializers.getValue(key)(serialized) }
         val result: MutableMap<String, Any?> = HashMap()
         run {
             val key_it = keys.iterator()
-            val value_it: Iterator<Any?> = values!!.iterator()
+            val value_it: Iterator<Any?> = values.iterator()
             var key_var: String
             var value_var: Any?
             while (key_it.hasNext() && value_it.hasNext()) {
@@ -99,7 +99,7 @@ class BulkQuery(private val store: IDeserializingKeyValueStore) : IBulkQuery {
                 output[i_] = value
                 done[i_] = true
                 remaining--
-                if (remaining.toInt() == 0) {
+                if (remaining == 0) {
                     result.success(output.map { e: Any? -> e as O })
                 }
             }

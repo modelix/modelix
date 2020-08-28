@@ -33,7 +33,7 @@ class CPTree(
     companion object {
         @JvmStatic
         fun deserialize(input: String): CPTree {
-            val parts = input.split("/").dropLastWhile { it.isEmpty() }.toTypedArray()
+            val parts = input.split("/")
             return CPTree(parts[0], parts[1].toLong(), parts[2])
         }
     }

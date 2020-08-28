@@ -21,13 +21,30 @@ import org.modelix.model.persistent.CPNodeRef
 import kotlin.jvm.JvmStatic
 
 class CLNode(private val tree: CLTree, private val data: CPNode) {
-    constructor(tree: CLTree, id: Long, concept: String?, parentId: Long, roleInParent: String?, childrenIds: LongArray?, propertyRoles: Array<String?>?, propertyValues: Array<String?>?, referenceRoles: Array<String?>?, referenceTargets: Array<CPNodeRef?>?) :
+    constructor(
+        tree: CLTree,
+        id: Long,
+        concept: String?,
+        parentId: Long,
+        roleInParent: String?,
+        childrenIds: LongArray,
+        propertyRoles: Array<String>,
+        propertyValues: Array<String>,
+        referenceRoles: Array<String>,
+        referenceTargets: Array<CPNodeRef>
+    ) :
         this(
             tree,
             CPNode.create(
-                id, concept, parentId, roleInParent, childrenIds!!,
-                propertyRoles as Array<String?>, propertyValues as Array<String?>,
-                referenceRoles as Array<String?>, referenceTargets as Array<CPNodeRef?>
+                id,
+                concept,
+                parentId,
+                roleInParent,
+                childrenIds,
+                propertyRoles,
+                propertyValues,
+                referenceRoles,
+                referenceTargets
             )
         ) {}
 

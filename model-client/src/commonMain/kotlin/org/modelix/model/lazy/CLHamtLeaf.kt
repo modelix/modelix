@@ -16,13 +16,12 @@
 package org.modelix.model.lazy
 
 import org.modelix.model.persistent.CPHamtLeaf
-import org.modelix.model.persistent.CPHamtNode
 import org.modelix.model.persistent.HashUtil
 
-class CLHamtLeaf : CLHamtNode<CPHamtLeaf?> {
+class CLHamtLeaf : CLHamtNode<CPHamtLeaf> {
     private val data: CPHamtLeaf
 
-    constructor(data: CPHamtLeaf, store: IDeserializingKeyValueStore?) : super(store!!) {
+    constructor(data: CPHamtLeaf, store: IDeserializingKeyValueStore) : super(store) {
         this.data = data
     }
 
@@ -32,7 +31,7 @@ class CLHamtLeaf : CLHamtNode<CPHamtLeaf?> {
         store.put(HashUtil.sha256(serialized), data, serialized)
     }
 
-    override fun getData(): CPHamtNode {
+    override fun getData(): CPHamtLeaf {
         return data
     }
 
