@@ -15,7 +15,7 @@
 
 package org.modelix.model.lazy
 
-import org.modelix.model.persistent.CPElement
+import org.modelix.model.persistent.CPNode
 import org.modelix.model.persistent.HashUtil
 import kotlin.jvm.JvmStatic
 
@@ -25,7 +25,7 @@ object IDeserializingKeyValueStore_extensions {
     }
 
     @JvmStatic
-    fun put(_this: IDeserializingKeyValueStore, element: CPElement) {
+    fun put(_this: IDeserializingKeyValueStore, element: CPNode) {
         put(_this, element, element.serialize())
     }
 }

@@ -15,22 +15,40 @@
 
 package org.modelix.model.lazy
 
-import org.modelix.model.persistent.CPElementRef
+import org.modelix.model.api.ITree
 import org.modelix.model.persistent.CPNode
+import org.modelix.model.persistent.CPNodeRef
+import kotlin.jvm.JvmStatic
 
-class CLNode(tree: CLTree?, data: CPNode?) : CLElement(tree!!, data!!) {
-    constructor(tree: CLTree?, id: Long, concept: String?, parentId: Long, roleInParent: String?, childrenIds: LongArray?, propertyRoles: Array<String?>?, propertyValues: Array<String?>?, referenceRoles: Array<String?>?, referenceTargets: Array<CPElementRef?>?) :
+class CLNode(private val tree: CLTree, private val data: CPNode) {
+    constructor(tree: CLTree, id: Long, concept: String?, parentId: Long, roleInParent: String?, childrenIds: LongArray?, propertyRoles: Array<String?>?, propertyValues: Array<String?>?, referenceRoles: Array<String?>?, referenceTargets: Array<CPNodeRef?>?) :
         this(
             tree,
             CPNode.create(
                 id, concept, parentId, roleInParent, childrenIds!!,
                 propertyRoles as Array<String?>, propertyValues as Array<String?>,
-                referenceRoles as Array<String?>, referenceTargets as Array<CPElementRef?>
+                referenceRoles as Array<String?>, referenceTargets as Array<CPNodeRef?>
             )
         ) {}
 
-    override fun getData(): CPNode {
-        return super.getData() as CPNode
+    val id: Long
+        get() = data.id
+
+    fun getTree(): ITree {
+        return tree
+    }
+
+    val parent: CLNode
+        get() = tree.resolveElement(data.parentId) as CLNode
+
+    val roleInParent: String?
+        get() = data.roleInParent
+
+    val ref: CLNodeRef
+        get() = CLNodeRef(id)
+
+    fun getData(): CPNode {
+        return data
     }
 
     fun getChildren(bulkQuery: IBulkQuery): IBulkQuery.Value<Iterable<CLNode>> {
@@ -54,4 +72,11 @@ class CLNode(tree: CLTree?, data: CPNode?) : CLElement(tree!!, data!!) {
 
     val concept: String?
         get() = getData().concept
+
+    companion object {
+        @JvmStatic
+        fun create(tree: CLTree, data: CPNode?): CLNode? {
+            return data?.let { CLNode(tree, data) }
+        }
+    }
 }

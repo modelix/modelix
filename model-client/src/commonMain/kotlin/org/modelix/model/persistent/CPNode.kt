@@ -15,7 +15,7 @@
 
 package org.modelix.model.persistent
 
-import org.modelix.model.persistent.CPElementRef.Companion.fromString
+import org.modelix.model.persistent.CPNodeRef.Companion.fromString
 import org.modelix.model.persistent.SerializationUtil.escape
 import org.modelix.model.persistent.SerializationUtil.longFromHex
 import org.modelix.model.persistent.SerializationUtil.longToHex
@@ -26,8 +26,18 @@ import org.modelix.model.util.pmap.COWArrays.removeAt
 import org.modelix.model.util.pmap.COWArrays.set
 import kotlin.jvm.JvmStatic
 
-class CPNode protected constructor(id1: Long, val concept: String?, parentId1: Long, roleInParent1: String?, private val childrenIds: LongArray, val propertyRoles: Array<String>, val propertyValues: Array<String>, val referenceRoles: Array<String>, val referenceTargets: Array<CPElementRef>) : CPElement(id1, parentId1, roleInParent1) {
-    override fun serialize(): String? {
+class CPNode protected constructor(
+    val id: Long,
+    val concept: String?,
+    val parentId: Long,
+    val roleInParent: String?,
+    private val childrenIds: LongArray,
+    val propertyRoles: Array<String>,
+    val propertyValues: Array<String>,
+    val referenceRoles: Array<String>,
+    val referenceTargets: Array<CPNodeRef>
+) {
+    fun serialize(): String? {
         val sb = StringBuilder()
         sb.append(longToHex(id))
         sb.append("/")
@@ -62,7 +72,7 @@ class CPNode protected constructor(id1: Long, val concept: String?, parentId1: L
             val role_it = referenceRoles.iterator()
             val value_it = referenceTargets.iterator()
             var role_var: String?
-            var value_var: CPElementRef
+            var value_var: CPNodeRef
             while (role_it.hasNext() && value_it.hasNext()) {
                 role_var = role_it.next()
                 value_var = value_it.next()
@@ -87,6 +97,9 @@ class CPNode protected constructor(id1: Long, val concept: String?, parentId1: L
     val childrenSize: Int
         get() = childrenIds.size
 
+    val hash: String
+        get() = HashUtil.sha256(serialize()!!)
+
     fun getChildId(index: Int): Long {
         return childrenIds[index]
     }
@@ -96,7 +109,7 @@ class CPNode protected constructor(id1: Long, val concept: String?, parentId1: L
         return if (index < 0) null else propertyValues[index]
     }
 
-    fun getReferenceTarget(role: String?): CPElementRef? {
+    fun getReferenceTarget(role: String?): CPNodeRef? {
         val index = referenceRoles.asList().binarySearch(role)
         return if (index < 0) null else referenceTargets[index]
     }
@@ -109,7 +122,7 @@ class CPNode protected constructor(id1: Long, val concept: String?, parentId1: L
             } else {
                 create(
                     id, concept, parentId, roleInParent, childrenIds, removeAt(propertyRoles, index) as Array<String?>, removeAt(propertyValues, index) as Array<String?>,
-                    referenceRoles as Array<String?>, referenceTargets as Array<CPElementRef?>
+                    referenceRoles as Array<String?>, referenceTargets as Array<CPNodeRef?>
                 )
             }
         } else {
@@ -119,20 +132,20 @@ class CPNode protected constructor(id1: Long, val concept: String?, parentId1: L
                     id, concept, parentId, roleInParent, childrenIds,
                     insert(propertyRoles, index, role) as Array<String?>,
                     insert(propertyValues, index, value) as Array<String?>,
-                    referenceRoles as Array<String?>, referenceTargets as Array<CPElementRef?>
+                    referenceRoles as Array<String?>, referenceTargets as Array<CPNodeRef?>
                 )
             } else {
                 create(
                     id, concept, parentId, roleInParent, childrenIds,
                     propertyRoles as Array<String?>,
                     set(propertyValues, index, value) as Array<String?>,
-                    referenceRoles as Array<String?>, referenceTargets as Array<CPElementRef?>
+                    referenceRoles as Array<String?>, referenceTargets as Array<CPNodeRef?>
                 )
             }
         }
     }
 
-    fun withReferenceTarget(role: String, target: CPElementRef?): CPNode {
+    fun withReferenceTarget(role: String, target: CPNodeRef?): CPNode {
         var index = referenceRoles.asList().binarySearch(role)
         return if (target == null) {
             if (index < 0) {
@@ -141,7 +154,7 @@ class CPNode protected constructor(id1: Long, val concept: String?, parentId1: L
                 create(
                     id, concept, parentId, roleInParent, childrenIds,
                     propertyRoles as Array<String?>, propertyValues as Array<String?>,
-                    removeAt(referenceRoles, index) as Array<String?>, removeAt(referenceTargets, index) as Array<CPElementRef?>
+                    removeAt(referenceRoles, index) as Array<String?>, removeAt(referenceTargets, index) as Array<CPNodeRef?>
                 )
             }
         } else {
@@ -151,13 +164,13 @@ class CPNode protected constructor(id1: Long, val concept: String?, parentId1: L
                     id, concept, parentId, roleInParent, childrenIds,
                     propertyRoles as Array<String?>, propertyValues as Array<String?>,
                     insert(referenceRoles, index, role) as Array<String?>,
-                    insert(referenceTargets, index, target) as Array<CPElementRef?>
+                    insert(referenceTargets, index, target) as Array<CPNodeRef?>
                 )
             } else {
                 create(
                     id, concept, parentId, roleInParent, childrenIds,
                     propertyRoles as Array<String?>, propertyValues as Array<String?>,
-                    referenceRoles as Array<String?>, set(referenceTargets, index, target) as Array<CPElementRef?>
+                    referenceRoles as Array<String?>, set(referenceTargets, index, target) as Array<CPNodeRef?>
                 )
             }
         }
@@ -167,14 +180,14 @@ class CPNode protected constructor(id1: Long, val concept: String?, parentId1: L
         private val EMPTY_LONG_ARRAY = LongArray(0)
         val DESERIALIZER = { s: String -> deserialize(s) }
         @JvmStatic
-        fun create(id: Long, concept: String?, parentId: Long, roleInParent: String?, childrenIds: LongArray, propertyRoles: Array<String?>, propertyValues: Array<String?>, referenceRoles: Array<String?>, referenceTargets: Array<CPElementRef?>): CPNode {
+        fun create(id: Long, concept: String?, parentId: Long, roleInParent: String?, childrenIds: LongArray, propertyRoles: Array<String?>, propertyValues: Array<String?>, referenceRoles: Array<String?>, referenceTargets: Array<CPNodeRef?>): CPNode {
             checkForDuplicates(childrenIds)
             require(propertyRoles.size == propertyValues.size) { propertyRoles.size.toString() + " != " + propertyValues.size }
             require(referenceRoles.size == referenceTargets.size) { referenceRoles.size.toString() + " != " + referenceTargets.size }
             return CPNode(
                 id, concept, parentId, roleInParent, childrenIds,
                 propertyRoles as Array<String>, propertyValues as Array<String>,
-                referenceRoles as Array<String>, referenceTargets as Array<CPElementRef>
+                referenceRoles as Array<String>, referenceTargets as Array<CPNodeRef>
             )
         }
 

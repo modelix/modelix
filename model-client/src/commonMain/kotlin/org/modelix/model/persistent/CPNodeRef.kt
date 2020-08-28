@@ -15,14 +15,14 @@
 
 package org.modelix.model.persistent
 
-abstract class CPElementRef /*package*/
+abstract class CPNodeRef
 internal constructor() {
     abstract val isGlobal: Boolean
     abstract val isLocal: Boolean
     abstract val elementId: Long
     abstract val treeId: String?
 
-    private class LocalRef(private val id: Long) : CPElementRef() {
+    private class LocalRef(private val id: Long) : CPNodeRef() {
         override fun toString(): String {
             return "" + id.toString(16)
         }
@@ -59,7 +59,7 @@ internal constructor() {
         }
     }
 
-    private class GlobalRef(treeId1: String, elementId1: Long) : CPElementRef() {
+    private class GlobalRef(treeId1: String, elementId1: Long) : CPNodeRef() {
         override val treeId: String?
         override val elementId: Long
         override fun toString(): String {
@@ -99,7 +99,7 @@ internal constructor() {
         }
     }
 
-    class MpsRef(ref: String) : CPElementRef() {
+    class MpsRef(ref: String) : CPNodeRef() {
         val serializedRef: String?
 
         override fun toString(): String {
@@ -145,19 +145,19 @@ internal constructor() {
     }
 
     companion object {
-        fun local(elementId: Long): CPElementRef {
+        fun local(elementId: Long): CPNodeRef {
             return LocalRef(elementId)
         }
 
-        fun global(treeId: String, elementId: Long): CPElementRef {
+        fun global(treeId: String, elementId: Long): CPNodeRef {
             return GlobalRef(treeId, elementId)
         }
 
-        fun mps(pointer: String): CPElementRef {
+        fun mps(pointer: String): CPNodeRef {
             return MpsRef(pointer)
         }
 
-        fun fromString(str: String): CPElementRef {
+        fun fromString(str: String): CPNodeRef {
             return when {
                 str[0] == 'G' -> {
                     val i = str.lastIndexOf("#")

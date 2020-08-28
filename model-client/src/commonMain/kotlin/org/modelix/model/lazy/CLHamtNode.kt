@@ -15,10 +15,10 @@
 
 package org.modelix.model.lazy
 
-import org.modelix.model.persistent.CPElement
 import org.modelix.model.persistent.CPHamtInternal
 import org.modelix.model.persistent.CPHamtLeaf
 import org.modelix.model.persistent.CPHamtNode
+import org.modelix.model.persistent.CPNode
 import kotlin.jvm.JvmStatic
 
 abstract class CLHamtNode<E : CPHamtNode?>(protected var store: IDeserializingKeyValueStore) {
@@ -41,11 +41,11 @@ abstract class CLHamtNode<E : CPHamtNode?>(protected var store: IDeserializingKe
         return put(key, value, 0)
     }
 
-    fun put(element: CLElement): CLHamtNode<*>? {
+    fun put(element: CLNode): CLHamtNode<*>? {
         return put(element.id, element.getData()!!.hash)
     }
 
-    fun put(data: CPElement): CLHamtNode<*>? {
+    fun put(data: CPNode): CLHamtNode<*>? {
         return put(data.id, data.hash)
     }
 
@@ -53,7 +53,7 @@ abstract class CLHamtNode<E : CPHamtNode?>(protected var store: IDeserializingKe
         return remove(key, 0)
     }
 
-    fun remove(element: CLElement): CLHamtNode<*>? {
+    fun remove(element: CLNode): CLHamtNode<*>? {
         return remove(element.id)
     }
 

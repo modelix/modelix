@@ -20,8 +20,8 @@ import org.modelix.model.lazy.CLHamtNode.Companion.create
 import org.modelix.model.lazy.IDeserializingKeyValueStore_extensions.put
 import org.modelix.model.lazy.TreeId.Companion.random
 import org.modelix.model.persistent.*
-import org.modelix.model.persistent.CPElementRef.Companion.local
 import org.modelix.model.persistent.CPNode.Companion.create
+import org.modelix.model.persistent.CPNodeRef.Companion.local
 import org.modelix.model.persistent.HashUtil.sha256
 import org.modelix.model.util.pmap.COWArrays.add
 import org.modelix.model.util.pmap.COWArrays.insert
@@ -74,12 +74,12 @@ class CLTree : ITree {
     val id: String
         get() = data.id
 
-    protected fun storeElement(element: CLElement, id2hash: CLHamtNode<*>): CLHamtNode<*> {
-        val data = element.getData()
+    protected fun storeElement(node: CLNode, id2hash: CLHamtNode<*>): CLHamtNode<*> {
+        val data = node.getData()
         val serialized = data.serialize()
         val hash = sha256(serialized!!)
         store.put(hash, data, serialized)
-        var newMap = id2hash.put(element.id, hash)
+        var newMap = id2hash.put(node.id, hash)
         if (newMap == null) {
             newMap = CLHamtInternal(store)
         }
@@ -139,7 +139,7 @@ class CLTree : ITree {
             childData.propertyRoles as Array<String?>,
             childData.propertyValues as Array<String?>,
             childData.referenceRoles as Array<String?>,
-            childData.referenceTargets as Array<CPElementRef?>
+            childData.referenceTargets as Array<CPNodeRef?>
         )
         newIdToHash = newIdToHash!!.put(newChildData)
         put(store, newChildData)
@@ -169,7 +169,7 @@ class CLTree : ITree {
             parent.getData().propertyRoles as Array<String?>,
             parent.getData().propertyValues as Array<String?>,
             parent.getData().referenceRoles as Array<String?>,
-            parent.getData().referenceTargets as Array<CPElementRef?>
+            parent.getData().referenceTargets as Array<CPNodeRef?>
         )
         newIdToHash = newIdToHash!!.put(newParentData)
         put(store, newParentData)
@@ -178,7 +178,7 @@ class CLTree : ITree {
 
     override fun setReferenceTarget(sourceId: Long, role: String, targetRef: INodeReference?): ITree {
         val source = resolveElement(sourceId)!!
-        val refData: CPElementRef? = when (targetRef) {
+        val refData: CPNodeRef? = when (targetRef) {
             null -> null
             is PNodeReference -> {
                 local(targetRef.id)
@@ -212,7 +212,7 @@ class CLTree : ITree {
             parent.getData().propertyRoles as Array<String?>,
             parent.getData().propertyValues as Array<String?>,
             parent.getData().referenceRoles as Array<String?>,
-            parent.getData().referenceTargets as Array<CPElementRef?>
+            parent.getData().referenceTargets as Array<CPNodeRef?>
         )
         newIdToHash = newIdToHash.put(newParentData)
             ?: throw RuntimeException("Unexpected empty nodes map. There should be at least the root node.")
@@ -375,23 +375,21 @@ class CLTree : ITree {
         )
     }
 
-    protected fun deleteElements(element: CPElement, idToHash: CLHamtNode<*>): CLHamtNode<*>? {
+    protected fun deleteElements(node: CPNode, idToHash: CLHamtNode<*>): CLHamtNode<*>? {
         var newIdToHash: CLHamtNode<*>? = idToHash
-        if (element is CPNode) {
-            for (childId in element.getChildrenIds()) {
-                if (newIdToHash == null) throw RuntimeException("node $childId not found")
-                val childHash: String = newIdToHash[childId] ?: throw RuntimeException("node $childId not found")
-                val child = store.get(childHash) { CPElement.deserialize(it) }
-                    ?: throw RuntimeException("element with hash $childHash not found")
-                newIdToHash = deleteElements(child, newIdToHash)
-            }
+        for (childId in node.getChildrenIds()) {
+            if (newIdToHash == null) throw RuntimeException("node $childId not found")
+            val childHash: String = newIdToHash[childId] ?: throw RuntimeException("node $childId not found")
+            val child = store.get(childHash) { CPNode.deserialize(it) }
+                ?: throw RuntimeException("element with hash $childHash not found")
+            newIdToHash = deleteElements(child, newIdToHash)
         }
-        if (newIdToHash == null) throw RuntimeException("node ${element.id} not found")
-        newIdToHash = newIdToHash.remove(element.id)
+        if (newIdToHash == null) throw RuntimeException("node ${node.id} not found")
+        newIdToHash = newIdToHash.remove(node.id)
         return newIdToHash
     }
 
-    fun resolveElement(ref: CLElementRef?): CLNode? {
+    fun resolveElement(ref: CLNodeRef?): CLNode? {
         if (ref == null) {
             return null
         }
@@ -399,7 +397,7 @@ class CLTree : ITree {
         return resolveElement(id)
     }
 
-    fun resolveElement(ref: CPElementRef?): CLNode? {
+    fun resolveElement(ref: CPNodeRef?): CLNode? {
         if (ref == null) {
             return null
         }
@@ -440,7 +438,7 @@ class CLTree : ITree {
                 }
                 CPNode.deserialize(s)
             }
-        ].map { n: CPNode? -> CLElement.create(this@CLTree, n) }
+        ].map { n: CPNode? -> CLNode.create(this@CLTree, n) }
     }
 
     fun createElement(hash: String?): CLNode? {
@@ -456,7 +454,7 @@ class CLTree : ITree {
                     }
                     CPNode.deserialize(s)
                 }
-            ].map { n: CPNode? -> CLElement.create(this@CLTree, n)!! }
+            ].map { n -> CLNode.create(this@CLTree, n)!! }
         }
     }
 
