@@ -308,8 +308,8 @@ class CLTree : ITree {
         return when {
             targetRef == null -> null
             targetRef.isLocal -> PNodeReference(targetRef.elementId)
-                //    } else if (targetRef instanceof CPElementRef.MpsRef) {
-    //      return new SNodeReferenceAdapter(SNodePointer.deserialize(((CPElementRef.MpsRef) targetRef).getSerializedRef()));
+            //    } else if (targetRef instanceof CPElementRef.MpsRef) {
+            //      return new SNodeReferenceAdapter(SNodePointer.deserialize(((CPElementRef.MpsRef) targetRef).getSerializedRef()));
             else -> throw UnsupportedOperationException("Unsupported reference: $targetRef")
         }
     }
