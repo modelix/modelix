@@ -16,7 +16,7 @@ class ConflictResolutionTest : TreeTestBase() {
 
     @Test
     fun randomTest2Branches() {
-        for (i in 0..500) {
+        for (i in 1000..1100) {
             try {
                 rand = Random(i)
                 randomTest(5, 2, 3)
@@ -28,7 +28,7 @@ class ConflictResolutionTest : TreeTestBase() {
 
     @Test
     fun randomTest5Branches() {
-        for (i in 10000..10050) {
+        for (i in 10000..10010) {
             try {
                 rand = Random(i)
                 randomTest(5, 5, 5)
