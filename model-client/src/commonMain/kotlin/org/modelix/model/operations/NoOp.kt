@@ -23,8 +23,8 @@ class NoOp : AbstractOperation(), IAppliedOperation, IOperationIntend {
         return this
     }
 
-    override fun invert(): IOperation {
-        return this
+    override fun invert(): List<IOperation> {
+        return listOf(this)
     }
 
     override fun toString(): String {

@@ -41,8 +41,8 @@ class SetPropertyOp(val nodeId: Long, val role: String, val value: String?) : Ab
     inner class Applied(private val oldValue: String?) : AbstractOperation.Applied(), IAppliedOperation {
         override fun getOriginalOp() = this@SetPropertyOp
 
-        override fun invert(): IOperation {
-            return SetPropertyOp(nodeId, role, oldValue)
+        override fun invert(): List<IOperation> {
+            return listOf(SetPropertyOp(nodeId, role, oldValue))
         }
 
         override fun toString(): String {

@@ -42,8 +42,8 @@ class SetReferenceOp(val sourceId: Long, val role: String, val target: INodeRefe
     inner class Applied(private val oldValue: INodeReference?) : AbstractOperation.Applied(), IAppliedOperation {
         override fun getOriginalOp() = this@SetReferenceOp
 
-        override fun invert(): IOperation {
-            return SetReferenceOp(sourceId, role, oldValue)
+        override fun invert(): List<IOperation> {
+            return listOf(SetReferenceOp(sourceId, role, oldValue))
         }
 
         override fun toString(): String {

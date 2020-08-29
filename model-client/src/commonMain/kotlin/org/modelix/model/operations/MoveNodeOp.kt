@@ -44,8 +44,8 @@ class MoveNodeOp(val childId: Long, val targetPosition: PositionInRole) : Abstra
     inner class Applied(val sourcePosition: PositionInRole) : AbstractOperation.Applied(), IAppliedOperation {
         override fun getOriginalOp() = this@MoveNodeOp
 
-        override fun invert(): IOperation {
-            return MoveNodeOp(childId, sourcePosition)
+        override fun invert(): List<IOperation> {
+            return listOf(MoveNodeOp(childId, sourcePosition))
         }
     }
 

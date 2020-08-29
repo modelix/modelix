@@ -16,21 +16,24 @@
 package org.modelix.model.operations
 
 import org.modelix.model.api.IConcept
+import org.modelix.model.api.INodeReference
 import org.modelix.model.api.ITree
 import org.modelix.model.api.IWriteTransaction
 import org.modelix.model.persistent.SerializationUtil
 
 class DeleteNodeOp(val childId: Long) : AbstractOperation(), IOperationIntend {
 
-    override fun apply(transaction: IWriteTransaction): IAppliedOperation {
-        if (transaction.getAllChildren(childId).count() != 0) {
+    override fun apply(t: IWriteTransaction): IAppliedOperation {
+        if (t.getAllChildren(childId).count() != 0) {
             throw RuntimeException("Attempt to delete non-leaf node: ${childId.toString(16)}")
         }
 
-        val concept = transaction.getConcept(childId)
-        val position = getNodePosition(transaction.tree, childId)
-        transaction.deleteNode(childId)
-        return Applied(position, concept)
+        val concept = t.getConcept(childId)
+        val position = getNodePosition(t.tree, childId)
+        val properties = t.getPropertyRoles(childId).associateWith { t.getProperty(childId, it) }
+        val references = t.getReferenceRoles(childId).associateWith { t.getReferenceTarget(childId, it) }
+        t.deleteNode(childId)
+        return Applied(position, concept, properties, references)
     }
 
     override fun toString(): String {
@@ -60,11 +63,18 @@ class DeleteNodeOp(val childId: Long) : AbstractOperation(), IOperationIntend {
 
     override fun getOriginalOp() = this
 
-    inner class Applied(val position: PositionInRole, private val concept: IConcept?) : AbstractOperation.Applied(), IAppliedOperation {
+    inner class Applied(
+        val position: PositionInRole,
+        val concept: IConcept?,
+        val properties: Map<String, String?>,
+        val references: Map<String, INodeReference?>
+    ) : AbstractOperation.Applied(), IAppliedOperation {
         override fun getOriginalOp() = this@DeleteNodeOp
 
-        override fun invert(): IOperation {
-            return AddNewChildOp(position, childId, concept)
+        override fun invert(): List<IOperation> {
+            return listOf(AddNewChildOp(position, childId, concept)) +
+                properties.map { SetPropertyOp(childId, it.key, it.value) } +
+                references.map { SetReferenceOp(childId, it.key, it.value) }
         }
 
         override fun toString(): String {

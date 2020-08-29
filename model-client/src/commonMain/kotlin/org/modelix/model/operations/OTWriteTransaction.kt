@@ -111,6 +111,14 @@ class OTWriteTransaction(private val transaction: IWriteTransaction, private val
         return transaction.getRole(nodeId)
     }
 
+    override fun getReferenceRoles(sourceId: Long): Iterable<String> {
+        return transaction.getReferenceRoles(sourceId)
+    }
+
+    override fun getPropertyRoles(sourceId: Long): Iterable<String> {
+        return transaction.getPropertyRoles(sourceId)
+    }
+
     override var tree: ITree
         get() = transaction.tree
         set(tree) {

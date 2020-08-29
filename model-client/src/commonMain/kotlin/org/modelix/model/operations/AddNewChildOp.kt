@@ -42,8 +42,8 @@ class AddNewChildOp(val position: PositionInRole, val childId: Long, val concept
     inner class Applied : AbstractOperation.Applied(), IAppliedOperation {
         override fun getOriginalOp() = this@AddNewChildOp
 
-        override fun invert(): IOperation {
-            return DeleteNodeOp(childId)
+        override fun invert(): List<IOperation> {
+            return listOf(DeleteNodeOp(childId))
         }
     }
 
