@@ -40,23 +40,21 @@ class ConflictResolutionTest : TreeTestBase() {
 
     fun randomTest(baseChanges: Int, numBranches: Int, branchChanges: Int) {
         val merger = VersionMerger(storeCache, idGenerator)
-        val baseExpectedTreeData = ExpectedTreeData()
         val baseBranch = OTBranch(PBranch(initialTree, idGenerator), idGenerator)
         logTrace({ "Random changes to base" }, ConflictResolutionTest::class)
         for (i in 0 until baseChanges) {
             RandomTreeChangeGenerator(idGenerator, rand)
                 .addOperationOnly()
-                .applyRandomChange(baseBranch, baseExpectedTreeData)
+                .applyRandomChange(baseBranch, null)
         }
         val baseVersion = createVersion(baseBranch.operationsAndTree, null)
 
         val maxIndex = numBranches - 1
         val branches = (0..maxIndex).map { OTBranch(PBranch(baseVersion.tree, idGenerator), idGenerator) }.toList()
         val versions = branches.mapIndexed { index, branch ->
-            val expectedTreeData = baseExpectedTreeData.clone()
             logTrace({ "Random changes to branch $index" }, ConflictResolutionTest::class)
             for (i in 0 until branchChanges) {
-                applyRandomChange(branch, expectedTreeData)
+                applyRandomChange(branch, null)
             }
             createVersion(branch.operationsAndTree, baseVersion)
         }.toList()
@@ -790,15 +788,14 @@ class ConflictResolutionTest : TreeTestBase() {
     }
 
     fun createVersion(opsAndTree: Pair<List<IAppliedOperation>, ITree>, previousVersion: CLVersion?): CLVersion {
-        return CLVersion(
-            idGenerator.generate(),
-            null,
-            null,
-            (opsAndTree.second as CLTree).hash,
-            previousVersion?.hash,
-            null,
-            opsAndTree.first.map { it.getOriginalOp() }.toTypedArray(),
-            storeCache
+        return CLVersion.createRegularVersion(
+            id = idGenerator.generate(),
+            time = null,
+            author = null,
+            treeHash = (opsAndTree.second as CLTree).hash,
+            baseVersion = previousVersion?.hash,
+            operations = opsAndTree.first.map { it.getOriginalOp() }.toTypedArray(),
+            store = storeCache
         )
     }
 
@@ -807,23 +804,23 @@ class ConflictResolutionTest : TreeTestBase() {
             tree1,
             object : ITreeChangeVisitor {
                 override fun containmentChanged(nodeId: Long) {
-                    fail("containmentChanged $nodeId")
+                    fail("containmentChanged ${nodeId.toString(16)}")
                 }
 
                 override fun childrenChanged(nodeId: Long, role: String?) {
-                    fail("childrenChanged $nodeId, $role")
+                    fail("childrenChanged ${nodeId.toString(16)}, $role")
                 }
 
                 override fun referenceChanged(nodeId: Long, role: String) {
-                    fail("referenceChanged $nodeId, $role")
+                    fail("referenceChanged ${nodeId.toString(16)}, $role")
                 }
 
                 override fun propertyChanged(nodeId: Long, role: String) {
-                    fail("propertyChanged $nodeId, $role")
+                    fail("propertyChanged ${nodeId.toString(16)}, $role")
                 }
 
                 override fun nodeRemoved(nodeId: Long) {
-                    fail("nodeRemoved $nodeId")
+                    fail("nodeRemoved ${nodeId.toString(16)}")
                 }
 
                 override fun nodeAdded(nodeId: Long) {

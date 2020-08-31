@@ -24,7 +24,6 @@ import org.modelix.model.lazy.CLVersion
 import org.modelix.model.lazy.IDeserializingKeyValueStore
 import org.modelix.model.operations.*
 import org.modelix.model.persistent.CPVersion
-import kotlin.math.max
 
 class VersionMerger(private val storeCache: IDeserializingKeyValueStore, private val idGenerator: IIdGenerator) {
     private val mergeLock = Any()
@@ -54,75 +53,53 @@ class VersionMerger(private val storeCache: IDeserializingKeyValueStore, private
     }
 
     protected fun mergeHistory(leftVersionHash: String, rightVersionHash: String): CLVersion {
+        if (leftVersionHash == rightVersionHash) return getVersion(leftVersionHash)
         val commonBase = commonBaseVersion(leftVersionHash, rightVersionHash)
-        val leftHistory = getHistory(leftVersionHash, commonBase)
-        val rightHistory = getHistory(rightVersionHash, commonBase)
+        val leftVersion = getVersion(leftVersionHash)
+        val rightVersion = getVersion(rightVersionHash)
+        if (commonBase == leftVersionHash) return rightVersion
+        if (commonBase == rightVersionHash) return leftVersion
+        val versionsToApply = LinearHistory(storeCache, commonBase).load(leftVersion, rightVersion)
+//        println("merge ${getVersion(leftVersionHash).id.toString(16)} ${LinearHistory(storeCache, commonBase).load(leftVersion).map { it.id.toString(16) }} and ${getVersion(rightVersionHash).id.toString(16)} ${LinearHistory(storeCache, commonBase).load(rightVersion).map { it.id.toString(16) }}: ${commonBase?.let{getVersion(it)}?.id?.toString(16)} + ${versionsToApply.map { it.id.toString(16) }}")
+        val operationsToApply = versionsToApply.flatMap { captureIntend(it) }
         var mergedVersion: CLVersion? = null
-        var tree = getVersion(commonBase)?.tree
-        if (tree == null) {
-            tree = CLTree(storeCache)
-        }
-        val branch: IBranch = PBranch(tree, idGenerator)
-        if (rightHistory.isEmpty() || leftHistory.isEmpty()) {
-            val fastForwardHistory = if (leftHistory.isEmpty()) rightHistory else leftHistory
-            val numOps = fastForwardHistory.map { obj: CLVersion -> obj.numberOfOperations }.fold(0) { a: Int, b: Int -> max(a, b) }
-            if (numOps > 100) {
-                return fastForwardHistory[0]
-            }
-            // A small number of changes may be faster to compute locally. 
-        }
+        var baseTree = commonBase?.let { getVersion(it).tree } ?: CLTree(storeCache)
+        val branch: IBranch = PBranch(baseTree, idGenerator)
         branch.runWrite {
             val t = branch.writeTransaction
-            val appliedOpsForVersion: MutableMap<Long, List<IAppliedOperation>> = LinkedHashMap()
-            val appliedVersionIds: MutableSet<Long> = LinkedHashSet()
-            while (leftHistory.isNotEmpty() || rightHistory.isNotEmpty()) {
-                val useLeft = when {
-                    rightHistory.isEmpty() -> true
-                    leftHistory.isEmpty() -> false
-                    else -> leftHistory.last().id < rightHistory.last().id
+            val appliedOps = operationsToApply.flatMap {
+                val transformed: List<IOperation>
+                try {
+                    transformed = it.restoreIntend(t.tree)
+                    logTrace(
+                        {
+                            if (transformed.size != 1 || transformed[0] != it.getOriginalOp())
+                                "transformed: ${it.getOriginalOp()} --> $transformed"
+                            else ""
+                        },
+                        VersionMerger::class
+                    )
+                } catch (ex: Exception) {
+                    throw RuntimeException("Operation intend failed: ${it.getOriginalOp()}", ex)
                 }
-                val versionToApply = (if (useLeft) leftHistory else rightHistory).let { it.removeAt(it.size - 1) }
-                if (appliedVersionIds.contains(versionToApply.id)) {
-                    continue
-                }
-                appliedVersionIds.add(versionToApply.id)
-
-                val operationsToApply = captureIntend(versionToApply)
-                val appliedOps = operationsToApply.flatMap {
-                    val transformed: List<IOperation>
+                transformed.map { o ->
                     try {
-                        transformed = it.restoreIntend(t.tree)
-                        logTrace(
-                            {
-                                if (transformed.size != 1 || transformed[0] != it.getOriginalOp())
-                                    "transformed: ${it.getOriginalOp()} --> $transformed"
-                                else ""
-                            },
-                            VersionMerger::class
-                        )
+                        o.apply(t)
                     } catch (ex: Exception) {
-                        throw RuntimeException("Operation intend failed: ${it.getOriginalOp()}", ex)
-                    }
-                    transformed.map { o ->
-                        try {
-                            o.apply(t)
-                        } catch (ex: Exception) {
-                            throw RuntimeException("Operation failed: $o", ex)
-                        }
+                        throw RuntimeException("Operation failed: $o", ex)
                     }
                 }
-                appliedOpsForVersion[versionToApply.id] = appliedOps
-                mergedVersion = CLVersion(
-                    versionToApply.id,
-                    versionToApply.time,
-                    versionToApply.author,
-                    (t.tree as CLTree).hash,
-                    if (mergedVersion != null) mergedVersion!!.hash else versionToApply.previousHash,
-                    versionToApply.data?.originalVersion ?: versionToApply.hash,
-                    appliedOps.map { it.getOriginalOp() }.toTypedArray(),
-                    storeCache
-                )
             }
+            mergedVersion = CLVersion.createAutoMerge(
+                idGenerator.generate(),
+                (t.tree as CLTree).hash,
+                commonBase!!,
+                leftVersionHash,
+                rightVersionHash,
+                appliedOps.map { it.getOriginalOp() }.toTypedArray(),
+                storeCache
+            )
+            println("result ${mergedVersion?.id?.toString(16)}")
         }
         if (mergedVersion == null) {
             throw RuntimeException("Failed to merge $leftVersionHash and $rightVersionHash")
@@ -131,7 +108,7 @@ class VersionMerger(private val storeCache: IDeserializingKeyValueStore, private
     }
 
     private fun captureIntend(version: CLVersion): List<IOperationIntend> {
-        val tree = version.previousVersion!!.tree
+        val tree = version.baseVersion!!.tree
         val branch = PBranch(tree, idGenerator)
         return branch.computeWrite {
             val a = version.operations.map {
@@ -141,35 +118,6 @@ class VersionMerger(private val storeCache: IDeserializingKeyValueStore, private
             }
             a
         }
-    }
-
-    /**
-     *
-     *
-     * @param fromVersion The newest version
-     * @param toVersionExclusive The oldest version
-     * @return Newest version first
-     */
-    protected fun getHistory(fromVersion: String, toVersionExclusive: String?): MutableList<CLVersion> {
-        val history: MutableList<CLVersion> = ArrayList()
-        if (fromVersion == toVersionExclusive) {
-            return history
-        }
-        var version = getVersion(fromVersion)
-        while (true) {
-            if (version == null) {
-                break
-            }
-            history.add(version)
-            if (version.previousHash == null) {
-                break
-            }
-            if (version.previousHash == toVersionExclusive) {
-                break
-            }
-            version = version.previousVersion
-        }
-        return history
     }
 
     protected fun commonBaseVersion(leftHash: String?, rightHash: String?): String? {
@@ -195,24 +143,20 @@ class VersionMerger(private val storeCache: IDeserializingKeyValueStore, private
                 }
             }
             if (leftHash != null) {
-                leftHash = getVersion(leftHash)?.previousHash
+                leftHash = getVersion(leftHash)?.let { it.data!!.baseVersion ?: it.data!!.previousVersion }
             }
             if (rightHash != null) {
-                rightHash = getVersion(rightHash)?.previousHash
+                rightHash = getVersion(rightHash)?.let { it.data!!.baseVersion ?: it.data!!.previousVersion }
             }
         }
         return null
     }
 
-    private fun getVersion(hash: String?): CLVersion? {
-        return if (hash == null) {
-            null
-        } else CLVersion.loadFromHash(hash, storeCache)
+    private fun getVersion(hash: String): CLVersion {
+        return CLVersion.loadFromHash(hash, storeCache) ?: throw RuntimeException("Version $hash not found")
     }
 
-    protected fun getTree(version: CPVersion?): ITree? {
-        return if (version == null) {
-            null
-        } else CLTree(version.treeHash, storeCache)
+    protected fun getTree(version: CPVersion): ITree {
+        return CLTree(version.treeHash, storeCache)
     }
 }

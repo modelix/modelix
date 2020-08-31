@@ -8,29 +8,33 @@ class RandomTreeChangeGenerator(private val idGenerator: IdGenerator, private va
     val childRoles = listOf("cRole1", "cRole2", "cRole3")
     val propertyRoles = listOf("pRole1", "pRole2", "pRole3")
     val referenceRoles = listOf("rRole1", "rRole2", "rRole3")
-    val deleteOp: (IWriteTransaction, ExpectedTreeData) -> Unit = { t, expectedTree ->
+    val deleteOp: (IWriteTransaction, ExpectedTreeData?) -> Unit = { t, expectedTree ->
         val nodeToDelete = TreeTestUtil(t.tree, rand).randomLeafNode
         if (nodeToDelete != 0L && nodeToDelete != ITree.ROOT_ID) {
             t.deleteNode(nodeToDelete)
-            expectedTree.removeChild(expectedTree.expectedParents[nodeToDelete]!!, expectedTree.expectedRoles[nodeToDelete], nodeToDelete)
-            expectedTree.expectedParents[nodeToDelete] = 0L
-            expectedTree.expectedRoles.remove(nodeToDelete)
-            expectedTree.expectedDeletes.add(nodeToDelete)
+            if (expectedTree != null) {
+                expectedTree.removeChild(expectedTree.expectedParents[nodeToDelete]!!, expectedTree.expectedRoles[nodeToDelete], nodeToDelete)
+                expectedTree.expectedParents[nodeToDelete] = 0L
+                expectedTree.expectedRoles.remove(nodeToDelete)
+                expectedTree.expectedDeletes.add(nodeToDelete)
+            }
         }
     }
-    val addNewOp: (IWriteTransaction, ExpectedTreeData) -> Unit = { t, expectedTree ->
+    val addNewOp: (IWriteTransaction, ExpectedTreeData?) -> Unit = { t, expectedTree ->
         val parent = TreeTestUtil(t.tree, rand).randomNodeWithRoot
         if (parent != 0L) {
             val childId = idGenerator.generate()
             val role = childRoles[rand.nextInt(childRoles.size)]
             val index = if (rand.nextBoolean()) rand.nextInt(t.getChildren(parent, role).count().toInt() + 1) else -1
             t.addNewChild(parent, role, index, childId, null)
-            expectedTree.expectedParents[childId] = parent
-            expectedTree.expectedRoles[childId] = role
-            expectedTree.insertChild(parent, role, index, childId)
+            if (expectedTree != null) {
+                expectedTree.expectedParents[childId] = parent
+                expectedTree.expectedRoles[childId] = role
+                expectedTree.insertChild(parent, role, index, childId)
+            }
         }
     }
-    val setPropertyOp: (IWriteTransaction, ExpectedTreeData) -> Unit = { t, expectedTree ->
+    val setPropertyOp: (IWriteTransaction, ExpectedTreeData?) -> Unit = { t, expectedTree ->
         val nodeId = TreeTestUtil(t.tree, rand).randomNodeWithoutRoot
         if (nodeId != 0L) {
             val role = propertyRoles[rand.nextInt(propertyRoles.size)]
@@ -39,7 +43,7 @@ class RandomTreeChangeGenerator(private val idGenerator: IdGenerator, private va
             t.setProperty(nodeId, role, value)
         }
     }
-    val setReferenceOp: (IWriteTransaction, ExpectedTreeData) -> Unit = { t, expectedTree ->
+    val setReferenceOp: (IWriteTransaction, ExpectedTreeData?) -> Unit = { t, expectedTree ->
         val sourceId = TreeTestUtil(t.tree, rand).randomNodeWithoutRoot
         val targetId = TreeTestUtil(t.tree, rand).randomNodeWithoutRoot
         if (sourceId != 0L && targetId != 0L) {
@@ -47,7 +51,7 @@ class RandomTreeChangeGenerator(private val idGenerator: IdGenerator, private va
             t.setReferenceTarget(sourceId, role, PNodeReference(targetId))
         }
     }
-    val moveOp: (IWriteTransaction, ExpectedTreeData) -> Unit = { t, expectedTree ->
+    val moveOp: (IWriteTransaction, ExpectedTreeData?) -> Unit = { t, expectedTree ->
         val util = TreeTestUtil(t.tree, rand)
         val childId = util.randomNodeWithoutRoot
         val parent = util.getRandomNode(
@@ -59,21 +63,23 @@ class RandomTreeChangeGenerator(private val idGenerator: IdGenerator, private va
             val role = childRoles[rand.nextInt(childRoles.size)]
             var index = if (rand.nextBoolean()) rand.nextInt(t.getChildren(parent, role).count() + 1) else -1
             t.moveChild(parent, role, index, childId)
-            val oldParent = expectedTree.expectedParents[childId]!!
-            val oldRole = expectedTree.expectedRoles[childId]
-            if (oldParent == parent && oldRole == role) {
-                val oldIndex = expectedTree.expectedChildren[Pair(oldParent, oldRole)]!!.indexOf(childId)
-                if (oldIndex < index) {
-                    index--
+            if (expectedTree != null) {
+                val oldParent = expectedTree.expectedParents[childId]!!
+                val oldRole = expectedTree.expectedRoles[childId]
+                if (oldParent == parent && oldRole == role) {
+                    val oldIndex = expectedTree.expectedChildren[Pair(oldParent, oldRole)]!!.indexOf(childId)
+                    if (oldIndex < index) {
+                        index--
+                    }
                 }
+                expectedTree.removeChild(oldParent, oldRole, childId)
+                expectedTree.expectedParents[childId] = parent
+                expectedTree.expectedRoles[childId] = role
+                expectedTree.insertChild(parent, role, index, childId)
             }
-            expectedTree.removeChild(oldParent, oldRole, childId)
-            expectedTree.expectedParents[childId] = parent
-            expectedTree.expectedRoles[childId] = role
-            expectedTree.insertChild(parent, role, index, childId)
         }
     }
-    var operations: List<(IWriteTransaction, ExpectedTreeData) -> Unit> = listOf(
+    var operations: List<(IWriteTransaction, ExpectedTreeData?) -> Unit> = listOf(
         deleteOp,
         addNewOp,
         setPropertyOp,
@@ -97,13 +103,13 @@ class RandomTreeChangeGenerator(private val idGenerator: IdGenerator, private va
         return this
     }
 
-    fun applyRandomChange(tree: ITree, expectedTree: ExpectedTreeData): ITree {
+    fun applyRandomChange(tree: ITree, expectedTree: ExpectedTreeData?): ITree {
         val branch = PBranch(tree, idGenerator)
         applyRandomChange(branch, expectedTree)
         return branch.computeRead { branch.transaction.tree }
     }
 
-    fun applyRandomChange(branch: IBranch, expectedTree: ExpectedTreeData) {
+    fun applyRandomChange(branch: IBranch, expectedTree: ExpectedTreeData?) {
         branch.runWrite {
             val t = branch.writeTransaction
             operations[rand.nextInt(operations.size)](t, expectedTree)

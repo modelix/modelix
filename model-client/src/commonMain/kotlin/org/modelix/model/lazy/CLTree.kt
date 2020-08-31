@@ -111,7 +111,7 @@ class CLTree : ITree {
 
     override fun addNewChild(parentId: Long, role: String?, index: Int, childId: Long, concept: IConcept?): ITree {
         if (containsNode(childId)) {
-            throw RuntimeException("Node ID already exists: $childId")
+            throw RuntimeException("Node ID already exists: ${childId.toString(16)}")
         }
         return createNewNode(childId, concept).addChild(parentId, role, index, childId)
     }

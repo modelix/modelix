@@ -49,7 +49,7 @@ open class TreeTestBase {
         return branch.computeRead { branch.transaction.tree }
     }
 
-    fun applyRandomChange(branch: IBranch, expectedTree: ExpectedTreeData) {
+    fun applyRandomChange(branch: IBranch, expectedTree: ExpectedTreeData?) {
         RandomTreeChangeGenerator(idGenerator, rand).applyRandomChange(branch, expectedTree)
     }
 
