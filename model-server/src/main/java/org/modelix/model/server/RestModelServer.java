@@ -120,7 +120,6 @@ public class RestModelServer {
                                     resp.getWriter().print(": ");
                                     resp.getWriter().println(req.getHeader(headerName));
                                 }
-
                             }
                         }),
                 "/headers");
@@ -510,7 +509,7 @@ public class RestModelServer {
     private boolean isValidAuthorization(IStoreClient store, HttpServletRequest req) {
         if (isTrustedAddress(req)
                 && parseXForwardedFor(req.getHeader("X-Forwarded-For")).stream()
-                .allMatch(RestModelServer::isTrustedAddress)) return true;
+                        .allMatch(RestModelServer::isTrustedAddress)) return true;
 
         String header = req.getHeader("Authorization");
         if (header == null) {
@@ -542,14 +541,18 @@ public class RestModelServer {
     private static List<InetAddress> parseXForwardedFor(String value) {
         List<InetAddress> result = new ArrayList<>();
         if (value != null) {
-            return Stream.of(value.split(",")).map(v -> {
-                try {
-                    return InetAddress.getByName(v.trim());
-                } catch (UnknownHostException e) {
-                    LOG.warn("Failed to parse IP address: " + v, e);
-                    return null;
-                }
-            }).filter(Objects::nonNull).collect(Collectors.toList());
+            return Stream.of(value.split(","))
+                    .map(
+                            v -> {
+                                try {
+                                    return InetAddress.getByName(v.trim());
+                                } catch (UnknownHostException e) {
+                                    LOG.warn("Failed to parse IP address: " + v, e);
+                                    return null;
+                                }
+                            })
+                    .filter(Objects::nonNull)
+                    .collect(Collectors.toList());
         }
         return result;
     }
@@ -565,9 +568,7 @@ public class RestModelServer {
     }
 
     private static boolean isTrustedAddress(InetAddress addr) {
-        return addr.isLoopbackAddress()
-                || addr.isLinkLocalAddress()
-                || addr.isSiteLocalAddress();
+        return addr.isLoopbackAddress() || addr.isLinkLocalAddress() || addr.isSiteLocalAddress();
     }
 
     private static String extractToken(HttpServletRequest req) {
