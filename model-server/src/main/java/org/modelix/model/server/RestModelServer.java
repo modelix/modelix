@@ -25,7 +25,6 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.SortedMap;
 import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -392,7 +391,13 @@ public class RestModelServer {
             while (matcher.find()) {
                 String foundKey = matcher.group();
                 if (storeClient.get(foundKey) == null) {
-                    throw new RuntimeException("Attempt to write entry " + key + "=" + value + " with non-existent referenced key " + foundKey);
+                    throw new RuntimeException(
+                            "Attempt to write entry "
+                                    + key
+                                    + "="
+                                    + value
+                                    + " with non-existent referenced key "
+                                    + foundKey);
                 }
             }
         }
@@ -452,6 +457,7 @@ public class RestModelServer {
                     if (unsorted.containsKey(referencedKey)) fill(referencedKey);
                 }
             }
+
             void fill() {
                 for (Map.Entry<String, String> entry : unsorted.entrySet()) {
                     fill(entry.getKey());
