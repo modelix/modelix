@@ -448,14 +448,16 @@ public class RestModelServer {
 
     private Map<String, String> sortByDependency(final Map<String, String> unsorted) {
         Map<String, String> sorted = new LinkedHashMap<>();
+        Set<String> processed = new HashSet<>();
         new Object() {
             void fill(String key) {
-                if (sorted.containsKey(key)) return;
+                if (processed.contains(key)) return;
+                processed.add(key);
                 String value = unsorted.get(key);
-                sorted.put(key, value);
                 for (String referencedKey : extractHashes(value)) {
                     if (unsorted.containsKey(referencedKey)) fill(referencedKey);
                 }
+                sorted.put(key, value);
             }
 
             void fill() {
