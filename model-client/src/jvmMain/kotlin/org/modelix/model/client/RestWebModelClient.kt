@@ -51,7 +51,7 @@ import kotlin.collections.ArrayList
 import kotlin.collections.HashMap
 import kotlin.collections.LinkedHashMap
 
-class RestWebModelClient @JvmOverloads constructor(var baseUrl: String? = null) : IModelClient {
+class RestWebModelClient @JvmOverloads constructor(var baseUrl: String? = null, authToken_: String? = null) : IModelClient {
     companion object {
         private val LOG = LogManager.getLogger(RestWebModelClient::class.java)
         const val MODEL_URI_VAR_NAME = "MODEL_URI"
@@ -109,7 +109,7 @@ class RestWebModelClient @JvmOverloads constructor(var baseUrl: String? = null) 
     override lateinit var idGenerator: IIdGenerator
         private set
     private val watchDogTask: ScheduledFuture<*>
-    private var authToken = defaultToken
+    private var authToken = authToken_ ?: defaultToken
 
     fun dispose() {
         watchDogTask.cancel(false)
@@ -211,12 +211,10 @@ class RestWebModelClient @JvmOverloads constructor(var baseUrl: String? = null) 
             }
         }
         val url = baseUrl + "put/" + URLEncoder.encode(key, StandardCharsets.UTF_8)
-        println("put with url $url")
         try {
             val response = client.target(url).request(MediaType.TEXT_PLAIN).put(Entity.text(value))
-            println("put with url $url got response $response")
             if (response.statusInfo.family != Response.Status.Family.SUCCESSFUL) {
-                throw RuntimeException("Failed to store entry (${response.statusInfo} ${response.status}) $key = $value. URL: $url")
+                throw RuntimeException("Failed to store entry (${response.statusInfo} ${response.status}) $key = $value. " + response.readEntity(String::class.java))
             }
         } catch (e: Exception) {
             throw RuntimeException("Failed executing a put to $url", e)
@@ -228,14 +226,16 @@ class RestWebModelClient @JvmOverloads constructor(var baseUrl: String? = null) 
             if (LOG.isDebugEnabled) {
                 LOG.debug("PUT batch of " + json.length() + " entries")
             }
-            val response = client.target(baseUrl + "putAll").request(MediaType.APPLICATION_JSON).put(Entity.text(json.toString()))
+            val response = client.target(baseUrl + "putAll").request(MediaType.TEXT_PLAIN).put(Entity.text(json.toString()))
             if (response.statusInfo.family != Response.Status.Family.SUCCESSFUL) {
+
                 throw RuntimeException(
                     String.format(
-                        "Failed to store %d entries (%s) %s",
+                        "Failed to store %d entries (%s) %s: %s",
                         entries.size,
                         response.statusInfo,
-                        entries.entries.stream().map { e: Map.Entry<String?, String?> -> e.key.toString() + " = " + e.value + ", ..." }.findFirst().orElse("")
+                        entries.entries.stream().map { e: Map.Entry<String?, String?> -> e.key.toString() + " = " + e.value + ", ..." }.findFirst().orElse(""),
+                        response.readEntity(String::class.java)
                     )
                 )
             }

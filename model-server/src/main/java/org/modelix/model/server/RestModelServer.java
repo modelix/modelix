@@ -20,14 +20,18 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServlet;
@@ -99,6 +103,27 @@ public class RestModelServer {
                             }
                         }),
                 "/health");
+
+        servletHandler.addServlet(
+                new ServletHolder(
+                        new HttpServlet() {
+                            private String HEALTH_KEY = PROTECTED_PREFIX + "health2";
+
+                            @Override
+                            protected void doGet(HttpServletRequest req, HttpServletResponse resp)
+                                    throws ServletException, IOException {
+                                resp.setStatus(HttpServletResponse.SC_OK);
+                                resp.setContentType(TEXT_PLAIN);
+
+                                for (String headerName : Collections.list(req.getHeaderNames())) {
+                                    resp.getWriter().print(headerName);
+                                    resp.getWriter().print(": ");
+                                    resp.getWriter().println(req.getHeader(headerName));
+                                }
+
+                            }
+                        }),
+                "/headers");
 
         servletHandler.addServlet(
                 new ServletHolder(
@@ -483,7 +508,9 @@ public class RestModelServer {
     }
 
     private boolean isValidAuthorization(IStoreClient store, HttpServletRequest req) {
-        if (isTrustedAddress(req)) return true;
+        if (isTrustedAddress(req)
+                && parseXForwardedFor(req.getHeader("X-Forwarded-For")).stream()
+                .allMatch(RestModelServer::isTrustedAddress)) return true;
 
         String header = req.getHeader("Authorization");
         if (header == null) {
@@ -512,16 +539,35 @@ public class RestModelServer {
         return true;
     }
 
+    private static List<InetAddress> parseXForwardedFor(String value) {
+        List<InetAddress> result = new ArrayList<>();
+        if (value != null) {
+            return Stream.of(value.split(",")).map(v -> {
+                try {
+                    return InetAddress.getByName(v.trim());
+                } catch (UnknownHostException e) {
+                    LOG.warn("Failed to parse IP address: " + v, e);
+                    return null;
+                }
+            }).filter(Objects::nonNull).collect(Collectors.toList());
+        }
+        return result;
+    }
+
     private static boolean isTrustedAddress(ServletRequest req) {
         try {
             InetAddress addr = InetAddress.getByName(req.getRemoteAddr());
-            return addr.isLoopbackAddress()
-                    || addr.isLinkLocalAddress()
-                    || addr.isSiteLocalAddress();
+            return isTrustedAddress(addr);
         } catch (UnknownHostException e) {
             LOG.error("", e);
             return false;
         }
+    }
+
+    private static boolean isTrustedAddress(InetAddress addr) {
+        return addr.isLoopbackAddress()
+                || addr.isLinkLocalAddress()
+                || addr.isSiteLocalAddress();
     }
 
     private static String extractToken(HttpServletRequest req) {

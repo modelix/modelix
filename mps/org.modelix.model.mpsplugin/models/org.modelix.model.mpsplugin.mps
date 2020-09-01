@@ -10353,9 +10353,12 @@
                             <node concept="37vLTI" id="2EzI5qKrki7" role="3clFbG">
                               <node concept="2ShNRf" id="2EzI5qKrki8" role="37vLTx">
                                 <node concept="1pGfFk" id="2EzI5qKrki9" role="2ShVmc">
-                                  <ref role="37wK5l" to="5440:~RestWebModelClient.&lt;init&gt;(java.lang.String)" resolve="RestWebModelClient" />
+                                  <ref role="37wK5l" to="5440:~RestWebModelClient.&lt;init&gt;(java.lang.String,java.lang.String)" resolve="RestWebModelClient" />
                                   <node concept="37vLTw" id="2EzI5qKrkia" role="37wK5m">
                                     <ref role="3cqZAo" node="6aRQr1WPbDO" resolve="baseUrl" />
+                                  </node>
+                                  <node concept="37vLTw" id="4DbirjtxD0V" role="37wK5m">
+                                    <ref role="3cqZAo" node="2EzI5qKmJsA" resolve="authToken" />
                                   </node>
                                 </node>
                               </node>
@@ -10370,29 +10373,6 @@
                             <ref role="3cqZAo" node="6aRQr1WVnku" resolve="client" />
                           </node>
                           <node concept="10Nm6u" id="2EzI5qKn8DK" role="3uHU7w" />
-                        </node>
-                      </node>
-                      <node concept="3clFbJ" id="2EzI5qKmSeM" role="3cqZAp">
-                        <node concept="3clFbS" id="2EzI5qKmSeO" role="3clFbx">
-                          <node concept="3clFbF" id="2EzI5qKmOO_" role="3cqZAp">
-                            <node concept="2OqwBi" id="2EzI5qKmPCV" role="3clFbG">
-                              <node concept="37vLTw" id="2EzI5qKmOOz" role="2Oq$k0">
-                                <ref role="3cqZAo" node="6aRQr1WVnku" resolve="client" />
-                              </node>
-                              <node concept="liA8E" id="2EzI5qKmQjy" role="2OqNvi">
-                                <ref role="37wK5l" to="5440:~RestWebModelClient.setAuthToken(java.lang.String)" resolve="setAuthToken" />
-                                <node concept="37vLTw" id="2EzI5qKmRcJ" role="37wK5m">
-                                  <ref role="3cqZAo" node="2EzI5qKmJsA" resolve="authToken" />
-                                </node>
-                              </node>
-                            </node>
-                          </node>
-                        </node>
-                        <node concept="3y3z36" id="2EzI5qKmTTf" role="3clFbw">
-                          <node concept="10Nm6u" id="2EzI5qKmU4X" role="3uHU7w" />
-                          <node concept="37vLTw" id="2EzI5qKmTcp" role="3uHU7B">
-                            <ref role="3cqZAo" node="2EzI5qKmJsA" resolve="authToken" />
-                          </node>
                         </node>
                       </node>
                       <node concept="3clFbF" id="4rrX99oearq" role="3cqZAp">
