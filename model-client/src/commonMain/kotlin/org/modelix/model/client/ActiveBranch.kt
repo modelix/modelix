@@ -71,7 +71,7 @@ open class ActiveBranch(client: IModelClient, tree: TreeId, branchName: String?,
         branchName = name
         replicatedTree!!.branch.removeListener(forwardingListener)
         replicatedTree!!.dispose()
-        replicatedTree = ReplicatedTree(client, tree, branchName!!, user)
+        replicatedTree = createReplicatedTree(client, tree, branchName!!, user)
         replicatedTree!!.branch.addListener(forwardingListener)
         val b = replicatedTree!!.branch
         val newTree = b.computeRead { b.transaction.tree }

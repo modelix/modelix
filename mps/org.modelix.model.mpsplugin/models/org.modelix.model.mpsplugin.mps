@@ -11424,21 +11424,106 @@
                 <node concept="3clFbF" id="6aRQr1X2cnS" role="3cqZAp">
                   <node concept="37vLTI" id="6aRQr1X2cuN" role="3clFbG">
                     <node concept="2ShNRf" id="6aRQr1X2cQB" role="37vLTx">
-                      <node concept="1pGfFk" id="6aRQr1X2cEg" role="2ShVmc">
-                        <ref role="37wK5l" to="5440:~ActiveBranch.&lt;init&gt;(org.modelix.model.client.IModelClient,org.modelix.model.lazy.TreeId,java.lang.String,kotlin.jvm.functions.Function0)" resolve="ActiveBranch" />
-                        <node concept="37vLTw" id="6aRQr1X2d2U" role="37wK5m">
-                          <ref role="3cqZAo" node="6aRQr1WVnku" resolve="client" />
-                        </node>
-                        <node concept="37vLTw" id="6aRQr1X2dkY" role="37wK5m">
-                          <ref role="3cqZAo" node="6aRQr1X26PL" resolve="treeId" />
-                        </node>
-                        <node concept="10Nm6u" id="49CIzaqemKJ" role="37wK5m" />
-                        <node concept="1bVj0M" id="2EzI5qKsy4Q" role="37wK5m">
-                          <node concept="3clFbS" id="2EzI5qKsy4S" role="1bW5cS">
-                            <node concept="3clFbF" id="5MA9wbc60L1" role="3cqZAp">
-                              <node concept="1rXfSq" id="5MA9wbc6eJO" role="3clFbG">
-                                <ref role="37wK5l" node="5MA9wbc62$n" resolve="getAuthor" />
+                      <node concept="YeOm9" id="7IyD6pkwvJ1" role="2ShVmc">
+                        <node concept="1Y3b0j" id="7IyD6pkwvJ4" role="YeSDq">
+                          <property role="2bfB8j" value="true" />
+                          <ref role="37wK5l" to="5440:~ActiveBranch.&lt;init&gt;(org.modelix.model.client.IModelClient,org.modelix.model.lazy.TreeId,java.lang.String,kotlin.jvm.functions.Function0)" resolve="ActiveBranch" />
+                          <ref role="1Y3XeK" to="5440:~ActiveBranch" resolve="ActiveBranch" />
+                          <node concept="3Tm1VV" id="7IyD6pkwvJ5" role="1B3o_S" />
+                          <node concept="37vLTw" id="6aRQr1X2d2U" role="37wK5m">
+                            <ref role="3cqZAo" node="6aRQr1WVnku" resolve="client" />
+                          </node>
+                          <node concept="37vLTw" id="6aRQr1X2dkY" role="37wK5m">
+                            <ref role="3cqZAo" node="6aRQr1X26PL" resolve="treeId" />
+                          </node>
+                          <node concept="10Nm6u" id="49CIzaqemKJ" role="37wK5m" />
+                          <node concept="1bVj0M" id="2EzI5qKsy4Q" role="37wK5m">
+                            <node concept="3clFbS" id="2EzI5qKsy4S" role="1bW5cS">
+                              <node concept="3clFbF" id="5MA9wbc60L1" role="3cqZAp">
+                                <node concept="1rXfSq" id="5MA9wbc6eJO" role="3clFbG">
+                                  <ref role="37wK5l" node="5MA9wbc62$n" resolve="getAuthor" />
+                                </node>
                               </node>
+                            </node>
+                          </node>
+                          <node concept="3clFb_" id="7IyD6pkwvXO" role="jymVt">
+                            <property role="TrG5h" value="createReplicatedTree" />
+                            <node concept="3Tmbuc" id="7IyD6pkwvXP" role="1B3o_S" />
+                            <node concept="2AHcQZ" id="7IyD6pkwvXR" role="2AJF6D">
+                              <ref role="2AI5Lk" to="mhfm:~NotNull" resolve="NotNull" />
+                            </node>
+                            <node concept="3uibUv" id="7IyD6pkwvXS" role="3clF45">
+                              <ref role="3uigEE" to="5440:~ReplicatedTree" resolve="ReplicatedTree" />
+                            </node>
+                            <node concept="37vLTG" id="7IyD6pkwvXT" role="3clF46">
+                              <property role="TrG5h" value="client" />
+                              <node concept="3uibUv" id="7IyD6pkwvXU" role="1tU5fm">
+                                <ref role="3uigEE" to="5440:~IModelClient" resolve="IModelClient" />
+                              </node>
+                              <node concept="2AHcQZ" id="7IyD6pkwvXV" role="2AJF6D">
+                                <ref role="2AI5Lk" to="mhfm:~NotNull" resolve="NotNull" />
+                              </node>
+                            </node>
+                            <node concept="37vLTG" id="7IyD6pkwvXW" role="3clF46">
+                              <property role="TrG5h" value="treeId" />
+                              <node concept="3uibUv" id="7IyD6pkwvXX" role="1tU5fm">
+                                <ref role="3uigEE" to="xkhl:~TreeId" resolve="TreeId" />
+                              </node>
+                              <node concept="2AHcQZ" id="7IyD6pkwvXY" role="2AJF6D">
+                                <ref role="2AI5Lk" to="mhfm:~NotNull" resolve="NotNull" />
+                              </node>
+                            </node>
+                            <node concept="37vLTG" id="7IyD6pkwvXZ" role="3clF46">
+                              <property role="TrG5h" value="branchName" />
+                              <node concept="17QB3L" id="7IyD6pkx22Q" role="1tU5fm" />
+                              <node concept="2AHcQZ" id="7IyD6pkwvY1" role="2AJF6D">
+                                <ref role="2AI5Lk" to="mhfm:~NotNull" resolve="NotNull" />
+                              </node>
+                            </node>
+                            <node concept="37vLTG" id="7IyD6pkwvY2" role="3clF46">
+                              <property role="TrG5h" value="user" />
+                              <node concept="3uibUv" id="7IyD6pkwvY3" role="1tU5fm">
+                                <ref role="3uigEE" to="ouht:~Function0" resolve="Function0" />
+                                <node concept="17QB3L" id="7IyD6pkx2ok" role="11_B2D" />
+                              </node>
+                              <node concept="2AHcQZ" id="7IyD6pkwvY5" role="2AJF6D">
+                                <ref role="2AI5Lk" to="mhfm:~NotNull" resolve="NotNull" />
+                              </node>
+                            </node>
+                            <node concept="3clFbS" id="7IyD6pkwvY7" role="3clF47">
+                              <node concept="3clFbF" id="7IyD6pkwMW4" role="3cqZAp">
+                                <node concept="2ShNRf" id="7IyD6pkwMW0" role="3clFbG">
+                                  <node concept="1pGfFk" id="7IyD6pkwY3r" role="2ShVmc">
+                                    <ref role="37wK5l" node="6aRQr1WXtj7" resolve="MpsReplicatedTree" />
+                                    <node concept="37vLTw" id="7IyD6pkwY7W" role="37wK5m">
+                                      <ref role="3cqZAo" node="7IyD6pkwvXT" resolve="client" />
+                                    </node>
+                                    <node concept="37vLTw" id="7IyD6pkwY7X" role="37wK5m">
+                                      <ref role="3cqZAo" node="7IyD6pkwvXW" resolve="treeId" />
+                                    </node>
+                                    <node concept="37vLTw" id="7IyD6pkwY7Y" role="37wK5m">
+                                      <ref role="3cqZAo" node="7IyD6pkwvXZ" resolve="branchName" />
+                                    </node>
+                                    <node concept="1bVj0M" id="7IyD6pkwZVa" role="37wK5m">
+                                      <node concept="3clFbS" id="7IyD6pkwZVc" role="1bW5cS">
+                                        <node concept="3clFbF" id="7IyD6pkx0_s" role="3cqZAp">
+                                          <node concept="2OqwBi" id="7IyD6pkx1s2" role="3clFbG">
+                                            <node concept="37vLTw" id="7IyD6pkx0_r" role="2Oq$k0">
+                                              <ref role="3cqZAo" node="7IyD6pkwvY2" resolve="user" />
+                                            </node>
+                                            <node concept="liA8E" id="7IyD6pkx1Ua" role="2OqNvi">
+                                              <ref role="37wK5l" to="ouht:~Function0.invoke()" resolve="invoke" />
+                                            </node>
+                                          </node>
+                                        </node>
+                                      </node>
+                                    </node>
+                                  </node>
+                                </node>
+                              </node>
+                            </node>
+                            <node concept="2AHcQZ" id="7IyD6pkwvY8" role="2AJF6D">
+                              <ref role="2AI5Lk" to="wyt6:~Override" resolve="Override" />
                             </node>
                           </node>
                         </node>
