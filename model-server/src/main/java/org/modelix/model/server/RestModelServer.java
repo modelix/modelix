@@ -21,8 +21,11 @@ import java.net.UnknownHostException;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
+import java.util.SortedMap;
 import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -244,13 +247,16 @@ public class RestModelServer {
                                                 req.getInputStream(), StandardCharsets.UTF_8);
                                 JSONArray json = new JSONArray(jsonStr);
                                 int writtenEntries = 0;
+                                Map<String, String> entries = new LinkedHashMap<>();
                                 for (Object entry_ : json) {
                                     JSONObject entry = (JSONObject) entry_;
                                     String key = entry.getString("key");
                                     String value = entry.getString("value");
-
-                                    putEntry(key, value);
-                                    storeClient.put(key, value);
+                                    entries.put(key, value);
+                                }
+                                entries = sortByDependency(entries);
+                                for (Map.Entry<String, String> entry : entries.entrySet()) {
+                                    putEntry(entry.getKey(), entry.getValue());
                                     writtenEntries++;
                                 }
                                 resp.setStatus(HttpServletResponse.SC_OK);
@@ -413,19 +419,46 @@ public class RestModelServer {
                 entry.put("value", value);
                 result.put(entry);
 
-                if (value != null) {
-                    Matcher matcher = HASH_PATTERN.matcher(value);
-                    while (matcher.find()) {
-                        String foundKey = matcher.group();
-                        if (!processed.contains(foundKey)) {
-                            pending.add(foundKey);
-                        }
+                for (String foundKey : extractHashes(value)) {
+                    if (!processed.contains(foundKey)) {
+                        pending.add(foundKey);
                     }
                 }
             }
         }
 
         return result;
+    }
+
+    private List<String> extractHashes(String input) {
+        List<String> result = new ArrayList<>();
+        if (input != null) {
+            Matcher matcher = HASH_PATTERN.matcher(input);
+            while (matcher.find()) {
+                result.add(matcher.group());
+            }
+        }
+        return result;
+    }
+
+    private Map<String, String> sortByDependency(final Map<String, String> unsorted) {
+        Map<String, String> sorted = new LinkedHashMap<>();
+        new Object() {
+            void fill(String key) {
+                if (sorted.containsKey(key)) return;
+                String value = unsorted.get(key);
+                sorted.put(key, value);
+                for (String referencedKey : extractHashes(value)) {
+                    if (unsorted.containsKey(referencedKey)) fill(referencedKey);
+                }
+            }
+            void fill() {
+                for (Map.Entry<String, String> entry : unsorted.entrySet()) {
+                    fill(entry.getKey());
+                }
+            }
+        }.fill();
+        return sorted;
     }
 
     private boolean checkAuthorization(

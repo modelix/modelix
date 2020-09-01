@@ -237,7 +237,7 @@ actual open class ReplicatedTree actual constructor(private val client: IModelCl
         if (initialVersion == null) {
             initialTree.setValue(CLTree(treeId, client.storeCache!!))
             initialVersion = createVersion(initialTree.value, arrayOf(), null)
-            client.put(treeId.getBranchKey(branchName), initialVersion.hash)
+            client.asyncStore!!.put(treeId.getBranchKey(branchName), initialVersion.hash)
         } else {
             initialTree.setValue(CLTree(initialVersion.treeHash, client.storeCache!!))
         }
