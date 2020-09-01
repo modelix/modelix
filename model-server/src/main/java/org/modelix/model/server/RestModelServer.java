@@ -250,7 +250,7 @@ public class RestModelServer {
                                 for (Object entry_ : json) {
                                     JSONObject entry = (JSONObject) entry_;
                                     String key = entry.getString("key");
-                                    String value = entry.getString("value");
+                                    String value = entry.optString("value", null);
                                     entries.put(key, value);
                                 }
                                 entries = sortByDependency(entries);
@@ -459,8 +459,8 @@ public class RestModelServer {
             }
 
             void fill() {
-                for (Map.Entry<String, String> entry : unsorted.entrySet()) {
-                    fill(entry.getKey());
+                for (String key : unsorted.keySet()) {
+                    fill(key);
                 }
             }
         }.fill();

@@ -52,7 +52,7 @@ Feature: Storing routes
     Given the server has been started with in-memory storage
     When I PUT on "/putAll" the value "[{'value': 'value1', 'key': 'aaa'}, {'key': 'bbb'}, {'value': 'value3', 'key': 'ccc'}]"
     Then I should get an OK response
-    And the text of the page should be "2 entries written"
+    And the text of the page should be "3 entries written"
 
   Scenario: Putting multiple keys
     Given the server has been started with in-memory storage
@@ -63,8 +63,8 @@ Feature: Storing routes
 
   Scenario: Get recursively
     Given the server has been started with in-memory storage
-      And I PUT on "/put/existingKey" the value "hash-0123456789-0123456789-0123456789-00001"
       And I PUT on "/put/hash-0123456789-0123456789-0123456789-00001" the value "bar"
+      And I PUT on "/put/existingKey" the value "hash-0123456789-0123456789-0123456789-00001"
      When I visit "/getRecursively/existingKey"
      Then I should get an OK response
       And the text of the page should be this JSON "[{'value': 'hash-0123456789-0123456789-0123456789-00001', 'key': 'existingKey'}, {'key': 'hash-0123456789-0123456789-0123456789-00001', 'value': 'bar'}]"
