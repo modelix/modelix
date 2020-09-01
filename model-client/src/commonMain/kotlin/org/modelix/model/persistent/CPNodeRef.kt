@@ -61,7 +61,7 @@ internal constructor() {
         }
     }
 
-    data class MpsRef(val serializedRef: String) : CPNodeRef() {
+    data class ForeignRef(val serializedRef: String) : CPNodeRef() {
 
         override fun toString(): String {
             return "M$serializedRef"
@@ -75,12 +75,12 @@ internal constructor() {
 
         override val elementId: Long
             get() {
-                throw RuntimeException("MPS reference")
+                throw RuntimeException("Foreign reference")
             }
 
         override val treeId: String?
             get() {
-                throw RuntimeException("MPS reference")
+                throw RuntimeException("Foreign reference")
             }
     }
 
@@ -93,8 +93,8 @@ internal constructor() {
             return GlobalRef(treeId, elementId)
         }
 
-        fun mps(pointer: String): CPNodeRef {
-            return MpsRef(pointer)
+        fun foreign(pointer: String): CPNodeRef {
+            return ForeignRef(pointer)
         }
 
         fun fromString(str: String): CPNodeRef {
@@ -104,7 +104,7 @@ internal constructor() {
                     global(str.substring(1, i), str.substring(i + 1).toLong())
                 }
                 str[0] == 'M' -> {
-                    mps(str.substring(1))
+                    foreign(str.substring(1))
                 }
                 else -> {
                     local(str.toLong(16))

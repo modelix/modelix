@@ -21,6 +21,7 @@ import org.modelix.model.lazy.IDeserializingKeyValueStore_extensions.put
 import org.modelix.model.lazy.TreeId.Companion.random
 import org.modelix.model.persistent.*
 import org.modelix.model.persistent.CPNode.Companion.create
+import org.modelix.model.persistent.CPNodeRef.Companion.foreign
 import org.modelix.model.persistent.CPNodeRef.Companion.local
 import org.modelix.model.persistent.HashUtil.sha256
 import org.modelix.model.util.pmap.COWArrays.add
@@ -205,7 +206,7 @@ class CLTree : ITree {
                 local(target.id)
             }
             // is SNodeReferenceAdapter -> CPElementRef.mps(SNodePointer.serialize(((SNodeReferenceAdapter) targetRef).getReference()))
-            else -> throw RuntimeException("Unsupported reference type: " + target::class.simpleName)
+            else -> foreign(INodeReferenceSerializer.serialize(target))
         }
         var newIdToHash = nodesMap
         val newNodeData = source.getData().withReferenceTarget(role, refData)
@@ -308,8 +309,7 @@ class CLTree : ITree {
         return when {
             targetRef == null -> null
             targetRef.isLocal -> PNodeReference(targetRef.elementId)
-            //    } else if (targetRef instanceof CPElementRef.MpsRef) {
-            //      return new SNodeReferenceAdapter(SNodePointer.deserialize(((CPElementRef.MpsRef) targetRef).getSerializedRef()));
+            targetRef is CPNodeRef.ForeignRef -> INodeReferenceSerializer.deserialize(targetRef.serializedRef)
             else -> throw UnsupportedOperationException("Unsupported reference: $targetRef")
         }
     }

@@ -19,6 +19,7 @@ import org.modelix.model.api.IConcept
 import org.modelix.model.api.INodeReference
 import org.modelix.model.api.PNodeReference
 import org.modelix.model.lazy.IConceptSerializer
+import org.modelix.model.lazy.INodeReferenceSerializer
 import org.modelix.model.operations.*
 import org.modelix.model.persistent.SerializationUtil.escape
 import org.modelix.model.persistent.SerializationUtil.longFromHex
@@ -39,25 +40,19 @@ class OperationSerializer private constructor() {
         }
 
         fun serializeReference(obj: INodeReference?): String {
-            return if (obj == null) {
-                ""
-            } else if (obj is PNodeReference) {
-                longToHex(obj.id)
-//          } else if (object instanceof SNodeReferenceAdapter) {
-//              return SerializationUtil.escape(SNodePointer.serialize(((SNodeReferenceAdapter) object).getReference()));
-            } else {
-                throw RuntimeException("Unknown reference type: " + obj::class.simpleName)
+            return when (obj) {
+                null -> ""
+                is PNodeReference -> longToHex(obj.id)
+                else -> escape(INodeReferenceSerializer.serialize(obj))
             }
         }
 
         fun deserializeReference(serialized: String?): INodeReference? {
-            if (serialized == null || serialized.isEmpty()) {
-                return null
+            return when {
+                serialized.isNullOrEmpty() -> null
+                serialized.matches(Regex("[a-fA-F0-9]+")) -> PNodeReference(longFromHex(serialized))
+                else -> unescape(serialized)?.let { INodeReferenceSerializer.deserialize(it) }
             }
-            if (serialized.matches(Regex("[a-fA-F0-9]+"))) {
-                return PNodeReference(longFromHex(serialized))
-            }
-            throw RuntimeException("Cannot deserialize concept: $serialized")
         }
 
         init {

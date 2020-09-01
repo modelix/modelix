@@ -15,32 +15,30 @@
 
 package org.modelix.model.lazy
 
-import org.modelix.model.api.IConcept
+import org.modelix.model.api.INodeReference
 
-interface IConceptSerializer {
+interface INodeReferenceSerializer {
 
-    fun serialize(concept: IConcept): String?
-    fun deserialize(serialized: String): IConcept?
+    fun serialize(ref: INodeReference): String?
+    fun deserialize(serialized: String): INodeReference?
 
     companion object {
-        private val serializers: MutableSet<IConceptSerializer> = HashSet()
+        private val serializers: MutableSet<INodeReferenceSerializer> = HashSet()
 
-        fun register(serializer: IConceptSerializer) {
+        fun register(serializer: INodeReferenceSerializer) {
             serializers.add(serializer)
         }
 
-        fun unregister(serializer: IConceptSerializer) {
+        fun unregister(serializer: INodeReferenceSerializer) {
             serializers.remove(serializer)
         }
 
-        fun serialize(concept: IConcept?): String? {
-            if (concept == null) return null
-            return serializers.map { it.serialize(concept) }.firstOrNull { it != null }
-                ?: throw RuntimeException("No serializer found for ${concept::class}")
+        fun serialize(ref: INodeReference): String {
+            return serializers.map { it.serialize(ref) }.firstOrNull { it != null }
+                ?: throw RuntimeException("No serializer found for ${ref::class}")
         }
 
-        fun deserialize(serialized: String?): IConcept? {
-            if (serialized == null) return null
+        fun deserialize(serialized: String): INodeReference {
             return serializers.map { it.deserialize(serialized) }.firstOrNull { it != null }
                 ?: throw RuntimeException("No deserializer found for: $serialized")
         }
