@@ -19,6 +19,7 @@ public class Main {
             System.out.println("env: " + System.getenv());
             System.out.println("properties: " + System.getProperties());
 
+            File editableModulesDir = null;
             File gitRepoDir = null;
 
             String gitRepoUri = getPropertyOrEnv("GIT_REPO_URI");
@@ -40,15 +41,22 @@ public class Main {
                     System.out.println("Checkout " + gitCommitId);
                     git.checkout().setName(gitCommitId).call();
                 }
-                Set<File> files = new HashSet<>();
-                System.out.println("Searching in " + gitRepoDir);
-                collectMPSFiles(gitRepoDir, files);
-                files.forEach(f -> System.out.println("MPS related file found: " + f));
-
-
+                editableModulesDir = gitRepoDir;
             }
 
-            Project mpsProject = EnvironmentLoader.loadEnvironment(gitRepoDir);
+            if (editableModulesDir == null) {
+                File sandboxDir = new File("/usr/modelix-ui/sandbox/");
+                if (sandboxDir.exists()) editableModulesDir = sandboxDir;
+            }
+
+            if (editableModulesDir != null) {
+                Set<File> files = new HashSet<>();
+                System.out.println("Searching in " + editableModulesDir);
+                collectMPSFiles(editableModulesDir, files);
+                files.forEach(f -> System.out.println("MPS related file found: " + f));
+            }
+
+            Project mpsProject = EnvironmentLoader.loadEnvironment(editableModulesDir);
             LOG.debug("idea.load.plugins.id: " + System.getProperty("idea.load.plugins.id"));
         } catch (Exception ex) {
             LOG.error("", ex);
