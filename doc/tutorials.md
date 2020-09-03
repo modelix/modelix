@@ -2,7 +2,7 @@
 
 Open the entities sample as explained on the [samples](https://github.com/modelix/modelix/wiki/Samples) page.
 
-This sample uses a custom notation for entities designed for the web. To this end, it uses a new rotation definition language. It is defined in the `web` aspect of the `org.modelix.samples.entities` language. If you open this aspect, you will find a `Notation` module. Double click to edit. Here is the URL to this node: http://127.0.0.1:63320/node?ref=r%3Ac375c783-4874-43af-8c53-f088cba95e74%28org.modelix.samples.entities.web%29%2F7759120791677832452
+This sample uses a custom notation for entities designed for the web. To this end, it uses a new notation definition language. It is defined in the `web` aspect of the `org.modelix.samples.entities` language. If you open this aspect, you will find a `Notation` module. Double click to edit. Here is the URL to this node: http://127.0.0.1:63320/node?ref=r%3Ac375c783-4874-43af-8c53-f088cba95e74%28org.modelix.samples.entities.web%29%2F7759120791677832452
 
 ## Changing a keyword
 
