@@ -16,7 +16,7 @@ http://localhost:33333/nodeAsHtml?nodeRef=MOQBcjpmMWNjOTZmZS1kNmVmLTRhNTgtYjYwNy
 This sample showcases the situation where you define a custom editor for your language.
 
 - open the `org.modelix` project in the `mps` folder of the repo to make sure the web server runs
-- and also start the database and the model server (see [Running Modelix](https://github.com/modelix/modelix/wiki/Running-Modelix))
+- and also start the database and the model server (see [Running Modelix](https://github.com/modelix/modelix/blob/master/doc/running-modelix.md))
 - open the project in the `samples/entities` folder in a second MPS window
 - point your browser here: http://localhost:33333/entities
 - click on one of the entities to see the custom textual editor for all entity nodes in your MPS workspace
