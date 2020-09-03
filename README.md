@@ -88,7 +88,7 @@ It's an operation that happens all the time.
 File | Description
 ---|---
 [db](db) | Files for building the PostgreSQL docker image
-[gradle-plugin](gradle-plugin) | files for building the PostgreSQL docker image
+[gradle-plugin](gradle-plugin) | gradle plugin for downloading a model from the model server to an MPS model file
 [gradle-plugin-test](gradle-plugin-test) | Demo project that uses the gradle plugin.
 [kubernetes](kubernetes) | YAML configuration files for running modelix in a kubernetes cluster
 [model-server](model-server) | Java project that implements a REST API on top of an [Apache Ignite](https://ignite.apache.org/) key value store. It is very generic and lightweight and doesn't know anything about models and their storage format. The mapping between the model data structure and the key value entries happens in MPS.
