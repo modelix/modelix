@@ -21,7 +21,7 @@ Optionally, you can run the model server and connect your MPS to it:
     - adjust the connection properties in [./model-server/src/main/resources/org/modelix/model/server/database.properties](./model-server/src/main/resources/org/modelix/model/server/database.properties)
 - model server
   - `cd model-server`
-  - `./gradlew run`
+  - `../gradlew run`
 - connect MPS to the model server
   - open the "Cloud" view in the bottom left corner
   - In the context menu of the root node labeled "Cloud" choose "Add Repository"
