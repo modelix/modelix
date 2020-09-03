@@ -29,7 +29,9 @@ Optionally, you can run the model server and connect your MPS to it:
   - navigate to "default tree (default)" > "data [master]" > "ROOT #1" and choose "Add Module" from the context menu
   - add a model to that module using the context menu
   - choose "Bind to Transient Module" from the context menu of the module
-  - you should now see that module at the end in the "Project" view
+  - you should now see that module and the new model in the "Cloud" section at the end in the "Project" view
+  - open the "Model Properties" of the new model and add at least one language dependency
+  - now you are able to add new root nodes to the model from the MPS "Project" view
 
 ## Running with minikube
 
