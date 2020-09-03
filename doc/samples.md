@@ -1,6 +1,6 @@
 # Default Repository
 
-If you [run Modelix](https://github.com/modelix/modelix/wiki/Running-Modelix) and point your browser to http://localhost:33333/ you will see a list of all modules in the current MPS repo (not in the model server database). You can then click through to a particular node, for example
+If you [run Modelix](https://github.com/modelix/modelix/blob/master/doc/running-modelix.md) and point your browser to http://localhost:33333/ you will see a list of all modules in the current MPS repo (not in the model server database). You can then click through to a particular node, for example
 - module `de.itemis.mps.editor.collapsible`
 - model `de.itemis.mps.editor.collapsible.structure`
 - node `CellModel_Collapsible`
