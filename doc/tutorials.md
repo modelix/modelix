@@ -1,6 +1,6 @@
 # Hello Entities
 
-Open the entities sample as explained on the [samples](https://github.com/modelix/modelix/wiki/Samples) page.
+Open the entities sample as explained on the [samples](https://github.com/modelix/modelix/blob/master/doc/samples.md) page.
 
 This sample uses a custom notation for entities designed for the web. To this end, it uses a new notation definition language. It is defined in the `web` aspect of the `org.modelix.samples.entities` language. If you open this aspect, you will find a `Notation` module. Double click to edit. Here is the URL to this node: http://127.0.0.1:63320/node?ref=r%3Ac375c783-4874-43af-8c53-f088cba95e74%28org.modelix.samples.entities.web%29%2F7759120791677832452
 
@@ -10,9 +10,9 @@ The simplest possible change is modifying the keyword of an `Entity`. Currently 
 
 ## Adding a `public` flag
 
-A possible extension of the entities language is to be able to mark properties as `public`, optionally. If you look in the rotation definition at the initializer of the `Property`, then you will see that the notation language includes many ideas from the grammar cells extension for MPS. It also has direct support for flags where a particular keyword is shown if the flag is true and nothing otherwise. 
+A possible extension of the entities language is to be able to mark properties as `public`, optionally. If you look in the notation definition at the initializer of the `Property`, then you will see that the notation language includes many ideas from the grammar cells extension for MPS. It also has direct support for flags where a particular keyword is shown if the flag is true and nothing otherwise. 
 
-To add the `public` flag, first go to the `Structure` aspect of the language at at a Boolean `public` property to the concept `Property`. Notice that this is of course the normal MPS structure aspect, modelix does not change that. You can now go back to the notation, press `Shift-Enter` on the name of the property, press `control-space`, select the `flag` cell, at select the `public` property:
+To add the `public` flag, first go to the `Structure` aspect of the language at at a Boolean `public` property to the concept `Property`. Notice that this is of course the normal MPS structure aspect, modelix does not change that. You can now go back to the notation, press `Shift-Enter` on the name of the property, press `control-space`, select the `flag` cell, and finally select the `public` property:
 
 `notation Property : [ flag/public name : type ? [ = initializer ] ]`
 
