@@ -108,8 +108,6 @@ class UndoTest {
             store = storeCache
         )
     }
-
-
 }
 
 class FailingVisitor : ITreeChangeVisitor {

@@ -30,7 +30,7 @@ class CPVersion(
     previousVersion: String?, // deprecated, use baseVersion instead
     originalVersion: String?, // deprecated, there is no rewriting of versions anymore. Use mergedVersion1/2 instead
     baseVersion: String?, // the version, the operations are applied to, to create this version
-                          // in case of a merge it is the common base version of the two branches
+    // in case of a merge it is the common base version of the two branches
     mergedVersion1: String?, // null if this is not a merge
     mergedVersion2: String?, // null if this is not a merge
     operations: Array<IOperation>?,
@@ -105,7 +105,7 @@ class CPVersion(
                         operations = ops,
                         operationsHash = opsHash,
                         numberOfOperations = parts[7].toInt()
-                    );
+                    )
                 } else {
                     var opsHash: String? = null
                     var ops: Array<IOperation>? = null
