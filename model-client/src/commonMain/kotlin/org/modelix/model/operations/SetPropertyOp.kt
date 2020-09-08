@@ -17,6 +17,7 @@ package org.modelix.model.operations
 
 import org.modelix.model.api.ITree
 import org.modelix.model.api.IWriteTransaction
+import org.modelix.model.lazy.IDeserializingKeyValueStore
 import org.modelix.model.persistent.SerializationUtil
 
 class SetPropertyOp(val nodeId: Long, val role: String, val value: String?) : AbstractOperation(), IOperationIntend {
@@ -34,7 +35,7 @@ class SetPropertyOp(val nodeId: Long, val role: String, val value: String?) : Ab
         return if (tree.containsNode(nodeId)) listOf(this) else listOf(NoOp())
     }
 
-    override fun captureIntend(tree: ITree) = this
+    override fun captureIntend(tree: ITree, store: IDeserializingKeyValueStore) = this
 
     override fun getOriginalOp() = this
 

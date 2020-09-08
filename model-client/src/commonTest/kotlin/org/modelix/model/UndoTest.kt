@@ -10,6 +10,7 @@ import org.modelix.model.lazy.IDeserializingKeyValueStore
 import org.modelix.model.lazy.ObjectStoreCache
 import org.modelix.model.operations.IAppliedOperation
 import org.modelix.model.operations.OTBranch
+import org.modelix.model.operations.UndoOp
 import org.modelix.model.persistent.MapBaseStore
 import kotlin.random.Random
 import kotlin.test.Test
@@ -67,20 +68,15 @@ class UndoTest {
     }
 
     fun undo(version: CLVersion, idGenerator: IdGenerator): CLVersion {
-        val ops = version.operations.toList()
-        val baseVersion = version.baseVersion!!
-        val replayBranch = PBranch(baseVersion.tree, IdGenerator(0))
-        val appliedOps = replayBranch.computeWrite {
-            val t = replayBranch.writeTransaction
-            ops.map { it.apply(t) }
-        }
-        val invertedOps = appliedOps.reversed().flatMap { it.invert() }
-        val undoBranch = OTBranch(PBranch(version.tree, idGenerator), idGenerator)
-        undoBranch.runWrite {
-            val t = undoBranch.writeTransaction
-            invertedOps.map { it.apply(t) }
-        }
-        return createVersion(undoBranch.operationsAndTree, version, idGenerator, version.store)
+        return CLVersion.createRegularVersion(
+            id = idGenerator.generate(),
+            time = null,
+            author = null,
+            treeHash = version.baseVersion!!.treeHash!!,
+            baseVersion = version.hash,
+            operations = arrayOf(UndoOp(version.hash)),
+            store = version.store
+        )
     }
 
     private fun randomChanges(baseBranch: OTBranch, numChanges: Int, idGenerator: IdGenerator, rand: Random) {

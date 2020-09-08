@@ -18,6 +18,7 @@ package org.modelix.model.operations
 import org.modelix.model.api.INodeReference
 import org.modelix.model.api.ITree
 import org.modelix.model.api.IWriteTransaction
+import org.modelix.model.lazy.IDeserializingKeyValueStore
 import org.modelix.model.persistent.SerializationUtil
 
 class SetReferenceOp(val sourceId: Long, val role: String, val target: INodeReference?) : AbstractOperation(), IOperationIntend {
@@ -35,7 +36,7 @@ class SetReferenceOp(val sourceId: Long, val role: String, val target: INodeRefe
         return if (tree.containsNode(sourceId)) listOf(this) else listOf(NoOp())
     }
 
-    override fun captureIntend(tree: ITree) = this
+    override fun captureIntend(tree: ITree, store: IDeserializingKeyValueStore) = this
 
     override fun getOriginalOp() = this
 

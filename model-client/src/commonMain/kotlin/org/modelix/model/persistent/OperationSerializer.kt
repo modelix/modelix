@@ -150,6 +150,18 @@ class OperationSerializer private constructor() {
                     }
                 }
             )
+            INSTANCE.registerSerializer(
+                UndoOp::class,
+                object : Serializer<UndoOp> {
+                    override fun serialize(op: UndoOp): String {
+                        return op.versionHash
+                    }
+
+                    override fun deserialize(serialized: String): UndoOp {
+                        return UndoOp(serialized)
+                    }
+                }
+            )
         }
     }
 

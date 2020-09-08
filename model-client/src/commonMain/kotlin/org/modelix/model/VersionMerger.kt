@@ -15,10 +15,7 @@
 
 package org.modelix.model
 
-import org.modelix.model.api.IBranch
-import org.modelix.model.api.IIdGenerator
-import org.modelix.model.api.ITree
-import org.modelix.model.api.PBranch
+import org.modelix.model.api.*
 import org.modelix.model.lazy.CLTree
 import org.modelix.model.lazy.CLVersion
 import org.modelix.model.lazy.IDeserializingKeyValueStore
@@ -60,11 +57,14 @@ class VersionMerger(private val storeCache: IDeserializingKeyValueStore, private
         if (commonBase == leftVersionHash) return rightVersion
         if (commonBase == rightVersionHash) return leftVersion
         val versionsToApply = LinearHistory(storeCache, commonBase).load(leftVersion, rightVersion)
+
+
+
 //        println("merge ${getVersion(leftVersionHash).id.toString(16)} ${LinearHistory(storeCache, commonBase).load(leftVersion).map { it.id.toString(16) }} and ${getVersion(rightVersionHash).id.toString(16)} ${LinearHistory(storeCache, commonBase).load(rightVersion).map { it.id.toString(16) }}: ${commonBase?.let{getVersion(it)}?.id?.toString(16)} + ${versionsToApply.map { it.id.toString(16) }}")
         val operationsToApply = versionsToApply.flatMap { captureIntend(it) }
         var mergedVersion: CLVersion? = null
         var baseTree = commonBase?.let { getVersion(it).tree } ?: CLTree(storeCache)
-        val branch: IBranch = PBranch(baseTree, idGenerator)
+        val branch: IBranch = TreePointer(baseTree)
         branch.runWrite {
             val t = branch.writeTransaction
             val appliedOps = operationsToApply.flatMap {
@@ -99,7 +99,7 @@ class VersionMerger(private val storeCache: IDeserializingKeyValueStore, private
                 appliedOps.map { it.getOriginalOp() }.toTypedArray(),
                 storeCache
             )
-            println("result ${mergedVersion?.id?.toString(16)}")
+//            println("result ${mergedVersion?.id?.toString(16)}")
         }
         if (mergedVersion == null) {
             throw RuntimeException("Failed to merge $leftVersionHash and $rightVersionHash")
@@ -109,14 +109,17 @@ class VersionMerger(private val storeCache: IDeserializingKeyValueStore, private
 
     private fun captureIntend(version: CLVersion): List<IOperationIntend> {
         val tree = version.baseVersion!!.tree
-        val branch = PBranch(tree, idGenerator)
+        val branch = TreePointer(tree)
         return branch.computeWrite {
-            val a = version.operations.map {
-                val intend = it.captureIntend(branch.transaction.tree)
-                it.apply(branch.writeTransaction)
+            version.operations.map {
+                val intend = it.captureIntend(branch.transaction.tree, storeCache)
+                if (it is UndoOp) {
+                    it.captureIntend(tree, storeCache).restoreIntend(tree).forEach { o -> o.apply(branch.writeTransaction) }
+                } else {
+                    it.apply(branch.writeTransaction)
+                }
                 intend
             }
-            a
         }
     }
 
@@ -143,10 +146,10 @@ class VersionMerger(private val storeCache: IDeserializingKeyValueStore, private
                 }
             }
             if (leftHash != null) {
-                leftHash = getVersion(leftHash)?.let { it.data!!.baseVersion ?: it.data!!.previousVersion }
+                leftHash = getVersion(leftHash).let { it.data!!.baseVersion ?: it.data!!.previousVersion }
             }
             if (rightHash != null) {
-                rightHash = getVersion(rightHash)?.let { it.data!!.baseVersion ?: it.data!!.previousVersion }
+                rightHash = getVersion(rightHash).let { it.data!!.baseVersion ?: it.data!!.previousVersion }
             }
         }
         return null

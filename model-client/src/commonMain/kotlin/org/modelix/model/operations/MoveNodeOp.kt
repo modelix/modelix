@@ -17,6 +17,7 @@ package org.modelix.model.operations
 
 import org.modelix.model.api.ITree
 import org.modelix.model.api.IWriteTransaction
+import org.modelix.model.lazy.IDeserializingKeyValueStore
 
 class MoveNodeOp(val childId: Long, val targetPosition: PositionInRole) : AbstractOperation() {
     fun withPos(newTarget: PositionInRole): MoveNodeOp {
@@ -49,7 +50,7 @@ class MoveNodeOp(val childId: Long, val targetPosition: PositionInRole) : Abstra
         }
     }
 
-    override fun captureIntend(tree: ITree): IOperationIntend {
+    override fun captureIntend(tree: ITree, store: IDeserializingKeyValueStore): IOperationIntend {
         val capturedTargetPosition = CapturedInsertPosition(
             targetPosition.index,
             tree.getChildren(targetPosition.nodeId, targetPosition.role).toList().toLongArray()

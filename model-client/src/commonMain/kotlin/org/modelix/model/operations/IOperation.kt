@@ -17,9 +17,10 @@ package org.modelix.model.operations
 
 import org.modelix.model.api.ITree
 import org.modelix.model.api.IWriteTransaction
+import org.modelix.model.lazy.IDeserializingKeyValueStore
 
 interface IOperation {
     fun apply(transaction: IWriteTransaction): IAppliedOperation
-    fun captureIntend(tree: ITree): IOperationIntend
+    fun captureIntend(tree: ITree, store: IDeserializingKeyValueStore): IOperationIntend
     fun toCode(): String
 }

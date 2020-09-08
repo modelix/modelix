@@ -19,6 +19,7 @@ import org.modelix.model.api.IConcept
 import org.modelix.model.api.INodeReference
 import org.modelix.model.api.ITree
 import org.modelix.model.api.IWriteTransaction
+import org.modelix.model.lazy.IDeserializingKeyValueStore
 import org.modelix.model.persistent.SerializationUtil
 
 class DeleteNodeOp(val childId: Long) : AbstractOperation(), IOperationIntend {
@@ -57,7 +58,7 @@ class DeleteNodeOp(val childId: Long) : AbstractOperation(), IOperationIntend {
         return listOf(this)
     }
 
-    override fun captureIntend(tree: ITree): IOperationIntend {
+    override fun captureIntend(tree: ITree, store: IDeserializingKeyValueStore): IOperationIntend {
         return this
     }
 

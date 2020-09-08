@@ -18,6 +18,7 @@ package org.modelix.model.operations
 import org.modelix.model.api.IConcept
 import org.modelix.model.api.ITree
 import org.modelix.model.api.IWriteTransaction
+import org.modelix.model.lazy.IDeserializingKeyValueStore
 import org.modelix.model.persistent.SerializationUtil
 
 class AddNewChildOp(val position: PositionInRole, val childId: Long, val concept: IConcept?) : AbstractOperation() {
@@ -47,7 +48,7 @@ class AddNewChildOp(val position: PositionInRole, val childId: Long, val concept
         }
     }
 
-    override fun captureIntend(tree: ITree): IOperationIntend {
+    override fun captureIntend(tree: ITree, store: IDeserializingKeyValueStore): IOperationIntend {
         val children = tree.getChildren(position.nodeId, position.role)
         return Intend(
             CapturedInsertPosition(position.index, children.toList().toLongArray())
