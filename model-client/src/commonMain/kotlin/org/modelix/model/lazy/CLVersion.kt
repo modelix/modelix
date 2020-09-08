@@ -133,6 +133,9 @@ class CLVersion {
 
     fun isMerge() = this.data!!.mergedVersion1 != null
 
+    fun getMergedVersion1() = this.data!!.mergedVersion1?.let { CLVersion.loadFromHash(it, store) }
+    fun getMergedVersion2() = this.data!!.mergedVersion2?.let { CLVersion.loadFromHash(it, store) }
+
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other == null || this::class != other::class) return false

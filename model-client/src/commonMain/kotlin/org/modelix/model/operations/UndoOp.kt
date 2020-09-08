@@ -53,6 +53,10 @@ class UndoOp(val versionHash: String) : AbstractOperation() {
         }
     }
 
+    override fun toString(): String {
+        return "UndoOp $versionHash"
+    }
+
     inner class Intend(val intends: List<IOperationIntend>, val store: IDeserializingKeyValueStore) : IOperationIntend {
         override fun getOriginalOp(): IOperation {
             return this@UndoOp
