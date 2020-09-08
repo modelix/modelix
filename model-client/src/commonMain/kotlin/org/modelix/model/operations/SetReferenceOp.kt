@@ -22,7 +22,7 @@ import org.modelix.model.lazy.IDeserializingKeyValueStore
 import org.modelix.model.persistent.SerializationUtil
 
 class SetReferenceOp(val sourceId: Long, val role: String, val target: INodeReference?) : AbstractOperation(), IOperationIntend {
-    override fun apply(transaction: IWriteTransaction): IAppliedOperation {
+    override fun apply(transaction: IWriteTransaction, store: IDeserializingKeyValueStore): IAppliedOperation {
         val oldValue = transaction.getReferenceTarget(sourceId, role)
         transaction.setReferenceTarget(sourceId, role, target)
         return Applied(oldValue)

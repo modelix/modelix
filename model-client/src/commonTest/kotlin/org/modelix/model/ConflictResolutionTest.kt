@@ -40,7 +40,7 @@ class ConflictResolutionTest : TreeTestBase() {
 
     fun randomTest(baseChanges: Int, numBranches: Int, branchChanges: Int) {
         val merger = VersionMerger(storeCache, idGenerator)
-        val baseBranch = OTBranch(PBranch(initialTree, idGenerator), idGenerator)
+        val baseBranch = OTBranch(PBranch(initialTree, idGenerator), idGenerator, storeCache)
         logTrace({ "Random changes to base" }, ConflictResolutionTest::class)
         for (i in 0 until baseChanges) {
             RandomTreeChangeGenerator(idGenerator, rand)
@@ -50,7 +50,7 @@ class ConflictResolutionTest : TreeTestBase() {
         val baseVersion = createVersion(baseBranch.operationsAndTree, null)
 
         val maxIndex = numBranches - 1
-        val branches = (0..maxIndex).map { OTBranch(PBranch(baseVersion.tree, idGenerator), idGenerator) }.toList()
+        val branches = (0..maxIndex).map { OTBranch(PBranch(baseVersion.tree, idGenerator), idGenerator, storeCache) }.toList()
         val versions = branches.mapIndexed { index, branch ->
             logTrace({ "Random changes to branch $index" }, ConflictResolutionTest::class)
             for (i in 0 until branchChanges) {
@@ -73,7 +73,7 @@ class ConflictResolutionTest : TreeTestBase() {
 
     fun knownIssueTest(baseChanges: (IWriteTransaction) -> Unit, vararg branchChanges: (IWriteTransaction) -> Unit) {
         val merger = VersionMerger(storeCache, idGenerator)
-        val baseBranch = OTBranch(PBranch(initialTree, idGenerator), idGenerator)
+        val baseBranch = OTBranch(PBranch(initialTree, idGenerator), idGenerator, storeCache)
 
         baseBranch.runWrite {
             logTrace({ "Changes to base branch" }, ConflictResolutionTest::class)
@@ -83,7 +83,7 @@ class ConflictResolutionTest : TreeTestBase() {
         val baseVersion = createVersion(baseBranch.operationsAndTree, null)
 
         val maxIndex = branchChanges.size - 1
-        val branches = (0..maxIndex).map { OTBranch(PBranch(baseVersion.tree, idGenerator), idGenerator) }.toList()
+        val branches = (0..maxIndex).map { OTBranch(PBranch(baseVersion.tree, idGenerator), idGenerator, storeCache) }.toList()
         for (i in 0..maxIndex) {
             branches[i].runWrite {
                 logTrace({ "Changes to branch $i" }, ConflictResolutionTest::class)

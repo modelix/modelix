@@ -24,7 +24,7 @@ import org.modelix.model.persistent.SerializationUtil
 
 class DeleteNodeOp(val childId: Long) : AbstractOperation(), IOperationIntend {
 
-    override fun apply(t: IWriteTransaction): IAppliedOperation {
+    override fun apply(t: IWriteTransaction, store: IDeserializingKeyValueStore): IAppliedOperation {
         if (t.getAllChildren(childId).count() != 0) {
             throw RuntimeException("Attempt to delete non-leaf node: ${childId.toString(16)}")
         }

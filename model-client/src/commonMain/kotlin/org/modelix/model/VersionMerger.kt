@@ -84,7 +84,7 @@ class VersionMerger(private val storeCache: IDeserializingKeyValueStore, private
                 }
                 transformed.map { o ->
                     try {
-                        o.apply(t)
+                        o.apply(t, storeCache)
                     } catch (ex: Exception) {
                         throw RuntimeException("Operation failed: $o", ex)
                     }
@@ -113,11 +113,7 @@ class VersionMerger(private val storeCache: IDeserializingKeyValueStore, private
         return branch.computeWrite {
             version.operations.map {
                 val intend = it.captureIntend(branch.transaction.tree, storeCache)
-                if (it is UndoOp) {
-                    it.captureIntend(tree, storeCache).restoreIntend(tree).forEach { o -> o.apply(branch.writeTransaction) }
-                } else {
-                    it.apply(branch.writeTransaction)
-                }
+                it.apply(branch.writeTransaction, storeCache)
                 intend
             }
         }

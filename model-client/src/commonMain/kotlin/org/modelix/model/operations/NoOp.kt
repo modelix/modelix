@@ -20,7 +20,7 @@ import org.modelix.model.api.IWriteTransaction
 import org.modelix.model.lazy.IDeserializingKeyValueStore
 
 class NoOp : AbstractOperation(), IAppliedOperation, IOperationIntend {
-    override fun apply(transaction: IWriteTransaction): IAppliedOperation {
+    override fun apply(transaction: IWriteTransaction, store: IDeserializingKeyValueStore): IAppliedOperation {
         return this
     }
 

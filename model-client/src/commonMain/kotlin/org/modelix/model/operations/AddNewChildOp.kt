@@ -27,7 +27,7 @@ class AddNewChildOp(val position: PositionInRole, val childId: Long, val concept
         return if (newPos == position) this else AddNewChildOp(newPos, childId, concept)
     }
 
-    override fun apply(transaction: IWriteTransaction): IAppliedOperation {
+    override fun apply(transaction: IWriteTransaction, store: IDeserializingKeyValueStore): IAppliedOperation {
         transaction.addNewChild(position.nodeId, position.role, position.index, childId, concept)
         return Applied()
     }

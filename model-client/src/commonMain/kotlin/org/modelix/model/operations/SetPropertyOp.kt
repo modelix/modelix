@@ -21,7 +21,7 @@ import org.modelix.model.lazy.IDeserializingKeyValueStore
 import org.modelix.model.persistent.SerializationUtil
 
 class SetPropertyOp(val nodeId: Long, val role: String, val value: String?) : AbstractOperation(), IOperationIntend {
-    override fun apply(transaction: IWriteTransaction): IAppliedOperation {
+    override fun apply(transaction: IWriteTransaction, store: IDeserializingKeyValueStore): IAppliedOperation {
         val oldValue = transaction.getProperty(nodeId, role)
         transaction.setProperty(nodeId, role, value)
         return Applied(oldValue)

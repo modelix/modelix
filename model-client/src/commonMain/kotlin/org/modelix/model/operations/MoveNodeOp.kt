@@ -28,7 +28,7 @@ class MoveNodeOp(val childId: Long, val targetPosition: PositionInRole) : Abstra
         }
     }
 
-    override fun apply(transaction: IWriteTransaction): IAppliedOperation {
+    override fun apply(transaction: IWriteTransaction, store: IDeserializingKeyValueStore): IAppliedOperation {
         val sourcePosition = getNodePosition(transaction.tree, childId)
         transaction.moveChild(targetPosition.nodeId, targetPosition.role, targetPosition.index, childId)
         return Applied(sourcePosition)

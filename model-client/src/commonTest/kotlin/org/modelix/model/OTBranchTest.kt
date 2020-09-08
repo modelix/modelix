@@ -23,8 +23,8 @@ import kotlin.test.Test
 class OTBranchTest : TreeTestBase() {
     @Test
     fun test_random() {
-        val branch1 = OTBranch(PBranch(initialTree, idGenerator), idGenerator)
-        val branch2 = OTBranch(PBranch(initialTree, idGenerator), idGenerator)
+        val branch1 = OTBranch(PBranch(initialTree, idGenerator), idGenerator, storeCache)
+        val branch2 = OTBranch(PBranch(initialTree, idGenerator), idGenerator, storeCache)
         val expectedTree = ExpectedTreeData()
 
         for (i in 0..999) {
@@ -41,6 +41,6 @@ class OTBranchTest : TreeTestBase() {
     }
 
     private fun applyOps(branch: OTBranch, ops: List<IAppliedOperation>) {
-        branch.runWrite { ops.forEach { it.getOriginalOp().apply(branch.writeTransaction) } }
+        branch.runWrite { ops.forEach { it.getOriginalOp().apply(branch.writeTransaction, storeCache) } }
     }
 }

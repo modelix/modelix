@@ -37,7 +37,12 @@ import java.util.concurrent.ScheduledFuture
 import java.util.concurrent.atomic.AtomicBoolean
 import java.util.function.Supplier
 
-actual open class ReplicatedTree actual constructor(private val client: IModelClient, private val treeId: TreeId, private val branchName: String, private val user: () -> String) {
+actual open class ReplicatedTree actual constructor(
+    private val client: IModelClient,
+    private val treeId: TreeId,
+    private val branchName: String,
+    private val user: () -> String
+) {
     private val localBranch: IBranch
     private val localOTBranch: OTBranch
     private val mergeLock = Any()
@@ -246,7 +251,7 @@ actual open class ReplicatedTree actual constructor(private val client: IModelCl
         version = initialVersion
         remoteVersion = initialVersion
         localBranch = PBranch(initialTree.value, client.idGenerator)
-        localOTBranch = OTBranch(localBranch, client.idGenerator)
+        localOTBranch = OTBranch(localBranch, client.idGenerator, client.storeCache!!)
         merger = VersionMerger(client.storeCache!!, client.idGenerator)
         versionChangeDetector = object : VersionChangeDetector(client, treeId.getBranchKey(branchName)) {
             override fun processVersionChange(oldVersionHash: String?, newVersionHash: String?) {

@@ -23,12 +23,18 @@ import org.modelix.model.api.INodeReference
 import org.modelix.model.api.ITree
 import org.modelix.model.api.IWriteTransaction
 import org.modelix.model.api.PNodeAdapter
+import org.modelix.model.lazy.IDeserializingKeyValueStore
 import org.modelix.model.logTrace
 
-class OTWriteTransaction(private val transaction: IWriteTransaction, private val otBranch: OTBranch, protected var idGenerator: IIdGenerator) : IWriteTransaction {
+class OTWriteTransaction(
+    private val transaction: IWriteTransaction,
+    private val otBranch: OTBranch,
+    private var idGenerator: IIdGenerator,
+    private val store: IDeserializingKeyValueStore
+) : IWriteTransaction {
     protected fun apply(op: IOperation) {
         logTrace({ op.toString() }, OTWriteTransaction::class)
-        val appliedOp = op.apply(transaction)
+        val appliedOp = op.apply(transaction, store)
         otBranch.operationApplied(appliedOp)
     }
 

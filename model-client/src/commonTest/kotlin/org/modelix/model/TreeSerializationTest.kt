@@ -52,7 +52,7 @@ class TreeSerializationTest {
             store = objectStore
         )
         val idGenerator = IdGenerator(Int.MAX_VALUE)
-        val branch = OTBranch(PBranch(initialTree, idGenerator), idGenerator)
+        val branch = OTBranch(PBranch(initialTree, idGenerator), idGenerator, objectStore)
         initTree(branch)
         val (ops, tree) = branch.operationsAndTree
         val version = CLVersion.createRegularVersion(
@@ -210,7 +210,7 @@ class TreeSerializationTest {
         val branch = PBranch(CLTree(TreeId("tree01"), ObjectStoreCache(MapBaseStore())), IdGenerator(2))
         branch.runWrite {
             for (operation in deserializedVersion.operations) {
-                operation.apply(branch.writeTransaction)
+                operation.apply(branch.writeTransaction, deserializedVersion.store)
             }
         }
         val treeFromOps = branch.computeRead { branch.transaction.tree }

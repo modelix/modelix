@@ -7,23 +7,27 @@ import org.modelix.model.lazy.CLVersion
 import org.modelix.model.lazy.IDeserializingKeyValueStore
 
 class UndoOp(val versionHash: String) : AbstractOperation() {
-    override fun apply(transaction: IWriteTransaction): IAppliedOperation {
-        throw UnsupportedOperationException("UndoOp is expected to be expanded into the single operations that can be applied on the tree")
+    override fun apply(transaction: IWriteTransaction, store: IDeserializingKeyValueStore): IAppliedOperation {
+        return Applied(
+            captureIntend(transaction.tree, store)
+            .restoreIntend(transaction.tree)
+            .map { it.apply(transaction, store) }
+        )
     }
 
     override fun captureIntend(tree: ITree, store: IDeserializingKeyValueStore): IOperationIntend {
         val versionToUndo = CLVersion.loadFromHash(versionHash, store)!!
-        val originalAppliedOps = getAppliedOps(versionToUndo)
+        val originalAppliedOps = getAppliedOps(versionToUndo, store)
         val invertedOps = originalAppliedOps.reversed().flatMap { it.invert() }
         val invertedOpIntends = captureIntend(versionToUndo.tree, invertedOps, store)
-        return Intend(invertedOpIntends)
+        return Intend(invertedOpIntends, store)
     }
 
-    private fun getAppliedOps(version: CLVersion): List<IAppliedOperation> {
+    private fun getAppliedOps(version: CLVersion, store: IDeserializingKeyValueStore): List<IAppliedOperation> {
         val tree = version.baseVersion!!.tree
         val branch = TreePointer(tree)
         return branch.computeWrite {
-            version.operations.map { it.apply(branch.writeTransaction) }
+            version.operations.map { it.apply(branch.writeTransaction, store) }
         }
     }
 
@@ -32,30 +36,40 @@ class UndoOp(val versionHash: String) : AbstractOperation() {
         return branch.computeWrite {
             ops.map {
                 val intend = it.captureIntend(branch.transaction.tree, store)
-                it.apply(branch.writeTransaction)
+                it.apply(branch.writeTransaction, store)
                 intend
             }
         }
     }
 
-    private fun restoreIntend(tree: ITree, opIntends: List<IOperationIntend>): List<IOperation> {
+    private fun restoreIntend(tree: ITree, opIntends: List<IOperationIntend>, store: IDeserializingKeyValueStore): List<IOperation> {
         val branch = TreePointer(tree)
         return branch.computeWrite {
             opIntends.flatMap {
                 val restoredOps = it.restoreIntend(branch.transaction.tree)
-                restoredOps.forEach { restoredOp -> restoredOp.apply(branch.writeTransaction) }
+                restoredOps.forEach { restoredOp -> restoredOp.apply(branch.writeTransaction, store) }
                 restoredOps
             }
         }
     }
 
-    inner class Intend(val intends: List<IOperationIntend>) : IOperationIntend {
+    inner class Intend(val intends: List<IOperationIntend>, val store: IDeserializingKeyValueStore) : IOperationIntend {
         override fun getOriginalOp(): IOperation {
             return this@UndoOp
         }
 
         override fun restoreIntend(tree: ITree): List<IOperation> {
-            return restoreIntend(tree, intends)
+            return restoreIntend(tree, intends, store)
+        }
+    }
+
+    inner class Applied(val appliedOps: List<IAppliedOperation>) : IAppliedOperation {
+        override fun getOriginalOp(): IOperation {
+            return this@UndoOp
+        }
+
+        override fun invert(): List<IOperation> {
+            return appliedOps.reversed().flatMap { it.invert() }
         }
     }
 }

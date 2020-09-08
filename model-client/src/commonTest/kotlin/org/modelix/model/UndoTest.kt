@@ -19,19 +19,19 @@ import kotlin.test.fail
 class UndoTest {
 
     @Test
-    fun test() {
+    fun undo_random() {
         val idGenerator = IdGenerator(7)
         val versionIdGenerator = IdGenerator(0)
         val store = ObjectStoreCache(MapBaseStore())
         val merger = VersionMerger(store, idGenerator)
-        val baseBranch = OTBranch(PBranch(CLTree(store), idGenerator), idGenerator)
+        val baseBranch = OTBranch(PBranch(CLTree(store), idGenerator), idGenerator, store)
         val rand = Random(347663)
 
         randomChanges(baseBranch, 5, idGenerator, rand)
         val baseVersion = createVersion(baseBranch.operationsAndTree, null, versionIdGenerator, store)
 
         val maxIndex = 2
-        val branches = (0..maxIndex).map { OTBranch(PBranch(baseVersion.tree, idGenerator), idGenerator) }.toList()
+        val branches = (0..maxIndex).map { OTBranch(PBranch(baseVersion.tree, idGenerator), idGenerator, store) }.toList()
         for (i in 0..maxIndex) {
             branches[i].runWrite {
                 randomChanges(branches[i], 5, idGenerator, rand)
@@ -50,28 +50,69 @@ class UndoTest {
 
         val version_0_1_1u = merger.mergeChange(version_0_1, version_1_1u)
         val version_2_1_1u = merger.mergeChange(version_2_1, version_1_1u)
-        printHistory(version_1_1u)
+        printHistory(version_1_1u, store)
         println("---")
-        printHistory(versions[2])
+        printHistory(versions[2], store)
         println("---")
-        printHistory(version_2_1_1u)
+        printHistory(version_2_1_1u, store)
         version_0_1_1u.tree.visitChanges(versions[0].tree, FailingVisitor())
         version_2_1_1u.tree.visitChanges(versions[2].tree, FailingVisitor())
     }
 
-    fun printHistory(version: CLVersion) {
-        println("Version ${version.id.toString(16)} ${version.hash} ${version.data?.originalVersion}")
-        for (op in version.operations) {
-            println("    $op")
+    @Test
+    fun redo_random() {
+        val idGenerator = IdGenerator(7)
+        val versionIdGenerator = IdGenerator(0)
+        val store = ObjectStoreCache(MapBaseStore())
+        val merger = VersionMerger(store, idGenerator)
+        val baseBranch = OTBranch(PBranch(CLTree(store), idGenerator), idGenerator, store)
+        val rand = Random(347663)
+
+        randomChanges(baseBranch, 5, idGenerator, rand)
+        val baseVersion = createVersion(baseBranch.operationsAndTree, null, versionIdGenerator, store)
+
+        val maxIndex = 2
+        val branches = (0..maxIndex).map { OTBranch(PBranch(baseVersion.tree, idGenerator), idGenerator, store) }.toList()
+        for (i in 0..maxIndex) {
+            branches[i].runWrite {
+                randomChanges(branches[i], 5, idGenerator, rand)
+            }
         }
-        version.baseVersion?.let { printHistory(it) }
+        val versions = branches.map { branch ->
+            createVersion(branch.operationsAndTree, baseVersion, versionIdGenerator, store)
+        }.toList()
+
+        val mergedVersions = ArrayList(versions)
+        val version_0_1 = merger.mergeChange(mergedVersions[0], mergedVersions[1])
+        val version_2_1 = merger.mergeChange(mergedVersions[2], mergedVersions[1])
+
+        val version_1_1u = undo(versions[1], versionIdGenerator)
+        version_1_1u.tree.visitChanges(baseVersion.tree, FailingVisitor())
+        val version_1_1u_1r = undo(version_1_1u, versionIdGenerator)
+        version_1_1u_1r.tree.visitChanges(versions[1].tree, FailingVisitor())
+
+        val version_0_1_1u_1r = merger.mergeChange(version_0_1, version_1_1u_1r)
+        val version_2_1_1u_1r = merger.mergeChange(version_2_1, version_1_1u_1r)
+        version_0_1_1u_1r.tree.visitChanges(version_0_1.tree, FailingVisitor())
+        version_2_1_1u_1r.tree.visitChanges(version_2_1.tree, FailingVisitor())
+
+        printHistory(version_0_1_1u_1r, store)
+    }
+
+    fun printHistory(version: CLVersion, store: IDeserializingKeyValueStore) {
+        LinearHistory(store, null).load(version).forEach {
+            println("Version ${version.id.toString(16)} ${version.hash} ${version.author}")
+            for (op in version.operations) {
+                println("    $op")
+            }
+        }
     }
 
     fun undo(version: CLVersion, idGenerator: IdGenerator): CLVersion {
         return CLVersion.createRegularVersion(
             id = idGenerator.generate(),
             time = null,
-            author = null,
+            author = "undo",
             treeHash = version.baseVersion!!.treeHash!!,
             baseVersion = version.hash,
             operations = arrayOf(UndoOp(version.hash)),

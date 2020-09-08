@@ -20,7 +20,7 @@ import org.modelix.model.api.IWriteTransaction
 import org.modelix.model.lazy.IDeserializingKeyValueStore
 
 interface IOperation {
-    fun apply(transaction: IWriteTransaction): IAppliedOperation
+    fun apply(transaction: IWriteTransaction, store: IDeserializingKeyValueStore): IAppliedOperation
     fun captureIntend(tree: ITree, store: IDeserializingKeyValueStore): IOperationIntend
     fun toCode(): String
 }
