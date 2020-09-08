@@ -9,7 +9,7 @@ import org.modelix.model.client.IdGeneratorDummy
 class TreePointer(var tree_: ITree, val idGenerator: IIdGenerator = IdGeneratorDummy()) : IBranch, IWriteTransaction, IReadTransaction {
     override var tree: ITree
         get() = tree_
-        set(value) { tree_ = value}
+        set(value) { tree_ = value }
 
     override fun runRead(runnable: () -> Unit) {
         runnable()

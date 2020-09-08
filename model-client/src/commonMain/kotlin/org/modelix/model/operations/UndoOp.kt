@@ -10,8 +10,8 @@ class UndoOp(val versionHash: String) : AbstractOperation() {
     override fun apply(transaction: IWriteTransaction, store: IDeserializingKeyValueStore): IAppliedOperation {
         return Applied(
             captureIntend(transaction.tree, store)
-            .restoreIntend(transaction.tree)
-            .map { it.apply(transaction, store) }
+                .restoreIntend(transaction.tree)
+                .map { it.apply(transaction, store) }
         )
     }
 

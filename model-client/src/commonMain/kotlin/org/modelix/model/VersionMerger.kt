@@ -58,8 +58,6 @@ class VersionMerger(private val storeCache: IDeserializingKeyValueStore, private
         if (commonBase == rightVersionHash) return leftVersion
         val versionsToApply = LinearHistory(storeCache, commonBase).load(leftVersion, rightVersion)
 
-
-
 //        println("merge ${getVersion(leftVersionHash).id.toString(16)} ${LinearHistory(storeCache, commonBase).load(leftVersion).map { it.id.toString(16) }} and ${getVersion(rightVersionHash).id.toString(16)} ${LinearHistory(storeCache, commonBase).load(rightVersion).map { it.id.toString(16) }}: ${commonBase?.let{getVersion(it)}?.id?.toString(16)} + ${versionsToApply.map { it.id.toString(16) }}")
         val operationsToApply = versionsToApply.flatMap { captureIntend(it) }
         var mergedVersion: CLVersion? = null
