@@ -32,7 +32,7 @@ class OTWriteTransaction(
     private var idGenerator: IIdGenerator,
     private val store: IDeserializingKeyValueStore
 ) : IWriteTransaction {
-    protected fun apply(op: IOperation) {
+    fun apply(op: IOperation) {
         logTrace({ op.toString() }, OTWriteTransaction::class)
         val appliedOp = op.apply(transaction, store)
         otBranch.operationApplied(appliedOp)
@@ -40,9 +40,6 @@ class OTWriteTransaction(
 
     override fun moveChild(newParentId: Long, newRole: String?, newIndex: Int, childId: Long) {
         var newIndex = newIndex
-        val oldparent = getParent(childId)
-        val oldRole = getRole(childId)
-        val oldIndex = getChildren(oldparent, oldRole).indexOf(childId)
         if (newIndex == -1) {
             newIndex = getChildren(newParentId, newRole).count()
         }
@@ -64,11 +61,11 @@ class OTWriteTransaction(
     }
 
     override fun addNewChild(parentId: Long, role: String?, index: Int, childId: Long, concept: IConcept?) {
-        var index = index
-        if (index == -1) {
-            index = getChildren(parentId, role).count().toInt()
+        var index_ = index
+        if (index_ == -1) {
+            index_ = getChildren(parentId, role).count()
         }
-        apply(AddNewChildOp(PositionInRole(parentId, role, index), childId, concept))
+        apply(AddNewChildOp(PositionInRole(parentId, role, index_), childId, concept))
     }
 
     override fun deleteNode(nodeId: Long) {

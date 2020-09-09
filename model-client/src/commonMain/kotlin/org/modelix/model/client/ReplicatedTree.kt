@@ -5,7 +5,7 @@ import org.modelix.model.lazy.CLVersion
 import org.modelix.model.lazy.TreeId
 
 expect class ReplicatedTree(client: IModelClient, treeId: TreeId, branchName: String, user: () -> String) {
-    var version: CLVersion?
+    var localVersion: CLVersion?
     val branch: IBranch
     fun dispose()
 }
