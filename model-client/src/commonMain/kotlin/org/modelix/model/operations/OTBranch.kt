@@ -16,9 +16,14 @@
 package org.modelix.model.operations
 
 import org.modelix.model.api.*
+import org.modelix.model.lazy.IDeserializingKeyValueStore
 import org.modelix.model.runSynchronized
 
-class OTBranch(private val branch: IBranch, private val idGenerator: IIdGenerator) : IBranch {
+class OTBranch(
+    private val branch: IBranch,
+    private val idGenerator: IIdGenerator,
+    private val store: IDeserializingKeyValueStore
+) : IBranch {
     private var operations: MutableList<IAppliedOperation> = ArrayList()
     private val operationsLock = Any()
     fun operationApplied(op: IAppliedOperation) {
@@ -89,7 +94,7 @@ class OTBranch(private val branch: IBranch, private val idGenerator: IIdGenerato
     }
 
     fun wrap(t: IWriteTransaction): IWriteTransaction {
-        return OTWriteTransaction(t, this, idGenerator)
+        return OTWriteTransaction(t, this, idGenerator, store)
     }
 
     protected fun checkNotEDT() {}

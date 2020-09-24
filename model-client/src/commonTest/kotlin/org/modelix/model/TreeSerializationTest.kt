@@ -4,6 +4,7 @@ import org.modelix.model.api.*
 import org.modelix.model.client.GarbageFilteringStore
 import org.modelix.model.client.IdGenerator
 import org.modelix.model.lazy.*
+import org.modelix.model.operations.IOperation
 import org.modelix.model.operations.OTBranch
 import org.modelix.model.persistent.MapBaseStore
 import kotlin.test.Test
@@ -41,29 +42,27 @@ class TreeSerializationTest {
         var store = GarbageFilteringStore(mapStore)
         var objectStore = ObjectStoreCache(store)
         val initialTree = CLTree(TreeId("tree01"), objectStore)
-        val initialVersion = CLVersion(
-            1,
-            null,
-            null,
-            initialTree.hash,
-            null,
-            null,
-            arrayOf(),
-            objectStore
+        val initialVersion = CLVersion.createRegularVersion(
+            id = 1,
+            time = null,
+            author = null,
+            treeHash = initialTree.hash,
+            baseVersion = null,
+            operations = arrayOf<IOperation>(),
+            store = objectStore
         )
         val idGenerator = IdGenerator(Int.MAX_VALUE)
-        val branch = OTBranch(PBranch(initialTree, idGenerator), idGenerator)
+        val branch = OTBranch(PBranch(initialTree, idGenerator), idGenerator, objectStore)
         initTree(branch)
         val (ops, tree) = branch.operationsAndTree
-        val version = CLVersion(
-            1,
-            null,
-            null,
-            (tree as CLTree).hash,
-            initialVersion.hash,
-            null,
-            ops.map { it.getOriginalOp() }.toTypedArray(),
-            objectStore
+        val version = CLVersion.createRegularVersion(
+            id = 1,
+            time = null,
+            author = null,
+            treeHash = (tree as CLTree).hash,
+            baseVersion = initialVersion.hash,
+            operations = ops.map { it.getOriginalOp() }.toTypedArray(),
+            store = objectStore
         )
         store.put("branch_master", version.hash)
         mapStore.entries.sortedBy { it.key }.forEach { println(""""${it.key}" to "${it.value}",""") }
@@ -211,7 +210,7 @@ class TreeSerializationTest {
         val branch = PBranch(CLTree(TreeId("tree01"), ObjectStoreCache(MapBaseStore())), IdGenerator(2))
         branch.runWrite {
             for (operation in deserializedVersion.operations) {
-                operation.apply(branch.writeTransaction)
+                operation.apply(branch.writeTransaction, deserializedVersion.store)
             }
         }
         val treeFromOps = branch.computeRead { branch.transaction.tree }

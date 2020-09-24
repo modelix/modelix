@@ -18,6 +18,7 @@ package org.modelix.model.operations
 import org.modelix.model.api.IConcept
 import org.modelix.model.api.ITree
 import org.modelix.model.api.IWriteTransaction
+import org.modelix.model.lazy.IDeserializingKeyValueStore
 import org.modelix.model.persistent.SerializationUtil
 
 class AddNewChildOp(val position: PositionInRole, val childId: Long, val concept: IConcept?) : AbstractOperation() {
@@ -26,7 +27,7 @@ class AddNewChildOp(val position: PositionInRole, val childId: Long, val concept
         return if (newPos == position) this else AddNewChildOp(newPos, childId, concept)
     }
 
-    override fun apply(transaction: IWriteTransaction): IAppliedOperation {
+    override fun apply(transaction: IWriteTransaction, store: IDeserializingKeyValueStore): IAppliedOperation {
         transaction.addNewChild(position.nodeId, position.role, position.index, childId, concept)
         return Applied()
     }
@@ -42,12 +43,12 @@ class AddNewChildOp(val position: PositionInRole, val childId: Long, val concept
     inner class Applied : AbstractOperation.Applied(), IAppliedOperation {
         override fun getOriginalOp() = this@AddNewChildOp
 
-        override fun invert(): IOperation {
-            return DeleteNodeOp(childId)
+        override fun invert(): List<IOperation> {
+            return listOf(DeleteNodeOp(childId))
         }
     }
 
-    override fun captureIntend(tree: ITree): IOperationIntend {
+    override fun captureIntend(tree: ITree, store: IDeserializingKeyValueStore): IOperationIntend {
         val children = tree.getChildren(position.nodeId, position.role)
         return Intend(
             CapturedInsertPosition(position.index, children.toList().toLongArray())

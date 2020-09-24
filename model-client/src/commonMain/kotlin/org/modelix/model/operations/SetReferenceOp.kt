@@ -18,10 +18,11 @@ package org.modelix.model.operations
 import org.modelix.model.api.INodeReference
 import org.modelix.model.api.ITree
 import org.modelix.model.api.IWriteTransaction
+import org.modelix.model.lazy.IDeserializingKeyValueStore
 import org.modelix.model.persistent.SerializationUtil
 
 class SetReferenceOp(val sourceId: Long, val role: String, val target: INodeReference?) : AbstractOperation(), IOperationIntend {
-    override fun apply(transaction: IWriteTransaction): IAppliedOperation {
+    override fun apply(transaction: IWriteTransaction, store: IDeserializingKeyValueStore): IAppliedOperation {
         val oldValue = transaction.getReferenceTarget(sourceId, role)
         transaction.setReferenceTarget(sourceId, role, target)
         return Applied(oldValue)
@@ -35,15 +36,15 @@ class SetReferenceOp(val sourceId: Long, val role: String, val target: INodeRefe
         return if (tree.containsNode(sourceId)) listOf(this) else listOf(NoOp())
     }
 
-    override fun captureIntend(tree: ITree) = this
+    override fun captureIntend(tree: ITree, store: IDeserializingKeyValueStore) = this
 
     override fun getOriginalOp() = this
 
     inner class Applied(private val oldValue: INodeReference?) : AbstractOperation.Applied(), IAppliedOperation {
         override fun getOriginalOp() = this@SetReferenceOp
 
-        override fun invert(): IOperation {
-            return SetReferenceOp(sourceId, role, oldValue)
+        override fun invert(): List<IOperation> {
+            return listOf(SetReferenceOp(sourceId, role, oldValue))
         }
 
         override fun toString(): String {

@@ -23,20 +23,23 @@ import org.modelix.model.api.INodeReference
 import org.modelix.model.api.ITree
 import org.modelix.model.api.IWriteTransaction
 import org.modelix.model.api.PNodeAdapter
+import org.modelix.model.lazy.IDeserializingKeyValueStore
 import org.modelix.model.logTrace
 
-class OTWriteTransaction(private val transaction: IWriteTransaction, private val otBranch: OTBranch, protected var idGenerator: IIdGenerator) : IWriteTransaction {
-    protected fun apply(op: IOperation) {
+class OTWriteTransaction(
+    private val transaction: IWriteTransaction,
+    private val otBranch: OTBranch,
+    private var idGenerator: IIdGenerator,
+    private val store: IDeserializingKeyValueStore
+) : IWriteTransaction {
+    fun apply(op: IOperation) {
         logTrace({ op.toString() }, OTWriteTransaction::class)
-        val appliedOp = op.apply(transaction)
+        val appliedOp = op.apply(transaction, store)
         otBranch.operationApplied(appliedOp)
     }
 
     override fun moveChild(newParentId: Long, newRole: String?, newIndex: Int, childId: Long) {
         var newIndex = newIndex
-        val oldparent = getParent(childId)
-        val oldRole = getRole(childId)
-        val oldIndex = getChildren(oldparent, oldRole).indexOf(childId)
         if (newIndex == -1) {
             newIndex = getChildren(newParentId, newRole).count()
         }
@@ -58,11 +61,11 @@ class OTWriteTransaction(private val transaction: IWriteTransaction, private val
     }
 
     override fun addNewChild(parentId: Long, role: String?, index: Int, childId: Long, concept: IConcept?) {
-        var index = index
-        if (index == -1) {
-            index = getChildren(parentId, role).count().toInt()
+        var index_ = index
+        if (index_ == -1) {
+            index_ = getChildren(parentId, role).count()
         }
-        apply(AddNewChildOp(PositionInRole(parentId, role, index), childId, concept))
+        apply(AddNewChildOp(PositionInRole(parentId, role, index_), childId, concept))
     }
 
     override fun deleteNode(nodeId: Long) {
@@ -109,6 +112,14 @@ class OTWriteTransaction(private val transaction: IWriteTransaction, private val
 
     override fun getRole(nodeId: Long): String? {
         return transaction.getRole(nodeId)
+    }
+
+    override fun getReferenceRoles(sourceId: Long): Iterable<String> {
+        return transaction.getReferenceRoles(sourceId)
+    }
+
+    override fun getPropertyRoles(sourceId: Long): Iterable<String> {
+        return transaction.getPropertyRoles(sourceId)
     }
 
     override var tree: ITree

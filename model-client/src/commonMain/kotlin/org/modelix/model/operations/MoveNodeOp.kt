@@ -17,6 +17,7 @@ package org.modelix.model.operations
 
 import org.modelix.model.api.ITree
 import org.modelix.model.api.IWriteTransaction
+import org.modelix.model.lazy.IDeserializingKeyValueStore
 
 class MoveNodeOp(val childId: Long, val targetPosition: PositionInRole) : AbstractOperation() {
     fun withPos(newTarget: PositionInRole): MoveNodeOp {
@@ -27,7 +28,7 @@ class MoveNodeOp(val childId: Long, val targetPosition: PositionInRole) : Abstra
         }
     }
 
-    override fun apply(transaction: IWriteTransaction): IAppliedOperation {
+    override fun apply(transaction: IWriteTransaction, store: IDeserializingKeyValueStore): IAppliedOperation {
         val sourcePosition = getNodePosition(transaction.tree, childId)
         transaction.moveChild(targetPosition.nodeId, targetPosition.role, targetPosition.index, childId)
         return Applied(sourcePosition)
@@ -44,12 +45,12 @@ class MoveNodeOp(val childId: Long, val targetPosition: PositionInRole) : Abstra
     inner class Applied(val sourcePosition: PositionInRole) : AbstractOperation.Applied(), IAppliedOperation {
         override fun getOriginalOp() = this@MoveNodeOp
 
-        override fun invert(): IOperation {
-            return MoveNodeOp(childId, sourcePosition)
+        override fun invert(): List<IOperation> {
+            return listOf(MoveNodeOp(childId, sourcePosition))
         }
     }
 
-    override fun captureIntend(tree: ITree): IOperationIntend {
+    override fun captureIntend(tree: ITree, store: IDeserializingKeyValueStore): IOperationIntend {
         val capturedTargetPosition = CapturedInsertPosition(
             targetPosition.index,
             tree.getChildren(targetPosition.nodeId, targetPosition.role).toList().toLongArray()

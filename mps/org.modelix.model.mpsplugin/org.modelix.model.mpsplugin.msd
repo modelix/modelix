@@ -19,7 +19,7 @@
     <dependency reexport="false">6354ebe7-c22a-4a0f-ac54-50b52ab9b065(JDK)</dependency>
     <dependency reexport="false">86441d7a-e194-42da-81a5-2161ec62a379(MPS.Workbench)</dependency>
     <dependency reexport="false">742f6602-5a2f-4313-aa6e-ae1cd4ffdc61(MPS.Platform)</dependency>
-    <dependency reexport="false">498d89d2-c2e9-11e2-ad49-6cf049e62fe5(MPS.IDEA)</dependency>
+    <dependency reexport="true">498d89d2-c2e9-11e2-ad49-6cf049e62fe5(MPS.IDEA)</dependency>
     <dependency reexport="false">f3061a53-9226-4cc5-a443-f952ceaf5816(jetbrains.mps.baseLanguage)</dependency>
     <dependency reexport="false">ecfb9949-7433-4db5-85de-0f84d172e4ce(de.q60.mps.libs)</dependency>
     <dependency reexport="false">ceab5195-25ea-4f22-9b92-103b95ca8c0c(jetbrains.mps.lang.core)</dependency>
@@ -29,7 +29,7 @@
     <dependency reexport="false">b6980ebd-f01d-459d-a952-38740f6313b4(org.modelix.model.runtimelang)</dependency>
     <dependency reexport="false">acf6d2e2-4f00-4425-b7e9-fbf011feddf1(org.modelix.common)</dependency>
     <dependency reexport="false">e4fb5bb5-0ad9-4e08-9867-6c5a4b9d9246(de.q60.mps.util)</dependency>
-    <dependency reexport="false">0a2651ab-f212-45c2-a2f0-343e76cbc26b(org.modelix.model.client)</dependency>
+    <dependency reexport="true">0a2651ab-f212-45c2-a2f0-343e76cbc26b(org.modelix.model.client)</dependency>
     <dependency reexport="false">0bf7bc3b-b11d-42e4-b160-93d72af96397(de.q60.mps.shadowmodels.runtimelang)</dependency>
     <dependency reexport="false">5622e615-959d-4843-9df6-ef04ee578c18(org.modelix.model)</dependency>
   </dependencies>

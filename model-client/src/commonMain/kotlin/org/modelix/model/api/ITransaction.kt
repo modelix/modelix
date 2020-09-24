@@ -26,4 +26,6 @@ interface ITransaction {
     fun getReferenceTarget(sourceId: Long, role: String): INodeReference?
     fun getChildren(parentId: Long, role: String?): Iterable<Long>
     fun getAllChildren(parentId: Long): Iterable<Long>
+    fun getReferenceRoles(sourceId: Long): Iterable<String>
+    fun getPropertyRoles(sourceId: Long): Iterable<String>
 }

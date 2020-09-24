@@ -37,14 +37,19 @@ import java.util.concurrent.ScheduledFuture
 import java.util.concurrent.atomic.AtomicBoolean
 import java.util.function.Supplier
 
-actual open class ReplicatedTree actual constructor(private val client: IModelClient, private val treeId: TreeId, private val branchName: String, private val user: () -> String) {
+actual open class ReplicatedTree actual constructor(
+    private val client: IModelClient,
+    private val treeId: TreeId,
+    private val branchName: String,
+    private val user: () -> String
+) {
     private val localBranch: IBranch
     private val localOTBranch: OTBranch
     private val mergeLock = Any()
     private val merger: VersionMerger
 
     @Volatile
-    actual var version: CLVersion?
+    actual var localVersion: CLVersion?
         private set
 
     @Volatile
@@ -70,12 +75,12 @@ actual open class ReplicatedTree actual constructor(private val client: IModelCl
     /**
      * Call this at the end of an edit operation in the editor
      */
-    fun endEdit() {
-        if (disposed) return
+    fun endEdit(): CLVersion? {
+        if (disposed) return null
         try {
             synchronized(mergeLock) {
                 deleteDetachedNodes()
-                createAndMergeLocalVersion()
+                return createAndMergeLocalVersion()
             }
         } finally {
             isEditing.set(false)
@@ -84,35 +89,35 @@ actual open class ReplicatedTree actual constructor(private val client: IModelCl
 
     protected fun deleteDetachedNodes() {
         val hasDetachedNodes = localOTBranch.computeRead {
-            localOTBranch.transaction!!
-                .getChildren(ITree.ROOT_ID, ITree.DETACHED_NODES_ROLE)!!.iterator().hasNext()
+            localOTBranch.transaction
+                .getChildren(ITree.ROOT_ID, ITree.DETACHED_NODES_ROLE).iterator().hasNext()
         }
         // avoid unnecessary write
         if (hasDetachedNodes) {
             localOTBranch.runWrite {
                 // clear detached nodes
-                val t: IWriteTransaction = localOTBranch.writeTransaction!!
-                t.getChildren(ITree.ROOT_ID, ITree.DETACHED_NODES_ROLE)!!.forEach { nodeId: Long -> t.deleteNode(nodeId) }
+                val t: IWriteTransaction = localOTBranch.writeTransaction
+                t.getChildren(ITree.ROOT_ID, ITree.DETACHED_NODES_ROLE).forEach { nodeId: Long -> t.deleteNode(nodeId) }
             }
         }
     }
 
-    protected fun createAndMergeLocalVersion() {
+    protected fun createAndMergeLocalVersion(): CLVersion? {
         checkDisposed()
         var opsAndTree: Pair<List<IAppliedOperation>, ITree>
         var localBase: CLVersion?
-        val remoteBase = MutableObject<CLVersion?>()
-        val newLocalVersion = MutableObject<CLVersion>()
+        var remoteBase: CLVersion?
+        var newLocalVersion: CLVersion
         synchronized(mergeLock) {
             opsAndTree = localOTBranch.operationsAndTree
-            localBase = version
-            remoteBase.setValue(remoteVersion)
+            localBase = localVersion
+            remoteBase = remoteVersion
             val ops: Array<IOperation> = opsAndTree.first.map { it.getOriginalOp() }.toTypedArray()
             if (ops.isEmpty()) {
-                return
+                return null
             }
-            newLocalVersion.setValue(createVersion(opsAndTree.second as CLTree, ops, localBase!!.hash))
-            version = newLocalVersion.value
+            newLocalVersion = createVersion(opsAndTree.second as CLTree, ops, localBase!!.hash)
+            localVersion = newLocalVersion
             divergenceTime = 0
         }
         SharedExecutors.FIXED.execute(object : Runnable {
@@ -122,13 +127,13 @@ actual open class ReplicatedTree actual constructor(private val client: IModelCl
 
                         var mergedVersion: CLVersion
                         try {
-                            mergedVersion = merger.mergeChange(remoteBase.value!!, newLocalVersion.value)
+                            mergedVersion = merger.mergeChange(remoteBase!!, newLocalVersion)
                             if (LOG.isDebugEnabled) {
                                 LOG.debug(
                                     String.format(
                                         "Merged local %s with remote %s -> %s",
-                                        newLocalVersion.value.hash,
-                                        remoteBase.value!!.hash,
+                                        newLocalVersion.hash,
+                                        remoteBase!!.hash,
                                         mergedVersion.hash
                                     )
                                 )
@@ -137,33 +142,34 @@ actual open class ReplicatedTree actual constructor(private val client: IModelCl
                             if (LOG.isEnabledFor(Level.ERROR)) {
                                 LOG.error("", ex)
                             }
-                            mergedVersion = newLocalVersion.value
+                            mergedVersion = newLocalVersion
                         }
                         synchronized(mergeLock) {
-                            writeLocalVersion(version)
-                            if (remoteVersion == remoteBase.value) {
+                            writeLocalVersion(localVersion)
+                            if (remoteVersion == remoteBase) {
                                 writeRemoteVersion(mergedVersion)
                                 return true
                             } else {
-                                remoteBase.setValue(remoteVersion)
+                                remoteBase = remoteVersion
                                 return false
                             }
                         }
                     }
                 }
 
-                // Avoid locking during the merge as it may require communication with the model server 
+                // Avoid locking during the merge as it may require communication with the model server
                 for (mergeAttempt in 0..2) {
                     if (doMerge.get()) {
                         return
                     }
                 }
                 synchronized(mergeLock) {
-                    remoteBase.setValue(remoteVersion)
+                    remoteBase = remoteVersion
                     doMerge.get()
                 }
             }
         })
+        return newLocalVersion
     }
 
     protected fun writeRemoteVersion(newVersion: CLVersion) {
@@ -177,8 +183,8 @@ actual open class ReplicatedTree actual constructor(private val client: IModelCl
 
     protected fun writeLocalVersion(newVersion: CLVersion?) {
         synchronized(mergeLock) {
-            if (newVersion!!.hash != this.version!!.hash) {
-                this.version = newVersion
+            if (newVersion!!.hash != this.localVersion!!.hash) {
+                this.localVersion = newVersion
                 divergenceTime = 0
                 localBranch.runWrite {
                     val newTree = newVersion.tree
@@ -194,15 +200,14 @@ actual open class ReplicatedTree actual constructor(private val client: IModelCl
     fun createVersion(tree: CLTree, operations: Array<IOperation>, previousVersion: String?): CLVersion {
         checkDisposed()
         val time = LocalDateTime.now().toString()
-        return CLVersion(
-            client.idGenerator!!.generate(),
-            time,
-            user(),
-            tree.hash,
-            previousVersion,
-            null,
-            operations,
-            client.storeCache!!
+        return CLVersion.createRegularVersion(
+            id = client.idGenerator.generate(),
+            time = time,
+            author = user(),
+            treeHash = tree.hash,
+            baseVersion = previousVersion,
+            operations = operations,
+            store = client.storeCache!!
         )
     }
 
@@ -244,10 +249,10 @@ actual open class ReplicatedTree actual constructor(private val client: IModelCl
 
         // prefetch to avoid HTTP request in command listener 
         SharedExecutors.FIXED.execute { initialTree.value.getChildren(ITree.ROOT_ID, ITree.DETACHED_NODES_ROLE) }
-        version = initialVersion
+        localVersion = initialVersion
         remoteVersion = initialVersion
         localBranch = PBranch(initialTree.value, client.idGenerator)
-        localOTBranch = OTBranch(localBranch, client.idGenerator)
+        localOTBranch = OTBranch(localBranch, client.idGenerator, client.storeCache!!)
         merger = VersionMerger(client.storeCache!!, client.idGenerator)
         versionChangeDetector = object : VersionChangeDetector(client, treeId.getBranchKey(branchName)) {
             override fun processVersionChange(oldVersionHash: String?, newVersionHash: String?) {
@@ -263,7 +268,7 @@ actual open class ReplicatedTree actual constructor(private val client: IModelCl
                 val newRemoteVersion = loadFromHash(newVersionHash, client.storeCache!!) ?: return
                 val localBase = MutableObject<CLVersion?>()
                 synchronized(mergeLock) {
-                    localBase.setValue(version)
+                    localBase.setValue(localVersion)
                     remoteVersion = newRemoteVersion
                 }
                 val doMerge = object : Supplier<Boolean> {
@@ -290,12 +295,12 @@ actual open class ReplicatedTree actual constructor(private val client: IModelCl
                         val mergedTree = mergedVersion.tree
                         synchronized(mergeLock) {
                             remoteVersion = mergedVersion
-                            if (version == localBase.value) {
+                            if (localVersion == localBase.value) {
                                 writeLocalVersion(mergedVersion)
                                 writeRemoteVersion(mergedVersion)
                                 return true
                             } else {
-                                localBase.setValue(version)
+                                localBase.setValue(localVersion)
                                 return false
                             }
                         }
@@ -309,7 +314,7 @@ actual open class ReplicatedTree actual constructor(private val client: IModelCl
                     }
                 }
                 synchronized(mergeLock) {
-                    localBase.setValue(version)
+                    localBase.setValue(localVersion)
                     doMerge.get()
                 }
             }
@@ -334,7 +339,7 @@ actual open class ReplicatedTree actual constructor(private val client: IModelCl
             1000,
             object : Runnable {
                 override fun run() {
-                    val localHash = if (version == null) null else version!!.hash
+                    val localHash = if (localVersion == null) null else localVersion!!.hash
                     val remoteHash = if (remoteVersion == null) null else remoteVersion!!.hash
                     if (localHash == remoteHash) {
                         divergenceTime = 0

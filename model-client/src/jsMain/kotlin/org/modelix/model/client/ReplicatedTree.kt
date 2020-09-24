@@ -9,7 +9,7 @@ actual class ReplicatedTree {
         TODO("Not yet implemented")
     }
 
-    actual var version: CLVersion?
+    actual var localVersion: CLVersion?
         get() = TODO("Not yet implemented")
         set(value) {}
     actual val branch: IBranch
