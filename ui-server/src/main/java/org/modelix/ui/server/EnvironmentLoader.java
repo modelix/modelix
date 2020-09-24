@@ -4,6 +4,8 @@ import com.intellij.ide.plugins.IdeaPluginDescriptorImpl;
 import com.intellij.ide.plugins.PluginManager;
 import com.intellij.ide.plugins.PluginManagerCore;
 import com.intellij.util.ReflectionUtil;
+import jetbrains.mps.RuntimeFlags;
+import jetbrains.mps.TestMode;
 import jetbrains.mps.project.Project;
 import jetbrains.mps.tool.environment.Environment;
 import jetbrains.mps.tool.environment.EnvironmentConfig;
@@ -63,6 +65,7 @@ public class EnvironmentLoader {
             loadLangJars(config, new File(homePath,"languages"));
             loadLangJars(config, new File(homePath,"plugins"));
             environment = new IdeaEnvironment(config, false);
+            RuntimeFlags.setTestMode(TestMode.NONE);
             ((IdeaEnvironment) environment).init();
             ourProject = environment.createEmptyProject();
 
