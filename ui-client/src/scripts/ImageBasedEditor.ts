@@ -4,13 +4,15 @@ import {DomUtils} from "./DomUtil";
 import {getWebsocketUrl} from "./UrlUtil";
 import {CCMenu, IAction} from "./CCMenu";
 import {IIntention, IntentionsMenu} from "./IntentionsMenu";
+import {Tooltip} from "./Tooltip";
 
 
-export class SvgBasedEditor {
+export class ImageBasedEditor {
 
     private socket: WebSocket;
     private ccmenu: CCMenu;
     private intentionsMenu: IntentionsMenu;
+    private tooltip: Tooltip;
     private connectionStatus: HTMLElement;
     private lastConnectionStatus: number;
 
@@ -117,6 +119,11 @@ export class SvgBasedEditor {
                     this.intentionsMenu.setPosition(intentionsMessage.x, intentionsMessage.y);
                     this.intentionsMenu.loadIntentions(intentions);
                     this.intentionsMenu.setVisible(true);
+                } else if (message.type === "tooltip.show") {
+                    let tooltipMessage = message as ITooltipMessage
+                    this.tooltip.show(tooltipMessage.x, tooltipMessage.y, tooltipMessage.text);
+                } else if (message.type === "tooltip.hide") {
+                    this.tooltip.hide();
                 }
             }
 
@@ -213,6 +220,60 @@ export class SvgBasedEditor {
             event.preventDefault();
         });
 
+        $(element).mousemove(event => {
+            lastEventTime = Date.now();
+
+            const offset = $(element).offset();
+            let x = event.pageX - offset.left;
+            let y = event.pageY - offset.top;
+
+            let message: IMessage = {
+                type: "mousemove",
+                data: {
+                    x: x,
+                    y: y,
+                },
+            };
+
+            this.send(message);
+        });
+
+        $(element).mouseenter(event => {
+            lastEventTime = Date.now();
+
+            const offset = $(element).offset();
+            let x = event.pageX - offset.left;
+            let y = event.pageY - offset.top;
+
+            let message: IMessage = {
+                type: "mouseenter",
+                data: {
+                    x: x,
+                    y: y,
+                },
+            };
+
+            this.send(message);
+        });
+
+        $(element).mouseleave(event => {
+            lastEventTime = Date.now();
+
+            const offset = $(element).offset();
+            let x = event.pageX - offset.left;
+            let y = event.pageY - offset.top;
+
+            let message: IMessage = {
+                type: "mouseleave",
+                data: {
+                    x: x,
+                    y: y,
+                },
+            };
+
+            this.send(message);
+        });
+
         $(element).keypress(event => {
             console.log("press " + event);
 
@@ -281,6 +342,9 @@ export class SvgBasedEditor {
 
         this.intentionsMenu = new IntentionsMenu();
         this.element.appendChild(this.intentionsMenu.getDom());
+
+        this.tooltip = new Tooltip();
+        this.element.appendChild(this.tooltip.getDom());
 
         this.connectionStatus = document.createElement("div");
         this.element.appendChild(this.connectionStatus);
@@ -400,4 +464,10 @@ interface IIntentionsMessage extends IMessage {
 interface IExecuteIntentionMessage extends IMessage {
     index: number;
     text: string;
+}
+
+interface ITooltipMessage extends IMessage {
+    text: string;
+    x: number;
+    y: number;
 }

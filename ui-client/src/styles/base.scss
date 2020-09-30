@@ -101,3 +101,16 @@
     }
   }
 }
+
+.tooltip {
+  color: black;
+  z-index: 20;
+  background-color: white;
+  border: 1px solid #acacac;
+  position: absolute;
+  padding: 3px;
+  left: 20px;
+  top: 20px;
+  box-shadow: 5px 5px 40px 0 rgba(0, 0, 0, 0.5);
+  visibility: hidden;
+}

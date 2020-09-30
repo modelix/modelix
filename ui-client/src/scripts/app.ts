@@ -1,13 +1,13 @@
 import "../styles/base.scss";
 import $ = require("jquery");
-import {SvgBasedEditor} from "./SvgBasedEditor";
+import {ImageBasedEditor} from "./ImageBasedEditor";
 import {ShadowModelsBasedEditor} from "./ShadowModelsBasedEditor";
 
 $(() => {
 
-    const svgViewers = new Set<SvgBasedEditor>();
+    const svgViewers = new Set<ImageBasedEditor>();
     for (const element of document.getElementsByClassName("svgviewer")) {
-        svgViewers.add(new SvgBasedEditor(element as HTMLElement));
+        svgViewers.add(new ImageBasedEditor(element as HTMLElement));
     }
 
     const smViewers = new Set<ShadowModelsBasedEditor>();
