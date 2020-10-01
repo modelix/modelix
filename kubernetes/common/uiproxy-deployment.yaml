@@ -23,7 +23,7 @@ spec:
     spec:
       serviceAccountName: uiproxy
       containers:
-      - image: modelix/modelix-uiproxy:202009281455
+      - image: modelix/modelix-uiproxy:202010011142
         imagePullPolicy: IfNotPresent
         name: uiproxy
         ports:
