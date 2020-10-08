@@ -4,7 +4,7 @@ buildscript {
     }
 
     dependencies {
-        classpath group: 'org.modelix', name: 'modelix-gradle-plugin', version: '1.0-SNAPSHOT'
+        classpath group: 'org.modelix', name: 'gradle-plugin', version: '2020.1.1'
     }
 }
 
@@ -15,20 +15,27 @@ plugins {
 group 'org.modelix'
 version '1.0-SNAPSHOT'
 
-sourceCompatibility = 1.8
+sourceCompatibility = 11
 
 repositories {
     mavenCentral()
+    maven { url 'https://projects.itemis.de/nexus/content/repositories/mbeddr' }
     mavenLocal()
 }
 
+configurations {
+    mps
+}
+
 dependencies {
-    testCompile group: 'junit', name: 'junit', version: '4.12'
+    mps "com.jetbrains:mps:2020.1.1"
 }
 
 apply plugin: 'modelix-gradle-plugin'
 
-downloadModel {
+modelixModel {
+    mpsConfig = configurations.mps
     serverUrl = "http://localhost:28101/"
-    treeId = "defaultTree"
+    treeId = "default"
+    debug = false
 }

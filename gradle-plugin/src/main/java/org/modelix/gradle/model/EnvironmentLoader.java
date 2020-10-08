@@ -43,6 +43,8 @@ public class EnvironmentLoader {
                     //.withTestingPlugin()
                     .withVcsPlugin()
                     .withWorkbenchPath()
+                    .addPlugin("org.modelix.model", "org.modelix.model")
+                    .addPlugin("org.modelix.common", "org.modelix.common")
                     ;
             if (gitRepoDir != null) {
                 config.addLib(gitRepoDir.getAbsolutePath());
@@ -57,7 +59,7 @@ public class EnvironmentLoader {
             loadLangJars(config, new File(homePath,"languages"));
             loadLangJars(config, new File(homePath,"plugins"));
             environment = new IdeaEnvironment(config, false);
-//            RuntimeFlags.setTestMode(TestMode.NONE);
+            RuntimeFlags.setTestMode(TestMode.NONE);
             ((IdeaEnvironment) environment).init();
             ourProject = environment.createEmptyProject();
         }

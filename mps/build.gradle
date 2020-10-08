@@ -5,6 +5,7 @@ import de.itemis.mps.gradle.TestLanguages
 
 plugins {
     id "java"
+    id 'maven-publish'
 }
 
 configurations {
@@ -128,3 +129,40 @@ task checkMpsTestOutput(dependsOn: runMpsTests) {
 }
 
 test.dependsOn(checkMpsTestOutput)
+
+
+task packageMpsModelPlugin(type: Zip, dependsOn: buildMpsModules) {
+    baseName 'org.modelix.model.mpsplugin'
+    from "$rootDir/build/org.modelix/build/artifacts/org.modelix/plugins"
+    include "org.modelix.model/**"
+    include "org.modelix.common/**"
+}
+
+publishing {
+    publications {
+        modelixMpsModelPlugin(MavenPublication) {
+            groupId 'org.modelix'
+            artifactId 'mps-model-plugin'
+            artifact packageMpsModelPlugin
+            pom.withXml {
+                def dependenciesNode = asNode().appendNode('dependencies')
+                configurations.mps.resolvedConfiguration.firstLevelModuleDependencies.each {
+                    def dependencyNode = dependenciesNode.appendNode('dependency')
+                    dependencyNode.appendNode('groupId', it.moduleGroup)
+                    dependencyNode.appendNode('artifactId', it.moduleName)
+                    dependencyNode.appendNode('version', it.moduleVersion)
+                    dependencyNode.appendNode('type', it.moduleArtifacts[0].type)
+                    dependencyNode.appendNode('scope', 'provided')
+                }
+                configurations.mpsArtifacts.resolvedConfiguration.firstLevelModuleDependencies.each {
+                    def dependencyNode = dependenciesNode.appendNode('dependency')
+                    dependencyNode.appendNode('groupId', it.moduleGroup)
+                    dependencyNode.appendNode('artifactId', it.moduleName)
+                    dependencyNode.appendNode('version', it.moduleVersion)
+                    dependencyNode.appendNode('type', it.moduleArtifacts[0].type)
+                    dependencyNode.appendNode('scope', 'provided')
+                }
+            }
+        }
+    }
+}

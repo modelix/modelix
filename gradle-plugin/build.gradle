@@ -4,29 +4,18 @@ plugins {
 }
 
 group 'org.modelix'
-version '1.0-SNAPSHOT'
 
-sourceCompatibility = 1.8
+sourceCompatibility = 11
 
 repositories {
     mavenCentral()
     maven { url 'https://projects.itemis.de/nexus/content/repositories/mbeddr' }
 }
 
-ext.mpsVersion = "2020.1.1"
-
 dependencies {
-    compile fileTree(dir: '../artifacts/mps/lib', include: '*.jar')
-    compile group: 'org.modelix', name: 'model-client-jvm', version: '2020.1-SNAPSHOT'
+    compileOnly fileTree(dir: '../artifacts/mps/lib', include: '*.jar')
     compile gradleApi()
     testCompile group: 'junit', name: 'junit', version: '4.12'
-//    compile "com.jetbrains:mps:$mpsVersion"
-//    compileOnly "com.jetbrains:mps-core:$mpsVersion"
-//    compileOnly "com.jetbrains:mps-platform:$mpsVersion"
-//    compileOnly "com.jetbrains:mps-openapi:$mpsVersion"
-//    compileOnly "com.jetbrains:mps-modelchecker:$mpsVersion"
-//    compileOnly "com.jetbrains:mps-httpsupport-runtime:$mpsVersion"
-//    compileOnly "com.jetbrains:mps-project-check:$mpsVersion"
 }
 
 uploadArchives {

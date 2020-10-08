@@ -6,9 +6,7 @@ EXPOSE 33333
 #  wget -q -O- https://storage.googleapis.com/cloud-profiler/java/latest/profiler_java_agent.tar.gz \
 #  | tar xzv -C /opt/cprof
 
-COPY build/org.modelix/build/artifacts/org.modelix/org.modelix.zip /usr/modelix-ui/tmp.zip
-RUN unzip /usr/modelix-ui/tmp.zip -d /usr/modelix-ui/mps/plugins/
-RUN rm /usr/modelix-ui/tmp.zip
+COPY build/org.modelix/build/artifacts/org.modelix/plugins/* /usr/modelix-ui/mps/plugins/
 
 COPY artifacts/de.itemis.mps.extensions/ /usr/modelix-ui/mps/plugins/
 
