@@ -24,7 +24,6 @@ import java.util.Set;
 
 public class ModelixModelSettings {
     private Configuration mpsConfig;
-    private String modelixVersion;
     private String serverUrl = "http://localhost:28101/";
     private String treeId = "default";
     private String branchName = "master";
@@ -61,14 +60,6 @@ public class ModelixModelSettings {
 
     public void setBranchName(String branchName) {
         this.branchName = branchName;
-    }
-
-    public String getModelixVersion() {
-        return modelixVersion;
-    }
-
-    public void setModelixVersion(String modelixVersion) {
-        this.modelixVersion = modelixVersion;
     }
 
     public int getTimeout() {

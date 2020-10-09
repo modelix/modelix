@@ -4,7 +4,7 @@ buildscript {
     }
 
     dependencies {
-        classpath group: 'org.modelix', name: 'gradle-plugin', version: '2020.1.1'
+        classpath group: 'org.modelix', name: 'gradle-plugin', version: '2020.1.1-SNAPSHOT'
     }
 }
 
@@ -38,4 +38,5 @@ modelixModel {
     serverUrl = "http://localhost:28101/"
     treeId = "default"
     debug = false
+    timeout = 120
 }

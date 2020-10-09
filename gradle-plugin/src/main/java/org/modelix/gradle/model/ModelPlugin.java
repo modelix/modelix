@@ -23,7 +23,7 @@ public class ModelPlugin implements Plugin<Project> {
         project_.afterEvaluate((Project project) -> {
             System.out.println("modelix model plugin loaded for project " + project.getDisplayName());
             String mpsVersion = settings.getMpsVersion();
-            String modelixVersion = settings.getModelixVersion();
+            String modelixVersion = this.getClass().getPackage().getImplementationVersion();
             if (modelixVersion == null) modelixVersion = mpsVersion + "+";
             Configuration pluginsConfig = project.getConfigurations().detachedConfiguration(
                     project.getDependencies().create("de.itemis.mps:extensions:" + mpsVersion + "+"),
