@@ -4,6 +4,7 @@
   <languages>
     <use id="28f9e497-3b42-4291-aeba-0a1039153ab1" name="jetbrains.mps.lang.plugin" version="4" />
     <use id="ef7bf5ac-d06c-4342-b11d-e42104eb9343" name="jetbrains.mps.lang.plugin.standalone" version="0" />
+    <use id="63650c59-16c8-498a-99c8-005c7ee9515d" name="jetbrains.mps.lang.access" version="0" />
     <devkit ref="fbc25dd2-5da4-483a-8b19-70928e1b62d7(jetbrains.mps.devkit.general-purpose)" />
   </languages>
   <imports>
@@ -29,6 +30,8 @@
     <import index="xxte" ref="r:a79f28f8-6055-40c6-bc5e-47a42a3b97e8(org.modelix.model.mps)" />
     <import index="18ew" ref="6ed54515-acc8-4d1e-a16c-9fd6cfe951ea/java:jetbrains.mps.util(MPS.Core/)" />
     <import index="v18h" ref="0a2651ab-f212-45c2-a2f0-343e76cbc26b/java:kotlin(org.modelix.model.client/)" />
+    <import index="w1kc" ref="6ed54515-acc8-4d1e-a16c-9fd6cfe951ea/java:jetbrains.mps.smodel(MPS.Core/)" />
+    <import index="cddg" ref="86441d7a-e194-42da-81a5-2161ec62a379/java:jetbrains.mps.plugins.applicationplugins(MPS.Workbench/)" />
     <import index="guwi" ref="6354ebe7-c22a-4a0f-ac54-50b52ab9b065/java:java.io(JDK/)" implicit="true" />
     <import index="71xd" ref="742f6602-5a2f-4313-aa6e-ae1cd4ffdc61/java:jetbrains.mps.ide.tools(MPS.Platform/)" implicit="true" />
     <import index="c17a" ref="8865b7a8-5271-43d3-884c-6fd1d9cfdd34/java:org.jetbrains.mps.openapi.language(MPS.OpenAPI/)" implicit="true" />
@@ -482,86 +485,158 @@
                         </node>
                       </node>
                       <node concept="3clFbS" id="5$aoTsovo1n" role="1zxBo7">
-                        <node concept="3clFbF" id="rF2pzCbuFc" role="3cqZAp">
-                          <node concept="2OqwBi" id="rF2pzCbuFd" role="3clFbG">
-                            <node concept="10M0yZ" id="rF2pzCbuFe" role="2Oq$k0">
-                              <ref role="1PxDUh" to="wyt6:~System" resolve="System" />
-                              <ref role="3cqZAo" to="wyt6:~System.out" resolve="out" />
+                        <node concept="3clFbF" id="27OZ2T4kTtp" role="3cqZAp">
+                          <node concept="2OqwBi" id="27OZ2T4kU8m" role="3clFbG">
+                            <node concept="2YIFZM" id="27OZ2T4kTPB" role="2Oq$k0">
+                              <ref role="37wK5l" to="bd8o:~ApplicationManager.getApplication()" resolve="getApplication" />
+                              <ref role="1Pybhc" to="bd8o:~ApplicationManager" resolve="ApplicationManager" />
                             </node>
-                            <node concept="liA8E" id="rF2pzCbuFf" role="2OqNvi">
-                              <ref role="37wK5l" to="guwi:~PrintStream.println(java.lang.String)" resolve="println" />
-                              <node concept="Xl_RD" id="rF2pzCbuFg" role="37wK5m">
-                                <property role="Xl_RC" value="Starting model export ..." />
-                              </node>
-                            </node>
-                          </node>
-                        </node>
-                        <node concept="3clFbF" id="5$aoTsoyl4W" role="3cqZAp">
-                          <node concept="2YIFZM" id="5$aoTsoylhD" role="3clFbG">
-                            <ref role="37wK5l" to="wyt6:~System.setProperty(java.lang.String,java.lang.String)" resolve="setProperty" />
-                            <ref role="1Pybhc" to="wyt6:~System" resolve="System" />
-                            <node concept="Xl_RD" id="5$aoTsoylhE" role="37wK5m">
-                              <property role="Xl_RC" value="modelix.export.started" />
-                            </node>
-                            <node concept="Xl_RD" id="5$aoTsoylqn" role="37wK5m">
-                              <property role="Xl_RC" value="true" />
-                            </node>
-                          </node>
-                        </node>
-                        <node concept="3clFbF" id="5$aoTsovmc3" role="3cqZAp">
-                          <node concept="2OqwBi" id="5$aoTsovnma" role="3clFbG">
-                            <node concept="2ShNRf" id="5$aoTsovmbV" role="2Oq$k0">
-                              <node concept="1pGfFk" id="rF2pzCbcti" role="2ShVmc">
-                                <ref role="37wK5l" to="csg2:rF2pzCaPsq" resolve="ModelExporter" />
-                                <node concept="2YIFZM" id="rF2pzCbcAW" role="37wK5m">
-                                  <ref role="1Pybhc" to="wyt6:~System" resolve="System" />
-                                  <ref role="37wK5l" to="wyt6:~System.getProperty(java.lang.String)" resolve="getProperty" />
-                                  <node concept="Xl_RD" id="rF2pzCbcAX" role="37wK5m">
-                                    <property role="Xl_RC" value="modelix.export.serverUrl" />
+                            <node concept="liA8E" id="27OZ2T4kV2W" role="2OqNvi">
+                              <ref role="37wK5l" to="bd8o:~Application.invokeLater(java.lang.Runnable)" resolve="invokeLater" />
+                              <node concept="1bVj0M" id="27OZ2T4kV61" role="37wK5m">
+                                <property role="3yWfEV" value="true" />
+                                <node concept="3clFbS" id="27OZ2T4kV62" role="1bW5cS">
+                                  <node concept="3clFbF" id="27OZ2T4l9ms" role="3cqZAp">
+                                    <node concept="2OqwBi" id="27OZ2T4lak0" role="3clFbG">
+                                      <node concept="2YIFZM" id="27OZ2T4l9Fz" role="2Oq$k0">
+                                        <ref role="37wK5l" to="bd8o:~ApplicationManager.getApplication()" resolve="getApplication" />
+                                        <ref role="1Pybhc" to="bd8o:~ApplicationManager" resolve="ApplicationManager" />
+                                      </node>
+                                      <node concept="liA8E" id="27OZ2T4lbe$" role="2OqNvi">
+                                        <ref role="37wK5l" to="bd8o:~Application.runWriteAction(java.lang.Runnable)" resolve="runWriteAction" />
+                                        <node concept="1bVj0M" id="27OZ2T4lbyN" role="37wK5m">
+                                          <node concept="3clFbS" id="27OZ2T4lbyO" role="1bW5cS">
+                                            <node concept="3J1_TO" id="27OZ2T4lrvj" role="3cqZAp">
+                                              <node concept="3uVAMA" id="27OZ2T4lrQh" role="1zxBo5">
+                                                <node concept="XOnhg" id="27OZ2T4lrQi" role="1zc67B">
+                                                  <property role="TrG5h" value="ex" />
+                                                  <node concept="nSUau" id="27OZ2T4lrQj" role="1tU5fm">
+                                                    <node concept="3uibUv" id="27OZ2T4lsj4" role="nSUat">
+                                                      <ref role="3uigEE" to="wyt6:~Exception" resolve="Exception" />
+                                                    </node>
+                                                  </node>
+                                                </node>
+                                                <node concept="3clFbS" id="27OZ2T4lrQk" role="1zc67A">
+                                                  <node concept="RRSsy" id="27OZ2T4ltTf" role="3cqZAp">
+                                                    <property role="RRSoG" value="gZ5fh_4/error" />
+                                                    <node concept="Xl_RD" id="27OZ2T4ltTg" role="RRSoy" />
+                                                    <node concept="37vLTw" id="27OZ2T4ltTh" role="RRSow">
+                                                      <ref role="3cqZAo" node="27OZ2T4lrQi" resolve="ex" />
+                                                    </node>
+                                                  </node>
+                                                  <node concept="3clFbF" id="27OZ2T4ltTi" role="3cqZAp">
+                                                    <node concept="2YIFZM" id="27OZ2T4ltTj" role="3clFbG">
+                                                      <ref role="37wK5l" to="wyt6:~System.exit(int)" resolve="exit" />
+                                                      <ref role="1Pybhc" to="wyt6:~System" resolve="System" />
+                                                      <node concept="3cmrfG" id="27OZ2T4ltTk" role="37wK5m">
+                                                        <property role="3cmrfH" value="1" />
+                                                      </node>
+                                                    </node>
+                                                  </node>
+                                                </node>
+                                              </node>
+                                              <node concept="3clFbS" id="27OZ2T4lrvl" role="1zxBo7">
+                                                <node concept="3clFbF" id="rF2pzCbuFc" role="3cqZAp">
+                                                  <node concept="2OqwBi" id="rF2pzCbuFd" role="3clFbG">
+                                                    <node concept="10M0yZ" id="rF2pzCbuFe" role="2Oq$k0">
+                                                      <ref role="1PxDUh" to="wyt6:~System" resolve="System" />
+                                                      <ref role="3cqZAo" to="wyt6:~System.out" resolve="out" />
+                                                    </node>
+                                                    <node concept="liA8E" id="rF2pzCbuFf" role="2OqNvi">
+                                                      <ref role="37wK5l" to="guwi:~PrintStream.println(java.lang.String)" resolve="println" />
+                                                      <node concept="Xl_RD" id="rF2pzCbuFg" role="37wK5m">
+                                                        <property role="Xl_RC" value="Starting model export ..." />
+                                                      </node>
+                                                    </node>
+                                                  </node>
+                                                </node>
+                                                <node concept="3clFbF" id="5$aoTsoyl4W" role="3cqZAp">
+                                                  <node concept="2YIFZM" id="5$aoTsoylhD" role="3clFbG">
+                                                    <ref role="37wK5l" to="wyt6:~System.setProperty(java.lang.String,java.lang.String)" resolve="setProperty" />
+                                                    <ref role="1Pybhc" to="wyt6:~System" resolve="System" />
+                                                    <node concept="Xl_RD" id="5$aoTsoylhE" role="37wK5m">
+                                                      <property role="Xl_RC" value="modelix.export.started" />
+                                                    </node>
+                                                    <node concept="Xl_RD" id="5$aoTsoylqn" role="37wK5m">
+                                                      <property role="Xl_RC" value="true" />
+                                                    </node>
+                                                  </node>
+                                                </node>
+                                                <node concept="3clFbF" id="5$aoTsovmc3" role="3cqZAp">
+                                                  <node concept="2OqwBi" id="5$aoTsovnma" role="3clFbG">
+                                                    <node concept="2ShNRf" id="5$aoTsovmbV" role="2Oq$k0">
+                                                      <node concept="1pGfFk" id="rF2pzCbcti" role="2ShVmc">
+                                                        <ref role="37wK5l" to="csg2:rF2pzCaPsq" resolve="ModelExporter" />
+                                                        <node concept="2YIFZM" id="rF2pzCbcAW" role="37wK5m">
+                                                          <ref role="1Pybhc" to="wyt6:~System" resolve="System" />
+                                                          <ref role="37wK5l" to="wyt6:~System.getProperty(java.lang.String)" resolve="getProperty" />
+                                                          <node concept="Xl_RD" id="rF2pzCbcAX" role="37wK5m">
+                                                            <property role="Xl_RC" value="modelix.export.serverUrl" />
+                                                          </node>
+                                                        </node>
+                                                        <node concept="2YIFZM" id="rF2pzCbcJ4" role="37wK5m">
+                                                          <ref role="1Pybhc" to="wyt6:~System" resolve="System" />
+                                                          <ref role="37wK5l" to="wyt6:~System.getProperty(java.lang.String)" resolve="getProperty" />
+                                                          <node concept="Xl_RD" id="rF2pzCbcJ5" role="37wK5m">
+                                                            <property role="Xl_RC" value="modelix.export.treeId" />
+                                                          </node>
+                                                        </node>
+                                                        <node concept="2YIFZM" id="rF2pzCbcQW" role="37wK5m">
+                                                          <ref role="1Pybhc" to="wyt6:~System" resolve="System" />
+                                                          <ref role="37wK5l" to="wyt6:~System.getProperty(java.lang.String)" resolve="getProperty" />
+                                                          <node concept="Xl_RD" id="rF2pzCbcQX" role="37wK5m">
+                                                            <property role="Xl_RC" value="modelix.export.branchName" />
+                                                          </node>
+                                                        </node>
+                                                      </node>
+                                                    </node>
+                                                    <node concept="liA8E" id="5$aoTsovnwB" role="2OqNvi">
+                                                      <ref role="37wK5l" to="csg2:29etMtbn5f1" resolve="export" />
+                                                      <node concept="37vLTw" id="5$aoTsovnC_" role="37wK5m">
+                                                        <ref role="3cqZAo" node="29etMtbjEs5" resolve="exportPath" />
+                                                      </node>
+                                                    </node>
+                                                  </node>
+                                                </node>
+                                                <node concept="3clFbF" id="5$aoTsoyl$j" role="3cqZAp">
+                                                  <node concept="2YIFZM" id="5$aoTsoyl$k" role="3clFbG">
+                                                    <ref role="37wK5l" to="wyt6:~System.setProperty(java.lang.String,java.lang.String)" resolve="setProperty" />
+                                                    <ref role="1Pybhc" to="wyt6:~System" resolve="System" />
+                                                    <node concept="Xl_RD" id="5$aoTsoyl$l" role="37wK5m">
+                                                      <property role="Xl_RC" value="modelix.export.done" />
+                                                    </node>
+                                                    <node concept="Xl_RD" id="5$aoTsoyl$m" role="37wK5m">
+                                                      <property role="Xl_RC" value="true" />
+                                                    </node>
+                                                  </node>
+                                                </node>
+                                                <node concept="3clFbF" id="27OZ2T4lcOp" role="3cqZAp">
+                                                  <node concept="2OqwBi" id="27OZ2T4ldKT" role="3clFbG">
+                                                    <node concept="2YIFZM" id="27OZ2T4ldaZ" role="2Oq$k0">
+                                                      <ref role="37wK5l" to="bd8o:~ApplicationManager.getApplication()" resolve="getApplication" />
+                                                      <ref role="1Pybhc" to="bd8o:~ApplicationManager" resolve="ApplicationManager" />
+                                                    </node>
+                                                    <node concept="liA8E" id="27OZ2T4lerB" role="2OqNvi">
+                                                      <ref role="37wK5l" to="bd8o:~Application.exit(boolean,boolean,boolean)" resolve="exit" />
+                                                      <node concept="3clFbT" id="27OZ2T4lCXy" role="37wK5m">
+                                                        <property role="3clFbU" value="true" />
+                                                      </node>
+                                                      <node concept="3clFbT" id="27OZ2T4lDw4" role="37wK5m">
+                                                        <property role="3clFbU" value="true" />
+                                                      </node>
+                                                      <node concept="3clFbT" id="27OZ2T4lEoa" role="37wK5m" />
+                                                    </node>
+                                                  </node>
+                                                </node>
+                                              </node>
+                                            </node>
+                                          </node>
+                                        </node>
+                                      </node>
+                                    </node>
                                   </node>
                                 </node>
-                                <node concept="2YIFZM" id="rF2pzCbcJ4" role="37wK5m">
-                                  <ref role="1Pybhc" to="wyt6:~System" resolve="System" />
-                                  <ref role="37wK5l" to="wyt6:~System.getProperty(java.lang.String)" resolve="getProperty" />
-                                  <node concept="Xl_RD" id="rF2pzCbcJ5" role="37wK5m">
-                                    <property role="Xl_RC" value="modelix.export.treeId" />
-                                  </node>
-                                </node>
-                                <node concept="2YIFZM" id="rF2pzCbcQW" role="37wK5m">
-                                  <ref role="1Pybhc" to="wyt6:~System" resolve="System" />
-                                  <ref role="37wK5l" to="wyt6:~System.getProperty(java.lang.String)" resolve="getProperty" />
-                                  <node concept="Xl_RD" id="rF2pzCbcQX" role="37wK5m">
-                                    <property role="Xl_RC" value="modelix.export.branchName" />
-                                  </node>
-                                </node>
                               </node>
-                            </node>
-                            <node concept="liA8E" id="5$aoTsovnwB" role="2OqNvi">
-                              <ref role="37wK5l" to="csg2:29etMtbn5f1" resolve="export" />
-                              <node concept="37vLTw" id="5$aoTsovnC_" role="37wK5m">
-                                <ref role="3cqZAo" node="29etMtbjEs5" resolve="exportPath" />
-                              </node>
-                            </node>
-                          </node>
-                        </node>
-                        <node concept="3clFbF" id="5$aoTsoyl$j" role="3cqZAp">
-                          <node concept="2YIFZM" id="5$aoTsoyl$k" role="3clFbG">
-                            <ref role="37wK5l" to="wyt6:~System.setProperty(java.lang.String,java.lang.String)" resolve="setProperty" />
-                            <ref role="1Pybhc" to="wyt6:~System" resolve="System" />
-                            <node concept="Xl_RD" id="5$aoTsoyl$l" role="37wK5m">
-                              <property role="Xl_RC" value="modelix.export.done" />
-                            </node>
-                            <node concept="Xl_RD" id="5$aoTsoyl$m" role="37wK5m">
-                              <property role="Xl_RC" value="true" />
-                            </node>
-                          </node>
-                        </node>
-                        <node concept="3clFbF" id="5$aoTsovoq7" role="3cqZAp">
-                          <node concept="2YIFZM" id="5$aoTsovose" role="3clFbG">
-                            <ref role="37wK5l" to="wyt6:~System.exit(int)" resolve="exit" />
-                            <ref role="1Pybhc" to="wyt6:~System" resolve="System" />
-                            <node concept="3cmrfG" id="5$aoTsovoug" role="37wK5m">
-                              <property role="3cmrfH" value="0" />
                             </node>
                           </node>
                         </node>

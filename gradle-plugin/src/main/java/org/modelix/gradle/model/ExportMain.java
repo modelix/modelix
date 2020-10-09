@@ -34,19 +34,13 @@ public class ExportMain {
                 System.out.println(key + " = " + value);
                 System.setProperty(key, value);
             }
-            System.setProperty(PROPERTY_PREFIX + "path", new File("generatedModules").getAbsolutePath());
+            System.setProperty(PROPERTY_PREFIX + "path", new File("exportedModelixModules").getAbsolutePath());
             EnvironmentLoader.loadEnvironment((File) null);
             System.out.println("Environment loaded");
             System.out.println("Loaded plugins:");
             for (IdeaPluginDescriptor p : PluginManager.getPlugins()) {
                 System.out.println("    " + p.getName() + " (" + p.getPluginId() + ")");
             }
-
-            new Timer(60000, e -> {
-                if ("true".equals(System.getProperty(PROPERTY_PREFIX + "started"))) return;
-                System.out.println("Export timeout");
-                System.exit(2);
-            }).start();
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
             ex.printStackTrace();

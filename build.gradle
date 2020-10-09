@@ -23,9 +23,12 @@ plugins {
     id "com.jfrog.bintray" version "1.8.5" apply false
 }
 
+ext.mpsVersion = "2020.1.1"
+ext.modelixVersion = "$mpsVersion-SNAPSHOT"
+
 allprojects {
     group 'org.modelix'
-    version '2020.1.1'
+    version modelixVersion
 
     repositories {
         maven { url 'https://projects.itemis.de/nexus/content/groups/OS/' }

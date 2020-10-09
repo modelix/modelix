@@ -10,6 +10,7 @@ import org.gradle.api.tasks.Copy;
 import org.gradle.api.tasks.JavaExec;
 
 import java.io.File;
+import java.time.Duration;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -22,12 +23,14 @@ public class ModelPlugin implements Plugin<Project> {
         project_.afterEvaluate((Project project) -> {
             System.out.println("modelix model plugin loaded for project " + project.getDisplayName());
             String mpsVersion = settings.getMpsVersion();
+            String modelixVersion = settings.getModelixVersion();
+            if (modelixVersion == null) modelixVersion = mpsVersion + "+";
             Configuration pluginsConfig = project.getConfigurations().detachedConfiguration(
                     project.getDependencies().create("de.itemis.mps:extensions:" + mpsVersion + "+"),
-                    project.getDependencies().create("org.modelix:mps-model-plugin:" + mpsVersion + "+")
+                    project.getDependencies().create("org.modelix:mps-model-plugin:" + modelixVersion)
             );
             Configuration genConfig = project.getConfigurations().detachedConfiguration(
-                    project.getDependencies().create("org.modelix:gradle-plugin:" + mpsVersion + "+")
+                    project.getDependencies().create("org.modelix:gradle-plugin:" + modelixVersion)
             );
 
             File mpsLocation = new File("mpsForModelixExport");
@@ -58,6 +61,7 @@ public class ModelPlugin implements Plugin<Project> {
                         "branchName", settings.getBranchName()
                 );
                 if (settings.isDebug()) javaExec.setDebug(true);
+                javaExec.getTimeout().set(Duration.ofSeconds(settings.getTimeout()));
                 javaExec.setMain(ExportMain.class.getName());
             });
         });

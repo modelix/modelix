@@ -23,12 +23,10 @@ ext.artifactsDir = new File(rootDir, 'artifacts')
 ext.libsDir = new File(rootDir, 'libs')
 ext.mpsDir = new File(artifactsDir, 'mps')
 
-ext.mpsVersion = '2020.1.1'
-
 dependencies {
     ant_lib "org.apache.ant:ant-junit:1.10.1"
     mps "com.jetbrains:mps:$mpsVersion"
-    mpsArtifacts "de.itemis.mps:extensions:2020.1+"
+    mpsArtifacts "de.itemis.mps:extensions:$mpsVersion+"
     libs "de.itemis.mps.build.example:javalib:1.0+"
     libs "org.jdom:jdom:2.0.2"
     project (':ui-client')
