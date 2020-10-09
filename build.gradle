@@ -23,7 +23,9 @@ plugins {
     id "com.jfrog.bintray" version "1.8.5" apply false
 }
 
-ext.mpsVersion = "2020.1.1"
+ext.mpsMajorVersion = "2020.1"
+ext.mpsMinorVersion = "1"
+ext.mpsVersion = "$mpsMajorVersion.$mpsMinorVersion"
 ext.modelixVersion = "$mpsVersion-SNAPSHOT"
 
 allprojects {

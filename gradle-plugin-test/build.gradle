@@ -4,7 +4,7 @@ buildscript {
     }
 
     dependencies {
-        classpath group: 'org.modelix', name: 'gradle-plugin', version: '2020.1.1-SNAPSHOT'
+        classpath group: 'org.modelix', name: 'gradle-plugin', version: '2020.1.2-SNAPSHOT'
     }
 }
 
@@ -23,18 +23,9 @@ repositories {
     mavenLocal()
 }
 
-configurations {
-    mps
-}
-
-dependencies {
-    mps "com.jetbrains:mps:2020.1.1"
-}
-
 apply plugin: 'modelix-gradle-plugin'
 
 modelixModel {
-    mpsConfig = configurations.mps
     serverUrl = "http://localhost:28101/"
     treeId = "default"
     debug = false

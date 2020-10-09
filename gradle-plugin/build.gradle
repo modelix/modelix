@@ -18,7 +18,11 @@ dependencies {
 
 jar {
     manifest {
-        attributes("Implementation-Version": version)
+        attributes("Implementation-Version": modelixVersion)
+        attributes("modelix-Version": modelixVersion)
+        attributes("MPS-MajorVersion": mpsMajorVersion)
+        attributes("MPS-MinorVersion": mpsMinorVersion)
+        attributes("MPS-Version": mpsVersion)
     }
 }
 

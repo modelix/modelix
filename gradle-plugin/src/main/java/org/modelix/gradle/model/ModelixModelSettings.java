@@ -23,20 +23,11 @@ import java.util.Optional;
 import java.util.Set;
 
 public class ModelixModelSettings {
-    private Configuration mpsConfig;
     private String serverUrl = "http://localhost:28101/";
     private String treeId = "default";
     private String branchName = "master";
     private boolean debug = false;
     private int timeoutSeconds = 120;
-
-    public Configuration getMpsConfig() {
-        return mpsConfig;
-    }
-
-    public void setMpsConfig(Configuration mpsConfig) {
-        this.mpsConfig = mpsConfig;
-    }
 
     public String getServerUrl() {
         return serverUrl;
@@ -76,15 +67,5 @@ public class ModelixModelSettings {
 
     public void setDebug(boolean debug) {
         this.debug = debug;
-    }
-
-    public String getMpsVersion() {
-        ResolvedConfiguration resolved = getMpsConfig().getResolvedConfiguration();
-        Set<ResolvedDependency> deps = resolved.getFirstLevelModuleDependencies();
-        Optional<ResolvedDependency> mpsDep = deps.stream()
-                .filter(it -> "com.jetbrains".equals(it.getModuleGroup()) && "mps".equals(it.getModuleName()))
-                .findFirst();
-        if (mpsDep.isEmpty()) throw new GradleException("MPS configuration doesn't contain MPS");
-        return mpsDep.get().getModuleVersion();
     }
 }

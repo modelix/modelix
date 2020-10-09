@@ -10,23 +10,35 @@ import org.gradle.api.tasks.Copy;
 import org.gradle.api.tasks.JavaExec;
 
 import java.io.File;
+import java.io.IOException;
+import java.net.URL;
 import java.time.Duration;
 import java.util.Arrays;
+import java.util.Enumeration;
 import java.util.List;
+import java.util.jar.Manifest;
 import java.util.stream.Collectors;
 
 public class ModelPlugin implements Plugin<Project> {
     @Override
     public void apply(Project project_) {
         System.out.println("modelix model plugin loaded");
+        Manifest manifest = readManifest();
         ModelixModelSettings settings = project_.getExtensions().create("modelixModel", ModelixModelSettings.class);
+        String mpsVersion = manifest.getMainAttributes().getValue("MPS-Version");
+        String mpsMajorVersion = manifest.getMainAttributes().getValue("MPS-MajorVersion");
+        System.out.println("Using MPS version " + mpsVersion);
+        String modelixVersion = manifest.getMainAttributes().getValue("modelix-Version");
+        System.out.println("Using modelix Version " + modelixVersion);
+        String extensionsVersion = mpsMajorVersion + "+";
+        System.out.println("Using MPS-extensions version " + extensionsVersion);
         project_.afterEvaluate((Project project) -> {
             System.out.println("modelix model plugin loaded for project " + project.getDisplayName());
-            String mpsVersion = settings.getMpsVersion();
-            String modelixVersion = this.getClass().getPackage().getImplementationVersion();
-            if (modelixVersion == null) modelixVersion = mpsVersion + "+";
+            Configuration mpsConfig = project.getConfigurations().detachedConfiguration(
+                    project.getDependencies().create("com.jetbrains:mps:" + mpsVersion )
+            );
             Configuration pluginsConfig = project.getConfigurations().detachedConfiguration(
-                    project.getDependencies().create("de.itemis.mps:extensions:" + mpsVersion + "+"),
+                    project.getDependencies().create("de.itemis.mps:extensions:" + extensionsVersion),
                     project.getDependencies().create("org.modelix:mps-model-plugin:" + modelixVersion)
             );
             Configuration genConfig = project.getConfigurations().detachedConfiguration(
@@ -35,7 +47,7 @@ public class ModelPlugin implements Plugin<Project> {
 
             File mpsLocation = new File("mpsForModelixExport");
             Copy copyMpsTask = project.getTasks().create("copyMpsForModelixExport", Copy.class, copy -> {
-                copy.from(settings.getMpsConfig().resolve().stream().map(project::zipTree).collect(Collectors.toList()));
+                copy.from(mpsConfig.resolve().stream().map(project::zipTree).collect(Collectors.toList()));
                 copy.into(mpsLocation);
             });
             Copy copyMpsModelPluginTask = project.getTasks().create("copyMpsModelPluginForModelixExport", Copy.class, copy -> {
@@ -65,6 +77,26 @@ public class ModelPlugin implements Plugin<Project> {
                 javaExec.setMain(ExportMain.class.getName());
             });
         });
+    }
+
+    private Manifest readManifest() {
+        Enumeration<URL> resources = null;
+        try {
+            resources = getClass().getClassLoader().getResources("META-INF/MANIFEST.MF");
+            while (resources.hasMoreElements()) {
+                try {
+                    Manifest manifest = new Manifest(resources.nextElement().openStream());
+                    if (manifest.getMainAttributes().getValue("modelix-Version") != null) {
+                        return manifest;
+                    }
+                } catch (IOException ex) {
+                    throw new RuntimeException("Failed to read MANIFEST.MF", ex);
+                }
+            }
+        } catch (IOException ex) {
+            throw new RuntimeException("Failed to read MANIFEST.MF", ex);
+        }
+        throw new RuntimeException("No MANIFEST.MF found containing 'modelix-Version'");
     }
 }
 
