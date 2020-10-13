@@ -7,9 +7,7 @@ plugins {
     id 'com.adarshr.test-logger' version '2.1.0'
 }
 
-group = 'org.modelix'
 description = 'Model Server offering access to model storage'
-version = '1.0-SNAPSHOT'
 
 defaultTasks 'build'
 
@@ -90,14 +88,14 @@ publishing {
 }
 
 bintray {
-    user = rootProject.findProperty('bintray_user')
-    key = rootProject.findProperty('bintray_api_key')
+    user = System.getenv('BINTRAY_USER')
+    key = System.getenv('BINTRAY_API_KEY')
     pkg {
-        repo = 'modelix-oss-maven'
+        repo = 'maven'
         name = project.name
-        userOrg = 'modelix'
+        userOrg = 'modelixorg'
         licenses = ['Apache-2.0']
-        vcsUrl = 'https://github.com/modelix/modelix.git'
+        vcsUrl = 'https://github.com/modelix/modelix'
         version {
             name = 'v' + project.version
             desc = 'Version ' + project.version

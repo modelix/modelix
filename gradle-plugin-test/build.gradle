@@ -8,15 +8,6 @@ buildscript {
     }
 }
 
-plugins {
-    id 'java'
-}
-
-group 'org.modelix'
-version '1.0-SNAPSHOT'
-
-sourceCompatibility = 11
-
 repositories {
     mavenCentral()
     maven { url 'https://projects.itemis.de/nexus/content/repositories/mbeddr' }

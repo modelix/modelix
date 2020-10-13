@@ -6,6 +6,7 @@ import de.itemis.mps.gradle.TestLanguages
 plugins {
     id "java"
     id 'maven-publish'
+    id "com.jfrog.bintray"
 }
 
 configurations {
@@ -163,4 +164,27 @@ publishing {
             }
         }
     }
+}
+
+bintray {
+    user = System.getenv('BINTRAY_USER')
+    key = System.getenv('BINTRAY_API_KEY')
+    pkg {
+        repo = 'maven'
+        name = project.name
+        userOrg = 'modelixorg'
+        licenses = ['Apache-2.0']
+        vcsUrl = 'https://github.com/modelix/modelix'
+        version {
+            name = 'v' + project.version
+            desc = 'Version ' + project.version
+            released = new Date()
+            vcsTag = 'v'+project.version
+        }
+    }
+
+    publications = ['modelixMpsModelPlugin']
+    dryRun = false
+    publish = true
+    override = true
 }

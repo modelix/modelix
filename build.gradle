@@ -26,7 +26,14 @@ plugins {
 ext.mpsMajorVersion = "2020.1"
 ext.mpsMinorVersion = "1"
 ext.mpsVersion = "$mpsMajorVersion.$mpsMinorVersion"
+
 ext.modelixVersion = "$mpsVersion-SNAPSHOT"
+if (System.getenv("TRAVIS_TAG") != null && !System.getenv("TRAVIS_TAG").isEmpty()) {
+    ext.modelixVersion = System.getenv("TRAVIS_TAG")
+    if (ext.modelixVersion.startsWith("v")) {
+        ext.modelixVersion = ext.modelixVersion.substring(1)
+    }
+}
 
 allprojects {
     group 'org.modelix'
