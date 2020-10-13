@@ -4,13 +4,16 @@ install: true
 jdk: 
   - openjdk11
 
+services:
+  - docker
+
 jobs:
   include:
     - stage: build
       script: ./gradlew build
       if: tag IS blank
     - stage: deploy
-      script: ./gradlew build bintrayUpload
+      script: ./gradlew build bintrayUpload && ./docker-ci.sh
       if: tag IS present
   
 cache:
