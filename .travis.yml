@@ -10,7 +10,7 @@ jobs:
       script: ./gradlew build
       if: tag IS blank
     - stage: deploy
-      script: ./gradlew build :model-server:bintrayUpload :mps:bintrayUpload
+      script: ./gradlew build bintrayUpload
       if: tag IS present
   
 cache:

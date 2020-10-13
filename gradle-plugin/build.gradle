@@ -1,6 +1,8 @@
 plugins {
     id 'java'
     id 'maven'
+    id 'maven-publish'
+    id 'com.jfrog.bintray'
 }
 
 sourceCompatibility = 11
@@ -26,10 +28,36 @@ jar {
     }
 }
 
-uploadArchives {
-    repositories {
-        mavenDeployer {
-            repository(url: mavenLocal().url)
+publishing {
+    publications {
+        modelixGradlePlugin(MavenPublication) {
+            groupId project.group
+            version project.version
+
+            from components.java
         }
     }
+}
+
+bintray {
+    user = System.getenv('BINTRAY_USER')
+    key = System.getenv('BINTRAY_API_KEY')
+    pkg {
+        repo = 'maven'
+        name = project.name
+        userOrg = 'modelixorg'
+        licenses = ['Apache-2.0']
+        vcsUrl = 'https://github.com/modelix/modelix'
+        version {
+            name = 'v' + project.version
+            desc = 'Version ' + project.version
+            released = new Date()
+            vcsTag = 'v'+project.version
+        }
+    }
+
+    publications = ['modelixGradlePlugin']
+    dryRun = false
+    publish = true
+    override = true
 }
