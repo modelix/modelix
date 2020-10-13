@@ -1,16 +1,18 @@
 buildscript {
     repositories {
+        maven { url 'https://dl.bintray.com/modelixorg/maven' }
         mavenLocal()
     }
 
     dependencies {
-        classpath group: 'org.modelix', name: 'gradle-plugin', version: '2020.1.2-SNAPSHOT'
+        classpath group: 'org.modelix', name: 'gradle-plugin', version: '0.0.2'
     }
 }
 
 repositories {
     mavenCentral()
     maven { url 'https://projects.itemis.de/nexus/content/repositories/mbeddr' }
+    maven { url 'https://dl.bintray.com/modelixorg/maven' }
     mavenLocal()
 }
 
