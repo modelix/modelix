@@ -118,8 +118,6 @@ File | Description
 [docker-push-gcloud.sh](docker-push-gcloud.sh) | 
 [docker-push-hub.sh](docker-push-hub.sh) | Pushes all docker images to [hub.docker.com](https://hub.docker.com/u/modelix) and updates the version numbers in the kubernetes YAML files.
 [docker-run-db.sh](docker-run-db.sh) | If you want to run the PostgresSQL database locally without a kubernetes cluster
-[docker-run-model.sh](docker-run-model.sh) | If you want to run the model server docker image locally without a kubernetes cluster. You can also run `./gradlew run` in the [model-server](model-server) directory.
-[docker-run-ui.sh](docker-run-ui.sh) | If you want to run the UI server docker image locally without a kubernetes cluster. You can also just open the [mps](mps) folder with [MPS](https://www.jetbrains.com/mps/) after running `./gradlew`.
 [generate-modelsecret.sh](generate-modelsecret.sh) | Access to the model server requires clients to be logged in with their google account. Inside the kubernetes cluster the other components use a secret stored in the kubernetes cluster as the access token.
 [gradlew](gradlew) | Run this to build all projects.
 [gradlew.bat](gradlew.bat) | Run this to build all projects.
