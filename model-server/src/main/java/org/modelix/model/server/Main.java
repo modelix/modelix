@@ -71,10 +71,12 @@ public class Main {
 
         try {
             String portStr = System.getenv("PORT");
+            int port = portStr == null ? 28101 : Integer.parseInt(portStr);
+            LOG.info("Port: " + port);
             InetSocketAddress bindTo =
                     new InetSocketAddress(
                             InetAddress.getByName("0.0.0.0"),
-                            portStr == null ? 28101 : Integer.parseInt(portStr));
+                            port);
             IStoreClient storeClient;
             if (cmdLineArgs.inmemory) {
                 if (cmdLineArgs.jdbcConfFile != null) {
