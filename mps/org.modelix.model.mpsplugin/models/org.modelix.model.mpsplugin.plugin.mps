@@ -4,13 +4,12 @@
   <languages>
     <use id="28f9e497-3b42-4291-aeba-0a1039153ab1" name="jetbrains.mps.lang.plugin" version="4" />
     <use id="ef7bf5ac-d06c-4342-b11d-e42104eb9343" name="jetbrains.mps.lang.plugin.standalone" version="0" />
-    <use id="63650c59-16c8-498a-99c8-005c7ee9515d" name="jetbrains.mps.lang.access" version="0" />
     <devkit ref="fbc25dd2-5da4-483a-8b19-70928e1b62d7(jetbrains.mps.devkit.general-purpose)" />
   </languages>
   <imports>
-    <import index="csg2" ref="r:b0cc4f86-cf49-4ffc-b138-1f9973329ce1(de.q60.mps.web.model.mpsplugin)" />
+    <import index="csg2" ref="r:b0cc4f86-cf49-4ffc-b138-1f9973329ce1(org.modelix.model.mpsplugin)" />
     <import index="wyt6" ref="6354ebe7-c22a-4a0f-ac54-50b52ab9b065/java:java.lang(JDK/)" />
-    <import index="um17" ref="r:f4bd718a-0e10-4b62-9f5d-6c915f7d4572(de.q60.mps.web.model.mpsplugin.history)" />
+    <import index="um17" ref="r:f4bd718a-0e10-4b62-9f5d-6c915f7d4572(org.modelix.model.mpsplugin.history)" />
     <import index="4nil" ref="r:a50ac3a0-164c-48fd-b7af-208637427fd6(org.modelix.model.mpsplugin.projectview)" />
     <import index="dxuu" ref="6354ebe7-c22a-4a0f-ac54-50b52ab9b065/java:javax.swing(JDK/)" />
     <import index="7e8u" ref="742f6602-5a2f-4313-aa6e-ae1cd4ffdc61/java:jetbrains.mps.ide.ui.tree(MPS.Platform/)" />
@@ -18,7 +17,6 @@
     <import index="jkm4" ref="498d89d2-c2e9-11e2-ad49-6cf049e62fe5/java:com.intellij.openapi.ui(MPS.IDEA/)" />
     <import index="qkt" ref="498d89d2-c2e9-11e2-ad49-6cf049e62fe5/java:com.intellij.openapi.actionSystem(MPS.IDEA/)" />
     <import index="qq03" ref="742f6602-5a2f-4313-aa6e-ae1cd4ffdc61/java:jetbrains.mps.ide.actions(MPS.Platform/)" />
-    <import index="dj5d" ref="r:8bca245c-17c6-44f4-9367-ad6ce25cabf5(de.q60.mps.shadowmodels.runtimelang.structure)" />
     <import index="w7di" ref="r:f1cc96fe-d6ef-4a58-b607-1b2e4d02e1de(org.modelix.model.runtimelang.structure)" />
     <import index="tpck" ref="r:00000000-0000-4000-0000-011c89590288(jetbrains.mps.lang.core.structure)" />
     <import index="bd8o" ref="498d89d2-c2e9-11e2-ad49-6cf049e62fe5/java:com.intellij.openapi.application(MPS.IDEA/)" />
@@ -26,12 +24,8 @@
     <import index="xkhl" ref="0a2651ab-f212-45c2-a2f0-343e76cbc26b/java:org.modelix.model.lazy(org.modelix.model.client/)" />
     <import index="5440" ref="0a2651ab-f212-45c2-a2f0-343e76cbc26b/java:org.modelix.model.client(org.modelix.model.client/)" />
     <import index="jks5" ref="0a2651ab-f212-45c2-a2f0-343e76cbc26b/java:org.modelix.model.api(org.modelix.model.client/)" />
-    <import index="1ctc" ref="6354ebe7-c22a-4a0f-ac54-50b52ab9b065/java:java.util.stream(JDK/)" />
     <import index="xxte" ref="r:a79f28f8-6055-40c6-bc5e-47a42a3b97e8(org.modelix.model.mps)" />
-    <import index="18ew" ref="6ed54515-acc8-4d1e-a16c-9fd6cfe951ea/java:jetbrains.mps.util(MPS.Core/)" />
     <import index="v18h" ref="0a2651ab-f212-45c2-a2f0-343e76cbc26b/java:kotlin(org.modelix.model.client/)" />
-    <import index="w1kc" ref="6ed54515-acc8-4d1e-a16c-9fd6cfe951ea/java:jetbrains.mps.smodel(MPS.Core/)" />
-    <import index="cddg" ref="86441d7a-e194-42da-81a5-2161ec62a379/java:jetbrains.mps.plugins.applicationplugins(MPS.Workbench/)" />
     <import index="guwi" ref="6354ebe7-c22a-4a0f-ac54-50b52ab9b065/java:java.io(JDK/)" implicit="true" />
     <import index="71xd" ref="742f6602-5a2f-4313-aa6e-ae1cd4ffdc61/java:jetbrains.mps.ide.tools(MPS.Platform/)" implicit="true" />
     <import index="c17a" ref="8865b7a8-5271-43d3-884c-6fd1d9cfdd34/java:org.jetbrains.mps.openapi.language(MPS.OpenAPI/)" implicit="true" />
@@ -1411,7 +1405,7 @@
                             <ref role="1Pybhc" to="xxte:5gTrVpGjuL2" resolve="SConceptAdapter" />
                             <ref role="37wK5l" to="xxte:3ECE8iPOmg5" resolve="wrap" />
                             <node concept="35c_gC" id="49CIzaqrkL$" role="37wK5m">
-                              <ref role="35c_gD" to="dj5d:qmkA5fOskf" resolve="Module" />
+                              <ref role="35c_gD" to="w7di:qmkA5fOskf" resolve="Module" />
                             </node>
                           </node>
                         </node>
@@ -1427,8 +1421,8 @@
                         <ref role="37wK5l" to="jks5:~INode.setPropertyValue(java.lang.String,java.lang.String)" resolve="setPropertyValue" />
                         <node concept="2OqwBi" id="49CIzaqrlUe" role="37wK5m">
                           <node concept="355D3s" id="49CIzaqrlp6" role="2Oq$k0">
-                            <ref role="355D3t" to="dj5d:qmkA5fOskf" resolve="Module" />
                             <ref role="355D3u" to="tpck:h0TrG11" resolve="name" />
+                            <ref role="355D3t" to="w7di:qmkA5fOskf" resolve="Module" />
                           </node>
                           <node concept="liA8E" id="49CIzaqrmvY" role="2OqNvi">
                             <ref role="37wK5l" to="c17a:~SProperty.getName()" resolve="getName" />
@@ -1750,7 +1744,7 @@
                   <ref role="1Pybhc" to="xxte:5gTrVpGjuL2" resolve="SConceptAdapter" />
                   <ref role="37wK5l" to="xxte:3ECE8iPOmg5" resolve="wrap" />
                   <node concept="35c_gC" id="5D5xac1qXev" role="37wK5m">
-                    <ref role="35c_gD" to="dj5d:qmkA5fOskf" resolve="Module" />
+                    <ref role="35c_gD" to="w7di:qmkA5fOskf" resolve="Module" />
                   </node>
                 </node>
               </node>
@@ -1946,8 +1940,8 @@
                           <ref role="37wK5l" to="jks5:~INode.addNewChild(java.lang.String,int,org.modelix.model.api.IConcept)" resolve="addNewChild" />
                           <node concept="2OqwBi" id="EMWAvBfQM9" role="37wK5m">
                             <node concept="359W_D" id="EMWAvBfQ7B" role="2Oq$k0">
-                              <ref role="359W_E" to="dj5d:qmkA5fOskf" resolve="Module" />
-                              <ref role="359W_F" to="dj5d:qmkA5fOski" resolve="models" />
+                              <ref role="359W_E" to="w7di:qmkA5fOskf" resolve="Module" />
+                              <ref role="359W_F" to="w7di:qmkA5fOski" resolve="models" />
                             </node>
                             <node concept="liA8E" id="EMWAvBfRtX" role="2OqNvi">
                               <ref role="37wK5l" to="c17a:~SNamedElement.getName()" resolve="getName" />
@@ -1960,7 +1954,7 @@
                             <ref role="1Pybhc" to="xxte:5gTrVpGjuL2" resolve="SConceptAdapter" />
                             <ref role="37wK5l" to="xxte:3ECE8iPOmg5" resolve="wrap" />
                             <node concept="35c_gC" id="EMWAvBfOGg" role="37wK5m">
-                              <ref role="35c_gD" to="dj5d:qmkA5fOskc" resolve="Model" />
+                              <ref role="35c_gD" to="w7di:qmkA5fOskc" resolve="Model" />
                             </node>
                           </node>
                         </node>
@@ -1977,7 +1971,7 @@
                         <node concept="2OqwBi" id="EMWAvBfOGl" role="37wK5m">
                           <node concept="355D3s" id="EMWAvBfOGm" role="2Oq$k0">
                             <ref role="355D3u" to="tpck:h0TrG11" resolve="name" />
-                            <ref role="355D3t" to="dj5d:qmkA5fOskc" resolve="Model" />
+                            <ref role="355D3t" to="w7di:qmkA5fOskc" resolve="Model" />
                           </node>
                           <node concept="liA8E" id="EMWAvBfOGn" role="2OqNvi">
                             <ref role="37wK5l" to="c17a:~SProperty.getName()" resolve="getName" />
@@ -2076,7 +2070,7 @@
                 <ref role="1Pybhc" to="xxte:5gTrVpGjuL2" resolve="SConceptAdapter" />
                 <ref role="37wK5l" to="xxte:3ECE8iPOmg5" resolve="wrap" />
                 <node concept="35c_gC" id="EMWAvBfPHI" role="37wK5m">
-                  <ref role="35c_gD" to="dj5d:qmkA5fOskf" resolve="Module" />
+                  <ref role="35c_gD" to="w7di:qmkA5fOskf" resolve="Module" />
                 </node>
               </node>
             </node>
@@ -3296,7 +3290,7 @@
                               <property role="TrG5h" value="modules" />
                               <node concept="A3Dl8" id="7PIbTorpwvf" role="1tU5fm">
                                 <node concept="3Tqbb2" id="7PIbTorpwvg" role="A3Ik2">
-                                  <ref role="ehGHo" to="dj5d:qmkA5fOskf" resolve="Module" />
+                                  <ref role="ehGHo" to="w7di:qmkA5fOskf" resolve="Module" />
                                 </node>
                               </node>
                               <node concept="2OqwBi" id="7PIbTorpwvh" role="33vP2m">
@@ -3304,8 +3298,8 @@
                                   <ref role="3cqZAo" node="1m9roGBAvs9" resolve="allChildren" />
                                 </node>
                                 <node concept="v3k3i" id="7PIbTorpwvF" role="2OqNvi">
-                                  <node concept="chp4Y" id="7PIbTorpwvG" role="v3oSu">
-                                    <ref role="cht4Q" to="dj5d:qmkA5fOskf" resolve="Module" />
+                                  <node concept="chp4Y" id="3uw$nPCCQRh" role="v3oSu">
+                                    <ref role="cht4Q" to="w7di:qmkA5fOskf" resolve="Module" />
                                   </node>
                                 </node>
                               </node>

@@ -3,7 +3,6 @@
   <persistence version="9" />
   <languages>
     <use id="774bf8a0-62e5-41e1-af63-f4812e60e48b" name="jetbrains.mps.baseLanguage.checkedDots" version="0" />
-    <use id="5dc5fc0d-37ef-4782-8192-8b5ce1f69f80" name="jetbrains.mps.baseLanguage.extensionMethods" version="0" />
     <use id="f3061a53-9226-4cc5-a443-f952ceaf5816" name="jetbrains.mps.baseLanguage" version="11" />
     <use id="83888646-71ce-4f1c-9c53-c54016f6ad4f" name="jetbrains.mps.baseLanguage.collections" version="1" />
     <use id="fd392034-7849-419d-9071-12563d152375" name="jetbrains.mps.baseLanguage.closures" version="0" />
@@ -25,7 +24,6 @@
     <import index="n7xv" ref="0a2651ab-f212-45c2-a2f0-343e76cbc26b/java:org.modelix.model.util.pmap(org.modelix.model.client/)" />
     <import index="wyt6" ref="6354ebe7-c22a-4a0f-ac54-50b52ab9b065/java:java.lang(JDK/)" />
     <import index="18ew" ref="6ed54515-acc8-4d1e-a16c-9fd6cfe951ea/java:jetbrains.mps.util(MPS.Core/)" />
-    <import index="dj5d" ref="r:8bca245c-17c6-44f4-9367-ad6ce25cabf5(de.q60.mps.shadowmodels.runtimelang.structure)" />
     <import index="tqvn" ref="6ed54515-acc8-4d1e-a16c-9fd6cfe951ea/java:jetbrains.mps.smodel.tempmodel(MPS.Core/)" />
     <import index="xkhl" ref="0a2651ab-f212-45c2-a2f0-343e76cbc26b/java:org.modelix.model.lazy(org.modelix.model.client/)" />
     <import index="vxxo" ref="6ed54515-acc8-4d1e-a16c-9fd6cfe951ea/java:jetbrains.mps.smodel.adapter.structure.concept(MPS.Core/)" />
@@ -37,6 +35,7 @@
     <import index="guwi" ref="6354ebe7-c22a-4a0f-ac54-50b52ab9b065/java:java.io(JDK/)" />
     <import index="oiz2" ref="ecfb9949-7433-4db5-85de-0f84d172e4ce/java:gnu.trove.map(de.q60.mps.libs/)" />
     <import index="5ka6" ref="ecfb9949-7433-4db5-85de-0f84d172e4ce/java:gnu.trove.map.hash(de.q60.mps.libs/)" />
+    <import index="dj5d" ref="r:8bca245c-17c6-44f4-9367-ad6ce25cabf5(de.q60.mps.shadowmodels.runtimelang.structure)" implicit="true" />
   </imports>
   <registry>
     <language id="a247e09e-2435-45ba-b8d2-07e93feba96a" name="jetbrains.mps.baseLanguage.tuples">
@@ -10091,7 +10090,7 @@
             <ref role="1Pybhc" node="5gTrVpGjuL2" resolve="SConceptAdapter" />
             <ref role="37wK5l" node="3ECE8iPOmg5" resolve="wrap" />
             <node concept="35c_gC" id="qmkA5fOYDm" role="37wK5m">
-              <ref role="35c_gD" to="dj5d:qmkA5fOskm" resolve="Repository" />
+              <ref role="35c_gD" to="w7di:qmkA5fOskm" resolve="Repository" />
             </node>
           </node>
         </node>
@@ -10122,8 +10121,8 @@
               <ref role="37wK5l" to="wyt6:~String.equals(java.lang.Object)" resolve="equals" />
               <node concept="2OqwBi" id="qmkA5fQx4G" role="37wK5m">
                 <node concept="359W_D" id="qmkA5fQwmN" role="2Oq$k0">
-                  <ref role="359W_E" to="dj5d:qmkA5fOskm" resolve="Repository" />
-                  <ref role="359W_F" to="dj5d:qmkA5fOskn" resolve="modules" />
+                  <ref role="359W_E" to="w7di:qmkA5fOskm" resolve="Repository" />
+                  <ref role="359W_F" to="w7di:qmkA5fOskn" resolve="modules" />
                 </node>
                 <node concept="liA8E" id="qmkA5fQxvy" role="2OqNvi">
                   <ref role="37wK5l" to="c17a:~SNamedElement.getName()" resolve="getName" />
@@ -10148,8 +10147,8 @@
               <ref role="37wK5l" to="wyt6:~String.equals(java.lang.Object)" resolve="equals" />
               <node concept="2OqwBi" id="78D6RWLiF30" role="37wK5m">
                 <node concept="359W_D" id="78D6RWLiF31" role="2Oq$k0">
-                  <ref role="359W_E" to="dj5d:qmkA5fOskm" resolve="Repository" />
-                  <ref role="359W_F" to="dj5d:78D6RWLi6Va" resolve="tempModules" />
+                  <ref role="359W_E" to="w7di:qmkA5fOskm" resolve="Repository" />
+                  <ref role="359W_F" to="w7di:78D6RWLi6Va" resolve="tempModules" />
                 </node>
                 <node concept="liA8E" id="78D6RWLiF32" role="2OqNvi">
                   <ref role="37wK5l" to="c17a:~SNamedElement.getName()" resolve="getName" />
@@ -10635,7 +10634,7 @@
             <ref role="1Pybhc" node="5gTrVpGjuL2" resolve="SConceptAdapter" />
             <ref role="37wK5l" node="3ECE8iPOmg5" resolve="wrap" />
             <node concept="35c_gC" id="qmkA5fQ46Y" role="37wK5m">
-              <ref role="35c_gD" to="dj5d:qmkA5fOskf" resolve="Module" />
+              <ref role="35c_gD" to="w7di:qmkA5fOskf" resolve="Module" />
             </node>
           </node>
         </node>
@@ -10669,8 +10668,8 @@
               <ref role="37wK5l" to="wyt6:~String.equals(java.lang.Object)" resolve="equals" />
               <node concept="2OqwBi" id="qmkA5fR5PX" role="37wK5m">
                 <node concept="359W_D" id="qmkA5fR5PY" role="2Oq$k0">
-                  <ref role="359W_E" to="dj5d:qmkA5fOskf" resolve="Module" />
-                  <ref role="359W_F" to="dj5d:qmkA5fOski" resolve="models" />
+                  <ref role="359W_E" to="w7di:qmkA5fOskf" resolve="Module" />
+                  <ref role="359W_F" to="w7di:qmkA5fOski" resolve="models" />
                 </node>
                 <node concept="liA8E" id="qmkA5fR5PZ" role="2OqNvi">
                   <ref role="37wK5l" to="c17a:~SNamedElement.getName()" resolve="getName" />
@@ -10756,8 +10755,8 @@
               <ref role="37wK5l" to="wyt6:~String.equals(java.lang.Object)" resolve="equals" />
               <node concept="2OqwBi" id="3Ezg1fME3lO" role="37wK5m">
                 <node concept="355D3s" id="3Ezg1fME3lP" role="2Oq$k0">
-                  <ref role="355D3t" to="dj5d:qmkA5fOskf" resolve="Module" />
-                  <ref role="355D3u" to="dj5d:3Ezg1fME0bw" resolve="id" />
+                  <ref role="355D3t" to="w7di:qmkA5fOskf" resolve="Module" />
+                  <ref role="355D3u" to="w7di:3Ezg1fME0bw" resolve="id" />
                 </node>
                 <node concept="liA8E" id="3Ezg1fME3lQ" role="2OqNvi">
                   <ref role="37wK5l" to="c17a:~SProperty.getName()" resolve="getName" />
@@ -10885,12 +10884,12 @@
                   </node>
                 </node>
                 <node concept="359W_D" id="78D6RWLiMch" role="3K4GZi">
-                  <ref role="359W_E" to="dj5d:qmkA5fOskm" resolve="Repository" />
-                  <ref role="359W_F" to="dj5d:qmkA5fOskn" resolve="modules" />
+                  <ref role="359W_E" to="w7di:qmkA5fOskm" resolve="Repository" />
+                  <ref role="359W_F" to="w7di:qmkA5fOskn" resolve="modules" />
                 </node>
                 <node concept="359W_D" id="78D6RWLiMvL" role="3K4E3e">
-                  <ref role="359W_E" to="dj5d:qmkA5fOskm" resolve="Repository" />
-                  <ref role="359W_F" to="dj5d:78D6RWLi6Va" resolve="tempModules" />
+                  <ref role="359W_E" to="w7di:qmkA5fOskm" resolve="Repository" />
+                  <ref role="359W_F" to="w7di:78D6RWLi6Va" resolve="tempModules" />
                 </node>
               </node>
             </node>
@@ -11165,7 +11164,7 @@
             <ref role="1Pybhc" node="5gTrVpGjuL2" resolve="SConceptAdapter" />
             <ref role="37wK5l" node="3ECE8iPOmg5" resolve="wrap" />
             <node concept="35c_gC" id="qmkA5fQ4hs" role="37wK5m">
-              <ref role="35c_gD" to="dj5d:qmkA5fOskc" resolve="Model" />
+              <ref role="35c_gD" to="w7di:qmkA5fOskc" resolve="Model" />
             </node>
           </node>
         </node>
@@ -11206,8 +11205,8 @@
               <ref role="37wK5l" to="wyt6:~String.equals(java.lang.Object)" resolve="equals" />
               <node concept="2OqwBi" id="qmkA5fRGJV" role="37wK5m">
                 <node concept="359W_D" id="qmkA5fRG1N" role="2Oq$k0">
-                  <ref role="359W_E" to="dj5d:qmkA5fOskc" resolve="Model" />
-                  <ref role="359W_F" to="dj5d:qmkA5fOskk" resolve="rootNodes" />
+                  <ref role="359W_E" to="w7di:qmkA5fOskc" resolve="Model" />
+                  <ref role="359W_F" to="w7di:qmkA5fOskk" resolve="rootNodes" />
                 </node>
                 <node concept="liA8E" id="qmkA5fRHaQ" role="2OqNvi">
                   <ref role="37wK5l" to="c17a:~SNamedElement.getName()" resolve="getName" />
@@ -11348,8 +11347,8 @@
         <node concept="3clFbF" id="qmkA5fRbWD" role="3cqZAp">
           <node concept="2OqwBi" id="qmkA5fRc$S" role="3clFbG">
             <node concept="359W_D" id="qmkA5fRbWC" role="2Oq$k0">
-              <ref role="359W_E" to="dj5d:qmkA5fOskf" resolve="Module" />
-              <ref role="359W_F" to="dj5d:qmkA5fOski" resolve="models" />
+              <ref role="359W_E" to="w7di:qmkA5fOskf" resolve="Module" />
+              <ref role="359W_F" to="w7di:qmkA5fOski" resolve="models" />
             </node>
             <node concept="liA8E" id="qmkA5fRcYN" role="2OqNvi">
               <ref role="37wK5l" to="c17a:~SNamedElement.getName()" resolve="getName" />
