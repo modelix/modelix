@@ -17,7 +17,6 @@
     <import index="mhbf" ref="8865b7a8-5271-43d3-884c-6fd1d9cfdd34/java:org.jetbrains.mps.openapi.model(MPS.OpenAPI/)" />
     <import index="tpcu" ref="r:00000000-0000-4000-0000-011c89590282(jetbrains.mps.lang.core.behavior)" />
     <import index="tpck" ref="r:00000000-0000-4000-0000-011c89590288(jetbrains.mps.lang.core.structure)" />
-    <import index="3o3z" ref="ecfb9949-7433-4db5-85de-0f84d172e4ce/java:com.google.common.collect(de.q60.mps.libs/)" />
     <import index="lui2" ref="8865b7a8-5271-43d3-884c-6fd1d9cfdd34/java:org.jetbrains.mps.openapi.module(MPS.OpenAPI/)" />
     <import index="33ny" ref="6354ebe7-c22a-4a0f-ac54-50b52ab9b065/java:java.util(JDK/)" />
     <import index="w1kc" ref="6ed54515-acc8-4d1e-a16c-9fd6cfe951ea/java:jetbrains.mps.smodel(MPS.Core/)" />
@@ -33,8 +32,9 @@
     <import index="w0gx" ref="6ed54515-acc8-4d1e-a16c-9fd6cfe951ea/java:jetbrains.mps.project.structure.modules(MPS.Core/)" />
     <import index="z1c3" ref="6ed54515-acc8-4d1e-a16c-9fd6cfe951ea/java:jetbrains.mps.project(MPS.Core/)" />
     <import index="guwi" ref="6354ebe7-c22a-4a0f-ac54-50b52ab9b065/java:java.io(JDK/)" />
-    <import index="oiz2" ref="ecfb9949-7433-4db5-85de-0f84d172e4ce/java:gnu.trove.map(de.q60.mps.libs/)" />
-    <import index="5ka6" ref="ecfb9949-7433-4db5-85de-0f84d172e4ce/java:gnu.trove.map.hash(de.q60.mps.libs/)" />
+    <import index="3o3z" ref="87f4b21e-a3a5-459e-a54b-408fd9eb7350/java:com.google.common.collect(org.modelix.lib/)" />
+    <import index="5ka6" ref="87f4b21e-a3a5-459e-a54b-408fd9eb7350/java:gnu.trove.map.hash(org.modelix.lib/)" />
+    <import index="oiz2" ref="87f4b21e-a3a5-459e-a54b-408fd9eb7350/java:gnu.trove.map(org.modelix.lib/)" />
     <import index="dj5d" ref="r:8bca245c-17c6-44f4-9367-ad6ce25cabf5(de.q60.mps.shadowmodels.runtimelang.structure)" implicit="true" />
   </imports>
   <registry>
@@ -13020,14 +13020,14 @@
     </node>
     <node concept="312cEg" id="29etMtb9$V9" role="jymVt">
       <property role="TrG5h" value="model" />
-      <node concept="3Tm6S6" id="29etMtb9$Va" role="1B3o_S" />
+      <node concept="3Tmbuc" id="3uw$nPCIaX2" role="1B3o_S" />
       <node concept="3uibUv" id="29etMtb9$Vb" role="1tU5fm">
         <ref role="3uigEE" to="mhbf:~SModel" resolve="SModel" />
       </node>
     </node>
     <node concept="312cEg" id="29etMtb9$Vc" role="jymVt">
       <property role="TrG5h" value="pendingReferences" />
-      <node concept="3Tm6S6" id="29etMtb9$Vd" role="1B3o_S" />
+      <node concept="3Tmbuc" id="3uw$nPCIcmD" role="1B3o_S" />
       <node concept="_YKpA" id="29etMtb9$Ve" role="1tU5fm">
         <node concept="1ajhzC" id="29etMtb9$Vf" role="_ZDj9">
           <node concept="3cqZAl" id="29etMtb9$Vg" role="1ajl9A" />
@@ -13043,7 +13043,7 @@
     </node>
     <node concept="312cEg" id="29etMtb9$Vp" role="jymVt">
       <property role="TrG5h" value="modelNodeId" />
-      <node concept="3Tm6S6" id="29etMtb9$Vq" role="1B3o_S" />
+      <node concept="3Tmbuc" id="3uw$nPCI9pz" role="1B3o_S" />
       <node concept="3cpWsb" id="29etMtb9$Vr" role="1tU5fm" />
     </node>
     <node concept="2tJIrI" id="29etMtb9_ag" role="jymVt" />
@@ -13174,8 +13174,8 @@
             </node>
             <node concept="2OqwBi" id="29etMtblgIy" role="37wK5m">
               <node concept="359W_D" id="29etMtblgIz" role="2Oq$k0">
-                <ref role="359W_E" to="dj5d:qmkA5fOskc" resolve="Model" />
-                <ref role="359W_F" to="dj5d:qmkA5fOskk" resolve="rootNodes" />
+                <ref role="359W_E" to="w7di:qmkA5fOskc" resolve="Model" />
+                <ref role="359W_F" to="w7di:qmkA5fOskk" resolve="rootNodes" />
               </node>
               <node concept="liA8E" id="29etMtblgI$" role="2OqNvi">
                 <ref role="37wK5l" to="c17a:~SNamedElement.getName()" resolve="getName" />
@@ -15073,8 +15073,8 @@
               <node concept="17R0WA" id="29etMtb9_qu" role="3uHU7w">
                 <node concept="2OqwBi" id="29etMtb9_qv" role="3uHU7w">
                   <node concept="359W_D" id="29etMtb9_qw" role="2Oq$k0">
-                    <ref role="359W_E" to="dj5d:qmkA5fOskc" resolve="Model" />
-                    <ref role="359W_F" to="dj5d:qmkA5fOskk" resolve="rootNodes" />
+                    <ref role="359W_E" to="w7di:qmkA5fOskc" resolve="Model" />
+                    <ref role="359W_F" to="w7di:qmkA5fOskk" resolve="rootNodes" />
                   </node>
                   <node concept="liA8E" id="29etMtb9_qx" role="2OqNvi">
                     <ref role="37wK5l" to="c17a:~SNamedElement.getName()" resolve="getName" />
