@@ -106,10 +106,14 @@ class VersionMerger(private val storeCache: IDeserializingKeyValueStore, private
     }
 
     private fun captureIntend(version: CLVersion): List<IOperationIntend> {
-        val tree = version.baseVersion!!.tree
+        val operations = version.operations.toList()
+        if (operations.isEmpty()) return listOf()
+        val baseVersion = version.baseVersion
+            ?: throw RuntimeException("Version ${version.hash} has operations but no baseVersion")
+        val tree = baseVersion.tree
         val branch = TreePointer(tree)
         return branch.computeWrite {
-            version.operations.map {
+            operations.map {
                 val intend = it.captureIntend(branch.transaction.tree, storeCache)
                 it.apply(branch.writeTransaction, storeCache)
                 intend
