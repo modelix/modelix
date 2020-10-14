@@ -84,6 +84,12 @@ publishing {
 
             from components.java
         }
+        modelServerFatJar(MavenPublication) {
+            groupId project.group
+            version project.version
+
+            artifact fatJar
+        }
     }
 }
 
@@ -104,7 +110,7 @@ bintray {
         }
     }
 
-    publications = ['modelServer']
+    publications = ['modelServer', 'modelServerFatJar']
     dryRun = false
     publish = true
     override = true
