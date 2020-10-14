@@ -54,6 +54,12 @@ task fatJar(type: Jar) {
     with jar
 }
 
+def fatJarFile = file("$buildDir/libs/model-server-fatJar-latest.jar")
+def fatJarArtifact = artifacts.add('archives', fatJarFile) {
+    type 'jar'
+    builtBy 'fatJar'
+}
+
 task cucumber() {
     dependsOn fatJar, compileTestJava
     doLast {
@@ -86,9 +92,10 @@ publishing {
         }
         modelServerFatJar(MavenPublication) {
             groupId project.group
+            artifactId 'model-server-fatjar'
             version project.version
 
-            artifact fatJar
+            artifact fatJarArtifact
         }
     }
 }
@@ -106,7 +113,7 @@ bintray {
             name = 'v' + project.version
             desc = 'Version ' + project.version
             released = new Date()
-            vcsTag = 'v'+project.version
+            vcsTag = 'v' + project.version
         }
     }
 
