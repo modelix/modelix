@@ -407,33 +407,22 @@
       <node concept="3clFbS" id="26ispG7ZZOK" role="2VODD2">
         <node concept="3J1_TO" id="4rrX99omHZy" role="3cqZAp">
           <node concept="3clFbS" id="4rrX99omHZ$" role="1zxBo7">
-            <node concept="3clFbF" id="rF2pzCbtRU" role="3cqZAp">
-              <node concept="2OqwBi" id="rF2pzCbtRR" role="3clFbG">
-                <node concept="10M0yZ" id="rF2pzCbtRS" role="2Oq$k0">
-                  <ref role="1PxDUh" to="wyt6:~System" resolve="System" />
-                  <ref role="3cqZAo" to="wyt6:~System.out" resolve="out" />
-                </node>
-                <node concept="liA8E" id="rF2pzCbtRT" role="2OqNvi">
-                  <ref role="37wK5l" to="guwi:~PrintStream.println(java.lang.String)" resolve="println" />
-                  <node concept="Xl_RD" id="rF2pzCbu4S" role="37wK5m">
-                    <property role="Xl_RC" value="modelix model plugin loaded" />
-                  </node>
-                </node>
-              </node>
-            </node>
-            <node concept="RRSsy" id="rF2pzCbH07" role="3cqZAp">
-              <property role="RRSoG" value="gZ5fh_4/error" />
-              <node concept="Xl_RD" id="rF2pzCbH09" role="RRSoy">
-                <property role="Xl_RC" value="Application Plugin init" />
-              </node>
-              <node concept="2ShNRf" id="rF2pzCbHws" role="RRSow">
-                <node concept="1pGfFk" id="rF2pzCbIcL" role="2ShVmc">
-                  <ref role="37wK5l" to="wyt6:~Exception.&lt;init&gt;()" resolve="Exception" />
-                </node>
-              </node>
-            </node>
             <node concept="3clFbJ" id="7PIbTorqz35" role="3cqZAp">
               <node concept="3clFbS" id="7PIbTorqz37" role="3clFbx">
+                <node concept="3clFbF" id="rF2pzCbtRU" role="3cqZAp">
+                  <node concept="2OqwBi" id="rF2pzCbtRR" role="3clFbG">
+                    <node concept="10M0yZ" id="rF2pzCbtRS" role="2Oq$k0">
+                      <ref role="1PxDUh" to="wyt6:~System" resolve="System" />
+                      <ref role="3cqZAo" to="wyt6:~System.out" resolve="out" />
+                    </node>
+                    <node concept="liA8E" id="rF2pzCbtRT" role="2OqNvi">
+                      <ref role="37wK5l" to="guwi:~PrintStream.println(java.lang.String)" resolve="println" />
+                      <node concept="Xl_RD" id="rF2pzCbu4S" role="37wK5m">
+                        <property role="Xl_RC" value="modelix model plugin loaded" />
+                      </node>
+                    </node>
+                  </node>
+                </node>
                 <node concept="3cpWs8" id="29etMtbjEs4" role="3cqZAp">
                   <node concept="3cpWsn" id="29etMtbjEs5" role="3cpWs9">
                     <property role="TrG5h" value="exportPath" />
