@@ -5637,8 +5637,13 @@
                                                                         <property role="Xl_RC" value=" [" />
                                                                       </node>
                                                                     </node>
-                                                                    <node concept="37vLTw" id="49CIzapJbfl" role="3uHU7w">
-                                                                      <ref role="3cqZAo" node="49CIzapIUUf" resolve="concept" />
+                                                                    <node concept="2OqwBi" id="79SMJMfhPSF" role="3uHU7w">
+                                                                      <node concept="37vLTw" id="49CIzapJbfl" role="2Oq$k0">
+                                                                        <ref role="3cqZAo" node="49CIzapIUUf" resolve="concept" />
+                                                                      </node>
+                                                                      <node concept="liA8E" id="5zNaqOEhjhX" role="2OqNvi">
+                                                                        <ref role="37wK5l" to="jks5:~IConcept.getLongName()" resolve="getLongName" />
+                                                                      </node>
                                                                     </node>
                                                                   </node>
                                                                   <node concept="Xl_RD" id="49CIzapJacq" role="3uHU7w">
