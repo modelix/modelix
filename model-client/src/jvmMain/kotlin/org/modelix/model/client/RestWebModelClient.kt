@@ -33,6 +33,8 @@ import java.io.File
 import java.net.URLEncoder
 import java.nio.charset.StandardCharsets
 import java.util.Objects
+import java.util.concurrent.ExecutorService
+import java.util.concurrent.Executors
 import java.util.concurrent.ScheduledFuture
 import java.util.concurrent.TimeUnit
 import java.util.function.Consumer
@@ -99,6 +101,7 @@ class RestWebModelClient @JvmOverloads constructor(var baseUrl: String? = null, 
             return field
         }
         private set
+    private val executorService: ExecutorService = Executors.newFixedThreadPool(10)
     private val client: Client
     private val sseClient: Client
     private val listeners: MutableList<SseListener> = ArrayList()
@@ -117,6 +120,7 @@ class RestWebModelClient @JvmOverloads constructor(var baseUrl: String? = null, 
             listeners.forEach(Consumer { obj: SseListener -> obj.dispose() })
             listeners.clear()
         }
+        executorService.shutdown()
     }
 
     override fun get(key: String): String? {
@@ -373,10 +377,12 @@ class RestWebModelClient @JvmOverloads constructor(var baseUrl: String? = null, 
         // is useful to recognize when the server is down
         client = ClientBuilder.newBuilder()
             .connectTimeout(1000, TimeUnit.MILLISECONDS)
+            .executorService(executorService)
             // .readTimeout(1000, TimeUnit.MILLISECONDS)
             .register(ClientRequestFilter { ctx -> ctx.headers.add(HttpHeaders.AUTHORIZATION, "Bearer $authToken") }).build()
         sseClient = ClientBuilder.newBuilder()
             .connectTimeout(1000, TimeUnit.MILLISECONDS)
+            .executorService(executorService)
             .register(ClientRequestFilter { ctx -> ctx.headers.add(HttpHeaders.AUTHORIZATION, "Bearer $authToken") }).build()
         idGenerator = IdGenerator(clientId)
         watchDogTask = fixDelay(
