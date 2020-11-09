@@ -13,7 +13,7 @@ source_gen.caches
 
 kubernetes/secrets
 ssl/cert
-mps/org.modelix.ui.server/lib/ui-client-*.jar
+mps/org.modelix.ui.server/lib/ui-client.jar
 mps/org.modelix.model.client/lib
 
 # modules are configured by gradle
