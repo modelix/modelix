@@ -5,7 +5,7 @@
       <sourceRoot location="models" />
     </modelRoot>
     <modelRoot contentPath="${module}/lib" type="java_classes">
-      <sourceRoot location="ui-client-2020.1-SNAPSHOT.jar" />
+      <sourceRoot location="ui-client-2020.1.1-SNAPSHOT.jar" />
     </modelRoot>
   </models>
   <facets>
@@ -14,7 +14,7 @@
     </facet>
   </facets>
   <stubModelEntries>
-    <stubModelEntry path="${module}/lib/ui-client-2020.1-SNAPSHOT.jar" />
+    <stubModelEntry path="${module}/lib/ui-client-2020.1.1-SNAPSHOT.jar" />
   </stubModelEntries>
   <sourcePath />
   <dependencies>
