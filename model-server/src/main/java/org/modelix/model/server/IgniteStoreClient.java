@@ -43,7 +43,8 @@ public class IgniteStoreClient implements IStoreClient {
     /**
      * Istantiate an IgniteStoreClient
      *
-     * @param jdbcConfFile adopt the configuration specified. If it is not specified, configuration from ignite.xml is used
+     * @param jdbcConfFile adopt the configuration specified. If it is not specified, configuration
+     *     from ignite.xml is used
      */
     public IgniteStoreClient(@Nullable File jdbcConfFile) {
         if (jdbcConfFile != null) {

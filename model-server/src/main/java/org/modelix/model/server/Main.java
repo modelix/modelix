@@ -25,20 +25,17 @@ import java.nio.charset.StandardCharsets;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.LinkedList;
 import java.util.List;
+import javax.sql.DataSource;
 import org.apache.commons.io.FileUtils;
 import org.apache.ignite.Ignition;
-import org.apache.log4j.ConsoleAppender;
 import org.apache.log4j.Logger;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.HandlerList;
 import org.eclipse.jetty.servlet.ServletContextHandler;
-
-import javax.sql.DataSource;
 
 class CmdLineArgs {
 
@@ -93,27 +90,30 @@ class SqlUtils {
         DatabaseMetaData metadata = connection.getMetaData();
         ResultSet schemasRS = metadata.getTables(null, schemaName, tableName, null);
         while (schemasRS.next()) {
-            if (schemasRS.getString("table_schem").equals(schemaName) && schemasRS.getString("table_name").equals(tableName)) {
+            if (schemasRS.getString("table_schem").equals(schemaName)
+                    && schemasRS.getString("table_name").equals(tableName)) {
                 return true;
             }
         }
         return false;
     }
 
-    void ensureTableIsPresent(String schemaName, String username, String tableName, String creationSql) throws SQLException {
+    void ensureTableIsPresent(
+            String schemaName, String username, String tableName, String creationSql)
+            throws SQLException {
         if (!isTableExisting(schemaName, tableName)) {
             Statement stmt = connection.createStatement();
             stmt.execute(creationSql);
         }
         Statement stmt = connection.createStatement();
-        stmt.execute("GRANT ALL ON TABLE " + schemaName + "." + tableName + " TO " + username + ";");
+        stmt.execute(
+                "GRANT ALL ON TABLE " + schemaName + "." + tableName + " TO " + username + ";");
     }
 
     void ensureSchemaIsPresent(String schemaName, String username) throws SQLException {
         if (!isSchemaExisting(schemaName)) {
             Statement stmt = connection.createStatement();
-            stmt.execute("CREATE SCHEMA " + schemaName+ ";");
-
+            stmt.execute("CREATE SCHEMA " + schemaName + ";");
         }
         Statement stmt = connection.createStatement();
         stmt.execute("GRANT ALL ON SCHEMA " + schemaName + " TO " + username + ";");
@@ -141,13 +141,19 @@ public class Main {
         try {
             SqlUtils sqlUtils = new SqlUtils(dataSource.getConnection());
             sqlUtils.ensureSchemaIsPresent(schemaName, userName);
-            sqlUtils.ensureTableIsPresent(schemaName, userName, "model", "CREATE TABLE " + schemaName+ ".model\n" +
-                    "(\n" +
-                    "    key character varying NOT NULL,\n" +
-                    "    value character varying,\n" +
-                    "    reachable boolean,\n" +
-                    "    CONSTRAINT kv_pkey PRIMARY KEY (key)\n" +
-                    ");");
+            sqlUtils.ensureTableIsPresent(
+                    schemaName,
+                    userName,
+                    "model",
+                    "CREATE TABLE "
+                            + schemaName
+                            + ".model\n"
+                            + "(\n"
+                            + "    key character varying NOT NULL,\n"
+                            + "    value character varying,\n"
+                            + "    reachable boolean,\n"
+                            + "    CONSTRAINT kv_pkey PRIMARY KEY (key)\n"
+                            + ");");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -183,7 +189,9 @@ public class Main {
             } else {
                 storeClient = new IgniteStoreClient(cmdLineArgs.jdbcConfFile);
                 if (cmdLineArgs.schemaInit) {
-                    DataSource dataSource = Ignition.loadSpringBean(Main.class.getResource("ignite.xml"), "dataSource");
+                    DataSource dataSource =
+                            Ignition.loadSpringBean(
+                                    Main.class.getResource("ignite.xml"), "dataSource");
                     ensureSchemaInitialization(dataSource);
                 }
             }
