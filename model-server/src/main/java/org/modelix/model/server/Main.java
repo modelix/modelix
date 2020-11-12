@@ -78,16 +78,6 @@ class SqlUtils {
         this.connection = connection;
     }
 
-//    private int getColumnIndex(ResultSetMetaData resultSetMetaData, String columnName) throws SQLException {
-//        for (int i=1;i<=resultSetMetaData.getColumnCount();i++) {
-//            String cn = resultSetMetaData.getColumnName(i);
-//            if (cn.equals(columnName)) {
-//                return i;
-//            }
-//        }
-//        throw new IllegalStateException("Column not found");
-//    }
-
     boolean isSchemaExisting(String schemaName) throws SQLException {
         DatabaseMetaData metadata = connection.getMetaData();
         ResultSet schemasRS = metadata.getSchemas();
