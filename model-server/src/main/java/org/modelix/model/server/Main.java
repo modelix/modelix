@@ -22,13 +22,23 @@ import java.io.File;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.nio.charset.StandardCharsets;
+import java.sql.Connection;
+import java.sql.DatabaseMetaData;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.LinkedList;
 import java.util.List;
 import org.apache.commons.io.FileUtils;
+import org.apache.ignite.Ignition;
+import org.apache.log4j.ConsoleAppender;
 import org.apache.log4j.Logger;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.HandlerList;
 import org.eclipse.jetty.servlet.ServletContextHandler;
+
+import javax.sql.DataSource;
 
 class CmdLineArgs {
 
@@ -52,11 +62,106 @@ class CmdLineArgs {
 
     @Parameter(names = "-set", description = "Set values", arity = 2)
     List<String> setValues = new LinkedList<>();
+
+    @Parameter(
+            names = "-schemainit",
+            description = "Initialize the schema, if necessary",
+            converter = BooleanConverter.class)
+    Boolean schemaInit = false;
+}
+
+class SqlUtils {
+    private static final Logger LOG = Logger.getLogger(SqlUtils.class);
+    private Connection connection;
+
+    SqlUtils(Connection connection) {
+        this.connection = connection;
+    }
+
+//    private int getColumnIndex(ResultSetMetaData resultSetMetaData, String columnName) throws SQLException {
+//        for (int i=1;i<=resultSetMetaData.getColumnCount();i++) {
+//            String cn = resultSetMetaData.getColumnName(i);
+//            if (cn.equals(columnName)) {
+//                return i;
+//            }
+//        }
+//        throw new IllegalStateException("Column not found");
+//    }
+
+    boolean isSchemaExisting(String schemaName) throws SQLException {
+        DatabaseMetaData metadata = connection.getMetaData();
+        ResultSet schemasRS = metadata.getSchemas();
+        while (schemasRS.next()) {
+            if (schemasRS.getString("table_schem").equals(schemaName)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    boolean isTableExisting(String schemaName, String tableName) throws SQLException {
+        DatabaseMetaData metadata = connection.getMetaData();
+        ResultSet schemasRS = metadata.getTables(null, schemaName, tableName, null);
+        while (schemasRS.next()) {
+            if (schemasRS.getString("table_schem").equals(schemaName) && schemasRS.getString("table_name").equals(tableName)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    void ensureTableIsPresent(String schemaName, String username, String tableName, String creationSql) throws SQLException {
+        if (!isTableExisting(schemaName, tableName)) {
+            Statement stmt = connection.createStatement();
+            stmt.execute(creationSql);
+        }
+        Statement stmt = connection.createStatement();
+        stmt.execute("GRANT ALL ON TABLE " + schemaName + "." + tableName + " TO " + username + ";");
+    }
+
+    void ensureSchemaIsPresent(String schemaName, String username) throws SQLException {
+        if (!isSchemaExisting(schemaName)) {
+            Statement stmt = connection.createStatement();
+            stmt.execute("CREATE SCHEMA " + schemaName+ ";");
+
+        }
+        Statement stmt = connection.createStatement();
+        stmt.execute("GRANT ALL ON SCHEMA " + schemaName + " TO " + username + ";");
+    }
 }
 
 public class Main {
     private static final Logger LOG = Logger.getLogger(Main.class);
     public static final int DEFAULT_PORT = 28101;
+    private static final String DEFAULT_DB_USER_NAME = "modelix";
+    private static final String DEFAULT_SCHEMA_NAME = "modelix";
+
+    private static void ensureSchemaInitialization(DataSource dataSource) {
+        String userName = System.getProperty("jdbc.user");
+        if (userName == null) {
+            userName = DEFAULT_DB_USER_NAME;
+        }
+        String schemaName = System.getProperty("jdbc.schema");
+        if (schemaName == null) {
+            schemaName = DEFAULT_SCHEMA_NAME;
+        }
+        LOG.info("ensuring schema initialization");
+        LOG.info("  schema: " + schemaName);
+        LOG.info("  db username: " + userName);
+        try {
+            SqlUtils sqlUtils = new SqlUtils(dataSource.getConnection());
+            sqlUtils.ensureSchemaIsPresent(schemaName, userName);
+            sqlUtils.ensureTableIsPresent(schemaName, userName, "model", "CREATE TABLE " + schemaName+ ".model\n" +
+                    "(\n" +
+                    "    key character varying NOT NULL,\n" +
+                    "    value character varying,\n" +
+                    "    reachable boolean,\n" +
+                    "    CONSTRAINT kv_pkey PRIMARY KEY (key)\n" +
+                    ");");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
     public static void main(String[] args) {
         CmdLineArgs cmdLineArgs = new CmdLineArgs();
@@ -67,6 +172,7 @@ public class Main {
         LOG.info("In memory: " + cmdLineArgs.inmemory);
         LOG.info("Path to secret file: " + cmdLineArgs.secretFile);
         LOG.info("Path to JDBC configuration file: " + cmdLineArgs.jdbcConfFile);
+        LOG.info("Schema initialization: " + cmdLineArgs.schemaInit);
         LOG.info("Set values: " + cmdLineArgs.setValues);
 
         try {
@@ -80,9 +186,16 @@ public class Main {
                 if (cmdLineArgs.jdbcConfFile != null) {
                     LOG.warn("JDBC conf file is ignored when in-memory flag is set");
                 }
+                if (cmdLineArgs.schemaInit) {
+                    LOG.warn("Schema initialization is ignored when in-memory flag is set");
+                }
                 storeClient = new InMemoryStoreClient();
             } else {
                 storeClient = new IgniteStoreClient(cmdLineArgs.jdbcConfFile);
+                if (cmdLineArgs.schemaInit) {
+                    DataSource dataSource = Ignition.loadSpringBean(Main.class.getResource("ignite.xml"), "dataSource");
+                    ensureSchemaInitialization(dataSource);
+                }
             }
             int i = 0;
             while (i < cmdLineArgs.setValues.size()) {
