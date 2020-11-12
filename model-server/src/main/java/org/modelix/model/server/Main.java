@@ -172,7 +172,7 @@ public class Main {
         LOG.info("Set values: " + cmdLineArgs.setValues);
 
         try {
-            String portStr = System.getenv("PORT");
+            String portStr = System.getenv("MODELIX_SERVER_PORT");
             int port = portStr == null ? 28101 : Integer.parseInt(portStr);
             LOG.info("Port: " + port);
             InetSocketAddress bindTo =
