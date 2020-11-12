@@ -32,6 +32,7 @@
     <import index="v18h" ref="0a2651ab-f212-45c2-a2f0-343e76cbc26b/java:kotlin(org.modelix.model.client/)" />
     <import index="w1kc" ref="6ed54515-acc8-4d1e-a16c-9fd6cfe951ea/java:jetbrains.mps.smodel(MPS.Core/)" />
     <import index="cddg" ref="86441d7a-e194-42da-81a5-2161ec62a379/java:jetbrains.mps.plugins.applicationplugins(MPS.Workbench/)" />
+    <import index="alof" ref="742f6602-5a2f-4313-aa6e-ae1cd4ffdc61/java:jetbrains.mps.ide.project(MPS.Platform/)" />
     <import index="guwi" ref="6354ebe7-c22a-4a0f-ac54-50b52ab9b065/java:java.io(JDK/)" implicit="true" />
     <import index="71xd" ref="742f6602-5a2f-4313-aa6e-ae1cd4ffdc61/java:jetbrains.mps.ide.tools(MPS.Platform/)" implicit="true" />
     <import index="c17a" ref="8865b7a8-5271-43d3-884c-6fd1d9cfdd34/java:org.jetbrains.mps.openapi.language(MPS.OpenAPI/)" implicit="true" />
@@ -284,6 +285,7 @@
         <reference id="1116615189566" name="classifier" index="3VsUkX" />
       </concept>
       <concept id="1178893518978" name="jetbrains.mps.baseLanguage.structure.ThisConstructorInvocation" flags="nn" index="1VxSAg" />
+      <concept id="1080120340718" name="jetbrains.mps.baseLanguage.structure.AndExpression" flags="nn" index="1Wc70l" />
     </language>
     <language id="fd392034-7849-419d-9071-12563d152375" name="jetbrains.mps.baseLanguage.closures">
       <concept id="1199569711397" name="jetbrains.mps.baseLanguage.closures.structure.ClosureLiteral" flags="nn" index="1bVj0M">
@@ -305,6 +307,11 @@
       </concept>
     </language>
     <language id="760a0a8c-eabb-4521-8bfd-65db761a9ba3" name="jetbrains.mps.baseLanguage.logging">
+      <concept id="6332851714983831325" name="jetbrains.mps.baseLanguage.logging.structure.MsgStatement" flags="ng" index="2xdQw9">
+        <property id="6332851714983843871" name="severity" index="2xdLsb" />
+        <child id="5721587534047265560" name="project" index="9lYEk" />
+        <child id="5721587534047265374" name="message" index="9lYJi" />
+      </concept>
       <concept id="2034914114981261497" name="jetbrains.mps.baseLanguage.logging.structure.LogLowLevelStatement" flags="ng" index="RRSsy">
         <property id="2034914114981261751" name="severity" index="RRSoG" />
         <child id="2034914114981261755" name="throwable" index="RRSow" />
@@ -1081,6 +1088,83 @@
         </node>
         <node concept="3clFbJ" id="6aRQr1WPM6n" role="3cqZAp">
           <node concept="3clFbS" id="6aRQr1WPM6p" role="3clFbx">
+            <node concept="3clFbJ" id="2i9Xe7pKD3C" role="3cqZAp">
+              <node concept="3clFbS" id="2i9Xe7pKD3E" role="3clFbx">
+                <node concept="3cpWs8" id="2i9Xe7pKEs3" role="3cqZAp">
+                  <node concept="3cpWsn" id="2i9Xe7pKEs6" role="3cpWs9">
+                    <property role="TrG5h" value="originalUrl" />
+                    <node concept="17QB3L" id="2i9Xe7pKEs1" role="1tU5fm" />
+                    <node concept="37vLTw" id="2i9Xe7pKEtc" role="33vP2m">
+                      <ref role="3cqZAo" node="6aRQr1WODg4" resolve="url" />
+                    </node>
+                  </node>
+                </node>
+                <node concept="3clFbF" id="2i9Xe7pKDTI" role="3cqZAp">
+                  <node concept="37vLTI" id="2i9Xe7pKDUt" role="3clFbG">
+                    <node concept="3cpWs3" id="2i9Xe7pKDVA" role="37vLTx">
+                      <node concept="Xl_RD" id="2i9Xe7pKDWo" role="3uHU7w">
+                        <property role="Xl_RC" value="/" />
+                      </node>
+                      <node concept="37vLTw" id="2i9Xe7pKDUO" role="3uHU7B">
+                        <ref role="3cqZAo" node="6aRQr1WODg4" resolve="url" />
+                      </node>
+                    </node>
+                    <node concept="37vLTw" id="2i9Xe7pKDTG" role="37vLTJ">
+                      <ref role="3cqZAo" node="6aRQr1WODg4" resolve="url" />
+                    </node>
+                  </node>
+                </node>
+                <node concept="2xdQw9" id="2i9Xe7pKE8T" role="3cqZAp">
+                  <property role="2xdLsb" value="h1akgim/info" />
+                  <node concept="3cpWs3" id="2i9Xe7pKFo6" role="9lYJi">
+                    <node concept="Xl_RD" id="2i9Xe7pKFog" role="3uHU7w">
+                      <property role="Xl_RC" value="'" />
+                    </node>
+                    <node concept="3cpWs3" id="2i9Xe7pKFlK" role="3uHU7B">
+                      <node concept="3cpWs3" id="2i9Xe7pKEWQ" role="3uHU7B">
+                        <node concept="3cpWs3" id="2i9Xe7pKEVl" role="3uHU7B">
+                          <node concept="Xl_RD" id="2i9Xe7pKE8V" role="3uHU7B">
+                            <property role="Xl_RC" value="A Modelix Cloud Repository URL should end with a slash. URL modified from '" />
+                          </node>
+                          <node concept="37vLTw" id="2i9Xe7pKEW4" role="3uHU7w">
+                            <ref role="3cqZAo" node="2i9Xe7pKEs6" resolve="originalUrl" />
+                          </node>
+                        </node>
+                        <node concept="Xl_RD" id="2i9Xe7pKEX0" role="3uHU7w">
+                          <property role="Xl_RC" value="' to '" />
+                        </node>
+                      </node>
+                      <node concept="37vLTw" id="2i9Xe7pKFmP" role="3uHU7w">
+                        <ref role="3cqZAo" node="6aRQr1WODg4" resolve="url" />
+                      </node>
+                    </node>
+                  </node>
+                  <node concept="2YIFZM" id="2i9Xe7pLA8C" role="9lYEk">
+                    <ref role="37wK5l" to="alof:~ProjectHelper.fromIdeaProject(com.intellij.openapi.project.Project)" resolve="fromIdeaProject" />
+                    <ref role="1Pybhc" to="alof:~ProjectHelper" resolve="ProjectHelper" />
+                    <node concept="2OqwBi" id="2i9Xe7pLAat" role="37wK5m">
+                      <node concept="2WthIp" id="2i9Xe7pLAaw" role="2Oq$k0" />
+                      <node concept="1DTwFV" id="2i9Xe7pLAay" role="2OqNvi">
+                        <ref role="2WH_rO" node="6aRQr1WO_Ld" resolve="project" />
+                      </node>
+                    </node>
+                  </node>
+                </node>
+              </node>
+              <node concept="3fqX7Q" id="2i9Xe7pKDOW" role="3clFbw">
+                <node concept="2OqwBi" id="2i9Xe7pKDOY" role="3fr31v">
+                  <node concept="37vLTw" id="2i9Xe7pKDOZ" role="2Oq$k0">
+                    <ref role="3cqZAo" node="6aRQr1WODg4" resolve="url" />
+                  </node>
+                  <node concept="liA8E" id="2i9Xe7pKDP0" role="2OqNvi">
+                    <ref role="37wK5l" to="wyt6:~String.endsWith(java.lang.String)" resolve="endsWith" />
+                    <node concept="Xl_RD" id="2i9Xe7pKDP1" role="37wK5m">
+                      <property role="Xl_RC" value="/" />
+                    </node>
+                  </node>
+                </node>
+              </node>
+            </node>
             <node concept="3clFbF" id="6aRQr1WPNrM" role="3cqZAp">
               <node concept="2OqwBi" id="6aRQr1WPNy1" role="3clFbG">
                 <node concept="2YIFZM" id="6aRQr1WPNsl" role="2Oq$k0">
@@ -1096,11 +1180,19 @@
               </node>
             </node>
           </node>
-          <node concept="2OqwBi" id="6aRQr1WPMwc" role="3clFbw">
-            <node concept="37vLTw" id="6aRQr1WPM8R" role="2Oq$k0">
-              <ref role="3cqZAo" node="6aRQr1WODg4" resolve="url" />
+          <node concept="1Wc70l" id="2i9Xe7pKHxj" role="3clFbw">
+            <node concept="2OqwBi" id="6aRQr1WPMwc" role="3uHU7w">
+              <node concept="37vLTw" id="6aRQr1WPM8R" role="2Oq$k0">
+                <ref role="3cqZAo" node="6aRQr1WODg4" resolve="url" />
+              </node>
+              <node concept="17RvpY" id="6aRQr1WPNkC" role="2OqNvi" />
             </node>
-            <node concept="17RvpY" id="6aRQr1WPNkC" role="2OqNvi" />
+            <node concept="3y3z36" id="2i9Xe7pKGTr" role="3uHU7B">
+              <node concept="10Nm6u" id="2i9Xe7pKH7b" role="3uHU7w" />
+              <node concept="37vLTw" id="2i9Xe7pKG5a" role="3uHU7B">
+                <ref role="3cqZAo" node="6aRQr1WODg4" resolve="url" />
+              </node>
+            </node>
           </node>
         </node>
       </node>
