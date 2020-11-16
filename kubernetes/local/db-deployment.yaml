@@ -29,7 +29,7 @@ spec:
           value: modelix
         - name: PGDATA
           value: /var/lib/postgresql/data/pgdata
-        image: modelix/modelix-db:202010011142
+        image: modelix/modelix-db:0.0.7
         imagePullPolicy: IfNotPresent
         name: db
         resources: {}

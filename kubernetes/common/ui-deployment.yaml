@@ -25,7 +25,7 @@ spec:
     spec:
       containers:
       - name: ui
-        image: modelix/modelix-ui:202010011142
+        image: modelix/modelix-ui:0.0.7
         imagePullPolicy: IfNotPresent
         env:
         - name: MODEL_URI

@@ -18,6 +18,8 @@ dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
 }
 
+compileJava.dependsOn(":mps:resolveMps")
+
 jar {
     manifest {
         attributes("Implementation-Version": modelixVersion)

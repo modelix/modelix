@@ -40,11 +40,16 @@ public class IgniteStoreClient implements IStoreClient {
     private final SetMultimap<String, IKeyListener> listeners =
             MultimapBuilder.hashKeys().hashSetValues().build();
 
+    /**
+     * Istantiate an IgniteStoreClient
+     *
+     * @param jdbcConfFile adopt the configuration specified. If it is not specified, configuration
+     *     from ignite.xml is used
+     */
     public IgniteStoreClient(@Nullable File jdbcConfFile) {
         if (jdbcConfFile != null) {
             // Given that systemPropertiesMode is set to 2 (SYSTEM_PROPERTIES_MODE_OVERRIDE) in
-            // ignite.xml, we can override
-            // the properties through system properties
+            // ignite.xml, we can override the properties through system properties
             try {
                 Properties properties = new Properties();
                 properties.load(new FileReader(jdbcConfFile));
