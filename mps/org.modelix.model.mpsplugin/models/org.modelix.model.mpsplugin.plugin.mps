@@ -7,9 +7,9 @@
     <devkit ref="fbc25dd2-5da4-483a-8b19-70928e1b62d7(jetbrains.mps.devkit.general-purpose)" />
   </languages>
   <imports>
-    <import index="csg2" ref="r:b0cc4f86-cf49-4ffc-b138-1f9973329ce1(de.q60.mps.web.model.mpsplugin)" />
+    <import index="csg2" ref="r:b0cc4f86-cf49-4ffc-b138-1f9973329ce1(org.modelix.model.mpsplugin)" />
     <import index="wyt6" ref="6354ebe7-c22a-4a0f-ac54-50b52ab9b065/java:java.lang(JDK/)" />
-    <import index="um17" ref="r:f4bd718a-0e10-4b62-9f5d-6c915f7d4572(de.q60.mps.web.model.mpsplugin.history)" />
+    <import index="um17" ref="r:f4bd718a-0e10-4b62-9f5d-6c915f7d4572(org.modelix.model.mpsplugin.history)" />
     <import index="4nil" ref="r:a50ac3a0-164c-48fd-b7af-208637427fd6(org.modelix.model.mpsplugin.projectview)" />
     <import index="dxuu" ref="6354ebe7-c22a-4a0f-ac54-50b52ab9b065/java:javax.swing(JDK/)" />
     <import index="7e8u" ref="742f6602-5a2f-4313-aa6e-ae1cd4ffdc61/java:jetbrains.mps.ide.ui.tree(MPS.Platform/)" />
@@ -34,6 +34,8 @@
     <import index="i8bi" ref="r:c3548bac-30eb-4a2a-937c-0111d5697309(jetbrains.mps.lang.smodel.generator.smodelAdapter)" />
     <import index="33ny" ref="6354ebe7-c22a-4a0f-ac54-50b52ab9b065/java:java.util(JDK/)" />
     <import index="alof" ref="742f6602-5a2f-4313-aa6e-ae1cd4ffdc61/java:jetbrains.mps.ide.project(MPS.Platform/)" />
+    <import index="1m72" ref="498d89d2-c2e9-11e2-ad49-6cf049e62fe5/java:com.intellij.openapi.components(MPS.IDEA/)" />
+    <import index="mhfm" ref="3f233e7f-b8a6-46d2-a57f-795d56775243/java:org.jetbrains.annotations(Annotations/)" />
     <import index="guwi" ref="6354ebe7-c22a-4a0f-ac54-50b52ab9b065/java:java.io(JDK/)" implicit="true" />
     <import index="71xd" ref="742f6602-5a2f-4313-aa6e-ae1cd4ffdc61/java:jetbrains.mps.ide.tools(MPS.Platform/)" implicit="true" />
     <import index="hvt5" ref="0a2651ab-f212-45c2-a2f0-343e76cbc26b/java:org.modelix.model(org.modelix.model.client/)" implicit="true" />
@@ -155,9 +157,17 @@
       <concept id="1465982738277781862" name="jetbrains.mps.baseLanguage.structure.PlaceholderMember" flags="ng" index="2tJIrI" />
       <concept id="1188207840427" name="jetbrains.mps.baseLanguage.structure.AnnotationInstance" flags="nn" index="2AHcQZ">
         <reference id="1188208074048" name="annotation" index="2AI5Lk" />
+        <child id="1188214630783" name="value" index="2B76xF" />
       </concept>
       <concept id="1188208481402" name="jetbrains.mps.baseLanguage.structure.HasAnnotation" flags="ng" index="2AJDlI">
         <child id="1188208488637" name="annotation" index="2AJF6D" />
+      </concept>
+      <concept id="1188214545140" name="jetbrains.mps.baseLanguage.structure.AnnotationInstanceValue" flags="ng" index="2B6LJw">
+        <reference id="1188214555875" name="key" index="2B6OnR" />
+        <child id="1188214607812" name="value" index="2B70Vg" />
+      </concept>
+      <concept id="2820489544401957797" name="jetbrains.mps.baseLanguage.structure.DefaultClassCreator" flags="nn" index="HV5vD">
+        <reference id="2820489544401957798" name="classifier" index="HV5vE" />
       </concept>
       <concept id="1154032098014" name="jetbrains.mps.baseLanguage.structure.AbstractLoopStatement" flags="nn" index="2LF5Ji">
         <child id="1154032183016" name="body" index="2LFqv$" />
@@ -168,6 +178,10 @@
       </concept>
       <concept id="1197029447546" name="jetbrains.mps.baseLanguage.structure.FieldReferenceOperation" flags="nn" index="2OwXpG">
         <reference id="1197029500499" name="fieldDeclaration" index="2Oxat5" />
+      </concept>
+      <concept id="1083260308424" name="jetbrains.mps.baseLanguage.structure.EnumConstantReference" flags="nn" index="Rm8GO">
+        <reference id="1083260308426" name="enumConstantDeclaration" index="Rm8GQ" />
+        <reference id="1144432896254" name="enumClass" index="1Px2BO" />
       </concept>
       <concept id="1145552977093" name="jetbrains.mps.baseLanguage.structure.GenericNewExpression" flags="nn" index="2ShNRf">
         <child id="1145553007750" name="creator" index="2ShVmc" />
@@ -201,6 +215,7 @@
         <property id="1240249534625" name="isVolatile" index="34CwA1" />
       </concept>
       <concept id="1068390468198" name="jetbrains.mps.baseLanguage.structure.ClassConcept" flags="ig" index="312cEu">
+        <property id="1221565133444" name="isFinal" index="1EXbeo" />
         <child id="1095933932569" name="implementedInterface" index="EKbjA" />
       </concept>
       <concept id="1068431474542" name="jetbrains.mps.baseLanguage.structure.VariableDeclaration" flags="ng" index="33uBYm">
@@ -274,6 +289,7 @@
       <concept id="7812454656619025412" name="jetbrains.mps.baseLanguage.structure.LocalMethodCall" flags="nn" index="1rXfSq" />
       <concept id="1107535904670" name="jetbrains.mps.baseLanguage.structure.ClassifierType" flags="in" index="3uibUv">
         <reference id="1107535924139" name="classifier" index="3uigEE" />
+        <child id="1109201940907" name="parameter" index="11_B2D" />
       </concept>
       <concept id="1081773326031" name="jetbrains.mps.baseLanguage.structure.BinaryOperation" flags="nn" index="3uHJSO">
         <child id="1081773367579" name="rightExpression" index="3uHU7w" />
@@ -326,6 +342,9 @@
       </concept>
     </language>
     <language id="760a0a8c-eabb-4521-8bfd-65db761a9ba3" name="jetbrains.mps.baseLanguage.logging">
+      <concept id="1168401810208" name="jetbrains.mps.baseLanguage.logging.structure.PrintStatement" flags="nn" index="abc8K">
+        <child id="1168401864803" name="textExpression" index="abp_N" />
+      </concept>
       <concept id="6332851714983831325" name="jetbrains.mps.baseLanguage.logging.structure.MsgStatement" flags="ng" index="2xdQw9">
         <property id="6332851714983843871" name="severity" index="2xdLsb" />
         <child id="5721587534047265560" name="project" index="9lYEk" />
@@ -6715,6 +6734,154 @@
           <node concept="3clFbT" id="4eX7sil7CEi" role="3cqZAk">
             <property role="3clFbU" value="true" />
           </node>
+        </node>
+      </node>
+    </node>
+  </node>
+  <node concept="312cEu" id="7xblg8lmms7">
+    <property role="TrG5h" value="CloudResourcesConfigurationComponent" />
+    <property role="1EXbeo" value="true" />
+    <node concept="2tJIrI" id="7xblg8lmn9N" role="jymVt" />
+    <node concept="312cEu" id="7xblg8lmnwf" role="jymVt">
+      <property role="TrG5h" value="State" />
+      <node concept="312cEg" id="7xblg8lmo$P" role="jymVt">
+        <property role="TrG5h" value="cloudRepositoryURL" />
+        <node concept="3Tm1VV" id="7xblg8lmona" role="1B3o_S" />
+        <node concept="3uibUv" id="7xblg8lmo$F" role="1tU5fm">
+          <ref role="3uigEE" to="wyt6:~String" resolve="String" />
+        </node>
+      </node>
+      <node concept="312cEg" id="7xblg8lmp1Z" role="jymVt">
+        <property role="TrG5h" value="cloudRepositoryProjectName" />
+        <node concept="3Tm1VV" id="7xblg8lmoOl" role="1B3o_S" />
+        <node concept="3uibUv" id="7xblg8lmp1P" role="1tU5fm">
+          <ref role="3uigEE" to="wyt6:~String" resolve="String" />
+        </node>
+      </node>
+    </node>
+    <node concept="3clFbW" id="6UFKywMOfG2" role="jymVt">
+      <node concept="3cqZAl" id="6UFKywMOfG4" role="3clF45" />
+      <node concept="3Tm1VV" id="6UFKywMOfG5" role="1B3o_S" />
+      <node concept="3clFbS" id="6UFKywMOfG6" role="3clF47">
+        <node concept="abc8K" id="6UFKywMOg08" role="3cqZAp">
+          <node concept="Xl_RD" id="6UFKywMOgaP" role="abp_N">
+            <property role="Xl_RC" value="INSTANTIATING CloudResourcesConfigurationComponent" />
+          </node>
+        </node>
+      </node>
+    </node>
+    <node concept="312cEg" id="7xblg8lmpx_" role="jymVt">
+      <property role="TrG5h" value="state" />
+      <node concept="3Tm6S6" id="7xblg8lmpgN" role="1B3o_S" />
+      <node concept="3uibUv" id="7xblg8lmpx$" role="1tU5fm">
+        <ref role="3uigEE" node="7xblg8lmnwf" resolve="CloudResourcesConfigurationComponent.State" />
+      </node>
+      <node concept="2ShNRf" id="7xblg8lmpK5" role="33vP2m">
+        <node concept="HV5vD" id="7xblg8lmrqH" role="2ShVmc">
+          <ref role="HV5vE" node="7xblg8lmnwf" resolve="CloudResourcesConfigurationComponent.State" />
+        </node>
+      </node>
+    </node>
+    <node concept="2tJIrI" id="7xblg8lmne7" role="jymVt" />
+    <node concept="3Tm1VV" id="7xblg8lmms8" role="1B3o_S" />
+    <node concept="3uibUv" id="7xblg8lmmtu" role="EKbjA">
+      <ref role="3uigEE" to="1m72:~PersistentStateComponent" resolve="PersistentStateComponent" />
+      <node concept="3uibUv" id="7xblg8lmnM0" role="11_B2D">
+        <ref role="3uigEE" node="7xblg8lmnwf" resolve="CloudResourcesConfigurationComponent.State" />
+      </node>
+    </node>
+    <node concept="3clFb_" id="7xblg8lmnRn" role="jymVt">
+      <property role="TrG5h" value="getState" />
+      <node concept="3Tm1VV" id="7xblg8lmnRo" role="1B3o_S" />
+      <node concept="2AHcQZ" id="7xblg8lmnRq" role="2AJF6D">
+        <ref role="2AI5Lk" to="mhfm:~Nullable" resolve="Nullable" />
+      </node>
+      <node concept="3uibUv" id="7xblg8lmnRs" role="3clF45">
+        <ref role="3uigEE" node="7xblg8lmnwf" resolve="CloudResourcesConfigurationComponent.State" />
+      </node>
+      <node concept="3clFbS" id="7xblg8lmnRt" role="3clF47">
+        <node concept="3cpWs6" id="7xblg8lmrGH" role="3cqZAp">
+          <node concept="37vLTw" id="7xblg8lmrRj" role="3cqZAk">
+            <ref role="3cqZAo" node="7xblg8lmpx_" resolve="state" />
+          </node>
+        </node>
+      </node>
+      <node concept="2AHcQZ" id="7xblg8lmnRu" role="2AJF6D">
+        <ref role="2AI5Lk" to="wyt6:~Override" resolve="Override" />
+      </node>
+    </node>
+    <node concept="3clFb_" id="7xblg8lmnRv" role="jymVt">
+      <property role="TrG5h" value="loadState" />
+      <node concept="3Tm1VV" id="7xblg8lmnRw" role="1B3o_S" />
+      <node concept="3cqZAl" id="7xblg8lmnRy" role="3clF45" />
+      <node concept="37vLTG" id="7xblg8lmnRz" role="3clF46">
+        <property role="TrG5h" value="state" />
+        <node concept="3uibUv" id="7xblg8lmnRA" role="1tU5fm">
+          <ref role="3uigEE" node="7xblg8lmnwf" resolve="CloudResourcesConfigurationComponent.State" />
+        </node>
+        <node concept="2AHcQZ" id="7xblg8lmnR_" role="2AJF6D">
+          <ref role="2AI5Lk" to="mhfm:~NotNull" resolve="NotNull" />
+        </node>
+      </node>
+      <node concept="3clFbS" id="7xblg8lmnRB" role="3clF47">
+        <node concept="3clFbF" id="7xblg8lms9X" role="3cqZAp">
+          <node concept="37vLTI" id="7xblg8lmsTL" role="3clFbG">
+            <node concept="37vLTw" id="7xblg8lmt5m" role="37vLTx">
+              <ref role="3cqZAo" node="7xblg8lmnRz" resolve="state" />
+            </node>
+            <node concept="2OqwBi" id="7xblg8lmsvU" role="37vLTJ">
+              <node concept="Xjq3P" id="7xblg8lms9W" role="2Oq$k0" />
+              <node concept="2OwXpG" id="7xblg8lmsIK" role="2OqNvi">
+                <ref role="2Oxat5" node="7xblg8lmpx_" resolve="state" />
+              </node>
+            </node>
+          </node>
+        </node>
+      </node>
+      <node concept="2AHcQZ" id="7xblg8lmnRC" role="2AJF6D">
+        <ref role="2AI5Lk" to="wyt6:~Override" resolve="Override" />
+      </node>
+    </node>
+    <node concept="2AHcQZ" id="7xblg8lmKGT" role="2AJF6D">
+      <ref role="2AI5Lk" to="1m72:~Service" resolve="Service" />
+    </node>
+    <node concept="2AHcQZ" id="7xblg8lmtrD" role="2AJF6D">
+      <ref role="2AI5Lk" to="1m72:~State" resolve="State" />
+      <node concept="2B6LJw" id="7xblg8lmt$$" role="2B76xF">
+        <ref role="2B6OnR" to="1m72:~State.name()" resolve="name" />
+        <node concept="Xl_RD" id="7xblg8lmtJj" role="2B70Vg">
+          <property role="Xl_RC" value="CloudResources" />
+        </node>
+      </node>
+      <node concept="2B6LJw" id="7xblg8lmtUN" role="2B76xF">
+        <ref role="2B6OnR" to="1m72:~State.storages()" resolve="storages" />
+        <node concept="2AHcQZ" id="7xblg8lmvYG" role="2B70Vg">
+          <ref role="2AI5Lk" to="1m72:~Storage" resolve="Storage" />
+          <node concept="2B6LJw" id="7xblg8lr0G1" role="2B76xF">
+            <ref role="2B6OnR" to="1m72:~Storage.file()" resolve="file" />
+            <node concept="Xl_RD" id="7xblg8lr0Rv" role="2B70Vg">
+              <property role="Xl_RC" value="cloudResources.xml" />
+            </node>
+          </node>
+          <node concept="2B6LJw" id="7xblg8lmwaQ" role="2B76xF">
+            <ref role="2B6OnR" to="1m72:~Storage.value()" resolve="value" />
+            <node concept="Xl_RD" id="7xblg8lmwbF" role="2B70Vg">
+              <property role="Xl_RC" value="cloudResources.xml" />
+            </node>
+          </node>
+          <node concept="2B6LJw" id="7xblg8lnA7M" role="2B76xF">
+            <ref role="2B6OnR" to="1m72:~Storage.roamingType()" resolve="roamingType" />
+            <node concept="Rm8GO" id="7xblg8lnAGt" role="2B70Vg">
+              <ref role="Rm8GQ" to="1m72:~RoamingType.DISABLED" resolve="DISABLED" />
+              <ref role="1Px2BO" to="1m72:~RoamingType" resolve="RoamingType" />
+            </node>
+          </node>
+        </node>
+      </node>
+      <node concept="2B6LJw" id="7xblg8lmtJR" role="2B76xF">
+        <ref role="2B6OnR" to="1m72:~State.reloadable()" resolve="reloadable" />
+        <node concept="3clFbT" id="7xblg8lmtUH" role="2B70Vg">
+          <property role="3clFbU" value="true" />
         </node>
       </node>
     </node>
