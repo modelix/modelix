@@ -7319,6 +7319,11 @@
     <node concept="3UR2Jj" id="6UFKywMPMal" role="lGtFl">
       <node concept="TZ5HA" id="6UFKywMPMam" role="TZ5H$">
         <node concept="1dT_AC" id="6UFKywMPMan" role="1dT_Ay">
+          <property role="1dT_AB" value="This component handles the storage of the cloud configuration." />
+        </node>
+      </node>
+      <node concept="TZ5HA" id="nP6bhxMG6p" role="TZ5H$">
+        <node concept="1dT_AC" id="nP6bhxMG6q" role="1dT_Ay">
           <property role="1dT_AB" value="For information about component persistence refer to https://jetbrains.org/intellij/sdk/docs/basics/persisting_state_of_components.html" />
         </node>
       </node>
