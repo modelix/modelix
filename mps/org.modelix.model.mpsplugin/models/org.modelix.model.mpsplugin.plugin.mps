@@ -7587,29 +7587,6 @@
             </node>
           </node>
         </node>
-        <node concept="3clFbF" id="7f6Tb6nAedh" role="3cqZAp">
-          <node concept="2OqwBi" id="7f6Tb6nAedi" role="3clFbG">
-            <node concept="2OqwBi" id="7f6Tb6nAedj" role="2Oq$k0">
-              <node concept="37vLTw" id="7f6Tb6nAedk" role="2Oq$k0">
-                <ref role="3cqZAo" node="7f6Tb6nAedc" resolve="state" />
-              </node>
-              <node concept="2OwXpG" id="7f6Tb6nAedl" role="2OqNvi">
-                <ref role="2Oxat5" node="7xblg8lmo$P" resolve="cloudRepositories" />
-              </node>
-            </node>
-            <node concept="liA8E" id="7f6Tb6nAedm" role="2OqNvi">
-              <ref role="37wK5l" to="33ny:~List.add(java.lang.Object)" resolve="add" />
-              <node concept="2OqwBi" id="7f6Tb6nAedn" role="37wK5m">
-                <node concept="37vLTw" id="7f6Tb6nAedo" role="2Oq$k0">
-                  <ref role="3cqZAo" node="7f6Tb6nAed1" resolve="cloudRepository" />
-                </node>
-                <node concept="liA8E" id="7f6Tb6nAedp" role="2OqNvi">
-                  <ref role="37wK5l" to="csg2:6aRQr1WQLS7" resolve="getBaseUrl" />
-                </node>
-              </node>
-            </node>
-          </node>
-        </node>
         <node concept="3clFbF" id="7f6Tb6nAedq" role="3cqZAp">
           <node concept="2OqwBi" id="7f6Tb6nAedr" role="3clFbG">
             <node concept="37vLTw" id="7f6Tb6nAeds" role="2Oq$k0">
