@@ -374,9 +374,6 @@
       </concept>
     </language>
     <language id="760a0a8c-eabb-4521-8bfd-65db761a9ba3" name="jetbrains.mps.baseLanguage.logging">
-      <concept id="1168401810208" name="jetbrains.mps.baseLanguage.logging.structure.PrintStatement" flags="nn" index="abc8K">
-        <child id="1168401864803" name="textExpression" index="abp_N" />
-      </concept>
       <concept id="6332851714983831325" name="jetbrains.mps.baseLanguage.logging.structure.MsgStatement" flags="ng" index="2xdQw9">
         <property id="6332851714983843871" name="severity" index="2xdLsb" />
         <child id="5721587534047265560" name="project" index="9lYEk" />
@@ -1026,13 +1023,13 @@
           </node>
         </node>
         <node concept="3clFbF" id="7f6Tb6nxK21" role="3cqZAp">
-          <node concept="2YIFZM" id="7f6Tb6nxK3a" role="3clFbG">
-            <ref role="37wK5l" node="7f6Tb6nxJIx" resolve="bindAsSpecifiedInPersistedConfiguration" />
+          <node concept="2YIFZM" id="7f6Tb6n_mSR" role="3clFbG">
+            <ref role="37wK5l" node="7f6Tb6n_hXR" resolve="followPersistedConfiguration" />
             <ref role="1Pybhc" node="7f6Tb6nxCKP" resolve="ModelixConfigurationFacade" />
-            <node concept="2YIFZM" id="7f6Tb6nxYGC" role="37wK5m">
+            <node concept="2YIFZM" id="7f6Tb6n_mSS" role="37wK5m">
               <ref role="37wK5l" to="alof:~ProjectHelper.toIdeaProject(jetbrains.mps.project.Project)" resolve="toIdeaProject" />
               <ref role="1Pybhc" to="alof:~ProjectHelper" resolve="ProjectHelper" />
-              <node concept="1KvdUw" id="7f6Tb6nxYHc" role="37wK5m" />
+              <node concept="1KvdUw" id="7f6Tb6n_mST" role="37wK5m" />
             </node>
           </node>
         </node>
@@ -1250,17 +1247,38 @@
                 </node>
               </node>
             </node>
-            <node concept="3clFbF" id="6aRQr1WPNrM" role="3cqZAp">
-              <node concept="2OqwBi" id="6aRQr1WPNy1" role="3clFbG">
-                <node concept="2YIFZM" id="6aRQr1WPNsl" role="2Oq$k0">
-                  <ref role="37wK5l" to="csg2:1LVcV5Kxxmz" resolve="getInstance" />
-                  <ref role="1Pybhc" to="csg2:1LVcV5Kxxi$" resolve="CloudRepositories" />
+            <node concept="3cpWs8" id="7f6Tb6n$mIE" role="3cqZAp">
+              <node concept="3cpWsn" id="7f6Tb6n$mIF" role="3cpWs9">
+                <property role="TrG5h" value="cloudRepository" />
+                <node concept="3uibUv" id="7f6Tb6n$mZ0" role="1tU5fm">
+                  <ref role="3uigEE" to="csg2:6aRQr1WOV$v" resolve="CloudRepository" />
                 </node>
-                <node concept="liA8E" id="6aRQr1WPNDu" role="2OqNvi">
-                  <ref role="37wK5l" to="csg2:6aRQr1WPk$8" resolve="addRepository" />
-                  <node concept="37vLTw" id="6aRQr1WPNEp" role="37wK5m">
-                    <ref role="3cqZAo" node="6aRQr1WODg4" resolve="url" />
+                <node concept="2OqwBi" id="6aRQr1WPNy1" role="33vP2m">
+                  <node concept="2YIFZM" id="6aRQr1WPNsl" role="2Oq$k0">
+                    <ref role="37wK5l" to="csg2:1LVcV5Kxxmz" resolve="getInstance" />
+                    <ref role="1Pybhc" to="csg2:1LVcV5Kxxi$" resolve="CloudRepositories" />
                   </node>
+                  <node concept="liA8E" id="6aRQr1WPNDu" role="2OqNvi">
+                    <ref role="37wK5l" to="csg2:6aRQr1WPk$8" resolve="addRepository" />
+                    <node concept="37vLTw" id="6aRQr1WPNEp" role="37wK5m">
+                      <ref role="3cqZAo" node="6aRQr1WODg4" resolve="url" />
+                    </node>
+                  </node>
+                </node>
+              </node>
+            </node>
+            <node concept="3clFbF" id="7f6Tb6n$ejw" role="3cqZAp">
+              <node concept="2YIFZM" id="7f6Tb6n$mo2" role="3clFbG">
+                <ref role="37wK5l" node="7f6Tb6n$ffn" resolve="addRepositoryToPersistedConfiguration" />
+                <ref role="1Pybhc" node="7f6Tb6nxCKP" resolve="ModelixConfigurationFacade" />
+                <node concept="2OqwBi" id="7f6Tb6n$mp6" role="37wK5m">
+                  <node concept="2WthIp" id="7f6Tb6n$mp9" role="2Oq$k0" />
+                  <node concept="1DTwFV" id="7f6Tb6n$mpb" role="2OqNvi">
+                    <ref role="2WH_rO" node="6aRQr1WO_Ld" resolve="project" />
+                  </node>
+                </node>
+                <node concept="37vLTw" id="7f6Tb6n$n1x" role="37wK5m">
+                  <ref role="3cqZAo" node="7f6Tb6n$mIF" resolve="cloudRepository" />
                 </node>
               </node>
             </node>
@@ -7294,8 +7312,116 @@
   <node concept="312cEu" id="7f6Tb6nxCKP">
     <property role="TrG5h" value="ModelixConfigurationFacade" />
     <node concept="2tJIrI" id="7f6Tb6ny$4s" role="jymVt" />
+    <node concept="2YIFZL" id="7f6Tb6n_hXR" role="jymVt">
+      <property role="TrG5h" value="followPersistedConfiguration" />
+      <node concept="37vLTG" id="7f6Tb6n_iAD" role="3clF46">
+        <property role="TrG5h" value="project" />
+        <node concept="3uibUv" id="7f6Tb6n_iAE" role="1tU5fm">
+          <ref role="3uigEE" to="4nm9:~Project" resolve="Project" />
+        </node>
+      </node>
+      <node concept="3clFbS" id="7f6Tb6n_hXU" role="3clF47">
+        <node concept="3clFbF" id="7f6Tb6n_j3n" role="3cqZAp">
+          <node concept="1rXfSq" id="7f6Tb6n_j3m" role="3clFbG">
+            <ref role="37wK5l" node="7f6Tb6n_3s_" resolve="addRepositoriesAsSpecifiedInPersistedConfiguration" />
+            <node concept="37vLTw" id="7f6Tb6n_jHe" role="37wK5m">
+              <ref role="3cqZAo" node="7f6Tb6n_iAD" resolve="project" />
+            </node>
+          </node>
+        </node>
+        <node concept="3clFbF" id="7f6Tb6n_kcL" role="3cqZAp">
+          <node concept="1rXfSq" id="7f6Tb6n_kcJ" role="3clFbG">
+            <ref role="37wK5l" node="7f6Tb6nxJIx" resolve="bindModulesAsSpecifiedInPersistedConfiguration" />
+            <node concept="37vLTw" id="7f6Tb6n_kBB" role="37wK5m">
+              <ref role="3cqZAo" node="7f6Tb6n_iAD" resolve="project" />
+            </node>
+          </node>
+        </node>
+      </node>
+      <node concept="3Tm1VV" id="7f6Tb6n_gOF" role="1B3o_S" />
+      <node concept="3cqZAl" id="7f6Tb6n_hOc" role="3clF45" />
+    </node>
+    <node concept="2tJIrI" id="7f6Tb6n_gct" role="jymVt" />
+    <node concept="2YIFZL" id="7f6Tb6n_3s_" role="jymVt">
+      <property role="TrG5h" value="addRepositoriesAsSpecifiedInPersistedConfiguration" />
+      <node concept="37vLTG" id="7f6Tb6n_3XU" role="3clF46">
+        <property role="TrG5h" value="project" />
+        <node concept="3uibUv" id="7f6Tb6n_3XV" role="1tU5fm">
+          <ref role="3uigEE" to="4nm9:~Project" resolve="Project" />
+        </node>
+      </node>
+      <node concept="3clFbS" id="7f6Tb6n_3sC" role="3clF47">
+        <node concept="3cpWs8" id="7f6Tb6n_4nQ" role="3cqZAp">
+          <node concept="3cpWsn" id="7f6Tb6n_4nR" role="3cpWs9">
+            <property role="TrG5h" value="cloudResourcesConfigurationComponent" />
+            <node concept="3uibUv" id="7f6Tb6n_4nS" role="1tU5fm">
+              <ref role="3uigEE" node="7xblg8lmms7" resolve="CloudResourcesConfigurationComponent" />
+            </node>
+            <node concept="2OqwBi" id="7f6Tb6n_4nT" role="33vP2m">
+              <node concept="37vLTw" id="7f6Tb6n_4nU" role="2Oq$k0">
+                <ref role="3cqZAo" node="7f6Tb6n_3XU" resolve="project" />
+              </node>
+              <node concept="liA8E" id="7f6Tb6n_4nV" role="2OqNvi">
+                <ref role="37wK5l" to="1m72:~ComponentManager.getService(java.lang.Class)" resolve="getService" />
+                <node concept="3VsKOn" id="7f6Tb6n_4nW" role="37wK5m">
+                  <ref role="3VsUkX" node="7xblg8lmms7" resolve="CloudResourcesConfigurationComponent" />
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="3cpWs8" id="7f6Tb6n_4nX" role="3cqZAp">
+          <node concept="3cpWsn" id="7f6Tb6n_4nY" role="3cpWs9">
+            <property role="TrG5h" value="state" />
+            <node concept="3uibUv" id="7f6Tb6n_4nZ" role="1tU5fm">
+              <ref role="3uigEE" node="7xblg8lmnwf" resolve="CloudResourcesConfigurationComponent.State" />
+            </node>
+            <node concept="2OqwBi" id="7f6Tb6n_4o0" role="33vP2m">
+              <node concept="37vLTw" id="7f6Tb6n_4o1" role="2Oq$k0">
+                <ref role="3cqZAo" node="7f6Tb6n_4nR" resolve="cloudResourcesConfigurationComponent" />
+              </node>
+              <node concept="liA8E" id="7f6Tb6n_4o2" role="2OqNvi">
+                <ref role="37wK5l" node="7xblg8lmnRn" resolve="getState" />
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="2Gpval" id="7f6Tb6n_4o3" role="3cqZAp">
+          <node concept="2GrKxI" id="7f6Tb6n_4o4" role="2Gsz3X">
+            <property role="TrG5h" value="repoUrl" />
+          </node>
+          <node concept="3clFbS" id="7f6Tb6n_4o5" role="2LFqv$">
+            <node concept="3cpWs8" id="7f6Tb6n_4or" role="3cqZAp">
+              <node concept="3cpWsn" id="7f6Tb6n_4os" role="3cpWs9">
+                <property role="TrG5h" value="cloudRepository" />
+                <node concept="3uibUv" id="7f6Tb6n_4ot" role="1tU5fm">
+                  <ref role="3uigEE" to="csg2:6aRQr1WOV$v" resolve="CloudRepository" />
+                </node>
+                <node concept="1rXfSq" id="7f6Tb6n_4ou" role="33vP2m">
+                  <ref role="37wK5l" node="3nl22UOeESG" resolve="ensureCloudRepoIsPresent" />
+                  <node concept="2GrUjf" id="7f6Tb6n_q86" role="37wK5m">
+                    <ref role="2Gs0qQ" node="7f6Tb6n_4o4" resolve="repoUrl" />
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+          <node concept="2OqwBi" id="7f6Tb6n_4oM" role="2GsD0m">
+            <node concept="37vLTw" id="7f6Tb6n_4oN" role="2Oq$k0">
+              <ref role="3cqZAo" node="7f6Tb6n_4nY" resolve="state" />
+            </node>
+            <node concept="2OwXpG" id="7f6Tb6n_nXM" role="2OqNvi">
+              <ref role="2Oxat5" node="7xblg8lmo$P" resolve="cloudRepositories" />
+            </node>
+          </node>
+        </node>
+      </node>
+      <node concept="3Tm6S6" id="7f6Tb6n_kNX" role="1B3o_S" />
+      <node concept="3cqZAl" id="7f6Tb6n_dC8" role="3clF45" />
+    </node>
+    <node concept="2tJIrI" id="7f6Tb6n_28e" role="jymVt" />
     <node concept="2YIFZL" id="7f6Tb6nxJIx" role="jymVt">
-      <property role="TrG5h" value="bindAsSpecifiedInPersistedConfiguration" />
+      <property role="TrG5h" value="bindModulesAsSpecifiedInPersistedConfiguration" />
       <node concept="37vLTG" id="7f6Tb6nxYoj" role="3clF46">
         <property role="TrG5h" value="project" />
         <node concept="3uibUv" id="7f6Tb6nxYok" role="1tU5fm">
@@ -7338,27 +7464,11 @@
             </node>
           </node>
         </node>
-        <node concept="abc8K" id="7f6Tb6nxZ5r" role="3cqZAp">
-          <node concept="Xl_RD" id="7f6Tb6nxZcr" role="abp_N">
-            <property role="Xl_RC" value="BINDING AS SPECIFIED IN PERSISTED STATE " />
-          </node>
-          <node concept="37vLTw" id="7f6Tb6nxZim" role="abp_N">
-            <ref role="3cqZAo" node="7f6Tb6nxYt1" resolve="state" />
-          </node>
-        </node>
         <node concept="2Gpval" id="7f6Tb6nyBfJ" role="3cqZAp">
           <node concept="2GrKxI" id="7f6Tb6nyBfL" role="2Gsz3X">
             <property role="TrG5h" value="moduleStr" />
           </node>
           <node concept="3clFbS" id="7f6Tb6nyBfP" role="2LFqv$">
-            <node concept="abc8K" id="7f6Tb6nzmjp" role="3cqZAp">
-              <node concept="Xl_RD" id="7f6Tb6nzn3x" role="abp_N">
-                <property role="Xl_RC" value="LOADING " />
-              </node>
-              <node concept="2GrUjf" id="7f6Tb6nznhd" role="abp_N">
-                <ref role="2Gs0qQ" node="7f6Tb6nyBfL" resolve="moduleStr" />
-              </node>
-            </node>
             <node concept="3cpWs8" id="7f6Tb6nyBNh" role="3cqZAp">
               <node concept="3cpWsn" id="7f6Tb6nyBNi" role="3cpWs9">
                 <property role="TrG5h" value="parts" />
@@ -7479,11 +7589,10 @@
           </node>
         </node>
       </node>
-      <node concept="3Tm1VV" id="7f6Tb6nxHWg" role="1B3o_S" />
+      <node concept="3Tm6S6" id="7f6Tb6n_lMs" role="1B3o_S" />
       <node concept="3cqZAl" id="7f6Tb6nxJIm" role="3clF45" />
     </node>
     <node concept="2tJIrI" id="7f6Tb6nyY2w" role="jymVt" />
-    <node concept="2tJIrI" id="7f6Tb6nyXRk" role="jymVt" />
     <node concept="2YIFZL" id="7f6Tb6nxKmv" role="jymVt">
       <property role="TrG5h" value="addBoundModuleToPersistedConfiguration" />
       <node concept="37vLTG" id="7f6Tb6nxRmY" role="3clF46">
@@ -7649,10 +7758,100 @@
             </node>
           </node>
         </node>
-        <node concept="3clFbH" id="7f6Tb6nxQQo" role="3cqZAp" />
       </node>
       <node concept="3Tm1VV" id="7f6Tb6nxKb1" role="1B3o_S" />
       <node concept="3cqZAl" id="7f6Tb6nxKmi" role="3clF45" />
+    </node>
+    <node concept="2tJIrI" id="7f6Tb6n$lCt" role="jymVt" />
+    <node concept="2YIFZL" id="7f6Tb6n$ffn" role="jymVt">
+      <property role="TrG5h" value="addRepositoryToPersistedConfiguration" />
+      <node concept="37vLTG" id="7f6Tb6n$ffo" role="3clF46">
+        <property role="TrG5h" value="project" />
+        <node concept="3uibUv" id="7f6Tb6n$ffp" role="1tU5fm">
+          <ref role="3uigEE" to="4nm9:~Project" resolve="Project" />
+        </node>
+      </node>
+      <node concept="37vLTG" id="7f6Tb6n$ffq" role="3clF46">
+        <property role="TrG5h" value="cloudRepository" />
+        <node concept="3uibUv" id="7f6Tb6n$ffr" role="1tU5fm">
+          <ref role="3uigEE" to="csg2:6aRQr1WOV$v" resolve="CloudRepository" />
+        </node>
+      </node>
+      <node concept="3clFbS" id="7f6Tb6n$ffu" role="3clF47">
+        <node concept="3cpWs8" id="7f6Tb6n$ffv" role="3cqZAp">
+          <node concept="3cpWsn" id="7f6Tb6n$ffw" role="3cpWs9">
+            <property role="TrG5h" value="cloudResourcesConfigurationComponent" />
+            <node concept="3uibUv" id="7f6Tb6n$ffx" role="1tU5fm">
+              <ref role="3uigEE" node="7xblg8lmms7" resolve="CloudResourcesConfigurationComponent" />
+            </node>
+            <node concept="2OqwBi" id="7f6Tb6n$ffy" role="33vP2m">
+              <node concept="37vLTw" id="7f6Tb6n$ffz" role="2Oq$k0">
+                <ref role="3cqZAo" node="7f6Tb6n$ffo" resolve="project" />
+              </node>
+              <node concept="liA8E" id="7f6Tb6n$ff$" role="2OqNvi">
+                <ref role="37wK5l" to="1m72:~ComponentManager.getService(java.lang.Class)" resolve="getService" />
+                <node concept="3VsKOn" id="7f6Tb6n$ff_" role="37wK5m">
+                  <ref role="3VsUkX" node="7xblg8lmms7" resolve="CloudResourcesConfigurationComponent" />
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="3cpWs8" id="7f6Tb6n$ffA" role="3cqZAp">
+          <node concept="3cpWsn" id="7f6Tb6n$ffB" role="3cpWs9">
+            <property role="TrG5h" value="state" />
+            <node concept="3uibUv" id="7f6Tb6n$ffC" role="1tU5fm">
+              <ref role="3uigEE" node="7xblg8lmnwf" resolve="CloudResourcesConfigurationComponent.State" />
+            </node>
+            <node concept="2OqwBi" id="7f6Tb6n$ffD" role="33vP2m">
+              <node concept="37vLTw" id="7f6Tb6n$ffE" role="2Oq$k0">
+                <ref role="3cqZAo" node="7f6Tb6n$ffw" resolve="cloudResourcesConfigurationComponent" />
+              </node>
+              <node concept="liA8E" id="7f6Tb6n$ffF" role="2OqNvi">
+                <ref role="37wK5l" node="7xblg8lmnRn" resolve="getState" />
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="3clFbF" id="7f6Tb6n$hYP" role="3cqZAp">
+          <node concept="2OqwBi" id="7f6Tb6n$iZH" role="3clFbG">
+            <node concept="2OqwBi" id="7f6Tb6n$ica" role="2Oq$k0">
+              <node concept="37vLTw" id="7f6Tb6n$hYN" role="2Oq$k0">
+                <ref role="3cqZAo" node="7f6Tb6n$ffB" resolve="state" />
+              </node>
+              <node concept="2OwXpG" id="7f6Tb6n$kk1" role="2OqNvi">
+                <ref role="2Oxat5" node="7xblg8lmo$P" resolve="cloudRepositories" />
+              </node>
+            </node>
+            <node concept="liA8E" id="7f6Tb6n$jKk" role="2OqNvi">
+              <ref role="37wK5l" to="33ny:~List.add(java.lang.Object)" resolve="add" />
+              <node concept="2OqwBi" id="7f6Tb6n$l5Z" role="37wK5m">
+                <node concept="37vLTw" id="7f6Tb6n$kz2" role="2Oq$k0">
+                  <ref role="3cqZAo" node="7f6Tb6n$ffq" resolve="cloudRepository" />
+                </node>
+                <node concept="liA8E" id="7f6Tb6n$ltq" role="2OqNvi">
+                  <ref role="37wK5l" to="csg2:6aRQr1WQLS7" resolve="getBaseUrl" />
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="3clFbF" id="7f6Tb6n$hLR" role="3cqZAp">
+          <node concept="2OqwBi" id="7f6Tb6n$hLS" role="3clFbG">
+            <node concept="37vLTw" id="7f6Tb6n$hLT" role="2Oq$k0">
+              <ref role="3cqZAo" node="7f6Tb6n$ffw" resolve="cloudResourcesConfigurationComponent" />
+            </node>
+            <node concept="liA8E" id="7f6Tb6n$hLU" role="2OqNvi">
+              <ref role="37wK5l" node="7xblg8lmnRv" resolve="loadState" />
+              <node concept="37vLTw" id="7f6Tb6n$hLV" role="37wK5m">
+                <ref role="3cqZAo" node="7f6Tb6n$ffB" resolve="state" />
+              </node>
+            </node>
+          </node>
+        </node>
+      </node>
+      <node concept="3Tm1VV" id="7f6Tb6n$fgo" role="1B3o_S" />
+      <node concept="3cqZAl" id="7f6Tb6n$fgp" role="3clF45" />
     </node>
     <node concept="2tJIrI" id="7f6Tb6nyZKm" role="jymVt" />
     <node concept="2YIFZL" id="3nl22UOeESG" role="jymVt">
