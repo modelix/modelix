@@ -7150,5 +7150,149 @@
     </node>
     <node concept="3Tm1VV" id="1xehy3Sh5ct" role="1B3o_S" />
   </node>
+  <node concept="KRBjq" id="1xehy3SjWHB">
+    <property role="TrG5h" value="CloudNodeTreeNodeBinding" />
+    <node concept="ATzpf" id="1xehy3SjWHI" role="a7sos">
+      <property role="TrG5h" value="isBound" />
+      <node concept="3Tm1VV" id="1xehy3SjWHJ" role="1B3o_S" />
+      <node concept="10P_77" id="1xehy3SjWHY" role="3clF45" />
+      <node concept="3clFbS" id="1xehy3SjWHL" role="3clF47">
+        <node concept="3cpWs8" id="5D5xac1qYEU" role="3cqZAp">
+          <node concept="3cpWsn" id="5D5xac1qYEV" role="3cpWs9">
+            <property role="TrG5h" value="nodeId" />
+            <node concept="3cpWsb" id="5D5xac1qYCS" role="1tU5fm" />
+            <node concept="2OqwBi" id="5D5xac1qYEW" role="33vP2m">
+              <node concept="1eOMI4" id="5D5xac1qYEX" role="2Oq$k0">
+                <node concept="10QFUN" id="5D5xac1qYEY" role="1eOMHV">
+                  <node concept="3uibUv" id="5D5xac1qYEZ" role="10QFUM">
+                    <ref role="3uigEE" to="jks5:~PNodeAdapter" resolve="PNodeAdapter" />
+                  </node>
+                  <node concept="2OqwBi" id="5JOZTo7_LgM" role="10QFUP">
+                    <node concept="2V_BSl" id="1xehy3SjX1s" role="2Oq$k0" />
+                    <node concept="liA8E" id="5JOZTo7_LgO" role="2OqNvi">
+                      <ref role="37wK5l" node="49CIzaqf7rw" resolve="getNode" />
+                    </node>
+                  </node>
+                </node>
+              </node>
+              <node concept="liA8E" id="5D5xac1qYF1" role="2OqNvi">
+                <ref role="37wK5l" to="jks5:~PNodeAdapter.getNodeId()" resolve="getNodeId" />
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="3cpWs8" id="5D5xac1r13d" role="3cqZAp">
+          <node concept="3cpWsn" id="5D5xac1r13e" role="3cpWs9">
+            <property role="TrG5h" value="treeId" />
+            <node concept="3uibUv" id="5D5xac1r13f" role="1tU5fm">
+              <ref role="3uigEE" to="xkhl:~TreeId" resolve="TreeId" />
+            </node>
+            <node concept="2OqwBi" id="5D5xac1r13g" role="33vP2m">
+              <node concept="2OqwBi" id="5D5xac1r13h" role="2Oq$k0">
+                <node concept="2V_BSl" id="1xehy3SjX2X" role="2Oq$k0" />
+                <node concept="liA8E" id="5D5xac1r13j" role="2OqNvi">
+                  <ref role="37wK5l" to="7e8u:~MPSTreeNode.getAncestor(java.lang.Class)" resolve="getAncestor" />
+                  <node concept="3VsKOn" id="5D5xac1r13k" role="37wK5m">
+                    <ref role="3VsUkX" node="6aRQr1WUXn6" resolve="CloudTreeTreeNode" />
+                  </node>
+                </node>
+              </node>
+              <node concept="liA8E" id="5D5xac1r13l" role="2OqNvi">
+                <ref role="37wK5l" node="EMWAvBgmbf" resolve="getTreeId" />
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="3clFbJ" id="5D5xac1qZ6R" role="3cqZAp">
+          <node concept="3clFbS" id="5D5xac1qZ6T" role="3clFbx">
+            <node concept="3cpWs6" id="5D5xac1r1Cb" role="3cqZAp">
+              <node concept="3clFbT" id="5D5xac1r1LZ" role="3cqZAk">
+                <property role="3clFbU" value="true" />
+              </node>
+            </node>
+          </node>
+          <node concept="2OqwBi" id="5D5xac1r0No" role="3clFbw">
+            <node concept="2OqwBi" id="5D5xac1qZQj" role="2Oq$k0">
+              <node concept="2V_BSl" id="1xehy3SjX51" role="2Oq$k0" />
+              <node concept="liA8E" id="5D5xac1r0_H" role="2OqNvi">
+                <ref role="37wK5l" node="EMWAvBfk$Y" resolve="getCloudRepository" />
+              </node>
+            </node>
+            <node concept="liA8E" id="5D5xac1r0YU" role="2OqNvi">
+              <ref role="37wK5l" to="csg2:5D5xac1qIoP" resolve="hasModuleBinding" />
+              <node concept="37vLTw" id="5D5xac1r1bh" role="37wK5m">
+                <ref role="3cqZAo" node="5D5xac1r13e" resolve="treeId" />
+              </node>
+              <node concept="37vLTw" id="5D5xac1r1un" role="37wK5m">
+                <ref role="3cqZAo" node="5D5xac1qYEV" resolve="nodeId" />
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="3cpWs6" id="5D5xac1qXB8" role="3cqZAp">
+          <node concept="3clFbT" id="5D5xac1qXC4" role="3cqZAk" />
+        </node>
+      </node>
+    </node>
+    <node concept="3uibUv" id="1xehy3SjWHF" role="KRMoO">
+      <ref role="3uigEE" node="49CIzapIBwH" resolve="CloudNodeTreeNode" />
+    </node>
+    <node concept="3Tm1VV" id="1xehy3SjWHD" role="1B3o_S" />
+  </node>
+  <node concept="KRBjq" id="1xehy3SjXu_">
+    <property role="TrG5h" value="TreeNodeBinding" />
+    <node concept="ATzpf" id="1xehy3SjXuA" role="a7sos">
+      <property role="TrG5h" value="isBound" />
+      <node concept="3Tm1VV" id="1xehy3SjXuB" role="1B3o_S" />
+      <node concept="10P_77" id="1xehy3SjXuC" role="3clF45" />
+      <node concept="3clFbS" id="1xehy3SjXuD" role="3clF47">
+        <node concept="3cpWs8" id="1xehy3SjXH2" role="3cqZAp">
+          <node concept="3cpWsn" id="1xehy3SjXH3" role="3cpWs9">
+            <property role="TrG5h" value="nodeTreeNode" />
+            <node concept="3uibUv" id="1xehy3SjXH4" role="1tU5fm">
+              <ref role="3uigEE" node="49CIzapIBwH" resolve="CloudNodeTreeNode" />
+            </node>
+            <node concept="0kSF2" id="1xehy3SjXH5" role="33vP2m">
+              <node concept="3uibUv" id="1xehy3SjXH6" role="0kSFW">
+                <ref role="3uigEE" node="49CIzapIBwH" resolve="CloudNodeTreeNode" />
+              </node>
+              <node concept="2V_BSl" id="1xehy3SjXH7" role="0kSFX" />
+            </node>
+          </node>
+        </node>
+        <node concept="3clFbJ" id="1xehy3SjXH8" role="3cqZAp">
+          <node concept="3clFbS" id="1xehy3SjXH9" role="3clFbx">
+            <node concept="3cpWs6" id="1xehy3SjXHa" role="3cqZAp">
+              <node concept="3clFbT" id="1xehy3SjXHb" role="3cqZAk" />
+            </node>
+          </node>
+          <node concept="3clFbC" id="1xehy3SjXHc" role="3clFbw">
+            <node concept="10Nm6u" id="1xehy3SjXHd" role="3uHU7w" />
+            <node concept="37vLTw" id="1xehy3SjXHe" role="3uHU7B">
+              <ref role="3cqZAo" node="1xehy3SjXH3" resolve="nodeTreeNode" />
+            </node>
+          </node>
+          <node concept="9aQIb" id="1xehy3SjXHf" role="9aQIa">
+            <node concept="3clFbS" id="1xehy3SjXHg" role="9aQI4">
+              <node concept="3cpWs6" id="1xehy3SjXHh" role="3cqZAp">
+                <node concept="2OqwBi" id="1xehy3SjXHi" role="3cqZAk">
+                  <node concept="37vLTw" id="1xehy3SjXHj" role="2Oq$k0">
+                    <ref role="3cqZAo" node="1xehy3SjXH3" resolve="nodeTreeNode" />
+                  </node>
+                  <node concept="AQDAd" id="1xehy3SjXHk" role="2OqNvi">
+                    <ref role="37wK5l" node="1xehy3SjWHI" resolve="isBound" />
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+      </node>
+    </node>
+    <node concept="3uibUv" id="1xehy3SjXAU" role="KRMoO">
+      <ref role="3uigEE" to="rgfa:~TreeNode" resolve="TreeNode" />
+    </node>
+    <node concept="3Tm1VV" id="1xehy3SjXvc" role="1B3o_S" />
+  </node>
 </model>
 
