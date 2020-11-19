@@ -391,9 +391,6 @@
       </concept>
     </language>
     <language id="760a0a8c-eabb-4521-8bfd-65db761a9ba3" name="jetbrains.mps.baseLanguage.logging">
-      <concept id="1168401810208" name="jetbrains.mps.baseLanguage.logging.structure.PrintStatement" flags="nn" index="abc8K">
-        <child id="1168401864803" name="textExpression" index="abp_N" />
-      </concept>
       <concept id="6332851714983831325" name="jetbrains.mps.baseLanguage.logging.structure.MsgStatement" flags="ng" index="2xdQw9">
         <property id="6332851714983843871" name="severity" index="2xdLsb" />
         <child id="5721587534047265560" name="project" index="9lYEk" />
@@ -8770,11 +8767,11 @@
                   </node>
                 </node>
               </node>
-              <node concept="3cpWs8" id="1UEEMVnsVBf" role="3cqZAp">
-                <node concept="3cpWsn" id="1UEEMVnsVBi" role="3cpWs9">
-                  <property role="TrG5h" value="cloudModuleNode" />
-                  <node concept="3uibUv" id="1UEEMVnsVHc" role="1tU5fm">
-                    <ref role="3uigEE" to="jks5:~INode" resolve="INode" />
+              <node concept="3cpWs8" id="5UR2TzHTPGD" role="3cqZAp">
+                <node concept="3cpWsn" id="5UR2TzHTPGE" role="3cpWs9">
+                  <property role="TrG5h" value="moduleMigrationInformation" />
+                  <node concept="3uibUv" id="5UR2TzHTPGF" role="1tU5fm">
+                    <ref role="3uigEE" to="csg2:5UR2TzHTvdp" resolve="ModuleMigrationInformation" />
                   </node>
                   <node concept="2OqwBi" id="i0AVAFYv1B" role="33vP2m">
                     <node concept="2ShNRf" id="i0AVAFYev5" role="2Oq$k0">
@@ -8800,6 +8797,23 @@
                   </node>
                 </node>
               </node>
+              <node concept="3cpWs8" id="1UEEMVnsVBf" role="3cqZAp">
+                <node concept="3cpWsn" id="1UEEMVnsVBi" role="3cpWs9">
+                  <property role="TrG5h" value="cloudModuleNode" />
+                  <node concept="3uibUv" id="1UEEMVnsVHc" role="1tU5fm">
+                    <ref role="3uigEE" to="jks5:~INode" resolve="INode" />
+                  </node>
+                  <node concept="2OqwBi" id="5UR2TzHTQdC" role="33vP2m">
+                    <node concept="37vLTw" id="5UR2TzHTQ4Z" role="2Oq$k0">
+                      <ref role="3cqZAo" node="5UR2TzHTPGE" resolve="moduleMigrationInformation" />
+                    </node>
+                    <node concept="liA8E" id="5UR2TzHTQm8" role="2OqNvi">
+                      <ref role="37wK5l" to="csg2:5UR2TzHTMDq" resolve="getMigratedCloudModule" />
+                    </node>
+                  </node>
+                </node>
+              </node>
+              <node concept="3clFbH" id="5UR2TzHTP6$" role="3cqZAp" />
               <node concept="3SKdUt" id="1UEEMVnsT4V" role="3cqZAp">
                 <node concept="1PaTwC" id="1UEEMVnsT4W" role="1aUNEU">
                   <node concept="3oM_SD" id="1UEEMVnsT75" role="1PaTwD">
@@ -8835,10 +8849,57 @@
                   </node>
                 </node>
               </node>
+              <node concept="3SKdUt" id="5UR2TzHQTGd" role="3cqZAp">
+                <node concept="1PaTwC" id="5UR2TzHQTGe" role="1aUNEU">
+                  <node concept="3oM_SD" id="5UR2TzHQTGf" role="1PaTwD">
+                    <property role="3oM_SC" value="3." />
+                  </node>
+                  <node concept="3oM_SD" id="5UR2TzHQTM1" role="1PaTwD">
+                    <property role="3oM_SC" value="Update" />
+                  </node>
+                  <node concept="3oM_SD" id="5UR2TzHQTM5" role="1PaTwD">
+                    <property role="3oM_SC" value="all" />
+                  </node>
+                  <node concept="3oM_SD" id="5UR2TzHQTMa" role="1PaTwD">
+                    <property role="3oM_SC" value="usages" />
+                  </node>
+                  <node concept="3oM_SD" id="5UR2TzHQTMq" role="1PaTwD">
+                    <property role="3oM_SC" value="of" />
+                  </node>
+                  <node concept="3oM_SD" id="5UR2TzHQTMx" role="1PaTwD">
+                    <property role="3oM_SC" value="existing" />
+                  </node>
+                  <node concept="3oM_SD" id="5UR2TzHQTMD" role="1PaTwD">
+                    <property role="3oM_SC" value="module" />
+                  </node>
+                </node>
+              </node>
+              <node concept="3clFbF" id="5UR2TzHRbS5" role="3cqZAp">
+                <node concept="2YIFZM" id="5UR2TzHRc2q" role="3clFbG">
+                  <ref role="37wK5l" to="csg2:5UR2TzHRaLc" resolve="updateAllUsagesInOtherModulesWhenMovingFromPhysicalToCloud" />
+                  <ref role="1Pybhc" to="csg2:i0AVAFYbWI" resolve="ModelixRepositoryUtilities" />
+                  <node concept="37vLTw" id="5UR2TzHTqRr" role="37wK5m">
+                    <ref role="3cqZAo" node="nP6bhxUjqe" resolve="cloudRepository" />
+                  </node>
+                  <node concept="2YIFZM" id="5UR2TzHTsXw" role="37wK5m">
+                    <ref role="37wK5l" to="alof:~ProjectHelper.toMPSProject(com.intellij.openapi.project.Project)" resolve="toMPSProject" />
+                    <ref role="1Pybhc" to="alof:~ProjectHelper" resolve="ProjectHelper" />
+                    <node concept="2OqwBi" id="5UR2TzHTtdU" role="37wK5m">
+                      <node concept="2WthIp" id="5UR2TzHTtdX" role="2Oq$k0" />
+                      <node concept="1DTwFV" id="5UR2TzHTtdZ" role="2OqNvi">
+                        <ref role="2WH_rO" node="nP6bhxUcuG" resolve="project" />
+                      </node>
+                    </node>
+                  </node>
+                  <node concept="37vLTw" id="5UR2TzHTSw4" role="37wK5m">
+                    <ref role="3cqZAo" node="5UR2TzHTPGE" resolve="moduleMigrationInformation" />
+                  </node>
+                </node>
+              </node>
               <node concept="3SKdUt" id="i0AVAFXKLQ" role="3cqZAp">
                 <node concept="1PaTwC" id="i0AVAFXKLR" role="1aUNEU">
                   <node concept="3oM_SD" id="i0AVAFXKLS" role="1PaTwD">
-                    <property role="3oM_SC" value="3." />
+                    <property role="3oM_SC" value="4." />
                   </node>
                   <node concept="3oM_SD" id="i0AVAFXKMv" role="1PaTwD">
                     <property role="3oM_SC" value="Add" />
@@ -8894,7 +8955,7 @@
               <node concept="3SKdUt" id="i0AVAFXKTq" role="3cqZAp">
                 <node concept="1PaTwC" id="i0AVAFXKTr" role="1aUNEU">
                   <node concept="3oM_SD" id="i0AVAFXKTs" role="1PaTwD">
-                    <property role="3oM_SC" value="4." />
+                    <property role="3oM_SC" value="5." />
                   </node>
                   <node concept="3oM_SD" id="i0AVAFXKUe" role="1PaTwD">
                     <property role="3oM_SC" value="Remove" />
@@ -9140,11 +9201,6 @@
                     </node>
                     <node concept="1uHKPH" id="e_REOZbrUL" role="2OqNvi" />
                   </node>
-                </node>
-              </node>
-              <node concept="abc8K" id="e_REOZbrUM" role="3cqZAp">
-                <node concept="Xl_RD" id="e_REOZbrUN" role="abp_N">
-                  <property role="Xl_RC" value="ADDING TO " />
                 </node>
               </node>
               <node concept="3SKdUt" id="e_REOZbrUO" role="3cqZAp">
