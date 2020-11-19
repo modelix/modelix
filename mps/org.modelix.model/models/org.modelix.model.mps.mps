@@ -13073,6 +13073,25 @@
   <node concept="312cEu" id="29etMtb9$UP">
     <property role="TrG5h" value="ModelSynchronizerBase" />
     <property role="1sVAO0" value="true" />
+    <node concept="2tJIrI" id="3EeNqqGsC8D" role="jymVt" />
+    <node concept="Wx3nA" id="3EeNqqGsNcp" role="jymVt">
+      <property role="TrG5h" value="USED_LANGUAGES" />
+      <property role="3TUv4t" value="true" />
+      <node concept="3Tm1VV" id="3EeNqqGsGTc" role="1B3o_S" />
+      <node concept="17QB3L" id="3EeNqqGsLsU" role="1tU5fm" />
+      <node concept="Xl_RD" id="3EeNqqGsTfB" role="33vP2m">
+        <property role="Xl_RC" value="usedLanguages" />
+      </node>
+    </node>
+    <node concept="Wx3nA" id="3EeNqqGsVvV" role="jymVt">
+      <property role="TrG5h" value="USED_DEVKITS" />
+      <property role="3TUv4t" value="true" />
+      <node concept="3Tm1VV" id="3EeNqqGsVvW" role="1B3o_S" />
+      <node concept="17QB3L" id="3EeNqqGsVvX" role="1tU5fm" />
+      <node concept="Xl_RD" id="3EeNqqGsVvY" role="33vP2m">
+        <property role="Xl_RC" value="usedDevkits" />
+      </node>
+    </node>
     <node concept="2tJIrI" id="29etMtb9$UU" role="jymVt" />
     <node concept="312cEg" id="29etMtb9$V1" role="jymVt">
       <property role="TrG5h" value="nodeMap" />
@@ -13343,8 +13362,8 @@
             <node concept="37vLTw" id="29etMtb9_eN" role="37wK5m">
               <ref role="3cqZAo" node="29etMtb9_ez" resolve="tree" />
             </node>
-            <node concept="Xl_RD" id="29etMtb9_eO" role="37wK5m">
-              <property role="Xl_RC" value="usedLanguages" />
+            <node concept="37vLTw" id="3EeNqqGsU1y" role="37wK5m">
+              <ref role="3cqZAo" node="3EeNqqGsNcp" resolve="USED_LANGUAGES" />
             </node>
             <node concept="2OqwBi" id="29etMtb9_eP" role="37wK5m">
               <node concept="37vLTw" id="29etMtb9_eQ" role="2Oq$k0">
@@ -13457,8 +13476,8 @@
             <node concept="37vLTw" id="29etMtb9_fx" role="37wK5m">
               <ref role="3cqZAo" node="29etMtb9_fq" resolve="tree" />
             </node>
-            <node concept="Xl_RD" id="29etMtb9_fy" role="37wK5m">
-              <property role="Xl_RC" value="usedDevkits" />
+            <node concept="37vLTw" id="3EeNqqGt3HE" role="37wK5m">
+              <ref role="3cqZAo" node="3EeNqqGsVvV" resolve="USED_DEVKITS" />
             </node>
             <node concept="2OqwBi" id="29etMtb9_fz" role="37wK5m">
               <node concept="2ShNRf" id="29etMtb9_f$" role="2Oq$k0">
@@ -13947,8 +13966,8 @@
                   <node concept="3clFbF" id="29etMtb9_iO" role="3cqZAp">
                     <node concept="1rXfSq" id="29etMtb9_iP" role="3clFbG">
                       <ref role="37wK5l" node="29etMtb9_js" resolve="syncModuleReferencesFromModel" />
-                      <node concept="Xl_RD" id="29etMtb9_iQ" role="37wK5m">
-                        <property role="Xl_RC" value="usedLanguages" />
+                      <node concept="37vLTw" id="3EeNqqGsUYl" role="37wK5m">
+                        <ref role="3cqZAo" node="3EeNqqGsNcp" resolve="USED_LANGUAGES" />
                       </node>
                       <node concept="2OqwBi" id="29etMtb9_iR" role="37wK5m">
                         <node concept="37vLTw" id="29etMtb9_iS" role="2Oq$k0">
@@ -14009,8 +14028,8 @@
                   <node concept="3clFbF" id="29etMtb9_jh" role="3cqZAp">
                     <node concept="1rXfSq" id="29etMtb9_ji" role="3clFbG">
                       <ref role="37wK5l" node="29etMtb9_js" resolve="syncModuleReferencesFromModel" />
-                      <node concept="Xl_RD" id="29etMtb9_jj" role="37wK5m">
-                        <property role="Xl_RC" value="usedDevkits" />
+                      <node concept="37vLTw" id="3EeNqqGt4x9" role="37wK5m">
+                        <ref role="3cqZAo" node="3EeNqqGsVvV" resolve="USED_DEVKITS" />
                       </node>
                       <node concept="2OqwBi" id="29etMtb9_jk" role="37wK5m">
                         <node concept="2ShNRf" id="29etMtb9_jl" role="2Oq$k0">
