@@ -15689,7 +15689,8 @@
     </node>
   </node>
   <node concept="312cEu" id="i0AVAFXWm5">
-    <property role="TrG5h" value="ModelImporter" />
+    <property role="TrG5h" value="ModelCloudImporter" />
+    <property role="3GE5qa" value="importToCloud" />
     <node concept="3clFb_" id="i0AVAFY82L" role="jymVt">
       <property role="TrG5h" value="importInModelixModule" />
       <node concept="37vLTG" id="i0AVAFY89w" role="3clF46">
@@ -15709,7 +15710,7 @@
         <node concept="10P_77" id="1UEEMVnsO4F" role="1tU5fm" />
       </node>
       <node concept="3uibUv" id="5UR2TzHTM6R" role="3clF45">
-        <ref role="3uigEE" node="5UR2TzHTvdp" resolve="ModuleMigrationInformation" />
+        <ref role="3uigEE" node="5UR2TzHTvdp" resolve="ModuleCloudImportingInformation" />
       </node>
       <node concept="3Tm1VV" id="i0AVAFY82O" role="1B3o_S" />
       <node concept="3clFbS" id="i0AVAFY82P" role="3clF47">
@@ -15756,11 +15757,11 @@
           <node concept="3cpWsn" id="5UR2TzHTCwt" role="3cpWs9">
             <property role="TrG5h" value="moduleMigrationInformation" />
             <node concept="3uibUv" id="5UR2TzHTCwu" role="1tU5fm">
-              <ref role="3uigEE" node="5UR2TzHTvdp" resolve="ModuleMigrationInformation" />
+              <ref role="3uigEE" node="5UR2TzHTvdp" resolve="ModuleCloudImportingInformation" />
             </node>
             <node concept="2ShNRf" id="5UR2TzHTCJC" role="33vP2m">
               <node concept="1pGfFk" id="5UR2TzHTK9l" role="2ShVmc">
-                <ref role="37wK5l" node="5UR2TzHTF_T" resolve="ModuleMigrationInformation" />
+                <ref role="37wK5l" node="5UR2TzHTF_T" resolve="ModuleCloudImportingInformation" />
                 <node concept="37vLTw" id="5UR2TzHTKl2" role="37wK5m">
                   <ref role="3cqZAo" node="i0AVAFY84T" resolve="module" />
                 </node>
@@ -15982,11 +15983,11 @@
           <node concept="3cpWsn" id="3icVsIPOR1J" role="3cpWs9">
             <property role="TrG5h" value="migrationLogic" />
             <node concept="3uibUv" id="3icVsIPOR1K" role="1tU5fm">
-              <ref role="3uigEE" node="5UR2TzHRR1Q" resolve="MigrationLogic" />
+              <ref role="3uigEE" node="5UR2TzHRR1Q" resolve="CloudImportingLogic" />
             </node>
             <node concept="2ShNRf" id="3icVsIPORpl" role="33vP2m">
               <node concept="HV5vD" id="3icVsIPPr2U" role="2ShVmc">
-                <ref role="HV5vE" node="5UR2TzHRR1Q" resolve="MigrationLogic" />
+                <ref role="HV5vE" node="5UR2TzHRR1Q" resolve="CloudImportingLogic" />
               </node>
             </node>
           </node>
@@ -17162,7 +17163,7 @@
                     <node concept="2OqwBi" id="5UR2TzHSFlM" role="3clFbG">
                       <node concept="2ShNRf" id="5UR2TzHSDRY" role="2Oq$k0">
                         <node concept="HV5vD" id="5UR2TzHSFg1" role="2ShVmc">
-                          <ref role="HV5vE" node="5UR2TzHRR1Q" resolve="MigrationLogic" />
+                          <ref role="HV5vE" node="5UR2TzHRR1Q" resolve="CloudImportingLogic" />
                         </node>
                       </node>
                       <node concept="liA8E" id="5UR2TzHSIDP" role="2OqNvi">
@@ -17218,7 +17219,7 @@
       <node concept="37vLTG" id="5UR2TzHRP30" role="3clF46">
         <property role="TrG5h" value="migrationInformation" />
         <node concept="3uibUv" id="5UR2TzHTRRo" role="1tU5fm">
-          <ref role="3uigEE" node="5UR2TzHTvdp" resolve="ModuleMigrationInformation" />
+          <ref role="3uigEE" node="5UR2TzHTvdp" resolve="ModuleCloudImportingInformation" />
         </node>
       </node>
     </node>
@@ -17325,7 +17326,7 @@
       <node concept="37vLTG" id="5UR2TzHSBTQ" role="3clF46">
         <property role="TrG5h" value="migrationInformation" />
         <node concept="3uibUv" id="5UR2TzHTRi$" role="1tU5fm">
-          <ref role="3uigEE" node="5UR2TzHTvdp" resolve="ModuleMigrationInformation" />
+          <ref role="3uigEE" node="5UR2TzHTvdp" resolve="ModuleCloudImportingInformation" />
         </node>
       </node>
       <node concept="3clFbS" id="5UR2TzHRaLf" role="3clF47">
@@ -17523,7 +17524,7 @@
       <node concept="37vLTG" id="6YK1cB4E_Iq" role="3clF46">
         <property role="TrG5h" value="moduleMigrationInformation" />
         <node concept="3uibUv" id="6YK1cB4EAqR" role="1tU5fm">
-          <ref role="3uigEE" node="5UR2TzHTvdp" resolve="ModuleMigrationInformation" />
+          <ref role="3uigEE" node="5UR2TzHTvdp" resolve="ModuleCloudImportingInformation" />
         </node>
       </node>
       <node concept="37vLTG" id="1UEEMVnsIF8" role="3clF46">
@@ -17549,7 +17550,7 @@
                     <node concept="3cpWsn" id="5UR2TzHS0HL" role="3cpWs9">
                       <property role="TrG5h" value="migrationInformation" />
                       <node concept="3uibUv" id="5UR2TzHS0HM" role="1tU5fm">
-                        <ref role="3uigEE" node="5UR2TzHRNKJ" resolve="ModelMigrationInformation" />
+                        <ref role="3uigEE" node="5UR2TzHRNKJ" resolve="ModelCloudImportingInformation" />
                       </node>
                       <node concept="2OqwBi" id="6YK1cB4EC6W" role="33vP2m">
                         <node concept="37vLTw" id="6YK1cB4EBNz" role="2Oq$k0">
@@ -17596,7 +17597,7 @@
       </node>
       <node concept="3Tm1VV" id="12Pc$iVPff6" role="1B3o_S" />
       <node concept="3uibUv" id="5UR2TzHS_YY" role="3clF45">
-        <ref role="3uigEE" node="5UR2TzHRNKJ" resolve="ModelMigrationInformation" />
+        <ref role="3uigEE" node="5UR2TzHRNKJ" resolve="ModelCloudImportingInformation" />
       </node>
     </node>
     <node concept="2tJIrI" id="12Pc$iVPeXp" role="jymVt" />
@@ -17951,8 +17952,8 @@
     </node>
   </node>
   <node concept="312cEu" id="5UR2TzHRNKJ">
-    <property role="TrG5h" value="ModelMigrationInformation" />
-    <property role="3GE5qa" value="migration" />
+    <property role="TrG5h" value="ModelCloudImportingInformation" />
+    <property role="3GE5qa" value="importToCloud" />
     <node concept="312cEg" id="5UR2TzHROot" role="jymVt">
       <property role="TrG5h" value="physicalToCloudNodesMap" />
       <node concept="3Tm1VV" id="5UR2TzHRUgp" role="1B3o_S" />
@@ -17967,7 +17968,7 @@
       <property role="TrG5h" value="moduleMigrationInformation" />
       <node concept="3Tm6S6" id="6YK1cB4EkZz" role="1B3o_S" />
       <node concept="3uibUv" id="6YK1cB4EkZ_" role="1tU5fm">
-        <ref role="3uigEE" node="5UR2TzHTvdp" resolve="ModuleMigrationInformation" />
+        <ref role="3uigEE" node="5UR2TzHTvdp" resolve="ModuleCloudImportingInformation" />
       </node>
     </node>
     <node concept="2tJIrI" id="6YK1cB4EkRS" role="jymVt" />
@@ -17975,7 +17976,7 @@
       <node concept="37vLTG" id="6YK1cB4EkDb" role="3clF46">
         <property role="TrG5h" value="moduleMigrationInformation" />
         <node concept="3uibUv" id="6YK1cB4EkRw" role="1tU5fm">
-          <ref role="3uigEE" node="5UR2TzHTvdp" resolve="ModuleMigrationInformation" />
+          <ref role="3uigEE" node="5UR2TzHTvdp" resolve="ModuleCloudImportingInformation" />
         </node>
       </node>
       <node concept="3cqZAl" id="5UR2TzHRXiI" role="3clF45" />
@@ -18013,6 +18014,7 @@
         </node>
       </node>
     </node>
+    <node concept="2tJIrI" id="1xehy3Ss3a3" role="jymVt" />
     <node concept="3clFb_" id="6YK1cB4E9n6" role="jymVt">
       <property role="TrG5h" value="getMigratedNodes" />
       <node concept="3clFbS" id="6YK1cB4E9n9" role="3clF47">
@@ -18096,8 +18098,8 @@
     <node concept="3Tm1VV" id="5UR2TzHRNKK" role="1B3o_S" />
   </node>
   <node concept="312cEu" id="5UR2TzHRR1Q">
-    <property role="3GE5qa" value="migration" />
-    <property role="TrG5h" value="MigrationLogic" />
+    <property role="3GE5qa" value="importToCloud" />
+    <property role="TrG5h" value="CloudImportingLogic" />
     <node concept="2tJIrI" id="5UR2TzHSFBW" role="jymVt" />
     <node concept="3clFb_" id="3icVsIPPACA" role="jymVt">
       <property role="TrG5h" value="updateUsages" />
@@ -18151,13 +18153,12 @@
       <node concept="37vLTG" id="3icVsIPPACV" role="3clF46">
         <property role="TrG5h" value="moduleMigrationInformation" />
         <node concept="3uibUv" id="3icVsIPPACW" role="1tU5fm">
-          <ref role="3uigEE" node="5UR2TzHTvdp" resolve="ModuleMigrationInformation" />
+          <ref role="3uigEE" node="5UR2TzHTvdp" resolve="ModuleCloudImportingInformation" />
         </node>
       </node>
       <node concept="3Tm1VV" id="3icVsIPPACT" role="1B3o_S" />
     </node>
     <node concept="2tJIrI" id="3icVsIPONEM" role="jymVt" />
-    <node concept="2tJIrI" id="3icVsIPONHh" role="jymVt" />
     <node concept="3clFb_" id="5UR2TzHSFQV" role="jymVt">
       <property role="TrG5h" value="migrateExternalReferences" />
       <node concept="3clFbS" id="5UR2TzHSFQW" role="3clF47">
@@ -18201,7 +18202,7 @@
       <node concept="37vLTG" id="5UR2TzHSFSL" role="3clF46">
         <property role="TrG5h" value="migrationInformation" />
         <node concept="3uibUv" id="5UR2TzHSFSM" role="1tU5fm">
-          <ref role="3uigEE" node="5UR2TzHRNKJ" resolve="ModelMigrationInformation" />
+          <ref role="3uigEE" node="5UR2TzHRNKJ" resolve="ModelCloudImportingInformation" />
         </node>
       </node>
     </node>
@@ -18238,7 +18239,7 @@
       <node concept="37vLTG" id="3icVsIPPtLF" role="3clF46">
         <property role="TrG5h" value="moduleMigrationInformation" />
         <node concept="3uibUv" id="3icVsIPPtLE" role="1tU5fm">
-          <ref role="3uigEE" node="5UR2TzHTvdp" resolve="ModuleMigrationInformation" />
+          <ref role="3uigEE" node="5UR2TzHTvdp" resolve="ModuleCloudImportingInformation" />
         </node>
       </node>
     </node>
@@ -18579,7 +18580,7 @@
       <node concept="37vLTG" id="5UR2TzHRRot" role="3clF46">
         <property role="TrG5h" value="migrationInformation" />
         <node concept="3uibUv" id="5UR2TzHRRos" role="1tU5fm">
-          <ref role="3uigEE" node="5UR2TzHRNKJ" resolve="ModelMigrationInformation" />
+          <ref role="3uigEE" node="5UR2TzHRNKJ" resolve="ModelCloudImportingInformation" />
         </node>
       </node>
       <node concept="P$JXv" id="6YK1cB4Ekl9" role="lGtFl">
@@ -18610,20 +18611,20 @@
     </node>
   </node>
   <node concept="312cEu" id="5UR2TzHTvdp">
-    <property role="3GE5qa" value="migration" />
-    <property role="TrG5h" value="ModuleMigrationInformation" />
+    <property role="3GE5qa" value="importToCloud" />
+    <property role="TrG5h" value="ModuleCloudImportingInformation" />
     <node concept="312cEg" id="5UR2TzHTvJ0" role="jymVt">
       <property role="TrG5h" value="infoForModels" />
       <node concept="3Tm6S6" id="5UR2TzHTvjz" role="1B3o_S" />
       <node concept="_YKpA" id="5UR2TzHTvp6" role="1tU5fm">
         <node concept="3uibUv" id="5UR2TzHTvIW" role="_ZDj9">
-          <ref role="3uigEE" node="5UR2TzHRNKJ" resolve="ModelMigrationInformation" />
+          <ref role="3uigEE" node="5UR2TzHRNKJ" resolve="ModelCloudImportingInformation" />
         </node>
       </node>
       <node concept="2ShNRf" id="5UR2TzHTvUO" role="33vP2m">
         <node concept="2Jqq0_" id="5UR2TzHTvPb" role="2ShVmc">
           <node concept="3uibUv" id="5UR2TzHTvPc" role="HW$YZ">
-            <ref role="3uigEE" node="5UR2TzHRNKJ" resolve="ModelMigrationInformation" />
+            <ref role="3uigEE" node="5UR2TzHRNKJ" resolve="ModelCloudImportingInformation" />
           </node>
         </node>
       </node>
@@ -18695,11 +18696,11 @@
           <node concept="3cpWsn" id="6YK1cB4EDG7" role="3cpWs9">
             <property role="TrG5h" value="modelMigrationInformation" />
             <node concept="3uibUv" id="6YK1cB4EDG8" role="1tU5fm">
-              <ref role="3uigEE" node="5UR2TzHRNKJ" resolve="ModelMigrationInformation" />
+              <ref role="3uigEE" node="5UR2TzHRNKJ" resolve="ModelCloudImportingInformation" />
             </node>
             <node concept="2ShNRf" id="6YK1cB4EDXA" role="33vP2m">
               <node concept="1pGfFk" id="6YK1cB4FcXO" role="2ShVmc">
-                <ref role="37wK5l" node="5UR2TzHRXiG" resolve="ModelMigrationInformation" />
+                <ref role="37wK5l" node="5UR2TzHRXiG" resolve="ModelCloudImportingInformation" />
                 <node concept="Xjq3P" id="6YK1cB4Fd3Y" role="37wK5m" />
               </node>
             </node>
@@ -18725,7 +18726,7 @@
       </node>
       <node concept="3Tm1VV" id="5UR2TzHTw1K" role="1B3o_S" />
       <node concept="3uibUv" id="6YK1cB4Fe7I" role="3clF45">
-        <ref role="3uigEE" node="5UR2TzHRNKJ" resolve="ModelMigrationInformation" />
+        <ref role="3uigEE" node="5UR2TzHRNKJ" resolve="ModelCloudImportingInformation" />
       </node>
     </node>
     <node concept="2tJIrI" id="5UR2TzHTMh1" role="jymVt" />
@@ -18771,7 +18772,7 @@
       <node concept="3Tm1VV" id="3icVsIPPvvM" role="1B3o_S" />
       <node concept="_YKpA" id="3icVsIPPvK4" role="3clF45">
         <node concept="3uibUv" id="3icVsIPPwVF" role="_ZDj9">
-          <ref role="3uigEE" node="5UR2TzHRNKJ" resolve="ModelMigrationInformation" />
+          <ref role="3uigEE" node="5UR2TzHRNKJ" resolve="ModelCloudImportingInformation" />
         </node>
       </node>
     </node>
@@ -18848,6 +18849,28 @@
     </node>
     <node concept="2tJIrI" id="6YK1cB4En7o" role="jymVt" />
     <node concept="3Tm1VV" id="5UR2TzHTvdq" role="1B3o_S" />
+    <node concept="3UR2Jj" id="1xehy3Ss2YJ" role="lGtFl">
+      <node concept="TZ5HA" id="1xehy3Ss2YK" role="TZ5H$">
+        <node concept="1dT_AC" id="1xehy3Ss2YL" role="1dT_Ay">
+          <property role="1dT_AB" value="We normally migrate from physical to cloud one module at the time." />
+        </node>
+      </node>
+      <node concept="TZ5HA" id="1xehy3Ss37s" role="TZ5H$">
+        <node concept="1dT_AC" id="1xehy3Ss37t" role="1dT_Ay">
+          <property role="1dT_AB" value="We track all relevant information for this migration here." />
+        </node>
+      </node>
+      <node concept="TZ5HA" id="1xehy3Ss37C" role="TZ5H$">
+        <node concept="1dT_AC" id="1xehy3Ss37D" role="1dT_Ay">
+          <property role="1dT_AB" value="This is necessary because the migration is performed in steps and some information (like the mapping between" />
+        </node>
+      </node>
+      <node concept="TZ5HA" id="1xehy3Ss37Q" role="TZ5H$">
+        <node concept="1dT_AC" id="1xehy3Ss37R" role="1dT_Ay">
+          <property role="1dT_AB" value="physical nodes and cloud nodes) needs to be passed among the steps." />
+        </node>
+      </node>
+    </node>
   </node>
 </model>
 
