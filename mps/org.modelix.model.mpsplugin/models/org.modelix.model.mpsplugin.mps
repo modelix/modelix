@@ -16076,6 +16076,7 @@
   </node>
   <node concept="312cEu" id="i0AVAFYbWI">
     <property role="TrG5h" value="ModelixRepositoryUtilities" />
+    <node concept="2tJIrI" id="1xehy3Ss9nC" role="jymVt" />
     <node concept="2YIFZL" id="i0AVAFYYgl" role="jymVt">
       <property role="TrG5h" value="createModule" />
       <node concept="37vLTG" id="i0AVAFYZFL" role="3clF46">
@@ -17083,7 +17084,6 @@
       <node concept="3Tm6S6" id="4rSKvBmJENV" role="1B3o_S" />
       <node concept="3cqZAl" id="4rSKvBmJH8C" role="3clF45" />
     </node>
-    <node concept="2tJIrI" id="AHdr1jwdSY" role="jymVt" />
     <node concept="2tJIrI" id="5UR2TzHRdmr" role="jymVt" />
     <node concept="2YIFZL" id="5UR2TzHRdYk" role="jymVt">
       <property role="TrG5h" value="updateAllUsagesInOtherPhysicalModulesWhenMovingFromPhysicalToCloud" />
@@ -17883,6 +17883,23 @@
     </node>
     <node concept="2tJIrI" id="13B7cI$79dt" role="jymVt" />
     <node concept="3Tm1VV" id="i0AVAFYbWJ" role="1B3o_S" />
+    <node concept="3UR2Jj" id="1xehy3Ssa7Q" role="lGtFl">
+      <node concept="TZ5HA" id="1xehy3Ssa7R" role="TZ5H$">
+        <node concept="1dT_AC" id="1xehy3Ssa7S" role="1dT_Ay">
+          <property role="1dT_AB" value="Collection of utilities needed to operate with a CloudRepository." />
+        </node>
+      </node>
+      <node concept="TZ5HA" id="1xehy3SsaGX" role="TZ5H$">
+        <node concept="1dT_AC" id="1xehy3SsaGY" role="1dT_Ay">
+          <property role="1dT_AB" value="" />
+        </node>
+      </node>
+      <node concept="TZ5HA" id="1xehy3SsaSl" role="TZ5H$">
+        <node concept="1dT_AC" id="1xehy3SsaSm" role="1dT_Ay">
+          <property role="1dT_AB" value="This should probably be refactored and split into extension methods or smaller, more cohesive classes." />
+        </node>
+      </node>
+    </node>
   </node>
   <node concept="KRBjq" id="5UR2TzHRF3k">
     <property role="TrG5h" value="SModuleUtils" />
