@@ -50,8 +50,8 @@ public class RestModelServerTest {
     @Test
     public void testCollectExistingKeyHash() {
         InMemoryStoreClient storeClient = new InMemoryStoreClient();
-        storeClient.put("existingKey", "hash-0123456789-0123456789-0123456789-00001");
-        storeClient.put("hash-0123456789-0123456789-0123456789-00001", "bar");
+        storeClient.put("existingKey", "hash-*0123456789-0123456789-0123456789-00001");
+        storeClient.put("hash-*0123456789-0123456789-0123456789-00001", "bar");
         RestModelServer rms = new RestModelServer(storeClient);
         JSONArray result = rms.collect("existingKey");
         assertEquals(2, result.length());
@@ -59,28 +59,28 @@ public class RestModelServerTest {
         var obj = result.getJSONObject(0);
         assertEquals(new HashSet<>(Arrays.asList("key", "value")), obj.keySet());
         assertEquals("existingKey", obj.get("key"));
-        assertEquals("hash-0123456789-0123456789-0123456789-00001", obj.get("value"));
+        assertEquals("hash-*0123456789-0123456789-0123456789-00001", obj.get("value"));
 
         obj = result.getJSONObject(1);
         assertEquals(new HashSet<>(Arrays.asList("key", "value")), obj.keySet());
-        assertEquals("hash-0123456789-0123456789-0123456789-00001", obj.get("key"));
+        assertEquals("hash-*0123456789-0123456789-0123456789-00001", obj.get("key"));
         assertEquals("bar", obj.get("value"));
     }
 
     @Test
     public void testCollectExistingKeyHashChained() {
         InMemoryStoreClient storeClient = new InMemoryStoreClient();
-        storeClient.put("root", "hash-0123456789-0123456789-0123456789-00001");
+        storeClient.put("root", "hash-*0123456789-0123456789-0123456789-00001");
         storeClient.put(
-                "hash-0123456789-0123456789-0123456789-00001",
-                "hash-0123456789-0123456789-0123456789-00002");
+                "hash-*0123456789-0123456789-0123456789-00001",
+                "hash-*0123456789-0123456789-0123456789-00002");
         storeClient.put(
-                "hash-0123456789-0123456789-0123456789-00002",
-                "hash-0123456789-0123456789-0123456789-00003");
+                "hash-*0123456789-0123456789-0123456789-00002",
+                "hash-*0123456789-0123456789-0123456789-00003");
         storeClient.put(
-                "hash-0123456789-0123456789-0123456789-00003",
-                "hash-0123456789-0123456789-0123456789-00004");
-        storeClient.put("hash-0123456789-0123456789-0123456789-00004", "end");
+                "hash-*0123456789-0123456789-0123456789-00003",
+                "hash-*0123456789-0123456789-0123456789-00004");
+        storeClient.put("hash-*0123456789-0123456789-0123456789-00004", "end");
         RestModelServer rms = new RestModelServer(storeClient);
         JSONArray result = rms.collect("root");
         assertEquals(5, result.length());
@@ -88,42 +88,42 @@ public class RestModelServerTest {
         var obj = result.getJSONObject(0);
         assertEquals(new HashSet<>(Arrays.asList("key", "value")), obj.keySet());
         assertEquals("root", obj.get("key"));
-        assertEquals("hash-0123456789-0123456789-0123456789-00001", obj.get("value"));
+        assertEquals("hash-*0123456789-0123456789-0123456789-00001", obj.get("value"));
 
         obj = result.getJSONObject(1);
         assertEquals(new HashSet<>(Arrays.asList("key", "value")), obj.keySet());
-        assertEquals("hash-0123456789-0123456789-0123456789-00001", obj.get("key"));
-        assertEquals("hash-0123456789-0123456789-0123456789-00002", obj.get("value"));
+        assertEquals("hash-*0123456789-0123456789-0123456789-00001", obj.get("key"));
+        assertEquals("hash-*0123456789-0123456789-0123456789-00002", obj.get("value"));
 
         obj = result.getJSONObject(2);
         assertEquals(new HashSet<>(Arrays.asList("key", "value")), obj.keySet());
-        assertEquals("hash-0123456789-0123456789-0123456789-00002", obj.get("key"));
-        assertEquals("hash-0123456789-0123456789-0123456789-00003", obj.get("value"));
+        assertEquals("hash-*0123456789-0123456789-0123456789-00002", obj.get("key"));
+        assertEquals("hash-*0123456789-0123456789-0123456789-00003", obj.get("value"));
 
         obj = result.getJSONObject(3);
         assertEquals(new HashSet<>(Arrays.asList("key", "value")), obj.keySet());
-        assertEquals("hash-0123456789-0123456789-0123456789-00003", obj.get("key"));
-        assertEquals("hash-0123456789-0123456789-0123456789-00004", obj.get("value"));
+        assertEquals("hash-*0123456789-0123456789-0123456789-00003", obj.get("key"));
+        assertEquals("hash-*0123456789-0123456789-0123456789-00004", obj.get("value"));
 
         obj = result.getJSONObject(4);
         assertEquals(new HashSet<>(Arrays.asList("key", "value")), obj.keySet());
-        assertEquals("hash-0123456789-0123456789-0123456789-00004", obj.get("key"));
+        assertEquals("hash-*0123456789-0123456789-0123456789-00004", obj.get("key"));
         assertEquals("end", obj.get("value"));
     }
 
     @Test
     public void testCollectExistingKeyHashChainedWithRepetitions() {
         InMemoryStoreClient storeClient = new InMemoryStoreClient();
-        storeClient.put("root", "hash-0123456789-0123456789-0123456789-00001");
+        storeClient.put("root", "hash-*0123456789-0123456789-0123456789-00001");
         storeClient.put(
-                "hash-0123456789-0123456789-0123456789-00001",
-                "hash-0123456789-0123456789-0123456789-00002");
+                "hash-*0123456789-0123456789-0123456789-00001",
+                "hash-*0123456789-0123456789-0123456789-00002");
         storeClient.put(
-                "hash-0123456789-0123456789-0123456789-00002",
-                "hash-0123456789-0123456789-0123456789-00003");
+                "hash-*0123456789-0123456789-0123456789-00002",
+                "hash-*0123456789-0123456789-0123456789-00003");
         storeClient.put(
-                "hash-0123456789-0123456789-0123456789-00003",
-                "hash-0123456789-0123456789-0123456789-00001");
+                "hash-*0123456789-0123456789-0123456789-00003",
+                "hash-*0123456789-0123456789-0123456789-00001");
         RestModelServer rms = new RestModelServer(storeClient);
         JSONArray result = rms.collect("root");
         assertEquals(4, result.length());
@@ -131,21 +131,21 @@ public class RestModelServerTest {
         var obj = result.getJSONObject(0);
         assertEquals(new HashSet<>(Arrays.asList("key", "value")), obj.keySet());
         assertEquals("root", obj.get("key"));
-        assertEquals("hash-0123456789-0123456789-0123456789-00001", obj.get("value"));
+        assertEquals("hash-*0123456789-0123456789-0123456789-00001", obj.get("value"));
 
         obj = result.getJSONObject(1);
         assertEquals(new HashSet<>(Arrays.asList("key", "value")), obj.keySet());
-        assertEquals("hash-0123456789-0123456789-0123456789-00001", obj.get("key"));
-        assertEquals("hash-0123456789-0123456789-0123456789-00002", obj.get("value"));
+        assertEquals("hash-*0123456789-0123456789-0123456789-00001", obj.get("key"));
+        assertEquals("hash-*0123456789-0123456789-0123456789-00002", obj.get("value"));
 
         obj = result.getJSONObject(2);
         assertEquals(new HashSet<>(Arrays.asList("key", "value")), obj.keySet());
-        assertEquals("hash-0123456789-0123456789-0123456789-00002", obj.get("key"));
-        assertEquals("hash-0123456789-0123456789-0123456789-00003", obj.get("value"));
+        assertEquals("hash-*0123456789-0123456789-0123456789-00002", obj.get("key"));
+        assertEquals("hash-*0123456789-0123456789-0123456789-00003", obj.get("value"));
 
         obj = result.getJSONObject(3);
         assertEquals(new HashSet<>(Arrays.asList("key", "value")), obj.keySet());
-        assertEquals("hash-0123456789-0123456789-0123456789-00003", obj.get("key"));
-        assertEquals("hash-0123456789-0123456789-0123456789-00001", obj.get("value"));
+        assertEquals("hash-*0123456789-0123456789-0123456789-00003", obj.get("key"));
+        assertEquals("hash-*0123456789-0123456789-0123456789-00001", obj.get("value"));
     }
 }
