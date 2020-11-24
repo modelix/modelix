@@ -1,7 +1,5 @@
 package org.modelix.model.persistent
 
-import kotlinx.browser.window
-
 @JsNonModule
 @JsModule("js-sha256")
 external fun sha256(s: String): String
