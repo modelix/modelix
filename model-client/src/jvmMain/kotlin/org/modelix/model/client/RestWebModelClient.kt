@@ -28,6 +28,7 @@ import org.modelix.model.client.SharedExecutors.fixDelay
 import org.modelix.model.lazy.IDeserializingKeyValueStore
 import org.modelix.model.lazy.ObjectStoreCache
 import org.modelix.model.persistent.HashUtil
+import org.modelix.model.persistent.SerializationUtil
 import org.modelix.model.util.StreamUtils.toStream
 import java.io.File
 import java.net.URLEncoder
@@ -205,7 +206,7 @@ class RestWebModelClient @JvmOverloads constructor(var baseUrl: String? = null, 
     }
 
     override fun put(key: String, value: String?) {
-        if (!key.matches(Regex("[a-zA-Z0-9-_]{43}"))) {
+        if (!key.matches(HashUtil.HASH_PATTERN)) {
             if (LOG.isDebugEnabled) {
                 LOG.debug("PUT $key = $value")
             }
@@ -252,7 +253,7 @@ class RestWebModelClient @JvmOverloads constructor(var baseUrl: String? = null, 
             approxSize += key.length
             approxSize += value!!.length
             json.put(jsonEntry)
-            if (!key.matches(Regex("[a-zA-Z0-9-_]{43}"))) {
+            if (!key.matches(HashUtil.HASH_PATTERN)) {
                 if (LOG.isDebugEnabled) {
                     LOG.debug("PUT $key = $value")
                 }

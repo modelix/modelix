@@ -202,6 +202,33 @@ class TreeSerializationTest {
         assertStore(mapStore)
     }
 
+    @Test
+    fun backwardCompatibility05() {
+        val mapStore = MapBaseStore()
+        mapStore.putAll(
+            mapOf(
+                "Et95z*_OAINGqgFr3DvKVtdBGEa3gUNjkZF77F7CQQf0" to "7fffffff00000002/%00/1/c1///",
+                "HMsJ6*Xf4WYuE_wHDAhKGQOYq8FOnes-fzDaJ2Uv1-VA" to "tree01/1/Ovgun*AsjdgxqowKRsCLj9cChzZaGI6nTV0NJsgfq0rs",
+                "Ovgun*AsjdgxqowKRsCLj9cChzZaGI6nTV0NJsgfq0rs" to "I/6/pFhv2*ScMxR0IP4hfv5htTTl95ouj2oFUBspcZpMMF0A,mfve0*pYVzQSTH0xdUMCy8LnrhZXzNqBf-xPVLUadCk4",
+                "XYilb*NsicC2D7y5g2dBx03rflbHYyRrYkn5__GAvnWc" to "1/%00/%00/HMsJ6*Xf4WYuE_wHDAhKGQOYq8FOnes-fzDaJ2Uv1-VA//AddNewChildOp;1;c1;0;7fffffff00000001;%00,AddNewChildOp;7fffffff00000001;c2;0;7fffffff00000002;%00,AddNewChildOp;1;c3;0;7fffffff00000003;%00,MoveNodeOp;7fffffff00000003;7fffffff00000002;c3;0,DeleteNodeOp;7fffffff00000003,MoveNodeOp;7fffffff00000002;1;c1;1,SetPropertyOp;7fffffff00000001;p1;a-%E2%93%9C,SetPropertyOp;7fffffff00000001;p2;b-%E2%93%9C,SetReferenceOp;7fffffff00000001;r1;7fffffff00000001,SetReferenceOp;7fffffff00000001;r2;7fffffff00000002/10/",
+                "aFC83*xz2jokKqzz5pUs6OIxEj-hCatYuxl53lJjzoy0" to "L/7fffffff00000001/fKGCF*wU73YLn6ErIfxsHPVMne2LZQu2FbEVm4h540e4",
+                "br_-H*i8YladxLGTFzOj1bKfiDl41lbTa1cqBxS6Dilw" to "I/10000001/wpWTu*_jgNVwPY3xKfEMb2kOMHhIYxU1A3mHCXXKzwN4,aFC83*xz2jokKqzz5pUs6OIxEj-hCatYuxl53lJjzoy0",
+                "branch_master" to "XYilb*NsicC2D7y5g2dBx03rflbHYyRrYkn5__GAvnWc",
+                "cXiQQ*hmMY4hI4DLXtzBFm_2bUz4KLnnfsbupiGXDNyU" to "I/1/x_bof*v8CBnjMI9fRH9QiRYsS3RqrdHjRA8zhqeTVuwQ",
+                "fKGCF*wU73YLn6ErIfxsHPVMne2LZQu2FbEVm4h540e4" to "7fffffff00000001/%00/1/c1//p1=a-%E2%93%9C,p2=b-%E2%93%9C/r1=7fffffff00000001,r2=7fffffff00000002",
+                "mfve0*pYVzQSTH0xdUMCy8LnrhZXzNqBf-xPVLUadCk4" to "L/7fffffff00000002/Et95z*_OAINGqgFr3DvKVtdBGEa3gUNjkZF77F7CQQf0",
+                "omCN-*elaFM3_USYahuiPS8SsPcRKoDn7rIL-7fKJ6kw" to "I/1/br_-H*i8YladxLGTFzOj1bKfiDl41lbTa1cqBxS6Dilw",
+                "pFhv2*ScMxR0IP4hfv5htTTl95ouj2oFUBspcZpMMF0A" to "I/1/pr1xK*QDIr3d0xzEHyfNIyGagxR-B9kV6sDqTqZcum4s",
+                "pdFUB*oUqfKisgMWISa51tIYiGSQSEktOwmH5CmWsqP8" to "1/%00/0/%00/7fffffff00000001,7fffffff00000002//",
+                "pr1xK*QDIr3d0xzEHyfNIyGagxR-B9kV6sDqTqZcum4s" to "I/1/cXiQQ*hmMY4hI4DLXtzBFm_2bUz4KLnnfsbupiGXDNyU",
+                "wpWTu*_jgNVwPY3xKfEMb2kOMHhIYxU1A3mHCXXKzwN4" to "L/1/pdFUB*oUqfKisgMWISa51tIYiGSQSEktOwmH5CmWsqP8",
+                "x_bof*v8CBnjMI9fRH9QiRYsS3RqrdHjRA8zhqeTVuwQ" to "I/1/omCN-*elaFM3_USYahuiPS8SsPcRKoDn7rIL-7fKJ6kw",
+            )
+        )
+
+        assertStore(mapStore)
+    }
+
     fun assertStore(store: IKeyValueStore) {
         val deserializedVersion = CLVersion(store["branch_master"]!!, ObjectStoreCache(GarbageFilteringStore(store)))
         val deserializedTree = deserializedVersion.tree

@@ -51,7 +51,7 @@ import org.json.JSONObject;
 
 public class RestModelServer {
     private static final Logger LOG = LogManager.getLogger(RestModelServer.class);
-    public static final Pattern HASH_PATTERN = Pattern.compile("[a-zA-Z0-9\\-_]{43}");
+    public static final Pattern HASH_PATTERN = Pattern.compile("[a-zA-Z0-9\\-_]{5}\\*[a-zA-Z0-9\\-_]{38}");
     public static final String PROTECTED_PREFIX = "$$$";
     private static final String REPOSITORY_ID_KEY = "repositoryId";
     private static final String TEXT_PLAIN = "text/plain";

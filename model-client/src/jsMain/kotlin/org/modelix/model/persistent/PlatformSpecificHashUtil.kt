@@ -23,26 +23,28 @@ fun wrapperSha256(s: String) = sha256(s)
 @JsNonModule
 external object Base64 {
     fun fromUint8Array(input: ByteArray, uriSafe: Boolean): String
+    fun decode(input: String): String
+    fun encode(input: String): String
 }
 
 actual object PlatformSpecificHashUtil {
     actual fun sha256(input: ByteArray?): String {
         val sha256Bytes = sha256asByteArray(input)
-        return base64encode(sha256Bytes)
+        val base64 = base64encode(sha256Bytes)
+        return base64.substring(0, 5) + "*" + base64.substring(5)
     }
 
     actual fun sha256(input: String): String {
-        return wrapperSha256(input)
+        val base64 = base64encode(wrapperSha256(input))
+        return base64.substring(0, 5) + "*" + base64.substring(5)
     }
 
     actual fun base64encode(input: String): String {
-        // QUESTION: can we do that on NodeJS?
-        return window.btoa(input)
+        return Base64.encode(input)
     }
 
     actual fun base64decode(input: String): String {
-        // QUESTION: can we do that on NodeJS?
-        return window.atob(input)
+        return Base64.decode(input)
     }
 
     actual fun sha256asByteArray(input: ByteArray?): ByteArray {
