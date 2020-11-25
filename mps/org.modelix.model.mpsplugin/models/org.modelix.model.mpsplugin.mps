@@ -575,6 +575,7 @@
     <property role="2bfB8j" value="true" />
     <property role="1sVAO0" value="false" />
     <property role="1EXbeo" value="false" />
+    <property role="3GE5qa" value="transient" />
     <node concept="3uibUv" id="4QZGLsLEOdN" role="1zkMxy">
       <ref role="3uigEE" to="w1kc:~EditableModelDescriptor" resolve="EditableModelDescriptor" />
     </node>
@@ -1267,6 +1268,7 @@
     <property role="2bfB8j" value="true" />
     <property role="1sVAO0" value="false" />
     <property role="1EXbeo" value="false" />
+    <property role="3GE5qa" value="transient" />
     <node concept="3Tm1VV" id="115Xaa43tZJ" role="1B3o_S" />
     <node concept="3uibUv" id="115Xaa43tZK" role="1zkMxy">
       <ref role="3uigEE" to="z1c3:~AbstractModule" resolve="AbstractModule" />
@@ -1555,6 +1557,7 @@
   </node>
   <node concept="312cEu" id="26ispG7Y1u2">
     <property role="TrG5h" value="CloudTransientModules" />
+    <property role="3GE5qa" value="transient" />
     <node concept="2tJIrI" id="26ispG7Y1va" role="jymVt" />
     <node concept="Wx3nA" id="49CIzaqqBaB" role="jymVt">
       <property role="TrG5h" value="ourInstance" />
@@ -4864,6 +4867,7 @@
   </node>
   <node concept="312cEu" id="6aRQr1WMwO8">
     <property role="TrG5h" value="CloudIcons" />
+    <property role="3GE5qa" value="icons" />
     <node concept="Wx3nA" id="4NO8rntTnzD" role="jymVt">
       <property role="3TUv4t" value="true" />
       <property role="TrG5h" value="ROOT_ICON" />
@@ -8159,6 +8163,7 @@
   </node>
   <node concept="312cEu" id="49CIzaqqe6y">
     <property role="TrG5h" value="TransientModuleBinding" />
+    <property role="3GE5qa" value="transient" />
     <node concept="Wx3nA" id="49CIzaqqxEV" role="jymVt">
       <property role="TrG5h" value="NAME_SEQUENCE" />
       <property role="3TUv4t" value="true" />
@@ -9826,6 +9831,7 @@
   </node>
   <node concept="312cEu" id="4NO8rntUJNs">
     <property role="TrG5h" value="LetterInSquareIcon" />
+    <property role="3GE5qa" value="icons" />
     <node concept="312cEg" id="4NO8rntUXoV" role="jymVt">
       <property role="TrG5h" value="letter" />
       <node concept="3Tm6S6" id="4NO8rntUXoW" role="1B3o_S" />
