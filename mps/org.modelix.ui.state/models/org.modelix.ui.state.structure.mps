@@ -13,6 +13,12 @@
       <concept id="7862711839422615209" name="jetbrains.mps.lang.structure.structure.DocumentedNodeAnnotation" flags="ng" index="t5JxF">
         <property id="7862711839422615217" name="text" index="t5JxN" />
       </concept>
+      <concept id="1082978164218" name="jetbrains.mps.lang.structure.structure.DataTypeDeclaration" flags="ng" index="AxPO6">
+        <property id="7791109065626895363" name="datatypeId" index="3F6X1D" />
+      </concept>
+      <concept id="1082978499127" name="jetbrains.mps.lang.structure.structure.ConstrainedDataTypeDeclaration" flags="ng" index="Az7Fb">
+        <property id="1083066089218" name="constraint" index="FLfZY" />
+      </concept>
       <concept id="1169125787135" name="jetbrains.mps.lang.structure.structure.AbstractConceptDeclaration" flags="ig" index="PkWjJ">
         <property id="6714410169261853888" name="conceptId" index="EcuMT" />
         <child id="1071489727083" name="linkDeclaration" index="1TKVEi" />
@@ -77,6 +83,11 @@
       <property role="TrG5h" value="id" />
       <ref role="AX2Wp" to="tpck:fKAOsGN" resolve="string" />
     </node>
+    <node concept="1TJgyi" id="5Yll$oNPopq" role="1TKVEl">
+      <property role="IQ2nx" value="6887506064650372698" />
+      <property role="TrG5h" value="lastActivity" />
+      <ref role="AX2Wp" node="5Yll$oNPoK5" resolve="unsigned_big_int" />
+    </node>
     <node concept="1TJgyj" id="4bjL$lUeeoQ" role="1TKVEi">
       <property role="IQ2ns" value="4815410428294784566" />
       <property role="20kJfa" value="user" />
@@ -117,6 +128,11 @@
       <property role="TrG5h" value="memento" />
       <ref role="AX2Wp" to="tpck:fKAOsGN" resolve="string" />
     </node>
+  </node>
+  <node concept="Az7Fb" id="5Yll$oNPoK5">
+    <property role="3F6X1D" value="6887506064650374149" />
+    <property role="TrG5h" value="unsigned_big_int" />
+    <property role="FLfZY" value="\\d+" />
   </node>
 </model>
 
