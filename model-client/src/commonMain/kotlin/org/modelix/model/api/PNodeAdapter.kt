@@ -82,12 +82,13 @@ open class PNodeAdapter(val nodeId: Long, val branch: IBranch) : INode {
     override fun getReferenceTarget(role: String): INode? {
         notifyAccess()
         val targetRef = branch.transaction.getReferenceTarget(nodeId, role)
+        if (targetRef == null) return null
         if (targetRef is PNodeReference) {
             return targetRef.resolveNode(PNodeResolveContext(branch))
         }
         val context = ContextNodeResolveContext.CONTEXT_VALUE.getValue()
             ?: throw RuntimeException(INodeResolveContext::class.simpleName + " not available")
-        return targetRef?.resolveNode(context)
+        return targetRef.resolveNode(context)
     }
 
     override val roleInParent: String?

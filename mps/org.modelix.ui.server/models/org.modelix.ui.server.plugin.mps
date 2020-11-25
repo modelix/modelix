@@ -7,6 +7,7 @@
     <use id="f3061a53-9226-4cc5-a443-f952ceaf5816" name="jetbrains.mps.baseLanguage" version="11" />
     <use id="83888646-71ce-4f1c-9c53-c54016f6ad4f" name="jetbrains.mps.baseLanguage.collections" version="1" />
     <use id="bc963c22-d419-49b6-8543-ea411eb9d3a1" name="de.q60.mps.polymorphicfunctions" version="0" />
+    <use id="774bf8a0-62e5-41e1-af63-f4812e60e48b" name="jetbrains.mps.baseLanguage.checkedDots" version="0" />
     <devkit ref="fbc25dd2-5da4-483a-8b19-70928e1b62d7(jetbrains.mps.devkit.general-purpose)" />
   </languages>
   <imports>
@@ -44,7 +45,10 @@
     <import index="gq2t" ref="r:f17c1662-bb91-47a6-b206-16c06f86f401(org.modelix.ui.sm.pf)" />
     <import index="lvkz" ref="r:ab9ceea2-f32a-4ea6-be78-3e6c2d4ef84b(org.modelix.ui.diff)" />
     <import index="5440" ref="0a2651ab-f212-45c2-a2f0-343e76cbc26b/java:org.modelix.model.client(org.modelix.model.client/)" />
-    <import index="zf81" ref="6354ebe7-c22a-4a0f-ac54-50b52ab9b065/java:java.net(JDK/)" implicit="true" />
+    <import index="fz1u" ref="fc3c2aa8-0d4b-463f-a774-40d450aa04a0/java:org.eclipse.jetty.websocket.api(org.modelix.jetty/)" />
+    <import index="zf81" ref="6354ebe7-c22a-4a0f-ac54-50b52ab9b065/java:java.net(JDK/)" />
+    <import index="ke8c" ref="fc3c2aa8-0d4b-463f-a774-40d450aa04a0/java:org.eclipse.jetty.server.session(org.modelix.jetty/)" />
+    <import index="5695" ref="fc3c2aa8-0d4b-463f-a774-40d450aa04a0/java:org.eclipse.jetty.http(org.modelix.jetty/)" />
     <import index="6sky" ref="fc3c2aa8-0d4b-463f-a774-40d450aa04a0/java:org.eclipse.jetty.util.component(org.modelix.jetty/)" implicit="true" />
     <import index="c17a" ref="8865b7a8-5271-43d3-884c-6fd1d9cfdd34/java:org.jetbrains.mps.openapi.language(MPS.OpenAPI/)" implicit="true" />
   </imports>
@@ -138,12 +142,15 @@
         <property id="1176718929932" name="isFinal" index="3TUv4t" />
         <child id="1068431790190" name="initializer" index="33vP2m" />
       </concept>
+      <concept id="1092119917967" name="jetbrains.mps.baseLanguage.structure.MulExpression" flags="nn" index="17qRlL" />
       <concept id="1068498886296" name="jetbrains.mps.baseLanguage.structure.VariableReference" flags="nn" index="37vLTw">
         <reference id="1068581517664" name="variableDeclaration" index="3cqZAo" />
       </concept>
       <concept id="1068498886292" name="jetbrains.mps.baseLanguage.structure.ParameterDeclaration" flags="ir" index="37vLTG" />
       <concept id="1068498886294" name="jetbrains.mps.baseLanguage.structure.AssignmentExpression" flags="nn" index="37vLTI" />
       <concept id="1225271177708" name="jetbrains.mps.baseLanguage.structure.StringType" flags="in" index="17QB3L" />
+      <concept id="1225271283259" name="jetbrains.mps.baseLanguage.structure.NPEEqualsExpression" flags="nn" index="17R0WA" />
+      <concept id="1225271369338" name="jetbrains.mps.baseLanguage.structure.IsEmptyOperation" flags="nn" index="17RlXB" />
       <concept id="1225271408483" name="jetbrains.mps.baseLanguage.structure.IsNotEmptyOperation" flags="nn" index="17RvpY" />
       <concept id="4972933694980447171" name="jetbrains.mps.baseLanguage.structure.BaseVariableDeclaration" flags="ng" index="19Szcq">
         <child id="5680397130376446158" name="type" index="1tU5fm" />
@@ -198,6 +205,7 @@
         <reference id="1068499141037" name="baseMethodDeclaration" index="37wK5l" />
         <child id="1068499141038" name="actualArgument" index="37wK5m" />
       </concept>
+      <concept id="1073063089578" name="jetbrains.mps.baseLanguage.structure.SuperMethodCall" flags="nn" index="3nyPlj" />
       <concept id="1212685548494" name="jetbrains.mps.baseLanguage.structure.ClassCreator" flags="nn" index="1pGfFk" />
       <concept id="1107461130800" name="jetbrains.mps.baseLanguage.structure.Classifier" flags="ng" index="3pOWGL">
         <property id="521412098689998745" name="nonStatic" index="2bfB8j" />
@@ -241,6 +249,9 @@
       <concept id="1170345865475" name="jetbrains.mps.baseLanguage.structure.AnonymousClass" flags="ig" index="1Y3b0j">
         <reference id="1170346070688" name="classifier" index="1Y3XeK" />
       </concept>
+    </language>
+    <language id="774bf8a0-62e5-41e1-af63-f4812e60e48b" name="jetbrains.mps.baseLanguage.checkedDots">
+      <concept id="4079382982702596667" name="jetbrains.mps.baseLanguage.checkedDots.structure.CheckedDotExpression" flags="nn" index="2EnYce" />
     </language>
     <language id="fd392034-7849-419d-9071-12563d152375" name="jetbrains.mps.baseLanguage.closures">
       <concept id="1199569711397" name="jetbrains.mps.baseLanguage.closures.structure.ClosureLiteral" flags="nn" index="1bVj0M">
@@ -332,6 +343,7 @@
       <concept id="1160600644654" name="jetbrains.mps.baseLanguage.collections.structure.ListCreatorWithInit" flags="nn" index="Tc6Ow" />
       <concept id="1160612413312" name="jetbrains.mps.baseLanguage.collections.structure.AddElementOperation" flags="nn" index="TSZUe" />
       <concept id="1160666733551" name="jetbrains.mps.baseLanguage.collections.structure.AddAllElementsOperation" flags="nn" index="X8dFx" />
+      <concept id="1240325842691" name="jetbrains.mps.baseLanguage.collections.structure.AsSequenceOperation" flags="nn" index="39bAoz" />
       <concept id="1201792049884" name="jetbrains.mps.baseLanguage.collections.structure.TranslateOperation" flags="nn" index="3goQfb" />
       <concept id="1197683403723" name="jetbrains.mps.baseLanguage.collections.structure.MapType" flags="in" index="3rvAFt">
         <child id="1197683466920" name="keyType" index="3rvQeY" />
@@ -347,6 +359,7 @@
         <child id="1240687658305" name="delimiter" index="3uJOhx" />
       </concept>
       <concept id="1165530316231" name="jetbrains.mps.baseLanguage.collections.structure.IsEmptyOperation" flags="nn" index="1v1jN8" />
+      <concept id="1225727723840" name="jetbrains.mps.baseLanguage.collections.structure.FindFirstOperation" flags="nn" index="1z4cxt" />
       <concept id="1202128969694" name="jetbrains.mps.baseLanguage.collections.structure.SelectOperation" flags="nn" index="3$u5V9" />
       <concept id="1184963466173" name="jetbrains.mps.baseLanguage.collections.structure.ToArrayOperation" flags="nn" index="3_kTaI" />
       <concept id="1240824834947" name="jetbrains.mps.baseLanguage.collections.structure.ValueAccessOperation" flags="nn" index="3AV6Ez" />
@@ -546,6 +559,38 @@
         </node>
         <node concept="3J1_TO" id="1MbrkMIwEdK" role="3cqZAp">
           <node concept="3clFbS" id="1MbrkMIwEdL" role="1zxBo7">
+            <node concept="3cpWs8" id="eACOy0j7iK" role="3cqZAp">
+              <node concept="3cpWsn" id="eACOy0j7iL" role="3cpWs9">
+                <property role="TrG5h" value="sessionHandler" />
+                <node concept="3uibUv" id="eACOy0j7bA" role="1tU5fm">
+                  <ref role="3uigEE" to="ke8c:~SessionHandler" resolve="SessionHandler" />
+                </node>
+                <node concept="2ShNRf" id="eACOy0j7iM" role="33vP2m">
+                  <node concept="1pGfFk" id="eACOy0j7iN" role="2ShVmc">
+                    <ref role="37wK5l" to="ke8c:~SessionHandler.&lt;init&gt;()" resolve="SessionHandler" />
+                  </node>
+                </node>
+              </node>
+            </node>
+            <node concept="3clFbF" id="eACOy0jfHO" role="3cqZAp">
+              <node concept="2OqwBi" id="eACOy0jjNM" role="3clFbG">
+                <node concept="2OqwBi" id="eACOy0jhj2" role="2Oq$k0">
+                  <node concept="37vLTw" id="eACOy0jfHM" role="2Oq$k0">
+                    <ref role="3cqZAo" node="eACOy0j7iL" resolve="sessionHandler" />
+                  </node>
+                  <node concept="liA8E" id="eACOy0jjAs" role="2OqNvi">
+                    <ref role="37wK5l" to="ke8c:~SessionHandler.getSessionCookieConfig()" resolve="getSessionCookieConfig" />
+                  </node>
+                </node>
+                <node concept="liA8E" id="eACOy0jk3G" role="2OqNvi">
+                  <ref role="37wK5l" to="opgt:~SessionCookieConfig.setName(java.lang.String)" resolve="setName" />
+                  <node concept="10M0yZ" id="eACOy0jl6w" role="37wK5m">
+                    <ref role="1PxDUh" to="o8cn:6xm2RBlaf2L" resolve="RenderServer" />
+                    <ref role="3cqZAo" to="o8cn:eACOy0i3$m" resolve="SESSION_COOKIE_NAME" />
+                  </node>
+                </node>
+              </node>
+            </node>
             <node concept="3clFbH" id="1MbrkMIxh3K" role="3cqZAp" />
             <node concept="3cpWs8" id="1MbrkMIxeOY" role="3cqZAp">
               <node concept="3cpWsn" id="1MbrkMIxeOZ" role="3cpWs9">
@@ -1298,6 +1343,240 @@
               </node>
             </node>
             <node concept="3clFbH" id="5Sw$pxbW1k0" role="3cqZAp" />
+            <node concept="3cpWs8" id="5e9llKyPPaD" role="3cqZAp">
+              <node concept="3cpWsn" id="5e9llKyPPaE" role="3cpWs9">
+                <property role="TrG5h" value="cookieHandler" />
+                <node concept="3uibUv" id="5e9llKyPPaC" role="1tU5fm">
+                  <ref role="3uigEE" to="cgcg:~HandlerWrapper" resolve="HandlerWrapper" />
+                </node>
+                <node concept="2ShNRf" id="5e9llKyPPaF" role="33vP2m">
+                  <node concept="YeOm9" id="5e9llKyPPaG" role="2ShVmc">
+                    <node concept="1Y3b0j" id="5e9llKyPPaH" role="YeSDq">
+                      <property role="2bfB8j" value="true" />
+                      <ref role="37wK5l" to="cgcg:~HandlerWrapper.&lt;init&gt;()" resolve="HandlerWrapper" />
+                      <ref role="1Y3XeK" to="cgcg:~HandlerWrapper" resolve="HandlerWrapper" />
+                      <node concept="3Tm1VV" id="5e9llKyPPaI" role="1B3o_S" />
+                      <node concept="3clFb_" id="5e9llKyPWn_" role="jymVt">
+                        <property role="TrG5h" value="handle" />
+                        <node concept="3Tm1VV" id="5e9llKyPWnA" role="1B3o_S" />
+                        <node concept="3cqZAl" id="5e9llKyPWnC" role="3clF45" />
+                        <node concept="37vLTG" id="5e9llKyPWnD" role="3clF46">
+                          <property role="TrG5h" value="target" />
+                          <node concept="17QB3L" id="5e9llKyPXmA" role="1tU5fm" />
+                        </node>
+                        <node concept="37vLTG" id="5e9llKyPWnF" role="3clF46">
+                          <property role="TrG5h" value="baseRequest" />
+                          <node concept="3uibUv" id="5e9llKyPWnG" role="1tU5fm">
+                            <ref role="3uigEE" to="m2xw:~Request" resolve="Request" />
+                          </node>
+                        </node>
+                        <node concept="37vLTG" id="5e9llKyPWnH" role="3clF46">
+                          <property role="TrG5h" value="request" />
+                          <node concept="3uibUv" id="5e9llKyPWnI" role="1tU5fm">
+                            <ref role="3uigEE" to="nwfd:~HttpServletRequest" resolve="HttpServletRequest" />
+                          </node>
+                        </node>
+                        <node concept="37vLTG" id="5e9llKyPWnJ" role="3clF46">
+                          <property role="TrG5h" value="response" />
+                          <node concept="3uibUv" id="5e9llKyPWnK" role="1tU5fm">
+                            <ref role="3uigEE" to="nwfd:~HttpServletResponse" resolve="HttpServletResponse" />
+                          </node>
+                        </node>
+                        <node concept="3uibUv" id="5e9llKyPWnL" role="Sfmx6">
+                          <ref role="3uigEE" to="guwi:~IOException" resolve="IOException" />
+                        </node>
+                        <node concept="3uibUv" id="5e9llKyPWnM" role="Sfmx6">
+                          <ref role="3uigEE" to="opgt:~ServletException" resolve="ServletException" />
+                        </node>
+                        <node concept="3clFbS" id="5e9llKyPWnO" role="3clF47">
+                          <node concept="3clFbF" id="5e9llKyPWnV" role="3cqZAp">
+                            <node concept="3nyPlj" id="5e9llKyPWnU" role="3clFbG">
+                              <ref role="37wK5l" to="cgcg:~HandlerWrapper.handle(java.lang.String,org.eclipse.jetty.server.Request,javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)" resolve="handle" />
+                              <node concept="37vLTw" id="5e9llKyPWnQ" role="37wK5m">
+                                <ref role="3cqZAo" node="5e9llKyPWnD" resolve="target" />
+                              </node>
+                              <node concept="37vLTw" id="5e9llKyPWnR" role="37wK5m">
+                                <ref role="3cqZAo" node="5e9llKyPWnF" resolve="baseRequest" />
+                              </node>
+                              <node concept="37vLTw" id="5e9llKyPWnS" role="37wK5m">
+                                <ref role="3cqZAo" node="5e9llKyPWnH" resolve="request" />
+                              </node>
+                              <node concept="37vLTw" id="5e9llKyPWnT" role="37wK5m">
+                                <ref role="3cqZAo" node="5e9llKyPWnJ" resolve="response" />
+                              </node>
+                            </node>
+                          </node>
+                          <node concept="3cpWs8" id="5e9llKyRjxu" role="3cqZAp">
+                            <node concept="3cpWsn" id="5e9llKyRjxx" role="3cpWs9">
+                              <property role="TrG5h" value="sessionId" />
+                              <node concept="17QB3L" id="5e9llKyRjxs" role="1tU5fm" />
+                              <node concept="10Nm6u" id="5e9llKyRkr_" role="33vP2m" />
+                            </node>
+                          </node>
+                          <node concept="2Gpval" id="5e9llKyQaVa" role="3cqZAp">
+                            <node concept="2GrKxI" id="5e9llKyQaVc" role="2Gsz3X">
+                              <property role="TrG5h" value="cookie" />
+                            </node>
+                            <node concept="3clFbS" id="5e9llKyQaVg" role="2LFqv$">
+                              <node concept="3clFbJ" id="5e9llKyQbPl" role="3cqZAp">
+                                <node concept="17R0WA" id="5e9llKyQdxH" role="3clFbw">
+                                  <node concept="10M0yZ" id="5e9llKyQeID" role="3uHU7w">
+                                    <ref role="3cqZAo" to="o8cn:eACOy0i3$m" resolve="SESSION_COOKIE_NAME" />
+                                    <ref role="1PxDUh" to="o8cn:6xm2RBlaf2L" resolve="RenderServer" />
+                                  </node>
+                                  <node concept="2OqwBi" id="5e9llKyQcEK" role="3uHU7B">
+                                    <node concept="2GrUjf" id="5e9llKyQcq4" role="2Oq$k0">
+                                      <ref role="2Gs0qQ" node="5e9llKyQaVc" resolve="cookie" />
+                                    </node>
+                                    <node concept="liA8E" id="5e9llKyQd3k" role="2OqNvi">
+                                      <ref role="37wK5l" to="nwfd:~Cookie.getName()" resolve="getName" />
+                                    </node>
+                                  </node>
+                                </node>
+                                <node concept="3clFbS" id="5e9llKyQbPn" role="3clFbx">
+                                  <node concept="3clFbF" id="5e9llKyRqSa" role="3cqZAp">
+                                    <node concept="37vLTI" id="5e9llKyRrGL" role="3clFbG">
+                                      <node concept="2OqwBi" id="5e9llKyRstZ" role="37vLTx">
+                                        <node concept="2GrUjf" id="5e9llKyRsfU" role="2Oq$k0">
+                                          <ref role="2Gs0qQ" node="5e9llKyQaVc" resolve="cookie" />
+                                        </node>
+                                        <node concept="liA8E" id="5e9llKyRt5z" role="2OqNvi">
+                                          <ref role="37wK5l" to="nwfd:~Cookie.getValue()" resolve="getValue" />
+                                        </node>
+                                      </node>
+                                      <node concept="37vLTw" id="5e9llKyRqS9" role="37vLTJ">
+                                        <ref role="3cqZAo" node="5e9llKyRjxx" resolve="sessionId" />
+                                      </node>
+                                    </node>
+                                  </node>
+                                </node>
+                              </node>
+                            </node>
+                            <node concept="2OqwBi" id="5e9llKyS375" role="2GsD0m">
+                              <node concept="2OqwBi" id="5e9llKyQBGn" role="2Oq$k0">
+                                <node concept="37vLTw" id="5e9llKyQBGo" role="2Oq$k0">
+                                  <ref role="3cqZAo" node="5e9llKyPWnF" resolve="baseRequest" />
+                                </node>
+                                <node concept="liA8E" id="5e9llKyQBGp" role="2OqNvi">
+                                  <ref role="37wK5l" to="m2xw:~Request.getCookies()" resolve="getCookies" />
+                                </node>
+                              </node>
+                              <node concept="39bAoz" id="5e9llKyS3FX" role="2OqNvi" />
+                            </node>
+                          </node>
+                          <node concept="3clFbJ" id="5e9llKyRlhX" role="3cqZAp">
+                            <node concept="3clFbS" id="5e9llKyRlhZ" role="3clFbx">
+                              <node concept="3clFbF" id="5e9llKyRnXZ" role="3cqZAp">
+                                <node concept="37vLTI" id="5e9llKyRoMA" role="3clFbG">
+                                  <node concept="37vLTw" id="5e9llKyRnXX" role="37vLTJ">
+                                    <ref role="3cqZAo" node="5e9llKyRjxx" resolve="sessionId" />
+                                  </node>
+                                  <node concept="2OqwBi" id="5e9llKyRpeF" role="37vLTx">
+                                    <node concept="2YIFZM" id="5e9llKyRpeG" role="2Oq$k0">
+                                      <ref role="1Pybhc" to="33ny:~UUID" resolve="UUID" />
+                                      <ref role="37wK5l" to="33ny:~UUID.randomUUID()" resolve="randomUUID" />
+                                    </node>
+                                    <node concept="liA8E" id="5e9llKyRpeH" role="2OqNvi">
+                                      <ref role="37wK5l" to="33ny:~UUID.toString()" resolve="toString" />
+                                    </node>
+                                  </node>
+                                </node>
+                              </node>
+                            </node>
+                            <node concept="3clFbC" id="5e9llKyRmSW" role="3clFbw">
+                              <node concept="10Nm6u" id="5e9llKyRniG" role="3uHU7w" />
+                              <node concept="37vLTw" id="5e9llKyRlV7" role="3uHU7B">
+                                <ref role="3cqZAo" node="5e9llKyRjxx" resolve="sessionId" />
+                              </node>
+                            </node>
+                          </node>
+                          <node concept="3clFbF" id="5e9llKyQDgc" role="3cqZAp">
+                            <node concept="2OqwBi" id="5e9llKyQEEg" role="3clFbG">
+                              <node concept="2OqwBi" id="5e9llKyQE2Z" role="2Oq$k0">
+                                <node concept="37vLTw" id="5e9llKyQDga" role="2Oq$k0">
+                                  <ref role="3cqZAo" node="5e9llKyPWnF" resolve="baseRequest" />
+                                </node>
+                                <node concept="liA8E" id="5e9llKyQEr5" role="2OqNvi">
+                                  <ref role="37wK5l" to="m2xw:~Request.getResponse()" resolve="getResponse" />
+                                </node>
+                              </node>
+                              <node concept="liA8E" id="5e9llKyQF4M" role="2OqNvi">
+                                <ref role="37wK5l" to="m2xw:~Response.addCookie(org.eclipse.jetty.http.HttpCookie)" resolve="addCookie" />
+                                <node concept="2ShNRf" id="5e9llKyQFAC" role="37wK5m">
+                                  <node concept="1pGfFk" id="5e9llKyQHJE" role="2ShVmc">
+                                    <ref role="37wK5l" to="5695:~HttpCookie.&lt;init&gt;(java.lang.String,java.lang.String,java.lang.String,java.lang.String,long,boolean,boolean)" resolve="HttpCookie" />
+                                    <node concept="10M0yZ" id="5e9llKyQJcE" role="37wK5m">
+                                      <ref role="1PxDUh" to="o8cn:6xm2RBlaf2L" resolve="RenderServer" />
+                                      <ref role="3cqZAo" to="o8cn:eACOy0i3$m" resolve="SESSION_COOKIE_NAME" />
+                                    </node>
+                                    <node concept="37vLTw" id="5e9llKySm5D" role="37wK5m">
+                                      <ref role="3cqZAo" node="5e9llKyRjxx" resolve="sessionId" />
+                                    </node>
+                                    <node concept="10Nm6u" id="5Yll$oNLH19" role="37wK5m" />
+                                    <node concept="Xl_RD" id="5Yll$oNLHZd" role="37wK5m">
+                                      <property role="Xl_RC" value="/" />
+                                    </node>
+                                    <node concept="17qRlL" id="5e9llKyQOxN" role="37wK5m">
+                                      <node concept="3cmrfG" id="5e9llKyQOUX" role="3uHU7w">
+                                        <property role="3cmrfH" value="60" />
+                                      </node>
+                                      <node concept="17qRlL" id="5e9llKyQMQJ" role="3uHU7B">
+                                        <node concept="17qRlL" id="5e9llKyQLFf" role="3uHU7B">
+                                          <node concept="3cmrfG" id="5e9llKyQKms" role="3uHU7B">
+                                            <property role="3cmrfH" value="30" />
+                                          </node>
+                                          <node concept="3cmrfG" id="5e9llKyQM4p" role="3uHU7w">
+                                            <property role="3cmrfH" value="24" />
+                                          </node>
+                                        </node>
+                                        <node concept="3cmrfG" id="5e9llKyQNfT" role="3uHU7w">
+                                          <property role="3cmrfH" value="60" />
+                                        </node>
+                                      </node>
+                                    </node>
+                                    <node concept="3clFbT" id="5Yll$oNLIXl" role="37wK5m">
+                                      <property role="3clFbU" value="true" />
+                                    </node>
+                                    <node concept="3clFbT" id="5Yll$oNLJKj" role="37wK5m" />
+                                  </node>
+                                </node>
+                              </node>
+                            </node>
+                          </node>
+                        </node>
+                        <node concept="2AHcQZ" id="5e9llKyPWnP" role="2AJF6D">
+                          <ref role="2AI5Lk" to="wyt6:~Override" resolve="Override" />
+                        </node>
+                      </node>
+                    </node>
+                  </node>
+                </node>
+              </node>
+            </node>
+            <node concept="3clFbF" id="5e9llKyPFbr" role="3cqZAp">
+              <node concept="2OqwBi" id="5e9llKyPR5w" role="3clFbG">
+                <node concept="37vLTw" id="5e9llKyPPaJ" role="2Oq$k0">
+                  <ref role="3cqZAo" node="5e9llKyPPaE" resolve="cookieHandler" />
+                </node>
+                <node concept="liA8E" id="5e9llKyPRUk" role="2OqNvi">
+                  <ref role="37wK5l" to="cgcg:~HandlerWrapper.setHandler(org.eclipse.jetty.server.Handler)" resolve="setHandler" />
+                  <node concept="37vLTw" id="5e9llKyPSrj" role="37wK5m">
+                    <ref role="3cqZAo" node="5Sw$pxbW6Xd" resolve="handler" />
+                  </node>
+                </node>
+              </node>
+            </node>
+            <node concept="3clFbF" id="5e9llKyPTRt" role="3cqZAp">
+              <node concept="37vLTI" id="5e9llKyPVRk" role="3clFbG">
+                <node concept="37vLTw" id="5e9llKyPW6X" role="37vLTx">
+                  <ref role="3cqZAo" node="5e9llKyPPaE" resolve="cookieHandler" />
+                </node>
+                <node concept="37vLTw" id="5e9llKyPTRr" role="37vLTJ">
+                  <ref role="3cqZAo" node="5Sw$pxbW6Xd" resolve="handler" />
+                </node>
+              </node>
+            </node>
+            <node concept="3clFbH" id="5e9llKyPEkp" role="3cqZAp" />
             <node concept="3clFbF" id="1MbrkMIwEe1" role="3cqZAp">
               <node concept="2OqwBi" id="1MbrkMIwEe2" role="3clFbG">
                 <node concept="37vLTw" id="1MbrkMIwEVN" role="2Oq$k0">
@@ -2005,6 +2284,48 @@
                               </node>
                             </node>
                             <node concept="3clFbH" id="2mcPA70vvdm" role="3cqZAp" />
+                            <node concept="3cpWs8" id="eACOy0hOu0" role="3cqZAp">
+                              <node concept="3cpWsn" id="eACOy0hOu1" role="3cpWs9">
+                                <property role="TrG5h" value="user" />
+                                <node concept="17QB3L" id="eACOy0hQ_d" role="1tU5fm" />
+                                <node concept="2OqwBi" id="eACOy0hOu2" role="33vP2m">
+                                  <node concept="37vLTw" id="eACOy0hOu3" role="2Oq$k0">
+                                    <ref role="3cqZAo" node="5Sw$pxbNu8M" resolve="request" />
+                                  </node>
+                                  <node concept="liA8E" id="eACOy0hOu4" role="2OqNvi">
+                                    <ref role="37wK5l" to="67a5:~ServletUpgradeRequest.getHeader(java.lang.String)" resolve="getHeader" />
+                                    <node concept="Xl_RD" id="eACOy0hOu5" role="37wK5m">
+                                      <property role="Xl_RC" value="X-Forwarded-Email" />
+                                    </node>
+                                  </node>
+                                </node>
+                              </node>
+                            </node>
+                            <node concept="3clFbJ" id="eACOy0hRHt" role="3cqZAp">
+                              <node concept="3clFbS" id="eACOy0hRHv" role="3clFbx">
+                                <node concept="3clFbF" id="eACOy0hUmU" role="3cqZAp">
+                                  <node concept="37vLTI" id="eACOy0hV0U" role="3clFbG">
+                                    <node concept="2OqwBi" id="5Yll$oNOQ8h" role="37vLTx">
+                                      <node concept="37vLTw" id="5Yll$oNOPuI" role="2Oq$k0">
+                                        <ref role="3cqZAo" node="5Sw$pxbNu8M" resolve="request" />
+                                      </node>
+                                      <node concept="liA8E" id="5Yll$oNOQxq" role="2OqNvi">
+                                        <ref role="37wK5l" to="67a5:~ServletUpgradeRequest.getRemoteHostName()" resolve="getRemoteHostName" />
+                                      </node>
+                                    </node>
+                                    <node concept="37vLTw" id="eACOy0hUmS" role="37vLTJ">
+                                      <ref role="3cqZAo" node="eACOy0hOu1" resolve="user" />
+                                    </node>
+                                  </node>
+                                </node>
+                              </node>
+                              <node concept="2OqwBi" id="eACOy0hSP_" role="3clFbw">
+                                <node concept="37vLTw" id="eACOy0hSuh" role="2Oq$k0">
+                                  <ref role="3cqZAo" node="eACOy0hOu1" resolve="user" />
+                                </node>
+                                <node concept="17RlXB" id="eACOy0hTiI" role="2OqNvi" />
+                              </node>
+                            </node>
                             <node concept="3cpWs6" id="3RbPf8OJC89" role="3cqZAp">
                               <node concept="2ShNRf" id="3RbPf8OJC8b" role="3cqZAk">
                                 <node concept="1pGfFk" id="3RbPf8OJC8c" role="2ShVmc">
@@ -2015,15 +2336,13 @@
                                     </node>
                                     <node concept="1uHKPH" id="3RbPf8OJC8f" role="2OqNvi" />
                                   </node>
-                                  <node concept="2OqwBi" id="1W$kLfT1jEO" role="37wK5m">
-                                    <node concept="37vLTw" id="1W$kLfT1jEP" role="2Oq$k0">
+                                  <node concept="37vLTw" id="eACOy0hOu6" role="37wK5m">
+                                    <ref role="3cqZAo" node="eACOy0hOu1" resolve="user" />
+                                  </node>
+                                  <node concept="1rXfSq" id="eACOy0iv1W" role="37wK5m">
+                                    <ref role="37wK5l" node="2UHWH1pLHKZ" resolve="getSessionId" />
+                                    <node concept="37vLTw" id="eACOy0iwdz" role="37wK5m">
                                       <ref role="3cqZAo" node="5Sw$pxbNu8M" resolve="request" />
-                                    </node>
-                                    <node concept="liA8E" id="1W$kLfT1jEQ" role="2OqNvi">
-                                      <ref role="37wK5l" to="67a5:~ServletUpgradeRequest.getHeader(java.lang.String)" resolve="getHeader" />
-                                      <node concept="Xl_RD" id="1W$kLfT1jER" role="37wK5m">
-                                        <property role="Xl_RC" value="X-Forwarded-Email" />
-                                      </node>
                                     </node>
                                   </node>
                                 </node>
@@ -2101,6 +2420,123 @@
         <ref role="2AI5Lk" to="wyt6:~Override" resolve="Override" />
       </node>
     </node>
+    <node concept="2tJIrI" id="eACOy0ikiG" role="jymVt" />
+    <node concept="3clFb_" id="2UHWH1pLHKZ" role="jymVt">
+      <property role="TrG5h" value="getSessionId" />
+      <node concept="37vLTG" id="eACOy0iszG" role="3clF46">
+        <property role="TrG5h" value="request" />
+        <node concept="3uibUv" id="eACOy0iszH" role="1tU5fm">
+          <ref role="3uigEE" to="67a5:~ServletUpgradeRequest" resolve="ServletUpgradeRequest" />
+        </node>
+      </node>
+      <node concept="17QB3L" id="2UHWH1pLHVg" role="3clF45" />
+      <node concept="3Tm1VV" id="2UHWH1pLHL2" role="1B3o_S" />
+      <node concept="3clFbS" id="2UHWH1pLHL3" role="3clF47">
+        <node concept="3cpWs8" id="2UHWH1pLIr4" role="3cqZAp">
+          <node concept="3cpWsn" id="2UHWH1pLIr5" role="3cpWs9">
+            <property role="TrG5h" value="cookies" />
+            <node concept="_YKpA" id="2UHWH1pLIwJ" role="1tU5fm">
+              <node concept="3uibUv" id="2UHWH1pLIwL" role="_ZDj9">
+                <ref role="3uigEE" to="zf81:~HttpCookie" resolve="HttpCookie" />
+              </node>
+            </node>
+            <node concept="2OqwBi" id="2UHWH1pLIr6" role="33vP2m">
+              <node concept="37vLTw" id="eACOy0it_B" role="2Oq$k0">
+                <ref role="3cqZAo" node="eACOy0iszG" resolve="request" />
+              </node>
+              <node concept="liA8E" id="2UHWH1pLIra" role="2OqNvi">
+                <ref role="37wK5l" to="67a5:~ServletUpgradeRequest.getCookies()" resolve="getCookies" />
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="3cpWs8" id="2UHWH1pLLZ4" role="3cqZAp">
+          <node concept="3cpWsn" id="2UHWH1pLLZ5" role="3cpWs9">
+            <property role="TrG5h" value="cookie" />
+            <node concept="3uibUv" id="2UHWH1pLLPH" role="1tU5fm">
+              <ref role="3uigEE" to="zf81:~HttpCookie" resolve="HttpCookie" />
+            </node>
+            <node concept="2OqwBi" id="2UHWH1pLLZ6" role="33vP2m">
+              <node concept="37vLTw" id="2UHWH1pLLZ7" role="2Oq$k0">
+                <ref role="3cqZAo" node="2UHWH1pLIr5" resolve="cookies" />
+              </node>
+              <node concept="1z4cxt" id="2UHWH1pLLZ8" role="2OqNvi">
+                <node concept="1bVj0M" id="2UHWH1pLLZ9" role="23t8la">
+                  <node concept="3clFbS" id="2UHWH1pLLZa" role="1bW5cS">
+                    <node concept="3clFbF" id="2UHWH1pLLZb" role="3cqZAp">
+                      <node concept="17R0WA" id="2UHWH1pLLZc" role="3clFbG">
+                        <node concept="10M0yZ" id="eACOy0illn" role="3uHU7w">
+                          <ref role="1PxDUh" to="o8cn:6xm2RBlaf2L" resolve="RenderServer" />
+                          <ref role="3cqZAo" to="o8cn:eACOy0i3$m" resolve="SESSION_COOKIE_NAME" />
+                        </node>
+                        <node concept="2OqwBi" id="2UHWH1pLLZe" role="3uHU7B">
+                          <node concept="37vLTw" id="2UHWH1pLLZf" role="2Oq$k0">
+                            <ref role="3cqZAo" node="2UHWH1pLLZh" resolve="it" />
+                          </node>
+                          <node concept="liA8E" id="2UHWH1pLLZg" role="2OqNvi">
+                            <ref role="37wK5l" to="zf81:~HttpCookie.getName()" resolve="getName" />
+                          </node>
+                        </node>
+                      </node>
+                    </node>
+                  </node>
+                  <node concept="Rh6nW" id="2UHWH1pLLZh" role="1bW2Oz">
+                    <property role="TrG5h" value="it" />
+                    <node concept="2jxLKc" id="2UHWH1pLLZi" role="1tU5fm" />
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="3cpWs8" id="eACOy0iaEM" role="3cqZAp">
+          <node concept="3cpWsn" id="eACOy0iaEN" role="3cpWs9">
+            <property role="TrG5h" value="sessionId" />
+            <node concept="17QB3L" id="eACOy0ib2A" role="1tU5fm" />
+            <node concept="2EnYce" id="eACOy0iaEO" role="33vP2m">
+              <node concept="37vLTw" id="eACOy0iaEP" role="2Oq$k0">
+                <ref role="3cqZAo" node="2UHWH1pLLZ5" resolve="cookie" />
+              </node>
+              <node concept="liA8E" id="eACOy0iaEQ" role="2OqNvi">
+                <ref role="37wK5l" to="zf81:~HttpCookie.getValue()" resolve="getValue" />
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="3clFbJ" id="eACOy0ibIs" role="3cqZAp">
+          <node concept="3clFbS" id="eACOy0ibIu" role="3clFbx">
+            <node concept="3clFbF" id="eACOy0idpp" role="3cqZAp">
+              <node concept="37vLTI" id="eACOy0idL5" role="3clFbG">
+                <node concept="2OqwBi" id="eACOy0ieIb" role="37vLTx">
+                  <node concept="2YIFZM" id="eACOy0ieqA" role="2Oq$k0">
+                    <ref role="1Pybhc" to="33ny:~UUID" resolve="UUID" />
+                    <ref role="37wK5l" to="33ny:~UUID.randomUUID()" resolve="randomUUID" />
+                  </node>
+                  <node concept="liA8E" id="eACOy0if2O" role="2OqNvi">
+                    <ref role="37wK5l" to="33ny:~UUID.toString()" resolve="toString" />
+                  </node>
+                </node>
+                <node concept="37vLTw" id="eACOy0idpn" role="37vLTJ">
+                  <ref role="3cqZAo" node="eACOy0iaEN" resolve="sessionId" />
+                </node>
+              </node>
+            </node>
+          </node>
+          <node concept="2OqwBi" id="eACOy0iczQ" role="3clFbw">
+            <node concept="37vLTw" id="eACOy0ibZf" role="2Oq$k0">
+              <ref role="3cqZAo" node="eACOy0iaEN" resolve="sessionId" />
+            </node>
+            <node concept="17RlXB" id="eACOy0id6b" role="2OqNvi" />
+          </node>
+        </node>
+        <node concept="3clFbF" id="2UHWH1pLI5x" role="3cqZAp">
+          <node concept="37vLTw" id="eACOy0iaER" role="3clFbG">
+            <ref role="3cqZAo" node="eACOy0iaEN" resolve="sessionId" />
+          </node>
+        </node>
+      </node>
+    </node>
+    <node concept="2tJIrI" id="eACOy0iku7" role="jymVt" />
   </node>
   <node concept="312cEu" id="QucyCqZ7eL">
     <property role="TrG5h" value="HealthCheckServlet" />
