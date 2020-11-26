@@ -20289,6 +20289,133 @@
         <node concept="x79VA" id="5rz8NqPOufO" role="3nqlJM" />
       </node>
     </node>
+    <node concept="2tJIrI" id="6RlQSYZPAui" role="jymVt" />
+    <node concept="3clFb_" id="6RlQSYZPBG7" role="jymVt">
+      <property role="TrG5h" value="computeWrite" />
+      <node concept="3clFbS" id="6RlQSYZPBG8" role="3clF47">
+        <node concept="3cpWs8" id="6RlQSYZPBG9" role="3cqZAp">
+          <node concept="3cpWsn" id="6RlQSYZPBGa" role="3cpWs9">
+            <property role="TrG5h" value="activeBranch" />
+            <node concept="3uibUv" id="6RlQSYZPBGb" role="1tU5fm">
+              <ref role="3uigEE" to="5440:~ActiveBranch" resolve="ActiveBranch" />
+            </node>
+            <node concept="2OqwBi" id="6RlQSYZPBGc" role="33vP2m">
+              <node concept="37vLTw" id="6RlQSYZPBGd" role="2Oq$k0">
+                <ref role="3cqZAo" node="3i6diw3mtrY" resolve="cloudRepository" />
+              </node>
+              <node concept="liA8E" id="6RlQSYZPBGe" role="2OqNvi">
+                <ref role="37wK5l" node="6aRQr1X24wJ" resolve="getActiveBranch" />
+                <node concept="37vLTw" id="6RlQSYZPBGf" role="37wK5m">
+                  <ref role="3cqZAo" node="3i6diw3mtCr" resolve="treeId" />
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="3cpWs8" id="6RlQSYZPBGg" role="3cqZAp">
+          <node concept="3cpWsn" id="6RlQSYZPBGh" role="3cpWs9">
+            <property role="TrG5h" value="branch" />
+            <property role="3TUv4t" value="true" />
+            <node concept="3uibUv" id="6RlQSYZPBGi" role="1tU5fm">
+              <ref role="3uigEE" to="jks5:~IBranch" resolve="IBranch" />
+            </node>
+            <node concept="2OqwBi" id="6RlQSYZPBGj" role="33vP2m">
+              <node concept="37vLTw" id="6RlQSYZPBGk" role="2Oq$k0">
+                <ref role="3cqZAo" node="6RlQSYZPBGa" resolve="activeBranch" />
+              </node>
+              <node concept="liA8E" id="6RlQSYZPBGl" role="2OqNvi">
+                <ref role="37wK5l" to="5440:~ActiveBranch.getBranch()" resolve="getBranch" />
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="3cpWs8" id="6RlQSYZPBGm" role="3cqZAp">
+          <node concept="3cpWsn" id="6RlQSYZPBGn" role="3cpWs9">
+            <property role="TrG5h" value="rootNode" />
+            <node concept="3uibUv" id="6RlQSYZPBGo" role="1tU5fm">
+              <ref role="3uigEE" to="jks5:~PNodeAdapter" resolve="PNodeAdapter" />
+            </node>
+            <node concept="2ShNRf" id="6RlQSYZPBGp" role="33vP2m">
+              <node concept="1pGfFk" id="6RlQSYZPBGq" role="2ShVmc">
+                <ref role="37wK5l" to="jks5:~PNodeAdapter.&lt;init&gt;(long,org.modelix.model.api.IBranch)" resolve="PNodeAdapter" />
+                <node concept="10M0yZ" id="6RlQSYZPBGr" role="37wK5m">
+                  <ref role="1PxDUh" to="jks5:~ITree" resolve="ITree" />
+                  <ref role="3cqZAo" to="jks5:~ITree.ROOT_ID" resolve="ROOT_ID" />
+                </node>
+                <node concept="37vLTw" id="6RlQSYZPBGs" role="37wK5m">
+                  <ref role="3cqZAo" node="6RlQSYZPBGh" resolve="branch" />
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="3clFbF" id="6RlQSYZPBGt" role="3cqZAp">
+          <node concept="2OqwBi" id="6RlQSYZPBGu" role="3clFbG">
+            <node concept="37vLTw" id="6RlQSYZPBGv" role="2Oq$k0">
+              <ref role="3cqZAo" node="6RlQSYZPBGh" resolve="branch" />
+            </node>
+            <node concept="liA8E" id="6RlQSYZPBGw" role="2OqNvi">
+              <ref role="37wK5l" to="jks5:~IBranch.computeWrite(kotlin.jvm.functions.Function0)" resolve="computeWrite" />
+              <node concept="1bVj0M" id="6RlQSYZPBGx" role="37wK5m">
+                <node concept="3clFbS" id="6RlQSYZPBGy" role="1bW5cS">
+                  <node concept="3clFbF" id="6RlQSYZPBGz" role="3cqZAp">
+                    <node concept="2OqwBi" id="6RlQSYZPBG$" role="3clFbG">
+                      <node concept="37vLTw" id="6RlQSYZPBG_" role="2Oq$k0">
+                        <ref role="3cqZAo" node="6RlQSYZPBGD" resolve="computer" />
+                      </node>
+                      <node concept="liA8E" id="6RlQSYZPBGA" role="2OqNvi">
+                        <ref role="37wK5l" to="ouht:~Function1.invoke(java.lang.Object)" resolve="invoke" />
+                        <node concept="37vLTw" id="6RlQSYZPBGB" role="37wK5m">
+                          <ref role="3cqZAo" node="6RlQSYZPBGn" resolve="rootNode" />
+                        </node>
+                      </node>
+                    </node>
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+      </node>
+      <node concept="3Tm1VV" id="6RlQSYZPBGC" role="1B3o_S" />
+      <node concept="37vLTG" id="6RlQSYZPBGD" role="3clF46">
+        <property role="TrG5h" value="computer" />
+        <node concept="3uibUv" id="6RlQSYZPBGE" role="1tU5fm">
+          <ref role="3uigEE" to="ouht:~Function1" resolve="Function1" />
+          <node concept="3uibUv" id="6RlQSYZPBGF" role="11_B2D">
+            <ref role="3uigEE" to="jks5:~PNodeAdapter" resolve="PNodeAdapter" />
+          </node>
+          <node concept="16syzq" id="6RlQSYZPBGG" role="11_B2D">
+            <ref role="16sUi3" node="6RlQSYZPBGH" resolve="T" />
+          </node>
+        </node>
+      </node>
+      <node concept="16euLQ" id="6RlQSYZPBGH" role="16eVyc">
+        <property role="TrG5h" value="T" />
+      </node>
+      <node concept="16syzq" id="6RlQSYZPBGI" role="3clF45">
+        <ref role="16sUi3" node="6RlQSYZPBGH" resolve="T" />
+      </node>
+      <node concept="P$JXv" id="6RlQSYZPBGJ" role="lGtFl">
+        <node concept="TZ5HA" id="6RlQSYZPBGK" role="TZ5H$">
+          <node concept="1dT_AC" id="6RlQSYZPBGL" role="1dT_Ay">
+            <property role="1dT_AB" value="Computer receives the root node" />
+          </node>
+        </node>
+        <node concept="TUZQ0" id="6RlQSYZPBGM" role="3nqlJM">
+          <node concept="zr_55" id="6RlQSYZPBGN" role="zr_5Q">
+            <ref role="zr_51" node="6RlQSYZPBGD" resolve="computer" />
+          </node>
+        </node>
+        <node concept="TUZQ0" id="6RlQSYZPBGO" role="3nqlJM">
+          <node concept="zr_56" id="6RlQSYZPBGP" role="zr_5Q">
+            <ref role="zr_51" node="6RlQSYZPBGH" resolve="T" />
+          </node>
+        </node>
+        <node concept="x79VA" id="6RlQSYZPBGQ" role="3nqlJM" />
+      </node>
+    </node>
+    <node concept="2tJIrI" id="6RlQSYZPBgl" role="jymVt" />
     <node concept="2tJIrI" id="5rz8NqPOARq" role="jymVt" />
     <node concept="3clFb_" id="5rz8NqPOBfG" role="jymVt">
       <property role="TrG5h" value="runRead" />
@@ -20539,88 +20666,69 @@
       <node concept="3clFbS" id="68axlwQ6mQH" role="3clF47">
         <node concept="3clFbF" id="68axlwQ6wh3" role="3cqZAp">
           <node concept="1rXfSq" id="68axlwQ6wh2" role="3clFbG">
-            <ref role="37wK5l" node="5rz8NqPOkHi" resolve="computeRead" />
+            <ref role="37wK5l" node="6RlQSYZPBG7" resolve="computeWrite" />
             <node concept="1bVj0M" id="68axlwQ6wul" role="37wK5m">
               <node concept="3clFbS" id="68axlwQ6wum" role="1bW5cS">
-                <node concept="3clFbF" id="68axlwQ6wPG" role="3cqZAp">
-                  <node concept="2OqwBi" id="68axlwQ6wPH" role="3clFbG">
-                    <node concept="2OqwBi" id="68axlwQ6wPI" role="2Oq$k0">
-                      <node concept="37vLTw" id="68axlwQ6wPJ" role="2Oq$k0">
+                <node concept="3cpWs8" id="68axlwQ6wPO" role="3cqZAp">
+                  <node concept="3cpWsn" id="68axlwQ6wPP" role="3cpWs9">
+                    <property role="TrG5h" value="newProject" />
+                    <node concept="3uibUv" id="68axlwQ6wPQ" role="1tU5fm">
+                      <ref role="3uigEE" to="jks5:~INode" resolve="INode" />
+                    </node>
+                    <node concept="2OqwBi" id="68axlwQ6wPR" role="33vP2m">
+                      <node concept="37vLTw" id="68axlwQ6wPS" role="2Oq$k0">
                         <ref role="3cqZAo" node="68axlwQ6wvH" resolve="rootNode" />
                       </node>
-                      <node concept="liA8E" id="68axlwQ6wPK" role="2OqNvi">
-                        <ref role="37wK5l" to="jks5:~PNodeAdapter.getBranch()" resolve="getBranch" />
-                      </node>
-                    </node>
-                    <node concept="liA8E" id="68axlwQ6wPL" role="2OqNvi">
-                      <ref role="37wK5l" to="jks5:~IBranch.computeWrite(kotlin.jvm.functions.Function0)" resolve="computeWrite" />
-                      <node concept="1bVj0M" id="68axlwQ6wPM" role="37wK5m">
-                        <node concept="3clFbS" id="68axlwQ6wPN" role="1bW5cS">
-                          <node concept="3cpWs8" id="68axlwQ6wPO" role="3cqZAp">
-                            <node concept="3cpWsn" id="68axlwQ6wPP" role="3cpWs9">
-                              <property role="TrG5h" value="newProject" />
-                              <node concept="3uibUv" id="68axlwQ6wPQ" role="1tU5fm">
-                                <ref role="3uigEE" to="jks5:~INode" resolve="INode" />
-                              </node>
-                              <node concept="2OqwBi" id="68axlwQ6wPR" role="33vP2m">
-                                <node concept="37vLTw" id="68axlwQ6wPS" role="2Oq$k0">
-                                  <ref role="3cqZAo" node="68axlwQ6wvH" resolve="rootNode" />
-                                </node>
-                                <node concept="liA8E" id="68axlwQ6wPT" role="2OqNvi">
-                                  <ref role="37wK5l" to="jks5:~PNodeAdapter.addNewChild(java.lang.String,int,org.modelix.model.api.IConcept)" resolve="addNewChild" />
-                                  <node concept="2OqwBi" id="68axlwQ7kRj" role="37wK5m">
-                                    <node concept="359W_D" id="68axlwQ7kjg" role="2Oq$k0">
-                                      <ref role="359W_E" to="w7di:qmkA5fOskm" resolve="Repository" />
-                                      <ref role="359W_F" to="w7di:68axlwQ7jSc" resolve="projects" />
-                                    </node>
-                                    <node concept="liA8E" id="68axlwQ7lg7" role="2OqNvi">
-                                      <ref role="37wK5l" to="c17a:~SNamedElement.getName()" resolve="getName" />
-                                    </node>
-                                  </node>
-                                  <node concept="3cmrfG" id="68axlwQ6wPV" role="37wK5m">
-                                    <property role="3cmrfH" value="-1" />
-                                  </node>
-                                  <node concept="2YIFZM" id="68axlwQ6wPW" role="37wK5m">
-                                    <ref role="37wK5l" to="xxte:3ECE8iPOmg5" resolve="wrap" />
-                                    <ref role="1Pybhd" to="xxte:5gTrVpGjuL2" resolve="SConceptAdapter" />
-                                    <node concept="35c_gC" id="68axlwQ6wPX" role="37wK5m">
-                                      <ref role="35c_gD" to="w7di:3uw$nPCBu_p" resolve="Project" />
-                                    </node>
-                                  </node>
-                                </node>
-                              </node>
-                            </node>
+                      <node concept="liA8E" id="68axlwQ6wPT" role="2OqNvi">
+                        <ref role="37wK5l" to="jks5:~PNodeAdapter.addNewChild(java.lang.String,int,org.modelix.model.api.IConcept)" resolve="addNewChild" />
+                        <node concept="2OqwBi" id="68axlwQ7kRj" role="37wK5m">
+                          <node concept="359W_D" id="68axlwQ7kjg" role="2Oq$k0">
+                            <ref role="359W_E" to="w7di:qmkA5fOskm" resolve="Repository" />
+                            <ref role="359W_F" to="w7di:68axlwQ7jSc" resolve="projects" />
                           </node>
-                          <node concept="3clFbF" id="68axlwQ6wPY" role="3cqZAp">
-                            <node concept="2OqwBi" id="68axlwQ6wPZ" role="3clFbG">
-                              <node concept="37vLTw" id="68axlwQ6wQ0" role="2Oq$k0">
-                                <ref role="3cqZAo" node="68axlwQ6wPP" resolve="newProject" />
-                              </node>
-                              <node concept="liA8E" id="68axlwQ6wQ1" role="2OqNvi">
-                                <ref role="37wK5l" to="jks5:~INode.setPropertyValue(java.lang.String,java.lang.String)" resolve="setPropertyValue" />
-                                <node concept="2OqwBi" id="68axlwQ6wQ2" role="37wK5m">
-                                  <node concept="355D3s" id="68axlwQ6wQ3" role="2Oq$k0">
-                                    <ref role="355D3u" to="tpck:h0TrG11" resolve="name" />
-                                    <ref role="355D3t" to="w7di:3uw$nPCBu_p" resolve="Project" />
-                                  </node>
-                                  <node concept="liA8E" id="68axlwQ6wQ4" role="2OqNvi">
-                                    <ref role="37wK5l" to="c17a:~SProperty.getName()" resolve="getName" />
-                                  </node>
-                                </node>
-                                <node concept="37vLTw" id="68axlwQ6xvE" role="37wK5m">
-                                  <ref role="3cqZAo" node="68axlwQ6n0B" resolve="name" />
-                                </node>
-                              </node>
-                            </node>
+                          <node concept="liA8E" id="68axlwQ7lg7" role="2OqNvi">
+                            <ref role="37wK5l" to="c17a:~SNamedElement.getName()" resolve="getName" />
                           </node>
-                          <node concept="3cpWs6" id="68axlwQ6wQ6" role="3cqZAp">
-                            <node concept="37vLTw" id="68axlwQ6wQ7" role="3cqZAk">
-                              <ref role="3cqZAo" node="68axlwQ6wPP" resolve="newProject" />
-                            </node>
+                        </node>
+                        <node concept="3cmrfG" id="68axlwQ6wPV" role="37wK5m">
+                          <property role="3cmrfH" value="-1" />
+                        </node>
+                        <node concept="2YIFZM" id="68axlwQ6wPW" role="37wK5m">
+                          <ref role="37wK5l" to="xxte:3ECE8iPOmg5" resolve="wrap" />
+                          <ref role="1Pybhd" to="xxte:5gTrVpGjuL2" resolve="SConceptAdapter" />
+                          <node concept="35c_gC" id="68axlwQ6wPX" role="37wK5m">
+                            <ref role="35c_gD" to="w7di:3uw$nPCBu_p" resolve="Project" />
                           </node>
                         </node>
                       </node>
                     </node>
+                  </node>
+                </node>
+                <node concept="3clFbF" id="68axlwQ6wPY" role="3cqZAp">
+                  <node concept="2OqwBi" id="68axlwQ6wPZ" role="3clFbG">
+                    <node concept="37vLTw" id="68axlwQ6wQ0" role="2Oq$k0">
+                      <ref role="3cqZAo" node="68axlwQ6wPP" resolve="newProject" />
+                    </node>
+                    <node concept="liA8E" id="68axlwQ6wQ1" role="2OqNvi">
+                      <ref role="37wK5l" to="jks5:~INode.setPropertyValue(java.lang.String,java.lang.String)" resolve="setPropertyValue" />
+                      <node concept="2OqwBi" id="68axlwQ6wQ2" role="37wK5m">
+                        <node concept="355D3s" id="68axlwQ6wQ3" role="2Oq$k0">
+                          <ref role="355D3t" to="w7di:3uw$nPCBu_p" resolve="Project" />
+                          <ref role="355D3u" to="tpck:h0TrG11" resolve="name" />
+                        </node>
+                        <node concept="liA8E" id="68axlwQ6wQ4" role="2OqNvi">
+                          <ref role="37wK5l" to="c17a:~SProperty.getName()" resolve="getName" />
+                        </node>
+                      </node>
+                      <node concept="37vLTw" id="68axlwQ6xvE" role="37wK5m">
+                        <ref role="3cqZAo" node="68axlwQ6n0B" resolve="name" />
+                      </node>
+                    </node>
+                  </node>
+                </node>
+                <node concept="3cpWs6" id="68axlwQ6wQ6" role="3cqZAp">
+                  <node concept="37vLTw" id="68axlwQ6wQ7" role="3cqZAk">
+                    <ref role="3cqZAo" node="68axlwQ6wPP" resolve="newProject" />
                   </node>
                 </node>
               </node>
