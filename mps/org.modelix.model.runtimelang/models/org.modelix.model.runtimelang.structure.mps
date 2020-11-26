@@ -213,6 +213,13 @@
       <property role="20lbJX" value="fLJekj5/_0__n" />
       <ref role="20lvS9" node="qmkA5fOskf" resolve="Module" />
     </node>
+    <node concept="1TJgyj" id="68axlwQ7jSc" role="1TKVEi">
+      <property role="IQ2ns" value="7064605579395546636" />
+      <property role="20lmBu" value="fLJjDmT/aggregation" />
+      <property role="20kJfa" value="projects" />
+      <property role="20lbJX" value="fLJekj5/_0__n" />
+      <ref role="20lvS9" node="3uw$nPCBu_p" resolve="Project" />
+    </node>
     <node concept="1TJgyj" id="78D6RWLi6Va" role="1TKVEi">
       <property role="IQ2ns" value="8226136427470548682" />
       <property role="20lmBu" value="fLJjDmT/aggregation" />
