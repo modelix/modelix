@@ -1302,6 +1302,41 @@
                 </node>
               </node>
             </node>
+            <node concept="3clFbJ" id="4bo3wpSgJtH" role="3cqZAp">
+              <node concept="3clFbS" id="4bo3wpSgJtJ" role="3clFbx">
+                <node concept="3clFbF" id="4bo3wpSgK8i" role="3cqZAp">
+                  <node concept="2YIFZM" id="4bo3wpSgK8T" role="3clFbG">
+                    <ref role="1Pybhc" to="jkm4:~Messages" resolve="Messages" />
+                    <ref role="37wK5l" to="jkm4:~Messages.showErrorDialog(com.intellij.openapi.project.Project,java.lang.String,java.lang.String)" resolve="showErrorDialog" />
+                    <node concept="2OqwBi" id="4bo3wpSgM92" role="37wK5m">
+                      <node concept="2WthIp" id="4bo3wpSgLRh" role="2Oq$k0" />
+                      <node concept="1DTwFV" id="4bo3wpSgMC7" role="2OqNvi">
+                        <ref role="2WH_rO" node="6aRQr1WO_Ld" resolve="project" />
+                      </node>
+                    </node>
+                    <node concept="Xl_RD" id="4bo3wpSgMDW" role="37wK5m">
+                      <property role="Xl_RC" value="Already present!" />
+                    </node>
+                    <node concept="Xl_RD" id="4bo3wpSgMIP" role="37wK5m">
+                      <property role="Xl_RC" value="Add Cloud Repository" />
+                    </node>
+                  </node>
+                </node>
+                <node concept="3cpWs6" id="4bo3wpSgJS$" role="3cqZAp" />
+              </node>
+              <node concept="2OqwBi" id="4bo3wpSgJCS" role="3clFbw">
+                <node concept="2YIFZM" id="4bo3wpSgJxT" role="2Oq$k0">
+                  <ref role="1Pybhc" to="csg2:1LVcV5Kxxi$" resolve="CloudRepositories" />
+                  <ref role="37wK5l" to="csg2:1LVcV5Kxxmz" resolve="getInstance" />
+                </node>
+                <node concept="liA8E" id="4bo3wpSgJMe" role="2OqNvi">
+                  <ref role="37wK5l" to="csg2:6kjKmgaSdpS" resolve="existRepository" />
+                  <node concept="37vLTw" id="4bo3wpSgJNC" role="37wK5m">
+                    <ref role="3cqZAo" node="6aRQr1WODg4" resolve="url" />
+                  </node>
+                </node>
+              </node>
+            </node>
             <node concept="3cpWs8" id="7f6Tb6n$mIE" role="3cqZAp">
               <node concept="3cpWsn" id="7f6Tb6n$mIF" role="3cpWs9">
                 <property role="TrG5h" value="cloudRepository" />
