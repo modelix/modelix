@@ -79,6 +79,7 @@
     <dependency reexport="false">ecfb9949-7433-4db5-85de-0f84d172e4ce(de.q60.mps.libs)</dependency>
     <dependency reexport="false">1ed103c3-3aa6-49b7-9c21-6765ee11f224(MPS.Editor)</dependency>
     <dependency reexport="false">34e84b8f-afa8-4364-abcd-a279fddddbe7(jetbrains.mps.editor.runtime)</dependency>
+    <dependency reexport="false">db058d09-86d2-48ce-b33c-595801a97e6c(org.modelix.ui.state)</dependency>
   </dependencies>
   <languageVersions>
     <language slang="l:da8e6b62-7ca3-4489-86bc-b70a501ca28f:de.q60.mps.incremental" version="0" />
@@ -169,6 +170,7 @@
     <module reference="78874af2-5dd2-42a7-a21d-42fab3737d1d(org.modelix.ui.sm)" version="1" />
     <module reference="6f6906a4-f244-4806-a98b-0bc781cef2a8(org.modelix.ui.sm.dom)" version="0" />
     <module reference="0f2359af-040e-43bb-b438-cf024da41518(org.modelix.ui.sm.json)" version="0" />
+    <module reference="db058d09-86d2-48ce-b33c-595801a97e6c(org.modelix.ui.state)" version="0" />
   </dependencyVersions>
   <extendedLanguages />
 </language>

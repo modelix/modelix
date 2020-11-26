@@ -37,6 +37,7 @@
     <import index="jgjw" ref="6354ebe7-c22a-4a0f-ac54-50b52ab9b065/java:java.security(JDK/)" />
     <import index="7x5y" ref="6354ebe7-c22a-4a0f-ac54-50b52ab9b065/java:java.nio.charset(JDK/)" />
     <import index="33ny" ref="6354ebe7-c22a-4a0f-ac54-50b52ab9b065/java:java.util(JDK/)" />
+    <import index="fnup" ref="r:c0f62029-94d5-495d-b498-eb090ba537fc(org.modelix.ui.state.structure)" />
     <import index="tpcu" ref="r:00000000-0000-4000-0000-011c89590282(jetbrains.mps.lang.core.behavior)" implicit="true" />
     <import index="tpce" ref="r:00000000-0000-4000-0000-011c89590292(jetbrains.mps.lang.structure.structure)" implicit="true" />
     <import index="tp25" ref="r:00000000-0000-4000-0000-011c89590301(jetbrains.mps.lang.smodel.structure)" implicit="true" />
@@ -1713,6 +1714,198 @@
         </node>
       </node>
     </node>
+    <node concept="2OrE70" id="72Dzx1UmZlJ" role="02uzr" />
+    <node concept="02vpq" id="5WTF2yfCCz3" role="02uzr">
+      <property role="TrG5h" value="uiStatePage" />
+      <ref role="1YyVLo" node="7vWAzuE$R07" resolve="page" />
+      <node concept="02i3K" id="5WTF2yfCCOo" role="02i3f">
+        <property role="TrG5h" value="stateRoot" />
+        <node concept="02i3D" id="5WTF2yfCCQd" role="02i2B">
+          <ref role="02i3$" to="fnup:4bjL$lUe34H" resolve="UiStateRoot" />
+        </node>
+      </node>
+      <node concept="026TG" id="5WTF2yfCCJL" role="026TK">
+        <node concept="027og" id="5WTF2yfCCKt" role="026TJ">
+          <ref role="02LMe" to="70w2:7NImM04TdSk" resolve="HTMLDivElement" />
+          <node concept="027rt" id="5WTF2yfCI8T" role="02LM9">
+            <ref role="027rv" to="70w2:7NImM053Sep" resolve="children" />
+            <node concept="027og" id="5WTF2yfCIbp" role="027rp">
+              <ref role="02LMe" to="70w2:7NImM04TdSk" resolve="HTMLDivElement" />
+              <node concept="027rt" id="5WTF2yfCIj3" role="02LM9">
+                <ref role="027rv" to="70w2:7NImM053Sep" resolve="children" />
+                <node concept="027og" id="5WTF2yfCInr" role="027rp">
+                  <ref role="02LMe" to="70w2:7NImM04RGAT" resolve="HtmlText" />
+                  <node concept="027oh" id="5WTF2yfCL$_" role="02LM9">
+                    <ref role="027oj" to="70w2:7NImM04TrPE" resolve="data" />
+                    <node concept="Xl_RD" id="5WTF2yfCL_m" role="027of">
+                      <property role="Xl_RC" value="Sessions" />
+                    </node>
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+          <node concept="027rt" id="5WTF2yfCHXw" role="02LM9">
+            <ref role="027rv" to="70w2:7NImM053Sep" resolve="children" />
+            <node concept="027og" id="5WTF2yfCHZo" role="027rp">
+              <ref role="02LMe" to="70w2:7NImM04TdSP" resolve="HTMLTableElement" />
+              <node concept="027rt" id="72Dzx1Uz_Jt" role="02LM9">
+                <ref role="027rv" to="70w2:7NImM053Sep" resolve="children" />
+                <node concept="027og" id="72Dzx1Uz_KB" role="027rp">
+                  <ref role="02LMe" to="70w2:7NImM04TdST" resolve="HTMLTableRowElement" />
+                  <node concept="027rt" id="72Dzx1Uz_KC" role="02LM9">
+                    <ref role="027rv" to="70w2:7NImM053Sep" resolve="children" />
+                    <node concept="027og" id="72Dzx1Uz_KD" role="027rp">
+                      <ref role="02LMe" to="70w2:7NImM04TdSQ" resolve="HTMLTableColElement" />
+                      <node concept="027rt" id="72Dzx1Uz_KE" role="02LM9">
+                        <ref role="027rv" to="70w2:7NImM053Sep" resolve="children" />
+                        <node concept="027og" id="72Dzx1Uz_KF" role="027rp">
+                          <ref role="02LMe" to="70w2:7NImM04RGAT" resolve="HtmlText" />
+                          <node concept="027oh" id="72Dzx1Uz_KG" role="02LM9">
+                            <ref role="027oj" to="70w2:7NImM04TrPE" resolve="data" />
+                            <node concept="Xl_RD" id="72Dzx1Uz_UL" role="027of">
+                              <property role="Xl_RC" value="Session ID" />
+                            </node>
+                          </node>
+                        </node>
+                      </node>
+                    </node>
+                  </node>
+                  <node concept="027rt" id="72Dzx1Uz_KK" role="02LM9">
+                    <ref role="027rv" to="70w2:7NImM053Sep" resolve="children" />
+                    <node concept="027og" id="72Dzx1Uz_KL" role="027rp">
+                      <ref role="02LMe" to="70w2:7NImM04TdSQ" resolve="HTMLTableColElement" />
+                      <node concept="027rt" id="72Dzx1Uz_KM" role="02LM9">
+                        <ref role="027rv" to="70w2:7NImM053Sep" resolve="children" />
+                        <node concept="027og" id="72Dzx1Uz_KN" role="027rp">
+                          <ref role="02LMe" to="70w2:7NImM04RGAT" resolve="HtmlText" />
+                          <node concept="027oh" id="72Dzx1Uz_KO" role="02LM9">
+                            <ref role="027oj" to="70w2:7NImM04TrPE" resolve="data" />
+                            <node concept="Xl_RD" id="72Dzx1UzA0_" role="027of">
+                              <property role="Xl_RC" value="User ID" />
+                            </node>
+                          </node>
+                        </node>
+                      </node>
+                    </node>
+                  </node>
+                  <node concept="027rt" id="72Dzx1Uz_KU" role="02LM9">
+                    <ref role="027rv" to="70w2:7NImM053Sep" resolve="children" />
+                    <node concept="027og" id="72Dzx1Uz_KV" role="027rp">
+                      <ref role="02LMe" to="70w2:7NImM04TdSQ" resolve="HTMLTableColElement" />
+                      <node concept="027rt" id="72Dzx1Uz_KW" role="02LM9">
+                        <ref role="027rv" to="70w2:7NImM053Sep" resolve="children" />
+                        <node concept="027og" id="72Dzx1Uz_KX" role="027rp">
+                          <ref role="02LMe" to="70w2:7NImM04RGAT" resolve="HtmlText" />
+                          <node concept="027oh" id="72Dzx1Uz_KY" role="02LM9">
+                            <ref role="027oj" to="70w2:7NImM04TrPE" resolve="data" />
+                            <node concept="Xl_RD" id="72Dzx1UzAb6" role="027of">
+                              <property role="Xl_RC" value="Last Activity (unix timestamp/seconds)" />
+                            </node>
+                          </node>
+                        </node>
+                      </node>
+                    </node>
+                  </node>
+                </node>
+              </node>
+              <node concept="027rt" id="5WTF2yfCCMm" role="02LM9">
+                <ref role="027rv" to="70w2:7NImM053Sep" resolve="children" />
+                <node concept="2PWHRv" id="5WTF2yfCCNA" role="027rp">
+                  <property role="2RtFwz" value="s" />
+                  <node concept="2OqwBi" id="5WTF2yfCHEW" role="2PWHRq">
+                    <node concept="2155sH" id="5WTF2yfCH$O" role="2Oq$k0">
+                      <ref role="2155sG" node="5WTF2yfCCOo" resolve="stateRoot" />
+                    </node>
+                    <node concept="3Tsc0h" id="5WTF2yfCHQ2" role="2OqNvi">
+                      <ref role="3TtcxE" to="fnup:4bjL$lUeegP" resolve="sessions" />
+                    </node>
+                  </node>
+                  <node concept="027og" id="5WTF2yfCLEu" role="2PWHRo">
+                    <ref role="02LMe" to="70w2:7NImM04TdST" resolve="HTMLTableRowElement" />
+                    <node concept="027rt" id="5WTF2yfCLEv" role="02LM9">
+                      <ref role="027rv" to="70w2:7NImM053Sep" resolve="children" />
+                      <node concept="027og" id="5WTF2yfCLEw" role="027rp">
+                        <ref role="02LMe" to="70w2:7NImM04TdSQ" resolve="HTMLTableColElement" />
+                        <node concept="027rt" id="5WTF2yfCLKD" role="02LM9">
+                          <ref role="027rv" to="70w2:7NImM053Sep" resolve="children" />
+                          <node concept="027og" id="5WTF2yfCLLP" role="027rp">
+                            <ref role="02LMe" to="70w2:7NImM04RGAT" resolve="HtmlText" />
+                            <node concept="027oh" id="5WTF2yfCLN4" role="02LM9">
+                              <ref role="027oj" to="70w2:7NImM04TrPE" resolve="data" />
+                              <node concept="2OqwBi" id="5WTF2yfCM6W" role="027of">
+                                <node concept="2RtFwi" id="5WTF2yfCM4D" role="2Oq$k0">
+                                  <ref role="2RtFQp" node="5WTF2yfCCNA" />
+                                </node>
+                                <node concept="3TrcHB" id="5WTF2yfCMbr" role="2OqNvi">
+                                  <ref role="3TsBF5" to="fnup:2UHWH1pKMDf" resolve="id" />
+                                </node>
+                              </node>
+                            </node>
+                          </node>
+                        </node>
+                      </node>
+                    </node>
+                    <node concept="027rt" id="5WTF2yfCMew" role="02LM9">
+                      <ref role="027rv" to="70w2:7NImM053Sep" resolve="children" />
+                      <node concept="027og" id="5WTF2yfCMex" role="027rp">
+                        <ref role="02LMe" to="70w2:7NImM04TdSQ" resolve="HTMLTableColElement" />
+                        <node concept="027rt" id="5WTF2yfCMey" role="02LM9">
+                          <ref role="027rv" to="70w2:7NImM053Sep" resolve="children" />
+                          <node concept="027og" id="5WTF2yfCMez" role="027rp">
+                            <ref role="02LMe" to="70w2:7NImM04RGAT" resolve="HtmlText" />
+                            <node concept="027oh" id="5WTF2yfCMe$" role="02LM9">
+                              <ref role="027oj" to="70w2:7NImM04TrPE" resolve="data" />
+                              <node concept="2OqwBi" id="5WTF2yfCMrf" role="027of">
+                                <node concept="2OqwBi" id="5WTF2yfCMe_" role="2Oq$k0">
+                                  <node concept="2RtFwi" id="5WTF2yfCMeA" role="2Oq$k0">
+                                    <ref role="2RtFQp" node="5WTF2yfCCNA" />
+                                  </node>
+                                  <node concept="3TrEf2" id="5WTF2yfCMkr" role="2OqNvi">
+                                    <ref role="3Tt5mk" to="fnup:4bjL$lUeeoQ" resolve="user" />
+                                  </node>
+                                </node>
+                                <node concept="3TrcHB" id="5WTF2yfCMFF" role="2OqNvi">
+                                  <ref role="3TsBF5" to="fnup:4bjL$lUee5u" resolve="id" />
+                                </node>
+                              </node>
+                            </node>
+                          </node>
+                        </node>
+                      </node>
+                    </node>
+                    <node concept="027rt" id="5WTF2yfCMIK" role="02LM9">
+                      <ref role="027rv" to="70w2:7NImM053Sep" resolve="children" />
+                      <node concept="027og" id="5WTF2yfCMIL" role="027rp">
+                        <ref role="02LMe" to="70w2:7NImM04TdSQ" resolve="HTMLTableColElement" />
+                        <node concept="027rt" id="5WTF2yfCMIM" role="02LM9">
+                          <ref role="027rv" to="70w2:7NImM053Sep" resolve="children" />
+                          <node concept="027og" id="5WTF2yfCMIN" role="027rp">
+                            <ref role="02LMe" to="70w2:7NImM04RGAT" resolve="HtmlText" />
+                            <node concept="027oh" id="5WTF2yfCMIO" role="02LM9">
+                              <ref role="027oj" to="70w2:7NImM04TrPE" resolve="data" />
+                              <node concept="2OqwBi" id="5WTF2yfCMIQ" role="027of">
+                                <node concept="2RtFwi" id="5WTF2yfCMIR" role="2Oq$k0">
+                                  <ref role="2RtFQp" node="5WTF2yfCCNA" />
+                                </node>
+                                <node concept="3TrcHB" id="5WTF2yfCN2h" role="2OqNvi">
+                                  <ref role="3TsBF5" to="fnup:5Yll$oNPopq" resolve="lastActivity" />
+                                </node>
+                              </node>
+                            </node>
+                          </node>
+                        </node>
+                      </node>
+                    </node>
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+      </node>
+    </node>
+    <node concept="2OrE70" id="72Dzx1Un04m" role="02uzr" />
   </node>
   <node concept="02vhO" id="7NImM054Pfu">
     <property role="TrG5h" value="html2text" />

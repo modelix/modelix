@@ -666,6 +666,21 @@
                 </node>
               </node>
             </node>
+            <node concept="3clFbF" id="72Dzx1UzgMv" role="3cqZAp">
+              <node concept="2OqwBi" id="72Dzx1UzgMw" role="3clFbG">
+                <node concept="37vLTw" id="72Dzx1UzgMx" role="2Oq$k0">
+                  <ref role="3cqZAo" node="1MbrkMIxeOZ" resolve="handlerList" />
+                </node>
+                <node concept="liA8E" id="72Dzx1UzgMy" role="2OqNvi">
+                  <ref role="37wK5l" to="cgcg:~HandlerCollection.addHandler(org.eclipse.jetty.server.Handler)" resolve="addHandler" />
+                  <node concept="2ShNRf" id="72Dzx1UzgMz" role="37wK5m">
+                    <node concept="HV5vD" id="72Dzx1UzgM$" role="2ShVmc">
+                      <ref role="HV5vE" to="2qs1:72Dzx1UmG1v" resolve="UiStatePageHandler" />
+                    </node>
+                  </node>
+                </node>
+              </node>
+            </node>
             <node concept="3clFbF" id="2i1MHcnspYA" role="3cqZAp">
               <node concept="2OqwBi" id="2i1MHcnspYB" role="3clFbG">
                 <node concept="37vLTw" id="2i1MHcnspYC" role="2Oq$k0">
