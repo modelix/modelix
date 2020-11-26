@@ -13266,6 +13266,23 @@
                           <node concept="1bVj0M" id="2hbxkgeYrlC" role="37wK5m">
                             <property role="3yWfEV" value="true" />
                             <node concept="3clFbS" id="2hbxkgeYrlD" role="1bW5cS">
+                              <node concept="3clFbJ" id="7fzD_A4y4Ef" role="3cqZAp">
+                                <node concept="3clFbS" id="7fzD_A4y4Eh" role="3clFbx">
+                                  <node concept="3clFbF" id="7fzD_A4y6Rc" role="3cqZAp">
+                                    <node concept="1rXfSq" id="7fzD_A4y7tX" role="3clFbG">
+                                      <ref role="37wK5l" node="7fzD_A4oJLb" resolve="syncModulesToMPS" />
+                                    </node>
+                                  </node>
+                                </node>
+                                <node concept="AH0OO" id="7fzD_A4y5Sw" role="3clFbw">
+                                  <node concept="3cmrfG" id="7fzD_A4y6ki" role="AHEQo">
+                                    <property role="3cmrfH" value="0" />
+                                  </node>
+                                  <node concept="37vLTw" id="7fzD_A4y5oK" role="AHHXb">
+                                    <ref role="3cqZAo" node="7fzD_A4xwyW" resolve="modulesUpdateRequired" />
+                                  </node>
+                                </node>
+                              </node>
                               <node concept="3clFbF" id="2hbxkgeW9b5" role="3cqZAp">
                                 <node concept="2OqwBi" id="2hbxkgeWamG" role="3clFbG">
                                   <node concept="37vLTw" id="2hbxkgeW9b3" role="2Oq$k0">
@@ -13275,23 +13292,6 @@
                                     <ref role="37wK5l" to="jks5:~PBranch.runRead(kotlin.jvm.functions.Function0)" resolve="runRead" />
                                     <node concept="1bVj0M" id="2hbxkgeWbQ2" role="37wK5m">
                                       <node concept="3clFbS" id="2hbxkgeWbQ3" role="1bW5cS">
-                                        <node concept="3clFbJ" id="7fzD_A4y4Ef" role="3cqZAp">
-                                          <node concept="3clFbS" id="7fzD_A4y4Eh" role="3clFbx">
-                                            <node concept="3clFbF" id="7fzD_A4y6Rc" role="3cqZAp">
-                                              <node concept="1rXfSq" id="7fzD_A4y7tX" role="3clFbG">
-                                                <ref role="37wK5l" node="7fzD_A4oJLb" resolve="syncModulesToMPS" />
-                                              </node>
-                                            </node>
-                                          </node>
-                                          <node concept="AH0OO" id="7fzD_A4y5Sw" role="3clFbw">
-                                            <node concept="3cmrfG" id="7fzD_A4y6ki" role="AHEQo">
-                                              <property role="3cmrfH" value="0" />
-                                            </node>
-                                            <node concept="37vLTw" id="7fzD_A4y5oK" role="AHHXb">
-                                              <ref role="3cqZAo" node="7fzD_A4xwyW" resolve="modulesUpdateRequired" />
-                                            </node>
-                                          </node>
-                                        </node>
                                         <node concept="3clFbJ" id="2hbxkgeWuK3" role="3cqZAp">
                                           <node concept="3clFbS" id="2hbxkgeWuK5" role="3clFbx">
                                             <node concept="3cpWs8" id="2hbxkgeWAoC" role="3cqZAp">
@@ -13637,35 +13637,9 @@
               <node concept="1bVj0M" id="7fzD_A4v8Am" role="37wK5m">
                 <property role="3yWfEV" value="true" />
                 <node concept="3clFbS" id="7fzD_A4v8An" role="1bW5cS">
-                  <node concept="3clFbF" id="2hbxkgeYuZ4" role="3cqZAp">
-                    <node concept="2OqwBi" id="2hbxkgeYvSW" role="3clFbG">
-                      <node concept="2OqwBi" id="2hbxkgeYvq$" role="2Oq$k0">
-                        <node concept="37vLTw" id="2hbxkgeYuZ2" role="2Oq$k0">
-                          <ref role="3cqZAo" node="7fzD_A4pgdq" resolve="activeBranch" />
-                        </node>
-                        <node concept="liA8E" id="2hbxkgeYvK0" role="2OqNvi">
-                          <ref role="37wK5l" to="5440:~ActiveBranch.getBranch()" resolve="getBranch" />
-                        </node>
-                      </node>
-                      <node concept="liA8E" id="2hbxkgeYwf3" role="2OqNvi">
-                        <ref role="37wK5l" to="jks5:~IBranch.runRead(kotlin.jvm.functions.Function0)" resolve="runRead" />
-                        <node concept="1bVj0M" id="2hbxkgeYwzh" role="37wK5m">
-                          <property role="3yWfEV" value="true" />
-                          <node concept="3clFbS" id="2hbxkgeYwzi" role="1bW5cS">
-                            <node concept="3clFbF" id="7fzD_A4spg7" role="3cqZAp">
-                              <node concept="1rXfSq" id="7fzD_A4spDS" role="3clFbG">
-                                <ref role="37wK5l" node="7fzD_A4oJLb" resolve="syncModulesToMPS" />
-                              </node>
-                            </node>
-                            <node concept="3cpWs6" id="2hbxkgeYy1w" role="3cqZAp">
-                              <node concept="10M0yZ" id="2hbxkgeYy1y" role="3cqZAk">
-                                <ref role="3cqZAo" to="v18h:~Unit.INSTANCE" resolve="INSTANCE" />
-                                <ref role="1PxDUh" to="v18h:~Unit" resolve="Unit" />
-                              </node>
-                            </node>
-                          </node>
-                        </node>
-                      </node>
+                  <node concept="3clFbF" id="7fzD_A4spg7" role="3cqZAp">
+                    <node concept="1rXfSq" id="7fzD_A4spDS" role="3clFbG">
+                      <ref role="37wK5l" node="7fzD_A4oJLb" resolve="syncModulesToMPS" />
                     </node>
                   </node>
                 </node>
