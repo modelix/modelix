@@ -79,7 +79,6 @@ Optionally, you can run the model server and connect your MPS to it:
 - `./kubernetes-apply-gcloud.sh`
 - `watch kubectl get all -o wide`
 - `kubectl delete horizontalpodautoscaler.autoscaling/ui-autoscaler`
-- `kubectl delete deployment.apps/pgadmin`
 - Entities example
     - `cd samples/entities/`
     - `./docker-build.sh`
