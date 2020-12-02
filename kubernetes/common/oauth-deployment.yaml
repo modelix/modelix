@@ -61,6 +61,12 @@ spec:
             initialDelaySeconds: 3
             periodSeconds: 10
             timeoutSeconds: 5
+          resources:
+            requests:
+              memory: "100Mi"
+              cpu: 100m
+            limits:
+              memory: "200Mi"
       volumes:
         - name: sslcert
           secret:
