@@ -15932,34 +15932,48 @@
           </node>
         </node>
         <node concept="3clFbH" id="4rSrEo7P0_T" role="3cqZAp" />
-        <node concept="2Gpval" id="2hbxkgeTeWa" role="3cqZAp">
-          <node concept="2GrKxI" id="2hbxkgeTeWb" role="2Gsz3X">
-            <property role="TrG5h" value="unexpectedId" />
+        <node concept="3cpWs8" id="7F8QoB1_7Zm" role="3cqZAp">
+          <node concept="3cpWsn" id="7F8QoB1_7Zp" role="3cpWs9">
+            <property role="TrG5h" value="deleteUnexpectedModelsPolicy" />
+            <node concept="10P_77" id="7F8QoB1_7Zk" role="1tU5fm" />
+            <node concept="3clFbT" id="7F8QoB1_98c" role="33vP2m" />
           </node>
-          <node concept="37vLTw" id="2hbxkgeTeWc" role="2GsD0m">
-            <ref role="3cqZAo" node="2hbxkgeTeW0" resolve="unexpectedModelIds" />
-          </node>
-          <node concept="3clFbS" id="2hbxkgeTeWd" role="2LFqv$">
-            <node concept="3clFbF" id="2hbxkgeUizY" role="3cqZAp">
-              <node concept="2OqwBi" id="2hbxkgeU$u4" role="3clFbG">
-                <node concept="2ShNRf" id="2hbxkgeUizU" role="2Oq$k0">
-                  <node concept="1pGfFk" id="2hbxkgeU$kA" role="2ShVmc">
-                    <ref role="37wK5l" to="ztoz:~ModelDeleteHelper.&lt;init&gt;(org.jetbrains.mps.openapi.model.SModel)" resolve="ModelDeleteHelper" />
-                    <node concept="3EllGN" id="2hbxkgeU$mv" role="37wK5m">
-                      <node concept="2GrUjf" id="2hbxkgeU$mw" role="3ElVtu">
-                        <ref role="2Gs0qQ" node="2hbxkgeTeWb" resolve="unexpectedId" />
+        </node>
+        <node concept="3clFbJ" id="7F8QoB1_6lO" role="3cqZAp">
+          <node concept="3clFbS" id="7F8QoB1_6lQ" role="3clFbx">
+            <node concept="2Gpval" id="2hbxkgeTeWa" role="3cqZAp">
+              <node concept="2GrKxI" id="2hbxkgeTeWb" role="2Gsz3X">
+                <property role="TrG5h" value="unexpectedId" />
+              </node>
+              <node concept="37vLTw" id="2hbxkgeTeWc" role="2GsD0m">
+                <ref role="3cqZAo" node="2hbxkgeTeW0" resolve="unexpectedModelIds" />
+              </node>
+              <node concept="3clFbS" id="2hbxkgeTeWd" role="2LFqv$">
+                <node concept="3clFbF" id="2hbxkgeUizY" role="3cqZAp">
+                  <node concept="2OqwBi" id="2hbxkgeU$u4" role="3clFbG">
+                    <node concept="2ShNRf" id="2hbxkgeUizU" role="2Oq$k0">
+                      <node concept="1pGfFk" id="2hbxkgeU$kA" role="2ShVmc">
+                        <ref role="37wK5l" to="ztoz:~ModelDeleteHelper.&lt;init&gt;(org.jetbrains.mps.openapi.model.SModel)" resolve="ModelDeleteHelper" />
+                        <node concept="3EllGN" id="2hbxkgeU$mv" role="37wK5m">
+                          <node concept="2GrUjf" id="2hbxkgeU$mw" role="3ElVtu">
+                            <ref role="2Gs0qQ" node="2hbxkgeTeWb" resolve="unexpectedId" />
+                          </node>
+                          <node concept="37vLTw" id="2hbxkgeU$mx" role="3ElQJh">
+                            <ref role="3cqZAo" node="2hbxkgeTeU7" resolve="existingModels" />
+                          </node>
+                        </node>
                       </node>
-                      <node concept="37vLTw" id="2hbxkgeU$mx" role="3ElQJh">
-                        <ref role="3cqZAo" node="2hbxkgeTeU7" resolve="existingModels" />
-                      </node>
+                    </node>
+                    <node concept="liA8E" id="2hbxkgeU_wz" role="2OqNvi">
+                      <ref role="37wK5l" to="ztoz:~ModelDeleteHelper.delete()" resolve="delete" />
                     </node>
                   </node>
                 </node>
-                <node concept="liA8E" id="2hbxkgeU_wz" role="2OqNvi">
-                  <ref role="37wK5l" to="ztoz:~ModelDeleteHelper.delete()" resolve="delete" />
-                </node>
               </node>
             </node>
+          </node>
+          <node concept="37vLTw" id="7F8QoB1_9kZ" role="3clFbw">
+            <ref role="3cqZAo" node="7F8QoB1_7Zp" resolve="deleteUnexpectedModelsPolicy" />
           </node>
         </node>
         <node concept="3clFbH" id="2hbxkgeTeWl" role="3cqZAp" />
