@@ -13967,6 +13967,51 @@
             </node>
           </node>
         </node>
+        <node concept="2Gpval" id="5prnknNLXT2" role="3cqZAp">
+          <node concept="2GrKxI" id="5prnknNLXT3" role="2Gsz3X">
+            <property role="TrG5h" value="ref" />
+          </node>
+          <node concept="2OqwBi" id="5prnknNLXT4" role="2GsD0m">
+            <node concept="37vLTw" id="5prnknNLXT5" role="2Oq$k0">
+              <ref role="3cqZAo" node="Dz5_o1rcn6" resolve="physicalNode" />
+            </node>
+            <node concept="liA8E" id="5prnknNM5rc" role="2OqNvi">
+              <ref role="37wK5l" to="mhbf:~SNode.getReferences()" resolve="getReferences" />
+            </node>
+          </node>
+          <node concept="3clFbS" id="5prnknNLXT7" role="2LFqv$">
+            <node concept="3clFbF" id="5prnknNLXT8" role="3cqZAp">
+              <node concept="2OqwBi" id="5prnknNLXT9" role="3clFbG">
+                <node concept="37vLTw" id="5prnknNLXTa" role="2Oq$k0">
+                  <ref role="3cqZAo" node="Dz5_o1r9lU" resolve="cloudNode" />
+                </node>
+                <node concept="liA8E" id="5prnknNLXTb" role="2OqNvi">
+                  <ref role="37wK5l" to="jks5:~INode.setReferenceTarget(java.lang.String,org.modelix.model.api.INode)" resolve="setReferenceTarget" />
+                  <node concept="2OqwBi" id="5prnknNLXTc" role="37wK5m">
+                    <node concept="2GrUjf" id="5prnknNLXTd" role="2Oq$k0">
+                      <ref role="2Gs0qQ" node="5prnknNLXT3" resolve="ref" />
+                    </node>
+                    <node concept="liA8E" id="5prnknNM6sc" role="2OqNvi">
+                      <ref role="37wK5l" to="mhbf:~SReference.getRole()" resolve="getRole" />
+                    </node>
+                  </node>
+                  <node concept="2YIFZM" id="5prnknNMfB3" role="37wK5m">
+                    <ref role="1Pybhd" to="xxte:5gTrVpGjuLg" resolve="SNodeToNodeAdapter" />
+                    <ref role="37wK5l" to="xxte:5gTrVpGyMwR" resolve="wrap" />
+                    <node concept="2OqwBi" id="5prnknNMgum" role="37wK5m">
+                      <node concept="2GrUjf" id="5prnknNMfUl" role="2Oq$k0">
+                        <ref role="2Gs0qQ" node="5prnknNLXT3" resolve="ref" />
+                      </node>
+                      <node concept="liA8E" id="5prnknNMgU4" role="2OqNvi">
+                        <ref role="37wK5l" to="mhbf:~SReference.getTargetNode()" resolve="getTargetNode" />
+                      </node>
+                    </node>
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
         <node concept="2Gpval" id="Dz5_o1rtrx" role="3cqZAp">
           <node concept="2GrKxI" id="Dz5_o1rtry" role="2Gsz3X">
             <property role="TrG5h" value="physicalChild" />
