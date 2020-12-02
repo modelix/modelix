@@ -39,4 +39,21 @@ export namespace DomUtils {
             j++;
         }
     }
+
+    export function absoluteBounds(element) {
+        const bodyRect = document.body.getBoundingClientRect();
+        const elemRect = element.getBoundingClientRect();
+        let x = elemRect.left - bodyRect.left;
+        let y = elemRect.top - bodyRect.top;
+        return {
+            x: x,
+            y: y,
+            left: x,
+            top: y,
+            right: x + elemRect.width,
+            bottom: y + elemRect.height,
+            width: elemRect.width,
+            height: elemRect.height
+        };
+    }
 }

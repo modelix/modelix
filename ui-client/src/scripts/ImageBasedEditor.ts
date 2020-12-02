@@ -1,6 +1,6 @@
 import $ = require("jquery");
 import {KeyCodeTranslator} from "./KeyCodeTranslator";
-import {DomUtils} from "./DomUtil";
+import {DomUtils} from "./DomUtils";
 import {getWebsocketUrl} from "./UrlUtil";
 import {CCMenu, IAction} from "./CCMenu";
 import {IIntention, IntentionsMenu} from "./IntentionsMenu";
