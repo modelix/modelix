@@ -1044,6 +1044,22 @@
                 </node>
               </node>
             </node>
+            <node concept="3clFbF" id="3pn$gDK_iSf" role="3cqZAp">
+              <node concept="2OqwBi" id="3pn$gDK_iSg" role="3clFbG">
+                <node concept="37vLTw" id="3pn$gDK_iSh" role="2Oq$k0">
+                  <ref role="3cqZAo" node="7mc9A5lp8RO" resolve="wsHandler" />
+                </node>
+                <node concept="liA8E" id="3pn$gDK_iSi" role="2OqNvi">
+                  <ref role="37wK5l" to="ky10:~ServletContextHandler.addServlet(java.lang.Class,java.lang.String)" resolve="addServlet" />
+                  <node concept="3VsKOn" id="3pn$gDK_iSj" role="37wK5m">
+                    <ref role="3VsUkX" node="3pn$gDK_BZ5" resolve="LiveHtmlServlet" />
+                  </node>
+                  <node concept="Xl_RD" id="3pn$gDK_iSk" role="37wK5m">
+                    <property role="Xl_RC" value="/livehtml" />
+                  </node>
+                </node>
+              </node>
+            </node>
             <node concept="3clFbF" id="5Sw$pxbPAkX" role="3cqZAp">
               <node concept="2OqwBi" id="5Sw$pxbPAkY" role="3clFbG">
                 <node concept="37vLTw" id="5Sw$pxbPI3Z" role="2Oq$k0">
@@ -4010,6 +4026,42 @@
     <node concept="3Tm1VV" id="2i1MHcnqWRb" role="1B3o_S" />
     <node concept="3uibUv" id="2i1MHcnqWRc" role="1zkMxy">
       <ref role="3uigEE" to="cgcg:~AbstractHandler" resolve="AbstractHandler" />
+    </node>
+  </node>
+  <node concept="312cEu" id="3pn$gDK_BZ5">
+    <property role="TrG5h" value="LiveHtmlServlet" />
+    <node concept="3Tm1VV" id="3pn$gDK_BZ6" role="1B3o_S" />
+    <node concept="3uibUv" id="3pn$gDK_BZ7" role="1zkMxy">
+      <ref role="3uigEE" to="67a5:~WebSocketServlet" resolve="WebSocketServlet" />
+    </node>
+    <node concept="3clFb_" id="3pn$gDK_BZ8" role="jymVt">
+      <property role="TrG5h" value="configure" />
+      <node concept="3Tm1VV" id="3pn$gDK_BZ9" role="1B3o_S" />
+      <node concept="3cqZAl" id="3pn$gDK_BZa" role="3clF45" />
+      <node concept="37vLTG" id="3pn$gDK_BZb" role="3clF46">
+        <property role="TrG5h" value="factory" />
+        <node concept="3uibUv" id="3pn$gDK_BZc" role="1tU5fm">
+          <ref role="3uigEE" to="67a5:~WebSocketServletFactory" resolve="WebSocketServletFactory" />
+        </node>
+      </node>
+      <node concept="3clFbS" id="3pn$gDK_BZd" role="3clF47">
+        <node concept="3clFbF" id="3pn$gDK_BZe" role="3cqZAp">
+          <node concept="2OqwBi" id="3pn$gDK_BZf" role="3clFbG">
+            <node concept="37vLTw" id="3pn$gDK_BZg" role="2Oq$k0">
+              <ref role="3cqZAo" node="3pn$gDK_BZb" resolve="factory" />
+            </node>
+            <node concept="liA8E" id="3pn$gDK_BZh" role="2OqNvi">
+              <ref role="37wK5l" to="67a5:~WebSocketServletFactory.register(java.lang.Class)" resolve="register" />
+              <node concept="3VsKOn" id="3pn$gDK_BZi" role="37wK5m">
+                <ref role="3VsUkX" to="2qs1:3pn$gDK_lrH" resolve="LiveHtmlServer" />
+              </node>
+            </node>
+          </node>
+        </node>
+      </node>
+      <node concept="2AHcQZ" id="3pn$gDK_BZj" role="2AJF6D">
+        <ref role="2AI5Lk" to="wyt6:~Override" resolve="Override" />
+      </node>
     </node>
   </node>
 </model>

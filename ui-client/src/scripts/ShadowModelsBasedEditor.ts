@@ -2,6 +2,7 @@ import "../styles/sm.scss";
 import $ = require("jquery");
 import {DomUtils} from "./DomUtils";
 import {LiveHtml} from "./LiveHtml";
+import {getWebsocketBaseUrl} from "./UrlUtil";
 
 export class ShadowModelsBasedEditor extends LiveHtml {
 
@@ -140,6 +141,10 @@ export class ShadowModelsBasedEditor extends LiveHtml {
         for (const e of document.getElementsByClassName("ccSelectedEntry")) {
             e.scrollIntoView({block: "nearest"});
         }
+    }
+
+    protected getWebsocketUrl() {
+        return getWebsocketBaseUrl() + "smui";
     }
 }
 

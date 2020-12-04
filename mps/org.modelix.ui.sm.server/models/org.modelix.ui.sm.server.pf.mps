@@ -844,8 +844,8 @@
                 <ref role="ehGHo" to="6y8:6kYN8GaiMZW" resolve="JSONObject" />
               </node>
               <node concept="2YIFZM" id="57jJhoxwW7" role="33vP2m">
-                <ref role="37wK5l" to="2qs1:57jJhor4Ij" resolve="getTransformedJSON" />
                 <ref role="1Pybhc" to="2qs1:6kYN8GakajA" resolve="InteractionSession" />
+                <ref role="37wK5l" to="2qs1:3pn$gDKz7Md" resolve="getTransformedJSON" />
                 <node concept="2OqwBi" id="57jJhoxwW8" role="37wK5m">
                   <node concept="s3N6n" id="57jJhoxwW9" role="2Oq$k0">
                     <ref role="s3N6p" to="2uyn:2CK1QGRyhgc" resolve="context" />

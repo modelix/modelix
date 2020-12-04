@@ -1,7 +1,7 @@
 import "../styles/sm.scss";
 import $ = require("jquery");
 import {DomUtils} from "./DomUtils";
-import {getWebsocketUrl} from "./UrlUtil";
+import {getWebsocketBaseUrl} from "./UrlUtil";
 
 export class LiveHtml {
     private static rootElementIdSequence = 0;
@@ -70,6 +70,7 @@ export class LiveHtml {
     constructor(public readonly rootElement: HTMLElement, protected readonly localRootElementId: string = "root") {
         if (rootElement.id) {
             this.globalRootElementId = rootElement.id;
+            this.localRootElementId = rootElement.id;
         } else {
             this.globalRootElementId = "liveRootElement-" + ++LiveHtml.rootElementIdSequence;
             rootElement.id = this.globalRootElementId;
@@ -106,7 +107,7 @@ export class LiveHtml {
     private connect(): void {
         if (this.socket && this.socket.readyState !== WebSocket.CLOSED) return;
 
-        this.socket = new WebSocket(getWebsocketUrl() + "smui");
+        this.socket = new WebSocket(this.getWebsocketUrl());
 
         this.socket.onmessage = (event) => {
             const message = JSON.parse(event.data);
@@ -118,6 +119,10 @@ export class LiveHtml {
         this.socket.onopen = () => {
             this.onConnected(this.socket);
         };
+    }
+
+    protected getWebsocketUrl() {
+        return getWebsocketBaseUrl() + "livehtml";
     }
 
     protected onConnected(socket: WebSocket): void {
@@ -166,24 +171,34 @@ export class LiveHtml {
                 dom = document.createElement(json.type);
             }
 
-            if (json.class) dom.className = json.class;
-            if (json.href) dom.href = json.href;
-            if (json.style) {
-                const stylesToRemove = new Set();
-                for (let i = 0; i < dom.style.length; i++) {
-                    stylesToRemove.add(dom.style.item(i));
-                }
-                for (const key of Object.keys(json.style)) {
-                    stylesToRemove.delete(key);
-                    const styleHandler = this.styleHandlers[key];
-                    if (styleHandler) {
-                        styleHandler(json.style[key], dom);
-                    } else {
-                        dom.style.setProperty(key, json.style[key]);
-                    }
-                }
-                for (const key of stylesToRemove) {
-                    dom.style.removeProperty(key);
+            for (const [jsonKey, jsonValue] of Object.entries(json)) {
+                switch (jsonKey) {
+                    case "class":
+                        dom.className = jsonValue;
+                        break;
+                    case "style":
+                        const stylesToRemove = new Set();
+                        for (let i = 0; i < dom.style.length; i++) {
+                            stylesToRemove.add(dom.style.item(i));
+                        }
+                        for (const key of Object.keys(jsonValue)) {
+                            stylesToRemove.delete(key);
+                            const styleHandler = this.styleHandlers[key];
+                            if (styleHandler) {
+                                styleHandler(jsonValue[key], dom);
+                            } else {
+                                dom.style.setProperty(key, jsonValue[key]);
+                            }
+                        }
+                        for (const key of stylesToRemove) {
+                            dom.style.removeProperty(key);
+                        }
+                        break;
+                    default:
+                        if (typeof jsonValue === "string") {
+                            dom.setAttribute(jsonKey, jsonValue);
+                        }
+                        break;
                 }
             }
             if (json.children) {
