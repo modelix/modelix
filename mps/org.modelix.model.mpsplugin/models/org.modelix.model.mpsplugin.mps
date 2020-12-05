@@ -21947,6 +21947,18 @@
       </node>
     </node>
     <node concept="3Tm1VV" id="17f8AZmA74L" role="1B3o_S" />
+    <node concept="3UR2Jj" id="3TbkWOkPgnV" role="lGtFl">
+      <node concept="TZ5HA" id="3TbkWOkPgnW" role="TZ5H$">
+        <node concept="1dT_AC" id="3TbkWOkPgnX" role="1dT_Ay">
+          <property role="1dT_AB" value="Class with the responsibility to orchestrate the synchronization, i.e., getting the process" />
+        </node>
+      </node>
+      <node concept="TZ5HA" id="3TbkWOkPgIK" role="TZ5H$">
+        <node concept="1dT_AC" id="3TbkWOkPgIL" role="1dT_Ay">
+          <property role="1dT_AB" value="started." />
+        </node>
+      </node>
+    </node>
   </node>
   <node concept="312cEu" id="17f8AZmAhJV">
     <property role="TrG5h" value="PhysicalToCloudModelMapping" />
