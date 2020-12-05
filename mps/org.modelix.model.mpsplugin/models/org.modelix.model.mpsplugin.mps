@@ -14491,7 +14491,7 @@
       <node concept="3clFbS" id="7fzD_A4oJLf" role="3clF47">
         <node concept="3cpWs8" id="7fzD_A4qyoN" role="3cqZAp">
           <node concept="3cpWsn" id="7fzD_A4qyoO" role="3cpWs9">
-            <property role="TrG5h" value="allModules" />
+            <property role="TrG5h" value="allPhysicalModules" />
             <node concept="3rvAFt" id="7fzD_A4qJgh" role="1tU5fm">
               <node concept="17QB3L" id="7fzD_A4qJ_M" role="3rvQeY" />
               <node concept="3uibUv" id="7fzD_A4qKb4" role="3rvSg0">
@@ -14502,7 +14502,7 @@
         </node>
         <node concept="3cpWs8" id="7fzD_A4qrO7" role="3cqZAp">
           <node concept="3cpWsn" id="7fzD_A4qrO8" role="3cpWs9">
-            <property role="TrG5h" value="unexpectedModuleIds" />
+            <property role="TrG5h" value="physicalOnlyModulesIDs" />
             <node concept="2hMVRd" id="4rSrEo7PLRq" role="1tU5fm">
               <node concept="17QB3L" id="4rSrEo7PLRs" role="2hN53Y" />
             </node>
@@ -14510,7 +14510,7 @@
         </node>
         <node concept="3cpWs8" id="7fzD_A4pB0S" role="3cqZAp">
           <node concept="3cpWsn" id="7fzD_A4pB0T" role="3cpWs9">
-            <property role="TrG5h" value="existingModules" />
+            <property role="TrG5h" value="physicalModules" />
             <node concept="A3Dl8" id="7fzD_A4pBxn" role="1tU5fm">
               <node concept="3uibUv" id="7fzD_A4pBxp" role="A3Ik2">
                 <ref role="3uigEE" to="lui2:~SModule" resolve="SModule" />
@@ -14520,7 +14520,7 @@
         </node>
         <node concept="3cpWs8" id="7fzD_A4qiuh" role="3cqZAp">
           <node concept="3cpWsn" id="7fzD_A4qiui" role="3cpWs9">
-            <property role="TrG5h" value="missingModuleIds" />
+            <property role="TrG5h" value="cloudOnlyModulesIDs" />
             <node concept="2hMVRd" id="4rSrEo7PKuo" role="1tU5fm">
               <node concept="17QB3L" id="4rSrEo7PKuq" role="2hN53Y" />
             </node>
@@ -14528,7 +14528,7 @@
         </node>
         <node concept="3cpWs8" id="7fzD_A4s6HF" role="3cqZAp">
           <node concept="3cpWsn" id="7fzD_A4s6HI" role="3cpWs9">
-            <property role="TrG5h" value="allModuleNodes" />
+            <property role="TrG5h" value="allCloudModules" />
             <node concept="3rvAFt" id="7fzD_A4s6H_" role="1tU5fm">
               <node concept="17QB3L" id="7fzD_A4s7qk" role="3rvQeY" />
               <node concept="3Tqbb2" id="7fzD_A4s84x" role="3rvSg0">
@@ -14614,25 +14614,25 @@
                         </node>
                       </node>
                       <node concept="37vLTw" id="_4bK_sVw_g" role="37vLTJ">
-                        <ref role="3cqZAo" node="7fzD_A4qyoO" resolve="allModules" />
+                        <ref role="3cqZAo" node="7fzD_A4qyoO" resolve="allPhysicalModules" />
                       </node>
                     </node>
                   </node>
                   <node concept="2Gpval" id="7fzD_A4qGpL" role="3cqZAp">
                     <node concept="2GrKxI" id="7fzD_A4qGpN" role="2Gsz3X">
-                      <property role="TrG5h" value="m" />
+                      <property role="TrG5h" value="physicalModule" />
                     </node>
                     <node concept="3clFbS" id="7fzD_A4qGpR" role="2LFqv$">
                       <node concept="3clFbF" id="7fzD_A4qLE3" role="3cqZAp">
                         <node concept="37vLTI" id="7fzD_A4qQKz" role="3clFbG">
                           <node concept="2GrUjf" id="7fzD_A4qRCa" role="37vLTx">
-                            <ref role="2Gs0qQ" node="7fzD_A4qGpN" resolve="m" />
+                            <ref role="2Gs0qQ" node="7fzD_A4qGpN" resolve="physicalModule" />
                           </node>
                           <node concept="3EllGN" id="7fzD_A4qMBI" role="37vLTJ">
                             <node concept="2OqwBi" id="7fzD_A4qP33" role="3ElVtu">
                               <node concept="2OqwBi" id="7fzD_A4qNI8" role="2Oq$k0">
                                 <node concept="2GrUjf" id="7fzD_A4qN1G" role="2Oq$k0">
-                                  <ref role="2Gs0qQ" node="7fzD_A4qGpN" resolve="m" />
+                                  <ref role="2Gs0qQ" node="7fzD_A4qGpN" resolve="physicalModule" />
                                 </node>
                                 <node concept="liA8E" id="7fzD_A4qO$W" role="2OqNvi">
                                   <ref role="37wK5l" to="lui2:~SModule.getModuleId()" resolve="getModuleId" />
@@ -14643,7 +14643,7 @@
                               </node>
                             </node>
                             <node concept="37vLTw" id="7fzD_A4qLE2" role="3ElQJh">
-                              <ref role="3cqZAo" node="7fzD_A4qyoO" resolve="allModules" />
+                              <ref role="3cqZAo" node="7fzD_A4qyoO" resolve="allPhysicalModules" />
                             </node>
                           </node>
                         </node>
@@ -14674,13 +14674,13 @@
                         </node>
                       </node>
                       <node concept="37vLTw" id="_4bK_sVLXH" role="37vLTJ">
-                        <ref role="3cqZAo" node="7fzD_A4s6HI" resolve="allModuleNodes" />
+                        <ref role="3cqZAo" node="7fzD_A4s6HI" resolve="allCloudModules" />
                       </node>
                     </node>
                   </node>
                   <node concept="2Gpval" id="7fzD_A4sbgp" role="3cqZAp">
                     <node concept="2GrKxI" id="7fzD_A4sbgr" role="2Gsz3X">
-                      <property role="TrG5h" value="m" />
+                      <property role="TrG5h" value="cloudModule" />
                     </node>
                     <node concept="3clFbS" id="7fzD_A4sbgv" role="2LFqv$">
                       <node concept="3cpWs8" id="7fzD_A4wW5v" role="3cqZAp">
@@ -14691,7 +14691,7 @@
                             <node concept="1rXfSq" id="4rSrEo7Ebgy" role="2Oq$k0">
                               <ref role="37wK5l" node="4rSrEo7DFAS" resolve="getModuleId" />
                               <node concept="2GrUjf" id="4rSrEo7Ec4s" role="37wK5m">
-                                <ref role="2Gs0qQ" node="7fzD_A4sbgr" resolve="m" />
+                                <ref role="2Gs0qQ" node="7fzD_A4sbgr" resolve="cloudModule" />
                               </node>
                             </node>
                             <node concept="liA8E" id="4rSrEo7Edt0" role="2OqNvi">
@@ -14706,14 +14706,14 @@
                           <node concept="3clFbF" id="7fzD_A4sddh" role="3cqZAp">
                             <node concept="37vLTI" id="7fzD_A4shcq" role="3clFbG">
                               <node concept="2GrUjf" id="7fzD_A4shUS" role="37vLTx">
-                                <ref role="2Gs0qQ" node="7fzD_A4sbgr" resolve="m" />
+                                <ref role="2Gs0qQ" node="7fzD_A4sbgr" resolve="cloudModule" />
                               </node>
                               <node concept="3EllGN" id="7fzD_A4segh" role="37vLTJ">
                                 <node concept="37vLTw" id="7fzD_A4wW5$" role="3ElVtu">
                                   <ref role="3cqZAo" node="7fzD_A4wW5w" resolve="id" />
                                 </node>
                                 <node concept="37vLTw" id="7fzD_A4sddg" role="3ElQJh">
-                                  <ref role="3cqZAo" node="7fzD_A4s6HI" resolve="allModuleNodes" />
+                                  <ref role="3cqZAo" node="7fzD_A4s6HI" resolve="allCloudModules" />
                                 </node>
                               </node>
                             </node>
@@ -14736,6 +14736,7 @@
                       </node>
                     </node>
                   </node>
+                  <node concept="3clFbH" id="3TbkWOkUoPM" role="3cqZAp" />
                   <node concept="3cpWs8" id="7fzD_A4ppo8" role="3cqZAp">
                     <node concept="3cpWsn" id="7fzD_A4ppo9" role="3cpWs9">
                       <property role="TrG5h" value="expectedModules" />
@@ -14746,30 +14747,61 @@
                       </node>
                       <node concept="2OqwBi" id="_4bK_sVSHs" role="33vP2m">
                         <node concept="37vLTw" id="7fzD_A4wSi$" role="2Oq$k0">
-                          <ref role="3cqZAo" node="7fzD_A4s6HI" resolve="allModuleNodes" />
+                          <ref role="3cqZAo" node="7fzD_A4s6HI" resolve="allCloudModules" />
                         </node>
                         <node concept="T8wYR" id="_4bK_sVUNl" role="2OqNvi" />
                       </node>
                     </node>
                   </node>
-                  <node concept="3clFbF" id="_4bK_sVClA" role="3cqZAp">
-                    <node concept="37vLTI" id="_4bK_sVClC" role="3clFbG">
-                      <node concept="2OqwBi" id="7fzD_A4pB0U" role="37vLTx">
-                        <node concept="37vLTw" id="7fzD_A4pB0W" role="2Oq$k0">
-                          <ref role="3cqZAo" node="4eX7sil8IGn" resolve="mpsProject" />
-                        </node>
-                        <node concept="liA8E" id="7fzD_A4qmS7" role="2OqNvi">
-                          <ref role="37wK5l" to="z1c3:~ProjectBase.getProjectModules()" resolve="getProjectModules" />
-                        </node>
+                  <node concept="3SKdUt" id="3TbkWOkUtBx" role="3cqZAp">
+                    <node concept="1PaTwC" id="3TbkWOkUtBy" role="1aUNEU">
+                      <node concept="3oM_SD" id="3TbkWOkUtBz" role="1PaTwD">
+                        <property role="3oM_SC" value="Cloud" />
                       </node>
-                      <node concept="37vLTw" id="_4bK_sVClG" role="37vLTJ">
-                        <ref role="3cqZAo" node="7fzD_A4pB0T" resolve="existingModules" />
+                      <node concept="3oM_SD" id="3TbkWOkUv4x" role="1PaTwD">
+                        <property role="3oM_SC" value="Modules" />
+                      </node>
+                      <node concept="3oM_SD" id="3TbkWOkUv4$" role="1PaTwD">
+                        <property role="3oM_SC" value="IDs:" />
+                      </node>
+                      <node concept="3oM_SD" id="3TbkWOkUvmw" role="1PaTwD">
+                        <property role="3oM_SC" value="we" />
+                      </node>
+                      <node concept="3oM_SD" id="3TbkWOkUvm_" role="1PaTwD">
+                        <property role="3oM_SC" value="would" />
+                      </node>
+                      <node concept="3oM_SD" id="3TbkWOkUvmF" role="1PaTwD">
+                        <property role="3oM_SC" value="expect" />
+                      </node>
+                      <node concept="3oM_SD" id="3TbkWOkUvOP" role="1PaTwD">
+                        <property role="3oM_SC" value="to" />
+                      </node>
+                      <node concept="3oM_SD" id="3TbkWOkUvOX" role="1PaTwD">
+                        <property role="3oM_SC" value="find" />
+                      </node>
+                      <node concept="3oM_SD" id="3TbkWOkUvP6" role="1PaTwD">
+                        <property role="3oM_SC" value="them" />
+                      </node>
+                      <node concept="3oM_SD" id="3TbkWOkUvPg" role="1PaTwD">
+                        <property role="3oM_SC" value="also" />
+                      </node>
+                      <node concept="3oM_SD" id="3TbkWOkUwbl" role="1PaTwD">
+                        <property role="3oM_SC" value="in" />
+                      </node>
+                      <node concept="3oM_SD" id="3TbkWOkUwbx" role="1PaTwD">
+                        <property role="3oM_SC" value="the" />
+                      </node>
+                      <node concept="3oM_SD" id="3TbkWOkUwbI" role="1PaTwD">
+                        <property role="3oM_SC" value="Physical" />
+                      </node>
+                      <node concept="3oM_SD" id="3TbkWOkUwtO" role="1PaTwD">
+                        <property role="3oM_SC" value="Project" />
                       </node>
                     </node>
                   </node>
                   <node concept="3cpWs8" id="7fzD_A4pRQa" role="3cqZAp">
                     <node concept="3cpWsn" id="7fzD_A4pRQb" role="3cpWs9">
-                      <property role="TrG5h" value="expectedModuleIds" />
+                      <property role="TrG5h" value="cloudModulesIDs" />
                       <node concept="2hMVRd" id="7fzD_A4qbW5" role="1tU5fm">
                         <node concept="17QB3L" id="7fzD_A4qbW7" role="2hN53Y" />
                       </node>
@@ -14808,9 +14840,71 @@
                       </node>
                     </node>
                   </node>
+                  <node concept="3clFbH" id="3TbkWOkUraf" role="3cqZAp" />
+                  <node concept="3clFbF" id="_4bK_sVClA" role="3cqZAp">
+                    <node concept="37vLTI" id="_4bK_sVClC" role="3clFbG">
+                      <node concept="2OqwBi" id="7fzD_A4pB0U" role="37vLTx">
+                        <node concept="37vLTw" id="7fzD_A4pB0W" role="2Oq$k0">
+                          <ref role="3cqZAo" node="4eX7sil8IGn" resolve="mpsProject" />
+                        </node>
+                        <node concept="liA8E" id="7fzD_A4qmS7" role="2OqNvi">
+                          <ref role="37wK5l" to="z1c3:~ProjectBase.getProjectModules()" resolve="getProjectModules" />
+                        </node>
+                      </node>
+                      <node concept="37vLTw" id="_4bK_sVClG" role="37vLTJ">
+                        <ref role="3cqZAo" node="7fzD_A4pB0T" resolve="physicalModules" />
+                      </node>
+                    </node>
+                  </node>
+                  <node concept="3SKdUt" id="3TbkWOkUy5E" role="3cqZAp">
+                    <node concept="1PaTwC" id="3TbkWOkUy5F" role="1aUNEU">
+                      <node concept="3oM_SD" id="3TbkWOkUy5G" role="1PaTwD">
+                        <property role="3oM_SC" value="Physical" />
+                      </node>
+                      <node concept="3oM_SD" id="3TbkWOkUyqT" role="1PaTwD">
+                        <property role="3oM_SC" value="Modules" />
+                      </node>
+                      <node concept="3oM_SD" id="3TbkWOkUyqW" role="1PaTwD">
+                        <property role="3oM_SC" value="IDs:" />
+                      </node>
+                      <node concept="3oM_SD" id="3TbkWOkUzyg" role="1PaTwD">
+                        <property role="3oM_SC" value="we" />
+                      </node>
+                      <node concept="3oM_SD" id="3TbkWOkUzyl" role="1PaTwD">
+                        <property role="3oM_SC" value="would" />
+                      </node>
+                      <node concept="3oM_SD" id="3TbkWOkU$46" role="1PaTwD">
+                        <property role="3oM_SC" value="expect" />
+                      </node>
+                      <node concept="3oM_SD" id="3TbkWOkU$D3" role="1PaTwD">
+                        <property role="3oM_SC" value="to" />
+                      </node>
+                      <node concept="3oM_SD" id="3TbkWOkU$Db" role="1PaTwD">
+                        <property role="3oM_SC" value="find" />
+                      </node>
+                      <node concept="3oM_SD" id="3TbkWOkU$Ti" role="1PaTwD">
+                        <property role="3oM_SC" value="them" />
+                      </node>
+                      <node concept="3oM_SD" id="3TbkWOkU$Ts" role="1PaTwD">
+                        <property role="3oM_SC" value="also" />
+                      </node>
+                      <node concept="3oM_SD" id="3TbkWOkU$TB" role="1PaTwD">
+                        <property role="3oM_SC" value="in" />
+                      </node>
+                      <node concept="3oM_SD" id="3TbkWOkU$TN" role="1PaTwD">
+                        <property role="3oM_SC" value="the" />
+                      </node>
+                      <node concept="3oM_SD" id="3TbkWOkU$U0" role="1PaTwD">
+                        <property role="3oM_SC" value="Cloud" />
+                      </node>
+                      <node concept="3oM_SD" id="3TbkWOkU_uw" role="1PaTwD">
+                        <property role="3oM_SC" value="Project" />
+                      </node>
+                    </node>
+                  </node>
                   <node concept="3cpWs8" id="7fzD_A4pZjy" role="3cqZAp">
                     <node concept="3cpWsn" id="7fzD_A4pZjz" role="3cpWs9">
-                      <property role="TrG5h" value="existingModuleIds" />
+                      <property role="TrG5h" value="physicalModulesIDs" />
                       <node concept="A3Dl8" id="7fzD_A4pZeP" role="1tU5fm">
                         <node concept="17QB3L" id="7fzD_A4q0Mv" role="A3Ik2" />
                       </node>
@@ -14819,7 +14913,7 @@
                           <node concept="17QB3L" id="7fzD_A4qfIh" role="HW$YZ" />
                           <node concept="2OqwBi" id="7fzD_A4pZj$" role="I$8f6">
                             <node concept="37vLTw" id="7fzD_A4pZj_" role="2Oq$k0">
-                              <ref role="3cqZAo" node="7fzD_A4pB0T" resolve="existingModules" />
+                              <ref role="3cqZAo" node="7fzD_A4pB0T" resolve="physicalModules" />
                             </node>
                             <node concept="3$u5V9" id="7fzD_A4pZjA" role="2OqNvi">
                               <node concept="1bVj0M" id="7fzD_A4pZjB" role="23t8la">
@@ -14851,6 +14945,7 @@
                       </node>
                     </node>
                   </node>
+                  <node concept="3clFbH" id="3TbkWOkUxi0" role="3cqZAp" />
                   <node concept="3clFbF" id="_4bK_sVI1f" role="3cqZAp">
                     <node concept="37vLTI" id="_4bK_sVI1h" role="3clFbG">
                       <node concept="2ShNRf" id="4rSrEo7Pvdr" role="37vLTx">
@@ -14858,18 +14953,18 @@
                           <node concept="17QB3L" id="4rSrEo7PzhK" role="HW$YZ" />
                           <node concept="2OqwBi" id="7fzD_A4qiuj" role="I$8f6">
                             <node concept="37vLTw" id="7fzD_A4qiuk" role="2Oq$k0">
-                              <ref role="3cqZAo" node="7fzD_A4pRQb" resolve="expectedModuleIds" />
+                              <ref role="3cqZAo" node="7fzD_A4pRQb" resolve="cloudModulesIDs" />
                             </node>
                             <node concept="66VNe" id="7fzD_A4qiul" role="2OqNvi">
                               <node concept="37vLTw" id="7fzD_A4qium" role="576Qk">
-                                <ref role="3cqZAo" node="7fzD_A4pZjz" resolve="existingModuleIds" />
+                                <ref role="3cqZAo" node="7fzD_A4pZjz" resolve="physicalModulesIDs" />
                               </node>
                             </node>
                           </node>
                         </node>
                       </node>
                       <node concept="37vLTw" id="_4bK_sVI1l" role="37vLTJ">
-                        <ref role="3cqZAo" node="7fzD_A4qiui" resolve="missingModuleIds" />
+                        <ref role="3cqZAo" node="7fzD_A4qiui" resolve="cloudOnlyModulesIDs" />
                       </node>
                     </node>
                   </node>
@@ -14880,46 +14975,141 @@
                           <node concept="17QB3L" id="4rSrEo7PG8k" role="HW$YZ" />
                           <node concept="2OqwBi" id="7fzD_A4qrO9" role="I$8f6">
                             <node concept="37vLTw" id="7fzD_A4qrOa" role="2Oq$k0">
-                              <ref role="3cqZAo" node="7fzD_A4pZjz" resolve="existingModuleIds" />
+                              <ref role="3cqZAo" node="7fzD_A4pZjz" resolve="physicalModulesIDs" />
                             </node>
                             <node concept="66VNe" id="7fzD_A4qrOb" role="2OqNvi">
                               <node concept="37vLTw" id="7fzD_A4qrOc" role="576Qk">
-                                <ref role="3cqZAo" node="7fzD_A4pRQb" resolve="expectedModuleIds" />
+                                <ref role="3cqZAo" node="7fzD_A4pRQb" resolve="cloudModulesIDs" />
                               </node>
                             </node>
                           </node>
                         </node>
                       </node>
                       <node concept="37vLTw" id="_4bK_sVozU" role="37vLTJ">
-                        <ref role="3cqZAo" node="7fzD_A4qrO8" resolve="unexpectedModuleIds" />
+                        <ref role="3cqZAo" node="7fzD_A4qrO8" resolve="physicalOnlyModulesIDs" />
                       </node>
                     </node>
                   </node>
                   <node concept="3clFbH" id="7fzD_A4q1y_" role="3cqZAp" />
                   <node concept="2Gpval" id="4rSrEo7PNDk" role="3cqZAp">
                     <node concept="2GrKxI" id="4rSrEo7PNDm" role="2Gsz3X">
-                      <property role="TrG5h" value="entry" />
+                      <property role="TrG5h" value="cloudModuleEntry" />
                     </node>
                     <node concept="37vLTw" id="4rSrEo7PONc" role="2GsD0m">
-                      <ref role="3cqZAo" node="7fzD_A4s6HI" resolve="allModuleNodes" />
+                      <ref role="3cqZAo" node="7fzD_A4s6HI" resolve="allCloudModules" />
                     </node>
                     <node concept="3clFbS" id="4rSrEo7PNDq" role="2LFqv$">
                       <node concept="3cpWs8" id="4rSrEo7PWkc" role="3cqZAp">
                         <node concept="3cpWsn" id="4rSrEo7PWkd" role="3cpWs9">
-                          <property role="TrG5h" value="module" />
+                          <property role="TrG5h" value="correspondingPhysicalModule" />
                           <node concept="3uibUv" id="4rSrEo7PW7Y" role="1tU5fm">
                             <ref role="3uigEE" to="lui2:~SModule" resolve="SModule" />
                           </node>
                           <node concept="3EllGN" id="4rSrEo7PWke" role="33vP2m">
                             <node concept="2OqwBi" id="4rSrEo7PWkf" role="3ElVtu">
                               <node concept="2GrUjf" id="4rSrEo7PWkg" role="2Oq$k0">
-                                <ref role="2Gs0qQ" node="4rSrEo7PNDm" resolve="entry" />
+                                <ref role="2Gs0qQ" node="4rSrEo7PNDm" resolve="cloudModuleEntry" />
                               </node>
                               <node concept="3AY5_j" id="4rSrEo7PWkh" role="2OqNvi" />
                             </node>
                             <node concept="37vLTw" id="4rSrEo7PWki" role="3ElQJh">
-                              <ref role="3cqZAo" node="7fzD_A4qyoO" resolve="allModules" />
+                              <ref role="3cqZAo" node="7fzD_A4qyoO" resolve="allPhysicalModules" />
                             </node>
+                          </node>
+                        </node>
+                      </node>
+                      <node concept="3SKdUt" id="3TbkWOkUNto" role="3cqZAp">
+                        <node concept="1PaTwC" id="3TbkWOkUNtp" role="1aUNEU">
+                          <node concept="3oM_SD" id="3TbkWOkUNtq" role="1PaTwD">
+                            <property role="3oM_SC" value="FIXME" />
+                          </node>
+                          <node concept="3oM_SD" id="3TbkWOkUO__" role="1PaTwD">
+                            <property role="3oM_SC" value="I" />
+                          </node>
+                          <node concept="3oM_SD" id="3TbkWOkUP3F" role="1PaTwD">
+                            <property role="3oM_SC" value="do" />
+                          </node>
+                          <node concept="3oM_SD" id="3TbkWOkUP3J" role="1PaTwD">
+                            <property role="3oM_SC" value="not" />
+                          </node>
+                          <node concept="3oM_SD" id="3TbkWOkUP3O" role="1PaTwD">
+                            <property role="3oM_SC" value="understand" />
+                          </node>
+                          <node concept="3oM_SD" id="3TbkWOkUPpO" role="1PaTwD">
+                            <property role="3oM_SC" value="the" />
+                          </node>
+                          <node concept="3oM_SD" id="3TbkWOkUPpV" role="1PaTwD">
+                            <property role="3oM_SC" value="check" />
+                          </node>
+                          <node concept="3oM_SD" id="3TbkWOkUPDI" role="1PaTwD">
+                            <property role="3oM_SC" value="on" />
+                          </node>
+                          <node concept="3oM_SD" id="3TbkWOkUPDR" role="1PaTwD">
+                            <property role="3oM_SC" value="the" />
+                          </node>
+                          <node concept="3oM_SD" id="3TbkWOkUPE1" role="1PaTwD">
+                            <property role="3oM_SC" value="module" />
+                          </node>
+                          <node concept="3oM_SD" id="3TbkWOkUPEc" role="1PaTwD">
+                            <property role="3oM_SC" value="name." />
+                          </node>
+                          <node concept="3oM_SD" id="3TbkWOkUSqy" role="1PaTwD">
+                            <property role="3oM_SC" value="We" />
+                          </node>
+                          <node concept="3oM_SD" id="3TbkWOkUSqJ" role="1PaTwD">
+                            <property role="3oM_SC" value="have" />
+                          </node>
+                          <node concept="3oM_SD" id="3TbkWOkUSEC" role="1PaTwD">
+                            <property role="3oM_SC" value="a" />
+                          </node>
+                          <node concept="3oM_SD" id="3TbkWOkUSER" role="1PaTwD">
+                            <property role="3oM_SC" value="mismatch" />
+                          </node>
+                          <node concept="3oM_SD" id="3TbkWOkUSUM" role="1PaTwD">
+                            <property role="3oM_SC" value="on" />
+                          </node>
+                          <node concept="3oM_SD" id="3TbkWOkUSV3" role="1PaTwD">
+                            <property role="3oM_SC" value="name" />
+                          </node>
+                        </node>
+                      </node>
+                      <node concept="3SKdUt" id="3TbkWOkUTlk" role="3cqZAp">
+                        <node concept="1PaTwC" id="3TbkWOkUTll" role="1aUNEU">
+                          <node concept="3oM_SD" id="3TbkWOkUTlm" role="1PaTwD">
+                            <property role="3oM_SC" value="but" />
+                          </node>
+                          <node concept="3oM_SD" id="3TbkWOkUTUA" role="1PaTwD">
+                            <property role="3oM_SC" value="I" />
+                          </node>
+                          <node concept="3oM_SD" id="3TbkWOkUUcx" role="1PaTwD">
+                            <property role="3oM_SC" value="am" />
+                          </node>
+                          <node concept="3oM_SD" id="3TbkWOkUUc_" role="1PaTwD">
+                            <property role="3oM_SC" value="not" />
+                          </node>
+                          <node concept="3oM_SD" id="3TbkWOkUUcE" role="1PaTwD">
+                            <property role="3oM_SC" value="sure" />
+                          </node>
+                          <node concept="3oM_SD" id="3TbkWOkUUcK" role="1PaTwD">
+                            <property role="3oM_SC" value="why" />
+                          </node>
+                          <node concept="3oM_SD" id="3TbkWOkUUuJ" role="1PaTwD">
+                            <property role="3oM_SC" value="we" />
+                          </node>
+                          <node concept="3oM_SD" id="3TbkWOkUUuR" role="1PaTwD">
+                            <property role="3oM_SC" value="should" />
+                          </node>
+                          <node concept="3oM_SD" id="3TbkWOkUXwD" role="1PaTwD">
+                            <property role="3oM_SC" value="may" />
+                          </node>
+                          <node concept="3oM_SD" id="3TbkWOkUXMF" role="1PaTwD">
+                            <property role="3oM_SC" value="the" />
+                          </node>
+                          <node concept="3oM_SD" id="3TbkWOkUY2x" role="1PaTwD">
+                            <property role="3oM_SC" value="mapping" />
+                          </node>
+                          <node concept="3oM_SD" id="3TbkWOkUY2H" role="1PaTwD">
+                            <property role="3oM_SC" value="invalid" />
                           </node>
                         </node>
                       </node>
@@ -14928,12 +15118,12 @@
                           <node concept="3clFbF" id="4rSrEo7Qf6M" role="3cqZAp">
                             <node concept="2OqwBi" id="4rSrEo7QgGI" role="3clFbG">
                               <node concept="37vLTw" id="4rSrEo7Qf6K" role="2Oq$k0">
-                                <ref role="3cqZAo" node="7fzD_A4qiui" resolve="missingModuleIds" />
+                                <ref role="3cqZAo" node="7fzD_A4qiui" resolve="cloudOnlyModulesIDs" />
                               </node>
                               <node concept="TSZUe" id="4rSrEo7Qi8q" role="2OqNvi">
                                 <node concept="2OqwBi" id="4rSrEo7QkJ_" role="25WWJ7">
                                   <node concept="2GrUjf" id="4rSrEo7Qjpr" role="2Oq$k0">
-                                    <ref role="2Gs0qQ" node="4rSrEo7PNDm" resolve="entry" />
+                                    <ref role="2Gs0qQ" node="4rSrEo7PNDm" resolve="cloudModuleEntry" />
                                   </node>
                                   <node concept="3AY5_j" id="4rSrEo7Qm2L" role="2OqNvi" />
                                 </node>
@@ -14943,12 +15133,12 @@
                           <node concept="3clFbF" id="4rSrEo7QodG" role="3cqZAp">
                             <node concept="2OqwBi" id="4rSrEo7QpMh" role="3clFbG">
                               <node concept="37vLTw" id="4rSrEo7QodE" role="2Oq$k0">
-                                <ref role="3cqZAo" node="7fzD_A4qrO8" resolve="unexpectedModuleIds" />
+                                <ref role="3cqZAo" node="7fzD_A4qrO8" resolve="physicalOnlyModulesIDs" />
                               </node>
                               <node concept="TSZUe" id="4rSrEo7QrLO" role="2OqNvi">
                                 <node concept="2OqwBi" id="4rSrEo7QulR" role="25WWJ7">
                                   <node concept="2GrUjf" id="4rSrEo7QsJG" role="2Oq$k0">
-                                    <ref role="2Gs0qQ" node="4rSrEo7PNDm" resolve="entry" />
+                                    <ref role="2Gs0qQ" node="4rSrEo7PNDm" resolve="cloudModuleEntry" />
                                   </node>
                                   <node concept="3AY5_j" id="4rSrEo7QvBQ" role="2OqNvi" />
                                 </node>
@@ -14961,7 +15151,7 @@
                             <node concept="2OqwBi" id="4rSrEo7Qcks" role="3uHU7w">
                               <node concept="2OqwBi" id="4rSrEo7Q8jb" role="2Oq$k0">
                                 <node concept="2GrUjf" id="4rSrEo7Q76n" role="2Oq$k0">
-                                  <ref role="2Gs0qQ" node="4rSrEo7PNDm" resolve="entry" />
+                                  <ref role="2Gs0qQ" node="4rSrEo7PNDm" resolve="cloudModuleEntry" />
                                 </node>
                                 <node concept="3AV6Ez" id="4rSrEo7Q9jI" role="2OqNvi" />
                               </node>
@@ -14971,7 +15161,7 @@
                             </node>
                             <node concept="2OqwBi" id="4rSrEo7Q3NM" role="3uHU7B">
                               <node concept="37vLTw" id="4rSrEo7Q2Me" role="2Oq$k0">
-                                <ref role="3cqZAo" node="4rSrEo7PWkd" resolve="module" />
+                                <ref role="3cqZAo" node="4rSrEo7PWkd" resolve="correspondingPhysicalModule" />
                               </node>
                               <node concept="liA8E" id="4rSrEo7Q4P3" role="2OqNvi">
                                 <ref role="37wK5l" to="lui2:~SModule.getModuleName()" resolve="getModuleName" />
@@ -14980,7 +15170,7 @@
                           </node>
                           <node concept="3y3z36" id="4rSrEo7Q0i3" role="3uHU7B">
                             <node concept="37vLTw" id="4rSrEo7PZgL" role="3uHU7B">
-                              <ref role="3cqZAo" node="4rSrEo7PWkd" resolve="module" />
+                              <ref role="3cqZAo" node="4rSrEo7PWkd" resolve="correspondingPhysicalModule" />
                             </node>
                             <node concept="10Nm6u" id="4rSrEo7Q15j" role="3uHU7w" />
                           </node>
@@ -15120,7 +15310,37 @@
           </node>
         </node>
         <node concept="3clFbH" id="17f8AZmB0aI" role="3cqZAp" />
-        <node concept="3clFbH" id="2rg0XZ1hH3Z" role="3cqZAp" />
+        <node concept="3SKdUt" id="3TbkWOkV9jy" role="3cqZAp">
+          <node concept="1PaTwC" id="3TbkWOkV9jz" role="1aUNEU">
+            <node concept="3oM_SD" id="3TbkWOkV9j$" role="1PaTwD">
+              <property role="3oM_SC" value="Let's" />
+            </node>
+            <node concept="3oM_SD" id="3TbkWOkV9We" role="1PaTwD">
+              <property role="3oM_SC" value="consider" />
+            </node>
+            <node concept="3oM_SD" id="3TbkWOkV9Wh" role="1PaTwD">
+              <property role="3oM_SC" value="modules" />
+            </node>
+            <node concept="3oM_SD" id="3TbkWOkV9Wl" role="1PaTwD">
+              <property role="3oM_SC" value="present" />
+            </node>
+            <node concept="3oM_SD" id="3TbkWOkV9Wy" role="1PaTwD">
+              <property role="3oM_SC" value="only" />
+            </node>
+            <node concept="3oM_SD" id="3TbkWOkV9WK" role="1PaTwD">
+              <property role="3oM_SC" value="in" />
+            </node>
+            <node concept="3oM_SD" id="3TbkWOkV9WZ" role="1PaTwD">
+              <property role="3oM_SC" value="the" />
+            </node>
+            <node concept="3oM_SD" id="3TbkWOkV9X7" role="1PaTwD">
+              <property role="3oM_SC" value="Physical" />
+            </node>
+            <node concept="3oM_SD" id="3TbkWOkV9Xg" role="1PaTwD">
+              <property role="3oM_SC" value="project" />
+            </node>
+          </node>
+        </node>
         <node concept="3clFbJ" id="2rg0XZ1hS0W" role="3cqZAp">
           <node concept="3clFbS" id="2rg0XZ1hS0Y" role="3clFbx">
             <node concept="2Gpval" id="7fzD_A4qT3u" role="3cqZAp">
@@ -15128,7 +15348,7 @@
                 <property role="TrG5h" value="unexpectedId" />
               </node>
               <node concept="37vLTw" id="7fzD_A4r0A$" role="2GsD0m">
-                <ref role="3cqZAo" node="7fzD_A4qrO8" resolve="unexpectedModuleIds" />
+                <ref role="3cqZAo" node="7fzD_A4qrO8" resolve="physicalOnlyModulesIDs" />
               </node>
               <node concept="3clFbS" id="7fzD_A4qT3$" role="2LFqv$">
                 <node concept="3clFbF" id="7fzD_A4r1v9" role="3cqZAp">
@@ -15143,7 +15363,7 @@
                           <ref role="2Gs0qQ" node="7fzD_A4qT3w" resolve="unexpectedId" />
                         </node>
                         <node concept="37vLTw" id="7fzD_A4r3XV" role="3ElQJh">
-                          <ref role="3cqZAo" node="7fzD_A4qyoO" resolve="allModules" />
+                          <ref role="3cqZAo" node="7fzD_A4qyoO" resolve="allPhysicalModules" />
                         </node>
                       </node>
                     </node>
@@ -15160,58 +15380,59 @@
               <ref role="3cqZAo" node="2rg0XZ1idTU" resolve="replicatOnCloudModulesPresentOnlyLocally" />
             </node>
             <node concept="3clFbS" id="2rg0XZ1iq0l" role="3eOfB_">
+              <node concept="3cpWs8" id="2rg0XZ1iIgs" role="3cqZAp">
+                <node concept="3cpWsn" id="2rg0XZ1iIgt" role="3cpWs9">
+                  <property role="TrG5h" value="treeInRepository" />
+                  <node concept="3uibUv" id="2rg0XZ1iIgu" role="1tU5fm">
+                    <ref role="3uigEE" node="3i6diw3mm_Q" resolve="TreeInRepository" />
+                  </node>
+                  <node concept="2ShNRf" id="2rg0XZ1iLjz" role="33vP2m">
+                    <node concept="1pGfFk" id="2rg0XZ1j8rb" role="2ShVmc">
+                      <ref role="37wK5l" node="3i6diw3mtOf" resolve="TreeInRepository" />
+                      <node concept="37vLTw" id="2rg0XZ1ja36" role="37wK5m">
+                        <ref role="3cqZAo" node="7fzD_A4oLV2" resolve="cloudRepository" />
+                      </node>
+                      <node concept="37vLTw" id="2rg0XZ1jcF0" role="37wK5m">
+                        <ref role="3cqZAo" node="4eX7sil8ac4" resolve="treeId" />
+                      </node>
+                    </node>
+                  </node>
+                </node>
+              </node>
+              <node concept="3cpWs8" id="17f8AZmB2KY" role="3cqZAp">
+                <node concept="3cpWsn" id="17f8AZmB2KZ" role="3cpWs9">
+                  <property role="TrG5h" value="synchronizationManager" />
+                  <node concept="3uibUv" id="17f8AZmB2L0" role="1tU5fm">
+                    <ref role="3uigEE" node="17f8AZmA74K" resolve="SynchronizationManager" />
+                  </node>
+                  <node concept="2ShNRf" id="17f8AZmB3zr" role="33vP2m">
+                    <node concept="1pGfFk" id="17f8AZmB3tB" role="2ShVmc">
+                      <ref role="37wK5l" node="17f8AZmAXeP" resolve="SynchronizationManager" />
+                      <node concept="37vLTw" id="17f8AZmB77W" role="37wK5m">
+                        <ref role="3cqZAo" node="2rg0XZ1iIgt" resolve="treeInRepository" />
+                      </node>
+                    </node>
+                  </node>
+                </node>
+              </node>
+              <node concept="3clFbH" id="3TbkWOkV0tS" role="3cqZAp" />
               <node concept="2Gpval" id="2rg0XZ1iyYi" role="3cqZAp">
                 <node concept="2GrKxI" id="2rg0XZ1iyYj" role="2Gsz3X">
-                  <property role="TrG5h" value="unexpectedId" />
+                  <property role="TrG5h" value="physicalOnlyModuleID" />
                 </node>
                 <node concept="37vLTw" id="2rg0XZ1iyYk" role="2GsD0m">
-                  <ref role="3cqZAo" node="7fzD_A4qrO8" resolve="unexpectedModuleIds" />
+                  <ref role="3cqZAo" node="7fzD_A4qrO8" resolve="physicalOnlyModulesIDs" />
                 </node>
                 <node concept="3clFbS" id="2rg0XZ1iyYl" role="2LFqv$">
-                  <node concept="3cpWs8" id="2rg0XZ1iIgs" role="3cqZAp">
-                    <node concept="3cpWsn" id="2rg0XZ1iIgt" role="3cpWs9">
-                      <property role="TrG5h" value="treeInRepository" />
-                      <node concept="3uibUv" id="2rg0XZ1iIgu" role="1tU5fm">
-                        <ref role="3uigEE" node="3i6diw3mm_Q" resolve="TreeInRepository" />
-                      </node>
-                      <node concept="2ShNRf" id="2rg0XZ1iLjz" role="33vP2m">
-                        <node concept="1pGfFk" id="2rg0XZ1j8rb" role="2ShVmc">
-                          <ref role="37wK5l" node="3i6diw3mtOf" resolve="TreeInRepository" />
-                          <node concept="37vLTw" id="2rg0XZ1ja36" role="37wK5m">
-                            <ref role="3cqZAo" node="7fzD_A4oLV2" resolve="cloudRepository" />
-                          </node>
-                          <node concept="37vLTw" id="2rg0XZ1jcF0" role="37wK5m">
-                            <ref role="3cqZAo" node="4eX7sil8ac4" resolve="treeId" />
-                          </node>
-                        </node>
-                      </node>
-                    </node>
-                  </node>
-                  <node concept="3cpWs8" id="17f8AZmB2KY" role="3cqZAp">
-                    <node concept="3cpWsn" id="17f8AZmB2KZ" role="3cpWs9">
-                      <property role="TrG5h" value="synchronizationManager" />
-                      <node concept="3uibUv" id="17f8AZmB2L0" role="1tU5fm">
-                        <ref role="3uigEE" node="17f8AZmA74K" resolve="SynchronizationManager" />
-                      </node>
-                      <node concept="2ShNRf" id="17f8AZmB3zr" role="33vP2m">
-                        <node concept="1pGfFk" id="17f8AZmB3tB" role="2ShVmc">
-                          <ref role="37wK5l" node="17f8AZmAXeP" resolve="SynchronizationManager" />
-                          <node concept="37vLTw" id="17f8AZmB77W" role="37wK5m">
-                            <ref role="3cqZAo" node="2rg0XZ1iIgt" resolve="treeInRepository" />
-                          </node>
-                        </node>
-                      </node>
-                    </node>
-                  </node>
                   <node concept="3cpWs8" id="Dz5_o1npcE" role="3cqZAp">
                     <node concept="3cpWsn" id="Dz5_o1npcF" role="3cpWs9">
-                      <property role="TrG5h" value="module" />
+                      <property role="TrG5h" value="physicalModule" />
                       <node concept="3uibUv" id="Dz5_o1npcG" role="1tU5fm">
                         <ref role="3uigEE" to="lui2:~SModule" resolve="SModule" />
                       </node>
                       <node concept="2OqwBi" id="Dz5_o1np$c" role="33vP2m">
                         <node concept="37vLTw" id="Dz5_o1np$d" role="2Oq$k0">
-                          <ref role="3cqZAo" node="7fzD_A4pB0T" resolve="existingModules" />
+                          <ref role="3cqZAo" node="7fzD_A4pB0T" resolve="physicalModules" />
                         </node>
                         <node concept="1z4cxt" id="Dz5_o1np$e" role="2OqNvi">
                           <node concept="1bVj0M" id="Dz5_o1np$f" role="23t8la">
@@ -15219,7 +15440,7 @@
                               <node concept="3clFbF" id="Dz5_o1np$h" role="3cqZAp">
                                 <node concept="17R0WA" id="Dz5_o1np$i" role="3clFbG">
                                   <node concept="2GrUjf" id="Dz5_o1np$j" role="3uHU7w">
-                                    <ref role="2Gs0qQ" node="2rg0XZ1iyYj" resolve="unexpectedId" />
+                                    <ref role="2Gs0qQ" node="2rg0XZ1iyYj" resolve="physicalOnlyModuleID" />
                                   </node>
                                   <node concept="2OqwBi" id="Dz5_o1np$k" role="3uHU7B">
                                     <node concept="2OqwBi" id="Dz5_o1np$l" role="2Oq$k0">
@@ -15259,7 +15480,7 @@
                     <node concept="1Wc70l" id="6_ozB9SIiqB" role="3clFbw">
                       <node concept="2OqwBi" id="6_ozB9SIiPB" role="3uHU7w">
                         <node concept="37vLTw" id="6_ozB9SIiC$" role="2Oq$k0">
-                          <ref role="3cqZAo" node="Dz5_o1npcF" resolve="module" />
+                          <ref role="3cqZAo" node="Dz5_o1npcF" resolve="physicalModule" />
                         </node>
                         <node concept="liA8E" id="6_ozB9SIiXZ" role="2OqNvi">
                           <ref role="37wK5l" to="lui2:~SModule.isPackaged()" resolve="isPackaged" />
@@ -15267,7 +15488,7 @@
                       </node>
                       <node concept="2OqwBi" id="6_ozB9SIhqg" role="3uHU7B">
                         <node concept="37vLTw" id="6_ozB9SIhdy" role="2Oq$k0">
-                          <ref role="3cqZAo" node="Dz5_o1npcF" resolve="module" />
+                          <ref role="3cqZAo" node="Dz5_o1npcF" resolve="physicalModule" />
                         </node>
                         <node concept="liA8E" id="6_ozB9SIi7g" role="2OqNvi">
                           <ref role="37wK5l" to="lui2:~SModule.isReadOnly()" resolve="isReadOnly" />
@@ -15282,11 +15503,39 @@
                             <node concept="17QB3L" id="2rg0XZ1jP$t" role="1tU5fm" />
                             <node concept="2OqwBi" id="2rg0XZ1k7oe" role="33vP2m">
                               <node concept="37vLTw" id="Dz5_o1nqSi" role="2Oq$k0">
-                                <ref role="3cqZAo" node="Dz5_o1npcF" resolve="module" />
+                                <ref role="3cqZAo" node="Dz5_o1npcF" resolve="physicalModule" />
                               </node>
                               <node concept="liA8E" id="2rg0XZ1k90Y" role="2OqNvi">
                                 <ref role="37wK5l" to="lui2:~SModule.getModuleName()" resolve="getModuleName" />
                               </node>
+                            </node>
+                          </node>
+                        </node>
+                        <node concept="3SKdUt" id="3TbkWOkV4zS" role="3cqZAp">
+                          <node concept="1PaTwC" id="3TbkWOkV4zT" role="1aUNEU">
+                            <node concept="3oM_SD" id="3TbkWOkV4zU" role="1PaTwD">
+                              <property role="3oM_SC" value="We" />
+                            </node>
+                            <node concept="3oM_SD" id="3TbkWOkV4IU" role="1PaTwD">
+                              <property role="3oM_SC" value="create" />
+                            </node>
+                            <node concept="3oM_SD" id="3TbkWOkV4IX" role="1PaTwD">
+                              <property role="3oM_SC" value="the" />
+                            </node>
+                            <node concept="3oM_SD" id="3TbkWOkV4J1" role="1PaTwD">
+                              <property role="3oM_SC" value="cloud" />
+                            </node>
+                            <node concept="3oM_SD" id="3TbkWOkV5lF" role="1PaTwD">
+                              <property role="3oM_SC" value="module" />
+                            </node>
+                            <node concept="3oM_SD" id="3TbkWOkV5lU" role="1PaTwD">
+                              <property role="3oM_SC" value="under" />
+                            </node>
+                            <node concept="3oM_SD" id="3TbkWOkV5m1" role="1PaTwD">
+                              <property role="3oM_SC" value="the" />
+                            </node>
+                            <node concept="3oM_SD" id="3TbkWOkV5m9" role="1PaTwD">
+                              <property role="3oM_SC" value="project" />
                             </node>
                           </node>
                         </node>
@@ -15306,12 +15555,80 @@
                                   <ref role="3cqZAo" node="4eX7sil8ac7" resolve="projectNodeId" />
                                 </node>
                                 <node concept="2GrUjf" id="2rg0XZ1jN4w" role="37wK5m">
-                                  <ref role="2Gs0qQ" node="2rg0XZ1iyYj" resolve="unexpectedId" />
+                                  <ref role="2Gs0qQ" node="2rg0XZ1iyYj" resolve="physicalOnlyModuleID" />
                                 </node>
                                 <node concept="37vLTw" id="2rg0XZ1kb6l" role="37wK5m">
                                   <ref role="3cqZAo" node="2rg0XZ1jP$y" resolve="moduleName" />
                                 </node>
                               </node>
+                            </node>
+                          </node>
+                        </node>
+                        <node concept="3SKdUt" id="3TbkWOkV59S" role="3cqZAp">
+                          <node concept="1PaTwC" id="3TbkWOkV59T" role="1aUNEU">
+                            <node concept="3oM_SD" id="3TbkWOkV59U" role="1PaTwD">
+                              <property role="3oM_SC" value="Then" />
+                            </node>
+                            <node concept="3oM_SD" id="3TbkWOkV5l0" role="1PaTwD">
+                              <property role="3oM_SC" value="we" />
+                            </node>
+                            <node concept="3oM_SD" id="3TbkWOkV5l3" role="1PaTwD">
+                              <property role="3oM_SC" value="make" />
+                            </node>
+                            <node concept="3oM_SD" id="3TbkWOkV5lg" role="1PaTwD">
+                              <property role="3oM_SC" value="it" />
+                            </node>
+                            <node concept="3oM_SD" id="3TbkWOkV5ll" role="1PaTwD">
+                              <property role="3oM_SC" value="a" />
+                            </node>
+                            <node concept="3oM_SD" id="3TbkWOkV5l$" role="1PaTwD">
+                              <property role="3oM_SC" value="perfect" />
+                            </node>
+                            <node concept="3oM_SD" id="3TbkWOkV5mr" role="1PaTwD">
+                              <property role="3oM_SC" value="copy" />
+                            </node>
+                            <node concept="3oM_SD" id="3TbkWOkV5mz" role="1PaTwD">
+                              <property role="3oM_SC" value="of" />
+                            </node>
+                            <node concept="3oM_SD" id="3TbkWOkV5mG" role="1PaTwD">
+                              <property role="3oM_SC" value="the" />
+                            </node>
+                            <node concept="3oM_SD" id="3TbkWOkV5mQ" role="1PaTwD">
+                              <property role="3oM_SC" value="physical" />
+                            </node>
+                            <node concept="3oM_SD" id="3TbkWOkV5n1" role="1PaTwD">
+                              <property role="3oM_SC" value="module" />
+                            </node>
+                          </node>
+                        </node>
+                        <node concept="3SKdUt" id="3TbkWOkV5Mz" role="3cqZAp">
+                          <node concept="1PaTwC" id="3TbkWOkV5M$" role="1aUNEU">
+                            <node concept="3oM_SD" id="3TbkWOkV5M_" role="1PaTwD">
+                              <property role="3oM_SC" value="We" />
+                            </node>
+                            <node concept="3oM_SD" id="3TbkWOkV5XW" role="1PaTwD">
+                              <property role="3oM_SC" value="also" />
+                            </node>
+                            <node concept="3oM_SD" id="3TbkWOkV5XZ" role="1PaTwD">
+                              <property role="3oM_SC" value="set" />
+                            </node>
+                            <node concept="3oM_SD" id="3TbkWOkV5Yc" role="1PaTwD">
+                              <property role="3oM_SC" value="up" />
+                            </node>
+                            <node concept="3oM_SD" id="3TbkWOkV5Yq" role="1PaTwD">
+                              <property role="3oM_SC" value="the" />
+                            </node>
+                            <node concept="3oM_SD" id="3TbkWOkV5Yw" role="1PaTwD">
+                              <property role="3oM_SC" value="synchronizer" />
+                            </node>
+                            <node concept="3oM_SD" id="3TbkWOkV601" role="1PaTwD">
+                              <property role="3oM_SC" value="for" />
+                            </node>
+                            <node concept="3oM_SD" id="3TbkWOkV60i" role="1PaTwD">
+                              <property role="3oM_SC" value="each" />
+                            </node>
+                            <node concept="3oM_SD" id="3TbkWOkV60$" role="1PaTwD">
+                              <property role="3oM_SC" value="model" />
                             </node>
                           </node>
                         </node>
@@ -15331,7 +15648,7 @@
                                 <ref role="3cqZAo" node="Dz5_o1nmsH" resolve="cloudModule" />
                               </node>
                               <node concept="37vLTw" id="6dTx9S5sZvt" role="37wK5m">
-                                <ref role="3cqZAo" node="Dz5_o1npcF" resolve="module" />
+                                <ref role="3cqZAo" node="Dz5_o1npcF" resolve="physicalModule" />
                               </node>
                               <node concept="1bVj0M" id="6dTx9S5sZI5" role="37wK5m">
                                 <node concept="3clFbS" id="6dTx9S5sZI7" role="1bW5cS">
@@ -15393,6 +15710,37 @@
           </node>
         </node>
         <node concept="3clFbH" id="2rg0XZ1ipar" role="3cqZAp" />
+        <node concept="3SKdUt" id="3TbkWOkVcwk" role="3cqZAp">
+          <node concept="1PaTwC" id="3TbkWOkVcwl" role="1aUNEU">
+            <node concept="3oM_SD" id="3TbkWOkVcwm" role="1PaTwD">
+              <property role="3oM_SC" value="Let's" />
+            </node>
+            <node concept="3oM_SD" id="3TbkWOkVcwn" role="1PaTwD">
+              <property role="3oM_SC" value="consider" />
+            </node>
+            <node concept="3oM_SD" id="3TbkWOkVcwo" role="1PaTwD">
+              <property role="3oM_SC" value="modules" />
+            </node>
+            <node concept="3oM_SD" id="3TbkWOkVcwp" role="1PaTwD">
+              <property role="3oM_SC" value="present" />
+            </node>
+            <node concept="3oM_SD" id="3TbkWOkVcwq" role="1PaTwD">
+              <property role="3oM_SC" value="only" />
+            </node>
+            <node concept="3oM_SD" id="3TbkWOkVcwr" role="1PaTwD">
+              <property role="3oM_SC" value="in" />
+            </node>
+            <node concept="3oM_SD" id="3TbkWOkVcws" role="1PaTwD">
+              <property role="3oM_SC" value="the" />
+            </node>
+            <node concept="3oM_SD" id="3TbkWOkVcwt" role="1PaTwD">
+              <property role="3oM_SC" value="Cloud" />
+            </node>
+            <node concept="3oM_SD" id="3TbkWOkVcwu" role="1PaTwD">
+              <property role="3oM_SC" value="project" />
+            </node>
+          </node>
+        </node>
         <node concept="3clFbJ" id="2rg0XZ1i8e3" role="3cqZAp">
           <node concept="3clFbS" id="2rg0XZ1i8e5" role="3clFbx">
             <node concept="2Gpval" id="7fzD_A4r8up" role="3cqZAp">
@@ -15400,7 +15748,7 @@
                 <property role="TrG5h" value="missingId" />
               </node>
               <node concept="37vLTw" id="7fzD_A4rozH" role="2GsD0m">
-                <ref role="3cqZAo" node="7fzD_A4qiui" resolve="missingModuleIds" />
+                <ref role="3cqZAo" node="7fzD_A4qiui" resolve="cloudOnlyModulesIDs" />
               </node>
               <node concept="3clFbS" id="7fzD_A4r8uv" role="2LFqv$">
                 <node concept="3cpWs8" id="2hbxkgeV19$" role="3cqZAp">
@@ -15414,7 +15762,7 @@
                         <ref role="2Gs0qQ" node="7fzD_A4r8ur" resolve="missingId" />
                       </node>
                       <node concept="37vLTw" id="2hbxkgeV19C" role="3ElQJh">
-                        <ref role="3cqZAo" node="7fzD_A4s6HI" resolve="allModuleNodes" />
+                        <ref role="3cqZAo" node="7fzD_A4s6HI" resolve="allCloudModules" />
                       </node>
                     </node>
                   </node>
@@ -15452,7 +15800,74 @@
           </node>
         </node>
         <node concept="3clFbH" id="4rSrEo7EpHE" role="3cqZAp" />
-        <node concept="3clFbH" id="_4bK_sVmH5" role="3cqZAp" />
+        <node concept="3SKdUt" id="3TbkWOkVdjb" role="3cqZAp">
+          <node concept="1PaTwC" id="3TbkWOkVdjc" role="1aUNEU">
+            <node concept="3oM_SD" id="3TbkWOkVdjd" role="1PaTwD">
+              <property role="3oM_SC" value="TODO" />
+            </node>
+            <node concept="3oM_SD" id="3TbkWOkVehO" role="1PaTwD">
+              <property role="3oM_SC" value="what" />
+            </node>
+            <node concept="3oM_SD" id="3TbkWOkVehZ" role="1PaTwD">
+              <property role="3oM_SC" value="to" />
+            </node>
+            <node concept="3oM_SD" id="3TbkWOkVeib" role="1PaTwD">
+              <property role="3oM_SC" value="do" />
+            </node>
+            <node concept="3oM_SD" id="3TbkWOkVeig" role="1PaTwD">
+              <property role="3oM_SC" value="with" />
+            </node>
+            <node concept="3oM_SD" id="3TbkWOkVeiu" role="1PaTwD">
+              <property role="3oM_SC" value="modules" />
+            </node>
+            <node concept="3oM_SD" id="3TbkWOkVeiH" role="1PaTwD">
+              <property role="3oM_SC" value="present" />
+            </node>
+            <node concept="3oM_SD" id="3TbkWOkVeiP" role="1PaTwD">
+              <property role="3oM_SC" value="both" />
+            </node>
+            <node concept="3oM_SD" id="3TbkWOkVeiY" role="1PaTwD">
+              <property role="3oM_SC" value="locally" />
+            </node>
+            <node concept="3oM_SD" id="3TbkWOkVej8" role="1PaTwD">
+              <property role="3oM_SC" value="and" />
+            </node>
+            <node concept="3oM_SD" id="3TbkWOkVejr" role="1PaTwD">
+              <property role="3oM_SC" value="on" />
+            </node>
+            <node concept="3oM_SD" id="3TbkWOkVejB" role="1PaTwD">
+              <property role="3oM_SC" value="the" />
+            </node>
+            <node concept="3oM_SD" id="3TbkWOkVejO" role="1PaTwD">
+              <property role="3oM_SC" value="cloud?" />
+            </node>
+          </node>
+        </node>
+        <node concept="3SKdUt" id="3TbkWOkVfrZ" role="3cqZAp">
+          <node concept="1PaTwC" id="3TbkWOkVfs0" role="1aUNEU">
+            <node concept="3oM_SD" id="3TbkWOkVgr2" role="1PaTwD">
+              <property role="3oM_SC" value="I" />
+            </node>
+            <node concept="3oM_SD" id="3TbkWOkVgrc" role="1PaTwD">
+              <property role="3oM_SC" value="guess" />
+            </node>
+            <node concept="3oM_SD" id="3TbkWOkVgrf" role="1PaTwD">
+              <property role="3oM_SC" value="we" />
+            </node>
+            <node concept="3oM_SD" id="3TbkWOkVgrj" role="1PaTwD">
+              <property role="3oM_SC" value="should" />
+            </node>
+            <node concept="3oM_SD" id="3TbkWOkVgrw" role="1PaTwD">
+              <property role="3oM_SC" value="start" />
+            </node>
+            <node concept="3oM_SD" id="3TbkWOkVgrA" role="1PaTwD">
+              <property role="3oM_SC" value="the" />
+            </node>
+            <node concept="3oM_SD" id="3TbkWOkVgrH" role="1PaTwD">
+              <property role="3oM_SC" value="synchronization" />
+            </node>
+          </node>
+        </node>
       </node>
     </node>
     <node concept="2tJIrI" id="7fzD_A4rpbY" role="jymVt" />
@@ -15756,13 +16171,13 @@
     <node concept="3clFb_" id="2hbxkgeSXRw" role="jymVt">
       <property role="TrG5h" value="syncModelsToMPS" />
       <node concept="37vLTG" id="2hbxkgeT5kC" role="3clF46">
-        <property role="TrG5h" value="moduleNode" />
+        <property role="TrG5h" value="cloudModule" />
         <node concept="3Tqbb2" id="2hbxkgeT7cb" role="1tU5fm">
           <ref role="ehGHo" to="w7di:qmkA5fOskf" resolve="Module" />
         </node>
       </node>
       <node concept="37vLTG" id="2hbxkgeTnOu" role="3clF46">
-        <property role="TrG5h" value="module" />
+        <property role="TrG5h" value="physicalModule" />
         <node concept="3uibUv" id="2hbxkgeTpSC" role="1tU5fm">
           <ref role="3uigEE" to="lui2:~SModule" resolve="SModule" />
         </node>
@@ -15772,7 +16187,7 @@
       <node concept="3clFbS" id="2hbxkgeSXRz" role="3clF47">
         <node concept="3cpWs8" id="2hbxkgeTeU6" role="3cqZAp">
           <node concept="3cpWsn" id="2hbxkgeTeU7" role="3cpWs9">
-            <property role="TrG5h" value="existingModels" />
+            <property role="TrG5h" value="physicalModelsByID" />
             <node concept="3rvAFt" id="2hbxkgeTeU8" role="1tU5fm">
               <node concept="17QB3L" id="2hbxkgeTeU9" role="3rvQeY" />
               <node concept="3uibUv" id="2hbxkgeTmTv" role="3rvSg0">
@@ -15791,19 +16206,19 @@
         </node>
         <node concept="2Gpval" id="2hbxkgeTeUf" role="3cqZAp">
           <node concept="2GrKxI" id="2hbxkgeTeUg" role="2Gsz3X">
-            <property role="TrG5h" value="m" />
+            <property role="TrG5h" value="physicalModel" />
           </node>
           <node concept="3clFbS" id="2hbxkgeTeUh" role="2LFqv$">
             <node concept="3clFbF" id="2hbxkgeTeUi" role="3cqZAp">
               <node concept="37vLTI" id="2hbxkgeTeUj" role="3clFbG">
                 <node concept="2GrUjf" id="2hbxkgeTeUk" role="37vLTx">
-                  <ref role="2Gs0qQ" node="2hbxkgeTeUg" resolve="m" />
+                  <ref role="2Gs0qQ" node="2hbxkgeTeUg" resolve="physicalModel" />
                 </node>
                 <node concept="3EllGN" id="2hbxkgeTeUl" role="37vLTJ">
                   <node concept="2OqwBi" id="2hbxkgeTeUm" role="3ElVtu">
                     <node concept="2OqwBi" id="2hbxkgeTeUn" role="2Oq$k0">
                       <node concept="2GrUjf" id="2hbxkgeTeUo" role="2Oq$k0">
-                        <ref role="2Gs0qQ" node="2hbxkgeTeUg" resolve="m" />
+                        <ref role="2Gs0qQ" node="2hbxkgeTeUg" resolve="physicalModel" />
                       </node>
                       <node concept="liA8E" id="2hbxkgeTtsv" role="2OqNvi">
                         <ref role="37wK5l" to="mhbf:~SModel.getModelId()" resolve="getModelId" />
@@ -15814,7 +16229,7 @@
                     </node>
                   </node>
                   <node concept="37vLTw" id="2hbxkgeTeUr" role="3ElQJh">
-                    <ref role="3cqZAo" node="2hbxkgeTeU7" resolve="existingModels" />
+                    <ref role="3cqZAo" node="2hbxkgeTeU7" resolve="physicalModelsByID" />
                   </node>
                 </node>
               </node>
@@ -15822,7 +16237,7 @@
           </node>
           <node concept="2OqwBi" id="2hbxkgeTsao" role="2GsD0m">
             <node concept="37vLTw" id="2hbxkgeTr9S" role="2Oq$k0">
-              <ref role="3cqZAo" node="2hbxkgeTnOu" resolve="module" />
+              <ref role="3cqZAo" node="2hbxkgeTnOu" resolve="physicalModule" />
             </node>
             <node concept="liA8E" id="2hbxkgeTteW" role="2OqNvi">
               <ref role="37wK5l" to="lui2:~SModule.getModels()" resolve="getModels" />
@@ -15831,7 +16246,7 @@
         </node>
         <node concept="3cpWs8" id="2hbxkgeTeUx" role="3cqZAp">
           <node concept="3cpWsn" id="2hbxkgeTeUy" role="3cpWs9">
-            <property role="TrG5h" value="expectedModels" />
+            <property role="TrG5h" value="cloudModelsByID" />
             <node concept="3rvAFt" id="2hbxkgeTeUz" role="1tU5fm">
               <node concept="17QB3L" id="2hbxkgeTeU$" role="3rvQeY" />
               <node concept="3Tqbb2" id="2hbxkgeTeU_" role="3rvSg0">
@@ -15850,7 +16265,7 @@
         </node>
         <node concept="2Gpval" id="2hbxkgeTeUE" role="3cqZAp">
           <node concept="2GrKxI" id="2hbxkgeTeUF" role="2Gsz3X">
-            <property role="TrG5h" value="m" />
+            <property role="TrG5h" value="cloudModel" />
           </node>
           <node concept="3clFbS" id="2hbxkgeTeUG" role="2LFqv$">
             <node concept="3cpWs8" id="2hbxkgeTeUH" role="3cqZAp">
@@ -15861,7 +16276,7 @@
                   <node concept="1rXfSq" id="4rSrEo7EnPx" role="2Oq$k0">
                     <ref role="37wK5l" node="4rSrEo7DRhI" resolve="getModelId" />
                     <node concept="2GrUjf" id="4rSrEo7EoeB" role="37wK5m">
-                      <ref role="2Gs0qQ" node="2hbxkgeTeUF" resolve="m" />
+                      <ref role="2Gs0qQ" node="2hbxkgeTeUF" resolve="cloudModel" />
                     </node>
                   </node>
                   <node concept="liA8E" id="4rSrEo7EoVC" role="2OqNvi">
@@ -15875,14 +16290,14 @@
                 <node concept="3clFbF" id="2hbxkgeTeUP" role="3cqZAp">
                   <node concept="37vLTI" id="2hbxkgeTeUQ" role="3clFbG">
                     <node concept="2GrUjf" id="2hbxkgeTeUR" role="37vLTx">
-                      <ref role="2Gs0qQ" node="2hbxkgeTeUF" resolve="m" />
+                      <ref role="2Gs0qQ" node="2hbxkgeTeUF" resolve="cloudModel" />
                     </node>
                     <node concept="3EllGN" id="2hbxkgeTeUS" role="37vLTJ">
                       <node concept="37vLTw" id="2hbxkgeTeUT" role="3ElVtu">
                         <ref role="3cqZAo" node="2hbxkgeTeUI" resolve="id" />
                       </node>
                       <node concept="37vLTw" id="2hbxkgeTeUU" role="3ElQJh">
-                        <ref role="3cqZAo" node="2hbxkgeTeUy" resolve="expectedModels" />
+                        <ref role="3cqZAo" node="2hbxkgeTeUy" resolve="cloudModelsByID" />
                       </node>
                     </node>
                   </node>
@@ -15898,7 +16313,7 @@
           </node>
           <node concept="2OqwBi" id="2hbxkgeTeUY" role="2GsD0m">
             <node concept="37vLTw" id="2hbxkgeT$p0" role="2Oq$k0">
-              <ref role="3cqZAo" node="2hbxkgeT5kC" resolve="moduleNode" />
+              <ref role="3cqZAo" node="2hbxkgeT5kC" resolve="cloudModule" />
             </node>
             <node concept="3Tsc0h" id="2hbxkgeT_v3" role="2OqNvi">
               <ref role="3TtcxE" to="w7di:qmkA5fOski" resolve="models" />
@@ -15907,7 +16322,7 @@
         </node>
         <node concept="3cpWs8" id="2hbxkgeTeVP" role="3cqZAp">
           <node concept="3cpWsn" id="2hbxkgeTeVQ" role="3cpWs9">
-            <property role="TrG5h" value="missingModelIds" />
+            <property role="TrG5h" value="cloudOnlyModelsIDs" />
             <node concept="2hMVRd" id="4rSrEo7Plp_" role="1tU5fm">
               <node concept="17QB3L" id="4rSrEo7PlpB" role="2hN53Y" />
             </node>
@@ -15917,14 +16332,14 @@
                 <node concept="2OqwBi" id="2hbxkgeTeVU" role="I$8f6">
                   <node concept="2OqwBi" id="2hbxkgeTGne" role="2Oq$k0">
                     <node concept="37vLTw" id="2hbxkgeTEUF" role="2Oq$k0">
-                      <ref role="3cqZAo" node="2hbxkgeTeUy" resolve="expectedModels" />
+                      <ref role="3cqZAo" node="2hbxkgeTeUy" resolve="cloudModelsByID" />
                     </node>
                     <node concept="3lbrtF" id="2hbxkgeTHCa" role="2OqNvi" />
                   </node>
                   <node concept="66VNe" id="2hbxkgeTeVW" role="2OqNvi">
                     <node concept="2OqwBi" id="2hbxkgeTJWj" role="576Qk">
                       <node concept="37vLTw" id="2hbxkgeTIDm" role="2Oq$k0">
-                        <ref role="3cqZAo" node="2hbxkgeTeU7" resolve="existingModels" />
+                        <ref role="3cqZAo" node="2hbxkgeTeU7" resolve="physicalModelsByID" />
                       </node>
                       <node concept="3lbrtF" id="2hbxkgeTLek" role="2OqNvi" />
                     </node>
@@ -15936,7 +16351,7 @@
         </node>
         <node concept="3cpWs8" id="2hbxkgeTeVZ" role="3cqZAp">
           <node concept="3cpWsn" id="2hbxkgeTeW0" role="3cpWs9">
-            <property role="TrG5h" value="unexpectedModelIds" />
+            <property role="TrG5h" value="physicalOnlyModelsIDs" />
             <node concept="2hMVRd" id="4rSrEo7PlSd" role="1tU5fm">
               <node concept="17QB3L" id="4rSrEo7PlSf" role="2hN53Y" />
             </node>
@@ -15946,14 +16361,14 @@
                 <node concept="2OqwBi" id="2hbxkgeTeW4" role="I$8f6">
                   <node concept="2OqwBi" id="2hbxkgeTPDN" role="2Oq$k0">
                     <node concept="37vLTw" id="2hbxkgeTOeB" role="2Oq$k0">
-                      <ref role="3cqZAo" node="2hbxkgeTeU7" resolve="existingModels" />
+                      <ref role="3cqZAo" node="2hbxkgeTeU7" resolve="physicalModelsByID" />
                     </node>
                     <node concept="3lbrtF" id="2hbxkgeTQND" role="2OqNvi" />
                   </node>
                   <node concept="66VNe" id="2hbxkgeTeW6" role="2OqNvi">
                     <node concept="2OqwBi" id="2hbxkgeTT74" role="576Qk">
                       <node concept="37vLTw" id="2hbxkgeTROD" role="2Oq$k0">
-                        <ref role="3cqZAo" node="2hbxkgeTeUy" resolve="expectedModels" />
+                        <ref role="3cqZAo" node="2hbxkgeTeUy" resolve="cloudModelsByID" />
                       </node>
                       <node concept="3lbrtF" id="2hbxkgeTUhn" role="2OqNvi" />
                     </node>
@@ -15979,27 +16394,27 @@
         </node>
         <node concept="2Gpval" id="4rSrEo7P1rW" role="3cqZAp">
           <node concept="2GrKxI" id="4rSrEo7P1rY" role="2Gsz3X">
-            <property role="TrG5h" value="entry" />
+            <property role="TrG5h" value="physicalModelEntry" />
           </node>
           <node concept="37vLTw" id="4rSrEo7P29v" role="2GsD0m">
-            <ref role="3cqZAo" node="2hbxkgeTeU7" resolve="existingModels" />
+            <ref role="3cqZAo" node="2hbxkgeTeU7" resolve="physicalModelsByID" />
           </node>
           <node concept="3clFbS" id="4rSrEo7P1s2" role="2LFqv$">
             <node concept="3cpWs8" id="4rSrEo7P43v" role="3cqZAp">
               <node concept="3cpWsn" id="4rSrEo7P43w" role="3cpWs9">
-                <property role="TrG5h" value="modelNode" />
+                <property role="TrG5h" value="cloudModel" />
                 <node concept="3Tqbb2" id="4rSrEo7P3Xx" role="1tU5fm">
                   <ref role="ehGHo" to="w7di:qmkA5fOskc" resolve="Model" />
                 </node>
                 <node concept="3EllGN" id="4rSrEo7P43x" role="33vP2m">
                   <node concept="2OqwBi" id="4rSrEo7P43y" role="3ElVtu">
                     <node concept="2GrUjf" id="4rSrEo7P43z" role="2Oq$k0">
-                      <ref role="2Gs0qQ" node="4rSrEo7P1rY" resolve="entry" />
+                      <ref role="2Gs0qQ" node="4rSrEo7P1rY" resolve="physicalModelEntry" />
                     </node>
                     <node concept="3AY5_j" id="4rSrEo7P43$" role="2OqNvi" />
                   </node>
                   <node concept="37vLTw" id="4rSrEo7P43_" role="3ElQJh">
-                    <ref role="3cqZAo" node="2hbxkgeTeUy" resolve="expectedModels" />
+                    <ref role="3cqZAo" node="2hbxkgeTeUy" resolve="cloudModelsByID" />
                   </node>
                 </node>
               </node>
@@ -16009,12 +16424,12 @@
                 <node concept="3clFbF" id="4rSrEo7Pa7A" role="3cqZAp">
                   <node concept="2OqwBi" id="4rSrEo7Pn2S" role="3clFbG">
                     <node concept="37vLTw" id="4rSrEo7Pa7$" role="2Oq$k0">
-                      <ref role="3cqZAo" node="2hbxkgeTeVQ" resolve="missingModelIds" />
+                      <ref role="3cqZAo" node="2hbxkgeTeVQ" resolve="cloudOnlyModelsIDs" />
                     </node>
                     <node concept="TSZUe" id="4rSrEo7PnD6" role="2OqNvi">
                       <node concept="2OqwBi" id="4rSrEo7Po7X" role="25WWJ7">
                         <node concept="2GrUjf" id="4rSrEo7PnPX" role="2Oq$k0">
-                          <ref role="2Gs0qQ" node="4rSrEo7P1rY" resolve="entry" />
+                          <ref role="2Gs0qQ" node="4rSrEo7P1rY" resolve="physicalModelEntry" />
                         </node>
                         <node concept="3AY5_j" id="4rSrEo7PoBF" role="2OqNvi" />
                       </node>
@@ -16024,12 +16439,12 @@
                 <node concept="3clFbF" id="4rSrEo7Pp5m" role="3cqZAp">
                   <node concept="2OqwBi" id="4rSrEo7PpL7" role="3clFbG">
                     <node concept="37vLTw" id="4rSrEo7Pp5k" role="2Oq$k0">
-                      <ref role="3cqZAo" node="2hbxkgeTeW0" resolve="unexpectedModelIds" />
+                      <ref role="3cqZAo" node="2hbxkgeTeW0" resolve="physicalOnlyModelsIDs" />
                     </node>
                     <node concept="TSZUe" id="4rSrEo7Pqnf" role="2OqNvi">
                       <node concept="2OqwBi" id="4rSrEo7PrcC" role="25WWJ7">
                         <node concept="2GrUjf" id="4rSrEo7PqHV" role="2Oq$k0">
-                          <ref role="2Gs0qQ" node="4rSrEo7P1rY" resolve="entry" />
+                          <ref role="2Gs0qQ" node="4rSrEo7P1rY" resolve="physicalModelEntry" />
                         </node>
                         <node concept="3AY5_j" id="4rSrEo7PrVT" role="2OqNvi" />
                       </node>
@@ -16043,7 +16458,7 @@
                     <node concept="2OqwBi" id="4rSrEo7P8bE" role="2Oq$k0">
                       <node concept="2OqwBi" id="4rSrEo7P7cX" role="2Oq$k0">
                         <node concept="2GrUjf" id="4rSrEo7P6Rz" role="2Oq$k0">
-                          <ref role="2Gs0qQ" node="4rSrEo7P1rY" resolve="entry" />
+                          <ref role="2Gs0qQ" node="4rSrEo7P1rY" resolve="physicalModelEntry" />
                         </node>
                         <node concept="3AV6Ez" id="4rSrEo7P7IB" role="2OqNvi" />
                       </node>
@@ -16057,7 +16472,7 @@
                   </node>
                   <node concept="2OqwBi" id="4rSrEo7P5Y4" role="3uHU7B">
                     <node concept="37vLTw" id="4rSrEo7P5GP" role="2Oq$k0">
-                      <ref role="3cqZAo" node="4rSrEo7P43w" resolve="modelNode" />
+                      <ref role="3cqZAo" node="4rSrEo7P43w" resolve="cloudModel" />
                     </node>
                     <node concept="3TrcHB" id="4rSrEo7P68F" role="2OqNvi">
                       <ref role="3TsBF5" to="tpck:h0TrG11" resolve="name" />
@@ -16066,7 +16481,7 @@
                 </node>
                 <node concept="3y3z36" id="4rSrEo7P5hD" role="3uHU7B">
                   <node concept="37vLTw" id="4rSrEo7P4zi" role="3uHU7B">
-                    <ref role="3cqZAo" node="4rSrEo7P43w" resolve="modelNode" />
+                    <ref role="3cqZAo" node="4rSrEo7P43w" resolve="cloudModel" />
                   </node>
                   <node concept="10Nm6u" id="4rSrEo7P5of" role="3uHU7w" />
                 </node>
@@ -16075,6 +16490,22 @@
           </node>
         </node>
         <node concept="3clFbH" id="4rSrEo7P0_T" role="3cqZAp" />
+        <node concept="3SKdUt" id="3TbkWOkV_54" role="3cqZAp">
+          <node concept="1PaTwC" id="3TbkWOkV_55" role="1aUNEU">
+            <node concept="3oM_SD" id="3TbkWOkV_56" role="1PaTwD">
+              <property role="3oM_SC" value="TODO" />
+            </node>
+            <node concept="3oM_SD" id="3TbkWOkV_p8" role="1PaTwD">
+              <property role="3oM_SC" value="make" />
+            </node>
+            <node concept="3oM_SD" id="3TbkWOkV_pb" role="1PaTwD">
+              <property role="3oM_SC" value="this" />
+            </node>
+            <node concept="3oM_SD" id="3TbkWOkV_xG" role="1PaTwD">
+              <property role="3oM_SC" value="configurable" />
+            </node>
+          </node>
+        </node>
         <node concept="3cpWs8" id="7F8QoB1_7Zm" role="3cqZAp">
           <node concept="3cpWsn" id="7F8QoB1_7Zp" role="3cpWs9">
             <property role="TrG5h" value="deleteUnexpectedModelsPolicy" />
@@ -16086,10 +16517,10 @@
           <node concept="3clFbS" id="7F8QoB1_6lQ" role="3clFbx">
             <node concept="2Gpval" id="2hbxkgeTeWa" role="3cqZAp">
               <node concept="2GrKxI" id="2hbxkgeTeWb" role="2Gsz3X">
-                <property role="TrG5h" value="unexpectedId" />
+                <property role="TrG5h" value="physicalOnlyModelID" />
               </node>
               <node concept="37vLTw" id="2hbxkgeTeWc" role="2GsD0m">
-                <ref role="3cqZAo" node="2hbxkgeTeW0" resolve="unexpectedModelIds" />
+                <ref role="3cqZAo" node="2hbxkgeTeW0" resolve="physicalOnlyModelsIDs" />
               </node>
               <node concept="3clFbS" id="2hbxkgeTeWd" role="2LFqv$">
                 <node concept="3clFbF" id="2hbxkgeUizY" role="3cqZAp">
@@ -16099,10 +16530,10 @@
                         <ref role="37wK5l" to="ztoz:~ModelDeleteHelper.&lt;init&gt;(org.jetbrains.mps.openapi.model.SModel)" resolve="ModelDeleteHelper" />
                         <node concept="3EllGN" id="2hbxkgeU$mv" role="37wK5m">
                           <node concept="2GrUjf" id="2hbxkgeU$mw" role="3ElVtu">
-                            <ref role="2Gs0qQ" node="2hbxkgeTeWb" resolve="unexpectedId" />
+                            <ref role="2Gs0qQ" node="2hbxkgeTeWb" resolve="physicalOnlyModelID" />
                           </node>
                           <node concept="37vLTw" id="2hbxkgeU$mx" role="3ElQJh">
-                            <ref role="3cqZAo" node="2hbxkgeTeU7" resolve="existingModels" />
+                            <ref role="3cqZAo" node="2hbxkgeTeU7" resolve="physicalModelsByID" />
                           </node>
                         </node>
                       </node>
@@ -16122,24 +16553,24 @@
         <node concept="3clFbH" id="2hbxkgeTeWl" role="3cqZAp" />
         <node concept="2Gpval" id="2hbxkgeTeWm" role="3cqZAp">
           <node concept="2GrKxI" id="2hbxkgeTeWn" role="2Gsz3X">
-            <property role="TrG5h" value="missingId" />
+            <property role="TrG5h" value="cloudOnlyModelId" />
           </node>
           <node concept="37vLTw" id="2hbxkgeTeWo" role="2GsD0m">
-            <ref role="3cqZAo" node="2hbxkgeTeVQ" resolve="missingModelIds" />
+            <ref role="3cqZAo" node="2hbxkgeTeVQ" resolve="cloudOnlyModelsIDs" />
           </node>
           <node concept="3clFbS" id="2hbxkgeTeWp" role="2LFqv$">
             <node concept="3cpWs8" id="2hbxkgeUIvB" role="3cqZAp">
               <node concept="3cpWsn" id="2hbxkgeUIvC" role="3cpWs9">
-                <property role="TrG5h" value="modelNode" />
+                <property role="TrG5h" value="cloudModel" />
                 <node concept="3Tqbb2" id="2hbxkgeUIuq" role="1tU5fm">
                   <ref role="ehGHo" to="w7di:qmkA5fOskc" resolve="Model" />
                 </node>
                 <node concept="3EllGN" id="2hbxkgeUIvD" role="33vP2m">
                   <node concept="2GrUjf" id="2hbxkgeUIvE" role="3ElVtu">
-                    <ref role="2Gs0qQ" node="2hbxkgeTeWn" resolve="missingId" />
+                    <ref role="2Gs0qQ" node="2hbxkgeTeWn" resolve="cloudOnlyModelId" />
                   </node>
                   <node concept="37vLTw" id="2hbxkgeUIvF" role="3ElQJh">
-                    <ref role="3cqZAo" node="2hbxkgeTeUy" resolve="expectedModels" />
+                    <ref role="3cqZAo" node="2hbxkgeTeUy" resolve="cloudModelsByID" />
                   </node>
                 </node>
               </node>
@@ -16154,7 +16585,7 @@
                 </node>
                 <node concept="2OqwBi" id="2hbxkgeUClx" role="33vP2m">
                   <node concept="37vLTw" id="2hbxkgeUCly" role="2Oq$k0">
-                    <ref role="3cqZAo" node="2hbxkgeTnOu" resolve="module" />
+                    <ref role="3cqZAo" node="2hbxkgeTnOu" resolve="physicalModule" />
                   </node>
                   <node concept="liA8E" id="2hbxkgeUClz" role="2OqNvi">
                     <ref role="37wK5l" to="lui2:~SModule.getModelRoots()" resolve="getModelRoots" />
@@ -16173,7 +16604,7 @@
                     <ref role="37wK5l" to="mhbf:~SModelName.&lt;init&gt;(java.lang.String)" resolve="SModelName" />
                     <node concept="2OqwBi" id="4rSrEo7MWPc" role="37wK5m">
                       <node concept="37vLTw" id="4rSrEo7MWPd" role="2Oq$k0">
-                        <ref role="3cqZAo" node="2hbxkgeUIvC" resolve="modelNode" />
+                        <ref role="3cqZAo" node="2hbxkgeUIvC" resolve="cloudModel" />
                       </node>
                       <node concept="3TrcHB" id="4rSrEo7MWPe" role="2OqNvi">
                         <ref role="3TsBF5" to="tpck:h0TrG11" resolve="name" />
@@ -16246,7 +16677,7 @@
                           <node concept="1rXfSq" id="4rSrEo7Oj5f" role="37wK5m">
                             <ref role="37wK5l" node="4rSrEo7DRhI" resolve="getModelId" />
                             <node concept="37vLTw" id="4rSrEo7OjtK" role="37wK5m">
-                              <ref role="3cqZAo" node="2hbxkgeUIvC" resolve="modelNode" />
+                              <ref role="3cqZAo" node="2hbxkgeUIvC" resolve="cloudModel" />
                             </node>
                           </node>
                         </node>
