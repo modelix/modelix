@@ -22041,6 +22041,13 @@
       </node>
     </node>
     <node concept="3Tm1VV" id="17f8AZmAhK_" role="1B3o_S" />
+    <node concept="3UR2Jj" id="3TbkWOkPdwC" role="lGtFl">
+      <node concept="TZ5HA" id="3TbkWOkPdwD" role="TZ5H$">
+        <node concept="1dT_AC" id="3TbkWOkPdwE" role="1dT_Ay">
+          <property role="1dT_AB" value="This represents just a pair of associated models: one physical and one on the cloud." />
+        </node>
+      </node>
+    </node>
   </node>
   <node concept="KRBjq" id="aVVeoQvp1y">
     <property role="TrG5h" value="PNodeAdapterCreationMethods" />

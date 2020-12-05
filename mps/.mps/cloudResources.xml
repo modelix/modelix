@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CloudResources">
+    <option name="cloudRepositories">
+      <list>
+        <option value="http://localhost:28101/" />
+      </list>
+    </option>
+    <option name="addedProjects">
+      <list>
+        <option value="http://localhost:28101/#P1" />
+        <option value="http://localhost:28101/8327947398472984792834792834" />
+        <option value="http://localhost:28101/8327947398472984792834792834" />
+        <option value="http://localhost:28101/8327947398472984792834792834" />
+      </list>
+    </option>
+    <option name="addedModules">
+      <list>
+        <option value="http://localhost:28101/#sandbox" />
+        <option value="http://localhost:28101/default#sandbox_beta" />
+        <option value="http://localhost:28101/default#sandbox_beta" />
+      </list>
+    </option>
+  </component>
+</project>
