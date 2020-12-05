@@ -2552,7 +2552,7 @@
               </node>
             </node>
             <node concept="liA8E" id="1xehy3Spfxp" role="2OqNvi">
-              <ref role="37wK5l" node="1xehy3Sp48W" resolve="addBoundModule" />
+              <ref role="37wK5l" node="1xehy3Sp48W" resolve="addTransientBoundModule" />
               <node concept="37vLTw" id="5rz8NqPRATu" role="37wK5m">
                 <ref role="3cqZAo" node="5rz8NqPRAC6" resolve="treeInRepository" />
               </node>
@@ -6561,7 +6561,7 @@
         </node>
       </node>
       <node concept="312cEg" id="7xblg8lmp1Z" role="jymVt">
-        <property role="TrG5h" value="addedProjects" />
+        <property role="TrG5h" value="transientProjects" />
         <node concept="3Tm1VV" id="7xblg8lmoOl" role="1B3o_S" />
         <node concept="3uibUv" id="7f6Tb6nwJK5" role="1tU5fm">
           <ref role="3uigEE" to="33ny:~List" resolve="List" />
@@ -6571,11 +6571,21 @@
         </node>
       </node>
       <node concept="312cEg" id="6UFKywMPOVi" role="jymVt">
-        <property role="TrG5h" value="addedModules" />
+        <property role="TrG5h" value="transientModules" />
         <node concept="3Tm1VV" id="6UFKywMPMF3" role="1B3o_S" />
         <node concept="3uibUv" id="6UFKywMPODn" role="1tU5fm">
           <ref role="3uigEE" to="33ny:~List" resolve="List" />
           <node concept="3uibUv" id="6UFKywMPOUS" role="11_B2D">
+            <ref role="3uigEE" to="wyt6:~String" resolve="String" />
+          </node>
+        </node>
+      </node>
+      <node concept="312cEg" id="5isGFNR_amH" role="jymVt">
+        <property role="TrG5h" value="mappedModules" />
+        <node concept="3Tm1VV" id="5isGFNR_amI" role="1B3o_S" />
+        <node concept="3uibUv" id="5isGFNR_amJ" role="1tU5fm">
+          <ref role="3uigEE" to="33ny:~List" resolve="List" />
+          <node concept="3uibUv" id="5isGFNR_amK" role="11_B2D">
             <ref role="3uigEE" to="wyt6:~String" resolve="String" />
           </node>
         </node>
@@ -6610,7 +6620,7 @@
                 </node>
               </node>
               <node concept="37vLTw" id="7f6Tb6nwK3v" role="37vLTJ">
-                <ref role="3cqZAo" node="6UFKywMPOVi" resolve="addedModules" />
+                <ref role="3cqZAo" node="6UFKywMPOVi" resolve="transientModules" />
               </node>
             </node>
           </node>
@@ -6625,7 +6635,7 @@
                 </node>
               </node>
               <node concept="37vLTw" id="7f6Tb6nwMqS" role="37vLTJ">
-                <ref role="3cqZAo" node="7xblg8lmp1Z" resolve="addedProjects" />
+                <ref role="3cqZAo" node="7xblg8lmp1Z" resolve="transientProjects" />
               </node>
             </node>
           </node>
@@ -6686,7 +6696,7 @@
                   <node concept="17qRlL" id="6UFKywMQdzd" role="37vLTx">
                     <node concept="2OqwBi" id="6UFKywMQdze" role="3uHU7w">
                       <node concept="37vLTw" id="6UFKywMQeQd" role="2Oq$k0">
-                        <ref role="3cqZAo" node="7xblg8lmp1Z" resolve="addedProjects" />
+                        <ref role="3cqZAo" node="7xblg8lmp1Z" resolve="transientProjects" />
                       </node>
                       <node concept="liA8E" id="6UFKywMQdzg" role="2OqNvi">
                         <ref role="37wK5l" to="33ny:~List.hashCode()" resolve="hashCode" />
@@ -6702,7 +6712,7 @@
             <node concept="3y3z36" id="6UFKywMQdzi" role="3clFbw">
               <node concept="10Nm6u" id="6UFKywMQdzj" role="3uHU7w" />
               <node concept="37vLTw" id="6UFKywMQeqY" role="3uHU7B">
-                <ref role="3cqZAo" node="7xblg8lmp1Z" resolve="addedProjects" />
+                <ref role="3cqZAo" node="7xblg8lmp1Z" resolve="transientProjects" />
               </node>
             </node>
           </node>
@@ -6711,7 +6721,7 @@
               <node concept="17qRlL" id="6UFKywMQjMU" role="37vLTx">
                 <node concept="2OqwBi" id="6UFKywMQlmS" role="3uHU7w">
                   <node concept="37vLTw" id="6UFKywMQkj0" role="2Oq$k0">
-                    <ref role="3cqZAo" node="6UFKywMPOVi" resolve="addedModules" />
+                    <ref role="3cqZAo" node="6UFKywMPOVi" resolve="transientModules" />
                   </node>
                   <node concept="liA8E" id="6UFKywMQmdH" role="2OqNvi">
                     <ref role="37wK5l" to="33ny:~List.hashCode()" resolve="hashCode" />
@@ -6779,11 +6789,11 @@
                       <ref role="3cqZAo" node="6UFKywMQpgi" resolve="other" />
                     </node>
                     <node concept="2OwXpG" id="6UFKywMQsBn" role="2OqNvi">
-                      <ref role="2Oxat5" node="7xblg8lmp1Z" resolve="addedProjects" />
+                      <ref role="2Oxat5" node="7xblg8lmp1Z" resolve="transientProjects" />
                     </node>
                   </node>
                   <node concept="37vLTw" id="6UFKywMQqH6" role="3uHU7B">
-                    <ref role="3cqZAo" node="7xblg8lmp1Z" resolve="addedProjects" />
+                    <ref role="3cqZAo" node="7xblg8lmp1Z" resolve="transientProjects" />
                   </node>
                 </node>
               </node>
@@ -6819,11 +6829,11 @@
                       <ref role="3cqZAo" node="6UFKywMQpgi" resolve="other" />
                     </node>
                     <node concept="2OwXpG" id="6UFKywMQwCZ" role="2OqNvi">
-                      <ref role="2Oxat5" node="6UFKywMPOVi" resolve="addedModules" />
+                      <ref role="2Oxat5" node="6UFKywMPOVi" resolve="transientModules" />
                     </node>
                   </node>
                   <node concept="37vLTw" id="6UFKywMQwpl" role="3uHU7B">
-                    <ref role="3cqZAo" node="6UFKywMPOVi" resolve="addedModules" />
+                    <ref role="3cqZAo" node="6UFKywMPOVi" resolve="transientModules" />
                   </node>
                 </node>
               </node>
@@ -6868,7 +6878,7 @@
               </node>
               <node concept="3cpWs3" id="7f6Tb6nwXij" role="3uHU7B">
                 <node concept="37vLTw" id="7f6Tb6nwYgN" role="3uHU7w">
-                  <ref role="3cqZAo" node="6UFKywMPOVi" resolve="addedModules" />
+                  <ref role="3cqZAo" node="6UFKywMPOVi" resolve="transientModules" />
                 </node>
                 <node concept="3cpWs3" id="7f6Tb6nwUJo" role="3uHU7B">
                   <node concept="3cpWs3" id="7f6Tb6nwSpo" role="3uHU7B">
@@ -6882,15 +6892,15 @@
                         </node>
                       </node>
                       <node concept="Xl_RD" id="7f6Tb6nwPc$" role="3uHU7w">
-                        <property role="Xl_RC" value=", addedProjects: " />
+                        <property role="Xl_RC" value=", transientProjects: " />
                       </node>
                     </node>
                     <node concept="37vLTw" id="7f6Tb6nwTn5" role="3uHU7w">
-                      <ref role="3cqZAo" node="7xblg8lmp1Z" resolve="addedProjects" />
+                      <ref role="3cqZAo" node="7xblg8lmp1Z" resolve="transientProjects" />
                     </node>
                   </node>
                   <node concept="Xl_RD" id="7f6Tb6nwUZh" role="3uHU7w">
-                    <property role="Xl_RC" value=", addedModules: " />
+                    <property role="Xl_RC" value=", transientModules: " />
                   </node>
                 </node>
               </node>
@@ -7225,7 +7235,6 @@
       </node>
     </node>
     <node concept="2tJIrI" id="1xehy3Srt5z" role="jymVt" />
-    <node concept="2tJIrI" id="1xehy3Sr5xq" role="jymVt" />
     <node concept="3clFb_" id="1xehy3Sr98P" role="jymVt">
       <property role="TrG5h" value="modifyState" />
       <node concept="3clFbS" id="1xehy3Sr98S" role="3clF47">
@@ -7412,7 +7421,7 @@
                         <ref role="3cqZAo" node="1xehy3SrjAk" resolve="state" />
                       </node>
                       <node concept="2OwXpG" id="1xehy3Srkja" role="2OqNvi">
-                        <ref role="2Oxat5" node="6UFKywMPOVi" resolve="addedModules" />
+                        <ref role="2Oxat5" node="6UFKywMPOVi" resolve="transientModules" />
                       </node>
                     </node>
                     <node concept="liA8E" id="1xehy3Srkjb" role="2OqNvi">
@@ -7470,7 +7479,7 @@
     </node>
     <node concept="2tJIrI" id="7f6Tb6nyY2w" role="jymVt" />
     <node concept="3clFb_" id="1xehy3Sp48W" role="jymVt">
-      <property role="TrG5h" value="addBoundModule" />
+      <property role="TrG5h" value="addTransientBoundModule" />
       <node concept="3clFbS" id="1xehy3Sp494" role="3clF47">
         <node concept="3clFbF" id="1xehy3SrnlJ" role="3cqZAp">
           <node concept="1rXfSq" id="1xehy3SrnlK" role="3clFbG">
@@ -7533,7 +7542,7 @@
                                   <ref role="3cqZAo" node="1xehy3SrnlM" resolve="state" />
                                 </node>
                                 <node concept="2OwXpG" id="1xehy3SroRA" role="2OqNvi">
-                                  <ref role="2Oxat5" node="6UFKywMPOVi" resolve="addedModules" />
+                                  <ref role="2Oxat5" node="6UFKywMPOVi" resolve="transientModules" />
                                 </node>
                               </node>
                               <node concept="liA8E" id="1xehy3SroRB" role="2OqNvi">
@@ -7592,7 +7601,7 @@
     </node>
     <node concept="2tJIrI" id="7pEM25OpCNH" role="jymVt" />
     <node concept="3clFb_" id="7pEM25OpFi2" role="jymVt">
-      <property role="TrG5h" value="addBoundProject" />
+      <property role="TrG5h" value="addTransientBoundProject" />
       <node concept="3clFbS" id="7pEM25OpFi3" role="3clF47">
         <node concept="3clFbF" id="7pEM25OpFi4" role="3cqZAp">
           <node concept="1rXfSq" id="7pEM25OpFi5" role="3clFbG">
@@ -7621,7 +7630,7 @@
                                   <ref role="3cqZAo" node="7pEM25OpFi7" resolve="state" />
                                 </node>
                                 <node concept="2OwXpG" id="7pEM25OpZyw" role="2OqNvi">
-                                  <ref role="2Oxat5" node="7xblg8lmp1Z" resolve="addedProjects" />
+                                  <ref role="2Oxat5" node="7xblg8lmp1Z" resolve="transientProjects" />
                                 </node>
                               </node>
                               <node concept="liA8E" id="7pEM25OpZyx" role="2OqNvi">
@@ -7664,7 +7673,7 @@
     </node>
     <node concept="2tJIrI" id="7pEM25OpDI1" role="jymVt" />
     <node concept="3clFb_" id="1xehy3Sp7iB" role="jymVt">
-      <property role="TrG5h" value="addBoundModule" />
+      <property role="TrG5h" value="addTransientBoundModule" />
       <node concept="3clFbS" id="1xehy3Sp7iJ" role="3clF47">
         <node concept="3clFbF" id="1xehy3Srqro" role="3cqZAp">
           <node concept="1rXfSq" id="1xehy3Srqrp" role="3clFbG">
@@ -7722,7 +7731,7 @@
                                   <ref role="3cqZAo" node="1xehy3Srqrr" resolve="state" />
                                 </node>
                                 <node concept="2OwXpG" id="1xehy3Srr$W" role="2OqNvi">
-                                  <ref role="2Oxat5" node="6UFKywMPOVi" resolve="addedModules" />
+                                  <ref role="2Oxat5" node="6UFKywMPOVi" resolve="transientModules" />
                                 </node>
                               </node>
                               <node concept="liA8E" id="1xehy3Srr$X" role="2OqNvi">
@@ -7779,7 +7788,124 @@
       </node>
       <node concept="3Tm1VV" id="1xehy3Sp7jB" role="1B3o_S" />
     </node>
-    <node concept="2tJIrI" id="7f6Tb6nAa8O" role="jymVt" />
+    <node concept="2tJIrI" id="5isGFNR$XOi" role="jymVt" />
+    <node concept="3clFb_" id="5isGFNR_0BD" role="jymVt">
+      <property role="TrG5h" value="addMappedBoundModule" />
+      <node concept="3clFbS" id="5isGFNR_0BE" role="3clF47">
+        <node concept="3clFbF" id="5isGFNR_0BF" role="3cqZAp">
+          <node concept="1rXfSq" id="5isGFNR_0BG" role="3clFbG">
+            <ref role="37wK5l" node="1xehy3Sr98P" resolve="modifyState" />
+            <node concept="1bVj0M" id="5isGFNR_0BH" role="37wK5m">
+              <node concept="37vLTG" id="5isGFNR_0BI" role="1bW2Oz">
+                <property role="TrG5h" value="state" />
+                <node concept="3uibUv" id="5isGFNR_0BJ" role="1tU5fm">
+                  <ref role="3uigEE" node="7xblg8lmnwf" resolve="CloudResourcesConfigurationComponent.State" />
+                </node>
+              </node>
+              <node concept="3clFbS" id="5isGFNR_0BK" role="1bW5cS">
+                <node concept="3clFbF" id="5isGFNR_0BL" role="3cqZAp">
+                  <node concept="2OqwBi" id="5isGFNR_0BM" role="3clFbG">
+                    <node concept="2OqwBi" id="5isGFNR_0BN" role="2Oq$k0">
+                      <node concept="37vLTw" id="5isGFNR_0BO" role="2Oq$k0">
+                        <ref role="3cqZAo" node="5isGFNR_0Cl" resolve="nodeTreeNode" />
+                      </node>
+                      <node concept="liA8E" id="5isGFNR_0BP" role="2OqNvi">
+                        <ref role="37wK5l" to="jks5:~PNodeAdapter.getBranch()" resolve="getBranch" />
+                      </node>
+                    </node>
+                    <node concept="liA8E" id="5isGFNR_0BQ" role="2OqNvi">
+                      <ref role="37wK5l" to="jks5:~IBranch.runRead(kotlin.jvm.functions.Function0)" resolve="runRead" />
+                      <node concept="1bVj0M" id="5isGFNR_0BR" role="37wK5m">
+                        <node concept="3clFbS" id="5isGFNR_0BS" role="1bW5cS">
+                          <node concept="3cpWs8" id="5isGFNR_0BT" role="3cqZAp">
+                            <node concept="3cpWsn" id="5isGFNR_0BU" role="3cpWs9">
+                              <property role="TrG5h" value="moduleName" />
+                              <node concept="17QB3L" id="5isGFNR_0BV" role="1tU5fm" />
+                              <node concept="2OqwBi" id="5isGFNR_0BW" role="33vP2m">
+                                <node concept="liA8E" id="5isGFNR_0BX" role="2OqNvi">
+                                  <ref role="37wK5l" to="jks5:~PNodeAdapter.getPropertyValue(java.lang.String)" resolve="getPropertyValue" />
+                                  <node concept="Xl_RD" id="5isGFNR_0BY" role="37wK5m">
+                                    <property role="Xl_RC" value="name" />
+                                  </node>
+                                </node>
+                                <node concept="1eOMI4" id="5isGFNR_0BZ" role="2Oq$k0">
+                                  <node concept="10QFUN" id="5isGFNR_0C0" role="1eOMHV">
+                                    <node concept="3uibUv" id="5isGFNR_0C1" role="10QFUM">
+                                      <ref role="3uigEE" to="jks5:~PNodeAdapter" resolve="PNodeAdapter" />
+                                    </node>
+                                    <node concept="37vLTw" id="5isGFNR_0C2" role="10QFUP">
+                                      <ref role="3cqZAo" node="5isGFNR_0Cl" resolve="nodeTreeNode" />
+                                    </node>
+                                  </node>
+                                </node>
+                              </node>
+                            </node>
+                          </node>
+                          <node concept="3clFbF" id="5isGFNR_0C3" role="3cqZAp">
+                            <node concept="2OqwBi" id="5isGFNR_0C4" role="3clFbG">
+                              <node concept="2OqwBi" id="5isGFNR_0C5" role="2Oq$k0">
+                                <node concept="37vLTw" id="5isGFNR_0C6" role="2Oq$k0">
+                                  <ref role="3cqZAo" node="5isGFNR_0BI" resolve="state" />
+                                </node>
+                                <node concept="2OwXpG" id="5isGFNR_fDm" role="2OqNvi">
+                                  <ref role="2Oxat5" node="5isGFNR_amH" resolve="mappedModules" />
+                                </node>
+                              </node>
+                              <node concept="liA8E" id="5isGFNR_0C8" role="2OqNvi">
+                                <ref role="37wK5l" to="33ny:~List.add(java.lang.Object)" resolve="add" />
+                                <node concept="3cpWs3" id="5isGFNR_0C9" role="37wK5m">
+                                  <node concept="37vLTw" id="5isGFNR_0Ca" role="3uHU7w">
+                                    <ref role="3cqZAo" node="5isGFNR_0BU" resolve="moduleName" />
+                                  </node>
+                                  <node concept="3cpWs3" id="5isGFNR_0Cb" role="3uHU7B">
+                                    <node concept="2OqwBi" id="5isGFNR_0Cc" role="3uHU7B">
+                                      <node concept="37vLTw" id="5isGFNR_0Cd" role="2Oq$k0">
+                                        <ref role="3cqZAo" node="5isGFNR_0Cj" resolve="treeInRepository" />
+                                      </node>
+                                      <node concept="liA8E" id="5isGFNR_0Ce" role="2OqNvi">
+                                        <ref role="37wK5l" to="csg2:3i6diw3mCn3" resolve="completeId" />
+                                      </node>
+                                    </node>
+                                    <node concept="Xl_RD" id="5isGFNR_0Cf" role="3uHU7w">
+                                      <property role="Xl_RC" value="#" />
+                                    </node>
+                                  </node>
+                                </node>
+                              </node>
+                            </node>
+                          </node>
+                          <node concept="3cpWs6" id="5isGFNR_0Cg" role="3cqZAp">
+                            <node concept="10M0yZ" id="5isGFNR_0Ch" role="3cqZAk">
+                              <ref role="3cqZAo" to="v18h:~Unit.INSTANCE" resolve="INSTANCE" />
+                              <ref role="1PxDUh" to="v18h:~Unit" resolve="Unit" />
+                            </node>
+                          </node>
+                        </node>
+                      </node>
+                    </node>
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+      </node>
+      <node concept="3cqZAl" id="5isGFNR_0Ci" role="3clF45" />
+      <node concept="37vLTG" id="5isGFNR_0Cj" role="3clF46">
+        <property role="TrG5h" value="treeInRepository" />
+        <node concept="3uibUv" id="5isGFNR_0Ck" role="1tU5fm">
+          <ref role="3uigEE" to="csg2:3i6diw3mm_Q" resolve="TreeInRepository" />
+        </node>
+      </node>
+      <node concept="37vLTG" id="5isGFNR_0Cl" role="3clF46">
+        <property role="TrG5h" value="nodeTreeNode" />
+        <node concept="3uibUv" id="5isGFNR_0Cm" role="1tU5fm">
+          <ref role="3uigEE" to="jks5:~PNodeAdapter" resolve="PNodeAdapter" />
+        </node>
+      </node>
+      <node concept="3Tm1VV" id="5isGFNR_0Cn" role="1B3o_S" />
+    </node>
+    <node concept="2tJIrI" id="5isGFNR$ZQs" role="jymVt" />
     <node concept="3clFb_" id="1xehy3SoR1E" role="jymVt">
       <property role="TrG5h" value="addRepositoriesAsSpecifiedInPersistedBindingConfiguration" />
       <node concept="3clFbS" id="1xehy3SoR1I" role="3clF47">
@@ -7988,7 +8114,7 @@
               <ref role="3cqZAo" node="1xehy3SoS8S" resolve="state" />
             </node>
             <node concept="2OwXpG" id="1xehy3SoS9I" role="2OqNvi">
-              <ref role="2Oxat5" node="6UFKywMPOVi" resolve="addedModules" />
+              <ref role="2Oxat5" node="6UFKywMPOVi" resolve="transientModules" />
             </node>
           </node>
         </node>
@@ -8575,7 +8701,7 @@
               </node>
             </node>
             <node concept="liA8E" id="1xehy3SpizU" role="2OqNvi">
-              <ref role="37wK5l" node="1xehy3Sp7iB" resolve="addBoundModule" />
+              <ref role="37wK5l" node="5isGFNR_0BD" resolve="addMappedBoundModule" />
               <node concept="2OqwBi" id="1xehy3SpiLG" role="37wK5m">
                 <node concept="2WthIp" id="1xehy3SpiLH" role="2Oq$k0" />
                 <node concept="2BZ7hE" id="1xehy3SpiLI" role="2OqNvi">
@@ -9026,7 +9152,7 @@
                   </node>
                 </node>
                 <node concept="liA8E" id="68axlwQ7M57" role="2OqNvi">
-                  <ref role="37wK5l" node="7pEM25OpFi2" resolve="addBoundProject" />
+                  <ref role="37wK5l" node="7pEM25OpFi2" resolve="addTransientBoundProject" />
                   <node concept="2OqwBi" id="68axlwQ7M58" role="37wK5m">
                     <node concept="2WthIp" id="68axlwQ7M59" role="2Oq$k0" />
                     <node concept="2BZ7hE" id="68axlwQ7M5a" role="2OqNvi">
@@ -9150,7 +9276,7 @@
                   </node>
                 </node>
                 <node concept="liA8E" id="5sBFtoq3X6$" role="2OqNvi">
-                  <ref role="37wK5l" node="7pEM25OpFi2" resolve="addBoundProject" />
+                  <ref role="37wK5l" node="7pEM25OpFi2" resolve="addTransientBoundProject" />
                   <node concept="2OqwBi" id="7pEM25OpNoZ" role="37wK5m">
                     <node concept="2WthIp" id="7pEM25OpNp2" role="2Oq$k0" />
                     <node concept="2BZ7hE" id="7pEM25OpNp4" role="2OqNvi">
