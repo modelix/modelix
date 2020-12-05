@@ -2579,7 +2579,7 @@
                   </node>
                 </node>
                 <node concept="AQDAd" id="1xehy3Sk2gL" role="2OqNvi">
-                  <ref role="37wK5l" to="um17:1xehy3SjXuA" resolve="isBound" />
+                  <ref role="37wK5l" to="um17:1xehy3SjXuA" resolve="isBoundAsModule" />
                 </node>
               </node>
             </node>
@@ -8634,7 +8634,7 @@
                   </node>
                 </node>
                 <node concept="liA8E" id="i0AVAFYv8Z" role="2OqNvi">
-                  <ref role="37wK5l" to="csg2:i0AVAFY82L" resolve="importInModelixModule" />
+                  <ref role="37wK5l" to="csg2:i0AVAFY82L" resolve="copyInModelixAsIndependentModule" />
                   <node concept="2OqwBi" id="1xehy3SncBq" role="37wK5m">
                     <node concept="2WthIp" id="1xehy3SncBt" role="2Oq$k0" />
                     <node concept="2BZ7hE" id="1xehy3SncBv" role="2OqNvi">
@@ -8646,9 +8646,6 @@
                     <node concept="1DTwFV" id="i0AVAFY_RE" role="2OqNvi">
                       <ref role="2WH_rO" node="i0AVAFY_LO" resolve="module" />
                     </node>
-                  </node>
-                  <node concept="3clFbT" id="1UEEMVnsRzp" role="37wK5m">
-                    <property role="3clFbU" value="true" />
                   </node>
                 </node>
               </node>
@@ -8668,7 +8665,7 @@
                 </node>
               </node>
               <node concept="liA8E" id="6dTx9S5vM0t" role="2OqNvi">
-                <ref role="37wK5l" to="csg2:i0AVAFY82L" resolve="importInModelixModule" />
+                <ref role="37wK5l" to="csg2:i0AVAFY82L" resolve="copyInModelixAsIndependentModule" />
                 <node concept="2OqwBi" id="6dTx9S5vM0u" role="37wK5m">
                   <node concept="2WthIp" id="6dTx9S5vM0v" role="2Oq$k0" />
                   <node concept="2BZ7hE" id="6dTx9S5vM0w" role="2OqNvi">
@@ -8680,9 +8677,6 @@
                   <node concept="1DTwFV" id="6dTx9S5vM0z" role="2OqNvi">
                     <ref role="2WH_rO" node="i0AVAFY_LO" resolve="module" />
                   </node>
-                </node>
-                <node concept="3clFbT" id="6dTx9S5vM0$" role="37wK5m">
-                  <property role="3clFbU" value="true" />
                 </node>
               </node>
             </node>
@@ -8902,7 +8896,7 @@
               </node>
             </node>
             <node concept="liA8E" id="e_REOZbrV2" role="2OqNvi">
-              <ref role="37wK5l" to="csg2:i0AVAFY82L" resolve="importInModelixModule" />
+              <ref role="37wK5l" to="csg2:i0AVAFY82L" resolve="copyInModelixAsIndependentModule" />
               <node concept="2OqwBi" id="1xehy3SnaIY" role="37wK5m">
                 <node concept="2WthIp" id="1xehy3SnaJ1" role="2Oq$k0" />
                 <node concept="2BZ7hE" id="1xehy3SnaJ3" role="2OqNvi">
@@ -8915,7 +8909,6 @@
                   <ref role="2WH_rO" node="e_REOZbrU4" resolve="module" />
                 </node>
               </node>
-              <node concept="3clFbT" id="1UEEMVnsQVZ" role="37wK5m" />
             </node>
           </node>
         </node>
