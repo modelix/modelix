@@ -302,9 +302,6 @@
       </concept>
     </language>
     <language id="760a0a8c-eabb-4521-8bfd-65db761a9ba3" name="jetbrains.mps.baseLanguage.logging">
-      <concept id="1168401810208" name="jetbrains.mps.baseLanguage.logging.structure.PrintStatement" flags="nn" index="abc8K">
-        <child id="1168401864803" name="textExpression" index="abp_N" />
-      </concept>
       <concept id="2034914114981261497" name="jetbrains.mps.baseLanguage.logging.structure.LogLowLevelStatement" flags="ng" index="RRSsy">
         <property id="2034914114981261751" name="severity" index="RRSoG" />
         <child id="2034914114981261755" name="throwable" index="RRSow" />
@@ -17718,14 +17715,6 @@
                   <ref role="3cqZAo" node="29etMtb9_DY" resolve="id" />
                 </node>
               </node>
-            </node>
-          </node>
-          <node concept="abc8K" id="2fgGmVJXzIp" role="3cqZAp">
-            <node concept="Xl_RD" id="2fgGmVJXBzx" role="abp_N">
-              <property role="Xl_RC" value="getOrCreateNode " />
-            </node>
-            <node concept="37vLTw" id="2fgGmVJXDiv" role="abp_N">
-              <ref role="3cqZAo" node="29etMtb9_E7" resolve="node" />
             </node>
           </node>
           <node concept="3clFbJ" id="29etMtb9_Eb" role="3cqZAp">
