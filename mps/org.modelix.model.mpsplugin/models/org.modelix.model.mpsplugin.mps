@@ -5014,6 +5014,37 @@
       <node concept="3cqZAl" id="6T_zoDmsCQP" role="3clF45" />
       <node concept="3Tm1VV" id="6T_zoDmsCQQ" role="1B3o_S" />
       <node concept="3clFbS" id="6T_zoDmsCQR" role="3clF47">
+        <node concept="RRSsy" id="5Wf2sCsNuf0" role="3cqZAp">
+          <property role="RRSoG" value="h1akgim/info" />
+          <node concept="3cpWs3" id="5Wf2sCsNxxn" role="RRSoy">
+            <node concept="2OqwBi" id="5Wf2sCsNzSI" role="3uHU7w">
+              <node concept="2OqwBi" id="5Wf2sCsNyZB" role="2Oq$k0">
+                <node concept="37vLTw" id="5Wf2sCsNyG2" role="2Oq$k0">
+                  <ref role="3cqZAo" to="xxte:29etMtb9$V9" resolve="model" />
+                </node>
+                <node concept="liA8E" id="5Wf2sCsNzK_" role="2OqNvi">
+                  <ref role="37wK5l" to="mhbf:~SModel.getName()" resolve="getName" />
+                </node>
+              </node>
+              <node concept="liA8E" id="5Wf2sCsN$_y" role="2OqNvi">
+                <ref role="37wK5l" to="mhbf:~SModelName.getLongName()" resolve="getLongName" />
+              </node>
+            </node>
+            <node concept="3cpWs3" id="5Wf2sCsNwis" role="3uHU7B">
+              <node concept="3cpWs3" id="5Wf2sCsNuNp" role="3uHU7B">
+                <node concept="Xl_RD" id="5Wf2sCsNuf2" role="3uHU7B">
+                  <property role="Xl_RC" value="ModelSynchronizer.runFullSync initialRemoval=" />
+                </node>
+                <node concept="37vLTw" id="5Wf2sCsNvlY" role="3uHU7w">
+                  <ref role="3cqZAo" node="3TbkWOkRtw$" resolve="withInitialRemoval" />
+                </node>
+              </node>
+              <node concept="Xl_RD" id="5Wf2sCsNwpq" role="3uHU7w">
+                <property role="Xl_RC" value=" on model " />
+              </node>
+            </node>
+          </node>
+        </node>
         <node concept="3clFbF" id="7ardNfhLUPM" role="3cqZAp">
           <node concept="2OqwBi" id="7ardNfhLYgy" role="3clFbG">
             <node concept="10M0yZ" id="7ardNfhLXth" role="2Oq$k0">
