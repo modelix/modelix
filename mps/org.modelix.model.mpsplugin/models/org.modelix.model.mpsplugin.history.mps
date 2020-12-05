@@ -303,9 +303,12 @@
       </concept>
     </language>
     <language id="f2801650-65d5-424e-bb1b-463a8781b786" name="jetbrains.mps.baseLanguage.javadoc">
+      <concept id="5858074156537516430" name="jetbrains.mps.baseLanguage.javadoc.structure.ReturnBlockDocTag" flags="ng" index="x79VA" />
       <concept id="5349172909345501395" name="jetbrains.mps.baseLanguage.javadoc.structure.BaseDocComment" flags="ng" index="P$AiS">
         <child id="8465538089690331502" name="body" index="TZ5H$" />
+        <child id="5383422241790532083" name="tags" index="3nqlJM" />
       </concept>
+      <concept id="5349172909345532724" name="jetbrains.mps.baseLanguage.javadoc.structure.MethodDocComment" flags="ng" index="P$JXv" />
       <concept id="8465538089690331500" name="jetbrains.mps.baseLanguage.javadoc.structure.CommentLine" flags="ng" index="TZ5HA">
         <child id="8970989240999019149" name="part" index="1dT_Ay" />
       </concept>
@@ -7367,7 +7370,7 @@
   <node concept="KRBjq" id="1xehy3SjWHB">
     <property role="TrG5h" value="CloudNodeTreeNodeBinding" />
     <node concept="ATzpf" id="1xehy3SjWHI" role="a7sos">
-      <property role="TrG5h" value="isBound" />
+      <property role="TrG5h" value="isBoundAsAModule" />
       <node concept="3Tm1VV" id="1xehy3SjWHJ" role="1B3o_S" />
       <node concept="10P_77" id="1xehy3SjWHY" role="3clF45" />
       <node concept="3clFbS" id="1xehy3SjWHL" role="3clF47">
@@ -7447,6 +7450,14 @@
           <node concept="3clFbT" id="5D5xac1qXC4" role="3cqZAk" />
         </node>
       </node>
+      <node concept="P$JXv" id="aVVeoQtQzf" role="lGtFl">
+        <node concept="TZ5HA" id="aVVeoQtQzg" role="TZ5H$">
+          <node concept="1dT_AC" id="aVVeoQtQzh" role="1dT_Ay">
+            <property role="1dT_AB" value="This does not consider if this is a module and it is bound indirectly because the whole project is bound." />
+          </node>
+        </node>
+        <node concept="x79VA" id="aVVeoQtQzi" role="3nqlJM" />
+      </node>
     </node>
     <node concept="ATzpf" id="Nm_qC27bd8" role="a7sos">
       <property role="TrG5h" value="getTreeInRepository" />
@@ -7499,42 +7510,6 @@
             </node>
           </node>
         </node>
-        <node concept="3clFbF" id="EMWAvBgG$0" role="3cqZAp">
-          <node concept="2OqwBi" id="EMWAvBgGMM" role="3clFbG">
-            <node concept="37vLTw" id="EMWAvBgGzY" role="2Oq$k0">
-              <ref role="3cqZAo" node="EMWAvBggz0" resolve="cloudRepository" />
-            </node>
-            <node concept="liA8E" id="EMWAvBgH4w" role="2OqNvi">
-              <ref role="37wK5l" to="csg2:EMWAvBf_zL" resolve="addModuleBinding" />
-              <node concept="2ShNRf" id="EMWAvBftrk" role="37wK5m">
-                <node concept="1pGfFk" id="EMWAvBfSvu" role="2ShVmc">
-                  <ref role="37wK5l" to="csg2:EMWAvBfuHL" resolve="TransientModuleBinding" />
-                  <node concept="37vLTw" id="EMWAvBgDiZ" role="37wK5m">
-                    <ref role="3cqZAo" node="EMWAvBgCWD" resolve="treeId" />
-                  </node>
-                  <node concept="2OqwBi" id="EMWAvBgFJD" role="37wK5m">
-                    <node concept="1eOMI4" id="EMWAvBgF_o" role="2Oq$k0">
-                      <node concept="10QFUN" id="EMWAvBgFgK" role="1eOMHV">
-                        <node concept="2OqwBi" id="EMWAvBgFgH" role="10QFUP">
-                          <node concept="2V_BSl" id="Nm_qC27fF7" role="2Oq$k0" />
-                          <node concept="liA8E" id="EMWAvBgFgJ" role="2OqNvi">
-                            <ref role="37wK5l" node="49CIzaqf7rw" resolve="getNode" />
-                          </node>
-                        </node>
-                        <node concept="3uibUv" id="EMWAvBgFww" role="10QFUM">
-                          <ref role="3uigEE" to="jks5:~PNodeAdapter" resolve="PNodeAdapter" />
-                        </node>
-                      </node>
-                    </node>
-                    <node concept="liA8E" id="EMWAvBgFYO" role="2OqNvi">
-                      <ref role="37wK5l" to="jks5:~PNodeAdapter.getNodeId()" resolve="getNodeId" />
-                    </node>
-                  </node>
-                </node>
-              </node>
-            </node>
-          </node>
-        </node>
         <node concept="3cpWs8" id="5rz8NqPRAC5" role="3cqZAp">
           <node concept="3cpWsn" id="5rz8NqPRAC6" role="3cpWs9">
             <property role="TrG5h" value="treeInRepository" />
@@ -7569,7 +7544,7 @@
   <node concept="KRBjq" id="1xehy3SjXu_">
     <property role="TrG5h" value="TreeNodeBinding" />
     <node concept="ATzpf" id="1xehy3SjXuA" role="a7sos">
-      <property role="TrG5h" value="isBound" />
+      <property role="TrG5h" value="isBoundAsModule" />
       <node concept="3Tm1VV" id="1xehy3SjXuB" role="1B3o_S" />
       <node concept="10P_77" id="1xehy3SjXuC" role="3clF45" />
       <node concept="3clFbS" id="1xehy3SjXuD" role="3clF47">
@@ -7607,13 +7582,21 @@
                     <ref role="3cqZAo" node="1xehy3SjXH3" resolve="nodeTreeNode" />
                   </node>
                   <node concept="AQDAd" id="1xehy3SjXHk" role="2OqNvi">
-                    <ref role="37wK5l" node="1xehy3SjWHI" resolve="isBound" />
+                    <ref role="37wK5l" node="1xehy3SjWHI" resolve="isBoundAsAModule" />
                   </node>
                 </node>
               </node>
             </node>
           </node>
         </node>
+      </node>
+      <node concept="P$JXv" id="aVVeoQtQtW" role="lGtFl">
+        <node concept="TZ5HA" id="aVVeoQtQtX" role="TZ5H$">
+          <node concept="1dT_AC" id="aVVeoQtQtY" role="1dT_Ay">
+            <property role="1dT_AB" value="This does not consider if this is a module and it is bound indirectly because the whole project is bound." />
+          </node>
+        </node>
+        <node concept="x79VA" id="aVVeoQtQtZ" role="3nqlJM" />
       </node>
     </node>
     <node concept="3uibUv" id="1xehy3SjXAU" role="KRMoO">
