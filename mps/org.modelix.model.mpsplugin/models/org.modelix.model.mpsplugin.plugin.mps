@@ -8631,7 +8631,7 @@
                 <node concept="3clFbS" id="1xehy3Sk67T" role="2LFqv$">
                   <node concept="2JFkCU" id="1xehy3Sk6Ju" role="3cqZAp">
                     <node concept="tCFHf" id="1xehy3Sk9L7" role="2JFLmv">
-                      <ref role="tCJdB" node="nP6bhxN7Q3" resolve="StorePhysicalModuleOnCloud" />
+                      <ref role="tCJdB" node="nP6bhxN7Q3" resolve="CopyAndSyncPhysicalModuleOnCloud" />
                       <node concept="2GrUjf" id="1xehy3Sk9Ln" role="2J__8u">
                         <ref role="2Gs0qQ" node="1xehy3Sk67R" resolve="treeInRepository" />
                       </node>
@@ -8664,8 +8664,8 @@
   </node>
   <node concept="sE7Ow" id="nP6bhxN7Q3">
     <property role="3GE5qa" value="actions.physicalelements" />
-    <property role="TrG5h" value="StorePhysicalModuleOnCloud" />
-    <property role="2uzpH1" value="Store on Cloud" />
+    <property role="TrG5h" value="CopyAndSyncPhysicalModuleOnCloud" />
+    <property role="2uzpH1" value="Copy on Cloud &amp; Sync" />
     <node concept="2JriF1" id="1xehy3Sk7sb" role="2JrayB">
       <property role="TrG5h" value="treeInRepository" />
       <node concept="3Tm6S6" id="1xehy3Sk7sc" role="1B3o_S" />
