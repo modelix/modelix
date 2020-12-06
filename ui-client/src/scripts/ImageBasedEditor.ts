@@ -1,7 +1,7 @@
 import $ = require("jquery");
 import {KeyCodeTranslator} from "./KeyCodeTranslator";
-import {DomUtils} from "./DomUtil";
-import {getWebsocketUrl} from "./UrlUtil";
+import {DomUtils} from "./DomUtils";
+import {getWebsocketBaseUrl} from "./UrlUtil";
 import {CCMenu, IAction} from "./CCMenu";
 import {IIntention, IntentionsMenu} from "./IntentionsMenu";
 import {Tooltip} from "./Tooltip";
@@ -27,7 +27,7 @@ export class ImageBasedEditor {
         let lastMessage: IMessage = null;
         let rawData: string = null;
 
-        this.socket = new WebSocket(getWebsocketUrl() + "svgui");
+        this.socket = new WebSocket(getWebsocketBaseUrl() + "svgui");
         this.socket.onopen = () => this.updateConnectionStatus();
         this.socket.onclose = () => this.updateConnectionStatus();
         this.socket.onerror = () => this.updateConnectionStatus();

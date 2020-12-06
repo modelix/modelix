@@ -1021,8 +1021,55 @@
         </node>
       </node>
     </node>
+    <node concept="2OrE70" id="4RHKc8nK$QZ" role="02uzr" />
+    <node concept="02vpq" id="4RHKc8nK$N6" role="02uzr">
+      <property role="TrG5h" value="htmlEditor" />
+      <node concept="026TG" id="4RHKc8nK$N7" role="026TK">
+        <node concept="027og" id="4RHKc8nK$N8" role="026TJ">
+          <ref role="02LMe" to="70w2:7NImM04TdSk" resolve="HTMLDivElement" />
+          <node concept="027rt" id="4RHKc8nK$N9" role="02LM9">
+            <ref role="027rv" to="70w2:7NImM053Sep" resolve="children" />
+            <node concept="214gnc" id="4RHKc8nK$Na" role="027rp">
+              <ref role="1YEVMl" to="m3vg:7trMQm3aIaE" resolve="breadcrumbs" />
+              <node concept="214o7A" id="4RHKc8nK$Nb" role="214sll" />
+            </node>
+          </node>
+          <node concept="027rt" id="4RHKc8nK$Nc" role="02LM9">
+            <ref role="027rv" to="70w2:7NImM053Sep" resolve="children" />
+            <node concept="214gnc" id="4RHKc8nK$Nd" role="027rp">
+              <ref role="1YEVMl" to="m3vg:7trMQm3aARC" resolve="htmlNodeEditor" />
+              <node concept="214o7A" id="4RHKc8nK$Ne" role="214sll" />
+            </node>
+          </node>
+        </node>
+      </node>
+      <node concept="02i3K" id="4RHKc8nK$Nf" role="02i3f">
+        <property role="TrG5h" value="node" />
+        <node concept="02i3D" id="4RHKc8nK$Ng" role="02i2B">
+          <ref role="02i3$" to="tpck:gw2VY9q" resolve="BaseConcept" />
+        </node>
+      </node>
+    </node>
     <node concept="2OrE70" id="7gdm0g$0cj_" role="02uzr" />
     <node concept="2OrE70" id="7gdm0g$0cjy" role="02uzr" />
+  </node>
+  <node concept="2PkwnO" id="4RHKc8nK$k4">
+    <property role="2Pkwn$" value="/htmlEditor" />
+    <node concept="2Pkx_Y" id="4RHKc8nK$k5" role="2Pnc7g">
+      <property role="TrG5h" value="nodeRef" />
+      <node concept="2PkxAe" id="4RHKc8nK$k6" role="2PgqJf">
+        <ref role="2PkxAY" to="tpck:gw2VY9q" resolve="BaseConcept" />
+      </node>
+    </node>
+    <node concept="214gnc" id="4RHKc8nK$k7" role="2Pn5vE">
+      <ref role="1YEVMl" node="4RHKc8nK$N6" resolve="htmlEditor" />
+      <node concept="2PgeId" id="4RHKc8nK$k8" role="214sll">
+        <ref role="2PgeIw" node="4RHKc8nK$k5" resolve="nodeRef" />
+      </node>
+    </node>
+    <node concept="Xl_RD" id="4RHKc8nK$k9" role="1engRn">
+      <property role="Xl_RC" value="HTML Editor" />
+    </node>
   </node>
 </model>
 

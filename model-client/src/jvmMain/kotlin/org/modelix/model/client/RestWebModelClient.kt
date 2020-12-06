@@ -205,7 +205,7 @@ class RestWebModelClient @JvmOverloads constructor(var baseUrl: String? = null, 
     }
 
     override fun put(key: String, value: String?) {
-        if (!key.matches(Regex("[a-zA-Z0-9-_]{43}"))) {
+        if (!key.matches(HashUtil.HASH_PATTERN)) {
             if (LOG.isDebugEnabled) {
                 LOG.debug("PUT $key = $value")
             }
@@ -252,7 +252,7 @@ class RestWebModelClient @JvmOverloads constructor(var baseUrl: String? = null, 
             approxSize += key.length
             approxSize += value!!.length
             json.put(jsonEntry)
-            if (!key.matches(Regex("[a-zA-Z0-9-_]{43}"))) {
+            if (!key.matches(HashUtil.HASH_PATTERN)) {
                 if (LOG.isDebugEnabled) {
                     LOG.debug("PUT $key = $value")
                 }
