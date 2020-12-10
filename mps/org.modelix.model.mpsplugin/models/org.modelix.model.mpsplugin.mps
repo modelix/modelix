@@ -100,7 +100,6 @@
     <language id="5dc5fc0d-37ef-4782-8192-8b5ce1f69f80" name="jetbrains.mps.baseLanguage.extensionMethods">
       <concept id="8022092943110829337" name="jetbrains.mps.baseLanguage.extensionMethods.structure.BaseExtensionMethodContainer" flags="ng" index="a7sou">
         <child id="8022092943110829339" name="methods" index="a7sos" />
-        <child id="1973189701690661983" name="staticFields" index="1gQj7b" />
       </concept>
       <concept id="1550313277221324859" name="jetbrains.mps.baseLanguage.extensionMethods.structure.ExtensionMethodCall" flags="nn" index="AQDAd" />
       <concept id="1550313277222152185" name="jetbrains.mps.baseLanguage.extensionMethods.structure.ExtensionMethodDeclaration" flags="ng" index="ATzpf" />
@@ -108,8 +107,6 @@
         <child id="1894531970723323134" name="type" index="KRMoO" />
       </concept>
       <concept id="3316739663067157299" name="jetbrains.mps.baseLanguage.extensionMethods.structure.ThisExtensionExpression" flags="nn" index="2V_BSl" />
-      <concept id="1973189701691027447" name="jetbrains.mps.baseLanguage.extensionMethods.structure.ExtensionStaticFieldDeclaration" flags="ng" index="1gCC9z" />
-      <concept id="1973189701690850247" name="jetbrains.mps.baseLanguage.extensionMethods.structure.ExtensionStaticFieldReference" flags="nn" index="1gRXpj" />
     </language>
     <language id="f3061a53-9226-4cc5-a443-f952ceaf5816" name="jetbrains.mps.baseLanguage">
       <concept id="1224071154655" name="jetbrains.mps.baseLanguage.structure.AsExpression" flags="nn" index="0kSF2">
@@ -5002,7 +4999,7 @@
         </node>
         <node concept="TZ5HA" id="3TbkWOkR3zk" role="TZ5H$">
           <node concept="1dT_AC" id="3TbkWOkR3zl" role="1dT_Ay">
-            <property role="1dT_AB" value="physical and cloud nodes (and viceversa). This is populated based on the property" />
+            <property role="1dT_AB" value="physical and cloud nodes (and vice versa). This is populated based on the property" />
           </node>
         </node>
         <node concept="TZ5HA" id="3TbkWOkR3Ao" role="TZ5H$">
@@ -18960,7 +18957,7 @@
               <ref role="3cqZAo" node="6dTx9S5s5FR" resolve="cloudNode" />
             </node>
             <node concept="AQDAd" id="6dTx9S5ufKI" role="2OqNvi">
-              <ref role="37wK5l" node="6dTx9S5u7l1" resolve="mapToMpsNode" />
+              <ref role="37wK5l" to="xxte:6dTx9S5u7l1" resolve="mapToMpsNode" />
               <node concept="37vLTw" id="6dTx9S5ufWr" role="37wK5m">
                 <ref role="3cqZAo" node="6dTx9S5s5FT" resolve="physicalNode" />
               </node>
@@ -21611,95 +21608,6 @@
       <ref role="3uigEE" to="jks5:~INode" resolve="INode" />
     </node>
     <node concept="3Tm1VV" id="5iCdLF2lEWT" role="1B3o_S" />
-  </node>
-  <node concept="KRBjq" id="6dTx9S5u7ho">
-    <property role="3GE5qa" value="importToCloud" />
-    <property role="TrG5h" value="MPSNodeMapping" />
-    <node concept="1gCC9z" id="6dTx9S5u8tx" role="1gQj7b">
-      <property role="TrG5h" value="MPS_NODE_ID_PROPERTY_NAME" />
-      <node concept="17QB3L" id="6dTx9S5u8xa" role="1tU5fm" />
-      <node concept="10M0yZ" id="1tdVq1GKwTx" role="33vP2m">
-        <ref role="3cqZAo" to="xxte:1tdVq1GKnrI" resolve="MPS_NODE_ID_PROPERTY_NAME" />
-        <ref role="1PxDUh" to="xxte:29etMtb9$UP" resolve="ModelSynchronizerBase" />
-      </node>
-    </node>
-    <node concept="ATzpf" id="6dTx9S5u7l1" role="a7sos">
-      <property role="TrG5h" value="mapToMpsNode" />
-      <node concept="37vLTG" id="6dTx9S5u7lL" role="3clF46">
-        <property role="TrG5h" value="mpsNode" />
-        <node concept="3uibUv" id="6dTx9S5ug9W" role="1tU5fm">
-          <ref role="3uigEE" to="mhbf:~SNode" resolve="SNode" />
-        </node>
-      </node>
-      <node concept="3Tm1VV" id="6dTx9S5u7l2" role="1B3o_S" />
-      <node concept="3cqZAl" id="6dTx9S5u7wZ" role="3clF45" />
-      <node concept="3clFbS" id="6dTx9S5u7l4" role="3clF47">
-        <node concept="3clFbF" id="6dTx9S5ubVE" role="3cqZAp">
-          <node concept="2OqwBi" id="6dTx9S5ubVF" role="3clFbG">
-            <node concept="2V_BSl" id="6dTx9S5ucxX" role="2Oq$k0" />
-            <node concept="liA8E" id="6dTx9S5ubVH" role="2OqNvi">
-              <ref role="37wK5l" to="jks5:~INode.setPropertyValue(java.lang.String,java.lang.String)" resolve="setPropertyValue" />
-              <node concept="1gRXpj" id="6dTx9S5ucrJ" role="37wK5m">
-                <ref role="3cqZAo" node="6dTx9S5u8tx" resolve="MPS_NODE_ID_PROPERTY_NAME" />
-              </node>
-              <node concept="2OqwBi" id="6dTx9S5ubVJ" role="37wK5m">
-                <node concept="2OqwBi" id="6dTx9S5ubVK" role="2Oq$k0">
-                  <node concept="37vLTw" id="6dTx9S5ucw4" role="2Oq$k0">
-                    <ref role="3cqZAo" node="6dTx9S5u7lL" resolve="mpsNode" />
-                  </node>
-                  <node concept="liA8E" id="6dTx9S5ubVM" role="2OqNvi">
-                    <ref role="37wK5l" to="mhbf:~SNode.getNodeId()" resolve="getNodeId" />
-                  </node>
-                </node>
-                <node concept="liA8E" id="6dTx9S5ubVN" role="2OqNvi">
-                  <ref role="37wK5l" to="wyt6:~Object.toString()" resolve="toString" />
-                </node>
-              </node>
-            </node>
-          </node>
-        </node>
-      </node>
-    </node>
-    <node concept="ATzpf" id="6dTx9S5u7xa" role="a7sos">
-      <property role="TrG5h" value="mappedMpsNodeID" />
-      <node concept="3Tm1VV" id="6dTx9S5u7xb" role="1B3o_S" />
-      <node concept="17QB3L" id="6dTx9S5u7GQ" role="3clF45" />
-      <node concept="3clFbS" id="6dTx9S5u7xd" role="3clF47">
-        <node concept="3clFbF" id="6dTx9S5uhwl" role="3cqZAp">
-          <node concept="2OqwBi" id="6dTx9S5uh_Y" role="3clFbG">
-            <node concept="2V_BSl" id="6dTx9S5uhwk" role="2Oq$k0" />
-            <node concept="liA8E" id="6dTx9S5uhFX" role="2OqNvi">
-              <ref role="37wK5l" to="jks5:~INode.getPropertyValue(java.lang.String)" resolve="getPropertyValue" />
-              <node concept="1gRXpj" id="6dTx9S5uhGA" role="37wK5m">
-                <ref role="3cqZAo" node="6dTx9S5u8tx" resolve="MPS_NODE_ID_PROPERTY_NAME" />
-              </node>
-            </node>
-          </node>
-        </node>
-      </node>
-    </node>
-    <node concept="ATzpf" id="5iCdLF2lvlw" role="a7sos">
-      <property role="TrG5h" value="isMappedToMpsNode" />
-      <node concept="3Tm1VV" id="5iCdLF2lvlx" role="1B3o_S" />
-      <node concept="10P_77" id="5iCdLF2lvr7" role="3clF45" />
-      <node concept="3clFbS" id="5iCdLF2lvlz" role="3clF47">
-        <node concept="3cpWs6" id="5iCdLF2lvvo" role="3cqZAp">
-          <node concept="3y3z36" id="5iCdLF2lvPM" role="3cqZAk">
-            <node concept="10Nm6u" id="5iCdLF2lw3u" role="3uHU7w" />
-            <node concept="2OqwBi" id="5iCdLF2lvvK" role="3uHU7B">
-              <node concept="AQDAd" id="5iCdLF2lvvN" role="2OqNvi">
-                <ref role="37wK5l" node="6dTx9S5u7xa" resolve="mappedMpsNodeID" />
-              </node>
-              <node concept="2V_BSl" id="5iCdLF2lvvP" role="2Oq$k0" />
-            </node>
-          </node>
-        </node>
-      </node>
-    </node>
-    <node concept="3uibUv" id="6dTx9S5u7kX" role="KRMoO">
-      <ref role="3uigEE" to="jks5:~INode" resolve="INode" />
-    </node>
-    <node concept="3Tm1VV" id="aVVeoQuwZP" role="1B3o_S" />
   </node>
   <node concept="312cEu" id="17f8AZmA74K">
     <property role="TrG5h" value="SynchronizationManager" />

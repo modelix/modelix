@@ -9547,7 +9547,7 @@
                                     </node>
                                   </node>
                                   <node concept="AQDAd" id="Nm_qC26xEb" role="2OqNvi">
-                                    <ref role="37wK5l" to="csg2:6dTx9S5u7xa" resolve="mappedMpsNodeID" />
+                                    <ref role="37wK5l" to="xxte:6dTx9S5u7xa" resolve="mappedMpsNodeID" />
                                   </node>
                                 </node>
                               </node>
@@ -10083,7 +10083,7 @@
                         </node>
                       </node>
                       <node concept="AQDAd" id="Nm_qC26wqv" role="2OqNvi">
-                        <ref role="37wK5l" to="csg2:5iCdLF2lvlw" resolve="isMappedToMpsNode" />
+                        <ref role="37wK5l" to="xxte:5iCdLF2lvlw" resolve="isMappedToMpsNode" />
                       </node>
                     </node>
                   </node>
@@ -11757,24 +11757,38 @@
             </node>
           </node>
         </node>
-        <node concept="3clFbF" id="7kzkaMV_9$f" role="3cqZAp">
-          <node concept="2OqwBi" id="7kzkaMV_9$g" role="3clFbG">
-            <node concept="2ShNRf" id="7kzkaMV_9$h" role="2Oq$k0">
-              <node concept="1pGfFk" id="7kzkaMV_9$i" role="2ShVmc">
-                <ref role="37wK5l" to="csg2:17f8AZmAXeP" resolve="SynchronizationManager" />
-                <node concept="37vLTw" id="7kzkaMV_9N3" role="37wK5m">
-                  <ref role="3cqZAo" node="7kzkaMV$ZCZ" resolve="treeInRepository" />
+        <node concept="1QHqEK" id="46bRIQF_6xq" role="3cqZAp">
+          <node concept="1QHqEC" id="46bRIQF_6xs" role="1QHqEI">
+            <node concept="3clFbS" id="46bRIQF_6xu" role="1bW5cS">
+              <node concept="3clFbF" id="7kzkaMV_9$f" role="3cqZAp">
+                <node concept="2OqwBi" id="7kzkaMV_9$g" role="3clFbG">
+                  <node concept="2ShNRf" id="7kzkaMV_9$h" role="2Oq$k0">
+                    <node concept="1pGfFk" id="7kzkaMV_9$i" role="2ShVmc">
+                      <ref role="37wK5l" to="csg2:17f8AZmAXeP" resolve="SynchronizationManager" />
+                      <node concept="37vLTw" id="7kzkaMV_9N3" role="37wK5m">
+                        <ref role="3cqZAo" node="7kzkaMV$ZCZ" resolve="treeInRepository" />
+                      </node>
+                    </node>
+                  </node>
+                  <node concept="liA8E" id="7kzkaMV_9$m" role="2OqNvi">
+                    <ref role="37wK5l" to="csg2:17f8AZmA8T4" resolve="synchronizeModule" />
+                    <node concept="37vLTw" id="7kzkaMV_9$n" role="37wK5m">
+                      <ref role="3cqZAo" node="7kzkaMV_adx" resolve="cloudModuleNode" />
+                    </node>
+                    <node concept="37vLTw" id="7kzkaMV_SQw" role="37wK5m">
+                      <ref role="3cqZAo" node="7kzkaMV_SyS" resolve="solution" />
+                    </node>
+                  </node>
                 </node>
               </node>
             </node>
-            <node concept="liA8E" id="7kzkaMV_9$m" role="2OqNvi">
-              <ref role="37wK5l" to="csg2:17f8AZmA8T4" resolve="synchronizeModule" />
-              <node concept="37vLTw" id="7kzkaMV_9$n" role="37wK5m">
-                <ref role="3cqZAo" node="7kzkaMV_adx" resolve="cloudModuleNode" />
-              </node>
-              <node concept="37vLTw" id="7kzkaMV_SQw" role="37wK5m">
-                <ref role="3cqZAo" node="7kzkaMV_SyS" resolve="solution" />
-              </node>
+          </node>
+          <node concept="2OqwBi" id="46bRIQF_6T7" role="ukAjM">
+            <node concept="37vLTw" id="46bRIQF_6Bz" role="2Oq$k0">
+              <ref role="3cqZAo" node="7kzkaMV$ZD5" resolve="mpsProject" />
+            </node>
+            <node concept="liA8E" id="46bRIQF_7ms" role="2OqNvi">
+              <ref role="37wK5l" to="z1c4:~Project.getRepository()" resolve="getRepository" />
             </node>
           </node>
         </node>
@@ -11801,7 +11815,6 @@
             </node>
           </node>
         </node>
-        <node concept="3clFbH" id="7kzkaMV_9xw" role="3cqZAp" />
       </node>
     </node>
     <node concept="2ScWuX" id="729BXr3O2Mw" role="tmbBb">
