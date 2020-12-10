@@ -13690,6 +13690,14 @@
                 <ref role="3cqZAo" node="j9VpqzP2nJ" resolve="modelRoot" />
               </node>
             </node>
+            <node concept="abc8K" id="5XAq_$5SMs1" role="3cqZAp">
+              <node concept="Xl_RD" id="5XAq_$5SM_N" role="abp_N">
+                <property role="Xl_RC" value="MODEL " />
+              </node>
+              <node concept="37vLTw" id="5XAq_$5SMNt" role="abp_N">
+                <ref role="3cqZAo" node="5Ns9HDw2j_0" resolve="smodel" />
+              </node>
+            </node>
             <node concept="abc8K" id="j9VpqzP3Eh" role="3cqZAp">
               <node concept="Xl_RD" id="j9VpqzP3Ei" role="abp_N">
                 <property role="Xl_RC" value="MODEL ROOT CLASS " />
@@ -13803,7 +13811,19 @@
             </node>
           </node>
         </node>
-        <node concept="3clFbH" id="5Ns9HDw2j_n" role="3cqZAp" />
+        <node concept="3clFbF" id="5XAq_$5SN_$" role="3cqZAp">
+          <node concept="2OqwBi" id="5XAq_$5SO0F" role="3clFbG">
+            <node concept="37vLTw" id="5XAq_$5SN_y" role="2Oq$k0">
+              <ref role="3cqZAo" node="5Ns9HDw2j_0" resolve="smodel" />
+            </node>
+            <node concept="liA8E" id="5XAq_$5SOm9" role="2OqNvi">
+              <ref role="37wK5l" to="mhbf:~EditableSModel.setChanged(boolean)" resolve="setChanged" />
+              <node concept="3clFbT" id="5XAq_$5SOsU" role="37wK5m">
+                <property role="3clFbU" value="true" />
+              </node>
+            </node>
+          </node>
+        </node>
         <node concept="3clFbF" id="5Ns9HDw2j_S" role="3cqZAp">
           <node concept="2OqwBi" id="5Ns9HDw2j_T" role="3clFbG">
             <node concept="37vLTw" id="5Ns9HDw2j_U" role="2Oq$k0">
