@@ -13680,8 +13680,20 @@
                     </node>
                     <node concept="3Tm1VV" id="5Ns9HDw2j_B" role="1B3o_S" />
                     <node concept="3clFbS" id="5Ns9HDw2j_C" role="3clF47">
-                      <node concept="3clFbF" id="5Ns9HDw2j_D" role="3cqZAp">
-                        <node concept="10Nm6u" id="5Ns9HDw2j_E" role="3clFbG" />
+                      <node concept="3clFbF" id="4ZDmCF0gUN5" role="3cqZAp">
+                        <node concept="2OqwBi" id="4ZDmCF0gVPX" role="3clFbG">
+                          <node concept="2OqwBi" id="4ZDmCF0gVmI" role="2Oq$k0">
+                            <node concept="37vLTw" id="4ZDmCF0gUN2" role="2Oq$k0">
+                              <ref role="3cqZAo" node="729BXr3OMww" resolve="treeInRepository" />
+                            </node>
+                            <node concept="liA8E" id="4ZDmCF0gVEN" role="2OqNvi">
+                              <ref role="37wK5l" node="2fgGmVJWuwV" resolve="getActiveBranch" />
+                            </node>
+                          </node>
+                          <node concept="liA8E" id="4ZDmCF0gWcC" role="2OqNvi">
+                            <ref role="37wK5l" to="5440:~ActiveBranch.getBranch()" resolve="getBranch" />
+                          </node>
+                        </node>
                       </node>
                     </node>
                     <node concept="2AHcQZ" id="5Ns9HDw2j_F" role="2AJF6D">
