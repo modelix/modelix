@@ -720,7 +720,7 @@
                                                   <node concept="2OqwBi" id="5$aoTsovnma" role="3clFbG">
                                                     <node concept="2ShNRf" id="5$aoTsovmbV" role="2Oq$k0">
                                                       <node concept="1pGfFk" id="rF2pzCbcti" role="2ShVmc">
-                                                        <ref role="37wK5l" to="csg2:rF2pzCaPsq" resolve="ModelExporter" />
+                                                        <ref role="37wK5l" to="csg2:rF2pzCaPsq" resolve="ModelCloudExporter" />
                                                         <node concept="2YIFZM" id="rF2pzCbcAW" role="37wK5m">
                                                           <ref role="1Pybhc" to="wyt6:~System" resolve="System" />
                                                           <ref role="37wK5l" to="wyt6:~System.getProperty(java.lang.String)" resolve="getProperty" />
@@ -11493,7 +11493,151 @@
       <node concept="1oajcY" id="729BXr3NNH0" role="1oa70y" />
     </node>
     <node concept="tnohg" id="729BXr3NNH1" role="tncku">
-      <node concept="3clFbS" id="729BXr3NNH2" role="2VODD2" />
+      <node concept="3clFbS" id="729BXr3NNH2" role="2VODD2">
+        <node concept="3cpWs8" id="5Ns9HDw14NE" role="3cqZAp">
+          <node concept="3cpWsn" id="5Ns9HDw14NF" role="3cpWs9">
+            <property role="TrG5h" value="nodeTreeNode" />
+            <node concept="3uibUv" id="5Ns9HDw14NG" role="1tU5fm">
+              <ref role="3uigEE" to="um17:49CIzapIBwH" resolve="CloudNodeTreeNode" />
+            </node>
+            <node concept="10QFUN" id="5Ns9HDw14NH" role="33vP2m">
+              <node concept="2OqwBi" id="5Ns9HDw14NI" role="10QFUP">
+                <node concept="2WthIp" id="5Ns9HDw14NJ" role="2Oq$k0" />
+                <node concept="1DTwFV" id="5Ns9HDw14NK" role="2OqNvi">
+                  <ref role="2WH_rO" node="729BXr3NNGZ" resolve="treeNode" />
+                </node>
+              </node>
+              <node concept="3uibUv" id="5Ns9HDw14NL" role="10QFUM">
+                <ref role="3uigEE" to="um17:49CIzapIBwH" resolve="CloudNodeTreeNode" />
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="3cpWs8" id="5Ns9HDw13eg" role="3cqZAp">
+          <node concept="3cpWsn" id="5Ns9HDw13eh" role="3cpWs9">
+            <property role="TrG5h" value="treeInRepository" />
+            <node concept="3uibUv" id="5Ns9HDw13ei" role="1tU5fm">
+              <ref role="3uigEE" to="csg2:3i6diw3mm_Q" resolve="TreeInRepository" />
+            </node>
+            <node concept="2OqwBi" id="5Ns9HDw15Ab" role="33vP2m">
+              <node concept="37vLTw" id="5Ns9HDw1565" role="2Oq$k0">
+                <ref role="3cqZAo" node="5Ns9HDw14NF" resolve="nodeTreeNode" />
+              </node>
+              <node concept="AQDAd" id="5Ns9HDw16sS" role="2OqNvi">
+                <ref role="37wK5l" to="um17:Nm_qC27bd8" resolve="getTreeInRepository" />
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="3cpWs8" id="5Ns9HDw16Ht" role="3cqZAp">
+          <node concept="3cpWsn" id="5Ns9HDw16Hu" role="3cpWs9">
+            <property role="TrG5h" value="modelCloudExporter" />
+            <node concept="3uibUv" id="5Ns9HDw16Hv" role="1tU5fm">
+              <ref role="3uigEE" to="csg2:29etMtbjIgR" resolve="ModelCloudExporter" />
+            </node>
+            <node concept="2ShNRf" id="5Ns9HDw16J8" role="33vP2m">
+              <node concept="1pGfFk" id="5Ns9HDw16IX" role="2ShVmc">
+                <ref role="37wK5l" to="csg2:5Ns9HDw1b9V" resolve="ModelCloudExporter" />
+                <node concept="37vLTw" id="5Ns9HDw1qb_" role="37wK5m">
+                  <ref role="3cqZAo" node="5Ns9HDw13eh" resolve="treeInRepository" />
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="3clFbF" id="5Ns9HDw2gZb" role="3cqZAp">
+          <node concept="2OqwBi" id="5Ns9HDw2hf_" role="3clFbG">
+            <node concept="37vLTw" id="5Ns9HDw2gZ9" role="2Oq$k0">
+              <ref role="3cqZAo" node="5Ns9HDw16Hu" resolve="modelCloudExporter" />
+            </node>
+            <node concept="liA8E" id="5Ns9HDw2hwR" role="2OqNvi">
+              <ref role="37wK5l" to="csg2:5Ns9HDw2eiE" resolve="setCheckoutMode" />
+            </node>
+          </node>
+        </node>
+        <node concept="3cpWs8" id="5Ns9HDw1rmR" role="3cqZAp">
+          <node concept="3cpWsn" id="5Ns9HDw1rmS" role="3cpWs9">
+            <property role="TrG5h" value="mpsProject" />
+            <node concept="3uibUv" id="5Ns9HDw1vjg" role="1tU5fm">
+              <ref role="3uigEE" to="z1c4:~Project" resolve="Project" />
+            </node>
+            <node concept="2YIFZM" id="5Ns9HDw1rq1" role="33vP2m">
+              <ref role="37wK5l" to="alof:~ProjectHelper.toMPSProject(com.intellij.openapi.project.Project)" resolve="toMPSProject" />
+              <ref role="1Pybhc" to="alof:~ProjectHelper" resolve="ProjectHelper" />
+              <node concept="2OqwBi" id="5Ns9HDw1vts" role="37wK5m">
+                <node concept="2WthIp" id="5Ns9HDw1vtv" role="2Oq$k0" />
+                <node concept="1DTwFV" id="5Ns9HDw1vtx" role="2OqNvi">
+                  <ref role="2WH_rO" node="729BXr3NNGX" resolve="project" />
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="3cpWs8" id="5Ns9HDw1qHt" role="3cqZAp">
+          <node concept="3cpWsn" id="5Ns9HDw1qHw" role="3cpWs9">
+            <property role="TrG5h" value="exportPath" />
+            <node concept="17QB3L" id="5Ns9HDw1qHr" role="1tU5fm" />
+            <node concept="2OqwBi" id="5Ns9HDw1tm0" role="33vP2m">
+              <node concept="2OqwBi" id="5Ns9HDw1rNr" role="2Oq$k0">
+                <node concept="37vLTw" id="5Ns9HDw1rxE" role="2Oq$k0">
+                  <ref role="3cqZAo" node="5Ns9HDw1rmS" resolve="mpsProject" />
+                </node>
+                <node concept="liA8E" id="5Ns9HDw1s8S" role="2OqNvi">
+                  <ref role="37wK5l" to="z1c4:~Project.getProjectFile()" resolve="getProjectFile" />
+                </node>
+              </node>
+              <node concept="liA8E" id="5Ns9HDw1tnY" role="2OqNvi">
+                <ref role="37wK5l" to="guwi:~File.getAbsolutePath()" resolve="getAbsolutePath" />
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="3cpWs8" id="5Ns9HDw1tFK" role="3cqZAp">
+          <node concept="3cpWsn" id="5Ns9HDw1tFN" role="3cpWs9">
+            <property role="TrG5h" value="solutions" />
+            <node concept="_YKpA" id="5Ns9HDw1tFG" role="1tU5fm">
+              <node concept="3uibUv" id="5Ns9HDw1tME" role="_ZDj9">
+                <ref role="3uigEE" to="z1c4:~Solution" resolve="Solution" />
+              </node>
+            </node>
+            <node concept="2OqwBi" id="5Ns9HDw1qtx" role="33vP2m">
+              <node concept="37vLTw" id="5Ns9HDw1ql0" role="2Oq$k0">
+                <ref role="3cqZAo" node="5Ns9HDw16Hu" resolve="modelCloudExporter" />
+              </node>
+              <node concept="liA8E" id="5Ns9HDw1qAK" role="2OqNvi">
+                <ref role="37wK5l" to="csg2:29etMtbn5f1" resolve="export" />
+                <node concept="37vLTw" id="5Ns9HDw1tq5" role="37wK5m">
+                  <ref role="3cqZAo" node="5Ns9HDw1qHw" resolve="exportPath" />
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="2Gpval" id="5Ns9HDw1ubg" role="3cqZAp">
+          <node concept="2GrKxI" id="5Ns9HDw1ubi" role="2Gsz3X">
+            <property role="TrG5h" value="solution" />
+          </node>
+          <node concept="37vLTw" id="5Ns9HDw1umT" role="2GsD0m">
+            <ref role="3cqZAo" node="5Ns9HDw1tFN" resolve="solutions" />
+          </node>
+          <node concept="3clFbS" id="5Ns9HDw1ubm" role="2LFqv$">
+            <node concept="3clFbF" id="5Ns9HDw1uxk" role="3cqZAp">
+              <node concept="2OqwBi" id="5Ns9HDw1uJE" role="3clFbG">
+                <node concept="37vLTw" id="5Ns9HDw1uxj" role="2Oq$k0">
+                  <ref role="3cqZAo" node="5Ns9HDw1rmS" resolve="mpsProject" />
+                </node>
+                <node concept="liA8E" id="5Ns9HDw1v4q" role="2OqNvi">
+                  <ref role="37wK5l" to="z1c4:~IProject.addModule(org.jetbrains.mps.openapi.module.SModule)" resolve="addModule" />
+                  <node concept="2GrUjf" id="5Ns9HDw1v5s" role="37wK5m">
+                    <ref role="2Gs0qQ" node="5Ns9HDw1ubi" resolve="solution" />
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="3clFbH" id="5Ns9HDw16Jz" role="3cqZAp" />
+      </node>
     </node>
     <node concept="2ScWuX" id="729BXr3NNHW" role="tmbBb">
       <node concept="3clFbS" id="729BXr3NNHX" role="2VODD2">
@@ -11535,30 +11679,15 @@
           </node>
         </node>
         <node concept="3cpWs6" id="729BXr3NNHY" role="3cqZAp">
-          <node concept="1Wc70l" id="729BXr3NNHZ" role="3cqZAk">
-            <node concept="3fqX7Q" id="729BXr3NNI0" role="3uHU7w">
-              <node concept="2OqwBi" id="729BXr3NNI1" role="3fr31v">
-                <node concept="2OqwBi" id="729BXr3NNI2" role="2Oq$k0">
-                  <node concept="2WthIp" id="729BXr3NNI3" role="2Oq$k0" />
-                  <node concept="1DTwFV" id="729BXr3NNI4" role="2OqNvi">
-                    <ref role="2WH_rO" node="729BXr3NNGZ" resolve="treeNode" />
-                  </node>
-                </node>
-                <node concept="AQDAd" id="729BXr3NNI5" role="2OqNvi">
-                  <ref role="37wK5l" to="um17:1xehy3SjXuA" resolve="isBoundAsModule" />
-                </node>
+          <node concept="2OqwBi" id="729BXr3NNI6" role="3cqZAk">
+            <node concept="2OqwBi" id="729BXr3NNI7" role="2Oq$k0">
+              <node concept="2WthIp" id="729BXr3NNI8" role="2Oq$k0" />
+              <node concept="1DTwFV" id="729BXr3NNI9" role="2OqNvi">
+                <ref role="2WH_rO" node="729BXr3NNGZ" resolve="treeNode" />
               </node>
             </node>
-            <node concept="2OqwBi" id="729BXr3NNI6" role="3uHU7B">
-              <node concept="2OqwBi" id="729BXr3NNI7" role="2Oq$k0">
-                <node concept="2WthIp" id="729BXr3NNI8" role="2Oq$k0" />
-                <node concept="1DTwFV" id="729BXr3NNI9" role="2OqNvi">
-                  <ref role="2WH_rO" node="729BXr3NNGZ" resolve="treeNode" />
-                </node>
-              </node>
-              <node concept="AQDAd" id="729BXr3NNIa" role="2OqNvi">
-                <ref role="37wK5l" to="um17:1xehy3Shl61" resolve="isModuleNode" />
-              </node>
+            <node concept="AQDAd" id="729BXr3NNIa" role="2OqNvi">
+              <ref role="37wK5l" to="um17:1xehy3Shl61" resolve="isModuleNode" />
             </node>
           </node>
         </node>
