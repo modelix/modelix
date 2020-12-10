@@ -13724,6 +13724,75 @@
                 </node>
               </node>
             </node>
+            <node concept="3cpWs8" id="2ujjg0hiLOa" role="3cqZAp">
+              <node concept="3cpWsn" id="2ujjg0hiLOd" role="3cpWs9">
+                <property role="TrG5h" value="tree" />
+                <node concept="3uibUv" id="2ujjg0hhznx" role="1tU5fm">
+                  <ref role="3uigEE" to="jks5:~ITree" resolve="ITree" />
+                </node>
+                <node concept="2OqwBi" id="2ujjg0hiP$t" role="33vP2m">
+                  <node concept="2OqwBi" id="2ujjg0hiP$u" role="2Oq$k0">
+                    <node concept="2OqwBi" id="2ujjg0hiP$v" role="2Oq$k0">
+                      <node concept="1eOMI4" id="2ujjg0hiP$w" role="2Oq$k0">
+                        <node concept="10QFUN" id="2ujjg0hiP$x" role="1eOMHV">
+                          <node concept="3uibUv" id="2ujjg0hiP$y" role="10QFUM">
+                            <ref role="3uigEE" to="jks5:~PNodeAdapter" resolve="PNodeAdapter" />
+                          </node>
+                          <node concept="37vLTw" id="2ujjg0hiP$z" role="10QFUP">
+                            <ref role="3cqZAo" node="5Ns9HDw2j$W" resolve="model" />
+                          </node>
+                        </node>
+                      </node>
+                      <node concept="liA8E" id="2ujjg0hiP$$" role="2OqNvi">
+                        <ref role="37wK5l" to="jks5:~PNodeAdapter.getBranch()" resolve="getBranch" />
+                      </node>
+                    </node>
+                    <node concept="liA8E" id="2ujjg0hiP$_" role="2OqNvi">
+                      <ref role="37wK5l" to="jks5:~IBranch.getTransaction()" resolve="getTransaction" />
+                    </node>
+                  </node>
+                  <node concept="liA8E" id="2ujjg0hiP$A" role="2OqNvi">
+                    <ref role="37wK5l" to="jks5:~ITransaction.getTree()" resolve="getTree" />
+                  </node>
+                </node>
+              </node>
+            </node>
+            <node concept="3cpWs8" id="2ujjg0hiLOk" role="3cqZAp">
+              <node concept="3cpWsn" id="2ujjg0hiLOn" role="3cpWs9">
+                <property role="TrG5h" value="modelNodeId" />
+                <node concept="3cpWsb" id="2ujjg0hhE$_" role="1tU5fm" />
+                <node concept="2OqwBi" id="2ujjg0hiS$D" role="33vP2m">
+                  <node concept="1eOMI4" id="2ujjg0hiS$E" role="2Oq$k0">
+                    <node concept="10QFUN" id="2ujjg0hiS$F" role="1eOMHV">
+                      <node concept="3uibUv" id="2ujjg0hiS$G" role="10QFUM">
+                        <ref role="3uigEE" to="jks5:~PNodeAdapter" resolve="PNodeAdapter" />
+                      </node>
+                      <node concept="37vLTw" id="2ujjg0hiS$H" role="10QFUP">
+                        <ref role="3cqZAo" node="5Ns9HDw2j$W" resolve="model" />
+                      </node>
+                    </node>
+                  </node>
+                  <node concept="liA8E" id="2ujjg0hiS$I" role="2OqNvi">
+                    <ref role="37wK5l" to="jks5:~PNodeAdapter.getNodeId()" resolve="getNodeId" />
+                  </node>
+                </node>
+              </node>
+            </node>
+            <node concept="3clFbF" id="2ujjg0hiDEI" role="3cqZAp">
+              <node concept="2YIFZM" id="2ujjg0hiE0R" role="3clFbG">
+                <ref role="37wK5l" to="xxte:2ujjg0hhznu" resolve="syncModelPropertiesToModel" />
+                <ref role="1Pybhd" to="xxte:29etMtb9$UP" resolve="ModelSynchronizerBase" />
+                <node concept="37vLTw" id="2ujjg0hiMkt" role="37wK5m">
+                  <ref role="3cqZAo" node="2ujjg0hiLOd" resolve="tree" />
+                </node>
+                <node concept="37vLTw" id="2ujjg0hiQgM" role="37wK5m">
+                  <ref role="3cqZAo" node="5Ns9HDw2j_0" resolve="smodel" />
+                </node>
+                <node concept="37vLTw" id="2ujjg0hiMRz" role="37wK5m">
+                  <ref role="3cqZAo" node="2ujjg0hiLOn" resolve="modelNodeId" />
+                </node>
+              </node>
+            </node>
           </node>
           <node concept="37vLTw" id="5Ns9HDw2l8p" role="3clFbw">
             <ref role="3cqZAo" node="5Ns9HDw2a95" resolve="inCheckoutMode" />
