@@ -556,6 +556,7 @@
       <concept id="4611582986551314327" name="jetbrains.mps.baseLanguage.collections.structure.OfTypeOperation" flags="nn" index="UnYns">
         <child id="4611582986551314344" name="requestedType" index="UnYnz" />
       </concept>
+      <concept id="1162934736510" name="jetbrains.mps.baseLanguage.collections.structure.GetElementOperation" flags="nn" index="34jXtK" />
       <concept id="1162935959151" name="jetbrains.mps.baseLanguage.collections.structure.GetSizeOperation" flags="nn" index="34oBXx" />
       <concept id="1167380149909" name="jetbrains.mps.baseLanguage.collections.structure.RemoveElementOperation" flags="nn" index="3dhRuq" />
       <concept id="1201792049884" name="jetbrains.mps.baseLanguage.collections.structure.TranslateOperation" flags="nn" index="3goQfb" />
@@ -24113,18 +24114,22 @@
             </node>
           </node>
         </node>
+        <node concept="3cpWs8" id="5Ns9HDw1tFK" role="3cqZAp">
+          <node concept="3cpWsn" id="5Ns9HDw1tFN" role="3cpWs9">
+            <property role="TrG5h" value="solutions" />
+            <node concept="_YKpA" id="5Ns9HDw1tFG" role="1tU5fm">
+              <node concept="3uibUv" id="5Ns9HDw1tME" role="_ZDj9">
+                <ref role="3uigEE" to="z1c3:~Solution" resolve="Solution" />
+              </node>
+            </node>
+          </node>
+        </node>
         <node concept="1QHqEM" id="2KPtsFMnTaP" role="3cqZAp">
           <node concept="1QHqEC" id="2KPtsFMnTaR" role="1QHqEI">
             <node concept="3clFbS" id="2KPtsFMnTaT" role="1bW5cS">
-              <node concept="3cpWs8" id="5Ns9HDw1tFK" role="3cqZAp">
-                <node concept="3cpWsn" id="5Ns9HDw1tFN" role="3cpWs9">
-                  <property role="TrG5h" value="solutions" />
-                  <node concept="_YKpA" id="5Ns9HDw1tFG" role="1tU5fm">
-                    <node concept="3uibUv" id="5Ns9HDw1tME" role="_ZDj9">
-                      <ref role="3uigEE" to="z1c3:~Solution" resolve="Solution" />
-                    </node>
-                  </node>
-                  <node concept="2OqwBi" id="5Ns9HDw1qtx" role="33vP2m">
+              <node concept="3clFbF" id="7kzkaMV_jyo" role="3cqZAp">
+                <node concept="37vLTI" id="7kzkaMV_jyq" role="3clFbG">
+                  <node concept="2OqwBi" id="5Ns9HDw1qtx" role="37vLTx">
                     <node concept="37vLTw" id="5Ns9HDw1ql0" role="2Oq$k0">
                       <ref role="3cqZAo" node="5Ns9HDw16Hu" resolve="modelCloudExporter" />
                     </node>
@@ -24137,6 +24142,9 @@
                         <ref role="3cqZAo" node="1OzsJtargyC" resolve="moduleIds" />
                       </node>
                     </node>
+                  </node>
+                  <node concept="37vLTw" id="7kzkaMV_jyu" role="37vLTJ">
+                    <ref role="3cqZAo" node="5Ns9HDw1tFN" resolve="solutions" />
                   </node>
                 </node>
               </node>
@@ -24174,9 +24182,53 @@
             </node>
           </node>
         </node>
+        <node concept="3clFbJ" id="7kzkaMV_kpz" role="3cqZAp">
+          <node concept="3clFbS" id="7kzkaMV_kp_" role="3clFbx">
+            <node concept="YS8fn" id="7kzkaMV_qKw" role="3cqZAp">
+              <node concept="2ShNRf" id="7kzkaMV_qQt" role="YScLw">
+                <node concept="1pGfFk" id="7kzkaMV_LED" role="2ShVmc">
+                  <ref role="37wK5l" to="wyt6:~RuntimeException.&lt;init&gt;(java.lang.String)" resolve="RuntimeException" />
+                  <node concept="3cpWs3" id="7kzkaMV_Mmj" role="37wK5m">
+                    <node concept="37vLTw" id="7kzkaMV_MzB" role="3uHU7w">
+                      <ref role="3cqZAo" node="5Ns9HDw1tFN" resolve="solutions" />
+                    </node>
+                    <node concept="Xl_RD" id="7kzkaMV_LLU" role="3uHU7B">
+                      <property role="Xl_RC" value="One solution expected. These found: " />
+                    </node>
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+          <node concept="3y3z36" id="7kzkaMV_pO1" role="3clFbw">
+            <node concept="3cmrfG" id="7kzkaMV_q_y" role="3uHU7w">
+              <property role="3cmrfH" value="1" />
+            </node>
+            <node concept="2OqwBi" id="7kzkaMV_lVp" role="3uHU7B">
+              <node concept="37vLTw" id="7kzkaMV_kQW" role="2Oq$k0">
+                <ref role="3cqZAo" node="5Ns9HDw1tFN" resolve="solutions" />
+              </node>
+              <node concept="34oBXx" id="7kzkaMV_oSQ" role="2OqNvi" />
+            </node>
+          </node>
+        </node>
+        <node concept="3cpWs6" id="7kzkaMV_MSl" role="3cqZAp">
+          <node concept="2OqwBi" id="7kzkaMV_OSU" role="3cqZAk">
+            <node concept="37vLTw" id="7kzkaMV_NS7" role="2Oq$k0">
+              <ref role="3cqZAo" node="5Ns9HDw1tFN" resolve="solutions" />
+            </node>
+            <node concept="34jXtK" id="7kzkaMV_Qa9" role="2OqNvi">
+              <node concept="3cmrfG" id="7kzkaMV_QfQ" role="25WWJ7">
+                <property role="3cmrfH" value="0" />
+              </node>
+            </node>
+          </node>
+        </node>
       </node>
       <node concept="3Tm1VV" id="1OzsJtaqC8C" role="1B3o_S" />
-      <node concept="3cqZAl" id="1OzsJtaqDPH" role="3clF45" />
+      <node concept="3uibUv" id="7kzkaMV_jgA" role="3clF45">
+        <ref role="3uigEE" to="z1c3:~Solution" resolve="Solution" />
+      </node>
       <node concept="37vLTG" id="1OzsJtargeP" role="3clF46">
         <property role="TrG5h" value="cloudModule" />
         <node concept="3uibUv" id="1OzsJtarUqM" role="1tU5fm">
