@@ -30,7 +30,7 @@ class HashUtilsTest {
     @Test
     fun testSha256Empty() {
         val res = HashUtil.sha256(byteArrayOf())
-        assertEquals("47DEQpj8HBSa-_TImW-5JCeuQeRkm5NMpJWZG3hSuFU", res)
+        assertEquals("47DEQ*pj8HBSa-_TImW-5JCeuQeRkm5NMpJWZG3hSuFU", res)
     }
 
     @Test

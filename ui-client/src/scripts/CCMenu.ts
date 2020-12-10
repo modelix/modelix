@@ -1,5 +1,5 @@
 import {JSKeyCodes} from "./KeyCodeTranslator";
-import {DomUtils} from "./DomUtil";
+import {DomUtils} from "./DomUtils";
 
 export interface IAction {
     getMatchingText(): string;

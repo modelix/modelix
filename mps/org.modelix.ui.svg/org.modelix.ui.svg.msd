@@ -30,6 +30,9 @@
     <dependency reexport="false">e52a4835-844d-46a1-99f8-c06129db796f(de.q60.mps.shadowmodels.runtime)</dependency>
     <dependency reexport="false">acf6d2e2-4f00-4425-b7e9-fbf011feddf1(org.modelix.common)</dependency>
     <dependency reexport="false">c5e5433e-201f-43e2-ad14-a6cba8c80cd6(org.modelix.model.mpsplugin)</dependency>
+    <dependency reexport="false">db058d09-86d2-48ce-b33c-595801a97e6c(org.modelix.ui.state)</dependency>
+    <dependency reexport="false">5622e615-959d-4843-9df6-ef04ee578c18(org.modelix.model)</dependency>
+    <dependency reexport="false">0a2651ab-f212-45c2-a2f0-343e76cbc26b(org.modelix.model.client)</dependency>
   </dependencies>
   <languageVersions>
     <language slang="l:654422bf-e75f-44dc-936d-188890a746ce:de.slisson.mps.reflection" version="0" />
@@ -64,14 +67,17 @@
     <module reference="ecfb9949-7433-4db5-85de-0f84d172e4ce(de.q60.mps.libs)" version="0" />
     <module reference="18463265-6d45-4514-82f1-cf7eb1222492(de.q60.mps.polymorphicfunctions.runtime)" version="0" />
     <module reference="e52a4835-844d-46a1-99f8-c06129db796f(de.q60.mps.shadowmodels.runtime)" version="0" />
+    <module reference="ceab5195-25ea-4f22-9b92-103b95ca8c0c(jetbrains.mps.lang.core)" version="0" />
     <module reference="9e98f4e2-decf-4e97-bf80-9109e8b759aa(jetbrains.mps.lang.feedback.context)" version="0" />
     <module reference="b0f8641f-bd77-4421-8425-30d9088a82f7(org.apache.commons)" version="0" />
     <module reference="acf6d2e2-4f00-4425-b7e9-fbf011feddf1(org.modelix.common)" version="0" />
     <module reference="fc3c2aa8-0d4b-463f-a774-40d450aa04a0(org.modelix.jetty)" version="0" />
     <module reference="87f4b21e-a3a5-459e-a54b-408fd9eb7350(org.modelix.lib)" version="0" />
+    <module reference="5622e615-959d-4843-9df6-ef04ee578c18(org.modelix.model)" version="0" />
     <module reference="0a2651ab-f212-45c2-a2f0-343e76cbc26b(org.modelix.model.client)" version="0" />
     <module reference="c5e5433e-201f-43e2-ad14-a6cba8c80cd6(org.modelix.model.mpsplugin)" version="0" />
     <module reference="da981293-1ec2-4df0-95e4-df162984154c(org.modelix.ui.common)" version="0" />
+    <module reference="db058d09-86d2-48ce-b33c-595801a97e6c(org.modelix.ui.state)" version="0" />
     <module reference="cceec75f-de6e-4ee7-bd91-29a3a99bfede(org.modelix.ui.svg)" version="0" />
   </dependencyVersions>
 </solution>

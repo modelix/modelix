@@ -16,14 +16,14 @@
 package org.modelix.model.persistent
 
 object HashUtil {
-    val HASH_PATTERN = Regex("""[a-zA-Z0-9\-_]{43}""")
+    val HASH_PATTERN = Regex("""[a-zA-Z0-9\-_]{5}\*[a-zA-Z0-9\-_]{38}""")
 
     fun sha256asByteArray(input: ByteArray?): ByteArray = PlatformSpecificHashUtil.sha256asByteArray(input)
     fun sha256(input: ByteArray?): String = PlatformSpecificHashUtil.sha256(input)
     fun sha256(input: String): String = PlatformSpecificHashUtil.sha256(input)
 
     fun isSha256(value: String?): Boolean {
-        return if (value == null || value.length != 43) {
+        return if (value == null || value.length != 44) {
             false
         } else value.matches(HASH_PATTERN)
     }

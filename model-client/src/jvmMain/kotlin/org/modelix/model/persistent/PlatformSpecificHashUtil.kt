@@ -34,7 +34,8 @@ actual object PlatformSpecificHashUtil {
 
     actual fun sha256(input: ByteArray?): String {
         val sha256Bytes = sha256asByteArray(input)
-        return Base64.getUrlEncoder().withoutPadding().encodeToString(sha256Bytes)
+        val base64 = Base64.getUrlEncoder().withoutPadding().encodeToString(sha256Bytes)
+        return base64.substring(0, 5) + "*" + base64.substring(5)
     }
 
     actual fun sha256(input: String): String {

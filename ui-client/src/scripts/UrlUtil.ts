@@ -1,4 +1,4 @@
-export function getWebsocketUrl() {
+export function getWebsocketBaseUrl() {
     let path = window.location.pathname;
     path = path.substring(0, path.lastIndexOf("/"));
     let url = "ws://" + window.location.host + path;
