@@ -1627,6 +1627,12 @@
       <node concept="tCFHf" id="EMWAvBfi7c" role="ftvYc">
         <ref role="tCJdB" node="EMWAvBdVtK" resolve="AddTransientModuleBinding" />
       </node>
+      <node concept="tCFHf" id="729BXr3O5YA" role="ftvYc">
+        <ref role="tCJdB" node="729BXr3NNGW" resolve="CheckoutModule" />
+      </node>
+      <node concept="tCFHf" id="729BXr3O6a0" role="ftvYc">
+        <ref role="tCJdB" node="729BXr3O2Mp" resolve="CheckoutAndSyncModule" />
+      </node>
       <node concept="tCFHf" id="Nm_qC27ip3" role="ftvYc">
         <ref role="tCJdB" node="5iCdLF2l4kT" resolve="NavigateToMpsNode" />
       </node>
@@ -11465,6 +11471,145 @@
             </node>
             <node concept="AQDAd" id="3TbkWOkVGvV" role="2OqNvi">
               <ref role="37wK5l" to="um17:5iCdLF2lqde" resolve="isProperNode" />
+            </node>
+          </node>
+        </node>
+      </node>
+    </node>
+  </node>
+  <node concept="sE7Ow" id="729BXr3NNGW">
+    <property role="3GE5qa" value="actions.node.module" />
+    <property role="TrG5h" value="CheckoutModule" />
+    <property role="2uzpH1" value="Checkout" />
+    <property role="72QZ$" value="true" />
+    <node concept="1DS2jV" id="729BXr3NNGX" role="1NuT2Z">
+      <property role="TrG5h" value="project" />
+      <ref role="1DUlNI" to="qkt:~CommonDataKeys.PROJECT" resolve="PROJECT" />
+      <node concept="1oajcY" id="729BXr3NNGY" role="1oa70y" />
+    </node>
+    <node concept="1DS2jV" id="729BXr3NNGZ" role="1NuT2Z">
+      <property role="TrG5h" value="treeNode" />
+      <ref role="1DUlNI" to="qq03:~MPSCommonDataKeys.TREE_NODE" resolve="TREE_NODE" />
+      <node concept="1oajcY" id="729BXr3NNH0" role="1oa70y" />
+    </node>
+    <node concept="tnohg" id="729BXr3NNH1" role="tncku">
+      <node concept="3clFbS" id="729BXr3NNH2" role="2VODD2" />
+    </node>
+    <node concept="2ScWuX" id="729BXr3NNHW" role="tmbBb">
+      <node concept="3clFbS" id="729BXr3NNHX" role="2VODD2">
+        <node concept="3SKdUt" id="729BXr3O6pT" role="3cqZAp">
+          <node concept="1PaTwC" id="729BXr3O6pU" role="1aUNEU">
+            <node concept="3oM_SD" id="729BXr3O6pV" role="1PaTwD">
+              <property role="3oM_SC" value="TODO" />
+            </node>
+            <node concept="3oM_SD" id="729BXr3O6rH" role="1PaTwD">
+              <property role="3oM_SC" value="verify" />
+            </node>
+            <node concept="3oM_SD" id="729BXr3O6rV" role="1PaTwD">
+              <property role="3oM_SC" value="it" />
+            </node>
+            <node concept="3oM_SD" id="729BXr3O6sa" role="1PaTwD">
+              <property role="3oM_SC" value="does" />
+            </node>
+            <node concept="3oM_SD" id="729BXr3O6sg" role="1PaTwD">
+              <property role="3oM_SC" value="not" />
+            </node>
+            <node concept="3oM_SD" id="729BXr3O6sn" role="1PaTwD">
+              <property role="3oM_SC" value="exist" />
+            </node>
+            <node concept="3oM_SD" id="729BXr3O6sv" role="1PaTwD">
+              <property role="3oM_SC" value="a" />
+            </node>
+            <node concept="3oM_SD" id="729BXr3O6sC" role="1PaTwD">
+              <property role="3oM_SC" value="module" />
+            </node>
+            <node concept="3oM_SD" id="729BXr3O6sW" role="1PaTwD">
+              <property role="3oM_SC" value="with" />
+            </node>
+            <node concept="3oM_SD" id="729BXr3O6t7" role="1PaTwD">
+              <property role="3oM_SC" value="such" />
+            </node>
+            <node concept="3oM_SD" id="729BXr3O6tj" role="1PaTwD">
+              <property role="3oM_SC" value="name" />
+            </node>
+          </node>
+        </node>
+        <node concept="3cpWs6" id="729BXr3NNHY" role="3cqZAp">
+          <node concept="1Wc70l" id="729BXr3NNHZ" role="3cqZAk">
+            <node concept="3fqX7Q" id="729BXr3NNI0" role="3uHU7w">
+              <node concept="2OqwBi" id="729BXr3NNI1" role="3fr31v">
+                <node concept="2OqwBi" id="729BXr3NNI2" role="2Oq$k0">
+                  <node concept="2WthIp" id="729BXr3NNI3" role="2Oq$k0" />
+                  <node concept="1DTwFV" id="729BXr3NNI4" role="2OqNvi">
+                    <ref role="2WH_rO" node="729BXr3NNGZ" resolve="treeNode" />
+                  </node>
+                </node>
+                <node concept="AQDAd" id="729BXr3NNI5" role="2OqNvi">
+                  <ref role="37wK5l" to="um17:1xehy3SjXuA" resolve="isBoundAsModule" />
+                </node>
+              </node>
+            </node>
+            <node concept="2OqwBi" id="729BXr3NNI6" role="3uHU7B">
+              <node concept="2OqwBi" id="729BXr3NNI7" role="2Oq$k0">
+                <node concept="2WthIp" id="729BXr3NNI8" role="2Oq$k0" />
+                <node concept="1DTwFV" id="729BXr3NNI9" role="2OqNvi">
+                  <ref role="2WH_rO" node="729BXr3NNGZ" resolve="treeNode" />
+                </node>
+              </node>
+              <node concept="AQDAd" id="729BXr3NNIa" role="2OqNvi">
+                <ref role="37wK5l" to="um17:1xehy3Shl61" resolve="isModuleNode" />
+              </node>
+            </node>
+          </node>
+        </node>
+      </node>
+    </node>
+  </node>
+  <node concept="sE7Ow" id="729BXr3O2Mp">
+    <property role="3GE5qa" value="actions.node.module" />
+    <property role="TrG5h" value="CheckoutAndSyncModule" />
+    <property role="2uzpH1" value="Checkout and Sync" />
+    <property role="72QZ$" value="true" />
+    <node concept="1DS2jV" id="729BXr3O2Mq" role="1NuT2Z">
+      <property role="TrG5h" value="project" />
+      <ref role="1DUlNI" to="qkt:~CommonDataKeys.PROJECT" resolve="PROJECT" />
+      <node concept="1oajcY" id="729BXr3O2Mr" role="1oa70y" />
+    </node>
+    <node concept="1DS2jV" id="729BXr3O2Ms" role="1NuT2Z">
+      <property role="TrG5h" value="treeNode" />
+      <ref role="1DUlNI" to="qq03:~MPSCommonDataKeys.TREE_NODE" resolve="TREE_NODE" />
+      <node concept="1oajcY" id="729BXr3O2Mt" role="1oa70y" />
+    </node>
+    <node concept="tnohg" id="729BXr3O2Mu" role="tncku">
+      <node concept="3clFbS" id="729BXr3O2Mv" role="2VODD2" />
+    </node>
+    <node concept="2ScWuX" id="729BXr3O2Mw" role="tmbBb">
+      <node concept="3clFbS" id="729BXr3O2Mx" role="2VODD2">
+        <node concept="3cpWs6" id="729BXr3O2My" role="3cqZAp">
+          <node concept="1Wc70l" id="729BXr3O2Mz" role="3cqZAk">
+            <node concept="3fqX7Q" id="729BXr3O2M$" role="3uHU7w">
+              <node concept="2OqwBi" id="729BXr3O2M_" role="3fr31v">
+                <node concept="2OqwBi" id="729BXr3O2MA" role="2Oq$k0">
+                  <node concept="2WthIp" id="729BXr3O2MB" role="2Oq$k0" />
+                  <node concept="1DTwFV" id="729BXr3O2MC" role="2OqNvi">
+                    <ref role="2WH_rO" node="729BXr3O2Ms" resolve="treeNode" />
+                  </node>
+                </node>
+                <node concept="AQDAd" id="729BXr3O2MD" role="2OqNvi">
+                  <ref role="37wK5l" to="um17:1xehy3SjXuA" resolve="isBoundAsModule" />
+                </node>
+              </node>
+            </node>
+            <node concept="2OqwBi" id="729BXr3O2ME" role="3uHU7B">
+              <node concept="2OqwBi" id="729BXr3O2MF" role="2Oq$k0">
+                <node concept="2WthIp" id="729BXr3O2MG" role="2Oq$k0" />
+                <node concept="1DTwFV" id="729BXr3O2MH" role="2OqNvi">
+                  <ref role="2WH_rO" node="729BXr3O2Ms" resolve="treeNode" />
+                </node>
+              </node>
+              <node concept="AQDAd" id="729BXr3O2MI" role="2OqNvi">
+                <ref role="37wK5l" to="um17:1xehy3Shl61" resolve="isModuleNode" />
+              </node>
             </node>
           </node>
         </node>
