@@ -7962,7 +7962,7 @@
               <ref role="37wK5l" to="qkt:~Presentation.setText(java.lang.String)" resolve="setText" />
               <node concept="3cpWs3" id="1xehy3Sm8VM" role="37wK5m">
                 <node concept="Xl_RD" id="1xehy3Sm8VN" role="3uHU7B">
-                  <property role="Xl_RC" value="Store on Cloud Repo " />
+                  <property role="Xl_RC" value="Copy on Cloud &amp; Sync -&gt; " />
                 </node>
                 <node concept="2OqwBi" id="1xehy3Sm8VO" role="3uHU7w">
                   <node concept="2OqwBi" id="1xehy3Sm8VP" role="2Oq$k0">
@@ -8797,7 +8797,7 @@
   <node concept="sE7Ow" id="1WY6nGAtC_I">
     <property role="3GE5qa" value="actions.physicalelements" />
     <property role="TrG5h" value="CopyAndSyncPhysicalProjectOnCloud" />
-    <property role="2uzpH1" value="Copy to Cloud &amp; Sync" />
+    <property role="2uzpH1" value="Copy on Cloud &amp; Sync" />
     <node concept="2JriF1" id="1WY6nGAtC_J" role="2JrayB">
       <property role="TrG5h" value="treeInRepository" />
       <node concept="3Tm6S6" id="1WY6nGAtC_K" role="1B3o_S" />
@@ -9114,7 +9114,7 @@
                     </node>
                     <node concept="3cpWs3" id="4OH9SxdjbCe" role="3uHU7B">
                       <node concept="Xl_RD" id="4OH9SxdjbCf" role="3uHU7B">
-                        <property role="Xl_RC" value="Sync to Cloud Repo " />
+                        <property role="Xl_RC" value="Copy on Cloud &amp; Sync -&gt; " />
                       </node>
                       <node concept="2OqwBi" id="6Sw$yPpyxQ0" role="3uHU7w">
                         <node concept="2OqwBi" id="6Sw$yPpyxQ1" role="2Oq$k0">
@@ -10164,7 +10164,7 @@
               <ref role="37wK5l" to="qkt:~Presentation.setText(java.lang.String)" resolve="setText" />
               <node concept="3cpWs3" id="1xehy3SmaZ1" role="37wK5m">
                 <node concept="Xl_RD" id="1xehy3SmaZ2" role="3uHU7B">
-                  <property role="Xl_RC" value="Copy on Cloud Repo " />
+                  <property role="Xl_RC" value="Copy on Cloud -&gt; " />
                 </node>
                 <node concept="2OqwBi" id="1xehy3SmaZ3" role="3uHU7w">
                   <node concept="2OqwBi" id="1xehy3SmaZ4" role="2Oq$k0">
