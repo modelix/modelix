@@ -5,6 +5,8 @@ import jetbrains.mps.project.Project;
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
 import org.eclipse.jgit.api.Git;
+import org.eclipse.jgit.transport.CredentialsProvider;
+import org.eclipse.jgit.transport.UsernamePasswordCredentialsProvider;
 
 import java.io.File;
 import java.io.IOException;
@@ -23,6 +25,13 @@ public class Main {
             File gitRepoDir = null;
 
             String gitRepoUri = getPropertyOrEnv("GIT_REPO_URI");
+            String gitRepoUsername = getPropertyOrEnv("GIT_REPO_USERNAME");
+            String gitRepoPassword = getPropertyOrEnv("GIT_REPO_PASSWORD");
+
+            if (gitRepoUsername != null && gitRepoPassword != null){
+                System.out.println("Setting credentials for user "+ gitRepoUsername);
+                CredentialsProvider.setDefault(new UsernamePasswordCredentialsProvider(gitRepoUsername,gitRepoPassword));
+            }
 
             if (gitRepoUri != null && gitRepoUri.length() > 0) {
                 System.out.println("Cloning " + gitRepoUri);
