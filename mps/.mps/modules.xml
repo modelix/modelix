@@ -18,7 +18,6 @@
       <modulePath path="$PROJECT_DIR$/org.modelix.model/org.modelix.model.msd" folder="model" />
       <modulePath path="$PROJECT_DIR$/org.modelix.notation.impl.baseLanguage/org.modelix.notation.impl.baseLanguage.mpl" folder="aspect" />
       <modulePath path="$PROJECT_DIR$/org.modelix.notation/org.modelix.notation.mpl" folder="aspect" />
-      <modulePath path="$PROJECT_DIR$/org.modelix.sandbox/org.modelix.sandbox.msd" folder="" />
       <modulePath path="$PROJECT_DIR$/org.modelix.ui.common/org.modelix.ui.common.msd" folder="ui" />
       <modulePath path="$PROJECT_DIR$/org.modelix.ui.diff/org.modelix.ui.diff.msd" folder="ui.svg" />
       <modulePath path="$PROJECT_DIR$/org.modelix.ui.server/org.modelix.ui.server.msd" folder="ui" />
@@ -28,6 +27,7 @@
       <modulePath path="$PROJECT_DIR$/org.modelix.ui.sm/org.modelix.ui.sm.mpl" folder="ui.shadowmodels" />
       <modulePath path="$PROJECT_DIR$/org.modelix.ui.state/org.modelix.ui.state.mpl" folder="ui" />
       <modulePath path="$PROJECT_DIR$/org.modelix.ui.svg/org.modelix.ui.svg.msd" folder="ui.svg" />
+      <modulePath path="$PROJECT_DIR$/solutions/org.modelix.integrationtests/org.modelix.integrationtests.msd" folder="tests" />
       <modulePath path="$PROJECT_DIR$/test.org.modelix.model.mpsplugin/test.org.modelix.model.mpsplugin.msd" folder="model" />
       <modulePath path="$PROJECT_DIR$/test.org.modelix.ui.common/test.org.modelix.ui.common.msd" folder="ui" />
     </projectModules>
