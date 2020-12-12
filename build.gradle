@@ -47,3 +47,19 @@ description = "Cloud storage and web UI for MPS"
 
 defaultTasks 'assemble'
 
+task buildIntegrationTests(type: BuildLanguages, dependsOn: [assemble]) {
+    scriptArgs = antScriptArgs
+    scriptClasspath = buildScriptClasspath
+    script new File('mpscode/build-launcher.xml')
+}
+
+task justRunIntegrationTests(type: RunAntScript, dependsOn: []) {
+    targets = ['run.com.strumenta.mpsserver.launcher']
+    scriptArgs = antScriptArgs
+    scriptClasspath = buildScriptClasspath
+    script new File('mpscode/build-launcher.xml')
+}
+
+task runIntegrationTests(dependsOn: [buildIntegrationTests, justRunIntegrationTests]) {
+
+}
