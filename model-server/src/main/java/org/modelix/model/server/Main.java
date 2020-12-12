@@ -18,6 +18,7 @@ package org.modelix.model.server;
 import com.beust.jcommander.JCommander;
 import com.beust.jcommander.Parameter;
 import com.beust.jcommander.converters.BooleanConverter;
+import com.beust.jcommander.converters.IntegerConverter;
 import java.io.File;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
@@ -56,6 +57,12 @@ class CmdLineArgs {
             description = "Use in-memory storage",
             converter = BooleanConverter.class)
     Boolean inmemory = false;
+
+    @Parameter(
+            names = "-port",
+            description = "Set port",
+            converter = IntegerConverter.class)
+    Integer port = null;
 
     @Parameter(names = "-set", description = "Set values", arity = 2)
     List<String> setValues = new LinkedList<>();
@@ -174,6 +181,9 @@ public class Main {
         try {
             String portStr = System.getenv("MODELIX_SERVER_PORT");
             int port = portStr == null ? 28101 : Integer.parseInt(portStr);
+            if (cmdLineArgs.port != null) {
+                port = cmdLineArgs.port;
+            }
             LOG.info("Port: " + port);
             InetSocketAddress bindTo =
                     new InetSocketAddress(InetAddress.getByName("0.0.0.0"), port);
