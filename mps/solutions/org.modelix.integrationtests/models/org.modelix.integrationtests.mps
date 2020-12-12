@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<model ref="r:ec75a426-3f03-4e3f-b2c1-8c6910d05061(org.modelix.integrationtests.launcher)">
+<model ref="r:ec75a426-3f03-4e3f-b2c1-8c6910d05061(org.modelix.integrationtests)">
   <persistence version="9" />
   <languages>
     <use id="760a0a8c-eabb-4521-8bfd-65db761a9ba3" name="jetbrains.mps.baseLanguage.logging" version="0" />
@@ -679,6 +679,11 @@
         </node>
         <node concept="3clFbJ" id="5yNJPA6bEAH" role="3cqZAp">
           <node concept="3clFbS" id="5yNJPA6bEAJ" role="3clFbx">
+            <node concept="abc8K" id="5yNJPA6bHQo" role="3cqZAp">
+              <node concept="Xl_RD" id="5yNJPA6bHQT" role="abp_N">
+                <property role="Xl_RC" value="At least one test failed" />
+              </node>
+            </node>
             <node concept="3clFbF" id="5yNJPA6bEMj" role="3cqZAp">
               <node concept="2YIFZM" id="5yNJPA6bEN4" role="3clFbG">
                 <ref role="37wK5l" to="wyt6:~System.exit(int)" resolve="exit" />
@@ -694,6 +699,11 @@
           </node>
           <node concept="9aQIb" id="5yNJPA6bEPo" role="9aQIa">
             <node concept="3clFbS" id="5yNJPA6bEPp" role="9aQI4">
+              <node concept="abc8K" id="5yNJPA6bHTk" role="3cqZAp">
+                <node concept="Xl_RD" id="5yNJPA6bHTP" role="abp_N">
+                  <property role="Xl_RC" value="All tests were successful" />
+                </node>
+              </node>
               <node concept="3clFbF" id="5yNJPA6bEQf" role="3cqZAp">
                 <node concept="2YIFZM" id="5yNJPA6bEQI" role="3clFbG">
                   <ref role="37wK5l" to="wyt6:~System.exit(int)" resolve="exit" />
