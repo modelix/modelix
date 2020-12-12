@@ -5550,6 +5550,11 @@
             <ref role="3bR37D" node="7gF2HTviNPs" resolve="org.modelix.model.mpsplugin" />
           </node>
         </node>
+        <node concept="1SiIV0" id="7JjSHvQ85Pp" role="3bR37C">
+          <node concept="3bR9La" id="7JjSHvQ85Pq" role="1SiIV1">
+            <ref role="3bR37D" node="7gF2HTviNPK" resolve="org.modelix.model" />
+          </node>
+        </node>
       </node>
     </node>
     <node concept="398rNT" id="5yNJPA6sbmP" role="1l3spd">
