@@ -5545,6 +5545,11 @@
             </node>
           </node>
         </node>
+        <node concept="1SiIV0" id="11vVX88rZNc" role="3bR37C">
+          <node concept="3bR9La" id="11vVX88rZNd" role="1SiIV1">
+            <ref role="3bR37D" node="7gF2HTviNPs" resolve="org.modelix.model.mpsplugin" />
+          </node>
+        </node>
       </node>
     </node>
     <node concept="398rNT" id="5yNJPA6sbmP" role="1l3spd">

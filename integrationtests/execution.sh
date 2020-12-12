@@ -1,0 +1,1 @@
+chmod +x /Users/federico/repos/modelix/artifacts/mps/bin/mac/printenv.py
