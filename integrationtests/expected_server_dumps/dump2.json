@@ -322,18 +322,18 @@
                 {
                   "$role": "member",
                   "$concept": "jetbrains.mps.baseLanguage.FieldDeclaration",
-                  "#mpsNodeId#": "6391662687397648349",
+                  "#mpsNodeId#": "$$SOME_ID1$$",
                   "name": "addedField",
                   "$children": [
                     {
                       "$role": "type",
                       "$concept": "jetbrains.mps.baseLanguage.StringType",
-                      "#mpsNodeId#": "6391662687397648334"
+                      "#mpsNodeId#": "$$SOME_ID2$$"
                     },
                     {
                       "$role": "visibility",
                       "$concept": "jetbrains.mps.baseLanguage.PrivateVisibility",
-                      "#mpsNodeId#": "6391662687397663428"
+                      "#mpsNodeId#": "$$SOME_ID3$$"
                     }
                   ]
                 }
