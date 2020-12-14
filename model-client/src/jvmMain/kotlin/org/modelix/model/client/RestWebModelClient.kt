@@ -41,6 +41,7 @@ import java.util.function.Consumer
 import java.util.function.Predicate
 import java.util.function.ToLongFunction
 import java.util.stream.Stream
+import javax.ws.rs.ProcessingException
 import javax.ws.rs.client.Client
 import javax.ws.rs.client.ClientBuilder
 import javax.ws.rs.client.ClientRequestFilter
@@ -94,9 +95,14 @@ class RestWebModelClient @JvmOverloads constructor(var baseUrl: String? = null, 
     override var clientId = 0
         get() {
             if (field == 0) {
-                val response = client.target(baseUrl + "counter/clientId").request().post(Entity.text(""))
-                val idStr = response.readEntity(String::class.java)
-                field = idStr.toInt()
+                val targetUri = baseUrl + "counter/clientId"
+                try {
+                    val response = client.target(targetUri).request().post(Entity.text(""))
+                    val idStr = response.readEntity(String::class.java)
+                    field = idStr.toInt()
+                } catch (e: ProcessingException) {
+                    throw RuntimeException("Unable to get the clientId by querying $targetUri", e)
+                }
             }
             return field
         }
