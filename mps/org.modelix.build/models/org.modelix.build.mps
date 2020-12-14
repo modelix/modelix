@@ -5555,6 +5555,16 @@
             <ref role="3bR37D" node="7gF2HTviNPK" resolve="org.modelix.model" />
           </node>
         </node>
+        <node concept="1SiIV0" id="5i$4SBK2L_h" role="3bR37C">
+          <node concept="3bR9La" id="5i$4SBK2L_i" role="1SiIV1">
+            <ref role="3bR37D" to="ffeo:7Kfy9QB6KYb" resolve="jetbrains.mps.baseLanguage" />
+          </node>
+        </node>
+        <node concept="1SiIV0" id="5i$4SBK2L_j" role="3bR37C">
+          <node concept="3bR9La" id="5i$4SBK2L_k" role="1SiIV1">
+            <ref role="3bR37D" to="ffeo:1TaHNgiIbJb" resolve="MPS.Platform" />
+          </node>
+        </node>
       </node>
     </node>
     <node concept="398rNT" id="5yNJPA6sbmP" role="1l3spd">

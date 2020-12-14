@@ -109,7 +109,7 @@ task runMpsTests(type: TestLanguages, dependsOn: buildMpsModules) {
     script new File("$rootDir/build/test.org.modelix/build-tests.xml")
 }
 
-task buildIntegrationTests(type: BuildLanguages, dependsOn: [/*buildMpsModules*/]) {
+task justBuildIntegrationTests(type: BuildLanguages, dependsOn: []) {
     scriptArgs = defaultAntScriptArgs
     scriptClasspath = buildScriptClasspath
     script new File("$rootDir/build/integrationtests.org.modelix/build-integrationtests.xml")
@@ -122,7 +122,11 @@ task justRunIntegrationTests(type: RunAntScript, dependsOn: []) {
     script new File("$rootDir/build/integrationtests.org.modelix/build-integrationtests.xml")
 }
 
-task runIntegrationTests(dependsOn: [buildIntegrationTests, justRunIntegrationTests]) {
+task runIntegrationTestsWithoutRebuildingModelix(dependsOn: [justBuildIntegrationTests, justRunIntegrationTests]) {
+
+}
+
+task runIntegrationTests(dependsOn: [buildMpsModules, justBuildIntegrationTests, justRunIntegrationTests]) {
 
 }
 
