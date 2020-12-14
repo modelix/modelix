@@ -17345,7 +17345,7 @@
             </node>
           </node>
         </node>
-        <node concept="3clFbH" id="29etMtb9_x8" role="3cqZAp" />
+        <node concept="3clFbH" id="5i$4SBK76GX" role="3cqZAp" />
         <node concept="3cpWs8" id="29etMtb9_x9" role="3cqZAp">
           <node concept="3cpWsn" id="29etMtb9_xa" role="3cpWs9">
             <property role="TrG5h" value="parentNodeId" />
@@ -17353,6 +17353,39 @@
             <node concept="1rXfSq" id="29etMtb9_xc" role="33vP2m">
               <ref role="37wK5l" node="29etMtb9_Bk" resolve="getOrCreateNode" />
               <node concept="37vLTw" id="29etMtb9_xd" role="37wK5m">
+                <ref role="3cqZAo" node="29etMtb9_wy" resolve="parentNode" />
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="3clFbH" id="5i$4SBK7qkk" role="3cqZAp" />
+        <node concept="3cpWs8" id="5i$4SBK7enw" role="3cqZAp">
+          <node concept="3cpWsn" id="5i$4SBK7enx" role="3cpWs9">
+            <property role="TrG5h" value="cloudNode" />
+            <node concept="3uibUv" id="5i$4SBK7eny" role="1tU5fm">
+              <ref role="3uigEE" to="jks5:~INode" resolve="INode" />
+            </node>
+            <node concept="2ShNRf" id="5i$4SBK7gf8" role="33vP2m">
+              <node concept="1pGfFk" id="5i$4SBK7gIH" role="2ShVmc">
+                <ref role="37wK5l" to="jks5:~PNodeAdapter.&lt;init&gt;(long,org.modelix.model.api.IBranch)" resolve="PNodeAdapter" />
+                <node concept="37vLTw" id="5i$4SBK7r4x" role="37wK5m">
+                  <ref role="3cqZAo" node="29etMtb9_xa" resolve="parentNodeId" />
+                </node>
+                <node concept="37vLTw" id="5i$4SBK7mq8" role="37wK5m">
+                  <ref role="3cqZAo" node="29etMtb9_wR" resolve="branch" />
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="3clFbF" id="6dTx9S5ueQO" role="3cqZAp">
+          <node concept="2OqwBi" id="6dTx9S5ufiy" role="3clFbG">
+            <node concept="37vLTw" id="5i$4SBK7i02" role="2Oq$k0">
+              <ref role="3cqZAo" node="5i$4SBK7enx" resolve="cloudNode" />
+            </node>
+            <node concept="AQDAd" id="6dTx9S5ufKI" role="2OqNvi">
+              <ref role="37wK5l" node="6dTx9S5u7l1" resolve="mapToMpsNode" />
+              <node concept="37vLTw" id="5i$4SBK7ijq" role="37wK5m">
                 <ref role="3cqZAo" node="29etMtb9_wy" resolve="parentNode" />
               </node>
             </node>
