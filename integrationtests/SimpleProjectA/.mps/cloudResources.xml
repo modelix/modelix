@@ -3,14 +3,6 @@
   <component name="CloudResources">
     <option name="mappedModules">
       <list>
-        <option value="http://localhost:4001/default#simple.solution1" />
-        <option value="http://localhost:4000/default#simple.solution1" />
-        <option value="http://localhost:4000/default#simple.solution1" />
-        <option value="http://localhost:4000/default#simple.solution1" />
-        <option value="http://localhost:4000/default#simple.solution1" />
-        <option value="http://localhost:4000/default#simple.solution1" />
-        <option value="http://localhost:4000/default#simple.solution1" />
-        <option value="http://localhost:4000/default#simple.solution1" />
         <option value="http://localhost:4000/default#simple.solution1" />
       </list>
     </option>
