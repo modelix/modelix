@@ -1,9 +1,9 @@
-name: OverallBuild
+name: Integration Tests
 
 on: [push]
 
 jobs:
-  assembleWholeProject:
+  runIntegrationTests:
 
     runs-on: ubuntu-latest
 
@@ -13,5 +13,5 @@ jobs:
       uses: actions/setup-java@v1
       with:
         java-version: 11
-    - name: Assemble
-      run: ./gradlew assemble
+    - name: Integration Tests
+      run: ./gradlew runIntegrationTests
