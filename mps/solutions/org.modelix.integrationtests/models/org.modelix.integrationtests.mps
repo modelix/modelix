@@ -392,6 +392,7 @@
         <child id="1197687026896" name="keyType" index="3rHrn6" />
         <child id="1197687035757" name="valueType" index="3rHtpV" />
       </concept>
+      <concept id="1165530316231" name="jetbrains.mps.baseLanguage.collections.structure.IsEmptyOperation" flags="nn" index="1v1jN8" />
       <concept id="1202128969694" name="jetbrains.mps.baseLanguage.collections.structure.SelectOperation" flags="nn" index="3$u5V9" />
       <concept id="1197932370469" name="jetbrains.mps.baseLanguage.collections.structure.MapElement" flags="nn" index="3EllGN">
         <child id="1197932505799" name="map" index="3ElQJh" />
@@ -4282,13 +4283,26 @@
                 </node>
               </node>
             </node>
-            <node concept="1gVbGN" id="6JwgQ7US3XC" role="3cqZAp">
-              <node concept="2OqwBi" id="6JwgQ7US4z0" role="1gVkn0">
-                <node concept="37vLTw" id="6JwgQ7US4of" role="2Oq$k0">
+            <node concept="1gVbGN" id="6JwgQ7UWyH4" role="3cqZAp">
+              <node concept="2OqwBi" id="6JwgQ7UWyH5" role="1gVkn0">
+                <node concept="37vLTw" id="6JwgQ7UWyH6" role="2Oq$k0">
                   <ref role="3cqZAo" node="6JwgQ7UR0j5" resolve="pbc" />
                 </node>
-                <node concept="liA8E" id="6JwgQ7US4IY" role="2OqNvi">
+                <node concept="liA8E" id="6JwgQ7UWyH7" role="2OqNvi">
                   <ref role="37wK5l" to="nhvc:6JwgQ7URCLz" resolve="isEmpty" />
+                </node>
+              </node>
+              <node concept="3cpWs3" id="6JwgQ7UWyH8" role="1gVpfI">
+                <node concept="2OqwBi" id="6JwgQ7UWyH9" role="3uHU7w">
+                  <node concept="37vLTw" id="6JwgQ7UWyHa" role="2Oq$k0">
+                    <ref role="3cqZAo" node="6JwgQ7UR0j5" resolve="pbc" />
+                  </node>
+                  <node concept="liA8E" id="6JwgQ7UWyHb" role="2OqNvi">
+                    <ref role="37wK5l" to="nhvc:6JwgQ7UW22M" resolve="describeState" />
+                  </node>
+                </node>
+                <node concept="Xl_RD" id="6JwgQ7UWyHc" role="3uHU7B">
+                  <property role="Xl_RC" value="The PersistedBindingConfiguration is expected to be empty, it was " />
                 </node>
               </node>
             </node>
@@ -4457,6 +4471,38 @@
               </node>
             </node>
             <node concept="3clFbH" id="11vVX88rCiP" role="3cqZAp" />
+            <node concept="1gVbGN" id="6JwgQ7UWY_I" role="3cqZAp">
+              <node concept="2OqwBi" id="6JwgQ7UWZFW" role="1gVkn0">
+                <node concept="2OqwBi" id="6JwgQ7UWZax" role="2Oq$k0">
+                  <node concept="2YIFZM" id="6JwgQ7UWYZZ" role="2Oq$k0">
+                    <ref role="1Pybhc" to="csg2:1LVcV5Kxxi$" resolve="CloudRepositories" />
+                    <ref role="37wK5l" to="csg2:1LVcV5Kxxmz" resolve="getInstance" />
+                  </node>
+                  <node concept="liA8E" id="6JwgQ7UWZqh" role="2OqNvi">
+                    <ref role="37wK5l" to="csg2:1LVcV5KxBgM" resolve="getRepositories" />
+                  </node>
+                </node>
+                <node concept="1v1jN8" id="6JwgQ7UX0iv" role="2OqNvi" />
+              </node>
+              <node concept="3cpWs3" id="6JwgQ7UX1xA" role="1gVpfI">
+                <node concept="Xl_RD" id="6JwgQ7UX0Wz" role="3uHU7B">
+                  <property role="Xl_RC" value="Expected not to find CloudRepositories: " />
+                </node>
+                <node concept="2OqwBi" id="6JwgQ7UX1XN" role="3uHU7w">
+                  <node concept="2OqwBi" id="6JwgQ7UX1I3" role="2Oq$k0">
+                    <node concept="2YIFZM" id="6JwgQ7UX1I4" role="2Oq$k0">
+                      <ref role="1Pybhc" to="csg2:1LVcV5Kxxi$" resolve="CloudRepositories" />
+                      <ref role="37wK5l" to="csg2:1LVcV5Kxxmz" resolve="getInstance" />
+                    </node>
+                    <node concept="liA8E" id="6JwgQ7UX1I5" role="2OqNvi">
+                      <ref role="37wK5l" to="csg2:1LVcV5KxBgM" resolve="getRepositories" />
+                    </node>
+                  </node>
+                  <node concept="ANE8D" id="6JwgQ7UX2BT" role="2OqNvi" />
+                </node>
+              </node>
+            </node>
+            <node concept="3clFbH" id="6JwgQ7UWXVK" role="3cqZAp" />
             <node concept="3SKdUt" id="11vVX88rCiQ" role="3cqZAp">
               <node concept="1PaTwC" id="11vVX88rCiR" role="1aUNEU">
                 <node concept="3oM_SD" id="11vVX88rCiS" role="1PaTwD">
@@ -4574,16 +4620,26 @@
               </node>
             </node>
             <node concept="3clFbH" id="6JwgQ7USL6s" role="3cqZAp" />
-            <node concept="1gVbGN" id="6JwgQ7USMMB" role="3cqZAp">
-              <node concept="2OqwBi" id="6JwgQ7USNsy" role="1gVkn0">
-                <node concept="37vLTw" id="6JwgQ7USNeg" role="2Oq$k0">
+            <node concept="1gVbGN" id="6JwgQ7UWLdt" role="3cqZAp">
+              <node concept="2OqwBi" id="6JwgQ7UWLdu" role="1gVkn0">
+                <node concept="37vLTw" id="6JwgQ7UWLdv" role="2Oq$k0">
                   <ref role="3cqZAo" node="6JwgQ7UR0j5" resolve="pbc" />
                 </node>
-                <node concept="liA8E" id="6JwgQ7USNCz" role="2OqNvi">
-                  <ref role="37wK5l" to="nhvc:6JwgQ7USq0G" resolve="hasMappedModule" />
-                  <node concept="Xl_RD" id="6JwgQ7USNQa" role="37wK5m">
-                    <property role="Xl_RC" value="simple.solution1" />
+                <node concept="liA8E" id="6JwgQ7UWLdw" role="2OqNvi">
+                  <ref role="37wK5l" to="nhvc:6JwgQ7URCLz" resolve="isEmpty" />
+                </node>
+              </node>
+              <node concept="3cpWs3" id="6JwgQ7UWLdx" role="1gVpfI">
+                <node concept="2OqwBi" id="6JwgQ7UWLdy" role="3uHU7w">
+                  <node concept="37vLTw" id="6JwgQ7UWLdz" role="2Oq$k0">
+                    <ref role="3cqZAo" node="6JwgQ7UR0j5" resolve="pbc" />
                   </node>
+                  <node concept="liA8E" id="6JwgQ7UWLd$" role="2OqNvi">
+                    <ref role="37wK5l" to="nhvc:6JwgQ7UW22M" resolve="describeState" />
+                  </node>
+                </node>
+                <node concept="Xl_RD" id="6JwgQ7UWLd_" role="3uHU7B">
+                  <property role="Xl_RC" value="The PersistedBindingConfiguration is expected to be empty, it was " />
                 </node>
               </node>
             </node>
@@ -5768,6 +5824,39 @@
                 </node>
               </node>
             </node>
+            <node concept="3clFbH" id="6JwgQ7UX3bi" role="3cqZAp" />
+            <node concept="1gVbGN" id="6JwgQ7UX3yT" role="3cqZAp">
+              <node concept="2OqwBi" id="6JwgQ7UX3yU" role="1gVkn0">
+                <node concept="2OqwBi" id="6JwgQ7UX3yV" role="2Oq$k0">
+                  <node concept="2YIFZM" id="6JwgQ7UX3yW" role="2Oq$k0">
+                    <ref role="37wK5l" to="csg2:1LVcV5Kxxmz" resolve="getInstance" />
+                    <ref role="1Pybhc" to="csg2:1LVcV5Kxxi$" resolve="CloudRepositories" />
+                  </node>
+                  <node concept="liA8E" id="6JwgQ7UX3yX" role="2OqNvi">
+                    <ref role="37wK5l" to="csg2:1LVcV5KxBgM" resolve="getRepositories" />
+                  </node>
+                </node>
+                <node concept="1v1jN8" id="6JwgQ7UX3yY" role="2OqNvi" />
+              </node>
+              <node concept="3cpWs3" id="6JwgQ7UX3yZ" role="1gVpfI">
+                <node concept="Xl_RD" id="6JwgQ7UX3z0" role="3uHU7B">
+                  <property role="Xl_RC" value="Expected not to find CloudRepositories: " />
+                </node>
+                <node concept="2OqwBi" id="6JwgQ7UX3z1" role="3uHU7w">
+                  <node concept="2OqwBi" id="6JwgQ7UX3z2" role="2Oq$k0">
+                    <node concept="2YIFZM" id="6JwgQ7UX3z3" role="2Oq$k0">
+                      <ref role="37wK5l" to="csg2:1LVcV5Kxxmz" resolve="getInstance" />
+                      <ref role="1Pybhc" to="csg2:1LVcV5Kxxi$" resolve="CloudRepositories" />
+                    </node>
+                    <node concept="liA8E" id="6JwgQ7UX3z4" role="2OqNvi">
+                      <ref role="37wK5l" to="csg2:1LVcV5KxBgM" resolve="getRepositories" />
+                    </node>
+                  </node>
+                  <node concept="ANE8D" id="6JwgQ7UX3z5" role="2OqNvi" />
+                </node>
+              </node>
+            </node>
+            <node concept="3clFbH" id="6JwgQ7UX3fX" role="3cqZAp" />
             <node concept="3clFbH" id="5i$4SBK0dzC" role="3cqZAp" />
             <node concept="3SKdUt" id="5i$4SBK0dzD" role="3cqZAp">
               <node concept="1PaTwC" id="5i$4SBK0dzE" role="1aUNEU">
@@ -6209,17 +6298,28 @@
             </node>
             <node concept="3clFbH" id="5i$4SBK2HRc" role="3cqZAp" />
             <node concept="1gVbGN" id="6JwgQ7UVxCH" role="3cqZAp">
-              <node concept="3fqX7Q" id="6JwgQ7UVyis" role="1gVkn0">
-                <node concept="2OqwBi" id="6JwgQ7UVyiu" role="3fr31v">
-                  <node concept="37vLTw" id="6JwgQ7UVyiv" role="2Oq$k0">
+              <node concept="2OqwBi" id="6JwgQ7UVyiu" role="1gVkn0">
+                <node concept="37vLTw" id="6JwgQ7UVyiv" role="2Oq$k0">
+                  <ref role="3cqZAo" node="6JwgQ7UVt9i" resolve="pbc" />
+                </node>
+                <node concept="liA8E" id="6JwgQ7UVyiw" role="2OqNvi">
+                  <ref role="37wK5l" to="nhvc:6JwgQ7USq0G" resolve="hasMappedModule" />
+                  <node concept="Xl_RD" id="6JwgQ7UVyix" role="37wK5m">
+                    <property role="Xl_RC" value="simple.solution1" />
+                  </node>
+                </node>
+              </node>
+              <node concept="3cpWs3" id="6JwgQ7UWNVo" role="1gVpfI">
+                <node concept="2OqwBi" id="6JwgQ7UWOhc" role="3uHU7w">
+                  <node concept="37vLTw" id="6JwgQ7UWO3l" role="2Oq$k0">
                     <ref role="3cqZAo" node="6JwgQ7UVt9i" resolve="pbc" />
                   </node>
-                  <node concept="liA8E" id="6JwgQ7UVyiw" role="2OqNvi">
-                    <ref role="37wK5l" to="nhvc:6JwgQ7USq0G" resolve="hasMappedModule" />
-                    <node concept="Xl_RD" id="6JwgQ7UVyix" role="37wK5m">
-                      <property role="Xl_RC" value="simple.solution1" />
-                    </node>
+                  <node concept="liA8E" id="6JwgQ7UWO_s" role="2OqNvi">
+                    <ref role="37wK5l" to="nhvc:6JwgQ7UW22M" resolve="describeState" />
                   </node>
+                </node>
+                <node concept="Xl_RD" id="6JwgQ7UWNsC" role="3uHU7B">
+                  <property role="Xl_RC" value="Expected simple.solution1 to be bound, but found " />
                 </node>
               </node>
             </node>

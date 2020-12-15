@@ -422,6 +422,9 @@
       </concept>
     </language>
     <language id="760a0a8c-eabb-4521-8bfd-65db761a9ba3" name="jetbrains.mps.baseLanguage.logging">
+      <concept id="1168401810208" name="jetbrains.mps.baseLanguage.logging.structure.PrintStatement" flags="nn" index="abc8K">
+        <child id="1168401864803" name="textExpression" index="abp_N" />
+      </concept>
       <concept id="6332851714983831325" name="jetbrains.mps.baseLanguage.logging.structure.MsgStatement" flags="ng" index="2xdQw9">
         <property id="6332851714983843871" name="severity" index="2xdLsb" />
         <child id="5721587534047265560" name="project" index="9lYEk" />
@@ -6899,6 +6902,14 @@
             <property role="TrG5h" value="repoUrl" />
           </node>
           <node concept="3clFbS" id="1xehy3SoR1Y" role="2LFqv$">
+            <node concept="abc8K" id="6JwgQ7UWVCJ" role="3cqZAp">
+              <node concept="Xl_RD" id="6JwgQ7UWVSL" role="abp_N">
+                <property role="Xl_RC" value="addRepositoriesAsSpecifiedInPersistedBindingConfiguration " />
+              </node>
+              <node concept="2GrUjf" id="6JwgQ7UWWf9" role="abp_N">
+                <ref role="2Gs0qQ" node="1xehy3SoR1X" resolve="repoUrl" />
+              </node>
+            </node>
             <node concept="3cpWs8" id="1xehy3SoR1Z" role="3cqZAp">
               <node concept="3cpWsn" id="1xehy3SoR20" role="3cpWs9">
                 <property role="TrG5h" value="cloudRepository" />
@@ -7040,6 +7051,14 @@
                     </node>
                   </node>
                 </node>
+              </node>
+            </node>
+            <node concept="abc8K" id="6JwgQ7UWWiK" role="3cqZAp">
+              <node concept="Xl_RD" id="6JwgQ7UWWiL" role="abp_N">
+                <property role="Xl_RC" value="bindTransientModulesAsSpecifiedInPersistedConfiguration " />
+              </node>
+              <node concept="2GrUjf" id="6JwgQ7UWWJO" role="abp_N">
+                <ref role="2Gs0qQ" node="1xehy3SoS8Y" resolve="moduleStr" />
               </node>
             </node>
             <node concept="3clFbH" id="5rz8NqPRLtL" role="3cqZAp" />
@@ -7209,6 +7228,14 @@
                     </node>
                   </node>
                 </node>
+              </node>
+            </node>
+            <node concept="abc8K" id="6JwgQ7UWXB1" role="3cqZAp">
+              <node concept="Xl_RD" id="6JwgQ7UWXB2" role="abp_N">
+                <property role="Xl_RC" value="bindMappedModulesAsSpecifiedInPersistedConfiguration " />
+              </node>
+              <node concept="2GrUjf" id="6JwgQ7UWXB3" role="abp_N">
+                <ref role="2Gs0qQ" node="nzqvuXQQP5" resolve="moduleStr" />
               </node>
             </node>
             <node concept="3clFbH" id="nzqvuXQQPG" role="3cqZAp" />
