@@ -37,10 +37,14 @@ open class ActiveBranch(client: IModelClient, tree: TreeId, branchName: String?,
         }
     }
     private var listeners: List<IBranchListener> = ArrayList()
+    private var disposed = false
 
     @get:Synchronized
     override val branch: IBranch
-        get() = replicatedTree!!.branch
+        get() {
+            if (disposed) throw IllegalStateException("ActiveBranch was disposed")
+            return (replicatedTree ?: throw IllegalStateException("replicatedTree not available")).branch
+        }
 
     val version: CLVersion
         get() = replicatedTree!!.localVersion!!
@@ -49,6 +53,7 @@ open class ActiveBranch(client: IModelClient, tree: TreeId, branchName: String?,
         replicatedTree!!.branch.removeListener(forwardingListener)
         replicatedTree!!.dispose()
         replicatedTree = null
+        disposed = true
     }
 
     override fun addListener(l: IBranchListener) {

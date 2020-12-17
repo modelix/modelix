@@ -104,7 +104,7 @@ task buildMpsModules(
 assemble.dependsOn(buildMpsModules)
 
 task runMpsTests(type: TestLanguages, dependsOn: buildMpsModules) {
-    scriptArgs = defaultAntScriptArgs
+    scriptArgs = defaultAntScriptArgs + ['-Ddisable.autobinding=true']
     scriptClasspath = buildScriptClasspath
     script new File("$rootDir/build/test.org.modelix/build-tests.xml")
 }
@@ -115,7 +115,16 @@ task justBuildIntegrationTests(type: BuildLanguages, dependsOn: []) {
     script new File("$rootDir/build/integrationtests.org.modelix/build-integrationtests.xml")
 }
 
-task justRunIntegrationTests(type: RunAntScript, dependsOn: []) {
+import org.apache.tools.ant.taskdefs.condition.Os
+
+task ensurePrintEnvHasRightPermissions() << {
+    def printEnv = new File("$rootDir/artifacts/mps/bin/mac/printenv.py")
+    if (printEnv.exists()) {
+        sh "chmod +x ${printenv.getAbsolutePath()}"
+    }    
+}
+
+task justRunIntegrationTests(type: RunAntScript, dependsOn: [ensurePrintEnvHasRightPermissions]) {
     targets = ['run.org.modelix.integrationtests']
     scriptArgs = defaultAntScriptArgs
     scriptClasspath = buildScriptClasspath
