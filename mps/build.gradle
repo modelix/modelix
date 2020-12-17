@@ -117,11 +117,15 @@ task justBuildIntegrationTests(type: BuildLanguages, dependsOn: []) {
 
 import org.apache.tools.ant.taskdefs.condition.Os
 
+task makePrintEnvExecutable(type: Exec) {
+    commandLine "chmod", "+x", new File("$rootDir/artifacts/mps/bin/mac/printenv.py").getAbsolutePath()
+}
+
 task ensurePrintEnvHasRightPermissions() {
-    doFirst {
-        def printEnv = new File("$rootDir/artifacts/mps/bin/mac/printenv.py")
-        if (printEnv.exists()) {
-            sh "chmod +x ${printenv.getAbsolutePath()}"
+    doLast {
+        def printenv = new File("$rootDir/artifacts/mps/bin/mac/printenv.py")
+        if (printenv.exists()) {
+            makePrintEnvExecutable.exec()
         }    
     }
 }
