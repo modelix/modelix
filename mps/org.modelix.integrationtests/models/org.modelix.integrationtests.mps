@@ -4256,7 +4256,6 @@
       </node>
     </node>
     <node concept="2tJIrI" id="1QKKVBBBQPk" role="jymVt" />
-    <node concept="2tJIrI" id="1QKKVBBBQUm" role="jymVt" />
     <node concept="3clFb_" id="1QKKVBBBRkO" role="jymVt">
       <property role="TrG5h" value="logic" />
       <node concept="3Tm1VV" id="1QKKVBBBRkQ" role="1B3o_S" />
@@ -4350,6 +4349,19 @@
               <property role="Xl_RC" value="SimpleProjectA" />
             </node>
           </node>
+          <node concept="3cpWs3" id="53_gmpoLHlS" role="1gVpfI">
+            <node concept="2OqwBi" id="53_gmpoLIjk" role="3uHU7w">
+              <node concept="37vLTw" id="53_gmpoLHZV" role="2Oq$k0">
+                <ref role="3cqZAo" node="11vVX88rChQ" resolve="mpsProject" />
+              </node>
+              <node concept="liA8E" id="53_gmpoLIBp" role="2OqNvi">
+                <ref role="37wK5l" to="z1c3:~Project.getName()" resolve="getName" />
+              </node>
+            </node>
+            <node concept="Xl_RD" id="53_gmpoLGH3" role="3uHU7B">
+              <property role="Xl_RC" value="Project expected to be named SimpleProjectA, but it was named " />
+            </node>
+          </node>
         </node>
         <node concept="1gVbGN" id="11vVX88rCi4" role="3cqZAp">
           <node concept="17R0WA" id="11vVX88rCi5" role="1gVkn0">
@@ -4366,6 +4378,24 @@
                 </node>
               </node>
               <node concept="liA8E" id="11vVX88rCib" role="2OqNvi">
+                <ref role="37wK5l" to="33ny:~List.size()" resolve="size" />
+              </node>
+            </node>
+          </node>
+          <node concept="3cpWs3" id="53_gmpoLDsh" role="1gVpfI">
+            <node concept="Xl_RD" id="53_gmpoLCQ7" role="3uHU7B">
+              <property role="Xl_RC" value="One project modules expected but found " />
+            </node>
+            <node concept="2OqwBi" id="53_gmpoLDKt" role="3uHU7w">
+              <node concept="2OqwBi" id="53_gmpoLDKu" role="2Oq$k0">
+                <node concept="37vLTw" id="53_gmpoLDKv" role="2Oq$k0">
+                  <ref role="3cqZAo" node="11vVX88rChQ" resolve="mpsProject" />
+                </node>
+                <node concept="liA8E" id="53_gmpoLDKw" role="2OqNvi">
+                  <ref role="37wK5l" to="z1c3:~IProject.getProjectModules()" resolve="getProjectModules" />
+                </node>
+              </node>
+              <node concept="liA8E" id="53_gmpoLDKx" role="2OqNvi">
                 <ref role="37wK5l" to="33ny:~List.size()" resolve="size" />
               </node>
             </node>
@@ -4407,6 +4437,19 @@
               <node concept="liA8E" id="11vVX88rCim" role="2OqNvi">
                 <ref role="37wK5l" to="lui2:~SModule.getModuleName()" resolve="getModuleName" />
               </node>
+            </node>
+          </node>
+          <node concept="3cpWs3" id="53_gmpoLFcM" role="1gVpfI">
+            <node concept="2OqwBi" id="53_gmpoLFRB" role="3uHU7w">
+              <node concept="37vLTw" id="53_gmpoLFFo" role="2Oq$k0">
+                <ref role="3cqZAo" node="11vVX88rLeR" resolve="simpleSolution1" />
+              </node>
+              <node concept="liA8E" id="53_gmpoLG2j" role="2OqNvi">
+                <ref role="37wK5l" to="lui2:~SModule.getModuleName()" resolve="getModuleName" />
+              </node>
+            </node>
+            <node concept="Xl_RD" id="53_gmpoLE_8" role="3uHU7B">
+              <property role="Xl_RC" value="Module expected to be named simple.solution1 but it was named " />
             </node>
           </node>
         </node>
