@@ -583,21 +583,6 @@
                     </node>
                   </node>
                 </node>
-                <node concept="1X3_iC" id="7JjSHvQ4bmY" role="lGtFl">
-                  <property role="3V$3am" value="initValue" />
-                  <property role="3V$3ak" value="83888646-71ce-4f1c-9c53-c54016f6ad4f/1237721394592/1237721435808" />
-                  <node concept="2ShNRf" id="5yNJPA6buFb" role="8Wnug">
-                    <node concept="1pGfFk" id="5yNJPA6tmCQ" role="2ShVmc">
-                      <ref role="37wK5l" node="5yNJPA6tlJ7" resolve="ProjectCanBeCopiedOnCloudTest" />
-                      <node concept="37vLTw" id="5yNJPA6tnzZ" role="37wK5m">
-                        <ref role="3cqZAo" node="5yNJPA6tn0p" resolve="referenceDir" />
-                      </node>
-                      <node concept="37vLTw" id="5yNJPA6tmLD" role="37wK5m">
-                        <ref role="3cqZAo" node="4ZsvGZutXBI" resolve="ideaEnvironment" />
-                      </node>
-                    </node>
-                  </node>
-                </node>
               </node>
             </node>
           </node>
@@ -5291,7 +5276,7 @@
             <node concept="1rXfSq" id="1QKKVBBDsMP" role="33vP2m">
               <ref role="37wK5l" node="5yNJPA6tpld" resolve="openProject" />
               <node concept="Xl_RD" id="1QKKVBBDsMQ" role="37wK5m">
-                <property role="Xl_RC" value="SimpleProjectA" />
+                <property role="Xl_RC" value="SimpleProjectB" />
               </node>
             </node>
           </node>
@@ -5362,7 +5347,7 @@
               </node>
             </node>
             <node concept="Xl_RD" id="1QKKVBBDwcQ" role="3uHU7w">
-              <property role="Xl_RC" value="SimpleProjectA" />
+              <property role="Xl_RC" value="SimpleProjectB" />
             </node>
           </node>
         </node>
