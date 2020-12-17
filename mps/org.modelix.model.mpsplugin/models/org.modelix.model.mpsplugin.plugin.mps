@@ -422,6 +422,9 @@
       </concept>
     </language>
     <language id="760a0a8c-eabb-4521-8bfd-65db761a9ba3" name="jetbrains.mps.baseLanguage.logging">
+      <concept id="1168401810208" name="jetbrains.mps.baseLanguage.logging.structure.PrintStatement" flags="nn" index="abc8K">
+        <child id="1168401864803" name="textExpression" index="abp_N" />
+      </concept>
       <concept id="6332851714983831325" name="jetbrains.mps.baseLanguage.logging.structure.MsgStatement" flags="ng" index="2xdQw9">
         <property id="6332851714983843871" name="severity" index="2xdLsb" />
         <child id="5721587534047265560" name="project" index="9lYEk" />
@@ -1089,6 +1092,11 @@
             <node concept="liA8E" id="115Xaa3ZmtM" role="2OqNvi">
               <ref role="37wK5l" to="4nil:115Xaa3Zj8M" resolve="init" />
             </node>
+          </node>
+        </node>
+        <node concept="abc8K" id="6h4an0SZKfY" role="3cqZAp">
+          <node concept="Xl_RD" id="6h4an0SZKl7" role="abp_N">
+            <property role="Xl_RC" value="APPLYING PROJECT PLUGIN - PERSISTED BINDING CONFIGURATION" />
           </node>
         </node>
         <node concept="3clFbF" id="1xehy3SpfNi" role="3cqZAp">
