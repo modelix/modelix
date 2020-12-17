@@ -72,12 +72,6 @@ class CmdLineArgs {
             converter = IntegerConverter.class)
     Integer port = null;
 
-    @Parameter(
-            names = "-debugport",
-            description = "Set debug port",
-            converter = IntegerConverter.class)
-    Integer debugPort = null;
-
     @Parameter(names = "-set", description = "Set values", arity = 2)
     List<String> setValues = new LinkedList<>();
 
@@ -180,29 +174,6 @@ public class Main {
         }
     }
 
-    private static void startDebugListener(final int debugPort, final RestModelServer modelServer) {
-        Thread t = new Thread(() -> {
-            try {
-                ServerSocket serverSocket = new ServerSocket(debugPort);
-                Socket clientSocket = serverSocket.accept();
-                PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
-                BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-                String command = in.readLine();
-                LOG.info("Received debug command '" + command + "'");
-                if (command.toLowerCase().equals("dump")) {
-                    out.println("[DUMP-START]");
-                    modelServer.
-                    out.println("[DUMP-END]");
-                } else {
-                    out.println("unrecognized command");
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
-        t.start();
-    }
-
     public static void main(String[] args) {
         CmdLineArgs cmdLineArgs = new CmdLineArgs();
         new JCommander(cmdLineArgs).parse(args);
@@ -214,7 +185,6 @@ public class Main {
         LOG.info("Path to JDBC configuration file: " + cmdLineArgs.jdbcConfFile);
         LOG.info("Schema initialization: " + cmdLineArgs.schemaInit);
         LOG.info("Set values: " + cmdLineArgs.setValues);
-        LOG.info("Debug port: " + cmdLineArgs.debugPort);
 
         try {
             String portStr = System.getenv("MODELIX_SERVER_PORT");
@@ -265,10 +235,6 @@ public class Main {
             server.setHandler(handlerList);
             server.start();
             LOG.info("Server started");
-
-            if (cmdLineArgs.debugPort != null) {
-                startDebugListener(cmdLineArgs.debugPort, modelServer);
-            }
 
             Runtime.getRuntime()
                     .addShutdownHook(
