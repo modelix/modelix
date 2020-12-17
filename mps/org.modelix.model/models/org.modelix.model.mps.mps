@@ -19014,20 +19014,87 @@
                   </node>
                 </node>
               </node>
+              <node concept="3SKdUt" id="6p3SZI_24nb" role="3cqZAp">
+                <node concept="1PaTwC" id="6p3SZI_24nc" role="1aUNEU">
+                  <node concept="3oM_SD" id="6p3SZI_24nd" role="1PaTwD">
+                    <property role="3oM_SC" value="We" />
+                  </node>
+                  <node concept="3oM_SD" id="6p3SZI_24AK" role="1PaTwD">
+                    <property role="3oM_SC" value="should" />
+                  </node>
+                  <node concept="3oM_SD" id="6p3SZI_24Es" role="1PaTwD">
+                    <property role="3oM_SC" value="probably" />
+                  </node>
+                  <node concept="3oM_SD" id="6p3SZI_24I1" role="1PaTwD">
+                    <property role="3oM_SC" value="store" />
+                  </node>
+                  <node concept="3oM_SD" id="6p3SZI_24LB" role="1PaTwD">
+                    <property role="3oM_SC" value="these" />
+                  </node>
+                  <node concept="3oM_SD" id="6p3SZI_24LH" role="1PaTwD">
+                    <property role="3oM_SC" value="values" />
+                  </node>
+                  <node concept="3oM_SD" id="6p3SZI_24To" role="1PaTwD">
+                    <property role="3oM_SC" value="somewhere," />
+                  </node>
+                  <node concept="3oM_SD" id="6p3SZI_24X1" role="1PaTwD">
+                    <property role="3oM_SC" value="to" />
+                  </node>
+                  <node concept="3oM_SD" id="6p3SZI_24Xa" role="1PaTwD">
+                    <property role="3oM_SC" value="avoid" />
+                  </node>
+                  <node concept="3oM_SD" id="6p3SZI_24Xk" role="1PaTwD">
+                    <property role="3oM_SC" value="transactions" />
+                  </node>
+                </node>
+              </node>
               <node concept="3cpWs8" id="6diyhU70E_x" role="3cqZAp">
                 <node concept="3cpWsn" id="6diyhU70E_$" role="3cpWs9">
                   <property role="TrG5h" value="mpsNodeIdAsString" />
                   <node concept="17QB3L" id="6diyhU70E_v" role="1tU5fm" />
-                  <node concept="2OqwBi" id="6diyhU70xhC" role="33vP2m">
-                    <node concept="37vLTw" id="6diyhU737KK" role="2Oq$k0">
-                      <ref role="3cqZAo" node="6diyhU72U_1" resolve="iNode" />
+                  <node concept="3K4zz7" id="6p3SZI_1ZhT" role="33vP2m">
+                    <node concept="2OqwBi" id="6p3SZI_20RE" role="3K4GZi">
+                      <node concept="1rXfSq" id="6p3SZI_20Ac" role="2Oq$k0">
+                        <ref role="37wK5l" node="29etMtbdrHd" resolve="getBranch" />
+                      </node>
+                      <node concept="liA8E" id="6p3SZI_211X" role="2OqNvi">
+                        <ref role="37wK5l" to="jks5:~IBranch.computeRead(kotlin.jvm.functions.Function0)" resolve="computeRead" />
+                        <node concept="1bVj0M" id="6p3SZI_22em" role="37wK5m">
+                          <node concept="3clFbS" id="6p3SZI_22en" role="1bW5cS">
+                            <node concept="3clFbF" id="6p3SZI_22jx" role="3cqZAp">
+                              <node concept="2OqwBi" id="6p3SZI_22jz" role="3clFbG">
+                                <node concept="37vLTw" id="6p3SZI_22j$" role="2Oq$k0">
+                                  <ref role="3cqZAo" node="6diyhU72U_1" resolve="iNode" />
+                                </node>
+                                <node concept="AQDAd" id="6p3SZI_22j_" role="2OqNvi">
+                                  <ref role="37wK5l" node="6dTx9S5u7xa" resolve="mappedMpsNodeID" />
+                                </node>
+                              </node>
+                            </node>
+                          </node>
+                        </node>
+                      </node>
                     </node>
-                    <node concept="AQDAd" id="6diyhU70ElX" role="2OqNvi">
-                      <ref role="37wK5l" node="6dTx9S5u7xa" resolve="mappedMpsNodeID" />
+                    <node concept="2OqwBi" id="6p3SZI_1VUg" role="3K4Cdx">
+                      <node concept="1rXfSq" id="6p3SZI_1VGj" role="2Oq$k0">
+                        <ref role="37wK5l" node="29etMtbdrHd" resolve="getBranch" />
+                      </node>
+                      <node concept="liA8E" id="6p3SZI_1WV_" role="2OqNvi">
+                        <ref role="37wK5l" to="jks5:~IBranch.canRead()" resolve="canRead" />
+                      </node>
+                    </node>
+                    <node concept="2OqwBi" id="6p3SZI_204a" role="3K4E3e">
+                      <node concept="37vLTw" id="6p3SZI_204b" role="2Oq$k0">
+                        <ref role="3cqZAo" node="6diyhU72U_1" resolve="iNode" />
+                      </node>
+                      <node concept="AQDAd" id="6p3SZI_204c" role="2OqNvi">
+                        <ref role="37wK5l" node="6dTx9S5u7xa" resolve="mappedMpsNodeID" />
+                      </node>
                     </node>
                   </node>
                 </node>
               </node>
+              <node concept="3clFbH" id="6p3SZI_1YKl" role="3cqZAp" />
               <node concept="3clFbJ" id="6diyhU70GSy" role="3cqZAp">
                 <node concept="3clFbS" id="6diyhU70GS$" role="3clFbx">
                   <node concept="3SKdUt" id="_505yGjpLd" role="3cqZAp">
