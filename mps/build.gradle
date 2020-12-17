@@ -117,11 +117,13 @@ task justBuildIntegrationTests(type: BuildLanguages, dependsOn: []) {
 
 import org.apache.tools.ant.taskdefs.condition.Os
 
-task ensurePrintEnvHasRightPermissions() << {
-    def printEnv = new File("$rootDir/artifacts/mps/bin/mac/printenv.py")
-    if (printEnv.exists()) {
-        sh "chmod +x ${printenv.getAbsolutePath()}"
-    }    
+task ensurePrintEnvHasRightPermissions() {
+    doFirst {
+        def printEnv = new File("$rootDir/artifacts/mps/bin/mac/printenv.py")
+        if (printEnv.exists()) {
+            sh "chmod +x ${printenv.getAbsolutePath()}"
+        }    
+    }
 }
 
 task justRunIntegrationTests(type: RunAntScript, dependsOn: [ensurePrintEnvHasRightPermissions]) {

@@ -106,6 +106,7 @@
       <concept id="1894531970723270160" name="jetbrains.mps.baseLanguage.extensionMethods.structure.TypeExtension" flags="ng" index="KRBjq">
         <child id="1894531970723323134" name="type" index="KRMoO" />
       </concept>
+      <concept id="7685333756920172912" name="jetbrains.mps.baseLanguage.extensionMethods.structure.LocalExtendedMethodCall" flags="nn" index="Vb5G_" />
       <concept id="3316739663067157299" name="jetbrains.mps.baseLanguage.extensionMethods.structure.ThisExtensionExpression" flags="nn" index="2V_BSl" />
     </language>
     <language id="f3061a53-9226-4cc5-a443-f952ceaf5816" name="jetbrains.mps.baseLanguage">
@@ -23046,6 +23047,57 @@
             </node>
           </node>
         </node>
+      </node>
+    </node>
+    <node concept="ATzpf" id="53_gmpoUKM0" role="a7sos">
+      <property role="TrG5h" value="findChildByName" />
+      <node concept="3Tm1VV" id="53_gmpoUKM1" role="1B3o_S" />
+      <node concept="3uibUv" id="53_gmpoUKYI" role="3clF45">
+        <ref role="3uigEE" to="jks5:~INode" resolve="INode" />
+      </node>
+      <node concept="3clFbS" id="53_gmpoUKM3" role="3clF47">
+        <node concept="2Gpval" id="53_gmpoULBB" role="3cqZAp">
+          <node concept="2GrKxI" id="53_gmpoULBG" role="2Gsz3X">
+            <property role="TrG5h" value="child" />
+          </node>
+          <node concept="Vb5G_" id="53_gmpoULCv" role="2GsD0m">
+            <ref role="37wK5l" to="jks5:~INode.getAllChildren()" resolve="getAllChildren" />
+          </node>
+          <node concept="3clFbS" id="53_gmpoULBQ" role="2LFqv$">
+            <node concept="3clFbJ" id="53_gmpoULQH" role="3cqZAp">
+              <node concept="17R0WA" id="53_gmpoUMO1" role="3clFbw">
+                <node concept="37vLTw" id="53_gmpoUMV6" role="3uHU7w">
+                  <ref role="3cqZAo" node="53_gmpoUL34" resolve="name" />
+                </node>
+                <node concept="2OqwBi" id="53_gmpoULY4" role="3uHU7B">
+                  <node concept="2GrUjf" id="53_gmpoULR5" role="2Oq$k0">
+                    <ref role="2Gs0qQ" node="53_gmpoULBG" resolve="child" />
+                  </node>
+                  <node concept="liA8E" id="53_gmpoUMer" role="2OqNvi">
+                    <ref role="37wK5l" to="jks5:~INode.getPropertyValue(java.lang.String)" resolve="getPropertyValue" />
+                    <node concept="Xl_RD" id="53_gmpoUMmj" role="37wK5m">
+                      <property role="Xl_RC" value="name" />
+                    </node>
+                  </node>
+                </node>
+              </node>
+              <node concept="3clFbS" id="53_gmpoULQJ" role="3clFbx">
+                <node concept="3cpWs6" id="53_gmpoUMYN" role="3cqZAp">
+                  <node concept="2GrUjf" id="53_gmpoUMZC" role="3cqZAk">
+                    <ref role="2Gs0qQ" node="53_gmpoULBG" resolve="child" />
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="3cpWs6" id="53_gmpoULJz" role="3cqZAp">
+          <node concept="10Nm6u" id="53_gmpoULJJ" role="3cqZAk" />
+        </node>
+      </node>
+      <node concept="37vLTG" id="53_gmpoUL34" role="3clF46">
+        <property role="TrG5h" value="name" />
+        <node concept="17QB3L" id="53_gmpoUL33" role="1tU5fm" />
       </node>
     </node>
     <node concept="3uibUv" id="68axlwQ7KZH" role="KRMoO">
