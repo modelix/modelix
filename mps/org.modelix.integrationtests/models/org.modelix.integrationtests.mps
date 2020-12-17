@@ -1207,17 +1207,67 @@
             </node>
           </node>
         </node>
-        <node concept="3cpWs6" id="5yNJPA6tJ$$" role="3cqZAp">
-          <node concept="2ShNRf" id="5yNJPA6tKmQ" role="3cqZAk">
-            <node concept="1pGfFk" id="5yNJPA6tKNN" role="2ShVmc">
-              <ref role="37wK5l" to="guwi:~File.&lt;init&gt;(java.io.File,java.lang.String)" resolve="File" />
-              <node concept="37vLTw" id="5yNJPA6tKWh" role="37wK5m">
-                <ref role="3cqZAo" node="5yNJPA6tJXu" resolve="modelServerBuildLibsDir" />
-              </node>
-              <node concept="Xl_RD" id="5yNJPA6tLdv" role="37wK5m">
-                <property role="Xl_RC" value="model-server-fatJar-latest.jar" />
+        <node concept="3cpWs8" id="53_gmpoM2Ki" role="3cqZAp">
+          <node concept="3cpWsn" id="53_gmpoM2Kj" role="3cpWs9">
+            <property role="TrG5h" value="jar" />
+            <node concept="3uibUv" id="53_gmpoM2Kk" role="1tU5fm">
+              <ref role="3uigEE" to="guwi:~File" resolve="File" />
+            </node>
+            <node concept="2ShNRf" id="5yNJPA6tKmQ" role="33vP2m">
+              <node concept="1pGfFk" id="5yNJPA6tKNN" role="2ShVmc">
+                <ref role="37wK5l" to="guwi:~File.&lt;init&gt;(java.io.File,java.lang.String)" resolve="File" />
+                <node concept="37vLTw" id="5yNJPA6tKWh" role="37wK5m">
+                  <ref role="3cqZAo" node="5yNJPA6tJXu" resolve="modelServerBuildLibsDir" />
+                </node>
+                <node concept="Xl_RD" id="5yNJPA6tLdv" role="37wK5m">
+                  <property role="Xl_RC" value="model-server-fatJar-latest.jar" />
+                </node>
               </node>
             </node>
+          </node>
+        </node>
+        <node concept="3clFbJ" id="53_gmpoMcIX" role="3cqZAp">
+          <node concept="3clFbS" id="53_gmpoMcIZ" role="3clFbx">
+            <node concept="YS8fn" id="53_gmpoMhsM" role="3cqZAp">
+              <node concept="2ShNRf" id="53_gmpoMhwH" role="YScLw">
+                <node concept="1pGfFk" id="53_gmpoMouy" role="2ShVmc">
+                  <ref role="37wK5l" to="wyt6:~RuntimeException.&lt;init&gt;(java.lang.String)" resolve="RuntimeException" />
+                  <node concept="3cpWs3" id="53_gmpoMqyA" role="37wK5m">
+                    <node concept="Xl_RD" id="53_gmpoMqAu" role="3uHU7w">
+                      <property role="Xl_RC" value=" but it was not found" />
+                    </node>
+                    <node concept="3cpWs3" id="53_gmpoMplK" role="3uHU7B">
+                      <node concept="Xl_RD" id="53_gmpoMoFG" role="3uHU7B">
+                        <property role="Xl_RC" value="The model server fat jar was expected at " />
+                      </node>
+                      <node concept="2OqwBi" id="53_gmpoMpOs" role="3uHU7w">
+                        <node concept="37vLTw" id="53_gmpoMps0" role="2Oq$k0">
+                          <ref role="3cqZAo" node="53_gmpoM2Kj" resolve="jar" />
+                        </node>
+                        <node concept="liA8E" id="53_gmpoMq9m" role="2OqNvi">
+                          <ref role="37wK5l" to="guwi:~File.getAbsolutePath()" resolve="getAbsolutePath" />
+                        </node>
+                      </node>
+                    </node>
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+          <node concept="3fqX7Q" id="53_gmpoMedY" role="3clFbw">
+            <node concept="2OqwBi" id="53_gmpoMfKV" role="3fr31v">
+              <node concept="37vLTw" id="53_gmpoMfqH" role="2Oq$k0">
+                <ref role="3cqZAo" node="53_gmpoM2Kj" resolve="jar" />
+              </node>
+              <node concept="liA8E" id="53_gmpoMhgo" role="2OqNvi">
+                <ref role="37wK5l" to="guwi:~File.exists()" resolve="exists" />
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="3cpWs6" id="5yNJPA6tJ$$" role="3cqZAp">
+          <node concept="37vLTw" id="53_gmpoM9Mj" role="3cqZAk">
+            <ref role="3cqZAo" node="53_gmpoM2Kj" resolve="jar" />
           </node>
         </node>
       </node>
@@ -5219,30 +5269,51 @@
             </node>
           </node>
         </node>
-        <node concept="3clFbF" id="11vVX88wvm9" role="3cqZAp">
-          <node concept="2OqwBi" id="11vVX88wv$4" role="3clFbG">
-            <node concept="37vLTw" id="11vVX88wCk4" role="2Oq$k0">
-              <ref role="3cqZAo" node="11vVX88wBWD" resolve="branch" />
+        <node concept="3cpWs8" id="53_gmpoMVCT" role="3cqZAp">
+          <node concept="3cpWsn" id="53_gmpoMVCU" role="3cpWs9">
+            <property role="TrG5h" value="res" />
+            <node concept="3uibUv" id="53_gmpoMVCV" role="1tU5fm">
+              <ref role="3uigEE" to="wy2b:~JsonObject" resolve="JsonObject" />
             </node>
-            <node concept="liA8E" id="11vVX88wvDg" role="2OqNvi">
-              <ref role="37wK5l" to="jks5:~IBranch.computeRead(kotlin.jvm.functions.Function0)" resolve="computeRead" />
-              <node concept="1bVj0M" id="11vVX88wvEU" role="37wK5m">
-                <node concept="3clFbS" id="11vVX88wvEV" role="1bW5cS">
-                  <node concept="3clFbF" id="11vVX88wCAV" role="3cqZAp">
-                    <node concept="1rXfSq" id="11vVX88wB2H" role="3clFbG">
-                      <ref role="37wK5l" node="11vVX88w$Cb" resolve="toJson" />
-                      <node concept="37vLTw" id="11vVX88wCqS" role="37wK5m">
-                        <ref role="3cqZAo" node="11vVX88wBWD" resolve="branch" />
-                      </node>
-                      <node concept="10M0yZ" id="11vVX88wBee" role="37wK5m">
-                        <ref role="1PxDUh" to="jks5:~ITree" resolve="ITree" />
-                        <ref role="3cqZAo" to="jks5:~ITree.ROOT_ID" resolve="ROOT_ID" />
+            <node concept="2OqwBi" id="11vVX88wv$4" role="33vP2m">
+              <node concept="37vLTw" id="11vVX88wCk4" role="2Oq$k0">
+                <ref role="3cqZAo" node="11vVX88wBWD" resolve="branch" />
+              </node>
+              <node concept="liA8E" id="11vVX88wvDg" role="2OqNvi">
+                <ref role="37wK5l" to="jks5:~IBranch.computeRead(kotlin.jvm.functions.Function0)" resolve="computeRead" />
+                <node concept="1bVj0M" id="11vVX88wvEU" role="37wK5m">
+                  <node concept="3clFbS" id="11vVX88wvEV" role="1bW5cS">
+                    <node concept="3clFbF" id="11vVX88wCAV" role="3cqZAp">
+                      <node concept="1rXfSq" id="11vVX88wB2H" role="3clFbG">
+                        <ref role="37wK5l" node="11vVX88w$Cb" resolve="toJson" />
+                        <node concept="37vLTw" id="11vVX88wCqS" role="37wK5m">
+                          <ref role="3cqZAo" node="11vVX88wBWD" resolve="branch" />
+                        </node>
+                        <node concept="10M0yZ" id="11vVX88wBee" role="37wK5m">
+                          <ref role="1PxDUh" to="jks5:~ITree" resolve="ITree" />
+                          <ref role="3cqZAo" to="jks5:~ITree.ROOT_ID" resolve="ROOT_ID" />
+                        </node>
                       </node>
                     </node>
                   </node>
                 </node>
               </node>
             </node>
+          </node>
+        </node>
+        <node concept="3clFbF" id="53_gmpoMYGo" role="3cqZAp">
+          <node concept="2OqwBi" id="53_gmpoMZiy" role="3clFbG">
+            <node concept="37vLTw" id="53_gmpoMYGm" role="2Oq$k0">
+              <ref role="3cqZAo" node="11vVX88wt08" resolve="rt" />
+            </node>
+            <node concept="liA8E" id="53_gmpoMZqu" role="2OqNvi">
+              <ref role="37wK5l" to="5440:~ReplicatedTree.dispose()" resolve="dispose" />
+            </node>
+          </node>
+        </node>
+        <node concept="3cpWs6" id="53_gmpoMX2u" role="3cqZAp">
+          <node concept="37vLTw" id="53_gmpoMX9j" role="3cqZAk">
+            <ref role="3cqZAo" node="53_gmpoMVCU" resolve="res" />
           </node>
         </node>
       </node>
