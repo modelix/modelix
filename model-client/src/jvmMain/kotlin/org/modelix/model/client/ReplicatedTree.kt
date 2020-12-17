@@ -37,6 +37,9 @@ import java.util.concurrent.ScheduledFuture
 import java.util.concurrent.atomic.AtomicBoolean
 import java.util.function.Supplier
 
+/**
+ * Dispose should be called on this, as otherwise a regular polling will go on.
+ */
 actual open class ReplicatedTree actual constructor(
     private val client: IModelClient,
     private val treeId: TreeId,
