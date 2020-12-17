@@ -159,7 +159,7 @@ class RestWebModelClient @JvmOverloads constructor(var baseUrl: String? = null, 
                     throw RuntimeException("Request for key '" + key + "' failed: " + response.statusInfo)
                 }
             }
-        } catch (e: ConnectException) {
+        } catch (e: java.lang.Exception) {
             throw RuntimeException("Unable to connect to '$uri' to get key $key", e)
         }
     }
