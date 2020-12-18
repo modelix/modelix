@@ -19,17 +19,9 @@ import com.beust.jcommander.JCommander;
 import com.beust.jcommander.Parameter;
 import com.beust.jcommander.converters.BooleanConverter;
 import com.beust.jcommander.converters.IntegerConverter;
-
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
-import java.net.ServerSocket;
-import java.net.Socket;
 import java.nio.charset.StandardCharsets;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
@@ -66,10 +58,7 @@ class CmdLineArgs {
             converter = BooleanConverter.class)
     Boolean inmemory = false;
 
-    @Parameter(
-            names = "-port",
-            description = "Set port",
-            converter = IntegerConverter.class)
+    @Parameter(names = "-port", description = "Set port", converter = IntegerConverter.class)
     Integer port = null;
 
     @Parameter(names = "-set", description = "Set values", arity = 2)
