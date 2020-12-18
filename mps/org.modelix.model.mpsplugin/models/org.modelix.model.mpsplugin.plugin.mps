@@ -48,6 +48,7 @@
     <import index="4nm9" ref="498d89d2-c2e9-11e2-ad49-6cf049e62fe5/java:com.intellij.openapi.project(MPS.IDEA/)" />
     <import index="i8bi" ref="r:c3548bac-30eb-4a2a-937c-0111d5697309(jetbrains.mps.lang.smodel.generator.smodelAdapter)" />
     <import index="33ny" ref="6354ebe7-c22a-4a0f-ac54-50b52ab9b065/java:java.util(JDK/)" />
+    <import index="69r2" ref="498d89d2-c2e9-11e2-ad49-6cf049e62fe5/java:com.intellij.ide.macro(MPS.IDEA/)" />
     <import index="guwi" ref="6354ebe7-c22a-4a0f-ac54-50b52ab9b065/java:java.io(JDK/)" implicit="true" />
     <import index="71xd" ref="742f6602-5a2f-4313-aa6e-ae1cd4ffdc61/java:jetbrains.mps.ide.tools(MPS.Platform/)" implicit="true" />
     <import index="hvt5" ref="0a2651ab-f212-45c2-a2f0-343e76cbc26b/java:org.modelix.model(org.modelix.model.client/)" implicit="true" />
@@ -641,9 +642,9 @@
                 </node>
               </node>
             </node>
+            <node concept="3clFbH" id="nkanBut1bS" role="3cqZAp" />
             <node concept="3clFbJ" id="7PIbTorqz35" role="3cqZAp">
               <node concept="3clFbS" id="7PIbTorqz37" role="3clFbx">
-                <node concept="3clFbH" id="53_gmpoSiZI" role="3cqZAp" />
                 <node concept="3clFbF" id="rF2pzCbtRU" role="3cqZAp">
                   <node concept="2OqwBi" id="rF2pzCbtRR" role="3clFbG">
                     <node concept="10M0yZ" id="rF2pzCbtRS" role="2Oq$k0">

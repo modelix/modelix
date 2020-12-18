@@ -26,8 +26,14 @@
     </language>
     <language id="798100da-4f0a-421a-b991-71f8c50ce5d2" name="jetbrains.mps.build">
       <concept id="5481553824944787378" name="jetbrains.mps.build.structure.BuildSourceProjectRelativePath" flags="ng" index="55IIr" />
+      <concept id="2755237150521975431" name="jetbrains.mps.build.structure.BuildVariableMacroInitWithString" flags="ng" index="aVJcg">
+        <child id="2755237150521975437" name="value" index="aVJcq" />
+      </concept>
       <concept id="7321017245476976379" name="jetbrains.mps.build.structure.BuildRelativePath" flags="ng" index="iG8Mu">
         <child id="7321017245477039051" name="compositePart" index="iGT6I" />
+      </concept>
+      <concept id="3767587139141066978" name="jetbrains.mps.build.structure.BuildVariableMacro" flags="ng" index="2kB4xC">
+        <child id="2755237150521975432" name="initialValue" index="aVJcv" />
       </concept>
       <concept id="4993211115183325728" name="jetbrains.mps.build.structure.BuildProjectDependency" flags="ng" index="2sgV4H">
         <reference id="5617550519002745380" name="script" index="1l3spb" />
@@ -5631,6 +5637,26 @@
         <ref role="398BVh" node="5yNJPA6sbmP" resolve="modelix.home" />
         <node concept="2Ry0Ak" id="5yNJPA6sbnm" role="iGT6I">
           <property role="2Ry0Am" value="mps" />
+        </node>
+      </node>
+    </node>
+    <node concept="2kB4xC" id="nkanBur$Mk" role="1l3spd">
+      <property role="TrG5h" value="disable.autobinding" />
+      <node concept="aVJcg" id="nkanBur$MG" role="aVJcv">
+        <node concept="NbPM2" id="nkanBur$MF" role="aVJcq">
+          <node concept="3Mxwew" id="nkanBur$ME" role="3MwsjC">
+            <property role="3MwjfP" value="true" />
+          </node>
+        </node>
+      </node>
+    </node>
+    <node concept="2kB4xC" id="nkanBur$MK" role="1l3spd">
+      <property role="TrG5h" value="mps.macro.disable.autobinding" />
+      <node concept="aVJcg" id="nkanBur$ML" role="aVJcv">
+        <node concept="NbPM2" id="nkanBur$MM" role="aVJcq">
+          <node concept="3Mxwew" id="nkanBur$MN" role="3MwsjC">
+            <property role="3MwjfP" value="true" />
+          </node>
         </node>
       </node>
     </node>

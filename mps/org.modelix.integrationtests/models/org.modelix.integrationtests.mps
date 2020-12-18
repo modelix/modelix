@@ -527,6 +527,18 @@
             <ref role="37wK5l" node="6Jg9HT9UXq2" resolve="considerExtraLogging" />
           </node>
         </node>
+        <node concept="3clFbF" id="nkanBusX4b" role="3cqZAp">
+          <node concept="2YIFZM" id="nkanBusXRZ" role="3clFbG">
+            <ref role="37wK5l" to="wyt6:~System.setProperty(java.lang.String,java.lang.String)" resolve="setProperty" />
+            <ref role="1Pybhc" to="wyt6:~System" resolve="System" />
+            <node concept="Xl_RD" id="nkanBusXS0" role="37wK5m">
+              <property role="Xl_RC" value="disable.autobinding" />
+            </node>
+            <node concept="Xl_RD" id="nkanBusXS1" role="37wK5m">
+              <property role="Xl_RC" value="true" />
+            </node>
+          </node>
+        </node>
         <node concept="3clFbH" id="5yNJPA6tewe" role="3cqZAp" />
         <node concept="3cpWs8" id="5yNJPA6tn0o" role="3cqZAp">
           <node concept="3cpWsn" id="5yNJPA6tn0p" role="3cpWs9">
@@ -3581,6 +3593,7 @@
       <node concept="3Tmbuc" id="1QKKVBBAYlb" role="1B3o_S" />
       <node concept="3cqZAl" id="1QKKVBBB2nO" role="3clF45" />
     </node>
+    <node concept="2tJIrI" id="nkanBupdzh" role="jymVt" />
     <node concept="3clFb_" id="53_gmpoTqNb" role="jymVt">
       <property role="TrG5h" value="computeOnReplicatedTree" />
       <node concept="3clFbS" id="53_gmpoTqNc" role="3clF47">
@@ -3636,6 +3649,7 @@
         <property role="TrG5h" value="T" />
       </node>
     </node>
+    <node concept="2tJIrI" id="nkanBupaW2" role="jymVt" />
     <node concept="3clFb_" id="53_gmpoUVTz" role="jymVt">
       <property role="TrG5h" value="runOnReplicatedTree" />
       <node concept="3clFbS" id="53_gmpoUVT$" role="3clF47">
