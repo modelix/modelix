@@ -223,7 +223,7 @@ actual open class ReplicatedTree actual constructor(
 
     fun checkDisposed() {
         if (disposed) {
-            throw RuntimeException("Already disposed")
+            throw RuntimeException("Already disposed, replicated client $client, branch: $branchName, author: ${user()}")
         }
     }
 

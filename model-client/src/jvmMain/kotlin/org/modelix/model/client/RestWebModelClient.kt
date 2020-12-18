@@ -120,6 +120,8 @@ class RestWebModelClient @JvmOverloads constructor(var baseUrl: String? = null, 
     private val watchDogTask: ScheduledFuture<*>
     private var authToken = authToken_ ?: defaultToken
 
+    override fun toString() = "RestWebModelClient($baseUrl)"
+
     fun dispose() {
         watchDogTask.cancel(false)
         synchronized(listeners) {
