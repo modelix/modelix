@@ -30,7 +30,6 @@ import org.modelix.model.lazy.ObjectStoreCache
 import org.modelix.model.persistent.HashUtil
 import org.modelix.model.util.StreamUtils.toStream
 import java.io.File
-import java.net.ConnectException
 import java.net.URLEncoder
 import java.nio.charset.StandardCharsets
 import java.util.Objects
