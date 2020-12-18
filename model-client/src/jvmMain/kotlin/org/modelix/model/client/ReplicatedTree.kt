@@ -340,18 +340,16 @@ actual open class ReplicatedTree actual constructor(
         })
         convergenceWatchdog = fixDelay(
             1000,
-            object : Runnable {
-                override fun run() {
-                    val localHash = if (localVersion == null) null else localVersion!!.hash
-                    val remoteHash = if (remoteVersion == null) null else remoteVersion!!.hash
-                    if (localHash == remoteHash) {
-                        divergenceTime = 0
-                    } else {
-                        divergenceTime++
-                    }
-                    if (divergenceTime > 5) {
-                        synchronized(mergeLock) { divergenceTime = 0 }
-                    }
+            Runnable {
+                val localHash = if (localVersion == null) null else localVersion!!.hash
+                val remoteHash = if (remoteVersion == null) null else remoteVersion!!.hash
+                if (localHash == remoteHash) {
+                    divergenceTime = 0
+                } else {
+                    divergenceTime++
+                }
+                if (divergenceTime > 5) {
+                    synchronized(mergeLock) { divergenceTime = 0 }
                 }
             }
         )
