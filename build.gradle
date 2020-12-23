@@ -4,8 +4,10 @@ buildscript {
     ext.kotlinVersion = '1.4.0'
 
     repositories {
-        maven { url 'https://projects.itemis.de/nexus/content/repositories/mbeddr' }
+        /* It is useful to have the central maven repo before the Itemis's one
+           as it is more reliable */
         maven { url "https://repo.maven.apache.org/maven2" }
+        maven { url 'https://projects.itemis.de/nexus/content/repositories/mbeddr' }        
         maven { url 'https://plugins.gradle.org/m2/' }
         mavenCentral()
     }
