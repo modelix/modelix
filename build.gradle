@@ -39,10 +39,12 @@ allprojects {
     version modelixVersion
 
     repositories {
-        maven { url 'https://projects.itemis.de/nexus/content/groups/OS/' }
+        /* It is useful to have the central maven repo before the Itemis's one
+           as it is more reliable */
         maven { url "https://repo.maven.apache.org/maven2" }
         mavenCentral()
         mavenLocal()
+        maven { url 'https://projects.itemis.de/nexus/content/groups/OS/' }                
     }
 }
 description = "Cloud storage and web UI for MPS"
