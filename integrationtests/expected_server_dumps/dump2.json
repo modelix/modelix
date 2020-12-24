@@ -356,7 +356,7 @@
                   "#mpsNodeId#": "6391662687397652777",
                   "name": "GOOD",
                   "$references": {
-                    "baseMethodDeclaration": "~Object.\u003cinit\u003e()"
+                    "baseMethodDeclaration": "-\u003ejava.lang@java_stub:Object.\u003cinit\u003e()"
                   }
                 },
                 {
@@ -365,7 +365,7 @@
                   "#mpsNodeId#": "6391662687397652925",
                   "name": "LESSGOOD",
                   "$references": {
-                    "baseMethodDeclaration": "~Object.\u003cinit\u003e()"
+                    "baseMethodDeclaration": "-\u003ejava.lang@java_stub:Object.\u003cinit\u003e()"
                   }
                 },
                 {
@@ -374,7 +374,7 @@
                   "#mpsNodeId#": "6391662687397653195",
                   "name": "SUBOPTIMAL",
                   "$references": {
-                    "baseMethodDeclaration": "~Object.\u003cinit\u003e()"
+                    "baseMethodDeclaration": "-\u003ejava.lang@java_stub:Object.\u003cinit\u003e()"
                   }
                 }
               ]
