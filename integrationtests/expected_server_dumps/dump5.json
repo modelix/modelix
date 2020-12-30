@@ -22,7 +22,7 @@
               "$role": "rootNodes",
               "$concept": "jetbrains.mps.baseLanguage.ClassConcept",
               "#mpsNodeId#": "6391662687397648300",
-              "name": "MyClassBrilliantlyRenamedInsideATransientModel",
+              "name": "MyClass",
               "$children": [
                 {
                   "$role": "member",
@@ -93,7 +93,7 @@
                                       "$concept": "jetbrains.mps.baseLanguage.VariableReference",
                                       "#mpsNodeId#": "6391662687397651092",
                                       "$references": {
-                                        "variableDeclaration": "6391662687397648451"
+                                        "variableDeclaration": "MPS->6391662687397648451"
                                       }
                                     }
                                   ]
@@ -113,7 +113,7 @@
                                       "$concept": "jetbrains.mps.baseLanguage.FieldReferenceOperation",
                                       "#mpsNodeId#": "6391662687397648826",
                                       "$references": {
-                                        "fieldDeclaration": "6391662687397648349"
+                                        "fieldDeclaration": "MPS->6391662687397648349"
                                       }
                                     }
                                   ]
@@ -180,7 +180,7 @@
                                       "$concept": "jetbrains.mps.baseLanguage.FieldReferenceOperation",
                                       "#mpsNodeId#": "6391662687397655722",
                                       "$references": {
-                                        "fieldDeclaration": "6391662687397648349"
+                                        "fieldDeclaration": "MPS->6391662687397648349"
                                       }
                                     }
                                   ]
@@ -208,8 +208,8 @@
                                       "$concept": "jetbrains.mps.baseLanguage.EnumConstantReference",
                                       "#mpsNodeId#": "6391662687397658346",
                                       "$references": {
-                                        "enumClass": "6391662687397652699",
-                                        "enumConstantDeclaration": "6391662687397653195"
+                                        "enumClass": "MPS->6391662687397652699",
+                                        "enumConstantDeclaration": "MPS->6391662687397653195"
                                       }
                                     }
                                   ]
@@ -238,8 +238,8 @@
                                       "$concept": "jetbrains.mps.baseLanguage.EnumConstantReference",
                                       "#mpsNodeId#": "6391662687397662932",
                                       "$references": {
-                                        "enumClass": "6391662687397652699",
-                                        "enumConstantDeclaration": "6391662687397652777"
+                                        "enumClass": "MPS->6391662687397652699",
+                                        "enumConstantDeclaration": "MPS->6391662687397652777"
                                       }
                                     }
                                   ]
@@ -272,7 +272,7 @@
                                       "$concept": "jetbrains.mps.baseLanguage.FieldReferenceOperation",
                                       "#mpsNodeId#": "6391662687397660309",
                                       "$references": {
-                                        "fieldDeclaration": "6391662687397648349"
+                                        "fieldDeclaration": "MPS->6391662687397648349"
                                       }
                                     }
                                   ]
@@ -291,8 +291,8 @@
                               "$concept": "jetbrains.mps.baseLanguage.EnumConstantReference",
                               "#mpsNodeId#": "6391662687397663283",
                               "$references": {
-                                "enumClass": "6391662687397652699",
-                                "enumConstantDeclaration": "6391662687397652925"
+                                "enumClass": "MPS->6391662687397652699",
+                                "enumConstantDeclaration": "MPS->6391662687397652925"
                               }
                             }
                           ]
@@ -309,7 +309,7 @@
                       "$concept": "jetbrains.mps.baseLanguage.ClassifierType",
                       "#mpsNodeId#": "6391662687397655178",
                       "$references": {
-                        "classifier": "6391662687397652699"
+                        "classifier": "MPS->6391662687397652699"
                       }
                     }
                   ]
@@ -318,24 +318,6 @@
                   "$role": "visibility",
                   "$concept": "jetbrains.mps.baseLanguage.PublicVisibility",
                   "#mpsNodeId#": "6391662687397648301"
-                },
-                {
-                  "$role": "member",
-                  "$concept": "jetbrains.mps.baseLanguage.FieldDeclaration",
-                  "name": "addedFieldInTransientModel",
-                  "#mpsNodeId#": "$$SOME_ID1$$",
-                  "$children": [
-                    {
-                      "$role": "type",
-                      "$concept": "jetbrains.mps.baseLanguage.BooleanType",
-                      "#mpsNodeId#": "$$SOME_ID2$$"
-                    },
-                    {
-                      "$role": "visibility",
-                      "$concept": "jetbrains.mps.baseLanguage.PrivateVisibility",
-                      "#mpsNodeId#": "$$SOME_ID3$$"
-                    }
-                  ]
                 }
               ]
             },

@@ -279,8 +279,13 @@ class CLTree : ITree {
     }
 
     override fun getConcept(nodeId: Long): IConcept? {
-        val node = resolveElement(nodeId)
-        return deserializeConcept(node!!.concept)
+        try {
+            val node = resolveElement(nodeId)
+            return deserializeConcept(node!!.concept)
+        } catch (e: RuntimeException) {
+            throw RuntimeException("Unable to find concept for node $nodeId", e)
+        }
+
     }
 
     override fun getParent(nodeId: Long): Long {
@@ -437,7 +442,7 @@ class CLTree : ITree {
             return null
         }
         val hash = nodesMap!![id]
-            ?: throw RuntimeException("Element doesn't exist: ${SerializationUtil.longToHex(id)}")
+            ?: throw RuntimeException("Element doesn't exist: ${SerializationUtil.longToHex(id)} ($id)")
         return createElement(hash, NonBulkQuery(store)).execute()
     }
 
