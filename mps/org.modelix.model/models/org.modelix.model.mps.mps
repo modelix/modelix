@@ -11550,6 +11550,26 @@
       <node concept="3cqZAl" id="7gxeZuyfxRD" role="3clF45" />
       <node concept="3Tm1VV" id="7gxeZuyfxRE" role="1B3o_S" />
       <node concept="3clFbS" id="7gxeZuyfxRG" role="3clF47">
+        <node concept="3clFbJ" id="Aop38Id6o4" role="3cqZAp">
+          <node concept="3clFbS" id="Aop38Id6o6" role="3clFbx">
+            <node concept="YS8fn" id="Aop38Id7Z3" role="3cqZAp">
+              <node concept="2ShNRf" id="Aop38Id8co" role="YScLw">
+                <node concept="1pGfFk" id="Aop38Id9qC" role="2ShVmc">
+                  <ref role="37wK5l" to="wyt6:~IllegalArgumentException.&lt;init&gt;(java.lang.String)" resolve="IllegalArgumentException" />
+                  <node concept="Xl_RD" id="Aop38Id9Dh" role="37wK5m">
+                    <property role="Xl_RC" value="repository should not be null" />
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+          <node concept="3clFbC" id="Aop38Id77w" role="3clFbw">
+            <node concept="10Nm6u" id="Aop38Id7nA" role="3uHU7w" />
+            <node concept="37vLTw" id="Aop38Id6Nt" role="3uHU7B">
+              <ref role="3cqZAo" node="7gxeZuyfxRJ" resolve="repository" />
+            </node>
+          </node>
+        </node>
         <node concept="3clFbF" id="7gxeZuyfxRK" role="3cqZAp">
           <node concept="37vLTI" id="7gxeZuyfxRM" role="3clFbG">
             <node concept="2OqwBi" id="7gxeZuyfxRQ" role="37vLTJ">
@@ -15609,6 +15629,88 @@
                           </node>
                         </node>
                       </node>
+                      <node concept="3cpWs8" id="Aop38IdlRm" role="3cqZAp">
+                        <node concept="3cpWsn" id="Aop38IdlRn" role="3cpWs9">
+                          <property role="TrG5h" value="repo" />
+                          <node concept="3uibUv" id="Aop38IdlRo" role="1tU5fm">
+                            <ref role="3uigEE" to="lui2:~SRepository" resolve="SRepository" />
+                          </node>
+                          <node concept="2OqwBi" id="29etMtb9_oP" role="33vP2m">
+                            <node concept="37vLTw" id="29etMtb9_oQ" role="2Oq$k0">
+                              <ref role="3cqZAo" node="29etMtb9$V9" resolve="model" />
+                            </node>
+                            <node concept="liA8E" id="29etMtb9_oR" role="2OqNvi">
+                              <ref role="37wK5l" to="mhbf:~SModel.getRepository()" resolve="getRepository" />
+                            </node>
+                          </node>
+                        </node>
+                      </node>
+                      <node concept="3cpWs8" id="Aop38IhoHv" role="3cqZAp">
+                        <node concept="3cpWsn" id="Aop38IhoHw" role="3cpWs9">
+                          <property role="TrG5h" value="resolveContext" />
+                          <node concept="3uibUv" id="Aop38IhoHx" role="1tU5fm">
+                            <ref role="3uigEE" to="jks5:~INodeResolveContext" resolve="INodeResolveContext" />
+                          </node>
+                          <node concept="10Nm6u" id="Aop38IhpvP" role="33vP2m" />
+                        </node>
+                      </node>
+                      <node concept="3clFbJ" id="Aop38Idpc0" role="3cqZAp">
+                        <node concept="3clFbS" id="Aop38Idpc2" role="3clFbx">
+                          <node concept="3clFbF" id="Aop38Ihre3" role="3cqZAp">
+                            <node concept="37vLTI" id="Aop38Ihuo8" role="3clFbG">
+                              <node concept="37vLTw" id="Aop38Iht_6" role="37vLTJ">
+                                <ref role="3cqZAo" node="Aop38IhoHw" resolve="resolveContext" />
+                              </node>
+                              <node concept="2ShNRf" id="Aop38Ihre6" role="37vLTx">
+                                <node concept="1pGfFk" id="Aop38Ihre7" role="2ShVmc">
+                                  <ref role="37wK5l" to="jks5:~PNodeResolveContext.&lt;init&gt;(org.modelix.model.api.IBranch)" resolve="PNodeResolveContext" />
+                                  <node concept="1rXfSq" id="Aop38Ihre8" role="37wK5m">
+                                    <ref role="37wK5l" node="29etMtbdrHd" resolve="getBranch" />
+                                  </node>
+                                </node>
+                              </node>
+                            </node>
+                          </node>
+                        </node>
+                        <node concept="3clFbC" id="Aop38IdpZj" role="3clFbw">
+                          <node concept="10Nm6u" id="Aop38IdqtS" role="3uHU7w" />
+                          <node concept="37vLTw" id="Aop38Idpyr" role="3uHU7B">
+                            <ref role="3cqZAo" node="Aop38IdlRn" resolve="repo" />
+                          </node>
+                        </node>
+                        <node concept="9aQIb" id="Aop38Ihq21" role="9aQIa">
+                          <node concept="3clFbS" id="Aop38Ihq22" role="9aQI4">
+                            <node concept="3clFbF" id="Aop38Ihqsi" role="3cqZAp">
+                              <node concept="37vLTI" id="Aop38IhyBv" role="3clFbG">
+                                <node concept="37vLTw" id="Aop38IhzKp" role="37vLTJ">
+                                  <ref role="3cqZAo" node="Aop38IhoHw" resolve="resolveContext" />
+                                </node>
+                                <node concept="2ShNRf" id="Aop38Ihqsk" role="37vLTx">
+                                  <node concept="1pGfFk" id="Aop38Ihqsl" role="2ShVmc">
+                                    <ref role="37wK5l" to="jks5:~CompositeNodeResolveContext.&lt;init&gt;(org.modelix.model.api.INodeResolveContext...)" resolve="CompositeNodeResolveContext" />
+                                    <node concept="2ShNRf" id="Aop38Ihqsm" role="37wK5m">
+                                      <node concept="1pGfFk" id="Aop38Ihqsn" role="2ShVmc">
+                                        <ref role="37wK5l" to="jks5:~PNodeResolveContext.&lt;init&gt;(org.modelix.model.api.IBranch)" resolve="PNodeResolveContext" />
+                                        <node concept="1rXfSq" id="Aop38Ihqso" role="37wK5m">
+                                          <ref role="37wK5l" node="29etMtbdrHd" resolve="getBranch" />
+                                        </node>
+                                      </node>
+                                    </node>
+                                    <node concept="2ShNRf" id="Aop38Ihqsp" role="37wK5m">
+                                      <node concept="1pGfFk" id="Aop38Ihqsq" role="2ShVmc">
+                                        <ref role="37wK5l" node="7gxeZuyfxRC" resolve="SRepositoryResolveContext" />
+                                        <node concept="37vLTw" id="Aop38Ihqsr" role="37wK5m">
+                                          <ref role="3cqZAo" node="Aop38IdlRn" resolve="repo" />
+                                        </node>
+                                      </node>
+                                    </node>
+                                  </node>
+                                </node>
+                              </node>
+                            </node>
+                          </node>
+                        </node>
+                      </node>
                       <node concept="3cpWs8" id="29etMtb9_oA" role="3cqZAp">
                         <node concept="3cpWsn" id="29etMtb9_oB" role="3cpWs9">
                           <property role="TrG5h" value="targetNode" />
@@ -15621,31 +15723,8 @@
                             </node>
                             <node concept="liA8E" id="29etMtb9_oF" role="2OqNvi">
                               <ref role="37wK5l" to="jks5:~INodeReference.resolveNode(org.modelix.model.api.INodeResolveContext)" resolve="resolveNode" />
-                              <node concept="2ShNRf" id="29etMtb9_oG" role="37wK5m">
-                                <node concept="1pGfFk" id="29etMtb9_oH" role="2ShVmc">
-                                  <ref role="37wK5l" to="jks5:~CompositeNodeResolveContext.&lt;init&gt;(org.modelix.model.api.INodeResolveContext...)" resolve="CompositeNodeResolveContext" />
-                                  <node concept="2ShNRf" id="29etMtb9_oI" role="37wK5m">
-                                    <node concept="1pGfFk" id="29etMtb9_oJ" role="2ShVmc">
-                                      <ref role="37wK5l" to="jks5:~PNodeResolveContext.&lt;init&gt;(org.modelix.model.api.IBranch)" resolve="PNodeResolveContext" />
-                                      <node concept="1rXfSq" id="29etMtbe8mw" role="37wK5m">
-                                        <ref role="37wK5l" node="29etMtbdrHd" resolve="getBranch" />
-                                      </node>
-                                    </node>
-                                  </node>
-                                  <node concept="2ShNRf" id="29etMtb9_oN" role="37wK5m">
-                                    <node concept="1pGfFk" id="29etMtb9_oO" role="2ShVmc">
-                                      <ref role="37wK5l" node="7gxeZuyfxRC" resolve="SRepositoryResolveContext" />
-                                      <node concept="2OqwBi" id="29etMtb9_oP" role="37wK5m">
-                                        <node concept="37vLTw" id="29etMtb9_oQ" role="2Oq$k0">
-                                          <ref role="3cqZAo" node="29etMtb9$V9" resolve="model" />
-                                        </node>
-                                        <node concept="liA8E" id="29etMtb9_oR" role="2OqNvi">
-                                          <ref role="37wK5l" to="mhbf:~SModel.getRepository()" resolve="getRepository" />
-                                        </node>
-                                      </node>
-                                    </node>
-                                  </node>
-                                </node>
+                              <node concept="37vLTw" id="Aop38IhrdT" role="37wK5m">
+                                <ref role="3cqZAo" node="Aop38IhoHw" resolve="resolveContext" />
                               </node>
                             </node>
                           </node>
@@ -15700,14 +15779,6 @@
                                   </node>
                                 </node>
                               </node>
-                            </node>
-                          </node>
-                          <node concept="abc8K" id="5PWEOM6gcr6" role="3cqZAp">
-                            <node concept="Xl_RD" id="5PWEOM6gcXc" role="abp_N">
-                              <property role="Xl_RC" value="syncReference invoking getOrCreateNode " />
-                            </node>
-                            <node concept="37vLTw" id="5PWEOM6geHA" role="abp_N">
-                              <ref role="3cqZAo" node="29etMtb9_p4" resolve="targetId" />
                             </node>
                           </node>
                           <node concept="3clFbF" id="29etMtb9_pe" role="3cqZAp">
@@ -20045,6 +20116,26 @@
       </node>
       <node concept="3Tm1VV" id="1l8LMIRPpWo" role="1B3o_S" />
       <node concept="3clFbS" id="1l8LMIRPpWp" role="3clF47">
+        <node concept="3clFbJ" id="Aop38Icd6q" role="3cqZAp">
+          <node concept="3clFbS" id="Aop38Icd6s" role="3clFbx">
+            <node concept="YS8fn" id="Aop38IceNB" role="3cqZAp">
+              <node concept="2ShNRf" id="Aop38Icf0G" role="YScLw">
+                <node concept="1pGfFk" id="Aop38IcgVd" role="2ShVmc">
+                  <ref role="37wK5l" to="wyt6:~IllegalArgumentException.&lt;init&gt;(java.lang.String)" resolve="IllegalArgumentException" />
+                  <node concept="Xl_RD" id="Aop38Ich9S" role="37wK5m">
+                    <property role="Xl_RC" value="repository should not be null" />
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+          <node concept="3clFbC" id="Aop38IcehB" role="3clFbw">
+            <node concept="10Nm6u" id="Aop38IceAe" role="3uHU7w" />
+            <node concept="37vLTw" id="Aop38IcdUv" role="3uHU7B">
+              <ref role="3cqZAo" node="1l8LMIRQi7A" resolve="repository" />
+            </node>
+          </node>
+        </node>
         <node concept="3cpWs8" id="1l8LMIRQt1d" role="3cqZAp">
           <node concept="3cpWsn" id="1l8LMIRQt1e" role="3cpWs9">
             <property role="TrG5h" value="sModelReference" />
@@ -20052,15 +20143,6 @@
               <ref role="3uigEE" to="mhbf:~SModelReference" resolve="SModelReference" />
             </node>
             <node concept="10Nm6u" id="1l8LMIRQtCw" role="33vP2m" />
-          </node>
-        </node>
-        <node concept="3cpWs8" id="1l8LMIRQvSL" role="3cqZAp">
-          <node concept="3cpWsn" id="1l8LMIRQvSM" role="3cpWs9">
-            <property role="TrG5h" value="model" />
-            <node concept="3uibUv" id="1l8LMIRQvSN" role="1tU5fm">
-              <ref role="3uigEE" to="mhbf:~SModel" resolve="SModel" />
-            </node>
-            <node concept="10Nm6u" id="1l8LMIRQwvk" role="33vP2m" />
           </node>
         </node>
         <node concept="2Gpval" id="1l8LMIRQl$F" role="3cqZAp">
@@ -20096,16 +20178,6 @@
                     </node>
                   </node>
                   <node concept="3clFbS" id="1l8LMIRQo7j" role="3clFbx">
-                    <node concept="3clFbF" id="1l8LMIRQwV0" role="3cqZAp">
-                      <node concept="37vLTI" id="1l8LMIRQxf0" role="3clFbG">
-                        <node concept="2GrUjf" id="1l8LMIRTlhq" role="37vLTx">
-                          <ref role="2Gs0qQ" node="1l8LMIRQmrc" resolve="itModel" />
-                        </node>
-                        <node concept="37vLTw" id="1l8LMIRQwUY" role="37vLTJ">
-                          <ref role="3cqZAo" node="1l8LMIRQvSM" resolve="model" />
-                        </node>
-                      </node>
-                    </node>
                     <node concept="3clFbF" id="1l8LMIRQuaI" role="3cqZAp">
                       <node concept="37vLTI" id="1l8LMIRQuur" role="3clFbG">
                         <node concept="37vLTw" id="1l8LMIRQuaG" role="37vLTJ">
