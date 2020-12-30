@@ -14306,8 +14306,11 @@
               <node concept="YeOm9" id="3BReYNsI9ZC" role="2ShVmc">
                 <node concept="1Y3b0j" id="3BReYNsI9ZF" role="YeSDq">
                   <property role="2bfB8j" value="true" />
-                  <ref role="37wK5l" to="pa15:~DefaultModelPersistence.&lt;init&gt;()" resolve="DefaultModelPersistence" />
-                  <ref role="1Y3XeK" to="pa15:~DefaultModelPersistence" resolve="DefaultModelPersistence" />
+                  <ref role="1Y3XeK" node="4rSrEo7NWl5" resolve="ModelPersistenceWithFixedId" />
+                  <ref role="37wK5l" node="4rSrEo7Ocf6" resolve="ModelPersistenceWithFixedId" />
+                  <node concept="37vLTw" id="Aop38IlKaG" role="37wK5m">
+                    <ref role="3cqZAo" node="3BReYNsIpSh" resolve="imposedModelID" />
+                  </node>
                   <node concept="3Tm1VV" id="3BReYNsI9ZG" role="1B3o_S" />
                   <node concept="3clFb_" id="3BReYNsIaeF" role="jymVt">
                     <property role="TrG5h" value="create" />
@@ -26441,59 +26444,20 @@
           </node>
           <node concept="9aQIb" id="Aop38IhDJp" role="9aQIa">
             <node concept="3clFbS" id="Aop38IhDJq" role="9aQI4">
-              <node concept="3J1_TO" id="Aop38Ijc9t" role="3cqZAp">
-                <node concept="3uVAMA" id="Aop38Ijcmc" role="1zxBo5">
-                  <node concept="XOnhg" id="Aop38Ijcmd" role="1zc67B">
-                    <property role="TrG5h" value="e" />
-                    <node concept="nSUau" id="Aop38Ijcme" role="1tU5fm">
-                      <node concept="3uibUv" id="Aop38IjcSb" role="nSUat">
-                        <ref role="3uigEE" to="wyt6:~InterruptedException" resolve="InterruptedException" />
-                      </node>
-                    </node>
+              <node concept="3clFbF" id="Aop38IjPKE" role="3cqZAp">
+                <node concept="2OqwBi" id="Aop38IjQ7t" role="3clFbG">
+                  <node concept="2YIFZM" id="7PIbTorqz4P" role="2Oq$k0">
+                    <ref role="1Pybhd" to="bd8o:~ApplicationManager" resolve="ApplicationManager" />
+                    <ref role="37wK5l" to="bd8o:~ApplicationManager.getApplication()" resolve="getApplication" />
                   </node>
-                  <node concept="3clFbS" id="Aop38Ijcmf" role="1zc67A">
-                    <node concept="YS8fn" id="Aop38Ijd2I" role="3cqZAp">
-                      <node concept="2ShNRf" id="Aop38Ijd8p" role="YScLw">
-                        <node concept="1pGfFk" id="Aop38Ijexn" role="2ShVmc">
-                          <ref role="37wK5l" to="wyt6:~RuntimeException.&lt;init&gt;(java.lang.Throwable)" resolve="RuntimeException" />
-                          <node concept="37vLTw" id="Aop38IjeB1" role="37wK5m">
-                            <ref role="3cqZAo" node="Aop38Ijcmd" resolve="e" />
-                          </node>
-                        </node>
-                      </node>
+                  <node concept="liA8E" id="Aop38IjQt8" role="2OqNvi">
+                    <ref role="37wK5l" to="bd8o:~Application.invokeAndWait(java.lang.Runnable,com.intellij.openapi.application.ModalityState)" resolve="invokeAndWait" />
+                    <node concept="37vLTw" id="Aop38IjQ$A" role="37wK5m">
+                      <ref role="3cqZAo" node="Aop38IhACW" resolve="r" />
                     </node>
-                  </node>
-                </node>
-                <node concept="3clFbS" id="Aop38Ijc9v" role="1zxBo7">
-                  <node concept="3clFbF" id="Aop38IhEcL" role="3cqZAp">
-                    <node concept="2YIFZM" id="Aop38IjbJh" role="3clFbG">
-                      <ref role="37wK5l" to="dxuu:~SwingUtilities.invokeAndWait(java.lang.Runnable)" resolve="invokeAndWait" />
-                      <ref role="1Pybhd" to="dxuu:~SwingUtilities" resolve="SwingUtilities" />
-                      <node concept="37vLTw" id="Aop38IjbJi" role="37wK5m">
-                        <ref role="3cqZAo" node="Aop38IhACW" resolve="r" />
-                      </node>
-                    </node>
-                  </node>
-                </node>
-                <node concept="3uVAMA" id="Aop38Ijf3G" role="1zxBo5">
-                  <node concept="3clFbS" id="Aop38Ijf3H" role="1zc67A">
-                    <node concept="YS8fn" id="Aop38Ijf7f" role="3cqZAp">
-                      <node concept="2ShNRf" id="Aop38Ijf7g" role="YScLw">
-                        <node concept="1pGfFk" id="Aop38Ijf7h" role="2ShVmc">
-                          <ref role="37wK5l" to="wyt6:~RuntimeException.&lt;init&gt;(java.lang.Throwable)" resolve="RuntimeException" />
-                          <node concept="37vLTw" id="Aop38Ijf7i" role="37wK5m">
-                            <ref role="3cqZAo" node="Aop38Ijf3I" resolve="e" />
-                          </node>
-                        </node>
-                      </node>
-                    </node>
-                  </node>
-                  <node concept="XOnhg" id="Aop38Ijf3I" role="1zc67B">
-                    <property role="TrG5h" value="e" />
-                    <node concept="nSUau" id="Aop38Ijf3J" role="1tU5fm">
-                      <node concept="3uibUv" id="Aop38Ijf3F" role="nSUat">
-                        <ref role="3uigEE" to="t6h5:~InvocationTargetException" resolve="InvocationTargetException" />
-                      </node>
+                    <node concept="10M0yZ" id="Aop38IjRn8" role="37wK5m">
+                      <ref role="3cqZAo" to="bd8o:~ModalityState.NON_MODAL" resolve="NON_MODAL" />
+                      <ref role="1PxDUh" to="bd8o:~ModalityState" resolve="ModalityState" />
                     </node>
                   </node>
                 </node>
