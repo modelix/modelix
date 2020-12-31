@@ -285,7 +285,6 @@ class CLTree : ITree {
         } catch (e: RuntimeException) {
             throw RuntimeException("Unable to find concept for node $nodeId", e)
         }
-
     }
 
     override fun getParent(nodeId: Long): Long {
