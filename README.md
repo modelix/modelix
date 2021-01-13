@@ -143,3 +143,13 @@ Here are some open topics that we may work on in the future. The order doesn't h
   - Show cursors/selection of other users
 - Editor
   - Graphical notation: The current text based notation only uses very little code in the browser. All user input is processed on the server and they client receives an update of the changed HTML elements. A graphical notation based on existing JavaScript libraries would require a different API provided by the server.
+
+# Testing
+
+Testing that all the features of Modelix works is not an easy task, because it is such a large projects with different moving parts.
+
+We have different kinds of tests:
+
+* Unit Tests, as typical. In general we have very few of those and we should increase them
+* Integration Tests, which runs as part of the CI. They verify the different parts of the systems work together
+* Manual Tests, to be performed after major changes. They are necessary to catch errors we are unable to catch with automated tests. They are described in the directory _manual_tests_
