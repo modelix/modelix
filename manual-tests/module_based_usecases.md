@@ -96,7 +96,7 @@ We have currently no way to change the reference on the Cloud. If in the future 
 
 You can close the project.
 
-Remove "MBUC-1/.mps/cloudResources.xml".
+Run "git checkout manual-tests"
 
 Kill the model-server
 
