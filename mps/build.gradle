@@ -79,7 +79,7 @@ ext.defaultAntScriptArgs = [
 ]
 ext.buildScriptClasspath = project.configurations.ant_lib.fileCollection({ true })
 
-task generateMpsBuildScript(type: BuildLanguages, dependsOn: [resolveMps, resolveMpsArtifacts]) {
+task generateMpsBuildScript(type: BuildLanguages, dependsOn: [resolveMps, resolveMpsArtifacts, ":model-client:copyModelClientToMps", ":ui-client:packageNpmApp"]) {
     scriptArgs = defaultAntScriptArgs
     scriptClasspath = buildScriptClasspath
     script new File("$rootDir/build-scripts.xml")

@@ -58,7 +58,7 @@ public class EnvironmentLoader {
             File homePath = new File(PathManager.getHomePath());
             loadLangJars(config, new File(homePath,"languages"));
             loadLangJars(config, new File(homePath,"plugins"));
-            environment = new IdeaEnvironment(config, false);
+            environment = new IdeaEnvironment(config);
             RuntimeFlags.setTestMode(TestMode.NONE);
             ((IdeaEnvironment) environment).init();
             ourProject = environment.createEmptyProject();

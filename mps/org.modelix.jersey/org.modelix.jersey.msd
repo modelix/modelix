@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <solution name="org.modelix.jersey" uuid="c740997f-28c0-47e8-9b5a-e87dfdb17a21" moduleVersion="0" compileInMPS="true">
   <models>
-    <modelRoot contentPath="${module}" type="default">
-      <sourceRoot location="models" />
-    </modelRoot>
     <modelRoot contentPath="${module}/lib" type="java_classes">
       <sourceRoot location="jakarta.activation-1.2.1.jar" />
       <sourceRoot location="jakarta.activation-api-1.2.1.jar" />

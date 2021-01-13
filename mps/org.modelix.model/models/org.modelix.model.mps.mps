@@ -65,7 +65,7 @@
       <concept id="8118189177080264853" name="jetbrains.mps.baseLanguage.structure.AlternativeType" flags="ig" index="nSUau">
         <child id="8118189177080264854" name="alternative" index="nSUat" />
       </concept>
-      <concept id="1465982738277781862" name="jetbrains.mps.baseLanguage.structure.PlaceholderMember" flags="ng" index="2tJIrI" />
+      <concept id="1465982738277781862" name="jetbrains.mps.baseLanguage.structure.PlaceholderMember" flags="nn" index="2tJIrI" />
       <concept id="1076505808687" name="jetbrains.mps.baseLanguage.structure.WhileStatement" flags="nn" index="2$JKZl">
         <child id="1076505808688" name="condition" index="2$JKZa" />
       </concept>
@@ -250,7 +250,7 @@
         <child id="1178549979242" name="visibility" index="1B3o_S" />
       </concept>
       <concept id="1107796713796" name="jetbrains.mps.baseLanguage.structure.Interface" flags="ig" index="3HP615" />
-      <concept id="5351203823916750322" name="jetbrains.mps.baseLanguage.structure.TryUniversalStatement" flags="ng" index="3J1_TO">
+      <concept id="5351203823916750322" name="jetbrains.mps.baseLanguage.structure.TryUniversalStatement" flags="nn" index="3J1_TO">
         <child id="8276990574886367510" name="catchClause" index="1zxBo5" />
         <child id="8276990574886367508" name="body" index="1zxBo7" />
       </concept>
@@ -346,10 +346,10 @@
       </concept>
     </language>
     <language id="c7fb639f-be78-4307-89b0-b5959c3fa8c8" name="jetbrains.mps.lang.text">
-      <concept id="155656958578482948" name="jetbrains.mps.lang.text.structure.Word" flags="ng" index="3oM_SD">
+      <concept id="155656958578482948" name="jetbrains.mps.lang.text.structure.Word" flags="nn" index="3oM_SD">
         <property id="155656958578482949" name="value" index="3oM_SC" />
       </concept>
-      <concept id="2535923850359271782" name="jetbrains.mps.lang.text.structure.Line" flags="ng" index="1PaTwC">
+      <concept id="2535923850359271782" name="jetbrains.mps.lang.text.structure.Line" flags="nn" index="1PaTwC">
         <child id="2535923850359271783" name="elements" index="1PaTwD" />
       </concept>
     </language>
@@ -6428,6 +6428,70 @@
         </node>
       </node>
       <node concept="2AHcQZ" id="4EhVFrZ3Aqw" role="2AJF6D">
+        <ref role="2AI5Lk" to="wyt6:~Override" resolve="Override" />
+      </node>
+    </node>
+    <node concept="3clFb_" id="3sFor71bYCC" role="jymVt">
+      <property role="TrG5h" value="setReference" />
+      <node concept="3Tm1VV" id="3sFor71bYCD" role="1B3o_S" />
+      <node concept="3cqZAl" id="3sFor71bYCF" role="3clF45" />
+      <node concept="37vLTG" id="3sFor71bYCG" role="3clF46">
+        <property role="TrG5h" value="link" />
+        <node concept="3uibUv" id="3sFor71bYCH" role="1tU5fm">
+          <ref role="3uigEE" to="c17a:~SReferenceLink" resolve="SReferenceLink" />
+        </node>
+        <node concept="2AHcQZ" id="3sFor71bYCI" role="2AJF6D">
+          <ref role="2AI5Lk" to="mhfm:~NotNull" resolve="NotNull" />
+        </node>
+      </node>
+      <node concept="37vLTG" id="3sFor71bYCJ" role="3clF46">
+        <property role="TrG5h" value="info" />
+        <node concept="3uibUv" id="3sFor71bYCK" role="1tU5fm">
+          <ref role="3uigEE" to="mhbf:~ResolveInfo" resolve="ResolveInfo" />
+        </node>
+      </node>
+      <node concept="3clFbS" id="3sFor71bYD2" role="3clF47">
+        <node concept="YS8fn" id="3sFor71cpNH" role="3cqZAp">
+          <node concept="2ShNRf" id="3sFor71cpNI" role="YScLw">
+            <node concept="1pGfFk" id="3sFor71cpNJ" role="2ShVmc">
+              <ref role="37wK5l" to="wyt6:~UnsupportedOperationException.&lt;init&gt;(java.lang.String)" resolve="UnsupportedOperationException" />
+              <node concept="Xl_RD" id="3sFor71cpNK" role="37wK5m">
+                <property role="Xl_RC" value="Not implemented" />
+              </node>
+            </node>
+          </node>
+        </node>
+      </node>
+      <node concept="2AHcQZ" id="3sFor71bYD3" role="2AJF6D">
+        <ref role="2AI5Lk" to="wyt6:~Override" resolve="Override" />
+      </node>
+    </node>
+    <node concept="3clFb_" id="3sFor71bYD4" role="jymVt">
+      <property role="TrG5h" value="dropReference" />
+      <node concept="3Tm1VV" id="3sFor71bYD5" role="1B3o_S" />
+      <node concept="3cqZAl" id="3sFor71bYD7" role="3clF45" />
+      <node concept="37vLTG" id="3sFor71bYD8" role="3clF46">
+        <property role="TrG5h" value="link" />
+        <node concept="3uibUv" id="3sFor71bYD9" role="1tU5fm">
+          <ref role="3uigEE" to="c17a:~SReferenceLink" resolve="SReferenceLink" />
+        </node>
+        <node concept="2AHcQZ" id="3sFor71bYDa" role="2AJF6D">
+          <ref role="2AI5Lk" to="mhfm:~NotNull" resolve="NotNull" />
+        </node>
+      </node>
+      <node concept="3clFbS" id="3sFor71bYDg" role="3clF47">
+        <node concept="YS8fn" id="3sFor71cpVy" role="3cqZAp">
+          <node concept="2ShNRf" id="3sFor71cpVz" role="YScLw">
+            <node concept="1pGfFk" id="3sFor71cpV$" role="2ShVmc">
+              <ref role="37wK5l" to="wyt6:~UnsupportedOperationException.&lt;init&gt;(java.lang.String)" resolve="UnsupportedOperationException" />
+              <node concept="Xl_RD" id="3sFor71cpV_" role="37wK5m">
+                <property role="Xl_RC" value="Not implemented" />
+              </node>
+            </node>
+          </node>
+        </node>
+      </node>
+      <node concept="2AHcQZ" id="3sFor71bYDh" role="2AJF6D">
         <ref role="2AI5Lk" to="wyt6:~Override" resolve="Override" />
       </node>
     </node>

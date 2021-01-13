@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <solution name="org.modelix.jetty" uuid="fc3c2aa8-0d4b-463f-a774-40d450aa04a0" moduleVersion="0" pluginKind="PLUGIN_OTHER" compileInMPS="true">
   <models>
-    <modelRoot contentPath="${module}" type="default">
-      <sourceRoot location="models" />
-    </modelRoot>
     <modelRoot contentPath="${module}/lib" type="java_classes">
       <sourceRoot location="annotations/asm-7.1.jar" />
       <sourceRoot location="annotations/asm-analysis-7.1.jar" />
