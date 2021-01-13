@@ -9,7 +9,7 @@
 // Get the artifacts used by Modelix:
 // copy artifacts/de.itemis.mps.extensions
 
-task prepareDependenciesForManualTests(/*dependsOn: [":mps:setup", ":mps:packageMpsModelPlugin"]*/) {
+task prepareDependenciesForManualTests(dependsOn: [":mps:setup", ":mps:packageMpsModelPlugin"]) {
 	doLast {
 		def dependenciesDir = new File("${rootDir.getAbsolutePath()}/manual-tests/dependencies")
         dependenciesDir.deleteDir()
