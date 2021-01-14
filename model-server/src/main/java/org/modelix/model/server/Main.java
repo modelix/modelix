@@ -20,6 +20,9 @@ import com.beust.jcommander.Parameter;
 import com.beust.jcommander.converters.BooleanConverter;
 import com.beust.jcommander.converters.IntegerConverter;
 import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.nio.charset.StandardCharsets;
@@ -31,6 +34,8 @@ import java.sql.Statement;
 import java.util.LinkedList;
 import java.util.List;
 import javax.sql.DataSource;
+
+import com.beust.jcommander.converters.StringConverter;
 import org.apache.commons.io.FileUtils;
 import org.apache.ignite.Ignition;
 import org.apache.log4j.Logger;
@@ -57,6 +62,18 @@ class CmdLineArgs {
             description = "Use in-memory storage",
             converter = BooleanConverter.class)
     Boolean inmemory = false;
+
+    @Parameter(
+            names = "-dumpout",
+            description = "Dump in memory storage",
+            converter = StringConverter.class)
+    String dumpOutName;
+
+    @Parameter(
+            names = "-dumpin",
+            description = "Read dump in memory storage",
+            converter = StringConverter.class)
+    String dumpInName;
 
     @Parameter(names = "-port", description = "Set port", converter = IntegerConverter.class)
     Integer port = null;
@@ -163,6 +180,31 @@ public class Main {
         }
     }
 
+    private static class DumpOutThread extends Thread {
+
+        DumpOutThread(InMemoryStoreClient inMemoryStoreClient, String dumpName) {
+            super(() -> {
+                FileWriter fw = null;
+                try {
+                    fw = new FileWriter(new File(dumpName));
+                    inMemoryStoreClient.dump(fw);
+                    System.out.println("[Saved memory store into " + dumpName + "]");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } finally {
+                    if (fw != null) {
+                        try {
+                            fw.close();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            });
+        }
+
+    }
+
     public static void main(String[] args) {
         CmdLineArgs cmdLineArgs = new CmdLineArgs();
         new JCommander(cmdLineArgs).parse(args);
@@ -174,6 +216,13 @@ public class Main {
         LOG.info("Path to JDBC configuration file: " + cmdLineArgs.jdbcConfFile);
         LOG.info("Schema initialization: " + cmdLineArgs.schemaInit);
         LOG.info("Set values: " + cmdLineArgs.setValues);
+
+        if (cmdLineArgs.dumpOutName != null && !cmdLineArgs.inmemory) {
+            throw new RuntimeException("For now dumps are supported only with the inmemory option");
+        }
+        if (cmdLineArgs.dumpInName != null && !cmdLineArgs.inmemory) {
+            throw new RuntimeException("For now dumps are supported only with the inmemory option");
+        }
 
         try {
             String portStr = System.getenv("MODELIX_SERVER_PORT");
@@ -193,6 +242,17 @@ public class Main {
                     LOG.warn("Schema initialization is ignored when in-memory flag is set");
                 }
                 storeClient = new InMemoryStoreClient();
+                if (cmdLineArgs.dumpInName != null) {
+                    InMemoryStoreClient inMemoryStoreClient = (InMemoryStoreClient)storeClient;
+                    File file = new File(cmdLineArgs.dumpInName);
+                    int keys = inMemoryStoreClient.load(new FileReader(file));
+                    System.out.println("Values loaded from " + file.getAbsolutePath()+" ("+ keys + ")");
+                }
+                if (cmdLineArgs.dumpOutName != null) {
+                    Runtime.getRuntime().addShutdownHook(
+                            new DumpOutThread((InMemoryStoreClient)storeClient, cmdLineArgs.dumpOutName));
+
+                }
             } else {
                 storeClient = new IgniteStoreClient(cmdLineArgs.jdbcConfFile);
                 if (cmdLineArgs.schemaInit) {
