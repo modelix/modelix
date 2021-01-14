@@ -147,4 +147,69 @@ Kill the model-server
 
 ## Manual Test MBUC-4
 
+### Preparation
+
+Start the model-server using dump `model-server-dump-MBUC-1`. Note that if in the future you need to recreate this dump you can execute Manual Test MBUC-1 starting the model server with the dump out option.
+
+Take a clean installation of MPS, of the exact same version as specified in build.gradle. You should not install any plugin on that.
+
+In that version open the project MBUC-3.
+
+### Test execution
+
+Add the Cloud Repository http://localhost:8899/
+
+Verify the Cloud Repository contains one module with one model, with two roots.
+
+Select the solution "MyExampleSolution" in the Cloud Repository and from the contextual menu triggers "Checkout".
+
+You should see now a project module named "MyExampleSolution" with a model inside it called "MyExampleSolution.aModel". It should contain two classes.
+
+Open the two classes and verify they do not contain errors. Only one error is expected: the error regarding the missing import of JDK (module dependencies are not yet supported).
+
+### Clean up
+
+You can close the project.
+
+Run "git checkout manual-tests"
+
+Kill the model-server
+
 ## Manual Test MBUC-5
+
+### Preparation
+
+Start the model-server using dump `model-server-dump-MBUC-1`. Note that if in the future you need to recreate this dump you can execute Manual Test MBUC-1 starting the model server with the dump out option.
+
+Take a clean installation of MPS, of the exact same version as specified in build.gradle. You should not install any plugin on that.
+
+In that version open the project MBUC-3.
+
+### Test execution
+
+Add the Cloud Repository http://localhost:8899/
+
+Verify the Cloud Repository contains one module with one model, with two roots.
+
+Select the solution "MyExampleSolution" in the Cloud Repository and from the contextual menu triggers "Checkout and Sync".
+
+You should see now a project module named "MyExampleSolution" with a model inside it called "MyExampleSolution.aModel". It should contain two classes.
+
+Open the two classes and verify they do not contain errors. Only one error is expected: the error regarding the missing import of JDK (module dependencies are not yet supported).
+
+Open class "MyClass" and modify the name to "MyClassFoo". Verify that this is reported on the Cloud server.
+
+In the cloud view modify the name of the class to "MyClassBar". Verify that this reported in the editor.
+
+Add a field in MyClass: "private boolean newField;". Verify that this is reported on the Cloud server.	
+
+Add a field from the Cloud view, with name "anotherField". Verify that a line "*package* <no type> anotherField;" is added at the end of the class.
+
+
+### Clean up
+
+You can close the project.
+
+Run "git checkout manual-tests"
+
+Kill the model-server
