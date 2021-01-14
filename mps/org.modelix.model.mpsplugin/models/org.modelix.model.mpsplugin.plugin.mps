@@ -8279,7 +8279,7 @@
               <ref role="37wK5l" to="qkt:~Presentation.setText(java.lang.String)" resolve="setText" />
               <node concept="3cpWs3" id="1xehy3Sm8VM" role="37wK5m">
                 <node concept="Xl_RD" id="1xehy3Sm8VN" role="3uHU7B">
-                  <property role="Xl_RC" value="Copy on Cloud &amp; Sync -&gt; " />
+                  <property role="Xl_RC" value="Copy on Cloud and Sync -&gt; " />
                 </node>
                 <node concept="2OqwBi" id="1xehy3Sm8VO" role="3uHU7w">
                   <node concept="2OqwBi" id="1xehy3Sm8VP" role="2Oq$k0">
@@ -9431,7 +9431,7 @@
                     </node>
                     <node concept="3cpWs3" id="4OH9SxdjbCe" role="3uHU7B">
                       <node concept="Xl_RD" id="4OH9SxdjbCf" role="3uHU7B">
-                        <property role="Xl_RC" value="Copy on Cloud &amp; Sync -&gt; " />
+                        <property role="Xl_RC" value="Copy on Cloud and Sync -&gt; " />
                       </node>
                       <node concept="2OqwBi" id="6Sw$yPpyxQ0" role="3uHU7w">
                         <node concept="2OqwBi" id="6Sw$yPpyxQ1" role="2Oq$k0">

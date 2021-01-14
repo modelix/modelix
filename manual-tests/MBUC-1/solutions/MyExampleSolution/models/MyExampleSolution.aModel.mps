@@ -111,8 +111,8 @@
         <node concept="3clFbF" id="4RKx2wh0rnY" role="3cqZAp">
           <node concept="2OqwBi" id="4RKx2wh0rzI" role="3clFbG">
             <node concept="10M0yZ" id="4RKx2wh0rox" role="2Oq$k0">
-              <ref role="3cqZAo" to="wyt6:~System.out" resolve="out" />
               <ref role="1PxDUh" to="wyt6:~System" resolve="System" />
+              <ref role="3cqZAo" to="wyt6:~System.out" resolve="out" />
             </node>
             <node concept="liA8E" id="4RKx2wh0rJP" role="2OqNvi">
               <ref role="37wK5l" to="guwi:~PrintStream.println(java.lang.String)" resolve="println" />
