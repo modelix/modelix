@@ -20,6 +20,13 @@ These tests are used to verify that these five use cases work as expected:
 java -jar model-server/build/libs/model-server-fatJar-latest.jar -inmemory -port 8899
 ```
 
+If the instructions specify to load a dump use this command:
+
+```
+java -jar model-server/build/libs/model-server-fatJar-latest.jar -inmemory -dumpin <DUMP NAME> -port 8899
+```
+
+
 * Now you can open MPS. Ensure you do not have other instances of MPS running
 
 ## At the end
@@ -101,6 +108,34 @@ Run "git checkout manual-tests"
 Kill the model-server
 
 ## Manual Test MBUC-3
+
+### Preparation
+
+Start the model-server using dump `model-server-dump-MBUC-1`. Note that if in the future you need to recreate this dump you can execute Manual Test MBUC-1 starting the model server with the dump out option.
+
+Take a clean installation of MPS, of the exact same version as specified in build.gradle. You should not install any plugin on that.
+
+In that version open the project MBUC-3.
+
+### Test execution
+
+Add the Cloud Repository http://localhost:8899/
+
+Verify the Cloud Repository contains one module with one model, with two roots.
+
+Select the solution "MyExampleSolution" in the Cloud Repository and from the contextual menu triggers "Bind to Transient Module".
+
+You should see now a transient module named "MyExampleSolution" with a model inside it called "MyExampleSolution.aModel". It should contain two classes.
+
+Open the two classes and verify they do not contain errors.	
+
+### Clean up
+
+You can close the project.
+
+Run "git checkout manual-tests"
+
+Kill the model-server
 
 ## Manual Test MBUC-4
 
