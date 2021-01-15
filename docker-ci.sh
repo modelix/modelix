@@ -24,10 +24,11 @@ TAGS="$GIT_TAG mps-$mpsVersion"
 if [ "$mpsVersion" != "$mpsMajorVersion" ]; then
     TAGS="$TAGS mps-$mpsMajorVersion"
 fi
+IMAGE_NAMES="db model mps ui proxy uiproxy"
 for TAG in $TAGS ; do
   echo "Pushing Tag $TAG"
 
-  for IMAGE_NAME in "db model mps ui proxy uiproxy" ; do
+  for IMAGE_NAME in $IMAGE_NAMES ; do
     if [ "$TAG" != "latest" ]; then
       docker tag "modelix/modelix-$IMAGE_NAME:latest" "modelix/modelix-$IMAGE_NAME:${TAG}"
     fi
