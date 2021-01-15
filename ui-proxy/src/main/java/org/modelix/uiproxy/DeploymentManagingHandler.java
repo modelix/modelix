@@ -45,6 +45,7 @@ public class DeploymentManagingHandler extends AbstractHandler {
     private static final Logger LOG = Logger.getLogger(DeploymentManagingHandler.class);
     public static final String KUBERNETES_NAMESPACE = "default";
 
+    private String dockerImageTag = "latest";
     private Map<String, Long> deploymentTimeouts = Collections.synchronizedMap(new HashedMap<>());
     private Thread cleanupThread = new Thread() {
         @Override
@@ -71,6 +72,11 @@ public class DeploymentManagingHandler extends AbstractHandler {
             throw new RuntimeException(e);
         }
         cleanupThread.start();
+    }
+
+    public void setModelixVersion(String version) {
+        if (version == null || version.length() == 0) return;
+        this.dockerImageTag = version;
     }
 
     @Override
@@ -314,7 +320,7 @@ public class DeploymentManagingHandler extends AbstractHandler {
                             .withNewSpec()
                                 .addNewContainer()
                                     .withName("ui")
-                                    .withImage("modelix/modelix-ui:latest")
+                                    .withImage("modelix/modelix-ui:" + dockerImageTag)
                                     .withImagePullPolicy("IfNotPresent")
                                     .addNewEnv()
                                         .withName("GIT_REPO_URI")
