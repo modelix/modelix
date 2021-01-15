@@ -5540,9 +5540,9 @@
     <node concept="2G$12M" id="2p2ql82Ml_9" role="3989C9">
       <property role="TrG5h" value="ModelixIntegrationTests" />
       <node concept="1E1JtA" id="5yNJPA6sbWi" role="2G$12L">
-        <property role="BnDLt" value="true" />
         <property role="TrG5h" value="org.modelix.integrationtests" />
         <property role="3LESm3" value="46ee2897-c65d-4c6b-b2dd-5e898e2920e0" />
+        <property role="BnDLt" value="true" />
         <node concept="398BVA" id="5yNJPA6sbWQ" role="3LF7KH">
           <ref role="398BVh" node="5yNJPA6sbnk" resolve="modelix.modules" />
           <node concept="2Ry0Ak" id="6V2G5GpUUh7" role="iGT6I">
@@ -5621,6 +5621,11 @@
         <node concept="1SiIV0" id="5i$4SBK2L_j" role="3bR37C">
           <node concept="3bR9La" id="5i$4SBK2L_k" role="1SiIV1">
             <ref role="3bR37D" to="ffeo:1TaHNgiIbJb" resolve="MPS.Platform" />
+          </node>
+        </node>
+        <node concept="1SiIV0" id="KjelMl9IIs" role="3bR37C">
+          <node concept="3bR9La" id="KjelMl9IIt" role="1SiIV1">
+            <ref role="3bR37D" to="ffeo:1ia2VB5guYy" resolve="MPS.IDEA" />
           </node>
         </node>
       </node>
