@@ -20,9 +20,9 @@ docker login -u "$DOCKER_HUB_USER" -p "$DOCKER_HUB_KEY"
 ./docker-build-uiproxy.sh
 
 GIT_TAG="$TRAVIS_TAG"
-TAGS="$GIT_TAG $mpsVersion"
+TAGS="$GIT_TAG mps-$mpsVersion"
 if [ "$mpsVersion" != "$mpsMajorVersion" ]; then
-    TAGS="$TAGS $mpsMajorVersion"
+    TAGS="$TAGS mps-$mpsMajorVersion"
 fi
 for TAG in $TAGS ; do
   echo "Pushing Tag $TAG"
