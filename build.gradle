@@ -23,9 +23,11 @@ plugins {
     id "com.jfrog.bintray" version "1.8.5" apply false
 }
 
-ext.mpsMajorVersion = "2020.3"
-ext.mpsMinorVersion = ""
-ext.mpsVersion =  mpsMajorVersion + (mpsMinorVersion.length() > 0 ? "." : "") + mpsMinorVersion
+def mpsVersionProps = new Properties()
+file("mps-version.properties").withInputStream { mpsVersionProps.load(it) }
+ext.mpsMajorVersion = mpsVersionProps.getProperty("mpsMajorVersion")
+ext.mpsMinorVersion = mpsVersionProps.getProperty("mpsMinorVersion")
+ext.mpsVersion = mpsVersionProps.getProperty("mpsVersion")
 
 ext.modelixVersion = "$mpsVersion-SNAPSHOT"
 if (System.getenv("TRAVIS_TAG") != null && !System.getenv("TRAVIS_TAG").isEmpty()) {
