@@ -26742,6 +26742,26 @@
         <ref role="3uigEE" to="lui2:~SModule" resolve="SModule" />
       </node>
       <node concept="3clFbS" id="lO9TSUC_oL" role="3clF47">
+        <node concept="3clFbJ" id="KjelMl7tAV" role="3cqZAp">
+          <node concept="3clFbS" id="KjelMl7tAX" role="3clFbx">
+            <node concept="YS8fn" id="KjelMl7uCY" role="3cqZAp">
+              <node concept="2ShNRf" id="KjelMl7uD5" role="YScLw">
+                <node concept="1pGfFk" id="KjelMl81aS" role="2ShVmc">
+                  <ref role="37wK5l" to="wyt6:~IllegalArgumentException.&lt;init&gt;(java.lang.String)" resolve="IllegalArgumentException" />
+                  <node concept="Xl_RD" id="KjelMl81e9" role="37wK5m">
+                    <property role="Xl_RC" value="nameSpace should not be null" />
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+          <node concept="3clFbC" id="KjelMl7ugj" role="3clFbw">
+            <node concept="10Nm6u" id="KjelMl7u$F" role="3uHU7w" />
+            <node concept="37vLTw" id="KjelMl7tLy" role="3uHU7B">
+              <ref role="3cqZAo" node="lO9TSUCHRJ" resolve="nameSpace" />
+            </node>
+          </node>
+        </node>
         <node concept="3cpWs8" id="lO9TSUCFpH" role="3cqZAp">
           <node concept="3cpWsn" id="lO9TSUCFpI" role="3cpWs9">
             <property role="TrG5h" value="moduleFolder" />
@@ -26881,6 +26901,26 @@
               <node concept="3uibUv" id="lO9TSUCFq$" role="10QFUM">
                 <ref role="3uigEE" to="3ju5:~IFile" resolve="IFile" />
               </node>
+            </node>
+          </node>
+        </node>
+        <node concept="3clFbJ" id="KjelMl81Ii" role="3cqZAp">
+          <node concept="3clFbS" id="KjelMl81Ik" role="3clFbx">
+            <node concept="YS8fn" id="KjelMl82oS" role="3cqZAp">
+              <node concept="2ShNRf" id="KjelMl82oZ" role="YScLw">
+                <node concept="1pGfFk" id="KjelMl83z5" role="2ShVmc">
+                  <ref role="37wK5l" to="wyt6:~IllegalStateException.&lt;init&gt;(java.lang.String)" resolve="IllegalStateException" />
+                  <node concept="Xl_RD" id="KjelMl83Am" role="37wK5m">
+                    <property role="Xl_RC" value="descriptor file should not be null" />
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+          <node concept="3clFbC" id="KjelMl82aa" role="3clFbw">
+            <node concept="10Nm6u" id="KjelMl82k_" role="3uHU7w" />
+            <node concept="37vLTw" id="KjelMl81TI" role="3uHU7B">
+              <ref role="3cqZAo" node="lO9TSUCFqr" resolve="descriptorFile" />
             </node>
           </node>
         </node>
