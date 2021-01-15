@@ -27,24 +27,10 @@ fi
 for TAG in $TAGS ; do
   echo "Pushing Tag $TAG"
 
-  docker tag modelix/modelix-db:latest "modelix/modelix-db:${TAG}"
-  docker tag modelix/modelix-model:latest "modelix/modelix-model:${TAG}"
-  docker tag modelix/modelix-mps:latest "modelix/modelix-mps:${TAG}"
-  docker tag modelix/modelix-ui:latest "modelix/modelix-ui:${TAG}"
-  docker tag modelix/modelix-proxy:latest "modelix/modelix-proxy:${TAG}"
-  docker tag modelix/modelix-uiproxy:latest "modelix/modelix-uiproxy:${TAG}"
-
-  docker push "modelix/modelix-db:${TAG}"
-  docker push "modelix/modelix-model:${TAG}"
-  docker push "modelix/modelix-mps:${TAG}"
-  docker push "modelix/modelix-ui:${TAG}"
-  docker push "modelix/modelix-proxy:${TAG}"
-  docker push "modelix/modelix-uiproxy:${TAG}"
+  for IMAGE_NAME in "db model mps ui proxy uiproxy" ; do
+    if [ "$TAG" != "latest" ]; then
+      docker tag "modelix/modelix-$IMAGE_NAME:latest" "modelix/modelix-$IMAGE_NAME:${TAG}"
+    fi
+    docker push "modelix/modelix-$IMAGE_NAME:${TAG}"
+  done
 done
-
-docker push "modelix/modelix-db:latest"
-docker push "modelix/modelix-model:latest"
-docker push "modelix/modelix-mps:latest"
-docker push "modelix/modelix-ui:latest"
-docker push "modelix/modelix-proxy:latest"
-docker push "modelix/modelix-uiproxy:latest"
