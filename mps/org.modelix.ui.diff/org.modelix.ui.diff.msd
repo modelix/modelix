@@ -14,7 +14,6 @@
   <dependencies>
     <dependency reexport="false">498d89d2-c2e9-11e2-ad49-6cf049e62fe5(MPS.IDEA)</dependency>
     <dependency reexport="false">6fd1293f-7f65-4ffd-99dc-4719eca7c171(jetbrains.mps.ide.vcs.platform)</dependency>
-    <dependency reexport="false">f57286e3-4e19-4d8d-8045-3900761f6530(jetbrains.mps.git4idea.stubs)</dependency>
     <dependency reexport="false">6354ebe7-c22a-4a0f-ac54-50b52ab9b065(JDK)</dependency>
     <dependency reexport="false">fc3c2aa8-0d4b-463f-a774-40d450aa04a0(org.modelix.jetty)</dependency>
     <dependency reexport="false">2d5cd737-852a-4885-95f3-b6f65b8b740d(org.modelix.git4idea.withJavaFacet)</dependency>
@@ -46,7 +45,6 @@
     <module reference="498d89d2-c2e9-11e2-ad49-6cf049e62fe5(MPS.IDEA)" version="0" />
     <module reference="8865b7a8-5271-43d3-884c-6fd1d9cfdd34(MPS.OpenAPI)" version="0" />
     <module reference="742f6602-5a2f-4313-aa6e-ae1cd4ffdc61(MPS.Platform)" version="0" />
-    <module reference="f57286e3-4e19-4d8d-8045-3900761f6530(jetbrains.mps.git4idea.stubs)" version="0" />
     <module reference="6fd1293f-7f65-4ffd-99dc-4719eca7c171(jetbrains.mps.ide.vcs.platform)" version="0" />
     <module reference="9e98f4e2-decf-4e97-bf80-9109e8b759aa(jetbrains.mps.lang.feedback.context)" version="0" />
     <module reference="2d5cd737-852a-4885-95f3-b6f65b8b740d(org.modelix.git4idea.withJavaFacet)" version="0" />

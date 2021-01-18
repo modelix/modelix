@@ -13,11 +13,8 @@
     <import index="p37l" ref="r:df1b052a-af27-4b87-80fc-1492fa2192be(jetbrains.mps.vcs.diff.ui)" />
     <import index="jlff" ref="498d89d2-c2e9-11e2-ad49-6cf049e62fe5/java:com.intellij.openapi.vfs(MPS.IDEA/)" />
     <import index="tkms" ref="498d89d2-c2e9-11e2-ad49-6cf049e62fe5/java:com.intellij.dvcs.repo(MPS.IDEA/)" />
-    <import index="5mlj" ref="f57286e3-4e19-4d8d-8045-3900761f6530/java:git4idea.repo(jetbrains.mps.git4idea.stubs/)" />
     <import index="33ny" ref="6354ebe7-c22a-4a0f-ac54-50b52ab9b065/java:java.util(JDK/)" />
-    <import index="hr4p" ref="f57286e3-4e19-4d8d-8045-3900761f6530/java:git4idea(jetbrains.mps.git4idea.stubs/)" />
     <import index="e0ho" ref="498d89d2-c2e9-11e2-ad49-6cf049e62fe5/java:com.intellij.vcs.log.impl(MPS.IDEA/)" />
-    <import index="m8n3" ref="f57286e3-4e19-4d8d-8045-3900761f6530/java:git4idea.history(jetbrains.mps.git4idea.stubs/)" />
     <import index="yt4f" ref="498d89d2-c2e9-11e2-ad49-6cf049e62fe5/java:com.intellij.diff(MPS.IDEA/)" />
     <import index="mhfm" ref="3f233e7f-b8a6-46d2-a57f-795d56775243/java:org.jetbrains.annotations(Annotations/)" />
     <import index="3tm9" ref="498d89d2-c2e9-11e2-ad49-6cf049e62fe5/java:com.intellij.openapi.vcs.changes.actions.diff(MPS.IDEA/)" />
@@ -45,8 +42,11 @@
     <import index="nwfd" ref="fc3c2aa8-0d4b-463f-a774-40d450aa04a0/java:javax.servlet.http(org.modelix.jetty/)" />
     <import index="opgt" ref="fc3c2aa8-0d4b-463f-a774-40d450aa04a0/java:javax.servlet(org.modelix.jetty/)" />
     <import index="exr9" ref="1ed103c3-3aa6-49b7-9c21-6765ee11f224/java:jetbrains.mps.nodeEditor(MPS.Editor/)" />
-    <import index="oy9a" ref="f57286e3-4e19-4d8d-8045-3900761f6530/java:git4idea.changes(jetbrains.mps.git4idea.stubs/)" />
     <import index="7g4e" ref="498d89d2-c2e9-11e2-ad49-6cf049e62fe5/java:com.intellij.vcsUtil(MPS.IDEA/)" />
+    <import index="5mlj" ref="2d5cd737-852a-4885-95f3-b6f65b8b740d/java:git4idea.repo(org.modelix.git4idea.withJavaFacet/)" />
+    <import index="hr4p" ref="2d5cd737-852a-4885-95f3-b6f65b8b740d/java:git4idea(org.modelix.git4idea.withJavaFacet/)" />
+    <import index="m8n3" ref="2d5cd737-852a-4885-95f3-b6f65b8b740d/java:git4idea.history(org.modelix.git4idea.withJavaFacet/)" />
+    <import index="oy9a" ref="2d5cd737-852a-4885-95f3-b6f65b8b740d/java:git4idea.changes(org.modelix.git4idea.withJavaFacet/)" />
     <import index="lui2" ref="8865b7a8-5271-43d3-884c-6fd1d9cfdd34/java:org.jetbrains.mps.openapi.module(MPS.OpenAPI/)" implicit="true" />
     <import index="fglx" ref="498d89d2-c2e9-11e2-ad49-6cf049e62fe5/java:com.intellij.openapi.fileTypes(MPS.IDEA/)" implicit="true" />
   </imports>
@@ -676,8 +676,8 @@
                         <ref role="3cqZAo" node="1RZ$z1qew1T" resolve="repoRoot" />
                       </node>
                       <node concept="2YIFZM" id="27MnIra36vK" role="37wK5m">
-                        <ref role="37wK5l" to="5mlj:~GitRepositoryImpl.createInstance(com.intellij.openapi.vfs.VirtualFile,com.intellij.openapi.project.Project,com.intellij.openapi.Disposable,boolean)" resolve="createInstance" />
                         <ref role="1Pybhc" to="5mlj:~GitRepositoryImpl" resolve="GitRepositoryImpl" />
+                        <ref role="37wK5l" to="5mlj:~GitRepositoryImpl.createInstance(com.intellij.openapi.vfs.VirtualFile,com.intellij.openapi.project.Project,com.intellij.openapi.Disposable,boolean)" resolve="createInstance" />
                         <node concept="37vLTw" id="27MnIra36vL" role="37wK5m">
                           <ref role="3cqZAo" node="1RZ$z1qew1T" resolve="repoRoot" />
                         </node>
@@ -863,20 +863,20 @@
                         <property role="TrG5h" value="history" />
                         <node concept="3uibUv" id="27MnIra36vR" role="1tU5fm">
                           <ref role="3uigEE" to="33ny:~List" resolve="List" />
-                          <node concept="3uibUv" id="27MnIra36vS" role="11_B2D">
+                          <node concept="3uibUv" id="b16MWbLCW$" role="11_B2D">
                             <ref role="3uigEE" to="hr4p:~GitCommit" resolve="GitCommit" />
                           </node>
                         </node>
-                        <node concept="2YIFZM" id="27MnIra36vT" role="33vP2m">
+                        <node concept="2YIFZM" id="b16MWbL_Pn" role="33vP2m">
                           <ref role="37wK5l" to="m8n3:~GitHistoryUtils.history(com.intellij.openapi.project.Project,com.intellij.openapi.vfs.VirtualFile,java.lang.String...)" resolve="history" />
                           <ref role="1Pybhc" to="m8n3:~GitHistoryUtils" resolve="GitHistoryUtils" />
-                          <node concept="37vLTw" id="27MnIra36vU" role="37wK5m">
+                          <node concept="37vLTw" id="b16MWbL_Po" role="37wK5m">
                             <ref role="3cqZAo" node="4kPMkltJPHc" resolve="project" />
                           </node>
-                          <node concept="37vLTw" id="27MnIra36vV" role="37wK5m">
+                          <node concept="37vLTw" id="b16MWbL_Pp" role="37wK5m">
                             <ref role="3cqZAo" node="1RZ$z1qeo2A" resolve="repoRoot" />
                           </node>
-                          <node concept="Xl_RD" id="27MnIra36vW" role="37wK5m">
+                          <node concept="Xl_RD" id="b16MWbL_Pq" role="37wK5m">
                             <property role="Xl_RC" value="-n1" />
                           </node>
                         </node>
@@ -1017,8 +1017,8 @@
                           </node>
                         </node>
                         <node concept="2YIFZM" id="2XovqnGSBnn" role="33vP2m">
-                          <ref role="37wK5l" to="oy9a:~GitChangeUtils.getDiff(com.intellij.openapi.project.Project,com.intellij.openapi.vfs.VirtualFile,java.lang.String,java.lang.String,java.util.Collection)" resolve="getDiff" />
                           <ref role="1Pybhc" to="oy9a:~GitChangeUtils" resolve="GitChangeUtils" />
+                          <ref role="37wK5l" to="oy9a:~GitChangeUtils.getDiff(com.intellij.openapi.project.Project,com.intellij.openapi.vfs.VirtualFile,java.lang.String,java.lang.String,java.util.Collection)" resolve="getDiff" />
                           <node concept="37vLTw" id="2XovqnGSBno" role="37wK5m">
                             <ref role="3cqZAo" node="4kPMkltJPHc" resolve="project" />
                           </node>
