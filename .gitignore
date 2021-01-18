@@ -19,3 +19,4 @@ mps/org.modelix.model.client/lib
 # modules are configured by gradle
 .idea/modules
 modules.xml
+modelix.version

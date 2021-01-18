@@ -3,7 +3,7 @@ plugins {
 }
 
 group 'org.modelix'
-version '1.0-SNAPSHOT'
+version modelixVersion
 
 description = "modelix UI proxy"
 
@@ -46,7 +46,6 @@ assemble.dependsOn copyRuntimeLibs
 
 jar {
     manifest {
-        attributes("Implementation-Version": modelixVersion)
         attributes("modelix-Version": modelixVersion)
         attributes("MPS-MajorVersion": mpsMajorVersion)
         attributes("MPS-MinorVersion": mpsMinorVersion)

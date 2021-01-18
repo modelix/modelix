@@ -1,4 +1,4 @@
-
+import java.text.SimpleDateFormat
 
 buildscript {
     ext.kotlinVersion = '1.4.0'
@@ -29,9 +29,16 @@ ext.mpsMajorVersion = mpsVersionProps.getProperty("mpsMajorVersion")
 ext.mpsMinorVersion = mpsVersionProps.getProperty("mpsMinorVersion")
 ext.mpsVersion = mpsVersionProps.getProperty("mpsVersion")
 
-ext.modelixVersion = "$mpsVersion-SNAPSHOT"
 if (System.getenv("TRAVIS_TAG") != null && !System.getenv("TRAVIS_TAG").isEmpty()) {
     ext.modelixVersion = System.getenv("TRAVIS_TAG")
+} else {
+    def versionFile = new File("./modelix.version")
+    if (versionFile.exists()) {
+        ext.modelixVersion = versionFile.text.trim()
+    } else {
+        ext.modelixVersion = "$mpsVersion-SNAPSHOT-" + new SimpleDateFormat("yyyyMMddHHmm").format(new Date())
+        versionFile.write(ext.modelixVersion)
+    }
 }
 
 allprojects {
