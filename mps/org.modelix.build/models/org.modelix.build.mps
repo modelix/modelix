@@ -5628,6 +5628,16 @@
             <ref role="3bR37D" to="ffeo:1ia2VB5guYy" resolve="MPS.IDEA" />
           </node>
         </node>
+        <node concept="1SiIV0" id="2FX9uaKQXng" role="3bR37C">
+          <node concept="3bR9La" id="2FX9uaKQXnh" role="1SiIV1">
+            <ref role="3bR37D" to="ffeo:7Kfy9QB6KXW" resolve="jetbrains.mps.lang.core" />
+          </node>
+        </node>
+        <node concept="1SiIV0" id="2FX9uaKQXni" role="3bR37C">
+          <node concept="3bR9La" id="2FX9uaKQXnj" role="1SiIV1">
+            <ref role="3bR37D" node="$zd_cMRR11" resolve="org.modelix.model.runtimelang" />
+          </node>
+        </node>
       </node>
     </node>
     <node concept="398rNT" id="5yNJPA6sbmP" role="1l3spd">
