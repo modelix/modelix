@@ -369,6 +369,12 @@
               ]
             }
           ]
+        },
+        {
+          "$role": "models",
+          "$concept": "org.modelix.model.runtimelang.Model",
+          "id": "r:0c2e757d-5555-4444-8888-a6db9dd85152",
+          "name": "my.wonderful.brandnew.modelInOldModule"
         }
       ]
     },
