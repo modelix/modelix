@@ -47,6 +47,10 @@
     <import index="hr4p" ref="2d5cd737-852a-4885-95f3-b6f65b8b740d/java:git4idea(org.modelix.git4idea.withJavaFacet/)" />
     <import index="m8n3" ref="2d5cd737-852a-4885-95f3-b6f65b8b740d/java:git4idea.history(org.modelix.git4idea.withJavaFacet/)" />
     <import index="oy9a" ref="2d5cd737-852a-4885-95f3-b6f65b8b740d/java:git4idea.changes(org.modelix.git4idea.withJavaFacet/)" />
+    <import index="fvx8" ref="6354ebe7-c22a-4a0f-ac54-50b52ab9b065/java:sun.awt(JDK/)" />
+    <import index="l2n2" ref="6354ebe7-c22a-4a0f-ac54-50b52ab9b065/java:java.awt.peer(JDK/)" />
+    <import index="hyam" ref="6354ebe7-c22a-4a0f-ac54-50b52ab9b065/java:java.awt.event(JDK/)" />
+    <import index="ksd0" ref="498d89d2-c2e9-11e2-ad49-6cf049e62fe5/java:com.intellij.diff.tools.util(MPS.IDEA/)" />
     <import index="lui2" ref="8865b7a8-5271-43d3-884c-6fd1d9cfdd34/java:org.jetbrains.mps.openapi.module(MPS.OpenAPI/)" implicit="true" />
     <import index="fglx" ref="498d89d2-c2e9-11e2-ad49-6cf049e62fe5/java:com.intellij.openapi.fileTypes(MPS.IDEA/)" implicit="true" />
   </imports>
@@ -1714,6 +1718,30 @@
                                   <node concept="liA8E" id="27MnIr9XYAO" role="2OqNvi">
                                     <ref role="37wK5l" to="qyr2:1R9fMbxrL$u" resolve="getComponent" />
                                   </node>
+                                </node>
+                              </node>
+                            </node>
+                            <node concept="3clFbF" id="4bv8_gxhb2y" role="3cqZAp">
+                              <node concept="2OqwBi" id="4bv8_gxhoFR" role="3clFbG">
+                                <node concept="2OqwBi" id="4bv8_gxhl1C" role="2Oq$k0">
+                                  <node concept="2OqwBi" id="4bv8_gxhfi4" role="2Oq$k0">
+                                    <node concept="1rXfSq" id="4bv8_gxhb2t" role="2Oq$k0">
+                                      <ref role="37wK5l" node="2QFzCYK4dwL" resolve="collectComponents" />
+                                      <node concept="37vLTw" id="4bv8_gxhdiF" role="37wK5m">
+                                        <ref role="3cqZAo" node="27MnIr9XYAF" resolve="viewer" />
+                                      </node>
+                                    </node>
+                                    <node concept="UnYns" id="4bv8_gxhhYN" role="2OqNvi">
+                                      <node concept="3uibUv" id="4bv8_gxhrDA" role="UnYnz">
+                                        <ref role="3uigEE" to="ksd0:~DiffSplitter" resolve="DiffSplitter" />
+                                      </node>
+                                    </node>
+                                  </node>
+                                  <node concept="1uHKPH" id="4bv8_gxhm2g" role="2OqNvi" />
+                                </node>
+                                <node concept="liA8E" id="4bv8_gxhtYP" role="2OqNvi">
+                                  <ref role="37wK5l" to="ksd0:~DiffSplitter.setPainter(com.intellij.diff.tools.util.DiffSplitter$Painter)" resolve="setPainter" />
+                                  <node concept="10Nm6u" id="4bv8_gxhvhX" role="37wK5m" />
                                 </node>
                               </node>
                             </node>
