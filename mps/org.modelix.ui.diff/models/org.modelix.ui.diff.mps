@@ -4638,6 +4638,105 @@
                     </node>
                     <node concept="3clFbJ" id="2XovqnGV$eK" role="3cqZAp">
                       <node concept="3clFbS" id="2XovqnGV$eM" role="3clFbx">
+                        <node concept="3cpWs8" id="4bv8_gxn3jO" role="3cqZAp">
+                          <node concept="3cpWsn" id="4bv8_gxn3jP" role="3cpWs9">
+                            <property role="TrG5h" value="project" />
+                            <node concept="3uibUv" id="4bv8_gxn30k" role="1tU5fm">
+                              <ref role="3uigEE" to="4nm9:~Project" resolve="Project" />
+                            </node>
+                            <node concept="2OqwBi" id="4bv8_gxn3jQ" role="33vP2m">
+                              <node concept="2OqwBi" id="4bv8_gxn3jR" role="2Oq$k0">
+                                <node concept="2OqwBi" id="4bv8_gxn3jS" role="2Oq$k0">
+                                  <node concept="2OqwBi" id="4bv8_gxn3jT" role="2Oq$k0">
+                                    <node concept="2YIFZM" id="4bv8_gxn3jU" role="2Oq$k0">
+                                      <ref role="1Pybhc" to="4nm9:~ProjectManager" resolve="ProjectManager" />
+                                      <ref role="37wK5l" to="4nm9:~ProjectManager.getInstance()" resolve="getInstance" />
+                                    </node>
+                                    <node concept="liA8E" id="4bv8_gxn3jV" role="2OqNvi">
+                                      <ref role="37wK5l" to="4nm9:~ProjectManager.getOpenProjects()" resolve="getOpenProjects" />
+                                    </node>
+                                  </node>
+                                  <node concept="39bAoz" id="4bv8_gxn3jW" role="2OqNvi" />
+                                </node>
+                                <node concept="3QWeyG" id="4bv8_gxn3jX" role="2OqNvi">
+                                  <node concept="2ShNRf" id="4bv8_gxn3jY" role="576Qk">
+                                    <node concept="2HTt$P" id="4bv8_gxn3jZ" role="2ShVmc">
+                                      <node concept="3uibUv" id="4bv8_gxn3k0" role="2HTBi0">
+                                        <ref role="3uigEE" to="4nm9:~Project" resolve="Project" />
+                                      </node>
+                                      <node concept="2OqwBi" id="4bv8_gxn3k1" role="2HTEbv">
+                                        <node concept="2YIFZM" id="4bv8_gxn3k2" role="2Oq$k0">
+                                          <ref role="1Pybhc" to="4nm9:~ProjectManager" resolve="ProjectManager" />
+                                          <ref role="37wK5l" to="4nm9:~ProjectManager.getInstance()" resolve="getInstance" />
+                                        </node>
+                                        <node concept="liA8E" id="4bv8_gxn3k3" role="2OqNvi">
+                                          <ref role="37wK5l" to="4nm9:~ProjectManager.getDefaultProject()" resolve="getDefaultProject" />
+                                        </node>
+                                      </node>
+                                    </node>
+                                  </node>
+                                </node>
+                              </node>
+                              <node concept="1uHKPH" id="4bv8_gxn3k4" role="2OqNvi" />
+                            </node>
+                          </node>
+                        </node>
+                        <node concept="3clFbJ" id="4bv8_gxn5ne" role="3cqZAp">
+                          <node concept="3clFbS" id="4bv8_gxn5ng" role="3clFbx">
+                            <node concept="3clFbF" id="4bv8_gxn7SR" role="3cqZAp">
+                              <node concept="2OqwBi" id="4bv8_gxn7SS" role="3clFbG">
+                                <node concept="37vLTw" id="4bv8_gxn7ST" role="2Oq$k0">
+                                  <ref role="3cqZAo" node="QucyCqZ7qb" resolve="resp" />
+                                </node>
+                                <node concept="liA8E" id="4bv8_gxn7SU" role="2OqNvi">
+                                  <ref role="37wK5l" to="nwfd:~HttpServletResponse.setStatus(int)" resolve="setStatus" />
+                                  <node concept="10M0yZ" id="4bv8_gxn9qz" role="37wK5m">
+                                    <ref role="3cqZAo" to="nwfd:~HttpServletResponse.SC_INTERNAL_SERVER_ERROR" resolve="SC_INTERNAL_SERVER_ERROR" />
+                                    <ref role="1PxDUh" to="nwfd:~HttpServletResponse" resolve="HttpServletResponse" />
+                                  </node>
+                                </node>
+                              </node>
+                            </node>
+                            <node concept="3clFbF" id="4bv8_gxn7SX" role="3cqZAp">
+                              <node concept="2OqwBi" id="4bv8_gxn7SY" role="3clFbG">
+                                <node concept="37vLTw" id="4bv8_gxn7SZ" role="2Oq$k0">
+                                  <ref role="3cqZAo" node="QucyCqZ7qb" resolve="resp" />
+                                </node>
+                                <node concept="liA8E" id="4bv8_gxn7T0" role="2OqNvi">
+                                  <ref role="37wK5l" to="opgt:~ServletResponse.setContentType(java.lang.String)" resolve="setContentType" />
+                                  <node concept="Xl_RD" id="4bv8_gxn7T1" role="37wK5m">
+                                    <property role="Xl_RC" value="text/plain" />
+                                  </node>
+                                </node>
+                              </node>
+                            </node>
+                            <node concept="3clFbF" id="4bv8_gxn7T2" role="3cqZAp">
+                              <node concept="2OqwBi" id="4bv8_gxn7T3" role="3clFbG">
+                                <node concept="2OqwBi" id="4bv8_gxn7T4" role="2Oq$k0">
+                                  <node concept="37vLTw" id="4bv8_gxn7T5" role="2Oq$k0">
+                                    <ref role="3cqZAo" node="QucyCqZ7qb" resolve="resp" />
+                                  </node>
+                                  <node concept="liA8E" id="4bv8_gxn7T6" role="2OqNvi">
+                                    <ref role="37wK5l" to="opgt:~ServletResponse.getWriter()" resolve="getWriter" />
+                                  </node>
+                                </node>
+                                <node concept="liA8E" id="4bv8_gxn7T7" role="2OqNvi">
+                                  <ref role="37wK5l" to="guwi:~PrintWriter.append(java.lang.CharSequence)" resolve="append" />
+                                  <node concept="Xl_RD" id="4bv8_gxnasK" role="37wK5m">
+                                    <property role="Xl_RC" value="No project found" />
+                                  </node>
+                                </node>
+                              </node>
+                            </node>
+                            <node concept="3cpWs6" id="4bv8_gxn7T9" role="3cqZAp" />
+                          </node>
+                          <node concept="3clFbC" id="4bv8_gxn78o" role="3clFbw">
+                            <node concept="10Nm6u" id="4bv8_gxn7EO" role="3uHU7w" />
+                            <node concept="37vLTw" id="4bv8_gxn6cZ" role="3uHU7B">
+                              <ref role="3cqZAo" node="4bv8_gxn3jP" resolve="project" />
+                            </node>
+                          </node>
+                        </node>
                         <node concept="3clFbF" id="2XovqnGVLnn" role="3cqZAp">
                           <node concept="37vLTI" id="2XovqnGVM2R" role="3clFbG">
                             <node concept="37vLTw" id="2XovqnGVLnl" role="37vLTJ">
