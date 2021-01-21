@@ -18,6 +18,20 @@
           "name": "my.wonderful.brandnew.model"
         }
       ]
+    },
+        {
+      "$role": "modules",
+      "$concept": "org.modelix.model.runtimelang.Module",
+      "id": "0c2e757d-7777-7777-7777-a6db9dd85152",
+      "name": "cloudFirstModule",
+      "$children": [
+        {
+          "$role": "models",
+          "$concept": "org.modelix.model.runtimelang.Model",
+          "id": "r:0c2e757d-9999-9999-9999-a6db9dd85152",
+          "name": "a.b.myCloudFirstModel"
+        }
+      ]
     }
   ]
   }     

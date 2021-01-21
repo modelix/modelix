@@ -11,11 +11,19 @@
       "id": "0c2e757d-53c3-4694-b3b1-a6db9dd85152",
       "name": "My New Module",
       "$children": [
+      ]
+    },
+        {
+      "$role": "modules",
+      "$concept": "org.modelix.model.runtimelang.Module",
+      "id": "0c2e757d-7777-7777-7777-a6db9dd85152",
+      "name": "cloudFirstModule",
+      "$children": [
         {
           "$role": "models",
           "$concept": "org.modelix.model.runtimelang.Model",
-          "id": "r:0c2e757d-5555-4444-3333-a6db9dd85152",
-          "name": "my.wonderful.brandnew.model"
+          "id": "r:0c2e757d-9999-9999-9999-a6db9dd85152",
+          "name": "a.b.myCloudFirstModel"
         }
       ]
     }
