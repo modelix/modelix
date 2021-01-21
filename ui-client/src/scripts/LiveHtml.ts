@@ -173,6 +173,8 @@ export class LiveHtml {
 
             for (const [jsonKey, jsonValue] of Object.entries(json)) {
                 switch (jsonKey) {
+                    case "id":
+                        break;
                     case "class":
                         dom.className = jsonValue;
                         break;
