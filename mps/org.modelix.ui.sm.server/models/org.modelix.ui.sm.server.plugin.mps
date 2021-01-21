@@ -146,7 +146,9 @@
         <child id="1137022507850" name="body" index="2VODD2" />
       </concept>
       <concept id="1070462154015" name="jetbrains.mps.baseLanguage.structure.StaticFieldDeclaration" flags="ig" index="Wx3nA" />
-      <concept id="1070475354124" name="jetbrains.mps.baseLanguage.structure.ThisExpression" flags="nn" index="Xjq3P" />
+      <concept id="1070475354124" name="jetbrains.mps.baseLanguage.structure.ThisExpression" flags="nn" index="Xjq3P">
+        <reference id="1182955020723" name="classConcept" index="1HBi2w" />
+      </concept>
       <concept id="1070475587102" name="jetbrains.mps.baseLanguage.structure.SuperConstructorInvocation" flags="nn" index="XkiVB" />
       <concept id="1070475926800" name="jetbrains.mps.baseLanguage.structure.StringLiteral" flags="nn" index="Xl_RD">
         <property id="1070475926801" name="value" index="Xl_RC" />
@@ -5249,26 +5251,33 @@
               <node concept="3cqZAl" id="3pn$gDKz7Fn" role="3clF45" />
               <node concept="3Tmbuc" id="3pn$gDKz7Fo" role="1B3o_S" />
               <node concept="3clFbS" id="3pn$gDKz7Fp" role="3clF47">
-                <node concept="1QHqEK" id="3pn$gDKz7Fq" role="3cqZAp">
-                  <node concept="1QHqEC" id="3pn$gDKz7Fr" role="1QHqEI">
-                    <node concept="3clFbS" id="3pn$gDKz7Fs" role="1bW5cS">
-                      <node concept="3clFbF" id="3pn$gDKz7Ft" role="3cqZAp">
-                        <node concept="2OqwBi" id="3pn$gDKz7Fu" role="3clFbG">
-                          <node concept="10M0yZ" id="3pn$gDKz7Fv" role="2Oq$k0">
-                            <ref role="3cqZAo" to="od2j:4iwHBRd1xS6" resolve="CURRENT" />
-                            <ref role="1PxDUh" to="od2j:3jJoUQ71IRE" resolve="IPFContext" />
-                          </node>
-                          <node concept="liA8E" id="3pn$gDKz7Fw" role="2OqNvi">
-                            <ref role="37wK5l" to="od2j:7vWAzuEE3Ye" resolve="runWith" />
-                            <node concept="37vLTw" id="3pn$gDKz7Fx" role="37wK5m">
-                              <ref role="3cqZAo" node="3pn$gDKz7EN" resolve="pfContext" />
-                            </node>
-                            <node concept="1bVj0M" id="3pn$gDKz7Fy" role="37wK5m">
-                              <property role="3yWfEV" value="true" />
-                              <node concept="3clFbS" id="3pn$gDKz7Fz" role="1bW5cS">
-                                <node concept="3clFbF" id="3pn$gDKz7F$" role="3cqZAp">
-                                  <node concept="1rXfSq" id="3pn$gDKz7F_" role="3clFbG">
-                                    <ref role="37wK5l" node="3pn$gDKz7Gl" resolve="sendDomNow" />
+                <node concept="1HWtB8" id="4IMISCAuS8g" role="3cqZAp">
+                  <node concept="Xjq3P" id="4IMISCAuSJO" role="1HWFw0">
+                    <ref role="1HBi2w" node="3pn$gDKz7Em" resolve="LiveHtmlSession" />
+                  </node>
+                  <node concept="3clFbS" id="4IMISCAuS8k" role="1HWHxc">
+                    <node concept="1QHqEK" id="3pn$gDKz7Fq" role="3cqZAp">
+                      <node concept="1QHqEC" id="3pn$gDKz7Fr" role="1QHqEI">
+                        <node concept="3clFbS" id="3pn$gDKz7Fs" role="1bW5cS">
+                          <node concept="3clFbF" id="3pn$gDKz7Ft" role="3cqZAp">
+                            <node concept="2OqwBi" id="3pn$gDKz7Fu" role="3clFbG">
+                              <node concept="10M0yZ" id="3pn$gDKz7Fv" role="2Oq$k0">
+                                <ref role="3cqZAo" to="od2j:4iwHBRd1xS6" resolve="CURRENT" />
+                                <ref role="1PxDUh" to="od2j:3jJoUQ71IRE" resolve="IPFContext" />
+                              </node>
+                              <node concept="liA8E" id="3pn$gDKz7Fw" role="2OqNvi">
+                                <ref role="37wK5l" to="od2j:7vWAzuEE3Ye" resolve="runWith" />
+                                <node concept="37vLTw" id="3pn$gDKz7Fx" role="37wK5m">
+                                  <ref role="3cqZAo" node="3pn$gDKz7EN" resolve="pfContext" />
+                                </node>
+                                <node concept="1bVj0M" id="3pn$gDKz7Fy" role="37wK5m">
+                                  <property role="3yWfEV" value="true" />
+                                  <node concept="3clFbS" id="3pn$gDKz7Fz" role="1bW5cS">
+                                    <node concept="3clFbF" id="3pn$gDKz7F$" role="3cqZAp">
+                                      <node concept="1rXfSq" id="3pn$gDKz7F_" role="3clFbG">
+                                        <ref role="37wK5l" node="3pn$gDKz7Gl" resolve="sendDomNow" />
+                                      </node>
+                                    </node>
                                   </node>
                                 </node>
                               </node>
@@ -5276,11 +5285,11 @@
                           </node>
                         </node>
                       </node>
+                      <node concept="2YIFZM" id="3pn$gDKz7FA" role="ukAjM">
+                        <ref role="37wK5l" to="w1kc:~MPSModuleRepository.getInstance()" resolve="getInstance" />
+                        <ref role="1Pybhc" to="w1kc:~MPSModuleRepository" resolve="MPSModuleRepository" />
+                      </node>
                     </node>
-                  </node>
-                  <node concept="2YIFZM" id="3pn$gDKz7FA" role="ukAjM">
-                    <ref role="37wK5l" to="w1kc:~MPSModuleRepository.getInstance()" resolve="getInstance" />
-                    <ref role="1Pybhc" to="w1kc:~MPSModuleRepository" resolve="MPSModuleRepository" />
                   </node>
                 </node>
               </node>
