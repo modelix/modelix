@@ -113,8 +113,8 @@
   </category>
 
   <category name="jetbrains.mps" additivity="true">
-    <priority value="INFO"/>
-    <appender-ref ref="CONSOLE-INFO"/>
+    <priority value="DEBUG"/>
+    <appender-ref ref="CONSOLE-ALL"/>
   </category>
 
   <category name="#com.intellij" additivity="false">
@@ -126,6 +126,16 @@
 
   <category name="de.q60" additivity="false">
     <priority value="DEBUG"/>
+    <appender-ref ref="CONSOLE-ALL"/>
+  </category>
+
+  <category name="org.modelix" additivity="false">
+    <priority value="DEBUG"/>
+    <appender-ref ref="CONSOLE-ALL"/>
+  </category>
+
+  <category name="jetbrains.mps.classloading.ModulesWatcher" additivity="false">
+    <priority value="TRACE"/>
     <appender-ref ref="CONSOLE-ALL"/>
   </category>
 

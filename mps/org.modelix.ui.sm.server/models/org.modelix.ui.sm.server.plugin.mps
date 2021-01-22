@@ -17,7 +17,7 @@
     <use id="a247e09e-2435-45ba-b8d2-07e93feba96a" name="jetbrains.mps.baseLanguage.tuples" version="0" />
     <use id="bc963c22-d419-49b6-8543-ea411eb9d3a1" name="de.q60.mps.polymorphicfunctions" version="0" />
     <use id="774bf8a0-62e5-41e1-af63-f4812e60e48b" name="jetbrains.mps.baseLanguage.checkedDots" version="0" />
-    <use id="28f9e497-3b42-4291-aeba-0a1039153ab1" name="jetbrains.mps.lang.plugin" version="4" />
+    <use id="28f9e497-3b42-4291-aeba-0a1039153ab1" name="jetbrains.mps.lang.plugin" version="5" />
     <use id="da8e6b62-7ca3-4489-86bc-b70a501ca28f" name="de.q60.mps.incremental" version="0" />
     <devkit ref="fbc25dd2-5da4-483a-8b19-70928e1b62d7(jetbrains.mps.devkit.general-purpose)" />
   </languages>
@@ -118,7 +118,7 @@
       <concept id="8118189177080264853" name="jetbrains.mps.baseLanguage.structure.AlternativeType" flags="ig" index="nSUau">
         <child id="8118189177080264854" name="alternative" index="nSUat" />
       </concept>
-      <concept id="1465982738277781862" name="jetbrains.mps.baseLanguage.structure.PlaceholderMember" flags="ng" index="2tJIrI" />
+      <concept id="1465982738277781862" name="jetbrains.mps.baseLanguage.structure.PlaceholderMember" flags="nn" index="2tJIrI" />
       <concept id="1188207840427" name="jetbrains.mps.baseLanguage.structure.AnnotationInstance" flags="nn" index="2AHcQZ">
         <reference id="1188208074048" name="annotation" index="2AI5Lk" />
       </concept>
@@ -146,7 +146,9 @@
         <child id="1137022507850" name="body" index="2VODD2" />
       </concept>
       <concept id="1070462154015" name="jetbrains.mps.baseLanguage.structure.StaticFieldDeclaration" flags="ig" index="Wx3nA" />
-      <concept id="1070475354124" name="jetbrains.mps.baseLanguage.structure.ThisExpression" flags="nn" index="Xjq3P" />
+      <concept id="1070475354124" name="jetbrains.mps.baseLanguage.structure.ThisExpression" flags="nn" index="Xjq3P">
+        <reference id="1182955020723" name="classConcept" index="1HBi2w" />
+      </concept>
       <concept id="1070475587102" name="jetbrains.mps.baseLanguage.structure.SuperConstructorInvocation" flags="nn" index="XkiVB" />
       <concept id="1070475926800" name="jetbrains.mps.baseLanguage.structure.StringLiteral" flags="nn" index="Xl_RD">
         <property id="1070475926801" name="value" index="Xl_RC" />
@@ -274,7 +276,7 @@
         <child id="1170075728144" name="expression" index="1HWFw0" />
         <child id="1170075736412" name="block" index="1HWHxc" />
       </concept>
-      <concept id="5351203823916750322" name="jetbrains.mps.baseLanguage.structure.TryUniversalStatement" flags="ng" index="3J1_TO">
+      <concept id="5351203823916750322" name="jetbrains.mps.baseLanguage.structure.TryUniversalStatement" flags="nn" index="3J1_TO">
         <child id="8276990574886367510" name="catchClause" index="1zxBo5" />
         <child id="8276990574886367509" name="finallyClause" index="1zxBo6" />
         <child id="8276990574886367508" name="body" index="1zxBo7" />
@@ -421,10 +423,10 @@
       </concept>
     </language>
     <language id="c7fb639f-be78-4307-89b0-b5959c3fa8c8" name="jetbrains.mps.lang.text">
-      <concept id="155656958578482948" name="jetbrains.mps.lang.text.structure.Word" flags="ng" index="3oM_SD">
+      <concept id="155656958578482948" name="jetbrains.mps.lang.text.structure.Word" flags="nn" index="3oM_SD">
         <property id="155656958578482949" name="value" index="3oM_SC" />
       </concept>
-      <concept id="2535923850359271782" name="jetbrains.mps.lang.text.structure.Line" flags="ng" index="1PaTwC">
+      <concept id="2535923850359271782" name="jetbrains.mps.lang.text.structure.Line" flags="nn" index="1PaTwC">
         <child id="2535923850359271783" name="elements" index="1PaTwD" />
       </concept>
     </language>
@@ -5249,26 +5251,33 @@
               <node concept="3cqZAl" id="3pn$gDKz7Fn" role="3clF45" />
               <node concept="3Tmbuc" id="3pn$gDKz7Fo" role="1B3o_S" />
               <node concept="3clFbS" id="3pn$gDKz7Fp" role="3clF47">
-                <node concept="1QHqEK" id="3pn$gDKz7Fq" role="3cqZAp">
-                  <node concept="1QHqEC" id="3pn$gDKz7Fr" role="1QHqEI">
-                    <node concept="3clFbS" id="3pn$gDKz7Fs" role="1bW5cS">
-                      <node concept="3clFbF" id="3pn$gDKz7Ft" role="3cqZAp">
-                        <node concept="2OqwBi" id="3pn$gDKz7Fu" role="3clFbG">
-                          <node concept="10M0yZ" id="3pn$gDKz7Fv" role="2Oq$k0">
-                            <ref role="3cqZAo" to="od2j:4iwHBRd1xS6" resolve="CURRENT" />
-                            <ref role="1PxDUh" to="od2j:3jJoUQ71IRE" resolve="IPFContext" />
-                          </node>
-                          <node concept="liA8E" id="3pn$gDKz7Fw" role="2OqNvi">
-                            <ref role="37wK5l" to="od2j:7vWAzuEE3Ye" resolve="runWith" />
-                            <node concept="37vLTw" id="3pn$gDKz7Fx" role="37wK5m">
-                              <ref role="3cqZAo" node="3pn$gDKz7EN" resolve="pfContext" />
-                            </node>
-                            <node concept="1bVj0M" id="3pn$gDKz7Fy" role="37wK5m">
-                              <property role="3yWfEV" value="true" />
-                              <node concept="3clFbS" id="3pn$gDKz7Fz" role="1bW5cS">
-                                <node concept="3clFbF" id="3pn$gDKz7F$" role="3cqZAp">
-                                  <node concept="1rXfSq" id="3pn$gDKz7F_" role="3clFbG">
-                                    <ref role="37wK5l" node="3pn$gDKz7Gl" resolve="sendDomNow" />
+                <node concept="1HWtB8" id="4IMISCAuS8g" role="3cqZAp">
+                  <node concept="Xjq3P" id="4IMISCAuSJO" role="1HWFw0">
+                    <ref role="1HBi2w" node="3pn$gDKz7Em" resolve="LiveHtmlSession" />
+                  </node>
+                  <node concept="3clFbS" id="4IMISCAuS8k" role="1HWHxc">
+                    <node concept="1QHqEK" id="3pn$gDKz7Fq" role="3cqZAp">
+                      <node concept="1QHqEC" id="3pn$gDKz7Fr" role="1QHqEI">
+                        <node concept="3clFbS" id="3pn$gDKz7Fs" role="1bW5cS">
+                          <node concept="3clFbF" id="3pn$gDKz7Ft" role="3cqZAp">
+                            <node concept="2OqwBi" id="3pn$gDKz7Fu" role="3clFbG">
+                              <node concept="10M0yZ" id="3pn$gDKz7Fv" role="2Oq$k0">
+                                <ref role="3cqZAo" to="od2j:4iwHBRd1xS6" resolve="CURRENT" />
+                                <ref role="1PxDUh" to="od2j:3jJoUQ71IRE" resolve="IPFContext" />
+                              </node>
+                              <node concept="liA8E" id="3pn$gDKz7Fw" role="2OqNvi">
+                                <ref role="37wK5l" to="od2j:7vWAzuEE3Ye" resolve="runWith" />
+                                <node concept="37vLTw" id="3pn$gDKz7Fx" role="37wK5m">
+                                  <ref role="3cqZAo" node="3pn$gDKz7EN" resolve="pfContext" />
+                                </node>
+                                <node concept="1bVj0M" id="3pn$gDKz7Fy" role="37wK5m">
+                                  <property role="3yWfEV" value="true" />
+                                  <node concept="3clFbS" id="3pn$gDKz7Fz" role="1bW5cS">
+                                    <node concept="3clFbF" id="3pn$gDKz7F$" role="3cqZAp">
+                                      <node concept="1rXfSq" id="3pn$gDKz7F_" role="3clFbG">
+                                        <ref role="37wK5l" node="3pn$gDKz7Gl" resolve="sendDomNow" />
+                                      </node>
+                                    </node>
                                   </node>
                                 </node>
                               </node>
@@ -5276,11 +5285,11 @@
                           </node>
                         </node>
                       </node>
+                      <node concept="2YIFZM" id="3pn$gDKz7FA" role="ukAjM">
+                        <ref role="37wK5l" to="w1kc:~MPSModuleRepository.getInstance()" resolve="getInstance" />
+                        <ref role="1Pybhc" to="w1kc:~MPSModuleRepository" resolve="MPSModuleRepository" />
+                      </node>
                     </node>
-                  </node>
-                  <node concept="2YIFZM" id="3pn$gDKz7FA" role="ukAjM">
-                    <ref role="37wK5l" to="w1kc:~MPSModuleRepository.getInstance()" resolve="getInstance" />
-                    <ref role="1Pybhc" to="w1kc:~MPSModuleRepository" resolve="MPSModuleRepository" />
                   </node>
                 </node>
               </node>

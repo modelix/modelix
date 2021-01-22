@@ -33,6 +33,8 @@ public class EnvironmentLoader {
             ReflectionUtil.setField(PathManager.class, null, String.class, "ourHomePath", System.getProperty("idea.home"));
             ReflectionUtil.setField(PathManager.class, null, String.class, "ourIdeaPath", System.getProperty("idea.home"));
 
+            File pluginsFolder = new File(PathManager.getPreInstalledPluginsPath());
+
             EnvironmentConfig config = EnvironmentConfig.defaultConfig()
                     .withBootstrapLibraries()
                     .withBuildPlugin()
@@ -47,10 +49,10 @@ public class EnvironmentLoader {
                     //.withTestingPlugin()
                     .withVcsPlugin()
                     .withWorkbenchPath()
-                    .addPlugin("http-support", "jetbrains.mps.ide.httpsupport")
-                    .addPlugin("org.modelix.ui", "org.modelix.ui")
-                    .addPlugin("org.modelix.model", "org.modelix.model")
-                    .addPlugin("org.modelix.common", "org.modelix.common")
+                    .addPlugin(new File(pluginsFolder, "mps-httpsupport").getAbsolutePath(), "jetbrains.mps.ide.httpsupport")
+                    .addPlugin(new File(pluginsFolder, "org.modelix.ui").getAbsolutePath(), "org.modelix.ui")
+                    .addPlugin(new File(pluginsFolder, "org.modelix.model").getAbsolutePath(), "org.modelix.model")
+                    .addPlugin(new File(pluginsFolder, "org.modelix.common").getAbsolutePath(), "org.modelix.common")
                     ;
             if (gitRepoDir != null) {
                 config.addLib(gitRepoDir.getAbsolutePath());
@@ -64,7 +66,7 @@ public class EnvironmentLoader {
             File homePath = new File(jetbrains.mps.util.PathManager.getHomePath());
             loadLangJars(config, new File(homePath,"languages"));
             loadLangJars(config, new File(homePath,"plugins"));
-            environment = new IdeaEnvironment(config, false);
+            environment = new IdeaEnvironment(config);
             RuntimeFlags.setTestMode(TestMode.NONE);
             ((IdeaEnvironment) environment).init();
             ourProject = environment.createEmptyProject();

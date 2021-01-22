@@ -38,9 +38,12 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Enumeration;
 import java.util.function.Supplier;
+import java.util.jar.Manifest;
 
 public class Main {
     private static final Logger LOG = Logger.getLogger(Main.class);
@@ -62,7 +65,11 @@ public class Main {
         HandlerList handlerList = new HandlerList();
         server.setHandler(handlerList);
 
-        Handler deploymentManagingHandler = new DeploymentManagingHandler();
+        Manifest manifest = readManifest();
+        String modelixVersion = manifest.getMainAttributes().getValue("modelix-Version");
+
+        DeploymentManagingHandler deploymentManagingHandler = new DeploymentManagingHandler();
+        deploymentManagingHandler.setModelixVersion(modelixVersion);
         handlerList.addHandler(deploymentManagingHandler);
 
         WebSocketServlet webSocketServlet = new WebSocketProxyServlet() {
@@ -120,5 +127,25 @@ public class Main {
                 }
             }
         });
+    }
+
+    private static Manifest readManifest() {
+        Enumeration<URL> resources = null;
+        try {
+            resources = Main.class.getClassLoader().getResources("META-INF/MANIFEST.MF");
+            while (resources.hasMoreElements()) {
+                try {
+                    Manifest manifest = new Manifest(resources.nextElement().openStream());
+                    if (manifest.getMainAttributes().getValue("modelix-Version") != null) {
+                        return manifest;
+                    }
+                } catch (IOException ex) {
+                    throw new RuntimeException("Failed to read MANIFEST.MF", ex);
+                }
+            }
+        } catch (IOException ex) {
+            throw new RuntimeException("Failed to read MANIFEST.MF", ex);
+        }
+        throw new RuntimeException("No MANIFEST.MF found containing 'modelix-Version'");
     }
 }

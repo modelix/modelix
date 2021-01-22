@@ -58,7 +58,7 @@ export class ShadowModelsBasedEditor extends LiveHtml {
             },
             sideTransformAlignment: (value, dom) => {
                 this.postprocessors.push(() => {
-                    const hostCell = document.getElementById(value.cellId);
+                    const hostCell = document.getElementById(this.localToGlobalId(value.cellId));
                     if (hostCell) {
                         const side: string = value.side;
                         const hostCellRect = DomUtils.absoluteBounds(hostCell);
