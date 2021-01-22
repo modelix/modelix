@@ -19,6 +19,7 @@ import com.beust.jcommander.JCommander;
 import com.beust.jcommander.Parameter;
 import com.beust.jcommander.converters.BooleanConverter;
 import com.beust.jcommander.converters.IntegerConverter;
+import com.beust.jcommander.converters.StringConverter;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -34,8 +35,6 @@ import java.sql.Statement;
 import java.util.LinkedList;
 import java.util.List;
 import javax.sql.DataSource;
-
-import com.beust.jcommander.converters.StringConverter;
 import org.apache.commons.io.FileUtils;
 import org.apache.ignite.Ignition;
 import org.apache.log4j.Logger;
@@ -183,26 +182,26 @@ public class Main {
     private static class DumpOutThread extends Thread {
 
         DumpOutThread(InMemoryStoreClient inMemoryStoreClient, String dumpName) {
-            super(() -> {
-                FileWriter fw = null;
-                try {
-                    fw = new FileWriter(new File(dumpName));
-                    inMemoryStoreClient.dump(fw);
-                    System.out.println("[Saved memory store into " + dumpName + "]");
-                } catch (IOException e) {
-                    e.printStackTrace();
-                } finally {
-                    if (fw != null) {
+            super(
+                    () -> {
+                        FileWriter fw = null;
                         try {
-                            fw.close();
+                            fw = new FileWriter(new File(dumpName));
+                            inMemoryStoreClient.dump(fw);
+                            System.out.println("[Saved memory store into " + dumpName + "]");
                         } catch (IOException e) {
                             e.printStackTrace();
+                        } finally {
+                            if (fw != null) {
+                                try {
+                                    fw.close();
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                            }
                         }
-                    }
-                }
-            });
+                    });
         }
-
     }
 
     public static void main(String[] args) {
@@ -243,15 +242,18 @@ public class Main {
                 }
                 storeClient = new InMemoryStoreClient();
                 if (cmdLineArgs.dumpInName != null) {
-                    InMemoryStoreClient inMemoryStoreClient = (InMemoryStoreClient)storeClient;
+                    InMemoryStoreClient inMemoryStoreClient = (InMemoryStoreClient) storeClient;
                     File file = new File(cmdLineArgs.dumpInName);
                     int keys = inMemoryStoreClient.load(new FileReader(file));
-                    System.out.println("Values loaded from " + file.getAbsolutePath()+" ("+ keys + ")");
+                    System.out.println(
+                            "Values loaded from " + file.getAbsolutePath() + " (" + keys + ")");
                 }
                 if (cmdLineArgs.dumpOutName != null) {
-                    Runtime.getRuntime().addShutdownHook(
-                            new DumpOutThread((InMemoryStoreClient)storeClient, cmdLineArgs.dumpOutName));
-
+                    Runtime.getRuntime()
+                            .addShutdownHook(
+                                    new DumpOutThread(
+                                            (InMemoryStoreClient) storeClient,
+                                            cmdLineArgs.dumpOutName));
                 }
             } else {
                 storeClient = new IgniteStoreClient(cmdLineArgs.jdbcConfFile);

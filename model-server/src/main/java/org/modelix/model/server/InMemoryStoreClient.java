@@ -16,7 +16,6 @@
 package org.modelix.model.server;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -70,7 +69,7 @@ public class InMemoryStoreClient implements IStoreClient {
     }
 
     public void dump(FileWriter fileWriter) throws IOException {
-        for (String key: values.keySet()) {
+        for (String key : values.keySet()) {
             fileWriter.append(key);
             fileWriter.append("#");
             fileWriter.append(values.get(key));
@@ -80,12 +79,14 @@ public class InMemoryStoreClient implements IStoreClient {
 
     public int load(FileReader fileReader) {
         BufferedReader br = new BufferedReader(fileReader);
-        int[] n = new int[]{0};
-        br.lines().forEach(line -> {
-            String[] parts = line.split("#", 2);
-            values.put(parts[0], parts[1]);
-            n[0]++;
-        });
+        int[] n = new int[] {0};
+        br.lines()
+                .forEach(
+                        line -> {
+                            String[] parts = line.split("#", 2);
+                            values.put(parts[0], parts[1]);
+                            n[0]++;
+                        });
         return n[0];
     }
 }
