@@ -100,5 +100,43 @@ Kill the model-server
 
 ## Manual Test PBUC-3
 
+**NOT YET SUPPORTED**
+
 ## Manual Test PBUC-4
+
+### Preparation
+
+Take a clean installation of MPS, of the exact same version as specified in build.gradle. You should not install any plugin on that.
+
+In that version open the project PBUC-2. I should see an existing solution.
+
+I start the modelix server with dump model-server-dump-MBUC-1 by running this command from the root of the project:
+
+```
+java -jar model-server/build/libs/model-server-fatJar-latest.jar -inmemory -dumpin manual-tests/dump_with_a_project1 -port 8899
+```
+
+### Test execution
+
+Add the Cloud Repository http://localhost:8899/
+
+Verify the Cloud Repository contains one project with one module.
+
+Select the project in the Cloud View, open the contextual menu, select "Bind to Current Project".
+
+At this point on the Physical Project you should see the two solutions, each one with one model, each with their root nodes.
+
+At this point on the Cloud Project you should see the two solutions, each one with one model, each with their root nodes.
+
+Add now a Class in each model on the MPS Project. Verify they are added in the Cloud View.
+
+Remove the added classes from the Cloud View. Verify they are removed also on the physical project.
+
+### Clean up
+
+You can close the project.
+
+Remove "PBUC-1/.mps/cloudResources.xml".
+
+Kill the model-server
 
