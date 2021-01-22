@@ -88,9 +88,11 @@ It's an operation that happens all the time.
 File | Description
 ---|---
 [db](db) | Files for building the PostgreSQL docker image
+[doc](doc) | Documentation
 [gradle-plugin](gradle-plugin) | gradle plugin for downloading a model from the model server to an MPS model file
 [gradle-plugin-test](gradle-plugin-test) | Demo project that uses the gradle plugin.
 [kubernetes](kubernetes) | YAML configuration files for running modelix in a kubernetes cluster
+[model-client](model-client) | Model implementation with real-time collaboration support implemented in kotlin
 [model-server](model-server) | Java project that implements a REST API on top of an [Apache Ignite](https://ignite.apache.org/) key value store. It is very generic and lightweight and doesn't know anything about models and their storage format. The mapping between the model data structure and the key value entries happens in MPS.
 [mps](mps) | MPS project that implements all the MPS plugins. That's a plugin for synchronizing models with the model server and plugins for editing models in the browser.
 [proxy](proxy) | Files for building a docker image for a reverse proxy used inside the kubernetes cluster.
@@ -101,6 +103,7 @@ File | Description
 [ui-server](ui-server) | A small Java project that configures and starts MPS in headless mode.
 [.dockerignore](.dockerignore) | 
 [.gitignore](.gitignore) | 
+[.nvmrc](.nvmrc) | Currently used NVM version
 [.travis.yml](.travis.yml) | Required for using travis as the CI server: <https://travis-ci.org/github/modelix/modelix>
 [Dockerfile-mps](Dockerfile-mps) | The docker image for the UI server is split into a separate layer for MPS, because the MPS version changes less frequently and this speeds up the rebuild of the docker image.
 [Dockerfile-ui](Dockerfile-ui) | For building the docker image of the UI server.
@@ -115,8 +118,7 @@ File | Description
 [docker-build-proxy.sh](docker-build-proxy.sh) | 
 [docker-build-ui.sh](docker-build-ui.sh) | 
 [docker-build-uiproxy.sh](docker-build-uiproxy.sh) | 
-[docker-push-gcloud.sh](docker-push-gcloud.sh) | 
-[docker-push-hub.sh](docker-push-hub.sh) | Pushes all docker images to [hub.docker.com](https://hub.docker.com/u/modelix) and updates the version numbers in the kubernetes YAML files.
+[docker-ci.sh](docker-ci.sh) | Is executed by the CI server to publish the docker images for a git tag
 [docker-run-db.sh](docker-run-db.sh) | If you want to run the PostgresSQL database locally without a kubernetes cluster
 [generate-modelsecret.sh](generate-modelsecret.sh) | Access to the model server requires clients to be logged in with their google account. Inside the kubernetes cluster the other components use a secret stored in the kubernetes cluster as the access token.
 [gradlew](gradlew) | Run this to build all projects.
@@ -125,6 +127,10 @@ File | Description
 [kubernetes-apply-local.sh](kubernetes-apply-local.sh) | 
 [kubernetes-gcloud-dbsecret.sh](kubernetes-gcloud-dbsecret.sh) | 
 [kubernetes-modelsecret.sh](kubernetes-modelsecret.sh) | 
+[kubernetes-open-proxy.sh](kubernetes-open-proxy.sh) | Opens modelix in the browser after loading the kubernetes configuration in docker desktop
+[kubernetes-use-latest-tag.sh](kubernetes-use-latest-tag.sh) | Use this before [kubernetes-apply-local.sh](kubernetes-apply-local.sh) to update the kubernetes configurations to use the latest modelix version
+[modelix-version.sh](modelix-version.sh) | Reads or creates a modelix.version file that is used to tag the docker images
+[mps-version.properties](mps-version.properties) | The MPS version that modelix is based on
 [run-ui-server.sh](run-ui-server.sh) | This is packaged into the docker image and doesn't work outside of it.
 [settings.gradle](settings.gradle) | 
 [update-gcloud.sh](update-gcloud.sh) | If you want to build and run your own images inside you cluster.
