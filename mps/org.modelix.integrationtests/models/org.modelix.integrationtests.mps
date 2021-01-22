@@ -759,18 +759,14 @@
                 <node concept="3uibUv" id="5yNJPA6buzG" role="HW$YZ">
                   <ref role="3uigEE" node="5yNJPA6tjxd" resolve="IntegrationTest" />
                 </node>
-                <node concept="1X3_iC" id="P$XCSQYjDj" role="lGtFl">
-                  <property role="3V$3am" value="initValue" />
-                  <property role="3V$3ak" value="83888646-71ce-4f1c-9c53-c54016f6ad4f/1237721394592/1237721435808" />
-                  <node concept="2ShNRf" id="lO9TSUBHIm" role="8Wnug">
-                    <node concept="1pGfFk" id="lO9TSUBOeL" role="2ShVmc">
-                      <ref role="37wK5l" node="lO9TSUBsvB" resolve="ProjectCanBeCopiedAndSyncOnCloudTest" />
-                      <node concept="37vLTw" id="lO9TSUBOLV" role="37wK5m">
-                        <ref role="3cqZAo" node="5yNJPA6tn0p" resolve="referenceDir" />
-                      </node>
-                      <node concept="37vLTw" id="lO9TSUBPLW" role="37wK5m">
-                        <ref role="3cqZAo" node="4ZsvGZutXBI" resolve="ideaEnvironment" />
-                      </node>
+                <node concept="2ShNRf" id="lO9TSUBHIm" role="HW$Y0">
+                  <node concept="1pGfFk" id="lO9TSUBOeL" role="2ShVmc">
+                    <ref role="37wK5l" node="lO9TSUBsvB" resolve="ProjectCanBeCopiedAndSyncOnCloudTest" />
+                    <node concept="37vLTw" id="lO9TSUBOLV" role="37wK5m">
+                      <ref role="3cqZAo" node="5yNJPA6tn0p" resolve="referenceDir" />
+                    </node>
+                    <node concept="37vLTw" id="lO9TSUBPLW" role="37wK5m">
+                      <ref role="3cqZAo" node="4ZsvGZutXBI" resolve="ideaEnvironment" />
                     </node>
                   </node>
                 </node>
@@ -785,78 +781,58 @@
                     </node>
                   </node>
                 </node>
-                <node concept="1X3_iC" id="P$XCSQQ22A" role="lGtFl">
-                  <property role="3V$3am" value="initValue" />
-                  <property role="3V$3ak" value="83888646-71ce-4f1c-9c53-c54016f6ad4f/1237721394592/1237721435808" />
-                  <node concept="2ShNRf" id="11vVX88rG6M" role="8Wnug">
-                    <node concept="1pGfFk" id="11vVX88rGJ1" role="2ShVmc">
-                      <ref role="37wK5l" node="11vVX88rChk" resolve="ModuleCanBeCopiedOnCloudTest" />
-                      <node concept="37vLTw" id="11vVX88rGTQ" role="37wK5m">
-                        <ref role="3cqZAo" node="5yNJPA6tn0p" resolve="referenceDir" />
-                      </node>
-                      <node concept="37vLTw" id="11vVX88rGTR" role="37wK5m">
-                        <ref role="3cqZAo" node="4ZsvGZutXBI" resolve="ideaEnvironment" />
-                      </node>
+                <node concept="2ShNRf" id="11vVX88rG6M" role="HW$Y0">
+                  <node concept="1pGfFk" id="11vVX88rGJ1" role="2ShVmc">
+                    <ref role="37wK5l" node="11vVX88rChk" resolve="ModuleCanBeCopiedOnCloudTest" />
+                    <node concept="37vLTw" id="11vVX88rGTQ" role="37wK5m">
+                      <ref role="3cqZAo" node="5yNJPA6tn0p" resolve="referenceDir" />
+                    </node>
+                    <node concept="37vLTw" id="11vVX88rGTR" role="37wK5m">
+                      <ref role="3cqZAo" node="4ZsvGZutXBI" resolve="ideaEnvironment" />
                     </node>
                   </node>
                 </node>
-                <node concept="1X3_iC" id="P$XCSQQ22B" role="lGtFl">
-                  <property role="3V$3am" value="initValue" />
-                  <property role="3V$3ak" value="83888646-71ce-4f1c-9c53-c54016f6ad4f/1237721394592/1237721435808" />
-                  <node concept="2ShNRf" id="5i$4SBK0p2U" role="8Wnug">
-                    <node concept="1pGfFk" id="5i$4SBK0p2V" role="2ShVmc">
-                      <ref role="37wK5l" node="5i$4SBK0dxT" resolve="ModuleCanBeCopiedOnAndSyncedCloudTest" />
-                      <node concept="37vLTw" id="5i$4SBK0p2W" role="37wK5m">
-                        <ref role="3cqZAo" node="5yNJPA6tn0p" resolve="referenceDir" />
-                      </node>
-                      <node concept="37vLTw" id="5i$4SBK0p2X" role="37wK5m">
-                        <ref role="3cqZAo" node="4ZsvGZutXBI" resolve="ideaEnvironment" />
-                      </node>
+                <node concept="2ShNRf" id="5i$4SBK0p2U" role="HW$Y0">
+                  <node concept="1pGfFk" id="5i$4SBK0p2V" role="2ShVmc">
+                    <ref role="37wK5l" node="5i$4SBK0dxT" resolve="ModuleCanBeCopiedOnAndSyncedCloudTest" />
+                    <node concept="37vLTw" id="5i$4SBK0p2W" role="37wK5m">
+                      <ref role="3cqZAo" node="5yNJPA6tn0p" resolve="referenceDir" />
+                    </node>
+                    <node concept="37vLTw" id="5i$4SBK0p2X" role="37wK5m">
+                      <ref role="3cqZAo" node="4ZsvGZutXBI" resolve="ideaEnvironment" />
                     </node>
                   </node>
                 </node>
-                <node concept="1X3_iC" id="P$XCSQQ22C" role="lGtFl">
-                  <property role="3V$3am" value="initValue" />
-                  <property role="3V$3ak" value="83888646-71ce-4f1c-9c53-c54016f6ad4f/1237721394592/1237721435808" />
-                  <node concept="2ShNRf" id="7jRNnvCjypP" role="8Wnug">
-                    <node concept="1pGfFk" id="7jRNnvCjztD" role="2ShVmc">
-                      <ref role="37wK5l" node="7jRNnvC91jg" resolve="ModuleOnTheCloudCanBeCheckoutAsTransientModuleTest" />
-                      <node concept="37vLTw" id="7jRNnvCjAi0" role="37wK5m">
-                        <ref role="3cqZAo" node="5yNJPA6tn0p" resolve="referenceDir" />
-                      </node>
-                      <node concept="37vLTw" id="7jRNnvCjAi1" role="37wK5m">
-                        <ref role="3cqZAo" node="4ZsvGZutXBI" resolve="ideaEnvironment" />
-                      </node>
+                <node concept="2ShNRf" id="7jRNnvCjypP" role="HW$Y0">
+                  <node concept="1pGfFk" id="7jRNnvCjztD" role="2ShVmc">
+                    <ref role="37wK5l" node="7jRNnvC91jg" resolve="ModuleOnTheCloudCanBeCheckoutAsTransientModuleTest" />
+                    <node concept="37vLTw" id="7jRNnvCjAi0" role="37wK5m">
+                      <ref role="3cqZAo" node="5yNJPA6tn0p" resolve="referenceDir" />
+                    </node>
+                    <node concept="37vLTw" id="7jRNnvCjAi1" role="37wK5m">
+                      <ref role="3cqZAo" node="4ZsvGZutXBI" resolve="ideaEnvironment" />
                     </node>
                   </node>
                 </node>
-                <node concept="1X3_iC" id="P$XCSQQ22D" role="lGtFl">
-                  <property role="3V$3am" value="initValue" />
-                  <property role="3V$3ak" value="83888646-71ce-4f1c-9c53-c54016f6ad4f/1237721394592/1237721435808" />
-                  <node concept="2ShNRf" id="7jRNnvCjzOE" role="8Wnug">
-                    <node concept="1pGfFk" id="7jRNnvCj$UB" role="2ShVmc">
-                      <ref role="37wK5l" node="7jRNnvCgEAa" resolve="ModuleCanBeCopiedFromTheCloudToLocalProjectTest" />
-                      <node concept="37vLTw" id="7jRNnvCjArx" role="37wK5m">
-                        <ref role="3cqZAo" node="5yNJPA6tn0p" resolve="referenceDir" />
-                      </node>
-                      <node concept="37vLTw" id="7jRNnvCjAry" role="37wK5m">
-                        <ref role="3cqZAo" node="4ZsvGZutXBI" resolve="ideaEnvironment" />
-                      </node>
+                <node concept="2ShNRf" id="7jRNnvCjzOE" role="HW$Y0">
+                  <node concept="1pGfFk" id="7jRNnvCj$UB" role="2ShVmc">
+                    <ref role="37wK5l" node="7jRNnvCgEAa" resolve="ModuleCanBeCopiedFromTheCloudToLocalProjectTest" />
+                    <node concept="37vLTw" id="7jRNnvCjArx" role="37wK5m">
+                      <ref role="3cqZAo" node="5yNJPA6tn0p" resolve="referenceDir" />
+                    </node>
+                    <node concept="37vLTw" id="7jRNnvCjAry" role="37wK5m">
+                      <ref role="3cqZAo" node="4ZsvGZutXBI" resolve="ideaEnvironment" />
                     </node>
                   </node>
                 </node>
-                <node concept="1X3_iC" id="P$XCSQQ22E" role="lGtFl">
-                  <property role="3V$3am" value="initValue" />
-                  <property role="3V$3ak" value="83888646-71ce-4f1c-9c53-c54016f6ad4f/1237721394592/1237721435808" />
-                  <node concept="2ShNRf" id="7jRNnvCj_vg" role="8Wnug">
-                    <node concept="1pGfFk" id="7jRNnvCjA5Q" role="2ShVmc">
-                      <ref role="37wK5l" node="7jRNnvChqK7" resolve="ModuleCanBeCopiedFromTheCloudToLocalProjectAndSyncedTest" />
-                      <node concept="37vLTw" id="7jRNnvCjACs" role="37wK5m">
-                        <ref role="3cqZAo" node="5yNJPA6tn0p" resolve="referenceDir" />
-                      </node>
-                      <node concept="37vLTw" id="7jRNnvCjACt" role="37wK5m">
-                        <ref role="3cqZAo" node="4ZsvGZutXBI" resolve="ideaEnvironment" />
-                      </node>
+                <node concept="2ShNRf" id="7jRNnvCj_vg" role="HW$Y0">
+                  <node concept="1pGfFk" id="7jRNnvCjA5Q" role="2ShVmc">
+                    <ref role="37wK5l" node="7jRNnvChqK7" resolve="ModuleCanBeCopiedFromTheCloudToLocalProjectAndSyncedTest" />
+                    <node concept="37vLTw" id="7jRNnvCjACs" role="37wK5m">
+                      <ref role="3cqZAo" node="5yNJPA6tn0p" resolve="referenceDir" />
+                    </node>
+                    <node concept="37vLTw" id="7jRNnvCjACt" role="37wK5m">
+                      <ref role="3cqZAo" node="4ZsvGZutXBI" resolve="ideaEnvironment" />
                     </node>
                   </node>
                 </node>
