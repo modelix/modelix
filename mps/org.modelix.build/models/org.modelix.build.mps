@@ -5644,21 +5644,21 @@
       </node>
     </node>
     <node concept="2kB4xC" id="nkanBur$Mk" role="1l3spd">
-      <property role="TrG5h" value="disable.autobinding" />
+      <property role="TrG5h" value="modelix.executionMode" />
       <node concept="aVJcg" id="nkanBur$MG" role="aVJcv">
         <node concept="NbPM2" id="nkanBur$MF" role="aVJcq">
-          <node concept="3Mxwew" id="nkanBur$ME" role="3MwsjC">
-            <property role="3MwjfP" value="true" />
+          <node concept="3Mxwew" id="5Le8ZRJgfyi" role="3MwsjC">
+            <property role="3MwjfP" value="INTEGRATION_TESTS" />
           </node>
         </node>
       </node>
     </node>
     <node concept="2kB4xC" id="nkanBur$MK" role="1l3spd">
-      <property role="TrG5h" value="mps.macro.disable.autobinding" />
+      <property role="TrG5h" value="mps.macro.modelix.executionMode" />
       <node concept="aVJcg" id="nkanBur$ML" role="aVJcv">
         <node concept="NbPM2" id="nkanBur$MM" role="aVJcq">
           <node concept="3Mxwew" id="nkanBur$MN" role="3MwsjC">
-            <property role="3MwjfP" value="true" />
+            <property role="3MwjfP" value="INTEGRATION_TESTS" />
           </node>
         </node>
       </node>

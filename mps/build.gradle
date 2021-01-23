@@ -131,25 +131,25 @@ task ensurePrintEnvHasRightPermissions() {
     }
 }
 
-task disableAutobinding() {
+task setExecutionModeToIntegrationTests() {
     doLast {    
         def buildFile = new File("$rootDir/build/integrationtests.org.modelix/build-integrationtests.xml")
         def xml = new XmlParser().parse(buildFile)
         def target = xml.target.find { node -> node.@name == 'run.org.modelix.integrationtests'}
         def jvmArgs = target.runMPS.jvmargs
 
-        def found = jvmArgs.arg.find { node -> node.@value == '-Ddisable.autobinding=true' }
+        def found = jvmArgs.arg.find { node -> node.@value == '-Dmodelix.executionMode=INTEGRATION_TESTS' }
         if (found == null) {
-            def newJvmArg = new Node(jvmArgs.getAt(0), 'arg', [value:'-Ddisable.autobinding=true'])
+            def newJvmArg = new Node(jvmArgs.getAt(0), 'arg', [value:'-Dmodelix.executionMode=INTEGRATION_TESTS'])
             def printer = new XmlNodePrinter(buildFile.newPrintWriter())
             printer.print(xml)
         }
     }
 }
 
-task justRunIntegrationTests(type: RunAntScript, dependsOn: [ensurePrintEnvHasRightPermissions, disableAutobinding]) {
+task justRunIntegrationTests(type: RunAntScript, dependsOn: [ensurePrintEnvHasRightPermissions, setExecutionModeToIntegrationTests]) {
     targets = ['run.org.modelix.integrationtests']
-    scriptArgs = (defaultAntScriptArgs + ['-Ddisable.autobinding=true','-Dmps.macro.disable.autobinding=true'])
+    scriptArgs = (defaultAntScriptArgs + ['-Dmodelix.executionMode=INTEGRATION_TESTS','-Dmps.macro.modelix.executionMode=INTEGRATION_TESTS'])
     scriptClasspath = buildScriptClasspath
     script new File("$rootDir/build/integrationtests.org.modelix/build-integrationtests.xml")
 }

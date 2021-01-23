@@ -707,10 +707,10 @@
             <ref role="37wK5l" to="wyt6:~System.setProperty(java.lang.String,java.lang.String)" resolve="setProperty" />
             <ref role="1Pybhc" to="wyt6:~System" resolve="System" />
             <node concept="Xl_RD" id="nkanBusXS0" role="37wK5m">
-              <property role="Xl_RC" value="disable.autobinding" />
+              <property role="Xl_RC" value="modelix.executionMode" />
             </node>
             <node concept="Xl_RD" id="nkanBusXS1" role="37wK5m">
-              <property role="Xl_RC" value="true" />
+              <property role="Xl_RC" value="INTEGRATION_TESTS" />
             </node>
           </node>
         </node>
