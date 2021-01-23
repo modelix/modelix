@@ -330,9 +330,6 @@
       </concept>
     </language>
     <language id="760a0a8c-eabb-4521-8bfd-65db761a9ba3" name="jetbrains.mps.baseLanguage.logging">
-      <concept id="1168401810208" name="jetbrains.mps.baseLanguage.logging.structure.PrintStatement" flags="nn" index="abc8K">
-        <child id="1168401864803" name="textExpression" index="abp_N" />
-      </concept>
       <concept id="2034914114981261497" name="jetbrains.mps.baseLanguage.logging.structure.LogLowLevelStatement" flags="ng" index="RRSsy">
         <property id="2034914114981261751" name="severity" index="RRSoG" />
         <child id="2034914114981261755" name="throwable" index="RRSow" />
@@ -18990,18 +18987,6 @@
         </node>
         <node concept="3Tm1VV" id="29etMtb9_E4" role="1B3o_S" />
         <node concept="3clFbS" id="29etMtb9_E5" role="3clF47">
-          <node concept="1X3_iC" id="2FX9uaKwkWL" role="lGtFl">
-            <property role="3V$3am" value="statement" />
-            <property role="3V$3ak" value="f3061a53-9226-4cc5-a443-f952ceaf5816/1068580123136/1068581517665" />
-            <node concept="abc8K" id="1SVur6eTvJj" role="8Wnug">
-              <node concept="Xl_RD" id="1SVur6eT_KI" role="abp_N">
-                <property role="Xl_RC" value="MSB getOrCreateNode id=" />
-              </node>
-              <node concept="37vLTw" id="1SVur6eTAm0" role="abp_N">
-                <ref role="3cqZAo" node="29etMtb9_DY" resolve="id" />
-              </node>
-            </node>
-          </node>
           <node concept="3cpWs8" id="29etMtb9_E6" role="3cqZAp">
             <node concept="3cpWsn" id="29etMtb9_E7" role="3cpWs9">
               <property role="TrG5h" value="node" />
@@ -19346,19 +19331,6 @@
                       </node>
                     </node>
                   </node>
-                  <node concept="1X3_iC" id="2FX9uaKwr$w" role="lGtFl">
-                    <property role="3V$3am" value="statement" />
-                    <property role="3V$3ak" value="f3061a53-9226-4cc5-a443-f952ceaf5816/1068580123136/1068581517665" />
-                    <node concept="abc8K" id="1SVur6eTALW" role="8Wnug">
-                      <node concept="Xl_RD" id="1SVur6eTALX" role="abp_N">
-                        <property role="Xl_RC" value="MSB getOrCreateNode mpsNodeIdAsString=" />
-                      </node>
-                      <node concept="37vLTw" id="1SVur6eTBFg" role="abp_N">
-                        <ref role="3cqZAo" node="6diyhU70E_$" resolve="mpsNodeIdAsString" />
-                      </node>
-                    </node>
-                  </node>
-                  <node concept="3clFbH" id="1SVur6eTAyg" role="3cqZAp" />
                   <node concept="3clFbH" id="6p3SZI_1YKl" role="3cqZAp" />
                   <node concept="3clFbJ" id="6diyhU70GSy" role="3cqZAp">
                     <node concept="3clFbS" id="6diyhU70GS$" role="3clFbx">
@@ -19469,18 +19441,6 @@
                           </node>
                         </node>
                       </node>
-                      <node concept="1X3_iC" id="1QKKVBBIKZF" role="lGtFl">
-                        <property role="3V$3am" value="statement" />
-                        <property role="3V$3ak" value="f3061a53-9226-4cc5-a443-f952ceaf5816/1068580123136/1068581517665" />
-                        <node concept="abc8K" id="_505yGjvFS" role="8Wnug">
-                          <node concept="Xl_RD" id="_505yGjvFT" role="abp_N">
-                            <property role="Xl_RC" value="NODE ID FROM INODE ID " />
-                          </node>
-                          <node concept="37vLTw" id="_505yGjw9q" role="abp_N">
-                            <ref role="3cqZAo" node="29etMtb9_EX" resolve="nodeId" />
-                          </node>
-                        </node>
-                      </node>
                     </node>
                     <node concept="3clFbC" id="6diyhU70HVW" role="3clFbw">
                       <node concept="10Nm6u" id="6diyhU70InN" role="3uHU7w" />
@@ -19518,18 +19478,6 @@
                             </node>
                           </node>
                         </node>
-                        <node concept="1X3_iC" id="1QKKVBBIKSF" role="lGtFl">
-                          <property role="3V$3am" value="statement" />
-                          <property role="3V$3ak" value="f3061a53-9226-4cc5-a443-f952ceaf5816/1068580123136/1068581517665" />
-                          <node concept="abc8K" id="_505yGjuUQ" role="8Wnug">
-                            <node concept="Xl_RD" id="_505yGjvdW" role="abp_N">
-                              <property role="Xl_RC" value="NODE ID FROM PROPERTY " />
-                            </node>
-                            <node concept="37vLTw" id="_505yGjwp7" role="abp_N">
-                              <ref role="3cqZAo" node="29etMtb9_EX" resolve="nodeId" />
-                            </node>
-                          </node>
-                        </node>
                       </node>
                     </node>
                   </node>
@@ -19548,23 +19496,6 @@
                         </node>
                         <node concept="3uibUv" id="29etMtb9_F9" role="10QFUM">
                           <ref role="3uigEE" to="c17a:~SConcept" resolve="SConcept" />
-                        </node>
-                      </node>
-                    </node>
-                  </node>
-                  <node concept="1X3_iC" id="2FX9uaKwrQg" role="lGtFl">
-                    <property role="3V$3am" value="statement" />
-                    <property role="3V$3ak" value="f3061a53-9226-4cc5-a443-f952ceaf5816/1068580123136/1068581517665" />
-                    <node concept="abc8K" id="1SVur6eTBJc" role="8Wnug">
-                      <node concept="Xl_RD" id="1SVur6eTBJd" role="abp_N">
-                        <property role="Xl_RC" value="MSB getOrCreateNode concept=" />
-                      </node>
-                      <node concept="2OqwBi" id="1SVur6eTC_9" role="abp_N">
-                        <node concept="37vLTw" id="1SVur6eTCis" role="2Oq$k0">
-                          <ref role="3cqZAo" node="29etMtb9_F3" resolve="c" />
-                        </node>
-                        <node concept="liA8E" id="1SVur6eTCQr" role="2OqNvi">
-                          <ref role="37wK5l" to="c17a:~SAbstractConcept.getQualifiedName()" resolve="getQualifiedName" />
                         </node>
                       </node>
                     </node>
