@@ -9,7 +9,7 @@
       "$role": "modules",
       "$concept": "org.modelix.model.runtimelang.Module",
       "id": "0c2e757d-53c3-4694-b3b1-a6db9dd85152",
-      "name": "My New Module"
+      "name": "MyNewModule"
     },
         {
       "$role": "modules",
