@@ -17739,69 +17739,38 @@
                       <property role="TrG5h" value="physicalModule" />
                     </node>
                     <node concept="3clFbS" id="7fzD_A4qGpR" role="2LFqv$">
-                      <node concept="3clFbJ" id="3dUJIgsIltW" role="3cqZAp">
-                        <node concept="3clFbS" id="3dUJIgsIltY" role="3clFbx">
-                          <node concept="3clFbF" id="7fzD_A4qLE3" role="3cqZAp">
-                            <node concept="37vLTI" id="7fzD_A4qQKz" role="3clFbG">
-                              <node concept="2GrUjf" id="7fzD_A4qRCa" role="37vLTx">
-                                <ref role="2Gs0qQ" node="7fzD_A4qGpN" resolve="physicalModule" />
-                              </node>
-                              <node concept="3EllGN" id="7fzD_A4qMBI" role="37vLTJ">
-                                <node concept="2OqwBi" id="7fzD_A4qP33" role="3ElVtu">
-                                  <node concept="2OqwBi" id="7fzD_A4qNI8" role="2Oq$k0">
-                                    <node concept="2GrUjf" id="7fzD_A4qN1G" role="2Oq$k0">
-                                      <ref role="2Gs0qQ" node="7fzD_A4qGpN" resolve="physicalModule" />
-                                    </node>
-                                    <node concept="liA8E" id="7fzD_A4qO$W" role="2OqNvi">
-                                      <ref role="37wK5l" to="lui2:~SModule.getModuleId()" resolve="getModuleId" />
-                                    </node>
-                                  </node>
-                                  <node concept="liA8E" id="7fzD_A4qQ1Z" role="2OqNvi">
-                                    <ref role="37wK5l" to="wyt6:~Object.toString()" resolve="toString" />
-                                  </node>
+                      <node concept="3clFbF" id="7fzD_A4qLE3" role="3cqZAp">
+                        <node concept="37vLTI" id="7fzD_A4qQKz" role="3clFbG">
+                          <node concept="2GrUjf" id="7fzD_A4qRCa" role="37vLTx">
+                            <ref role="2Gs0qQ" node="7fzD_A4qGpN" resolve="physicalModule" />
+                          </node>
+                          <node concept="3EllGN" id="7fzD_A4qMBI" role="37vLTJ">
+                            <node concept="2OqwBi" id="7fzD_A4qP33" role="3ElVtu">
+                              <node concept="2OqwBi" id="7fzD_A4qNI8" role="2Oq$k0">
+                                <node concept="2GrUjf" id="7fzD_A4qN1G" role="2Oq$k0">
+                                  <ref role="2Gs0qQ" node="7fzD_A4qGpN" resolve="physicalModule" />
                                 </node>
-                                <node concept="37vLTw" id="7fzD_A4qLE2" role="3ElQJh">
-                                  <ref role="3cqZAo" node="7fzD_A4qyoO" resolve="allPhysicalModules" />
+                                <node concept="liA8E" id="7fzD_A4qO$W" role="2OqNvi">
+                                  <ref role="37wK5l" to="lui2:~SModule.getModuleId()" resolve="getModuleId" />
                                 </node>
                               </node>
-                            </node>
-                          </node>
-                        </node>
-                        <node concept="1Wc70l" id="3dUJIgsIsjp" role="3clFbw">
-                          <node concept="3fqX7Q" id="3dUJIgsItcn" role="3uHU7w">
-                            <node concept="2OqwBi" id="3dUJIgsIxG$" role="3fr31v">
-                              <node concept="2GrUjf" id="3dUJIgsIwVM" role="2Oq$k0">
-                                <ref role="2Gs0qQ" node="7fzD_A4qGpN" resolve="physicalModule" />
-                              </node>
-                              <node concept="liA8E" id="3dUJIgsIyz_" role="2OqNvi">
-                                <ref role="37wK5l" to="lui2:~SModule.isReadOnly()" resolve="isReadOnly" />
+                              <node concept="liA8E" id="7fzD_A4qQ1Z" role="2OqNvi">
+                                <ref role="37wK5l" to="wyt6:~Object.toString()" resolve="toString" />
                               </node>
                             </node>
-                          </node>
-                          <node concept="3fqX7Q" id="3dUJIgsIrlh" role="3uHU7B">
-                            <node concept="2OqwBi" id="3dUJIgsIrlj" role="3fr31v">
-                              <node concept="2GrUjf" id="3dUJIgsIrlk" role="2Oq$k0">
-                                <ref role="2Gs0qQ" node="7fzD_A4qGpN" resolve="physicalModule" />
-                              </node>
-                              <node concept="liA8E" id="3dUJIgsIrll" role="2OqNvi">
-                                <ref role="37wK5l" to="lui2:~SModule.isPackaged()" resolve="isPackaged" />
-                              </node>
+                            <node concept="37vLTw" id="7fzD_A4qLE2" role="3ElQJh">
+                              <ref role="3cqZAo" node="7fzD_A4qyoO" resolve="allPhysicalModules" />
                             </node>
                           </node>
                         </node>
                       </node>
                     </node>
-                    <node concept="2OqwBi" id="7fzD_A4qHbh" role="2GsD0m">
-                      <node concept="2OqwBi" id="7fzD_A4qHbi" role="2Oq$k0">
-                        <node concept="37vLTw" id="7fzD_A4qHbj" role="2Oq$k0">
-                          <ref role="3cqZAo" node="4eX7sil8IGn" resolve="mpsProject" />
-                        </node>
-                        <node concept="liA8E" id="7fzD_A4qHbk" role="2OqNvi">
-                          <ref role="37wK5l" to="z1c3:~Project.getRepository()" resolve="getRepository" />
-                        </node>
+                    <node concept="2OqwBi" id="7fzD_A4qHbi" role="2GsD0m">
+                      <node concept="37vLTw" id="7fzD_A4qHbj" role="2Oq$k0">
+                        <ref role="3cqZAo" node="4eX7sil8IGn" resolve="mpsProject" />
                       </node>
-                      <node concept="liA8E" id="7fzD_A4qHbl" role="2OqNvi">
-                        <ref role="37wK5l" to="lui2:~SRepository.getModules()" resolve="getModules" />
+                      <node concept="liA8E" id="13yBjYcCKWB" role="2OqNvi">
+                        <ref role="37wK5l" to="z1c3:~ProjectBase.getProjectModules()" resolve="getProjectModules" />
                       </node>
                     </node>
                   </node>
