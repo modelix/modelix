@@ -16,6 +16,8 @@
 package org.modelix.model.api
 
 interface IConcept {
+    fun getShortName(): String
+    fun getLongName(): String
     fun isSubconceptOf(superConcept: IConcept?): Boolean
     fun isExactly(concept: IConcept?): Boolean
     val properties: Iterable<IProperty>

@@ -32,7 +32,7 @@ class AsyncStore(private val store: IKeyValueStore) : IKeyValueStore {
                 return pendingWrites.get(key)
             }
         }
-        return store.get(key)
+        return store[key]
     }
 
     override fun listen(key: String, listener: IKeyListener) {

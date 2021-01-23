@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectLibraryManager">
+    <option name="libraries">
+      <map>
+        <entry key="MpsExtensions">
+          <value>
+            <Library>
+              <option name="name" value="MpsExtensions" />
+              <option name="path" value="$PROJECT_DIR$/../dependencies/de.itemis.mps.extensions" />
+            </Library>
+          </value>
+        </entry>
+        <entry key="modelix-common">
+          <value>
+            <Library>
+              <option name="name" value="modelix-common" />
+              <option name="path" value="$PROJECT_DIR$/../dependencies/org.modelix.common" />
+            </Library>
+          </value>
+        </entry>
+        <entry key="modelix-model">
+          <value>
+            <Library>
+              <option name="name" value="modelix-model" />
+              <option name="path" value="$PROJECT_DIR$/../dependencies/org.modelix.model" />
+            </Library>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>

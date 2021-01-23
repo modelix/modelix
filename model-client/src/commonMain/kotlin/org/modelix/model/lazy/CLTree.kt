@@ -111,7 +111,7 @@ class CLTree : ITree {
 
     override fun addNewChild(parentId: Long, role: String?, index: Int, childId: Long, concept: IConcept?): ITree {
         if (containsNode(childId)) {
-            throw RuntimeException("Node ID already exists: ${childId.toString(16)}")
+            throw DuplicateNodeId("Node ID already exists: ${childId.toString(16)}")
         }
         return createNewNode(childId, concept).addChild(parentId, role, index, childId)
     }
@@ -279,8 +279,12 @@ class CLTree : ITree {
     }
 
     override fun getConcept(nodeId: Long): IConcept? {
-        val node = resolveElement(nodeId)
-        return deserializeConcept(node!!.concept)
+        try {
+            val node = resolveElement(nodeId)
+            return deserializeConcept(node!!.concept)
+        } catch (e: RuntimeException) {
+            throw RuntimeException("Unable to find concept for node $nodeId", e)
+        }
     }
 
     override fun getParent(nodeId: Long): Long {
@@ -437,7 +441,7 @@ class CLTree : ITree {
             return null
         }
         val hash = nodesMap!![id]
-            ?: throw RuntimeException("Element doesn't exist: ${SerializationUtil.longToHex(id)}")
+            ?: throw RuntimeException("Element doesn't exist: ${SerializationUtil.longToHex(id)} ($id)")
         return createElement(hash, NonBulkQuery(store)).execute()
     }
 

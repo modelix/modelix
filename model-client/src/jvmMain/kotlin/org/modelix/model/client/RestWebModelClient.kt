@@ -33,12 +33,15 @@ import java.io.File
 import java.net.URLEncoder
 import java.nio.charset.StandardCharsets
 import java.util.Objects
+import java.util.concurrent.ExecutorService
+import java.util.concurrent.Executors
 import java.util.concurrent.ScheduledFuture
 import java.util.concurrent.TimeUnit
 import java.util.function.Consumer
 import java.util.function.Predicate
 import java.util.function.ToLongFunction
 import java.util.stream.Stream
+import javax.ws.rs.ProcessingException
 import javax.ws.rs.client.Client
 import javax.ws.rs.client.ClientBuilder
 import javax.ws.rs.client.ClientRequestFilter
@@ -92,13 +95,19 @@ class RestWebModelClient @JvmOverloads constructor(var baseUrl: String? = null, 
     override var clientId = 0
         get() {
             if (field == 0) {
-                val response = client.target(baseUrl + "counter/clientId").request().post(Entity.text(""))
-                val idStr = response.readEntity(String::class.java)
-                field = idStr.toInt()
+                val targetUri = baseUrl + "counter/clientId"
+                try {
+                    val response = client.target(targetUri).request().post(Entity.text(""))
+                    val idStr = response.readEntity(String::class.java)
+                    field = idStr.toInt()
+                } catch (e: ProcessingException) {
+                    throw RuntimeException("Unable to get the clientId by querying $targetUri", e)
+                }
             }
             return field
         }
         private set
+    private val executorService: ExecutorService = Executors.newFixedThreadPool(10)
     private val client: Client
     private val sseClient: Client
     private val listeners: MutableList<SseListener> = ArrayList()
@@ -111,12 +120,15 @@ class RestWebModelClient @JvmOverloads constructor(var baseUrl: String? = null, 
     private val watchDogTask: ScheduledFuture<*>
     private var authToken = authToken_ ?: defaultToken
 
+    override fun toString() = "RestWebModelClient($baseUrl)"
+
     fun dispose() {
         watchDogTask.cancel(false)
         synchronized(listeners) {
             listeners.forEach(Consumer { obj: SseListener -> obj.dispose() })
             listeners.clear()
         }
+        executorService.shutdown()
     }
 
     override fun get(key: String): String? {
@@ -127,24 +139,29 @@ class RestWebModelClient @JvmOverloads constructor(var baseUrl: String? = null, 
             }
         }
         val start = System.currentTimeMillis()
-        val response = client.target(baseUrl + "get/" + URLEncoder.encode(key, StandardCharsets.UTF_8)).request().buildGet().invoke()
-        return when (response.status) {
-            Response.Status.OK.statusCode -> {
-                val value = response.readEntity(String::class.java)
-                val end = System.currentTimeMillis()
-                if (isHash) {
-                    if (LOG.isDebugEnabled) {
-                        LOG.debug("GET " + key + " took " + (end - start) + " ms: " + value)
+        val uri = baseUrl + "get/" + URLEncoder.encode(key, StandardCharsets.UTF_8)
+        try {
+            val response = client.target(uri).request().buildGet().invoke()
+            return when (response.status) {
+                Response.Status.OK.statusCode -> {
+                    val value = response.readEntity(String::class.java)
+                    val end = System.currentTimeMillis()
+                    if (isHash) {
+                        if (LOG.isDebugEnabled) {
+                            LOG.debug("GET " + key + " took " + (end - start) + " ms: " + value)
+                        }
                     }
+                    value
                 }
-                value
+                Response.Status.NOT_FOUND.statusCode -> {
+                    null
+                }
+                else -> {
+                    throw RuntimeException("Request for key '" + key + "' failed: " + response.statusInfo)
+                }
             }
-            Response.Status.NOT_FOUND.statusCode -> {
-                null
-            }
-            else -> {
-                throw RuntimeException("Request for key '" + key + "' failed: " + response.statusInfo)
-            }
+        } catch (e: java.lang.Exception) {
+            throw RuntimeException("Unable to connect to '$uri' to get key $key", e)
         }
     }
 
@@ -373,10 +390,12 @@ class RestWebModelClient @JvmOverloads constructor(var baseUrl: String? = null, 
         // is useful to recognize when the server is down
         client = ClientBuilder.newBuilder()
             .connectTimeout(1000, TimeUnit.MILLISECONDS)
+            .executorService(executorService)
             // .readTimeout(1000, TimeUnit.MILLISECONDS)
             .register(ClientRequestFilter { ctx -> ctx.headers.add(HttpHeaders.AUTHORIZATION, "Bearer $authToken") }).build()
         sseClient = ClientBuilder.newBuilder()
             .connectTimeout(1000, TimeUnit.MILLISECONDS)
+            .executorService(executorService)
             .register(ClientRequestFilter { ctx -> ctx.headers.add(HttpHeaders.AUTHORIZATION, "Bearer $authToken") }).build()
         idGenerator = IdGenerator(clientId)
         watchDogTask = fixDelay(

@@ -23,6 +23,7 @@ import org.modelix.model.api.INodeReference
 import org.modelix.model.api.ITree
 import org.modelix.model.api.IWriteTransaction
 import org.modelix.model.api.PNodeAdapter
+import org.modelix.model.lazy.DuplicateNodeId
 import org.modelix.model.lazy.IDeserializingKeyValueStore
 import org.modelix.model.logTrace
 
@@ -74,9 +75,13 @@ class OTWriteTransaction(
     }
 
     override fun addNewChild(parentId: Long, role: String?, index: Int, concept: IConcept?): Long {
-        val childId = idGenerator.generate()
-        addNewChild(parentId, role, index, childId, concept)
-        return childId
+        return try {
+            val childId = idGenerator.generate()
+            addNewChild(parentId, role, index, childId, concept)
+            childId
+        } catch (dni: DuplicateNodeId) {
+            addNewChild(parentId, role, index, concept)
+        }
     }
 
     override fun containsNode(nodeId: Long): Boolean {

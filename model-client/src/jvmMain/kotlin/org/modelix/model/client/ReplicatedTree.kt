@@ -37,6 +37,9 @@ import java.util.concurrent.ScheduledFuture
 import java.util.concurrent.atomic.AtomicBoolean
 import java.util.function.Supplier
 
+/**
+ * Dispose should be called on this, as otherwise a regular polling will go on.
+ */
 actual open class ReplicatedTree actual constructor(
     private val client: IModelClient,
     private val treeId: TreeId,
@@ -220,7 +223,7 @@ actual open class ReplicatedTree actual constructor(
 
     fun checkDisposed() {
         if (disposed) {
-            throw RuntimeException("Already disposed")
+            throw RuntimeException("Already disposed, replicated client $client, branch: $branchName, author: ${user()}")
         }
     }
 
@@ -337,18 +340,16 @@ actual open class ReplicatedTree actual constructor(
         })
         convergenceWatchdog = fixDelay(
             1000,
-            object : Runnable {
-                override fun run() {
-                    val localHash = if (localVersion == null) null else localVersion!!.hash
-                    val remoteHash = if (remoteVersion == null) null else remoteVersion!!.hash
-                    if (localHash == remoteHash) {
-                        divergenceTime = 0
-                    } else {
-                        divergenceTime++
-                    }
-                    if (divergenceTime > 5) {
-                        synchronized(mergeLock) { divergenceTime = 0 }
-                    }
+            Runnable {
+                val localHash = if (localVersion == null) null else localVersion!!.hash
+                val remoteHash = if (remoteVersion == null) null else remoteVersion!!.hash
+                if (localHash == remoteHash) {
+                    divergenceTime = 0
+                } else {
+                    divergenceTime++
+                }
+                if (divergenceTime > 5) {
+                    synchronized(mergeLock) { divergenceTime = 0 }
                 }
             }
         )

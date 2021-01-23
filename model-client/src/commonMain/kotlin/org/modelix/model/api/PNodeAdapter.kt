@@ -58,8 +58,12 @@ open class PNodeAdapter(val nodeId: Long, val branch: IBranch) : INode {
 
     override val concept: IConcept?
         get() {
-            notifyAccess()
-            return branch.computeRead { branch.transaction.getConcept(nodeId) }
+            try {
+                notifyAccess()
+                return branch.computeRead { branch.transaction.getConcept(nodeId) }
+            } catch (e: RuntimeException) {
+                throw RuntimeException("Issue getting concept for $nodeId in branch $branch", e)
+            }
         }
 
     override val parent: INode?

@@ -1368,6 +1368,21 @@
       </node>
       <node concept="3Tm6S6" id="1cRLf1_Z1L1" role="1B3o_S" />
       <node concept="3clFbS" id="1cRLf1_YMsp" role="3clF47">
+        <node concept="3clFbJ" id="1QKKVBBKjjX" role="3cqZAp">
+          <node concept="3clFbS" id="1QKKVBBKjjZ" role="3clFbx">
+            <node concept="3cpWs6" id="1QKKVBBKo1n" role="3cqZAp">
+              <node concept="10Nm6u" id="1QKKVBBKo6H" role="3cqZAk" />
+            </node>
+          </node>
+          <node concept="2OqwBi" id="1QKKVBBKnB9" role="3clFbw">
+            <node concept="37vLTw" id="1QKKVBBKnbO" role="2Oq$k0">
+              <ref role="3cqZAo" node="115Xaa3Z2NL" resolve="project" />
+            </node>
+            <node concept="liA8E" id="1QKKVBBKnUq" role="2OqNvi">
+              <ref role="37wK5l" to="z1c4:~Project.isDisposed()" resolve="isDisposed" />
+            </node>
+          </node>
+        </node>
         <node concept="3cpWs8" id="1cRLf1_Z67F" role="3cqZAp">
           <node concept="3cpWsn" id="1cRLf1_Z67G" role="3cpWs9">
             <property role="TrG5h" value="pane" />

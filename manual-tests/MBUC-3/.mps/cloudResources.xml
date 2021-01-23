@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CloudResources">
+    <option name="cloudRepositories">
+      <list>
+        <option value="http://localhost:8899/" />
+      </list>
+    </option>
+    <option name="transientModules">
+      <list>
+        <option value="http://localhost:8899/default#MyExampleSolution" />
+      </list>
+    </option>
+  </component>
+</project>
