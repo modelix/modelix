@@ -271,7 +271,6 @@
         <property id="1176718929932" name="isFinal" index="3TUv4t" />
         <child id="1068431790190" name="initializer" index="33vP2m" />
       </concept>
-      <concept id="1068431790191" name="jetbrains.mps.baseLanguage.structure.Expression" flags="nn" index="33vP2n" />
       <concept id="1092119917967" name="jetbrains.mps.baseLanguage.structure.MulExpression" flags="nn" index="17qRlL" />
       <concept id="1068498886296" name="jetbrains.mps.baseLanguage.structure.VariableReference" flags="nn" index="37vLTw">
         <reference id="1068581517664" name="variableDeclaration" index="3cqZAo" />
@@ -1154,6 +1153,81 @@
                   <ref role="Rm8GQ" node="5Le8ZRJdWMd" resolve="DEFAULT" />
                 </node>
                 <node concept="3clFbS" id="5Le8ZRJebIJ" role="3Kbo56">
+                  <node concept="3cpWs8" id="7Qo$o7gTR3V" role="3cqZAp">
+                    <node concept="3cpWsn" id="7Qo$o7gTR3Y" role="3cpWs9">
+                      <property role="TrG5h" value="cloudReposSpecified" />
+                      <node concept="17QB3L" id="7Qo$o7gTR3T" role="1tU5fm" />
+                      <node concept="2YIFZM" id="7Qo$o7gTRqB" role="33vP2m">
+                        <ref role="37wK5l" to="wyt6:~System.getProperty(java.lang.String)" resolve="getProperty" />
+                        <ref role="1Pybhc" to="wyt6:~System" resolve="System" />
+                        <node concept="10M0yZ" id="7Qo$o7gTRKE" role="37wK5m">
+                          <ref role="3cqZAo" node="7Qo$o7gTQfP" resolve="CLOUD_REPOS_SYSPROP" />
+                          <ref role="1PxDUh" node="7Qo$o7gTdFI" resolve="ModelixConfigurationSystemProperties" />
+                        </node>
+                      </node>
+                    </node>
+                  </node>
+                  <node concept="3clFbJ" id="7Qo$o7gTS0p" role="3cqZAp">
+                    <node concept="3clFbS" id="7Qo$o7gTS0r" role="3clFbx">
+                      <node concept="3cpWs8" id="7Qo$o7gTW1S" role="3cqZAp">
+                        <node concept="3cpWsn" id="7Qo$o7gTW1V" role="3cpWs9">
+                          <property role="TrG5h" value="repos" />
+                          <node concept="10Q1$e" id="7Qo$o7gTYEB" role="1tU5fm">
+                            <node concept="17QB3L" id="7Qo$o7gTW1Q" role="10Q1$1" />
+                          </node>
+                          <node concept="2OqwBi" id="7Qo$o7gTWQr" role="33vP2m">
+                            <node concept="37vLTw" id="7Qo$o7gTWuQ" role="2Oq$k0">
+                              <ref role="3cqZAo" node="7Qo$o7gTR3Y" resolve="cloudReposSpecified" />
+                            </node>
+                            <node concept="liA8E" id="7Qo$o7gTXU0" role="2OqNvi">
+                              <ref role="37wK5l" to="wyt6:~String.split(java.lang.String)" resolve="split" />
+                              <node concept="Xl_RD" id="7Qo$o7gTY3f" role="37wK5m">
+                                <property role="Xl_RC" value="," />
+                              </node>
+                            </node>
+                          </node>
+                        </node>
+                      </node>
+                      <node concept="2Gpval" id="7Qo$o7gU01U" role="3cqZAp">
+                        <node concept="2GrKxI" id="7Qo$o7gU01Z" role="2Gsz3X">
+                          <property role="TrG5h" value="repo" />
+                        </node>
+                        <node concept="37vLTw" id="7Qo$o7gU0fk" role="2GsD0m">
+                          <ref role="3cqZAo" node="7Qo$o7gTW1V" resolve="repos" />
+                        </node>
+                        <node concept="3clFbS" id="7Qo$o7gU029" role="2LFqv$">
+                          <node concept="3clFbF" id="7Qo$o7gU0tV" role="3cqZAp">
+                            <node concept="2OqwBi" id="7Qo$o7gU0ZP" role="3clFbG">
+                              <node concept="2YIFZM" id="7Qo$o7gU0Nl" role="2Oq$k0">
+                                <ref role="37wK5l" to="csg2:1LVcV5Kxxmz" resolve="getInstance" />
+                                <ref role="1Pybhc" to="csg2:1LVcV5Kxxi$" resolve="CloudRepositories" />
+                              </node>
+                              <node concept="liA8E" id="7Qo$o7gU1gH" role="2OqNvi">
+                                <ref role="37wK5l" to="csg2:6aRQr1WPk$8" resolve="addRepository" />
+                                <node concept="2GrUjf" id="7Qo$o7gU1oc" role="37wK5m">
+                                  <ref role="2Gs0qQ" node="7Qo$o7gU01Z" resolve="repo" />
+                                </node>
+                              </node>
+                            </node>
+                          </node>
+                        </node>
+                      </node>
+                    </node>
+                    <node concept="1Wc70l" id="7Qo$o7gTUh_" role="3clFbw">
+                      <node concept="2OqwBi" id="7Qo$o7gTUOi" role="3uHU7w">
+                        <node concept="37vLTw" id="7Qo$o7gTUor" role="2Oq$k0">
+                          <ref role="3cqZAo" node="7Qo$o7gTR3Y" resolve="cloudReposSpecified" />
+                        </node>
+                        <node concept="17RvpY" id="7Qo$o7gTVRm" role="2OqNvi" />
+                      </node>
+                      <node concept="3y3z36" id="7Qo$o7gTUbH" role="3uHU7B">
+                        <node concept="37vLTw" id="7Qo$o7gTSaB" role="3uHU7B">
+                          <ref role="3cqZAo" node="7Qo$o7gTR3Y" resolve="cloudReposSpecified" />
+                        </node>
+                        <node concept="10Nm6u" id="7Qo$o7gTU5u" role="3uHU7w" />
+                      </node>
+                    </node>
+                  </node>
                   <node concept="3zACq4" id="5Le8ZRJebSi" role="3cqZAp" />
                 </node>
               </node>
@@ -1391,12 +1465,6 @@
               <ref role="37wK5l" node="1xehy3SoPER" resolve="applyToProject" />
             </node>
           </node>
-        </node>
-        <node concept="3clFbJ" id="7Qo$o7gNSDS" role="3cqZAp">
-          <node concept="3clFbS" id="7Qo$o7gNSDU" role="3clFbx">
-            <node concept="3clFbH" id="7Qo$o7gNSDT" role="3cqZAp" />
-          </node>
-          <node concept="33vP2n" id="7Qo$o7gNSDV" role="3clFbw" />
         </node>
       </node>
     </node>
@@ -12002,6 +12070,14 @@
       <node concept="17QB3L" id="7Qo$o7gTmKK" role="1tU5fm" />
       <node concept="Xl_RD" id="7Qo$o7gTmU2" role="33vP2m">
         <property role="Xl_RC" value="modelix.export.path" />
+      </node>
+    </node>
+    <node concept="Wx3nA" id="7Qo$o7gTQfP" role="jymVt">
+      <property role="TrG5h" value="CLOUD_REPOS_SYSPROP" />
+      <node concept="3Tm1VV" id="7Qo$o7gTQfQ" role="1B3o_S" />
+      <node concept="17QB3L" id="7Qo$o7gTQfR" role="1tU5fm" />
+      <node concept="Xl_RD" id="7Qo$o7gTQfS" role="33vP2m">
+        <property role="Xl_RC" value="modelix.cloud.repos" />
       </node>
     </node>
     <node concept="3Tm1VV" id="7Qo$o7gTdFJ" role="1B3o_S" />
