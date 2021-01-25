@@ -12,9 +12,9 @@
     <devkit ref="fbc25dd2-5da4-483a-8b19-70928e1b62d7(jetbrains.mps.devkit.general-purpose)" />
   </languages>
   <imports>
-    <import index="csg2" ref="r:b0cc4f86-cf49-4ffc-b138-1f9973329ce1(de.q60.mps.web.model.mpsplugin)" />
+    <import index="csg2" ref="r:b0cc4f86-cf49-4ffc-b138-1f9973329ce1(org.modelix.model.mpsplugin)" />
     <import index="wyt6" ref="6354ebe7-c22a-4a0f-ac54-50b52ab9b065/java:java.lang(JDK/)" />
-    <import index="um17" ref="r:f4bd718a-0e10-4b62-9f5d-6c915f7d4572(de.q60.mps.web.model.mpsplugin.history)" />
+    <import index="um17" ref="r:f4bd718a-0e10-4b62-9f5d-6c915f7d4572(org.modelix.model.mpsplugin.history)" />
     <import index="4nil" ref="r:a50ac3a0-164c-48fd-b7af-208637427fd6(org.modelix.model.mpsplugin.projectview)" />
     <import index="dxuu" ref="6354ebe7-c22a-4a0f-ac54-50b52ab9b065/java:javax.swing(JDK/)" />
     <import index="7e8u" ref="742f6602-5a2f-4313-aa6e-ae1cd4ffdc61/java:jetbrains.mps.ide.ui.tree(MPS.Platform/)" />
@@ -271,6 +271,7 @@
         <property id="1176718929932" name="isFinal" index="3TUv4t" />
         <child id="1068431790190" name="initializer" index="33vP2m" />
       </concept>
+      <concept id="1068431790191" name="jetbrains.mps.baseLanguage.structure.Expression" flags="nn" index="33vP2n" />
       <concept id="1092119917967" name="jetbrains.mps.baseLanguage.structure.MulExpression" flags="nn" index="17qRlL" />
       <concept id="1068498886296" name="jetbrains.mps.baseLanguage.structure.VariableReference" flags="nn" index="37vLTw">
         <reference id="1068581517664" name="variableDeclaration" index="3cqZAo" />
@@ -604,8 +605,9 @@
                 <node concept="2YIFZM" id="5Le8ZRJdQ1c" role="33vP2m">
                   <ref role="37wK5l" to="wyt6:~System.getProperty(java.lang.String)" resolve="getProperty" />
                   <ref role="1Pybhc" to="wyt6:~System" resolve="System" />
-                  <node concept="Xl_RD" id="5Le8ZRJdQ1d" role="37wK5m">
-                    <property role="Xl_RC" value="modelix.executionMode" />
+                  <node concept="10M0yZ" id="7Qo$o7gTgME" role="37wK5m">
+                    <ref role="3cqZAo" node="7Qo$o7gTfVU" resolve="EXECUTION_MODE_SYSPROP" />
+                    <ref role="1PxDUh" node="7Qo$o7gTdFI" resolve="ModelixConfigurationSystemProperties" />
                   </node>
                 </node>
               </node>
@@ -694,8 +696,9 @@
                     <node concept="2YIFZM" id="5Le8ZRJe1RY" role="2Oq$k0">
                       <ref role="1Pybhc" to="wyt6:~System" resolve="System" />
                       <ref role="37wK5l" to="wyt6:~System.getProperty(java.lang.String)" resolve="getProperty" />
-                      <node concept="Xl_RD" id="5Le8ZRJe1RZ" role="37wK5m">
-                        <property role="Xl_RC" value="modelix.export.path" />
+                      <node concept="10M0yZ" id="7Qo$o7gTn$P" role="37wK5m">
+                        <ref role="3cqZAo" node="7Qo$o7gTmKI" resolve="EXPORT_PATH_SYSPROP" />
+                        <ref role="1PxDUh" node="7Qo$o7gTdFI" resolve="ModelixConfigurationSystemProperties" />
                       </node>
                     </node>
                     <node concept="17RvpY" id="5Le8ZRJe2XK" role="2OqNvi" />
@@ -706,8 +709,9 @@
                   <node concept="2YIFZM" id="5Le8ZRJfN4O" role="3clFbG">
                     <ref role="37wK5l" to="wyt6:~System.setProperty(java.lang.String,java.lang.String)" resolve="setProperty" />
                     <ref role="1Pybhc" to="wyt6:~System" resolve="System" />
-                    <node concept="Xl_RD" id="5Le8ZRJfNb7" role="37wK5m">
-                      <property role="Xl_RC" value="modelix.executionMode" />
+                    <node concept="10M0yZ" id="7Qo$o7gTgXt" role="37wK5m">
+                      <ref role="3cqZAo" node="7Qo$o7gTfVU" resolve="EXECUTION_MODE_SYSPROP" />
+                      <ref role="1PxDUh" node="7Qo$o7gTdFI" resolve="ModelixConfigurationSystemProperties" />
                     </node>
                     <node concept="2OqwBi" id="5Le8ZRJfOe6" role="37wK5m">
                       <node concept="37vLTw" id="5Le8ZRJfNCx" role="2Oq$k0">
@@ -913,8 +917,9 @@
                       <node concept="2YIFZM" id="29etMtbjEs6" role="33vP2m">
                         <ref role="37wK5l" to="wyt6:~System.getProperty(java.lang.String)" resolve="getProperty" />
                         <ref role="1Pybhc" to="wyt6:~System" resolve="System" />
-                        <node concept="Xl_RD" id="29etMtbjEs7" role="37wK5m">
-                          <property role="Xl_RC" value="modelix.export.path" />
+                        <node concept="10M0yZ" id="7Qo$o7gTnFL" role="37wK5m">
+                          <ref role="3cqZAo" node="7Qo$o7gTmKI" resolve="EXPORT_PATH_SYSPROP" />
+                          <ref role="1PxDUh" node="7Qo$o7gTdFI" resolve="ModelixConfigurationSystemProperties" />
                         </node>
                       </node>
                     </node>
@@ -1386,6 +1391,12 @@
               <ref role="37wK5l" node="1xehy3SoPER" resolve="applyToProject" />
             </node>
           </node>
+        </node>
+        <node concept="3clFbJ" id="7Qo$o7gNSDS" role="3cqZAp">
+          <node concept="3clFbS" id="7Qo$o7gNSDU" role="3clFbx">
+            <node concept="3clFbH" id="7Qo$o7gNSDT" role="3cqZAp" />
+          </node>
+          <node concept="33vP2n" id="7Qo$o7gNSDV" role="3clFbw" />
         </node>
       </node>
     </node>
@@ -11974,6 +11985,26 @@
       <ref role="37wK5l" to="wyt6:~Object.&lt;init&gt;()" resolve="Object" />
     </node>
     <node concept="3Tm1VV" id="5Le8ZRJdWos" role="1B3o_S" />
+  </node>
+  <node concept="312cEu" id="7Qo$o7gTdFI">
+    <property role="TrG5h" value="ModelixConfigurationSystemProperties" />
+    <node concept="Wx3nA" id="7Qo$o7gTfVU" role="jymVt">
+      <property role="TrG5h" value="EXECUTION_MODE_SYSPROP" />
+      <node concept="3Tm1VV" id="7Qo$o7gTdMd" role="1B3o_S" />
+      <node concept="17QB3L" id="7Qo$o7gTg1B" role="1tU5fm" />
+      <node concept="Xl_RD" id="7Qo$o7gTg7a" role="33vP2m">
+        <property role="Xl_RC" value="modelix.executionMode" />
+      </node>
+    </node>
+    <node concept="Wx3nA" id="7Qo$o7gTmKI" role="jymVt">
+      <property role="TrG5h" value="EXPORT_PATH_SYSPROP" />
+      <node concept="3Tm1VV" id="7Qo$o7gTmKJ" role="1B3o_S" />
+      <node concept="17QB3L" id="7Qo$o7gTmKK" role="1tU5fm" />
+      <node concept="Xl_RD" id="7Qo$o7gTmU2" role="33vP2m">
+        <property role="Xl_RC" value="modelix.export.path" />
+      </node>
+    </node>
+    <node concept="3Tm1VV" id="7Qo$o7gTdFJ" role="1B3o_S" />
   </node>
 </model>
 

@@ -706,8 +706,9 @@
           <node concept="2YIFZM" id="nkanBusXRZ" role="3clFbG">
             <ref role="37wK5l" to="wyt6:~System.setProperty(java.lang.String,java.lang.String)" resolve="setProperty" />
             <ref role="1Pybhc" to="wyt6:~System" resolve="System" />
-            <node concept="Xl_RD" id="nkanBusXS0" role="37wK5m">
-              <property role="Xl_RC" value="modelix.executionMode" />
+            <node concept="10M0yZ" id="7Qo$o7gTiOs" role="37wK5m">
+              <ref role="3cqZAo" to="nhvc:7Qo$o7gTfVU" resolve="EXECUTION_MODE_SYSPROP" />
+              <ref role="1PxDUh" to="nhvc:7Qo$o7gTdFI" resolve="ModelixConfigurationSystemProperties" />
             </node>
             <node concept="Xl_RD" id="nkanBusXS1" role="37wK5m">
               <property role="Xl_RC" value="INTEGRATION_TESTS" />
