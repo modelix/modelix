@@ -717,8 +717,8 @@
                       <node concept="37vLTw" id="5Le8ZRJfNCx" role="2Oq$k0">
                         <ref role="3cqZAo" node="5Le8ZRJdYgt" resolve="executionMode" />
                       </node>
-                      <node concept="liA8E" id="5Le8ZRJfOUg" role="2OqNvi">
-                        <ref role="37wK5l" to="wyt6:~Enum.toString()" resolve="toString" />
+                      <node concept="liA8E" id="7Qo$o7gTQ6h" role="2OqNvi">
+                        <ref role="37wK5l" to="wyt6:~Enum.name()" resolve="name" />
                       </node>
                     </node>
                   </node>
