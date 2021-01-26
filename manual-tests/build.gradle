@@ -1,0 +1,35 @@
+// Ensure modelix was built
+// Ensure the artifacts were retrieved
+//
+// Get the plugins from mps/build/distributions:
+//
+// org.modelix.buildscripts-2020.1.1-SNAPSHOT.zip    
+// org.modelix.model.mpsplugin-2020.1.1-SNAPSHOT.zip
+//
+// Get the artifacts used by Modelix:
+// copy artifacts/de.itemis.mps.extensions
+
+
+task prepareDependenciesForManualTests(dependsOn: [":mps:setup", ":mps:packageMpsModelPlugin"]) {
+	doLast {
+		def dependenciesDir = new File("${rootDir.getAbsolutePath()}/manual-tests/dependencies")
+        dependenciesDir.deleteDir()
+	    copy {
+	    	from "${rootDir.getAbsolutePath()}/artifacts/de.itemis.mps.extensions"
+	    	into "${rootDir.getAbsolutePath()}/manual-tests/dependencies/de.itemis.mps.extensions"
+		}
+		def distributionsDir = new File("${rootDir.getAbsolutePath()}/mps/build/distributions/");
+		def distributionFiles = distributionsDir.listFiles().findAll { it.name.startsWith("org.modelix.model.mpsplugin-") };
+		distributionFiles.sort { it.name }.reverse();
+		if (distributionFiles.size < 1) {
+			throw new RuntimeException("distribution not found")
+		}
+		copy {
+			from {
+        		zipTree(distributionFiles[0].getAbsolutePath())
+    		}
+    		into "${rootDir.getAbsolutePath()}/manual-tests/dependencies"
+		}
+
+	}
+}

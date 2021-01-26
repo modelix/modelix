@@ -18,7 +18,12 @@ package org.modelix.model.server;
 import com.beust.jcommander.JCommander;
 import com.beust.jcommander.Parameter;
 import com.beust.jcommander.converters.BooleanConverter;
+import com.beust.jcommander.converters.IntegerConverter;
+import com.beust.jcommander.converters.StringConverter;
 import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.nio.charset.StandardCharsets;
@@ -56,6 +61,21 @@ class CmdLineArgs {
             description = "Use in-memory storage",
             converter = BooleanConverter.class)
     Boolean inmemory = false;
+
+    @Parameter(
+            names = "-dumpout",
+            description = "Dump in memory storage",
+            converter = StringConverter.class)
+    String dumpOutName;
+
+    @Parameter(
+            names = "-dumpin",
+            description = "Read dump in memory storage",
+            converter = StringConverter.class)
+    String dumpInName;
+
+    @Parameter(names = "-port", description = "Set port", converter = IntegerConverter.class)
+    Integer port = null;
 
     @Parameter(names = "-set", description = "Set values", arity = 2)
     List<String> setValues = new LinkedList<>();
@@ -159,6 +179,31 @@ public class Main {
         }
     }
 
+    private static class DumpOutThread extends Thread {
+
+        DumpOutThread(InMemoryStoreClient inMemoryStoreClient, String dumpName) {
+            super(
+                    () -> {
+                        FileWriter fw = null;
+                        try {
+                            fw = new FileWriter(new File(dumpName));
+                            inMemoryStoreClient.dump(fw);
+                            System.out.println("[Saved memory store into " + dumpName + "]");
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        } finally {
+                            if (fw != null) {
+                                try {
+                                    fw.close();
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        }
+                    });
+        }
+    }
+
     public static void main(String[] args) {
         CmdLineArgs cmdLineArgs = new CmdLineArgs();
         new JCommander(cmdLineArgs).parse(args);
@@ -171,9 +216,19 @@ public class Main {
         LOG.info("Schema initialization: " + cmdLineArgs.schemaInit);
         LOG.info("Set values: " + cmdLineArgs.setValues);
 
+        if (cmdLineArgs.dumpOutName != null && !cmdLineArgs.inmemory) {
+            throw new RuntimeException("For now dumps are supported only with the inmemory option");
+        }
+        if (cmdLineArgs.dumpInName != null && !cmdLineArgs.inmemory) {
+            throw new RuntimeException("For now dumps are supported only with the inmemory option");
+        }
+
         try {
             String portStr = System.getenv("MODELIX_SERVER_PORT");
             int port = portStr == null ? 28101 : Integer.parseInt(portStr);
+            if (cmdLineArgs.port != null) {
+                port = cmdLineArgs.port;
+            }
             LOG.info("Port: " + port);
             InetSocketAddress bindTo =
                     new InetSocketAddress(InetAddress.getByName("0.0.0.0"), port);
@@ -186,6 +241,20 @@ public class Main {
                     LOG.warn("Schema initialization is ignored when in-memory flag is set");
                 }
                 storeClient = new InMemoryStoreClient();
+                if (cmdLineArgs.dumpInName != null) {
+                    InMemoryStoreClient inMemoryStoreClient = (InMemoryStoreClient) storeClient;
+                    File file = new File(cmdLineArgs.dumpInName);
+                    int keys = inMemoryStoreClient.load(new FileReader(file));
+                    System.out.println(
+                            "Values loaded from " + file.getAbsolutePath() + " (" + keys + ")");
+                }
+                if (cmdLineArgs.dumpOutName != null) {
+                    Runtime.getRuntime()
+                            .addShutdownHook(
+                                    new DumpOutThread(
+                                            (InMemoryStoreClient) storeClient,
+                                            cmdLineArgs.dumpOutName));
+                }
             } else {
                 storeClient = new IgniteStoreClient(cmdLineArgs.jdbcConfFile);
                 if (cmdLineArgs.schemaInit) {

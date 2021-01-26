@@ -4,6 +4,14 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 
 class SimpleConcept : IConcept {
+    override fun getShortName(): String {
+        TODO("Not yet implemented")
+    }
+
+    override fun getLongName(): String {
+        TODO("Not yet implemented")
+    }
+
     override fun isSubconceptOf(superConcept: IConcept?): Boolean {
         return this == superConcept
     }

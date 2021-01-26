@@ -70,6 +70,7 @@
         <uses>
           <language id="l:798100da-4f0a-421a-b991-71f8c50ce5d2:jetbrains.mps.build" />
           <language id="l:0cf935df-4699-4e9c-a132-fa109541cba3:jetbrains.mps.build.mps" />
+          <language id="l:427a473d-5177-432c-9905-bcbceb71b996:jetbrains.mps.build.mps.runner" />
           <language id="l:3600cb0a-44dd-4a5b-9968-22924406419e:jetbrains.mps.build.mps.tests" />
         </uses>
         <classpath>

@@ -2,6 +2,7 @@
 
 java -DMODEL_URI=$MODEL_URI \
      -DTREE_ID=$TREE_ID \
+     -Dmodelix.executionMode=CLUSTER \
      -classpath "./*:./mps/lib/*:./dependencies/*" \
      -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5071 \
      org.modelix.ui.server.Main

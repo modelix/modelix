@@ -110,6 +110,58 @@ task runMpsTests(type: TestLanguages, dependsOn: buildMpsModules) {
     script new File("$rootDir/build/test.org.modelix/build-tests.xml")
 }
 
+task justBuildIntegrationTests(type: BuildLanguages, dependsOn: []) {
+    scriptArgs = defaultAntScriptArgs
+    scriptClasspath = buildScriptClasspath
+    script new File("$rootDir/build/integrationtests.org.modelix/build-integrationtests.xml")
+}
+
+import org.apache.tools.ant.taskdefs.condition.Os
+
+task makePrintEnvExecutable(type: Exec) {
+    commandLine "chmod", "+x", new File("$rootDir/artifacts/mps/bin/mac/printenv.py").getAbsolutePath()
+}
+
+task ensurePrintEnvHasRightPermissions() {
+    doLast {
+        def printenv = new File("$rootDir/artifacts/mps/bin/mac/printenv.py")
+        if (printenv.exists()) {
+            makePrintEnvExecutable.exec()
+        }    
+    }
+}
+
+task setExecutionModeToIntegrationTests() {
+    doLast {    
+        def buildFile = new File("$rootDir/build/integrationtests.org.modelix/build-integrationtests.xml")
+        def xml = new XmlParser().parse(buildFile)
+        def target = xml.target.find { node -> node.@name == 'run.org.modelix.integrationtests'}
+        def jvmArgs = target.runMPS.jvmargs
+
+        def found = jvmArgs.arg.find { node -> node.@value == '-Dmodelix.executionMode=INTEGRATION_TESTS' }
+        if (found == null) {
+            def newJvmArg = new Node(jvmArgs.getAt(0), 'arg', [value:'-Dmodelix.executionMode=INTEGRATION_TESTS'])
+            def printer = new XmlNodePrinter(buildFile.newPrintWriter())
+            printer.print(xml)
+        }
+    }
+}
+
+task justRunIntegrationTests(type: RunAntScript, dependsOn: [ensurePrintEnvHasRightPermissions, setExecutionModeToIntegrationTests]) {
+    targets = ['run.org.modelix.integrationtests']
+    scriptArgs = (defaultAntScriptArgs + ['-Dmodelix.executionMode=INTEGRATION_TESTS','-Dmps.macro.modelix.executionMode=INTEGRATION_TESTS'])
+    scriptClasspath = buildScriptClasspath
+    script new File("$rootDir/build/integrationtests.org.modelix/build-integrationtests.xml")
+}
+
+task runIntegrationTestsWithoutRebuildingModelix(dependsOn: [justBuildIntegrationTests, justRunIntegrationTests]) {
+
+}
+
+task runIntegrationTests(dependsOn: [":model-server:fatJar", buildMpsModules, justBuildIntegrationTests, justRunIntegrationTests]) {
+
+}
+
 task checkMpsTestOutput(dependsOn: runMpsTests) {
     ext.testResultFile = file("$rootDir/build/test.org.modelix/TEST-jetbrains.mps.testbench.junit.suites.AntModuleTestSuite0-all.xml")
     inputs.file testResultFile

@@ -20,3 +20,4 @@ mps/org.modelix.model.client/lib
 .idea/modules
 modules.xml
 modelix.version
+.DS_Store
