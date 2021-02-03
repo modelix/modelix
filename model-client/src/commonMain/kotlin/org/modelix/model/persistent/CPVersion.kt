@@ -68,11 +68,10 @@ class CPVersion(
             "/" + escape(time) +
             "/" + escape(author) +
             "/" + nullAsEmptyString(treeHash) +
-            "/" + nullAsEmptyString(baseVersion) +
-            "/" + nullAsEmptyString(mergedVersion1) +
-            "/" + nullAsEmptyString(mergedVersion2) +
+            "/" + nullAsEmptyString(previousVersion) +
+            "/" + opsPart +
             "/" + numberOfOperations +
-            "/" + opsPart
+            "/" + nullAsEmptyString(originalVersion)
     }
 
     val hash: String
