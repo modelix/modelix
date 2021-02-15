@@ -17,8 +17,8 @@ Optionally, you can run the model server and connect your MPS to it:
     - `./docker-build-db.sh`
     - `./docker-run-db.sh`
   - option 2: use your own PostgreSQL server
-    - check the file [./db/initdb.sql](./db/initdb.sql) for the required schema
-    - adjust the connection properties in [./model-server/src/main/resources/org/modelix/model/server/database.properties](./model-server/src/main/resources/org/modelix/model/server/database.properties)
+    - check the file [../db/initdb.sql](../db/initdb.sql) for the required schema
+    - adjust the connection properties in [../model-server/src/main/resources/org/modelix/model/server/database.properties](../model-server/src/main/resources/org/modelix/model/server/database.properties)
 - model server
   - `cd model-server`
   - `../gradlew run`
