@@ -133,7 +133,7 @@ class OperationSerializer private constructor() {
 
                     override fun deserialize(serialized: String): SetPropertyOp {
                         val parts = serialized.split(SEPARATOR).dropLastWhile { it.isEmpty() }.toTypedArray()
-                        return SetPropertyOp(longFromHex(parts[0]), unescape(parts[1])!!, unescape(parts[2])!!)
+                        return SetPropertyOp(longFromHex(parts[0]), unescape(parts[1])!!, unescape(parts[2]))
                     }
                 }
             )
