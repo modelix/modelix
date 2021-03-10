@@ -14,6 +14,7 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/gradle-plugin" />
             <option value="$PROJECT_DIR$/manual-tests" />
+            <option value="$PROJECT_DIR$/model-api" />
             <option value="$PROJECT_DIR$/model-client" />
             <option value="$PROJECT_DIR$/model-server" />
             <option value="$PROJECT_DIR$/mps" />

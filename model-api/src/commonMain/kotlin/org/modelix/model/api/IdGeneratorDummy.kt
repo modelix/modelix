@@ -1,6 +1,4 @@
-package org.modelix.model.client
-
-import org.modelix.model.api.IIdGenerator
+package org.modelix.model.api
 
 class IdGeneratorDummy : IIdGenerator {
     override fun generate(): Long {

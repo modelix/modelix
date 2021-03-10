@@ -34,7 +34,7 @@ ext.mpsVersion = mpsVersionProps.getProperty("mpsVersion")
 if (System.getenv("TRAVIS_TAG") != null && !System.getenv("TRAVIS_TAG").isEmpty()) {
     ext.modelixVersion = System.getenv("TRAVIS_TAG")
 } else {
-    def versionFile = new File("./modelix.version")
+    def versionFile = new File("$rootDir/modelix.version")
     if (versionFile.exists()) {
         ext.modelixVersion = versionFile.text.trim()
     } else {

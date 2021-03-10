@@ -8,31 +8,6 @@ import kotlin.reflect.KClass
 actual fun sleep(milliseconds: Long) {
     Thread.sleep(milliseconds)
 }
-
-actual fun logError(message: String, exception: Exception, contextClass: KClass<*>) {
-    Logger.getLogger(contextClass.java).error(message, exception)
-}
-
-actual fun logWarning(message: String, exception: Exception, contextClass: KClass<*>) {
-    Logger.getLogger(contextClass.java).warn(message, exception)
-}
-
-actual fun logDebug(message: () -> String?, contextClass: KClass<*>) {
-    val logger = Logger.getLogger(contextClass.java)
-    if (logger.isDebugEnabled) {
-        val msg = message()
-        if (!msg.isNullOrEmpty()) logger.debug(msg)
-    }
-}
-
-actual fun logTrace(message: () -> String?, contextClass: KClass<*>) {
-    val logger = Logger.getLogger(contextClass.java)
-    if (logger.isTraceEnabled) {
-        val msg = message()
-        if (!msg.isNullOrEmpty()) logger.trace(msg)
-    }
-}
-
 actual fun bitCount(bits: Int): Int {
     return Integer.bitCount(bits)
 }
@@ -43,8 +18,4 @@ actual fun <K, V> createLRUMap(size: Int): MutableMap<K, V> {
 
 actual fun randomUUID(): String {
     return UUID.randomUUID().toString()
-}
-
-actual inline fun <R> runSynchronized(lock: Any, block: () -> R): R {
-    return synchronized(lock, block)
 }

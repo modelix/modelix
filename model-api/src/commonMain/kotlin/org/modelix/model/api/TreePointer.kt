@@ -1,7 +1,5 @@
 package org.modelix.model.api
 
-import org.modelix.model.client.IdGeneratorDummy
-
 /**
  * A non thread safe branch without real transactions.
  * Provides better performance for temporary branches that are not shared.
