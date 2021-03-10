@@ -21,5 +21,6 @@ mps/org.modelix.model.api/lib
 .idea/modules
 modules.xml
 .DS_Store
+.idea/uiDesigner.xml
 
 /modelix.version
