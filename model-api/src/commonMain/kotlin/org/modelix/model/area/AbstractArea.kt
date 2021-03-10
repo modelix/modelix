@@ -21,6 +21,8 @@ import org.modelix.model.api.INodeReference
 
 abstract class AbstractArea : IArea {
 
+    override fun resolveNode(ref: INodeReference): INode? = resolveOriginalNode(ref)
+
     override fun resolveBranch(id: String): IBranch? = null
 
     override fun collectAreas(): List<IArea> = listOf(this)

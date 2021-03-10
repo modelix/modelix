@@ -33,6 +33,10 @@ class PArea(val branch: IBranch) : IArea {
     override fun getRoot(): INode = PNodeAdapter(ITree.ROOT_ID, branch)
 
     override fun resolveNode(ref: INodeReference): INode? {
+        return resolveOriginalNode(ref)
+    }
+
+    override fun resolveOriginalNode(ref: INodeReference): INode? {
         return if (ref is PNodeReference && containsNode(ref.id)) PNodeAdapter(ref.id, branch) else null
     }
 

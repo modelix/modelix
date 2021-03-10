@@ -53,6 +53,14 @@ class AreaWithMounts(val rootArea: IArea, mounts: Map<INode, IArea>) : IArea {
     override fun resolveNode(ref: INodeReference): INode? {
         for (area in getAllAreas()) {
             val resolved = area.resolveNode(ref)
+            if (resolved != null && isVisible(resolved)) return NodeWrapper(resolved)
+        }
+        return null
+    }
+
+    override fun resolveOriginalNode(ref: INodeReference): INode? {
+        for (area in getAllAreas()) {
+            val resolved = area.resolveOriginalNode(ref)
             if (resolved != null && isVisible(resolved)) return resolved
         }
         return null

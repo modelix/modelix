@@ -35,6 +35,14 @@ class CompositeArea : IArea {
         return null
     }
 
+    override fun resolveOriginalNode(ref: INodeReference): INode? {
+        for (area in areas) {
+            val resolved = area.resolveOriginalNode(ref)
+            if (resolved != null) return resolved
+        }
+        return null
+    }
+
     override fun resolveBranch(id: String): IBranch? {
         for (area in areas) {
             val resolved = area.resolveBranch(id)

@@ -33,8 +33,15 @@ interface IArea {
     /**
      * The area should not delegate to INodeReference.resolveNode.
      * If it can't handle the type of reference it should just return null.
+     *
+     * This method requires resolveNode().getNode() == this
      */
     fun resolveNode(ref: INodeReference): INode?
+
+    /**
+     * This method allows resolveOriginalNode().getArea() != this
+     */
+    fun resolveOriginalNode(ref: INodeReference): INode?
     fun resolveBranch(id: String): IBranch?
     fun collectAreas(): List<IArea>
 

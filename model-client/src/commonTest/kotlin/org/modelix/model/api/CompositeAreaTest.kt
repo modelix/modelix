@@ -1,6 +1,8 @@
 package org.modelix.model.api
 
 import org.modelix.model.area.IArea
+import org.modelix.model.area.AbstractArea
+import org.modelix.model.area.CompositeArea
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
@@ -73,9 +75,13 @@ class MyNode(val name: String) : INode {
     }
 }
 
-class MyNodeResolveContext(val knownResolutions: Map<INodeReference, INode>) : INodeResolveContext {
-    override fun resolve(ref: INodeReference?): INode? {
+class MyArea(val knownResolutions: Map<INodeReference, INode>) : AbstractArea() {
+    override fun resolveOriginalNode(ref: INodeReference): INode? {
         return knownResolutions[ref]
+    }
+
+    override fun getRoot(): INode {
+        throw UnsupportedOperationException()
     }
 }
 
@@ -83,22 +89,20 @@ class CompositeNodeResolveContextTest {
 
     @Test
     fun resolveWhenEmpty() {
-        val instance = CompositeNodeResolveContext()
-        assertEquals(null, instance.resolve(null))
-        assertEquals(null, instance.resolve(PNodeReference(123)))
-        assertEquals(null, instance.resolve(MyNodeReference()))
+        val instance = CompositeArea()
+        assertEquals(null, instance.resolveNode(PNodeReference(123)))
+        assertEquals(null, instance.resolveNode(MyNodeReference()))
     }
 
     @Test
     fun resolveWhenNotEmpty() {
-        val instance = CompositeNodeResolveContext(
-            MyNodeResolveContext(mapOf(PNodeReference(123) to MyNode("foo"))),
-            MyNodeResolveContext(mapOf(PNodeReference(456) to MyNode("bar")))
+        val instance = CompositeArea(
+            MyArea(mapOf(PNodeReference(123) to MyNode("foo"))),
+            MyArea(mapOf(PNodeReference(456) to MyNode("bar")))
         )
-        assertEquals(null, instance.resolve(null))
-        assertEquals(MyNode("foo"), instance.resolve(PNodeReference(123)))
-        assertEquals(MyNode("bar"), instance.resolve(PNodeReference(456)))
-        assertEquals(null, instance.resolve(PNodeReference(789)))
-        assertEquals(null, instance.resolve(MyNodeReference()))
+        assertEquals(MyNode("foo"), instance.resolveOriginalNode(PNodeReference(123)))
+        assertEquals(MyNode("bar"), instance.resolveOriginalNode(PNodeReference(456)))
+        assertEquals(null, instance.resolveNode(PNodeReference(789)))
+        assertEquals(null, instance.resolveNode(MyNodeReference()))
     }
 }
