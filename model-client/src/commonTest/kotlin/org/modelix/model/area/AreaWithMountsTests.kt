@@ -50,7 +50,7 @@ class AreaWithMountsTests {
         branch1.runWrite {
             root1Id = branch1.writeTransaction.addNewChild(ITree.ROOT_ID, null, -1, null)
         }
-        val area1 = PArea(branch1, root1Id)
+        val area1 = PArea(branch1)
         val root1 = area1.getRoot()
         lateinit var mountPoint: INode
         area1.executeWrite {
@@ -67,7 +67,7 @@ class AreaWithMountsTests {
         branch2.runWrite {
             root2Id = branch2.writeTransaction.addNewChild(ITree.ROOT_ID, null, -1, null)
         }
-        val area2 = PArea(branch2, root2Id)
+        val area2 = PArea(branch2)
         val root2 = area2.getRoot()
         area2.executeWrite {
             root2.setPropertyValue("name", "root2")
