@@ -5,7 +5,7 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 
 class MyNodeReference : INodeReference {
-    override fun resolveNode(context: INodeResolveContext?): INode? {
+    override fun resolveNode(area: IArea?): INode? {
         TODO("Not yet implemented")
     }
 }

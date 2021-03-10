@@ -126,9 +126,7 @@ class CompositeArea : IArea {
             throw UnsupportedOperationException("read only")
         }
 
-        override fun resolveNode(context: INodeResolveContext?): INode? {
-            return this
-        }
+        override fun resolveNode(area: IArea?): INode = this
     }
 
     inner class NodeWrapper(val node: INode) : INode, INodeReference {
@@ -177,7 +175,7 @@ class CompositeArea : IArea {
             node.setPropertyValue(role, value)
         }
 
-        override fun resolveNode(context: INodeResolveContext?): INode? = this
+        override fun resolveNode(area: IArea?): INode = this
     }
 
     inner class ListenerWrapper(wrappedListener: IAreaListener) : AreaListenerWrapper(wrappedListener) {

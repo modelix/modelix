@@ -15,6 +15,8 @@
 
 package org.modelix.model.api
 
+import org.modelix.model.area.ContextArea
+import org.modelix.model.area.IArea
 import org.modelix.model.area.PArea
 
 open class PNodeAdapter(val nodeId: Long, val branch: IBranch) : INode {
@@ -95,11 +97,11 @@ open class PNodeAdapter(val nodeId: Long, val branch: IBranch) : INode {
         val targetRef = branch.transaction.getReferenceTarget(nodeId, role)
         if (targetRef == null) return null
         if (targetRef is PNodeReference) {
-            return targetRef.resolveNode(PNodeResolveContext(branch))
+            return targetRef.resolveNode(PArea(branch))
         }
-        val context = ContextNodeResolveContext.CONTEXT_VALUE.getValue()
-            ?: throw RuntimeException(INodeResolveContext::class.simpleName + " not available")
-        return targetRef.resolveNode(context)
+        val area = ContextArea.CONTEXT_VALUE.getValue()
+            ?: throw RuntimeException(IArea::class.simpleName + " not available")
+        return targetRef.resolveNode(area)
     }
 
     override val roleInParent: String?

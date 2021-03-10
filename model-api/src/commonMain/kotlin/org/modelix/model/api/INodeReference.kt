@@ -15,10 +15,12 @@
 
 package org.modelix.model.api
 
+import org.modelix.model.area.IArea
+
 /**
  * The relation between an INodeReference and an INode is n to 1.
  * Two INodeReferences that are not equal can resolve to the same INode.
  */
 interface INodeReference {
-    fun resolveNode(context: INodeResolveContext?): INode?
+    fun resolveNode(area: IArea?): INode?
 }

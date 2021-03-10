@@ -15,14 +15,12 @@
 
 package org.modelix.model.api
 
+import org.modelix.model.area.IArea
+
 data class PNodeReference(val id: Long) : INodeReference {
 
-    override fun resolveNode(context: INodeResolveContext?): INode? {
-        return if (context is PNodeResolveContext) {
-            PNodeAdapter(id, context.branch)
-        } else {
-            context!!.resolve(this)
-        }
+    override fun resolveNode(area: IArea?): INode? {
+        return area?.resolveNode(this)
     }
 
     override fun toString(): String {

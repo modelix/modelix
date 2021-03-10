@@ -11,30 +11,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.modelix.model.api
+package org.modelix.model.area
 
-actual class ContextValue<E> {
-    private var value: E?
+import org.modelix.model.api.ContextValue
 
-    actual constructor() {
-        value = null
-    }
+object ContextArea {
+    val CONTEXT_VALUE = ContextValue<IArea>()
 
-    actual constructor(defaultValue: E) {
-        value = defaultValue
-    }
-
-    actual fun getValue(): E? {
-        return value
-    }
-
-    actual fun <T> computeWith(newValue: E, r: () -> T): T {
-        val oldValue = value
-        value = newValue
-        try {
-            return r()
-        } finally {
-            value = oldValue
+    fun <T> withAdditionalContext(area: IArea, runnable: () -> T) {
+        val activeContext = CONTEXT_VALUE.getValue()
+        if (activeContext == null) {
+            CONTEXT_VALUE.computeWith(area, runnable)
+        } else {
+            CONTEXT_VALUE.computeWith(CompositeArea(listOf(area, activeContext)), runnable)
         }
     }
 }
