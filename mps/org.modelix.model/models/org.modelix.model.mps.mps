@@ -15,7 +15,6 @@
   </languages>
   <imports>
     <import index="c17a" ref="8865b7a8-5271-43d3-884c-6fd1d9cfdd34/java:org.jetbrains.mps.openapi.language(MPS.OpenAPI/)" />
-    <import index="jks5" ref="0a2651ab-f212-45c2-a2f0-343e76cbc26b/java:org.modelix.model.api(org.modelix.model.client/)" />
     <import index="mhfm" ref="3f233e7f-b8a6-46d2-a57f-795d56775243/java:org.jetbrains.annotations(Annotations/)" />
     <import index="mhbf" ref="8865b7a8-5271-43d3-884c-6fd1d9cfdd34/java:org.jetbrains.mps.openapi.model(MPS.OpenAPI/)" />
     <import index="tpcu" ref="r:00000000-0000-4000-0000-011c89590282(jetbrains.mps.lang.core.behavior)" />
@@ -30,7 +29,6 @@
     <import index="xkhl" ref="0a2651ab-f212-45c2-a2f0-343e76cbc26b/java:org.modelix.model.lazy(org.modelix.model.client/)" />
     <import index="vxxo" ref="6ed54515-acc8-4d1e-a16c-9fd6cfe951ea/java:jetbrains.mps.smodel.adapter.structure.concept(MPS.Core/)" />
     <import index="2k9e" ref="6ed54515-acc8-4d1e-a16c-9fd6cfe951ea/java:jetbrains.mps.smodel.adapter.structure(MPS.Core/)" />
-    <import index="v18h" ref="0a2651ab-f212-45c2-a2f0-343e76cbc26b/java:kotlin(org.modelix.model.client/)" />
     <import index="w7di" ref="r:f1cc96fe-d6ef-4a58-b607-1b2e4d02e1de(org.modelix.model.runtimelang.structure)" />
     <import index="w0gx" ref="6ed54515-acc8-4d1e-a16c-9fd6cfe951ea/java:jetbrains.mps.project.structure.modules(MPS.Core/)" />
     <import index="z1c3" ref="6ed54515-acc8-4d1e-a16c-9fd6cfe951ea/java:jetbrains.mps.project(MPS.Core/)" />
@@ -40,9 +38,10 @@
     <import index="oiz2" ref="87f4b21e-a3a5-459e-a54b-408fd9eb7350/java:gnu.trove.map(org.modelix.lib/)" />
     <import index="dush" ref="8865b7a8-5271-43d3-884c-6fd1d9cfdd34/java:org.jetbrains.mps.openapi.persistence(MPS.OpenAPI/)" />
     <import index="i8bi" ref="r:c3548bac-30eb-4a2a-937c-0111d5697309(jetbrains.mps.lang.smodel.generator.smodelAdapter)" />
-    <import index="qvpu" ref="0a2651ab-f212-45c2-a2f0-343e76cbc26b/java:org.modelix.model.area(org.modelix.model.client/)" />
-    <import index="ouht" ref="0a2651ab-f212-45c2-a2f0-343e76cbc26b/java:kotlin.jvm.functions(org.modelix.model.client/)" />
-    <import index="dj5d" ref="r:8bca245c-17c6-44f4-9367-ad6ce25cabf5(de.q60.mps.shadowmodels.runtimelang.structure)" implicit="true" />
+    <import index="v18h" ref="cc99dce1-49f3-4392-8dbf-e22ca47bd0af/java:kotlin(org.modelix.model.api/)" />
+    <import index="ouht" ref="cc99dce1-49f3-4392-8dbf-e22ca47bd0af/java:kotlin.jvm.functions(org.modelix.model.api/)" />
+    <import index="qvpu" ref="cc99dce1-49f3-4392-8dbf-e22ca47bd0af/java:org.modelix.model.area(org.modelix.model.api/)" />
+    <import index="jks5" ref="cc99dce1-49f3-4392-8dbf-e22ca47bd0af/java:org.modelix.model.api(org.modelix.model.api/)" />
     <import index="1ctc" ref="6354ebe7-c22a-4a0f-ac54-50b52ab9b065/java:java.util.stream(JDK/)" implicit="true" />
   </imports>
   <registry>
@@ -2686,8 +2685,8 @@
             <node concept="3cpWs6" id="qmkA5fSmJK" role="3cqZAp">
               <node concept="2OqwBi" id="qmkA5fSE8b" role="3cqZAk">
                 <node concept="359W_D" id="qmkA5fSzIe" role="2Oq$k0">
-                  <ref role="359W_E" to="dj5d:qmkA5fOskc" resolve="Model" />
-                  <ref role="359W_F" to="dj5d:qmkA5fOskk" resolve="rootNodes" />
+                  <ref role="359W_E" to="w7di:qmkA5fOskc" resolve="Model" />
+                  <ref role="359W_F" to="w7di:qmkA5fOskk" resolve="rootNodes" />
                 </node>
                 <node concept="liA8E" id="qmkA5fSGwO" role="2OqNvi">
                   <ref role="37wK5l" to="c17a:~SNamedElement.getName()" resolve="getName" />
@@ -13263,8 +13262,8 @@
                           </node>
                           <node concept="3clFbF" id="1yReInKH0D" role="3cqZAp">
                             <node concept="10M0yZ" id="1yReInKH7M" role="3clFbG">
-                              <ref role="3cqZAo" to="v18h:~Unit.INSTANCE" resolve="INSTANCE" />
                               <ref role="1PxDUh" to="v18h:~Unit" resolve="Unit" />
+                              <ref role="3cqZAo" to="v18h:~Unit.INSTANCE" resolve="INSTANCE" />
                             </node>
                           </node>
                         </node>
@@ -13445,8 +13444,8 @@
                           </node>
                           <node concept="3clFbF" id="2UHWH1pLTto" role="3cqZAp">
                             <node concept="10M0yZ" id="2UHWH1pLTtp" role="3clFbG">
-                              <ref role="3cqZAo" to="v18h:~Unit.INSTANCE" resolve="INSTANCE" />
                               <ref role="1PxDUh" to="v18h:~Unit" resolve="Unit" />
+                              <ref role="3cqZAo" to="v18h:~Unit.INSTANCE" resolve="INSTANCE" />
                             </node>
                           </node>
                         </node>
@@ -14742,8 +14741,8 @@
                   </node>
                   <node concept="3cpWs6" id="29etMtb9_is" role="3cqZAp">
                     <node concept="10M0yZ" id="29etMtb9_it" role="3cqZAk">
-                      <ref role="3cqZAo" to="v18h:~Unit.INSTANCE" resolve="INSTANCE" />
                       <ref role="1PxDUh" to="v18h:~Unit" resolve="Unit" />
+                      <ref role="3cqZAo" to="v18h:~Unit.INSTANCE" resolve="INSTANCE" />
                     </node>
                   </node>
                 </node>
@@ -17151,8 +17150,8 @@
                   </node>
                   <node concept="3clFbF" id="4SnZDcgb$52" role="3cqZAp">
                     <node concept="10M0yZ" id="4SnZDcgb$lr" role="3clFbG">
-                      <ref role="3cqZAo" to="v18h:~Unit.INSTANCE" resolve="INSTANCE" />
                       <ref role="1PxDUh" to="v18h:~Unit" resolve="Unit" />
+                      <ref role="3cqZAo" to="v18h:~Unit.INSTANCE" resolve="INSTANCE" />
                     </node>
                   </node>
                 </node>
@@ -18538,12 +18537,12 @@
                 <node concept="liA8E" id="29etMtb9_A9" role="2OqNvi">
                   <ref role="37wK5l" to="jks5:~IWriteTransaction.moveChild(long,java.lang.String,int,long)" resolve="moveChild" />
                   <node concept="10M0yZ" id="29etMtb9_Aa" role="37wK5m">
-                    <ref role="3cqZAo" to="jks5:~ITree.ROOT_ID" resolve="ROOT_ID" />
                     <ref role="1PxDUh" to="jks5:~ITree" resolve="ITree" />
+                    <ref role="3cqZAo" to="jks5:~ITree.ROOT_ID" resolve="ROOT_ID" />
                   </node>
                   <node concept="10M0yZ" id="29etMtbc8Nq" role="37wK5m">
-                    <ref role="3cqZAo" to="jks5:~ITree.DETACHED_NODES_ROLE" resolve="DETACHED_NODES_ROLE" />
                     <ref role="1PxDUh" to="jks5:~ITree" resolve="ITree" />
+                    <ref role="3cqZAo" to="jks5:~ITree.DETACHED_NODES_ROLE" resolve="DETACHED_NODES_ROLE" />
                   </node>
                   <node concept="3cmrfG" id="29etMtb9_Ac" role="37wK5m">
                     <property role="3cmrfH" value="-1" />
@@ -18787,8 +18786,8 @@
                       <ref role="3cqZAo" to="jks5:~ITree.ROOT_ID" resolve="ROOT_ID" />
                     </node>
                     <node concept="10M0yZ" id="29etMtbcaFX" role="37wK5m">
-                      <ref role="3cqZAo" to="jks5:~ITree.DETACHED_NODES_ROLE" resolve="DETACHED_NODES_ROLE" />
                       <ref role="1PxDUh" to="jks5:~ITree" resolve="ITree" />
+                      <ref role="3cqZAo" to="jks5:~ITree.DETACHED_NODES_ROLE" resolve="DETACHED_NODES_ROLE" />
                     </node>
                     <node concept="3cmrfG" id="29etMtb9_BM" role="37wK5m">
                       <property role="3cmrfH" value="-1" />

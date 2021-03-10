@@ -55,9 +55,6 @@
     <import index="c17a" ref="8865b7a8-5271-43d3-884c-6fd1d9cfdd34/java:org.jetbrains.mps.openapi.language(MPS.OpenAPI/)" implicit="true" />
   </imports>
   <registry>
-    <language id="654422bf-e75f-44dc-936d-188890a746ce" name="de.slisson.mps.reflection">
-      <concept id="8473566765277240526" name="de.slisson.mps.reflection.structure.ReflectionMethodCall" flags="ng" index="1PvZjq" />
-    </language>
     <language id="ef7bf5ac-d06c-4342-b11d-e42104eb9343" name="jetbrains.mps.lang.plugin.standalone">
       <concept id="481983775135178851" name="jetbrains.mps.lang.plugin.standalone.structure.ApplicationPluginInitBlock" flags="in" index="2uRRBj" />
       <concept id="481983775135178840" name="jetbrains.mps.lang.plugin.standalone.structure.ApplicationPluginDeclaration" flags="ng" index="2uRRBC">
@@ -1845,7 +1842,7 @@
                 <node concept="3uibUv" id="5Sw$pxbLCgG" role="1tU5fm">
                   <ref role="3uigEE" to="j8aq:~ReloadableModule" resolve="ReloadableModule" />
                 </node>
-                <node concept="2OqwBi" id="5Sw$pxbLCgH" role="33vP2m">
+                <node concept="2OqwBi" id="24PSXS8EDKk" role="33vP2m">
                   <node concept="1eOMI4" id="5Sw$pxbLCgI" role="2Oq$k0">
                     <node concept="10QFUN" id="5Sw$pxbLCgJ" role="1eOMHV">
                       <node concept="3uibUv" id="5Sw$pxbLCgK" role="10QFUM">
@@ -1856,7 +1853,7 @@
                       </node>
                     </node>
                   </node>
-                  <node concept="1PvZjq" id="5Sw$pxbLCgM" role="2OqNvi">
+                  <node concept="liA8E" id="24PSXS8EF04" role="2OqNvi">
                     <ref role="37wK5l" to="3qmy:~ModuleClassLoader.getModule()" resolve="getModule" />
                   </node>
                 </node>

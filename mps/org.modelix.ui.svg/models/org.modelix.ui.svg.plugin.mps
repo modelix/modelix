@@ -62,10 +62,10 @@
     <import index="zf81" ref="6354ebe7-c22a-4a0f-ac54-50b52ab9b065/java:java.net(JDK/)" />
     <import index="ioq2" ref="r:d5a75d6a-e56f-4c12-a58e-3acb971cef19(org.modelix.ui.state.behavior)" />
     <import index="xxte" ref="r:a79f28f8-6055-40c6-bc5e-47a42a3b97e8(org.modelix.model.mps)" />
-    <import index="jks5" ref="0a2651ab-f212-45c2-a2f0-343e76cbc26b/java:org.modelix.model.api(org.modelix.model.client/)" />
     <import index="xkhl" ref="0a2651ab-f212-45c2-a2f0-343e76cbc26b/java:org.modelix.model.lazy(org.modelix.model.client/)" />
     <import index="5440" ref="0a2651ab-f212-45c2-a2f0-343e76cbc26b/java:org.modelix.model.client(org.modelix.model.client/)" />
-    <import index="v18h" ref="0a2651ab-f212-45c2-a2f0-343e76cbc26b/java:kotlin(org.modelix.model.client/)" />
+    <import index="v18h" ref="cc99dce1-49f3-4392-8dbf-e22ca47bd0af/java:kotlin(org.modelix.model.api/)" />
+    <import index="jks5" ref="cc99dce1-49f3-4392-8dbf-e22ca47bd0af/java:org.modelix.model.api(org.modelix.model.api/)" />
     <import index="3d38" ref="r:bc160b50-5a4e-4f99-ba07-a7b7116dab7a(de.q60.mps.incremental.util)" implicit="true" />
   </imports>
   <registry>
@@ -500,13 +500,7 @@
   <node concept="2uRRBC" id="6xm2RBlaf24">
     <property role="TrG5h" value="ApplicationPlugin" />
     <node concept="2uRRBj" id="6xm2RBlaf25" role="2uRRBE">
-      <node concept="3clFbS" id="6xm2RBlaf26" role="2VODD2">
-        <node concept="RRSsy" id="2wu1c06P3_m" role="3cqZAp">
-          <node concept="Xl_RD" id="2wu1c06P3AM" role="RRSoy">
-            <property role="Xl_RC" value="lazywebmps plugin in.." />
-          </node>
-        </node>
-      </node>
+      <node concept="3clFbS" id="6xm2RBlaf26" role="2VODD2" />
     </node>
     <node concept="2uRRBI" id="6xm2RBlaf2r" role="2uRRBF">
       <node concept="3clFbS" id="6xm2RBlaf2s" role="2VODD2" />
@@ -4257,8 +4251,8 @@
                                 <node concept="liA8E" id="2UHWH1pNeW$" role="2OqNvi">
                                   <ref role="37wK5l" to="jks5:~ITransaction.getChildren(long,java.lang.String)" resolve="getChildren" />
                                   <node concept="10M0yZ" id="2UHWH1pNeW_" role="37wK5m">
-                                    <ref role="3cqZAo" to="jks5:~ITree.ROOT_ID" resolve="ROOT_ID" />
                                     <ref role="1PxDUh" to="jks5:~ITree" resolve="ITree" />
+                                    <ref role="3cqZAo" to="jks5:~ITree.ROOT_ID" resolve="ROOT_ID" />
                                   </node>
                                   <node concept="37vLTw" id="2UHWH1pOpta" role="37wK5m">
                                     <ref role="3cqZAo" node="2UHWH1pOkxs" resolve="STATE_ROOT_ROLE" />
@@ -4712,8 +4706,8 @@
                           </node>
                           <node concept="3cpWs6" id="2UHWH1pPTfj" role="3cqZAp">
                             <node concept="10M0yZ" id="2UHWH1pPTEn" role="3cqZAk">
-                              <ref role="3cqZAo" to="v18h:~Unit.INSTANCE" resolve="INSTANCE" />
                               <ref role="1PxDUh" to="v18h:~Unit" resolve="Unit" />
+                              <ref role="3cqZAo" to="v18h:~Unit.INSTANCE" resolve="INSTANCE" />
                             </node>
                           </node>
                         </node>
@@ -4873,8 +4867,8 @@
                             <node concept="liA8E" id="2UHWH1pOakE" role="2OqNvi">
                               <ref role="37wK5l" to="jks5:~ITransaction.getChildren(long,java.lang.String)" resolve="getChildren" />
                               <node concept="10M0yZ" id="2UHWH1pOakF" role="37wK5m">
-                                <ref role="3cqZAo" to="jks5:~ITree.ROOT_ID" resolve="ROOT_ID" />
                                 <ref role="1PxDUh" to="jks5:~ITree" resolve="ITree" />
+                                <ref role="3cqZAo" to="jks5:~ITree.ROOT_ID" resolve="ROOT_ID" />
                               </node>
                               <node concept="37vLTw" id="2UHWH1pOr1q" role="37wK5m">
                                 <ref role="3cqZAo" node="2UHWH1pOkxs" resolve="STATE_ROOT_ROLE" />
@@ -4901,8 +4895,8 @@
                         <node concept="3clFbS" id="2UHWH1pOakO" role="3clFbx">
                           <node concept="3cpWs6" id="2UHWH1pQ2IL" role="3cqZAp">
                             <node concept="10M0yZ" id="2UHWH1pQ2IM" role="3cqZAk">
-                              <ref role="3cqZAo" to="v18h:~Unit.INSTANCE" resolve="INSTANCE" />
                               <ref role="1PxDUh" to="v18h:~Unit" resolve="Unit" />
+                              <ref role="3cqZAo" to="v18h:~Unit.INSTANCE" resolve="INSTANCE" />
                             </node>
                           </node>
                         </node>

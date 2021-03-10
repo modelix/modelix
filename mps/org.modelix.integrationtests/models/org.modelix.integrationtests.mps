@@ -25,8 +25,6 @@
     <import index="nhvc" ref="r:38471075-de8a-4a91-a626-13195397f5c5(org.modelix.model.mpsplugin.plugin)" />
     <import index="xkhl" ref="0a2651ab-f212-45c2-a2f0-343e76cbc26b/java:org.modelix.model.lazy(org.modelix.model.client/)" />
     <import index="5440" ref="0a2651ab-f212-45c2-a2f0-343e76cbc26b/java:org.modelix.model.client(org.modelix.model.client/)" />
-    <import index="v18h" ref="0a2651ab-f212-45c2-a2f0-343e76cbc26b/java:kotlin(org.modelix.model.client/)" />
-    <import index="jks5" ref="0a2651ab-f212-45c2-a2f0-343e76cbc26b/java:org.modelix.model.api(org.modelix.model.client/)" />
     <import index="wy2b" ref="87f4b21e-a3a5-459e-a54b-408fd9eb7350/java:com.google.gson(org.modelix.lib/)" />
     <import index="33ny" ref="6354ebe7-c22a-4a0f-ac54-50b52ab9b065/java:java.util(JDK/)" />
     <import index="xxte" ref="r:a79f28f8-6055-40c6-bc5e-47a42a3b97e8(org.modelix.model.mps)" />
@@ -47,6 +45,8 @@
     <import index="w7di" ref="r:f1cc96fe-d6ef-4a58-b607-1b2e4d02e1de(org.modelix.model.runtimelang.structure)" />
     <import index="tpck" ref="r:00000000-0000-4000-0000-011c89590288(jetbrains.mps.lang.core.structure)" />
     <import index="ends" ref="6ed54515-acc8-4d1e-a16c-9fd6cfe951ea/java:jetbrains.mps.extapi.persistence(MPS.Core/)" />
+    <import index="v18h" ref="cc99dce1-49f3-4392-8dbf-e22ca47bd0af/java:kotlin(org.modelix.model.api/)" />
+    <import index="jks5" ref="cc99dce1-49f3-4392-8dbf-e22ca47bd0af/java:org.modelix.model.api(org.modelix.model.api/)" />
     <import index="3ju5" ref="6ed54515-acc8-4d1e-a16c-9fd6cfe951ea/java:jetbrains.mps.vfs(MPS.Core/)" implicit="true" />
     <import index="tpek" ref="r:00000000-0000-4000-0000-011c895902c0(jetbrains.mps.baseLanguage.behavior)" implicit="true" />
   </imports>
@@ -4171,8 +4171,8 @@
                       <ref role="3cqZAo" node="7jRNnvC9E5y" resolve="wt" />
                     </node>
                     <node concept="10M0yZ" id="7jRNnvC9ZAR" role="37wK5m">
-                      <ref role="3cqZAo" to="jks5:~ITree.ROOT_ID" resolve="ROOT_ID" />
                       <ref role="1PxDUh" to="jks5:~ITree" resolve="ITree" />
+                      <ref role="3cqZAo" to="jks5:~ITree.ROOT_ID" resolve="ROOT_ID" />
                     </node>
                     <node concept="37vLTw" id="7jRNnvC9ZUB" role="37wK5m">
                       <ref role="3cqZAo" node="7jRNnvC9yN6" resolve="jo" />
@@ -5487,8 +5487,8 @@
                   </node>
                   <node concept="3cpWs6" id="1yReInOkYX" role="3cqZAp">
                     <node concept="10M0yZ" id="1yReInOnqB" role="3cqZAk">
-                      <ref role="3cqZAo" to="v18h:~Unit.INSTANCE" resolve="INSTANCE" />
                       <ref role="1PxDUh" to="v18h:~Unit" resolve="Unit" />
+                      <ref role="3cqZAo" to="v18h:~Unit.INSTANCE" resolve="INSTANCE" />
                     </node>
                   </node>
                 </node>
@@ -10775,8 +10775,8 @@
             <node concept="AQDAd" id="7jRNnvC8SlH" role="2OqNvi">
               <ref role="37wK5l" node="7jRNnvC8S8n" resolve="requireChildByName" />
               <node concept="10M0yZ" id="7jRNnvC8SCl" role="37wK5m">
-                <ref role="3cqZAo" to="jks5:~ITree.ROOT_ID" resolve="ROOT_ID" />
                 <ref role="1PxDUh" to="jks5:~ITree" resolve="ITree" />
+                <ref role="3cqZAo" to="jks5:~ITree.ROOT_ID" resolve="ROOT_ID" />
               </node>
               <node concept="37vLTw" id="7jRNnvC8SDT" role="37wK5m">
                 <ref role="3cqZAo" node="7jRNnvC8ROD" resolve="name" />
@@ -16868,8 +16868,8 @@
                   </node>
                   <node concept="3clFbF" id="2FX9uaKPpuv" role="3cqZAp">
                     <node concept="10M0yZ" id="2FX9uaKPpw3" role="3clFbG">
-                      <ref role="3cqZAo" to="v18h:~Unit.INSTANCE" resolve="INSTANCE" />
                       <ref role="1PxDUh" to="v18h:~Unit" resolve="Unit" />
+                      <ref role="3cqZAo" to="v18h:~Unit.INSTANCE" resolve="INSTANCE" />
                     </node>
                   </node>
                 </node>

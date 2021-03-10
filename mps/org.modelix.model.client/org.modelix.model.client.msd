@@ -32,10 +32,6 @@
       <sourceRoot location="jersey-server.jar" />
       <sourceRoot location="json.jar" />
       <sourceRoot location="jsr305.jar" />
-      <sourceRoot location="kotlin-stdlib-common.jar" />
-      <sourceRoot location="kotlin-stdlib-jdk7.jar" />
-      <sourceRoot location="kotlin-stdlib-jdk8.jar" />
-      <sourceRoot location="kotlin-stdlib.jar" />
       <sourceRoot location="listenablefuture-empty-to-avoid-conflict-with-guava.jar" />
       <sourceRoot location="model-client-js.jar" />
       <sourceRoot location="model-client-jvm.jar" />
@@ -45,7 +41,6 @@
       <sourceRoot location="trove4j.jar" />
       <sourceRoot location="vavr-match.jar" />
       <sourceRoot location="vavr.jar" />
-      <sourceRoot location="model-api-jvm.jar" />
     </modelRoot>
   </models>
   <facets>
@@ -81,10 +76,6 @@
     <stubModelEntry path="${module}/lib/jersey-server.jar" />
     <stubModelEntry path="${module}/lib/json.jar" />
     <stubModelEntry path="${module}/lib/jsr305.jar" />
-    <stubModelEntry path="${module}/lib/kotlin-stdlib-common.jar" />
-    <stubModelEntry path="${module}/lib/kotlin-stdlib-jdk7.jar" />
-    <stubModelEntry path="${module}/lib/kotlin-stdlib-jdk8.jar" />
-    <stubModelEntry path="${module}/lib/kotlin-stdlib.jar" />
     <stubModelEntry path="${module}/lib/listenablefuture-empty-to-avoid-conflict-with-guava.jar" />
     <stubModelEntry path="${module}/lib/model-client-js.jar" />
     <stubModelEntry path="${module}/lib/model-client-jvm.jar" />
@@ -94,12 +85,12 @@
     <stubModelEntry path="${module}/lib/trove4j.jar" />
     <stubModelEntry path="${module}/lib/vavr-match.jar" />
     <stubModelEntry path="${module}/lib/vavr.jar" />
-    <stubModelEntry path="${module}/lib/model-api-jvm.jar" />
   </stubModelEntries>
   <sourcePath />
   <dependencies>
     <dependency reexport="false">6354ebe7-c22a-4a0f-ac54-50b52ab9b065(JDK)</dependency>
     <dependency reexport="false">3f233e7f-b8a6-46d2-a57f-795d56775243(Annotations)</dependency>
+    <dependency reexport="true">cc99dce1-49f3-4392-8dbf-e22ca47bd0af(org.modelix.model.api)</dependency>
   </dependencies>
   <languageVersions>
     <language slang="l:f3061a53-9226-4cc5-a443-f952ceaf5816:jetbrains.mps.baseLanguage" version="11" />
@@ -110,6 +101,7 @@
   <dependencyVersions>
     <module reference="3f233e7f-b8a6-46d2-a57f-795d56775243(Annotations)" version="0" />
     <module reference="6354ebe7-c22a-4a0f-ac54-50b52ab9b065(JDK)" version="0" />
+    <module reference="cc99dce1-49f3-4392-8dbf-e22ca47bd0af(org.modelix.model.api)" version="0" />
     <module reference="0a2651ab-f212-45c2-a2f0-343e76cbc26b(org.modelix.model.client)" version="0" />
   </dependencyVersions>
 </solution>

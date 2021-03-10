@@ -15,6 +15,7 @@ kubernetes/secrets
 ssl/cert
 mps/org.modelix.ui.server/lib/ui-client.jar
 mps/org.modelix.model.client/lib
+mps/org.modelix.model.api/lib
 
 # modules are configured by gradle
 .idea/modules

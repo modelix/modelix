@@ -28,10 +28,11 @@
     <import index="xkhl" ref="0a2651ab-f212-45c2-a2f0-343e76cbc26b/java:org.modelix.model.lazy(org.modelix.model.client/)" />
     <import index="5440" ref="0a2651ab-f212-45c2-a2f0-343e76cbc26b/java:org.modelix.model.client(org.modelix.model.client/)" />
     <import index="geos" ref="0a2651ab-f212-45c2-a2f0-343e76cbc26b/java:org.modelix.model.persistent(org.modelix.model.client/)" />
-    <import index="jks5" ref="0a2651ab-f212-45c2-a2f0-343e76cbc26b/java:org.modelix.model.api(org.modelix.model.client/)" />
     <import index="xxte" ref="r:a79f28f8-6055-40c6-bc5e-47a42a3b97e8(org.modelix.model.mps)" />
     <import index="hvt5" ref="0a2651ab-f212-45c2-a2f0-343e76cbc26b/java:org.modelix.model(org.modelix.model.client/)" />
-    <import index="v18h" ref="0a2651ab-f212-45c2-a2f0-343e76cbc26b/java:kotlin(org.modelix.model.client/)" />
+    <import index="v18h" ref="cc99dce1-49f3-4392-8dbf-e22ca47bd0af/java:kotlin(org.modelix.model.api/)" />
+    <import index="jks5" ref="cc99dce1-49f3-4392-8dbf-e22ca47bd0af/java:org.modelix.model.api(org.modelix.model.api/)" />
+    <import index="3p1j" ref="cc99dce1-49f3-4392-8dbf-e22ca47bd0af/java:org.modelix.model.util(org.modelix.model.api/)" implicit="true" />
   </imports>
   <registry>
     <language id="a247e09e-2435-45ba-b8d2-07e93feba96a" name="jetbrains.mps.baseLanguage.tuples">
@@ -366,7 +367,7 @@
           <node concept="3cpWs8" id="7zuOo8oN5Tf" role="3cqZAp">
             <node concept="3cpWsn" id="7zuOo8oN5Tg" role="3cpWs9">
               <property role="TrG5h" value="branch" />
-              <node concept="3uibUv" id="1m9roGBNljH" role="1tU5fm">
+              <node concept="3uibUv" id="24PSXS80PRA" role="1tU5fm">
                 <ref role="3uigEE" to="jks5:~IBranch" resolve="IBranch" />
               </node>
               <node concept="2ShNRf" id="7zuOo8oN5Th" role="33vP2m">
@@ -1945,15 +1946,15 @@
                           <node concept="2OqwBi" id="7zuOo8oSxet" role="3clFbG">
                             <node concept="2OqwBi" id="1yReInPG1$" role="2Oq$k0">
                               <node concept="10M0yZ" id="1yReInPFQB" role="2Oq$k0">
-                                <ref role="3cqZAo" to="jks5:~ContextNodeResolveContext.INSTANCE" resolve="INSTANCE" />
                                 <ref role="1PxDUh" to="jks5:~ContextNodeResolveContext" resolve="ContextNodeResolveContext" />
+                                <ref role="3cqZAo" to="jks5:~ContextNodeResolveContext.INSTANCE" resolve="INSTANCE" />
                               </node>
                               <node concept="liA8E" id="1yReInPGyq" role="2OqNvi">
                                 <ref role="37wK5l" to="jks5:~ContextNodeResolveContext.getCONTEXT_VALUE()" resolve="getCONTEXT_VALUE" />
                               </node>
                             </node>
                             <node concept="liA8E" id="7zuOo8oSxu5" role="2OqNvi">
-                              <ref role="37wK5l" to="jks5:~ContextValue.runWith(java.lang.Object,kotlin.jvm.functions.Function0)" resolve="runWith" />
+                              <ref role="37wK5l" to="3p1j:~ContextValue.runWith(java.lang.Object,kotlin.jvm.functions.Function0)" resolve="runWith" />
                               <node concept="2ShNRf" id="7zuOo8oS$IA" role="37wK5m">
                                 <node concept="1pGfFk" id="7zuOo8oSAmR" role="2ShVmc">
                                   <ref role="37wK5l" to="xxte:7gxeZuyfxRC" resolve="SRepositoryResolveContext" />
@@ -1993,8 +1994,8 @@
                                           <node concept="1pGfFk" id="1yReInPM_J" role="2ShVmc">
                                             <ref role="37wK5l" to="jks5:~PNodeAdapter.&lt;init&gt;(long,org.modelix.model.api.IBranch)" resolve="PNodeAdapter" />
                                             <node concept="10M0yZ" id="1yReInPM_K" role="37wK5m">
-                                              <ref role="3cqZAo" to="jks5:~ITree.ROOT_ID" resolve="ROOT_ID" />
                                               <ref role="1PxDUh" to="jks5:~ITree" resolve="ITree" />
+                                              <ref role="3cqZAo" to="jks5:~ITree.ROOT_ID" resolve="ROOT_ID" />
                                             </node>
                                             <node concept="37vLTw" id="1yReInPM_L" role="37wK5m">
                                               <ref role="3cqZAo" node="7zuOo8oN5Tg" resolve="branch" />
@@ -2150,8 +2151,8 @@
                                   </node>
                                   <node concept="3cpWs6" id="1yReInPHJX" role="3cqZAp">
                                     <node concept="10M0yZ" id="1yReInPLNN" role="3cqZAk">
-                                      <ref role="3cqZAo" to="v18h:~Unit.INSTANCE" resolve="INSTANCE" />
                                       <ref role="1PxDUh" to="v18h:~Unit" resolve="Unit" />
+                                      <ref role="3cqZAo" to="v18h:~Unit.INSTANCE" resolve="INSTANCE" />
                                     </node>
                                   </node>
                                 </node>
@@ -2271,8 +2272,8 @@
                         </node>
                         <node concept="3cpWs6" id="1yReInPTBy" role="3cqZAp">
                           <node concept="10M0yZ" id="1yReInPTBz" role="3cqZAk">
-                            <ref role="3cqZAo" to="v18h:~Unit.INSTANCE" resolve="INSTANCE" />
                             <ref role="1PxDUh" to="v18h:~Unit" resolve="Unit" />
+                            <ref role="3cqZAo" to="v18h:~Unit.INSTANCE" resolve="INSTANCE" />
                           </node>
                         </node>
                       </node>

@@ -63,13 +63,13 @@
     <import index="j81n" ref="r:763d080d-d701-4d75-9de7-e44ee8411c4d(de.q60.mps.shadowmodels.debugview.plugin)" />
     <import index="e9hv" ref="r:3e99be64-2426-4999-853c-5db2cd8b90dc(de.q60.mps.web.ui.sm.server.pf)" />
     <import index="gq2t" ref="r:f17c1662-bb91-47a6-b206-16c06f86f401(org.modelix.ui.sm.pf)" />
-    <import index="v18h" ref="0a2651ab-f212-45c2-a2f0-343e76cbc26b/java:kotlin(org.modelix.model.client/)" />
-    <import index="jks5" ref="0a2651ab-f212-45c2-a2f0-343e76cbc26b/java:org.modelix.model.api(org.modelix.model.client/)" />
     <import index="o8cn" ref="r:7f6154b4-93e5-4a51-94de-d145e58184e7(org.modelix.ui.svg.plugin)" />
     <import index="csg2" ref="r:b0cc4f86-cf49-4ffc-b138-1f9973329ce1(org.modelix.model.mpsplugin)" />
     <import index="xxte" ref="r:a79f28f8-6055-40c6-bc5e-47a42a3b97e8(org.modelix.model.mps)" />
     <import index="5440" ref="0a2651ab-f212-45c2-a2f0-343e76cbc26b/java:org.modelix.model.client(org.modelix.model.client/)" />
     <import index="fnup" ref="r:c0f62029-94d5-495d-b498-eb090ba537fc(org.modelix.ui.state.structure)" />
+    <import index="v18h" ref="cc99dce1-49f3-4392-8dbf-e22ca47bd0af/java:kotlin(org.modelix.model.api/)" />
+    <import index="jks5" ref="cc99dce1-49f3-4392-8dbf-e22ca47bd0af/java:org.modelix.model.api(org.modelix.model.api/)" />
     <import index="3d38" ref="r:bc160b50-5a4e-4f99-ba07-a7b7116dab7a(de.q60.mps.incremental.util)" implicit="true" />
   </imports>
   <registry>
@@ -4978,8 +4978,8 @@
                       <node concept="3clFbH" id="72Dzx1Une_9" role="3cqZAp" />
                       <node concept="3cpWs6" id="5WTF2yfDumU" role="3cqZAp">
                         <node concept="10M0yZ" id="5WTF2yfDuSX" role="3cqZAk">
-                          <ref role="3cqZAo" to="v18h:~Unit.INSTANCE" resolve="INSTANCE" />
                           <ref role="1PxDUh" to="v18h:~Unit" resolve="Unit" />
+                          <ref role="3cqZAo" to="v18h:~Unit.INSTANCE" resolve="INSTANCE" />
                         </node>
                       </node>
                     </node>
