@@ -39,6 +39,7 @@
     <import index="hvt5" ref="0a2651ab-f212-45c2-a2f0-343e76cbc26b/java:org.modelix.model(org.modelix.model.client/)" />
     <import index="v18h" ref="cc99dce1-49f3-4392-8dbf-e22ca47bd0af/java:kotlin(org.modelix.model.api/)" />
     <import index="jks5" ref="cc99dce1-49f3-4392-8dbf-e22ca47bd0af/java:org.modelix.model.api(org.modelix.model.api/)" />
+    <import index="qvpu" ref="cc99dce1-49f3-4392-8dbf-e22ca47bd0af/java:org.modelix.model.area(org.modelix.model.api/)" />
     <import index="geos" ref="0a2651ab-f212-45c2-a2f0-343e76cbc26b/java:org.modelix.model.persistent(org.modelix.model.client/)" implicit="true" />
     <import index="5zyv" ref="6354ebe7-c22a-4a0f-ac54-50b52ab9b065/java:java.util.concurrent(JDK/)" implicit="true" />
     <import index="tpcu" ref="r:00000000-0000-4000-0000-011c89590282(jetbrains.mps.lang.core.behavior)" implicit="true" />
@@ -5747,18 +5748,18 @@
                                       <node concept="1QHqEK" id="1qctpygFrtM" role="3cqZAp">
                                         <node concept="1QHqEC" id="1qctpygFrtO" role="1QHqEI">
                                           <node concept="3clFbS" id="1qctpygFrtQ" role="1bW5cS">
-                                            <node concept="3clFbF" id="6iwFuQBrJdc" role="3cqZAp">
-                                              <node concept="2OqwBi" id="6iwFuQBrKVx" role="3clFbG">
-                                                <node concept="10M0yZ" id="1yReInOZ3e" role="2Oq$k0">
-                                                  <ref role="1PxDUh" to="jks5:~ContextNodeResolveContext" resolve="ContextNodeResolveContext" />
-                                                  <ref role="3cqZAo" to="jks5:~ContextNodeResolveContext.INSTANCE" resolve="INSTANCE" />
+                                            <node concept="3clFbF" id="mqppAKDdcD" role="3cqZAp">
+                                              <node concept="2OqwBi" id="mqppAKDh70" role="3clFbG">
+                                                <node concept="10M0yZ" id="mqppAKDfv6" role="2Oq$k0">
+                                                  <ref role="3cqZAo" to="qvpu:~ContextArea.INSTANCE" resolve="INSTANCE" />
+                                                  <ref role="1PxDUh" to="qvpu:~ContextArea" resolve="ContextArea" />
                                                 </node>
-                                                <node concept="liA8E" id="6iwFuQBrM1p" role="2OqNvi">
-                                                  <ref role="37wK5l" to="jks5:~ContextNodeResolveContext.withAdditionalContext(org.modelix.model.api.INodeResolveContext,kotlin.jvm.functions.Function0)" resolve="withAdditionalContext" />
-                                                  <node concept="2ShNRf" id="1qctpygK6pA" role="37wK5m">
-                                                    <node concept="1pGfFk" id="1qctpygK6pB" role="2ShVmc">
-                                                      <ref role="37wK5l" to="xxte:7gxeZuyfxRC" resolve="SRepositoryResolveContext" />
-                                                      <node concept="37vLTw" id="1qctpygK6pC" role="37wK5m">
+                                                <node concept="liA8E" id="mqppAKDhB_" role="2OqNvi">
+                                                  <ref role="37wK5l" to="qvpu:~ContextArea.withAdditionalContext(org.modelix.model.area.IArea,kotlin.jvm.functions.Function0)" resolve="withAdditionalContext" />
+                                                  <node concept="2ShNRf" id="mqppAKDiFL" role="37wK5m">
+                                                    <node concept="1pGfFk" id="mqppAKDns$" role="2ShVmc">
+                                                      <ref role="37wK5l" to="xxte:7cdb92Lw72S" resolve="MPSArea" />
+                                                      <node concept="37vLTw" id="mqppAKDp$c" role="37wK5m">
                                                         <ref role="3cqZAo" node="1qctpygK1J5" resolve="mpsRepo" />
                                                       </node>
                                                     </node>
@@ -5775,8 +5776,8 @@
                                                               </node>
                                                               <node concept="3cpWs3" id="49CIzaqpz5G" role="37vLTx">
                                                                 <node concept="2YIFZM" id="49CIzaqpMql" role="3uHU7w">
-                                                                  <ref role="1Pybhc" to="wyt6:~Long" resolve="Long" />
                                                                   <ref role="37wK5l" to="wyt6:~Long.toHexString(long)" resolve="toHexString" />
+                                                                  <ref role="1Pybhc" to="wyt6:~Long" resolve="Long" />
                                                                   <node concept="37vLTw" id="49CIzaqpMRL" role="37wK5m">
                                                                     <ref role="3cqZAo" node="49CIzaqiL3N" resolve="nodeId" />
                                                                   </node>
@@ -5901,8 +5902,8 @@
                                                       </node>
                                                       <node concept="3cpWs6" id="1yReInP2UZ" role="3cqZAp">
                                                         <node concept="10M0yZ" id="1yReInP2V0" role="3cqZAk">
-                                                          <ref role="1PxDUh" to="v18h:~Unit" resolve="Unit" />
                                                           <ref role="3cqZAo" to="v18h:~Unit.INSTANCE" resolve="INSTANCE" />
+                                                          <ref role="1PxDUh" to="v18h:~Unit" resolve="Unit" />
                                                         </node>
                                                       </node>
                                                     </node>

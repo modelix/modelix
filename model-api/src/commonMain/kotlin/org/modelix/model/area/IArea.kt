@@ -29,6 +29,11 @@ interface IArea {
      * The root of an area is not allowed to change
      */
     fun getRoot(): INode
+
+    /**
+     * The area should not delegate to INodeReference.resolveNode.
+     * If it can't handle the type of reference it should just return null.
+     */
     fun resolveNode(ref: INodeReference): INode?
     fun resolveBranch(id: String): IBranch?
     fun collectAreas(): List<IArea>

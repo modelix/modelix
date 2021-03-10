@@ -32,6 +32,7 @@
     <import index="hvt5" ref="0a2651ab-f212-45c2-a2f0-343e76cbc26b/java:org.modelix.model(org.modelix.model.client/)" />
     <import index="v18h" ref="cc99dce1-49f3-4392-8dbf-e22ca47bd0af/java:kotlin(org.modelix.model.api/)" />
     <import index="jks5" ref="cc99dce1-49f3-4392-8dbf-e22ca47bd0af/java:org.modelix.model.api(org.modelix.model.api/)" />
+    <import index="qvpu" ref="cc99dce1-49f3-4392-8dbf-e22ca47bd0af/java:org.modelix.model.area(org.modelix.model.api/)" />
   </imports>
   <registry>
     <language id="a247e09e-2435-45ba-b8d2-07e93feba96a" name="jetbrains.mps.baseLanguage.tuples">
@@ -1943,20 +1944,11 @@
                       <node concept="3clFbS" id="7zuOo8oNie8" role="1bW5cS">
                         <node concept="3clFbF" id="7zuOo8oSsZu" role="3cqZAp">
                           <node concept="2OqwBi" id="7zuOo8oSxet" role="3clFbG">
-                            <node concept="2OqwBi" id="1yReInPG1$" role="2Oq$k0">
-                              <node concept="10M0yZ" id="1yReInPFQB" role="2Oq$k0">
-                                <ref role="1PxDUh" to="jks5:~ContextNodeResolveContext" resolve="ContextNodeResolveContext" />
-                                <ref role="3cqZAo" to="jks5:~ContextNodeResolveContext.INSTANCE" resolve="INSTANCE" />
-                              </node>
-                              <node concept="liA8E" id="1yReInPGyq" role="2OqNvi">
-                                <ref role="37wK5l" to="jks5:~ContextNodeResolveContext.getCONTEXT_VALUE()" resolve="getCONTEXT_VALUE" />
-                              </node>
-                            </node>
                             <node concept="liA8E" id="7zuOo8oSxu5" role="2OqNvi">
-                              <ref role="37wK5l" to="jks5:~ContextValue.runWith(java.lang.Object,kotlin.jvm.functions.Function0)" resolve="runWith" />
+                              <ref role="37wK5l" to="jks5:~ContextValue.computeWith(java.lang.Object,kotlin.jvm.functions.Function0)" resolve="computeWith" />
                               <node concept="2ShNRf" id="7zuOo8oS$IA" role="37wK5m">
                                 <node concept="1pGfFk" id="7zuOo8oSAmR" role="2ShVmc">
-                                  <ref role="37wK5l" to="xxte:7gxeZuyfxRC" resolve="SRepositoryResolveContext" />
+                                  <ref role="37wK5l" to="xxte:7cdb92Lw72S" resolve="MPSArea" />
                                   <node concept="37vLTw" id="7zuOo8oSADt" role="37wK5m">
                                     <ref role="3cqZAo" node="7zuOo8oSxYI" resolve="repo" />
                                   </node>
@@ -2155,6 +2147,15 @@
                                     </node>
                                   </node>
                                 </node>
+                              </node>
+                            </node>
+                            <node concept="2OqwBi" id="mqppAKDA15" role="2Oq$k0">
+                              <node concept="10M0yZ" id="mqppAKDA16" role="2Oq$k0">
+                                <ref role="3cqZAo" to="qvpu:~ContextArea.INSTANCE" resolve="INSTANCE" />
+                                <ref role="1PxDUh" to="qvpu:~ContextArea" resolve="ContextArea" />
+                              </node>
+                              <node concept="liA8E" id="mqppAKDA17" role="2OqNvi">
+                                <ref role="37wK5l" to="qvpu:~ContextArea.getCONTEXT_VALUE()" resolve="getCONTEXT_VALUE" />
                               </node>
                             </node>
                           </node>
