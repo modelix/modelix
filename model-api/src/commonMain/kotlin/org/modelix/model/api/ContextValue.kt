@@ -11,8 +11,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.modelix.model.area
+package org.modelix.model.api
 
-interface IAreaChangeList {
-    fun visitChanges(visitor: (IAreaChangeEvent) -> Boolean)
+expect class ContextValue<E> {
+
+    constructor()
+    constructor(defaultValue: E)
+
+    fun getValue(): E?
+    fun runWith(newValue: E, r: () -> Unit)
+    fun <T> computeWith(newValue: E, r: () -> T): T
 }

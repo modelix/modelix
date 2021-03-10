@@ -15,10 +15,6 @@
 
 package org.modelix.model.api
 
-import org.modelix.model.logError
-import org.modelix.model.runSynchronized
-import org.modelix.model.util.ContextValue
-import org.modelix.model.util.pmap.COWArrays
 import kotlin.jvm.Volatile
 
 class PBranch constructor(@field:Volatile private var tree: ITree, private val idGenerator: IIdGenerator) : IBranch {

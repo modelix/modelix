@@ -20,10 +20,10 @@ import org.modelix.model.persistent.SerializationUtil.escape
 import org.modelix.model.persistent.SerializationUtil.longFromHex
 import org.modelix.model.persistent.SerializationUtil.longToHex
 import org.modelix.model.persistent.SerializationUtil.unescape
-import org.modelix.model.util.pmap.COWArrays.copy
-import org.modelix.model.util.pmap.COWArrays.insert
-import org.modelix.model.util.pmap.COWArrays.removeAt
-import org.modelix.model.util.pmap.COWArrays.set
+import org.modelix.model.api.COWArrays.copy
+import org.modelix.model.api.COWArrays.insert
+import org.modelix.model.api.COWArrays.removeAt
+import org.modelix.model.api.COWArrays.set
 import kotlin.jvm.JvmStatic
 
 class CPNode private constructor(

@@ -24,9 +24,9 @@ import org.modelix.model.persistent.CPNode.Companion.create
 import org.modelix.model.persistent.CPNodeRef.Companion.foreign
 import org.modelix.model.persistent.CPNodeRef.Companion.local
 import org.modelix.model.persistent.HashUtil.sha256
-import org.modelix.model.util.pmap.COWArrays.add
-import org.modelix.model.util.pmap.COWArrays.insert
-import org.modelix.model.util.pmap.COWArrays.remove
+import org.modelix.model.api.COWArrays.add
+import org.modelix.model.api.COWArrays.insert
+import org.modelix.model.api.COWArrays.remove
 
 class CLTree : ITree {
     protected var store: IDeserializingKeyValueStore

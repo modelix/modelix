@@ -1,4 +1,4 @@
-package org.modelix.model
+package org.modelix.model.api
 
 import kotlin.reflect.KClass
 

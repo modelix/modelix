@@ -20,7 +20,7 @@ import org.modelix.model.api.IBranchListener
 import org.modelix.model.api.ITree
 import org.modelix.model.lazy.CLVersion
 import org.modelix.model.lazy.TreeId
-import org.modelix.model.logError
+import org.modelix.model.api.logError
 import kotlin.jvm.Synchronized
 
 open class ActiveBranch(client: IModelClient, tree: TreeId, branchName: String?, user: () -> String) : IIndirectBranch {

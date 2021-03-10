@@ -15,7 +15,7 @@
 
 package org.modelix.model.persistent
 
-import org.modelix.model.logWarning
+import org.modelix.model.api.logWarning
 import org.modelix.model.operations.IOperation
 import org.modelix.model.persistent.SerializationUtil.escape
 import org.modelix.model.persistent.SerializationUtil.longFromHex

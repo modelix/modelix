@@ -19,7 +19,7 @@ import org.modelix.model.bitCount
 import org.modelix.model.persistent.CPHamtInternal
 import org.modelix.model.persistent.CPHamtNode
 import org.modelix.model.persistent.HashUtil
-import org.modelix.model.util.pmap.COWArrays
+import org.modelix.model.api.COWArrays
 
 class CLHamtInternal : CLHamtNode<CPHamtInternal> {
     private val data_: CPHamtInternal
