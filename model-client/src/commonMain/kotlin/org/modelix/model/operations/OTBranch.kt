@@ -16,8 +16,8 @@
 package org.modelix.model.operations
 
 import org.modelix.model.api.*
-import org.modelix.model.lazy.IDeserializingKeyValueStore
 import org.modelix.model.api.runSynchronized
+import org.modelix.model.lazy.IDeserializingKeyValueStore
 
 class OTBranch(
     private val branch: IBranch,

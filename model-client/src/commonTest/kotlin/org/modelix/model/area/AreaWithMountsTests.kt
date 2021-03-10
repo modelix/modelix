@@ -83,7 +83,5 @@ class AreaWithMountsTests {
             assertEquals("root2", iNode.parent!!.getPropertyValue("name"))
             assertEquals("root1", areaWithMounts.getRoot().getChildren("role1").toList()[1].getChildren("role1").toList()[0].parent!!.parent!!.getPropertyValue("name"))
         }
-
     }
-
 }

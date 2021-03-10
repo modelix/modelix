@@ -21,7 +21,7 @@ class AreaWithMounts(val rootArea: IArea, mounts: Map<INode, IArea>) : IArea {
 
     init {
         this.mounts = HashMap(mounts)
-        this.mountedRoot2hiddenNode = mounts.entries.associateBy({it.value.getRoot()}, {it.key})
+        this.mountedRoot2hiddenNode = mounts.entries.associateBy({ it.value.getRoot() }, { it.key })
     }
 
     override fun resolveBranch(id: String): IBranch? {
@@ -41,7 +41,7 @@ class AreaWithMounts(val rootArea: IArea, mounts: Map<INode, IArea>) : IArea {
     }
 
     fun getMountedArea(hiddenRoot: INode): IArea? {
-        return mounts[hiddenRoot];
+        return mounts[hiddenRoot]
     }
 
     fun getMountedAreaRoot(hiddenRoot: INode): INode? {
@@ -62,7 +62,7 @@ class AreaWithMounts(val rootArea: IArea, mounts: Map<INode, IArea>) : IArea {
         val expectedRoot = getRoot()
         var actualRoot: INode = node
         var parent: INode? = node
-        while(parent != null) {
+        while (parent != null) {
             actualRoot = parent
             parent = parent.parent
         }
@@ -72,11 +72,11 @@ class AreaWithMounts(val rootArea: IArea, mounts: Map<INode, IArea>) : IArea {
     private fun getAllAreas() = listOf(rootArea) + mounts.values
 
     override fun <T> executeRead(f: () -> T): T {
-        return getAllAreas().fold(f) { f2: () -> T, a: IArea -> { a.executeRead(f2) }}()
+        return getAllAreas().fold(f) { f2: () -> T, a: IArea -> { a.executeRead(f2) } }()
     }
 
     override fun <T> executeWrite(f: () -> T): T {
-        return getAllAreas().fold(f) { f2: () -> T, a: IArea -> { a.executeWrite(f2) }}()
+        return getAllAreas().fold(f) { f2: () -> T, a: IArea -> { a.executeWrite(f2) } }()
     }
 
     override fun canRead(): Boolean = getAllAreas().all { it.canRead() }
@@ -153,4 +153,3 @@ class AreaWithMounts(val rootArea: IArea, mounts: Map<INode, IArea>) : IArea {
         }
     }
 }
-

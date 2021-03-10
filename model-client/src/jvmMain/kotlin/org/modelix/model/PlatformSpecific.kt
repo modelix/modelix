@@ -1,9 +1,7 @@
 package org.modelix.model
 
 import org.apache.commons.collections4.map.LRUMap
-import org.apache.log4j.Logger
 import java.util.*
-import kotlin.reflect.KClass
 
 actual fun sleep(milliseconds: Long) {
     Thread.sleep(milliseconds)

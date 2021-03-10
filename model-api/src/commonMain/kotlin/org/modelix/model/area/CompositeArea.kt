@@ -46,11 +46,11 @@ class CompositeArea : IArea {
     }
 
     override fun <T> executeRead(f: () -> T): T {
-        return areas.fold(f) { f2: () -> T, a: IArea -> { a.executeRead(f2) }}()
+        return areas.fold(f) { f2: () -> T, a: IArea -> { a.executeRead(f2) } }()
     }
 
     override fun <T> executeWrite(f: () -> T): T {
-        return areas.fold(f) { f2: () -> T, a: IArea -> { a.executeWrite(f2) }}()
+        return areas.fold(f) { f2: () -> T, a: IArea -> { a.executeWrite(f2) } }()
     }
 
     override fun canRead(): Boolean = areas.all { it.canRead() }

@@ -15,8 +15,6 @@
 
 package org.modelix.model.api
 
-import org.modelix.model.api.ContextValue
-
 object ContextNodeResolveContext {
     val CONTEXT_VALUE = ContextValue<INodeResolveContext>()
 

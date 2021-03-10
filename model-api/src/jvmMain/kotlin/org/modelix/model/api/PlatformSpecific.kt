@@ -13,11 +13,9 @@
  */
 package org.modelix.model.api
 
-import org.apache.commons.collections4.map.LRUMap
 import org.apache.log4j.Logger
 import java.util.*
 import kotlin.reflect.KClass
-
 
 actual fun logError(message: String, exception: Exception, contextClass: KClass<*>) {
     Logger.getLogger(contextClass.java).error(message, exception)

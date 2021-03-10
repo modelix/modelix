@@ -1,7 +1,5 @@
 package org.modelix.model
 
-import kotlin.reflect.KClass
-
 actual fun sleep(milliseconds: Long) {
     TODO("Not yet implemented")
 }

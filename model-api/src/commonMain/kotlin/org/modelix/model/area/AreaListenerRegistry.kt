@@ -36,8 +36,5 @@ object AreaListenerRegistry {
 
     private fun unwrap(l: IAreaListener): IAreaListener = if (l is AreaListenerWrapper) unwrap(l.wrappedListener) else l
 
-    class Entry(val area: IArea, val listener: IAreaListener) {
-
-    }
+    class Entry(val area: IArea, val listener: IAreaListener)
 }
-

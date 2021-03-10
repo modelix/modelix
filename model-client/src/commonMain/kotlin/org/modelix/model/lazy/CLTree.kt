@@ -16,6 +16,9 @@
 package org.modelix.model.lazy
 
 import org.modelix.model.api.*
+import org.modelix.model.api.COWArrays.add
+import org.modelix.model.api.COWArrays.insert
+import org.modelix.model.api.COWArrays.remove
 import org.modelix.model.lazy.CLHamtNode.Companion.create
 import org.modelix.model.lazy.IDeserializingKeyValueStore_extensions.put
 import org.modelix.model.lazy.TreeId.Companion.random
@@ -24,9 +27,6 @@ import org.modelix.model.persistent.CPNode.Companion.create
 import org.modelix.model.persistent.CPNodeRef.Companion.foreign
 import org.modelix.model.persistent.CPNodeRef.Companion.local
 import org.modelix.model.persistent.HashUtil.sha256
-import org.modelix.model.api.COWArrays.add
-import org.modelix.model.api.COWArrays.insert
-import org.modelix.model.api.COWArrays.remove
 
 class CLTree : ITree {
     protected var store: IDeserializingKeyValueStore

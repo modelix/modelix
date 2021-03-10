@@ -15,7 +15,6 @@
 
 package org.modelix.model.api
 
-import org.modelix.model.area.IArea
 import org.modelix.model.area.PArea
 
 open class PNodeAdapter(val nodeId: Long, val branch: IBranch) : INode {
