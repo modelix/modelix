@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<solution name="org.modelix.model.client" uuid="0a2651ab-f212-45c2-a2f0-343e76cbc26b" moduleVersion="0" compileInMPS="true">
+<solution name="org.modelix.model.client" uuid="0a2651ab-f212-45c2-a2f0-343e76cbc26b" moduleVersion="0" pluginKind="PLUGIN_OTHER" compileInMPS="true">
   <models>
     <modelRoot contentPath="${module}" type="default">
       <sourceRoot location="models" />
@@ -45,6 +45,7 @@
       <sourceRoot location="trove4j.jar" />
       <sourceRoot location="vavr-match.jar" />
       <sourceRoot location="vavr.jar" />
+      <sourceRoot location="model-api-jvm.jar" />
     </modelRoot>
   </models>
   <facets>
@@ -93,6 +94,7 @@
     <stubModelEntry path="${module}/lib/trove4j.jar" />
     <stubModelEntry path="${module}/lib/vavr-match.jar" />
     <stubModelEntry path="${module}/lib/vavr.jar" />
+    <stubModelEntry path="${module}/lib/model-api-jvm.jar" />
   </stubModelEntries>
   <sourcePath />
   <dependencies>
