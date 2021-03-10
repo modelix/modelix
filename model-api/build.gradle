@@ -51,6 +51,7 @@ kotlin {
         jvmMain {
             dependencies {
                 implementation kotlin('stdlib-jdk8')
+                implementation group: 'log4j', name: 'log4j', version:'1.2.17'
             }
         }
         jvmTest {
