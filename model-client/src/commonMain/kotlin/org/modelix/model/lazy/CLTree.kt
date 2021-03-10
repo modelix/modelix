@@ -73,6 +73,10 @@ class CLTree : ITree {
         put(store, data, data.serialize())
     }
 
+    override fun getId(): String {
+        return data.id
+    }
+
     fun prefetchAll() {
         store.prefetch(hash)
     }
@@ -82,9 +86,6 @@ class CLTree : ITree {
 
     val nodesMap: CLHamtNode<*>?
         get() = create(store.get(data.idToHash, { s: String -> CPHamtNode.deserialize(s) }), store)
-
-    val id: String
-        get() = data.id
 
     protected fun storeElement(node: CLNode, id2hash: CLHamtNode<*>): CLHamtNode<*> {
         val data = node.getData()

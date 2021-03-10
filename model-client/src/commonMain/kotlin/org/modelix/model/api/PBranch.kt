@@ -26,6 +26,10 @@ class PBranch constructor(@field:Volatile private var tree: ITree, private val i
     private val contextTransactions = ContextValue<Transaction?>()
     private var listeners = arrayOf<IBranchListener>()
 
+    override fun getId(): String? {
+        return tree.getId()
+    }
+
     fun runWithTransaction(transaction: ITransaction, runnable: () -> Unit) {
         contextTransactions.runWith(transaction as Transaction, runnable)
     }

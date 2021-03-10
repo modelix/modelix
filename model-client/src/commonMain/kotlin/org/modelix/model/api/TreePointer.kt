@@ -98,4 +98,8 @@ class TreePointer(var tree_: ITree, val idGenerator: IIdGenerator = IdGeneratorD
     override fun deleteNode(nodeId: Long) {
         tree = tree.deleteNode(nodeId)
     }
+
+    override fun getId(): String? {
+        return tree.getId()
+    }
 }

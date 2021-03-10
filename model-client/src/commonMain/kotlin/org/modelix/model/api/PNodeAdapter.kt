@@ -15,7 +15,16 @@
 
 package org.modelix.model.api
 
+import org.modelix.model.area.IArea
+import org.modelix.model.area.PArea
+
 open class PNodeAdapter(val nodeId: Long, val branch: IBranch) : INode {
+
+    init {
+        require(nodeId != 0L, { "Invalid node 0" })
+    }
+
+    override fun getArea(): PArea = PArea(branch)
 
     protected fun unwrap(node: INode?): Long {
         if (node == null) {
@@ -32,6 +41,7 @@ open class PNodeAdapter(val nodeId: Long, val branch: IBranch) : INode {
     }
 
     protected fun notifyAccess() {
+        // TODO
 //    DependencyBroadcaster.INSTANCE.dependencyAccessed(new PNodeDependency(branch, nodeId));
     }
 
@@ -70,9 +80,7 @@ open class PNodeAdapter(val nodeId: Long, val branch: IBranch) : INode {
         get() {
             notifyAccess()
             val parent = branch.transaction.getParent(nodeId)
-            return if (parent == 0L || parent == ITree.ROOT_ID) {
-                null
-            } else wrap(parent)
+            return if (parent == 0L) null else wrap(parent)
         }
 
     override fun getPropertyValue(role: String): String? {
@@ -139,7 +147,7 @@ open class PNodeAdapter(val nodeId: Long, val branch: IBranch) : INode {
 
     override fun hashCode(): Int {
         var result = 0
-        result = 31 * result + if (branch != null) (branch as Any).hashCode() else 0
+        result = 31 * result + (branch as Any).hashCode()
         result = 31 * result + (nodeId xor (nodeId shr 32)).toInt()
         return result
     }

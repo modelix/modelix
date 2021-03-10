@@ -15,7 +15,10 @@
 
 package org.modelix.model.api
 
+import org.modelix.model.area.IArea
+
 interface INode {
+    fun getArea(): IArea
     val isValid: Boolean
     val reference: INodeReference
     val concept: IConcept?

@@ -1,5 +1,6 @@
 package org.modelix.model.api
 
+import org.modelix.model.area.IArea
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
@@ -10,6 +11,9 @@ class MyNodeReference : INodeReference {
 }
 
 class MyNode(val name: String) : INode {
+    override fun getArea(): IArea {
+        TODO("Not yet implemented")
+    }
     override val isValid: Boolean
         get() = TODO("Not yet implemented")
     override val reference: INodeReference

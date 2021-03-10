@@ -15,6 +15,8 @@
 
 package org.modelix.model.api
 
+import org.modelix.model.area.PArea
+
 data class PNodeReference(val id: Long) : INodeReference {
 
     override fun resolveNode(context: INodeResolveContext?): INode? {

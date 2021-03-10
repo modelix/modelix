@@ -30,6 +30,10 @@ class OTBranch(
         runSynchronized(operationsLock) { operations.add(op) }
     }
 
+    override fun getId(): String? {
+        return branch.getId()
+    }
+
     val newOperations: List<IAppliedOperation>
         get() {
             runSynchronized(operationsLock) {
