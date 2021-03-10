@@ -19,7 +19,7 @@ class CompositeArea : IArea {
     private val areas: List<IArea>
     private val rootNode = Root()
 
-    constructor(vararg areas: IArea): this(areas.asList()) {}
+    constructor(vararg areas: IArea) : this(areas.asList()) {}
 
     constructor(areas: List<IArea>) {
         this.areas = ArrayList(areas)

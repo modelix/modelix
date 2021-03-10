@@ -1,8 +1,8 @@
 package org.modelix.model.api
 
-import org.modelix.model.area.IArea
 import org.modelix.model.area.AbstractArea
 import org.modelix.model.area.CompositeArea
+import org.modelix.model.area.IArea
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
