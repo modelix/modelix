@@ -47,6 +47,7 @@
     <import index="ends" ref="6ed54515-acc8-4d1e-a16c-9fd6cfe951ea/java:jetbrains.mps.extapi.persistence(MPS.Core/)" />
     <import index="v18h" ref="cc99dce1-49f3-4392-8dbf-e22ca47bd0af/java:kotlin(org.modelix.model.api/)" />
     <import index="jks5" ref="cc99dce1-49f3-4392-8dbf-e22ca47bd0af/java:org.modelix.model.api(org.modelix.model.api/)" />
+    <import index="qvpu" ref="cc99dce1-49f3-4392-8dbf-e22ca47bd0af/java:org.modelix.model.area(org.modelix.model.api/)" />
     <import index="3ju5" ref="6ed54515-acc8-4d1e-a16c-9fd6cfe951ea/java:jetbrains.mps.vfs(MPS.Core/)" implicit="true" />
     <import index="tpek" ref="r:00000000-0000-4000-0000-011c895902c0(jetbrains.mps.baseLanguage.behavior)" implicit="true" />
   </imports>
@@ -7953,10 +7954,10 @@
                     <ref role="3cqZAo" node="Aop38HWBd3" resolve="pNodeReference" />
                   </node>
                   <node concept="liA8E" id="Aop38HWC5g" role="2OqNvi">
-                    <ref role="37wK5l" to="jks5:~PNodeReference.resolveNode(org.modelix.model.api.INodeResolveContext)" resolve="resolveNode" />
+                    <ref role="37wK5l" to="jks5:~PNodeReference.resolveNode(org.modelix.model.area.IArea)" resolve="resolveNode" />
                     <node concept="2ShNRf" id="Aop38HWC9D" role="37wK5m">
                       <node concept="1pGfFk" id="Aop38HWHq7" role="2ShVmc">
-                        <ref role="37wK5l" to="jks5:~PNodeResolveContext.&lt;init&gt;(org.modelix.model.api.IBranch)" resolve="PNodeResolveContext" />
+                        <ref role="37wK5l" to="qvpu:~PArea.&lt;init&gt;(org.modelix.model.api.IBranch)" resolve="PArea" />
                         <node concept="37vLTw" id="Aop38HWJDc" role="37wK5m">
                           <ref role="3cqZAo" node="Aop38HWIdJ" resolve="branch" />
                         </node>
