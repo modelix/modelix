@@ -32,7 +32,6 @@
     <import index="xxte" ref="r:a79f28f8-6055-40c6-bc5e-47a42a3b97e8(org.modelix.model.mps)" />
     <import index="hvt5" ref="0a2651ab-f212-45c2-a2f0-343e76cbc26b/java:org.modelix.model(org.modelix.model.client/)" />
     <import index="v18h" ref="0a2651ab-f212-45c2-a2f0-343e76cbc26b/java:kotlin(org.modelix.model.client/)" />
-    <import index="3p1j" ref="0a2651ab-f212-45c2-a2f0-343e76cbc26b/java:org.modelix.model.util(org.modelix.model.client/)" implicit="true" />
   </imports>
   <registry>
     <language id="a247e09e-2435-45ba-b8d2-07e93feba96a" name="jetbrains.mps.baseLanguage.tuples">
@@ -1954,7 +1953,7 @@
                               </node>
                             </node>
                             <node concept="liA8E" id="7zuOo8oSxu5" role="2OqNvi">
-                              <ref role="37wK5l" to="3p1j:~ContextValue.runWith(java.lang.Object,kotlin.jvm.functions.Function0)" resolve="runWith" />
+                              <ref role="37wK5l" to="jks5:~ContextValue.runWith(java.lang.Object,kotlin.jvm.functions.Function0)" resolve="runWith" />
                               <node concept="2ShNRf" id="7zuOo8oS$IA" role="37wK5m">
                                 <node concept="1pGfFk" id="7zuOo8oSAmR" role="2ShVmc">
                                   <ref role="37wK5l" to="xxte:7gxeZuyfxRC" resolve="SRepositoryResolveContext" />
