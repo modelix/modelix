@@ -1,7 +1,7 @@
 import java.text.SimpleDateFormat
 
 buildscript {
-    ext.kotlinVersion = '1.4.0'
+    ext.kotlinVersion = '1.4.31'
 
     repositories {
         /* It is useful to have the central maven repo before the Itemis's one
