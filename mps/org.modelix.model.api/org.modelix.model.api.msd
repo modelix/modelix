@@ -21,9 +21,7 @@
     <stubModelEntry path="${module}/lib/model-api-metadata.jar" />
     <stubModelEntry path="${module}/lib/model-api-metadata-sources.jar" />
     <stubModelEntry path="${module}/lib/model-api-jvm.jar" />
-    <stubModelEntry path="${module}/lib/model-api-jvm-sources.jar" />
     <stubModelEntry path="${module}/lib/model-api-js.jar" />
-    <stubModelEntry path="${module}/lib/model-api-js-sources.jar" />
     <stubModelEntry path="${module}/lib/kotlin-stdlib.jar" />
     <stubModelEntry path="${module}/lib/kotlin-stdlib-jdk8.jar" />
     <stubModelEntry path="${module}/lib/kotlin-stdlib-jdk7.jar" />
