@@ -8,14 +8,15 @@
       <modulePath path="$PROJECT_DIR$/org.modelix.build.scripts/org.modelix.build.scripts.msd" folder="build" />
       <modulePath path="$PROJECT_DIR$/org.modelix.build/org.modelix.build.msd" folder="build" />
       <modulePath path="$PROJECT_DIR$/org.modelix.common/org.modelix.common.msd" folder="common" />
+      <modulePath path="$PROJECT_DIR$/org.modelix.integrationtests/org.modelix.integrationtests.msd" folder="tests" />
       <modulePath path="$PROJECT_DIR$/org.modelix.jersey/org.modelix.jersey.msd" folder="common" />
       <modulePath path="$PROJECT_DIR$/org.modelix.jetty/org.modelix.jetty.msd" folder="common" />
       <modulePath path="$PROJECT_DIR$/org.modelix.lib/org.modelix.lib.msd" folder="common" />
       <modulePath path="$PROJECT_DIR$/org.modelix.model.api/org.modelix.model.api.msd" folder="model" />
       <modulePath path="$PROJECT_DIR$/org.modelix.model.client/org.modelix.model.client.msd" folder="model" />
+      <modulePath path="$PROJECT_DIR$/org.modelix.model.mpsadapters/org.modelix.model.mpsadapters.msd" folder="model" />
       <modulePath path="$PROJECT_DIR$/org.modelix.model.mpsplugin/org.modelix.model.mpsplugin.msd" folder="model" />
       <modulePath path="$PROJECT_DIR$/org.modelix.model.runtimelang/org.modelix.model.runtimelang.mpl" folder="model" />
-      <modulePath path="$PROJECT_DIR$/org.modelix.model/org.modelix.model.msd" folder="model" />
       <modulePath path="$PROJECT_DIR$/org.modelix.notation.impl.baseLanguage/org.modelix.notation.impl.baseLanguage.mpl" folder="aspect" />
       <modulePath path="$PROJECT_DIR$/org.modelix.notation/org.modelix.notation.mpl" folder="aspect" />
       <modulePath path="$PROJECT_DIR$/org.modelix.ui.common/org.modelix.ui.common.msd" folder="ui" />
@@ -27,9 +28,8 @@
       <modulePath path="$PROJECT_DIR$/org.modelix.ui.sm/org.modelix.ui.sm.mpl" folder="ui.shadowmodels" />
       <modulePath path="$PROJECT_DIR$/org.modelix.ui.state/org.modelix.ui.state.mpl" folder="ui" />
       <modulePath path="$PROJECT_DIR$/org.modelix.ui.svg/org.modelix.ui.svg.msd" folder="ui.image" />
-      <modulePath path="$PROJECT_DIR$/solutions/org.modelix.git4idea.withJavaFacet/org.modelix.git4idea.withJavaFacet.msd" folder="ui.diff" />
       <modulePath path="$PROJECT_DIR$/org.modelix.ui.svg/org.modelix.ui.svg.msd" folder="ui.svg" />
-      <modulePath path="$PROJECT_DIR$/org.modelix.integrationtests/org.modelix.integrationtests.msd" folder="tests" />
+      <modulePath path="$PROJECT_DIR$/solutions/org.modelix.git4idea.withJavaFacet/org.modelix.git4idea.withJavaFacet.msd" folder="ui.diff" />
       <modulePath path="$PROJECT_DIR$/test.org.modelix.model.mpsplugin/test.org.modelix.model.mpsplugin.msd" folder="model" />
       <modulePath path="$PROJECT_DIR$/test.org.modelix.ui.common/test.org.modelix.ui.common.msd" folder="ui" />
     </projectModules>

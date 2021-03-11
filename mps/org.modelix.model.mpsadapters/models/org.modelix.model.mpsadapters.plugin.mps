@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<model ref="r:3c6cabbf-269d-4149-906b-1cb96758af0f(org.modelix.model.plugin)">
+<model ref="r:3c6cabbf-269d-4149-906b-1cb96758af0f(org.modelix.model.mpsadapters.plugin)">
   <persistence version="9" />
   <attribute name="doNotGenerate" value="false" />
   <languages>
