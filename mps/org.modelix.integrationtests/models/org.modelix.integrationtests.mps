@@ -4258,7 +4258,7 @@
                   <ref role="37wK5l" to="xkhl:~INodeReferenceSerializer$Companion.register(org.modelix.model.lazy.INodeReferenceSerializer)" resolve="register" />
                   <node concept="2ShNRf" id="7AjmLCi9wk5" role="37wK5m">
                     <node concept="HV5vD" id="7AjmLCi9xab" role="2ShVmc">
-                      <ref role="HV5vE" to="xxte:7AjmLCi9qca" resolve="ForeignNodeReference.ForeignNodeReferenceSerializer" />
+                      <ref role="HV5vE" to="csg2:7AjmLCi9qca" resolve="ForeignNodeReference.ForeignNodeReferenceSerializer" />
                     </node>
                   </node>
                 </node>
@@ -4759,11 +4759,11 @@
                                   <node concept="2OqwBi" id="7AjmLCi9Dqk" role="33vP2m">
                                     <node concept="2ShNRf" id="7AjmLCi9BXh" role="2Oq$k0">
                                       <node concept="HV5vD" id="7AjmLCi9D3K" role="2ShVmc">
-                                        <ref role="HV5vE" to="xxte:7AjmLCi9qca" resolve="ForeignNodeReference.ForeignNodeReferenceSerializer" />
+                                        <ref role="HV5vE" to="csg2:7AjmLCi9qca" resolve="ForeignNodeReference.ForeignNodeReferenceSerializer" />
                                       </node>
                                     </node>
                                     <node concept="liA8E" id="7AjmLCi9DOi" role="2OqNvi">
-                                      <ref role="37wK5l" to="xxte:7AjmLCi9qSS" resolve="deserialize" />
+                                      <ref role="37wK5l" to="csg2:7AjmLCi9qSS" resolve="deserialize" />
                                       <node concept="37vLTw" id="7AjmLCi9F4N" role="37wK5m">
                                         <ref role="3cqZAo" node="7jRNnvCqDoP" resolve="refValueAsString" />
                                       </node>
@@ -8130,12 +8130,12 @@
               <node concept="3cpWsn" id="Aop38I3SDE" role="3cpWs9">
                 <property role="TrG5h" value="foreignNodeReference" />
                 <node concept="3uibUv" id="Aop38I3SDF" role="1tU5fm">
-                  <ref role="3uigEE" to="xxte:7AjmLChWTvU" resolve="ForeignNodeReference" />
+                  <ref role="3uigEE" to="csg2:7AjmLChWTvU" resolve="ForeignNodeReference" />
                 </node>
                 <node concept="1eOMI4" id="Aop38I3SMy" role="33vP2m">
                   <node concept="10QFUN" id="Aop38I3SMv" role="1eOMHV">
                     <node concept="3uibUv" id="Aop38I3SM$" role="10QFUM">
-                      <ref role="3uigEE" to="xxte:7AjmLChWTvU" resolve="ForeignNodeReference" />
+                      <ref role="3uigEE" to="csg2:7AjmLChWTvU" resolve="ForeignNodeReference" />
                     </node>
                     <node concept="37vLTw" id="Aop38I3SM_" role="10QFUP">
                       <ref role="3cqZAo" node="7JjSHvQ7EGq" resolve="ref" />
@@ -8151,7 +8151,7 @@
                     <ref role="3cqZAo" node="Aop38I3SDE" resolve="foreignNodeReference" />
                   </node>
                   <node concept="liA8E" id="Aop38I42sp" role="2OqNvi">
-                    <ref role="37wK5l" to="xxte:7AjmLChXHFD" resolve="getForeignId" />
+                    <ref role="37wK5l" to="csg2:7AjmLChXHFD" resolve="getForeignId" />
                   </node>
                 </node>
                 <node concept="3cpWs3" id="Aop38I3VQ8" role="3uHU7B">
@@ -8161,7 +8161,7 @@
                     </node>
                     <node concept="2OqwBi" id="Aop38I3VQc" role="3uHU7w">
                       <node concept="liA8E" id="Aop38I3Zer" role="2OqNvi">
-                        <ref role="37wK5l" to="xxte:7AjmLChXH1q" resolve="getModelName" />
+                        <ref role="37wK5l" to="csg2:7AjmLChXH1q" resolve="getModelName" />
                       </node>
                       <node concept="37vLTw" id="Aop38I3Ysg" role="2Oq$k0">
                         <ref role="3cqZAo" node="Aop38I3SDE" resolve="foreignNodeReference" />
@@ -8177,7 +8177,7 @@
           </node>
           <node concept="2ZW3vV" id="Aop38I3RoK" role="3clFbw">
             <node concept="3uibUv" id="Aop38I3Sw2" role="2ZW6by">
-              <ref role="3uigEE" to="xxte:7AjmLChWTvU" resolve="ForeignNodeReference" />
+              <ref role="3uigEE" to="csg2:7AjmLChWTvU" resolve="ForeignNodeReference" />
             </node>
             <node concept="37vLTw" id="Aop38I3PWA" role="2ZW6bz">
               <ref role="3cqZAo" node="7JjSHvQ7EGq" resolve="ref" />
