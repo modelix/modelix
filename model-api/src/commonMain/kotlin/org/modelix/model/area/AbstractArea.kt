@@ -35,7 +35,11 @@ abstract class AbstractArea : IArea {
 
     override fun canWrite(): Boolean = true
 
-    override fun addListener(l: IAreaListener) { }
+    override fun addListener(l: IAreaListener) {
+        throw UnsupportedOperationException()
+    }
 
-    override fun removeListener(l: IAreaListener) { }
+    override fun removeListener(l: IAreaListener) {
+        throw UnsupportedOperationException()
+    }
 }
