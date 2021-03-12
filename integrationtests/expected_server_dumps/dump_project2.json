@@ -4,24 +4,24 @@
   "$children": [
     {
       "$role": "projects",
-      "$concept": "org.modelix.model.runtimelang.Project",
+      "$concept": "org.modelix.model.repositoryconcepts.Project",
       "name": "SimpleProjectF",
     "$children": [
     {
       "$role": "modules",
-      "$concept": "org.modelix.model.runtimelang.Module",
+      "$concept": "org.modelix.model.repositoryconcepts.Module",
       "id": "f2fb433a-7484-46c7-a61e-ec59ba5ea58f",
       "name": "simple.solution1",
       "$children": [
         {
           "$role": "models",
-          "$concept": "org.modelix.model.runtimelang.Model",
+          "$concept": "org.modelix.model.repositoryconcepts.Model",
           "id": "r:76f5e072-fbfe-490d-9eda-7dee1331b88a",
           "name": "simple.solution1.model1",
           "$children": [
             {
               "$role": "usedLanguages",
-              "$concept": "org.modelix.model.runtimelang.UsedModule",
+              "$concept": "org.modelix.model.repositoryconcepts.UsedModule",
               "id": "f3061a53-9226-4cc5-a443-f952ceaf5816",
               "name": "jetbrains.mps.baseLanguage"
             },
@@ -372,7 +372,7 @@
         },
         {
           "$role": "models",
-          "$concept": "org.modelix.model.runtimelang.Model",
+          "$concept": "org.modelix.model.repositoryconcepts.Model",
           "id": "r:0c2e757d-5555-4444-8888-a6db9dd85152",
           "name": "my.wonderful.brandnew.modelInOldModule"
         }
@@ -380,13 +380,13 @@
     },
     {
       "$role": "modules",
-      "$concept": "org.modelix.model.runtimelang.Module",
+      "$concept": "org.modelix.model.repositoryconcepts.Module",
       "id": "0c2e757d-53c3-4694-b3b1-a6db9dd85152",
       "name": "MyNewModule",
       "$children": [
         {
           "$role": "models",
-          "$concept": "org.modelix.model.runtimelang.Model",
+          "$concept": "org.modelix.model.repositoryconcepts.Model",
           "id": "r:0c2e757d-5555-4444-3333-a6db9dd85152",
           "name": "my.wonderful.brandnew.model"
         }

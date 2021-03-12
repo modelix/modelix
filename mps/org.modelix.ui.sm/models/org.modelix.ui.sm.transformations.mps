@@ -1322,7 +1322,7 @@
                   <ref role="1Pybhc" to="qsto:5T6M7ON4Si7" resolve="NodeReferenceSerializer" />
                   <node concept="2YIFZM" id="7trMQm3aBJ9" role="37wK5m">
                     <ref role="37wK5l" to="l6bp:7uapjVAY0et" resolve="tryGetUnwrappedNode" />
-                    <ref role="1Pybhc" to="l6bp:30TKBrMa5zj" resolve="SNodeAPI" />
+                    <ref role="1Pybhc" to="l6bp:30TKBrMa5zj" resolve="SM___SNodeAPI" />
                     <node concept="2155sH" id="7trMQm3aBJa" role="37wK5m">
                       <ref role="2155sG" node="7trMQm3aC3$" resolve="node" />
                     </node>
@@ -1431,7 +1431,7 @@
                   <ref role="37wK5l" to="qsto:5T6M7OO0vKo" resolve="serialize" />
                   <ref role="1Pybhc" to="qsto:5T6M7ON4Si7" resolve="NodeReferenceSerializer" />
                   <node concept="2YIFZM" id="7trMQm3W2V5" role="37wK5m">
-                    <ref role="1Pybhc" to="l6bp:30TKBrMa5zj" resolve="SNodeAPI" />
+                    <ref role="1Pybhc" to="l6bp:30TKBrMa5zj" resolve="SM___SNodeAPI" />
                     <ref role="37wK5l" to="l6bp:7uapjVAY0et" resolve="tryGetUnwrappedNode" />
                     <node concept="2155sH" id="7trMQm3W2V6" role="37wK5m">
                       <ref role="2155sG" node="7trMQm3W2UI" resolve="node" />
@@ -2715,16 +2715,16 @@
                       </node>
                       <node concept="2YIFZM" id="7vWAzuEM29E" role="1m5AlR">
                         <ref role="37wK5l" to="l6bp:4EhVFrZ6z9$" resolve="wrap" />
-                        <ref role="1Pybhc" to="l6bp:4EhVFrZ3AjR" resolve="NodeToSNodeAdapter" />
+                        <ref role="1Pybhc" to="l6bp:4EhVFrZ3AjR" resolve="SM___NodeToSNodeAdapter" />
                         <node concept="2YIFZM" id="7vWAzuEM53O" role="37wK5m">
                           <ref role="1Pybhc" to="nv3w:5gTrVpGxH_V" resolve="DependencyTrackingNode" />
                           <ref role="37wK5l" to="nv3w:5gTrVpGzMW2" resolve="wrap" />
                           <node concept="2ShNRf" id="7vWAzuEM1oI" role="37wK5m">
                             <node concept="1pGfFk" id="7vWAzuEM1oJ" role="2ShVmc">
-                              <ref role="37wK5l" to="mjcn:7vWAzuEIWUv" resolve="SimpleNode" />
+                              <ref role="37wK5l" to="mjcn:7vWAzuEIWUv" resolve="SM___SimpleNode" />
                               <node concept="2ShNRf" id="7vWAzuEM1oK" role="37wK5m">
                                 <node concept="1pGfFk" id="7vWAzuEM1oL" role="2ShVmc">
-                                  <ref role="37wK5l" to="l6bp:5gTrVpGjFod" resolve="SConceptAdapter" />
+                                  <ref role="37wK5l" to="l6bp:5gTrVpGjFod" resolve="___SM___SConceptAdapter" />
                                   <node concept="35c_gC" id="7vWAzuEM1oM" role="37wK5m">
                                     <ref role="35c_gD" to="j481:AkkmJBMaEy" resolve="ViewerState" />
                                   </node>
@@ -2797,14 +2797,14 @@
               <node concept="1eOMI4" id="62_qJBxL8K9" role="2Oq$k0">
                 <node concept="10QFUN" id="62_qJBxL8Ka" role="1eOMHV">
                   <node concept="3uibUv" id="62_qJBxL8Kb" role="10QFUM">
-                    <ref role="3uigEE" to="l6bp:5ATQqVBu_0y" resolve="SModelAsNode" />
+                    <ref role="3uigEE" to="l6bp:5ATQqVBu_0y" resolve="SM___SModelAsNode" />
                   </node>
                   <node concept="2YIFZM" id="62_qJBxL8Kc" role="10QFUP">
                     <ref role="1Pybhc" to="nv3w:5gTrVpGxH_V" resolve="DependencyTrackingNode" />
                     <ref role="37wK5l" to="nv3w:1cIlazwYlj7" resolve="unwrap" />
                     <node concept="2YIFZM" id="62_qJBxL8Kd" role="37wK5m">
                       <ref role="37wK5l" to="l6bp:5gTrVpGyMwR" resolve="wrap" />
-                      <ref role="1Pybhc" to="l6bp:5gTrVpGjuLg" resolve="SNodeToNodeAdapter" />
+                      <ref role="1Pybhc" to="l6bp:5gTrVpGjuLg" resolve="SM___SNodeToNodeAdapter" />
                       <node concept="37vLTw" id="62_qJBxL8RK" role="37wK5m">
                         <ref role="3cqZAo" node="62_qJBxL8oG" resolve="model" />
                       </node>
@@ -2842,14 +2842,14 @@
               <node concept="1eOMI4" id="62_qJBxLoj6" role="2Oq$k0">
                 <node concept="10QFUN" id="62_qJBxLoj7" role="1eOMHV">
                   <node concept="3uibUv" id="62_qJBxLoj8" role="10QFUM">
-                    <ref role="3uigEE" to="l6bp:qmkA5fOuCN" resolve="SModuleAsNode" />
+                    <ref role="3uigEE" to="l6bp:qmkA5fOuCN" resolve="SM___SModuleAsNode" />
                   </node>
                   <node concept="2YIFZM" id="62_qJBxLoj9" role="10QFUP">
                     <ref role="1Pybhc" to="nv3w:5gTrVpGxH_V" resolve="DependencyTrackingNode" />
                     <ref role="37wK5l" to="nv3w:1cIlazwYlj7" resolve="unwrap" />
                     <node concept="2YIFZM" id="62_qJBxLoja" role="37wK5m">
                       <ref role="37wK5l" to="l6bp:5gTrVpGyMwR" resolve="wrap" />
-                      <ref role="1Pybhc" to="l6bp:5gTrVpGjuLg" resolve="SNodeToNodeAdapter" />
+                      <ref role="1Pybhc" to="l6bp:5gTrVpGjuLg" resolve="SM___SNodeToNodeAdapter" />
                       <node concept="37vLTw" id="62_qJBxLoMZ" role="37wK5m">
                         <ref role="3cqZAo" node="62_qJBxL91_" resolve="module" />
                       </node>
@@ -2885,14 +2885,14 @@
           <node concept="2OqwBi" id="62_qJBxLqT7" role="3clFbG">
             <node concept="2JrnkZ" id="62_qJBxLqT8" role="2Oq$k0">
               <node concept="2YIFZM" id="62_qJBxLqT9" role="2JrQYb">
-                <ref role="1Pybhc" to="l6bp:4EhVFrZ3AjR" resolve="NodeToSNodeAdapter" />
+                <ref role="1Pybhc" to="l6bp:4EhVFrZ3AjR" resolve="SM___NodeToSNodeAdapter" />
                 <ref role="37wK5l" to="l6bp:4EhVFrZ6z9$" resolve="wrap" />
                 <node concept="2YIFZM" id="62_qJBxLqTa" role="37wK5m">
                   <ref role="1Pybhc" to="nv3w:5gTrVpGxH_V" resolve="DependencyTrackingNode" />
                   <ref role="37wK5l" to="nv3w:1cIlazwYlj7" resolve="unwrap" />
                   <node concept="2YIFZM" id="62_qJBxLqTb" role="37wK5m">
                     <ref role="37wK5l" to="l6bp:5gTrVpGyMwR" resolve="wrap" />
-                    <ref role="1Pybhc" to="l6bp:5gTrVpGjuLg" resolve="SNodeToNodeAdapter" />
+                    <ref role="1Pybhc" to="l6bp:5gTrVpGjuLg" resolve="SM___SNodeToNodeAdapter" />
                     <node concept="37vLTw" id="62_qJBxLr8Y" role="37wK5m">
                       <ref role="3cqZAo" node="62_qJBxLoVs" resolve="node" />
                     </node>
@@ -3490,14 +3490,14 @@
                   <ref role="1Pybhc" to="nv3w:5gTrVpGxH_V" resolve="DependencyTrackingNode" />
                   <node concept="2YIFZM" id="5GP2kxIJ9yK" role="37wK5m">
                     <ref role="37wK5l" to="l6bp:5gTrVpGyMwR" resolve="wrap" />
-                    <ref role="1Pybhc" to="l6bp:5gTrVpGjuLg" resolve="SNodeToNodeAdapter" />
+                    <ref role="1Pybhc" to="l6bp:5gTrVpGjuLg" resolve="SM___SNodeToNodeAdapter" />
                     <node concept="37vLTw" id="5GP2kxIJ9yL" role="37wK5m">
                       <ref role="3cqZAo" node="5GP2kxIJ8jB" resolve="module" />
                     </node>
                   </node>
                 </node>
                 <node concept="3uibUv" id="5GP2kxIJ9yM" role="10QFUM">
-                  <ref role="3uigEE" to="l6bp:qmkA5fOuCN" resolve="SModuleAsNode" />
+                  <ref role="3uigEE" to="l6bp:qmkA5fOuCN" resolve="SM___SModuleAsNode" />
                 </node>
               </node>
             </node>
@@ -6512,7 +6512,7 @@
                     </node>
                     <node concept="2YIFZM" id="4JBHlsGXc3X" role="33vP2m">
                       <ref role="37wK5l" to="l6bp:7uapjVAY0et" resolve="tryGetUnwrappedNode" />
-                      <ref role="1Pybhc" to="l6bp:30TKBrMa5zj" resolve="SNodeAPI" />
+                      <ref role="1Pybhc" to="l6bp:30TKBrMa5zj" resolve="SM___SNodeAPI" />
                       <node concept="2155sH" id="4JBHlsGXdzJ" role="37wK5m">
                         <ref role="2155sG" node="AkkmJBMpal" resolve="node" />
                       </node>
@@ -6626,7 +6626,7 @@
                       </node>
                       <node concept="2YIFZM" id="2sNIAl_OF30" role="33vP2m">
                         <ref role="37wK5l" to="l6bp:7uapjVAY0et" resolve="tryGetUnwrappedNode" />
-                        <ref role="1Pybhc" to="l6bp:30TKBrMa5zj" resolve="SNodeAPI" />
+                        <ref role="1Pybhc" to="l6bp:30TKBrMa5zj" resolve="SM___SNodeAPI" />
                         <node concept="2155sH" id="2sNIAl_OH0m" role="37wK5m">
                           <ref role="2155sG" node="AkkmJBNgYn" resolve="node" />
                         </node>
