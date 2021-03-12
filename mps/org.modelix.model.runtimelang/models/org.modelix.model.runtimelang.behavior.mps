@@ -8,7 +8,7 @@
   </languages>
   <imports>
     <import index="tpcu" ref="r:00000000-0000-4000-0000-011c89590282(jetbrains.mps.lang.core.behavior)" />
-    <import index="w7di" ref="r:f1cc96fe-d6ef-4a58-b607-1b2e4d02e1de(de.q60.mps.web.model.runtimelang.structure)" implicit="true" />
+    <import index="jh6v" ref="r:f2f39a18-fd23-4090-b7f2-ba8da340eec2(org.modelix.model.repositoryconcepts.structure)" />
   </imports>
   <registry>
     <language id="af65afd8-f0dd-4942-87d9-63a55f2a9db1" name="jetbrains.mps.lang.behavior">
@@ -67,7 +67,7 @@
     </language>
   </registry>
   <node concept="13h7C7" id="4$UNf1h8MXw">
-    <ref role="13h7C2" to="w7di:4$UNf1h8MVy" resolve="UsedModule" />
+    <ref role="13h7C2" to="jh6v:4$UNf1h8MVy" resolve="UsedModule" />
     <node concept="13hLZK" id="4$UNf1h8MXx" role="13h7CW">
       <node concept="3clFbS" id="4$UNf1h8MXy" role="2VODD2" />
     </node>
@@ -86,7 +86,7 @@
                 <node concept="2OqwBi" id="4$UNf1h8P$v" role="3uHU7B">
                   <node concept="13iPFW" id="4$UNf1h8PsE" role="2Oq$k0" />
                   <node concept="3TrcHB" id="4$UNf1h8PGN" role="2OqNvi">
-                    <ref role="3TsBF5" to="w7di:4$UNf1h8MXr" resolve="id" />
+                    <ref role="3TsBF5" to="jh6v:4$UNf1h8MXr" resolve="id" />
                   </node>
                 </node>
                 <node concept="Xl_RD" id="4$UNf1h8Q13" role="3uHU7w">
@@ -96,7 +96,7 @@
               <node concept="2OqwBi" id="4$UNf1h8Ql2" role="3uHU7w">
                 <node concept="13iPFW" id="4$UNf1h8Q8D" role="2Oq$k0" />
                 <node concept="3TrcHB" id="4$UNf1h8QtO" role="2OqNvi">
-                  <ref role="3TsBF5" to="w7di:4$UNf1h8MXt" resolve="name" />
+                  <ref role="3TsBF5" to="jh6v:4$UNf1h8MXt" resolve="name" />
                 </node>
               </node>
             </node>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<language namespace="org.modelix.model.runtimelang" uuid="b6980ebd-f01d-459d-a952-38740f6313b4" languageVersion="0" moduleVersion="0">
+<language namespace="org.modelix.model.repositoryconcepts" uuid="0a7577d1-d4e5-431d-98b1-fae38f9aee80" languageVersion="0" moduleVersion="0">
   <models>
     <modelRoot contentPath="${module}" type="default">
       <sourceRoot location="models" />
@@ -12,10 +12,10 @@
   </facets>
   <accessoryModels />
   <generators>
-    <generator alias="main" namespace="org.modelix.model.runtimelang#01" uuid="1a41ca2b-5b2e-48b4-8ce0-c6444fdfc6ba">
+    <generator alias="main" namespace="org.modelix.model.repositoryconcepts.generator" uuid="51731586-2c9b-4758-912e-a0e5dfe2d6f2">
       <models>
-        <modelRoot contentPath="${module}/generator/template" type="default">
-          <sourceRoot location="." />
+        <modelRoot contentPath="${module}/generator" type="default">
+          <sourceRoot location="templates" />
         </modelRoot>
       </models>
       <facets>
@@ -49,16 +49,13 @@
         <module reference="8865b7a8-5271-43d3-884c-6fd1d9cfdd34(MPS.OpenAPI)" version="0" />
         <module reference="ceab5195-25ea-4f22-9b92-103b95ca8c0c(jetbrains.mps.lang.core)" version="0" />
         <module reference="9e98f4e2-decf-4e97-bf80-9109e8b759aa(jetbrains.mps.lang.feedback.context)" version="0" />
-        <module reference="b6980ebd-f01d-459d-a952-38740f6313b4(org.modelix.model.runtimelang)" version="0" />
-        <module reference="1a41ca2b-5b2e-48b4-8ce0-c6444fdfc6ba(org.modelix.model.runtimelang#01)" version="0" />
+        <module reference="0a7577d1-d4e5-431d-98b1-fae38f9aee80(org.modelix.model.repositoryconcepts)" version="0" />
+        <module reference="51731586-2c9b-4758-912e-a0e5dfe2d6f2(org.modelix.model.repositoryconcepts.generator)" version="0" />
       </dependencyVersions>
       <mapping-priorities />
     </generator>
   </generators>
   <sourcePath />
-  <dependencies>
-    <dependency reexport="false">0a7577d1-d4e5-431d-98b1-fae38f9aee80(org.modelix.model.repositoryconcepts)</dependency>
-  </dependencies>
   <languageVersions>
     <language slang="l:f3061a53-9226-4cc5-a443-f952ceaf5816:jetbrains.mps.baseLanguage" version="11" />
     <language slang="l:443f4c36-fcf5-4eb6-9500-8d06ed259e3e:jetbrains.mps.baseLanguage.classifiers" version="0" />
@@ -102,7 +99,6 @@
     <module reference="a9e4c532-c5f5-4bb7-99ef-42abb73bbb70(jetbrains.mps.lang.descriptor.aspects)" version="0" />
     <module reference="9e98f4e2-decf-4e97-bf80-9109e8b759aa(jetbrains.mps.lang.feedback.context)" version="0" />
     <module reference="0a7577d1-d4e5-431d-98b1-fae38f9aee80(org.modelix.model.repositoryconcepts)" version="0" />
-    <module reference="b6980ebd-f01d-459d-a952-38740f6313b4(org.modelix.model.runtimelang)" version="0" />
   </dependencyVersions>
   <extendedLanguages />
 </language>

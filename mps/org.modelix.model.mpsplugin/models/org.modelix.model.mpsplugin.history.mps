@@ -40,6 +40,7 @@
     <import index="v18h" ref="cc99dce1-49f3-4392-8dbf-e22ca47bd0af/java:kotlin(org.modelix.model.api/)" />
     <import index="jks5" ref="cc99dce1-49f3-4392-8dbf-e22ca47bd0af/java:org.modelix.model.api(org.modelix.model.api/)" />
     <import index="qvpu" ref="cc99dce1-49f3-4392-8dbf-e22ca47bd0af/java:org.modelix.model.area(org.modelix.model.api/)" />
+    <import index="jh6v" ref="r:f2f39a18-fd23-4090-b7f2-ba8da340eec2(org.modelix.model.repositoryconcepts.structure)" />
     <import index="geos" ref="0a2651ab-f212-45c2-a2f0-343e76cbc26b/java:org.modelix.model.persistent(org.modelix.model.client/)" implicit="true" />
     <import index="5zyv" ref="6354ebe7-c22a-4a0f-ac54-50b52ab9b065/java:java.util.concurrent(JDK/)" implicit="true" />
     <import index="tpcu" ref="r:00000000-0000-4000-0000-011c89590282(jetbrains.mps.lang.core.behavior)" implicit="true" />
@@ -7144,7 +7145,7 @@
                 <ref role="1Pybhc" to="xxte:5gTrVpGjuL2" resolve="SConceptAdapter" />
                 <ref role="37wK5l" to="xxte:3ECE8iPOmg5" resolve="wrap" />
                 <node concept="35c_gC" id="EMWAvBfPHI" role="37wK5m">
-                  <ref role="35c_gD" to="w7di:qmkA5fOskf" resolve="Module" />
+                  <ref role="35c_gD" to="jh6v:qmkA5fOskf" resolve="Module" />
                 </node>
               </node>
             </node>
@@ -7195,7 +7196,7 @@
                 <ref role="37wK5l" to="xxte:3ECE8iPOmg5" resolve="wrap" />
                 <ref role="1Pybhc" to="xxte:5gTrVpGjuL2" resolve="SConceptAdapter" />
                 <node concept="35c_gC" id="1J2iDZzAQt6" role="37wK5m">
-                  <ref role="35c_gD" to="w7di:3uw$nPCBu_p" resolve="Project" />
+                  <ref role="35c_gD" to="jh6v:3uw$nPCBu_p" resolve="Project" />
                 </node>
               </node>
             </node>

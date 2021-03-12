@@ -21,6 +21,7 @@
     <dependency reexport="false">ceab5195-25ea-4f22-9b92-103b95ca8c0c(jetbrains.mps.lang.core)</dependency>
     <dependency reexport="false">b6980ebd-f01d-459d-a952-38740f6313b4(org.modelix.model.runtimelang)</dependency>
     <dependency reexport="false">87f4b21e-a3a5-459e-a54b-408fd9eb7350(org.modelix.lib)</dependency>
+    <dependency reexport="false">0a7577d1-d4e5-431d-98b1-fae38f9aee80(org.modelix.model.repositoryconcepts)</dependency>
   </dependencies>
   <languageVersions>
     <language slang="l:f3061a53-9226-4cc5-a443-f952ceaf5816:jetbrains.mps.baseLanguage" version="11" />
@@ -53,6 +54,7 @@
     <module reference="cc99dce1-49f3-4392-8dbf-e22ca47bd0af(org.modelix.model.api)" version="0" />
     <module reference="0a2651ab-f212-45c2-a2f0-343e76cbc26b(org.modelix.model.client)" version="0" />
     <module reference="5622e615-959d-4843-9df6-ef04ee578c18(org.modelix.model.mpsadapters)" version="0" />
+    <module reference="0a7577d1-d4e5-431d-98b1-fae38f9aee80(org.modelix.model.repositoryconcepts)" version="0" />
     <module reference="b6980ebd-f01d-459d-a952-38740f6313b4(org.modelix.model.runtimelang)" version="0" />
   </dependencyVersions>
 </solution>

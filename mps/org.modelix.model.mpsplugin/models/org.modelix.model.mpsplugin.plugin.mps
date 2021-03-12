@@ -50,6 +50,7 @@
     <import index="v18h" ref="cc99dce1-49f3-4392-8dbf-e22ca47bd0af/java:kotlin(org.modelix.model.api/)" />
     <import index="ouht" ref="cc99dce1-49f3-4392-8dbf-e22ca47bd0af/java:kotlin.jvm.functions(org.modelix.model.api/)" />
     <import index="jks5" ref="cc99dce1-49f3-4392-8dbf-e22ca47bd0af/java:org.modelix.model.api(org.modelix.model.api/)" />
+    <import index="jh6v" ref="r:f2f39a18-fd23-4090-b7f2-ba8da340eec2(org.modelix.model.repositoryconcepts.structure)" />
     <import index="guwi" ref="6354ebe7-c22a-4a0f-ac54-50b52ab9b065/java:java.io(JDK/)" implicit="true" />
     <import index="71xd" ref="742f6602-5a2f-4313-aa6e-ae1cd4ffdc61/java:jetbrains.mps.ide.tools(MPS.Platform/)" implicit="true" />
     <import index="hvt5" ref="0a2651ab-f212-45c2-a2f0-343e76cbc26b/java:org.modelix.model(org.modelix.model.client/)" implicit="true" />
@@ -2365,8 +2366,8 @@
                     </node>
                     <node concept="17R0WA" id="4eX7sil6dWW" role="3clFbw">
                       <node concept="359W_D" id="4eX7sil6f3b" role="3uHU7w">
-                        <ref role="359W_E" to="w7di:qmkA5fOskc" resolve="Model" />
-                        <ref role="359W_F" to="w7di:qmkA5fOskk" resolve="rootNodes" />
+                        <ref role="359W_E" to="jh6v:qmkA5fOskc" resolve="Model" />
+                        <ref role="359W_F" to="jh6v:qmkA5fOskk" resolve="rootNodes" />
                       </node>
                       <node concept="2GrUjf" id="4eX7sil6dnS" role="3uHU7B">
                         <ref role="2Gs0qQ" node="4mhRRpyEXPv" resolve="role" />
@@ -4186,7 +4187,7 @@
                               <property role="TrG5h" value="modules" />
                               <node concept="A3Dl8" id="7PIbTorpwvf" role="1tU5fm">
                                 <node concept="3Tqbb2" id="7PIbTorpwvg" role="A3Ik2">
-                                  <ref role="ehGHo" to="w7di:qmkA5fOskf" resolve="Module" />
+                                  <ref role="ehGHo" to="jh6v:qmkA5fOskf" resolve="Module" />
                                 </node>
                               </node>
                               <node concept="2OqwBi" id="7PIbTorpwvh" role="33vP2m">
@@ -4195,7 +4196,7 @@
                                 </node>
                                 <node concept="v3k3i" id="7PIbTorpwvF" role="2OqNvi">
                                   <node concept="chp4Y" id="3uw$nPCCQRh" role="v3oSu">
-                                    <ref role="cht4Q" to="w7di:qmkA5fOskf" resolve="Module" />
+                                    <ref role="cht4Q" to="jh6v:qmkA5fOskf" resolve="Module" />
                                   </node>
                                 </node>
                               </node>
@@ -6964,7 +6965,7 @@
       <node concept="37vLTG" id="7pEM25OpFiO" role="3clF46">
         <property role="TrG5h" value="cloudProject" />
         <node concept="3Tqbb2" id="7pEM25OpSVB" role="1tU5fm">
-          <ref role="ehGHo" to="w7di:3uw$nPCBu_p" resolve="Project" />
+          <ref role="ehGHo" to="jh6v:3uw$nPCBu_p" resolve="Project" />
         </node>
       </node>
       <node concept="3Tm1VV" id="7pEM25OpFiQ" role="1B3o_S" />
@@ -7164,8 +7165,8 @@
                                   <ref role="37wK5l" to="jks5:~PNodeAdapter.getPropertyValue(java.lang.String)" resolve="getPropertyValue" />
                                   <node concept="2OqwBi" id="2DojN6AJqGv" role="37wK5m">
                                     <node concept="355D3s" id="2DojN6AJqav" role="2Oq$k0">
-                                      <ref role="355D3t" to="w7di:qmkA5fOskf" resolve="Module" />
                                       <ref role="355D3u" to="tpck:h0TrG11" resolve="name" />
+                                      <ref role="355D3t" to="jh6v:qmkA5fOskf" resolve="Module" />
                                     </node>
                                     <node concept="liA8E" id="2DojN6AJrt1" role="2OqNvi">
                                       <ref role="37wK5l" to="c17a:~SProperty.getName()" resolve="getName" />
@@ -9456,7 +9457,7 @@
       <property role="TrG5h" value="cloudProject" />
       <node concept="3Tm6S6" id="4OH9Sxdj6Hw" role="1B3o_S" />
       <node concept="3Tqbb2" id="4OH9Sxdj74n" role="1tU5fm">
-        <ref role="ehGHo" to="w7di:3uw$nPCBu_p" resolve="Project" />
+        <ref role="ehGHo" to="jh6v:3uw$nPCBu_p" resolve="Project" />
       </node>
       <node concept="2K2imR" id="4OH9Sxdj77W" role="2K2Cet">
         <node concept="3clFbS" id="4OH9Sxdj77X" role="2VODD2">
@@ -10079,8 +10080,8 @@
                           <ref role="37wK5l" to="jks5:~INode.getPropertyValue(java.lang.String)" resolve="getPropertyValue" />
                           <node concept="2OqwBi" id="5iCdLF2lMil" role="37wK5m">
                             <node concept="355D3s" id="5iCdLF2lKNu" role="2Oq$k0">
-                              <ref role="355D3t" to="w7di:qmkA5fOskf" resolve="Module" />
-                              <ref role="355D3u" to="w7di:3Ezg1fME0bw" resolve="id" />
+                              <ref role="355D3t" to="jh6v:qmkA5fOskf" resolve="Module" />
+                              <ref role="355D3u" to="jh6v:3Ezg1fME0bw" resolve="id" />
                             </node>
                             <node concept="liA8E" id="5iCdLF2lMAS" role="2OqNvi">
                               <ref role="37wK5l" to="c17a:~SProperty.getName()" resolve="getName" />
@@ -10131,8 +10132,8 @@
                           <ref role="37wK5l" to="jks5:~INode.getPropertyValue(java.lang.String)" resolve="getPropertyValue" />
                           <node concept="2OqwBi" id="5iCdLF2lNPX" role="37wK5m">
                             <node concept="355D3s" id="5iCdLF2lNPY" role="2Oq$k0">
-                              <ref role="355D3t" to="w7di:qmkA5fOskc" resolve="Model" />
-                              <ref role="355D3u" to="w7di:2hbxkgeTB8i" resolve="id" />
+                              <ref role="355D3t" to="jh6v:qmkA5fOskc" resolve="Model" />
+                              <ref role="355D3u" to="jh6v:2hbxkgeTB8i" resolve="id" />
                             </node>
                             <node concept="liA8E" id="5iCdLF2lNPZ" role="2OqNvi">
                               <ref role="37wK5l" to="c17a:~SProperty.getName()" resolve="getName" />
@@ -11452,8 +11453,8 @@
                           <ref role="37wK5l" to="jks5:~INode.getPropertyValue(java.lang.String)" resolve="getPropertyValue" />
                           <node concept="2OqwBi" id="mLlB37s926" role="37wK5m">
                             <node concept="355D3s" id="mLlB37s927" role="2Oq$k0">
-                              <ref role="355D3t" to="w7di:3uw$nPCBu_p" resolve="Project" />
                               <ref role="355D3u" to="tpck:h0TrG11" resolve="name" />
+                              <ref role="355D3t" to="jh6v:3uw$nPCBu_p" resolve="Project" />
                             </node>
                             <node concept="liA8E" id="mLlB37s928" role="2OqNvi">
                               <ref role="37wK5l" to="c17a:~SProperty.getName()" resolve="getName" />
