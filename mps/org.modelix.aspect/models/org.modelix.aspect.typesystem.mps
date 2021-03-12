@@ -443,7 +443,7 @@
         <node concept="mw_s8" id="694yVfghL8A" role="1ZfhKB">
           <node concept="2c44tf" id="694yVfghL8y" role="mwGJk">
             <node concept="3Tqbb2" id="694yVfghL8X" role="2c44tc">
-              <ref role="ehGHo" to="dj5d:qmkA5fOskm" resolve="Repository" />
+              <ref role="ehGHo" to="dj5d:qmkA5fOskm" resolve="___SM___Repository" />
             </node>
           </node>
         </node>

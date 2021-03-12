@@ -23,6 +23,7 @@
     <import index="wyt6" ref="6354ebe7-c22a-4a0f-ac54-50b52ab9b065/java:java.lang(JDK/)" />
     <import index="l6bp" ref="r:97875f9c-321e-405e-a344-6d3deab2bdba(de.q60.mps.shadowmodels.runtime.smodel)" />
     <import index="5b0" ref="6ed54515-acc8-4d1e-a16c-9fd6cfe951ea/java:jetbrains.mps.smodel.presentation(MPS.Core/)" />
+    <import index="xxte" ref="r:a79f28f8-6055-40c6-bc5e-47a42a3b97e8(org.modelix.model.mpsadapters.mps)" />
     <import index="pgur" ref="r:0cd5e68f-034a-4a03-8011-e57fcc7cce60(org.modelix.notation.behavior)" implicit="true" />
     <import index="tpce" ref="r:00000000-0000-4000-0000-011c89590292(jetbrains.mps.lang.structure.structure)" implicit="true" />
   </imports>
@@ -6165,7 +6166,7 @@
                     <ref role="37wK5l" to="ykok:~ModelConstraints.getReferenceDescriptor(org.jetbrains.mps.openapi.model.SNode,org.jetbrains.mps.openapi.language.SContainmentLink,int,org.jetbrains.mps.openapi.language.SReferenceLink,org.jetbrains.mps.openapi.language.SAbstractConcept)" resolve="getReferenceDescriptor" />
                     <node concept="2YIFZM" id="3rBy5k$Po_v" role="37wK5m">
                       <ref role="37wK5l" to="l6bp:3KKRs1ArmiX" resolve="getOriginalNode" />
-                      <ref role="1Pybhc" to="l6bp:30TKBrMa5zj" resolve="SM___SNodeAPI" />
+                      <ref role="1Pybhc" to="l6bp:30TKBrMa5zj" resolve="SM_SNodeAPI" />
                       <node concept="2OqwBi" id="5aNLs4JT7q4" role="37wK5m">
                         <node concept="3kvyP4" id="5aNLs4JT7q5" role="2Oq$k0">
                           <ref role="3kvyN1" node="5aNLs4JSTdF" resolve="substituteContext" />
@@ -6569,7 +6570,7 @@
                   </node>
                   <node concept="2YIFZM" id="3rBy5k_kLhP" role="33vP2m">
                     <ref role="37wK5l" to="l6bp:6IHVO0thsSJ" resolve="copyAsSimpleNode" />
-                    <ref role="1Pybhc" to="l6bp:30TKBrMa5zj" resolve="SM___SNodeAPI" />
+                    <ref role="1Pybhc" to="l6bp:30TKBrMa5zj" resolve="SM_SNodeAPI" />
                     <node concept="2pJPEk" id="3rBy5k_kJqv" role="37wK5m">
                       <node concept="2pJPED" id="3rBy5k_kJqw" role="2pJPEn">
                         <ref role="2pJxaS" to="j481:3rBy5k_ksye" resolve="WrapperSubstituteContext" />
@@ -6577,8 +6578,8 @@
                           <ref role="2pIpSl" to="j481:6_s$eGzix90" resolve="parentContext" />
                           <node concept="36biLy" id="6_s$eGzi$NP" role="28nt2d">
                             <node concept="2YIFZM" id="6_s$eGzi_Fm" role="36biLW">
-                              <ref role="37wK5l" to="l6bp:6IHVO0thumm" resolve="copyAsMPSNode" />
-                              <ref role="1Pybhc" to="l6bp:30TKBrMa5zj" resolve="SM___SNodeAPI" />
+                              <ref role="1Pybhc" to="xxte:30TKBrMa5zj" resolve="SNodeAPI" />
+                              <ref role="37wK5l" to="xxte:6IHVO0thumm" resolve="copyAsMPSNode" />
                               <node concept="3kvyP4" id="6_s$eGzi_Vc" role="37wK5m">
                                 <ref role="3kvyN1" node="3rBy5k_kni9" resolve="substituteContext" />
                               </node>
