@@ -5841,6 +5841,11 @@
             <ref role="3bR37D" node="$zd_cMRR11" resolve="org.modelix.model.runtimelang" />
           </node>
         </node>
+        <node concept="1SiIV0" id="61R9vA4AYdM" role="3bR37C">
+          <node concept="3bR9La" id="61R9vA4AYdN" role="1SiIV1">
+            <ref role="3bR37D" node="61R9vA4_2QH" resolve="org.modelix.model.repositoryconcepts" />
+          </node>
+        </node>
       </node>
     </node>
     <node concept="398rNT" id="5yNJPA6sbmP" role="1l3spd">
