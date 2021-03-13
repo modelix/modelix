@@ -27,7 +27,7 @@ ext.mpsDir = new File(artifactsDir, 'mps')
 dependencies {
     ant_lib "org.apache.ant:ant-junit:1.10.1"
     mps "com.jetbrains:mps:$mpsVersion"
-    mpsArtifacts "de.itemis.mps:extensions:modelix-model-api.$mpsMajorVersion+"
+    mpsArtifacts "de.itemis.mps:extensions:$mpsMajorVersion+"
     libs "de.itemis.mps.build.example:javalib:1.0+"
     libs "org.jdom:jdom:2.0.2"
     project (':ui-client')
