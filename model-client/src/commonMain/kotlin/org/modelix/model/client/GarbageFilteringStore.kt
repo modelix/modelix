@@ -17,8 +17,8 @@ package org.modelix.model.client
 
 import org.modelix.model.IKeyListener
 import org.modelix.model.IKeyValueStore
+import org.modelix.model.api.runSynchronized
 import org.modelix.model.persistent.HashUtil
-import org.modelix.model.runSynchronized
 
 class GarbageFilteringStore(private val store: IKeyValueStore) : IKeyValueStore {
     private val pendingEntries: MutableMap<String?, String?> = HashMap()

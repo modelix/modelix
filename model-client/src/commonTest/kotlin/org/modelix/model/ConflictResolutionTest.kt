@@ -1,9 +1,6 @@
 package org.modelix.model
 
-import org.modelix.model.api.ITree
-import org.modelix.model.api.ITreeChangeVisitor
-import org.modelix.model.api.IWriteTransaction
-import org.modelix.model.api.PBranch
+import org.modelix.model.api.*
 import org.modelix.model.lazy.CLTree
 import org.modelix.model.lazy.CLVersion
 import org.modelix.model.operations.IAppliedOperation

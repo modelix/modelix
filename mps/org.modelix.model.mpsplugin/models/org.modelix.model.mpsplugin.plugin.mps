@@ -28,9 +28,7 @@
     <import index="zf81" ref="6354ebe7-c22a-4a0f-ac54-50b52ab9b065/java:java.net(JDK/)" />
     <import index="xkhl" ref="0a2651ab-f212-45c2-a2f0-343e76cbc26b/java:org.modelix.model.lazy(org.modelix.model.client/)" />
     <import index="5440" ref="0a2651ab-f212-45c2-a2f0-343e76cbc26b/java:org.modelix.model.client(org.modelix.model.client/)" />
-    <import index="jks5" ref="0a2651ab-f212-45c2-a2f0-343e76cbc26b/java:org.modelix.model.api(org.modelix.model.client/)" />
     <import index="xxte" ref="r:a79f28f8-6055-40c6-bc5e-47a42a3b97e8(org.modelix.model.mps)" />
-    <import index="v18h" ref="0a2651ab-f212-45c2-a2f0-343e76cbc26b/java:kotlin(org.modelix.model.client/)" />
     <import index="w1kc" ref="6ed54515-acc8-4d1e-a16c-9fd6cfe951ea/java:jetbrains.mps.smodel(MPS.Core/)" />
     <import index="alof" ref="742f6602-5a2f-4313-aa6e-ae1cd4ffdc61/java:jetbrains.mps.ide.project(MPS.Platform/)" />
     <import index="mhbf" ref="8865b7a8-5271-43d3-884c-6fd1d9cfdd34/java:org.jetbrains.mps.openapi.model(MPS.OpenAPI/)" />
@@ -43,13 +41,16 @@
     <import index="82uw" ref="6354ebe7-c22a-4a0f-ac54-50b52ab9b065/java:java.util.function(JDK/)" />
     <import index="5zyv" ref="6354ebe7-c22a-4a0f-ac54-50b52ab9b065/java:java.util.concurrent(JDK/)" />
     <import index="rgfa" ref="6354ebe7-c22a-4a0f-ac54-50b52ab9b065/java:javax.swing.tree(JDK/)" />
-    <import index="ouht" ref="0a2651ab-f212-45c2-a2f0-343e76cbc26b/java:kotlin.jvm.functions(org.modelix.model.client/)" />
     <import index="vndm" ref="6ed54515-acc8-4d1e-a16c-9fd6cfe951ea/java:jetbrains.mps.smodel.language(MPS.Core/)" />
     <import index="kz9k" ref="1ed103c3-3aa6-49b7-9c21-6765ee11f224/java:jetbrains.mps.openapi.navigation(MPS.Editor/)" />
     <import index="4nm9" ref="498d89d2-c2e9-11e2-ad49-6cf049e62fe5/java:com.intellij.openapi.project(MPS.IDEA/)" />
     <import index="i8bi" ref="r:c3548bac-30eb-4a2a-937c-0111d5697309(jetbrains.mps.lang.smodel.generator.smodelAdapter)" />
     <import index="33ny" ref="6354ebe7-c22a-4a0f-ac54-50b52ab9b065/java:java.util(JDK/)" />
     <import index="69r2" ref="498d89d2-c2e9-11e2-ad49-6cf049e62fe5/java:com.intellij.ide.macro(MPS.IDEA/)" />
+    <import index="v18h" ref="cc99dce1-49f3-4392-8dbf-e22ca47bd0af/java:kotlin(org.modelix.model.api/)" />
+    <import index="ouht" ref="cc99dce1-49f3-4392-8dbf-e22ca47bd0af/java:kotlin.jvm.functions(org.modelix.model.api/)" />
+    <import index="jks5" ref="cc99dce1-49f3-4392-8dbf-e22ca47bd0af/java:org.modelix.model.api(org.modelix.model.api/)" />
+    <import index="jh6v" ref="r:f2f39a18-fd23-4090-b7f2-ba8da340eec2(org.modelix.model.repositoryconcepts.structure)" />
     <import index="guwi" ref="6354ebe7-c22a-4a0f-ac54-50b52ab9b065/java:java.io(JDK/)" implicit="true" />
     <import index="71xd" ref="742f6602-5a2f-4313-aa6e-ae1cd4ffdc61/java:jetbrains.mps.ide.tools(MPS.Platform/)" implicit="true" />
     <import index="hvt5" ref="0a2651ab-f212-45c2-a2f0-343e76cbc26b/java:org.modelix.model(org.modelix.model.client/)" implicit="true" />
@@ -2365,8 +2366,8 @@
                     </node>
                     <node concept="17R0WA" id="4eX7sil6dWW" role="3clFbw">
                       <node concept="359W_D" id="4eX7sil6f3b" role="3uHU7w">
-                        <ref role="359W_E" to="w7di:qmkA5fOskc" resolve="Model" />
-                        <ref role="359W_F" to="w7di:qmkA5fOskk" resolve="rootNodes" />
+                        <ref role="359W_E" to="jh6v:qmkA5fOskc" resolve="Model" />
+                        <ref role="359W_F" to="jh6v:qmkA5fOskk" resolve="rootNodes" />
                       </node>
                       <node concept="2GrUjf" id="4eX7sil6dnS" role="3uHU7B">
                         <ref role="2Gs0qQ" node="4mhRRpyEXPv" resolve="role" />
@@ -3185,8 +3186,8 @@
                       </node>
                       <node concept="3cpWs6" id="1yReInPsiI" role="3cqZAp">
                         <node concept="10M0yZ" id="1yReInPsiJ" role="3cqZAk">
-                          <ref role="3cqZAo" to="v18h:~Unit.INSTANCE" resolve="INSTANCE" />
                           <ref role="1PxDUh" to="v18h:~Unit" resolve="Unit" />
+                          <ref role="3cqZAo" to="v18h:~Unit.INSTANCE" resolve="INSTANCE" />
                         </node>
                       </node>
                     </node>
@@ -3337,8 +3338,8 @@
                   </node>
                   <node concept="3cpWs6" id="1yReInPrwb" role="3cqZAp">
                     <node concept="10M0yZ" id="1yReInPs3N" role="3cqZAk">
-                      <ref role="3cqZAo" to="v18h:~Unit.INSTANCE" resolve="INSTANCE" />
                       <ref role="1PxDUh" to="v18h:~Unit" resolve="Unit" />
+                      <ref role="3cqZAo" to="v18h:~Unit.INSTANCE" resolve="INSTANCE" />
                     </node>
                   </node>
                 </node>
@@ -4144,8 +4145,8 @@
                                             <ref role="1Pybhc" to="xxte:4EhVFrZ3AjR" resolve="NodeToSNodeAdapter" />
                                             <node concept="2OqwBi" id="1yReInP$mT" role="37wK5m">
                                               <node concept="10M0yZ" id="1yReInP$mU" role="2Oq$k0">
-                                                <ref role="3cqZAo" to="jks5:~PNodeAdapter.Companion" resolve="Companion" />
                                                 <ref role="1PxDUh" to="jks5:~PNodeAdapter" resolve="PNodeAdapter" />
+                                                <ref role="3cqZAo" to="jks5:~PNodeAdapter.Companion" resolve="Companion" />
                                               </node>
                                               <node concept="liA8E" id="1yReInP$mV" role="2OqNvi">
                                                 <ref role="37wK5l" to="jks5:~PNodeAdapter$Companion.wrap(long,org.modelix.model.api.IBranch)" resolve="wrap" />
@@ -4186,7 +4187,7 @@
                               <property role="TrG5h" value="modules" />
                               <node concept="A3Dl8" id="7PIbTorpwvf" role="1tU5fm">
                                 <node concept="3Tqbb2" id="7PIbTorpwvg" role="A3Ik2">
-                                  <ref role="ehGHo" to="w7di:qmkA5fOskf" resolve="Module" />
+                                  <ref role="ehGHo" to="jh6v:qmkA5fOskf" resolve="Module" />
                                 </node>
                               </node>
                               <node concept="2OqwBi" id="7PIbTorpwvh" role="33vP2m">
@@ -4195,7 +4196,7 @@
                                 </node>
                                 <node concept="v3k3i" id="7PIbTorpwvF" role="2OqNvi">
                                   <node concept="chp4Y" id="3uw$nPCCQRh" role="v3oSu">
-                                    <ref role="cht4Q" to="w7di:qmkA5fOskf" resolve="Module" />
+                                    <ref role="cht4Q" to="jh6v:qmkA5fOskf" resolve="Module" />
                                   </node>
                                 </node>
                               </node>
@@ -5778,8 +5779,8 @@
                   </node>
                   <node concept="3cpWs6" id="4mhRRpyGNXe" role="3cqZAp">
                     <node concept="10M0yZ" id="4mhRRpyGNXf" role="3cqZAk">
-                      <ref role="3cqZAo" to="v18h:~Unit.INSTANCE" resolve="INSTANCE" />
                       <ref role="1PxDUh" to="v18h:~Unit" resolve="Unit" />
+                      <ref role="3cqZAo" to="v18h:~Unit.INSTANCE" resolve="INSTANCE" />
                     </node>
                   </node>
                 </node>
@@ -6964,7 +6965,7 @@
       <node concept="37vLTG" id="7pEM25OpFiO" role="3clF46">
         <property role="TrG5h" value="cloudProject" />
         <node concept="3Tqbb2" id="7pEM25OpSVB" role="1tU5fm">
-          <ref role="ehGHo" to="w7di:3uw$nPCBu_p" resolve="Project" />
+          <ref role="ehGHo" to="jh6v:3uw$nPCBu_p" resolve="Project" />
         </node>
       </node>
       <node concept="3Tm1VV" id="7pEM25OpFiQ" role="1B3o_S" />
@@ -7057,8 +7058,8 @@
                           </node>
                           <node concept="3cpWs6" id="1xehy3Srqs3" role="3cqZAp">
                             <node concept="10M0yZ" id="1xehy3Srqs4" role="3cqZAk">
-                              <ref role="3cqZAo" to="v18h:~Unit.INSTANCE" resolve="INSTANCE" />
                               <ref role="1PxDUh" to="v18h:~Unit" resolve="Unit" />
+                              <ref role="3cqZAo" to="v18h:~Unit.INSTANCE" resolve="INSTANCE" />
                             </node>
                           </node>
                         </node>
@@ -7164,8 +7165,8 @@
                                   <ref role="37wK5l" to="jks5:~PNodeAdapter.getPropertyValue(java.lang.String)" resolve="getPropertyValue" />
                                   <node concept="2OqwBi" id="2DojN6AJqGv" role="37wK5m">
                                     <node concept="355D3s" id="2DojN6AJqav" role="2Oq$k0">
-                                      <ref role="355D3t" to="w7di:qmkA5fOskf" resolve="Module" />
                                       <ref role="355D3u" to="tpck:h0TrG11" resolve="name" />
+                                      <ref role="355D3t" to="jh6v:qmkA5fOskf" resolve="Module" />
                                     </node>
                                     <node concept="liA8E" id="2DojN6AJrt1" role="2OqNvi">
                                       <ref role="37wK5l" to="c17a:~SProperty.getName()" resolve="getName" />
@@ -7240,8 +7241,8 @@
                           </node>
                           <node concept="3cpWs6" id="5isGFNR_0Cg" role="3cqZAp">
                             <node concept="10M0yZ" id="5isGFNR_0Ch" role="3cqZAk">
-                              <ref role="3cqZAo" to="v18h:~Unit.INSTANCE" resolve="INSTANCE" />
                               <ref role="1PxDUh" to="v18h:~Unit" resolve="Unit" />
+                              <ref role="3cqZAo" to="v18h:~Unit.INSTANCE" resolve="INSTANCE" />
                             </node>
                           </node>
                         </node>
@@ -9456,7 +9457,7 @@
       <property role="TrG5h" value="cloudProject" />
       <node concept="3Tm6S6" id="4OH9Sxdj6Hw" role="1B3o_S" />
       <node concept="3Tqbb2" id="4OH9Sxdj74n" role="1tU5fm">
-        <ref role="ehGHo" to="w7di:3uw$nPCBu_p" resolve="Project" />
+        <ref role="ehGHo" to="jh6v:3uw$nPCBu_p" resolve="Project" />
       </node>
       <node concept="2K2imR" id="4OH9Sxdj77W" role="2K2Cet">
         <node concept="3clFbS" id="4OH9Sxdj77X" role="2VODD2">
@@ -9957,7 +9958,7 @@
                                     </node>
                                   </node>
                                   <node concept="AQDAd" id="Nm_qC26xEb" role="2OqNvi">
-                                    <ref role="37wK5l" to="xxte:6dTx9S5u7xa" resolve="mappedMpsNodeID" />
+                                    <ref role="37wK5l" to="csg2:6dTx9S5u7xa" resolve="mappedMpsNodeID" />
                                   </node>
                                 </node>
                               </node>
@@ -10079,8 +10080,8 @@
                           <ref role="37wK5l" to="jks5:~INode.getPropertyValue(java.lang.String)" resolve="getPropertyValue" />
                           <node concept="2OqwBi" id="5iCdLF2lMil" role="37wK5m">
                             <node concept="355D3s" id="5iCdLF2lKNu" role="2Oq$k0">
-                              <ref role="355D3t" to="w7di:qmkA5fOskf" resolve="Module" />
-                              <ref role="355D3u" to="w7di:3Ezg1fME0bw" resolve="id" />
+                              <ref role="355D3t" to="jh6v:qmkA5fOskf" resolve="Module" />
+                              <ref role="355D3u" to="jh6v:3Ezg1fME0bw" resolve="id" />
                             </node>
                             <node concept="liA8E" id="5iCdLF2lMAS" role="2OqNvi">
                               <ref role="37wK5l" to="c17a:~SProperty.getName()" resolve="getName" />
@@ -10131,8 +10132,8 @@
                           <ref role="37wK5l" to="jks5:~INode.getPropertyValue(java.lang.String)" resolve="getPropertyValue" />
                           <node concept="2OqwBi" id="5iCdLF2lNPX" role="37wK5m">
                             <node concept="355D3s" id="5iCdLF2lNPY" role="2Oq$k0">
-                              <ref role="355D3t" to="w7di:qmkA5fOskc" resolve="Model" />
-                              <ref role="355D3u" to="w7di:2hbxkgeTB8i" resolve="id" />
+                              <ref role="355D3t" to="jh6v:qmkA5fOskc" resolve="Model" />
+                              <ref role="355D3u" to="jh6v:2hbxkgeTB8i" resolve="id" />
                             </node>
                             <node concept="liA8E" id="5iCdLF2lNPZ" role="2OqNvi">
                               <ref role="37wK5l" to="c17a:~SProperty.getName()" resolve="getName" />
@@ -10493,7 +10494,7 @@
                         </node>
                       </node>
                       <node concept="AQDAd" id="Nm_qC26wqv" role="2OqNvi">
-                        <ref role="37wK5l" to="xxte:5iCdLF2lvlw" resolve="isMappedToMpsNode" />
+                        <ref role="37wK5l" to="csg2:5iCdLF2lvlw" resolve="isMappedToMpsNode" />
                       </node>
                     </node>
                   </node>
@@ -11230,8 +11231,8 @@
                   </node>
                   <node concept="3cpWs6" id="7fzD_A4sSuL" role="3cqZAp">
                     <node concept="10M0yZ" id="7fzD_A4sSuM" role="3cqZAk">
-                      <ref role="3cqZAo" to="v18h:~Unit.INSTANCE" resolve="INSTANCE" />
                       <ref role="1PxDUh" to="v18h:~Unit" resolve="Unit" />
+                      <ref role="3cqZAo" to="v18h:~Unit.INSTANCE" resolve="INSTANCE" />
                     </node>
                   </node>
                 </node>
@@ -11452,8 +11453,8 @@
                           <ref role="37wK5l" to="jks5:~INode.getPropertyValue(java.lang.String)" resolve="getPropertyValue" />
                           <node concept="2OqwBi" id="mLlB37s926" role="37wK5m">
                             <node concept="355D3s" id="mLlB37s927" role="2Oq$k0">
-                              <ref role="355D3t" to="w7di:3uw$nPCBu_p" resolve="Project" />
                               <ref role="355D3u" to="tpck:h0TrG11" resolve="name" />
+                              <ref role="355D3t" to="jh6v:3uw$nPCBu_p" resolve="Project" />
                             </node>
                             <node concept="liA8E" id="mLlB37s928" role="2OqNvi">
                               <ref role="37wK5l" to="c17a:~SProperty.getName()" resolve="getName" />

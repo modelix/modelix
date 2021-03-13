@@ -18,14 +18,12 @@ package org.modelix.model.operations
 import org.modelix.model.api.IBranch
 import org.modelix.model.api.IConcept
 import org.modelix.model.api.IIdGenerator
-import org.modelix.model.api.INode
 import org.modelix.model.api.INodeReference
 import org.modelix.model.api.ITree
 import org.modelix.model.api.IWriteTransaction
-import org.modelix.model.api.PNodeAdapter
+import org.modelix.model.api.logTrace
 import org.modelix.model.lazy.DuplicateNodeId
 import org.modelix.model.lazy.IDeserializingKeyValueStore
-import org.modelix.model.logTrace
 
 class OTWriteTransaction(
     private val transaction: IWriteTransaction,
@@ -132,8 +130,4 @@ class OTWriteTransaction(
         set(tree) {
             throw UnsupportedOperationException()
         }
-
-    protected fun wrap(node: INode): INode {
-        return if (node is PNodeAdapter) PNodeAdapter(node.nodeId, otBranch) else node
-    }
 }

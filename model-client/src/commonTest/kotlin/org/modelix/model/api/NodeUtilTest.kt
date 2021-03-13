@@ -1,5 +1,6 @@
 package org.modelix.model.api
 
+import org.modelix.model.area.IArea
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
@@ -41,6 +42,10 @@ class SimpleConcept : IConcept {
 }
 
 class SimpleNode(override val concept: IConcept? = null) : INode {
+    override fun getArea(): IArea {
+        TODO("Not yet implemented")
+    }
+
     override val isValid: Boolean
         get() = TODO("Not yet implemented")
     override val reference: INodeReference

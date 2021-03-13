@@ -42,8 +42,8 @@ class VersionMerger(private val storeCache: IDeserializingKeyValueStore, private
     }
 
     fun checkTreeIds(v1: CLVersion, v2: CLVersion) {
-        val id1 = v1.tree.id
-        val id2 = v2.tree.id
+        val id1 = v1.tree.getId()
+        val id2 = v2.tree.getId()
         if (id1 != id2) {
             throw RuntimeException("Tree ID mismatch: $id1 and $id2")
         }

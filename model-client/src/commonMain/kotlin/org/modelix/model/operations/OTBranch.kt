@@ -16,8 +16,8 @@
 package org.modelix.model.operations
 
 import org.modelix.model.api.*
+import org.modelix.model.api.runSynchronized
 import org.modelix.model.lazy.IDeserializingKeyValueStore
-import org.modelix.model.runSynchronized
 
 class OTBranch(
     private val branch: IBranch,
@@ -28,6 +28,10 @@ class OTBranch(
     private val operationsLock = Any()
     fun operationApplied(op: IAppliedOperation) {
         runSynchronized(operationsLock) { operations.add(op) }
+    }
+
+    override fun getId(): String? {
+        return branch.getId()
     }
 
     val newOperations: List<IAppliedOperation>

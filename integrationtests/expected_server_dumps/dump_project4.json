@@ -2,18 +2,18 @@
   "$children": [
     {
       "$role": "projects",
-      "$concept": "org.modelix.model.runtimelang.Project",
+      "$concept": "org.modelix.model.repositoryconcepts.Project",
       "name": "SimpleProjectF",
     "$children": [
     {
       "$role": "modules",
-      "$concept": "org.modelix.model.runtimelang.Module",
+      "$concept": "org.modelix.model.repositoryconcepts.Module",
       "id": "0c2e757d-53c3-4694-b3b1-a6db9dd85152",
       "name": "MyNewModule",
       "$children": [
         {
           "$role": "models",
-          "$concept": "org.modelix.model.runtimelang.Model",
+          "$concept": "org.modelix.model.repositoryconcepts.Model",
           "id": "r:0c2e757d-5555-4444-3333-a6db9dd85152",
           "name": "my.wonderful.brandnew.model"
         }
@@ -21,13 +21,13 @@
     },
         {
       "$role": "modules",
-      "$concept": "org.modelix.model.runtimelang.Module",
+      "$concept": "org.modelix.model.repositoryconcepts.Module",
       "id": "0c2e757d-7777-7777-7777-a6db9dd85152",
       "name": "cloudFirstModule",
       "$children": [
         {
           "$role": "models",
-          "$concept": "org.modelix.model.runtimelang.Model",
+          "$concept": "org.modelix.model.repositoryconcepts.Model",
           "id": "r:0c2e757d-9999-9999-9999-a6db9dd85152",
           "name": "a.b.myCloudFirstModel"
         }

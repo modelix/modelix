@@ -80,7 +80,13 @@ ext.defaultAntScriptArgs = [
 ]
 ext.buildScriptClasspath = project.configurations.ant_lib.fileCollection({ true })
 
-task generateMpsBuildScript(type: BuildLanguages, dependsOn: [resolveMps, resolveMpsArtifacts, ":model-client:copyModelClientToMps", ":ui-client:packageNpmApp"]) {
+task generateMpsBuildScript(type: BuildLanguages, dependsOn: [
+        resolveMps,
+        resolveMpsArtifacts,
+        ':ui-client:packageNpmApp',
+        ':model-client:assemble',
+        ':model-client:copyModelClientToMps'
+]) {
     scriptArgs = defaultAntScriptArgs
     scriptClasspath = buildScriptClasspath
     script new File("$rootDir/build-scripts.xml")
@@ -91,10 +97,7 @@ task buildMpsModules(
         dependsOn: [
                 generateMpsBuildScript,
                 resolveMps,
-                resolveMpsArtifacts,
-                ':ui-client:packageNpmApp',
-                ':model-client:assemble',
-                ':model-client:copyModelClientToMps'
+                resolveMpsArtifacts
         ]) {
     scriptArgs = defaultAntScriptArgs
     description = "Build all MPS language"
