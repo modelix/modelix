@@ -114,6 +114,7 @@
     <dependency reexport="false">7866978e-a0f0-4cc7-81bc-4d213d9375e1(jetbrains.mps.lang.smodel)</dependency>
     <dependency reexport="false">6f6906a4-f244-4806-a98b-0bc781cef2a8(org.modelix.ui.sm.dom)</dependency>
     <dependency reexport="false">0bf7bc3b-b11d-42e4-b160-93d72af96397(de.q60.mps.shadowmodels.runtimelang)</dependency>
+    <dependency reexport="false">0a7577d1-d4e5-431d-98b1-fae38f9aee80(org.modelix.model.repositoryconcepts)</dependency>
   </dependencies>
   <languageVersions>
     <language slang="l:52733268-be24-4f5f-ab84-a73b7c0c03b0:de.slisson.mps.richtext.customcell" version="0" />
@@ -182,6 +183,7 @@
     <module reference="9ded098b-ad6a-4657-bfd9-48636cfe8bc3(jetbrains.mps.lang.traceable)" version="0" />
     <module reference="375af171-bd4b-4bfb-bc9f-418fb996740b(org.modelix.aspect)" version="0" />
     <module reference="c740997f-28c0-47e8-9b5a-e87dfdb17a21(org.modelix.jersey)" version="0" />
+    <module reference="0a7577d1-d4e5-431d-98b1-fae38f9aee80(org.modelix.model.repositoryconcepts)" version="0" />
     <module reference="6f6906a4-f244-4806-a98b-0bc781cef2a8(org.modelix.ui.sm.dom)" version="0" />
   </dependencyVersions>
   <runtime>
