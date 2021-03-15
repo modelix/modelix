@@ -79,7 +79,6 @@
         <module reference="c72da2b9-7cce-4447-8389-f407dc1158b7(jetbrains.mps.lang.structure)" version="0" />
         <module reference="9ded098b-ad6a-4657-bfd9-48636cfe8bc3(jetbrains.mps.lang.traceable)" version="0" />
         <module reference="cc99dce1-49f3-4392-8dbf-e22ca47bd0af(org.modelix.model.api)" version="0" />
-        <module reference="0a2651ab-f212-45c2-a2f0-343e76cbc26b(org.modelix.model.client)" version="0" />
         <module reference="5622e615-959d-4843-9df6-ef04ee578c18(org.modelix.model.mpsadapters)" version="0" />
         <module reference="25fcb6ab-d05a-4950-8cdf-251526bdf513(org.modelix.notation)" version="0" />
         <module reference="e05c7284-56e4-4441-895d-d653ff88f7da(org.modelix.notation#01)" version="0" />

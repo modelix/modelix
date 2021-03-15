@@ -56,6 +56,7 @@
         <module reference="e52a4835-844d-46a1-99f8-c06129db796f(de.q60.mps.shadowmodels.runtime)" version="0" />
         <module reference="ceab5195-25ea-4f22-9b92-103b95ca8c0c(jetbrains.mps.lang.core)" version="0" />
         <module reference="9e98f4e2-decf-4e97-bf80-9109e8b759aa(jetbrains.mps.lang.feedback.context)" version="0" />
+        <module reference="cc99dce1-49f3-4392-8dbf-e22ca47bd0af(org.modelix.model.api)" version="0" />
         <module reference="78874af2-5dd2-42a7-a21d-42fab3737d1d(org.modelix.ui.sm)" version="1" />
         <module reference="10ecc1c8-9e76-4395-886d-b8a9d626629f(org.modelix.ui.sm#01)" version="0" />
       </dependencyVersions>

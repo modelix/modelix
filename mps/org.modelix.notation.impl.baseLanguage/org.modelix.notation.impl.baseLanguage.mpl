@@ -127,6 +127,7 @@
     <module reference="a35af0cf-8051-4b27-9686-59193edda5fc(org.modelix.aspect.genplan)" version="0" />
     <module reference="fc3c2aa8-0d4b-463f-a774-40d450aa04a0(org.modelix.jetty)" version="0" />
     <module reference="87f4b21e-a3a5-459e-a54b-408fd9eb7350(org.modelix.lib)" version="0" />
+    <module reference="cc99dce1-49f3-4392-8dbf-e22ca47bd0af(org.modelix.model.api)" version="0" />
     <module reference="2db6cf34-1ef5-4ea9-ab56-6511aab61960(org.modelix.notation.impl.baseLanguage)" version="0" />
     <module reference="da981293-1ec2-4df0-95e4-df162984154c(org.modelix.ui.common)" version="0" />
     <module reference="78874af2-5dd2-42a7-a21d-42fab3737d1d(org.modelix.ui.sm)" version="1" />
