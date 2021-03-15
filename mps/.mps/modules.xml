@@ -20,6 +20,7 @@
       <modulePath path="$PROJECT_DIR$/org.modelix.model.runtimelang/org.modelix.model.runtimelang.mpl" folder="model" />
       <modulePath path="$PROJECT_DIR$/org.modelix.notation.impl.baseLanguage/org.modelix.notation.impl.baseLanguage.mpl" folder="aspect" />
       <modulePath path="$PROJECT_DIR$/org.modelix.notation/org.modelix.notation.mpl" folder="aspect" />
+      <modulePath path="$PROJECT_DIR$/org.modelix.sandbox/org.modelix.sandbox.msd" folder="" />
       <modulePath path="$PROJECT_DIR$/org.modelix.ui.common/org.modelix.ui.common.msd" folder="ui" />
       <modulePath path="$PROJECT_DIR$/org.modelix.ui.diff/org.modelix.ui.diff.msd" folder="ui.diff" />
       <modulePath path="$PROJECT_DIR$/org.modelix.ui.server/org.modelix.ui.server.msd" folder="ui" />
