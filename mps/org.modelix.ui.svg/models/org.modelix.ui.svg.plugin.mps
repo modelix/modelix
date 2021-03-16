@@ -4591,7 +4591,7 @@
                                 </node>
                               </node>
                               <node concept="1adDum" id="5WTF2yfColn" role="3uHU7w">
-                                <property role="1adDun" value="60L" />
+                                <property role="1adDun" value="10L" />
                               </node>
                             </node>
                           </node>

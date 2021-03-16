@@ -40,6 +40,7 @@
     <import index="fnup" ref="r:c0f62029-94d5-495d-b498-eb090ba537fc(org.modelix.ui.state.structure)" />
     <import index="xxte" ref="r:a79f28f8-6055-40c6-bc5e-47a42a3b97e8(org.modelix.model.mpsadapters.mps)" />
     <import index="jh6v" ref="r:f2f39a18-fd23-4090-b7f2-ba8da340eec2(org.modelix.model.repositoryconcepts.structure)" />
+    <import index="csg2" ref="r:b0cc4f86-cf49-4ffc-b138-1f9973329ce1(org.modelix.model.mpsplugin)" />
     <import index="tpcu" ref="r:00000000-0000-4000-0000-011c89590282(jetbrains.mps.lang.core.behavior)" implicit="true" />
     <import index="tpce" ref="r:00000000-0000-4000-0000-011c89590292(jetbrains.mps.lang.structure.structure)" implicit="true" />
     <import index="tp25" ref="r:00000000-0000-4000-0000-011c89590301(jetbrains.mps.lang.smodel.structure)" implicit="true" />
@@ -569,12 +570,6 @@
           <ref role="02i3$" to="jh6v:qmkA5fOskm" resolve="Repository" />
         </node>
       </node>
-      <node concept="02i3K" id="1SyMXWjnokS" role="02i3f">
-        <property role="TrG5h" value="uiState" />
-        <node concept="02i3D" id="1SyMXWjnokT" role="02i2B">
-          <ref role="02i3$" to="fnup:4bjL$lUe34H" resolve="UiStateRoot" />
-        </node>
-      </node>
       <node concept="026TG" id="7q7cTU0VHLf" role="026TK">
         <node concept="027og" id="7q7cTU0VHLg" role="026TJ">
           <ref role="02LMe" to="70w2:7NImM04TdSk" resolve="HTMLDivElement" />
@@ -752,6 +747,12 @@
           </node>
         </node>
       </node>
+      <node concept="02i3K" id="1SyMXWjnokS" role="02i3f">
+        <property role="TrG5h" value="uiState" />
+        <node concept="02i3D" id="1SyMXWjnokT" role="02i2B">
+          <ref role="02i3$" to="fnup:4bjL$lUe34H" resolve="UiStateRoot" />
+        </node>
+      </node>
     </node>
     <node concept="2OrE70" id="7q7cTU0RTbl" role="02uzr" />
     <node concept="02vpq" id="5GP2kxIISer" role="02uzr">
@@ -832,12 +833,6 @@
         <property role="TrG5h" value="node" />
         <node concept="02i3D" id="2Slsp6mNp3s" role="02i2B">
           <ref role="02i3$" to="jh6v:qmkA5fOskf" resolve="Module" />
-        </node>
-      </node>
-      <node concept="02i3K" id="1SyMXWjnp4B" role="02i3f">
-        <property role="TrG5h" value="uiState" />
-        <node concept="02i3D" id="1SyMXWjnp4C" role="02i2B">
-          <ref role="02i3$" to="fnup:4bjL$lUe34H" resolve="UiStateRoot" />
         </node>
       </node>
       <node concept="026TG" id="7q7cTU0VoBy" role="026TK">
@@ -1013,6 +1008,12 @@
           </node>
         </node>
       </node>
+      <node concept="02i3K" id="1SyMXWjnp4B" role="02i3f">
+        <property role="TrG5h" value="uiState" />
+        <node concept="02i3D" id="1SyMXWjnp4C" role="02i2B">
+          <ref role="02i3$" to="fnup:4bjL$lUe34H" resolve="UiStateRoot" />
+        </node>
+      </node>
     </node>
     <node concept="2OrE70" id="62_qJBxKrwm" role="02uzr" />
     <node concept="02vpq" id="7q7cTU0RTWO" role="02uzr">
@@ -1022,12 +1023,6 @@
         <property role="TrG5h" value="node" />
         <node concept="02i3D" id="2Slsp6mNskP" role="02i2B">
           <ref role="02i3$" to="jh6v:qmkA5fOskc" resolve="Model" />
-        </node>
-      </node>
-      <node concept="02i3K" id="1SyMXWjnq6a" role="02i3f">
-        <property role="TrG5h" value="uiState" />
-        <node concept="02i3D" id="1SyMXWjnq6b" role="02i2B">
-          <ref role="02i3$" to="fnup:4bjL$lUe34H" resolve="UiStateRoot" />
         </node>
       </node>
       <node concept="026TG" id="7q7cTU0RUlF" role="026TK">
@@ -1257,6 +1252,12 @@
           </node>
         </node>
       </node>
+      <node concept="02i3K" id="1SyMXWjnq6a" role="02i3f">
+        <property role="TrG5h" value="uiState" />
+        <node concept="02i3D" id="1SyMXWjnq6b" role="02i2B">
+          <ref role="02i3$" to="fnup:4bjL$lUe34H" resolve="UiStateRoot" />
+        </node>
+      </node>
     </node>
     <node concept="2OrE70" id="62_qJBxKxSp" role="02uzr" />
     <node concept="02vpq" id="62_qJBxNi5Y" role="02uzr">
@@ -1357,6 +1358,42 @@
       </node>
     </node>
     <node concept="2OrE70" id="30zQ70bq5On" role="02uzr" />
+    <node concept="02vpq" id="6Q$NiHb8$yD" role="02uzr">
+      <property role="TrG5h" value="activeSessions" />
+      <node concept="026TG" id="6Q$NiHb8$yE" role="026TK">
+        <node concept="027og" id="6Q$NiHb8$yF" role="026TJ">
+          <ref role="02LMe" to="70w2:7NImM04TdSk" resolve="HTMLDivElement" />
+          <node concept="027oh" id="6Q$NiHb8$yG" role="02LM9">
+            <ref role="027oj" to="70w2:AkkmJBR8z6" resolve="class" />
+            <node concept="Xl_RD" id="6Q$NiHb8$yH" role="027of">
+              <property role="Xl_RC" value="livehtml" />
+            </node>
+          </node>
+          <node concept="027oh" id="6Q$NiHb8$yI" role="02LM9">
+            <ref role="027oj" to="70w2:AkkmJBUItt" resolve="id" />
+            <node concept="Xl_RD" id="6Q$NiHb8$yJ" role="027of">
+              <property role="Xl_RC" value="activeSessions" />
+            </node>
+          </node>
+          <node concept="027rt" id="6Q$NiHb8EGu" role="02LM9">
+            <ref role="027rv" to="70w2:7NImM053Sep" resolve="children" />
+            <node concept="027og" id="6Q$NiHb8EXq" role="027rp">
+              <ref role="02LMe" to="70w2:7NImM04RGAT" resolve="HtmlText" />
+              <node concept="027oh" id="6Q$NiHb8EX_" role="02LM9">
+                <ref role="027oj" to="70w2:7NImM04TrPE" resolve="data" />
+                <node concept="Xl_RD" id="6Q$NiHb8EXO" role="027of">
+                  <property role="Xl_RC" value="Not connected to any model server" />
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+      </node>
+      <node concept="02i3K" id="6Q$NiHb8$yT" role="02i3f">
+        <node concept="2K7hOm" id="6Q$NiHb8DOi" role="02i2B" />
+      </node>
+    </node>
+    <node concept="2OrE70" id="6Q$NiHb8D0E" role="02uzr" />
     <node concept="02vpq" id="1qLCmS1Y1Fp" role="02uzr">
       <property role="TrG5h" value="activeSessions" />
       <node concept="026TG" id="1qLCmS1Y2TB" role="026TK">
@@ -1503,6 +1540,21 @@
                                   <node concept="37vLTw" id="6kdHN3ANhml" role="37vLTJ">
                                     <ref role="3cqZAo" node="6kdHN3ANgdX" resolve="parsedActivity" />
                                   </node>
+                                </node>
+                              </node>
+                            </node>
+                          </node>
+                          <node concept="3clFbF" id="2TkRKEII9KE" role="3cqZAp">
+                            <node concept="2OqwBi" id="2TkRKEII9KF" role="3clFbG">
+                              <node concept="10M0yZ" id="2TkRKEII9KG" role="2Oq$k0">
+                                <ref role="1PxDUh" to="2wxy:3SvKIiMamz" resolve="DependencyBroadcaster" />
+                                <ref role="3cqZAo" to="2wxy:3SvKIiMoXH" resolve="INSTANCE" />
+                              </node>
+                              <node concept="liA8E" id="2TkRKEII9KH" role="2OqNvi">
+                                <ref role="37wK5l" to="2wxy:3SvKIiMgNs" resolve="dependencyAccessed" />
+                                <node concept="10M0yZ" id="6Q$NiHbeYsE" role="37wK5m">
+                                  <ref role="1PxDUh" to="csg2:2TkRKEIIrMh" resolve="CloudDataDependency" />
+                                  <ref role="3cqZAo" to="csg2:2TkRKEIIv0E" resolve="INSTANCE" />
                                 </node>
                               </node>
                             </node>

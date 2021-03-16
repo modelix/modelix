@@ -8,6 +8,7 @@
     <use id="83888646-71ce-4f1c-9c53-c54016f6ad4f" name="jetbrains.mps.baseLanguage.collections" version="1" />
     <use id="bc963c22-d419-49b6-8543-ea411eb9d3a1" name="de.q60.mps.polymorphicfunctions" version="0" />
     <use id="774bf8a0-62e5-41e1-af63-f4812e60e48b" name="jetbrains.mps.baseLanguage.checkedDots" version="0" />
+    <use id="63650c59-16c8-498a-99c8-005c7ee9515d" name="jetbrains.mps.lang.access" version="0" />
     <devkit ref="fbc25dd2-5da4-483a-8b19-70928e1b62d7(jetbrains.mps.devkit.general-purpose)" />
   </languages>
   <imports>
@@ -252,6 +253,14 @@
       <concept id="1170345865475" name="jetbrains.mps.baseLanguage.structure.AnonymousClass" flags="ig" index="1Y3b0j">
         <reference id="1170346070688" name="classifier" index="1Y3XeK" />
       </concept>
+    </language>
+    <language id="63650c59-16c8-498a-99c8-005c7ee9515d" name="jetbrains.mps.lang.access">
+      <concept id="8974276187400348173" name="jetbrains.mps.lang.access.structure.CommandClosureLiteral" flags="nn" index="1QHqEC" />
+      <concept id="8974276187400348170" name="jetbrains.mps.lang.access.structure.BaseExecuteCommandStatement" flags="nn" index="1QHqEJ">
+        <child id="1423104411234567454" name="repo" index="ukAjM" />
+        <child id="8974276187400348171" name="commandClosureLiteral" index="1QHqEI" />
+      </concept>
+      <concept id="8974276187400348181" name="jetbrains.mps.lang.access.structure.ExecuteLightweightCommandStatement" flags="nn" index="1QHqEK" />
     </language>
     <language id="774bf8a0-62e5-41e1-af63-f4812e60e48b" name="jetbrains.mps.baseLanguage.checkedDots">
       <concept id="4079382982702596667" name="jetbrains.mps.baseLanguage.checkedDots.structure.CheckedDotExpression" flags="nn" index="2EnYce" />
@@ -789,28 +798,38 @@
                           </node>
                           <node concept="3clFbJ" id="6kiVUEM2ZEF" role="3cqZAp">
                             <node concept="3clFbS" id="6kiVUEM2ZEH" role="3clFbx">
-                              <node concept="1oD7nn" id="1z8Uup0rPdp" role="3cqZAp">
-                                <node concept="2ShNRf" id="1z8Uup0rQXV" role="1oDhcz">
-                                  <node concept="1pGfFk" id="1z8Uup0rTth" role="2ShVmc">
-                                    <ref role="37wK5l" to="od2j:41QOk3IHOCK" resolve="DefaultPFContext" />
-                                    <node concept="37vLTw" id="1z8Uup0siJ6" role="37wK5m">
-                                      <ref role="3cqZAo" node="1z8Uup0sfFB" resolve="pfImplementationsProvider" />
-                                    </node>
-                                  </node>
-                                </node>
-                                <node concept="3clFbS" id="1z8Uup0rPdt" role="1oD7nj">
-                                  <node concept="3clFbF" id="1z8Uup0sVQp" role="3cqZAp">
-                                    <node concept="2OqwBi" id="1z8Uup0sWSB" role="3clFbG">
-                                      <node concept="37vLTw" id="1z8Uup0sVQn" role="2Oq$k0">
-                                        <ref role="3cqZAo" node="1z8Uup0sNG9" resolve="result" />
+                              <node concept="1QHqEK" id="5pmgLfhSEEw" role="3cqZAp">
+                                <node concept="1QHqEC" id="5pmgLfhSEEy" role="1QHqEI">
+                                  <node concept="3clFbS" id="5pmgLfhSEE$" role="1bW5cS">
+                                    <node concept="1oD7nn" id="1z8Uup0rPdp" role="3cqZAp">
+                                      <node concept="2ShNRf" id="1z8Uup0rQXV" role="1oDhcz">
+                                        <node concept="1pGfFk" id="1z8Uup0rTth" role="2ShVmc">
+                                          <ref role="37wK5l" to="od2j:41QOk3IHOCK" resolve="DefaultPFContext" />
+                                          <node concept="37vLTw" id="1z8Uup0siJ6" role="37wK5m">
+                                            <ref role="3cqZAo" node="1z8Uup0sfFB" resolve="pfImplementationsProvider" />
+                                          </node>
+                                        </node>
                                       </node>
-                                      <node concept="X8dFx" id="1z8Uup0sYDH" role="2OqNvi">
-                                        <node concept="2M0cAz" id="1z8Uup0sZ9Y" role="25WWJ7">
-                                          <ref role="2M0c$$" to="gq2t:1z8Uup0q61$" resolve="getHandlers" />
+                                      <node concept="3clFbS" id="1z8Uup0rPdt" role="1oD7nj">
+                                        <node concept="3clFbF" id="1z8Uup0sVQp" role="3cqZAp">
+                                          <node concept="2OqwBi" id="1z8Uup0sWSB" role="3clFbG">
+                                            <node concept="37vLTw" id="1z8Uup0sVQn" role="2Oq$k0">
+                                              <ref role="3cqZAo" node="1z8Uup0sNG9" resolve="result" />
+                                            </node>
+                                            <node concept="X8dFx" id="1z8Uup0sYDH" role="2OqNvi">
+                                              <node concept="2M0cAz" id="1z8Uup0sZ9Y" role="25WWJ7">
+                                                <ref role="2M0c$$" to="gq2t:1z8Uup0q61$" resolve="getHandlers" />
+                                              </node>
+                                            </node>
+                                          </node>
                                         </node>
                                       </node>
                                     </node>
                                   </node>
+                                </node>
+                                <node concept="2YIFZM" id="5pmgLfhSFNF" role="ukAjM">
+                                  <ref role="37wK5l" to="w1kc:~MPSModuleRepository.getInstance()" resolve="getInstance" />
+                                  <ref role="1Pybhc" to="w1kc:~MPSModuleRepository" resolve="MPSModuleRepository" />
                                 </node>
                               </node>
                             </node>
