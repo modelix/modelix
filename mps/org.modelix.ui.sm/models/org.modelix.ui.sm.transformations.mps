@@ -41,6 +41,8 @@
     <import index="xxte" ref="r:a79f28f8-6055-40c6-bc5e-47a42a3b97e8(org.modelix.model.mpsadapters.mps)" />
     <import index="jh6v" ref="r:f2f39a18-fd23-4090-b7f2-ba8da340eec2(org.modelix.model.repositoryconcepts.structure)" />
     <import index="csg2" ref="r:b0cc4f86-cf49-4ffc-b138-1f9973329ce1(org.modelix.model.mpsplugin)" />
+    <import index="28m1" ref="6354ebe7-c22a-4a0f-ac54-50b52ab9b065/java:java.time(JDK/)" />
+    <import index="gu0i" ref="0a2651ab-f212-45c2-a2f0-343e76cbc26b/java:org.apache.commons.lang3.time(org.modelix.model.client/)" />
     <import index="tpcu" ref="r:00000000-0000-4000-0000-011c89590282(jetbrains.mps.lang.core.behavior)" implicit="true" />
     <import index="tpce" ref="r:00000000-0000-4000-0000-011c89590292(jetbrains.mps.lang.structure.structure)" implicit="true" />
     <import index="tp25" ref="r:00000000-0000-4000-0000-011c89590301(jetbrains.mps.lang.smodel.structure)" implicit="true" />
@@ -1544,25 +1546,28 @@
                               </node>
                             </node>
                           </node>
-                          <node concept="3clFbF" id="2TkRKEII9KE" role="3cqZAp">
-                            <node concept="2OqwBi" id="2TkRKEII9KF" role="3clFbG">
-                              <node concept="10M0yZ" id="2TkRKEII9KG" role="2Oq$k0">
-                                <ref role="1PxDUh" to="2wxy:3SvKIiMamz" resolve="DependencyBroadcaster" />
-                                <ref role="3cqZAo" to="2wxy:3SvKIiMoXH" resolve="INSTANCE" />
-                              </node>
-                              <node concept="liA8E" id="2TkRKEII9KH" role="2OqNvi">
-                                <ref role="37wK5l" to="2wxy:3SvKIiMgNs" resolve="dependencyAccessed" />
-                                <node concept="10M0yZ" id="6Q$NiHbeYsE" role="37wK5m">
-                                  <ref role="1PxDUh" to="csg2:2TkRKEIIrMh" resolve="CloudDataDependency" />
-                                  <ref role="3cqZAo" to="csg2:2TkRKEIIv0E" resolve="INSTANCE" />
+                          <node concept="3clFbH" id="6kdHN3ANhJ_" role="3cqZAp" />
+                          <node concept="3clFbJ" id="3W8k_dZJS_s" role="3cqZAp">
+                            <node concept="3clFbS" id="3W8k_dZJS_u" role="3clFbx">
+                              <node concept="3cpWs6" id="3W8k_dZJUB2" role="3cqZAp">
+                                <node concept="Xl_RD" id="3W8k_dZJVa0" role="3cqZAk">
+                                  <property role="Xl_RC" value="Inactive" />
                                 </node>
                               </node>
                             </node>
+                            <node concept="3clFbC" id="3W8k_dZJU$3" role="3clFbw">
+                              <node concept="37vLTw" id="3W8k_dZJSLh" role="3uHU7B">
+                                <ref role="3cqZAo" node="6kdHN3ANgdX" resolve="parsedActivity" />
+                              </node>
+                              <node concept="3cmrfG" id="3W8k_dZJTy3" role="3uHU7w">
+                                <property role="3cmrfH" value="0" />
+                              </node>
+                            </node>
                           </node>
-                          <node concept="3clFbH" id="6kdHN3ANhJ_" role="3cqZAp" />
+                          <node concept="3clFbH" id="3W8k_dZJVlx" role="3cqZAp" />
                           <node concept="3cpWs8" id="4imXQmaRvx0" role="3cqZAp">
                             <node concept="3cpWsn" id="4imXQmaRvx1" role="3cpWs9">
-                              <property role="TrG5h" value="l" />
+                              <property role="TrG5h" value="duration" />
                               <node concept="3cpWsb" id="4imXQmaRt$7" role="1tU5fm" />
                               <node concept="1eOMI4" id="4imXQmaRvx2" role="33vP2m">
                                 <node concept="3cpWsd" id="4imXQmaRvx3" role="1eOMHV">
@@ -1582,32 +1587,35 @@
                               </node>
                             </node>
                           </node>
-                          <node concept="3clFbF" id="4imXQmaNcYT" role="3cqZAp">
-                            <node concept="2OqwBi" id="4imXQmaNcYQ" role="3clFbG">
-                              <node concept="10M0yZ" id="4imXQmaNcYR" role="2Oq$k0">
-                                <ref role="3cqZAo" to="wyt6:~System.out" resolve="out" />
-                                <ref role="1PxDUh" to="wyt6:~System" resolve="System" />
+                          <node concept="3cpWs6" id="iRQVuKeqTM" role="3cqZAp">
+                            <node concept="3cpWs3" id="3W8k_dZELMZ" role="3cqZAk">
+                              <node concept="Xl_RD" id="3W8k_dZELIf" role="3uHU7w">
+                                <property role="Xl_RC" value=")" />
                               </node>
-                              <node concept="liA8E" id="4imXQmaNcYS" role="2OqNvi">
-                                <ref role="37wK5l" to="guwi:~PrintStream.println(java.lang.String)" resolve="println" />
-                                <node concept="3cpWs3" id="4imXQmaRwE5" role="37wK5m">
-                                  <node concept="37vLTw" id="4imXQmaRwGK" role="3uHU7w">
-                                    <ref role="3cqZAo" node="4imXQmaRvx1" resolve="l" />
+                              <node concept="3cpWs3" id="3W8k_dZELGk" role="3uHU7B">
+                                <node concept="3cpWs3" id="3W8k_dZEL5o" role="3uHU7B">
+                                  <node concept="3cpWs3" id="iRQVuKeqYJ" role="3uHU7B">
+                                    <node concept="Xl_RD" id="iRQVuKeqYK" role="3uHU7B">
+                                      <property role="Xl_RC" value="Last Activity: " />
+                                    </node>
+                                    <node concept="2YIFZM" id="3W8k_dZK2jR" role="3uHU7w">
+                                      <ref role="37wK5l" to="28m1:~Duration.ofSeconds(long)" resolve="ofSeconds" />
+                                      <ref role="1Pybhc" to="28m1:~Duration" resolve="Duration" />
+                                      <node concept="37vLTw" id="3W8k_dZK2jS" role="37wK5m">
+                                        <ref role="3cqZAo" node="4imXQmaRvx1" resolve="duration" />
+                                      </node>
+                                    </node>
                                   </node>
-                                  <node concept="Xl_RD" id="4imXQmaNdb3" role="3uHU7B">
-                                    <property role="Xl_RC" value="Cloud model read " />
+                                  <node concept="Xl_RD" id="3W8k_dZELf3" role="3uHU7w">
+                                    <property role="Xl_RC" value=" (" />
                                   </node>
                                 </node>
-                              </node>
-                            </node>
-                          </node>
-                          <node concept="3cpWs6" id="iRQVuKeqTM" role="3cqZAp">
-                            <node concept="3cpWs3" id="iRQVuKeqYJ" role="3cqZAk">
-                              <node concept="Xl_RD" id="iRQVuKeqYK" role="3uHU7B">
-                                <property role="Xl_RC" value="Last Activity: " />
-                              </node>
-                              <node concept="37vLTw" id="4imXQmaRvxb" role="3uHU7w">
-                                <ref role="3cqZAo" node="4imXQmaRvx1" resolve="l" />
+                                <node concept="2OqwBi" id="3W8k_dZEM3F" role="3uHU7w">
+                                  <node concept="214o7A" id="3W8k_dZELPr" role="2Oq$k0" />
+                                  <node concept="3TrcHB" id="3W8k_dZEMjH" role="2OqNvi">
+                                    <ref role="3TsBF5" to="fnup:5Yll$oNPopq" resolve="lastActivity" />
+                                  </node>
+                                </node>
                               </node>
                             </node>
                           </node>
