@@ -861,22 +861,6 @@
             </node>
           </node>
         </node>
-        <node concept="1SiIV0" id="3uw$nPCKGOd" role="3bR37C">
-          <node concept="1BurEX" id="3uw$nPCKGOe" role="1SiIV1">
-            <node concept="398BVA" id="3uw$nPCKGO4" role="1BurEY">
-              <ref role="398BVh" node="3$7Kuaihl5X" resolve="modelix.modules" />
-              <node concept="2Ry0Ak" id="3uw$nPCKGO5" role="iGT6I">
-                <property role="2Ry0Am" value="org.modelix.lib" />
-                <node concept="2Ry0Ak" id="3uw$nPCKGO6" role="2Ry0An">
-                  <property role="2Ry0Am" value="lib" />
-                  <node concept="2Ry0Ak" id="3uw$nPCKGO7" role="2Ry0An">
-                    <property role="2Ry0Am" value="guava-27.1-jre.jar" />
-                  </node>
-                </node>
-              </node>
-            </node>
-          </node>
-        </node>
         <node concept="1SiIV0" id="3uw$nPCKGOo" role="3bR37C">
           <node concept="1BurEX" id="3uw$nPCKGOp" role="1SiIV1">
             <node concept="398BVA" id="3uw$nPCKGOf" role="1BurEY">

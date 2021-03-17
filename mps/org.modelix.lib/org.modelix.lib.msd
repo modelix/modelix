@@ -13,7 +13,6 @@
       <sourceRoot location="minlog-1.3.0.jar" />
       <sourceRoot location="objenesis-2.6.jar" />
       <sourceRoot location="reflectasm-1.11.6.jar" />
-      <sourceRoot location="guava-27.1-jre.jar" />
       <sourceRoot location="trove4j-3.0.3.jar" />
     </modelRoot>
   </models>
@@ -31,7 +30,6 @@
     <stubModelEntry path="${module}/lib/minlog-1.3.0.jar" />
     <stubModelEntry path="${module}/lib/objenesis-2.6.jar" />
     <stubModelEntry path="${module}/lib/reflectasm-1.11.6.jar" />
-    <stubModelEntry path="${module}/lib/guava-27.1-jre.jar" />
     <stubModelEntry path="${module}/lib/trove4j-3.0.3.jar" />
   </stubModelEntries>
   <sourcePath />
