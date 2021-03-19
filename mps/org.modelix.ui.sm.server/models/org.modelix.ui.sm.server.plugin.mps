@@ -6682,16 +6682,27 @@
           <node concept="3clFbS" id="3pn$gDK_ltT" role="1HWHxc">
             <node concept="3clFbJ" id="3pn$gDK_$AZ" role="3cqZAp">
               <node concept="3clFbS" id="3pn$gDK_$B1" role="3clFbx">
-                <node concept="3clFbF" id="53kvr29Tn4F" role="3cqZAp">
-                  <node concept="2OqwBi" id="53kvr29TolP" role="3clFbG">
-                    <node concept="2OqwBi" id="53kvr29TnlZ" role="2Oq$k0">
-                      <node concept="2YIFZM" id="53kvr29TnfS" role="2Oq$k0">
+                <node concept="3cpWs8" id="1URtOatM0Ed" role="3cqZAp">
+                  <node concept="3cpWsn" id="1URtOatM0Ee" role="3cpWs9">
+                    <property role="TrG5h" value="area" />
+                    <node concept="3uibUv" id="1URtOatM0BI" role="1tU5fm">
+                      <ref role="3uigEE" to="qvpu:~IArea" resolve="IArea" />
+                    </node>
+                    <node concept="2OqwBi" id="1URtOatM0Ef" role="33vP2m">
+                      <node concept="2YIFZM" id="1URtOatM0Eg" role="2Oq$k0">
                         <ref role="37wK5l" to="csg2:1LVcV5Kxxmz" resolve="getInstance" />
                         <ref role="1Pybhc" to="csg2:1LVcV5Kxxi$" resolve="CloudRepositories" />
                       </node>
-                      <node concept="liA8E" id="53kvr29Tofd" role="2OqNvi">
+                      <node concept="liA8E" id="1URtOatM0Eh" role="2OqNvi">
                         <ref role="37wK5l" to="csg2:1SyMXWjsQoH" resolve="getArea" />
                       </node>
+                    </node>
+                  </node>
+                </node>
+                <node concept="3clFbF" id="53kvr29Tn4F" role="3cqZAp">
+                  <node concept="2OqwBi" id="53kvr29TolP" role="3clFbG">
+                    <node concept="37vLTw" id="1URtOatM1ld" role="2Oq$k0">
+                      <ref role="3cqZAo" node="1URtOatM0Ee" resolve="area" />
                     </node>
                     <node concept="liA8E" id="53kvr29ToCO" role="2OqNvi">
                       <ref role="37wK5l" to="qvpu:~IArea.executeRead(kotlin.jvm.functions.Function0)" resolve="executeRead" />
@@ -6717,7 +6728,7 @@
                               </node>
                               <node concept="2YIFZM" id="3pn$gDK_lvu" role="33vP2m">
                                 <ref role="1Pybhc" to="qsto:5T6M7ON4Si7" resolve="NodeReferenceSerializer" />
-                                <ref role="37wK5l" to="qsto:5npwda7ZQ7N" resolve="deserialize" />
+                                <ref role="37wK5l" to="qsto:mkz0cKhkML" resolve="deserialize" />
                                 <node concept="2OqwBi" id="3pn$gDK_lvv" role="37wK5m">
                                   <node concept="37vLTw" id="3pn$gDK_lvw" role="2Oq$k0">
                                     <ref role="3cqZAo" node="3pn$gDK_ltF" resolve="message" />
@@ -6729,8 +6740,19 @@
                                     </node>
                                   </node>
                                 </node>
-                                <node concept="37vLTw" id="3pn$gDK_lvz" role="37wK5m">
+                                <node concept="37vLTw" id="1URtOatM0Ei" role="37wK5m">
+                                  <ref role="3cqZAo" node="1URtOatM0Ee" resolve="area" />
+                                </node>
+                                <node concept="37vLTw" id="1URtOatM1Gt" role="37wK5m">
                                   <ref role="3cqZAo" node="3pn$gDK_lvo" resolve="repo" />
+                                </node>
+                                <node concept="2OqwBi" id="1URtOatLXLE" role="37wK5m">
+                                  <node concept="37vLTw" id="1URtOatLXat" role="2Oq$k0">
+                                    <ref role="3cqZAo" node="3pn$gDK_lrM" resolve="liveHtmlSession" />
+                                  </node>
+                                  <node concept="liA8E" id="1URtOatLYYm" role="2OqNvi">
+                                    <ref role="37wK5l" node="3pn$gDKz7N7" resolve="getEngine" />
+                                  </node>
                                 </node>
                               </node>
                             </node>
