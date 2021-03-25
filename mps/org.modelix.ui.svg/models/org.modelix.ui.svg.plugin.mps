@@ -4588,6 +4588,10 @@
                                 </node>
                                 <node concept="2qgKlT" id="5WTF2yfCkG9" role="2OqNvi">
                                   <ref role="37wK5l" to="ioq2:5Yll$oNPrnH" resolve="getAgeInSeconds" />
+                                  <node concept="2YIFZM" id="1URtOatN$Rw" role="37wK5m">
+                                    <ref role="37wK5l" to="wyt6:~System.currentTimeMillis()" resolve="currentTimeMillis" />
+                                    <ref role="1Pybhc" to="wyt6:~System" resolve="System" />
+                                  </node>
                                 </node>
                               </node>
                               <node concept="1adDum" id="5WTF2yfColn" role="3uHU7w">

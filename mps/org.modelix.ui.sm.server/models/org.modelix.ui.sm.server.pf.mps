@@ -248,7 +248,7 @@
             </node>
             <node concept="2OqwBi" id="57jJhouWXC" role="33vP2m">
               <node concept="10M0yZ" id="57jJhouWXD" role="2Oq$k0">
-                <ref role="1PxDUh" to="m3vg:62_qJBxL8mp" resolve="Util" />
+                <ref role="1PxDUh" to="m3vg:62_qJBxL8mp" resolve="PageTransformationsUtil" />
                 <ref role="3cqZAo" to="m3vg:7vWAzuELYkG" resolve="VIEWER_STATES" />
               </node>
               <node concept="liA8E" id="57jJhouWXE" role="2OqNvi">

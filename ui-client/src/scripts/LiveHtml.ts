@@ -19,14 +19,21 @@ export class LiveHtml {
                 this.buildDom(element, wiring);
             }
 
+            if (this.id2dom.get(this.localRootElementId) !== this.rootElement) {
+                console.warn(`Unexpected change of root element '${this.globalRootElementId}'`);
+                for (const w of wiring) {
+                    if (w.parent === this.id2dom.get(this.localRootElementId)) {
+                        w.parent = this.rootElement;
+                        break;
+                    }
+                }
+                this.id2dom.set(this.localRootElementId, this.rootElement);
+            }
+
             for (const w of wiring) {
                 setDomChildren(w.parent, w.children.map(c => typeof c === "string" ? this.id2dom.get(c) : c));
             }
 
-            if (this.id2dom.get(this.localRootElementId) !== this.rootElement) {
-                console.warn(`Unexpected change of root element '${this.globalRootElementId}'`);
-                this.id2dom.set(this.localRootElementId, this.rootElement);
-            }
             if (!this.rootElement.classList.contains("connected")) this.rootElement.classList.add("connected");
 
             this.beforePostprocessors()

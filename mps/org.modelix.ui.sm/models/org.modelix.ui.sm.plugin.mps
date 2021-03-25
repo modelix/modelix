@@ -19,6 +19,7 @@
     <import index="exr9" ref="1ed103c3-3aa6-49b7-9c21-6765ee11f224/java:jetbrains.mps.nodeEditor(MPS.Editor/)" />
     <import index="wyt6" ref="6354ebe7-c22a-4a0f-ac54-50b52ab9b065/java:java.lang(JDK/)" />
     <import index="cj4x" ref="1ed103c3-3aa6-49b7-9c21-6765ee11f224/java:jetbrains.mps.openapi.editor(MPS.Editor/)" />
+    <import index="m3vg" ref="r:9bcdcf0c-f978-4630-9b17-a35339e80a73(org.modelix.ui.sm.transformations)" />
   </imports>
   <registry>
     <language id="a247e09e-2435-45ba-b8d2-07e93feba96a" name="jetbrains.mps.baseLanguage.tuples">
@@ -205,10 +206,23 @@
   <node concept="2uRRBC" id="7BujJjZ4H7C">
     <property role="TrG5h" value="ApplicationPlugin" />
     <node concept="2uRRBj" id="7BujJjZ5ngo" role="2uRRBE">
-      <node concept="3clFbS" id="7BujJjZ5ngp" role="2VODD2" />
+      <node concept="3clFbS" id="7BujJjZ5ngp" role="2VODD2">
+        <node concept="3clFbF" id="1URtOatN9fg" role="3cqZAp">
+          <node concept="2YIFZM" id="1URtOatN9g4" role="3clFbG">
+            <ref role="37wK5l" to="m3vg:1URtOatN75I" resolve="start" />
+            <ref role="1Pybhc" to="m3vg:1URtOatMYAr" resolve="CurrentTime" />
+          </node>
+        </node>
+      </node>
     </node>
     <node concept="2uRRBI" id="7BujJjZ5ngI" role="2uRRBF">
       <node concept="3clFbS" id="7BujJjZ5ngJ" role="2VODD2">
+        <node concept="3clFbF" id="1URtOatN9iB" role="3cqZAp">
+          <node concept="2YIFZM" id="1URtOatN9jZ" role="3clFbG">
+            <ref role="37wK5l" to="m3vg:1URtOatN77I" resolve="stop" />
+            <ref role="1Pybhc" to="m3vg:1URtOatMYAr" resolve="CurrentTime" />
+          </node>
+        </node>
         <node concept="3clFbF" id="7BujJjZ5nnb" role="3cqZAp">
           <node concept="2OqwBi" id="7BujJjZ5ntL" role="3clFbG">
             <node concept="2YIFZM" id="7BujJjZ5nnL" role="2Oq$k0">

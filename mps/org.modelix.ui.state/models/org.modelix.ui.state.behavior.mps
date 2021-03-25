@@ -546,6 +546,10 @@
     </node>
     <node concept="13i0hz" id="5Yll$oNPrnH" role="13h7CS">
       <property role="TrG5h" value="getAgeInSeconds" />
+      <node concept="37vLTG" id="1URtOatNa2c" role="3clF46">
+        <property role="TrG5h" value="currentTimeMillis" />
+        <node concept="3cpWsb" id="1URtOatNcWF" role="1tU5fm" />
+      </node>
       <node concept="3Tm1VV" id="5Yll$oNPrnI" role="1B3o_S" />
       <node concept="3cpWsb" id="5Yll$oNPrs0" role="3clF45" />
       <node concept="3clFbS" id="5Yll$oNPrnK" role="3clF47">
@@ -588,9 +592,8 @@
               <node concept="1adDum" id="5Yll$oNP$14" role="3uHU7w">
                 <property role="1adDun" value="1000L" />
               </node>
-              <node concept="2YIFZM" id="5Yll$oNPuMy" role="3uHU7B">
-                <ref role="37wK5l" to="wyt6:~System.currentTimeMillis()" resolve="currentTimeMillis" />
-                <ref role="1Pybhc" to="wyt6:~System" resolve="System" />
+              <node concept="37vLTw" id="1URtOatNdrY" role="3uHU7B">
+                <ref role="3cqZAo" node="1URtOatNa2c" resolve="currentTimeMillis" />
               </node>
             </node>
           </node>

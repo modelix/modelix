@@ -114,3 +114,16 @@
   box-shadow: 5px 5px 40px 0 rgba(0, 0, 0, 0.5);
   visibility: hidden;
 }
+
+.activeSession {
+  display: inline-block;
+  padding: 6px;
+  border-radius: 30px;
+  margin: 6px 3px;
+  font-weight: bold;
+  font-family: Arial, sans-serif;
+}
+
+.ownSession {
+  border: 1px solid white;
+}
