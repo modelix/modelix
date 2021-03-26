@@ -1837,11 +1837,11 @@
             <ref role="37wK5l" to="ioq2:5Yll$oNPrnH" resolve="getAgeInSeconds" />
             <node concept="17qRlL" id="1URtOau7wyc" role="37wK5m">
               <node concept="1adDum" id="1URtOau7wyd" role="3uHU7w">
-                <property role="1adDun" value="1000L" />
+                <property role="1adDun" value="10000L" />
               </node>
               <node concept="2OqwBi" id="1URtOau7wye" role="3uHU7B">
-                <node concept="10M0yZ" id="1URtOauvLkI" role="2Oq$k0">
-                  <ref role="3cqZAo" node="1URtOatN03f" resolve="SECONDS" />
+                <node concept="10M0yZ" id="6flqYmU36PL" role="2Oq$k0">
+                  <ref role="3cqZAo" node="1URtOatN5BU" resolve="TEN_SECONDS" />
                   <ref role="1PxDUh" node="1URtOatMYAr" resolve="CurrentTime" />
                 </node>
                 <node concept="liA8E" id="1URtOau7wyg" role="2OqNvi">
