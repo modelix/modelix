@@ -3695,6 +3695,15 @@
                 <ref role="1PxDUh" to="xnls:~IdeIcons" resolve="IdeIcons" />
               </node>
             </node>
+            <node concept="3Milgn" id="35IWyu5CNYY" role="3MiYds">
+              <node concept="Xl_RD" id="35IWyu5CQ$g" role="3MiK7k">
+                <property role="Xl_RC" value="CloudModule" />
+              </node>
+              <node concept="10M0yZ" id="35IWyu5CQ_8" role="3MiMdn">
+                <ref role="1PxDUh" to="csg2:6aRQr1WMwO8" resolve="CloudIcons" />
+                <ref role="3cqZAo" to="csg2:4NO8rntTrX3" resolve="MODULE_ICON" />
+              </node>
+            </node>
             <node concept="3Milgn" id="5GP2kxIWsQP" role="3MiYds">
               <node concept="2OqwBi" id="5GP2kxIWvrl" role="3MiK7k">
                 <node concept="3VsKOn" id="5GP2kxIWv1q" role="2Oq$k0">

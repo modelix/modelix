@@ -2021,7 +2021,7 @@
                         <node concept="2PWHRv" id="6IHVO0toXpg" role="027rp">
                           <node concept="2YIFZM" id="3EG7IPoxG7a" role="2PWHRq">
                             <ref role="37wK5l" to="m3vg:3EG7IPoxCOc" resolve="joinAndWrap" />
-                            <ref role="1Pybhc" to="m3vg:62_qJBxL8mp" resolve="Util" />
+                            <ref role="1Pybhc" to="m3vg:62_qJBxL8mp" resolve="PageTransformationsUtil" />
                             <node concept="2OqwBi" id="3EG7IPoxG7b" role="37wK5m">
                               <node concept="3Tsc0h" id="3EG7IPoxG7c" role="2OqNvi">
                                 <ref role="3TtcxE" to="tpee:fzcqZ_x" resolve="statement" />
@@ -2179,10 +2179,10 @@
                         <node concept="2PWHRv" id="5$pyBfNCDXK" role="027rp">
                           <node concept="2YIFZM" id="5$pyBfNCDXL" role="2PWHRq">
                             <ref role="37wK5l" to="m3vg:3EG7IPoxCOc" resolve="joinAndWrap" />
-                            <ref role="1Pybhc" to="m3vg:62_qJBxL8mp" resolve="Util" />
+                            <ref role="1Pybhc" to="m3vg:62_qJBxL8mp" resolve="PageTransformationsUtil" />
                             <node concept="2YIFZM" id="5$pyBfNCM42" role="37wK5m">
                               <ref role="37wK5l" to="m3vg:w8XdrN21yb" resolve="join" />
-                              <ref role="1Pybhc" to="m3vg:62_qJBxL8mp" resolve="Util" />
+                              <ref role="1Pybhc" to="m3vg:62_qJBxL8mp" resolve="PageTransformationsUtil" />
                               <node concept="2OqwBi" id="5$pyBfNCDXM" role="37wK5m">
                                 <node concept="3Tsc0h" id="5$pyBfNCDXN" role="2OqNvi">
                                   <ref role="3TtcxE" to="tpee:fzcqZ_x" resolve="statement" />
@@ -6164,14 +6164,14 @@
                   <node concept="2YIFZM" id="5aNLs4JT7q3" role="33vP2m">
                     <ref role="1Pybhc" to="ykok:~ModelConstraints" resolve="ModelConstraints" />
                     <ref role="37wK5l" to="ykok:~ModelConstraints.getReferenceDescriptor(org.jetbrains.mps.openapi.model.SNode,org.jetbrains.mps.openapi.language.SContainmentLink,int,org.jetbrains.mps.openapi.language.SReferenceLink,org.jetbrains.mps.openapi.language.SAbstractConcept)" resolve="getReferenceDescriptor" />
-                    <node concept="2YIFZM" id="3rBy5k$Po_v" role="37wK5m">
-                      <ref role="37wK5l" to="l6bp:3KKRs1ArmiX" resolve="getOriginalNode" />
+                    <node concept="2YIFZM" id="4z6TrYVDRrm" role="37wK5m">
+                      <ref role="37wK5l" to="l6bp:7uapjVAY0et" resolve="tryGetUnwrappedNode" />
                       <ref role="1Pybhc" to="l6bp:30TKBrMa5zj" resolve="SM_SNodeAPI" />
-                      <node concept="2OqwBi" id="5aNLs4JT7q4" role="37wK5m">
-                        <node concept="3kvyP4" id="5aNLs4JT7q5" role="2Oq$k0">
+                      <node concept="2OqwBi" id="4z6TrYVDRrn" role="37wK5m">
+                        <node concept="3kvyP4" id="4z6TrYVDRro" role="2Oq$k0">
                           <ref role="3kvyN1" node="5aNLs4JSTdF" resolve="substituteContext" />
                         </node>
-                        <node concept="2qgKlT" id="5aNLs4JT7q6" role="2OqNvi">
+                        <node concept="2qgKlT" id="4z6TrYVDRrp" role="2OqNvi">
                           <ref role="37wK5l" to="v1cj:1oBvzyiFE$v" resolve="getFirstExistingNode" />
                         </node>
                       </node>
