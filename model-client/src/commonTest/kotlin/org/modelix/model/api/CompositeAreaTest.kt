@@ -34,7 +34,7 @@ class MyNode(val name: String) : INode {
     override val allChildren: Iterable<INode>
         get() = TODO("Not yet implemented")
 
-    override fun addChild(role: String?, index: Int, node: INode) {
+    override fun moveChild(role: String?, index: Int, node: INode) {
         TODO("Not yet implemented")
     }
 
