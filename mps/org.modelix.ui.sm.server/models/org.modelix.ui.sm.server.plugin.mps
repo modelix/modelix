@@ -171,12 +171,20 @@
       <concept id="1164991038168" name="jetbrains.mps.baseLanguage.structure.ThrowStatement" flags="nn" index="YS8fn">
         <child id="1164991057263" name="throwable" index="YScLw" />
       </concept>
+      <concept id="1081256982272" name="jetbrains.mps.baseLanguage.structure.InstanceOfExpression" flags="nn" index="2ZW3vV">
+        <child id="1081256993305" name="classType" index="2ZW6by" />
+        <child id="1081256993304" name="leftExpression" index="2ZW6bz" />
+      </concept>
       <concept id="1070533707846" name="jetbrains.mps.baseLanguage.structure.StaticFieldReference" flags="nn" index="10M0yZ">
         <reference id="1144433057691" name="classifier" index="1PxDUh" />
       </concept>
       <concept id="1070534058343" name="jetbrains.mps.baseLanguage.structure.NullLiteral" flags="nn" index="10Nm6u" />
       <concept id="1070534370425" name="jetbrains.mps.baseLanguage.structure.IntegerType" flags="in" index="10Oyi0" />
       <concept id="1070534644030" name="jetbrains.mps.baseLanguage.structure.BooleanType" flags="in" index="10P_77" />
+      <concept id="1070534934090" name="jetbrains.mps.baseLanguage.structure.CastExpression" flags="nn" index="10QFUN">
+        <child id="1070534934091" name="type" index="10QFUM" />
+        <child id="1070534934092" name="expression" index="10QFUP" />
+      </concept>
       <concept id="1068390468200" name="jetbrains.mps.baseLanguage.structure.FieldDeclaration" flags="ig" index="312cEg">
         <property id="1240249534625" name="isVolatile" index="34CwA1" />
       </concept>
@@ -255,6 +263,9 @@
       <concept id="1206060495898" name="jetbrains.mps.baseLanguage.structure.ElsifClause" flags="ng" index="3eNFk2">
         <child id="1206060619838" name="condition" index="3eO9$A" />
         <child id="1206060644605" name="statementList" index="3eOfB_" />
+      </concept>
+      <concept id="1079359253375" name="jetbrains.mps.baseLanguage.structure.ParenthesizedExpression" flags="nn" index="1eOMI4">
+        <child id="1079359253376" name="expression" index="1eOMHV" />
       </concept>
       <concept id="1081516740877" name="jetbrains.mps.baseLanguage.structure.NotExpression" flags="nn" index="3fqX7Q">
         <child id="1081516765348" name="expression" index="3fr31v" />
@@ -8163,6 +8174,65 @@
         </node>
       </node>
     </node>
+    <node concept="2tJIrI" id="4z6TrYVZLvh" role="jymVt" />
+    <node concept="3clFb_" id="4z6TrYVZNRA" role="jymVt">
+      <property role="TrG5h" value="unwrap" />
+      <node concept="37vLTG" id="4z6TrYVZUoL" role="3clF46">
+        <property role="TrG5h" value="node" />
+        <node concept="3uibUv" id="4z6TrYVZWaD" role="1tU5fm">
+          <ref role="3uigEE" to="jks5:~INode" resolve="INode" />
+        </node>
+      </node>
+      <node concept="3uibUv" id="4z6TrYVZSeq" role="3clF45">
+        <ref role="3uigEE" to="jks5:~INode" resolve="INode" />
+      </node>
+      <node concept="3Tm1VV" id="4z6TrYVZNRD" role="1B3o_S" />
+      <node concept="3clFbS" id="4z6TrYVZNRE" role="3clF47">
+        <node concept="3clFbF" id="4z6TrYVZXD_" role="3cqZAp">
+          <node concept="3K4zz7" id="4z6TrYW0a_U" role="3clFbG">
+            <node concept="2OqwBi" id="4z6TrYW0dy$" role="3K4E3e">
+              <node concept="1eOMI4" id="4z6TrYW0c2q" role="2Oq$k0">
+                <node concept="10QFUN" id="4z6TrYW0c2n" role="1eOMHV">
+                  <node concept="3uibUv" id="4z6TrYW0cfw" role="10QFUM">
+                    <ref role="3uigEE" node="28I3pJBWGG9" resolve="VirtualRepositoryArea.NodeWrapper" />
+                  </node>
+                  <node concept="37vLTw" id="4z6TrYW0dgn" role="10QFUP">
+                    <ref role="3cqZAo" node="4z6TrYVZUoL" resolve="node" />
+                  </node>
+                </node>
+              </node>
+              <node concept="2OwXpG" id="4z6TrYW0eL5" role="2OqNvi">
+                <ref role="2Oxat5" node="28I3pJBWL4h" resolve="node" />
+              </node>
+            </node>
+            <node concept="37vLTw" id="4z6TrYW0f_1" role="3K4GZi">
+              <ref role="3cqZAo" node="4z6TrYVZUoL" resolve="node" />
+            </node>
+            <node concept="1Wc70l" id="4z6TrYW00nH" role="3K4Cdx">
+              <node concept="2ZW3vV" id="4z6TrYVZYMX" role="3uHU7B">
+                <node concept="3uibUv" id="4z6TrYVZZ4u" role="2ZW6by">
+                  <ref role="3uigEE" node="28I3pJBWGG9" resolve="VirtualRepositoryArea.NodeWrapper" />
+                </node>
+                <node concept="37vLTw" id="4z6TrYVZXD$" role="2ZW6bz">
+                  <ref role="3cqZAo" node="4z6TrYVZUoL" resolve="node" />
+                </node>
+              </node>
+              <node concept="17R0WA" id="4z6TrYW099W" role="3uHU7w">
+                <node concept="Xjq3P" id="4z6TrYW0akx" role="3uHU7w" />
+                <node concept="2OqwBi" id="4z6TrYW04XI" role="3uHU7B">
+                  <node concept="37vLTw" id="4z6TrYW04MX" role="2Oq$k0">
+                    <ref role="3cqZAo" node="4z6TrYVZUoL" resolve="node" />
+                  </node>
+                  <node concept="liA8E" id="4z6TrYW05TR" role="2OqNvi">
+                    <ref role="37wK5l" to="jks5:~INode.getArea()" resolve="getArea" />
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+      </node>
+    </node>
     <node concept="2tJIrI" id="28I3pJBYjbC" role="jymVt" />
     <node concept="3clFb_" id="28I3pJBXNZk" role="jymVt">
       <property role="TrG5h" value="isTransparentParent" />
@@ -8609,7 +8679,7 @@
         </node>
       </node>
       <node concept="3clFb_" id="5mRomlpwp0g" role="jymVt">
-        <property role="TrG5h" value="addChild" />
+        <property role="TrG5h" value="moveChild" />
         <node concept="3Tm1VV" id="5mRomlpwp0h" role="1B3o_S" />
         <node concept="3cqZAl" id="5mRomlpwp0j" role="3clF45" />
         <node concept="37vLTG" id="5mRomlpwp0k" role="3clF46">
@@ -9346,7 +9416,7 @@
         </node>
       </node>
       <node concept="3clFb_" id="28I3pJBWIQz" role="jymVt">
-        <property role="TrG5h" value="addChild" />
+        <property role="TrG5h" value="moveChild" />
         <node concept="3Tm1VV" id="28I3pJBWIQ$" role="1B3o_S" />
         <node concept="3cqZAl" id="28I3pJBWIQA" role="3clF45" />
         <node concept="37vLTG" id="28I3pJBWIQB" role="3clF46">
@@ -9357,7 +9427,7 @@
           </node>
         </node>
         <node concept="37vLTG" id="28I3pJBWIQE" role="3clF46">
-          <property role="TrG5h" value="inex" />
+          <property role="TrG5h" value="index" />
           <node concept="10Oyi0" id="28I3pJBWIQF" role="1tU5fm" />
         </node>
         <node concept="37vLTG" id="28I3pJBWIQG" role="3clF46">
@@ -9370,12 +9440,24 @@
           </node>
         </node>
         <node concept="3clFbS" id="28I3pJBWIQK" role="3clF47">
-          <node concept="YS8fn" id="28I3pJBYMfO" role="3cqZAp">
-            <node concept="2ShNRf" id="28I3pJBYIAc" role="YScLw">
-              <node concept="1pGfFk" id="28I3pJBYKzH" role="2ShVmc">
-                <ref role="37wK5l" to="wyt6:~UnsupportedOperationException.&lt;init&gt;(java.lang.String)" resolve="UnsupportedOperationException" />
-                <node concept="Xl_RD" id="28I3pJBYKZ_" role="37wK5m">
-                  <property role="Xl_RC" value="ready only" />
+          <node concept="3clFbF" id="4z6TrYVZFOm" role="3cqZAp">
+            <node concept="2OqwBi" id="4z6TrYVZFUC" role="3clFbG">
+              <node concept="37vLTw" id="4z6TrYVZFOl" role="2Oq$k0">
+                <ref role="3cqZAo" node="28I3pJBWL4h" resolve="node" />
+              </node>
+              <node concept="liA8E" id="4z6TrYVZHvx" role="2OqNvi">
+                <ref role="37wK5l" to="jks5:~INode.moveChild(java.lang.String,int,org.modelix.model.api.INode)" resolve="moveChild" />
+                <node concept="37vLTw" id="4z6TrYVZINd" role="37wK5m">
+                  <ref role="3cqZAo" node="28I3pJBWIQB" resolve="role" />
+                </node>
+                <node concept="37vLTw" id="4z6TrYVZJPm" role="37wK5m">
+                  <ref role="3cqZAo" node="28I3pJBWIQE" resolve="index" />
+                </node>
+                <node concept="1rXfSq" id="4z6TrYW0g0E" role="37wK5m">
+                  <ref role="37wK5l" node="4z6TrYVZNRA" resolve="unwrap" />
+                  <node concept="37vLTw" id="4z6TrYW0g_Q" role="37wK5m">
+                    <ref role="3cqZAo" node="28I3pJBWIQG" resolve="child" />
+                  </node>
                 </node>
               </node>
             </node>
@@ -9395,16 +9477,14 @@
           <ref role="3uigEE" to="jks5:~INode" resolve="INode" />
         </node>
         <node concept="37vLTG" id="28I3pJBWIQR" role="3clF46">
-          <property role="TrG5h" value="string" />
-          <node concept="3uibUv" id="28I3pJBWIQS" role="1tU5fm">
-            <ref role="3uigEE" to="wyt6:~String" resolve="String" />
-          </node>
+          <property role="TrG5h" value="role" />
+          <node concept="17QB3L" id="4z6TrYW0iKM" role="1tU5fm" />
           <node concept="2AHcQZ" id="28I3pJBWIQT" role="2AJF6D">
             <ref role="2AI5Lk" to="mhfm:~Nullable" resolve="Nullable" />
           </node>
         </node>
         <node concept="37vLTG" id="28I3pJBWIQU" role="3clF46">
-          <property role="TrG5h" value="i" />
+          <property role="TrG5h" value="index" />
           <node concept="10Oyi0" id="28I3pJBWIQV" role="1tU5fm" />
         </node>
         <node concept="37vLTG" id="28I3pJBWIQW" role="3clF46">
@@ -9417,12 +9497,24 @@
           </node>
         </node>
         <node concept="3clFbS" id="28I3pJBWIR0" role="3clF47">
-          <node concept="YS8fn" id="28I3pJBYMr$" role="3cqZAp">
-            <node concept="2ShNRf" id="28I3pJBYMr_" role="YScLw">
-              <node concept="1pGfFk" id="28I3pJBYMrA" role="2ShVmc">
-                <ref role="37wK5l" to="wyt6:~UnsupportedOperationException.&lt;init&gt;(java.lang.String)" resolve="UnsupportedOperationException" />
-                <node concept="Xl_RD" id="28I3pJBYMrB" role="37wK5m">
-                  <property role="Xl_RC" value="ready only" />
+          <node concept="3clFbF" id="4z6TrYW0rJw" role="3cqZAp">
+            <node concept="1rXfSq" id="4z6TrYW0rJv" role="3clFbG">
+              <ref role="37wK5l" node="28I3pJBX2AN" resolve="wrapNode" />
+              <node concept="2OqwBi" id="4z6TrYW0kGL" role="37wK5m">
+                <node concept="37vLTw" id="4z6TrYW0kAs" role="2Oq$k0">
+                  <ref role="3cqZAo" node="28I3pJBWL4h" resolve="node" />
+                </node>
+                <node concept="liA8E" id="4z6TrYW0l_b" role="2OqNvi">
+                  <ref role="37wK5l" to="jks5:~INode.addNewChild(java.lang.String,int,org.modelix.model.api.IConcept)" resolve="addNewChild" />
+                  <node concept="37vLTw" id="4z6TrYW0mTJ" role="37wK5m">
+                    <ref role="3cqZAo" node="28I3pJBWIQR" resolve="role" />
+                  </node>
+                  <node concept="37vLTw" id="4z6TrYW0nVU" role="37wK5m">
+                    <ref role="3cqZAo" node="28I3pJBWIQU" resolve="index" />
+                  </node>
+                  <node concept="37vLTw" id="4z6TrYW0pj9" role="37wK5m">
+                    <ref role="3cqZAo" node="28I3pJBWIQW" resolve="concept" />
+                  </node>
                 </node>
               </node>
             </node>
@@ -9437,7 +9529,7 @@
         <node concept="3Tm1VV" id="28I3pJBWIR5" role="1B3o_S" />
         <node concept="3cqZAl" id="28I3pJBWIR7" role="3clF45" />
         <node concept="37vLTG" id="28I3pJBWIR8" role="3clF46">
-          <property role="TrG5h" value="node" />
+          <property role="TrG5h" value="child" />
           <node concept="3uibUv" id="28I3pJBWIR9" role="1tU5fm">
             <ref role="3uigEE" to="jks5:~INode" resolve="INode" />
           </node>
@@ -9446,12 +9538,18 @@
           </node>
         </node>
         <node concept="3clFbS" id="28I3pJBWIRc" role="3clF47">
-          <node concept="YS8fn" id="28I3pJBYMu8" role="3cqZAp">
-            <node concept="2ShNRf" id="28I3pJBYMu9" role="YScLw">
-              <node concept="1pGfFk" id="28I3pJBYMua" role="2ShVmc">
-                <ref role="37wK5l" to="wyt6:~UnsupportedOperationException.&lt;init&gt;(java.lang.String)" resolve="UnsupportedOperationException" />
-                <node concept="Xl_RD" id="28I3pJBYMub" role="37wK5m">
-                  <property role="Xl_RC" value="ready only" />
+          <node concept="3clFbF" id="4z6TrYW0txZ" role="3cqZAp">
+            <node concept="2OqwBi" id="4z6TrYW0tBy" role="3clFbG">
+              <node concept="37vLTw" id="4z6TrYW0EYC" role="2Oq$k0">
+                <ref role="3cqZAo" node="28I3pJBWL4h" resolve="node" />
+              </node>
+              <node concept="liA8E" id="4z6TrYW0urI" role="2OqNvi">
+                <ref role="37wK5l" to="jks5:~INode.removeChild(org.modelix.model.api.INode)" resolve="removeChild" />
+                <node concept="1rXfSq" id="4z6TrYW0w5s" role="37wK5m">
+                  <ref role="37wK5l" node="4z6TrYVZNRA" resolve="unwrap" />
+                  <node concept="37vLTw" id="4z6TrYW0wFq" role="37wK5m">
+                    <ref role="3cqZAo" node="28I3pJBWIR8" resolve="child" />
+                  </node>
                 </node>
               </node>
             </node>
@@ -9504,14 +9602,14 @@
         <node concept="3Tm1VV" id="28I3pJBWIRs" role="1B3o_S" />
         <node concept="3cqZAl" id="28I3pJBWIRu" role="3clF45" />
         <node concept="37vLTG" id="28I3pJBWIRv" role="3clF46">
-          <property role="TrG5h" value="string" />
+          <property role="TrG5h" value="role" />
           <node concept="17QB3L" id="28I3pJBZ09j" role="1tU5fm" />
           <node concept="2AHcQZ" id="28I3pJBWIRx" role="2AJF6D">
             <ref role="2AI5Lk" to="mhfm:~NotNull" resolve="NotNull" />
           </node>
         </node>
         <node concept="37vLTG" id="28I3pJBWIRy" role="3clF46">
-          <property role="TrG5h" value="node" />
+          <property role="TrG5h" value="target" />
           <node concept="3uibUv" id="28I3pJBWIRz" role="1tU5fm">
             <ref role="3uigEE" to="jks5:~INode" resolve="INode" />
           </node>
@@ -9520,12 +9618,21 @@
           </node>
         </node>
         <node concept="3clFbS" id="28I3pJBWIRA" role="3clF47">
-          <node concept="YS8fn" id="28I3pJBYSRS" role="3cqZAp">
-            <node concept="2ShNRf" id="28I3pJBYSRT" role="YScLw">
-              <node concept="1pGfFk" id="28I3pJBYSRU" role="2ShVmc">
-                <ref role="37wK5l" to="wyt6:~UnsupportedOperationException.&lt;init&gt;(java.lang.String)" resolve="UnsupportedOperationException" />
-                <node concept="Xl_RD" id="28I3pJBYSRV" role="37wK5m">
-                  <property role="Xl_RC" value="ready only" />
+          <node concept="3clFbF" id="4z6TrYW0xRR" role="3cqZAp">
+            <node concept="2OqwBi" id="4z6TrYW0yYR" role="3clFbG">
+              <node concept="37vLTw" id="4z6TrYW0DcT" role="2Oq$k0">
+                <ref role="3cqZAo" node="28I3pJBWL4h" resolve="node" />
+              </node>
+              <node concept="liA8E" id="4z6TrYW0zLZ" role="2OqNvi">
+                <ref role="37wK5l" to="jks5:~INode.setReferenceTarget(java.lang.String,org.modelix.model.api.INode)" resolve="setReferenceTarget" />
+                <node concept="37vLTw" id="4z6TrYW0_75" role="37wK5m">
+                  <ref role="3cqZAo" node="28I3pJBWIRv" resolve="role" />
+                </node>
+                <node concept="1rXfSq" id="4z6TrYW0A8U" role="37wK5m">
+                  <ref role="37wK5l" node="4z6TrYVZNRA" resolve="unwrap" />
+                  <node concept="37vLTw" id="4z6TrYW0AJl" role="37wK5m">
+                    <ref role="3cqZAo" node="28I3pJBWIRy" resolve="target" />
+                  </node>
                 </node>
               </node>
             </node>
@@ -9587,12 +9694,18 @@
           </node>
         </node>
         <node concept="3clFbS" id="28I3pJBWIS0" role="3clF47">
-          <node concept="YS8fn" id="28I3pJBYT1T" role="3cqZAp">
-            <node concept="2ShNRf" id="28I3pJBYT1U" role="YScLw">
-              <node concept="1pGfFk" id="28I3pJBYT1V" role="2ShVmc">
-                <ref role="37wK5l" to="wyt6:~UnsupportedOperationException.&lt;init&gt;(java.lang.String)" resolve="UnsupportedOperationException" />
-                <node concept="Xl_RD" id="28I3pJBYT1W" role="37wK5m">
-                  <property role="Xl_RC" value="ready only" />
+          <node concept="3clFbF" id="4z6TrYW0Gbx" role="3cqZAp">
+            <node concept="2OqwBi" id="4z6TrYW0GhN" role="3clFbG">
+              <node concept="37vLTw" id="4z6TrYW0Gbw" role="2Oq$k0">
+                <ref role="3cqZAo" node="28I3pJBWL4h" resolve="node" />
+              </node>
+              <node concept="liA8E" id="4z6TrYW0H7p" role="2OqNvi">
+                <ref role="37wK5l" to="jks5:~INode.setPropertyValue(java.lang.String,java.lang.String)" resolve="setPropertyValue" />
+                <node concept="37vLTw" id="4z6TrYW0Itc" role="37wK5m">
+                  <ref role="3cqZAo" node="28I3pJBWIRT" resolve="role" />
+                </node>
+                <node concept="37vLTw" id="4z6TrYW0JvK" role="37wK5m">
+                  <ref role="3cqZAo" node="28I3pJBWIRW" resolve="value" />
                 </node>
               </node>
             </node>

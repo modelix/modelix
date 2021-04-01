@@ -7,7 +7,7 @@
     <devkit ref="a2eb3a43-fcc2-4200-80dc-c60110c4862d(jetbrains.mps.devkit.templates)" />
   </languages>
   <imports>
-    <import index="gsqd" ref="r:599c60e4-99d0-4ea8-9225-bd9adc3816a3(de.q60.mps.web.notation.structure)" />
+    <import index="gsqd" ref="r:599c60e4-99d0-4ea8-9225-bd9adc3816a3(org.modelix.notation.structure)" />
     <import index="m3vg" ref="r:9bcdcf0c-f978-4630-9b17-a35339e80a73(org.modelix.ui.sm.transformations)" />
     <import index="oyp0" ref="r:ff4bc8f2-4e53-41b7-a27c-792a5dcc86cb(de.q60.mps.shadowmodels.transformation.structure)" />
     <import index="v1cj" ref="r:2c4bc58b-9da3-4f5f-8ea2-32f043278ab7(org.modelix.ui.sm.behavior)" />
@@ -6164,15 +6164,19 @@
                   <node concept="2YIFZM" id="5aNLs4JT7q3" role="33vP2m">
                     <ref role="1Pybhc" to="ykok:~ModelConstraints" resolve="ModelConstraints" />
                     <ref role="37wK5l" to="ykok:~ModelConstraints.getReferenceDescriptor(org.jetbrains.mps.openapi.model.SNode,org.jetbrains.mps.openapi.language.SContainmentLink,int,org.jetbrains.mps.openapi.language.SReferenceLink,org.jetbrains.mps.openapi.language.SAbstractConcept)" resolve="getReferenceDescriptor" />
-                    <node concept="2YIFZM" id="4z6TrYVDRrm" role="37wK5m">
-                      <ref role="37wK5l" to="l6bp:7uapjVAY0et" resolve="tryGetUnwrappedNode" />
-                      <ref role="1Pybhc" to="l6bp:30TKBrMa5zj" resolve="SM_SNodeAPI" />
-                      <node concept="2OqwBi" id="4z6TrYVDRrn" role="37wK5m">
-                        <node concept="3kvyP4" id="4z6TrYVDRro" role="2Oq$k0">
-                          <ref role="3kvyN1" node="5aNLs4JSTdF" resolve="substituteContext" />
-                        </node>
-                        <node concept="2qgKlT" id="4z6TrYVDRrp" role="2OqNvi">
-                          <ref role="37wK5l" to="v1cj:1oBvzyiFE$v" resolve="getFirstExistingNode" />
+                    <node concept="2YIFZM" id="4z6TrYVQElD" role="37wK5m">
+                      <ref role="37wK5l" to="xxte:75046mlPk8L" resolve="wrap" />
+                      <ref role="1Pybhc" to="xxte:kHIbzAYu9G" resolve="ANode" />
+                      <node concept="2YIFZM" id="4z6TrYVDRrm" role="37wK5m">
+                        <ref role="37wK5l" to="l6bp:7uapjVAY0et" resolve="tryGetUnwrappedNode" />
+                        <ref role="1Pybhc" to="l6bp:30TKBrMa5zj" resolve="SM_SNodeAPI" />
+                        <node concept="2OqwBi" id="4z6TrYVDRrn" role="37wK5m">
+                          <node concept="3kvyP4" id="4z6TrYVDRro" role="2Oq$k0">
+                            <ref role="3kvyN1" node="5aNLs4JSTdF" resolve="substituteContext" />
+                          </node>
+                          <node concept="2qgKlT" id="4z6TrYVDRrp" role="2OqNvi">
+                            <ref role="37wK5l" to="v1cj:1oBvzyiFE$v" resolve="getFirstExistingNode" />
+                          </node>
                         </node>
                       </node>
                     </node>
@@ -6230,6 +6234,37 @@
                         <ref role="3kvyN1" node="5aNLs4JSTdH" resolve="pattern" />
                       </node>
                     </node>
+                  </node>
+                </node>
+              </node>
+              <node concept="3clFbF" id="4z6TrYVQEOL" role="3cqZAp">
+                <node concept="37vLTI" id="4z6TrYVQFGE" role="3clFbG">
+                  <node concept="2OqwBi" id="4z6TrYVQFJ6" role="37vLTx">
+                    <node concept="37vLTw" id="4z6TrYVQFHR" role="2Oq$k0">
+                      <ref role="3cqZAo" node="5aNLs4JTd2S" resolve="targets" />
+                    </node>
+                    <node concept="3$u5V9" id="4z6TrYVQG7L" role="2OqNvi">
+                      <node concept="1bVj0M" id="4z6TrYVQG7N" role="23t8la">
+                        <node concept="3clFbS" id="4z6TrYVQG7O" role="1bW5cS">
+                          <node concept="3clFbF" id="4z6TrYVQGb$" role="3cqZAp">
+                            <node concept="2YIFZM" id="4z6TrYVQGe4" role="3clFbG">
+                              <ref role="37wK5l" to="xxte:3ECE8iPOQCm" resolve="unwrap" />
+                              <ref role="1Pybhc" to="xxte:kHIbzAYu9G" resolve="ANode" />
+                              <node concept="37vLTw" id="4z6TrYVQGgB" role="37wK5m">
+                                <ref role="3cqZAo" node="4z6TrYVQG7P" resolve="it" />
+                              </node>
+                            </node>
+                          </node>
+                        </node>
+                        <node concept="Rh6nW" id="4z6TrYVQG7P" role="1bW2Oz">
+                          <property role="TrG5h" value="it" />
+                          <node concept="2jxLKc" id="4z6TrYVQG7Q" role="1tU5fm" />
+                        </node>
+                      </node>
+                    </node>
+                  </node>
+                  <node concept="37vLTw" id="4z6TrYVQEOJ" role="37vLTJ">
+                    <ref role="3cqZAo" node="5aNLs4JTd2S" resolve="targets" />
                   </node>
                 </node>
               </node>
