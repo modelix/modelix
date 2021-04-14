@@ -2119,6 +2119,13 @@
                                       <ref role="3cqZAo" node="6I9FalZB9Zm" resolve="request" />
                                     </node>
                                   </node>
+                                  <node concept="2YIFZM" id="6rcGC6EIu9V" role="37wK5m">
+                                    <ref role="37wK5l" node="6rcGC6EIpJs" resolve="getUser" />
+                                    <ref role="1Pybhc" node="5Sw$pxbNu8p" resolve="SvgUiServlet" />
+                                    <node concept="37vLTw" id="6rcGC6EIuRG" role="37wK5m">
+                                      <ref role="3cqZAo" node="6I9FalZB9Zm" resolve="request" />
+                                    </node>
+                                  </node>
                                 </node>
                               </node>
                             </node>
@@ -2526,48 +2533,6 @@
                               </node>
                             </node>
                             <node concept="3clFbH" id="2mcPA70vvdm" role="3cqZAp" />
-                            <node concept="3cpWs8" id="eACOy0hOu0" role="3cqZAp">
-                              <node concept="3cpWsn" id="eACOy0hOu1" role="3cpWs9">
-                                <property role="TrG5h" value="user" />
-                                <node concept="17QB3L" id="eACOy0hQ_d" role="1tU5fm" />
-                                <node concept="2OqwBi" id="eACOy0hOu2" role="33vP2m">
-                                  <node concept="37vLTw" id="eACOy0hOu3" role="2Oq$k0">
-                                    <ref role="3cqZAo" node="5Sw$pxbNu8M" resolve="request" />
-                                  </node>
-                                  <node concept="liA8E" id="eACOy0hOu4" role="2OqNvi">
-                                    <ref role="37wK5l" to="67a5:~ServletUpgradeRequest.getHeader(java.lang.String)" resolve="getHeader" />
-                                    <node concept="Xl_RD" id="eACOy0hOu5" role="37wK5m">
-                                      <property role="Xl_RC" value="X-Forwarded-Email" />
-                                    </node>
-                                  </node>
-                                </node>
-                              </node>
-                            </node>
-                            <node concept="3clFbJ" id="eACOy0hRHt" role="3cqZAp">
-                              <node concept="3clFbS" id="eACOy0hRHv" role="3clFbx">
-                                <node concept="3clFbF" id="eACOy0hUmU" role="3cqZAp">
-                                  <node concept="37vLTI" id="eACOy0hV0U" role="3clFbG">
-                                    <node concept="2OqwBi" id="5Yll$oNOQ8h" role="37vLTx">
-                                      <node concept="37vLTw" id="5Yll$oNOPuI" role="2Oq$k0">
-                                        <ref role="3cqZAo" node="5Sw$pxbNu8M" resolve="request" />
-                                      </node>
-                                      <node concept="liA8E" id="5Yll$oNOQxq" role="2OqNvi">
-                                        <ref role="37wK5l" to="67a5:~ServletUpgradeRequest.getRemoteHostName()" resolve="getRemoteHostName" />
-                                      </node>
-                                    </node>
-                                    <node concept="37vLTw" id="eACOy0hUmS" role="37vLTJ">
-                                      <ref role="3cqZAo" node="eACOy0hOu1" resolve="user" />
-                                    </node>
-                                  </node>
-                                </node>
-                              </node>
-                              <node concept="2OqwBi" id="eACOy0hSP_" role="3clFbw">
-                                <node concept="37vLTw" id="eACOy0hSuh" role="2Oq$k0">
-                                  <ref role="3cqZAo" node="eACOy0hOu1" resolve="user" />
-                                </node>
-                                <node concept="17RlXB" id="eACOy0hTiI" role="2OqNvi" />
-                              </node>
-                            </node>
                             <node concept="3cpWs6" id="3RbPf8OJC89" role="3cqZAp">
                               <node concept="2ShNRf" id="3RbPf8OJC8b" role="3cqZAk">
                                 <node concept="1pGfFk" id="3RbPf8OJC8c" role="2ShVmc">
@@ -2578,8 +2543,11 @@
                                     </node>
                                     <node concept="1uHKPH" id="3RbPf8OJC8f" role="2OqNvi" />
                                   </node>
-                                  <node concept="37vLTw" id="eACOy0hOu6" role="37wK5m">
-                                    <ref role="3cqZAo" node="eACOy0hOu1" resolve="user" />
+                                  <node concept="1rXfSq" id="6rcGC6EIv5_" role="37wK5m">
+                                    <ref role="37wK5l" node="6rcGC6EIpJs" resolve="getUser" />
+                                    <node concept="37vLTw" id="6rcGC6EIv5A" role="37wK5m">
+                                      <ref role="3cqZAo" node="5Sw$pxbNu8M" resolve="request" />
+                                    </node>
                                   </node>
                                   <node concept="1rXfSq" id="eACOy0iv1W" role="37wK5m">
                                     <ref role="37wK5l" node="6I9FalZAWR4" resolve="getSessionId" />
@@ -2777,6 +2745,67 @@
       </node>
       <node concept="17QB3L" id="2UHWH1pLHVg" role="3clF45" />
       <node concept="3Tm1VV" id="2UHWH1pLHL2" role="1B3o_S" />
+    </node>
+    <node concept="2tJIrI" id="6rcGC6EIk8s" role="jymVt" />
+    <node concept="2YIFZL" id="6rcGC6EIpJs" role="jymVt">
+      <property role="TrG5h" value="getUser" />
+      <node concept="3clFbS" id="6rcGC6EIovM" role="3clF47">
+        <node concept="3cpWs8" id="6rcGC6EIpVG" role="3cqZAp">
+          <node concept="3cpWsn" id="6rcGC6EIpVH" role="3cpWs9">
+            <property role="TrG5h" value="user" />
+            <node concept="17QB3L" id="6rcGC6EIpVI" role="1tU5fm" />
+            <node concept="2OqwBi" id="6rcGC6EIpVJ" role="33vP2m">
+              <node concept="37vLTw" id="6rcGC6EIpVK" role="2Oq$k0">
+                <ref role="3cqZAo" node="6rcGC6EIoWZ" resolve="request" />
+              </node>
+              <node concept="liA8E" id="6rcGC6EIpVL" role="2OqNvi">
+                <ref role="37wK5l" to="67a5:~ServletUpgradeRequest.getHeader(java.lang.String)" resolve="getHeader" />
+                <node concept="Xl_RD" id="6rcGC6EIpVM" role="37wK5m">
+                  <property role="Xl_RC" value="X-Forwarded-Email" />
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="3clFbJ" id="6rcGC6EIpVN" role="3cqZAp">
+          <node concept="3clFbS" id="6rcGC6EIpVO" role="3clFbx">
+            <node concept="3clFbF" id="6rcGC6EIpVP" role="3cqZAp">
+              <node concept="37vLTI" id="6rcGC6EIpVQ" role="3clFbG">
+                <node concept="2OqwBi" id="6rcGC6EIpVR" role="37vLTx">
+                  <node concept="37vLTw" id="6rcGC6EIpVS" role="2Oq$k0">
+                    <ref role="3cqZAo" node="6rcGC6EIoWZ" resolve="request" />
+                  </node>
+                  <node concept="liA8E" id="6rcGC6EIpVT" role="2OqNvi">
+                    <ref role="37wK5l" to="67a5:~ServletUpgradeRequest.getRemoteHostName()" resolve="getRemoteHostName" />
+                  </node>
+                </node>
+                <node concept="37vLTw" id="6rcGC6EIpVU" role="37vLTJ">
+                  <ref role="3cqZAo" node="6rcGC6EIpVH" resolve="user" />
+                </node>
+              </node>
+            </node>
+          </node>
+          <node concept="2OqwBi" id="6rcGC6EIpVV" role="3clFbw">
+            <node concept="37vLTw" id="6rcGC6EIpVW" role="2Oq$k0">
+              <ref role="3cqZAo" node="6rcGC6EIpVH" resolve="user" />
+            </node>
+            <node concept="17RlXB" id="6rcGC6EIpVX" role="2OqNvi" />
+          </node>
+        </node>
+        <node concept="3cpWs6" id="6rcGC6EIqiH" role="3cqZAp">
+          <node concept="37vLTw" id="6rcGC6EIqv$" role="3cqZAk">
+            <ref role="3cqZAo" node="6rcGC6EIpVH" resolve="user" />
+          </node>
+        </node>
+      </node>
+      <node concept="37vLTG" id="6rcGC6EIoWZ" role="3clF46">
+        <property role="TrG5h" value="request" />
+        <node concept="3uibUv" id="6rcGC6EIpjx" role="1tU5fm">
+          <ref role="3uigEE" to="67a5:~ServletUpgradeRequest" resolve="ServletUpgradeRequest" />
+        </node>
+      </node>
+      <node concept="17QB3L" id="6rcGC6EIpxt" role="3clF45" />
+      <node concept="3Tm1VV" id="6rcGC6EIovL" role="1B3o_S" />
     </node>
     <node concept="2tJIrI" id="eACOy0iku7" role="jymVt" />
   </node>

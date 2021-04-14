@@ -240,7 +240,7 @@ actual open class ReplicatedTree actual constructor(
 
     init {
         val versionHash = client[treeId.getBranchKey(branchName)]
-        var initialVersion = if (versionHash == null) null else loadFromHash(versionHash, client.storeCache!!)
+        var initialVersion = if (versionHash.isNullOrEmpty()) null else loadFromHash(versionHash, client.storeCache!!)
         val initialTree = MutableObject<CLTree>()
         if (initialVersion == null) {
             initialTree.setValue(CLTree(treeId, client.storeCache!!))

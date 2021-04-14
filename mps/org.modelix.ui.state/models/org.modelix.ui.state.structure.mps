@@ -6,6 +6,7 @@
     <devkit ref="78434eb8-b0e5-444b-850d-e7c4ad2da9ab(jetbrains.mps.devkit.aspect.structure)" />
   </languages>
   <imports>
+    <import index="j481" ref="r:b20089df-f3d6-4bf7-8b24-9a8e9c01d887(org.modelix.ui.sm.structure)" />
     <import index="tpck" ref="r:00000000-0000-4000-0000-011c89590288(jetbrains.mps.lang.core.structure)" implicit="true" />
   </imports>
   <registry>
@@ -77,6 +78,13 @@
       <property role="20kJfa" value="editorStates" />
       <property role="20lbJX" value="fLJekj5/_0__n" />
       <ref role="20lvS9" node="4bjL$lUeeQe" resolve="EditorComponentState" />
+    </node>
+    <node concept="1TJgyj" id="6gw1ikeUpjH" role="1TKVEi">
+      <property role="IQ2ns" value="7214772259769652461" />
+      <property role="20lmBu" value="fLJjDmT/aggregation" />
+      <property role="20kJfa" value="smViewerStates" />
+      <property role="20lbJX" value="fLJekj5/_0__n" />
+      <ref role="20lvS9" to="j481:AkkmJBMaEy" resolve="ViewerState" />
     </node>
     <node concept="1TJgyi" id="2UHWH1pKMDf" role="1TKVEl">
       <property role="IQ2nx" value="3363611473388710479" />

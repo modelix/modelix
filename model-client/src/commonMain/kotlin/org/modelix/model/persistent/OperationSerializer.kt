@@ -43,6 +43,7 @@ class OperationSerializer private constructor() {
             return when (obj) {
                 null -> ""
                 is PNodeReference -> longToHex(obj.id)
+                is SerializedNodeReference -> escape(obj.serialized)
                 else -> escape(INodeReferenceSerializer.serialize(obj))
             }
         }
@@ -51,7 +52,7 @@ class OperationSerializer private constructor() {
             return when {
                 serialized.isNullOrEmpty() -> null
                 serialized.matches(Regex("[a-fA-F0-9]+")) -> PNodeReference(longFromHex(serialized))
-                else -> unescape(serialized)?.let { INodeReferenceSerializer.deserialize(it) }
+                else -> unescape(serialized)?.let { SerializedNodeReference(serialized) }
             }
         }
 

@@ -3082,7 +3082,7 @@
                             <node concept="3clFbF" id="4TPMxtdD_DI" role="3cqZAp">
                               <node concept="2OqwBi" id="4TPMxtdD_DJ" role="3clFbG">
                                 <node concept="liA8E" id="4TPMxtdD_DL" role="2OqNvi">
-                                  <ref role="37wK5l" to="jks5:~IBranch.runWrite(kotlin.jvm.functions.Function0)" resolve="runWrite" />
+                                  <ref role="37wK5l" to="qvpu:~PArea.executeWrite(kotlin.jvm.functions.Function0)" resolve="executeWrite" />
                                   <node concept="1bVj0M" id="4TPMxtdD_DM" role="37wK5m">
                                     <node concept="3clFbS" id="4TPMxtdD_DN" role="1bW5cS">
                                       <node concept="3cpWs8" id="4TPMxtdD_DO" role="3cqZAp">
@@ -3167,8 +3167,13 @@
                                     </node>
                                   </node>
                                 </node>
-                                <node concept="37vLTw" id="1VtHttxWahL" role="2Oq$k0">
-                                  <ref role="3cqZAo" node="1VtHttxWahH" resolve="branch" />
+                                <node concept="2ShNRf" id="6c6cqXTfJVa" role="2Oq$k0">
+                                  <node concept="1pGfFk" id="6c6cqXTfJVb" role="2ShVmc">
+                                    <ref role="37wK5l" to="qvpu:~PArea.&lt;init&gt;(org.modelix.model.api.IBranch)" resolve="PArea" />
+                                    <node concept="37vLTw" id="6c6cqXTfJVc" role="37wK5m">
+                                      <ref role="3cqZAo" node="1VtHttxWahH" resolve="branch" />
+                                    </node>
+                                  </node>
                                 </node>
                               </node>
                             </node>
@@ -3242,7 +3247,7 @@
                         <node concept="3clFbF" id="4TPMxtebpOj" role="3cqZAp">
                           <node concept="2OqwBi" id="4TPMxtebpOk" role="3clFbG">
                             <node concept="liA8E" id="4TPMxtebpOm" role="2OqNvi">
-                              <ref role="37wK5l" to="jks5:~IBranch.runWrite(kotlin.jvm.functions.Function0)" resolve="runWrite" />
+                              <ref role="37wK5l" to="qvpu:~PArea.executeWrite(kotlin.jvm.functions.Function0)" resolve="executeWrite" />
                               <node concept="1bVj0M" id="4TPMxtebpOn" role="37wK5m">
                                 <node concept="3clFbS" id="4TPMxtebpOo" role="1bW5cS">
                                   <node concept="3cpWs8" id="4TPMxtebOLn" role="3cqZAp">
@@ -3461,8 +3466,13 @@
                                 </node>
                               </node>
                             </node>
-                            <node concept="37vLTw" id="1VtHttxWevJ" role="2Oq$k0">
-                              <ref role="3cqZAo" node="1VtHttxWcSI" resolve="branch" />
+                            <node concept="2ShNRf" id="6c6cqXTfKGb" role="2Oq$k0">
+                              <node concept="1pGfFk" id="6c6cqXTfKGc" role="2ShVmc">
+                                <ref role="37wK5l" to="qvpu:~PArea.&lt;init&gt;(org.modelix.model.api.IBranch)" resolve="PArea" />
+                                <node concept="37vLTw" id="6c6cqXTfKGd" role="37wK5m">
+                                  <ref role="3cqZAo" node="1VtHttxWcSI" resolve="branch" />
+                                </node>
+                              </node>
                             </node>
                           </node>
                         </node>
@@ -3517,7 +3527,7 @@
                         <node concept="3clFbF" id="4TPMxtdD_EI" role="3cqZAp">
                           <node concept="2OqwBi" id="4TPMxtdD_EJ" role="3clFbG">
                             <node concept="liA8E" id="4TPMxtdD_EL" role="2OqNvi">
-                              <ref role="37wK5l" to="jks5:~IBranch.runWrite(kotlin.jvm.functions.Function0)" resolve="runWrite" />
+                              <ref role="37wK5l" to="qvpu:~PArea.executeWrite(kotlin.jvm.functions.Function0)" resolve="executeWrite" />
                               <node concept="1bVj0M" id="4TPMxtdD_EM" role="37wK5m">
                                 <property role="3yWfEV" value="true" />
                                 <node concept="3clFbS" id="4TPMxtdD_EN" role="1bW5cS">
@@ -3845,12 +3855,17 @@
                                 </node>
                               </node>
                             </node>
-                            <node concept="2OqwBi" id="1VtHttxUvU4" role="2Oq$k0">
-                              <node concept="37vLTw" id="4TPMxtdD_EK" role="2Oq$k0">
-                                <ref role="3cqZAo" node="4TPMxtdD8F5" resolve="activeBranch" />
-                              </node>
-                              <node concept="liA8E" id="1VtHttxUx2U" role="2OqNvi">
-                                <ref role="37wK5l" to="5440:~IIndirectBranch.getBranch()" resolve="getBranch" />
+                            <node concept="2ShNRf" id="6c6cqXTfM0c" role="2Oq$k0">
+                              <node concept="1pGfFk" id="6c6cqXTfM0d" role="2ShVmc">
+                                <ref role="37wK5l" to="qvpu:~PArea.&lt;init&gt;(org.modelix.model.api.IBranch)" resolve="PArea" />
+                                <node concept="2OqwBi" id="1VtHttxUvU4" role="37wK5m">
+                                  <node concept="37vLTw" id="4TPMxtdD_EK" role="2Oq$k0">
+                                    <ref role="3cqZAo" node="4TPMxtdD8F5" resolve="activeBranch" />
+                                  </node>
+                                  <node concept="liA8E" id="1VtHttxUx2U" role="2OqNvi">
+                                    <ref role="37wK5l" to="5440:~IIndirectBranch.getBranch()" resolve="getBranch" />
+                                  </node>
+                                </node>
                               </node>
                             </node>
                           </node>
@@ -3923,7 +3938,7 @@
                         <node concept="3clFbF" id="4TPMxtdD_Gy" role="3cqZAp">
                           <node concept="2OqwBi" id="4TPMxtdD_Gz" role="3clFbG">
                             <node concept="liA8E" id="4TPMxtdD_G_" role="2OqNvi">
-                              <ref role="37wK5l" to="jks5:~IBranch.runWrite(kotlin.jvm.functions.Function0)" resolve="runWrite" />
+                              <ref role="37wK5l" to="qvpu:~PArea.executeWrite(kotlin.jvm.functions.Function0)" resolve="executeWrite" />
                               <node concept="1bVj0M" id="4TPMxtdD_GA" role="37wK5m">
                                 <property role="3yWfEV" value="true" />
                                 <node concept="3clFbS" id="4TPMxtdD_GB" role="1bW5cS">
@@ -4010,8 +4025,13 @@
                                 </node>
                               </node>
                             </node>
-                            <node concept="37vLTw" id="1VtHttxWmyo" role="2Oq$k0">
-                              <ref role="3cqZAo" node="1VtHttxWlgW" resolve="branch" />
+                            <node concept="2ShNRf" id="6c6cqXTfPyr" role="2Oq$k0">
+                              <node concept="1pGfFk" id="6c6cqXTfPys" role="2ShVmc">
+                                <ref role="37wK5l" to="qvpu:~PArea.&lt;init&gt;(org.modelix.model.api.IBranch)" resolve="PArea" />
+                                <node concept="37vLTw" id="6c6cqXTfPyt" role="37wK5m">
+                                  <ref role="3cqZAo" node="1VtHttxWlgW" resolve="branch" />
+                                </node>
+                              </node>
                             </node>
                           </node>
                         </node>
@@ -4947,11 +4967,16 @@
         </node>
         <node concept="3clFbF" id="4B5rYo_k6Bq" role="3cqZAp">
           <node concept="2OqwBi" id="4B5rYo_k6Pp" role="3clFbG">
-            <node concept="37vLTw" id="4B5rYo_k6Bo" role="2Oq$k0">
-              <ref role="3cqZAo" node="4B5rYo_k5PP" resolve="branch" />
+            <node concept="2ShNRf" id="6c6cqXTbW8U" role="2Oq$k0">
+              <node concept="1pGfFk" id="6c6cqXTcx0m" role="2ShVmc">
+                <ref role="37wK5l" to="qvpu:~PArea.&lt;init&gt;(org.modelix.model.api.IBranch)" resolve="PArea" />
+                <node concept="37vLTw" id="6c6cqXTcxDG" role="37wK5m">
+                  <ref role="3cqZAo" node="4B5rYo_k5PP" resolve="branch" />
+                </node>
+              </node>
             </node>
             <node concept="liA8E" id="4B5rYo_k6X5" role="2OqNvi">
-              <ref role="37wK5l" to="jks5:~IBranch.runRead(kotlin.jvm.functions.Function0)" resolve="runRead" />
+              <ref role="37wK5l" to="qvpu:~PArea.executeRead(kotlin.jvm.functions.Function0)" resolve="executeRead" />
               <node concept="1bVj0M" id="4B5rYo_k7ce" role="37wK5m">
                 <node concept="3clFbS" id="4B5rYo_k7cf" role="1bW5cS">
                   <node concept="3cpWs8" id="4B5rYo_khDA" role="3cqZAp">
@@ -4961,35 +4986,21 @@
                         <ref role="3uigEE" to="xkhl:~CLTree" resolve="CLTree" />
                       </node>
                       <node concept="10QFUN" id="4B5rYo_khDD" role="33vP2m">
-                        <node concept="2OqwBi" id="4B5rYo_khDE" role="10QFUP">
-                          <node concept="37vLTw" id="4B5rYo_khDF" role="2Oq$k0">
-                            <ref role="3cqZAo" node="4B5rYo_k5PP" resolve="branch" />
-                          </node>
-                          <node concept="liA8E" id="4B5rYo_khDG" role="2OqNvi">
-                            <ref role="37wK5l" to="jks5:~IBranch.computeRead(kotlin.jvm.functions.Function0)" resolve="computeRead" />
-                            <node concept="1bVj0M" id="4B5rYo_khDH" role="37wK5m">
-                              <node concept="3clFbS" id="4B5rYo_khDI" role="1bW5cS">
-                                <node concept="3clFbF" id="4B5rYo_khDJ" role="3cqZAp">
-                                  <node concept="2OqwBi" id="4B5rYo_khDK" role="3clFbG">
-                                    <node concept="2OqwBi" id="4B5rYo_khDL" role="2Oq$k0">
-                                      <node concept="37vLTw" id="4B5rYo_khDM" role="2Oq$k0">
-                                        <ref role="3cqZAo" node="4B5rYo_k5PP" resolve="branch" />
-                                      </node>
-                                      <node concept="liA8E" id="4B5rYo_khDN" role="2OqNvi">
-                                        <ref role="37wK5l" to="jks5:~IBranch.getTransaction()" resolve="getTransaction" />
-                                      </node>
-                                    </node>
-                                    <node concept="liA8E" id="4B5rYo_khDO" role="2OqNvi">
-                                      <ref role="37wK5l" to="jks5:~ITransaction.getTree()" resolve="getTree" />
-                                    </node>
-                                  </node>
-                                </node>
-                              </node>
-                            </node>
-                          </node>
-                        </node>
                         <node concept="3uibUv" id="4B5rYo_khDP" role="10QFUM">
                           <ref role="3uigEE" to="xkhl:~CLTree" resolve="CLTree" />
+                        </node>
+                        <node concept="2OqwBi" id="4B5rYo_khDK" role="10QFUP">
+                          <node concept="2OqwBi" id="4B5rYo_khDL" role="2Oq$k0">
+                            <node concept="37vLTw" id="4B5rYo_khDM" role="2Oq$k0">
+                              <ref role="3cqZAo" node="4B5rYo_k5PP" resolve="branch" />
+                            </node>
+                            <node concept="liA8E" id="4B5rYo_khDN" role="2OqNvi">
+                              <ref role="37wK5l" to="jks5:~IBranch.getTransaction()" resolve="getTransaction" />
+                            </node>
+                          </node>
+                          <node concept="liA8E" id="4B5rYo_khDO" role="2OqNvi">
+                            <ref role="37wK5l" to="jks5:~ITransaction.getTree()" resolve="getTree" />
+                          </node>
                         </node>
                       </node>
                     </node>
@@ -5250,11 +5261,8 @@
                       </node>
                       <node concept="10QFUN" id="7Aj1SIwRPvl" role="33vP2m">
                         <node concept="2OqwBi" id="7Aj1SIwRPva" role="10QFUP">
-                          <node concept="37vLTw" id="7Aj1SIwRPvb" role="2Oq$k0">
-                            <ref role="3cqZAo" node="7ardNfhM1$u" resolve="branch" />
-                          </node>
                           <node concept="liA8E" id="7Aj1SIwRPvc" role="2OqNvi">
-                            <ref role="37wK5l" to="jks5:~IBranch.computeRead(kotlin.jvm.functions.Function0)" resolve="computeRead" />
+                            <ref role="37wK5l" to="qvpu:~PArea.executeRead(kotlin.jvm.functions.Function0)" resolve="executeRead" />
                             <node concept="1bVj0M" id="7Aj1SIwRPvd" role="37wK5m">
                               <node concept="3clFbS" id="7Aj1SIwRPve" role="1bW5cS">
                                 <node concept="3clFbF" id="7Aj1SIwRPvf" role="3cqZAp">
@@ -5272,6 +5280,14 @@
                                     </node>
                                   </node>
                                 </node>
+                              </node>
+                            </node>
+                          </node>
+                          <node concept="2ShNRf" id="6c6cqXTeNNq" role="2Oq$k0">
+                            <node concept="1pGfFk" id="6c6cqXTeNNr" role="2ShVmc">
+                              <ref role="37wK5l" to="qvpu:~PArea.&lt;init&gt;(org.modelix.model.api.IBranch)" resolve="PArea" />
+                              <node concept="37vLTw" id="6c6cqXTeNNs" role="37wK5m">
+                                <ref role="3cqZAo" node="7ardNfhM1$u" resolve="branch" />
                               </node>
                             </node>
                           </node>
@@ -5394,11 +5410,8 @@
                                             </node>
                                             <node concept="3clFbF" id="1O9mnzC_pzw" role="3cqZAp">
                                               <node concept="2OqwBi" id="1O9mnzC_pzx" role="3clFbG">
-                                                <node concept="37vLTw" id="1O9mnzC_pzy" role="2Oq$k0">
-                                                  <ref role="3cqZAo" node="1O9mnzC_pzr" resolve="branch" />
-                                                </node>
                                                 <node concept="liA8E" id="1O9mnzC_pzz" role="2OqNvi">
-                                                  <ref role="37wK5l" to="jks5:~IBranch.runRead(kotlin.jvm.functions.Function0)" resolve="runRead" />
+                                                  <ref role="37wK5l" to="qvpu:~PArea.executeRead(kotlin.jvm.functions.Function0)" resolve="executeRead" />
                                                   <node concept="1bVj0M" id="1O9mnzC_pz$" role="37wK5m">
                                                     <node concept="3clFbS" id="1O9mnzC_pz_" role="1bW5cS">
                                                       <node concept="3clFbF" id="29etMtblB02" role="3cqZAp">
@@ -5428,6 +5441,14 @@
                                                           <ref role="3cqZAo" to="v18h:~Unit.INSTANCE" resolve="INSTANCE" />
                                                         </node>
                                                       </node>
+                                                    </node>
+                                                  </node>
+                                                </node>
+                                                <node concept="2ShNRf" id="6c6cqXTcypR" role="2Oq$k0">
+                                                  <node concept="1pGfFk" id="6c6cqXTcypS" role="2ShVmc">
+                                                    <ref role="37wK5l" to="qvpu:~PArea.&lt;init&gt;(org.modelix.model.api.IBranch)" resolve="PArea" />
+                                                    <node concept="37vLTw" id="6c6cqXTcypT" role="37wK5m">
+                                                      <ref role="3cqZAo" node="1O9mnzC_pzr" resolve="branch" />
                                                     </node>
                                                   </node>
                                                 </node>
@@ -7537,11 +7558,8 @@
               <ref role="ehGHo" to="w7di:6aRQr1WVbN0" resolve="TreeInfo" />
             </node>
             <node concept="2OqwBi" id="16i93QEgGGH" role="33vP2m">
-              <node concept="1rXfSq" id="16i93QEgGvb" role="2Oq$k0">
-                <ref role="37wK5l" node="6aRQr1X1RCt" resolve="getInfoBranch" />
-              </node>
               <node concept="liA8E" id="16i93QEgGU$" role="2OqNvi">
-                <ref role="37wK5l" to="jks5:~IBranch.computeRead(kotlin.jvm.functions.Function0)" resolve="computeRead" />
+                <ref role="37wK5l" to="qvpu:~PArea.executeRead(kotlin.jvm.functions.Function0)" resolve="executeRead" />
                 <node concept="1bVj0M" id="16i93QEgH7M" role="37wK5m">
                   <node concept="3clFbS" id="16i93QEgH7N" role="1bW5cS">
                     <node concept="3cpWs8" id="16i93QEgHim" role="3cqZAp">
@@ -7592,6 +7610,14 @@
                         </node>
                       </node>
                     </node>
+                  </node>
+                </node>
+              </node>
+              <node concept="2ShNRf" id="6c6cqXTeb3l" role="2Oq$k0">
+                <node concept="1pGfFk" id="6c6cqXTeb3m" role="2ShVmc">
+                  <ref role="37wK5l" to="qvpu:~PArea.&lt;init&gt;(org.modelix.model.api.IBranch)" resolve="PArea" />
+                  <node concept="1rXfSq" id="16i93QEgGvb" role="37wK5m">
+                    <ref role="37wK5l" node="6aRQr1X1RCt" resolve="getInfoBranch" />
                   </node>
                 </node>
               </node>
@@ -7659,11 +7685,8 @@
       <node concept="3clFbS" id="6aRQr1Xc8AD" role="3clF47">
         <node concept="3clFbF" id="6aRQr1XcdRL" role="3cqZAp">
           <node concept="2OqwBi" id="6aRQr1Xce19" role="3clFbG">
-            <node concept="1rXfSq" id="6aRQr1XcgzL" role="2Oq$k0">
-              <ref role="37wK5l" node="6aRQr1X1RCt" resolve="getInfoBranch" />
-            </node>
             <node concept="liA8E" id="6aRQr1XceeH" role="2OqNvi">
-              <ref role="37wK5l" to="jks5:~IBranch.computeWrite(kotlin.jvm.functions.Function0)" resolve="computeWrite" />
+              <ref role="37wK5l" to="qvpu:~PArea.executeWrite(kotlin.jvm.functions.Function0)" resolve="executeWrite" />
               <node concept="1bVj0M" id="6aRQr1XceA7" role="37wK5m">
                 <node concept="3clFbS" id="6aRQr1XceA8" role="1bW5cS">
                   <node concept="3cpWs8" id="6aRQr1XcgL3" role="3cqZAp">
@@ -7779,6 +7802,14 @@
                 </node>
               </node>
             </node>
+            <node concept="2ShNRf" id="6c6cqXTgU6v" role="2Oq$k0">
+              <node concept="1pGfFk" id="6c6cqXTgU6w" role="2ShVmc">
+                <ref role="37wK5l" to="qvpu:~PArea.&lt;init&gt;(org.modelix.model.api.IBranch)" resolve="PArea" />
+                <node concept="1rXfSq" id="6aRQr1XcgzL" role="37wK5m">
+                  <ref role="37wK5l" node="6aRQr1X1RCt" resolve="getInfoBranch" />
+                </node>
+              </node>
+            </node>
           </node>
         </node>
       </node>
@@ -7796,11 +7827,8 @@
       <node concept="3clFbS" id="7ardNfhNg1b" role="3clF47">
         <node concept="3clFbF" id="7ardNfhNg1c" role="3cqZAp">
           <node concept="2OqwBi" id="7ardNfhNg1d" role="3clFbG">
-            <node concept="1rXfSq" id="7ardNfhNg1e" role="2Oq$k0">
-              <ref role="37wK5l" node="6aRQr1X1RCt" resolve="getInfoBranch" />
-            </node>
             <node concept="liA8E" id="7ardNfhNg1f" role="2OqNvi">
-              <ref role="37wK5l" to="jks5:~IBranch.computeWrite(kotlin.jvm.functions.Function0)" resolve="computeWrite" />
+              <ref role="37wK5l" to="qvpu:~PArea.executeWrite(kotlin.jvm.functions.Function0)" resolve="executeWrite" />
               <node concept="1bVj0M" id="7ardNfhNg1g" role="37wK5m">
                 <node concept="3clFbS" id="7ardNfhNg1h" role="1bW5cS">
                   <node concept="3cpWs8" id="7ardNfhNg1i" role="3cqZAp">
@@ -7854,6 +7882,14 @@
                       <node concept="3YRAZt" id="7ardNfhNBv8" role="2OqNvi" />
                     </node>
                   </node>
+                </node>
+              </node>
+            </node>
+            <node concept="2ShNRf" id="6c6cqXTgUIY" role="2Oq$k0">
+              <node concept="1pGfFk" id="6c6cqXTgUIZ" role="2ShVmc">
+                <ref role="37wK5l" to="qvpu:~PArea.&lt;init&gt;(org.modelix.model.api.IBranch)" resolve="PArea" />
+                <node concept="1rXfSq" id="6c6cqXTgUJ0" role="37wK5m">
+                  <ref role="37wK5l" node="6aRQr1X1RCt" resolve="getInfoBranch" />
                 </node>
               </node>
             </node>
@@ -8174,16 +8210,8 @@
               <ref role="ehGHo" to="w7di:6aRQr1WVbMZ" resolve="RepositoryInfo" />
             </node>
             <node concept="2OqwBi" id="6aRQr1WWMAz" role="33vP2m">
-              <node concept="2OqwBi" id="6aRQr1X1Mqh" role="2Oq$k0">
-                <node concept="37vLTw" id="6aRQr1WWMA$" role="2Oq$k0">
-                  <ref role="3cqZAo" node="6aRQr1WXcru" resolve="infoTree" />
-                </node>
-                <node concept="liA8E" id="6aRQr1X1MSY" role="2OqNvi">
-                  <ref role="37wK5l" to="5440:~ReplicatedTree.getBranch()" resolve="getBranch" />
-                </node>
-              </node>
               <node concept="liA8E" id="6aRQr1WWMA_" role="2OqNvi">
-                <ref role="37wK5l" to="jks5:~IBranch.computeRead(kotlin.jvm.functions.Function0)" resolve="computeRead" />
+                <ref role="37wK5l" to="qvpu:~PArea.executeRead(kotlin.jvm.functions.Function0)" resolve="executeRead" />
                 <node concept="1bVj0M" id="6aRQr1WWMAA" role="37wK5m">
                   <node concept="3clFbS" id="6aRQr1WWMAB" role="1bW5cS">
                     <node concept="3cpWs8" id="6aRQr1WWMAC" role="3cqZAp">
@@ -8295,6 +8323,19 @@
                   </node>
                 </node>
               </node>
+              <node concept="2ShNRf" id="6c6cqXTenUW" role="2Oq$k0">
+                <node concept="1pGfFk" id="6c6cqXTenUX" role="2ShVmc">
+                  <ref role="37wK5l" to="qvpu:~PArea.&lt;init&gt;(org.modelix.model.api.IBranch)" resolve="PArea" />
+                  <node concept="2OqwBi" id="6aRQr1X1Mqh" role="37wK5m">
+                    <node concept="37vLTw" id="6aRQr1WWMA$" role="2Oq$k0">
+                      <ref role="3cqZAo" node="6aRQr1WXcru" resolve="infoTree" />
+                    </node>
+                    <node concept="liA8E" id="6aRQr1X1MSY" role="2OqNvi">
+                      <ref role="37wK5l" to="5440:~ReplicatedTree.getBranch()" resolve="getBranch" />
+                    </node>
+                  </node>
+                </node>
+              </node>
             </node>
           </node>
         </node>
@@ -8306,16 +8347,8 @@
                   <ref role="3cqZAo" node="6aRQr1WWMAy" resolve="result" />
                 </node>
                 <node concept="2OqwBi" id="6aRQr1WX0eX" role="37vLTx">
-                  <node concept="2OqwBi" id="6aRQr1X1PxN" role="2Oq$k0">
-                    <node concept="37vLTw" id="6aRQr1WWZnP" role="2Oq$k0">
-                      <ref role="3cqZAo" node="6aRQr1WXcru" resolve="infoTree" />
-                    </node>
-                    <node concept="liA8E" id="6aRQr1X1POp" role="2OqNvi">
-                      <ref role="37wK5l" to="5440:~ReplicatedTree.getBranch()" resolve="getBranch" />
-                    </node>
-                  </node>
                   <node concept="liA8E" id="6aRQr1WX0vJ" role="2OqNvi">
-                    <ref role="37wK5l" to="jks5:~IBranch.computeWrite(kotlin.jvm.functions.Function0)" resolve="computeWrite" />
+                    <ref role="37wK5l" to="qvpu:~PArea.executeWrite(kotlin.jvm.functions.Function0)" resolve="executeWrite" />
                     <node concept="1bVj0M" id="6aRQr1WX0Rg" role="37wK5m">
                       <node concept="3clFbS" id="6aRQr1WX0Rh" role="1bW5cS">
                         <node concept="3cpWs8" id="6aRQr1WX1LU" role="3cqZAp">
@@ -8420,6 +8453,19 @@
                           <node concept="37vLTw" id="6aRQr1XaGng" role="3cqZAk">
                             <ref role="3cqZAo" node="6aRQr1XaFFh" resolve="repoInfo" />
                           </node>
+                        </node>
+                      </node>
+                    </node>
+                  </node>
+                  <node concept="2ShNRf" id="6c6cqXTgV7L" role="2Oq$k0">
+                    <node concept="1pGfFk" id="6c6cqXTgV7M" role="2ShVmc">
+                      <ref role="37wK5l" to="qvpu:~PArea.&lt;init&gt;(org.modelix.model.api.IBranch)" resolve="PArea" />
+                      <node concept="2OqwBi" id="6aRQr1X1PxN" role="37wK5m">
+                        <node concept="37vLTw" id="6aRQr1WWZnP" role="2Oq$k0">
+                          <ref role="3cqZAo" node="6aRQr1WXcru" resolve="infoTree" />
+                        </node>
+                        <node concept="liA8E" id="6aRQr1X1POp" role="2OqNvi">
+                          <ref role="37wK5l" to="5440:~ReplicatedTree.getBranch()" resolve="getBranch" />
                         </node>
                       </node>
                     </node>
@@ -10009,11 +10055,8 @@
         <node concept="3clFbS" id="3H1ZR7sMAR2" role="3clF47">
           <node concept="3clFbF" id="3pKWniXZ0MJ" role="3cqZAp">
             <node concept="2OqwBi" id="3pKWniXZ0Xg" role="3clFbG">
-              <node concept="1rXfSq" id="3pKWniXZ0MI" role="2Oq$k0">
-                <ref role="37wK5l" to="5440:~ReplicatedTree.getBranch()" resolve="getBranch" />
-              </node>
               <node concept="liA8E" id="3pKWniXZ17G" role="2OqNvi">
-                <ref role="37wK5l" to="jks5:~IBranch.runWrite(kotlin.jvm.functions.Function0)" resolve="runWrite" />
+                <ref role="37wK5l" to="qvpu:~PArea.executeWrite(kotlin.jvm.functions.Function0)" resolve="executeWrite" />
                 <node concept="2ShNRf" id="3pKWniXZ1xY" role="37wK5m">
                   <node concept="YeOm9" id="3pKWniXZhfe" role="2ShVmc">
                     <node concept="1Y3b0j" id="3pKWniXZhfh" role="YeSDq">
@@ -10078,6 +10121,14 @@
                         <ref role="3uigEE" to="v18h:~Unit" resolve="Unit" />
                       </node>
                     </node>
+                  </node>
+                </node>
+              </node>
+              <node concept="2ShNRf" id="6c6cqXTgbWQ" role="2Oq$k0">
+                <node concept="1pGfFk" id="6c6cqXTgbWR" role="2ShVmc">
+                  <ref role="37wK5l" to="qvpu:~PArea.&lt;init&gt;(org.modelix.model.api.IBranch)" resolve="PArea" />
+                  <node concept="1rXfSq" id="6c6cqXTgbWS" role="37wK5m">
+                    <ref role="37wK5l" to="5440:~ReplicatedTree.getBranch()" resolve="getBranch" />
                   </node>
                 </node>
               </node>
@@ -10384,11 +10435,8 @@
         <node concept="3clFbF" id="EMWAvBj7vR" role="3cqZAp">
           <node concept="37vLTI" id="EMWAvBj88r" role="3clFbG">
             <node concept="2OqwBi" id="EMWAvBj9fv" role="37vLTx">
-              <node concept="37vLTw" id="EMWAvBj8Xf" role="2Oq$k0">
-                <ref role="3cqZAo" node="EMWAvBj8w$" resolve="branch" />
-              </node>
               <node concept="liA8E" id="EMWAvBj9rF" role="2OqNvi">
-                <ref role="37wK5l" to="jks5:~IBranch.computeRead(kotlin.jvm.functions.Function0)" resolve="computeRead" />
+                <ref role="37wK5l" to="qvpu:~PArea.executeRead(kotlin.jvm.functions.Function0)" resolve="executeRead" />
                 <node concept="1bVj0M" id="EMWAvBj9MC" role="37wK5m">
                   <node concept="3clFbS" id="EMWAvBj9MD" role="1bW5cS">
                     <node concept="3clFbF" id="EMWAvBj9W5" role="3cqZAp">
@@ -10418,6 +10466,14 @@
                         </node>
                       </node>
                     </node>
+                  </node>
+                </node>
+              </node>
+              <node concept="2ShNRf" id="6c6cqXTf3Dr" role="2Oq$k0">
+                <node concept="1pGfFk" id="6c6cqXTf3Ds" role="2ShVmc">
+                  <ref role="37wK5l" to="qvpu:~PArea.&lt;init&gt;(org.modelix.model.api.IBranch)" resolve="PArea" />
+                  <node concept="37vLTw" id="6c6cqXTf3Dt" role="37wK5m">
+                    <ref role="3cqZAo" node="EMWAvBj8w$" resolve="branch" />
                   </node>
                 </node>
               </node>
@@ -10774,11 +10830,8 @@
         </node>
         <node concept="3clFbF" id="EMWAvBjiuP" role="3cqZAp">
           <node concept="2OqwBi" id="EMWAvBj5g6" role="3clFbG">
-            <node concept="37vLTw" id="EMWAvBj5g7" role="2Oq$k0">
-              <ref role="3cqZAo" node="EMWAvBj2rl" resolve="branch" />
-            </node>
             <node concept="liA8E" id="EMWAvBj5g8" role="2OqNvi">
-              <ref role="37wK5l" to="jks5:~IBranch.runRead(kotlin.jvm.functions.Function0)" resolve="runRead" />
+              <ref role="37wK5l" to="qvpu:~PArea.executeRead(kotlin.jvm.functions.Function0)" resolve="executeRead" />
               <node concept="1bVj0M" id="EMWAvBj5g9" role="37wK5m">
                 <property role="3yWfEV" value="true" />
                 <node concept="3clFbS" id="EMWAvBj5ga" role="1bW5cS">
@@ -11098,6 +11151,14 @@
                       <ref role="3cqZAo" to="v18h:~Unit.INSTANCE" resolve="INSTANCE" />
                     </node>
                   </node>
+                </node>
+              </node>
+            </node>
+            <node concept="2ShNRf" id="6c6cqXTdhGQ" role="2Oq$k0">
+              <node concept="1pGfFk" id="6c6cqXTdhGR" role="2ShVmc">
+                <ref role="37wK5l" to="qvpu:~PArea.&lt;init&gt;(org.modelix.model.api.IBranch)" resolve="PArea" />
+                <node concept="37vLTw" id="6c6cqXTdhGS" role="37wK5m">
+                  <ref role="3cqZAo" node="EMWAvBj2rl" resolve="branch" />
                 </node>
               </node>
             </node>
@@ -11471,59 +11532,60 @@
   </node>
   <node concept="312cEu" id="694yVfgo$uu">
     <property role="TrG5h" value="TransactionUtil" />
-    <node concept="2YIFZL" id="694yVfgo$XZ" role="jymVt">
-      <property role="TrG5h" value="extractBranch" />
-      <node concept="3clFbS" id="694yVfgo$IC" role="3clF47">
-        <node concept="3clFbJ" id="694yVfgo_lY" role="3cqZAp">
-          <node concept="2ZW3vV" id="694yVfgo_Mo" role="3clFbw">
-            <node concept="3uibUv" id="694yVfgo_V6" role="2ZW6by">
+    <node concept="2tJIrI" id="6gw1ikeWqHA" role="jymVt" />
+    <node concept="2YIFZL" id="6gw1ikeWpRr" role="jymVt">
+      <property role="TrG5h" value="extractArea" />
+      <node concept="3clFbS" id="6gw1ikeWpRs" role="3clF47">
+        <node concept="3clFbJ" id="6gw1ikeWpRt" role="3cqZAp">
+          <node concept="2ZW3vV" id="6gw1ikeWpRu" role="3clFbw">
+            <node concept="3uibUv" id="6gw1ikeWpRv" role="2ZW6by">
               <ref role="3uigEE" to="jks5:~PNodeAdapter" resolve="PNodeAdapter" />
             </node>
-            <node concept="37vLTw" id="694yVfgo_xK" role="2ZW6bz">
-              <ref role="3cqZAo" node="694yVfgo$Kq" resolve="obj" />
+            <node concept="37vLTw" id="6gw1ikeWpRw" role="2ZW6bz">
+              <ref role="3cqZAo" node="6gw1ikeWpSf" resolve="obj" />
             </node>
           </node>
-          <node concept="3clFbS" id="694yVfgo_m0" role="3clFbx">
-            <node concept="3cpWs6" id="694yVfgoA6U" role="3cqZAp">
-              <node concept="2OqwBi" id="694yVfgoABI" role="3cqZAk">
-                <node concept="1eOMI4" id="694yVfgoAuS" role="2Oq$k0">
-                  <node concept="10QFUN" id="694yVfgoAka" role="1eOMHV">
-                    <node concept="37vLTw" id="694yVfgoAk9" role="10QFUP">
-                      <ref role="3cqZAo" node="694yVfgo$Kq" resolve="obj" />
+          <node concept="3clFbS" id="6gw1ikeWpRx" role="3clFbx">
+            <node concept="3cpWs6" id="6gw1ikeWpRy" role="3cqZAp">
+              <node concept="2OqwBi" id="6gw1ikeWpRz" role="3cqZAk">
+                <node concept="1eOMI4" id="6gw1ikeWpR$" role="2Oq$k0">
+                  <node concept="10QFUN" id="6gw1ikeWpR_" role="1eOMHV">
+                    <node concept="37vLTw" id="6gw1ikeWpRA" role="10QFUP">
+                      <ref role="3cqZAo" node="6gw1ikeWpSf" resolve="obj" />
                     </node>
-                    <node concept="3uibUv" id="694yVfgoAsi" role="10QFUM">
+                    <node concept="3uibUv" id="6gw1ikeWpRB" role="10QFUM">
                       <ref role="3uigEE" to="jks5:~PNodeAdapter" resolve="PNodeAdapter" />
                     </node>
                   </node>
                 </node>
-                <node concept="liA8E" id="694yVfgoALp" role="2OqNvi">
-                  <ref role="37wK5l" to="jks5:~PNodeAdapter.getBranch()" resolve="getBranch" />
+                <node concept="liA8E" id="6gw1ikeWqr3" role="2OqNvi">
+                  <ref role="37wK5l" to="jks5:~PNodeAdapter.getArea()" resolve="getArea" />
                 </node>
               </node>
             </node>
           </node>
-          <node concept="3eNFk2" id="694yVfgoAYw" role="3eNLev">
-            <node concept="2ZW3vV" id="694yVfgoBrj" role="3eO9$A">
-              <node concept="3uibUv" id="694yVfgoB$3" role="2ZW6by">
+          <node concept="3eNFk2" id="6gw1ikeWpRD" role="3eNLev">
+            <node concept="2ZW3vV" id="6gw1ikeWpRE" role="3eO9$A">
+              <node concept="3uibUv" id="6gw1ikeWpRF" role="2ZW6by">
                 <ref role="3uigEE" to="xxte:4EhVFrZ3AjR" resolve="NodeToSNodeAdapter" />
               </node>
-              <node concept="37vLTw" id="694yVfgoBbm" role="2ZW6bz">
-                <ref role="3cqZAo" node="694yVfgo$Kq" resolve="obj" />
+              <node concept="37vLTw" id="6gw1ikeWpRG" role="2ZW6bz">
+                <ref role="3cqZAo" node="6gw1ikeWpSf" resolve="obj" />
               </node>
             </node>
-            <node concept="3clFbS" id="694yVfgoAYy" role="3eOfB_">
-              <node concept="3cpWs6" id="694yVfgoBJT" role="3cqZAp">
-                <node concept="1rXfSq" id="694yVfgoC8d" role="3cqZAk">
-                  <ref role="37wK5l" node="694yVfgo$XZ" resolve="extractBranch" />
-                  <node concept="2YIFZM" id="694yVfgoCU0" role="37wK5m">
+            <node concept="3clFbS" id="6gw1ikeWpRH" role="3eOfB_">
+              <node concept="3cpWs6" id="6gw1ikeWpRI" role="3cqZAp">
+                <node concept="1rXfSq" id="6gw1ikeWpRJ" role="3cqZAk">
+                  <ref role="37wK5l" node="6gw1ikeWpRr" resolve="extractArea" />
+                  <node concept="2YIFZM" id="6gw1ikeWpRK" role="37wK5m">
                     <ref role="1Pybhd" to="xxte:5gTrVpGjuLg" resolve="SNodeToNodeAdapter" />
                     <ref role="37wK5l" to="xxte:5gTrVpGyMwR" resolve="wrap" />
-                    <node concept="1eOMI4" id="694yVfgoDb6" role="37wK5m">
-                      <node concept="10QFUN" id="694yVfgoDb5" role="1eOMHV">
-                        <node concept="37vLTw" id="694yVfgoDb4" role="10QFUP">
-                          <ref role="3cqZAo" node="694yVfgo$Kq" resolve="obj" />
+                    <node concept="1eOMI4" id="6gw1ikeWpRL" role="37wK5m">
+                      <node concept="10QFUN" id="6gw1ikeWpRM" role="1eOMHV">
+                        <node concept="37vLTw" id="6gw1ikeWpRN" role="10QFUP">
+                          <ref role="3cqZAo" node="6gw1ikeWpSf" resolve="obj" />
                         </node>
-                        <node concept="3uibUv" id="694yVfgoDl6" role="10QFUM">
+                        <node concept="3uibUv" id="6gw1ikeWpRO" role="10QFUM">
                           <ref role="3uigEE" to="xxte:4EhVFrZ3AjR" resolve="NodeToSNodeAdapter" />
                         </node>
                       </node>
@@ -11533,53 +11595,53 @@
               </node>
             </node>
           </node>
-          <node concept="3eNFk2" id="694yVfgoHjm" role="3eNLev">
-            <node concept="2ZW3vV" id="694yVfgoHTT" role="3eO9$A">
-              <node concept="3uibUv" id="694yVfgoI5F" role="2ZW6by">
-                <ref role="3uigEE" to="jks5:~IBranch" resolve="IBranch" />
+          <node concept="3eNFk2" id="6gw1ikeWpRP" role="3eNLev">
+            <node concept="2ZW3vV" id="6gw1ikeWpRQ" role="3eO9$A">
+              <node concept="3uibUv" id="6gw1ikeWrku" role="2ZW6by">
+                <ref role="3uigEE" to="qvpu:~IArea" resolve="IArea" />
               </node>
-              <node concept="37vLTw" id="694yVfgoHCl" role="2ZW6bz">
-                <ref role="3cqZAo" node="694yVfgo$Kq" resolve="obj" />
+              <node concept="37vLTw" id="6gw1ikeWpRS" role="2ZW6bz">
+                <ref role="3cqZAo" node="6gw1ikeWpSf" resolve="obj" />
               </node>
             </node>
-            <node concept="3clFbS" id="694yVfgoHjo" role="3eOfB_">
-              <node concept="3cpWs6" id="694yVfgoIhY" role="3cqZAp">
-                <node concept="10QFUN" id="694yVfgoIM9" role="3cqZAk">
-                  <node concept="3uibUv" id="694yVfgoIMe" role="10QFUM">
-                    <ref role="3uigEE" to="jks5:~IBranch" resolve="IBranch" />
+            <node concept="3clFbS" id="6gw1ikeWpRT" role="3eOfB_">
+              <node concept="3cpWs6" id="6gw1ikeWpRU" role="3cqZAp">
+                <node concept="10QFUN" id="6gw1ikeWpRV" role="3cqZAk">
+                  <node concept="3uibUv" id="6gw1ikeWrul" role="10QFUM">
+                    <ref role="3uigEE" to="qvpu:~IArea" resolve="IArea" />
                   </node>
-                  <node concept="37vLTw" id="694yVfgoIMf" role="10QFUP">
-                    <ref role="3cqZAo" node="694yVfgo$Kq" resolve="obj" />
+                  <node concept="37vLTw" id="6gw1ikeWpRX" role="10QFUP">
+                    <ref role="3cqZAo" node="6gw1ikeWpSf" resolve="obj" />
                   </node>
                 </node>
               </node>
             </node>
           </node>
-          <node concept="3eNFk2" id="4VTN9$kqT_p" role="3eNLev">
-            <node concept="2ZW3vV" id="4VTN9$krn04" role="3eO9$A">
-              <node concept="3uibUv" id="4VTN9$krnhv" role="2ZW6by">
+          <node concept="3eNFk2" id="6gw1ikeWpRY" role="3eNLev">
+            <node concept="2ZW3vV" id="6gw1ikeWpRZ" role="3eO9$A">
+              <node concept="3uibUv" id="6gw1ikeWpS0" role="2ZW6by">
                 <ref role="3uigEE" to="jks5:~INodeWrapper" resolve="INodeWrapper" />
               </node>
-              <node concept="37vLTw" id="4VTN9$krmH0" role="2ZW6bz">
-                <ref role="3cqZAo" node="694yVfgo$Kq" resolve="obj" />
+              <node concept="37vLTw" id="6gw1ikeWpS1" role="2ZW6bz">
+                <ref role="3cqZAo" node="6gw1ikeWpSf" resolve="obj" />
               </node>
             </node>
-            <node concept="3clFbS" id="4VTN9$kqT_r" role="3eOfB_">
-              <node concept="3cpWs6" id="4VTN9$krptB" role="3cqZAp">
-                <node concept="1rXfSq" id="4VTN9$krptD" role="3cqZAk">
-                  <ref role="37wK5l" node="694yVfgo$XZ" resolve="extractBranch" />
-                  <node concept="2OqwBi" id="4VTN9$krptE" role="37wK5m">
-                    <node concept="1eOMI4" id="4VTN9$krptF" role="2Oq$k0">
-                      <node concept="10QFUN" id="4VTN9$krptG" role="1eOMHV">
-                        <node concept="37vLTw" id="4VTN9$krptH" role="10QFUP">
-                          <ref role="3cqZAo" node="694yVfgo$Kq" resolve="obj" />
+            <node concept="3clFbS" id="6gw1ikeWpS2" role="3eOfB_">
+              <node concept="3cpWs6" id="6gw1ikeWpS3" role="3cqZAp">
+                <node concept="1rXfSq" id="6gw1ikeWpS4" role="3cqZAk">
+                  <ref role="37wK5l" node="6gw1ikeWpRr" resolve="extractArea" />
+                  <node concept="2OqwBi" id="6gw1ikeWpS5" role="37wK5m">
+                    <node concept="1eOMI4" id="6gw1ikeWpS6" role="2Oq$k0">
+                      <node concept="10QFUN" id="6gw1ikeWpS7" role="1eOMHV">
+                        <node concept="37vLTw" id="6gw1ikeWpS8" role="10QFUP">
+                          <ref role="3cqZAo" node="6gw1ikeWpSf" resolve="obj" />
                         </node>
-                        <node concept="3uibUv" id="4VTN9$krptI" role="10QFUM">
+                        <node concept="3uibUv" id="6gw1ikeWpS9" role="10QFUM">
                           <ref role="3uigEE" to="jks5:~INodeWrapper" resolve="INodeWrapper" />
                         </node>
                       </node>
                     </node>
-                    <node concept="liA8E" id="4VTN9$krptJ" role="2OqNvi">
+                    <node concept="liA8E" id="6gw1ikeWpSa" role="2OqNvi">
                       <ref role="37wK5l" to="jks5:~INodeWrapper.getWrappedNode()" resolve="getWrappedNode" />
                     </node>
                   </node>
@@ -11587,25 +11649,340 @@
               </node>
             </node>
           </node>
-          <node concept="9aQIb" id="694yVfgoDtD" role="9aQIa">
-            <node concept="3clFbS" id="694yVfgoDtE" role="9aQI4">
-              <node concept="3cpWs6" id="694yVfgoDFn" role="3cqZAp">
-                <node concept="10Nm6u" id="694yVfgoDRc" role="3cqZAk" />
+          <node concept="3eNFk2" id="6gw1ikeWrFP" role="3eNLev">
+            <node concept="2ZW3vV" id="6gw1ikeWsic" role="3eO9$A">
+              <node concept="3uibUv" id="6gw1ikeWs_y" role="2ZW6by">
+                <ref role="3uigEE" to="xxte:kHIbzAYu9G" resolve="ANode" />
+              </node>
+              <node concept="37vLTw" id="6gw1ikeWrZI" role="2ZW6bz">
+                <ref role="3cqZAo" node="6gw1ikeWpSf" resolve="obj" />
+              </node>
+            </node>
+            <node concept="3clFbS" id="6gw1ikeWrFR" role="3eOfB_">
+              <node concept="3cpWs6" id="6gw1ikeWtqq" role="3cqZAp">
+                <node concept="1rXfSq" id="6gw1ikeWtqs" role="3cqZAk">
+                  <ref role="37wK5l" node="6gw1ikeWpRr" resolve="extractArea" />
+                  <node concept="2YIFZM" id="6gw1ikeWv8h" role="37wK5m">
+                    <ref role="37wK5l" to="xxte:3ECE8iPOQCm" resolve="unwrap" />
+                    <ref role="1Pybhd" to="xxte:kHIbzAYu9G" resolve="ANode" />
+                    <node concept="1eOMI4" id="6gw1ikeWvxX" role="37wK5m">
+                      <node concept="10QFUN" id="6gw1ikeWvxW" role="1eOMHV">
+                        <node concept="37vLTw" id="6gw1ikeWvxV" role="10QFUP">
+                          <ref role="3cqZAo" node="6gw1ikeWpSf" resolve="obj" />
+                        </node>
+                        <node concept="3uibUv" id="6gw1ikeWvJt" role="10QFUM">
+                          <ref role="3uigEE" to="xxte:kHIbzAYu9G" resolve="ANode" />
+                        </node>
+                      </node>
+                    </node>
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+          <node concept="3eNFk2" id="6gw1ikeWvU3" role="3eNLev">
+            <node concept="2ZW3vV" id="6gw1ikeWwy_" role="3eO9$A">
+              <node concept="3uibUv" id="6gw1ikeWwOO" role="2ZW6by">
+                <ref role="3uigEE" to="w1kc:~SNode" resolve="SNode" />
+              </node>
+              <node concept="37vLTw" id="6gw1ikeWwd0" role="2ZW6bz">
+                <ref role="3cqZAo" node="6gw1ikeWpSf" resolve="obj" />
+              </node>
+            </node>
+            <node concept="3clFbS" id="6gw1ikeWvU5" role="3eOfB_">
+              <node concept="3cpWs8" id="6gw1ikeWZ$2" role="3cqZAp">
+                <node concept="3cpWsn" id="6gw1ikeWZ$3" role="3cpWs9">
+                  <property role="TrG5h" value="repository" />
+                  <node concept="3uibUv" id="6gw1ikeWY6v" role="1tU5fm">
+                    <ref role="3uigEE" to="lui2:~SRepository" resolve="SRepository" />
+                  </node>
+                  <node concept="2EnYce" id="6gw1ikeWZ$4" role="33vP2m">
+                    <node concept="2OqwBi" id="6gw1ikeWZ$5" role="2Oq$k0">
+                      <node concept="1eOMI4" id="6gw1ikeWZ$6" role="2Oq$k0">
+                        <node concept="10QFUN" id="6gw1ikeWZ$7" role="1eOMHV">
+                          <node concept="37vLTw" id="6gw1ikeWZ$8" role="10QFUP">
+                            <ref role="3cqZAo" node="6gw1ikeWpSf" resolve="obj" />
+                          </node>
+                          <node concept="3uibUv" id="6gw1ikeWZ$9" role="10QFUM">
+                            <ref role="3uigEE" to="w1kc:~SNode" resolve="SNode" />
+                          </node>
+                        </node>
+                      </node>
+                      <node concept="liA8E" id="6gw1ikeWZ$a" role="2OqNvi">
+                        <ref role="37wK5l" to="w1kc:~SNode.getModel()" resolve="getModel" />
+                      </node>
+                    </node>
+                    <node concept="liA8E" id="6gw1ikeWZ$b" role="2OqNvi">
+                      <ref role="37wK5l" to="mhbf:~SModel.getRepository()" resolve="getRepository" />
+                    </node>
+                  </node>
+                </node>
+              </node>
+              <node concept="3cpWs6" id="6gw1ikeWx5w" role="3cqZAp">
+                <node concept="3K4zz7" id="6gw1ikeX1kG" role="3cqZAk">
+                  <node concept="2ShNRf" id="6gw1ikeX1F6" role="3K4E3e">
+                    <node concept="1pGfFk" id="6gw1ikeX3MH" role="2ShVmc">
+                      <ref role="37wK5l" to="xxte:7cdb92Lw8bC" resolve="MPSArea" />
+                    </node>
+                  </node>
+                  <node concept="2ShNRf" id="6gw1ikeX3Zu" role="3K4GZi">
+                    <node concept="1pGfFk" id="6gw1ikeX6cC" role="2ShVmc">
+                      <ref role="37wK5l" to="xxte:7cdb92Lw72S" resolve="MPSArea" />
+                      <node concept="37vLTw" id="6gw1ikeX6KO" role="37wK5m">
+                        <ref role="3cqZAo" node="6gw1ikeWZ$3" resolve="repository" />
+                      </node>
+                    </node>
+                  </node>
+                  <node concept="3clFbC" id="6gw1ikeX0Kp" role="3K4Cdx">
+                    <node concept="10Nm6u" id="6gw1ikeX0WX" role="3uHU7w" />
+                    <node concept="37vLTw" id="6gw1ikeX0oO" role="3uHU7B">
+                      <ref role="3cqZAo" node="6gw1ikeWZ$3" resolve="repository" />
+                    </node>
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+          <node concept="9aQIb" id="6gw1ikeWpSb" role="9aQIa">
+            <node concept="3clFbS" id="6gw1ikeWpSc" role="9aQI4">
+              <node concept="3cpWs6" id="6gw1ikeWpSd" role="3cqZAp">
+                <node concept="10Nm6u" id="6gw1ikeWpSe" role="3cqZAk" />
               </node>
             </node>
           </node>
         </node>
       </node>
-      <node concept="37vLTG" id="694yVfgo$Kq" role="3clF46">
+      <node concept="37vLTG" id="6gw1ikeWpSf" role="3clF46">
         <property role="TrG5h" value="obj" />
-        <node concept="3uibUv" id="694yVfgo$Td" role="1tU5fm">
+        <node concept="3uibUv" id="6gw1ikeWpSg" role="1tU5fm">
           <ref role="3uigEE" to="wyt6:~Object" resolve="Object" />
         </node>
       </node>
-      <node concept="3uibUv" id="694yVfgo$XB" role="3clF45">
-        <ref role="3uigEE" to="jks5:~IBranch" resolve="IBranch" />
+      <node concept="3uibUv" id="6gw1ikeWqB3" role="3clF45">
+        <ref role="3uigEE" to="qvpu:~IArea" resolve="IArea" />
       </node>
-      <node concept="3Tm1VV" id="694yVfgo$IB" role="1B3o_S" />
+      <node concept="3Tm1VV" id="6gw1ikeWpSi" role="1B3o_S" />
+    </node>
+    <node concept="2tJIrI" id="6gw1ikeXdrv" role="jymVt" />
+    <node concept="2YIFZL" id="6gw1ikeXcKI" role="jymVt">
+      <property role="TrG5h" value="runWriteOnNodes" />
+      <node concept="3clFbS" id="6gw1ikeXcKJ" role="3clF47">
+        <node concept="3clFbF" id="6gw1ikeXcKK" role="3cqZAp">
+          <node concept="1rXfSq" id="6gw1ikeXcKL" role="3clFbG">
+            <ref role="37wK5l" node="6gw1ikeXcL7" resolve="runWriteOnAreas" />
+            <node concept="2OqwBi" id="6gw1ikeXcKM" role="37wK5m">
+              <node concept="2OqwBi" id="6gw1ikeXcKN" role="2Oq$k0">
+                <node concept="37vLTw" id="6gw1ikeXcKO" role="2Oq$k0">
+                  <ref role="3cqZAo" node="6gw1ikeXcKZ" resolve="nodesToRead" />
+                </node>
+                <node concept="3$u5V9" id="6gw1ikeXcKP" role="2OqNvi">
+                  <node concept="1bVj0M" id="6gw1ikeXcKQ" role="23t8la">
+                    <node concept="3clFbS" id="6gw1ikeXcKR" role="1bW5cS">
+                      <node concept="3clFbF" id="6gw1ikeXcKS" role="3cqZAp">
+                        <node concept="1rXfSq" id="6gw1ikeXcKT" role="3clFbG">
+                          <ref role="37wK5l" node="6gw1ikeWpRr" resolve="extractArea" />
+                          <node concept="37vLTw" id="6gw1ikeXcKU" role="37wK5m">
+                            <ref role="3cqZAo" node="6gw1ikeXcKV" resolve="it" />
+                          </node>
+                        </node>
+                      </node>
+                    </node>
+                    <node concept="Rh6nW" id="6gw1ikeXcKV" role="1bW2Oz">
+                      <property role="TrG5h" value="it" />
+                      <node concept="2jxLKc" id="6gw1ikeXcKW" role="1tU5fm" />
+                    </node>
+                  </node>
+                </node>
+              </node>
+              <node concept="1KnU$U" id="6gw1ikeXcKX" role="2OqNvi" />
+            </node>
+            <node concept="37vLTw" id="6gw1ikeXcKY" role="37wK5m">
+              <ref role="3cqZAo" node="6gw1ikeXcL2" resolve="r" />
+            </node>
+          </node>
+        </node>
+      </node>
+      <node concept="37vLTG" id="6gw1ikeXcKZ" role="3clF46">
+        <property role="TrG5h" value="nodesToRead" />
+        <node concept="A3Dl8" id="6gw1ikeXcL0" role="1tU5fm">
+          <node concept="3uibUv" id="6gw1ikeXcL1" role="A3Ik2">
+            <ref role="3uigEE" to="wyt6:~Object" resolve="Object" />
+          </node>
+        </node>
+      </node>
+      <node concept="37vLTG" id="6gw1ikeXcL2" role="3clF46">
+        <property role="TrG5h" value="r" />
+        <node concept="3uibUv" id="6gw1ikeXcL3" role="1tU5fm">
+          <ref role="3uigEE" to="wyt6:~Runnable" resolve="Runnable" />
+        </node>
+      </node>
+      <node concept="3cqZAl" id="6gw1ikeXcL4" role="3clF45" />
+      <node concept="3Tm1VV" id="6gw1ikeXcL5" role="1B3o_S" />
+    </node>
+    <node concept="2tJIrI" id="6gw1ikeZj0z" role="jymVt" />
+    <node concept="2YIFZL" id="6gw1ikeZiKc" role="jymVt">
+      <property role="TrG5h" value="runWriteOnNode" />
+      <node concept="3clFbS" id="6gw1ikeZiKd" role="3clF47">
+        <node concept="3clFbF" id="6gw1ikeZkpk" role="3cqZAp">
+          <node concept="1rXfSq" id="6gw1ikeZkpj" role="3clFbG">
+            <ref role="37wK5l" node="6gw1ikeXcKI" resolve="runWriteOnNodes" />
+            <node concept="2ShNRf" id="6gw1ikeZkEO" role="37wK5m">
+              <node concept="2HTt$P" id="6gw1ikeZmII" role="2ShVmc">
+                <node concept="37vLTw" id="6gw1ikeZnCD" role="2HTEbv">
+                  <ref role="3cqZAo" node="6gw1ikeZiKt" resolve="nodeToRead" />
+                </node>
+                <node concept="3uibUv" id="6gw1ikeZn8O" role="2HTBi0">
+                  <ref role="3uigEE" to="wyt6:~Object" resolve="Object" />
+                </node>
+              </node>
+            </node>
+            <node concept="37vLTw" id="6gw1ikeZnVE" role="37wK5m">
+              <ref role="3cqZAo" node="6gw1ikeZiKw" resolve="r" />
+            </node>
+          </node>
+        </node>
+      </node>
+      <node concept="37vLTG" id="6gw1ikeZiKt" role="3clF46">
+        <property role="TrG5h" value="nodeToRead" />
+        <node concept="3uibUv" id="6gw1ikeZjuI" role="1tU5fm">
+          <ref role="3uigEE" to="wyt6:~Object" resolve="Object" />
+        </node>
+      </node>
+      <node concept="37vLTG" id="6gw1ikeZiKw" role="3clF46">
+        <property role="TrG5h" value="r" />
+        <node concept="3uibUv" id="6gw1ikeZiKx" role="1tU5fm">
+          <ref role="3uigEE" to="wyt6:~Runnable" resolve="Runnable" />
+        </node>
+      </node>
+      <node concept="3cqZAl" id="6gw1ikeZiKy" role="3clF45" />
+      <node concept="3Tm1VV" id="6gw1ikeZiKz" role="1B3o_S" />
+    </node>
+    <node concept="2tJIrI" id="6gw1ikeXcL6" role="jymVt" />
+    <node concept="2YIFZL" id="6gw1ikeXcL7" role="jymVt">
+      <property role="TrG5h" value="runWriteOnAreas" />
+      <node concept="3clFbS" id="6gw1ikeXcL8" role="3clF47">
+        <node concept="3clFbJ" id="6gw1ikeXcL9" role="3cqZAp">
+          <node concept="2OqwBi" id="6gw1ikeXcLa" role="3clFbw">
+            <node concept="37vLTw" id="6gw1ikeXcLb" role="2Oq$k0">
+              <ref role="3cqZAo" node="6gw1ikeXcL_" resolve="areasToRead" />
+            </node>
+            <node concept="1v1jN8" id="6gw1ikeXcLc" role="2OqNvi" />
+          </node>
+          <node concept="3clFbS" id="6gw1ikeXcLd" role="3clFbx">
+            <node concept="3clFbF" id="6gw1ikeXcLe" role="3cqZAp">
+              <node concept="2OqwBi" id="6gw1ikeXcLf" role="3clFbG">
+                <node concept="37vLTw" id="6gw1ikeXcLg" role="2Oq$k0">
+                  <ref role="3cqZAo" node="6gw1ikeXcLC" resolve="r" />
+                </node>
+                <node concept="liA8E" id="6gw1ikeXcLh" role="2OqNvi">
+                  <ref role="37wK5l" to="wyt6:~Runnable.run()" resolve="run" />
+                </node>
+              </node>
+            </node>
+          </node>
+          <node concept="9aQIb" id="6gw1ikeXcLi" role="9aQIa">
+            <node concept="3clFbS" id="6gw1ikeXcLj" role="9aQI4">
+              <node concept="3clFbF" id="6gw1ikeXcLk" role="3cqZAp">
+                <node concept="2OqwBi" id="6gw1ikeXcLl" role="3clFbG">
+                  <node concept="2OqwBi" id="6gw1ikeXcLm" role="2Oq$k0">
+                    <node concept="37vLTw" id="6gw1ikeXcLn" role="2Oq$k0">
+                      <ref role="3cqZAo" node="6gw1ikeXcL_" resolve="areasToRead" />
+                    </node>
+                    <node concept="1uHKPH" id="6gw1ikeXcLo" role="2OqNvi" />
+                  </node>
+                  <node concept="liA8E" id="6gw1ikeXcLp" role="2OqNvi">
+                    <ref role="37wK5l" to="qvpu:~IArea.executeWrite(kotlin.jvm.functions.Function0)" resolve="executeWrite" />
+                    <node concept="1bVj0M" id="6gw1ikeXcLq" role="37wK5m">
+                      <node concept="3clFbS" id="6gw1ikeXcLr" role="1bW5cS">
+                        <node concept="3clFbF" id="6gw1ikeXcLs" role="3cqZAp">
+                          <node concept="1rXfSq" id="6gw1ikeXcLt" role="3clFbG">
+                            <ref role="37wK5l" node="694yVfgoNEv" resolve="runReadOnAreas" />
+                            <node concept="2OqwBi" id="6gw1ikeXcLu" role="37wK5m">
+                              <node concept="37vLTw" id="6gw1ikeXcLv" role="2Oq$k0">
+                                <ref role="3cqZAo" node="6gw1ikeXcL_" resolve="areasToRead" />
+                              </node>
+                              <node concept="7r0gD" id="6gw1ikeXcLw" role="2OqNvi">
+                                <node concept="3cmrfG" id="6gw1ikeXcLx" role="7T0AP">
+                                  <property role="3cmrfH" value="1" />
+                                </node>
+                              </node>
+                            </node>
+                            <node concept="37vLTw" id="6gw1ikeXcLy" role="37wK5m">
+                              <ref role="3cqZAo" node="6gw1ikeXcLC" resolve="r" />
+                            </node>
+                          </node>
+                        </node>
+                        <node concept="3cpWs6" id="6gw1ikeXcLz" role="3cqZAp">
+                          <node concept="10M0yZ" id="6gw1ikeXcL$" role="3cqZAk">
+                            <ref role="1PxDUh" to="v18h:~Unit" resolve="Unit" />
+                            <ref role="3cqZAo" to="v18h:~Unit.INSTANCE" resolve="INSTANCE" />
+                          </node>
+                        </node>
+                      </node>
+                    </node>
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+      </node>
+      <node concept="37vLTG" id="6gw1ikeXcL_" role="3clF46">
+        <property role="TrG5h" value="areasToRead" />
+        <property role="3TUv4t" value="true" />
+        <node concept="A3Dl8" id="6gw1ikeXcLA" role="1tU5fm">
+          <node concept="3uibUv" id="6gw1ikeXcLB" role="A3Ik2">
+            <ref role="3uigEE" to="qvpu:~IArea" resolve="IArea" />
+          </node>
+        </node>
+      </node>
+      <node concept="37vLTG" id="6gw1ikeXcLC" role="3clF46">
+        <property role="TrG5h" value="r" />
+        <property role="3TUv4t" value="true" />
+        <node concept="3uibUv" id="6gw1ikeXcLD" role="1tU5fm">
+          <ref role="3uigEE" to="wyt6:~Runnable" resolve="Runnable" />
+        </node>
+      </node>
+      <node concept="3cqZAl" id="6gw1ikeXcLE" role="3clF45" />
+      <node concept="3Tm1VV" id="6gw1ikeXcLF" role="1B3o_S" />
+    </node>
+    <node concept="2tJIrI" id="6gw1ikeZohE" role="jymVt" />
+    <node concept="2YIFZL" id="6gw1ikeZo0y" role="jymVt">
+      <property role="TrG5h" value="runReadOnNode" />
+      <node concept="3clFbS" id="6gw1ikeZo0z" role="3clF47">
+        <node concept="3clFbF" id="6gw1ikeZo0$" role="3cqZAp">
+          <node concept="1rXfSq" id="6gw1ikeZo0_" role="3clFbG">
+            <ref role="37wK5l" node="694yVfgp24a" resolve="runReadOnNodes" />
+            <node concept="2ShNRf" id="6gw1ikeZpBQ" role="37wK5m">
+              <node concept="2HTt$P" id="6gw1ikeZrF$" role="2ShVmc">
+                <node concept="3uibUv" id="6gw1ikeZrOt" role="2HTBi0">
+                  <ref role="3uigEE" to="wyt6:~Object" resolve="Object" />
+                </node>
+                <node concept="37vLTw" id="6gw1ikeZs7S" role="2HTEbv">
+                  <ref role="3cqZAo" node="6gw1ikeZo0N" resolve="nodesToRead" />
+                </node>
+              </node>
+            </node>
+            <node concept="37vLTw" id="6gw1ikeZo0M" role="37wK5m">
+              <ref role="3cqZAo" node="6gw1ikeZo0Q" resolve="r" />
+            </node>
+          </node>
+        </node>
+      </node>
+      <node concept="37vLTG" id="6gw1ikeZo0N" role="3clF46">
+        <property role="TrG5h" value="nodesToRead" />
+        <node concept="3uibUv" id="6gw1ikeZoK7" role="1tU5fm">
+          <ref role="3uigEE" to="wyt6:~Object" resolve="Object" />
+        </node>
+      </node>
+      <node concept="37vLTG" id="6gw1ikeZo0Q" role="3clF46">
+        <property role="TrG5h" value="r" />
+        <node concept="3uibUv" id="6gw1ikeZo0R" role="1tU5fm">
+          <ref role="3uigEE" to="wyt6:~Runnable" resolve="Runnable" />
+        </node>
+      </node>
+      <node concept="3cqZAl" id="6gw1ikeZo0S" role="3clF45" />
+      <node concept="3Tm1VV" id="6gw1ikeZo0T" role="1B3o_S" />
     </node>
     <node concept="2tJIrI" id="694yVfgp2w7" role="jymVt" />
     <node concept="2YIFZL" id="694yVfgp24a" role="jymVt">
@@ -11613,7 +11990,7 @@
       <node concept="3clFbS" id="694yVfgp24b" role="3clF47">
         <node concept="3clFbF" id="694yVfgp24c" role="3cqZAp">
           <node concept="1rXfSq" id="694yVfgp24d" role="3clFbG">
-            <ref role="37wK5l" node="694yVfgoNEv" resolve="runReadOnBranches" />
+            <ref role="37wK5l" node="694yVfgoNEv" resolve="runReadOnAreas" />
             <node concept="2OqwBi" id="694yVfgp24f" role="37wK5m">
               <node concept="2OqwBi" id="694yVfgp24g" role="2Oq$k0">
                 <node concept="37vLTw" id="694yVfgp24i" role="2Oq$k0">
@@ -11624,7 +12001,7 @@
                     <node concept="3clFbS" id="694yVfgp24m" role="1bW5cS">
                       <node concept="3clFbF" id="694yVfgp24n" role="3cqZAp">
                         <node concept="1rXfSq" id="694yVfgp24o" role="3clFbG">
-                          <ref role="37wK5l" node="694yVfgo$XZ" resolve="extractBranch" />
+                          <ref role="37wK5l" node="6gw1ikeWpRr" resolve="extractArea" />
                           <node concept="37vLTw" id="694yVfgp24p" role="37wK5m">
                             <ref role="3cqZAo" node="694yVfgp24q" resolve="it" />
                           </node>
@@ -11665,12 +12042,12 @@
     </node>
     <node concept="2tJIrI" id="694yVfgoN2q" role="jymVt" />
     <node concept="2YIFZL" id="694yVfgoNEv" role="jymVt">
-      <property role="TrG5h" value="runReadOnBranches" />
+      <property role="TrG5h" value="runReadOnAreas" />
       <node concept="3clFbS" id="694yVfgoN8Z" role="3clF47">
         <node concept="3clFbJ" id="694yVfgoNSJ" role="3cqZAp">
           <node concept="2OqwBi" id="694yVfgoOEt" role="3clFbw">
             <node concept="37vLTw" id="694yVfgoOgn" role="2Oq$k0">
-              <ref role="3cqZAo" node="694yVfgoNnj" resolve="branchesToRead" />
+              <ref role="3cqZAo" node="694yVfgoNnj" resolve="areasToRead" />
             </node>
             <node concept="1v1jN8" id="694yVfgoOS9" role="2OqNvi" />
           </node>
@@ -11692,20 +12069,20 @@
                 <node concept="2OqwBi" id="694yVfgoQiK" role="3clFbG">
                   <node concept="2OqwBi" id="694yVfgoQ2j" role="2Oq$k0">
                     <node concept="37vLTw" id="694yVfgoPOa" role="2Oq$k0">
-                      <ref role="3cqZAo" node="694yVfgoNnj" resolve="branchesToRead" />
+                      <ref role="3cqZAo" node="694yVfgoNnj" resolve="areasToRead" />
                     </node>
                     <node concept="1uHKPH" id="694yVfgoQ8A" role="2OqNvi" />
                   </node>
                   <node concept="liA8E" id="694yVfgoQpZ" role="2OqNvi">
-                    <ref role="37wK5l" to="jks5:~IBranch.runRead(kotlin.jvm.functions.Function0)" resolve="runRead" />
+                    <ref role="37wK5l" to="qvpu:~IArea.executeRead(kotlin.jvm.functions.Function0)" resolve="executeRead" />
                     <node concept="1bVj0M" id="694yVfgoQM6" role="37wK5m">
                       <node concept="3clFbS" id="694yVfgoQM7" role="1bW5cS">
                         <node concept="3clFbF" id="694yVfgoRdv" role="3cqZAp">
                           <node concept="1rXfSq" id="694yVfgoRdt" role="3clFbG">
-                            <ref role="37wK5l" node="694yVfgoNEv" resolve="runReadOnBranches" />
+                            <ref role="37wK5l" node="694yVfgoNEv" resolve="runReadOnAreas" />
                             <node concept="2OqwBi" id="694yVfgoSQy" role="37wK5m">
                               <node concept="37vLTw" id="694yVfgoSh5" role="2Oq$k0">
-                                <ref role="3cqZAo" node="694yVfgoNnj" resolve="branchesToRead" />
+                                <ref role="3cqZAo" node="694yVfgoNnj" resolve="areasToRead" />
                               </node>
                               <node concept="7r0gD" id="694yVfgoSYM" role="2OqNvi">
                                 <node concept="3cmrfG" id="694yVfgoTfS" role="7T0AP">
@@ -11734,11 +12111,11 @@
         </node>
       </node>
       <node concept="37vLTG" id="694yVfgoNnj" role="3clF46">
-        <property role="TrG5h" value="branchesToRead" />
+        <property role="TrG5h" value="areasToRead" />
         <property role="3TUv4t" value="true" />
         <node concept="A3Dl8" id="694yVfgoNvL" role="1tU5fm">
-          <node concept="3uibUv" id="694yVfgoN$G" role="A3Ik2">
-            <ref role="3uigEE" to="jks5:~IBranch" resolve="IBranch" />
+          <node concept="3uibUv" id="6gw1ikeX7vU" role="A3Ik2">
+            <ref role="3uigEE" to="qvpu:~IArea" resolve="IArea" />
           </node>
         </node>
       </node>
@@ -13995,11 +14372,8 @@
                   </node>
                   <node concept="3clFbF" id="1OzsJtaqLv3" role="3cqZAp">
                     <node concept="2OqwBi" id="1OzsJtaqLv4" role="3clFbG">
-                      <node concept="37vLTw" id="1OzsJtaqLv5" role="2Oq$k0">
-                        <ref role="3cqZAo" node="1OzsJtaqLuU" resolve="branch" />
-                      </node>
                       <node concept="liA8E" id="1OzsJtaqLv6" role="2OqNvi">
-                        <ref role="37wK5l" to="jks5:~IBranch.computeRead(kotlin.jvm.functions.Function0)" resolve="computeRead" />
+                        <ref role="37wK5l" to="qvpu:~PArea.executeRead(kotlin.jvm.functions.Function0)" resolve="executeRead" />
                         <node concept="1bVj0M" id="1OzsJtaqLv7" role="37wK5m">
                           <node concept="3clFbS" id="1OzsJtaqLv8" role="1bW5cS">
                             <node concept="3cpWs8" id="1OzsJtaqLv9" role="3cqZAp">
@@ -14136,6 +14510,14 @@
                                 </node>
                               </node>
                             </node>
+                          </node>
+                        </node>
+                      </node>
+                      <node concept="2ShNRf" id="6c6cqXTeGHJ" role="2Oq$k0">
+                        <node concept="1pGfFk" id="6c6cqXTeGHK" role="2ShVmc">
+                          <ref role="37wK5l" to="qvpu:~PArea.&lt;init&gt;(org.modelix.model.api.IBranch)" resolve="PArea" />
+                          <node concept="37vLTw" id="6c6cqXTeGHL" role="37wK5m">
+                            <ref role="3cqZAo" node="1OzsJtaqLuU" resolve="branch" />
                           </node>
                         </node>
                       </node>
@@ -17994,16 +18376,8 @@
                             <node concept="3clFbS" id="2FX9uaKKMUh" role="3clFbx">
                               <node concept="3clFbF" id="2FX9uaKL3W1" role="3cqZAp">
                                 <node concept="2OqwBi" id="2FX9uaKL4PT" role="3clFbG">
-                                  <node concept="2OqwBi" id="2FX9uaKL4nK" role="2Oq$k0">
-                                    <node concept="37vLTw" id="2FX9uaKL3VZ" role="2Oq$k0">
-                                      <ref role="3cqZAo" node="7fzD_A4pgdq" resolve="activeBranch" />
-                                    </node>
-                                    <node concept="liA8E" id="2FX9uaKL4Jo" role="2OqNvi">
-                                      <ref role="37wK5l" to="5440:~ActiveBranch.getBranch()" resolve="getBranch" />
-                                    </node>
-                                  </node>
                                   <node concept="liA8E" id="2FX9uaKL5aR" role="2OqNvi">
-                                    <ref role="37wK5l" to="jks5:~IBranch.runWrite(kotlin.jvm.functions.Function0)" resolve="runWrite" />
+                                    <ref role="37wK5l" to="qvpu:~PArea.executeWrite(kotlin.jvm.functions.Function0)" resolve="executeWrite" />
                                     <node concept="1bVj0M" id="2FX9uaKL5IX" role="37wK5m">
                                       <node concept="3clFbS" id="2FX9uaKL5IY" role="1bW5cS">
                                         <node concept="3clFbJ" id="6Oq35Wg1xox" role="3cqZAp">
@@ -18069,6 +18443,19 @@
                                             <ref role="1PxDUh" to="v18h:~Unit" resolve="Unit" />
                                             <ref role="3cqZAo" to="v18h:~Unit.INSTANCE" resolve="INSTANCE" />
                                           </node>
+                                        </node>
+                                      </node>
+                                    </node>
+                                  </node>
+                                  <node concept="2ShNRf" id="6c6cqXTglb5" role="2Oq$k0">
+                                    <node concept="1pGfFk" id="6c6cqXTglb6" role="2ShVmc">
+                                      <ref role="37wK5l" to="qvpu:~PArea.&lt;init&gt;(org.modelix.model.api.IBranch)" resolve="PArea" />
+                                      <node concept="2OqwBi" id="6c6cqXTglb7" role="37wK5m">
+                                        <node concept="37vLTw" id="6c6cqXTglb8" role="2Oq$k0">
+                                          <ref role="3cqZAo" node="7fzD_A4pgdq" resolve="activeBranch" />
+                                        </node>
+                                        <node concept="liA8E" id="6c6cqXTglb9" role="2OqNvi">
+                                          <ref role="37wK5l" to="5440:~ActiveBranch.getBranch()" resolve="getBranch" />
                                         </node>
                                       </node>
                                     </node>
@@ -18541,11 +18928,8 @@
         </node>
         <node concept="3clFbF" id="7fzD_A4pk3a" role="3cqZAp">
           <node concept="2OqwBi" id="7fzD_A4pla$" role="3clFbG">
-            <node concept="37vLTw" id="7fzD_A4pkVr" role="2Oq$k0">
-              <ref role="3cqZAo" node="7fzD_A4pkVl" resolve="branch" />
-            </node>
             <node concept="liA8E" id="7fzD_A4plk7" role="2OqNvi">
-              <ref role="37wK5l" to="jks5:~IBranch.runRead(kotlin.jvm.functions.Function0)" resolve="runRead" />
+              <ref role="37wK5l" to="qvpu:~PArea.executeRead(kotlin.jvm.functions.Function0)" resolve="executeRead" />
               <node concept="1bVj0M" id="7fzD_A4plyy" role="37wK5m">
                 <node concept="3clFbS" id="7fzD_A4plyz" role="1bW5cS">
                   <node concept="3cpWs8" id="7fzD_A4pLgQ" role="3cqZAp">
@@ -19187,6 +19571,14 @@
                 </node>
               </node>
             </node>
+            <node concept="2ShNRf" id="6c6cqXTdbxP" role="2Oq$k0">
+              <node concept="1pGfFk" id="6c6cqXTdbxQ" role="2ShVmc">
+                <ref role="37wK5l" to="qvpu:~PArea.&lt;init&gt;(org.modelix.model.api.IBranch)" resolve="PArea" />
+                <node concept="37vLTw" id="6c6cqXTdcYr" role="37wK5m">
+                  <ref role="3cqZAo" node="7fzD_A4pkVl" resolve="branch" />
+                </node>
+              </node>
+            </node>
           </node>
         </node>
         <node concept="3clFbH" id="_4bK_sVmDt" role="3cqZAp" />
@@ -19806,11 +20198,8 @@
             </node>
             <node concept="3clFbF" id="2FX9uaKGjUu" role="3cqZAp">
               <node concept="2OqwBi" id="2FX9uaKGlgU" role="3clFbG">
-                <node concept="37vLTw" id="2FX9uaKGjUs" role="2Oq$k0">
-                  <ref role="3cqZAo" node="7fzD_A4pkVl" resolve="branch" />
-                </node>
                 <node concept="liA8E" id="2FX9uaKGlwq" role="2OqNvi">
-                  <ref role="37wK5l" to="jks5:~IBranch.runRead(kotlin.jvm.functions.Function0)" resolve="runRead" />
+                  <ref role="37wK5l" to="qvpu:~PArea.executeRead(kotlin.jvm.functions.Function0)" resolve="executeRead" />
                   <node concept="1bVj0M" id="2FX9uaKGlH7" role="37wK5m">
                     <node concept="3clFbS" id="2FX9uaKGlH8" role="1bW5cS">
                       <node concept="2Gpval" id="7fzD_A4r8up" role="3cqZAp">
@@ -19921,6 +20310,14 @@
                     </node>
                   </node>
                 </node>
+                <node concept="2ShNRf" id="6c6cqXTde80" role="2Oq$k0">
+                  <node concept="1pGfFk" id="6c6cqXTde81" role="2ShVmc">
+                    <ref role="37wK5l" to="qvpu:~PArea.&lt;init&gt;(org.modelix.model.api.IBranch)" resolve="PArea" />
+                    <node concept="37vLTw" id="6c6cqXTde82" role="37wK5m">
+                      <ref role="3cqZAo" node="7fzD_A4pkVl" resolve="branch" />
+                    </node>
+                  </node>
+                </node>
               </node>
             </node>
           </node>
@@ -19953,11 +20350,8 @@
         </node>
         <node concept="3clFbF" id="2FX9uaKGqaU" role="3cqZAp">
           <node concept="2OqwBi" id="2FX9uaKGrzA" role="3clFbG">
-            <node concept="37vLTw" id="2FX9uaKGqaS" role="2Oq$k0">
-              <ref role="3cqZAo" node="7fzD_A4pkVl" resolve="branch" />
-            </node>
             <node concept="liA8E" id="2FX9uaKGsKE" role="2OqNvi">
-              <ref role="37wK5l" to="jks5:~IBranch.runRead(kotlin.jvm.functions.Function0)" resolve="runRead" />
+              <ref role="37wK5l" to="qvpu:~PArea.executeRead(kotlin.jvm.functions.Function0)" resolve="executeRead" />
               <node concept="1bVj0M" id="2FX9uaKGsXo" role="37wK5m">
                 <node concept="3clFbS" id="2FX9uaKGsXp" role="1bW5cS">
                   <node concept="3cpWs8" id="2FX9uaKFx26" role="3cqZAp">
@@ -20119,6 +20513,14 @@
                       <ref role="3cqZAo" to="v18h:~Unit.INSTANCE" resolve="INSTANCE" />
                     </node>
                   </node>
+                </node>
+              </node>
+            </node>
+            <node concept="2ShNRf" id="6c6cqXTdfyu" role="2Oq$k0">
+              <node concept="1pGfFk" id="6c6cqXTdfyv" role="2ShVmc">
+                <ref role="37wK5l" to="qvpu:~PArea.&lt;init&gt;(org.modelix.model.api.IBranch)" resolve="PArea" />
+                <node concept="37vLTw" id="6c6cqXTdfyw" role="37wK5m">
+                  <ref role="3cqZAo" node="7fzD_A4pkVl" resolve="branch" />
                 </node>
               </node>
             </node>
@@ -23903,14 +24305,8 @@
         </node>
         <node concept="3clFbF" id="3i6diw3p3xA" role="3cqZAp">
           <node concept="2OqwBi" id="3i6diw3p3xB" role="3clFbG">
-            <node concept="2OqwBi" id="3i6diw3p3xC" role="2Oq$k0">
-              <node concept="2V_BSl" id="3i6diw3p3xD" role="2Oq$k0" />
-              <node concept="liA8E" id="3i6diw3p3xE" role="2OqNvi">
-                <ref role="37wK5l" node="6aRQr1X1RCt" resolve="getInfoBranch" />
-              </node>
-            </node>
             <node concept="liA8E" id="3i6diw3p3xF" role="2OqNvi">
-              <ref role="37wK5l" to="jks5:~IBranch.computeRead(kotlin.jvm.functions.Function0)" resolve="computeRead" />
+              <ref role="37wK5l" to="qvpu:~PArea.executeRead(kotlin.jvm.functions.Function0)" resolve="executeRead" />
               <node concept="1bVj0M" id="3i6diw3p3xG" role="37wK5m">
                 <property role="3yWfEV" value="true" />
                 <node concept="3clFbS" id="3i6diw3p3xH" role="1bW5cS">
@@ -24029,6 +24425,17 @@
                       </node>
                       <node concept="ANE8D" id="3jIde7Q5A6D" role="2OqNvi" />
                     </node>
+                  </node>
+                </node>
+              </node>
+            </node>
+            <node concept="2ShNRf" id="6c6cqXTe_or" role="2Oq$k0">
+              <node concept="1pGfFk" id="6c6cqXTe_os" role="2ShVmc">
+                <ref role="37wK5l" to="qvpu:~PArea.&lt;init&gt;(org.modelix.model.api.IBranch)" resolve="PArea" />
+                <node concept="2OqwBi" id="3i6diw3p3xC" role="37wK5m">
+                  <node concept="2V_BSl" id="3i6diw3p3xD" role="2Oq$k0" />
+                  <node concept="liA8E" id="3i6diw3p3xE" role="2OqNvi">
+                    <ref role="37wK5l" node="6aRQr1X1RCt" resolve="getInfoBranch" />
                   </node>
                 </node>
               </node>
@@ -24345,14 +24752,6 @@
       <node concept="3clFbS" id="2Js2MfX9Evq" role="3clF47">
         <node concept="3clFbF" id="o9mtgzSfoz" role="3cqZAp">
           <node concept="2OqwBi" id="o9mtgzSfo_" role="3clFbG">
-            <node concept="2OqwBi" id="o9mtgzSfoA" role="2Oq$k0">
-              <node concept="37vLTw" id="o9mtgzSfoB" role="2Oq$k0">
-                <ref role="3cqZAo" node="3i6diw3mtrY" resolve="cloudRepository" />
-              </node>
-              <node concept="liA8E" id="o9mtgzSfoC" role="2OqNvi">
-                <ref role="37wK5l" node="6aRQr1X1RCt" resolve="getInfoBranch" />
-              </node>
-            </node>
             <node concept="liA8E" id="o9mtgzSfoD" role="2OqNvi">
               <ref role="37wK5l" to="jks5:~IBranch.computeRead(kotlin.jvm.functions.Function0)" resolve="computeRead" />
               <node concept="1bVj0M" id="o9mtgzSfoE" role="37wK5m">
@@ -24395,11 +24794,8 @@
                   </node>
                   <node concept="3cpWs6" id="o9mtgzSh4N" role="3cqZAp">
                     <node concept="2OqwBi" id="2Js2MfX9Fr6" role="3cqZAk">
-                      <node concept="37vLTw" id="2Js2MfX9Fr7" role="2Oq$k0">
-                        <ref role="3cqZAo" node="2Js2MfX9FqT" resolve="branch" />
-                      </node>
                       <node concept="liA8E" id="2Js2MfX9Fr8" role="2OqNvi">
-                        <ref role="37wK5l" to="jks5:~IBranch.computeRead(kotlin.jvm.functions.Function0)" resolve="computeRead" />
+                        <ref role="37wK5l" to="qvpu:~PArea.executeRead(kotlin.jvm.functions.Function0)" resolve="executeRead" />
                         <node concept="1bVj0M" id="2Js2MfX9Fr9" role="37wK5m">
                           <node concept="3clFbS" id="2Js2MfX9Fra" role="1bW5cS">
                             <node concept="3clFbF" id="2Js2MfX9NJJ" role="3cqZAp">
@@ -24415,9 +24811,25 @@
                           </node>
                         </node>
                       </node>
+                      <node concept="2ShNRf" id="6c6cqXTf8qL" role="2Oq$k0">
+                        <node concept="1pGfFk" id="6c6cqXTf8qM" role="2ShVmc">
+                          <ref role="37wK5l" to="qvpu:~PArea.&lt;init&gt;(org.modelix.model.api.IBranch)" resolve="PArea" />
+                          <node concept="37vLTw" id="6c6cqXTf8qN" role="37wK5m">
+                            <ref role="3cqZAo" node="2Js2MfX9FqT" resolve="branch" />
+                          </node>
+                        </node>
+                      </node>
                     </node>
                   </node>
                 </node>
+              </node>
+            </node>
+            <node concept="2OqwBi" id="o9mtgzSfoA" role="2Oq$k0">
+              <node concept="37vLTw" id="o9mtgzSfoB" role="2Oq$k0">
+                <ref role="3cqZAo" node="3i6diw3mtrY" resolve="cloudRepository" />
+              </node>
+              <node concept="liA8E" id="o9mtgzSfoC" role="2OqNvi">
+                <ref role="37wK5l" node="6aRQr1X1RCt" resolve="getInfoBranch" />
               </node>
             </node>
           </node>
@@ -24446,16 +24858,8 @@
       <node concept="3clFbS" id="3i6diw3mRQp" role="3clF47">
         <node concept="3clFbF" id="3TbkWOkPtkD" role="3cqZAp">
           <node concept="2OqwBi" id="3TbkWOkPuf0" role="3clFbG">
-            <node concept="2OqwBi" id="3TbkWOkPtIs" role="2Oq$k0">
-              <node concept="37vLTw" id="3TbkWOkPtkB" role="2Oq$k0">
-                <ref role="3cqZAo" node="3i6diw3mtrY" resolve="cloudRepository" />
-              </node>
-              <node concept="liA8E" id="3TbkWOkPu5g" role="2OqNvi">
-                <ref role="37wK5l" node="6aRQr1X1RCt" resolve="getInfoBranch" />
-              </node>
-            </node>
             <node concept="liA8E" id="3TbkWOkPumV" role="2OqNvi">
-              <ref role="37wK5l" to="jks5:~IBranch.runRead(kotlin.jvm.functions.Function0)" resolve="runRead" />
+              <ref role="37wK5l" to="qvpu:~PArea.executeRead(kotlin.jvm.functions.Function0)" resolve="executeRead" />
               <node concept="1bVj0M" id="3TbkWOkPumW" role="37wK5m">
                 <property role="3yWfEV" value="true" />
                 <node concept="3clFbS" id="3TbkWOkPumX" role="1bW5cS">
@@ -24497,11 +24901,8 @@
                   </node>
                   <node concept="3clFbF" id="3TbkWOkPunb" role="3cqZAp">
                     <node concept="2OqwBi" id="3TbkWOkPunc" role="3clFbG">
-                      <node concept="37vLTw" id="3TbkWOkPund" role="2Oq$k0">
-                        <ref role="3cqZAo" node="3TbkWOkPun6" resolve="branch" />
-                      </node>
                       <node concept="liA8E" id="3TbkWOkPune" role="2OqNvi">
-                        <ref role="37wK5l" to="jks5:~IBranch.runRead(kotlin.jvm.functions.Function0)" resolve="runRead" />
+                        <ref role="37wK5l" to="qvpu:~PArea.executeRead(kotlin.jvm.functions.Function0)" resolve="executeRead" />
                         <node concept="1bVj0M" id="3TbkWOkPunf" role="37wK5m">
                           <node concept="3clFbS" id="3TbkWOkPung" role="1bW5cS">
                             <node concept="3clFbF" id="3TbkWOkPunh" role="3cqZAp">
@@ -24523,6 +24924,14 @@
                           </node>
                         </node>
                       </node>
+                      <node concept="2ShNRf" id="6c6cqXTdmHy" role="2Oq$k0">
+                        <node concept="1pGfFk" id="6c6cqXTdmHz" role="2ShVmc">
+                          <ref role="37wK5l" to="qvpu:~PArea.&lt;init&gt;(org.modelix.model.api.IBranch)" resolve="PArea" />
+                          <node concept="37vLTw" id="6c6cqXTdmH$" role="37wK5m">
+                            <ref role="3cqZAo" node="3TbkWOkPun6" resolve="branch" />
+                          </node>
+                        </node>
+                      </node>
                     </node>
                   </node>
                   <node concept="3clFbF" id="3TbkWOkPunn" role="3cqZAp">
@@ -24530,6 +24939,19 @@
                       <ref role="1PxDUh" to="v18h:~Unit" resolve="Unit" />
                       <ref role="3cqZAo" to="v18h:~Unit.INSTANCE" resolve="INSTANCE" />
                     </node>
+                  </node>
+                </node>
+              </node>
+            </node>
+            <node concept="2ShNRf" id="6c6cqXTdlL_" role="2Oq$k0">
+              <node concept="1pGfFk" id="6c6cqXTdlLA" role="2ShVmc">
+                <ref role="37wK5l" to="qvpu:~PArea.&lt;init&gt;(org.modelix.model.api.IBranch)" resolve="PArea" />
+                <node concept="2OqwBi" id="3TbkWOkPtIs" role="37wK5m">
+                  <node concept="37vLTw" id="3TbkWOkPtkB" role="2Oq$k0">
+                    <ref role="3cqZAo" node="3i6diw3mtrY" resolve="cloudRepository" />
+                  </node>
+                  <node concept="liA8E" id="3TbkWOkPu5g" role="2OqNvi">
+                    <ref role="37wK5l" node="6aRQr1X1RCt" resolve="getInfoBranch" />
                   </node>
                 </node>
               </node>
@@ -24607,11 +25029,8 @@
         </node>
         <node concept="3clFbF" id="5rz8NqPOBg2" role="3cqZAp">
           <node concept="2OqwBi" id="5rz8NqPOBg3" role="3clFbG">
-            <node concept="37vLTw" id="5rz8NqPOBg4" role="2Oq$k0">
-              <ref role="3cqZAo" node="5rz8NqPOBfQ" resolve="branch" />
-            </node>
             <node concept="liA8E" id="5rz8NqPOBg5" role="2OqNvi">
-              <ref role="37wK5l" to="jks5:~IBranch.runRead(kotlin.jvm.functions.Function0)" resolve="runRead" />
+              <ref role="37wK5l" to="qvpu:~PArea.executeRead(kotlin.jvm.functions.Function0)" resolve="executeRead" />
               <node concept="1bVj0M" id="5rz8NqPOBg6" role="37wK5m">
                 <node concept="3clFbS" id="5rz8NqPOBg7" role="1bW5cS">
                   <node concept="3clFbF" id="5rz8NqPOBg8" role="3cqZAp">
@@ -24633,6 +25052,14 @@
                       <ref role="3cqZAo" to="v18h:~Unit.INSTANCE" resolve="INSTANCE" />
                     </node>
                   </node>
+                </node>
+              </node>
+            </node>
+            <node concept="2ShNRf" id="6c6cqXTdmWv" role="2Oq$k0">
+              <node concept="1pGfFk" id="6c6cqXTdmWw" role="2ShVmc">
+                <ref role="37wK5l" to="qvpu:~PArea.&lt;init&gt;(org.modelix.model.api.IBranch)" resolve="PArea" />
+                <node concept="37vLTw" id="6c6cqXTdmWx" role="37wK5m">
+                  <ref role="3cqZAo" node="5rz8NqPOBfQ" resolve="branch" />
                 </node>
               </node>
             </node>
@@ -24719,11 +25146,8 @@
         </node>
         <node concept="3clFbF" id="6RlQSYZPBGt" role="3cqZAp">
           <node concept="2OqwBi" id="6RlQSYZPBGu" role="3clFbG">
-            <node concept="37vLTw" id="6RlQSYZPBGv" role="2Oq$k0">
-              <ref role="3cqZAo" node="6RlQSYZPBGh" resolve="branch" />
-            </node>
             <node concept="liA8E" id="6RlQSYZPBGw" role="2OqNvi">
-              <ref role="37wK5l" to="jks5:~IBranch.computeWrite(kotlin.jvm.functions.Function0)" resolve="computeWrite" />
+              <ref role="37wK5l" to="qvpu:~PArea.executeWrite(kotlin.jvm.functions.Function0)" resolve="executeWrite" />
               <node concept="1bVj0M" id="6RlQSYZPBGx" role="37wK5m">
                 <node concept="3clFbS" id="6RlQSYZPBGy" role="1bW5cS">
                   <node concept="3clFbF" id="6RlQSYZPBGz" role="3cqZAp">
@@ -24739,6 +25163,14 @@
                       </node>
                     </node>
                   </node>
+                </node>
+              </node>
+            </node>
+            <node concept="2ShNRf" id="6c6cqXTgX8E" role="2Oq$k0">
+              <node concept="1pGfFk" id="6c6cqXTgX8F" role="2ShVmc">
+                <ref role="37wK5l" to="qvpu:~PArea.&lt;init&gt;(org.modelix.model.api.IBranch)" resolve="PArea" />
+                <node concept="37vLTw" id="6c6cqXTgX8G" role="37wK5m">
+                  <ref role="3cqZAo" node="6RlQSYZPBGh" resolve="branch" />
                 </node>
               </node>
             </node>
@@ -24845,11 +25277,8 @@
         </node>
         <node concept="3clFbF" id="lOVi2Aa0Mj" role="3cqZAp">
           <node concept="2OqwBi" id="lOVi2Aa0Mk" role="3clFbG">
-            <node concept="37vLTw" id="lOVi2Aa0Ml" role="2Oq$k0">
-              <ref role="3cqZAo" node="lOVi2Aa0M7" resolve="branch" />
-            </node>
             <node concept="liA8E" id="lOVi2Aa0Mm" role="2OqNvi">
-              <ref role="37wK5l" to="jks5:~IBranch.runWrite(kotlin.jvm.functions.Function0)" resolve="runWrite" />
+              <ref role="37wK5l" to="qvpu:~PArea.executeWrite(kotlin.jvm.functions.Function0)" resolve="executeWrite" />
               <node concept="1bVj0M" id="lOVi2Aa0Mn" role="37wK5m">
                 <node concept="3clFbS" id="lOVi2Aa0Mo" role="1bW5cS">
                   <node concept="3clFbF" id="lOVi2Aa0Mp" role="3cqZAp">
@@ -24871,6 +25300,14 @@
                       <ref role="3cqZAo" to="v18h:~Unit.INSTANCE" resolve="INSTANCE" />
                     </node>
                   </node>
+                </node>
+              </node>
+            </node>
+            <node concept="2ShNRf" id="6c6cqXTgoH$" role="2Oq$k0">
+              <node concept="1pGfFk" id="6c6cqXTgoH_" role="2ShVmc">
+                <ref role="37wK5l" to="qvpu:~PArea.&lt;init&gt;(org.modelix.model.api.IBranch)" resolve="PArea" />
+                <node concept="37vLTw" id="6c6cqXTgoHA" role="37wK5m">
+                  <ref role="3cqZAo" node="lOVi2Aa0M7" resolve="branch" />
                 </node>
               </node>
             </node>
@@ -25040,16 +25477,8 @@
       <node concept="3clFbS" id="66_IlsY$Fvs" role="3clF47">
         <node concept="3clFbF" id="66_IlsY$Fvt" role="3cqZAp">
           <node concept="2OqwBi" id="66_IlsY$Fvu" role="3clFbG">
-            <node concept="2OqwBi" id="66_IlsY$Fvv" role="2Oq$k0">
-              <node concept="37vLTw" id="66_IlsY$Gx9" role="2Oq$k0">
-                <ref role="3cqZAo" node="3i6diw3mtrY" resolve="cloudRepository" />
-              </node>
-              <node concept="liA8E" id="66_IlsY$Fvx" role="2OqNvi">
-                <ref role="37wK5l" node="6aRQr1X1RCt" resolve="getInfoBranch" />
-              </node>
-            </node>
             <node concept="liA8E" id="66_IlsY$Fvy" role="2OqNvi">
-              <ref role="37wK5l" to="jks5:~IBranch.runRead(kotlin.jvm.functions.Function0)" resolve="runRead" />
+              <ref role="37wK5l" to="qvpu:~PArea.executeRead(kotlin.jvm.functions.Function0)" resolve="executeRead" />
               <node concept="1bVj0M" id="66_IlsY$Fvz" role="37wK5m">
                 <node concept="3clFbS" id="66_IlsY$Fv$" role="1bW5cS">
                   <node concept="3cpWs8" id="66_IlsY$Fv_" role="3cqZAp">
@@ -25110,11 +25539,8 @@
                   </node>
                   <node concept="3clFbF" id="66_IlsY$FvT" role="3cqZAp">
                     <node concept="2OqwBi" id="66_IlsY$FvU" role="3clFbG">
-                      <node concept="37vLTw" id="66_IlsY$FvV" role="2Oq$k0">
-                        <ref role="3cqZAo" node="66_IlsY$FvH" resolve="branch" />
-                      </node>
                       <node concept="liA8E" id="66_IlsY$FvW" role="2OqNvi">
-                        <ref role="37wK5l" to="jks5:~IBranch.runRead(kotlin.jvm.functions.Function0)" resolve="runRead" />
+                        <ref role="37wK5l" to="qvpu:~PArea.executeRead(kotlin.jvm.functions.Function0)" resolve="executeRead" />
                         <node concept="1bVj0M" id="66_IlsY$FvX" role="37wK5m">
                           <node concept="3clFbS" id="66_IlsY$FvY" role="1bW5cS">
                             <node concept="2Gpval" id="66_IlsY$FvZ" role="3cqZAp">
@@ -25154,6 +25580,14 @@
                           </node>
                         </node>
                       </node>
+                      <node concept="2ShNRf" id="6c6cqXTdokK" role="2Oq$k0">
+                        <node concept="1pGfFk" id="6c6cqXTdokL" role="2ShVmc">
+                          <ref role="37wK5l" to="qvpu:~PArea.&lt;init&gt;(org.modelix.model.api.IBranch)" resolve="PArea" />
+                          <node concept="37vLTw" id="6c6cqXTdokM" role="37wK5m">
+                            <ref role="3cqZAo" node="66_IlsY$FvH" resolve="branch" />
+                          </node>
+                        </node>
+                      </node>
                     </node>
                   </node>
                   <node concept="3clFbF" id="66_IlsY$Fwc" role="3cqZAp">
@@ -25161,6 +25595,19 @@
                       <ref role="1PxDUh" to="v18h:~Unit" resolve="Unit" />
                       <ref role="3cqZAo" to="v18h:~Unit.INSTANCE" resolve="INSTANCE" />
                     </node>
+                  </node>
+                </node>
+              </node>
+            </node>
+            <node concept="2ShNRf" id="6c6cqXTdn2V" role="2Oq$k0">
+              <node concept="1pGfFk" id="6c6cqXTdn2W" role="2ShVmc">
+                <ref role="37wK5l" to="qvpu:~PArea.&lt;init&gt;(org.modelix.model.api.IBranch)" resolve="PArea" />
+                <node concept="2OqwBi" id="6c6cqXTdnFN" role="37wK5m">
+                  <node concept="37vLTw" id="6c6cqXTdnFO" role="2Oq$k0">
+                    <ref role="3cqZAo" node="3i6diw3mtrY" resolve="cloudRepository" />
+                  </node>
+                  <node concept="liA8E" id="6c6cqXTdnFP" role="2OqNvi">
+                    <ref role="37wK5l" node="6aRQr1X1RCt" resolve="getInfoBranch" />
                   </node>
                 </node>
               </node>
@@ -25368,16 +25815,8 @@
       <node concept="3clFbS" id="66_IlsY_3Hu" role="3clF47">
         <node concept="3clFbF" id="66_IlsY_6_f" role="3cqZAp">
           <node concept="2OqwBi" id="66_IlsY_6_g" role="3clFbG">
-            <node concept="2OqwBi" id="66_IlsY_6_h" role="2Oq$k0">
-              <node concept="37vLTw" id="66_IlsY_6_i" role="2Oq$k0">
-                <ref role="3cqZAo" node="3i6diw3mtrY" resolve="cloudRepository" />
-              </node>
-              <node concept="liA8E" id="66_IlsY_6_j" role="2OqNvi">
-                <ref role="37wK5l" node="6aRQr1X1RCt" resolve="getInfoBranch" />
-              </node>
-            </node>
             <node concept="liA8E" id="66_IlsY_6_k" role="2OqNvi">
-              <ref role="37wK5l" to="jks5:~IBranch.runWrite(kotlin.jvm.functions.Function0)" resolve="runWrite" />
+              <ref role="37wK5l" to="qvpu:~PArea.executeWrite(kotlin.jvm.functions.Function0)" resolve="executeWrite" />
               <node concept="1bVj0M" id="66_IlsY_6_l" role="37wK5m">
                 <node concept="3clFbS" id="66_IlsY_6_m" role="1bW5cS">
                   <node concept="3cpWs8" id="66_IlsY_6_n" role="3cqZAp">
@@ -25438,11 +25877,8 @@
                   </node>
                   <node concept="3clFbF" id="66_IlsY_6_F" role="3cqZAp">
                     <node concept="2OqwBi" id="66_IlsY_6_G" role="3clFbG">
-                      <node concept="37vLTw" id="66_IlsY_6_H" role="2Oq$k0">
-                        <ref role="3cqZAo" node="66_IlsY_6_v" resolve="branch" />
-                      </node>
                       <node concept="liA8E" id="66_IlsY_6_I" role="2OqNvi">
-                        <ref role="37wK5l" to="jks5:~IBranch.runWrite(kotlin.jvm.functions.Function0)" resolve="runWrite" />
+                        <ref role="37wK5l" to="qvpu:~PArea.executeWrite(kotlin.jvm.functions.Function0)" resolve="executeWrite" />
                         <node concept="1bVj0M" id="66_IlsY_6_J" role="37wK5m">
                           <node concept="3clFbS" id="66_IlsY_6_K" role="1bW5cS">
                             <node concept="3clFbF" id="66_IlsY_7PA" role="3cqZAp">
@@ -25467,6 +25903,14 @@
                           </node>
                         </node>
                       </node>
+                      <node concept="2ShNRf" id="6c6cqXTgq4m" role="2Oq$k0">
+                        <node concept="1pGfFk" id="6c6cqXTgq4n" role="2ShVmc">
+                          <ref role="37wK5l" to="qvpu:~PArea.&lt;init&gt;(org.modelix.model.api.IBranch)" resolve="PArea" />
+                          <node concept="37vLTw" id="6c6cqXTgq4o" role="37wK5m">
+                            <ref role="3cqZAo" node="66_IlsY_6_v" resolve="branch" />
+                          </node>
+                        </node>
+                      </node>
                     </node>
                   </node>
                   <node concept="3clFbF" id="66_IlsY_6_Y" role="3cqZAp">
@@ -25474,6 +25918,19 @@
                       <ref role="1PxDUh" to="v18h:~Unit" resolve="Unit" />
                       <ref role="3cqZAo" to="v18h:~Unit.INSTANCE" resolve="INSTANCE" />
                     </node>
+                  </node>
+                </node>
+              </node>
+            </node>
+            <node concept="2ShNRf" id="6c6cqXTgoO$" role="2Oq$k0">
+              <node concept="1pGfFk" id="6c6cqXTgoO_" role="2ShVmc">
+                <ref role="37wK5l" to="qvpu:~PArea.&lt;init&gt;(org.modelix.model.api.IBranch)" resolve="PArea" />
+                <node concept="2OqwBi" id="66_IlsY_6_h" role="37wK5m">
+                  <node concept="37vLTw" id="66_IlsY_6_i" role="2Oq$k0">
+                    <ref role="3cqZAo" node="3i6diw3mtrY" resolve="cloudRepository" />
+                  </node>
+                  <node concept="liA8E" id="66_IlsY_6_j" role="2OqNvi">
+                    <ref role="37wK5l" node="6aRQr1X1RCt" resolve="getInfoBranch" />
                   </node>
                 </node>
               </node>
@@ -27661,14 +28118,8 @@
         </node>
         <node concept="3clFbF" id="aVVeoQvpWZ" role="3cqZAp">
           <node concept="2OqwBi" id="aVVeoQvpX0" role="3clFbG">
-            <node concept="2OqwBi" id="aVVeoQvpX1" role="2Oq$k0">
-              <node concept="2V_BSl" id="aVVeoQvq4m" role="2Oq$k0" />
-              <node concept="liA8E" id="aVVeoQvpX3" role="2OqNvi">
-                <ref role="37wK5l" to="jks5:~PNodeAdapter.getBranch()" resolve="getBranch" />
-              </node>
-            </node>
             <node concept="liA8E" id="aVVeoQvpX4" role="2OqNvi">
-              <ref role="37wK5l" to="jks5:~IBranch.computeWrite(kotlin.jvm.functions.Function0)" resolve="computeWrite" />
+              <ref role="37wK5l" to="qvpu:~PArea.executeWrite(kotlin.jvm.functions.Function0)" resolve="executeWrite" />
               <node concept="1bVj0M" id="aVVeoQvpX5" role="37wK5m">
                 <node concept="3clFbS" id="aVVeoQvpX6" role="1bW5cS">
                   <node concept="3cpWs8" id="aVVeoQvpX7" role="3cqZAp">
@@ -27734,6 +28185,17 @@
                 </node>
               </node>
             </node>
+            <node concept="2ShNRf" id="6c6cqXTgVZt" role="2Oq$k0">
+              <node concept="1pGfFk" id="6c6cqXTgVZu" role="2ShVmc">
+                <ref role="37wK5l" to="qvpu:~PArea.&lt;init&gt;(org.modelix.model.api.IBranch)" resolve="PArea" />
+                <node concept="2OqwBi" id="aVVeoQvpX1" role="37wK5m">
+                  <node concept="2V_BSl" id="aVVeoQvq4m" role="2Oq$k0" />
+                  <node concept="liA8E" id="aVVeoQvpX3" role="2OqNvi">
+                    <ref role="37wK5l" to="jks5:~PNodeAdapter.getBranch()" resolve="getBranch" />
+                  </node>
+                </node>
+              </node>
+            </node>
           </node>
         </node>
       </node>
@@ -27782,14 +28244,8 @@
         </node>
         <node concept="3clFbF" id="3TbkWOkVCQn" role="3cqZAp">
           <node concept="2OqwBi" id="3TbkWOkVCQo" role="3clFbG">
-            <node concept="2OqwBi" id="3TbkWOkVCQp" role="2Oq$k0">
-              <node concept="2V_BSl" id="3TbkWOkVCQq" role="2Oq$k0" />
-              <node concept="liA8E" id="3TbkWOkVCQr" role="2OqNvi">
-                <ref role="37wK5l" to="jks5:~PNodeAdapter.getBranch()" resolve="getBranch" />
-              </node>
-            </node>
             <node concept="liA8E" id="3TbkWOkVCQs" role="2OqNvi">
-              <ref role="37wK5l" to="jks5:~IBranch.computeWrite(kotlin.jvm.functions.Function0)" resolve="computeWrite" />
+              <ref role="37wK5l" to="qvpu:~PArea.executeWrite(kotlin.jvm.functions.Function0)" resolve="executeWrite" />
               <node concept="1bVj0M" id="3TbkWOkVCQt" role="37wK5m">
                 <node concept="3clFbS" id="3TbkWOkVCQu" role="1bW5cS">
                   <node concept="3cpWs8" id="3TbkWOkVCQv" role="3cqZAp">
@@ -27851,6 +28307,17 @@
                     <node concept="37vLTw" id="3TbkWOkVCQO" role="3cqZAk">
                       <ref role="3cqZAo" node="3TbkWOkVCQw" resolve="newModule" />
                     </node>
+                  </node>
+                </node>
+              </node>
+            </node>
+            <node concept="2ShNRf" id="6c6cqXTgWcu" role="2Oq$k0">
+              <node concept="1pGfFk" id="6c6cqXTgWcv" role="2ShVmc">
+                <ref role="37wK5l" to="qvpu:~PArea.&lt;init&gt;(org.modelix.model.api.IBranch)" resolve="PArea" />
+                <node concept="2OqwBi" id="3TbkWOkVCQp" role="37wK5m">
+                  <node concept="2V_BSl" id="3TbkWOkVCQq" role="2Oq$k0" />
+                  <node concept="liA8E" id="3TbkWOkVCQr" role="2OqNvi">
+                    <ref role="37wK5l" to="jks5:~PNodeAdapter.getBranch()" resolve="getBranch" />
                   </node>
                 </node>
               </node>
@@ -28025,14 +28492,8 @@
         </node>
         <node concept="3clFbF" id="aVVeoQvZ0H" role="3cqZAp">
           <node concept="2OqwBi" id="aVVeoQvZ0I" role="3clFbG">
-            <node concept="2OqwBi" id="aVVeoQvZ0J" role="2Oq$k0">
-              <node concept="2V_BSl" id="aVVeoQvZdw" role="2Oq$k0" />
-              <node concept="liA8E" id="aVVeoQvZ0L" role="2OqNvi">
-                <ref role="37wK5l" to="um17:49CIzaqrc1R" resolve="getBranch" />
-              </node>
-            </node>
             <node concept="liA8E" id="aVVeoQvZ0M" role="2OqNvi">
-              <ref role="37wK5l" to="jks5:~IBranch.computeWrite(kotlin.jvm.functions.Function0)" resolve="computeWrite" />
+              <ref role="37wK5l" to="qvpu:~PArea.executeWrite(kotlin.jvm.functions.Function0)" resolve="executeWrite" />
               <node concept="1bVj0M" id="aVVeoQvZ0N" role="37wK5m">
                 <node concept="3clFbS" id="aVVeoQvZ0O" role="1bW5cS">
                   <node concept="3cpWs8" id="aVVeoQvZ0P" role="3cqZAp">
@@ -28099,6 +28560,17 @@
                     <node concept="37vLTw" id="aVVeoQvZ1c" role="3cqZAk">
                       <ref role="3cqZAo" node="aVVeoQvZ0Q" resolve="newModel" />
                     </node>
+                  </node>
+                </node>
+              </node>
+            </node>
+            <node concept="2ShNRf" id="6c6cqXTgNUO" role="2Oq$k0">
+              <node concept="1pGfFk" id="6c6cqXTgNUP" role="2ShVmc">
+                <ref role="37wK5l" to="qvpu:~PArea.&lt;init&gt;(org.modelix.model.api.IBranch)" resolve="PArea" />
+                <node concept="2OqwBi" id="aVVeoQvZ0J" role="37wK5m">
+                  <node concept="2V_BSl" id="aVVeoQvZdw" role="2Oq$k0" />
+                  <node concept="liA8E" id="aVVeoQvZ0L" role="2OqNvi">
+                    <ref role="37wK5l" to="um17:49CIzaqrc1R" resolve="getBranch" />
                   </node>
                 </node>
               </node>
@@ -28382,11 +28854,8 @@
         <node concept="3clFbF" id="nzqvuXRR8a" role="3cqZAp">
           <node concept="37vLTI" id="nzqvuXRR8b" role="3clFbG">
             <node concept="2OqwBi" id="nzqvuXRR8c" role="37vLTx">
-              <node concept="37vLTw" id="nzqvuXRR8d" role="2Oq$k0">
-                <ref role="3cqZAo" node="nzqvuXRR85" resolve="branch" />
-              </node>
               <node concept="liA8E" id="nzqvuXRR8e" role="2OqNvi">
-                <ref role="37wK5l" to="jks5:~IBranch.computeRead(kotlin.jvm.functions.Function0)" resolve="computeRead" />
+                <ref role="37wK5l" to="qvpu:~PArea.executeRead(kotlin.jvm.functions.Function0)" resolve="executeRead" />
                 <node concept="1bVj0M" id="nzqvuXRR8f" role="37wK5m">
                   <node concept="3clFbS" id="nzqvuXRR8g" role="1bW5cS">
                     <node concept="3clFbF" id="nzqvuXRR8h" role="3cqZAp">
@@ -28416,6 +28885,14 @@
                         </node>
                       </node>
                     </node>
+                  </node>
+                </node>
+              </node>
+              <node concept="2ShNRf" id="6c6cqXTeABO" role="2Oq$k0">
+                <node concept="1pGfFk" id="6c6cqXTeABP" role="2ShVmc">
+                  <ref role="37wK5l" to="qvpu:~PArea.&lt;init&gt;(org.modelix.model.api.IBranch)" resolve="PArea" />
+                  <node concept="37vLTw" id="6c6cqXTeABQ" role="37wK5m">
+                    <ref role="3cqZAo" node="nzqvuXRR85" resolve="branch" />
                   </node>
                 </node>
               </node>
@@ -30627,11 +31104,8 @@
       <node concept="3clFbS" id="29etMtbl0aI" role="3clF47">
         <node concept="3clFbF" id="2yBiYnvdGyL" role="3cqZAp">
           <node concept="2OqwBi" id="2yBiYnvdHIm" role="3clFbG">
-            <node concept="1rXfSq" id="2yBiYnvdGyJ" role="2Oq$k0">
-              <ref role="37wK5l" node="29etMtbdrHd" resolve="getBranch" />
-            </node>
             <node concept="liA8E" id="2yBiYnvdIQj" role="2OqNvi">
-              <ref role="37wK5l" to="jks5:~IBranch.runRead(kotlin.jvm.functions.Function0)" resolve="runRead" />
+              <ref role="37wK5l" to="qvpu:~PArea.executeRead(kotlin.jvm.functions.Function0)" resolve="executeRead" />
               <node concept="1bVj0M" id="2yBiYnvdJ9h" role="37wK5m">
                 <node concept="3clFbS" id="2yBiYnvdJ9i" role="1bW5cS">
                   <node concept="RRSsy" id="7C8dhLie1lS" role="3cqZAp">
@@ -30769,6 +31243,14 @@
                       <ref role="1PxDUh" to="v18h:~Unit" resolve="Unit" />
                     </node>
                   </node>
+                </node>
+              </node>
+            </node>
+            <node concept="2ShNRf" id="6c6cqXTcJY8" role="2Oq$k0">
+              <node concept="1pGfFk" id="6c6cqXTcJY9" role="2ShVmc">
+                <ref role="37wK5l" to="qvpu:~PArea.&lt;init&gt;(org.modelix.model.api.IBranch)" resolve="PArea" />
+                <node concept="1rXfSq" id="6c6cqXTcLxT" role="37wK5m">
+                  <ref role="37wK5l" node="29etMtbdrHd" resolve="getBranch" />
                 </node>
               </node>
             </node>
@@ -31623,11 +32105,8 @@
       <node concept="3clFbS" id="29etMtb9_if" role="3clF47">
         <node concept="3clFbF" id="29etMtb9_ig" role="3cqZAp">
           <node concept="2OqwBi" id="29etMtb9_ih" role="3clFbG">
-            <node concept="1rXfSq" id="29etMtbe1QE" role="2Oq$k0">
-              <ref role="37wK5l" node="29etMtbdrHd" resolve="getBranch" />
-            </node>
             <node concept="liA8E" id="29etMtb9_il" role="2OqNvi">
-              <ref role="37wK5l" to="jks5:~IBranch.runWrite(kotlin.jvm.functions.Function0)" resolve="runWrite" />
+              <ref role="37wK5l" to="qvpu:~PArea.executeWrite(kotlin.jvm.functions.Function0)" resolve="executeWrite" />
               <node concept="1bVj0M" id="29etMtb9_im" role="37wK5m">
                 <node concept="3clFbS" id="29etMtb9_in" role="1bW5cS">
                   <node concept="3clFbF" id="29etMtb9_io" role="3cqZAp">
@@ -31649,6 +32128,14 @@
                 </node>
               </node>
             </node>
+            <node concept="2ShNRf" id="6c6cqXTg0JZ" role="2Oq$k0">
+              <node concept="1pGfFk" id="6c6cqXTg0K0" role="2ShVmc">
+                <ref role="37wK5l" to="qvpu:~PArea.&lt;init&gt;(org.modelix.model.api.IBranch)" resolve="PArea" />
+                <node concept="1rXfSq" id="29etMtbe1QE" role="37wK5m">
+                  <ref role="37wK5l" node="29etMtbdrHd" resolve="getBranch" />
+                </node>
+              </node>
+            </node>
           </node>
         </node>
       </node>
@@ -31661,11 +32148,8 @@
       <node concept="3clFbS" id="29etMtb9_iy" role="3clF47">
         <node concept="3clFbF" id="29etMtb9_iz" role="3cqZAp">
           <node concept="2OqwBi" id="29etMtb9_i$" role="3clFbG">
-            <node concept="1rXfSq" id="29etMtbe2GT" role="2Oq$k0">
-              <ref role="37wK5l" node="29etMtbdrHd" resolve="getBranch" />
-            </node>
             <node concept="liA8E" id="29etMtb9_iC" role="2OqNvi">
-              <ref role="37wK5l" to="jks5:~IBranch.runWrite(kotlin.jvm.functions.Function0)" resolve="runWrite" />
+              <ref role="37wK5l" to="qvpu:~PArea.executeWrite(kotlin.jvm.functions.Function0)" resolve="executeWrite" />
               <node concept="1bVj0M" id="29etMtb9_iD" role="37wK5m">
                 <node concept="3clFbS" id="29etMtb9_iE" role="1bW5cS">
                   <node concept="3cpWs8" id="29etMtb9_iF" role="3cqZAp">
@@ -31739,6 +32223,14 @@
                 </node>
               </node>
             </node>
+            <node concept="2ShNRf" id="6c6cqXTg6Gk" role="2Oq$k0">
+              <node concept="1pGfFk" id="6c6cqXTg6Gl" role="2ShVmc">
+                <ref role="37wK5l" to="qvpu:~PArea.&lt;init&gt;(org.modelix.model.api.IBranch)" resolve="PArea" />
+                <node concept="1rXfSq" id="6c6cqXTg6Gm" role="37wK5m">
+                  <ref role="37wK5l" node="29etMtbdrHd" resolve="getBranch" />
+                </node>
+              </node>
+            </node>
           </node>
         </node>
       </node>
@@ -31751,11 +32243,8 @@
       <node concept="3clFbS" id="29etMtb9_j8" role="3clF47">
         <node concept="3clFbF" id="29etMtb9_j9" role="3cqZAp">
           <node concept="2OqwBi" id="29etMtb9_ja" role="3clFbG">
-            <node concept="1rXfSq" id="29etMtbe3Bo" role="2Oq$k0">
-              <ref role="37wK5l" node="29etMtbdrHd" resolve="getBranch" />
-            </node>
             <node concept="liA8E" id="29etMtb9_je" role="2OqNvi">
-              <ref role="37wK5l" to="jks5:~IBranch.runWrite(kotlin.jvm.functions.Function0)" resolve="runWrite" />
+              <ref role="37wK5l" to="qvpu:~PArea.executeWrite(kotlin.jvm.functions.Function0)" resolve="executeWrite" />
               <node concept="1bVj0M" id="29etMtb9_jf" role="37wK5m">
                 <property role="3yWfEV" value="true" />
                 <node concept="3clFbS" id="29etMtb9_jg" role="1bW5cS">
@@ -31786,6 +32275,14 @@
                       <ref role="3cqZAo" to="v18h:~Unit.INSTANCE" resolve="INSTANCE" />
                     </node>
                   </node>
+                </node>
+              </node>
+            </node>
+            <node concept="2ShNRf" id="6c6cqXTg7HW" role="2Oq$k0">
+              <node concept="1pGfFk" id="6c6cqXTg7HX" role="2ShVmc">
+                <ref role="37wK5l" to="qvpu:~PArea.&lt;init&gt;(org.modelix.model.api.IBranch)" resolve="PArea" />
+                <node concept="1rXfSq" id="6c6cqXTg7HY" role="37wK5m">
+                  <ref role="37wK5l" node="29etMtbdrHd" resolve="getBranch" />
                 </node>
               </node>
             </node>
@@ -33884,11 +34381,8 @@
         </node>
         <node concept="3clFbF" id="4SnZDcgbqPz" role="3cqZAp">
           <node concept="2OqwBi" id="4SnZDcgbsdy" role="3clFbG">
-            <node concept="1rXfSq" id="4SnZDcgbqPw" role="2Oq$k0">
-              <ref role="37wK5l" node="29etMtbdrHd" resolve="getBranch" />
-            </node>
             <node concept="liA8E" id="4SnZDcgbuKH" role="2OqNvi">
-              <ref role="37wK5l" to="jks5:~IBranch.runRead(kotlin.jvm.functions.Function0)" resolve="runRead" />
+              <ref role="37wK5l" to="qvpu:~PArea.executeRead(kotlin.jvm.functions.Function0)" resolve="executeRead" />
               <node concept="1bVj0M" id="4SnZDcgbv2D" role="37wK5m">
                 <node concept="3clFbS" id="4SnZDcgbv2E" role="1bW5cS">
                   <node concept="2Gpval" id="29etMtb9_sC" role="3cqZAp">
@@ -34055,6 +34549,14 @@
                       <ref role="3cqZAo" to="v18h:~Unit.INSTANCE" resolve="INSTANCE" />
                     </node>
                   </node>
+                </node>
+              </node>
+            </node>
+            <node concept="2ShNRf" id="6c6cqXTd3j0" role="2Oq$k0">
+              <node concept="1pGfFk" id="6c6cqXTd3j1" role="2ShVmc">
+                <ref role="37wK5l" to="qvpu:~PArea.&lt;init&gt;(org.modelix.model.api.IBranch)" resolve="PArea" />
+                <node concept="1rXfSq" id="6c6cqXTd3j2" role="37wK5m">
+                  <ref role="37wK5l" node="29etMtbdrHd" resolve="getBranch" />
                 </node>
               </node>
             </node>
@@ -35835,6 +36337,25 @@
         </node>
       </node>
       <node concept="2tJIrI" id="29etMtb9_C$" role="jymVt" />
+      <node concept="3clFb_" id="7$7_4Zimr58" role="jymVt">
+        <property role="TrG5h" value="getReference" />
+        <node concept="3Tm1VV" id="7$7_4Zimr59" role="1B3o_S" />
+        <node concept="2AHcQZ" id="7$7_4Zimr5b" role="2AJF6D">
+          <ref role="2AI5Lk" to="mhfm:~NotNull" resolve="NotNull" />
+        </node>
+        <node concept="3uibUv" id="7$7_4Zimr5c" role="3clF45">
+          <ref role="3uigEE" to="qvpu:~IAreaReference" resolve="IAreaReference" />
+        </node>
+        <node concept="3clFbS" id="7$7_4Zimr5f" role="3clF47">
+          <node concept="3clFbF" id="7$7_4ZimMVQ" role="3cqZAp">
+            <node concept="Xjq3P" id="7$7_4ZimMVP" role="3clFbG" />
+          </node>
+        </node>
+        <node concept="2AHcQZ" id="7$7_4Zimr5g" role="2AJF6D">
+          <ref role="2AI5Lk" to="wyt6:~Override" resolve="Override" />
+        </node>
+      </node>
+      <node concept="2tJIrI" id="7$7_4ZimvIQ" role="jymVt" />
       <node concept="3clFb_" id="29etMtb9_C_" role="jymVt">
         <property role="TrG5h" value="put" />
         <node concept="37vLTG" id="29etMtb9_CA" role="3clF46">
@@ -36383,11 +36904,8 @@
                       <node concept="17QB3L" id="6diyhU70E_v" role="1tU5fm" />
                       <node concept="3K4zz7" id="6p3SZI_1ZhT" role="33vP2m">
                         <node concept="2OqwBi" id="6p3SZI_20RE" role="3K4GZi">
-                          <node concept="1rXfSq" id="6p3SZI_20Ac" role="2Oq$k0">
-                            <ref role="37wK5l" node="29etMtbdrHd" resolve="getBranch" />
-                          </node>
                           <node concept="liA8E" id="6p3SZI_211X" role="2OqNvi">
-                            <ref role="37wK5l" to="jks5:~IBranch.computeRead(kotlin.jvm.functions.Function0)" resolve="computeRead" />
+                            <ref role="37wK5l" to="qvpu:~PArea.executeRead(kotlin.jvm.functions.Function0)" resolve="executeRead" />
                             <node concept="1bVj0M" id="6p3SZI_22em" role="37wK5m">
                               <node concept="3clFbS" id="6p3SZI_22en" role="1bW5cS">
                                 <node concept="3clFbF" id="6p3SZI_22jx" role="3cqZAp">
@@ -36400,6 +36918,14 @@
                                     </node>
                                   </node>
                                 </node>
+                              </node>
+                            </node>
+                          </node>
+                          <node concept="2ShNRf" id="6c6cqXTeYFC" role="2Oq$k0">
+                            <node concept="1pGfFk" id="6c6cqXTeYFD" role="2ShVmc">
+                              <ref role="37wK5l" to="qvpu:~PArea.&lt;init&gt;(org.modelix.model.api.IBranch)" resolve="PArea" />
+                              <node concept="1rXfSq" id="6c6cqXTeYFE" role="37wK5m">
+                                <ref role="37wK5l" node="29etMtbdrHd" resolve="getBranch" />
                               </node>
                             </node>
                           </node>
@@ -36834,6 +37360,9 @@
         <node concept="2AHcQZ" id="mqppAKCax4" role="2AJF6D">
           <ref role="2AI5Lk" to="wyt6:~Override" resolve="Override" />
         </node>
+      </node>
+      <node concept="3uibUv" id="7$7_4ZimG3f" role="EKbjA">
+        <ref role="3uigEE" to="qvpu:~IAreaReference" resolve="IAreaReference" />
       </node>
     </node>
     <node concept="2tJIrI" id="29etMtb9_Fr" role="jymVt" />

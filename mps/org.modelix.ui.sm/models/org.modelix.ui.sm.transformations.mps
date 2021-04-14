@@ -48,6 +48,7 @@
     <import index="dxuu" ref="6354ebe7-c22a-4a0f-ac54-50b52ab9b065/java:javax.swing(JDK/)" />
     <import index="hyam" ref="6354ebe7-c22a-4a0f-ac54-50b52ab9b065/java:java.awt.event(JDK/)" />
     <import index="jks5" ref="cc99dce1-49f3-4392-8dbf-e22ca47bd0af/java:org.modelix.model.api(org.modelix.model.api/)" />
+    <import index="qvpu" ref="cc99dce1-49f3-4392-8dbf-e22ca47bd0af/java:org.modelix.model.area(org.modelix.model.api/)" />
     <import index="tpcu" ref="r:00000000-0000-4000-0000-011c89590282(jetbrains.mps.lang.core.behavior)" implicit="true" />
     <import index="ioq2" ref="r:d5a75d6a-e56f-4c12-a58e-3acb971cef19(org.modelix.ui.state.behavior)" implicit="true" />
     <import index="1ctc" ref="6354ebe7-c22a-4a0f-ac54-50b52ab9b065/java:java.util.stream(JDK/)" implicit="true" />
@@ -2081,14 +2082,10 @@
           <node concept="027oh" id="7trMQm3aBIQ" role="02LM9">
             <ref role="027oj" to="70w2:AkkmJBUItt" resolve="id" />
             <node concept="3cpWs3" id="7trMQm3aBIR" role="027of">
-              <node concept="2YIFZM" id="5npwda7V6po" role="3uHU7w">
+              <node concept="2YIFZM" id="4SC_r4Ae4Ex" role="3uHU7w">
+                <ref role="37wK5l" node="AkkmJBUK8A" resolve="createDomId" />
                 <ref role="1Pybhc" node="62_qJBxL8mp" resolve="PageTransformationsUtil" />
-                <ref role="37wK5l" node="5Q16xz4K4FF" resolve="sha256" />
-                <node concept="2YIFZM" id="5npwda7V5nt" role="37wK5m">
-                  <ref role="37wK5l" to="qsto:5T6M7OO0vKo" resolve="serialize" />
-                  <ref role="1Pybhc" to="qsto:5T6M7ON4Si7" resolve="NodeReferenceSerializer" />
-                  <node concept="214o7A" id="5npwda7V5qd" role="37wK5m" />
-                </node>
+                <node concept="214o7A" id="4SC_r4Ae7gf" role="37wK5m" />
               </node>
               <node concept="Xl_RD" id="7trMQm3aBIZ" role="3uHU7B">
                 <property role="Xl_RC" value="nodeEditor_" />
@@ -3780,11 +3777,24 @@
         <node concept="3clFbF" id="5Q16xz4JFpC" role="3cqZAp">
           <node concept="1rXfSq" id="5Q16xz4K6fL" role="3clFbG">
             <ref role="37wK5l" node="5Q16xz4K4FF" resolve="sha256" />
-            <node concept="2YIFZM" id="5Q16xz4JFJ2" role="37wK5m">
+            <node concept="2YIFZM" id="60wywuitXV2" role="37wK5m">
+              <ref role="37wK5l" to="qsto:7$7_4Zibt2h" resolve="serialize" />
               <ref role="1Pybhc" to="qsto:5T6M7ON4Si7" resolve="NodeReferenceSerializer" />
-              <ref role="37wK5l" to="qsto:5T6M7OO0vKo" resolve="serialize" />
-              <node concept="37vLTw" id="5Q16xz4JFJ3" role="37wK5m">
-                <ref role="3cqZAo" node="AkkmJBUKrH" resolve="node" />
+              <node concept="2OqwBi" id="60wywuitXV3" role="37wK5m">
+                <node concept="2YIFZM" id="60wywuitXV4" role="2Oq$k0">
+                  <ref role="37wK5l" to="jks5:~NodeUtilKt.deepUnwrapNode(org.modelix.model.api.INode)" resolve="deepUnwrapNode" />
+                  <ref role="1Pybhc" to="jks5:~NodeUtilKt" resolve="NodeUtilKt" />
+                  <node concept="2YIFZM" id="60wywuitXV5" role="37wK5m">
+                    <ref role="1Pybhc" to="xxte:5gTrVpGjuLg" resolve="SNodeToNodeAdapter" />
+                    <ref role="37wK5l" to="xxte:5gTrVpGyMwR" resolve="wrap" />
+                    <node concept="37vLTw" id="60wywuitXV6" role="37wK5m">
+                      <ref role="3cqZAo" node="AkkmJBUKrH" resolve="node" />
+                    </node>
+                  </node>
+                </node>
+                <node concept="liA8E" id="60wywuitXV7" role="2OqNvi">
+                  <ref role="37wK5l" to="jks5:~INode.getReference()" resolve="getReference" />
+                </node>
               </node>
             </node>
           </node>
@@ -5970,10 +5980,32 @@
                 <ref role="027rv" to="j481:AkkmJBMaEM" resolve="children" />
                 <node concept="214gnc" id="7vWAzuEMh2h" role="027rp">
                   <ref role="1YEVMl" node="AkkmJBMp90" resolve="node" />
-                  <node concept="2OqwBi" id="7vWAzuEMh8y" role="214sll">
-                    <node concept="214o7A" id="7vWAzuEMh2l" role="2Oq$k0" />
-                    <node concept="3TrEf2" id="7vWAzuES9Km" role="2OqNvi">
-                      <ref role="3Tt5mk" to="j481:7vWAzuES8nI" resolve="rootNode" />
+                  <node concept="2YIFZM" id="7$7_4ZicbT4" role="214sll">
+                    <ref role="37wK5l" to="xxte:4EhVFrZ6z9$" resolve="wrap" />
+                    <ref role="1Pybhc" to="xxte:4EhVFrZ3AjR" resolve="NodeToSNodeAdapter" />
+                    <node concept="2OqwBi" id="3xm_oe3yAqE" role="37wK5m">
+                      <node concept="2YIFZM" id="3xm_oe3y8fC" role="2Oq$k0">
+                        <ref role="1Pybhc" to="qsto:5T6M7ON4Si7" resolve="NodeReferenceSerializer" />
+                        <ref role="37wK5l" to="qsto:5npwda7ZW_A" resolve="deserialize" />
+                        <node concept="2OqwBi" id="3xm_oe3y_6H" role="37wK5m">
+                          <node concept="214o7A" id="3xm_oe3y$oy" role="2Oq$k0" />
+                          <node concept="3TrcHB" id="3xm_oe3y_O3" role="2OqNvi">
+                            <ref role="3TsBF5" to="j481:6rcGC6Eym_P" resolve="rootNodeRef" />
+                          </node>
+                        </node>
+                      </node>
+                      <node concept="liA8E" id="3xm_oe3yBmO" role="2OqNvi">
+                        <ref role="37wK5l" to="jks5:~INodeReference.resolveNode(org.modelix.model.area.IArea)" resolve="resolveNode" />
+                        <node concept="2OqwBi" id="7$7_4Zica2C" role="37wK5m">
+                          <node concept="10M0yZ" id="7$7_4Zic9$G" role="2Oq$k0">
+                            <ref role="3cqZAo" to="qvpu:~ContextArea.INSTANCE" resolve="INSTANCE" />
+                            <ref role="1PxDUh" to="qvpu:~ContextArea" resolve="ContextArea" />
+                          </node>
+                          <node concept="liA8E" id="7$7_4ZicaxF" role="2OqNvi">
+                            <ref role="37wK5l" to="qvpu:~ContextArea.getArea()" resolve="getArea" />
+                          </node>
+                        </node>
+                      </node>
                     </node>
                   </node>
                   <node concept="214o7A" id="7zDl3zkmbDm" role="214sll" />
@@ -6044,6 +6076,36 @@
       </node>
     </node>
     <node concept="2OrE70" id="7vWAzuEMf2f" role="02uzr" />
+    <node concept="02vpq" id="3xm_oe3naiE" role="02uzr">
+      <ref role="1YyVLo" node="7vWAzuEMfrX" resolve="viewer" />
+      <node concept="02i3K" id="3xm_oe3nf1M" role="02i3f">
+        <node concept="2K7hOm" id="3xm_oe3nfJN" role="02i2B" />
+      </node>
+      <node concept="026TG" id="3xm_oe3nf1O" role="026TK">
+        <node concept="027og" id="3xm_oe3nf1P" role="026TJ">
+          <ref role="02LMe" to="j481:7vWAzuEMeQA" resolve="Viewer" />
+          <node concept="027rt" id="3xm_oe3niTG" role="02LM9">
+            <ref role="027rv" to="j481:7vWAzuEMeRP" resolve="contentLayer" />
+            <node concept="027og" id="3xm_oe3niTH" role="027rp">
+              <ref role="02LMe" to="j481:7vWAzuEMeRS" resolve="Layer" />
+              <node concept="027rt" id="3xm_oe3niTI" role="02LM9">
+                <ref role="027rv" to="j481:AkkmJBMaEM" resolve="children" />
+                <node concept="027og" id="3xm_oe3nn6G" role="027rp">
+                  <ref role="02LMe" to="j481:AkkmJBMaED" resolve="TextCell" />
+                  <node concept="027oh" id="3xm_oe3nn6V" role="02LM9">
+                    <ref role="027oj" to="j481:AkkmJBMou0" resolve="text" />
+                    <node concept="Xl_RD" id="3xm_oe3nn7a" role="027of">
+                      <property role="Xl_RC" value="No node specified" />
+                    </node>
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+      </node>
+    </node>
+    <node concept="2OrE70" id="3xm_oe3n8fj" role="02uzr" />
     <node concept="02vpq" id="7vWAzuEMFCA" role="02uzr">
       <property role="TrG5h" value="selection2caret" />
       <property role="1YBnZf" value="true" />

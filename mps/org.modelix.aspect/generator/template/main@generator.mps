@@ -43,6 +43,7 @@
     <import index="4dhu" ref="r:17a7af0b-7a93-4688-b13e-195872d8e289(org.modelix.aspect.behavior)" implicit="true" />
     <import index="tpck" ref="r:00000000-0000-4000-0000-011c89590288(jetbrains.mps.lang.core.structure)" implicit="true" />
     <import index="3d38" ref="r:bc160b50-5a4e-4f99-ba07-a7b7116dab7a(de.q60.mps.incremental.util)" implicit="true" />
+    <import index="jks5" ref="cc99dce1-49f3-4392-8dbf-e22ca47bd0af/java:org.modelix.model.api(org.modelix.model.api/)" implicit="true" />
   </imports>
   <registry>
     <language id="f3061a53-9226-4cc5-a443-f952ceaf5816" name="jetbrains.mps.baseLanguage">
@@ -1868,19 +1869,28 @@
           </node>
           <node concept="3clFbS" id="3XNyhUaeVPV" role="1bW5cS">
             <node concept="3clFbF" id="3XNyhUaeVTB" role="3cqZAp">
-              <node concept="2OqwBi" id="6MQUJsz2ku9" role="3clFbG">
-                <node concept="2YIFZM" id="3XNyhUaeVGs" role="2Oq$k0">
-                  <ref role="1Pybhc" to="qsto:5T6M7ON4Si7" resolve="NodeReferenceSerializer" />
-                  <ref role="37wK5l" to="qsto:5npwda7ZW_A" resolve="deserialize" />
-                  <node concept="37vLTw" id="3XNyhUaeVUv" role="37wK5m">
-                    <ref role="3cqZAo" node="3XNyhUaeVQn" resolve="data" />
+              <node concept="2YIFZM" id="30g6t57YWZJ" role="3clFbG">
+                <ref role="37wK5l" to="xxte:4EhVFrZ6z9$" resolve="wrap" />
+                <ref role="1Pybhc" to="xxte:4EhVFrZ3AjR" resolve="NodeToSNodeAdapter" />
+                <node concept="2OqwBi" id="6MQUJsz2ku9" role="37wK5m">
+                  <node concept="2YIFZM" id="3XNyhUaeVGs" role="2Oq$k0">
+                    <ref role="1Pybhc" to="qsto:5T6M7ON4Si7" resolve="NodeReferenceSerializer" />
+                    <ref role="37wK5l" to="qsto:5npwda7ZW_A" resolve="deserialize" />
+                    <node concept="37vLTw" id="3XNyhUaeVUv" role="37wK5m">
+                      <ref role="3cqZAo" node="3XNyhUaeVQn" resolve="data" />
+                    </node>
                   </node>
-                </node>
-                <node concept="liA8E" id="6MQUJsz2k_A" role="2OqNvi">
-                  <ref role="37wK5l" to="mhbf:~SNodeReference.resolve(org.jetbrains.mps.openapi.module.SRepository)" resolve="resolve" />
-                  <node concept="2YIFZM" id="6MQUJsz2kCs" role="37wK5m">
-                    <ref role="37wK5l" to="w1kc:~MPSModuleRepository.getInstance()" resolve="getInstance" />
-                    <ref role="1Pybhc" to="w1kc:~MPSModuleRepository" resolve="MPSModuleRepository" />
+                  <node concept="liA8E" id="6MQUJsz2k_A" role="2OqNvi">
+                    <ref role="37wK5l" to="jks5:~INodeReference.resolveNode(org.modelix.model.area.IArea)" resolve="resolveNode" />
+                    <node concept="2OqwBi" id="7$7_4ZibXm4" role="37wK5m">
+                      <node concept="10M0yZ" id="7$7_4ZibXf5" role="2Oq$k0">
+                        <ref role="3cqZAo" to="qvpu:~ContextArea.INSTANCE" resolve="INSTANCE" />
+                        <ref role="1PxDUh" to="qvpu:~ContextArea" resolve="ContextArea" />
+                      </node>
+                      <node concept="liA8E" id="7$7_4Zic24W" role="2OqNvi">
+                        <ref role="37wK5l" to="qvpu:~ContextArea.getArea()" resolve="getArea" />
+                      </node>
+                    </node>
                   </node>
                 </node>
               </node>
