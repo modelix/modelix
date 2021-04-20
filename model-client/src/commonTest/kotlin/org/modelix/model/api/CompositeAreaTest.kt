@@ -3,6 +3,7 @@ package org.modelix.model.api
 import org.modelix.model.area.AbstractArea
 import org.modelix.model.area.CompositeArea
 import org.modelix.model.area.IArea
+import org.modelix.model.area.IAreaReference
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
@@ -75,7 +76,11 @@ class MyNode(val name: String) : INode {
     }
 }
 
-class MyArea(val knownResolutions: Map<INodeReference, INode>) : AbstractArea() {
+class MyArea(val knownResolutions: Map<INodeReference, INode>) : AbstractArea(), IAreaReference {
+    override fun getReference(): IAreaReference {
+        return this
+    }
+
     override fun resolveOriginalNode(ref: INodeReference): INode? {
         return knownResolutions[ref]
     }
