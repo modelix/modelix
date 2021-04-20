@@ -30,6 +30,8 @@ file("mps-version.properties").withInputStream { mpsVersionProps.load(it) }
 ext.mpsMajorVersion = mpsVersionProps.getProperty("mpsMajorVersion")
 ext.mpsMinorVersion = mpsVersionProps.getProperty("mpsMinorVersion")
 ext.mpsVersion = mpsVersionProps.getProperty("mpsVersion")
+ext.mpsExtensionsBranch = mpsVersionProps.getProperty("mpsExtensionsBranch")
+ext.mpsExtensionsVersion = (mpsExtensionsBranch == null || mpsExtensionsBranch.length() == 0 ? "" : mpsExtensionsBranch + ".") + "$mpsMajorVersion+"
 
 if (System.getenv("TRAVIS_TAG") != null && !System.getenv("TRAVIS_TAG").isEmpty()) {
     ext.modelixVersion = System.getenv("TRAVIS_TAG")

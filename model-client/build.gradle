@@ -39,7 +39,7 @@ kotlin {
     sourceSets {
         commonMain {
             dependencies {
-                api group: 'org.modelix', name: 'model-api', version: "$mpsMajorVersion+"
+                api group: 'org.modelix', name: 'model-api', version: "$mpsExtensionsVersion"
                 implementation kotlin('stdlib-common')
             }
         }
