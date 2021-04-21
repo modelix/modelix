@@ -64,6 +64,11 @@
       <property role="20kJfa" value="node" />
       <ref role="20lvS9" to="tpck:gw2VY9q" resolve="BaseConcept" />
     </node>
+    <node concept="1TJgyi" id="69EsfyPKB6O" role="1TKVEl">
+      <property role="IQ2nx" value="7091604776751886772" />
+      <property role="TrG5h" value="nodeLocalId" />
+      <ref role="AX2Wp" to="tpck:fKAOsGN" resolve="string" />
+    </node>
     <node concept="1TJgyi" id="5wHEIYJQcaT" role="1TKVEl">
       <property role="IQ2nx" value="6353922595713761977" />
       <property role="TrG5h" value="indent" />
@@ -310,6 +315,16 @@
     <node concept="1TJgyi" id="6SPevSM$DjY" role="1TKVEl">
       <property role="IQ2nx" value="7941317281870681342" />
       <property role="TrG5h" value="isLeftEnd" />
+      <ref role="AX2Wp" to="tpck:fKAQMTB" resolve="boolean" />
+    </node>
+    <node concept="1TJgyi" id="p8q6LlRwwZ" role="1TKVEl">
+      <property role="IQ2nx" value="452726577057105983" />
+      <property role="TrG5h" value="color" />
+      <ref role="AX2Wp" to="tpck:fKAOsGN" resolve="string" />
+    </node>
+    <node concept="1TJgyi" id="p8q6LmymbK" role="1TKVEl">
+      <property role="IQ2nx" value="452726577068335856" />
+      <property role="TrG5h" value="ownCaret" />
       <ref role="AX2Wp" to="tpck:fKAQMTB" resolve="boolean" />
     </node>
     <node concept="1TJgyj" id="7vWAzuEMhrR" role="1TKVEi">

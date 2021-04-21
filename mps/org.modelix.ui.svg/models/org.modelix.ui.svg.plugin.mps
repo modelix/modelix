@@ -5408,14 +5408,18 @@
                                               <node concept="2YIFZM" id="7$7_4Zidwj5" role="33vP2m">
                                                 <ref role="37wK5l" to="xxte:4EhVFrZ6z9$" resolve="wrap" />
                                                 <ref role="1Pybhc" to="xxte:4EhVFrZ3AjR" resolve="NodeToSNodeAdapter" />
-                                                <node concept="2OqwBi" id="6kYN8GanS1N" role="37wK5m">
-                                                  <node concept="37vLTw" id="6kYN8GanS1O" role="2Oq$k0">
-                                                    <ref role="3cqZAo" node="6kYN8GanPo_" resolve="nodeRef" />
-                                                  </node>
-                                                  <node concept="liA8E" id="6kYN8GanS1P" role="2OqNvi">
-                                                    <ref role="37wK5l" to="jks5:~INodeReference.resolveNode(org.modelix.model.area.IArea)" resolve="resolveNode" />
-                                                    <node concept="37vLTw" id="7$7_4ZiduyC" role="37wK5m">
-                                                      <ref role="3cqZAo" node="7$7_4ZidfmK" resolve="area" />
+                                                <node concept="2YIFZM" id="p8q6LlQkGs" role="37wK5m">
+                                                  <ref role="37wK5l" to="jks5:~NodeUtilKt.deepUnwrapNode(org.modelix.model.api.INode)" resolve="deepUnwrapNode" />
+                                                  <ref role="1Pybhc" to="jks5:~NodeUtilKt" resolve="NodeUtilKt" />
+                                                  <node concept="2OqwBi" id="6kYN8GanS1N" role="37wK5m">
+                                                    <node concept="37vLTw" id="6kYN8GanS1O" role="2Oq$k0">
+                                                      <ref role="3cqZAo" node="6kYN8GanPo_" resolve="nodeRef" />
+                                                    </node>
+                                                    <node concept="liA8E" id="6kYN8GanS1P" role="2OqNvi">
+                                                      <ref role="37wK5l" to="jks5:~INodeReference.resolveNode(org.modelix.model.area.IArea)" resolve="resolveNode" />
+                                                      <node concept="37vLTw" id="7$7_4ZiduyC" role="37wK5m">
+                                                        <ref role="3cqZAo" node="7$7_4ZidfmK" resolve="area" />
+                                                      </node>
                                                     </node>
                                                   </node>
                                                 </node>

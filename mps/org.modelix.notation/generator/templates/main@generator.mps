@@ -305,6 +305,7 @@
       <concept id="9170566427534439102" name="de.q60.mps.shadowmodels.transformation.structure.ParameterReference" flags="ng" index="2155sH">
         <reference id="9170566427534439103" name="decl" index="2155sG" />
       </concept>
+      <concept id="4105524263001228310" name="de.q60.mps.shadowmodels.transformation.structure.StaticId" flags="ng" index="285$i6" />
       <concept id="935005429984833465" name="de.q60.mps.shadowmodels.transformation.structure.NodeList" flags="ng" index="pHQ75">
         <child id="935005429984833738" name="elements" index="pHRUQ" />
       </concept>
@@ -588,6 +589,24 @@
             <node concept="026TG" id="6IHVO0toquv" role="026TK">
               <node concept="027og" id="6IHVO0toqOm" role="026TJ">
                 <ref role="02LMe" to="j481:AkkmJBMaED" resolve="TextCell" />
+                <node concept="027oh" id="69EsfyPP2Fv" role="02LM9">
+                  <ref role="027oj" to="j481:69EsfyPKB6O" resolve="id" />
+                  <node concept="3cpWs3" id="69EsfyPPdNR" role="027of">
+                    <node concept="3cpWs3" id="69EsfyPP6CA" role="3uHU7B">
+                      <node concept="2YIFZM" id="69EsfyPP6i$" role="3uHU7B">
+                        <ref role="37wK5l" to="m3vg:AkkmJBUK8A" resolve="createDomId" />
+                        <ref role="1Pybhc" to="m3vg:62_qJBxL8mp" resolve="PageTransformationsUtil" />
+                        <node concept="2155sH" id="69EsfyPP6l9" role="37wK5m">
+                          <ref role="2155sG" node="6IHVO0toqum" resolve="node" />
+                        </node>
+                      </node>
+                      <node concept="Xl_RD" id="69EsfyPP8jy" role="3uHU7w">
+                        <property role="Xl_RC" value="-" />
+                      </node>
+                    </node>
+                    <node concept="285$i6" id="1KLm$DiygPy" role="3uHU7w" />
+                  </node>
+                </node>
                 <node concept="027oh" id="6IHVO0toqX2" role="02LM9">
                   <ref role="027oj" to="j481:AkkmJBMou0" resolve="text" />
                   <node concept="Xl_RD" id="6IHVO0tor0A" role="027of">

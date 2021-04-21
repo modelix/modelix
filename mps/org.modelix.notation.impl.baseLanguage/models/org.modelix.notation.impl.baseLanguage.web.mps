@@ -12,6 +12,8 @@
     <import index="tpee" ref="r:00000000-0000-4000-0000-011c895902ca(jetbrains.mps.baseLanguage.structure)" />
     <import index="70w2" ref="r:59e1f3dd-5dad-4bbd-ad65-fef01059d9d2(org.modelix.ui.sm.dom.structure)" />
     <import index="m3vg" ref="r:9bcdcf0c-f978-4630-9b17-a35339e80a73(org.modelix.ui.sm.transformations)" />
+    <import index="fnup" ref="r:c0f62029-94d5-495d-b498-eb090ba537fc(org.modelix.ui.state.structure)" />
+    <import index="2qs1" ref="r:f8990486-c591-4463-8538-99bfa890834b(org.modelix.ui.sm.server.plugin)" />
   </imports>
   <registry>
     <language id="f3061a53-9226-4cc5-a443-f952ceaf5816" name="jetbrains.mps.baseLanguage">
@@ -21,6 +23,12 @@
       </concept>
       <concept id="1070475926800" name="jetbrains.mps.baseLanguage.structure.StringLiteral" flags="nn" index="Xl_RD">
         <property id="1070475926801" name="value" index="Xl_RC" />
+      </concept>
+      <concept id="1081236700937" name="jetbrains.mps.baseLanguage.structure.StaticMethodCall" flags="nn" index="2YIFZM">
+        <reference id="1144433194310" name="classConcept" index="1Pybhc" />
+      </concept>
+      <concept id="1204053956946" name="jetbrains.mps.baseLanguage.structure.IMethodCall" flags="ng" index="1ndlxa">
+        <reference id="1068499141037" name="baseMethodDeclaration" index="37wK5l" />
       </concept>
     </language>
     <language id="375af171-bd4b-4bfb-bc9f-418fb996740b" name="org.modelix.aspect">
@@ -70,6 +78,9 @@
         <child id="9170566427534794950" name="parameterValues" index="214sll" />
       </concept>
       <concept id="9170566427534812277" name="de.q60.mps.shadowmodels.transformation.structure.ContextNodeExpression" flags="ng" index="214o7A" />
+      <concept id="9170566427534439102" name="de.q60.mps.shadowmodels.transformation.structure.ParameterReference" flags="ng" index="2155sH">
+        <reference id="9170566427534439103" name="decl" index="2155sG" />
+      </concept>
       <concept id="5373338300159315830" name="de.q60.mps.shadowmodels.transformation.structure.EmptyLine" flags="ng" index="2OrE70" />
     </language>
     <language id="25fcb6ab-d05a-4950-8cdf-251526bdf513" name="org.modelix.notation">
@@ -985,6 +996,10 @@
       <node concept="2PgeId" id="7gdm0g$0rf2" role="214sll">
         <ref role="2PgeIw" node="7gdm0g$0reJ" resolve="nodeRef" />
       </node>
+      <node concept="2YIFZM" id="60wywuiMBZY" role="214sll">
+        <ref role="37wK5l" to="2qs1:5pmgLfhVn_C" resolve="getSNode" />
+        <ref role="1Pybhc" to="2qs1:5pmgLfhVdSl" resolve="UiStateQuery" />
+      </node>
     </node>
     <node concept="Xl_RD" id="7gdm0g$0rn6" role="1engRn">
       <property role="Xl_RC" value="Node Image Editor" />
@@ -1001,8 +1016,11 @@
           <node concept="027rt" id="62_qJBxNjwt" role="02LM9">
             <ref role="027rv" to="70w2:7NImM053Sep" resolve="children" />
             <node concept="214gnc" id="7trMQm3aJAx" role="027rp">
-              <ref role="1YEVMl" to="m3vg:7trMQm3aIaE" resolve="breadcrumbs" />
+              <ref role="1YEVMl" to="m3vg:30zQ70bq5Oi" resolve="pageHeader" />
               <node concept="214o7A" id="7trMQm3aJHz" role="214sll" />
+              <node concept="2155sH" id="60wywuiMxKn" role="214sll">
+                <ref role="2155sG" node="60wywuiMwKp" resolve="uiState" />
+              </node>
             </node>
           </node>
           <node concept="027rt" id="7fn21XE1rh_" role="02LM9">
@@ -1020,6 +1038,12 @@
           <ref role="02i3$" to="tpck:gw2VY9q" resolve="BaseConcept" />
         </node>
       </node>
+      <node concept="02i3K" id="60wywuiMwKp" role="02i3f">
+        <property role="TrG5h" value="uiState" />
+        <node concept="02i3D" id="60wywuiMwKq" role="02i2B">
+          <ref role="02i3$" to="fnup:4bjL$lUe34H" resolve="UiStateRoot" />
+        </node>
+      </node>
     </node>
     <node concept="2OrE70" id="4RHKc8nK$QZ" role="02uzr" />
     <node concept="02vpq" id="4RHKc8nK$N6" role="02uzr">
@@ -1030,8 +1054,11 @@
           <node concept="027rt" id="4RHKc8nK$N9" role="02LM9">
             <ref role="027rv" to="70w2:7NImM053Sep" resolve="children" />
             <node concept="214gnc" id="4RHKc8nK$Na" role="027rp">
-              <ref role="1YEVMl" to="m3vg:7trMQm3aIaE" resolve="breadcrumbs" />
+              <ref role="1YEVMl" to="m3vg:30zQ70bq5Oi" resolve="pageHeader" />
               <node concept="214o7A" id="4RHKc8nK$Nb" role="214sll" />
+              <node concept="2155sH" id="60wywuiMx3Q" role="214sll">
+                <ref role="2155sG" node="60wywuiMtsN" resolve="uiState" />
+              </node>
             </node>
           </node>
           <node concept="027rt" id="4RHKc8nK$Nc" role="02LM9">
@@ -1047,6 +1074,12 @@
         <property role="TrG5h" value="node" />
         <node concept="02i3D" id="4RHKc8nK$Ng" role="02i2B">
           <ref role="02i3$" to="tpck:gw2VY9q" resolve="BaseConcept" />
+        </node>
+      </node>
+      <node concept="02i3K" id="60wywuiMtsN" role="02i3f">
+        <property role="TrG5h" value="uiState" />
+        <node concept="02i3D" id="60wywuiMtyc" role="02i2B">
+          <ref role="02i3$" to="fnup:4bjL$lUe34H" resolve="UiStateRoot" />
         </node>
       </node>
     </node>
@@ -1065,6 +1098,10 @@
       <ref role="1YEVMl" node="4RHKc8nK$N6" resolve="htmlEditor" />
       <node concept="2PgeId" id="4RHKc8nK$k8" role="214sll">
         <ref role="2PgeIw" node="4RHKc8nK$k5" resolve="nodeRef" />
+      </node>
+      <node concept="2YIFZM" id="60wywuiMCYi" role="214sll">
+        <ref role="1Pybhc" to="2qs1:5pmgLfhVdSl" resolve="UiStateQuery" />
+        <ref role="37wK5l" to="2qs1:5pmgLfhVn_C" resolve="getSNode" />
       </node>
     </node>
     <node concept="Xl_RD" id="4RHKc8nK$k9" role="1engRn">

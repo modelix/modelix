@@ -60,7 +60,9 @@ a:active {
         width: 3px;
         height: 20px;
         display: none;
-        animation: blinker 1s linear infinite;
+        &.own {
+            animation: blinker 1s linear infinite;
+        }
         &.leftend {
             width: 3px;
             border-bottom: 1px solid;
@@ -132,7 +134,7 @@ a:active {
     }
 }
 
-:focus .caret {
+:focus .caret, .caret.foreign {
     display: block;
 }
 
