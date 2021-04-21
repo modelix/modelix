@@ -27,6 +27,7 @@ jar {
         attributes("MPS-MajorVersion": mpsMajorVersion)
         attributes("MPS-MinorVersion": mpsMinorVersion)
         attributes("MPS-Version": mpsVersion)
+        attributes("MPS-extensions-Version": mpsExtensionsVersion)
     }
 }
 

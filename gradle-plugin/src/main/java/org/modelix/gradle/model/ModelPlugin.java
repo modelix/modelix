@@ -30,7 +30,7 @@ public class ModelPlugin implements Plugin<Project> {
         System.out.println("Using MPS version " + mpsVersion);
         String modelixVersion = manifest.getMainAttributes().getValue("modelix-Version");
         System.out.println("Using modelix Version " + modelixVersion);
-        String extensionsVersion = mpsMajorVersion + "+";
+        String extensionsVersion = manifest.getMainAttributes().getValue("MPS-extensions-Version");
         System.out.println("Using MPS-extensions version " + extensionsVersion);
         project_.afterEvaluate((Project project) -> {
             System.out.println("modelix model plugin loaded for project " + project.getDisplayName());
