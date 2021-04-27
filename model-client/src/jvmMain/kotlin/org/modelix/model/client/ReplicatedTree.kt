@@ -19,11 +19,7 @@ import org.apache.commons.lang3.mutable.MutableObject
 import org.apache.log4j.Level
 import org.apache.log4j.LogManager
 import org.modelix.model.VersionMerger
-import org.modelix.model.api.IBranch
-import org.modelix.model.api.IBranchListener
-import org.modelix.model.api.ITree
-import org.modelix.model.api.IWriteTransaction
-import org.modelix.model.api.PBranch
+import org.modelix.model.api.*
 import org.modelix.model.client.SharedExecutors.fixDelay
 import org.modelix.model.lazy.CLTree
 import org.modelix.model.lazy.CLVersion
@@ -214,10 +210,16 @@ actual open class ReplicatedTree actual constructor(
         )
     }
 
+    actual fun isDisposed() = disposed
+
     actual open fun dispose() {
         checkDisposed()
         disposed = true
-        versionChangeDetector.dispose()
+        try {
+            versionChangeDetector.dispose()
+        } catch (ex: Exception) {
+            logError("", ex, this::class)
+        }
         convergenceWatchdog.cancel(false)
     }
 

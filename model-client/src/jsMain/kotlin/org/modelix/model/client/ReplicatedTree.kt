@@ -17,4 +17,6 @@ actual class ReplicatedTree {
 
     actual fun dispose() {
     }
+
+    actual fun isDisposed(): Boolean = TODO("Not yet implemented")
 }

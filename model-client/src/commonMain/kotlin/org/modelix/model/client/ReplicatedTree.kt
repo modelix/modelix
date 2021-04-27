@@ -8,4 +8,5 @@ expect class ReplicatedTree(client: IModelClient, treeId: TreeId, branchName: St
     var localVersion: CLVersion?
     val branch: IBranch
     fun dispose()
+    fun isDisposed(): Boolean
 }
