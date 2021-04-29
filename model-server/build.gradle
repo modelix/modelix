@@ -3,7 +3,6 @@ plugins {
     id "application"
     id "com.diffplug.gradle.spotless"
     id 'maven-publish'
-    id "com.jfrog.bintray"
     id 'com.adarshr.test-logger' version '2.1.0'
 }
 
@@ -83,6 +82,15 @@ application {
 }
 
 publishing {
+    maven {
+        url rootProject.publishingRepository
+        if (rootProject.hasProperty('nexusUsername')) {
+            credentials {
+                username rootProject.nexusUsername
+                password rootProject.nexusPassword
+            }
+        }
+    }
     publications {
         modelServer(MavenPublication) {
             groupId project.group
@@ -98,29 +106,6 @@ publishing {
             artifact fatJarArtifact
         }
     }
-}
-
-bintray {
-    user = System.getenv('BINTRAY_USER')
-    key = System.getenv('BINTRAY_API_KEY')
-    pkg {
-        repo = 'maven'
-        name = project.name
-        userOrg = 'modelixorg'
-        licenses = ['Apache-2.0']
-        vcsUrl = 'https://github.com/modelix/modelix'
-        version {
-            name = 'v' + project.version
-            desc = 'Version ' + project.version
-            released = new Date()
-            vcsTag = 'v' + project.version
-        }
-    }
-
-    publications = ['modelServer', 'modelServerFatJar']
-    dryRun = false
-    publish = true
-    override = true
 }
 
 spotless {

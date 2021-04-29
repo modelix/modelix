@@ -47,6 +47,10 @@ if (System.getenv("TRAVIS_TAG") != null && !System.getenv("TRAVIS_TAG").isEmpty(
     }
 }
 
+ext.releaseRepository = 'https://projects.itemis.de/nexus/content/repositories/mbeddr'
+ext.snapshotRepository = 'https://projects.itemis.de/nexus/content/repositories/mbeddr_snapshots'
+ext.publishingRepository = modelixVersion.contains("SNAPSHOT") ? snapshotRepository : releaseRepository
+
 allprojects {
     group 'org.modelix'
     version modelixVersion
