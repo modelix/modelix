@@ -7,9 +7,9 @@ apply plugin: 'base'
 
 node {
     // also change the .nvmrc file
-    // version = '12.18.3'
-    // npmVersion = '6.14.8'
-    // download = true
+     version = '12.18.3'
+     npmVersion = '6.14.8'
+     download = true
 }
 
 npm_run_build {
