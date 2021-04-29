@@ -82,12 +82,14 @@ application {
 }
 
 publishing {
-    maven {
-        url rootProject.publishingRepository
-        if (rootProject.hasProperty('nexusUsername')) {
-            credentials {
-                username rootProject.nexusUsername
-                password rootProject.nexusPassword
+    repositories {
+        maven {
+            url rootProject.publishingRepository
+            if (rootProject.hasProperty('nexusUsername')) {
+                credentials {
+                    username rootProject.nexusUsername
+                    password rootProject.nexusPassword
+                }
             }
         }
     }
