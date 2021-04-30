@@ -42,14 +42,14 @@ if (System.getenv("TRAVIS_TAG") != null && !System.getenv("TRAVIS_TAG").isEmpty(
     if (versionFile.exists()) {
         ext.modelixVersion = versionFile.text.trim()
     } else {
-        ext.modelixVersion = "$mpsVersion-SNAPSHOT-" + new SimpleDateFormat("yyyyMMddHHmm").format(new Date())
+        ext.modelixVersion = "$mpsVersion-" + new SimpleDateFormat("yyyyMMddHHmm").format(new Date()) + "-SNAPSHOT"
         versionFile.write(ext.modelixVersion)
     }
 }
 
 ext.releaseRepository = 'https://projects.itemis.de/nexus/content/repositories/mbeddr'
 ext.snapshotRepository = 'https://projects.itemis.de/nexus/content/repositories/mbeddr_snapshots'
-ext.publishingRepository = modelixVersion.contains("SNAPSHOT") ? snapshotRepository : releaseRepository
+ext.publishingRepository = modelixVersion.endsWith("-SNAPSHOT") ? snapshotRepository : releaseRepository
 
 allprojects {
     group 'org.modelix'

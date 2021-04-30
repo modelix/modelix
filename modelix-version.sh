@@ -10,7 +10,7 @@ if [ -z "$TRAVIS_TAG" ]; then
     if [ -f "$FILE" ]; then
         MODELIX_VERSION="`cat $FILE`"
     else
-        MODELIX_VERSION="$mpsVersion-SNAPSHOT-$(date +"%Y%m%d%H%M")"
+        MODELIX_VERSION="$mpsVersion-$(date +"%Y%m%d%H%M")-SNAPSHOT"
         echo "$MODELIX_VERSION" > $FILE
     fi
 else
