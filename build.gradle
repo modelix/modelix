@@ -45,7 +45,7 @@ if (System.getenv("TRAVIS_TAG") != null && !System.getenv("TRAVIS_TAG").isEmpty(
     if (branch.matches(/\d+(\.\d+)+/)) {
         ext.modelixVersion = branch
     } else {
-        def hash = GitBasedVersioning.getGitShortCommitHash
+        def hash = GitBasedVersioning.gitShortCommitHash
         ext.modelixVersion = "${branch}.${buildNumber}.${hash}"
         println "##teamcity[buildNumber '${version}']"
     }
