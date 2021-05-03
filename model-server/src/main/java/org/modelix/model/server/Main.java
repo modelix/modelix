@@ -205,6 +205,10 @@ public class Main {
     }
 
     public static void main(String[] args) {
+        System.out.println("model server JVM:");
+        System.getenv().forEach((k, v) -> System.out.println("env.$k = $v"));
+        System.getProperties().forEach((k, v) -> System.out.println("properties.$k = $v"));
+
         CmdLineArgs cmdLineArgs = new CmdLineArgs();
         new JCommander(cmdLineArgs).parse(args);
 
