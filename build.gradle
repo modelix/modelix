@@ -42,9 +42,11 @@ if (System.getenv("TRAVIS_TAG") != null && !System.getenv("TRAVIS_TAG").isEmpty(
 } else if (project.hasProperty("teamcity")) {
     def buildNumber = System.env.BUILD_NUMBER.toInteger()
     def branch = GitBasedVersioning.gitBranch
-    if (branch.matches(/(refs\/)?tags\/.+/)) {
+    if (branch.matches(/(refs[\/-])?tags[\/-].+/)) {
         if (branch.startsWith("refs/tags/")) branch = branch.substring("refs/tags/".length())
+        if (branch.startsWith("refs-tags-")) branch = branch.substring("refs-tags-".length())
         if (branch.startsWith("tags/")) branch = branch.substring("tags/".length())
+        if (branch.startsWith("tags-")) branch = branch.substring("tags/".length())
         ext.modelixVersion = branch
     } else {
         def hash = GitBasedVersioning.gitShortCommitHash
@@ -57,6 +59,7 @@ if (System.getenv("TRAVIS_TAG") != null && !System.getenv("TRAVIS_TAG").isEmpty(
     ext.modelixVersion = "$mpsVersion-" + new SimpleDateFormat("yyyyMMddHHmm").format(new Date()) + "-SNAPSHOT"
 }
 versionFile.write(ext.modelixVersion)
+println("modelix version: " + ext.modelixVersion)
 
 ext.releaseRepository = 'https://projects.itemis.de/nexus/content/repositories/mbeddr'
 ext.snapshotRepository = 'https://projects.itemis.de/nexus/content/repositories/mbeddr_snapshots'
