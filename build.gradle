@@ -35,17 +35,26 @@ if (mpsExtensionsVersion == null || mpsExtensionsVersion.length() == 0) {
     ext.mpsExtensionsVersion = "$mpsMajorVersion+"
 }
 
+import de.itemis.mps.gradle.GitBasedVersioning
+def versionFile = new File("$rootDir/modelix.version")
 if (System.getenv("TRAVIS_TAG") != null && !System.getenv("TRAVIS_TAG").isEmpty()) {
     ext.modelixVersion = System.getenv("TRAVIS_TAG")
-} else {
-    def versionFile = new File("$rootDir/modelix.version")
-    if (versionFile.exists()) {
-        ext.modelixVersion = versionFile.text.trim()
+} else if (project.hasProperty("teamcity")) {
+    def buildNumber = System.env.BUILD_NUMBER.toInteger()
+    def branch = GitBasedVersioning.gitBranch
+    if (ext.branch.matches(/\d+(\.\d+)+/)) {
+        ext.modelixVersion = branch
     } else {
-        ext.modelixVersion = "$mpsVersion-" + new SimpleDateFormat("yyyyMMddHHmm").format(new Date()) + "-SNAPSHOT"
-        versionFile.write(ext.modelixVersion)
+        def hash = GitBasedVersioning.getGitShortCommitHash
+        ext.modelixVersion = "${branch}.${buildNumber}.${hash}"
+        println "##teamcity[buildNumber '${version}']"
     }
+} else if (versionFile.exists()) {
+    ext.modelixVersion = versionFile.text.trim()
+} else {
+    ext.modelixVersion = "$mpsVersion-" + new SimpleDateFormat("yyyyMMddHHmm").format(new Date()) + "-SNAPSHOT"
 }
+versionFile.write(ext.modelixVersion)
 
 ext.releaseRepository = 'https://projects.itemis.de/nexus/content/repositories/mbeddr'
 ext.snapshotRepository = 'https://projects.itemis.de/nexus/content/repositories/mbeddr_snapshots'
