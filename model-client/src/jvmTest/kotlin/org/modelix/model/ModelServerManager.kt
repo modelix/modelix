@@ -75,8 +75,8 @@ class ModelServerManager {
                 .map { e: Map.Entry<String, String> -> " -set " + e.key + " " + e.value }
                 .collect(Collectors.joining())
             println("unit test JVM:")
-            System.getenv().forEach { (k, v) -> println("env.$k = $v")}
-            System.getProperties().forEach { (k, v) -> println("properties.$k = $v")}
+            System.getenv().forEach { (k, v) -> println("env.$k = $v") }
+            System.getProperties().forEach { (k, v) -> println("properties.$k = $v") }
             val commandLine = (
                 "${System.getProperty("java.home")}/bin/java -jar ../model-server/build/libs/model-server-fatJar-latest.jar -inmemory" +
                     argsToSetValues
