@@ -47,7 +47,7 @@ if (System.getenv("TRAVIS_TAG") != null && !System.getenv("TRAVIS_TAG").isEmpty(
     } else {
         def hash = GitBasedVersioning.gitShortCommitHash
         ext.modelixVersion = "${branch}.${buildNumber}.${hash}"
-        println "##teamcity[buildNumber '${version}']"
+        println "##teamcity[buildNumber '${modelixVersion}']"
     }
 } else if (versionFile.exists()) {
     ext.modelixVersion = versionFile.text.trim()
