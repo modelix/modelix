@@ -42,7 +42,9 @@ if (System.getenv("TRAVIS_TAG") != null && !System.getenv("TRAVIS_TAG").isEmpty(
 } else if (project.hasProperty("teamcity")) {
     def buildNumber = System.env.BUILD_NUMBER.toInteger()
     def branch = GitBasedVersioning.gitBranch
-    if (branch.matches(/\d+(\.\d+)+/)) {
+    if (branch.matches(/(refs\/)?tags\/.+/)) {
+        if (branch.startsWith("refs/tags/")) branch = branch.substring("refs/tags/".length())
+        if (branch.startsWith("tags/")) branch = branch.substring("tags/".length())
         ext.modelixVersion = branch
     } else {
         def hash = GitBasedVersioning.gitShortCommitHash
