@@ -25,6 +25,11 @@ plugins {
     id "com.jfrog.bintray" version "1.8.5" apply false
 }
 
+if (!project.hasProperty("nexusUsername") && System.getenv("NEXUS_USERNAME") != null) {
+    project.nexusUsername = System.getenv("NEXUS_USERNAME")
+    project.nexusPassword = System.getenv("NEXUS_PASSWORD")
+}
+
 def mpsVersionProps = new Properties()
 file("mps-version.properties").withInputStream { mpsVersionProps.load(it) }
 ext.mpsMajorVersion = mpsVersionProps.getProperty("mpsMajorVersion")
