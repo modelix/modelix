@@ -1,4 +1,4 @@
-[![Build Status](https://build.mbeddr.com/app/rest/builds/buildType:(id:modelix_ModelixBuild)/statusIcon)](https://build.mbeddr.com/buildConfiguration/modelix_ModelixBuild?branch=%3Cdefault%3E&mode=builds) 
+[![Build Status](https://build.mbeddr.com/app/rest/builds/buildType:(id:modelix_ModelixBuild)/statusIcon)](https://build.mbeddr.com/project/modelix?branch=%3Cdefault%3E&buildTypeTab=overview&mode=builds) 
 
 # The modelix Project
 
