@@ -85,9 +85,11 @@ publishing {
     repositories {
         maven {
             url rootProject.publishingRepository
-            credentials {
-                username rootProject.nexusUsername
-                password rootProject.nexusPassword
+            if (rootProject.hasProperty('nexusUsername')) {
+                credentials {
+                    username rootProject.nexusUsername
+                    password rootProject.nexusPassword
+                }
             }
         }
     }
