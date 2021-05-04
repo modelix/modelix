@@ -25,10 +25,8 @@ plugins {
     id "com.jfrog.bintray" version "1.8.5" apply false
 }
 
-if (!project.hasProperty("nexusUsername") && System.getenv("NEXUS_USERNAME") != null) {
-    project.nexusUsername = System.getenv("NEXUS_USERNAME")
-    project.nexusPassword = System.getenv("NEXUS_PASSWORD")
-}
+if (System.getenv("NEXUS_USERNAME") != null) ext.nexusUsername = System.getenv("NEXUS_USERNAME")
+if (System.getenv("NEXUS_PASSWORD") != null) ext.nexusPassword = System.getenv("NEXUS_PASSWORD")
 
 def mpsVersionProps = new Properties()
 file("mps-version.properties").withInputStream { mpsVersionProps.load(it) }
