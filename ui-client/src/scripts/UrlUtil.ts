@@ -1,7 +1,12 @@
 export function getWebsocketBaseUrl() {
     let path = window.location.pathname;
     path = path.substring(0, path.lastIndexOf("/"));
-    let url = "ws://" + window.location.host + path;
+    let url: string;
+    if(window.location.protocol == "https") {
+        url = "wss://" + window.location.host + path;
+    } else  {
+        url = "ws://" + window.location.host + path;
+    }
 
     for (let tag of document.getElementsByTagName("base")) {
         if (tag.href != "") {
