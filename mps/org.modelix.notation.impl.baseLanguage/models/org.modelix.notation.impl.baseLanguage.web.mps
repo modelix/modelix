@@ -14,6 +14,7 @@
     <import index="m3vg" ref="r:9bcdcf0c-f978-4630-9b17-a35339e80a73(org.modelix.ui.sm.transformations)" />
     <import index="fnup" ref="r:c0f62029-94d5-495d-b498-eb090ba537fc(org.modelix.ui.state.structure)" />
     <import index="2qs1" ref="r:f8990486-c591-4463-8538-99bfa890834b(org.modelix.ui.sm.server.plugin)" />
+    <import index="jh6v" ref="r:f2f39a18-fd23-4090-b7f2-ba8da340eec2(org.modelix.model.repositoryconcepts.structure)" />
   </imports>
   <registry>
     <language id="f3061a53-9226-4cc5-a443-f952ceaf5816" name="jetbrains.mps.baseLanguage">
@@ -1106,6 +1107,66 @@
     </node>
     <node concept="Xl_RD" id="4RHKc8nK$k9" role="1engRn">
       <property role="Xl_RC" value="HTML Editor" />
+    </node>
+  </node>
+  <node concept="1QS68C" id="7z$SG7M9X2X">
+    <property role="TrG5h" value="repository" />
+    <node concept="1QSeQW" id="7z$SG7M9X2Y" role="1QSY9g">
+      <ref role="1QSeL8" to="jh6v:qmkA5fOskm" resolve="Repository" />
+      <node concept="1QSceF" id="7z$SG7M9XaM" role="1QSceC">
+        <node concept="3UTMNE" id="7z$SG7M9XaR" role="3UTMMu" />
+        <node concept="1QSceF" id="7z$SG7M9XaT" role="1QSceR">
+          <node concept="1QSTl9" id="7z$SG7M9XaV" role="1QSceR">
+            <property role="1QSTll" value="repository" />
+          </node>
+        </node>
+        <node concept="1QSceF" id="7z$SG7M9Xca" role="1QSceR">
+          <node concept="3UYUzP" id="7z$SG7M9XbS" role="1QSceR" />
+          <node concept="1QSceF" id="7z$SG7M9XcE" role="1QSceR">
+            <node concept="1QSTl9" id="7z$SG7M9Xde" role="1QSceR">
+              <property role="1QSTll" value="Projects:" />
+            </node>
+            <node concept="1QSceF" id="7z$SG7M9Xet" role="1QSceR">
+              <node concept="3UYUzP" id="7z$SG7M9Xey" role="1QSceR" />
+              <node concept="1QSeQ$" id="7z$SG7M9Xb5" role="1QSceR">
+                <ref role="1QXIMq" to="jh6v:68axlwQ7jSc" resolve="projects" />
+              </node>
+            </node>
+            <node concept="3UTMNE" id="7z$SG7M9Xd5" role="3UTMMu" />
+          </node>
+        </node>
+        <node concept="1QSceF" id="7z$SG7M9Xdg" role="1QSceR">
+          <node concept="3UYUzP" id="7z$SG7M9Xdh" role="1QSceR" />
+          <node concept="1QSceF" id="7z$SG7M9Xdi" role="1QSceR">
+            <node concept="1QSTl9" id="7z$SG7M9Xdk" role="1QSceR">
+              <property role="1QSTll" value="Modules:" />
+            </node>
+            <node concept="1QSceF" id="7z$SG7M9Xec" role="1QSceR">
+              <node concept="3UYUzP" id="7z$SG7M9Xeh" role="1QSceR" />
+              <node concept="1QSeQ$" id="7z$SG7M9XdD" role="1QSceR">
+                <ref role="1QXIMq" to="jh6v:qmkA5fOskn" resolve="modules" />
+                <node concept="3UTMNE" id="2OB8EMI_DU4" role="3UYHHU" />
+              </node>
+            </node>
+            <node concept="3UTMNE" id="7z$SG7M9Xdm" role="3UTMMu" />
+          </node>
+        </node>
+      </node>
+    </node>
+    <node concept="1QSeQW" id="7z$SG7MisfE" role="1QSY9g">
+      <ref role="1QSeL8" to="jh6v:qmkA5fOskf" resolve="Module" />
+      <node concept="1QSceF" id="7z$SG7Misgt" role="1QSceC">
+        <node concept="1QSeQo" id="7z$SG7Misgy" role="1QSceR">
+          <ref role="1QSceV" to="tpck:h0TrG11" resolve="name" />
+        </node>
+        <node concept="3UTMNE" id="7z$SG7MisgB" role="3UTMMu" />
+      </node>
+    </node>
+    <node concept="1QSeQW" id="7z$SG7MishT" role="1QSY9g">
+      <ref role="1QSeL8" to="jh6v:qmkA5fOskc" resolve="Model" />
+      <node concept="1QSeQo" id="7z$SG7Misiu" role="1QSceC">
+        <ref role="1QSceV" to="tpck:h0TrG11" resolve="name" />
+      </node>
     </node>
   </node>
 </model>

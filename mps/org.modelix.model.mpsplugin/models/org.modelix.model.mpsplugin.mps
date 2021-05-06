@@ -5834,6 +5834,31 @@
         </node>
       </node>
     </node>
+    <node concept="Wx3nA" id="1uzsBUr_8Rk" role="jymVt">
+      <property role="TrG5h" value="LOCAL_UI_STATE_BRANCH" />
+      <property role="3TUv4t" value="true" />
+      <node concept="3uibUv" id="1uzsBUr$N8t" role="1tU5fm">
+        <ref role="3uigEE" to="jks5:~IBranch" resolve="IBranch" />
+      </node>
+      <node concept="3Tm1VV" id="2YTKE7NlAu8" role="1B3o_S" />
+      <node concept="2ShNRf" id="1uzsBUr$Nlw" role="33vP2m">
+        <node concept="1pGfFk" id="1uzsBUr$RCU" role="2ShVmc">
+          <ref role="37wK5l" to="jks5:~PBranch.&lt;init&gt;(org.modelix.model.api.ITree,org.modelix.model.api.IIdGenerator)" resolve="PBranch" />
+          <node concept="10M0yZ" id="1uzsBUr_6rl" role="37wK5m">
+            <ref role="3cqZAo" to="3hky:4_SQzDO2gYP" resolve="EMPTY" />
+            <ref role="1PxDUh" to="3hky:4_SQzDO0jRP" resolve="SM_PTree" />
+          </node>
+          <node concept="2ShNRf" id="1uzsBUr_7ca" role="37wK5m">
+            <node concept="1pGfFk" id="1uzsBUr_7VR" role="2ShVmc">
+              <ref role="37wK5l" to="5440:~IdGenerator.&lt;init&gt;(int)" resolve="IdGenerator" />
+              <node concept="3cmrfG" id="1uzsBUr_8I5" role="37wK5m">
+                <property role="3cmrfH" value="1" />
+              </node>
+            </node>
+          </node>
+        </node>
+      </node>
+    </node>
     <node concept="2tJIrI" id="1LVcV5KxxqJ" role="jymVt" />
     <node concept="2YIFZL" id="1LVcV5Kxxmz" role="jymVt">
       <property role="TrG5h" value="getInstance" />
@@ -6074,25 +6099,44 @@
               <node concept="1pGfFk" id="FyCC6tvOEN" role="2ShVmc">
                 <ref role="37wK5l" to="qvpu:~CompositeArea.&lt;init&gt;(java.util.List)" resolve="CompositeArea" />
                 <node concept="2OqwBi" id="FyCC6tvOEO" role="37wK5m">
-                  <node concept="2OqwBi" id="FyCC6tvOEP" role="2Oq$k0">
-                    <node concept="2ShNRf" id="FyCC6tvOEQ" role="2Oq$k0">
-                      <node concept="2HTt$P" id="FyCC6tvOER" role="2ShVmc">
-                        <node concept="3uibUv" id="FyCC6tvOES" role="2HTBi0">
-                          <ref role="3uigEE" to="qvpu:~IArea" resolve="IArea" />
-                        </node>
-                        <node concept="2ShNRf" id="FyCC6tvOET" role="2HTEbv">
-                          <node concept="1pGfFk" id="FyCC6tvOEU" role="2ShVmc">
-                            <ref role="37wK5l" to="xxte:7cdb92Lw72S" resolve="MPSArea" />
-                            <node concept="37vLTw" id="FyCC6tvXbk" role="37wK5m">
-                              <ref role="3cqZAo" node="FyCC6tvTCz" resolve="mpsRepository" />
+                  <node concept="2OqwBi" id="1_3xoKEh$qV" role="2Oq$k0">
+                    <node concept="2OqwBi" id="FyCC6tvOEP" role="2Oq$k0">
+                      <node concept="2ShNRf" id="FyCC6tvOEQ" role="2Oq$k0">
+                        <node concept="2HTt$P" id="FyCC6tvOER" role="2ShVmc">
+                          <node concept="3uibUv" id="FyCC6tvOES" role="2HTBi0">
+                            <ref role="3uigEE" to="qvpu:~IArea" resolve="IArea" />
+                          </node>
+                          <node concept="2ShNRf" id="FyCC6tvOET" role="2HTEbv">
+                            <node concept="1pGfFk" id="FyCC6tvOEU" role="2ShVmc">
+                              <ref role="37wK5l" to="xxte:7cdb92Lw72S" resolve="MPSArea" />
+                              <node concept="37vLTw" id="1_3xoKEhx7X" role="37wK5m">
+                                <ref role="3cqZAo" node="FyCC6tvTCz" resolve="mpsRepository" />
+                              </node>
                             </node>
                           </node>
                         </node>
                       </node>
+                      <node concept="3QWeyG" id="FyCC6tvOEV" role="2OqNvi">
+                        <node concept="37vLTw" id="FyCC6tvOEW" role="576Qk">
+                          <ref role="3cqZAo" node="FyCC6tvOEa" resolve="cloudAreas" />
+                        </node>
+                      </node>
                     </node>
-                    <node concept="3QWeyG" id="FyCC6tvOEV" role="2OqNvi">
-                      <node concept="37vLTw" id="FyCC6tvOEW" role="576Qk">
-                        <ref role="3cqZAo" node="FyCC6tvOEa" resolve="cloudAreas" />
+                    <node concept="3QWeyG" id="1_3xoKEhBbz" role="2OqNvi">
+                      <node concept="2ShNRf" id="1_3xoKEhFmP" role="576Qk">
+                        <node concept="2HTt$P" id="1_3xoKEilwQ" role="2ShVmc">
+                          <node concept="3uibUv" id="1_3xoKEioRV" role="2HTBi0">
+                            <ref role="3uigEE" to="qvpu:~IArea" resolve="IArea" />
+                          </node>
+                          <node concept="2ShNRf" id="2YTKE7Nn$VW" role="2HTEbv">
+                            <node concept="1pGfFk" id="2YTKE7NnD1X" role="2ShVmc">
+                              <ref role="37wK5l" to="qvpu:~PArea.&lt;init&gt;(org.modelix.model.api.IBranch)" resolve="PArea" />
+                              <node concept="37vLTw" id="1_3xoKEiriA" role="37wK5m">
+                                <ref role="3cqZAo" node="1uzsBUr_8Rk" resolve="LOCAL_UI_STATE_BRANCH" />
+                              </node>
+                            </node>
+                          </node>
+                        </node>
                       </node>
                     </node>
                   </node>
