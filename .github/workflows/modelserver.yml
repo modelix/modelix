@@ -13,6 +13,16 @@ jobs:
       uses: actions/setup-java@v1
       with:
         java-version: 11
+    - uses: actions/cache@v2.1.5
+      with:
+        path: |
+          ~/.gradle/caches
+          ~/.gradle/wrapper
+        key: gradle-model-server-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+        restore-keys: |
+          gradle-model-server-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          gradle-model-server-
+          gradle-
     - name: Assemble
       run: cd model-server && ../gradlew assemble
 
@@ -26,6 +36,16 @@ jobs:
       uses: actions/setup-java@v1
       with:
         java-version: 11
+    - uses: actions/cache@v2.1.5
+      with:
+        path: |
+          ~/.gradle/caches
+          ~/.gradle/wrapper
+        key: gradle-model-server-unitTests-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+        restore-keys: |
+          gradle-model-server-unitTests-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          gradle-model-server-unitTests-
+          gradle-
     - name: Run unit tests
       run: cd model-server && ../gradlew test
 
@@ -39,6 +59,16 @@ jobs:
       uses: actions/setup-java@v1
       with:
         java-version: 11
+    - uses: actions/cache@v2.1.5
+      with:
+        path: |
+          ~/.gradle/caches
+          ~/.gradle/wrapper
+        key: gradle-model-server-lint-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+        restore-keys: |
+          gradle-model-server-lint-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          gradle-model-server-lint-
+          gradle-
     - name: Run linter
       run: cd model-server && ../gradlew spotlessCheck
 
@@ -52,5 +82,15 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 11
+      - uses: actions/cache@v2.1.5
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: gradle-model-server-functionalTests-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            gradle-model-server-functionalTests-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+            gradle-model-server-functionalTests-
+            gradle-
       - name: Run functional tests
         run: cd model-server && ../gradlew cucumber
