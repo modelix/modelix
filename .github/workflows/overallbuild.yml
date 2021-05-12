@@ -13,5 +13,15 @@ jobs:
       uses: actions/setup-java@v1
       with:
         java-version: 11
+    - uses: actions/cache@v2.1.5
+      with:
+        path: |
+          ~/.gradle/caches
+          ~/.gradle/wrapper
+        key: gradle-assembleWholeProject-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+        restore-keys: |
+          gradle-assembleWholeProject-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          gradle-assembleWholeProject-
+          gradle-
     - name: Assemble
       run: ./gradlew assemble
