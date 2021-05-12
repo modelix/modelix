@@ -4,11 +4,20 @@ import com.google.common.io.Files;
 import jetbrains.mps.project.Project;
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
+import org.eclipse.jgit.api.CloneCommand;
 import org.eclipse.jgit.api.Git;
+import org.eclipse.jgit.errors.UnsupportedCredentialItem;
+import org.eclipse.jgit.transport.CredentialItem;
+import org.eclipse.jgit.transport.CredentialsProvider;
+import org.eclipse.jgit.transport.URIish;
+import org.eclipse.jgit.transport.UsernamePasswordCredentialsProvider;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.charset.Charset;
+import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class Main {
@@ -27,12 +36,37 @@ public class Main {
             if (gitRepoUri != null && gitRepoUri.length() > 0) {
                 System.out.println("Cloning " + gitRepoUri);
                 String gitCommitId = getPropertyOrEnv("GIT_COMMIT_ID");
+                String gitUser = getPropertyOrEnv("GIT_USER");
+                String gitPasswordFile = getPropertyOrEnv("GIT_PASSWORD_FILE");
                 System.out.println("Commit ID: " + gitCommitId);
+                System.out.println("Git User: " + gitUser);
 
                 gitRepoDir = Files.createTempDir();
                 System.setProperty("GIT_REPO_DIR", gitRepoDir.getAbsolutePath());
                 recursiveDeleteOnExit(gitRepoDir);
-                Git git = Git.cloneRepository()
+                CloneCommand cloneCommand = Git.cloneRepository();
+
+
+                //no user but password only works for instance when cloning from github with a personal access token
+                if (gitPasswordFile != null) {
+                    File pwFile = new File(gitPasswordFile);
+                    if (!pwFile.exists()) {
+                        LOG.error("Git password file " + pwFile.getAbsolutePath() + " does not exist");
+                    } else {
+                        try {
+                            List<String> lines = java.nio.file.Files.readAllLines(pwFile.toPath());
+                            if (lines.size() == 0) {
+                                LOG.error("password file is empty");
+                            } else {
+                                cloneCommand.setCredentialsProvider(new UsernamePasswordCredentialsProvider(gitUser, lines.get(0)));
+                            }
+                        } catch (IOException e) {
+                            LOG.error("can't read password file", e);
+                        }
+                    }
+                }
+
+                Git git = cloneCommand
                         .setURI(gitRepoUri)
                         .setDirectory(gitRepoDir)
                         .setNoCheckout(gitCommitId != null && gitCommitId.length() > 0)
