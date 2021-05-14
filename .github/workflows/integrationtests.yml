@@ -24,4 +24,4 @@ jobs:
       with:
         java-version: 11
     - name: Integration Tests
-      run: ./gradlew runIntegrationTests
+      run: ./gradlew -i runIntegrationTests
