@@ -622,6 +622,40 @@
               </node>
             </node>
           </node>
+          <node concept="027rt" id="mtS_g4lnRP" role="02LM9">
+            <ref role="027rv" to="70w2:7NImM053Sep" resolve="children" />
+            <node concept="027og" id="mtS_g4lnRQ" role="027rp">
+              <ref role="02LMe" to="70w2:7NImM04TdSk" resolve="HTMLDivElement" />
+              <node concept="027rt" id="mtS_g4lnRR" role="02LM9">
+                <ref role="027rv" to="70w2:7NImM053Sep" resolve="children" />
+                <node concept="027og" id="mtS_g4lnRS" role="027rp">
+                  <ref role="02LMe" to="70w2:7NImM04TdSa" resolve="HTMLAnchorElement" />
+                  <node concept="027oh" id="mtS_g4lrRr" role="02LM9">
+                    <ref role="027oj" to="70w2:7q7cTU0SJQ8" resolve="href" />
+                    <node concept="2YIFZM" id="mtS_g4ls6I" role="027of">
+                      <ref role="37wK5l" node="23B5uoe_uHY" resolve="getHtmlEditorURL" />
+                      <ref role="1Pybhc" node="62_qJBxL8mp" resolve="PageTransformationsUtil" />
+                      <node concept="2155sH" id="mtS_g4lsjx" role="37wK5m">
+                        <ref role="2155sG" node="7q7cTU0VHLd" resolve="node" />
+                      </node>
+                    </node>
+                  </node>
+                  <node concept="027rt" id="mtS_g4lnRT" role="02LM9">
+                    <ref role="027rv" to="70w2:7NImM053Sep" resolve="children" />
+                    <node concept="027og" id="mtS_g4lnRU" role="027rp">
+                      <ref role="02LMe" to="70w2:7NImM04RGAT" resolve="HtmlText" />
+                      <node concept="027oh" id="mtS_g4lnRV" role="02LM9">
+                        <ref role="027oj" to="70w2:7NImM04TrPE" resolve="data" />
+                        <node concept="Xl_RD" id="mtS_g4lnRW" role="027of">
+                          <property role="Xl_RC" value="HTML editor" />
+                        </node>
+                      </node>
+                    </node>
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
           <node concept="027rt" id="7q7cTU0VHLx" role="02LM9">
             <ref role="027rv" to="70w2:7NImM053Sep" resolve="children" />
             <node concept="027og" id="7q7cTU0VHLy" role="027rp">

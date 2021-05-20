@@ -59,7 +59,7 @@ a:active {
         border-left: 2px solid;
         width: 3px;
         height: 20px;
-        display: none;
+        display: block;
         &.own {
             animation: blinker 1s linear infinite;
         }
