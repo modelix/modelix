@@ -5102,14 +5102,18 @@
                       <node concept="2YIFZM" id="7$7_4ZicZFK" role="33vP2m">
                         <ref role="37wK5l" to="xxte:4EhVFrZ6z9$" resolve="wrap" />
                         <ref role="1Pybhc" to="xxte:4EhVFrZ3AjR" resolve="NodeToSNodeAdapter" />
-                        <node concept="2OqwBi" id="7mc9A5ll714" role="37wK5m">
-                          <node concept="37vLTw" id="7mc9A5llcGn" role="2Oq$k0">
-                            <ref role="3cqZAo" node="7mc9A5ll4ru" resolve="nodeRef" />
-                          </node>
-                          <node concept="liA8E" id="7mc9A5ll716" role="2OqNvi">
-                            <ref role="37wK5l" to="jks5:~INodeReference.resolveNode(org.modelix.model.area.IArea)" resolve="resolveNode" />
-                            <node concept="37vLTw" id="7$7_4ZicXMx" role="37wK5m">
-                              <ref role="3cqZAo" node="7O6ht7Rcxcs" resolve="area" />
+                        <node concept="2YIFZM" id="3CXXxT$YRQ_" role="37wK5m">
+                          <ref role="37wK5l" to="jks5:~NodeUtilKt.deepUnwrapNode(org.modelix.model.api.INode)" resolve="deepUnwrapNode" />
+                          <ref role="1Pybhc" to="jks5:~NodeUtilKt" resolve="NodeUtilKt" />
+                          <node concept="2OqwBi" id="7mc9A5ll714" role="37wK5m">
+                            <node concept="37vLTw" id="7mc9A5llcGn" role="2Oq$k0">
+                              <ref role="3cqZAo" node="7mc9A5ll4ru" resolve="nodeRef" />
+                            </node>
+                            <node concept="liA8E" id="7mc9A5ll716" role="2OqNvi">
+                              <ref role="37wK5l" to="jks5:~INodeReference.resolveNode(org.modelix.model.area.IArea)" resolve="resolveNode" />
+                              <node concept="37vLTw" id="7$7_4ZicXMx" role="37wK5m">
+                                <ref role="3cqZAo" node="7O6ht7Rcxcs" resolve="area" />
+                              </node>
                             </node>
                           </node>
                         </node>
