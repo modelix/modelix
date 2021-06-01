@@ -17,6 +17,11 @@ repositories {
 
 apply plugin: 'modelix-gradle-plugin'
 
+compileJava {
+    sourceCompatibility = '11'
+    targetCompatibility = '11'
+}
+
 modelixModel {
     serverUrl = "http://localhost:28101/"
     treeId = "default"

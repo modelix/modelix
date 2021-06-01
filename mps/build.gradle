@@ -74,7 +74,9 @@ ext.defaultAntScriptArgs = [
         '-Dproject.home=' + file(rootDir).getAbsolutePath(),
         '-Dmps.home=' + mpsDir.getAbsolutePath(),
         '-Dartifacts.root=' + new File(rootDir, 'artifacts'),
-        '-DmodelixVersion=' + project.version
+        '-DmodelixVersion=' + project.version,
+        '-Dant.build.javac.source=11',
+        '-Dant.build.javac.target=11'
 ]
 ext.buildScriptClasspath = project.configurations.ant_lib.fileCollection({ true })
 

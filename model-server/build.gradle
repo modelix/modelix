@@ -10,6 +10,11 @@ description = 'Model Server offering access to model storage'
 
 defaultTasks 'build'
 
+compileJava {
+    sourceCompatibility = '11'
+    targetCompatibility = '11'
+}
+
 dependencies {
     compile group: 'org.json', name: 'json', version:'20180813'
     compile group: 'org.java-websocket', name: 'Java-WebSocket', version:'1.4.0'

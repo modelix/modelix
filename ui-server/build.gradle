@@ -8,6 +8,11 @@ repositories {
     maven { url "https://repo.maven.apache.org/maven2" }
 }
 
+compileJava {
+    sourceCompatibility = '11'
+    targetCompatibility = '11'
+}
+
 dependencies {
     compileOnly fileTree(dir: '../artifacts/mps/lib', include: '*.jar')
     compile group: 'org.eclipse.jgit', name: 'org.eclipse.jgit', version: '5.8.0.202006091008-r'

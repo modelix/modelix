@@ -7,8 +7,10 @@ version modelixVersion
 
 description = "modelix UI proxy"
 
-sourceCompatibility = 1.11
-targetCompatibility = 1.11
+compileJava {
+    sourceCompatibility = '11'
+    targetCompatibility = '11'
+}
 
 defaultTasks 'build'
 
