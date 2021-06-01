@@ -5212,6 +5212,7 @@
     <property role="turDy" value="build-tests.xml" />
     <node concept="2_Ic$z" id="1yReInD222" role="3989C9">
       <property role="2_Ic$$" value="true" />
+      <property role="TZNOO" value="11" />
     </node>
     <node concept="1wNqPr" id="1yReInD228" role="3989C9" />
     <node concept="1E1JtA" id="6w3CrGw0wk6" role="3989C9">
@@ -5468,7 +5469,7 @@
     </node>
     <node concept="2_Ic$z" id="2p2ql82Ml$Y" role="3989C9">
       <property role="2_Ic$$" value="true" />
-      <property role="TZNOO" value="1.8" />
+      <property role="TZNOO" value="11" />
     </node>
     <node concept="m$_wf" id="2p2ql82Ml$Z" role="3989C9">
       <property role="m$_wk" value="ModelixIntegrationTests.launcher.plugin" />
