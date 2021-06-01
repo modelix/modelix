@@ -1,8 +1,8 @@
 language: java
 install: true
 
-jdk:
-  - openjdk13
+jdk: 
+  - openjdk11
 
 services:
   - docker
