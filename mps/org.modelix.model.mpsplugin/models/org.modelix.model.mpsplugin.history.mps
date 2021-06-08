@@ -41,6 +41,7 @@
     <import index="jks5" ref="cc99dce1-49f3-4392-8dbf-e22ca47bd0af/java:org.modelix.model.api(org.modelix.model.api/)" />
     <import index="qvpu" ref="cc99dce1-49f3-4392-8dbf-e22ca47bd0af/java:org.modelix.model.area(org.modelix.model.api/)" />
     <import index="jh6v" ref="r:f2f39a18-fd23-4090-b7f2-ba8da340eec2(org.modelix.model.repositoryconcepts.structure)" />
+    <import index="lui2" ref="8865b7a8-5271-43d3-884c-6fd1d9cfdd34/java:org.jetbrains.mps.openapi.module(MPS.OpenAPI/)" />
     <import index="geos" ref="0a2651ab-f212-45c2-a2f0-343e76cbc26b/java:org.modelix.model.persistent(org.modelix.model.client/)" implicit="true" />
     <import index="5zyv" ref="6354ebe7-c22a-4a0f-ac54-50b52ab9b065/java:java.util.concurrent(JDK/)" implicit="true" />
     <import index="tpcu" ref="r:00000000-0000-4000-0000-011c89590282(jetbrains.mps.lang.core.behavior)" implicit="true" />
@@ -5734,12 +5735,12 @@
                                       <node concept="3cpWs8" id="1qctpygK1J4" role="3cqZAp">
                                         <node concept="3cpWsn" id="1qctpygK1J5" role="3cpWs9">
                                           <property role="TrG5h" value="mpsRepo" />
-                                          <node concept="3uibUv" id="1qctpygK1Dl" role="1tU5fm">
-                                            <ref role="3uigEE" to="w1kc:~MPSModuleRepository" resolve="MPSModuleRepository" />
+                                          <node concept="3uibUv" id="1P7ru6Vmazc" role="1tU5fm">
+                                            <ref role="3uigEE" to="lui2:~SRepository" resolve="SRepository" />
                                           </node>
-                                          <node concept="2YIFZM" id="1qctpygK1J6" role="33vP2m">
-                                            <ref role="37wK5l" to="w1kc:~MPSModuleRepository.getInstance()" resolve="getInstance" />
-                                            <ref role="1Pybhc" to="w1kc:~MPSModuleRepository" resolve="MPSModuleRepository" />
+                                          <node concept="2YIFZM" id="1P7ru6VlAfw" role="33vP2m">
+                                            <ref role="37wK5l" to="csg2:7eBq7RkcZ$S" resolve="getSRepository" />
+                                            <ref role="1Pybhc" to="csg2:6FW8YbU5vOS" resolve="CommandHelper" />
                                           </node>
                                         </node>
                                       </node>

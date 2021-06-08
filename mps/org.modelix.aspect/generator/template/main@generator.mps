@@ -1028,19 +1028,6 @@
           </node>
         </node>
         <node concept="3clFbH" id="3XNyhUafzrT" role="3cqZAp" />
-        <node concept="3clFbH" id="3XNyhUaeTya" role="3cqZAp" />
-        <node concept="3cpWs8" id="7mc9A5ll70I" role="3cqZAp">
-          <node concept="3cpWsn" id="7mc9A5ll70J" role="3cpWs9">
-            <property role="TrG5h" value="repo" />
-            <node concept="3uibUv" id="7mc9A5ll70K" role="1tU5fm">
-              <ref role="3uigEE" to="lui2:~SRepository" resolve="SRepository" />
-            </node>
-            <node concept="2YIFZM" id="7mc9A5ll70L" role="33vP2m">
-              <ref role="37wK5l" to="w1kc:~MPSModuleRepository.getInstance()" resolve="getInstance" />
-              <ref role="1Pybhc" to="w1kc:~MPSModuleRepository" resolve="MPSModuleRepository" />
-            </node>
-          </node>
-        </node>
         <node concept="3cpWs8" id="7mc9A5ll70M" role="3cqZAp">
           <node concept="3cpWsn" id="7mc9A5ll70N" role="3cpWs9">
             <property role="TrG5h" value="text" />

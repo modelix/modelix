@@ -20,6 +20,7 @@
     <import index="wyt6" ref="6354ebe7-c22a-4a0f-ac54-50b52ab9b065/java:java.lang(JDK/)" />
     <import index="cj4x" ref="1ed103c3-3aa6-49b7-9c21-6765ee11f224/java:jetbrains.mps.openapi.editor(MPS.Editor/)" />
     <import index="m3vg" ref="r:9bcdcf0c-f978-4630-9b17-a35339e80a73(org.modelix.ui.sm.transformations)" />
+    <import index="csg2" ref="r:b0cc4f86-cf49-4ffc-b138-1f9973329ce1(org.modelix.model.mpsplugin)" />
   </imports>
   <registry>
     <language id="a247e09e-2435-45ba-b8d2-07e93feba96a" name="jetbrains.mps.baseLanguage.tuples">
@@ -289,14 +290,24 @@
             </node>
             <node concept="2ShNRf" id="7BujJjZ5Vs3" role="33vP2m">
               <node concept="1pGfFk" id="7BujJjZ5VrL" role="2ShVmc">
-                <ref role="37wK5l" to="7a0s:2qx2hw9gxhG" resolve="HeadlessEditorComponent" />
-                <node concept="37vLTw" id="7BujJjZ5Vzj" role="37wK5m">
-                  <ref role="3cqZAo" node="7BujJjZ5e2R" resolve="node" />
+                <ref role="37wK5l" to="7a0s:2iNJDZP2RE6" resolve="HeadlessEditorComponent" />
+                <node concept="2YIFZM" id="1P7ru6VlAfw" role="37wK5m">
+                  <ref role="37wK5l" to="csg2:7eBq7RkcZ$S" resolve="getSRepository" />
+                  <ref role="1Pybhc" to="csg2:6FW8YbU5vOS" resolve="CommandHelper" />
                 </node>
-                <node concept="2YIFZM" id="7BujJjZ5XH8" role="37wK5m">
-                  <ref role="37wK5l" to="w1kc:~MPSModuleRepository.getInstance()" resolve="getInstance" />
-                  <ref role="1Pybhc" to="w1kc:~MPSModuleRepository" resolve="MPSModuleRepository" />
-                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="3clFbF" id="1P7ru6VluUb" role="3cqZAp">
+          <node concept="2OqwBi" id="1P7ru6Vlwi9" role="3clFbG">
+            <node concept="37vLTw" id="1P7ru6VluU9" role="2Oq$k0">
+              <ref role="3cqZAo" node="7BujJjZ5UUU" resolve="editorComponent" />
+            </node>
+            <node concept="liA8E" id="1P7ru6Vlye4" role="2OqNvi">
+              <ref role="37wK5l" to="exr9:~EditorComponent.editNode(org.jetbrains.mps.openapi.model.SNode)" resolve="editNode" />
+              <node concept="37vLTw" id="1P7ru6Vlyka" role="37wK5m">
+                <ref role="3cqZAo" node="7BujJjZ5e2R" resolve="node" />
               </node>
             </node>
           </node>
@@ -583,14 +594,24 @@
             </node>
             <node concept="2ShNRf" id="7BujJjZ91VR" role="33vP2m">
               <node concept="1pGfFk" id="7BujJjZ91VS" role="2ShVmc">
-                <ref role="37wK5l" to="7a0s:2qx2hw9gxhG" resolve="HeadlessEditorComponent" />
-                <node concept="37vLTw" id="7BujJjZ91VT" role="37wK5m">
-                  <ref role="3cqZAo" node="7BujJjZ8RGI" resolve="node" />
+                <ref role="37wK5l" to="7a0s:2iNJDZP2RE6" resolve="HeadlessEditorComponent" />
+                <node concept="2YIFZM" id="1P7ru6VlEha" role="37wK5m">
+                  <ref role="37wK5l" to="csg2:7eBq7RkcZ$S" resolve="getSRepository" />
+                  <ref role="1Pybhc" to="csg2:6FW8YbU5vOS" resolve="CommandHelper" />
                 </node>
-                <node concept="2YIFZM" id="7BujJjZ91VU" role="37wK5m">
-                  <ref role="1Pybhc" to="w1kc:~MPSModuleRepository" resolve="MPSModuleRepository" />
-                  <ref role="37wK5l" to="w1kc:~MPSModuleRepository.getInstance()" resolve="getInstance" />
-                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="3clFbF" id="1P7ru6VlAY3" role="3cqZAp">
+          <node concept="2OqwBi" id="1P7ru6VlBXb" role="3clFbG">
+            <node concept="37vLTw" id="1P7ru6VlAY1" role="2Oq$k0">
+              <ref role="3cqZAo" node="7BujJjZ91VP" resolve="editorComponent" />
+            </node>
+            <node concept="liA8E" id="1P7ru6VlDL_" role="2OqNvi">
+              <ref role="37wK5l" to="exr9:~EditorComponent.editNode(org.jetbrains.mps.openapi.model.SNode)" resolve="editNode" />
+              <node concept="37vLTw" id="1P7ru6VlDSm" role="37wK5m">
+                <ref role="3cqZAo" node="7BujJjZ8RGI" resolve="node" />
               </node>
             </node>
           </node>

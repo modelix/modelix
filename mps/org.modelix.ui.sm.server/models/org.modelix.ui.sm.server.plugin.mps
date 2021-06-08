@@ -829,33 +829,49 @@
             </node>
           </node>
         </node>
-        <node concept="3clFbF" id="5X1StJFwrY6" role="3cqZAp">
-          <node concept="2OqwBi" id="5X1StJFws8G" role="3clFbG">
-            <node concept="10M0yZ" id="5X1StJFwrYS" role="2Oq$k0">
-              <ref role="3cqZAo" to="od2j:4iwHBRd1xS6" resolve="CURRENT" />
-              <ref role="1PxDUh" to="od2j:3jJoUQ71IRE" resolve="IPFContext" />
+        <node concept="3clFbF" id="7eBq7RkerKH" role="3cqZAp">
+          <node concept="2OqwBi" id="7eBq7Rket2w" role="3clFbG">
+            <node concept="2YIFZM" id="7eBq7Rkesnw" role="2Oq$k0">
+              <ref role="37wK5l" to="bd8o:~ApplicationManager.getApplication()" resolve="getApplication" />
+              <ref role="1Pybhc" to="bd8o:~ApplicationManager" resolve="ApplicationManager" />
             </node>
-            <node concept="liA8E" id="5X1StJFwskD" role="2OqNvi">
-              <ref role="37wK5l" to="od2j:7vWAzuEE3Ye" resolve="runWith" />
-              <node concept="2OqwBi" id="3xm_oe3xotm" role="37wK5m">
-                <node concept="37vLTw" id="3xm_oe3xnxN" role="2Oq$k0">
-                  <ref role="3cqZAo" node="7mc9A5ln8Wh" resolve="interactionSession" />
-                </node>
-                <node concept="liA8E" id="3xm_oe3xIa3" role="2OqNvi">
-                  <ref role="37wK5l" node="3xm_oe3xv32" resolve="getPFContext" />
-                </node>
-              </node>
-              <node concept="1bVj0M" id="5X1StJFws$l" role="37wK5m">
+            <node concept="liA8E" id="7eBq7RkeuuS" role="2OqNvi">
+              <ref role="37wK5l" to="bd8o:~Application.invokeAndWait(java.lang.Runnable)" resolve="invokeAndWait" />
+              <node concept="1bVj0M" id="7eBq7RkeuD5" role="37wK5m">
                 <property role="3yWfEV" value="true" />
-                <node concept="3clFbS" id="5X1StJFws$n" role="1bW5cS">
-                  <node concept="3clFbF" id="AkkmJBUbaN" role="3cqZAp">
-                    <node concept="1rXfSq" id="AkkmJBUbaM" role="3clFbG">
-                      <ref role="37wK5l" node="AkkmJBU9fK" resolve="processMessage" />
-                      <node concept="2ShNRf" id="AkkmJBUbj_" role="37wK5m">
-                        <node concept="1pGfFk" id="AkkmJBUbK7" role="2ShVmc">
-                          <ref role="37wK5l" to="mxf6:~JSONObject.&lt;init&gt;(java.lang.String)" resolve="JSONObject" />
-                          <node concept="37vLTw" id="AkkmJBUbLt" role="37wK5m">
-                            <ref role="3cqZAo" node="AkkmJBTOO4" resolve="message" />
+                <node concept="3clFbS" id="7eBq7RkeuD6" role="1bW5cS">
+                  <node concept="3clFbF" id="5X1StJFwrY6" role="3cqZAp">
+                    <node concept="2OqwBi" id="5X1StJFws8G" role="3clFbG">
+                      <node concept="10M0yZ" id="5X1StJFwrYS" role="2Oq$k0">
+                        <ref role="3cqZAo" to="od2j:4iwHBRd1xS6" resolve="CURRENT" />
+                        <ref role="1PxDUh" to="od2j:3jJoUQ71IRE" resolve="IPFContext" />
+                      </node>
+                      <node concept="liA8E" id="5X1StJFwskD" role="2OqNvi">
+                        <ref role="37wK5l" to="od2j:7vWAzuEE3Ye" resolve="runWith" />
+                        <node concept="2OqwBi" id="3xm_oe3xotm" role="37wK5m">
+                          <node concept="37vLTw" id="3xm_oe3xnxN" role="2Oq$k0">
+                            <ref role="3cqZAo" node="7mc9A5ln8Wh" resolve="interactionSession" />
+                          </node>
+                          <node concept="liA8E" id="3xm_oe3xIa3" role="2OqNvi">
+                            <ref role="37wK5l" node="3xm_oe3xv32" resolve="getPFContext" />
+                          </node>
+                        </node>
+                        <node concept="1bVj0M" id="5X1StJFws$l" role="37wK5m">
+                          <property role="3yWfEV" value="true" />
+                          <node concept="3clFbS" id="5X1StJFws$n" role="1bW5cS">
+                            <node concept="3clFbF" id="AkkmJBUbaN" role="3cqZAp">
+                              <node concept="1rXfSq" id="AkkmJBUbaM" role="3clFbG">
+                                <ref role="37wK5l" node="AkkmJBU9fK" resolve="processMessage" />
+                                <node concept="2ShNRf" id="AkkmJBUbj_" role="37wK5m">
+                                  <node concept="1pGfFk" id="AkkmJBUbK7" role="2ShVmc">
+                                    <ref role="37wK5l" to="mxf6:~JSONObject.&lt;init&gt;(java.lang.String)" resolve="JSONObject" />
+                                    <node concept="37vLTw" id="AkkmJBUbLt" role="37wK5m">
+                                      <ref role="3cqZAo" node="AkkmJBTOO4" resolve="message" />
+                                    </node>
+                                  </node>
+                                </node>
+                              </node>
+                            </node>
                           </node>
                         </node>
                       </node>
@@ -3196,9 +3212,9 @@
             <node concept="3uibUv" id="1MbrkMIxZ6k" role="1tU5fm">
               <ref role="3uigEE" to="lui2:~SRepository" resolve="SRepository" />
             </node>
-            <node concept="2YIFZM" id="1MbrkMIxZ6l" role="33vP2m">
-              <ref role="37wK5l" to="w1kc:~MPSModuleRepository.getInstance()" resolve="getInstance" />
-              <ref role="1Pybhc" to="w1kc:~MPSModuleRepository" resolve="MPSModuleRepository" />
+            <node concept="2YIFZM" id="1P7ru6VmHHk" role="33vP2m">
+              <ref role="37wK5l" to="csg2:7eBq7RkcZ$S" resolve="getSRepository" />
+              <ref role="1Pybhc" to="csg2:6FW8YbU5vOS" resolve="CommandHelper" />
             </node>
           </node>
         </node>
@@ -3703,9 +3719,9 @@
             <node concept="3uibUv" id="1MbrkMIzCDB" role="1tU5fm">
               <ref role="3uigEE" to="lui2:~SRepository" resolve="SRepository" />
             </node>
-            <node concept="2YIFZM" id="1MbrkMIzCDC" role="33vP2m">
-              <ref role="1Pybhc" to="w1kc:~MPSModuleRepository" resolve="MPSModuleRepository" />
-              <ref role="37wK5l" to="w1kc:~MPSModuleRepository.getInstance()" resolve="getInstance" />
+            <node concept="2YIFZM" id="1P7ru6VmFhi" role="33vP2m">
+              <ref role="37wK5l" to="csg2:7eBq7RkcZ$S" resolve="getSRepository" />
+              <ref role="1Pybhc" to="csg2:6FW8YbU5vOS" resolve="CommandHelper" />
             </node>
           </node>
         </node>
@@ -4291,9 +4307,9 @@
             <node concept="3uibUv" id="1MbrkMI$zgf" role="1tU5fm">
               <ref role="3uigEE" to="lui2:~SRepository" resolve="SRepository" />
             </node>
-            <node concept="2YIFZM" id="1MbrkMI$zgg" role="33vP2m">
-              <ref role="1Pybhc" to="w1kc:~MPSModuleRepository" resolve="MPSModuleRepository" />
-              <ref role="37wK5l" to="w1kc:~MPSModuleRepository.getInstance()" resolve="getInstance" />
+            <node concept="2YIFZM" id="1P7ru6VmDGy" role="33vP2m">
+              <ref role="37wK5l" to="csg2:7eBq7RkcZ$S" resolve="getSRepository" />
+              <ref role="1Pybhc" to="csg2:6FW8YbU5vOS" resolve="CommandHelper" />
             </node>
           </node>
         </node>
@@ -5020,9 +5036,9 @@
             <node concept="3uibUv" id="7mc9A5ll70K" role="1tU5fm">
               <ref role="3uigEE" to="lui2:~SRepository" resolve="SRepository" />
             </node>
-            <node concept="2YIFZM" id="7mc9A5ll70L" role="33vP2m">
-              <ref role="1Pybhc" to="w1kc:~MPSModuleRepository" resolve="MPSModuleRepository" />
-              <ref role="37wK5l" to="w1kc:~MPSModuleRepository.getInstance()" resolve="getInstance" />
+            <node concept="2YIFZM" id="1P7ru6VmG_I" role="33vP2m">
+              <ref role="37wK5l" to="csg2:7eBq7RkcZ$S" resolve="getSRepository" />
+              <ref role="1Pybhc" to="csg2:6FW8YbU5vOS" resolve="CommandHelper" />
             </node>
           </node>
         </node>
@@ -5720,9 +5736,9 @@
             <node concept="3uibUv" id="72Dzx1UmG2q" role="1tU5fm">
               <ref role="3uigEE" to="lui2:~SRepository" resolve="SRepository" />
             </node>
-            <node concept="2YIFZM" id="72Dzx1UmG2r" role="33vP2m">
-              <ref role="1Pybhc" to="w1kc:~MPSModuleRepository" resolve="MPSModuleRepository" />
-              <ref role="37wK5l" to="w1kc:~MPSModuleRepository.getInstance()" resolve="getInstance" />
+            <node concept="2YIFZM" id="1P7ru6VmIFj" role="33vP2m">
+              <ref role="37wK5l" to="csg2:7eBq7RkcZ$S" resolve="getSRepository" />
+              <ref role="1Pybhc" to="csg2:6FW8YbU5vOS" resolve="CommandHelper" />
             </node>
           </node>
         </node>
@@ -7138,18 +7154,6 @@
         </node>
       </node>
       <node concept="3clFbS" id="3pn$gDKz7Mi" role="3clF47">
-        <node concept="3cpWs8" id="3pn$gDKz7Mj" role="3cqZAp">
-          <node concept="3cpWsn" id="3pn$gDKz7Mk" role="3cpWs9">
-            <property role="TrG5h" value="repo" />
-            <node concept="3uibUv" id="3pn$gDKz7Ml" role="1tU5fm">
-              <ref role="3uigEE" to="w1kc:~MPSModuleRepository" resolve="MPSModuleRepository" />
-            </node>
-            <node concept="2YIFZM" id="3pn$gDKz7Mm" role="33vP2m">
-              <ref role="1Pybhc" to="w1kc:~MPSModuleRepository" resolve="MPSModuleRepository" />
-              <ref role="37wK5l" to="w1kc:~MPSModuleRepository.getInstance()" resolve="getInstance" />
-            </node>
-          </node>
-        </node>
         <node concept="3clFbF" id="3pn$gDKz7Mn" role="3cqZAp">
           <node concept="1PxgMI" id="3pn$gDKz7Mo" role="3clFbG">
             <node concept="chp4Y" id="3pn$gDKz7Mp" role="3oSUPX">
@@ -7529,47 +7533,77 @@
         <node concept="17QB3L" id="3pn$gDK_lt4" role="1tU5fm" />
       </node>
       <node concept="3clFbS" id="3pn$gDK_lt5" role="3clF47">
-        <node concept="3clFbF" id="3pn$gDK_lt6" role="3cqZAp">
-          <node concept="3nyPlj" id="3pn$gDK_lt7" role="3clFbG">
-            <ref role="37wK5l" to="fz1u:~WebSocketAdapter.onWebSocketText(java.lang.String)" resolve="onWebSocketText" />
-            <node concept="37vLTw" id="3pn$gDK_lt8" role="37wK5m">
-              <ref role="3cqZAo" node="3pn$gDK_lt3" resolve="message" />
-            </node>
-          </node>
-        </node>
-        <node concept="3clFbF" id="3pn$gDK_lt9" role="3cqZAp">
-          <node concept="2OqwBi" id="3pn$gDK_lta" role="3clFbG">
-            <node concept="10M0yZ" id="3pn$gDK_ltb" role="2Oq$k0">
-              <ref role="3cqZAo" to="od2j:4iwHBRd1xS6" resolve="CURRENT" />
-              <ref role="1PxDUh" to="od2j:3jJoUQ71IRE" resolve="IPFContext" />
-            </node>
-            <node concept="liA8E" id="3pn$gDK_ltc" role="2OqNvi">
-              <ref role="37wK5l" to="od2j:7vWAzuEE3Ye" resolve="runWith" />
-              <node concept="2ShNRf" id="3pn$gDK_ltd" role="37wK5m">
-                <node concept="1pGfFk" id="3pn$gDK_lte" role="2ShVmc">
-                  <ref role="37wK5l" to="od2j:41QOk3IHOCK" resolve="DefaultPFContext" />
-                  <node concept="2OqwBi" id="3pn$gDK_ltf" role="37wK5m">
-                    <node concept="2YIFZM" id="3pn$gDK_ltg" role="2Oq$k0">
-                      <ref role="37wK5l" to="qsto:7q7cTU0XF71" resolve="getInstance" />
-                      <ref role="1Pybhc" to="qsto:7q7cTU0XE$r" resolve="EngineForHttp" />
-                    </node>
-                    <node concept="liA8E" id="3pn$gDK_lth" role="2OqNvi">
-                      <ref role="37wK5l" to="qsto:TSXTNiNBSs" resolve="getImplementationsProvider" />
-                    </node>
-                  </node>
+        <node concept="3J1_TO" id="4g9GOqqbnyr" role="3cqZAp">
+          <node concept="3uVAMA" id="4g9GOqqbnQZ" role="1zxBo5">
+            <node concept="XOnhg" id="4g9GOqqbnR0" role="1zc67B">
+              <property role="TrG5h" value="ex" />
+              <node concept="nSUau" id="4g9GOqqbnR1" role="1tU5fm">
+                <node concept="3uibUv" id="4g9GOqqbo58" role="nSUat">
+                  <ref role="3uigEE" to="wyt6:~Exception" resolve="Exception" />
                 </node>
               </node>
-              <node concept="1bVj0M" id="3pn$gDK_lti" role="37wK5m">
-                <property role="3yWfEV" value="true" />
-                <node concept="3clFbS" id="3pn$gDK_ltj" role="1bW5cS">
-                  <node concept="3clFbF" id="3pn$gDK_ltk" role="3cqZAp">
-                    <node concept="1rXfSq" id="3pn$gDK_ltl" role="3clFbG">
-                      <ref role="37wK5l" node="3pn$gDK_ltE" resolve="processMessage" />
-                      <node concept="2ShNRf" id="3pn$gDK_ltm" role="37wK5m">
-                        <node concept="1pGfFk" id="3pn$gDK_ltn" role="2ShVmc">
-                          <ref role="37wK5l" to="mxf6:~JSONObject.&lt;init&gt;(java.lang.String)" resolve="JSONObject" />
-                          <node concept="37vLTw" id="3pn$gDK_lto" role="37wK5m">
-                            <ref role="3cqZAo" node="3pn$gDK_lt3" resolve="message" />
+            </node>
+            <node concept="3clFbS" id="4g9GOqqbnR2" role="1zc67A">
+              <node concept="RRSsy" id="4g9GOqqboSZ" role="3cqZAp">
+                <property role="RRSoG" value="gZ5fh_4/error" />
+                <node concept="3cpWs3" id="4g9GOqqbpiU" role="RRSoy">
+                  <node concept="37vLTw" id="4g9GOqqbpnh" role="3uHU7w">
+                    <ref role="3cqZAo" node="3pn$gDK_lt3" resolve="message" />
+                  </node>
+                  <node concept="Xl_RD" id="4g9GOqqboT1" role="3uHU7B">
+                    <property role="Xl_RC" value="Failed to process message: " />
+                  </node>
+                </node>
+                <node concept="37vLTw" id="4g9GOqqboY1" role="RRSow">
+                  <ref role="3cqZAo" node="4g9GOqqbnR0" resolve="ex" />
+                </node>
+              </node>
+            </node>
+          </node>
+          <node concept="3clFbS" id="4g9GOqqbnyt" role="1zxBo7">
+            <node concept="3clFbF" id="3pn$gDK_lt6" role="3cqZAp">
+              <node concept="3nyPlj" id="3pn$gDK_lt7" role="3clFbG">
+                <ref role="37wK5l" to="fz1u:~WebSocketAdapter.onWebSocketText(java.lang.String)" resolve="onWebSocketText" />
+                <node concept="37vLTw" id="3pn$gDK_lt8" role="37wK5m">
+                  <ref role="3cqZAo" node="3pn$gDK_lt3" resolve="message" />
+                </node>
+              </node>
+            </node>
+            <node concept="3clFbF" id="3pn$gDK_lt9" role="3cqZAp">
+              <node concept="2OqwBi" id="3pn$gDK_lta" role="3clFbG">
+                <node concept="10M0yZ" id="3pn$gDK_ltb" role="2Oq$k0">
+                  <ref role="3cqZAo" to="od2j:4iwHBRd1xS6" resolve="CURRENT" />
+                  <ref role="1PxDUh" to="od2j:3jJoUQ71IRE" resolve="IPFContext" />
+                </node>
+                <node concept="liA8E" id="3pn$gDK_ltc" role="2OqNvi">
+                  <ref role="37wK5l" to="od2j:7vWAzuEE3Ye" resolve="runWith" />
+                  <node concept="2ShNRf" id="3pn$gDK_ltd" role="37wK5m">
+                    <node concept="1pGfFk" id="3pn$gDK_lte" role="2ShVmc">
+                      <ref role="37wK5l" to="od2j:41QOk3IHOCK" resolve="DefaultPFContext" />
+                      <node concept="2OqwBi" id="3pn$gDK_ltf" role="37wK5m">
+                        <node concept="2YIFZM" id="3pn$gDK_ltg" role="2Oq$k0">
+                          <ref role="37wK5l" to="qsto:7q7cTU0XF71" resolve="getInstance" />
+                          <ref role="1Pybhc" to="qsto:7q7cTU0XE$r" resolve="EngineForHttp" />
+                        </node>
+                        <node concept="liA8E" id="3pn$gDK_lth" role="2OqNvi">
+                          <ref role="37wK5l" to="qsto:TSXTNiNBSs" resolve="getImplementationsProvider" />
+                        </node>
+                      </node>
+                    </node>
+                  </node>
+                  <node concept="1bVj0M" id="3pn$gDK_lti" role="37wK5m">
+                    <property role="3yWfEV" value="true" />
+                    <node concept="3clFbS" id="3pn$gDK_ltj" role="1bW5cS">
+                      <node concept="3clFbF" id="3pn$gDK_ltk" role="3cqZAp">
+                        <node concept="1rXfSq" id="3pn$gDK_ltl" role="3clFbG">
+                          <ref role="37wK5l" node="3pn$gDK_ltE" resolve="processMessage" />
+                          <node concept="2ShNRf" id="3pn$gDK_ltm" role="37wK5m">
+                            <node concept="1pGfFk" id="3pn$gDK_ltn" role="2ShVmc">
+                              <ref role="37wK5l" to="mxf6:~JSONObject.&lt;init&gt;(java.lang.String)" resolve="JSONObject" />
+                              <node concept="37vLTw" id="3pn$gDK_lto" role="37wK5m">
+                                <ref role="3cqZAo" node="3pn$gDK_lt3" resolve="message" />
+                              </node>
+                            </node>
                           </node>
                         </node>
                       </node>
@@ -7688,12 +7722,12 @@
                           <node concept="3cpWs8" id="3pn$gDK_lvn" role="3cqZAp">
                             <node concept="3cpWsn" id="3pn$gDK_lvo" role="3cpWs9">
                               <property role="TrG5h" value="repo" />
-                              <node concept="3uibUv" id="3pn$gDK_lvp" role="1tU5fm">
-                                <ref role="3uigEE" to="w1kc:~MPSModuleRepository" resolve="MPSModuleRepository" />
+                              <node concept="3uibUv" id="1P7ru6Vm$Mo" role="1tU5fm">
+                                <ref role="3uigEE" to="lui2:~SRepository" resolve="SRepository" />
                               </node>
-                              <node concept="2YIFZM" id="3pn$gDK_lvq" role="33vP2m">
-                                <ref role="37wK5l" to="w1kc:~MPSModuleRepository.getInstance()" resolve="getInstance" />
-                                <ref role="1Pybhc" to="w1kc:~MPSModuleRepository" resolve="MPSModuleRepository" />
+                              <node concept="2YIFZM" id="1P7ru6VlAfw" role="33vP2m">
+                                <ref role="37wK5l" to="csg2:7eBq7RkcZ$S" resolve="getSRepository" />
+                                <ref role="1Pybhc" to="csg2:6FW8YbU5vOS" resolve="CommandHelper" />
                               </node>
                             </node>
                           </node>
@@ -8043,28 +8077,6 @@
     <node concept="2YIFZL" id="3xm_oe3kkVo" role="jymVt">
       <property role="TrG5h" value="getViewerState" />
       <node concept="3clFbS" id="3xm_oe3kj0g" role="3clF47">
-        <node concept="3cpWs8" id="3jJD6EAAW5L" role="3cqZAp">
-          <node concept="3cpWsn" id="3jJD6EAAW5M" role="3cpWs9">
-            <property role="TrG5h" value="repo" />
-            <property role="3TUv4t" value="true" />
-            <node concept="3uibUv" id="3jJD6EAAVQT" role="1tU5fm">
-              <ref role="3uigEE" to="w1kc:~MPSModuleRepository" resolve="MPSModuleRepository" />
-            </node>
-            <node concept="2YIFZM" id="3jJD6EAAW5N" role="33vP2m">
-              <ref role="1Pybhc" to="w1kc:~MPSModuleRepository" resolve="MPSModuleRepository" />
-              <ref role="37wK5l" to="w1kc:~MPSModuleRepository.getInstance()" resolve="getInstance" />
-            </node>
-          </node>
-        </node>
-        <node concept="3cpWs8" id="3xm_oe3kkga" role="3cqZAp">
-          <node concept="3cpWsn" id="3xm_oe3kkgb" role="3cpWs9">
-            <property role="TrG5h" value="viewerState" />
-            <node concept="3Tqbb2" id="3xm_oe3kkgc" role="1tU5fm">
-              <ref role="ehGHo" to="j481:AkkmJBMaEy" resolve="ViewerState" />
-            </node>
-            <node concept="10Nm6u" id="3jJD6EAAYew" role="33vP2m" />
-          </node>
-        </node>
         <node concept="3cpWs8" id="6nnW$cPv18v" role="3cqZAp">
           <node concept="3cpWsn" id="6nnW$cPv18w" role="3cpWs9">
             <property role="TrG5h" value="rootNodeRef" />
@@ -8078,9 +8090,13 @@
             </node>
           </node>
         </node>
-        <node concept="3clFbF" id="3jJD6EAAXDJ" role="3cqZAp">
-          <node concept="37vLTI" id="3jJD6EAAXDL" role="3clFbG">
-            <node concept="2OqwBi" id="3xm_oe3kkgd" role="37vLTx">
+        <node concept="3cpWs8" id="3xm_oe3kkga" role="3cqZAp">
+          <node concept="3cpWsn" id="3xm_oe3kkgb" role="3cpWs9">
+            <property role="TrG5h" value="viewerState" />
+            <node concept="3Tqbb2" id="3xm_oe3kkgc" role="1tU5fm">
+              <ref role="ehGHo" to="j481:AkkmJBMaEy" resolve="ViewerState" />
+            </node>
+            <node concept="2OqwBi" id="3xm_oe3kkgd" role="33vP2m">
               <node concept="2OqwBi" id="3xm_oe3kkge" role="2Oq$k0">
                 <node concept="37vLTw" id="3xm_oe3kkgf" role="2Oq$k0">
                   <ref role="3cqZAo" node="3xm_oe3kj1K" resolve="session" />
@@ -8127,9 +8143,6 @@
                   </node>
                 </node>
               </node>
-            </node>
-            <node concept="37vLTw" id="3jJD6EAAXDP" role="37vLTJ">
-              <ref role="3cqZAo" node="3xm_oe3kkgb" resolve="viewerState" />
             </node>
           </node>
         </node>
