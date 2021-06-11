@@ -287,6 +287,26 @@
                 <property role="3qWCbO" value="**/*.mps, **/*.mpsr, **/.model" />
               </node>
             </node>
+            <node concept="3LXTmp" id="6rGQ0fkCHB1" role="1HemKq">
+              <node concept="398BVA" id="6rGQ0fkCHAR" role="3LXTmr">
+                <ref role="398BVh" node="6HlxtAUSys6" resolve="entities.home" />
+                <node concept="2Ry0Ak" id="6rGQ0fkCHAS" role="iGT6I">
+                  <property role="2Ry0Am" value="languages" />
+                  <node concept="2Ry0Ak" id="6rGQ0fkCHAT" role="2Ry0An">
+                    <property role="2Ry0Am" value="org.modelix.samples.entities" />
+                    <node concept="2Ry0Ak" id="6rGQ0fkCHAU" role="2Ry0An">
+                      <property role="2Ry0Am" value="generator" />
+                      <node concept="2Ry0Ak" id="6rGQ0fkCHAV" role="2Ry0An">
+                        <property role="2Ry0Am" value="template" />
+                      </node>
+                    </node>
+                  </node>
+                </node>
+              </node>
+              <node concept="3qWCbU" id="6rGQ0fkCHB2" role="3LXTna">
+                <property role="3qWCbO" value="**/*.mps, **/*.mpsr, **/.model" />
+              </node>
+            </node>
           </node>
         </node>
         <node concept="1SiIV0" id="1z8Uup0ooSi" role="3bR37C">
@@ -381,6 +401,28 @@
             <node concept="3qWCbU" id="3$E0xk87NOk" role="3LXTna">
               <property role="3qWCbO" value="**/*.mps, **/*.mpsr, **/.model" />
             </node>
+          </node>
+          <node concept="3LXTmp" id="6rGQ0fkCHAP" role="1HemKq">
+            <node concept="398BVA" id="6rGQ0fkCHAH" role="3LXTmr">
+              <ref role="398BVh" node="6HlxtAUSys6" resolve="entities.home" />
+              <node concept="2Ry0Ak" id="6rGQ0fkCHAI" role="iGT6I">
+                <property role="2Ry0Am" value="languages" />
+                <node concept="2Ry0Ak" id="6rGQ0fkCHAJ" role="2Ry0An">
+                  <property role="2Ry0Am" value="org.modelix.samples.entities" />
+                  <node concept="2Ry0Ak" id="6rGQ0fkCHAK" role="2Ry0An">
+                    <property role="2Ry0Am" value="models" />
+                  </node>
+                </node>
+              </node>
+            </node>
+            <node concept="3qWCbU" id="6rGQ0fkCHAQ" role="3LXTna">
+              <property role="3qWCbO" value="**/*.mps, **/*.mpsr, **/.model" />
+            </node>
+          </node>
+        </node>
+        <node concept="1SiIV0" id="6rGQ0fkCHAF" role="3bR37C">
+          <node concept="3bR9La" id="6rGQ0fkCHAG" role="1SiIV1">
+            <ref role="3bR37D" to="90a9:5U8hsWC73Be" resolve="org.modelix.model.repositoryconcepts" />
           </node>
         </node>
       </node>
