@@ -1934,6 +1934,14 @@
                 <property role="2bfB8j" value="true" />
                 <ref role="1Y3XeK" to="wyt6:~Iterable" resolve="Iterable" />
                 <ref role="37wK5l" to="wyt6:~Object.&lt;init&gt;()" resolve="Object" />
+                <node concept="312cEg" id="ShIYXH7Es_" role="jymVt">
+                  <property role="TrG5h" value="numLeafs" />
+                  <node concept="3Tm6S6" id="ShIYXH7EsA" role="1B3o_S" />
+                  <node concept="10Oyi0" id="ShIYXH7ELE" role="1tU5fm" />
+                  <node concept="3cmrfG" id="ShIYXH7EQ6" role="33vP2m">
+                    <property role="3cmrfH" value="0" />
+                  </node>
+                </node>
                 <node concept="3Tm1VV" id="2SSJwjdokML" role="1B3o_S" />
                 <node concept="3clFb_" id="2SSJwjdokMM" role="jymVt">
                   <property role="TrG5h" value="iterator" />
@@ -2055,6 +2063,13 @@
                                     </node>
                                     <node concept="37vLTw" id="2ou_JzM5Ag$" role="3uHU7B">
                                       <ref role="3cqZAo" node="2SSJwjdokMV" resolve="leaf" />
+                                    </node>
+                                  </node>
+                                </node>
+                                <node concept="3clFbF" id="ShIYXH7FaI" role="3cqZAp">
+                                  <node concept="3uNrnE" id="ShIYXH7Gbz" role="3clFbG">
+                                    <node concept="37vLTw" id="ShIYXH7Gb_" role="2$L3a6">
+                                      <ref role="3cqZAo" node="ShIYXH7Es_" resolve="numLeafs" />
                                     </node>
                                   </node>
                                 </node>
