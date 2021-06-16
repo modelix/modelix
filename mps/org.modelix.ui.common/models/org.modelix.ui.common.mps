@@ -8155,8 +8155,8 @@
                       </node>
                     </node>
                   </node>
-                  <node concept="liA8E" id="6gw1ikf0$jq" role="2OqNvi">
-                    <ref role="37wK5l" to=":^" />
+                  <node concept="liA8E" id="34mNh_cLAem" role="2OqNvi">
+                    <ref role="37wK5l" to="5440:~ActiveBranch.getBranch()" resolve="getBranch" />
                   </node>
                 </node>
               </node>
@@ -8824,14 +8824,28 @@
                   </node>
                   <node concept="9aQIb" id="czMm1HtVI5" role="9aQIa">
                     <node concept="3clFbS" id="czMm1HtVI6" role="9aQI4">
-                      <node concept="3clFbF" id="czMm1HtYGn" role="3cqZAp">
-                        <node concept="1rXfSq" id="czMm1HtYGm" role="3clFbG">
-                          <ref role="37wK5l" node="czMm1Hv44H" resolve="sync" />
-                          <node concept="37vLTw" id="czMm1HtYSW" role="37wK5m">
+                      <node concept="3clFbF" id="34mNh_cLB41" role="3cqZAp">
+                        <node concept="2YIFZM" id="34mNh_cLBb3" role="3clFbG">
+                          <ref role="37wK5l" to="csg2:6gw1ikeZo0y" resolve="runReadOnNode" />
+                          <ref role="1Pybhc" to="csg2:694yVfgo$uu" resolve="TransactionUtil" />
+                          <node concept="37vLTw" id="34mNh_cLBhZ" role="37wK5m">
                             <ref role="3cqZAo" node="czMm1HtTFg" resolve="master" />
                           </node>
-                          <node concept="37vLTw" id="czMm1HtZ5$" role="37wK5m">
-                            <ref role="3cqZAo" node="czMm1HtUD9" resolve="session" />
+                          <node concept="1bVj0M" id="34mNh_cLBzq" role="37wK5m">
+                            <property role="3yWfEV" value="true" />
+                            <node concept="3clFbS" id="34mNh_cLBzs" role="1bW5cS">
+                              <node concept="3clFbF" id="czMm1HtYGn" role="3cqZAp">
+                                <node concept="1rXfSq" id="czMm1HtYGm" role="3clFbG">
+                                  <ref role="37wK5l" node="czMm1Hv44H" resolve="sync" />
+                                  <node concept="37vLTw" id="czMm1HtYSW" role="37wK5m">
+                                    <ref role="3cqZAo" node="czMm1HtTFg" resolve="master" />
+                                  </node>
+                                  <node concept="37vLTw" id="czMm1HtZ5$" role="37wK5m">
+                                    <ref role="3cqZAo" node="czMm1HtUD9" resolve="session" />
+                                  </node>
+                                </node>
+                              </node>
+                            </node>
                           </node>
                         </node>
                       </node>
