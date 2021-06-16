@@ -62,6 +62,12 @@
         <property role="2V$B1Q" value="jetbrains.mps.baseLanguage.logging" />
       </node>
     </node>
+    <node concept="2VgMA2" id="czMm1HtBfk" role="2VgMA7">
+      <node concept="2V$Bhx" id="czMm1HtBfy" role="1t_9vn">
+        <property role="2V$B1T" value="ceab5195-25ea-4f22-9b92-103b95ca8c0c" />
+        <property role="2V$B1Q" value="jetbrains.mps.lang.core" />
+      </node>
+    </node>
     <node concept="NozSJ" id="3XNyhUa87wa" role="2VgMA7">
       <ref role="NozSM" to="genq:q2F95_HSDf" resolve="ShadowmodelsGenplan" />
     </node>
