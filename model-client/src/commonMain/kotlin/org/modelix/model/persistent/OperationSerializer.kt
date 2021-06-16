@@ -65,7 +65,7 @@ class OperationSerializer private constructor() {
                     }
 
                     override fun deserialize(serialized: String): AddNewChildOp {
-                        val parts = serialized.split(SEPARATOR).dropLastWhile { it.isEmpty() }.toTypedArray()
+                        val parts = serialized.split(SEPARATOR).toTypedArray()
                         return AddNewChildOp(PositionInRole(longFromHex(parts[0]), unescape(parts[1]), parts[2].toInt()), longFromHex(parts[3]), deserializeConcept(parts[4]))
                     }
                 }
@@ -133,7 +133,7 @@ class OperationSerializer private constructor() {
                     }
 
                     override fun deserialize(serialized: String): SetPropertyOp {
-                        val parts = serialized.split(SEPARATOR).dropLastWhile { it.isEmpty() }.toTypedArray()
+                        val parts = serialized.split(SEPARATOR).toTypedArray()
                         return SetPropertyOp(longFromHex(parts[0]), unescape(parts[1])!!, unescape(parts[2]))
                     }
                 }
@@ -146,8 +146,8 @@ class OperationSerializer private constructor() {
                     }
 
                     override fun deserialize(serialized: String): SetReferenceOp {
-                        val parts = serialized.split(SEPARATOR).dropLastWhile { it.isEmpty() }.toTypedArray()
-                        return SetReferenceOp(longFromHex(parts[0]), unescape(parts[1])!!, deserializeReference(parts[2])!!)
+                        val parts = serialized.split(SEPARATOR).toTypedArray()
+                        return SetReferenceOp(longFromHex(parts[0]), unescape(parts[1])!!, deserializeReference(parts[2]))
                     }
                 }
             )
