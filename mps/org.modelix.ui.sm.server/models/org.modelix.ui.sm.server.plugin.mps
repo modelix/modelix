@@ -76,6 +76,7 @@
     <import index="33ny" ref="6354ebe7-c22a-4a0f-ac54-50b52ab9b065/java:java.util(JDK/)" />
     <import index="ouht" ref="cc99dce1-49f3-4392-8dbf-e22ca47bd0af/java:kotlin.jvm.functions(org.modelix.model.api/)" />
     <import index="mhfm" ref="3f233e7f-b8a6-46d2-a57f-795d56775243/java:org.jetbrains.annotations(Annotations/)" />
+    <import index="5zyv" ref="6354ebe7-c22a-4a0f-ac54-50b52ab9b065/java:java.util.concurrent(JDK/)" />
     <import index="3d38" ref="r:bc160b50-5a4e-4f99-ba07-a7b7116dab7a(de.q60.mps.incremental.util)" implicit="true" />
     <import index="ioq2" ref="r:d5a75d6a-e56f-4c12-a58e-3acb971cef19(org.modelix.ui.state.behavior)" implicit="true" />
   </imports>
@@ -170,6 +171,10 @@
       </concept>
       <concept id="1164991038168" name="jetbrains.mps.baseLanguage.structure.ThrowStatement" flags="nn" index="YS8fn">
         <child id="1164991057263" name="throwable" index="YScLw" />
+      </concept>
+      <concept id="1081256982272" name="jetbrains.mps.baseLanguage.structure.InstanceOfExpression" flags="nn" index="2ZW3vV">
+        <child id="1081256993305" name="classType" index="2ZW6by" />
+        <child id="1081256993304" name="leftExpression" index="2ZW6bz" />
       </concept>
       <concept id="1070533707846" name="jetbrains.mps.baseLanguage.structure.StaticFieldReference" flags="nn" index="10M0yZ">
         <reference id="1144433057691" name="classifier" index="1PxDUh" />
@@ -903,6 +908,34 @@
             <ref role="37wK5l" to="fz1u:~WebSocketAdapter.onWebSocketError(java.lang.Throwable)" resolve="onWebSocketError" />
             <node concept="37vLTw" id="5J75zQcFJqB" role="37wK5m">
               <ref role="3cqZAo" node="AkkmJBTOOe" resolve="exception" />
+            </node>
+          </node>
+        </node>
+        <node concept="3clFbJ" id="5qcwcxODnuK" role="3cqZAp">
+          <node concept="3clFbS" id="5qcwcxODnuM" role="3clFbx">
+            <node concept="3cpWs6" id="5qcwcxODugo" role="3cqZAp" />
+          </node>
+          <node concept="1Wc70l" id="5qcwcxODrN3" role="3clFbw">
+            <node concept="2ZW3vV" id="5qcwcxODo3D" role="3uHU7B">
+              <node concept="3uibUv" id="5qcwcxODog$" role="2ZW6by">
+                <ref role="3uigEE" to="fz1u:~CloseException" resolve="CloseException" />
+              </node>
+              <node concept="37vLTw" id="5qcwcxODnIQ" role="2ZW6bz">
+                <ref role="3cqZAo" node="AkkmJBTOOe" resolve="exception" />
+              </node>
+            </node>
+            <node concept="2ZW3vV" id="5qcwcxODrTX" role="3uHU7w">
+              <node concept="3uibUv" id="5qcwcxODrTY" role="2ZW6by">
+                <ref role="3uigEE" to="5zyv:~TimeoutException" resolve="TimeoutException" />
+              </node>
+              <node concept="2OqwBi" id="5qcwcxODrTZ" role="2ZW6bz">
+                <node concept="37vLTw" id="5qcwcxODrU0" role="2Oq$k0">
+                  <ref role="3cqZAo" node="AkkmJBTOOe" resolve="exception" />
+                </node>
+                <node concept="liA8E" id="5qcwcxODrU1" role="2OqNvi">
+                  <ref role="37wK5l" to="wyt6:~Throwable.getCause()" resolve="getCause" />
+                </node>
+              </node>
             </node>
           </node>
         </node>
