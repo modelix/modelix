@@ -37,9 +37,6 @@
         <child id="1068498886295" name="lValue" index="37vLTJ" />
       </concept>
       <concept id="1202948039474" name="jetbrains.mps.baseLanguage.structure.InstanceMethodCallOperation" flags="nn" index="liA8E" />
-      <concept id="8118189177080264853" name="jetbrains.mps.baseLanguage.structure.AlternativeType" flags="ig" index="nSUau">
-        <child id="8118189177080264854" name="alternative" index="nSUat" />
-      </concept>
       <concept id="1465982738277781862" name="jetbrains.mps.baseLanguage.structure.PlaceholderMember" flags="nn" index="2tJIrI" />
       <concept id="1188207840427" name="jetbrains.mps.baseLanguage.structure.AnnotationInstance" flags="nn" index="2AHcQZ">
         <reference id="1188208074048" name="annotation" index="2AI5Lk" />
@@ -64,12 +61,8 @@
       <concept id="1070475926800" name="jetbrains.mps.baseLanguage.structure.StringLiteral" flags="nn" index="Xl_RD">
         <property id="1070475926801" name="value" index="Xl_RC" />
       </concept>
-      <concept id="4952749571008284462" name="jetbrains.mps.baseLanguage.structure.CatchVariable" flags="ng" index="XOnhg" />
       <concept id="1081236700937" name="jetbrains.mps.baseLanguage.structure.StaticMethodCall" flags="nn" index="2YIFZM">
         <reference id="1144433194310" name="classConcept" index="1Pybhc" />
-      </concept>
-      <concept id="1164991038168" name="jetbrains.mps.baseLanguage.structure.ThrowStatement" flags="nn" index="YS8fn">
-        <child id="1164991057263" name="throwable" index="YScLw" />
       </concept>
       <concept id="1081256982272" name="jetbrains.mps.baseLanguage.structure.InstanceOfExpression" flags="nn" index="2ZW3vV">
         <child id="1081256993305" name="classType" index="2ZW6by" />
@@ -130,7 +123,6 @@
         <reference id="1068499141037" name="baseMethodDeclaration" index="37wK5l" />
         <child id="1068499141038" name="actualArgument" index="37wK5m" />
       </concept>
-      <concept id="1212685548494" name="jetbrains.mps.baseLanguage.structure.ClassCreator" flags="nn" index="1pGfFk" />
       <concept id="1107461130800" name="jetbrains.mps.baseLanguage.structure.Classifier" flags="ng" index="3pOWGL">
         <child id="5375687026011219971" name="member" index="jymVt" unordered="true" />
       </concept>
@@ -141,16 +133,8 @@
         <child id="1081773367579" name="rightExpression" index="3uHU7w" />
         <child id="1081773367580" name="leftExpression" index="3uHU7B" />
       </concept>
-      <concept id="3093926081414150598" name="jetbrains.mps.baseLanguage.structure.MultipleCatchClause" flags="ng" index="3uVAMA">
-        <child id="8276990574895933173" name="catchBody" index="1zc67A" />
-        <child id="8276990574895933172" name="throwable" index="1zc67B" />
-      </concept>
       <concept id="1178549954367" name="jetbrains.mps.baseLanguage.structure.IVisible" flags="ng" index="1B3ioH">
         <child id="1178549979242" name="visibility" index="1B3o_S" />
-      </concept>
-      <concept id="5351203823916750322" name="jetbrains.mps.baseLanguage.structure.TryUniversalStatement" flags="nn" index="3J1_TO">
-        <child id="8276990574886367510" name="catchClause" index="1zxBo5" />
-        <child id="8276990574886367508" name="body" index="1zxBo7" />
       </concept>
       <concept id="1146644602865" name="jetbrains.mps.baseLanguage.structure.PublicVisibility" flags="nn" index="3Tm1VV" />
     </language>
@@ -158,13 +142,6 @@
       <concept id="1199569711397" name="jetbrains.mps.baseLanguage.closures.structure.ClosureLiteral" flags="nn" index="1bVj0M">
         <property id="890797661671409019" name="forceMultiLine" index="3yWfEV" />
         <child id="1199569916463" name="body" index="1bW5cS" />
-      </concept>
-    </language>
-    <language id="760a0a8c-eabb-4521-8bfd-65db761a9ba3" name="jetbrains.mps.baseLanguage.logging">
-      <concept id="2034914114981261497" name="jetbrains.mps.baseLanguage.logging.structure.LogLowLevelStatement" flags="ng" index="RRSsy">
-        <property id="2034914114981261751" name="severity" index="RRSoG" />
-        <child id="2034914114981261755" name="throwable" index="RRSow" />
-        <child id="2034914114981261753" name="message" index="RRSoy" />
       </concept>
     </language>
     <language id="ceab5195-25ea-4f22-9b92-103b95ca8c0c" name="jetbrains.mps.lang.core">
@@ -369,82 +346,34 @@
         </node>
       </node>
       <node concept="3clFbS" id="2lTt2KMwrxw" role="3clF47">
-        <node concept="3J1_TO" id="2lTt2KMwrxx" role="3cqZAp">
-          <node concept="3uVAMA" id="7AjmLChY_OJ" role="1zxBo5">
-            <node concept="XOnhg" id="7AjmLChY_OK" role="1zc67B">
-              <property role="TrG5h" value="ex" />
-              <node concept="nSUau" id="7AjmLChY_OL" role="1tU5fm">
-                <node concept="3uibUv" id="7AjmLChYArJ" role="nSUat">
-                  <ref role="3uigEE" to="wyt6:~RuntimeException" resolve="RuntimeException" />
-                </node>
-              </node>
-            </node>
-            <node concept="3clFbS" id="7AjmLChY_OM" role="1zc67A">
-              <node concept="RRSsy" id="7AjmLChYAzC" role="3cqZAp">
-                <property role="RRSoG" value="gZ5fh_4/error" />
-                <node concept="3cpWs3" id="7AjmLChYAzD" role="RRSoy">
-                  <node concept="37vLTw" id="7AjmLChYAzE" role="3uHU7w">
+        <node concept="3clFbJ" id="7jxW5PGCO6o" role="3cqZAp">
+          <node concept="3clFbS" id="7jxW5PGCO6q" role="3clFbx">
+            <node concept="3cpWs6" id="2lTt2KMwrxJ" role="3cqZAp">
+              <node concept="2YIFZM" id="7$7_4Zic2kt" role="3cqZAk">
+                <ref role="1Pybhc" to="qsto:5T6M7ON4Si7" resolve="NodeReferenceSerializer" />
+                <ref role="37wK5l" to="qsto:5npwda7ZW_A" resolve="deserialize" />
+                <node concept="2OqwBi" id="7$7_4Zic2ku" role="37wK5m">
+                  <node concept="37vLTw" id="7$7_4Zic2kv" role="2Oq$k0">
                     <ref role="3cqZAo" node="2lTt2KMwrxt" resolve="serialized" />
                   </node>
-                  <node concept="Xl_RD" id="7AjmLChYAzF" role="3uHU7B">
-                    <property role="Xl_RC" value="Failed to deserialize " />
-                  </node>
-                </node>
-                <node concept="37vLTw" id="7AjmLChYB3c" role="RRSow">
-                  <ref role="3cqZAo" node="7AjmLChY_OK" resolve="ex" />
-                </node>
-              </node>
-              <node concept="YS8fn" id="4apiesXdnOu" role="3cqZAp">
-                <node concept="2ShNRf" id="4apiesXdnRr" role="YScLw">
-                  <node concept="1pGfFk" id="4apiesXdroV" role="2ShVmc">
-                    <ref role="37wK5l" to="wyt6:~RuntimeException.&lt;init&gt;(java.lang.String,java.lang.Throwable)" resolve="RuntimeException" />
-                    <node concept="3cpWs3" id="4apiesXdrrn" role="37wK5m">
-                      <node concept="37vLTw" id="4apiesXdrro" role="3uHU7w">
-                        <ref role="3cqZAo" node="2lTt2KMwrxt" resolve="serialized" />
-                      </node>
-                      <node concept="Xl_RD" id="4apiesXdrrp" role="3uHU7B">
-                        <property role="Xl_RC" value="Failed to deserialize " />
-                      </node>
-                    </node>
-                    <node concept="37vLTw" id="4apiesXdrzp" role="37wK5m">
-                      <ref role="3cqZAo" node="7AjmLChY_OK" resolve="ex" />
+                  <node concept="liA8E" id="7$7_4Zic2kw" role="2OqNvi">
+                    <ref role="37wK5l" to="wyt6:~String.substring(int)" resolve="substring" />
+                    <node concept="3cmrfG" id="7$7_4Zic2kx" role="37wK5m">
+                      <property role="3cmrfH" value="3" />
                     </node>
                   </node>
                 </node>
               </node>
             </node>
           </node>
-          <node concept="3clFbS" id="2lTt2KMwrxI" role="1zxBo7">
-            <node concept="3clFbJ" id="7jxW5PGCO6o" role="3cqZAp">
-              <node concept="3clFbS" id="7jxW5PGCO6q" role="3clFbx">
-                <node concept="3cpWs6" id="2lTt2KMwrxJ" role="3cqZAp">
-                  <node concept="2YIFZM" id="7$7_4Zic2kt" role="3cqZAk">
-                    <ref role="1Pybhc" to="qsto:5T6M7ON4Si7" resolve="NodeReferenceSerializer" />
-                    <ref role="37wK5l" to="qsto:5npwda7ZW_A" resolve="deserialize" />
-                    <node concept="2OqwBi" id="7$7_4Zic2ku" role="37wK5m">
-                      <node concept="37vLTw" id="7$7_4Zic2kv" role="2Oq$k0">
-                        <ref role="3cqZAo" node="2lTt2KMwrxt" resolve="serialized" />
-                      </node>
-                      <node concept="liA8E" id="7$7_4Zic2kw" role="2OqNvi">
-                        <ref role="37wK5l" to="wyt6:~String.substring(int)" resolve="substring" />
-                        <node concept="3cmrfG" id="7$7_4Zic2kx" role="37wK5m">
-                          <property role="3cmrfH" value="3" />
-                        </node>
-                      </node>
-                    </node>
-                  </node>
-                </node>
-              </node>
-              <node concept="2OqwBi" id="7jxW5PGCO$4" role="3clFbw">
-                <node concept="37vLTw" id="7jxW5PGCOb1" role="2Oq$k0">
-                  <ref role="3cqZAo" node="2lTt2KMwrxt" resolve="serialized" />
-                </node>
-                <node concept="liA8E" id="7jxW5PGCOZR" role="2OqNvi">
-                  <ref role="37wK5l" to="wyt6:~String.startsWith(java.lang.String)" resolve="startsWith" />
-                  <node concept="Xl_RD" id="7jxW5PGCP1h" role="37wK5m">
-                    <property role="Xl_RC" value="sm." />
-                  </node>
-                </node>
+          <node concept="2OqwBi" id="7jxW5PGCO$4" role="3clFbw">
+            <node concept="37vLTw" id="7jxW5PGCOb1" role="2Oq$k0">
+              <ref role="3cqZAo" node="2lTt2KMwrxt" resolve="serialized" />
+            </node>
+            <node concept="liA8E" id="7jxW5PGCOZR" role="2OqNvi">
+              <ref role="37wK5l" to="wyt6:~String.startsWith(java.lang.String)" resolve="startsWith" />
+              <node concept="Xl_RD" id="7jxW5PGCP1h" role="37wK5m">
+                <property role="Xl_RC" value="sm." />
               </node>
             </node>
           </node>
