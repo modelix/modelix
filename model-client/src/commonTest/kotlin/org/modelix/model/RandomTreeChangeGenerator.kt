@@ -48,7 +48,7 @@ class RandomTreeChangeGenerator(private val idGenerator: IdGenerator, private va
         val targetId = TreeTestUtil(t.tree, rand).randomNodeWithoutRoot
         if (sourceId != 0L && targetId != 0L) {
             val role = referenceRoles[rand.nextInt(referenceRoles.size)]
-            t.setReferenceTarget(sourceId, role, PNodeReference(targetId))
+            t.setReferenceTarget(sourceId, role, PNodeReference(targetId, ""))
         }
     }
     val moveOp: (IWriteTransaction, ExpectedTreeData?) -> Unit = { t, expectedTree ->

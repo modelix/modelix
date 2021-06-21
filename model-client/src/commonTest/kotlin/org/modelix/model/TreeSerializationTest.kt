@@ -23,8 +23,8 @@ class TreeSerializationTest {
             t.moveChild(ITree.ROOT_ID, "c1", 1, 0x7fffffff00000002)
             t.setProperty(0x7fffffff00000001, "p1", "a-ⓜ")
             t.setProperty(0x7fffffff00000001, "p2", "b-ⓜ")
-            t.setReferenceTarget(0x7fffffff00000001, "r1", PNodeReference(0x7fffffff00000001))
-            t.setReferenceTarget(0x7fffffff00000001, "r2", PNodeReference(0x7fffffff00000002))
+            t.setReferenceTarget(0x7fffffff00000001, "r1", PNodeReference(0x7fffffff00000001, branch.getId()))
+            t.setReferenceTarget(0x7fffffff00000001, "r2", PNodeReference(0x7fffffff00000002, branch.getId()))
         }
     }
 
@@ -32,8 +32,8 @@ class TreeSerializationTest {
         assertEquals(listOf(0x7fffffff00000001, 0x7fffffff00000002), tree.getChildren(ITree.ROOT_ID, "c1"))
         assertEquals("a-ⓜ", tree.getProperty(0x7fffffff00000001, "p1"))
         assertEquals("b-ⓜ", tree.getProperty(0x7fffffff00000001, "p2"))
-        assertEquals(PNodeReference(0x7fffffff00000001), tree.getReferenceTarget(0x7fffffff00000001, "r1"))
-        assertEquals(PNodeReference(0x7fffffff00000002), tree.getReferenceTarget(0x7fffffff00000001, "r2"))
+        assertEquals(PNodeReference(0x7fffffff00000001, tree.getId()!!), tree.getReferenceTarget(0x7fffffff00000001, "r1"))
+        assertEquals(PNodeReference(0x7fffffff00000002, tree.getId()!!), tree.getReferenceTarget(0x7fffffff00000001, "r2"))
     }
 
     @Test

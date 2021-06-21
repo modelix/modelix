@@ -203,10 +203,13 @@ class CLTree : ITree {
         val source = resolveElement(sourceId)!!
         val refData: CPNodeRef? = when (target) {
             null -> null
-            is PNodeReference -> {
+            is LocalPNodeReference -> {
                 local(target.id)
             }
-            // is SNodeReferenceAdapter -> CPElementRef.mps(SNodePointer.serialize(((SNodeReferenceAdapter) targetRef).getReference()))
+            is PNodeReference -> {
+                if (target.branchId == getId()) local(target.id)
+                else local(target.id)
+            }
             else -> foreign(INodeReferenceSerializer.serialize(target))
         }
         var newIdToHash = nodesMap
@@ -313,7 +316,7 @@ class CLTree : ITree {
         val targetRef = node.getData().getReferenceTarget(role)
         return when {
             targetRef == null -> null
-            targetRef.isLocal -> PNodeReference(targetRef.elementId)
+            targetRef.isLocal -> PNodeReference(targetRef.elementId, this.getId())
             targetRef is CPNodeRef.ForeignRef -> INodeReferenceSerializer.deserialize(targetRef.serializedRef)
             else -> throw UnsupportedOperationException("Unsupported reference: $targetRef")
         }

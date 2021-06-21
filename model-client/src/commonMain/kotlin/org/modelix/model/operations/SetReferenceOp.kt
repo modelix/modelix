@@ -40,6 +40,10 @@ class SetReferenceOp(val sourceId: Long, val role: String, val target: INodeRefe
 
     override fun getOriginalOp() = this
 
+    fun withTarget(newTarget: INodeReference?): SetReferenceOp {
+        return if (newTarget == target) this else SetReferenceOp(sourceId, role, newTarget)
+    }
+
     inner class Applied(private val oldValue: INodeReference?) : AbstractOperation.Applied(), IAppliedOperation {
         override fun getOriginalOp() = this@SetReferenceOp
 

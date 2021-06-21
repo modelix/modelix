@@ -26,12 +26,14 @@ class OTBranch(
 ) : IBranch {
     private var operations: MutableList<IAppliedOperation> = ArrayList()
     private val operationsLock = Any()
+    private val id: String = branch.getId()
+
     fun operationApplied(op: IAppliedOperation) {
         runSynchronized(operationsLock) { operations.add(op) }
     }
 
-    override fun getId(): String? {
-        return branch.getId()
+    override fun getId(): String {
+        return id
     }
 
     val newOperations: List<IAppliedOperation>

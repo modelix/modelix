@@ -17,6 +17,7 @@ package org.modelix.model.persistent
 
 import org.modelix.model.api.IConcept
 import org.modelix.model.api.INodeReference
+import org.modelix.model.api.LocalPNodeReference
 import org.modelix.model.api.PNodeReference
 import org.modelix.model.lazy.IConceptSerializer
 import org.modelix.model.lazy.INodeReferenceSerializer
@@ -42,7 +43,8 @@ class OperationSerializer private constructor() {
         fun serializeReference(obj: INodeReference?): String {
             return when (obj) {
                 null -> ""
-                is PNodeReference -> longToHex(obj.id)
+                is LocalPNodeReference -> longToHex(obj.id)
+                is PNodeReference -> "${longToHex(obj.id)}/${escape(obj.branchId)}"
                 is SerializedNodeReference -> escape(obj.serialized)
                 else -> escape(INodeReferenceSerializer.serialize(obj))
             }
@@ -51,8 +53,12 @@ class OperationSerializer private constructor() {
         fun deserializeReference(serialized: String?): INodeReference? {
             return when {
                 serialized.isNullOrEmpty() -> null
-                serialized.matches(Regex("[a-fA-F0-9]+")) -> PNodeReference(longFromHex(serialized))
-                else -> unescape(serialized)?.let { SerializedNodeReference(serialized) }
+                serialized.matches(Regex("[a-fA-F0-9]+")) -> LocalPNodeReference(longFromHex(serialized))
+                serialized.matches(Regex("[a-fA-F0-9]+/.+")) -> {
+                    val parts = serialized.split('/', limit = 2)
+                    PNodeReference(longFromHex(parts[0]), unescape(parts[1])!!)
+                }
+                else -> unescape(serialized)?.let { SerializedNodeReference(it) }
             }
         }
 

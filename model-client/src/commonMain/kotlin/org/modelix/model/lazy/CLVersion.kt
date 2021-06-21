@@ -15,7 +15,11 @@
 
 package org.modelix.model.lazy
 
+import org.modelix.model.api.INodeReference
+import org.modelix.model.api.LocalPNodeReference
+import org.modelix.model.api.PNodeReference
 import org.modelix.model.operations.IOperation
+import org.modelix.model.operations.SetReferenceOp
 import org.modelix.model.persistent.CPOperationsList
 import org.modelix.model.persistent.CPVersion
 
@@ -23,6 +27,7 @@ class CLVersion {
     val store: IDeserializingKeyValueStore
     var data: CPVersion? = null
         private set
+    val treeHash: String?;
 
     constructor(
         id: Long,
@@ -38,7 +43,9 @@ class CLVersion {
         store: IDeserializingKeyValueStore
     ) {
         this.store = store
-        if (operations.size <= 10) {
+        this.treeHash = treeHash
+        val localizedOps = localizeNodeRefs(operations.asList()).toTypedArray()
+        if (localizedOps.size <= 10) {
             data = CPVersion(
                 id = id,
                 time = time,
@@ -49,12 +56,12 @@ class CLVersion {
                 baseVersion = baseVersion,
                 mergedVersion1 = mergedVersion1,
                 mergedVersion2 = mergedVersion2,
-                operations = operations,
+                operations = localizedOps,
                 operationsHash = null,
-                numberOfOperations = operations.size
+                numberOfOperations = localizedOps.size
             )
         } else {
-            val opsList = CPOperationsList(operations)
+            val opsList = CPOperationsList(localizedOps)
             IDeserializingKeyValueStore_extensions.put(store, opsList, opsList.serialize())
             data = CPVersion(
                 id = id,
@@ -68,7 +75,7 @@ class CLVersion {
                 mergedVersion2 = mergedVersion2,
                 operations = null,
                 operationsHash = opsList.hash,
-                numberOfOperations = operations.size
+                numberOfOperations = localizedOps.size
             )
         }
         IDeserializingKeyValueStore_extensions.put(store, data!!, data!!.serialize())
@@ -80,6 +87,7 @@ class CLVersion {
             throw NullPointerException("data is null")
         }
         this.data = data
+        this.treeHash = data.treeHash
         this.store = store
     }
 
@@ -97,9 +105,6 @@ class CLVersion {
 
     val previousHash: String?
         get() = data!!.previousVersion
-
-    val treeHash: String?
-        get() = data!!.treeHash
 
     val tree: CLTree
         get() = CLTree(treeHash, store)
@@ -121,7 +126,7 @@ class CLVersion {
                     ?: throw RuntimeException("Missing entry for key $operationsHash")
                 )
                 .operations
-            return (ops ?: arrayOf()).toList()
+            return globalizeNodeRefs((ops ?: arrayOf()).toList())
         }
 
     val numberOfOperations: Int
@@ -200,6 +205,37 @@ class CLVersion {
             val data = store[hash, { CPVersion.deserialize(it) }]
                 ?: throw RuntimeException("Version with hash $hash not found")
             return CLVersion(data, store)
+        }
+    }
+
+
+    private fun globalizeNodeRefs(ops: List<IOperation>): List<IOperation> {
+        return ops.map {
+            when (it) {
+                is SetReferenceOp -> it.withTarget(globalizeNodeRef(it.target))
+                else -> it
+            }
+        }
+    }
+
+    private fun globalizeNodeRef(ref: INodeReference?): INodeReference? {
+        return when (ref) {
+            null -> null
+            is LocalPNodeReference -> ref.toGlobal(tree.getId())
+            else -> ref
+        }
+    }
+
+    private fun localizeNodeRef(ref: INodeReference?): INodeReference? {
+        return if (ref is PNodeReference && ref.branchId == tree.getId()) ref.toLocal() else ref
+    }
+
+    private fun localizeNodeRefs(ops: List<IOperation>): List<IOperation> {
+        return ops.map {
+            when (it) {
+                is SetReferenceOp -> it.withTarget(localizeNodeRef(it.target))
+                else -> it
+            }
         }
     }
 }
