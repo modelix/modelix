@@ -27,7 +27,7 @@ class CLVersion {
     val store: IDeserializingKeyValueStore
     var data: CPVersion? = null
         private set
-    val treeHash: String?;
+    val treeHash: String?
 
     constructor(
         id: Long,
@@ -207,7 +207,6 @@ class CLVersion {
             return CLVersion(data, store)
         }
     }
-
 
     private fun globalizeNodeRefs(ops: List<IOperation>): List<IOperation> {
         return ops.map {
