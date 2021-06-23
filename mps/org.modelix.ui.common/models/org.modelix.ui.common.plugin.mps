@@ -15,7 +15,6 @@
     <import index="xxte" ref="r:a79f28f8-6055-40c6-bc5e-47a42a3b97e8(org.modelix.model.mpsadapters.mps)" />
     <import index="mhbf" ref="8865b7a8-5271-43d3-884c-6fd1d9cfdd34/java:org.jetbrains.mps.openapi.model(MPS.OpenAPI/)" />
     <import index="csg2" ref="r:b0cc4f86-cf49-4ffc-b138-1f9973329ce1(org.modelix.model.mpsplugin)" />
-    <import index="qvpu" ref="cc99dce1-49f3-4392-8dbf-e22ca47bd0af/java:org.modelix.model.area(org.modelix.model.api/)" implicit="true" />
     <import index="wyt6" ref="6354ebe7-c22a-4a0f-ac54-50b52ab9b065/java:java.lang(JDK/)" implicit="true" />
   </imports>
   <registry>
@@ -136,17 +135,22 @@
       <concept id="1178549954367" name="jetbrains.mps.baseLanguage.structure.IVisible" flags="ng" index="1B3ioH">
         <child id="1178549979242" name="visibility" index="1B3o_S" />
       </concept>
-      <concept id="1146644602865" name="jetbrains.mps.baseLanguage.structure.PublicVisibility" flags="nn" index="3Tm1VV" />
-    </language>
-    <language id="fd392034-7849-419d-9071-12563d152375" name="jetbrains.mps.baseLanguage.closures">
-      <concept id="1199569711397" name="jetbrains.mps.baseLanguage.closures.structure.ClosureLiteral" flags="nn" index="1bVj0M">
-        <property id="890797661671409019" name="forceMultiLine" index="3yWfEV" />
-        <child id="1199569916463" name="body" index="1bW5cS" />
+      <concept id="6329021646629104954" name="jetbrains.mps.baseLanguage.structure.SingleLineComment" flags="nn" index="3SKdUt">
+        <child id="8356039341262087992" name="line" index="1aUNEU" />
       </concept>
+      <concept id="1146644602865" name="jetbrains.mps.baseLanguage.structure.PublicVisibility" flags="nn" index="3Tm1VV" />
     </language>
     <language id="ceab5195-25ea-4f22-9b92-103b95ca8c0c" name="jetbrains.mps.lang.core">
       <concept id="1169194658468" name="jetbrains.mps.lang.core.structure.INamedConcept" flags="ng" index="TrEIO">
         <property id="1169194664001" name="name" index="TrG5h" />
+      </concept>
+    </language>
+    <language id="c7fb639f-be78-4307-89b0-b5959c3fa8c8" name="jetbrains.mps.lang.text">
+      <concept id="155656958578482948" name="jetbrains.mps.lang.text.structure.Word" flags="nn" index="3oM_SD">
+        <property id="155656958578482949" name="value" index="3oM_SC" />
+      </concept>
+      <concept id="2535923850359271782" name="jetbrains.mps.lang.text.structure.Line" flags="nn" index="1PaTwC">
+        <child id="2535923850359271783" name="elements" index="1PaTwD" />
       </concept>
     </language>
   </registry>
@@ -262,44 +266,63 @@
         </node>
         <node concept="3clFbJ" id="2lTt2KMwrx6" role="3cqZAp">
           <node concept="3clFbS" id="2lTt2KMwrx7" role="3clFbx">
-            <node concept="3cpWs6" id="60wywuiy2PD" role="3cqZAp">
-              <node concept="2OqwBi" id="60wywuiy2PF" role="3cqZAk">
-                <node concept="2OqwBi" id="60wywuiy2PG" role="2Oq$k0">
-                  <node concept="2YIFZM" id="60wywuiy2PH" role="2Oq$k0">
-                    <ref role="37wK5l" to="csg2:1LVcV5Kxxmz" resolve="getInstance" />
-                    <ref role="1Pybhc" to="csg2:1LVcV5Kxxi$" resolve="CloudRepositories" />
-                  </node>
-                  <node concept="liA8E" id="60wywuiy2PI" role="2OqNvi">
-                    <ref role="37wK5l" to="csg2:1SyMXWjsQoH" resolve="getArea" />
-                  </node>
+            <node concept="3SKdUt" id="7g5_ykdS2jt" role="3cqZAp">
+              <node concept="1PaTwC" id="7g5_ykdS2ju" role="1aUNEU">
+                <node concept="3oM_SD" id="7g5_ykdS2jv" role="1PaTwD">
+                  <property role="3oM_SC" value="don't" />
                 </node>
-                <node concept="liA8E" id="60wywuiy2PJ" role="2OqNvi">
-                  <ref role="37wK5l" to="qvpu:~IArea.executeRead(kotlin.jvm.functions.Function0)" resolve="executeRead" />
-                  <node concept="1bVj0M" id="60wywuiy2PK" role="37wK5m">
-                    <property role="3yWfEV" value="true" />
-                    <node concept="3clFbS" id="60wywuiy2PL" role="1bW5cS">
-                      <node concept="3cpWs6" id="60wywuiy2PM" role="3cqZAp">
-                        <node concept="3cpWs3" id="60wywuiy2PN" role="3cqZAk">
-                          <node concept="Xl_RD" id="60wywuiy2PO" role="3uHU7B">
-                            <property role="Xl_RC" value="sm." />
-                          </node>
-                          <node concept="2YIFZM" id="60wywuiy2PP" role="3uHU7w">
-                            <ref role="1Pybhc" to="qsto:5T6M7ON4Si7" resolve="NodeReferenceSerializer" />
-                            <ref role="37wK5l" to="qsto:5T6M7OO0vKo" resolve="serialize" />
-                            <node concept="2YIFZM" id="60wywuiy2PQ" role="37wK5m">
-                              <ref role="37wK5l" to="xxte:4EhVFrZ6z9$" resolve="wrap" />
-                              <ref role="1Pybhc" to="xxte:4EhVFrZ3AjR" resolve="NodeToSNodeAdapter" />
-                              <node concept="10QFUN" id="60wywuiy2PR" role="37wK5m">
-                                <node concept="37vLTw" id="60wywuiy2PS" role="10QFUP">
-                                  <ref role="3cqZAo" node="2lTt2KMwrx2" resolve="ref" />
-                                </node>
-                                <node concept="3uibUv" id="60wywuiy2PT" role="10QFUM">
-                                  <ref role="3uigEE" to="nv3w:5$YruQr6z2g" resolve="OutputNodeReferenceAsNode" />
-                                </node>
-                              </node>
-                            </node>
-                          </node>
-                        </node>
+                <node concept="3oM_SD" id="7g5_ykdS2$B" role="1PaTwD">
+                  <property role="3oM_SC" value="start" />
+                </node>
+                <node concept="3oM_SD" id="7g5_ykdS2s4" role="1PaTwD">
+                  <property role="3oM_SC" value="transaction" />
+                </node>
+                <node concept="3oM_SD" id="7g5_ykdS2$n" role="1PaTwD">
+                  <property role="3oM_SC" value="on" />
+                </node>
+                <node concept="3oM_SD" id="7g5_ykdS2tn" role="1PaTwD">
+                  <property role="3oM_SC" value="branches" />
+                </node>
+                <node concept="3oM_SD" id="7g5_ykdS2tB" role="1PaTwD">
+                  <property role="3oM_SC" value="here" />
+                </node>
+                <node concept="3oM_SD" id="7g5_ykdS4kx" role="1PaTwD">
+                  <property role="3oM_SC" value="as" />
+                </node>
+                <node concept="3oM_SD" id="7g5_ykdS4kD" role="1PaTwD">
+                  <property role="3oM_SC" value="it" />
+                </node>
+                <node concept="3oM_SD" id="7g5_ykdS4kM" role="1PaTwD">
+                  <property role="3oM_SC" value="can" />
+                </node>
+                <node concept="3oM_SD" id="7g5_ykdS4l4" role="1PaTwD">
+                  <property role="3oM_SC" value="cause" />
+                </node>
+                <node concept="3oM_SD" id="7g5_ykdS4lf" role="1PaTwD">
+                  <property role="3oM_SC" value="dead" />
+                </node>
+                <node concept="3oM_SD" id="7g5_ykdS4lz" role="1PaTwD">
+                  <property role="3oM_SC" value="locks" />
+                </node>
+              </node>
+            </node>
+            <node concept="3cpWs6" id="60wywuiy2PM" role="3cqZAp">
+              <node concept="3cpWs3" id="60wywuiy2PN" role="3cqZAk">
+                <node concept="Xl_RD" id="60wywuiy2PO" role="3uHU7B">
+                  <property role="Xl_RC" value="sm." />
+                </node>
+                <node concept="2YIFZM" id="60wywuiy2PP" role="3uHU7w">
+                  <ref role="1Pybhc" to="qsto:5T6M7ON4Si7" resolve="NodeReferenceSerializer" />
+                  <ref role="37wK5l" to="qsto:5T6M7OO0vKo" resolve="serialize" />
+                  <node concept="2YIFZM" id="60wywuiy2PQ" role="37wK5m">
+                    <ref role="37wK5l" to="xxte:4EhVFrZ6z9$" resolve="wrap" />
+                    <ref role="1Pybhc" to="xxte:4EhVFrZ3AjR" resolve="NodeToSNodeAdapter" />
+                    <node concept="10QFUN" id="60wywuiy2PR" role="37wK5m">
+                      <node concept="37vLTw" id="60wywuiy2PS" role="10QFUP">
+                        <ref role="3cqZAo" node="2lTt2KMwrx2" resolve="ref" />
+                      </node>
+                      <node concept="3uibUv" id="60wywuiy2PT" role="10QFUM">
+                        <ref role="3uigEE" to="nv3w:5$YruQr6z2g" resolve="OutputNodeReferenceAsNode" />
                       </node>
                     </node>
                   </node>
