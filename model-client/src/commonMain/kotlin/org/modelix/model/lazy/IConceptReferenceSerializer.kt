@@ -16,20 +16,25 @@
 package org.modelix.model.lazy
 
 import org.modelix.model.api.IConcept
+import org.modelix.model.metameta.MetaMetaLanguage
 
-interface IConceptSerializer {
+interface IConceptReferenceSerializer {
 
     fun serialize(concept: IConcept): String?
     fun deserialize(serialized: String): IConcept?
 
     companion object {
-        private val serializers: MutableSet<IConceptSerializer> = HashSet()
+        private val serializers: MutableSet<IConceptReferenceSerializer> = HashSet()
 
-        fun register(serializer: IConceptSerializer) {
+        init {
+            register(BootstrapConceptSerializer(listOf(MetaMetaLanguage.language_metameta)))
+        }
+
+        fun register(serializer: IConceptReferenceSerializer) {
             serializers.add(serializer)
         }
 
-        fun unregister(serializer: IConceptSerializer) {
+        fun unregister(serializer: IConceptReferenceSerializer) {
             serializers.remove(serializer)
         }
 

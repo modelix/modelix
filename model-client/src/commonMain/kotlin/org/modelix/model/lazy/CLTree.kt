@@ -489,10 +489,10 @@ class CLTree : ITree {
     }
 
     protected fun serializeConcept(concept: IConcept?): String? {
-        return IConceptSerializer.serialize(concept)
+        return IConceptReferenceSerializer.serialize(concept)
     }
 
     protected fun deserializeConcept(serialized: String?): IConcept? {
-        return IConceptSerializer.deserialize(serialized)
+        return IConceptReferenceSerializer.deserialize(serialized)
     }
 }

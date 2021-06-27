@@ -195,14 +195,14 @@
         <node concept="3clFbF" id="4SOqQDg$rv1" role="3cqZAp">
           <node concept="2OqwBi" id="4SOqQDg$rDL" role="3clFbG">
             <node concept="10M0yZ" id="4SOqQDg$ryo" role="2Oq$k0">
-              <ref role="3cqZAo" to="xkhl:~IConceptSerializer.Companion" resolve="Companion" />
-              <ref role="1PxDUh" to="xkhl:~IConceptSerializer" resolve="IConceptSerializer" />
+              <ref role="1PxDUh" to="xkhl:~IConceptReferenceSerializer" resolve="IConceptReferenceSerializer" />
+              <ref role="3cqZAo" to="xkhl:~IConceptReferenceSerializer.Companion" resolve="Companion" />
             </node>
             <node concept="liA8E" id="4SOqQDg$rJm" role="2OqNvi">
-              <ref role="37wK5l" to="xkhl:~IConceptSerializer$Companion.register(org.modelix.model.lazy.IConceptSerializer)" resolve="register" />
+              <ref role="37wK5l" to="xkhl:~IConceptReferenceSerializer$Companion.register(org.modelix.model.lazy.IConceptReferenceSerializer)" resolve="register" />
               <node concept="10M0yZ" id="3ofF9dt3X7y" role="37wK5m">
                 <ref role="3cqZAo" node="3ofF9dt3WhJ" resolve="INSTANCE" />
-                <ref role="1PxDUh" node="3ofF9dt3PXH" resolve="MPSConceptSerializer" />
+                <ref role="1PxDUh" node="3ofF9dt3PXH" resolve="MPSConceptReferenceSerializer" />
               </node>
             </node>
           </node>
@@ -229,14 +229,14 @@
         <node concept="3clFbF" id="1k1g6j0hQXO" role="3cqZAp">
           <node concept="2OqwBi" id="1k1g6j0hQXP" role="3clFbG">
             <node concept="10M0yZ" id="1k1g6j0hQXQ" role="2Oq$k0">
-              <ref role="1PxDUh" to="xkhl:~IConceptSerializer" resolve="IConceptSerializer" />
-              <ref role="3cqZAo" to="xkhl:~IConceptSerializer.Companion" resolve="Companion" />
+              <ref role="1PxDUh" to="xkhl:~IConceptReferenceSerializer" resolve="IConceptReferenceSerializer" />
+              <ref role="3cqZAo" to="xkhl:~IConceptReferenceSerializer.Companion" resolve="Companion" />
             </node>
             <node concept="liA8E" id="1k1g6j0hQXR" role="2OqNvi">
-              <ref role="37wK5l" to="xkhl:~IConceptSerializer$Companion.unregister(org.modelix.model.lazy.IConceptSerializer)" resolve="unregister" />
+              <ref role="37wK5l" to="xkhl:~IConceptReferenceSerializer$Companion.unregister(org.modelix.model.lazy.IConceptReferenceSerializer)" resolve="unregister" />
               <node concept="10M0yZ" id="3ofF9dt3Xkl" role="37wK5m">
                 <ref role="3cqZAo" node="3ofF9dt3WhJ" resolve="INSTANCE" />
-                <ref role="1PxDUh" node="3ofF9dt3PXH" resolve="MPSConceptSerializer" />
+                <ref role="1PxDUh" node="3ofF9dt3PXH" resolve="MPSConceptReferenceSerializer" />
               </node>
             </node>
           </node>
@@ -246,17 +246,17 @@
   </node>
   <node concept="2DaZZR" id="1bGUuKxhNJG" />
   <node concept="312cEu" id="3ofF9dt3PXH">
-    <property role="TrG5h" value="MPSConceptSerializer" />
+    <property role="TrG5h" value="MPSConceptReferenceSerializer" />
     <node concept="Wx3nA" id="3ofF9dt3WhJ" role="jymVt">
       <property role="TrG5h" value="INSTANCE" />
       <property role="3TUv4t" value="true" />
       <node concept="3uibUv" id="3ofF9dt3S_e" role="1tU5fm">
-        <ref role="3uigEE" node="3ofF9dt3PXH" resolve="MPSConceptSerializer" />
+        <ref role="3uigEE" node="3ofF9dt3PXH" resolve="MPSConceptReferenceSerializer" />
       </node>
       <node concept="3Tm1VV" id="3ofF9dt3WsZ" role="1B3o_S" />
       <node concept="2ShNRf" id="3ofF9dt3SJ4" role="33vP2m">
         <node concept="HV5vD" id="3ofF9dt3WcI" role="2ShVmc">
-          <ref role="HV5vE" node="3ofF9dt3PXH" resolve="MPSConceptSerializer" />
+          <ref role="HV5vE" node="3ofF9dt3PXH" resolve="MPSConceptReferenceSerializer" />
         </node>
       </node>
     </node>
@@ -381,8 +381,8 @@
     </node>
     <node concept="2tJIrI" id="3ofF9dt3PYf" role="jymVt" />
     <node concept="3Tm1VV" id="3ofF9dt3PXI" role="1B3o_S" />
-    <node concept="3uibUv" id="3ofF9dt3Sgx" role="EKbjA">
-      <ref role="3uigEE" to="xkhl:~IConceptSerializer" resolve="IConceptSerializer" />
+    <node concept="3uibUv" id="54cOQ7UPTgL" role="EKbjA">
+      <ref role="3uigEE" to="xkhl:~IConceptReferenceSerializer" resolve="IConceptReferenceSerializer" />
     </node>
   </node>
   <node concept="312cEu" id="3ofF9dt3Y$Y">

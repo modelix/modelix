@@ -9989,7 +9989,7 @@
                   <ref role="3cqZAo" node="28I3pJBXWte" resolve="concept" />
                 </node>
                 <node concept="liA8E" id="28I3pJBXWkz" role="2OqNvi">
-                  <ref role="37wK5l" to="jks5:~IConcept.isSubconceptOf(org.modelix.model.api.IConcept)" resolve="isSubconceptOf" />
+                  <ref role="37wK5l" to="jks5:~IConcept.isSubConceptOf(org.modelix.model.api.IConcept)" resolve="isSubConceptOf" />
                   <node concept="2YIFZM" id="28I3pJBXWk$" role="37wK5m">
                     <ref role="1Pybhc" to="xxte:5gTrVpGjuL2" resolve="SConceptAdapter" />
                     <ref role="37wK5l" to="xxte:3ECE8iPOmg5" resolve="wrap" />
@@ -10005,7 +10005,7 @@
                 <ref role="3cqZAo" node="28I3pJBXWte" resolve="concept" />
               </node>
               <node concept="liA8E" id="28I3pJBXWkC" role="2OqNvi">
-                <ref role="37wK5l" to="jks5:~IConcept.isSubconceptOf(org.modelix.model.api.IConcept)" resolve="isSubconceptOf" />
+                <ref role="37wK5l" to="jks5:~IConcept.isSubConceptOf(org.modelix.model.api.IConcept)" resolve="isSubConceptOf" />
                 <node concept="2YIFZM" id="28I3pJBXWkD" role="37wK5m">
                   <ref role="1Pybhc" to="xxte:5gTrVpGjuL2" resolve="SConceptAdapter" />
                   <ref role="37wK5l" to="xxte:3ECE8iPOmg5" resolve="wrap" />
@@ -10328,7 +10328,7 @@
                   </node>
                 </node>
                 <node concept="liA8E" id="5mRomlpx6Yl" role="2OqNvi">
-                  <ref role="37wK5l" to="jks5:~IConcept.isSubconceptOf(org.modelix.model.api.IConcept)" resolve="isSubconceptOf" />
+                  <ref role="37wK5l" to="jks5:~IConcept.isSubConceptOf(org.modelix.model.api.IConcept)" resolve="isSubConceptOf" />
                   <node concept="2YIFZM" id="5mRomlpx6Ym" role="37wK5m">
                     <ref role="1Pybhc" to="xxte:5gTrVpGjuL2" resolve="SConceptAdapter" />
                     <ref role="37wK5l" to="xxte:3ECE8iPOmg5" resolve="wrap" />
@@ -11496,7 +11496,7 @@
                 </node>
               </node>
               <node concept="liA8E" id="28I3pJBXExP" role="2OqNvi">
-                <ref role="37wK5l" to="jks5:~IConcept.isSubconceptOf(org.modelix.model.api.IConcept)" resolve="isSubconceptOf" />
+                <ref role="37wK5l" to="jks5:~IConcept.isSubConceptOf(org.modelix.model.api.IConcept)" resolve="isSubConceptOf" />
                 <node concept="2YIFZM" id="28I3pJBXExQ" role="37wK5m">
                   <ref role="1Pybhc" to="xxte:5gTrVpGjuL2" resolve="SConceptAdapter" />
                   <ref role="37wK5l" to="xxte:3ECE8iPOmg5" resolve="wrap" />

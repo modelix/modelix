@@ -27345,7 +27345,7 @@
               <ref role="3cqZAo" node="EMWAvBfPH$" resolve="concept" />
             </node>
             <node concept="liA8E" id="EMWAvBfPHG" role="2OqNvi">
-              <ref role="37wK5l" to="jks5:~IConcept.isSubconceptOf(org.modelix.model.api.IConcept)" resolve="isSubconceptOf" />
+              <ref role="37wK5l" to="jks5:~IConcept.isSubConceptOf(org.modelix.model.api.IConcept)" resolve="isSubConceptOf" />
               <node concept="2YIFZM" id="EMWAvBfPHH" role="37wK5m">
                 <ref role="37wK5l" to="xxte:3ECE8iPOmg5" resolve="wrap" />
                 <ref role="1Pybhd" to="xxte:5gTrVpGjuL2" resolve="SConceptAdapter" />
@@ -27396,7 +27396,7 @@
               <ref role="3cqZAo" node="5iCdLF2lMYN" resolve="concept" />
             </node>
             <node concept="liA8E" id="5iCdLF2lMZ2" role="2OqNvi">
-              <ref role="37wK5l" to="jks5:~IConcept.isSubconceptOf(org.modelix.model.api.IConcept)" resolve="isSubconceptOf" />
+              <ref role="37wK5l" to="jks5:~IConcept.isSubConceptOf(org.modelix.model.api.IConcept)" resolve="isSubConceptOf" />
               <node concept="2YIFZM" id="5iCdLF2lMZ3" role="37wK5m">
                 <ref role="1Pybhd" to="xxte:5gTrVpGjuL2" resolve="SConceptAdapter" />
                 <ref role="37wK5l" to="xxte:3ECE8iPOmg5" resolve="wrap" />
@@ -33179,7 +33179,7 @@
                     <node concept="2GrUjf" id="29etMtb9_nU" role="2Oq$k0">
                       <ref role="2Gs0qQ" node="29etMtb9_nN" resolve="property" />
                     </node>
-                    <node concept="liA8E" id="mqppAKP4SY" role="2OqNvi">
+                    <node concept="liA8E" id="2YOB3aK8HPX" role="2OqNvi">
                       <ref role="37wK5l" to="jks5:~IProperty.getName()" resolve="getName" />
                     </node>
                   </node>
@@ -33193,7 +33193,7 @@
                         <node concept="2GrUjf" id="29etMtb9_o0" role="2Oq$k0">
                           <ref role="2Gs0qQ" node="29etMtb9_nN" resolve="property" />
                         </node>
-                        <node concept="liA8E" id="mqppAKP51a" role="2OqNvi">
+                        <node concept="liA8E" id="2YOB3aK8Iek" role="2OqNvi">
                           <ref role="37wK5l" to="jks5:~IProperty.getName()" resolve="getName" />
                         </node>
                       </node>
@@ -33668,7 +33668,7 @@
                   <node concept="2GrUjf" id="29etMtb9_q9" role="2Oq$k0">
                     <ref role="2Gs0qQ" node="29etMtb9_q0" resolve="link" />
                   </node>
-                  <node concept="liA8E" id="mqppAKP4FR" role="2OqNvi">
+                  <node concept="liA8E" id="2YOB3aK8IA$" role="2OqNvi">
                     <ref role="37wK5l" to="jks5:~IChildLink.getName()" resolve="getName" />
                   </node>
                 </node>
@@ -38579,6 +38579,10 @@
         </node>
       </node>
     </node>
+  </node>
+  <node concept="312cEu" id="1K2Zpq8w3Vg">
+    <property role="TrG5h" value="MetaModelSynchronizer" />
+    <node concept="3Tm1VV" id="1K2Zpq8w3Vh" role="1B3o_S" />
   </node>
 </model>
 
