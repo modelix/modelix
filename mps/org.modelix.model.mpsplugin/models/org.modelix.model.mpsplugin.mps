@@ -33745,6 +33745,20 @@
                           <node concept="10Nm6u" id="2zfU5FnLwHm" role="33vP2m" />
                         </node>
                       </node>
+                      <node concept="3clFbF" id="2zfU5Fo0Y4I" role="3cqZAp">
+                        <node concept="37vLTI" id="2zfU5Fo0YZN" role="3clFbG">
+                          <node concept="2YIFZM" id="2zfU5Fo115A" role="37vLTx">
+                            <ref role="37wK5l" to="jks5:~NodeUtilKt.deepUnwrapNode(org.modelix.model.api.INode)" resolve="deepUnwrapNode" />
+                            <ref role="1Pybhd" to="jks5:~NodeUtilKt" resolve="NodeUtilKt" />
+                            <node concept="37vLTw" id="2zfU5Fo11LU" role="37wK5m">
+                              <ref role="3cqZAo" node="29etMtb9_oB" resolve="targetNode" />
+                            </node>
+                          </node>
+                          <node concept="37vLTw" id="2zfU5Fo13hq" role="37vLTJ">
+                            <ref role="3cqZAo" node="29etMtb9_oB" resolve="targetNode" />
+                          </node>
+                        </node>
+                      </node>
                       <node concept="3clFbJ" id="29etMtb9_oV" role="3cqZAp">
                         <node concept="3clFbS" id="29etMtb9_oW" role="3clFbx">
                           <node concept="3clFbF" id="2zfU5FnLFJt" role="3cqZAp">
@@ -33769,75 +33783,6 @@
                           </node>
                           <node concept="37vLTw" id="29etMtb9_pr" role="2ZW6bz">
                             <ref role="3cqZAo" node="29etMtb9_oB" resolve="targetNode" />
-                          </node>
-                        </node>
-                        <node concept="3eNFk2" id="2zfU5FnLIwA" role="3eNLev">
-                          <node concept="3clFbS" id="2zfU5FnLIwC" role="3eOfB_">
-                            <node concept="3cpWs8" id="2zfU5FnLJJ1" role="3cqZAp">
-                              <node concept="3cpWsn" id="2zfU5FnLJJ2" role="3cpWs9">
-                                <property role="TrG5h" value="wrapper" />
-                                <node concept="3uibUv" id="2zfU5FnLJJ3" role="1tU5fm">
-                                  <ref role="3uigEE" to="jks5:~INodeWrapper" resolve="INodeWrapper" />
-                                </node>
-                                <node concept="1eOMI4" id="2zfU5FnLJJ4" role="33vP2m">
-                                  <node concept="10QFUN" id="2zfU5FnLJJ5" role="1eOMHV">
-                                    <node concept="3uibUv" id="2zfU5FnLJJ6" role="10QFUM">
-                                      <ref role="3uigEE" to="jks5:~INodeWrapper" resolve="INodeWrapper" />
-                                    </node>
-                                    <node concept="37vLTw" id="2zfU5FnLJJ7" role="10QFUP">
-                                      <ref role="3cqZAo" node="29etMtb9_oB" resolve="targetNode" />
-                                    </node>
-                                  </node>
-                                </node>
-                              </node>
-                            </node>
-                            <node concept="3clFbJ" id="2zfU5FnLJJk" role="3cqZAp">
-                              <node concept="3clFbS" id="2zfU5FnLJJl" role="3clFbx">
-                                <node concept="3clFbF" id="2zfU5FnLMkV" role="3cqZAp">
-                                  <node concept="37vLTI" id="2zfU5FnLNtB" role="3clFbG">
-                                    <node concept="1eOMI4" id="2zfU5FnLOpv" role="37vLTx">
-                                      <node concept="10QFUN" id="2zfU5FnLOps" role="1eOMHV">
-                                        <node concept="3uibUv" id="2zfU5FnLOpx" role="10QFUM">
-                                          <ref role="3uigEE" to="jks5:~PNodeAdapter" resolve="PNodeAdapter" />
-                                        </node>
-                                        <node concept="2OqwBi" id="2zfU5FnLOpy" role="10QFUP">
-                                          <node concept="37vLTw" id="2zfU5FnLOpz" role="2Oq$k0">
-                                            <ref role="3cqZAo" node="2zfU5FnLJJ2" resolve="wrapper" />
-                                          </node>
-                                          <node concept="liA8E" id="2zfU5FnLOp$" role="2OqNvi">
-                                            <ref role="37wK5l" to="jks5:~INodeWrapper.getWrappedNode()" resolve="getWrappedNode" />
-                                          </node>
-                                        </node>
-                                      </node>
-                                    </node>
-                                    <node concept="37vLTw" id="2zfU5FnLMkT" role="37vLTJ">
-                                      <ref role="3cqZAo" node="2zfU5FnLttj" resolve="targetAsPNodeAdapter" />
-                                    </node>
-                                  </node>
-                                </node>
-                              </node>
-                              <node concept="2ZW3vV" id="2zfU5FnLJJn" role="3clFbw">
-                                <node concept="3uibUv" id="2zfU5FnLJJo" role="2ZW6by">
-                                  <ref role="3uigEE" to="jks5:~PNodeAdapter" resolve="PNodeAdapter" />
-                                </node>
-                                <node concept="2OqwBi" id="2zfU5FnLJJp" role="2ZW6bz">
-                                  <node concept="37vLTw" id="2zfU5FnLJJq" role="2Oq$k0">
-                                    <ref role="3cqZAo" node="2zfU5FnLJJ2" resolve="wrapper" />
-                                  </node>
-                                  <node concept="liA8E" id="2zfU5FnLJJr" role="2OqNvi">
-                                    <ref role="37wK5l" to="jks5:~INodeWrapper.getWrappedNode()" resolve="getWrappedNode" />
-                                  </node>
-                                </node>
-                              </node>
-                            </node>
-                          </node>
-                          <node concept="2ZW3vV" id="2zfU5FnLJ7L" role="3eO9$A">
-                            <node concept="3uibUv" id="2zfU5FnLJ7M" role="2ZW6by">
-                              <ref role="3uigEE" to="jks5:~INodeWrapper" resolve="INodeWrapper" />
-                            </node>
-                            <node concept="37vLTw" id="2zfU5FnLJ7N" role="2ZW6bz">
-                              <ref role="3cqZAo" node="29etMtb9_oB" resolve="targetNode" />
-                            </node>
                           </node>
                         </node>
                       </node>
