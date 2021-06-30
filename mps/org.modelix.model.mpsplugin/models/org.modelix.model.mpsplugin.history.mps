@@ -199,6 +199,7 @@
         <child id="1082485599094" name="ifFalseStatement" index="9aQIa" />
         <child id="1068580123160" name="condition" index="3clFbw" />
         <child id="1068580123161" name="ifTrue" index="3clFbx" />
+        <child id="1206060520071" name="elsifClauses" index="3eNLev" />
       </concept>
       <concept id="1068580123136" name="jetbrains.mps.baseLanguage.structure.StatementList" flags="sn" stub="5293379017992965193" index="3clFbS">
         <child id="1068581517665" name="statement" index="3cqZAp" />
@@ -221,6 +222,10 @@
       <concept id="1068581242869" name="jetbrains.mps.baseLanguage.structure.MinusExpression" flags="nn" index="3cpWsd" />
       <concept id="1068581242863" name="jetbrains.mps.baseLanguage.structure.LocalVariableDeclaration" flags="nr" index="3cpWsn" />
       <concept id="1068581517677" name="jetbrains.mps.baseLanguage.structure.VoidType" flags="in" index="3cqZAl" />
+      <concept id="1206060495898" name="jetbrains.mps.baseLanguage.structure.ElsifClause" flags="ng" index="3eNFk2">
+        <child id="1206060619838" name="condition" index="3eO9$A" />
+        <child id="1206060644605" name="statementList" index="3eOfB_" />
+      </concept>
       <concept id="1079359253375" name="jetbrains.mps.baseLanguage.structure.ParenthesizedExpression" flags="nn" index="1eOMI4">
         <child id="1079359253376" name="expression" index="1eOMHV" />
       </concept>
@@ -404,6 +409,7 @@
         <child id="4611582986551314344" name="requestedType" index="UnYnz" />
       </concept>
       <concept id="1240216724530" name="jetbrains.mps.baseLanguage.collections.structure.LinkedHashMapCreator" flags="nn" index="32Fmki" />
+      <concept id="1162934736510" name="jetbrains.mps.baseLanguage.collections.structure.GetElementOperation" flags="nn" index="34jXtK" />
       <concept id="1162935959151" name="jetbrains.mps.baseLanguage.collections.structure.GetSizeOperation" flags="nn" index="34oBXx" />
       <concept id="1197683403723" name="jetbrains.mps.baseLanguage.collections.structure.MapType" flags="in" index="3rvAFt">
         <child id="1197683466920" name="keyType" index="3rvQeY" />
@@ -7512,6 +7518,196 @@
         <node concept="x79VA" id="aVVeoQtQzi" role="3nqlJM" />
       </node>
     </node>
+    <node concept="ATzpf" id="$SKJo8tWMy" role="a7sos">
+      <property role="TrG5h" value="getTransientModuleBinding" />
+      <node concept="3Tm1VV" id="$SKJo8tWMz" role="1B3o_S" />
+      <node concept="3uibUv" id="$SKJo8u59e" role="3clF45">
+        <ref role="3uigEE" to="csg2:49CIzaqqe6y" resolve="TransientModuleBinding" />
+      </node>
+      <node concept="3clFbS" id="$SKJo8tWM_" role="3clF47">
+        <node concept="3cpWs8" id="$SKJo8uz28" role="3cqZAp">
+          <node concept="3cpWsn" id="$SKJo8uz29" role="3cpWs9">
+            <property role="TrG5h" value="nodeId" />
+            <node concept="3cpWsb" id="$SKJo8uz2a" role="1tU5fm" />
+            <node concept="2OqwBi" id="$SKJo8uz2b" role="33vP2m">
+              <node concept="1eOMI4" id="$SKJo8uz2c" role="2Oq$k0">
+                <node concept="10QFUN" id="$SKJo8uz2d" role="1eOMHV">
+                  <node concept="3uibUv" id="$SKJo8uz2e" role="10QFUM">
+                    <ref role="3uigEE" to="jks5:~PNodeAdapter" resolve="PNodeAdapter" />
+                  </node>
+                  <node concept="2OqwBi" id="$SKJo8uz2f" role="10QFUP">
+                    <node concept="2V_BSl" id="$SKJo8uz2g" role="2Oq$k0" />
+                    <node concept="liA8E" id="$SKJo8uz2h" role="2OqNvi">
+                      <ref role="37wK5l" node="49CIzaqf7rw" resolve="getNode" />
+                    </node>
+                  </node>
+                </node>
+              </node>
+              <node concept="liA8E" id="$SKJo8uz2i" role="2OqNvi">
+                <ref role="37wK5l" to="jks5:~PNodeAdapter.getNodeId()" resolve="getNodeId" />
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="3cpWs8" id="$SKJo8uz2j" role="3cqZAp">
+          <node concept="3cpWsn" id="$SKJo8uz2k" role="3cpWs9">
+            <property role="TrG5h" value="treeId" />
+            <node concept="3uibUv" id="$SKJo8uz2l" role="1tU5fm">
+              <ref role="3uigEE" to="xkhl:~TreeId" resolve="TreeId" />
+            </node>
+            <node concept="2OqwBi" id="$SKJo8uz2m" role="33vP2m">
+              <node concept="2OqwBi" id="$SKJo8uz2n" role="2Oq$k0">
+                <node concept="2V_BSl" id="$SKJo8uz2o" role="2Oq$k0" />
+                <node concept="liA8E" id="$SKJo8uz2p" role="2OqNvi">
+                  <ref role="37wK5l" to="7e8u:~MPSTreeNode.getAncestor(java.lang.Class)" resolve="getAncestor" />
+                  <node concept="3VsKOn" id="$SKJo8uz2q" role="37wK5m">
+                    <ref role="3VsUkX" node="6aRQr1WUXn6" resolve="CloudTreeTreeNode" />
+                  </node>
+                </node>
+              </node>
+              <node concept="liA8E" id="$SKJo8uz2r" role="2OqNvi">
+                <ref role="37wK5l" node="EMWAvBgmbf" resolve="getTreeId" />
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="3cpWs8" id="$SKJo8uxJu" role="3cqZAp">
+          <node concept="3cpWsn" id="$SKJo8uxJx" role="3cpWs9">
+            <property role="TrG5h" value="bindings" />
+            <node concept="_YKpA" id="$SKJo8uxJs" role="1tU5fm">
+              <node concept="3uibUv" id="$SKJo8uF$q" role="_ZDj9">
+                <ref role="3uigEE" to="csg2:49CIzaqqe6y" resolve="TransientModuleBinding" />
+              </node>
+            </node>
+            <node concept="2OqwBi" id="$SKJo8uEob" role="33vP2m">
+              <node concept="2OqwBi" id="$SKJo8uCYU" role="2Oq$k0">
+                <node concept="2OqwBi" id="$SKJo8u_WB" role="2Oq$k0">
+                  <node concept="2OqwBi" id="$SKJo8uzd9" role="2Oq$k0">
+                    <node concept="2OqwBi" id="$SKJo8uyoo" role="2Oq$k0">
+                      <node concept="2V_BSl" id="$SKJo8uxKP" role="2Oq$k0" />
+                      <node concept="liA8E" id="$SKJo8uyZq" role="2OqNvi">
+                        <ref role="37wK5l" node="EMWAvBfk$Y" resolve="getCloudRepository" />
+                      </node>
+                    </node>
+                    <node concept="liA8E" id="$SKJo8uzjV" role="2OqNvi">
+                      <ref role="37wK5l" to="csg2:$SKJo8u6fX" resolve="getModuleBinding" />
+                      <node concept="37vLTw" id="$SKJo8uzlM" role="37wK5m">
+                        <ref role="3cqZAo" node="$SKJo8uz2k" resolve="treeId" />
+                      </node>
+                      <node concept="37vLTw" id="$SKJo8uzp5" role="37wK5m">
+                        <ref role="3cqZAo" node="$SKJo8uz29" resolve="nodeId" />
+                      </node>
+                    </node>
+                  </node>
+                  <node concept="3zZkjj" id="$SKJo8uBAb" role="2OqNvi">
+                    <node concept="1bVj0M" id="$SKJo8uBAd" role="23t8la">
+                      <node concept="3clFbS" id="$SKJo8uBAe" role="1bW5cS">
+                        <node concept="3clFbF" id="$SKJo8uBIN" role="3cqZAp">
+                          <node concept="2ZW3vV" id="$SKJo8uC_n" role="3clFbG">
+                            <node concept="3uibUv" id="$SKJo8uCIF" role="2ZW6by">
+                              <ref role="3uigEE" to="csg2:49CIzaqqe6y" resolve="TransientModuleBinding" />
+                            </node>
+                            <node concept="37vLTw" id="$SKJo8uBIM" role="2ZW6bz">
+                              <ref role="3cqZAo" node="$SKJo8uBAf" resolve="it" />
+                            </node>
+                          </node>
+                        </node>
+                      </node>
+                      <node concept="Rh6nW" id="$SKJo8uBAf" role="1bW2Oz">
+                        <property role="TrG5h" value="it" />
+                        <node concept="2jxLKc" id="$SKJo8uBAg" role="1tU5fm" />
+                      </node>
+                    </node>
+                  </node>
+                </node>
+                <node concept="3$u5V9" id="$SKJo8uDBf" role="2OqNvi">
+                  <node concept="1bVj0M" id="$SKJo8uDBh" role="23t8la">
+                    <node concept="3clFbS" id="$SKJo8uDBi" role="1bW5cS">
+                      <node concept="3clFbF" id="$SKJo8uDKE" role="3cqZAp">
+                        <node concept="1eOMI4" id="$SKJo8uDKC" role="3clFbG">
+                          <node concept="10QFUN" id="$SKJo8uDK_" role="1eOMHV">
+                            <node concept="3uibUv" id="$SKJo8uDTV" role="10QFUM">
+                              <ref role="3uigEE" to="csg2:49CIzaqqe6y" resolve="TransientModuleBinding" />
+                            </node>
+                            <node concept="37vLTw" id="$SKJo8uE5W" role="10QFUP">
+                              <ref role="3cqZAo" node="$SKJo8uDBj" resolve="it" />
+                            </node>
+                          </node>
+                        </node>
+                      </node>
+                    </node>
+                    <node concept="Rh6nW" id="$SKJo8uDBj" role="1bW2Oz">
+                      <property role="TrG5h" value="it" />
+                      <node concept="2jxLKc" id="$SKJo8uDBk" role="1tU5fm" />
+                    </node>
+                  </node>
+                </node>
+              </node>
+              <node concept="ANE8D" id="$SKJo8uFkP" role="2OqNvi" />
+            </node>
+          </node>
+        </node>
+        <node concept="3clFbJ" id="$SKJo8uFGU" role="3cqZAp">
+          <node concept="3clFbS" id="$SKJo8uFGW" role="3clFbx">
+            <node concept="3cpWs6" id="$SKJo8uKf6" role="3cqZAp">
+              <node concept="10Nm6u" id="$SKJo8uMso" role="3cqZAk" />
+            </node>
+          </node>
+          <node concept="3clFbC" id="$SKJo8uJC6" role="3clFbw">
+            <node concept="3cmrfG" id="$SKJo8uKdh" role="3uHU7w">
+              <property role="3cmrfH" value="0" />
+            </node>
+            <node concept="2OqwBi" id="$SKJo8uGSD" role="3uHU7B">
+              <node concept="37vLTw" id="$SKJo8uFRp" role="2Oq$k0">
+                <ref role="3cqZAo" node="$SKJo8uxJx" resolve="bindings" />
+              </node>
+              <node concept="34oBXx" id="$SKJo8uIA1" role="2OqNvi" />
+            </node>
+          </node>
+          <node concept="3eNFk2" id="$SKJo8uLHV" role="3eNLev">
+            <node concept="3clFbC" id="$SKJo8uReq" role="3eO9$A">
+              <node concept="3cmrfG" id="$SKJo8uReF" role="3uHU7w">
+                <property role="3cmrfH" value="1" />
+              </node>
+              <node concept="2OqwBi" id="$SKJo8uNE5" role="3uHU7B">
+                <node concept="37vLTw" id="$SKJo8uMjr" role="2Oq$k0">
+                  <ref role="3cqZAo" node="$SKJo8uxJx" resolve="bindings" />
+                </node>
+                <node concept="34oBXx" id="$SKJo8uOUD" role="2OqNvi" />
+              </node>
+            </node>
+            <node concept="3clFbS" id="$SKJo8uLHX" role="3eOfB_">
+              <node concept="3cpWs6" id="$SKJo8uRF7" role="3cqZAp">
+                <node concept="2OqwBi" id="$SKJo8uT33" role="3cqZAk">
+                  <node concept="37vLTw" id="$SKJo8uRFF" role="2Oq$k0">
+                    <ref role="3cqZAo" node="$SKJo8uxJx" resolve="bindings" />
+                  </node>
+                  <node concept="34jXtK" id="$SKJo8uUnv" role="2OqNvi">
+                    <node concept="3cmrfG" id="$SKJo8uU_c" role="25WWJ7">
+                      <property role="3cmrfH" value="0" />
+                    </node>
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+          <node concept="9aQIb" id="$SKJo8uVd2" role="9aQIa">
+            <node concept="3clFbS" id="$SKJo8uVd3" role="9aQI4">
+              <node concept="YS8fn" id="$SKJo8uVqv" role="3cqZAp">
+                <node concept="2ShNRf" id="$SKJo8uVqD" role="YScLw">
+                  <node concept="1pGfFk" id="$SKJo8uYhe" role="2ShVmc">
+                    <ref role="37wK5l" to="wyt6:~IllegalStateException.&lt;init&gt;(java.lang.String)" resolve="IllegalStateException" />
+                    <node concept="Xl_RD" id="$SKJo8uYkm" role="37wK5m">
+                      <property role="Xl_RC" value="Multiple transient bindings for the same module are not expected" />
+                    </node>
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+      </node>
+    </node>
     <node concept="ATzpf" id="Nm_qC27bd8" role="a7sos">
       <property role="TrG5h" value="getTreeInRepository" />
       <node concept="3Tm1VV" id="Nm_qC27bd9" role="1B3o_S" />
@@ -7650,6 +7846,56 @@
           </node>
         </node>
         <node concept="x79VA" id="aVVeoQtQtZ" role="3nqlJM" />
+      </node>
+    </node>
+    <node concept="ATzpf" id="$SKJo8u40P" role="a7sos">
+      <property role="TrG5h" value="getTransientModuleBinding" />
+      <node concept="3Tm1VV" id="$SKJo8u40Q" role="1B3o_S" />
+      <node concept="3uibUv" id="$SKJo8u424" role="3clF45">
+        <ref role="3uigEE" to="csg2:49CIzaqqe6y" resolve="TransientModuleBinding" />
+      </node>
+      <node concept="3clFbS" id="$SKJo8u40S" role="3clF47">
+        <node concept="3cpWs8" id="$SKJo8u4C3" role="3cqZAp">
+          <node concept="3cpWsn" id="$SKJo8u4C4" role="3cpWs9">
+            <property role="TrG5h" value="nodeTreeNode" />
+            <node concept="3uibUv" id="$SKJo8u4C5" role="1tU5fm">
+              <ref role="3uigEE" node="49CIzapIBwH" resolve="CloudNodeTreeNode" />
+            </node>
+            <node concept="0kSF2" id="$SKJo8u4C6" role="33vP2m">
+              <node concept="3uibUv" id="$SKJo8u4C7" role="0kSFW">
+                <ref role="3uigEE" node="49CIzapIBwH" resolve="CloudNodeTreeNode" />
+              </node>
+              <node concept="2V_BSl" id="$SKJo8u4C8" role="0kSFX" />
+            </node>
+          </node>
+        </node>
+        <node concept="3clFbJ" id="$SKJo8u4C9" role="3cqZAp">
+          <node concept="3clFbS" id="$SKJo8u4Ca" role="3clFbx">
+            <node concept="3cpWs6" id="$SKJo8u4Cb" role="3cqZAp">
+              <node concept="10Nm6u" id="$SKJo8u4Or" role="3cqZAk" />
+            </node>
+          </node>
+          <node concept="3clFbC" id="$SKJo8u4Cd" role="3clFbw">
+            <node concept="10Nm6u" id="$SKJo8u4Ce" role="3uHU7w" />
+            <node concept="37vLTw" id="$SKJo8u4Cf" role="3uHU7B">
+              <ref role="3cqZAo" node="$SKJo8u4C4" resolve="nodeTreeNode" />
+            </node>
+          </node>
+          <node concept="9aQIb" id="$SKJo8u4Cg" role="9aQIa">
+            <node concept="3clFbS" id="$SKJo8u4Ch" role="9aQI4">
+              <node concept="3cpWs6" id="$SKJo8u4Ci" role="3cqZAp">
+                <node concept="2OqwBi" id="$SKJo8u4Cj" role="3cqZAk">
+                  <node concept="37vLTw" id="$SKJo8u4Ck" role="2Oq$k0">
+                    <ref role="3cqZAo" node="$SKJo8u4C4" resolve="nodeTreeNode" />
+                  </node>
+                  <node concept="AQDAd" id="$SKJo8u4Cl" role="2OqNvi">
+                    <ref role="37wK5l" node="$SKJo8tWMy" resolve="getTransientModuleBinding" />
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
       </node>
     </node>
     <node concept="3uibUv" id="1xehy3SjXAU" role="KRMoO">
