@@ -12833,7 +12833,7 @@
               </node>
             </node>
             <node concept="Xl_RD" id="2zfU5FnAFZi" role="37wK5m">
-              <property role="Xl_RC" value="Properties" />
+              <property role="Xl_RC" value="References" />
             </node>
             <node concept="10Nm6u" id="2zfU5FnAFZj" role="37wK5m" />
           </node>
