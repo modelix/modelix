@@ -1919,6 +1919,28 @@
               </node>
             </node>
           </node>
+          <node concept="3clFbJ" id="2zfU5FnSrOa" role="3cqZAp">
+            <property role="TyiWK" value="true" />
+            <node concept="3clFbS" id="2zfU5FnSrOb" role="3clFbx">
+              <node concept="3cpWs6" id="2zfU5FnSrOc" role="3cqZAp">
+                <node concept="2YIFZM" id="2zfU5FnSrOd" role="3cqZAk">
+                  <ref role="37wK5l" to="7bx7:~ActionUtils.getGroup(java.lang.String)" resolve="getGroup" />
+                  <ref role="1Pybhc" to="7bx7:~ActionUtils" resolve="ActionUtils" />
+                  <node concept="Xl_RD" id="2zfU5FnSrOe" role="37wK5m">
+                    <property role="Xl_RC" value="org.modelix.model.mpsplugin.plugin.CloudBindingGroup_ActionGroup" />
+                  </node>
+                </node>
+              </node>
+            </node>
+            <node concept="2ZW3vV" id="2zfU5FnSrOf" role="3clFbw">
+              <node concept="3uibUv" id="2zfU5FnStQY" role="2ZW6by">
+                <ref role="3uigEE" node="2zfU5FnS9Ry" resolve="CloudBindingTreeNode" />
+              </node>
+              <node concept="37vLTw" id="2zfU5FnSrOh" role="2ZW6bz">
+                <ref role="3cqZAo" node="6aRQr1WNRSn" resolve="node" />
+              </node>
+            </node>
+          </node>
           <node concept="3cpWs6" id="6aRQr1WOg5H" role="3cqZAp">
             <node concept="10Nm6u" id="6aRQr1WOhG_" role="3cqZAk" />
           </node>
@@ -4146,6 +4168,25 @@
       <node concept="3cqZAl" id="2n9Wvfbjw$w" role="3clF45" />
       <node concept="3Tm1VV" id="2n9Wvfbjw$x" role="1B3o_S" />
       <node concept="3clFbS" id="2n9Wvfbjw$y" role="3clF47">
+        <node concept="3cpWs8" id="2zfU5FnTNfR" role="3cqZAp">
+          <node concept="3cpWsn" id="2zfU5FnTNfS" role="3cpWs9">
+            <property role="TrG5h" value="treeInRepository" />
+            <node concept="3uibUv" id="2zfU5FnTNfT" role="1tU5fm">
+              <ref role="3uigEE" to="csg2:3i6diw3mm_Q" resolve="TreeInRepository" />
+            </node>
+            <node concept="2ShNRf" id="2zfU5FnTOcT" role="33vP2m">
+              <node concept="1pGfFk" id="2zfU5FnTNSw" role="2ShVmc">
+                <ref role="37wK5l" to="csg2:3i6diw3mtOf" resolve="TreeInRepository" />
+                <node concept="37vLTw" id="2zfU5FnTOQ4" role="37wK5m">
+                  <ref role="3cqZAo" node="6aRQr1WUXnr" resolve="cloudRepository" />
+                </node>
+                <node concept="37vLTw" id="2zfU5FnTP_m" role="37wK5m">
+                  <ref role="3cqZAo" node="EMWAvBgr_o" resolve="treeId" />
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
         <node concept="3clFbF" id="2n9WvfbjDJW" role="3cqZAp">
           <node concept="2YIFZM" id="2n9WvfbjDPb" role="3clFbG">
             <ref role="37wK5l" node="6aRQr1X5EDm" resolve="setChildren" />
@@ -4197,7 +4238,7 @@
                         <node concept="3clFbF" id="2n9WvfbjPGK" role="3cqZAp">
                           <node concept="2ShNRf" id="2n9WvfbjPGI" role="3clFbG">
                             <node concept="1pGfFk" id="2n9WvfbjUZj" role="2ShVmc">
-                              <ref role="37wK5l" to="7e8u:~TextTreeNode.&lt;init&gt;(java.lang.String)" resolve="TextTreeNode" />
+                              <ref role="37wK5l" node="2zfU5FnShfB" resolve="CloudBindingTreeNode" />
                               <node concept="2OqwBi" id="2n9WvfbjX$u" role="37wK5m">
                                 <node concept="37vLTw" id="2n9WvfbjXhs" role="2Oq$k0">
                                   <ref role="3cqZAo" node="2n9WvfbjPit" resolve="it" />
@@ -4205,6 +4246,12 @@
                                 <node concept="liA8E" id="2n9WvfbjY0h" role="2OqNvi">
                                   <ref role="37wK5l" to="wyt6:~Object.toString()" resolve="toString" />
                                 </node>
+                              </node>
+                              <node concept="37vLTw" id="2zfU5FnTlz3" role="37wK5m">
+                                <ref role="3cqZAo" node="2n9WvfbjPit" resolve="it" />
+                              </node>
+                              <node concept="37vLTw" id="2zfU5FnTQkh" role="37wK5m">
+                                <ref role="3cqZAo" node="2zfU5FnTNfS" resolve="treeInRepository" />
                               </node>
                             </node>
                           </node>
@@ -4260,7 +4307,7 @@
                           <node concept="3clFbF" id="4eX7silcc$z" role="3cqZAp">
                             <node concept="2ShNRf" id="4eX7silcKoH" role="3clFbG">
                               <node concept="1pGfFk" id="4eX7silcKoI" role="2ShVmc">
-                                <ref role="37wK5l" to="7e8u:~TextTreeNode.&lt;init&gt;(java.lang.String)" resolve="TextTreeNode" />
+                                <ref role="37wK5l" node="2zfU5FnShfB" resolve="CloudBindingTreeNode" />
                                 <node concept="2OqwBi" id="4eX7silcKoJ" role="37wK5m">
                                   <node concept="37vLTw" id="4eX7silcKoK" role="2Oq$k0">
                                     <ref role="3cqZAo" node="4eX7silcbuv" resolve="it" />
@@ -4268,6 +4315,12 @@
                                   <node concept="liA8E" id="4eX7silcKoL" role="2OqNvi">
                                     <ref role="37wK5l" to="csg2:4eX7silbZ4N" resolve="toString" />
                                   </node>
+                                </node>
+                                <node concept="37vLTw" id="2zfU5FnTmoR" role="37wK5m">
+                                  <ref role="3cqZAo" node="4eX7silcbuv" resolve="it" />
+                                </node>
+                                <node concept="37vLTw" id="2zfU5FnTRZE" role="37wK5m">
+                                  <ref role="3cqZAo" node="2zfU5FnTNfS" resolve="treeInRepository" />
                                 </node>
                               </node>
                             </node>
@@ -8373,6 +8426,130 @@
       <ref role="3uigEE" to="rgfa:~TreeNode" resolve="TreeNode" />
     </node>
     <node concept="3Tm1VV" id="1J2iDZzAZ75" role="1B3o_S" />
+  </node>
+  <node concept="312cEu" id="2zfU5FnS9Ry">
+    <property role="TrG5h" value="CloudBindingTreeNode" />
+    <node concept="312cEg" id="2zfU5FnTc4E" role="jymVt">
+      <property role="TrG5h" value="binding" />
+      <node concept="3Tm6S6" id="2zfU5FnTc4F" role="1B3o_S" />
+      <node concept="3uibUv" id="2zfU5FnTc4H" role="1tU5fm">
+        <ref role="3uigEE" to="csg2:2FX9uaKMyso" resolve="Binding" />
+      </node>
+    </node>
+    <node concept="312cEg" id="2zfU5FnTppU" role="jymVt">
+      <property role="TrG5h" value="treeInRepository" />
+      <node concept="3Tm6S6" id="2zfU5FnTppV" role="1B3o_S" />
+      <node concept="3uibUv" id="2zfU5FnTJ9F" role="1tU5fm">
+        <ref role="3uigEE" to="csg2:3i6diw3mm_Q" resolve="TreeInRepository" />
+      </node>
+    </node>
+    <node concept="3clFbW" id="2zfU5FnShfB" role="jymVt">
+      <node concept="3cqZAl" id="2zfU5FnShfD" role="3clF45" />
+      <node concept="3Tm1VV" id="2zfU5FnShfE" role="1B3o_S" />
+      <node concept="3clFbS" id="2zfU5FnShfF" role="3clF47">
+        <node concept="XkiVB" id="2zfU5FnSi20" role="3cqZAp">
+          <ref role="37wK5l" to="7e8u:~TextTreeNode.&lt;init&gt;(java.lang.String)" resolve="TextTreeNode" />
+          <node concept="37vLTw" id="2zfU5FnSinL" role="37wK5m">
+            <ref role="3cqZAo" node="2zfU5FnShnJ" resolve="text" />
+          </node>
+        </node>
+        <node concept="3clFbF" id="2zfU5FnTcsy" role="3cqZAp">
+          <node concept="37vLTI" id="2zfU5FnTehb" role="3clFbG">
+            <node concept="37vLTw" id="2zfU5FnTeBB" role="37vLTx">
+              <ref role="3cqZAo" node="2zfU5FnTbM5" resolve="binding" />
+            </node>
+            <node concept="2OqwBi" id="2zfU5FnTcWj" role="37vLTJ">
+              <node concept="Xjq3P" id="2zfU5FnTcsw" role="2Oq$k0" />
+              <node concept="2OwXpG" id="2zfU5FnTdB$" role="2OqNvi">
+                <ref role="2Oxat5" node="2zfU5FnTc4E" resolve="binding" />
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="3clFbF" id="2zfU5FnTpLR" role="3cqZAp">
+          <node concept="37vLTI" id="2zfU5FnTr9b" role="3clFbG">
+            <node concept="37vLTw" id="2zfU5FnTrOO" role="37vLTx">
+              <ref role="3cqZAo" node="2zfU5FnTp9B" resolve="treeInRepository" />
+            </node>
+            <node concept="2OqwBi" id="2zfU5FnTqiB" role="37vLTJ">
+              <node concept="Xjq3P" id="2zfU5FnTpLP" role="2Oq$k0" />
+              <node concept="2OwXpG" id="2zfU5FnTqXY" role="2OqNvi">
+                <ref role="2Oxat5" node="2zfU5FnTppU" resolve="treeInRepository" />
+              </node>
+            </node>
+          </node>
+        </node>
+      </node>
+      <node concept="37vLTG" id="2zfU5FnShnJ" role="3clF46">
+        <property role="TrG5h" value="text" />
+        <node concept="17QB3L" id="2zfU5FnShnI" role="1tU5fm" />
+      </node>
+      <node concept="37vLTG" id="2zfU5FnTbM5" role="3clF46">
+        <property role="TrG5h" value="binding" />
+        <node concept="3uibUv" id="2zfU5FnTbUk" role="1tU5fm">
+          <ref role="3uigEE" to="csg2:2FX9uaKMyso" resolve="Binding" />
+        </node>
+      </node>
+      <node concept="37vLTG" id="2zfU5FnTp9B" role="3clF46">
+        <property role="TrG5h" value="treeInRepository" />
+        <node concept="3uibUv" id="2zfU5FnTJ$r" role="1tU5fm">
+          <ref role="3uigEE" to="csg2:3i6diw3mm_Q" resolve="TreeInRepository" />
+        </node>
+      </node>
+    </node>
+    <node concept="2tJIrI" id="2zfU5FnTeCL" role="jymVt" />
+    <node concept="3clFb_" id="2zfU5FnTeWw" role="jymVt">
+      <property role="TrG5h" value="getBinding" />
+      <node concept="3clFbS" id="2zfU5FnTeWz" role="3clF47">
+        <node concept="3cpWs6" id="2zfU5FnTfte" role="3cqZAp">
+          <node concept="37vLTw" id="2zfU5FnTg6i" role="3cqZAk">
+            <ref role="3cqZAo" node="2zfU5FnTc4E" resolve="binding" />
+          </node>
+        </node>
+      </node>
+      <node concept="3Tm1VV" id="2zfU5FnTeNE" role="1B3o_S" />
+      <node concept="3uibUv" id="2zfU5FnTf6e" role="3clF45">
+        <ref role="3uigEE" to="csg2:2FX9uaKMyso" resolve="Binding" />
+      </node>
+    </node>
+    <node concept="2tJIrI" id="2zfU5FnTrPY" role="jymVt" />
+    <node concept="3clFb_" id="2zfU5FnTsaT" role="jymVt">
+      <property role="TrG5h" value="getCloudRepository" />
+      <node concept="3clFbS" id="2zfU5FnTsaW" role="3clF47">
+        <node concept="3cpWs6" id="2zfU5FnTsO1" role="3cqZAp">
+          <node concept="2OqwBi" id="2zfU5FnTJYQ" role="3cqZAk">
+            <node concept="37vLTw" id="2zfU5FnTtt7" role="2Oq$k0">
+              <ref role="3cqZAo" node="2zfU5FnTppU" resolve="treeInRepository" />
+            </node>
+            <node concept="liA8E" id="2zfU5FnTKeX" role="2OqNvi">
+              <ref role="37wK5l" to="csg2:5rz8NqPRV5_" resolve="getCloudRepository" />
+            </node>
+          </node>
+        </node>
+      </node>
+      <node concept="3Tm1VV" id="2zfU5FnTs13" role="1B3o_S" />
+      <node concept="3uibUv" id="2zfU5FnTssX" role="3clF45">
+        <ref role="3uigEE" to="csg2:6aRQr1WOV$v" resolve="CloudRepository" />
+      </node>
+    </node>
+    <node concept="3clFb_" id="2zfU5FnTKka" role="jymVt">
+      <property role="TrG5h" value="getTreeInRepository" />
+      <node concept="3clFbS" id="2zfU5FnTKkb" role="3clF47">
+        <node concept="3cpWs6" id="2zfU5FnTKkc" role="3cqZAp">
+          <node concept="37vLTw" id="2zfU5FnTKke" role="3cqZAk">
+            <ref role="3cqZAo" node="2zfU5FnTppU" resolve="treeInRepository" />
+          </node>
+        </node>
+      </node>
+      <node concept="3Tm1VV" id="2zfU5FnTKkg" role="1B3o_S" />
+      <node concept="3uibUv" id="2zfU5FnTKBk" role="3clF45">
+        <ref role="3uigEE" to="csg2:3i6diw3mm_Q" resolve="TreeInRepository" />
+      </node>
+    </node>
+    <node concept="3Tm1VV" id="2zfU5FnS9Rz" role="1B3o_S" />
+    <node concept="3uibUv" id="2zfU5FnSaUU" role="1zkMxy">
+      <ref role="3uigEE" to="7e8u:~TextTreeNode" resolve="TextTreeNode" />
+    </node>
   </node>
 </model>
 

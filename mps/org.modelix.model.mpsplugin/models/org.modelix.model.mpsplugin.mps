@@ -10583,6 +10583,26 @@
         <node concept="3cpWsb" id="EMWAvBfuHY" role="1tU5fm" />
       </node>
     </node>
+    <node concept="2tJIrI" id="2zfU5FnWd3z" role="jymVt" />
+    <node concept="3clFb_" id="2zfU5FnWgJK" role="jymVt">
+      <property role="TrG5h" value="getBranch" />
+      <node concept="3clFbS" id="2zfU5FnWgJN" role="3clF47">
+        <node concept="3cpWs6" id="2zfU5FnWiJf" role="3cqZAp">
+          <node concept="2OqwBi" id="2zfU5FnWkwn" role="3cqZAk">
+            <node concept="37vLTw" id="2zfU5FnWj7H" role="2Oq$k0">
+              <ref role="3cqZAo" node="EMWAvBiNCd" resolve="activeBranch" />
+            </node>
+            <node concept="liA8E" id="2zfU5FnWlN3" role="2OqNvi">
+              <ref role="37wK5l" to="5440:~ActiveBranch.getBranch()" resolve="getBranch" />
+            </node>
+          </node>
+        </node>
+      </node>
+      <node concept="3Tm1VV" id="2zfU5FnWf0V" role="1B3o_S" />
+      <node concept="3uibUv" id="2zfU5FnWgCG" role="3clF45">
+        <ref role="3uigEE" to="jks5:~IBranch" resolve="IBranch" />
+      </node>
+    </node>
     <node concept="2tJIrI" id="4Kjm_vwHDrW" role="jymVt" />
     <node concept="3clFb_" id="4Kjm_vwHFD2" role="jymVt">
       <property role="TrG5h" value="idString" />
@@ -11621,6 +11641,8 @@
         </node>
       </node>
     </node>
+    <node concept="2tJIrI" id="2zfU5FnUSdf" role="jymVt" />
+    <node concept="2tJIrI" id="2zfU5FnUSjZ" role="jymVt" />
     <node concept="3uibUv" id="2FX9uaKMyCA" role="1zkMxy">
       <ref role="3uigEE" node="2FX9uaKMyso" resolve="Binding" />
     </node>
@@ -29273,6 +29295,25 @@
             </node>
           </node>
         </node>
+      </node>
+    </node>
+    <node concept="3clFb_" id="2zfU5FnXkeW" role="jymVt">
+      <property role="TrG5h" value="getBranch" />
+      <node concept="3clFbS" id="2zfU5FnXkeX" role="3clF47">
+        <node concept="3cpWs6" id="2zfU5FnXkeY" role="3cqZAp">
+          <node concept="2OqwBi" id="2zfU5FnXkeZ" role="3cqZAk">
+            <node concept="37vLTw" id="2zfU5FnXkf0" role="2Oq$k0">
+              <ref role="3cqZAo" node="nzqvuXRR72" resolve="activeBranch" />
+            </node>
+            <node concept="liA8E" id="2zfU5FnXkf1" role="2OqNvi">
+              <ref role="37wK5l" to="5440:~ActiveBranch.getBranch()" resolve="getBranch" />
+            </node>
+          </node>
+        </node>
+      </node>
+      <node concept="3Tm1VV" id="2zfU5FnXkf2" role="1B3o_S" />
+      <node concept="3uibUv" id="2zfU5FnXkf3" role="3clF45">
+        <ref role="3uigEE" to="jks5:~IBranch" resolve="IBranch" />
       </node>
     </node>
     <node concept="2tJIrI" id="nzqvuXRR7K" role="jymVt" />
