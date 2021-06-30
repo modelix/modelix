@@ -33,38 +33,41 @@ class MetaModelIndex private constructor(val tree: ITree) {
             index.childLinksMap.putAll(oldIndex.childLinksMap)
             index.referenceLinksMap.putAll(oldIndex.referenceLinksMap)
 
-            newTree.visitChanges(oldIndex.tree, object : ITreeChangeVisitor {
-                override fun childrenChanged(nodeId: Long, role: String?) {
-                    if (nodeId == ITree.ROOT_ID && role == LANGUAGES_ROLE) {
-                        index.loadLanguages()
-                    } else {
-                        when (newTree.getConcept(nodeId)) {
-                            MetaMetaLanguage.concept_Concept -> index.loadConcept(nodeId)
-                            MetaMetaLanguage.concept_Language -> index.loadLanguage(nodeId)
-                            MetaMetaLanguage.concept_Property -> index.loadProperty(nodeId)
-                            MetaMetaLanguage.concept_ChildLink -> index.loadChildLink(nodeId)
-                            MetaMetaLanguage.concept_ReferenceLink -> index.loadReferenceLink(nodeId)
+            newTree.visitChanges(
+                oldIndex.tree,
+                object : ITreeChangeVisitor {
+                    override fun childrenChanged(nodeId: Long, role: String?) {
+                        if (nodeId == ITree.ROOT_ID && role == LANGUAGES_ROLE) {
+                            index.loadLanguages()
+                        } else {
+                            when (newTree.getConcept(nodeId)) {
+                                MetaMetaLanguage.concept_Concept -> index.loadConcept(nodeId)
+                                MetaMetaLanguage.concept_Language -> index.loadLanguage(nodeId)
+                                MetaMetaLanguage.concept_Property -> index.loadProperty(nodeId)
+                                MetaMetaLanguage.concept_ChildLink -> index.loadChildLink(nodeId)
+                                MetaMetaLanguage.concept_ReferenceLink -> index.loadReferenceLink(nodeId)
+                            }
                         }
                     }
-                }
 
-                override fun propertyChanged(nodeId: Long, role: String) {
-                    if (role == MetaMetaLanguage.property_IHasUID_uid.name) {
-                        when (newTree.getConcept(nodeId)) {
-                            MetaMetaLanguage.concept_Concept -> index.loadConcept(nodeId)
-                            MetaMetaLanguage.concept_Language -> index.loadLanguage(nodeId)
-                            MetaMetaLanguage.concept_Property -> index.loadProperty(nodeId)
-                            MetaMetaLanguage.concept_ChildLink -> index.loadChildLink(nodeId)
-                            MetaMetaLanguage.concept_ReferenceLink -> index.loadReferenceLink(nodeId)
+                    override fun propertyChanged(nodeId: Long, role: String) {
+                        if (role == MetaMetaLanguage.property_IHasUID_uid.name) {
+                            when (newTree.getConcept(nodeId)) {
+                                MetaMetaLanguage.concept_Concept -> index.loadConcept(nodeId)
+                                MetaMetaLanguage.concept_Language -> index.loadLanguage(nodeId)
+                                MetaMetaLanguage.concept_Property -> index.loadProperty(nodeId)
+                                MetaMetaLanguage.concept_ChildLink -> index.loadChildLink(nodeId)
+                                MetaMetaLanguage.concept_ReferenceLink -> index.loadReferenceLink(nodeId)
+                            }
                         }
                     }
-                }
 
-                override fun referenceChanged(nodeId: Long, role: String) {}
-                override fun containmentChanged(nodeId: Long) {}
-                override fun nodeAdded(nodeId: Long) {}
-                override fun nodeRemoved(nodeId: Long) {}
-            })
+                    override fun referenceChanged(nodeId: Long, role: String) {}
+                    override fun containmentChanged(nodeId: Long) {}
+                    override fun nodeAdded(nodeId: Long) {}
+                    override fun nodeRemoved(nodeId: Long) {}
+                }
+            )
 
             return index
         }
@@ -133,5 +136,4 @@ class MetaModelIndex private constructor(val tree: ITree) {
     fun getChildLinkId(link: IChildLink): Long? = childLinksMap[link.getUID()]
 
     fun getReferenceLinkId(link: IReferenceLink): Long? = referenceLinksMap[link.getUID()]
-
 }

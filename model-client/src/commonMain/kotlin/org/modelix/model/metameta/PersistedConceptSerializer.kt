@@ -16,7 +16,6 @@
 package org.modelix.model.metameta
 
 import org.modelix.model.api.IConcept
-import org.modelix.model.api.SimpleConcept
 import org.modelix.model.lazy.IConceptReferenceSerializer
 import org.modelix.model.persistent.SerializationUtil
 

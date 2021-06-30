@@ -44,7 +44,7 @@ class MetaModelBranch(val branch: IBranch) : IBranch by branch {
         if (localConcept is PersistedConcept) {
             val uid = branch.transaction.getProperty(localConcept.id, MetaMetaLanguage.property_IHasUID_uid.name)
             return IConceptReferenceSerializer.deserializeAll(uid).firstOrNull { it !is PersistedConcept }
-                    ?: throw RuntimeException("Cannot find concept $uid")
+                ?: throw RuntimeException("Cannot find concept $uid")
         }
         return localConcept
     }
@@ -55,7 +55,7 @@ class MetaModelBranch(val branch: IBranch) : IBranch by branch {
         return PersistedConcept(localConceptId)
     }
 
-    inner class MMReadTransaction(val transaction: IReadTransaction): IReadTransaction by transaction {
+    inner class MMReadTransaction(val transaction: IReadTransaction) : IReadTransaction by transaction {
         override val branch: IBranch
             get() = this@MetaModelBranch
         override val tree: ITree
@@ -66,7 +66,7 @@ class MetaModelBranch(val branch: IBranch) : IBranch by branch {
         }
     }
 
-    inner class MMWriteTransaction(val transaction: IWriteTransaction): IWriteTransaction by transaction {
+    inner class MMWriteTransaction(val transaction: IWriteTransaction) : IWriteTransaction by transaction {
         override val branch: IBranch
             get() = this@MetaModelBranch
         override var tree: ITree
@@ -87,7 +87,7 @@ class MetaModelBranch(val branch: IBranch) : IBranch by branch {
         }
     }
 
-    inner class MMTree(val tree: ITree): ITree by tree {
+    inner class MMTree(val tree: ITree) : ITree by tree {
         override fun getConcept(nodeId: Long): IConcept? {
             return tree.getConcept(nodeId)?.let { toGlobalConcept(it) }
         }
@@ -141,7 +141,7 @@ class MetaModelBranch(val branch: IBranch) : IBranch by branch {
         }
     }
 
-    inner class MMBranchListener(val listener: IBranchListener): IBranchListener {
+    inner class MMBranchListener(val listener: IBranchListener) : IBranchListener {
         override fun treeChanged(oldTree: ITree?, newTree: ITree) {
             listener.treeChanged(oldTree?.let { MMTree(it) }, MMTree(newTree))
         }

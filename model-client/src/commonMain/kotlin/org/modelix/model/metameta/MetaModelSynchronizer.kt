@@ -144,9 +144,11 @@ class MetaModelSynchronizer(val branch: IBranch) {
         pendingReferences.add { index: MetaModelIndex ->
             val childConceptId = index.getConceptId(link.childConcept)
             if (childConceptId != null) {
-                wt.setReferenceTarget(id,
+                wt.setReferenceTarget(
+                    id,
                     MetaMetaLanguage.referenceLink_ChildLink_childConcept.name,
-                    PNodeAdapter(childConceptId, branch).reference)
+                    PNodeAdapter(childConceptId, branch).reference
+                )
             }
         }
 
@@ -168,9 +170,11 @@ class MetaModelSynchronizer(val branch: IBranch) {
         pendingReferences.add { index: MetaModelIndex ->
             val targetConceptId = index.getConceptId(link.targetConcept)
             if (targetConceptId != null) {
-                wt.setReferenceTarget(id,
+                wt.setReferenceTarget(
+                    id,
                     MetaMetaLanguage.referenceLink_ChildLink_childConcept.name,
-                    PNodeAdapter(targetConceptId, branch).reference)
+                    PNodeAdapter(targetConceptId, branch).reference
+                )
             }
         }
 

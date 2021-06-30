@@ -18,7 +18,6 @@ package org.modelix.model.lazy
 import org.modelix.model.api.INodeReference
 import org.modelix.model.api.LocalPNodeReference
 import org.modelix.model.api.PNodeReference
-import org.modelix.model.operations.AddNewChildOp
 import org.modelix.model.operations.IOperation
 import org.modelix.model.operations.SetReferenceOp
 import org.modelix.model.persistent.CPOperationsList
