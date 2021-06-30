@@ -5,6 +5,25 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 
 class SimpleConcept : IConcept {
+    override val language: ILanguage?
+        get() = TODO("Not yet implemented")
+
+    override fun getDirectSuperConcepts(): List<IConcept> {
+        TODO("Not yet implemented")
+    }
+
+    override fun getReference(): IConceptReference {
+        TODO("Not yet implemented")
+    }
+
+    override fun getUID(): String {
+        TODO("Not yet implemented")
+    }
+
+    override fun isAbstract(): Boolean {
+        TODO("Not yet implemented")
+    }
+
     override fun getShortName(): String {
         TODO("Not yet implemented")
     }
@@ -13,7 +32,7 @@ class SimpleConcept : IConcept {
         TODO("Not yet implemented")
     }
 
-    override fun isSubconceptOf(superConcept: IConcept?): Boolean {
+    override fun isSubConceptOf(superConcept: IConcept?): Boolean {
         return this == superConcept
     }
 
@@ -21,11 +40,11 @@ class SimpleConcept : IConcept {
         return this == concept
     }
 
-    override val properties: Iterable<IProperty>
+    override val properties: List<IProperty>
         get() = TODO("Not yet implemented")
-    override val childLinks: Iterable<IChildLink>
+    override val childLinks: List<IChildLink>
         get() = TODO("Not yet implemented")
-    override val referenceLinks: Iterable<IReferenceLink>
+    override val referenceLinks: List<IReferenceLink>
         get() = TODO("Not yet implemented")
 
     override fun getProperty(name: String): IProperty {

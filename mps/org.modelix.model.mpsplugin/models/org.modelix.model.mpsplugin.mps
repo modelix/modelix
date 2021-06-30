@@ -94,6 +94,7 @@
     <import index="2wxy" ref="r:a64bf504-1b65-47d6-8d8c-e9aef4535e3a(de.q60.mps.incremental.runtime)" />
     <import index="nv3w" ref="r:18e93978-2322-49a8-aaab-61c6faf67e2a(de.q60.mps.shadowmodels.runtime.engine)" />
     <import index="3hky" ref="r:bef1bfa7-20fd-413a-ae11-793b0a8ee364(de.q60.mps.shadowmodels.runtime.model.persistent)" />
+    <import index="kxov" ref="0a2651ab-f212-45c2-a2f0-343e76cbc26b/java:org.modelix.model.metameta(org.modelix.model.client/)" />
     <import index="geos" ref="0a2651ab-f212-45c2-a2f0-343e76cbc26b/java:org.modelix.model.persistent(org.modelix.model.client/)" implicit="true" />
   </imports>
   <registry>
@@ -5240,6 +5241,7 @@
               <ref role="37wK5l" to="5zyv:~Executor.execute(java.lang.Runnable)" resolve="execute" />
               <node concept="1bVj0M" id="7ardNfhLZc6" role="37wK5m">
                 <node concept="3clFbS" id="7ardNfhLZc7" role="1bW5cS">
+                  <node concept="3clFbH" id="$b8RJV5DXA" role="3cqZAp" />
                   <node concept="3cpWs8" id="7ardNfhM1$t" role="3cqZAp">
                     <node concept="3cpWsn" id="7ardNfhM1$u" role="3cpWs9">
                       <property role="TrG5h" value="branch" />
@@ -5259,8 +5261,8 @@
                   <node concept="3cpWs8" id="7ardNfhM3s4" role="3cqZAp">
                     <node concept="3cpWsn" id="7ardNfhM3s5" role="3cpWs9">
                       <property role="TrG5h" value="tree" />
-                      <node concept="3uibUv" id="7Aj1SIwRNSQ" role="1tU5fm">
-                        <ref role="3uigEE" to="xkhl:~CLTree" resolve="CLTree" />
+                      <node concept="3uibUv" id="$b8RJV5yzO" role="1tU5fm">
+                        <ref role="3uigEE" to="jks5:~ITree" resolve="ITree" />
                       </node>
                       <node concept="10QFUN" id="7Aj1SIwRPvl" role="33vP2m">
                         <node concept="2OqwBi" id="7Aj1SIwRPva" role="10QFUP">
@@ -5295,77 +5297,129 @@
                             </node>
                           </node>
                         </node>
-                        <node concept="3uibUv" id="7Aj1SIwRPv9" role="10QFUM">
-                          <ref role="3uigEE" to="xkhl:~CLTree" resolve="CLTree" />
+                        <node concept="3uibUv" id="$b8RJV5zXP" role="10QFUM">
+                          <ref role="3uigEE" to="jks5:~ITree" resolve="ITree" />
                         </node>
                       </node>
                     </node>
                   </node>
-                  <node concept="3clFbH" id="6NKC_4ZsyaW" role="3cqZAp" />
-                  <node concept="1X3_iC" id="7Aj1SIwTaI1" role="lGtFl">
-                    <property role="3V$3am" value="statement" />
-                    <property role="3V$3ak" value="f3061a53-9226-4cc5-a443-f952ceaf5816/1068580123136/1068581517665" />
-                    <node concept="3clFbF" id="7ardNfhM5bQ" role="8Wnug">
-                      <node concept="1rXfSq" id="7ardNfhM5bO" role="3clFbG">
-                        <ref role="37wK5l" node="FBnEnNIZgD" resolve="prefetchTree" />
-                        <node concept="37vLTw" id="7ardNfhM6bF" role="37wK5m">
-                          <ref role="3cqZAo" node="7ardNfhM3s5" resolve="tree" />
-                        </node>
-                      </node>
-                    </node>
-                  </node>
-                  <node concept="3SKdUt" id="7Aj1SIwTcG9" role="3cqZAp">
-                    <node concept="1PaTwC" id="7Aj1SIwTcGa" role="1aUNEU">
-                      <node concept="3oM_SD" id="7Aj1SIwTcGc" role="1PaTwD">
-                        <property role="3oM_SC" value="prefetch" />
-                      </node>
-                      <node concept="3oM_SD" id="7Aj1SIwTdMf" role="1PaTwD">
-                        <property role="3oM_SC" value="model" />
-                      </node>
-                      <node concept="3oM_SD" id="7Aj1SIwTdMi" role="1PaTwD">
-                        <property role="3oM_SC" value="content" />
-                      </node>
-                    </node>
-                  </node>
-                  <node concept="3cpWs8" id="6NKC_4ZsAMq" role="3cqZAp">
-                    <node concept="3cpWsn" id="6NKC_4ZsAMr" role="3cpWs9">
-                      <property role="TrG5h" value="prefetched" />
-                      <node concept="A3Dl8" id="6NKC_4Zs$bP" role="1tU5fm">
-                        <node concept="3uibUv" id="6NKC_4Zs$bS" role="A3Ik2">
-                          <ref role="3uigEE" to="xkhl:~CLNode" resolve="CLNode" />
-                        </node>
-                      </node>
-                      <node concept="2OqwBi" id="6NKC_4ZsAMs" role="33vP2m">
-                        <node concept="37vLTw" id="6NKC_4ZsAMt" role="2Oq$k0">
-                          <ref role="3cqZAo" node="7ardNfhM3s5" resolve="tree" />
-                        </node>
-                        <node concept="liA8E" id="6NKC_4ZsAMu" role="2OqNvi">
-                          <ref role="37wK5l" to="xkhl:~CLTree.getDescendants(long,boolean)" resolve="getDescendants" />
-                          <node concept="37vLTw" id="6NKC_4ZsAMv" role="37wK5m">
-                            <ref role="3cqZAo" node="29etMtb9$Vp" resolve="modelNodeId" />
+                  <node concept="3clFbJ" id="$b8RJV5F7b" role="3cqZAp">
+                    <node concept="3clFbS" id="$b8RJV5F7d" role="3clFbx">
+                      <node concept="3clFbF" id="$b8RJV5J0o" role="3cqZAp">
+                        <node concept="37vLTI" id="$b8RJV5JBL" role="3clFbG">
+                          <node concept="2OqwBi" id="$b8RJV5L96" role="37vLTx">
+                            <node concept="1eOMI4" id="$b8RJV5KF0" role="2Oq$k0">
+                              <node concept="10QFUN" id="$b8RJV5KEX" role="1eOMHV">
+                                <node concept="3uibUv" id="$b8RJV5KF2" role="10QFUM">
+                                  <ref role="3uigEE" to="kxov:~MetaModelBranch$MMTree" resolve="MetaModelBranch.MMTree" />
+                                </node>
+                                <node concept="37vLTw" id="$b8RJV5KF3" role="10QFUP">
+                                  <ref role="3cqZAo" node="7ardNfhM3s5" resolve="tree" />
+                                </node>
+                              </node>
+                            </node>
+                            <node concept="liA8E" id="$b8RJV5LD0" role="2OqNvi">
+                              <ref role="37wK5l" to="kxov:~MetaModelBranch$MMTree.getTree()" resolve="getTree" />
+                            </node>
                           </node>
-                          <node concept="3clFbT" id="6NKC_4ZsAMw" role="37wK5m">
-                            <property role="3clFbU" value="true" />
+                          <node concept="37vLTw" id="$b8RJV5J0m" role="37vLTJ">
+                            <ref role="3cqZAo" node="7ardNfhM3s5" resolve="tree" />
                           </node>
                         </node>
                       </node>
                     </node>
-                  </node>
-                  <node concept="RRSsy" id="6NKC_4ZsTvG" role="3cqZAp">
-                    <node concept="3cpWs3" id="6NKC_4ZsZGF" role="RRSoy">
-                      <node concept="Xl_RD" id="6NKC_4ZsZSQ" role="3uHU7w">
-                        <property role="Xl_RC" value=" nodes" />
+                    <node concept="2ZW3vV" id="$b8RJV5GiY" role="3clFbw">
+                      <node concept="3uibUv" id="$b8RJV5Iwa" role="2ZW6by">
+                        <ref role="3uigEE" to="kxov:~MetaModelBranch$MMTree" resolve="MetaModelBranch.MMTree" />
                       </node>
-                      <node concept="3cpWs3" id="6NKC_4ZsVv1" role="3uHU7B">
-                        <node concept="Xl_RD" id="6NKC_4ZsTvI" role="3uHU7B">
-                          <property role="Xl_RC" value="Prefetched " />
-                        </node>
-                        <node concept="2OqwBi" id="6NKC_4ZsX_q" role="3uHU7w">
-                          <node concept="37vLTw" id="6NKC_4ZsWsV" role="2Oq$k0">
-                            <ref role="3cqZAo" node="6NKC_4ZsAMr" resolve="prefetched" />
+                      <node concept="37vLTw" id="$b8RJV5FEs" role="2ZW6bz">
+                        <ref role="3cqZAo" node="7ardNfhM3s5" resolve="tree" />
+                      </node>
+                    </node>
+                  </node>
+                  <node concept="3clFbJ" id="$b8RJV5Mwb" role="3cqZAp">
+                    <node concept="3clFbS" id="$b8RJV5Mwd" role="3clFbx">
+                      <node concept="1X3_iC" id="7Aj1SIwTaI1" role="lGtFl">
+                        <property role="3V$3am" value="statement" />
+                        <property role="3V$3ak" value="f3061a53-9226-4cc5-a443-f952ceaf5816/1068580123136/1068581517665" />
+                        <node concept="3clFbF" id="7ardNfhM5bQ" role="8Wnug">
+                          <node concept="1rXfSq" id="7ardNfhM5bO" role="3clFbG">
+                            <ref role="37wK5l" node="FBnEnNIZgD" resolve="prefetchTree" />
+                            <node concept="37vLTw" id="7ardNfhM6bF" role="37wK5m">
+                              <ref role="3cqZAo" node="7ardNfhM3s5" resolve="tree" />
+                            </node>
                           </node>
-                          <node concept="34oBXx" id="6NKC_4ZsYaQ" role="2OqNvi" />
                         </node>
+                      </node>
+                      <node concept="3SKdUt" id="7Aj1SIwTcG9" role="3cqZAp">
+                        <node concept="1PaTwC" id="7Aj1SIwTcGa" role="1aUNEU">
+                          <node concept="3oM_SD" id="7Aj1SIwTcGc" role="1PaTwD">
+                            <property role="3oM_SC" value="prefetch" />
+                          </node>
+                          <node concept="3oM_SD" id="7Aj1SIwTdMf" role="1PaTwD">
+                            <property role="3oM_SC" value="model" />
+                          </node>
+                          <node concept="3oM_SD" id="7Aj1SIwTdMi" role="1PaTwD">
+                            <property role="3oM_SC" value="content" />
+                          </node>
+                        </node>
+                      </node>
+                      <node concept="3cpWs8" id="6NKC_4ZsAMq" role="3cqZAp">
+                        <node concept="3cpWsn" id="6NKC_4ZsAMr" role="3cpWs9">
+                          <property role="TrG5h" value="prefetched" />
+                          <node concept="A3Dl8" id="6NKC_4Zs$bP" role="1tU5fm">
+                            <node concept="3uibUv" id="6NKC_4Zs$bS" role="A3Ik2">
+                              <ref role="3uigEE" to="xkhl:~CLNode" resolve="CLNode" />
+                            </node>
+                          </node>
+                          <node concept="2OqwBi" id="6NKC_4ZsAMs" role="33vP2m">
+                            <node concept="1eOMI4" id="$b8RJV5Sos" role="2Oq$k0">
+                              <node concept="10QFUN" id="$b8RJV5Sor" role="1eOMHV">
+                                <node concept="37vLTw" id="$b8RJV5Soq" role="10QFUP">
+                                  <ref role="3cqZAo" node="7ardNfhM3s5" resolve="tree" />
+                                </node>
+                                <node concept="3uibUv" id="$b8RJV5SNF" role="10QFUM">
+                                  <ref role="3uigEE" to="xkhl:~CLTree" resolve="CLTree" />
+                                </node>
+                              </node>
+                            </node>
+                            <node concept="liA8E" id="6NKC_4ZsAMu" role="2OqNvi">
+                              <ref role="37wK5l" to="xkhl:~CLTree.getDescendants(long,boolean)" resolve="getDescendants" />
+                              <node concept="37vLTw" id="6NKC_4ZsAMv" role="37wK5m">
+                                <ref role="3cqZAo" node="29etMtb9$Vp" resolve="modelNodeId" />
+                              </node>
+                              <node concept="3clFbT" id="6NKC_4ZsAMw" role="37wK5m">
+                                <property role="3clFbU" value="true" />
+                              </node>
+                            </node>
+                          </node>
+                        </node>
+                      </node>
+                      <node concept="RRSsy" id="6NKC_4ZsTvG" role="3cqZAp">
+                        <node concept="3cpWs3" id="6NKC_4ZsZGF" role="RRSoy">
+                          <node concept="Xl_RD" id="6NKC_4ZsZSQ" role="3uHU7w">
+                            <property role="Xl_RC" value=" nodes" />
+                          </node>
+                          <node concept="3cpWs3" id="6NKC_4ZsVv1" role="3uHU7B">
+                            <node concept="Xl_RD" id="6NKC_4ZsTvI" role="3uHU7B">
+                              <property role="Xl_RC" value="Prefetched " />
+                            </node>
+                            <node concept="2OqwBi" id="6NKC_4ZsX_q" role="3uHU7w">
+                              <node concept="37vLTw" id="6NKC_4ZsWsV" role="2Oq$k0">
+                                <ref role="3cqZAo" node="6NKC_4ZsAMr" resolve="prefetched" />
+                              </node>
+                              <node concept="34oBXx" id="6NKC_4ZsYaQ" role="2OqNvi" />
+                            </node>
+                          </node>
+                        </node>
+                      </node>
+                    </node>
+                    <node concept="2ZW3vV" id="$b8RJV5NHw" role="3clFbw">
+                      <node concept="3uibUv" id="$b8RJV5O62" role="2ZW6by">
+                        <ref role="3uigEE" to="xkhl:~CLTree" resolve="CLTree" />
+                      </node>
+                      <node concept="37vLTw" id="$b8RJV5N4k" role="2ZW6bz">
+                        <ref role="3cqZAo" node="7ardNfhM3s5" resolve="tree" />
                       </node>
                     </node>
                   </node>
@@ -32983,29 +33037,51 @@
               <node concept="2ShNRf" id="29etMtb9_mM" role="YScLw">
                 <node concept="1pGfFk" id="29etMtb9_mN" role="2ShVmc">
                   <ref role="37wK5l" to="wyt6:~RuntimeException.&lt;init&gt;(java.lang.String)" resolve="RuntimeException" />
-                  <node concept="3cpWs3" id="7jRNnvCl2yh" role="37wK5m">
-                    <node concept="2OqwBi" id="7jRNnvCl3D5" role="3uHU7w">
-                      <node concept="37vLTw" id="7jRNnvCl3lV" role="2Oq$k0">
+                  <node concept="3cpWs3" id="7vVPLabvwWb" role="37wK5m">
+                    <node concept="2OqwBi" id="7vVPLabvy3I" role="3uHU7w">
+                      <node concept="37vLTw" id="7vVPLabvxEr" role="2Oq$k0">
                         <ref role="3cqZAo" node="29etMtb9_mw" resolve="tree" />
                       </node>
-                      <node concept="liA8E" id="7jRNnvCl4rV" role="2OqNvi">
-                        <ref role="37wK5l" to="jks5:~ITree.getRole(long)" resolve="getRole" />
-                        <node concept="37vLTw" id="7jRNnvCl4LB" role="37wK5m">
+                      <node concept="liA8E" id="7vVPLabvz8p" role="2OqNvi">
+                        <ref role="37wK5l" to="jks5:~ITree.getConcept(long)" resolve="getConcept" />
+                        <node concept="37vLTw" id="7vVPLabvzv7" role="37wK5m">
                           <ref role="3cqZAo" node="29etMtb9_mu" resolve="nodeId" />
                         </node>
                       </node>
                     </node>
-                    <node concept="3cpWs3" id="7jRNnvCl1Bl" role="3uHU7B">
-                      <node concept="3cpWs3" id="29etMtb9_mO" role="3uHU7B">
-                        <node concept="Xl_RD" id="29etMtb9_mQ" role="3uHU7B">
-                          <property role="Xl_RC" value="Node has no concept: " />
+                    <node concept="3cpWs3" id="7vVPLabvvib" role="3uHU7B">
+                      <node concept="3cpWs3" id="7jRNnvCl2yh" role="3uHU7B">
+                        <node concept="3cpWs3" id="7jRNnvCl1Bl" role="3uHU7B">
+                          <node concept="3cpWs3" id="29etMtb9_mO" role="3uHU7B">
+                            <node concept="Xl_RD" id="29etMtb9_mQ" role="3uHU7B">
+                              <property role="Xl_RC" value="Node has no concept: " />
+                            </node>
+                            <node concept="2YIFZM" id="7vVPLabvtbp" role="3uHU7w">
+                              <ref role="37wK5l" to="wyt6:~Long.toHexString(long)" resolve="toHexString" />
+                              <ref role="1Pybhd" to="wyt6:~Long" resolve="Long" />
+                              <node concept="37vLTw" id="7vVPLabvuco" role="37wK5m">
+                                <ref role="3cqZAo" node="29etMtb9_mu" resolve="nodeId" />
+                              </node>
+                            </node>
+                          </node>
+                          <node concept="Xl_RD" id="7jRNnvCl1IO" role="3uHU7w">
+                            <property role="Xl_RC" value=". Role: " />
+                          </node>
                         </node>
-                        <node concept="37vLTw" id="7jRNnvCkZZ4" role="3uHU7w">
-                          <ref role="3cqZAo" node="29etMtb9_mu" resolve="nodeId" />
+                        <node concept="2OqwBi" id="7jRNnvCl3D5" role="3uHU7w">
+                          <node concept="37vLTw" id="7jRNnvCl3lV" role="2Oq$k0">
+                            <ref role="3cqZAo" node="29etMtb9_mw" resolve="tree" />
+                          </node>
+                          <node concept="liA8E" id="7jRNnvCl4rV" role="2OqNvi">
+                            <ref role="37wK5l" to="jks5:~ITree.getRole(long)" resolve="getRole" />
+                            <node concept="37vLTw" id="7jRNnvCl4LB" role="37wK5m">
+                              <ref role="3cqZAo" node="29etMtb9_mu" resolve="nodeId" />
+                            </node>
+                          </node>
                         </node>
                       </node>
-                      <node concept="Xl_RD" id="7jRNnvCl1IO" role="3uHU7w">
-                        <property role="Xl_RC" value=". Role: " />
+                      <node concept="Xl_RD" id="7vVPLabvvvc" role="3uHU7w">
+                        <property role="Xl_RC" value=", Concept: " />
                       </node>
                     </node>
                   </node>
@@ -36458,6 +36534,34 @@
         </node>
       </node>
       <node concept="2tJIrI" id="29etMtb9_C$" role="jymVt" />
+      <node concept="3clFb_" id="2jj3qxtF6if" role="jymVt">
+        <property role="TrG5h" value="resolveConcept" />
+        <node concept="3Tm1VV" id="2jj3qxtF6ig" role="1B3o_S" />
+        <node concept="2AHcQZ" id="2jj3qxtF6ii" role="2AJF6D">
+          <ref role="2AI5Lk" to="mhfm:~Nullable" resolve="Nullable" />
+        </node>
+        <node concept="3uibUv" id="2jj3qxtF6ij" role="3clF45">
+          <ref role="3uigEE" to="jks5:~IConcept" resolve="IConcept" />
+        </node>
+        <node concept="37vLTG" id="2jj3qxtF6ik" role="3clF46">
+          <property role="TrG5h" value="reference" />
+          <node concept="3uibUv" id="2jj3qxtF6il" role="1tU5fm">
+            <ref role="3uigEE" to="jks5:~IConceptReference" resolve="IConceptReference" />
+          </node>
+          <node concept="2AHcQZ" id="2jj3qxtF6im" role="2AJF6D">
+            <ref role="2AI5Lk" to="mhfm:~NotNull" resolve="NotNull" />
+          </node>
+        </node>
+        <node concept="3clFbS" id="2jj3qxtF6ip" role="3clF47">
+          <node concept="3clFbF" id="2jj3qxtF6is" role="3cqZAp">
+            <node concept="10Nm6u" id="2jj3qxtF6ir" role="3clFbG" />
+          </node>
+        </node>
+        <node concept="2AHcQZ" id="2jj3qxtF6iq" role="2AJF6D">
+          <ref role="2AI5Lk" to="wyt6:~Override" resolve="Override" />
+        </node>
+      </node>
+      <node concept="2tJIrI" id="2jj3qxtFd5M" role="jymVt" />
       <node concept="3clFb_" id="7$7_4Zimr58" role="jymVt">
         <property role="TrG5h" value="getReference" />
         <node concept="3Tm1VV" id="7$7_4Zimr59" role="1B3o_S" />

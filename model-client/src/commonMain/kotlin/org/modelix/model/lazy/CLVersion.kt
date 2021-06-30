@@ -18,6 +18,7 @@ package org.modelix.model.lazy
 import org.modelix.model.api.INodeReference
 import org.modelix.model.api.LocalPNodeReference
 import org.modelix.model.api.PNodeReference
+import org.modelix.model.operations.AddNewChildOp
 import org.modelix.model.operations.IOperation
 import org.modelix.model.operations.SetReferenceOp
 import org.modelix.model.persistent.CPOperationsList
@@ -44,7 +45,7 @@ class CLVersion {
     ) {
         this.store = store
         this.treeHash = treeHash
-        val localizedOps = localizeNodeRefs(operations.asList()).toTypedArray()
+        val localizedOps = localizeOps(operations.asList()).toTypedArray()
         if (localizedOps.size <= 10) {
             data = CPVersion(
                 id = id,
@@ -126,7 +127,7 @@ class CLVersion {
                     ?: throw RuntimeException("Missing entry for key $operationsHash")
                 )
                 .operations
-            return globalizeNodeRefs((ops ?: arrayOf()).toList())
+            return globalizeOps((ops ?: arrayOf()).toList())
         }
 
     val numberOfOperations: Int
@@ -208,7 +209,7 @@ class CLVersion {
         }
     }
 
-    private fun globalizeNodeRefs(ops: List<IOperation>): List<IOperation> {
+    private fun globalizeOps(ops: List<IOperation>): List<IOperation> {
         return ops.map {
             when (it) {
                 is SetReferenceOp -> it.withTarget(globalizeNodeRef(it.target))
@@ -229,7 +230,7 @@ class CLVersion {
         return if (ref is PNodeReference && ref.branchId == tree.getId()) ref.toLocal() else ref
     }
 
-    private fun localizeNodeRefs(ops: List<IOperation>): List<IOperation> {
+    private fun localizeOps(ops: List<IOperation>): List<IOperation> {
         return ops.map {
             when (it) {
                 is SetReferenceOp -> it.withTarget(localizeNodeRef(it.target))

@@ -81,6 +81,10 @@ class MyArea(val knownResolutions: Map<INodeReference, INode>) : AbstractArea(),
         return this
     }
 
+    override fun resolveConcept(ref: IConceptReference): IConcept? {
+        return null
+    }
+
     override fun resolveOriginalNode(ref: INodeReference): INode? {
         return knownResolutions[ref]
     }

@@ -23,6 +23,10 @@ import org.modelix.model.persistent.SerializationUtil
 
 class AddNewChildOp(val position: PositionInRole, val childId: Long, val concept: IConcept?) : AbstractOperation() {
 
+    fun withConcept(newConcept: IConcept?): AddNewChildOp {
+        return if (concept == newConcept) this else AddNewChildOp(position, childId, newConcept)
+    }
+
     fun withPosition(newPos: PositionInRole): AddNewChildOp {
         return if (newPos == position) this else AddNewChildOp(newPos, childId, concept)
     }

@@ -9402,6 +9402,44 @@
       </node>
     </node>
     <node concept="2tJIrI" id="28I3pJBZVjU" role="jymVt" />
+    <node concept="3clFb_" id="2YQpkXLoCo4" role="jymVt">
+      <property role="TrG5h" value="resolveConcept" />
+      <node concept="3Tm1VV" id="2YQpkXLoCo5" role="1B3o_S" />
+      <node concept="2AHcQZ" id="2YQpkXLoCo7" role="2AJF6D">
+        <ref role="2AI5Lk" to="mhfm:~Nullable" resolve="Nullable" />
+      </node>
+      <node concept="3uibUv" id="2YQpkXLoCo8" role="3clF45">
+        <ref role="3uigEE" to="jks5:~IConcept" resolve="IConcept" />
+      </node>
+      <node concept="37vLTG" id="2YQpkXLoCo9" role="3clF46">
+        <property role="TrG5h" value="reference" />
+        <node concept="3uibUv" id="2YQpkXLoCoa" role="1tU5fm">
+          <ref role="3uigEE" to="jks5:~IConceptReference" resolve="IConceptReference" />
+        </node>
+        <node concept="2AHcQZ" id="2YQpkXLoCob" role="2AJF6D">
+          <ref role="2AI5Lk" to="mhfm:~NotNull" resolve="NotNull" />
+        </node>
+      </node>
+      <node concept="3clFbS" id="2YQpkXLoCoc" role="3clF47">
+        <node concept="3clFbF" id="2YQpkXLoLFD" role="3cqZAp">
+          <node concept="2OqwBi" id="2YQpkXLoMaR" role="3clFbG">
+            <node concept="37vLTw" id="2YQpkXLoLFA" role="2Oq$k0">
+              <ref role="3cqZAo" node="5mRomlpwuYC" resolve="wrappedArea" />
+            </node>
+            <node concept="liA8E" id="2YQpkXLoMEx" role="2OqNvi">
+              <ref role="37wK5l" to="qvpu:~IArea.resolveConcept(org.modelix.model.api.IConceptReference)" resolve="resolveConcept" />
+              <node concept="37vLTw" id="2YQpkXLoN5g" role="37wK5m">
+                <ref role="3cqZAo" node="2YQpkXLoCo9" resolve="reference" />
+              </node>
+            </node>
+          </node>
+        </node>
+      </node>
+      <node concept="2AHcQZ" id="2YQpkXLoCod" role="2AJF6D">
+        <ref role="2AI5Lk" to="wyt6:~Override" resolve="Override" />
+      </node>
+    </node>
+    <node concept="2tJIrI" id="2YQpkXLoGNE" role="jymVt" />
     <node concept="3clFb_" id="7$7_4Ziiz7V" role="jymVt">
       <property role="TrG5h" value="getReference" />
       <node concept="3Tm1VV" id="7$7_4Ziiz7W" role="1B3o_S" />

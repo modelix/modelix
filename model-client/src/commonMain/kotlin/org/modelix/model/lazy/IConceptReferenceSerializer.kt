@@ -17,6 +17,7 @@ package org.modelix.model.lazy
 
 import org.modelix.model.api.IConcept
 import org.modelix.model.metameta.MetaMetaLanguage
+import org.modelix.model.metameta.PersistedConceptSerializer
 
 interface IConceptReferenceSerializer {
 
@@ -24,10 +25,11 @@ interface IConceptReferenceSerializer {
     fun deserialize(serialized: String): IConcept?
 
     companion object {
-        private val serializers: MutableSet<IConceptReferenceSerializer> = HashSet()
+        private val serializers: MutableSet<IConceptReferenceSerializer> = LinkedHashSet()
 
         init {
             register(BootstrapConceptSerializer(listOf(MetaMetaLanguage.language_metameta)))
+            register(PersistedConceptSerializer())
         }
 
         fun register(serializer: IConceptReferenceSerializer) {
@@ -44,10 +46,18 @@ interface IConceptReferenceSerializer {
                 ?: throw RuntimeException("No serializer found for ${concept::class}")
         }
 
+        fun deserializeAll(serialized: String?): List<IConcept> {
+            if (serialized == null) return listOf()
+            return serializers.mapNotNull { it.deserialize(serialized) }
+        }
+
         fun deserialize(serialized: String?): IConcept? {
             if (serialized == null) return null
-            return serializers.map { it.deserialize(serialized) }.firstOrNull { it != null }
-                ?: throw RuntimeException("No deserializer found for: $serialized")
+            for (s in serializers) {
+                val deserialized = s.deserialize(serialized)
+                if (deserialized != null) return deserialized
+            }
+            throw RuntimeException("No deserializer found for: $serialized")
         }
     }
 }
