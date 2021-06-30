@@ -3661,6 +3661,78 @@
           </node>
         </node>
       </node>
+      <node concept="1E1JtD" id="2Oai67vI4eg" role="2G$12L">
+        <property role="BnDLt" value="true" />
+        <property role="TrG5h" value="org.modelix.model.metametamodel" />
+        <property role="3LESm3" value="bffdf123-0d7b-471b-a52b-fa3d3a024664" />
+        <node concept="398BVA" id="2Oai67vI4Bw" role="3LF7KH">
+          <ref role="398BVh" node="3$7Kuaihl5X" resolve="modelix.modules" />
+          <node concept="2Ry0Ak" id="2Oai67vI5fG" role="iGT6I">
+            <property role="2Ry0Am" value="org.modelix.model.metametamodel" />
+            <node concept="2Ry0Ak" id="2Oai67vI5RR" role="2Ry0An">
+              <property role="2Ry0Am" value="org.modelix.model.metametamodel.mpl" />
+            </node>
+          </node>
+        </node>
+        <node concept="1BupzO" id="2Oai67vI6ts" role="3bR31x">
+          <property role="3ZfqAx" value="models" />
+          <property role="1Hdu6h" value="true" />
+          <property role="1HemKv" value="true" />
+          <node concept="3LXTmp" id="2Oai67vI6tt" role="1HemKq">
+            <node concept="398BVA" id="2Oai67vI6tl" role="3LXTmr">
+              <ref role="398BVh" node="3$7Kuaihl5X" resolve="modelix.modules" />
+              <node concept="2Ry0Ak" id="2Oai67vI6tm" role="iGT6I">
+                <property role="2Ry0Am" value="org.modelix.model.metametamodel" />
+                <node concept="2Ry0Ak" id="2Oai67vI6tn" role="2Ry0An">
+                  <property role="2Ry0Am" value="models" />
+                </node>
+              </node>
+            </node>
+            <node concept="3qWCbU" id="2Oai67vI6tu" role="3LXTna">
+              <property role="3qWCbO" value="**/*.mps, **/*.mpsr, **/.model" />
+            </node>
+          </node>
+        </node>
+        <node concept="1yeLz9" id="2Oai67vI6tv" role="1TViLv">
+          <property role="TrG5h" value="org.modelix.model.metametamodel.generator" />
+          <property role="3LESm3" value="676dd2a5-fa16-458f-b1c8-58257f6dbcb3" />
+          <node concept="1BupzO" id="2Oai67vI6tD" role="3bR31x">
+            <property role="3ZfqAx" value="generator/templates" />
+            <property role="1Hdu6h" value="true" />
+            <property role="1HemKv" value="true" />
+            <node concept="3LXTmp" id="2Oai67vI6tE" role="1HemKq">
+              <node concept="398BVA" id="2Oai67vI6tw" role="3LXTmr">
+                <ref role="398BVh" node="3$7Kuaihl5X" resolve="modelix.modules" />
+                <node concept="2Ry0Ak" id="2Oai67vI6tx" role="iGT6I">
+                  <property role="2Ry0Am" value="org.modelix.model.metametamodel" />
+                  <node concept="2Ry0Ak" id="2Oai67vI6ty" role="2Ry0An">
+                    <property role="2Ry0Am" value="generator" />
+                    <node concept="2Ry0Ak" id="2Oai67vI6tz" role="2Ry0An">
+                      <property role="2Ry0Am" value="templates" />
+                    </node>
+                  </node>
+                </node>
+              </node>
+              <node concept="3qWCbU" id="2Oai67vI6tF" role="3LXTna">
+                <property role="3qWCbO" value="**/*.mps, **/*.mpsr, **/.model" />
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="3rtmxn" id="2Oai67vI7_s" role="3bR31x">
+          <node concept="3LXTmp" id="2Oai67vI7_t" role="3rtmxm">
+            <node concept="398BVA" id="2Oai67vI7_u" role="3LXTmr">
+              <ref role="398BVh" node="3$7Kuaihl5X" resolve="modelix.modules" />
+              <node concept="2Ry0Ak" id="2Oai67vI7_v" role="iGT6I">
+                <property role="2Ry0Am" value="org.modelix.model.metametamodel" />
+              </node>
+            </node>
+            <node concept="3qWCbU" id="2Oai67vI7_x" role="3LXTna">
+              <property role="3qWCbO" value="icons/**, resources/**" />
+            </node>
+          </node>
+        </node>
+      </node>
       <node concept="1E1JtA" id="7Hbm57D_FL9" role="2G$12L">
         <property role="BnDLt" value="true" />
         <property role="TrG5h" value="org.modelix.model.client" />
@@ -4445,6 +4517,11 @@
             <ref role="3bR37D" to="90a9:6fQhGuklPrV" resolve="de.q60.mps.incremental.runtime" />
           </node>
         </node>
+        <node concept="1SiIV0" id="2Oai67vI7fz" role="3bR37C">
+          <node concept="3bR9La" id="2Oai67vI7f$" role="1SiIV1">
+            <ref role="3bR37D" node="2Oai67vI4eg" resolve="org.modelix.model.metametamodel" />
+          </node>
+        </node>
       </node>
     </node>
     <node concept="2G$12M" id="6HlxtAUSD7b" role="3989C9">
@@ -4967,14 +5044,14 @@
         <node concept="3LEDTy" id="7BujJjYSJ9v" role="3LEDUa">
           <ref role="3LEDTV" node="7gF2HTviNPn" resolve="org.modelix.ui.sm" />
         </node>
-        <node concept="3LEDTy" id="1ipiwLNqvYS" role="3LEDUa">
-          <ref role="3LEDTV" to="ffeo:7Kfy9QB6KXW" resolve="jetbrains.mps.lang.core" />
-        </node>
-        <node concept="3LEDTy" id="1ipiwLNqvYT" role="3LEDUa">
+        <node concept="3LEDTy" id="2Oai67vI7gj" role="3LEDUa">
           <ref role="3LEDTV" to="ffeo:7Kfy9QB6L9c" resolve="jetbrains.mps.lang.quotation" />
         </node>
-        <node concept="3LEDTy" id="1ipiwLNqvYU" role="3LEDUa">
+        <node concept="3LEDTy" id="2Oai67vI7gk" role="3LEDUa">
           <ref role="3LEDTV" to="ffeo:7Kfy9QB6KZc" resolve="jetbrains.mps.baseLanguage.checkedDots" />
+        </node>
+        <node concept="3LEDTy" id="2Oai67vI7gl" role="3LEDUa">
+          <ref role="3LEDTV" to="ffeo:7Kfy9QB6KXW" resolve="jetbrains.mps.lang.core" />
         </node>
       </node>
       <node concept="1E1JtD" id="7BujJjXYVmv" role="2G$12L">
