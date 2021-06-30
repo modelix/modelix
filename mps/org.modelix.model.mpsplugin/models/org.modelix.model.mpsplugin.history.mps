@@ -14,7 +14,7 @@
     <import index="c8ee" ref="6354ebe7-c22a-4a0f-ac54-50b52ab9b065/java:javax.swing.table(JDK/)" />
     <import index="z60i" ref="6354ebe7-c22a-4a0f-ac54-50b52ab9b065/java:java.awt(JDK/)" />
     <import index="33ny" ref="6354ebe7-c22a-4a0f-ac54-50b52ab9b065/java:java.util(JDK/)" />
-    <import index="csg2" ref="r:b0cc4f86-cf49-4ffc-b138-1f9973329ce1(de.q60.mps.web.model.mpsplugin)" />
+    <import index="csg2" ref="r:b0cc4f86-cf49-4ffc-b138-1f9973329ce1(org.modelix.model.mpsplugin)" />
     <import index="hyam" ref="6354ebe7-c22a-4a0f-ac54-50b52ab9b065/java:java.awt.event(JDK/)" />
     <import index="7e8u" ref="742f6602-5a2f-4313-aa6e-ae1cd4ffdc61/java:jetbrains.mps.ide.ui.tree(MPS.Platform/)" />
     <import index="wyt6" ref="6354ebe7-c22a-4a0f-ac54-50b52ab9b065/java:java.lang(JDK/)" />
@@ -35,7 +35,7 @@
     <import index="xkhl" ref="0a2651ab-f212-45c2-a2f0-343e76cbc26b/java:org.modelix.model.lazy(org.modelix.model.client/)" />
     <import index="5440" ref="0a2651ab-f212-45c2-a2f0-343e76cbc26b/java:org.modelix.model.client(org.modelix.model.client/)" />
     <import index="yai9" ref="0a2651ab-f212-45c2-a2f0-343e76cbc26b/java:org.modelix.model.operations(org.modelix.model.client/)" />
-    <import index="xxte" ref="r:a79f28f8-6055-40c6-bc5e-47a42a3b97e8(org.modelix.model.mps)" />
+    <import index="xxte" ref="r:a79f28f8-6055-40c6-bc5e-47a42a3b97e8(org.modelix.model.mpsadapters.mps)" />
     <import index="hvt5" ref="0a2651ab-f212-45c2-a2f0-343e76cbc26b/java:org.modelix.model(org.modelix.model.client/)" />
     <import index="v18h" ref="cc99dce1-49f3-4392-8dbf-e22ca47bd0af/java:kotlin(org.modelix.model.api/)" />
     <import index="jks5" ref="cc99dce1-49f3-4392-8dbf-e22ca47bd0af/java:org.modelix.model.api(org.modelix.model.api/)" />
@@ -3526,6 +3526,68 @@
                         </node>
                       </node>
                       <node concept="2AHcQZ" id="49CIzaqjIeC" role="2AJF6D">
+                        <ref role="2AI5Lk" to="wyt6:~Override" resolve="Override" />
+                      </node>
+                    </node>
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="3clFbF" id="2zfU5FnQ_Qo" role="3cqZAp">
+          <node concept="2OqwBi" id="2zfU5FnQAE_" role="3clFbG">
+            <node concept="37vLTw" id="2zfU5FnQ_Qm" role="2Oq$k0">
+              <ref role="3cqZAo" node="6aRQr1WUXny" resolve="cloudRepository" />
+            </node>
+            <node concept="liA8E" id="2zfU5FnQBfX" role="2OqNvi">
+              <ref role="37wK5l" to="csg2:1JFLVobh32Z" resolve="addListener" />
+              <node concept="2ShNRf" id="2zfU5FnQB$o" role="37wK5m">
+                <node concept="YeOm9" id="2zfU5FnQGdc" role="2ShVmc">
+                  <node concept="1Y3b0j" id="2zfU5FnQGdf" role="YeSDq">
+                    <property role="2bfB8j" value="true" />
+                    <ref role="37wK5l" to="wyt6:~Object.&lt;init&gt;()" resolve="Object" />
+                    <ref role="1Y3XeK" to="csg2:1JFLVobh0lR" resolve="CloudRepository.IListener" />
+                    <node concept="3Tm1VV" id="2zfU5FnQGdg" role="1B3o_S" />
+                    <node concept="3clFb_" id="2zfU5FnQKu9" role="jymVt">
+                      <property role="TrG5h" value="bindingAdded" />
+                      <node concept="3Tm1VV" id="2zfU5FnQKub" role="1B3o_S" />
+                      <node concept="3cqZAl" id="2zfU5FnQKuc" role="3clF45" />
+                      <node concept="37vLTG" id="2zfU5FnQKud" role="3clF46">
+                        <property role="TrG5h" value="binding" />
+                        <node concept="3uibUv" id="2zfU5FnQKue" role="1tU5fm">
+                          <ref role="3uigEE" to="csg2:2FX9uaKMyso" resolve="Binding" />
+                        </node>
+                      </node>
+                      <node concept="3clFbS" id="2zfU5FnQKuh" role="3clF47">
+                        <node concept="3clFbF" id="2zfU5FnQUeZ" role="3cqZAp">
+                          <node concept="1rXfSq" id="2zfU5FnQUeY" role="3clFbG">
+                            <ref role="37wK5l" node="2n9Wvfbjw$u" resolve="updateBindings" />
+                          </node>
+                        </node>
+                      </node>
+                      <node concept="2AHcQZ" id="2zfU5FnQKui" role="2AJF6D">
+                        <ref role="2AI5Lk" to="wyt6:~Override" resolve="Override" />
+                      </node>
+                    </node>
+                    <node concept="3clFb_" id="2zfU5FnQKuo" role="jymVt">
+                      <property role="TrG5h" value="bindingRemoved" />
+                      <node concept="3Tm1VV" id="2zfU5FnQKuq" role="1B3o_S" />
+                      <node concept="3cqZAl" id="2zfU5FnQKur" role="3clF45" />
+                      <node concept="37vLTG" id="2zfU5FnQKus" role="3clF46">
+                        <property role="TrG5h" value="binding" />
+                        <node concept="3uibUv" id="2zfU5FnQKut" role="1tU5fm">
+                          <ref role="3uigEE" to="csg2:2FX9uaKMyso" resolve="Binding" />
+                        </node>
+                      </node>
+                      <node concept="3clFbS" id="2zfU5FnQKuw" role="3clF47">
+                        <node concept="3clFbF" id="2zfU5FnQUlx" role="3cqZAp">
+                          <node concept="1rXfSq" id="2zfU5FnQUly" role="3clFbG">
+                            <ref role="37wK5l" node="2n9Wvfbjw$u" resolve="updateBindings" />
+                          </node>
+                        </node>
+                      </node>
+                      <node concept="2AHcQZ" id="2zfU5FnQKux" role="2AJF6D">
                         <ref role="2AI5Lk" to="wyt6:~Override" resolve="Override" />
                       </node>
                     </node>
