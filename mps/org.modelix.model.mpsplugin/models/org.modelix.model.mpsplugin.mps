@@ -8267,6 +8267,57 @@
         </node>
       </node>
     </node>
+    <node concept="2tJIrI" id="$SKJo8sCih" role="jymVt" />
+    <node concept="3clFb_" id="$SKJo8slJO" role="jymVt">
+      <property role="TrG5h" value="removeModuleBinding" />
+      <node concept="37vLTG" id="$SKJo8slJP" role="3clF46">
+        <property role="TrG5h" value="binding" />
+        <node concept="3uibUv" id="$SKJo8slJQ" role="1tU5fm">
+          <ref role="3uigEE" node="49CIzaqqe7c" resolve="ModuleBinding" />
+        </node>
+      </node>
+      <node concept="3cqZAl" id="$SKJo8slJR" role="3clF45" />
+      <node concept="3Tm1VV" id="$SKJo8slJS" role="1B3o_S" />
+      <node concept="3clFbS" id="$SKJo8slJT" role="3clF47">
+        <node concept="3clFbF" id="$SKJo8slJU" role="3cqZAp">
+          <node concept="2OqwBi" id="$SKJo8slJV" role="3clFbG">
+            <node concept="37vLTw" id="$SKJo8slJW" role="2Oq$k0">
+              <ref role="3cqZAo" node="EMWAvBfzsh" resolve="moduleBindings" />
+            </node>
+            <node concept="3dhRuq" id="$SKJo8sAv9" role="2OqNvi">
+              <node concept="37vLTw" id="$SKJo8sAvb" role="25WWJ7">
+                <ref role="3cqZAo" node="$SKJo8slJP" resolve="binding" />
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="3clFbF" id="$SKJo8slJZ" role="3cqZAp">
+          <node concept="2OqwBi" id="$SKJo8slK0" role="3clFbG">
+            <node concept="10M0yZ" id="$SKJo8slK1" role="2Oq$k0">
+              <ref role="3cqZAo" node="Onv88ZOFFp" resolve="FIXED" />
+              <ref role="1PxDUh" node="Onv88ZNSEL" resolve="SharedExecutors" />
+            </node>
+            <node concept="liA8E" id="$SKJo8slK2" role="2OqNvi">
+              <ref role="37wK5l" to="5zyv:~Executor.execute(java.lang.Runnable)" resolve="execute" />
+              <node concept="1bVj0M" id="$SKJo8slK3" role="37wK5m">
+                <node concept="3clFbS" id="$SKJo8slK4" role="1bW5cS">
+                  <node concept="3clFbF" id="$SKJo8slK5" role="3cqZAp">
+                    <node concept="2OqwBi" id="$SKJo8slK6" role="3clFbG">
+                      <node concept="37vLTw" id="$SKJo8slK7" role="2Oq$k0">
+                        <ref role="3cqZAo" node="$SKJo8slJP" resolve="binding" />
+                      </node>
+                      <node concept="liA8E" id="$SKJo8slK8" role="2OqNvi">
+                        <ref role="37wK5l" node="2FX9uaKMyuC" resolve="deactivate" />
+                      </node>
+                    </node>
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+      </node>
+    </node>
     <node concept="2tJIrI" id="5D5xac1qphd" role="jymVt" />
     <node concept="3clFb_" id="5D5xac1qIoP" role="jymVt">
       <property role="TrG5h" value="hasModuleBinding" />
@@ -8328,6 +8379,77 @@
                 </node>
               </node>
             </node>
+          </node>
+        </node>
+      </node>
+    </node>
+    <node concept="3clFb_" id="$SKJo8u6fX" role="jymVt">
+      <property role="TrG5h" value="getModuleBinding" />
+      <node concept="37vLTG" id="$SKJo8u6fY" role="3clF46">
+        <property role="TrG5h" value="treeId" />
+        <node concept="3uibUv" id="$SKJo8u6fZ" role="1tU5fm">
+          <ref role="3uigEE" to="xkhl:~TreeId" resolve="TreeId" />
+        </node>
+      </node>
+      <node concept="37vLTG" id="$SKJo8u6g0" role="3clF46">
+        <property role="TrG5h" value="moduleNodeId" />
+        <node concept="3cpWsb" id="$SKJo8u6g1" role="1tU5fm" />
+      </node>
+      <node concept="_YKpA" id="$SKJo8uiZ3" role="3clF45">
+        <node concept="3uibUv" id="$SKJo8unBK" role="_ZDj9">
+          <ref role="3uigEE" node="49CIzaqqe7c" resolve="ModuleBinding" />
+        </node>
+      </node>
+      <node concept="3Tm1VV" id="$SKJo8u6g3" role="1B3o_S" />
+      <node concept="3clFbS" id="$SKJo8u6g4" role="3clF47">
+        <node concept="3cpWs6" id="$SKJo8uojc" role="3cqZAp">
+          <node concept="2OqwBi" id="$SKJo8uhwe" role="3cqZAk">
+            <node concept="2OqwBi" id="$SKJo8u6g6" role="2Oq$k0">
+              <node concept="37vLTw" id="$SKJo8u6g7" role="2Oq$k0">
+                <ref role="3cqZAo" node="EMWAvBfzsh" resolve="moduleBindings" />
+              </node>
+              <node concept="3zZkjj" id="$SKJo8uh4u" role="2OqNvi">
+                <node concept="1bVj0M" id="$SKJo8uh4w" role="23t8la">
+                  <node concept="3clFbS" id="$SKJo8uh4x" role="1bW5cS">
+                    <node concept="3clFbF" id="$SKJo8uh4y" role="3cqZAp">
+                      <node concept="1Wc70l" id="$SKJo8uh4z" role="3clFbG">
+                        <node concept="17R0WA" id="$SKJo8uh4$" role="3uHU7w">
+                          <node concept="37vLTw" id="$SKJo8uh4_" role="3uHU7w">
+                            <ref role="3cqZAo" node="$SKJo8u6g0" resolve="moduleNodeId" />
+                          </node>
+                          <node concept="2OqwBi" id="$SKJo8uh4A" role="3uHU7B">
+                            <node concept="37vLTw" id="$SKJo8uh4B" role="2Oq$k0">
+                              <ref role="3cqZAo" node="$SKJo8uh4I" resolve="it" />
+                            </node>
+                            <node concept="liA8E" id="$SKJo8uh4C" role="2OqNvi">
+                              <ref role="37wK5l" node="5D5xac1qR_e" resolve="getNodeId" />
+                            </node>
+                          </node>
+                        </node>
+                        <node concept="17R0WA" id="$SKJo8uh4D" role="3uHU7B">
+                          <node concept="2OqwBi" id="$SKJo8uh4E" role="3uHU7B">
+                            <node concept="37vLTw" id="$SKJo8uh4F" role="2Oq$k0">
+                              <ref role="3cqZAo" node="$SKJo8uh4I" resolve="it" />
+                            </node>
+                            <node concept="liA8E" id="$SKJo8uh4G" role="2OqNvi">
+                              <ref role="37wK5l" node="5D5xac1qR_m" resolve="getTreeId" />
+                            </node>
+                          </node>
+                          <node concept="37vLTw" id="$SKJo8uh4H" role="3uHU7w">
+                            <ref role="3cqZAo" node="$SKJo8u6fY" resolve="treeId" />
+                          </node>
+                        </node>
+                      </node>
+                    </node>
+                  </node>
+                  <node concept="Rh6nW" id="$SKJo8uh4I" role="1bW2Oz">
+                    <property role="TrG5h" value="it" />
+                    <node concept="2jxLKc" id="$SKJo8uh4J" role="1tU5fm" />
+                  </node>
+                </node>
+              </node>
+            </node>
+            <node concept="ANE8D" id="$SKJo8ui$g" role="2OqNvi" />
           </node>
         </node>
       </node>
@@ -22733,7 +22855,149 @@
         </node>
       </node>
     </node>
-    <node concept="2tJIrI" id="P$XCSQN$tA" role="jymVt" />
+    <node concept="2tJIrI" id="$SKJo8scGQ" role="jymVt" />
+    <node concept="3clFb_" id="$SKJo8sdF3" role="jymVt">
+      <property role="TrG5h" value="removeTransientModuleBinding" />
+      <node concept="3clFbS" id="$SKJo8sdF4" role="3clF47">
+        <node concept="3cpWs8" id="$SKJo8sdF5" role="3cqZAp">
+          <node concept="3cpWsn" id="$SKJo8sdF6" role="3cpWs9">
+            <property role="TrG5h" value="nodeTreeNode" />
+            <node concept="3uibUv" id="$SKJo8sdF7" role="1tU5fm">
+              <ref role="3uigEE" to="um17:49CIzapIBwH" resolve="CloudNodeTreeNode" />
+            </node>
+            <node concept="10QFUN" id="$SKJo8sdF8" role="33vP2m">
+              <node concept="37vLTw" id="$SKJo8sdF9" role="10QFUP">
+                <ref role="3cqZAo" node="$SKJo8sdG2" resolve="treeNode" />
+              </node>
+              <node concept="3uibUv" id="$SKJo8sdFa" role="10QFUM">
+                <ref role="3uigEE" to="um17:49CIzapIBwH" resolve="CloudNodeTreeNode" />
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="3cpWs8" id="$SKJo8tRfE" role="3cqZAp">
+          <node concept="3cpWsn" id="$SKJo8tRfF" role="3cpWs9">
+            <property role="TrG5h" value="treeId" />
+            <node concept="3uibUv" id="$SKJo8tRfG" role="1tU5fm">
+              <ref role="3uigEE" to="xkhl:~TreeId" resolve="TreeId" />
+            </node>
+            <node concept="2OqwBi" id="$SKJo8tRfH" role="33vP2m">
+              <node concept="2OqwBi" id="$SKJo8tRfI" role="2Oq$k0">
+                <node concept="37vLTw" id="$SKJo8tRfJ" role="2Oq$k0">
+                  <ref role="3cqZAo" node="$SKJo8sdF6" resolve="nodeTreeNode" />
+                </node>
+                <node concept="liA8E" id="$SKJo8tRfK" role="2OqNvi">
+                  <ref role="37wK5l" to="7e8u:~MPSTreeNode.getAncestor(java.lang.Class)" resolve="getAncestor" />
+                  <node concept="3VsKOn" id="$SKJo8tRfL" role="37wK5m">
+                    <ref role="3VsUkX" to="um17:6aRQr1WUXn6" resolve="CloudTreeTreeNode" />
+                  </node>
+                </node>
+              </node>
+              <node concept="liA8E" id="$SKJo8tRfM" role="2OqNvi">
+                <ref role="37wK5l" to="um17:EMWAvBgmbf" resolve="getTreeId" />
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="3cpWs8" id="$SKJo8sdFb" role="3cqZAp">
+          <node concept="3cpWsn" id="$SKJo8sdFc" role="3cpWs9">
+            <property role="TrG5h" value="cloudRepository" />
+            <node concept="3uibUv" id="$SKJo8sdFd" role="1tU5fm">
+              <ref role="3uigEE" node="6aRQr1WOV$v" resolve="CloudRepository" />
+            </node>
+            <node concept="2OqwBi" id="$SKJo8sdFe" role="33vP2m">
+              <node concept="2OqwBi" id="$SKJo8sdFf" role="2Oq$k0">
+                <node concept="37vLTw" id="$SKJo8sdFg" role="2Oq$k0">
+                  <ref role="3cqZAo" node="$SKJo8sdF6" resolve="nodeTreeNode" />
+                </node>
+                <node concept="liA8E" id="$SKJo8sdFh" role="2OqNvi">
+                  <ref role="37wK5l" to="7e8u:~MPSTreeNode.getAncestor(java.lang.Class)" resolve="getAncestor" />
+                  <node concept="3VsKOn" id="$SKJo8sdFi" role="37wK5m">
+                    <ref role="3VsUkX" to="um17:6aRQr1WTCgk" resolve="CloudRepositoryTreeNode" />
+                  </node>
+                </node>
+              </node>
+              <node concept="liA8E" id="$SKJo8sdFj" role="2OqNvi">
+                <ref role="37wK5l" to="um17:6aRQr1Xc29I" resolve="getCloudRepository" />
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="3clFbF" id="$SKJo8sdFF" role="3cqZAp">
+          <node concept="2OqwBi" id="$SKJo8sdFG" role="3clFbG">
+            <node concept="37vLTw" id="$SKJo8sdFH" role="2Oq$k0">
+              <ref role="3cqZAo" node="$SKJo8sdFc" resolve="cloudRepository" />
+            </node>
+            <node concept="liA8E" id="$SKJo8sdFI" role="2OqNvi">
+              <ref role="37wK5l" node="$SKJo8slJO" resolve="removeModuleBinding" />
+              <node concept="37vLTw" id="$SKJo8sLCx" role="37wK5m">
+                <ref role="3cqZAo" node="$SKJo8sHDp" resolve="transientModuleBinding" />
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="3cpWs8" id="$SKJo8sdFK" role="3cqZAp">
+          <node concept="3cpWsn" id="$SKJo8sdFL" role="3cpWs9">
+            <property role="TrG5h" value="treeInRepository" />
+            <node concept="3uibUv" id="$SKJo8sdFM" role="1tU5fm">
+              <ref role="3uigEE" node="3i6diw3mm_Q" resolve="TreeInRepository" />
+            </node>
+            <node concept="2ShNRf" id="$SKJo8sdFN" role="33vP2m">
+              <node concept="1pGfFk" id="$SKJo8sdFO" role="2ShVmc">
+                <ref role="37wK5l" node="3i6diw3mtOf" resolve="TreeInRepository" />
+                <node concept="37vLTw" id="$SKJo8sdFP" role="37wK5m">
+                  <ref role="3cqZAo" node="$SKJo8sdFc" resolve="cloudRepository" />
+                </node>
+                <node concept="37vLTw" id="$SKJo8tS2N" role="37wK5m">
+                  <ref role="3cqZAo" node="$SKJo8tRfF" resolve="treeId" />
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="3clFbF" id="$SKJo8sdFR" role="3cqZAp">
+          <node concept="2OqwBi" id="$SKJo8sdFS" role="3clFbG">
+            <node concept="2YIFZM" id="$SKJo8sdFT" role="2Oq$k0">
+              <ref role="37wK5l" to="nhvc:1xehy3Sovth" resolve="getInstance" />
+              <ref role="1Pybhd" to="nhvc:7f6Tb6nxCKP" resolve="PersistedBindingConfiguration" />
+              <node concept="37vLTw" id="$SKJo8sdFU" role="37wK5m">
+                <ref role="3cqZAo" node="$SKJo8sdG4" resolve="mpsProject" />
+              </node>
+            </node>
+            <node concept="liA8E" id="$SKJo8sdFV" role="2OqNvi">
+              <ref role="37wK5l" to="nhvc:$SKJo8sUz4" resolve="removeTransientBoundModule" />
+              <node concept="37vLTw" id="$SKJo8sdFW" role="37wK5m">
+                <ref role="3cqZAo" node="$SKJo8sdFL" resolve="treeInRepository" />
+              </node>
+              <node concept="37vLTw" id="$SKJo8sdFX" role="37wK5m">
+                <ref role="3cqZAo" node="$SKJo8sdF6" resolve="nodeTreeNode" />
+              </node>
+            </node>
+          </node>
+        </node>
+      </node>
+      <node concept="3Tm1VV" id="$SKJo8sdG0" role="1B3o_S" />
+      <node concept="3cqZAl" id="$SKJo8sLNl" role="3clF45" />
+      <node concept="37vLTG" id="$SKJo8sdG2" role="3clF46">
+        <property role="TrG5h" value="treeNode" />
+        <node concept="3uibUv" id="$SKJo8sdG3" role="1tU5fm">
+          <ref role="3uigEE" to="rgfa:~TreeNode" resolve="TreeNode" />
+        </node>
+      </node>
+      <node concept="37vLTG" id="$SKJo8sdG4" role="3clF46">
+        <property role="TrG5h" value="mpsProject" />
+        <node concept="3uibUv" id="$SKJo8sdG5" role="1tU5fm">
+          <ref role="3uigEE" to="4nm9:~Project" resolve="Project" />
+        </node>
+      </node>
+      <node concept="37vLTG" id="$SKJo8sHDp" role="3clF46">
+        <property role="TrG5h" value="transientModuleBinding" />
+        <node concept="3uibUv" id="$SKJo8sInk" role="1tU5fm">
+          <ref role="3uigEE" node="49CIzaqqe6y" resolve="TransientModuleBinding" />
+        </node>
+      </node>
+    </node>
+    <node concept="2tJIrI" id="$SKJo8scTS" role="jymVt" />
     <node concept="3clFb_" id="P$XCSQNC_Y" role="jymVt">
       <property role="TrG5h" value="bindCloudProjectToMpsProject" />
       <node concept="37vLTG" id="P$XCSQNFO5" role="3clF46">
