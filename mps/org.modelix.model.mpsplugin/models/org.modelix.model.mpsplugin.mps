@@ -4679,6 +4679,38 @@
               </node>
             </node>
           </node>
+          <node concept="3eNFk2" id="54Ejw4NsEya" role="3eNLev">
+            <node concept="2ZW3vV" id="54Ejw4NsFHD" role="3eO9$A">
+              <node concept="3uibUv" id="54Ejw4NsGAN" role="2ZW6by">
+                <ref role="3uigEE" to="kxov:~MetaModelBranch$MMTree" resolve="MetaModelBranch.MMTree" />
+              </node>
+              <node concept="37vLTw" id="54Ejw4NsEKP" role="2ZW6bz">
+                <ref role="3cqZAo" node="FBnEnNJqzd" resolve="tree" />
+              </node>
+            </node>
+            <node concept="3clFbS" id="54Ejw4NsEyc" role="3eOfB_">
+              <node concept="3clFbF" id="54Ejw4NsH9V" role="3cqZAp">
+                <node concept="1rXfSq" id="54Ejw4NsH9U" role="3clFbG">
+                  <ref role="37wK5l" node="FBnEnNIZgD" resolve="prefetchTree" />
+                  <node concept="2OqwBi" id="54Ejw4NsJ4B" role="37wK5m">
+                    <node concept="1eOMI4" id="54Ejw4NsIgz" role="2Oq$k0">
+                      <node concept="10QFUN" id="54Ejw4NsIgw" role="1eOMHV">
+                        <node concept="3uibUv" id="54Ejw4NsIg_" role="10QFUM">
+                          <ref role="3uigEE" to="kxov:~MetaModelBranch$MMTree" resolve="MetaModelBranch.MMTree" />
+                        </node>
+                        <node concept="37vLTw" id="54Ejw4NsIgA" role="10QFUP">
+                          <ref role="3cqZAo" node="FBnEnNJqzd" resolve="tree" />
+                        </node>
+                      </node>
+                    </node>
+                    <node concept="liA8E" id="54Ejw4NsJVT" role="2OqNvi">
+                      <ref role="37wK5l" to="kxov:~MetaModelBranch$MMTree.getTree()" resolve="getTree" />
+                    </node>
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
         </node>
       </node>
     </node>
@@ -4986,26 +5018,55 @@
                   <node concept="3cpWs8" id="4B5rYo_khDA" role="3cqZAp">
                     <node concept="3cpWsn" id="4B5rYo_khDB" role="3cpWs9">
                       <property role="TrG5h" value="tree" />
-                      <node concept="3uibUv" id="4B5rYo_khDC" role="1tU5fm">
-                        <ref role="3uigEE" to="xkhl:~CLTree" resolve="CLTree" />
+                      <node concept="3uibUv" id="54Ejw4NsngW" role="1tU5fm">
+                        <ref role="3uigEE" to="jks5:~ITree" resolve="ITree" />
                       </node>
-                      <node concept="10QFUN" id="4B5rYo_khDD" role="33vP2m">
-                        <node concept="3uibUv" id="4B5rYo_khDP" role="10QFUM">
-                          <ref role="3uigEE" to="xkhl:~CLTree" resolve="CLTree" />
-                        </node>
-                        <node concept="2OqwBi" id="4B5rYo_khDK" role="10QFUP">
-                          <node concept="2OqwBi" id="4B5rYo_khDL" role="2Oq$k0">
-                            <node concept="37vLTw" id="4B5rYo_khDM" role="2Oq$k0">
-                              <ref role="3cqZAo" node="4B5rYo_k5PP" resolve="branch" />
-                            </node>
-                            <node concept="liA8E" id="4B5rYo_khDN" role="2OqNvi">
-                              <ref role="37wK5l" to="jks5:~IBranch.getTransaction()" resolve="getTransaction" />
-                            </node>
+                      <node concept="2OqwBi" id="4B5rYo_khDK" role="33vP2m">
+                        <node concept="2OqwBi" id="4B5rYo_khDL" role="2Oq$k0">
+                          <node concept="37vLTw" id="4B5rYo_khDM" role="2Oq$k0">
+                            <ref role="3cqZAo" node="4B5rYo_k5PP" resolve="branch" />
                           </node>
-                          <node concept="liA8E" id="4B5rYo_khDO" role="2OqNvi">
-                            <ref role="37wK5l" to="jks5:~ITransaction.getTree()" resolve="getTree" />
+                          <node concept="liA8E" id="4B5rYo_khDN" role="2OqNvi">
+                            <ref role="37wK5l" to="jks5:~IBranch.getTransaction()" resolve="getTransaction" />
                           </node>
                         </node>
+                        <node concept="liA8E" id="4B5rYo_khDO" role="2OqNvi">
+                          <ref role="37wK5l" to="jks5:~ITransaction.getTree()" resolve="getTree" />
+                        </node>
+                      </node>
+                    </node>
+                  </node>
+                  <node concept="3clFbJ" id="54Ejw4NspiX" role="3cqZAp">
+                    <node concept="3clFbS" id="54Ejw4NspiZ" role="3clFbx">
+                      <node concept="3clFbF" id="54Ejw4NsrIa" role="3cqZAp">
+                        <node concept="37vLTI" id="54Ejw4Nssp8" role="3clFbG">
+                          <node concept="2OqwBi" id="54Ejw4NstJ2" role="37vLTx">
+                            <node concept="1eOMI4" id="54Ejw4Nstdl" role="2Oq$k0">
+                              <node concept="10QFUN" id="54Ejw4Nstdi" role="1eOMHV">
+                                <node concept="3uibUv" id="54Ejw4Nstdn" role="10QFUM">
+                                  <ref role="3uigEE" to="kxov:~MetaModelBranch$MMTree" resolve="MetaModelBranch.MMTree" />
+                                </node>
+                                <node concept="37vLTw" id="54Ejw4Nstdo" role="10QFUP">
+                                  <ref role="3cqZAo" node="4B5rYo_khDB" resolve="tree" />
+                                </node>
+                              </node>
+                            </node>
+                            <node concept="liA8E" id="54Ejw4Nsujw" role="2OqNvi">
+                              <ref role="37wK5l" to="kxov:~MetaModelBranch$MMTree.getTree()" resolve="getTree" />
+                            </node>
+                          </node>
+                          <node concept="37vLTw" id="54Ejw4NsrI8" role="37vLTJ">
+                            <ref role="3cqZAo" node="4B5rYo_khDB" resolve="tree" />
+                          </node>
+                        </node>
+                      </node>
+                    </node>
+                    <node concept="2ZW3vV" id="54Ejw4Nsqt4" role="3clFbw">
+                      <node concept="3uibUv" id="54Ejw4Nsr5x" role="2ZW6by">
+                        <ref role="3uigEE" to="kxov:~MetaModelBranch$MMTree" resolve="MetaModelBranch.MMTree" />
+                      </node>
+                      <node concept="37vLTw" id="54Ejw4NspLu" role="2ZW6bz">
+                        <ref role="3cqZAo" node="4B5rYo_khDB" resolve="tree" />
                       </node>
                     </node>
                   </node>
@@ -5026,8 +5087,15 @@
                   <node concept="3clFbF" id="4B5rYo_kcC7" role="3cqZAp">
                     <node concept="2OqwBi" id="4B5rYo_kl1U" role="3clFbG">
                       <node concept="2OqwBi" id="4B5rYo_kcC9" role="2Oq$k0">
-                        <node concept="37vLTw" id="4B5rYo_khZC" role="2Oq$k0">
-                          <ref role="3cqZAo" node="4B5rYo_khDB" resolve="tree" />
+                        <node concept="1eOMI4" id="54Ejw4NsuHC" role="2Oq$k0">
+                          <node concept="10QFUN" id="54Ejw4NsuHB" role="1eOMHV">
+                            <node concept="37vLTw" id="54Ejw4NsuHA" role="10QFUP">
+                              <ref role="3cqZAo" node="4B5rYo_khDB" resolve="tree" />
+                            </node>
+                            <node concept="3uibUv" id="54Ejw4Nsv3x" role="10QFUM">
+                              <ref role="3uigEE" to="xkhl:~CLTree" resolve="CLTree" />
+                            </node>
+                          </node>
                         </node>
                         <node concept="liA8E" id="4B5rYo_kcCb" role="2OqNvi">
                           <ref role="37wK5l" to="xkhl:~CLTree.getDescendants(long,boolean)" resolve="getDescendants" />
