@@ -40,12 +40,29 @@ class SimpleTestConcept : IConcept {
         return this == concept
     }
 
-    override val properties: List<IProperty>
-        get() = TODO("Not yet implemented")
-    override val childLinks: List<IChildLink>
-        get() = TODO("Not yet implemented")
-    override val referenceLinks: List<IReferenceLink>
-        get() = TODO("Not yet implemented")
+    override fun getAllChildLinks(): List<IChildLink> {
+        TODO("Not yet implemented")
+    }
+
+    override fun getAllProperties(): List<IProperty> {
+        TODO("Not yet implemented")
+    }
+
+    override fun getAllReferenceLinks(): List<IReferenceLink> {
+        TODO("Not yet implemented")
+    }
+
+    override fun getOwnChildLinks(): List<IChildLink> {
+        TODO("Not yet implemented")
+    }
+
+    override fun getOwnProperties(): List<IProperty> {
+        TODO("Not yet implemented")
+    }
+
+    override fun getOwnReferenceLinks(): List<IReferenceLink> {
+        TODO("Not yet implemented")
+    }
 
     override fun getProperty(name: String): IProperty {
         TODO("Not yet implemented")
