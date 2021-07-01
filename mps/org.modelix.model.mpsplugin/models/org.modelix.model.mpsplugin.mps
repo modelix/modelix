@@ -33288,8 +33288,8 @@
                 <ref role="37wK5l" to="jks5:~INode.getConcept()" resolve="getConcept" />
               </node>
             </node>
-            <node concept="liA8E" id="29etMtb9_o6" role="2OqNvi">
-              <ref role="37wK5l" to="jks5:~IConcept.getProperties()" resolve="getProperties" />
+            <node concept="liA8E" id="54Ejw4NrYrl" role="2OqNvi">
+              <ref role="37wK5l" to="jks5:~IConcept.getAllProperties()" resolve="getAllProperties" />
             </node>
           </node>
         </node>
@@ -33729,8 +33729,8 @@
             <node concept="37vLTw" id="29etMtb9_q2" role="2Oq$k0">
               <ref role="3cqZAo" node="29etMtb9_pT" resolve="concept" />
             </node>
-            <node concept="liA8E" id="29etMtb9_q3" role="2OqNvi">
-              <ref role="37wK5l" to="jks5:~IConcept.getChildLinks()" resolve="getChildLinks" />
+            <node concept="liA8E" id="54Ejw4NrT6s" role="2OqNvi">
+              <ref role="37wK5l" to="jks5:~IConcept.getAllChildLinks()" resolve="getAllChildLinks" />
             </node>
           </node>
           <node concept="3clFbS" id="29etMtb9_q4" role="2LFqv$">

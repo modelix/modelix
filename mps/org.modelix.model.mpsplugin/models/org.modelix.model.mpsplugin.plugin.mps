@@ -12118,8 +12118,8 @@
                           <ref role="37wK5l" to="jks5:~INode.getConcept()" resolve="getConcept" />
                         </node>
                       </node>
-                      <node concept="liA8E" id="3rVtQmckVEu" role="2OqNvi">
-                        <ref role="37wK5l" to="jks5:~IConcept.getProperties()" resolve="getProperties" />
+                      <node concept="liA8E" id="54Ejw4Ns1tm" role="2OqNvi">
+                        <ref role="37wK5l" to="jks5:~IConcept.getAllProperties()" resolve="getAllProperties" />
                       </node>
                     </node>
                   </node>

@@ -17,13 +17,7 @@ import org.modelix.model.api.*
 import org.modelix.model.area.IArea
 
 data class PersistedConcept(val id: Long) : IConcept, IConceptReference {
-    override val childLinks: List<IChildLink>
-        get() = throw UnsupportedOperationException()
     override val language: ILanguage?
-        get() = throw UnsupportedOperationException()
-    override val properties: List<IProperty>
-        get() = throw UnsupportedOperationException()
-    override val referenceLinks: List<IReferenceLink>
         get() = throw UnsupportedOperationException()
 
     override fun getChildLink(name: String): IChildLink {
@@ -71,6 +65,30 @@ data class PersistedConcept(val id: Long) : IConcept, IConceptReference {
     }
 
     override fun resolve(area: IArea?): IConcept? {
+        throw UnsupportedOperationException()
+    }
+
+    override fun getAllChildLinks(): List<IChildLink> {
+        throw UnsupportedOperationException()
+    }
+
+    override fun getAllProperties(): List<IProperty> {
+        throw UnsupportedOperationException()
+    }
+
+    override fun getAllReferenceLinks(): List<IReferenceLink> {
+        throw UnsupportedOperationException()
+    }
+
+    override fun getOwnChildLinks(): List<IChildLink> {
+        throw UnsupportedOperationException()
+    }
+
+    override fun getOwnProperties(): List<IProperty> {
+        throw UnsupportedOperationException()
+    }
+
+    override fun getOwnReferenceLinks(): List<IReferenceLink> {
         throw UnsupportedOperationException()
     }
 }

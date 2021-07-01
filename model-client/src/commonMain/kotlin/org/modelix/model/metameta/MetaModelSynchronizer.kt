@@ -108,7 +108,7 @@ class MetaModelSynchronizer(val branch: IBranch) {
         wt.setProperty(id, MetaMetaLanguage.property_Concept_name.name, concept.getShortName())
         wt.setProperty(id, MetaMetaLanguage.property_Concept_abstract.name, concept.isAbstract().toString())
 
-        for (property in concept.properties) {
+        for (property in concept.getAllProperties()) {
             storeProperty(id, property, pendingReferences)
         }
 
