@@ -26,6 +26,7 @@ class MetaModelBranch(val branch: IBranch) : IBranch by branch {
             val t = branch.transaction
             return when (t) {
                 is IReadTransaction -> MMReadTransaction(t)
+                is IWriteTransaction -> MMWriteTransaction(t)
                 else -> throw RuntimeException()
             }
         }
