@@ -596,6 +596,7 @@
       </concept>
       <concept id="1172254888721" name="jetbrains.mps.baseLanguage.collections.structure.ContainsOperation" flags="nn" index="3JPx81" />
       <concept id="1180964022718" name="jetbrains.mps.baseLanguage.collections.structure.ConcatOperation" flags="nn" index="3QWeyG" />
+      <concept id="1178894719932" name="jetbrains.mps.baseLanguage.collections.structure.DistinctOperation" flags="nn" index="1VAtEI" />
       <concept id="599357942184015200" name="jetbrains.mps.baseLanguage.collections.structure.AlsoSortOperation" flags="nn" index="1XvEQZ" />
     </language>
   </registry>
@@ -12688,6 +12689,29 @@
                       </node>
                     </node>
                   </node>
+                  <node concept="3cpWs8" id="24uT$44VwJk" role="3cqZAp">
+                    <node concept="3cpWsn" id="24uT$44VwJl" role="3cpWs9">
+                      <property role="TrG5h" value="properties" />
+                      <node concept="_YKpA" id="24uT$44Vxjm" role="1tU5fm">
+                        <node concept="3uibUv" id="24uT$44Vxjo" role="_ZDj9">
+                          <ref role="3uigEE" to="jks5:~IProperty" resolve="IProperty" />
+                        </node>
+                      </node>
+                      <node concept="2OqwBi" id="24uT$44VwJm" role="33vP2m">
+                        <node concept="2OqwBi" id="24uT$44VwJn" role="2Oq$k0">
+                          <node concept="37vLTw" id="24uT$44VwJo" role="2Oq$k0">
+                            <ref role="3cqZAo" node="3rVtQmck$zj" resolve="node" />
+                          </node>
+                          <node concept="liA8E" id="24uT$44VwJp" role="2OqNvi">
+                            <ref role="37wK5l" to="jks5:~INode.getConcept()" resolve="getConcept" />
+                          </node>
+                        </node>
+                        <node concept="liA8E" id="24uT$44VwJq" role="2OqNvi">
+                          <ref role="37wK5l" to="jks5:~IConcept.getAllProperties()" resolve="getAllProperties" />
+                        </node>
+                      </node>
+                    </node>
+                  </node>
                   <node concept="2Gpval" id="3rVtQmckUH3" role="3cqZAp">
                     <node concept="2GrKxI" id="3rVtQmckUH5" role="2Gsz3X">
                       <property role="TrG5h" value="property" />
@@ -12700,13 +12724,8 @@
                           </node>
                           <node concept="liA8E" id="3rVtQmckXJ4" role="2OqNvi">
                             <ref role="37wK5l" to="wyt6:~StringBuilder.append(java.lang.String)" resolve="append" />
-                            <node concept="2OqwBi" id="67QRd0UD16Y" role="37wK5m">
-                              <node concept="2GrUjf" id="3rVtQmckYBW" role="2Oq$k0">
-                                <ref role="2Gs0qQ" node="3rVtQmckUH5" resolve="property" />
-                              </node>
-                              <node concept="liA8E" id="67QRd0UD1V0" role="2OqNvi">
-                                <ref role="37wK5l" to="jks5:~IProperty.getName()" resolve="getName" />
-                              </node>
+                            <node concept="2GrUjf" id="3rVtQmckYBW" role="37wK5m">
+                              <ref role="2Gs0qQ" node="3rVtQmckUH5" resolve="property" />
                             </node>
                           </node>
                         </node>
@@ -12737,13 +12756,8 @@
                               </node>
                               <node concept="liA8E" id="3rVtQmcl42S" role="2OqNvi">
                                 <ref role="37wK5l" to="jks5:~INode.getPropertyValue(java.lang.String)" resolve="getPropertyValue" />
-                                <node concept="2OqwBi" id="3rVtQmcl5dV" role="37wK5m">
-                                  <node concept="2GrUjf" id="3rVtQmcl4Nv" role="2Oq$k0">
-                                    <ref role="2Gs0qQ" node="3rVtQmckUH5" resolve="property" />
-                                  </node>
-                                  <node concept="liA8E" id="3rVtQmcl62b" role="2OqNvi">
-                                    <ref role="37wK5l" to="jks5:~IProperty.getName()" resolve="getName" />
-                                  </node>
+                                <node concept="2GrUjf" id="3rVtQmcl4Nv" role="37wK5m">
+                                  <ref role="2Gs0qQ" node="3rVtQmckUH5" resolve="property" />
                                 </node>
                               </node>
                             </node>
@@ -12764,18 +12778,45 @@
                         </node>
                       </node>
                     </node>
-                    <node concept="2OqwBi" id="3rVtQmckVEq" role="2GsD0m">
-                      <node concept="2OqwBi" id="3rVtQmckVEr" role="2Oq$k0">
-                        <node concept="37vLTw" id="3rVtQmckVEs" role="2Oq$k0">
-                          <ref role="3cqZAo" node="3rVtQmck$zj" resolve="node" />
+                    <node concept="2OqwBi" id="24uT$44VEWr" role="2GsD0m">
+                      <node concept="2OqwBi" id="24uT$44VEWs" role="2Oq$k0">
+                        <node concept="2OqwBi" id="24uT$44VEWt" role="2Oq$k0">
+                          <node concept="37vLTw" id="24uT$44VEWu" role="2Oq$k0">
+                            <ref role="3cqZAo" node="24uT$44VwJl" resolve="properties" />
+                          </node>
+                          <node concept="3$u5V9" id="24uT$44VEWv" role="2OqNvi">
+                            <node concept="1bVj0M" id="24uT$44VEWw" role="23t8la">
+                              <node concept="3clFbS" id="24uT$44VEWx" role="1bW5cS">
+                                <node concept="3clFbF" id="24uT$44VEWy" role="3cqZAp">
+                                  <node concept="2OqwBi" id="24uT$44VEWz" role="3clFbG">
+                                    <node concept="37vLTw" id="24uT$44VEW$" role="2Oq$k0">
+                                      <ref role="3cqZAo" node="24uT$44VEWA" resolve="it" />
+                                    </node>
+                                    <node concept="liA8E" id="24uT$44VEW_" role="2OqNvi">
+                                      <ref role="37wK5l" to="jks5:~IProperty.getName()" resolve="getName" />
+                                    </node>
+                                  </node>
+                                </node>
+                              </node>
+                              <node concept="Rh6nW" id="24uT$44VEWA" role="1bW2Oz">
+                                <property role="TrG5h" value="it" />
+                                <node concept="2jxLKc" id="24uT$44VEWB" role="1tU5fm" />
+                              </node>
+                            </node>
+                          </node>
                         </node>
-                        <node concept="liA8E" id="3rVtQmckVEt" role="2OqNvi">
-                          <ref role="37wK5l" to="jks5:~INode.getConcept()" resolve="getConcept" />
+                        <node concept="3QWeyG" id="24uT$44VEWC" role="2OqNvi">
+                          <node concept="2OqwBi" id="24uT$44VEWD" role="576Qk">
+                            <node concept="37vLTw" id="24uT$44VEWE" role="2Oq$k0">
+                              <ref role="3cqZAo" node="3rVtQmck$zj" resolve="node" />
+                            </node>
+                            <node concept="liA8E" id="24uT$44VEWF" role="2OqNvi">
+                              <ref role="37wK5l" to="jks5:~INode.getPropertyRoles()" resolve="getPropertyRoles" />
+                            </node>
+                          </node>
                         </node>
                       </node>
-                      <node concept="liA8E" id="54Ejw4Ns1tm" role="2OqNvi">
-                        <ref role="37wK5l" to="jks5:~IConcept.getAllProperties()" resolve="getAllProperties" />
-                      </node>
+                      <node concept="1VAtEI" id="24uT$44VEWG" role="2OqNvi" />
                     </node>
                   </node>
                 </node>
@@ -13631,6 +13672,29 @@
                       </node>
                     </node>
                   </node>
+                  <node concept="3cpWs8" id="24uT$44XHb8" role="3cqZAp">
+                    <node concept="3cpWsn" id="24uT$44XHb9" role="3cpWs9">
+                      <property role="TrG5h" value="referenceLinks" />
+                      <node concept="_YKpA" id="24uT$44XHF9" role="1tU5fm">
+                        <node concept="3uibUv" id="24uT$44XHFb" role="_ZDj9">
+                          <ref role="3uigEE" to="jks5:~IReferenceLink" resolve="IReferenceLink" />
+                        </node>
+                      </node>
+                      <node concept="2OqwBi" id="24uT$44XHba" role="33vP2m">
+                        <node concept="2OqwBi" id="24uT$44XHbb" role="2Oq$k0">
+                          <node concept="37vLTw" id="24uT$44XHbc" role="2Oq$k0">
+                            <ref role="3cqZAo" node="2zfU5FnAFYy" resolve="node" />
+                          </node>
+                          <node concept="liA8E" id="24uT$44XHbd" role="2OqNvi">
+                            <ref role="37wK5l" to="jks5:~INode.getConcept()" resolve="getConcept" />
+                          </node>
+                        </node>
+                        <node concept="liA8E" id="24uT$44XHbe" role="2OqNvi">
+                          <ref role="37wK5l" to="jks5:~IConcept.getAllReferenceLinks()" resolve="getAllReferenceLinks" />
+                        </node>
+                      </node>
+                    </node>
+                  </node>
                   <node concept="2Gpval" id="2zfU5FnAFYB" role="3cqZAp">
                     <node concept="2GrKxI" id="2zfU5FnAFYC" role="2Gsz3X">
                       <property role="TrG5h" value="refLink" />
@@ -13643,13 +13707,8 @@
                           </node>
                           <node concept="liA8E" id="2zfU5FnAFYH" role="2OqNvi">
                             <ref role="37wK5l" to="wyt6:~StringBuilder.append(java.lang.String)" resolve="append" />
-                            <node concept="2OqwBi" id="2zfU5FnAFYI" role="37wK5m">
-                              <node concept="2GrUjf" id="2zfU5FnAFYJ" role="2Oq$k0">
-                                <ref role="2Gs0qQ" node="2zfU5FnAFYC" resolve="refLink" />
-                              </node>
-                              <node concept="liA8E" id="2zfU5FnAFYK" role="2OqNvi">
-                                <ref role="37wK5l" to="jks5:~IReferenceLink.getName()" resolve="getName" />
-                              </node>
+                            <node concept="2GrUjf" id="2zfU5FnAFYJ" role="37wK5m">
+                              <ref role="2Gs0qQ" node="2zfU5FnAFYC" resolve="refLink" />
                             </node>
                           </node>
                         </node>
@@ -13679,13 +13738,8 @@
                             </node>
                             <node concept="liA8E" id="2zfU5FnAQrw" role="2OqNvi">
                               <ref role="37wK5l" to="jks5:~INode.getReferenceTarget(java.lang.String)" resolve="getReferenceTarget" />
-                              <node concept="2OqwBi" id="2zfU5FnAQVg" role="37wK5m">
-                                <node concept="2GrUjf" id="2zfU5FnAQBW" role="2Oq$k0">
-                                  <ref role="2Gs0qQ" node="2zfU5FnAFYC" resolve="refLink" />
-                                </node>
-                                <node concept="liA8E" id="2zfU5FnARu8" role="2OqNvi">
-                                  <ref role="37wK5l" to="jks5:~IReferenceLink.getName()" resolve="getName" />
-                                </node>
+                              <node concept="2GrUjf" id="2zfU5FnAQBW" role="37wK5m">
+                                <ref role="2Gs0qQ" node="2zfU5FnAFYC" resolve="refLink" />
                               </node>
                             </node>
                           </node>
@@ -13825,17 +13879,41 @@
                         </node>
                       </node>
                     </node>
-                    <node concept="2OqwBi" id="2zfU5FnAFZ5" role="2GsD0m">
-                      <node concept="2OqwBi" id="2zfU5FnAFZ6" role="2Oq$k0">
-                        <node concept="37vLTw" id="2zfU5FnAFZ7" role="2Oq$k0">
-                          <ref role="3cqZAo" node="2zfU5FnAFYy" resolve="node" />
+                    <node concept="2OqwBi" id="24uT$44XOlv" role="2GsD0m">
+                      <node concept="2OqwBi" id="24uT$44XJ46" role="2Oq$k0">
+                        <node concept="37vLTw" id="24uT$44XHbf" role="2Oq$k0">
+                          <ref role="3cqZAo" node="24uT$44XHb9" resolve="referenceLinks" />
                         </node>
-                        <node concept="liA8E" id="2zfU5FnAFZ8" role="2OqNvi">
-                          <ref role="37wK5l" to="jks5:~INode.getConcept()" resolve="getConcept" />
+                        <node concept="3$u5V9" id="24uT$44XLrG" role="2OqNvi">
+                          <node concept="1bVj0M" id="24uT$44XLrI" role="23t8la">
+                            <node concept="3clFbS" id="24uT$44XLrJ" role="1bW5cS">
+                              <node concept="3clFbF" id="24uT$44XLLi" role="3cqZAp">
+                                <node concept="2OqwBi" id="24uT$44XM6z" role="3clFbG">
+                                  <node concept="37vLTw" id="24uT$44XLLh" role="2Oq$k0">
+                                    <ref role="3cqZAo" node="24uT$44XLrK" resolve="it" />
+                                  </node>
+                                  <node concept="liA8E" id="24uT$44XMUL" role="2OqNvi">
+                                    <ref role="37wK5l" to="jks5:~IReferenceLink.getName()" resolve="getName" />
+                                  </node>
+                                </node>
+                              </node>
+                            </node>
+                            <node concept="Rh6nW" id="24uT$44XLrK" role="1bW2Oz">
+                              <property role="TrG5h" value="it" />
+                              <node concept="2jxLKc" id="24uT$44XLrL" role="1tU5fm" />
+                            </node>
+                          </node>
                         </node>
                       </node>
-                      <node concept="liA8E" id="2zfU5FnAMSr" role="2OqNvi">
-                        <ref role="37wK5l" to="jks5:~IConcept.getReferenceLinks()" resolve="getReferenceLinks" />
+                      <node concept="3QWeyG" id="24uT$44XPpb" role="2OqNvi">
+                        <node concept="2OqwBi" id="24uT$44XQ2y" role="576Qk">
+                          <node concept="37vLTw" id="24uT$44XPFh" role="2Oq$k0">
+                            <ref role="3cqZAo" node="2zfU5FnAFYy" resolve="node" />
+                          </node>
+                          <node concept="liA8E" id="24uT$44XQG$" role="2OqNvi">
+                            <ref role="37wK5l" to="jks5:~INode.getReferenceRoles()" resolve="getReferenceRoles" />
+                          </node>
+                        </node>
                       </node>
                     </node>
                   </node>
