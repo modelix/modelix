@@ -132,6 +132,14 @@ class SimpleTestNode(override val concept: IConcept? = null) : INode {
     override fun setPropertyValue(role: String, value: String?) {
         TODO("Not yet implemented")
     }
+
+    override fun getPropertyRoles(): List<String> {
+        TODO("Not yet implemented")
+    }
+
+    override fun getReferenceRoles(): List<String> {
+        TODO("Not yet implemented")
+    }
 }
 
 class NodeUtilTest {

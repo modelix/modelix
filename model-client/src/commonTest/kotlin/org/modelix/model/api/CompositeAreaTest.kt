@@ -63,6 +63,14 @@ class MyNode(val name: String) : INode {
         TODO("Not yet implemented")
     }
 
+    override fun getPropertyRoles(): List<String> {
+        TODO("Not yet implemented")
+    }
+
+    override fun getReferenceRoles(): List<String> {
+        TODO("Not yet implemented")
+    }
+
     override fun equals(other: Any?): Boolean {
         return if (other is MyNode) {
             this.name == other.name
