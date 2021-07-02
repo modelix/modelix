@@ -628,9 +628,9 @@
                 <node concept="3uibUv" id="5Le8ZRJdYgu" role="1tU5fm">
                   <ref role="3uigEE" node="5Le8ZRJdWor" resolve="EModelixExecutionMode" />
                 </node>
-                <node concept="Rm8GO" id="5r6tmshUmvy" role="33vP2m">
-                  <ref role="Rm8GQ" node="5Le8ZRJdWvX" resolve="CLUSTER" />
+                <node concept="Rm8GO" id="5Le8ZRJdYPq" role="33vP2m">
                   <ref role="1Px2BO" node="5Le8ZRJdWor" resolve="EModelixExecutionMode" />
+                  <ref role="Rm8GQ" node="5Le8ZRJdWMd" resolve="DEFAULT" />
                 </node>
               </node>
             </node>
@@ -788,17 +788,7 @@
                 </node>
               </node>
             </node>
-            <node concept="3clFbF" id="5r6tmshWd7l" role="3cqZAp">
-              <node concept="37vLTI" id="5r6tmshWeap" role="3clFbG">
-                <node concept="Rm8GO" id="5r6tmshWe_d" role="37vLTx">
-                  <ref role="Rm8GQ" node="5Le8ZRJdWvX" resolve="CLUSTER" />
-                  <ref role="1Px2BO" node="5Le8ZRJdWor" resolve="EModelixExecutionMode" />
-                </node>
-                <node concept="37vLTw" id="5r6tmshWd7j" role="37vLTJ">
-                  <ref role="3cqZAo" node="5Le8ZRJdYgt" resolve="executionMode" />
-                </node>
-              </node>
-            </node>
+            <node concept="3clFbH" id="nkanBut1bS" role="3cqZAp" />
             <node concept="3clFbF" id="5Le8ZRJeuvJ" role="3cqZAp">
               <node concept="2OqwBi" id="5Le8ZRJeuvG" role="3clFbG">
                 <node concept="10M0yZ" id="5Le8ZRJeuvH" role="2Oq$k0">
