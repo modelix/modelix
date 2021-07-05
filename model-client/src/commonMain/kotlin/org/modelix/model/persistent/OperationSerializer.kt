@@ -37,7 +37,7 @@ class OperationSerializer private constructor() {
         }
 
         fun deserializeConcept(serialized: String?): IConcept? {
-            return IConceptReferenceSerializer.deserialize(unescape(serialized))
+            return IConceptReferenceSerializer.deserialize(unescape(serialized), null)
         }
 
         fun serializeReference(obj: INodeReference?): String {

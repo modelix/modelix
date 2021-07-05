@@ -16,7 +16,7 @@ package org.modelix.model.metameta
 import org.modelix.model.api.*
 import org.modelix.model.area.IArea
 
-data class PersistedConcept(val id: Long) : IConcept, IConceptReference {
+data class PersistedConcept(val id: Long, val uid: String?) : IConcept, IConceptReference {
     override val language: ILanguage?
         get() = throw UnsupportedOperationException()
 

@@ -41,10 +41,13 @@ class MetaModelBranch(val branch: IBranch) : IBranch by branch {
         listenerWrappers.remove(l)?.listener?.let { branch.removeListener(it) }
     }
 
-    fun toGlobalConcept(localConcept: IConcept): IConcept {
+    fun toGlobalConcept(localConcept: IConcept, tree: ITree): IConcept {
         if (localConcept is PersistedConcept) {
-            val uid = branch.transaction.getProperty(localConcept.id, MetaMetaLanguage.property_IHasUID_uid.name)
-            return IConceptReferenceSerializer.deserializeAll(uid).firstOrNull { it !is PersistedConcept }
+            var uid = localConcept.uid
+            if (uid == null && tree.containsNode(localConcept.id)) {
+                uid = tree.getProperty(localConcept.id, MetaMetaLanguage.property_IHasUID_uid.name)
+            }
+            return IConceptReferenceSerializer.deserializeAll(uid, tree).firstOrNull { it !is PersistedConcept }
                 ?: throw RuntimeException("Cannot find concept $uid")
         }
         return localConcept
@@ -53,7 +56,7 @@ class MetaModelBranch(val branch: IBranch) : IBranch by branch {
     fun toLocalConcept(globalConcept: IConcept): IConcept {
         val localConceptId = metaModelSynchronizer.getConceptId(globalConcept)
         if (localConceptId == 0L) return globalConcept
-        return PersistedConcept(localConceptId)
+        return PersistedConcept(localConceptId, globalConcept.getUID())
     }
 
     inner class MMReadTransaction(val transaction: IReadTransaction) : IReadTransaction by transaction {
@@ -63,7 +66,7 @@ class MetaModelBranch(val branch: IBranch) : IBranch by branch {
             get() = MMTree(transaction.tree)
 
         override fun getConcept(nodeId: Long): IConcept? {
-            return transaction.getConcept(nodeId)?.let { toGlobalConcept(it) }
+            return transaction.getConcept(nodeId)?.let { toGlobalConcept(it, transaction.tree) }
         }
     }
 
@@ -77,7 +80,7 @@ class MetaModelBranch(val branch: IBranch) : IBranch by branch {
             }
 
         override fun getConcept(nodeId: Long): IConcept? {
-            return transaction.getConcept(nodeId)?.let { toGlobalConcept(it) }
+            return transaction.getConcept(nodeId)?.let { toGlobalConcept(it, transaction.tree) }
         }
         override fun addNewChild(parentId: Long, role: String?, index: Int, childId: Long, concept: IConcept?) {
             transaction.addNewChild(parentId, role, index, childId, concept?.let { toLocalConcept(it) })
@@ -90,7 +93,7 @@ class MetaModelBranch(val branch: IBranch) : IBranch by branch {
 
     inner class MMTree(val tree: ITree) : ITree by tree {
         override fun getConcept(nodeId: Long): IConcept? {
-            return tree.getConcept(nodeId)?.let { toGlobalConcept(it) }
+            return tree.getConcept(nodeId)?.let { toGlobalConcept(it, tree) }
         }
 
         override fun visitChanges(oldVersion: ITree, visitor: ITreeChangeVisitor) {

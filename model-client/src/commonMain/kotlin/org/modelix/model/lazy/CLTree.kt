@@ -22,6 +22,7 @@ import org.modelix.model.api.COWArrays.remove
 import org.modelix.model.lazy.CLHamtNode.Companion.create
 import org.modelix.model.lazy.IDeserializingKeyValueStore_extensions.put
 import org.modelix.model.lazy.TreeId.Companion.random
+import org.modelix.model.metameta.PersistedConcept
 import org.modelix.model.persistent.*
 import org.modelix.model.persistent.CPNode.Companion.create
 import org.modelix.model.persistent.CPNodeRef.Companion.foreign
@@ -495,6 +496,6 @@ class CLTree : ITree {
 
     protected fun deserializeConcept(serialized: String?): IConcept? {
         if (serialized == null) return null
-        return IConceptReferenceSerializer.deserialize(serialized)
+        return IConceptReferenceSerializer.deserialize(serialized, this)
     }
 }

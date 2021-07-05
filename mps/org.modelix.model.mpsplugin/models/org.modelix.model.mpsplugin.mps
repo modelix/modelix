@@ -14986,20 +14986,25 @@
                       <node concept="3uibUv" id="1OzsJtaqLuV" role="1tU5fm">
                         <ref role="3uigEE" to="jks5:~IBranch" resolve="IBranch" />
                       </node>
-                      <node concept="2ShNRf" id="1OzsJtaqLuW" role="33vP2m">
-                        <node concept="1pGfFk" id="1OzsJtaqLuX" role="2ShVmc">
-                          <ref role="37wK5l" to="jks5:~PBranch.&lt;init&gt;(org.modelix.model.api.ITree,org.modelix.model.api.IIdGenerator)" resolve="PBranch" />
-                          <node concept="2OqwBi" id="1OzsJtaqLuY" role="37wK5m">
-                            <node concept="37vLTw" id="1OzsJtaqLuZ" role="2Oq$k0">
-                              <ref role="3cqZAo" node="1OzsJtaqLux" resolve="version" />
-                            </node>
-                            <node concept="liA8E" id="1OzsJtaqLv0" role="2OqNvi">
-                              <ref role="37wK5l" to="xkhl:~CLVersion.getTree()" resolve="getTree" />
-                            </node>
-                          </node>
-                          <node concept="2ShNRf" id="1OzsJtaqLv1" role="37wK5m">
-                            <node concept="1pGfFk" id="24PSXS84OwW" role="2ShVmc">
-                              <ref role="37wK5l" to="jks5:~IdGeneratorDummy.&lt;init&gt;()" resolve="IdGeneratorDummy" />
+                      <node concept="2ShNRf" id="2cBTRF5PVBN" role="33vP2m">
+                        <node concept="1pGfFk" id="2cBTRF5QzD$" role="2ShVmc">
+                          <ref role="37wK5l" to="kxov:~MetaModelBranch.&lt;init&gt;(org.modelix.model.api.IBranch)" resolve="MetaModelBranch" />
+                          <node concept="2ShNRf" id="1OzsJtaqLuW" role="37wK5m">
+                            <node concept="1pGfFk" id="1OzsJtaqLuX" role="2ShVmc">
+                              <ref role="37wK5l" to="jks5:~PBranch.&lt;init&gt;(org.modelix.model.api.ITree,org.modelix.model.api.IIdGenerator)" resolve="PBranch" />
+                              <node concept="2OqwBi" id="1OzsJtaqLuY" role="37wK5m">
+                                <node concept="37vLTw" id="1OzsJtaqLuZ" role="2Oq$k0">
+                                  <ref role="3cqZAo" node="1OzsJtaqLux" resolve="version" />
+                                </node>
+                                <node concept="liA8E" id="1OzsJtaqLv0" role="2OqNvi">
+                                  <ref role="37wK5l" to="xkhl:~CLVersion.getTree()" resolve="getTree" />
+                                </node>
+                              </node>
+                              <node concept="2ShNRf" id="1OzsJtaqLv1" role="37wK5m">
+                                <node concept="1pGfFk" id="24PSXS84OwW" role="2ShVmc">
+                                  <ref role="37wK5l" to="jks5:~IdGeneratorDummy.&lt;init&gt;()" resolve="IdGeneratorDummy" />
+                                </node>
+                              </node>
                             </node>
                           </node>
                         </node>
@@ -33634,21 +33639,103 @@
               </node>
               <node concept="1bVj0M" id="29etMtb9_mk" role="37wK5m">
                 <node concept="3clFbS" id="29etMtb9_ml" role="1bW5cS">
-                  <node concept="3clFbF" id="29etMtb9_mm" role="3cqZAp">
-                    <node concept="2YIFZM" id="29etMtb9_mn" role="3clFbG">
-                      <ref role="1Pybhd" to="xxte:5gTrVpGjuL2" resolve="SConceptAdapter" />
-                      <ref role="37wK5l" to="xxte:3ECE8iPIttW" resolve="unwrap" />
-                      <node concept="2OqwBi" id="29etMtb9_mo" role="37wK5m">
-                        <node concept="37vLTw" id="29etMtb9_mp" role="2Oq$k0">
+                  <node concept="3cpWs8" id="4AFVQRW8aWn" role="3cqZAp">
+                    <node concept="3cpWsn" id="4AFVQRW8aWo" role="3cpWs9">
+                      <property role="TrG5h" value="concept" />
+                      <node concept="3uibUv" id="4AFVQRW8aVq" role="1tU5fm">
+                        <ref role="3uigEE" to="jks5:~IConcept" resolve="IConcept" />
+                      </node>
+                      <node concept="2OqwBi" id="4AFVQRW8aWp" role="33vP2m">
+                        <node concept="37vLTw" id="4AFVQRW8aWq" role="2Oq$k0">
                           <ref role="3cqZAo" node="29etMtb9_lV" resolve="tree" />
                         </node>
-                        <node concept="liA8E" id="29etMtb9_mq" role="2OqNvi">
+                        <node concept="liA8E" id="4AFVQRW8aWr" role="2OqNvi">
                           <ref role="37wK5l" to="jks5:~ITree.getConcept(long)" resolve="getConcept" />
-                          <node concept="37vLTw" id="29etMtb9_mr" role="37wK5m">
+                          <node concept="37vLTw" id="4AFVQRW8aWs" role="37wK5m">
                             <ref role="3cqZAo" node="29etMtb9_lT" resolve="nodeId" />
                           </node>
                         </node>
                       </node>
+                    </node>
+                  </node>
+                  <node concept="3clFbJ" id="4AFVQRW8cvQ" role="3cqZAp">
+                    <node concept="3clFbS" id="4AFVQRW8cvS" role="3clFbx">
+                      <node concept="YS8fn" id="4AFVQRW8dZ9" role="3cqZAp">
+                        <node concept="2ShNRf" id="4AFVQRW8ecd" role="YScLw">
+                          <node concept="1pGfFk" id="4AFVQRW8tVu" role="2ShVmc">
+                            <ref role="37wK5l" to="wyt6:~RuntimeException.&lt;init&gt;(java.lang.String)" resolve="RuntimeException" />
+                            <node concept="3cpWs3" id="4AFVQRW8vUy" role="37wK5m">
+                              <node concept="37vLTw" id="4AFVQRW8weP" role="3uHU7w">
+                                <ref role="3cqZAo" node="29etMtb9_lT" resolve="nodeId" />
+                              </node>
+                              <node concept="Xl_RD" id="4AFVQRW8uy5" role="3uHU7B">
+                                <property role="Xl_RC" value="Node has no concept: " />
+                              </node>
+                            </node>
+                          </node>
+                        </node>
+                      </node>
+                    </node>
+                    <node concept="3clFbC" id="4AFVQRW8dqT" role="3clFbw">
+                      <node concept="10Nm6u" id="4AFVQRW8dBY" role="3uHU7w" />
+                      <node concept="37vLTw" id="4AFVQRW8d0M" role="3uHU7B">
+                        <ref role="3cqZAo" node="4AFVQRW8aWo" resolve="concept" />
+                      </node>
+                    </node>
+                  </node>
+                  <node concept="3cpWs8" id="4AFVQRW89yk" role="3cqZAp">
+                    <node concept="3cpWsn" id="4AFVQRW89yl" role="3cpWs9">
+                      <property role="TrG5h" value="sconcept" />
+                      <node concept="3uibUv" id="4AFVQRW7Wlo" role="1tU5fm">
+                        <ref role="3uigEE" to="c17a:~SAbstractConcept" resolve="SAbstractConcept" />
+                      </node>
+                      <node concept="2YIFZM" id="4AFVQRW89ym" role="33vP2m">
+                        <ref role="1Pybhd" to="xxte:5gTrVpGjuL2" resolve="SConceptAdapter" />
+                        <ref role="37wK5l" to="xxte:3ECE8iPIttW" resolve="unwrap" />
+                        <node concept="37vLTw" id="4AFVQRW8aWt" role="37wK5m">
+                          <ref role="3cqZAo" node="4AFVQRW8aWo" resolve="concept" />
+                        </node>
+                      </node>
+                    </node>
+                  </node>
+                  <node concept="3clFbJ" id="4AFVQRW8xdt" role="3cqZAp">
+                    <node concept="3clFbS" id="4AFVQRW8xdu" role="3clFbx">
+                      <node concept="YS8fn" id="4AFVQRW8xdv" role="3cqZAp">
+                        <node concept="2ShNRf" id="4AFVQRW8xdw" role="YScLw">
+                          <node concept="1pGfFk" id="4AFVQRW8xdx" role="2ShVmc">
+                            <ref role="37wK5l" to="wyt6:~RuntimeException.&lt;init&gt;(java.lang.String)" resolve="RuntimeException" />
+                            <node concept="3cpWs3" id="4AFVQRW8FpC" role="37wK5m">
+                              <node concept="37vLTw" id="4AFVQRW8GJJ" role="3uHU7w">
+                                <ref role="3cqZAo" node="4AFVQRW8aWo" resolve="concept" />
+                              </node>
+                              <node concept="3cpWs3" id="4AFVQRW8DM1" role="3uHU7B">
+                                <node concept="3cpWs3" id="4AFVQRW8xdy" role="3uHU7B">
+                                  <node concept="Xl_RD" id="4AFVQRW8xd$" role="3uHU7B">
+                                    <property role="Xl_RC" value="Node has no MPS concept: " />
+                                  </node>
+                                  <node concept="37vLTw" id="4AFVQRW8xdz" role="3uHU7w">
+                                    <ref role="3cqZAo" node="29etMtb9_lT" resolve="nodeId" />
+                                  </node>
+                                </node>
+                                <node concept="Xl_RD" id="4AFVQRW8DZ2" role="3uHU7w">
+                                  <property role="Xl_RC" value=", " />
+                                </node>
+                              </node>
+                            </node>
+                          </node>
+                        </node>
+                      </node>
+                    </node>
+                    <node concept="3clFbC" id="4AFVQRW8xd_" role="3clFbw">
+                      <node concept="10Nm6u" id="4AFVQRW8xdA" role="3uHU7w" />
+                      <node concept="37vLTw" id="4AFVQRW8zyv" role="3uHU7B">
+                        <ref role="3cqZAo" node="4AFVQRW89yl" resolve="sconcept" />
+                      </node>
+                    </node>
+                  </node>
+                  <node concept="3clFbF" id="29etMtb9_mm" role="3cqZAp">
+                    <node concept="37vLTw" id="4AFVQRW89yr" role="3clFbG">
+                      <ref role="3cqZAo" node="4AFVQRW89yl" resolve="sconcept" />
                     </node>
                   </node>
                 </node>

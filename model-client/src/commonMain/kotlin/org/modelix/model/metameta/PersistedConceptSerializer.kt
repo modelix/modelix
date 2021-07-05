@@ -16,6 +16,7 @@
 package org.modelix.model.metameta
 
 import org.modelix.model.api.IConcept
+import org.modelix.model.api.ITree
 import org.modelix.model.lazy.IConceptReferenceSerializer
 import org.modelix.model.persistent.SerializationUtil
 
@@ -27,9 +28,14 @@ class PersistedConceptSerializer : IConceptReferenceSerializer {
         return null
     }
 
-    override fun deserialize(serialized: String): IConcept? {
+    override fun deserialize(serialized: String, tree: ITree?): IConcept? {
         if (serialized matches Regex("[a-fA-Z0-9]+")) {
-            return PersistedConcept(SerializationUtil.longFromHex(serialized))
+            var uid: String? = null
+            val conceptNodeId = SerializationUtil.longFromHex(serialized)
+            if (tree != null && tree.containsNode(conceptNodeId)) {
+                uid = tree.getProperty(conceptNodeId, MetaMetaLanguage.property_IHasUID_uid.name)
+            }
+            return PersistedConcept(conceptNodeId, uid)
         }
         return null
     }

@@ -14,6 +14,7 @@
 package org.modelix.model.lazy
 
 import org.modelix.model.api.IConcept
+import org.modelix.model.api.ITree
 import org.modelix.model.api.SimpleConcept
 import org.modelix.model.api.SimpleLanguage
 
@@ -28,7 +29,7 @@ class BootstrapConceptSerializer(languages: List<SimpleLanguage>) : IConceptRefe
         return null
     }
 
-    override fun deserialize(serialized: String): IConcept? {
+    override fun deserialize(serialized: String, tree: ITree?): IConcept? {
         return concepts[serialized]
     }
 }

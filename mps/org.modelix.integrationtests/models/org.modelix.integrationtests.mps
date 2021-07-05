@@ -3872,6 +3872,230 @@
         <ref role="3uigEE" to="wy2b:~JsonObject" resolve="JsonObject" />
       </node>
     </node>
+    <node concept="3clFb_" id="4AFVQRW1xtb" role="jymVt">
+      <property role="TrG5h" value="writeJsonDump" />
+      <node concept="3clFbS" id="4AFVQRW1xtc" role="3clF47">
+        <node concept="3cpWs8" id="4AFVQRW1xtd" role="3cqZAp">
+          <node concept="3cpWsn" id="4AFVQRW1xte" role="3cpWs9">
+            <property role="TrG5h" value="modelixRootDir" />
+            <node concept="3uibUv" id="4AFVQRW1xtf" role="1tU5fm">
+              <ref role="3uigEE" to="guwi:~File" resolve="File" />
+            </node>
+            <node concept="2OqwBi" id="4AFVQRW1xtg" role="33vP2m">
+              <node concept="2OqwBi" id="4AFVQRW1xth" role="2Oq$k0">
+                <node concept="37vLTw" id="4AFVQRW1xti" role="2Oq$k0">
+                  <ref role="3cqZAo" node="5yNJPA6tkqm" resolve="referenceDir" />
+                </node>
+                <node concept="liA8E" id="4AFVQRW1xtj" role="2OqNvi">
+                  <ref role="37wK5l" to="guwi:~File.getParentFile()" resolve="getParentFile" />
+                </node>
+              </node>
+              <node concept="liA8E" id="4AFVQRW1xtk" role="2OqNvi">
+                <ref role="37wK5l" to="guwi:~File.getParentFile()" resolve="getParentFile" />
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="3cpWs8" id="4AFVQRW1xtl" role="3cqZAp">
+          <node concept="3cpWsn" id="4AFVQRW1xtm" role="3cpWs9">
+            <property role="TrG5h" value="dumpsDir" />
+            <node concept="3uibUv" id="4AFVQRW1xtn" role="1tU5fm">
+              <ref role="3uigEE" to="guwi:~File" resolve="File" />
+            </node>
+            <node concept="2ShNRf" id="4AFVQRW1xto" role="33vP2m">
+              <node concept="1pGfFk" id="4AFVQRW1xtp" role="2ShVmc">
+                <ref role="37wK5l" to="guwi:~File.&lt;init&gt;(java.io.File,java.lang.String)" resolve="File" />
+                <node concept="2ShNRf" id="4AFVQRW1xtq" role="37wK5m">
+                  <node concept="1pGfFk" id="4AFVQRW1xtr" role="2ShVmc">
+                    <ref role="37wK5l" to="guwi:~File.&lt;init&gt;(java.io.File,java.lang.String)" resolve="File" />
+                    <node concept="37vLTw" id="4AFVQRW1xts" role="37wK5m">
+                      <ref role="3cqZAo" node="4AFVQRW1xte" resolve="modelixRootDir" />
+                    </node>
+                    <node concept="Xl_RD" id="4AFVQRW1xtt" role="37wK5m">
+                      <property role="Xl_RC" value="integrationtests" />
+                    </node>
+                  </node>
+                </node>
+                <node concept="Xl_RD" id="4AFVQRW1xtu" role="37wK5m">
+                  <property role="Xl_RC" value="expected_server_dumps" />
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="3cpWs8" id="4AFVQRW1xtv" role="3cqZAp">
+          <node concept="3cpWsn" id="4AFVQRW1xtw" role="3cpWs9">
+            <property role="TrG5h" value="dumpFile" />
+            <node concept="3uibUv" id="4AFVQRW1xtx" role="1tU5fm">
+              <ref role="3uigEE" to="guwi:~File" resolve="File" />
+            </node>
+            <node concept="2ShNRf" id="4AFVQRW1xty" role="33vP2m">
+              <node concept="1pGfFk" id="4AFVQRW1xtz" role="2ShVmc">
+                <ref role="37wK5l" to="guwi:~File.&lt;init&gt;(java.io.File,java.lang.String)" resolve="File" />
+                <node concept="37vLTw" id="4AFVQRW1xt$" role="37wK5m">
+                  <ref role="3cqZAo" node="4AFVQRW1xtm" resolve="dumpsDir" />
+                </node>
+                <node concept="3cpWs3" id="4AFVQRW1xt_" role="37wK5m">
+                  <node concept="Xl_RD" id="4AFVQRW1xtA" role="3uHU7w">
+                    <property role="Xl_RC" value=".json" />
+                  </node>
+                  <node concept="37vLTw" id="4AFVQRW1xtB" role="3uHU7B">
+                    <ref role="3cqZAo" node="4AFVQRW1xud" resolve="name" />
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="3clFbJ" id="4AFVQRW1xtC" role="3cqZAp">
+          <node concept="3clFbS" id="4AFVQRW1xtD" role="3clFbx">
+            <node concept="YS8fn" id="4AFVQRW1xtE" role="3cqZAp">
+              <node concept="2ShNRf" id="4AFVQRW1xtF" role="YScLw">
+                <node concept="1pGfFk" id="4AFVQRW1xtG" role="2ShVmc">
+                  <ref role="37wK5l" to="wyt6:~IllegalAccessError.&lt;init&gt;(java.lang.String)" resolve="IllegalAccessError" />
+                  <node concept="3cpWs3" id="4AFVQRW1xtH" role="37wK5m">
+                    <node concept="2OqwBi" id="4AFVQRW1xtI" role="3uHU7w">
+                      <node concept="37vLTw" id="4AFVQRW1xtJ" role="2Oq$k0">
+                        <ref role="3cqZAo" node="4AFVQRW1xtw" resolve="dumpFile" />
+                      </node>
+                      <node concept="liA8E" id="4AFVQRW1xtK" role="2OqNvi">
+                        <ref role="37wK5l" to="guwi:~File.getAbsolutePath()" resolve="getAbsolutePath" />
+                      </node>
+                    </node>
+                    <node concept="3cpWs3" id="4AFVQRW1xtL" role="3uHU7B">
+                      <node concept="3cpWs3" id="4AFVQRW1xtM" role="3uHU7B">
+                        <node concept="Xl_RD" id="4AFVQRW1xtN" role="3uHU7B">
+                          <property role="Xl_RC" value="Dump file not found: " />
+                        </node>
+                        <node concept="37vLTw" id="4AFVQRW1xtO" role="3uHU7w">
+                          <ref role="3cqZAo" node="4AFVQRW1xud" resolve="name" />
+                        </node>
+                      </node>
+                      <node concept="Xl_RD" id="4AFVQRW1xtP" role="3uHU7w">
+                        <property role="Xl_RC" value=" -&gt; " />
+                      </node>
+                    </node>
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+          <node concept="3fqX7Q" id="4AFVQRW1xtQ" role="3clFbw">
+            <node concept="2OqwBi" id="4AFVQRW1xtR" role="3fr31v">
+              <node concept="37vLTw" id="4AFVQRW1xtS" role="2Oq$k0">
+                <ref role="3cqZAo" node="4AFVQRW1xtw" resolve="dumpFile" />
+              </node>
+              <node concept="liA8E" id="4AFVQRW1xtT" role="2OqNvi">
+                <ref role="37wK5l" to="guwi:~File.exists()" resolve="exists" />
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="3J1_TO" id="4AFVQRW1xtU" role="3cqZAp">
+          <node concept="3uVAMA" id="4AFVQRW2boQ" role="1zxBo5">
+            <node concept="XOnhg" id="4AFVQRW2boR" role="1zc67B">
+              <property role="TrG5h" value="ex" />
+              <node concept="nSUau" id="4AFVQRW2boS" role="1tU5fm">
+                <node concept="3uibUv" id="4AFVQRW2eYO" role="nSUat">
+                  <ref role="3uigEE" to="guwi:~IOException" resolve="IOException" />
+                </node>
+              </node>
+            </node>
+            <node concept="3clFbS" id="4AFVQRW2boT" role="1zc67A">
+              <node concept="YS8fn" id="4AFVQRW2gdo" role="3cqZAp">
+                <node concept="2ShNRf" id="4AFVQRW2gdp" role="YScLw">
+                  <node concept="1pGfFk" id="4AFVQRW2gdq" role="2ShVmc">
+                    <ref role="37wK5l" to="wyt6:~RuntimeException.&lt;init&gt;(java.lang.Throwable)" resolve="RuntimeException" />
+                    <node concept="37vLTw" id="4AFVQRW2xS9" role="37wK5m">
+                      <ref role="3cqZAo" node="4AFVQRW2boR" resolve="ex" />
+                    </node>
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+          <node concept="3clFbS" id="4AFVQRW1xtV" role="1zxBo7">
+            <node concept="3cpWs8" id="4AFVQRW26b3" role="3cqZAp">
+              <node concept="3cpWsn" id="4AFVQRW26b4" role="3cpWs9">
+                <property role="TrG5h" value="writer" />
+                <node concept="3uibUv" id="4AFVQRW22NX" role="1tU5fm">
+                  <ref role="3uigEE" to="guwi:~FileWriter" resolve="FileWriter" />
+                </node>
+                <node concept="2ShNRf" id="4AFVQRW26b5" role="33vP2m">
+                  <node concept="1pGfFk" id="4AFVQRW26b6" role="2ShVmc">
+                    <ref role="37wK5l" to="guwi:~FileWriter.&lt;init&gt;(java.io.File)" resolve="FileWriter" />
+                    <node concept="37vLTw" id="4AFVQRW26b7" role="37wK5m">
+                      <ref role="3cqZAo" node="4AFVQRW1xtw" resolve="dumpFile" />
+                    </node>
+                  </node>
+                </node>
+              </node>
+            </node>
+            <node concept="3cpWs8" id="4AFVQRW5bvK" role="3cqZAp">
+              <node concept="3cpWsn" id="4AFVQRW5bvL" role="3cpWs9">
+                <property role="TrG5h" value="gson" />
+                <node concept="3uibUv" id="4AFVQRW5bkZ" role="1tU5fm">
+                  <ref role="3uigEE" to="wy2b:~Gson" resolve="Gson" />
+                </node>
+                <node concept="2OqwBi" id="4AFVQRW5bvM" role="33vP2m">
+                  <node concept="2OqwBi" id="4AFVQRW5bvN" role="2Oq$k0">
+                    <node concept="2ShNRf" id="4AFVQRW5bvO" role="2Oq$k0">
+                      <node concept="1pGfFk" id="4AFVQRW5bvP" role="2ShVmc">
+                        <ref role="37wK5l" to="wy2b:~GsonBuilder.&lt;init&gt;()" resolve="GsonBuilder" />
+                      </node>
+                    </node>
+                    <node concept="liA8E" id="4AFVQRW5bvQ" role="2OqNvi">
+                      <ref role="37wK5l" to="wy2b:~GsonBuilder.setPrettyPrinting()" resolve="setPrettyPrinting" />
+                    </node>
+                  </node>
+                  <node concept="liA8E" id="4AFVQRW5bvR" role="2OqNvi">
+                    <ref role="37wK5l" to="wy2b:~GsonBuilder.create()" resolve="create" />
+                  </node>
+                </node>
+              </node>
+            </node>
+            <node concept="3clFbF" id="4AFVQRW5cR6" role="3cqZAp">
+              <node concept="2OqwBi" id="4AFVQRW5d3S" role="3clFbG">
+                <node concept="37vLTw" id="4AFVQRW5cR4" role="2Oq$k0">
+                  <ref role="3cqZAo" node="4AFVQRW5bvL" resolve="gson" />
+                </node>
+                <node concept="liA8E" id="4AFVQRW5diE" role="2OqNvi">
+                  <ref role="37wK5l" to="wy2b:~Gson.toJson(com.google.gson.JsonElement,java.lang.Appendable)" resolve="toJson" />
+                  <node concept="37vLTw" id="4AFVQRW5dLG" role="37wK5m">
+                    <ref role="3cqZAo" node="4AFVQRW1DQq" resolve="json" />
+                  </node>
+                  <node concept="37vLTw" id="4AFVQRW5fW4" role="37wK5m">
+                    <ref role="3cqZAo" node="4AFVQRW26b4" resolve="writer" />
+                  </node>
+                </node>
+              </node>
+            </node>
+            <node concept="3clFbF" id="4AFVQRW58Zm" role="3cqZAp">
+              <node concept="2OqwBi" id="4AFVQRW59y4" role="3clFbG">
+                <node concept="37vLTw" id="4AFVQRW58Zk" role="2Oq$k0">
+                  <ref role="3cqZAo" node="4AFVQRW26b4" resolve="writer" />
+                </node>
+                <node concept="liA8E" id="4AFVQRW5a0c" role="2OqNvi">
+                  <ref role="37wK5l" to="guwi:~OutputStreamWriter.close()" resolve="close" />
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+      </node>
+      <node concept="3Tm1VV" id="4AFVQRW1xuc" role="1B3o_S" />
+      <node concept="37vLTG" id="4AFVQRW1xud" role="3clF46">
+        <property role="TrG5h" value="name" />
+        <node concept="17QB3L" id="4AFVQRW1xue" role="1tU5fm" />
+      </node>
+      <node concept="37vLTG" id="4AFVQRW1DQq" role="3clF46">
+        <property role="TrG5h" value="json" />
+        <node concept="3uibUv" id="4AFVQRW1Oi4" role="1tU5fm">
+          <ref role="3uigEE" to="wy2b:~JsonObject" resolve="JsonObject" />
+        </node>
+      </node>
+      <node concept="3cqZAl" id="4AFVQRW2qcG" role="3clF45" />
+    </node>
     <node concept="2tJIrI" id="Aop38HZLEq" role="jymVt" />
     <node concept="312cEu" id="Aop38HZObG" role="jymVt">
       <property role="2bfB8j" value="true" />
@@ -7437,6 +7661,17 @@
             </node>
           </node>
         </node>
+        <node concept="3clFbF" id="4AFVQRW4t8J" role="3cqZAp">
+          <node concept="1rXfSq" id="4AFVQRW4t8K" role="3clFbG">
+            <ref role="37wK5l" node="4AFVQRW1xtb" resolve="writeJsonDump" />
+            <node concept="Xl_RD" id="4AFVQRW4t8L" role="37wK5m">
+              <property role="Xl_RC" value="dump1" />
+            </node>
+            <node concept="37vLTw" id="4AFVQRW4tK8" role="37wK5m">
+              <ref role="3cqZAo" node="7JjSHvQ4tsl" resolve="actualJsonDump" />
+            </node>
+          </node>
+        </node>
         <node concept="3clFbF" id="7JjSHvQ6UAO" role="3cqZAp">
           <node concept="1rXfSq" id="7JjSHvQ6UAM" role="3clFbG">
             <ref role="37wK5l" node="7JjSHvQ4V3I" resolve="assertJsonsAreEquals" />
@@ -9067,6 +9302,17 @@
             </node>
           </node>
         </node>
+        <node concept="3clFbF" id="4AFVQRW4rsL" role="3cqZAp">
+          <node concept="1rXfSq" id="4AFVQRW4rsM" role="3clFbG">
+            <ref role="37wK5l" node="4AFVQRW1xtb" resolve="writeJsonDump" />
+            <node concept="Xl_RD" id="4AFVQRW4rsN" role="37wK5m">
+              <property role="Xl_RC" value="dump1" />
+            </node>
+            <node concept="37vLTw" id="4AFVQRW4soe" role="37wK5m">
+              <ref role="3cqZAo" node="5i$4SBK0d$s" resolve="actualJsonDump" />
+            </node>
+          </node>
+        </node>
         <node concept="3clFbF" id="5i$4SBK0d$A" role="3cqZAp">
           <node concept="1rXfSq" id="5i$4SBK0d$B" role="3clFbG">
             <ref role="37wK5l" node="7JjSHvQ4V3I" resolve="assertJsonsAreEquals" />
@@ -9295,6 +9541,17 @@
             </node>
             <node concept="37vLTw" id="5i$4SBK2LeR" role="37vLTJ">
               <ref role="3cqZAo" node="5i$4SBK0d$y" resolve="expectedJsonDump" />
+            </node>
+          </node>
+        </node>
+        <node concept="3clFbF" id="4AFVQRW4pxp" role="3cqZAp">
+          <node concept="1rXfSq" id="4AFVQRW4pxq" role="3clFbG">
+            <ref role="37wK5l" node="4AFVQRW1xtb" resolve="writeJsonDump" />
+            <node concept="Xl_RD" id="4AFVQRW4pxr" role="37wK5m">
+              <property role="Xl_RC" value="dump2" />
+            </node>
+            <node concept="37vLTw" id="4AFVQRW4qp$" role="37wK5m">
+              <ref role="3cqZAo" node="5i$4SBK0d$s" resolve="actualJsonDump" />
             </node>
           </node>
         </node>
@@ -9579,6 +9836,17 @@
             </node>
             <node concept="37vLTw" id="nkanButwKr" role="37vLTJ">
               <ref role="3cqZAo" node="5i$4SBK0d$y" resolve="expectedJsonDump" />
+            </node>
+          </node>
+        </node>
+        <node concept="3clFbF" id="4AFVQRW4qw4" role="3cqZAp">
+          <node concept="1rXfSq" id="4AFVQRW4qw5" role="3clFbG">
+            <ref role="37wK5l" node="4AFVQRW1xtb" resolve="writeJsonDump" />
+            <node concept="Xl_RD" id="4AFVQRW4qw6" role="37wK5m">
+              <property role="Xl_RC" value="dump3" />
+            </node>
+            <node concept="37vLTw" id="4AFVQRW4roj" role="37wK5m">
+              <ref role="3cqZAo" node="5i$4SBK0d$s" resolve="actualJsonDump" />
             </node>
           </node>
         </node>
@@ -11303,6 +11571,17 @@
             </node>
           </node>
         </node>
+        <node concept="3clFbF" id="4AFVQRW4w8v" role="3cqZAp">
+          <node concept="1rXfSq" id="4AFVQRW4w8w" role="3clFbG">
+            <ref role="37wK5l" node="4AFVQRW1xtb" resolve="writeJsonDump" />
+            <node concept="Xl_RD" id="4AFVQRW4w8x" role="37wK5m">
+              <property role="Xl_RC" value="dump1" />
+            </node>
+            <node concept="37vLTw" id="4AFVQRW4w8y" role="37wK5m">
+              <ref role="3cqZAo" node="Aop38HWrm1" resolve="actualJsonDump1" />
+            </node>
+          </node>
+        </node>
         <node concept="3clFbF" id="Aop38HWrmb" role="3cqZAp">
           <node concept="1rXfSq" id="Aop38HWrmc" role="3clFbG">
             <ref role="37wK5l" node="7JjSHvQ4V3I" resolve="assertJsonsAreEquals" />
@@ -11710,6 +11989,17 @@
             </node>
             <node concept="37vLTw" id="7jRNnvCeVcA" role="37vLTJ">
               <ref role="3cqZAo" node="7jRNnvCeXV6" resolve="expectedJsonDump" />
+            </node>
+          </node>
+        </node>
+        <node concept="3clFbF" id="4AFVQRW4vdY" role="3cqZAp">
+          <node concept="1rXfSq" id="4AFVQRW4vdZ" role="3clFbG">
+            <ref role="37wK5l" node="4AFVQRW1xtb" resolve="writeJsonDump" />
+            <node concept="Xl_RD" id="4AFVQRW4ve0" role="37wK5m">
+              <property role="Xl_RC" value="dump4" />
+            </node>
+            <node concept="37vLTw" id="4AFVQRW4w3b" role="37wK5m">
+              <ref role="3cqZAo" node="7jRNnvCeWT9" resolve="actualJsonDump" />
             </node>
           </node>
         </node>
@@ -12770,6 +13060,17 @@
               <node concept="Xl_RD" id="Aop38Iexi9" role="37wK5m">
                 <property role="Xl_RC" value="dump1" />
               </node>
+            </node>
+          </node>
+        </node>
+        <node concept="3clFbF" id="4AFVQRW4njx" role="3cqZAp">
+          <node concept="1rXfSq" id="4AFVQRW4njy" role="3clFbG">
+            <ref role="37wK5l" node="4AFVQRW1xtb" resolve="writeJsonDump" />
+            <node concept="Xl_RD" id="4AFVQRW4njz" role="37wK5m">
+              <property role="Xl_RC" value="dump1" />
+            </node>
+            <node concept="37vLTw" id="4AFVQRW4nj$" role="37wK5m">
+              <ref role="3cqZAo" node="Aop38Iexi0" resolve="actualJsonDump1" />
             </node>
           </node>
         </node>
@@ -13878,6 +14179,17 @@
             </node>
           </node>
         </node>
+        <node concept="3clFbF" id="4AFVQRW1Kcv" role="3cqZAp">
+          <node concept="1rXfSq" id="4AFVQRW1Kct" role="3clFbG">
+            <ref role="37wK5l" node="4AFVQRW1xtb" resolve="writeJsonDump" />
+            <node concept="Xl_RD" id="4AFVQRW1LrN" role="37wK5m">
+              <property role="Xl_RC" value="dump6" />
+            </node>
+            <node concept="37vLTw" id="4AFVQRW1LDy" role="37wK5m">
+              <ref role="3cqZAo" node="Aop38IeA2J" resolve="actualJsonDump1" />
+            </node>
+          </node>
+        </node>
         <node concept="3clFbF" id="Aop38IeA2T" role="3cqZAp">
           <node concept="1rXfSq" id="Aop38IeA2U" role="3clFbG">
             <ref role="37wK5l" node="7JjSHvQ4V3I" resolve="assertJsonsAreEquals" />
@@ -14589,6 +14901,17 @@
             </node>
           </node>
         </node>
+        <node concept="3clFbF" id="4AFVQRW4i1w" role="3cqZAp">
+          <node concept="1rXfSq" id="4AFVQRW4i1x" role="3clFbG">
+            <ref role="37wK5l" node="4AFVQRW1xtb" resolve="writeJsonDump" />
+            <node concept="Xl_RD" id="4AFVQRW4i1y" role="37wK5m">
+              <property role="Xl_RC" value="dump7" />
+            </node>
+            <node concept="37vLTw" id="4AFVQRW4jjI" role="37wK5m">
+              <ref role="3cqZAo" node="7jRNnvCjg09" resolve="actualJsonDump" />
+            </node>
+          </node>
+        </node>
         <node concept="3clFbF" id="7jRNnvCjdJP" role="3cqZAp">
           <node concept="1rXfSq" id="7jRNnvCjdJQ" role="3clFbG">
             <ref role="37wK5l" node="7JjSHvQ4V3I" resolve="assertJsonsAreEquals" />
@@ -14843,6 +15166,17 @@
             </node>
             <node concept="37vLTw" id="7jRNnvCjkKA" role="37vLTJ">
               <ref role="3cqZAo" node="7jRNnvCjgFi" resolve="expectedJsonDump" />
+            </node>
+          </node>
+        </node>
+        <node concept="3clFbF" id="4AFVQRW4jrU" role="3cqZAp">
+          <node concept="1rXfSq" id="4AFVQRW4jrV" role="3clFbG">
+            <ref role="37wK5l" node="4AFVQRW1xtb" resolve="writeJsonDump" />
+            <node concept="Xl_RD" id="4AFVQRW4jrW" role="37wK5m">
+              <property role="Xl_RC" value="dump8" />
+            </node>
+            <node concept="37vLTw" id="4AFVQRW4kEy" role="37wK5m">
+              <ref role="3cqZAo" node="7jRNnvCjg09" resolve="actualJsonDump" />
             </node>
           </node>
         </node>
