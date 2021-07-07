@@ -29,7 +29,7 @@ open class ActiveBranch(client: IModelClient, repository: RepositoryId, branchNa
     var branchName: String
         private set
     private val user: () -> String
-    private var replicatedTree: ReplicatedTree
+    private var replicatedRepository: ReplicatedRepository
     private var lastKnownTree: ITree? = null
     private val forwardingListener: IBranchListener = object : IBranchListener {
         override fun treeChanged(oldTree: ITree?, newTree: ITree) {
@@ -43,15 +43,15 @@ open class ActiveBranch(client: IModelClient, repository: RepositoryId, branchNa
     override val branch: IBranch
         get() {
             if (disposed) throw IllegalStateException("ActiveBranch was disposed")
-            return replicatedTree.branch
+            return replicatedRepository.branch
         }
 
     val version: CLVersion
-        get() = replicatedTree.localVersion!!
+        get() = replicatedRepository.localVersion!!
 
     open fun dispose() {
-        replicatedTree.branch.removeListener(forwardingListener)
-        replicatedTree.dispose()
+        replicatedRepository.branch.removeListener(forwardingListener)
+        replicatedRepository.dispose()
         disposed = true
     }
 
@@ -73,11 +73,11 @@ open class ActiveBranch(client: IModelClient, repository: RepositoryId, branchNa
             return
         }
         branchName = name
-        replicatedTree.branch.removeListener(forwardingListener)
-        replicatedTree.dispose()
-        replicatedTree = createReplicatedTree(client, repository, branchName, user)
-        replicatedTree.branch.addListener(forwardingListener)
-        val b = replicatedTree.branch
+        replicatedRepository.branch.removeListener(forwardingListener)
+        replicatedRepository.dispose()
+        replicatedRepository = createReplicatedTree(client, repository, branchName, user)
+        replicatedRepository.branch.addListener(forwardingListener)
+        val b = replicatedRepository.branch
         val newTree = b.computeRead { b.transaction.tree }
         notifyListeners(newTree)
     }
@@ -99,8 +99,8 @@ open class ActiveBranch(client: IModelClient, repository: RepositoryId, branchNa
         repositoryId: RepositoryId,
         branchName: String,
         user: () -> String
-    ): ReplicatedTree =
-        ReplicatedTree(client, repositoryId, branchName, user)
+    ): ReplicatedRepository =
+        ReplicatedRepository(client, repositoryId, branchName, user)
 
     companion object {
         const val DEFAULT_BRANCH_NAME = "master"
@@ -111,8 +111,8 @@ open class ActiveBranch(client: IModelClient, repository: RepositoryId, branchNa
         this.repository = repository
         this.branchName = if (branchName.isNullOrEmpty()) DEFAULT_BRANCH_NAME else branchName
         this.user = user
-        replicatedTree = createReplicatedTree(client, repository, this.branchName, user)
-        lastKnownTree = replicatedTree.branch.computeRead { replicatedTree.branch.transaction.tree }
-        replicatedTree.branch.addListener(forwardingListener)
+        replicatedRepository = createReplicatedTree(client, repository, this.branchName, user)
+        lastKnownTree = replicatedRepository.branch.computeRead { replicatedRepository.branch.transaction.tree }
+        replicatedRepository.branch.addListener(forwardingListener)
     }
 }

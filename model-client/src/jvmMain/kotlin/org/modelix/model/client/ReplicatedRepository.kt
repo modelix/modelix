@@ -37,7 +37,7 @@ import java.util.function.Supplier
 /**
  * Dispose should be called on this, as otherwise a regular polling will go on.
  */
-actual open class ReplicatedTree actual constructor(
+actual open class ReplicatedRepository actual constructor(
     private val client: IModelClient,
     private val repositoryId: RepositoryId,
     private val branchName: String,
@@ -232,7 +232,7 @@ actual open class ReplicatedTree actual constructor(
     }
 
     companion object {
-        private val LOG = LogManager.getLogger(ReplicatedTree::class.java)
+        private val LOG = LogManager.getLogger(ReplicatedRepository::class.java)
         private fun getHash(v: CLVersion?): String? {
             return v?.hash
         }

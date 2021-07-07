@@ -4,7 +4,7 @@ import org.modelix.model.api.IBranch
 import org.modelix.model.lazy.CLVersion
 import org.modelix.model.lazy.RepositoryId
 
-expect class ReplicatedTree(client: IModelClient, repositoryId: RepositoryId, branchName: String, user: () -> String) {
+expect class ReplicatedRepository(client: IModelClient, repositoryId: RepositoryId, branchName: String, user: () -> String) {
     var localVersion: CLVersion?
     val branch: IBranch
     fun dispose()

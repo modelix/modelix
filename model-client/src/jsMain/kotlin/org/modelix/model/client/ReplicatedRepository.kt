@@ -4,7 +4,7 @@ import org.modelix.model.api.IBranch
 import org.modelix.model.lazy.CLVersion
 import org.modelix.model.lazy.RepositoryId
 
-actual class ReplicatedTree {
+actual class ReplicatedRepository {
     actual constructor(client: IModelClient, repositoryId: RepositoryId, branchName: String, user: () -> String) {
         TODO("Not yet implemented")
     }
