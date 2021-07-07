@@ -433,7 +433,7 @@
         <node concept="2OqwBi" id="694yVfgk$yT" role="gfFT$">
           <node concept="2YIFZM" id="694yVfgk$JT" role="2Oq$k0">
             <ref role="37wK5l" to="csg2:1LVcV5Kxxmz" resolve="getInstance" />
-            <ref role="1Pybhc" to="csg2:1LVcV5Kxxi$" resolve="CloudRepositories" />
+            <ref role="1Pybhc" to="csg2:1LVcV5Kxxi$" resolve="ModelServerConnections" />
           </node>
           <node concept="liA8E" id="694yVfgk$Sp" role="2OqNvi">
             <ref role="37wK5l" to="csg2:694yVfgjeWj" resolve="resolveCloudModel" />
@@ -1087,7 +1087,7 @@
             <node concept="2OqwBi" id="71Hu3F3tLXs" role="33vP2m">
               <node concept="2YIFZM" id="71Hu3F3tLXt" role="2Oq$k0">
                 <ref role="37wK5l" to="csg2:1LVcV5Kxxmz" resolve="getInstance" />
-                <ref role="1Pybhc" to="csg2:1LVcV5Kxxi$" resolve="CloudRepositories" />
+                <ref role="1Pybhc" to="csg2:1LVcV5Kxxi$" resolve="ModelServerConnections" />
               </node>
               <node concept="liA8E" id="71Hu3F3tLXu" role="2OqNvi">
                 <ref role="37wK5l" to="csg2:1SyMXWjsQoH" resolve="getArea" />
