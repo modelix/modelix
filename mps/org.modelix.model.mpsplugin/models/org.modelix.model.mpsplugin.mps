@@ -1172,7 +1172,7 @@
                           <node concept="3clFbF" id="26DjJYlUOpg" role="3cqZAp">
                             <node concept="2YIFZM" id="26DjJYlUOvj" role="3clFbG">
                               <ref role="37wK5l" node="6CisxuPrJce" resolve="documentChanged" />
-                              <ref role="1Pybhd" node="6aRQr1WXt1Z" resolve="MpsReplicatedTree" />
+                              <ref role="1Pybhd" node="6aRQr1WXt1Z" resolve="MpsReplicatedRepository" />
                               <node concept="2YIFZM" id="26DjJYlUSrd" role="37wK5m">
                                 <ref role="37wK5l" to="j532:~MPSUndoUtil.getRefForDoc(com.intellij.openapi.editor.Document)" resolve="getRefForDoc" />
                                 <ref role="1Pybhd" to="j532:~MPSUndoUtil" resolve="MPSUndoUtil" />
@@ -7305,7 +7305,7 @@
       <property role="TrG5h" value="infoTree" />
       <node concept="3Tm6S6" id="6aRQr1WXcrv" role="1B3o_S" />
       <node concept="3uibUv" id="6aRQr1X1HQz" role="1tU5fm">
-        <ref role="3uigEE" node="6aRQr1WXt1Z" resolve="MpsReplicatedTree" />
+        <ref role="3uigEE" node="6aRQr1WXt1Z" resolve="MpsReplicatedRepository" />
       </node>
     </node>
     <node concept="312cEg" id="6aRQr1X1X4Z" role="jymVt">
@@ -7570,7 +7570,7 @@
                             <node concept="37vLTI" id="6aRQr1X1IUT" role="3clFbG">
                               <node concept="2ShNRf" id="6aRQr1X1Jl4" role="37vLTx">
                                 <node concept="1pGfFk" id="6aRQr1X1Ja6" role="2ShVmc">
-                                  <ref role="37wK5l" node="6aRQr1WXtj7" resolve="MpsReplicatedTree" />
+                                  <ref role="37wK5l" node="6aRQr1WXtj7" resolve="MpsReplicatedRepository" />
                                   <node concept="37vLTw" id="6aRQr1X1K06" role="37wK5m">
                                     <ref role="3cqZAo" node="6aRQr1WVnku" resolve="client" />
                                   </node>
@@ -9201,7 +9201,7 @@
                               <node concept="3clFbF" id="7IyD6pkwMW4" role="3cqZAp">
                                 <node concept="2ShNRf" id="7IyD6pkwMW0" role="3clFbG">
                                   <node concept="1pGfFk" id="7IyD6pkwY3r" role="2ShVmc">
-                                    <ref role="37wK5l" node="6aRQr1WXtj7" resolve="MpsReplicatedTree" />
+                                    <ref role="37wK5l" node="6aRQr1WXtj7" resolve="MpsReplicatedRepository" />
                                     <node concept="37vLTw" id="7IyD6pkwY7W" role="37wK5m">
                                       <ref role="3cqZAo" node="7IyD6pkwvXT" resolve="client" />
                                     </node>
@@ -10012,21 +10012,21 @@
     </node>
   </node>
   <node concept="312cEu" id="6aRQr1WXt1Z">
-    <property role="TrG5h" value="MpsReplicatedTree" />
+    <property role="TrG5h" value="MpsReplicatedRepository" />
     <node concept="2tJIrI" id="6aRQr1WXt2X" role="jymVt" />
     <node concept="Wx3nA" id="1jU3Cj1$gGe" role="jymVt">
       <property role="TrG5h" value="INSTANCES" />
       <property role="3TUv4t" value="true" />
       <node concept="2hMVRd" id="1jU3Cj1$gmP" role="1tU5fm">
         <node concept="3uibUv" id="1jU3Cj1$gwh" role="2hN53Y">
-          <ref role="3uigEE" node="6aRQr1WXt1Z" resolve="MpsReplicatedTree" />
+          <ref role="3uigEE" node="6aRQr1WXt1Z" resolve="MpsReplicatedRepository" />
         </node>
       </node>
       <node concept="3Tm6S6" id="1jU3Cj1$fob" role="1B3o_S" />
       <node concept="2ShNRf" id="1jU3Cj1$gCi" role="33vP2m">
         <node concept="2i4dXS" id="1jU3Cj1$gC9" role="2ShVmc">
           <node concept="3uibUv" id="1jU3Cj1$gCa" role="HW$YZ">
-            <ref role="3uigEE" node="6aRQr1WXt1Z" resolve="MpsReplicatedTree" />
+            <ref role="3uigEE" node="6aRQr1WXt1Z" resolve="MpsReplicatedRepository" />
           </node>
         </node>
       </node>
@@ -10040,7 +10040,7 @@
             <property role="TrG5h" value="list" />
             <node concept="_YKpA" id="1jU3Cj1_9Qo" role="1tU5fm">
               <node concept="3uibUv" id="1jU3Cj1_9Qr" role="_ZDj9">
-                <ref role="3uigEE" node="6aRQr1WXt1Z" resolve="MpsReplicatedTree" />
+                <ref role="3uigEE" node="6aRQr1WXt1Z" resolve="MpsReplicatedRepository" />
               </node>
             </node>
           </node>
@@ -10055,7 +10055,7 @@
                 <node concept="2ShNRf" id="1jU3Cj1_a2P" role="37vLTx">
                   <node concept="Tc6Ow" id="1jU3Cj1_a2Q" role="2ShVmc">
                     <node concept="3uibUv" id="1jU3Cj1_a2R" role="HW$YZ">
-                      <ref role="3uigEE" node="6aRQr1WXt1Z" resolve="MpsReplicatedTree" />
+                      <ref role="3uigEE" node="6aRQr1WXt1Z" resolve="MpsReplicatedRepository" />
                     </node>
                     <node concept="37vLTw" id="1jU3Cj1_a2S" role="I$8f6">
                       <ref role="3cqZAo" node="1jU3Cj1$gGe" resolve="INSTANCES" />
@@ -10273,7 +10273,7 @@
                       <ref role="37wK5l" to="54q7:~UndoManager.undoableActionPerformed(com.intellij.openapi.command.undo.UndoableAction)" resolve="undoableActionPerformed" />
                       <node concept="2ShNRf" id="3H1ZR7sMBCs" role="37wK5m">
                         <node concept="1pGfFk" id="3H1ZR7sMMw1" role="2ShVmc">
-                          <ref role="37wK5l" node="3H1ZR7sMK2C" resolve="MpsReplicatedTree.ModelixUndoableAction" />
+                          <ref role="37wK5l" node="3H1ZR7sMK2C" resolve="MpsReplicatedRepository.ModelixUndoableAction" />
                           <node concept="37vLTw" id="3H1ZR7sMMWn" role="37wK5m">
                             <ref role="3cqZAo" node="3H1ZR7sLwTh" resolve="version" />
                           </node>
