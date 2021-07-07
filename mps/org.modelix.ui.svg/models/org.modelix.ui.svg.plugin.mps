@@ -5303,7 +5303,7 @@
                           <node concept="2OqwBi" id="7$7_4ZidfmL" role="33vP2m">
                             <node concept="2YIFZM" id="7$7_4ZidfmM" role="2Oq$k0">
                               <ref role="37wK5l" to="csg2:1LVcV5Kxxmz" resolve="getInstance" />
-                              <ref role="1Pybhc" to="csg2:1LVcV5Kxxi$" resolve="CloudRepositories" />
+                              <ref role="1Pybhc" to="csg2:1LVcV5Kxxi$" resolve="ModelServerConnections" />
                             </node>
                             <node concept="liA8E" id="7$7_4ZidfmN" role="2OqNvi">
                               <ref role="37wK5l" to="csg2:FyCC6tvOE7" resolve="getArea" />
