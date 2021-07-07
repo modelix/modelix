@@ -5524,8 +5524,8 @@
         <property role="TrG5h" value="consumer" />
         <node concept="3uibUv" id="53_gmpoTqNN" role="1tU5fm">
           <ref role="3uigEE" to="82uw:~Function" resolve="Function" />
-          <node concept="3uibUv" id="53_gmpoTqNO" role="11_B2D">
-            <ref role="3uigEE" to="5440:~ReplicatedTree" resolve="ReplicatedTree" />
+          <node concept="3uibUv" id="769wvHiFRku" role="11_B2D">
+            <ref role="3uigEE" to="5440:~ReplicatedRepository" resolve="ReplicatedRepository" />
           </node>
           <node concept="16syzq" id="53_gmpoTqNP" role="11_B2D">
             <ref role="16sUi3" node="53_gmpoTqNQ" resolve="T" />
@@ -5546,7 +5546,7 @@
               <ref role="3cqZAo" node="1QKKVBBC5ZF" resolve="ms" />
             </node>
             <node concept="liA8E" id="53_gmpoUVTC" role="2OqNvi">
-              <ref role="37wK5l" node="53_gmpoV3TW" resolve="runOnReplicatedTree" />
+              <ref role="37wK5l" node="53_gmpoV3TW" resolve="runOnReplicatedRepository" />
               <node concept="37vLTw" id="53_gmpoUVTD" role="37wK5m">
                 <ref role="3cqZAo" node="53_gmpoUVTI" resolve="repositoryId" />
               </node>
@@ -5578,8 +5578,8 @@
         <property role="TrG5h" value="consumer" />
         <node concept="3uibUv" id="53_gmpoUVTN" role="1tU5fm">
           <ref role="3uigEE" to="82uw:~Consumer" resolve="Consumer" />
-          <node concept="3uibUv" id="53_gmpoUVTO" role="11_B2D">
-            <ref role="3uigEE" to="5440:~ReplicatedTree" resolve="ReplicatedTree" />
+          <node concept="3uibUv" id="769wvHiFUYV" role="11_B2D">
+            <ref role="3uigEE" to="5440:~ReplicatedRepository" resolve="ReplicatedRepository" />
           </node>
         </node>
       </node>
@@ -6684,9 +6684,9 @@
             </node>
             <node concept="1bVj0M" id="nkanButAVa" role="37wK5m">
               <node concept="37vLTG" id="nkanButBN6" role="1bW2Oz">
-                <property role="TrG5h" value="rt" />
-                <node concept="3uibUv" id="nkanButBZZ" role="1tU5fm">
-                  <ref role="3uigEE" to="5440:~ReplicatedTree" resolve="ReplicatedTree" />
+                <property role="TrG5h" value="rr" />
+                <node concept="3uibUv" id="769wvHiG5Z6" role="1tU5fm">
+                  <ref role="3uigEE" to="5440:~ReplicatedRepository" resolve="ReplicatedRepository" />
                 </node>
               </node>
               <node concept="3clFbS" id="nkanButAVc" role="1bW5cS">
@@ -6698,7 +6698,7 @@
                     <node concept="liA8E" id="nkanButC8J" role="2OqNvi">
                       <ref role="37wK5l" node="nkanButDc$" resolve="dumpAsJson" />
                       <node concept="37vLTw" id="nkanButCmG" role="37wK5m">
-                        <ref role="3cqZAo" node="nkanButBN6" resolve="rt" />
+                        <ref role="3cqZAo" node="nkanButBN6" resolve="rr" />
                       </node>
                       <node concept="37vLTw" id="Aop38HYr7h" role="37wK5m">
                         <ref role="3cqZAo" node="Aop38HYon8" resolve="withId" />
@@ -6890,13 +6890,13 @@
               <node concept="3clFbS" id="53_gmpoT25O" role="1bW5cS">
                 <node concept="3cpWs8" id="53_gmpoSXLf" role="3cqZAp">
                   <node concept="3cpWsn" id="53_gmpoSXLg" role="3cpWs9">
-                    <property role="TrG5h" value="rt" />
-                    <node concept="3uibUv" id="53_gmpoSXLh" role="1tU5fm">
-                      <ref role="3uigEE" to="5440:~ReplicatedTree" resolve="ReplicatedTree" />
+                    <property role="TrG5h" value="rr" />
+                    <node concept="3uibUv" id="769wvHiG48c" role="1tU5fm">
+                      <ref role="3uigEE" to="5440:~ReplicatedRepository" resolve="ReplicatedRepository" />
                     </node>
                     <node concept="2ShNRf" id="53_gmpoSXLi" role="33vP2m">
                       <node concept="1pGfFk" id="53_gmpoSXLj" role="2ShVmc">
-                        <ref role="37wK5l" to="5440:~ReplicatedTree.&lt;init&gt;(org.modelix.model.client.IModelClient,org.modelix.model.lazy.RepositoryId,java.lang.String,kotlin.jvm.functions.Function0)" resolve="ReplicatedTree" />
+                        <ref role="37wK5l" to="5440:~ReplicatedRepository.&lt;init&gt;(org.modelix.model.client.IModelClient,org.modelix.model.lazy.RepositoryId,java.lang.String,kotlin.jvm.functions.Function0)" resolve="ReplicatedRepository" />
                         <node concept="37vLTw" id="53_gmpoSXLk" role="37wK5m">
                           <ref role="3cqZAo" node="53_gmpoT2xl" resolve="restWebModelClient" />
                         </node>
@@ -6932,7 +6932,7 @@
                       <node concept="liA8E" id="53_gmpoTbm9" role="2OqNvi">
                         <ref role="37wK5l" to="82uw:~Function.apply(java.lang.Object)" resolve="apply" />
                         <node concept="37vLTw" id="53_gmpoTbU0" role="37wK5m">
-                          <ref role="3cqZAo" node="53_gmpoSXLg" resolve="rt" />
+                          <ref role="3cqZAo" node="53_gmpoSXLg" resolve="rr" />
                         </node>
                       </node>
                     </node>
@@ -6941,10 +6941,10 @@
                 <node concept="3clFbF" id="53_gmpoSXLK" role="3cqZAp">
                   <node concept="2OqwBi" id="53_gmpoSXLL" role="3clFbG">
                     <node concept="37vLTw" id="53_gmpoSXLM" role="2Oq$k0">
-                      <ref role="3cqZAo" node="53_gmpoSXLg" resolve="rt" />
+                      <ref role="3cqZAo" node="53_gmpoSXLg" resolve="rr" />
                     </node>
                     <node concept="liA8E" id="53_gmpoSXLN" role="2OqNvi">
-                      <ref role="37wK5l" to="5440:~ReplicatedTree.dispose()" resolve="dispose" />
+                      <ref role="37wK5l" to="5440:~ReplicatedRepository.dispose()" resolve="dispose" />
                     </node>
                   </node>
                 </node>
@@ -6978,8 +6978,8 @@
         <property role="TrG5h" value="consumer" />
         <node concept="3uibUv" id="53_gmpoSW$E" role="1tU5fm">
           <ref role="3uigEE" to="82uw:~Function" resolve="Function" />
-          <node concept="3uibUv" id="53_gmpoSZsx" role="11_B2D">
-            <ref role="3uigEE" to="5440:~ReplicatedTree" resolve="ReplicatedTree" />
+          <node concept="3uibUv" id="769wvHiG2XC" role="11_B2D">
+            <ref role="3uigEE" to="5440:~ReplicatedRepository" resolve="ReplicatedRepository" />
           </node>
           <node concept="16syzq" id="53_gmpoSW$G" role="11_B2D">
             <ref role="16sUi3" node="53_gmpoSW$H" resolve="T" />
@@ -6991,7 +6991,7 @@
       </node>
     </node>
     <node concept="3clFb_" id="53_gmpoV3TW" role="jymVt">
-      <property role="TrG5h" value="runOnReplicatedTree" />
+      <property role="TrG5h" value="runOnReplicatedRepository" />
       <node concept="3clFbS" id="53_gmpoV3TX" role="3clF47">
         <node concept="3clFbF" id="53_gmpoV6Tj" role="3cqZAp">
           <node concept="1rXfSq" id="53_gmpoV3TZ" role="3clFbG">
@@ -7006,13 +7006,13 @@
               <node concept="3clFbS" id="53_gmpoV3U3" role="1bW5cS">
                 <node concept="3cpWs8" id="53_gmpoV3U4" role="3cqZAp">
                   <node concept="3cpWsn" id="53_gmpoV3U5" role="3cpWs9">
-                    <property role="TrG5h" value="rt" />
-                    <node concept="3uibUv" id="53_gmpoV3U6" role="1tU5fm">
-                      <ref role="3uigEE" to="5440:~ReplicatedTree" resolve="ReplicatedTree" />
+                    <property role="TrG5h" value="rr" />
+                    <node concept="3uibUv" id="769wvHiFZgC" role="1tU5fm">
+                      <ref role="3uigEE" to="5440:~ReplicatedRepository" resolve="ReplicatedRepository" />
                     </node>
                     <node concept="2ShNRf" id="53_gmpoV3U7" role="33vP2m">
                       <node concept="1pGfFk" id="53_gmpoV3U8" role="2ShVmc">
-                        <ref role="37wK5l" to="5440:~ReplicatedTree.&lt;init&gt;(org.modelix.model.client.IModelClient,org.modelix.model.lazy.RepositoryId,java.lang.String,kotlin.jvm.functions.Function0)" resolve="ReplicatedTree" />
+                        <ref role="37wK5l" to="5440:~ReplicatedRepository.&lt;init&gt;(org.modelix.model.client.IModelClient,org.modelix.model.lazy.RepositoryId,java.lang.String,kotlin.jvm.functions.Function0)" resolve="ReplicatedRepository" />
                         <node concept="37vLTw" id="53_gmpoV3U9" role="37wK5m">
                           <ref role="3cqZAo" node="53_gmpoV3U1" resolve="restWebModelClient" />
                         </node>
@@ -7043,7 +7043,7 @@
                     <node concept="liA8E" id="53_gmpoV3Ul" role="2OqNvi">
                       <ref role="37wK5l" to="82uw:~Consumer.accept(java.lang.Object)" resolve="accept" />
                       <node concept="37vLTw" id="53_gmpoV3Um" role="37wK5m">
-                        <ref role="3cqZAo" node="53_gmpoV3U5" resolve="rt" />
+                        <ref role="3cqZAo" node="53_gmpoV3U5" resolve="rr" />
                       </node>
                     </node>
                   </node>
@@ -7051,10 +7051,10 @@
                 <node concept="3clFbF" id="53_gmpoV3Un" role="3cqZAp">
                   <node concept="2OqwBi" id="53_gmpoV3Uo" role="3clFbG">
                     <node concept="37vLTw" id="53_gmpoV3Up" role="2Oq$k0">
-                      <ref role="3cqZAo" node="53_gmpoV3U5" resolve="rt" />
+                      <ref role="3cqZAo" node="53_gmpoV3U5" resolve="rr" />
                     </node>
                     <node concept="liA8E" id="53_gmpoV3Uq" role="2OqNvi">
-                      <ref role="37wK5l" to="5440:~ReplicatedTree.dispose()" resolve="dispose" />
+                      <ref role="37wK5l" to="5440:~ReplicatedRepository.dispose()" resolve="dispose" />
                     </node>
                   </node>
                 </node>
@@ -7084,8 +7084,8 @@
         <property role="TrG5h" value="consumer" />
         <node concept="3uibUv" id="53_gmpoV3U$" role="1tU5fm">
           <ref role="3uigEE" to="82uw:~Consumer" resolve="Consumer" />
-          <node concept="3uibUv" id="53_gmpoV3U_" role="11_B2D">
-            <ref role="3uigEE" to="5440:~ReplicatedTree" resolve="ReplicatedTree" />
+          <node concept="3uibUv" id="769wvHiFZ95" role="11_B2D">
+            <ref role="3uigEE" to="5440:~ReplicatedRepository" resolve="ReplicatedRepository" />
           </node>
         </node>
       </node>
@@ -8662,13 +8662,13 @@
       <node concept="3clFbS" id="11vVX88wluo" role="3clF47">
         <node concept="3cpWs8" id="11vVX88wt07" role="3cqZAp">
           <node concept="3cpWsn" id="11vVX88wt08" role="3cpWs9">
-            <property role="TrG5h" value="rt" />
-            <node concept="3uibUv" id="11vVX88wt09" role="1tU5fm">
-              <ref role="3uigEE" to="5440:~ReplicatedTree" resolve="ReplicatedTree" />
+            <property role="TrG5h" value="rr" />
+            <node concept="3uibUv" id="769wvHiG7Ya" role="1tU5fm">
+              <ref role="3uigEE" to="5440:~ReplicatedRepository" resolve="ReplicatedRepository" />
             </node>
             <node concept="2ShNRf" id="11vVX88wt1a" role="33vP2m">
               <node concept="1pGfFk" id="11vVX88wtaV" role="2ShVmc">
-                <ref role="37wK5l" to="5440:~ReplicatedTree.&lt;init&gt;(org.modelix.model.client.IModelClient,org.modelix.model.lazy.RepositoryId,java.lang.String,kotlin.jvm.functions.Function0)" resolve="ReplicatedTree" />
+                <ref role="37wK5l" to="5440:~ReplicatedRepository.&lt;init&gt;(org.modelix.model.client.IModelClient,org.modelix.model.lazy.RepositoryId,java.lang.String,kotlin.jvm.functions.Function0)" resolve="ReplicatedRepository" />
                 <node concept="37vLTw" id="11vVX88wtb_" role="37wK5m">
                   <ref role="3cqZAo" node="11vVX88wnPO" resolve="restWebModelClient" />
                 </node>
@@ -8699,10 +8699,10 @@
             </node>
             <node concept="2OqwBi" id="11vVX88wC8k" role="33vP2m">
               <node concept="37vLTw" id="11vVX88wC8l" role="2Oq$k0">
-                <ref role="3cqZAo" node="11vVX88wt08" resolve="rt" />
+                <ref role="3cqZAo" node="11vVX88wt08" resolve="rr" />
               </node>
               <node concept="liA8E" id="11vVX88wC8m" role="2OqNvi">
-                <ref role="37wK5l" to="5440:~ReplicatedTree.getBranch()" resolve="getBranch" />
+                <ref role="37wK5l" to="5440:~ReplicatedRepository.getBranch()" resolve="getBranch" />
               </node>
             </node>
           </node>
@@ -8748,10 +8748,10 @@
         <node concept="3clFbF" id="53_gmpoMYGo" role="3cqZAp">
           <node concept="2OqwBi" id="53_gmpoMZiy" role="3clFbG">
             <node concept="37vLTw" id="53_gmpoMYGm" role="2Oq$k0">
-              <ref role="3cqZAo" node="11vVX88wt08" resolve="rt" />
+              <ref role="3cqZAo" node="11vVX88wt08" resolve="rr" />
             </node>
             <node concept="liA8E" id="53_gmpoMZqu" role="2OqNvi">
-              <ref role="37wK5l" to="5440:~ReplicatedTree.dispose()" resolve="dispose" />
+              <ref role="37wK5l" to="5440:~ReplicatedRepository.dispose()" resolve="dispose" />
             </node>
           </node>
         </node>
@@ -8794,10 +8794,10 @@
             </node>
             <node concept="2OqwBi" id="nkanButDcP" role="33vP2m">
               <node concept="37vLTw" id="nkanButDcQ" role="2Oq$k0">
-                <ref role="3cqZAo" node="nkanButDMC" resolve="rt" />
+                <ref role="3cqZAo" node="nkanButDMC" resolve="rr" />
               </node>
               <node concept="liA8E" id="nkanButDcR" role="2OqNvi">
-                <ref role="37wK5l" to="5440:~ReplicatedTree.getBranch()" resolve="getBranch" />
+                <ref role="37wK5l" to="5440:~ReplicatedRepository.getBranch()" resolve="getBranch" />
               </node>
             </node>
           </node>
@@ -8853,9 +8853,9 @@
         <ref role="3uigEE" to="wy2b:~JsonObject" resolve="JsonObject" />
       </node>
       <node concept="37vLTG" id="nkanButDMC" role="3clF46">
-        <property role="TrG5h" value="rt" />
-        <node concept="3uibUv" id="nkanButDME" role="1tU5fm">
-          <ref role="3uigEE" to="5440:~ReplicatedTree" resolve="ReplicatedTree" />
+        <property role="TrG5h" value="rr" />
+        <node concept="3uibUv" id="769wvHiGdc1" role="1tU5fm">
+          <ref role="3uigEE" to="5440:~ReplicatedRepository" resolve="ReplicatedRepository" />
         </node>
       </node>
       <node concept="37vLTG" id="Aop38HYrOD" role="3clF46">

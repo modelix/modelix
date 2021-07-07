@@ -8779,7 +8779,7 @@
               <ref role="3cqZAo" node="6aRQr1WXcru" resolve="infoTree" />
             </node>
             <node concept="liA8E" id="6aRQr1X1Ud5" role="2OqNvi">
-              <ref role="37wK5l" to="5440:~ReplicatedTree.getBranch()" resolve="getBranch" />
+              <ref role="37wK5l" to="5440:~ReplicatedRepository.getBranch()" resolve="getBranch" />
             </node>
           </node>
         </node>
@@ -8821,7 +8821,7 @@
                               <ref role="3cqZAo" node="6aRQr1WXcru" resolve="infoTree" />
                             </node>
                             <node concept="liA8E" id="6aRQr1X1NOo" role="2OqNvi">
-                              <ref role="37wK5l" to="5440:~ReplicatedTree.getBranch()" resolve="getBranch" />
+                              <ref role="37wK5l" to="5440:~ReplicatedRepository.getBranch()" resolve="getBranch" />
                             </node>
                           </node>
                           <node concept="liA8E" id="6aRQr1WWMAH" role="2OqNvi">
@@ -8881,7 +8881,7 @@
                                               <ref role="3cqZAo" node="6aRQr1WXcru" resolve="infoTree" />
                                             </node>
                                             <node concept="liA8E" id="1yReInRppt" role="2OqNvi">
-                                              <ref role="37wK5l" to="5440:~ReplicatedTree.getBranch()" resolve="getBranch" />
+                                              <ref role="37wK5l" to="5440:~ReplicatedRepository.getBranch()" resolve="getBranch" />
                                             </node>
                                           </node>
                                         </node>
@@ -8926,7 +8926,7 @@
                       <ref role="3cqZAo" node="6aRQr1WXcru" resolve="infoTree" />
                     </node>
                     <node concept="liA8E" id="6aRQr1X1MSY" role="2OqNvi">
-                      <ref role="37wK5l" to="5440:~ReplicatedTree.getBranch()" resolve="getBranch" />
+                      <ref role="37wK5l" to="5440:~ReplicatedRepository.getBranch()" resolve="getBranch" />
                     </node>
                   </node>
                 </node>
@@ -8958,7 +8958,7 @@
                                   <ref role="3cqZAo" node="6aRQr1WXcru" resolve="infoTree" />
                                 </node>
                                 <node concept="liA8E" id="6aRQr1X1Qv7" role="2OqNvi">
-                                  <ref role="37wK5l" to="5440:~ReplicatedTree.getBranch()" resolve="getBranch" />
+                                  <ref role="37wK5l" to="5440:~ReplicatedRepository.getBranch()" resolve="getBranch" />
                                 </node>
                               </node>
                               <node concept="liA8E" id="6aRQr1WX1LY" role="2OqNvi">
@@ -9022,7 +9022,7 @@
                                         <ref role="3cqZAo" node="6aRQr1WXcru" resolve="infoTree" />
                                       </node>
                                       <node concept="liA8E" id="6aRQr1XaFFq" role="2OqNvi">
-                                        <ref role="37wK5l" to="5440:~ReplicatedTree.getBranch()" resolve="getBranch" />
+                                        <ref role="37wK5l" to="5440:~ReplicatedRepository.getBranch()" resolve="getBranch" />
                                       </node>
                                     </node>
                                   </node>
@@ -9060,7 +9060,7 @@
                           <ref role="3cqZAo" node="6aRQr1WXcru" resolve="infoTree" />
                         </node>
                         <node concept="liA8E" id="6aRQr1X1POp" role="2OqNvi">
-                          <ref role="37wK5l" to="5440:~ReplicatedTree.getBranch()" resolve="getBranch" />
+                          <ref role="37wK5l" to="5440:~ReplicatedRepository.getBranch()" resolve="getBranch" />
                         </node>
                       </node>
                     </node>
@@ -9154,13 +9154,13 @@
                             </node>
                           </node>
                           <node concept="3clFb_" id="7IyD6pkwvXO" role="jymVt">
-                            <property role="TrG5h" value="createReplicatedTree" />
+                            <property role="TrG5h" value="createReplicatedRepository" />
                             <node concept="3Tmbuc" id="7IyD6pkwvXP" role="1B3o_S" />
                             <node concept="2AHcQZ" id="7IyD6pkwvXR" role="2AJF6D">
                               <ref role="2AI5Lk" to="mhfm:~NotNull" resolve="NotNull" />
                             </node>
-                            <node concept="3uibUv" id="7IyD6pkwvXS" role="3clF45">
-                              <ref role="3uigEE" to="5440:~ReplicatedTree" resolve="ReplicatedTree" />
+                            <node concept="3uibUv" id="769wvHiGrfs" role="3clF45">
+                              <ref role="3uigEE" to="5440:~ReplicatedRepository" resolve="ReplicatedRepository" />
                             </node>
                             <node concept="37vLTG" id="7IyD6pkwvXT" role="3clF46">
                               <property role="TrG5h" value="client" />
@@ -10185,7 +10185,7 @@
                 </node>
                 <node concept="3clFbF" id="47nE3z_w5o7" role="3cqZAp">
                   <node concept="1rXfSq" id="47nE3z_w5o2" role="3clFbG">
-                    <ref role="37wK5l" to="5440:~ReplicatedTree.startEdit()" resolve="startEdit" />
+                    <ref role="37wK5l" to="5440:~ReplicatedRepository.startEdit()" resolve="startEdit" />
                   </node>
                 </node>
               </node>
@@ -10206,7 +10206,7 @@
                       <ref role="3uigEE" to="xkhl:~CLVersion" resolve="CLVersion" />
                     </node>
                     <node concept="1rXfSq" id="3H1ZR7sLwTi" role="33vP2m">
-                      <ref role="37wK5l" to="5440:~ReplicatedTree.endEdit()" resolve="endEdit" />
+                      <ref role="37wK5l" to="5440:~ReplicatedRepository.endEdit()" resolve="endEdit" />
                     </node>
                   </node>
                 </node>
@@ -10333,7 +10333,7 @@
       <node concept="3Tm1VV" id="6aRQr1WXtja" role="1B3o_S" />
       <node concept="3clFbS" id="6aRQr1WXtjb" role="3clF47">
         <node concept="XkiVB" id="47nE3z_w6la" role="3cqZAp">
-          <ref role="37wK5l" to="5440:~ReplicatedTree.&lt;init&gt;(org.modelix.model.client.IModelClient,org.modelix.model.lazy.RepositoryId,java.lang.String,kotlin.jvm.functions.Function0)" resolve="ReplicatedTree" />
+          <ref role="37wK5l" to="5440:~ReplicatedRepository.&lt;init&gt;(org.modelix.model.client.IModelClient,org.modelix.model.lazy.RepositoryId,java.lang.String,kotlin.jvm.functions.Function0)" resolve="ReplicatedRepository" />
           <node concept="37vLTw" id="47nE3z_w6t2" role="37wK5m">
             <ref role="3cqZAo" node="6aRQr1WXtjz" resolve="client" />
           </node>
@@ -10441,7 +10441,7 @@
             <node concept="3cpWs6" id="1jU3Cj1$o7c" role="3cqZAp" />
           </node>
           <node concept="1rXfSq" id="1jU3Cj1$nZz" role="3clFbw">
-            <ref role="37wK5l" to="5440:~ReplicatedTree.isDisposed()" resolve="isDisposed" />
+            <ref role="37wK5l" to="5440:~ReplicatedRepository.isDisposed()" resolve="isDisposed" />
           </node>
         </node>
         <node concept="3clFbF" id="2lKlK7f4JHO" role="3cqZAp">
@@ -10465,7 +10465,7 @@
         </node>
         <node concept="3clFbF" id="47nE3z_w7i3" role="3cqZAp">
           <node concept="3nyPlj" id="47nE3z_w7i1" role="3clFbG">
-            <ref role="37wK5l" to="5440:~ReplicatedTree.dispose()" resolve="dispose" />
+            <ref role="37wK5l" to="5440:~ReplicatedRepository.dispose()" resolve="dispose" />
           </node>
         </node>
       </node>
@@ -10575,9 +10575,9 @@
                                 <node concept="10QFUN" id="3pKWniXZlTg" role="1eOMHV">
                                   <node concept="2OqwBi" id="3pKWniXZlTd" role="10QFUP">
                                     <node concept="1rXfSq" id="3pKWniXZlTe" role="2Oq$k0">
-                                      <ref role="37wK5l" to="5440:~ReplicatedTree.getBranch()" resolve="getBranch" />
+                                      <ref role="37wK5l" to="5440:~ReplicatedRepository.getBranch()" resolve="getBranch" />
                                     </node>
-                                    <node concept="liA8E" id="3pKWniXZlTf" role="2OqNvi">
+                                    <node concept="liA8E" id="769wvHiy7xB" role="2OqNvi">
                                       <ref role="37wK5l" to="jks5:~IBranch.getWriteTransaction()" resolve="getWriteTransaction" />
                                     </node>
                                   </node>
@@ -10626,7 +10626,7 @@
                 <node concept="1pGfFk" id="6c6cqXTgbWR" role="2ShVmc">
                   <ref role="37wK5l" to="qvpu:~PArea.&lt;init&gt;(org.modelix.model.api.IBranch)" resolve="PArea" />
                   <node concept="1rXfSq" id="6c6cqXTgbWS" role="37wK5m">
-                    <ref role="37wK5l" to="5440:~ReplicatedTree.getBranch()" resolve="getBranch" />
+                    <ref role="37wK5l" to="5440:~ReplicatedRepository.getBranch()" resolve="getBranch" />
                   </node>
                 </node>
               </node>
@@ -10718,8 +10718,8 @@
       </node>
     </node>
     <node concept="3Tm1VV" id="6aRQr1WXt20" role="1B3o_S" />
-    <node concept="3uibUv" id="47nE3z_w2JU" role="1zkMxy">
-      <ref role="3uigEE" to="5440:~ReplicatedTree" resolve="ReplicatedTree" />
+    <node concept="3uibUv" id="769wvHiy4$a" role="1zkMxy">
+      <ref role="3uigEE" to="5440:~ReplicatedRepository" resolve="ReplicatedRepository" />
     </node>
   </node>
   <node concept="312cEu" id="49CIzaqqe6y">
