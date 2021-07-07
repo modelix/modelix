@@ -7630,10 +7630,10 @@
                   <node concept="2OqwBi" id="6ZZ6hxrB1Bs" role="2Oq$k0">
                     <node concept="2YIFZM" id="6ZZ6hxrB1Bt" role="2Oq$k0">
                       <ref role="37wK5l" to="csg2:1LVcV5Kxxmz" resolve="getInstance" />
-                      <ref role="1Pybhc" to="csg2:1LVcV5Kxxi$" resolve="CloudRepositories" />
+                      <ref role="1Pybhc" to="csg2:1LVcV5Kxxi$" resolve="ModelServerConnections" />
                     </node>
                     <node concept="liA8E" id="6ZZ6hxrB1Bu" role="2OqNvi">
-                      <ref role="37wK5l" to="csg2:1LVcV5KxBgM" resolve="getRepositories" />
+                      <ref role="37wK5l" to="csg2:1LVcV5KxBgM" resolve="getModelServer" />
                     </node>
                   </node>
                   <node concept="3zZkjj" id="6ZZ6hxrB1Bv" role="2OqNvi">
@@ -7670,7 +7670,7 @@
                               <ref role="37wK5l" to="csg2:6aRQr1X24wJ" resolve="getActiveBranch" />
                               <node concept="10M0yZ" id="3Sb4emcMqNU" role="37wK5m">
                                 <ref role="3cqZAo" to="csg2:2UHWH1pOftT" resolve="UI_STATE_TREE_ID" />
-                                <ref role="1PxDUh" to="csg2:6aRQr1WOV$v" resolve="CloudRepository" />
+                                <ref role="1PxDUh" to="csg2:6aRQr1WOV$v" resolve="ModelServerConnection" />
                               </node>
                             </node>
                           </node>
@@ -7705,7 +7705,7 @@
                         <ref role="3uigEE" to="jks5:~IBranch" resolve="IBranch" />
                       </node>
                       <node concept="10M0yZ" id="6ZZ6hxrB98$" role="2HTEbv">
-                        <ref role="1PxDUh" to="csg2:1LVcV5Kxxi$" resolve="CloudRepositories" />
+                        <ref role="1PxDUh" to="csg2:1LVcV5Kxxi$" resolve="ModelServerConnections" />
                         <ref role="3cqZAo" to="csg2:1uzsBUr_8Rk" resolve="LOCAL_UI_STATE_BRANCH" />
                       </node>
                     </node>
@@ -7974,7 +7974,7 @@
                       <ref role="37wK5l" to="csg2:6aRQr1X24wJ" resolve="getActiveBranch" />
                       <node concept="10M0yZ" id="3Sb4emcMtDQ" role="37wK5m">
                         <ref role="3cqZAo" to="csg2:2UHWH1pOftT" resolve="UI_STATE_TREE_ID" />
-                        <ref role="1PxDUh" to="csg2:6aRQr1WOV$v" resolve="CloudRepository" />
+                        <ref role="1PxDUh" to="csg2:6aRQr1WOV$v" resolve="ModelServerConnection" />
                       </node>
                     </node>
                   </node>
@@ -8008,10 +8008,10 @@
             <node concept="2OqwBi" id="6gw1ikf0ITR" role="2Oq$k0">
               <node concept="2YIFZM" id="6gw1ikf0ITS" role="2Oq$k0">
                 <ref role="37wK5l" to="csg2:1LVcV5Kxxmz" resolve="getInstance" />
-                <ref role="1Pybhc" to="csg2:1LVcV5Kxxi$" resolve="CloudRepositories" />
+                <ref role="1Pybhc" to="csg2:1LVcV5Kxxi$" resolve="ModelServerConnections" />
               </node>
               <node concept="liA8E" id="6gw1ikf0ITT" role="2OqNvi">
-                <ref role="37wK5l" to="csg2:1LVcV5KxBgM" resolve="getRepositories" />
+                <ref role="37wK5l" to="csg2:1LVcV5KxBgM" resolve="getModelServer" />
               </node>
             </node>
             <node concept="3zZkjj" id="6gw1ikf0ITU" role="2OqNvi">
@@ -8045,7 +8045,7 @@
             <node concept="1rXfSq" id="3Sb4emcMslH" role="3fr31v">
               <ref role="37wK5l" node="1_3xoKEz6bS" resolve="runReadOnStateRoot" />
               <node concept="10M0yZ" id="3Sb4emcMsl_" role="37wK5m">
-                <ref role="1PxDUh" to="csg2:1LVcV5Kxxi$" resolve="CloudRepositories" />
+                <ref role="1PxDUh" to="csg2:1LVcV5Kxxi$" resolve="ModelServerConnections" />
                 <ref role="3cqZAo" to="csg2:1uzsBUr_8Rk" resolve="LOCAL_UI_STATE_BRANCH" />
               </node>
               <node concept="37vLTw" id="3Sb4emcMslB" role="37wK5m">

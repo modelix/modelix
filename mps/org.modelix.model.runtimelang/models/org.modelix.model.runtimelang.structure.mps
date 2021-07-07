@@ -49,12 +49,12 @@
       <property role="20lmBu" value="fLJjDmT/aggregation" />
       <property role="20kJfa" value="trees" />
       <property role="20lbJX" value="fLJekj5/_0__n" />
-      <ref role="20lvS9" node="6aRQr1WVbN0" resolve="TreeInfo" />
+      <ref role="20lvS9" node="6aRQr1WVbN0" resolve="RepositoryInfo" />
     </node>
   </node>
   <node concept="1TIwiD" id="6aRQr1WVbN0">
     <property role="EcuMT" value="7113393488488348864" />
-    <property role="TrG5h" value="TreeInfo" />
+    <property role="TrG5h" value="RepositoryInfo" />
     <ref role="1TJDcQ" to="tpck:gw2VY9q" resolve="BaseConcept" />
     <node concept="1TJgyi" id="6aRQr1WVbN6" role="1TKVEl">
       <property role="IQ2nx" value="7113393488488348870" />
