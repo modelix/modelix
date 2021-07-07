@@ -89,6 +89,9 @@
       <concept id="1215695189714" name="jetbrains.mps.baseLanguage.structure.PlusAssignmentExpression" flags="nn" index="d57v9" />
       <concept id="4836112446988635817" name="jetbrains.mps.baseLanguage.structure.UndefinedType" flags="in" index="2jxLKc" />
       <concept id="1202948039474" name="jetbrains.mps.baseLanguage.structure.InstanceMethodCallOperation" flags="nn" index="liA8E" />
+      <concept id="1179360813171" name="jetbrains.mps.baseLanguage.structure.HexIntegerLiteral" flags="nn" index="2nou5x">
+        <property id="1179360856892" name="value" index="2noCCI" />
+      </concept>
       <concept id="8118189177080264853" name="jetbrains.mps.baseLanguage.structure.AlternativeType" flags="ig" index="nSUau">
         <child id="8118189177080264854" name="alternative" index="nSUat" />
       </concept>
@@ -296,6 +299,7 @@
         <child id="1163668922816" name="ifTrue" index="3K4E3e" />
         <child id="1163668934364" name="ifFalse" index="3K4GZi" />
       </concept>
+      <concept id="1082113931046" name="jetbrains.mps.baseLanguage.structure.ContinueStatement" flags="nn" index="3N13vt" />
       <concept id="1208890769693" name="jetbrains.mps.baseLanguage.structure.ArrayLengthOperation" flags="nn" index="1Rwk04" />
       <concept id="6329021646629104954" name="jetbrains.mps.baseLanguage.structure.SingleLineComment" flags="nn" index="3SKdUt">
         <child id="8356039341262087992" name="line" index="1aUNEU" />
@@ -343,6 +347,30 @@
     <language id="3a13115c-633c-4c5c-bbcc-75c4219e9555" name="jetbrains.mps.lang.quotation">
       <concept id="1196350785113" name="jetbrains.mps.lang.quotation.structure.Quotation" flags="nn" index="2c44tf">
         <child id="1196350785114" name="quotedNode" index="2c44tc" />
+        <child id="3316618969910744744" name="modelToCreate" index="2EReB9" />
+      </concept>
+      <concept id="5455284157994012186" name="jetbrains.mps.lang.quotation.structure.NodeBuilderInitLink" flags="ng" index="2pIpSj">
+        <reference id="5455284157994012188" name="link" index="2pIpSl" />
+        <child id="1595412875168045827" name="initValue" index="28nt2d" />
+      </concept>
+      <concept id="5455284157993911077" name="jetbrains.mps.lang.quotation.structure.NodeBuilderInitProperty" flags="ng" index="2pJxcG">
+        <reference id="5455284157993911078" name="property" index="2pJxcJ" />
+        <child id="1595412875168045201" name="initValue" index="28ntcv" />
+      </concept>
+      <concept id="5455284157993863837" name="jetbrains.mps.lang.quotation.structure.NodeBuilder" flags="nn" index="2pJPEk">
+        <child id="5455284157993863838" name="quotedNode" index="2pJPEn" />
+        <child id="3316618969911717433" name="modelToCreate" index="2EVx5o" />
+      </concept>
+      <concept id="5455284157993863840" name="jetbrains.mps.lang.quotation.structure.NodeBuilderNode" flags="nn" index="2pJPED">
+        <reference id="5455284157993910961" name="concept" index="2pJxaS" />
+        <child id="5455284157993911099" name="values" index="2pJxcM" />
+      </concept>
+      <concept id="3316618969910743150" name="jetbrains.mps.lang.quotation.structure.ModelNodeInitializer" flags="ng" index="2EReWf">
+        <child id="3316618969910743151" name="modelToCreate" index="2EReWe" />
+        <child id="3316618969910743152" name="nodeId" index="2EReWh" />
+      </concept>
+      <concept id="6985522012210254362" name="jetbrains.mps.lang.quotation.structure.NodeBuilderPropertyExpression" flags="nn" index="WxPPo">
+        <child id="6985522012210254363" name="expression" index="WxPPp" />
       </concept>
     </language>
     <language id="f61473f9-130f-42f6-b98d-6c438812c2f6" name="jetbrains.mps.baseLanguage.unitTest">
@@ -2850,6 +2878,20 @@
                         <ref role="3cqZAo" node="7JjSHvQ5gzS" resolve="expectedKeys" />
                       </node>
                       <node concept="3clFbS" id="7JjSHvQ5Nx2" role="2LFqv$">
+                        <node concept="3clFbJ" id="4vX$i39aXZc" role="3cqZAp">
+                          <node concept="3clFbS" id="4vX$i39aXZe" role="3clFbx">
+                            <node concept="3N13vt" id="4vX$i39blTU" role="3cqZAp" />
+                          </node>
+                          <node concept="17R0WA" id="4vX$i39b2dT" role="3clFbw">
+                            <node concept="10M0yZ" id="4vX$i39bi4V" role="3uHU7w">
+                              <ref role="3cqZAo" to="csg2:1tdVq1GKnrI" resolve="MPS_NODE_ID_PROPERTY_NAME" />
+                              <ref role="1PxDUh" to="csg2:29etMtb9$UP" resolve="ModelSynchronizerBase" />
+                            </node>
+                            <node concept="2GrUjf" id="4vX$i39aY3Y" role="3uHU7B">
+                              <ref role="2Gs0qQ" node="7JjSHvQ5NwY" resolve="key" />
+                            </node>
+                          </node>
+                        </node>
                         <node concept="3cpWs8" id="7JjSHvQ5Ynz" role="3cqZAp">
                           <node concept="3cpWsn" id="7JjSHvQ5YnA" role="3cpWs9">
                             <property role="TrG5h" value="diff" />
@@ -3873,7 +3915,7 @@
       </node>
     </node>
     <node concept="3clFb_" id="4AFVQRW1xtb" role="jymVt">
-      <property role="TrG5h" value="writeJsonDump" />
+      <property role="TrG5h" value="writeExpectedJsonDump" />
       <node concept="3clFbS" id="4AFVQRW1xtc" role="3clF47">
         <node concept="3cpWs8" id="4AFVQRW1xtd" role="3cqZAp">
           <node concept="3cpWsn" id="4AFVQRW1xte" role="3cpWs9">
@@ -3937,56 +3979,12 @@
                 </node>
                 <node concept="3cpWs3" id="4AFVQRW1xt_" role="37wK5m">
                   <node concept="Xl_RD" id="4AFVQRW1xtA" role="3uHU7w">
-                    <property role="Xl_RC" value=".json" />
+                    <property role="Xl_RC" value=".expected.json" />
                   </node>
                   <node concept="37vLTw" id="4AFVQRW1xtB" role="3uHU7B">
                     <ref role="3cqZAo" node="4AFVQRW1xud" resolve="name" />
                   </node>
                 </node>
-              </node>
-            </node>
-          </node>
-        </node>
-        <node concept="3clFbJ" id="4AFVQRW1xtC" role="3cqZAp">
-          <node concept="3clFbS" id="4AFVQRW1xtD" role="3clFbx">
-            <node concept="YS8fn" id="4AFVQRW1xtE" role="3cqZAp">
-              <node concept="2ShNRf" id="4AFVQRW1xtF" role="YScLw">
-                <node concept="1pGfFk" id="4AFVQRW1xtG" role="2ShVmc">
-                  <ref role="37wK5l" to="wyt6:~IllegalAccessError.&lt;init&gt;(java.lang.String)" resolve="IllegalAccessError" />
-                  <node concept="3cpWs3" id="4AFVQRW1xtH" role="37wK5m">
-                    <node concept="2OqwBi" id="4AFVQRW1xtI" role="3uHU7w">
-                      <node concept="37vLTw" id="4AFVQRW1xtJ" role="2Oq$k0">
-                        <ref role="3cqZAo" node="4AFVQRW1xtw" resolve="dumpFile" />
-                      </node>
-                      <node concept="liA8E" id="4AFVQRW1xtK" role="2OqNvi">
-                        <ref role="37wK5l" to="guwi:~File.getAbsolutePath()" resolve="getAbsolutePath" />
-                      </node>
-                    </node>
-                    <node concept="3cpWs3" id="4AFVQRW1xtL" role="3uHU7B">
-                      <node concept="3cpWs3" id="4AFVQRW1xtM" role="3uHU7B">
-                        <node concept="Xl_RD" id="4AFVQRW1xtN" role="3uHU7B">
-                          <property role="Xl_RC" value="Dump file not found: " />
-                        </node>
-                        <node concept="37vLTw" id="4AFVQRW1xtO" role="3uHU7w">
-                          <ref role="3cqZAo" node="4AFVQRW1xud" resolve="name" />
-                        </node>
-                      </node>
-                      <node concept="Xl_RD" id="4AFVQRW1xtP" role="3uHU7w">
-                        <property role="Xl_RC" value=" -&gt; " />
-                      </node>
-                    </node>
-                  </node>
-                </node>
-              </node>
-            </node>
-          </node>
-          <node concept="3fqX7Q" id="4AFVQRW1xtQ" role="3clFbw">
-            <node concept="2OqwBi" id="4AFVQRW1xtR" role="3fr31v">
-              <node concept="37vLTw" id="4AFVQRW1xtS" role="2Oq$k0">
-                <ref role="3cqZAo" node="4AFVQRW1xtw" resolve="dumpFile" />
-              </node>
-              <node concept="liA8E" id="4AFVQRW1xtT" role="2OqNvi">
-                <ref role="37wK5l" to="guwi:~File.exists()" resolve="exists" />
               </node>
             </node>
           </node>
@@ -7663,7 +7661,7 @@
         </node>
         <node concept="3clFbF" id="4AFVQRW4t8J" role="3cqZAp">
           <node concept="1rXfSq" id="4AFVQRW4t8K" role="3clFbG">
-            <ref role="37wK5l" node="4AFVQRW1xtb" resolve="writeJsonDump" />
+            <ref role="37wK5l" node="4AFVQRW1xtb" resolve="writeExpectedJsonDump" />
             <node concept="Xl_RD" id="4AFVQRW4t8L" role="37wK5m">
               <property role="Xl_RC" value="dump1" />
             </node>
@@ -7994,6 +7992,38 @@
             </node>
           </node>
           <node concept="3clFbS" id="Aop38HXLBg" role="2LFqv$">
+            <node concept="3clFbJ" id="4vX$i3dsU2a" role="3cqZAp">
+              <node concept="3clFbS" id="4vX$i3dsU2c" role="3clFbx">
+                <node concept="3N13vt" id="4vX$i3dt5lk" role="3cqZAp" />
+              </node>
+              <node concept="1Wc70l" id="4vX$i3dsYmi" role="3clFbw">
+                <node concept="17R0WA" id="4vX$i3dt45R" role="3uHU7w">
+                  <node concept="Xl_RD" id="4vX$i3dt59p" role="3uHU7w">
+                    <property role="Xl_RC" value="languages" />
+                  </node>
+                  <node concept="2OqwBi" id="4vX$i3dt2Yh" role="3uHU7B">
+                    <node concept="37vLTw" id="4vX$i3dt2JM" role="2Oq$k0">
+                      <ref role="3cqZAo" node="Aop38HXLA9" resolve="rt" />
+                    </node>
+                    <node concept="liA8E" id="4vX$i3dt3oh" role="2OqNvi">
+                      <ref role="37wK5l" to="jks5:~ITransaction.getRole(long)" resolve="getRole" />
+                      <node concept="2GrUjf" id="4vX$i3duk2F" role="37wK5m">
+                        <ref role="2Gs0qQ" node="Aop38HXLBb" resolve="child" />
+                      </node>
+                    </node>
+                  </node>
+                </node>
+                <node concept="3clFbC" id="4vX$i3dsWb$" role="3uHU7B">
+                  <node concept="37vLTw" id="4vX$i3dsURG" role="3uHU7B">
+                    <ref role="3cqZAo" node="Aop38HXLA0" resolve="nodeId" />
+                  </node>
+                  <node concept="10M0yZ" id="4vX$i3dsXf5" role="3uHU7w">
+                    <ref role="1PxDUh" to="jks5:~ITree" resolve="ITree" />
+                    <ref role="3cqZAo" to="jks5:~ITree.ROOT_ID" resolve="ROOT_ID" />
+                  </node>
+                </node>
+              </node>
+            </node>
             <node concept="3clFbF" id="Aop38HXLBh" role="3cqZAp">
               <node concept="2OqwBi" id="Aop38HXLBi" role="3clFbG">
                 <node concept="37vLTw" id="Aop38HXLBj" role="2Oq$k0">
@@ -9304,7 +9334,7 @@
         </node>
         <node concept="3clFbF" id="4AFVQRW4rsL" role="3cqZAp">
           <node concept="1rXfSq" id="4AFVQRW4rsM" role="3clFbG">
-            <ref role="37wK5l" node="4AFVQRW1xtb" resolve="writeJsonDump" />
+            <ref role="37wK5l" node="4AFVQRW1xtb" resolve="writeExpectedJsonDump" />
             <node concept="Xl_RD" id="4AFVQRW4rsN" role="37wK5m">
               <property role="Xl_RC" value="dump1" />
             </node>
@@ -9485,11 +9515,42 @@
                                   </node>
                                 </node>
                                 <node concept="TSZUe" id="5i$4SBK2GDj" role="2OqNvi">
-                                  <node concept="2c44tf" id="5i$4SBK2HgT" role="25WWJ7">
-                                    <node concept="312cEg" id="5i$4SBK2yyy" role="2c44tc">
-                                      <property role="TrG5h" value="addedField" />
-                                      <node concept="3Tm6S6" id="5i$4SBK2yvV" role="1B3o_S" />
-                                      <node concept="17QB3L" id="5i$4SBK2yyp" role="1tU5fm" />
+                                  <node concept="2pJPEk" id="4vX$i398xCx" role="25WWJ7">
+                                    <node concept="2pJPED" id="4vX$i398xCp" role="2pJPEn">
+                                      <ref role="2pJxaS" to="tpee:fz12cDC" resolve="FieldDeclaration" />
+                                      <node concept="2pJxcG" id="4vX$i398xCq" role="2pJxcM">
+                                        <ref role="2pJxcJ" to="tpck:h0TrG11" resolve="name" />
+                                        <node concept="WxPPo" id="4vX$i398xCr" role="28ntcv">
+                                          <node concept="Xl_RD" id="4vX$i398xCs" role="WxPPp">
+                                            <property role="Xl_RC" value="addedField" />
+                                          </node>
+                                        </node>
+                                      </node>
+                                      <node concept="2pIpSj" id="4vX$i398xCu" role="2pJxcM">
+                                        <ref role="2pIpSl" to="tpee:4VkOLwjf83e" resolve="type" />
+                                        <node concept="2pJPED" id="4vX$i398xCt" role="28nt2d">
+                                          <ref role="2pJxaS" to="tpee:hP7QB7G" resolve="StringType" />
+                                        </node>
+                                      </node>
+                                      <node concept="2pIpSj" id="4vX$i398xCw" role="2pJxcM">
+                                        <ref role="2pIpSl" to="tpee:h9B3oxE" resolve="visibility" />
+                                        <node concept="2pJPED" id="4vX$i398xCv" role="28nt2d">
+                                          <ref role="2pJxaS" to="tpee:gFTm6Wc" resolve="PrivateVisibility" />
+                                        </node>
+                                      </node>
+                                    </node>
+                                    <node concept="2EReWf" id="4vX$i398pfH" role="2EVx5o">
+                                      <node concept="37vLTw" id="4vX$i3993BR" role="2EReWe">
+                                        <ref role="3cqZAo" node="5i$4SBK2lnZ" resolve="model" />
+                                      </node>
+                                      <node concept="2ShNRf" id="4vX$i398yLJ" role="2EReWh">
+                                        <node concept="1pGfFk" id="4vX$i398Caq" role="2ShVmc">
+                                          <ref role="37wK5l" to="w1kc:~SNodeId$Regular.&lt;init&gt;(long)" resolve="SNodeId.Regular" />
+                                          <node concept="2nou5x" id="4vX$i399Pka" role="37wK5m">
+                                            <property role="2noCCI" value="BBAA01" />
+                                          </node>
+                                        </node>
+                                      </node>
                                     </node>
                                   </node>
                                 </node>
@@ -9546,7 +9607,7 @@
         </node>
         <node concept="3clFbF" id="4AFVQRW4pxp" role="3cqZAp">
           <node concept="1rXfSq" id="4AFVQRW4pxq" role="3clFbG">
-            <ref role="37wK5l" node="4AFVQRW1xtb" resolve="writeJsonDump" />
+            <ref role="37wK5l" node="4AFVQRW1xtb" resolve="writeExpectedJsonDump" />
             <node concept="Xl_RD" id="4AFVQRW4pxr" role="37wK5m">
               <property role="Xl_RC" value="dump2" />
             </node>
@@ -9841,7 +9902,7 @@
         </node>
         <node concept="3clFbF" id="4AFVQRW4qw4" role="3cqZAp">
           <node concept="1rXfSq" id="4AFVQRW4qw5" role="3clFbG">
-            <ref role="37wK5l" node="4AFVQRW1xtb" resolve="writeJsonDump" />
+            <ref role="37wK5l" node="4AFVQRW1xtb" resolve="writeExpectedJsonDump" />
             <node concept="Xl_RD" id="4AFVQRW4qw6" role="37wK5m">
               <property role="Xl_RC" value="dump3" />
             </node>
@@ -11573,7 +11634,7 @@
         </node>
         <node concept="3clFbF" id="4AFVQRW4w8v" role="3cqZAp">
           <node concept="1rXfSq" id="4AFVQRW4w8w" role="3clFbG">
-            <ref role="37wK5l" node="4AFVQRW1xtb" resolve="writeJsonDump" />
+            <ref role="37wK5l" node="4AFVQRW1xtb" resolve="writeExpectedJsonDump" />
             <node concept="Xl_RD" id="4AFVQRW4w8x" role="37wK5m">
               <property role="Xl_RC" value="dump1" />
             </node>
@@ -11885,6 +11946,19 @@
                                       <node concept="3Tm6S6" id="7jRNnvCePKv" role="1B3o_S" />
                                       <node concept="10P_77" id="7jRNnvCeR_E" role="1tU5fm" />
                                     </node>
+                                    <node concept="2EReWf" id="4vX$i3dpJ3E" role="2EReB9">
+                                      <node concept="37vLTw" id="4vX$i3dpJLF" role="2EReWe">
+                                        <ref role="3cqZAo" node="7jRNnvCeHjf" resolve="model" />
+                                      </node>
+                                      <node concept="2ShNRf" id="4vX$i3dpK16" role="2EReWh">
+                                        <node concept="1pGfFk" id="4vX$i3dpLmV" role="2ShVmc">
+                                          <ref role="37wK5l" to="w1kc:~SNodeId$Regular.&lt;init&gt;(long)" resolve="SNodeId.Regular" />
+                                          <node concept="2nou5x" id="4vX$i3dpLDj" role="37wK5m">
+                                            <property role="2noCCI" value="AAFF001" />
+                                          </node>
+                                        </node>
+                                      </node>
+                                    </node>
                                   </node>
                                 </node>
                               </node>
@@ -11994,7 +12068,7 @@
         </node>
         <node concept="3clFbF" id="4AFVQRW4vdY" role="3cqZAp">
           <node concept="1rXfSq" id="4AFVQRW4vdZ" role="3clFbG">
-            <ref role="37wK5l" node="4AFVQRW1xtb" resolve="writeJsonDump" />
+            <ref role="37wK5l" node="4AFVQRW1xtb" resolve="writeExpectedJsonDump" />
             <node concept="Xl_RD" id="4AFVQRW4ve0" role="37wK5m">
               <property role="Xl_RC" value="dump4" />
             </node>
@@ -13065,7 +13139,7 @@
         </node>
         <node concept="3clFbF" id="4AFVQRW4njx" role="3cqZAp">
           <node concept="1rXfSq" id="4AFVQRW4njy" role="3clFbG">
-            <ref role="37wK5l" node="4AFVQRW1xtb" resolve="writeJsonDump" />
+            <ref role="37wK5l" node="4AFVQRW1xtb" resolve="writeExpectedJsonDump" />
             <node concept="Xl_RD" id="4AFVQRW4njz" role="37wK5m">
               <property role="Xl_RC" value="dump1" />
             </node>
@@ -14181,7 +14255,7 @@
         </node>
         <node concept="3clFbF" id="4AFVQRW1Kcv" role="3cqZAp">
           <node concept="1rXfSq" id="4AFVQRW1Kct" role="3clFbG">
-            <ref role="37wK5l" node="4AFVQRW1xtb" resolve="writeJsonDump" />
+            <ref role="37wK5l" node="4AFVQRW1xtb" resolve="writeExpectedJsonDump" />
             <node concept="Xl_RD" id="4AFVQRW1LrN" role="37wK5m">
               <property role="Xl_RC" value="dump6" />
             </node>
@@ -14832,6 +14906,19 @@
                                       <node concept="3Tm6S6" id="7jRNnvCjdJ$" role="1B3o_S" />
                                       <node concept="17QB3L" id="7jRNnvCjdJ_" role="1tU5fm" />
                                     </node>
+                                    <node concept="2EReWf" id="4vX$i3dpRYD" role="2EReB9">
+                                      <node concept="37vLTw" id="4vX$i3dpSDZ" role="2EReWe">
+                                        <ref role="3cqZAo" node="7jRNnvCjdJ4" resolve="model" />
+                                      </node>
+                                      <node concept="2ShNRf" id="4vX$i3dpSQR" role="2EReWh">
+                                        <node concept="1pGfFk" id="4vX$i3dpUa9" role="2ShVmc">
+                                          <ref role="37wK5l" to="w1kc:~SNodeId$Regular.&lt;init&gt;(long)" resolve="SNodeId.Regular" />
+                                          <node concept="2nou5x" id="4vX$i3dpUpW" role="37wK5m">
+                                            <property role="2noCCI" value="DDEF001" />
+                                          </node>
+                                        </node>
+                                      </node>
+                                    </node>
                                   </node>
                                 </node>
                               </node>
@@ -14903,7 +14990,7 @@
         </node>
         <node concept="3clFbF" id="4AFVQRW4i1w" role="3cqZAp">
           <node concept="1rXfSq" id="4AFVQRW4i1x" role="3clFbG">
-            <ref role="37wK5l" node="4AFVQRW1xtb" resolve="writeJsonDump" />
+            <ref role="37wK5l" node="4AFVQRW1xtb" resolve="writeExpectedJsonDump" />
             <node concept="Xl_RD" id="4AFVQRW4i1y" role="37wK5m">
               <property role="Xl_RC" value="dump7" />
             </node>
@@ -15171,7 +15258,7 @@
         </node>
         <node concept="3clFbF" id="4AFVQRW4jrU" role="3cqZAp">
           <node concept="1rXfSq" id="4AFVQRW4jrV" role="3clFbG">
-            <ref role="37wK5l" node="4AFVQRW1xtb" resolve="writeJsonDump" />
+            <ref role="37wK5l" node="4AFVQRW1xtb" resolve="writeExpectedJsonDump" />
             <node concept="Xl_RD" id="4AFVQRW4jrW" role="37wK5m">
               <property role="Xl_RC" value="dump8" />
             </node>
