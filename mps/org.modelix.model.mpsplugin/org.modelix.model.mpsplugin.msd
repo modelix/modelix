@@ -34,6 +34,7 @@
     <dependency reexport="false">0a7577d1-d4e5-431d-98b1-fae38f9aee80(org.modelix.model.repositoryconcepts)</dependency>
     <dependency reexport="false">95085166-3236-4dd7-bd8e-e753c8d20885(de.q60.mps.incremental.runtime)</dependency>
     <dependency reexport="false">e52a4835-844d-46a1-99f8-c06129db796f(de.q60.mps.shadowmodels.runtime)</dependency>
+    <dependency reexport="false">bffdf123-0d7b-471b-a52b-fa3d3a024664(org.modelix.model.metametamodel)</dependency>
   </dependencies>
   <languageVersions>
     <language slang="l:654422bf-e75f-44dc-936d-188890a746ce:de.slisson.mps.reflection" version="0" />
@@ -89,6 +90,7 @@
     <module reference="87f4b21e-a3a5-459e-a54b-408fd9eb7350(org.modelix.lib)" version="0" />
     <module reference="cc99dce1-49f3-4392-8dbf-e22ca47bd0af(org.modelix.model.api)" version="0" />
     <module reference="0a2651ab-f212-45c2-a2f0-343e76cbc26b(org.modelix.model.client)" version="0" />
+    <module reference="bffdf123-0d7b-471b-a52b-fa3d3a024664(org.modelix.model.metametamodel)" version="0" />
     <module reference="5622e615-959d-4843-9df6-ef04ee578c18(org.modelix.model.mpsadapters)" version="0" />
     <module reference="c5e5433e-201f-43e2-ad14-a6cba8c80cd6(org.modelix.model.mpsplugin)" version="0" />
     <module reference="0a7577d1-d4e5-431d-98b1-fae38f9aee80(org.modelix.model.repositoryconcepts)" version="0" />
