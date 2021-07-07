@@ -7633,7 +7633,7 @@
                       <ref role="1Pybhc" to="csg2:1LVcV5Kxxi$" resolve="ModelServerConnections" />
                     </node>
                     <node concept="liA8E" id="6ZZ6hxrB1Bu" role="2OqNvi">
-                      <ref role="37wK5l" to="csg2:1LVcV5KxBgM" resolve="getModelServer" />
+                      <ref role="37wK5l" to="csg2:1LVcV5KxBgM" resolve="getModelServers" />
                     </node>
                   </node>
                   <node concept="3zZkjj" id="6ZZ6hxrB1Bv" role="2OqNvi">
@@ -8011,7 +8011,7 @@
                 <ref role="1Pybhc" to="csg2:1LVcV5Kxxi$" resolve="ModelServerConnections" />
               </node>
               <node concept="liA8E" id="6gw1ikf0ITT" role="2OqNvi">
-                <ref role="37wK5l" to="csg2:1LVcV5KxBgM" resolve="getModelServer" />
+                <ref role="37wK5l" to="csg2:1LVcV5KxBgM" resolve="getModelServers" />
               </node>
             </node>
             <node concept="3zZkjj" id="6gw1ikf0ITU" role="2OqNvi">
