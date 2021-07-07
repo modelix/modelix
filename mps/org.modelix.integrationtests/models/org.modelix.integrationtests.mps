@@ -18348,7 +18348,7 @@
         </node>
         <node concept="3cpWs8" id="P$XCSQOxH0" role="3cqZAp">
           <node concept="3cpWsn" id="P$XCSQOxH1" role="3cpWs9">
-            <property role="TrG5h" value="treeInRepository" />
+            <property role="TrG5h" value="repositoryInModelServer" />
             <property role="3TUv4t" value="true" />
             <node concept="3uibUv" id="P$XCSQOxH2" role="1tU5fm">
               <ref role="3uigEE" to="csg2:3i6diw3mm_Q" resolve="RepositoryInModelServer" />
@@ -18379,7 +18379,7 @@
             <node concept="2OqwBi" id="P$XCSQP1HN" role="33vP2m">
               <node concept="2OqwBi" id="P$XCSQP068" role="2Oq$k0">
                 <node concept="37vLTw" id="P$XCSQOZZ8" role="2Oq$k0">
-                  <ref role="3cqZAo" node="P$XCSQOxH1" resolve="treeInRepository" />
+                  <ref role="3cqZAo" node="P$XCSQOxH1" resolve="repositoryInModelServer" />
                 </node>
                 <node concept="liA8E" id="P$XCSQP0fR" role="2OqNvi">
                   <ref role="37wK5l" to="csg2:2FX9uaKPtaO" resolve="getProject" />
@@ -18404,7 +18404,7 @@
             <node concept="liA8E" id="P$XCSQOwY0" role="2OqNvi">
               <ref role="37wK5l" to="csg2:P$XCSQNC_Y" resolve="bindCloudProjectToMpsProject" />
               <node concept="37vLTw" id="P$XCSQOyDp" role="37wK5m">
-                <ref role="3cqZAo" node="P$XCSQOxH1" resolve="treeInRepository" />
+                <ref role="3cqZAo" node="P$XCSQOxH1" resolve="repositoryInModelServer" />
               </node>
               <node concept="37vLTw" id="P$XCSQO_1Z" role="37wK5m">
                 <ref role="3cqZAo" node="P$XCSQOsHP" resolve="cloudProjectId" />
@@ -18733,7 +18733,7 @@
         <node concept="3clFbF" id="P$XCSQPQlw" role="3cqZAp">
           <node concept="2OqwBi" id="P$XCSQPQXv" role="3clFbG">
             <node concept="37vLTw" id="P$XCSQPQlu" role="2Oq$k0">
-              <ref role="3cqZAo" node="P$XCSQOxH1" resolve="treeInRepository" />
+              <ref role="3cqZAo" node="P$XCSQOxH1" resolve="repositoryInModelServer" />
             </node>
             <node concept="liA8E" id="P$XCSQPRx_" role="2OqNvi">
               <ref role="37wK5l" to="csg2:3i6diw3mRQm" resolve="runRead" />
@@ -18757,7 +18757,7 @@
                             </node>
                             <node concept="2OqwBi" id="P$XCSQPUiK" role="33vP2m">
                               <node concept="37vLTw" id="P$XCSQQ0Ci" role="2Oq$k0">
-                                <ref role="3cqZAo" node="P$XCSQOxH1" resolve="treeInRepository" />
+                                <ref role="3cqZAo" node="P$XCSQOxH1" resolve="repositoryInModelServer" />
                               </node>
                               <node concept="liA8E" id="P$XCSQPUsL" role="2OqNvi">
                                 <ref role="37wK5l" to="csg2:P$XCSQOSRb" resolve="getReadTransaction" />
@@ -18897,7 +18897,7 @@
                                 <node concept="2OqwBi" id="P$XCSR0Pja" role="37wK5m">
                                   <node concept="2OqwBi" id="P$XCSR0Bjz" role="2Oq$k0">
                                     <node concept="37vLTw" id="P$XCSR0B16" role="2Oq$k0">
-                                      <ref role="3cqZAo" node="P$XCSQOxH1" resolve="treeInRepository" />
+                                      <ref role="3cqZAo" node="P$XCSQOxH1" resolve="repositoryInModelServer" />
                                     </node>
                                     <node concept="liA8E" id="P$XCSR0B$G" role="2OqNvi">
                                       <ref role="37wK5l" to="csg2:2fgGmVJWuwV" resolve="getActiveBranch" />
@@ -19062,7 +19062,7 @@
                                 <node concept="2OqwBi" id="P$XCSR0YEM" role="37wK5m">
                                   <node concept="2OqwBi" id="P$XCSR0YEN" role="2Oq$k0">
                                     <node concept="37vLTw" id="P$XCSR0YEO" role="2Oq$k0">
-                                      <ref role="3cqZAo" node="P$XCSQOxH1" resolve="treeInRepository" />
+                                      <ref role="3cqZAo" node="P$XCSQOxH1" resolve="repositoryInModelServer" />
                                     </node>
                                     <node concept="liA8E" id="P$XCSR0YEP" role="2OqNvi">
                                       <ref role="37wK5l" to="csg2:2fgGmVJWuwV" resolve="getActiveBranch" />

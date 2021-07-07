@@ -6135,7 +6135,7 @@
                 <node concept="2OqwBi" id="FyCC6tvOEf" role="2Oq$k0">
                   <node concept="2OqwBi" id="7glt5B79su$" role="2Oq$k0">
                     <node concept="1rXfSq" id="FyCC6tvOEg" role="2Oq$k0">
-                      <ref role="37wK5l" node="1LVcV5KxBgM" resolve="getModelServer" />
+                      <ref role="37wK5l" node="1LVcV5KxBgM" resolve="getModelServers" />
                     </node>
                     <node concept="3zZkjj" id="7glt5B79vjj" role="2OqNvi">
                       <node concept="1bVj0M" id="7glt5B79vjl" role="23t8la">
@@ -6752,7 +6752,7 @@
     </node>
     <node concept="2tJIrI" id="1LVcV5KxBdS" role="jymVt" />
     <node concept="3clFb_" id="1LVcV5KxBgM" role="jymVt">
-      <property role="TrG5h" value="getModelServer" />
+      <property role="TrG5h" value="getModelServers" />
       <node concept="A3Dl8" id="1LVcV5KEAKG" role="3clF45">
         <node concept="3uibUv" id="6aRQr1WPn4E" role="A3Ik2">
           <ref role="3uigEE" node="6aRQr1WOV$v" resolve="ModelServerConnection" />
@@ -6888,7 +6888,7 @@
             <node concept="2OqwBi" id="1BXGyXtAHuA" role="33vP2m">
               <node concept="2OqwBi" id="694yVfgj$Yq" role="2Oq$k0">
                 <node concept="1rXfSq" id="694yVfgj$Yr" role="2Oq$k0">
-                  <ref role="37wK5l" node="1LVcV5KxBgM" resolve="getModelServer" />
+                  <ref role="37wK5l" node="1LVcV5KxBgM" resolve="getModelServers" />
                 </node>
                 <node concept="3zZkjj" id="694yVfgj$Ys" role="2OqNvi">
                   <node concept="1bVj0M" id="694yVfgj$Yt" role="23t8la">
