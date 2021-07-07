@@ -21,7 +21,7 @@ import org.modelix.model.api.COWArrays.insert
 import org.modelix.model.api.COWArrays.remove
 import org.modelix.model.lazy.CLHamtNode.Companion.create
 import org.modelix.model.lazy.IDeserializingKeyValueStore_extensions.put
-import org.modelix.model.lazy.TreeId.Companion.random
+import org.modelix.model.lazy.RepositoryId.Companion.random
 import org.modelix.model.persistent.*
 import org.modelix.model.persistent.CPNode.Companion.create
 import org.modelix.model.persistent.CPNodeRef.Companion.foreign
@@ -34,13 +34,13 @@ class CLTree : ITree {
 
     constructor(hash: String?, store: IDeserializingKeyValueStore) : this(if (hash == null) null else store.get<CPTree>(hash) { CPTree.deserialize(it) }, null, store)
     constructor(store: IDeserializingKeyValueStore) : this(null as CPTree?, null, store)
-    constructor(id: TreeId?, store: IDeserializingKeyValueStore) : this(null, id, store)
-    private constructor(data: CPTree?, treeId_: TreeId?, store: IDeserializingKeyValueStore) {
-        var treeId = treeId_
+    constructor(id: RepositoryId?, store: IDeserializingKeyValueStore) : this(null, id, store)
+    private constructor(data: CPTree?, repositoryId_: RepositoryId?, store: IDeserializingKeyValueStore) {
+        var repositoryId = repositoryId_
         if (data == null) {
             this.store = store
-            if (treeId == null) {
-                treeId = random()
+            if (repositoryId == null) {
+                repositoryId = random()
             }
             val root = CLNode(
                 this,
@@ -55,7 +55,7 @@ class CLTree : ITree {
                 arrayOf()
             )
             val idToHash = storeElement(root, CLHamtInternal(store))
-            this.data = CPTree(treeId.id, 1, sha256(idToHash.getData().serialize()))
+            this.data = CPTree(repositoryId.id, 1, sha256(idToHash.getData().serialize()))
             put(store, this.data, this.data.serialize())
         } else {
             this.store = store

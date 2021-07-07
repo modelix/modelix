@@ -18,7 +18,7 @@ package org.modelix.model.lazy
 import org.modelix.model.randomUUID
 import kotlin.jvm.JvmStatic
 
-data class TreeId(val id: String) {
+data class RepositoryId(val id: String) {
 
     fun getBranchKey(branchName: String?): String {
         var branchName = branchName
@@ -34,8 +34,8 @@ data class TreeId(val id: String) {
 
     companion object {
         @JvmStatic
-        fun random(): TreeId {
-            return TreeId(randomUUID())
+        fun random(): RepositoryId {
+            return RepositoryId(randomUUID())
         }
     }
 }

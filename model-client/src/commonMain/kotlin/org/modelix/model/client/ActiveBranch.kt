@@ -20,12 +20,12 @@ import org.modelix.model.api.IBranchListener
 import org.modelix.model.api.ITree
 import org.modelix.model.api.logError
 import org.modelix.model.lazy.CLVersion
-import org.modelix.model.lazy.TreeId
+import org.modelix.model.lazy.RepositoryId
 import kotlin.jvm.Synchronized
 
-open class ActiveBranch(client: IModelClient, tree: TreeId, branchName: String?, user: () -> String) : IIndirectBranch {
+open class ActiveBranch(client: IModelClient, repository: RepositoryId, branchName: String?, user: () -> String) : IIndirectBranch {
     private val client: IModelClient
-    private val tree: TreeId
+    private val repository: RepositoryId
     var branchName: String?
         private set
     private val user: () -> String
@@ -76,7 +76,7 @@ open class ActiveBranch(client: IModelClient, tree: TreeId, branchName: String?,
         branchName = name
         replicatedTree!!.branch.removeListener(forwardingListener)
         replicatedTree!!.dispose()
-        replicatedTree = createReplicatedTree(client, tree, branchName!!, user)
+        replicatedTree = createReplicatedTree(client, repository, branchName!!, user)
         replicatedTree!!.branch.addListener(forwardingListener)
         val b = replicatedTree!!.branch
         val newTree = b.computeRead { b.transaction.tree }
@@ -97,11 +97,11 @@ open class ActiveBranch(client: IModelClient, tree: TreeId, branchName: String?,
 
     protected open fun createReplicatedTree(
         client: IModelClient,
-        treeId: TreeId,
+        repositoryId: RepositoryId,
         branchName: String,
         user: () -> String
     ): ReplicatedTree =
-        ReplicatedTree(client, treeId, branchName, user)
+        ReplicatedTree(client, repositoryId, branchName, user)
 
     companion object {
         const val DEFAULT_BRANCH_NAME = "master"
@@ -113,10 +113,10 @@ open class ActiveBranch(client: IModelClient, tree: TreeId, branchName: String?,
             branchName = DEFAULT_BRANCH_NAME
         }
         this.client = client
-        this.tree = tree
+        this.repository = repository
         this.branchName = branchName
         this.user = user
-        replicatedTree = createReplicatedTree(client, tree, branchName!!, user)
+        replicatedTree = createReplicatedTree(client, repository, branchName!!, user)
         lastKnownTree = replicatedTree!!.branch.computeRead { replicatedTree!!.branch.transaction!!.tree }
         replicatedTree!!.branch.addListener(forwardingListener)
     }

@@ -24,7 +24,7 @@ import org.modelix.model.client.SharedExecutors.fixDelay
 import org.modelix.model.lazy.CLTree
 import org.modelix.model.lazy.CLVersion
 import org.modelix.model.lazy.CLVersion.Companion.loadFromHash
-import org.modelix.model.lazy.TreeId
+import org.modelix.model.lazy.RepositoryId
 import org.modelix.model.operations.IAppliedOperation
 import org.modelix.model.operations.IOperation
 import org.modelix.model.operations.OTBranch
@@ -38,7 +38,7 @@ import java.util.function.Supplier
  */
 actual open class ReplicatedTree actual constructor(
     private val client: IModelClient,
-    private val treeId: TreeId,
+    private val repositoryId: RepositoryId,
     private val branchName: String,
     private val user: () -> String
 ) {
@@ -175,7 +175,7 @@ actual open class ReplicatedTree actual constructor(
         synchronized(mergeLock) {
             if (remoteVersion!!.hash != newVersion.hash) {
                 remoteVersion = newVersion
-                client.asyncStore!!.put(treeId.getBranchKey(branchName), newVersion.hash)
+                client.asyncStore!!.put(repositoryId.getBranchKey(branchName), newVersion.hash)
             }
         }
     }
@@ -241,13 +241,13 @@ actual open class ReplicatedTree actual constructor(
     }
 
     init {
-        val versionHash = client[treeId.getBranchKey(branchName)]
+        val versionHash = client[repositoryId.getBranchKey(branchName)]
         var initialVersion = if (versionHash.isNullOrEmpty()) null else loadFromHash(versionHash, client.storeCache!!)
         val initialTree = MutableObject<CLTree>()
         if (initialVersion == null) {
-            initialTree.setValue(CLTree(treeId, client.storeCache!!))
+            initialTree.setValue(CLTree(repositoryId, client.storeCache!!))
             initialVersion = createVersion(initialTree.value, arrayOf(), null)
-            client.asyncStore!!.put(treeId.getBranchKey(branchName), initialVersion.hash)
+            client.asyncStore!!.put(repositoryId.getBranchKey(branchName), initialVersion.hash)
         } else {
             initialTree.setValue(CLTree(initialVersion.treeHash, client.storeCache!!))
         }
@@ -259,7 +259,7 @@ actual open class ReplicatedTree actual constructor(
         localBranch = PBranch(initialTree.value, client.idGenerator)
         localOTBranch = OTBranch(localBranch, client.idGenerator, client.storeCache!!)
         merger = VersionMerger(client.storeCache!!, client.idGenerator)
-        versionChangeDetector = object : VersionChangeDetector(client, treeId.getBranchKey(branchName)) {
+        versionChangeDetector = object : VersionChangeDetector(client, repositoryId.getBranchKey(branchName)) {
             override fun processVersionChange(oldVersionHash: String?, newVersionHash: String?) {
                 if (disposed) {
                     return

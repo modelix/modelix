@@ -2,10 +2,10 @@ package org.modelix.model.client
 
 import org.modelix.model.api.IBranch
 import org.modelix.model.lazy.CLVersion
-import org.modelix.model.lazy.TreeId
+import org.modelix.model.lazy.RepositoryId
 
 actual class ReplicatedTree {
-    actual constructor(client: IModelClient, treeId: TreeId, branchName: String, user: () -> String) {
+    actual constructor(client: IModelClient, repositoryId: RepositoryId, branchName: String, user: () -> String) {
         TODO("Not yet implemented")
     }
 
