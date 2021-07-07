@@ -19,7 +19,7 @@ import org.modelix.model.api.IConcept
 import org.modelix.model.api.INodeReference
 import org.modelix.model.api.LocalPNodeReference
 import org.modelix.model.api.PNodeReference
-import org.modelix.model.lazy.IConceptSerializer
+import org.modelix.model.lazy.IConceptReferenceSerializer
 import org.modelix.model.lazy.INodeReferenceSerializer
 import org.modelix.model.operations.*
 import org.modelix.model.persistent.SerializationUtil.escape
@@ -33,11 +33,11 @@ class OperationSerializer private constructor() {
         val INSTANCE = OperationSerializer()
         private const val SEPARATOR = ";"
         fun serializeConcept(concept: IConcept?): String {
-            return escape(IConceptSerializer.serialize(concept))
+            return escape(IConceptReferenceSerializer.serialize(concept))
         }
 
         fun deserializeConcept(serialized: String?): IConcept? {
-            return IConceptSerializer.deserialize(unescape(serialized))
+            return IConceptReferenceSerializer.deserialize(unescape(serialized), null)
         }
 
         fun serializeReference(obj: INodeReference?): String {

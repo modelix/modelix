@@ -7,7 +7,7 @@
     <devkit ref="fbc25dd2-5da4-483a-8b19-70928e1b62d7(jetbrains.mps.devkit.general-purpose)" />
   </languages>
   <imports>
-    <import index="gsqd" ref="r:599c60e4-99d0-4ea8-9225-bd9adc3816a3(de.q60.mps.web.notation.structure)" />
+    <import index="gsqd" ref="r:599c60e4-99d0-4ea8-9225-bd9adc3816a3(org.modelix.notation.structure)" />
     <import index="tpcu" ref="r:00000000-0000-4000-0000-011c89590282(jetbrains.mps.lang.core.behavior)" />
     <import index="tpck" ref="r:00000000-0000-4000-0000-011c89590288(jetbrains.mps.lang.core.structure)" implicit="true" />
   </imports>
@@ -1237,6 +1237,44 @@
         </node>
       </node>
       <node concept="10P_77" id="2FuI1MXn1gb" role="3clF45" />
+    </node>
+  </node>
+  <node concept="13h7C7" id="MotdubvclE">
+    <ref role="13h7C2" to="gsqd:7jIhq8MtqS5" resolve="ConceptAliasCell" />
+    <node concept="13hLZK" id="MotdubvclF" role="13h7CW">
+      <node concept="3clFbS" id="MotdubvclG" role="2VODD2" />
+    </node>
+    <node concept="13i0hz" id="MotdubvclP" role="13h7CS">
+      <property role="TrG5h" value="getNotationPresentation" />
+      <ref role="13i0hy" node="1D6Sg8PsCSL" resolve="getNotationPresentation" />
+      <node concept="3Tm1VV" id="MotdubvclQ" role="1B3o_S" />
+      <node concept="3clFbS" id="MotdubvclT" role="3clF47">
+        <node concept="3clFbF" id="MotdubvclW" role="3cqZAp">
+          <node concept="Xl_RD" id="MotdubvclV" role="3clFbG">
+            <property role="Xl_RC" value="alias" />
+          </node>
+        </node>
+      </node>
+      <node concept="17QB3L" id="MotdubvclU" role="3clF45" />
+    </node>
+  </node>
+  <node concept="13h7C7" id="Motdubvcr8">
+    <ref role="13h7C2" to="gsqd:7jIhq8MsQ7y" resolve="ExpressionCell" />
+    <node concept="13hLZK" id="Motdubvcr9" role="13h7CW">
+      <node concept="3clFbS" id="Motdubvcra" role="2VODD2" />
+    </node>
+    <node concept="13i0hz" id="Motdubvcrj" role="13h7CS">
+      <property role="TrG5h" value="getNotationPresentation" />
+      <ref role="13i0hy" node="1D6Sg8PsCSL" resolve="getNotationPresentation" />
+      <node concept="3Tm1VV" id="Motdubvcrk" role="1B3o_S" />
+      <node concept="3clFbS" id="Motdubvcrn" role="3clF47">
+        <node concept="3clFbF" id="Motdubvcrq" role="3cqZAp">
+          <node concept="Xl_RD" id="Motdubvcrp" role="3clFbG">
+            <property role="Xl_RC" value="*(...)" />
+          </node>
+        </node>
+      </node>
+      <node concept="17QB3L" id="Motdubvcro" role="3clF45" />
     </node>
   </node>
 </model>

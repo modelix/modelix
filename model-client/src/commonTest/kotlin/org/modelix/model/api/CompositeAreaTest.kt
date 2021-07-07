@@ -63,6 +63,14 @@ class MyNode(val name: String) : INode {
         TODO("Not yet implemented")
     }
 
+    override fun getPropertyRoles(): List<String> {
+        TODO("Not yet implemented")
+    }
+
+    override fun getReferenceRoles(): List<String> {
+        TODO("Not yet implemented")
+    }
+
     override fun equals(other: Any?): Boolean {
         return if (other is MyNode) {
             this.name == other.name
@@ -79,6 +87,10 @@ class MyNode(val name: String) : INode {
 class MyArea(val knownResolutions: Map<INodeReference, INode>) : AbstractArea(), IAreaReference {
     override fun getReference(): IAreaReference {
         return this
+    }
+
+    override fun resolveConcept(ref: IConceptReference): IConcept? {
+        return null
     }
 
     override fun resolveOriginalNode(ref: INodeReference): INode? {

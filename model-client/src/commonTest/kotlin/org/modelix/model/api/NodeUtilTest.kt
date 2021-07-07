@@ -4,7 +4,26 @@ import org.modelix.model.area.IArea
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
-class SimpleConcept : IConcept {
+class SimpleTestConcept : IConcept {
+    override val language: ILanguage?
+        get() = TODO("Not yet implemented")
+
+    override fun getDirectSuperConcepts(): List<IConcept> {
+        TODO("Not yet implemented")
+    }
+
+    override fun getReference(): IConceptReference {
+        TODO("Not yet implemented")
+    }
+
+    override fun getUID(): String {
+        TODO("Not yet implemented")
+    }
+
+    override fun isAbstract(): Boolean {
+        TODO("Not yet implemented")
+    }
+
     override fun getShortName(): String {
         TODO("Not yet implemented")
     }
@@ -13,7 +32,7 @@ class SimpleConcept : IConcept {
         TODO("Not yet implemented")
     }
 
-    override fun isSubconceptOf(superConcept: IConcept?): Boolean {
+    override fun isSubConceptOf(superConcept: IConcept?): Boolean {
         return this == superConcept
     }
 
@@ -21,12 +40,29 @@ class SimpleConcept : IConcept {
         return this == concept
     }
 
-    override val properties: Iterable<IProperty>
-        get() = TODO("Not yet implemented")
-    override val childLinks: Iterable<IChildLink>
-        get() = TODO("Not yet implemented")
-    override val referenceLinks: Iterable<IReferenceLink>
-        get() = TODO("Not yet implemented")
+    override fun getAllChildLinks(): List<IChildLink> {
+        TODO("Not yet implemented")
+    }
+
+    override fun getAllProperties(): List<IProperty> {
+        TODO("Not yet implemented")
+    }
+
+    override fun getAllReferenceLinks(): List<IReferenceLink> {
+        TODO("Not yet implemented")
+    }
+
+    override fun getOwnChildLinks(): List<IChildLink> {
+        TODO("Not yet implemented")
+    }
+
+    override fun getOwnProperties(): List<IProperty> {
+        TODO("Not yet implemented")
+    }
+
+    override fun getOwnReferenceLinks(): List<IReferenceLink> {
+        TODO("Not yet implemented")
+    }
 
     override fun getProperty(name: String): IProperty {
         TODO("Not yet implemented")
@@ -41,7 +77,7 @@ class SimpleConcept : IConcept {
     }
 }
 
-class SimpleNode(override val concept: IConcept? = null) : INode {
+class SimpleTestNode(override val concept: IConcept? = null) : INode {
     override fun getArea(): IArea {
         TODO("Not yet implemented")
     }
@@ -65,7 +101,7 @@ class SimpleNode(override val concept: IConcept? = null) : INode {
     override fun moveChild(role: String?, index: Int, node: INode) {
         val l = childrenByRole.getOrPut(role) { mutableListOf() }
         l.add(index, node)
-        if (node is SimpleNode) {
+        if (node is SimpleTestNode) {
             node.parent = this
             node.roleInParent = role
         }
@@ -96,18 +132,26 @@ class SimpleNode(override val concept: IConcept? = null) : INode {
     override fun setPropertyValue(role: String, value: String?) {
         TODO("Not yet implemented")
     }
+
+    override fun getPropertyRoles(): List<String> {
+        TODO("Not yet implemented")
+    }
+
+    override fun getReferenceRoles(): List<String> {
+        TODO("Not yet implemented")
+    }
 }
 
 class NodeUtilTest {
 
     @Test
     fun getDescendantsIncludingItself() {
-        val rootNode = SimpleNode()
-        val child1 = SimpleNode()
-        val child2 = SimpleNode()
-        val grandChildA = SimpleNode()
-        val grandChildB = SimpleNode()
-        val grandChildC = SimpleNode()
+        val rootNode = SimpleTestNode()
+        val child1 = SimpleTestNode()
+        val child2 = SimpleTestNode()
+        val grandChildA = SimpleTestNode()
+        val grandChildB = SimpleTestNode()
+        val grandChildC = SimpleTestNode()
         rootNode.moveChild("link_a", 0, child1)
         rootNode.moveChild("link_b", 0, child2)
         child1.moveChild("link_c", 0, grandChildA)
@@ -123,12 +167,12 @@ class NodeUtilTest {
 
     @Test
     fun getDescendantsNotIncludingItself() {
-        val rootNode = SimpleNode()
-        val child1 = SimpleNode()
-        val child2 = SimpleNode()
-        val grandChildA = SimpleNode()
-        val grandChildB = SimpleNode()
-        val grandChildC = SimpleNode()
+        val rootNode = SimpleTestNode()
+        val child1 = SimpleTestNode()
+        val child2 = SimpleTestNode()
+        val grandChildA = SimpleTestNode()
+        val grandChildB = SimpleTestNode()
+        val grandChildC = SimpleTestNode()
         rootNode.moveChild("link_a", 0, child1)
         rootNode.moveChild("link_b", 0, child2)
         child1.moveChild("link_c", 0, grandChildA)
@@ -144,13 +188,13 @@ class NodeUtilTest {
 
     @Test
     fun getAncestorIncludingItself() {
-        val concept1 = SimpleConcept()
-        val concept2 = SimpleConcept()
-        val concept3 = SimpleConcept()
-        val concept4 = SimpleConcept()
-        val rootNode = SimpleNode(concept1)
-        val child1 = SimpleNode(concept2)
-        val grandChildA = SimpleNode(concept3)
+        val concept1 = SimpleTestConcept()
+        val concept2 = SimpleTestConcept()
+        val concept3 = SimpleTestConcept()
+        val concept4 = SimpleTestConcept()
+        val rootNode = SimpleTestNode(concept1)
+        val child1 = SimpleTestNode(concept2)
+        val grandChildA = SimpleTestNode(concept3)
         rootNode.moveChild("link_a", 0, child1)
         child1.moveChild("link_c", 0, grandChildA)
         assertEquals(null, null.getAncestor(null, true))
@@ -177,13 +221,13 @@ class NodeUtilTest {
 
     @Test
     fun getAncestorNotIncludingItself() {
-        val concept1 = SimpleConcept()
-        val concept2 = SimpleConcept()
-        val concept3 = SimpleConcept()
-        val concept4 = SimpleConcept()
-        val rootNode = SimpleNode(concept1)
-        val child1 = SimpleNode(concept2)
-        val grandChildA = SimpleNode(concept3)
+        val concept1 = SimpleTestConcept()
+        val concept2 = SimpleTestConcept()
+        val concept3 = SimpleTestConcept()
+        val concept4 = SimpleTestConcept()
+        val rootNode = SimpleTestNode(concept1)
+        val child1 = SimpleTestNode(concept2)
+        val grandChildA = SimpleTestNode(concept3)
         rootNode.moveChild("link_a", 0, child1)
         child1.moveChild("link_c", 0, grandChildA)
         assertEquals(null, null.getAncestor(null, false))

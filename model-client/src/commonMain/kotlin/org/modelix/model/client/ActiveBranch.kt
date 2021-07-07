@@ -26,10 +26,10 @@ import kotlin.jvm.Synchronized
 open class ActiveBranch(client: IModelClient, repository: RepositoryId, branchName: String?, user: () -> String) : IIndirectBranch {
     private val client: IModelClient
     private val repository: RepositoryId
-    var branchName: String?
+    var branchName: String
         private set
     private val user: () -> String
-    private var replicatedTree: ReplicatedTree?
+    private var replicatedTree: ReplicatedTree
     private var lastKnownTree: ITree? = null
     private val forwardingListener: IBranchListener = object : IBranchListener {
         override fun treeChanged(oldTree: ITree?, newTree: ITree) {
@@ -43,16 +43,15 @@ open class ActiveBranch(client: IModelClient, repository: RepositoryId, branchNa
     override val branch: IBranch
         get() {
             if (disposed) throw IllegalStateException("ActiveBranch was disposed")
-            return (replicatedTree ?: throw IllegalStateException("replicatedTree not available")).branch
+            return replicatedTree.branch
         }
 
     val version: CLVersion
-        get() = replicatedTree!!.localVersion!!
+        get() = replicatedTree.localVersion!!
 
     open fun dispose() {
-        replicatedTree!!.branch.removeListener(forwardingListener)
-        replicatedTree!!.dispose()
-        replicatedTree = null
+        replicatedTree.branch.removeListener(forwardingListener)
+        replicatedTree.dispose()
         disposed = true
     }
 
@@ -69,16 +68,16 @@ open class ActiveBranch(client: IModelClient, repository: RepositoryId, branchNa
     }
 
     @Synchronized
-    fun switchBranch(name: String?) {
+    fun switchBranch(name: String) {
         if (branchName == name) {
             return
         }
         branchName = name
-        replicatedTree!!.branch.removeListener(forwardingListener)
-        replicatedTree!!.dispose()
-        replicatedTree = createReplicatedTree(client, repository, branchName!!, user)
-        replicatedTree!!.branch.addListener(forwardingListener)
-        val b = replicatedTree!!.branch
+        replicatedTree.branch.removeListener(forwardingListener)
+        replicatedTree.dispose()
+        replicatedTree = createReplicatedTree(client, repository, branchName, user)
+        replicatedTree.branch.addListener(forwardingListener)
+        val b = replicatedTree.branch
         val newTree = b.computeRead { b.transaction.tree }
         notifyListeners(newTree)
     }
@@ -108,16 +107,12 @@ open class ActiveBranch(client: IModelClient, repository: RepositoryId, branchNa
     }
 
     init {
-        var branchName = branchName
-        if (branchName == null || branchName!!.isEmpty()) {
-            branchName = DEFAULT_BRANCH_NAME
-        }
         this.client = client
         this.repository = repository
-        this.branchName = branchName
+        this.branchName = if (branchName.isNullOrEmpty()) DEFAULT_BRANCH_NAME else branchName
         this.user = user
-        replicatedTree = createReplicatedTree(client, repository, branchName!!, user)
-        lastKnownTree = replicatedTree!!.branch.computeRead { replicatedTree!!.branch.transaction!!.tree }
-        replicatedTree!!.branch.addListener(forwardingListener)
+        replicatedTree = createReplicatedTree(client, repository, this.branchName, user)
+        lastKnownTree = replicatedTree.branch.computeRead { replicatedTree.branch.transaction.tree }
+        replicatedTree.branch.addListener(forwardingListener)
     }
 }

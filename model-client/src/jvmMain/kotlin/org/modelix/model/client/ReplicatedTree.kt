@@ -25,6 +25,7 @@ import org.modelix.model.lazy.CLTree
 import org.modelix.model.lazy.CLVersion
 import org.modelix.model.lazy.CLVersion.Companion.loadFromHash
 import org.modelix.model.lazy.RepositoryId
+import org.modelix.model.metameta.MetaModelBranch
 import org.modelix.model.operations.IAppliedOperation
 import org.modelix.model.operations.IOperation
 import org.modelix.model.operations.OTBranch
@@ -44,6 +45,7 @@ actual open class ReplicatedTree actual constructor(
 ) {
     private val localBranch: IBranch
     private val localOTBranch: OTBranch
+    private val localMMBranch: IBranch
     private val mergeLock = Any()
     private val merger: VersionMerger
 
@@ -61,7 +63,7 @@ actual open class ReplicatedTree actual constructor(
     actual val branch: IBranch
         get() {
             checkDisposed()
-            return localOTBranch
+            return localMMBranch
         }
 
     /**
@@ -258,6 +260,7 @@ actual open class ReplicatedTree actual constructor(
         remoteVersion = initialVersion
         localBranch = PBranch(initialTree.value, client.idGenerator)
         localOTBranch = OTBranch(localBranch, client.idGenerator, client.storeCache!!)
+        localMMBranch = MetaModelBranch(localOTBranch)
         merger = VersionMerger(client.storeCache!!, client.idGenerator)
         versionChangeDetector = object : VersionChangeDetector(client, repositoryId.getBranchKey(branchName)) {
             override fun processVersionChange(oldVersionHash: String?, newVersionHash: String?) {

@@ -25,7 +25,7 @@ spec:
     spec:
       containers:
       - name: proxy
-        image: modelix/modelix-proxy:0.0.7
+        image: modelix/modelix-proxy:0.0.34
         imagePullPolicy: IfNotPresent
         env:
         ports:

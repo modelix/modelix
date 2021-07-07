@@ -14,6 +14,7 @@
       <modulePath path="$PROJECT_DIR$/org.modelix.lib/org.modelix.lib.msd" folder="common" />
       <modulePath path="$PROJECT_DIR$/org.modelix.model.api/org.modelix.model.api.msd" folder="model.api" />
       <modulePath path="$PROJECT_DIR$/org.modelix.model.client/org.modelix.model.client.msd" folder="model" />
+      <modulePath path="$PROJECT_DIR$/org.modelix.model.metametamodel/org.modelix.model.metametamodel.mpl" folder="model" />
       <modulePath path="$PROJECT_DIR$/org.modelix.model.mpsadapters/org.modelix.model.mpsadapters.msd" folder="model.api" />
       <modulePath path="$PROJECT_DIR$/org.modelix.model.mpsplugin/org.modelix.model.mpsplugin.msd" folder="model" />
       <modulePath path="$PROJECT_DIR$/org.modelix.model.repositoryconcepts/org.modelix.model.repositoryconcepts.mpl" folder="model.api" />
