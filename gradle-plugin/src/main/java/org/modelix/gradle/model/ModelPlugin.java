@@ -3,8 +3,6 @@ package org.modelix.gradle.model;
 import org.gradle.api.Plugin;
 import org.gradle.api.Project;
 import org.gradle.api.artifacts.Configuration;
-import org.gradle.api.artifacts.Dependency;
-import org.gradle.api.file.FileTree;
 import org.gradle.api.file.RelativePath;
 import org.gradle.api.tasks.Copy;
 import org.gradle.api.tasks.JavaExec;
@@ -15,7 +13,6 @@ import java.net.URL;
 import java.time.Duration;
 import java.util.Arrays;
 import java.util.Enumeration;
-import java.util.List;
 import java.util.jar.Manifest;
 import java.util.stream.Collectors;
 
@@ -69,7 +66,7 @@ public class ModelPlugin implements Plugin<Project> {
                 javaExec.classpath(genConfig);
                 javaExec.args(
                         "serverUrl", settings.getServerUrl(),
-                        "treeId", settings.getTreeId(),
+                        "repositoryId", settings.getRepositoryId(),
                         "branchName", settings.getBranchName()
                 );
                 if (settings.isDebug()) javaExec.setDebug(true);

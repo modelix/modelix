@@ -41,7 +41,7 @@ class TreeSerializationTest {
         val mapStore = MapBaseStore()
         var store = GarbageFilteringStore(mapStore)
         var objectStore = ObjectStoreCache(store)
-        val initialTree = CLTree(TreeId("tree01"), objectStore)
+        val initialTree = CLTree(RepositoryId("tree01"), objectStore)
         val initialVersion = CLVersion.createRegularVersion(
             id = 1,
             time = null,
@@ -234,7 +234,7 @@ class TreeSerializationTest {
         val deserializedTree = deserializedVersion.tree
         assertTree(deserializedTree)
 
-        val branch = PBranch(CLTree(TreeId("tree01"), ObjectStoreCache(MapBaseStore())), IdGenerator(2))
+        val branch = PBranch(CLTree(RepositoryId("tree01"), ObjectStoreCache(MapBaseStore())), IdGenerator(2))
         branch.runWrite {
             for (operation in deserializedVersion.operations) {
                 operation.apply(branch.writeTransaction, deserializedVersion.store)

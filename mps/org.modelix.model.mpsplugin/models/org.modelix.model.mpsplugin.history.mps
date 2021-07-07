@@ -473,17 +473,17 @@
       </node>
     </node>
     <node concept="312cEg" id="1me6UesAyhc" role="jymVt">
-      <property role="TrG5h" value="cloudRepository" />
+      <property role="TrG5h" value="modelServer" />
       <node concept="3Tm6S6" id="1me6UesAyhd" role="1B3o_S" />
       <node concept="3uibUv" id="1me6UesAzJs" role="1tU5fm">
-        <ref role="3uigEE" to="csg2:6aRQr1WOV$v" resolve="CloudRepository" />
+        <ref role="3uigEE" to="csg2:6aRQr1WOV$v" resolve="ModelServerConnection" />
       </node>
     </node>
     <node concept="312cEg" id="1me6UesAOYh" role="jymVt">
-      <property role="TrG5h" value="treeId" />
+      <property role="TrG5h" value="repositoryId" />
       <node concept="3Tm6S6" id="1me6UesAOYi" role="1B3o_S" />
-      <node concept="3uibUv" id="1me6UesARks" role="1tU5fm">
-        <ref role="3uigEE" to="xkhl:~TreeId" resolve="TreeId" />
+      <node concept="3uibUv" id="2jOseCqKQiP" role="1tU5fm">
+        <ref role="3uigEE" to="xkhl:~RepositoryId" resolve="RepositoryId" />
       </node>
     </node>
     <node concept="312cEg" id="1me6UesBQLH" role="jymVt">
@@ -846,12 +846,12 @@
                 </node>
                 <node concept="2OqwBi" id="1me6UesB1DZ" role="33vP2m">
                   <node concept="37vLTw" id="1me6UesB1E0" role="2Oq$k0">
-                    <ref role="3cqZAo" node="1me6UesAyhc" resolve="cloudRepository" />
+                    <ref role="3cqZAo" node="1me6UesAyhc" resolve="modelServer" />
                   </node>
                   <node concept="liA8E" id="1me6UesB1E1" role="2OqNvi">
                     <ref role="37wK5l" to="csg2:6aRQr1X24wJ" resolve="getActiveBranch" />
                     <node concept="37vLTw" id="1me6UesB1E2" role="37wK5m">
-                      <ref role="3cqZAo" node="1me6UesAOYh" resolve="treeId" />
+                      <ref role="3cqZAo" node="1me6UesAOYh" resolve="repositoryId" />
                     </node>
                   </node>
                 </node>
@@ -878,10 +878,10 @@
                 <node concept="17QB3L" id="1me6UesB_49" role="1tU5fm" />
                 <node concept="2OqwBi" id="1me6UesB_54" role="33vP2m">
                   <node concept="37vLTw" id="1me6UesB_55" role="2Oq$k0">
-                    <ref role="3cqZAo" node="1me6UesAOYh" resolve="treeId" />
+                    <ref role="3cqZAo" node="1me6UesAOYh" resolve="repositoryId" />
                   </node>
                   <node concept="liA8E" id="1me6UesB_56" role="2OqNvi">
-                    <ref role="37wK5l" to="xkhl:~TreeId.getBranchKey(java.lang.String)" resolve="getBranchKey" />
+                    <ref role="37wK5l" to="xkhl:~RepositoryId.getBranchKey(java.lang.String)" resolve="getBranchKey" />
                     <node concept="37vLTw" id="1me6UesB_57" role="37wK5m">
                       <ref role="3cqZAo" node="1me6UesBxs1" resolve="branchName" />
                     </node>
@@ -893,7 +893,7 @@
               <node concept="2OqwBi" id="1me6UesBBSM" role="3clFbG">
                 <node concept="2OqwBi" id="1me6UesBBgn" role="2Oq$k0">
                   <node concept="37vLTw" id="1me6UesBAyT" role="2Oq$k0">
-                    <ref role="3cqZAo" node="1me6UesAyhc" resolve="cloudRepository" />
+                    <ref role="3cqZAo" node="1me6UesAyhc" resolve="modelServer" />
                   </node>
                   <node concept="liA8E" id="1me6UesBBHb" role="2OqNvi">
                     <ref role="37wK5l" to="csg2:2n9Wvfbnqym" resolve="getClient" />
@@ -976,12 +976,12 @@
           <node concept="2OqwBi" id="1me6UesC7rO" role="3clFbG">
             <node concept="2OqwBi" id="1me6UesC6nX" role="2Oq$k0">
               <node concept="37vLTw" id="1me6UesC5EG" role="2Oq$k0">
-                <ref role="3cqZAo" node="1me6UesAyhc" resolve="cloudRepository" />
+                <ref role="3cqZAo" node="1me6UesAyhc" resolve="modelServer" />
               </node>
               <node concept="liA8E" id="1me6UesC6Ce" role="2OqNvi">
                 <ref role="37wK5l" to="csg2:6aRQr1X24wJ" resolve="getActiveBranch" />
                 <node concept="37vLTw" id="1me6UesC753" role="37wK5m">
-                  <ref role="3cqZAo" node="1me6UesAOYh" resolve="treeId" />
+                  <ref role="3cqZAo" node="1me6UesAOYh" resolve="repositoryId" />
                 </node>
               </node>
             </node>
@@ -1010,15 +1010,15 @@
     <node concept="3clFb_" id="2D0HTQh9kjZ" role="jymVt">
       <property role="TrG5h" value="loadHistory" />
       <node concept="37vLTG" id="1me6UesAsHR" role="3clF46">
-        <property role="TrG5h" value="cloudRepository" />
+        <property role="TrG5h" value="modelServer" />
         <node concept="3uibUv" id="1me6UesAvk_" role="1tU5fm">
-          <ref role="3uigEE" to="csg2:6aRQr1WOV$v" resolve="CloudRepository" />
+          <ref role="3uigEE" to="csg2:6aRQr1WOV$v" resolve="ModelServerConnection" />
         </node>
       </node>
       <node concept="37vLTG" id="1me6UesAJSZ" role="3clF46">
-        <property role="TrG5h" value="treeId" />
-        <node concept="3uibUv" id="1me6UesAMzw" role="1tU5fm">
-          <ref role="3uigEE" to="xkhl:~TreeId" resolve="TreeId" />
+        <property role="TrG5h" value="repositoryId" />
+        <node concept="3uibUv" id="2jOseCqKQNR" role="1tU5fm">
+          <ref role="3uigEE" to="xkhl:~RepositoryId" resolve="RepositoryId" />
         </node>
       </node>
       <node concept="37vLTG" id="7UL57PespJb" role="3clF46">
@@ -1033,12 +1033,12 @@
         <node concept="3clFbF" id="1me6UesAAcP" role="3cqZAp">
           <node concept="37vLTI" id="1me6UesAFGA" role="3clFbG">
             <node concept="37vLTw" id="1me6UesAHXC" role="37vLTx">
-              <ref role="3cqZAo" node="1me6UesAsHR" resolve="cloudRepository" />
+              <ref role="3cqZAo" node="1me6UesAsHR" resolve="modelServer" />
             </node>
             <node concept="2OqwBi" id="1me6UesAChO" role="37vLTJ">
               <node concept="Xjq3P" id="1me6UesAAcN" role="2Oq$k0" />
               <node concept="2OwXpG" id="1me6UesAEEV" role="2OqNvi">
-                <ref role="2Oxat5" node="1me6UesAyhc" resolve="cloudRepository" />
+                <ref role="2Oxat5" node="1me6UesAyhc" resolve="modelServer" />
               </node>
             </node>
           </node>
@@ -1046,12 +1046,12 @@
         <node concept="3clFbF" id="1me6UesAT78" role="3cqZAp">
           <node concept="37vLTI" id="1me6UesAY2w" role="3clFbG">
             <node concept="37vLTw" id="1me6UesAZLM" role="37vLTx">
-              <ref role="3cqZAo" node="1me6UesAJSZ" resolve="treeId" />
+              <ref role="3cqZAo" node="1me6UesAJSZ" resolve="repositoryId" />
             </node>
             <node concept="2OqwBi" id="1me6UesAVeX" role="37vLTJ">
               <node concept="Xjq3P" id="1me6UesAT76" role="2Oq$k0" />
               <node concept="2OwXpG" id="1me6UesAX1$" role="2OqNvi">
-                <ref role="2Oxat5" node="1me6UesAOYh" resolve="treeId" />
+                <ref role="2Oxat5" node="1me6UesAOYh" resolve="repositoryId" />
               </node>
             </node>
           </node>
@@ -1061,12 +1061,12 @@
             <node concept="2OqwBi" id="1me6UesCNry" role="37vLTx">
               <node concept="2OqwBi" id="1me6UesCMiH" role="2Oq$k0">
                 <node concept="37vLTw" id="1me6UesCLL5" role="2Oq$k0">
-                  <ref role="3cqZAo" node="1me6UesAsHR" resolve="cloudRepository" />
+                  <ref role="3cqZAo" node="1me6UesAsHR" resolve="modelServer" />
                 </node>
                 <node concept="liA8E" id="1me6UesCMG6" role="2OqNvi">
                   <ref role="37wK5l" to="csg2:6aRQr1X24wJ" resolve="getActiveBranch" />
                   <node concept="37vLTw" id="1me6UesCNae" role="37wK5m">
-                    <ref role="3cqZAo" node="1me6UesAJSZ" resolve="treeId" />
+                    <ref role="3cqZAo" node="1me6UesAJSZ" resolve="repositoryId" />
                   </node>
                 </node>
               </node>
@@ -1839,14 +1839,14 @@
                   <ref role="37wK5l" to="7bx7:~ActionUtils.getGroup(java.lang.String)" resolve="getGroup" />
                   <ref role="1Pybhc" to="7bx7:~ActionUtils" resolve="ActionUtils" />
                   <node concept="Xl_RD" id="6aRQr1XcUXW" role="37wK5m">
-                    <property role="Xl_RC" value="org.modelix.model.mpsplugin.plugin.CloudRepositoryGroup_ActionGroup" />
+                    <property role="Xl_RC" value="org.modelix.model.mpsplugin.plugin.ModelServerGroup_ActionGroup" />
                   </node>
                 </node>
               </node>
             </node>
             <node concept="2ZW3vV" id="6aRQr1XcUXX" role="3clFbw">
               <node concept="3uibUv" id="6aRQr1XcWG7" role="2ZW6by">
-                <ref role="3uigEE" node="6aRQr1WTCgk" resolve="CloudRepositoryTreeNode" />
+                <ref role="3uigEE" node="6aRQr1WTCgk" resolve="ModelServerTreeNode" />
               </node>
               <node concept="37vLTw" id="6aRQr1XcUXZ" role="2ZW6bz">
                 <ref role="3cqZAo" node="6aRQr1WNRSn" resolve="node" />
@@ -1883,14 +1883,14 @@
                   <ref role="37wK5l" to="7bx7:~ActionUtils.getGroup(java.lang.String)" resolve="getGroup" />
                   <ref role="1Pybhc" to="7bx7:~ActionUtils" resolve="ActionUtils" />
                   <node concept="Xl_RD" id="2n9WvfbmayX" role="37wK5m">
-                    <property role="Xl_RC" value="org.modelix.model.mpsplugin.plugin.CloudTreeGroup_ActionGroup" />
+                    <property role="Xl_RC" value="org.modelix.model.mpsplugin.plugin.RepositoryGroup_ActionGroup" />
                   </node>
                 </node>
               </node>
             </node>
             <node concept="2ZW3vV" id="2n9WvfbmayY" role="3clFbw">
               <node concept="3uibUv" id="2n9Wvfbmc7i" role="2ZW6by">
-                <ref role="3uigEE" node="6aRQr1WUXn6" resolve="CloudTreeTreeNode" />
+                <ref role="3uigEE" node="6aRQr1WUXn6" resolve="RepositoryTreeNode" />
               </node>
               <node concept="37vLTw" id="2n9Wvfbmaz0" role="2ZW6bz">
                 <ref role="3cqZAo" node="6aRQr1WNRSn" resolve="node" />
@@ -2119,13 +2119,13 @@
       <property role="TrG5h" value="repositoriesListener" />
       <node concept="3Tm6S6" id="6aRQr1WQdip" role="1B3o_S" />
       <node concept="3uibUv" id="6aRQr1WQdzk" role="1tU5fm">
-        <ref role="3uigEE" to="csg2:6aRQr1WPO$S" resolve="CloudRepositories.IListener" />
+        <ref role="3uigEE" to="csg2:6aRQr1WPO$S" resolve="ModelServerConnections.IListener" />
       </node>
       <node concept="2ShNRf" id="6aRQr1WQekF" role="33vP2m">
         <node concept="YeOm9" id="6aRQr1WQg1J" role="2ShVmc">
           <node concept="1Y3b0j" id="6aRQr1WQg1M" role="YeSDq">
             <property role="2bfB8j" value="true" />
-            <ref role="1Y3XeK" to="csg2:6aRQr1WPO$S" resolve="CloudRepositories.IListener" />
+            <ref role="1Y3XeK" to="csg2:6aRQr1WPO$S" resolve="ModelServerConnections.IListener" />
             <ref role="37wK5l" to="wyt6:~Object.&lt;init&gt;()" resolve="Object" />
             <node concept="3Tm1VV" id="6aRQr1WQg1N" role="1B3o_S" />
             <node concept="3clFb_" id="6aRQr1WQg1S" role="jymVt">
@@ -2276,10 +2276,10 @@
           <node concept="2OqwBi" id="6aRQr1WRxt8" role="2GsD0m">
             <node concept="2YIFZM" id="6aRQr1WRxt9" role="2Oq$k0">
               <ref role="37wK5l" to="csg2:1LVcV5Kxxmz" resolve="getInstance" />
-              <ref role="1Pybhc" to="csg2:1LVcV5Kxxi$" resolve="CloudRepositories" />
+              <ref role="1Pybhc" to="csg2:1LVcV5Kxxi$" resolve="ModelServerConnections" />
             </node>
             <node concept="liA8E" id="6aRQr1WRxta" role="2OqNvi">
-              <ref role="37wK5l" to="csg2:1LVcV5KxBgM" resolve="getRepositories" />
+              <ref role="37wK5l" to="csg2:1LVcV5KxBgM" resolve="getModelServer" />
             </node>
           </node>
           <node concept="3clFbS" id="6aRQr1WRxtb" role="2LFqv$">
@@ -2288,7 +2288,7 @@
                 <ref role="37wK5l" to="rgfa:~DefaultMutableTreeNode.add(javax.swing.tree.MutableTreeNode)" resolve="add" />
                 <node concept="2ShNRf" id="6aRQr1WRxte" role="37wK5m">
                   <node concept="1pGfFk" id="6aRQr1WRxtf" role="2ShVmc">
-                    <ref role="37wK5l" node="6aRQr1WTCgG" resolve="CloudRepositoryTreeNode" />
+                    <ref role="37wK5l" node="6aRQr1WTCgG" resolve="ModelServerTreeNode" />
                     <node concept="2GrUjf" id="6aRQr1WUpHs" role="37wK5m">
                       <ref role="2Gs0qQ" node="6aRQr1WRxt7" resolve="repo" />
                     </node>
@@ -2315,7 +2315,7 @@
           <node concept="2OqwBi" id="6aRQr1WQ9lP" role="3clFbG">
             <node concept="2YIFZM" id="6aRQr1WQ9fU" role="2Oq$k0">
               <ref role="37wK5l" to="csg2:1LVcV5Kxxmz" resolve="getInstance" />
-              <ref role="1Pybhc" to="csg2:1LVcV5Kxxi$" resolve="CloudRepositories" />
+              <ref role="1Pybhc" to="csg2:1LVcV5Kxxi$" resolve="ModelServerConnections" />
             </node>
             <node concept="liA8E" id="6aRQr1WQ9xz" role="2OqNvi">
               <ref role="37wK5l" to="csg2:6aRQr1WPTla" resolve="addListener" />
@@ -2345,7 +2345,7 @@
           <node concept="2OqwBi" id="6aRQr1WQh54" role="3clFbG">
             <node concept="2YIFZM" id="6aRQr1WQh55" role="2Oq$k0">
               <ref role="37wK5l" to="csg2:1LVcV5Kxxmz" resolve="getInstance" />
-              <ref role="1Pybhc" to="csg2:1LVcV5Kxxi$" resolve="CloudRepositories" />
+              <ref role="1Pybhc" to="csg2:1LVcV5Kxxi$" resolve="ModelServerConnections" />
             </node>
             <node concept="liA8E" id="6aRQr1WQh56" role="2OqNvi">
               <ref role="37wK5l" to="csg2:6aRQr1WPZML" resolve="removeListener" />
@@ -2362,7 +2362,7 @@
     </node>
   </node>
   <node concept="312cEu" id="6aRQr1WTCgk">
-    <property role="TrG5h" value="CloudRepositoryTreeNode" />
+    <property role="TrG5h" value="ModelServerTreeNode" />
     <node concept="312cEg" id="6aRQr1WTCgp" role="jymVt">
       <property role="TrG5h" value="branchListener" />
       <node concept="3Tm6S6" id="6aRQr1WTCgq" role="1B3o_S" />
@@ -2444,10 +2444,10 @@
       </node>
     </node>
     <node concept="312cEg" id="6aRQr1WTIFv" role="jymVt">
-      <property role="TrG5h" value="cloudRepository" />
+      <property role="TrG5h" value="modelServer" />
       <node concept="3Tm6S6" id="6aRQr1WTIFw" role="1B3o_S" />
       <node concept="3uibUv" id="6aRQr1WTJu_" role="1tU5fm">
-        <ref role="3uigEE" to="csg2:6aRQr1WOV$v" resolve="CloudRepository" />
+        <ref role="3uigEE" to="csg2:6aRQr1WOV$v" resolve="ModelServerConnection" />
       </node>
     </node>
     <node concept="312cEg" id="1JFLVobiXvC" role="jymVt">
@@ -2461,14 +2461,14 @@
       <property role="TrG5h" value="repoListener" />
       <node concept="3Tm6S6" id="1JFLVobiH49" role="1B3o_S" />
       <node concept="3uibUv" id="1JFLVobiKU1" role="1tU5fm">
-        <ref role="3uigEE" to="csg2:1JFLVobh0lR" resolve="CloudRepository.IListener" />
+        <ref role="3uigEE" to="csg2:1JFLVobh0lR" resolve="ModelServerConnection.IListener" />
       </node>
       <node concept="2ShNRf" id="1JFLVobiHKg" role="33vP2m">
         <node concept="YeOm9" id="1JFLVobiK6M" role="2ShVmc">
           <node concept="1Y3b0j" id="1JFLVobiK6P" role="YeSDq">
             <property role="2bfB8j" value="true" />
             <ref role="37wK5l" to="wyt6:~Object.&lt;init&gt;()" resolve="Object" />
-            <ref role="1Y3XeK" to="csg2:1JFLVobh0lR" resolve="CloudRepository.IListener" />
+            <ref role="1Y3XeK" to="csg2:1JFLVobh0lR" resolve="ModelServerConnection.IListener" />
             <node concept="3Tm1VV" id="1JFLVobiK6Q" role="1B3o_S" />
             <node concept="3clFb_" id="1JFLVobiL4b" role="jymVt">
               <property role="TrG5h" value="connectionStatusChanged" />
@@ -2491,7 +2491,7 @@
                               <node concept="37vLTI" id="1JFLVobj7Zd" role="3clFbG">
                                 <node concept="2OqwBi" id="1JFLVobj9$H" role="37vLTx">
                                   <node concept="37vLTw" id="1JFLVobj8Yk" role="2Oq$k0">
-                                    <ref role="3cqZAo" node="6aRQr1WTIFv" resolve="cloudRepository" />
+                                    <ref role="3cqZAo" node="6aRQr1WTIFv" resolve="modelServer" />
                                   </node>
                                   <node concept="liA8E" id="1JFLVobj9Qh" role="2OqNvi">
                                     <ref role="37wK5l" to="csg2:6aRQr1X1RCt" resolve="getInfoBranch" />
@@ -2560,9 +2560,9 @@
     </node>
     <node concept="3clFbW" id="6aRQr1WTCgG" role="jymVt">
       <node concept="37vLTG" id="6aRQr1WTDzs" role="3clF46">
-        <property role="TrG5h" value="cloudRepository" />
+        <property role="TrG5h" value="modelServer" />
         <node concept="3uibUv" id="6aRQr1WTDVO" role="1tU5fm">
-          <ref role="3uigEE" to="csg2:6aRQr1WOV$v" resolve="CloudRepository" />
+          <ref role="3uigEE" to="csg2:6aRQr1WOV$v" resolve="ModelServerConnection" />
         </node>
       </node>
       <node concept="3cqZAl" id="6aRQr1WTCgH" role="3clF45" />
@@ -2571,12 +2571,12 @@
         <node concept="XkiVB" id="6aRQr1WTCgK" role="3cqZAp">
           <ref role="37wK5l" to="7e8u:~TextTreeNode.&lt;init&gt;(javax.swing.Icon,java.lang.String)" resolve="TextTreeNode" />
           <node concept="10M0yZ" id="6aRQr1WUTsm" role="37wK5m">
-            <ref role="3cqZAo" to="csg2:6aRQr1WUvo7" resolve="REPOSITORY_ICON" />
+            <ref role="3cqZAo" to="csg2:6aRQr1WUvo7" resolve="MODEL_SERVER_ICON" />
             <ref role="1PxDUh" to="csg2:6aRQr1WMwO8" resolve="CloudIcons" />
           </node>
           <node concept="2OqwBi" id="6aRQr1WUtaA" role="37wK5m">
             <node concept="37vLTw" id="6aRQr1WUsIG" role="2Oq$k0">
-              <ref role="3cqZAo" node="6aRQr1WTDzs" resolve="cloudRepository" />
+              <ref role="3cqZAo" node="6aRQr1WTDzs" resolve="modelServer" />
             </node>
             <node concept="liA8E" id="6aRQr1WUtiz" role="2OqNvi">
               <ref role="37wK5l" to="csg2:6aRQr1WQLS7" resolve="getBaseUrl" />
@@ -2586,12 +2586,12 @@
         <node concept="3clFbF" id="6aRQr1WTMUl" role="3cqZAp">
           <node concept="37vLTI" id="6aRQr1WTPl9" role="3clFbG">
             <node concept="37vLTw" id="6aRQr1WTQfz" role="37vLTx">
-              <ref role="3cqZAo" node="6aRQr1WTDzs" resolve="cloudRepository" />
+              <ref role="3cqZAo" node="6aRQr1WTDzs" resolve="modelServer" />
             </node>
             <node concept="2OqwBi" id="6aRQr1WTNAK" role="37vLTJ">
               <node concept="Xjq3P" id="6aRQr1WTMUj" role="2Oq$k0" />
               <node concept="2OwXpG" id="6aRQr1WTOzm" role="2OqNvi">
-                <ref role="2Oxat5" node="6aRQr1WTIFv" resolve="cloudRepository" />
+                <ref role="2Oxat5" node="6aRQr1WTIFv" resolve="modelServer" />
               </node>
             </node>
           </node>
@@ -2613,7 +2613,7 @@
                 <ref role="37wK5l" to="wyt6:~System.identityHashCode(java.lang.Object)" resolve="identityHashCode" />
                 <ref role="1Pybhc" to="wyt6:~System" resolve="System" />
                 <node concept="37vLTw" id="6aRQr1WTGjc" role="37wK5m">
-                  <ref role="3cqZAo" node="6aRQr1WTDzs" resolve="cloudRepository" />
+                  <ref role="3cqZAo" node="6aRQr1WTDzs" resolve="modelServer" />
                 </node>
               </node>
             </node>
@@ -2622,7 +2622,7 @@
         <node concept="3clFbF" id="1JFLVobiG1h" role="3cqZAp">
           <node concept="2OqwBi" id="1JFLVobiGxR" role="3clFbG">
             <node concept="37vLTw" id="1JFLVobiG1f" role="2Oq$k0">
-              <ref role="3cqZAo" node="6aRQr1WTDzs" resolve="cloudRepository" />
+              <ref role="3cqZAo" node="6aRQr1WTDzs" resolve="modelServer" />
             </node>
             <node concept="liA8E" id="1JFLVobiGQn" role="2OqNvi">
               <ref role="37wK5l" to="csg2:1JFLVobh32Z" resolve="addListener" />
@@ -2646,9 +2646,9 @@
     </node>
     <node concept="2tJIrI" id="6aRQr1Xc5zv" role="jymVt" />
     <node concept="3clFb_" id="6aRQr1Xc29I" role="jymVt">
-      <property role="TrG5h" value="getCloudRepository" />
+      <property role="TrG5h" value="getModelServer" />
       <node concept="3uibUv" id="6aRQr1Xc29J" role="3clF45">
-        <ref role="3uigEE" to="csg2:6aRQr1WOV$v" resolve="CloudRepository" />
+        <ref role="3uigEE" to="csg2:6aRQr1WOV$v" resolve="ModelServerConnection" />
       </node>
       <node concept="3Tm1VV" id="6aRQr1Xc29K" role="1B3o_S" />
       <node concept="3clFbS" id="6aRQr1Xc29L" role="3clF47">
@@ -2656,7 +2656,7 @@
           <node concept="2OqwBi" id="6aRQr1Xc29F" role="3clFbG">
             <node concept="Xjq3P" id="6aRQr1Xc29G" role="2Oq$k0" />
             <node concept="2OwXpG" id="6aRQr1Xc29H" role="2OqNvi">
-              <ref role="2Oxat5" node="6aRQr1WTIFv" resolve="cloudRepository" />
+              <ref role="2Oxat5" node="6aRQr1WTIFv" resolve="modelServer" />
             </node>
           </node>
         </node>
@@ -2674,7 +2674,7 @@
             <node concept="17QB3L" id="1JFLVobiAsF" role="1tU5fm" />
             <node concept="2OqwBi" id="1JFLVobiALd" role="33vP2m">
               <node concept="37vLTw" id="1JFLVobiALe" role="2Oq$k0">
-                <ref role="3cqZAo" node="6aRQr1WTIFv" resolve="cloudRepository" />
+                <ref role="3cqZAo" node="6aRQr1WTIFv" resolve="modelServer" />
               </node>
               <node concept="liA8E" id="1JFLVobiALf" role="2OqNvi">
                 <ref role="37wK5l" to="csg2:6aRQr1WQLS7" resolve="getBaseUrl" />
@@ -2699,7 +2699,7 @@
                     </node>
                     <node concept="2OqwBi" id="4rrX99ohStn" role="3uHU7w">
                       <node concept="37vLTw" id="4rrX99ohRUH" role="2Oq$k0">
-                        <ref role="3cqZAo" node="6aRQr1WTIFv" resolve="cloudRepository" />
+                        <ref role="3cqZAo" node="6aRQr1WTIFv" resolve="modelServer" />
                       </node>
                       <node concept="liA8E" id="4rrX99ohSO0" role="2OqNvi">
                         <ref role="37wK5l" to="csg2:4rrX99oeH2E" resolve="getId" />
@@ -2712,7 +2712,7 @@
           </node>
           <node concept="2OqwBi" id="1JFLVobiCTj" role="3clFbw">
             <node concept="37vLTw" id="1JFLVobiCTk" role="2Oq$k0">
-              <ref role="3cqZAo" node="6aRQr1WTIFv" resolve="cloudRepository" />
+              <ref role="3cqZAo" node="6aRQr1WTIFv" resolve="modelServer" />
             </node>
             <node concept="liA8E" id="1JFLVobiCTl" role="2OqNvi">
               <ref role="37wK5l" to="csg2:1JFLVobhm7T" resolve="isConnected" />
@@ -2739,7 +2739,7 @@
             <node concept="17QB3L" id="2EzI5qKoPPs" role="1tU5fm" />
             <node concept="2OqwBi" id="2EzI5qKoPSX" role="33vP2m">
               <node concept="37vLTw" id="2EzI5qKoPSY" role="2Oq$k0">
-                <ref role="3cqZAo" node="6aRQr1WTIFv" resolve="cloudRepository" />
+                <ref role="3cqZAo" node="6aRQr1WTIFv" resolve="modelServer" />
               </node>
               <node concept="liA8E" id="2EzI5qKoPSZ" role="2OqNvi">
                 <ref role="37wK5l" to="csg2:2EzI5qKowuu" resolve="getEmail" />
@@ -2817,19 +2817,19 @@
                 <property role="TrG5h" value="existing" />
                 <node concept="3rvAFt" id="5JOZTo7mxJd" role="1tU5fm">
                   <node concept="3Tqbb2" id="5JOZTo7mxJe" role="3rvQeY">
-                    <ref role="ehGHo" to="w7di:6aRQr1WVbN0" resolve="TreeInfo" />
+                    <ref role="ehGHo" to="w7di:6aRQr1WVbN0" resolve="RepositoryInfo" />
                   </node>
                   <node concept="3uibUv" id="5JOZTo7mxJf" role="3rvSg0">
-                    <ref role="3uigEE" node="6aRQr1WUXn6" resolve="CloudTreeTreeNode" />
+                    <ref role="3uigEE" node="6aRQr1WUXn6" resolve="RepositoryTreeNode" />
                   </node>
                 </node>
                 <node concept="2ShNRf" id="5JOZTo7mxJg" role="33vP2m">
                   <node concept="32Fmki" id="5JOZTo7mxJh" role="2ShVmc">
                     <node concept="3Tqbb2" id="5JOZTo7mxJi" role="3rHrn6">
-                      <ref role="ehGHo" to="w7di:6aRQr1WVbN0" resolve="TreeInfo" />
+                      <ref role="ehGHo" to="w7di:6aRQr1WVbN0" resolve="RepositoryInfo" />
                     </node>
                     <node concept="3uibUv" id="5JOZTo7mxJj" role="3rHtpV">
-                      <ref role="3uigEE" node="6aRQr1WUXn6" resolve="CloudTreeTreeNode" />
+                      <ref role="3uigEE" node="6aRQr1WUXn6" resolve="RepositoryTreeNode" />
                     </node>
                   </node>
                 </node>
@@ -2895,7 +2895,7 @@
                                   <ref role="2Gs0qQ" node="5JOZTo7mxJl" resolve="node" />
                                 </node>
                                 <node concept="liA8E" id="5JOZTo7mxJt" role="2OqNvi">
-                                  <ref role="37wK5l" node="6aRQr1X7l0y" resolve="getTreeInfo" />
+                                  <ref role="37wK5l" node="6aRQr1X7l0y" resolve="getRepositoryInfo" />
                                 </node>
                               </node>
                               <node concept="37vLTw" id="5JOZTo7mxJu" role="3ElQJh">
@@ -2913,7 +2913,7 @@
                         </node>
                         <node concept="UnYns" id="5JOZTo7mxJy" role="2OqNvi">
                           <node concept="3uibUv" id="5JOZTo7mxJz" role="UnYnz">
-                            <ref role="3uigEE" node="6aRQr1WUXn6" resolve="CloudTreeTreeNode" />
+                            <ref role="3uigEE" node="6aRQr1WUXn6" resolve="RepositoryTreeNode" />
                           </node>
                         </node>
                       </node>
@@ -2937,11 +2937,11 @@
                         <node concept="3cpWsn" id="6aRQr1Xaytw" role="3cpWs9">
                           <property role="TrG5h" value="info" />
                           <node concept="3Tqbb2" id="6aRQr1X8ens" role="1tU5fm">
-                            <ref role="ehGHo" to="w7di:6aRQr1WVbMZ" resolve="RepositoryInfo" />
+                            <ref role="ehGHo" to="w7di:6aRQr1WVbMZ" resolve="ModelServerInfo" />
                           </node>
                           <node concept="2OqwBi" id="6aRQr1Xaytx" role="33vP2m">
                             <node concept="37vLTw" id="6aRQr1Xayty" role="2Oq$k0">
-                              <ref role="3cqZAo" node="6aRQr1WTIFv" resolve="cloudRepository" />
+                              <ref role="3cqZAo" node="6aRQr1WTIFv" resolve="modelServer" />
                             </node>
                             <node concept="liA8E" id="6aRQr1Xaytz" role="2OqNvi">
                               <ref role="37wK5l" to="csg2:6aRQr1WVmiT" resolve="getInfo" />
@@ -2996,9 +2996,9 @@
                                                     </node>
                                                     <node concept="2ShNRf" id="5JOZTo7orya" role="3K4GZi">
                                                       <node concept="1pGfFk" id="5JOZTo7oryb" role="2ShVmc">
-                                                        <ref role="37wK5l" node="6aRQr1WUXnx" resolve="CloudTreeTreeNode" />
+                                                        <ref role="37wK5l" node="6aRQr1WUXnx" resolve="RepositoryTreeNode" />
                                                         <node concept="37vLTw" id="5JOZTo7oryc" role="37wK5m">
-                                                          <ref role="3cqZAo" node="6aRQr1WTIFv" resolve="cloudRepository" />
+                                                          <ref role="3cqZAo" node="6aRQr1WTIFv" resolve="modelServer" />
                                                         </node>
                                                         <node concept="37vLTw" id="5JOZTo7oryd" role="37wK5m">
                                                           <ref role="3cqZAo" node="5JOZTo7oryg" resolve="it" />
@@ -3025,7 +3025,7 @@
                                             <ref role="3cqZAo" node="6aRQr1Xaytw" resolve="info" />
                                           </node>
                                           <node concept="3Tsc0h" id="5JOZTo7oryk" role="2OqNvi">
-                                            <ref role="3TtcxE" to="w7di:6aRQr1WVbN2" resolve="trees" />
+                                            <ref role="3TtcxE" to="w7di:6aRQr1WVbN2" resolve="repositories" />
                                           </node>
                                         </node>
                                       </node>
@@ -3040,7 +3040,7 @@
                                 <ref role="37wK5l" to="qvpu:~PArea.&lt;init&gt;(org.modelix.model.api.IBranch)" resolve="PArea" />
                                 <node concept="2OqwBi" id="6c6cqXTdnFN" role="37wK5m">
                                   <node concept="37vLTw" id="6c6cqXTdnFO" role="2Oq$k0">
-                                    <ref role="3cqZAo" node="6aRQr1WTIFv" resolve="cloudRepository" />
+                                    <ref role="3cqZAo" node="6aRQr1WTIFv" resolve="modelServer" />
                                   </node>
                                   <node concept="liA8E" id="6c6cqXTdnFP" role="2OqNvi">
                                     <ref role="37wK5l" to="csg2:6aRQr1X1RCt" resolve="getInfoBranch" />
@@ -3078,7 +3078,7 @@
                                     </node>
                                     <node concept="UnYns" id="5JOZTo7mxK2" role="2OqNvi">
                                       <node concept="3uibUv" id="5JOZTo7mxK3" role="UnYnz">
-                                        <ref role="3uigEE" node="6aRQr1WUXn6" resolve="CloudTreeTreeNode" />
+                                        <ref role="3uigEE" node="6aRQr1WUXn6" resolve="RepositoryTreeNode" />
                                       </node>
                                     </node>
                                   </node>
@@ -3116,7 +3116,7 @@
           </node>
           <node concept="2OqwBi" id="1JFLVobivHm" role="3clFbw">
             <node concept="37vLTw" id="1JFLVobiuTI" role="2Oq$k0">
-              <ref role="3cqZAo" node="6aRQr1WTIFv" resolve="cloudRepository" />
+              <ref role="3cqZAo" node="6aRQr1WTIFv" resolve="modelServer" />
             </node>
             <node concept="liA8E" id="1JFLVobiwjQ" role="2OqNvi">
               <ref role="37wK5l" to="csg2:1JFLVobhm7T" resolve="isConnected" />
@@ -3203,7 +3203,7 @@
               <node concept="2OqwBi" id="6aRQr1X6CbA" role="3clFbG">
                 <node concept="2OqwBi" id="6aRQr1X6CbB" role="2Oq$k0">
                   <node concept="37vLTw" id="6aRQr1X6CbC" role="2Oq$k0">
-                    <ref role="3cqZAo" node="6aRQr1WTIFv" resolve="cloudRepository" />
+                    <ref role="3cqZAo" node="6aRQr1WTIFv" resolve="modelServer" />
                   </node>
                   <node concept="liA8E" id="6aRQr1X6CbD" role="2OqNvi">
                     <ref role="37wK5l" to="csg2:6aRQr1X1RCt" resolve="getInfoBranch" />
@@ -3232,27 +3232,27 @@
     </node>
   </node>
   <node concept="312cEu" id="6aRQr1WUXn6">
-    <property role="TrG5h" value="CloudTreeTreeNode" />
+    <property role="TrG5h" value="RepositoryTreeNode" />
     <node concept="2tJIrI" id="6aRQr1X6sex" role="jymVt" />
     <node concept="312cEg" id="6aRQr1WUXnr" role="jymVt">
-      <property role="TrG5h" value="cloudRepository" />
+      <property role="TrG5h" value="modelServer" />
       <node concept="3Tm6S6" id="6aRQr1WUXns" role="1B3o_S" />
       <node concept="3uibUv" id="6aRQr1WUXnt" role="1tU5fm">
-        <ref role="3uigEE" to="csg2:6aRQr1WOV$v" resolve="CloudRepository" />
+        <ref role="3uigEE" to="csg2:6aRQr1WOV$v" resolve="ModelServerConnection" />
       </node>
     </node>
     <node concept="312cEg" id="6aRQr1X6YwM" role="jymVt">
       <property role="TrG5h" value="treeInfo" />
       <node concept="3Tm6S6" id="6aRQr1X6YwN" role="1B3o_S" />
       <node concept="3Tqbb2" id="6aRQr1X6Z4D" role="1tU5fm">
-        <ref role="ehGHo" to="w7di:6aRQr1WVbN0" resolve="TreeInfo" />
+        <ref role="ehGHo" to="w7di:6aRQr1WVbN0" resolve="RepositoryInfo" />
       </node>
     </node>
     <node concept="312cEg" id="EMWAvBgr_o" role="jymVt">
-      <property role="TrG5h" value="treeId" />
+      <property role="TrG5h" value="repositoryId" />
       <node concept="3Tm6S6" id="EMWAvBgr_p" role="1B3o_S" />
-      <node concept="3uibUv" id="EMWAvBgt7R" role="1tU5fm">
-        <ref role="3uigEE" to="xkhl:~TreeId" resolve="TreeId" />
+      <node concept="3uibUv" id="2jOseCqFJpO" role="1tU5fm">
+        <ref role="3uigEE" to="xkhl:~RepositoryId" resolve="RepositoryId" />
       </node>
     </node>
     <node concept="312cEg" id="49CIzaqet$f" role="jymVt">
@@ -3314,15 +3314,15 @@
     </node>
     <node concept="3clFbW" id="6aRQr1WUXnx" role="jymVt">
       <node concept="37vLTG" id="6aRQr1WUXny" role="3clF46">
-        <property role="TrG5h" value="cloudRepository" />
+        <property role="TrG5h" value="modelServer" />
         <node concept="3uibUv" id="6aRQr1WUXnz" role="1tU5fm">
-          <ref role="3uigEE" to="csg2:6aRQr1WOV$v" resolve="CloudRepository" />
+          <ref role="3uigEE" to="csg2:6aRQr1WOV$v" resolve="ModelServerConnection" />
         </node>
       </node>
       <node concept="37vLTG" id="6aRQr1X6W4f" role="3clF46">
-        <property role="TrG5h" value="treeInfo" />
+        <property role="TrG5h" value="repositoryInfo" />
         <node concept="3Tqbb2" id="6aRQr1X6W$E" role="1tU5fm">
-          <ref role="ehGHo" to="w7di:6aRQr1WVbN0" resolve="TreeInfo" />
+          <ref role="ehGHo" to="w7di:6aRQr1WVbN0" resolve="RepositoryInfo" />
         </node>
       </node>
       <node concept="3cqZAl" id="6aRQr1WUXn$" role="3clF45" />
@@ -3331,7 +3331,7 @@
         <node concept="XkiVB" id="6aRQr1WUXnB" role="3cqZAp">
           <ref role="37wK5l" to="7e8u:~TextTreeNode.&lt;init&gt;(javax.swing.Icon,java.lang.String)" resolve="TextTreeNode" />
           <node concept="10M0yZ" id="6aRQr1WV5oU" role="37wK5m">
-            <ref role="3cqZAo" to="csg2:6aRQr1WUw7m" resolve="TREE_ICON" />
+            <ref role="3cqZAo" to="csg2:6aRQr1WUw7m" resolve="REPOSITORY_ICON" />
             <ref role="1PxDUh" to="csg2:6aRQr1WMwO8" resolve="CloudIcons" />
           </node>
           <node concept="3cpWs3" id="6aRQr1X8bMH" role="37wK5m">
@@ -3342,7 +3342,7 @@
               <node concept="3cpWs3" id="6aRQr1X89SX" role="3uHU7B">
                 <node concept="2OqwBi" id="6aRQr1X89el" role="3uHU7B">
                   <node concept="37vLTw" id="6aRQr1X88In" role="2Oq$k0">
-                    <ref role="3cqZAo" node="6aRQr1X6W4f" resolve="treeInfo" />
+                    <ref role="3cqZAo" node="6aRQr1X6W4f" resolve="repositoryInfo" />
                   </node>
                   <node concept="3TrcHB" id="6aRQr1X8apj" role="2OqNvi">
                     <ref role="3TsBF5" to="tpck:h0TrG11" resolve="name" />
@@ -3354,7 +3354,7 @@
               </node>
               <node concept="2OqwBi" id="6aRQr1X8bj9" role="3uHU7w">
                 <node concept="37vLTw" id="6aRQr1X8aPu" role="2Oq$k0">
-                  <ref role="3cqZAo" node="6aRQr1X6W4f" resolve="treeInfo" />
+                  <ref role="3cqZAo" node="6aRQr1X6W4f" resolve="repositoryInfo" />
                 </node>
                 <node concept="3TrcHB" id="6aRQr1X8bzt" role="2OqNvi">
                   <ref role="3TsBF5" to="w7di:6aRQr1WVbN6" resolve="id" />
@@ -3366,12 +3366,12 @@
         <node concept="3clFbF" id="6aRQr1WUXnG" role="3cqZAp">
           <node concept="37vLTI" id="6aRQr1WUXnH" role="3clFbG">
             <node concept="37vLTw" id="6aRQr1WUXnI" role="37vLTx">
-              <ref role="3cqZAo" node="6aRQr1WUXny" resolve="cloudRepository" />
+              <ref role="3cqZAo" node="6aRQr1WUXny" resolve="modelServer" />
             </node>
             <node concept="2OqwBi" id="6aRQr1WUXnJ" role="37vLTJ">
               <node concept="Xjq3P" id="6aRQr1WUXnK" role="2Oq$k0" />
               <node concept="2OwXpG" id="6aRQr1WUXnL" role="2OqNvi">
-                <ref role="2Oxat5" node="6aRQr1WUXnr" resolve="cloudRepository" />
+                <ref role="2Oxat5" node="6aRQr1WUXnr" resolve="modelServer" />
               </node>
             </node>
           </node>
@@ -3379,7 +3379,7 @@
         <node concept="3clFbF" id="6aRQr1X6ZBL" role="3cqZAp">
           <node concept="37vLTI" id="6aRQr1X71nz" role="3clFbG">
             <node concept="37vLTw" id="6aRQr1X71MP" role="37vLTx">
-              <ref role="3cqZAo" node="6aRQr1X6W4f" resolve="treeInfo" />
+              <ref role="3cqZAo" node="6aRQr1X6W4f" resolve="repositoryInfo" />
             </node>
             <node concept="2OqwBi" id="6aRQr1X705c" role="37vLTJ">
               <node concept="Xjq3P" id="6aRQr1X6ZBJ" role="2Oq$k0" />
@@ -3393,10 +3393,10 @@
           <node concept="37vLTI" id="EMWAvBgwV$" role="3clFbG">
             <node concept="2ShNRf" id="EMWAvBgy82" role="37vLTx">
               <node concept="1pGfFk" id="EMWAvBgxMv" role="2ShVmc">
-                <ref role="37wK5l" to="xkhl:~TreeId.&lt;init&gt;(java.lang.String)" resolve="TreeId" />
+                <ref role="37wK5l" to="xkhl:~RepositoryId.&lt;init&gt;(java.lang.String)" resolve="RepositoryId" />
                 <node concept="2OqwBi" id="EMWAvBgAXN" role="37wK5m">
                   <node concept="37vLTw" id="EMWAvBgAux" role="2Oq$k0">
-                    <ref role="3cqZAo" node="6aRQr1X6W4f" resolve="treeInfo" />
+                    <ref role="3cqZAo" node="6aRQr1X6W4f" resolve="repositoryInfo" />
                   </node>
                   <node concept="3TrcHB" id="EMWAvBgBa$" role="2OqNvi">
                     <ref role="3TsBF5" to="w7di:6aRQr1WVbN6" resolve="id" />
@@ -3407,7 +3407,7 @@
             <node concept="2OqwBi" id="EMWAvBgvdk" role="37vLTJ">
               <node concept="Xjq3P" id="EMWAvBgueO" role="2Oq$k0" />
               <node concept="2OwXpG" id="EMWAvBgwgp" role="2OqNvi">
-                <ref role="2Oxat5" node="EMWAvBgr_o" resolve="treeId" />
+                <ref role="2Oxat5" node="EMWAvBgr_o" resolve="repositoryId" />
               </node>
             </node>
           </node>
@@ -3416,16 +3416,16 @@
           <node concept="37vLTI" id="49CIzaqex$S" role="3clFbG">
             <node concept="2OqwBi" id="49CIzaqeyZ3" role="37vLTx">
               <node concept="37vLTw" id="49CIzaqey$c" role="2Oq$k0">
-                <ref role="3cqZAo" node="6aRQr1WUXny" resolve="cloudRepository" />
+                <ref role="3cqZAo" node="6aRQr1WUXny" resolve="modelServer" />
               </node>
               <node concept="liA8E" id="49CIzaqez7c" role="2OqNvi">
                 <ref role="37wK5l" to="csg2:6aRQr1X24wJ" resolve="getActiveBranch" />
                 <node concept="2ShNRf" id="49CIzaqezsQ" role="37wK5m">
                   <node concept="1pGfFk" id="49CIzaqe_0H" role="2ShVmc">
-                    <ref role="37wK5l" to="xkhl:~TreeId.&lt;init&gt;(java.lang.String)" resolve="TreeId" />
+                    <ref role="37wK5l" to="xkhl:~RepositoryId.&lt;init&gt;(java.lang.String)" resolve="RepositoryId" />
                     <node concept="2OqwBi" id="49CIzaqeA9d" role="37wK5m">
                       <node concept="37vLTw" id="49CIzaqe_F3" role="2Oq$k0">
-                        <ref role="3cqZAo" node="6aRQr1X6W4f" resolve="treeInfo" />
+                        <ref role="3cqZAo" node="6aRQr1X6W4f" resolve="repositoryInfo" />
                       </node>
                       <node concept="3TrcHB" id="49CIzaqeAmf" role="2OqNvi">
                         <ref role="3TsBF5" to="w7di:6aRQr1WVbN6" resolve="id" />
@@ -3560,7 +3560,7 @@
         <node concept="3clFbF" id="2zfU5FnQ_Qo" role="3cqZAp">
           <node concept="2OqwBi" id="2zfU5FnQAE_" role="3clFbG">
             <node concept="37vLTw" id="2zfU5FnQ_Qm" role="2Oq$k0">
-              <ref role="3cqZAo" node="6aRQr1WUXny" resolve="cloudRepository" />
+              <ref role="3cqZAo" node="6aRQr1WUXny" resolve="modelServer" />
             </node>
             <node concept="liA8E" id="2zfU5FnQBfX" role="2OqNvi">
               <ref role="37wK5l" to="csg2:1JFLVobh32Z" resolve="addListener" />
@@ -3569,7 +3569,7 @@
                   <node concept="1Y3b0j" id="2zfU5FnQGdf" role="YeSDq">
                     <property role="2bfB8j" value="true" />
                     <ref role="37wK5l" to="wyt6:~Object.&lt;init&gt;()" resolve="Object" />
-                    <ref role="1Y3XeK" to="csg2:1JFLVobh0lR" resolve="CloudRepository.IListener" />
+                    <ref role="1Y3XeK" to="csg2:1JFLVobh0lR" resolve="ModelServerConnection.IListener" />
                     <node concept="3Tm1VV" id="2zfU5FnQGdg" role="1B3o_S" />
                     <node concept="3clFb_" id="2zfU5FnQKu9" role="jymVt">
                       <property role="TrG5h" value="bindingAdded" />
@@ -3628,9 +3628,9 @@
     </node>
     <node concept="2tJIrI" id="6aRQr1X7nKG" role="jymVt" />
     <node concept="3clFb_" id="6aRQr1X7l0y" role="jymVt">
-      <property role="TrG5h" value="getTreeInfo" />
+      <property role="TrG5h" value="getRepositoryInfo" />
       <node concept="3Tqbb2" id="6aRQr1X7oCq" role="3clF45">
-        <ref role="ehGHo" to="w7di:6aRQr1WVbN0" resolve="TreeInfo" />
+        <ref role="ehGHo" to="w7di:6aRQr1WVbN0" resolve="RepositoryInfo" />
       </node>
       <node concept="3Tm1VV" id="6aRQr1X7l0_" role="1B3o_S" />
       <node concept="3clFbS" id="6aRQr1X7l0A" role="3clF47">
@@ -3643,24 +3643,24 @@
     </node>
     <node concept="2tJIrI" id="EMWAvBgk$o" role="jymVt" />
     <node concept="3clFb_" id="EMWAvBgmbf" role="jymVt">
-      <property role="TrG5h" value="getTreeId" />
-      <node concept="3uibUv" id="EMWAvBgpuZ" role="3clF45">
-        <ref role="3uigEE" to="xkhl:~TreeId" resolve="TreeId" />
+      <property role="TrG5h" value="getRepositoryId" />
+      <node concept="3uibUv" id="2jOseCqFH6Q" role="3clF45">
+        <ref role="3uigEE" to="xkhl:~RepositoryId" resolve="RepositoryId" />
       </node>
       <node concept="3Tm1VV" id="EMWAvBgmbi" role="1B3o_S" />
       <node concept="3clFbS" id="EMWAvBgmbj" role="3clF47">
         <node concept="3clFbF" id="EMWAvBgByR" role="3cqZAp">
           <node concept="37vLTw" id="EMWAvBgByQ" role="3clFbG">
-            <ref role="3cqZAo" node="EMWAvBgr_o" resolve="treeId" />
+            <ref role="3cqZAo" node="EMWAvBgr_o" resolve="repositoryId" />
           </node>
         </node>
       </node>
     </node>
     <node concept="2tJIrI" id="6aRQr1X2QdY" role="jymVt" />
     <node concept="3clFb_" id="EMWAvBfYQJ" role="jymVt">
-      <property role="TrG5h" value="getCloudRepository" />
+      <property role="TrG5h" value="getModelServer" />
       <node concept="3uibUv" id="EMWAvBfYQK" role="3clF45">
-        <ref role="3uigEE" to="csg2:6aRQr1WOV$v" resolve="CloudRepository" />
+        <ref role="3uigEE" to="csg2:6aRQr1WOV$v" resolve="ModelServerConnection" />
       </node>
       <node concept="3Tm1VV" id="EMWAvBfYQL" role="1B3o_S" />
       <node concept="3clFbS" id="EMWAvBfYQM" role="3clF47">
@@ -3668,7 +3668,7 @@
           <node concept="2OqwBi" id="EMWAvBfYQG" role="3clFbG">
             <node concept="Xjq3P" id="EMWAvBfYQH" role="2Oq$k0" />
             <node concept="2OwXpG" id="EMWAvBfYQI" role="2OqNvi">
-              <ref role="2Oxat5" node="6aRQr1WUXnr" resolve="cloudRepository" />
+              <ref role="2Oxat5" node="6aRQr1WUXnr" resolve="modelServer" />
             </node>
           </node>
         </node>
@@ -3871,7 +3871,7 @@
                                                   <node concept="1pGfFk" id="5JOZTo7qWkH" role="2ShVmc">
                                                     <ref role="37wK5l" node="6aRQr1X74dp" resolve="CloudBranchTreeNode" />
                                                     <node concept="37vLTw" id="5JOZTo7qWkI" role="37wK5m">
-                                                      <ref role="3cqZAo" node="6aRQr1WUXnr" resolve="cloudRepository" />
+                                                      <ref role="3cqZAo" node="6aRQr1WUXnr" resolve="modelServer" />
                                                     </node>
                                                     <node concept="37vLTw" id="5JOZTo7qWkJ" role="37wK5m">
                                                       <ref role="3cqZAo" node="5JOZTo7qWkM" resolve="it" />
@@ -3913,7 +3913,7 @@
                             <ref role="37wK5l" to="qvpu:~PArea.&lt;init&gt;(org.modelix.model.api.IBranch)" resolve="PArea" />
                             <node concept="2OqwBi" id="6c6cqXTffOK" role="37wK5m">
                               <node concept="37vLTw" id="6c6cqXTffOL" role="2Oq$k0">
-                                <ref role="3cqZAo" node="6aRQr1WUXnr" resolve="cloudRepository" />
+                                <ref role="3cqZAo" node="6aRQr1WUXnr" resolve="modelServer" />
                               </node>
                               <node concept="liA8E" id="6c6cqXTffOM" role="2OqNvi">
                                 <ref role="37wK5l" to="csg2:6aRQr1X1RCt" resolve="getInfoBranch" />
@@ -4170,18 +4170,18 @@
       <node concept="3clFbS" id="2n9Wvfbjw$y" role="3clF47">
         <node concept="3cpWs8" id="2zfU5FnTNfR" role="3cqZAp">
           <node concept="3cpWsn" id="2zfU5FnTNfS" role="3cpWs9">
-            <property role="TrG5h" value="treeInRepository" />
+            <property role="TrG5h" value="repositoryInModelServer" />
             <node concept="3uibUv" id="2zfU5FnTNfT" role="1tU5fm">
-              <ref role="3uigEE" to="csg2:3i6diw3mm_Q" resolve="TreeInRepository" />
+              <ref role="3uigEE" to="csg2:3i6diw3mm_Q" resolve="RepositoryInModelServer" />
             </node>
             <node concept="2ShNRf" id="2zfU5FnTOcT" role="33vP2m">
               <node concept="1pGfFk" id="2zfU5FnTNSw" role="2ShVmc">
-                <ref role="37wK5l" to="csg2:3i6diw3mtOf" resolve="TreeInRepository" />
+                <ref role="37wK5l" to="csg2:3i6diw3mtOf" resolve="RepositoryInModelServer" />
                 <node concept="37vLTw" id="2zfU5FnTOQ4" role="37wK5m">
-                  <ref role="3cqZAo" node="6aRQr1WUXnr" resolve="cloudRepository" />
+                  <ref role="3cqZAo" node="6aRQr1WUXnr" resolve="modelServer" />
                 </node>
                 <node concept="37vLTw" id="2zfU5FnTP_m" role="37wK5m">
-                  <ref role="3cqZAo" node="EMWAvBgr_o" resolve="treeId" />
+                  <ref role="3cqZAo" node="EMWAvBgr_o" resolve="repositoryId" />
                 </node>
               </node>
             </node>
@@ -4200,7 +4200,7 @@
                   <node concept="2OqwBi" id="7PIbTorq9xR" role="2Oq$k0">
                     <node concept="2OqwBi" id="2n9WvfbjGJs" role="2Oq$k0">
                       <node concept="37vLTw" id="2n9WvfbjG5K" role="2Oq$k0">
-                        <ref role="3cqZAo" node="6aRQr1WUXnr" resolve="cloudRepository" />
+                        <ref role="3cqZAo" node="6aRQr1WUXnr" resolve="modelServer" />
                       </node>
                       <node concept="liA8E" id="2n9WvfbjOkU" role="2OqNvi">
                         <ref role="37wK5l" to="csg2:2n9WvfbjIh4" resolve="getModuleBindings" />
@@ -4212,14 +4212,14 @@
                           <node concept="3clFbF" id="7PIbTorqaVw" role="3cqZAp">
                             <node concept="17R0WA" id="7PIbTorqbTj" role="3clFbG">
                               <node concept="37vLTw" id="7PIbTorqcGg" role="3uHU7w">
-                                <ref role="3cqZAo" node="EMWAvBgr_o" resolve="treeId" />
+                                <ref role="3cqZAo" node="EMWAvBgr_o" resolve="repositoryId" />
                               </node>
                               <node concept="2OqwBi" id="7PIbTorqbiY" role="3uHU7B">
                                 <node concept="37vLTw" id="7PIbTorqaVv" role="2Oq$k0">
                                   <ref role="3cqZAo" node="7PIbTorqah2" resolve="it" />
                                 </node>
                                 <node concept="liA8E" id="7PIbTorqbwi" role="2OqNvi">
-                                  <ref role="37wK5l" to="csg2:5D5xac1qR_m" resolve="getTreeId" />
+                                  <ref role="37wK5l" to="csg2:5D5xac1qR_m" resolve="getRepositoryId" />
                                 </node>
                               </node>
                             </node>
@@ -4251,7 +4251,7 @@
                                 <ref role="3cqZAo" node="2n9WvfbjPit" resolve="it" />
                               </node>
                               <node concept="37vLTw" id="2zfU5FnTQkh" role="37wK5m">
-                                <ref role="3cqZAo" node="2zfU5FnTNfS" resolve="treeInRepository" />
+                                <ref role="3cqZAo" node="2zfU5FnTNfS" resolve="repositoryInModelServer" />
                               </node>
                             </node>
                           </node>
@@ -4269,7 +4269,7 @@
                     <node concept="2OqwBi" id="4eX7silc5O0" role="2Oq$k0">
                       <node concept="2OqwBi" id="4eX7silc4S$" role="2Oq$k0">
                         <node concept="37vLTw" id="4eX7silc4e1" role="2Oq$k0">
-                          <ref role="3cqZAo" node="6aRQr1WUXnr" resolve="cloudRepository" />
+                          <ref role="3cqZAo" node="6aRQr1WUXnr" resolve="modelServer" />
                         </node>
                         <node concept="liA8E" id="4eX7silc5pp" role="2OqNvi">
                           <ref role="37wK5l" to="csg2:4eX7sil8qic" resolve="getProjectBindings" />
@@ -4281,14 +4281,14 @@
                             <node concept="3clFbF" id="4eX7silc6PV" role="3cqZAp">
                               <node concept="17R0WA" id="4eX7silc7YK" role="3clFbG">
                                 <node concept="37vLTw" id="4eX7silc8Tw" role="3uHU7w">
-                                  <ref role="3cqZAo" node="EMWAvBgr_o" resolve="treeId" />
+                                  <ref role="3cqZAo" node="EMWAvBgr_o" resolve="repositoryId" />
                                 </node>
                                 <node concept="2OqwBi" id="4eX7silc7iq" role="3uHU7B">
                                   <node concept="37vLTw" id="4eX7silc6PU" role="2Oq$k0">
                                     <ref role="3cqZAo" node="4eX7silc6l7" resolve="it" />
                                   </node>
                                   <node concept="liA8E" id="4eX7silc7$w" role="2OqNvi">
-                                    <ref role="37wK5l" to="csg2:4eX7sil8acT" resolve="getTreeId" />
+                                    <ref role="37wK5l" to="csg2:4eX7sil8acT" resolve="getRepositoryId" />
                                   </node>
                                 </node>
                               </node>
@@ -4320,7 +4320,7 @@
                                   <ref role="3cqZAo" node="4eX7silcbuv" resolve="it" />
                                 </node>
                                 <node concept="37vLTw" id="2zfU5FnTRZE" role="37wK5m">
-                                  <ref role="3cqZAo" node="2zfU5FnTNfS" resolve="treeInRepository" />
+                                  <ref role="3cqZAo" node="2zfU5FnTNfS" resolve="repositoryInModelServer" />
                                 </node>
                               </node>
                             </node>
@@ -5050,10 +5050,10 @@
     <property role="TrG5h" value="CloudBranchTreeNode" />
     <node concept="2tJIrI" id="6aRQr1X74dc" role="jymVt" />
     <node concept="312cEg" id="6aRQr1X74dd" role="jymVt">
-      <property role="TrG5h" value="cloudRepository" />
+      <property role="TrG5h" value="modelServer" />
       <node concept="3Tm6S6" id="6aRQr1X74de" role="1B3o_S" />
       <node concept="3uibUv" id="6aRQr1X74df" role="1tU5fm">
-        <ref role="3uigEE" to="csg2:6aRQr1WOV$v" resolve="CloudRepository" />
+        <ref role="3uigEE" to="csg2:6aRQr1WOV$v" resolve="ModelServerConnection" />
       </node>
     </node>
     <node concept="312cEg" id="6aRQr1X74dj" role="jymVt">
@@ -5070,9 +5070,9 @@
     </node>
     <node concept="3clFbW" id="6aRQr1X74dp" role="jymVt">
       <node concept="37vLTG" id="6aRQr1X74dq" role="3clF46">
-        <property role="TrG5h" value="cloudRepository" />
+        <property role="TrG5h" value="modelServer" />
         <node concept="3uibUv" id="6aRQr1X74dr" role="1tU5fm">
-          <ref role="3uigEE" to="csg2:6aRQr1WOV$v" resolve="CloudRepository" />
+          <ref role="3uigEE" to="csg2:6aRQr1WOV$v" resolve="ModelServerConnection" />
         </node>
       </node>
       <node concept="37vLTG" id="6aRQr1X74du" role="3clF46">
@@ -5102,12 +5102,12 @@
         <node concept="3clFbF" id="6aRQr1X74dC" role="3cqZAp">
           <node concept="37vLTI" id="6aRQr1X74dD" role="3clFbG">
             <node concept="37vLTw" id="6aRQr1X74dE" role="37vLTx">
-              <ref role="3cqZAo" node="6aRQr1X74dq" resolve="cloudRepository" />
+              <ref role="3cqZAo" node="6aRQr1X74dq" resolve="modelServer" />
             </node>
             <node concept="2OqwBi" id="6aRQr1X74dF" role="37vLTJ">
               <node concept="Xjq3P" id="6aRQr1X74dG" role="2Oq$k0" />
               <node concept="2OwXpG" id="6aRQr1X74dH" role="2OqNvi">
-                <ref role="2Oxat5" node="6aRQr1X74dd" resolve="cloudRepository" />
+                <ref role="2Oxat5" node="6aRQr1X74dd" resolve="modelServer" />
               </node>
             </node>
           </node>
@@ -5186,14 +5186,14 @@
           <node concept="3cpWsn" id="2n9WvfboccJ" role="3cpWs9">
             <property role="TrG5h" value="treeTreeNode" />
             <node concept="3uibUv" id="2n9WvfboccK" role="1tU5fm">
-              <ref role="3uigEE" node="6aRQr1WUXn6" resolve="CloudTreeTreeNode" />
+              <ref role="3uigEE" node="6aRQr1WUXn6" resolve="RepositoryTreeNode" />
             </node>
             <node concept="2OqwBi" id="2n9WvfboccL" role="33vP2m">
               <node concept="Xjq3P" id="1JFLVobdjvK" role="2Oq$k0" />
               <node concept="liA8E" id="2n9WvfboccN" role="2OqNvi">
                 <ref role="37wK5l" to="7e8u:~MPSTreeNode.getAncestor(java.lang.Class)" resolve="getAncestor" />
                 <node concept="3VsKOn" id="2n9WvfboccO" role="37wK5m">
-                  <ref role="3VsUkX" node="6aRQr1WUXn6" resolve="CloudTreeTreeNode" />
+                  <ref role="3VsUkX" node="6aRQr1WUXn6" resolve="RepositoryTreeNode" />
                 </node>
               </node>
             </node>
@@ -5201,16 +5201,16 @@
         </node>
         <node concept="3cpWs8" id="2n9WvfboccP" role="3cqZAp">
           <node concept="3cpWsn" id="2n9WvfboccQ" role="3cpWs9">
-            <property role="TrG5h" value="treeId" />
-            <node concept="3uibUv" id="1m9roGB_0L3" role="1tU5fm">
-              <ref role="3uigEE" to="xkhl:~TreeId" resolve="TreeId" />
+            <property role="TrG5h" value="repositoryId" />
+            <node concept="3uibUv" id="2jOseCqKKs$" role="1tU5fm">
+              <ref role="3uigEE" to="xkhl:~RepositoryId" resolve="RepositoryId" />
             </node>
             <node concept="2OqwBi" id="2n9WvfboccS" role="33vP2m">
               <node concept="37vLTw" id="2n9WvfboccT" role="2Oq$k0">
                 <ref role="3cqZAo" node="2n9WvfboccJ" resolve="treeTreeNode" />
               </node>
               <node concept="liA8E" id="2n9WvfboccU" role="2OqNvi">
-                <ref role="37wK5l" node="EMWAvBgmbf" resolve="getTreeId" />
+                <ref role="37wK5l" node="EMWAvBgmbf" resolve="getRepositoryId" />
               </node>
             </node>
           </node>
@@ -5224,7 +5224,7 @@
             </node>
             <node concept="2OqwBi" id="2n9Wvfbocd4" role="33vP2m">
               <node concept="37vLTw" id="2n9Wvfbocd5" role="2Oq$k0">
-                <ref role="3cqZAo" node="6aRQr1X74dd" resolve="cloudRepository" />
+                <ref role="3cqZAo" node="6aRQr1X74dd" resolve="modelServer" />
               </node>
               <node concept="liA8E" id="2n9Wvfbocd6" role="2OqNvi">
                 <ref role="37wK5l" to="csg2:6aRQr1X1RCt" resolve="getInfoBranch" />
@@ -5269,12 +5269,12 @@
           <node concept="2OqwBi" id="2n9WvfbodYX" role="3clFbG">
             <node concept="2OqwBi" id="2n9Wvfbod_2" role="2Oq$k0">
               <node concept="37vLTw" id="2n9WvfboddO" role="2Oq$k0">
-                <ref role="3cqZAo" node="6aRQr1X74dd" resolve="cloudRepository" />
+                <ref role="3cqZAo" node="6aRQr1X74dd" resolve="modelServer" />
               </node>
               <node concept="liA8E" id="2n9WvfbodRr" role="2OqNvi">
                 <ref role="37wK5l" to="csg2:6aRQr1X24wJ" resolve="getActiveBranch" />
                 <node concept="37vLTw" id="2n9WvfbodSn" role="37wK5m">
-                  <ref role="3cqZAo" node="2n9WvfboccQ" resolve="treeId" />
+                  <ref role="3cqZAo" node="2n9WvfboccQ" resolve="repositoryId" />
                 </node>
               </node>
             </node>
@@ -5653,9 +5653,9 @@
     </node>
     <node concept="2tJIrI" id="49CIzaqrg3q" role="jymVt" />
     <node concept="3clFb_" id="EMWAvBfk$Y" role="jymVt">
-      <property role="TrG5h" value="getCloudRepository" />
+      <property role="TrG5h" value="getModelServer" />
       <node concept="3uibUv" id="EMWAvBfk$Z" role="3clF45">
-        <ref role="3uigEE" to="csg2:6aRQr1WOV$v" resolve="CloudRepository" />
+        <ref role="3uigEE" to="csg2:6aRQr1WOV$v" resolve="ModelServerConnection" />
       </node>
       <node concept="3Tm1VV" id="EMWAvBfk_0" role="1B3o_S" />
       <node concept="3clFbS" id="EMWAvBfk_1" role="3clF47">
@@ -5664,11 +5664,11 @@
             <node concept="1rXfSq" id="EMWAvBfVdc" role="2Oq$k0">
               <ref role="37wK5l" to="7e8u:~MPSTreeNode.getAncestor(java.lang.Class)" resolve="getAncestor" />
               <node concept="3VsKOn" id="EMWAvBfW7F" role="37wK5m">
-                <ref role="3VsUkX" node="6aRQr1WUXn6" resolve="CloudTreeTreeNode" />
+                <ref role="3VsUkX" node="6aRQr1WUXn6" resolve="RepositoryTreeNode" />
               </node>
             </node>
             <node concept="liA8E" id="EMWAvBg5Bj" role="2OqNvi">
-              <ref role="37wK5l" node="EMWAvBfYQJ" resolve="getCloudRepository" />
+              <ref role="37wK5l" node="EMWAvBfYQJ" resolve="getModelServer" />
             </node>
           </node>
         </node>
@@ -7574,9 +7574,9 @@
         </node>
         <node concept="3cpWs8" id="5D5xac1r13d" role="3cqZAp">
           <node concept="3cpWsn" id="5D5xac1r13e" role="3cpWs9">
-            <property role="TrG5h" value="treeId" />
-            <node concept="3uibUv" id="5D5xac1r13f" role="1tU5fm">
-              <ref role="3uigEE" to="xkhl:~TreeId" resolve="TreeId" />
+            <property role="TrG5h" value="repositoryId" />
+            <node concept="3uibUv" id="2jOseCqKLjJ" role="1tU5fm">
+              <ref role="3uigEE" to="xkhl:~RepositoryId" resolve="RepositoryId" />
             </node>
             <node concept="2OqwBi" id="5D5xac1r13g" role="33vP2m">
               <node concept="2OqwBi" id="5D5xac1r13h" role="2Oq$k0">
@@ -7584,12 +7584,12 @@
                 <node concept="liA8E" id="5D5xac1r13j" role="2OqNvi">
                   <ref role="37wK5l" to="7e8u:~MPSTreeNode.getAncestor(java.lang.Class)" resolve="getAncestor" />
                   <node concept="3VsKOn" id="5D5xac1r13k" role="37wK5m">
-                    <ref role="3VsUkX" node="6aRQr1WUXn6" resolve="CloudTreeTreeNode" />
+                    <ref role="3VsUkX" node="6aRQr1WUXn6" resolve="RepositoryTreeNode" />
                   </node>
                 </node>
               </node>
               <node concept="liA8E" id="5D5xac1r13l" role="2OqNvi">
-                <ref role="37wK5l" node="EMWAvBgmbf" resolve="getTreeId" />
+                <ref role="37wK5l" node="EMWAvBgmbf" resolve="getRepositoryId" />
               </node>
             </node>
           </node>
@@ -7606,13 +7606,13 @@
             <node concept="2OqwBi" id="5D5xac1qZQj" role="2Oq$k0">
               <node concept="2V_BSl" id="1xehy3SjX51" role="2Oq$k0" />
               <node concept="liA8E" id="5D5xac1r0_H" role="2OqNvi">
-                <ref role="37wK5l" node="EMWAvBfk$Y" resolve="getCloudRepository" />
+                <ref role="37wK5l" node="EMWAvBfk$Y" resolve="getModelServer" />
               </node>
             </node>
             <node concept="liA8E" id="5D5xac1r0YU" role="2OqNvi">
               <ref role="37wK5l" to="csg2:5D5xac1qIoP" resolve="hasModuleBinding" />
               <node concept="37vLTw" id="5D5xac1r1bh" role="37wK5m">
-                <ref role="3cqZAo" node="5D5xac1r13e" resolve="treeId" />
+                <ref role="3cqZAo" node="5D5xac1r13e" resolve="repositoryId" />
               </node>
               <node concept="37vLTw" id="5D5xac1r1un" role="37wK5m">
                 <ref role="3cqZAo" node="5D5xac1qYEV" resolve="nodeId" />
@@ -7666,9 +7666,9 @@
         </node>
         <node concept="3cpWs8" id="$SKJo8uz2j" role="3cqZAp">
           <node concept="3cpWsn" id="$SKJo8uz2k" role="3cpWs9">
-            <property role="TrG5h" value="treeId" />
-            <node concept="3uibUv" id="$SKJo8uz2l" role="1tU5fm">
-              <ref role="3uigEE" to="xkhl:~TreeId" resolve="TreeId" />
+            <property role="TrG5h" value="repositoryId" />
+            <node concept="3uibUv" id="2jOseCqKLnH" role="1tU5fm">
+              <ref role="3uigEE" to="xkhl:~RepositoryId" resolve="RepositoryId" />
             </node>
             <node concept="2OqwBi" id="$SKJo8uz2m" role="33vP2m">
               <node concept="2OqwBi" id="$SKJo8uz2n" role="2Oq$k0">
@@ -7676,12 +7676,12 @@
                 <node concept="liA8E" id="$SKJo8uz2p" role="2OqNvi">
                   <ref role="37wK5l" to="7e8u:~MPSTreeNode.getAncestor(java.lang.Class)" resolve="getAncestor" />
                   <node concept="3VsKOn" id="$SKJo8uz2q" role="37wK5m">
-                    <ref role="3VsUkX" node="6aRQr1WUXn6" resolve="CloudTreeTreeNode" />
+                    <ref role="3VsUkX" node="6aRQr1WUXn6" resolve="RepositoryTreeNode" />
                   </node>
                 </node>
               </node>
               <node concept="liA8E" id="$SKJo8uz2r" role="2OqNvi">
-                <ref role="37wK5l" node="EMWAvBgmbf" resolve="getTreeId" />
+                <ref role="37wK5l" node="EMWAvBgmbf" resolve="getRepositoryId" />
               </node>
             </node>
           </node>
@@ -7701,13 +7701,13 @@
                     <node concept="2OqwBi" id="$SKJo8uyoo" role="2Oq$k0">
                       <node concept="2V_BSl" id="$SKJo8uxKP" role="2Oq$k0" />
                       <node concept="liA8E" id="$SKJo8uyZq" role="2OqNvi">
-                        <ref role="37wK5l" node="EMWAvBfk$Y" resolve="getCloudRepository" />
+                        <ref role="37wK5l" node="EMWAvBfk$Y" resolve="getModelServer" />
                       </node>
                     </node>
                     <node concept="liA8E" id="$SKJo8uzjV" role="2OqNvi">
                       <ref role="37wK5l" to="csg2:$SKJo8u6fX" resolve="getModuleBinding" />
                       <node concept="37vLTw" id="$SKJo8uzlM" role="37wK5m">
-                        <ref role="3cqZAo" node="$SKJo8uz2k" resolve="treeId" />
+                        <ref role="3cqZAo" node="$SKJo8uz2k" resolve="repositoryId" />
                       </node>
                       <node concept="37vLTw" id="$SKJo8uzp5" role="37wK5m">
                         <ref role="3cqZAo" node="$SKJo8uz29" resolve="nodeId" />
@@ -7827,14 +7827,14 @@
       <property role="TrG5h" value="getTreeInRepository" />
       <node concept="3Tm1VV" id="Nm_qC27bd9" role="1B3o_S" />
       <node concept="3uibUv" id="Nm_qC27bja" role="3clF45">
-        <ref role="3uigEE" to="csg2:3i6diw3mm_Q" resolve="TreeInRepository" />
+        <ref role="3uigEE" to="csg2:3i6diw3mm_Q" resolve="RepositoryInModelServer" />
       </node>
       <node concept="3clFbS" id="Nm_qC27bdb" role="3clF47">
         <node concept="3cpWs8" id="EMWAvBggyZ" role="3cqZAp">
           <node concept="3cpWsn" id="EMWAvBggz0" role="3cpWs9">
-            <property role="TrG5h" value="cloudRepository" />
+            <property role="TrG5h" value="modelServer" />
             <node concept="3uibUv" id="EMWAvBggwr" role="1tU5fm">
-              <ref role="3uigEE" to="csg2:6aRQr1WOV$v" resolve="CloudRepository" />
+              <ref role="3uigEE" to="csg2:6aRQr1WOV$v" resolve="ModelServerConnection" />
             </node>
             <node concept="2OqwBi" id="EMWAvBggz1" role="33vP2m">
               <node concept="2OqwBi" id="EMWAvBggz2" role="2Oq$k0">
@@ -7842,21 +7842,21 @@
                 <node concept="liA8E" id="EMWAvBggz4" role="2OqNvi">
                   <ref role="37wK5l" to="7e8u:~MPSTreeNode.getAncestor(java.lang.Class)" resolve="getAncestor" />
                   <node concept="3VsKOn" id="EMWAvBggz5" role="37wK5m">
-                    <ref role="3VsUkX" node="6aRQr1WTCgk" resolve="CloudRepositoryTreeNode" />
+                    <ref role="3VsUkX" node="6aRQr1WTCgk" resolve="ModelServerTreeNode" />
                   </node>
                 </node>
               </node>
               <node concept="liA8E" id="EMWAvBggz6" role="2OqNvi">
-                <ref role="37wK5l" node="6aRQr1Xc29I" resolve="getCloudRepository" />
+                <ref role="37wK5l" node="6aRQr1Xc29I" resolve="getModelServer" />
               </node>
             </node>
           </node>
         </node>
         <node concept="3cpWs8" id="EMWAvBgCWC" role="3cqZAp">
           <node concept="3cpWsn" id="EMWAvBgCWD" role="3cpWs9">
-            <property role="TrG5h" value="treeId" />
-            <node concept="3uibUv" id="EMWAvBgCU9" role="1tU5fm">
-              <ref role="3uigEE" to="xkhl:~TreeId" resolve="TreeId" />
+            <property role="TrG5h" value="repositoryId" />
+            <node concept="3uibUv" id="2jOseCqKLGN" role="1tU5fm">
+              <ref role="3uigEE" to="xkhl:~RepositoryId" resolve="RepositoryId" />
             </node>
             <node concept="2OqwBi" id="EMWAvBgCWE" role="33vP2m">
               <node concept="2OqwBi" id="EMWAvBgCWF" role="2Oq$k0">
@@ -7864,12 +7864,12 @@
                 <node concept="liA8E" id="EMWAvBgCWH" role="2OqNvi">
                   <ref role="37wK5l" to="7e8u:~MPSTreeNode.getAncestor(java.lang.Class)" resolve="getAncestor" />
                   <node concept="3VsKOn" id="EMWAvBgCWI" role="37wK5m">
-                    <ref role="3VsUkX" node="6aRQr1WUXn6" resolve="CloudTreeTreeNode" />
+                    <ref role="3VsUkX" node="6aRQr1WUXn6" resolve="RepositoryTreeNode" />
                   </node>
                 </node>
               </node>
               <node concept="liA8E" id="EMWAvBgCWJ" role="2OqNvi">
-                <ref role="37wK5l" node="EMWAvBgmbf" resolve="getTreeId" />
+                <ref role="37wK5l" node="EMWAvBgmbf" resolve="getRepositoryId" />
               </node>
             </node>
           </node>
@@ -7878,16 +7878,16 @@
           <node concept="3cpWsn" id="5rz8NqPRAC6" role="3cpWs9">
             <property role="TrG5h" value="treeInRepository" />
             <node concept="3uibUv" id="5rz8NqPRAC7" role="1tU5fm">
-              <ref role="3uigEE" to="csg2:3i6diw3mm_Q" resolve="TreeInRepository" />
+              <ref role="3uigEE" to="csg2:3i6diw3mm_Q" resolve="RepositoryInModelServer" />
             </node>
             <node concept="2ShNRf" id="5rz8NqPRAIY" role="33vP2m">
               <node concept="1pGfFk" id="5rz8NqPRAIN" role="2ShVmc">
-                <ref role="37wK5l" to="csg2:3i6diw3mtOf" resolve="TreeInRepository" />
+                <ref role="37wK5l" to="csg2:3i6diw3mtOf" resolve="RepositoryInModelServer" />
                 <node concept="37vLTw" id="5rz8NqPRAJJ" role="37wK5m">
-                  <ref role="3cqZAo" node="EMWAvBggz0" resolve="cloudRepository" />
+                  <ref role="3cqZAo" node="EMWAvBggz0" resolve="modelServer" />
                 </node>
                 <node concept="37vLTw" id="5rz8NqPRALG" role="37wK5m">
-                  <ref role="3cqZAo" node="EMWAvBgCWD" resolve="treeId" />
+                  <ref role="3cqZAo" node="EMWAvBgCWD" resolve="repositoryId" />
                 </node>
               </node>
             </node>
@@ -8179,7 +8179,7 @@
                                 <ref role="3cqZAo" node="1J2iDZzB7S5" resolve="nodeTreeNode" />
                               </node>
                               <node concept="liA8E" id="66_IlsY$jyx" role="2OqNvi">
-                                <ref role="37wK5l" node="EMWAvBfk$Y" resolve="getCloudRepository" />
+                                <ref role="37wK5l" node="EMWAvBfk$Y" resolve="getModelServer" />
                               </node>
                             </node>
                             <node concept="AQDAd" id="66_IlsY$ylH" role="2OqNvi">
@@ -8437,10 +8437,10 @@
       </node>
     </node>
     <node concept="312cEg" id="2zfU5FnTppU" role="jymVt">
-      <property role="TrG5h" value="treeInRepository" />
+      <property role="TrG5h" value="repositoryInModelServer" />
       <node concept="3Tm6S6" id="2zfU5FnTppV" role="1B3o_S" />
       <node concept="3uibUv" id="2zfU5FnTJ9F" role="1tU5fm">
-        <ref role="3uigEE" to="csg2:3i6diw3mm_Q" resolve="TreeInRepository" />
+        <ref role="3uigEE" to="csg2:3i6diw3mm_Q" resolve="RepositoryInModelServer" />
       </node>
     </node>
     <node concept="3clFbW" id="2zfU5FnShfB" role="jymVt">
@@ -8469,12 +8469,12 @@
         <node concept="3clFbF" id="2zfU5FnTpLR" role="3cqZAp">
           <node concept="37vLTI" id="2zfU5FnTr9b" role="3clFbG">
             <node concept="37vLTw" id="2zfU5FnTrOO" role="37vLTx">
-              <ref role="3cqZAo" node="2zfU5FnTp9B" resolve="treeInRepository" />
+              <ref role="3cqZAo" node="2zfU5FnTp9B" resolve="repositoryInModelServer" />
             </node>
             <node concept="2OqwBi" id="2zfU5FnTqiB" role="37vLTJ">
               <node concept="Xjq3P" id="2zfU5FnTpLP" role="2Oq$k0" />
               <node concept="2OwXpG" id="2zfU5FnTqXY" role="2OqNvi">
-                <ref role="2Oxat5" node="2zfU5FnTppU" resolve="treeInRepository" />
+                <ref role="2Oxat5" node="2zfU5FnTppU" resolve="repositoryInModelServer" />
               </node>
             </node>
           </node>
@@ -8491,9 +8491,9 @@
         </node>
       </node>
       <node concept="37vLTG" id="2zfU5FnTp9B" role="3clF46">
-        <property role="TrG5h" value="treeInRepository" />
+        <property role="TrG5h" value="repositoryInModelServer" />
         <node concept="3uibUv" id="2zfU5FnTJ$r" role="1tU5fm">
-          <ref role="3uigEE" to="csg2:3i6diw3mm_Q" resolve="TreeInRepository" />
+          <ref role="3uigEE" to="csg2:3i6diw3mm_Q" resolve="RepositoryInModelServer" />
         </node>
       </node>
     </node>
@@ -8514,36 +8514,36 @@
     </node>
     <node concept="2tJIrI" id="2zfU5FnTrPY" role="jymVt" />
     <node concept="3clFb_" id="2zfU5FnTsaT" role="jymVt">
-      <property role="TrG5h" value="getCloudRepository" />
+      <property role="TrG5h" value="getModelServer" />
       <node concept="3clFbS" id="2zfU5FnTsaW" role="3clF47">
         <node concept="3cpWs6" id="2zfU5FnTsO1" role="3cqZAp">
           <node concept="2OqwBi" id="2zfU5FnTJYQ" role="3cqZAk">
             <node concept="37vLTw" id="2zfU5FnTtt7" role="2Oq$k0">
-              <ref role="3cqZAo" node="2zfU5FnTppU" resolve="treeInRepository" />
+              <ref role="3cqZAo" node="2zfU5FnTppU" resolve="repositoryInModelServer" />
             </node>
             <node concept="liA8E" id="2zfU5FnTKeX" role="2OqNvi">
-              <ref role="37wK5l" to="csg2:5rz8NqPRV5_" resolve="getCloudRepository" />
+              <ref role="37wK5l" to="csg2:5rz8NqPRV5_" resolve="getModelServer" />
             </node>
           </node>
         </node>
       </node>
       <node concept="3Tm1VV" id="2zfU5FnTs13" role="1B3o_S" />
       <node concept="3uibUv" id="2zfU5FnTssX" role="3clF45">
-        <ref role="3uigEE" to="csg2:6aRQr1WOV$v" resolve="CloudRepository" />
+        <ref role="3uigEE" to="csg2:6aRQr1WOV$v" resolve="ModelServerConnection" />
       </node>
     </node>
     <node concept="3clFb_" id="2zfU5FnTKka" role="jymVt">
-      <property role="TrG5h" value="getTreeInRepository" />
+      <property role="TrG5h" value="getRepositoryInModelServer" />
       <node concept="3clFbS" id="2zfU5FnTKkb" role="3clF47">
         <node concept="3cpWs6" id="2zfU5FnTKkc" role="3cqZAp">
           <node concept="37vLTw" id="2zfU5FnTKke" role="3cqZAk">
-            <ref role="3cqZAo" node="2zfU5FnTppU" resolve="treeInRepository" />
+            <ref role="3cqZAo" node="2zfU5FnTppU" resolve="repositoryInModelServer" />
           </node>
         </node>
       </node>
       <node concept="3Tm1VV" id="2zfU5FnTKkg" role="1B3o_S" />
       <node concept="3uibUv" id="2zfU5FnTKBk" role="3clF45">
-        <ref role="3uigEE" to="csg2:3i6diw3mm_Q" resolve="TreeInRepository" />
+        <ref role="3uigEE" to="csg2:3i6diw3mm_Q" resolve="RepositoryInModelServer" />
       </node>
     </node>
     <node concept="3Tm1VV" id="2zfU5FnS9Rz" role="1B3o_S" />

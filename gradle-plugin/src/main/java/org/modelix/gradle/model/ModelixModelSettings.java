@@ -13,18 +13,9 @@
  */
 package org.modelix.gradle.model;
 
-import org.gradle.api.GradleException;
-import org.gradle.api.artifacts.Configuration;
-import org.gradle.api.artifacts.ResolvedConfiguration;
-import org.gradle.api.artifacts.ResolvedDependency;
-
-import java.io.File;
-import java.util.Optional;
-import java.util.Set;
-
 public class ModelixModelSettings {
     private String serverUrl = "http://localhost:28101/";
-    private String treeId = "default";
+    private String repositoryId = "default";
     private String branchName = "master";
     private boolean debug = false;
     private int timeoutSeconds = 120;
@@ -37,12 +28,12 @@ public class ModelixModelSettings {
         this.serverUrl = serverUrl;
     }
 
-    public String getTreeId() {
-        return treeId;
+    public String getRepositoryId() {
+        return repositoryId;
     }
 
-    public void setTreeId(String treeId) {
-        this.treeId = treeId;
+    public void setRepositoryId(String repositoryId) {
+        this.repositoryId = repositoryId;
     }
 
     public String getBranchName() {

@@ -24,7 +24,7 @@ import org.modelix.model.client.SharedExecutors.fixDelay
 import org.modelix.model.lazy.CLTree
 import org.modelix.model.lazy.CLVersion
 import org.modelix.model.lazy.CLVersion.Companion.loadFromHash
-import org.modelix.model.lazy.TreeId
+import org.modelix.model.lazy.RepositoryId
 import org.modelix.model.metameta.MetaModelBranch
 import org.modelix.model.operations.IAppliedOperation
 import org.modelix.model.operations.IOperation
@@ -37,9 +37,9 @@ import java.util.function.Supplier
 /**
  * Dispose should be called on this, as otherwise a regular polling will go on.
  */
-actual open class ReplicatedTree actual constructor(
+actual open class ReplicatedRepository actual constructor(
     private val client: IModelClient,
-    private val treeId: TreeId,
+    private val repositoryId: RepositoryId,
     private val branchName: String,
     private val user: () -> String
 ) {
@@ -177,7 +177,7 @@ actual open class ReplicatedTree actual constructor(
         synchronized(mergeLock) {
             if (remoteVersion!!.hash != newVersion.hash) {
                 remoteVersion = newVersion
-                client.asyncStore!!.put(treeId.getBranchKey(branchName), newVersion.hash)
+                client.asyncStore!!.put(repositoryId.getBranchKey(branchName), newVersion.hash)
             }
         }
     }
@@ -232,7 +232,7 @@ actual open class ReplicatedTree actual constructor(
     }
 
     companion object {
-        private val LOG = LogManager.getLogger(ReplicatedTree::class.java)
+        private val LOG = LogManager.getLogger(ReplicatedRepository::class.java)
         private fun getHash(v: CLVersion?): String? {
             return v?.hash
         }
@@ -243,13 +243,13 @@ actual open class ReplicatedTree actual constructor(
     }
 
     init {
-        val versionHash = client[treeId.getBranchKey(branchName)]
+        val versionHash = client[repositoryId.getBranchKey(branchName)]
         var initialVersion = if (versionHash.isNullOrEmpty()) null else loadFromHash(versionHash, client.storeCache!!)
         val initialTree = MutableObject<CLTree>()
         if (initialVersion == null) {
-            initialTree.setValue(CLTree(treeId, client.storeCache!!))
+            initialTree.setValue(CLTree(repositoryId, client.storeCache!!))
             initialVersion = createVersion(initialTree.value, arrayOf(), null)
-            client.asyncStore!!.put(treeId.getBranchKey(branchName), initialVersion.hash)
+            client.asyncStore!!.put(repositoryId.getBranchKey(branchName), initialVersion.hash)
         } else {
             initialTree.setValue(CLTree(initialVersion.treeHash, client.storeCache!!))
         }
@@ -262,7 +262,7 @@ actual open class ReplicatedTree actual constructor(
         localOTBranch = OTBranch(localBranch, client.idGenerator, client.storeCache!!)
         localMMBranch = MetaModelBranch(localOTBranch)
         merger = VersionMerger(client.storeCache!!, client.idGenerator)
-        versionChangeDetector = object : VersionChangeDetector(client, treeId.getBranchKey(branchName)) {
+        versionChangeDetector = object : VersionChangeDetector(client, repositoryId.getBranchKey(branchName)) {
             override fun processVersionChange(oldVersionHash: String?, newVersionHash: String?) {
                 if (disposed) {
                     return

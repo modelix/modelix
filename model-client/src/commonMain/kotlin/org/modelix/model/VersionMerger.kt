@@ -35,13 +35,13 @@ class VersionMerger(private val storeCache: IDeserializingKeyValueStore, private
                     return lastMergedVersion
                 }
                 val merged = mergeHistory(lastMergedVersion.hash, newVersion.hash)
-                checkTreeIds(lastMergedVersion, newVersion)
+                checkRepositoryIds(lastMergedVersion, newVersion)
                 merged
             }
         }
     }
 
-    fun checkTreeIds(v1: CLVersion, v2: CLVersion) {
+    fun checkRepositoryIds(v1: CLVersion, v2: CLVersion) {
         val id1 = v1.tree.getId()
         val id2 = v2.tree.getId()
         if (id1 != id2) {

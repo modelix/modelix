@@ -20,16 +20,16 @@ import org.modelix.model.api.IBranchListener
 import org.modelix.model.api.ITree
 import org.modelix.model.api.logError
 import org.modelix.model.lazy.CLVersion
-import org.modelix.model.lazy.TreeId
+import org.modelix.model.lazy.RepositoryId
 import kotlin.jvm.Synchronized
 
-open class ActiveBranch(client: IModelClient, tree: TreeId, branchName: String?, user: () -> String) : IIndirectBranch {
+open class ActiveBranch(client: IModelClient, repository: RepositoryId, branchName: String?, user: () -> String) : IIndirectBranch {
     private val client: IModelClient
-    private val tree: TreeId
+    private val repository: RepositoryId
     var branchName: String
         private set
     private val user: () -> String
-    private var replicatedTree: ReplicatedTree
+    private var replicatedRepository: ReplicatedRepository
     private var lastKnownTree: ITree? = null
     private val forwardingListener: IBranchListener = object : IBranchListener {
         override fun treeChanged(oldTree: ITree?, newTree: ITree) {
@@ -43,15 +43,15 @@ open class ActiveBranch(client: IModelClient, tree: TreeId, branchName: String?,
     override val branch: IBranch
         get() {
             if (disposed) throw IllegalStateException("ActiveBranch was disposed")
-            return replicatedTree.branch
+            return replicatedRepository.branch
         }
 
     val version: CLVersion
-        get() = replicatedTree.localVersion!!
+        get() = replicatedRepository.localVersion!!
 
     open fun dispose() {
-        replicatedTree.branch.removeListener(forwardingListener)
-        replicatedTree.dispose()
+        replicatedRepository.branch.removeListener(forwardingListener)
+        replicatedRepository.dispose()
         disposed = true
     }
 
@@ -73,11 +73,11 @@ open class ActiveBranch(client: IModelClient, tree: TreeId, branchName: String?,
             return
         }
         branchName = name
-        replicatedTree.branch.removeListener(forwardingListener)
-        replicatedTree.dispose()
-        replicatedTree = createReplicatedTree(client, tree, branchName, user)
-        replicatedTree.branch.addListener(forwardingListener)
-        val b = replicatedTree.branch
+        replicatedRepository.branch.removeListener(forwardingListener)
+        replicatedRepository.dispose()
+        replicatedRepository = createReplicatedRepository(client, repository, branchName, user)
+        replicatedRepository.branch.addListener(forwardingListener)
+        val b = replicatedRepository.branch
         val newTree = b.computeRead { b.transaction.tree }
         notifyListeners(newTree)
     }
@@ -94,13 +94,13 @@ open class ActiveBranch(client: IModelClient, tree: TreeId, branchName: String?,
         }
     }
 
-    protected open fun createReplicatedTree(
+    protected open fun createReplicatedRepository(
         client: IModelClient,
-        treeId: TreeId,
+        repositoryId: RepositoryId,
         branchName: String,
         user: () -> String
-    ): ReplicatedTree =
-        ReplicatedTree(client, treeId, branchName, user)
+    ): ReplicatedRepository =
+        ReplicatedRepository(client, repositoryId, branchName, user)
 
     companion object {
         const val DEFAULT_BRANCH_NAME = "master"
@@ -108,11 +108,11 @@ open class ActiveBranch(client: IModelClient, tree: TreeId, branchName: String?,
 
     init {
         this.client = client
-        this.tree = tree
+        this.repository = repository
         this.branchName = if (branchName.isNullOrEmpty()) DEFAULT_BRANCH_NAME else branchName
         this.user = user
-        replicatedTree = createReplicatedTree(client, tree, this.branchName, user)
-        lastKnownTree = replicatedTree.branch.computeRead { replicatedTree.branch.transaction.tree }
-        replicatedTree.branch.addListener(forwardingListener)
+        replicatedRepository = createReplicatedRepository(client, repository, this.branchName, user)
+        lastKnownTree = replicatedRepository.branch.computeRead { replicatedRepository.branch.transaction.tree }
+        replicatedRepository.branch.addListener(forwardingListener)
     }
 }
