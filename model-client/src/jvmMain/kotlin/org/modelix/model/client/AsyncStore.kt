@@ -44,8 +44,7 @@ class AsyncStore(private val store: IKeyValueStore) : IKeyValueStore {
     }
 
     override fun put(key: String, value: String?) {
-        synchronized(pendingWrites) { pendingWrites.put(key, value) }
-        processQueue()
+        putAll(mapOf(key to value))
     }
 
     override fun getAll(keys_: Iterable<String>): Map<String, String?> {
@@ -63,13 +62,18 @@ class AsyncStore(private val store: IKeyValueStore) : IKeyValueStore {
             }
         }
         if (!keys.isEmpty()) {
-            result.putAll((store.getAll(keys))!!)
+            result.putAll(store.getAll(keys))
         }
         return result
     }
 
     override fun putAll(entries: Map<String, String?>) {
-        synchronized(pendingWrites) { pendingWrites.putAll((entries)!!) }
+        synchronized(pendingWrites) {
+            // ensure correct order
+            for (key in entries.keys) pendingWrites.remove(key)
+
+            pendingWrites.putAll(entries)
+        }
         processQueue()
     }
 

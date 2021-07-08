@@ -52,11 +52,13 @@ class GarbageFilteringStore(private val store: IKeyValueStore) : IKeyValueStore 
 
     override fun putAll(entries: Map<String, String?>) {
         val entriesToWrite: MutableMap<String, String?> = LinkedHashMap()
-        for ((key, value) in entries) {
-            if (HashUtil.isSha256(key)) {
-                pendingEntries[key] = value
-            } else {
-                collectDependencies(key, value, entriesToWrite)
+        runSynchronized(pendingEntries) {
+            for ((key, value) in entries) {
+                if (HashUtil.isSha256(key)) {
+                    pendingEntries[key] = value
+                } else {
+                    collectDependencies(key, value, entriesToWrite)
+                }
             }
         }
         if (entriesToWrite.isNotEmpty()) {
