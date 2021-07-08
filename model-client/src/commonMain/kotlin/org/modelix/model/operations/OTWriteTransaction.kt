@@ -37,18 +37,16 @@ class OTWriteTransaction(
         otBranch.operationApplied(appliedOp)
     }
 
-    override fun moveChild(newParentId: Long, newRole: String?, newIndex: Int, childId: Long) {
-        var newIndex = newIndex
-        if (newIndex == -1) {
-            newIndex = getChildren(newParentId, newRole).count()
-        }
-        val targetAncestors: MutableList<Long> = ArrayList()
-        var ancestor: Long = getParent(newParentId)
-        while (ancestor != 0L) {
-            targetAncestors.add(ancestor)
-            ancestor = getParent(ancestor)
-        }
-        apply(MoveNodeOp(childId, PositionInRole(newParentId, newRole, newIndex)))
+    override fun moveChild(newParentId: Long, newRole: String?, newIndex_: Int, childId: Long) {
+        val newIndex = if (newIndex_ != -1) newIndex_ else getChildren(newParentId, newRole).count()
+
+        val newPosition = PositionInRole(newParentId, newRole, newIndex)
+        val currentRole = RoleInNode(transaction.getParent(childId), transaction.getRole(childId))
+        val currentIndex = transaction.getChildren(currentRole.nodeId, currentRole.role).indexOf(childId)
+        val currentPosition = PositionInRole(currentRole, currentIndex)
+        if (currentPosition == newPosition) return
+
+        apply(MoveNodeOp(childId, newPosition))
     }
 
     override fun setProperty(nodeId: Long, role: String, value: String?) {
