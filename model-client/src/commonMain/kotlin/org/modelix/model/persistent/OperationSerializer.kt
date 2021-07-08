@@ -77,6 +77,19 @@ class OperationSerializer private constructor() {
                 }
             )
             INSTANCE.registerSerializer(
+                AddNewChildSubtreeOp::class,
+                object : Serializer<AddNewChildSubtreeOp> {
+                    override fun serialize(op: AddNewChildSubtreeOp): String {
+                        return longToHex(op.position.nodeId) + SEPARATOR + escape(op.position.role) + SEPARATOR + op.position.index + SEPARATOR + longToHex(op.childId) + SEPARATOR + serializeConcept(op.concept) + SEPARATOR + op.resultTreeHash
+                    }
+
+                    override fun deserialize(serialized: String): AddNewChildSubtreeOp {
+                        val parts = serialized.split(SEPARATOR).toTypedArray()
+                        return AddNewChildSubtreeOp(parts[5], PositionInRole(longFromHex(parts[0]), unescape(parts[1]), parts[2].toInt()), longFromHex(parts[3]), deserializeConcept(parts[4]))
+                    }
+                }
+            )
+            INSTANCE.registerSerializer(
                 DeleteNodeOp::class,
                 object : Serializer<DeleteNodeOp> {
                     override fun serialize(op: DeleteNodeOp): String {
