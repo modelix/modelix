@@ -18,7 +18,6 @@ package org.modelix.model.operations
 import org.modelix.model.api.ITree
 
 abstract class AbstractOperation : IOperation {
-    protected val DETACHED_ROLE = RoleInNode(ITree.ROOT_ID, ITree.DETACHED_NODES_ROLE)
 
     abstract inner class Applied {
         override fun toString(): String {
@@ -50,5 +49,9 @@ abstract class AbstractOperation : IOperation {
     protected fun getDetachedNodesEndPosition(tree: ITree): PositionInRole {
         val index = tree.getChildren(DETACHED_ROLE.nodeId, DETACHED_ROLE.role).count()
         return PositionInRole(DETACHED_ROLE, index)
+    }
+
+    companion object {
+        protected val DETACHED_ROLE = RoleInNode(ITree.ROOT_ID, ITree.DETACHED_NODES_ROLE)
     }
 }
