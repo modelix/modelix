@@ -18,8 +18,7 @@ package org.modelix.model.lazy
 import org.modelix.model.api.INodeReference
 import org.modelix.model.api.LocalPNodeReference
 import org.modelix.model.api.PNodeReference
-import org.modelix.model.operations.IOperation
-import org.modelix.model.operations.SetReferenceOp
+import org.modelix.model.operations.*
 import org.modelix.model.persistent.CPOperationsList
 import org.modelix.model.persistent.CPVersion
 
@@ -187,7 +186,7 @@ class CLVersion {
             baseVersion: String?,
             operations: Array<IOperation>,
             store: IDeserializingKeyValueStore
-        ) = CLVersion(
+        ): CLVersion = CLVersion(
             id = id,
             time = time,
             author = author,
@@ -197,7 +196,7 @@ class CLVersion {
             baseVersion = baseVersion,
             mergedVersion1 = null,
             mergedVersion2 = null,
-            operations = operations,
+            operations = compressOperations(operations, treeHash),
             store = store
         )
 
@@ -205,6 +204,48 @@ class CLVersion {
             val data = store[hash, { CPVersion.deserialize(it) }]
                 ?: throw RuntimeException("Version with hash $hash not found")
             return CLVersion(data, store)
+        }
+
+
+        /**
+         * Optimize for bulk imports
+         * If a whole subtree is imported then there are a lot of operations where only the AddNewChildOp for the subtree
+         * root has the potential to cause any conflict.
+         * In that case we replace all of these operation with one AddNewChildSubtreeOp that references the resulting
+         * subtree in the new version. We don't lose any information and can reconstruct the original operations if needed.
+         */
+        private fun compressOperations(ops: Array<IOperation>, resultTreeHash: String): Array<IOperation> {
+            val compressedOps: MutableList<IOperation> = ArrayList()
+            val createdNodes: MutableSet<Long> = HashSet()
+
+            for (op in ops) {
+                when (op) {
+                    is AddNewChildOp -> {
+                        createdNodes.add(op.childId)
+                        if (!createdNodes.contains(op.position.nodeId)) {
+                            compressedOps += AddNewChildSubtreeOp(resultTreeHash, op.position, op.childId, op.concept)
+                        }
+                    }
+                    is DeleteNodeOp -> {
+                        createdNodes -= op.childId
+                        compressedOps += op
+                    }
+                    is SetPropertyOp -> {
+                        if (!createdNodes.contains(op.nodeId)) {
+                            compressedOps += op
+                        }
+                    }
+                    is SetReferenceOp -> {
+                        if (!createdNodes.contains(op.sourceId)) {
+                            compressedOps += op
+                        }
+                    }
+                    else -> compressedOps += op
+                }
+            }
+
+            // if we save less than 10 operations then it's probably not worth doing the replacement
+            return if (ops.size - compressedOps.size >= 10) compressedOps.toTypedArray() else ops
         }
     }
 
