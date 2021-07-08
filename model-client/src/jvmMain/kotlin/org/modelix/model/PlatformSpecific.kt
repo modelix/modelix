@@ -11,7 +11,7 @@ actual fun bitCount(bits: Int): Int {
 }
 
 actual fun <K, V> createLRUMap(size: Int): MutableMap<K, V> {
-    return Collections.synchronizedMap(LRUMap<K, V>(100000))
+    return Collections.synchronizedMap(LRUMap<K, V>(size))
 }
 
 actual fun randomUUID(): String {
