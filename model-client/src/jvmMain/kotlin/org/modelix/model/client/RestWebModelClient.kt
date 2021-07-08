@@ -245,7 +245,6 @@ class RestWebModelClient @JvmOverloads constructor(var baseUrl: String? = null, 
             }
             val response = client.target(baseUrl + "putAll").request(MediaType.TEXT_PLAIN).put(Entity.text(json.toString()))
             if (response.statusInfo.family != Response.Status.Family.SUCCESSFUL) {
-
                 throw RuntimeException(
                     String.format(
                         "Failed to store %d entries (%s) %s: %s",

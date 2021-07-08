@@ -20,7 +20,6 @@ import org.modelix.model.api.ITree
 import org.modelix.model.api.IWriteTransaction
 import org.modelix.model.lazy.CLNode
 import org.modelix.model.lazy.CLTree
-import org.modelix.model.lazy.IConceptReferenceSerializer
 import org.modelix.model.lazy.IDeserializingKeyValueStore
 import org.modelix.model.persistent.SerializationUtil
 
@@ -35,12 +34,14 @@ class AddNewChildSubtreeOp(val resultTreeHash: String, val position: PositionInR
         return Applied(store)
     }
 
-    fun decompress(store: IDeserializingKeyValueStore, opsVisitor: (IOperation)->Unit) {
+    fun decompress(store: IDeserializingKeyValueStore, opsVisitor: (IOperation) -> Unit) {
         val resultTree = getResultTree(store)
         for (node in resultTree.getDescendants(childId, true)) {
-            val pos = PositionInRole(node.parent.id,
+            val pos = PositionInRole(
+                node.parent.id,
                 node.roleInParent,
-                resultTree.getChildren(node.parent.id, node.roleInParent).indexOf(node.id))
+                resultTree.getChildren(node.parent.id, node.roleInParent).indexOf(node.id)
+            )
             decompressNode(resultTree, node, pos, false, opsVisitor)
         }
         for (node in resultTree.getDescendants(childId, true)) {
@@ -49,10 +50,12 @@ class AddNewChildSubtreeOp(val resultTreeHash: String, val position: PositionInR
     }
 
     private fun getResultTree(store: IDeserializingKeyValueStore) =
-        (store.get(resultTreeHash, { CLTree(resultTreeHash, store) })
-            ?: throw RuntimeException("Tree $resultTreeHash not found"))
+        (
+            store.get(resultTreeHash, { CLTree(resultTreeHash, store) })
+                ?: throw RuntimeException("Tree $resultTreeHash not found")
+            )
 
-    private fun decompressNode(tree: ITree, node: CLNode, position: PositionInRole?, references: Boolean, opsVisitor: (IOperation)->Unit) {
+    private fun decompressNode(tree: ITree, node: CLNode, position: PositionInRole?, references: Boolean, opsVisitor: (IOperation) -> Unit) {
         if (references) {
             for (role in node.getData().referenceRoles) {
                 opsVisitor(SetReferenceOp(node.id, role, tree.getReferenceTarget(node.id, role)))

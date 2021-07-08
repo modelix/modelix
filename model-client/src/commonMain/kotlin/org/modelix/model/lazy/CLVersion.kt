@@ -206,7 +206,6 @@ class CLVersion {
             return CLVersion(data, store)
         }
 
-
         /**
          * Optimize for bulk imports
          * If a whole subtree is imported then there are a lot of operations where only the AddNewChildOp for the subtree
@@ -225,9 +224,9 @@ class CLVersion {
                     is AddNewChildOp -> {
                         createdNodes.add(op.childId)
                         val effectivelyAddedToSubtree =
-                                createdNodes.contains(op.childId)
-                                && resultTree.containsNode(op.childId)
-                                && createdNodes.contains(resultTree.getParent(op.childId))
+                            createdNodes.contains(op.childId) &&
+                                resultTree.containsNode(op.childId) &&
+                                createdNodes.contains(resultTree.getParent(op.childId))
                         if (!effectivelyAddedToSubtree) {
                             compressedOps += AddNewChildSubtreeOp(resultTree.hash, op.position, op.childId, op.concept)
                         }
@@ -248,9 +247,9 @@ class CLVersion {
                     }
                     is MoveNodeOp -> {
                         val effectivelyAddedToSubtree =
-                                createdNodes.contains(op.childId)
-                                && resultTree.containsNode(op.childId)
-                                && createdNodes.contains(resultTree.getParent(op.childId))
+                            createdNodes.contains(op.childId) &&
+                                resultTree.containsNode(op.childId) &&
+                                createdNodes.contains(resultTree.getParent(op.childId))
                         if (!effectivelyAddedToSubtree) {
                             compressedOps += op
                         }
