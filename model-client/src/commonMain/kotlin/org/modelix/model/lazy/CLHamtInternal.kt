@@ -139,7 +139,11 @@ class CLHamtInternal : CLHamtNode<CPHamtInternal> {
             val oldInternalNode: CLHamtInternal = oldNode
             if (data_.bitmap == oldInternalNode.data_.bitmap) {
                 for (i in data_.children.indices) {
-                    getChild(data_.children[i])!!.visitChanges(oldInternalNode.getChild(oldInternalNode.data_.children[i]), visitor)
+                    val oldChildHash = oldInternalNode.data_.children[i]
+                    val newChildHash = data_.children[i]
+                    if (oldChildHash != newChildHash) {
+                        getChild(newChildHash)!!.visitChanges(oldInternalNode.getChild(oldChildHash), visitor)
+                    }
                 }
             } else {
                 for (logicalIndex in 0 until ENTRIES_PER_LEVEL) {

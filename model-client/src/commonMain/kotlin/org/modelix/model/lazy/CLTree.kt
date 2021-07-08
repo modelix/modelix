@@ -357,8 +357,10 @@ class CLTree : ITree {
     }
 
     override fun visitChanges(oldVersion: ITree, visitor: ITreeChangeVisitor) {
+        if (oldVersion !is CLTree) throw IllegalArgumentException("Diff is only supported between two instances of CLTree")
+        if (data.idToHash == oldVersion.data.idToHash) return
         nodesMap!!.visitChanges(
-            (oldVersion as CLTree).nodesMap,
+            oldVersion.nodesMap,
             object : CLHamtNode.IChangeVisitor {
                 override fun entryAdded(key: Long, value: String?) {
                     val element = createElement(value)
