@@ -22,6 +22,7 @@ import org.modelix.model.api.INodeReference
 import org.modelix.model.api.ITree
 import org.modelix.model.api.IWriteTransaction
 import org.modelix.model.api.logTrace
+import org.modelix.model.lazy.CLTree
 import org.modelix.model.lazy.DuplicateNodeId
 import org.modelix.model.lazy.IDeserializingKeyValueStore
 
@@ -33,8 +34,13 @@ class OTWriteTransaction(
 ) : IWriteTransaction {
     fun apply(op: IOperation) {
         logTrace({ op.toString() }, OTWriteTransaction::class)
-        val appliedOp = op.apply(transaction, store)
+        val appliedOp = op.apply(transaction, getStore())
         otBranch.operationApplied(appliedOp)
+    }
+
+    fun getStore(): IDeserializingKeyValueStore {
+        val tree = this.tree
+        return if (tree is CLTree) tree.store else store
     }
 
     override fun moveChild(newParentId: Long, newRole: String?, newIndex_: Int, childId: Long) {

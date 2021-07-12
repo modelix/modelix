@@ -37,7 +37,7 @@ class CPNode private constructor(
     val referenceRoles: Array<String>,
     val referenceTargets: Array<CPNodeRef>
 ) {
-    fun serialize(): String? {
+    fun serialize(): String {
         val sb = StringBuilder()
         sb.append(longToHex(id))
         sb.append("/")

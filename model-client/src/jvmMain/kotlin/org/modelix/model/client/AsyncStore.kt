@@ -19,11 +19,12 @@ import org.apache.log4j.Level
 import org.apache.log4j.LogManager
 import org.modelix.model.IKeyListener
 import org.modelix.model.IKeyValueStore
+import org.modelix.model.IKeyValueStoreWrapper
 import java.lang.Runnable
 import java.util.Objects
 import java.util.concurrent.atomic.AtomicBoolean
 
-class AsyncStore(private val store: IKeyValueStore) : IKeyValueStore {
+class AsyncStore(private val store: IKeyValueStore) : IKeyValueStoreWrapper {
     private val consumerActive = AtomicBoolean()
     private val pendingWrites: MutableMap<String, String?> = LinkedHashMap()
     override fun get(key: String): String? {
@@ -34,6 +35,10 @@ class AsyncStore(private val store: IKeyValueStore) : IKeyValueStore {
         }
         return store[key]
     }
+
+    override fun getWrapped(): IKeyValueStore = store
+
+    override fun getPendingSize(): Int = store.getPendingSize() + pendingWrites.size
 
     override fun listen(key: String, listener: IKeyListener) {
         store.listen(key, listener)

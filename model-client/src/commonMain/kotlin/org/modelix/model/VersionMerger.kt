@@ -19,6 +19,7 @@ import org.modelix.model.api.*
 import org.modelix.model.lazy.CLTree
 import org.modelix.model.lazy.CLVersion
 import org.modelix.model.lazy.IDeserializingKeyValueStore
+import org.modelix.model.lazy.NonWrittenEntriesStore
 import org.modelix.model.operations.*
 import org.modelix.model.persistent.CPVersion
 
@@ -34,7 +35,7 @@ class VersionMerger(private val storeCache: IDeserializingKeyValueStore, private
                 if (newVersion.hash == lastMergedVersion.hash) {
                     return lastMergedVersion
                 }
-                val merged = mergeHistory(lastMergedVersion.hash, newVersion.hash)
+                val merged = mergeHistory(lastMergedVersion, newVersion)
                 checkRepositoryIds(lastMergedVersion, newVersion)
                 merged
             }
@@ -49,19 +50,17 @@ class VersionMerger(private val storeCache: IDeserializingKeyValueStore, private
         }
     }
 
-    protected fun mergeHistory(leftVersionHash: String, rightVersionHash: String): CLVersion {
-        if (leftVersionHash == rightVersionHash) return getVersion(leftVersionHash)
-        val commonBase = commonBaseVersion(leftVersionHash, rightVersionHash)
-        val leftVersion = getVersion(leftVersionHash)
-        val rightVersion = getVersion(rightVersionHash)
-        if (commonBase == leftVersionHash) return rightVersion
-        if (commonBase == rightVersionHash) return leftVersion
-        val versionsToApply = LinearHistory(storeCache, commonBase).load(leftVersion, rightVersion)
+    protected fun mergeHistory(leftVersion: CLVersion, rightVersion: CLVersion): CLVersion {
+        if (leftVersion.hash == rightVersion.hash) return leftVersion
+        val commonBase = commonBaseVersion(leftVersion, rightVersion)
+        if (commonBase?.hash == leftVersion.hash) return rightVersion
+        if (commonBase?.hash == rightVersion.hash) return leftVersion
+        val versionsToApply = LinearHistory(commonBase?.hash).load(leftVersion, rightVersion)
 
 //        println("merge ${getVersion(leftVersionHash).id.toString(16)} ${LinearHistory(storeCache, commonBase).load(leftVersion).map { it.id.toString(16) }} and ${getVersion(rightVersionHash).id.toString(16)} ${LinearHistory(storeCache, commonBase).load(rightVersion).map { it.id.toString(16) }}: ${commonBase?.let{getVersion(it)}?.id?.toString(16)} + ${versionsToApply.map { it.id.toString(16) }}")
         val operationsToApply = versionsToApply.flatMap { captureIntend(it) }
         var mergedVersion: CLVersion? = null
-        var baseTree = commonBase?.let { getVersion(it).tree } ?: CLTree(storeCache)
+        var baseTree = commonBase?.tree ?: CLTree(storeCache)
         val branch: IBranch = TreePointer(baseTree)
         branch.runWrite {
             val t = branch.writeTransaction
@@ -82,7 +81,7 @@ class VersionMerger(private val storeCache: IDeserializingKeyValueStore, private
                 }
                 transformed.map { o ->
                     try {
-                        o.apply(t, storeCache)
+                        o.apply(t, (t.tree as CLTree).store)
                     } catch (ex: Exception) {
                         throw RuntimeException("Operation failed: $o", ex)
                     }
@@ -90,17 +89,17 @@ class VersionMerger(private val storeCache: IDeserializingKeyValueStore, private
             }
             mergedVersion = CLVersion.createAutoMerge(
                 idGenerator.generate(),
-                (t.tree as CLTree).hash,
+                t.tree as CLTree,
                 commonBase!!,
-                leftVersionHash,
-                rightVersionHash,
+                leftVersion,
+                rightVersion,
                 appliedOps.map { it.getOriginalOp() }.toTypedArray(),
-                storeCache
+                NonWrittenEntriesStore.create(storeCache)
             )
 //            println("result ${mergedVersion?.id?.toString(16)}")
         }
         if (mergedVersion == null) {
-            throw RuntimeException("Failed to merge $leftVersionHash and $rightVersionHash")
+            throw RuntimeException("Failed to merge ${leftVersion.hash} and ${rightVersion.hash}")
         }
         return mergedVersion!!
     }
@@ -121,43 +120,43 @@ class VersionMerger(private val storeCache: IDeserializingKeyValueStore, private
         }
     }
 
-    protected fun commonBaseVersion(leftHash: String?, rightHash: String?): String? {
-        var leftHash = leftHash
-        var rightHash = rightHash
+    protected fun commonBaseVersion(leftVersion: CLVersion?, rightVersion: CLVersion?): CLVersion? {
+        var leftVersion = leftVersion
+        var rightVersion = rightVersion
         val leftVersions: MutableSet<String> = HashSet()
         val rightVersions: MutableSet<String> = HashSet()
-        while (leftHash != null || rightHash != null) {
-            if (leftHash != null) {
-                leftVersions.add(leftHash)
+        while (leftVersion != null || rightVersion != null) {
+            if (leftVersion != null) {
+                leftVersions.add(leftVersion.hash)
             }
-            if (rightHash != null) {
-                rightVersions.add(rightHash)
+            if (rightVersion != null) {
+                rightVersions.add(rightVersion.hash)
             }
-            if (leftHash != null) {
-                if (rightVersions.contains(leftHash)) {
-                    return leftHash
+            if (leftVersion != null) {
+                if (rightVersions.contains(leftVersion.hash)) {
+                    return leftVersion
                 }
             }
-            if (rightHash != null) {
-                if (leftVersions.contains(rightHash)) {
-                    return rightHash
+            if (rightVersion != null) {
+                if (leftVersions.contains(rightVersion.hash)) {
+                    return rightVersion
                 }
             }
-            if (leftHash != null) {
-                leftHash = getVersion(leftHash).let { it.data!!.baseVersion ?: it.data!!.previousVersion }
+            if (leftVersion != null) {
+                leftVersion = leftVersion.baseVersion
             }
-            if (rightHash != null) {
-                rightHash = getVersion(rightHash).let { it.data!!.baseVersion ?: it.data!!.previousVersion }
+            if (rightVersion != null) {
+                rightVersion = rightVersion.baseVersion
             }
         }
         return null
     }
 
     private fun getVersion(hash: String): CLVersion {
-        return CLVersion.loadFromHash(hash, storeCache) ?: throw RuntimeException("Version $hash not found")
+        return CLVersion.loadFromHash(hash, NonWrittenEntriesStore.create(storeCache))
     }
 
     protected fun getTree(version: CPVersion): ITree {
-        return CLTree(version.treeHash, storeCache)
+        return CLTree(version.treeHash, NonWrittenEntriesStore.create(storeCache))
     }
 }

@@ -46,10 +46,9 @@ class TreeSerializationTest {
             id = 1,
             time = null,
             author = null,
-            treeHash = initialTree.hash,
+            tree = initialTree,
             baseVersion = null,
-            operations = arrayOf<IOperation>(),
-            store = objectStore
+            operations = arrayOf()
         )
         val idGenerator = IdGenerator(Int.MAX_VALUE)
         val branch = OTBranch(PBranch(initialTree, idGenerator), idGenerator, objectStore)
@@ -59,12 +58,11 @@ class TreeSerializationTest {
             id = 1,
             time = null,
             author = null,
-            treeHash = (tree as CLTree).hash,
-            baseVersion = initialVersion.hash,
-            operations = ops.map { it.getOriginalOp() }.toTypedArray(),
-            store = objectStore
+            tree = tree as CLTree,
+            baseVersion = initialVersion,
+            operations = ops.map { it.getOriginalOp() }.toTypedArray()
         )
-        store.put("branch_master", version.hash)
+        store.put("branch_master", version.write())
         mapStore.entries.sortedBy { it.key }.forEach { println(""""${it.key}" to "${it.value}",""") }
         assertTree(tree)
 

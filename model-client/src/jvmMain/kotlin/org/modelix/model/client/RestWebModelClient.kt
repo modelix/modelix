@@ -37,6 +37,7 @@ import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 import java.util.concurrent.ScheduledFuture
 import java.util.concurrent.TimeUnit
+import java.util.concurrent.atomic.AtomicInteger
 import java.util.function.Consumer
 import java.util.function.Predicate
 import java.util.function.ToLongFunction
@@ -113,6 +114,7 @@ class RestWebModelClient @JvmOverloads constructor(var baseUrl: String? = null, 
     private val listeners: MutableList<SseListener> = ArrayList()
     override val asyncStore: IKeyValueStore = GarbageFilteringStore(AsyncStore(this))
     private val cache = ObjectStoreCache(KeyValueStoreCache(asyncStore))
+    private val pendingWrites = AtomicInteger(0)
 
     @get:Synchronized
     override lateinit var idGenerator: IIdGenerator
@@ -130,6 +132,8 @@ class RestWebModelClient @JvmOverloads constructor(var baseUrl: String? = null, 
         }
         executorService.shutdown()
     }
+
+    override fun getPendingSize(): Int = pendingWrites.get()
 
     override fun get(key: String): String? {
         val isHash = HashUtil.isSha256(key)
@@ -259,28 +263,37 @@ class RestWebModelClient @JvmOverloads constructor(var baseUrl: String? = null, 
         if (LOG.isDebugEnabled) {
             LOG.debug("PUT " + entries.size + " entries")
         }
-        var json = JSONArray()
-        var approxSize = 0
-        for ((key, value) in entries) {
-            val jsonEntry = JSONObject()
-            jsonEntry.put("key", key)
-            jsonEntry.put("value", value)
-            approxSize += key.length
-            approxSize += value!!.length
-            json.put(jsonEntry)
-            if (!key.matches(HashUtil.HASH_PATTERN)) {
-                if (LOG.isDebugEnabled) {
-                    LOG.debug("PUT $key = $value")
+
+        var remainingEntries = entries.size
+        try {
+            pendingWrites.addAndGet(remainingEntries)
+            var json = JSONArray()
+            var approxSize = 0
+            for ((key, value) in entries) {
+                val jsonEntry = JSONObject()
+                jsonEntry.put("key", key)
+                jsonEntry.put("value", value)
+                approxSize += key.length
+                approxSize += value!!.length
+                json.put(jsonEntry)
+                if (!key.matches(HashUtil.HASH_PATTERN)) {
+                    if (LOG.isDebugEnabled) {
+                        LOG.debug("PUT $key = $value")
+                    }
+                }
+                if (json.length() >= 5000 || approxSize > 10000000) {
+                    sendBatch.accept(json)
+                    remainingEntries -= json.length()
+                    pendingWrites.addAndGet(-json.length())
+                    json = JSONArray()
+                    approxSize = 0
                 }
             }
-            if (json.length() >= 5000 || approxSize > 10000000) {
+            if (json.length() > 0) {
                 sendBatch.accept(json)
-                json = JSONArray()
-                approxSize = 0
             }
-        }
-        if (json.length() > 0) {
-            sendBatch.accept(json)
+        } finally {
+            pendingWrites.addAndGet(-remainingEntries)
         }
     }
 

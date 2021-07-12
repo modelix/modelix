@@ -264,29 +264,35 @@ public class RestModelServer {
                             @Override
                             protected void doPut(HttpServletRequest req, HttpServletResponse resp)
                                     throws ServletException, IOException {
-                                if (!checkAuthorization(storeClient, req, resp)) return;
+                                try {
+                                    if (!checkAuthorization(storeClient, req, resp)) return;
 
-                                String jsonStr =
-                                        IOUtils.toString(
-                                                req.getInputStream(), StandardCharsets.UTF_8);
-                                JSONArray json = new JSONArray(jsonStr);
-                                int writtenEntries = 0;
-                                Map<String, String> entries = new LinkedHashMap<>();
-                                for (Object entry_ : json) {
-                                    JSONObject entry = (JSONObject) entry_;
-                                    String key = entry.getString("key");
-                                    String value = entry.optString("value", null);
-                                    entries.put(key, value);
+                                    String jsonStr =
+                                            IOUtils.toString(
+                                                    req.getInputStream(), StandardCharsets.UTF_8);
+                                    JSONArray json = new JSONArray(jsonStr);
+                                    int writtenEntries = 0;
+                                    Map<String, String> entries = new LinkedHashMap<>();
+                                    for (Object entry_ : json) {
+                                        JSONObject entry = (JSONObject) entry_;
+                                        String key = entry.getString("key");
+                                        String value = entry.optString("value", null);
+                                        entries.put(key, value);
+                                    }
+                                    entries = sortByDependency(entries);
+                                    for (Map.Entry<String, String> entry : entries.entrySet()) {
+                                        putEntry(entry.getKey(), entry.getValue());
+                                        writtenEntries++;
+                                    }
+                                    resp.setStatus(HttpServletResponse.SC_OK);
+                                    resp.setContentType(TEXT_PLAIN);
+                                    resp.setCharacterEncoding(StandardCharsets.UTF_8.toString());
+                                    resp.getWriter().print(writtenEntries + " entries written");
+                                } catch (Exception ex) {
+                                    System.out.println(ex.getMessage());
+                                    ex.printStackTrace();
+                                    throw ex;
                                 }
-                                entries = sortByDependency(entries);
-                                for (Map.Entry<String, String> entry : entries.entrySet()) {
-                                    putEntry(entry.getKey(), entry.getValue());
-                                    writtenEntries++;
-                                }
-                                resp.setStatus(HttpServletResponse.SC_OK);
-                                resp.setContentType(TEXT_PLAIN);
-                                resp.setCharacterEncoding(StandardCharsets.UTF_8.toString());
-                                resp.getWriter().print(writtenEntries + " entries written");
                             }
                         }),
                 "/putAll");

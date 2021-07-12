@@ -16,19 +16,12 @@
 package org.modelix.model.lazy
 
 import org.modelix.model.persistent.CPHamtLeaf
-import org.modelix.model.persistent.HashUtil
 
 class CLHamtLeaf : CLHamtNode<CPHamtLeaf> {
     private val data: CPHamtLeaf
 
-    constructor(data: CPHamtLeaf, store: IDeserializingKeyValueStore) : super(store) {
+    constructor(data: CPHamtLeaf, store: NonWrittenEntriesStore) : super(store) {
         this.data = data
-    }
-
-    private constructor(key: Long, value: String, store: IDeserializingKeyValueStore) : super(store) {
-        data = CPHamtLeaf(key, value)
-        val serialized = data.serialize()
-        store.put(HashUtil.sha256(serialized), data, serialized)
     }
 
     override fun getData(): CPHamtLeaf {
@@ -41,19 +34,16 @@ class CLHamtLeaf : CLHamtNode<CPHamtLeaf> {
     val value: String
         get() = data.value
 
-    override fun put(key: Long, value: String?, shift: Int): CLHamtNode<*>? {
+    override fun put(key: Long, value: NonWrittenEntry?, shift: Int): CLHamtNode<*>? {
         return if (key == data.key) {
-            if (value == data.value) {
+            if (value?.hash == data.value) {
                 this
             } else {
                 create(key, value, store)
             }
         } else {
-            if (shift > MAX_SHIFT) {
-                throw RuntimeException("$shift > $MAX_SHIFT")
-            }
             var result: CLHamtNode<*>? = createEmptyNode()
-            result = result!!.put(data.key, data.value, shift)
+            result = result!!.put(data.key, NonWrittenEntry(data.value), shift)
             if (result == null) {
                 result = createEmptyNode()
             }
@@ -100,8 +90,11 @@ class CLHamtLeaf : CLHamtNode<CPHamtLeaf> {
     }
 
     companion object {
-        fun create(key: Long, value: String?, store: IDeserializingKeyValueStore): CLHamtLeaf? {
-            return value?.let { CLHamtLeaf(key, it, store) }
+        fun create(key: Long, value: NonWrittenEntry?, store: NonWrittenEntriesStore): CLHamtLeaf? {
+            val hash = value?.hash
+            if (hash == null) return null
+            val data = CPHamtLeaf(key, hash)
+            return CLHamtLeaf(data, store.with(data, data.serialize(), listOf(value)))
         }
     }
 }

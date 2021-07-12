@@ -21,6 +21,7 @@ import org.modelix.model.api.IWriteTransaction
 import org.modelix.model.lazy.CLNode
 import org.modelix.model.lazy.CLTree
 import org.modelix.model.lazy.IDeserializingKeyValueStore
+import org.modelix.model.lazy.NonWrittenEntriesStore
 import org.modelix.model.persistent.SerializationUtil
 
 class AddNewChildSubtreeOp(val resultTreeHash: String, val position: PositionInRole, val childId: Long, val concept: IConcept?) : AbstractOperation() {
@@ -51,7 +52,7 @@ class AddNewChildSubtreeOp(val resultTreeHash: String, val position: PositionInR
 
     private fun getResultTree(store: IDeserializingKeyValueStore) =
         (
-            store.get(resultTreeHash, { CLTree(resultTreeHash, store) })
+            store.get(resultTreeHash, { CLTree(resultTreeHash, NonWrittenEntriesStore.create(store)) })
                 ?: throw RuntimeException("Tree $resultTreeHash not found")
             )
 

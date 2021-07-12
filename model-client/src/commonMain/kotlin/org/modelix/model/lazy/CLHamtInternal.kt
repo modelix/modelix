@@ -24,19 +24,21 @@ import org.modelix.model.persistent.HashUtil
 class CLHamtInternal : CLHamtNode<CPHamtInternal> {
     private val data_: CPHamtInternal
 
-    constructor(store: IDeserializingKeyValueStore) : this(0, arrayOf<String>(), store) {}
-    constructor(data: CPHamtInternal, store: IDeserializingKeyValueStore?) : super(store!!) {
+    companion object {
+        fun createEmpty(store: IDeserializingKeyValueStore) = create(0, arrayOf<String>(), store, listOf())
+
+        fun create(bitmap: Int, childHashes: Array<String>, store: IDeserializingKeyValueStore, childrenNWE: List<NonWrittenEntry>): CLHamtInternal {
+            val data = CPHamtInternal(bitmap, childHashes)
+            return CLHamtInternal(data, NonWrittenEntriesStore.create(store).with(data, data.serialize(), childrenNWE))
+        }
+    }
+
+    constructor(data: CPHamtInternal, store: NonWrittenEntriesStore) : super(store) {
         this.data_ = data
     }
 
-    private constructor(bitmap: Int, childHashes: Array<String>, store: IDeserializingKeyValueStore) : super(store) {
-        data_ = CPHamtInternal(bitmap, childHashes)
-        val serialized = data_.serialize()
-        store.put(HashUtil.sha256(serialized), data_, serialized)
-    }
-
-    override fun put(key: Long, value: String?, shift: Int): CLHamtNode<*>? {
-        val childIndex = (key ushr shift and LEVEL_MASK.toLong()).toInt()
+    override fun put(key: Long, value: NonWrittenEntry?, shift: Int): CLHamtNode<*>? {
+        val childIndex = indexFromKey(key, shift)
         val child = getChild(childIndex, NonBulkQuery(store)).execute()
         return if (child == null) {
             setChild(childIndex, CLHamtLeaf.create(key, value, store))
@@ -46,7 +48,7 @@ class CLHamtInternal : CLHamtNode<CPHamtInternal> {
     }
 
     override fun remove(key: Long, shift: Int): CLHamtNode<*>? {
-        val childIndex = (key ushr shift and LEVEL_MASK.toLong()).toInt()
+        val childIndex = indexFromKey(key, shift)
         val child = getChild(childIndex, NonBulkQuery(store)).execute()
         return if (child == null) {
             this
@@ -56,7 +58,7 @@ class CLHamtInternal : CLHamtNode<CPHamtInternal> {
     }
 
     override fun get(key: Long, shift: Int, bulkQuery: IBulkQuery): IBulkQuery.Value<String?> {
-        val childIndex = (key ushr shift and LEVEL_MASK.toLong()).toInt()
+        val childIndex = indexFromKey(key, shift)
         return getChild(childIndex, bulkQuery).mapBulk { child: CLHamtNode<*>? ->
             if (child == null) {
                 bulkQuery.constant<String?>(null)
@@ -64,6 +66,12 @@ class CLHamtInternal : CLHamtNode<CPHamtInternal> {
                 child[key, shift + BITS_PER_LEVEL, bulkQuery]
             }
         }
+    }
+
+    private fun indexFromKey(key: Long, shift: Int): Int {
+        //val s = if (shift == 0) BITS_PER_LEVEL else if (shift == BITS_PER_LEVEL) 0 else shift
+        val s = shift
+        return (key ushr s and LEVEL_MASK).toInt()
     }
 
     protected fun getChild(logicalIndex: Int, bulkQuery: IBulkQuery): IBulkQuery.Value<CLHamtNode<*>?> {
@@ -94,10 +102,22 @@ class CLHamtInternal : CLHamtNode<CPHamtInternal> {
         }
         val childHash = HashUtil.sha256(child.getData().serialize())
         val physicalIndex = logicalToPhysicalIndex(data_.bitmap, logicalIndex)
+        val oldChildrenNWE: List<NonWrittenEntry> = store.entry?.children ?: listOf()
         return if (isBitNotSet(data_.bitmap, logicalIndex)) {
-            CLHamtInternal(data_.bitmap or (1 shl logicalIndex), COWArrays.insert(data_.children, physicalIndex, childHash), store)
+            create(
+                data_.bitmap or (1 shl logicalIndex),
+                COWArrays.insert(data_.children, physicalIndex, childHash),
+                store,
+                oldChildrenNWE + listOfNotNull(child.store.entry)
+            )
         } else {
-            CLHamtInternal(data_.bitmap, COWArrays.set(data_.children, physicalIndex, childHash), store)
+            create(
+                data_.bitmap,
+                COWArrays.set(data_.children, physicalIndex, childHash),
+                store,
+                oldChildrenNWE.filter { it.hash != null && it.hash != data_.children[physicalIndex] } +
+                    listOfNotNull(child.store.entry)
+            )
         }
     }
 
@@ -117,7 +137,8 @@ class CLHamtInternal : CLHamtNode<CPHamtInternal> {
                 return child0
             }
         }
-        return CLHamtInternal(newBitmap, newChildren, store)
+        val oldChildrenNWE = store.entry?.children ?: listOf()
+        return create(newBitmap, newChildren, store, oldChildrenNWE.filter { it.hash != null && it.hash != data_.children[physicalIndex] })
     }
 
     override fun visitEntries(visitor: (Long, String?) -> Boolean): Boolean {

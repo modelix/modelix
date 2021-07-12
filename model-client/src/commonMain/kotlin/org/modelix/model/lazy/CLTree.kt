@@ -19,8 +19,6 @@ import org.modelix.model.api.*
 import org.modelix.model.api.COWArrays.add
 import org.modelix.model.api.COWArrays.insert
 import org.modelix.model.api.COWArrays.remove
-import org.modelix.model.lazy.CLHamtNode.Companion.create
-import org.modelix.model.lazy.IDeserializingKeyValueStore_extensions.put
 import org.modelix.model.lazy.RepositoryId.Companion.random
 import org.modelix.model.persistent.*
 import org.modelix.model.persistent.CPNode.Companion.create
@@ -29,16 +27,17 @@ import org.modelix.model.persistent.CPNodeRef.Companion.local
 import org.modelix.model.persistent.HashUtil.sha256
 
 class CLTree : ITree {
-    protected var store: IDeserializingKeyValueStore
-    protected var data: CPTree
+    val store: NonWrittenEntriesStore
+    protected val data: CPTree
 
-    constructor(hash: String?, store: IDeserializingKeyValueStore) : this(if (hash == null) null else store.get<CPTree>(hash) { CPTree.deserialize(it) }, null, store)
-    constructor(store: IDeserializingKeyValueStore) : this(null as CPTree?, null, store)
-    constructor(id: RepositoryId?, store: IDeserializingKeyValueStore) : this(null, id, store)
-    private constructor(data: CPTree?, repositoryId_: RepositoryId?, store: IDeserializingKeyValueStore) {
+    constructor(hash: String?, store: IDeserializingKeyValueStore) : this(if (hash == null) null else store.get<CPTree>(hash) { CPTree.deserialize(it) }, null, NonWrittenEntriesStore.create(store))
+    constructor(store: IDeserializingKeyValueStore) : this(null as CPTree?, null, NonWrittenEntriesStore.create(store))
+    constructor(id: RepositoryId?, store: NonWrittenEntriesStore) : this(null, id, store)
+    constructor(id: RepositoryId?, store: IDeserializingKeyValueStore) : this(null, id, NonWrittenEntriesStore.create(store))
+    private constructor(data: CPTree?, repositoryId_: RepositoryId?, store_: NonWrittenEntriesStore) {
+        var store = store_
         var repositoryId = repositoryId_
         if (data == null) {
-            this.store = store
             if (repositoryId == null) {
                 repositoryId = random()
             }
@@ -54,13 +53,17 @@ class CLTree : ITree {
                 arrayOf(),
                 arrayOf()
             )
-            val idToHash = storeElement(root, CLHamtInternal(store))
+            val idToHash = storeElement(root, CLHamtInternal.createEmpty(store))
             this.data = CPTree(repositoryId.id, 1, sha256(idToHash.getData().serialize()))
-            put(store, this.data, this.data.serialize())
+            store = store.with(this.data, this.data.serialize(), listOfNotNull(idToHash.store.entry))
         } else {
-            this.store = store
             this.data = data
         }
+
+        this.store = store
+
+        // TODO remove
+        this.nodesMap!![ITree.ROOT_ID]
     }
 
     private constructor(treeId_: String, rootId: Long, idToHash: CLHamtNode<*>, store: IDeserializingKeyValueStore) {
@@ -68,9 +71,11 @@ class CLTree : ITree {
         if (treeId == null) {
             treeId = random().id
         }
-        this.store = store
         data = CPTree(treeId, rootId, sha256(idToHash.getData().serialize()))
-        put(store, data, data.serialize())
+        this.store = NonWrittenEntriesStore.create(store).with(data, data.serialize(), listOfNotNull(idToHash.store.entry))
+
+        // TODO remove
+        this.nodesMap!![ITree.ROOT_ID]
     }
 
     override fun getId(): String {
@@ -78,23 +83,22 @@ class CLTree : ITree {
     }
 
     fun prefetchAll() {
-        store.prefetch(hash)
+        store.store.prefetch(hash)
     }
 
     val hash: String
         get() = sha256(data.serialize())
 
     val nodesMap: CLHamtNode<*>?
-        get() = create(store.get(data.idToHash, { s: String -> CPHamtNode.deserialize(s) }), store)
+        get() = CLHamtNode.create(store.get(data.idToHash, { s: String -> CPHamtNode.deserialize(s) }), store.findStore(data.idToHash))
 
     protected fun storeElement(node: CLNode, id2hash: CLHamtNode<*>): CLHamtNode<*> {
         val data = node.getData()
         val serialized = data.serialize()
-        val hash = sha256(serialized!!)
-        store.put(hash, data, serialized)
-        var newMap = id2hash.put(node.id, hash)
+        val hash = sha256(serialized)
+        var newMap = id2hash.put(node.id, NonWrittenEntry(hash, serialized, data, listOf()))
         if (newMap == null) {
-            newMap = CLHamtInternal(store)
+            newMap = CLHamtInternal.createEmpty(store)
         }
         return newMap
     }
@@ -106,7 +110,6 @@ class CLTree : ITree {
         var newIdToHash = nodesMap
         val newNodeData = resolveElement(nodeId)!!.getData().withPropertyValue(role, value)
         newIdToHash = newIdToHash!!.put(newNodeData)
-        put(store, newNodeData)
         return CLTree(data.id, data.rootId, newIdToHash!!, store)
     }
 
@@ -114,7 +117,12 @@ class CLTree : ITree {
         if (containsNode(childId)) {
             throw DuplicateNodeId("Node ID already exists: ${childId.toString(16)}")
         }
-        return createNewNode(childId, concept).addChild(parentId, role, index, childId)
+        val newTree = createNewNode(childId, concept).addChild(parentId, role, index, childId)
+
+        // TODO remove
+        newTree.getConcept(childId)
+
+        return newTree
     }
 
     override fun addNewChildren(parentId: Long, role: String?, index: Int, newIds: LongArray, concepts: Array<IConcept?>): ITree {
@@ -141,9 +149,8 @@ class CLTree : ITree {
             arrayOf(),
             arrayOf()
         )
-        newIdToHash = newIdToHash!!.put(newChildData)
-        put(store, newChildData)
-        return CLTree(data.id, data.rootId, newIdToHash!!, store)
+        newIdToHash = newIdToHash!!.put(newChildData)!!
+        return CLTree(data.id, data.rootId, newIdToHash, store)
     }
 
     /**
@@ -165,7 +172,6 @@ class CLTree : ITree {
             childData.referenceTargets
         )
         newIdToHash = newIdToHash!!.put(newChildData)
-        put(store, newChildData)
         var newChildrenArray = parent!!.getData().childrenIdArray
         newChildrenArray = if (index == -1) {
             add(newChildrenArray, childData.id)
@@ -195,7 +201,6 @@ class CLTree : ITree {
             parent.getData().referenceTargets
         )
         newIdToHash = newIdToHash!!.put(newParentData)
-        put(store, newParentData)
         return CLTree(data.id, data.rootId, newIdToHash!!, store)
     }
 
@@ -215,7 +220,6 @@ class CLTree : ITree {
         var newIdToHash = nodesMap
         val newNodeData = source.getData().withReferenceTarget(role, refData)
         newIdToHash = newIdToHash!!.put(newNodeData)
-        put(store, newNodeData)
         return CLTree(data.id, data.rootId, newIdToHash!!, store)
     }
 
@@ -246,7 +250,6 @@ class CLTree : ITree {
         )
         newIdToHash = newIdToHash.put(newParentData)
             ?: throw RuntimeException("Unexpected empty nodes map. There should be at least the root node.")
-        put(store, newParentData)
         if (recursive) {
             newIdToHash = deleteElements(node.getData(), newIdToHash)
                 ?: throw RuntimeException("Unexpected empty nodes map. There should be at least the root node.")

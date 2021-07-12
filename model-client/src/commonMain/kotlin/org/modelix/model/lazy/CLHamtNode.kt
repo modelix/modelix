@@ -21,7 +21,7 @@ import org.modelix.model.persistent.CPHamtNode
 import org.modelix.model.persistent.CPNode
 import kotlin.jvm.JvmStatic
 
-abstract class CLHamtNode<E : CPHamtNode>(protected var store: IDeserializingKeyValueStore) {
+abstract class CLHamtNode<E : CPHamtNode>(val store: NonWrittenEntriesStore) {
     protected fun createEmptyNode(): CLHamtNode<*> {
         return create(CPHamtInternal(0, arrayOf()), store)!!
     }
@@ -37,16 +37,20 @@ abstract class CLHamtNode<E : CPHamtNode>(protected var store: IDeserializingKey
         return bulkQuery.map(keys) { key: Long -> get(key, 0, bulkQuery) }
     }
 
-    fun put(key: Long, value: String?): CLHamtNode<*>? {
+    fun put(key: Long, value: NonWrittenEntry?): CLHamtNode<*>? {
         return put(key, value, 0)
     }
 
+    fun put(key: Long, value: String?): CLHamtNode<*>? {
+        return put(key, value?.let { NonWrittenEntry(value) })
+    }
+
     fun put(element: CLNode): CLHamtNode<*>? {
-        return put(element.id, element.getData().hash)
+        return put(element.getData())
     }
 
     fun put(data: CPNode): CLHamtNode<*>? {
-        return put(data.id, data.hash)
+        return put(data.id, NonWrittenEntry(data.hash, data.serialize(), data, listOf()))
     }
 
     fun remove(key: Long): CLHamtNode<*>? {
@@ -58,7 +62,7 @@ abstract class CLHamtNode<E : CPHamtNode>(protected var store: IDeserializingKey
     }
 
     abstract operator fun get(key: Long, shift: Int, bulkQuery: IBulkQuery): IBulkQuery.Value<String?>
-    abstract fun put(key: Long, value: String?, shift: Int): CLHamtNode<*>?
+    abstract fun put(key: Long, value: NonWrittenEntry?, shift: Int): CLHamtNode<*>?
     abstract fun remove(key: Long, shift: Int): CLHamtNode<*>?
     abstract fun visitEntries(visitor: (Long, String?) -> Boolean): Boolean
     abstract fun visitChanges(oldNode: CLHamtNode<*>?, visitor: IChangeVisitor)
@@ -71,11 +75,11 @@ abstract class CLHamtNode<E : CPHamtNode>(protected var store: IDeserializingKey
     companion object {
         const val BITS_PER_LEVEL = 5
         const val ENTRIES_PER_LEVEL = 1 shl BITS_PER_LEVEL
-        const val LEVEL_MASK = -0x1 ushr 32 - BITS_PER_LEVEL
+        const val LEVEL_MASK: Long = (-0x1 ushr 32 - BITS_PER_LEVEL).toLong()
         const val MAX_BITS = 64
         const val MAX_SHIFT = MAX_BITS - BITS_PER_LEVEL
         @JvmStatic
-        fun create(data: CPHamtNode?, store: IDeserializingKeyValueStore): CLHamtNode<*>? {
+        fun create(data: CPHamtNode?, store: NonWrittenEntriesStore): CLHamtNode<*>? {
             return when (data) {
                 null -> null
                 is CPHamtLeaf -> {

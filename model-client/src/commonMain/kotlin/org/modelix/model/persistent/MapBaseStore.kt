@@ -24,6 +24,8 @@ class MapBaseStore : IKeyValueStore {
         return map[key]
     }
 
+    override fun getPendingSize(): Int = 0
+
     override fun put(key: String, value: String?) {
         map[key] = value
     }

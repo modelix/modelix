@@ -3,6 +3,7 @@ package org.modelix.model
 import org.modelix.model.api.*
 import org.modelix.model.lazy.CLTree
 import org.modelix.model.lazy.CLVersion
+import org.modelix.model.lazy.NonWrittenEntriesStore
 import org.modelix.model.operations.IAppliedOperation
 import org.modelix.model.operations.OTBranch
 import kotlin.random.Random
@@ -785,14 +786,14 @@ class ConflictResolutionTest : TreeTestBase() {
     }
 
     fun createVersion(opsAndTree: Pair<List<IAppliedOperation>, ITree>, previousVersion: CLVersion?): CLVersion {
+        val clTree = opsAndTree.second as CLTree
         return CLVersion.createRegularVersion(
             id = idGenerator.generate(),
             time = null,
             author = null,
-            treeHash = (opsAndTree.second as CLTree).hash,
-            baseVersion = previousVersion?.hash,
-            operations = opsAndTree.first.map { it.getOriginalOp() }.toTypedArray(),
-            store = storeCache
+            tree = clTree,
+            baseVersion = previousVersion,
+            operations = opsAndTree.first.map { it.getOriginalOp() }.toTypedArray()
         )
     }
 

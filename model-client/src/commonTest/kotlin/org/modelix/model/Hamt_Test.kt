@@ -17,6 +17,7 @@ package org.modelix.model
 
 import org.modelix.model.lazy.CLHamtInternal
 import org.modelix.model.lazy.CLHamtNode
+import org.modelix.model.lazy.NonWrittenEntry
 import org.modelix.model.lazy.ObjectStoreCache
 import org.modelix.model.persistent.CPHamtInternal
 import org.modelix.model.persistent.MapBaseStore
@@ -31,7 +32,7 @@ class Hamt_Test {
         val expectedMap: MutableMap<Long, String> = HashMap()
         val store = MapBaseStore()
         val storeCache = ObjectStoreCache(store)
-        var hamt: CLHamtNode<*>? = CLHamtInternal(storeCache)
+        var hamt: CLHamtNode<*>? = CLHamtInternal.createEmpty(storeCache)
         for (i in 0..999) {
             if (expectedMap.isEmpty() || rand.nextBoolean()) {
                 // add entry 
@@ -64,7 +65,7 @@ class Hamt_Test {
     fun test_random_case_causing_outofbounds_on_js() {
         val store = MapBaseStore()
         val storeCache = ObjectStoreCache(store)
-        var hamt: CLHamtNode<*>? = CLHamtInternal(storeCache)
+        var hamt: CLHamtNode<*>? = CLHamtInternal.createEmpty(storeCache)
 
         hamt = hamt!!.put(965L, "-6579471327666419615")
         hamt = hamt!!.put(949L, "4912341421267007347")

@@ -3,8 +3,10 @@ package org.modelix.model.operations
 import org.modelix.model.api.ITree
 import org.modelix.model.api.IWriteTransaction
 import org.modelix.model.api.TreePointer
+import org.modelix.model.lazy.CLTree
 import org.modelix.model.lazy.CLVersion
 import org.modelix.model.lazy.IDeserializingKeyValueStore
+import org.modelix.model.lazy.NonWrittenEntriesStore
 
 class UndoOp(val versionHash: String) : AbstractOperation() {
     override fun apply(transaction: IWriteTransaction, store: IDeserializingKeyValueStore): IAppliedOperation {
@@ -15,8 +17,9 @@ class UndoOp(val versionHash: String) : AbstractOperation() {
         )
     }
 
-    override fun captureIntend(tree: ITree, store: IDeserializingKeyValueStore): IOperationIntend {
-        val versionToUndo = CLVersion.loadFromHash(versionHash, store)!!
+    override fun captureIntend(tree: ITree, store_: IDeserializingKeyValueStore): IOperationIntend {
+        val store = (tree as CLTree).store
+        val versionToUndo = CLVersion.loadFromHash(versionHash, store)
         val originalAppliedOps = getAppliedOps(versionToUndo, store)
         val invertedOps = originalAppliedOps.reversed().flatMap { it.invert() }
         val invertedOpIntends = captureIntend(versionToUndo.tree, invertedOps, store)

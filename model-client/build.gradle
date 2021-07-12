@@ -41,6 +41,7 @@ kotlin {
             dependencies {
                 api group: 'org.modelix', name: 'model-api', version: "$mpsExtensionsVersion"
                 implementation kotlin('stdlib-common')
+                implementation("org.jetbrains.kotlinx:kotlinx-collections-immutable:0.3.4")
             }
         }
         commonTest {

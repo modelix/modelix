@@ -100,7 +100,7 @@ class UndoTest {
     }
 
     fun printHistory(version: CLVersion, store: IDeserializingKeyValueStore) {
-        LinearHistory(store, null).load(version).forEach {
+        LinearHistory(null).load(version).forEach {
             println("Version ${it.id.toString(16)} ${it.hash} ${it.author}")
             for (op in it.operations) {
                 println("    $op")
@@ -113,10 +113,9 @@ class UndoTest {
             id = idGenerator.generate(),
             time = null,
             author = "undo",
-            treeHash = version.baseVersion!!.treeHash!!,
-            baseVersion = version.hash,
-            operations = arrayOf(UndoOp(version.hash)),
-            store = version.store
+            tree = version.baseVersion!!.tree,
+            baseVersion = version,
+            operations = arrayOf(UndoOp(version.hash))
         )
     }
 
@@ -139,10 +138,9 @@ class UndoTest {
             id = idGenerator.generate(),
             time = null,
             author = null,
-            treeHash = (opsAndTree.second as CLTree).hash,
-            baseVersion = previousVersion?.hash,
-            operations = opsAndTree.first.map { it.getOriginalOp() }.toTypedArray(),
-            store = storeCache
+            tree = opsAndTree.second as CLTree,
+            baseVersion = previousVersion,
+            operations = opsAndTree.first.map { it.getOriginalOp() }.toTypedArray()
         )
     }
 }

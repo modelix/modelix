@@ -25,7 +25,7 @@ import java.util.Collections
 import java.util.concurrent.CompletableFuture
 import java.util.stream.Collectors
 
-class KeyValueStoreCache(private val store: IKeyValueStore) : IKeyValueStore {
+class KeyValueStoreCache(private val store: IKeyValueStore) : IKeyValueStoreWrapper {
     private val cache = Collections.synchronizedMap(LRUMap<String, String?>(300000))
     private val pendingPrefetches: MutableSet<String> = HashSet()
     private val activeRequests: MutableList<GetRequest> = ArrayList()
@@ -55,6 +55,10 @@ class KeyValueStoreCache(private val store: IKeyValueStore) : IKeyValueStore {
             }
         }
     }
+
+    override fun getWrapped(): IKeyValueStore = store
+
+    override fun getPendingSize(): Int = store.getPendingSize()
 
     override fun get(key: String): String? {
         return getAll(setOf(key))[key]
