@@ -115,15 +115,21 @@
   visibility: hidden;
 }
 
-.activeSession {
-  display: inline-block;
-  padding: 6px;
-  border-radius: 30px;
-  margin: 6px 3px;
-  font-weight: bold;
-  font-family: Arial, sans-serif;
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
 }
 
-.ownSession {
-  border: 1px solid white;
+header {
+  min-width: 100%;
 }
+#sidebar {
+  min-width: 33%;
+}
+
+main {
+  min-width: 66%;
+}
+
+@import "header";
