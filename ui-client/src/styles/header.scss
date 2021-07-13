@@ -1,0 +1,28 @@
+.breadcrumbs {
+  padding: 6px 6px;
+  border: 1px solid #555;
+  margin: 0 0 6px 0;
+  background-color: #303030;
+}
+
+.activeSession {
+  display: inline-block;
+  padding: 6px;
+  border-radius: 30px;
+  margin: 6px 3px;
+  font-weight: bold;
+  font-family: Arial, sans-serif;
+}
+
+.ownSession {
+  border: 1px solid white;
+}
+
+#activeSessions {
+  display: flex;
+  align-content: flex-end;
+  align-items: baseline;
+  flex-direction: row;
+  justify-content: flex-end;
+  flex-wrap: nowrap;
+}

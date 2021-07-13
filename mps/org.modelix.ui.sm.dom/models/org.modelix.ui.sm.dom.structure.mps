@@ -961,5 +961,32 @@
       <ref role="20lvS9" node="7NImM04RGAQ" resolve="HTMLElement" />
     </node>
   </node>
+  <node concept="1TIwiD" id="4qSU4CWmJbF">
+    <property role="EcuMT" value="5096078383907533547" />
+    <property role="3GE5qa" value="dom.htmlElement" />
+    <property role="TrG5h" value="HTMLDataAttr" />
+    <ref role="1TJDcQ" node="7NImM04RGAR" resolve="Attr" />
+  </node>
+  <node concept="1TIwiD" id="4qSU4CXgKuw">
+    <property role="EcuMT" value="5096078383922743200" />
+    <property role="3GE5qa" value="dom.htmlElement" />
+    <property role="TrG5h" value="HTMLNavElement" />
+    <property role="34LRSv" value="nav" />
+    <ref role="1TJDcQ" node="7NImM04RGAQ" resolve="HTMLElement" />
+  </node>
+  <node concept="1TIwiD" id="4qSU4CXgOj3">
+    <property role="EcuMT" value="5096078383922758851" />
+    <property role="3GE5qa" value="dom.htmlElement" />
+    <property role="TrG5h" value="HTMLHeaderElement" />
+    <property role="34LRSv" value="header" />
+    <ref role="1TJDcQ" node="7NImM04RGAQ" resolve="HTMLElement" />
+  </node>
+  <node concept="1TIwiD" id="4qSU4CXgOj4">
+    <property role="EcuMT" value="5096078383922758852" />
+    <property role="3GE5qa" value="dom.htmlElement" />
+    <property role="TrG5h" value="HTMLMainElement" />
+    <property role="34LRSv" value="main" />
+    <ref role="1TJDcQ" node="7NImM04RGAQ" resolve="HTMLElement" />
+  </node>
 </model>
 
