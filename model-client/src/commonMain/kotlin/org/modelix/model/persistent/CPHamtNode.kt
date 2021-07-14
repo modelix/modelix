@@ -20,6 +20,9 @@ import org.modelix.model.persistent.SerializationUtil.longFromHex
 import kotlin.jvm.JvmStatic
 
 abstract class CPHamtNode : IKVValue {
+
+    override val hash: String by lazy(LazyThreadSafetyMode.PUBLICATION) { HashUtil.sha256(serialize()) }
+
     companion object {
         val DESERIALIZER = { s: String -> deserialize(s) }
 

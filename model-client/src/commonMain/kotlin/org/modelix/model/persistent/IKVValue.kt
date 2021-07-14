@@ -18,4 +18,5 @@ package org.modelix.model.persistent
  */
 interface IKVValue {
     fun serialize(): String
+    val hash: String
 }

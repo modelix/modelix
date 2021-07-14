@@ -24,8 +24,7 @@ class CPOperationsList(val operations: Array<IOperation>) : IKVValue {
             .joinToString(",") { OperationSerializer.INSTANCE.serialize(it) }
     }
 
-    val hash: String
-        get() = sha256(serialize())
+    override val hash: String by lazy(LazyThreadSafetyMode.PUBLICATION) { HashUtil.sha256(serialize()) }
 
     companion object {
         fun deserialize(input: String): CPOperationsList {

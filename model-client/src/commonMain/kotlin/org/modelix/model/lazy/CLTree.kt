@@ -24,7 +24,6 @@ import org.modelix.model.persistent.*
 import org.modelix.model.persistent.CPNode.Companion.create
 import org.modelix.model.persistent.CPNodeRef.Companion.foreign
 import org.modelix.model.persistent.CPNodeRef.Companion.local
-import org.modelix.model.persistent.HashUtil.sha256
 
 class CLTree : ITree {
     val store: NonWrittenEntriesStore
@@ -54,7 +53,7 @@ class CLTree : ITree {
                 arrayOf()
             )
             val idToHash = storeElement(root, CLHamtInternal.createEmpty(store))
-            this.data = CPTree(repositoryId.id, 1, sha256(idToHash.getData().serialize()))
+            this.data = CPTree(repositoryId.id, 1, idToHash.getData().hash)
             store = store.with(this.data, listOfNotNull(idToHash.store.entry))
         } else {
             this.data = data
@@ -71,7 +70,7 @@ class CLTree : ITree {
         if (treeId == null) {
             treeId = random().id
         }
-        data = CPTree(treeId, rootId, sha256(idToHash.getData().serialize()))
+        data = CPTree(treeId, rootId, idToHash.getData().hash)
         this.store = NonWrittenEntriesStore.create(store).with(data, listOfNotNull(idToHash.store.entry))
 
         // TODO remove
@@ -87,7 +86,7 @@ class CLTree : ITree {
     }
 
     val hash: String
-        get() = sha256(data.serialize())
+        get() = data.hash
 
     val nodesMap: CLHamtNode<*>?
         get() = CLHamtNode.create(store.get(data.idToHash, { s: String -> CPHamtNode.deserialize(s) }), store.findStore(data.idToHash))

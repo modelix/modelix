@@ -15,7 +15,6 @@ package org.modelix.model.lazy
 
 import kotlinx.collections.immutable.PersistentMap
 import kotlinx.collections.immutable.persistentHashMapOf
-import org.modelix.model.persistent.HashUtil
 import org.modelix.model.persistent.IKVValue
 
 class NonWrittenEntry {
@@ -32,7 +31,7 @@ class NonWrittenEntry {
         this.written = written
     }
 
-    constructor(deserialized: IKVValue, children: List<NonWrittenEntry>?) : this(HashUtil.sha256(deserialized.serialize()), deserialized, children, false)
+    constructor(deserialized: IKVValue, children: List<NonWrittenEntry>?) : this(deserialized.hash, deserialized, children, false)
 
     constructor(hash: String) : this(hash, null, null, true)
 

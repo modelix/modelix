@@ -30,6 +30,8 @@ class CPTree(
         return "$id/$rootId/$idToHash"
     }
 
+    override val hash: String by lazy(LazyThreadSafetyMode.PUBLICATION) { HashUtil.sha256(serialize()) }
+
     companion object {
         @JvmStatic
         fun deserialize(input: String): CPTree {

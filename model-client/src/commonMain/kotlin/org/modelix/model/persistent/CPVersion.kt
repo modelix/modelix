@@ -75,8 +75,7 @@ class CPVersion(
             "/" + opsPart
     }
 
-    val hash: String
-        get() = HashUtil.sha256(serialize())
+    override val hash: String by lazy(LazyThreadSafetyMode.PUBLICATION) { HashUtil.sha256(serialize()) }
 
     companion object {
         fun deserialize(input: String): CPVersion {

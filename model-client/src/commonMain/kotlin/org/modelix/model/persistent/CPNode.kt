@@ -71,8 +71,7 @@ class CPNode private constructor(
     val childrenSize: Int
         get() = childrenIds.size
 
-    val hash: String
-        get() = HashUtil.sha256(serialize()!!)
+    override val hash: String by lazy(LazyThreadSafetyMode.PUBLICATION) { HashUtil.sha256(serialize()) }
 
     fun getChildId(index: Int): Long {
         return childrenIds[index]

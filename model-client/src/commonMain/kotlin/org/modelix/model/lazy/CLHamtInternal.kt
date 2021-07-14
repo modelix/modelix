@@ -19,7 +19,6 @@ import org.modelix.model.api.COWArrays
 import org.modelix.model.bitCount
 import org.modelix.model.persistent.CPHamtInternal
 import org.modelix.model.persistent.CPHamtNode
-import org.modelix.model.persistent.HashUtil
 
 class CLHamtInternal : CLHamtNode<CPHamtInternal> {
     private val data_: CPHamtInternal
@@ -100,7 +99,7 @@ class CLHamtInternal : CLHamtNode<CPHamtInternal> {
         if (child == null) {
             return deleteChild(logicalIndex)
         }
-        val childHash = HashUtil.sha256(child.getData().serialize())
+        val childHash = child.getData().hash
         val physicalIndex = logicalToPhysicalIndex(data_.bitmap, logicalIndex)
         val oldChildrenNWE: List<NonWrittenEntry> = store.entry?.children ?: listOf()
         return if (isBitNotSet(data_.bitmap, logicalIndex)) {
