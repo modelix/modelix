@@ -281,7 +281,7 @@ class RestWebModelClient @JvmOverloads constructor(var baseUrl: String? = null, 
                         LOG.debug("PUT $key = $value")
                     }
                 }
-                if (json.length() >= 5000 || approxSize > 10000000) {
+                if (json.length() >= 1000 || approxSize > 10000000) {
                     sendBatch.accept(json)
                     remainingEntries -= json.length()
                     pendingWrites.addAndGet(-json.length())
