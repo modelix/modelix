@@ -3,7 +3,6 @@ package org.modelix.model
 import org.modelix.model.api.*
 import org.modelix.model.client.IdGenerator
 import org.modelix.model.lazy.*
-import org.modelix.model.operations.IOperation
 import org.modelix.model.operations.OTBranch
 import org.modelix.model.persistent.MapBaseStore
 import kotlin.test.Test

@@ -16,7 +16,7 @@ package org.modelix.model.lazy
 import org.modelix.model.IKeyValueStore
 import org.modelix.model.persistent.IKVValue
 
-class NonWrittenEntriesStore private constructor(val store: IDeserializingKeyValueStore, val entry: NonWrittenEntry?): IDeserializingKeyValueStore {
+class NonWrittenEntriesStore private constructor(val store: IDeserializingKeyValueStore, val entry: NonWrittenEntry?) : IDeserializingKeyValueStore {
 
     companion object {
         fun create(store: IDeserializingKeyValueStore): NonWrittenEntriesStore {
@@ -24,7 +24,7 @@ class NonWrittenEntriesStore private constructor(val store: IDeserializingKeyVal
         }
     }
 
-    private constructor(store: IDeserializingKeyValueStore): this(if (store is NonWrittenEntriesStore) store.store else store, null)
+    private constructor(store: IDeserializingKeyValueStore) : this(if (store is NonWrittenEntriesStore) store.store else store, null)
 
     fun findEntry(hash: String): NonWrittenEntry? = entry?.findEntry(hash)
 

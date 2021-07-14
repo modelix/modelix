@@ -3,7 +3,6 @@ package org.modelix.model
 import org.modelix.model.api.*
 import org.modelix.model.lazy.CLTree
 import org.modelix.model.lazy.CLVersion
-import org.modelix.model.lazy.NonWrittenEntriesStore
 import org.modelix.model.operations.IAppliedOperation
 import org.modelix.model.operations.OTBranch
 import kotlin.random.Random

@@ -6,7 +6,6 @@ import org.modelix.model.api.TreePointer
 import org.modelix.model.lazy.CLTree
 import org.modelix.model.lazy.CLVersion
 import org.modelix.model.lazy.IDeserializingKeyValueStore
-import org.modelix.model.lazy.NonWrittenEntriesStore
 
 class UndoOp(val versionHash: String) : AbstractOperation() {
     override fun apply(transaction: IWriteTransaction, store: IDeserializingKeyValueStore): IAppliedOperation {

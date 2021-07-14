@@ -69,7 +69,7 @@ class CLHamtInternal : CLHamtNode<CPHamtInternal> {
     }
 
     private fun indexFromKey(key: Long, shift: Int): Int {
-        //val s = if (shift == 0) BITS_PER_LEVEL else if (shift == BITS_PER_LEVEL) 0 else shift
+        // val s = if (shift == 0) BITS_PER_LEVEL else if (shift == BITS_PER_LEVEL) 0 else shift
         val s = shift
         return (key ushr s and LEVEL_MASK).toInt()
     }

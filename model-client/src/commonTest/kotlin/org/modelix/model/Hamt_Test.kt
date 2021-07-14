@@ -17,7 +17,6 @@ package org.modelix.model
 
 import org.modelix.model.lazy.CLHamtInternal
 import org.modelix.model.lazy.CLHamtNode
-import org.modelix.model.lazy.NonWrittenEntry
 import org.modelix.model.lazy.ObjectStoreCache
 import org.modelix.model.persistent.CPHamtInternal
 import org.modelix.model.persistent.MapBaseStore

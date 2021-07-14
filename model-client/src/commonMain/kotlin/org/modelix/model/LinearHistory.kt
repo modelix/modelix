@@ -1,7 +1,6 @@
 package org.modelix.model
 
 import org.modelix.model.lazy.CLVersion
-import org.modelix.model.lazy.IDeserializingKeyValueStore
 import org.modelix.model.lazy.NonWrittenEntriesStore
 
 class LinearHistory(val baseVersionHash: String?) {

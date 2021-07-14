@@ -32,9 +32,9 @@ class NonWrittenEntry {
         this.written = written
     }
 
-    constructor(deserialized: IKVValue, children: List<NonWrittenEntry>?): this(HashUtil.sha256(deserialized.serialize()), deserialized, children, false)
+    constructor(deserialized: IKVValue, children: List<NonWrittenEntry>?) : this(HashUtil.sha256(deserialized.serialize()), deserialized, children, false)
 
-    constructor(hash: String): this(hash, null, null, true)
+    constructor(hash: String) : this(hash, null, null, true)
 
     fun getSerialized(): String = getDeserialized().serialize()
 
