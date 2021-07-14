@@ -1,7 +1,6 @@
 package org.modelix.model
 
 import org.modelix.model.api.*
-import org.modelix.model.client.GarbageFilteringStore
 import org.modelix.model.client.IdGenerator
 import org.modelix.model.lazy.*
 import org.modelix.model.operations.IOperation
@@ -39,7 +38,7 @@ class TreeSerializationTest {
     @Test
     fun serializeAndDeserialize() {
         val mapStore = MapBaseStore()
-        var store = GarbageFilteringStore(mapStore)
+        var store = mapStore
         var objectStore = ObjectStoreCache(store)
         val initialTree = CLTree(RepositoryId("tree01"), objectStore)
         val initialVersion = CLVersion.createRegularVersion(
@@ -66,7 +65,7 @@ class TreeSerializationTest {
         mapStore.entries.sortedBy { it.key }.forEach { println(""""${it.key}" to "${it.value}",""") }
         assertTree(tree)
 
-        store = GarbageFilteringStore(mapStore)
+        store = mapStore
         objectStore = ObjectStoreCache(store)
         val deserializedVersion = CLVersion(version.hash, objectStore)
         assertTree(deserializedVersion.tree)
@@ -228,7 +227,7 @@ class TreeSerializationTest {
     }
 
     fun assertStore(store: IKeyValueStore) {
-        val deserializedVersion = CLVersion(store["branch_master"]!!, ObjectStoreCache(GarbageFilteringStore(store)))
+        val deserializedVersion = CLVersion(store["branch_master"]!!, ObjectStoreCache(store))
         val deserializedTree = deserializedVersion.tree
         assertTree(deserializedTree)
 

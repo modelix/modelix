@@ -21,6 +21,7 @@ import org.modelix.model.IKeyValueStoreWrapper
 import org.modelix.model.api.runSynchronized
 import org.modelix.model.persistent.HashUtil
 
+@Deprecated(message = "Replaced by NonWrittenEntry")
 class GarbageFilteringStore(private val store: IKeyValueStore) : IKeyValueStoreWrapper {
     private val pendingEntries: MutableMap<String?, String?> = HashMap()
 

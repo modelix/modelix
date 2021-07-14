@@ -112,7 +112,7 @@ class RestWebModelClient @JvmOverloads constructor(var baseUrl: String? = null, 
     private val client: Client
     private val sseClient: Client
     private val listeners: MutableList<SseListener> = ArrayList()
-    override val asyncStore: IKeyValueStore = GarbageFilteringStore(AsyncStore(this))
+    override val asyncStore: IKeyValueStore = AsyncStore(this)
     private val cache = ObjectStoreCache(KeyValueStoreCache(asyncStore))
     private val pendingWrites = AtomicInteger(0)
 
