@@ -81,7 +81,7 @@ class OperationSerializer private constructor() {
                 AddNewChildSubtreeOp::class,
                 object : Serializer<AddNewChildSubtreeOp> {
                     override fun serialize(op: AddNewChildSubtreeOp): String {
-                        return longToHex(op.position.nodeId) + SEPARATOR + escape(op.position.role) + SEPARATOR + op.position.index + SEPARATOR + longToHex(op.childId) + SEPARATOR + serializeConcept(op.concept) + SEPARATOR + op.resultTreeHash
+                        return longToHex(op.position.nodeId) + SEPARATOR + escape(op.position.role) + SEPARATOR + op.position.index + SEPARATOR + longToHex(op.childId) + SEPARATOR + serializeConcept(op.concept) + SEPARATOR + op.resultTreeHash.getHash()
                     }
 
                     override fun deserialize(serialized: String): AddNewChildSubtreeOp {
