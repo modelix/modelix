@@ -15,6 +15,7 @@
 
 package org.modelix.model.persistent
 
+import org.modelix.model.lazy.KVEntryReference
 import org.modelix.model.persistent.SerializationUtil.intFromHex
 import org.modelix.model.persistent.SerializationUtil.longFromHex
 import kotlin.jvm.JvmStatic
@@ -23,6 +24,8 @@ abstract class CPHamtNode : IKVValue {
 
     override val hash: String by lazy(LazyThreadSafetyMode.PUBLICATION) { HashUtil.sha256(serialize()) }
 
+    override fun getDeserializer(): (String) -> IKVValue = DESERIALIZER
+
     companion object {
         val DESERIALIZER = { s: String -> deserialize(s) }
 
@@ -30,11 +33,12 @@ abstract class CPHamtNode : IKVValue {
         fun deserialize(input: String): CPHamtNode {
             val parts = input.split("/")
             return when {
-                "L" == parts[0] -> CPHamtLeaf(longFromHex(parts[1]), parts[2])
+                "L" == parts[0] -> CPHamtLeaf(longFromHex(parts[1]), KVEntryReference(parts[2], CPNode.DESERIALIZER))
                 "I" == parts[0] -> CPHamtInternal(
                     intFromHex(parts[1]),
                     parts[2].split(",")
                         .filter { it.isNotEmpty() }
+                        .map { KVEntryReference(it, DESERIALIZER) }
                         .toTypedArray()
                 )
                 else -> throw RuntimeException("Unknown type: " + parts[0] + ", input: " + input)

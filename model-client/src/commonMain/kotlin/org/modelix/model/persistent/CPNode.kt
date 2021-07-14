@@ -19,6 +19,7 @@ import org.modelix.model.api.COWArrays.copy
 import org.modelix.model.api.COWArrays.insert
 import org.modelix.model.api.COWArrays.removeAt
 import org.modelix.model.api.COWArrays.set
+import org.modelix.model.lazy.KVEntryReference
 import org.modelix.model.persistent.CPNodeRef.Companion.fromString
 import org.modelix.model.persistent.SerializationUtil.escape
 import org.modelix.model.persistent.SerializationUtil.longFromHex
@@ -176,6 +177,8 @@ class CPNode private constructor(
             }
         }
     }
+    override fun getDeserializer(): (String) -> IKVValue = DESERIALIZER
+    override fun getReferencedEntries(): List<KVEntryReference<IKVValue>> = listOf()
 
     companion object {
         private val EMPTY_LONG_ARRAY = LongArray(0)

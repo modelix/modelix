@@ -15,8 +15,8 @@
 
 package org.modelix.model.persistent
 
+import org.modelix.model.lazy.KVEntryReference
 import org.modelix.model.operations.IOperation
-import org.modelix.model.persistent.HashUtil.sha256
 
 class CPOperationsList(val operations: Array<IOperation>) : IKVValue {
     override fun serialize(): String {
@@ -26,7 +26,15 @@ class CPOperationsList(val operations: Array<IOperation>) : IKVValue {
 
     override val hash: String by lazy(LazyThreadSafetyMode.PUBLICATION) { HashUtil.sha256(serialize()) }
 
+    override fun getDeserializer(): (String) -> IKVValue = DESERIALIZER
+
+    override fun getReferencedEntries(): List<KVEntryReference<IKVValue>> {
+        return operations.map { it.getReferencedEntries() }.flatten()
+    }
+
     companion object {
+        val DESERIALIZER: (String) -> CPOperationsList = { deserialize(it) }
+
         fun deserialize(input: String): CPOperationsList {
             return CPOperationsList(
                 input.split(",")

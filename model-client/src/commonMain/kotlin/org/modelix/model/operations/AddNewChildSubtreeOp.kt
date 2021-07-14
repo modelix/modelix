@@ -18,13 +18,14 @@ package org.modelix.model.operations
 import org.modelix.model.api.IConcept
 import org.modelix.model.api.ITree
 import org.modelix.model.api.IWriteTransaction
-import org.modelix.model.lazy.CLNode
-import org.modelix.model.lazy.CLTree
-import org.modelix.model.lazy.IDeserializingKeyValueStore
-import org.modelix.model.lazy.NonWrittenEntriesStore
+import org.modelix.model.lazy.*
+import org.modelix.model.persistent.CPTree
+import org.modelix.model.persistent.IKVValue
 import org.modelix.model.persistent.SerializationUtil
 
-class AddNewChildSubtreeOp(val resultTreeHash: String, val position: PositionInRole, val childId: Long, val concept: IConcept?) : AbstractOperation() {
+class AddNewChildSubtreeOp(val resultTreeHash: KVEntryReference<CPTree>, val position: PositionInRole, val childId: Long, val concept: IConcept?) : AbstractOperation() {
+
+    override fun getReferencedEntries(): List<KVEntryReference<IKVValue>> = listOf(resultTreeHash)
 
     fun withPosition(newPos: PositionInRole): AddNewChildSubtreeOp {
         return if (newPos == position) this else AddNewChildSubtreeOp(resultTreeHash, newPos, childId, concept)
@@ -50,11 +51,7 @@ class AddNewChildSubtreeOp(val resultTreeHash: String, val position: PositionInR
         }
     }
 
-    private fun getResultTree(store: IDeserializingKeyValueStore) =
-        (
-            store.get(resultTreeHash, { CLTree(resultTreeHash, NonWrittenEntriesStore.create(store)) })
-                ?: throw RuntimeException("Tree $resultTreeHash not found")
-            )
+    private fun getResultTree(store: IDeserializingKeyValueStore): CLTree = CLTree(resultTreeHash.getValue(store), store)
 
     private fun decompressNode(tree: ITree, node: CLNode, position: PositionInRole?, references: Boolean, opsVisitor: (IOperation) -> Unit) {
         if (references) {

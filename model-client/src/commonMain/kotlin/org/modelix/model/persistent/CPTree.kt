@@ -15,28 +15,31 @@
 
 package org.modelix.model.persistent
 
+import org.modelix.model.lazy.KVEntryReference
 import kotlin.jvm.JvmStatic
 
 class CPTree(
     val id: String,
     val rootId: Long,
-    /**
-     * SHA to CPHamtNode
-     */
-    var idToHash: String
+    var idToHash: KVEntryReference<CPHamtNode>
 ) : IKVValue {
 
     override fun serialize(): String {
-        return "$id/$rootId/$idToHash"
+        return "$id/$rootId/${idToHash.getHash()}"
     }
 
     override val hash: String by lazy(LazyThreadSafetyMode.PUBLICATION) { HashUtil.sha256(serialize()) }
 
+    override fun getDeserializer(): (String) -> IKVValue = DESERIALIZER
+
+    override fun getReferencedEntries(): List<KVEntryReference<IKVValue>> = listOf(idToHash)
+
     companion object {
+        val DESERIALIZER: (String) -> CPTree = { deserialize(it) }
         @JvmStatic
         fun deserialize(input: String): CPTree {
             val parts = input.split("/")
-            return CPTree(parts[0], parts[1].toLong(), parts[2])
+            return CPTree(parts[0], parts[1].toLong(), KVEntryReference(parts[2], CPHamtNode.DESERIALIZER))
         }
     }
 }

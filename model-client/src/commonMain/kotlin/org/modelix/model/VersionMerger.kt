@@ -19,7 +19,6 @@ import org.modelix.model.api.*
 import org.modelix.model.lazy.CLTree
 import org.modelix.model.lazy.CLVersion
 import org.modelix.model.lazy.IDeserializingKeyValueStore
-import org.modelix.model.lazy.NonWrittenEntriesStore
 import org.modelix.model.operations.*
 import org.modelix.model.persistent.CPVersion
 
@@ -94,7 +93,7 @@ class VersionMerger(private val storeCache: IDeserializingKeyValueStore, private
                 leftVersion,
                 rightVersion,
                 appliedOps.map { it.getOriginalOp() }.toTypedArray(),
-                NonWrittenEntriesStore.create(storeCache)
+                storeCache
             )
 //            println("result ${mergedVersion?.id?.toString(16)}")
         }
@@ -153,10 +152,10 @@ class VersionMerger(private val storeCache: IDeserializingKeyValueStore, private
     }
 
     private fun getVersion(hash: String): CLVersion {
-        return CLVersion.loadFromHash(hash, NonWrittenEntriesStore.create(storeCache))
+        return CLVersion.loadFromHash(hash, storeCache)
     }
 
     protected fun getTree(version: CPVersion): ITree {
-        return CLTree(version.treeHash, NonWrittenEntriesStore.create(storeCache))
+        return CLTree(version.treeHash!!.getValue(storeCache), storeCache)
     }
 }

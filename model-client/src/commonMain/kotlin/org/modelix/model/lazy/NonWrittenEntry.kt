@@ -13,82 +13,38 @@
  */
 package org.modelix.model.lazy
 
-import kotlinx.collections.immutable.PersistentMap
-import kotlinx.collections.immutable.persistentHashMapOf
 import org.modelix.model.persistent.IKVValue
 
-class NonWrittenEntry {
-    val hash: String
-    private var deserialized: IKVValue?
-    var children: List<NonWrittenEntry>?
+class NonWrittenEntry<E : IKVValue> : IKVEntryReference<E> {
+    private val hash: String
+    private val deserialized: E
     private var written: Boolean = false
-    private var entryMap: PersistentMap<String, NonWrittenEntry>? = null
 
-    private constructor(hash: String, deserialized: IKVValue?, children: List<NonWrittenEntry>?, written: Boolean) {
+    private constructor(hash: String, deserialized: E, written: Boolean) {
         this.hash = hash
         this.deserialized = deserialized
-        this.children = children
         this.written = written
     }
 
-    constructor(deserialized: IKVValue, children: List<NonWrittenEntry>?) : this(deserialized.hash, deserialized, children, false)
+    constructor(deserialized: E) : this(deserialized.hash, deserialized, false)
 
-    constructor(hash: String) : this(hash, null, null, true)
+    fun isWritten() = written
+
+    override fun getHash(): String = hash
+
+    override fun getValue(store: IDeserializingKeyValueStore): E = getDeserialized()
 
     fun getSerialized(): String = getDeserialized().serialize()
 
-    fun getDeserialized(): IKVValue = deserialized ?: throw IllegalStateException("already written")
+    fun getDeserialized(): E = deserialized
 
-    fun findEntry(hash: String): NonWrittenEntry? = getMap()[hash]?.let { if (it.written) null else it }
+    override fun getDeserializer(): (String) -> E = getDeserialized().getDeserializer() as (String) -> E
 
-    fun <T> get(hash: String, deserializer: (String) -> T): T? {
-        if (written) return null
-        return findEntry(hash)?.deserialized as T?
-    }
-
-    fun write(store: IDeserializingKeyValueStore) {
+    override fun write(store: IDeserializingKeyValueStore) {
         if (!written) {
-            children?.forEach { child -> child.write(store) }
-            store.put(hash, deserialized!!, getSerialized())
+            deserialized.getReferencedEntries().forEach { it.write(store) }
+            store.put(hash, deserialized, getSerialized())
             written = true
-            children = null
-            deserialized = null
-            entryMap = null
         }
-    }
-
-    fun withChildren(newChildren: List<NonWrittenEntry>): NonWrittenEntry {
-        if (written) throw IllegalStateException("Already written")
-        return NonWrittenEntry(hash, deserialized!!, newChildren, written)
-    }
-
-    fun load(map: MutableMap<String, NonWrittenEntry>) {
-        map[hash] = this
-        children?.forEach { it.load(map) }
-    }
-
-    fun getMap(): PersistentMap<String, NonWrittenEntry> {
-        if (written) return persistentHashMapOf()
-        var m: PersistentMap<String, NonWrittenEntry>? = entryMap
-        if (m == null) {
-            m = (children ?: listOf())
-                .map { it.getMap() }
-                .sortedByDescending { it.size }
-                .reduceOrNull { l, r -> putAllIfMissing(l, r) }
-                ?: persistentHashMapOf()
-            m = m.put(hash, this)
-            entryMap = m
-        }
-        return m
-    }
-
-    private fun putAllIfMissing(base: PersistentMap<String, NonWrittenEntry>, toAdd: PersistentMap<String, NonWrittenEntry>): PersistentMap<String, NonWrittenEntry> {
-        var result = base
-        for (entry in toAdd) {
-            if (!result.containsKey(entry.key)) {
-                result = result.put(entry.key, entry.value)
-            }
-        }
-        return result
     }
 }

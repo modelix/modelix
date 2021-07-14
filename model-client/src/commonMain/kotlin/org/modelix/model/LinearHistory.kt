@@ -1,7 +1,9 @@
 package org.modelix.model
 
 import org.modelix.model.lazy.CLVersion
-import org.modelix.model.lazy.NonWrittenEntriesStore
+import org.modelix.model.lazy.IDeserializingKeyValueStore
+import org.modelix.model.lazy.KVEntryReference
+import org.modelix.model.persistent.CPVersion
 
 class LinearHistory(val baseVersionHash: String?) {
 
@@ -58,7 +60,7 @@ class LinearHistory(val baseVersionHash: String?) {
         }
     }
 
-    private fun getVersion(hash: String, store: NonWrittenEntriesStore): CLVersion {
-        return CLVersion.loadFromHash(hash, store)
+    private fun getVersion(hash: KVEntryReference<CPVersion>, store: IDeserializingKeyValueStore): CLVersion {
+        return CLVersion(hash.getValue(store), store)
     }
 }

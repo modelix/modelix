@@ -15,34 +15,27 @@
 
 package org.modelix.model.lazy
 
-import org.modelix.model.persistent.CPHamtInternal
-import org.modelix.model.persistent.CPHamtLeaf
-import org.modelix.model.persistent.CPHamtNode
-import org.modelix.model.persistent.CPNode
+import org.modelix.model.persistent.*
 import kotlin.jvm.JvmStatic
 
-abstract class CLHamtNode<E : CPHamtNode>(val store: NonWrittenEntriesStore) {
+abstract class CLHamtNode<E : CPHamtNode>(val store: IDeserializingKeyValueStore) {
     protected fun createEmptyNode(): CLHamtNode<*> {
         return create(CPHamtInternal(0, arrayOf()), store)!!
     }
 
     abstract fun getData(): CPHamtNode
 
-    operator fun get(key: Long): String? {
+    operator fun get(key: Long): KVEntryReference<CPNode>? {
         val bulkQuery: IBulkQuery = NonBulkQuery(store)
         return get(key, 0, bulkQuery).execute()
     }
 
-    fun getAll(keys: Iterable<Long>, bulkQuery: IBulkQuery): IBulkQuery.Value<List<String?>> {
+    fun getAll(keys: Iterable<Long>, bulkQuery: IBulkQuery): IBulkQuery.Value<List<KVEntryReference<CPNode>?>> {
         return bulkQuery.map(keys) { key: Long -> get(key, 0, bulkQuery) }
     }
 
-    fun put(key: Long, value: NonWrittenEntry?): CLHamtNode<*>? {
+    fun put(key: Long, value: KVEntryReference<CPNode>?): CLHamtNode<*>? {
         return put(key, value, 0)
-    }
-
-    fun put(key: Long, value: String?): CLHamtNode<*>? {
-        return put(key, value?.let { NonWrittenEntry(value) })
     }
 
     fun put(element: CLNode): CLHamtNode<*>? {
@@ -50,7 +43,7 @@ abstract class CLHamtNode<E : CPHamtNode>(val store: NonWrittenEntriesStore) {
     }
 
     fun put(data: CPNode): CLHamtNode<*>? {
-        return put(data.id, NonWrittenEntry(data, listOf()))
+        return put(data.id, KVEntryReference(data))
     }
 
     fun remove(key: Long): CLHamtNode<*>? {
@@ -61,15 +54,15 @@ abstract class CLHamtNode<E : CPHamtNode>(val store: NonWrittenEntriesStore) {
         return remove(element.id)
     }
 
-    abstract operator fun get(key: Long, shift: Int, bulkQuery: IBulkQuery): IBulkQuery.Value<String?>
-    abstract fun put(key: Long, value: NonWrittenEntry?, shift: Int): CLHamtNode<*>?
+    abstract operator fun get(key: Long, shift: Int, bulkQuery: IBulkQuery): IBulkQuery.Value<KVEntryReference<CPNode>?>
+    abstract fun put(key: Long, value: KVEntryReference<CPNode>?, shift: Int): CLHamtNode<*>?
     abstract fun remove(key: Long, shift: Int): CLHamtNode<*>?
-    abstract fun visitEntries(visitor: (Long, String?) -> Boolean): Boolean
+    abstract fun visitEntries(visitor: (Long, KVEntryReference<CPNode>?) -> Boolean): Boolean
     abstract fun visitChanges(oldNode: CLHamtNode<*>?, visitor: IChangeVisitor)
     interface IChangeVisitor {
-        fun entryAdded(key: Long, value: String?)
-        fun entryRemoved(key: Long, value: String?)
-        fun entryChanged(key: Long, oldValue: String?, newValue: String?)
+        fun entryAdded(key: Long, value: KVEntryReference<CPNode>?)
+        fun entryRemoved(key: Long, value: KVEntryReference<CPNode>?)
+        fun entryChanged(key: Long, oldValue: KVEntryReference<CPNode>?, newValue: KVEntryReference<CPNode>?)
     }
 
     companion object {
@@ -79,7 +72,7 @@ abstract class CLHamtNode<E : CPHamtNode>(val store: NonWrittenEntriesStore) {
         const val MAX_BITS = 64
         const val MAX_SHIFT = MAX_BITS - BITS_PER_LEVEL
         @JvmStatic
-        fun create(data: CPHamtNode?, store: NonWrittenEntriesStore): CLHamtNode<*>? {
+        fun create(data: CPHamtNode?, store: IDeserializingKeyValueStore): CLHamtNode<*>? {
             return when (data) {
                 null -> null
                 is CPHamtLeaf -> {

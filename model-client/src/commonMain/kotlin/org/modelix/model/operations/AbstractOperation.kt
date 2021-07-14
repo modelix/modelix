@@ -16,6 +16,8 @@
 package org.modelix.model.operations
 
 import org.modelix.model.api.ITree
+import org.modelix.model.lazy.KVEntryReference
+import org.modelix.model.persistent.IKVValue
 
 abstract class AbstractOperation : IOperation {
 
@@ -24,6 +26,8 @@ abstract class AbstractOperation : IOperation {
             return "applied:" + this@AbstractOperation.toString()
         }
     }
+
+    override fun getReferencedEntries(): List<KVEntryReference<IKVValue>> = listOf()
 
     override fun toCode(): String {
         return ""

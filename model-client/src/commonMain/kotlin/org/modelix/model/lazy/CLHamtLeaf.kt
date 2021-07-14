@@ -16,11 +16,13 @@
 package org.modelix.model.lazy
 
 import org.modelix.model.persistent.CPHamtLeaf
+import org.modelix.model.persistent.CPNode
+import org.modelix.model.persistent.IKVValue
 
 class CLHamtLeaf : CLHamtNode<CPHamtLeaf> {
     private val data: CPHamtLeaf
 
-    constructor(data: CPHamtLeaf, store: NonWrittenEntriesStore) : super(store) {
+    constructor(data: CPHamtLeaf, store: IDeserializingKeyValueStore) : super(store) {
         this.data = data
     }
 
@@ -31,19 +33,19 @@ class CLHamtLeaf : CLHamtNode<CPHamtLeaf> {
     val key: Long
         get() = data.key
 
-    val value: String
+    val value: KVEntryReference<CPNode>
         get() = data.value
 
-    override fun put(key: Long, value: NonWrittenEntry?, shift: Int): CLHamtNode<*>? {
+    override fun put(key: Long, value: KVEntryReference<CPNode>?, shift: Int): CLHamtNode<*>? {
         return if (key == data.key) {
-            if (value?.hash == data.value) {
+            if (value?.getHash() == data.value.getHash()) {
                 this
             } else {
                 create(key, value, store)
             }
         } else {
             var result: CLHamtNode<*>? = createEmptyNode()
-            result = result!!.put(data.key, NonWrittenEntry(data.value), shift)
+            result = result!!.put(data.key, data.value, shift)
             if (result == null) {
                 result = createEmptyNode()
             }
@@ -60,11 +62,11 @@ class CLHamtLeaf : CLHamtNode<CPHamtLeaf> {
         }
     }
 
-    override fun get(key: Long, shift: Int, bulkQuery: IBulkQuery): IBulkQuery.Value<String?> {
+    override fun get(key: Long, shift: Int, bulkQuery: IBulkQuery): IBulkQuery.Value<KVEntryReference<CPNode>?> {
         return bulkQuery.constant(if (data.key == key) data.value else null)
     }
 
-    override fun visitEntries(visitor: (Long, String?) -> Boolean): Boolean {
+    override fun visitEntries(visitor: (Long, KVEntryReference<CPNode>?) -> Boolean): Boolean {
         return visitor(data.key, data.value)
     }
 
@@ -72,8 +74,8 @@ class CLHamtLeaf : CLHamtNode<CPHamtLeaf> {
         if (oldNode === this) {
             return
         }
-        var oldValue: String? = null
-        val bp = { k: Long?, v: String? ->
+        var oldValue: KVEntryReference<CPNode>? = null
+        val bp = { k: Long?, v: KVEntryReference<CPNode>? ->
             if (k == data.key) {
                 oldValue = v
             } else {
@@ -84,17 +86,16 @@ class CLHamtLeaf : CLHamtNode<CPHamtLeaf> {
         oldNode!!.visitEntries(bp)
         if (oldValue == null) {
             visitor.entryAdded(data.key, data.value)
-        } else if (oldValue !== data.value) {
+        } else if (oldValue?.getHash() !== data.value.getHash()) {
             visitor.entryChanged(data.key, oldValue, data.value)
         }
     }
 
     companion object {
-        fun create(key: Long, value: NonWrittenEntry?, store: NonWrittenEntriesStore): CLHamtLeaf? {
-            val hash = value?.hash
-            if (hash == null) return null
-            val data = CPHamtLeaf(key, hash)
-            return CLHamtLeaf(data, store.with(data, listOf(value)))
+        fun create(key: Long, value: KVEntryReference<CPNode>?, store: IDeserializingKeyValueStore): CLHamtLeaf? {
+            if (value == null) return null
+            val data = CPHamtLeaf(key, value)
+            return CLHamtLeaf(data, store)
         }
     }
 }

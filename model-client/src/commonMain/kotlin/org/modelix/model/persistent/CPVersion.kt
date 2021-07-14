@@ -16,6 +16,7 @@
 package org.modelix.model.persistent
 
 import org.modelix.model.api.logWarning
+import org.modelix.model.lazy.KVEntryReference
 import org.modelix.model.operations.IOperation
 import org.modelix.model.persistent.SerializationUtil.escape
 import org.modelix.model.persistent.SerializationUtil.longFromHex
@@ -26,58 +27,71 @@ class CPVersion(
     id: Long,
     time: String?,
     author: String?,
-    treeHash: String?,
-    previousVersion: String?, // deprecated, use baseVersion instead
-    originalVersion: String?, // deprecated, there is no rewriting of versions anymore. Use mergedVersion1/2 instead
-    baseVersion: String?, // the version, the operations are applied to, to create this version
+    treeHash: KVEntryReference<CPTree>?,
+    previousVersion: KVEntryReference<CPVersion>?, // deprecated, use baseVersion instead
+    originalVersion: KVEntryReference<CPVersion>?, // deprecated, there is no rewriting of versions anymore. Use mergedVersion1/2 instead
+    baseVersion: KVEntryReference<CPVersion>?, // the version, the operations are applied to, to create this version
     // in case of a merge it is the common base version of the two branches
-    mergedVersion1: String?, // null if this is not a merge
-    mergedVersion2: String?, // null if this is not a merge
+    mergedVersion1: KVEntryReference<CPVersion>?, // null if this is not a merge
+    mergedVersion2: KVEntryReference<CPVersion>?, // null if this is not a merge
     operations: Array<IOperation>?,
-    operationsHash: String?,
+    operationsHash: KVEntryReference<CPOperationsList>?,
     numberOfOperations: Int
 ) : IKVValue {
     val id: Long
     val time: String?
     val author: String?
 
-    /**
-     * SHA to CPTree
-     */
-    val treeHash: String?
-    val previousVersion: String?
+    val treeHash: KVEntryReference<CPTree>?
+    val previousVersion: KVEntryReference<CPVersion>?
 
     /**
      * The version created by the original author before is was rewritten during a merge
      */
-    val originalVersion: String?
+    val originalVersion: KVEntryReference<CPVersion>?
 
-    val baseVersion: String?
-    val mergedVersion1: String?
-    val mergedVersion2: String?
+    val baseVersion: KVEntryReference<CPVersion>?
+    val mergedVersion1: KVEntryReference<CPVersion>?
+    val mergedVersion2: KVEntryReference<CPVersion>?
 
     val operations: Array<IOperation>?
-    val operationsHash: String?
+    val operationsHash: KVEntryReference<CPOperationsList>?
     val numberOfOperations: Int
     override fun serialize(): String {
-        val opsPart = operationsHash
+        val opsPart: String = operationsHash?.getHash()
             ?: if (operations!!.isEmpty()) "" else operations
                 .map { OperationSerializer.INSTANCE.serialize(it) }
                 .reduce { a: String, b: String -> "$a,$b" }
         return longToHex(id) +
             "/" + escape(time) +
             "/" + escape(author) +
-            "/" + nullAsEmptyString(treeHash) +
-            "/" + nullAsEmptyString(baseVersion) +
-            "/" + nullAsEmptyString(mergedVersion1) +
-            "/" + nullAsEmptyString(mergedVersion2) +
+            "/" + nullAsEmptyString(treeHash?.getHash()) +
+            "/" + nullAsEmptyString(baseVersion?.getHash()) +
+            "/" + nullAsEmptyString(mergedVersion1?.getHash()) +
+            "/" + nullAsEmptyString(mergedVersion2?.getHash()) +
             "/" + numberOfOperations +
             "/" + opsPart
     }
 
+    override fun getReferencedEntries(): List<KVEntryReference<IKVValue>> {
+        return listOfNotNull(
+            treeHash,
+            previousVersion,
+            originalVersion,
+            baseVersion,
+            mergedVersion1,
+            mergedVersion2,
+            operationsHash
+        ) + (operations ?: arrayOf()).map { it.getReferencedEntries() }.flatten()
+    }
+
     override val hash: String by lazy(LazyThreadSafetyMode.PUBLICATION) { HashUtil.sha256(serialize()) }
 
+    override fun getDeserializer(): (String) -> IKVValue = DESERIALIZER
+
     companion object {
+        val DESERIALIZER: (String) -> CPVersion = { deserialize(it) }
+
         fun deserialize(input: String): CPVersion {
             try {
                 val parts = input.split("/").toTypedArray()
@@ -96,14 +110,14 @@ class CPVersion(
                         longFromHex(parts[0]),
                         unescape(parts[1]),
                         unescape(parts[2]),
-                        treeHash = emptyStringAsNull(parts[3]),
+                        treeHash = emptyStringAsNull(parts[3])?.let { KVEntryReference(it, CPTree.DESERIALIZER) },
                         previousVersion = null,
                         originalVersion = null,
-                        baseVersion = emptyStringAsNull(parts[4]),
-                        mergedVersion1 = emptyStringAsNull(parts[5]),
-                        mergedVersion2 = emptyStringAsNull(parts[6]),
+                        baseVersion = emptyStringAsNull(parts[4])?.let { KVEntryReference(it, DESERIALIZER) },
+                        mergedVersion1 = emptyStringAsNull(parts[5])?.let { KVEntryReference(it, DESERIALIZER) },
+                        mergedVersion2 = emptyStringAsNull(parts[6])?.let { KVEntryReference(it, DESERIALIZER) },
                         operations = ops,
-                        operationsHash = opsHash,
+                        operationsHash = opsHash?.let { KVEntryReference(it, CPOperationsList.DESERIALIZER) },
                         numberOfOperations = parts[7].toInt()
                     )
                 } else {
@@ -122,14 +136,14 @@ class CPVersion(
                         id = longFromHex(parts[0]),
                         time = unescape(parts[1]),
                         author = unescape(parts[2]),
-                        treeHash = emptyStringAsNull(parts[3]),
-                        previousVersion = emptyStringAsNull(parts[4]),
-                        originalVersion = if (parts.size > 7) emptyStringAsNull(parts[7]) else null,
+                        treeHash = emptyStringAsNull(parts[3])?.let { KVEntryReference(it, CPTree.DESERIALIZER) },
+                        previousVersion = emptyStringAsNull(parts[4])?.let { KVEntryReference(it, DESERIALIZER) },
+                        originalVersion = if (parts.size > 7) emptyStringAsNull(parts[7])?.let { KVEntryReference(it, DESERIALIZER) } else null,
                         baseVersion = null,
                         mergedVersion1 = null,
                         mergedVersion2 = null,
                         ops,
-                        opsHash,
+                        opsHash?.let { KVEntryReference(it, CPOperationsList.DESERIALIZER) },
                         numOps
                     )
                 }
@@ -140,7 +154,7 @@ class CPVersion(
     }
 
     init {
-        if (treeHash.isNullOrEmpty()) {
+        if (treeHash == null) {
             logWarning("No tree hash provided", RuntimeException(), CPVersion::class)
         }
         if ((operations == null) == (operationsHash == null)) {

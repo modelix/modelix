@@ -11,16 +11,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.modelix.model.persistent
+package org.modelix.model.lazy
 
-import org.modelix.model.lazy.KVEntryReference
+import org.modelix.model.persistent.IKVValue
 
-/**
- * Serializable object that can be stored in a key value store
- */
-interface IKVValue {
-    fun serialize(): String
-    val hash: String
-    fun getDeserializer(): (String) -> IKVValue
-    fun getReferencedEntries(): List<KVEntryReference<IKVValue>>
+interface IKVEntryReference<out E : IKVValue> {
+    fun getHash(): String
+    fun getValue(store: IDeserializingKeyValueStore): E
+    fun getDeserializer(): (String) -> E
+    fun write(store: IDeserializingKeyValueStore)
 }

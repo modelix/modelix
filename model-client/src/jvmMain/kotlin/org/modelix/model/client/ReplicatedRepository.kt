@@ -24,7 +24,6 @@ import org.modelix.model.client.SharedExecutors.fixDelay
 import org.modelix.model.lazy.CLTree
 import org.modelix.model.lazy.CLVersion
 import org.modelix.model.lazy.CLVersion.Companion.loadFromHash
-import org.modelix.model.lazy.NonWrittenEntriesStore
 import org.modelix.model.lazy.RepositoryId
 import org.modelix.model.metameta.MetaModelBranch
 import org.modelix.model.operations.IAppliedOperation
@@ -244,14 +243,15 @@ actual open class ReplicatedRepository actual constructor(
 
     init {
         val versionHash = client[repositoryId.getBranchKey(branchName)]
-        var initialVersion = if (versionHash.isNullOrEmpty()) null else loadFromHash(versionHash, NonWrittenEntriesStore.create(client.storeCache!!))
+        val store = client.storeCache!!
+        var initialVersion = if (versionHash.isNullOrEmpty()) null else loadFromHash(versionHash, store)
         val initialTree = MutableObject<CLTree>()
         if (initialVersion == null) {
-            initialTree.setValue(CLTree(repositoryId, NonWrittenEntriesStore.create(client.storeCache!!)))
+            initialTree.setValue(CLTree(repositoryId, store))
             initialVersion = createVersion(initialTree.value, arrayOf(), null)
             client.asyncStore!!.put(repositoryId.getBranchKey(branchName), initialVersion.hash)
         } else {
-            initialTree.setValue(CLTree(initialVersion.treeHash, NonWrittenEntriesStore.create(client.storeCache!!)))
+            initialTree.setValue(CLTree(initialVersion.treeHash?.getValue(store), store))
         }
 
         // prefetch to avoid HTTP request in command listener 
@@ -259,9 +259,9 @@ actual open class ReplicatedRepository actual constructor(
         localVersion = initialVersion
         remoteVersion = initialVersion
         localBranch = PBranch(initialTree.value, client.idGenerator)
-        localOTBranch = OTBranch(localBranch, client.idGenerator, client.storeCache!!)
+        localOTBranch = OTBranch(localBranch, client.idGenerator, store)
         localMMBranch = MetaModelBranch(localOTBranch)
-        merger = VersionMerger(client.storeCache!!, client.idGenerator)
+        merger = VersionMerger(store, client.idGenerator)
         versionChangeDetector = object : VersionChangeDetector(client, repositoryId.getBranchKey(branchName)) {
             override fun processVersionChange(oldVersionHash: String?, newVersionHash: String?) {
                 if (disposed) {
@@ -273,7 +273,7 @@ actual open class ReplicatedRepository actual constructor(
                 if (newVersionHash == getHash(remoteVersion)) {
                     return
                 }
-                val newRemoteVersion = loadFromHash(newVersionHash, NonWrittenEntriesStore.create(client.storeCache!!))
+                val newRemoteVersion = loadFromHash(newVersionHash, store)
                 val localBase = MutableObject<CLVersion?>()
                 synchronized(mergeLock) {
                     localBase.setValue(localVersion)

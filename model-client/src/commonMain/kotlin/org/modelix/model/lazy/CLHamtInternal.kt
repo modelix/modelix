@@ -19,24 +19,26 @@ import org.modelix.model.api.COWArrays
 import org.modelix.model.bitCount
 import org.modelix.model.persistent.CPHamtInternal
 import org.modelix.model.persistent.CPHamtNode
+import org.modelix.model.persistent.CPNode
+import org.modelix.model.persistent.IKVValue
 
 class CLHamtInternal : CLHamtNode<CPHamtInternal> {
     private val data_: CPHamtInternal
 
     companion object {
-        fun createEmpty(store: IDeserializingKeyValueStore) = create(0, arrayOf<String>(), store, listOf())
+        fun createEmpty(store: IDeserializingKeyValueStore) = create(0, arrayOf(), store)
 
-        fun create(bitmap: Int, childHashes: Array<String>, store: IDeserializingKeyValueStore, childrenNWE: List<NonWrittenEntry>): CLHamtInternal {
+        fun create(bitmap: Int, childHashes: Array<KVEntryReference<CPHamtNode>>, store: IDeserializingKeyValueStore): CLHamtInternal {
             val data = CPHamtInternal(bitmap, childHashes)
-            return CLHamtInternal(data, NonWrittenEntriesStore.create(store).with(data, childrenNWE))
+            return CLHamtInternal(data, store)
         }
     }
 
-    constructor(data: CPHamtInternal, store: NonWrittenEntriesStore) : super(store) {
+    constructor(data: CPHamtInternal, store: IDeserializingKeyValueStore) : super(store) {
         this.data_ = data
     }
 
-    override fun put(key: Long, value: NonWrittenEntry?, shift: Int): CLHamtNode<*>? {
+    override fun put(key: Long, value: KVEntryReference<CPNode>?, shift: Int): CLHamtNode<*>? {
         val childIndex = indexFromKey(key, shift)
         val child = getChild(childIndex, NonBulkQuery(store)).execute()
         return if (child == null) {
@@ -56,11 +58,11 @@ class CLHamtInternal : CLHamtNode<CPHamtInternal> {
         }
     }
 
-    override fun get(key: Long, shift: Int, bulkQuery: IBulkQuery): IBulkQuery.Value<String?> {
+    override fun get(key: Long, shift: Int, bulkQuery: IBulkQuery): IBulkQuery.Value<KVEntryReference<CPNode>?> {
         val childIndex = indexFromKey(key, shift)
         return getChild(childIndex, bulkQuery).mapBulk { child: CLHamtNode<*>? ->
             if (child == null) {
-                bulkQuery.constant<String?>(null)
+                bulkQuery.constant(null)
             } else {
                 child[key, shift + BITS_PER_LEVEL, bulkQuery]
             }
@@ -83,15 +85,15 @@ class CLHamtInternal : CLHamtNode<CPHamtInternal> {
         return getChild(childHash, bulkQuery)
     }
 
-    protected fun getChild(childHash: String, bulkQuery: IBulkQuery): IBulkQuery.Value<CLHamtNode<*>?> {
-        return bulkQuery[childHash, CPHamtNode.DESERIALIZER].map { childData -> create(childData, store) }
+    protected fun getChild(childHash: KVEntryReference<CPHamtNode>, bulkQuery: IBulkQuery): IBulkQuery.Value<CLHamtNode<*>?> {
+        return bulkQuery[childHash].map { childData -> create(childData, store) }
     }
 
     protected fun getChild(logicalIndex: Int): CLHamtNode<*>? {
         return getChild(logicalIndex, NonBulkQuery(store)).execute()
     }
 
-    protected fun getChild(childHash: String): CLHamtNode<*>? {
+    protected fun getChild(childHash: KVEntryReference<CPHamtNode>): CLHamtNode<*>? {
         return getChild(childHash, NonBulkQuery(store)).execute()
     }
 
@@ -99,23 +101,19 @@ class CLHamtInternal : CLHamtNode<CPHamtInternal> {
         if (child == null) {
             return deleteChild(logicalIndex)
         }
-        val childHash = child.getData().hash
+        val childHash = KVEntryReference(child.getData())
         val physicalIndex = logicalToPhysicalIndex(data_.bitmap, logicalIndex)
-        val oldChildrenNWE: List<NonWrittenEntry> = store.entry?.children ?: listOf()
         return if (isBitNotSet(data_.bitmap, logicalIndex)) {
             create(
                 data_.bitmap or (1 shl logicalIndex),
                 COWArrays.insert(data_.children, physicalIndex, childHash),
-                store,
-                oldChildrenNWE + listOfNotNull(child.store.entry)
+                store
             )
         } else {
             create(
                 data_.bitmap,
                 COWArrays.set(data_.children, physicalIndex, childHash),
-                store,
-                oldChildrenNWE.filter { it.hash != null && it.hash != data_.children[physicalIndex] } +
-                    listOfNotNull(child.store.entry)
+                store
             )
         }
     }
@@ -136,13 +134,12 @@ class CLHamtInternal : CLHamtNode<CPHamtInternal> {
                 return child0
             }
         }
-        val oldChildrenNWE = store.entry?.children ?: listOf()
-        return create(newBitmap, newChildren, store, oldChildrenNWE.filter { it.hash != null && it.hash != data_.children[physicalIndex] })
+        return create(newBitmap, newChildren, store)
     }
 
-    override fun visitEntries(visitor: (Long, String?) -> Boolean): Boolean {
+    override fun visitEntries(visitor: (Long, KVEntryReference<CPNode>?) -> Boolean): Boolean {
         for (childHash in data_.children) {
-            val child = getChild(childHash)
+            val child = CLHamtNode.create(childHash.getValue(store), store)
             val continueVisit = child!!.visitEntries(visitor)
             if (!continueVisit) {
                 return false

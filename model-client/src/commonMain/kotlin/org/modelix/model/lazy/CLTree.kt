@@ -26,14 +26,14 @@ import org.modelix.model.persistent.CPNodeRef.Companion.foreign
 import org.modelix.model.persistent.CPNodeRef.Companion.local
 
 class CLTree : ITree {
-    val store: NonWrittenEntriesStore
-    protected val data: CPTree
+    val store: IDeserializingKeyValueStore
+    val data: CPTree
 
-    constructor(hash: String?, store: IDeserializingKeyValueStore) : this(if (hash == null) null else store.get<CPTree>(hash) { CPTree.deserialize(it) }, null, NonWrittenEntriesStore.create(store))
-    constructor(store: IDeserializingKeyValueStore) : this(null as CPTree?, null, NonWrittenEntriesStore.create(store))
-    constructor(id: RepositoryId?, store: NonWrittenEntriesStore) : this(null, id, store)
-    constructor(id: RepositoryId?, store: IDeserializingKeyValueStore) : this(null, id, NonWrittenEntriesStore.create(store))
-    private constructor(data: CPTree?, repositoryId_: RepositoryId?, store_: NonWrittenEntriesStore) {
+    constructor(hash: String?, store: IDeserializingKeyValueStore) : this(if (hash == null) null else store.get<CPTree>(hash) { CPTree.deserialize(it) }, null, store)
+    constructor(store: IDeserializingKeyValueStore) : this(null as CPTree?, null, store)
+    constructor(id: RepositoryId?, store: IDeserializingKeyValueStore) : this(null, id, store)
+    constructor(data: CPTree?, store: IDeserializingKeyValueStore) : this(data, null, store)
+    private constructor(data: CPTree?, repositoryId_: RepositoryId?, store_: IDeserializingKeyValueStore) {
         var store = store_
         var repositoryId = repositoryId_
         if (data == null) {
@@ -53,8 +53,7 @@ class CLTree : ITree {
                 arrayOf()
             )
             val idToHash = storeElement(root, CLHamtInternal.createEmpty(store))
-            this.data = CPTree(repositoryId.id, 1, idToHash.getData().hash)
-            store = store.with(this.data, listOfNotNull(idToHash.store.entry))
+            this.data = CPTree(repositoryId.id, 1, KVEntryReference(idToHash.getData()))
         } else {
             this.data = data
         }
@@ -70,8 +69,8 @@ class CLTree : ITree {
         if (treeId == null) {
             treeId = random().id
         }
-        data = CPTree(treeId, rootId, idToHash.getData().hash)
-        this.store = NonWrittenEntriesStore.create(store).with(data, listOfNotNull(idToHash.store.entry))
+        data = CPTree(treeId, rootId, KVEntryReference(idToHash.getData()))
+        this.store = store
 
         // TODO remove
         this.nodesMap!![ITree.ROOT_ID]
@@ -82,18 +81,18 @@ class CLTree : ITree {
     }
 
     fun prefetchAll() {
-        store.store.prefetch(hash)
+        store.prefetch(hash)
     }
 
     val hash: String
         get() = data.hash
 
     val nodesMap: CLHamtNode<*>?
-        get() = CLHamtNode.create(store.get(data.idToHash, { s: String -> CPHamtNode.deserialize(s) }), store.findStore(data.idToHash))
+        get() = CLHamtNode.create(data.idToHash.getValue(store), store)
 
     protected fun storeElement(node: CLNode, id2hash: CLHamtNode<*>): CLHamtNode<*> {
         val data = node.getData()
-        var newMap = id2hash.put(node.id, NonWrittenEntry(data, listOf()))
+        var newMap = id2hash.put(node.id, KVEntryReference(data))
         if (newMap == null) {
             newMap = CLHamtInternal.createEmpty(store)
         }
@@ -362,21 +361,21 @@ class CLTree : ITree {
         nodesMap!!.visitChanges(
             oldVersion.nodesMap,
             object : CLHamtNode.IChangeVisitor {
-                override fun entryAdded(key: Long, value: String?) {
+                override fun entryAdded(key: Long, value: KVEntryReference<CPNode>?) {
                     val element = createElement(value)
                     visitor.nodeAdded(element!!.id)
                 }
 
-                override fun entryRemoved(key: Long, value: String?) {
+                override fun entryRemoved(key: Long, value: KVEntryReference<CPNode>?) {
                     val element = oldVersion.createElement(value)
                     visitor.nodeRemoved(element!!.id)
                 }
 
-                override fun entryChanged(key: Long, oldHash: String?, newHash: String?) {
-                    val oldElement = oldVersion.createElement(oldHash)
-                    val newElement = createElement(newHash)
+                override fun entryChanged(key: Long, oldValue: KVEntryReference<CPNode>?, newValue: KVEntryReference<CPNode>?) {
+                    val oldElement = oldVersion.createElement(oldValue)
+                    val newElement = createElement(newValue)
                     if (oldElement!!::class != newElement!!::class) {
-                        throw RuntimeException("Unsupported type change of element " + key + "from " + oldElement::class.simpleName + " to " + newElement::class.simpleName)
+                        throw RuntimeException("Unsupported type change of node " + key + "from " + oldElement::class.simpleName + " to " + newElement::class.simpleName)
                     }
                     oldElement.getData().propertyRoles.asSequence()
                         .plus(newElement.getData().propertyRoles.asSequence())
@@ -411,9 +410,8 @@ class CLTree : ITree {
         var newIdToHash: CLHamtNode<*>? = idToHash
         for (childId in node.getChildrenIds()) {
             if (newIdToHash == null) throw RuntimeException("node $childId not found")
-            val childHash: String = newIdToHash[childId] ?: throw RuntimeException("node $childId not found")
-            val child = store.get(childHash) { CPNode.deserialize(it) }
-                ?: throw RuntimeException("element with hash $childHash not found")
+            val childHash: KVEntryReference<CPNode> = newIdToHash[childId] ?: throw RuntimeException("node $childId not found")
+            val child = childHash.getValue(store)
             newIdToHash = deleteElements(child, newIdToHash)
         }
         if (newIdToHash == null) throw RuntimeException("node ${node.id} not found")
@@ -453,40 +451,25 @@ class CLTree : ITree {
 
     fun resolveElements(ids_: Iterable<Long>, bulkQuery: IBulkQuery): IBulkQuery.Value<List<CLNode>> {
         val ids = ids_.toList()
-        val a: IBulkQuery.Value<List<String?>> = nodesMap!!.getAll(ids, bulkQuery)
-        val b: IBulkQuery.Value<List<String>> = a.map { hashes: List<String?> ->
-            hashes.mapIndexed { index, s -> s ?: throw RuntimeException("node ${ids[index]} not found") }
+        val a: IBulkQuery.Value<List<KVEntryReference<CPNode>?>> = nodesMap!!.getAll(ids, bulkQuery)
+        val b: IBulkQuery.Value<List<KVEntryReference<CPNode>>> = a.map { hashes: List<KVEntryReference<CPNode>?> ->
+            hashes.mapIndexed { index, s -> s ?: throw RuntimeException("node with ID 0x${SerializationUtil.longToHex(ids[index])}/${ids[index]} not found") }
         }
         return b.mapBulk { hashes -> createElements(hashes, bulkQuery) }
     }
 
-    fun createElement(hash: String?, query: IBulkQuery): IBulkQuery.Value<CLNode?> {
-        return if (hash == null) {
-            query.constant(null)
-        } else query[
-            hash, { s: String ->
-                if (s == null) {
-                    throw RuntimeException("Element doesn't exist: $hash")
-                }
-                CPNode.deserialize(s)
-            }
-        ].map { n: CPNode? -> CLNode.create(this@CLTree, n) }
+    fun createElement(hash: KVEntryReference<CPNode>?, query: IBulkQuery): IBulkQuery.Value<CLNode?> {
+        return if (hash == null) query.constant(null)
+        else (query[hash].map { n: CPNode? -> CLNode.create(this@CLTree, n) })
     }
 
-    fun createElement(hash: String?): CLNode? {
+    fun createElement(hash: KVEntryReference<CPNode>?): CLNode? {
         return createElement(hash, NonBulkQuery(store)).execute()
     }
 
-    fun createElements(hashes: List<String>, bulkQuery: IBulkQuery): IBulkQuery.Value<List<CLNode>> {
-        return bulkQuery.map(hashes) { hash: String ->
-            bulkQuery[
-                hash, { s: String ->
-                    if (s == null) {
-                        throw RuntimeException("Element doesn't exist: $hash")
-                    }
-                    CPNode.deserialize(s)
-                }
-            ].map { n -> CLNode.create(this@CLTree, n)!! }
+    fun createElements(hashes: List<KVEntryReference<CPNode>>, bulkQuery: IBulkQuery): IBulkQuery.Value<List<CLNode>> {
+        return bulkQuery.map(hashes) { hash: KVEntryReference<CPNode> ->
+            bulkQuery[hash].map { n -> CLNode.create(this@CLTree, n)!! }
         }
     }
 

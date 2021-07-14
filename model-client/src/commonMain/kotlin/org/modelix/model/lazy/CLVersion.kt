@@ -20,13 +20,14 @@ import org.modelix.model.api.LocalPNodeReference
 import org.modelix.model.api.PNodeReference
 import org.modelix.model.operations.*
 import org.modelix.model.persistent.CPOperationsList
+import org.modelix.model.persistent.CPTree
 import org.modelix.model.persistent.CPVersion
 
 class CLVersion {
-    var store: NonWrittenEntriesStore
+    var store: IDeserializingKeyValueStore
     var data: CPVersion? = null
         private set
-    val treeHash: String?
+    val treeHash: KVEntryReference<CPTree>?
 
     private constructor(
         id: Long,
@@ -41,56 +42,45 @@ class CLVersion {
         operations: Array<IOperation>
     ) {
         this.store = tree.store
-        this.treeHash = tree.hash
+        this.treeHash = KVEntryReference(tree.data)
         val localizedOps = localizeOps(operations.asList()).toTypedArray()
-        val nonWrittenChildren = listOf(
-            tree.store,
-            previousVersion?.store,
-            originalVersion?.store,
-            baseVersion?.store,
-            mergedVersion1?.store,
-            mergedVersion2?.store
-        ).mapNotNull { it?.entry }
         if (localizedOps.size <= 10) {
             data = CPVersion(
                 id = id,
                 time = time,
                 author = author,
-                treeHash = tree.hash,
-                previousVersion = previousVersion?.hash,
-                originalVersion = originalVersion?.hash,
-                baseVersion = baseVersion?.hash,
-                mergedVersion1 = mergedVersion1?.hash,
-                mergedVersion2 = mergedVersion2?.hash,
+                treeHash = this.treeHash,
+                previousVersion = previousVersion?.let { KVEntryReference(it.data!!) },
+                originalVersion = originalVersion?.let { KVEntryReference(it.data!!) },
+                baseVersion = baseVersion?.let { KVEntryReference(it.data!!) },
+                mergedVersion1 = mergedVersion1?.let { KVEntryReference(it.data!!) },
+                mergedVersion2 = mergedVersion2?.let { KVEntryReference(it.data!!) },
                 operations = localizedOps,
                 operationsHash = null,
                 numberOfOperations = localizedOps.size
             )
-            this.store = tree.store.with(data!!, nonWrittenChildren)
         } else {
             val opsList = CPOperationsList(localizedOps)
-            val opsListEntry = NonWrittenEntry(opsList, listOf())
             data = CPVersion(
                 id = id,
                 time = time,
                 author = author,
-                treeHash = tree?.hash,
-                previousVersion = previousVersion?.hash,
-                originalVersion = originalVersion?.hash,
-                baseVersion = baseVersion?.hash,
-                mergedVersion1 = mergedVersion1?.hash,
-                mergedVersion2 = mergedVersion2?.hash,
+                treeHash = this.treeHash,
+                previousVersion = previousVersion?.let { KVEntryReference(it.data!!) },
+                originalVersion = originalVersion?.let { KVEntryReference(it.data!!) },
+                baseVersion = baseVersion?.let { KVEntryReference(it.data!!) },
+                mergedVersion1 = mergedVersion1?.let { KVEntryReference(it.data!!) },
+                mergedVersion2 = mergedVersion2?.let { KVEntryReference(it.data!!) },
                 operations = null,
-                operationsHash = opsList.hash,
+                operationsHash = KVEntryReference(opsList),
                 numberOfOperations = localizedOps.size
             )
-            this.store = tree.store.with(data!!, nonWrittenChildren + opsListEntry)
         }
         write()
     }
 
-    constructor(hash: String, store: IDeserializingKeyValueStore) : this(store.get<CPVersion>(hash, { CPVersion.deserialize(it) }), NonWrittenEntriesStore.create(store))
-    constructor(data: CPVersion?, store: NonWrittenEntriesStore) {
+    constructor(hash: String, store: IDeserializingKeyValueStore) : this(store.get<CPVersion>(hash, { CPVersion.deserialize(it) }), store)
+    constructor(data: CPVersion?, store: IDeserializingKeyValueStore) {
         if (data == null) {
             throw NullPointerException("data is null")
         }
@@ -111,29 +101,20 @@ class CLVersion {
     val hash: String
         get() = data!!.hash
 
-    val previousHash: String?
-        get() = data!!.previousVersion
-
     val tree: CLTree
-        get() = CLTree(treeHash, treeHash?.let { store.findStore(it) } ?: store)
+        get() = CLTree(treeHash!!.getValue(store), store)
 
     val baseVersion: CLVersion?
         get() {
             val previousVersionHash = data!!.baseVersion ?: data!!.previousVersion ?: return null
-            val previousVersion = store[previousVersionHash, { input: String -> CPVersion.deserialize(input) }]
-                ?: return null
+            val previousVersion = previousVersionHash.getValue(store)
             return CLVersion(previousVersion, store)
         }
 
     val operations: Iterable<IOperation>
         get() {
             val operationsHash = data!!.operationsHash
-            val ops = if (operationsHash == null) data!!.operations else
-            (
-                store[operationsHash, { CPOperationsList.deserialize(it) }]
-                    ?: throw RuntimeException("Missing entry for key $operationsHash")
-                )
-                .operations
+            val ops = operationsHash?.getValue(store)?.operations ?: data!!.operations
             return globalizeOps((ops ?: arrayOf()).toList())
         }
 
@@ -146,11 +127,11 @@ class CLVersion {
 
     fun isMerge() = this.data!!.mergedVersion1 != null
 
-    fun getMergedVersion1() = this.data!!.mergedVersion1?.let { CLVersion.loadFromHash(it, store) }
-    fun getMergedVersion2() = this.data!!.mergedVersion2?.let { CLVersion.loadFromHash(it, store) }
+    fun getMergedVersion1() = this.data!!.mergedVersion1?.let { CLVersion(it.getValue(store), store) }
+    fun getMergedVersion2() = this.data!!.mergedVersion2?.let { CLVersion(it.getValue(store), store) }
 
     fun write(): String {
-        store.write()
+        KVEntryReference(data!!).write(store)
         return hash
     }
 
@@ -177,7 +158,7 @@ class CLVersion {
             mergedVersion1: CLVersion,
             mergedVersion2: CLVersion,
             operations: Array<IOperation>,
-            store: NonWrittenEntriesStore
+            store: IDeserializingKeyValueStore
         ) = CLVersion(
             id = id,
             time = null,
@@ -211,7 +192,7 @@ class CLVersion {
             operations = compressOperations(operations, tree)
         )
 
-        fun loadFromHash(hash: String, store: NonWrittenEntriesStore): CLVersion {
+        fun loadFromHash(hash: String, store: IDeserializingKeyValueStore): CLVersion {
             val data = store[hash, { CPVersion.deserialize(it) }]
                 ?: throw RuntimeException("Version with hash $hash not found")
             return CLVersion(data, store)
@@ -239,7 +220,7 @@ class CLVersion {
                                 resultTree.containsNode(op.childId) &&
                                 createdNodes.contains(resultTree.getParent(op.childId))
                         if (!effectivelyAddedToSubtree) {
-                            compressedOps += AddNewChildSubtreeOp(resultTree.hash, op.position, op.childId, op.concept)
+                            compressedOps += AddNewChildSubtreeOp(KVEntryReference(resultTree.data), op.position, op.childId, op.concept)
                         }
                     }
                     is DeleteNodeOp -> {
