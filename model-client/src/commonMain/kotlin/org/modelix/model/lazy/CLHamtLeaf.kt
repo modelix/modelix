@@ -17,7 +17,6 @@ package org.modelix.model.lazy
 
 import org.modelix.model.persistent.CPHamtLeaf
 import org.modelix.model.persistent.CPNode
-import org.modelix.model.persistent.IKVValue
 
 class CLHamtLeaf : CLHamtNode<CPHamtLeaf> {
     private val data: CPHamtLeaf

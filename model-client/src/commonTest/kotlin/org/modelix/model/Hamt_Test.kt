@@ -81,7 +81,7 @@ class Hamt_Test {
         val store = MapBaseStore()
         val storeCache = ObjectStoreCache(store)
         var hamt: CLHamtNode<*>? = CLHamtInternal.createEmpty(storeCache)
-        var getId = {  e: KVEntryReference<CPNode>? -> e!!.getValue(storeCache).id }
+        var getId = { e: KVEntryReference<CPNode>? -> e!!.getValue(storeCache).id }
 
         hamt = hamt!!.put(965L, createEntry(-6579471327666419615))
         hamt = hamt!!.put(949L, createEntry(4912341421267007347))

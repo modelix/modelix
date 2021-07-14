@@ -20,7 +20,6 @@ import org.modelix.model.bitCount
 import org.modelix.model.persistent.CPHamtInternal
 import org.modelix.model.persistent.CPHamtNode
 import org.modelix.model.persistent.CPNode
-import org.modelix.model.persistent.IKVValue
 
 class CLHamtInternal : CLHamtNode<CPHamtInternal> {
     private val data_: CPHamtInternal
