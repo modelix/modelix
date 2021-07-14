@@ -55,7 +55,7 @@ class CLTree : ITree {
             )
             val idToHash = storeElement(root, CLHamtInternal.createEmpty(store))
             this.data = CPTree(repositoryId.id, 1, sha256(idToHash.getData().serialize()))
-            store = store.with(this.data, this.data.serialize(), listOfNotNull(idToHash.store.entry))
+            store = store.with(this.data, listOfNotNull(idToHash.store.entry))
         } else {
             this.data = data
         }
@@ -72,7 +72,7 @@ class CLTree : ITree {
             treeId = random().id
         }
         data = CPTree(treeId, rootId, sha256(idToHash.getData().serialize()))
-        this.store = NonWrittenEntriesStore.create(store).with(data, data.serialize(), listOfNotNull(idToHash.store.entry))
+        this.store = NonWrittenEntriesStore.create(store).with(data, listOfNotNull(idToHash.store.entry))
 
         // TODO remove
         this.nodesMap!![ITree.ROOT_ID]
@@ -94,9 +94,7 @@ class CLTree : ITree {
 
     protected fun storeElement(node: CLNode, id2hash: CLHamtNode<*>): CLHamtNode<*> {
         val data = node.getData()
-        val serialized = data.serialize()
-        val hash = sha256(serialized)
-        var newMap = id2hash.put(node.id, NonWrittenEntry(hash, serialized, data, listOf()))
+        var newMap = id2hash.put(node.id, NonWrittenEntry(data, listOf()))
         if (newMap == null) {
             newMap = CLHamtInternal.createEmpty(store)
         }

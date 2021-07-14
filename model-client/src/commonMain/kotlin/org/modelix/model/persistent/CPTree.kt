@@ -24,9 +24,9 @@ class CPTree(
      * SHA to CPHamtNode
      */
     var idToHash: String
-) {
+) : IKVValue {
 
-    fun serialize(): String {
+    override fun serialize(): String {
         return "$id/$rootId/$idToHash"
     }
 

@@ -14,7 +14,7 @@
 package org.modelix.model.lazy
 
 import org.modelix.model.IKeyValueStore
-import org.modelix.model.persistent.HashUtil
+import org.modelix.model.persistent.IKVValue
 
 class NonWrittenEntriesStore private constructor(val store: IDeserializingKeyValueStore, val entry: NonWrittenEntry?): IDeserializingKeyValueStore {
 
@@ -30,12 +30,8 @@ class NonWrittenEntriesStore private constructor(val store: IDeserializingKeyVal
 
     fun findStore(hash: String): NonWrittenEntriesStore = NonWrittenEntriesStore(store, findEntry(hash))
 
-    fun with(hash: String, deserialized: Any, serialized: String, children: List<NonWrittenEntry>): NonWrittenEntriesStore {
-        return with(NonWrittenEntry(hash, serialized, deserialized, children))
-    }
-
-    fun with(deserialized: Any, serialized: String, children: List<NonWrittenEntry>): NonWrittenEntriesStore {
-        return with(HashUtil.sha256(serialized), deserialized, serialized, children)
+    fun with(deserialized: IKVValue, children: List<NonWrittenEntry>): NonWrittenEntriesStore {
+        return with(NonWrittenEntry(deserialized, children))
     }
 
     fun with(newEntry: NonWrittenEntry) = NonWrittenEntriesStore(store, newEntry)

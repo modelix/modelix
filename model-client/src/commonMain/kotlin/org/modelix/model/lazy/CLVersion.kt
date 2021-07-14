@@ -66,10 +66,10 @@ class CLVersion {
                 operationsHash = null,
                 numberOfOperations = localizedOps.size
             )
-            this.store = tree.store.with(data!!, data!!.serialize(), nonWrittenChildren)
+            this.store = tree.store.with(data!!, nonWrittenChildren)
         } else {
             val opsList = CPOperationsList(localizedOps)
-            val opsListEntry = NonWrittenEntry(opsList.serialize(), opsList, listOf())
+            val opsListEntry = NonWrittenEntry(opsList, listOf())
             data = CPVersion(
                 id = id,
                 time = time,
@@ -84,7 +84,7 @@ class CLVersion {
                 operationsHash = opsList.hash,
                 numberOfOperations = localizedOps.size
             )
-            this.store = tree.store.with(data!!, data!!.serialize(), nonWrittenChildren + opsListEntry)
+            this.store = tree.store.with(data!!, nonWrittenChildren + opsListEntry)
         }
         write()
     }

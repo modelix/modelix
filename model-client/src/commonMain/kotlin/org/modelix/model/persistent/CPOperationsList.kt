@@ -18,8 +18,8 @@ package org.modelix.model.persistent
 import org.modelix.model.operations.IOperation
 import org.modelix.model.persistent.HashUtil.sha256
 
-class CPOperationsList(val operations: Array<IOperation>) {
-    fun serialize(): String {
+class CPOperationsList(val operations: Array<IOperation>) : IKVValue {
+    override fun serialize(): String {
         return if (operations.isEmpty()) "" else operations
             .joinToString(",") { OperationSerializer.INSTANCE.serialize(it) }
     }

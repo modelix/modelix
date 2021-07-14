@@ -36,7 +36,7 @@ class CPVersion(
     operations: Array<IOperation>?,
     operationsHash: String?,
     numberOfOperations: Int
-) {
+) : IKVValue {
     val id: Long
     val time: String?
     val author: String?
@@ -59,7 +59,7 @@ class CPVersion(
     val operations: Array<IOperation>?
     val operationsHash: String?
     val numberOfOperations: Int
-    fun serialize(): String {
+    override fun serialize(): String {
         val opsPart = operationsHash
             ?: if (operations!!.isEmpty()) "" else operations
                 .map { OperationSerializer.INSTANCE.serialize(it) }

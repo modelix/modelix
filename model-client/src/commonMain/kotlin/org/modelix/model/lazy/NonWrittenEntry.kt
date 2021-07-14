@@ -16,32 +16,29 @@ package org.modelix.model.lazy
 import kotlinx.collections.immutable.PersistentMap
 import kotlinx.collections.immutable.persistentHashMapOf
 import org.modelix.model.persistent.HashUtil
+import org.modelix.model.persistent.IKVValue
 
 class NonWrittenEntry {
     val hash: String
-    private var serialized: String?
-    private var deserialized: Any?
+    private var deserialized: IKVValue?
     var children: List<NonWrittenEntry>?
     private var written: Boolean = false
     private var entryMap: PersistentMap<String, NonWrittenEntry>? = null
 
-    private constructor(hash: String, serialized: String?, deserialized: Any?, children: List<NonWrittenEntry>?, written: Boolean) {
+    private constructor(hash: String, deserialized: IKVValue?, children: List<NonWrittenEntry>?, written: Boolean) {
         this.hash = hash
-        this.serialized = serialized
         this.deserialized = deserialized
         this.children = children
         this.written = written
     }
 
-    constructor(hash: String, serialized: String, deserialized: Any, children: List<NonWrittenEntry>?): this(hash, serialized, deserialized, children, false)
+    constructor(deserialized: IKVValue, children: List<NonWrittenEntry>?): this(HashUtil.sha256(deserialized.serialize()), deserialized, children, false)
 
-    constructor(serialized: String, deserialized: Any, children: List<NonWrittenEntry>?): this(HashUtil.sha256(serialized), serialized, deserialized, children, false)
+    constructor(hash: String): this(hash, null, null, true)
 
-    constructor(hash: String): this(hash, null, null, null, true)
+    fun getSerialized(): String = getDeserialized().serialize()
 
-    fun getSerialized(): String = serialized ?: throw IllegalStateException("already written")
-
-    fun getDeserialized(): Any = deserialized ?: throw IllegalStateException("already written")
+    fun getDeserialized(): IKVValue = deserialized ?: throw IllegalStateException("already written")
 
     fun findEntry(hash: String): NonWrittenEntry? = getMap()[hash]?.let { if (it.written) null else it }
 
@@ -53,10 +50,9 @@ class NonWrittenEntry {
     fun write(store: IDeserializingKeyValueStore) {
         if (!written) {
             children?.forEach { child -> child.write(store) }
-            store.put(hash, deserialized!!, serialized!!)
+            store.put(hash, deserialized!!, getSerialized())
             written = true
             children = null
-            serialized = null
             deserialized = null
             entryMap = null
         }
@@ -64,7 +60,7 @@ class NonWrittenEntry {
 
     fun withChildren(newChildren: List<NonWrittenEntry>): NonWrittenEntry {
         if (written) throw IllegalStateException("Already written")
-        return NonWrittenEntry(hash, serialized!!, deserialized!!, newChildren)
+        return NonWrittenEntry(hash, deserialized!!, newChildren, written)
     }
 
     fun load(map: MutableMap<String, NonWrittenEntry>) {

@@ -50,7 +50,7 @@ abstract class CLHamtNode<E : CPHamtNode>(val store: NonWrittenEntriesStore) {
     }
 
     fun put(data: CPNode): CLHamtNode<*>? {
-        return put(data.id, NonWrittenEntry(data.hash, data.serialize(), data, listOf()))
+        return put(data.id, NonWrittenEntry(data, listOf()))
     }
 
     fun remove(key: Long): CLHamtNode<*>? {

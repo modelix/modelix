@@ -36,8 +36,8 @@ class CPNode private constructor(
     val propertyValues: Array<String>,
     val referenceRoles: Array<String>,
     val referenceTargets: Array<CPNodeRef>
-) {
-    fun serialize(): String {
+) : IKVValue {
+    override fun serialize(): String {
         val sb = StringBuilder()
         sb.append(longToHex(id))
         sb.append("/")

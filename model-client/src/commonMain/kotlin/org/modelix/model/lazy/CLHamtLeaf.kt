@@ -94,7 +94,7 @@ class CLHamtLeaf : CLHamtNode<CPHamtLeaf> {
             val hash = value?.hash
             if (hash == null) return null
             val data = CPHamtLeaf(key, hash)
-            return CLHamtLeaf(data, store.with(data, data.serialize(), listOf(value)))
+            return CLHamtLeaf(data, store.with(data, listOf(value)))
         }
     }
 }

@@ -29,7 +29,7 @@ class CLHamtInternal : CLHamtNode<CPHamtInternal> {
 
         fun create(bitmap: Int, childHashes: Array<String>, store: IDeserializingKeyValueStore, childrenNWE: List<NonWrittenEntry>): CLHamtInternal {
             val data = CPHamtInternal(bitmap, childHashes)
-            return CLHamtInternal(data, NonWrittenEntriesStore.create(store).with(data, data.serialize(), childrenNWE))
+            return CLHamtInternal(data, NonWrittenEntriesStore.create(store).with(data, childrenNWE))
         }
     }
 

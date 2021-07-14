@@ -19,9 +19,7 @@ import org.modelix.model.persistent.SerializationUtil.intFromHex
 import org.modelix.model.persistent.SerializationUtil.longFromHex
 import kotlin.jvm.JvmStatic
 
-abstract class CPHamtNode {
-    abstract fun serialize(): String
-
+abstract class CPHamtNode : IKVValue {
     companion object {
         val DESERIALIZER = { s: String -> deserialize(s) }
 
