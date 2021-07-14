@@ -31,7 +31,7 @@ kotlin {
         nodejs {
             testTask {
                 useMocha {
-                    timeout = 60000
+                    timeout = 10000
                 }
             }
         }
