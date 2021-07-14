@@ -96,7 +96,7 @@
     <import index="nv3w" ref="r:18e93978-2322-49a8-aaab-61c6faf67e2a(de.q60.mps.shadowmodels.runtime.engine)" />
     <import index="3hky" ref="r:bef1bfa7-20fd-413a-ae11-793b0a8ee364(de.q60.mps.shadowmodels.runtime.model.persistent)" />
     <import index="kxov" ref="0a2651ab-f212-45c2-a2f0-343e76cbc26b/java:org.modelix.model.metameta(org.modelix.model.client/)" />
-    <import index="geos" ref="0a2651ab-f212-45c2-a2f0-343e76cbc26b/java:org.modelix.model.persistent(org.modelix.model.client/)" implicit="true" />
+    <import index="geos" ref="0a2651ab-f212-45c2-a2f0-343e76cbc26b/java:org.modelix.model.persistent(org.modelix.model.client/)" />
   </imports>
   <registry>
     <language id="a247e09e-2435-45ba-b8d2-07e93feba96a" name="jetbrains.mps.baseLanguage.tuples">
@@ -10590,13 +10590,21 @@
                                 <ref role="37wK5l" to="yai9:~OTWriteTransaction.apply(org.modelix.model.operations.IOperation)" resolve="apply" />
                                 <node concept="2ShNRf" id="3pKWniXZoyx" role="37wK5m">
                                   <node concept="1pGfFk" id="3pKWniXZs7E" role="2ShVmc">
-                                    <ref role="37wK5l" to="yai9:~UndoOp.&lt;init&gt;(java.lang.String)" resolve="UndoOp" />
-                                    <node concept="2OqwBi" id="3pKWniXZu75" role="37wK5m">
-                                      <node concept="37vLTw" id="3pKWniXZt4S" role="2Oq$k0">
-                                        <ref role="3cqZAo" node="3H1ZR7sMJpZ" resolve="version" />
-                                      </node>
-                                      <node concept="liA8E" id="3pKWniXZunc" role="2OqNvi">
-                                        <ref role="37wK5l" to="xkhl:~CLVersion.getHash()" resolve="getHash" />
+                                    <ref role="37wK5l" to="yai9:~UndoOp.&lt;init&gt;(org.modelix.model.lazy.KVEntryReference)" resolve="UndoOp" />
+                                    <node concept="2ShNRf" id="DnODQyrVMh" role="37wK5m">
+                                      <node concept="1pGfFk" id="DnODQyrUQ4" role="2ShVmc">
+                                        <ref role="37wK5l" to="xkhl:~KVEntryReference.&lt;init&gt;(org.modelix.model.persistent.IKVValue)" resolve="KVEntryReference" />
+                                        <node concept="3uibUv" id="DnODQyrUQ5" role="1pMfVU">
+                                          <ref role="3uigEE" to="geos:~CPVersion" resolve="CPVersion" />
+                                        </node>
+                                        <node concept="2OqwBi" id="DnODQyrY5P" role="37wK5m">
+                                          <node concept="37vLTw" id="DnODQyrWRY" role="2Oq$k0">
+                                            <ref role="3cqZAo" node="3H1ZR7sMJpZ" resolve="version" />
+                                          </node>
+                                          <node concept="liA8E" id="DnODQyrYoQ" role="2OqNvi">
+                                            <ref role="37wK5l" to="xkhl:~CLVersion.getData()" resolve="getData" />
+                                          </node>
+                                        </node>
                                       </node>
                                     </node>
                                   </node>

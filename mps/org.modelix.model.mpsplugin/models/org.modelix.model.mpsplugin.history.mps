@@ -1181,6 +1181,22 @@
                       </node>
                       <node concept="3clFbJ" id="qGcbng6B6X" role="3cqZAp">
                         <node concept="3clFbS" id="qGcbng6B6Z" role="3clFbx">
+                          <node concept="3cpWs8" id="DnODQytp8Q" role="3cqZAp">
+                            <node concept="3cpWsn" id="DnODQytp8R" role="3cpWs9">
+                              <property role="TrG5h" value="store" />
+                              <node concept="3uibUv" id="DnODQytoZP" role="1tU5fm">
+                                <ref role="3uigEE" to="xkhl:~IDeserializingKeyValueStore" resolve="IDeserializingKeyValueStore" />
+                              </node>
+                              <node concept="2OqwBi" id="DnODQytp8S" role="33vP2m">
+                                <node concept="37vLTw" id="DnODQytp8T" role="2Oq$k0">
+                                  <ref role="3cqZAo" node="2D0HTQhc7of" resolve="version" />
+                                </node>
+                                <node concept="liA8E" id="DnODQytp8U" role="2OqNvi">
+                                  <ref role="37wK5l" to="xkhl:~CLVersion.getStore()" resolve="getStore" />
+                                </node>
+                              </node>
+                            </node>
+                          </node>
                           <node concept="2Gpval" id="qGcbng7MFT" role="3cqZAp">
                             <node concept="2GrKxI" id="qGcbng7MFV" role="2Gsz3X">
                               <property role="TrG5h" value="v" />
@@ -1198,15 +1214,7 @@
                             <node concept="2OqwBi" id="qGcbng7N1u" role="2GsD0m">
                               <node concept="2ShNRf" id="qGcbng7N1v" role="2Oq$k0">
                                 <node concept="1pGfFk" id="qGcbng7N1w" role="2ShVmc">
-                                  <ref role="37wK5l" to="hvt5:~LinearHistory.&lt;init&gt;(org.modelix.model.lazy.IDeserializingKeyValueStore,java.lang.String)" resolve="LinearHistory" />
-                                  <node concept="2OqwBi" id="qGcbng7N1x" role="37wK5m">
-                                    <node concept="37vLTw" id="qGcbng7N1y" role="2Oq$k0">
-                                      <ref role="3cqZAo" node="2D0HTQhc7of" resolve="version" />
-                                    </node>
-                                    <node concept="liA8E" id="qGcbng7N1z" role="2OqNvi">
-                                      <ref role="37wK5l" to="xkhl:~CLVersion.getStore()" resolve="getStore" />
-                                    </node>
-                                  </node>
+                                  <ref role="37wK5l" to="hvt5:~LinearHistory.&lt;init&gt;(java.lang.String)" resolve="LinearHistory" />
                                   <node concept="2OqwBi" id="qGcbng7N1$" role="37wK5m">
                                     <node concept="2OqwBi" id="qGcbng7N1_" role="2Oq$k0">
                                       <node concept="37vLTw" id="qGcbng7N1A" role="2Oq$k0">
@@ -1224,63 +1232,61 @@
                               </node>
                               <node concept="liA8E" id="qGcbng7N1D" role="2OqNvi">
                                 <ref role="37wK5l" to="hvt5:~LinearHistory.load(org.modelix.model.lazy.CLVersion...)" resolve="load" />
-                                <node concept="2OqwBi" id="qGcbng7N1E" role="37wK5m">
-                                  <node concept="10M0yZ" id="qGcbng7N1F" role="2Oq$k0">
-                                    <ref role="3cqZAo" to="xkhl:~CLVersion.Companion" resolve="Companion" />
-                                    <ref role="1PxDUh" to="xkhl:~CLVersion" resolve="CLVersion" />
-                                  </node>
-                                  <node concept="liA8E" id="qGcbng7N1G" role="2OqNvi">
-                                    <ref role="37wK5l" to="xkhl:~CLVersion$Companion.loadFromHash(java.lang.String,org.modelix.model.lazy.IDeserializingKeyValueStore)" resolve="loadFromHash" />
-                                    <node concept="2OqwBi" id="qGcbng7N1H" role="37wK5m">
-                                      <node concept="2OqwBi" id="qGcbng7N1I" role="2Oq$k0">
-                                        <node concept="37vLTw" id="qGcbng7N1J" role="2Oq$k0">
-                                          <ref role="3cqZAo" node="2D0HTQhc7of" resolve="version" />
+                                <node concept="2ShNRf" id="DnODQytg3f" role="37wK5m">
+                                  <node concept="1pGfFk" id="DnODQytogF" role="2ShVmc">
+                                    <ref role="37wK5l" to="xkhl:~CLVersion.&lt;init&gt;(org.modelix.model.persistent.CPVersion,org.modelix.model.lazy.IDeserializingKeyValueStore)" resolve="CLVersion" />
+                                    <node concept="2OqwBi" id="DnODQyta9z" role="37wK5m">
+                                      <node concept="2OqwBi" id="DnODQyta9$" role="2Oq$k0">
+                                        <node concept="2OqwBi" id="DnODQyta9_" role="2Oq$k0">
+                                          <node concept="37vLTw" id="DnODQyta9A" role="2Oq$k0">
+                                            <ref role="3cqZAo" node="2D0HTQhc7of" resolve="version" />
+                                          </node>
+                                          <node concept="liA8E" id="DnODQyta9B" role="2OqNvi">
+                                            <ref role="37wK5l" to="xkhl:~CLVersion.getData()" resolve="getData" />
+                                          </node>
                                         </node>
-                                        <node concept="liA8E" id="qGcbng7N1K" role="2OqNvi">
-                                          <ref role="37wK5l" to="xkhl:~CLVersion.getData()" resolve="getData" />
+                                        <node concept="liA8E" id="DnODQyta9C" role="2OqNvi">
+                                          <ref role="37wK5l" to="geos:~CPVersion.getMergedVersion1()" resolve="getMergedVersion1" />
                                         </node>
                                       </node>
-                                      <node concept="liA8E" id="qGcbng7N1L" role="2OqNvi">
-                                        <ref role="37wK5l" to="geos:~CPVersion.getMergedVersion1()" resolve="getMergedVersion1" />
+                                      <node concept="liA8E" id="DnODQyta9D" role="2OqNvi">
+                                        <ref role="37wK5l" to="xkhl:~KVEntryReference.getValue(org.modelix.model.lazy.IDeserializingKeyValueStore)" resolve="getValue" />
+                                        <node concept="37vLTw" id="DnODQytp8V" role="37wK5m">
+                                          <ref role="3cqZAo" node="DnODQytp8R" resolve="store" />
+                                        </node>
                                       </node>
                                     </node>
-                                    <node concept="2OqwBi" id="qGcbng7N1M" role="37wK5m">
-                                      <node concept="37vLTw" id="qGcbng7N1N" role="2Oq$k0">
-                                        <ref role="3cqZAo" node="2D0HTQhc7of" resolve="version" />
-                                      </node>
-                                      <node concept="liA8E" id="qGcbng7N1O" role="2OqNvi">
-                                        <ref role="37wK5l" to="xkhl:~CLVersion.getStore()" resolve="getStore" />
-                                      </node>
+                                    <node concept="37vLTw" id="DnODQytqbN" role="37wK5m">
+                                      <ref role="3cqZAo" node="DnODQytp8R" resolve="store" />
                                     </node>
                                   </node>
                                 </node>
-                                <node concept="2OqwBi" id="qGcbng7N1P" role="37wK5m">
-                                  <node concept="10M0yZ" id="qGcbng7N1Q" role="2Oq$k0">
-                                    <ref role="1PxDUh" to="xkhl:~CLVersion" resolve="CLVersion" />
-                                    <ref role="3cqZAo" to="xkhl:~CLVersion.Companion" resolve="Companion" />
-                                  </node>
-                                  <node concept="liA8E" id="qGcbng7N1R" role="2OqNvi">
-                                    <ref role="37wK5l" to="xkhl:~CLVersion$Companion.loadFromHash(java.lang.String,org.modelix.model.lazy.IDeserializingKeyValueStore)" resolve="loadFromHash" />
-                                    <node concept="2OqwBi" id="qGcbng7N1S" role="37wK5m">
-                                      <node concept="2OqwBi" id="qGcbng7N1T" role="2Oq$k0">
-                                        <node concept="37vLTw" id="qGcbng7N1U" role="2Oq$k0">
-                                          <ref role="3cqZAo" node="2D0HTQhc7of" resolve="version" />
+                                <node concept="2ShNRf" id="DnODQytqCz" role="37wK5m">
+                                  <node concept="1pGfFk" id="DnODQytqC$" role="2ShVmc">
+                                    <ref role="37wK5l" to="xkhl:~CLVersion.&lt;init&gt;(org.modelix.model.persistent.CPVersion,org.modelix.model.lazy.IDeserializingKeyValueStore)" resolve="CLVersion" />
+                                    <node concept="2OqwBi" id="DnODQytqC_" role="37wK5m">
+                                      <node concept="2OqwBi" id="DnODQytqCA" role="2Oq$k0">
+                                        <node concept="2OqwBi" id="DnODQytqCB" role="2Oq$k0">
+                                          <node concept="37vLTw" id="DnODQytqCC" role="2Oq$k0">
+                                            <ref role="3cqZAo" node="2D0HTQhc7of" resolve="version" />
+                                          </node>
+                                          <node concept="liA8E" id="DnODQytqCD" role="2OqNvi">
+                                            <ref role="37wK5l" to="xkhl:~CLVersion.getData()" resolve="getData" />
+                                          </node>
                                         </node>
-                                        <node concept="liA8E" id="qGcbng7N1V" role="2OqNvi">
-                                          <ref role="37wK5l" to="xkhl:~CLVersion.getData()" resolve="getData" />
+                                        <node concept="liA8E" id="DnODQytr81" role="2OqNvi">
+                                          <ref role="37wK5l" to="geos:~CPVersion.getMergedVersion2()" resolve="getMergedVersion2" />
                                         </node>
                                       </node>
-                                      <node concept="liA8E" id="qGcbng7N1W" role="2OqNvi">
-                                        <ref role="37wK5l" to="geos:~CPVersion.getMergedVersion2()" resolve="getMergedVersion2" />
+                                      <node concept="liA8E" id="DnODQytqCF" role="2OqNvi">
+                                        <ref role="37wK5l" to="xkhl:~KVEntryReference.getValue(org.modelix.model.lazy.IDeserializingKeyValueStore)" resolve="getValue" />
+                                        <node concept="37vLTw" id="DnODQytqCG" role="37wK5m">
+                                          <ref role="3cqZAo" node="DnODQytp8R" resolve="store" />
+                                        </node>
                                       </node>
                                     </node>
-                                    <node concept="2OqwBi" id="qGcbng7N1X" role="37wK5m">
-                                      <node concept="37vLTw" id="qGcbng7N1Y" role="2Oq$k0">
-                                        <ref role="3cqZAo" node="2D0HTQhc7of" resolve="version" />
-                                      </node>
-                                      <node concept="liA8E" id="qGcbng7N1Z" role="2OqNvi">
-                                        <ref role="37wK5l" to="xkhl:~CLVersion.getStore()" resolve="getStore" />
-                                      </node>
+                                    <node concept="37vLTw" id="DnODQytqCH" role="37wK5m">
+                                      <ref role="3cqZAo" node="DnODQytp8R" resolve="store" />
                                     </node>
                                   </node>
                                 </node>
@@ -2279,7 +2285,7 @@
               <ref role="1Pybhc" to="csg2:1LVcV5Kxxi$" resolve="ModelServerConnections" />
             </node>
             <node concept="liA8E" id="6aRQr1WRxta" role="2OqNvi">
-              <ref role="37wK5l" to="csg2:1LVcV5KxBgM" resolve="getModelServer" />
+              <ref role="37wK5l" to="csg2:1LVcV5KxBgM" resolve="getModelServers" />
             </node>
           </node>
           <node concept="3clFbS" id="6aRQr1WRxtb" role="2LFqv$">
