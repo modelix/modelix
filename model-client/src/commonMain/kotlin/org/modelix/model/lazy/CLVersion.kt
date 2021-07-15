@@ -44,7 +44,7 @@ class CLVersion {
         this.store = tree.store
         this.treeHash = KVEntryReference(tree.data)
         val localizedOps = localizeOps(operations.asList()).toTypedArray()
-        if (localizedOps.size <= 10) {
+        if (localizedOps.size <= INLINED_OPS_LIMIT) {
             data = CPVersion(
                 id = id,
                 time = time,
@@ -151,6 +151,7 @@ class CLVersion {
     }
 
     companion object {
+        val INLINED_OPS_LIMIT = 10
         fun createAutoMerge(
             id: Long,
             tree: CLTree,
@@ -206,6 +207,8 @@ class CLVersion {
          * subtree in the new version. We don't lose any information and can reconstruct the original operations if needed.
          */
         private fun compressOperations(ops: Array<IOperation>, resultTree: CLTree): Array<IOperation> {
+            if (ops.size <= INLINED_OPS_LIMIT) return ops
+
             val compressedOps: MutableList<IOperation> = ArrayList()
             val createdNodes: MutableSet<Long> = HashSet()
 
