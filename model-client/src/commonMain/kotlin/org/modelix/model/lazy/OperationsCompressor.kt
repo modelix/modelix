@@ -29,50 +29,23 @@ class OperationsCompressor(val resultTree: KVEntryReference<CPTree>) {
         if (ops.size <= CLVersion.INLINED_OPS_LIMIT) return ops
 
         val compressedOps: MutableList<IOperation> = ArrayList()
-        val subtrees = CompressedSubtrees()
+        val createdNodes: MutableSet<Long> = HashSet()
 
         for (op in ops) {
             when (op) {
-                is UndoOp, is AddNewChildSubtreeOp -> return ops
+                is UndoOp, is AddNewChildSubtreeOp, is DeleteNodeOp, is MoveNodeOp -> return ops
                 is NoOp -> {}
                 is AddNewChildOp -> {
-                    val subtree = subtrees.getOrCreateSubtree(op)
-                    if (subtree.root.getId() != op.childId) {
-                        subtree.addNode(op)
-                    } else {
-                        compressedOps += subtree.replacement
+                    if (!createdNodes.contains(op.position.nodeId)) {
+                        compressedOps += AddNewChildSubtreeOp(resultTree, op.position, op.childId, op.concept)
                     }
-                }
-                is DeleteNodeOp -> {
-                    val subtree = subtrees.getSubtree(op.childId)
-                    if (subtree == null) {
-                        compressedOps += op
-                    } else {
-                        if (subtree.root.getId() == op.childId) {
-                            compressedOps.remove(subtree.replacement)
-                        } else {
-                            subtrees.deleteNode(op.childId)
-                        }
-                    }
+                    createdNodes.add(op.childId)
                 }
                 is SetPropertyOp -> {
-                    val compressedNode = subtrees.getNode(op.nodeId)
-                    if (compressedNode == null) {
-                        compressedOps += op
-                    }
+                    if (!createdNodes.contains(op.nodeId)) compressedOps += op
                 }
                 is SetReferenceOp -> {
-                    val compressedNode = subtrees.getNode(op.sourceId)
-                    if (compressedNode == null) {
-                        compressedOps += op
-                    }
-                }
-                is MoveNodeOp -> {
-                    if (subtrees.containsNode(op.childId) && subtrees.containsNode(op.targetPosition.nodeId)) {
-                        subtrees.moveNode(op.childId, op.targetPosition.nodeId)
-                    } else {
-                        return ops
-                    }
+                    if (!createdNodes.contains(op.sourceId)) compressedOps += op
                 }
                 else -> throw RuntimeException("Unknown operation type: $op")
             }
