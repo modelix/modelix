@@ -31,7 +31,7 @@ class KVEntryReference<out E : IKVValue>(private var writtenOrUnwrittenReference
 
     override fun write(store: IDeserializingKeyValueStore) {
         val currentRef = writtenOrUnwrittenReference
-        if (currentRef is NonWrittenEntry && !currentRef.isWritten()) {
+        if (currentRef is NonWrittenEntry) {
             val deserializer = currentRef.getDeserializer()
             val hash = currentRef.getHash()
             currentRef.write(store)
