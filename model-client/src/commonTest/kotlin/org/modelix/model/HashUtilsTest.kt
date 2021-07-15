@@ -34,6 +34,18 @@ class HashUtilsTest {
     }
 
     @Test
+    fun testSha256EmptyString() {
+        val res = HashUtil.sha256("")
+        assertEquals("47DEQ*pj8HBSa-_TImW-5JCeuQeRkm5NMpJWZG3hSuFU", res)
+    }
+
+    @Test
+    fun testSha256AsciiString() {
+        val res = HashUtil.sha256("""!"#${'$'}%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~""")
+        assertEquals("TlD0a*IifAn-A7RlySVGi9Xb6YeBMJ9vp7JiPUGtZH-U", res)
+    }
+
+    @Test
     fun testBase64encodeByteArrayEmpty() {
         val res = HashUtil.base64encode(ByteArray(0))
         assertEquals("", res)
