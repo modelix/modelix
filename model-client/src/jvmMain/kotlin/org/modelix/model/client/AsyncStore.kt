@@ -75,7 +75,12 @@ class AsyncStore(private val store: IKeyValueStore) : IKeyValueStoreWrapper {
     override fun putAll(entries: Map<String, String?>) {
         synchronized(pendingWrites) {
             // ensure correct order
-            for (key in entries.keys) pendingWrites.remove(key)
+            for (newEntry in entries) {
+                val existingValue = pendingWrites[newEntry.key]
+                if (existingValue != newEntry.value) {
+                    pendingWrites.remove(newEntry.key)
+                }
+            }
 
             pendingWrites.putAll(entries)
         }
