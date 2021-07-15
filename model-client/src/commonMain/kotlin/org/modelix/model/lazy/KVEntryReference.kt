@@ -44,7 +44,6 @@ class KVEntryReference<out E : IKVValue>(private var writtenOrUnwrittenReference
     override fun getDeserializer(): (String) -> E = writtenOrUnwrittenReference.getDeserializer()
 
     override fun toString(): String {
-        throw RuntimeException("Use .getHash()")
-        // return "Reference to ${getHash()}"
+        return getHash()
     }
 }

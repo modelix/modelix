@@ -67,11 +67,11 @@ class AddNewChildSubtreeOp(val resultTreeHash: KVEntryReference<CPTree>, val pos
     }
 
     override fun toString(): String {
-        return "AddNewChildSubtreeOp $resultTreeHash, ${SerializationUtil.longToHex(childId)}, $position, $concept"
+        return "AddNewChildSubtreeOp ${resultTreeHash.getHash()}, ${SerializationUtil.longToHex(childId)}, $position, $concept"
     }
 
     override fun toCode(): String {
-        return """t.addNewChildSubtree($resultTreeHash, 0x${position.nodeId.toString(16)}, "${position.role}", ${position.index}, 0x${childId.toString(16)}, null)"""
+        return """t.addNewChildSubtree(${resultTreeHash.getHash()}, 0x${position.nodeId.toString(16)}, "${position.role}", ${position.index}, 0x${childId.toString(16)}, null)"""
     }
 
     inner class Applied(val store: IDeserializingKeyValueStore) : AbstractOperation.Applied(), IAppliedOperation {
