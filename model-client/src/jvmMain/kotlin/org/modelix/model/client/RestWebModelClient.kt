@@ -242,7 +242,33 @@ class RestWebModelClient @JvmOverloads constructor(var baseUrl: String? = null, 
         }
     }
 
-    override fun putAll(entries: Map<String, String?>) {
+    fun sortEntriesByDependency(unsorted: Map<String, String?>): Map<String, String?> {
+        val sorted = LinkedHashMap<String, String?>()
+        object {
+            fun putEntry(key: String, value: String?) {
+                if (sorted.containsKey(key)) return
+                for (depKey in HashUtil.extractSha256(value)) {
+                    if (sorted.containsKey(depKey)) continue
+                    if (unsorted.containsKey(depKey)) {
+                        val depValue = unsorted[depKey]
+                        putEntry(depKey, depValue)
+                    }
+                }
+                sorted[key] = value
+            }
+
+            fun putAll() {
+                for (entry in unsorted) {
+                    putEntry(entry.key, entry.value)
+                }
+            }
+        }.putAll()
+
+        return sorted
+    }
+
+    override fun putAll(entries_: Map<String, String?>) {
+        val entries = sortEntriesByDependency(entries_)
         val sendBatch = Consumer<JSONArray> { json ->
             if (LOG.isDebugEnabled) {
                 LOG.debug("PUT batch of " + json.length() + " entries")
