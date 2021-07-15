@@ -18,17 +18,15 @@ import org.modelix.model.persistent.IKVValue
 class NonWrittenEntry<E : IKVValue> : IKVEntryReference<E> {
     private val hash: String
     private val deserialized: E
-    private var written: Boolean = false
 
-    private constructor(hash: String, deserialized: E, written: Boolean) {
+    private constructor(hash: String, deserialized: E) {
         this.hash = hash
         this.deserialized = deserialized
-        this.written = written
     }
 
-    constructor(deserialized: E) : this(deserialized.hash, deserialized, false)
+    constructor(deserialized: E) : this(deserialized.hash, deserialized)
 
-    fun isWritten() = written
+    fun isWritten() = deserialized.isWritten
 
     override fun getHash(): String = hash
 
@@ -41,10 +39,10 @@ class NonWrittenEntry<E : IKVValue> : IKVEntryReference<E> {
     override fun getDeserializer(): (String) -> E = getDeserialized().getDeserializer() as (String) -> E
 
     override fun write(store: IDeserializingKeyValueStore) {
-        if (!written) {
+        if (!deserialized.isWritten) {
             deserialized.getReferencedEntries().forEach { it.write(store) }
             store.put(hash, deserialized, getSerialized())
-            written = true
+            deserialized.isWritten = true
         }
     }
 }

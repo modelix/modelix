@@ -22,7 +22,7 @@ class KVEntryReference<out E : IKVValue>(private var writtenOrUnwrittenReference
     }
 
     constructor(hash: String, deserializer: (String) -> E) : this(WrittenEntry(hash, deserializer))
-    constructor(deserialized: E) : this(NonWrittenEntry(deserialized))
+    constructor(deserialized: E) : this(if (deserialized.isWritten) WrittenEntry(deserialized.hash, deserialized.getDeserializer() as (String) -> E) else NonWrittenEntry(deserialized))
 
     fun isWritten(): Boolean {
         val r = writtenOrUnwrittenReference

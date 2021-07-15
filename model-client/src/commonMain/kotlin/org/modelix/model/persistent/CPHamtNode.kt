@@ -21,6 +21,7 @@ import org.modelix.model.persistent.SerializationUtil.longFromHex
 import kotlin.jvm.JvmStatic
 
 abstract class CPHamtNode : IKVValue {
+    override var isWritten: Boolean = false
 
     override val hash: String by lazy(LazyThreadSafetyMode.PUBLICATION) { HashUtil.sha256(serialize()) }
 
@@ -32,7 +33,7 @@ abstract class CPHamtNode : IKVValue {
         @JvmStatic
         fun deserialize(input: String): CPHamtNode {
             val parts = input.split("/")
-            return when {
+            val data = when {
                 "L" == parts[0] -> CPHamtLeaf(longFromHex(parts[1]), KVEntryReference(parts[2], CPNode.DESERIALIZER))
                 "I" == parts[0] -> CPHamtInternal(
                     intFromHex(parts[1]),
@@ -43,6 +44,8 @@ abstract class CPHamtNode : IKVValue {
                 )
                 else -> throw RuntimeException("Unknown type: " + parts[0] + ", input: " + input)
             }
+            data.isWritten = true
+            return data
         }
     }
 }

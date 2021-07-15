@@ -38,6 +38,8 @@ class CPVersion(
     operationsHash: KVEntryReference<CPOperationsList>?,
     numberOfOperations: Int
 ) : IKVValue {
+    override var isWritten: Boolean = false
+
     val id: Long
     val time: String?
     val author: String?
@@ -106,7 +108,7 @@ class CPVersion(
                             .map { OperationSerializer.INSTANCE.deserialize(it) }
                             .toTypedArray()
                     }
-                    return CPVersion(
+                    val data = CPVersion(
                         longFromHex(parts[0]),
                         unescape(parts[1]),
                         unescape(parts[2]),
@@ -120,6 +122,8 @@ class CPVersion(
                         operationsHash = opsHash?.let { KVEntryReference(it, CPOperationsList.DESERIALIZER) },
                         numberOfOperations = parts[7].toInt()
                     )
+                    data.isWritten = true
+                    return data
                 } else {
                     var opsHash: String? = null
                     var ops: Array<IOperation>? = null
@@ -132,7 +136,7 @@ class CPVersion(
                             .toTypedArray()
                     }
                     val numOps = if (parts.size > 6) parts[6].toInt() else -1
-                    return CPVersion(
+                    val data = CPVersion(
                         id = longFromHex(parts[0]),
                         time = unescape(parts[1]),
                         author = unescape(parts[2]),
@@ -146,6 +150,8 @@ class CPVersion(
                         opsHash?.let { KVEntryReference(it, CPOperationsList.DESERIALIZER) },
                         numOps
                     )
+                    data.isWritten = true
+                    return data
                 }
             } catch (ex: Exception) {
                 throw RuntimeException("Failed to deserialize version: $input", ex)

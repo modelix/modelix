@@ -19,6 +19,8 @@ import org.modelix.model.lazy.KVEntryReference
 import org.modelix.model.operations.IOperation
 
 class CPOperationsList(val operations: Array<IOperation>) : IKVValue {
+    override var isWritten: Boolean = false
+
     override fun serialize(): String {
         return if (operations.isEmpty()) "" else operations
             .joinToString(",") { OperationSerializer.INSTANCE.serialize(it) }
@@ -36,12 +38,14 @@ class CPOperationsList(val operations: Array<IOperation>) : IKVValue {
         val DESERIALIZER: (String) -> CPOperationsList = { deserialize(it) }
 
         fun deserialize(input: String): CPOperationsList {
-            return CPOperationsList(
+            val data = CPOperationsList(
                 input.split(",")
                     .filter { it.isNotEmpty() }
                     .map { OperationSerializer.INSTANCE.deserialize(it) }
                     .toTypedArray()
             )
+            data.isWritten = true
+            return data
         }
     }
 }

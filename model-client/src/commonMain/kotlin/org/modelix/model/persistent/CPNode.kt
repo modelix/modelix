@@ -38,6 +38,9 @@ class CPNode private constructor(
     val referenceRoles: Array<String>,
     val referenceTargets: Array<CPNodeRef>
 ) : IKVValue {
+
+    override var isWritten: Boolean = false
+
     override fun serialize(): String {
         val sb = StringBuilder()
         sb.append(longToHex(id))
@@ -231,7 +234,7 @@ class CPNode private constructor(
                 val references = parts[6].split(",")
                     .filter { it.isNotEmpty() }
                     .map { it.split("=") }
-                CPNode(
+                val data = CPNode(
                     longFromHex(parts[0]),
                     unescape(parts[1]),
                     longFromHex(parts[2]),
@@ -242,6 +245,8 @@ class CPNode private constructor(
                     references.map { unescape(it[0])!! }.toTypedArray(),
                     references.map { fromString(unescape(it[1])!!) }.toTypedArray()
                 )
+                data.isWritten = true
+                data
             } catch (ex: Exception) {
                 throw RuntimeException("Failed to deserialize $input", ex)
             }

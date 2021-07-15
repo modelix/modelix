@@ -23,6 +23,7 @@ class CPTree(
     val rootId: Long,
     var idToHash: KVEntryReference<CPHamtNode>
 ) : IKVValue {
+    override var isWritten: Boolean = false
 
     override fun serialize(): String {
         return "$id/$rootId/${idToHash.getHash()}"
@@ -39,7 +40,9 @@ class CPTree(
         @JvmStatic
         fun deserialize(input: String): CPTree {
             val parts = input.split("/")
-            return CPTree(parts[0], parts[1].toLong(), KVEntryReference(parts[2], CPHamtNode.DESERIALIZER))
+            val data = CPTree(parts[0], parts[1].toLong(), KVEntryReference(parts[2], CPHamtNode.DESERIALIZER))
+            data.isWritten = true
+            return data
         }
     }
 }
