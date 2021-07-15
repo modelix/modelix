@@ -190,7 +190,7 @@ class CLVersion {
             baseVersion = baseVersion,
             mergedVersion1 = null,
             mergedVersion2 = null,
-            operations = compressOperations(operations, tree)
+            operations = OperationsCompressor(KVEntryReference(tree.data)).compressOperations(operations)
         )
 
         fun loadFromHash(hash: String, store: IDeserializingKeyValueStore): CLVersion {
@@ -199,63 +199,7 @@ class CLVersion {
             return CLVersion(data, store)
         }
 
-        /**
-         * Optimize for bulk imports
-         * If a whole subtree is imported then there are a lot of operations where only the AddNewChildOp for the subtree
-         * root has the potential to cause any conflict.
-         * In that case we replace all of these operation with one AddNewChildSubtreeOp that references the resulting
-         * subtree in the new version. We don't lose any information and can reconstruct the original operations if needed.
-         */
-        private fun compressOperations(ops: Array<IOperation>, resultTree: CLTree): Array<IOperation> {
-            if (ops.size <= INLINED_OPS_LIMIT) return ops
 
-            val compressedOps: MutableList<IOperation> = ArrayList()
-            val createdNodes: MutableSet<Long> = HashSet()
-
-            for (op in ops) {
-                if (op is UndoOp) return ops
-
-                when (op) {
-                    is AddNewChildOp -> {
-                        createdNodes.add(op.childId)
-                        val effectivelyAddedToSubtree =
-                            createdNodes.contains(op.childId) &&
-                                resultTree.containsNode(op.childId) &&
-                                createdNodes.contains(resultTree.getParent(op.childId))
-                        if (!effectivelyAddedToSubtree) {
-                            compressedOps += AddNewChildSubtreeOp(KVEntryReference(resultTree.data), op.position, op.childId, op.concept)
-                        }
-                    }
-                    is DeleteNodeOp -> {
-                        createdNodes -= op.childId
-                        compressedOps += op
-                    }
-                    is SetPropertyOp -> {
-                        if (!createdNodes.contains(op.nodeId)) {
-                            compressedOps += op
-                        }
-                    }
-                    is SetReferenceOp -> {
-                        if (!createdNodes.contains(op.sourceId)) {
-                            compressedOps += op
-                        }
-                    }
-                    is MoveNodeOp -> {
-                        val effectivelyAddedToSubtree =
-                            createdNodes.contains(op.childId) &&
-                                resultTree.containsNode(op.childId) &&
-                                createdNodes.contains(resultTree.getParent(op.childId))
-                        if (!effectivelyAddedToSubtree) {
-                            compressedOps += op
-                        }
-                    }
-                    else -> compressedOps += op
-                }
-            }
-
-            // if we save less than 10 operations then it's probably not worth doing the replacement
-            return if (ops.size - compressedOps.size >= 10) compressedOps.toTypedArray() else ops
-        }
     }
 
     private fun globalizeOps(ops: List<IOperation>): List<IOperation> {

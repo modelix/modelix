@@ -10,7 +10,7 @@ import kotlin.test.assertEquals
 
 class TreeSerializationTest {
 
-    fun initTree(branch: IBranch) {
+    fun initTree(branch: IBranch, moreThan10ops: Boolean) {
         branch.runWrite {
             val t = branch.writeTransaction
             t.addNewChild(ITree.ROOT_ID, "c1", 0, 0x7fffffff00000001, null)
@@ -23,6 +23,13 @@ class TreeSerializationTest {
             t.setProperty(0x7fffffff00000001, "p2", "b-ⓜ")
             t.setReferenceTarget(0x7fffffff00000001, "r1", PNodeReference(0x7fffffff00000001, branch.getId()))
             t.setReferenceTarget(0x7fffffff00000001, "r2", PNodeReference(0x7fffffff00000002, branch.getId()))
+
+            if (moreThan10ops) {
+                t.addNewChild(ITree.ROOT_ID, "bignode", 0, 0x7fffffff00000004, null)
+                for (i in 1 .. 20) {
+                    t.setProperty(0x7fffffff00000004, "p$i", "value$i")
+                }
+            }
         }
     }
 
@@ -36,6 +43,19 @@ class TreeSerializationTest {
 
     @Test
     fun serializeAndDeserialize() {
+        // the hash only ensures that JVM and JS produce the same serialized data
+        // it can just be updated if the test fails
+        serializeAndDeserialize(false, "0iPeU*FYhiAh22rQ_fTEYqXbiWsrjVTizYdp8UueGX_4")
+    }
+
+    @Test
+    fun serializeAndDeserialize_AddNewChildSubtreeOp() {
+        // the hash only ensures that JVM and JS produce the same serialized data
+        // it can just be updated if the test fails
+        serializeAndDeserialize(true, "lC7rj*bs8u4a2EIhw08x8Rk6VJgFcIjYHxtcN6tckTS4")
+    }
+
+    fun serializeAndDeserialize(moreThan10ops: Boolean, expectedVersionHash: String) {
         val mapStore = MapBaseStore()
         var store = mapStore
         var objectStore = ObjectStoreCache(store)
@@ -50,7 +70,7 @@ class TreeSerializationTest {
         )
         val idGenerator = IdGenerator(Int.MAX_VALUE)
         val branch = OTBranch(PBranch(initialTree, idGenerator), idGenerator, objectStore)
-        initTree(branch)
+        initTree(branch, moreThan10ops)
         val (ops, tree) = branch.operationsAndTree
         val version = CLVersion.createRegularVersion(
             id = 1,
@@ -60,9 +80,11 @@ class TreeSerializationTest {
             baseVersion = initialVersion,
             operations = ops.map { it.getOriginalOp() }.toTypedArray()
         )
-        store.put("branch_master", version.write())
+        val versionHash = version.write()
+        store.put("branch_master", versionHash)
         mapStore.entries.sortedBy { it.key }.forEach { println(""""${it.key}" to "${it.value}",""") }
         assertTree(tree)
+        assertEquals(expectedVersionHash, versionHash) // ensures that JVM and JS targets produce the same serialized data
 
         store = mapStore
         objectStore = ObjectStoreCache(store)
@@ -219,6 +241,41 @@ class TreeSerializationTest {
                 "pr1xK*QDIr3d0xzEHyfNIyGagxR-B9kV6sDqTqZcum4s" to "I/1/cXiQQ*hmMY4hI4DLXtzBFm_2bUz4KLnnfsbupiGXDNyU",
                 "wpWTu*_jgNVwPY3xKfEMb2kOMHhIYxU1A3mHCXXKzwN4" to "L/1/pdFUB*oUqfKisgMWISa51tIYiGSQSEktOwmH5CmWsqP8",
                 "x_bof*v8CBnjMI9fRH9QiRYsS3RqrdHjRA8zhqeTVuwQ" to "I/1/omCN-*elaFM3_USYahuiPS8SsPcRKoDn7rIL-7fKJ6kw",
+            )
+        )
+
+        assertStore(mapStore)
+    }
+
+    @Test
+    fun backwardCompatibility05_AddNewChildSubtreeOp() {
+        val mapStore = MapBaseStore()
+        mapStore.putAll(
+            mapOf(
+                "6PKA3*bbJhnbA-bfssISeyyxpEvKe1y1hkHLF_kRA7OI" to "L/7fffffff00000004/6rFN5*8EECqQe3NYkCW27Hj6d0G6ykD0AwII3I7FKNjc",
+                "6rFN5*8EECqQe3NYkCW27Hj6d0G6ykD0AwII3I7FKNjc" to "7fffffff00000004/%00/1/bignode//p1=value1,p10=value10,p11=value11,p12=value12,p13=value13,p14=value14,p15=value15,p16=value16,p17=value17,p18=value18,p19=value19,p2=value2,p20=value20,p3=value3,p4=value4,p5=value5,p6=value6,p7=value7,p8=value8,p9=value9/",
+                "9yZqX*K2EzDQ2OD55nQ9B7BtZ5FIoAQOOTha2biysf1U" to "AddNewChildOp;1;c1;0;7fffffff00000001;%00,AddNewChildOp;7fffffff00000001;c2;0;7fffffff00000002;%00,AddNewChildOp;1;c3;0;7fffffff00000003;%00,MoveNodeOp;7fffffff00000003;7fffffff00000002;c3;0,DeleteNodeOp;7fffffff00000003,MoveNodeOp;7fffffff00000002;1;c1;1,SetPropertyOp;7fffffff00000001;p1;a-%E2%93%9C,SetPropertyOp;7fffffff00000001;p2;b-%E2%93%9C,SetReferenceOp;7fffffff00000001;r1;7fffffff00000001,SetReferenceOp;7fffffff00000001;r2;7fffffff00000002,AddNewChildOp;1;bignode;0;7fffffff00000004;%00,SetPropertyOp;7fffffff00000004;p1;value1,SetPropertyOp;7fffffff00000004;p2;value2,SetPropertyOp;7fffffff00000004;p3;value3,SetPropertyOp;7fffffff00000004;p4;value4,SetPropertyOp;7fffffff00000004;p5;value5,SetPropertyOp;7fffffff00000004;p6;value6,SetPropertyOp;7fffffff00000004;p7;value7,SetPropertyOp;7fffffff00000004;p8;value8,SetPropertyOp;7fffffff00000004;p9;value9,SetPropertyOp;7fffffff00000004;p10;value10,SetPropertyOp;7fffffff00000004;p11;value11,SetPropertyOp;7fffffff00000004;p12;value12,SetPropertyOp;7fffffff00000004;p13;value13,SetPropertyOp;7fffffff00000004;p14;value14,SetPropertyOp;7fffffff00000004;p15;value15,SetPropertyOp;7fffffff00000004;p16;value16,SetPropertyOp;7fffffff00000004;p17;value17,SetPropertyOp;7fffffff00000004;p18;value18,SetPropertyOp;7fffffff00000004;p19;value19,SetPropertyOp;7fffffff00000004;p20;value20",
+                "CTVRw*a6KXJ4o7uzGlp-kUosxpyRf4fUpHnLokG9T86A" to "1/%00/0/%00///",
+                "Et95z*_OAINGqgFr3DvKVtdBGEa3gUNjkZF77F7CQQf0" to "7fffffff00000002/%00/1/c1///",
+                "LvNC2*MsGF9K7aTAB9SFqQNTA9qwr3S-EnU-Njg03C-A" to "L/1/tn1yU*AaRfmUj0lQDjnNuie3Ln5nIW4-hxHg2ZKRbLcw",
+                "QCHB7*ih4wRCTwSJGwE1BVBkJHVzW0tHQbrzp8TPQtzw" to "tree01/1/h_wag*mwA-TnqFmOW5nasofP6fakdXUT3z7EPU2kqa20",
+                "SZDic*PQ68XXYBg_rT9ZqlxGUA8QEgVm34UbQmS8e_lI" to "I/1/pIGA0*hp_JWhKncSSObdmU-AuZ0Tv3s37pis6kToU2-w",
+                "WZHds*IH4BcULD8r2luLrmyLEmUljMKs5c_JzA8hvVec" to "I/1/yD2bw*OVABfbL3WyEPYPLdnQeYD4K3rbEaIripgx8j9o",
+                "Xhga2*Mj3BjwVYg01WhIax37895EcWBwOVnBYoIY5s7M" to "I/10000001/LvNC2*MsGF9K7aTAB9SFqQNTA9qwr3S-EnU-Njg03C-A,aFC83*xz2jokKqzz5pUs6OIxEj-hCatYuxl53lJjzoy0",
+                "ZOO8s*Bh4LiAAhPpLa2GS4lNrF7ZMB-LIyBOv382x0Rs" to "tree01/1/s61HN*MQLl_sNdFNvx0sf5twkvawYv1Dqy8bNpIVaF_s",
+                "_C85v*kMOaMLUREtIiKI4VlTd_6Q4vJv6q8SJkBpOhJE" to "I/1/WZHds*IH4BcULD8r2luLrmyLEmUljMKs5c_JzA8hvVec",
+                "aFC83*xz2jokKqzz5pUs6OIxEj-hCatYuxl53lJjzoy0" to "L/7fffffff00000001/fKGCF*wU73YLn6ErIfxsHPVMne2LZQu2FbEVm4h540e4",
+                "branch_master" to "lC7rj*bs8u4a2EIhw08x8Rk6VJgFcIjYHxtcN6tckTS4",
+                "fKGCF*wU73YLn6ErIfxsHPVMne2LZQu2FbEVm4h540e4" to "7fffffff00000001/%00/1/c1//p1=a-%E2%93%9C,p2=b-%E2%93%9C/r1=7fffffff00000001,r2=7fffffff00000002",
+                "h_wag*mwA-TnqFmOW5nasofP6fakdXUT3z7EPU2kqa20" to "I/16/SZDic*PQ68XXYBg_rT9ZqlxGUA8QEgVm34UbQmS8e_lI,mfve0*pYVzQSTH0xdUMCy8LnrhZXzNqBf-xPVLUadCk4,6PKA3*bbJhnbA-bfssISeyyxpEvKe1y1hkHLF_kRA7OI",
+                "ih0d_*YEBkK_kuAjOhVk_pquoo5uI31bsuaOWgoXGCbo" to "1/%00/%00/ZOO8s*Bh4LiAAhPpLa2GS4lNrF7ZMB-LIyBOv382x0Rs////0/",
+                "lC7rj*bs8u4a2EIhw08x8Rk6VJgFcIjYHxtcN6tckTS4" to "1/%00/%00/QCHB7*ih4wRCTwSJGwE1BVBkJHVzW0tHQbrzp8TPQtzw/ih0d_*YEBkK_kuAjOhVk_pquoo5uI31bsuaOWgoXGCbo///31/9yZqX*K2EzDQ2OD55nQ9B7BtZ5FIoAQOOTha2biysf1U",
+                "mfve0*pYVzQSTH0xdUMCy8LnrhZXzNqBf-xPVLUadCk4" to "L/7fffffff00000002/Et95z*_OAINGqgFr3DvKVtdBGEa3gUNjkZF77F7CQQf0",
+                "pIGA0*hp_JWhKncSSObdmU-AuZ0Tv3s37pis6kToU2-w" to "I/1/_C85v*kMOaMLUREtIiKI4VlTd_6Q4vJv6q8SJkBpOhJE",
+                "qYCCM*hnYowY5aEKef26etn8sO_yfH898xZnX3xQcgqs" to "L/1/CTVRw*a6KXJ4o7uzGlp-kUosxpyRf4fUpHnLokG9T86A",
+                "s61HN*MQLl_sNdFNvx0sf5twkvawYv1Dqy8bNpIVaF_s" to "I/2/qYCCM*hnYowY5aEKef26etn8sO_yfH898xZnX3xQcgqs",
+                "tn1yU*AaRfmUj0lQDjnNuie3Ln5nIW4-hxHg2ZKRbLcw" to "1/%00/0/%00/7fffffff00000001,7fffffff00000002,7fffffff00000004//",
+                "yD2bw*OVABfbL3WyEPYPLdnQeYD4K3rbEaIripgx8j9o" to "I/1/Xhga2*Mj3BjwVYg01WhIax37895EcWBwOVnBYoIY5s7M",
             )
         )
 
