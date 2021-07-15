@@ -26,7 +26,7 @@ class TreeSerializationTest {
 
             if (moreThan10ops) {
                 t.addNewChild(ITree.ROOT_ID, "bignode", 0, 0x7fffffff00000004, null)
-                for (i in 1 .. 20) {
+                for (i in 1..20) {
                     t.setProperty(0x7fffffff00000004, "p$i", "value$i")
                 }
             }

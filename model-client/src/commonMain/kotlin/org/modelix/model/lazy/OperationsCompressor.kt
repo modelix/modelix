@@ -119,4 +119,3 @@ class OperationsCompressor(val resultTree: KVEntryReference<CPTree>) {
         fun getId() = addOp.childId
     }
 }
-

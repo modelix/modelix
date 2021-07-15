@@ -198,8 +198,6 @@ class CLVersion {
                 ?: throw RuntimeException("Version with hash $hash not found")
             return CLVersion(data, store)
         }
-
-
     }
 
     private fun globalizeOps(ops: List<IOperation>): List<IOperation> {
