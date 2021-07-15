@@ -234,14 +234,17 @@ class CPNode private constructor(
                 val references = parts[6].split(",")
                     .filter { it.isNotEmpty() }
                     .map { it.split("=") }
+                val propertyRoles = properties.map { unescape(it[0])!! }
+                val propertyValues = properties.map { unescape(it[1]) }
+                val propertiesWithoutNull = propertyRoles.zip(propertyValues).filter { it.second != null }
                 val data = CPNode(
                     longFromHex(parts[0]),
                     unescape(parts[1]),
                     longFromHex(parts[2]),
                     unescape(parts[3]),
                     parts[4].split(",").filter { it.isNotEmpty() }.map { longFromHex(it) }.toLongArray(),
-                    properties.map { unescape(it[0])!! }.toTypedArray(),
-                    properties.map { unescape(it[1])!! }.toTypedArray(),
+                    propertiesWithoutNull.map { it.first }.toTypedArray(),
+                    propertiesWithoutNull.map { it.second!! }.toTypedArray(),
                     references.map { unescape(it[0])!! }.toTypedArray(),
                     references.map { fromString(unescape(it[1])!!) }.toTypedArray()
                 )
