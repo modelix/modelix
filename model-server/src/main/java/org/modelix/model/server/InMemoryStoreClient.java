@@ -47,6 +47,7 @@ public class InMemoryStoreClient implements IStoreClient {
     public Map<String, String> getAll(Set<String> keys) {
         return keys.stream().collect(Collectors.toMap(Function.identity(), this::get));
     }
+
     @Override
     public void put(String key, String value) {
         values.put(key, value);

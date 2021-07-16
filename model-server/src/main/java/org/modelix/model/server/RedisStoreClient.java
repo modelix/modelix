@@ -65,7 +65,7 @@ public class RedisStoreClient implements IStoreClient {
     public Map<String, String> getAll(Set<String> keys) {
         return keys.stream().collect(Collectors.toMap(Function.identity(), this::get));
     }
-    
+
     @Override
     public void put(String key, String value) {
         syncCommands.set(key, value);
