@@ -28,6 +28,7 @@ import org.modelix.model.client.SharedExecutors.fixDelay
 import org.modelix.model.lazy.IDeserializingKeyValueStore
 import org.modelix.model.lazy.ObjectStoreCache
 import org.modelix.model.persistent.HashUtil
+import org.modelix.model.sleep
 import org.modelix.model.util.StreamUtils.toStream
 import java.io.File
 import java.net.URLEncoder
@@ -269,21 +270,23 @@ class RestWebModelClient @JvmOverloads constructor(var baseUrl: String? = null, 
 
     override fun putAll(entries_: Map<String, String?>) {
         val entries = sortEntriesByDependency(entries_)
-        val sendBatch = Consumer<JSONArray> { json ->
-            if (LOG.isDebugEnabled) {
-                LOG.debug("PUT batch of " + json.length() + " entries")
-            }
-            val response = client.target(baseUrl + "putAll").request(MediaType.TEXT_PLAIN).put(Entity.text(json.toString()))
-            if (response.statusInfo.family != Response.Status.Family.SUCCESSFUL) {
-                throw RuntimeException(
-                    String.format(
-                        "Failed to store %d entries (%s) %s: %s",
-                        entries.size,
-                        response.statusInfo,
-                        entries.entries.stream().map { e: Map.Entry<String?, String?> -> e.key.toString() + " = " + e.value + ", ..." }.findFirst().orElse(""),
-                        response.readEntity(String::class.java)
-                    )
+        val sendBatch = sendBatch@{ json: JSONArray, remaining: Int ->
+            for (attempt in 1 .. 3) {
+                if (LOG.isDebugEnabled) {
+                    LOG.debug("PUT batch of ${json.length()} entries, $remaining remaining")
+                }
+                val response = client.target(baseUrl + "putAll").request(MediaType.TEXT_PLAIN).put(Entity.text(json.toString()))
+                if (response.statusInfo.family == Response.Status.Family.SUCCESSFUL) return@sendBatch
+                val message = String.format(
+                    "Failed to store %d entries (%s) %s: %s (attempt %d)",
+                    entries.size,
+                    response.statusInfo,
+                    entries.entries.stream().map { e: Map.Entry<String?, String?> -> e.key.toString() + " = " + e.value + ", ..." }.findFirst().orElse(""),
+                    response.readEntity(String::class.java),
+                    attempt
                 )
+                if (attempt == 3) throw RuntimeException(message) else LOG.warn(message)
+                sleep(1000)
             }
         }
         if (LOG.isDebugEnabled) {
@@ -308,7 +311,7 @@ class RestWebModelClient @JvmOverloads constructor(var baseUrl: String? = null, 
                     }
                 }
                 if (json.length() >= 5000 || approxSize > 10000000) {
-                    sendBatch.accept(json)
+                    sendBatch(json, remainingEntries)
                     remainingEntries -= json.length()
                     pendingWrites.addAndGet(-json.length())
                     json = JSONArray()
@@ -316,7 +319,7 @@ class RestWebModelClient @JvmOverloads constructor(var baseUrl: String? = null, 
                 }
             }
             if (json.length() > 0) {
-                sendBatch.accept(json)
+                sendBatch(json, remainingEntries)
             }
         } finally {
             pendingWrites.addAndGet(-remainingEntries)
