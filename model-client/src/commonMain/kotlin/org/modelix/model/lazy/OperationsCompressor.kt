@@ -14,7 +14,6 @@
 package org.modelix.model.lazy
 
 import org.modelix.model.operations.*
-import org.modelix.model.persistent.CPTree
 
 class OperationsCompressor(val resultTree: CLTree) {
 
