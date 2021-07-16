@@ -67,7 +67,9 @@
                 <!-- Redefining the default region's settings -->
                 <property name="defaultDataRegionConfiguration">
                     <bean class="org.apache.ignite.configuration.DataRegionConfiguration">
-                        <property name="maxSize" value="#{100L * 1024 * 1024}"/>
+                        <property name="maxSize" value="#{300L * 1024 * 1024}"/>
+                        <property name="evictionThreshold" value="0.5"/>
+                        <property name="pageEvictionMode" value="RANDOM_LRU" />
                     </bean>
                 </property>
             </bean>
