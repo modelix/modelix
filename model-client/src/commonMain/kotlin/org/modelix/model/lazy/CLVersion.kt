@@ -190,7 +190,7 @@ class CLVersion {
             baseVersion = baseVersion,
             mergedVersion1 = null,
             mergedVersion2 = null,
-            operations = OperationsCompressor(KVEntryReference(tree.data)).compressOperations(operations)
+            operations = OperationsCompressor(tree).compressOperations(operations)
         )
 
         fun loadFromHash(hash: String, store: IDeserializingKeyValueStore): CLVersion {

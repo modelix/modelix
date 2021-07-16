@@ -16,7 +16,7 @@ package org.modelix.model.lazy
 import org.modelix.model.operations.*
 import org.modelix.model.persistent.CPTree
 
-class OperationsCompressor(val resultTree: KVEntryReference<CPTree>) {
+class OperationsCompressor(val resultTree: CLTree) {
 
     /**
      * Optimize for bulk imports
@@ -28,6 +28,7 @@ class OperationsCompressor(val resultTree: KVEntryReference<CPTree>) {
     fun compressOperations(ops: Array<IOperation>): Array<IOperation> {
         if (ops.size <= CLVersion.INLINED_OPS_LIMIT) return ops
 
+        val resultTreeRef = KVEntryReference(resultTree.data)
         val compressedOps: MutableList<IOperation> = ArrayList()
         val createdNodes: MutableSet<Long> = HashSet()
 
@@ -37,7 +38,7 @@ class OperationsCompressor(val resultTree: KVEntryReference<CPTree>) {
                 is NoOp -> {}
                 is AddNewChildOp -> {
                     if (!createdNodes.contains(op.position.nodeId)) {
-                        compressedOps += AddNewChildSubtreeOp(resultTree, op.position, op.childId, op.concept)
+                        compressedOps += AddNewChildSubtreeOp(resultTreeRef, op.position, op.childId, op.concept)
                     }
                     createdNodes.add(op.childId)
                 }
@@ -51,71 +52,11 @@ class OperationsCompressor(val resultTree: KVEntryReference<CPTree>) {
             }
         }
 
+        for (id in createdNodes) {
+            if (!resultTree.containsNode(id)) throw RuntimeException("Tree expected to contain node $id")
+        }
+
         // if we save less than 10 operations then it's probably not worth doing the replacement
         return if (ops.size - compressedOps.size >= 10) compressedOps.toTypedArray() else ops
-    }
-
-    private inner class CompressedSubtrees() {
-        val subtrees: MutableList<CompressedSubtree> = ArrayList()
-
-        fun getOrCreateSubtree(op: AddNewChildOp): CompressedSubtree {
-            var subtree = getSubtree(op.childId)
-            if (subtree == null) {
-                subtree = CompressedSubtree(CompressedNode(op))
-                subtrees.add(subtree)
-            }
-            return subtree
-        }
-
-        fun getSubtree(nodeId: Long) = subtrees.find { it.containsNode(nodeId) }
-
-        fun getNode(nodeId: Long) = getSubtree(nodeId)?.getNode(nodeId)
-
-        fun deleteNode(id: Long) {
-            val subtree = subtrees.find { it.containsNode(id) }
-            if (subtree != null) {
-                if (subtree.root.getId() == id) {
-                    subtrees.remove(subtree)
-                } else {
-                    subtree.deleteNode(id)
-                }
-            }
-        }
-
-        fun moveNode(nodeId: Long, targetParent: Long) {
-            val fromSubtree = getSubtree(nodeId)!!
-            val toSubtree = getSubtree(targetParent)!!
-            if (fromSubtree == toSubtree) return
-            if (fromSubtree.root.getId() == nodeId) {
-                toSubtree.containedNodes.putAll(fromSubtree.containedNodes)
-                subtrees.remove(fromSubtree)
-            } else {
-                toSubtree.addNode(fromSubtree.getNode(nodeId)!!.addOp)
-                fromSubtree.deleteNode(nodeId)
-            }
-        }
-
-        fun containsNode(id: Long) = subtrees.any { it.containsNode(id) }
-    }
-
-    private inner class CompressedSubtree(val root: CompressedNode) {
-        val replacement = AddNewChildSubtreeOp(resultTree, root.addOp.position, root.addOp.childId, root.addOp.concept)
-        val containedNodes: MutableMap<Long, CompressedNode> = linkedMapOf(root.addOp.childId to root)
-
-        fun addNode(op: AddNewChildOp) {
-            containedNodes[op.childId] = CompressedNode(op)
-        }
-
-        fun containsNode(id: Long) = containedNodes.containsKey(id)
-
-        fun deleteNode(id: Long) {
-            containedNodes.remove(id)
-        }
-
-        fun getNode(id: Long) = containedNodes[id]
-    }
-
-    private class CompressedNode(val addOp: AddNewChildOp) {
-        fun getId() = addOp.childId
     }
 }
