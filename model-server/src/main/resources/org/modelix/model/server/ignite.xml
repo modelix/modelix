@@ -80,7 +80,7 @@
                 <bean class="org.apache.ignite.configuration.CacheConfiguration">
                     <property name="name" value="model"/>
                     <property name="atomicityMode" value="ATOMIC"/>
-                    <property name="backups" value="1"/>
+                    <property name="backups" value="0"/>
                     <property name="onheapCacheEnabled" value="true"/>
                     <property name="statisticsEnabled" value="true"/>
                     <property name="readThrough" value="true"/>
