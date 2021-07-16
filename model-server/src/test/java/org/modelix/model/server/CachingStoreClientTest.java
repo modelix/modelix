@@ -18,6 +18,9 @@ package org.modelix.model.server;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -43,7 +46,17 @@ public class CachingStoreClientTest {
         }
 
         @Override
+        public Map<String, String> getAll(Set<String> keys) {
+            throw new UnsupportedOperationException("Not implemented");
+        }
+
+        @Override
         public void put(String key, String value) {
+            throw new UnsupportedOperationException();
+        }
+
+        @Override
+        public void putAll(Map<String, String> entries) {
             throw new UnsupportedOperationException();
         }
 

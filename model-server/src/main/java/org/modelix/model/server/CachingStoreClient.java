@@ -18,7 +18,9 @@ package org.modelix.model.server;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
 import java.util.UUID;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 import org.apache.commons.collections4.map.LRUMap;
 
@@ -52,6 +54,11 @@ public class CachingStoreClient implements IStoreClient {
     }
 
     @Override
+    public Map<String, String> getAll(Set<String> keys) {
+        return keys.stream().collect(Collectors.toMap(Function.identity(), this::get));
+    }
+
+    @Override
     public void put(String key, String value) {
         if (allowCaching(key)) {
             String existingValue = cache.get(key);
@@ -61,6 +68,13 @@ public class CachingStoreClient implements IStoreClient {
             cache.put(key, value);
         }
         store.put(key, value);
+    }
+
+    @Override
+    public void putAll(Map<String, String> entries) {
+        for (Map.Entry<String, String> entry : entries.entrySet()) {
+            put(entry.getKey(), entry.getValue());
+        }
     }
 
     @Override

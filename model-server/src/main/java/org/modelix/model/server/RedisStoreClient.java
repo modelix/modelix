@@ -19,6 +19,9 @@ import io.lettuce.core.RedisClient;
 import io.lettuce.core.api.StatefulRedisConnection;
 import io.lettuce.core.api.sync.RedisCommands;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class RedisStoreClient implements IStoreClient {
@@ -59,8 +62,20 @@ public class RedisStoreClient implements IStoreClient {
     }
 
     @Override
+    public Map<String, String> getAll(Set<String> keys) {
+        return keys.stream().collect(Collectors.toMap(Function.identity(), this::get));
+    }
+    
+    @Override
     public void put(String key, String value) {
         syncCommands.set(key, value);
+    }
+
+    @Override
+    public void putAll(Map<String, String> entries) {
+        for (Map.Entry<String, String> entry : entries.entrySet()) {
+            put(entry.getKey(), entry.getValue());
+        }
     }
 
     @Override

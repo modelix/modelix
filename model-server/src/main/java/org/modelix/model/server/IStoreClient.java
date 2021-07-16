@@ -16,13 +16,19 @@
 package org.modelix.model.server;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public interface IStoreClient {
     String get(String key);
 
     List<String> getAll(List<String> keys);
 
+    Map<String, String> getAll(Set<String> keys);
+
     void put(String key, String value);
+
+    void putAll(Map<String, String> entries);
 
     void listen(final String key, final IKeyListener listener);
 

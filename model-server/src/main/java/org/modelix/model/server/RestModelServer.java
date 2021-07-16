@@ -249,7 +249,7 @@ public class RestModelServer {
                                 String value =
                                         IOUtils.toString(
                                                 req.getInputStream(), StandardCharsets.UTF_8);
-                                putEntry(key, value);
+                                putEntries(Collections.singletonMap(key, value));
                                 resp.setStatus(HttpServletResponse.SC_OK);
                                 resp.setContentType(TEXT_PLAIN);
                                 resp.setCharacterEncoding(StandardCharsets.UTF_8.toString());
@@ -271,7 +271,6 @@ public class RestModelServer {
                                             IOUtils.toString(
                                                     req.getInputStream(), StandardCharsets.UTF_8);
                                     JSONArray json = new JSONArray(jsonStr);
-                                    int writtenEntries = 0;
                                     Map<String, String> entries = new LinkedHashMap<>();
                                     for (Object entry_ : json) {
                                         JSONObject entry = (JSONObject) entry_;
@@ -280,14 +279,11 @@ public class RestModelServer {
                                         entries.put(key, value);
                                     }
                                     entries = sortByDependency(entries);
-                                    for (Map.Entry<String, String> entry : entries.entrySet()) {
-                                        putEntry(entry.getKey(), entry.getValue());
-                                        writtenEntries++;
-                                    }
+                                    putEntries(entries);
                                     resp.setStatus(HttpServletResponse.SC_OK);
                                     resp.setContentType(TEXT_PLAIN);
                                     resp.setCharacterEncoding(StandardCharsets.UTF_8.toString());
-                                    resp.getWriter().print(writtenEntries + " entries written");
+                                    resp.getWriter().print(entries.size() + " entries written");
                                 } catch (Exception ex) {
                                     System.out.println(ex.getMessage());
                                     ex.printStackTrace();
@@ -410,29 +406,36 @@ public class RestModelServer {
                 "/subscribe/*");
     }
 
-    protected void putEntry(String key, String value) {
-        if (REPOSITORY_ID_KEY.equals(key)) {
-            throw new RuntimeException("Changing '" + key + "' is not allowed");
-        }
-        if (key.startsWith(PROTECTED_PREFIX)) {
-            throw new RuntimeException("No permission to access " + key);
-        }
-        if (value != null) {
-            Matcher matcher = HASH_PATTERN.matcher(value);
-            while (matcher.find()) {
-                String foundKey = matcher.group();
-                if (storeClient.get(foundKey) == null) {
-                    throw new RuntimeException(
-                            "Attempt to write entry "
-                                    + key
-                                    + "="
-                                    + value
-                                    + " with non-existent referenced key "
-                                    + foundKey);
+    protected void putEntries(Map<String, String> newEntries) {
+        Set<String> referencedKeys = new HashSet<>();
+        for (Map.Entry<String, String> newEntry : newEntries.entrySet()) {
+            String key = newEntry.getKey();
+            String value = newEntry.getValue();
+            if (REPOSITORY_ID_KEY.equals(key)) {
+                throw new RuntimeException("Changing '" + key + "' is not allowed");
+            }
+            if (key.startsWith(PROTECTED_PREFIX)) {
+                throw new RuntimeException("No permission to access " + key);
+            }
+            if (value != null) {
+                Matcher matcher = HASH_PATTERN.matcher(value);
+                while (matcher.find()) {
+                    String foundKey = matcher.group();
+                    if (!newEntries.containsKey(foundKey)) {
+                        referencedKeys.add(foundKey);
+                    }
                 }
             }
         }
-        storeClient.put(key, value);
+
+        Map<String, String> referencedEntries = storeClient.getAll(referencedKeys);
+        for (String key : referencedKeys) {
+            if (referencedEntries.get(key) == null) {
+                throw new RuntimeException("Referenced key " + key + " not found");
+            }
+        }
+
+        storeClient.putAll(newEntries);
     }
 
     public JSONArray collect(String rootKey) {
