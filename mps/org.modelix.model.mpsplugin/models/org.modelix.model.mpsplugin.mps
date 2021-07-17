@@ -96,6 +96,9 @@
     <import index="nv3w" ref="r:18e93978-2322-49a8-aaab-61c6faf67e2a(de.q60.mps.shadowmodels.runtime.engine)" />
     <import index="3hky" ref="r:bef1bfa7-20fd-413a-ae11-793b0a8ee364(de.q60.mps.shadowmodels.runtime.model.persistent)" />
     <import index="kxov" ref="0a2651ab-f212-45c2-a2f0-343e76cbc26b/java:org.modelix.model.metameta(org.modelix.model.client/)" />
+    <import index="mk8z" ref="742f6602-5a2f-4313-aa6e-ae1cd4ffdc61/java:jetbrains.mps.progress(MPS.Platform/)" />
+    <import index="yyf4" ref="8865b7a8-5271-43d3-884c-6fd1d9cfdd34/java:org.jetbrains.mps.openapi.util(MPS.OpenAPI/)" />
+    <import index="mk90" ref="6ed54515-acc8-4d1e-a16c-9fd6cfe951ea/java:jetbrains.mps.progress(MPS.Core/)" />
     <import index="geos" ref="0a2651ab-f212-45c2-a2f0-343e76cbc26b/java:org.modelix.model.persistent(org.modelix.model.client/)" />
   </imports>
   <registry>
@@ -360,6 +363,7 @@
         <child id="8276990574909234106" name="finallyBody" index="1wplMD" />
       </concept>
       <concept id="1073239437375" name="jetbrains.mps.baseLanguage.structure.NotEqualsExpression" flags="nn" index="3y3z36" />
+      <concept id="1081855346303" name="jetbrains.mps.baseLanguage.structure.BreakStatement" flags="nn" index="3zACq4" />
       <concept id="1184950988562" name="jetbrains.mps.baseLanguage.structure.ArrayCreator" flags="nn" index="3$_iS1">
         <child id="1184951007469" name="componentType" index="3$_nBY" />
         <child id="1184952969026" name="dimensionExpression" index="3$GQph" />
@@ -10598,7 +10602,7 @@
                                           <ref role="3uigEE" to="geos:~CPVersion" resolve="CPVersion" />
                                         </node>
                                         <node concept="2OqwBi" id="DnODQyrY5P" role="37wK5m">
-                                          <node concept="37vLTw" id="DnODQyrWRY" role="2Oq$k0">
+                                          <node concept="37vLTw" id="4_7bDUZc$nV" role="2Oq$k0">
                                             <ref role="3cqZAo" node="3H1ZR7sMJpZ" resolve="version" />
                                           </node>
                                           <node concept="liA8E" id="DnODQyrYoQ" role="2OqNvi">
@@ -18906,6 +18910,7 @@
                                                       </node>
                                                     </node>
                                                   </node>
+                                                  <node concept="10Nm6u" id="3CCis83AKOV" role="37wK5m" />
                                                 </node>
                                               </node>
                                             </node>
@@ -20799,6 +20804,7 @@
                                   </node>
                                 </node>
                               </node>
+                              <node concept="10Nm6u" id="3CCis83AJ4C" role="37wK5m" />
                             </node>
                           </node>
                         </node>
@@ -23753,6 +23759,7 @@
               <ref role="3cqZAo" node="i0AVAFY84T" resolve="module" />
             </node>
             <node concept="10Nm6u" id="6dTx9S5tuRI" role="37wK5m" />
+            <node concept="10Nm6u" id="3CCis83AAAu" role="37wK5m" />
           </node>
         </node>
         <node concept="3cpWs6" id="6dTx9S5vRzl" role="3cqZAp">
@@ -24235,7 +24242,28 @@
     <node concept="3clFb_" id="6dTx9S5rSv6" role="jymVt">
       <property role="TrG5h" value="replicatePhysicalModule" />
       <node concept="3clFbS" id="6dTx9S5rSv9" role="3clF47">
-        <node concept="3clFbH" id="6dTx9S5tncL" role="3cqZAp" />
+        <node concept="3clFbJ" id="3CCis83DP7i" role="3cqZAp">
+          <node concept="3clFbS" id="3CCis83DP7k" role="3clFbx">
+            <node concept="3clFbF" id="3CCis83DQCn" role="3cqZAp">
+              <node concept="37vLTI" id="3CCis83DQYf" role="3clFbG">
+                <node concept="2ShNRf" id="3CCis83DRaB" role="37vLTx">
+                  <node concept="1pGfFk" id="3CCis83DThr" role="2ShVmc">
+                    <ref role="37wK5l" to="mk90:~EmptyProgressMonitor.&lt;init&gt;()" resolve="EmptyProgressMonitor" />
+                  </node>
+                </node>
+                <node concept="37vLTw" id="3CCis83DQCl" role="37vLTJ">
+                  <ref role="3cqZAo" node="3CCis83$Os8" resolve="progress" />
+                </node>
+              </node>
+            </node>
+          </node>
+          <node concept="3clFbC" id="3CCis83DPZC" role="3clFbw">
+            <node concept="10Nm6u" id="3CCis83DQbR" role="3uHU7w" />
+            <node concept="37vLTw" id="3CCis83DPwg" role="3uHU7B">
+              <ref role="3cqZAo" node="3CCis83$Os8" resolve="progress" />
+            </node>
+          </node>
+        </node>
         <node concept="3clFbF" id="lOVi2A9Yc1" role="3cqZAp">
           <node concept="2OqwBi" id="lOVi2A9Ytt" role="3clFbG">
             <node concept="37vLTw" id="lOVi2A9YbZ" role="2Oq$k0">
@@ -24331,57 +24359,151 @@
           </node>
         </node>
         <node concept="3clFbH" id="6dTx9S5tniK" role="3cqZAp" />
+        <node concept="3cpWs8" id="3CCis83$l5t" role="3cqZAp">
+          <node concept="3cpWsn" id="3CCis83$l5u" role="3cpWs9">
+            <property role="TrG5h" value="models" />
+            <node concept="_YKpA" id="3CCis83$BA5" role="1tU5fm">
+              <node concept="3uibUv" id="3CCis83$BA7" role="_ZDj9">
+                <ref role="3uigEE" to="mhbf:~SModel" resolve="SModel" />
+              </node>
+            </node>
+            <node concept="10Nm6u" id="3CCis83$E2d" role="33vP2m" />
+          </node>
+        </node>
+        <node concept="1QHqEK" id="3CCis83$kYh" role="3cqZAp">
+          <node concept="1QHqEC" id="3CCis83$kYj" role="1QHqEI">
+            <node concept="3clFbS" id="3CCis83$kYl" role="1bW5cS">
+              <node concept="3clFbF" id="3CCis83$Dkw" role="3cqZAp">
+                <node concept="37vLTI" id="3CCis83$Dky" role="3clFbG">
+                  <node concept="2ShNRf" id="3CCis83$lyd" role="37vLTx">
+                    <node concept="Tc6Ow" id="3CCis83$$1C" role="2ShVmc">
+                      <node concept="3uibUv" id="3CCis83$_DL" role="HW$YZ">
+                        <ref role="3uigEE" to="mhbf:~SModel" resolve="SModel" />
+                      </node>
+                      <node concept="2OqwBi" id="3CCis83$l5v" role="I$8f6">
+                        <node concept="37vLTw" id="3CCis83$l5w" role="2Oq$k0">
+                          <ref role="3cqZAo" node="6dTx9S5rVJq" resolve="physicalModule" />
+                        </node>
+                        <node concept="liA8E" id="3CCis83$l5x" role="2OqNvi">
+                          <ref role="37wK5l" to="lui2:~SModule.getModels()" resolve="getModels" />
+                        </node>
+                      </node>
+                    </node>
+                  </node>
+                  <node concept="37vLTw" id="3CCis83$DkA" role="37vLTJ">
+                    <ref role="3cqZAo" node="3CCis83$l5u" resolve="models" />
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+          <node concept="2OqwBi" id="3CCis83$CZi" role="ukAjM">
+            <node concept="37vLTw" id="3CCis83$Cz6" role="2Oq$k0">
+              <ref role="3cqZAo" node="6dTx9S5rVJq" resolve="physicalModule" />
+            </node>
+            <node concept="liA8E" id="3CCis83$DjG" role="2OqNvi">
+              <ref role="37wK5l" to="lui2:~SModule.getRepository()" resolve="getRepository" />
+            </node>
+          </node>
+        </node>
+        <node concept="3clFbF" id="3CCis83BON$" role="3cqZAp">
+          <node concept="2OqwBi" id="3CCis83BP6G" role="3clFbG">
+            <node concept="37vLTw" id="3CCis83BZ4M" role="2Oq$k0">
+              <ref role="3cqZAo" node="3CCis83$Os8" resolve="progress" />
+            </node>
+            <node concept="liA8E" id="3CCis83BPd7" role="2OqNvi">
+              <ref role="37wK5l" to="yyf4:~ProgressMonitor.start(java.lang.String,int)" resolve="start" />
+              <node concept="3cpWs3" id="3CCis83DIUN" role="37wK5m">
+                <node concept="Xl_RD" id="3CCis83DJbO" role="3uHU7B">
+                  <property role="Xl_RC" value="Module " />
+                </node>
+                <node concept="2OqwBi" id="3CCis83DIlR" role="3uHU7w">
+                  <node concept="37vLTw" id="3CCis83DHYE" role="2Oq$k0">
+                    <ref role="3cqZAo" node="6dTx9S5rVJq" resolve="physicalModule" />
+                  </node>
+                  <node concept="liA8E" id="3CCis83DIv_" role="2OqNvi">
+                    <ref role="37wK5l" to="lui2:~SModule.getModuleName()" resolve="getModuleName" />
+                  </node>
+                </node>
+              </node>
+              <node concept="2OqwBi" id="3CCis83BQCO" role="37wK5m">
+                <node concept="37vLTw" id="3CCis83BPFx" role="2Oq$k0">
+                  <ref role="3cqZAo" node="3CCis83$l5u" resolve="models" />
+                </node>
+                <node concept="34oBXx" id="3CCis83BSpf" role="2OqNvi" />
+              </node>
+            </node>
+          </node>
+        </node>
         <node concept="2Gpval" id="6dTx9S5rUzn" role="3cqZAp">
           <node concept="2GrKxI" id="6dTx9S5rUzo" role="2Gsz3X">
             <property role="TrG5h" value="model" />
           </node>
-          <node concept="2OqwBi" id="6dTx9S5rUzp" role="2GsD0m">
-            <node concept="37vLTw" id="6dTx9S5rWst" role="2Oq$k0">
-              <ref role="3cqZAo" node="6dTx9S5rVJq" resolve="physicalModule" />
-            </node>
-            <node concept="liA8E" id="6dTx9S5rUzr" role="2OqNvi">
-              <ref role="37wK5l" to="lui2:~SModule.getModels()" resolve="getModels" />
-            </node>
+          <node concept="37vLTw" id="3CCis83$l5y" role="2GsD0m">
+            <ref role="3cqZAo" node="3CCis83$l5u" resolve="models" />
           </node>
           <node concept="3clFbS" id="6dTx9S5rUzs" role="2LFqv$">
-            <node concept="3clFbJ" id="6dTx9S5rUzt" role="3cqZAp">
-              <node concept="3clFbS" id="6dTx9S5rUzu" role="3clFbx">
-                <node concept="3SKdUt" id="6dTx9S5rUzv" role="3cqZAp">
-                  <node concept="1PaTwC" id="6dTx9S5rUzw" role="1aUNEU">
-                    <node concept="3oM_SD" id="6dTx9S5rUzx" role="1PaTwD">
-                      <property role="3oM_SC" value="ignore," />
-                    </node>
-                    <node concept="3oM_SD" id="aVVeoQv08a" role="1PaTwD">
-                      <property role="3oM_SC" value="maybe" />
-                    </node>
-                    <node concept="3oM_SD" id="aVVeoQv08H" role="1PaTwD">
-                      <property role="3oM_SC" value="we" />
-                    </node>
-                    <node concept="3oM_SD" id="aVVeoQv08T" role="1PaTwD">
-                      <property role="3oM_SC" value="should" />
-                    </node>
-                    <node concept="3oM_SD" id="aVVeoQv08Y" role="1PaTwD">
-                      <property role="3oM_SC" value="not" />
-                    </node>
-                    <node concept="3oM_SD" id="aVVeoQv09c" role="1PaTwD">
-                      <property role="3oM_SC" value="ignore" />
-                    </node>
-                    <node concept="3oM_SD" id="aVVeoQv09r" role="1PaTwD">
-                      <property role="3oM_SC" value="them?" />
+            <node concept="3clFbJ" id="3CCis83DsMx" role="3cqZAp">
+              <node concept="3clFbS" id="3CCis83DsMz" role="3clFbx">
+                <node concept="3zACq4" id="3CCis83DCR1" role="3cqZAp" />
+              </node>
+              <node concept="2OqwBi" id="3CCis83DCr0" role="3clFbw">
+                <node concept="37vLTw" id="3CCis83DC7X" role="2Oq$k0">
+                  <ref role="3cqZAo" node="3CCis83$Os8" resolve="progress" />
+                </node>
+                <node concept="liA8E" id="3CCis83DCAp" role="2OqNvi">
+                  <ref role="37wK5l" to="yyf4:~ProgressMonitor.isCanceled()" resolve="isCanceled" />
+                </node>
+              </node>
+            </node>
+            <node concept="1QHqEK" id="3CCis83$ENs" role="3cqZAp">
+              <node concept="1QHqEC" id="3CCis83$ENu" role="1QHqEI">
+                <node concept="3clFbS" id="3CCis83$ENw" role="1bW5cS">
+                  <node concept="3cpWs8" id="3CCis83DLeu" role="3cqZAp">
+                    <node concept="3cpWsn" id="3CCis83DLev" role="3cpWs9">
+                      <property role="TrG5h" value="modelProgress" />
+                      <node concept="3uibUv" id="3CCis83DLc7" role="1tU5fm">
+                        <ref role="3uigEE" to="yyf4:~ProgressMonitor" resolve="ProgressMonitor" />
+                      </node>
+                      <node concept="2OqwBi" id="3CCis83DLew" role="33vP2m">
+                        <node concept="37vLTw" id="3CCis83DLex" role="2Oq$k0">
+                          <ref role="3cqZAo" node="3CCis83$Os8" resolve="progress" />
+                        </node>
+                        <node concept="liA8E" id="3CCis83DLey" role="2OqNvi">
+                          <ref role="37wK5l" to="yyf4:~ProgressMonitor.subTask(int)" resolve="subTask" />
+                          <node concept="3cmrfG" id="3CCis83DLez" role="37wK5m">
+                            <property role="3cmrfH" value="1" />
+                          </node>
+                        </node>
+                      </node>
                     </node>
                   </node>
-                </node>
-              </node>
-              <node concept="2OqwBi" id="6dTx9S5rUzy" role="3clFbw">
-                <node concept="2GrUjf" id="6dTx9S5rUzz" role="2Oq$k0">
-                  <ref role="2Gs0qQ" node="6dTx9S5rUzo" resolve="model" />
-                </node>
-                <node concept="liA8E" id="6dTx9S5rUz$" role="2OqNvi">
-                  <ref role="37wK5l" to="mhbf:~SModel.isReadOnly()" resolve="isReadOnly" />
-                </node>
-              </node>
-              <node concept="9aQIb" id="6dTx9S5rUz_" role="9aQIa">
-                <node concept="3clFbS" id="6dTx9S5rUzA" role="9aQI4">
+                  <node concept="3clFbF" id="3CCis83DJOA" role="3cqZAp">
+                    <node concept="2OqwBi" id="3CCis83DMiU" role="3clFbG">
+                      <node concept="37vLTw" id="3CCis83DLe$" role="2Oq$k0">
+                        <ref role="3cqZAo" node="3CCis83DLev" resolve="modelProgress" />
+                      </node>
+                      <node concept="liA8E" id="3CCis83DM_c" role="2OqNvi">
+                        <ref role="37wK5l" to="yyf4:~ProgressMonitor.start(java.lang.String,int)" resolve="start" />
+                        <node concept="3cpWs3" id="3CCis83DWJP" role="37wK5m">
+                          <node concept="2OqwBi" id="3CCis83DXNf" role="3uHU7w">
+                            <node concept="2GrUjf" id="3CCis83DXmc" role="2Oq$k0">
+                              <ref role="2Gs0qQ" node="6dTx9S5rUzo" resolve="model" />
+                            </node>
+                            <node concept="liA8E" id="3CCis83DYeU" role="2OqNvi">
+                              <ref role="37wK5l" to="mhbf:~SModel.getName()" resolve="getName" />
+                            </node>
+                          </node>
+                          <node concept="Xl_RD" id="3CCis83DUDV" role="3uHU7B">
+                            <property role="Xl_RC" value="Model " />
+                          </node>
+                        </node>
+                        <node concept="3cmrfG" id="3CCis83DVgM" role="37wK5m">
+                          <property role="3cmrfH" value="1" />
+                        </node>
+                      </node>
+                    </node>
+                  </node>
                   <node concept="3cpWs8" id="6dTx9S5rUzG" role="3cqZAp">
                     <node concept="3cpWsn" id="6dTx9S5rUzH" role="3cpWs9">
                       <property role="TrG5h" value="cloudModel" />
@@ -24433,8 +24555,36 @@
                       </node>
                     </node>
                   </node>
+                  <node concept="3clFbF" id="3CCis83E0n8" role="3cqZAp">
+                    <node concept="2OqwBi" id="3CCis83E0R$" role="3clFbG">
+                      <node concept="37vLTw" id="3CCis83E0n6" role="2Oq$k0">
+                        <ref role="3cqZAo" node="3CCis83DLev" resolve="modelProgress" />
+                      </node>
+                      <node concept="liA8E" id="3CCis83E1bW" role="2OqNvi">
+                        <ref role="37wK5l" to="yyf4:~ProgressMonitor.done()" resolve="done" />
+                      </node>
+                    </node>
+                  </node>
                 </node>
               </node>
+              <node concept="2OqwBi" id="3CCis83$FBo" role="ukAjM">
+                <node concept="37vLTw" id="3CCis83$FmC" role="2Oq$k0">
+                  <ref role="3cqZAo" node="6dTx9S5rVJq" resolve="physicalModule" />
+                </node>
+                <node concept="liA8E" id="3CCis83$FGQ" role="2OqNvi">
+                  <ref role="37wK5l" to="lui2:~SModule.getRepository()" resolve="getRepository" />
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="3clFbF" id="3CCis83E1QX" role="3cqZAp">
+          <node concept="2OqwBi" id="3CCis83E2jc" role="3clFbG">
+            <node concept="37vLTw" id="3CCis83E1QV" role="2Oq$k0">
+              <ref role="3cqZAo" node="3CCis83$Os8" resolve="progress" />
+            </node>
+            <node concept="liA8E" id="3CCis83E2uK" role="2OqNvi">
+              <ref role="37wK5l" to="yyf4:~ProgressMonitor.done()" resolve="done" />
             </node>
           </node>
         </node>
@@ -24478,6 +24628,12 @@
           <node concept="3uibUv" id="17f8AZmAkrg" role="11_B2D">
             <ref role="3uigEE" node="17f8AZmAhJV" resolve="PhysicalToCloudModelMapping" />
           </node>
+        </node>
+      </node>
+      <node concept="37vLTG" id="3CCis83$Os8" role="3clF46">
+        <property role="TrG5h" value="progress" />
+        <node concept="3uibUv" id="3CCis83BYrs" role="1tU5fm">
+          <ref role="3uigEE" to="yyf4:~ProgressMonitor" resolve="ProgressMonitor" />
         </node>
       </node>
     </node>
