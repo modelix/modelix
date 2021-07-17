@@ -26,7 +26,12 @@ class MetaModelSynchronizer(val branch: IBranch) {
         } else if (idx.tree == tree) {
             return idx
         } else {
-            idx = MetaModelIndex.incremental(idx, tree)
+            // Don't use ITree.visitChanges at all and just read the whole meta model
+            // On large models this is faster, because the meta model part is very small compared
+            // to the potentially large changes
+
+            // idx = MetaModelIndex.incremental(idx, tree)
+            idx = MetaModelIndex.fromTree(tree)
         }
         cachedIndex = idx
         return idx
