@@ -2279,7 +2279,7 @@
               <ref role="1Pybhc" to="csg2:1LVcV5Kxxi$" resolve="ModelServerConnections" />
             </node>
             <node concept="liA8E" id="6aRQr1WRxta" role="2OqNvi">
-              <ref role="37wK5l" to="csg2:1LVcV5KxBgM" resolve="getModelServer" />
+              <ref role="37wK5l" to="csg2:1LVcV5KxBgM" resolve="getModelServers" />
             </node>
           </node>
           <node concept="3clFbS" id="6aRQr1WRxtb" role="2LFqv$">
@@ -3582,9 +3582,24 @@
                         </node>
                       </node>
                       <node concept="3clFbS" id="2zfU5FnQKuh" role="3clF47">
-                        <node concept="3clFbF" id="2zfU5FnQUeZ" role="3cqZAp">
-                          <node concept="1rXfSq" id="2zfU5FnQUeY" role="3clFbG">
-                            <ref role="37wK5l" node="2n9Wvfbjw$u" resolve="updateBindings" />
+                        <node concept="3clFbF" id="3bLfBq91EAZ" role="3cqZAp">
+                          <node concept="2OqwBi" id="3bLfBq91FdO" role="3clFbG">
+                            <node concept="2YIFZM" id="3bLfBq91EWS" role="2Oq$k0">
+                              <ref role="37wK5l" to="bd8o:~ApplicationManager.getApplication()" resolve="getApplication" />
+                              <ref role="1Pybhc" to="bd8o:~ApplicationManager" resolve="ApplicationManager" />
+                            </node>
+                            <node concept="liA8E" id="3bLfBq91Fvu" role="2OqNvi">
+                              <ref role="37wK5l" to="bd8o:~Application.invokeLater(java.lang.Runnable)" resolve="invokeLater" />
+                              <node concept="1bVj0M" id="3bLfBq91GtL" role="37wK5m">
+                                <node concept="3clFbS" id="3bLfBq91GtM" role="1bW5cS">
+                                  <node concept="3clFbF" id="2zfU5FnQUeZ" role="3cqZAp">
+                                    <node concept="1rXfSq" id="2zfU5FnQUeY" role="3clFbG">
+                                      <ref role="37wK5l" node="2n9Wvfbjw$u" resolve="updateBindings" />
+                                    </node>
+                                  </node>
+                                </node>
+                              </node>
+                            </node>
                           </node>
                         </node>
                       </node>
@@ -3603,9 +3618,24 @@
                         </node>
                       </node>
                       <node concept="3clFbS" id="2zfU5FnQKuw" role="3clF47">
-                        <node concept="3clFbF" id="2zfU5FnQUlx" role="3cqZAp">
-                          <node concept="1rXfSq" id="2zfU5FnQUly" role="3clFbG">
-                            <ref role="37wK5l" node="2n9Wvfbjw$u" resolve="updateBindings" />
+                        <node concept="3clFbF" id="3bLfBq91GDu" role="3cqZAp">
+                          <node concept="2OqwBi" id="3bLfBq91GDv" role="3clFbG">
+                            <node concept="2YIFZM" id="3bLfBq91GDw" role="2Oq$k0">
+                              <ref role="1Pybhc" to="bd8o:~ApplicationManager" resolve="ApplicationManager" />
+                              <ref role="37wK5l" to="bd8o:~ApplicationManager.getApplication()" resolve="getApplication" />
+                            </node>
+                            <node concept="liA8E" id="3bLfBq91GDx" role="2OqNvi">
+                              <ref role="37wK5l" to="bd8o:~Application.invokeLater(java.lang.Runnable)" resolve="invokeLater" />
+                              <node concept="1bVj0M" id="3bLfBq91GDy" role="37wK5m">
+                                <node concept="3clFbS" id="3bLfBq91GDz" role="1bW5cS">
+                                  <node concept="3clFbF" id="2zfU5FnQUlx" role="3cqZAp">
+                                    <node concept="1rXfSq" id="2zfU5FnQUly" role="3clFbG">
+                                      <ref role="37wK5l" node="2n9Wvfbjw$u" resolve="updateBindings" />
+                                    </node>
+                                  </node>
+                                </node>
+                              </node>
+                            </node>
                           </node>
                         </node>
                       </node>
