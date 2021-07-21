@@ -13,6 +13,8 @@
  */
 package org.modelix.model.lazy
 
+import org.modelix.model.persistent.CPHamtInternal
+import org.modelix.model.persistent.CPHamtSingle
 import org.modelix.model.persistent.IKVValue
 
 class NonWrittenEntry<E : IKVValue> : IKVEntryReference<E> {

@@ -70,20 +70,36 @@ abstract class CLHamtNode<E : CPHamtNode>(val store: IDeserializingKeyValueStore
         const val ENTRIES_PER_LEVEL = 1 shl BITS_PER_LEVEL
         const val LEVEL_MASK: Long = (-0x1 ushr 32 - BITS_PER_LEVEL).toLong()
         const val MAX_BITS = 64
-        const val MAX_SHIFT = MAX_BITS - BITS_PER_LEVEL
+        const val MAX_SHIFT = MAX_BITS - 1
+        const val MAX_LEVELS = (MAX_BITS + BITS_PER_LEVEL - 1) / BITS_PER_LEVEL
+
         @JvmStatic
         fun create(data: CPHamtNode?, store: IDeserializingKeyValueStore): CLHamtNode<*>? {
             return when (data) {
                 null -> null
                 is CPHamtLeaf -> {
-                    CLHamtLeaf((data as CPHamtLeaf?)!!, store)
+                    CLHamtLeaf(data, store)
                 }
                 is CPHamtInternal -> {
-                    CLHamtInternal((data as CPHamtInternal?)!!, store)
+                    CLHamtInternal(data, store)
+                }
+                is CPHamtSingle -> {
+                    CLHamtSingle(data, store)
                 }
                 else -> {
                     throw RuntimeException("Unknown type: ${data::class.simpleName}")
                 }
+            }
+        }
+
+        fun indexFromKey(key: Long, shift: Int): Int = levelBits(key, shift)
+
+        fun levelBits(key: Long, shift: Int): Int {
+            val s = MAX_BITS - BITS_PER_LEVEL - shift
+            return if (s >= 0) {
+                ((key ushr s) and LEVEL_MASK).toInt()
+            } else {
+                ((key shl -s) and LEVEL_MASK).toInt()
             }
         }
     }

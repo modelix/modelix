@@ -36,6 +36,7 @@ class CLHamtLeaf : CLHamtNode<CPHamtLeaf> {
         get() = data.value
 
     override fun put(key: Long, value: KVEntryReference<CPNode>?, shift: Int): CLHamtNode<*>? {
+        require(shift <= MAX_SHIFT + BITS_PER_LEVEL) { "$shift > ${MAX_SHIFT + BITS_PER_LEVEL}" }
         return if (key == data.key) {
             if (value?.getHash() == data.value.getHash()) {
                 this
@@ -54,6 +55,7 @@ class CLHamtLeaf : CLHamtNode<CPHamtLeaf> {
     }
 
     override fun remove(key: Long, shift: Int): CLHamtNode<*>? {
+        require(shift <= MAX_SHIFT + BITS_PER_LEVEL) { "$shift > ${MAX_SHIFT + BITS_PER_LEVEL}" }
         return if (key == data.key) {
             null
         } else {
@@ -62,6 +64,7 @@ class CLHamtLeaf : CLHamtNode<CPHamtLeaf> {
     }
 
     override fun get(key: Long, shift: Int, bulkQuery: IBulkQuery): IBulkQuery.Value<KVEntryReference<CPNode>?> {
+        require(shift <= MAX_SHIFT + BITS_PER_LEVEL) { "$shift > ${MAX_SHIFT + BITS_PER_LEVEL}" }
         return bulkQuery.constant(if (data.key == key) data.value else null)
     }
 

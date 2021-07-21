@@ -33,14 +33,19 @@ abstract class CPHamtNode : IKVValue {
         @JvmStatic
         fun deserialize(input: String): CPHamtNode {
             val parts = input.split("/")
-            val data = when {
-                "L" == parts[0] -> CPHamtLeaf(longFromHex(parts[1]), KVEntryReference(parts[2], CPNode.DESERIALIZER))
-                "I" == parts[0] -> CPHamtInternal(
+            val data = when(parts[0]) {
+                "L" -> CPHamtLeaf(longFromHex(parts[1]), KVEntryReference(parts[2], CPNode.DESERIALIZER))
+                "I" -> CPHamtInternal(
                     intFromHex(parts[1]),
                     parts[2].split(",")
                         .filter { it.isNotEmpty() }
                         .map { KVEntryReference(it, DESERIALIZER) }
                         .toTypedArray()
+                )
+                "S" -> CPHamtSingle(
+                    parts[1].toInt(),
+                    longFromHex(parts[2]),
+                    KVEntryReference(parts[3], DESERIALIZER)
                 )
                 else -> throw RuntimeException("Unknown type: " + parts[0] + ", input: " + input)
             }

@@ -16,19 +16,21 @@
 package org.modelix.model.persistent
 
 import org.modelix.model.lazy.KVEntryReference
-import org.modelix.model.persistent.SerializationUtil.intToHex
+import org.modelix.model.persistent.SerializationUtil.longToHex
 
-class CPHamtInternal(
-    val bitmap: Int,
-    val children: Array<KVEntryReference<CPHamtNode>>
+class CPHamtSingle(
+    val numLevels: Int,
+    val bits: Long,
+    val child: KVEntryReference<CPHamtNode>
 ) : CPHamtNode() {
 
-    override fun getReferencedEntries(): List<KVEntryReference<IKVValue>> = children.asList()
+    init {
+        require(numLevels <= 13) { "$numLevels > 13" }
+    }
+
+    override fun getReferencedEntries(): List<KVEntryReference<IKVValue>> = listOf(child)
 
     override fun serialize(): String {
-        return "I/" +
-            intToHex(bitmap) +
-            "/" +
-            (if (children.isEmpty()) "" else children.joinToString(",") { it.getHash() })
+        return "S/$numLevels/${longToHex(bits)}/${child.getHash()}"
     }
 }
