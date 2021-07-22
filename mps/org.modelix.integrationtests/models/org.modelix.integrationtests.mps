@@ -20073,11 +20073,11 @@
             </node>
             <node concept="liA8E" id="6kuATO4pZHx" role="2OqNvi">
               <ref role="37wK5l" to="csg2:6aRQr1Xc8A_" resolve="addRepository" />
-              <node concept="Xl_RD" id="6kuATO4q0YU" role="37wK5m">
-                <property role="Xl_RC" value="repo1id" />
-              </node>
               <node concept="Xl_RD" id="6kuATO4q18W" role="37wK5m">
                 <property role="Xl_RC" value="repo1name" />
+              </node>
+              <node concept="Xl_RD" id="6kuATO4q0YU" role="37wK5m">
+                <property role="Xl_RC" value="repo1id" />
               </node>
             </node>
           </node>
