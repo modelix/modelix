@@ -1364,7 +1364,7 @@
             <node concept="3clFbF" id="1jU3Cj1_i4r" role="3cqZAp">
               <node concept="2YIFZM" id="1jU3Cj1_i52" role="3clFbG">
                 <ref role="37wK5l" to="csg2:1jU3Cj1$oEU" resolve="disposeAll" />
-                <ref role="1Pybhc" to="csg2:6aRQr1WXt1Z" resolve="MpsReplicatedTree" />
+                <ref role="1Pybhc" to="csg2:6aRQr1WXt1Z" resolve="MpsReplicatedRepository" />
               </node>
             </node>
           </node>
@@ -1949,7 +1949,7 @@
                 <property role="Xl_RC" value="Name" />
               </node>
               <node concept="Xl_RD" id="6aRQr1Xcpmt" role="37wK5m">
-                <property role="Xl_RC" value="Add Tree" />
+                <property role="Xl_RC" value="Add Repository" />
               </node>
               <node concept="10M0yZ" id="6aRQr1XcqeS" role="37wK5m">
                 <ref role="1PxDUh" to="csg2:6aRQr1WMwO8" resolve="CloudIcons" />
@@ -1986,7 +1986,7 @@
                 <property role="Xl_RC" value="ID" />
               </node>
               <node concept="Xl_RD" id="6aRQr1Xcq7L" role="37wK5m">
-                <property role="Xl_RC" value="Add Tree" />
+                <property role="Xl_RC" value="Add Repository" />
               </node>
               <node concept="10M0yZ" id="6aRQr1Xcqht" role="37wK5m">
                 <ref role="1PxDUh" to="csg2:6aRQr1WMwO8" resolve="CloudIcons" />
@@ -3774,7 +3774,7 @@
                 <ref role="3cqZAo" node="4rrX99oiAjp" resolve="repositories" />
               </node>
               <node concept="liA8E" id="4rrX99olSrq" role="2OqNvi">
-                <ref role="37wK5l" to="csg2:1LVcV5KxBgM" resolve="getModelServer" />
+                <ref role="37wK5l" to="csg2:1LVcV5KxBgM" resolve="getModelServers" />
               </node>
             </node>
             <node concept="3zZkjj" id="4rrX99olSrr" role="2OqNvi">
@@ -4396,7 +4396,7 @@
                 <ref role="3cqZAo" node="4rrX99oiAjp" resolve="repositories" />
               </node>
               <node concept="liA8E" id="7PIbTorpfwg" role="2OqNvi">
-                <ref role="37wK5l" to="csg2:1LVcV5KxBgM" resolve="getModelServer" />
+                <ref role="37wK5l" to="csg2:1LVcV5KxBgM" resolve="getModelServers" />
               </node>
             </node>
             <node concept="3zZkjj" id="7PIbTorplcO" role="2OqNvi">

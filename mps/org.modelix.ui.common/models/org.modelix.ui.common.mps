@@ -7669,7 +7669,7 @@
                             <node concept="liA8E" id="6ZZ6hxrB1BJ" role="2OqNvi">
                               <ref role="37wK5l" to="csg2:6aRQr1X24wJ" resolve="getActiveBranch" />
                               <node concept="10M0yZ" id="3Sb4emcMqNU" role="37wK5m">
-                                <ref role="3cqZAo" to="csg2:2UHWH1pOftT" resolve="UI_STATE_TREE_ID" />
+                                <ref role="3cqZAo" to="csg2:2UHWH1pOftT" resolve="UI_STATE_REPOSITORY_ID" />
                                 <ref role="1PxDUh" to="csg2:6aRQr1WOV$v" resolve="ModelServerConnection" />
                               </node>
                             </node>
@@ -7973,7 +7973,7 @@
                     <node concept="liA8E" id="6gw1ikf0$jp" role="2OqNvi">
                       <ref role="37wK5l" to="csg2:6aRQr1X24wJ" resolve="getActiveBranch" />
                       <node concept="10M0yZ" id="3Sb4emcMtDQ" role="37wK5m">
-                        <ref role="3cqZAo" to="csg2:2UHWH1pOftT" resolve="UI_STATE_TREE_ID" />
+                        <ref role="3cqZAo" to="csg2:2UHWH1pOftT" resolve="UI_STATE_REPOSITORY_ID" />
                         <ref role="1PxDUh" to="csg2:6aRQr1WOV$v" resolve="ModelServerConnection" />
                       </node>
                     </node>

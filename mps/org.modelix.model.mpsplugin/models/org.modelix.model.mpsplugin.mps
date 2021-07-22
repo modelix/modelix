@@ -466,6 +466,9 @@
       <concept id="2068944020170241612" name="jetbrains.mps.baseLanguage.javadoc.structure.ClassifierDocComment" flags="ng" index="3UR2Jj" />
     </language>
     <language id="760a0a8c-eabb-4521-8bfd-65db761a9ba3" name="jetbrains.mps.baseLanguage.logging">
+      <concept id="1168401810208" name="jetbrains.mps.baseLanguage.logging.structure.PrintStatement" flags="nn" index="abc8K">
+        <child id="1168401864803" name="textExpression" index="abp_N" />
+      </concept>
       <concept id="2034914114981261497" name="jetbrains.mps.baseLanguage.logging.structure.LogLowLevelStatement" flags="ng" index="RRSsy">
         <property id="2034914114981261751" name="severity" index="RRSoG" />
         <child id="2034914114981261755" name="throwable" index="RRSow" />
@@ -6291,7 +6294,7 @@
                             <node concept="liA8E" id="FyCC6tvOEn" role="2OqNvi">
                               <ref role="37wK5l" node="6aRQr1X24wJ" resolve="getActiveBranch" />
                               <node concept="10M0yZ" id="FyCC6tvOEo" role="37wK5m">
-                                <ref role="3cqZAo" node="2UHWH1pOftT" resolve="UI_STATE_TREE_ID" />
+                                <ref role="3cqZAo" node="2UHWH1pOftT" resolve="UI_STATE_REPOSITORY_ID" />
                                 <ref role="1PxDUh" node="6aRQr1WOV$v" resolve="ModelServerConnection" />
                               </node>
                             </node>
@@ -7239,7 +7242,7 @@
   <node concept="312cEu" id="6aRQr1WOV$v">
     <property role="TrG5h" value="ModelServerConnection" />
     <node concept="Wx3nA" id="6aRQr1WVSv7" role="jymVt">
-      <property role="TrG5h" value="INFO_TREE_ID" />
+      <property role="TrG5h" value="INFO_REPOSITORY_ID" />
       <property role="3TUv4t" value="true" />
       <node concept="3uibUv" id="2jOseCqGpfb" role="1tU5fm">
         <ref role="3uigEE" to="xkhl:~RepositoryId" resolve="RepositoryId" />
@@ -7256,7 +7259,7 @@
     </node>
     <node concept="Wx3nA" id="2UHWH1pOftT" role="jymVt">
       <property role="3TUv4t" value="true" />
-      <property role="TrG5h" value="UI_STATE_TREE_ID" />
+      <property role="TrG5h" value="UI_STATE_REPOSITORY_ID" />
       <node concept="3Tm1VV" id="5WTF2yfDl6i" role="1B3o_S" />
       <node concept="3uibUv" id="2jOseCqGpMv" role="1tU5fm">
         <ref role="3uigEE" to="xkhl:~RepositoryId" resolve="RepositoryId" />
@@ -7566,6 +7569,11 @@
                       </node>
                       <node concept="3clFbJ" id="2EzI5qKrmgP" role="3cqZAp">
                         <node concept="3clFbS" id="2EzI5qKrmgR" role="3clFbx">
+                          <node concept="abc8K" id="6kuATO4hxdy" role="3cqZAp">
+                            <node concept="Xl_RD" id="6kuATO4hxTG" role="abp_N">
+                              <property role="Xl_RC" value="CREATING STANDARD TREE" />
+                            </node>
+                          </node>
                           <node concept="3clFbF" id="6aRQr1X1I$S" role="3cqZAp">
                             <node concept="37vLTI" id="6aRQr1X1IUT" role="3clFbG">
                               <node concept="2ShNRf" id="6aRQr1X1Jl4" role="37vLTx">
@@ -7575,7 +7583,7 @@
                                     <ref role="3cqZAo" node="6aRQr1WVnku" resolve="client" />
                                   </node>
                                   <node concept="37vLTw" id="Onv88ZP2QD" role="37wK5m">
-                                    <ref role="3cqZAo" node="6aRQr1WVSv7" resolve="INFO_TREE_ID" />
+                                    <ref role="3cqZAo" node="6aRQr1WVSv7" resolve="INFO_REPOSITORY_ID" />
                                   </node>
                                   <node concept="10M0yZ" id="7AhGRNQhWwl" role="37wK5m">
                                     <ref role="3cqZAo" to="5440:~ActiveBranch.DEFAULT_BRANCH_NAME" resolve="DEFAULT_BRANCH_NAME" />
@@ -8002,7 +8010,7 @@
                 <node concept="3clFbS" id="6aRQr1XceA8" role="1bW5cS">
                   <node concept="3cpWs8" id="6aRQr1XcgL3" role="3cqZAp">
                     <node concept="3cpWsn" id="6aRQr1XcgL4" role="3cpWs9">
-                      <property role="TrG5h" value="info" />
+                      <property role="TrG5h" value="modelServerInfo" />
                       <node concept="3Tqbb2" id="6aRQr1XcgHf" role="1tU5fm">
                         <ref role="ehGHo" to="w7di:6aRQr1WVbMZ" resolve="ModelServerInfo" />
                       </node>
@@ -8013,7 +8021,7 @@
                   </node>
                   <node concept="3cpWs8" id="6aRQr1XciGv" role="3cqZAp">
                     <node concept="3cpWsn" id="6aRQr1XciGw" role="3cpWs9">
-                      <property role="TrG5h" value="treeInfo" />
+                      <property role="TrG5h" value="repositoryInfo" />
                       <node concept="3Tqbb2" id="6aRQr1XciFz" role="1tU5fm">
                         <ref role="ehGHo" to="w7di:6aRQr1WVbN0" resolve="RepositoryInfo" />
                       </node>
@@ -8025,7 +8033,7 @@
                           <ref role="1Pybhd" to="xxte:30TKBrMa5zj" resolve="SNodeAPI" />
                           <ref role="37wK5l" to="xxte:30TKBrMe2kz" resolve="addNewChild" />
                           <node concept="37vLTw" id="6aRQr1XciG$" role="37wK5m">
-                            <ref role="3cqZAo" node="6aRQr1XcgL4" resolve="info" />
+                            <ref role="3cqZAo" node="6aRQr1XcgL4" resolve="modelServerInfo" />
                           </node>
                           <node concept="359W_D" id="6aRQr1XciG_" role="37wK5m">
                             <ref role="359W_E" to="w7di:6aRQr1WVbMZ" resolve="ModelServerInfo" />
@@ -8042,7 +8050,7 @@
                       </node>
                       <node concept="2OqwBi" id="6aRQr1XcjfH" role="37vLTJ">
                         <node concept="37vLTw" id="6aRQr1XciGA" role="2Oq$k0">
-                          <ref role="3cqZAo" node="6aRQr1XciGw" resolve="treeInfo" />
+                          <ref role="3cqZAo" node="6aRQr1XciGw" resolve="repositoryInfo" />
                         </node>
                         <node concept="3TrcHB" id="6aRQr1XcjsJ" role="2OqNvi">
                           <ref role="3TsBF5" to="tpck:h0TrG11" resolve="name" />
@@ -8057,7 +8065,7 @@
                       </node>
                       <node concept="2OqwBi" id="6aRQr1XcmeI" role="37vLTJ">
                         <node concept="37vLTw" id="6aRQr1XclOM" role="2Oq$k0">
-                          <ref role="3cqZAo" node="6aRQr1XciGw" resolve="treeInfo" />
+                          <ref role="3cqZAo" node="6aRQr1XciGw" resolve="repositoryInfo" />
                         </node>
                         <node concept="3TrcHB" id="6aRQr1Xcmsa" role="2OqNvi">
                           <ref role="3TsBF5" to="w7di:6aRQr1WVbN6" resolve="id" />
@@ -8079,7 +8087,7 @@
                           <ref role="1Pybhd" to="xxte:30TKBrMa5zj" resolve="SNodeAPI" />
                           <ref role="37wK5l" to="xxte:30TKBrMe2kz" resolve="addNewChild" />
                           <node concept="37vLTw" id="6aRQr1Xevke" role="37wK5m">
-                            <ref role="3cqZAo" node="6aRQr1XciGw" resolve="treeInfo" />
+                            <ref role="3cqZAo" node="6aRQr1XciGw" resolve="repositoryInfo" />
                           </node>
                           <node concept="359W_D" id="6aRQr1Xevkf" role="37wK5m">
                             <ref role="359W_E" to="w7di:6aRQr1WVbN0" resolve="RepositoryInfo" />
@@ -8107,7 +8115,7 @@
                   </node>
                   <node concept="3cpWs6" id="6aRQr1XcozN" role="3cqZAp">
                     <node concept="37vLTw" id="6aRQr1XcoZT" role="3cqZAk">
-                      <ref role="3cqZAo" node="6aRQr1XciGw" resolve="treeInfo" />
+                      <ref role="3cqZAo" node="6aRQr1XciGw" resolve="repositoryInfo" />
                     </node>
                   </node>
                 </node>
