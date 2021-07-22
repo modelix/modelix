@@ -494,6 +494,9 @@
         <child id="6733348108486823193" name="leftExpression" index="1m5AlR" />
         <child id="3906496115198199033" name="conceptArgument" index="3oSUPX" />
       </concept>
+      <concept id="1145383075378" name="jetbrains.mps.lang.smodel.structure.SNodeListType" flags="in" index="2I9FWS">
+        <reference id="1145383142433" name="elementConcept" index="2I9WkF" />
+      </concept>
       <concept id="1171500988903" name="jetbrains.mps.lang.smodel.structure.Node_GetChildrenOperation" flags="nn" index="32TBzR" />
       <concept id="2644386474302386080" name="jetbrains.mps.lang.smodel.structure.PropertyIdRefExpression" flags="nn" index="355D3s">
         <reference id="2644386474302386081" name="conceptDeclaration" index="355D3t" />
@@ -7862,6 +7865,56 @@
       </node>
     </node>
     <node concept="2tJIrI" id="16i93QEgyg5" role="jymVt" />
+    <node concept="3clFb_" id="6kuATO4plqM" role="jymVt">
+      <property role="TrG5h" value="getAllRepositories" />
+      <node concept="3clFbS" id="6kuATO4plqP" role="3clF47">
+        <node concept="3cpWs8" id="6kuATO4ppQ8" role="3cqZAp">
+          <node concept="3cpWsn" id="6kuATO4ppQ9" role="3cpWs9">
+            <property role="TrG5h" value="info" />
+            <node concept="3Tqbb2" id="6kuATO4ppQa" role="1tU5fm">
+              <ref role="ehGHo" to="w7di:6aRQr1WVbMZ" resolve="ModelServerInfo" />
+            </node>
+            <node concept="1rXfSq" id="6kuATO4ppQb" role="33vP2m">
+              <ref role="37wK5l" node="6aRQr1WVmiT" resolve="getInfo" />
+            </node>
+          </node>
+        </node>
+        <node concept="3cpWs6" id="6kuATO4pHmG" role="3cqZAp">
+          <node concept="2OqwBi" id="6kuATO4ppQ4" role="3cqZAk">
+            <node concept="liA8E" id="6kuATO4ppQ5" role="2OqNvi">
+              <ref role="37wK5l" to="qvpu:~PArea.executeRead(kotlin.jvm.functions.Function0)" resolve="executeRead" />
+              <node concept="1bVj0M" id="6kuATO4ppQ6" role="37wK5m">
+                <node concept="3clFbS" id="6kuATO4ppQ7" role="1bW5cS">
+                  <node concept="3clFbF" id="6kuATO4ppQc" role="3cqZAp">
+                    <node concept="2OqwBi" id="6kuATO4ppQe" role="3clFbG">
+                      <node concept="37vLTw" id="6kuATO4ppQf" role="2Oq$k0">
+                        <ref role="3cqZAo" node="6kuATO4ppQ9" resolve="info" />
+                      </node>
+                      <node concept="3Tsc0h" id="6kuATO4ppQg" role="2OqNvi">
+                        <ref role="3TtcxE" to="w7di:6aRQr1WVbN2" resolve="repositories" />
+                      </node>
+                    </node>
+                  </node>
+                </node>
+              </node>
+            </node>
+            <node concept="2ShNRf" id="6kuATO4ppQs" role="2Oq$k0">
+              <node concept="1pGfFk" id="6kuATO4ppQt" role="2ShVmc">
+                <ref role="37wK5l" to="qvpu:~PArea.&lt;init&gt;(org.modelix.model.api.IBranch)" resolve="PArea" />
+                <node concept="1rXfSq" id="6kuATO4ppQu" role="37wK5m">
+                  <ref role="37wK5l" node="6aRQr1X1RCt" resolve="getInfoBranch" />
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+      </node>
+      <node concept="3Tm1VV" id="6kuATO4pf8L" role="1B3o_S" />
+      <node concept="2I9FWS" id="6kuATO4pkFC" role="3clF45">
+        <ref role="2I9WkF" to="w7di:6aRQr1WVbN0" resolve="RepositoryInfo" />
+      </node>
+    </node>
+    <node concept="2tJIrI" id="6kuATO4oWwm" role="jymVt" />
     <node concept="3clFb_" id="16i93QEgBIQ" role="jymVt">
       <property role="TrG5h" value="getRepositoryInfoById" />
       <node concept="37vLTG" id="16i93QEgEI7" role="3clF46">
