@@ -23,6 +23,10 @@ import kotlin.jvm.Synchronized
  * Not thread safe
  */
 class BulkQuery(private val store: IDeserializingKeyValueStore) : IBulkQuery {
+    companion object {
+        val BATCH_SIZE = 5000
+    }
+
     private var queue: MutableList<Pair<KVEntryReference<IKVValue>, (IKVValue?) -> Unit>> = ArrayList()
     private var processing = false
     protected fun executeBulkQuery(refs: Iterable<KVEntryReference<IKVValue>>): Map<String, IKVValue?> {
@@ -36,6 +40,7 @@ class BulkQuery(private val store: IDeserializingKeyValueStore) : IBulkQuery {
     }
 
     fun <T : IKVValue> query(key: KVEntryReference<T>, callback: (T) -> Unit) {
+        if (queue.size >= BATCH_SIZE && !processing) process()
         queue.add(Pair(key as KVEntryReference<IKVValue>, callback as (IKVValue?) -> Unit))
     }
 
@@ -56,8 +61,17 @@ class BulkQuery(private val store: IDeserializingKeyValueStore) : IBulkQuery {
         processing = true
         try {
             while (queue.isNotEmpty()) {
-                val currentRequests: List<Pair<KVEntryReference<IKVValue>, (IKVValue?) -> Unit>> = queue
-                queue = ArrayList()
+                val currentRequests: List<Pair<KVEntryReference<IKVValue>, (IKVValue?) -> Unit>>
+                if (queue.size > BATCH_SIZE) {
+                    // The callback of a request usually enqueues new request until it reaches the leafs of the
+                    // data structure. By executing the latest (instead of the oldest) request we basically do a depth
+                    // first traversal which keeps the maximum size of the queue smaller.
+                    currentRequests = ArrayList(queue.subList(queue.size - BATCH_SIZE, queue.size))
+                    for (i in 1..BATCH_SIZE) queue.removeLast()
+                } else {
+                    currentRequests = queue
+                    queue = ArrayList()
+                }
                 val entries: Map<String, IKVValue?> = executeBulkQuery(
                     currentRequests.map { obj -> obj.first }.distinct()
                 )

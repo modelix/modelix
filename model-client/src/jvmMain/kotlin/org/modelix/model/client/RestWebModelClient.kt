@@ -174,33 +174,42 @@ class RestWebModelClient @JvmOverloads constructor(var baseUrl: String? = null, 
         if (!keys.iterator().hasNext()) {
             return HashMap()
         }
-        val json = JSONArray()
+
+        val result: MutableMap<String, String?> = LinkedHashMap(16, 0.75.toFloat(), false)
+        var json = JSONArray()
+        val batch = {
+            val body = json.toString()
+            val start = System.currentTimeMillis()
+            val response = client.target(baseUrl + "getAll").request(MediaType.APPLICATION_JSON).put(Entity.text(body))
+            if (response.status == Response.Status.OK.statusCode) {
+                val jsonStr = response.readEntity(String::class.java)
+                val responseJson = JSONArray(jsonStr)
+                for (entry_: Any in responseJson) {
+                    val entry = entry_ as JSONObject
+                    result[entry.getString("key")] = entry.optString("value", null)
+                }
+                val end = System.currentTimeMillis()
+                json = JSONArray()
+            } else {
+                throw RuntimeException(
+                    String.format(
+                        "Request for %d keys failed (%s, ...): %s",
+                        keys.spliterator().exactSizeIfKnown,
+                        toStream(keys).findFirst().orElse(null),
+                        response.statusInfo
+                    )
+                )
+            }
+        }
+
         for (key in keys) {
             json.put(key)
+            if (json.length() >= 5000) batch()
         }
-        val body = json.toString()
-        val start = System.currentTimeMillis()
-        val response = client.target(baseUrl + "getAll").request(MediaType.APPLICATION_JSON).put(Entity.text(body))
-        return if (response.status == Response.Status.OK.statusCode) {
-            val jsonStr = response.readEntity(String::class.java)
-            val responseJson = JSONArray(jsonStr)
-            val result: MutableMap<String, String?> = LinkedHashMap(16, 0.75.toFloat(), false)
-            for (entry_: Any in responseJson) {
-                val entry = entry_ as JSONObject
-                result[entry.getString("key")] = entry.optString("value", null)
-            }
-            val end = System.currentTimeMillis()
-            result
-        } else {
-            throw RuntimeException(
-                String.format(
-                    "Request for %d keys failed (%s, ...): %s",
-                    keys.spliterator().exactSizeIfKnown,
-                    toStream(keys).findFirst().orElse(null),
-                    response.statusInfo
-                )
-            )
-        }
+
+        if (json.length() > 0) batch()
+
+        return result
     }
 
     fun setAuthToken(token: String?) {
