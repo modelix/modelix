@@ -26,6 +26,10 @@ class CLHamtSingle(private val data: CPHamtSingle, store: IDeserializingKeyValue
         require(data.numLevels <= MAX_LEVELS) { "Only $MAX_LEVELS levels expected, but was ${data.numLevels}" }
     }
 
+    override fun calculateSize(bulkQuery: IBulkQuery): IBulkQuery.Value<Long> {
+        return getChild(bulkQuery).mapBulk { it.calculateSize(bulkQuery) }
+    }
+
     override fun getData(): CPHamtSingle = data
 
     private fun maskBits(key: Long, shift: Int): Long = (key ushr (MAX_BITS - BITS_PER_LEVEL * data.numLevels - shift)) and mask

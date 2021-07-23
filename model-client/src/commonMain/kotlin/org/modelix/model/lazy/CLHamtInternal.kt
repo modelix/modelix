@@ -44,6 +44,13 @@ class CLHamtInternal(private val data: CPHamtInternal, store: IDeserializingKeyV
         }
     }
 
+    override fun calculateSize(bulkQuery: IBulkQuery): IBulkQuery.Value<Long> {
+        return bulkQuery
+                .map(data.children.asIterable(), { bulkQuery.get(it) })
+                .mapBulk { bulkQuery.map(it) { create(it, store)?.calculateSize(bulkQuery) ?: bulkQuery.constant(0L) } }
+                .map { it.reduce { a, b -> a + b } }
+    }
+
     override fun put(key: Long, value: KVEntryReference<CPNode>?, shift: Int): CLHamtNode<*>? {
         require(shift <= MAX_SHIFT) { "$shift > $MAX_SHIFT" }
         val childIndex = indexFromKey(key, shift)

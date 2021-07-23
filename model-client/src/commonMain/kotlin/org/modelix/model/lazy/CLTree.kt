@@ -80,6 +80,10 @@ class CLTree : ITree {
         return data.id
     }
 
+    fun getSize(): Long {
+        return (nodesMap ?: return 0L).calculateSize(BulkQuery(store)).execute()
+    }
+
     fun prefetchAll() {
         store.prefetch(hash)
     }

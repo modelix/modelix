@@ -25,6 +25,10 @@ class CLHamtLeaf : CLHamtNode<CPHamtLeaf> {
         this.data = data
     }
 
+    override fun calculateSize(bulkQuery: IBulkQuery): IBulkQuery.Value<Long> {
+        return bulkQuery.constant(1L)
+    }
+
     override fun getData(): CPHamtLeaf {
         return data
     }

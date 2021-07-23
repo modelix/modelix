@@ -23,6 +23,8 @@ abstract class CLHamtNode<E : CPHamtNode>(val store: IDeserializingKeyValueStore
         return create(CPHamtInternal(0, arrayOf()), store)!!
     }
 
+    abstract fun calculateSize(bulkQuery: IBulkQuery): IBulkQuery.Value<Long>
+
     abstract fun getData(): CPHamtNode
 
     operator fun get(key: Long): KVEntryReference<CPNode>? {
