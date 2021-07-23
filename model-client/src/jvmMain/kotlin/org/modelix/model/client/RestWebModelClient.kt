@@ -280,7 +280,7 @@ class RestWebModelClient @JvmOverloads constructor(var baseUrl: String? = null, 
     override fun putAll(entries_: Map<String, String?>) {
         val entries = sortEntriesByDependency(entries_)
         val sendBatch = sendBatch@{ json: JSONArray, remaining: Int ->
-            for (attempt in 1 .. 3) {
+            for (attempt in 1..3) {
                 if (LOG.isDebugEnabled) {
                     LOG.debug("PUT batch of ${json.length()} entries, $remaining remaining")
                 }

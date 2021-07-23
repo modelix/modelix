@@ -33,7 +33,7 @@ abstract class CPHamtNode : IKVValue {
         @JvmStatic
         fun deserialize(input: String): CPHamtNode {
             val parts = input.split("/")
-            val data = when(parts[0]) {
+            val data = when (parts[0]) {
                 "L" -> CPHamtLeaf(longFromHex(parts[1]), KVEntryReference(parts[2], CPNode.DESERIALIZER))
                 "I" -> CPHamtInternal(
                     intFromHex(parts[1]),

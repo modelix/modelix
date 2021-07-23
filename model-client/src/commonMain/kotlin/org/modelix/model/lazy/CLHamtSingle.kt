@@ -14,10 +14,8 @@
 package org.modelix.model.lazy
 
 import org.modelix.model.bitCount
-import org.modelix.model.persistent.CPHamtNode
 import org.modelix.model.persistent.CPHamtSingle
 import org.modelix.model.persistent.CPNode
-import org.modelix.model.persistent.SerializationUtil
 
 class CLHamtSingle(private val data: CPHamtSingle, store: IDeserializingKeyValueStore) : CLHamtNode<CPHamtSingle>(store) {
     private val mask: Long = maskForLevels(data.numLevels)
@@ -71,9 +69,14 @@ class CLHamtSingle(private val data: CPHamtSingle, store: IDeserializingKeyValue
 
     fun withNewChild(newChild: CLHamtNode<*>?): CLHamtSingle? {
         if (newChild is CLHamtSingle) {
-            return CLHamtSingle(CPHamtSingle(data.numLevels + newChild.data.numLevels,
-                (data.bits shl (newChild.data.numLevels * BITS_PER_LEVEL)) or newChild.data.bits,
-                newChild.data.child), store)
+            return CLHamtSingle(
+                CPHamtSingle(
+                    data.numLevels + newChild.data.numLevels,
+                    (data.bits shl (newChild.data.numLevels * BITS_PER_LEVEL)) or newChild.data.bits,
+                    newChild.data.child
+                ),
+                store
+            )
         }
         return if (newChild == null) null else
             CLHamtSingle(CPHamtSingle(data.numLevels, data.bits, KVEntryReference(newChild.getData())), store)
@@ -114,9 +117,14 @@ class CLHamtSingle(private val data: CPHamtSingle, store: IDeserializingKeyValue
             if (data.children.size != 1) throw RuntimeException("Can only replace nodes with a single child")
             val child = data.children[0].getValue(node.store)
             if (child is CPHamtSingle) {
-                return CLHamtSingle(CPHamtSingle(child.numLevels + 1,
-                    (indexFromBitmap(data.bitmap).toLong() shl (child.numLevels * BITS_PER_LEVEL)) or child.bits,
-                    child.child), node.store)
+                return CLHamtSingle(
+                    CPHamtSingle(
+                        child.numLevels + 1,
+                        (indexFromBitmap(data.bitmap).toLong() shl (child.numLevels * BITS_PER_LEVEL)) or child.bits,
+                        child.child
+                    ),
+                    node.store
+                )
             }
             return CLHamtSingle(CPHamtSingle(1, indexFromBitmap(data.bitmap).toLong(), data.children[0]), node.store)
         }
