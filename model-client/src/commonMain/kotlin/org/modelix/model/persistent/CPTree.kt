@@ -20,13 +20,12 @@ import kotlin.jvm.JvmStatic
 
 class CPTree(
     val id: String,
-    val rootId: Long,
     var idToHash: KVEntryReference<CPHamtNode>
 ) : IKVValue {
     override var isWritten: Boolean = false
 
     override fun serialize(): String {
-        return "$id/$rootId/${idToHash.getHash()}"
+        return "$id/$PERSISTENCE_VERSION/${idToHash.getHash()}"
     }
 
     override val hash: String by lazy(LazyThreadSafetyMode.PUBLICATION) { HashUtil.sha256(serialize()) }
@@ -36,11 +35,20 @@ class CPTree(
     override fun getReferencedEntries(): List<KVEntryReference<IKVValue>> = listOf(idToHash)
 
     companion object {
+        val PERSISTENCE_VERSION: Int = 2
         val DESERIALIZER: (String) -> CPTree = { deserialize(it) }
         @JvmStatic
         fun deserialize(input: String): CPTree {
             val parts = input.split("/")
-            val data = CPTree(parts[0], parts[1].toLong(), KVEntryReference(parts[2], CPHamtNode.DESERIALIZER))
+            val treeId = parts[0]
+            val persistenceVersion = parts[1].toInt()
+            if (persistenceVersion != PERSISTENCE_VERSION) {
+                throw RuntimeException(
+                    "Tree $treeId has persistence version $persistenceVersion, " +
+                        "but only version $PERSISTENCE_VERSION is supported"
+                )
+            }
+            val data = CPTree(treeId, KVEntryReference(parts[2], CPHamtNode.DESERIALIZER))
             data.isWritten = true
             return data
         }

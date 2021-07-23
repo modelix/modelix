@@ -53,7 +53,7 @@ class CLTree : ITree {
                 arrayOf()
             )
             val idToHash = storeElement(root, CLHamtInternal.createEmpty(store))
-            this.data = CPTree(repositoryId.id, 1, KVEntryReference(idToHash.getData()))
+            this.data = CPTree(repositoryId.id, KVEntryReference(idToHash.getData()))
         } else {
             this.data = data
         }
@@ -64,12 +64,12 @@ class CLTree : ITree {
         this.nodesMap!![ITree.ROOT_ID]
     }
 
-    private constructor(treeId_: String, rootId: Long, idToHash: CLHamtNode<*>, store: IDeserializingKeyValueStore) {
+    private constructor(treeId_: String, idToHash: CLHamtNode<*>, store: IDeserializingKeyValueStore) {
         var treeId: String? = treeId_
         if (treeId == null) {
             treeId = random().id
         }
-        data = CPTree(treeId, rootId, KVEntryReference(idToHash.getData()))
+        data = CPTree(treeId, KVEntryReference(idToHash.getData()))
         this.store = store
 
         // TODO remove
@@ -104,13 +104,13 @@ class CLTree : ITree {
     }
 
     val root: CLNode?
-        get() = resolveElement(data.rootId)
+        get() = resolveElement(ITree.ROOT_ID)
 
     override fun setProperty(nodeId: Long, role: String, value: String?): ITree {
         var newIdToHash = nodesMap
         val newNodeData = resolveElement(nodeId)!!.getData().withPropertyValue(role, value)
         newIdToHash = newIdToHash!!.put(newNodeData)
-        return CLTree(data.id, data.rootId, newIdToHash!!, store)
+        return CLTree(data.id, newIdToHash!!, store)
     }
 
     override fun addNewChild(parentId: Long, role: String?, index: Int, childId: Long, concept: IConcept?): ITree {
@@ -150,7 +150,7 @@ class CLTree : ITree {
             arrayOf()
         )
         newIdToHash = newIdToHash!!.put(newChildData)!!
-        return CLTree(data.id, data.rootId, newIdToHash, store)
+        return CLTree(data.id, newIdToHash, store)
     }
 
     /**
@@ -201,7 +201,7 @@ class CLTree : ITree {
             parent.getData().referenceTargets
         )
         newIdToHash = newIdToHash!!.put(newParentData)
-        return CLTree(data.id, data.rootId, newIdToHash!!, store)
+        return CLTree(data.id, newIdToHash!!, store)
     }
 
     override fun setReferenceTarget(sourceId: Long, role: String, target: INodeReference?): ITree {
@@ -220,7 +220,7 @@ class CLTree : ITree {
         var newIdToHash = nodesMap
         val newNodeData = source.getData().withReferenceTarget(role, refData)
         newIdToHash = newIdToHash!!.put(newNodeData)
-        return CLTree(data.id, data.rootId, newIdToHash!!, store)
+        return CLTree(data.id, newIdToHash!!, store)
     }
 
     override fun deleteNode(nodeId: Long): ITree {
@@ -254,7 +254,7 @@ class CLTree : ITree {
             newIdToHash = deleteElements(node.getData(), newIdToHash)
                 ?: throw RuntimeException("Unexpected empty nodes map. There should be at least the root node.")
         }
-        return CLTree(data.id, data.rootId, newIdToHash, store)
+        return CLTree(data.id, newIdToHash, store)
     }
 
     override fun containsNode(nodeId: Long): Boolean {
