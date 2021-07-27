@@ -207,12 +207,14 @@ class CLHamtInternal(private val data: CPHamtInternal, store: IDeserializingKeyV
             is CLHamtLeaf -> {
                 if (visitor.visitChangesOnly()) {
                     val newValue = get(oldNode.key, shift, NonBulkQuery(store)).execute()
-                    if (newValue != oldNode.value) {
+                    if (newValue != null && newValue != oldNode.value) {
                         visitor.entryChanged(oldNode.key, oldNode.value, newValue)
                     }
                 } else {
+                    var oldEntryExists = false
                     visitEntries { k, v ->
                         if (k == oldNode.key) {
+                            oldEntryExists = true
                             val oldValue = oldNode.value
                             if (v != oldValue) {
                                 visitor.entryChanged(k, oldValue, v)
@@ -222,6 +224,7 @@ class CLHamtInternal(private val data: CPHamtInternal, store: IDeserializingKeyV
                         }
                         true
                     }
+                    if (!oldEntryExists) visitor.entryRemoved(oldNode.key, oldNode.value)
                 }
             }
             is CLHamtSingle -> {

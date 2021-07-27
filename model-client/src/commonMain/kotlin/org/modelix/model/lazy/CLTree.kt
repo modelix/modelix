@@ -23,6 +23,7 @@ import org.modelix.model.lazy.RepositoryId.Companion.random
 import org.modelix.model.persistent.*
 import org.modelix.model.persistent.CPNode.Companion.create
 import org.modelix.model.persistent.CPNodeRef.Companion.foreign
+import org.modelix.model.persistent.CPNodeRef.Companion.global
 import org.modelix.model.persistent.CPNodeRef.Companion.local
 
 class CLTree : ITree {
@@ -212,8 +213,8 @@ class CLTree : ITree {
                 local(target.id)
             }
             is PNodeReference -> {
-                if (target.branchId == getId()) local(target.id)
-                else local(target.id)
+                if (target.branchId.isEmpty() || target.branchId == getId()) local(target.id)
+                else global(target.branchId, target.id)
             }
             else -> foreign(INodeReferenceSerializer.serialize(target))
         }
@@ -396,6 +397,14 @@ class CLTree : ITree {
                         .forEach { role: String ->
                             if (oldElement.getData().getPropertyValue(role) != newElement.getData().getPropertyValue(role)) {
                                 visitor.propertyChanged(newElement.id, role)
+                            }
+                        }
+                    oldElement.getData().referenceRoles.asSequence()
+                        .plus(newElement.getData().referenceRoles.asSequence())
+                        .distinct()
+                        .forEach { role: String ->
+                            if (oldElement.getData().getReferenceTarget(role) != newElement.getData().getReferenceTarget(role)) {
+                                visitor.referenceChanged(newElement.id, role)
                             }
                         }
                     val oldChildren: MutableMap<String?, MutableList<CLNode>> = HashMap()

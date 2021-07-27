@@ -83,7 +83,7 @@ class CLHamtLeaf : CLHamtNode<CPHamtLeaf> {
         if (visitor.visitChangesOnly()) {
             if (oldNode != null) {
                 val oldValue = oldNode.get(key, shift, NonBulkQuery(store)).execute()
-                if (value != oldValue) visitor.entryChanged(key, oldValue, value)
+                if (oldValue != null && value != oldValue) visitor.entryChanged(key, oldValue, value)
             }
         } else {
             var oldValue: KVEntryReference<CPNode>? = null

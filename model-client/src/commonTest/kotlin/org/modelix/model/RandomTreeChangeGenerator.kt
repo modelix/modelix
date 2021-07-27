@@ -96,6 +96,11 @@ class RandomTreeChangeGenerator(private val idGenerator: IdGenerator, private va
         return this
     }
 
+    fun withoutMove(): RandomTreeChangeGenerator {
+        operations = operations - moveOp
+        return this
+    }
+
     fun addOperationOnly(): RandomTreeChangeGenerator {
         operations = listOf(
             addNewOp
