@@ -96,4 +96,39 @@ class Hamt_Test {
         // assertEquals(6, (hamt!!.getData() as CPHamtInternal).children.count())
         assertEquals(-2086105010854963537, getId(hamt!![693L]))
     }
+
+    /**
+     * It's important that all clients end up with the same version hash even if they apply the same conflict free
+     * operations, but just in a different order. This allows them to sync their replica of the model by just applying
+     * the operations of a new version instead of downloading the new snapshot (which would require multiple requests).
+     */
+    @Test
+    fun insertionOrderTest() {
+        val store = ObjectStoreCache(MapBaseStore())
+        val emptyMap = CLHamtInternal.createEmpty(store)
+
+        val rand = Random(123456789L)
+        val entries = HashMap<Long, KVEntryReference<CPNode>>()
+        for (i in 1 .. 10) {
+            for (k in 1 .. 1000) {
+                val id = i * 1_000_000L + k
+                entries[id] = createEntry(id)
+            }
+        }
+        val keysToRemove = entries.keys.shuffled(rand).take(1000)
+
+        var expectedHash: String? = null
+
+        for (i in 1 .. 10) {
+            var map: CLHamtNode<*> = emptyMap
+            entries.entries.shuffled(rand).forEach { map = map.put(it.key, it.value)!! }
+            keysToRemove.forEach { map = map.remove(it)!! }
+            val hash = map.getData().hash
+            if (i == 1) {
+                expectedHash = hash
+            } else {
+                assertEquals(expectedHash!!, hash)
+            }
+        }
+    }
 }
