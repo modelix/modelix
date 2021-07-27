@@ -159,7 +159,7 @@ class CLHamtInternal(private val data: CPHamtInternal, store: IDeserializingKeyV
         return true
     }
 
-    override fun visitChanges(oldNode: CLHamtNode<*>?, visitor: IChangeVisitor) {
+    override fun visitChanges(oldNode: CLHamtNode<*>?, shift: Int, visitor: IChangeVisitor) {
         if (oldNode === this) {
             return
         }
@@ -171,7 +171,7 @@ class CLHamtInternal(private val data: CPHamtInternal, store: IDeserializingKeyV
                         val oldChildHash = oldInternalNode.data.children[i]
                         val newChildHash = data.children[i]
                         if (oldChildHash != newChildHash) {
-                            getChild(newChildHash)!!.visitChanges(oldInternalNode.getChild(oldChildHash), visitor)
+                            getChild(newChildHash)!!.visitChanges(oldInternalNode.getChild(oldChildHash), shift + BITS_PER_LEVEL, visitor)
                         }
                     }
                 } else {
@@ -182,42 +182,53 @@ class CLHamtInternal(private val data: CPHamtInternal, store: IDeserializingKeyV
                             if (oldChild == null) {
                                 // no change
                             } else {
-                                oldChild.visitEntries { key, value ->
-                                    visitor.entryRemoved(key, value)
-                                    true
+                                if (!visitor.visitChangesOnly()) {
+                                    oldChild.visitEntries { key, value ->
+                                        visitor.entryRemoved(key, value)
+                                        true
+                                    }
                                 }
                             }
                         } else {
                             if (oldChild == null) {
-                                child.visitEntries { key, value ->
-                                    visitor.entryAdded(key, value)
-                                    true
+                                if (!visitor.visitChangesOnly()) {
+                                    child.visitEntries { key, value ->
+                                        visitor.entryAdded(key, value)
+                                        true
+                                    }
                                 }
                             } else {
-                                child.visitChanges(oldChild, visitor)
+                                child.visitChanges(oldChild, shift + BITS_PER_LEVEL, visitor)
                             }
                         }
                     }
                 }
             }
             is CLHamtLeaf -> {
-                visitEntries { k, v ->
-                    if (k == oldNode.key) {
-                        val oldValue = oldNode.value
-                        if (v != oldValue) {
-                            visitor.entryChanged(k, oldValue, v)
-                        }
-                    } else {
-                        visitor.entryAdded(k, v)
+                if (visitor.visitChangesOnly()) {
+                    val newValue = get(oldNode.key, shift, NonBulkQuery(store)).execute()
+                    if (newValue != oldNode.value) {
+                        visitor.entryChanged(oldNode.key, oldNode.value, newValue)
                     }
-                    true
+                } else {
+                    visitEntries { k, v ->
+                        if (k == oldNode.key) {
+                            val oldValue = oldNode.value
+                            if (v != oldValue) {
+                                visitor.entryChanged(k, oldValue, v)
+                            }
+                        } else {
+                            visitor.entryAdded(k, v)
+                        }
+                        true
+                    }
                 }
             }
             is CLHamtSingle -> {
                 if (oldNode.getData().numLevels == 1) {
-                    visitChanges(CLHamtInternal.replace(oldNode), visitor)
+                    visitChanges(CLHamtInternal.replace(oldNode), shift, visitor)
                 } else {
-                    visitChanges(CLHamtInternal.replace(oldNode.splitOneLevel()), visitor)
+                    visitChanges(CLHamtInternal.replace(oldNode.splitOneLevel()), shift, visitor)
                 }
             }
             else -> {

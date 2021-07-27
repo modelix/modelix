@@ -60,8 +60,10 @@ abstract class CLHamtNode<E : CPHamtNode>(val store: IDeserializingKeyValueStore
     abstract fun put(key: Long, value: KVEntryReference<CPNode>?, shift: Int): CLHamtNode<*>?
     abstract fun remove(key: Long, shift: Int): CLHamtNode<*>?
     abstract fun visitEntries(visitor: (Long, KVEntryReference<CPNode>?) -> Boolean): Boolean
-    abstract fun visitChanges(oldNode: CLHamtNode<*>?, visitor: IChangeVisitor)
+    abstract fun visitChanges(oldNode: CLHamtNode<*>?, shift: Int, visitor: IChangeVisitor)
+    fun visitChanges(oldNode: CLHamtNode<*>?, visitor: IChangeVisitor) = visitChanges(oldNode, 0, visitor)
     interface IChangeVisitor {
+        fun visitChangesOnly(): Boolean
         fun entryAdded(key: Long, value: KVEntryReference<CPNode>?)
         fun entryRemoved(key: Long, value: KVEntryReference<CPNode>?)
         fun entryChanged(key: Long, oldValue: KVEntryReference<CPNode>?, newValue: KVEntryReference<CPNode>?)

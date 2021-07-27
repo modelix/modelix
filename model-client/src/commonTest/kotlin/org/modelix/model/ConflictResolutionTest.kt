@@ -799,7 +799,7 @@ class ConflictResolutionTest : TreeTestBase() {
     fun assertSameTree(tree1: ITree, tree2: ITree) {
         tree2.visitChanges(
             tree1,
-            object : ITreeChangeVisitor {
+            object : ITreeChangeVisitorEx {
                 override fun containmentChanged(nodeId: Long) {
                     fail("containmentChanged ${nodeId.toString(16)}")
                 }

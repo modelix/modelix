@@ -99,13 +99,13 @@ class CLHamtSingle(private val data: CPHamtSingle, store: IDeserializingKeyValue
         return getChild(NonBulkQuery(store)).execute().visitEntries(visitor)
     }
 
-    override fun visitChanges(oldNode: CLHamtNode<*>?, visitor: IChangeVisitor) {
+    override fun visitChanges(oldNode: CLHamtNode<*>?, shift: Int, visitor: IChangeVisitor) {
         if (oldNode is CLHamtSingle && oldNode.data.numLevels == data.numLevels) {
-            getChild().visitChanges(oldNode.getChild(), visitor)
+            getChild().visitChanges(oldNode.getChild(), shift + data.numLevels * BITS_PER_LEVEL, visitor)
         } else if (data.numLevels == 1) {
-            CLHamtInternal.replace(this).visitChanges(oldNode, visitor)
+            CLHamtInternal.replace(this).visitChanges(oldNode, shift, visitor)
         } else {
-            splitOneLevel().visitChanges(oldNode, visitor)
+            splitOneLevel().visitChanges(oldNode, shift, visitor)
         }
     }
 

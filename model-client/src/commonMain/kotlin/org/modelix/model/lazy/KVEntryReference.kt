@@ -46,4 +46,13 @@ class KVEntryReference<out E : IKVValue>(private var writtenOrUnwrittenReference
     override fun toString(): String {
         return getHash()
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (other !is KVEntryReference<*>) return false
+        return other.getHash() == getHash()
+    }
+
+    override fun hashCode(): Int {
+        return getHash().hashCode()
+    }
 }

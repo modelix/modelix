@@ -76,24 +76,31 @@ class CLHamtLeaf : CLHamtNode<CPHamtLeaf> {
         return visitor(data.key, data.value)
     }
 
-    override fun visitChanges(oldNode: CLHamtNode<*>?, visitor: IChangeVisitor) {
+    override fun visitChanges(oldNode: CLHamtNode<*>?, shift: Int, visitor: IChangeVisitor) {
         if (oldNode === this) {
             return
         }
-        var oldValue: KVEntryReference<CPNode>? = null
-        val bp = { k: Long?, v: KVEntryReference<CPNode>? ->
-            if (k == data.key) {
-                oldValue = v
-            } else {
-                visitor.entryRemoved(k!!, v)
+        if (visitor.visitChangesOnly()) {
+            if (oldNode != null) {
+                val oldValue = oldNode.get(key, shift, NonBulkQuery(store)).execute()
+                if (value != oldValue) visitor.entryChanged(key, oldValue, value)
             }
-            true
-        }
-        oldNode!!.visitEntries(bp)
-        if (oldValue == null) {
-            visitor.entryAdded(data.key, data.value)
-        } else if (oldValue?.getHash() !== data.value.getHash()) {
-            visitor.entryChanged(data.key, oldValue, data.value)
+        } else {
+            var oldValue: KVEntryReference<CPNode>? = null
+            val bp = { k: Long?, v: KVEntryReference<CPNode>? ->
+                if (k == data.key) {
+                    oldValue = v
+                } else {
+                    visitor.entryRemoved(k!!, v)
+                }
+                true
+            }
+            oldNode!!.visitEntries(bp)
+            if (oldValue == null) {
+                visitor.entryAdded(data.key, data.value)
+            } else if (oldValue?.getHash() !== data.value.getHash()) {
+                visitor.entryChanged(data.key, oldValue, data.value)
+            }
         }
     }
 

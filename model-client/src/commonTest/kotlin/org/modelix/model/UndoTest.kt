@@ -2,6 +2,7 @@ package org.modelix.model
 
 import org.modelix.model.api.ITree
 import org.modelix.model.api.ITreeChangeVisitor
+import org.modelix.model.api.ITreeChangeVisitorEx
 import org.modelix.model.api.PBranch
 import org.modelix.model.client.IdGenerator
 import org.modelix.model.lazy.*
@@ -142,7 +143,7 @@ class UndoTest {
     }
 }
 
-class FailingVisitor : ITreeChangeVisitor {
+class FailingVisitor : ITreeChangeVisitorEx {
     override fun containmentChanged(nodeId: Long) {
         fail("Tree expected to be the same")
     }
