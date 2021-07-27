@@ -1,7 +1,6 @@
 package org.modelix.model
 
 import org.modelix.model.api.ITree
-import org.modelix.model.api.ITreeChangeVisitor
 import org.modelix.model.api.ITreeChangeVisitorEx
 import org.modelix.model.api.PBranch
 import org.modelix.model.client.IdGenerator
