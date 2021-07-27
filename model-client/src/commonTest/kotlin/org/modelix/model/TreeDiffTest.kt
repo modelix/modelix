@@ -159,10 +159,14 @@ class TreeDiffTest {
 
         override fun assertEquals(expected: DiffData) {
             super.assertEquals(expected)
-            assertEquals(expected.addedNodes.map { SerializationUtil.longToHex(it) }.sortedBy { it },
-                addedNodes.map { SerializationUtil.longToHex(it) }.sortedBy { it })
-            assertEquals(expected.removedNodes.map { SerializationUtil.longToHex(it) }.sortedBy { it },
-                removedNodes.map { SerializationUtil.longToHex(it) }.sortedBy { it })
+            assertEquals(
+                expected.addedNodes.map { SerializationUtil.longToHex(it) }.sortedBy { it },
+                addedNodes.map { SerializationUtil.longToHex(it) }.sortedBy { it }
+            )
+            assertEquals(
+                expected.removedNodes.map { SerializationUtil.longToHex(it) }.sortedBy { it },
+                removedNodes.map { SerializationUtil.longToHex(it) }.sortedBy { it }
+            )
         }
 
         override fun nodeAdded(nodeId: Long) {
