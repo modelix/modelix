@@ -18,7 +18,7 @@ package org.modelix.model.lazy
 import org.modelix.model.persistent.CPHamtLeaf
 import org.modelix.model.persistent.CPNode
 
-class CLHamtLeaf : CLHamtNode<CPHamtLeaf> {
+class CLHamtLeaf : CLHamtNode {
     private val data: CPHamtLeaf
 
     constructor(data: CPHamtLeaf, store: IDeserializingKeyValueStore) : super(store) {
@@ -39,7 +39,7 @@ class CLHamtLeaf : CLHamtNode<CPHamtLeaf> {
     val value: KVEntryReference<CPNode>
         get() = data.value
 
-    override fun put(key: Long, value: KVEntryReference<CPNode>?, shift: Int): CLHamtNode<*>? {
+    override fun put(key: Long, value: KVEntryReference<CPNode>?, shift: Int): CLHamtNode? {
         require(shift <= MAX_SHIFT + BITS_PER_LEVEL) { "$shift > ${MAX_SHIFT + BITS_PER_LEVEL}" }
         return if (key == data.key) {
             if (value?.getHash() == data.value.getHash()) {
@@ -48,7 +48,7 @@ class CLHamtLeaf : CLHamtNode<CPHamtLeaf> {
                 create(key, value, store)
             }
         } else {
-            var result: CLHamtNode<*>? = createEmptyNode()
+            var result: CLHamtNode? = createEmptyNode()
             result = result!!.put(data.key, data.value, shift)
             if (result == null) {
                 result = createEmptyNode()
@@ -58,7 +58,7 @@ class CLHamtLeaf : CLHamtNode<CPHamtLeaf> {
         }
     }
 
-    override fun remove(key: Long, shift: Int): CLHamtNode<*>? {
+    override fun remove(key: Long, shift: Int): CLHamtNode? {
         require(shift <= MAX_SHIFT + BITS_PER_LEVEL) { "$shift > ${MAX_SHIFT + BITS_PER_LEVEL}" }
         return if (key == data.key) {
             null
@@ -76,7 +76,7 @@ class CLHamtLeaf : CLHamtNode<CPHamtLeaf> {
         return visitor(data.key, data.value)
     }
 
-    override fun visitChanges(oldNode: CLHamtNode<*>?, shift: Int, visitor: IChangeVisitor) {
+    override fun visitChanges(oldNode: CLHamtNode?, shift: Int, visitor: IChangeVisitor) {
         if (oldNode === this) {
             return
         }

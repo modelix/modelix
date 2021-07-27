@@ -22,7 +22,7 @@ import org.modelix.model.persistent.CPHamtNode
 import org.modelix.model.persistent.CPHamtSingle
 import org.modelix.model.persistent.CPNode
 
-class CLHamtInternal(private val data: CPHamtInternal, store: IDeserializingKeyValueStore) : CLHamtNode<CPHamtInternal>(store) {
+class CLHamtInternal(private val data: CPHamtInternal, store: IDeserializingKeyValueStore) : CLHamtNode(store) {
 
     companion object {
         fun createEmpty(store: IDeserializingKeyValueStore) = create(0, arrayOf(), store)
@@ -32,7 +32,7 @@ class CLHamtInternal(private val data: CPHamtInternal, store: IDeserializingKeyV
             return CLHamtInternal(data, store)
         }
 
-        fun create(key: Long, childHash: KVEntryReference<CPNode>, shift: Int, store: IDeserializingKeyValueStore): CLHamtNode<*>? {
+        fun create(key: Long, childHash: KVEntryReference<CPNode>, shift: Int, store: IDeserializingKeyValueStore): CLHamtNode? {
             return createEmpty(store).put(key, childHash, shift)
         }
 
@@ -51,7 +51,7 @@ class CLHamtInternal(private val data: CPHamtInternal, store: IDeserializingKeyV
             .map { it.reduce { a, b -> a + b } }
     }
 
-    override fun put(key: Long, value: KVEntryReference<CPNode>?, shift: Int): CLHamtNode<*>? {
+    override fun put(key: Long, value: KVEntryReference<CPNode>?, shift: Int): CLHamtNode? {
         require(shift <= MAX_SHIFT) { "$shift > $MAX_SHIFT" }
         val childIndex = indexFromKey(key, shift)
         val child = getChild(childIndex, NonBulkQuery(store)).execute()
@@ -62,7 +62,7 @@ class CLHamtInternal(private val data: CPHamtInternal, store: IDeserializingKeyV
         }
     }
 
-    override fun remove(key: Long, shift: Int): CLHamtNode<*>? {
+    override fun remove(key: Long, shift: Int): CLHamtNode? {
         require(shift <= MAX_SHIFT) { "$shift > $MAX_SHIFT" }
         val childIndex = indexFromKey(key, shift)
         val child = getChild(childIndex, NonBulkQuery(store)).execute()
@@ -76,7 +76,7 @@ class CLHamtInternal(private val data: CPHamtInternal, store: IDeserializingKeyV
     override fun get(key: Long, shift: Int, bulkQuery: IBulkQuery): IBulkQuery.Value<KVEntryReference<CPNode>?> {
         require(shift <= MAX_SHIFT) { "$shift > $MAX_SHIFT" }
         val childIndex = indexFromKey(key, shift)
-        return getChild(childIndex, bulkQuery).mapBulk { child: CLHamtNode<*>? ->
+        return getChild(childIndex, bulkQuery).mapBulk { child: CLHamtNode? ->
             if (child == null) {
                 bulkQuery.constant(null)
             } else {
@@ -85,9 +85,9 @@ class CLHamtInternal(private val data: CPHamtInternal, store: IDeserializingKeyV
         }
     }
 
-    protected fun getChild(logicalIndex: Int, bulkQuery: IBulkQuery): IBulkQuery.Value<CLHamtNode<*>?> {
+    protected fun getChild(logicalIndex: Int, bulkQuery: IBulkQuery): IBulkQuery.Value<CLHamtNode?> {
         if (isBitNotSet(data.bitmap, logicalIndex)) {
-            return bulkQuery.constant(null) as IBulkQuery.Value<CLHamtNode<*>?>
+            return bulkQuery.constant(null) as IBulkQuery.Value<CLHamtNode?>
         }
         val physicalIndex = logicalToPhysicalIndex(data.bitmap, logicalIndex)
         require(physicalIndex < data.children.size) { "Invalid physical index ($physicalIndex). N. children: ${data.children.size}. Logical index: $logicalIndex" }
@@ -95,19 +95,19 @@ class CLHamtInternal(private val data: CPHamtInternal, store: IDeserializingKeyV
         return getChild(childHash, bulkQuery)
     }
 
-    protected fun getChild(childHash: KVEntryReference<CPHamtNode>, bulkQuery: IBulkQuery): IBulkQuery.Value<CLHamtNode<*>?> {
+    protected fun getChild(childHash: KVEntryReference<CPHamtNode>, bulkQuery: IBulkQuery): IBulkQuery.Value<CLHamtNode?> {
         return bulkQuery[childHash].map { childData -> create(childData, store) }
     }
 
-    protected fun getChild(logicalIndex: Int): CLHamtNode<*>? {
+    protected fun getChild(logicalIndex: Int): CLHamtNode? {
         return getChild(logicalIndex, NonBulkQuery(store)).execute()
     }
 
-    protected fun getChild(childHash: KVEntryReference<CPHamtNode>): CLHamtNode<*>? {
+    protected fun getChild(childHash: KVEntryReference<CPHamtNode>): CLHamtNode? {
         return getChild(childHash, NonBulkQuery(store)).execute()
     }
 
-    fun setChild(logicalIndex: Int, child: CLHamtNode<*>?, shift: Int): CLHamtNode<*>? {
+    fun setChild(logicalIndex: Int, child: CLHamtNode?, shift: Int): CLHamtNode? {
         if (child == null) {
             return deleteChild(logicalIndex)
         }
@@ -129,7 +129,7 @@ class CLHamtInternal(private val data: CPHamtInternal, store: IDeserializingKeyV
         return if (shift < MAX_BITS - BITS_PER_LEVEL) CLHamtSingle.replaceIfSingleChild(newNode) else newNode
     }
 
-    fun deleteChild(logicalIndex: Int): CLHamtNode<*>? {
+    fun deleteChild(logicalIndex: Int): CLHamtNode? {
         if (isBitNotSet(data.bitmap, logicalIndex)) {
             return this
         }
@@ -159,7 +159,7 @@ class CLHamtInternal(private val data: CPHamtInternal, store: IDeserializingKeyV
         return true
     }
 
-    override fun visitChanges(oldNode: CLHamtNode<*>?, shift: Int, visitor: IChangeVisitor) {
+    override fun visitChanges(oldNode: CLHamtNode?, shift: Int, visitor: IChangeVisitor) {
         if (oldNode === this) {
             return
         }

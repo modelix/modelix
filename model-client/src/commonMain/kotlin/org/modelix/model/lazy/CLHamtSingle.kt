@@ -17,7 +17,7 @@ import org.modelix.model.bitCount
 import org.modelix.model.persistent.CPHamtSingle
 import org.modelix.model.persistent.CPNode
 
-class CLHamtSingle(private val data: CPHamtSingle, store: IDeserializingKeyValueStore) : CLHamtNode<CPHamtSingle>(store) {
+class CLHamtSingle(private val data: CPHamtSingle, store: IDeserializingKeyValueStore) : CLHamtNode(store) {
     private val mask: Long = maskForLevels(data.numLevels)
 
     init {
@@ -42,7 +42,7 @@ class CLHamtSingle(private val data: CPHamtSingle, store: IDeserializingKeyValue
         }
     }
 
-    override fun put(key: Long, value: KVEntryReference<CPNode>?, shift: Int): CLHamtNode<*>? {
+    override fun put(key: Long, value: KVEntryReference<CPNode>?, shift: Int): CLHamtNode? {
         require(shift <= MAX_SHIFT) { "$shift > $MAX_SHIFT" }
         if (maskBits(key, shift) == data.bits) {
             return withNewChild(getChild().put(key, value, shift + BITS_PER_LEVEL * data.numLevels))
@@ -67,7 +67,7 @@ class CLHamtSingle(private val data: CPHamtSingle, store: IDeserializingKeyValue
         return CLHamtSingle(CPHamtSingle(1, data.bits ushr (BITS_PER_LEVEL * (data.numLevels - 1)), KVEntryReference(nextLevel.getData())), store)
     }
 
-    fun withNewChild(newChild: CLHamtNode<*>?): CLHamtSingle? {
+    fun withNewChild(newChild: CLHamtNode?): CLHamtSingle? {
         if (newChild is CLHamtSingle) {
             return CLHamtSingle(
                 CPHamtSingle(
@@ -82,16 +82,16 @@ class CLHamtSingle(private val data: CPHamtSingle, store: IDeserializingKeyValue
             CLHamtSingle(CPHamtSingle(data.numLevels, data.bits, KVEntryReference(newChild.getData())), store)
     }
 
-    override fun remove(key: Long, shift: Int): CLHamtNode<*>? {
+    override fun remove(key: Long, shift: Int): CLHamtNode? {
         require(shift <= MAX_SHIFT) { "$shift > $MAX_SHIFT" }
         return put(key, null, shift)
     }
 
-    fun getChild(bulkQuery: IBulkQuery): IBulkQuery.Value<CLHamtNode<*>> {
+    fun getChild(bulkQuery: IBulkQuery): IBulkQuery.Value<CLHamtNode> {
         return bulkQuery[data.child].map { childData -> create(childData!!, store)!! }
     }
 
-    fun getChild(): CLHamtNode<*> {
+    fun getChild(): CLHamtNode {
         return getChild(NonBulkQuery(store)).execute()
     }
 
@@ -99,7 +99,7 @@ class CLHamtSingle(private val data: CPHamtSingle, store: IDeserializingKeyValue
         return getChild(NonBulkQuery(store)).execute().visitEntries(visitor)
     }
 
-    override fun visitChanges(oldNode: CLHamtNode<*>?, shift: Int, visitor: IChangeVisitor) {
+    override fun visitChanges(oldNode: CLHamtNode?, shift: Int, visitor: IChangeVisitor) {
         if (oldNode is CLHamtSingle && oldNode.data.numLevels == data.numLevels) {
             getChild().visitChanges(oldNode.getChild(), shift + data.numLevels * BITS_PER_LEVEL, visitor)
         } else if (data.numLevels == 1) {
@@ -129,7 +129,7 @@ class CLHamtSingle(private val data: CPHamtSingle, store: IDeserializingKeyValue
             return CLHamtSingle(CPHamtSingle(1, indexFromBitmap(data.bitmap).toLong(), data.children[0]), node.store)
         }
 
-        fun replaceIfSingleChild(node: CLHamtInternal): CLHamtNode<*> {
+        fun replaceIfSingleChild(node: CLHamtInternal): CLHamtNode {
             return if (node.getData().children.size == 1) replace(node) else node
         }
 

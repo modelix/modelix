@@ -65,7 +65,7 @@ class CLTree : ITree {
         this.nodesMap!![ITree.ROOT_ID]
     }
 
-    private constructor(treeId_: String, idToHash: CLHamtNode<*>, store: IDeserializingKeyValueStore) {
+    private constructor(treeId_: String, idToHash: CLHamtNode, store: IDeserializingKeyValueStore) {
         var treeId: String? = treeId_
         if (treeId == null) {
             treeId = random().id
@@ -92,10 +92,10 @@ class CLTree : ITree {
     val hash: String
         get() = data.hash
 
-    val nodesMap: CLHamtNode<*>?
+    val nodesMap: CLHamtNode?
         get() = CLHamtNode.create(data.idToHash.getValue(store), store)
 
-    protected fun storeElement(node: CLNode, id2hash: CLHamtNode<*>): CLHamtNode<*> {
+    protected fun storeElement(node: CLNode, id2hash: CLHamtNode): CLHamtNode {
         val data = node.getData()
         var newMap = id2hash.put(node.id, KVEntryReference(data))
         if (newMap == null) {
@@ -236,7 +236,7 @@ class CLTree : ITree {
     protected fun deleteNode(nodeId: Long, recursive: Boolean): CLTree {
         val node = resolveElement(nodeId)
         val parent = resolveElement(node!!.getData().parentId)
-        var newIdToHash: CLHamtNode<*> = nodesMap
+        var newIdToHash: CLHamtNode = nodesMap
             ?: throw RuntimeException("nodesMap not found for hash: " + this.data.idToHash)
         val newParentData = create(
             parent!!.id,
@@ -428,8 +428,8 @@ class CLTree : ITree {
         )
     }
 
-    protected fun deleteElements(node: CPNode, idToHash: CLHamtNode<*>): CLHamtNode<*>? {
-        var newIdToHash: CLHamtNode<*>? = idToHash
+    protected fun deleteElements(node: CPNode, idToHash: CLHamtNode): CLHamtNode? {
+        var newIdToHash: CLHamtNode? = idToHash
         for (childId in node.getChildrenIds()) {
             if (newIdToHash == null) throw RuntimeException("node $childId not found")
             val childHash: KVEntryReference<CPNode> = newIdToHash[childId] ?: throw RuntimeException("node $childId not found")

@@ -32,7 +32,7 @@ class Hamt_Test {
         val expectedMap: MutableMap<Long, Long> = HashMap()
         val store = MapBaseStore()
         val storeCache = ObjectStoreCache(store)
-        var hamt: CLHamtNode<*>? = CLHamtInternal.createEmpty(storeCache)
+        var hamt: CLHamtNode? = CLHamtInternal.createEmpty(storeCache)
         for (i in 0..999) {
             if (expectedMap.isEmpty() || rand.nextBoolean()) {
                 // add entry 
@@ -79,7 +79,7 @@ class Hamt_Test {
     fun test_random_case_causing_outofbounds_on_js() {
         val store = MapBaseStore()
         val storeCache = ObjectStoreCache(store)
-        var hamt: CLHamtNode<*>? = CLHamtInternal.createEmpty(storeCache)
+        var hamt: CLHamtNode? = CLHamtInternal.createEmpty(storeCache)
         var getId = { e: KVEntryReference<CPNode>? -> e!!.getValue(storeCache).id }
 
         hamt = hamt!!.put(965L, createEntry(-6579471327666419615))
@@ -120,7 +120,7 @@ class Hamt_Test {
         var expectedHash: String? = null
 
         for (i in 1..10) {
-            var map: CLHamtNode<*> = emptyMap
+            var map: CLHamtNode = emptyMap
             entries.entries.shuffled(rand).forEach { map = map.put(it.key, it.value)!! }
             keysToRemove.forEach { map = map.remove(it)!! }
             val hash = map.getData().hash

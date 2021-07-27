@@ -18,8 +18,8 @@ package org.modelix.model.lazy
 import org.modelix.model.persistent.*
 import kotlin.jvm.JvmStatic
 
-abstract class CLHamtNode<E : CPHamtNode>(val store: IDeserializingKeyValueStore) {
-    protected fun createEmptyNode(): CLHamtNode<*> {
+abstract class CLHamtNode(val store: IDeserializingKeyValueStore) {
+    protected fun createEmptyNode(): CLHamtNode {
         return create(CPHamtInternal(0, arrayOf()), store)!!
     }
 
@@ -36,32 +36,32 @@ abstract class CLHamtNode<E : CPHamtNode>(val store: IDeserializingKeyValueStore
         return bulkQuery.map(keys) { key: Long -> get(key, 0, bulkQuery) }
     }
 
-    fun put(key: Long, value: KVEntryReference<CPNode>?): CLHamtNode<*>? {
+    fun put(key: Long, value: KVEntryReference<CPNode>?): CLHamtNode? {
         return put(key, value, 0)
     }
 
-    fun put(element: CLNode): CLHamtNode<*>? {
+    fun put(element: CLNode): CLHamtNode? {
         return put(element.getData())
     }
 
-    fun put(data: CPNode): CLHamtNode<*>? {
+    fun put(data: CPNode): CLHamtNode? {
         return put(data.id, KVEntryReference(data))
     }
 
-    fun remove(key: Long): CLHamtNode<*>? {
+    fun remove(key: Long): CLHamtNode? {
         return remove(key, 0)
     }
 
-    fun remove(element: CLNode): CLHamtNode<*>? {
+    fun remove(element: CLNode): CLHamtNode? {
         return remove(element.id)
     }
 
     abstract operator fun get(key: Long, shift: Int, bulkQuery: IBulkQuery): IBulkQuery.Value<KVEntryReference<CPNode>?>
-    abstract fun put(key: Long, value: KVEntryReference<CPNode>?, shift: Int): CLHamtNode<*>?
-    abstract fun remove(key: Long, shift: Int): CLHamtNode<*>?
+    abstract fun put(key: Long, value: KVEntryReference<CPNode>?, shift: Int): CLHamtNode?
+    abstract fun remove(key: Long, shift: Int): CLHamtNode?
     abstract fun visitEntries(visitor: (Long, KVEntryReference<CPNode>?) -> Boolean): Boolean
-    abstract fun visitChanges(oldNode: CLHamtNode<*>?, shift: Int, visitor: IChangeVisitor)
-    fun visitChanges(oldNode: CLHamtNode<*>?, visitor: IChangeVisitor) = visitChanges(oldNode, 0, visitor)
+    abstract fun visitChanges(oldNode: CLHamtNode?, shift: Int, visitor: IChangeVisitor)
+    fun visitChanges(oldNode: CLHamtNode?, visitor: IChangeVisitor) = visitChanges(oldNode, 0, visitor)
     interface IChangeVisitor {
         fun visitChangesOnly(): Boolean
         fun entryAdded(key: Long, value: KVEntryReference<CPNode>?)
@@ -78,7 +78,7 @@ abstract class CLHamtNode<E : CPHamtNode>(val store: IDeserializingKeyValueStore
         const val MAX_LEVELS = (MAX_BITS + BITS_PER_LEVEL - 1) / BITS_PER_LEVEL
 
         @JvmStatic
-        fun create(data: CPHamtNode?, store: IDeserializingKeyValueStore): CLHamtNode<*>? {
+        fun create(data: CPHamtNode?, store: IDeserializingKeyValueStore): CLHamtNode? {
             return when (data) {
                 null -> null
                 is CPHamtLeaf -> {
