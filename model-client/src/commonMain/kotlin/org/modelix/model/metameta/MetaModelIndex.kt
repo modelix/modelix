@@ -64,8 +64,6 @@ class MetaModelIndex private constructor(val tree: ITree) {
 
                     override fun referenceChanged(nodeId: Long, role: String) {}
                     override fun containmentChanged(nodeId: Long) {}
-                    override fun nodeAdded(nodeId: Long) {}
-                    override fun nodeRemoved(nodeId: Long) {}
                 }
             )
 

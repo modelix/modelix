@@ -15,17 +15,17 @@
 
 package org.modelix.model.persistent
 
+import org.modelix.model.lazy.KVEntryReference
 import org.modelix.model.persistent.SerializationUtil.longToHex
 
 class CPHamtLeaf(
     val key: Long,
-    /**
-     * SHA to CPElement
-     */
-    val value: String
+    val value: KVEntryReference<CPNode>
 ) : CPHamtNode() {
 
+    override fun getReferencedEntries(): List<KVEntryReference<IKVValue>> = listOf(value)
+
     override fun serialize(): String {
-        return """L/${longToHex(key)}/$value"""
+        return """L/${longToHex(key)}/${value.getHash()}"""
     }
 }

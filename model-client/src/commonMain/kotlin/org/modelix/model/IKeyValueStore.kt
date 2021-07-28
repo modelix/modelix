@@ -23,4 +23,5 @@ interface IKeyValueStore {
     fun prefetch(key: String)
     fun listen(key: String, listener: IKeyListener)
     fun removeListener(key: String, listener: IKeyListener)
+    fun getPendingSize(): Int
 }

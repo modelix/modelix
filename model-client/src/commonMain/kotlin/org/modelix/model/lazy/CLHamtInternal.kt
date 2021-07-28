@@ -19,110 +19,138 @@ import org.modelix.model.api.COWArrays
 import org.modelix.model.bitCount
 import org.modelix.model.persistent.CPHamtInternal
 import org.modelix.model.persistent.CPHamtNode
-import org.modelix.model.persistent.HashUtil
+import org.modelix.model.persistent.CPHamtSingle
+import org.modelix.model.persistent.CPNode
 
-class CLHamtInternal : CLHamtNode<CPHamtInternal> {
-    private val data_: CPHamtInternal
+class CLHamtInternal(private val data: CPHamtInternal, store: IDeserializingKeyValueStore) : CLHamtNode(store) {
 
-    constructor(store: IDeserializingKeyValueStore) : this(0, arrayOf<String>(), store) {}
-    constructor(data: CPHamtInternal, store: IDeserializingKeyValueStore?) : super(store!!) {
-        this.data_ = data
-    }
+    companion object {
+        fun createEmpty(store: IDeserializingKeyValueStore) = create(0, arrayOf(), store)
 
-    private constructor(bitmap: Int, childHashes: Array<String>, store: IDeserializingKeyValueStore) : super(store) {
-        data_ = CPHamtInternal(bitmap, childHashes)
-        val serialized = data_.serialize()
-        store.put(HashUtil.sha256(serialized), data_, serialized)
-    }
+        fun create(bitmap: Int, childHashes: Array<KVEntryReference<CPHamtNode>>, store: IDeserializingKeyValueStore): CLHamtInternal {
+            val data = CPHamtInternal(bitmap, childHashes)
+            return CLHamtInternal(data, store)
+        }
 
-    override fun put(key: Long, value: String?, shift: Int): CLHamtNode<*>? {
-        val childIndex = (key ushr shift and LEVEL_MASK.toLong()).toInt()
-        val child = getChild(childIndex, NonBulkQuery(store)).execute()
-        return if (child == null) {
-            setChild(childIndex, CLHamtLeaf.create(key, value, store))
-        } else {
-            setChild(childIndex, child.put(key, value, shift + BITS_PER_LEVEL))
+        fun create(key: Long, childHash: KVEntryReference<CPNode>, shift: Int, store: IDeserializingKeyValueStore): CLHamtNode? {
+            return createEmpty(store).put(key, childHash, shift)
+        }
+
+        fun replace(single: CLHamtSingle): CLHamtInternal {
+            if (single.getData().numLevels != 1) throw RuntimeException("Can only replace single level nodes")
+            val data: CPHamtSingle = single.getData()
+            val logicalIndex: Int = data.bits.toInt()
+            return create(1 shl logicalIndex, arrayOf(data.child), single.store)
         }
     }
 
-    override fun remove(key: Long, shift: Int): CLHamtNode<*>? {
-        val childIndex = (key ushr shift and LEVEL_MASK.toLong()).toInt()
+    override fun calculateSize(bulkQuery: IBulkQuery): IBulkQuery.Value<Long> {
+        return bulkQuery
+            .map(data.children.asIterable(), { bulkQuery.get(it) })
+            .mapBulk { bulkQuery.map(it) { create(it, store)?.calculateSize(bulkQuery) ?: bulkQuery.constant(0L) } }
+            .map { it.reduce { a, b -> a + b } }
+    }
+
+    override fun put(key: Long, value: KVEntryReference<CPNode>?, shift: Int): CLHamtNode? {
+        require(shift <= MAX_SHIFT) { "$shift > $MAX_SHIFT" }
+        val childIndex = indexFromKey(key, shift)
+        val child = getChild(childIndex, NonBulkQuery(store)).execute()
+        return if (child == null) {
+            setChild(childIndex, CLHamtLeaf.create(key, value, store), shift)
+        } else {
+            setChild(childIndex, child.put(key, value, shift + BITS_PER_LEVEL), shift)
+        }
+    }
+
+    override fun remove(key: Long, shift: Int): CLHamtNode? {
+        require(shift <= MAX_SHIFT) { "$shift > $MAX_SHIFT" }
+        val childIndex = indexFromKey(key, shift)
         val child = getChild(childIndex, NonBulkQuery(store)).execute()
         return if (child == null) {
             this
         } else {
-            setChild(childIndex, child.remove(key, shift + BITS_PER_LEVEL))
+            setChild(childIndex, child.remove(key, shift + BITS_PER_LEVEL), shift)
         }
     }
 
-    override fun get(key: Long, shift: Int, bulkQuery: IBulkQuery): IBulkQuery.Value<String?> {
-        val childIndex = (key ushr shift and LEVEL_MASK.toLong()).toInt()
-        return getChild(childIndex, bulkQuery).mapBulk { child: CLHamtNode<*>? ->
+    override fun get(key: Long, shift: Int, bulkQuery: IBulkQuery): IBulkQuery.Value<KVEntryReference<CPNode>?> {
+        require(shift <= MAX_SHIFT) { "$shift > $MAX_SHIFT" }
+        val childIndex = indexFromKey(key, shift)
+        return getChild(childIndex, bulkQuery).mapBulk { child: CLHamtNode? ->
             if (child == null) {
-                bulkQuery.constant<String?>(null)
+                bulkQuery.constant(null)
             } else {
                 child[key, shift + BITS_PER_LEVEL, bulkQuery]
             }
         }
     }
 
-    protected fun getChild(logicalIndex: Int, bulkQuery: IBulkQuery): IBulkQuery.Value<CLHamtNode<*>?> {
-        if (isBitNotSet(data_.bitmap, logicalIndex)) {
-            return bulkQuery.constant(null) as IBulkQuery.Value<CLHamtNode<*>?>
+    protected fun getChild(logicalIndex: Int, bulkQuery: IBulkQuery): IBulkQuery.Value<CLHamtNode?> {
+        if (isBitNotSet(data.bitmap, logicalIndex)) {
+            return bulkQuery.constant(null) as IBulkQuery.Value<CLHamtNode?>
         }
-        val physicalIndex = logicalToPhysicalIndex(data_.bitmap, logicalIndex)
-        require(physicalIndex < data_.children.size) { "Invalid physical index ($physicalIndex). N. children: ${data_.children.size}. Logical index: $logicalIndex" }
-        val childHash = data_.children[physicalIndex]
+        val physicalIndex = logicalToPhysicalIndex(data.bitmap, logicalIndex)
+        require(physicalIndex < data.children.size) { "Invalid physical index ($physicalIndex). N. children: ${data.children.size}. Logical index: $logicalIndex" }
+        val childHash = data.children[physicalIndex]
         return getChild(childHash, bulkQuery)
     }
 
-    protected fun getChild(childHash: String, bulkQuery: IBulkQuery): IBulkQuery.Value<CLHamtNode<*>?> {
-        return bulkQuery[childHash, CPHamtNode.DESERIALIZER].map { childData -> create(childData, store) }
+    protected fun getChild(childHash: KVEntryReference<CPHamtNode>, bulkQuery: IBulkQuery): IBulkQuery.Value<CLHamtNode?> {
+        return bulkQuery[childHash].map { childData -> create(childData, store) }
     }
 
-    protected fun getChild(logicalIndex: Int): CLHamtNode<*>? {
+    protected fun getChild(logicalIndex: Int): CLHamtNode? {
         return getChild(logicalIndex, NonBulkQuery(store)).execute()
     }
 
-    protected fun getChild(childHash: String): CLHamtNode<*>? {
+    protected fun getChild(childHash: KVEntryReference<CPHamtNode>): CLHamtNode? {
         return getChild(childHash, NonBulkQuery(store)).execute()
     }
 
-    fun setChild(logicalIndex: Int, child: CLHamtNode<*>?): CLHamtNode<*>? {
+    fun setChild(logicalIndex: Int, child: CLHamtNode?, shift: Int): CLHamtNode? {
         if (child == null) {
             return deleteChild(logicalIndex)
         }
-        val childHash = HashUtil.sha256(child.getData().serialize())
-        val physicalIndex = logicalToPhysicalIndex(data_.bitmap, logicalIndex)
-        return if (isBitNotSet(data_.bitmap, logicalIndex)) {
-            CLHamtInternal(data_.bitmap or (1 shl logicalIndex), COWArrays.insert(data_.children, physicalIndex, childHash), store)
+        val childHash = KVEntryReference(child.getData())
+        val physicalIndex = logicalToPhysicalIndex(data.bitmap, logicalIndex)
+        val newNode = if (isBitNotSet(data.bitmap, logicalIndex)) {
+            create(
+                data.bitmap or (1 shl logicalIndex),
+                COWArrays.insert(data.children, physicalIndex, childHash),
+                store
+            )
         } else {
-            CLHamtInternal(data_.bitmap, COWArrays.set(data_.children, physicalIndex, childHash), store)
+            create(
+                data.bitmap,
+                COWArrays.set(data.children, physicalIndex, childHash),
+                store
+            )
         }
+        return if (shift < MAX_BITS - BITS_PER_LEVEL) CLHamtSingle.replaceIfSingleChild(newNode) else newNode
     }
 
-    fun deleteChild(logicalIndex: Int): CLHamtNode<*>? {
-        if (isBitNotSet(data_.bitmap, logicalIndex)) {
+    fun deleteChild(logicalIndex: Int): CLHamtNode? {
+        if (isBitNotSet(data.bitmap, logicalIndex)) {
             return this
         }
-        val physicalIndex = logicalToPhysicalIndex(data_.bitmap, logicalIndex)
-        val newBitmap = data_.bitmap and (1 shl logicalIndex).inv()
+        val physicalIndex = logicalToPhysicalIndex(data.bitmap, logicalIndex)
+        val newBitmap = data.bitmap and (1 shl logicalIndex).inv()
         if (newBitmap == 0) {
             return null
         }
-        val newChildren = COWArrays.removeAt(data_.children, physicalIndex)
+        val newChildren = COWArrays.removeAt(data.children, physicalIndex)
         if (newChildren.size == 1) {
             val child0 = getChild(newChildren[0], NonBulkQuery(store)).execute()
             if (child0 is CLHamtLeaf) {
                 return child0
             }
         }
-        return CLHamtInternal(newBitmap, newChildren, store)
+        return create(newBitmap, newChildren, store)
     }
 
-    override fun visitEntries(visitor: (Long, String?) -> Boolean): Boolean {
-        for (childHash in data_.children) {
-            val child = getChild(childHash)
+    override fun visitEntries(visitor: (Long, KVEntryReference<CPNode>?) -> Boolean): Boolean {
+        for (childHash in data.children) {
+            val child = CLHamtNode.create(childHash.getValue(store), store)
             val continueVisit = child!!.visitEntries(visitor)
             if (!continueVisit) {
                 return false
@@ -131,60 +159,89 @@ class CLHamtInternal : CLHamtNode<CPHamtInternal> {
         return true
     }
 
-    override fun visitChanges(oldNode: CLHamtNode<*>?, visitor: IChangeVisitor) {
+    override fun visitChanges(oldNode: CLHamtNode?, shift: Int, visitor: IChangeVisitor) {
         if (oldNode === this) {
             return
         }
-        if (oldNode is CLHamtInternal) {
-            val oldInternalNode: CLHamtInternal = oldNode
-            if (data_.bitmap == oldInternalNode.data_.bitmap) {
-                for (i in data_.children.indices) {
-                    getChild(data_.children[i])!!.visitChanges(oldInternalNode.getChild(oldInternalNode.data_.children[i]), visitor)
-                }
-            } else {
-                for (logicalIndex in 0 until ENTRIES_PER_LEVEL) {
-                    val child = getChild(logicalIndex)
-                    val oldChild = oldInternalNode.getChild(logicalIndex)
-                    if (child == null) {
-                        if (oldChild == null) {
-                            // no change 
-                        } else {
-                            oldChild.visitEntries { key, value ->
-                                visitor.entryRemoved(key, value)
-                                true
-                            }
+        when (oldNode) {
+            is CLHamtInternal -> {
+                val oldInternalNode: CLHamtInternal = oldNode
+                if (data.bitmap == oldInternalNode.data.bitmap) {
+                    for (i in data.children.indices) {
+                        val oldChildHash = oldInternalNode.data.children[i]
+                        val newChildHash = data.children[i]
+                        if (oldChildHash != newChildHash) {
+                            getChild(newChildHash)!!.visitChanges(oldInternalNode.getChild(oldChildHash), shift + BITS_PER_LEVEL, visitor)
                         }
-                    } else {
-                        if (oldChild == null) {
-                            child.visitEntries { key, value ->
-                                visitor.entryAdded(key, value)
-                                true
-                            }
-                        } else {
-                            child.visitChanges(oldChild, visitor)
-                        }
-                    }
-                }
-            }
-        } else if (oldNode is CLHamtLeaf) {
-            visitEntries { k, v ->
-                if (k == oldNode.key) {
-                    val oldValue = oldNode.value
-                    if (v != oldValue) {
-                        visitor.entryChanged(k, oldValue, v)
                     }
                 } else {
-                    visitor.entryAdded(k, v)
+                    for (logicalIndex in 0 until ENTRIES_PER_LEVEL) {
+                        val child = getChild(logicalIndex)
+                        val oldChild = oldInternalNode.getChild(logicalIndex)
+                        if (child == null) {
+                            if (oldChild == null) {
+                                // no change
+                            } else {
+                                if (!visitor.visitChangesOnly()) {
+                                    oldChild.visitEntries { key, value ->
+                                        visitor.entryRemoved(key, value)
+                                        true
+                                    }
+                                }
+                            }
+                        } else {
+                            if (oldChild == null) {
+                                if (!visitor.visitChangesOnly()) {
+                                    child.visitEntries { key, value ->
+                                        visitor.entryAdded(key, value)
+                                        true
+                                    }
+                                }
+                            } else {
+                                child.visitChanges(oldChild, shift + BITS_PER_LEVEL, visitor)
+                            }
+                        }
+                    }
                 }
-                true
             }
-        } else {
-            throw RuntimeException("Unknown type: " + oldNode!!::class.simpleName)
+            is CLHamtLeaf -> {
+                if (visitor.visitChangesOnly()) {
+                    val newValue = get(oldNode.key, shift, NonBulkQuery(store)).execute()
+                    if (newValue != null && newValue != oldNode.value) {
+                        visitor.entryChanged(oldNode.key, oldNode.value, newValue)
+                    }
+                } else {
+                    var oldEntryExists = false
+                    visitEntries { k, v ->
+                        if (k == oldNode.key) {
+                            oldEntryExists = true
+                            val oldValue = oldNode.value
+                            if (v != oldValue) {
+                                visitor.entryChanged(k, oldValue, v)
+                            }
+                        } else {
+                            visitor.entryAdded(k, v)
+                        }
+                        true
+                    }
+                    if (!oldEntryExists) visitor.entryRemoved(oldNode.key, oldNode.value)
+                }
+            }
+            is CLHamtSingle -> {
+                if (oldNode.getData().numLevels == 1) {
+                    visitChanges(CLHamtInternal.replace(oldNode), shift, visitor)
+                } else {
+                    visitChanges(CLHamtInternal.replace(oldNode.splitOneLevel()), shift, visitor)
+                }
+            }
+            else -> {
+                throw RuntimeException("Unknown type: " + oldNode!!::class.simpleName)
+            }
         }
     }
 
     override fun getData(): CPHamtInternal {
-        return data_
+        return data
     }
 
     private fun isBitNotSet(bitmap: Int, logicalIndex: Int): Boolean {

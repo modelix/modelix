@@ -33,10 +33,9 @@
         <property name="systemPropertiesMode" value="2"/>
     </bean>
 
-    <bean name="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-        <property name="driverClassName" value="${jdbc.driver}" />
+    <bean name="dataSource" class="org.postgresql.ds.PGPoolingDataSource">
         <property name="url" value="${jdbc.url}" />
-        <property name="username" value="${jdbc.user}" />
+        <property name="user" value="${jdbc.user}" />
         <property name="password" value="${jdbc.pw}" />
     </bean>
 
@@ -68,7 +67,9 @@
                 <!-- Redefining the default region's settings -->
                 <property name="defaultDataRegionConfiguration">
                     <bean class="org.apache.ignite.configuration.DataRegionConfiguration">
-                        <property name="maxSize" value="#{100L * 1024 * 1024}"/>
+                        <property name="maxSize" value="#{500L * 1024 * 1024}"/>
+                        <property name="evictionThreshold" value="0.5"/>
+                        <property name="pageEvictionMode" value="RANDOM_LRU" />
                     </bean>
                 </property>
             </bean>
@@ -79,15 +80,15 @@
                 <bean class="org.apache.ignite.configuration.CacheConfiguration">
                     <property name="name" value="model"/>
                     <property name="atomicityMode" value="ATOMIC"/>
-                    <property name="backups" value="1"/>
+                    <property name="backups" value="0"/>
                     <property name="onheapCacheEnabled" value="true"/>
                     <property name="statisticsEnabled" value="true"/>
                     <property name="readThrough" value="true"/>
                     <property name="writeThrough" value="true"/>
-                    <property name="writeBehindEnabled" value="true"/>
+                    <property name="writeBehindEnabled" value="false"/>
                     <property name="writeBehindFlushFrequency" value="1000"/>
-                    <property name="writeBehindBatchSize" value="1000"/>
-                    <property name="writeBehindFlushSize" value="3000"/>
+                    <property name="writeBehindBatchSize" value="10000"/>
+                    <property name="writeBehindFlushSize" value="30000"/>
 
                     <property name="cacheStoreFactory">
                         <!--
@@ -100,6 +101,9 @@
                         <bean class="org.apache.ignite.cache.store.jdbc.CacheJdbcPojoStoreFactory">
                             <property name="dataSourceBean" value="dataSource" />
                             <property name="sqlEscapeAll" value="true" />
+                            <property name="dialect">
+                                <bean class="org.modelix.model.server.PostgresDialect"/>
+                            </property>
                             <property name="types">
 
                                 <list>

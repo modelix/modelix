@@ -23,8 +23,7 @@ import org.modelix.model.lazy.CLVersion
 import org.modelix.model.lazy.RepositoryId
 import kotlin.jvm.Synchronized
 
-open class ActiveBranch(client: IModelClient, repository: RepositoryId, branchName: String?, user: () -> String) : IIndirectBranch {
-    private val client: IModelClient
+open class ActiveBranch(val client: IModelClient, repository: RepositoryId, branchName: String?, user: () -> String) : IIndirectBranch {
     private val repository: RepositoryId
     var branchName: String
         private set
@@ -107,7 +106,6 @@ open class ActiveBranch(client: IModelClient, repository: RepositoryId, branchNa
     }
 
     init {
-        this.client = client
         this.repository = repository
         this.branchName = if (branchName.isNullOrEmpty()) DEFAULT_BRANCH_NAME else branchName
         this.user = user

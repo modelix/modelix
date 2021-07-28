@@ -28,6 +28,7 @@ import org.modelix.model.client.SharedExecutors.fixDelay
 import org.modelix.model.lazy.IDeserializingKeyValueStore
 import org.modelix.model.lazy.ObjectStoreCache
 import org.modelix.model.persistent.HashUtil
+import org.modelix.model.sleep
 import org.modelix.model.util.StreamUtils.toStream
 import java.io.File
 import java.net.URLEncoder
@@ -37,6 +38,7 @@ import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 import java.util.concurrent.ScheduledFuture
 import java.util.concurrent.TimeUnit
+import java.util.concurrent.atomic.AtomicInteger
 import java.util.function.Consumer
 import java.util.function.Predicate
 import java.util.function.ToLongFunction
@@ -111,8 +113,9 @@ class RestWebModelClient @JvmOverloads constructor(var baseUrl: String? = null, 
     private val client: Client
     private val sseClient: Client
     private val listeners: MutableList<SseListener> = ArrayList()
-    override val asyncStore: IKeyValueStore = GarbageFilteringStore(AsyncStore(this))
+    override val asyncStore: IKeyValueStore = AsyncStore(this)
     private val cache = ObjectStoreCache(KeyValueStoreCache(asyncStore))
+    private val pendingWrites = AtomicInteger(0)
 
     @get:Synchronized
     override lateinit var idGenerator: IIdGenerator
@@ -130,6 +133,8 @@ class RestWebModelClient @JvmOverloads constructor(var baseUrl: String? = null, 
         }
         executorService.shutdown()
     }
+
+    override fun getPendingSize(): Int = pendingWrites.get()
 
     override fun get(key: String): String? {
         val isHash = HashUtil.isSha256(key)
@@ -169,33 +174,42 @@ class RestWebModelClient @JvmOverloads constructor(var baseUrl: String? = null, 
         if (!keys.iterator().hasNext()) {
             return HashMap()
         }
-        val json = JSONArray()
+
+        val result: MutableMap<String, String?> = LinkedHashMap(16, 0.75.toFloat(), false)
+        var json = JSONArray()
+        val batch = {
+            val body = json.toString()
+            val start = System.currentTimeMillis()
+            val response = client.target(baseUrl + "getAll").request(MediaType.APPLICATION_JSON).put(Entity.text(body))
+            if (response.status == Response.Status.OK.statusCode) {
+                val jsonStr = response.readEntity(String::class.java)
+                val responseJson = JSONArray(jsonStr)
+                for (entry_: Any in responseJson) {
+                    val entry = entry_ as JSONObject
+                    result[entry.getString("key")] = entry.optString("value", null)
+                }
+                val end = System.currentTimeMillis()
+                json = JSONArray()
+            } else {
+                throw RuntimeException(
+                    String.format(
+                        "Request for %d keys failed (%s, ...): %s",
+                        keys.spliterator().exactSizeIfKnown,
+                        toStream(keys).findFirst().orElse(null),
+                        response.statusInfo
+                    )
+                )
+            }
+        }
+
         for (key in keys) {
             json.put(key)
+            if (json.length() >= 5000) batch()
         }
-        val body = json.toString()
-        val start = System.currentTimeMillis()
-        val response = client.target(baseUrl + "getAll").request(MediaType.APPLICATION_JSON).put(Entity.text(body))
-        return if (response.status == Response.Status.OK.statusCode) {
-            val jsonStr = response.readEntity(String::class.java)
-            val responseJson = JSONArray(jsonStr)
-            val result: MutableMap<String, String?> = LinkedHashMap(16, 0.75.toFloat(), false)
-            for (entry_: Any in responseJson) {
-                val entry = entry_ as JSONObject
-                result[entry.getString("key")] = entry.optString("value", null)
-            }
-            val end = System.currentTimeMillis()
-            result
-        } else {
-            throw RuntimeException(
-                String.format(
-                    "Request for %d keys failed (%s, ...): %s",
-                    keys.spliterator().exactSizeIfKnown,
-                    toStream(keys).findFirst().orElse(null),
-                    response.statusInfo
-                )
-            )
-        }
+
+        if (json.length() > 0) batch()
+
+        return result
     }
 
     fun setAuthToken(token: String?) {
@@ -238,50 +252,86 @@ class RestWebModelClient @JvmOverloads constructor(var baseUrl: String? = null, 
         }
     }
 
-    override fun putAll(entries: Map<String, String?>) {
-        val sendBatch = Consumer<JSONArray> { json ->
-            if (LOG.isDebugEnabled) {
-                LOG.debug("PUT batch of " + json.length() + " entries")
+    fun sortEntriesByDependency(unsorted: Map<String, String?>): Map<String, String?> {
+        val sorted = LinkedHashMap<String, String?>()
+        object {
+            fun putEntry(key: String, value: String?) {
+                if (sorted.containsKey(key)) return
+                for (depKey in HashUtil.extractSha256(value)) {
+                    if (sorted.containsKey(depKey)) continue
+                    if (unsorted.containsKey(depKey)) {
+                        val depValue = unsorted[depKey]
+                        putEntry(depKey, depValue)
+                    }
+                }
+                sorted[key] = value
             }
-            val response = client.target(baseUrl + "putAll").request(MediaType.TEXT_PLAIN).put(Entity.text(json.toString()))
-            if (response.statusInfo.family != Response.Status.Family.SUCCESSFUL) {
 
-                throw RuntimeException(
-                    String.format(
-                        "Failed to store %d entries (%s) %s: %s",
-                        entries.size,
-                        response.statusInfo,
-                        entries.entries.stream().map { e: Map.Entry<String?, String?> -> e.key.toString() + " = " + e.value + ", ..." }.findFirst().orElse(""),
-                        response.readEntity(String::class.java)
-                    )
+            fun putAll() {
+                for (entry in unsorted) {
+                    putEntry(entry.key, entry.value)
+                }
+            }
+        }.putAll()
+
+        return sorted
+    }
+
+    override fun putAll(entries_: Map<String, String?>) {
+        val entries = sortEntriesByDependency(entries_)
+        val sendBatch = sendBatch@{ json: JSONArray, remaining: Int ->
+            for (attempt in 1..3) {
+                if (LOG.isDebugEnabled) {
+                    LOG.debug("PUT batch of ${json.length()} entries, $remaining remaining")
+                }
+                val response = client.target(baseUrl + "putAll").request(MediaType.TEXT_PLAIN).put(Entity.text(json.toString()))
+                if (response.statusInfo.family == Response.Status.Family.SUCCESSFUL) return@sendBatch
+                val message = String.format(
+                    "Failed to store %d entries (%s) %s: %s (attempt %d)",
+                    entries.size,
+                    response.statusInfo,
+                    entries.entries.stream().map { e: Map.Entry<String?, String?> -> e.key.toString() + " = " + e.value + ", ..." }.findFirst().orElse(""),
+                    response.readEntity(String::class.java),
+                    attempt
                 )
+                if (attempt == 3) throw RuntimeException(message) else LOG.warn(message)
+                sleep(1000)
             }
         }
         if (LOG.isDebugEnabled) {
             LOG.debug("PUT " + entries.size + " entries")
         }
-        var json = JSONArray()
-        var approxSize = 0
-        for ((key, value) in entries) {
-            val jsonEntry = JSONObject()
-            jsonEntry.put("key", key)
-            jsonEntry.put("value", value)
-            approxSize += key.length
-            approxSize += value!!.length
-            json.put(jsonEntry)
-            if (!key.matches(HashUtil.HASH_PATTERN)) {
-                if (LOG.isDebugEnabled) {
-                    LOG.debug("PUT $key = $value")
+
+        var remainingEntries = entries.size
+        try {
+            pendingWrites.addAndGet(remainingEntries)
+            var json = JSONArray()
+            var approxSize = 0
+            for ((key, value) in entries) {
+                val jsonEntry = JSONObject()
+                jsonEntry.put("key", key)
+                jsonEntry.put("value", value)
+                approxSize += key.length
+                approxSize += value!!.length
+                json.put(jsonEntry)
+                if (!key.matches(HashUtil.HASH_PATTERN)) {
+                    if (LOG.isDebugEnabled) {
+                        LOG.debug("PUT $key = $value")
+                    }
+                }
+                if (json.length() >= 5000 || approxSize > 10000000) {
+                    sendBatch(json, remainingEntries)
+                    remainingEntries -= json.length()
+                    pendingWrites.addAndGet(-json.length())
+                    json = JSONArray()
+                    approxSize = 0
                 }
             }
-            if (json.length() >= 5000 || approxSize > 10000000) {
-                sendBatch.accept(json)
-                json = JSONArray()
-                approxSize = 0
+            if (json.length() > 0) {
+                sendBatch(json, remainingEntries)
             }
-        }
-        if (json.length() > 0) {
-            sendBatch.accept(json)
+        } finally {
+            pendingWrites.addAndGet(-remainingEntries)
         }
     }
 

@@ -785,21 +785,21 @@ class ConflictResolutionTest : TreeTestBase() {
     }
 
     fun createVersion(opsAndTree: Pair<List<IAppliedOperation>, ITree>, previousVersion: CLVersion?): CLVersion {
+        val clTree = opsAndTree.second as CLTree
         return CLVersion.createRegularVersion(
             id = idGenerator.generate(),
             time = null,
             author = null,
-            treeHash = (opsAndTree.second as CLTree).hash,
-            baseVersion = previousVersion?.hash,
-            operations = opsAndTree.first.map { it.getOriginalOp() }.toTypedArray(),
-            store = storeCache
+            tree = clTree,
+            baseVersion = previousVersion,
+            operations = opsAndTree.first.map { it.getOriginalOp() }.toTypedArray()
         )
     }
 
     fun assertSameTree(tree1: ITree, tree2: ITree) {
         tree2.visitChanges(
             tree1,
-            object : ITreeChangeVisitor {
+            object : ITreeChangeVisitorEx {
                 override fun containmentChanged(nodeId: Long) {
                     fail("containmentChanged ${nodeId.toString(16)}")
                 }

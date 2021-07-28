@@ -322,18 +322,18 @@
                 {
                   "$role": "member",
                   "$concept": "jetbrains.mps.baseLanguage.FieldDeclaration",
+                  "#mpsNodeId#": "179302401",
                   "name": "addedFieldInTransientModel",
-                  "#mpsNodeId#": "$$SOME_ID1$$",
                   "$children": [
                     {
                       "$role": "type",
                       "$concept": "jetbrains.mps.baseLanguage.BooleanType",
-                      "#mpsNodeId#": "$$SOME_ID2$$"
+                      "#mpsNodeId#": "179302403"
                     },
                     {
                       "$role": "visibility",
                       "$concept": "jetbrains.mps.baseLanguage.PrivateVisibility",
-                      "#mpsNodeId#": "$$SOME_ID3$$"
+                      "#mpsNodeId#": "179302402"
                     }
                   ]
                 }

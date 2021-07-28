@@ -3,10 +3,16 @@ package org.modelix.model.operations
 import org.modelix.model.api.ITree
 import org.modelix.model.api.IWriteTransaction
 import org.modelix.model.api.TreePointer
+import org.modelix.model.lazy.CLTree
 import org.modelix.model.lazy.CLVersion
 import org.modelix.model.lazy.IDeserializingKeyValueStore
+import org.modelix.model.lazy.KVEntryReference
+import org.modelix.model.persistent.CPVersion
+import org.modelix.model.persistent.IKVValue
 
-class UndoOp(val versionHash: String) : AbstractOperation() {
+class UndoOp(val versionHash: KVEntryReference<CPVersion>) : AbstractOperation() {
+    override fun getReferencedEntries(): List<KVEntryReference<IKVValue>> = listOf(versionHash)
+
     override fun apply(transaction: IWriteTransaction, store: IDeserializingKeyValueStore): IAppliedOperation {
         return Applied(
             captureIntend(transaction.tree, store)
@@ -15,8 +21,9 @@ class UndoOp(val versionHash: String) : AbstractOperation() {
         )
     }
 
-    override fun captureIntend(tree: ITree, store: IDeserializingKeyValueStore): IOperationIntend {
-        val versionToUndo = CLVersion.loadFromHash(versionHash, store)!!
+    override fun captureIntend(tree: ITree, store_: IDeserializingKeyValueStore): IOperationIntend {
+        val store = (tree as CLTree).store
+        val versionToUndo = CLVersion(versionHash.getValue(store), store)
         val originalAppliedOps = getAppliedOps(versionToUndo, store)
         val invertedOps = originalAppliedOps.reversed().flatMap { it.invert() }
         val invertedOpIntends = captureIntend(versionToUndo.tree, invertedOps, store)
@@ -54,7 +61,7 @@ class UndoOp(val versionHash: String) : AbstractOperation() {
     }
 
     override fun toString(): String {
-        return "UndoOp $versionHash"
+        return "UndoOp ${versionHash.getHash()}"
     }
 
     inner class Intend(val intends: List<IOperationIntend>, val store: IDeserializingKeyValueStore) : IOperationIntend {

@@ -19,11 +19,12 @@ import org.apache.log4j.Level
 import org.apache.log4j.LogManager
 import org.modelix.model.IKeyListener
 import org.modelix.model.IKeyValueStore
+import org.modelix.model.IKeyValueStoreWrapper
 import java.lang.Runnable
 import java.util.Objects
 import java.util.concurrent.atomic.AtomicBoolean
 
-class AsyncStore(private val store: IKeyValueStore) : IKeyValueStore {
+class AsyncStore(private val store: IKeyValueStore) : IKeyValueStoreWrapper {
     private val consumerActive = AtomicBoolean()
     private val pendingWrites: MutableMap<String, String?> = LinkedHashMap()
     override fun get(key: String): String? {
@@ -35,6 +36,10 @@ class AsyncStore(private val store: IKeyValueStore) : IKeyValueStore {
         return store[key]
     }
 
+    override fun getWrapped(): IKeyValueStore = store
+
+    override fun getPendingSize(): Int = store.getPendingSize() + pendingWrites.size
+
     override fun listen(key: String, listener: IKeyListener) {
         store.listen(key, listener)
     }
@@ -44,8 +49,7 @@ class AsyncStore(private val store: IKeyValueStore) : IKeyValueStore {
     }
 
     override fun put(key: String, value: String?) {
-        synchronized(pendingWrites) { pendingWrites.put(key, value) }
-        processQueue()
+        putAll(mapOf(key to value))
     }
 
     override fun getAll(keys_: Iterable<String>): Map<String, String?> {
@@ -63,13 +67,23 @@ class AsyncStore(private val store: IKeyValueStore) : IKeyValueStore {
             }
         }
         if (!keys.isEmpty()) {
-            result.putAll((store.getAll(keys))!!)
+            result.putAll(store.getAll(keys))
         }
         return result
     }
 
     override fun putAll(entries: Map<String, String?>) {
-        synchronized(pendingWrites) { pendingWrites.putAll((entries)!!) }
+        synchronized(pendingWrites) {
+            // ensure correct order
+            for (newEntry in entries) {
+                val existingValue = pendingWrites[newEntry.key]
+                if (existingValue != newEntry.value) {
+                    pendingWrites.remove(newEntry.key)
+                }
+            }
+
+            pendingWrites.putAll(entries)
+        }
         processQueue()
     }
 

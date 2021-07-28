@@ -24,6 +24,8 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class InMemoryStoreClient implements IStoreClient {
@@ -42,9 +44,21 @@ public class InMemoryStoreClient implements IStoreClient {
     }
 
     @Override
+    public Map<String, String> getAll(Set<String> keys) {
+        return keys.stream().collect(Collectors.toMap(Function.identity(), this::get));
+    }
+
+    @Override
     public void put(String key, String value) {
         values.put(key, value);
         listeners.getOrDefault(key, Collections.emptyList()).forEach(l -> l.changed(key, value));
+    }
+
+    @Override
+    public void putAll(Map<String, String> entries) {
+        for (Map.Entry<String, String> entry : entries.entrySet()) {
+            put(entry.getKey(), entry.getValue());
+        }
     }
 
     @Override

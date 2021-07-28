@@ -15,6 +15,8 @@
 
 package org.modelix.model.lazy
 
+import org.modelix.model.persistent.IKVValue
+
 class NonBulkQuery(private val store: IDeserializingKeyValueStore) : IBulkQuery {
     override fun <I, O> map(input_: Iterable<I>, f: (I) -> IBulkQuery.Value<O>): IBulkQuery.Value<List<O>> {
         val list = input_.map(f).map { it.execute() }.toList()
@@ -25,8 +27,8 @@ class NonBulkQuery(private val store: IDeserializingKeyValueStore) : IBulkQuery 
         return Value(value)
     }
 
-    override fun <T> get(hash: String, deserializer: (String) -> T): IBulkQuery.Value<T?> {
-        return constant(store[hash, deserializer] ?: throw RuntimeException("store expected to have entry for hash=$hash, deserializer=$deserializer"))
+    override fun <T : IKVValue> get(hash: KVEntryReference<T>): IBulkQuery.Value<T?> {
+        return constant(hash.getValue(store))
     }
 
     class Value<T>(private val value: T) : IBulkQuery.Value<T> {

@@ -15,40 +15,38 @@
 
 package org.modelix.model.lazy
 
+import org.modelix.model.persistent.IKVValue
 import kotlin.collections.ArrayList
-import kotlin.collections.HashMap
 import kotlin.jvm.Synchronized
 
 /**
  * Not thread safe
  */
 class BulkQuery(private val store: IDeserializingKeyValueStore) : IBulkQuery {
-    private var queue: MutableList<Triple<String, (String?) -> Any?, (Any?) -> Unit>> = ArrayList()
+    companion object {
+        val BATCH_SIZE = 5000
+    }
+
+    private var queue: MutableList<Pair<KVEntryReference<IKVValue>, (IKVValue?) -> Unit>> = ArrayList()
     private var processing = false
-    protected fun executeBulkQuery(keys: Iterable<String>, deserializers: Map<String, (String?) -> Any?>): Map<String, Any?> {
-        val values = store.getAll(keys) { key: String, serialized: String -> deserializers.getValue(key)(serialized) }
-        val result: MutableMap<String, Any?> = HashMap()
-        run {
-            val key_it = keys.iterator()
-            val value_it: Iterator<Any?> = values.iterator()
-            var key_var: String
-            var value_var: Any?
-            while (key_it.hasNext() && value_it.hasNext()) {
-                key_var = key_it.next()
-                value_var = value_it.next()
-                result[key_var] = value_var
-            }
-        }
+    protected fun executeBulkQuery(refs: Iterable<KVEntryReference<IKVValue>>): Map<String, IKVValue?> {
+        val refsMap = refs.associateBy { it.getHash() }
+        val result = HashMap<String, IKVValue?>()
+        result += refs.filter { !it.isWritten() }.map { it.getHash() to it.getValue(store) }
+        val keysToQuery = refs.filter { it.isWritten() }.map { it.getHash() }
+        val queriedValues = store.getAll(keysToQuery) { key, serialized -> refsMap[key]!!.getDeserializer()(serialized) }
+        result += keysToQuery.zip(queriedValues)
         return result
     }
 
-    fun query(key: String, deserializer: (String?) -> Any, callback: (Any?) -> Unit) {
-        queue.add(Triple(key, deserializer, callback))
+    fun <T : IKVValue> query(key: KVEntryReference<T>, callback: (T) -> Unit) {
+        if (queue.size >= BATCH_SIZE && !processing) process()
+        queue.add(Pair(key as KVEntryReference<IKVValue>, callback as (IKVValue?) -> Unit))
     }
 
-    override fun <T> get(hash: String, deserializer: (String) -> T): IBulkQuery.Value<T?> {
+    override fun <T : IKVValue> get(hash: KVEntryReference<T>): IBulkQuery.Value<T?> {
         val result = Value<T?>()
-        query(hash, deserializer as (String?) -> Any, { value: Any? -> result.success(value as T) })
+        query(hash) { value: T? -> result.success(value) }
         return result
     }
 
@@ -62,19 +60,23 @@ class BulkQuery(private val store: IDeserializingKeyValueStore) : IBulkQuery {
         }
         processing = true
         try {
-            while (!queue.isEmpty()) {
-                val currentRequests: List<Triple<String, (String?) -> Any?, (Any?) -> Unit>> = queue
-                queue = ArrayList()
-                val deserializers: MutableMap<String, (String?) -> Any?> = HashMap()
-                for (request in currentRequests) {
-                    deserializers[request.first] = request.second
+            while (queue.isNotEmpty()) {
+                val currentRequests: List<Pair<KVEntryReference<IKVValue>, (IKVValue?) -> Unit>>
+                if (queue.size > BATCH_SIZE) {
+                    // The callback of a request usually enqueues new request until it reaches the leafs of the
+                    // data structure. By executing the latest (instead of the oldest) request we basically do a depth
+                    // first traversal which keeps the maximum size of the queue smaller.
+                    currentRequests = ArrayList(queue.subList(queue.size - BATCH_SIZE, queue.size))
+                    for (i in 1..BATCH_SIZE) queue.removeLast()
+                } else {
+                    currentRequests = queue
+                    queue = ArrayList()
                 }
-                val entries = executeBulkQuery(
-                    currentRequests.map { obj -> obj.first }.distinct(),
-                    deserializers.toMap()
+                val entries: Map<String, IKVValue?> = executeBulkQuery(
+                    currentRequests.map { obj -> obj.first }.distinct()
                 )
                 for (request in currentRequests) {
-                    request.third(entries[request.first])
+                    request.second(entries[request.first.getHash()])
                 }
             }
         } finally {

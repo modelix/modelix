@@ -1,13 +1,10 @@
 package org.modelix.model
 
 import org.modelix.model.api.ITree
-import org.modelix.model.api.ITreeChangeVisitor
+import org.modelix.model.api.ITreeChangeVisitorEx
 import org.modelix.model.api.PBranch
 import org.modelix.model.client.IdGenerator
-import org.modelix.model.lazy.CLTree
-import org.modelix.model.lazy.CLVersion
-import org.modelix.model.lazy.IDeserializingKeyValueStore
-import org.modelix.model.lazy.ObjectStoreCache
+import org.modelix.model.lazy.*
 import org.modelix.model.operations.IAppliedOperation
 import org.modelix.model.operations.OTBranch
 import org.modelix.model.operations.UndoOp
@@ -100,7 +97,7 @@ class UndoTest {
     }
 
     fun printHistory(version: CLVersion, store: IDeserializingKeyValueStore) {
-        LinearHistory(store, null).load(version).forEach {
+        LinearHistory(null).load(version).forEach {
             println("Version ${it.id.toString(16)} ${it.hash} ${it.author}")
             for (op in it.operations) {
                 println("    $op")
@@ -113,10 +110,9 @@ class UndoTest {
             id = idGenerator.generate(),
             time = null,
             author = "undo",
-            treeHash = version.baseVersion!!.treeHash!!,
-            baseVersion = version.hash,
-            operations = arrayOf(UndoOp(version.hash)),
-            store = version.store
+            tree = version.baseVersion!!.tree,
+            baseVersion = version,
+            operations = arrayOf(UndoOp(KVEntryReference(version.data!!)))
         )
     }
 
@@ -139,15 +135,14 @@ class UndoTest {
             id = idGenerator.generate(),
             time = null,
             author = null,
-            treeHash = (opsAndTree.second as CLTree).hash,
-            baseVersion = previousVersion?.hash,
-            operations = opsAndTree.first.map { it.getOriginalOp() }.toTypedArray(),
-            store = storeCache
+            tree = opsAndTree.second as CLTree,
+            baseVersion = previousVersion,
+            operations = opsAndTree.first.map { it.getOriginalOp() }.toTypedArray()
         )
     }
 }
 
-class FailingVisitor : ITreeChangeVisitor {
+class FailingVisitor : ITreeChangeVisitorEx {
     override fun containmentChanged(nodeId: Long) {
         fail("Tree expected to be the same")
     }

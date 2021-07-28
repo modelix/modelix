@@ -16,15 +16,18 @@
 package org.modelix.model.operations
 
 import org.modelix.model.api.ITree
+import org.modelix.model.lazy.KVEntryReference
+import org.modelix.model.persistent.IKVValue
 
 abstract class AbstractOperation : IOperation {
-    protected val DETACHED_ROLE = RoleInNode(ITree.ROOT_ID, ITree.DETACHED_NODES_ROLE)
 
     abstract inner class Applied {
         override fun toString(): String {
             return "applied:" + this@AbstractOperation.toString()
         }
     }
+
+    override fun getReferencedEntries(): List<KVEntryReference<IKVValue>> = listOf()
 
     override fun toCode(): String {
         return ""
@@ -50,5 +53,9 @@ abstract class AbstractOperation : IOperation {
     protected fun getDetachedNodesEndPosition(tree: ITree): PositionInRole {
         val index = tree.getChildren(DETACHED_ROLE.nodeId, DETACHED_ROLE.role).count()
         return PositionInRole(DETACHED_ROLE, index)
+    }
+
+    companion object {
+        protected val DETACHED_ROLE = RoleInNode(ITree.ROOT_ID, ITree.DETACHED_NODES_ROLE)
     }
 }

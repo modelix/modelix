@@ -13,19 +13,24 @@
  * under the License. 
  */
 
-package org.modelix.model.lazy
+package org.modelix.model.persistent
 
-import org.modelix.model.persistent.CPNode
-import org.modelix.model.persistent.HashUtil
-import kotlin.jvm.JvmStatic
+import org.modelix.model.lazy.KVEntryReference
+import org.modelix.model.persistent.SerializationUtil.longToHex
 
-object IDeserializingKeyValueStore_extensions {
-    fun put(_this: IDeserializingKeyValueStore, deserialized: Any, serialized: String?) {
-        _this.put(HashUtil.sha256(serialized!!), deserialized, serialized)
+class CPHamtSingle(
+    val numLevels: Int,
+    val bits: Long,
+    val child: KVEntryReference<CPHamtNode>
+) : CPHamtNode() {
+
+    init {
+        require(numLevels <= 13) { "$numLevels > 13" }
     }
 
-    @JvmStatic
-    fun put(_this: IDeserializingKeyValueStore, element: CPNode) {
-        put(_this, element, element.serialize())
+    override fun getReferencedEntries(): List<KVEntryReference<IKVValue>> = listOf(child)
+
+    override fun serialize(): String {
+        return "S/$numLevels/${longToHex(bits)}/${child.getHash()}"
     }
 }

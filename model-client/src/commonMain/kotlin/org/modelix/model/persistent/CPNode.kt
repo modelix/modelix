@@ -19,6 +19,7 @@ import org.modelix.model.api.COWArrays.copy
 import org.modelix.model.api.COWArrays.insert
 import org.modelix.model.api.COWArrays.removeAt
 import org.modelix.model.api.COWArrays.set
+import org.modelix.model.lazy.KVEntryReference
 import org.modelix.model.persistent.CPNodeRef.Companion.fromString
 import org.modelix.model.persistent.SerializationUtil.escape
 import org.modelix.model.persistent.SerializationUtil.longFromHex
@@ -36,8 +37,11 @@ class CPNode private constructor(
     val propertyValues: Array<String>,
     val referenceRoles: Array<String>,
     val referenceTargets: Array<CPNodeRef>
-) {
-    fun serialize(): String? {
+) : IKVValue {
+
+    override var isWritten: Boolean = false
+
+    override fun serialize(): String {
         val sb = StringBuilder()
         sb.append(longToHex(id))
         sb.append("/")
@@ -71,8 +75,7 @@ class CPNode private constructor(
     val childrenSize: Int
         get() = childrenIds.size
 
-    val hash: String
-        get() = HashUtil.sha256(serialize()!!)
+    override val hash: String by lazy(LazyThreadSafetyMode.PUBLICATION) { HashUtil.sha256(serialize()) }
 
     fun getChildId(index: Int): Long {
         return childrenIds[index]
@@ -177,6 +180,8 @@ class CPNode private constructor(
             }
         }
     }
+    override fun getDeserializer(): (String) -> IKVValue = DESERIALIZER
+    override fun getReferencedEntries(): List<KVEntryReference<IKVValue>> = listOf()
 
     companion object {
         private val EMPTY_LONG_ARRAY = LongArray(0)
@@ -229,17 +234,22 @@ class CPNode private constructor(
                 val references = parts[6].split(",")
                     .filter { it.isNotEmpty() }
                     .map { it.split("=") }
-                CPNode(
+                val propertyRoles = properties.map { unescape(it[0])!! }
+                val propertyValues = properties.map { unescape(it[1]) }
+                val propertiesWithoutNull = propertyRoles.zip(propertyValues).filter { it.second != null }
+                val data = CPNode(
                     longFromHex(parts[0]),
                     unescape(parts[1]),
                     longFromHex(parts[2]),
                     unescape(parts[3]),
                     parts[4].split(",").filter { it.isNotEmpty() }.map { longFromHex(it) }.toLongArray(),
-                    properties.map { unescape(it[0])!! }.toTypedArray(),
-                    properties.map { unescape(it[1])!! }.toTypedArray(),
+                    propertiesWithoutNull.map { it.first }.toTypedArray(),
+                    propertiesWithoutNull.map { it.second!! }.toTypedArray(),
                     references.map { unescape(it[0])!! }.toTypedArray(),
                     references.map { fromString(unescape(it[1])!!) }.toTypedArray()
                 )
+                data.isWritten = true
+                data
             } catch (ex: Exception) {
                 throw RuntimeException("Failed to deserialize $input", ex)
             }

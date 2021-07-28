@@ -2,8 +2,10 @@ package org.modelix.model
 
 import org.modelix.model.lazy.CLVersion
 import org.modelix.model.lazy.IDeserializingKeyValueStore
+import org.modelix.model.lazy.KVEntryReference
+import org.modelix.model.persistent.CPVersion
 
-class LinearHistory(private val storeCache: IDeserializingKeyValueStore, val baseVersionHash: String?) {
+class LinearHistory(val baseVersionHash: String?) {
 
     val paths: MutableMap<Long, MutableList<List<CLVersion>>> = HashMap()
     val versions: MutableMap<Long, CLVersion> = HashMap()
@@ -46,8 +48,8 @@ class LinearHistory(private val storeCache: IDeserializingKeyValueStore, val bas
         val pathForParents = path + version
 
         if (version.isMerge()) {
-            val version1 = getVersion(version.data!!.mergedVersion1!!)
-            val version2 = getVersion(version.data!!.mergedVersion2!!)
+            val version1 = getVersion(version.data!!.mergedVersion1!!, version.store)
+            val version2 = getVersion(version.data!!.mergedVersion2!!, version.store)
             collect(version1, pathForParents)
             collect(version2, pathForParents)
         } else {
@@ -58,7 +60,7 @@ class LinearHistory(private val storeCache: IDeserializingKeyValueStore, val bas
         }
     }
 
-    private fun getVersion(hash: String): CLVersion {
-        return CLVersion.loadFromHash(hash, storeCache) ?: throw RuntimeException("Version $hash not found")
+    private fun getVersion(hash: KVEntryReference<CPVersion>, store: IDeserializingKeyValueStore): CLVersion {
+        return CLVersion(hash.getValue(store), store)
     }
 }

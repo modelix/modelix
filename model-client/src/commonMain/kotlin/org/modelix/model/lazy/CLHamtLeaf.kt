@@ -16,19 +16,17 @@
 package org.modelix.model.lazy
 
 import org.modelix.model.persistent.CPHamtLeaf
-import org.modelix.model.persistent.HashUtil
+import org.modelix.model.persistent.CPNode
 
-class CLHamtLeaf : CLHamtNode<CPHamtLeaf> {
+class CLHamtLeaf : CLHamtNode {
     private val data: CPHamtLeaf
 
     constructor(data: CPHamtLeaf, store: IDeserializingKeyValueStore) : super(store) {
         this.data = data
     }
 
-    private constructor(key: Long, value: String, store: IDeserializingKeyValueStore) : super(store) {
-        data = CPHamtLeaf(key, value)
-        val serialized = data.serialize()
-        store.put(HashUtil.sha256(serialized), data, serialized)
+    override fun calculateSize(bulkQuery: IBulkQuery): IBulkQuery.Value<Long> {
+        return bulkQuery.constant(1L)
     }
 
     override fun getData(): CPHamtLeaf {
@@ -38,21 +36,19 @@ class CLHamtLeaf : CLHamtNode<CPHamtLeaf> {
     val key: Long
         get() = data.key
 
-    val value: String
+    val value: KVEntryReference<CPNode>
         get() = data.value
 
-    override fun put(key: Long, value: String?, shift: Int): CLHamtNode<*>? {
+    override fun put(key: Long, value: KVEntryReference<CPNode>?, shift: Int): CLHamtNode? {
+        require(shift <= MAX_SHIFT + BITS_PER_LEVEL) { "$shift > ${MAX_SHIFT + BITS_PER_LEVEL}" }
         return if (key == data.key) {
-            if (value == data.value) {
+            if (value?.getHash() == data.value.getHash()) {
                 this
             } else {
                 create(key, value, store)
             }
         } else {
-            if (shift > MAX_SHIFT) {
-                throw RuntimeException("$shift > $MAX_SHIFT")
-            }
-            var result: CLHamtNode<*>? = createEmptyNode()
+            var result: CLHamtNode? = createEmptyNode()
             result = result!!.put(data.key, data.value, shift)
             if (result == null) {
                 result = createEmptyNode()
@@ -62,7 +58,8 @@ class CLHamtLeaf : CLHamtNode<CPHamtLeaf> {
         }
     }
 
-    override fun remove(key: Long, shift: Int): CLHamtNode<*>? {
+    override fun remove(key: Long, shift: Int): CLHamtNode? {
+        require(shift <= MAX_SHIFT + BITS_PER_LEVEL) { "$shift > ${MAX_SHIFT + BITS_PER_LEVEL}" }
         return if (key == data.key) {
             null
         } else {
@@ -70,38 +67,48 @@ class CLHamtLeaf : CLHamtNode<CPHamtLeaf> {
         }
     }
 
-    override fun get(key: Long, shift: Int, bulkQuery: IBulkQuery): IBulkQuery.Value<String?> {
+    override fun get(key: Long, shift: Int, bulkQuery: IBulkQuery): IBulkQuery.Value<KVEntryReference<CPNode>?> {
+        require(shift <= MAX_SHIFT + BITS_PER_LEVEL) { "$shift > ${MAX_SHIFT + BITS_PER_LEVEL}" }
         return bulkQuery.constant(if (data.key == key) data.value else null)
     }
 
-    override fun visitEntries(visitor: (Long, String?) -> Boolean): Boolean {
+    override fun visitEntries(visitor: (Long, KVEntryReference<CPNode>?) -> Boolean): Boolean {
         return visitor(data.key, data.value)
     }
 
-    override fun visitChanges(oldNode: CLHamtNode<*>?, visitor: IChangeVisitor) {
+    override fun visitChanges(oldNode: CLHamtNode?, shift: Int, visitor: IChangeVisitor) {
         if (oldNode === this) {
             return
         }
-        var oldValue: String? = null
-        val bp = { k: Long?, v: String? ->
-            if (k == data.key) {
-                oldValue = v
-            } else {
-                visitor.entryRemoved(k!!, v)
+        if (visitor.visitChangesOnly()) {
+            if (oldNode != null) {
+                val oldValue = oldNode.get(key, shift, NonBulkQuery(store)).execute()
+                if (oldValue != null && value != oldValue) visitor.entryChanged(key, oldValue, value)
             }
-            true
-        }
-        oldNode!!.visitEntries(bp)
-        if (oldValue == null) {
-            visitor.entryAdded(data.key, data.value)
-        } else if (oldValue !== data.value) {
-            visitor.entryChanged(data.key, oldValue, data.value)
+        } else {
+            var oldValue: KVEntryReference<CPNode>? = null
+            val bp = { k: Long?, v: KVEntryReference<CPNode>? ->
+                if (k == data.key) {
+                    oldValue = v
+                } else {
+                    visitor.entryRemoved(k!!, v)
+                }
+                true
+            }
+            oldNode!!.visitEntries(bp)
+            if (oldValue == null) {
+                visitor.entryAdded(data.key, data.value)
+            } else if (oldValue?.getHash() !== data.value.getHash()) {
+                visitor.entryChanged(data.key, oldValue, data.value)
+            }
         }
     }
 
     companion object {
-        fun create(key: Long, value: String?, store: IDeserializingKeyValueStore): CLHamtLeaf? {
-            return value?.let { CLHamtLeaf(key, it, store) }
+        fun create(key: Long, value: KVEntryReference<CPNode>?, store: IDeserializingKeyValueStore): CLHamtLeaf? {
+            if (value == null) return null
+            val data = CPHamtLeaf(key, value)
+            return CLHamtLeaf(data, store)
         }
     }
 }

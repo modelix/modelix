@@ -17,14 +17,21 @@ package org.modelix.model.client
 
 import org.modelix.model.IKeyListener
 import org.modelix.model.IKeyValueStore
+import org.modelix.model.IKeyValueStoreWrapper
 import org.modelix.model.api.runSynchronized
 import org.modelix.model.persistent.HashUtil
 
-class GarbageFilteringStore(private val store: IKeyValueStore) : IKeyValueStore {
+@Deprecated(message = "Replaced by NonWrittenEntry")
+class GarbageFilteringStore(private val store: IKeyValueStore) : IKeyValueStoreWrapper {
     private val pendingEntries: MutableMap<String?, String?> = HashMap()
+
     override fun get(key: String): String? {
-        return if (pendingEntries.containsKey(key)) pendingEntries[key] else store.get(key)
+        return if (pendingEntries.containsKey(key)) pendingEntries[key] else store[key]
     }
+
+    override fun getPendingSize(): Int = store.getPendingSize() + pendingEntries.size
+
+    override fun getWrapped(): IKeyValueStore = store
 
     override fun put(key: String, value: String?) {
         putAll(mapOf(Pair(key, value)))
@@ -52,11 +59,13 @@ class GarbageFilteringStore(private val store: IKeyValueStore) : IKeyValueStore 
 
     override fun putAll(entries: Map<String, String?>) {
         val entriesToWrite: MutableMap<String, String?> = LinkedHashMap()
-        for ((key, value) in entries) {
-            if (HashUtil.isSha256(key)) {
-                pendingEntries[key] = value
-            } else {
-                collectDependencies(key, value, entriesToWrite)
+        runSynchronized(pendingEntries) {
+            for ((key, value) in entries) {
+                if (HashUtil.isSha256(key)) {
+                    pendingEntries[key] = value
+                } else {
+                    collectDependencies(key, value, entriesToWrite)
+                }
             }
         }
         if (entriesToWrite.isNotEmpty()) {

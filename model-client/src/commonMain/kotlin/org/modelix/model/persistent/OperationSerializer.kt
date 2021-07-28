@@ -21,6 +21,7 @@ import org.modelix.model.api.LocalPNodeReference
 import org.modelix.model.api.PNodeReference
 import org.modelix.model.lazy.IConceptReferenceSerializer
 import org.modelix.model.lazy.INodeReferenceSerializer
+import org.modelix.model.lazy.KVEntryReference
 import org.modelix.model.operations.*
 import org.modelix.model.persistent.SerializationUtil.escape
 import org.modelix.model.persistent.SerializationUtil.longFromHex
@@ -73,6 +74,19 @@ class OperationSerializer private constructor() {
                     override fun deserialize(serialized: String): AddNewChildOp {
                         val parts = serialized.split(SEPARATOR).toTypedArray()
                         return AddNewChildOp(PositionInRole(longFromHex(parts[0]), unescape(parts[1]), parts[2].toInt()), longFromHex(parts[3]), deserializeConcept(parts[4]))
+                    }
+                }
+            )
+            INSTANCE.registerSerializer(
+                AddNewChildSubtreeOp::class,
+                object : Serializer<AddNewChildSubtreeOp> {
+                    override fun serialize(op: AddNewChildSubtreeOp): String {
+                        return longToHex(op.position.nodeId) + SEPARATOR + escape(op.position.role) + SEPARATOR + op.position.index + SEPARATOR + longToHex(op.childId) + SEPARATOR + serializeConcept(op.concept) + SEPARATOR + op.resultTreeHash.getHash()
+                    }
+
+                    override fun deserialize(serialized: String): AddNewChildSubtreeOp {
+                        val parts = serialized.split(SEPARATOR).toTypedArray()
+                        return AddNewChildSubtreeOp(KVEntryReference(parts[5], CPTree.DESERIALIZER), PositionInRole(longFromHex(parts[0]), unescape(parts[1]), parts[2].toInt()), longFromHex(parts[3]), deserializeConcept(parts[4]))
                     }
                 }
             )
@@ -161,11 +175,11 @@ class OperationSerializer private constructor() {
                 UndoOp::class,
                 object : Serializer<UndoOp> {
                     override fun serialize(op: UndoOp): String {
-                        return op.versionHash
+                        return op.versionHash.getHash()
                     }
 
                     override fun deserialize(serialized: String): UndoOp {
-                        return UndoOp(serialized)
+                        return UndoOp(KVEntryReference(serialized, CPVersion.DESERIALIZER))
                     }
                 }
             )

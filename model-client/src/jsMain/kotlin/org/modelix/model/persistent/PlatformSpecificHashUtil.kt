@@ -23,6 +23,7 @@ external object Base64 {
     fun fromUint8Array(input: ByteArray, uriSafe: Boolean): String
     fun decode(input: String): String
     fun encode(input: String): String
+    fun encode(input: String, uriSafe: Boolean): String
 }
 
 actual object PlatformSpecificHashUtil {
@@ -33,12 +34,11 @@ actual object PlatformSpecificHashUtil {
     }
 
     actual fun sha256(input: String): String {
-        val base64 = base64encode(wrapperSha256(input))
-        return base64.substring(0, 5) + "*" + base64.substring(5)
+        return sha256(input.encodeToByteArray())
     }
 
     actual fun base64encode(input: String): String {
-        return Base64.encode(input)
+        return Base64.encode(input, true)
     }
 
     actual fun base64decode(input: String): String {

@@ -25,14 +25,28 @@ class MetaModelSynchronizer(val branch: IBranch) {
             idx = MetaModelIndex.fromTree(tree)
         } else if (idx.tree == tree) {
             return idx
+        } else {
+            // Don't use ITree.visitChanges at all and just read the whole meta model
+            // On large models this is faster, because the meta model part is very small compared
+            // to the potentially large changes
+
+            // idx = MetaModelIndex.incremental(idx, tree)
+            idx = MetaModelIndex.fromTree(tree)
         }
-        idx = MetaModelIndex.incremental(idx, tree)
         cachedIndex = idx
         return idx
     }
 
     fun getLanguageId(lang: ILanguage): Long {
-        var id = getIndex().getLanguageId(lang)
+        var id: Long?
+        val outdatedIndex = cachedIndex
+        if (outdatedIndex != null) {
+            // Performance optimization. The ID doesn't change after creation.
+            // Avoid the expensive ITree.visitChanges during index update.
+            id = outdatedIndex.getLanguageId(lang)
+            if (id != null) return id
+        }
+        id = getIndex().getLanguageId(lang)
         if (id != null) return id
         val pendingReferences: MutableList<(MetaModelIndex)->Unit> = ArrayList()
         id = storeLanguage(lang, pendingReferences)
@@ -41,7 +55,15 @@ class MetaModelSynchronizer(val branch: IBranch) {
     }
 
     fun getConceptId(concept: IConcept): Long {
-        var id = getIndex().getConceptId(concept)
+        var id: Long?
+        val outdatedIndex = cachedIndex
+        if (outdatedIndex != null) {
+            // Performance optimization. The ID doesn't change after creation.
+            // Avoid the expensive ITree.visitChanges during index update.
+            id = outdatedIndex.getConceptId(concept)
+            if (id != null) return id
+        }
+        id = getIndex().getConceptId(concept)
         if (id != null) return id
         val pendingReferences: MutableList<(MetaModelIndex)->Unit> = ArrayList()
         id = storeConcept(getLanguageId(concept.language!!), concept, pendingReferences)
@@ -50,7 +72,15 @@ class MetaModelSynchronizer(val branch: IBranch) {
     }
 
     fun getPropertyId(property: IProperty): Long {
-        var id = getIndex().getPropertyId(property)
+        var id: Long?
+        val outdatedIndex = cachedIndex
+        if (outdatedIndex != null) {
+            // Performance optimization. The ID doesn't change after creation.
+            // Avoid the expensive ITree.visitChanges during index update.
+            id = outdatedIndex.getPropertyId(property)
+            if (id != null) return id
+        }
+        id = getIndex().getPropertyId(property)
         if (id != null) return id
         val pendingReferences: MutableList<(MetaModelIndex)->Unit> = ArrayList()
         id = storeProperty(getConceptId(property.getConcept()), property, pendingReferences)
@@ -59,7 +89,15 @@ class MetaModelSynchronizer(val branch: IBranch) {
     }
 
     fun getChildLinkId(link: IChildLink): Long {
-        var id = getIndex().getChildLinkId(link)
+        var id: Long?
+        val outdatedIndex = cachedIndex
+        if (outdatedIndex != null) {
+            // Performance optimization. The ID doesn't change after creation.
+            // Avoid the expensive ITree.visitChanges during index update.
+            id = outdatedIndex.getChildLinkId(link)
+            if (id != null) return id
+        }
+        id = getIndex().getChildLinkId(link)
         if (id != null) return id
         val pendingReferences: MutableList<(MetaModelIndex)->Unit> = ArrayList()
         id = storeChildLink(getConceptId(link.getConcept()), link, pendingReferences)
@@ -68,7 +106,15 @@ class MetaModelSynchronizer(val branch: IBranch) {
     }
 
     fun getReferenceLinkId(link: IReferenceLink): Long {
-        var id = getIndex().getReferenceLinkId(link)
+        var id: Long?
+        val outdatedIndex = cachedIndex
+        if (outdatedIndex != null) {
+            // Performance optimization. The ID doesn't change after creation.
+            // Avoid the expensive ITree.visitChanges during index update.
+            id = outdatedIndex.getReferenceLinkId(link)
+            if (id != null) return id
+        }
+        id = getIndex().getReferenceLinkId(link)
         if (id != null) return id
         val pendingReferences: MutableList<(MetaModelIndex)->Unit> = ArrayList()
         id = storeReferenceLink(getConceptId(link.getConcept()), link, pendingReferences)
