@@ -67,10 +67,10 @@
                 <!-- Redefining the default region's settings -->
                 <property name="defaultDataRegionConfiguration">
                     <bean class="org.apache.ignite.configuration.DataRegionConfiguration">
-                        <property name="maxSize" value="#{500L * 1024 * 1024}"/>
-                        <property name="evictionThreshold" value="0.5"/>
+                        <property name="maxSize" value="#{100L * 1024 * 1024}"/>
+                        <!--<property name="evictionThreshold" value="0.5"/>-->
                         <property name="pageEvictionMode" value="RANDOM_LRU" />
-                        <property name="emptyPagesPoolSize" value="10000" />
+                        <property name="emptyPagesPoolSize" value="2000" />
                     </bean>
                 </property>
             </bean>
@@ -82,7 +82,7 @@
                     <property name="name" value="model"/>
                     <property name="atomicityMode" value="ATOMIC"/>
                     <property name="backups" value="0"/>
-                    <property name="onheapCacheEnabled" value="true"/>
+                    <property name="onheapCacheEnabled" value="false"/>
                     <property name="statisticsEnabled" value="true"/>
                     <property name="readThrough" value="true"/>
                     <property name="writeThrough" value="true"/>
@@ -152,13 +152,14 @@
 
                         </bean>
                     </property>
-
-                    <property name="evictionPolicy">
-                        <bean class="org.apache.ignite.cache.eviction.lru.LruEvictionPolicy">
+<!--
+                    <property name="evictionPolicyFactory">
+                        <bean class="org.apache.ignite.cache.eviction.lru.LruEvictionPolicyFactory">
                             <property name="maxSize" value="10000"/>
-                            <property name="maxMemorySize" value="#{100L * 1024 * 1024}"/>
+                            <property name="maxMemorySize" value="#{20L * 1024 * 1024}"/>
                         </bean>
                     </property>
+-->
 
                 </bean>
             </list>
