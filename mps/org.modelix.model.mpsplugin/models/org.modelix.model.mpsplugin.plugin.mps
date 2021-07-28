@@ -5441,7 +5441,7 @@
   <node concept="sE7Ow" id="4yJY4bt61T">
     <property role="3GE5qa" value="actions.modelserver" />
     <property role="TrG5h" value="RemoveModelServer" />
-    <property role="2uzpH1" value="Remove Repository" />
+    <property role="2uzpH1" value="Remove Model Server" />
     <property role="72QZ$" value="true" />
     <node concept="tnohg" id="4yJY4bt61U" role="tncku">
       <node concept="3clFbS" id="4yJY4bt61V" role="2VODD2">
