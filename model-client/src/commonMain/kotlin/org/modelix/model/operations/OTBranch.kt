@@ -47,7 +47,7 @@ class OTBranch(
 
     val operationsAndTree: Pair<List<IAppliedOperation>, ITree>
         get() {
-            runSynchronized(operationsLock) { return Pair(newOperations, computeRead { transaction.tree }) }
+            runSynchronized(operationsLock) { return computeWrite { Pair(newOperations, transaction.tree) } }
         }
 
     override fun addListener(l: IBranchListener) {
