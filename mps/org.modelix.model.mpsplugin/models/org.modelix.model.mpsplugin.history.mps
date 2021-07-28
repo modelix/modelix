@@ -3242,7 +3242,7 @@
       </node>
     </node>
     <node concept="312cEg" id="6aRQr1X6YwM" role="jymVt">
-      <property role="TrG5h" value="treeInfo" />
+      <property role="TrG5h" value="repositoryInfo" />
       <node concept="3Tm6S6" id="6aRQr1X6YwN" role="1B3o_S" />
       <node concept="3Tqbb2" id="6aRQr1X6Z4D" role="1tU5fm">
         <ref role="ehGHo" to="w7di:6aRQr1WVbN0" resolve="RepositoryInfo" />
@@ -3384,7 +3384,7 @@
             <node concept="2OqwBi" id="6aRQr1X705c" role="37vLTJ">
               <node concept="Xjq3P" id="6aRQr1X6ZBJ" role="2Oq$k0" />
               <node concept="2OwXpG" id="6aRQr1X70C$" role="2OqNvi">
-                <ref role="2Oxat5" node="6aRQr1X6YwM" resolve="treeInfo" />
+                <ref role="2Oxat5" node="6aRQr1X6YwM" resolve="repositoryInfo" />
               </node>
             </node>
           </node>
@@ -3666,7 +3666,7 @@
       <node concept="3clFbS" id="6aRQr1X7l0A" role="3clF47">
         <node concept="3clFbF" id="6aRQr1X7vi6" role="3cqZAp">
           <node concept="37vLTw" id="6aRQr1X7vi5" role="3clFbG">
-            <ref role="3cqZAo" node="6aRQr1X6YwM" resolve="treeInfo" />
+            <ref role="3cqZAo" node="6aRQr1X6YwM" resolve="repositoryInfo" />
           </node>
         </node>
       </node>
@@ -3925,7 +3925,7 @@
                                     </node>
                                     <node concept="2OqwBi" id="5JOZTo7qWkO" role="2Oq$k0">
                                       <node concept="37vLTw" id="5JOZTo7qWkP" role="2Oq$k0">
-                                        <ref role="3cqZAo" node="6aRQr1X6YwM" resolve="treeInfo" />
+                                        <ref role="3cqZAo" node="6aRQr1X6YwM" resolve="repositoryInfo" />
                                       </node>
                                       <node concept="3Tsc0h" id="5JOZTo7qWkQ" role="2OqNvi">
                                         <ref role="3TtcxE" to="w7di:6aRQr1WVbN4" resolve="branches" />
