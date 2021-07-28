@@ -25,29 +25,28 @@ class OTBranch(
     private val store: IDeserializingKeyValueStore
 ) : IBranch {
     private var operations: MutableList<IAppliedOperation> = ArrayList()
+    private var treeForOperations: ITree = branch.computeRead { branch.transaction.tree }
     private val operationsLock = Any()
     private val id: String = branch.getId()
 
     fun operationApplied(op: IAppliedOperation) {
-        runSynchronized(operationsLock) { operations.add(op) }
+        runSynchronized(operationsLock) {
+            operations.add(op)
+            treeForOperations = transaction.tree
+        }
     }
 
     override fun getId(): String {
         return id
     }
 
-    val newOperations: List<IAppliedOperation>
-        get() {
-            runSynchronized(operationsLock) {
-                val result: List<IAppliedOperation> = operations
-                operations = ArrayList()
-                return result
-            }
-        }
-
     val operationsAndTree: Pair<List<IAppliedOperation>, ITree>
         get() {
-            runSynchronized(operationsLock) { return computeWrite { Pair(newOperations, transaction.tree) } }
+            runSynchronized(operationsLock) {
+                val newOperations: List<IAppliedOperation> = operations
+                operations = ArrayList()
+                return Pair(newOperations, treeForOperations)
+            }
         }
 
     override fun addListener(l: IBranchListener) {
