@@ -1699,6 +1699,67 @@
             </node>
           </node>
         </node>
+        <node concept="3clFbJ" id="7RHeqer4XE" role="3cqZAp">
+          <node concept="3clFbS" id="7RHeqer4XG" role="3clFbx">
+            <node concept="3clFbF" id="7RHeqer8Bz" role="3cqZAp">
+              <node concept="2YIFZM" id="7RHeqer8B$" role="3clFbG">
+                <ref role="37wK5l" to="jkm4:~Messages.showErrorDialog(com.intellij.openapi.project.Project,java.lang.String,java.lang.String)" resolve="showErrorDialog" />
+                <ref role="1Pybhc" to="jkm4:~Messages" resolve="Messages" />
+                <node concept="2OqwBi" id="7RHeqer8B_" role="37wK5m">
+                  <node concept="2WthIp" id="7RHeqer8BA" role="2Oq$k0" />
+                  <node concept="1DTwFV" id="7RHeqer8BB" role="2OqNvi">
+                    <ref role="2WH_rO" node="6aRQr1WO_Ld" resolve="project" />
+                  </node>
+                </node>
+                <node concept="Xl_RD" id="7RHeqer8BC" role="37wK5m">
+                  <property role="Xl_RC" value="Invalid URL: it should shart with http:// or https://" />
+                </node>
+                <node concept="Xl_RD" id="7RHeqer8BD" role="37wK5m">
+                  <property role="Xl_RC" value="Add Model Server" />
+                </node>
+              </node>
+            </node>
+            <node concept="3cpWs6" id="7RHeqer8_F" role="3cqZAp" />
+          </node>
+          <node concept="1Wc70l" id="7RHeqer8ni" role="3clFbw">
+            <node concept="3fqX7Q" id="7RHeqer6IZ" role="3uHU7B">
+              <node concept="2OqwBi" id="7RHeqer6J1" role="3fr31v">
+                <node concept="2OqwBi" id="7RHeqer770" role="2Oq$k0">
+                  <node concept="37vLTw" id="7RHeqer6J2" role="2Oq$k0">
+                    <ref role="3cqZAo" node="6aRQr1WODg4" resolve="url" />
+                  </node>
+                  <node concept="liA8E" id="7RHeqer82v" role="2OqNvi">
+                    <ref role="37wK5l" to="wyt6:~String.toLowerCase()" resolve="toLowerCase" />
+                  </node>
+                </node>
+                <node concept="liA8E" id="7RHeqer6J3" role="2OqNvi">
+                  <ref role="37wK5l" to="wyt6:~String.startsWith(java.lang.String)" resolve="startsWith" />
+                  <node concept="Xl_RD" id="7RHeqer6J4" role="37wK5m">
+                    <property role="Xl_RC" value="http://" />
+                  </node>
+                </node>
+              </node>
+            </node>
+            <node concept="3fqX7Q" id="7RHeqer8uu" role="3uHU7w">
+              <node concept="2OqwBi" id="7RHeqer8uv" role="3fr31v">
+                <node concept="2OqwBi" id="7RHeqer8uw" role="2Oq$k0">
+                  <node concept="37vLTw" id="7RHeqer8ux" role="2Oq$k0">
+                    <ref role="3cqZAo" node="6aRQr1WODg4" resolve="url" />
+                  </node>
+                  <node concept="liA8E" id="7RHeqer8uy" role="2OqNvi">
+                    <ref role="37wK5l" to="wyt6:~String.toLowerCase()" resolve="toLowerCase" />
+                  </node>
+                </node>
+                <node concept="liA8E" id="7RHeqer8uz" role="2OqNvi">
+                  <ref role="37wK5l" to="wyt6:~String.startsWith(java.lang.String)" resolve="startsWith" />
+                  <node concept="Xl_RD" id="7RHeqer8u$" role="37wK5m">
+                    <property role="Xl_RC" value="https://" />
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
         <node concept="3clFbJ" id="6aRQr1WPM6n" role="3cqZAp">
           <node concept="3clFbS" id="6aRQr1WPM6p" role="3clFbx">
             <node concept="3clFbJ" id="2i9Xe7pKD3C" role="3cqZAp">
