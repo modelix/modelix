@@ -67,6 +67,7 @@
     <import index="v18h" ref="cc99dce1-49f3-4392-8dbf-e22ca47bd0af/java:kotlin(org.modelix.model.api/)" />
     <import index="jks5" ref="cc99dce1-49f3-4392-8dbf-e22ca47bd0af/java:org.modelix.model.api(org.modelix.model.api/)" />
     <import index="qvpu" ref="cc99dce1-49f3-4392-8dbf-e22ca47bd0af/java:org.modelix.model.area(org.modelix.model.api/)" />
+    <import index="wvnl" ref="1ed103c3-3aa6-49b7-9c21-6765ee11f224/java:jetbrains.mps.openapi.editor.extensions(MPS.Editor/)" />
     <import index="3d38" ref="r:bc160b50-5a4e-4f99-ba07-a7b7116dab7a(de.q60.mps.incremental.util)" implicit="true" />
   </imports>
   <registry>
@@ -3629,6 +3630,18 @@
                       </node>
                       <node concept="37vLTw" id="1qbCJZsJ6aj" role="37vLTJ">
                         <ref role="3cqZAo" node="1qbCJZsJ67a" resolve="serverEditorComponent" />
+                      </node>
+                    </node>
+                  </node>
+                  <node concept="3clFbF" id="3bLfBq93lKI" role="3cqZAp">
+                    <node concept="2YIFZM" id="3bLfBq93mqy" role="3clFbG">
+                      <ref role="37wK5l" to="wvnl:~EditorExtensionUtil.extendUsingProject(jetbrains.mps.openapi.editor.EditorComponent,jetbrains.mps.project.IProject)" resolve="extendUsingProject" />
+                      <ref role="1Pybhc" to="wvnl:~EditorExtensionUtil" resolve="EditorExtensionUtil" />
+                      <node concept="37vLTw" id="3bLfBq93mHu" role="37wK5m">
+                        <ref role="3cqZAo" node="1qbCJZsJ67a" resolve="serverEditorComponent" />
+                      </node>
+                      <node concept="37vLTw" id="3bLfBq93nEy" role="37wK5m">
+                        <ref role="3cqZAo" node="1qbCJZsJ67D" resolve="project" />
                       </node>
                     </node>
                   </node>
