@@ -70,6 +70,7 @@
                         <property name="maxSize" value="#{500L * 1024 * 1024}"/>
                         <property name="evictionThreshold" value="0.5"/>
                         <property name="pageEvictionMode" value="RANDOM_LRU" />
+                        <property name="emptyPagesPoolSize" value="10000" />
                     </bean>
                 </property>
             </bean>
