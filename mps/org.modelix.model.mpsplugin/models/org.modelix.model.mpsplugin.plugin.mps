@@ -5599,7 +5599,7 @@
   <node concept="sE7Ow" id="7ardNfhN4SF">
     <property role="3GE5qa" value="actions.repository" />
     <property role="TrG5h" value="RemoveRepository" />
-    <property role="2uzpH1" value="Remove Tree" />
+    <property role="2uzpH1" value="Remove Repository" />
     <node concept="1DS2jV" id="7ardNfhN4SI" role="1NuT2Z">
       <property role="TrG5h" value="treeNode_" />
       <ref role="1DUlNI" to="qq03:~MPSCommonDataKeys.TREE_NODE" resolve="TREE_NODE" />
