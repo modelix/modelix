@@ -23,7 +23,7 @@ To perform some tests it could be useful to start with in-memory storage:
 To reformat and add license header to all files run:
 
 ```
-./gradlew spotlessApply
+../gradlew spotlessApply
 ```
 
 ## APIs

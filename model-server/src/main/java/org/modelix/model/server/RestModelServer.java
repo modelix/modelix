@@ -28,7 +28,6 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
-import java.util.function.Predicate;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -200,7 +199,8 @@ public class RestModelServer {
                                 resp.setContentType(TEXT_PLAIN);
                                 // The email could be null because we can authorize also without a
                                 // valid token
-                                resp.getWriter().print(Objects.requireNonNullElse(email, "<no email>"));
+                                resp.getWriter()
+                                        .print(Objects.requireNonNullElse(email, "<no email>"));
                             }
                         }),
                 "/getEmail");
@@ -217,7 +217,8 @@ public class RestModelServer {
                                 if (key.startsWith(PROTECTED_PREFIX)) {
                                     resp.setStatus(HttpServletResponse.SC_FORBIDDEN);
                                     resp.setContentType(TEXT_PLAIN);
-                                    resp.getWriter().print("No permission to access protected keys.");
+                                    resp.getWriter()
+                                            .print("No permission to access protected keys.");
                                     return;
                                 }
                                 long value = storeClient.generateId(key);
@@ -266,7 +267,7 @@ public class RestModelServer {
                                     resp.setContentType(TEXT_PLAIN);
                                     resp.setCharacterEncoding(StandardCharsets.UTF_8.toString());
                                     resp.getWriter().print(e.getMessage());
-                                } catch (UnauthorizedException e){
+                                } catch (UnauthorizedException e) {
                                     resp.setStatus(HttpServletResponse.SC_FORBIDDEN);
                                     resp.setContentType(TEXT_PLAIN);
                                     resp.setCharacterEncoding(StandardCharsets.UTF_8.toString());
@@ -301,17 +302,20 @@ public class RestModelServer {
                                         putEntries(entries);
                                         resp.setStatus(HttpServletResponse.SC_OK);
                                         resp.setContentType(TEXT_PLAIN);
-                                        resp.setCharacterEncoding(StandardCharsets.UTF_8.toString());
+                                        resp.setCharacterEncoding(
+                                                StandardCharsets.UTF_8.toString());
                                         resp.getWriter().print(entries.size() + " entries written");
                                     } catch (NotFoundException e) {
                                         resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
                                         resp.setContentType(TEXT_PLAIN);
-                                        resp.setCharacterEncoding(StandardCharsets.UTF_8.toString());
+                                        resp.setCharacterEncoding(
+                                                StandardCharsets.UTF_8.toString());
                                         resp.getWriter().print(e.getMessage());
-                                    } catch (UnauthorizedException e){
+                                    } catch (UnauthorizedException e) {
                                         resp.setStatus(HttpServletResponse.SC_FORBIDDEN);
                                         resp.setContentType(TEXT_PLAIN);
-                                        resp.setCharacterEncoding(StandardCharsets.UTF_8.toString());
+                                        resp.setCharacterEncoding(
+                                                StandardCharsets.UTF_8.toString());
                                         resp.getWriter().print(e.getMessage());
                                     }
                                 } catch (Exception ex) {
@@ -449,7 +453,7 @@ public class RestModelServer {
     }
 
     protected void putEntries(Map<String, String> newEntries) {
-        Set < String > referencedKeys = new HashSet<>();
+        Set<String> referencedKeys = new HashSet<>();
         for (Map.Entry<String, String> newEntry : newEntries.entrySet()) {
             String key = newEntry.getKey();
             String value = newEntry.getValue();
