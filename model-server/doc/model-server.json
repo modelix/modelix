@@ -36,12 +36,23 @@
         "parameters": [],
         "responses": {
           "200": {
-            "description": "It returns either the string 'healthy' or the string 'not healthy'",
+            "description": "The server is healthy'",
             "content": {
               "text/plain": {
                 "schema": {
                   "type": "string",
                   "example": "healthy"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "The server is not healthy",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string",
+                  "example": "not healthy"
                 }
               }
             }
@@ -52,7 +63,7 @@
     "/headers": {
       "get": {
         "tags": [
-          "meta"
+          "debugging"
         ],
         "description": "Print back the headers of the request",
         "parameters": [],
@@ -63,7 +74,7 @@
               "text/plain": {
                 "schema": {
                   "type": "string",
-                  "example": "Accept: */*\nX-Request-ID: dbe2938410b8e80c0444ddf552492546\nX-Forwarded-Host: dsl-modelix.siginet.lu\nX-Forwarded-Proto: https\nX-Original-URI: /headers\nUser-Agent: PostmanRuntime/7.26.8\nHost: dsl-modelix.siginet.lu\nAccept-Encoding: gzip, deflate, br\nX-Forwarded-Port: 443\nAuthorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6Ijk2QUM4ODMxOUQ4Rjk4RkNENTU4RkZCNEQ2NEVBNEIwMjQ2NjUxQzUiLCJ0eXAiOiJhdCtqd3QiLCJ4NXQiOiJscXlJTVoyUG1QelZXUC0wMWs2a3NDUm1VY1UifQ.eyJuYmYiOjE2MjQ0MzY3NDUsImV4cCI6MTYyNDQ2NTU0NSwiaXNzIjoiaHR0cHM6Ly9hY2NvdW50cy1jaS5zaWdpbmV0Lmx1IiwiYXVkIjoiaGVyYSIsImNsaWVudF9pZCI6Imdlc2NvbXBsdXMuZHNsLm1wc19jbGllbnRfcGtjZSIsInN1YiI6IjEwMTY1NSIsImF1dGhfdGltZSI6MTYyNDQzMDQ2MCwiaWRwIjoibG9jYWwiLCJuYW1lIjoiZmVkZXJpY28udG9tYXNzZXR0aSIsInNldHVwIjoidHJ1ZSIsInNjb3BlIjpbIm9wZW5pZCIsImhlcmEuZHNsLnB1Ymxpc2giXSwiYW1yIjpbInB3ZCJdfQ.gI6laH2X7ztV5bAR2C-DbOpS98bZ-h7rczQ7ZK_CFUWedHYMVowz-cuTQwevTmfD3Ypd4ztfMoEQQExrdpm4Mmz-HnR-uCj0adFILvpJ8_RmSsr3BEcTuWUPZFmDZv2i_SP7exIpMbQSrl19eoZH5kObx1NKra3YXtbD_mmqqHTGmHByk3OCE4lm1Wy8wTDBq9pk7quiJKuvPbtwFl3AyGv6ctVWDqWvnycNDsoOMDafFVcxH9DjsCDiFn9vlZV-6CVkfxUs1Hsvu6ro_JoeYHnjns2jOOwNR58SrHtEgSUiL0bqJ5ZCSlqijkIMnPimlm_XIRH3h18zQJrYXJJbPg\nX-Forwarded-For: 10.33.52.250\nPostman-Token: 74a163b4-b454-499c-9003-f2f35cc8fc91\nContent-Length: 14\nX-Real-IP: 10.33.52.250\nX-Scheme: https\nContent-Type: application/json\n"
+                  "example": "Accept: */*\nX-Request-ID: dbe2938410b8e80c0444ddf552492546\nX-Forwarded-Host: mymodelserver.com\nX-Forwarded-Proto: https\nX-Original-URI: /headers\nUser-Agent: PostmanRuntime/7.26.8\nHost: mymodelserver.com\nAccept-Encoding: gzip, deflate, br\nX-Forwarded-Port: 443\nX-Forwarded-For: 10.33.52.250\nPostman-Token: 74a163b4-b454-499c-9003-f2f35cc8fc91\nContent-Length: 14\nX-Real-IP: 10.99.99.99\nX-Scheme: https\nContent-Type: application/json\n"
                 }
               }
             }
@@ -122,11 +133,11 @@
         "tags": [
           "authorization"
         ],
-        "description": "Generate an authentication token for the user. It first check for the header X-Forwarded-Email. In case the value is not present or empty and the address is trusted the email value default to localhost",
+        "description": "Generate an authentication token for the user. It first check for the header X-Forwarded-Email. The X-Forwarded-Email header is added by the OAuth proxy. Users of the API shouldn't provide it directly. The purpose of this token is, that we can use the API from MPS without having to provide an OAuth client inside MPS. In case the value is not present or empty and the address is trusted the email value default to localhost",
         "parameters": [],
         "responses": {
           "200": {
-            "description": "The token is created and store, with an expiration of 7 days",
+            "description": "The token is created and stored, with an expiration of 7 days",
             "content": {
               "text/plain": {
                 "schema": {
@@ -403,7 +414,7 @@
               }
             }
           },
-          "404": {
+          "400": {
             "description": "If traversing the key we encounter an unknown key",
             "content": {
               "text/plain": {

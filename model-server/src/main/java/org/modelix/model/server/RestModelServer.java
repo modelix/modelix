@@ -304,7 +304,7 @@ public class RestModelServer {
                                         resp.setCharacterEncoding(StandardCharsets.UTF_8.toString());
                                         resp.getWriter().print(entries.size() + " entries written");
                                     } catch (NotFoundException e) {
-                                        resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
+                                        resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
                                         resp.setContentType(TEXT_PLAIN);
                                         resp.setCharacterEncoding(StandardCharsets.UTF_8.toString());
                                         resp.getWriter().print(e.getMessage());
