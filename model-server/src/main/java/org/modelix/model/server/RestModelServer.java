@@ -436,13 +436,13 @@ public class RestModelServer {
                 "/subscribe/*");
     }
 
-    protected class UnauthorizedException extends RuntimeException {
+    private static class UnauthorizedException extends RuntimeException {
         public UnauthorizedException(String explanation) {
             super("Unauthorized because " + explanation);
         }
     }
 
-    protected class NotFoundException extends RuntimeException {
+    private static class NotFoundException extends RuntimeException {
         public NotFoundException(String description) {
             super(description);
         }
