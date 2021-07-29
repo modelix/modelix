@@ -197,7 +197,9 @@ public class RestModelServer {
                                 String email =
                                         storeClient.get(PROTECTED_PREFIX + "_token_email_" + token);
                                 resp.setContentType(TEXT_PLAIN);
-                                resp.getWriter().print(email);
+                                // The email could be null because we can authorize also without a
+                                // valid token
+                                resp.getWriter().print(Objects.requireNonNullElse(email, "<no email>"));
                             }
                         }),
                 "/getEmail");
@@ -212,7 +214,10 @@ public class RestModelServer {
 
                                 String key = req.getPathInfo().substring(1);
                                 if (key.startsWith(PROTECTED_PREFIX)) {
-                                    throw new RuntimeException("No permission to access " + key);
+                                    resp.setStatus(HttpServletResponse.SC_FORBIDDEN);
+                                    resp.setContentType(TEXT_PLAIN);
+                                    resp.getWriter().print("No permission to access protected keys.");
+                                    return;
                                 }
                                 long value = storeClient.generateId(key);
                                 resp.setContentType(TEXT_PLAIN);
