@@ -134,6 +134,8 @@ public class RestModelServer {
                                 String key = req.getPathInfo().substring(1);
                                 if (key.startsWith(PROTECTED_PREFIX)) {
                                     resp.setStatus(HttpServletResponse.SC_FORBIDDEN);
+                                    resp.setContentType(TEXT_PLAIN);
+                                    resp.getWriter().print("Protected key.");
                                     return;
                                 }
                                 String value = storeClient.get(key);
@@ -509,7 +511,7 @@ public class RestModelServer {
         } else {
             resp.setStatus(HttpServletResponse.SC_FORBIDDEN);
             resp.setContentType(TEXT_PLAIN);
-            resp.getWriter().print("Not logged in.");
+            resp.getWriter().print("Not authorized.");
             return false;
         }
     }
