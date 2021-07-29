@@ -108,8 +108,6 @@ public class RestModelServer {
         servletHandler.addServlet(
                 new ServletHolder(
                         new HttpServlet() {
-                            private String HEALTH_KEY = PROTECTED_PREFIX + "health2";
-
                             @Override
                             protected void doGet(HttpServletRequest req, HttpServletResponse resp)
                                     throws ServletException, IOException {
