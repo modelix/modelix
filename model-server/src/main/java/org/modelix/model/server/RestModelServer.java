@@ -108,8 +108,6 @@ public class RestModelServer {
         servletHandler.addServlet(
                 new ServletHolder(
                         new HttpServlet() {
-                            private String HEALTH_KEY = PROTECTED_PREFIX + "health2";
-
                             @Override
                             protected void doGet(HttpServletRequest req, HttpServletResponse resp)
                                     throws ServletException, IOException {
@@ -136,6 +134,8 @@ public class RestModelServer {
                                 String key = req.getPathInfo().substring(1);
                                 if (key.startsWith(PROTECTED_PREFIX)) {
                                     resp.setStatus(HttpServletResponse.SC_FORBIDDEN);
+                                    resp.setContentType(TEXT_PLAIN);
+                                    resp.getWriter().print("Protected key.");
                                     return;
                                 }
                                 String value = storeClient.get(key);
@@ -197,7 +197,10 @@ public class RestModelServer {
                                 String email =
                                         storeClient.get(PROTECTED_PREFIX + "_token_email_" + token);
                                 resp.setContentType(TEXT_PLAIN);
-                                resp.getWriter().print(email);
+                                // The email could be null because we can authorize also without a
+                                // valid token
+                                resp.getWriter()
+                                        .print(Objects.requireNonNullElse(email, "<no email>"));
                             }
                         }),
                 "/getEmail");
@@ -212,7 +215,11 @@ public class RestModelServer {
 
                                 String key = req.getPathInfo().substring(1);
                                 if (key.startsWith(PROTECTED_PREFIX)) {
-                                    throw new RuntimeException("No permission to access " + key);
+                                    resp.setStatus(HttpServletResponse.SC_FORBIDDEN);
+                                    resp.setContentType(TEXT_PLAIN);
+                                    resp.getWriter()
+                                            .print("No permission to access protected keys.");
+                                    return;
                                 }
                                 long value = storeClient.generateId(key);
                                 resp.setContentType(TEXT_PLAIN);
@@ -249,11 +256,23 @@ public class RestModelServer {
                                 String value =
                                         IOUtils.toString(
                                                 req.getInputStream(), StandardCharsets.UTF_8);
-                                putEntries(Collections.singletonMap(key, value));
-                                resp.setStatus(HttpServletResponse.SC_OK);
-                                resp.setContentType(TEXT_PLAIN);
-                                resp.setCharacterEncoding(StandardCharsets.UTF_8.toString());
-                                resp.getWriter().print("OK");
+                                try {
+                                    putEntries(Collections.singletonMap(key, value));
+                                    resp.setStatus(HttpServletResponse.SC_OK);
+                                    resp.setContentType(TEXT_PLAIN);
+                                    resp.setCharacterEncoding(StandardCharsets.UTF_8.toString());
+                                    resp.getWriter().print("OK");
+                                } catch (NotFoundException e) {
+                                    resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
+                                    resp.setContentType(TEXT_PLAIN);
+                                    resp.setCharacterEncoding(StandardCharsets.UTF_8.toString());
+                                    resp.getWriter().print(e.getMessage());
+                                } catch (UnauthorizedException e) {
+                                    resp.setStatus(HttpServletResponse.SC_FORBIDDEN);
+                                    resp.setContentType(TEXT_PLAIN);
+                                    resp.setCharacterEncoding(StandardCharsets.UTF_8.toString());
+                                    resp.getWriter().print(e.getMessage());
+                                }
                             }
                         }),
                 "/put/*");
@@ -279,11 +298,26 @@ public class RestModelServer {
                                         entries.put(key, value);
                                     }
                                     entries = sortByDependency(entries);
-                                    putEntries(entries);
-                                    resp.setStatus(HttpServletResponse.SC_OK);
-                                    resp.setContentType(TEXT_PLAIN);
-                                    resp.setCharacterEncoding(StandardCharsets.UTF_8.toString());
-                                    resp.getWriter().print(entries.size() + " entries written");
+                                    try {
+                                        putEntries(entries);
+                                        resp.setStatus(HttpServletResponse.SC_OK);
+                                        resp.setContentType(TEXT_PLAIN);
+                                        resp.setCharacterEncoding(
+                                                StandardCharsets.UTF_8.toString());
+                                        resp.getWriter().print(entries.size() + " entries written");
+                                    } catch (NotFoundException e) {
+                                        resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                                        resp.setContentType(TEXT_PLAIN);
+                                        resp.setCharacterEncoding(
+                                                StandardCharsets.UTF_8.toString());
+                                        resp.getWriter().print(e.getMessage());
+                                    } catch (UnauthorizedException e) {
+                                        resp.setStatus(HttpServletResponse.SC_FORBIDDEN);
+                                        resp.setContentType(TEXT_PLAIN);
+                                        resp.setCharacterEncoding(
+                                                StandardCharsets.UTF_8.toString());
+                                        resp.getWriter().print(e.getMessage());
+                                    }
                                 } catch (Exception ex) {
                                     System.out.println(ex.getMessage());
                                     ex.printStackTrace();
@@ -406,16 +440,28 @@ public class RestModelServer {
                 "/subscribe/*");
     }
 
+    private static class UnauthorizedException extends RuntimeException {
+        public UnauthorizedException(String explanation) {
+            super("Unauthorized because " + explanation);
+        }
+    }
+
+    private static class NotFoundException extends RuntimeException {
+        public NotFoundException(String description) {
+            super(description);
+        }
+    }
+
     protected void putEntries(Map<String, String> newEntries) {
         Set<String> referencedKeys = new HashSet<>();
         for (Map.Entry<String, String> newEntry : newEntries.entrySet()) {
             String key = newEntry.getKey();
             String value = newEntry.getValue();
             if (REPOSITORY_ID_KEY.equals(key)) {
-                throw new RuntimeException("Changing '" + key + "' is not allowed");
+                throw new UnauthorizedException("Changing '" + key + "' is not allowed");
             }
             if (key.startsWith(PROTECTED_PREFIX)) {
-                throw new RuntimeException("No permission to access " + key);
+                throw new UnauthorizedException("No permission to access " + key);
             }
             if (value != null) {
                 Matcher matcher = HASH_PATTERN.matcher(value);
@@ -431,7 +477,7 @@ public class RestModelServer {
         Map<String, String> referencedEntries = storeClient.getAll(referencedKeys);
         for (String key : referencedKeys) {
             if (referencedEntries.get(key) == null) {
-                throw new RuntimeException("Referenced key " + key + " not found");
+                throw new NotFoundException("Referenced key " + key + " not found");
             }
         }
 
@@ -511,7 +557,7 @@ public class RestModelServer {
         } else {
             resp.setStatus(HttpServletResponse.SC_FORBIDDEN);
             resp.setContentType(TEXT_PLAIN);
-            resp.getWriter().print("Not logged in.");
+            resp.getWriter().print("Not authorized.");
             return false;
         }
     }

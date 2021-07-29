@@ -1,0 +1,460 @@
+{
+  "openapi": "3.0.2",
+  "info": {
+    "title": "Modelix Model Server",
+    "version": "0.0.37"
+  },
+  "paths": {
+    "/": {
+      "get": {
+        "tags": [
+          "meta"
+        ],
+        "description": "Verify if the server is up and running",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "It returns the string 'Model Server'",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string",
+                  "example": "Model Server"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/health": {
+      "get": {
+        "tags": [
+          "meta"
+        ],
+        "description": "Verify if the server is working correctly",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "The server is healthy'",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string",
+                  "example": "healthy"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "The server is not healthy",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string",
+                  "example": "not healthy"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/headers": {
+      "get": {
+        "tags": [
+          "debugging"
+        ],
+        "description": "Print back the headers of the request",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "The list of headers (name and value), one per line",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string",
+                  "example": "Accept: */*\nX-Request-ID: dbe2938410b8e80c0444ddf552492546\nX-Forwarded-Host: mymodelserver.com\nX-Forwarded-Proto: https\nX-Original-URI: /headers\nUser-Agent: PostmanRuntime/7.26.8\nHost: mymodelserver.com\nAccept-Encoding: gzip, deflate, br\nX-Forwarded-Port: 443\nX-Forwarded-For: 10.33.52.250\nPostman-Token: 74a163b4-b454-499c-9003-f2f35cc8fc91\nContent-Length: 14\nX-Real-IP: 10.99.99.99\nX-Scheme: https\nContent-Type: application/json\n"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/get/{key}": {
+      "get": {
+        "tags": [
+          "key/value store"
+        ],
+        "description": "Read the value associated to key",
+        "parameters": [
+          {
+            "name": "key",
+            "in": "path",
+            "required": true,
+            "example": "my-key",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The value associated with the key",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string",
+                  "example": "My amazing key value"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "If the user is not authorized or the key is protected (keys prefixed with '$$$' are considered protected)",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string",
+                  "example": "Not authorized."
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "If the key is not found"
+          }
+        }
+      }
+    },
+    "/generateToken": {
+      "get": {
+        "tags": [
+          "authorization"
+        ],
+        "description": "Generate an authentication token for the user. It first check for the header X-Forwarded-Email. The X-Forwarded-Email header is added by the OAuth proxy. Users of the API shouldn't provide it directly. The purpose of this token is, that we can use the API from MPS without having to provide an OAuth client inside MPS. In case the value is not present or empty and the address is trusted the email value default to localhost",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "The token is created and stored, with an expiration of 7 days",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string",
+                  "example": "49fc40bb2d884c078c2d535504daa1ec"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "If no email value is present and the address is not trusted the token cannot be generated",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string",
+                  "example": "Not logged in."
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/getEmail": {
+      "get": {
+        "tags": [
+          "authorization"
+        ],
+        "description": "Retrieve the email associated to a given token",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "It returns the email associated with the token, if a token has been provided. Otherwise it returns the value '<no email>'",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string",
+                  "example": "foo@bar.com"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "If there is not proper authorization. Proper authorization is presented either when the request comes from a trusted address or when the Authorization header contains a proper value",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string",
+                  "example": "Not authorized."
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/counter/{key}": {
+      "post": {
+        "tags": [
+          "key/value store"
+        ],
+        "description": "Increase a counter associated with the key. When the model client connects to the model server it uses this to  receive a unique client ID. This client ID is used for the first 32 bits of all generated node IDs.",
+        "parameters": [
+          {
+            "name": "key",
+            "in": "path",
+            "required": true,
+            "example": "my-key",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The value associated with the key",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string",
+                  "example": "1"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "If there is not proper authorization. Proper authorization is presented either when the request comes from a trusted address or when the Authorization header contains a proper value. Also requests for protected keys cause this answer",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string",
+                  "example": "Not authorized."
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/getRecursively/{key}": {
+      "get": {
+        "tags": [
+          "key/value store"
+        ],
+        "description": "Read the value associated with the key. The value is then examined for hashes, which are then explored, recursively",
+        "parameters": [
+          {
+            "name": "key",
+            "in": "path",
+            "required": true,
+            "example": "my-key",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The values associated with the key and its descendants. Note that if a key has no associated value the corresponding JSON element will not have the value entry",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "key": {
+                        "type": "string"
+                      },
+                      "value": {
+                        "type": "string",
+                      },
+                    },
+                    "required": ["key"]
+                  },
+                  "example": "[\n    {\n        \"value\": \"12\",\n        \"key\": \"abc\"\n    }\n]"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "If the user is not authorized or the key is protected (keys prefixed with '$$$' are considered protected)",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string",
+                  "example": "Not authorized."
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "If the key is not found"
+          }
+        }
+      }
+    },
+    "/put/{key}": {
+      "put": {
+        "tags": [
+          "key/value store"
+        ],
+        "description": "Set the value associated to key",
+        "parameters": [
+          {
+            "name": "key",
+            "in": "path",
+            "required": true,
+            "example": "my-key",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Value to associate to the key",
+          "required": true,
+          "content": {
+            "text/plain": {
+              "schema": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "A simple confirmation message",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string",
+                  "example": "OK"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "If the user is not authorized or the key is protected (keys prefixed with '$$$' are considered protected)",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string",
+                  "example": "Not authorized."
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "If traversing the key we encounter an unknown key",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/putAll": {
+      "put": {
+        "tags": [
+          "key/value store"
+        ],
+        "description": "Set a list of given keys and values",
+        "parameters": [
+
+        ],
+        "requestBody": {
+          "description": "List of keys and values",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "key": {
+                      "type": "string"
+                    },
+                    "value": {
+                      "type": "string",
+                    }
+                  },
+                  "required": ["key"]
+                },
+                "example": "[\n    {\n        \"value\": \"12\",\n        \"key\": \"abc\"\n    }\n]"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "A simple confirmation message",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string",
+                  "example": "2 entries written"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "If the user is not authorized or the key is protected (keys prefixed with '$$$' are considered protected)",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "If traversing the key we encounter an unknown key",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/subscribe/{key}": {
+      "get": {
+        "tags": [
+          "key/value store"
+        ],
+        "description": "Subscribe to get notified of changes to a given key",
+        "parameters": [
+          {
+            "name": "key",
+            "in": "path",
+            "required": true,
+            "example": "my-key",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "Changes for subscribed key",
+            "content": {
+              "x-events": {
+                "example": "the-new-key-value"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
