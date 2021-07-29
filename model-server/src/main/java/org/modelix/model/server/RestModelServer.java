@@ -28,6 +28,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
+import java.util.function.Predicate;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -254,11 +255,23 @@ public class RestModelServer {
                                 String value =
                                         IOUtils.toString(
                                                 req.getInputStream(), StandardCharsets.UTF_8);
-                                putEntries(Collections.singletonMap(key, value));
-                                resp.setStatus(HttpServletResponse.SC_OK);
-                                resp.setContentType(TEXT_PLAIN);
-                                resp.setCharacterEncoding(StandardCharsets.UTF_8.toString());
-                                resp.getWriter().print("OK");
+                                try {
+                                    putEntries(Collections.singletonMap(key, value));
+                                    resp.setStatus(HttpServletResponse.SC_OK);
+                                    resp.setContentType(TEXT_PLAIN);
+                                    resp.setCharacterEncoding(StandardCharsets.UTF_8.toString());
+                                    resp.getWriter().print("OK");
+                                } catch (NotFoundException e) {
+                                    resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
+                                    resp.setContentType(TEXT_PLAIN);
+                                    resp.setCharacterEncoding(StandardCharsets.UTF_8.toString());
+                                    resp.getWriter().print(e.getMessage());
+                                } catch (UnauthorizedException e){
+                                    resp.setStatus(HttpServletResponse.SC_FORBIDDEN);
+                                    resp.setContentType(TEXT_PLAIN);
+                                    resp.setCharacterEncoding(StandardCharsets.UTF_8.toString());
+                                    resp.getWriter().print(e.getMessage());
+                                }
                             }
                         }),
                 "/put/*");
@@ -284,11 +297,23 @@ public class RestModelServer {
                                         entries.put(key, value);
                                     }
                                     entries = sortByDependency(entries);
-                                    putEntries(entries);
-                                    resp.setStatus(HttpServletResponse.SC_OK);
-                                    resp.setContentType(TEXT_PLAIN);
-                                    resp.setCharacterEncoding(StandardCharsets.UTF_8.toString());
-                                    resp.getWriter().print(entries.size() + " entries written");
+                                    try {
+                                        putEntries(entries);
+                                        resp.setStatus(HttpServletResponse.SC_OK);
+                                        resp.setContentType(TEXT_PLAIN);
+                                        resp.setCharacterEncoding(StandardCharsets.UTF_8.toString());
+                                        resp.getWriter().print(entries.size() + " entries written");
+                                    } catch (NotFoundException e) {
+                                        resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
+                                        resp.setContentType(TEXT_PLAIN);
+                                        resp.setCharacterEncoding(StandardCharsets.UTF_8.toString());
+                                        resp.getWriter().print(e.getMessage());
+                                    } catch (UnauthorizedException e){
+                                        resp.setStatus(HttpServletResponse.SC_FORBIDDEN);
+                                        resp.setContentType(TEXT_PLAIN);
+                                        resp.setCharacterEncoding(StandardCharsets.UTF_8.toString());
+                                        resp.getWriter().print(e.getMessage());
+                                    }
                                 } catch (Exception ex) {
                                     System.out.println(ex.getMessage());
                                     ex.printStackTrace();
@@ -411,16 +436,28 @@ public class RestModelServer {
                 "/subscribe/*");
     }
 
+    protected class UnauthorizedException extends RuntimeException {
+        public UnauthorizedException(String explanation) {
+            super("Unauthorized because " + explanation);
+        }
+    }
+
+    protected class NotFoundException extends RuntimeException {
+        public NotFoundException(String description) {
+            super(description);
+        }
+    }
+
     protected void putEntries(Map<String, String> newEntries) {
-        Set<String> referencedKeys = new HashSet<>();
+        Set < String > referencedKeys = new HashSet<>();
         for (Map.Entry<String, String> newEntry : newEntries.entrySet()) {
             String key = newEntry.getKey();
             String value = newEntry.getValue();
             if (REPOSITORY_ID_KEY.equals(key)) {
-                throw new RuntimeException("Changing '" + key + "' is not allowed");
+                throw new UnauthorizedException("Changing '" + key + "' is not allowed");
             }
             if (key.startsWith(PROTECTED_PREFIX)) {
-                throw new RuntimeException("No permission to access " + key);
+                throw new UnauthorizedException("No permission to access " + key);
             }
             if (value != null) {
                 Matcher matcher = HASH_PATTERN.matcher(value);
@@ -436,7 +473,7 @@ public class RestModelServer {
         Map<String, String> referencedEntries = storeClient.getAll(referencedKeys);
         for (String key : referencedKeys) {
             if (referencedEntries.get(key) == null) {
-                throw new RuntimeException("Referenced key " + key + " not found");
+                throw new NotFoundException("Referenced key " + key + " not found");
             }
         }
 
