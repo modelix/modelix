@@ -1,14 +1,88 @@
 {
-	"openapi": "3.0.2",
-	"info": {
-		"title": "API Title",
-		"version": "1.0"
-	},
-	"servers": [
-		{
-			"url": "https://api.server.test/v1"
-		}
-	],
-	"paths": {
-	}
+  "openapi": "3.0.2",
+  "info": {
+    "title": "Modelix Model Server",
+    "version": "0.0.37"
+  },
+  "paths": {
+    "/health": {
+      "get": {
+        "description": "Verify if the server is working correctly",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "It returns either the string 'healthy' or the string 'not healthy'",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string",
+                  "example": "healthy"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/headers": {
+      "get": {
+        "description": "Print back the headers of the request",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "The list of headers (name and value), one per line",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string",
+                  "example": "Accept: */*\nX-Request-ID: dbe2938410b8e80c0444ddf552492546\nX-Forwarded-Host: dsl-modelix.siginet.lu\nX-Forwarded-Proto: https\nX-Original-URI: /headers\nUser-Agent: PostmanRuntime/7.26.8\nHost: dsl-modelix.siginet.lu\nAccept-Encoding: gzip, deflate, br\nX-Forwarded-Port: 443\nAuthorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6Ijk2QUM4ODMxOUQ4Rjk4RkNENTU4RkZCNEQ2NEVBNEIwMjQ2NjUxQzUiLCJ0eXAiOiJhdCtqd3QiLCJ4NXQiOiJscXlJTVoyUG1QelZXUC0wMWs2a3NDUm1VY1UifQ.eyJuYmYiOjE2MjQ0MzY3NDUsImV4cCI6MTYyNDQ2NTU0NSwiaXNzIjoiaHR0cHM6Ly9hY2NvdW50cy1jaS5zaWdpbmV0Lmx1IiwiYXVkIjoiaGVyYSIsImNsaWVudF9pZCI6Imdlc2NvbXBsdXMuZHNsLm1wc19jbGllbnRfcGtjZSIsInN1YiI6IjEwMTY1NSIsImF1dGhfdGltZSI6MTYyNDQzMDQ2MCwiaWRwIjoibG9jYWwiLCJuYW1lIjoiZmVkZXJpY28udG9tYXNzZXR0aSIsInNldHVwIjoidHJ1ZSIsInNjb3BlIjpbIm9wZW5pZCIsImhlcmEuZHNsLnB1Ymxpc2giXSwiYW1yIjpbInB3ZCJdfQ.gI6laH2X7ztV5bAR2C-DbOpS98bZ-h7rczQ7ZK_CFUWedHYMVowz-cuTQwevTmfD3Ypd4ztfMoEQQExrdpm4Mmz-HnR-uCj0adFILvpJ8_RmSsr3BEcTuWUPZFmDZv2i_SP7exIpMbQSrl19eoZH5kObx1NKra3YXtbD_mmqqHTGmHByk3OCE4lm1Wy8wTDBq9pk7quiJKuvPbtwFl3AyGv6ctVWDqWvnycNDsoOMDafFVcxH9DjsCDiFn9vlZV-6CVkfxUs1Hsvu6ro_JoeYHnjns2jOOwNR58SrHtEgSUiL0bqJ5ZCSlqijkIMnPimlm_XIRH3h18zQJrYXJJbPg\nX-Forwarded-For: 10.33.52.250\nPostman-Token: 74a163b4-b454-499c-9003-f2f35cc8fc91\nContent-Length: 14\nX-Real-IP: 10.33.52.250\nX-Scheme: https\nContent-Type: application/json\n"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/get/{key}": {
+      "get": {
+        "description": "Read value associated to key",
+        "parameters": [{
+          "name": "key",
+          "in": "path",
+          "required": true,
+          "example": "my-key",
+          "schema": {
+            "type": "string"
+          }
+        }],
+        "responses": {
+          "200": {
+            "description": "The value associated with the key",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string",
+                  "example": "My amazing key value"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "If the user is not authorized or the key is protected (keys prefixed with '$$$' are considered protected)",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string",
+                  "example": "Not authorized."
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "If the key is not found",
+          }
+        }
+      }
+    }
+  }
 }
