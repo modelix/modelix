@@ -7,6 +7,7 @@
   "paths": {
     "/health": {
       "get": {
+        "tags": ["meta"],
         "description": "Verify if the server is working correctly",
         "parameters": [],
         "responses": {
@@ -26,6 +27,7 @@
     },
     "/headers": {
       "get": {
+        "tags": ["meta"],
         "description": "Print back the headers of the request",
         "parameters": [],
         "responses": {
@@ -45,6 +47,7 @@
     },
     "/get/{key}": {
       "get": {
+        "tags": ["key/value store"],
         "description": "Read value associated to key",
         "parameters": [{
           "name": "key",
@@ -80,6 +83,107 @@
           },
           "404": {
             "description": "If the key is not found",
+          }
+        }
+      }
+    }
+  },
+  "/generateToken": {
+    "get": {
+      "tags": ["meta"],
+      "description": "Generate an authentication token for the user. It first check for the header X-Forwarded-Email. In case the value is not present or empty and the address is trusted the email value default to localhost",
+      "parameters": [],
+      "responses": {
+        "200": {
+          "description": "The token is created and store, with an expiration of 7 days",
+          "content": {
+            "text/plain": {
+              "schema": {
+                "type": "string",
+                "example": "49fc40bb2d884c078c2d535504daa1ec"
+              }
+            }
+          }
+        },
+        "403": {
+          "description": "If no email value is present and the address is not trusted the token cannot be generated",
+          "content": {
+            "text/plain": {
+              "schema": {
+                "type": "string",
+                "example": "Not logged in."
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "/getEmail": {
+    "get": {
+      "tags": ["meta"],
+      "description": "Retrieve the email associated to a given token",
+      "parameters": [],
+      "responses": {
+        "200": {
+          "content": {
+            "description": "It returns the email associated with the token, if a token has been provided. Otherwise it returns the value '<no email>'",
+            "text/plain": {
+              "schema": {
+                "type": "string",
+                "example": "foo@bar.com"
+              }
+            }
+          }
+        },
+        "403": {
+          "description": "If there is not proper authorization. Proper authorization is presented either when the request comes from a trusted address or when the Authorization header contains a proper value",
+          "content": {
+            "text/plain": {
+              "schema": {
+                "type": "string",
+                "example": "Not authorized."
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "/counter/{key}": {
+    "post": {
+      "tags": ["key/value store"],
+      "description": "Increase a counter associated with the key",
+      "parameters": [{
+        "name": "key",
+        "in": "path",
+        "required": true,
+        "example": "my-key",
+        "schema": {
+          "type": "string"
+        }
+      }],
+      "responses": {
+        "200": {
+          "description": "The value associated with the key",
+          "content": {
+            "text/plain": {
+              "schema": {
+                "type": "string",
+                "example": "1"
+              }
+            }
+          }
+        },
+        "403": {
+          "description": "If there is not proper authorization. Proper authorization is presented either when the request comes from a trusted address or when the Authorization header contains a proper value. Also requests for protected keys cause this answer",
+          "content": {
+            "text/plain": {
+              "schema": {
+                "type": "string",
+                "example": "Not authorized."
+              }
+            }
           }
         }
       }
