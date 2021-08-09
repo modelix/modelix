@@ -52,11 +52,6 @@
       <property role="TrG5h" value="href" />
       <ref role="AX2Wp" to="tpck:fKAOsGN" resolve="string" />
     </node>
-    <node concept="1TJgyi" id="7DvyJQEr_h_" role="1TKVEl">
-      <property role="IQ2nx" value="8817919417505436773" />
-      <property role="TrG5h" value="isCurrent" />
-      <ref role="AX2Wp" to="tpck:fKAQMTB" resolve="boolean" />
-    </node>
   </node>
   <node concept="1TIwiD" id="7NImM04TdSb">
     <property role="EcuMT" value="9002232898239389195" />

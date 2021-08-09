@@ -1199,13 +1199,34 @@
                   <node concept="214o7A" id="gzmlOE_Qhl" role="37wK5m" />
                 </node>
               </node>
-              <node concept="027oh" id="7DvyJQErEsV" role="02LM9">
-                <ref role="027oj" to="70w2:7DvyJQEr_h_" resolve="isCurrent" />
-                <node concept="2YIFZM" id="7DvyJQEslj0" role="027of">
-                  <ref role="37wK5l" node="7DvyJQErSEr" resolve="compareURL" />
+              <node concept="027rt" id="Aj6yN24Qpu" role="02LM9">
+                <ref role="027rv" to="70w2:7q7cTU0P3Ee" resolve="style" />
+                <node concept="027og" id="Aj6yN24SkO" role="027rp">
+                  <ref role="02LMe" to="70w2:7q7cTU0P41s" resolve="CSSStyleDeclaration" />
+                  <node concept="027rt" id="Aj6yN24SkZ" role="02LM9">
+                    <ref role="027rv" to="70w2:7q7cTU0P4oO" resolve="items" />
+                    <node concept="027og" id="Aj6yN24T6l" role="027rp">
+                      <ref role="02LMe" to="70w2:7q7cTU0P4oJ" resolve="GenericStringStyleItem" />
+                      <node concept="027oh" id="Aj6yN24W1s" role="02LM9">
+                        <ref role="027oj" to="70w2:7q7cTU0P4oM" resolve="key" />
+                        <node concept="Xl_RD" id="Aj6yN24W1F" role="027of">
+                          <property role="Xl_RC" value="background-color" />
+                        </node>
+                      </node>
+                      <node concept="027oh" id="Aj6yN24W20" role="02LM9">
+                        <ref role="027oj" to="70w2:7q7cTU0P4oH" resolve="value" />
+                        <node concept="Xl_RD" id="Aj6yN24W2h" role="027of">
+                          <property role="Xl_RC" value="powderblue" />
+                        </node>
+                      </node>
+                    </node>
+                  </node>
+                </node>
+                <node concept="2YIFZM" id="Aj6yN24T6y" role="3coYjR">
                   <ref role="1Pybhc" node="62_qJBxL8mp" resolve="PageTransformationsUtil" />
-                  <node concept="214o7A" id="7DvyJQEslBt" role="37wK5m" />
-                  <node concept="2155sH" id="7DvyJQEu8So" role="37wK5m">
+                  <ref role="37wK5l" node="7DvyJQErSEr" resolve="compareURL" />
+                  <node concept="214o7A" id="Aj6yN24T6z" role="37wK5m" />
+                  <node concept="2155sH" id="Aj6yN24T6$" role="37wK5m">
                     <ref role="2155sG" node="7DvyJQEu1eG" />
                   </node>
                 </node>
@@ -3436,29 +3457,6 @@
                   <node concept="214o7A" id="7q7cTU0V5Mx" role="2Oq$k0" />
                   <node concept="3TrcHB" id="7q7cTU0V6ca" role="2OqNvi">
                     <ref role="3TsBF5" to="70w2:7q7cTU0SJQ8" resolve="href" />
-                  </node>
-                </node>
-              </node>
-            </node>
-          </node>
-          <node concept="027rt" id="5ryoO8TnwBU" role="02LM9">
-            <ref role="027rv" to="aoe3:6uZS9ZnEN9m" resolve="content" />
-            <node concept="027og" id="5ryoO8TnwSC" role="027rp">
-              <ref role="02LMe" to="aoe3:TC$M5wRTlh" resolve="Text" />
-              <node concept="027oh" id="5ryoO8TnwSN" role="02LM9">
-                <ref role="027oj" to="aoe3:TC$M5wS8p9" resolve="text" />
-                <node concept="3K4zz7" id="5ryoO8Tny01" role="027of">
-                  <node concept="Xl_RD" id="5ryoO8Tny0z" role="3K4E3e">
-                    <property role="Xl_RC" value="style=\&quot;background-color:powderblue;\&quot;" />
-                  </node>
-                  <node concept="Xl_RD" id="5ryoO8Tny3D" role="3K4GZi">
-                    <property role="Xl_RC" value="" />
-                  </node>
-                  <node concept="2OqwBi" id="5ryoO8Tnx4h" role="3K4Cdx">
-                    <node concept="214o7A" id="5ryoO8TnwT2" role="2Oq$k0" />
-                    <node concept="3TrcHB" id="5ryoO8TnxmZ" role="2OqNvi">
-                      <ref role="3TsBF5" to="70w2:7DvyJQEr_h_" resolve="isCurrent" />
-                    </node>
                   </node>
                 </node>
               </node>
