@@ -124,6 +124,9 @@ export class ImageBasedEditor {
                     this.tooltip.show(tooltipMessage.x, tooltipMessage.y, tooltipMessage.text);
                 } else if (message.type === "tooltip.hide") {
                     this.tooltip.hide();
+                } else if(message.type == "opentab"){
+                    let openTabMessage = message as IOpenTabMessage
+                    window.open(openTabMessage.url)
                 }
             }
 
@@ -208,9 +211,11 @@ export class ImageBasedEditor {
 
             let message: IMessage = {
                 type: "click",
-                data: {
+                data: <IMouseMessge>{
                     x: x,
                     y: y,
+                    ctrl: event.ctrlKey,
+                    meta: event.metaKey
                 },
             };
 
@@ -229,9 +234,11 @@ export class ImageBasedEditor {
 
             let message: IMessage = {
                 type: "mousemove",
-                data: {
+                data: <IMouseMessge>{
                     x: x,
                     y: y,
+                    ctrl: event.ctrlKey,
+                    meta: event.metaKey
                 },
             };
 
@@ -247,9 +254,11 @@ export class ImageBasedEditor {
 
             let message: IMessage = {
                 type: "mouseenter",
-                data: {
+                data: <IMouseMessge>{
                     x: x,
                     y: y,
+                    ctrl: event.ctrlKey,
+                    meta: event.metaKey
                 },
             };
 
@@ -265,9 +274,11 @@ export class ImageBasedEditor {
 
             let message: IMessage = {
                 type: "mouseleave",
-                data: {
+                data: <IMouseMessge>{
                     x: x,
                     y: y,
+                    ctrl: event.ctrlKey,
+                    meta: event.metaKey
                 },
             };
 
@@ -401,7 +412,6 @@ export class ImageBasedEditor {
     }
 }
 
-
 interface IMessage {
     type: string;
     data?: any;
@@ -410,6 +420,8 @@ interface IMessage {
 interface IMouseMessge {
     x: number;
     y: number;
+    ctrl: boolean;
+    meta: boolean;
 }
 
 interface IKeyData {
@@ -470,4 +482,8 @@ interface ITooltipMessage extends IMessage {
     text: string;
     x: number;
     y: number;
+}
+
+interface IOpenTabMessage extends IMessage{
+    url: string;
 }

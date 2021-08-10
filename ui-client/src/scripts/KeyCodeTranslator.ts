@@ -201,7 +201,7 @@ export class JSKeyCodes {
     static KEY_BACK_SLASH = 220;
     static KEY_CLOSE_BRACKET = 221;
     static KEY_QUOTE = 222;
-    static KEY_META = 224;
+    static KEY_META = 91;
 }
 
 export class JavaKeyCodes {
