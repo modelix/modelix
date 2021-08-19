@@ -205,6 +205,13 @@
       <property role="20lbJX" value="fLJekj5/_0__n" />
       <ref role="20lvS9" node="7zDl3zkliKd" resolve="ForcedOptional" />
     </node>
+    <node concept="1TJgyj" id="1Acnoi_70CH" role="1TKVEi">
+      <property role="IQ2ns" value="1840949171974834733" />
+      <property role="20lmBu" value="fLJjDmT/aggregation" />
+      <property role="20kJfa" value="expansionStates" />
+      <property role="20lbJX" value="fLJekj5/_0__n" />
+      <ref role="20lvS9" node="1Acnoi_70Fu" resolve="ExpansionState" />
+    </node>
   </node>
   <node concept="1TIwiD" id="AkkmJBMp9x">
     <property role="EcuMT" value="690266166786626145" />
@@ -1454,6 +1461,23 @@
     <property role="3GE5qa" value="layout" />
     <property role="TrG5h" value="VerticalGridLayout" />
     <ref role="1TJDcQ" node="2FuI1MXu1N5" resolve="GridLayout" />
+  </node>
+  <node concept="1TIwiD" id="1Acnoi_70Fu">
+    <property role="EcuMT" value="1840949171974834910" />
+    <property role="3GE5qa" value="viewerState" />
+    <property role="TrG5h" value="ExpansionState" />
+    <ref role="1TJDcQ" to="tpck:gw2VY9q" resolve="BaseConcept" />
+    <node concept="1TJgyi" id="1Acnoi_70Fz" role="1TKVEl">
+      <property role="IQ2nx" value="1840949171974834915" />
+      <property role="TrG5h" value="expanded" />
+      <ref role="AX2Wp" to="tpck:fKAQMTB" resolve="boolean" />
+    </node>
+    <node concept="1TJgyj" id="1Acnoi_70Fv" role="1TKVEi">
+      <property role="IQ2ns" value="1840949171974834911" />
+      <property role="20kJfa" value="node" />
+      <property role="20lbJX" value="fLJekj4/_1" />
+      <ref role="20lvS9" to="tpck:gw2VY9q" resolve="BaseConcept" />
+    </node>
   </node>
 </model>
 

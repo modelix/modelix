@@ -3002,11 +3002,11 @@
                   </node>
                   <node concept="2OqwBi" id="4cICdlebhCM" role="2GsD0m">
                     <node concept="2YIFZM" id="4cICdlebhCN" role="2Oq$k0">
-                      <ref role="1Pybhc" to="csg2:1LVcV5Kxxi$" resolve="CloudRepositories" />
+                      <ref role="1Pybhc" to="csg2:1LVcV5Kxxi$" resolve="ModelServerConnections" />
                       <ref role="37wK5l" to="csg2:1LVcV5Kxxmz" resolve="getInstance" />
                     </node>
                     <node concept="liA8E" id="4cICdlebhCO" role="2OqNvi">
-                      <ref role="37wK5l" to="csg2:1LVcV5KxBgM" resolve="getRepositories" />
+                      <ref role="37wK5l" to="csg2:1LVcV5KxBgM" resolve="getModelServers" />
                     </node>
                   </node>
                 </node>
@@ -4366,6 +4366,13 @@
                                     <ref role="37wK5l" node="6I9FalZAWR4" resolve="getSessionId" />
                                     <ref role="1Pybhc" node="5Sw$pxbNu8p" resolve="SvgUiServlet" />
                                     <node concept="37vLTw" id="6I9FalZAZl6" role="37wK5m">
+                                      <ref role="3cqZAo" node="6I9FalZACNo" resolve="request" />
+                                    </node>
+                                  </node>
+                                  <node concept="2YIFZM" id="1Acnoi_ChnO" role="37wK5m">
+                                    <ref role="37wK5l" node="6rcGC6EIpJs" resolve="getUser" />
+                                    <ref role="1Pybhc" node="5Sw$pxbNu8p" resolve="SvgUiServlet" />
+                                    <node concept="37vLTw" id="1Acnoi_Ci8r" role="37wK5m">
                                       <ref role="3cqZAo" node="6I9FalZACNo" resolve="request" />
                                     </node>
                                   </node>

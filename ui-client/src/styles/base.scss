@@ -121,6 +121,14 @@
   flex-direction: row;
 }
 
+.collapsible-toggle {
+  cursor: default;
+  font-family: monospace;
+  border: 1px solid white;
+  padding: 0 2px;
+  margin-right: 3px;
+}
+
 header {
   min-width: 100%;
 }
