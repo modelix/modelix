@@ -9609,35 +9609,6 @@
             </node>
           </node>
         </node>
-        <node concept="3clFbF" id="3UHa_GJtJxZ" role="3cqZAp">
-          <node concept="2OqwBi" id="3UHa_GJtMmK" role="3clFbG">
-            <node concept="10M0yZ" id="3UHa_GJtLrN" role="2Oq$k0">
-              <ref role="3cqZAo" to="wyt6:~System.out" resolve="out" />
-              <ref role="1PxDUh" to="wyt6:~System" resolve="System" />
-            </node>
-            <node concept="liA8E" id="3UHa_GJtNoj" role="2OqNvi">
-              <ref role="37wK5l" to="guwi:~PrintStream.println(java.lang.String)" resolve="println" />
-              <node concept="3cpWs3" id="3UHa_GJ_Tav" role="37wK5m">
-                <node concept="Xl_RD" id="3UHa_GJ_T_e" role="3uHU7w">
-                  <property role="Xl_RC" value="546" />
-                </node>
-                <node concept="2OqwBi" id="3UHa_GJ$Fye" role="3uHU7B">
-                  <node concept="2OqwBi" id="3UHa_GJtSpl" role="2Oq$k0">
-                    <node concept="37vLTw" id="3UHa_GJ$kuw" role="2Oq$k0">
-                      <ref role="3cqZAo" node="1LsbP9ZhFr4" resolve="nodeA" />
-                    </node>
-                    <node concept="liA8E" id="3UHa_GJ$EV4" role="2OqNvi">
-                      <ref role="37wK5l" to="mhbf:~SNode.getConcept()" resolve="getConcept" />
-                    </node>
-                  </node>
-                  <node concept="liA8E" id="3UHa_GJ$G0A" role="2OqNvi">
-                    <ref role="37wK5l" to="c17a:~SAbstractConcept.getName()" resolve="getName" />
-                  </node>
-                </node>
-              </node>
-            </node>
-          </node>
-        </node>
         <node concept="3clFbF" id="5KklWZWGkjS" role="3cqZAp">
           <node concept="2OqwBi" id="5KklWZWGlQI" role="3clFbG">
             <node concept="37vLTw" id="5KklWZWGkjQ" role="2Oq$k0">
