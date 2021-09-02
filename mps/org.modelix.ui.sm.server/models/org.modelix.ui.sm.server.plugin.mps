@@ -9288,6 +9288,25 @@
           </node>
         </node>
         <node concept="3clFbH" id="3UHa_GJyIX8" role="3cqZAp" />
+        <node concept="3cpWs8" id="1LsbP9ZgGfz" role="3cqZAp">
+          <node concept="3cpWsn" id="1LsbP9ZgGf$" role="3cpWs9">
+            <property role="TrG5h" value="openedProjects" />
+            <node concept="_YKpA" id="1LsbP9ZgGf_" role="1tU5fm">
+              <node concept="3uibUv" id="1LsbP9ZgGfA" role="_ZDj9">
+                <ref role="3uigEE" to="z1c3:~Project" resolve="Project" />
+              </node>
+            </node>
+            <node concept="2OqwBi" id="1LsbP9ZgGfB" role="33vP2m">
+              <node concept="2YIFZM" id="1LsbP9ZgGfC" role="2Oq$k0">
+                <ref role="37wK5l" to="z1c3:~ProjectManager.getInstance()" resolve="getInstance" />
+                <ref role="1Pybhc" to="z1c3:~ProjectManager" resolve="ProjectManager" />
+              </node>
+              <node concept="liA8E" id="1LsbP9ZgGfD" role="2OqNvi">
+                <ref role="37wK5l" to="z1c3:~ProjectManager.getOpenedProjects()" resolve="getOpenedProjects" />
+              </node>
+            </node>
+          </node>
+        </node>
         <node concept="3clFbF" id="1LsbP9Zg_iY" role="3cqZAp">
           <node concept="2OqwBi" id="1LsbP9Zg_TO" role="3clFbG">
             <node concept="37vLTw" id="1LsbP9Zg_iW" role="2Oq$k0">
@@ -9297,25 +9316,6 @@
               <ref role="37wK5l" to="qvpu:~IArea.executeRead(kotlin.jvm.functions.Function0)" resolve="executeRead" />
               <node concept="1bVj0M" id="1LsbP9ZgAPJ" role="37wK5m">
                 <node concept="3clFbS" id="1LsbP9ZgAPK" role="1bW5cS">
-                  <node concept="3cpWs8" id="1LsbP9ZgGfz" role="3cqZAp">
-                    <node concept="3cpWsn" id="1LsbP9ZgGf$" role="3cpWs9">
-                      <property role="TrG5h" value="openedProjects" />
-                      <node concept="_YKpA" id="1LsbP9ZgGf_" role="1tU5fm">
-                        <node concept="3uibUv" id="1LsbP9ZgGfA" role="_ZDj9">
-                          <ref role="3uigEE" to="z1c3:~Project" resolve="Project" />
-                        </node>
-                      </node>
-                      <node concept="2OqwBi" id="1LsbP9ZgGfB" role="33vP2m">
-                        <node concept="2YIFZM" id="1LsbP9ZgGfC" role="2Oq$k0">
-                          <ref role="37wK5l" to="z1c3:~ProjectManager.getInstance()" resolve="getInstance" />
-                          <ref role="1Pybhc" to="z1c3:~ProjectManager" resolve="ProjectManager" />
-                        </node>
-                        <node concept="liA8E" id="1LsbP9ZgGfD" role="2OqNvi">
-                          <ref role="37wK5l" to="z1c3:~ProjectManager.getOpenedProjects()" resolve="getOpenedProjects" />
-                        </node>
-                      </node>
-                    </node>
-                  </node>
                   <node concept="3cpWs8" id="1LsbP9ZgGfE" role="3cqZAp">
                     <node concept="3cpWsn" id="1LsbP9ZgGfF" role="3cpWs9">
                       <property role="TrG5h" value="repoModules" />
@@ -9604,6 +9604,46 @@
                 <ref role="37wK5l" to="mhbf:~SModel.createNode(org.jetbrains.mps.openapi.language.SConcept)" resolve="createNode" />
                 <node concept="37vLTw" id="5KklWZWy2tv" role="37wK5m">
                   <ref role="3cqZAo" node="5KklWZWxiLf" resolve="consConcept" />
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="3clFbF" id="3UHa_GJDuJk" role="3cqZAp">
+          <node concept="2OqwBi" id="3UHa_GJD_7p" role="3clFbG">
+            <node concept="2OqwBi" id="3UHa_GJD$ff" role="2Oq$k0">
+              <node concept="2OqwBi" id="3UHa_GJDyYo" role="2Oq$k0">
+                <node concept="2OqwBi" id="3UHa_GJDwEP" role="2Oq$k0">
+                  <node concept="37vLTw" id="3UHa_GJDuJf" role="2Oq$k0">
+                    <ref role="3cqZAo" node="1LsbP9ZgGf$" resolve="openedProjects" />
+                  </node>
+                  <node concept="1uHKPH" id="3UHa_GJDysV" role="2OqNvi" />
+                </node>
+                <node concept="liA8E" id="3UHa_GJD$8d" role="2OqNvi">
+                  <ref role="37wK5l" to="z1c3:~Project.getRepository()" resolve="getRepository" />
+                </node>
+              </node>
+              <node concept="liA8E" id="3UHa_GJD$ZG" role="2OqNvi">
+                <ref role="37wK5l" to="lui2:~SRepository.getModelAccess()" resolve="getModelAccess" />
+              </node>
+            </node>
+            <node concept="liA8E" id="3UHa_GJD_Z9" role="2OqNvi">
+              <ref role="37wK5l" to="lui2:~ModelAccess.executeCommandInEDT(java.lang.Runnable)" resolve="executeCommandInEDT" />
+              <node concept="1bVj0M" id="3UHa_GJDA_k" role="37wK5m">
+                <node concept="3clFbS" id="3UHa_GJDA_l" role="1bW5cS">
+                  <node concept="3clFbF" id="3UHa_GJCPPN" role="3cqZAp">
+                    <node concept="2OqwBi" id="3UHa_GJCRcB" role="3clFbG">
+                      <node concept="37vLTw" id="3UHa_GJCPPL" role="2Oq$k0">
+                        <ref role="3cqZAo" node="1LsbP9ZgHZH" resolve="sModel" />
+                      </node>
+                      <node concept="liA8E" id="3UHa_GJCSaA" role="2OqNvi">
+                        <ref role="37wK5l" to="mhbf:~SModel.addRootNode(org.jetbrains.mps.openapi.model.SNode)" resolve="addRootNode" />
+                        <node concept="37vLTw" id="3UHa_GJCSMi" role="37wK5m">
+                          <ref role="3cqZAo" node="1LsbP9ZhFr4" resolve="nodeA" />
+                        </node>
+                      </node>
+                    </node>
+                  </node>
                 </node>
               </node>
             </node>

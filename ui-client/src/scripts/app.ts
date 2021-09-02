@@ -22,28 +22,35 @@ $(() => {
     }
     var createBtn = document.createElement("button");
     var dialog = document.createElement("dialog");
-    var modulesMenu = document.createElement("select");
     var linebreak = document.createElement("br");
-    modulesMenu.setAttribute("id", "moduleDropDown");
-    modulesMenu.onchange = function (){
+    var moduleDiv = document.createElement("div");
+    var modulesLabel = createLabel("module", "Select a module:");
+    var modulesMenu = createDropdown("module", function (){
         refreshModelsDropdown();
-    }
+    });
+    moduleDiv.appendChild(modulesLabel);
+    moduleDiv.appendChild(linebreak);
+    moduleDiv.appendChild(modulesMenu);
+    dialog.appendChild(moduleDiv);
     refreshModulesDropdown();
-    dialog.appendChild(modulesMenu);
-    dialog.appendChild(linebreak);
-    var modelsMenu = document.createElement("select");
-    modelsMenu.setAttribute("id", "modelDropDown");
-    refreshModelsDropdown();
-    modelsMenu.onchange = function (){
+    var modelDiv = document.createElement("div");
+    var modelsLabel = createLabel("model", "Select a model:");
+    var modelsMenu = createDropdown("model", function (){
         refreshConceptsDropdown();
-    }
-    dialog.appendChild(modelsMenu);
-    dialog.appendChild(linebreak);
-    var conceptsMenu = document.createElement("select");
-    conceptsMenu.setAttribute("id", "conceptDropDown");
+    });
+    modelDiv.appendChild(modelsLabel);
+    modelDiv.appendChild(linebreak);
+    modelDiv.appendChild(modelsMenu);
+    dialog.appendChild(modelDiv);
+    refreshModelsDropdown();
+    var conceptDiv = document.createElement("div");
+    var conceptsLabel = createLabel("concept", "Select a concept:");
+    var conceptsMenu = createDropdown("concept", null);
+    conceptDiv.appendChild(conceptsLabel);
+    conceptDiv.appendChild(linebreak);
+    conceptDiv.appendChild(conceptsMenu);
+    dialog.appendChild(conceptDiv);
     refreshConceptsDropdown();
-    dialog.appendChild(conceptsMenu);
-    dialog.appendChild(linebreak);
     createAddButton();
     createDialog();
     function createDialog() {
@@ -51,7 +58,7 @@ $(() => {
         var dialogMenu = document.createElement("menu");
         var submitButton = document.createElement("button");
         submitButton.innerHTML = "Submit";
-        submitButton.onclick = function(event){event.preventDefault();submit();dialog.close('Closed');};
+        submitButton.onclick = function(event){event.preventDefault();submit();closeDialog();};
         var closeButton = document.createElement("button");
         closeButton.setAttribute("class", "btn btn-primary");
         closeButton.innerHTML = "Close";
@@ -61,11 +68,26 @@ $(() => {
         dialog.appendChild(dialogMenu);
         document.body.append(dialog);
     }
+
+    function createLabel(forValue, innerHTMLContent){
+        var labelElement = document.createElement("label");
+        labelElement.setAttribute('for', forValue);
+        labelElement.innerHTML = innerHTMLContent;
+        return labelElement;
+    }
+
+    function createDropdown(element, onChangeFunction){
+        var elementMenu = document.createElement("select");
+        elementMenu.setAttribute("id", element+ "DropDown");
+        elementMenu.onchange = onChangeFunction;
+        return elementMenu;
+    }
+
     function openDialog(){
         dialog.open = true;
     }
+
     function submit(){
-        console.log("localhost:33333/insertNode?module="+ $('#moduleDropDown').val() + "&model=" + $('#modelDropDown').val() + "&concept=" + $('#conceptDropDown').val());
         $.ajax({  
             type: "GET",  
             url: "/insertNode?module="+ $('#moduleDropDown').val() + "&model=" + $('#modelDropDown').val() + "&concept=" + $('#conceptDropDown').val(),  
@@ -75,6 +97,7 @@ $(() => {
                 try {
                     var output = JSON.parse(response);
                     console.log(output);
+                    location.reload();
                 } catch (error) {
                     console.log(error);
                 }
@@ -149,7 +172,6 @@ $(() => {
         for (var i = length-1; i >= 0; i--) {
             conceptsMenu.options[i] = null;
         }
-        console.log("localhost:33333/insertNode?module="+ $('#moduleDropDown').val() + "&model=" + $('#modelDropDown').val() + "&concept=" + $('#conceptDropDown').val());
         $.ajax({  
             type: "GET",  
             url: "/concepts?module="+ $('#moduleDropDown').val() + "&model=" + $('#modelDropDown').val(),  
