@@ -9659,17 +9659,11 @@
               <node concept="Xl_RD" id="5KklWZWGnlm" role="37wK5m">
                 <property role="Xl_RC" value="nodeCreated" />
               </node>
-              <node concept="2OqwBi" id="3UHa_GJ_y7_" role="37wK5m">
-                <node concept="2OqwBi" id="3UHa_GJ_xwo" role="2Oq$k0">
-                  <node concept="37vLTw" id="3UHa_GJ_wPJ" role="2Oq$k0">
-                    <ref role="3cqZAo" node="1LsbP9ZhFr4" resolve="nodeA" />
-                  </node>
-                  <node concept="liA8E" id="3UHa_GJ_xJb" role="2OqNvi">
-                    <ref role="37wK5l" to="mhbf:~SNode.getConcept()" resolve="getConcept" />
-                  </node>
-                </node>
-                <node concept="liA8E" id="3UHa_GJ_yxo" role="2OqNvi">
-                  <ref role="37wK5l" to="c17a:~SAbstractConcept.getName()" resolve="getName" />
+              <node concept="2YIFZM" id="3UHa_GJLBfV" role="37wK5m">
+                <ref role="37wK5l" to="m3vg:62_qJBxLuC8" resolve="getURL" />
+                <ref role="1Pybhc" to="m3vg:62_qJBxL8mp" resolve="PageTransformationsUtil" />
+                <node concept="37vLTw" id="3UHa_GJLBWQ" role="37wK5m">
+                  <ref role="3cqZAo" node="1LsbP9ZhFr4" resolve="nodeA" />
                 </node>
               </node>
             </node>

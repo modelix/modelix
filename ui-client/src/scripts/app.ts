@@ -97,7 +97,7 @@ $(() => {
                 try {
                     var output = JSON.parse(response);
                     console.log(output);
-                    location.reload();
+                    window.location.href = "/"+output.nodeCreated;
                 } catch (error) {
                     console.log(error);
                 }
