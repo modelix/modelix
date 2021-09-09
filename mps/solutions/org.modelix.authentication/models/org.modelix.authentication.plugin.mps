@@ -293,6 +293,7 @@
     </language>
     <language id="817e4e70-961e-4a95-98a1-15e9f32231f1" name="jetbrains.mps.ide.httpsupport">
       <concept id="5573986434797682998" name="jetbrains.mps.ide.httpsupport.structure.HandleRequestFunction" flags="ig" index="pF8on" />
+      <concept id="5573986434797765074" name="jetbrains.mps.ide.httpsupport.structure.HttpRequestParameter" flags="ng" index="pFkrN" />
       <concept id="5573986434797590400" name="jetbrains.mps.ide.httpsupport.structure.RequestHandler" flags="ng" index="pFx2x">
         <child id="5573986434797811183" name="handleFunction" index="pCJbe" />
         <child id="6040064942661848825" name="queryPrefix" index="std7D" />
@@ -1028,14 +1029,87 @@
     <property role="TrG5h" value="AuthenticationRequestHandler" />
     <node concept="std77" id="1yokyoYz5xs" role="std7D">
       <node concept="std78" id="1yokyoYz5$3" role="std7y">
-        <property role="svBHv" value="modelixauth" />
+        <property role="svBHv" value="modelixauthtoken" />
       </node>
     </node>
     <node concept="pF8on" id="1yokyoYz5xt" role="pCJbe">
       <node concept="3clFbS" id="1yokyoYz5xu" role="2VODD2">
+        <node concept="3SKdUt" id="4fpU1SJfFLP" role="3cqZAp">
+          <node concept="1PaTwC" id="4fpU1SJfFLQ" role="1aUNEU">
+            <node concept="3oM_SD" id="4fpU1SJfFLR" role="1PaTwD">
+              <property role="3oM_SC" value="here" />
+            </node>
+            <node concept="3oM_SD" id="4fpU1SJfFN4" role="1PaTwD">
+              <property role="3oM_SC" value="we" />
+            </node>
+            <node concept="3oM_SD" id="4fpU1SJfFN9" role="1PaTwD">
+              <property role="3oM_SC" value="get" />
+            </node>
+            <node concept="3oM_SD" id="4fpU1SJfFNf" role="1PaTwD">
+              <property role="3oM_SC" value="the" />
+            </node>
+            <node concept="3oM_SD" id="4fpU1SJfFNm" role="1PaTwD">
+              <property role="3oM_SC" value="authorization" />
+            </node>
+            <node concept="3oM_SD" id="4fpU1SJfFNI" role="1PaTwD">
+              <property role="3oM_SC" value="code:" />
+            </node>
+            <node concept="3oM_SD" id="4fpU1SJfFNZ" role="1PaTwD">
+              <property role="3oM_SC" value="we" />
+            </node>
+            <node concept="3oM_SD" id="4fpU1SJfFO9" role="1PaTwD">
+              <property role="3oM_SC" value="can" />
+            </node>
+            <node concept="3oM_SD" id="4fpU1SJfFOk" role="1PaTwD">
+              <property role="3oM_SC" value="use" />
+            </node>
+            <node concept="3oM_SD" id="4fpU1SJfFOw" role="1PaTwD">
+              <property role="3oM_SC" value="it," />
+            </node>
+            <node concept="3oM_SD" id="4fpU1SJfFOX" role="1PaTwD">
+              <property role="3oM_SC" value="together" />
+            </node>
+            <node concept="3oM_SD" id="4fpU1SJfFPb" role="1PaTwD">
+              <property role="3oM_SC" value="with" />
+            </node>
+            <node concept="3oM_SD" id="4fpU1SJfFPE" role="1PaTwD">
+              <property role="3oM_SC" value="the" />
+            </node>
+            <node concept="3oM_SD" id="4fpU1SJfFQ2" role="1PaTwD">
+              <property role="3oM_SC" value="code" />
+            </node>
+            <node concept="3oM_SD" id="4fpU1SJfFQr" role="1PaTwD">
+              <property role="3oM_SC" value="verifier," />
+            </node>
+            <node concept="3oM_SD" id="4fpU1SJfFQP" role="1PaTwD">
+              <property role="3oM_SC" value="to" />
+            </node>
+            <node concept="3oM_SD" id="4fpU1SJfFR8" role="1PaTwD">
+              <property role="3oM_SC" value="get" />
+            </node>
+            <node concept="3oM_SD" id="4fpU1SJfFRs" role="1PaTwD">
+              <property role="3oM_SC" value="the" />
+            </node>
+            <node concept="3oM_SD" id="4fpU1SJfFRL" role="1PaTwD">
+              <property role="3oM_SC" value="access" />
+            </node>
+            <node concept="3oM_SD" id="4fpU1SJfMHf" role="1PaTwD">
+              <property role="3oM_SC" value="token" />
+            </node>
+          </node>
+        </node>
         <node concept="abc8K" id="1yokyoYz75U" role="3cqZAp">
           <node concept="Xl_RD" id="1yokyoYz766" role="abp_N">
-            <property role="Xl_RC" value="WE GOT IT" />
+            <property role="Xl_RC" value="WE GOT IT " />
+          </node>
+          <node concept="2OqwBi" id="3da7vps6UYD" role="abp_N">
+            <node concept="pFkrN" id="3da7vps6USM" role="2Oq$k0" />
+            <node concept="liA8E" id="3da7vps6V7T" role="2OqNvi">
+              <ref role="37wK5l" to="4h87:6GArDv5I6qD" resolve="getParameterValue" />
+              <node concept="Xl_RD" id="3da7vps6V8W" role="37wK5m">
+                <property role="Xl_RC" value="code" />
+              </node>
+            </node>
           </node>
         </node>
       </node>
@@ -1046,7 +1120,7 @@
     <property role="TrG5h" value="AuthenticationGroup" />
     <node concept="ftmFs" id="6NlwFoT4OdX" role="ftER_">
       <node concept="tCFHf" id="6NlwFoT4Oe0" role="ftvYc">
-        <ref role="tCJdB" node="6NlwFoT4O7g" resolve="GetToken" />
+        <ref role="tCJdB" node="6NlwFoT4O7g" resolve="GetModelixToken" />
       </node>
     </node>
     <node concept="tT9cl" id="6NlwFoT4OdV" role="2f5YQi">
@@ -1055,8 +1129,8 @@
   </node>
   <node concept="sE7Ow" id="6NlwFoT4O7g">
     <property role="3GE5qa" value="actions" />
-    <property role="TrG5h" value="GetToken" />
-    <property role="2uzpH1" value="Get Token" />
+    <property role="TrG5h" value="GetModelixToken" />
+    <property role="2uzpH1" value="Get Modelix Token" />
     <node concept="tnohg" id="6NlwFoT4O7h" role="tncku">
       <node concept="3clFbS" id="6NlwFoT4O7i" role="2VODD2">
         <node concept="3cpWs8" id="7f6_nf_vhCl" role="3cqZAp">
