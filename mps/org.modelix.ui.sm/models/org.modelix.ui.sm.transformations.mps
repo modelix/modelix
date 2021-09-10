@@ -5020,16 +5020,6 @@
       <node concept="3clFbS" id="5fBUf8p1BWB" role="3clF47">
         <node concept="3cpWs6" id="5fBUf8p1JrB" role="3cqZAp">
           <node concept="3cpWs3" id="5fBUf8p1NIm" role="3cqZAk">
-            <node concept="2YIFZM" id="5fBUf8p1PtS" role="3uHU7w">
-              <ref role="1Pybhc" to="qsto:5T6M7ON4Si7" resolve="NodeReferenceSerializer" />
-              <ref role="37wK5l" to="qsto:5T6M7OO0HkH" resolve="serialize" />
-              <node concept="1rXfSq" id="5fBUf8p1Q7g" role="37wK5m">
-                <ref role="37wK5l" node="62_qJBxLz0_" resolve="nodeAsReference" />
-                <node concept="37vLTw" id="5fBUf8pmEQx" role="37wK5m">
-                  <ref role="3cqZAo" node="5fBUf8p1EpC" resolve="modelElement" />
-                </node>
-              </node>
-            </node>
             <node concept="3cpWs3" id="5fBUf8p1Kg$" role="3uHU7B">
               <node concept="3cpWs3" id="5fBUf8p1JrC" role="3uHU7B">
                 <node concept="Xl_RD" id="5fBUf8p1JrD" role="3uHU7B">
@@ -5048,6 +5038,25 @@
               </node>
               <node concept="Xl_RD" id="5fBUf8p1KST" role="3uHU7w">
                 <property role="Xl_RC" value="&amp;modelRef=" />
+              </node>
+            </node>
+            <node concept="1rXfSq" id="3jLYgExSfFJ" role="3uHU7w">
+              <ref role="37wK5l" node="62v7nyvTdRa" resolve="urlEncode" />
+              <node concept="2OqwBi" id="3jLYgExSfFK" role="37wK5m">
+                <node concept="1rXfSq" id="3jLYgExSi2F" role="2Oq$k0">
+                  <ref role="37wK5l" node="62_qJBxLskJ" resolve="modelAsReference" />
+                  <node concept="1PxgMI" id="3jLYgExSkTv" role="37wK5m">
+                    <node concept="chp4Y" id="3jLYgExSlog" role="3oSUPX">
+                      <ref role="cht4Q" to="jh6v:qmkA5fOskc" resolve="Model" />
+                    </node>
+                    <node concept="37vLTw" id="3jLYgExSiH2" role="1m5AlR">
+                      <ref role="3cqZAo" node="5fBUf8p1EpC" resolve="modelElement" />
+                    </node>
+                  </node>
+                </node>
+                <node concept="liA8E" id="3jLYgExSfFM" role="2OqNvi">
+                  <ref role="37wK5l" to="wyt6:~Object.toString()" resolve="toString" />
+                </node>
               </node>
             </node>
           </node>
