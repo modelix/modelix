@@ -52,8 +52,8 @@
     <import index="od2j" ref="r:19d224b8-fac8-4b19-ae42-e7b119858f3b(de.q60.mps.polymorphicfunctions.runtime)" />
     <import index="tpcu" ref="r:00000000-0000-4000-0000-011c89590282(jetbrains.mps.lang.core.behavior)" implicit="true" />
     <import index="ioq2" ref="r:d5a75d6a-e56f-4c12-a58e-3acb971cef19(org.modelix.ui.state.behavior)" implicit="true" />
-    <import index="tp25" ref="r:00000000-0000-4000-0000-011c89590301(jetbrains.mps.lang.smodel.structure)" implicit="true" />
     <import index="tpce" ref="r:00000000-0000-4000-0000-011c89590292(jetbrains.mps.lang.structure.structure)" implicit="true" />
+    <import index="tp25" ref="r:00000000-0000-4000-0000-011c89590301(jetbrains.mps.lang.smodel.structure)" implicit="true" />
     <import index="tpcn" ref="r:00000000-0000-4000-0000-011c8959028b(jetbrains.mps.lang.structure.behavior)" implicit="true" />
   </imports>
   <registry>
@@ -5018,122 +5018,45 @@
     <node concept="2YIFZL" id="5fBUf8p1BW$" role="jymVt">
       <property role="TrG5h" value="getNodeURL" />
       <node concept="3clFbS" id="5fBUf8p1BWB" role="3clF47">
-        <node concept="3clFbF" id="yyYaOFfnt7" role="3cqZAp">
-          <node concept="2OqwBi" id="yyYaOFfoMb" role="3clFbG">
-            <node concept="10M0yZ" id="yyYaOFfoqC" role="2Oq$k0">
-              <ref role="3cqZAo" to="wyt6:~System.out" resolve="out" />
-              <ref role="1PxDUh" to="wyt6:~System" resolve="System" />
-            </node>
-            <node concept="liA8E" id="yyYaOFfpfw" role="2OqNvi">
-              <ref role="37wK5l" to="guwi:~PrintStream.println(java.lang.String)" resolve="println" />
-              <node concept="3cpWs3" id="yyYaOFk$tQ" role="37wK5m">
-                <node concept="2OqwBi" id="yyYaOFkACe" role="3uHU7w">
-                  <node concept="37vLTw" id="yyYaOFk_LT" role="2Oq$k0">
-                    <ref role="3cqZAo" node="5fBUf8p1EpC" resolve="modelElement" />
-                  </node>
-                  <node concept="1mIQ4w" id="yyYaOFBhto" role="2OqNvi">
-                    <node concept="chp4Y" id="yyYaOFBhPW" role="cj9EA">
-                      <ref role="cht4Q" to="tp25:gCH_c3d" resolve="SModelType" />
-                    </node>
-                  </node>
-                </node>
-                <node concept="Xl_RD" id="yyYaOFfpyp" role="3uHU7B">
-                  <property role="Xl_RC" value="Error Here:" />
-                </node>
-              </node>
-            </node>
-          </node>
-        </node>
-        <node concept="3clFbF" id="yyYaOF6JQA" role="3cqZAp">
-          <node concept="2OqwBi" id="yyYaOF6L7y" role="3clFbG">
-            <node concept="10M0yZ" id="yyYaOF6KKb" role="2Oq$k0">
-              <ref role="3cqZAo" to="wyt6:~System.out" resolve="out" />
-              <ref role="1PxDUh" to="wyt6:~System" resolve="System" />
-            </node>
-            <node concept="liA8E" id="yyYaOF6LzG" role="2OqNvi">
-              <ref role="37wK5l" to="guwi:~PrintStream.println(java.lang.String)" resolve="println" />
-              <node concept="3cpWs3" id="yyYaOF6MSu" role="37wK5m">
-                <node concept="Xl_RD" id="yyYaOF6Oab" role="3uHU7B">
-                  <property role="Xl_RC" value="model:" />
-                </node>
-                <node concept="1rXfSq" id="yyYaOF6LKc" role="3uHU7w">
-                  <ref role="37wK5l" node="62v7nyvTdRa" resolve="urlEncode" />
-                  <node concept="2OqwBi" id="yyYaOF6LKd" role="37wK5m">
-                    <node concept="1rXfSq" id="yyYaOF6LKe" role="2Oq$k0">
-                      <ref role="37wK5l" node="62_qJBxLskJ" resolve="modelAsReference" />
-                      <node concept="1PxgMI" id="yyYaOF6LKf" role="37wK5m">
-                        <node concept="chp4Y" id="yyYaOF6LKg" role="3oSUPX">
-                          <ref role="cht4Q" to="jh6v:qmkA5fOskc" resolve="Model" />
-                        </node>
-                        <node concept="37vLTw" id="yyYaOF6LKh" role="1m5AlR">
-                          <ref role="3cqZAo" node="5fBUf8p1EpC" resolve="modelElement" />
-                        </node>
-                      </node>
-                    </node>
-                    <node concept="liA8E" id="yyYaOF6LKi" role="2OqNvi">
-                      <ref role="37wK5l" to="wyt6:~Object.toString()" resolve="toString" />
-                    </node>
-                  </node>
-                </node>
-              </node>
-            </node>
-          </node>
-        </node>
         <node concept="3cpWs6" id="5fBUf8p1JrB" role="3cqZAp">
-          <node concept="3cpWs3" id="yyYaOFJp1q" role="3cqZAk">
-            <node concept="17qRlL" id="yyYaOFJv$O" role="3uHU7w">
-              <node concept="3cmrfG" id="yyYaOFJwDh" role="3uHU7w">
-                <property role="3cmrfH" value="101" />
+          <node concept="3cpWs3" id="5fBUf8p1NIm" role="3cqZAk">
+            <node concept="3cpWs3" id="5fBUf8p1Kg$" role="3uHU7B">
+              <node concept="3cpWs3" id="5fBUf8p1JrC" role="3uHU7B">
+                <node concept="Xl_RD" id="5fBUf8p1JrD" role="3uHU7B">
+                  <property role="Xl_RC" value="nodeAsHtml?nodeRef=" />
+                </node>
+                <node concept="2YIFZM" id="5fBUf8p1JrE" role="3uHU7w">
+                  <ref role="1Pybhc" to="qsto:5T6M7ON4Si7" resolve="NodeReferenceSerializer" />
+                  <ref role="37wK5l" to="qsto:5T6M7OO0HkH" resolve="serialize" />
+                  <node concept="1rXfSq" id="5fBUf8p1JrF" role="37wK5m">
+                    <ref role="37wK5l" node="62_qJBxLz0_" resolve="nodeAsReference" />
+                    <node concept="37vLTw" id="5fBUf8p1JrG" role="37wK5m">
+                      <ref role="3cqZAo" node="5fBUf8p1DeD" resolve="element" />
+                    </node>
+                  </node>
+                </node>
               </node>
-              <node concept="2YIFZM" id="yyYaOG4PQI" role="3uHU7B">
-                <ref role="37wK5l" to="wyt6:~Math.random()" resolve="random" />
-                <ref role="1Pybhc" to="wyt6:~Math" resolve="Math" />
+              <node concept="Xl_RD" id="5fBUf8p1KST" role="3uHU7w">
+                <property role="Xl_RC" value="&amp;modelRef=" />
               </node>
             </node>
-            <node concept="3cpWs3" id="yyYaOFJkaX" role="3uHU7B">
-              <node concept="3cpWs3" id="5fBUf8p1NIm" role="3uHU7B">
-                <node concept="3cpWs3" id="5fBUf8p1Kg$" role="3uHU7B">
-                  <node concept="3cpWs3" id="5fBUf8p1JrC" role="3uHU7B">
-                    <node concept="Xl_RD" id="5fBUf8p1JrD" role="3uHU7B">
-                      <property role="Xl_RC" value="nodeAsHtml?nodeRef=" />
+            <node concept="1rXfSq" id="3jLYgExSfFJ" role="3uHU7w">
+              <ref role="37wK5l" node="62v7nyvTdRa" resolve="urlEncode" />
+              <node concept="2OqwBi" id="3jLYgExSfFK" role="37wK5m">
+                <node concept="1rXfSq" id="3jLYgExSi2F" role="2Oq$k0">
+                  <ref role="37wK5l" node="62_qJBxLskJ" resolve="modelAsReference" />
+                  <node concept="1PxgMI" id="3jLYgExSkTv" role="37wK5m">
+                    <node concept="chp4Y" id="3jLYgExSlog" role="3oSUPX">
+                      <ref role="cht4Q" to="jh6v:qmkA5fOskc" resolve="Model" />
                     </node>
-                    <node concept="2YIFZM" id="5fBUf8p1JrE" role="3uHU7w">
-                      <ref role="1Pybhc" to="qsto:5T6M7ON4Si7" resolve="NodeReferenceSerializer" />
-                      <ref role="37wK5l" to="qsto:5T6M7OO0HkH" resolve="serialize" />
-                      <node concept="1rXfSq" id="5fBUf8p1JrF" role="37wK5m">
-                        <ref role="37wK5l" node="62_qJBxLz0_" resolve="nodeAsReference" />
-                        <node concept="37vLTw" id="5fBUf8p1JrG" role="37wK5m">
-                          <ref role="3cqZAo" node="5fBUf8p1DeD" resolve="element" />
-                        </node>
-                      </node>
-                    </node>
-                  </node>
-                  <node concept="Xl_RD" id="5fBUf8p1KST" role="3uHU7w">
-                    <property role="Xl_RC" value="&amp;modelRef=" />
-                  </node>
-                </node>
-                <node concept="1rXfSq" id="3jLYgExSfFJ" role="3uHU7w">
-                  <ref role="37wK5l" node="62v7nyvTdRa" resolve="urlEncode" />
-                  <node concept="2OqwBi" id="3jLYgExSfFK" role="37wK5m">
-                    <node concept="1rXfSq" id="3jLYgExSi2F" role="2Oq$k0">
-                      <ref role="37wK5l" node="62_qJBxLskJ" resolve="modelAsReference" />
-                      <node concept="1PxgMI" id="3jLYgExSkTv" role="37wK5m">
-                        <node concept="chp4Y" id="3jLYgExSlog" role="3oSUPX">
-                          <ref role="cht4Q" to="jh6v:qmkA5fOskc" resolve="Model" />
-                        </node>
-                        <node concept="37vLTw" id="3jLYgExSiH2" role="1m5AlR">
-                          <ref role="3cqZAo" node="5fBUf8p1EpC" resolve="modelElement" />
-                        </node>
-                      </node>
-                    </node>
-                    <node concept="liA8E" id="3jLYgExSfFM" role="2OqNvi">
-                      <ref role="37wK5l" to="wyt6:~Object.toString()" resolve="toString" />
+                    <node concept="37vLTw" id="3jLYgExSiH2" role="1m5AlR">
+                      <ref role="3cqZAo" node="5fBUf8p1EpC" resolve="modelElement" />
                     </node>
                   </node>
                 </node>
-              </node>
-              <node concept="Xl_RD" id="yyYaOFJlHV" role="3uHU7w">
-                <property role="Xl_RC" value="&amp;rand=" />
+                <node concept="liA8E" id="3jLYgExSfFM" role="2OqNvi">
+                  <ref role="37wK5l" to="wyt6:~Object.toString()" resolve="toString" />
+                </node>
               </node>
             </node>
           </node>
@@ -5155,57 +5078,41 @@
       <property role="TrG5h" value="getNodeModelURL" />
       <node concept="3clFbS" id="yyYaOFBsui" role="3clF47">
         <node concept="3cpWs6" id="yyYaOFCcEe" role="3cqZAp">
-          <node concept="3cpWs3" id="yyYaOFIO8I" role="3cqZAk">
-            <node concept="17qRlL" id="yyYaOG51uk" role="3uHU7w">
-              <node concept="3cmrfG" id="yyYaOG52dn" role="3uHU7w">
-                <property role="3cmrfH" value="101" />
+          <node concept="3cpWs3" id="yyYaOFCcEf" role="3cqZAk">
+            <node concept="3cpWs3" id="yyYaOFCcEg" role="3uHU7B">
+              <node concept="3cpWs3" id="yyYaOFCcEh" role="3uHU7B">
+                <node concept="Xl_RD" id="yyYaOFCcEi" role="3uHU7B">
+                  <property role="Xl_RC" value="nodeAsHtml?nodeRef=" />
+                </node>
+                <node concept="2YIFZM" id="yyYaOFCcEj" role="3uHU7w">
+                  <ref role="1Pybhc" to="qsto:5T6M7ON4Si7" resolve="NodeReferenceSerializer" />
+                  <ref role="37wK5l" to="qsto:5T6M7OO0HkH" resolve="serialize" />
+                  <node concept="1rXfSq" id="yyYaOFCcEk" role="37wK5m">
+                    <ref role="37wK5l" node="62_qJBxLz0_" resolve="nodeAsReference" />
+                    <node concept="37vLTw" id="yyYaOFCcEl" role="37wK5m">
+                      <ref role="3cqZAo" node="yyYaOFBu1Z" resolve="element" />
+                    </node>
+                  </node>
+                </node>
               </node>
-              <node concept="2YIFZM" id="yyYaOG50OO" role="3uHU7B">
-                <ref role="37wK5l" to="wyt6:~Math.random()" resolve="random" />
-                <ref role="1Pybhc" to="wyt6:~Math" resolve="Math" />
+              <node concept="Xl_RD" id="yyYaOFCcEm" role="3uHU7w">
+                <property role="Xl_RC" value="&amp;modelRef=" />
               </node>
             </node>
-            <node concept="3cpWs3" id="yyYaOFIMww" role="3uHU7B">
-              <node concept="3cpWs3" id="yyYaOFCcEf" role="3uHU7B">
-                <node concept="3cpWs3" id="yyYaOFCcEg" role="3uHU7B">
-                  <node concept="3cpWs3" id="yyYaOFCcEh" role="3uHU7B">
-                    <node concept="Xl_RD" id="yyYaOFCcEi" role="3uHU7B">
-                      <property role="Xl_RC" value="nodeAsHtml?nodeRef=" />
-                    </node>
-                    <node concept="2YIFZM" id="yyYaOFCcEj" role="3uHU7w">
-                      <ref role="1Pybhc" to="qsto:5T6M7ON4Si7" resolve="NodeReferenceSerializer" />
-                      <ref role="37wK5l" to="qsto:5T6M7OO0HkH" resolve="serialize" />
-                      <node concept="1rXfSq" id="yyYaOFCcEk" role="37wK5m">
-                        <ref role="37wK5l" node="62_qJBxLz0_" resolve="nodeAsReference" />
-                        <node concept="37vLTw" id="yyYaOFCcEl" role="37wK5m">
-                          <ref role="3cqZAo" node="yyYaOFBu1Z" resolve="element" />
-                        </node>
-                      </node>
-                    </node>
+            <node concept="1rXfSq" id="yyYaOFCcEn" role="3uHU7w">
+              <ref role="37wK5l" node="62v7nyvTdRa" resolve="urlEncode" />
+              <node concept="2OqwBi" id="yyYaOFChhD" role="37wK5m">
+                <node concept="2OqwBi" id="yyYaOFCg30" role="2Oq$k0">
+                  <node concept="37vLTw" id="yyYaOFCfl7" role="2Oq$k0">
+                    <ref role="3cqZAo" node="yyYaOFBuN2" resolve="model" />
                   </node>
-                  <node concept="Xl_RD" id="yyYaOFCcEm" role="3uHU7w">
-                    <property role="Xl_RC" value="&amp;modelRef=" />
+                  <node concept="liA8E" id="yyYaOFCgE1" role="2OqNvi">
+                    <ref role="37wK5l" to="mhbf:~SModel.getReference()" resolve="getReference" />
                   </node>
                 </node>
-                <node concept="1rXfSq" id="yyYaOFCcEn" role="3uHU7w">
-                  <ref role="37wK5l" node="62v7nyvTdRa" resolve="urlEncode" />
-                  <node concept="2OqwBi" id="yyYaOFChhD" role="37wK5m">
-                    <node concept="2OqwBi" id="yyYaOFCg30" role="2Oq$k0">
-                      <node concept="37vLTw" id="yyYaOFCfl7" role="2Oq$k0">
-                        <ref role="3cqZAo" node="yyYaOFBuN2" resolve="model" />
-                      </node>
-                      <node concept="liA8E" id="yyYaOFCgE1" role="2OqNvi">
-                        <ref role="37wK5l" to="mhbf:~SModel.getReference()" resolve="getReference" />
-                      </node>
-                    </node>
-                    <node concept="liA8E" id="yyYaOFChVr" role="2OqNvi">
-                      <ref role="37wK5l" to="wyt6:~Object.toString()" resolve="toString" />
-                    </node>
-                  </node>
+                <node concept="liA8E" id="yyYaOFChVr" role="2OqNvi">
+                  <ref role="37wK5l" to="wyt6:~Object.toString()" resolve="toString" />
                 </node>
-              </node>
-              <node concept="Xl_RD" id="yyYaOFINBX" role="3uHU7w">
-                <property role="Xl_RC" value="&amp;rand=" />
               </node>
             </node>
           </node>
