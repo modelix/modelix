@@ -3,9 +3,9 @@ import $ = require("jquery");
 import {SVGContainer} from "./SVGContainer";
 import {ShadowModelsBasedEditor} from "./ShadowModelsBasedEditor";
 import {LiveHtml} from "./LiveHtml";
+import {initNewNodeButton} from "./NewNodeButton";
 
 $(() => {
-
     const svgViewers = new Set<SVGContainer>();
     for (const element of document.getElementsByClassName("svgcontainer")) {
           svgViewers.add(new SVGContainer(element as HTMLElement));
@@ -21,4 +21,5 @@ $(() => {
         liveHtmlElements.add(new LiveHtml(element as HTMLElement));
     }
 
+    initNewNodeButton()
 });
