@@ -144,26 +144,29 @@ $(() => {
         for (var i = length-1; i >= 0; i--) {
             modelsMenu.options[i] = null;
         }
-        $.ajax({  
-            type: "GET",  
-            url: "/models?module="+ $('#moduleDropDown').val(),  
-            cache: false, 
-            async: false,    
-            success: function(response){
-                try {
-                    var output = JSON.parse(response);
-                    modelList = output["models"];
-                    modelList.forEach(function (item, index) {
-                        var modelOption = document.createElement("option");
-                        modelOption.innerHTML = item;
-                        modelOption.value = item;
-                        modelsMenu.appendChild(modelOption);
-                    });
-                } catch (error) {
-                    console.log(error);
+        let moduleName = $('#moduleDropDown').val();
+        if (moduleName !== undefined) {
+            $.ajax({
+                type: "GET",
+                url: "/models?module="+ moduleName,
+                cache: false,
+                async: false,
+                success: function(response){
+                    try {
+                        var output = JSON.parse(response);
+                        modelList = output["models"];
+                        modelList.forEach(function (item, index) {
+                            var modelOption = document.createElement("option");
+                            modelOption.innerHTML = item;
+                            modelOption.value = item;
+                            modelsMenu.appendChild(modelOption);
+                        });
+                    } catch (error) {
+                        console.log(error);
+                    }
                 }
-            }
-        });
+            });
+        }
     }
     function refreshConceptsDropdown() {
         var conceptList = null;
