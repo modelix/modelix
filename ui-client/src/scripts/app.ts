@@ -126,7 +126,7 @@ $(() => {
                 try {
                     var output = JSON.parse(response);
                     moduleList = output["modules"];
-                    moduleList.forEach(function (item, index) {
+                    moduleList.sort().forEach(function (item, index) {
                         var moduleOption = document.createElement("option");
                         moduleOption.innerHTML = item;
                         moduleOption.value = item;
