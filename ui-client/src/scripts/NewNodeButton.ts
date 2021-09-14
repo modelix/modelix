@@ -52,7 +52,7 @@ export function initNewNodeButton() {
         dialog.setAttribute("id", "createDialog");
         var dialogMenu = document.createElement("menu");
         var submitButton = document.createElement("button");
-        submitButton.innerHTML = "Submit";
+        submitButton.innerHTML = "Add New Node";
         submitButton.onclick = function(event){event.preventDefault();submit();closeDialog();};
         var closeButton = document.createElement("button");
         closeButton.setAttribute("class", "btn btn-primary");
