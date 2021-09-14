@@ -9,6 +9,7 @@
     <use id="bc963c22-d419-49b6-8543-ea411eb9d3a1" name="de.q60.mps.polymorphicfunctions" version="0" />
     <use id="774bf8a0-62e5-41e1-af63-f4812e60e48b" name="jetbrains.mps.baseLanguage.checkedDots" version="0" />
     <use id="63650c59-16c8-498a-99c8-005c7ee9515d" name="jetbrains.mps.lang.access" version="0" />
+    <use id="f2801650-65d5-424e-bb1b-463a8781b786" name="jetbrains.mps.baseLanguage.javadoc" version="2" />
     <devkit ref="fbc25dd2-5da4-483a-8b19-70928e1b62d7(jetbrains.mps.devkit.general-purpose)" />
   </languages>
   <imports>
@@ -2150,7 +2151,7 @@
                     <node concept="3clFb_" id="6I9FalZB9Zj" role="jymVt">
                       <property role="TrG5h" value="createWebSocket" />
                       <node concept="3Tm1VV" id="6I9FalZB9Zk" role="1B3o_S" />
-                      <node concept="3uibUv" id="6I9FalZB9Zl" role="3clF45">
+                      <node concept="3uibUv" id="1Z3re34eRQB" role="3clF45">
                         <ref role="3uigEE" to="wyt6:~Object" resolve="Object" />
                       </node>
                       <node concept="37vLTG" id="6I9FalZB9Zm" role="3clF46">
@@ -2166,80 +2167,22 @@
                         </node>
                       </node>
                       <node concept="3clFbS" id="6I9FalZB9Zq" role="3clF47">
-                        <node concept="3J1_TO" id="6I9FalZB9Zr" role="3cqZAp">
-                          <node concept="3clFbS" id="6I9FalZB9Zs" role="1zxBo7">
-                            <node concept="3cpWs6" id="6I9FalZB9Zt" role="3cqZAp">
-                              <node concept="2ShNRf" id="6I9FalZB9Zu" role="3cqZAk">
-                                <node concept="1pGfFk" id="6I9FalZB9Zv" role="2ShVmc">
-                                  <ref role="37wK5l" to="2qs1:AkkmJBTVKA" resolve="InteractionServer" />
-                                  <node concept="2YIFZM" id="6I9FalZB9Zw" role="37wK5m">
-                                    <ref role="37wK5l" node="6I9FalZAWR4" resolve="getSessionId" />
-                                    <ref role="1Pybhc" node="5Sw$pxbNu8p" resolve="SvgUiServlet" />
-                                    <node concept="37vLTw" id="6I9FalZB9Zx" role="37wK5m">
-                                      <ref role="3cqZAo" node="6I9FalZB9Zm" resolve="request" />
-                                    </node>
-                                  </node>
-                                  <node concept="2YIFZM" id="6rcGC6EIu9V" role="37wK5m">
-                                    <ref role="37wK5l" node="6rcGC6EIpJs" resolve="getUser" />
-                                    <ref role="1Pybhc" node="5Sw$pxbNu8p" resolve="SvgUiServlet" />
-                                    <node concept="37vLTw" id="6rcGC6EIuRG" role="37wK5m">
-                                      <ref role="3cqZAo" node="6I9FalZB9Zm" resolve="request" />
-                                    </node>
-                                  </node>
+                        <node concept="3cpWs6" id="6I9FalZB9Zt" role="3cqZAp">
+                          <node concept="2ShNRf" id="6I9FalZB9Zu" role="3cqZAk">
+                            <node concept="1pGfFk" id="6I9FalZB9Zv" role="2ShVmc">
+                              <ref role="37wK5l" to="2qs1:AkkmJBTVKA" resolve="InteractionServer" />
+                              <node concept="2YIFZM" id="6I9FalZB9Zw" role="37wK5m">
+                                <ref role="37wK5l" node="6I9FalZAWR4" resolve="getSessionId" />
+                                <ref role="1Pybhc" node="5Sw$pxbNu8p" resolve="SvgUiServlet" />
+                                <node concept="37vLTw" id="6I9FalZB9Zx" role="37wK5m">
+                                  <ref role="3cqZAo" node="6I9FalZB9Zm" resolve="request" />
                                 </node>
                               </node>
-                            </node>
-                          </node>
-                          <node concept="3uVAMA" id="6I9FalZB9Zy" role="1zxBo5">
-                            <node concept="XOnhg" id="6I9FalZB9Zz" role="1zc67B">
-                              <property role="3TUv4t" value="false" />
-                              <property role="TrG5h" value="ex" />
-                              <node concept="nSUau" id="6I9FalZB9Z$" role="1tU5fm">
-                                <node concept="3uibUv" id="6I9FalZB9Z_" role="nSUat">
-                                  <ref role="3uigEE" to="wyt6:~Exception" resolve="Exception" />
-                                </node>
-                              </node>
-                            </node>
-                            <node concept="3clFbS" id="6I9FalZB9ZA" role="1zc67A">
-                              <node concept="3cpWs8" id="6I9FalZB9ZB" role="3cqZAp">
-                                <node concept="3cpWsn" id="6I9FalZB9ZC" role="3cpWs9">
-                                  <property role="TrG5h" value="msg" />
-                                  <node concept="17QB3L" id="6I9FalZB9ZD" role="1tU5fm" />
-                                  <node concept="3cpWs3" id="6I9FalZB9ZE" role="33vP2m">
-                                    <node concept="2OqwBi" id="6I9FalZB9ZF" role="3uHU7w">
-                                      <node concept="37vLTw" id="6I9FalZB9ZG" role="2Oq$k0">
-                                        <ref role="3cqZAo" node="6I9FalZB9Zm" resolve="request" />
-                                      </node>
-                                      <node concept="liA8E" id="6I9FalZB9ZH" role="2OqNvi">
-                                        <ref role="37wK5l" to="67a5:~ServletUpgradeRequest.getRequestURI()" resolve="getRequestURI" />
-                                      </node>
-                                    </node>
-                                    <node concept="Xl_RD" id="6I9FalZB9ZI" role="3uHU7B">
-                                      <property role="Xl_RC" value="Failed to create WebSocket connection for " />
-                                    </node>
-                                  </node>
-                                </node>
-                              </node>
-                              <node concept="RRSsy" id="6I9FalZB9ZJ" role="3cqZAp">
-                                <property role="RRSoG" value="gZ5fh_4/error" />
-                                <node concept="37vLTw" id="6I9FalZB9ZK" role="RRSoy">
-                                  <ref role="3cqZAo" node="6I9FalZB9ZC" resolve="msg" />
-                                </node>
-                                <node concept="37vLTw" id="6I9FalZB9ZL" role="RRSow">
-                                  <ref role="3cqZAo" node="6I9FalZB9Zz" resolve="ex" />
-                                </node>
-                              </node>
-                              <node concept="YS8fn" id="6I9FalZB9ZM" role="3cqZAp">
-                                <node concept="2ShNRf" id="6I9FalZB9ZN" role="YScLw">
-                                  <node concept="1pGfFk" id="6I9FalZB9ZO" role="2ShVmc">
-                                    <ref role="37wK5l" to="wyt6:~RuntimeException.&lt;init&gt;(java.lang.String,java.lang.Throwable)" resolve="RuntimeException" />
-                                    <node concept="37vLTw" id="6I9FalZB9ZP" role="37wK5m">
-                                      <ref role="3cqZAo" node="6I9FalZB9ZC" resolve="msg" />
-                                    </node>
-                                    <node concept="37vLTw" id="6I9FalZB9ZQ" role="37wK5m">
-                                      <ref role="3cqZAo" node="6I9FalZB9Zz" resolve="ex" />
-                                    </node>
-                                  </node>
+                              <node concept="2YIFZM" id="6rcGC6EIu9V" role="37wK5m">
+                                <ref role="37wK5l" node="6rcGC6EIpJs" resolve="getUser" />
+                                <ref role="1Pybhc" node="5Sw$pxbNu8p" resolve="SvgUiServlet" />
+                                <node concept="37vLTw" id="6rcGC6EIuRG" role="37wK5m">
+                                  <ref role="3cqZAo" node="6I9FalZB9Zm" resolve="request" />
                                 </node>
                               </node>
                             </node>

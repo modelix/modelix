@@ -3363,29 +3363,12 @@
                   </node>
                 </node>
               </node>
-              <node concept="027og" id="7trMQm3W2UL" role="3MbsX5">
+              <node concept="027og" id="2sCgtIfe1w5" role="3MbsX5">
                 <ref role="02LMe" to="70w2:7NImM04TdSk" resolve="HTMLDivElement" />
-                <node concept="027oh" id="7trMQm3W2UM" role="02LM9">
-                  <ref role="027oj" to="70w2:AkkmJBUItt" resolve="id" />
-                  <node concept="3cpWs3" id="7trMQm3W2UN" role="027of">
-                    <node concept="Xl_RD" id="7trMQm3W2UV" role="3uHU7B">
-                      <property role="Xl_RC" value="svgNodeEditor_" />
-                    </node>
-                    <node concept="2YIFZM" id="5npwda7V7fe" role="3uHU7w">
-                      <ref role="1Pybhc" node="62_qJBxL8mp" resolve="PageTransformationsUtil" />
-                      <ref role="37wK5l" node="5Q16xz4K4FF" resolve="sha256" />
-                      <node concept="2YIFZM" id="5npwda7V7ff" role="37wK5m">
-                        <ref role="37wK5l" to="qsto:5T6M7OO0vKo" resolve="serialize" />
-                        <ref role="1Pybhc" to="qsto:5T6M7ON4Si7" resolve="NodeReferenceSerializer" />
-                        <node concept="214o7A" id="5npwda7V7fg" role="37wK5m" />
-                      </node>
-                    </node>
-                  </node>
-                </node>
-                <node concept="027oh" id="7trMQm3W2UW" role="02LM9">
+                <node concept="027oh" id="2sCgtIfkCnp" role="02LM9">
                   <ref role="027oj" to="70w2:AkkmJBR8z6" resolve="class" />
-                  <node concept="Xl_RD" id="7trMQm3W2UX" role="027of">
-                    <property role="Xl_RC" value="svgviewer" />
+                  <node concept="Xl_RD" id="2sCgtIfkCu3" role="027of">
+                    <property role="Xl_RC" value="svgcontainer" />
                   </node>
                 </node>
                 <node concept="027rt" id="7trMQm3W2UY" role="02LM9">
@@ -3401,13 +3384,94 @@
                     <node concept="027oh" id="7trMQm3W2V2" role="02LM9">
                       <ref role="027oj" to="70w2:7trMQm2YWp$" resolve="value" />
                       <node concept="2YIFZM" id="5npwda7lyFF" role="027of">
-                        <ref role="37wK5l" to="qsto:5T6M7OO0vKo" resolve="serialize" />
                         <ref role="1Pybhc" to="qsto:5T6M7ON4Si7" resolve="NodeReferenceSerializer" />
+                        <ref role="37wK5l" to="qsto:5T6M7OO0vKo" resolve="serialize" />
                         <node concept="2YIFZM" id="7trMQm3W2V5" role="37wK5m">
                           <ref role="1Pybhc" to="l6bp:30TKBrMa5zj" resolve="SM_SNodeAPI" />
                           <ref role="37wK5l" to="l6bp:7uapjVAY0et" resolve="tryGetUnwrappedNode" />
                           <node concept="2155sH" id="7trMQm3W2V6" role="37wK5m">
                             <ref role="2155sG" node="7trMQm3W2UI" resolve="node" />
+                          </node>
+                        </node>
+                      </node>
+                    </node>
+                  </node>
+                </node>
+                <node concept="027rt" id="2sCgtIfe1E5" role="02LM9">
+                  <ref role="027rv" to="70w2:7NImM053Sep" resolve="children" />
+                  <node concept="027og" id="7trMQm3W2UL" role="027rp">
+                    <ref role="02LMe" to="70w2:7NImM04TdSk" resolve="HTMLDivElement" />
+                    <node concept="027oh" id="7trMQm3W2UM" role="02LM9">
+                      <ref role="027oj" to="70w2:AkkmJBUItt" resolve="id" />
+                      <node concept="3cpWs3" id="7trMQm3W2UN" role="027of">
+                        <node concept="Xl_RD" id="7trMQm3W2UV" role="3uHU7B">
+                          <property role="Xl_RC" value="svgNodeEditor_" />
+                        </node>
+                        <node concept="2YIFZM" id="5npwda7V7fe" role="3uHU7w">
+                          <ref role="1Pybhc" node="62_qJBxL8mp" resolve="PageTransformationsUtil" />
+                          <ref role="37wK5l" node="5Q16xz4K4FF" resolve="sha256" />
+                          <node concept="2YIFZM" id="5npwda7V7ff" role="37wK5m">
+                            <ref role="1Pybhc" to="qsto:5T6M7ON4Si7" resolve="NodeReferenceSerializer" />
+                            <ref role="37wK5l" to="qsto:5T6M7OO0vKo" resolve="serialize" />
+                            <node concept="214o7A" id="5npwda7V7fg" role="37wK5m" />
+                          </node>
+                        </node>
+                      </node>
+                    </node>
+                    <node concept="027oh" id="7trMQm3W2UW" role="02LM9">
+                      <ref role="027oj" to="70w2:AkkmJBR8z6" resolve="class" />
+                      <node concept="Xl_RD" id="7trMQm3W2UX" role="027of">
+                        <property role="Xl_RC" value="svgviewer" />
+                      </node>
+                    </node>
+                  </node>
+                </node>
+                <node concept="027rt" id="2sCgtIfe2nI" role="02LM9">
+                  <ref role="027rv" to="70w2:7NImM053Sep" resolve="children" />
+                  <node concept="027og" id="2sCgtIfe2nJ" role="027rp">
+                    <ref role="02LMe" to="70w2:7NImM04TdSk" resolve="HTMLDivElement" />
+                    <node concept="027oh" id="2sCgtIfe2nK" role="02LM9">
+                      <ref role="027oj" to="70w2:AkkmJBUItt" resolve="id" />
+                      <node concept="3cpWs3" id="2sCgtIfe3gC" role="027of">
+                        <node concept="Xl_RD" id="2sCgtIfe3hf" role="3uHU7w">
+                          <property role="Xl_RC" value="_inspector" />
+                        </node>
+                        <node concept="3cpWs3" id="2sCgtIfe2nL" role="3uHU7B">
+                          <node concept="Xl_RD" id="2sCgtIfe2nM" role="3uHU7B">
+                            <property role="Xl_RC" value="svgNodeEditor_" />
+                          </node>
+                          <node concept="2YIFZM" id="2sCgtIfe2nN" role="3uHU7w">
+                            <ref role="1Pybhc" node="62_qJBxL8mp" resolve="PageTransformationsUtil" />
+                            <ref role="37wK5l" node="5Q16xz4K4FF" resolve="sha256" />
+                            <node concept="2YIFZM" id="2sCgtIfe2nO" role="37wK5m">
+                              <ref role="1Pybhc" to="qsto:5T6M7ON4Si7" resolve="NodeReferenceSerializer" />
+                              <ref role="37wK5l" to="qsto:5T6M7OO0vKo" resolve="serialize" />
+                              <node concept="214o7A" id="2sCgtIfe2nP" role="37wK5m" />
+                            </node>
+                          </node>
+                        </node>
+                      </node>
+                    </node>
+                    <node concept="027oh" id="2sCgtIfe2nQ" role="02LM9">
+                      <ref role="027oj" to="70w2:AkkmJBR8z6" resolve="class" />
+                      <node concept="Xl_RD" id="2sCgtIfe2nR" role="027of">
+                        <property role="Xl_RC" value="svgviewer" />
+                      </node>
+                    </node>
+                    <node concept="027rt" id="2sCgtIfe3X0" role="02LM9">
+                      <ref role="027rv" to="70w2:7NImM053Sep" resolve="children" />
+                      <node concept="027og" id="2sCgtIfe3YE" role="027rp">
+                        <ref role="02LMe" to="70w2:4qSU4CWmJbF" resolve="HTMLDataAttr" />
+                        <node concept="027oh" id="2sCgtIfe3YS" role="02LM9">
+                          <ref role="027oj" to="70w2:7trMQm2YWpx" resolve="name" />
+                          <node concept="Xl_RD" id="2sCgtIfe3Z5" role="027of">
+                            <property role="Xl_RC" value="inspector" />
+                          </node>
+                        </node>
+                        <node concept="027oh" id="2sCgtIfe3Zq" role="02LM9">
+                          <ref role="027oj" to="70w2:7trMQm2YWp$" resolve="value" />
+                          <node concept="3clFbT" id="2sCgtIfe3ZF" role="027of">
+                            <property role="3clFbU" value="true" />
                           </node>
                         </node>
                       </node>

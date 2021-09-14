@@ -1,14 +1,14 @@
 import "../styles/base.scss";
 import $ = require("jquery");
-import {ImageBasedEditor} from "./ImageBasedEditor";
+import {SVGContainer} from "./SVGContainer";
 import {ShadowModelsBasedEditor} from "./ShadowModelsBasedEditor";
 import {LiveHtml} from "./LiveHtml";
 import {initNewNodeButton} from "./NewNodeButton";
 
 $(() => {
-    const svgViewers = new Set<ImageBasedEditor>();
-    for (const element of document.getElementsByClassName("svgviewer")) {
-        svgViewers.add(new ImageBasedEditor(element as HTMLElement));
+    const svgViewers = new Set<SVGContainer>();
+    for (const element of document.getElementsByClassName("svgcontainer")) {
+          svgViewers.add(new SVGContainer(element as HTMLElement));
     }
 
     const smViewers = new Set<ShadowModelsBasedEditor>();
