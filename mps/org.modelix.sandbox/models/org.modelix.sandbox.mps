@@ -56,5 +56,24 @@
     <node concept="2tJIrI" id="4RHKc8nKt8K" role="jymVt" />
     <node concept="3Tm1VV" id="4RHKc8nKsSc" role="1B3o_S" />
   </node>
+  <node concept="312cEu" id="8aZYYNhtd_">
+    <property role="TrG5h" value="ClassB" />
+    <node concept="3clFb_" id="8aZYYNhtdA" role="jymVt">
+      <property role="TrG5h" value="methodA" />
+      <node concept="3cqZAl" id="8aZYYNhtdB" role="3clF45" />
+      <node concept="3Tm1VV" id="8aZYYNhtdC" role="1B3o_S" />
+      <node concept="3clFbS" id="8aZYYNhtdD" role="3clF47" />
+      <node concept="37vLTG" id="8aZYYNhtdE" role="3clF46">
+        <property role="TrG5h" value="abc" />
+        <node concept="10Oyi0" id="8aZYYNhtdF" role="1tU5fm" />
+      </node>
+      <node concept="37vLTG" id="8aZYYNhtdG" role="3clF46">
+        <property role="TrG5h" value="abcd" />
+        <node concept="17QB3L" id="8aZYYNhtdH" role="1tU5fm" />
+      </node>
+    </node>
+    <node concept="2tJIrI" id="8aZYYNhtdI" role="jymVt" />
+    <node concept="3Tm1VV" id="8aZYYNhtdJ" role="1B3o_S" />
+  </node>
 </model>
 
