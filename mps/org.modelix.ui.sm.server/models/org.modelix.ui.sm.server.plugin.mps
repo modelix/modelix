@@ -9768,31 +9768,32 @@
             </node>
           </node>
         </node>
-        <node concept="3cpWs8" id="1LsbP9ZhFr3" role="3cqZAp">
-          <node concept="3cpWsn" id="1LsbP9ZhFr4" role="3cpWs9">
-            <property role="TrG5h" value="nodeA" />
-            <node concept="3uibUv" id="1LsbP9ZhFr5" role="1tU5fm">
-              <ref role="3uigEE" to="mhbf:~SNode" resolve="SNode" />
-            </node>
-            <node concept="2OqwBi" id="1LsbP9ZhLEV" role="33vP2m">
-              <node concept="37vLTw" id="1LsbP9ZhKWB" role="2Oq$k0">
-                <ref role="3cqZAo" node="1LsbP9ZgHZH" resolve="sModel" />
-              </node>
-              <node concept="liA8E" id="1LsbP9ZhMrw" role="2OqNvi">
-                <ref role="37wK5l" to="mhbf:~SModel.createNode(org.jetbrains.mps.openapi.language.SConcept)" resolve="createNode" />
-                <node concept="37vLTw" id="5KklWZWy2tv" role="37wK5m">
-                  <ref role="3cqZAo" node="5KklWZWxiLf" resolve="consConcept" />
-                </node>
-              </node>
-            </node>
-          </node>
-        </node>
         <node concept="3clFbF" id="6ZRzA7B64bT" role="3cqZAp">
           <node concept="2YIFZM" id="6ZRzA7B66nQ" role="3clFbG">
             <ref role="37wK5l" to="csg2:6FW8YbU5wHo" resolve="runInCommand" />
             <ref role="1Pybhc" to="csg2:6FW8YbU5vOS" resolve="CommandHelper" />
             <node concept="1bVj0M" id="6ZRzA7B6ay7" role="37wK5m">
               <node concept="3clFbS" id="6ZRzA7B6ay8" role="1bW5cS">
+                <node concept="3cpWs8" id="1LsbP9ZhFr3" role="3cqZAp">
+                  <node concept="3cpWsn" id="1LsbP9ZhFr4" role="3cpWs9">
+                    <property role="TrG5h" value="nodeA" />
+                    <node concept="3uibUv" id="1LsbP9ZhFr5" role="1tU5fm">
+                      <ref role="3uigEE" to="mhbf:~SNode" resolve="SNode" />
+                    </node>
+                    <node concept="2YIFZM" id="6ZRzA7Bgp8G" role="33vP2m">
+                      <ref role="1Pybhc" to="zce0:~NodeFactoryManager" resolve="NodeFactoryManager" />
+                      <ref role="37wK5l" to="zce0:~NodeFactoryManager.createNode(org.jetbrains.mps.openapi.language.SAbstractConcept,org.jetbrains.mps.openapi.model.SNode,org.jetbrains.mps.openapi.model.SNode,org.jetbrains.mps.openapi.model.SModel)" resolve="createNode" />
+                      <node concept="37vLTw" id="6ZRzA7BgpHr" role="37wK5m">
+                        <ref role="3cqZAo" node="5KklWZWxiLf" resolve="consConcept" />
+                      </node>
+                      <node concept="10Nm6u" id="6ZRzA7Bgqkr" role="37wK5m" />
+                      <node concept="10Nm6u" id="6ZRzA7Bgrhf" role="37wK5m" />
+                      <node concept="37vLTw" id="6ZRzA7Bgs6s" role="37wK5m">
+                        <ref role="3cqZAo" node="1LsbP9ZgHZH" resolve="sModel" />
+                      </node>
+                    </node>
+                  </node>
+                </node>
                 <node concept="3clFbF" id="5fBUf8orMf5" role="3cqZAp">
                   <node concept="2OqwBi" id="5fBUf8orMAF" role="3clFbG">
                     <node concept="37vLTw" id="5fBUf8orMeN" role="2Oq$k0">
