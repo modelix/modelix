@@ -9236,6 +9236,83 @@
             </node>
           </node>
         </node>
+        <node concept="3clFbJ" id="3NdNoUypftQ" role="3cqZAp">
+          <node concept="3clFbS" id="3NdNoUypftS" role="3clFbx">
+            <node concept="3clFbF" id="3NdNoUypmmB" role="3cqZAp">
+              <node concept="2OqwBi" id="3NdNoUypmmC" role="3clFbG">
+                <node concept="37vLTw" id="3NdNoUypmmD" role="2Oq$k0">
+                  <ref role="3cqZAo" node="1LsbP9Zgw5n" resolve="baseRequest" />
+                </node>
+                <node concept="liA8E" id="3NdNoUypmmE" role="2OqNvi">
+                  <ref role="37wK5l" to="m2xw:~Request.setHandled(boolean)" resolve="setHandled" />
+                  <node concept="3clFbT" id="3NdNoUypmmF" role="37wK5m">
+                    <property role="3clFbU" value="true" />
+                  </node>
+                </node>
+              </node>
+            </node>
+            <node concept="3clFbF" id="3NdNoUypmmG" role="3cqZAp">
+              <node concept="2OqwBi" id="3NdNoUypmmH" role="3clFbG">
+                <node concept="37vLTw" id="3NdNoUypmmI" role="2Oq$k0">
+                  <ref role="3cqZAo" node="1LsbP9Zgw5r" resolve="response" />
+                </node>
+                <node concept="liA8E" id="3NdNoUypmmJ" role="2OqNvi">
+                  <ref role="37wK5l" to="nwfd:~HttpServletResponse.setStatus(int)" resolve="setStatus" />
+                  <node concept="10M0yZ" id="3NdNoUypmCb" role="37wK5m">
+                    <ref role="3cqZAo" to="nwfd:~HttpServletResponse.SC_METHOD_NOT_ALLOWED" resolve="SC_METHOD_NOT_ALLOWED" />
+                    <ref role="1PxDUh" to="nwfd:~HttpServletResponse" resolve="HttpServletResponse" />
+                  </node>
+                </node>
+              </node>
+            </node>
+            <node concept="3clFbF" id="3NdNoUypmmM" role="3cqZAp">
+              <node concept="2OqwBi" id="3NdNoUypmmN" role="3clFbG">
+                <node concept="37vLTw" id="3NdNoUypmmO" role="2Oq$k0">
+                  <ref role="3cqZAo" node="1LsbP9Zgw5r" resolve="response" />
+                </node>
+                <node concept="liA8E" id="3NdNoUypmmP" role="2OqNvi">
+                  <ref role="37wK5l" to="opgt:~ServletResponse.setContentType(java.lang.String)" resolve="setContentType" />
+                  <node concept="Xl_RD" id="3NdNoUypmmQ" role="37wK5m">
+                    <property role="Xl_RC" value="text/html" />
+                  </node>
+                </node>
+              </node>
+            </node>
+            <node concept="3clFbF" id="3NdNoUypmmR" role="3cqZAp">
+              <node concept="2OqwBi" id="3NdNoUypmmS" role="3clFbG">
+                <node concept="2OqwBi" id="3NdNoUypmmT" role="2Oq$k0">
+                  <node concept="37vLTw" id="3NdNoUypmmU" role="2Oq$k0">
+                    <ref role="3cqZAo" node="1LsbP9Zgw5r" resolve="response" />
+                  </node>
+                  <node concept="liA8E" id="3NdNoUypmmV" role="2OqNvi">
+                    <ref role="37wK5l" to="opgt:~ServletResponse.getWriter()" resolve="getWriter" />
+                  </node>
+                </node>
+                <node concept="liA8E" id="3NdNoUypmmW" role="2OqNvi">
+                  <ref role="37wK5l" to="guwi:~PrintWriter.append(java.lang.CharSequence)" resolve="append" />
+                  <node concept="Xl_RD" id="3NdNoUypmmX" role="37wK5m">
+                    <property role="Xl_RC" value="POST required" />
+                  </node>
+                </node>
+              </node>
+            </node>
+            <node concept="3cpWs6" id="3NdNoUypmmY" role="3cqZAp" />
+          </node>
+          <node concept="17QLQc" id="3NdNoUypk_x" role="3clFbw">
+            <node concept="Xl_RD" id="3NdNoUypm9V" role="3uHU7w">
+              <property role="Xl_RC" value="POST" />
+            </node>
+            <node concept="2OqwBi" id="3NdNoUypiew" role="3uHU7B">
+              <node concept="37vLTw" id="3NdNoUypgYe" role="2Oq$k0">
+                <ref role="3cqZAo" node="1LsbP9Zgw5p" resolve="request" />
+              </node>
+              <node concept="liA8E" id="3NdNoUypkaN" role="2OqNvi">
+                <ref role="37wK5l" to="nwfd:~HttpServletRequest.getMethod()" resolve="getMethod" />
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="3clFbH" id="3NdNoUyp7pU" role="3cqZAp" />
         <node concept="3cpWs8" id="1LsbP9Zgyie" role="3cqZAp">
           <node concept="3cpWsn" id="1LsbP9Zgyif" role="3cpWs9">
             <property role="TrG5h" value="moduleName" />

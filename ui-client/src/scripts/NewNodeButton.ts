@@ -84,7 +84,7 @@ export function initNewNodeButton() {
 
     function submit(){
         $.ajax({
-            type: "GET",
+            type: "POST",
             url: "/insertNode?module="+ $('#moduleDropDown').val() + "&model=" + $('#modelDropDown').val() + "&concept=" + $('#conceptDropDown').val(),
             cache: false,
             async: false,
