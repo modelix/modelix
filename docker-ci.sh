@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 # read variables from mps-version.properties
 while IFS='=' read -r key value
 do
