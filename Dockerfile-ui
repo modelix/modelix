@@ -16,8 +16,6 @@ COPY build/org.modelix/build/artifacts/org.modelix/plugins/ /usr/modelix-ui/mps/
 
 COPY artifacts/de.itemis.mps.extensions/ /usr/modelix-ui/mps/plugins/
 
-RUN ls /usr/modelix-ui/mps/plugins/
-
 COPY run-ui-server.sh /usr/modelix-ui
 COPY ui-server/build/libs/* /usr/modelix-ui/
 COPY ui-server/build/dependencies/ /usr/modelix-ui/dependencies/
