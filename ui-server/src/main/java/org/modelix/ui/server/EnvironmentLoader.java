@@ -53,6 +53,7 @@ public class EnvironmentLoader {
                     .addPlugin(new File(pluginsFolder, "org.modelix.ui").getAbsolutePath(), "org.modelix.ui")
                     .addPlugin(new File(pluginsFolder, "org.modelix.model").getAbsolutePath(), "org.modelix.model")
                     .addPlugin(new File(pluginsFolder, "org.modelix.common").getAbsolutePath(), "org.modelix.common")
+                    .addPlugin(new File(pluginsFolder, "org.modelix.ui.server").getAbsolutePath(), "org.modelix.ui.server")
                     ;
             if (gitRepoDir != null) {
                 config.addLib(gitRepoDir.getAbsolutePath());
