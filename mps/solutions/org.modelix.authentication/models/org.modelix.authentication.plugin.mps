@@ -40,6 +40,7 @@
     <import index="iwnc" ref="498d89d2-c2e9-11e2-ad49-6cf049e62fe5/java:org.jetbrains.io(MPS.IDEA/)" />
     <import index="iil0" ref="498d89d2-c2e9-11e2-ad49-6cf049e62fe5/java:io.netty.buffer(MPS.IDEA/)" />
     <import index="ap92" ref="498d89d2-c2e9-11e2-ad49-6cf049e62fe5/java:io.netty.util(MPS.IDEA/)" />
+    <import index="rfhd" ref="498d89d2-c2e9-11e2-ad49-6cf049e62fe5/java:com.intellij.openapi.util.registry(MPS.IDEA/)" />
     <import index="wyt6" ref="6354ebe7-c22a-4a0f-ac54-50b52ab9b065/java:java.lang(JDK/)" implicit="true" />
     <import index="tprs" ref="r:00000000-0000-4000-0000-011c895904a4(jetbrains.mps.ide.actions)" implicit="true" />
     <import index="r791" ref="6354ebe7-c22a-4a0f-ac54-50b52ab9b065/java:javax.swing.text(JDK/)" implicit="true" />
@@ -788,9 +789,32 @@
                   <node concept="3Tm1VV" id="3poOr4tpX4E" role="1B3o_S" />
                   <node concept="17QB3L" id="3poOr4tpX4F" role="3clF45" />
                   <node concept="3clFbS" id="3poOr4tpX4G" role="3clF47">
+                    <node concept="3cpWs8" id="7rdFupvVBj9" role="3cqZAp">
+                      <node concept="3cpWsn" id="7rdFupvVBjc" role="3cpWs9">
+                        <property role="TrG5h" value="port" />
+                        <node concept="10Oyi0" id="7rdFupvVBj7" role="1tU5fm" />
+                        <node concept="2YIFZM" id="7rdFupvVCsI" role="33vP2m">
+                          <ref role="1Pybhc" to="rfhd:~Registry" resolve="Registry" />
+                          <ref role="37wK5l" to="rfhd:~Registry.intValue(java.lang.String)" resolve="intValue" />
+                          <node concept="Xl_RD" id="3BwRxVwWbFi" role="37wK5m">
+                            <property role="Xl_RC" value="ide.httpsupport.internalPort" />
+                          </node>
+                        </node>
+                      </node>
+                    </node>
                     <node concept="3cpWs6" id="3poOr4tpYqe" role="3cqZAp">
-                      <node concept="Xl_RD" id="3poOr4tpYCC" role="3cqZAk">
-                        <property role="Xl_RC" value="http://localhost:9297/modelixauthtoken" />
+                      <node concept="3cpWs3" id="7rdFupvVCZH" role="3cqZAk">
+                        <node concept="Xl_RD" id="7rdFupvVDCd" role="3uHU7w">
+                          <property role="Xl_RC" value="/modelixauthtoken" />
+                        </node>
+                        <node concept="3cpWs3" id="7rdFupvVErL" role="3uHU7B">
+                          <node concept="37vLTw" id="7rdFupvVEMB" role="3uHU7w">
+                            <ref role="3cqZAo" node="7rdFupvVBjc" resolve="port" />
+                          </node>
+                          <node concept="Xl_RD" id="3poOr4tpYCC" role="3uHU7B">
+                            <property role="Xl_RC" value="http://localhost:" />
+                          </node>
+                        </node>
                       </node>
                     </node>
                   </node>
