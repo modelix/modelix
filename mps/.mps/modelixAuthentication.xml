@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project version="4">
-  <component name="ModelixAuthentication">
-    <option name="oauthURL" value="https://accounts-ci.siginet.lu/connect/authorize?response_type=code&amp;client_id=gescomplus.dsl.mps_client_pkce&amp;code_challenge=${codeChallenge}&amp;code_challenge_method=S256&amp;redirect_uri=http://localhost:${port}/modelixauthtoken&amp;scope=hera.dsl.publish%20openid&amp;audience=$audience&amp;state=xyzABC123" />
-    <option name="authorizationToAccessCodeConversionURL" value="https://accounts-ci.siginet.lu/connect/token" />
-    <option name="authorizationToAccessCodeConversionBody" value="grant_type=authorization_code&amp;client_id=gescomplus.dsl.mps_client_pkce&amp;code_verifier=${codeVerifier}&amp;code=${authorizationCode}&amp;redirect_uri=http://localhost:${port}" />
-  </component>
-</project>
