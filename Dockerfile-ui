@@ -1,4 +1,4 @@
-FROM modelix/modelix-mps
+FROM modelix/modelix-base
 WORKDIR /usr/modelix-ui
 EXPOSE 33333
 
@@ -12,11 +12,7 @@ EXPOSE 33333
 # container. Containers build on top of the modelix container can simply override the ENV and increase the value.
 ENV HEAP_RATIO=85
 
-COPY build/org.modelix/build/artifacts/org.modelix/plugins/ /usr/modelix-ui/mps/plugins/
-
-COPY artifacts/de.itemis.mps.extensions/ /usr/modelix-ui/mps/plugins/
-
-RUN ls /usr/modelix-ui/mps/plugins/
+COPY build/org.modelix/build/artifacts/org.modelix/plugins/org.modelix.ui.server /usr/modelix-ui/mps/plugins/org.modelix.ui.server
 
 COPY run-ui-server.sh /usr/modelix-ui
 COPY ui-server/build/libs/* /usr/modelix-ui/

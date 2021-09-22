@@ -1,0 +1,10 @@
+FROM modelix/modelix-mps
+WORKDIR /usr/modelix-ui
+
+COPY build/org.modelix/build/artifacts/org.modelix/plugins/org.modelix.build /usr/modelix-ui/mps/plugins/org.modelix.build
+COPY build/org.modelix/build/artifacts/org.modelix/plugins/org.modelix.common /usr/modelix-ui/mps/plugins/org.modelix.common
+COPY build/org.modelix/build/artifacts/org.modelix/plugins/org.modelix.langdev /usr/modelix-ui/mps/plugins/org.modelix.langdev
+COPY build/org.modelix/build/artifacts/org.modelix/plugins/org.modelix.model /usr/modelix-ui/mps/plugins/org.modelix.model
+COPY build/org.modelix/build/artifacts/org.modelix/plugins/org.modelix.ui /usr/modelix-ui/mps/plugins/org.modelix.ui
+
+COPY artifacts/de.itemis.mps.extensions/ /usr/modelix-ui/mps/plugins/

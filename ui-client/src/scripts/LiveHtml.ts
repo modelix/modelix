@@ -98,6 +98,8 @@ export class LiveHtml {
                 this.rootElement.classList.remove("connected");
             }
         }, 500);
+
+        this.registerRootElementHandlers()
     }
 
     public registerStyleHandler(key: string, handler: (value: any, dom: HTMLElement) => void): void {
@@ -109,6 +111,20 @@ export class LiveHtml {
         for (const [key, value] of Object.entries(handlersMap)) {
             this.registerStyleHandler(key, value as any);
         }
+    }
+
+    protected registerRootElementHandlers(): void {
+        $(this.rootElement).click(e => {
+            for (const dom of document.elementsFromPoint(e.clientX, e.clientY)) {
+                let message = {
+                    type: "click",
+                    elementId: this.globalToLocalId(dom.id),
+                    x: e.clientX - dom.getBoundingClientRect().left,
+                    y: e.clientY - dom.getBoundingClientRect().top
+                };
+                this.socket.send(JSON.stringify(message));
+            }
+        });
     }
 
     private connect(): void {

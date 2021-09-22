@@ -77,6 +77,9 @@ export class ShadowModelsBasedEditor extends LiveHtml {
         });
 
         this.rootElement.tabIndex = -1;
+    }
+
+    protected registerRootElementHandlers() {
         $(this.rootElement).click(event => {
             this.rootElement.focus();
             event.preventDefault();
@@ -118,15 +121,18 @@ export class ShadowModelsBasedEditor extends LiveHtml {
 
         $(this.rootElement).click(e => {
             for (const dom of document.elementsFromPoint(e.clientX, e.clientY)) {
+                let caretPos: number;
                 if (dom.classList.contains("textCell")) {
-                    this.socket.send(JSON.stringify({
-                        type: "click",
-                        elementId: this.globalToLocalId(dom.id),
-                        x: e.clientX - dom.getBoundingClientRect().left,
-                        y: e.clientY - dom.getBoundingClientRect().top,
-                        pos: xToCaret(dom, e.clientX - document.body.getBoundingClientRect().left)
-                    }));
+                    caretPos = xToCaret(dom, e.clientX - document.body.getBoundingClientRect().left);
                 }
+                let message = {
+                    type: "click",
+                    elementId: this.globalToLocalId(dom.id),
+                    x: e.clientX - dom.getBoundingClientRect().left,
+                    y: e.clientY - dom.getBoundingClientRect().top,
+                    pos: caretPos
+                };
+                this.socket.send(JSON.stringify(message));
             }
             this.rootElement.focus();
         });
@@ -148,7 +154,7 @@ export class ShadowModelsBasedEditor extends LiveHtml {
     }
 }
 
-function xToCaret(textCell, x) {
+function xToCaret(textCell, x): number {
     const bounds = DomUtils.absoluteBounds(textCell);
     let left = bounds.x;
     let width = bounds.width;
@@ -172,7 +178,7 @@ function xToCaret(textCell, x) {
     return distanceToCaret(textCell, c1, x) < distanceToCaret(textCell, c2, x) ? c1 : c2;
 }
 
-function caretToX(textCell, caretPos) {
+function caretToX(textCell, caretPos): number {
     let textNode = textCell.firstChild;
     if (!textNode) {
         return DomUtils.absoluteBounds(textCell).x;
@@ -189,6 +195,6 @@ function caretToX(textCell, caretPos) {
     }
 }
 
-function distanceToCaret(textCell, caretPos, x) {
+function distanceToCaret(textCell, caretPos, x): number {
     return Math.abs(caretToX(textCell, caretPos) - x);
 }

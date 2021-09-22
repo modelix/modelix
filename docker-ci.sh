@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 # read variables from mps-version.properties
 while IFS='=' read -r key value
 do
@@ -15,6 +17,7 @@ docker login -u "$DOCKER_HUB_USER" -p "$DOCKER_HUB_KEY"
 ./docker-build-db.sh
 ./docker-build-model.sh
 ./docker-build-mps.sh
+./docker-build-base.sh
 ./docker-build-ui.sh
 ./docker-build-proxy.sh
 ./docker-build-uiproxy.sh
@@ -24,7 +27,7 @@ TAGS="$GIT_TAG mps-$mpsVersion"
 if [ "$mpsVersion" != "$mpsMajorVersion" ]; then
     TAGS="$TAGS mps-$mpsMajorVersion"
 fi
-IMAGE_NAMES="db model mps ui proxy uiproxy"
+IMAGE_NAMES="db model mps base ui proxy uiproxy"
 for TAG in $TAGS ; do
   echo "Pushing Tag $TAG"
 
