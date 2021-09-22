@@ -58,6 +58,7 @@
     <import index="xygl" ref="498d89d2-c2e9-11e2-ad49-6cf049e62fe5/java:com.intellij.openapi.progress(MPS.IDEA/)" />
     <import index="mk8z" ref="742f6602-5a2f-4313-aa6e-ae1cd4ffdc61/java:jetbrains.mps.progress(MPS.Platform/)" />
     <import index="z1o6" ref="498d89d2-c2e9-11e2-ad49-6cf049e62fe5/java:com.intellij.serviceContainer(MPS.IDEA/)" />
+    <import index="10lj" ref="r:d08664e2-1f34-4206-af22-5f6ebb6628cd(org.modelix.authentication.plugin)" />
     <import index="guwi" ref="6354ebe7-c22a-4a0f-ac54-50b52ab9b065/java:java.io(JDK/)" implicit="true" />
     <import index="71xd" ref="742f6602-5a2f-4313-aa6e-ae1cd4ffdc61/java:jetbrains.mps.ide.tools(MPS.Platform/)" implicit="true" />
     <import index="hvt5" ref="0a2651ab-f212-45c2-a2f0-343e76cbc26b/java:org.modelix.model(org.modelix.model.client/)" implicit="true" />
@@ -880,6 +881,7 @@
                             <node concept="37vLTw" id="bRcBfBXZqq" role="37wK5m">
                               <ref role="3cqZAo" node="bRcBfBXUPu" resolve="modelUri" />
                             </node>
+                            <node concept="10Nm6u" id="7rdFupvY2Ym" role="37wK5m" />
                           </node>
                         </node>
                       </node>
@@ -1290,6 +1292,7 @@
                                 <node concept="2GrUjf" id="7Qo$o7gU1oc" role="37wK5m">
                                   <ref role="2Gs0qQ" node="7Qo$o7gU01Z" resolve="repo" />
                                 </node>
+                                <node concept="10Nm6u" id="7rdFupvY3o2" role="37wK5m" />
                               </node>
                             </node>
                           </node>
@@ -1906,6 +1909,54 @@
                 </node>
               </node>
             </node>
+            <node concept="3cpWs8" id="7rdFupvXMQ1" role="3cqZAp">
+              <node concept="3cpWsn" id="7rdFupvXMQ4" role="3cpWs9">
+                <property role="TrG5h" value="token" />
+                <node concept="17QB3L" id="7rdFupvXMPZ" role="1tU5fm" />
+                <node concept="10Nm6u" id="7rdFupvXMWW" role="33vP2m" />
+              </node>
+            </node>
+            <node concept="3clFbJ" id="7rdFupvXN7B" role="3cqZAp">
+              <node concept="3clFbS" id="7rdFupvXN7D" role="3clFbx">
+                <node concept="3clFbF" id="7rdFupvXNBX" role="3cqZAp">
+                  <node concept="37vLTI" id="7rdFupvXNGN" role="3clFbG">
+                    <node concept="37vLTw" id="7rdFupvXNBV" role="37vLTJ">
+                      <ref role="3cqZAo" node="7rdFupvXMQ4" resolve="token" />
+                    </node>
+                    <node concept="2OqwBi" id="7rdFupvXNOR" role="37vLTx">
+                      <node concept="2YIFZM" id="7rdFupvXNHs" role="2Oq$k0">
+                        <ref role="1Pybhc" to="10lj:1yokyoYyZSK" resolve="AuthenticationManager" />
+                        <ref role="37wK5l" to="10lj:7f6_nf_ulX8" resolve="getInstance" />
+                      </node>
+                      <node concept="liA8E" id="7rdFupvXNYn" role="2OqNvi">
+                        <ref role="37wK5l" to="10lj:1yokyoYz3Y3" resolve="getToken" />
+                        <node concept="2OqwBi" id="7rdFupvXNZM" role="37wK5m">
+                          <node concept="2WthIp" id="7rdFupvXNZP" role="2Oq$k0" />
+                          <node concept="1DTwFV" id="7rdFupvXNZR" role="2OqNvi">
+                            <ref role="2WH_rO" node="6aRQr1WO_Ld" resolve="project" />
+                          </node>
+                        </node>
+                      </node>
+                    </node>
+                  </node>
+                </node>
+              </node>
+              <node concept="2OqwBi" id="7rdFupvXNms" role="3clFbw">
+                <node concept="2YIFZM" id="7rdFupvXNfb" role="2Oq$k0">
+                  <ref role="37wK5l" to="10lj:7f6_nf_ulX8" resolve="getInstance" />
+                  <ref role="1Pybhc" to="10lj:1yokyoYyZSK" resolve="AuthenticationManager" />
+                </node>
+                <node concept="liA8E" id="7rdFupvXNvP" role="2OqNvi">
+                  <ref role="37wK5l" to="10lj:7rdFupvW1pl" resolve="areWeUsingAuthentication" />
+                  <node concept="2OqwBi" id="7rdFupvXNx6" role="37wK5m">
+                    <node concept="2WthIp" id="7rdFupvXNx9" role="2Oq$k0" />
+                    <node concept="1DTwFV" id="7rdFupvXNxb" role="2OqNvi">
+                      <ref role="2WH_rO" node="6aRQr1WO_Ld" resolve="project" />
+                    </node>
+                  </node>
+                </node>
+              </node>
+            </node>
             <node concept="3cpWs8" id="7f6Tb6n$mIE" role="3cqZAp">
               <node concept="3cpWsn" id="7f6Tb6n$mIF" role="3cpWs9">
                 <property role="TrG5h" value="modelServer" />
@@ -1921,6 +1972,9 @@
                     <ref role="37wK5l" to="csg2:6aRQr1WPk$8" resolve="addModelServer" />
                     <node concept="37vLTw" id="6aRQr1WPNEp" role="37wK5m">
                       <ref role="3cqZAo" node="6aRQr1WODg4" resolve="url" />
+                    </node>
+                    <node concept="37vLTw" id="7rdFupvXO4_" role="37wK5m">
+                      <ref role="3cqZAo" node="7rdFupvXMQ4" resolve="token" />
                     </node>
                   </node>
                 </node>

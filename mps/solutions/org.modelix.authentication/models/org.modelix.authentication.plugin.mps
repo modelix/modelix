@@ -454,13 +454,6 @@
       <node concept="17QB3L" id="7f6_nf_umnu" role="1tU5fm" />
       <node concept="10Nm6u" id="7f6_nf_umpp" role="33vP2m" />
     </node>
-    <node concept="312cEg" id="4fpU1SJgdd4" role="jymVt">
-      <property role="TrG5h" value="lastProject" />
-      <node concept="3Tm6S6" id="4fpU1SJgcVn" role="1B3o_S" />
-      <node concept="3uibUv" id="4fpU1SJgdw_" role="1tU5fm">
-        <ref role="3uigEE" to="4nm9:~Project" resolve="Project" />
-      </node>
-    </node>
     <node concept="312cEg" id="3poOr4tqsSz" role="jymVt">
       <property role="TrG5h" value="currentStrategy" />
       <node concept="3Tm6S6" id="3poOr4tqrBm" role="1B3o_S" />
@@ -521,6 +514,67 @@
       <node concept="10P_77" id="7f6_nf_ukOu" role="3clF45" />
     </node>
     <node concept="2tJIrI" id="7f6_nf_xBYD" role="jymVt" />
+    <node concept="3clFb_" id="7rdFupvW1pl" role="jymVt">
+      <property role="TrG5h" value="areWeUsingAuthentication" />
+      <node concept="37vLTG" id="7rdFupvW4iG" role="3clF46">
+        <property role="TrG5h" value="project" />
+        <node concept="3uibUv" id="7rdFupvW4iH" role="1tU5fm">
+          <ref role="3uigEE" to="4nm9:~Project" resolve="Project" />
+        </node>
+      </node>
+      <node concept="3clFbS" id="7rdFupvW1po" role="3clF47">
+        <node concept="3cpWs8" id="7rdFupvW1V5" role="3cqZAp">
+          <node concept="3cpWsn" id="7rdFupvW1V6" role="3cpWs9">
+            <property role="TrG5h" value="configurationComponent" />
+            <node concept="3uibUv" id="7rdFupvW1V7" role="1tU5fm">
+              <ref role="3uigEE" node="7xblg8lmms7" resolve="ModelixAuthenticationConfigurationComponent" />
+            </node>
+            <node concept="2OqwBi" id="7rdFupvW1V8" role="33vP2m">
+              <node concept="37vLTw" id="7rdFupvW53l" role="2Oq$k0">
+                <ref role="3cqZAo" node="7rdFupvW4iG" resolve="project" />
+              </node>
+              <node concept="liA8E" id="7rdFupvW1Va" role="2OqNvi">
+                <ref role="37wK5l" to="1m72:~ComponentManager.getService(java.lang.Class)" resolve="getService" />
+                <node concept="3VsKOn" id="7rdFupvW1Vb" role="37wK5m">
+                  <ref role="3VsUkX" node="7xblg8lmms7" resolve="ModelixAuthenticationConfigurationComponent" />
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="3cpWs8" id="7rdFupvW1Vc" role="3cqZAp">
+          <node concept="3cpWsn" id="7rdFupvW1Vd" role="3cpWs9">
+            <property role="TrG5h" value="state" />
+            <node concept="3uibUv" id="7rdFupvW1Ve" role="1tU5fm">
+              <ref role="3uigEE" node="7xblg8lmnwf" resolve="ModelixAuthenticationConfigurationComponent.State" />
+            </node>
+            <node concept="2OqwBi" id="7rdFupvW1Vf" role="33vP2m">
+              <node concept="37vLTw" id="7rdFupvW1Vg" role="2Oq$k0">
+                <ref role="3cqZAo" node="7rdFupvW1V6" resolve="configurationComponent" />
+              </node>
+              <node concept="liA8E" id="7rdFupvW1Vh" role="2OqNvi">
+                <ref role="37wK5l" node="7xblg8lmnRn" resolve="getState" />
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="3cpWs6" id="7rdFupvW2GY" role="3cqZAp">
+          <node concept="3y3z36" id="7rdFupvW3vh" role="3cqZAk">
+            <node concept="10Nm6u" id="7rdFupvW3Mt" role="3uHU7w" />
+            <node concept="2OqwBi" id="7rdFupvW1Vo" role="3uHU7B">
+              <node concept="37vLTw" id="7rdFupvW1Vp" role="2Oq$k0">
+                <ref role="3cqZAo" node="7rdFupvW1Vd" resolve="state" />
+              </node>
+              <node concept="2OwXpG" id="7rdFupvW1Vq" role="2OqNvi">
+                <ref role="2Oxat6" node="7xblg8lmo$P" resolve="strategyConfiguration" />
+              </node>
+            </node>
+          </node>
+        </node>
+      </node>
+      <node concept="3Tm1VV" id="7rdFupvVZ5P" role="1B3o_S" />
+      <node concept="10P_77" id="7rdFupvW1o4" role="3clF45" />
+    </node>
     <node concept="2tJIrI" id="3poOr4tpwtT" role="jymVt" />
     <node concept="3clFb_" id="3poOr4tpyHl" role="jymVt">
       <property role="TrG5h" value="loadOAuthAuthenticationStrategy" />

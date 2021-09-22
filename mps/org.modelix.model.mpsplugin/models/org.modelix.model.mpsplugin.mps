@@ -100,6 +100,7 @@
     <import index="yyf4" ref="8865b7a8-5271-43d3-884c-6fd1d9cfdd34/java:org.jetbrains.mps.openapi.util(MPS.OpenAPI/)" />
     <import index="mk90" ref="6ed54515-acc8-4d1e-a16c-9fd6cfe951ea/java:jetbrains.mps.progress(MPS.Core/)" />
     <import index="geos" ref="0a2651ab-f212-45c2-a2f0-343e76cbc26b/java:org.modelix.model.persistent(org.modelix.model.client/)" />
+    <import index="10lj" ref="r:d08664e2-1f34-4206-af22-5f6ebb6628cd(org.modelix.authentication.plugin)" />
   </imports>
   <registry>
     <language id="a247e09e-2435-45ba-b8d2-07e93feba96a" name="jetbrains.mps.baseLanguage.tuples">
@@ -6591,6 +6592,10 @@
         <property role="TrG5h" value="url" />
         <node concept="17QB3L" id="6aRQr1WPl3J" role="1tU5fm" />
       </node>
+      <node concept="37vLTG" id="7rdFupvXsgF" role="3clF46">
+        <property role="TrG5h" value="token" />
+        <node concept="17QB3L" id="7rdFupvXvKT" role="1tU5fm" />
+      </node>
       <node concept="3uibUv" id="6aRQr1WPlbK" role="3clF45">
         <ref role="3uigEE" node="6aRQr1WOV$v" resolve="ModelServerConnection" />
       </node>
@@ -6628,6 +6633,9 @@
                   <node concept="37vLTw" id="6kjKmgaTvo2" role="3uHU7B">
                     <ref role="3cqZAo" node="6aRQr1WPkQB" resolve="url" />
                   </node>
+                </node>
+                <node concept="37vLTw" id="7rdFupvXBxq" role="37wK5m">
+                  <ref role="3cqZAo" node="7rdFupvXsgF" resolve="token" />
                 </node>
               </node>
             </node>
@@ -6687,6 +6695,29 @@
               <node concept="37vLTw" id="1JFLVobgxw5" role="37wK5m">
                 <ref role="3cqZAo" node="6aRQr1WPkQB" resolve="url" />
               </node>
+            </node>
+          </node>
+        </node>
+        <node concept="3clFbJ" id="7rdFupvY5Jh" role="3cqZAp">
+          <node concept="3clFbS" id="7rdFupvY5Jj" role="3clFbx">
+            <node concept="3clFbF" id="7rdFupvXWyi" role="3cqZAp">
+              <node concept="2OqwBi" id="7rdFupvXZmM" role="3clFbG">
+                <node concept="37vLTw" id="7rdFupvXWyd" role="2Oq$k0">
+                  <ref role="3cqZAo" node="1JFLVobgxw3" resolve="result" />
+                </node>
+                <node concept="liA8E" id="7rdFupvXZVH" role="2OqNvi">
+                  <ref role="37wK5l" node="2EzI5qKmtmw" resolve="setAuthToken" />
+                  <node concept="37vLTw" id="7rdFupvY0ad" role="37wK5m">
+                    <ref role="3cqZAo" node="7rdFupvXsgF" resolve="token" />
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+          <node concept="3y3z36" id="7rdFupvY8Jl" role="3clFbw">
+            <node concept="10Nm6u" id="7rdFupvY9f_" role="3uHU7w" />
+            <node concept="37vLTw" id="7rdFupvY5WM" role="3uHU7B">
+              <ref role="3cqZAo" node="7rdFupvXsgF" resolve="token" />
             </node>
           </node>
         </node>
@@ -7224,6 +7255,9 @@
                     <node concept="37vLTw" id="5rz8NqPS7qO" role="37wK5m">
                       <ref role="3cqZAo" node="5rz8NqPS7qR" resolve="url" />
                     </node>
+                    <node concept="37vLTw" id="7rdFupvXIGV" role="37wK5m">
+                      <ref role="3cqZAo" node="7rdFupvXDo0" resolve="token" />
+                    </node>
                   </node>
                 </node>
               </node>
@@ -7237,6 +7271,10 @@
       <node concept="37vLTG" id="5rz8NqPS7qR" role="3clF46">
         <property role="TrG5h" value="url" />
         <node concept="17QB3L" id="5rz8NqPS7qS" role="1tU5fm" />
+      </node>
+      <node concept="37vLTG" id="7rdFupvXDo0" role="3clF46">
+        <property role="TrG5h" value="token" />
+        <node concept="17QB3L" id="7rdFupvXDvX" role="1tU5fm" />
       </node>
       <node concept="3Tm1VV" id="5rz8NqPS7qP" role="1B3o_S" />
     </node>
