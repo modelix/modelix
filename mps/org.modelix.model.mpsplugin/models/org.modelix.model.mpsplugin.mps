@@ -7207,6 +7207,29 @@
       </node>
       <node concept="3Tm1VV" id="6aRQr1WPO$T" role="1B3o_S" />
     </node>
+    <node concept="2tJIrI" id="7$Qv9nI6nke" role="jymVt" />
+    <node concept="3clFb_" id="7$Qv9nI5XRu" role="jymVt">
+      <property role="TrG5h" value="ensureModelServerIsPresent" />
+      <node concept="3clFbS" id="7$Qv9nI5XRv" role="3clF47">
+        <node concept="3cpWs6" id="7$Qv9nI66X2" role="3cqZAp">
+          <node concept="1rXfSq" id="7$Qv9nI6b7Y" role="3cqZAk">
+            <ref role="37wK5l" node="5rz8NqPS7qi" resolve="ensureModelServerIsPresent" />
+            <node concept="37vLTw" id="7$Qv9nI6edB" role="37wK5m">
+              <ref role="3cqZAo" node="7$Qv9nI5XRR" resolve="url" />
+            </node>
+            <node concept="10Nm6u" id="7$Qv9nI6hsG" role="37wK5m" />
+          </node>
+        </node>
+      </node>
+      <node concept="3uibUv" id="7$Qv9nI5XRQ" role="3clF45">
+        <ref role="3uigEE" node="6aRQr1WOV$v" resolve="ModelServerConnection" />
+      </node>
+      <node concept="37vLTG" id="7$Qv9nI5XRR" role="3clF46">
+        <property role="TrG5h" value="url" />
+        <node concept="17QB3L" id="7$Qv9nI5XRS" role="1tU5fm" />
+      </node>
+      <node concept="3Tm1VV" id="7$Qv9nI5XRV" role="1B3o_S" />
+    </node>
     <node concept="2tJIrI" id="5rz8NqPS3q4" role="jymVt" />
     <node concept="3clFb_" id="5rz8NqPS7qi" role="jymVt">
       <property role="TrG5h" value="ensureModelServerIsPresent" />
@@ -7887,7 +7910,7 @@
     <node concept="3clFb_" id="5MA9wbc62$n" role="jymVt">
       <property role="TrG5h" value="getAuthor" />
       <node concept="17QB3L" id="5MA9wbc62$o" role="3clF45" />
-      <node concept="3Tm6S6" id="5MA9wbc6awW" role="1B3o_S" />
+      <node concept="3Tm1VV" id="7$Qv9nHUE2a" role="1B3o_S" />
       <node concept="3clFbS" id="5MA9wbc62$q" role="3clF47">
         <node concept="3clFbF" id="5MA9wbc6czO" role="3cqZAp">
           <node concept="2YIFZM" id="5MA9wbc6D2Y" role="3clFbG">
@@ -7899,6 +7922,22 @@
           </node>
         </node>
       </node>
+    </node>
+    <node concept="2tJIrI" id="3OjrwOy95Gn" role="jymVt" />
+    <node concept="3clFb_" id="3OjrwOy9CAr" role="jymVt">
+      <property role="TrG5h" value="isAuthTokenSet" />
+      <node concept="3clFbS" id="3OjrwOy9CAu" role="3clF47">
+        <node concept="3cpWs6" id="3OjrwOy9GRR" role="3cqZAp">
+          <node concept="3y3z36" id="3OjrwOy9KEJ" role="3cqZAk">
+            <node concept="10Nm6u" id="3OjrwOy9O47" role="3uHU7w" />
+            <node concept="1rXfSq" id="3OjrwOy9HgN" role="3uHU7B">
+              <ref role="37wK5l" node="7$Qv9nHUhX1" resolve="getAuthToken" />
+            </node>
+          </node>
+        </node>
+      </node>
+      <node concept="3Tm1VV" id="3OjrwOy9xB3" role="1B3o_S" />
+      <node concept="10P_77" id="3OjrwOy9BoY" role="3clF45" />
     </node>
     <node concept="2tJIrI" id="2EzI5qKmr51" role="jymVt" />
     <node concept="3clFb_" id="1JFLVobhm7T" role="jymVt">
@@ -10289,6 +10328,22 @@
         <node concept="2JFqV2" id="4pEVX9_CcU4" role="2frcjj" />
       </node>
       <node concept="3Tm1VV" id="1JFLVobh0lS" role="1B3o_S" />
+    </node>
+    <node concept="2tJIrI" id="7$Qv9nHU7NW" role="jymVt" />
+    <node concept="3clFb_" id="7$Qv9nHUhX1" role="jymVt">
+      <property role="TrG5h" value="getAuthToken" />
+      <node concept="3clFbS" id="7$Qv9nHUhX4" role="3clF47">
+        <node concept="3cpWs6" id="7$Qv9nHUnez" role="3cqZAp">
+          <node concept="2OqwBi" id="7$Qv9nHUnGW" role="3cqZAk">
+            <node concept="Xjq3P" id="7$Qv9nHUnqW" role="2Oq$k0" />
+            <node concept="2OwXpG" id="7$Qv9nHUyuw" role="2OqNvi">
+              <ref role="2Oxat5" node="2EzI5qKmJsA" resolve="authToken" />
+            </node>
+          </node>
+        </node>
+      </node>
+      <node concept="3Tm1VV" id="7$Qv9nHUcMU" role="1B3o_S" />
+      <node concept="17QB3L" id="7$Qv9nHUdfK" role="3clF45" />
     </node>
     <node concept="2tJIrI" id="mkz0cKmKnY" role="jymVt" />
     <node concept="312cEu" id="mkz0cKmOuS" role="jymVt">

@@ -52,25 +52,12 @@
       </concept>
     </language>
     <language id="28f9e497-3b42-4291-aeba-0a1039153ab1" name="jetbrains.mps.lang.plugin">
-      <concept id="1203071646776" name="jetbrains.mps.lang.plugin.structure.ActionDeclaration" flags="ng" index="sE7Ow">
-        <property id="1205250923097" name="caption" index="2uzpH1" />
-        <child id="1203083461638" name="executeFunction" index="tncku" />
-        <child id="1227008813498" name="constructionParameter" index="2JrayB" />
-        <child id="1217413222820" name="parameter" index="1NuT2Z" />
-      </concept>
-      <concept id="1203083511112" name="jetbrains.mps.lang.plugin.structure.ExecuteBlock" flags="in" index="tnohg" />
       <concept id="1213888797251" name="jetbrains.mps.lang.plugin.structure.ConceptFunctionParameter_Project" flags="nn" index="2xqhHp" />
-      <concept id="1227008846812" name="jetbrains.mps.lang.plugin.structure.ActionConstructionParameterDeclaration" flags="ig" index="2JriF1">
-        <child id="1227019158144" name="toStringFunction" index="2K2Cet" />
-      </concept>
-      <concept id="1227019068586" name="jetbrains.mps.lang.plugin.structure.ToStringConceptFunction" flags="in" index="2K2imR" />
-      <concept id="1227019310584" name="jetbrains.mps.lang.plugin.structure.ToStringParameter" flags="nn" index="2K3dj_" />
       <concept id="1210179134063" name="jetbrains.mps.lang.plugin.structure.PreferencesComponentDeclaration" flags="ng" index="34j2dQ">
         <child id="1210676907584" name="afterReadBlock" index="3xXSXp" />
         <child id="1210676918600" name="beforeWriteBlock" index="3xXVxh" />
         <child id="1210684426855" name="preferencePage" index="3yq$HY" />
       </concept>
-      <concept id="5538333046911348654" name="jetbrains.mps.lang.plugin.structure.RequiredCondition" flags="ng" index="1oajcY" />
       <concept id="1210676672555" name="jetbrains.mps.lang.plugin.structure.OnBeforeWriteBlock" flags="in" index="3xWZ$M" />
       <concept id="1210676879526" name="jetbrains.mps.lang.plugin.structure.OnAfterReadBlock" flags="in" index="3xXM6Z" />
       <concept id="1210684385183" name="jetbrains.mps.lang.plugin.structure.PreferencePage" flags="ng" index="3yqqq6">
@@ -83,14 +70,7 @@
       <concept id="1210686969356" name="jetbrains.mps.lang.plugin.structure.PreferencePageCommitBlock" flags="in" index="3y$hsl" />
       <concept id="1210690798207" name="jetbrains.mps.lang.plugin.structure.ConceptFunctionParameter_PreferencePage_component" flags="nn" index="3yMSdA" />
       <concept id="1210763550007" name="jetbrains.mps.lang.plugin.structure.PreferencePageIsModifiedBlock" flags="in" index="3B8pKI" />
-      <concept id="1217252042208" name="jetbrains.mps.lang.plugin.structure.ActionDataParameterDeclaration" flags="ng" index="1DS2jV">
-        <reference id="1217252646389" name="key" index="1DUlNI" />
-      </concept>
-      <concept id="1217252428768" name="jetbrains.mps.lang.plugin.structure.ActionDataParameterReferenceOperation" flags="nn" index="1DTwFV" />
       <concept id="1204478074808" name="jetbrains.mps.lang.plugin.structure.ConceptFunctionParameter_MPSProject" flags="nn" index="1KvdUw" />
-      <concept id="1217413147516" name="jetbrains.mps.lang.plugin.structure.ActionParameter" flags="ng" index="1NuADB">
-        <child id="5538333046911298738" name="condition" index="1oa70y" />
-      </concept>
     </language>
     <language id="ef7bf5ac-d06c-4342-b11d-e42104eb9343" name="jetbrains.mps.lang.plugin.standalone">
       <concept id="481983775135178851" name="jetbrains.mps.lang.plugin.standalone.structure.ApplicationPluginInitBlock" flags="in" index="2uRRBj" />
@@ -100,6 +80,7 @@
       <concept id="7520713872864775836" name="jetbrains.mps.lang.plugin.standalone.structure.StandalonePluginDescriptor" flags="ng" index="2DaZZR" />
     </language>
     <language id="f3061a53-9226-4cc5-a443-f952ceaf5816" name="jetbrains.mps.baseLanguage">
+      <concept id="1080223426719" name="jetbrains.mps.baseLanguage.structure.OrExpression" flags="nn" index="22lmx$" />
       <concept id="1082485599095" name="jetbrains.mps.baseLanguage.structure.BlockStatement" flags="nn" index="9aQIb">
         <child id="1082485599096" name="statements" index="9aQI4" />
       </concept>
@@ -302,7 +283,6 @@
       <concept id="1080120340718" name="jetbrains.mps.baseLanguage.structure.AndExpression" flags="nn" index="1Wc70l" />
       <concept id="1170345865475" name="jetbrains.mps.baseLanguage.structure.AnonymousClass" flags="ig" index="1Y3b0j">
         <reference id="1170346070688" name="classifier" index="1Y3XeK" />
-        <child id="1201186121363" name="typeParameter" index="2Ghqu4" />
       </concept>
     </language>
     <language id="f2801650-65d5-424e-bb1b-463a8781b786" name="jetbrains.mps.baseLanguage.javadoc">
@@ -317,13 +297,6 @@
         <property id="8970989240999019144" name="text" index="1dT_AB" />
       </concept>
       <concept id="2068944020170241612" name="jetbrains.mps.baseLanguage.javadoc.structure.ClassifierDocComment" flags="ng" index="3UR2Jj" />
-    </language>
-    <language id="443f4c36-fcf5-4eb6-9500-8d06ed259e3e" name="jetbrains.mps.baseLanguage.classifiers">
-      <concept id="1213999117680" name="jetbrains.mps.baseLanguage.classifiers.structure.DefaultClassifierFieldAccessOperation" flags="nn" index="2BZ7hE" />
-      <concept id="1205752633985" name="jetbrains.mps.baseLanguage.classifiers.structure.ThisClassifierExpression" flags="nn" index="2WthIp" />
-      <concept id="1205756064662" name="jetbrains.mps.baseLanguage.classifiers.structure.IMemberOperation" flags="ng" index="2WEnae">
-        <reference id="1205756909548" name="member" index="2WH_rO" />
-      </concept>
     </language>
     <language id="760a0a8c-eabb-4521-8bfd-65db761a9ba3" name="jetbrains.mps.baseLanguage.logging">
       <concept id="1168401810208" name="jetbrains.mps.baseLanguage.logging.structure.PrintStatement" flags="nn" index="abc8K">
@@ -503,10 +476,10 @@
   <node concept="2DaZZR" id="70oIz4akzr4" />
   <node concept="pFx2x" id="1yokyoYz5xr">
     <property role="TrG5h" value="AuthenticationRequestHandler" />
-    <node concept="3_QJtf" id="7$Qv9nHS_0O" role="3_QDjO">
-      <property role="TrG5h" value="modelServerURL" />
-      <node concept="1TjqYI" id="7$Qv9nHS_0P" role="1TjXUf">
-        <node concept="17QB3L" id="7$Qv9nHS_0Q" role="1TjqZ8" />
+    <node concept="3_QJtf" id="1Hg6LmJlwjN" role="3_QDjO">
+      <property role="TrG5h" value="state" />
+      <node concept="1TjqYI" id="1Hg6LmJlxzi" role="1TjXUf">
+        <node concept="17QB3L" id="1Hg6LmJlxBw" role="1TjqZ8" />
       </node>
     </node>
     <node concept="std77" id="1yokyoYz5xs" role="std7D">
@@ -516,13 +489,153 @@
     </node>
     <node concept="pF8on" id="1yokyoYz5xt" role="pCJbe">
       <node concept="3clFbS" id="1yokyoYz5xu" role="2VODD2">
+        <node concept="3SKdUt" id="3lhpBbDa7x" role="3cqZAp">
+          <node concept="1PaTwC" id="3lhpBbDa7y" role="1aUNEU">
+            <node concept="3oM_SD" id="3lhpBbDa7z" role="1PaTwD">
+              <property role="3oM_SC" value="Ideally" />
+            </node>
+            <node concept="3oM_SD" id="3lhpBbDa7$" role="1PaTwD">
+              <property role="3oM_SC" value="I" />
+            </node>
+            <node concept="3oM_SD" id="3lhpBbDa7_" role="1PaTwD">
+              <property role="3oM_SC" value="would" />
+            </node>
+            <node concept="3oM_SD" id="3lhpBbDa7A" role="1PaTwD">
+              <property role="3oM_SC" value="get" />
+            </node>
+            <node concept="3oM_SD" id="3lhpBbDa7B" role="1PaTwD">
+              <property role="3oM_SC" value="the" />
+            </node>
+            <node concept="3oM_SD" id="3lhpBbDa7C" role="1PaTwD">
+              <property role="3oM_SC" value="modelServerURL" />
+            </node>
+            <node concept="3oM_SD" id="3lhpBbDa7D" role="1PaTwD">
+              <property role="3oM_SC" value="as" />
+            </node>
+            <node concept="3oM_SD" id="3lhpBbDa7E" role="1PaTwD">
+              <property role="3oM_SC" value="a" />
+            </node>
+            <node concept="3oM_SD" id="3lhpBbDa7F" role="1PaTwD">
+              <property role="3oM_SC" value="query" />
+            </node>
+            <node concept="3oM_SD" id="3lhpBbDa7G" role="1PaTwD">
+              <property role="3oM_SC" value="parameter," />
+            </node>
+            <node concept="3oM_SD" id="3lhpBbDa7H" role="1PaTwD">
+              <property role="3oM_SC" value="but" />
+            </node>
+            <node concept="3oM_SD" id="3lhpBbDa7I" role="1PaTwD">
+              <property role="3oM_SC" value="unfortunately" />
+            </node>
+            <node concept="3oM_SD" id="3lhpBbDa7J" role="1PaTwD">
+              <property role="3oM_SC" value="this" />
+            </node>
+            <node concept="3oM_SD" id="3lhpBbDa7K" role="1PaTwD">
+              <property role="3oM_SC" value="may" />
+            </node>
+            <node concept="3oM_SD" id="3lhpBbDa7L" role="1PaTwD">
+              <property role="3oM_SC" value="require" />
+            </node>
+          </node>
+        </node>
+        <node concept="3SKdUt" id="3lhpBbDa7M" role="3cqZAp">
+          <node concept="1PaTwC" id="3lhpBbDa7N" role="1aUNEU">
+            <node concept="3oM_SD" id="3lhpBbDa7O" role="1PaTwD">
+              <property role="3oM_SC" value="have" />
+            </node>
+            <node concept="3oM_SD" id="3lhpBbDa7P" role="1PaTwD">
+              <property role="3oM_SC" value="it" />
+            </node>
+            <node concept="3oM_SD" id="3lhpBbDa7Q" role="1PaTwD">
+              <property role="3oM_SC" value="appear" />
+            </node>
+            <node concept="3oM_SD" id="3lhpBbDa7R" role="1PaTwD">
+              <property role="3oM_SC" value="in" />
+            </node>
+            <node concept="3oM_SD" id="3lhpBbDa7S" role="1PaTwD">
+              <property role="3oM_SC" value="the" />
+            </node>
+            <node concept="3oM_SD" id="3lhpBbDa7T" role="1PaTwD">
+              <property role="3oM_SC" value="authorized" />
+            </node>
+            <node concept="3oM_SD" id="3lhpBbDa7U" role="1PaTwD">
+              <property role="3oM_SC" value="redirection" />
+            </node>
+            <node concept="3oM_SD" id="3lhpBbDa7V" role="1PaTwD">
+              <property role="3oM_SC" value="URI" />
+            </node>
+          </node>
+        </node>
+        <node concept="3clFbJ" id="1Hg6LmJly2$" role="3cqZAp">
+          <node concept="3clFbS" id="1Hg6LmJly2A" role="3clFbx">
+            <node concept="3clFbF" id="1Hg6LmJlATO" role="3cqZAp">
+              <node concept="2OqwBi" id="1Hg6LmJlAZG" role="3clFbG">
+                <node concept="pFkrN" id="1Hg6LmJlATN" role="2Oq$k0" />
+                <node concept="liA8E" id="1Hg6LmJlB9s" role="2OqNvi">
+                  <ref role="37wK5l" to="4h87:5YhakczIvRr" resolve="sendText" />
+                  <node concept="10M0yZ" id="1Hg6LmJlMgY" role="37wK5m">
+                    <ref role="3cqZAo" to="9xw8:~HttpResponseStatus.BAD_REQUEST" resolve="BAD_REQUEST" />
+                    <ref role="1PxDUh" to="9xw8:~HttpResponseStatus" resolve="HttpResponseStatus" />
+                  </node>
+                  <node concept="Xl_RD" id="1Hg6LmJlMiZ" role="37wK5m">
+                    <property role="Xl_RC" value="State missing or invalid" />
+                  </node>
+                </node>
+              </node>
+            </node>
+            <node concept="3cpWs6" id="1Hg6LmJlMW5" role="3cqZAp" />
+          </node>
+          <node concept="22lmx$" id="1Hg6LmJl$dj" role="3clFbw">
+            <node concept="3clFbC" id="1Hg6LmJl$cg" role="3uHU7B">
+              <node concept="3_PKRz" id="1Hg6LmJlzEN" role="3uHU7B">
+                <ref role="3_PKRw" node="1Hg6LmJlwjN" resolve="state" />
+              </node>
+              <node concept="10Nm6u" id="1Hg6LmJl$aV" role="3uHU7w" />
+            </node>
+            <node concept="3fqX7Q" id="1Hg6LmJl$f$" role="3uHU7w">
+              <node concept="2OqwBi" id="1Hg6LmJl$fA" role="3fr31v">
+                <node concept="3_PKRz" id="1Hg6LmJl$fB" role="2Oq$k0">
+                  <ref role="3_PKRw" node="1Hg6LmJlwjN" resolve="state" />
+                </node>
+                <node concept="liA8E" id="1Hg6LmJl$fC" role="2OqNvi">
+                  <ref role="37wK5l" to="wyt6:~String.startsWith(java.lang.String)" resolve="startsWith" />
+                  <node concept="Xl_RD" id="1Hg6LmJl$fD" role="37wK5m">
+                    <property role="Xl_RC" value="step1_" />
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="3cpWs8" id="3lhpBbDacp" role="3cqZAp">
+          <node concept="3cpWsn" id="3lhpBbDacs" role="3cpWs9">
+            <property role="TrG5h" value="modelServerURL" />
+            <node concept="17QB3L" id="3lhpBbDacn" role="1tU5fm" />
+            <node concept="2OqwBi" id="1Hg6LmJlNjo" role="33vP2m">
+              <node concept="3_PKRz" id="1Hg6LmJlN5n" role="2Oq$k0">
+                <ref role="3_PKRw" node="1Hg6LmJlwjN" resolve="state" />
+              </node>
+              <node concept="liA8E" id="1Hg6LmJlNKk" role="2OqNvi">
+                <ref role="37wK5l" to="wyt6:~String.substring(int)" resolve="substring" />
+                <node concept="2OqwBi" id="1Hg6LmJlOo1" role="37wK5m">
+                  <node concept="Xl_RD" id="1Hg6LmJlNPL" role="2Oq$k0">
+                    <property role="Xl_RC" value="step_1" />
+                  </node>
+                  <node concept="liA8E" id="1Hg6LmJlOL$" role="2OqNvi">
+                    <ref role="37wK5l" to="wyt6:~String.length()" resolve="length" />
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
         <node concept="3clFbF" id="4fpU1SJfRT8" role="3cqZAp">
           <node concept="2OqwBi" id="4fpU1SJfWRV" role="3clFbG">
             <node concept="2YIFZM" id="7$Qv9nHS_n_" role="2Oq$k0">
               <ref role="37wK5l" node="7$Qv9nHSpOT" resolve="getAuthenticationProcess" />
               <ref role="1Pybhc" node="1yokyoYyZSK" resolve="AuthenticationManager" />
-              <node concept="3_PKRz" id="7$Qv9nHS_oo" role="37wK5m">
-                <ref role="3_PKRw" node="7$Qv9nHS_0O" resolve="modelServerURL" />
+              <node concept="37vLTw" id="3lhpBbDakJ" role="37wK5m">
+                <ref role="3cqZAo" node="3lhpBbDacs" resolve="modelServerURL" />
               </node>
             </node>
             <node concept="liA8E" id="4fpU1SJfX0z" role="2OqNvi">
@@ -533,111 +646,6 @@
         </node>
         <node concept="3cpWs6" id="3poOr4tmimi" role="3cqZAp" />
       </node>
-    </node>
-  </node>
-  <node concept="sE7Ow" id="6NlwFoT4O7g">
-    <property role="3GE5qa" value="actions" />
-    <property role="TrG5h" value="GetModelixToken" />
-    <property role="2uzpH1" value="Get Modelix Token" />
-    <node concept="2JriF1" id="7$Qv9nHSGQs" role="2JrayB">
-      <property role="TrG5h" value="modelServerURL" />
-      <node concept="3Tm6S6" id="7$Qv9nHSGQt" role="1B3o_S" />
-      <node concept="17QB3L" id="7$Qv9nHSHDz" role="1tU5fm" />
-      <node concept="2K2imR" id="7$Qv9nHSHJc" role="2K2Cet">
-        <node concept="3clFbS" id="7$Qv9nHSHJd" role="2VODD2">
-          <node concept="3clFbF" id="7$Qv9nHSI43" role="3cqZAp">
-            <node concept="2OqwBi" id="7$Qv9nHSIql" role="3clFbG">
-              <node concept="2K3dj_" id="7$Qv9nHSI42" role="2Oq$k0" />
-              <node concept="liA8E" id="7$Qv9nHSIWL" role="2OqNvi">
-                <ref role="37wK5l" to="wyt6:~String.toString()" resolve="toString" />
-              </node>
-            </node>
-          </node>
-        </node>
-      </node>
-    </node>
-    <node concept="tnohg" id="6NlwFoT4O7h" role="tncku">
-      <node concept="3clFbS" id="6NlwFoT4O7i" role="2VODD2">
-        <node concept="3clFbF" id="2uDeeSDESgn" role="3cqZAp">
-          <node concept="2OqwBi" id="7f6_nf_vhrZ" role="3clFbG">
-            <node concept="2YIFZM" id="7$Qv9nHSH4g" role="2Oq$k0">
-              <ref role="37wK5l" node="7$Qv9nHSpOT" resolve="getAuthenticationProcess" />
-              <ref role="1Pybhc" node="1yokyoYyZSK" resolve="AuthenticationManager" />
-              <node concept="2OqwBi" id="7$Qv9nHSHe3" role="37wK5m">
-                <node concept="2WthIp" id="7$Qv9nHSHe6" role="2Oq$k0" />
-                <node concept="2BZ7hE" id="7$Qv9nHSHe8" role="2OqNvi">
-                  <ref role="2WH_rO" node="7$Qv9nHSGQs" resolve="modelServerURL" />
-                </node>
-              </node>
-            </node>
-            <node concept="liA8E" id="7f6_nf_vhzz" role="2OqNvi">
-              <ref role="37wK5l" node="1yokyoYz3Y3" resolve="getToken" />
-              <node concept="2YIFZM" id="7f6_nf_xxV6" role="37wK5m">
-                <ref role="37wK5l" to="alof:~ProjectHelper.toIdeaProject(jetbrains.mps.project.Project)" resolve="toIdeaProject" />
-                <ref role="1Pybhc" to="alof:~ProjectHelper" resolve="ProjectHelper" />
-                <node concept="2OqwBi" id="7f6_nf_xxWh" role="37wK5m">
-                  <node concept="2WthIp" id="7f6_nf_xxWk" role="2Oq$k0" />
-                  <node concept="1DTwFV" id="7f6_nf_xxWm" role="2OqNvi">
-                    <ref role="2WH_rO" node="6NlwFoT5eua" resolve="project" />
-                  </node>
-                </node>
-              </node>
-              <node concept="2ShNRf" id="2uDeeSDESzZ" role="37wK5m">
-                <node concept="YeOm9" id="2uDeeSDFiNE" role="2ShVmc">
-                  <node concept="1Y3b0j" id="2uDeeSDFiNH" role="YeSDq">
-                    <property role="2bfB8j" value="true" />
-                    <ref role="1Y3XeK" to="82uw:~Consumer" resolve="Consumer" />
-                    <ref role="37wK5l" to="wyt6:~Object.&lt;init&gt;()" resolve="Object" />
-                    <node concept="3Tm1VV" id="2uDeeSDFiNI" role="1B3o_S" />
-                    <node concept="3clFb_" id="2uDeeSDFiNO" role="jymVt">
-                      <property role="TrG5h" value="accept" />
-                      <node concept="3Tm1VV" id="2uDeeSDFiNP" role="1B3o_S" />
-                      <node concept="3cqZAl" id="2uDeeSDFiNR" role="3clF45" />
-                      <node concept="37vLTG" id="2uDeeSDFiNS" role="3clF46">
-                        <property role="TrG5h" value="token" />
-                        <node concept="17QB3L" id="2uDeeSDFiO2" role="1tU5fm" />
-                      </node>
-                      <node concept="3clFbS" id="2uDeeSDFiNU" role="3clF47">
-                        <node concept="abc8K" id="7f6_nf_vhIl" role="3cqZAp">
-                          <node concept="Xl_RD" id="7f6_nf_vhJ9" role="abp_N">
-                            <property role="Xl_RC" value="TOKEN obtained: " />
-                          </node>
-                          <node concept="37vLTw" id="2uDeeSDFjG4" role="abp_N">
-                            <ref role="3cqZAo" node="2uDeeSDFiNS" resolve="token" />
-                          </node>
-                        </node>
-                        <node concept="3clFbF" id="4SNI4DKWg8H" role="3cqZAp">
-                          <node concept="2OqwBi" id="4SNI4DKWgrh" role="3clFbG">
-                            <node concept="2YIFZM" id="4SNI4DKWgiV" role="2Oq$k0">
-                              <ref role="37wK5l" to="csg2:1LVcV5Kxxmz" resolve="getInstance" />
-                              <ref role="1Pybhc" to="csg2:1LVcV5Kxxi$" resolve="ModelServerConnections" />
-                            </node>
-                            <node concept="liA8E" id="4SNI4DKWTAH" role="2OqNvi">
-                              <ref role="37wK5l" to="csg2:4SNI4DKWN9Q" resolve="setToken" />
-                              <node concept="37vLTw" id="2uDeeSDFjio" role="37wK5m">
-                                <ref role="3cqZAo" node="2uDeeSDFiNS" resolve="token" />
-                              </node>
-                            </node>
-                          </node>
-                        </node>
-                      </node>
-                      <node concept="2AHcQZ" id="2uDeeSDFiNW" role="2AJF6D">
-                        <ref role="2AI5Lk" to="wyt6:~Override" resolve="Override" />
-                      </node>
-                    </node>
-                    <node concept="17QB3L" id="2uDeeSDFiO1" role="2Ghqu4" />
-                  </node>
-                </node>
-              </node>
-            </node>
-          </node>
-        </node>
-      </node>
-    </node>
-    <node concept="1DS2jV" id="6NlwFoT5eua" role="1NuT2Z">
-      <property role="TrG5h" value="project" />
-      <ref role="1DUlNI" to="qq03:~MPSCommonDataKeys.MPS_PROJECT" resolve="MPS_PROJECT" />
-      <node concept="1oajcY" id="6NlwFoT5eub" role="1oa70y" />
     </node>
   </node>
   <node concept="312cEu" id="7xblg8lmms7">
@@ -2248,12 +2256,6 @@
   </node>
   <node concept="pFx2x" id="3poOr4trDva">
     <property role="TrG5h" value="AuthenticationFragmentRequestHandler" />
-    <node concept="3_QJtf" id="7$Qv9nHS$9j" role="3_QDjO">
-      <property role="TrG5h" value="modelServerURL" />
-      <node concept="1TjqYI" id="7$Qv9nHS$a0" role="1TjXUf">
-        <node concept="17QB3L" id="7$Qv9nHS$eg" role="1TjqZ8" />
-      </node>
-    </node>
     <node concept="3_QJtf" id="3poOr4trFoT" role="3_QDjO">
       <property role="TrG5h" value="access_token" />
       <node concept="1TjqYI" id="3poOr4trFps" role="1TjXUf">
@@ -2267,13 +2269,104 @@
     </node>
     <node concept="pF8on" id="3poOr4trDvd" role="pCJbe">
       <node concept="3clFbS" id="3poOr4trDve" role="2VODD2">
+        <node concept="3SKdUt" id="3lhpBbD8xt" role="3cqZAp">
+          <node concept="1PaTwC" id="3lhpBbD8xu" role="1aUNEU">
+            <node concept="3oM_SD" id="3lhpBbD8xv" role="1PaTwD">
+              <property role="3oM_SC" value="Ideally" />
+            </node>
+            <node concept="3oM_SD" id="3lhpBbD8yD" role="1PaTwD">
+              <property role="3oM_SC" value="I" />
+            </node>
+            <node concept="3oM_SD" id="3lhpBbD8yQ" role="1PaTwD">
+              <property role="3oM_SC" value="would" />
+            </node>
+            <node concept="3oM_SD" id="3lhpBbD8yW" role="1PaTwD">
+              <property role="3oM_SC" value="get" />
+            </node>
+            <node concept="3oM_SD" id="3lhpBbD8zb" role="1PaTwD">
+              <property role="3oM_SC" value="the" />
+            </node>
+            <node concept="3oM_SD" id="3lhpBbD8zj" role="1PaTwD">
+              <property role="3oM_SC" value="modelServerURL" />
+            </node>
+            <node concept="3oM_SD" id="3lhpBbD8zW" role="1PaTwD">
+              <property role="3oM_SC" value="as" />
+            </node>
+            <node concept="3oM_SD" id="3lhpBbD8$6" role="1PaTwD">
+              <property role="3oM_SC" value="a" />
+            </node>
+            <node concept="3oM_SD" id="3lhpBbD8$h" role="1PaTwD">
+              <property role="3oM_SC" value="query" />
+            </node>
+            <node concept="3oM_SD" id="3lhpBbD8$_" role="1PaTwD">
+              <property role="3oM_SC" value="parameter," />
+            </node>
+            <node concept="3oM_SD" id="3lhpBbD8$M" role="1PaTwD">
+              <property role="3oM_SC" value="but" />
+            </node>
+            <node concept="3oM_SD" id="3lhpBbD8_8" role="1PaTwD">
+              <property role="3oM_SC" value="unfortunately" />
+            </node>
+            <node concept="3oM_SD" id="3lhpBbD8_R" role="1PaTwD">
+              <property role="3oM_SC" value="this" />
+            </node>
+            <node concept="3oM_SD" id="3lhpBbD8A7" role="1PaTwD">
+              <property role="3oM_SC" value="may" />
+            </node>
+            <node concept="3oM_SD" id="3lhpBbD8Aw" role="1PaTwD">
+              <property role="3oM_SC" value="require" />
+            </node>
+          </node>
+        </node>
+        <node concept="3SKdUt" id="3lhpBbD8F4" role="3cqZAp">
+          <node concept="1PaTwC" id="3lhpBbD8F5" role="1aUNEU">
+            <node concept="3oM_SD" id="3lhpBbD8Go" role="1PaTwD">
+              <property role="3oM_SC" value="have" />
+            </node>
+            <node concept="3oM_SD" id="3lhpBbD8H4" role="1PaTwD">
+              <property role="3oM_SC" value="it" />
+            </node>
+            <node concept="3oM_SD" id="3lhpBbD8Hh" role="1PaTwD">
+              <property role="3oM_SC" value="appear" />
+            </node>
+            <node concept="3oM_SD" id="3lhpBbD8Hv" role="1PaTwD">
+              <property role="3oM_SC" value="in" />
+            </node>
+            <node concept="3oM_SD" id="3lhpBbD8HA" role="1PaTwD">
+              <property role="3oM_SC" value="the" />
+            </node>
+            <node concept="3oM_SD" id="3lhpBbD8HY" role="1PaTwD">
+              <property role="3oM_SC" value="authorized" />
+            </node>
+            <node concept="3oM_SD" id="3lhpBbD8I7" role="1PaTwD">
+              <property role="3oM_SC" value="redirection" />
+            </node>
+            <node concept="3oM_SD" id="3lhpBbD8Ih" role="1PaTwD">
+              <property role="3oM_SC" value="URI" />
+            </node>
+          </node>
+        </node>
+        <node concept="abc8K" id="D5OXfwLqVI" role="3cqZAp">
+          <node concept="Xl_RD" id="D5OXfwLqVZ" role="abp_N">
+            <property role="Xl_RC" value="answering /modelixauthfragment" />
+          </node>
+        </node>
+        <node concept="3cpWs8" id="3lhpBbD8Op" role="3cqZAp">
+          <node concept="3cpWsn" id="3lhpBbD8Os" role="3cpWs9">
+            <property role="TrG5h" value="modelServerURL" />
+            <node concept="17QB3L" id="3lhpBbD8On" role="1tU5fm" />
+            <node concept="Xl_RD" id="3lhpBbD8QG" role="33vP2m">
+              <property role="Xl_RC" value="http://localhost:3000/" />
+            </node>
+          </node>
+        </node>
         <node concept="3clFbF" id="579DpELdEj0" role="3cqZAp">
           <node concept="2OqwBi" id="579DpELdEoS" role="3clFbG">
             <node concept="2YIFZM" id="7$Qv9nHS$$t" role="2Oq$k0">
               <ref role="37wK5l" node="7$Qv9nHSpOT" resolve="getAuthenticationProcess" />
               <ref role="1Pybhc" node="1yokyoYyZSK" resolve="AuthenticationManager" />
-              <node concept="3_PKRz" id="7$Qv9nHS$_f" role="37wK5m">
-                <ref role="3_PKRw" node="7$Qv9nHS$9j" resolve="modelServerURL" />
+              <node concept="37vLTw" id="3lhpBbD8Tj" role="37wK5m">
+                <ref role="3cqZAo" node="3lhpBbD8Os" resolve="modelServerURL" />
               </node>
             </node>
             <node concept="liA8E" id="579DpELeYwI" role="2OqNvi">
@@ -2628,6 +2721,35 @@
               </node>
             </node>
             <node concept="37vLTw" id="579DpELg53h" role="37vLTJ">
+              <ref role="3cqZAo" node="579DpELg52P" resolve="url" />
+            </node>
+          </node>
+        </node>
+        <node concept="3clFbF" id="3pYhtK4PVMA" role="3cqZAp">
+          <node concept="d57v9" id="3pYhtK4PVMB" role="3clFbG">
+            <node concept="3cpWs3" id="3pYhtK4PVMC" role="37vLTx">
+              <node concept="Xl_RD" id="3pYhtK4PVMD" role="3uHU7B">
+                <property role="Xl_RC" value="&amp;state=" />
+              </node>
+              <node concept="2YIFZM" id="3pYhtK4PVME" role="3uHU7w">
+                <ref role="1Pybhc" to="zf81:~URLEncoder" resolve="URLEncoder" />
+                <ref role="37wK5l" to="zf81:~URLEncoder.encode(java.lang.String)" resolve="encode" />
+                <node concept="3cpWs3" id="3pYhtK4PY0l" role="37wK5m">
+                  <node concept="2OqwBi" id="3pYhtK4PYnV" role="3uHU7w">
+                    <node concept="37vLTw" id="3pYhtK4PY9h" role="2Oq$k0">
+                      <ref role="3cqZAo" node="7$Qv9nHSDom" resolve="authenticationProcess" />
+                    </node>
+                    <node concept="liA8E" id="3pYhtK4PYNx" role="2OqNvi">
+                      <ref role="37wK5l" node="6Sm20WMoFu6" resolve="getModelServerURL" />
+                    </node>
+                  </node>
+                  <node concept="Xl_RD" id="3pYhtK4PXEx" role="3uHU7B">
+                    <property role="Xl_RC" value="step1_" />
+                  </node>
+                </node>
+              </node>
+            </node>
+            <node concept="37vLTw" id="3pYhtK4PVMI" role="37vLTJ">
               <ref role="3cqZAo" node="579DpELg52P" resolve="url" />
             </node>
           </node>
@@ -5053,6 +5175,19 @@
           </node>
         </node>
       </node>
+    </node>
+    <node concept="2tJIrI" id="6Sm20WMoCrg" role="jymVt" />
+    <node concept="3clFb_" id="6Sm20WMoFu6" role="jymVt">
+      <property role="TrG5h" value="getModelServerURL" />
+      <node concept="3clFbS" id="6Sm20WMoFu9" role="3clF47">
+        <node concept="3cpWs6" id="6Sm20WMoGCy" role="3cqZAp">
+          <node concept="37vLTw" id="6Sm20WMoHnp" role="3cqZAk">
+            <ref role="3cqZAo" node="7$Qv9nHSn6i" resolve="modelServerURL" />
+          </node>
+        </node>
+      </node>
+      <node concept="3Tm1VV" id="6Sm20WMoDd8" role="1B3o_S" />
+      <node concept="17QB3L" id="6Sm20WMoGfD" role="3clF45" />
     </node>
     <node concept="2tJIrI" id="7$Qv9nHT8xh" role="jymVt" />
     <node concept="3clFb_" id="7rdFupvW1pl" role="jymVt">
