@@ -1930,10 +1930,6 @@
               <node concept="3clFbS" id="7rdFupvXN7D" role="3clFbx">
                 <node concept="3clFbF" id="2uDeeSDFzc6" role="3cqZAp">
                   <node concept="2OqwBi" id="7rdFupvXNOR" role="3clFbG">
-                    <node concept="2YIFZM" id="7rdFupvXNHs" role="2Oq$k0">
-                      <ref role="37wK5l" to="10lj:7f6_nf_ulX8" resolve="getInstance" />
-                      <ref role="1Pybhc" to="10lj:1yokyoYyZSK" resolve="AuthenticationManager" />
-                    </node>
                     <node concept="liA8E" id="7rdFupvXNYn" role="2OqNvi">
                       <ref role="37wK5l" to="10lj:1yokyoYz3Y3" resolve="getToken" />
                       <node concept="2OqwBi" id="7rdFupvXNZM" role="37wK5m">
@@ -2011,13 +2007,23 @@
                         </node>
                       </node>
                     </node>
+                    <node concept="2YIFZM" id="7$Qv9nHSM7L" role="2Oq$k0">
+                      <ref role="37wK5l" to="10lj:7$Qv9nHSpOT" resolve="getAuthenticationProcess" />
+                      <ref role="1Pybhc" to="10lj:1yokyoYyZSK" resolve="AuthenticationManager" />
+                      <node concept="37vLTw" id="7$Qv9nHSM7M" role="37wK5m">
+                        <ref role="3cqZAo" node="2uDeeSDFFGt" resolve="finalUrl" />
+                      </node>
+                    </node>
                   </node>
                 </node>
               </node>
               <node concept="2OqwBi" id="7rdFupvXNms" role="3clFbw">
-                <node concept="2YIFZM" id="7rdFupvXNfb" role="2Oq$k0">
-                  <ref role="37wK5l" to="10lj:7f6_nf_ulX8" resolve="getInstance" />
+                <node concept="2YIFZM" id="7$Qv9nHSLCQ" role="2Oq$k0">
+                  <ref role="37wK5l" to="10lj:7$Qv9nHSpOT" resolve="getAuthenticationProcess" />
                   <ref role="1Pybhc" to="10lj:1yokyoYyZSK" resolve="AuthenticationManager" />
+                  <node concept="37vLTw" id="7$Qv9nHSM6l" role="37wK5m">
+                    <ref role="3cqZAo" node="2uDeeSDFFGt" resolve="finalUrl" />
+                  </node>
                 </node>
                 <node concept="liA8E" id="7rdFupvXNvP" role="2OqNvi">
                   <ref role="37wK5l" to="10lj:7rdFupvW1pl" resolve="areWeUsingAuthentication" />
