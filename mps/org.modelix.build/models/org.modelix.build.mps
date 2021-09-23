@@ -499,6 +499,12 @@
     </node>
     <node concept="m$_wf" id="7gF2HTviNPW" role="3989C9">
       <property role="m$_wk" value="org.modelix.model" />
+      <node concept="m$_yC" id="3MAI_GnQU02" role="m$_yJ">
+        <ref role="m$_y1" node="7gF2HTvj4Cd" resolve="org.modelix.ui" />
+      </node>
+      <node concept="m$_yC" id="3MAI_GnQTnG" role="m$_yJ">
+        <ref role="m$_y1" to="ffeo:5xhjlkpPhJu" resolve="jetbrains.mps.ide.httpsupport" />
+      </node>
       <node concept="3_J27D" id="7gF2HTviNPX" role="m$_yQ">
         <node concept="3Mxwew" id="7gF2HTviNPY" role="3MwsjC">
           <property role="3MwjfP" value="org.modelix.model" />
@@ -535,6 +541,9 @@
     </node>
     <node concept="m$_wf" id="6HlxtAUTj2a" role="3989C9">
       <property role="m$_wk" value="org.modelix.langdev" />
+      <node concept="m$_yC" id="3MAI_GnQS7d" role="m$_yJ">
+        <ref role="m$_y1" to="ffeo:5xhjlkpPhJu" resolve="jetbrains.mps.ide.httpsupport" />
+      </node>
       <node concept="3_J27D" id="6HlxtAUTj2b" role="m$_yQ">
         <node concept="3Mxwew" id="6HlxtAUTj2c" role="3MwsjC">
           <property role="3MwjfP" value="org.modelix.langdev" />
@@ -595,6 +604,9 @@
     </node>
     <node concept="m$_wf" id="3k6wK$MX461" role="3989C9">
       <property role="m$_wk" value="org.modelix.ui.server" />
+      <node concept="m$_yC" id="3MAI_GnQRuW" role="m$_yJ">
+        <ref role="m$_y1" to="ffeo:5xhjlkpPhJu" resolve="jetbrains.mps.ide.httpsupport" />
+      </node>
       <node concept="3_J27D" id="3k6wK$MX463" role="m$_yQ">
         <node concept="3Mxwew" id="3k6wK$MX65Z" role="3MwsjC">
           <property role="3MwjfP" value="org.modelix.ui.server" />
@@ -4468,6 +4480,101 @@
             <ref role="3bR37D" node="2Oai67vI4eg" resolve="org.modelix.model.metametamodel" />
           </node>
         </node>
+        <node concept="1SiIV0" id="3MAI_GnQQOy" role="3bR37C">
+          <node concept="3bR9La" id="3MAI_GnQQOz" role="1SiIV1">
+            <ref role="3bR37D" node="3MAI_GnQBVB" resolve="org.modelix.authentication" />
+          </node>
+        </node>
+      </node>
+      <node concept="1E1JtA" id="3MAI_GnQBVB" role="2G$12L">
+        <property role="BnDLt" value="true" />
+        <property role="TrG5h" value="org.modelix.authentication" />
+        <property role="3LESm3" value="154f6b0f-97b3-40c8-9754-ebf11391299b" />
+        <node concept="398BVA" id="3MAI_GnQClg" role="3LF7KH">
+          <ref role="398BVh" node="3$7Kuaihl5X" resolve="modelix.modules" />
+          <node concept="2Ry0Ak" id="3MAI_GnQOcq" role="iGT6I">
+            <property role="2Ry0Am" value="solutions" />
+            <node concept="2Ry0Ak" id="3MAI_GnQOO_" role="2Ry0An">
+              <property role="2Ry0Am" value="org.modelix.authentication" />
+              <node concept="2Ry0Ak" id="3MAI_GnQPsK" role="2Ry0An">
+                <property role="2Ry0Am" value="org.modelix.authentication.msd" />
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="1SiIV0" id="3MAI_GnQQ7n" role="3bR37C">
+          <node concept="3bR9La" id="3MAI_GnQQ7o" role="1SiIV1">
+            <ref role="3bR37D" to="ffeo:mXGwHwhVPj" resolve="JDK" />
+          </node>
+        </node>
+        <node concept="1SiIV0" id="3MAI_GnQQ7p" role="3bR37C">
+          <node concept="3bR9La" id="3MAI_GnQQ7q" role="1SiIV1">
+            <ref role="3bR37D" to="ffeo:44LXwdzyvTi" resolve="Annotations" />
+          </node>
+        </node>
+        <node concept="1SiIV0" id="3MAI_GnQQ7r" role="3bR37C">
+          <node concept="3bR9La" id="3MAI_GnQQ7s" role="1SiIV1">
+            <ref role="3bR37D" to="ffeo:6pse5qHNghF" resolve="jetbrains.mps.ide.httpsupport.nodeaccess" />
+          </node>
+        </node>
+        <node concept="1SiIV0" id="3MAI_GnQQ7t" role="3bR37C">
+          <node concept="3bR9La" id="3MAI_GnQQ7u" role="1SiIV1">
+            <ref role="3bR37D" node="1_iojA26Pac" resolve="org.modelix.ui.svg" />
+          </node>
+        </node>
+        <node concept="1SiIV0" id="3MAI_GnQQ7v" role="3bR37C">
+          <node concept="3bR9La" id="3MAI_GnQQ7w" role="1SiIV1">
+            <ref role="3bR37D" to="ffeo:1TaHNgiIbJb" resolve="MPS.Platform" />
+          </node>
+        </node>
+        <node concept="1SiIV0" id="3MAI_GnQQ7x" role="3bR37C">
+          <node concept="3bR9La" id="3MAI_GnQQ7y" role="1SiIV1">
+            <ref role="3bR37D" node="7gF2HTviNPP" resolve="org.modelix.lib" />
+          </node>
+        </node>
+        <node concept="1SiIV0" id="3MAI_GnQQ7z" role="3bR37C">
+          <node concept="3bR9La" id="3MAI_GnQQ7$" role="1SiIV1">
+            <ref role="3bR37D" to="ffeo:xSXmQZAqVi" resolve="jetbrains.mps.ide.httpsupport.runtime" />
+          </node>
+        </node>
+        <node concept="1SiIV0" id="3MAI_GnQQ7_" role="3bR37C">
+          <node concept="3bR9La" id="3MAI_GnQQ7A" role="1SiIV1">
+            <property role="3bR36h" value="true" />
+            <ref role="3bR37D" to="ffeo:1ia2VB5guYy" resolve="MPS.IDEA" />
+          </node>
+        </node>
+        <node concept="1SiIV0" id="3MAI_GnQQ7B" role="3bR37C">
+          <node concept="3bR9La" id="3MAI_GnQQ7C" role="1SiIV1">
+            <ref role="3bR37D" to="ffeo:6pse5qHNhL7" resolve="jetbrains.mps.ide.httpsupport.manager" />
+          </node>
+        </node>
+        <node concept="1SiIV0" id="3MAI_GnQQ7D" role="3bR37C">
+          <node concept="3bR9La" id="3MAI_GnQQ7E" role="1SiIV1">
+            <ref role="3bR37D" node="7gF2HTviNPs" resolve="org.modelix.model.mpsplugin" />
+          </node>
+        </node>
+        <node concept="1BupzO" id="3MAI_GnQQ7O" role="3bR31x">
+          <property role="3ZfqAx" value="models" />
+          <property role="1Hdu6h" value="true" />
+          <property role="1HemKv" value="true" />
+          <node concept="3LXTmp" id="3MAI_GnQQ7P" role="1HemKq">
+            <node concept="398BVA" id="3MAI_GnQQ7F" role="3LXTmr">
+              <ref role="398BVh" node="3$7Kuaihl5X" resolve="modelix.modules" />
+              <node concept="2Ry0Ak" id="3MAI_GnQQ7G" role="iGT6I">
+                <property role="2Ry0Am" value="solutions" />
+                <node concept="2Ry0Ak" id="3MAI_GnQQ7H" role="2Ry0An">
+                  <property role="2Ry0Am" value="org.modelix.authentication" />
+                  <node concept="2Ry0Ak" id="3MAI_GnQQ7I" role="2Ry0An">
+                    <property role="2Ry0Am" value="models" />
+                  </node>
+                </node>
+              </node>
+            </node>
+            <node concept="3qWCbU" id="3MAI_GnQQ7Q" role="3LXTna">
+              <property role="3qWCbO" value="**/*.mps, **/*.mpsr, **/.model" />
+            </node>
+          </node>
+        </node>
       </node>
     </node>
     <node concept="2G$12M" id="6HlxtAUSD7b" role="3989C9">
@@ -4990,14 +5097,14 @@
         <node concept="3LEDTy" id="7BujJjYSJ9v" role="3LEDUa">
           <ref role="3LEDTV" node="7gF2HTviNPn" resolve="org.modelix.ui.sm" />
         </node>
-        <node concept="3LEDTy" id="3k6wK$Nf9K_" role="3LEDUa">
-          <ref role="3LEDTV" to="ffeo:7Kfy9QB6L9c" resolve="jetbrains.mps.lang.quotation" />
-        </node>
-        <node concept="3LEDTy" id="3k6wK$Nf9KA" role="3LEDUa">
+        <node concept="3LEDTy" id="3MAI_GnQQPr" role="3LEDUa">
           <ref role="3LEDTV" to="ffeo:7Kfy9QB6KZc" resolve="jetbrains.mps.baseLanguage.checkedDots" />
         </node>
-        <node concept="3LEDTy" id="3k6wK$Nf9KB" role="3LEDUa">
+        <node concept="3LEDTy" id="3MAI_GnQQPs" role="3LEDUa">
           <ref role="3LEDTV" to="ffeo:7Kfy9QB6KXW" resolve="jetbrains.mps.lang.core" />
+        </node>
+        <node concept="3LEDTy" id="3MAI_GnQQPt" role="3LEDUa">
+          <ref role="3LEDTV" to="ffeo:7Kfy9QB6L9c" resolve="jetbrains.mps.lang.quotation" />
         </node>
       </node>
       <node concept="1E1JtD" id="7BujJjXYVmv" role="2G$12L">

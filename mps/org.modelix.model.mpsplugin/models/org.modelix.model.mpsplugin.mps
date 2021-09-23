@@ -7168,7 +7168,7 @@
       <node concept="3clFbS" id="1LVcV5KxAPB" role="3clF47">
         <node concept="2Gpval" id="6aRQr1WPyeL" role="3cqZAp">
           <node concept="2GrKxI" id="6aRQr1WPyeM" role="2Gsz3X">
-            <property role="TrG5h" value="repo" />
+            <property role="TrG5h" value="modelServer" />
           </node>
           <node concept="37vLTw" id="6aRQr1WPy_l" role="2GsD0m">
             <ref role="3cqZAo" node="1LVcV5KE$BQ" resolve="modelServers" />
@@ -7177,7 +7177,7 @@
             <node concept="3clFbF" id="6aRQr1WP_qt" role="3cqZAp">
               <node concept="2OqwBi" id="6aRQr1WP_w0" role="3clFbG">
                 <node concept="2GrUjf" id="6aRQr1WP_qs" role="2Oq$k0">
-                  <ref role="2Gs0qQ" node="6aRQr1WPyeM" resolve="repo" />
+                  <ref role="2Gs0qQ" node="6aRQr1WPyeM" resolve="modelServer" />
                 </node>
                 <node concept="liA8E" id="6aRQr1WP_RH" role="2OqNvi">
                   <ref role="37wK5l" node="6aRQr1WPeeC" resolve="dispose" />
@@ -7277,6 +7277,41 @@
         <node concept="17QB3L" id="7rdFupvXDvX" role="1tU5fm" />
       </node>
       <node concept="3Tm1VV" id="5rz8NqPS7qP" role="1B3o_S" />
+    </node>
+    <node concept="2tJIrI" id="4SNI4DKWHPJ" role="jymVt" />
+    <node concept="3clFb_" id="4SNI4DKWN9Q" role="jymVt">
+      <property role="TrG5h" value="setToken" />
+      <node concept="3clFbS" id="4SNI4DKWN9T" role="3clF47">
+        <node concept="2Gpval" id="4SNI4DKWS$e" role="3cqZAp">
+          <node concept="2GrKxI" id="4SNI4DKWS$f" role="2Gsz3X">
+            <property role="TrG5h" value="modelServer" />
+          </node>
+          <node concept="37vLTw" id="4SNI4DKWS$g" role="2GsD0m">
+            <ref role="3cqZAo" node="1LVcV5KE$BQ" resolve="modelServers" />
+          </node>
+          <node concept="3clFbS" id="4SNI4DKWS$h" role="2LFqv$">
+            <node concept="3clFbF" id="4SNI4DKWS$i" role="3cqZAp">
+              <node concept="2OqwBi" id="4SNI4DKWS$j" role="3clFbG">
+                <node concept="2GrUjf" id="4SNI4DKWS$k" role="2Oq$k0">
+                  <ref role="2Gs0qQ" node="4SNI4DKWS$f" resolve="modelServer" />
+                </node>
+                <node concept="liA8E" id="4SNI4DKWT5U" role="2OqNvi">
+                  <ref role="37wK5l" node="2EzI5qKmtmw" resolve="setAuthToken" />
+                  <node concept="37vLTw" id="4SNI4DKWTli" role="37wK5m">
+                    <ref role="3cqZAo" node="4SNI4DKWPCQ" resolve="token" />
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+      </node>
+      <node concept="3Tm1VV" id="4SNI4DKWJQN" role="1B3o_S" />
+      <node concept="3cqZAl" id="4SNI4DKWN4q" role="3clF45" />
+      <node concept="37vLTG" id="4SNI4DKWPCQ" role="3clF46">
+        <property role="TrG5h" value="token" />
+        <node concept="17QB3L" id="4SNI4DKWPCP" role="1tU5fm" />
+      </node>
     </node>
     <node concept="2tJIrI" id="5rz8NqPS3ux" role="jymVt" />
     <node concept="3Tm1VV" id="1LVcV5Kxxi_" role="1B3o_S" />
@@ -27424,6 +27459,7 @@
                 <node concept="37vLTw" id="4lVWZ1MnsWF" role="37wK5m">
                   <ref role="3cqZAo" node="4lVWZ1MmF9b" resolve="url" />
                 </node>
+                <node concept="10Nm6u" id="5U39cdmUWa0" role="37wK5m" />
               </node>
             </node>
           </node>
