@@ -2,6 +2,7 @@ package org.modelix.ui.server;
 
 import com.google.common.io.Files;
 import jetbrains.mps.project.Project;
+import jetbrains.mps.util.Pair;
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
 import org.eclipse.jgit.api.CloneCommand;
@@ -15,6 +16,7 @@ import org.eclipse.jgit.transport.UsernamePasswordCredentialsProvider;
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
@@ -90,7 +92,20 @@ public class Main {
                 files.forEach(f -> System.out.println("MPS related file found: " + f));
             }
 
-            Project mpsProject = EnvironmentLoader.loadEnvironment(editableModulesDir);
+            String additionalPluginsProperty = getPropertyOrEnv("ADDITIONAL_PLUGINS");
+            String[] strings = additionalPluginsProperty.split(",");
+            List<Pair<String, String>> additionalPlugins = new ArrayList<>();
+
+            for (String pluginsRaw : strings) {
+                if(pluginsRaw.contains(":")) {
+                    String[] split = pluginsRaw.split(":");
+                    additionalPlugins.add(new Pair<>(split[0], split[1]));
+                } else {
+                    additionalPlugins.add(new Pair<>(pluginsRaw, pluginsRaw));
+                }
+            }
+
+            Project mpsProject = EnvironmentLoader.loadEnvironment(editableModulesDir, additionalPlugins);
             LOG.debug("idea.load.plugins.id: " + System.getProperty("idea.load.plugins.id"));
         } catch (Exception ex) {
             LOG.error("", ex);
