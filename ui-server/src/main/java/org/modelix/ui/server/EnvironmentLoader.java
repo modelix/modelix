@@ -10,10 +10,12 @@ import jetbrains.mps.project.Project;
 import jetbrains.mps.tool.environment.Environment;
 import jetbrains.mps.tool.environment.EnvironmentConfig;
 import jetbrains.mps.tool.environment.IdeaEnvironment;
+import jetbrains.mps.util.Pair;
 import jetbrains.mps.util.PathManager;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 
 public class EnvironmentLoader {
 
@@ -25,7 +27,7 @@ public class EnvironmentLoader {
         ourProject = project;
     }
 
-    public static Project loadEnvironment(File gitRepoDir) {
+    public static Project loadEnvironment(File gitRepoDir, List<Pair<String, String>> additionalPlugins) {
         if (ourProject == null) {
             // If you get the exception "Could not find installation home path"
             // Set "-Didea.home" in the VM options
@@ -53,8 +55,12 @@ public class EnvironmentLoader {
                     .addPlugin(new File(pluginsFolder, "org.modelix.ui").getAbsolutePath(), "org.modelix.ui")
                     .addPlugin(new File(pluginsFolder, "org.modelix.model").getAbsolutePath(), "org.modelix.model")
                     .addPlugin(new File(pluginsFolder, "org.modelix.common").getAbsolutePath(), "org.modelix.common")
-                    .addPlugin(new File(pluginsFolder, "org.modelix.ui.server").getAbsolutePath(), "org.modelix.ui.server")
-                    ;
+                    .addPlugin(new File(pluginsFolder, "org.modelix.ui.server").getAbsolutePath(), "org.modelix.ui.server");
+
+            for (Pair<String, String> additionalPlugin : additionalPlugins) {
+                config.addPlugin(new File(pluginsFolder, additionalPlugin.o1).getAbsolutePath(), additionalPlugin.o2);
+            }
+
             if (gitRepoDir != null) {
                 config.addLib(gitRepoDir.getAbsolutePath());
             }
