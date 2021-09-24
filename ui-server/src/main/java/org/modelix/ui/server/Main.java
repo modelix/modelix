@@ -13,6 +13,7 @@ import org.eclipse.jgit.transport.CredentialsProvider;
 import org.eclipse.jgit.transport.URIish;
 import org.eclipse.jgit.transport.UsernamePasswordCredentialsProvider;
 
+import javax.annotation.Nullable;
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
@@ -93,15 +94,18 @@ public class Main {
             }
 
             String additionalPluginsProperty = getPropertyOrEnv("ADDITIONAL_PLUGINS");
-            String[] strings = additionalPluginsProperty.split(",");
+
             List<Pair<String, String>> additionalPlugins = new ArrayList<>();
 
-            for (String pluginsRaw : strings) {
-                if(pluginsRaw.contains(":")) {
-                    String[] split = pluginsRaw.split(":");
-                    additionalPlugins.add(new Pair<>(split[0], split[1]));
-                } else {
-                    additionalPlugins.add(new Pair<>(pluginsRaw, pluginsRaw));
+            if(additionalPluginsProperty != null && additionalPluginsProperty.length() > 0) {
+                String[] strings = additionalPluginsProperty.split(",");
+                for (String pluginsRaw : strings) {
+                    if(pluginsRaw.contains(":")) {
+                        String[] split = pluginsRaw.split(":");
+                        additionalPlugins.add(new Pair<>(split[0], split[1]));
+                    } else {
+                        additionalPlugins.add(new Pair<>(pluginsRaw, pluginsRaw));
+                    }
                 }
             }
 
@@ -138,6 +142,7 @@ public class Main {
         });
     }
 
+    @Nullable
     private static String getPropertyOrEnv(String name) {
         String value = System.getProperty(name);
         if (value == null || value.length() == 0) value = System.getenv(name);
