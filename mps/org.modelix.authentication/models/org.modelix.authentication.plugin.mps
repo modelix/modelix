@@ -25,7 +25,6 @@
     <import index="1m72" ref="498d89d2-c2e9-11e2-ad49-6cf049e62fe5/java:com.intellij.openapi.components(MPS.IDEA/)" />
     <import index="mhfm" ref="3f233e7f-b8a6-46d2-a57f-795d56775243/java:org.jetbrains.annotations(Annotations/)" />
     <import index="jkm4" ref="498d89d2-c2e9-11e2-ad49-6cf049e62fe5/java:com.intellij.openapi.ui(MPS.IDEA/)" />
-    <import index="z1c3" ref="742f6602-5a2f-4313-aa6e-ae1cd4ffdc61/java:jetbrains.mps.project(MPS.Platform/)" />
     <import index="wy2b" ref="87f4b21e-a3a5-459e-a54b-408fd9eb7350/java:com.google.gson(org.modelix.lib/)" />
     <import index="1ctc" ref="6354ebe7-c22a-4a0f-ac54-50b52ab9b065/java:java.util.stream(JDK/)" />
     <import index="dxuu" ref="6354ebe7-c22a-4a0f-ac54-50b52ab9b065/java:javax.swing(JDK/)" />
@@ -89,6 +88,9 @@
         <child id="8118189177080264854" name="alternative" index="nSUat" />
       </concept>
       <concept id="1465982738277781862" name="jetbrains.mps.baseLanguage.structure.PlaceholderMember" flags="nn" index="2tJIrI" />
+      <concept id="1224573963862" name="jetbrains.mps.baseLanguage.structure.EnumValuesExpression" flags="nn" index="uiWXb">
+        <reference id="1224573974191" name="enumClass" index="uiZuM" />
+      </concept>
       <concept id="1188207840427" name="jetbrains.mps.baseLanguage.structure.AnnotationInstance" flags="nn" index="2AHcQZ">
         <reference id="1188208074048" name="annotation" index="2AI5Lk" />
         <child id="1188214630783" name="value" index="2B76xF" />
@@ -113,6 +115,10 @@
       <concept id="1197029447546" name="jetbrains.mps.baseLanguage.structure.FieldReferenceOperation" flags="nn" index="2OwXpG">
         <reference id="1197029500499" name="fieldDeclaration" index="2Oxat6" />
       </concept>
+      <concept id="1083245097125" name="jetbrains.mps.baseLanguage.structure.EnumClass" flags="ig" index="Qs71p">
+        <child id="1083245396908" name="enumConstant" index="Qtgdg" />
+      </concept>
+      <concept id="1083245299891" name="jetbrains.mps.baseLanguage.structure.EnumConstantDeclaration" flags="ig" index="QsSxf" />
       <concept id="1083260308424" name="jetbrains.mps.baseLanguage.structure.EnumConstantReference" flags="nn" index="Rm8GO">
         <reference id="1083260308426" name="enumConstantDeclaration" index="Rm8GQ" />
         <reference id="1144432896254" name="enumClass" index="1Px2BO" />
@@ -254,6 +260,7 @@
         <child id="8276990574895933172" name="throwable" index="1zc67B" />
       </concept>
       <concept id="1073239437375" name="jetbrains.mps.baseLanguage.structure.NotEqualsExpression" flags="nn" index="3y3z36" />
+      <concept id="1081855346303" name="jetbrains.mps.baseLanguage.structure.BreakStatement" flags="nn" index="3zACq4" />
       <concept id="1184950988562" name="jetbrains.mps.baseLanguage.structure.ArrayCreator" flags="nn" index="3$_iS1">
         <child id="1184951007469" name="componentType" index="3$_nBY" />
         <child id="1184952969026" name="dimensionExpression" index="3$GQph" />
@@ -268,6 +275,15 @@
       <concept id="5351203823916750322" name="jetbrains.mps.baseLanguage.structure.TryUniversalStatement" flags="nn" index="3J1_TO">
         <child id="8276990574886367510" name="catchClause" index="1zxBo5" />
         <child id="8276990574886367508" name="body" index="1zxBo7" />
+      </concept>
+      <concept id="1163670490218" name="jetbrains.mps.baseLanguage.structure.SwitchStatement" flags="nn" index="3KaCP$">
+        <child id="1163670592366" name="defaultBlock" index="3Kb1Dw" />
+        <child id="1163670766145" name="expression" index="3KbGdf" />
+        <child id="1163670772911" name="case" index="3KbHQx" />
+      </concept>
+      <concept id="1163670641947" name="jetbrains.mps.baseLanguage.structure.SwitchCase" flags="ng" index="3KbdKl">
+        <child id="1163670677455" name="expression" index="3Kbmr1" />
+        <child id="1163670683720" name="body" index="3Kbo56" />
       </concept>
       <concept id="1208890769693" name="jetbrains.mps.baseLanguage.structure.ArrayLengthOperation" flags="nn" index="1Rwk04" />
       <concept id="6329021646629104954" name="jetbrains.mps.baseLanguage.structure.SingleLineComment" flags="nn" index="3SKdUt">
@@ -361,6 +377,7 @@
       <concept id="1203518072036" name="jetbrains.mps.baseLanguage.collections.structure.SmartClosureParameterDeclaration" flags="ig" index="Rh6nW" />
       <concept id="1160612413312" name="jetbrains.mps.baseLanguage.collections.structure.AddElementOperation" flags="nn" index="TSZUe" />
       <concept id="1162934736510" name="jetbrains.mps.baseLanguage.collections.structure.GetElementOperation" flags="nn" index="34jXtK" />
+      <concept id="1240325842691" name="jetbrains.mps.baseLanguage.collections.structure.AsSequenceOperation" flags="nn" index="39bAoz" />
       <concept id="1197683403723" name="jetbrains.mps.baseLanguage.collections.structure.MapType" flags="in" index="3rvAFt">
         <child id="1197683466920" name="keyType" index="3rvQeY" />
         <child id="1197683475734" name="valueType" index="3rvSg0" />
@@ -369,7 +386,11 @@
         <child id="1197687026896" name="keyType" index="3rHrn6" />
         <child id="1197687035757" name="valueType" index="3rHtpV" />
       </concept>
+      <concept id="1240687580870" name="jetbrains.mps.baseLanguage.collections.structure.JoinOperation" flags="nn" index="3uJxvA">
+        <child id="1240687658305" name="delimiter" index="3uJOhx" />
+      </concept>
       <concept id="1225727723840" name="jetbrains.mps.baseLanguage.collections.structure.FindFirstOperation" flags="nn" index="1z4cxt" />
+      <concept id="1202128969694" name="jetbrains.mps.baseLanguage.collections.structure.SelectOperation" flags="nn" index="3$u5V9" />
       <concept id="1197932370469" name="jetbrains.mps.baseLanguage.collections.structure.MapElement" flags="nn" index="3EllGN">
         <child id="1197932505799" name="map" index="3ElQJh" />
         <child id="1197932525128" name="key" index="3ElVtu" />
@@ -698,6 +719,120 @@
       </node>
       <node concept="17QB3L" id="5oXgFRIQuVc" role="1tU5fm" />
     </node>
+    <node concept="2tJIrI" id="3ljvbPN8Pfg" role="jymVt" />
+    <node concept="Qs71p" id="3ljvbPN8R$Z" role="jymVt">
+      <property role="TrG5h" value="AuthenticationStrategyType" />
+      <node concept="3Tm1VV" id="3ljvbPN8Qur" role="1B3o_S" />
+      <node concept="QsSxf" id="3ljvbPN8SG7" role="Qtgdg">
+        <property role="TrG5h" value="AUTHORIZATION_FLOW" />
+        <ref role="37wK5l" node="3ljvbPN8WDU" resolve="ModelixAuthenticationConfigurationComponent.AuthenticationStrategyType" />
+        <node concept="Xl_RD" id="3ljvbPN94Uv" role="37wK5m">
+          <property role="Xl_RC" value="authorizationCode" />
+        </node>
+      </node>
+      <node concept="QsSxf" id="3ljvbPN8SUL" role="Qtgdg">
+        <property role="TrG5h" value="AUTHORIZATION_PKCE_FLOW" />
+        <ref role="37wK5l" node="3ljvbPN8WDU" resolve="ModelixAuthenticationConfigurationComponent.AuthenticationStrategyType" />
+        <node concept="Xl_RD" id="3ljvbPN94VV" role="37wK5m">
+          <property role="Xl_RC" value="authorizationCodePKCE" />
+        </node>
+      </node>
+      <node concept="312cEg" id="3ljvbPN927P" role="jymVt">
+        <property role="TrG5h" value="code" />
+        <property role="3TUv4t" value="true" />
+        <node concept="17QB3L" id="3ljvbPN9225" role="1tU5fm" />
+        <node concept="3Tm6S6" id="3ljvbPN92cg" role="1B3o_S" />
+      </node>
+      <node concept="2tJIrI" id="3ljvbPN92kR" role="jymVt" />
+      <node concept="3clFbW" id="3ljvbPN8WDU" role="jymVt">
+        <node concept="3cqZAl" id="3ljvbPN8WDW" role="3clF45" />
+        <node concept="3clFbS" id="3ljvbPN8WDX" role="3clF47">
+          <node concept="3clFbF" id="3ljvbPN92SK" role="3cqZAp">
+            <node concept="37vLTI" id="3ljvbPN93Up" role="3clFbG">
+              <node concept="37vLTw" id="3ljvbPN94nU" role="37vLTx">
+                <ref role="3cqZAo" node="3ljvbPN8X9r" resolve="code" />
+              </node>
+              <node concept="2OqwBi" id="3ljvbPN939r" role="37vLTJ">
+                <node concept="Xjq3P" id="3ljvbPN92SJ" role="2Oq$k0" />
+                <node concept="2OwXpG" id="3ljvbPN93BG" role="2OqNvi">
+                  <ref role="2Oxat6" node="3ljvbPN927P" resolve="code" />
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="37vLTG" id="3ljvbPN8X9r" role="3clF46">
+          <property role="TrG5h" value="code" />
+          <node concept="17QB3L" id="3ljvbPN8X9q" role="1tU5fm" />
+        </node>
+        <node concept="3Tm6S6" id="3ljvbPN92dC" role="1B3o_S" />
+      </node>
+      <node concept="2tJIrI" id="3ljvbPN9$PL" role="jymVt" />
+      <node concept="3clFb_" id="3ljvbPN9_Er" role="jymVt">
+        <property role="TrG5h" value="getCode" />
+        <node concept="3clFbS" id="3ljvbPN9_Eu" role="3clF47">
+          <node concept="3cpWs6" id="3ljvbPN9AB$" role="3cqZAp">
+            <node concept="2OqwBi" id="3ljvbPN9BL6" role="3cqZAk">
+              <node concept="Xjq3P" id="3ljvbPN9B3Y" role="2Oq$k0" />
+              <node concept="2OwXpG" id="3ljvbPN9Cfv" role="2OqNvi">
+                <ref role="2Oxat6" node="3ljvbPN927P" resolve="code" />
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="3Tm1VV" id="3ljvbPN9_fl" role="1B3o_S" />
+        <node concept="17QB3L" id="3ljvbPN9A6A" role="3clF45" />
+      </node>
+      <node concept="2tJIrI" id="3ljvbPN973j" role="jymVt" />
+      <node concept="2YIFZL" id="3ljvbPN9a4x" role="jymVt">
+        <property role="TrG5h" value="findByCode" />
+        <node concept="3clFbS" id="3ljvbPN9a4$" role="3clF47">
+          <node concept="3cpWs6" id="3ljvbPN9aW3" role="3cqZAp">
+            <node concept="2OqwBi" id="3ljvbPN9fQy" role="3cqZAk">
+              <node concept="2OqwBi" id="3ljvbPN9fib" role="2Oq$k0">
+                <node concept="uiWXb" id="3ljvbPN9f6B" role="2Oq$k0">
+                  <ref role="uiZuM" node="3ljvbPN8R$Z" resolve="ModelixAuthenticationConfigurationComponent.AuthenticationStrategyType" />
+                </node>
+                <node concept="39bAoz" id="3ljvbPN9fz2" role="2OqNvi" />
+              </node>
+              <node concept="1z4cxt" id="3ljvbPN9jvY" role="2OqNvi">
+                <node concept="1bVj0M" id="3ljvbPN9jw0" role="23t8la">
+                  <node concept="3clFbS" id="3ljvbPN9jw1" role="1bW5cS">
+                    <node concept="3clFbF" id="3ljvbPN9jw2" role="3cqZAp">
+                      <node concept="17R0WA" id="3ljvbPN9jw3" role="3clFbG">
+                        <node concept="37vLTw" id="3ljvbPN9jw4" role="3uHU7w">
+                          <ref role="3cqZAo" node="3ljvbPN9an8" resolve="code" />
+                        </node>
+                        <node concept="2OqwBi" id="3ljvbPN9jw5" role="3uHU7B">
+                          <node concept="37vLTw" id="3ljvbPN9jw6" role="2Oq$k0">
+                            <ref role="3cqZAo" node="3ljvbPN9jw8" resolve="it" />
+                          </node>
+                          <node concept="2OwXpG" id="3ljvbPN9jw7" role="2OqNvi">
+                            <ref role="2Oxat6" node="3ljvbPN927P" resolve="code" />
+                          </node>
+                        </node>
+                      </node>
+                    </node>
+                  </node>
+                  <node concept="Rh6nW" id="3ljvbPN9jw8" role="1bW2Oz">
+                    <property role="TrG5h" value="it" />
+                    <node concept="2jxLKc" id="3ljvbPN9jw9" role="1tU5fm" />
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="3Tm1VV" id="3ljvbPN98Mn" role="1B3o_S" />
+        <node concept="3uibUv" id="3ljvbPN99YY" role="3clF45">
+          <ref role="3uigEE" node="3ljvbPN8R$Z" resolve="ModelixAuthenticationConfigurationComponent.AuthenticationStrategyType" />
+        </node>
+        <node concept="37vLTG" id="3ljvbPN9an8" role="3clF46">
+          <property role="TrG5h" value="code" />
+          <node concept="17QB3L" id="3ljvbPN9an7" role="1tU5fm" />
+        </node>
+      </node>
+    </node>
     <node concept="2tJIrI" id="55JU2Sa5G1$" role="jymVt" />
     <node concept="312cEu" id="55JU2Sa5HU_" role="jymVt">
       <property role="TrG5h" value="StrategyConfiguration" />
@@ -791,6 +926,114 @@
           <ref role="2AI5Lk" to="wyt6:~Override" resolve="Override" />
         </node>
       </node>
+      <node concept="2tJIrI" id="3ljvbPNa8Bp" role="jymVt" />
+      <node concept="3clFb_" id="3ljvbPNab_x" role="jymVt">
+        <property role="TrG5h" value="loadStrategyTypeByCode" />
+        <node concept="3clFbS" id="3ljvbPNab_$" role="3clF47">
+          <node concept="3cpWs8" id="3ljvbPNae73" role="3cqZAp">
+            <node concept="3cpWsn" id="3ljvbPNae74" role="3cpWs9">
+              <property role="TrG5h" value="strategyType" />
+              <node concept="3uibUv" id="3ljvbPNae75" role="1tU5fm">
+                <ref role="3uigEE" node="3ljvbPN8R$Z" resolve="ModelixAuthenticationConfigurationComponent.AuthenticationStrategyType" />
+              </node>
+              <node concept="2YIFZM" id="3ljvbPNaklN" role="33vP2m">
+                <ref role="37wK5l" node="3ljvbPN9a4x" resolve="findByCode" />
+                <ref role="1Pybhc" node="3ljvbPN8R$Z" resolve="ModelixAuthenticationConfigurationComponent.AuthenticationStrategyType" />
+                <node concept="2OqwBi" id="3ljvbPNamfq" role="37wK5m">
+                  <node concept="Xjq3P" id="3ljvbPNal8N" role="2Oq$k0" />
+                  <node concept="2OwXpG" id="3ljvbPNanyK" role="2OqNvi">
+                    <ref role="2Oxat6" node="55JU2Sa91d4" resolve="type" />
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+          <node concept="3clFbJ" id="3ljvbPNaeE_" role="3cqZAp">
+            <node concept="3clFbS" id="3ljvbPNaeEB" role="3clFbx">
+              <node concept="YS8fn" id="3ljvbPNacCg" role="3cqZAp">
+                <node concept="2ShNRf" id="3ljvbPNacCh" role="YScLw">
+                  <node concept="1pGfFk" id="3ljvbPNacCi" role="2ShVmc">
+                    <ref role="37wK5l" to="wyt6:~RuntimeException.&lt;init&gt;(java.lang.String)" resolve="RuntimeException" />
+                    <node concept="3cpWs3" id="3ljvbPNacCj" role="37wK5m">
+                      <node concept="2OqwBi" id="3ljvbPNacCk" role="3uHU7w">
+                        <node concept="2OqwBi" id="3ljvbPNacCl" role="2Oq$k0">
+                          <node concept="2OqwBi" id="3ljvbPNacCm" role="2Oq$k0">
+                            <node concept="uiWXb" id="3ljvbPNacCn" role="2Oq$k0">
+                              <ref role="uiZuM" node="3ljvbPN8R$Z" resolve="ModelixAuthenticationConfigurationComponent.AuthenticationStrategyType" />
+                            </node>
+                            <node concept="39bAoz" id="3ljvbPNacCo" role="2OqNvi" />
+                          </node>
+                          <node concept="3$u5V9" id="3ljvbPNacCp" role="2OqNvi">
+                            <node concept="1bVj0M" id="3ljvbPNacCq" role="23t8la">
+                              <node concept="3clFbS" id="3ljvbPNacCr" role="1bW5cS">
+                                <node concept="3clFbF" id="3ljvbPNacCs" role="3cqZAp">
+                                  <node concept="2OqwBi" id="3ljvbPNacCt" role="3clFbG">
+                                    <node concept="37vLTw" id="3ljvbPNacCu" role="2Oq$k0">
+                                      <ref role="3cqZAo" node="3ljvbPNacCw" resolve="it" />
+                                    </node>
+                                    <node concept="liA8E" id="3ljvbPNacCv" role="2OqNvi">
+                                      <ref role="37wK5l" node="3ljvbPN9_Er" resolve="getCode" />
+                                    </node>
+                                  </node>
+                                </node>
+                              </node>
+                              <node concept="Rh6nW" id="3ljvbPNacCw" role="1bW2Oz">
+                                <property role="TrG5h" value="it" />
+                                <node concept="2jxLKc" id="3ljvbPNacCx" role="1tU5fm" />
+                              </node>
+                            </node>
+                          </node>
+                        </node>
+                        <node concept="3uJxvA" id="3ljvbPNacCy" role="2OqNvi">
+                          <node concept="Xl_RD" id="3ljvbPNacCz" role="3uJOhx">
+                            <property role="Xl_RC" value=", " />
+                          </node>
+                        </node>
+                      </node>
+                      <node concept="3cpWs3" id="3ljvbPNacC$" role="3uHU7B">
+                        <node concept="3cpWs3" id="3ljvbPNacC_" role="3uHU7B">
+                          <node concept="Xl_RD" id="3ljvbPNacCA" role="3uHU7B">
+                            <property role="Xl_RC" value="The configuration refers to an unexisting strategy type: " />
+                          </node>
+                          <node concept="2OqwBi" id="3ljvbPNacCB" role="3uHU7w">
+                            <node concept="Xjq3P" id="3ljvbPNadiR" role="2Oq$k0" />
+                            <node concept="2OwXpG" id="3ljvbPNacCF" role="2OqNvi">
+                              <ref role="2Oxat6" node="55JU2Sa91d4" resolve="type" />
+                            </node>
+                          </node>
+                        </node>
+                        <node concept="Xl_RD" id="3ljvbPNacCG" role="3uHU7w">
+                          <property role="Xl_RC" value=". Valid values are: " />
+                        </node>
+                      </node>
+                    </node>
+                  </node>
+                </node>
+              </node>
+            </node>
+            <node concept="3clFbC" id="3ljvbPNafAe" role="3clFbw">
+              <node concept="10Nm6u" id="3ljvbPNafVN" role="3uHU7w" />
+              <node concept="37vLTw" id="3ljvbPNaf5s" role="3uHU7B">
+                <ref role="3cqZAo" node="3ljvbPNae74" resolve="strategyType" />
+              </node>
+            </node>
+            <node concept="9aQIb" id="3ljvbPNagtX" role="9aQIa">
+              <node concept="3clFbS" id="3ljvbPNagtY" role="9aQI4">
+                <node concept="3cpWs6" id="3ljvbPNagKL" role="3cqZAp">
+                  <node concept="37vLTw" id="3ljvbPNah6r" role="3cqZAk">
+                    <ref role="3cqZAo" node="3ljvbPNae74" resolve="strategyType" />
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="3Tm1VV" id="3ljvbPNaaot" role="1B3o_S" />
+        <node concept="3uibUv" id="3ljvbPNaio_" role="3clF45">
+          <ref role="3uigEE" node="3ljvbPN8R$Z" resolve="ModelixAuthenticationConfigurationComponent.AuthenticationStrategyType" />
+        </node>
+      </node>
+      <node concept="2tJIrI" id="3ljvbPNa9Fc" role="jymVt" />
       <node concept="3clFb_" id="55JU2Sa922U" role="jymVt">
         <property role="TrG5h" value="equals" />
         <node concept="3Tm1VV" id="55JU2Sa922V" role="1B3o_S" />
@@ -1089,7 +1332,7 @@
           <node concept="17QB3L" id="3ljvbPMUP36" role="1tU5fm" />
         </node>
       </node>
-      <node concept="2tJIrI" id="6UFKywMPZJN" role="jymVt" />
+      <node concept="2tJIrI" id="3ljvbPNa5Z6" role="jymVt" />
       <node concept="3clFb_" id="6UFKywMPZTt" role="jymVt">
         <property role="TrG5h" value="hashCode" />
         <node concept="3Tm1VV" id="6UFKywMPZTu" role="1B3o_S" />
@@ -1647,9 +1890,34 @@
           <property role="1dT_AB" value="This component handles the storage of the OAuth configuration." />
         </node>
       </node>
+      <node concept="TZ5HA" id="3ljvbPN8DR$" role="TZ5H$">
+        <node concept="1dT_AC" id="3ljvbPN8DR_" role="1dT_Ay">
+          <property role="1dT_AB" value="" />
+        </node>
+      </node>
+      <node concept="TZ5HA" id="3ljvbPN8DRK" role="TZ5H$">
+        <node concept="1dT_AC" id="3ljvbPN8DRL" role="1dT_Ay">
+          <property role="1dT_AB" value="The configuration is specific for single Model Server, and they are identified by the URL of the Model Server" />
+        </node>
+      </node>
+      <node concept="TZ5HA" id="3ljvbPN8DS_" role="TZ5H$">
+        <node concept="1dT_AC" id="3ljvbPN8DSA" role="1dT_Ay">
+          <property role="1dT_AB" value="(or better the proxy used to reach the Model Server)." />
+        </node>
+      </node>
       <node concept="TZ5HA" id="nP6bhxMG6p" role="TZ5H$">
         <node concept="1dT_AC" id="nP6bhxMG6q" role="1dT_Ay">
-          <property role="1dT_AB" value="For information about component persistence refer to https://jetbrains.org/intellij/sdk/docs/basics/persisting_state_of_components.html" />
+          <property role="1dT_AB" value="" />
+        </node>
+      </node>
+      <node concept="TZ5HA" id="3ljvbPN8DQN" role="TZ5H$">
+        <node concept="1dT_AC" id="3ljvbPN8DQO" role="1dT_Ay">
+          <property role="1dT_AB" value="For information about component persistence refer to " />
+        </node>
+      </node>
+      <node concept="TZ5HA" id="3ljvbPN8DQ4" role="TZ5H$">
+        <node concept="1dT_AC" id="3ljvbPN8DQ5" role="1dT_Ay">
+          <property role="1dT_AB" value="https://jetbrains.org/intellij/sdk/docs/basics/persisting_state_of_components.html" />
         </node>
       </node>
     </node>
@@ -1996,10 +2264,10 @@
               <node concept="3cpWsn" id="579DpELfUo5" role="3cpWs9">
                 <property role="TrG5h" value="challenge" />
                 <node concept="17QB3L" id="579DpELfUo6" role="1tU5fm" />
-                <node concept="2YIFZM" id="579DpELfUo7" role="33vP2m">
-                  <ref role="1Pybhc" to="y2et:~Base64" resolve="Base64" />
+                <node concept="2YIFZM" id="3ljvbPNbu05" role="33vP2m">
                   <ref role="37wK5l" to="y2et:~Base64.encodeBase64URLSafeString(byte[])" resolve="encodeBase64URLSafeString" />
-                  <node concept="37vLTw" id="579DpELfUo8" role="37wK5m">
+                  <ref role="1Pybhc" to="y2et:~Base64" resolve="Base64" />
+                  <node concept="37vLTw" id="3ljvbPNbu06" role="37wK5m">
                     <ref role="3cqZAo" node="579DpELfUnY" resolve="digest" />
                   </node>
                 </node>
@@ -5084,90 +5352,91 @@
             </node>
             <node concept="9aQIb" id="55JU2Sa9WBx" role="9aQIa">
               <node concept="3clFbS" id="55JU2Sa9WBy" role="9aQI4">
-                <node concept="3clFbJ" id="55JU2Saa9Ou" role="3cqZAp">
-                  <node concept="17R0WA" id="55JU2SaaePl" role="3clFbw">
-                    <node concept="10M0yZ" id="5oXgFRIQ$4C" role="3uHU7w">
-                      <ref role="3cqZAo" node="5oXgFRIQkD7" resolve="CODE_FOR_AUTHORIZATION_FLOW" />
-                      <ref role="1PxDUh" node="7xblg8lmms7" resolve="ModelixAuthenticationConfigurationComponent" />
+                <node concept="3cpWs8" id="3ljvbPNa2Ey" role="3cqZAp">
+                  <node concept="3cpWsn" id="3ljvbPNa2Ez" role="3cpWs9">
+                    <property role="TrG5h" value="strategyType" />
+                    <node concept="3uibUv" id="3ljvbPNa2E$" role="1tU5fm">
+                      <ref role="3uigEE" node="3ljvbPN8R$Z" resolve="ModelixAuthenticationConfigurationComponent.AuthenticationStrategyType" />
                     </node>
-                    <node concept="2OqwBi" id="55JU2Saaef7" role="3uHU7B">
-                      <node concept="2OqwBi" id="55JU2SaaaxV" role="2Oq$k0">
-                        <node concept="37vLTw" id="3ljvbPMRQ2N" role="2Oq$k0">
+                    <node concept="2OqwBi" id="3ljvbPNaxFe" role="33vP2m">
+                      <node concept="2OqwBi" id="3ljvbPNa56r" role="2Oq$k0">
+                        <node concept="37vLTw" id="3ljvbPNa56s" role="2Oq$k0">
                           <ref role="3cqZAo" node="3ljvbPMRC7V" resolve="entry" />
                         </node>
-                        <node concept="2OwXpG" id="55JU2SaaaDP" role="2OqNvi">
+                        <node concept="2OwXpG" id="3ljvbPNa56t" role="2OqNvi">
                           <ref role="2Oxat6" node="7xblg8lmo$P" resolve="strategyConfiguration" />
                         </node>
                       </node>
-                      <node concept="2OwXpG" id="55JU2SaaepL" role="2OqNvi">
-                        <ref role="2Oxat6" node="55JU2Sa91d4" resolve="type" />
+                      <node concept="liA8E" id="3ljvbPNaxY0" role="2OqNvi">
+                        <ref role="37wK5l" node="3ljvbPNab_x" resolve="loadStrategyTypeByCode" />
                       </node>
                     </node>
                   </node>
-                  <node concept="3clFbS" id="55JU2Saa9Ow" role="3clFbx">
-                    <node concept="3clFbF" id="55JU2SaasEJ" role="3cqZAp">
-                      <node concept="2OqwBi" id="55JU2Saatx7" role="3clFbG">
-                        <node concept="37vLTw" id="55JU2SaasEI" role="2Oq$k0">
-                          <ref role="3cqZAo" node="55JU2Sa9OTl" resolve="authorizationCode" />
-                        </node>
-                        <node concept="liA8E" id="55JU2SaauRA" role="2OqNvi">
-                          <ref role="37wK5l" to="dxuu:~AbstractButton.setSelected(boolean)" resolve="setSelected" />
-                          <node concept="3clFbT" id="55JU2SaavpV" role="37wK5m">
-                            <property role="3clFbU" value="true" />
-                          </node>
-                        </node>
-                      </node>
-                    </node>
+                </node>
+                <node concept="3KaCP$" id="3ljvbPNaFel" role="3cqZAp">
+                  <node concept="37vLTw" id="3ljvbPNaFem" role="3KbGdf">
+                    <ref role="3cqZAo" node="3ljvbPNa2Ez" resolve="strategyType" />
                   </node>
-                  <node concept="3eNFk2" id="55JU2Saafey" role="3eNLev">
-                    <node concept="3clFbS" id="55JU2Saafe$" role="3eOfB_">
-                      <node concept="3clFbF" id="55JU2SaavCo" role="3cqZAp">
-                        <node concept="2OqwBi" id="55JU2SaavCp" role="3clFbG">
-                          <node concept="37vLTw" id="55JU2SaawLO" role="2Oq$k0">
-                            <ref role="3cqZAo" node="55JU2Sa9OTs" resolve="authorizationCodePKCE" />
+                  <node concept="3KbdKl" id="3ljvbPNaFen" role="3KbHQx">
+                    <node concept="Rm8GO" id="3ljvbPNaFeo" role="3Kbmr1">
+                      <ref role="1Px2BO" node="3ljvbPN8R$Z" resolve="ModelixAuthenticationConfigurationComponent.AuthenticationStrategyType" />
+                      <ref role="Rm8GQ" node="3ljvbPN8SG7" resolve="AUTHORIZATION_FLOW" />
+                    </node>
+                    <node concept="3clFbS" id="3ljvbPNaFep" role="3Kbo56">
+                      <node concept="3clFbF" id="3ljvbPNaLYN" role="3cqZAp">
+                        <node concept="2OqwBi" id="3ljvbPNaLYO" role="3clFbG">
+                          <node concept="37vLTw" id="3ljvbPNaLYP" role="2Oq$k0">
+                            <ref role="3cqZAo" node="55JU2Sa9OTl" resolve="authorizationCode" />
                           </node>
-                          <node concept="liA8E" id="55JU2SaavCr" role="2OqNvi">
+                          <node concept="liA8E" id="3ljvbPNaLYQ" role="2OqNvi">
                             <ref role="37wK5l" to="dxuu:~AbstractButton.setSelected(boolean)" resolve="setSelected" />
-                            <node concept="3clFbT" id="55JU2SaavCs" role="37wK5m">
+                            <node concept="3clFbT" id="3ljvbPNaLYR" role="37wK5m">
                               <property role="3clFbU" value="true" />
                             </node>
                           </node>
                         </node>
                       </node>
-                    </node>
-                    <node concept="17R0WA" id="55JU2Saaffm" role="3eO9$A">
-                      <node concept="2OqwBi" id="55JU2Saaffo" role="3uHU7B">
-                        <node concept="2OqwBi" id="55JU2Saaffp" role="2Oq$k0">
-                          <node concept="37vLTw" id="3ljvbPMRQIb" role="2Oq$k0">
-                            <ref role="3cqZAo" node="3ljvbPMRC7V" resolve="entry" />
-                          </node>
-                          <node concept="2OwXpG" id="55JU2Saaffr" role="2OqNvi">
-                            <ref role="2Oxat6" node="7xblg8lmo$P" resolve="strategyConfiguration" />
-                          </node>
-                        </node>
-                        <node concept="2OwXpG" id="55JU2Saaffs" role="2OqNvi">
-                          <ref role="2Oxat6" node="55JU2Sa91d4" resolve="type" />
-                        </node>
-                      </node>
-                      <node concept="10M0yZ" id="5oXgFRIQ$8l" role="3uHU7w">
-                        <ref role="3cqZAo" node="5oXgFRIQuV9" resolve="CODE_FOR_AUTHORIZATION_PKCE_FLOW" />
-                        <ref role="1PxDUh" node="7xblg8lmms7" resolve="ModelixAuthenticationConfigurationComponent" />
-                      </node>
+                      <node concept="3zACq4" id="3ljvbPNaPtG" role="3cqZAp" />
                     </node>
                   </node>
-                  <node concept="9aQIb" id="55JU2SaafjF" role="9aQIa">
-                    <node concept="3clFbS" id="55JU2SaafjG" role="9aQI4">
-                      <node concept="3clFbF" id="55JU2SaarjC" role="3cqZAp">
-                        <node concept="1rXfSq" id="55JU2SaarjD" role="3clFbG">
-                          <ref role="37wK5l" node="3ljvbPMQMT6" resolve="setNone" />
+                  <node concept="3KbdKl" id="3ljvbPNaFeM" role="3KbHQx">
+                    <node concept="Rm8GO" id="3ljvbPNaFeN" role="3Kbmr1">
+                      <ref role="1Px2BO" node="3ljvbPN8R$Z" resolve="ModelixAuthenticationConfigurationComponent.AuthenticationStrategyType" />
+                      <ref role="Rm8GQ" node="3ljvbPN8SUL" resolve="AUTHORIZATION_PKCE_FLOW" />
+                    </node>
+                    <node concept="3clFbS" id="3ljvbPNaFeO" role="3Kbo56">
+                      <node concept="3clFbF" id="3ljvbPNaWs0" role="3cqZAp">
+                        <node concept="2OqwBi" id="3ljvbPNaWs1" role="3clFbG">
+                          <node concept="37vLTw" id="3ljvbPNaWs2" role="2Oq$k0">
+                            <ref role="3cqZAo" node="55JU2Sa9OTs" resolve="authorizationCodePKCE" />
+                          </node>
+                          <node concept="liA8E" id="3ljvbPNaWs3" role="2OqNvi">
+                            <ref role="37wK5l" to="dxuu:~AbstractButton.setSelected(boolean)" resolve="setSelected" />
+                            <node concept="3clFbT" id="3ljvbPNaWs4" role="37wK5m">
+                              <property role="3clFbU" value="true" />
+                            </node>
+                          </node>
                         </node>
                       </node>
-                      <node concept="YS8fn" id="55JU2SaafFm" role="3cqZAp">
-                        <node concept="2ShNRf" id="55JU2SaafZr" role="YScLw">
-                          <node concept="1pGfFk" id="55JU2Saaidg" role="2ShVmc">
-                            <ref role="37wK5l" to="wyt6:~RuntimeException.&lt;init&gt;(java.lang.String)" resolve="RuntimeException" />
-                            <node concept="Xl_RD" id="55JU2SaaiyF" role="37wK5m">
-                              <property role="Xl_RC" value="Illegal Flow Type" />
+                      <node concept="3zACq4" id="3ljvbPNaXO0" role="3cqZAp" />
+                    </node>
+                  </node>
+                  <node concept="3clFbS" id="3ljvbPNaFfd" role="3Kb1Dw">
+                    <node concept="YS8fn" id="3ljvbPNaFfe" role="3cqZAp">
+                      <node concept="2ShNRf" id="3ljvbPNaFff" role="YScLw">
+                        <node concept="1pGfFk" id="3ljvbPNaFfg" role="2ShVmc">
+                          <ref role="37wK5l" to="wyt6:~UnsupportedOperationException.&lt;init&gt;(java.lang.String)" resolve="UnsupportedOperationException" />
+                          <node concept="3cpWs3" id="3ljvbPNaFfh" role="37wK5m">
+                            <node concept="Xl_RD" id="3ljvbPNaFfi" role="3uHU7w">
+                              <property role="Xl_RC" value=" is not" />
+                            </node>
+                            <node concept="3cpWs3" id="3ljvbPNaFfj" role="3uHU7B">
+                              <node concept="Xl_RD" id="3ljvbPNaFfk" role="3uHU7B">
+                                <property role="Xl_RC" value="This is unexpected: all strategy types should be handled, but " />
+                              </node>
+                              <node concept="37vLTw" id="3ljvbPNaFfl" role="3uHU7w">
+                                <ref role="3cqZAo" node="3ljvbPNa2Ez" resolve="strategyType" />
+                              </node>
                             </node>
                           </node>
                         </node>
@@ -5421,9 +5690,14 @@
                             <ref role="2Oxat6" node="55JU2Sa91d4" resolve="type" />
                           </node>
                         </node>
-                        <node concept="10M0yZ" id="3ljvbPMRUd$" role="37vLTx">
-                          <ref role="1PxDUh" node="7xblg8lmms7" resolve="ModelixAuthenticationConfigurationComponent" />
-                          <ref role="3cqZAo" node="5oXgFRIQkD7" resolve="CODE_FOR_AUTHORIZATION_FLOW" />
+                        <node concept="2OqwBi" id="3ljvbPNbfwX" role="37vLTx">
+                          <node concept="Rm8GO" id="3ljvbPNbfeK" role="2Oq$k0">
+                            <ref role="Rm8GQ" node="3ljvbPN8SG7" resolve="AUTHORIZATION_FLOW" />
+                            <ref role="1Px2BO" node="3ljvbPN8R$Z" resolve="ModelixAuthenticationConfigurationComponent.AuthenticationStrategyType" />
+                          </node>
+                          <node concept="liA8E" id="3ljvbPNbg5j" role="2OqNvi">
+                            <ref role="37wK5l" node="3ljvbPN9_Er" resolve="getCode" />
+                          </node>
                         </node>
                       </node>
                     </node>
@@ -5456,9 +5730,14 @@
                               <ref role="2Oxat6" node="55JU2Sa91d4" resolve="type" />
                             </node>
                           </node>
-                          <node concept="10M0yZ" id="3ljvbPMRUdM" role="37vLTx">
-                            <ref role="3cqZAo" node="5oXgFRIQuV9" resolve="CODE_FOR_AUTHORIZATION_PKCE_FLOW" />
-                            <ref role="1PxDUh" node="7xblg8lmms7" resolve="ModelixAuthenticationConfigurationComponent" />
+                          <node concept="2OqwBi" id="3ljvbPNbg7u" role="37vLTx">
+                            <node concept="Rm8GO" id="3ljvbPNbg_K" role="2Oq$k0">
+                              <ref role="Rm8GQ" node="3ljvbPN8SUL" resolve="AUTHORIZATION_PKCE_FLOW" />
+                              <ref role="1Px2BO" node="3ljvbPN8R$Z" resolve="ModelixAuthenticationConfigurationComponent.AuthenticationStrategyType" />
+                            </node>
+                            <node concept="liA8E" id="3ljvbPNbg7w" role="2OqNvi">
+                              <ref role="37wK5l" node="3ljvbPN9_Er" resolve="getCode" />
+                            </node>
                           </node>
                         </node>
                       </node>
@@ -6989,144 +7268,91 @@
             </node>
           </node>
         </node>
-        <node concept="3clFbJ" id="5oXgFRIQeZ9" role="3cqZAp">
-          <node concept="3clFbS" id="5oXgFRIQeZb" role="3clFbx">
-            <node concept="3cpWs6" id="5oXgFRIQBg2" role="3cqZAp">
-              <node concept="2ShNRf" id="5oXgFRIQBk7" role="3cqZAk">
-                <node concept="1pGfFk" id="5oXgFRIQBSu" role="2ShVmc">
-                  <ref role="37wK5l" node="3poOr4tpmF$" resolve="AuthorizationCodeFlowStrategy" />
-                  <node concept="Xjq3P" id="7$Qv9nHTFVt" role="37wK5m" />
-                  <node concept="2OqwBi" id="5oXgFRIQDNH" role="37wK5m">
-                    <node concept="2OqwBi" id="5oXgFRIQCY_" role="2Oq$k0">
-                      <node concept="37vLTw" id="5oXgFRIQCv$" role="2Oq$k0">
-                        <ref role="3cqZAo" node="1xehy3SrtY3" resolve="entry" />
-                      </node>
-                      <node concept="2OwXpG" id="3ljvbPMU2Cf" role="2OqNvi">
-                        <ref role="2Oxat6" node="7xblg8lmo$P" resolve="strategyConfiguration" />
-                      </node>
-                    </node>
-                    <node concept="2OwXpG" id="5oXgFRIQE8G" role="2OqNvi">
-                      <ref role="2Oxat6" node="55JU2Sa5UlA" resolve="baseURL" />
-                    </node>
-                  </node>
-                  <node concept="2OqwBi" id="5oXgFRIQFKw" role="37wK5m">
-                    <node concept="2OqwBi" id="5oXgFRIQF7F" role="2Oq$k0">
-                      <node concept="37vLTw" id="5oXgFRIQEqy" role="2Oq$k0">
-                        <ref role="3cqZAo" node="1xehy3SrtY3" resolve="entry" />
-                      </node>
-                      <node concept="2OwXpG" id="5oXgFRIQFso" role="2OqNvi">
-                        <ref role="2Oxat6" node="7xblg8lmo$P" resolve="strategyConfiguration" />
-                      </node>
-                    </node>
-                    <node concept="2OwXpG" id="5oXgFRIQGki" role="2OqNvi">
-                      <ref role="2Oxat6" node="55JU2Sa5UlE" resolve="clientId" />
-                    </node>
-                  </node>
-                  <node concept="2OqwBi" id="5oXgFRIQIMY" role="37wK5m">
-                    <node concept="2OqwBi" id="5oXgFRIQHIj" role="2Oq$k0">
-                      <node concept="37vLTw" id="5oXgFRIQHep" role="2Oq$k0">
-                        <ref role="3cqZAo" node="1xehy3SrtY3" resolve="entry" />
-                      </node>
-                      <node concept="2OwXpG" id="5oXgFRIQIct" role="2OqNvi">
-                        <ref role="2Oxat6" node="7xblg8lmo$P" resolve="strategyConfiguration" />
-                      </node>
-                    </node>
-                    <node concept="2OwXpG" id="5oXgFRIQJnc" role="2OqNvi">
-                      <ref role="2Oxat6" node="55JU2Sa5UlI" resolve="scope" />
-                    </node>
-                  </node>
-                  <node concept="2OqwBi" id="5oXgFRIQLtv" role="37wK5m">
-                    <node concept="2OqwBi" id="5oXgFRIQKA1" role="2Oq$k0">
-                      <node concept="37vLTw" id="5oXgFRIQJS0" role="2Oq$k0">
-                        <ref role="3cqZAo" node="1xehy3SrtY3" resolve="entry" />
-                      </node>
-                      <node concept="2OwXpG" id="5oXgFRIQL9X" role="2OqNvi">
-                        <ref role="2Oxat6" node="7xblg8lmo$P" resolve="strategyConfiguration" />
-                      </node>
-                    </node>
-                    <node concept="2OwXpG" id="5oXgFRIQMba" role="2OqNvi">
-                      <ref role="2Oxat6" node="55JU2Sa5UlM" resolve="tokenVerificationURL" />
-                    </node>
-                  </node>
-                </node>
-              </node>
+        <node concept="3cpWs8" id="3ljvbPN9lx5" role="3cqZAp">
+          <node concept="3cpWsn" id="3ljvbPN9lx6" role="3cpWs9">
+            <property role="TrG5h" value="strategyType" />
+            <node concept="3uibUv" id="3ljvbPN9lx7" role="1tU5fm">
+              <ref role="3uigEE" node="3ljvbPN8R$Z" resolve="ModelixAuthenticationConfigurationComponent.AuthenticationStrategyType" />
             </node>
-          </node>
-          <node concept="17R0WA" id="5oXgFRIQ$TK" role="3clFbw">
-            <node concept="2OqwBi" id="5oXgFRIQ_tl" role="3uHU7w">
-              <node concept="2OqwBi" id="5oXgFRIQ_b7" role="2Oq$k0">
-                <node concept="37vLTw" id="5oXgFRIQ$Yt" role="2Oq$k0">
+            <node concept="2OqwBi" id="3ljvbPNb8Wn" role="33vP2m">
+              <node concept="2OqwBi" id="3ljvbPN9mrA" role="2Oq$k0">
+                <node concept="37vLTw" id="3ljvbPN9mrB" role="2Oq$k0">
                   <ref role="3cqZAo" node="1xehy3SrtY3" resolve="entry" />
                 </node>
-                <node concept="2OwXpG" id="3ljvbPMU2_w" role="2OqNvi">
+                <node concept="2OwXpG" id="3ljvbPN9mrC" role="2OqNvi">
                   <ref role="2Oxat6" node="7xblg8lmo$P" resolve="strategyConfiguration" />
                 </node>
               </node>
-              <node concept="2OwXpG" id="5oXgFRIQ__V" role="2OqNvi">
-                <ref role="2Oxat6" node="55JU2Sa91d4" resolve="type" />
+              <node concept="liA8E" id="3ljvbPNb94L" role="2OqNvi">
+                <ref role="37wK5l" node="3ljvbPNab_x" resolve="loadStrategyTypeByCode" />
               </node>
             </node>
-            <node concept="10M0yZ" id="5oXgFRIQ$oY" role="3uHU7B">
-              <ref role="1PxDUh" node="7xblg8lmms7" resolve="ModelixAuthenticationConfigurationComponent" />
-              <ref role="3cqZAo" node="5oXgFRIQkD7" resolve="CODE_FOR_AUTHORIZATION_FLOW" />
-            </node>
           </node>
-          <node concept="3eNFk2" id="5oXgFRIQ_Cy" role="3eNLev">
-            <node concept="3clFbS" id="5oXgFRIQ_C$" role="3eOfB_">
-              <node concept="3cpWs6" id="5oXgFRIQMAV" role="3cqZAp">
-                <node concept="2ShNRf" id="5oXgFRIQMAW" role="3cqZAk">
-                  <node concept="1pGfFk" id="5oXgFRIQMAX" role="2ShVmc">
-                    <ref role="37wK5l" node="579DpELfKrO" resolve="AuthorizationCodePKCEFlowStrategy" />
-                    <node concept="Xjq3P" id="7$Qv9nHTbQC" role="37wK5m" />
-                    <node concept="2OqwBi" id="5oXgFRIQMAY" role="37wK5m">
-                      <node concept="2OqwBi" id="5oXgFRIQMAZ" role="2Oq$k0">
-                        <node concept="37vLTw" id="5oXgFRIQMB0" role="2Oq$k0">
+        </node>
+        <node concept="3KaCP$" id="3ljvbPN9pgy" role="3cqZAp">
+          <node concept="37vLTw" id="3ljvbPN9pIY" role="3KbGdf">
+            <ref role="3cqZAo" node="3ljvbPN9lx6" resolve="strategyType" />
+          </node>
+          <node concept="3KbdKl" id="3ljvbPN9pKE" role="3KbHQx">
+            <node concept="Rm8GO" id="3ljvbPN9pTD" role="3Kbmr1">
+              <ref role="Rm8GQ" node="3ljvbPN8SG7" resolve="AUTHORIZATION_FLOW" />
+              <ref role="1Px2BO" node="3ljvbPN8R$Z" resolve="ModelixAuthenticationConfigurationComponent.AuthenticationStrategyType" />
+            </node>
+            <node concept="3clFbS" id="3ljvbPN9pVT" role="3Kbo56">
+              <node concept="3cpWs6" id="3ljvbPN9FmQ" role="3cqZAp">
+                <node concept="2ShNRf" id="3ljvbPN9FmR" role="3cqZAk">
+                  <node concept="1pGfFk" id="3ljvbPN9FmS" role="2ShVmc">
+                    <ref role="37wK5l" node="3poOr4tpmF$" resolve="AuthorizationCodeFlowStrategy" />
+                    <node concept="Xjq3P" id="3ljvbPN9FmT" role="37wK5m" />
+                    <node concept="2OqwBi" id="3ljvbPN9FmU" role="37wK5m">
+                      <node concept="2OqwBi" id="3ljvbPN9FmV" role="2Oq$k0">
+                        <node concept="37vLTw" id="3ljvbPN9FmW" role="2Oq$k0">
                           <ref role="3cqZAo" node="1xehy3SrtY3" resolve="entry" />
                         </node>
-                        <node concept="2OwXpG" id="5oXgFRIQMB1" role="2OqNvi">
+                        <node concept="2OwXpG" id="3ljvbPN9FmX" role="2OqNvi">
                           <ref role="2Oxat6" node="7xblg8lmo$P" resolve="strategyConfiguration" />
                         </node>
                       </node>
-                      <node concept="2OwXpG" id="5oXgFRIQMB2" role="2OqNvi">
+                      <node concept="2OwXpG" id="3ljvbPN9FmY" role="2OqNvi">
                         <ref role="2Oxat6" node="55JU2Sa5UlA" resolve="baseURL" />
                       </node>
                     </node>
-                    <node concept="2OqwBi" id="5oXgFRIQMB3" role="37wK5m">
-                      <node concept="2OqwBi" id="5oXgFRIQMB4" role="2Oq$k0">
-                        <node concept="37vLTw" id="5oXgFRIQMB5" role="2Oq$k0">
+                    <node concept="2OqwBi" id="3ljvbPN9FmZ" role="37wK5m">
+                      <node concept="2OqwBi" id="3ljvbPN9Fn0" role="2Oq$k0">
+                        <node concept="37vLTw" id="3ljvbPN9Fn1" role="2Oq$k0">
                           <ref role="3cqZAo" node="1xehy3SrtY3" resolve="entry" />
                         </node>
-                        <node concept="2OwXpG" id="5oXgFRIQMB6" role="2OqNvi">
+                        <node concept="2OwXpG" id="3ljvbPN9Fn2" role="2OqNvi">
                           <ref role="2Oxat6" node="7xblg8lmo$P" resolve="strategyConfiguration" />
                         </node>
                       </node>
-                      <node concept="2OwXpG" id="5oXgFRIQMB7" role="2OqNvi">
+                      <node concept="2OwXpG" id="3ljvbPN9Fn3" role="2OqNvi">
                         <ref role="2Oxat6" node="55JU2Sa5UlE" resolve="clientId" />
                       </node>
                     </node>
-                    <node concept="2OqwBi" id="5oXgFRIQMB8" role="37wK5m">
-                      <node concept="2OqwBi" id="5oXgFRIQMB9" role="2Oq$k0">
-                        <node concept="37vLTw" id="5oXgFRIQMBa" role="2Oq$k0">
+                    <node concept="2OqwBi" id="3ljvbPN9Fn4" role="37wK5m">
+                      <node concept="2OqwBi" id="3ljvbPN9Fn5" role="2Oq$k0">
+                        <node concept="37vLTw" id="3ljvbPN9Fn6" role="2Oq$k0">
                           <ref role="3cqZAo" node="1xehy3SrtY3" resolve="entry" />
                         </node>
-                        <node concept="2OwXpG" id="5oXgFRIQMBb" role="2OqNvi">
+                        <node concept="2OwXpG" id="3ljvbPN9Fn7" role="2OqNvi">
                           <ref role="2Oxat6" node="7xblg8lmo$P" resolve="strategyConfiguration" />
                         </node>
                       </node>
-                      <node concept="2OwXpG" id="5oXgFRIQMBc" role="2OqNvi">
+                      <node concept="2OwXpG" id="3ljvbPN9Fn8" role="2OqNvi">
                         <ref role="2Oxat6" node="55JU2Sa5UlI" resolve="scope" />
                       </node>
                     </node>
-                    <node concept="2OqwBi" id="5oXgFRIQMBd" role="37wK5m">
-                      <node concept="2OqwBi" id="5oXgFRIQMBe" role="2Oq$k0">
-                        <node concept="37vLTw" id="5oXgFRIQMBf" role="2Oq$k0">
+                    <node concept="2OqwBi" id="3ljvbPN9Fn9" role="37wK5m">
+                      <node concept="2OqwBi" id="3ljvbPN9Fna" role="2Oq$k0">
+                        <node concept="37vLTw" id="3ljvbPN9Fnb" role="2Oq$k0">
                           <ref role="3cqZAo" node="1xehy3SrtY3" resolve="entry" />
                         </node>
-                        <node concept="2OwXpG" id="5oXgFRIQMBg" role="2OqNvi">
+                        <node concept="2OwXpG" id="3ljvbPN9Fnc" role="2OqNvi">
                           <ref role="2Oxat6" node="7xblg8lmo$P" resolve="strategyConfiguration" />
                         </node>
                       </node>
-                      <node concept="2OwXpG" id="5oXgFRIQMBh" role="2OqNvi">
+                      <node concept="2OwXpG" id="3ljvbPN9Fnd" role="2OqNvi">
                         <ref role="2Oxat6" node="55JU2Sa5UlM" resolve="tokenVerificationURL" />
                       </node>
                     </node>
@@ -7134,32 +7360,92 @@
                 </node>
               </node>
             </node>
-            <node concept="17R0WA" id="5oXgFRIQ_D_" role="3eO9$A">
-              <node concept="2OqwBi" id="5oXgFRIQ_DA" role="3uHU7w">
-                <node concept="2OqwBi" id="5oXgFRIQ_DB" role="2Oq$k0">
-                  <node concept="37vLTw" id="5oXgFRIQ_DC" role="2Oq$k0">
-                    <ref role="3cqZAo" node="1xehy3SrtY3" resolve="entry" />
-                  </node>
-                  <node concept="2OwXpG" id="5oXgFRIQ_DD" role="2OqNvi">
-                    <ref role="2Oxat6" node="7xblg8lmo$P" resolve="strategyConfiguration" />
+          </node>
+          <node concept="3KbdKl" id="3ljvbPN9q3H" role="3KbHQx">
+            <node concept="Rm8GO" id="3ljvbPN9q$N" role="3Kbmr1">
+              <ref role="Rm8GQ" node="3ljvbPN8SUL" resolve="AUTHORIZATION_PKCE_FLOW" />
+              <ref role="1Px2BO" node="3ljvbPN8R$Z" resolve="ModelixAuthenticationConfigurationComponent.AuthenticationStrategyType" />
+            </node>
+            <node concept="3clFbS" id="3ljvbPN9riH" role="3Kbo56">
+              <node concept="3cpWs6" id="3ljvbPN9F_D" role="3cqZAp">
+                <node concept="2ShNRf" id="3ljvbPN9F_E" role="3cqZAk">
+                  <node concept="1pGfFk" id="3ljvbPN9F_F" role="2ShVmc">
+                    <ref role="37wK5l" node="579DpELfKrO" resolve="AuthorizationCodePKCEFlowStrategy" />
+                    <node concept="Xjq3P" id="3ljvbPN9F_G" role="37wK5m" />
+                    <node concept="2OqwBi" id="3ljvbPN9F_H" role="37wK5m">
+                      <node concept="2OqwBi" id="3ljvbPN9F_I" role="2Oq$k0">
+                        <node concept="37vLTw" id="3ljvbPN9F_J" role="2Oq$k0">
+                          <ref role="3cqZAo" node="1xehy3SrtY3" resolve="entry" />
+                        </node>
+                        <node concept="2OwXpG" id="3ljvbPN9F_K" role="2OqNvi">
+                          <ref role="2Oxat6" node="7xblg8lmo$P" resolve="strategyConfiguration" />
+                        </node>
+                      </node>
+                      <node concept="2OwXpG" id="3ljvbPN9F_L" role="2OqNvi">
+                        <ref role="2Oxat6" node="55JU2Sa5UlA" resolve="baseURL" />
+                      </node>
+                    </node>
+                    <node concept="2OqwBi" id="3ljvbPN9F_M" role="37wK5m">
+                      <node concept="2OqwBi" id="3ljvbPN9F_N" role="2Oq$k0">
+                        <node concept="37vLTw" id="3ljvbPN9F_O" role="2Oq$k0">
+                          <ref role="3cqZAo" node="1xehy3SrtY3" resolve="entry" />
+                        </node>
+                        <node concept="2OwXpG" id="3ljvbPN9F_P" role="2OqNvi">
+                          <ref role="2Oxat6" node="7xblg8lmo$P" resolve="strategyConfiguration" />
+                        </node>
+                      </node>
+                      <node concept="2OwXpG" id="3ljvbPN9F_Q" role="2OqNvi">
+                        <ref role="2Oxat6" node="55JU2Sa5UlE" resolve="clientId" />
+                      </node>
+                    </node>
+                    <node concept="2OqwBi" id="3ljvbPN9F_R" role="37wK5m">
+                      <node concept="2OqwBi" id="3ljvbPN9F_S" role="2Oq$k0">
+                        <node concept="37vLTw" id="3ljvbPN9F_T" role="2Oq$k0">
+                          <ref role="3cqZAo" node="1xehy3SrtY3" resolve="entry" />
+                        </node>
+                        <node concept="2OwXpG" id="3ljvbPN9F_U" role="2OqNvi">
+                          <ref role="2Oxat6" node="7xblg8lmo$P" resolve="strategyConfiguration" />
+                        </node>
+                      </node>
+                      <node concept="2OwXpG" id="3ljvbPN9F_V" role="2OqNvi">
+                        <ref role="2Oxat6" node="55JU2Sa5UlI" resolve="scope" />
+                      </node>
+                    </node>
+                    <node concept="2OqwBi" id="3ljvbPN9F_W" role="37wK5m">
+                      <node concept="2OqwBi" id="3ljvbPN9F_X" role="2Oq$k0">
+                        <node concept="37vLTw" id="3ljvbPN9F_Y" role="2Oq$k0">
+                          <ref role="3cqZAo" node="1xehy3SrtY3" resolve="entry" />
+                        </node>
+                        <node concept="2OwXpG" id="3ljvbPN9F_Z" role="2OqNvi">
+                          <ref role="2Oxat6" node="7xblg8lmo$P" resolve="strategyConfiguration" />
+                        </node>
+                      </node>
+                      <node concept="2OwXpG" id="3ljvbPN9FA0" role="2OqNvi">
+                        <ref role="2Oxat6" node="55JU2Sa5UlM" resolve="tokenVerificationURL" />
+                      </node>
+                    </node>
                   </node>
                 </node>
-                <node concept="2OwXpG" id="5oXgFRIQ_DE" role="2OqNvi">
-                  <ref role="2Oxat6" node="55JU2Sa91d4" resolve="type" />
-                </node>
-              </node>
-              <node concept="10M0yZ" id="5oXgFRIQ_FL" role="3uHU7B">
-                <ref role="3cqZAo" node="5oXgFRIQuV9" resolve="CODE_FOR_AUTHORIZATION_PKCE_FLOW" />
-                <ref role="1PxDUh" node="7xblg8lmms7" resolve="ModelixAuthenticationConfigurationComponent" />
               </node>
             </node>
           </node>
-          <node concept="9aQIb" id="5oXgFRIQ_GH" role="9aQIa">
-            <node concept="3clFbS" id="5oXgFRIQ_GI" role="9aQI4">
-              <node concept="YS8fn" id="5oXgFRIQ_OP" role="3cqZAp">
-                <node concept="2ShNRf" id="5oXgFRIQ_Tc" role="YScLw">
-                  <node concept="1pGfFk" id="5oXgFRIQB1H" role="2ShVmc">
-                    <ref role="37wK5l" to="wyt6:~IllegalStateException.&lt;init&gt;()" resolve="IllegalStateException" />
+          <node concept="3clFbS" id="3ljvbPN9rE4" role="3Kb1Dw">
+            <node concept="YS8fn" id="3ljvbPN9rLI" role="3cqZAp">
+              <node concept="2ShNRf" id="3ljvbPN9rR9" role="YScLw">
+                <node concept="1pGfFk" id="3ljvbPN9sUm" role="2ShVmc">
+                  <ref role="37wK5l" to="wyt6:~UnsupportedOperationException.&lt;init&gt;(java.lang.String)" resolve="UnsupportedOperationException" />
+                  <node concept="3cpWs3" id="3ljvbPN9ukP" role="37wK5m">
+                    <node concept="Xl_RD" id="3ljvbPN9uox" role="3uHU7w">
+                      <property role="Xl_RC" value=" is not" />
+                    </node>
+                    <node concept="3cpWs3" id="3ljvbPN9tNa" role="3uHU7B">
+                      <node concept="Xl_RD" id="3ljvbPN9t6J" role="3uHU7B">
+                        <property role="Xl_RC" value="This is unexpected: all strategy types should be handled, but " />
+                      </node>
+                      <node concept="37vLTw" id="3ljvbPN9tVm" role="3uHU7w">
+                        <ref role="3cqZAo" node="3ljvbPN9lx6" resolve="strategyType" />
+                      </node>
+                    </node>
                   </node>
                 </node>
               </node>
