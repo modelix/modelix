@@ -916,6 +916,46 @@
               </node>
             </node>
           </node>
+          <node concept="3clFbF" id="3ljvbPNcGfq" role="3cqZAp">
+            <node concept="d57v9" id="3ljvbPNcGfr" role="3clFbG">
+              <node concept="37vLTw" id="3ljvbPNcGfs" role="37vLTJ">
+                <ref role="3cqZAo" node="55JU2Sa93z2" resolve="hc" />
+              </node>
+              <node concept="17qRlL" id="3ljvbPNcGft" role="37vLTx">
+                <node concept="2OqwBi" id="3ljvbPNcGfu" role="3uHU7w">
+                  <node concept="37vLTw" id="3ljvbPNcHGI" role="2Oq$k0">
+                    <ref role="3cqZAo" node="55JU2Sa5UlE" resolve="clientId" />
+                  </node>
+                  <node concept="liA8E" id="3ljvbPNcGfw" role="2OqNvi">
+                    <ref role="37wK5l" to="wyt6:~String.hashCode()" resolve="hashCode" />
+                  </node>
+                </node>
+                <node concept="3cmrfG" id="3ljvbPNcGfx" role="3uHU7B">
+                  <property role="3cmrfH" value="7" />
+                </node>
+              </node>
+            </node>
+          </node>
+          <node concept="3clFbF" id="3ljvbPNcGg2" role="3cqZAp">
+            <node concept="d57v9" id="3ljvbPNcGg3" role="3clFbG">
+              <node concept="37vLTw" id="3ljvbPNcGg4" role="37vLTJ">
+                <ref role="3cqZAo" node="55JU2Sa93z2" resolve="hc" />
+              </node>
+              <node concept="17qRlL" id="3ljvbPNcGg5" role="37vLTx">
+                <node concept="2OqwBi" id="3ljvbPNcGg6" role="3uHU7w">
+                  <node concept="37vLTw" id="3ljvbPNcIpP" role="2Oq$k0">
+                    <ref role="3cqZAo" node="55JU2Sa5UlI" resolve="scope" />
+                  </node>
+                  <node concept="liA8E" id="3ljvbPNcGg8" role="2OqNvi">
+                    <ref role="37wK5l" to="wyt6:~String.hashCode()" resolve="hashCode" />
+                  </node>
+                </node>
+                <node concept="3cmrfG" id="3ljvbPNcGg9" role="3uHU7B">
+                  <property role="3cmrfH" value="11" />
+                </node>
+              </node>
+            </node>
+          </node>
           <node concept="3cpWs6" id="55JU2Sa93zd" role="3cqZAp">
             <node concept="37vLTw" id="55JU2Sa93ze" role="3cqZAk">
               <ref role="3cqZAo" node="55JU2Sa93z2" resolve="hc" />
@@ -1203,7 +1243,7 @@
           <node concept="3cpWs6" id="2$HTiPw4sgg" role="3cqZAp">
             <node concept="3cpWs3" id="2$HTiPw4Enw" role="3cqZAk">
               <node concept="Xl_RD" id="2$HTiPw4Eze" role="3uHU7w">
-                <property role="Xl_RC" value="]" />
+                <property role="Xl_RC" value=")" />
               </node>
               <node concept="3cpWs3" id="2$HTiPw4CYL" role="3uHU7B">
                 <node concept="3cpWs3" id="2$HTiPw4B8u" role="3uHU7B">
@@ -1215,7 +1255,7 @@
                             <node concept="3cpWs3" id="2$HTiPw4uJb" role="3uHU7B">
                               <node concept="3cpWs3" id="2$HTiPw4u3r" role="3uHU7B">
                                 <node concept="Xl_RD" id="2$HTiPw4stn" role="3uHU7B">
-                                  <property role="Xl_RC" value="[type " />
+                                  <property role="Xl_RC" value="StrategyConfiguration(type " />
                                 </node>
                                 <node concept="37vLTw" id="2$HTiPw4ufd" role="3uHU7w">
                                   <ref role="3cqZAo" node="55JU2Sa91d4" resolve="type" />
@@ -1258,6 +1298,13 @@
         </node>
         <node concept="2AHcQZ" id="2$HTiPw4r75" role="2AJF6D">
           <ref role="2AI5Lk" to="wyt6:~Override" resolve="Override" />
+        </node>
+      </node>
+      <node concept="3UR2Jj" id="3ljvbPNcKDx" role="lGtFl">
+        <node concept="TZ5HA" id="3ljvbPNcKDy" role="TZ5H$">
+          <node concept="1dT_AC" id="3ljvbPNcKDz" role="1dT_Ay">
+            <property role="1dT_AB" value="This is the OAuth configuration for a single model server/proxy" />
+          </node>
         </node>
       </node>
     </node>
@@ -1530,6 +1577,13 @@
         </node>
         <node concept="2AHcQZ" id="cJDksuusDd" role="2AJF6D">
           <ref role="2AI5Lk" to="wyt6:~Override" resolve="Override" />
+        </node>
+      </node>
+      <node concept="3UR2Jj" id="3ljvbPNcLAJ" role="lGtFl">
+        <node concept="TZ5HA" id="3ljvbPNcLAK" role="TZ5H$">
+          <node concept="1dT_AC" id="3ljvbPNcLAL" role="1dT_Ay">
+            <property role="1dT_AB" value="This associate the OAuth strategy with the modelServerURL for which it should be used." />
+          </node>
         </node>
       </node>
     </node>
@@ -1806,6 +1860,9 @@
       <node concept="37vLTG" id="3ljvbPMTMQx" role="3clF46">
         <property role="TrG5h" value="modelServerURL" />
         <node concept="17QB3L" id="3ljvbPMTMQw" role="1tU5fm" />
+      </node>
+      <node concept="2AHcQZ" id="3ljvbPNcPLc" role="2AJF6D">
+        <ref role="2AI5Lk" to="mhfm:~Nullable" resolve="Nullable" />
       </node>
     </node>
     <node concept="2tJIrI" id="3ljvbPMTHXb" role="jymVt" />
