@@ -499,9 +499,6 @@
     </node>
     <node concept="m$_wf" id="7gF2HTviNPW" role="3989C9">
       <property role="m$_wk" value="org.modelix.model" />
-      <node concept="m$_yC" id="3MAI_GnQU02" role="m$_yJ">
-        <ref role="m$_y1" node="7gF2HTvj4Cd" resolve="org.modelix.ui" />
-      </node>
       <node concept="m$_yC" id="3MAI_GnQTnG" role="m$_yJ">
         <ref role="m$_y1" to="ffeo:5xhjlkpPhJu" resolve="jetbrains.mps.ide.httpsupport" />
       </node>
@@ -566,7 +563,7 @@
       <node concept="m$_yC" id="6HlxtAUTlYm" role="m$_yJ">
         <ref role="m$_y1" node="7gF2HTviNPW" resolve="org.modelix.model" />
       </node>
-      <node concept="m$_yC" id="1BXGyXtBVIa" role="m$_yJ">
+      <node concept="m$_yC" id="3ljvbPN7ict" role="m$_yJ">
         <ref role="m$_y1" node="7gF2HTvj4Cd" resolve="org.modelix.ui" />
       </node>
       <node concept="m$_yC" id="TSXTNiO0Dw" role="m$_yJ">
@@ -2063,22 +2060,6 @@
             </node>
             <node concept="3qWCbU" id="4tfK3zZNTim" role="3LXTna">
               <property role="3qWCbO" value="**/*.mps, **/*.mpsr, **/.model" />
-            </node>
-          </node>
-        </node>
-        <node concept="1SiIV0" id="4tfK3zZNTic" role="3bR37C">
-          <node concept="1BurEX" id="4tfK3zZNTid" role="1SiIV1">
-            <node concept="398BVA" id="4tfK3zZNTi3" role="1BurEY">
-              <ref role="398BVh" node="3$7Kuaihl5X" resolve="modelix.modules" />
-              <node concept="2Ry0Ak" id="4tfK3zZNTi4" role="iGT6I">
-                <property role="2Ry0Am" value="org.modelix.ui.svg" />
-                <node concept="2Ry0Ak" id="4tfK3zZNTi5" role="2Ry0An">
-                  <property role="2Ry0Am" value="lib" />
-                  <node concept="2Ry0Ak" id="4tfK3zZNTi6" role="2Ry0An">
-                    <property role="2Ry0Am" value="commons-codec-1.10.jar" />
-                  </node>
-                </node>
-              </node>
             </node>
           </node>
         </node>
@@ -4493,12 +4474,9 @@
         <node concept="398BVA" id="3MAI_GnQClg" role="3LF7KH">
           <ref role="398BVh" node="3$7Kuaihl5X" resolve="modelix.modules" />
           <node concept="2Ry0Ak" id="3MAI_GnQOcq" role="iGT6I">
-            <property role="2Ry0Am" value="solutions" />
-            <node concept="2Ry0Ak" id="3MAI_GnQOO_" role="2Ry0An">
-              <property role="2Ry0Am" value="org.modelix.authentication" />
-              <node concept="2Ry0Ak" id="3MAI_GnQPsK" role="2Ry0An">
-                <property role="2Ry0Am" value="org.modelix.authentication.msd" />
-              </node>
+            <property role="2Ry0Am" value="org.modelix.authentication" />
+            <node concept="2Ry0Ak" id="3ljvbPN7tNA" role="2Ry0An">
+              <property role="2Ry0Am" value="org.modelix.authentication.msd" />
             </node>
           </node>
         </node>
@@ -4512,16 +4490,6 @@
             <ref role="3bR37D" to="ffeo:44LXwdzyvTi" resolve="Annotations" />
           </node>
         </node>
-        <node concept="1SiIV0" id="3MAI_GnQQ7r" role="3bR37C">
-          <node concept="3bR9La" id="3MAI_GnQQ7s" role="1SiIV1">
-            <ref role="3bR37D" to="ffeo:6pse5qHNghF" resolve="jetbrains.mps.ide.httpsupport.nodeaccess" />
-          </node>
-        </node>
-        <node concept="1SiIV0" id="3MAI_GnQQ7t" role="3bR37C">
-          <node concept="3bR9La" id="3MAI_GnQQ7u" role="1SiIV1">
-            <ref role="3bR37D" node="1_iojA26Pac" resolve="org.modelix.ui.svg" />
-          </node>
-        </node>
         <node concept="1SiIV0" id="3MAI_GnQQ7v" role="3bR37C">
           <node concept="3bR9La" id="3MAI_GnQQ7w" role="1SiIV1">
             <ref role="3bR37D" to="ffeo:1TaHNgiIbJb" resolve="MPS.Platform" />
@@ -4530,11 +4498,6 @@
         <node concept="1SiIV0" id="3MAI_GnQQ7x" role="3bR37C">
           <node concept="3bR9La" id="3MAI_GnQQ7y" role="1SiIV1">
             <ref role="3bR37D" node="7gF2HTviNPP" resolve="org.modelix.lib" />
-          </node>
-        </node>
-        <node concept="1SiIV0" id="3MAI_GnQQ7z" role="3bR37C">
-          <node concept="3bR9La" id="3MAI_GnQQ7$" role="1SiIV1">
-            <ref role="3bR37D" to="ffeo:xSXmQZAqVi" resolve="jetbrains.mps.ide.httpsupport.runtime" />
           </node>
         </node>
         <node concept="1SiIV0" id="3MAI_GnQQ7_" role="3bR37C">
@@ -4546,11 +4509,6 @@
         <node concept="1SiIV0" id="3MAI_GnQQ7B" role="3bR37C">
           <node concept="3bR9La" id="3MAI_GnQQ7C" role="1SiIV1">
             <ref role="3bR37D" to="ffeo:6pse5qHNhL7" resolve="jetbrains.mps.ide.httpsupport.manager" />
-          </node>
-        </node>
-        <node concept="1SiIV0" id="3MAI_GnQQ7D" role="3bR37C">
-          <node concept="3bR9La" id="3MAI_GnQQ7E" role="1SiIV1">
-            <ref role="3bR37D" node="7gF2HTviNPs" resolve="org.modelix.model.mpsplugin" />
           </node>
         </node>
         <node concept="1BupzO" id="3MAI_GnQQ7O" role="3bR31x">
@@ -5097,14 +5055,14 @@
         <node concept="3LEDTy" id="7BujJjYSJ9v" role="3LEDUa">
           <ref role="3LEDTV" node="7gF2HTviNPn" resolve="org.modelix.ui.sm" />
         </node>
-        <node concept="3LEDTy" id="3MAI_GnQQPr" role="3LEDUa">
-          <ref role="3LEDTV" to="ffeo:7Kfy9QB6KZc" resolve="jetbrains.mps.baseLanguage.checkedDots" />
+        <node concept="3LEDTy" id="3ljvbPN7fyP" role="3LEDUa">
+          <ref role="3LEDTV" to="ffeo:7Kfy9QB6L9c" resolve="jetbrains.mps.lang.quotation" />
         </node>
-        <node concept="3LEDTy" id="3MAI_GnQQPs" role="3LEDUa">
+        <node concept="3LEDTy" id="3ljvbPN7fyQ" role="3LEDUa">
           <ref role="3LEDTV" to="ffeo:7Kfy9QB6KXW" resolve="jetbrains.mps.lang.core" />
         </node>
-        <node concept="3LEDTy" id="3MAI_GnQQPt" role="3LEDUa">
-          <ref role="3LEDTV" to="ffeo:7Kfy9QB6L9c" resolve="jetbrains.mps.lang.quotation" />
+        <node concept="3LEDTy" id="3ljvbPN7fyR" role="3LEDUa">
+          <ref role="3LEDTV" to="ffeo:7Kfy9QB6KZc" resolve="jetbrains.mps.baseLanguage.checkedDots" />
         </node>
       </node>
       <node concept="1E1JtD" id="7BujJjXYVmv" role="2G$12L">
