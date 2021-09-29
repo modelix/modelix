@@ -145,3 +145,17 @@ String stripVersion(String fileNameWithVersion) {
     println "stripVersion($fileNameWithVersion) -> $name"
     return name
 }
+
+publishing {
+    repositories {
+        maven {
+            url rootProject.publishingRepository
+            if (rootProject.hasProperty('nexusUsername')) {
+                credentials {
+                    username rootProject.nexusUsername
+                    password rootProject.nexusPassword
+                }
+            }
+        }
+    }
+}

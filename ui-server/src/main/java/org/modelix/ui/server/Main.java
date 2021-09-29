@@ -2,6 +2,7 @@ package org.modelix.ui.server;
 
 import com.google.common.io.Files;
 import jetbrains.mps.project.Project;
+import jetbrains.mps.util.Pair;
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
 import org.eclipse.jgit.api.CloneCommand;
@@ -12,9 +13,11 @@ import org.eclipse.jgit.transport.CredentialsProvider;
 import org.eclipse.jgit.transport.URIish;
 import org.eclipse.jgit.transport.UsernamePasswordCredentialsProvider;
 
+import javax.annotation.Nullable;
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
@@ -90,7 +93,23 @@ public class Main {
                 files.forEach(f -> System.out.println("MPS related file found: " + f));
             }
 
-            Project mpsProject = EnvironmentLoader.loadEnvironment(editableModulesDir);
+            String additionalPluginsProperty = getPropertyOrEnv("ADDITIONAL_PLUGINS");
+
+            List<Pair<String, String>> additionalPlugins = new ArrayList<>();
+
+            if(additionalPluginsProperty != null && additionalPluginsProperty.length() > 0) {
+                String[] strings = additionalPluginsProperty.split(",");
+                for (String pluginsRaw : strings) {
+                    if(pluginsRaw.contains(":")) {
+                        String[] split = pluginsRaw.split(":");
+                        additionalPlugins.add(new Pair<>(split[0], split[1]));
+                    } else {
+                        additionalPlugins.add(new Pair<>(pluginsRaw, pluginsRaw));
+                    }
+                }
+            }
+
+            Project mpsProject = EnvironmentLoader.loadEnvironment(editableModulesDir, additionalPlugins);
             LOG.debug("idea.load.plugins.id: " + System.getProperty("idea.load.plugins.id"));
         } catch (Exception ex) {
             LOG.error("", ex);
@@ -123,6 +142,7 @@ public class Main {
         });
     }
 
+    @Nullable
     private static String getPropertyOrEnv(String name) {
         String value = System.getProperty(name);
         if (value == null || value.length() == 0) value = System.getenv(name);

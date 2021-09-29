@@ -193,6 +193,12 @@ task packageMpsModelPlugin(type: Zip, dependsOn: buildMpsModules) {
     include "org.modelix.common/**"
 }
 
+task packageModelixWebEditorsPlugin(type: Zip, dependsOn: buildMpsModules) {
+    baseName 'org.modelix.ui'
+    from "$rootDir/build/org.modelix/build/artifacts/org.modelix/plugins"
+    include "org.modelix.ui/**"
+}
+
 task packageBuildScripts(type: Zip, dependsOn: buildMpsModules) {
     baseName 'org.modelix.buildscripts'
     from "$rootDir/build/org.modelix/build/artifacts/org.modelix/plugins"
@@ -215,6 +221,30 @@ publishing {
             groupId 'org.modelix'
             artifactId 'mps-model-plugin'
             artifact packageMpsModelPlugin
+            pom.withXml {
+                def dependenciesNode = asNode().appendNode('dependencies')
+                configurations.mps.resolvedConfiguration.firstLevelModuleDependencies.each {
+                    def dependencyNode = dependenciesNode.appendNode('dependency')
+                    dependencyNode.appendNode('groupId', it.moduleGroup)
+                    dependencyNode.appendNode('artifactId', it.moduleName)
+                    dependencyNode.appendNode('version', it.moduleVersion)
+                    dependencyNode.appendNode('type', it.moduleArtifacts[0].type)
+                    dependencyNode.appendNode('scope', 'provided')
+                }
+                configurations.mpsArtifacts.resolvedConfiguration.firstLevelModuleDependencies.each {
+                    def dependencyNode = dependenciesNode.appendNode('dependency')
+                    dependencyNode.appendNode('groupId', it.moduleGroup)
+                    dependencyNode.appendNode('artifactId', it.moduleName)
+                    dependencyNode.appendNode('version', it.moduleVersion)
+                    dependencyNode.appendNode('type', it.moduleArtifacts[0].type)
+                    dependencyNode.appendNode('scope', 'provided')
+                }
+            }
+        }
+        modelixWebEditorsPlugin(MavenPublication) {
+            groupId 'org.modelix'
+            artifactId 'web-editors'
+            artifact packageModelixWebEditorsPlugin
             pom.withXml {
                 def dependenciesNode = asNode().appendNode('dependencies')
                 configurations.mps.resolvedConfiguration.firstLevelModuleDependencies.each {
