@@ -354,24 +354,6 @@
         </node>
         <node concept="m$_wl" id="7gF2HTvk5j6" role="39821P">
           <ref role="m_rDy" node="7gF2HTvj4Cd" resolve="org.modelix.ui" />
-          <node concept="398223" id="1_iojA27rSX" role="39821P">
-            <node concept="3_J27D" id="1_iojA27rSY" role="Nbhlr">
-              <node concept="3Mxwew" id="1_iojA27s0T" role="3MwsjC">
-                <property role="3MwjfP" value="lib" />
-              </node>
-            </node>
-            <node concept="2HvfSZ" id="1_iojA27s0V" role="39821P">
-              <node concept="398BVA" id="1_iojA27s8R" role="2HvfZ0">
-                <ref role="398BVh" node="3$7Kuaihl5X" resolve="modelix.modules" />
-                <node concept="2Ry0Ak" id="1_iojA27sgP" role="iGT6I">
-                  <property role="2Ry0Am" value="org.modelix.ui.svg" />
-                  <node concept="2Ry0Ak" id="1_iojA27sgU" role="2Ry0An">
-                    <property role="2Ry0Am" value="lib" />
-                  </node>
-                </node>
-              </node>
-            </node>
-          </node>
           <node concept="pUk6x" id="7gF2HTvk5ly" role="pUk7w" />
         </node>
         <node concept="m$_wl" id="7gF2HTviNQb" role="39821P">
