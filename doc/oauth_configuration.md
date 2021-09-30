@@ -23,5 +23,3 @@ If we instead want to connect to an instance of Identity Server we will instead 
 We then select Apply.
 
 We should now go to the ModelServer with the same URL. If we add it we will be asked to login right away. If instead the ModelServer was already existing we can select the action "Get Authorization Token" to ensure the token is loaded.
-
-
