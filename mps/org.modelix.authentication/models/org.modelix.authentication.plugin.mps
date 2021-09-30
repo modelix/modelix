@@ -7899,15 +7899,41 @@
             </node>
           </node>
         </node>
-        <node concept="3clFbF" id="2uDeeSDG4DW" role="3cqZAp">
-          <node concept="2OqwBi" id="2uDeeSDG4RH" role="3clFbG">
-            <node concept="37vLTw" id="2uDeeSDG4DU" role="2Oq$k0">
-              <ref role="3cqZAo" node="7$Qv9nHSxQj" resolve="pendingTokenConsumer" />
-            </node>
-            <node concept="liA8E" id="2uDeeSDG56R" role="2OqNvi">
-              <ref role="37wK5l" to="82uw:~Consumer.accept(java.lang.Object)" resolve="accept" />
-              <node concept="37vLTw" id="2uDeeSDG5gC" role="37wK5m">
-                <ref role="3cqZAo" node="579DpELdN8F" resolve="accessToken" />
+        <node concept="3clFbF" id="2Q$SAQYwIRx" role="3cqZAp">
+          <node concept="2YIFZM" id="2Q$SAQYwIXP" role="3clFbG">
+            <ref role="37wK5l" to="dxuu:~SwingUtilities.invokeLater(java.lang.Runnable)" resolve="invokeLater" />
+            <ref role="1Pybhc" to="dxuu:~SwingUtilities" resolve="SwingUtilities" />
+            <node concept="2ShNRf" id="2Q$SAQYwKOd" role="37wK5m">
+              <node concept="YeOm9" id="2Q$SAQYwRp6" role="2ShVmc">
+                <node concept="1Y3b0j" id="2Q$SAQYwRp9" role="YeSDq">
+                  <property role="2bfB8j" value="true" />
+                  <ref role="1Y3XeK" to="wyt6:~Runnable" resolve="Runnable" />
+                  <ref role="37wK5l" to="wyt6:~Object.&lt;init&gt;()" resolve="Object" />
+                  <node concept="3Tm1VV" id="2Q$SAQYwRpa" role="1B3o_S" />
+                  <node concept="3clFb_" id="2Q$SAQYwRpf" role="jymVt">
+                    <property role="TrG5h" value="run" />
+                    <node concept="3Tm1VV" id="2Q$SAQYwRpg" role="1B3o_S" />
+                    <node concept="3cqZAl" id="2Q$SAQYwRpi" role="3clF45" />
+                    <node concept="3clFbS" id="2Q$SAQYwRpj" role="3clF47">
+                      <node concept="3clFbF" id="2uDeeSDG4DW" role="3cqZAp">
+                        <node concept="2OqwBi" id="2uDeeSDG4RH" role="3clFbG">
+                          <node concept="37vLTw" id="2uDeeSDG4DU" role="2Oq$k0">
+                            <ref role="3cqZAo" node="7$Qv9nHSxQj" resolve="pendingTokenConsumer" />
+                          </node>
+                          <node concept="liA8E" id="2uDeeSDG56R" role="2OqNvi">
+                            <ref role="37wK5l" to="82uw:~Consumer.accept(java.lang.Object)" resolve="accept" />
+                            <node concept="37vLTw" id="2uDeeSDG5gC" role="37wK5m">
+                              <ref role="3cqZAo" node="579DpELdN8F" resolve="accessToken" />
+                            </node>
+                          </node>
+                        </node>
+                      </node>
+                    </node>
+                    <node concept="2AHcQZ" id="2Q$SAQYwRpl" role="2AJF6D">
+                      <ref role="2AI5Lk" to="wyt6:~Override" resolve="Override" />
+                    </node>
+                  </node>
+                </node>
               </node>
             </node>
           </node>
@@ -7917,6 +7943,7 @@
       <node concept="3cqZAl" id="579DpELdLpR" role="3clF45" />
       <node concept="37vLTG" id="579DpELdN8F" role="3clF46">
         <property role="TrG5h" value="accessToken" />
+        <property role="3TUv4t" value="true" />
         <node concept="17QB3L" id="579DpELdN8E" role="1tU5fm" />
       </node>
     </node>
