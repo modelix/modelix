@@ -27510,11 +27510,10 @@
                 <ref role="1Pybhd" node="1LVcV5Kxxi$" resolve="ModelServerConnections" />
               </node>
               <node concept="liA8E" id="5rz8NqPSexu" role="2OqNvi">
-                <ref role="37wK5l" node="5rz8NqPS7qi" resolve="ensureModelServerIsPresent" />
+                <ref role="37wK5l" node="7$Qv9nI5XRu" resolve="ensureModelServerIsPresent" />
                 <node concept="37vLTw" id="4lVWZ1MnsWF" role="37wK5m">
                   <ref role="3cqZAo" node="4lVWZ1MmF9b" resolve="url" />
                 </node>
-                <node concept="10Nm6u" id="5U39cdmUWa0" role="37wK5m" />
               </node>
             </node>
           </node>
