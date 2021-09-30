@@ -7253,6 +7253,19 @@
         </node>
         <node concept="3clFbJ" id="5rz8NqPS7qB" role="3cqZAp">
           <node concept="3clFbS" id="5rz8NqPS7qC" role="3clFbx">
+            <node concept="3clFbF" id="5RwL1nyhju5" role="3cqZAp">
+              <node concept="2OqwBi" id="5RwL1nyhmmt" role="3clFbG">
+                <node concept="37vLTw" id="5RwL1nyhju3" role="2Oq$k0">
+                  <ref role="3cqZAo" node="5rz8NqPS7qm" resolve="modelServerConnection" />
+                </node>
+                <node concept="liA8E" id="5RwL1nyhmva" role="2OqNvi">
+                  <ref role="37wK5l" node="2EzI5qKmtmw" resolve="setAuthToken" />
+                  <node concept="37vLTw" id="5RwL1nyhmIg" role="37wK5m">
+                    <ref role="3cqZAo" node="7rdFupvXDo0" resolve="token" />
+                  </node>
+                </node>
+              </node>
+            </node>
             <node concept="3cpWs6" id="5rz8NqPS7qD" role="3cqZAp">
               <node concept="37vLTw" id="5rz8NqPS7qE" role="3cqZAk">
                 <ref role="3cqZAo" node="5rz8NqPS7qm" resolve="modelServerConnection" />
@@ -7851,6 +7864,22 @@
       <node concept="3cqZAl" id="2EzI5qKmtmy" role="3clF45" />
       <node concept="3Tm1VV" id="2EzI5qKmtmz" role="1B3o_S" />
       <node concept="3clFbS" id="2EzI5qKmtm$" role="3clF47">
+        <node concept="3clFbJ" id="5RwL1nyhtII" role="3cqZAp">
+          <node concept="3clFbS" id="5RwL1nyhtIK" role="3clFbx">
+            <node concept="3cpWs6" id="5RwL1nyhwsW" role="3cqZAp" />
+          </node>
+          <node concept="17R0WA" id="5RwL1nyhvGa" role="3clFbw">
+            <node concept="37vLTw" id="5RwL1nyhw24" role="3uHU7w">
+              <ref role="3cqZAo" node="2EzI5qKmE_s" resolve="token" />
+            </node>
+            <node concept="2OqwBi" id="5RwL1nyhukJ" role="3uHU7B">
+              <node concept="Xjq3P" id="5RwL1nyhtVr" role="2Oq$k0" />
+              <node concept="2OwXpG" id="5RwL1nyhuu6" role="2OqNvi">
+                <ref role="2Oxat5" node="2EzI5qKmJsA" resolve="authToken" />
+              </node>
+            </node>
+          </node>
+        </node>
         <node concept="3clFbF" id="2EzI5qKpQIc" role="3cqZAp">
           <node concept="37vLTI" id="2EzI5qKpRym" role="3clFbG">
             <node concept="37vLTw" id="2EzI5qKpRJi" role="37vLTx">

@@ -1966,7 +1966,7 @@
                                         <ref role="1Pybhc" to="csg2:1LVcV5Kxxi$" resolve="ModelServerConnections" />
                                       </node>
                                       <node concept="liA8E" id="6aRQr1WPNDu" role="2OqNvi">
-                                        <ref role="37wK5l" to="csg2:6aRQr1WPk$8" resolve="addModelServer" />
+                                        <ref role="37wK5l" to="csg2:5rz8NqPS7qi" resolve="ensureModelServerIsPresent" />
                                         <node concept="37vLTw" id="2uDeeSDFGzA" role="37wK5m">
                                           <ref role="3cqZAo" node="2uDeeSDFFGt" resolve="finalUrl" />
                                         </node>
@@ -1990,7 +1990,7 @@
                                       </node>
                                     </node>
                                     <node concept="liA8E" id="1xehy3Speun" role="2OqNvi">
-                                      <ref role="37wK5l" node="1xehy3SoXrB" resolve="addModelServer" />
+                                      <ref role="37wK5l" node="5RwL1nyhD9k" resolve="ensureModelServerIsPresent" />
                                       <node concept="37vLTw" id="1xehy3SpewJ" role="37wK5m">
                                         <ref role="3cqZAo" node="7f6Tb6n$mIF" resolve="modelServer" />
                                       </node>
@@ -2049,7 +2049,7 @@
                           <ref role="1Pybhc" to="csg2:1LVcV5Kxxi$" resolve="ModelServerConnections" />
                         </node>
                         <node concept="liA8E" id="1ln$sNEbJzu" role="2OqNvi">
-                          <ref role="37wK5l" to="csg2:6aRQr1WPk$8" resolve="addModelServer" />
+                          <ref role="37wK5l" to="csg2:5rz8NqPS7qi" resolve="ensureModelServerIsPresent" />
                           <node concept="37vLTw" id="1ln$sNEbJzv" role="37wK5m">
                             <ref role="3cqZAo" node="2uDeeSDFFGt" resolve="finalUrl" />
                           </node>
@@ -2071,7 +2071,7 @@
                         </node>
                       </node>
                       <node concept="liA8E" id="1ln$sNEbJzB" role="2OqNvi">
-                        <ref role="37wK5l" node="1xehy3SoXrB" resolve="addModelServer" />
+                        <ref role="37wK5l" node="5RwL1nyhD9k" resolve="ensureModelServerIsPresent" />
                         <node concept="37vLTw" id="1ln$sNEbJzC" role="37wK5m">
                           <ref role="3cqZAo" node="1ln$sNEbJzq" resolve="modelServer" />
                         </node>
@@ -7020,6 +7020,106 @@
       </node>
       <node concept="3Tm1VV" id="1xehy3SoXs9" role="1B3o_S" />
     </node>
+    <node concept="2tJIrI" id="5RwL1nyhyVa" role="jymVt" />
+    <node concept="3clFb_" id="5RwL1nyi7R0" role="jymVt">
+      <property role="TrG5h" value="isModelServerPresent" />
+      <node concept="3clFbS" id="5RwL1nyi7R3" role="3clF47">
+        <node concept="3clFbF" id="5RwL1nyikXR" role="3cqZAp">
+          <node concept="2OqwBi" id="5RwL1nyimUF" role="3clFbG">
+            <node concept="2OqwBi" id="5RwL1nyil4S" role="2Oq$k0">
+              <node concept="1rXfSq" id="5RwL1nyikXQ" role="2Oq$k0">
+                <ref role="37wK5l" node="1xehy3SrtXT" resolve="readState" />
+              </node>
+              <node concept="2OwXpG" id="5RwL1nyim3E" role="2OqNvi">
+                <ref role="2Oxat6" node="7xblg8lmo$P" resolve="modelServers" />
+              </node>
+            </node>
+            <node concept="liA8E" id="5RwL1nyisYx" role="2OqNvi">
+              <ref role="37wK5l" to="33ny:~List.contains(java.lang.Object)" resolve="contains" />
+              <node concept="37vLTw" id="5RwL1nyitQS" role="37wK5m">
+                <ref role="3cqZAo" node="5RwL1nyic4c" resolve="url" />
+              </node>
+            </node>
+          </node>
+        </node>
+      </node>
+      <node concept="3Tm1VV" id="5RwL1nyi174" role="1B3o_S" />
+      <node concept="10P_77" id="5RwL1nyi6Il" role="3clF45" />
+      <node concept="37vLTG" id="5RwL1nyic4c" role="3clF46">
+        <property role="TrG5h" value="url" />
+        <node concept="17QB3L" id="5RwL1nyic4b" role="1tU5fm" />
+      </node>
+    </node>
+    <node concept="2tJIrI" id="5RwL1nyhWzu" role="jymVt" />
+    <node concept="3clFb_" id="5RwL1nyhD9k" role="jymVt">
+      <property role="TrG5h" value="ensureModelServerIsPresent" />
+      <node concept="3clFbS" id="5RwL1nyhD9l" role="3clF47">
+        <node concept="3clFbJ" id="5RwL1nyhVRB" role="3cqZAp">
+          <node concept="3clFbS" id="5RwL1nyhVRD" role="3clFbx">
+            <node concept="3clFbF" id="5RwL1nyhD9m" role="3cqZAp">
+              <node concept="1rXfSq" id="5RwL1nyhD9n" role="3clFbG">
+                <ref role="37wK5l" node="1xehy3Sr98P" resolve="modifyState" />
+                <node concept="1bVj0M" id="5RwL1nyhD9o" role="37wK5m">
+                  <node concept="37vLTG" id="5RwL1nyhD9p" role="1bW2Oz">
+                    <property role="TrG5h" value="state" />
+                    <node concept="3uibUv" id="5RwL1nyhD9q" role="1tU5fm">
+                      <ref role="3uigEE" node="7xblg8lmnwf" resolve="CloudResourcesConfigurationComponent.State" />
+                    </node>
+                  </node>
+                  <node concept="3clFbS" id="5RwL1nyhD9r" role="1bW5cS">
+                    <node concept="3clFbF" id="5RwL1nyhD9s" role="3cqZAp">
+                      <node concept="2OqwBi" id="5RwL1nyhD9t" role="3clFbG">
+                        <node concept="2OqwBi" id="5RwL1nyhD9u" role="2Oq$k0">
+                          <node concept="37vLTw" id="5RwL1nyhD9v" role="2Oq$k0">
+                            <ref role="3cqZAo" node="5RwL1nyhD9p" resolve="state" />
+                          </node>
+                          <node concept="2OwXpG" id="5RwL1nyhD9w" role="2OqNvi">
+                            <ref role="2Oxat6" node="7xblg8lmo$P" resolve="modelServers" />
+                          </node>
+                        </node>
+                        <node concept="liA8E" id="5RwL1nyhD9x" role="2OqNvi">
+                          <ref role="37wK5l" to="33ny:~List.add(java.lang.Object)" resolve="add" />
+                          <node concept="2OqwBi" id="5RwL1nyhD9y" role="37wK5m">
+                            <node concept="37vLTw" id="5RwL1nyhD9z" role="2Oq$k0">
+                              <ref role="3cqZAo" node="5RwL1nyhD9A" resolve="modelServer" />
+                            </node>
+                            <node concept="liA8E" id="5RwL1nyhD9$" role="2OqNvi">
+                              <ref role="37wK5l" to="csg2:6aRQr1WQLS7" resolve="getBaseUrl" />
+                            </node>
+                          </node>
+                        </node>
+                      </node>
+                    </node>
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+          <node concept="3fqX7Q" id="5RwL1nyhW3K" role="3clFbw">
+            <node concept="1rXfSq" id="5RwL1nyifYd" role="3fr31v">
+              <ref role="37wK5l" node="5RwL1nyi7R0" resolve="isModelServerPresent" />
+              <node concept="2OqwBi" id="5RwL1nyihcF" role="37wK5m">
+                <node concept="37vLTw" id="5RwL1nyigZk" role="2Oq$k0">
+                  <ref role="3cqZAo" node="5RwL1nyhD9A" resolve="modelServer" />
+                </node>
+                <node concept="liA8E" id="5RwL1nyii7U" role="2OqNvi">
+                  <ref role="37wK5l" to="csg2:6aRQr1WQLS7" resolve="getBaseUrl" />
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+      </node>
+      <node concept="3cqZAl" id="5RwL1nyhD9_" role="3clF45" />
+      <node concept="37vLTG" id="5RwL1nyhD9A" role="3clF46">
+        <property role="TrG5h" value="modelServer" />
+        <node concept="3uibUv" id="5RwL1nyhD9B" role="1tU5fm">
+          <ref role="3uigEE" to="csg2:6aRQr1WOV$v" resolve="ModelServerConnection" />
+        </node>
+      </node>
+      <node concept="3Tm1VV" id="5RwL1nyhD9C" role="1B3o_S" />
+    </node>
+    <node concept="2tJIrI" id="5RwL1nyh_40" role="jymVt" />
     <node concept="2tJIrI" id="7f6Tb6nAf43" role="jymVt" />
     <node concept="3clFb_" id="1xehy3SoZM5" role="jymVt">
       <property role="TrG5h" value="removeModelServer" />
