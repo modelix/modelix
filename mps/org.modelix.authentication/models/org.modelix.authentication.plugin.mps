@@ -5590,7 +5590,7 @@
             <node concept="1rXfSq" id="3ljvbPMVcvB" role="3clFbG">
               <ref role="37wK5l" node="55JU2Sa8dZg" resolve="createLabel" />
               <node concept="Xl_RD" id="3ljvbPMVcvC" role="37wK5m">
-                <property role="Xl_RC" value="Proxy URL" />
+                <property role="Xl_RC" value="Model Server URL" />
               </node>
               <node concept="3cmrfG" id="3ljvbPMVcvD" role="37wK5m">
                 <property role="3cmrfH" value="0" />
