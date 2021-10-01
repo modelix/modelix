@@ -9,6 +9,7 @@
     <use id="28f9e497-3b42-4291-aeba-0a1039153ab1" name="jetbrains.mps.lang.plugin" version="5" />
     <use id="f2801650-65d5-424e-bb1b-463a8781b786" name="jetbrains.mps.baseLanguage.javadoc" version="2" />
     <use id="654422bf-e75f-44dc-936d-188890a746ce" name="de.slisson.mps.reflection" version="0" />
+    <use id="774bf8a0-62e5-41e1-af63-f4812e60e48b" name="jetbrains.mps.baseLanguage.checkedDots" version="0" />
   </languages>
   <imports>
     <import index="4h87" ref="r:05ff02e5-9836-4ae9-a454-eab43fa58c8f(jetbrains.mps.ide.httpsupport.manager.plugin)" />
@@ -301,6 +302,9 @@
       <concept id="1170345865475" name="jetbrains.mps.baseLanguage.structure.AnonymousClass" flags="ig" index="1Y3b0j">
         <reference id="1170346070688" name="classifier" index="1Y3XeK" />
       </concept>
+    </language>
+    <language id="774bf8a0-62e5-41e1-af63-f4812e60e48b" name="jetbrains.mps.baseLanguage.checkedDots">
+      <concept id="4079382982702596667" name="jetbrains.mps.baseLanguage.checkedDots.structure.CheckedDotExpression" flags="nn" index="2EnYce" />
     </language>
     <language id="fd392034-7849-419d-9071-12563d152375" name="jetbrains.mps.baseLanguage.closures">
       <concept id="1199569711397" name="jetbrains.mps.baseLanguage.closures.structure.ClosureLiteral" flags="nn" index="1bVj0M">
@@ -3613,7 +3617,7 @@
               <node concept="2ShNRf" id="579DpELfdt8" role="3cqZAk">
                 <node concept="1pGfFk" id="579DpELfjEI" role="2ShVmc">
                   <ref role="37wK5l" node="579DpELfgMV" resolve="User" />
-                  <node concept="2OqwBi" id="579DpELfn1M" role="37wK5m">
+                  <node concept="2EnYce" id="7ZuEiKlQ458" role="37wK5m">
                     <node concept="2OqwBi" id="579DpELfkmA" role="2Oq$k0">
                       <node concept="37vLTw" id="579DpELfjEH" role="2Oq$k0">
                         <ref role="3cqZAo" node="579DpELfajA" resolve="jo" />
@@ -3629,7 +3633,7 @@
                       <ref role="37wK5l" to="wy2b:~JsonElement.getAsString()" resolve="getAsString" />
                     </node>
                   </node>
-                  <node concept="2OqwBi" id="579DpELfoJY" role="37wK5m">
+                  <node concept="2EnYce" id="7ZuEiKlQ4Xq" role="37wK5m">
                     <node concept="2OqwBi" id="579DpELfoJZ" role="2Oq$k0">
                       <node concept="37vLTw" id="579DpELfoK0" role="2Oq$k0">
                         <ref role="3cqZAo" node="579DpELfajA" resolve="jo" />
