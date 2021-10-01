@@ -14,6 +14,7 @@
       <sourceRoot location="objenesis-2.6.jar" />
       <sourceRoot location="reflectasm-1.11.6.jar" />
       <sourceRoot location="trove4j-3.0.3.jar" />
+      <sourceRoot location="commons-codec-1.10.jar" />
     </modelRoot>
   </models>
   <facets>
@@ -31,6 +32,7 @@
     <stubModelEntry path="${module}/lib/objenesis-2.6.jar" />
     <stubModelEntry path="${module}/lib/reflectasm-1.11.6.jar" />
     <stubModelEntry path="${module}/lib/trove4j-3.0.3.jar" />
+    <stubModelEntry path="${module}/lib/commons-codec-1.10.jar" />
   </stubModelEntries>
   <sourcePath />
   <dependencies>
