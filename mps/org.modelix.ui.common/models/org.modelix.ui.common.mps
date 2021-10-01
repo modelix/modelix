@@ -14994,13 +14994,17 @@
                                 </node>
                               </node>
                             </node>
-                            <node concept="RRSsy" id="2mcPA70vVPT" role="3cqZAp">
-                              <node concept="3cpWs3" id="2mcPA70vYCg" role="RRSoy">
-                                <node concept="37vLTw" id="2mcPA70vZjV" role="3uHU7w">
-                                  <ref role="3cqZAo" node="2mcPA70vTRB" resolve="headersString" />
-                                </node>
-                                <node concept="Xl_RD" id="2mcPA70vVPV" role="3uHU7B">
-                                  <property role="Xl_RC" value="New websocket connection with headers:\n" />
+                            <node concept="1X3_iC" id="4c1IFvGaCjL" role="lGtFl">
+                              <property role="3V$3am" value="statement" />
+                              <property role="3V$3ak" value="f3061a53-9226-4cc5-a443-f952ceaf5816/1068580123136/1068581517665" />
+                              <node concept="RRSsy" id="2mcPA70vVPT" role="8Wnug">
+                                <node concept="3cpWs3" id="2mcPA70vYCg" role="RRSoy">
+                                  <node concept="37vLTw" id="2mcPA70vZjV" role="3uHU7w">
+                                    <ref role="3cqZAo" node="2mcPA70vTRB" resolve="headersString" />
+                                  </node>
+                                  <node concept="Xl_RD" id="2mcPA70vVPV" role="3uHU7B">
+                                    <property role="Xl_RC" value="New websocket connection with headers:\n" />
+                                  </node>
                                 </node>
                               </node>
                             </node>
