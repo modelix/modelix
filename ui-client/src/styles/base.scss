@@ -129,6 +129,16 @@
   margin-right: 3px;
 }
 
+.generator-message-INFORMATION {
+  color: lightblue;
+}
+.generator-message-WARNING {
+  color: lightgoldenrodyellow;
+}
+.generator-message-ERROR {
+  color: lightcoral;
+}
+
 header {
   min-width: 100%;
 }

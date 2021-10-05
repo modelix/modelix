@@ -385,9 +385,7 @@
       <concept id="1240325842691" name="jetbrains.mps.baseLanguage.collections.structure.AsSequenceOperation" flags="nn" index="39bAoz" />
       <concept id="1201792049884" name="jetbrains.mps.baseLanguage.collections.structure.TranslateOperation" flags="nn" index="3goQfb" />
       <concept id="1165525191778" name="jetbrains.mps.baseLanguage.collections.structure.GetFirstOperation" flags="nn" index="1uHKPH" />
-      <concept id="1240687580870" name="jetbrains.mps.baseLanguage.collections.structure.JoinOperation" flags="nn" index="3uJxvA">
-        <child id="1240687658305" name="delimiter" index="3uJOhx" />
-      </concept>
+      <concept id="1240687580870" name="jetbrains.mps.baseLanguage.collections.structure.JoinOperation" flags="nn" index="3uJxvA" />
       <concept id="1165530316231" name="jetbrains.mps.baseLanguage.collections.structure.IsEmptyOperation" flags="nn" index="1v1jN8" />
       <concept id="1225727723840" name="jetbrains.mps.baseLanguage.collections.structure.FindFirstOperation" flags="nn" index="1z4cxt" />
       <concept id="1202128969694" name="jetbrains.mps.baseLanguage.collections.structure.SelectOperation" flags="nn" index="3$u5V9" />
@@ -2489,32 +2487,32 @@
             </node>
             <node concept="3clFbH" id="3ldDl3LODZz" role="3cqZAp" />
             <node concept="3clFbF" id="7VNTBiFFoGH" role="3cqZAp">
-              <node concept="37vLTI" id="7VNTBiFFpxn" role="3clFbG">
-                <node concept="3cpWs3" id="3ldDl3LKQVQ" role="37vLTx">
-                  <node concept="Xl_RD" id="3ldDl3LKRcK" role="3uHU7w">
+              <node concept="d57v9" id="3ldDl3M41Wz" role="3clFbG">
+                <node concept="37vLTw" id="3ldDl3M41WI" role="37vLTJ">
+                  <ref role="3cqZAo" node="7VNTBiFFmfA" resolve="text" />
+                </node>
+                <node concept="3cpWs3" id="3ldDl3M41W_" role="37vLTx">
+                  <node concept="Xl_RD" id="3ldDl3M41WA" role="3uHU7w">
                     <property role="Xl_RC" value="&lt;/h1&gt;" />
                   </node>
-                  <node concept="3cpWs3" id="7VNTBiFFqj3" role="3uHU7B">
-                    <node concept="Xl_RD" id="7VNTBiFFpYs" role="3uHU7B">
+                  <node concept="3cpWs3" id="3ldDl3M41WB" role="3uHU7B">
+                    <node concept="Xl_RD" id="3ldDl3M41WC" role="3uHU7B">
                       <property role="Xl_RC" value="&lt;h1&gt;Output for model " />
                     </node>
-                    <node concept="2OqwBi" id="7VNTBiFFsMx" role="3uHU7w">
-                      <node concept="2OqwBi" id="7VNTBiFFsnV" role="2Oq$k0">
-                        <node concept="37vLTw" id="7VNTBiFFrKR" role="2Oq$k0">
+                    <node concept="2OqwBi" id="3ldDl3M41WD" role="3uHU7w">
+                      <node concept="2OqwBi" id="3ldDl3M41WE" role="2Oq$k0">
+                        <node concept="37vLTw" id="3ldDl3M41WF" role="2Oq$k0">
                           <ref role="3cqZAo" node="1MbrkMI$zgx" resolve="model" />
                         </node>
-                        <node concept="liA8E" id="7VNTBiFFs_$" role="2OqNvi">
+                        <node concept="liA8E" id="3ldDl3M41WG" role="2OqNvi">
                           <ref role="37wK5l" to="mhbf:~SModel.getName()" resolve="getName" />
                         </node>
                       </node>
-                      <node concept="liA8E" id="7VNTBiFFt22" role="2OqNvi">
+                      <node concept="liA8E" id="3ldDl3M41WH" role="2OqNvi">
                         <ref role="37wK5l" to="mhbf:~SModelName.getValue()" resolve="getValue" />
                       </node>
                     </node>
                   </node>
-                </node>
-                <node concept="37vLTw" id="7VNTBiFFoGF" role="37vLTJ">
-                  <ref role="3cqZAo" node="7VNTBiFFmfA" resolve="text" />
                 </node>
               </node>
             </node>
@@ -2990,63 +2988,28 @@
             </node>
             <node concept="3clFbF" id="3ldDl3LOgFF" role="3cqZAp">
               <node concept="d57v9" id="3ldDl3LOi7e" role="3clFbG">
-                <node concept="3cpWs3" id="3ldDl3LOuzQ" role="37vLTx">
-                  <node concept="Xl_RD" id="3ldDl3LOv7E" role="3uHU7B">
-                    <property role="Xl_RC" value="&lt;br/&gt;&lt;br/&gt;" />
-                  </node>
-                  <node concept="2OqwBi" id="3ldDl3LOl3i" role="3uHU7w">
-                    <node concept="2OqwBi" id="3ldDl3LOriD" role="2Oq$k0">
-                      <node concept="2OqwBi" id="3ldDl3LOjKM" role="2Oq$k0">
-                        <node concept="37vLTw" id="3ldDl3LOjh$" role="2Oq$k0">
-                          <ref role="3cqZAo" node="7VNTBiFGNDQ" resolve="messageHandler" />
-                        </node>
-                        <node concept="2OwXpG" id="3ldDl3LOk97" role="2OqNvi">
-                          <ref role="2Oxat5" node="3ldDl3LL8hg" resolve="messages" />
-                        </node>
-                      </node>
-                      <node concept="3$u5V9" id="3ldDl3LOsb7" role="2OqNvi">
-                        <node concept="1bVj0M" id="3ldDl3LOsb9" role="23t8la">
-                          <node concept="3clFbS" id="3ldDl3LOsba" role="1bW5cS">
-                            <node concept="3clFbF" id="3ldDl3LOtdL" role="3cqZAp">
-                              <node concept="3cpWs3" id="3ldDl3M1XCy" role="3clFbG">
-                                <node concept="Xl_RD" id="3ldDl3M1XFr" role="3uHU7w">
-                                  <property role="Xl_RC" value="&lt;/div&gt;" />
-                                </node>
-                                <node concept="3cpWs3" id="3ldDl3M1WBA" role="3uHU7B">
-                                  <node concept="Xl_RD" id="3ldDl3M1WUi" role="3uHU7B">
-                                    <property role="Xl_RC" value="&lt;div&gt;" />
-                                  </node>
-                                  <node concept="2YIFZM" id="3ldDl3LOtxO" role="3uHU7w">
-                                    <ref role="37wK5l" to="btm1:~StringEscapeUtils.escapeHtml4(java.lang.String)" resolve="escapeHtml4" />
-                                    <ref role="1Pybhc" to="btm1:~StringEscapeUtils" resolve="StringEscapeUtils" />
-                                    <node concept="2OqwBi" id="3ldDl3M2fNo" role="37wK5m">
-                                      <node concept="37vLTw" id="3ldDl3LOtXv" role="2Oq$k0">
-                                        <ref role="3cqZAo" node="3ldDl3LOsbb" resolve="it" />
-                                      </node>
-                                      <node concept="liA8E" id="3ldDl3M2glx" role="2OqNvi">
-                                        <ref role="37wK5l" to="et5u:~IMessage.getText()" resolve="getText" />
-                                      </node>
-                                    </node>
-                                  </node>
-                                </node>
-                              </node>
-                            </node>
-                          </node>
-                          <node concept="Rh6nW" id="3ldDl3LOsbb" role="1bW2Oz">
-                            <property role="TrG5h" value="it" />
-                            <node concept="2jxLKc" id="3ldDl3LOsbc" role="1tU5fm" />
-                          </node>
-                        </node>
-                      </node>
+                <node concept="Xl_RD" id="3ldDl3LOv7E" role="37vLTx">
+                  <property role="Xl_RC" value="&lt;br/&gt;&lt;br/&gt;" />
+                </node>
+                <node concept="37vLTw" id="3ldDl3LOgFD" role="37vLTJ">
+                  <ref role="3cqZAo" node="3ldDl3LOc9Z" resolve="text" />
+                </node>
+              </node>
+            </node>
+            <node concept="3clFbF" id="3ldDl3M3tcS" role="3cqZAp">
+              <node concept="d57v9" id="3ldDl3M3uDU" role="3clFbG">
+                <node concept="1rXfSq" id="3ldDl3M3vCJ" role="37vLTx">
+                  <ref role="37wK5l" node="3ldDl3M2HhQ" resolve="messagesToHtml" />
+                  <node concept="2OqwBi" id="3ldDl3M3wh7" role="37wK5m">
+                    <node concept="37vLTw" id="3ldDl3M3vXI" role="2Oq$k0">
+                      <ref role="3cqZAo" node="7VNTBiFGNDQ" resolve="messageHandler" />
                     </node>
-                    <node concept="3uJxvA" id="3ldDl3LOp8U" role="2OqNvi">
-                      <node concept="Xl_RD" id="3ldDl3LOq3P" role="3uJOhx">
-                        <property role="Xl_RC" value="&lt;br/&gt;" />
-                      </node>
+                    <node concept="2OwXpG" id="3ldDl3M3wEO" role="2OqNvi">
+                      <ref role="2Oxat5" node="3ldDl3LL8hg" resolve="messages" />
                     </node>
                   </node>
                 </node>
-                <node concept="37vLTw" id="3ldDl3LOgFD" role="37vLTJ">
+                <node concept="37vLTw" id="3ldDl3M3tcQ" role="37vLTJ">
                   <ref role="3cqZAo" node="3ldDl3LOc9Z" resolve="text" />
                 </node>
               </node>
@@ -3078,39 +3041,52 @@
                 </node>
               </node>
               <node concept="3cpWs6" id="3ldDl3LM_fV" role="3cqZAp">
-                <node concept="3cpWs3" id="3ldDl3LMJcE" role="3cqZAk">
-                  <node concept="Xl_RD" id="3ldDl3LMHFD" role="3uHU7w">
-                    <property role="Xl_RC" value="&lt;/pre&gt;" />
-                  </node>
-                  <node concept="3cpWs3" id="3ldDl3LMZOh" role="3uHU7B">
-                    <node concept="2OqwBi" id="3ldDl3LN1CK" role="3uHU7w">
-                      <node concept="37vLTw" id="3ldDl3LN05b" role="2Oq$k0">
-                        <ref role="3cqZAo" node="3$1OzWlnE2m" resolve="e" />
-                      </node>
-                      <node concept="liA8E" id="3ldDl3LN3s9" role="2OqNvi">
-                        <ref role="37wK5l" to="wyt6:~Throwable.getStackTrace()" resolve="getStackTrace" />
-                      </node>
-                    </node>
-                    <node concept="3cpWs3" id="3ldDl3LMTww" role="3uHU7B">
-                      <node concept="3cpWs3" id="3ldDl3LMHFx" role="3uHU7B">
-                        <node concept="Xl_RD" id="3ldDl3LMHFB" role="3uHU7B">
-                          <property role="Xl_RC" value="Generation failed &lt;pre&gt;" />
+                <node concept="3cpWs3" id="3ldDl3M3yhv" role="3cqZAk">
+                  <node concept="3cpWs3" id="3ldDl3LMJcE" role="3uHU7B">
+                    <node concept="3cpWs3" id="3ldDl3LMZOh" role="3uHU7B">
+                      <node concept="2OqwBi" id="3ldDl3LN1CK" role="3uHU7w">
+                        <node concept="37vLTw" id="3ldDl3LN05b" role="2Oq$k0">
+                          <ref role="3cqZAo" node="3$1OzWlnE2m" resolve="e" />
                         </node>
-                        <node concept="2YIFZM" id="3ldDl3LMMI$" role="3uHU7w">
-                          <ref role="37wK5l" to="btm1:~StringEscapeUtils.escapeHtml4(java.lang.String)" resolve="escapeHtml4" />
-                          <ref role="1Pybhc" to="btm1:~StringEscapeUtils" resolve="StringEscapeUtils" />
-                          <node concept="2OqwBi" id="3ldDl3LMPMq" role="37wK5m">
-                            <node concept="37vLTw" id="3ldDl3LMOw$" role="2Oq$k0">
-                              <ref role="3cqZAo" node="3$1OzWlnE2m" resolve="e" />
-                            </node>
-                            <node concept="liA8E" id="3ldDl3LMRKs" role="2OqNvi">
-                              <ref role="37wK5l" to="wyt6:~Throwable.getMessage()" resolve="getMessage" />
+                        <node concept="liA8E" id="3ldDl3LN3s9" role="2OqNvi">
+                          <ref role="37wK5l" to="wyt6:~Throwable.getStackTrace()" resolve="getStackTrace" />
+                        </node>
+                      </node>
+                      <node concept="3cpWs3" id="3ldDl3LMTww" role="3uHU7B">
+                        <node concept="3cpWs3" id="3ldDl3LMHFx" role="3uHU7B">
+                          <node concept="Xl_RD" id="3ldDl3LMHFB" role="3uHU7B">
+                            <property role="Xl_RC" value="Generation failed &lt;pre&gt;" />
+                          </node>
+                          <node concept="2YIFZM" id="3ldDl3LMMI$" role="3uHU7w">
+                            <ref role="37wK5l" to="btm1:~StringEscapeUtils.escapeHtml4(java.lang.String)" resolve="escapeHtml4" />
+                            <ref role="1Pybhc" to="btm1:~StringEscapeUtils" resolve="StringEscapeUtils" />
+                            <node concept="2OqwBi" id="3ldDl3LMPMq" role="37wK5m">
+                              <node concept="37vLTw" id="3ldDl3LMOw$" role="2Oq$k0">
+                                <ref role="3cqZAo" node="3$1OzWlnE2m" resolve="e" />
+                              </node>
+                              <node concept="liA8E" id="3ldDl3LMRKs" role="2OqNvi">
+                                <ref role="37wK5l" to="wyt6:~Throwable.getMessage()" resolve="getMessage" />
+                              </node>
                             </node>
                           </node>
                         </node>
+                        <node concept="Xl_RD" id="3ldDl3LMTLq" role="3uHU7w">
+                          <property role="Xl_RC" value="\n" />
+                        </node>
                       </node>
-                      <node concept="Xl_RD" id="3ldDl3LMTLq" role="3uHU7w">
-                        <property role="Xl_RC" value="\n" />
+                    </node>
+                    <node concept="Xl_RD" id="3ldDl3LMHFD" role="3uHU7w">
+                      <property role="Xl_RC" value="&lt;/pre&gt;" />
+                    </node>
+                  </node>
+                  <node concept="1rXfSq" id="3ldDl3M3zJl" role="3uHU7w">
+                    <ref role="37wK5l" node="3ldDl3M2HhQ" resolve="messagesToHtml" />
+                    <node concept="2OqwBi" id="3ldDl3M3zJm" role="37wK5m">
+                      <node concept="37vLTw" id="3ldDl3M3zJn" role="2Oq$k0">
+                        <ref role="3cqZAo" node="7VNTBiFGNDQ" resolve="messageHandler" />
+                      </node>
+                      <node concept="2OwXpG" id="3ldDl3M3zJo" role="2OqNvi">
+                        <ref role="2Oxat5" node="3ldDl3LL8hg" resolve="messages" />
                       </node>
                     </node>
                   </node>
@@ -3139,45 +3115,142 @@
                 </node>
               </node>
               <node concept="3cpWs6" id="3ldDl3LNcGM" role="3cqZAp">
-                <node concept="3cpWs3" id="3ldDl3LNcGN" role="3cqZAk">
-                  <node concept="Xl_RD" id="3ldDl3LNcGO" role="3uHU7w">
-                    <property role="Xl_RC" value="&lt;/pre&gt;" />
-                  </node>
-                  <node concept="3cpWs3" id="3ldDl3LNcGP" role="3uHU7B">
-                    <node concept="2OqwBi" id="3ldDl3LNcGQ" role="3uHU7w">
-                      <node concept="37vLTw" id="3ldDl3LNcGR" role="2Oq$k0">
-                        <ref role="3cqZAo" node="3$1OzWlnJa9" resolve="e" />
-                      </node>
-                      <node concept="liA8E" id="3ldDl3LNcGS" role="2OqNvi">
-                        <ref role="37wK5l" to="wyt6:~Throwable.getStackTrace()" resolve="getStackTrace" />
-                      </node>
-                    </node>
-                    <node concept="3cpWs3" id="3ldDl3LNcGT" role="3uHU7B">
-                      <node concept="3cpWs3" id="3ldDl3LNcGU" role="3uHU7B">
-                        <node concept="Xl_RD" id="3ldDl3LNcGV" role="3uHU7B">
-                          <property role="Xl_RC" value="Generation failed &lt;pre&gt;" />
+                <node concept="3cpWs3" id="3ldDl3M3_sv" role="3cqZAk">
+                  <node concept="3cpWs3" id="3ldDl3LNcGN" role="3uHU7B">
+                    <node concept="3cpWs3" id="3ldDl3LNcGP" role="3uHU7B">
+                      <node concept="2OqwBi" id="3ldDl3LNcGQ" role="3uHU7w">
+                        <node concept="37vLTw" id="3ldDl3LNcGR" role="2Oq$k0">
+                          <ref role="3cqZAo" node="3$1OzWlnJa9" resolve="e" />
                         </node>
-                        <node concept="2YIFZM" id="3ldDl3LNcGW" role="3uHU7w">
-                          <ref role="37wK5l" to="btm1:~StringEscapeUtils.escapeHtml4(java.lang.String)" resolve="escapeHtml4" />
-                          <ref role="1Pybhc" to="btm1:~StringEscapeUtils" resolve="StringEscapeUtils" />
-                          <node concept="2OqwBi" id="3ldDl3LNcGX" role="37wK5m">
-                            <node concept="37vLTw" id="3ldDl3LNcGY" role="2Oq$k0">
-                              <ref role="3cqZAo" node="3$1OzWlnJa9" resolve="e" />
-                            </node>
-                            <node concept="liA8E" id="3ldDl3LNcGZ" role="2OqNvi">
-                              <ref role="37wK5l" to="wyt6:~Throwable.getMessage()" resolve="getMessage" />
+                        <node concept="liA8E" id="3ldDl3LNcGS" role="2OqNvi">
+                          <ref role="37wK5l" to="wyt6:~Throwable.getStackTrace()" resolve="getStackTrace" />
+                        </node>
+                      </node>
+                      <node concept="3cpWs3" id="3ldDl3LNcGT" role="3uHU7B">
+                        <node concept="3cpWs3" id="3ldDl3LNcGU" role="3uHU7B">
+                          <node concept="Xl_RD" id="3ldDl3LNcGV" role="3uHU7B">
+                            <property role="Xl_RC" value="Generation failed &lt;pre&gt;" />
+                          </node>
+                          <node concept="2YIFZM" id="3ldDl3LNcGW" role="3uHU7w">
+                            <ref role="37wK5l" to="btm1:~StringEscapeUtils.escapeHtml4(java.lang.String)" resolve="escapeHtml4" />
+                            <ref role="1Pybhc" to="btm1:~StringEscapeUtils" resolve="StringEscapeUtils" />
+                            <node concept="2OqwBi" id="3ldDl3LNcGX" role="37wK5m">
+                              <node concept="37vLTw" id="3ldDl3LNcGY" role="2Oq$k0">
+                                <ref role="3cqZAo" node="3$1OzWlnJa9" resolve="e" />
+                              </node>
+                              <node concept="liA8E" id="3ldDl3LNcGZ" role="2OqNvi">
+                                <ref role="37wK5l" to="wyt6:~Throwable.getMessage()" resolve="getMessage" />
+                              </node>
                             </node>
                           </node>
                         </node>
+                        <node concept="Xl_RD" id="3ldDl3LNcH0" role="3uHU7w">
+                          <property role="Xl_RC" value="\n" />
+                        </node>
                       </node>
-                      <node concept="Xl_RD" id="3ldDl3LNcH0" role="3uHU7w">
-                        <property role="Xl_RC" value="\n" />
+                    </node>
+                    <node concept="Xl_RD" id="3ldDl3LNcGO" role="3uHU7w">
+                      <property role="Xl_RC" value="&lt;/pre&gt;" />
+                    </node>
+                  </node>
+                  <node concept="1rXfSq" id="3ldDl3M3AGs" role="3uHU7w">
+                    <ref role="37wK5l" node="3ldDl3M2HhQ" resolve="messagesToHtml" />
+                    <node concept="2OqwBi" id="3ldDl3M3AGt" role="37wK5m">
+                      <node concept="37vLTw" id="3ldDl3M3AGu" role="2Oq$k0">
+                        <ref role="3cqZAo" node="7VNTBiFGNDQ" resolve="messageHandler" />
+                      </node>
+                      <node concept="2OwXpG" id="3ldDl3M3AGv" role="2OqNvi">
+                        <ref role="2Oxat5" node="3ldDl3LL8hg" resolve="messages" />
                       </node>
                     </node>
                   </node>
                 </node>
               </node>
             </node>
+          </node>
+        </node>
+      </node>
+    </node>
+    <node concept="2tJIrI" id="3ldDl3M2DH$" role="jymVt" />
+    <node concept="3clFb_" id="3ldDl3M2HhQ" role="jymVt">
+      <property role="TrG5h" value="messagesToHtml" />
+      <node concept="37vLTG" id="3ldDl3M30Cx" role="3clF46">
+        <property role="TrG5h" value="messages" />
+        <node concept="A3Dl8" id="3ldDl3M32OB" role="1tU5fm">
+          <node concept="3uibUv" id="3ldDl3M339j" role="A3Ik2">
+            <ref role="3uigEE" to="et5u:~IMessage" resolve="IMessage" />
+          </node>
+        </node>
+      </node>
+      <node concept="17QB3L" id="3ldDl3M2VP4" role="3clF45" />
+      <node concept="3Tm1VV" id="3ldDl3M2HhT" role="1B3o_S" />
+      <node concept="3clFbS" id="3ldDl3M2HhU" role="3clF47">
+        <node concept="3cpWs8" id="3ldDl3M2Y3S" role="3cqZAp">
+          <node concept="3cpWsn" id="3ldDl3M2Y3V" role="3cpWs9">
+            <property role="TrG5h" value="text" />
+            <node concept="17QB3L" id="3ldDl3M2Y3R" role="1tU5fm" />
+            <node concept="Xl_RD" id="3ldDl3M2Y7m" role="33vP2m">
+              <property role="Xl_RC" value="" />
+            </node>
+          </node>
+        </node>
+        <node concept="2Gpval" id="3ldDl3M36Pd" role="3cqZAp">
+          <node concept="2GrKxI" id="3ldDl3M36Pf" role="2Gsz3X">
+            <property role="TrG5h" value="message" />
+          </node>
+          <node concept="37vLTw" id="3ldDl3M38WI" role="2GsD0m">
+            <ref role="3cqZAo" node="3ldDl3M30Cx" resolve="messages" />
+          </node>
+          <node concept="3clFbS" id="3ldDl3M36Pj" role="2LFqv$">
+            <node concept="3clFbF" id="3ldDl3M3brl" role="3cqZAp">
+              <node concept="d57v9" id="3ldDl3M3bXy" role="3clFbG">
+                <node concept="37vLTw" id="3ldDl3M3bqY" role="37vLTJ">
+                  <ref role="3cqZAo" node="3ldDl3M2Y3V" resolve="text" />
+                </node>
+                <node concept="3cpWs3" id="3ldDl3M2Y88" role="37vLTx">
+                  <node concept="Xl_RD" id="3ldDl3M2Y89" role="3uHU7w">
+                    <property role="Xl_RC" value="&lt;/div&gt;" />
+                  </node>
+                  <node concept="3cpWs3" id="3ldDl3M2Y8a" role="3uHU7B">
+                    <node concept="2YIFZM" id="3ldDl3M2Y8c" role="3uHU7w">
+                      <ref role="37wK5l" to="btm1:~StringEscapeUtils.escapeHtml4(java.lang.String)" resolve="escapeHtml4" />
+                      <ref role="1Pybhc" to="btm1:~StringEscapeUtils" resolve="StringEscapeUtils" />
+                      <node concept="2OqwBi" id="3ldDl3M2Y8d" role="37wK5m">
+                        <node concept="2GrUjf" id="3ldDl3M3cfc" role="2Oq$k0">
+                          <ref role="2Gs0qQ" node="3ldDl3M36Pf" resolve="message" />
+                        </node>
+                        <node concept="liA8E" id="3ldDl3M2Y8f" role="2OqNvi">
+                          <ref role="37wK5l" to="et5u:~IMessage.getText()" resolve="getText" />
+                        </node>
+                      </node>
+                    </node>
+                    <node concept="3cpWs3" id="3ldDl3M3CqQ" role="3uHU7B">
+                      <node concept="Xl_RD" id="3ldDl3M3CqR" role="3uHU7w">
+                        <property role="Xl_RC" value="\&quot;&gt;" />
+                      </node>
+                      <node concept="3cpWs3" id="3ldDl3M3CqS" role="3uHU7B">
+                        <node concept="Xl_RD" id="3ldDl3M3CqT" role="3uHU7B">
+                          <property role="Xl_RC" value="&lt;div class=\&quot;generator-message-" />
+                        </node>
+                        <node concept="2OqwBi" id="3ldDl3M3CqU" role="3uHU7w">
+                          <node concept="2GrUjf" id="3ldDl3M3CAn" role="2Oq$k0">
+                            <ref role="2Gs0qQ" node="3ldDl3M36Pf" resolve="message" />
+                          </node>
+                          <node concept="liA8E" id="3ldDl3M3CqW" role="2OqNvi">
+                            <ref role="37wK5l" to="et5u:~IMessage.getKind()" resolve="getKind" />
+                          </node>
+                        </node>
+                      </node>
+                    </node>
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="3cpWs6" id="3ldDl3M2Yyt" role="3cqZAp">
+          <node concept="37vLTw" id="3ldDl3M2YAp" role="3cqZAk">
+            <ref role="3cqZAo" node="3ldDl3M2Y3V" resolve="text" />
           </node>
         </node>
       </node>
@@ -3428,72 +3501,8 @@
               <node concept="2ShNRf" id="3ldDl3LPjKF" role="YScLw">
                 <node concept="1pGfFk" id="3ldDl3LPm3J" role="2ShVmc">
                   <ref role="37wK5l" to="wyt6:~RuntimeException.&lt;init&gt;(java.lang.String)" resolve="RuntimeException" />
-                  <node concept="3cpWs3" id="3ldDl3LP0fE" role="37wK5m">
-                    <node concept="Xl_RD" id="3ldDl3LP0fF" role="3uHU7B">
-                      <property role="Xl_RC" value="Generation failed&lt;br/&gt;&lt;br/&gt;" />
-                    </node>
-                    <node concept="2OqwBi" id="3ldDl3LP0fG" role="3uHU7w">
-                      <node concept="2OqwBi" id="3ldDl3LP0fH" role="2Oq$k0">
-                        <node concept="2OqwBi" id="3ldDl3LP0fI" role="2Oq$k0">
-                          <node concept="37vLTw" id="3ldDl3LP0fJ" role="2Oq$k0">
-                            <ref role="3cqZAo" node="3ldDl3LSqfA" resolve="messageHandler" />
-                          </node>
-                          <node concept="2OwXpG" id="3ldDl3LP0fK" role="2OqNvi">
-                            <ref role="2Oxat5" node="3ldDl3LL8hg" resolve="messages" />
-                          </node>
-                        </node>
-                        <node concept="3$u5V9" id="3ldDl3LP0fL" role="2OqNvi">
-                          <node concept="1bVj0M" id="3ldDl3LP0fM" role="23t8la">
-                            <node concept="3clFbS" id="3ldDl3LP0fN" role="1bW5cS">
-                              <node concept="3clFbF" id="3ldDl3LP0fO" role="3cqZAp">
-                                <node concept="3cpWs3" id="3ldDl3LP0fP" role="3clFbG">
-                                  <node concept="Xl_RD" id="3ldDl3LP0fQ" role="3uHU7w">
-                                    <property role="Xl_RC" value="&lt;/div&gt;" />
-                                  </node>
-                                  <node concept="3cpWs3" id="3ldDl3LP0fR" role="3uHU7B">
-                                    <node concept="3cpWs3" id="3ldDl3M23g2" role="3uHU7B">
-                                      <node concept="Xl_RD" id="3ldDl3M239_" role="3uHU7w">
-                                        <property role="Xl_RC" value="\&quot;&gt;" />
-                                      </node>
-                                      <node concept="3cpWs3" id="3ldDl3M239t" role="3uHU7B">
-                                        <node concept="Xl_RD" id="3ldDl3M239z" role="3uHU7B">
-                                          <property role="Xl_RC" value="&lt;div class=\&quot;generator-message-" />
-                                        </node>
-                                        <node concept="2OqwBi" id="3ldDl3M240X" role="3uHU7w">
-                                          <node concept="37vLTw" id="3ldDl3M23_8" role="2Oq$k0">
-                                            <ref role="3cqZAo" node="3ldDl3LP0fV" resolve="it" />
-                                          </node>
-                                          <node concept="liA8E" id="3ldDl3M24AC" role="2OqNvi">
-                                            <ref role="37wK5l" to="et5u:~IMessage.getKind()" resolve="getKind" />
-                                          </node>
-                                        </node>
-                                      </node>
-                                    </node>
-                                    <node concept="2YIFZM" id="3ldDl3LP0fT" role="3uHU7w">
-                                      <ref role="37wK5l" to="btm1:~StringEscapeUtils.escapeHtml4(java.lang.String)" resolve="escapeHtml4" />
-                                      <ref role="1Pybhc" to="btm1:~StringEscapeUtils" resolve="StringEscapeUtils" />
-                                      <node concept="2OqwBi" id="3ldDl3M20cb" role="37wK5m">
-                                        <node concept="37vLTw" id="3ldDl3LP0fU" role="2Oq$k0">
-                                          <ref role="3cqZAo" node="3ldDl3LP0fV" resolve="it" />
-                                        </node>
-                                        <node concept="liA8E" id="3ldDl3M20WI" role="2OqNvi">
-                                          <ref role="37wK5l" to="et5u:~IMessage.getText()" resolve="getText" />
-                                        </node>
-                                      </node>
-                                    </node>
-                                  </node>
-                                </node>
-                              </node>
-                            </node>
-                            <node concept="Rh6nW" id="3ldDl3LP0fV" role="1bW2Oz">
-                              <property role="TrG5h" value="it" />
-                              <node concept="2jxLKc" id="3ldDl3LP0fW" role="1tU5fm" />
-                            </node>
-                          </node>
-                        </node>
-                      </node>
-                      <node concept="3uJxvA" id="3ldDl3LP0fX" role="2OqNvi" />
-                    </node>
+                  <node concept="Xl_RD" id="3ldDl3LP0fF" role="37wK5m">
+                    <property role="Xl_RC" value="Generation failed" />
                   </node>
                 </node>
               </node>
