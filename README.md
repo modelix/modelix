@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/modelix/modelix.svg?branch=master)](https://travis-ci.org/modelix/modelix) 
+[![Build Status](https://travis-ci.com/modelix/modelix.svg?branch=master)](https://travis-ci.com/modelix/modelix) 
 
 # The modelix Project
 
