@@ -40,6 +40,7 @@
         <dependency reexport="false">eb8d1040-bff5-4126-8949-fdd95ef4c502(org.modelix.ui.sm.server)</dependency>
         <dependency reexport="false">a247e09e-2435-45ba-b8d2-07e93feba96a(jetbrains.mps.baseLanguage.tuples)</dependency>
         <dependency reexport="false">5622e615-959d-4843-9df6-ef04ee578c18(org.modelix.model.mpsadapters)</dependency>
+        <dependency reexport="false">2f21df6f-a66f-4e3b-9314-ca64c09b2e6c(org.modelix.aspect.runtime)</dependency>
       </dependencies>
       <languageVersions>
         <language slang="l:bc963c22-d419-49b6-8543-ea411eb9d3a1:de.q60.mps.polymorphicfunctions" version="0" />
@@ -88,6 +89,7 @@
         <module reference="b0f8641f-bd77-4421-8425-30d9088a82f7(org.apache.commons)" version="0" />
         <module reference="375af171-bd4b-4bfb-bc9f-418fb996740b(org.modelix.aspect)" version="0" />
         <module reference="be246e10-5276-4b2b-a05e-7a68bd87894d(org.modelix.aspect#01)" version="0" />
+        <module reference="2f21df6f-a66f-4e3b-9314-ca64c09b2e6c(org.modelix.aspect.runtime)" version="0" />
         <module reference="fc3c2aa8-0d4b-463f-a774-40d450aa04a0(org.modelix.jetty)" version="0" />
         <module reference="87f4b21e-a3a5-459e-a54b-408fd9eb7350(org.modelix.lib)" version="0" />
         <module reference="cc99dce1-49f3-4392-8dbf-e22ca47bd0af(org.modelix.model.api)" version="0" />
@@ -192,6 +194,8 @@
     <dependency reexport="false">da981293-1ec2-4df0-95e4-df162984154c(org.modelix.ui.common)</dependency>
     <dependency reexport="false">cc99dce1-49f3-4392-8dbf-e22ca47bd0af(org.modelix.model.api)</dependency>
     <dependency reexport="false">5622e615-959d-4843-9df6-ef04ee578c18(org.modelix.model.mpsadapters)</dependency>
+    <dependency reexport="false">fc3c2aa8-0d4b-463f-a774-40d450aa04a0(org.modelix.jetty)</dependency>
+    <dependency reexport="false">2f21df6f-a66f-4e3b-9314-ca64c09b2e6c(org.modelix.aspect.runtime)</dependency>
   </runtime>
   <extendedLanguages>
     <extendedLanguage>f3061a53-9226-4cc5-a443-f952ceaf5816(jetbrains.mps.baseLanguage)</extendedLanguage>

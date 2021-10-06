@@ -34,6 +34,7 @@
         <dependency reexport="false">6ed54515-acc8-4d1e-a16c-9fd6cfe951ea(MPS.Core)</dependency>
         <dependency reexport="false">6354ebe7-c22a-4a0f-ac54-50b52ab9b065(JDK)</dependency>
         <dependency reexport="false">5622e615-959d-4843-9df6-ef04ee578c18(org.modelix.model.mpsadapters)</dependency>
+        <dependency reexport="false">2f21df6f-a66f-4e3b-9314-ca64c09b2e6c(org.modelix.aspect.runtime)</dependency>
       </dependencies>
       <languageVersions>
         <language slang="l:bc963c22-d419-49b6-8543-ea411eb9d3a1:de.q60.mps.polymorphicfunctions" version="0" />
@@ -78,6 +79,7 @@
         <module reference="d7eb0a2a-bd50-4576-beae-e4a89db35f20(jetbrains.mps.lang.scopes.runtime)" version="0" />
         <module reference="c72da2b9-7cce-4447-8389-f407dc1158b7(jetbrains.mps.lang.structure)" version="0" />
         <module reference="9ded098b-ad6a-4657-bfd9-48636cfe8bc3(jetbrains.mps.lang.traceable)" version="0" />
+        <module reference="2f21df6f-a66f-4e3b-9314-ca64c09b2e6c(org.modelix.aspect.runtime)" version="0" />
         <module reference="cc99dce1-49f3-4392-8dbf-e22ca47bd0af(org.modelix.model.api)" version="0" />
         <module reference="5622e615-959d-4843-9df6-ef04ee578c18(org.modelix.model.mpsadapters)" version="0" />
         <module reference="25fcb6ab-d05a-4950-8cdf-251526bdf513(org.modelix.notation)" version="0" />
@@ -158,6 +160,9 @@
     <module reference="25fcb6ab-d05a-4950-8cdf-251526bdf513(org.modelix.notation)" version="0" />
     <module reference="da981293-1ec2-4df0-95e4-df162984154c(org.modelix.ui.common)" version="0" />
   </dependencyVersions>
+  <runtime>
+    <dependency reexport="false">2f21df6f-a66f-4e3b-9314-ca64c09b2e6c(org.modelix.aspect.runtime)</dependency>
+  </runtime>
   <extendedLanguages>
     <extendedLanguage>f3061a53-9226-4cc5-a443-f952ceaf5816(jetbrains.mps.baseLanguage)</extendedLanguage>
   </extendedLanguages>

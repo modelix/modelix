@@ -39,6 +39,7 @@
     <import index="xxte" ref="r:a79f28f8-6055-40c6-bc5e-47a42a3b97e8(org.modelix.model.mpsadapters.mps)" />
     <import index="qvpu" ref="cc99dce1-49f3-4392-8dbf-e22ca47bd0af/java:org.modelix.model.area(org.modelix.model.api/)" />
     <import index="v18h" ref="cc99dce1-49f3-4392-8dbf-e22ca47bd0af/java:kotlin(org.modelix.model.api/)" />
+    <import index="2p9i" ref="r:de9cabb4-784f-4fb0-be49-90fafcb76298(org.modelix.aspect.runtime)" />
     <import index="tpee" ref="r:00000000-0000-4000-0000-011c895902ca(jetbrains.mps.baseLanguage.structure)" implicit="true" />
     <import index="4dhu" ref="r:17a7af0b-7a93-4688-b13e-195872d8e289(org.modelix.aspect.behavior)" implicit="true" />
     <import index="tpck" ref="r:00000000-0000-4000-0000-011c89590288(jetbrains.mps.lang.core.structure)" implicit="true" />
@@ -276,9 +277,7 @@
       <concept id="1217004708011" name="jetbrains.mps.lang.generator.generationContext.structure.GenerationContextOp_GetInputModel" flags="nn" index="1r8y6K" />
     </language>
     <language id="94b64715-a263-4c36-a138-8da14705ffa7" name="de.q60.mps.shadowmodels.transformation">
-      <concept id="4572148810970667871" name="de.q60.mps.shadowmodels.transformation.structure.TransformationIdExpression" flags="ng" index="2Pkx91">
-        <reference id="4572148810970667887" name="transformation" index="2Pkx9L" />
-      </concept>
+      <concept id="4572148810970667871" name="de.q60.mps.shadowmodels.transformation.structure.TransformationIdExpression" flags="ng" index="2Pkx91" />
     </language>
     <language id="df345b11-b8c7-4213-ac66-48d2a9b75d88" name="jetbrains.mps.baseLanguageInternal">
       <concept id="1173995204289" name="jetbrains.mps.baseLanguageInternal.structure.InternalStaticFieldReference" flags="nn" index="1n$iZg">
@@ -363,10 +362,6 @@
       </concept>
       <concept id="1151689724996" name="jetbrains.mps.baseLanguage.collections.structure.SequenceType" flags="in" index="A3Dl8">
         <child id="1151689745422" name="elementType" index="A3Ik2" />
-      </concept>
-      <concept id="1235573135402" name="jetbrains.mps.baseLanguage.collections.structure.SingletonSequenceCreator" flags="nn" index="2HTt$P">
-        <child id="1235573175711" name="elementType" index="2HTBi0" />
-        <child id="1235573187520" name="singletonValue" index="2HTEbv" />
       </concept>
       <concept id="1237721394592" name="jetbrains.mps.baseLanguage.collections.structure.AbstractContainerCreator" flags="nn" index="HWqM0">
         <child id="1237721435808" name="initValue" index="HW$Y0" />
@@ -1374,55 +1369,14 @@
                                                     <node concept="37vLTw" id="7mc9A5ll71$" role="37vLTJ">
                                                       <ref role="3cqZAo" node="7mc9A5ll70N" resolve="text" />
                                                     </node>
-                                                    <node concept="2OqwBi" id="7mc9A5ll71_" role="37vLTx">
-                                                      <node concept="1PxgMI" id="7mc9A5ll71A" role="2Oq$k0">
-                                                        <node concept="chp4Y" id="7mc9A5ll71B" role="3oSUPX">
-                                                          <ref role="cht4Q" to="aoe3:TC$M5wRTlk" resolve="ITextElement" />
-                                                        </node>
-                                                        <node concept="2YIFZM" id="7mc9A5ll71C" role="1m5AlR">
-                                                          <ref role="1Pybhc" to="xxte:4EhVFrZ3AjR" resolve="NodeToSNodeAdapter" />
-                                                          <ref role="37wK5l" to="xxte:4EhVFrZ6z9$" resolve="wrap" />
-                                                          <node concept="2OqwBi" id="7mc9A5ll71D" role="37wK5m">
-                                                            <node concept="2OqwBi" id="7mc9A5ll71E" role="2Oq$k0">
-                                                              <node concept="37vLTw" id="7mc9A5ll71F" role="2Oq$k0">
-                                                                <ref role="3cqZAo" node="7mc9A5ll70S" resolve="engine" />
-                                                              </node>
-                                                              <node concept="liA8E" id="7mc9A5ll71G" role="2OqNvi">
-                                                                <ref role="37wK5l" to="nv3w:4NgaqHYYk1V" resolve="executeInCurrentStage" />
-                                                                <node concept="2ShNRf" id="7mc9A5ll71H" role="37wK5m">
-                                                                  <node concept="1pGfFk" id="7mc9A5ll71I" role="2ShVmc">
-                                                                    <ref role="37wK5l" to="nv3w:4NgaqHYY5n_" resolve="TransformationCall" />
-                                                                    <node concept="2Pkx91" id="6MQUJsyWxoo" role="37wK5m">
-                                                                      <ref role="2Pkx9L" to="m3vg:7NImM054PfC" resolve="node" />
-                                                                    </node>
-                                                                    <node concept="2ShNRf" id="7mc9A5ll71J" role="37wK5m">
-                                                                      <node concept="2HTt$P" id="7mc9A5ll71K" role="2ShVmc">
-                                                                        <node concept="3uibUv" id="7mc9A5ll71L" role="2HTBi0">
-                                                                          <ref role="3uigEE" to="wyt6:~Object" resolve="Object" />
-                                                                        </node>
-                                                                        <node concept="2YIFZM" id="HabLxtRSg6" role="2HTEbv">
-                                                                          <ref role="37wK5l" to="nv3w:5gTrVpGzMW2" resolve="wrap" />
-                                                                          <ref role="1Pybhc" to="nv3w:5gTrVpGxH_V" resolve="DependencyTrackingNode" />
-                                                                          <node concept="2YIFZM" id="7mc9A5ll71M" role="37wK5m">
-                                                                            <ref role="1Pybhc" to="xxte:5gTrVpGjuLg" resolve="SNodeToNodeAdapter" />
-                                                                            <ref role="37wK5l" to="xxte:5gTrVpGyMwR" resolve="wrap" />
-                                                                            <node concept="37vLTw" id="7mc9A5ll71N" role="37wK5m">
-                                                                              <ref role="3cqZAo" node="7mc9A5ll719" resolve="html" />
-                                                                            </node>
-                                                                          </node>
-                                                                        </node>
-                                                                      </node>
-                                                                    </node>
-                                                                  </node>
-                                                                </node>
-                                                              </node>
-                                                            </node>
-                                                            <node concept="1uHKPH" id="7mc9A5ll71W" role="2OqNvi" />
-                                                          </node>
-                                                        </node>
+                                                    <node concept="2YIFZM" id="7kXB$VSmbhE" role="37vLTx">
+                                                      <ref role="37wK5l" to="2p9i:7kXB$VSm1eR" resolve="htmlToText" />
+                                                      <ref role="1Pybhc" to="2p9i:7kXB$VSm08s" resolve="HttpPageUtil" />
+                                                      <node concept="37vLTw" id="7kXB$VSmc2_" role="37wK5m">
+                                                        <ref role="3cqZAo" node="7mc9A5ll70S" resolve="engine" />
                                                       </node>
-                                                      <node concept="2qgKlT" id="7mc9A5ll71X" role="2OqNvi">
-                                                        <ref role="37wK5l" to="tt46:AkkmJBLwn5" resolve="toText" />
+                                                      <node concept="37vLTw" id="7kXB$VSmd9J" role="37wK5m">
+                                                        <ref role="3cqZAo" node="7mc9A5ll719" resolve="html" />
                                                       </node>
                                                     </node>
                                                   </node>
