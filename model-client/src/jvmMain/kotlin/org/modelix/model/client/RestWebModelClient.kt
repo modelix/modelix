@@ -66,7 +66,7 @@ val Response.unsuccessful : Boolean
 val Response.forbidden : Boolean
     get() = status == Response.Status.NOT_FOUND.statusCode
 
-interface ConnectionListeners {
+interface ConnectionListener {
     fun receivedForbiddenResponse()
     fun receivedSuccessfulResponse()
 }
@@ -75,7 +75,7 @@ interface ConnectionListeners {
  * We need to specify the connection listeners right into the constructor because connection is started in the constructor.
  */
 class RestWebModelClient @JvmOverloads constructor(var baseUrl: String? = null, authToken_: String? = null,
-                                                   initialConnectionListeners: List<ConnectionListeners> = emptyList()) : IModelClient {
+                                                   initialConnectionListeners: List<ConnectionListener> = emptyList()) : IModelClient {
 
     companion object {
         private val LOG = LogManager.getLogger(RestWebModelClient::class.java)
@@ -163,7 +163,7 @@ class RestWebModelClient @JvmOverloads constructor(var baseUrl: String? = null, 
         connectionListeners.forEach { it.receivedSuccessfulResponse() }
     }
 
-    fun addForbiddenListener(listener: ConnectionListeners) {
+    fun addForbiddenListener(listener: ConnectionListener) {
         connectionListeners.add(listener)
     }
 
