@@ -7662,6 +7662,212 @@
         <node concept="17QB3L" id="6aRQr1WPiWs" role="1tU5fm" />
       </node>
     </node>
+    <node concept="2tJIrI" id="46h4oXMtghD" role="jymVt" />
+    <node concept="312cEu" id="46h4oXMtowF" role="jymVt">
+      <property role="TrG5h" value="ConnectionListenerForForbiddenMessage" />
+      <node concept="Wx3nA" id="46h4oXMtFZr" role="jymVt">
+        <property role="TrG5h" value="inForbiddenStateByURL" />
+        <node concept="3Tm6S6" id="46h4oXMtEvm" role="1B3o_S" />
+        <node concept="3rvAFt" id="46h4oXMtFtF" role="1tU5fm">
+          <node concept="17QB3L" id="46h4oXMtFJw" role="3rvQeY" />
+          <node concept="10P_77" id="46h4oXMtFZo" role="3rvSg0" />
+        </node>
+        <node concept="2ShNRf" id="46h4oXMtHkk" role="33vP2m">
+          <node concept="3rGOSV" id="46h4oXMtGJV" role="2ShVmc">
+            <node concept="17QB3L" id="46h4oXMtGJW" role="3rHrn6" />
+            <node concept="10P_77" id="46h4oXMtGJX" role="3rHtpV" />
+          </node>
+        </node>
+      </node>
+      <node concept="312cEg" id="46h4oXMu_sX" role="jymVt">
+        <property role="TrG5h" value="baseUrl" />
+        <node concept="3Tm6S6" id="46h4oXMuzSt" role="1B3o_S" />
+        <node concept="17QB3L" id="46h4oXMu$ZH" role="1tU5fm" />
+      </node>
+      <node concept="3clFbW" id="46h4oXMuwd3" role="jymVt">
+        <node concept="3cqZAl" id="46h4oXMuwd5" role="3clF45" />
+        <node concept="3Tm6S6" id="46h4oXMuwd6" role="1B3o_S" />
+        <node concept="3clFbS" id="46h4oXMuwd7" role="3clF47">
+          <node concept="3clFbF" id="46h4oXMuBd7" role="3cqZAp">
+            <node concept="37vLTI" id="46h4oXMuCB7" role="3clFbG">
+              <node concept="37vLTw" id="46h4oXMuDNb" role="37vLTx">
+                <ref role="3cqZAo" node="46h4oXMuy06" resolve="baseUrl" />
+              </node>
+              <node concept="2OqwBi" id="46h4oXMuBln" role="37vLTJ">
+                <node concept="Xjq3P" id="46h4oXMuBd6" role="2Oq$k0" />
+                <node concept="2OwXpG" id="46h4oXMuBxA" role="2OqNvi">
+                  <ref role="2Oxat5" node="46h4oXMu_sX" resolve="baseUrl" />
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="37vLTG" id="46h4oXMuy06" role="3clF46">
+          <property role="TrG5h" value="baseUrl" />
+          <node concept="17QB3L" id="46h4oXMuy05" role="1tU5fm" />
+        </node>
+      </node>
+      <node concept="3Tm6S6" id="46h4oXMtu6O" role="1B3o_S" />
+      <node concept="3uibUv" id="46h4oXMtvcY" role="EKbjA">
+        <ref role="3uigEE" to="5440:~ConnectionListener" resolve="ConnectionListener" />
+      </node>
+      <node concept="3clFb_" id="46h4oXMtvr9" role="jymVt">
+        <property role="TrG5h" value="receivedForbiddenResponse" />
+        <node concept="3Tm1VV" id="46h4oXMtvra" role="1B3o_S" />
+        <node concept="3cqZAl" id="46h4oXMtvrc" role="3clF45" />
+        <node concept="3clFbS" id="46h4oXMtvrd" role="3clF47">
+          <node concept="3clFbJ" id="46h4oXMtHna" role="3cqZAp">
+            <node concept="3clFbS" id="46h4oXMtHnb" role="3clFbx">
+              <node concept="3clFbF" id="46h4oXMuQiE" role="3cqZAp">
+                <node concept="37vLTI" id="46h4oXMuSY8" role="3clFbG">
+                  <node concept="3clFbT" id="46h4oXMuTzZ" role="37vLTx">
+                    <property role="3clFbU" value="true" />
+                  </node>
+                  <node concept="3EllGN" id="46h4oXMuRhM" role="37vLTJ">
+                    <node concept="37vLTw" id="46h4oXMuSBT" role="3ElVtu">
+                      <ref role="3cqZAo" node="46h4oXMu_sX" resolve="baseUrl" />
+                    </node>
+                    <node concept="37vLTw" id="46h4oXMuQiC" role="3ElQJh">
+                      <ref role="3cqZAo" node="46h4oXMtFZr" resolve="inForbiddenStateByURL" />
+                    </node>
+                  </node>
+                </node>
+              </node>
+              <node concept="3clFbF" id="46h4oXMtHng" role="3cqZAp">
+                <node concept="2YIFZM" id="46h4oXMtHnh" role="3clFbG">
+                  <ref role="1Pybhd" to="dxuu:~SwingUtilities" resolve="SwingUtilities" />
+                  <ref role="37wK5l" to="dxuu:~SwingUtilities.invokeLater(java.lang.Runnable)" resolve="invokeLater" />
+                  <node concept="2ShNRf" id="46h4oXMtHni" role="37wK5m">
+                    <node concept="YeOm9" id="46h4oXMtHnj" role="2ShVmc">
+                      <node concept="1Y3b0j" id="46h4oXMtHnk" role="YeSDq">
+                        <property role="2bfB8j" value="true" />
+                        <ref role="1Y3XeK" to="wyt6:~Runnable" resolve="Runnable" />
+                        <ref role="37wK5l" to="wyt6:~Object.&lt;init&gt;()" resolve="Object" />
+                        <node concept="3Tm1VV" id="46h4oXMtHnl" role="1B3o_S" />
+                        <node concept="3clFb_" id="46h4oXMtHnm" role="jymVt">
+                          <property role="TrG5h" value="run" />
+                          <node concept="3Tm1VV" id="46h4oXMtHnn" role="1B3o_S" />
+                          <node concept="3cqZAl" id="46h4oXMtHno" role="3clF45" />
+                          <node concept="3clFbS" id="46h4oXMtHnp" role="3clF47">
+                            <node concept="3clFbF" id="46h4oXMtHnq" role="3cqZAp">
+                              <node concept="2YIFZM" id="46h4oXMtHnr" role="3clFbG">
+                                <ref role="37wK5l" to="jkm4:~Messages.showErrorDialog(java.lang.String,java.lang.String)" resolve="showErrorDialog" />
+                                <ref role="1Pybhd" to="jkm4:~Messages" resolve="Messages" />
+                                <node concept="3cpWs3" id="46h4oXMtHns" role="37wK5m">
+                                  <node concept="3cpWs3" id="46h4oXMtHnt" role="3uHU7B">
+                                    <node concept="Xl_RD" id="46h4oXMtHnu" role="3uHU7B">
+                                      <property role="Xl_RC" value="Unauthorized to connect to Model Server " />
+                                    </node>
+                                    <node concept="37vLTw" id="46h4oXMtHnv" role="3uHU7w">
+                                      <ref role="3cqZAo" node="6aRQr1WPbDO" resolve="baseUrl" />
+                                    </node>
+                                  </node>
+                                  <node concept="Xl_RD" id="46h4oXMtHnw" role="3uHU7w">
+                                    <property role="Xl_RC" value=". Check you are logged in and have the right to access that Model Server" />
+                                  </node>
+                                </node>
+                                <node concept="Xl_RD" id="46h4oXMtHnx" role="37wK5m">
+                                  <property role="Xl_RC" value="Forbidden Access" />
+                                </node>
+                              </node>
+                            </node>
+                          </node>
+                          <node concept="2AHcQZ" id="46h4oXMtHny" role="2AJF6D">
+                            <ref role="2AI5Lk" to="wyt6:~Override" resolve="Override" />
+                          </node>
+                        </node>
+                      </node>
+                    </node>
+                  </node>
+                </node>
+              </node>
+            </node>
+            <node concept="3fqX7Q" id="46h4oXMtHnz" role="3clFbw">
+              <node concept="1rXfSq" id="46h4oXMuOQx" role="3fr31v">
+                <ref role="37wK5l" node="46h4oXMuojh" resolve="inForbiddenState" />
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="2AHcQZ" id="46h4oXMtvre" role="2AJF6D">
+          <ref role="2AI5Lk" to="wyt6:~Override" resolve="Override" />
+        </node>
+      </node>
+      <node concept="3clFb_" id="46h4oXMtvrf" role="jymVt">
+        <property role="TrG5h" value="receivedSuccessfulResponse" />
+        <node concept="3Tm1VV" id="46h4oXMtvrg" role="1B3o_S" />
+        <node concept="3cqZAl" id="46h4oXMtvri" role="3clF45" />
+        <node concept="3clFbS" id="46h4oXMtvrj" role="3clF47">
+          <node concept="3clFbF" id="46h4oXMuTG7" role="3cqZAp">
+            <node concept="37vLTI" id="46h4oXMuTG8" role="3clFbG">
+              <node concept="3clFbT" id="46h4oXMuTG9" role="37vLTx" />
+              <node concept="3EllGN" id="46h4oXMuTGa" role="37vLTJ">
+                <node concept="37vLTw" id="46h4oXMuTGb" role="3ElVtu">
+                  <ref role="3cqZAo" node="46h4oXMu_sX" resolve="baseUrl" />
+                </node>
+                <node concept="37vLTw" id="46h4oXMuTGe" role="3ElQJh">
+                  <ref role="3cqZAo" node="46h4oXMtFZr" resolve="inForbiddenStateByURL" />
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="2AHcQZ" id="46h4oXMtvrk" role="2AJF6D">
+          <ref role="2AI5Lk" to="wyt6:~Override" resolve="Override" />
+        </node>
+      </node>
+      <node concept="2tJIrI" id="46h4oXMul$y" role="jymVt" />
+      <node concept="3clFb_" id="46h4oXMuojh" role="jymVt">
+        <property role="TrG5h" value="inForbiddenState" />
+        <node concept="3clFbS" id="46h4oXMuojk" role="3clF47">
+          <node concept="3clFbJ" id="46h4oXMuqb2" role="3cqZAp">
+            <node concept="2OqwBi" id="46h4oXMusir" role="3clFbw">
+              <node concept="37vLTw" id="46h4oXMurjQ" role="2Oq$k0">
+                <ref role="3cqZAo" node="46h4oXMtFZr" resolve="inForbiddenStateByURL" />
+              </node>
+              <node concept="2Nt0df" id="46h4oXMuthw" role="2OqNvi">
+                <node concept="37vLTw" id="46h4oXMuEsU" role="38cxEo">
+                  <ref role="3cqZAo" node="46h4oXMu_sX" resolve="baseUrl" />
+                </node>
+              </node>
+            </node>
+            <node concept="3clFbS" id="46h4oXMuqb4" role="3clFbx">
+              <node concept="3cpWs6" id="46h4oXMuGmB" role="3cqZAp">
+                <node concept="3EllGN" id="46h4oXMuJER" role="3cqZAk">
+                  <node concept="37vLTw" id="46h4oXMuLDF" role="3ElVtu">
+                    <ref role="3cqZAo" node="46h4oXMu_sX" resolve="baseUrl" />
+                  </node>
+                  <node concept="37vLTw" id="46h4oXMuHvt" role="3ElQJh">
+                    <ref role="3cqZAo" node="46h4oXMtFZr" resolve="inForbiddenStateByURL" />
+                  </node>
+                </node>
+              </node>
+            </node>
+            <node concept="9aQIb" id="46h4oXMuEwJ" role="9aQIa">
+              <node concept="3clFbS" id="46h4oXMuEwK" role="9aQI4">
+                <node concept="3cpWs6" id="46h4oXMuF9R" role="3cqZAp">
+                  <node concept="3clFbT" id="46h4oXMuFIc" role="3cqZAk" />
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="3Tm6S6" id="46h4oXMun4s" role="1B3o_S" />
+        <node concept="10P_77" id="46h4oXMuohl" role="3clF45" />
+      </node>
+      <node concept="3UR2Jj" id="46h4oXMw5qL" role="lGtFl">
+        <node concept="TZ5HA" id="46h4oXMw5qM" role="TZ5H$">
+          <node concept="1dT_AC" id="46h4oXMw5qN" role="1dT_Ay">
+            <property role="1dT_AB" value="It seems that several connections are open at the same time: we do not want to show" />
+          </node>
+        </node>
+        <node concept="TZ5HA" id="46h4oXMw6pO" role="TZ5H$">
+          <node concept="1dT_AC" id="46h4oXMw6pP" role="1dT_Ay">
+            <property role="1dT_AB" value="error messages multiple times, so we use a shared state of the connection" />
+          </node>
+        </node>
+      </node>
+    </node>
     <node concept="2tJIrI" id="6aRQr1WPjSu" role="jymVt" />
     <node concept="3clFb_" id="2EzI5qKmj_D" role="jymVt">
       <property role="TrG5h" value="reconnect" />
@@ -7697,116 +7903,10 @@
                                     <ref role="37wK5l" to="33ny:~Arrays.asList(java.lang.Object...)" resolve="asList" />
                                     <ref role="1Pybhd" to="33ny:~Arrays" resolve="Arrays" />
                                     <node concept="2ShNRf" id="57hSI$27iVV" role="37wK5m">
-                                      <node concept="YeOm9" id="57hSI$27TWR" role="2ShVmc">
-                                        <node concept="1Y3b0j" id="57hSI$27TWU" role="YeSDq">
-                                          <property role="2bfB8j" value="true" />
-                                          <ref role="37wK5l" to="wyt6:~Object.&lt;init&gt;()" resolve="Object" />
-                                          <ref role="1Y3XeK" to="5440:~ConnectionListener" resolve="ConnectionListener" />
-                                          <node concept="2tJIrI" id="57hSI$27W0m" role="jymVt" />
-                                          <node concept="312cEg" id="57hSI$280YQ" role="jymVt">
-                                            <property role="TrG5h" value="inForbiddenState" />
-                                            <node concept="3Tm6S6" id="57hSI$27X6m" role="1B3o_S" />
-                                            <node concept="10P_77" id="57hSI$2809j" role="1tU5fm" />
-                                            <node concept="3clFbT" id="57hSI$281Yz" role="33vP2m" />
-                                          </node>
-                                          <node concept="2tJIrI" id="57hSI$27W0L" role="jymVt" />
-                                          <node concept="3Tm1VV" id="57hSI$27TWV" role="1B3o_S" />
-                                          <node concept="3clFb_" id="57hSI$27TX0" role="jymVt">
-                                            <property role="TrG5h" value="receivedForbiddenResponse" />
-                                            <node concept="3Tm1VV" id="57hSI$27TX1" role="1B3o_S" />
-                                            <node concept="3cqZAl" id="57hSI$27TX3" role="3clF45" />
-                                            <node concept="3clFbS" id="57hSI$27TX4" role="3clF47">
-                                              <node concept="3clFbJ" id="57hSI$287dd" role="3cqZAp">
-                                                <node concept="3clFbS" id="57hSI$287df" role="3clFbx">
-                                                  <node concept="3clFbF" id="57hSI$2844E" role="3cqZAp">
-                                                    <node concept="37vLTI" id="57hSI$2852y" role="3clFbG">
-                                                      <node concept="3clFbT" id="57hSI$285BV" role="37vLTx">
-                                                        <property role="3clFbU" value="true" />
-                                                      </node>
-                                                      <node concept="37vLTw" id="57hSI$2844D" role="37vLTJ">
-                                                        <ref role="3cqZAo" node="57hSI$280YQ" resolve="inForbiddenState" />
-                                                      </node>
-                                                    </node>
-                                                  </node>
-                                                  <node concept="3clFbF" id="77kDfFmyKpD" role="3cqZAp">
-                                                    <node concept="2YIFZM" id="77kDfFmyK$C" role="3clFbG">
-                                                      <ref role="37wK5l" to="dxuu:~SwingUtilities.invokeLater(java.lang.Runnable)" resolve="invokeLater" />
-                                                      <ref role="1Pybhd" to="dxuu:~SwingUtilities" resolve="SwingUtilities" />
-                                                      <node concept="2ShNRf" id="77kDfFmyLcx" role="37wK5m">
-                                                        <node concept="YeOm9" id="77kDfFmzhKF" role="2ShVmc">
-                                                          <node concept="1Y3b0j" id="77kDfFmzhKI" role="YeSDq">
-                                                            <property role="2bfB8j" value="true" />
-                                                            <ref role="1Y3XeK" to="wyt6:~Runnable" resolve="Runnable" />
-                                                            <ref role="37wK5l" to="wyt6:~Object.&lt;init&gt;()" resolve="Object" />
-                                                            <node concept="3Tm1VV" id="77kDfFmzhKJ" role="1B3o_S" />
-                                                            <node concept="3clFb_" id="77kDfFmzhKO" role="jymVt">
-                                                              <property role="TrG5h" value="run" />
-                                                              <node concept="3Tm1VV" id="77kDfFmzhKP" role="1B3o_S" />
-                                                              <node concept="3cqZAl" id="77kDfFmzhKR" role="3clF45" />
-                                                              <node concept="3clFbS" id="77kDfFmzhKS" role="3clF47">
-                                                                <node concept="3clFbF" id="57hSI$28alX" role="3cqZAp">
-                                                                  <node concept="2YIFZM" id="57hSI$28apA" role="3clFbG">
-                                                                    <ref role="37wK5l" to="jkm4:~Messages.showErrorDialog(java.lang.String,java.lang.String)" resolve="showErrorDialog" />
-                                                                    <ref role="1Pybhd" to="jkm4:~Messages" resolve="Messages" />
-                                                                    <node concept="3cpWs3" id="57hSI$28doh" role="37wK5m">
-                                                                      <node concept="3cpWs3" id="57hSI$28bjq" role="3uHU7B">
-                                                                        <node concept="Xl_RD" id="57hSI$28b1q" role="3uHU7B">
-                                                                          <property role="Xl_RC" value="Unauthorized to connect to Model Server " />
-                                                                        </node>
-                                                                        <node concept="37vLTw" id="57hSI$28cvH" role="3uHU7w">
-                                                                          <ref role="3cqZAo" node="6aRQr1WPbDO" resolve="baseUrl" />
-                                                                        </node>
-                                                                      </node>
-                                                                      <node concept="Xl_RD" id="57hSI$28eOU" role="3uHU7w">
-                                                                        <property role="Xl_RC" value=". Check you are logged in and have the right to access that Model Server" />
-                                                                      </node>
-                                                                    </node>
-                                                                    <node concept="Xl_RD" id="57hSI$28gnB" role="37wK5m">
-                                                                      <property role="Xl_RC" value="Forbidden Access" />
-                                                                    </node>
-                                                                  </node>
-                                                                </node>
-                                                              </node>
-                                                              <node concept="2AHcQZ" id="77kDfFmzhKU" role="2AJF6D">
-                                                                <ref role="2AI5Lk" to="wyt6:~Override" resolve="Override" />
-                                                              </node>
-                                                            </node>
-                                                          </node>
-                                                        </node>
-                                                      </node>
-                                                    </node>
-                                                  </node>
-                                                </node>
-                                                <node concept="3fqX7Q" id="57hSI$287MO" role="3clFbw">
-                                                  <node concept="37vLTw" id="57hSI$288Z1" role="3fr31v">
-                                                    <ref role="3cqZAo" node="57hSI$280YQ" resolve="inForbiddenState" />
-                                                  </node>
-                                                </node>
-                                              </node>
-                                            </node>
-                                            <node concept="2AHcQZ" id="57hSI$27TX6" role="2AJF6D">
-                                              <ref role="2AI5Lk" to="wyt6:~Override" resolve="Override" />
-                                            </node>
-                                          </node>
-                                          <node concept="2tJIrI" id="57hSI$27TX7" role="jymVt" />
-                                          <node concept="3clFb_" id="57hSI$27TX8" role="jymVt">
-                                            <property role="TrG5h" value="receivedSuccessfulResponse" />
-                                            <node concept="3Tm1VV" id="57hSI$27TX9" role="1B3o_S" />
-                                            <node concept="3cqZAl" id="57hSI$27TXb" role="3clF45" />
-                                            <node concept="3clFbS" id="57hSI$27TXc" role="3clF47">
-                                              <node concept="3clFbF" id="57hSI$285In" role="3cqZAp">
-                                                <node concept="37vLTI" id="57hSI$285Io" role="3clFbG">
-                                                  <node concept="3clFbT" id="57hSI$285Ip" role="37vLTx" />
-                                                  <node concept="37vLTw" id="57hSI$285Iq" role="37vLTJ">
-                                                    <ref role="3cqZAo" node="57hSI$280YQ" resolve="inForbiddenState" />
-                                                  </node>
-                                                </node>
-                                              </node>
-                                            </node>
-                                            <node concept="2AHcQZ" id="57hSI$27TXe" role="2AJF6D">
-                                              <ref role="2AI5Lk" to="wyt6:~Override" resolve="Override" />
-                                            </node>
-                                          </node>
+                                      <node concept="1pGfFk" id="46h4oXMuxes" role="2ShVmc">
+                                        <ref role="37wK5l" node="46h4oXMuwd3" resolve="ModelServerConnection.ConnectionListenerForForbiddenMessage" />
+                                        <node concept="37vLTw" id="46h4oXMwxkz" role="37wK5m">
+                                          <ref role="3cqZAo" node="6aRQr1WPbDO" resolve="baseUrl" />
                                         </node>
                                       </node>
                                     </node>
