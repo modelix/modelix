@@ -33,8 +33,8 @@ import org.modelix.model.util.StreamUtils.toStream
 import java.io.File
 import java.net.URLEncoder
 import java.nio.charset.StandardCharsets
-import java.util.Objects
 import java.util.LinkedList
+import java.util.Objects
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 import java.util.concurrent.ScheduledFuture
@@ -57,13 +57,13 @@ import kotlin.collections.ArrayList
 import kotlin.collections.HashMap
 import kotlin.collections.LinkedHashMap
 
-val Response.successful : Boolean
+val Response.successful: Boolean
     get() = this.status in 200..299
 
-val Response.unsuccessful : Boolean
+val Response.unsuccessful: Boolean
     get() = !successful
 
-val Response.forbidden : Boolean
+val Response.forbidden: Boolean
     get() = status == Response.Status.FORBIDDEN.statusCode
 
 interface ConnectionListener {
@@ -74,8 +74,11 @@ interface ConnectionListener {
 /**
  * We need to specify the connection listeners right into the constructor because connection is started in the constructor.
  */
-class RestWebModelClient @JvmOverloads constructor(var baseUrl: String? = null, authToken_: String? = null,
-                                                   initialConnectionListeners: List<ConnectionListener> = emptyList()) : IModelClient {
+class RestWebModelClient @JvmOverloads constructor(
+    var baseUrl: String? = null,
+    authToken_: String? = null,
+    initialConnectionListeners: List<ConnectionListener> = emptyList()
+) : IModelClient {
 
     companion object {
         private val LOG = LogManager.getLogger(RestWebModelClient::class.java)
