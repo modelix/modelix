@@ -119,6 +119,15 @@
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
+
+  .navigationAndEditors{
+    display: flex;
+
+    .nodeEditors{
+      display: flex;
+      flex-direction: column;
+    }
+  }
 }
 
 .collapsible-toggle {
@@ -143,7 +152,7 @@ header {
   min-width: 100%;
 }
 #sidebar {
-  min-width: 33%;
+  min-width: 25%;
 }
 
 main {
