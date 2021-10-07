@@ -34,6 +34,7 @@ import java.io.File
 import java.net.URLEncoder
 import java.nio.charset.StandardCharsets
 import java.util.Objects
+import java.util.LinkedList
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 import java.util.concurrent.ScheduledFuture
@@ -56,7 +57,26 @@ import kotlin.collections.ArrayList
 import kotlin.collections.HashMap
 import kotlin.collections.LinkedHashMap
 
-class RestWebModelClient @JvmOverloads constructor(var baseUrl: String? = null, authToken_: String? = null) : IModelClient {
+val Response.successful : Boolean
+    get() = this.status in 200..299
+
+val Response.unsuccessful : Boolean
+    get() = !successful
+
+val Response.forbidden : Boolean
+    get() = status == Response.Status.NOT_FOUND.statusCode
+
+interface ConnectionListeners {
+    fun receivedForbiddenResponse()
+    fun receivedSuccessfulResponse()
+}
+
+/**
+ * We need to specify the connection listeners right into the constructor because connection is started in the constructor.
+ */
+class RestWebModelClient @JvmOverloads constructor(var baseUrl: String? = null, authToken_: String? = null,
+                                                   initialConnectionListeners: List<ConnectionListeners> = emptyList()) : IModelClient {
+
     companion object {
         private val LOG = LogManager.getLogger(RestWebModelClient::class.java)
         const val MODEL_URI_VAR_NAME = "MODEL_URI"
@@ -94,12 +114,22 @@ class RestWebModelClient @JvmOverloads constructor(var baseUrl: String? = null, 
         }
     }
 
+    private val connectionListeners = LinkedList(initialConnectionListeners)
+
     override var clientId = 0
         get() {
             if (field == 0) {
                 val targetUri = baseUrl + "counter/clientId"
                 try {
                     val response = client.target(targetUri).request().post(Entity.text(""))
+                    if (response.unsuccessful) {
+                        if (response.forbidden) {
+                            receivedForbiddenResponse()
+                        }
+                        throw RuntimeException("Unable to get the clientId by querying $targetUri")
+                    } else {
+                        receivedSuccessfulResponse()
+                    }
                     val idStr = response.readEntity(String::class.java)
                     field = idStr.toInt()
                 } catch (e: ProcessingException) {
@@ -125,6 +155,18 @@ class RestWebModelClient @JvmOverloads constructor(var baseUrl: String? = null, 
 
     override fun toString() = "RestWebModelClient($baseUrl)"
 
+    private fun receivedForbiddenResponse() {
+        connectionListeners.forEach { it.receivedForbiddenResponse() }
+    }
+
+    private fun receivedSuccessfulResponse() {
+        connectionListeners.forEach { it.receivedSuccessfulResponse() }
+    }
+
+    fun addForbiddenListener(listener: ConnectionListeners) {
+        connectionListeners.add(listener)
+    }
+
     fun dispose() {
         watchDogTask.cancel(false)
         synchronized(listeners) {
@@ -149,6 +191,7 @@ class RestWebModelClient @JvmOverloads constructor(var baseUrl: String? = null, 
             val response = client.target(uri).request().buildGet().invoke()
             return when (response.status) {
                 Response.Status.OK.statusCode -> {
+                    receivedSuccessfulResponse()
                     val value = response.readEntity(String::class.java)
                     val end = System.currentTimeMillis()
                     if (isHash) {
@@ -162,6 +205,9 @@ class RestWebModelClient @JvmOverloads constructor(var baseUrl: String? = null, 
                     null
                 }
                 else -> {
+                    if (response.forbidden) {
+                        receivedForbiddenResponse()
+                    }
                     throw RuntimeException("Request for key '" + key + "' failed: " + response.statusInfo)
                 }
             }
@@ -181,6 +227,7 @@ class RestWebModelClient @JvmOverloads constructor(var baseUrl: String? = null, 
             val body = json.toString()
             val response = client.target(baseUrl + "getAll").request(MediaType.APPLICATION_JSON).put(Entity.text(body))
             if (response.status == Response.Status.OK.statusCode) {
+                receivedSuccessfulResponse()
                 val jsonStr = response.readEntity(String::class.java)
                 val responseJson = JSONArray(jsonStr)
                 for (entry_: Any in responseJson) {
@@ -189,6 +236,9 @@ class RestWebModelClient @JvmOverloads constructor(var baseUrl: String? = null, 
                 }
                 json = JSONArray()
             } else {
+                if (response.forbidden) {
+                    receivedForbiddenResponse()
+                }
                 throw RuntimeException(
                     String.format(
                         "Request for %d keys failed (%s, ...): %s",
@@ -218,8 +268,12 @@ class RestWebModelClient @JvmOverloads constructor(var baseUrl: String? = null, 
         get() {
             val response = client.target(baseUrl + "getEmail").request().buildGet().invoke()
             return if (response.status == Response.Status.OK.statusCode) {
+                receivedSuccessfulResponse()
                 response.readEntity(String::class.java)
             } else {
+                if (response.forbidden) {
+                    receivedForbiddenResponse()
+                }
                 throw RuntimeException("Request for e-mail address failed: " + response.statusInfo)
             }
         }
@@ -243,7 +297,12 @@ class RestWebModelClient @JvmOverloads constructor(var baseUrl: String? = null, 
         try {
             val response = client.target(url).request(MediaType.TEXT_PLAIN).put(Entity.text(value))
             if (response.statusInfo.family != Response.Status.Family.SUCCESSFUL) {
+                if (response.forbidden) {
+                    receivedForbiddenResponse()
+                }
                 throw RuntimeException("Failed to store entry (${response.statusInfo} ${response.status}) $key = $value. " + response.readEntity(String::class.java))
+            } else {
+                receivedSuccessfulResponse()
             }
         } catch (e: Exception) {
             throw RuntimeException("Failed executing a put to $url", e)
@@ -283,7 +342,13 @@ class RestWebModelClient @JvmOverloads constructor(var baseUrl: String? = null, 
                     LOG.debug("PUT batch of ${json.length()} entries, $remaining remaining")
                 }
                 val response = client.target(baseUrl + "putAll").request(MediaType.TEXT_PLAIN).put(Entity.text(json.toString()))
-                if (response.statusInfo.family == Response.Status.Family.SUCCESSFUL) return@sendBatch
+                if (response.forbidden) {
+                    receivedForbiddenResponse()
+                }
+                if (response.statusInfo.family == Response.Status.Family.SUCCESSFUL) {
+                    receivedSuccessfulResponse()
+                    return@sendBatch
+                }
                 val message = String.format(
                     "Failed to store %d entries (%s) %s: %s (attempt %d)",
                     entries.size,
