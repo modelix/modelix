@@ -64,7 +64,7 @@ val Response.unsuccessful : Boolean
     get() = !successful
 
 val Response.forbidden : Boolean
-    get() = status == Response.Status.NOT_FOUND.statusCode
+    get() = status == Response.Status.FORBIDDEN.statusCode
 
 interface ConnectionListener {
     fun receivedForbiddenResponse()
