@@ -179,7 +179,6 @@ class RestWebModelClient @JvmOverloads constructor(var baseUrl: String? = null, 
         var json = JSONArray()
         val batch = {
             val body = json.toString()
-            val start = System.currentTimeMillis()
             val response = client.target(baseUrl + "getAll").request(MediaType.APPLICATION_JSON).put(Entity.text(body))
             if (response.status == Response.Status.OK.statusCode) {
                 val jsonStr = response.readEntity(String::class.java)
@@ -188,7 +187,6 @@ class RestWebModelClient @JvmOverloads constructor(var baseUrl: String? = null, 
                     val entry = entry_ as JSONObject
                     result[entry.getString("key")] = entry.optString("value", null)
                 }
-                val end = System.currentTimeMillis()
                 json = JSONArray()
             } else {
                 throw RuntimeException(
