@@ -1581,6 +1581,18 @@
           </node>
           <node concept="027og" id="5NjUL5V2Cpp" role="2PWHRo">
             <ref role="02LMe" to="70w2:7NImM04TdSz" resolve="HTMLLIElement" />
+            <node concept="027rt" id="7pSyEQLgZ8M" role="02LM9">
+              <ref role="027rv" to="70w2:7NImM053Sep" resolve="children" />
+              <node concept="027og" id="7pSyEQLgZ8N" role="027rp">
+                <ref role="02LMe" to="70w2:7NImM04TdSu" resolve="HTMLImageElement" />
+                <node concept="027oh" id="7pSyEQLgZ8O" role="02LM9">
+                  <ref role="027oj" to="70w2:5GP2kxIJkJi" resolve="src" />
+                  <node concept="Xl_RD" id="7pSyEQLgZ8W" role="027of">
+                    <property role="Xl_RC" value="icons/VirtualPackage" />
+                  </node>
+                </node>
+              </node>
+            </node>
             <node concept="027rt" id="XU9v$runRP" role="02LM9">
               <ref role="027rv" to="70w2:7NImM053Sep" resolve="children" />
               <node concept="027og" id="XU9v$runRQ" role="027rp">
@@ -14157,6 +14169,18 @@
                   <node concept="3TrcHB" id="7_BE$5LkvvW" role="2OqNvi">
                     <ref role="3TsBF5" to="tpck:hnGE5uv" resolve="virtualPackage" />
                   </node>
+                </node>
+              </node>
+            </node>
+          </node>
+          <node concept="027rt" id="7pSyEQLiy35" role="02LM9">
+            <ref role="027rv" to="70w2:7NImM053Sep" resolve="children" />
+            <node concept="027og" id="7pSyEQLiy36" role="027rp">
+              <ref role="02LMe" to="70w2:7NImM04TdSu" resolve="HTMLImageElement" />
+              <node concept="027oh" id="7pSyEQLiy37" role="02LM9">
+                <ref role="027oj" to="70w2:5GP2kxIJkJi" resolve="src" />
+                <node concept="Xl_RD" id="7pSyEQLiy38" role="027of">
+                  <property role="Xl_RC" value="icons/VirtualPackage" />
                 </node>
               </node>
             </node>
