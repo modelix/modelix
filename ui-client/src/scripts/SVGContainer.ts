@@ -10,8 +10,6 @@ export class SVGContainer {
   private connectionStatus: HTMLElement;
   private lastConnectionStatus: number;
 
-  private timerId;
-
   constructor(public readonly element: HTMLElement){
     this.init()
   }
@@ -46,13 +44,13 @@ export class SVGContainer {
 
   private listen(){
     this.socket.onopen = () => {
-      clearInterval(this.timerId);
       this.updateConnectionStatus();
     }
     this.socket.onclose = () => {
       this.updateConnectionStatus();
-      this.timerId = setInterval(() => {
+      setTimeout(() => {
         this.connect();
+        this.listen();
       }, 1000);
     }
     this.socket.onerror = () => this.updateConnectionStatus();
