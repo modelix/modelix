@@ -9,11 +9,11 @@ services:
 
 jobs:
   include:
-    - stage: build
-      script: ./gradlew -PuseInstalledNvm=true build
-      if: tag IS blank
+#    - stage: build
+#      script: ./gradlew -PuseInstalledNvm=true build
+#      if: tag IS blank
     - stage: deploy
-      script: ./gradlew -PuseInstalledNvm=true  build publish && ./docker-ci.sh
+      script: ./gradlew -PuseInstalledNvm=true build publish && ./docker-ci.sh
       if: tag IS present
   
 cache:
