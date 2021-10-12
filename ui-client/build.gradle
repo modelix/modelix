@@ -40,6 +40,7 @@ task packageNpmApp(type: Zip) {
 
 clean {
     delete packageNpmApp.archiveFile
+    delete npm_run_build.outputs
 }
 
 // declare a dedicated scope for publishing the packaged JAR
