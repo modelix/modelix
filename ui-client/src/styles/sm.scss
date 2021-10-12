@@ -1,15 +1,17 @@
 body {
     margin: 12px;
-    background-color: #212121;
-    color: #fff;
+    color:  #000;
+}
+li{
+    display: block;
 }
 
 a:link {
-    color: #ccccff;
+    color: #2f2fdf;
 }
 
 a:visited {
-    color: #c0c0ff;
+    color: #2f2fdf;
 }
 
 a:hover {

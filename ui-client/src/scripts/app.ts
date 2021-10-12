@@ -20,6 +20,4 @@ $(() => {
     for (const element of document.getElementsByClassName("livehtml")) {
         liveHtmlElements.add(new LiveHtml(element as HTMLElement));
     }
-
-    initNewNodeButton()
 });

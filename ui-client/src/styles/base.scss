@@ -8,6 +8,11 @@
   -ms-user-select: none;
   user-select: none;
 
+  border-color: #000;
+  border-width: thin;
+  border-style: solid;
+  margin: 5px;
+
   .svgEditorImg {
     text {
       text-rendering: optimizeLegibility;
@@ -126,6 +131,8 @@
 
   .navigationAndEditors{
     display: flex;
+    justify-content: space-between;
+    flex-direction: row;
 
     .nodeEditors{
       display: flex;
@@ -154,13 +161,6 @@
 
 header {
   min-width: 100%;
-}
-#sidebar {
-  min-width: 25%;
-}
-
-main {
-  min-width: 66%;
 }
 
 @import "header";
