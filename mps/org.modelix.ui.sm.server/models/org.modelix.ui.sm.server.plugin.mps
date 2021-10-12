@@ -4813,7 +4813,7 @@
               </node>
               <node concept="3cpWs3" id="3pn$gDKpP57" role="3uHU7B">
                 <node concept="Xl_RD" id="3pn$gDKpP58" role="3uHU7B">
-                  <property role="Xl_RC" value="&lt;!DOCTYPE html&gt;&lt;html&gt;&lt;head&gt;&lt;link rel=\&quot;stylesheet\&quot; type=\&quot;text/css\&quot; href=\&quot;css/app.css\&quot;&gt;&lt;script type=\&quot;text/javascript\&quot; src=\&quot;scripts/app.js\&quot;&gt;&lt;/script&gt;&lt;/head&gt;&lt;body&gt;" />
+                  <property role="Xl_RC" value="&lt;!DOCTYPE html&gt;&lt;html&gt;&lt;head&gt;&lt;link rel=\&quot;stylesheet\&quot; type=\&quot;text/css\&quot; href=\&quot;css/app.css\&quot;&gt;&lt;script type=\&quot;text/javascript\&quot; src=\&quot;scripts/app.js\&quot;&gt;&lt;/script&gt;&lt;script type=\&quot;text/javascript\&quot; src=\&quot;scripts/newNodeButton.js\&quot;&gt;&lt;/script&gt;&lt;/head&gt;&lt;body&gt;" />
                 </node>
                 <node concept="37vLTw" id="3pn$gDKpP59" role="3uHU7w">
                   <ref role="3cqZAo" node="1MbrkMI$zgi" resolve="text" />

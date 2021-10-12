@@ -3,7 +3,6 @@ import $ = require("jquery");
 import {SVGContainer} from "./SVGContainer";
 import {ShadowModelsBasedEditor} from "./ShadowModelsBasedEditor";
 import {LiveHtml} from "./LiveHtml";
-import {initNewNodeButton} from "./NewNodeButton";
 
 $(() => {
     const svgViewers = new Set<SVGContainer>();

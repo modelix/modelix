@@ -191,3 +191,7 @@ export function initNewNodeButton() {
         });
     }
 }
+
+$(() => {
+    initNewNodeButton()
+});
