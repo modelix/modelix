@@ -101,6 +101,7 @@
     <import index="mk90" ref="6ed54515-acc8-4d1e-a16c-9fd6cfe951ea/java:jetbrains.mps.progress(MPS.Core/)" />
     <import index="geos" ref="0a2651ab-f212-45c2-a2f0-343e76cbc26b/java:org.modelix.model.persistent(org.modelix.model.client/)" />
     <import index="10lj" ref="r:d08664e2-1f34-4206-af22-5f6ebb6628cd(org.modelix.authentication.plugin)" />
+    <import index="fnpx" ref="498d89d2-c2e9-11e2-ad49-6cf049e62fe5/java:com.intellij.notification(MPS.IDEA/)" />
   </imports>
   <registry>
     <language id="a247e09e-2435-45ba-b8d2-07e93feba96a" name="jetbrains.mps.baseLanguage.tuples">
@@ -7749,28 +7750,41 @@
                           <node concept="3Tm1VV" id="46h4oXMtHnn" role="1B3o_S" />
                           <node concept="3cqZAl" id="46h4oXMtHno" role="3clF45" />
                           <node concept="3clFbS" id="46h4oXMtHnp" role="3clF47">
-                            <node concept="3clFbF" id="46h4oXMtHnq" role="3cqZAp">
-                              <node concept="2YIFZM" id="46h4oXMtHnr" role="3clFbG">
-                                <ref role="37wK5l" to="jkm4:~Messages.showErrorDialog(java.lang.String,java.lang.String)" resolve="showErrorDialog" />
-                                <ref role="1Pybhd" to="jkm4:~Messages" resolve="Messages" />
-                                <node concept="3cpWs3" id="46h4oXMtHns" role="37wK5m">
-                                  <node concept="3cpWs3" id="46h4oXMtHnt" role="3uHU7B">
-                                    <node concept="Xl_RD" id="46h4oXMtHnu" role="3uHU7B">
-                                      <property role="Xl_RC" value="Unauthorized to connect to Model Server " />
+                            <node concept="3clFbF" id="75_St3$ZyQz" role="3cqZAp">
+                              <node concept="2YIFZM" id="75_St3$ZEVU" role="3clFbG">
+                                <ref role="1Pybhd" to="fnpx:~Notifications$Bus" resolve="Notifications.Bus" />
+                                <ref role="37wK5l" to="fnpx:~Notifications$Bus.notify(com.intellij.notification.Notification)" resolve="notify" />
+                                <node concept="2ShNRf" id="75_St3$ZEVV" role="37wK5m">
+                                  <node concept="1pGfFk" id="75_St3$ZEVW" role="2ShVmc">
+                                    <ref role="37wK5l" to="fnpx:~Notification.&lt;init&gt;(java.lang.String,java.lang.String,java.lang.String,com.intellij.notification.NotificationType)" resolve="Notification" />
+                                    <node concept="Xl_RD" id="75_St3$ZEVX" role="37wK5m">
+                                      <property role="Xl_RC" value="Modelix" />
                                     </node>
-                                    <node concept="37vLTw" id="46h4oXMtHnv" role="3uHU7w">
-                                      <ref role="3cqZAo" node="6aRQr1WPbDO" resolve="baseUrl" />
+                                    <node concept="Xl_RD" id="75_St3$ZEVY" role="37wK5m">
+                                      <property role="Xl_RC" value="Forbidden Access" />
+                                    </node>
+                                    <node concept="3cpWs3" id="75_St3$ZIXK" role="37wK5m">
+                                      <node concept="3cpWs3" id="75_St3$ZIXL" role="3uHU7B">
+                                        <node concept="Xl_RD" id="75_St3$ZIXM" role="3uHU7B">
+                                          <property role="Xl_RC" value="Unauthorized to connect to Model Server " />
+                                        </node>
+                                        <node concept="37vLTw" id="75_St3$ZIXN" role="3uHU7w">
+                                          <ref role="3cqZAo" node="46h4oXMu_sX" resolve="baseUrl" />
+                                        </node>
+                                      </node>
+                                      <node concept="Xl_RD" id="75_St3$ZIXO" role="3uHU7w">
+                                        <property role="Xl_RC" value=". Check you are logged in and have the right to access that Model Server" />
+                                      </node>
+                                    </node>
+                                    <node concept="Rm8GO" id="75_St3$ZEW0" role="37wK5m">
+                                      <ref role="1Px2BO" to="fnpx:~NotificationType" resolve="NotificationType" />
+                                      <ref role="Rm8GQ" to="fnpx:~NotificationType.ERROR" resolve="ERROR" />
                                     </node>
                                   </node>
-                                  <node concept="Xl_RD" id="46h4oXMtHnw" role="3uHU7w">
-                                    <property role="Xl_RC" value=". Check you are logged in and have the right to access that Model Server" />
-                                  </node>
-                                </node>
-                                <node concept="Xl_RD" id="46h4oXMtHnx" role="37wK5m">
-                                  <property role="Xl_RC" value="Forbidden Access" />
                                 </node>
                               </node>
                             </node>
+                            <node concept="3clFbH" id="75_St3$Zy_d" role="3cqZAp" />
                           </node>
                           <node concept="2AHcQZ" id="46h4oXMtHny" role="2AJF6D">
                             <ref role="2AI5Lk" to="wyt6:~Override" resolve="Override" />
