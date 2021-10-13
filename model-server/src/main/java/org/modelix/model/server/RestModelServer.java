@@ -333,36 +333,42 @@ public class RestModelServer {
                             @Override
                             protected void doPut(HttpServletRequest req, HttpServletResponse resp)
                                     throws ServletException, IOException {
-                                if (!checkAuthorization(storeClient, req, resp)) return;
+                                try {
+                                    if (!checkAuthorization(storeClient, req, resp)) return;
 
-                                String reqJsonStr =
-                                        IOUtils.toString(
-                                                req.getInputStream(), StandardCharsets.UTF_8);
-                                JSONArray reqJson = new JSONArray(reqJsonStr);
-                                JSONArray respJson = new JSONArray();
-                                List<String> keys = new ArrayList<>(reqJson.length());
-                                for (Object entry_ : reqJson) {
-                                    String key = (String) entry_;
+                                    String reqJsonStr =
+                                            IOUtils.toString(
+                                                    req.getInputStream(), StandardCharsets.UTF_8);
+                                    JSONArray reqJson = new JSONArray(reqJsonStr);
+                                    JSONArray respJson = new JSONArray();
+                                    List<String> keys = new ArrayList<>(reqJson.length());
+                                    for (Object entry_ : reqJson) {
+                                        String key = (String) entry_;
 
-                                    if (key.startsWith(PROTECTED_PREFIX)) {
-                                        LOG.warn("No permission to access " + key);
-                                        continue;
+                                        if (key.startsWith(PROTECTED_PREFIX)) {
+                                            LOG.warn("No permission to access " + key);
+                                            continue;
+                                        }
+                                        keys.add(key);
                                     }
-                                    keys.add(key);
-                                }
 
-                                List<String> values = storeClient.getAll(keys);
-                                for (int i = 0; i < keys.size(); i++) {
-                                    JSONObject respEntry = new JSONObject();
-                                    respEntry.put("key", keys.get(i));
-                                    respEntry.put("value", values.get(i));
-                                    respJson.put(respEntry);
-                                }
+                                    List<String> values = storeClient.getAll(keys);
+                                    for (int i = 0; i < keys.size(); i++) {
+                                        JSONObject respEntry = new JSONObject();
+                                        respEntry.put("key", keys.get(i));
+                                        respEntry.put("value", values.get(i));
+                                        respJson.put(respEntry);
+                                    }
 
-                                resp.setStatus(HttpServletResponse.SC_OK);
-                                resp.setContentType("application/json");
-                                resp.setCharacterEncoding(StandardCharsets.UTF_8.toString());
-                                resp.getWriter().print(respJson.toString());
+                                    resp.setStatus(HttpServletResponse.SC_OK);
+                                    resp.setContentType("application/json");
+                                    resp.setCharacterEncoding(StandardCharsets.UTF_8.toString());
+                                    resp.getWriter().print(respJson.toString());
+                                } catch (Exception ex) {
+                                    System.out.println(ex.getMessage());
+                                    ex.printStackTrace();
+                                    throw ex;
+                                }
                             }
                         }),
                 "/getAll");
