@@ -1,4 +1,70 @@
-FROM openjdk:11
+FROM debian:buster
+
+RUN set -eux; apt-get update; apt-get install -y --no-install-recommends ca-certificates curl netbase wget; rm -rf /var/lib/apt/lists/*
+
+RUN set -ex; if ! command -v gpg > /dev/null; then apt-get update; apt-get install -y --no-install-recommends gnupg dirmngr; rm -rf /var/lib/apt/lists/*; fi
+
+RUN apt-get update && apt-get install -y --no-install-recommends git mercurial openssh-client subversion procps && rm -rf /var/lib/apt/lists/*
+RUN set -eux; apt-get update; apt-get install -y --no-install-recommends bzip2 unzip xz-utils fontconfig libfreetype6 ca-certificates p11-kit; rm -rf /var/lib/apt/lists/*
+
+
+ENV JAVA_HOME /usr/local/jbr
+RUN { echo '#/bin/sh'; echo 'echo "$JAVA_HOME"'; } > /usr/local/bin/docker-java-home && chmod +x /usr/local/bin/docker-java-home && [ "$JAVA_HOME" = "$(docker-java-home)" ] # backwards compatibility
+ENV PATH $JAVA_HOME/bin:$PATH
+
+RUN set -eux; \
+	\
+	downloadUrl='https://cache-redirector.jetbrains.com/intellij-jbr/jbr_jcef-11_0_10-linux-x64-b1145.96.tar.gz'; \
+	\
+	savedAptMark="$(apt-mark showmanual)"; \
+	apt-get update; \
+	apt-get install -y --no-install-recommends \
+		dirmngr \
+		gnupg \
+		wget \
+	; \
+	rm -rf /var/lib/apt/lists/*; \
+	\
+	wget --progress=dot:giga -O openjdk.tgz "$downloadUrl"; \
+	\
+	mkdir -p "$JAVA_HOME"; \
+	tar --extract \
+		--file openjdk.tgz \
+		--directory "$JAVA_HOME" \
+		--strip-components 1 \
+		--no-same-owner \
+	; \
+	rm openjdk.tgz*; \
+	\
+	apt-mark auto '.*' > /dev/null; \
+	[ -z "$savedAptMark" ] || apt-mark manual $savedAptMark > /dev/null; \
+	apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false; \
+	\
+# update "cacerts" bundle to use Debian's CA certificates (and make sure it stays up-to-date with changes to Debian's store)
+# see https://github.com/docker-library/openjdk/issues/327
+#     http://rabexc.org/posts/certificates-not-working-java#comment-4099504075
+#     https://salsa.debian.org/java-team/ca-certificates-java/blob/3e51a84e9104823319abeb31f880580e46f45a98/debian/jks-keystore.hook.in
+#     https://git.alpinelinux.org/aports/tree/community/java-cacerts/APKBUILD?id=761af65f38b4570093461e6546dcf6b179d2b624#n29
+	{ \
+		echo '#!/usr/bin/env bash'; \
+		echo 'set -Eeuo pipefail'; \
+		echo 'trust extract --overwrite --format=java-cacerts --filter=ca-anchors --purpose=server-auth "$JAVA_HOME/lib/security/cacerts"'; \
+	} > /etc/ca-certificates/update.d/docker-jbr; \
+	chmod +x /etc/ca-certificates/update.d/docker-jbr; \
+	/etc/ca-certificates/update.d/docker-jbr; \
+	\
+# https://github.com/docker-library/openjdk/issues/331#issuecomment-498834472
+	find "$JAVA_HOME/lib" -name '*.so' -exec dirname '{}' ';' | sort -u > /etc/ld.so.conf.d/docker-jbr.conf; \
+	ldconfig; \
+	\
+# https://github.com/docker-library/openjdk/issues/212#issuecomment-420979840
+# https://openjdk.java.net/jeps/341
+	java -Xshare:dump; \
+	\
+# basic smoke test
+	javac --version; \
+	java --version
+
 WORKDIR /usr/modelix-ui
 COPY artifacts/mps/ /usr/modelix-ui/mps/
 
