@@ -3,6 +3,7 @@ import {KeyCodeTranslator} from "./KeyCodeTranslator";
 import {CCMenu, IAction} from "./CCMenu";
 import {IIntention, IntentionsMenu} from "./IntentionsMenu";
 import {Tooltip} from "./Tooltip";
+import {ReconnectingWebsocket} from "./ReconnectingWebsocket";
 
 export class ImageBasedEditor {
 
@@ -10,11 +11,11 @@ export class ImageBasedEditor {
     private intentionsMenu: IntentionsMenu;
     private tooltip: Tooltip;
 
-    constructor(public readonly element: HTMLElement, public readonly socket: WebSocket, public readonly nodeRef: string) {
+    constructor(public readonly element: HTMLElement, public readonly socket: ReconnectingWebsocket, public readonly nodeRef: string) {
         this.init(element, socket);
     }
 
-    private init(element: HTMLElement, socket: WebSocket) {
+    private init(element: HTMLElement, socket: ReconnectingWebsocket) {
         this.element.tabIndex = -1;
 
         this.ccmenu = new CCMenu();
@@ -36,13 +37,16 @@ export class ImageBasedEditor {
         $(element).keydown(event => this.onKeyDown(event));
         $(element).keyup(event => this.onKeyUp(event));
 
-        socket.addEventListener("open", event => this.onOpen());
-
-        socket.addEventListener("message", event => this.onMessage(event));
+        socket.addStatusListener(connected => {
+            setTimeout(() => {
+                this.socket.sendMessage({type: "rootNode", inspector: this.isInspector(), nodeRef: this.nodeRef});
+            }, 10);
+        });
+        socket.addMessageListener((message: string) => { this.onMessage(message) });
     }
 
-    private onMessage(event) {
-        let message: IMessage = JSON.parse(event.data);
+    private onMessage(messageString: string) {
+        let message: IMessage = JSON.parse(messageString);
 
         if (Boolean(message.inspector) !== this.isInspector()) {
             return;
@@ -84,11 +88,11 @@ export class ImageBasedEditor {
                             getMatchingText: () => a.pattern,
                             getDescription: () => a.description,
                             execute: () => {
-                                this.socket.send(JSON.stringify(<IExecuteCCActionMessage>{
+                                this.socket.sendMessage(<IExecuteCCActionMessage>{
                                     type: "executeCCAction",
                                     inspector: this.isInspector(),
                                     index: i
-                                }));
+                                });
                             }
                         });
                         index = 0;
@@ -116,7 +120,7 @@ export class ImageBasedEditor {
                                 index: i,
                                 text: intention.text
                             };
-                            this.socket.send(JSON.stringify(eim));
+                            this.socket.sendMessage(eim);
                         }
                     });
                     index++;
@@ -144,12 +148,6 @@ export class ImageBasedEditor {
         }
     }
 
-    private onOpen() {
-        setTimeout(() => {
-            this.socket.send(JSON.stringify({type: "rootNode", inspector: this.isInspector(), nodeRef: this.nodeRef}));
-        }, 10);
-    }
-
     private onScroll() {
         let timeout;
         return (event) => {
@@ -162,13 +160,13 @@ export class ImageBasedEditor {
                 let y1 = -rect.top;
                 let y2 = y1 + winh;
 
-                this.socket.send(JSON.stringify(<IViewRangeMessage>{
+                this.socket.sendMessage(<IViewRangeMessage>{
                     type: "viewrange",
                     inspector: this.isInspector(),
                     top: y1,
                     bottom: y2
-                }));
-            }, 100)
+                });
+            }, 100);
         }
     }
 
@@ -190,7 +188,7 @@ export class ImageBasedEditor {
             },
         };
 
-        this.socket.send(JSON.stringify(message));
+        this.socket.sendMessage(message);
         this.element.focus();
         event.preventDefault();
     }
@@ -214,7 +212,7 @@ export class ImageBasedEditor {
                 },
             };
 
-            this.socket.send(JSON.stringify(message));
+            this.socket.sendMessage(message);
         }
     }
 
@@ -235,7 +233,7 @@ export class ImageBasedEditor {
                 meta: event.metaKey
             },
         };
-        this.socket.send(JSON.stringify(message));
+        this.socket.sendMessage(message);
         event.preventDefault();
     }
 
@@ -248,7 +246,7 @@ export class ImageBasedEditor {
                 keyCode: KeyCodeTranslator.translate(event.keyCode)
             },
         }
-        this.socket.send(JSON.stringify(message));
+        this.socket.sendMessage(message);
         event.preventDefault();
     }
 
@@ -257,7 +255,7 @@ export class ImageBasedEditor {
     }
 
     private send(msg: IMessage) {
-        this.socket.send(JSON.stringify(msg));
+        this.socket.sendMessage(msg);
     }
 }
 

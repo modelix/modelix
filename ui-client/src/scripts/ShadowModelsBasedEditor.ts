@@ -87,7 +87,7 @@ export class ShadowModelsBasedEditor extends LiveHtml {
         this.rootElement.onkeypress = (event) => {
             event.preventDefault();
             event.stopPropagation();
-            this.socket.send(JSON.stringify({
+            this.socket.sendMessage({
                 type: "keypress",
                 code: event.code,
                 key: event.key,
@@ -97,7 +97,7 @@ export class ShadowModelsBasedEditor extends LiveHtml {
                 shiftDown: event.shiftKey,
                 altDown: event.altKey,
                 metaDown: event.metaKey
-            }));
+            });
         };
         this.rootElement.onkeydown = (event) => {
             event.stopPropagation();
@@ -106,7 +106,7 @@ export class ShadowModelsBasedEditor extends LiveHtml {
                 // that's why it's called only for selected keys
                 event.preventDefault();
             }
-            this.socket.send(JSON.stringify({
+            this.socket.sendMessage({
                 type: "keydown",
                 code: event.code,
                 key: event.key,
@@ -116,7 +116,7 @@ export class ShadowModelsBasedEditor extends LiveHtml {
                 shiftDown: event.shiftKey,
                 altDown: event.altKey,
                 metaDown: event.metaKey
-            }));
+            });
         };
 
         $(this.rootElement).click(e => {
@@ -132,7 +132,7 @@ export class ShadowModelsBasedEditor extends LiveHtml {
                     y: e.clientY - dom.getBoundingClientRect().top,
                     pos: caretPos
                 };
-                this.socket.send(JSON.stringify(message));
+                this.socket.sendMessage(message);
             }
             this.rootElement.focus();
         });
