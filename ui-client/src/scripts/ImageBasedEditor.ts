@@ -30,18 +30,10 @@ export class ImageBasedEditor {
         $(window).on("scroll resize", onScroll);
 
         $(element).click(event => this.onClick(event));
-
-        const onMouseMove = this.onMouseMove()
-        $(element).mousemove(event => onMouseMove(event));
-
-        const onMouseEnter = this.onMouseEvent("mouseenter");
-        $(element).mouseenter(event => onMouseEnter(event));
-
-        const onMouseLeave = this.onMouseEvent("mouseleave");
-        $(element).mouseleave(event => onMouseLeave(event));
-
+        $(element).mousemove(event => this.onMouseEvent("mousemove")(event));
+        $(element).mouseenter(event => this.onMouseEvent("mouseenter")(event));
+        $(element).mouseleave(event => this.onMouseEvent("mouseleave")(event));
         $(element).keydown(event => this.onKeyDown(event));
-
         $(element).keyup(event => this.onKeyUp(event));
 
         socket.addEventListener("open", event => this.onOpen());
@@ -201,29 +193,6 @@ export class ImageBasedEditor {
         this.socket.send(JSON.stringify(message));
         this.element.focus();
         event.preventDefault();
-    }
-
-    private onMouseMove() {
-        return (event) => {
-            const offset = $(this.element).offset();
-            let x = event.pageX - offset.left;
-            let y = event.pageY - offset.top;
-
-            console.log("Mouse event 'mousemove' at [" + x + "," + y + "]")
-
-            let message: IMessage = {
-                type: "mousemove",
-                inspector: this.isInspector(),
-                data: <IMouseMessge>{
-                    x: x,
-                    y: y,
-                    ctrl: event.ctrlKey,
-                    meta: event.metaKey
-                },
-            };
-
-            this.socket.send(JSON.stringify(message));
-        }
     }
 
     private onMouseEvent(type) {
