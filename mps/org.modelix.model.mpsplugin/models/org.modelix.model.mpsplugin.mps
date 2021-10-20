@@ -6806,40 +6806,49 @@
             <node concept="XOnhg" id="cwXJrjMCEw" role="1zc67B">
               <property role="TrG5h" value="t" />
               <node concept="nSUau" id="cwXJrjMCEx" role="1tU5fm">
-                <node concept="3uibUv" id="cwXJrjMD1k" role="nSUat">
-                  <ref role="3uigEE" to="wyt6:~Throwable" resolve="Throwable" />
+                <node concept="3uibUv" id="1ydTf_swb3b" role="nSUat">
+                  <ref role="3uigEE" to="wyt6:~Exception" resolve="Exception" />
                 </node>
               </node>
             </node>
             <node concept="3clFbS" id="cwXJrjMCEy" role="1zc67A">
-              <node concept="3clFbF" id="cwXJrjMDpv" role="3cqZAp">
-                <node concept="2OqwBi" id="cwXJrjMDxU" role="3clFbG">
-                  <node concept="37vLTw" id="cwXJrjMDpu" role="2Oq$k0">
-                    <ref role="3cqZAo" node="cwXJrjMCEw" resolve="t" />
-                  </node>
-                  <node concept="liA8E" id="cwXJrjMDRc" role="2OqNvi">
-                    <ref role="37wK5l" to="wyt6:~Throwable.printStackTrace()" resolve="printStackTrace" />
-                  </node>
+              <node concept="RRSsy" id="1ydTf_swbHP" role="3cqZAp">
+                <property role="RRSoG" value="gZ5fh_4/error" />
+                <node concept="Xl_RD" id="1ydTf_swbHR" role="RRSoy" />
+                <node concept="37vLTw" id="1ydTf_swbWl" role="RRSow">
+                  <ref role="3cqZAo" node="cwXJrjMCEw" resolve="t" />
                 </node>
               </node>
-              <node concept="3clFbF" id="cwXJrjME_m" role="3cqZAp">
-                <node concept="2YIFZM" id="cwXJrjMEB0" role="3clFbG">
-                  <ref role="37wK5l" to="jkm4:~Messages.showErrorDialog(java.lang.String,java.lang.String)" resolve="showErrorDialog" />
-                  <ref role="1Pybhd" to="jkm4:~Messages" resolve="Messages" />
-                  <node concept="2OqwBi" id="cwXJrjMLqg" role="37wK5m">
-                    <node concept="37vLTw" id="cwXJrjMLdm" role="2Oq$k0">
-                      <ref role="3cqZAo" node="cwXJrjMCEw" resolve="t" />
-                    </node>
-                    <node concept="liA8E" id="cwXJrjMLvl" role="2OqNvi">
-                      <ref role="37wK5l" to="wyt6:~Throwable.getMessage()" resolve="getMessage" />
-                    </node>
-                  </node>
-                  <node concept="3cpWs3" id="cwXJrjMFb$" role="37wK5m">
-                    <node concept="37vLTw" id="cwXJrjMFoZ" role="3uHU7w">
-                      <ref role="3cqZAo" node="1JFLVobfVqM" resolve="url" />
-                    </node>
-                    <node concept="Xl_RD" id="cwXJrjMEOT" role="3uHU7B">
-                      <property role="Xl_RC" value="Failure while adding model server " />
+              <node concept="3clFbF" id="1ydTf_swdUI" role="3cqZAp">
+                <node concept="2YIFZM" id="1ydTf_swe5f" role="3clFbG">
+                  <ref role="37wK5l" to="fnpx:~Notifications$Bus.notify(com.intellij.notification.Notification)" resolve="notify" />
+                  <ref role="1Pybhd" to="fnpx:~Notifications$Bus" resolve="Notifications.Bus" />
+                  <node concept="2ShNRf" id="1ydTf_sweuI" role="37wK5m">
+                    <node concept="1pGfFk" id="1ydTf_swFJs" role="2ShVmc">
+                      <ref role="37wK5l" to="fnpx:~Notification.&lt;init&gt;(java.lang.String,java.lang.String,java.lang.String,com.intellij.notification.NotificationType)" resolve="Notification" />
+                      <node concept="Xl_RD" id="1ydTf_swFWG" role="37wK5m">
+                        <property role="Xl_RC" value="Modelix" />
+                      </node>
+                      <node concept="3cpWs3" id="1ydTf_swGJs" role="37wK5m">
+                        <node concept="37vLTw" id="1ydTf_swGJt" role="3uHU7w">
+                          <ref role="3cqZAo" node="1JFLVobfVqM" resolve="url" />
+                        </node>
+                        <node concept="Xl_RD" id="1ydTf_swGJu" role="3uHU7B">
+                          <property role="Xl_RC" value="Failure while adding model server " />
+                        </node>
+                      </node>
+                      <node concept="2OqwBi" id="1ydTf_swHoz" role="37wK5m">
+                        <node concept="37vLTw" id="1ydTf_swH4r" role="2Oq$k0">
+                          <ref role="3cqZAo" node="cwXJrjMCEw" resolve="t" />
+                        </node>
+                        <node concept="liA8E" id="1ydTf_swHKo" role="2OqNvi">
+                          <ref role="37wK5l" to="wyt6:~Throwable.getMessage()" resolve="getMessage" />
+                        </node>
+                      </node>
+                      <node concept="Rm8GO" id="1ydTf_swIBL" role="37wK5m">
+                        <ref role="Rm8GQ" to="fnpx:~NotificationType.ERROR" resolve="ERROR" />
+                        <ref role="1Px2BO" to="fnpx:~NotificationType" resolve="NotificationType" />
+                      </node>
                     </node>
                   </node>
                 </node>
@@ -8110,16 +8119,6 @@
                         </node>
                       </node>
                       <node concept="3clFbS" id="1JFLVobhAFl" role="1zc67A">
-                        <node concept="3clFbF" id="5hLY35YTRxq" role="3cqZAp">
-                          <node concept="2OqwBi" id="5hLY35YTStm" role="3clFbG">
-                            <node concept="37vLTw" id="5hLY35YTRxo" role="2Oq$k0">
-                              <ref role="3cqZAo" node="1JFLVobhAFh" resolve="ex" />
-                            </node>
-                            <node concept="liA8E" id="5hLY35YTTg8" role="2OqNvi">
-                              <ref role="37wK5l" to="wyt6:~Throwable.printStackTrace()" resolve="printStackTrace" />
-                            </node>
-                          </node>
-                        </node>
                         <node concept="RRSsy" id="1JFLVobhBcV" role="3cqZAp">
                           <property role="RRSoG" value="gZ5fh_4/error" />
                           <node concept="3cpWs3" id="1JFLVobhB_R" role="RRSoy">
@@ -8132,28 +8131,6 @@
                           </node>
                           <node concept="37vLTw" id="1JFLVobhBcZ" role="RRSow">
                             <ref role="3cqZAo" node="1JFLVobhAFh" resolve="ex" />
-                          </node>
-                        </node>
-                      </node>
-                    </node>
-                    <node concept="3uVAMA" id="4ovUPbyLF_5" role="1zxBo5">
-                      <node concept="XOnhg" id="4ovUPbyLF_6" role="1zc67B">
-                        <property role="TrG5h" value="t" />
-                        <node concept="nSUau" id="4ovUPbyLF_7" role="1tU5fm">
-                          <node concept="3uibUv" id="4ovUPbyMbHE" role="nSUat">
-                            <ref role="3uigEE" to="wyt6:~Throwable" resolve="Throwable" />
-                          </node>
-                        </node>
-                      </node>
-                      <node concept="3clFbS" id="4ovUPbyLF_8" role="1zc67A">
-                        <node concept="3clFbF" id="4ovUPbyMcZe" role="3cqZAp">
-                          <node concept="2OqwBi" id="4ovUPbyMdM9" role="3clFbG">
-                            <node concept="37vLTw" id="4ovUPbyMcZd" role="2Oq$k0">
-                              <ref role="3cqZAo" node="4ovUPbyLF_6" resolve="t" />
-                            </node>
-                            <node concept="liA8E" id="4ovUPbyMevM" role="2OqNvi">
-                              <ref role="37wK5l" to="wyt6:~Throwable.printStackTrace()" resolve="printStackTrace" />
-                            </node>
                           </node>
                         </node>
                       </node>
