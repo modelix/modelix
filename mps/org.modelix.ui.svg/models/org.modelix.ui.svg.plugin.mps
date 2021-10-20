@@ -3058,11 +3058,6 @@
                           </node>
                         </node>
                       </node>
-                      <node concept="3clFbF" id="2UHWH1pLoNF" role="3cqZAp">
-                        <node concept="1rXfSq" id="2UHWH1pLoNG" role="3clFbG">
-                          <ref role="37wK5l" node="2UHWH1pLjo8" resolve="saveEditorState" />
-                        </node>
-                      </node>
                       <node concept="3clFbF" id="7tTb3N6V8zg" role="3cqZAp">
                         <node concept="1rXfSq" id="7tTb3N6V8ze" role="3clFbG">
                           <ref role="37wK5l" node="7tTb3N6T3eC" resolve="sendFullImage" />
@@ -3114,11 +3109,6 @@
                               <ref role="37wK5l" to="fz1u:~Session.isOpen()" resolve="isOpen" />
                             </node>
                           </node>
-                        </node>
-                      </node>
-                      <node concept="3clFbF" id="2UHWH1pLofz" role="3cqZAp">
-                        <node concept="1rXfSq" id="2UHWH1pLofx" role="3clFbG">
-                          <ref role="37wK5l" node="2UHWH1pLjo8" resolve="saveEditorState" />
                         </node>
                       </node>
                       <node concept="3clFbJ" id="7tTb3N6VCcN" role="3cqZAp">
