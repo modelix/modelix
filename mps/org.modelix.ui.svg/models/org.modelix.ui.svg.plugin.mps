@@ -5770,6 +5770,11 @@
                   </node>
                 </node>
               </node>
+              <node concept="3clFbF" id="2UHWH1pLp2S" role="3cqZAp">
+                <node concept="1rXfSq" id="2UHWH1pLp2T" role="3clFbG">
+                  <ref role="37wK5l" node="2UHWH1pLjo8" resolve="saveEditorState" />
+                </node>
+              </node>
             </node>
             <node concept="17R0WA" id="1qbCJZsJ6m1" role="3eO9$A">
               <node concept="Xl_RD" id="1qbCJZsJ6m2" role="3uHU7w">
@@ -5924,6 +5929,11 @@
                   </node>
                 </node>
               </node>
+              <node concept="3clFbF" id="1zzk$H$Pwws" role="3cqZAp">
+                <node concept="1rXfSq" id="1zzk$H$Pwwt" role="3clFbG">
+                  <ref role="37wK5l" node="2UHWH1pLjo8" resolve="saveEditorState" />
+                </node>
+              </node>
             </node>
             <node concept="17R0WA" id="1qbCJZsJ6n2" role="3eO9$A">
               <node concept="Xl_RD" id="1qbCJZsJ6n3" role="3uHU7w">
@@ -5953,6 +5963,11 @@
                   <node concept="37vLTw" id="1qbCJZsJ6nd" role="37wK5m">
                     <ref role="3cqZAo" node="1qbCJZsJ6lg" resolve="keyChar" />
                   </node>
+                </node>
+              </node>
+              <node concept="3clFbF" id="1zzk$H$PxbE" role="3cqZAp">
+                <node concept="1rXfSq" id="1zzk$H$PxbF" role="3clFbG">
+                  <ref role="37wK5l" node="2UHWH1pLjo8" resolve="saveEditorState" />
                 </node>
               </node>
             </node>
@@ -6464,18 +6479,17 @@
                   </node>
                 </node>
               </node>
-              <node concept="3clFbH" id="YSRTOeusf8" role="3cqZAp" />
+              <node concept="3clFbF" id="1zzk$H$Px$l" role="3cqZAp">
+                <node concept="1rXfSq" id="1zzk$H$Px$m" role="3clFbG">
+                  <ref role="37wK5l" node="2UHWH1pLjo8" resolve="saveEditorState" />
+                </node>
+              </node>
             </node>
           </node>
         </node>
         <node concept="3clFbF" id="1MWbHmSj6lm" role="3cqZAp">
           <node concept="1rXfSq" id="1MWbHmSj6lk" role="3clFbG">
             <ref role="37wK5l" node="2D2$TMZu5kA" resolve="processCCMenu" />
-          </node>
-        </node>
-        <node concept="3clFbF" id="2UHWH1pLp2S" role="3cqZAp">
-          <node concept="1rXfSq" id="2UHWH1pLp2T" role="3clFbG">
-            <ref role="37wK5l" node="2UHWH1pLjo8" resolve="saveEditorState" />
           </node>
         </node>
       </node>

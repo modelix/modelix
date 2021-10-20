@@ -204,33 +204,25 @@ export class ImageBasedEditor {
     }
 
     private onMouseMove() {
-        let timeout;
         return (event) => {
+            const offset = $(this.element).offset();
+            let x = event.pageX - offset.left;
+            let y = event.pageY - offset.top;
 
-            if (timeout != null) {
-                clearTimeout(timeout)
-            }
+            console.log("Mouse event 'mousemove' at [" + x + "," + y + "]")
 
-            timeout = setTimeout(() => {
-                const offset = $(this.element).offset();
-                let x = event.pageX - offset.left;
-                let y = event.pageY - offset.top;
+            let message: IMessage = {
+                type: "mousemove",
+                inspector: this.isInspector(),
+                data: <IMouseMessge>{
+                    x: x,
+                    y: y,
+                    ctrl: event.ctrlKey,
+                    meta: event.metaKey
+                },
+            };
 
-                console.log("Mouse event 'mousemove' at [" + x + "," + y + "]")
-
-                let message: IMessage = {
-                    type: "mousemove",
-                    inspector: this.isInspector(),
-                    data: <IMouseMessge>{
-                        x: x,
-                        y: y,
-                        ctrl: event.ctrlKey,
-                        meta: event.metaKey
-                    },
-                };
-
-                this.socket.send(JSON.stringify(message));
-            }, 100)
+            this.socket.send(JSON.stringify(message));
         }
     }
 
