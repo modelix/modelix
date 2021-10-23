@@ -205,23 +205,29 @@
         <node concept="3clFbF" id="1me6Uesqf0w" role="3cqZAp">
           <node concept="2OqwBi" id="1me6Uesqf0x" role="3clFbG">
             <node concept="liA8E" id="1me6Uesqf0y" role="2OqNvi">
-              <ref role="37wK5l" to="exr9:~EditorComponent.paint(java.awt.Graphics)" resolve="paint" />
+              <ref role="37wK5l" to="dxuu:~JComponent.paint(java.awt.Graphics)" resolve="paint" />
               <node concept="37vLTw" id="1me6Uesqf32" role="37wK5m">
                 <ref role="3cqZAo" node="1me6Uesqf2S" resolve="g" />
               </node>
             </node>
-            <node concept="1eOMI4" id="1me6Uesqf0$" role="2Oq$k0">
-              <node concept="10QFUN" id="1me6Uesqf0_" role="1eOMHV">
-                <node concept="37vLTw" id="1me6Uesqf31" role="10QFUP">
-                  <ref role="3cqZAo" node="1me6Uesqf2Q" resolve="editor" />
+            <node concept="2OqwBi" id="6JxzAvoGkdP" role="2Oq$k0">
+              <node concept="1eOMI4" id="1me6Uesqf0$" role="2Oq$k0">
+                <node concept="10QFUN" id="1me6Uesqf0_" role="1eOMHV">
+                  <node concept="37vLTw" id="1me6Uesqf31" role="10QFUP">
+                    <ref role="3cqZAo" node="1me6Uesqf2Q" resolve="editor" />
+                  </node>
+                  <node concept="3uibUv" id="1me6Uesqf0B" role="10QFUM">
+                    <ref role="3uigEE" to="exr9:~EditorComponent" resolve="EditorComponent" />
+                  </node>
                 </node>
-                <node concept="3uibUv" id="1me6Uesqf0B" role="10QFUM">
-                  <ref role="3uigEE" to="exr9:~EditorComponent" resolve="EditorComponent" />
-                </node>
+              </node>
+              <node concept="liA8E" id="6JxzAvoGlhY" role="2OqNvi">
+                <ref role="37wK5l" to="exr9:~EditorComponent.getExternalComponent()" resolve="getExternalComponent" />
               </node>
             </node>
           </node>
         </node>
+        <node concept="3clFbH" id="6JxzAvoGlt7" role="3cqZAp" />
         <node concept="1X3_iC" id="2D2$TMZtRlU" role="lGtFl">
           <property role="3V$3am" value="statement" />
           <property role="3V$3ak" value="f3061a53-9226-4cc5-a443-f952ceaf5816/1068580123136/1068581517665" />
