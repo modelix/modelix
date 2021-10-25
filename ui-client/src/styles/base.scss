@@ -134,6 +134,9 @@
     justify-content: space-between;
     flex-direction: row;
 
+    .sidebar{
+      max-width: 30%
+    }
     .nodeEditors{
       display: flex;
       flex-direction: column;
