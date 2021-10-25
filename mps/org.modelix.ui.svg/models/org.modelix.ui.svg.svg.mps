@@ -33,6 +33,12 @@
       <concept id="5279705229678483897" name="jetbrains.mps.baseLanguage.structure.FloatingPointFloatConstant" flags="nn" index="2$xPTn">
         <property id="5279705229678483899" name="value" index="2$xPTl" />
       </concept>
+      <concept id="1239714755177" name="jetbrains.mps.baseLanguage.structure.AbstractUnaryNumberOperation" flags="nn" index="2$Kvd9">
+        <child id="1239714902950" name="expression" index="2$L3a6" />
+      </concept>
+      <concept id="1154032098014" name="jetbrains.mps.baseLanguage.structure.AbstractLoopStatement" flags="nn" index="2LF5Ji">
+        <child id="1154032183016" name="body" index="2LFqv$" />
+      </concept>
       <concept id="1197027756228" name="jetbrains.mps.baseLanguage.structure.DotExpression" flags="nn" index="2OqwBi">
         <child id="1197027771414" name="operand" index="2Oq$k0" />
         <child id="1197027833540" name="operation" index="2OqNvi" />
@@ -145,6 +151,7 @@
       </concept>
       <concept id="1146644602865" name="jetbrains.mps.baseLanguage.structure.PublicVisibility" flags="nn" index="3Tm1VV" />
       <concept id="1146644641414" name="jetbrains.mps.baseLanguage.structure.ProtectedVisibility" flags="nn" index="3Tmbuc" />
+      <concept id="8064396509828172209" name="jetbrains.mps.baseLanguage.structure.UnaryMinus" flags="nn" index="1ZRNhn" />
     </language>
     <language id="fd392034-7849-419d-9071-12563d152375" name="jetbrains.mps.baseLanguage.closures">
       <concept id="1199542442495" name="jetbrains.mps.baseLanguage.closures.structure.FunctionType" flags="in" index="1ajhzC">
@@ -172,6 +179,16 @@
       </concept>
       <concept id="4452961908202556907" name="jetbrains.mps.lang.core.structure.BaseCommentAttribute" flags="ng" index="1X3_iC">
         <child id="3078666699043039389" name="commentedNode" index="8Wnug" />
+      </concept>
+    </language>
+    <language id="83888646-71ce-4f1c-9c53-c54016f6ad4f" name="jetbrains.mps.baseLanguage.collections">
+      <concept id="1153943597977" name="jetbrains.mps.baseLanguage.collections.structure.ForEachStatement" flags="nn" index="2Gpval">
+        <child id="1153944400369" name="variable" index="2Gsz3X" />
+        <child id="1153944424730" name="inputSequence" index="2GsD0m" />
+      </concept>
+      <concept id="1153944193378" name="jetbrains.mps.baseLanguage.collections.structure.ForEachVariable" flags="nr" index="2GrKxI" />
+      <concept id="1153944233411" name="jetbrains.mps.baseLanguage.collections.structure.ForEachVariableReference" flags="nn" index="2GrUjf">
+        <reference id="1153944258490" name="variable" index="2Gs0qQ" />
       </concept>
     </language>
   </registry>
@@ -202,6 +219,29 @@
           </node>
         </node>
         <node concept="3clFbH" id="7tTb3N6IiAE" role="3cqZAp" />
+        <node concept="3cpWs8" id="92VPpUYlpb" role="3cqZAp">
+          <node concept="3cpWsn" id="92VPpUYlpc" role="3cpWs9">
+            <property role="TrG5h" value="paintedComponent" />
+            <node concept="3uibUv" id="92VPpUYlhh" role="1tU5fm">
+              <ref role="3uigEE" to="dxuu:~JComponent" resolve="JComponent" />
+            </node>
+            <node concept="2OqwBi" id="92VPpUYlpd" role="33vP2m">
+              <node concept="1eOMI4" id="92VPpUYlpe" role="2Oq$k0">
+                <node concept="10QFUN" id="92VPpUYlpf" role="1eOMHV">
+                  <node concept="37vLTw" id="92VPpUYlpg" role="10QFUP">
+                    <ref role="3cqZAo" node="1me6Uesqf2Q" resolve="editor" />
+                  </node>
+                  <node concept="3uibUv" id="92VPpUYlph" role="10QFUM">
+                    <ref role="3uigEE" to="exr9:~EditorComponent" resolve="EditorComponent" />
+                  </node>
+                </node>
+              </node>
+              <node concept="liA8E" id="92VPpUYlpi" role="2OqNvi">
+                <ref role="37wK5l" to="exr9:~EditorComponent.getExternalComponent()" resolve="getExternalComponent" />
+              </node>
+            </node>
+          </node>
+        </node>
         <node concept="3clFbF" id="1me6Uesqf0w" role="3cqZAp">
           <node concept="2OqwBi" id="1me6Uesqf0x" role="3clFbG">
             <node concept="liA8E" id="1me6Uesqf0y" role="2OqNvi">
@@ -210,23 +250,206 @@
                 <ref role="3cqZAo" node="1me6Uesqf2S" resolve="g" />
               </node>
             </node>
-            <node concept="2OqwBi" id="6JxzAvoGkdP" role="2Oq$k0">
-              <node concept="1eOMI4" id="1me6Uesqf0$" role="2Oq$k0">
-                <node concept="10QFUN" id="1me6Uesqf0_" role="1eOMHV">
-                  <node concept="37vLTw" id="1me6Uesqf31" role="10QFUP">
+            <node concept="37vLTw" id="92VPpUYlpk" role="2Oq$k0">
+              <ref role="3cqZAo" node="92VPpUYlpc" resolve="paintedComponent" />
+            </node>
+          </node>
+        </node>
+        <node concept="3cpWs8" id="46lepK4tEdS" role="3cqZAp">
+          <node concept="3cpWsn" id="46lepK4tEdT" role="3cpWs9">
+            <property role="TrG5h" value="window" />
+            <node concept="3uibUv" id="46lepK4tEc6" role="1tU5fm">
+              <ref role="3uigEE" to="z60i:~Window" resolve="Window" />
+            </node>
+            <node concept="2YIFZM" id="46lepK4tEdU" role="33vP2m">
+              <ref role="37wK5l" to="dxuu:~SwingUtilities.getWindowAncestor(java.awt.Component)" resolve="getWindowAncestor" />
+              <ref role="1Pybhc" to="dxuu:~SwingUtilities" resolve="SwingUtilities" />
+              <node concept="1eOMI4" id="46lepK4tItu" role="37wK5m">
+                <node concept="10QFUN" id="46lepK4tItt" role="1eOMHV">
+                  <node concept="37vLTw" id="46lepK4tIts" role="10QFUP">
                     <ref role="3cqZAo" node="1me6Uesqf2Q" resolve="editor" />
                   </node>
-                  <node concept="3uibUv" id="1me6Uesqf0B" role="10QFUM">
-                    <ref role="3uigEE" to="exr9:~EditorComponent" resolve="EditorComponent" />
+                  <node concept="3uibUv" id="46lepK4tItr" role="10QFUM">
+                    <ref role="3uigEE" to="z60i:~Component" resolve="Component" />
                   </node>
                 </node>
-              </node>
-              <node concept="liA8E" id="6JxzAvoGlhY" role="2OqNvi">
-                <ref role="37wK5l" to="exr9:~EditorComponent.getExternalComponent()" resolve="getExternalComponent" />
               </node>
             </node>
           </node>
         </node>
+        <node concept="1X3_iC" id="2Per06E$nZ0" role="lGtFl">
+          <property role="3V$3am" value="statement" />
+          <property role="3V$3ak" value="f3061a53-9226-4cc5-a443-f952ceaf5816/1068580123136/1068581517665" />
+          <node concept="3clFbF" id="46lepK4uzgy" role="8Wnug">
+            <node concept="2OqwBi" id="46lepK4u$jR" role="3clFbG">
+              <node concept="37vLTw" id="46lepK4uzgw" role="2Oq$k0">
+                <ref role="3cqZAo" node="46lepK4tEdT" resolve="window" />
+              </node>
+              <node concept="liA8E" id="46lepK4u$W8" role="2OqNvi">
+                <ref role="37wK5l" to="z60i:~Component.paintAll(java.awt.Graphics)" resolve="paintAll" />
+                <node concept="37vLTw" id="46lepK4u_6A" role="37wK5m">
+                  <ref role="3cqZAo" node="1me6Uesqf2S" resolve="g" />
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="2Gpval" id="46lepK4tK0T" role="3cqZAp">
+          <node concept="2GrKxI" id="46lepK4tK0V" role="2Gsz3X">
+            <property role="TrG5h" value="ownedWindow" />
+          </node>
+          <node concept="3clFbS" id="46lepK4tK0Z" role="2LFqv$">
+            <node concept="3cpWs8" id="92VPpUWNrD" role="3cqZAp">
+              <node concept="3cpWsn" id="92VPpUWNrE" role="3cpWs9">
+                <property role="TrG5h" value="g2" />
+                <node concept="3uibUv" id="92VPpUWNFk" role="1tU5fm">
+                  <ref role="3uigEE" to="z60i:~Graphics2D" resolve="Graphics2D" />
+                </node>
+                <node concept="10QFUN" id="92VPpUWNNc" role="33vP2m">
+                  <node concept="2OqwBi" id="92VPpUWNN9" role="10QFUP">
+                    <node concept="37vLTw" id="92VPpUWNNa" role="2Oq$k0">
+                      <ref role="3cqZAo" node="1me6Uesqf2S" resolve="g" />
+                    </node>
+                    <node concept="liA8E" id="92VPpUWNNb" role="2OqNvi">
+                      <ref role="37wK5l" to="z60i:~Graphics.create()" resolve="create" />
+                    </node>
+                  </node>
+                  <node concept="3uibUv" id="92VPpUWNN8" role="10QFUM">
+                    <ref role="3uigEE" to="z60i:~Graphics2D" resolve="Graphics2D" />
+                  </node>
+                </node>
+              </node>
+            </node>
+            <node concept="3J1_TO" id="92VPpUWObl" role="3cqZAp">
+              <node concept="3clFbS" id="92VPpUWObn" role="1zxBo7">
+                <node concept="3cpWs8" id="92VPpUXoTP" role="3cqZAp">
+                  <node concept="3cpWsn" id="92VPpUXoTQ" role="3cpWs9">
+                    <property role="TrG5h" value="imageOffset" />
+                    <node concept="3uibUv" id="92VPpUXoTR" role="1tU5fm">
+                      <ref role="3uigEE" to="z60i:~Point" resolve="Point" />
+                    </node>
+                    <node concept="2OqwBi" id="92VPpUXpzk" role="33vP2m">
+                      <node concept="liA8E" id="92VPpUXpIC" role="2OqNvi">
+                        <ref role="37wK5l" to="z60i:~Component.getLocationOnScreen()" resolve="getLocationOnScreen" />
+                      </node>
+                      <node concept="37vLTw" id="92VPpUYlpj" role="2Oq$k0">
+                        <ref role="3cqZAo" node="92VPpUYlpc" resolve="paintedComponent" />
+                      </node>
+                    </node>
+                  </node>
+                </node>
+                <node concept="3cpWs8" id="92VPpUXnSl" role="3cqZAp">
+                  <node concept="3cpWsn" id="92VPpUXnSm" role="3cpWs9">
+                    <property role="TrG5h" value="childOffset" />
+                    <node concept="3uibUv" id="92VPpUXnIR" role="1tU5fm">
+                      <ref role="3uigEE" to="z60i:~Point" resolve="Point" />
+                    </node>
+                    <node concept="2OqwBi" id="92VPpUXnSn" role="33vP2m">
+                      <node concept="2GrUjf" id="92VPpUXnSo" role="2Oq$k0">
+                        <ref role="2Gs0qQ" node="46lepK4tK0V" resolve="ownedWindow" />
+                      </node>
+                      <node concept="liA8E" id="92VPpUXnSp" role="2OqNvi">
+                        <ref role="37wK5l" to="z60i:~Component.getLocationOnScreen()" resolve="getLocationOnScreen" />
+                      </node>
+                    </node>
+                  </node>
+                </node>
+                <node concept="3clFbF" id="92VPpUXr_$" role="3cqZAp">
+                  <node concept="2OqwBi" id="92VPpUXrXQ" role="3clFbG">
+                    <node concept="37vLTw" id="92VPpUXssP" role="2Oq$k0">
+                      <ref role="3cqZAo" node="92VPpUXnSm" resolve="childOffset" />
+                    </node>
+                    <node concept="liA8E" id="92VPpUXsgO" role="2OqNvi">
+                      <ref role="37wK5l" to="z60i:~Point.translate(int,int)" resolve="translate" />
+                      <node concept="1ZRNhn" id="92VPpUXxWv" role="37wK5m">
+                        <node concept="2OqwBi" id="92VPpUXtap" role="2$L3a6">
+                          <node concept="37vLTw" id="92VPpUXsIm" role="2Oq$k0">
+                            <ref role="3cqZAo" node="92VPpUXoTQ" resolve="imageOffset" />
+                          </node>
+                          <node concept="2OwXpG" id="92VPpUXxAV" role="2OqNvi">
+                            <ref role="2Oxat5" to="z60i:~Point.x" resolve="x" />
+                          </node>
+                        </node>
+                      </node>
+                      <node concept="1ZRNhn" id="92VPpUXybi" role="37wK5m">
+                        <node concept="2OqwBi" id="92VPpUXu6k" role="2$L3a6">
+                          <node concept="37vLTw" id="92VPpUXtIa" role="2Oq$k0">
+                            <ref role="3cqZAo" node="92VPpUXoTQ" resolve="imageOffset" />
+                          </node>
+                          <node concept="2OwXpG" id="92VPpUXxNP" role="2OqNvi">
+                            <ref role="2Oxat5" to="z60i:~Point.y" resolve="y" />
+                          </node>
+                        </node>
+                      </node>
+                    </node>
+                  </node>
+                </node>
+                <node concept="3clFbF" id="92VPpUWQZU" role="3cqZAp">
+                  <node concept="2OqwBi" id="92VPpUWRel" role="3clFbG">
+                    <node concept="37vLTw" id="92VPpUWQZS" role="2Oq$k0">
+                      <ref role="3cqZAo" node="92VPpUWNrE" resolve="g2" />
+                    </node>
+                    <node concept="liA8E" id="92VPpUWRmW" role="2OqNvi">
+                      <ref role="37wK5l" to="z60i:~Graphics2D.translate(int,int)" resolve="translate" />
+                      <node concept="2OqwBi" id="92VPpUXqJQ" role="37wK5m">
+                        <node concept="37vLTw" id="92VPpUXqlG" role="2Oq$k0">
+                          <ref role="3cqZAo" node="92VPpUXnSm" resolve="childOffset" />
+                        </node>
+                        <node concept="2OwXpG" id="92VPpUXALf" role="2OqNvi">
+                          <ref role="2Oxat5" to="z60i:~Point.x" resolve="x" />
+                        </node>
+                      </node>
+                      <node concept="2OqwBi" id="92VPpUX_Lp" role="37wK5m">
+                        <node concept="37vLTw" id="92VPpUX_pA" role="2Oq$k0">
+                          <ref role="3cqZAo" node="92VPpUXnSm" resolve="childOffset" />
+                        </node>
+                        <node concept="2OwXpG" id="92VPpUXA0t" role="2OqNvi">
+                          <ref role="2Oxat5" to="z60i:~Point.y" resolve="y" />
+                        </node>
+                      </node>
+                    </node>
+                  </node>
+                </node>
+                <node concept="3clFbF" id="46lepK4tMr2" role="3cqZAp">
+                  <node concept="2OqwBi" id="46lepK4tMQW" role="3clFbG">
+                    <node concept="2GrUjf" id="46lepK4tMr1" role="2Oq$k0">
+                      <ref role="2Gs0qQ" node="46lepK4tK0V" resolve="ownedWindow" />
+                    </node>
+                    <node concept="liA8E" id="46lepK4tOns" role="2OqNvi">
+                      <ref role="37wK5l" to="z60i:~Component.paintAll(java.awt.Graphics)" resolve="paintAll" />
+                      <node concept="37vLTw" id="92VPpUXZOm" role="37wK5m">
+                        <ref role="3cqZAo" node="92VPpUWNrE" resolve="g2" />
+                      </node>
+                    </node>
+                  </node>
+                </node>
+              </node>
+              <node concept="1wplmZ" id="92VPpUWOj3" role="1zxBo6">
+                <node concept="3clFbS" id="92VPpUWOj4" role="1wplMD">
+                  <node concept="3clFbF" id="92VPpUWMVJ" role="3cqZAp">
+                    <node concept="2OqwBi" id="92VPpUWOyw" role="3clFbG">
+                      <node concept="37vLTw" id="92VPpUWNrI" role="2Oq$k0">
+                        <ref role="3cqZAo" node="92VPpUWNrE" resolve="g2" />
+                      </node>
+                      <node concept="liA8E" id="92VPpUWOEU" role="2OqNvi">
+                        <ref role="37wK5l" to="z60i:~Graphics.dispose()" resolve="dispose" />
+                      </node>
+                    </node>
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+          <node concept="2OqwBi" id="46lepK4tF_x" role="2GsD0m">
+            <node concept="37vLTw" id="46lepK4tEdW" role="2Oq$k0">
+              <ref role="3cqZAo" node="46lepK4tEdT" resolve="window" />
+            </node>
+            <node concept="liA8E" id="46lepK4tGiJ" role="2OqNvi">
+              <ref role="37wK5l" to="z60i:~Window.getOwnedWindows()" resolve="getOwnedWindows" />
+            </node>
+          </node>
+        </node>
+        <node concept="3clFbH" id="46lepK4tIdT" role="3cqZAp" />
         <node concept="3clFbH" id="6JxzAvoGlt7" role="3cqZAp" />
         <node concept="1X3_iC" id="2D2$TMZtRlU" role="lGtFl">
           <property role="3V$3am" value="statement" />
