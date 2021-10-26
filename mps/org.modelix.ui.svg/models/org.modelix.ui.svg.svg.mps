@@ -2,6 +2,7 @@
 <model ref="r:a009b15b-6386-4045-b94f-fa21b9788c19(org.modelix.ui.svg.svg)">
   <persistence version="9" />
   <languages>
+    <use id="5dc5fc0d-37ef-4782-8192-8b5ce1f69f80" name="jetbrains.mps.baseLanguage.extensionMethods" version="0" />
     <devkit ref="fbc25dd2-5da4-483a-8b19-70928e1b62d7(jetbrains.mps.devkit.general-purpose)" />
   </languages>
   <imports>
@@ -18,14 +19,17 @@
     <import index="dxuu" ref="6354ebe7-c22a-4a0f-ac54-50b52ab9b065/java:javax.swing(JDK/)" />
     <import index="3a50" ref="742f6602-5a2f-4313-aa6e-ae1cd4ffdc61/java:jetbrains.mps.ide(MPS.Platform/)" />
     <import index="qsto" ref="r:6f19a603-f6b1-4c78-aaa5-6c24c7fbc333(org.modelix.ui.common)" />
+    <import index="iasv" ref="r:92fbab23-1cd1-4f94-ad71-7e60b5fa50f8(org.modelix.ui.svg.util)" />
   </imports>
   <registry>
+    <language id="5dc5fc0d-37ef-4782-8192-8b5ce1f69f80" name="jetbrains.mps.baseLanguage.extensionMethods">
+      <concept id="1550313277221324859" name="jetbrains.mps.baseLanguage.extensionMethods.structure.ExtensionMethodCall" flags="nn" index="AQDAd" />
+    </language>
     <language id="f3061a53-9226-4cc5-a443-f952ceaf5816" name="jetbrains.mps.baseLanguage">
       <concept id="1215693861676" name="jetbrains.mps.baseLanguage.structure.BaseAssignmentExpression" flags="nn" index="d038R">
         <child id="1068498886297" name="rValue" index="37vLTx" />
         <child id="1068498886295" name="lValue" index="37vLTJ" />
       </concept>
-      <concept id="4836112446988635817" name="jetbrains.mps.baseLanguage.structure.UndefinedType" flags="in" index="2jxLKc" />
       <concept id="1202948039474" name="jetbrains.mps.baseLanguage.structure.InstanceMethodCallOperation" flags="nn" index="liA8E" />
       <concept id="8118189177080264853" name="jetbrains.mps.baseLanguage.structure.AlternativeType" flags="ig" index="nSUau">
         <child id="8118189177080264854" name="alternative" index="nSUat" />
@@ -183,9 +187,6 @@
       </concept>
     </language>
     <language id="83888646-71ce-4f1c-9c53-c54016f6ad4f" name="jetbrains.mps.baseLanguage.collections">
-      <concept id="1204796164442" name="jetbrains.mps.baseLanguage.collections.structure.InternalSequenceOperation" flags="nn" index="23sCx2">
-        <child id="1204796294226" name="closure" index="23t8la" />
-      </concept>
       <concept id="1153943597977" name="jetbrains.mps.baseLanguage.collections.structure.ForEachStatement" flags="nn" index="2Gpval">
         <child id="1153944400369" name="variable" index="2Gsz3X" />
         <child id="1153944424730" name="inputSequence" index="2GsD0m" />
@@ -194,9 +195,6 @@
       <concept id="1153944233411" name="jetbrains.mps.baseLanguage.collections.structure.ForEachVariableReference" flags="nn" index="2GrUjf">
         <reference id="1153944258490" name="variable" index="2Gs0qQ" />
       </concept>
-      <concept id="1203518072036" name="jetbrains.mps.baseLanguage.collections.structure.SmartClosureParameterDeclaration" flags="ig" index="Rh6nW" />
-      <concept id="1240325842691" name="jetbrains.mps.baseLanguage.collections.structure.AsSequenceOperation" flags="nn" index="39bAoz" />
-      <concept id="1202120902084" name="jetbrains.mps.baseLanguage.collections.structure.WhereOperation" flags="nn" index="3zZkjj" />
     </language>
   </registry>
   <node concept="312cEu" id="6xm2RBl62ji">
@@ -268,10 +266,8 @@
             <node concept="3uibUv" id="46lepK4tEc6" role="1tU5fm">
               <ref role="3uigEE" to="z60i:~Window" resolve="Window" />
             </node>
-            <node concept="2YIFZM" id="46lepK4tEdU" role="33vP2m">
-              <ref role="37wK5l" to="dxuu:~SwingUtilities.getWindowAncestor(java.awt.Component)" resolve="getWindowAncestor" />
-              <ref role="1Pybhc" to="dxuu:~SwingUtilities" resolve="SwingUtilities" />
-              <node concept="1eOMI4" id="46lepK4tItu" role="37wK5m">
+            <node concept="2OqwBi" id="YrAPzEOtA$" role="33vP2m">
+              <node concept="1eOMI4" id="46lepK4tItu" role="2Oq$k0">
                 <node concept="10QFUN" id="46lepK4tItt" role="1eOMHV">
                   <node concept="37vLTw" id="46lepK4tIts" role="10QFUP">
                     <ref role="3cqZAo" node="1me6Uesqf2Q" resolve="editor" />
@@ -280,6 +276,9 @@
                     <ref role="3uigEE" to="z60i:~Component" resolve="Component" />
                   </node>
                 </node>
+              </node>
+              <node concept="AQDAd" id="YrAPzEO__u" role="2OqNvi">
+                <ref role="37wK5l" to="iasv:YrAPzEOsiL" resolve="getWindow" />
               </node>
             </node>
           </node>
@@ -303,7 +302,7 @@
         </node>
         <node concept="2Gpval" id="46lepK4tK0T" role="3cqZAp">
           <node concept="2GrKxI" id="46lepK4tK0V" role="2Gsz3X">
-            <property role="TrG5h" value="ownedWindow" />
+            <property role="TrG5h" value="popup" />
           </node>
           <node concept="3clFbS" id="46lepK4tK0Z" role="2LFqv$">
             <node concept="3cpWs8" id="92VPpUWNrD" role="3cqZAp">
@@ -353,7 +352,7 @@
                     </node>
                     <node concept="2OqwBi" id="92VPpUXnSn" role="33vP2m">
                       <node concept="2GrUjf" id="92VPpUXnSo" role="2Oq$k0">
-                        <ref role="2Gs0qQ" node="46lepK4tK0V" resolve="ownedWindow" />
+                        <ref role="2Gs0qQ" node="46lepK4tK0V" resolve="popup" />
                       </node>
                       <node concept="liA8E" id="92VPpUXnSp" role="2OqNvi">
                         <ref role="37wK5l" to="z60i:~Component.getLocationOnScreen()" resolve="getLocationOnScreen" />
@@ -420,7 +419,7 @@
                 <node concept="3clFbF" id="46lepK4tMr2" role="3cqZAp">
                   <node concept="2OqwBi" id="46lepK4tMQW" role="3clFbG">
                     <node concept="2GrUjf" id="46lepK4tMr1" role="2Oq$k0">
-                      <ref role="2Gs0qQ" node="46lepK4tK0V" resolve="ownedWindow" />
+                      <ref role="2Gs0qQ" node="46lepK4tK0V" resolve="popup" />
                     </node>
                     <node concept="liA8E" id="46lepK4tOns" role="2OqNvi">
                       <ref role="37wK5l" to="z60i:~Component.paintAll(java.awt.Graphics)" resolve="paintAll" />
@@ -459,7 +458,7 @@
                       </node>
                       <node concept="2OqwBi" id="YrAPzEtyoT" role="37wK5m">
                         <node concept="2GrUjf" id="YrAPzEtxdz" role="2Oq$k0">
-                          <ref role="2Gs0qQ" node="46lepK4tK0V" resolve="ownedWindow" />
+                          <ref role="2Gs0qQ" node="46lepK4tK0V" resolve="popup" />
                         </node>
                         <node concept="liA8E" id="YrAPzEtzLv" role="2OqNvi">
                           <ref role="37wK5l" to="z60i:~Component.getWidth()" resolve="getWidth" />
@@ -467,7 +466,7 @@
                       </node>
                       <node concept="2OqwBi" id="YrAPzEt_UT" role="37wK5m">
                         <node concept="2GrUjf" id="YrAPzEt$Ok" role="2Oq$k0">
-                          <ref role="2Gs0qQ" node="46lepK4tK0V" resolve="ownedWindow" />
+                          <ref role="2Gs0qQ" node="46lepK4tK0V" resolve="popup" />
                         </node>
                         <node concept="liA8E" id="YrAPzEtAOB" role="2OqNvi">
                           <ref role="37wK5l" to="z60i:~Component.getHeight()" resolve="getHeight" />
@@ -493,37 +492,12 @@
               </node>
             </node>
           </node>
-          <node concept="2OqwBi" id="YrAPzEsy4Q" role="2GsD0m">
-            <node concept="2OqwBi" id="YrAPzEsx9n" role="2Oq$k0">
-              <node concept="2OqwBi" id="46lepK4tF_x" role="2Oq$k0">
-                <node concept="37vLTw" id="46lepK4tEdW" role="2Oq$k0">
-                  <ref role="3cqZAo" node="46lepK4tEdT" resolve="window" />
-                </node>
-                <node concept="liA8E" id="46lepK4tGiJ" role="2OqNvi">
-                  <ref role="37wK5l" to="z60i:~Window.getOwnedWindows()" resolve="getOwnedWindows" />
-                </node>
-              </node>
-              <node concept="39bAoz" id="YrAPzEsxLe" role="2OqNvi" />
+          <node concept="2OqwBi" id="YrAPzEOBY_" role="2GsD0m">
+            <node concept="37vLTw" id="YrAPzEOARs" role="2Oq$k0">
+              <ref role="3cqZAo" node="46lepK4tEdT" resolve="window" />
             </node>
-            <node concept="3zZkjj" id="YrAPzEszoA" role="2OqNvi">
-              <node concept="1bVj0M" id="YrAPzEszoC" role="23t8la">
-                <node concept="3clFbS" id="YrAPzEszoD" role="1bW5cS">
-                  <node concept="3clFbF" id="YrAPzEszyr" role="3cqZAp">
-                    <node concept="2OqwBi" id="YrAPzEszXj" role="3clFbG">
-                      <node concept="37vLTw" id="YrAPzEszyq" role="2Oq$k0">
-                        <ref role="3cqZAo" node="YrAPzEszoE" resolve="it" />
-                      </node>
-                      <node concept="liA8E" id="YrAPzEs$xG" role="2OqNvi">
-                        <ref role="37wK5l" to="z60i:~Window.isShowing()" resolve="isShowing" />
-                      </node>
-                    </node>
-                  </node>
-                </node>
-                <node concept="Rh6nW" id="YrAPzEszoE" role="1bW2Oz">
-                  <property role="TrG5h" value="it" />
-                  <node concept="2jxLKc" id="YrAPzEszoF" role="1tU5fm" />
-                </node>
-              </node>
+            <node concept="AQDAd" id="YrAPzEOCKC" role="2OqNvi">
+              <ref role="37wK5l" to="iasv:YrAPzEOjQd" resolve="getVisibleOwnedWindows" />
             </node>
           </node>
         </node>
