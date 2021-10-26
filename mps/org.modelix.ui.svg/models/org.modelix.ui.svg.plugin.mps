@@ -74,6 +74,7 @@
     <import index="fbzs" ref="6354ebe7-c22a-4a0f-ac54-50b52ab9b065/java:java.awt.geom(JDK/)" />
     <import index="7oz1" ref="1ed103c3-3aa6-49b7-9c21-6765ee11f224/java:jetbrains.mps.nodeEditor.configuration(MPS.Editor/)" />
     <import index="iasv" ref="r:92fbab23-1cd1-4f94-ad71-7e60b5fa50f8(org.modelix.ui.svg.util)" />
+    <import index="gspm" ref="498d89d2-c2e9-11e2-ad49-6cf049e62fe5/java:com.intellij.openapi.ui.popup(MPS.IDEA/)" />
     <import index="3d38" ref="r:bc160b50-5a4e-4f99-ba07-a7b7116dab7a(de.q60.mps.incremental.util)" implicit="true" />
   </imports>
   <registry>
@@ -524,6 +525,7 @@
       <concept id="1203518072036" name="jetbrains.mps.baseLanguage.collections.structure.SmartClosureParameterDeclaration" flags="ig" index="Rh6nW" />
       <concept id="1160612413312" name="jetbrains.mps.baseLanguage.collections.structure.AddElementOperation" flags="nn" index="TSZUe" />
       <concept id="1240217271293" name="jetbrains.mps.baseLanguage.collections.structure.LinkedHashSetCreator" flags="nn" index="32HrFt" />
+      <concept id="1175845471038" name="jetbrains.mps.baseLanguage.collections.structure.ReverseOperation" flags="nn" index="35Qw8J" />
       <concept id="1167380149909" name="jetbrains.mps.baseLanguage.collections.structure.RemoveElementOperation" flags="nn" index="3dhRuq" />
       <concept id="1197683403723" name="jetbrains.mps.baseLanguage.collections.structure.MapType" flags="in" index="3rvAFt">
         <child id="1197683466920" name="keyType" index="3rvQeY" />
@@ -7679,6 +7681,55 @@
                     </node>
                   </node>
                 </node>
+                <node concept="3clFbH" id="YrAPzERhKS" role="3cqZAp" />
+                <node concept="2Gpval" id="YrAPzEQE0$" role="3cqZAp">
+                  <node concept="2GrKxI" id="YrAPzEQE0A" role="2Gsz3X">
+                    <property role="TrG5h" value="popup" />
+                  </node>
+                  <node concept="2OqwBi" id="YrAPzESVHs" role="2GsD0m">
+                    <node concept="2OqwBi" id="YrAPzESSUW" role="2Oq$k0">
+                      <node concept="2OqwBi" id="YrAPzEQH3Y" role="2Oq$k0">
+                        <node concept="2OqwBi" id="YrAPzEQFp1" role="2Oq$k0">
+                          <node concept="AQDAd" id="YrAPzEQGqT" role="2OqNvi">
+                            <ref role="37wK5l" to="iasv:YrAPzEOsiL" resolve="getWindow" />
+                          </node>
+                          <node concept="37vLTw" id="YrAPzEQJq2" role="2Oq$k0">
+                            <ref role="3cqZAo" node="YrAPzENh8A" resolve="target" />
+                          </node>
+                        </node>
+                        <node concept="AQDAd" id="YrAPzEQI8j" role="2OqNvi">
+                          <ref role="37wK5l" to="iasv:YrAPzEOjQd" resolve="getVisibleOwnedWindows" />
+                        </node>
+                      </node>
+                      <node concept="ANE8D" id="YrAPzESUmD" role="2OqNvi" />
+                    </node>
+                    <node concept="35Qw8J" id="YrAPzESZ7I" role="2OqNvi" />
+                  </node>
+                  <node concept="3clFbS" id="YrAPzEQE0E" role="2LFqv$">
+                    <node concept="3clFbF" id="YrAPzETAvJ" role="3cqZAp">
+                      <node concept="2OqwBi" id="YrAPzETBat" role="3clFbG">
+                        <node concept="2GrUjf" id="YrAPzETAvH" role="2Oq$k0">
+                          <ref role="2Gs0qQ" node="YrAPzEQE0A" resolve="popup" />
+                        </node>
+                        <node concept="liA8E" id="YrAPzETBJH" role="2OqNvi">
+                          <ref role="37wK5l" to="z60i:~Window.setVisible(boolean)" resolve="setVisible" />
+                          <node concept="3clFbT" id="YrAPzETCb1" role="37wK5m" />
+                        </node>
+                      </node>
+                    </node>
+                    <node concept="3clFbF" id="YrAPzERgsJ" role="3cqZAp">
+                      <node concept="2OqwBi" id="YrAPzERgVi" role="3clFbG">
+                        <node concept="2GrUjf" id="YrAPzERgsI" role="2Oq$k0">
+                          <ref role="2Gs0qQ" node="YrAPzEQE0A" resolve="popup" />
+                        </node>
+                        <node concept="liA8E" id="YrAPzET_KN" role="2OqNvi">
+                          <ref role="37wK5l" to="z60i:~Window.dispose()" resolve="dispose" />
+                        </node>
+                      </node>
+                    </node>
+                  </node>
+                </node>
+                <node concept="3clFbH" id="YrAPzERi2_" role="3cqZAp" />
                 <node concept="3clFbF" id="1qbCJZsJ6nW" role="3cqZAp">
                   <node concept="2OqwBi" id="1qbCJZsJ6nX" role="3clFbG">
                     <node concept="37vLTw" id="1qbCJZsJ6nY" role="2Oq$k0">
@@ -8055,6 +8106,28 @@
                   <node concept="liA8E" id="YrAPzEB65D" role="2OqNvi">
                     <ref role="37wK5l" to="z60i:~Window.getMostRecentFocusOwner()" resolve="getMostRecentFocusOwner" />
                   </node>
+                </node>
+              </node>
+            </node>
+            <node concept="3clFbJ" id="YrAPzEU9O_" role="3cqZAp">
+              <node concept="3clFbS" id="YrAPzEU9OB" role="3clFbx">
+                <node concept="3clFbF" id="YrAPzEUaN0" role="3cqZAp">
+                  <node concept="37vLTI" id="YrAPzEUbb1" role="3clFbG">
+                    <node concept="2GrUjf" id="YrAPzEUbpp" role="37vLTx">
+                      <ref role="2Gs0qQ" node="YrAPzEB65j" resolve="popup" />
+                    </node>
+                    <node concept="37vLTw" id="YrAPzEUaMY" role="37vLTJ">
+                      <ref role="3cqZAo" node="YrAPzEB65_" resolve="popupFocusOwner" />
+                    </node>
+                  </node>
+                </node>
+                <node concept="3clFbH" id="YrAPzEUBmA" role="3cqZAp" />
+                <node concept="3clFbH" id="YrAPzEUBmQ" role="3cqZAp" />
+              </node>
+              <node concept="3clFbC" id="YrAPzEUarL" role="3clFbw">
+                <node concept="10Nm6u" id="YrAPzEUaxa" role="3uHU7w" />
+                <node concept="37vLTw" id="YrAPzEUa0h" role="3uHU7B">
+                  <ref role="3cqZAo" node="YrAPzEB65_" resolve="popupFocusOwner" />
                 </node>
               </node>
             </node>
