@@ -27,7 +27,7 @@ spec:
       - env:
         - name: jdbc_url
           value: jdbc:postgresql://db:5432/
-        image: modelix/modelix-model:0.0.34
+        image: modelix/modelix-model:0.0.54
         imagePullPolicy: IfNotPresent
         name: model
         ports:
