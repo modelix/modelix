@@ -273,9 +273,6 @@
       </concept>
     </language>
     <language id="94b64715-a263-4c36-a138-8da14705ffa7" name="de.q60.mps.shadowmodels.transformation">
-      <concept id="7335687028107163797" name="de.q60.mps.shadowmodels.transformation.structure.TConceptType" flags="ig" index="02i3D">
-        <reference id="7335687028107163800" name="concept" index="02i3$" />
-      </concept>
       <concept id="7207189200502820768" name="de.q60.mps.shadowmodels.transformation.structure.OperationCall" flags="ng" index="p1pJ4">
         <reference id="7207189200502820817" name="operation" index="p1pIP" />
         <child id="7207189200503148686" name="parameterValues" index="p08jE" />
@@ -4981,8 +4978,8 @@
             <node concept="3cpWs6" id="fizU034X0c" role="3cqZAp">
               <node concept="2ShNRf" id="fizU034X0d" role="3cqZAk">
                 <node concept="kMnCb" id="fizU034X0e" role="2ShVmc">
-                  <node concept="02i3D" id="fizU034X0f" role="kMuH3">
-                    <ref role="02i3$" to="j481:1nlzgMD9WVV" resolve="IAction" />
+                  <node concept="3Tqbb2" id="DbjyVuS2pL" role="kMuH3">
+                    <ref role="ehGHo" to="j481:1nlzgMD9WVV" resolve="IAction" />
                   </node>
                 </node>
               </node>
@@ -5111,8 +5108,8 @@
             <node concept="3cpWs6" id="fizU034QAk" role="3cqZAp">
               <node concept="2ShNRf" id="fizU034Wya" role="3cqZAk">
                 <node concept="kMnCb" id="fizU034WZE" role="2ShVmc">
-                  <node concept="02i3D" id="fizU034WZO" role="kMuH3">
-                    <ref role="02i3$" to="j481:1nlzgMD9WVV" resolve="IAction" />
+                  <node concept="3Tqbb2" id="DbjyVuS2q4" role="kMuH3">
+                    <ref role="ehGHo" to="j481:1nlzgMD9WVV" resolve="IAction" />
                   </node>
                 </node>
               </node>
