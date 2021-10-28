@@ -273,6 +273,9 @@
       </concept>
     </language>
     <language id="94b64715-a263-4c36-a138-8da14705ffa7" name="de.q60.mps.shadowmodels.transformation">
+      <concept id="7335687028107163797" name="de.q60.mps.shadowmodels.transformation.structure.TConceptType" flags="ig" index="02i3D">
+        <reference id="7335687028107163800" name="concept" index="02i3$" />
+      </concept>
       <concept id="7207189200502820768" name="de.q60.mps.shadowmodels.transformation.structure.OperationCall" flags="ng" index="p1pJ4">
         <reference id="7207189200502820817" name="operation" index="p1pIP" />
         <child id="7207189200503148686" name="parameterValues" index="p08jE" />
@@ -4973,6 +4976,27 @@
             </node>
           </node>
         </node>
+        <node concept="3clFbJ" id="fizU034X0a" role="3cqZAp">
+          <node concept="3clFbS" id="fizU034X0b" role="3clFbx">
+            <node concept="3cpWs6" id="fizU034X0c" role="3cqZAp">
+              <node concept="2ShNRf" id="fizU034X0d" role="3cqZAk">
+                <node concept="kMnCb" id="fizU034X0e" role="2ShVmc">
+                  <node concept="02i3D" id="fizU034X0f" role="kMuH3">
+                    <ref role="02i3$" to="j481:1nlzgMD9WVV" resolve="IAction" />
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+          <node concept="3clFbC" id="fizU034X0g" role="3clFbw">
+            <node concept="3cmrfG" id="fizU034X0h" role="3uHU7w">
+              <property role="3cmrfH" value="0" />
+            </node>
+            <node concept="37vLTw" id="fizU034X0i" role="3uHU7B">
+              <ref role="3cqZAo" node="1D6Sg8PuWFe" resolve="actionCount" />
+            </node>
+          </node>
+        </node>
         <node concept="3cpWs6" id="64FHHkQ8PVi" role="3cqZAp">
           <node concept="2ShNRf" id="64FHHkQ8PYE" role="3cqZAk">
             <node concept="2HTt$P" id="64FHHkQ8Qc2" role="2ShVmc">
@@ -5079,6 +5103,27 @@
                 </node>
               </node>
               <node concept="34oBXx" id="1D6Sg8PuVPm" role="2OqNvi" />
+            </node>
+          </node>
+        </node>
+        <node concept="3clFbJ" id="fizU034O6S" role="3cqZAp">
+          <node concept="3clFbS" id="fizU034O6U" role="3clFbx">
+            <node concept="3cpWs6" id="fizU034QAk" role="3cqZAp">
+              <node concept="2ShNRf" id="fizU034Wya" role="3cqZAk">
+                <node concept="kMnCb" id="fizU034WZE" role="2ShVmc">
+                  <node concept="02i3D" id="fizU034WZO" role="kMuH3">
+                    <ref role="02i3$" to="j481:1nlzgMD9WVV" resolve="IAction" />
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+          <node concept="3clFbC" id="fizU034Qbg" role="3clFbw">
+            <node concept="3cmrfG" id="fizU034Q_S" role="3uHU7w">
+              <property role="3cmrfH" value="0" />
+            </node>
+            <node concept="37vLTw" id="fizU034Pmc" role="3uHU7B">
+              <ref role="3cqZAo" node="1D6Sg8PuVPh" resolve="actionCount" />
             </node>
           </node>
         </node>
