@@ -59,6 +59,7 @@
     <import index="mk8z" ref="742f6602-5a2f-4313-aa6e-ae1cd4ffdc61/java:jetbrains.mps.progress(MPS.Platform/)" />
     <import index="z1o6" ref="498d89d2-c2e9-11e2-ad49-6cf049e62fe5/java:com.intellij.serviceContainer(MPS.IDEA/)" />
     <import index="10lj" ref="r:d08664e2-1f34-4206-af22-5f6ebb6628cd(org.modelix.authentication.plugin)" />
+    <import index="fnpx" ref="498d89d2-c2e9-11e2-ad49-6cf049e62fe5/java:com.intellij.notification(MPS.IDEA/)" />
     <import index="guwi" ref="6354ebe7-c22a-4a0f-ac54-50b52ab9b065/java:java.io(JDK/)" implicit="true" />
     <import index="71xd" ref="742f6602-5a2f-4313-aa6e-ae1cd4ffdc61/java:jetbrains.mps.ide.tools(MPS.Platform/)" implicit="true" />
     <import index="hvt5" ref="0a2651ab-f212-45c2-a2f0-343e76cbc26b/java:org.modelix.model(org.modelix.model.client/)" implicit="true" />
@@ -2476,6 +2477,83 @@
                     <node concept="37vLTw" id="4mhRRpyE_IX" role="37wK5m">
                       <ref role="3cqZAo" node="4mhRRpyE_IH" resolve="concept" />
                     </node>
+                  </node>
+                </node>
+              </node>
+              <node concept="3clFbJ" id="fizU030Hm0" role="3cqZAp">
+                <node concept="3clFbS" id="fizU030Hm2" role="3clFbx">
+                  <node concept="3clFbF" id="fizU030Poi" role="3cqZAp">
+                    <node concept="2YIFZM" id="fizU030Ppg" role="3clFbG">
+                      <ref role="1Pybhc" to="fnpx:~Notifications$Bus" resolve="Notifications.Bus" />
+                      <ref role="37wK5l" to="fnpx:~Notifications$Bus.notify(com.intellij.notification.Notification,com.intellij.openapi.project.Project)" resolve="notify" />
+                      <node concept="2ShNRf" id="fizU030PpG" role="37wK5m">
+                        <node concept="1pGfFk" id="fizU0311e_" role="2ShVmc">
+                          <ref role="37wK5l" to="fnpx:~Notification.&lt;init&gt;(java.lang.String,java.lang.String,java.lang.String,com.intellij.notification.NotificationType)" resolve="Notification" />
+                          <node concept="Xl_RD" id="fizU0311kj" role="37wK5m">
+                            <property role="Xl_RC" value="Modelix" />
+                          </node>
+                          <node concept="Xl_RD" id="fizU0311lH" role="37wK5m">
+                            <property role="Xl_RC" value="Unable to unwrap concept" />
+                          </node>
+                          <node concept="3cpWs3" id="fizU03154L" role="37wK5m">
+                            <node concept="Xl_RD" id="fizU03155u" role="3uHU7w">
+                              <property role="Xl_RC" value=")" />
+                            </node>
+                            <node concept="3cpWs3" id="fizU03131b" role="3uHU7B">
+                              <node concept="3cpWs3" id="fizU0312UL" role="3uHU7B">
+                                <node concept="3cpWs3" id="fizU03121g" role="3uHU7B">
+                                  <node concept="Xl_RD" id="fizU0311rx" role="3uHU7B">
+                                    <property role="Xl_RC" value="We were unable to unwrap concept " />
+                                  </node>
+                                  <node concept="2OqwBi" id="fizU0312lN" role="3uHU7w">
+                                    <node concept="37vLTw" id="fizU03122H" role="2Oq$k0">
+                                      <ref role="3cqZAo" node="4mhRRpyE_IH" resolve="concept" />
+                                    </node>
+                                    <node concept="liA8E" id="fizU0312vk" role="2OqNvi">
+                                      <ref role="37wK5l" to="jks5:~IConcept.getLongName()" resolve="getLongName" />
+                                    </node>
+                                  </node>
+                                </node>
+                                <node concept="Xl_RD" id="fizU0312Vc" role="3uHU7w">
+                                  <property role="Xl_RC" value=" (" />
+                                </node>
+                              </node>
+                              <node concept="2OqwBi" id="fizU0313QJ" role="3uHU7w">
+                                <node concept="2OqwBi" id="fizU0313mE" role="2Oq$k0">
+                                  <node concept="37vLTw" id="fizU03133k" role="2Oq$k0">
+                                    <ref role="3cqZAo" node="4mhRRpyE_IH" resolve="concept" />
+                                  </node>
+                                  <node concept="liA8E" id="fizU0313wD" role="2OqNvi">
+                                    <ref role="37wK5l" to="wyt6:~Object.getClass()" resolve="getClass" />
+                                  </node>
+                                </node>
+                                <node concept="liA8E" id="fizU0314GH" role="2OqNvi">
+                                  <ref role="37wK5l" to="wyt6:~Class.getCanonicalName()" resolve="getCanonicalName" />
+                                </node>
+                              </node>
+                            </node>
+                          </node>
+                          <node concept="Rm8GO" id="fizU0315Nh" role="37wK5m">
+                            <ref role="Rm8GQ" to="fnpx:~NotificationType.ERROR" resolve="ERROR" />
+                            <ref role="1Px2BO" to="fnpx:~NotificationType" resolve="NotificationType" />
+                          </node>
+                        </node>
+                      </node>
+                      <node concept="2YIFZM" id="fizU0316HO" role="37wK5m">
+                        <ref role="37wK5l" to="alof:~ProjectHelper.toIdeaProject(jetbrains.mps.project.Project)" resolve="toIdeaProject" />
+                        <ref role="1Pybhc" to="alof:~ProjectHelper" resolve="ProjectHelper" />
+                        <node concept="37vLTw" id="fizU0316LC" role="37wK5m">
+                          <ref role="3cqZAo" node="4mhRRpyEJ3q" resolve="project" />
+                        </node>
+                      </node>
+                    </node>
+                  </node>
+                  <node concept="3cpWs6" id="fizU0311jC" role="3cqZAp" />
+                </node>
+                <node concept="3clFbC" id="fizU030K4c" role="3clFbw">
+                  <node concept="10Nm6u" id="fizU030KK1" role="3uHU7w" />
+                  <node concept="37vLTw" id="fizU030HUf" role="3uHU7B">
+                    <ref role="3cqZAo" node="4mhRRpyE_IU" resolve="sconcept" />
                   </node>
                 </node>
               </node>
