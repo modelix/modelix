@@ -1,0 +1,9 @@
+FROM modelix/projector-mps:2020.3.5
+
+COPY artifacts/de.itemis.mps.extensions/ /projector/ide/plugins/
+
+COPY build/org.modelix/build/artifacts/org.modelix/plugins/org.modelix.build /projector/ide/plugins/org.modelix.build
+COPY build/org.modelix/build/artifacts/org.modelix/plugins/org.modelix.common /projector/ide/plugins/org.modelix.common
+COPY build/org.modelix/build/artifacts/org.modelix/plugins/org.modelix.langdev /projector/ide/plugins/org.modelix.langdev
+COPY build/org.modelix/build/artifacts/org.modelix/plugins/org.modelix.model /projector/ide/plugins/org.modelix.model
+COPY build/org.modelix/build/artifacts/org.modelix/plugins/org.modelix.ui /projector/ide/plugins/org.modelix.ui
