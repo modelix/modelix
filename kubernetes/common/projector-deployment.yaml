@@ -23,11 +23,13 @@ spec:
     spec:
       containers:
       - name: projector
-        image: modelix/modelix-projector:2020.3-202110281451-SNAPSHOT
+        image: modelix/modelix-projector:2020.3-202110281810-SNAPSHOT
         imagePullPolicy: IfNotPresent
         env:
-        - name: MODEL_URI
-          value: http://model:28101/
+        - name: "MODEL_URI"
+          value: "http://model:28101/"
+        - name: "modelix_executionMode"
+          value: "CLUSTER"
         ports:
         - containerPort: 8887
         volumeMounts:
