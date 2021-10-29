@@ -7762,6 +7762,7 @@
                     </node>
                   </node>
                 </node>
+                <node concept="3clFbH" id="6wTusCLv44i" role="3cqZAp" />
                 <node concept="3clFbJ" id="YrAPzECW9H" role="3cqZAp">
                   <node concept="3clFbS" id="YrAPzECW9J" role="3clFbx">
                     <node concept="3clFbF" id="YrAPzEDgeg" role="3cqZAp">
@@ -7777,7 +7778,19 @@
                         </node>
                       </node>
                     </node>
-                    <node concept="3cpWs6" id="YrAPzEDgai" role="3cqZAp" />
+                    <node concept="3clFbJ" id="6wTusCLvyHk" role="3cqZAp">
+                      <node concept="3clFbS" id="6wTusCLvyHm" role="3clFbx">
+                        <node concept="3cpWs6" id="YrAPzEDgai" role="3cqZAp" />
+                      </node>
+                      <node concept="2OqwBi" id="6wTusCLvH7h" role="3clFbw">
+                        <node concept="37vLTw" id="6wTusCLv_Ol" role="2Oq$k0">
+                          <ref role="3cqZAo" node="YrAPzEDlKf" resolve="keyEvent" />
+                        </node>
+                        <node concept="liA8E" id="6wTusCLvK_r" role="2OqNvi">
+                          <ref role="37wK5l" to="hyam:~InputEvent.isConsumed()" resolve="isConsumed" />
+                        </node>
+                      </node>
+                    </node>
                   </node>
                   <node concept="22lmx$" id="YrAPzEEMCa" role="3clFbw">
                     <node concept="3clFbC" id="YrAPzEETzi" role="3uHU7w">
@@ -7794,28 +7807,6 @@
                       </node>
                       <node concept="1rXfSq" id="YrAPzEDaTA" role="3uHU7w">
                         <ref role="37wK5l" node="1qbCJZsJ69e" resolve="getEditorComponent" />
-                      </node>
-                    </node>
-                  </node>
-                </node>
-                <node concept="3clFbH" id="YrAPzEEbmb" role="3cqZAp" />
-                <node concept="3cpWs8" id="1qbCJZsJ6pM" role="3cqZAp">
-                  <node concept="3cpWsn" id="1qbCJZsJ6pN" role="3cpWs9">
-                    <property role="TrG5h" value="oldSelection" />
-                    <node concept="3uibUv" id="1qbCJZsJ6pO" role="1tU5fm">
-                      <ref role="3uigEE" to="lwvz:~Selection" resolve="Selection" />
-                    </node>
-                    <node concept="2OqwBi" id="1qbCJZsJ6pP" role="33vP2m">
-                      <node concept="2OqwBi" id="1qbCJZsJ6pQ" role="2Oq$k0">
-                        <node concept="liA8E" id="1qbCJZsJ6pR" role="2OqNvi">
-                          <ref role="37wK5l" to="exr9:~EditorComponent.getSelectionManager()" resolve="getSelectionManager" />
-                        </node>
-                        <node concept="1rXfSq" id="1qbCJZsJ6pS" role="2Oq$k0">
-                          <ref role="37wK5l" node="1qbCJZsJ69e" resolve="getEditorComponent" />
-                        </node>
-                      </node>
-                      <node concept="liA8E" id="1qbCJZsJ6pT" role="2OqNvi">
-                        <ref role="37wK5l" to="lwvz:~SelectionManager.getSelection()" resolve="getSelection" />
                       </node>
                     </node>
                   </node>
