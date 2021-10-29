@@ -8970,8 +8970,8 @@
             <node concept="3uibUv" id="42vnfqpqy0X" role="1tU5fm">
               <ref role="3uigEE" to="mhbf:~SNode" resolve="SNode" />
             </node>
-            <node concept="2OqwBi" id="42vnfqpqySR" role="33vP2m">
-              <node concept="2OqwBi" id="42vnfqpqySS" role="2Oq$k0">
+            <node concept="2EnYce" id="6wTusCLwo9n" role="33vP2m">
+              <node concept="2EnYce" id="6wTusCLwnJs" role="2Oq$k0">
                 <node concept="37vLTw" id="42vnfqpqyST" role="2Oq$k0">
                   <ref role="3cqZAo" node="42vnfqpqmiV" resolve="newSelection" />
                 </node>
@@ -9059,21 +9059,29 @@
               </node>
             </node>
           </node>
-          <node concept="3y3z36" id="42vnfqprO4b" role="3clFbw">
-            <node concept="37vLTw" id="42vnfqprP3d" role="3uHU7w">
-              <ref role="3cqZAo" node="42vnfqpqySQ" resolve="node" />
-            </node>
-            <node concept="2OqwBi" id="42vnfqprLQy" role="3uHU7B">
-              <node concept="2OqwBi" id="42vnfqprKFA" role="2Oq$k0">
-                <node concept="37vLTw" id="42vnfqprKnx" role="2Oq$k0">
-                  <ref role="3cqZAo" node="2sCgtIfLmIt" resolve="inspectorSession" />
-                </node>
-                <node concept="liA8E" id="2sCgtIfzHxy" role="2OqNvi">
-                  <ref role="37wK5l" node="1qbCJZsJ69e" resolve="getEditorComponent" />
-                </node>
+          <node concept="1Wc70l" id="6wTusCLwoz2" role="3clFbw">
+            <node concept="3y3z36" id="6wTusCLwqdu" role="3uHU7B">
+              <node concept="10Nm6u" id="6wTusCLwqqd" role="3uHU7w" />
+              <node concept="37vLTw" id="6wTusCLwpXi" role="3uHU7B">
+                <ref role="3cqZAo" node="42vnfqpqySQ" resolve="node" />
               </node>
-              <node concept="liA8E" id="2sCgtIfzJyf" role="2OqNvi">
-                <ref role="37wK5l" to="exr9:~EditorComponent.getEditedNode()" resolve="getEditedNode" />
+            </node>
+            <node concept="3y3z36" id="42vnfqprO4b" role="3uHU7w">
+              <node concept="37vLTw" id="42vnfqprP3d" role="3uHU7w">
+                <ref role="3cqZAo" node="42vnfqpqySQ" resolve="node" />
+              </node>
+              <node concept="2OqwBi" id="42vnfqprLQy" role="3uHU7B">
+                <node concept="2OqwBi" id="42vnfqprKFA" role="2Oq$k0">
+                  <node concept="37vLTw" id="42vnfqprKnx" role="2Oq$k0">
+                    <ref role="3cqZAo" node="2sCgtIfLmIt" resolve="inspectorSession" />
+                  </node>
+                  <node concept="liA8E" id="2sCgtIfzHxy" role="2OqNvi">
+                    <ref role="37wK5l" node="1qbCJZsJ69e" resolve="getEditorComponent" />
+                  </node>
+                </node>
+                <node concept="liA8E" id="2sCgtIfzJyf" role="2OqNvi">
+                  <ref role="37wK5l" to="exr9:~EditorComponent.getEditedNode()" resolve="getEditedNode" />
+                </node>
               </node>
             </node>
           </node>
