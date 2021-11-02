@@ -19,6 +19,7 @@ docker login -u "$DOCKER_HUB_USER" -p "$DOCKER_HUB_KEY"
 ./docker-build-mps.sh
 ./docker-build-base.sh
 ./docker-build-ui.sh
+./docker-build-projector.sh
 ./docker-build-proxy.sh
 ./docker-build-uiproxy.sh
 
@@ -27,7 +28,7 @@ TAGS="$GIT_TAG mps-$mpsVersion"
 if [ "$mpsVersion" != "$mpsMajorVersion" ]; then
     TAGS="$TAGS mps-$mpsMajorVersion"
 fi
-IMAGE_NAMES="db model mps base ui proxy uiproxy"
+IMAGE_NAMES="db model mps base ui projector proxy uiproxy"
 for TAG in $TAGS ; do
   echo "Pushing Tag $TAG"
 

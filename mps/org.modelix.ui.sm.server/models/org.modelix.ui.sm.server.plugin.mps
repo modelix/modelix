@@ -26,7 +26,7 @@
     <import index="od2j" ref="r:19d224b8-fac8-4b19-ae42-e7b119858f3b(de.q60.mps.polymorphicfunctions.runtime)" />
     <import index="l6bp" ref="r:97875f9c-321e-405e-a344-6d3deab2bdba(de.q60.mps.shadowmodels.runtime.smodel)" />
     <import index="wyt6" ref="6354ebe7-c22a-4a0f-ac54-50b52ab9b065/java:java.lang(JDK/)" />
-    <import index="mxf6" ref="87f4b21e-a3a5-459e-a54b-408fd9eb7350/java:org.json(de.q60.mps.web.lib/)" />
+    <import index="mxf6" ref="87f4b21e-a3a5-459e-a54b-408fd9eb7350/java:org.json(org.modelix.lib/)" />
     <import index="guwi" ref="6354ebe7-c22a-4a0f-ac54-50b52ab9b065/java:java.io(JDK/)" />
     <import index="j481" ref="r:b20089df-f3d6-4bf7-8b24-9a8e9c01d887(org.modelix.ui.sm.structure)" />
     <import index="m3vg" ref="r:9bcdcf0c-f978-4630-9b17-a35339e80a73(org.modelix.ui.sm.transformations)" />
@@ -44,9 +44,9 @@
     <import index="6y8" ref="r:84bdf498-a7b7-4050-8eec-ebd94d3bd321(org.modelix.ui.sm.json.structure)" />
     <import index="yhmx" ref="r:e87ae99a-a050-4d92-b546-f559a1ec5998(org.modelix.ui.sm.json.behavior)" />
     <import index="cgcg" ref="fc3c2aa8-0d4b-463f-a774-40d450aa04a0/java:org.eclipse.jetty.server.handler(org.modelix.jetty/)" />
-    <import index="opgt" ref="fc3c2aa8-0d4b-463f-a774-40d450aa04a0/java:javax.servlet(de.q60.mps.web.jetty/)" />
+    <import index="opgt" ref="fc3c2aa8-0d4b-463f-a774-40d450aa04a0/java:javax.servlet(org.modelix.jetty/)" />
     <import index="m2xw" ref="fc3c2aa8-0d4b-463f-a774-40d450aa04a0/java:org.eclipse.jetty.server(org.modelix.jetty/)" />
-    <import index="nwfd" ref="fc3c2aa8-0d4b-463f-a774-40d450aa04a0/java:javax.servlet.http(de.q60.mps.web.jetty/)" />
+    <import index="nwfd" ref="fc3c2aa8-0d4b-463f-a774-40d450aa04a0/java:javax.servlet.http(org.modelix.jetty/)" />
     <import index="dush" ref="8865b7a8-5271-43d3-884c-6fd1d9cfdd34/java:org.jetbrains.mps.openapi.persistence(MPS.OpenAPI/)" />
     <import index="fz1u" ref="fc3c2aa8-0d4b-463f-a774-40d450aa04a0/java:org.eclipse.jetty.websocket.api(org.modelix.jetty/)" />
     <import index="dxuu" ref="6354ebe7-c22a-4a0f-ac54-50b52ab9b065/java:javax.swing(JDK/)" />
@@ -61,11 +61,11 @@
     <import index="2uyn" ref="r:eff6946b-526f-4642-b774-15a90feebcbf(de.q60.mps.shadowmodels.debugview.pf)" />
     <import index="alof" ref="742f6602-5a2f-4313-aa6e-ae1cd4ffdc61/java:jetbrains.mps.ide.project(MPS.Platform/)" />
     <import index="j81n" ref="r:763d080d-d701-4d75-9de7-e44ee8411c4d(de.q60.mps.shadowmodels.debugview.plugin)" />
-    <import index="e9hv" ref="r:3e99be64-2426-4999-853c-5db2cd8b90dc(de.q60.mps.web.ui.sm.server.pf)" />
+    <import index="e9hv" ref="r:3e99be64-2426-4999-853c-5db2cd8b90dc(org.modelix.ui.sm.server.pf)" />
     <import index="gq2t" ref="r:f17c1662-bb91-47a6-b206-16c06f86f401(org.modelix.ui.sm.pf)" />
     <import index="o8cn" ref="r:7f6154b4-93e5-4a51-94de-d145e58184e7(org.modelix.ui.svg.plugin)" />
     <import index="csg2" ref="r:b0cc4f86-cf49-4ffc-b138-1f9973329ce1(org.modelix.model.mpsplugin)" />
-    <import index="xxte" ref="r:a79f28f8-6055-40c6-bc5e-47a42a3b97e8(org.modelix.model.mps)" />
+    <import index="xxte" ref="r:a79f28f8-6055-40c6-bc5e-47a42a3b97e8(org.modelix.model.mpsadapters.mps)" />
     <import index="5440" ref="0a2651ab-f212-45c2-a2f0-343e76cbc26b/java:org.modelix.model.client(org.modelix.model.client/)" />
     <import index="fnup" ref="r:c0f62029-94d5-495d-b498-eb090ba537fc(org.modelix.ui.state.structure)" />
     <import index="v18h" ref="cc99dce1-49f3-4392-8dbf-e22ca47bd0af/java:kotlin(org.modelix.model.api/)" />
@@ -6622,7 +6622,7 @@
             </node>
             <node concept="2ShNRf" id="3pn$gDKz7G3" role="37vLTx">
               <node concept="1pGfFk" id="3pn$gDKz7G4" role="2ShVmc">
-                <ref role="37wK5l" to="nv3w:5gTrVpGmaY5" resolve="TransformationEngine" />
+                <ref role="37wK5l" to="l6bp:92VPpV3ueU" resolve="STransformationEngine" />
                 <node concept="37vLTw" id="3pn$gDKz7G5" role="37wK5m">
                   <ref role="3cqZAo" node="3pn$gDKz7EN" resolve="pfContext" />
                 </node>

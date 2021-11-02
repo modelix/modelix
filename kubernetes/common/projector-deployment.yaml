@@ -2,10 +2,9 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   annotations:
-  creationTimestamp: null
   labels:
-    app: ui
-  name: ui
+    app: projector
+  name: projector
 spec:
   revisionHistoryLimit: 5
   replicas: 1
@@ -16,24 +15,23 @@ spec:
       maxSurge: 1
   selector:
     matchLabels:
-      app: ui
+      app: projector
   template:
     metadata:
-      creationTimestamp: null
       labels:
-        app: ui
+        app: projector
     spec:
       containers:
-      - name: ui
-        image: modelix/modelix-ui:0.0.54
+      - name: projector
+        image: modelix/modelix-projector:2020.3-202110281810-SNAPSHOT
         imagePullPolicy: IfNotPresent
         env:
-        - name: MODEL_URI
-          value: http://model:28101/
+        - name: "MODEL_URI"
+          value: "http://model:28101/"
+        - name: "modelix_executionMode"
+          value: "CLUSTER"
         ports:
-        - containerPort: 33333
-        - containerPort: 5071
-          name: "jvm-debug"
+        - containerPort: 8887
         volumeMounts:
           - name: modelsecret
             mountPath: /secrets/modelsecret
@@ -47,15 +45,15 @@ spec:
             cpu: "1.5"
         readinessProbe:
           httpGet:
-            path: /health/check
-            port: 33333
+            path: /
+            port: 8887
           initialDelaySeconds: 10
           periodSeconds: 5
           timeoutSeconds: 3
         livenessProbe:
           httpGet:
-            path: /health/check
-            port: 33333
+            path: /
+            port: 8887
           initialDelaySeconds: 120
           periodSeconds: 20
           timeoutSeconds: 10
@@ -64,4 +62,3 @@ spec:
         - name: modelsecret
           secret:
             secretName: modelsecret
-status: {}

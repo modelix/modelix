@@ -2,12 +2,11 @@ import "../styles/sm.scss";
 import $ = require("jquery");
 import {DomUtils} from "./DomUtils";
 import {getWebsocketBaseUrl} from "./UrlUtil";
+import {ReconnectingWebsocket} from "./ReconnectingWebsocket";
 
 export class LiveHtml {
     private static rootElementIdSequence = 0;
     protected readonly globalRootElementId: string;
-    protected socket: WebSocket;
-    protected watchdog: NodeJS.Timeout;
     protected id2dom = new Map<string, HTMLElement>();
     protected postprocessors = [];
     private messageHandlers = {
@@ -74,6 +73,8 @@ export class LiveHtml {
         },
     };
 
+    protected socket: ReconnectingWebsocket;
+
     constructor(public readonly rootElement: HTMLElement, protected readonly localRootElementId: string = "root") {
         if (rootElement.id) {
             this.globalRootElementId = rootElement.id;
@@ -83,23 +84,29 @@ export class LiveHtml {
             rootElement.id = this.globalRootElementId;
         }
         this.id2dom.set(localRootElementId, this.rootElement);
-
-        this.watchdog = setInterval(() => {
-            if (!DomUtils.isInDocument(this.rootElement)) {
-                clearInterval(this.watchdog);
-                return;
+        this.registerRootElementHandlers();
+        this.socket = new ReconnectingWebsocket(this.rootElement, this.getWebsocketUrl())
+        this.socket.addMessageListener((messageString: string) => {
+            const message = JSON.parse(messageString);
+            const handler = this.messageHandlers[message.type];
+            if (handler) {
+                handler(message);
             }
-            if (!this.socket || this.socket.readyState === WebSocket.CLOSED) {
-                this.connect();
-            }
-            if (this.socket && this.socket.readyState === WebSocket.OPEN) {
+        });
+        this.socket.addStatusListener((connected: boolean) => {
+            if (connected) {
                 this.rootElement.classList.add("connected");
+                let nodeRef = this.rootElement.getAttribute("nodeRef");
+                if (nodeRef) {
+                    this.socket.sendMessage({
+                        type: "rootNode",
+                        nodeRef: nodeRef
+                    });
+                }
             } else {
                 this.rootElement.classList.remove("connected");
             }
-        }, 500);
-
-        this.registerRootElementHandlers()
+        });
     }
 
     public registerStyleHandler(key: string, handler: (value: any, dom: HTMLElement) => void): void {
@@ -122,40 +129,13 @@ export class LiveHtml {
                     x: e.clientX - dom.getBoundingClientRect().left,
                     y: e.clientY - dom.getBoundingClientRect().top
                 };
-                this.socket.send(JSON.stringify(message));
+                this.socket.sendMessage(message);
             }
         });
     }
 
-    private connect(): void {
-        if (this.socket && this.socket.readyState !== WebSocket.CLOSED) return;
-
-        this.socket = new WebSocket(this.getWebsocketUrl());
-
-        this.socket.onmessage = (event) => {
-            const message = JSON.parse(event.data);
-            const handler = this.messageHandlers[message.type];
-            if (handler) {
-                handler(message);
-            }
-        };
-        this.socket.onopen = () => {
-            this.onConnected(this.socket);
-        };
-    }
-
     protected getWebsocketUrl() {
         return getWebsocketBaseUrl() + "livehtml";
-    }
-
-    protected onConnected(socket: WebSocket): void {
-        let nodeRef = this.rootElement.getAttribute("nodeRef");
-        if (nodeRef) {
-            this.socket.send(JSON.stringify({
-                type: "rootNode",
-                nodeRef: nodeRef
-            }));
-        }
     }
 
     private buildDom(json, wiring: Array<{parent: Node, children: Node[]}>): Node {

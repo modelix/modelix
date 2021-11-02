@@ -8,9 +8,9 @@
   -ms-user-select: none;
   user-select: none;
 
-  border-color: #000;
-  border-width: thin;
-  border-style: solid;
+  //border-color: #000;
+  //border-width: thin;
+  //border-style: solid;
   margin: 5px;
 
   .svgEditorImg {
@@ -134,6 +134,9 @@
     justify-content: space-between;
     flex-direction: row;
 
+    .sidebar{
+      max-width: 30%
+    }
     .nodeEditors{
       display: flex;
       flex-direction: column;
