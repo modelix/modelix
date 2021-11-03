@@ -23,4 +23,4 @@ jobs:
         NEXUS_USERNAME: ${{ secrets.NEXUS_USERNAME }}
         NEXUS_PASSWORD: ${{ secrets.NEXUS_PASSWORD }}
         GITHUB_ACTOR: ${{ secrets.GITHUB_ACTOR }}
-      run: ./gradlew :ui-client:build :ui-client:publish
+      run: ./gradlew :model-server:build :model-server:publish
