@@ -14,6 +14,8 @@ jobs:
       uses: actions/setup-java@v1
       with:
         java-version: 13
+    - name: Use tag as version
+      run: echo "${GITHUB_REF#refs/*/}" > modelix.version
     - name: Build and Publish
       env:
         DOCKER_HUB_USER: ${{ secrets.DOCKER_HUB_USER }}
