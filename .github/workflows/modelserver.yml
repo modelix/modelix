@@ -1,6 +1,9 @@
 name: ModelServer
 
-on: [push]
+on:
+  push:
+    branches:
+      - '**'
 
 jobs:
   build:

@@ -1,6 +1,9 @@
 name: ModelClient
 
-on: [push]
+on:
+  push:
+    branches:
+      - '**'
 
 jobs:
   build:
