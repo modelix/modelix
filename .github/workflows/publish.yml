@@ -22,5 +22,5 @@ jobs:
         DOCKER_HUB_KEY: ${{ secrets.DOCKER_HUB_KEY }}
         NEXUS_USERNAME: ${{ secrets.NEXUS_USERNAME }}
         NEXUS_PASSWORD: ${{ secrets.NEXUS_PASSWORD }}
-        GITHUB_ACTOR: ${{ secrets.GITHUB_ACTOR }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: ./gradlew :model-server:build :model-server:publish
