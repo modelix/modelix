@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.com/modelix/modelix.svg?branch=master)](https://travis-ci.com/modelix/modelix) 
+[![Build Status](https://github.com/modelix/modelix/actions/workflows/overallbuild.yml/badge.svg)](https://github.com/modelix/modelix/actions/workflows/overallbuild.yml)
 
 # The modelix Project
 
