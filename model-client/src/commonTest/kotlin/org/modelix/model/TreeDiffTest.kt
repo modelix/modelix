@@ -36,7 +36,7 @@ class TreeDiffTest {
 
     @Test
     fun random2() {
-        for (seed in 1L..200L) {
+        for (seed in 1L..100L) {
             // println("Seed: $seed")
             test(seed, 50, 10)
         }
