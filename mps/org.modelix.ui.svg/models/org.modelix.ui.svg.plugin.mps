@@ -12431,6 +12431,9 @@
                     <node concept="37vLTw" id="YrAPzEYYZI" role="37wK5m">
                       <ref role="3cqZAo" node="YrAPzEYqV8" resolve="lastTarget" />
                     </node>
+                    <node concept="3cmrfG" id="DOf0T7tEix" role="37wK5m">
+                      <property role="3cmrfH" value="0" />
+                    </node>
                   </node>
                 </node>
               </node>
@@ -12459,6 +12462,9 @@
                 </node>
                 <node concept="37vLTw" id="YrAPzEZ2Fu" role="37wK5m">
                   <ref role="3cqZAo" node="YrAPzEYfrS" resolve="target" />
+                </node>
+                <node concept="3cmrfG" id="DOf0T7tErJ" role="37wK5m">
+                  <property role="3cmrfH" value="0" />
                 </node>
               </node>
             </node>
@@ -12491,6 +12497,9 @@
             </node>
             <node concept="37vLTw" id="YrAPzEZ2MZ" role="37wK5m">
               <ref role="3cqZAo" node="YrAPzEYfrS" resolve="target" />
+            </node>
+            <node concept="3cmrfG" id="DOf0T7tE$9" role="37wK5m">
+              <property role="3cmrfH" value="0" />
             </node>
           </node>
         </node>
@@ -12554,6 +12563,10 @@
           <ref role="3uigEE" to="z60i:~Component" resolve="Component" />
         </node>
       </node>
+      <node concept="37vLTG" id="DOf0T7tCz1" role="3clF46">
+        <property role="TrG5h" value="button" />
+        <node concept="10Oyi0" id="DOf0T7tDm1" role="1tU5fm" />
+      </node>
       <node concept="3cqZAl" id="YrAPzEYw$f" role="3clF45" />
       <node concept="3Tmbuc" id="YrAPzEYz4u" role="1B3o_S" />
       <node concept="3clFbS" id="YrAPzEYw$h" role="3clF47">
@@ -12565,7 +12578,7 @@
             </node>
             <node concept="2ShNRf" id="YrAPzEYzD0" role="33vP2m">
               <node concept="1pGfFk" id="YrAPzEYzD1" role="2ShVmc">
-                <ref role="37wK5l" to="hyam:~MouseEvent.&lt;init&gt;(java.awt.Component,int,long,int,int,int,int,boolean)" resolve="MouseEvent" />
+                <ref role="37wK5l" to="hyam:~MouseEvent.&lt;init&gt;(java.awt.Component,int,long,int,int,int,int,boolean,int)" resolve="MouseEvent" />
                 <node concept="37vLTw" id="YrAPzEYzD2" role="37wK5m">
                   <ref role="3cqZAo" node="YrAPzEX3Tk" resolve="mainComponent" />
                 </node>
@@ -12599,6 +12612,9 @@
                   <ref role="3cqZAo" node="YrAPzF2XDe" resolve="clickCount" />
                 </node>
                 <node concept="3clFbT" id="YrAPzEYzD9" role="37wK5m" />
+                <node concept="37vLTw" id="DOf0T7tDTw" role="37wK5m">
+                  <ref role="3cqZAo" node="DOf0T7tCz1" resolve="button" />
+                </node>
               </node>
             </node>
           </node>
@@ -12822,6 +12838,10 @@
             <node concept="37vLTw" id="YrAPzF2X_x" role="37wK5m">
               <ref role="3cqZAo" node="YrAPzEXW6h" resolve="target" />
             </node>
+            <node concept="10M0yZ" id="DOf0T7tePa" role="37wK5m">
+              <ref role="1PxDUh" to="hyam:~MouseEvent" resolve="MouseEvent" />
+              <ref role="3cqZAo" to="hyam:~MouseEvent.BUTTON1" resolve="BUTTON1" />
+            </node>
           </node>
         </node>
         <node concept="3clFbF" id="YrAPzF3167" role="3cqZAp">
@@ -12849,6 +12869,10 @@
             <node concept="37vLTw" id="YrAPzF316f" role="37wK5m">
               <ref role="3cqZAo" node="YrAPzEXW6h" resolve="target" />
             </node>
+            <node concept="10M0yZ" id="DOf0T7tE1Q" role="37wK5m">
+              <ref role="3cqZAo" to="hyam:~MouseEvent.BUTTON1" resolve="BUTTON1" />
+              <ref role="1PxDUh" to="hyam:~MouseEvent" resolve="MouseEvent" />
+            </node>
           </node>
         </node>
         <node concept="3clFbF" id="YrAPzF31ov" role="3cqZAp">
@@ -12875,6 +12899,10 @@
             </node>
             <node concept="37vLTw" id="YrAPzF31oB" role="37wK5m">
               <ref role="3cqZAo" node="YrAPzEXW6h" resolve="target" />
+            </node>
+            <node concept="10M0yZ" id="DOf0T7tE6E" role="37wK5m">
+              <ref role="3cqZAo" to="hyam:~MouseEvent.BUTTON1" resolve="BUTTON1" />
+              <ref role="1PxDUh" to="hyam:~MouseEvent" resolve="MouseEvent" />
             </node>
           </node>
         </node>
@@ -12947,6 +12975,10 @@
                 </node>
                 <node concept="37vLTw" id="YrAPzEZcLd" role="37wK5m">
                   <ref role="3cqZAo" node="YrAPzEYqV8" resolve="lastTarget" />
+                </node>
+                <node concept="10M0yZ" id="DOf0T7tEEO" role="37wK5m">
+                  <ref role="1PxDUh" to="hyam:~MouseEvent" resolve="MouseEvent" />
+                  <ref role="3cqZAo" to="hyam:~MouseEvent.BUTTON1" resolve="BUTTON1" />
                 </node>
               </node>
             </node>
