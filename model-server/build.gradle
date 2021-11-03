@@ -92,6 +92,16 @@ application {
 publishing {
     repositories {
         maven {
+            name = "GitHubPackages"
+            url = uri("https://maven.pkg.github.com/modelix/modelix")
+            if(project.hasProperty("gpr.token")) {
+                credentials {
+                    username = System.getenv("GITHUB_ACTOR")
+                    password = System.getenv("GITHUB_TOKEN")
+                }
+            }
+        }
+/*        maven {
             url rootProject.publishingRepository
             if (rootProject.hasProperty('nexusUsername')) {
                 credentials {
@@ -99,7 +109,7 @@ publishing {
                     password rootProject.nexusPassword
                 }
             }
-        }
+        }*/
     }
     publications {
         modelServer(MavenPublication) {
