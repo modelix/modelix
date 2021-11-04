@@ -168,13 +168,13 @@ To use them in your gradle script add this repository:
 ```
     maven {
         url = uri("https://maven.pkg.github.com/modelix/modelix")
-        if (project.hasProperty("grp.user") && project.hasProperty("grp.key")) {
+        if (project.hasProperty("gpr.user") && project.hasProperty("gpr.key")) {
             credentials {
                 username = project.findProperty("gpr.user").toString()
                 password = project.findProperty("gpr.key").toString()
             }
         } else {
-            throw GradleException("Please specify your github username (grp.user) and access token (grp.key) in ~/.gradle/gradle.properties")
+            throw GradleException("Please specify your github username (gpr.user) and access token (gpr.key) in ~/.gradle/gradle.properties")
         }
     }
 ```
