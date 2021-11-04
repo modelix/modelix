@@ -159,3 +159,32 @@ We have different kinds of tests:
 * Unit Tests, as typical. In general we have very few of those and we should increase them
 * Integration Tests, which runs as part of the CI. They verify the different parts of the systems work together
 * Manual Tests, to be performed after major changes. They are necessary to catch errors we are unable to catch with automated tests. They are described in the directory _manual_tests_
+
+# Using Maven Packages
+
+Maven packages are published to GitHub Packages.
+To use them in your gradle script add this repository:
+
+```
+    maven {
+        url = uri("https://maven.pkg.github.com/modelix/modelix")
+        if (project.hasProperty("grp.user") && project.hasProperty("grp.key")) {
+            credentials {
+                username = project.findProperty("gpr.user").toString()
+                password = project.findProperty("gpr.key").toString()
+            }
+        } else {
+            throw GradleException("Please specify your github username (grp.user) and access token (grp.key) in ~/.gradle/gradle.properties")
+        }
+    }
+```
+
+You also have to add your GitHub credential to `~/.gradle/gradle.properties`:
+
+```
+grp.user=YOUR_USER_NAME
+grp.key=TOKEN_WITH_PACKAGES_READ_ACCESS
+```
+
+`grp.key` is an access token that you can generate at https://github.com/settings/tokens.
+This token needs the `read:packages` permission.
