@@ -23,8 +23,8 @@ docker login -u "$DOCKER_HUB_USER" -p "$DOCKER_HUB_KEY"
 ./docker-build-proxy.sh
 ./docker-build-uiproxy.sh
 
-GIT_TAG="$TRAVIS_TAG"
-TAGS="$GIT_TAG mps-$mpsVersion"
+MODELIX_VERSION=$( ./modelix-version.sh )
+TAGS="$MODELIX_VERSION mps-$mpsVersion"
 if [ "$mpsVersion" != "$mpsMajorVersion" ]; then
     TAGS="$TAGS mps-$mpsMajorVersion"
 fi
