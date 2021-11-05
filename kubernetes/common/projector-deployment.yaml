@@ -29,7 +29,7 @@ spec:
         - name: "MODEL_URI"
           value: "http://model:28101/"
         - name: "modelix_executionMode"
-          value: "CLUSTER"
+          value: "PROJECTOR"
         ports:
         - containerPort: 8887
         volumeMounts:
