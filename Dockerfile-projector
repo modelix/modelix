@@ -1,9 +1,13 @@
 FROM modelix/projector-mps:2020.3.5
 
-COPY artifacts/de.itemis.mps.extensions/ /projector/ide/plugins/
+COPY install-plugins.sh /
+COPY build/branding.zip /projector/ide/lib/branding.jar
 
-COPY build/org.modelix/build/artifacts/org.modelix/plugins/org.modelix.build /projector/ide/plugins/org.modelix.build
-COPY build/org.modelix/build/artifacts/org.modelix/plugins/org.modelix.common /projector/ide/plugins/org.modelix.common
-COPY build/org.modelix/build/artifacts/org.modelix/plugins/org.modelix.langdev /projector/ide/plugins/org.modelix.langdev
-COPY build/org.modelix/build/artifacts/org.modelix/plugins/org.modelix.model /projector/ide/plugins/org.modelix.model
-COPY build/org.modelix/build/artifacts/org.modelix/plugins/org.modelix.ui /projector/ide/plugins/org.modelix.ui
+COPY artifacts/de.itemis.mps.extensions/ /mps-plugins/MPS-extensions
+COPY build/org.modelix/build/artifacts/org.modelix/plugins/ /mps-plugins/modelix
+
+USER root
+RUN /install-plugins.sh /projector/ide/plugins/
+USER projector-user
+
+RUN mkdir -p /home/projector-user/.local/share/JetBrains/consentOptions/ && echo "rsch.send.usage.stat:1.1:0:1636142999385" > /home/projector-user/.local/share/JetBrains/consentOptions/accepted

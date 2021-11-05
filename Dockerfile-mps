@@ -77,3 +77,6 @@ RUN rm /usr/modelix-ui/mps/lib/mps-workbench.jar
 WORKDIR /tmp/mps-workbench/
 RUN zip -r /usr/modelix-ui/mps/lib/mps-workbench.jar ./*
 RUN rm -rf /tmp/mps-workbench/
+
+COPY install-plugins.sh /
+RUN chmod +x /install-plugins.sh

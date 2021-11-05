@@ -12,7 +12,8 @@ EXPOSE 33333
 # container. Containers build on top of the modelix container can simply override the ENV and increase the value.
 ENV HEAP_RATIO=85
 
-COPY build/org.modelix/build/artifacts/org.modelix/plugins/org.modelix.ui.server /usr/modelix-ui/mps/plugins/org.modelix.ui.server
+COPY build/org.modelix/build/artifacts/org.modelix/plugins/org.modelix.ui.server /mps-plugins/org.modelix.ui.server
+RUN /install-plugins.sh
 
 COPY run-ui-server.sh /usr/modelix-ui
 COPY ui-server/build/libs/* /usr/modelix-ui/
