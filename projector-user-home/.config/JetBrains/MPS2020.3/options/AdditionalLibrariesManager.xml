@@ -1,0 +1,16 @@
+<application>
+    <component name="AdditionalLibrariesManager">
+        <option name="libraries">
+            <map>
+                <entry key="packaged-languages">
+                    <value>
+                        <Library>
+                            <option name="name" value="packaged-languages" />
+                            <option name="path" value="$USER_HOME$/mps-languages" />
+                        </Library>
+                    </value>
+                </entry>
+            </map>
+        </option>
+    </component>
+</application>

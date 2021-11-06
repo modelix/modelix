@@ -8,6 +8,6 @@ COPY build/org.modelix/build/artifacts/org.modelix/plugins/ /mps-plugins/modelix
 
 USER root
 RUN /install-plugins.sh /projector/ide/plugins/
+COPY projector-user-home /home/projector-user
+RUN chown -R projector-user:projector-user /home/projector-user
 USER projector-user
-
-RUN mkdir -p /home/projector-user/.local/share/JetBrains/consentOptions/ && echo "rsch.send.usage.stat:1.1:0:1636142999385" > /home/projector-user/.local/share/JetBrains/consentOptions/accepted

@@ -25,3 +25,5 @@ modules.xml
 
 /modelix.version
 **/.mps/cloudResources.xml
+
+!/projector-user-home/**/*
