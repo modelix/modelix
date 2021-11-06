@@ -25,3 +25,5 @@ while IFS= read -r line; do
   mv $PLUGIN_DIR $TARGET_FOLDER
   echo "Installed plugin from $PLUGIN_DIR"
 done
+
+rm -rf $SOURCE_FOLDER
