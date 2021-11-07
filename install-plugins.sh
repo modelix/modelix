@@ -26,4 +26,4 @@ while IFS= read -r line; do
   echo "Installed plugin from $PLUGIN_DIR"
 done
 
-rm -rf $SOURCE_FOLDER
+rm -rf "${SOURCE_FOLDER:?}"/*
