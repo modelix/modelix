@@ -8,8 +8,11 @@ metadata:
 spec:
   type: NodePort
   ports:
-  - name: "8887"
+  - name: "projector"
     port: 8887
     targetPort: 8887
+  - name: "modelix-ui"
+    port: 33333
+    targetPort: 33333
   selector:
     app: projector

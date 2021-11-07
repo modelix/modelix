@@ -648,188 +648,18 @@
         </node>
         <node concept="3J1_TO" id="4rrX99omHZy" role="3cqZAp">
           <node concept="3clFbS" id="4rrX99omHZ$" role="1zxBo7">
-            <node concept="3clFbH" id="6s8HYq3pJZn" role="3cqZAp" />
-            <node concept="3cpWs8" id="5Le8ZRJdQ1a" role="3cqZAp">
-              <node concept="3cpWsn" id="5Le8ZRJdQ1b" role="3cpWs9">
-                <property role="TrG5h" value="executionModeString" />
-                <node concept="17QB3L" id="5Le8ZRJdRdU" role="1tU5fm" />
-                <node concept="2YIFZM" id="3xX$Vyo0fwW" role="33vP2m">
-                  <ref role="37wK5l" node="3xX$Vyo0aHz" resolve="get" />
-                  <ref role="1Pybhc" node="3xX$Vyo038N" resolve="PropertyOrEnv" />
-                  <node concept="10M0yZ" id="3xX$Vyo0fwX" role="37wK5m">
-                    <ref role="3cqZAo" node="7Qo$o7gTfVU" resolve="EXECUTION_MODE_SYSPROP" />
-                    <ref role="1PxDUh" node="7Qo$o7gTdFI" resolve="ModelixConfigurationSystemProperties" />
-                  </node>
-                </node>
-              </node>
-            </node>
             <node concept="3cpWs8" id="5Le8ZRJdYgs" role="3cqZAp">
               <node concept="3cpWsn" id="5Le8ZRJdYgt" role="3cpWs9">
                 <property role="TrG5h" value="executionMode" />
                 <node concept="3uibUv" id="5Le8ZRJdYgu" role="1tU5fm">
                   <ref role="3uigEE" node="5Le8ZRJdWor" resolve="EModelixExecutionMode" />
                 </node>
-                <node concept="Rm8GO" id="5Le8ZRJdYPq" role="33vP2m">
-                  <ref role="1Px2BO" node="5Le8ZRJdWor" resolve="EModelixExecutionMode" />
-                  <ref role="Rm8GQ" node="5Le8ZRJdWMd" resolve="DEFAULT" />
+                <node concept="2YIFZM" id="54meraTAR22" role="33vP2m">
+                  <ref role="37wK5l" node="54meraTAO3V" resolve="getExecutionMode" />
+                  <ref role="1Pybhc" node="7Qo$o7gTdFI" resolve="ModelixConfigurationSystemProperties" />
                 </node>
               </node>
             </node>
-            <node concept="3clFbJ" id="5Le8ZRJdRKn" role="3cqZAp">
-              <node concept="3clFbS" id="5Le8ZRJdRKp" role="3clFbx">
-                <node concept="3cpWs8" id="53_gmpoWTwi" role="3cqZAp">
-                  <node concept="3cpWsn" id="53_gmpoWTwl" role="3cpWs9">
-                    <property role="TrG5h" value="value" />
-                    <node concept="17QB3L" id="53_gmpoWTwg" role="1tU5fm" />
-                    <node concept="2YIFZM" id="3xX$Vyo0fOz" role="33vP2m">
-                      <ref role="37wK5l" node="3xX$Vyo0aHz" resolve="get" />
-                      <ref role="1Pybhc" node="3xX$Vyo038N" resolve="PropertyOrEnv" />
-                      <node concept="Xl_RD" id="3xX$Vyo0fO$" role="37wK5m">
-                        <property role="Xl_RC" value="disable.autobinding" />
-                      </node>
-                    </node>
-                  </node>
-                </node>
-                <node concept="3clFbJ" id="53_gmpoWUtZ" role="3cqZAp">
-                  <node concept="3clFbS" id="53_gmpoWUu1" role="3clFbx">
-                    <node concept="3clFbF" id="5Le8ZRJdVNi" role="3cqZAp">
-                      <node concept="37vLTI" id="5Le8ZRJdWcU" role="3clFbG">
-                        <node concept="Rm8GO" id="5Le8ZRJdYXp" role="37vLTx">
-                          <ref role="1Px2BO" node="5Le8ZRJdWor" resolve="EModelixExecutionMode" />
-                          <ref role="Rm8GQ" node="5Le8ZRJdWrr" resolve="INTEGRATION_TESTS" />
-                        </node>
-                        <node concept="37vLTw" id="5Le8ZRJdZag" role="37vLTJ">
-                          <ref role="3cqZAo" node="5Le8ZRJdYgt" resolve="executionMode" />
-                        </node>
-                      </node>
-                    </node>
-                  </node>
-                  <node concept="1Wc70l" id="53_gmpoWVdr" role="3clFbw">
-                    <node concept="1eOMI4" id="53_gmpoWX3q" role="3uHU7w">
-                      <node concept="17R0WA" id="53_gmpoWWye" role="1eOMHV">
-                        <node concept="Xl_RD" id="53_gmpoWXc8" role="3uHU7w">
-                          <property role="Xl_RC" value="true" />
-                        </node>
-                        <node concept="2OqwBi" id="53_gmpoWVmo" role="3uHU7B">
-                          <node concept="37vLTw" id="53_gmpoWVgV" role="2Oq$k0">
-                            <ref role="3cqZAo" node="53_gmpoWTwl" resolve="value" />
-                          </node>
-                          <node concept="liA8E" id="53_gmpoWWaQ" role="2OqNvi">
-                            <ref role="37wK5l" to="wyt6:~String.toLowerCase()" resolve="toLowerCase" />
-                          </node>
-                        </node>
-                      </node>
-                    </node>
-                    <node concept="3y3z36" id="53_gmpoWUUq" role="3uHU7B">
-                      <node concept="37vLTw" id="53_gmpoWUMr" role="3uHU7B">
-                        <ref role="3cqZAo" node="53_gmpoWTwl" resolve="value" />
-                      </node>
-                      <node concept="10Nm6u" id="53_gmpoWVad" role="3uHU7w" />
-                    </node>
-                  </node>
-                </node>
-                <node concept="3clFbH" id="5Le8ZRJe1$z" role="3cqZAp" />
-                <node concept="3clFbJ" id="5Le8ZRJe1M$" role="3cqZAp">
-                  <node concept="3clFbS" id="5Le8ZRJe1MA" role="3clFbx">
-                    <node concept="3clFbF" id="5Le8ZRJe3ak" role="3cqZAp">
-                      <node concept="37vLTI" id="5Le8ZRJe3zN" role="3clFbG">
-                        <node concept="Rm8GO" id="5Le8ZRJe3C7" role="37vLTx">
-                          <ref role="1Px2BO" node="5Le8ZRJdWor" resolve="EModelixExecutionMode" />
-                          <ref role="Rm8GQ" node="5Le8ZRJe0YA" resolve="MODEL_EXPORT" />
-                        </node>
-                        <node concept="37vLTw" id="5Le8ZRJe3ai" role="37vLTJ">
-                          <ref role="3cqZAo" node="5Le8ZRJdYgt" resolve="executionMode" />
-                        </node>
-                      </node>
-                    </node>
-                  </node>
-                  <node concept="2OqwBi" id="5Le8ZRJe2j$" role="3clFbw">
-                    <node concept="2YIFZM" id="5Le8ZRJe1RY" role="2Oq$k0">
-                      <ref role="1Pybhc" node="3xX$Vyo038N" resolve="PropertyOrEnv" />
-                      <ref role="37wK5l" node="3xX$Vyo0aHz" resolve="get" />
-                      <node concept="10M0yZ" id="7Qo$o7gTn$P" role="37wK5m">
-                        <ref role="3cqZAo" node="7Qo$o7gTmKI" resolve="EXPORT_PATH_SYSPROP" />
-                        <ref role="1PxDUh" node="7Qo$o7gTdFI" resolve="ModelixConfigurationSystemProperties" />
-                      </node>
-                    </node>
-                    <node concept="17RvpY" id="5Le8ZRJe2XK" role="2OqNvi" />
-                  </node>
-                </node>
-                <node concept="3clFbH" id="5Le8ZRJfMFr" role="3cqZAp" />
-                <node concept="3clFbF" id="5Le8ZRJfMWP" role="3cqZAp">
-                  <node concept="2YIFZM" id="5Le8ZRJfN4O" role="3clFbG">
-                    <ref role="37wK5l" to="wyt6:~System.setProperty(java.lang.String,java.lang.String)" resolve="setProperty" />
-                    <ref role="1Pybhc" to="wyt6:~System" resolve="System" />
-                    <node concept="10M0yZ" id="7Qo$o7gTgXt" role="37wK5m">
-                      <ref role="3cqZAo" node="7Qo$o7gTfVU" resolve="EXECUTION_MODE_SYSPROP" />
-                      <ref role="1PxDUh" node="7Qo$o7gTdFI" resolve="ModelixConfigurationSystemProperties" />
-                    </node>
-                    <node concept="2OqwBi" id="5Le8ZRJfOe6" role="37wK5m">
-                      <node concept="37vLTw" id="5Le8ZRJfNCx" role="2Oq$k0">
-                        <ref role="3cqZAo" node="5Le8ZRJdYgt" resolve="executionMode" />
-                      </node>
-                      <node concept="liA8E" id="7Qo$o7gTQ6h" role="2OqNvi">
-                        <ref role="37wK5l" to="wyt6:~Enum.name()" resolve="name" />
-                      </node>
-                    </node>
-                  </node>
-                </node>
-              </node>
-              <node concept="2OqwBi" id="5Le8ZRJdTCN" role="3clFbw">
-                <node concept="37vLTw" id="5Le8ZRJdSgU" role="2Oq$k0">
-                  <ref role="3cqZAo" node="5Le8ZRJdQ1b" resolve="executionModeString" />
-                </node>
-                <node concept="17RlXB" id="5Le8ZRJdUEJ" role="2OqNvi" />
-              </node>
-              <node concept="9aQIb" id="5Le8ZRJe05L" role="9aQIa">
-                <node concept="3clFbS" id="5Le8ZRJe05M" role="9aQI4">
-                  <node concept="3J1_TO" id="5Le8ZRJeyPm" role="3cqZAp">
-                    <node concept="3uVAMA" id="5Le8ZRJeyUk" role="1zxBo5">
-                      <node concept="XOnhg" id="5Le8ZRJeyUl" role="1zc67B">
-                        <property role="TrG5h" value="ex" />
-                        <node concept="nSUau" id="5Le8ZRJeyUm" role="1tU5fm">
-                          <node concept="3uibUv" id="5Le8ZRJez6N" role="nSUat">
-                            <ref role="3uigEE" to="wyt6:~IllegalArgumentException" resolve="IllegalArgumentException" />
-                          </node>
-                        </node>
-                      </node>
-                      <node concept="3clFbS" id="5Le8ZRJeyUn" role="1zc67A">
-                        <node concept="RRSsy" id="5Le8ZRJezNX" role="3cqZAp">
-                          <property role="RRSoG" value="gZ5fh_4/error" />
-                          <node concept="3cpWs3" id="5Le8ZRJe$vV" role="RRSoy">
-                            <node concept="37vLTw" id="5Le8ZRJe$_H" role="3uHU7w">
-                              <ref role="3cqZAo" node="5Le8ZRJdQ1b" resolve="executionModeString" />
-                            </node>
-                            <node concept="Xl_RD" id="5Le8ZRJezNZ" role="3uHU7B">
-                              <property role="Xl_RC" value="Unknown execution mode: " />
-                            </node>
-                          </node>
-                          <node concept="37vLTw" id="5Le8ZRJezUe" role="RRSow">
-                            <ref role="3cqZAo" node="5Le8ZRJeyUl" resolve="ex" />
-                          </node>
-                        </node>
-                      </node>
-                    </node>
-                    <node concept="3clFbS" id="5Le8ZRJeyPo" role="1zxBo7">
-                      <node concept="3clFbF" id="5Le8ZRJe0iE" role="3cqZAp">
-                        <node concept="37vLTI" id="5Le8ZRJe0FX" role="3clFbG">
-                          <node concept="unr1b" id="5Le8ZRJe0Ox" role="37vLTx">
-                            <ref role="un$jP" node="5Le8ZRJdWor" resolve="EModelixExecutionMode" />
-                            <node concept="37vLTw" id="5Le8ZRJe0SH" role="unwt0">
-                              <ref role="3cqZAo" node="5Le8ZRJdQ1b" resolve="executionModeString" />
-                            </node>
-                          </node>
-                          <node concept="37vLTw" id="5Le8ZRJe0iD" role="37vLTJ">
-                            <ref role="3cqZAo" node="5Le8ZRJdYgt" resolve="executionMode" />
-                          </node>
-                        </node>
-                      </node>
-                    </node>
-                  </node>
-                </node>
-              </node>
-            </node>
-            <node concept="3clFbH" id="nkanBut1bS" role="3cqZAp" />
             <node concept="3clFbF" id="5Le8ZRJeuvJ" role="3cqZAp">
               <node concept="2OqwBi" id="5Le8ZRJeuvG" role="3clFbG">
                 <node concept="10M0yZ" id="5Le8ZRJeuvH" role="2Oq$k0">
@@ -13463,6 +13293,197 @@
       <node concept="Xl_RD" id="7Qo$o7gTQfS" role="33vP2m">
         <property role="Xl_RC" value="modelix.cloud.repos" />
       </node>
+    </node>
+    <node concept="2tJIrI" id="54meraTAJhq" role="jymVt" />
+    <node concept="2YIFZL" id="54meraTAO3V" role="jymVt">
+      <property role="TrG5h" value="getExecutionMode" />
+      <node concept="3clFbS" id="54meraTAMLP" role="3clF47">
+        <node concept="3cpWs8" id="54meraTANSh" role="3cqZAp">
+          <node concept="3cpWsn" id="54meraTANSi" role="3cpWs9">
+            <property role="TrG5h" value="executionModeString" />
+            <node concept="17QB3L" id="54meraTANSj" role="1tU5fm" />
+            <node concept="2YIFZM" id="54meraTANSk" role="33vP2m">
+              <ref role="1Pybhc" node="3xX$Vyo038N" resolve="PropertyOrEnv" />
+              <ref role="37wK5l" node="3xX$Vyo0aHz" resolve="get" />
+              <node concept="37vLTw" id="54meraTANSo" role="37wK5m">
+                <ref role="3cqZAo" node="7Qo$o7gTfVU" resolve="EXECUTION_MODE_SYSPROP" />
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="3cpWs8" id="54meraTANSq" role="3cqZAp">
+          <node concept="3cpWsn" id="54meraTANSr" role="3cpWs9">
+            <property role="TrG5h" value="executionMode" />
+            <node concept="3uibUv" id="54meraTANSs" role="1tU5fm">
+              <ref role="3uigEE" node="5Le8ZRJdWor" resolve="EModelixExecutionMode" />
+            </node>
+            <node concept="Rm8GO" id="54meraTANSt" role="33vP2m">
+              <ref role="1Px2BO" node="5Le8ZRJdWor" resolve="EModelixExecutionMode" />
+              <ref role="Rm8GQ" node="5Le8ZRJdWMd" resolve="DEFAULT" />
+            </node>
+          </node>
+        </node>
+        <node concept="3clFbJ" id="54meraTANSu" role="3cqZAp">
+          <node concept="3clFbS" id="54meraTANSv" role="3clFbx">
+            <node concept="3cpWs8" id="54meraTANSw" role="3cqZAp">
+              <node concept="3cpWsn" id="54meraTANSx" role="3cpWs9">
+                <property role="TrG5h" value="value" />
+                <node concept="17QB3L" id="54meraTANSy" role="1tU5fm" />
+                <node concept="2YIFZM" id="54meraTANSz" role="33vP2m">
+                  <ref role="37wK5l" node="3xX$Vyo0aHz" resolve="get" />
+                  <ref role="1Pybhc" node="3xX$Vyo038N" resolve="PropertyOrEnv" />
+                  <node concept="Xl_RD" id="54meraTANS$" role="37wK5m">
+                    <property role="Xl_RC" value="disable.autobinding" />
+                  </node>
+                </node>
+              </node>
+            </node>
+            <node concept="3clFbJ" id="54meraTANS_" role="3cqZAp">
+              <node concept="3clFbS" id="54meraTANSA" role="3clFbx">
+                <node concept="3clFbF" id="54meraTANSB" role="3cqZAp">
+                  <node concept="37vLTI" id="54meraTANSC" role="3clFbG">
+                    <node concept="Rm8GO" id="54meraTANSD" role="37vLTx">
+                      <ref role="1Px2BO" node="5Le8ZRJdWor" resolve="EModelixExecutionMode" />
+                      <ref role="Rm8GQ" node="5Le8ZRJdWrr" resolve="INTEGRATION_TESTS" />
+                    </node>
+                    <node concept="37vLTw" id="54meraTANSE" role="37vLTJ">
+                      <ref role="3cqZAo" node="54meraTANSr" resolve="executionMode" />
+                    </node>
+                  </node>
+                </node>
+              </node>
+              <node concept="1Wc70l" id="54meraTANSF" role="3clFbw">
+                <node concept="1eOMI4" id="54meraTANSG" role="3uHU7w">
+                  <node concept="17R0WA" id="54meraTANSH" role="1eOMHV">
+                    <node concept="Xl_RD" id="54meraTANSI" role="3uHU7w">
+                      <property role="Xl_RC" value="true" />
+                    </node>
+                    <node concept="2OqwBi" id="54meraTANSJ" role="3uHU7B">
+                      <node concept="37vLTw" id="54meraTANSK" role="2Oq$k0">
+                        <ref role="3cqZAo" node="54meraTANSx" resolve="value" />
+                      </node>
+                      <node concept="liA8E" id="54meraTANSL" role="2OqNvi">
+                        <ref role="37wK5l" to="wyt6:~String.toLowerCase()" resolve="toLowerCase" />
+                      </node>
+                    </node>
+                  </node>
+                </node>
+                <node concept="3y3z36" id="54meraTANSM" role="3uHU7B">
+                  <node concept="37vLTw" id="54meraTANSN" role="3uHU7B">
+                    <ref role="3cqZAo" node="54meraTANSx" resolve="value" />
+                  </node>
+                  <node concept="10Nm6u" id="54meraTANSO" role="3uHU7w" />
+                </node>
+              </node>
+            </node>
+            <node concept="3clFbH" id="54meraTANSP" role="3cqZAp" />
+            <node concept="3clFbJ" id="54meraTANSQ" role="3cqZAp">
+              <node concept="3clFbS" id="54meraTANSR" role="3clFbx">
+                <node concept="3clFbF" id="54meraTANSS" role="3cqZAp">
+                  <node concept="37vLTI" id="54meraTANST" role="3clFbG">
+                    <node concept="Rm8GO" id="54meraTANSU" role="37vLTx">
+                      <ref role="1Px2BO" node="5Le8ZRJdWor" resolve="EModelixExecutionMode" />
+                      <ref role="Rm8GQ" node="5Le8ZRJe0YA" resolve="MODEL_EXPORT" />
+                    </node>
+                    <node concept="37vLTw" id="54meraTANSV" role="37vLTJ">
+                      <ref role="3cqZAo" node="54meraTANSr" resolve="executionMode" />
+                    </node>
+                  </node>
+                </node>
+              </node>
+              <node concept="2OqwBi" id="54meraTANSW" role="3clFbw">
+                <node concept="2YIFZM" id="54meraTANSX" role="2Oq$k0">
+                  <ref role="37wK5l" node="3xX$Vyo0aHz" resolve="get" />
+                  <ref role="1Pybhc" node="3xX$Vyo038N" resolve="PropertyOrEnv" />
+                  <node concept="37vLTw" id="54meraTANTv" role="37wK5m">
+                    <ref role="3cqZAo" node="7Qo$o7gTmKI" resolve="EXPORT_PATH_SYSPROP" />
+                  </node>
+                </node>
+                <node concept="17RvpY" id="54meraTANSZ" role="2OqNvi" />
+              </node>
+            </node>
+          </node>
+          <node concept="2OqwBi" id="54meraTANT7" role="3clFbw">
+            <node concept="37vLTw" id="54meraTANT8" role="2Oq$k0">
+              <ref role="3cqZAo" node="54meraTANSi" resolve="executionModeString" />
+            </node>
+            <node concept="17RlXB" id="54meraTANT9" role="2OqNvi" />
+          </node>
+          <node concept="9aQIb" id="54meraTANTa" role="9aQIa">
+            <node concept="3clFbS" id="54meraTANTb" role="9aQI4">
+              <node concept="3J1_TO" id="54meraTANTc" role="3cqZAp">
+                <node concept="3uVAMA" id="54meraTANTd" role="1zxBo5">
+                  <node concept="XOnhg" id="54meraTANTe" role="1zc67B">
+                    <property role="TrG5h" value="ex" />
+                    <node concept="nSUau" id="54meraTANTf" role="1tU5fm">
+                      <node concept="3uibUv" id="54meraTANTg" role="nSUat">
+                        <ref role="3uigEE" to="wyt6:~IllegalArgumentException" resolve="IllegalArgumentException" />
+                      </node>
+                    </node>
+                  </node>
+                  <node concept="3clFbS" id="54meraTANTh" role="1zc67A">
+                    <node concept="RRSsy" id="54meraTANTi" role="3cqZAp">
+                      <property role="RRSoG" value="gZ5fh_4/error" />
+                      <node concept="3cpWs3" id="54meraTANTj" role="RRSoy">
+                        <node concept="37vLTw" id="54meraTANTk" role="3uHU7w">
+                          <ref role="3cqZAo" node="54meraTANSi" resolve="executionModeString" />
+                        </node>
+                        <node concept="Xl_RD" id="54meraTANTl" role="3uHU7B">
+                          <property role="Xl_RC" value="Unknown execution mode: " />
+                        </node>
+                      </node>
+                      <node concept="37vLTw" id="54meraTANTm" role="RRSow">
+                        <ref role="3cqZAo" node="54meraTANTe" resolve="ex" />
+                      </node>
+                    </node>
+                  </node>
+                </node>
+                <node concept="3clFbS" id="54meraTANTn" role="1zxBo7">
+                  <node concept="3clFbF" id="54meraTANTo" role="3cqZAp">
+                    <node concept="37vLTI" id="54meraTANTp" role="3clFbG">
+                      <node concept="unr1b" id="54meraTANTq" role="37vLTx">
+                        <ref role="un$jP" node="5Le8ZRJdWor" resolve="EModelixExecutionMode" />
+                        <node concept="37vLTw" id="54meraTANTr" role="unwt0">
+                          <ref role="3cqZAo" node="54meraTANSi" resolve="executionModeString" />
+                        </node>
+                      </node>
+                      <node concept="37vLTw" id="54meraTANTs" role="37vLTJ">
+                        <ref role="3cqZAo" node="54meraTANSr" resolve="executionMode" />
+                      </node>
+                    </node>
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="3clFbF" id="54meraTANT1" role="3cqZAp">
+          <node concept="2YIFZM" id="54meraTANT2" role="3clFbG">
+            <ref role="37wK5l" to="wyt6:~System.setProperty(java.lang.String,java.lang.String)" resolve="setProperty" />
+            <ref role="1Pybhc" to="wyt6:~System" resolve="System" />
+            <node concept="37vLTw" id="54meraTANTz" role="37wK5m">
+              <ref role="3cqZAo" node="7Qo$o7gTfVU" resolve="EXECUTION_MODE_SYSPROP" />
+            </node>
+            <node concept="2OqwBi" id="54meraTANT4" role="37wK5m">
+              <node concept="37vLTw" id="54meraTANT5" role="2Oq$k0">
+                <ref role="3cqZAo" node="54meraTANSr" resolve="executionMode" />
+              </node>
+              <node concept="liA8E" id="54meraTANT6" role="2OqNvi">
+                <ref role="37wK5l" to="wyt6:~Enum.name()" resolve="name" />
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="3cpWs6" id="54meraTAP8W" role="3cqZAp">
+          <node concept="37vLTw" id="54meraTAPqs" role="3cqZAk">
+            <ref role="3cqZAo" node="54meraTANSr" resolve="executionMode" />
+          </node>
+        </node>
+      </node>
+      <node concept="3uibUv" id="54meraTAMYF" role="3clF45">
+        <ref role="3uigEE" node="5Le8ZRJdWor" resolve="EModelixExecutionMode" />
+      </node>
+      <node concept="3Tm1VV" id="54meraTAMLO" role="1B3o_S" />
     </node>
     <node concept="3Tm1VV" id="7Qo$o7gTdFJ" role="1B3o_S" />
   </node>
