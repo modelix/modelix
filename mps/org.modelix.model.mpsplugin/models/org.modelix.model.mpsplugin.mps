@@ -15807,8 +15807,14 @@
                                       <ref role="1PxDUh" to="jks5:~ITree" resolve="ITree" />
                                       <ref role="3cqZAo" to="jks5:~ITree.ROOT_ID" resolve="ROOT_ID" />
                                     </node>
-                                    <node concept="Xl_RD" id="1OzsJtaqLvn" role="37wK5m">
-                                      <property role="Xl_RC" value="modules" />
+                                    <node concept="2OqwBi" id="4S9EsdAOlpV" role="37wK5m">
+                                      <node concept="359W_D" id="4S9EsdAOk8y" role="2Oq$k0">
+                                        <ref role="359W_E" to="jh6v:qmkA5fOskm" resolve="Repository" />
+                                        <ref role="359W_F" to="jh6v:qmkA5fOskn" resolve="modules" />
+                                      </node>
+                                      <node concept="liA8E" id="4S9EsdAOlZc" role="2OqNvi">
+                                        <ref role="37wK5l" to="c17a:~SNamedElement.getName()" resolve="getName" />
+                                      </node>
                                     </node>
                                   </node>
                                 </node>
@@ -15952,6 +15958,29 @@
           <ref role="3uigEE" to="z1c3:~Solution" resolve="Solution" />
         </node>
       </node>
+      <node concept="P$JXv" id="4S9EsdAPUIs" role="lGtFl">
+        <node concept="TZ5HA" id="4S9EsdAPVMu" role="TZ5H$">
+          <node concept="1dT_AC" id="4S9EsdAPVMv" role="1dT_Ay">
+            <property role="1dT_AB" value="This method is expected to be called when a user is present to see the notifications." />
+          </node>
+        </node>
+        <node concept="TUZQ0" id="4S9EsdAPUIv" role="3nqlJM">
+          <node concept="zr_55" id="4S9EsdAPUIx" role="zr_5Q">
+            <ref role="zr_51" node="1OzsJtaqLvM" resolve="outputFolder" />
+          </node>
+        </node>
+        <node concept="TUZQ0" id="4S9EsdAPUIy" role="3nqlJM">
+          <node concept="zr_55" id="4S9EsdAPUI$" role="zr_5Q">
+            <ref role="zr_51" node="1OzsJtaqNBL" resolve="selectedMduleIds" />
+          </node>
+        </node>
+        <node concept="TUZQ0" id="4S9EsdAPUI_" role="3nqlJM">
+          <node concept="zr_55" id="4S9EsdAPUIB" role="zr_5Q">
+            <ref role="zr_51" node="Aop38IfXqs" resolve="mpsProject" />
+          </node>
+        </node>
+        <node concept="x79VA" id="4S9EsdAPUIC" role="3nqlJM" />
+      </node>
     </node>
     <node concept="2tJIrI" id="1OzsJtaqKAg" role="jymVt" />
     <node concept="3clFb_" id="29etMtbn6gM" role="jymVt">
@@ -15985,24 +16014,45 @@
             </node>
           </node>
           <node concept="3clFbS" id="29etMtbjRmw" role="2LFqv$">
-            <node concept="3clFbF" id="5Ns9HDw1AzT" role="3cqZAp">
-              <node concept="2OqwBi" id="5Ns9HDw1BiR" role="3clFbG">
-                <node concept="37vLTw" id="5Ns9HDw1AzR" role="2Oq$k0">
-                  <ref role="3cqZAo" node="5Ns9HDw1$mi" resolve="solutions" />
+            <node concept="3cpWs8" id="4S9EsdAPRpD" role="3cqZAp">
+              <node concept="3cpWsn" id="4S9EsdAPRpE" role="3cpWs9">
+                <property role="TrG5h" value="s" />
+                <node concept="3uibUv" id="4S9EsdAPRpF" role="1tU5fm">
+                  <ref role="3uigEE" to="z1c3:~Solution" resolve="Solution" />
                 </node>
-                <node concept="TSZUe" id="5Ns9HDw1CUc" role="2OqNvi">
-                  <node concept="1rXfSq" id="29etMtbjRmy" role="25WWJ7">
-                    <ref role="37wK5l" node="29etMtbn70P" resolve="createModule" />
-                    <node concept="37vLTw" id="29etMtbjRmz" role="37wK5m">
-                      <ref role="3cqZAo" node="29etMtbjRm$" resolve="module" />
+                <node concept="1rXfSq" id="4S9EsdAPRu2" role="33vP2m">
+                  <ref role="37wK5l" node="29etMtbn70P" resolve="createModule" />
+                  <node concept="37vLTw" id="4S9EsdAPRu3" role="37wK5m">
+                    <ref role="3cqZAo" node="29etMtbjRm$" resolve="module" />
+                  </node>
+                  <node concept="37vLTw" id="4S9EsdAPRu4" role="37wK5m">
+                    <ref role="3cqZAo" node="27OZ2T4lPEc" resolve="outputFolder" />
+                  </node>
+                  <node concept="37vLTw" id="4S9EsdAPRu5" role="37wK5m">
+                    <ref role="3cqZAo" node="Aop38Ig653" resolve="mpsProject" />
+                  </node>
+                </node>
+              </node>
+            </node>
+            <node concept="3clFbJ" id="4S9EsdAPTuW" role="3cqZAp">
+              <node concept="3clFbS" id="4S9EsdAPTuY" role="3clFbx">
+                <node concept="3clFbF" id="5Ns9HDw1AzT" role="3cqZAp">
+                  <node concept="2OqwBi" id="5Ns9HDw1BiR" role="3clFbG">
+                    <node concept="37vLTw" id="5Ns9HDw1AzR" role="2Oq$k0">
+                      <ref role="3cqZAo" node="5Ns9HDw1$mi" resolve="solutions" />
                     </node>
-                    <node concept="37vLTw" id="27OZ2T4lSXt" role="37wK5m">
-                      <ref role="3cqZAo" node="27OZ2T4lPEc" resolve="outputFolder" />
-                    </node>
-                    <node concept="37vLTw" id="Aop38Ig9Xl" role="37wK5m">
-                      <ref role="3cqZAo" node="Aop38Ig653" resolve="mpsProject" />
+                    <node concept="TSZUe" id="5Ns9HDw1CUc" role="2OqNvi">
+                      <node concept="37vLTw" id="4S9EsdAPSqR" role="25WWJ7">
+                        <ref role="3cqZAo" node="4S9EsdAPRpE" resolve="s" />
+                      </node>
                     </node>
                   </node>
+                </node>
+              </node>
+              <node concept="3y3z36" id="4S9EsdAPUbl" role="3clFbw">
+                <node concept="10Nm6u" id="4S9EsdAPUoS" role="3uHU7w" />
+                <node concept="37vLTw" id="4S9EsdAPTJH" role="3uHU7B">
+                  <ref role="3cqZAo" node="4S9EsdAPRpE" resolve="s" />
                 </node>
               </node>
             </node>
@@ -16040,7 +16090,15 @@
           <ref role="3uigEE" to="z1c3:~Solution" resolve="Solution" />
         </node>
       </node>
+      <node concept="P$JXv" id="4S9EsdAPN7g" role="lGtFl">
+        <node concept="TZ5HA" id="4S9EsdAPN7h" role="TZ5H$">
+          <node concept="1dT_AC" id="4S9EsdAPN7i" role="1dT_Ay">
+            <property role="1dT_AB" value="This method is expected to be called when a user is present to see the notifications." />
+          </node>
+        </node>
+      </node>
     </node>
+    <node concept="2tJIrI" id="7PLbr3VI$7P" role="jymVt" />
     <node concept="2tJIrI" id="729BXr3QvLN" role="jymVt" />
     <node concept="3clFb_" id="29etMtbn70P" role="jymVt">
       <property role="TrG5h" value="createModule" />
@@ -16076,6 +16134,53 @@
                   <property role="Xl_RC" value="id" />
                 </node>
               </node>
+            </node>
+          </node>
+        </node>
+        <node concept="3clFbJ" id="7PLbr3VCxL4" role="3cqZAp">
+          <node concept="3clFbS" id="7PLbr3VCxL6" role="3clFbx">
+            <node concept="3clFbF" id="4S9EsdAOLoO" role="3cqZAp">
+              <node concept="2YIFZM" id="4S9EsdAOLO$" role="3clFbG">
+                <ref role="37wK5l" to="fnpx:~Notifications$Bus.notify(com.intellij.notification.Notification)" resolve="notify" />
+                <ref role="1Pybhd" to="fnpx:~Notifications$Bus" resolve="Notifications.Bus" />
+                <node concept="2ShNRf" id="4S9EsdAOM2j" role="37wK5m">
+                  <node concept="1pGfFk" id="4S9EsdAPmEt" role="2ShVmc">
+                    <ref role="37wK5l" to="fnpx:~Notification.&lt;init&gt;(java.lang.String,java.lang.String,java.lang.String,com.intellij.notification.NotificationType)" resolve="Notification" />
+                    <node concept="Xl_RD" id="4S9EsdAPpnE" role="37wK5m">
+                      <property role="Xl_RC" value="modelix" />
+                    </node>
+                    <node concept="Xl_RD" id="4S9EsdAPqr_" role="37wK5m">
+                      <property role="Xl_RC" value="Module without ID" />
+                    </node>
+                    <node concept="3cpWs3" id="4S9EsdAPt6E" role="37wK5m">
+                      <node concept="Xl_RD" id="4S9EsdAPtk9" role="3uHU7w">
+                        <property role="Xl_RC" value=" has been stored without an ID. Please ID and check it out again" />
+                      </node>
+                      <node concept="3cpWs3" id="4S9EsdAPs7K" role="3uHU7B">
+                        <node concept="Xl_RD" id="4S9EsdAPqLV" role="3uHU7B">
+                          <property role="Xl_RC" value="Module " />
+                        </node>
+                        <node concept="37vLTw" id="4S9EsdAPsqi" role="3uHU7w">
+                          <ref role="3cqZAo" node="29etMtbjRmI" resolve="name" />
+                        </node>
+                      </node>
+                    </node>
+                    <node concept="Rm8GO" id="4S9EsdAPBGn" role="37wK5m">
+                      <ref role="Rm8GQ" to="fnpx:~NotificationType.ERROR" resolve="ERROR" />
+                      <ref role="1Px2BO" to="fnpx:~NotificationType" resolve="NotificationType" />
+                    </node>
+                  </node>
+                </node>
+              </node>
+            </node>
+            <node concept="3cpWs6" id="4S9EsdAPvte" role="3cqZAp">
+              <node concept="10Nm6u" id="4S9EsdAPyqA" role="3cqZAk" />
+            </node>
+          </node>
+          <node concept="3clFbC" id="7PLbr3VCBNS" role="3clFbw">
+            <node concept="10Nm6u" id="7PLbr3VCEa3" role="3uHU7w" />
+            <node concept="37vLTw" id="7PLbr3VC$4Q" role="3uHU7B">
+              <ref role="3cqZAo" node="5Ns9HDw1Xcb" resolve="moduleIdAsString" />
             </node>
           </node>
         </node>
@@ -16666,6 +16771,13 @@
         <ref role="3uigEE" to="z1c3:~Solution" resolve="Solution" />
       </node>
       <node concept="3Tm6S6" id="29etMtbjRoa" role="1B3o_S" />
+      <node concept="P$JXv" id="4S9EsdAPFsb" role="lGtFl">
+        <node concept="TZ5HA" id="4S9EsdAPFsc" role="TZ5H$">
+          <node concept="1dT_AC" id="4S9EsdAPFsd" role="1dT_Ay">
+            <property role="1dT_AB" value="This method is expected to be called when a user is present to see the notification." />
+          </node>
+        </node>
+      </node>
     </node>
     <node concept="2tJIrI" id="3BReYNsIE7O" role="jymVt" />
     <node concept="312cEu" id="3BReYNsIHgH" role="jymVt">
@@ -29972,6 +30084,34 @@
                         </node>
                         <node concept="37vLTw" id="aVVeoQxArE" role="37wK5m">
                           <ref role="3cqZAo" node="aVVeoQvpPe" resolve="name" />
+                        </node>
+                      </node>
+                    </node>
+                  </node>
+                  <node concept="3clFbF" id="7PLbr3VHodc" role="3cqZAp">
+                    <node concept="2OqwBi" id="7PLbr3VHodd" role="3clFbG">
+                      <node concept="37vLTw" id="7PLbr3VHode" role="2Oq$k0">
+                        <ref role="3cqZAo" node="aVVeoQvpX8" resolve="newModule" />
+                      </node>
+                      <node concept="liA8E" id="7PLbr3VHodf" role="2OqNvi">
+                        <ref role="37wK5l" to="jks5:~INode.setPropertyValue(java.lang.String,java.lang.String)" resolve="setPropertyValue" />
+                        <node concept="2OqwBi" id="7PLbr3VHodg" role="37wK5m">
+                          <node concept="355D3s" id="7PLbr3VHodh" role="2Oq$k0">
+                            <ref role="355D3t" to="jh6v:qmkA5fOskf" resolve="Module" />
+                            <ref role="355D3u" to="jh6v:3Ezg1fME0bw" resolve="id" />
+                          </node>
+                          <node concept="liA8E" id="7PLbr3VHodi" role="2OqNvi">
+                            <ref role="37wK5l" to="c17a:~SProperty.getName()" resolve="getName" />
+                          </node>
+                        </node>
+                        <node concept="2OqwBi" id="7PLbr3VHoVK" role="37wK5m">
+                          <node concept="2YIFZM" id="7PLbr3VHoCM" role="2Oq$k0">
+                            <ref role="37wK5l" to="33ny:~UUID.randomUUID()" resolve="randomUUID" />
+                            <ref role="1Pybhd" to="33ny:~UUID" resolve="UUID" />
+                          </node>
+                          <node concept="liA8E" id="7PLbr3VHply" role="2OqNvi">
+                            <ref role="37wK5l" to="33ny:~UUID.toString()" resolve="toString" />
+                          </node>
                         </node>
                       </node>
                     </node>
