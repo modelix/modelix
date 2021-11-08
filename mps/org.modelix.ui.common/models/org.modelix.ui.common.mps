@@ -58,6 +58,8 @@
     <import index="z1c3" ref="6ed54515-acc8-4d1e-a16c-9fd6cfe951ea/java:jetbrains.mps.project(MPS.Core/)" />
     <import index="o8cn" ref="r:7f6154b4-93e5-4a51-94de-d145e58184e7(org.modelix.ui.svg.plugin)" />
     <import index="z2i8" ref="498d89d2-c2e9-11e2-ad49-6cf049e62fe5/java:com.intellij.icons(MPS.IDEA/)" />
+    <import index="ia5i" ref="r:53d14de3-e820-4a3b-9328-a2833dcab0bd(org.modelix.common)" />
+    <import index="g1qu" ref="498d89d2-c2e9-11e2-ad49-6cf049e62fe5/java:com.intellij.util.ui(MPS.IDEA/)" />
   </imports>
   <registry>
     <language id="f3061a53-9226-4cc5-a443-f952ceaf5816" name="jetbrains.mps.baseLanguage">
@@ -15389,6 +15391,57 @@
       <node concept="3Tm1VV" id="6rcGC6EIovL" role="1B3o_S" />
     </node>
     <node concept="2tJIrI" id="eACOy0iku7" role="jymVt" />
+  </node>
+  <node concept="312cEu" id="5wsTsVewJTP">
+    <property role="TrG5h" value="ModelixTheme" />
+    <node concept="2YIFZL" id="5wsTsVewKO2" role="jymVt">
+      <property role="TrG5h" value="getCssPath" />
+      <node concept="3clFbS" id="5wsTsVewKyT" role="3clF47">
+        <node concept="3cpWs8" id="5wsTsVezs99" role="3cqZAp">
+          <node concept="3cpWsn" id="5wsTsVezs9a" role="3cpWs9">
+            <property role="TrG5h" value="themeName" />
+            <node concept="17QB3L" id="5wsTsVezs8T" role="1tU5fm" />
+            <node concept="2YIFZM" id="5wsTsVe$Wyj" role="33vP2m">
+              <ref role="37wK5l" to="ia5i:5wsTsVezpRP" resolve="getOrElse" />
+              <ref role="1Pybhc" to="ia5i:3xX$Vyo038N" resolve="PropertyOrEnv" />
+              <node concept="Xl_RD" id="5wsTsVe$Wyk" role="37wK5m">
+                <property role="Xl_RC" value="modelix.theme" />
+              </node>
+              <node concept="3K4zz7" id="5wsTsVe$WE2" role="37wK5m">
+                <node concept="Xl_RD" id="5wsTsVe$WE3" role="3K4E3e">
+                  <property role="Xl_RC" value="dark" />
+                </node>
+                <node concept="Xl_RD" id="5wsTsVe$WE4" role="3K4GZi">
+                  <property role="Xl_RC" value="light" />
+                </node>
+                <node concept="2YIFZM" id="5wsTsVe$WE5" role="3K4Cdx">
+                  <ref role="1Pybhc" to="g1qu:~UIUtil" resolve="UIUtil" />
+                  <ref role="37wK5l" to="g1qu:~UIUtil.isUnderDarcula()" resolve="isUnderDarcula" />
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="3clFbF" id="5wsTsVewL1A" role="3cqZAp">
+          <node concept="3cpWs3" id="5wsTsVezslq" role="3clFbG">
+            <node concept="Xl_RD" id="5wsTsVezsgH" role="3uHU7w">
+              <property role="Xl_RC" value="-theme.css" />
+            </node>
+            <node concept="3cpWs3" id="5wsTsVezsg_" role="3uHU7B">
+              <node concept="Xl_RD" id="5wsTsVezsgF" role="3uHU7B">
+                <property role="Xl_RC" value="css/" />
+              </node>
+              <node concept="37vLTw" id="5wsTsVezspO" role="3uHU7w">
+                <ref role="3cqZAo" node="5wsTsVezs9a" resolve="themeName" />
+              </node>
+            </node>
+          </node>
+        </node>
+      </node>
+      <node concept="17QB3L" id="5wsTsVewKNF" role="3clF45" />
+      <node concept="3Tm1VV" id="5wsTsVewKyS" role="1B3o_S" />
+    </node>
+    <node concept="3Tm1VV" id="5wsTsVewJTQ" role="1B3o_S" />
   </node>
 </model>
 

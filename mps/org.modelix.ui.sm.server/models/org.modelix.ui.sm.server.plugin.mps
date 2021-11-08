@@ -4812,8 +4812,19 @@
                 <property role="Xl_RC" value="&lt;/body&gt;&lt;/html&gt;" />
               </node>
               <node concept="3cpWs3" id="3pn$gDKpP57" role="3uHU7B">
-                <node concept="Xl_RD" id="3pn$gDKpP58" role="3uHU7B">
-                  <property role="Xl_RC" value="&lt;!DOCTYPE html&gt;&lt;html&gt;&lt;head&gt;&lt;link rel=\&quot;stylesheet\&quot; type=\&quot;text/css\&quot; href=\&quot;css/app.css\&quot;&gt;&lt;script type=\&quot;text/javascript\&quot; src=\&quot;scripts/app.js\&quot;&gt;&lt;/script&gt;&lt;script type=\&quot;text/javascript\&quot; src=\&quot;scripts/newNodeButton.js\&quot;&gt;&lt;/script&gt;&lt;/head&gt;&lt;body&gt;" />
+                <node concept="3cpWs3" id="5wsTsVewP9a" role="3uHU7B">
+                  <node concept="3cpWs3" id="5wsTsVewPuM" role="3uHU7B">
+                    <node concept="Xl_RD" id="5wsTsVewP9g" role="3uHU7B">
+                      <property role="Xl_RC" value="&lt;!DOCTYPE html&gt;&lt;html&gt;&lt;head&gt;&lt;link rel=\&quot;stylesheet\&quot; type=\&quot;text/css\&quot; href=\&quot;" />
+                    </node>
+                    <node concept="2YIFZM" id="5wsTsVex7uz" role="3uHU7w">
+                      <ref role="37wK5l" to="qsto:5wsTsVewKO2" resolve="getCssPath" />
+                      <ref role="1Pybhc" to="qsto:5wsTsVewJTP" resolve="ModelixTheme" />
+                    </node>
+                  </node>
+                  <node concept="Xl_RD" id="5wsTsVewP9i" role="3uHU7w">
+                    <property role="Xl_RC" value="\&quot;&gt;&lt;script type=\&quot;text/javascript\&quot; src=\&quot;scripts/app.js\&quot;&gt;&lt;/script&gt;&lt;script type=\&quot;text/javascript\&quot; src=\&quot;scripts/newNodeButton.js\&quot;&gt;&lt;/script&gt;&lt;/head&gt;&lt;body&gt;" />
+                  </node>
                 </node>
                 <node concept="37vLTw" id="3pn$gDKpP59" role="3uHU7w">
                   <ref role="3cqZAo" node="1MbrkMI$zgi" resolve="text" />
@@ -5584,8 +5595,19 @@
                 <property role="Xl_RC" value="&lt;/body&gt;&lt;/html&gt;" />
               </node>
               <node concept="3cpWs3" id="7mc9A5ll724" role="3uHU7B">
-                <node concept="Xl_RD" id="7mc9A5ll725" role="3uHU7B">
-                  <property role="Xl_RC" value="&lt;!DOCTYPE html&gt;&lt;html&gt;&lt;head&gt;&lt;link rel=\&quot;stylesheet\&quot; type=\&quot;text/css\&quot; href=\&quot;css/app.css\&quot;&gt;&lt;script type=\&quot;text/javascript\&quot; src=\&quot;scripts/app.js\&quot;&gt;&lt;/script&gt;&lt;/head&gt;&lt;body&gt;" />
+                <node concept="3cpWs3" id="5wsTsVewMd7" role="3uHU7B">
+                  <node concept="3cpWs3" id="5wsTsVewM9I" role="3uHU7B">
+                    <node concept="2YIFZM" id="5wsTsVex7u$" role="3uHU7w">
+                      <ref role="37wK5l" to="qsto:5wsTsVewKO2" resolve="getCssPath" />
+                      <ref role="1Pybhc" to="qsto:5wsTsVewJTP" resolve="ModelixTheme" />
+                    </node>
+                    <node concept="Xl_RD" id="5wsTsVewLR6" role="3uHU7B">
+                      <property role="Xl_RC" value="&lt;!DOCTYPE html&gt;&lt;html&gt;&lt;head&gt;&lt;link rel=\&quot;stylesheet\&quot; type=\&quot;text/css\&quot; href=\&quot;" />
+                    </node>
+                  </node>
+                  <node concept="Xl_RD" id="5wsTsVewLR8" role="3uHU7w">
+                    <property role="Xl_RC" value="\&quot;&gt;&lt;script type=\&quot;text/javascript\&quot; src=\&quot;scripts/app.js\&quot;&gt;&lt;/script&gt;&lt;/head&gt;&lt;body&gt;" />
+                  </node>
                 </node>
                 <node concept="37vLTw" id="7mc9A5ll726" role="3uHU7w">
                   <ref role="3cqZAo" node="7mc9A5ll70N" resolve="text" />
@@ -6248,8 +6270,19 @@
                 <property role="Xl_RC" value="&lt;/body&gt;&lt;/html&gt;" />
               </node>
               <node concept="3cpWs3" id="72Dzx1UmG43" role="3uHU7B">
-                <node concept="Xl_RD" id="72Dzx1UmG44" role="3uHU7B">
-                  <property role="Xl_RC" value="&lt;!DOCTYPE html&gt;&lt;html&gt;&lt;head&gt;&lt;link rel=\&quot;stylesheet\&quot; type=\&quot;text/css\&quot; href=\&quot;css/app.css\&quot;&gt;&lt;script type=\&quot;text/javascript\&quot; src=\&quot;scripts/app.js\&quot;&gt;&lt;/script&gt;&lt;/head&gt;&lt;body&gt;" />
+                <node concept="3cpWs3" id="5wsTsVewSOp" role="3uHU7B">
+                  <node concept="3cpWs3" id="5wsTsVewT9I" role="3uHU7B">
+                    <node concept="Xl_RD" id="5wsTsVewSOv" role="3uHU7B">
+                      <property role="Xl_RC" value="&lt;!DOCTYPE html&gt;&lt;html&gt;&lt;head&gt;&lt;link rel=\&quot;stylesheet\&quot; type=\&quot;text/css\&quot; href=\&quot;" />
+                    </node>
+                    <node concept="2YIFZM" id="5wsTsVex7u_" role="3uHU7w">
+                      <ref role="37wK5l" to="qsto:5wsTsVewKO2" resolve="getCssPath" />
+                      <ref role="1Pybhc" to="qsto:5wsTsVewJTP" resolve="ModelixTheme" />
+                    </node>
+                  </node>
+                  <node concept="Xl_RD" id="5wsTsVewSOx" role="3uHU7w">
+                    <property role="Xl_RC" value="\&quot;&gt;&lt;script type=\&quot;text/javascript\&quot; src=\&quot;scripts/app.js\&quot;&gt;&lt;/script&gt;&lt;/head&gt;&lt;body&gt;" />
+                  </node>
                 </node>
                 <node concept="37vLTw" id="72Dzx1UmG45" role="3uHU7w">
                   <ref role="3cqZAo" node="72Dzx1UmG2E" resolve="text" />
