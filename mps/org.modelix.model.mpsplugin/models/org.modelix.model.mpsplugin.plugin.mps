@@ -60,8 +60,9 @@
     <import index="z1o6" ref="498d89d2-c2e9-11e2-ad49-6cf049e62fe5/java:com.intellij.serviceContainer(MPS.IDEA/)" />
     <import index="10lj" ref="r:d08664e2-1f34-4206-af22-5f6ebb6628cd(org.modelix.authentication.plugin)" />
     <import index="fnpx" ref="498d89d2-c2e9-11e2-ad49-6cf049e62fe5/java:com.intellij.notification(MPS.IDEA/)" />
+    <import index="ia5i" ref="r:53d14de3-e820-4a3b-9328-a2833dcab0bd(org.modelix.common)" />
+    <import index="18ew" ref="6ed54515-acc8-4d1e-a16c-9fd6cfe951ea/java:jetbrains.mps.util(MPS.Core/)" />
     <import index="guwi" ref="6354ebe7-c22a-4a0f-ac54-50b52ab9b065/java:java.io(JDK/)" implicit="true" />
-    <import index="ia5i" ref="r:53d14de3-e820-4a3b-9328-a2833dcab0bd(org.modelix.common)" implicit="true" />
     <import index="71xd" ref="742f6602-5a2f-4313-aa6e-ae1cd4ffdc61/java:jetbrains.mps.ide.tools(MPS.Platform/)" implicit="true" />
     <import index="hvt5" ref="0a2651ab-f212-45c2-a2f0-343e76cbc26b/java:org.modelix.model(org.modelix.model.client/)" implicit="true" />
     <import index="tprs" ref="r:00000000-0000-4000-0000-011c895904a4(jetbrains.mps.ide.actions)" implicit="true" />
@@ -2020,43 +2021,6 @@
           </node>
         </node>
         <node concept="3clFbH" id="6aRQr1Xcp__" role="3cqZAp" />
-        <node concept="3cpWs8" id="6aRQr1Xcpml" role="3cqZAp">
-          <node concept="3cpWsn" id="6aRQr1Xcpmm" role="3cpWs9">
-            <property role="TrG5h" value="name" />
-            <node concept="17QB3L" id="6aRQr1Xcpmn" role="1tU5fm" />
-            <node concept="2YIFZM" id="6aRQr1Xcpmo" role="33vP2m">
-              <ref role="1Pybhc" to="jkm4:~Messages" resolve="Messages" />
-              <ref role="37wK5l" to="jkm4:~Messages.showInputDialog(com.intellij.openapi.project.Project,java.lang.String,java.lang.String,javax.swing.Icon)" resolve="showInputDialog" />
-              <node concept="2OqwBi" id="6aRQr1Xcpmp" role="37wK5m">
-                <node concept="2WthIp" id="6aRQr1Xcpmq" role="2Oq$k0" />
-                <node concept="1DTwFV" id="6aRQr1Xcpmr" role="2OqNvi">
-                  <ref role="2WH_rO" node="6aRQr1Xcq1Y" resolve="project" />
-                </node>
-              </node>
-              <node concept="Xl_RD" id="6aRQr1Xcpms" role="37wK5m">
-                <property role="Xl_RC" value="Name" />
-              </node>
-              <node concept="Xl_RD" id="6aRQr1Xcpmt" role="37wK5m">
-                <property role="Xl_RC" value="Add Repository" />
-              </node>
-              <node concept="10M0yZ" id="6aRQr1XcqeS" role="37wK5m">
-                <ref role="1PxDUh" to="csg2:6aRQr1WMwO8" resolve="CloudIcons" />
-                <ref role="3cqZAo" to="csg2:6aRQr1WUw7m" resolve="REPOSITORY_ICON" />
-              </node>
-            </node>
-          </node>
-        </node>
-        <node concept="3clFbJ" id="6aRQr1XcqDp" role="3cqZAp">
-          <node concept="3clFbS" id="6aRQr1XcqDr" role="3clFbx">
-            <node concept="3cpWs6" id="6aRQr1Xcsjf" role="3cqZAp" />
-          </node>
-          <node concept="2OqwBi" id="6aRQr1Xcrui" role="3clFbw">
-            <node concept="37vLTw" id="6aRQr1XcqEj" role="2Oq$k0">
-              <ref role="3cqZAo" node="6aRQr1Xcpmm" resolve="name" />
-            </node>
-            <node concept="17RlXB" id="6aRQr1Xcsfl" role="2OqNvi" />
-          </node>
-        </node>
         <node concept="3cpWs8" id="6aRQr1Xcq7D" role="3cqZAp">
           <node concept="3cpWsn" id="6aRQr1Xcq7E" role="3cpWs9">
             <property role="TrG5h" value="id" />
@@ -2101,11 +2065,12 @@
             </node>
             <node concept="liA8E" id="6aRQr1Xcpda" role="2OqNvi">
               <ref role="37wK5l" to="csg2:6aRQr1Xc8A_" resolve="addRepository" />
-              <node concept="37vLTw" id="6aRQr1XctFz" role="37wK5m">
-                <ref role="3cqZAo" node="6aRQr1Xcpmm" resolve="name" />
-              </node>
-              <node concept="37vLTw" id="6aRQr1XctHG" role="37wK5m">
-                <ref role="3cqZAo" node="6aRQr1Xcq7E" resolve="id" />
+              <node concept="2YIFZM" id="5wsTsVeFzCr" role="37wK5m">
+                <ref role="37wK5l" to="18ew:~NameUtil.toValidIdentifier(java.lang.String)" resolve="toValidIdentifier" />
+                <ref role="1Pybhc" to="18ew:~NameUtil" resolve="NameUtil" />
+                <node concept="37vLTw" id="5wsTsVeFzCs" role="37wK5m">
+                  <ref role="3cqZAo" node="6aRQr1Xcq7E" resolve="id" />
+                </node>
               </node>
             </node>
           </node>

@@ -3340,32 +3340,12 @@
             <ref role="3cqZAo" to="csg2:6aRQr1WUw7m" resolve="REPOSITORY_ICON" />
             <ref role="1PxDUh" to="csg2:6aRQr1WMwO8" resolve="CloudIcons" />
           </node>
-          <node concept="3cpWs3" id="6aRQr1X8bMH" role="37wK5m">
-            <node concept="Xl_RD" id="6aRQr1X8c6K" role="3uHU7w">
-              <property role="Xl_RC" value=")" />
+          <node concept="2OqwBi" id="5wsTsVeFCTt" role="37wK5m">
+            <node concept="37vLTw" id="5wsTsVeFCTu" role="2Oq$k0">
+              <ref role="3cqZAo" node="6aRQr1X6W4f" resolve="repositoryInfo" />
             </node>
-            <node concept="3cpWs3" id="6aRQr1X8au7" role="3uHU7B">
-              <node concept="3cpWs3" id="6aRQr1X89SX" role="3uHU7B">
-                <node concept="2OqwBi" id="6aRQr1X89el" role="3uHU7B">
-                  <node concept="37vLTw" id="6aRQr1X88In" role="2Oq$k0">
-                    <ref role="3cqZAo" node="6aRQr1X6W4f" resolve="repositoryInfo" />
-                  </node>
-                  <node concept="3TrcHB" id="6aRQr1X8apj" role="2OqNvi">
-                    <ref role="3TsBF5" to="tpck:h0TrG11" resolve="name" />
-                  </node>
-                </node>
-                <node concept="Xl_RD" id="6aRQr1X8ad0" role="3uHU7w">
-                  <property role="Xl_RC" value=" (" />
-                </node>
-              </node>
-              <node concept="2OqwBi" id="6aRQr1X8bj9" role="3uHU7w">
-                <node concept="37vLTw" id="6aRQr1X8aPu" role="2Oq$k0">
-                  <ref role="3cqZAo" node="6aRQr1X6W4f" resolve="repositoryInfo" />
-                </node>
-                <node concept="3TrcHB" id="6aRQr1X8bzt" role="2OqNvi">
-                  <ref role="3TsBF5" to="w7di:6aRQr1WVbN6" resolve="id" />
-                </node>
-              </node>
+            <node concept="3TrcHB" id="5wsTsVeFCTv" role="2OqNvi">
+              <ref role="3TsBF5" to="w7di:6aRQr1WVbN6" resolve="id" />
             </node>
           </node>
         </node>
