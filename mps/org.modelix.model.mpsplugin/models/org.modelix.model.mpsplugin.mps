@@ -19342,21 +19342,31 @@
                         <node concept="3clFbS" id="1jmK$ykJ$FI" role="3clFbx">
                           <node concept="3cpWs6" id="1jmK$ykJEKu" role="3cqZAp" />
                         </node>
-                        <node concept="22lmx$" id="1jmK$ykJE5$" role="3clFbw">
-                          <node concept="2OqwBi" id="1jmK$ykJAff" role="3uHU7B">
-                            <node concept="37vLTw" id="1jmK$ykJ_ya" role="2Oq$k0">
-                              <ref role="3cqZAo" node="15XeiqLNmU6" resolve="physicalModule" />
+                        <node concept="22lmx$" id="7ZZZU$kXMEj" role="3clFbw">
+                          <node concept="2ZW3vV" id="7ZZZU$kXQ66" role="3uHU7w">
+                            <node concept="3uibUv" id="7ZZZU$kXT0K" role="2ZW6by">
+                              <ref role="3uigEE" to="31cb:~TransientSModule" resolve="TransientSModule" />
                             </node>
-                            <node concept="liA8E" id="1jmK$ykJAZv" role="2OqNvi">
-                              <ref role="37wK5l" to="lui2:~SModule.isPackaged()" resolve="isPackaged" />
+                            <node concept="37vLTw" id="7ZZZU$kXOmd" role="2ZW6bz">
+                              <ref role="3cqZAo" node="15XeiqLNmU6" resolve="physicalModule" />
                             </node>
                           </node>
-                          <node concept="2OqwBi" id="1jmK$ykJCRU" role="3uHU7w">
-                            <node concept="37vLTw" id="1jmK$ykJCv5" role="2Oq$k0">
-                              <ref role="3cqZAo" node="15XeiqLNmU6" resolve="physicalModule" />
+                          <node concept="22lmx$" id="1jmK$ykJE5$" role="3uHU7B">
+                            <node concept="2OqwBi" id="1jmK$ykJAff" role="3uHU7B">
+                              <node concept="37vLTw" id="1jmK$ykJ_ya" role="2Oq$k0">
+                                <ref role="3cqZAo" node="15XeiqLNmU6" resolve="physicalModule" />
+                              </node>
+                              <node concept="liA8E" id="1jmK$ykJAZv" role="2OqNvi">
+                                <ref role="37wK5l" to="lui2:~SModule.isPackaged()" resolve="isPackaged" />
+                              </node>
                             </node>
-                            <node concept="liA8E" id="1jmK$ykJCYH" role="2OqNvi">
-                              <ref role="37wK5l" to="lui2:~SModule.isReadOnly()" resolve="isReadOnly" />
+                            <node concept="2OqwBi" id="1jmK$ykJCRU" role="3uHU7w">
+                              <node concept="37vLTw" id="1jmK$ykJCv5" role="2Oq$k0">
+                                <ref role="3cqZAo" node="15XeiqLNmU6" resolve="physicalModule" />
+                              </node>
+                              <node concept="liA8E" id="1jmK$ykJCYH" role="2OqNvi">
+                                <ref role="37wK5l" to="lui2:~SModule.isReadOnly()" resolve="isReadOnly" />
+                              </node>
                             </node>
                           </node>
                         </node>
