@@ -627,9 +627,12 @@
       <concept id="599357942184015200" name="jetbrains.mps.baseLanguage.collections.structure.AlsoSortOperation" flags="nn" index="1XvEQZ" />
     </language>
   </registry>
-  <node concept="2DaZZR" id="26ispG7XkVU" />
+  <node concept="2DaZZR" id="26ispG7XkVU">
+    <property role="3GE5qa" value="init" />
+  </node>
   <node concept="2uRRBC" id="26ispG7XkVV">
     <property role="TrG5h" value="ApplicationPlugin" />
+    <property role="3GE5qa" value="init" />
     <node concept="2BZ0e9" id="4rrX99okHlz" role="2uRRBG">
       <property role="TrG5h" value="bindAll" />
       <node concept="3Tm6S6" id="4rrX99okHl$" role="1B3o_S" />
@@ -755,7 +758,7 @@
                   <node concept="3clFbH" id="5Le8ZRJe8OJ" role="3cqZAp" />
                   <node concept="3cpWs8" id="2dy3jLYpTzE" role="3cqZAp">
                     <node concept="3cpWsn" id="2dy3jLYpTzF" role="3cpWs9">
-                      <property role="TrG5h" value="RepositoryId" />
+                      <property role="TrG5h" value="repositoryId" />
                       <node concept="17QB3L" id="2dy3jLYpXCP" role="1tU5fm" />
                       <node concept="2YIFZM" id="5wsTsVez30o" role="33vP2m">
                         <ref role="37wK5l" to="ia5i:3xX$Vyo0aHz" resolve="get" />
@@ -783,7 +786,7 @@
                                     <node concept="1pGfFk" id="2dy3jLYrmtW" role="2ShVmc">
                                       <ref role="37wK5l" to="xkhl:~RepositoryId.&lt;init&gt;(java.lang.String)" resolve="RepositoryId" />
                                       <node concept="37vLTw" id="2dy3jLYrmv_" role="37wK5m">
-                                        <ref role="3cqZAo" node="2dy3jLYpTzF" resolve="RepositoryId" />
+                                        <ref role="3cqZAo" node="2dy3jLYpTzF" resolve="repositoryId" />
                                       </node>
                                     </node>
                                   </node>
@@ -805,7 +808,7 @@
                     </node>
                     <node concept="2OqwBi" id="2dy3jLYpY8_" role="3clFbw">
                       <node concept="37vLTw" id="2dy3jLYpTzI" role="2Oq$k0">
-                        <ref role="3cqZAo" node="2dy3jLYpTzF" resolve="RepositoryId" />
+                        <ref role="3cqZAo" node="2dy3jLYpTzF" resolve="repositoryId" />
                       </node>
                       <node concept="17RvpY" id="2dy3jLYpYAA" role="2OqNvi" />
                     </node>
@@ -1411,6 +1414,7 @@
   </node>
   <node concept="2uRRBy" id="115Xaa3ZjNG">
     <property role="TrG5h" value="ProjectPlugin" />
+    <property role="3GE5qa" value="init" />
     <node concept="2uRRBT" id="115Xaa3ZjO5" role="2uRRB$">
       <node concept="3clFbS" id="115Xaa3ZjO6" role="2VODD2">
         <node concept="3clFbF" id="115Xaa3ZjUM" role="3cqZAp">
@@ -1479,6 +1483,7 @@
   <node concept="sEfby" id="2D0HTQh99J9">
     <property role="TrG5h" value="CloudTool" />
     <property role="2XNbzY" value="Cloud" />
+    <property role="3GE5qa" value="tool" />
     <node concept="2BZ0e9" id="2D0HTQh99UN" role="2XNbBz">
       <property role="TrG5h" value="component" />
       <node concept="3Tm6S6" id="2D0HTQh99UO" role="1B3o_S" />
@@ -4705,6 +4710,7 @@
   <node concept="sEfby" id="7UL57PeskT5">
     <property role="TrG5h" value="CloudHistoryTool" />
     <property role="2XNbzY" value="Cloud History" />
+    <property role="3GE5qa" value="tool" />
     <node concept="2XrIbr" id="7UL57PetjBV" role="2XNbBy">
       <property role="TrG5h" value="load" />
       <node concept="37vLTG" id="1me6UesAsHR" role="3clF46">
@@ -6184,6 +6190,7 @@
   </node>
   <node concept="312cEu" id="7f6Tb6nxCKP">
     <property role="TrG5h" value="PersistedBindingConfiguration" />
+    <property role="3GE5qa" value="config" />
     <node concept="2tJIrI" id="1xehy3SolI2" role="jymVt" />
     <node concept="Wx3nA" id="1xehy3Sot0S" role="jymVt">
       <property role="TrG5h" value="instances" />
@@ -9861,6 +9868,7 @@
   <node concept="312cEu" id="7xblg8lmms7">
     <property role="TrG5h" value="CloudResourcesConfigurationComponent" />
     <property role="1EXbeo" value="true" />
+    <property role="3GE5qa" value="config" />
     <node concept="2tJIrI" id="7xblg8lmn9N" role="jymVt" />
     <node concept="312cEu" id="7xblg8lmnwf" role="jymVt">
       <property role="TrG5h" value="State" />
@@ -13209,6 +13217,7 @@
   </node>
   <node concept="Qs71p" id="5Le8ZRJdWor">
     <property role="TrG5h" value="EModelixExecutionMode" />
+    <property role="3GE5qa" value="init" />
     <node concept="QsSxf" id="5Le8ZRJdWMd" role="Qtgdg">
       <property role="TrG5h" value="DEFAULT" />
       <ref role="37wK5l" to="wyt6:~Object.&lt;init&gt;()" resolve="Object" />
@@ -13233,6 +13242,7 @@
   </node>
   <node concept="312cEu" id="7Qo$o7gTdFI">
     <property role="TrG5h" value="ModelixConfigurationSystemProperties" />
+    <property role="3GE5qa" value="init" />
     <node concept="Wx3nA" id="7Qo$o7gTfVU" role="jymVt">
       <property role="TrG5h" value="EXECUTION_MODE_SYSPROP" />
       <node concept="3Tm1VV" id="7Qo$o7gTdMd" role="1B3o_S" />
@@ -14228,6 +14238,7 @@
   </node>
   <node concept="312cEu" id="6s8HYq3ppPR">
     <property role="TrG5h" value="MetaMetaModelMappings" />
+    <property role="3GE5qa" value="init" />
     <node concept="2YIFZL" id="6s8HYq3pqpo" role="jymVt">
       <property role="TrG5h" value="register" />
       <node concept="3clFbS" id="6s8HYq3pqoG" role="3clF47">

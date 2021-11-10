@@ -12833,6 +12833,7 @@
   </node>
   <node concept="312cEu" id="694yVfgo$uu">
     <property role="TrG5h" value="TransactionUtil" />
+    <property role="3GE5qa" value="util" />
     <node concept="2tJIrI" id="6gw1ikeWqHA" role="jymVt" />
     <node concept="2YIFZL" id="6gw1ikeWpRr" role="jymVt">
       <property role="TrG5h" value="extractArea" />
@@ -13434,6 +13435,7 @@
   </node>
   <node concept="312cEu" id="2a45eKor38C">
     <property role="TrG5h" value="WriteAccessUtil" />
+    <property role="3GE5qa" value="util" />
     <node concept="2YIFZL" id="2a45eKor3F7" role="jymVt">
       <property role="TrG5h" value="runWrite" />
       <node concept="37vLTG" id="2a45eKor3Fu" role="3clF46">
@@ -14320,6 +14322,7 @@
   </node>
   <node concept="312cEu" id="6FW8YbU5vOS">
     <property role="TrG5h" value="CommandHelper" />
+    <property role="3GE5qa" value="util" />
     <node concept="2tJIrI" id="6FW8YbU5vPt" role="jymVt" />
     <node concept="Wx3nA" id="6HiBqPCq2iN" role="jymVt">
       <property role="TrG5h" value="timer" />
@@ -28867,6 +28870,7 @@
   </node>
   <node concept="KRBjq" id="68axlwQ7KSD">
     <property role="TrG5h" value="INodeUtils" />
+    <property role="3GE5qa" value="util" />
     <node concept="ATzpf" id="68axlwQ7KZL" role="a7sos">
       <property role="TrG5h" value="nodeIdAsLong" />
       <node concept="3Tm1VV" id="68axlwQ7KZM" role="1B3o_S" />
@@ -29915,6 +29919,7 @@
   </node>
   <node concept="KRBjq" id="aVVeoQvp1y">
     <property role="TrG5h" value="PNodeAdapterCreationMethods" />
+    <property role="3GE5qa" value="util" />
     <node concept="ATzpf" id="aVVeoQvpOQ" role="a7sos">
       <property role="TrG5h" value="createModuleInRepository" />
       <node concept="37vLTG" id="aVVeoQvpPe" role="3clF46">
@@ -31441,6 +31446,7 @@
   </node>
   <node concept="KRBjq" id="lO9TSUCriZ">
     <property role="TrG5h" value="MPSProjectUtils" />
+    <property role="3GE5qa" value="util" />
     <node concept="ATzpf" id="lO9TSUC_oI" role="a7sos">
       <property role="TrG5h" value="createModule" />
       <node concept="3Tm1VV" id="lO9TSUC_oJ" role="1B3o_S" />
@@ -31763,6 +31769,7 @@
   </node>
   <node concept="KRBjq" id="KjelMl8wMW">
     <property role="TrG5h" value="SModuleUtils" />
+    <property role="3GE5qa" value="util" />
     <node concept="ATzpf" id="KjelMl8wUk" role="a7sos">
       <property role="TrG5h" value="createModel" />
       <node concept="37vLTG" id="KjelMl8x28" role="3clF46">
@@ -32871,6 +32878,7 @@
   </node>
   <node concept="KRBjq" id="P$XCSQP$Fy">
     <property role="TrG5h" value="SModelUtils" />
+    <property role="3GE5qa" value="util" />
     <node concept="ATzpf" id="P$XCSQP_f2" role="a7sos">
       <property role="TrG5h" value="getRootsAsList" />
       <node concept="3Tm1VV" id="P$XCSQP_f3" role="1B3o_S" />
