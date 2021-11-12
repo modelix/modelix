@@ -18211,8 +18211,8 @@
       <property role="TrG5h" value="modelixModulesListeners" />
       <node concept="3Tm6S6" id="2FX9uaKxA$w" role="1B3o_S" />
       <node concept="3rvAFt" id="2FX9uaKxF2H" role="1tU5fm">
-        <node concept="3uibUv" id="2FX9uaKxX9Y" role="3rvQeY">
-          <ref role="3uigEE" to="lui2:~SModuleId" resolve="SModuleId" />
+        <node concept="3uibUv" id="7ZZZU$li7S5" role="3rvQeY">
+          <ref role="3uigEE" to="lui2:~SModule" resolve="SModule" />
         </node>
         <node concept="3uibUv" id="2FX9uaKxFy9" role="3rvSg0">
           <ref role="3uigEE" node="2FX9uaKxxup" resolve="ModelixModuleListener" />
@@ -18220,8 +18220,8 @@
       </node>
       <node concept="2ShNRf" id="2FX9uaKxIy7" role="33vP2m">
         <node concept="3rGOSV" id="2FX9uaKxIsb" role="2ShVmc">
-          <node concept="3uibUv" id="2FX9uaKxX_A" role="3rHrn6">
-            <ref role="3uigEE" to="lui2:~SModuleId" resolve="SModuleId" />
+          <node concept="3uibUv" id="7ZZZU$libQc" role="3rHrn6">
+            <ref role="3uigEE" to="lui2:~SModule" resolve="SModule" />
           </node>
           <node concept="3uibUv" id="2FX9uaKxIsd" role="3rHtpV">
             <ref role="3uigEE" node="2FX9uaKxxup" resolve="ModelixModuleListener" />
@@ -19244,13 +19244,8 @@
               <ref role="3cqZAo" node="2FX9uaKxFyd" resolve="modelixModulesListeners" />
             </node>
             <node concept="2Nt0df" id="2FX9uaKHY0h" role="2OqNvi">
-              <node concept="2OqwBi" id="2FX9uaKHY36" role="38cxEo">
-                <node concept="37vLTw" id="2FX9uaKHY37" role="2Oq$k0">
-                  <ref role="3cqZAo" node="2FX9uaKECNY" resolve="physicalModule" />
-                </node>
-                <node concept="liA8E" id="2FX9uaKHY38" role="2OqNvi">
-                  <ref role="37wK5l" to="lui2:~SModule.getModuleId()" resolve="getModuleId" />
-                </node>
+              <node concept="37vLTw" id="2FX9uaKHY37" role="38cxEo">
+                <ref role="3cqZAo" node="2FX9uaKECNY" resolve="physicalModule" />
               </node>
             </node>
           </node>
@@ -19305,13 +19300,8 @@
               <ref role="3cqZAo" node="2FX9uaKExVq" resolve="modelixModuleListener" />
             </node>
             <node concept="3EllGN" id="2FX9uaKExVG" role="37vLTJ">
-              <node concept="2OqwBi" id="2FX9uaKExVH" role="3ElVtu">
-                <node concept="37vLTw" id="2FX9uaKENCY" role="2Oq$k0">
-                  <ref role="3cqZAo" node="2FX9uaKECNY" resolve="physicalModule" />
-                </node>
-                <node concept="liA8E" id="2FX9uaKExVJ" role="2OqNvi">
-                  <ref role="37wK5l" to="lui2:~SModule.getModuleId()" resolve="getModuleId" />
-                </node>
+              <node concept="37vLTw" id="2FX9uaKENCY" role="3ElVtu">
+                <ref role="3cqZAo" node="2FX9uaKECNY" resolve="physicalModule" />
               </node>
               <node concept="37vLTw" id="2FX9uaKExVK" role="3ElQJh">
                 <ref role="3cqZAo" node="2FX9uaKxFyd" resolve="modelixModulesListeners" />
@@ -19327,66 +19317,63 @@
     <node concept="3clFb_" id="2FX9uaKJS3p" role="jymVt">
       <property role="TrG5h" value="stopObservingModuleIfNecessary" />
       <node concept="37vLTG" id="2FX9uaKJW4p" role="3clF46">
-        <property role="TrG5h" value="physicalModuleId" />
-        <node concept="3uibUv" id="2FX9uaKK5HE" role="1tU5fm">
-          <ref role="3uigEE" to="lui2:~SModuleId" resolve="SModuleId" />
+        <property role="TrG5h" value="physicalModule" />
+        <node concept="3uibUv" id="7ZZZU$li$iF" role="1tU5fm">
+          <ref role="3uigEE" to="lui2:~SModule" resolve="SModule" />
         </node>
         <node concept="2AHcQZ" id="2FX9uaKJW4r" role="2AJF6D">
           <ref role="2AI5Lk" to="mhfm:~NotNull" resolve="NotNull" />
         </node>
       </node>
       <node concept="3clFbS" id="2FX9uaKJS3s" role="3clF47">
-        <node concept="3clFbJ" id="2FX9uaKJVHv" role="3cqZAp">
-          <node concept="3clFbS" id="2FX9uaKJVHw" role="3clFbx">
-            <node concept="3cpWs6" id="2FX9uaKJVHx" role="3cqZAp">
-              <node concept="10Nm6u" id="2FX9uaKKfKp" role="3cqZAk" />
+        <node concept="3cpWs8" id="7ZZZU$lhwpc" role="3cqZAp">
+          <node concept="3cpWsn" id="7ZZZU$lhwpd" role="3cpWs9">
+            <property role="TrG5h" value="listener" />
+            <node concept="3uibUv" id="7ZZZU$lhwan" role="1tU5fm">
+              <ref role="3uigEE" node="2FX9uaKxxup" resolve="ModelixModuleListener" />
             </node>
-          </node>
-          <node concept="3fqX7Q" id="2FX9uaKJZtb" role="3clFbw">
-            <node concept="2OqwBi" id="2FX9uaKJZtd" role="3fr31v">
-              <node concept="37vLTw" id="2FX9uaKJZte" role="2Oq$k0">
+            <node concept="2OqwBi" id="7ZZZU$lhwpe" role="33vP2m">
+              <node concept="37vLTw" id="7ZZZU$lhwpf" role="2Oq$k0">
                 <ref role="3cqZAo" node="2FX9uaKxFyd" resolve="modelixModulesListeners" />
               </node>
-              <node concept="2Nt0df" id="2FX9uaKJZtf" role="2OqNvi">
-                <node concept="37vLTw" id="2FX9uaKK6VL" role="38cxEo">
-                  <ref role="3cqZAo" node="2FX9uaKJW4p" resolve="physicalModuleId" />
+              <node concept="kI3uX" id="7ZZZU$lhwpg" role="2OqNvi">
+                <node concept="37vLTw" id="7ZZZU$lhwph" role="kIiFs">
+                  <ref role="3cqZAo" node="2FX9uaKJW4p" resolve="physicalModule" />
                 </node>
               </node>
             </node>
           </node>
         </node>
-        <node concept="3cpWs8" id="2FX9uaKKbgq" role="3cqZAp">
-          <node concept="3cpWsn" id="2FX9uaKKbgr" role="3cpWs9">
-            <property role="TrG5h" value="modelixModuleListener" />
-            <node concept="3uibUv" id="2FX9uaKKbgs" role="1tU5fm">
-              <ref role="3uigEE" node="2FX9uaKxxup" resolve="ModelixModuleListener" />
-            </node>
-            <node concept="3EllGN" id="2FX9uaKKcfJ" role="33vP2m">
-              <node concept="37vLTw" id="2FX9uaKKjaz" role="3ElVtu">
-                <ref role="3cqZAo" node="2FX9uaKJW4p" resolve="physicalModuleId" />
-              </node>
-              <node concept="37vLTw" id="2FX9uaKKbwZ" role="3ElQJh">
-                <ref role="3cqZAo" node="2FX9uaKxFyd" resolve="modelixModulesListeners" />
-              </node>
+        <node concept="3clFbJ" id="7ZZZU$lhBQB" role="3cqZAp">
+          <node concept="3clFbS" id="7ZZZU$lhBQD" role="3clFbx">
+            <node concept="3cpWs6" id="7ZZZU$lhGkG" role="3cqZAp">
+              <node concept="10Nm6u" id="7ZZZU$lhGx0" role="3cqZAk" />
             </node>
           </node>
-        </node>
-        <node concept="3clFbF" id="2FX9uaKK0nL" role="3cqZAp">
-          <node concept="2OqwBi" id="2FX9uaKK0Zl" role="3clFbG">
-            <node concept="37vLTw" id="2FX9uaKK0nJ" role="2Oq$k0">
-              <ref role="3cqZAo" node="2FX9uaKxFyd" resolve="modelixModulesListeners" />
+          <node concept="3clFbC" id="7ZZZU$lhG3Q" role="3clFbw">
+            <node concept="37vLTw" id="7ZZZU$lhC3v" role="3uHU7B">
+              <ref role="3cqZAo" node="7ZZZU$lhwpd" resolve="listener" />
             </node>
-            <node concept="kI3uX" id="2FX9uaKK231" role="2OqNvi">
-              <node concept="37vLTw" id="2FX9uaKK8Lh" role="kIiFs">
-                <ref role="3cqZAo" node="2FX9uaKJW4p" resolve="physicalModuleId" />
+            <node concept="10Nm6u" id="7ZZZU$lhG34" role="3uHU7w" />
+          </node>
+        </node>
+        <node concept="3clFbF" id="7ZZZU$liCNF" role="3cqZAp">
+          <node concept="2OqwBi" id="7ZZZU$liFqF" role="3clFbG">
+            <node concept="37vLTw" id="7ZZZU$liCND" role="2Oq$k0">
+              <ref role="3cqZAo" node="2FX9uaKJW4p" resolve="physicalModule" />
+            </node>
+            <node concept="liA8E" id="7ZZZU$liG_L" role="2OqNvi">
+              <ref role="37wK5l" to="lui2:~SModule.removeModuleListener(org.jetbrains.mps.openapi.module.SModuleListener)" resolve="removeModuleListener" />
+              <node concept="37vLTw" id="7ZZZU$liGOe" role="37wK5m">
+                <ref role="3cqZAo" node="7ZZZU$lhwpd" resolve="listener" />
               </node>
             </node>
           </node>
         </node>
         <node concept="3cpWs6" id="2FX9uaKKm51" role="3cqZAp">
           <node concept="2OqwBi" id="2FX9uaKKFBI" role="3cqZAk">
-            <node concept="37vLTw" id="2FX9uaKKvxi" role="2Oq$k0">
-              <ref role="3cqZAo" node="2FX9uaKKbgr" resolve="modelixModuleListener" />
+            <node concept="37vLTw" id="7ZZZU$liKAd" role="2Oq$k0">
+              <ref role="3cqZAo" node="7ZZZU$lhwpd" resolve="listener" />
             </node>
             <node concept="liA8E" id="2FX9uaKKJ4E" role="2OqNvi">
               <ref role="37wK5l" node="2FX9uaKK$F7" resolve="getCloudModule" />
@@ -19860,20 +19847,20 @@
                       <ref role="2AI5Lk" to="wyt6:~Override" resolve="Override" />
                     </node>
                   </node>
-                  <node concept="3clFb_" id="15XeiqLNmUf" role="jymVt">
-                    <property role="TrG5h" value="moduleRemoved" />
-                    <node concept="3Tm1VV" id="15XeiqLNmUg" role="1B3o_S" />
-                    <node concept="3cqZAl" id="15XeiqLNmUi" role="3clF45" />
-                    <node concept="37vLTG" id="15XeiqLNmUj" role="3clF46">
+                  <node concept="3clFb_" id="7ZZZU$lighA" role="jymVt">
+                    <property role="TrG5h" value="beforeModuleRemoved" />
+                    <node concept="3Tm1VV" id="7ZZZU$lighB" role="1B3o_S" />
+                    <node concept="3cqZAl" id="7ZZZU$lighD" role="3clF45" />
+                    <node concept="37vLTG" id="7ZZZU$lighE" role="3clF46">
                       <property role="TrG5h" value="module" />
-                      <node concept="3uibUv" id="15XeiqLNmUk" role="1tU5fm">
-                        <ref role="3uigEE" to="lui2:~SModuleReference" resolve="SModuleReference" />
+                      <node concept="3uibUv" id="7ZZZU$lighF" role="1tU5fm">
+                        <ref role="3uigEE" to="lui2:~SModule" resolve="SModule" />
                       </node>
-                      <node concept="2AHcQZ" id="15XeiqLNmUl" role="2AJF6D">
+                      <node concept="2AHcQZ" id="7ZZZU$lighG" role="2AJF6D">
                         <ref role="2AI5Lk" to="mhfm:~NotNull" resolve="NotNull" />
                       </node>
                     </node>
-                    <node concept="3clFbS" id="15XeiqLNmUn" role="3clF47">
+                    <node concept="3clFbS" id="7ZZZU$lighI" role="3clF47">
                       <node concept="3cpWs8" id="2FX9uaKKabz" role="3cqZAp">
                         <node concept="3cpWsn" id="2FX9uaKKab$" role="3cpWs9">
                           <property role="TrG5h" value="cloudModule" />
@@ -19882,13 +19869,8 @@
                           </node>
                           <node concept="1rXfSq" id="2FX9uaKK4hv" role="33vP2m">
                             <ref role="37wK5l" node="2FX9uaKJS3p" resolve="stopObservingModuleIfNecessary" />
-                            <node concept="2OqwBi" id="2FX9uaKK5qb" role="37wK5m">
-                              <node concept="37vLTw" id="2FX9uaKK4ZA" role="2Oq$k0">
-                                <ref role="3cqZAo" node="15XeiqLNmUj" resolve="module" />
-                              </node>
-                              <node concept="liA8E" id="2FX9uaKK5AY" role="2OqNvi">
-                                <ref role="37wK5l" to="lui2:~SModuleReference.getModuleId()" resolve="getModuleId" />
-                              </node>
+                            <node concept="37vLTw" id="2FX9uaKK4ZA" role="37wK5m">
+                              <ref role="3cqZAo" node="7ZZZU$lighE" resolve="module" />
                             </node>
                           </node>
                         </node>
@@ -20041,7 +20023,7 @@
                         </node>
                       </node>
                     </node>
-                    <node concept="2AHcQZ" id="15XeiqLNmUo" role="2AJF6D">
+                    <node concept="2AHcQZ" id="7ZZZU$lighJ" role="2AJF6D">
                       <ref role="2AI5Lk" to="wyt6:~Override" resolve="Override" />
                     </node>
                   </node>
@@ -20224,6 +20206,30 @@
             <node concept="10Nm6u" id="2FX9uaKLKB4" role="3uHU7w" />
             <node concept="37vLTw" id="2FX9uaKLJif" role="3uHU7B">
               <ref role="3cqZAo" node="2FX9uaKL_YP" resolve="repositoryListener" />
+            </node>
+          </node>
+        </node>
+        <node concept="2Gpval" id="7ZZZU$lhhp$" role="3cqZAp">
+          <node concept="2GrKxI" id="7ZZZU$lhhpA" role="2Gsz3X">
+            <property role="TrG5h" value="module" />
+          </node>
+          <node concept="2OqwBi" id="7ZZZU$liPhA" role="2GsD0m">
+            <node concept="2OqwBi" id="7ZZZU$lhj22" role="2Oq$k0">
+              <node concept="37vLTw" id="7ZZZU$lhi4X" role="2Oq$k0">
+                <ref role="3cqZAo" node="2FX9uaKxFyd" resolve="modelixModulesListeners" />
+              </node>
+              <node concept="3lbrtF" id="7ZZZU$liSPg" role="2OqNvi" />
+            </node>
+            <node concept="ANE8D" id="7ZZZU$liQA9" role="2OqNvi" />
+          </node>
+          <node concept="3clFbS" id="7ZZZU$lhhpE" role="2LFqv$">
+            <node concept="3clFbF" id="7ZZZU$liRB2" role="3cqZAp">
+              <node concept="1rXfSq" id="7ZZZU$liRAX" role="3clFbG">
+                <ref role="37wK5l" node="2FX9uaKJS3p" resolve="stopObservingModuleIfNecessary" />
+                <node concept="2GrUjf" id="7ZZZU$liU8t" role="37wK5m">
+                  <ref role="2Gs0qQ" node="7ZZZU$lhhpA" resolve="module" />
+                </node>
+              </node>
             </node>
           </node>
         </node>
