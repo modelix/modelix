@@ -1020,7 +1020,7 @@
       <node concept="37vLTG" id="4_k_9wJhbQB" role="3clF46">
         <property role="TrG5h" value="direction" />
         <node concept="3uibUv" id="4_k_9wJhgRO" role="1tU5fm">
-          <ref role="3uigEE" node="4_k_9wJhes5" resolve="_Synchronizer.SyncDirection" />
+          <ref role="3uigEE" node="4_k_9wJhes5" resolve="SyncDirection" />
         </node>
       </node>
       <node concept="3rvAFt" id="7ZZZU$lxLRO" role="3clF45">
@@ -1105,7 +1105,7 @@
               </node>
               <node concept="Rm8GO" id="4_k_9wJhjPl" role="37wK5m">
                 <ref role="Rm8GQ" node="4_k_9wJhfRm" resolve="TO_MPS" />
-                <ref role="1Px2BO" node="4_k_9wJhes5" resolve="_Synchronizer.SyncDirection" />
+                <ref role="1Px2BO" node="4_k_9wJhes5" resolve="SyncDirection" />
               </node>
             </node>
           </node>
@@ -1310,7 +1310,7 @@
               </node>
               <node concept="Rm8GO" id="4_k_9wJhlaT" role="37wK5m">
                 <ref role="Rm8GQ" node="4_k_9wJhglC" resolve="TO_CLOUD" />
-                <ref role="1Px2BO" node="4_k_9wJhes5" resolve="_Synchronizer.SyncDirection" />
+                <ref role="1Px2BO" node="4_k_9wJhes5" resolve="SyncDirection" />
               </node>
             </node>
           </node>
@@ -1450,18 +1450,6 @@
       </node>
     </node>
     <node concept="2tJIrI" id="7ZZZU$ltW7W" role="jymVt" />
-    <node concept="Qs71p" id="4_k_9wJhes5" role="jymVt">
-      <property role="TrG5h" value="SyncDirection" />
-      <node concept="QsSxf" id="4_k_9wJhfRm" role="Qtgdg">
-        <property role="TrG5h" value="TO_MPS" />
-        <ref role="37wK5l" to="wyt6:~Object.&lt;init&gt;()" resolve="Object" />
-      </node>
-      <node concept="QsSxf" id="4_k_9wJhglC" role="Qtgdg">
-        <property role="TrG5h" value="TO_CLOUD" />
-        <ref role="37wK5l" to="wyt6:~Object.&lt;init&gt;()" resolve="Object" />
-      </node>
-      <node concept="3Tm1VV" id="4_k_9wJhes6" role="1B3o_S" />
-    </node>
     <node concept="3Tm1VV" id="7ZZZU$ltW6T" role="1B3o_S" />
     <node concept="16euLQ" id="7ZZZU$luMv0" role="16eVyc">
       <property role="TrG5h" value="MPSChildT" />
@@ -1783,7 +1771,7 @@
       <node concept="37vLTG" id="4_k_9wJhm3i" role="3clF46">
         <property role="TrG5h" value="direction" />
         <node concept="3uibUv" id="4_k_9wJhm3j" role="1tU5fm">
-          <ref role="3uigEE" node="4_k_9wJhes5" resolve="_Synchronizer.SyncDirection" />
+          <ref role="3uigEE" node="4_k_9wJhes5" resolve="SyncDirection" />
         </node>
       </node>
       <node concept="3rvAFt" id="4_k_9wJgawK" role="3clF45">
@@ -2764,7 +2752,7 @@
       <node concept="37vLTG" id="4_k_9wJm9N_" role="3clF46">
         <property role="TrG5h" value="direction" />
         <node concept="3uibUv" id="4_k_9wJm9NA" role="1tU5fm">
-          <ref role="3uigEE" node="4_k_9wJhes5" resolve="_Synchronizer.SyncDirection" />
+          <ref role="3uigEE" node="4_k_9wJhes5" resolve="SyncDirection" />
         </node>
       </node>
       <node concept="3rvAFt" id="4_k_9wJm9NB" role="3clF45">
@@ -3238,6 +3226,18 @@
         <ref role="2AI5Lk" to="wyt6:~Override" resolve="Override" />
       </node>
     </node>
+  </node>
+  <node concept="Qs71p" id="4_k_9wJhes5">
+    <property role="TrG5h" value="SyncDirection" />
+    <node concept="QsSxf" id="4_k_9wJhfRm" role="Qtgdg">
+      <property role="TrG5h" value="TO_MPS" />
+      <ref role="37wK5l" to="wyt6:~Object.&lt;init&gt;()" resolve="Object" />
+    </node>
+    <node concept="QsSxf" id="4_k_9wJhglC" role="Qtgdg">
+      <property role="TrG5h" value="TO_CLOUD" />
+      <ref role="37wK5l" to="wyt6:~Object.&lt;init&gt;()" resolve="Object" />
+    </node>
+    <node concept="3Tm1VV" id="4_k_9wJhes6" role="1B3o_S" />
   </node>
 </model>
 
