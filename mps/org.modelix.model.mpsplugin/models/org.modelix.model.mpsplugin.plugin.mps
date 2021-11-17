@@ -4757,6 +4757,10 @@
                                                 <node concept="37vLTw" id="7ZZZU$l0jOG" role="37wK5m">
                                                   <ref role="3cqZAo" node="7ZZZU$l0gcE" resolve="projectNodeId" />
                                                 </node>
+                                                <node concept="Rm8GO" id="y4L82EaOHB" role="37wK5m">
+                                                  <ref role="Rm8GQ" to="csg2:4_k_9wJhfRm" resolve="TO_MPS" />
+                                                  <ref role="1Px2BO" to="csg2:4_k_9wJhes5" resolve="SyncDirection" />
+                                                </node>
                                               </node>
                                             </node>
                                           </node>
@@ -9654,6 +9658,10 @@
                                                     <node concept="37vLTw" id="nzqvuXSRIa" role="37wK5m">
                                                       <ref role="3cqZAo" node="nzqvuXSRI1" resolve="physicalModule" />
                                                     </node>
+                                                    <node concept="Rm8GO" id="y4L82EaXlI" role="37wK5m">
+                                                      <ref role="Rm8GQ" to="csg2:4_k_9wJhfRm" resolve="TO_MPS" />
+                                                      <ref role="1Px2BO" to="csg2:4_k_9wJhes5" resolve="SyncDirection" />
+                                                    </node>
                                                   </node>
                                                 </node>
                                               </node>
@@ -13148,6 +13156,10 @@
               <node concept="1DTwFV" id="P$XCSQOu6X" role="2OqNvi">
                 <ref role="2WH_rO" node="4eX7sil8Pp2" resolve="project" />
               </node>
+            </node>
+            <node concept="Rm8GO" id="y4L82EdWij" role="37wK5m">
+              <ref role="Rm8GQ" to="csg2:4_k_9wJhfRm" resolve="TO_MPS" />
+              <ref role="1Px2BO" to="csg2:4_k_9wJhes5" resolve="SyncDirection" />
             </node>
           </node>
         </node>
