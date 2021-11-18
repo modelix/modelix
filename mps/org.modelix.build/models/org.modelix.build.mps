@@ -5627,6 +5627,11 @@
           <ref role="3bR37D" to="90a9:5U8hsWC71Xh" resolve="org.modelix.model.mpsadapters" />
         </node>
       </node>
+      <node concept="1SiIV0" id="6hBdEE_ImwW" role="3bR37C">
+        <node concept="3bR9La" id="6hBdEE_ImwX" role="1SiIV1">
+          <ref role="3bR37D" to="90a9:5U8hsWC73Be" resolve="org.modelix.model.repositoryconcepts" />
+        </node>
+      </node>
     </node>
     <node concept="1E1JtA" id="6w3CrGw0I_A" role="3989C9">
       <property role="BnDLt" value="true" />
