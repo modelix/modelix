@@ -20887,11 +20887,64 @@
                     <node concept="1bVj0M" id="4_k_9wJH9uN" role="37wK5m">
                       <property role="3yWfEV" value="true" />
                       <node concept="3clFbS" id="4_k_9wJH9uO" role="1bW5cS">
-                        <node concept="3clFbF" id="4_k_9wJsGN6" role="3cqZAp">
-                          <node concept="1rXfSq" id="4_k_9wJsGN7" role="3clFbG">
-                            <ref role="37wK5l" node="4_k_9wJsw5F" resolve="doSyncToMPS" />
-                            <node concept="37vLTw" id="4_k_9wJsH6g" role="37wK5m">
-                              <ref role="3cqZAo" node="7ZZZU$ln_4c" resolve="tree" />
+                        <node concept="3SKdUt" id="2dW7BM74jzz" role="3cqZAp">
+                          <node concept="1PaTwC" id="2dW7BM74jz$" role="1aUNEU">
+                            <node concept="3oM_SD" id="2dW7BM74Gg7" role="1PaTwD">
+                              <property role="3oM_SC" value="ITree.getReferenceTarget(...).resolveNode(...)" />
+                            </node>
+                            <node concept="3oM_SD" id="2dW7BM74GP9" role="1PaTwD">
+                              <property role="3oM_SC" value="requires" />
+                            </node>
+                            <node concept="3oM_SD" id="2dW7BM74GPd" role="1PaTwD">
+                              <property role="3oM_SC" value="a" />
+                            </node>
+                            <node concept="3oM_SD" id="2dW7BM74H91" role="1PaTwD">
+                              <property role="3oM_SC" value="read" />
+                            </node>
+                            <node concept="3oM_SD" id="2dW7BM74I5F" role="1PaTwD">
+                              <property role="3oM_SC" value="transaction" />
+                            </node>
+                            <node concept="3oM_SD" id="2dW7BM74G7z" role="1PaTwD">
+                              <property role="3oM_SC" value="" />
+                            </node>
+                          </node>
+                        </node>
+                        <node concept="3clFbF" id="2dW7BM74cEW" role="3cqZAp">
+                          <node concept="2OqwBi" id="2dW7BM74dXs" role="3clFbG">
+                            <node concept="2OqwBi" id="2dW7BM74diD" role="2Oq$k0">
+                              <node concept="2OqwBi" id="2dW7BM74cO7" role="2Oq$k0">
+                                <node concept="1rXfSq" id="2dW7BM74cEU" role="2Oq$k0">
+                                  <ref role="37wK5l" node="7ZZZU$lrGZt" resolve="getCloudRepository" />
+                                </node>
+                                <node concept="liA8E" id="2dW7BM74d5T" role="2OqNvi">
+                                  <ref role="37wK5l" node="2fgGmVJWuwV" resolve="getActiveBranch" />
+                                </node>
+                              </node>
+                              <node concept="liA8E" id="2dW7BM74dLD" role="2OqNvi">
+                                <ref role="37wK5l" to="5440:~ActiveBranch.getBranch()" resolve="getBranch" />
+                              </node>
+                            </node>
+                            <node concept="liA8E" id="2dW7BM74hi7" role="2OqNvi">
+                              <ref role="37wK5l" to="jks5:~IBranch.runRead(kotlin.jvm.functions.Function0)" resolve="runRead" />
+                              <node concept="1bVj0M" id="2dW7BM74hKX" role="37wK5m">
+                                <property role="3yWfEV" value="true" />
+                                <node concept="3clFbS" id="2dW7BM74hKY" role="1bW5cS">
+                                  <node concept="3clFbF" id="4_k_9wJsGN6" role="3cqZAp">
+                                    <node concept="1rXfSq" id="4_k_9wJsGN7" role="3clFbG">
+                                      <ref role="37wK5l" node="4_k_9wJsw5F" resolve="doSyncToMPS" />
+                                      <node concept="37vLTw" id="4_k_9wJsH6g" role="37wK5m">
+                                        <ref role="3cqZAo" node="7ZZZU$ln_4c" resolve="tree" />
+                                      </node>
+                                    </node>
+                                  </node>
+                                  <node concept="3cpWs6" id="2dW7BM74j23" role="3cqZAp">
+                                    <node concept="10M0yZ" id="2dW7BM74j25" role="3cqZAk">
+                                      <ref role="3cqZAo" to="v18h:~Unit.INSTANCE" resolve="INSTANCE" />
+                                      <ref role="1PxDUh" to="v18h:~Unit" resolve="Unit" />
+                                    </node>
+                                  </node>
+                                </node>
+                              </node>
                             </node>
                           </node>
                         </node>
