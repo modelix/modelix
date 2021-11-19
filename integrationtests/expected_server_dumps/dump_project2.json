@@ -63,9 +63,17 @@
                           "#mpsNodeId#": "6391662687397648423"
                         },
                         {
-                          "$role": "visibility",
-                          "$concept": "jetbrains.mps.baseLanguage.PublicVisibility",
-                          "#mpsNodeId#": "6391662687397648424"
+                          "$role": "parameter",
+                          "$concept": "jetbrains.mps.baseLanguage.ParameterDeclaration",
+                          "#mpsNodeId#": "6391662687397648451",
+                          "name": "value",
+                          "$children": [
+                            {
+                              "$role": "type",
+                              "$concept": "jetbrains.mps.baseLanguage.IntegerType",
+                              "#mpsNodeId#": "6391662687397648450"
+                            }
+                          ]
                         },
                         {
                           "$role": "body",
@@ -82,6 +90,26 @@
                                   "$concept": "jetbrains.mps.baseLanguage.AssignmentExpression",
                                   "#mpsNodeId#": "6391662687397650819",
                                   "$children": [
+                                    {
+                                      "$role": "lValue",
+                                      "$concept": "jetbrains.mps.baseLanguage.DotExpression",
+                                      "#mpsNodeId#": "6391662687397648692",
+                                      "$children": [
+                                        {
+                                          "$role": "operand",
+                                          "$concept": "jetbrains.mps.baseLanguage.ThisExpression",
+                                          "#mpsNodeId#": "6391662687397648511"
+                                        },
+                                        {
+                                          "$role": "operation",
+                                          "$concept": "jetbrains.mps.baseLanguage.FieldReferenceOperation",
+                                          "#mpsNodeId#": "6391662687397648826",
+                                          "$references": {
+                                            "fieldDeclaration": "6391662687397648349"
+                                          }
+                                        }
+                                      ]
+                                    },
                                     {
                                       "$role": "rValue",
                                       "$concept": "jetbrains.mps.baseLanguage.MulExpression",
@@ -102,26 +130,6 @@
                                           }
                                         }
                                       ]
-                                    },
-                                    {
-                                      "$role": "lValue",
-                                      "$concept": "jetbrains.mps.baseLanguage.DotExpression",
-                                      "#mpsNodeId#": "6391662687397648692",
-                                      "$children": [
-                                        {
-                                          "$role": "operand",
-                                          "$concept": "jetbrains.mps.baseLanguage.ThisExpression",
-                                          "#mpsNodeId#": "6391662687397648511"
-                                        },
-                                        {
-                                          "$role": "operation",
-                                          "$concept": "jetbrains.mps.baseLanguage.FieldReferenceOperation",
-                                          "#mpsNodeId#": "6391662687397648826",
-                                          "$references": {
-                                            "fieldDeclaration": "6391662687397648349"
-                                          }
-                                        }
-                                      ]
                                     }
                                   ]
                                 }
@@ -130,17 +138,9 @@
                           ]
                         },
                         {
-                          "$role": "parameter",
-                          "$concept": "jetbrains.mps.baseLanguage.ParameterDeclaration",
-                          "#mpsNodeId#": "6391662687397648451",
-                          "name": "value",
-                          "$children": [
-                            {
-                              "$role": "type",
-                              "$concept": "jetbrains.mps.baseLanguage.IntegerType",
-                              "#mpsNodeId#": "6391662687397648450"
-                            }
-                          ]
+                          "$role": "visibility",
+                          "$concept": "jetbrains.mps.baseLanguage.PublicVisibility",
+                          "#mpsNodeId#": "6391662687397648424"
                         }
                       ]
                     },
@@ -156,6 +156,14 @@
                       "name": "howAreYou",
                       "$children": [
                         {
+                          "$role": "returnType",
+                          "$concept": "jetbrains.mps.baseLanguage.ClassifierType",
+                          "#mpsNodeId#": "6391662687397655178",
+                          "$references": {
+                            "classifier": "6391662687397652699"
+                          }
+                        },
+                        {
                           "$role": "body",
                           "$concept": "jetbrains.mps.baseLanguage.StatementList",
                           "#mpsNodeId#": "6391662687397655104",
@@ -170,6 +178,12 @@
                                   "$concept": "jetbrains.mps.baseLanguage.LessThanExpression",
                                   "#mpsNodeId#": "6391662687397658187",
                                   "$children": [
+                                    {
+                                      "$role": "rightExpression",
+                                      "$concept": "jetbrains.mps.baseLanguage.IntegerConstant",
+                                      "#mpsNodeId#": "6391662687397658263",
+                                      "value": "0"
+                                    },
                                     {
                                       "$role": "leftExpression",
                                       "$concept": "jetbrains.mps.baseLanguage.DotExpression",
@@ -189,12 +203,6 @@
                                           }
                                         }
                                       ]
-                                    },
-                                    {
-                                      "$role": "rightExpression",
-                                      "$concept": "jetbrains.mps.baseLanguage.IntegerConstant",
-                                      "#mpsNodeId#": "6391662687397658263",
-                                      "value": "0"
                                     }
                                   ]
                                 },
@@ -229,29 +237,6 @@
                               "#mpsNodeId#": "6391662687397659166",
                               "$children": [
                                 {
-                                  "$role": "ifTrue",
-                                  "$concept": "jetbrains.mps.baseLanguage.StatementList",
-                                  "#mpsNodeId#": "6391662687397659168",
-                                  "$children": [
-                                    {
-                                      "$role": "statement",
-                                      "$concept": "jetbrains.mps.baseLanguage.ReturnStatement",
-                                      "#mpsNodeId#": "6391662687397662781",
-                                      "$children": [
-                                        {
-                                          "$role": "expression",
-                                          "$concept": "jetbrains.mps.baseLanguage.EnumConstantReference",
-                                          "#mpsNodeId#": "6391662687397662932",
-                                          "$references": {
-                                            "enumClass": "6391662687397652699",
-                                            "enumConstantDeclaration": "6391662687397652777"
-                                          }
-                                        }
-                                      ]
-                                    }
-                                  ]
-                                },
-                                {
                                   "$role": "condition",
                                   "$concept": "jetbrains.mps.baseLanguage.GreaterThanExpression",
                                   "#mpsNodeId#": "6391662687397662637",
@@ -283,6 +268,29 @@
                                       ]
                                     }
                                   ]
+                                },
+                                {
+                                  "$role": "ifTrue",
+                                  "$concept": "jetbrains.mps.baseLanguage.StatementList",
+                                  "#mpsNodeId#": "6391662687397659168",
+                                  "$children": [
+                                    {
+                                      "$role": "statement",
+                                      "$concept": "jetbrains.mps.baseLanguage.ReturnStatement",
+                                      "#mpsNodeId#": "6391662687397662781",
+                                      "$children": [
+                                        {
+                                          "$role": "expression",
+                                          "$concept": "jetbrains.mps.baseLanguage.EnumConstantReference",
+                                          "#mpsNodeId#": "6391662687397662932",
+                                          "$references": {
+                                            "enumClass": "6391662687397652699",
+                                            "enumConstantDeclaration": "6391662687397652777"
+                                          }
+                                        }
+                                      ]
+                                    }
+                                  ]
                                 }
                               ]
                             },
@@ -308,14 +316,6 @@
                           "$role": "visibility",
                           "$concept": "jetbrains.mps.baseLanguage.PublicVisibility",
                           "#mpsNodeId#": "6391662687397655034"
-                        },
-                        {
-                          "$role": "returnType",
-                          "$concept": "jetbrains.mps.baseLanguage.ClassifierType",
-                          "#mpsNodeId#": "6391662687397655178",
-                          "$references": {
-                            "classifier": "6391662687397652699"
-                          }
                         }
                       ]
                     },
@@ -332,11 +332,6 @@
                   "#mpsNodeId#": "6391662687397652699",
                   "name": "HowGood",
                   "$children": [
-                    {
-                      "$role": "visibility",
-                      "$concept": "jetbrains.mps.baseLanguage.PublicVisibility",
-                      "#mpsNodeId#": "6391662687397652700"
-                    },
                     {
                       "$role": "enumConstant",
                       "$concept": "jetbrains.mps.baseLanguage.EnumConstantDeclaration",
@@ -363,6 +358,11 @@
                       "$references": {
                         "baseMethodDeclaration": "-\u003ejava.lang@java_stub:Object.\u003cinit\u003e()"
                       }
+                    },
+                    {
+                      "$role": "visibility",
+                      "$concept": "jetbrains.mps.baseLanguage.PublicVisibility",
+                      "#mpsNodeId#": "6391662687397652700"
                     }
                   ]
                 }
