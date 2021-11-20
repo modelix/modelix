@@ -1,0 +1,160 @@
+<?xml version='1.0' encoding='ISO-8859-1' ?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+
+<!--
+IntelliJ Platform log all STDOUT and STDERR output to idea.log file by default.
+See com.intellij.idea.StartupUtil#setupLogger system property 'intellij.log.stdout'.
+
+Two main appenders are FILE and DIALOG:
+FILE is responsible for logging to the idea.log file.
+DIALOG is responsible for showing ERROR level (at least) events in UI (events are ignored in command line mode).
+
+MPS additionally logs VCS events to mpsvcs.log file: categories are used for that.
+
+Appenders CONSOLE-* can be used to debug purposes to get application output to the console.
+Note that adding this appenders to root appender will result in duplication of entries in idea.log file.
+
+CONTINUOUS_FILE appender can also be used for debugging.
+It does not interfere with console output and idea.log, but uses separate continuous.log file.
+
+All file appenders use $LOG_DIR$ folder for store files.
+In MPS sources some run configurations override this path by setting 'idea.log.path' variable to '$PROJECT_DIR$/log'.
+-->
+
+<!-- Parameter 'follow = true' in appenders with class 'ConsoleAppender' is required for proper test light execution -->
+
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+  <!-- Output events with level at least WARN to console. See org.apache.log4j.Level.WARN -->
+  <appender name="CONSOLE-WARN" class="org.apache.log4j.ConsoleAppender">
+    <param name="follow" value="true"/>
+    <param name="target" value="System.err"/>
+    <layout class="org.apache.log4j.PatternLayout">
+      <param name="ConversionPattern" value="[%7r] %6p - %30.60c - %m \n"/>
+    </layout>
+    <filter class="org.apache.log4j.varia.LevelRangeFilter">
+      <param name="LevelMin" value="WARN"/>
+    </filter>
+  </appender>
+
+  <!-- Output only events with level DEBUG to console. See org.apache.log4j.Level.DEBUG -->
+  <appender name="CONSOLE-DEBUG" class="org.apache.log4j.ConsoleAppender">
+    <param name="follow" value="true"/>
+    <layout class="org.apache.log4j.PatternLayout">
+      <param name="ConversionPattern" value="[%7r] %6p - %30.60c - %m \n"/>
+    </layout>
+    <filter class="org.apache.log4j.varia.LevelRangeFilter">
+      <param name="LevelMin" value="DEBUG"/>
+      <param name="LevelMax" value="DEBUG"/>
+    </filter>
+  </appender>
+
+  <!-- Output only events with level TRACE to console. See org.apache.log4j.Level.TRACE -->
+  <appender name="CONSOLE-TRACE" class="org.apache.log4j.ConsoleAppender">
+    <param name="follow" value="true"/>
+    <layout class="org.apache.log4j.PatternLayout">
+      <param name="ConversionPattern" value="[%7r] %6p - %30.60c - %m \n"/>
+    </layout>
+    <filter class="org.apache.log4j.varia.LevelRangeFilter">
+      <param name="LevelMin" value="TRACE"/>
+      <param name="LevelMax" value="TRACE"/>
+    </filter>
+  </appender>
+
+  <!-- Output all events to console -->
+  <appender name="CONSOLE-ALL" class="org.apache.log4j.ConsoleAppender">
+    <param name="follow" value="true"/>
+    <layout class="org.apache.log4j.PatternLayout">
+      <param name="ConversionPattern" value="[%7r] %6p - %30.60c - %m \n"/>
+    </layout>
+  </appender>
+
+  <!-- Show events with level at least ERROR in UI -->
+  <appender name="DIALOG" class="com.intellij.diagnostic.DialogAppender">
+    <!-- DialogAppender does nothing with event which level is less then ERROR so there is no need to pass them to DialogAppender -->
+    <filter class="org.apache.log4j.varia.LevelRangeFilter">
+      <param name="LevelMin" value="ERROR"/>
+    </filter>
+  </appender>
+
+  <!-- Log all events to idea.log file. Maintain number of logs and file sizes. -->
+  <appender name="FILE" class="org.apache.log4j.RollingFileAppender">
+    <param name="MaxFileSize" value="1Mb"/>
+    <param name="MaxBackupIndex" value="12"/>
+    <param name="File" value="$LOG_DIR$/idea.log"/>
+    <param name="Encoding" value="UTF-8"/>
+    <layout class="org.apache.log4j.PatternLayout">
+      <param name="ConversionPattern" value="%d [%7r] %6p - %30.60c - %m \n"/>
+    </layout>
+  </appender>
+
+  <!-- Log all events to continuous.log file. Note that file is overridden on each application start -->
+  <appender name="CONTINUOUS_FILE" class="org.apache.log4j.FileAppender">
+    <param name="File" value="$LOG_DIR$/continuous.log"/>
+    <param name="Encoding" value="UTF-8"/>
+    <param name="append" value="false"/>
+    <layout class="org.apache.log4j.PatternLayout">
+      <param name="ConversionPattern" value="%d [%7r] %6p - %30.60c - %m \n"/>
+    </layout>
+  </appender>
+
+  <!-- Log events to mpsvcs.log file -->
+  <appender name="FILE-VCS" class="org.apache.log4j.RollingFileAppender">
+    <param name="MaxFileSize" value="2Mb"/>
+    <param name="MaxBackupIndex" value="5"/>
+    <param name="file" value="$LOG_DIR$/mpsvcs.log"/>
+    <layout class="org.apache.log4j.PatternLayout">
+      <param name="ConversionPattern" value="%d [%7r] %6p - %30.60c - %m \n"/>
+    </layout>
+  </appender>
+
+  <!-- Additionally log MPS specific vcs events to mpsvcs.log -->
+  <category name="jetbrains.mps.vcs">
+    <priority value="INFO"/>
+    <appender-ref ref="FILE-VCS"/>
+  </category>
+
+  <!-- Additionally log IntelliJ Platform vcs events to mpsvcs.log -->
+  <category name="com.intellij.openapi.vcs">
+    <priority value="INFO"/>
+    <appender-ref ref="FILE-VCS"/>
+  </category> 
+  
+  <category name="de.q60" additivity="true">
+    <priority value="DEBUG"/>
+    <appender-ref ref="CONSOLE-ALL"/>
+  </category>
+
+  <category name="org.modelix" additivity="true">
+    <priority value="DEBUG"/>
+    <appender-ref ref="CONSOLE-ALL"/>
+  </category>   
+
+  <!--
+  Template category for debugging:
+  Set required logger prefix and choose appropriate appender.
+  Set required priority: TRACE, DEBUG, INFO, WARN, ERROR etc (See org.apache.log4j.Level).
+  Choose required debug appender or add your own.
+  -->
+  <!--
+  <category name="logger.prefix">
+    <priority value="TRACE"/>
+    <appender-ref ref="CONSOLE-WARN"/>
+    <appender-ref ref="CONSOLE-DEBUG"/>
+    <appender-ref ref="CONSOLE-TRACE"/>
+    <appender-ref ref="CONSOLE-ALL"/>
+    <appender-ref ref="CONTINUOUS_FILE" />
+  </category>
+  -->
+
+  <root>
+    <priority value="INFO"/>
+    <appender-ref ref="DIALOG"/>
+    <appender-ref ref="FILE"/>
+    <!-- For quick debug  -->
+    <!--<appender-ref ref="CONSOLE-ALL" />-->
+    <appender-ref ref="CONSOLE-WARN"/>
+    <!--<appender-ref ref="CONSOLE-DEBUG"/>-->
+    <!--<appender-ref ref="CONSOLE-TRACE"/>-->
+    <!--<appender-ref ref="CONTINUOUS_FILE" />-->
+  </root>
+</log4j:configuration>

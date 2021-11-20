@@ -13,6 +13,7 @@ RUN apt-get update \
     && rm -rf /var/cache/apt
 RUN /install-plugins.sh /projector/ide/plugins/
 COPY projector-user-home /home/projector-user
+COPY log.xml /projector/ide/bin/log.xml
 RUN mkdir -p /mps-plugins
 RUN mkdir -p /mps-languages
 RUN chown -R projector-user:projector-user /home/projector-user
