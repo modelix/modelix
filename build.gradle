@@ -9,8 +9,8 @@ buildscript {
         maven { url "https://repo.maven.apache.org/maven2" }
         maven { url 'https://plugins.gradle.org/m2/' }
         mavenCentral()
-        //maven { url 'https://projects.itemis.de/nexus/content/repositories/mbeddr' }
-        maven { url = uri("https://modelix.jfrog.io/artifactory/itemis/") } // caching proxy for the itemis repo
+        maven { url 'https://projects.itemis.de/nexus/content/repositories/mbeddr' }
+        //maven { url = uri("https://modelix.jfrog.io/artifactory/itemis/") } // caching proxy for the itemis repo
     }
 
     dependencies {
@@ -78,8 +78,8 @@ allprojects {
         maven { url "https://repo.maven.apache.org/maven2" }
         mavenCentral()
         mavenLocal()
-        //maven { url 'https://projects.itemis.de/nexus/content/repositories/mbeddr' }
-        maven { url = uri("https://modelix.jfrog.io/artifactory/itemis/") } // caching proxy for the itemis repo
+        maven { url 'https://projects.itemis.de/nexus/content/repositories/mbeddr' }
+        //maven { url = uri("https://modelix.jfrog.io/artifactory/itemis/") } // caching proxy for the itemis repo
     }
 }
 description = "Cloud storage and web UI for MPS"

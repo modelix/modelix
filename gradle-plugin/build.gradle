@@ -11,8 +11,8 @@ compileJava {
 
 repositories {
     mavenCentral()
-    //maven { url 'https://projects.itemis.de/nexus/content/repositories/mbeddr' }
-    maven { url = uri("https://modelix.jfrog.io/artifactory/itemis/") } // caching proxy for the itemis repo
+    maven { url 'https://projects.itemis.de/nexus/content/repositories/mbeddr' }
+    //maven { url = uri("https://modelix.jfrog.io/artifactory/itemis/") } // caching proxy for the itemis repo
 }
 
 dependencies {
