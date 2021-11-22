@@ -16,6 +16,11 @@ buildscript {
                     username = project.findProperty("gpr.user").toString()
                     password = project.findProperty("gpr.key").toString()
                 }
+            } else if (System.getenv("GITHUB_ACTOR") != null && System.getenv("GITHUB_TOKEN") != null) {
+                credentials {
+                    username = System.getenv("GITHUB_ACTOR")
+                    password = System.getenv("GITHUB_TOKEN")
+                }
             } else {
                 //throw org.gradle.api.GradleException("Please specify your github username (gpr.user) and access token (gpr.key) in ~/.gradle/gradle.properties")
             }
@@ -107,8 +112,13 @@ allprojects {
                     username = project.findProperty("gpr.user").toString()
                     password = project.findProperty("gpr.key").toString()
                 }
+            } else if (System.getenv("GITHUB_ACTOR") != null && System.getenv("GITHUB_TOKEN") != null) {
+                credentials {
+                    username = System.getenv("GITHUB_ACTOR")
+                    password = System.getenv("GITHUB_TOKEN")
+                }
             } else {
-                throw org.gradle.api.GradleException("Please specify your github username (gpr.user) and access token (gpr.key) in ~/.gradle/gradle.properties")
+                //throw org.gradle.api.GradleException("Please specify your github username (gpr.user) and access token (gpr.key) in ~/.gradle/gradle.properties")
             }
         }
         maven {
@@ -117,6 +127,11 @@ allprojects {
                 credentials {
                     username = project.findProperty("gpr.user").toString()
                     password = project.findProperty("gpr.key").toString()
+                }
+            } else if (System.getenv("GITHUB_ACTOR") != null && System.getenv("GITHUB_TOKEN") != null) {
+                credentials {
+                    username = System.getenv("GITHUB_ACTOR")
+                    password = System.getenv("GITHUB_TOKEN")
                 }
             } else {
                 //throw org.gradle.api.GradleException("Please specify your github username (gpr.user) and access token (gpr.key) in ~/.gradle/gradle.properties")
