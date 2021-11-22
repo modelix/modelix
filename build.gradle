@@ -17,7 +17,7 @@ buildscript {
                     password = project.findProperty("gpr.key").toString()
                 }
             } else {
-                throw GradleException("Please specify your github username (gpr.user) and access token (gpr.key) in ~/.gradle/gradle.properties")
+                throw org.gradle.api.GradleException("Please specify your github username (gpr.user) and access token (gpr.key) in ~/.gradle/gradle.properties")
             }
         }
         //maven { url 'https://projects.itemis.de/nexus/content/repositories/mbeddr' }
@@ -79,6 +79,10 @@ ext.releaseRepository = 'https://projects.itemis.de/nexus/content/repositories/m
 ext.snapshotRepository = 'https://projects.itemis.de/nexus/content/repositories/mbeddr_snapshots'
 ext.publishingRepository = modelixVersion.endsWith("-SNAPSHOT") ? snapshotRepository : releaseRepository
 
+println("gpr.user = " + project.findProperty("gpr.user"))
+println("gpr.key = " + project.findProperty("gpr.key"))
+println("GITHUB_ACTOR = " + System.getenv("GITHUB_ACTOR"))
+println("GITHUB_TOKEN = " + System.getenv("GITHUB_TOKEN"))
 if (!project.hasProperty("gpr.user") && System.getenv("GITHUB_ACTOR") != null) {
     ext.setProperty("gpr.user", System.getenv("GITHUB_ACTOR"))
 }
@@ -104,7 +108,7 @@ allprojects {
                     password = project.findProperty("gpr.key").toString()
                 }
             } else {
-                throw GradleException("Please specify your github username (gpr.user) and access token (gpr.key) in ~/.gradle/gradle.properties")
+                throw org.gradle.api.GradleException("Please specify your github username (gpr.user) and access token (gpr.key) in ~/.gradle/gradle.properties")
             }
         }
         maven {
@@ -115,7 +119,7 @@ allprojects {
                     password = project.findProperty("gpr.key").toString()
                 }
             } else {
-                throw GradleException("Please specify your github username (gpr.user) and access token (gpr.key) in ~/.gradle/gradle.properties")
+                throw org.gradle.api.GradleException("Please specify your github username (gpr.user) and access token (gpr.key) in ~/.gradle/gradle.properties")
             }
         }
         //maven { url 'https://projects.itemis.de/nexus/content/repositories/mbeddr' }
