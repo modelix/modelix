@@ -22,7 +22,7 @@ buildscript {
                     password = System.getenv("GITHUB_TOKEN")
                 }
             } else {
-                //throw org.gradle.api.GradleException("Please specify your github username (gpr.user) and access token (gpr.key) in ~/.gradle/gradle.properties")
+                logger.error("Please specify your github username (gpr.user) and access token (gpr.key) in ~/.gradle/gradle.properties")
             }
         }
         //maven { url 'https://projects.itemis.de/nexus/content/repositories/mbeddr' }
@@ -118,7 +118,7 @@ allprojects {
                     password = System.getenv("GITHUB_TOKEN")
                 }
             } else {
-                //throw org.gradle.api.GradleException("Please specify your github username (gpr.user) and access token (gpr.key) in ~/.gradle/gradle.properties")
+                logger.error("Please specify your github username (gpr.user) and access token (gpr.key) in ~/.gradle/gradle.properties")
             }
         }
         maven {
@@ -134,7 +134,7 @@ allprojects {
                     password = System.getenv("GITHUB_TOKEN")
                 }
             } else {
-                //throw org.gradle.api.GradleException("Please specify your github username (gpr.user) and access token (gpr.key) in ~/.gradle/gradle.properties")
+                logger.error("Please specify your github username (gpr.user) and access token (gpr.key) in ~/.gradle/gradle.properties")
             }
         }
         //maven { url 'https://projects.itemis.de/nexus/content/repositories/mbeddr' }

@@ -174,7 +174,7 @@ To use them in your gradle script add this repository:
                 password = project.findProperty("gpr.key").toString()
             }
         } else {
-            throw GradleException("Please specify your github username (gpr.user) and access token (gpr.key) in ~/.gradle/gradle.properties")
+            logger.error("Please specify your github username (gpr.user) and access token (gpr.key) in ~/.gradle/gradle.properties")
         }
     }
 ```
