@@ -27,4 +27,6 @@ jobs:
       with:
         java-version: 13
     - name: Integration Tests
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: ./gradlew -i runIntegrationTests

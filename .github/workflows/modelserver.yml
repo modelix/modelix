@@ -27,6 +27,8 @@ jobs:
           gradle-model-server-
           gradle-
     - name: Assemble
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: cd model-server && ../gradlew assemble
 
   unitTests:
@@ -50,6 +52,8 @@ jobs:
           gradle-model-server-unitTests-
           gradle-
     - name: Run unit tests
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: cd model-server && ../gradlew test
 
   lint:
@@ -73,6 +77,8 @@ jobs:
           gradle-model-server-lint-
           gradle-
     - name: Run linter
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: cd model-server && ../gradlew spotlessCheck
 
   functionalTests:
@@ -96,4 +102,6 @@ jobs:
             gradle-model-server-functionalTests-
             gradle-
       - name: Run functional tests
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: cd model-server && ../gradlew cucumber

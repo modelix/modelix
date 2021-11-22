@@ -27,6 +27,8 @@ jobs:
       with:
         java-version: 13
     - name: Assemble
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: cd model-client && ../gradlew compileKotlinJs compileKotlinJvm
 
   jvmTest:
@@ -50,6 +52,8 @@ jobs:
           gradle-jvmTest-
           gradle-
     - name: Run JVM unit tests
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: cd model-client && ../gradlew jvmTest
 
   jsTest:
@@ -73,6 +77,8 @@ jobs:
           gradle-jsTest-
           gradle-
     - name: Run JS unit tests
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: cd model-client && ../gradlew jsTest      
 
   lint:
@@ -96,4 +102,6 @@ jobs:
           gradle-lint-
           gradle-
     - name: Run linter
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: cd model-client && ../gradlew ktlintCheck
