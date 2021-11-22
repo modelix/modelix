@@ -9,12 +9,23 @@ buildscript {
         maven { url "https://repo.maven.apache.org/maven2" }
         maven { url 'https://plugins.gradle.org/m2/' }
         mavenCentral()
-        maven { url 'https://projects.itemis.de/nexus/content/repositories/mbeddr' }
+        maven {
+            url = uri("https://maven.pkg.github.com/mbeddr/mps-gradle-plugin")
+            if (project.hasProperty("gpr.user") && project.hasProperty("gpr.key")) {
+                credentials {
+                    username = project.findProperty("gpr.user").toString()
+                    password = project.findProperty("gpr.key").toString()
+                }
+            } else {
+                throw GradleException("Please specify your github username (gpr.user) and access token (gpr.key) in ~/.gradle/gradle.properties")
+            }
+        }
+        //maven { url 'https://projects.itemis.de/nexus/content/repositories/mbeddr' }
         //maven { url = uri("https://modelix.jfrog.io/artifactory/itemis/") } // caching proxy for the itemis repo
     }
 
     dependencies {
-        classpath 'de.itemis.mps:mps-gradle-plugin:1.2.168.+'
+        classpath 'de.itemis.mps:mps-gradle-plugin:mps20211.1.5.281.69e6edc'
         classpath 'com.google.googlejavaformat:google-java-format:1.8+'
     }
 }
@@ -78,7 +89,29 @@ allprojects {
         maven { url "https://repo.maven.apache.org/maven2" }
         mavenCentral()
         mavenLocal()
-        maven { url 'https://projects.itemis.de/nexus/content/repositories/mbeddr' }
+        maven {
+            url = uri("https://maven.pkg.github.com/JetBrains/MPS-extensions")
+            if (project.hasProperty("gpr.user") && project.hasProperty("gpr.key")) {
+                credentials {
+                    username = project.findProperty("gpr.user").toString()
+                    password = project.findProperty("gpr.key").toString()
+                }
+            } else {
+                throw GradleException("Please specify your github username (gpr.user) and access token (gpr.key) in ~/.gradle/gradle.properties")
+            }
+        }
+        maven {
+            url = uri("https://maven.pkg.github.com/mbeddr/build.publish.mps")
+            if (project.hasProperty("gpr.user") && project.hasProperty("gpr.key")) {
+                credentials {
+                    username = project.findProperty("gpr.user").toString()
+                    password = project.findProperty("gpr.key").toString()
+                }
+            } else {
+                throw GradleException("Please specify your github username (gpr.user) and access token (gpr.key) in ~/.gradle/gradle.properties")
+            }
+        }
+        //maven { url 'https://projects.itemis.de/nexus/content/repositories/mbeddr' }
         //maven { url = uri("https://modelix.jfrog.io/artifactory/itemis/") } // caching proxy for the itemis repo
     }
 }
