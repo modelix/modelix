@@ -104,7 +104,6 @@ allprojects {
            as it is more reliable */
         maven { url "https://repo.maven.apache.org/maven2" }
         mavenCentral()
-        mavenLocal()
         maven {
             url = uri("https://maven.pkg.github.com/JetBrains/MPS-extensions")
             if (project.hasProperty("gpr.user") && project.hasProperty("gpr.key")) {
@@ -139,6 +138,7 @@ allprojects {
         }
         //maven { url 'https://projects.itemis.de/nexus/content/repositories/mbeddr' }
         //maven { url = uri("https://modelix.jfrog.io/artifactory/itemis/") } // caching proxy for the itemis repo
+        mavenLocal()
     }
 }
 description = "Cloud storage and web UI for MPS"
