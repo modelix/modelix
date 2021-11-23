@@ -12,6 +12,8 @@
  * limitations under the License.
  */
 
+// @ts-nocheck
+
 import $ = require("jquery");
 
 export function initNewNodeButton() {
