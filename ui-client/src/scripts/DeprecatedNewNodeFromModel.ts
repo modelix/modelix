@@ -1,3 +1,4 @@
+// @ts-nocheck
 import $ = require("jquery");
 
 export class DeprecatedNewNodeFromModel {
