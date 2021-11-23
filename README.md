@@ -182,9 +182,9 @@ To use them in your gradle script add this repository:
 You also have to add your GitHub credential to `~/.gradle/gradle.properties`:
 
 ```
-grp.user=YOUR_USER_NAME
-grp.key=TOKEN_WITH_PACKAGES_READ_ACCESS
+gpr.user=YOUR_USER_NAME
+gpr.key=TOKEN_WITH_PACKAGES_READ_ACCESS
 ```
 
-`grp.key` is an access token that you can generate at https://github.com/settings/tokens.
+`gpr.key` is an access token that you can generate at https://github.com/settings/tokens.
 This token needs the `read:packages` permission.
