@@ -504,4 +504,8 @@ class CLTree : ITree {
         if (serialized == null) return null
         return IConceptReferenceSerializer.deserialize(serialized, this)
     }
+
+    override fun toString(): String {
+        return "CLTree[$hash]"
+    }
 }

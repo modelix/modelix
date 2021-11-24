@@ -143,6 +143,10 @@ class MetaModelBranch(val branch: IBranch) : IBranch by branch {
         override fun hashCode(): Int {
             return tree.hashCode()
         }
+
+        override fun toString(): String {
+            return "MMTree[$tree]"
+        }
     }
 
     inner class MMBranchListener(val listener: IBranchListener) : IBranchListener {
