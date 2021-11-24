@@ -8,7 +8,7 @@ The Modelix project develops a next generation language workbench that is native
 * Server-based execution of MPS and browser-based editors
 
 
-## Access to Github Packages
+# Access to Github Packages
 
 Modelix itself and some of its dependencies are published to Github Packages Repositories.
 To access these repositories from gradle you have to add your GitHub credentials to `~/.gradle/gradle.properties`:
