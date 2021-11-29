@@ -20,11 +20,13 @@ import graphql.schema.*
 import org.modelix.model.api.INodeReference
 import org.modelix.model.api.ITree
 import org.modelix.model.api.PNodeReference
+import org.modelix.model.api.SimpleConcept
 import org.modelix.model.metameta.MetaMetaLanguage
 import org.modelix.model.metameta.MetaModelIndex
+import org.modelix.model.metameta.PersistedConcept
 
 class ModelixSchemaGenerator(val tree: ITree) {
-    private val conceptTypes = HashMap<Long, GraphQLType>()
+    private val conceptTypes = HashMap<Long, GraphQLObjectType>()
     private val baseConcept = GraphQLObjectType.newObject()
         .name("BaseConcept")
         .field { it.name("_modelix_id").type(Scalars.GraphQLString) }
@@ -37,6 +39,11 @@ class ModelixSchemaGenerator(val tree: ITree) {
                 conceptTypes[conceptId] = GraphQLObjectType.newObject()
                     .name(fqName)
                     .field { it.name("_modelix_id").type(Scalars.GraphQLString) }
+                    .field { it
+                        .name("role")
+                        .type(Scalars.GraphQLString)
+                        .dataFetcher { env -> tree.getRole(env.getSource()) }
+                    }
                     .apply {
                         for (property in tree.getChildren(conceptId, MetaMetaLanguage.childLink_Concept_properties.name)) {
                             field { it.name(tree.getProperty(property, MetaMetaLanguage.property_Property_name.name)).type(Scalars.GraphQLString) }
@@ -58,6 +65,12 @@ class ModelixSchemaGenerator(val tree: ITree) {
             }
         }
 
+        val anyType = GraphQLUnionType.newUnionType()
+            .name("Any")
+            .also { union -> conceptTypes.values.sortedBy { it.name }.forEach { union.possibleType(it) }}
+            .build()
+
+
 //        val fetcher: DataFetcher<Any> = DataFetcher{ env ->
 //            if (env.field.name == "customers") listOf("customer A", "customer B")
 //            else when (env.fieldType) {
@@ -73,9 +86,21 @@ class ModelixSchemaGenerator(val tree: ITree) {
         return GraphQLSchema.newSchema()
             .query(GraphQLObjectType.newObject()
                 .name("Query")
-                .field { it.name("dummy").type(Scalars.GraphQLString) })
-            .also { schemaBuilder -> conceptTypes.values.forEach { schemaBuilder.additionalType(it) } }
-//            .codeRegistry(GraphQLCodeRegistry.newCodeRegistry().defaultDataFetcher(fetcherFactory).build())
+                .field { it
+                    .name("roots")
+                    .type(GraphQLList.list(anyType))
+                    .dataFetcher { env -> tree.getAllChildren(ITree.ROOT_ID).filter { tree.getConcept(it) !is SimpleConcept } }
+                })
+            .also { schemaBuilder -> conceptTypes.values.sortedBy { it.name }.forEach { schemaBuilder.additionalType(it) } }
+            .additionalType(anyType)
+            .codeRegistry(GraphQLCodeRegistry.newCodeRegistry()
+//                .defaultDataFetcher(fetcherFactory)
+                .typeResolver("Any") { env ->
+                    val nodeId = env.getObject() as Long
+                    val concept = tree.getConcept(nodeId) as PersistedConcept
+                    conceptTypes[concept.id]
+                }
+                .build())
             .build()
     }
 
