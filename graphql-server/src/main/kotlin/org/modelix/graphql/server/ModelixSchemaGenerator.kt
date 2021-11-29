@@ -15,27 +15,26 @@
  */
 package org.modelix.graphql.server
 
-import com.expediagroup.graphql.generator.extensions.deepName
 import graphql.Scalars
 import graphql.schema.*
+import org.modelix.model.api.INodeReference
 import org.modelix.model.api.ITree
+import org.modelix.model.api.PNodeReference
 import org.modelix.model.metameta.MetaMetaLanguage
 import org.modelix.model.metameta.MetaModelIndex
 
 class ModelixSchemaGenerator(val tree: ITree) {
+    private val conceptTypes = HashMap<Long, GraphQLType>()
+    private val baseConcept = GraphQLObjectType.newObject()
+        .name("BaseConcept")
+        .field { it.name("_modelix_id").type(Scalars.GraphQLString) }
+        .build()
 
     fun generate(): GraphQLSchema {
-        val typeBuilders = HashMap<Long, GraphQLObjectType.Builder>()
-
-        val baseConcept = GraphQLObjectType.newObject()
-            .name("BaseConcept")
-            .field { it.name("_modelix_id").type(Scalars.GraphQLString) }
-            .build()
-
         for (languageId in tree.getChildren(ITree.ROOT_ID, MetaModelIndex.LANGUAGES_ROLE)) {
             for (conceptId in tree.getChildren(languageId, MetaMetaLanguage.childLink_Language_concepts.name)) {
-                val fqName = getConceptFqName(conceptId, tree)
-                val type = GraphQLObjectType.newObject()
+                val fqName = getConceptFqName(conceptId)
+                conceptTypes[conceptId] = GraphQLObjectType.newObject()
                     .name(fqName)
                     .field { it.name("_modelix_id").type(Scalars.GraphQLString) }
                     .apply {
@@ -43,17 +42,21 @@ class ModelixSchemaGenerator(val tree: ITree) {
                             field { it.name(tree.getProperty(property, MetaMetaLanguage.property_Property_name.name)).type(Scalars.GraphQLString) }
                         }
                         for (childLink in tree.getChildren(conceptId, MetaMetaLanguage.childLink_Concept_childLinks.name)) {
-                            field { it.name(tree.getProperty(childLink, MetaMetaLanguage.property_ChildLink_name.name)).type(baseConcept) }
+                            field(generateField(
+                                tree.getProperty(childLink, MetaMetaLanguage.property_ChildLink_name.name),
+                                tree.getReferenceTarget(childLink, MetaMetaLanguage.referenceLink_ChildLink_childConcept.name)
+                            ))
                         }
                         for (referenceLink in tree.getChildren(conceptId, MetaMetaLanguage.childLink_Concept_referenceLinks.name)) {
-                            field { it.name(tree.getProperty(referenceLink, MetaMetaLanguage.property_ReferenceLink_name.name)).type(baseConcept) }
+                            field(generateField(
+                                tree.getProperty(referenceLink, MetaMetaLanguage.property_ReferenceLink_name.name),
+                                tree.getReferenceTarget(referenceLink, MetaMetaLanguage.referenceLink_ReferenceLink_targetConcept.name)
+                            ))
                         }
                     }
-                typeBuilders[conceptId] = type
+                    .build()
             }
         }
-
-
 
 //        val fetcher: DataFetcher<Any> = DataFetcher{ env ->
 //            if (env.field.name == "customers") listOf("customer A", "customer B")
@@ -71,12 +74,12 @@ class ModelixSchemaGenerator(val tree: ITree) {
             .query(GraphQLObjectType.newObject()
                 .name("Query")
                 .field { it.name("dummy").type(Scalars.GraphQLString) })
-            .also { schemaBuilder -> typeBuilders.values.forEach { schemaBuilder.additionalType(it.build()) } }
+            .also { schemaBuilder -> conceptTypes.values.forEach { schemaBuilder.additionalType(it) } }
 //            .codeRegistry(GraphQLCodeRegistry.newCodeRegistry().defaultDataFetcher(fetcherFactory).build())
             .build()
     }
 
-    fun getConceptFqName(conceptId: Long, tree: ITree): String {
+    fun getConceptFqName(conceptId: Long): String {
         val conceptName = tree.getProperty(conceptId, MetaMetaLanguage.property_Concept_name.name)
         val languageId = tree.getParent(conceptId)
         val languageName = tree.getProperty(languageId, MetaMetaLanguage.property_Language_name.name)
@@ -84,4 +87,16 @@ class ModelixSchemaGenerator(val tree: ITree) {
     }
 
     fun toValidName(name: String) = name.replace("[^_0-9A-Za-z]".toRegex(), "_")
+
+    fun generateField(name: String?, targetConcept: INodeReference?): GraphQLFieldDefinition {
+        val targetType = if (targetConcept is PNodeReference) {
+            GraphQLTypeReference.typeRef(getConceptFqName(targetConcept.id))
+        } else {
+            baseConcept
+        }
+        return GraphQLFieldDefinition.newFieldDefinition()
+            .name(name)
+            .type(targetType)
+            .build()
+    }
 }
