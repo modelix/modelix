@@ -23,7 +23,7 @@ spec:
     spec:
       containers:
       - name: projector
-        image: modelix/modelix-projector:0.0.67
+        image: modelix/modelix-projector:2020.3.5-202111240702-SNAPSHOT
         imagePullPolicy: IfNotPresent
         env:
         - name: "MODEL_URI"

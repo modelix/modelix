@@ -1,6 +1,4 @@
 /*
- * Copyright 2021 Expedia, Inc
- *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -14,7 +12,7 @@
  * limitations under the License.
  */
 
-package com.expediagroup.graphql.examples.server.ktor
+package org.modelix.graphql.server
 
 import com.expediagroup.graphql.generator.extensions.deepName
 import com.expediagroup.graphql.server.execution.GraphQLRequestParser
@@ -32,37 +30,26 @@ import io.ktor.http.*
 import io.ktor.request.*
 import io.ktor.response.*
 import kotlinx.coroutines.future.await
+import java.io.IOException
 
-/**
- * The Ktor specific code to handle incoming [ApplicationCall]s, send them to GraphQL,
- * and then format and send a correct response back.
- */
 class ModelixGraphQLServer {
 
     private val mapper = jacksonObjectMapper()
 
-    /**
-     * Handle incoming Ktor Http requests and send them back to the response methods.
-     */
     suspend fun handle(applicationCall: ApplicationCall) {
-        val qlRequestParser: GraphQLRequestParser<ApplicationRequest> = KtorGraphQLRequestParser(mapper)
-        val request: GraphQLServerRequest? = qlRequestParser.parseRequest(applicationCall.request)
-        val contextFactory = KtorGraphQLContextFactory()
-        val context: AuthorizedContext = contextFactory.generateContext(applicationCall.request)
-        val graphQLContext: Map<*, Any>? = contextFactory.generateContextMap(applicationCall.request)
+        val request = parseRequest(applicationCall.request)
 
         val result: GraphQLServerResponse? = when (request) {
-            is GraphQLRequest -> handleGQLRequest(request, context, graphQLContext)
+            is GraphQLRequest -> handleGQLRequest(request)
             is GraphQLBatchRequest -> GraphQLBatchResponse(
                 request.requests.map {
-                    handleGQLRequest(it, context, graphQLContext)
+                    handleGQLRequest(it)
                 }
             )
             else -> null
         }
 
         if (result != null) {
-            // write response as json
             val json = mapper.writeValueAsString(result)
             applicationCall.response.call.respond(json)
         } else {
@@ -70,8 +57,15 @@ class ModelixGraphQLServer {
         }
     }
 
-    suspend fun handleGQLRequest(request: GraphQLRequest, context: AuthorizedContext, graphQLContext: Map<*, Any>?): GraphQLResponse<*> {
-        val executionInput = toExecutionInput(request, context, graphQLContext)
+    suspend fun parseRequest(request: ApplicationRequest): GraphQLServerRequest = try {
+        val rawRequest = request.call.receiveText()
+        mapper.readValue(rawRequest, GraphQLServerRequest::class.java)
+    } catch (e: IOException) {
+        throw IOException("Unable to parse GraphQL payload.")
+    }
+
+    suspend fun handleGQLRequest(request: GraphQLRequest): GraphQLResponse<*> {
+        val executionInput = toExecutionInput(request)
         val schema = buildSchema()
         val graphQL = GraphQL.newGraphQL(schema).build()
         return try {
@@ -82,15 +76,11 @@ class ModelixGraphQLServer {
         }
     }
 
-    fun toExecutionInput(request: GraphQLRequest, graphQLContext: Any? = null, graphQLContextMap: Map<*, Any>? = null): ExecutionInput {
+    fun toExecutionInput(request: GraphQLRequest): ExecutionInput {
         return ExecutionInput.newExecutionInput()
             .query(request.query)
             .operationName(request.operationName)
             .variables(request.variables ?: emptyMap())
-            .also { builder ->
-                graphQLContext?.let { builder.context(it) }
-                graphQLContextMap?.let { builder.graphQLContext(it) }
-            }
             .build()
     }
 

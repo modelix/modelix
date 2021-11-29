@@ -1,6 +1,4 @@
 /*
- * Copyright 2021 Expedia, Inc
- *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -14,7 +12,7 @@
  * limitations under the License.
  */
 
-package com.expediagroup.graphql.examples.server.ktor
+package org.modelix.graphql.server
 
 import io.ktor.application.Application
 import io.ktor.application.call
@@ -32,10 +30,6 @@ fun Application.graphQLModule() {
 
     routing {
         post("graphql") {
-            KtorServer().handle(this.call)
-        }
-
-        post("modelix") {
             ModelixGraphQLServer().handle(this.call)
         }
 
