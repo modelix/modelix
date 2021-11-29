@@ -15,7 +15,6 @@
 package org.modelix.graphql.server
 
 import com.expediagroup.graphql.generator.extensions.deepName
-import com.expediagroup.graphql.server.execution.GraphQLRequestParser
 import com.expediagroup.graphql.server.extensions.toGraphQLError
 import com.expediagroup.graphql.server.extensions.toGraphQLKotlinType
 import com.expediagroup.graphql.server.extensions.toGraphQLResponse
@@ -30,20 +29,30 @@ import io.ktor.http.*
 import io.ktor.request.*
 import io.ktor.response.*
 import kotlinx.coroutines.future.await
+import org.modelix.model.api.ITree
+import org.modelix.model.client.ReplicatedRepository
+import org.modelix.model.client.RestWebModelClient
+import org.modelix.model.lazy.RepositoryId
+import org.modelix.model.metameta.MetaMetaLanguage
+import org.modelix.model.metameta.MetaModelIndex
 import java.io.IOException
 
 class ModelixGraphQLServer {
 
     private val mapper = jacksonObjectMapper()
+    private val modelClient = RestWebModelClient("http://localhost:32631/model/")
+    private val repository = ReplicatedRepository(modelClient, RepositoryId("default"), "master", { "GraphQL" })
 
     suspend fun handle(applicationCall: ApplicationCall) {
+        val tree = repository.branch.computeReadT { it.tree }
+
         val request = parseRequest(applicationCall.request)
 
         val result: GraphQLServerResponse? = when (request) {
-            is GraphQLRequest -> handleGQLRequest(request)
+            is GraphQLRequest -> handleGQLRequest(request, tree)
             is GraphQLBatchRequest -> GraphQLBatchResponse(
                 request.requests.map {
-                    handleGQLRequest(it)
+                    handleGQLRequest(it, tree)
                 }
             )
             else -> null
@@ -64,9 +73,9 @@ class ModelixGraphQLServer {
         throw IOException("Unable to parse GraphQL payload.")
     }
 
-    suspend fun handleGQLRequest(request: GraphQLRequest): GraphQLResponse<*> {
+    suspend fun handleGQLRequest(request: GraphQLRequest, tree: ITree): GraphQLResponse<*> {
         val executionInput = toExecutionInput(request)
-        val schema = buildSchema()
+        val schema = buildSchema(tree)
         val graphQL = GraphQL.newGraphQL(schema).build()
         return try {
             graphQL.executeAsync(executionInput).await().toGraphQLResponse()
@@ -88,7 +97,26 @@ class ModelixGraphQLServer {
         return "value for $fieldName"
     }
 
-    fun buildSchema(): GraphQLSchema {
+    fun buildSchema(tree: ITree): GraphQLSchema {
+        val typeBuilders = HashMap<String, GraphQLObjectType.Builder>()
+
+        for (languageId in tree.getChildren(ITree.ROOT_ID, MetaModelIndex.LANGUAGES_ROLE)) {
+            val languageName = tree.getProperty(languageId, MetaMetaLanguage.property_Language_name.name) ?: continue
+            for (conceptId in tree.getChildren(languageId, MetaMetaLanguage.childLink_Language_concepts.name)) {
+                val conceptName = tree.getProperty(conceptId, MetaMetaLanguage.property_Concept_name.name) ?: continue
+                val fqName = toValidName("$languageName.$conceptName")
+                val type = GraphQLObjectType.newObject()
+                    .name(fqName)
+                    .field { it.name("_modelix_id").type(Scalars.GraphQLString) }
+                    .apply {
+                        for (property in tree.getChildren(conceptId, MetaMetaLanguage.childLink_Concept_properties.name)) {
+                            field { it.name(tree.getProperty(property, MetaMetaLanguage.property_Property_name.name)).type(Scalars.GraphQLString) }
+                        }
+                    }
+                typeBuilders[fqName] = type
+            }
+        }
+
         val customer = GraphQLObjectType.newObject()
             .name("Customer")
             .field { it.name("name").type(Scalars.GraphQLString) }
@@ -106,13 +134,14 @@ class ModelixGraphQLServer {
             if (env.fieldDefinition.type == Scalars.GraphQLString || env.fieldDefinition.name == "customers") fetcher else PropertyDataFetcher.fetching<Any>(env.fieldDefinition.name)
         }
 
-
-
         return GraphQLSchema.newSchema()
             .query(GraphQLObjectType.newObject()
                 .name("Query")
                 .field { it.name("customers").type(GraphQLList.list(customer)) })
+            .also { schemaBuilder -> typeBuilders.values.forEach { schemaBuilder.additionalType(it.build()) } }
             .codeRegistry(GraphQLCodeRegistry.newCodeRegistry().defaultDataFetcher(fetcherFactory).build())
             .build()
     }
+
+    fun toValidName(name: String) = name.replace("[^_0-9A-Za-z]".toRegex(), "_")
 }

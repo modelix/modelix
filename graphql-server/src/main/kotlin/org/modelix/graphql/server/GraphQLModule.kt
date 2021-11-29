@@ -28,9 +28,10 @@ import io.ktor.routing.routing
 fun Application.graphQLModule() {
     install(Routing)
 
+    val modelixGraphQLServer = ModelixGraphQLServer()
     routing {
         post("graphql") {
-            ModelixGraphQLServer().handle(this.call)
+            modelixGraphQLServer.handle(this.call)
         }
 
         get("playground") {
