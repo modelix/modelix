@@ -22,3 +22,9 @@ $(() => {
 
     NewNodeFromModel.install();
 });
+
+export function openInProjector(nodeRef: string) {
+    const xhr = new XMLHttpRequest();
+    xhr.open("POST", "./uimode?mode=single&nodeRef=" + nodeRef, true);
+    xhr.send(null);
+}

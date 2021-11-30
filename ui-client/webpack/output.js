@@ -4,5 +4,7 @@ var path = require('path');
 
 module.exports = {
   path: path.join(process.cwd(), 'dist'),
-  filename: 'scripts/[name].js'
+  filename: 'scripts/[name].js',
+  libraryTarget: 'var',
+  library: 'Modelix'
 };
