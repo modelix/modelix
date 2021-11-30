@@ -1,23 +1,17 @@
-FROM modelix/projector-mps:2020.3.5
+FROM modelix/modelix-projector-base
 
-COPY install-plugins.sh /
-COPY build/branding.zip /projector/ide/lib/branding.jar
+USER root
 
 COPY artifacts/de.itemis.mps.extensions/ /mps-plugins/MPS-extensions
 COPY build/org.modelix/build/artifacts/org.modelix/plugins/ /mps-plugins/modelix
 
-USER root
-RUN apt-get update \
-    && apt-get install unzip -y \
-    && rm -rf /var/lib/apt/lists/* \
-    && rm -rf /var/cache/apt
 RUN /install-plugins.sh /projector/ide/plugins/
 COPY projector-user-home /home/projector-user
 COPY log.xml /projector/ide/bin/log.xml
-RUN mkdir -p /mps-plugins
-RUN mkdir -p /mps-languages
+
 RUN chown -R projector-user:projector-user /home/projector-user
 RUN chown -R projector-user:projector-user /mps-plugins
 RUN chown -R projector-user:projector-user /mps-languages
 RUN chown -R projector-user:projector-user /projector/ide/
+
 USER projector-user
