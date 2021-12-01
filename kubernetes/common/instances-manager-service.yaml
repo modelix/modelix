@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: instances-manager
+  name: instances-manager
+spec:
+  type: NodePort
+  ports:
+  - name: "33332"
+    port: 33332
+    targetPort: 33332
+  selector:
+    app: instances-manager
