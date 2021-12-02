@@ -75,6 +75,8 @@ public class DeploymentManagingHandler extends AbstractHandler {
     public void handle(String target, Request baseRequest, HttpServletRequest request, HttpServletResponse response) {
         try {
             RedirectedURL redirectedURL = RedirectedURL.redirect(baseRequest, request);
+            if (redirectedURL == null) return;
+            if (redirectedURL.personalDeploymentName == null) return;
             deploymentTimeouts.put(redirectedURL.personalDeploymentName, System.currentTimeMillis() + 30*60*1000);
             boolean deploymentCreated = createDeployment(redirectedURL.originalDeploymentName, redirectedURL.personalDeploymentName);
             if (!deploymentCreated) throw new RuntimeException("Deployment doesn't exist: " + redirectedURL.originalDeploymentName);

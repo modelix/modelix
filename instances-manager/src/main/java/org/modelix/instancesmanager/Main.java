@@ -58,7 +58,7 @@ public class Main {
         DeploymentManagingHandler deploymentManagingHandler = new DeploymentManagingHandler();
         handlerList.addHandler(deploymentManagingHandler);
 
-        WebSocketServlet webSocketServlet = new WebSocketProxyServlet() {
+        ProxyServletWithWebsocketSupport webSocketServlet = new ProxyServletWithWebsocketSupport() {
             @Override
             protected URI redirect(ServletUpgradeRequest request) {
                 RedirectedURL redirectedURL = RedirectedURL.redirect(null, request.getHttpServletRequest());
@@ -69,12 +69,19 @@ public class Main {
                     throw new RuntimeException(e);
                 }
             }
+
+            @Override
+            protected String rewriteTarget(HttpServletRequest clientRequest) {
+                RedirectedURL redirectedURL = RedirectedURL.redirect(null, clientRequest);
+                if (redirectedURL == null) return null;
+                return redirectedURL.getRedirectedUrl(false);
+            }
         };
         HandlerWrapper webSocketHandlerCondition = new HandlerWrapper() {
             @Override
             public void handle(String target, Request baseRequest, HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
                 if (RedirectedURL.redirect(baseRequest, request) == null) return;
-                if (!baseRequest.getRequestURI().contains("/ws/")) return;
+//                if (!baseRequest.getRequestURI().contains("/ws/")) return;
                 super.handle(target, baseRequest, request, response);
             }
         };
@@ -84,19 +91,19 @@ public class Main {
         handlerList.addHandler(webSocketHandlerCondition);
 
 
-        ProxyServlet proxyServlet = new ProxyServlet() {
-            @Override
-            protected String rewriteTarget(HttpServletRequest clientRequest) {
-                RedirectedURL redirectedURL = RedirectedURL.redirect(null, clientRequest);
-                if (redirectedURL == null) return null;
-                return redirectedURL.getRedirectedUrl(false);
-            }
-        };
-        proxyServlet.setTimeout(60_000);
-
-        ServletContextHandler proxyHandler = new ServletContextHandler();
-        proxyHandler.addServlet(new ServletHolder(proxyServlet), "/*");
-        handlerList.addHandler(proxyHandler);
+//        ProxyServlet proxyServlet = new ProxyServlet() {
+//            @Override
+//            protected String rewriteTarget(HttpServletRequest clientRequest) {
+//                RedirectedURL redirectedURL = RedirectedURL.redirect(null, clientRequest);
+//                if (redirectedURL == null) return null;
+//                return redirectedURL.getRedirectedUrl(false);
+//            }
+//        };
+//        proxyServlet.setTimeout(60_000);
+//
+//        ServletContextHandler proxyHandler = new ServletContextHandler();
+//        proxyHandler.addServlet(new ServletHolder(proxyServlet), "/*");
+//        handlerList.addHandler(proxyHandler);
 
         handlerList.addHandler(new DefaultHandler());
         server.start();

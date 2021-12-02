@@ -38,26 +38,34 @@ public class RedirectedURL {
 
         // TODO use the ID of an authenticated user instead (or in addition)
         String personalDeploymentSuffix = null;
-        for (Cookie cookie : request.getCookies()) {
-            if (COOKIE_NAME.equals(cookie.getName())) {
-                personalDeploymentSuffix = cookie.getValue();
+        Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (COOKIE_NAME.equals(cookie.getName())) {
+                    personalDeploymentSuffix = cookie.getValue();
+                }
             }
         }
         if (personalDeploymentSuffix == null) {
-            personalDeploymentSuffix = UUID.randomUUID().toString();
+            if ("/".equals(path)) {
+                personalDeploymentSuffix = UUID.randomUUID().toString();
+            } else {
+                // Requests for manifest.webmanifest doesn't contain cookies and would trigger the creating
+                // of a new deployment.
+                return new RedirectedURL(remainingPath, originalDeploymentName ,null);
+            }
         }
         if (baseRequest != null) {
-            baseRequest.getResponse().addCookie(new HttpCookie(COOKIE_NAME, personalDeploymentSuffix, null, "/", 30 * 24 * 60 * 60, true, false));
+            baseRequest.getResponse().addCookie(new HttpCookie(COOKIE_NAME, personalDeploymentSuffix, null, "/", 30 * 24 * 60 * 60, false, false));
         }
 
         String personalDeploymentName = PERSONAL_DEPLOYMENT_PREFIX + originalDeploymentName + "-" + personalDeploymentSuffix;
-
         return new RedirectedURL(remainingPath, originalDeploymentName, personalDeploymentName);
     }
 
     public final String remainingPath;
-    public final  String originalDeploymentName;
-    public final  String personalDeploymentName;
+    public final String originalDeploymentName;
+    public final String personalDeploymentName;
 
     public RedirectedURL(String remainingPath, String originalDeploymentName, String personalDeploymentName) {
         this.remainingPath = remainingPath;
@@ -67,7 +75,8 @@ public class RedirectedURL {
     }
 
     public String getRedirectedUrl(boolean websocket) {
-        String url = (websocket ? "ws" : "http") + "://" + personalDeploymentName;
+        String url = (websocket ? "ws" : "http") + "://";
+        url += personalDeploymentName != null ? personalDeploymentName : originalDeploymentName;
         if (remainingPath.startsWith("/ide/")) {
             url += ":8887" + remainingPath.substring("/ide".length());
         } else {
