@@ -25,7 +25,7 @@ public class DeploymentTimeouts {
     private final Map<String, Long> timeouts = Collections.synchronizedMap(new HashedMap<>());
 
     public void update(String deploymentName) {
-        timeouts.put(deploymentName, System.currentTimeMillis() + 3*60*1000);
+        timeouts.put(deploymentName, System.currentTimeMillis() + 10*60*1000);
     }
 
     public boolean isTimedOut(String deploymentName) {
