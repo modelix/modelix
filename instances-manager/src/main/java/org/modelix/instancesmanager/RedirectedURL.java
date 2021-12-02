@@ -34,6 +34,8 @@ public class RedirectedURL {
         String originalDeploymentName = path.substring(1, indexOfSlash);
         String remainingPath = path.substring(indexOfSlash);
 
+        if (request.getQueryString() != null) remainingPath += "?" + request.getQueryString();
+
         // TODO use the ID of an authenticated user instead (or in addition)
         String personalDeploymentSuffix = null;
         Cookie[] cookies = request.getCookies();
