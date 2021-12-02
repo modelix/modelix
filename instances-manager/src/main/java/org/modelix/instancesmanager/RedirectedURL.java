@@ -63,13 +63,13 @@ public class RedirectedURL {
         this.remainingPath = remainingPath;
         this.originalDeploymentName = originalDeploymentName;
         this.personalDeploymentName = personalDeploymentName;
-        System.out.println("Redirect: " + remainingPath + " / " + originalDeploymentName + " / " + personalDeploymentName);
+        System.out.println("Redirect: " + remainingPath + " # " + originalDeploymentName + " # " + personalDeploymentName + " # " + getRedirectedUrl(false));
     }
 
     public String getRedirectedUrl(boolean websocket) {
         String url = (websocket ? "ws" : "http") + "://" + personalDeploymentName;
         if (remainingPath.startsWith("/ide/")) {
-            url += ":8887" + remainingPath;
+            url += ":8887" + remainingPath.substring("/ide".length());
         } else {
             url += ":33333" + remainingPath;
         }
