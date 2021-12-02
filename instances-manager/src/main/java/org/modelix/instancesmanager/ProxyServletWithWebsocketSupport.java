@@ -1,6 +1,4 @@
 /*
- * Copyright 2003-2021 JetBrains s.r.o.
- *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -38,6 +36,7 @@ import java.nio.ByteBuffer;
 
 public abstract class ProxyServletWithWebsocketSupport extends ProxyServlet {
 
+    protected void dataTransferred(Session clientSession, Session proxySession) {}
 
     // --------------------------- copied from org.eclipse.jetty.websocket.servlet.WebSocketServlet --------------------
 
@@ -152,6 +151,7 @@ public abstract class ProxyServletWithWebsocketSupport extends ProxyServlet {
                                 public void onWebSocketBinary(byte[] payload, int offset, int len) {
                                     try {
                                         sessionA.getRemote().sendBytes(ByteBuffer.wrap(payload, offset, len));
+                                        dataTransferred(sessionA, sessionB);
                                     } catch (IOException e) {
                                         throw new RuntimeException(e);
                                     }
@@ -161,6 +161,7 @@ public abstract class ProxyServletWithWebsocketSupport extends ProxyServlet {
                                 public void onWebSocketText(String message) {
                                     try {
                                         sessionA.getRemote().sendString(message);
+                                        dataTransferred(sessionA, sessionB);
                                     } catch (IOException e) {
                                         throw new RuntimeException(e);
                                     }

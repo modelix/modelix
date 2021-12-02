@@ -1,6 +1,4 @@
 /*
- * Copyright 2003-2021 JetBrains s.r.o.
- *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -43,7 +41,6 @@ public class DeploymentManagingHandler extends AbstractHandler {
     private static final Logger LOG = Logger.getLogger(DeploymentManagingHandler.class);
     public static final String KUBERNETES_NAMESPACE = "default";
 
-    private Map<String, Long> deploymentTimeouts = Collections.synchronizedMap(new HashedMap<>());
     private Thread cleanupThread = new Thread() {
         @Override
         public void run() {
@@ -77,7 +74,7 @@ public class DeploymentManagingHandler extends AbstractHandler {
             RedirectedURL redirectedURL = RedirectedURL.redirect(baseRequest, request);
             if (redirectedURL == null) return;
             if (redirectedURL.personalDeploymentName == null) return;
-            deploymentTimeouts.put(redirectedURL.personalDeploymentName, System.currentTimeMillis() + 30*60*1000);
+            DeploymentTimeouts.INSTANCE.update(redirectedURL.personalDeploymentName);
             boolean deploymentCreated = createDeployment(redirectedURL.originalDeploymentName, redirectedURL.personalDeploymentName);
             if (!deploymentCreated) throw new RuntimeException("Deployment doesn't exist: " + redirectedURL.originalDeploymentName);
 
@@ -128,11 +125,10 @@ public class DeploymentManagingHandler extends AbstractHandler {
                 for (V1Deployment deployment : deployments.getItems()) {
                     String name = deployment.getMetadata().getName();
                     if (!name.startsWith(RedirectedURL.PERSONAL_DEPLOYMENT_PREFIX)) continue;
-                    Long timeout = deploymentTimeouts.get(name);
-                    if (timeout != null && timeout > System.currentTimeMillis()) continue;
-                    deploymentTimeouts.remove(name);
-                    appsApi.deleteNamespacedDeployment(name, KUBERNETES_NAMESPACE, null, null, null, null, null, null);
-                    coreApi.deleteNamespacedService(name, KUBERNETES_NAMESPACE, null, null, null, null, null, null);
+                    if (DeploymentTimeouts.INSTANCE.isTimedOut(name)) {
+                        appsApi.deleteNamespacedDeployment(name, KUBERNETES_NAMESPACE, null, null, null, null, null, null);
+                        coreApi.deleteNamespacedService(name, KUBERNETES_NAMESPACE, null, null, null, null, null, null);
+                    }
                 }
             } catch (ApiException e) {
                 LOG.error("Deployment cleanup failed", e);

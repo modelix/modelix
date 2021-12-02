@@ -1,6 +1,4 @@
 /*
- * Copyright 2003-2021 JetBrains s.r.o.
- *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -25,6 +23,7 @@ import org.eclipse.jetty.server.handler.HandlerList;
 import org.eclipse.jetty.server.handler.HandlerWrapper;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
+import org.eclipse.jetty.websocket.api.Session;
 import org.eclipse.jetty.websocket.servlet.ServletUpgradeRequest;
 import org.eclipse.jetty.websocket.servlet.WebSocketServlet;
 
@@ -59,6 +58,12 @@ public class Main {
         handlerList.addHandler(deploymentManagingHandler);
 
         ProxyServletWithWebsocketSupport webSocketServlet = new ProxyServletWithWebsocketSupport() {
+            @Override
+            protected void dataTransferred(Session clientSession, Session proxySession) {
+                String deploymentName = proxySession.getUpgradeRequest().getHost();
+                DeploymentTimeouts.INSTANCE.update(deploymentName);
+            }
+
             @Override
             protected URI redirect(ServletUpgradeRequest request) {
                 RedirectedURL redirectedURL = RedirectedURL.redirect(null, request.getHttpServletRequest());
