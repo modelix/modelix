@@ -37,29 +37,24 @@ public class RedirectedURL {
         if (request.getQueryString() != null) remainingPath += "?" + request.getQueryString();
 
         // TODO use the ID of an authenticated user instead (or in addition)
-        String personalDeploymentSuffix = null;
+        String cookieValue = null;
         Cookie[] cookies = request.getCookies();
         if (cookies != null) {
             for (Cookie cookie : cookies) {
                 if (COOKIE_NAME.equals(cookie.getName())) {
-                    personalDeploymentSuffix = cookie.getValue();
+                    cookieValue = cookie.getValue();
                 }
             }
         }
-        if (personalDeploymentSuffix == null) {
-            if ("/".equals(path)) {
-                personalDeploymentSuffix = UUID.randomUUID().toString();
-            } else {
-                // Requests for manifest.webmanifest doesn't contain cookies and would trigger the creating
-                // of a new deployment.
-                return new RedirectedURL(remainingPath, originalDeploymentName ,null);
-            }
-        }
         if (baseRequest != null) {
-            baseRequest.getResponse().addCookie(new HttpCookie(COOKIE_NAME, personalDeploymentSuffix, null, "/", 30 * 24 * 60 * 60, false, false));
+            baseRequest.getResponse().addCookie(new HttpCookie(COOKIE_NAME, cookieValue != null ? cookieValue : UUID.randomUUID().toString(), null, "/", 30 * 24 * 60 * 60, false, false));
         }
 
-        String personalDeploymentName = PERSONAL_DEPLOYMENT_PREFIX + originalDeploymentName + "-" + personalDeploymentSuffix;
+        if (cookieValue == null) {
+            return new RedirectedURL(remainingPath, originalDeploymentName ,null);
+        }
+
+        String personalDeploymentName = PERSONAL_DEPLOYMENT_PREFIX + originalDeploymentName + "-" + cookieValue;
         return new RedirectedURL(remainingPath, originalDeploymentName, personalDeploymentName);
     }
 

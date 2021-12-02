@@ -57,7 +57,7 @@ public class Main {
         DeploymentManagingHandler deploymentManagingHandler = new DeploymentManagingHandler();
         handlerList.addHandler(deploymentManagingHandler);
 
-        ProxyServletWithWebsocketSupport webSocketServlet = new ProxyServletWithWebsocketSupport() {
+        ProxyServletWithWebsocketSupport proxyServlet = new ProxyServletWithWebsocketSupport() {
             @Override
             protected void dataTransferred(Session clientSession, Session proxySession) {
                 String deploymentName = proxySession.getUpgradeRequest().getHost();
@@ -82,18 +82,26 @@ public class Main {
                 return redirectedURL.getRedirectedUrl(false);
             }
         };
-        HandlerWrapper webSocketHandlerCondition = new HandlerWrapper() {
+        HandlerWrapper proxyHandlerCondition = new HandlerWrapper() {
             @Override
             public void handle(String target, Request baseRequest, HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-                if (RedirectedURL.redirect(baseRequest, request) == null) return;
+                RedirectedURL redirect = RedirectedURL.redirect(baseRequest, request);
+                if (redirect == null) return;
+                if (redirect.personalDeploymentName == null) {
+                    baseRequest.setHandled(true);
+                    response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                    response.setContentType("text/plain");
+                    response.getWriter().write("Cookie with deployment ID missing. Refresh this page to send a new valid request.");
+                    return;
+                }
 //                if (!baseRequest.getRequestURI().contains("/ws/")) return;
                 super.handle(target, baseRequest, request, response);
             }
         };
-        ServletContextHandler webSocketHandler = new ServletContextHandler();
-        webSocketHandler.addServlet(new ServletHolder(webSocketServlet), "/*");
-        webSocketHandlerCondition.setHandler(webSocketHandler);
-        handlerList.addHandler(webSocketHandlerCondition);
+        ServletContextHandler proxyHandler = new ServletContextHandler();
+        proxyHandler.addServlet(new ServletHolder(proxyServlet), "/*");
+        proxyHandlerCondition.setHandler(proxyHandler);
+        handlerList.addHandler(proxyHandlerCondition);
 
 
 //        ProxyServlet proxyServlet = new ProxyServlet() {
