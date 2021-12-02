@@ -25,7 +25,15 @@ public class DeploymentTimeouts {
     private final Map<String, Long> timeouts = Collections.synchronizedMap(new HashedMap<>());
 
     public void update(String deploymentName) {
-        timeouts.put(deploymentName, System.currentTimeMillis() + 10*60*1000);
+        String timeoutStr = System.getProperty("DEPLOYMENT_USER_COPY_TIMEOUT");
+        if (timeoutStr == null) timeoutStr = System.getenv("DEPLOYMENT_USER_COPY_TIMEOUT");
+        int timeout;
+        try {
+            timeout = Integer.parseInt(timeoutStr);
+        } catch (NumberFormatException ex) {
+            timeout = 10;
+        }
+        timeouts.put(deploymentName, System.currentTimeMillis() + timeout*60*1000);
     }
 
     public boolean isTimedOut(String deploymentName) {
