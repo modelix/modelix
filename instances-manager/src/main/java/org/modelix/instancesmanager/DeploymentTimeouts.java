@@ -27,13 +27,13 @@ public class DeploymentTimeouts {
     public void update(String deploymentName) {
         String timeoutStr = System.getProperty("DEPLOYMENT_USER_COPY_TIMEOUT");
         if (timeoutStr == null) timeoutStr = System.getenv("DEPLOYMENT_USER_COPY_TIMEOUT");
-        int timeout;
-        try {
-            timeout = Integer.parseInt(timeoutStr);
-        } catch (NumberFormatException ex) {
-            timeout = 10;
+        long timeout = 60;
+        if (timeoutStr != null && timeoutStr.length() > 0) {
+            try {
+                timeout = Long.parseLong(timeoutStr);
+            } catch (NumberFormatException ex) {}
         }
-        timeouts.put(deploymentName, System.currentTimeMillis() + timeout*60*1000);
+        timeouts.put(deploymentName, System.currentTimeMillis() + timeout*60L*1000L);
     }
 
     public boolean isTimedOut(String deploymentName) {
