@@ -21,6 +21,7 @@ import io.kubernetes.client.openapi.apis.AppsV1Api;
 import io.kubernetes.client.openapi.apis.CoreV1Api;
 import io.kubernetes.client.openapi.models.V1Deployment;
 import io.kubernetes.client.openapi.models.V1DeploymentList;
+import io.kubernetes.client.openapi.models.V1ObjectMeta;
 import io.kubernetes.client.openapi.models.V1Pod;
 import io.kubernetes.client.openapi.models.V1PodList;
 import io.kubernetes.client.openapi.models.V1Service;
@@ -83,6 +84,8 @@ public class DeploymentManager {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+        init();
+        reconcileDeployments();
         cleanupThread.start();
     }
 
@@ -94,27 +97,41 @@ public class DeploymentManager {
         return PERSONAL_DEPLOYMENT_PREFIX + originalDeploymentName + "-" + managerId + "-" + deploymentSuffixSequence.incrementAndGet();
     }
 
+    private void init() {
+        AppsV1Api appsApi = new AppsV1Api();
+        V1DeploymentList deployments = null;
+        try {
+            deployments = appsApi.listNamespacedDeployment(KUBERNETES_NAMESPACE, null, null, null, null, null, null, null, null, null);
+            for (V1Deployment deployment : deployments.getItems()) {
+                V1ObjectMeta metadata = deployment.getMetadata();
+                if (metadata == null) continue;
+                Map<String, String> annotations = metadata.getAnnotations();
+                if (annotations == null) continue;
+                if ("true".equals(annotations.get(INSTANCE_PER_USER_ANNOTATION_KEY))) {
+                    getAssignments(metadata.getName()).setNumberOfUnassigned(deployment);
+                }
+            }
+        } catch (ApiException e) {
+            LOG.error("", e);
+        }
+    }
+
     public RedirectedURL redirect(@Nullable Request baseRequest, HttpServletRequest request) {
         RedirectedURL redirected = RedirectedURL.redirect(baseRequest, request);
         if (redirected == null) return null;
+        if (redirected.userId == null) return redirected;
 
         try {
             V1Deployment originalDeployment = getDeployment(redirected.originalDeploymentName, 3);
-            boolean isInstancePerUser = "true".equals(originalDeployment.getMetadata().getAnnotations().get(INSTANCE_PER_USER_ANNOTATION_KEY));
+            V1ObjectMeta metadata = originalDeployment.getMetadata();
+            Map<String, String> annotations = metadata != null ? metadata.getAnnotations() : null;
+            boolean isInstancePerUser = annotations != null && "true".equals(annotations.get(INSTANCE_PER_USER_ANNOTATION_KEY));
             if (!isInstancePerUser) {
-                redirected.noPersonalDeployment();
+                return null;
             } else {
                 Assignments assignments = getAssignments(redirected.originalDeploymentName);
                 redirected.personalDeploymentName = assignments.getOrCreate(redirected.userId);
-
-                int maxUnassignedInstances = 1;
-                try {
-                    String maxUnassignedInstancesStr = originalDeployment.getMetadata().getAnnotations().get(MAX_UNASSIGNED_INSTANCES_ANNOTATION_KEY);
-                    if (maxUnassignedInstancesStr != null) {
-                        maxUnassignedInstances = Integer.parseInt(maxUnassignedInstancesStr);
-                    }
-                } catch (NumberFormatException e) {}
-                assignments.setNumberOfUnassigned(Math.max(0, maxUnassignedInstances));
+                assignments.setNumberOfUnassigned(originalDeployment);
 
                 reconcileIfDirty();
             }
@@ -160,10 +177,11 @@ public class DeploymentManager {
                 }
 
                 for (String d : toAdd) {
+                    String originalDeploymentName = expectedDeployments.get(d);
                     try {
-                        createDeployment(expectedDeployments.get(d), d);
-                    } catch (IOException e) {
-                        LOG.error("Failed to create deployment " + d, e);
+                        createDeployment(originalDeploymentName, d);
+                    } catch (Exception e) {
+                        LOG.error("Failed to create deployment " + originalDeploymentName + " / " + d, e);
                     }
                 }
             } catch (ApiException e) {
@@ -230,6 +248,8 @@ public class DeploymentManager {
             deployment.getMetadata().resourceVersion(null);
             deployment.setStatus(null);
             deployment.getMetadata().putAnnotationsItem("kubectl.kubernetes.io/last-applied-configuration", null);
+            deployment.getMetadata().putAnnotationsItem(INSTANCE_PER_USER_ANNOTATION_KEY, null);
+            deployment.getMetadata().putAnnotationsItem(MAX_UNASSIGNED_INSTANCES_ANNOTATION_KEY, null);
 
             deployment.getMetadata().name(personalDeploymentName);
             deployment.getMetadata().putLabelsItem("app", personalDeploymentName);
@@ -304,6 +324,23 @@ public class DeploymentManager {
                 unassignedDeployments.add(generatePersonalDeploymentName(originalDeploymentName));
                 dirty.set(true);
             }
+        }
+
+        public void setNumberOfUnassigned(V1Deployment deployment) {
+            int maxUnassignedInstances = 1;
+            try {
+                V1ObjectMeta metadata = deployment.getMetadata();
+                if (metadata != null) {
+                    Map<String, String> annotations = metadata.getAnnotations();
+                    if (annotations != null) {
+                        String maxUnassignedInstancesStr = annotations.get(MAX_UNASSIGNED_INSTANCES_ANNOTATION_KEY);
+                        if (maxUnassignedInstancesStr != null) {
+                            maxUnassignedInstances = Integer.parseInt(maxUnassignedInstancesStr);
+                        }
+                    }
+                }
+            } catch (NumberFormatException e) {}
+            setNumberOfUnassigned(Math.max(0, maxUnassignedInstances));
         }
 
         public synchronized List<String> getAllDeploymentNames() {

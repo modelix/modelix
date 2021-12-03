@@ -132,5 +132,8 @@ public class Main {
                 }
             }
         });
+
+        // Trigger creation of the instance so that it starts the first MPS instance
+        DeploymentManager.INSTANCE.toString();
     }
 }
