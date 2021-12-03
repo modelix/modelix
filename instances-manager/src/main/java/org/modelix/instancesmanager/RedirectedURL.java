@@ -22,7 +22,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.UUID;
 
 public class RedirectedURL {
-    public static final String PERSONAL_DEPLOYMENT_PREFIX = "user-copy-";
+
     public static final String COOKIE_NAME = "modelix-mps-instance";
 
     public static RedirectedURL redirect(@Nullable Request baseRequest, HttpServletRequest request) {
@@ -51,22 +51,26 @@ public class RedirectedURL {
         }
 
         if (cookieValue == null) {
-            return new RedirectedURL(remainingPath, originalDeploymentName ,null);
+            return new RedirectedURL(remainingPath, originalDeploymentName ,null, null);
         }
 
-        String personalDeploymentName = PERSONAL_DEPLOYMENT_PREFIX + originalDeploymentName + "-" + cookieValue;
-        return new RedirectedURL(remainingPath, originalDeploymentName, personalDeploymentName);
+        return new RedirectedURL(remainingPath, originalDeploymentName, null, cookieValue);
     }
 
     public final String remainingPath;
     public final String originalDeploymentName;
-    public final String personalDeploymentName;
+    public String personalDeploymentName;
+    public final String userId;
 
-    public RedirectedURL(String remainingPath, String originalDeploymentName, String personalDeploymentName) {
+    public RedirectedURL(String remainingPath, String originalDeploymentName, String personalDeploymentName, String userId) {
         this.remainingPath = remainingPath;
         this.originalDeploymentName = originalDeploymentName;
         this.personalDeploymentName = personalDeploymentName;
-        System.out.println("Redirect: " + remainingPath + " # " + originalDeploymentName + " # " + personalDeploymentName + " # " + getRedirectedUrl(false));
+        this.userId = userId;
+    }
+
+    public void noPersonalDeployment() {
+        personalDeploymentName = null;
     }
 
     public String getRedirectedUrl(boolean websocket) {

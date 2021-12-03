@@ -66,7 +66,7 @@ public class Main {
 
             @Override
             protected URI redirect(ServletUpgradeRequest request) {
-                RedirectedURL redirectedURL = RedirectedURL.redirect(null, request.getHttpServletRequest());
+                RedirectedURL redirectedURL = DeploymentManager.INSTANCE.redirect(null, request.getHttpServletRequest());
                 if (redirectedURL == null) return null;
                 try {
                     return new URI(redirectedURL.getRedirectedUrl(true));
@@ -77,7 +77,7 @@ public class Main {
 
             @Override
             protected String rewriteTarget(HttpServletRequest clientRequest) {
-                RedirectedURL redirectedURL = RedirectedURL.redirect(null, clientRequest);
+                RedirectedURL redirectedURL = DeploymentManager.INSTANCE.redirect(null, clientRequest);
                 if (redirectedURL == null) return null;
                 return redirectedURL.getRedirectedUrl(false);
             }
@@ -85,9 +85,9 @@ public class Main {
         HandlerWrapper proxyHandlerCondition = new HandlerWrapper() {
             @Override
             public void handle(String target, Request baseRequest, HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-                RedirectedURL redirect = RedirectedURL.redirect(baseRequest, request);
+                RedirectedURL redirect = DeploymentManager.INSTANCE.redirect(baseRequest, request);
                 if (redirect == null) return;
-                if (redirect.personalDeploymentName == null) {
+                if (redirect.userId == null) {
                     baseRequest.setHandled(true);
                     response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
                     response.setContentType("text/plain");
