@@ -154,6 +154,16 @@ class MetaModelSynchronizer(val branch: IBranch) {
         wt.setProperty(id, MetaMetaLanguage.property_Concept_name.name, concept.getShortName())
         wt.setProperty(id, MetaMetaLanguage.property_Concept_abstract.name, concept.isAbstract().toString())
 
+        pendingReferences += {
+            for (superConcept in concept.getDirectSuperConcepts()) {
+                val superRef = wt.addNewChild(id, MetaMetaLanguage.childLink_Concept_superConcepts.name, -1, MetaMetaLanguage.concept_ConceptReference)
+                val superConceptId = it.getConceptId(superConcept)
+                if (superConceptId != null) {
+                    wt.setReferenceTarget(superRef, MetaMetaLanguage.referenceLink_ConceptReference_concept.name, LocalPNodeReference(superConceptId))
+                }
+            }
+        }
+
         for (property in concept.getOwnProperties()) {
             storeProperty(id, property, pendingReferences)
         }
