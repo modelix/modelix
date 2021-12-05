@@ -45,20 +45,22 @@ class ModelixSchemaGenerator(val tree: ITree) {
                         .dataFetcher { env -> tree.getRole(env.getSource()) }
                     }
                     .apply {
-                        for (property in tree.getChildren(conceptId, MetaMetaLanguage.childLink_Concept_properties.name)) {
-                            field { it.name(tree.getProperty(property, MetaMetaLanguage.property_Property_name.name)).type(Scalars.GraphQLString) }
-                        }
-                        for (childLink in tree.getChildren(conceptId, MetaMetaLanguage.childLink_Concept_childLinks.name)) {
-                            field(generateField(
-                                tree.getProperty(childLink, MetaMetaLanguage.property_ChildLink_name.name),
-                                tree.getReferenceTarget(childLink, MetaMetaLanguage.referenceLink_ChildLink_childConcept.name)
-                            ))
-                        }
-                        for (referenceLink in tree.getChildren(conceptId, MetaMetaLanguage.childLink_Concept_referenceLinks.name)) {
-                            field(generateField(
-                                tree.getProperty(referenceLink, MetaMetaLanguage.property_ReferenceLink_name.name),
-                                tree.getReferenceTarget(referenceLink, MetaMetaLanguage.referenceLink_ReferenceLink_targetConcept.name)
-                            ))
+                        for (superConcept in collectSuperConcepts(conceptId)) {
+                            for (property in tree.getChildren(superConcept, MetaMetaLanguage.childLink_Concept_properties.name)) {
+                                field { it.name(tree.getProperty(property, MetaMetaLanguage.property_Property_name.name)).type(Scalars.GraphQLString) }
+                            }
+                            for (childLink in tree.getChildren(superConcept, MetaMetaLanguage.childLink_Concept_childLinks.name)) {
+                                field(generateField(
+                                    tree.getProperty(childLink, MetaMetaLanguage.property_ChildLink_name.name),
+                                    tree.getReferenceTarget(childLink, MetaMetaLanguage.referenceLink_ChildLink_childConcept.name)
+                                ))
+                            }
+                            for (referenceLink in tree.getChildren(superConcept, MetaMetaLanguage.childLink_Concept_referenceLinks.name)) {
+                                field(generateField(
+                                    tree.getProperty(referenceLink, MetaMetaLanguage.property_ReferenceLink_name.name),
+                                    tree.getReferenceTarget(referenceLink, MetaMetaLanguage.referenceLink_ReferenceLink_targetConcept.name)
+                                ))
+                            }
                         }
                     }
                     .build()
@@ -123,5 +125,19 @@ class ModelixSchemaGenerator(val tree: ITree) {
             .name(name)
             .type(targetType)
             .build()
+    }
+
+    fun collectSuperConcepts(conceptId: Long, acc: MutableSet<Long> = HashSet()): Set<Long> {
+        if (acc.contains(conceptId)) return acc;
+        acc += conceptId;
+
+        for (superConceptRef in tree.getChildren(conceptId, MetaMetaLanguage.childLink_Concept_superConcepts.name)) {
+            val superConcept = tree.getReferenceTarget(superConceptRef, MetaMetaLanguage.referenceLink_ConceptReference_concept.name)
+            if (superConcept is PNodeReference) {
+                collectSuperConcepts(superConcept.id, acc)
+            }
+        }
+
+        return acc
     }
 }
