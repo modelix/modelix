@@ -36,6 +36,7 @@ This can be your usual local IDE or an instance running in kubernetes with [Proj
   - `./kubernetes-open-projector.sh`
 - Option 3: Projector and Kubernetes using you own image. Use this option while developing the MPS plugins.
   - `./gradlew`
+  - `./docker-build-projector-base.sh`
   - `./docker-build-projector.sh`
   - `./kubernetes-apply-projector.sh`
   - `./kubernetes-open-projector.sh`

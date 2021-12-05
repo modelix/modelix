@@ -1,0 +1,19 @@
+FROM modelix/projector-mps:2020.3.5
+
+USER root
+COPY install-plugins.sh /
+COPY build/branding.zip /projector/ide/lib/branding.jar
+
+RUN apt-get update \
+    && apt-get install unzip -y \
+    && rm -rf /var/lib/apt/lists/* \
+    && rm -rf /var/cache/apt
+
+RUN mkdir -p /mps-plugins
+RUN mkdir -p /mps-languages
+RUN chown -R projector-user:projector-user /home/projector-user
+RUN chown -R projector-user:projector-user /mps-plugins
+RUN chown -R projector-user:projector-user /mps-languages
+RUN chown -R projector-user:projector-user /projector/ide/
+
+USER projector-user

@@ -1,0 +1,47 @@
+plugins {
+    id 'java'
+}
+
+group 'org.modelix'
+version modelixVersion
+
+description = "Starts a separate MPS instance for each user"
+
+compileJava {
+    sourceCompatibility = '11'
+    targetCompatibility = '11'
+}
+
+defaultTasks 'build'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+    compile 'io.kubernetes:client-java:8.0.2'
+    compile group: 'org.slf4j', name: 'slf4j-log4j12', version: '1.7.30'
+    compile group: 'log4j', name: 'log4j', version: '1.2.17'
+    compile group: 'commons-codec', name: 'commons-codec', version: '1.14'
+    compile group: 'commons-io', name: 'commons-io', version: '2.6'
+    compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.10'
+
+    ext.jettyVersion = '9.4.30.v20200611'
+    compile group: 'org.eclipse.jetty', name: 'jetty-server', version: jettyVersion
+    compile group: 'org.eclipse.jetty', name: 'jetty-proxy', version: jettyVersion
+    compile group: 'org.eclipse.jetty', name: 'jetty-servlet', version: jettyVersion
+    compile group: 'org.eclipse.jetty.websocket', name: 'websocket-servlet', version: jettyVersion
+    compile group: 'org.eclipse.jetty.websocket', name: 'websocket-client', version: jettyVersion
+    compile group: 'org.eclipse.jetty.websocket', name: 'websocket-server', version: jettyVersion
+
+    compile group: 'org.eclipse.jgit', name: 'org.eclipse.jgit', version: '5.8.0.202006091008-r'
+    compile group: 'org.kohsuke', name: 'github-api', version: '1.115'
+}
+
+task copyRuntimeLibs(type: Copy) {
+    into "$buildDir/dependencies"
+    from configurations.runtime
+}
+
+assemble.dependsOn copyRuntimeLibs

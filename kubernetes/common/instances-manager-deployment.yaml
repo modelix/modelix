@@ -2,8 +2,8 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: uiproxy
-  name: uiproxy
+    app: instances-manager
+  name: instances-manager
 spec:
   revisionHistoryLimit: 5
   replicas: 1
@@ -14,25 +14,25 @@ spec:
       maxSurge: 0
   selector:
     matchLabels:
-      app: uiproxy
+      app: instances-manager
   template:
     metadata:
-      creationTimestamp: null
       labels:
-        app: uiproxy
+        app: instances-manager
     spec:
       serviceAccountName: uiproxy
       containers:
-      - image: modelix/modelix-uiproxy:0.0.72
+      - image: modelix/modelix-instances-manager:0.0.72
         imagePullPolicy: IfNotPresent
-        name: uiproxy
+        name: instances-manager
         ports:
         - containerPort: 33332
-        resources: 
+        - containerPort: 5005
+        resources:
           requests:
-            memory: "100Mi"
+            memory: "300Mi"
             cpu: "0.1"
           limits:
-            memory: "200Mi"
+            memory: "500Mi"
             cpu: "1.0"           
       restartPolicy: Always
