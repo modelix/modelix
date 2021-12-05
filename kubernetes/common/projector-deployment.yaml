@@ -2,12 +2,14 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   annotations:
+    instance-per-user: true
+    max-unassigned-instances: 1
   labels:
     app: projector
   name: projector
 spec:
   revisionHistoryLimit: 5
-  replicas: 1
+  replicas: 0
   strategy:
     type: RollingUpdate
     rollingUpdate:
@@ -23,7 +25,7 @@ spec:
     spec:
       containers:
       - name: projector
-        image: modelix/modelix-projector:0.0.67
+        image: modelix/modelix-projector:0.0.72
         imagePullPolicy: IfNotPresent
         env:
         - name: "MODEL_URI"
