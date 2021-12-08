@@ -13577,6 +13577,41 @@
                         </node>
                       </node>
                     </node>
+                    <node concept="3clFbF" id="7Esc6jUwMNu" role="3cqZAp">
+                      <node concept="37vLTI" id="7Esc6jUwV$v" role="3clFbG">
+                        <node concept="2GrUjf" id="7Esc6jUwXNl" role="37vLTx">
+                          <ref role="2Gs0qQ" node="5GP2kxJhXt3" resolve="concept" />
+                        </node>
+                        <node concept="3EllGN" id="7Esc6jUwNDl" role="37vLTJ">
+                          <node concept="3cpWs3" id="7Esc6jUwRob" role="3ElVtu">
+                            <node concept="2OqwBi" id="7Esc6jUwTlJ" role="3uHU7w">
+                              <node concept="2GrUjf" id="7Esc6jUwStZ" role="2Oq$k0">
+                                <ref role="2Gs0qQ" node="5GP2kxJhXt3" resolve="concept" />
+                              </node>
+                              <node concept="liA8E" id="7Esc6jUwUEY" role="2OqNvi">
+                                <ref role="37wK5l" to="c17a:~SAbstractConcept.getName()" resolve="getName" />
+                              </node>
+                            </node>
+                            <node concept="3cpWs3" id="7Esc6jUwQtK" role="3uHU7B">
+                              <node concept="2OqwBi" id="7Esc6jUwOD_" role="3uHU7B">
+                                <node concept="2GrUjf" id="7Esc6jUwOyf" role="2Oq$k0">
+                                  <ref role="2Gs0qQ" node="5GP2kxJhUvb" resolve="lang" />
+                                </node>
+                                <node concept="liA8E" id="7Esc6jUwPBM" role="2OqNvi">
+                                  <ref role="37wK5l" to="c17a:~SLanguage.getQualifiedName()" resolve="getQualifiedName" />
+                                </node>
+                              </node>
+                              <node concept="Xl_RD" id="7Esc6jUwQIu" role="3uHU7w">
+                                <property role="Xl_RC" value="." />
+                              </node>
+                            </node>
+                          </node>
+                          <node concept="37vLTw" id="7Esc6jUwMNs" role="3ElQJh">
+                            <ref role="3cqZAo" node="5GP2kxJhPEQ" resolve="concepts" />
+                          </node>
+                        </node>
+                      </node>
+                    </node>
                   </node>
                 </node>
               </node>
