@@ -162,9 +162,16 @@
   color: lightcoral;
 }
 
+.treeview {
+  ul {
+    padding-left: 20px;
+  }
+}
+
 header {
   min-width: 100%;
 }
 
 @import "header";
 @import "sm";
+@import "NewRootNode";

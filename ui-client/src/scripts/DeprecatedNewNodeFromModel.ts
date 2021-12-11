@@ -1,6 +1,6 @@
 import $ = require("jquery");
 
-export class NewNodeFromModel {
+export class DeprecatedNewNodeFromModel {
     static install() {
         let samplenode = null;
         samplenode = document.getElementById("sidebar");
@@ -15,9 +15,9 @@ export class NewNodeFromModel {
                                 if (doesChildNodeHasButton(child as HTMLElement)) {
                                     let nodes = attachElements(child as HTMLElement);
                                     const newNodeButtonElements = (child as HTMLElement).getElementsByClassName('newnodefrommodel');
-                                    const newNodeModelButtons = new Set<NewNodeFromModel>();
+                                    const newNodeModelButtons = new Set<DeprecatedNewNodeFromModel>();
                                     for (let i = 0; i < newNodeButtonElements.length; i++) {
-                                        newNodeModelButtons.add(new NewNodeFromModel(newNodeButtonElements[i] as HTMLElement, nodes[0] as string, nodes[1][i]))
+                                        newNodeModelButtons.add(new DeprecatedNewNodeFromModel(newNodeButtonElements[i] as HTMLElement, nodes[0] as string, nodes[1][i]))
                                     }
                                 }
                             });

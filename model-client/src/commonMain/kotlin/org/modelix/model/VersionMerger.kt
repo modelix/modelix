@@ -51,7 +51,7 @@ class VersionMerger(private val storeCache: IDeserializingKeyValueStore, private
 
     protected fun mergeHistory(leftVersion: CLVersion, rightVersion: CLVersion): CLVersion {
         if (leftVersion.hash == rightVersion.hash) return leftVersion
-        val commonBase = commonBaseVersion(leftVersion, rightVersion)
+        val commonBase = Companion.commonBaseVersion(leftVersion, rightVersion)
         if (commonBase?.hash == leftVersion.hash) return rightVersion
         if (commonBase?.hash == rightVersion.hash) return leftVersion
         val versionsToApply = LinearHistory(commonBase?.hash).load(leftVersion, rightVersion)
@@ -119,43 +119,45 @@ class VersionMerger(private val storeCache: IDeserializingKeyValueStore, private
         }
     }
 
-    protected fun commonBaseVersion(leftVersion: CLVersion?, rightVersion: CLVersion?): CLVersion? {
-        var leftVersion = leftVersion
-        var rightVersion = rightVersion
-        val leftVersions: MutableSet<String> = HashSet()
-        val rightVersions: MutableSet<String> = HashSet()
-        while (leftVersion != null || rightVersion != null) {
-            if (leftVersion != null) {
-                leftVersions.add(leftVersion.hash)
-            }
-            if (rightVersion != null) {
-                rightVersions.add(rightVersion.hash)
-            }
-            if (leftVersion != null) {
-                if (rightVersions.contains(leftVersion.hash)) {
-                    return leftVersion
-                }
-            }
-            if (rightVersion != null) {
-                if (leftVersions.contains(rightVersion.hash)) {
-                    return rightVersion
-                }
-            }
-            if (leftVersion != null) {
-                leftVersion = leftVersion.baseVersion
-            }
-            if (rightVersion != null) {
-                rightVersion = rightVersion.baseVersion
-            }
-        }
-        return null
-    }
-
     private fun getVersion(hash: String): CLVersion {
         return CLVersion.loadFromHash(hash, storeCache)
     }
 
     protected fun getTree(version: CPVersion): ITree {
         return CLTree(version.treeHash!!.getValue(storeCache), storeCache)
+    }
+
+    companion object {
+        fun commonBaseVersion(leftVersion: CLVersion?, rightVersion: CLVersion?): CLVersion? {
+            var leftVersion = leftVersion
+            var rightVersion = rightVersion
+            val leftVersions: MutableSet<String> = HashSet()
+            val rightVersions: MutableSet<String> = HashSet()
+            while (leftVersion != null || rightVersion != null) {
+                if (leftVersion != null) {
+                    leftVersions.add(leftVersion.hash)
+                }
+                if (rightVersion != null) {
+                    rightVersions.add(rightVersion.hash)
+                }
+                if (leftVersion != null) {
+                    if (rightVersions.contains(leftVersion.hash)) {
+                        return leftVersion
+                    }
+                }
+                if (rightVersion != null) {
+                    if (leftVersions.contains(rightVersion.hash)) {
+                        return rightVersion
+                    }
+                }
+                if (leftVersion != null) {
+                    leftVersion = leftVersion.baseVersion
+                }
+                if (rightVersion != null) {
+                    rightVersion = rightVersion.baseVersion
+                }
+            }
+            return null
+        }
     }
 }
