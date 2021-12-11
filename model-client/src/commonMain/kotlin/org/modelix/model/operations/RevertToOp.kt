@@ -1,10 +1,9 @@
 package org.modelix.model.operations
 
-import org.modelix.model.VersionGraph
+import org.modelix.model.VersionMerger
 import org.modelix.model.api.ITree
 import org.modelix.model.api.IWriteTransaction
 import org.modelix.model.api.TreePointer
-import org.modelix.model.lazy.CLTree
 import org.modelix.model.lazy.CLVersion
 import org.modelix.model.lazy.IDeserializingKeyValueStore
 import org.modelix.model.lazy.KVEntryReference
@@ -23,19 +22,7 @@ class RevertToOp(val latestKnownVersionRef: KVEntryReference<CPVersion>, val ver
     }
 
     override fun captureIntend(tree: ITree, store_: IDeserializingKeyValueStore): IOperationIntend {
-        return Intend(captureIntend(tree, asUndoOps(tree), store_), store_)
-    }
-
-    fun asUndoOps(tree: ITree): List<UndoOp> {
-        val store = (tree as CLTree).store
-        val latestKnownVersion = CLVersion(latestKnownVersionRef.getValue(store), store)
-        val versionToRevertTo = CLVersion(versionToRevertToRef.getValue(store), store)
-
-        val versionsToUndo: List<CLVersion> = VersionGraph(store).findPath(latestKnownVersion, versionToRevertTo)
-            ?: throw RuntimeException("Version ${versionToRevertTo.hash} not found in the history of version ${latestKnownVersion.hash}")
-
-        val undoOps = versionsToUndo.map { UndoOp(KVEntryReference(it.data!!)) }
-        return undoOps
+        return Intend(captureIntend(tree, collectUndoOps(store_), store_), store_)
     }
 
     private fun captureIntend(tree: ITree, ops: List<IOperation>, store: IDeserializingKeyValueStore): List<IOperationIntend> {
@@ -58,6 +45,29 @@ class RevertToOp(val latestKnownVersionRef: KVEntryReference<CPVersion>, val ver
                 restoredOps
             }
         }
+    }
+
+    private fun collectUndoOps(store: IDeserializingKeyValueStore): List<IOperation> {
+        val latestKnownVersion = CLVersion(latestKnownVersionRef.getValue(store), store)
+        val versionToRevertTo = CLVersion(versionToRevertToRef.getValue(store), store)
+        val result = mutableListOf<IOperation>()
+        val commonBase = VersionMerger.commonBaseVersion(latestKnownVersion, versionToRevertTo);
+        result += getPath(latestKnownVersion, commonBase).map { UndoOp(KVEntryReference(it.data!!)) }
+        if (commonBase == null || commonBase.hash != versionToRevertTo.hash) {
+            // redo operations on a branch
+            result += getPath(versionToRevertTo, commonBase).reversed().flatMap { it.operations }
+        }
+        return result
+    }
+
+    private fun getPath(newerVersion: CLVersion, olderVersionExclusive: CLVersion?): List<CLVersion> {
+        val result = mutableListOf<CLVersion>()
+        var v = newerVersion
+        while (olderVersionExclusive == null || v.hash != olderVersionExclusive.hash) {
+            result += v
+            v = v.baseVersion ?: break
+        }
+        return result
     }
 
     override fun toString(): String {
