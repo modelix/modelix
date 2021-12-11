@@ -16,23 +16,26 @@
 package org.modelix.graphql.server
 
 import graphql.Scalars
+import graphql.TypeResolutionEnvironment
 import graphql.schema.*
 import org.modelix.model.api.*
 import org.modelix.model.metameta.MetaMetaLanguage
 import org.modelix.model.metameta.MetaModelIndex
 import org.modelix.model.metameta.PersistedConcept
 
+val I_BASE_CONCEPT_NAME = "I_BaseConcept"
+
 class ModelixSchemaGenerator(val tree: ITree) {
     private val conceptTypes = HashMap<Long, GraphQLObjectType>()
     private val interfaceTypes = HashMap<Long, GraphQLInterfaceType>()
     private val iBaseConcept = GraphQLInterfaceType.newInterface()
-        .name("BaseConcept")
-        .field { it.name("role").type(Scalars.GraphQLString) }
+        .name(I_BASE_CONCEPT_NAME)
+        .apply { generateGenericFields { field(it) } }
         .build()
     private val baseConcept = GraphQLObjectType.newObject()
         .name("BaseConcept")
         .withInterface(iBaseConcept)
-        .field { it.name("_modelix_id").type(Scalars.GraphQLString) }
+        .apply { generateGenericFields { field(it) } }
         .build()
 
     fun generate(): GraphQLSchema {
@@ -48,9 +51,8 @@ class ModelixSchemaGenerator(val tree: ITree) {
 //                            withInterface(GraphQLTypeReference("I_" + getConceptFqName(superConcept)))
 //                        }
 //                    }
-                    .field { it
-                        .name("role")
-                        .type(Scalars.GraphQLString)
+                    .apply {
+                        generateFields(conceptId) { field(it) }
                     }
                     .build()
 
@@ -62,60 +64,17 @@ class ModelixSchemaGenerator(val tree: ITree) {
                         }
                     }
                     .withInterface(iBaseConcept)
-                    .field { it.name("_modelix_id").type(Scalars.GraphQLID).dataFetcher { env -> env.getSource<Long>().toString() } }
-                    .field { it
-                        .name("role")
-                        .type(Scalars.GraphQLString)
-                        .dataFetcher { env -> tree.getRole(env.getSource()) }
-                    }
-                    .field {
-                        it
-                            .name("getProperty")
-                            .type(Scalars.GraphQLString)
-                            .argument { it.name("name").type(Scalars.GraphQLString) }
-                            .dataFetcher { env -> tree.getProperty(env.getSource(), env.getArgument("name"))}
-                    }
                     .apply {
-                        for (superConcept in collectSuperConcepts(conceptId)) {
-                            for (property in tree.getChildren(superConcept, MetaMetaLanguage.childLink_Concept_properties.name)) {
-                                field { it.name(tree.getProperty(property, MetaMetaLanguage.property_Property_name.name)).type(Scalars.GraphQLString) }
-                            }
-                            for (childLink in tree.getChildren(superConcept, MetaMetaLanguage.childLink_Concept_childLinks.name)) {
-                                val multiple = tree.getProperty(childLink, MetaMetaLanguage.property_ChildLink_multiple.name) == "true"
-                                val linkName = tree.getProperty(childLink, MetaMetaLanguage.property_ChildLink_name.name)
-                                field(generateField(
-                                    linkName,
-                                    tree.getReferenceTarget(childLink, MetaMetaLanguage.referenceLink_ChildLink_childConcept.name),
-                                    multiple
-                                ) { env ->
-                                    tree.getChildren(env.getSource(), linkName).let {
-                                        if (multiple) it.toList()
-                                        else it.firstOrNull()
-                                    }
-                                })
-                            }
-                            for (referenceLink in tree.getChildren(superConcept, MetaMetaLanguage.childLink_Concept_referenceLinks.name)) {
-                                val linkName = tree.getProperty(referenceLink, MetaMetaLanguage.property_ReferenceLink_name.name)
-                                    ?: continue
-                                field(generateField(
-                                    linkName,
-                                    tree.getReferenceTarget(referenceLink, MetaMetaLanguage.referenceLink_ReferenceLink_targetConcept.name),
-                                    false
-                                ) { env -> tree.getReferenceTarget(env.getSource(), linkName)?.let {
-                                    if (it is LocalPNodeReference) it.id else null
-                                }})
-
-                            }
-                        }
+                        generateFields(conceptId) { field(it) }
                     }
                     .build()
             }
         }
 
-        val anyType = GraphQLUnionType.newUnionType()
-            .name("Any")
-            .also { union -> conceptTypes.values.sortedBy { it.name }.forEach { union.possibleType(it) }}
-            .build()
+//        val anyType = GraphQLUnionType.newUnionType()
+//            .name("Any")
+//            .also { union -> conceptTypes.values.sortedBy { it.name }.forEach { union.possibleType(it) }}
+//            .build()
 
 
 //        val fetcher: DataFetcher<Any> = DataFetcher{ env ->
@@ -130,40 +89,100 @@ class ModelixSchemaGenerator(val tree: ITree) {
 //            if (env.fieldDefinition.type == Scalars.GraphQLString || env.fieldDefinition.name == "customers") fetcher else PropertyDataFetcher.fetching<Any>(env.fieldDefinition.name)
 //        }
 
+        val conceptResolver = { env: TypeResolutionEnvironment ->
+            val nodeId = env.getObject() as Long
+            val concept = tree.getConcept(nodeId) as PersistedConcept
+            conceptTypes[concept.id]
+        }
         return GraphQLSchema.newSchema()
             .query(GraphQLObjectType.newObject()
                 .name("Query")
                 .field { it
                     .name("roots")
-                    .type(GraphQLList.list(anyType))
+                    .type(GraphQLList.list(iBaseConcept))
                     .dataFetcher { env -> tree.getAllChildren(ITree.ROOT_ID).filter { tree.getConcept(it) !is SimpleConcept } }
                 })
             .also { schemaBuilder -> conceptTypes.values.sortedBy { it.name }.forEach { schemaBuilder.additionalType(it) } }
             .also { schemaBuilder -> interfaceTypes.values.sortedBy { it.name }.forEach { schemaBuilder.additionalType(it) } }
-            .additionalType(anyType)
+//            .additionalType(anyType)
             .codeRegistry(GraphQLCodeRegistry.newCodeRegistry()
 //                .defaultDataFetcher(fetcherFactory)
-                .typeResolver(anyType) { env ->
-                    val nodeId = env.getObject() as Long
-                    val concept = tree.getConcept(nodeId) as PersistedConcept
-                    conceptTypes[concept.id]
-                }
-                .typeResolver(iBaseConcept) { env ->
-                    val nodeId = env.getObject() as Long
-                    val concept = tree.getConcept(nodeId) as PersistedConcept
-                    conceptTypes[concept.id]
-                }
+//                .typeResolver(anyType) { env ->
+//                    val nodeId = env.getObject() as Long
+//                    val concept = tree.getConcept(nodeId) as PersistedConcept
+//                    conceptTypes[concept.id]
+//                }
+                .typeResolver(iBaseConcept, conceptResolver)
                 .apply {
                     for (interfaceType in interfaceTypes) {
-                        typeResolver(interfaceType.value) { env ->
-                            val nodeId = env.getObject() as Long
-                            val concept = tree.getConcept(nodeId) as PersistedConcept
-                            conceptTypes[concept.id]
-                        }
+                        typeResolver(interfaceType.value, conceptResolver)
                     }
                 }
                 .build())
             .build()
+    }
+
+    private fun generateFields(conceptId: Long, field: (GraphQLFieldDefinition) -> Unit) {
+        generateGenericFields(field)
+        for (superConcept in collectSuperConcepts(conceptId)) {
+            for (property in tree.getChildren(superConcept, MetaMetaLanguage.childLink_Concept_properties.name)) {
+                field(GraphQLFieldDefinition.newFieldDefinition().name(tree.getProperty(property, MetaMetaLanguage.property_Property_name.name)).type(Scalars.GraphQLString).build())
+            }
+            for (childLink in tree.getChildren(superConcept, MetaMetaLanguage.childLink_Concept_childLinks.name)) {
+                val multiple = tree.getProperty(childLink, MetaMetaLanguage.property_ChildLink_multiple.name) == "true"
+                val linkName = tree.getProperty(childLink, MetaMetaLanguage.property_ChildLink_name.name)
+                field(generateField(
+                    linkName,
+                    tree.getReferenceTarget(childLink, MetaMetaLanguage.referenceLink_ChildLink_childConcept.name),
+                    multiple
+                ) { env ->
+                    tree.getChildren(env.getSource(), linkName).let {
+                        if (multiple) it.toList()
+                        else it.firstOrNull()
+                    }
+                })
+            }
+            for (referenceLink in tree.getChildren(superConcept, MetaMetaLanguage.childLink_Concept_referenceLinks.name)) {
+                val linkName = tree.getProperty(referenceLink, MetaMetaLanguage.property_ReferenceLink_name.name)
+                    ?: continue
+                field(generateField(
+                    linkName,
+                    tree.getReferenceTarget(referenceLink, MetaMetaLanguage.referenceLink_ReferenceLink_targetConcept.name),
+                    false
+                ) { env ->
+                    tree.getReferenceTarget(env.getSource(), linkName)?.let {
+                        if (it is LocalPNodeReference) it.id else null
+                    }
+                })
+
+            }
+        }
+    }
+
+    private fun generateGenericFields(field: (GraphQLFieldDefinition) -> Unit) {
+        field(GraphQLFieldDefinition.newFieldDefinition().name("_modelix_id")
+            .type(Scalars.GraphQLID)
+            .dataFetcher { env -> java.lang.Long.toHexString(env.getSource()) }.build())
+        field(GraphQLFieldDefinition.newFieldDefinition().name("_role")
+            .type(Scalars.GraphQLString)
+            .dataFetcher { env -> tree.getRole(env.getSource()) }.build())
+        field(GraphQLFieldDefinition.newFieldDefinition().name("_getProperty")
+            .type(Scalars.GraphQLString)
+            .argument { it.name("name").type(Scalars.GraphQLString) }
+            .dataFetcher { env -> tree.getProperty(env.getSource(), env.getArgument("name")) }.build())
+        field(GraphQLFieldDefinition.newFieldDefinition().name("_getChildren")
+            .type(GraphQLList.list(GraphQLNonNull.nonNull(GraphQLTypeReference.typeRef(I_BASE_CONCEPT_NAME))))
+            .argument { it.name("role").type(Scalars.GraphQLString) }
+            .dataFetcher { env -> tree.getChildren(env.getSource(), env.getArgument("role")) }.build())
+        field(GraphQLFieldDefinition.newFieldDefinition().name("_getAllChildren")
+            .type(GraphQLList.list(GraphQLNonNull.nonNull(GraphQLTypeReference.typeRef(I_BASE_CONCEPT_NAME))))
+            .dataFetcher { env -> tree.getAllChildren(env.getSource()) }.build())
+        field(GraphQLFieldDefinition.newFieldDefinition().name("_getReferenceTarget")
+            .type(GraphQLTypeReference.typeRef(I_BASE_CONCEPT_NAME))
+            .argument { it.name("role").type(Scalars.GraphQLString) }
+            .dataFetcher { env -> val referenceTarget = tree.getReferenceTarget(env.getSource(), env.getArgument("role"))
+                if (referenceTarget is PNodeReference) referenceTarget.id else null
+            }.build())
     }
 
     fun getConceptFqName(conceptId: Long): String {
@@ -177,7 +196,7 @@ class ModelixSchemaGenerator(val tree: ITree) {
 
     fun generateField(name: String?, targetConcept: INodeReference?, multiple: Boolean, fetcher: DataFetcher<*>): GraphQLFieldDefinition {
         val targetType = if (targetConcept is PNodeReference) {
-            GraphQLTypeReference.typeRef(getConceptFqName(targetConcept.id))
+            GraphQLTypeReference.typeRef( "I_" + getConceptFqName(targetConcept.id))
         } else {
             iBaseConcept
         }
