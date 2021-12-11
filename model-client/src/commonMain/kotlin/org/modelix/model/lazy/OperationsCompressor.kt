@@ -33,7 +33,7 @@ class OperationsCompressor(val resultTree: CLTree) {
 
         for (op in ops) {
             when (op) {
-                is UndoOp, is AddNewChildSubtreeOp, is DeleteNodeOp, is MoveNodeOp -> return ops
+                is UndoOp, is RevertToOp, is AddNewChildSubtreeOp, is DeleteNodeOp, is MoveNodeOp -> return ops
                 is NoOp -> {}
                 is AddNewChildOp -> {
                     if (!createdNodes.contains(op.position.nodeId)) {

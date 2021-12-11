@@ -1,7 +1,6 @@
 package org.modelix.model
 
 import org.modelix.model.api.ITree
-import org.modelix.model.api.ITreeChangeVisitorEx
 import org.modelix.model.api.PBranch
 import org.modelix.model.client.IdGenerator
 import org.modelix.model.lazy.*
@@ -11,7 +10,6 @@ import org.modelix.model.operations.UndoOp
 import org.modelix.model.persistent.MapBaseStore
 import kotlin.random.Random
 import kotlin.test.Test
-import kotlin.test.fail
 
 class UndoTest {
 
@@ -139,31 +137,5 @@ class UndoTest {
             baseVersion = previousVersion,
             operations = opsAndTree.first.map { it.getOriginalOp() }.toTypedArray()
         )
-    }
-}
-
-class FailingVisitor : ITreeChangeVisitorEx {
-    override fun containmentChanged(nodeId: Long) {
-        fail("Tree expected to be the same")
-    }
-
-    override fun childrenChanged(nodeId: Long, role: String?) {
-        fail("Tree expected to be the same")
-    }
-
-    override fun referenceChanged(nodeId: Long, role: String) {
-        fail("Tree expected to be the same")
-    }
-
-    override fun propertyChanged(nodeId: Long, role: String) {
-        fail("Tree expected to be the same")
-    }
-
-    override fun nodeRemoved(nodeId: Long) {
-        fail("Tree expected to be the same")
-    }
-
-    override fun nodeAdded(nodeId: Long) {
-        fail("Tree expected to be the same")
     }
 }

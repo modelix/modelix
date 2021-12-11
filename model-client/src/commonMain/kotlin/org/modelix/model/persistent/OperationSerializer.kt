@@ -183,6 +183,19 @@ class OperationSerializer private constructor() {
                     }
                 }
             )
+            INSTANCE.registerSerializer(
+                RevertToOp::class,
+                object : Serializer<RevertToOp> {
+                    override fun serialize(op: RevertToOp): String {
+                        return op.latestKnownVersionRef.getHash() + SEPARATOR + op.versionToRevertToRef.getHash()
+                    }
+
+                    override fun deserialize(serialized: String): RevertToOp {
+                        val parts = serialized.split(SEPARATOR).toTypedArray()
+                        return RevertToOp(KVEntryReference(parts[0], CPVersion.DESERIALIZER), KVEntryReference(parts[1], CPVersion.DESERIALIZER))
+                    }
+                }
+            )
         }
     }
 
