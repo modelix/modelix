@@ -71,7 +71,7 @@ class RevertToOp(val latestKnownVersionRef: KVEntryReference<CPVersion>, val ver
     }
 
     override fun toString(): String {
-        return "RevertToOp $latestKnownVersionRef, $versionToRevertToRef"
+        return "RevertToOp $latestKnownVersionRef -> $versionToRevertToRef"
     }
 
     inner class Intend(val intends: List<IOperationIntend>, val store: IDeserializingKeyValueStore) : IOperationIntend {

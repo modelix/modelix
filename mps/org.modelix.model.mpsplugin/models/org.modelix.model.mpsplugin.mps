@@ -106,6 +106,7 @@
     <import index="bv6w" ref="87f4b21e-a3a5-459e-a54b-408fd9eb7350/java:gnu.trove.set.hash(org.modelix.lib/)" />
     <import index="r1fg" ref="87f4b21e-a3a5-459e-a54b-408fd9eb7350/java:gnu.trove.iterator(org.modelix.lib/)" />
     <import index="j8aq" ref="6ed54515-acc8-4d1e-a16c-9fd6cfe951ea/java:jetbrains.mps.module(MPS.Core/)" />
+    <import index="hvt5" ref="0a2651ab-f212-45c2-a2f0-343e76cbc26b/java:org.modelix.model(org.modelix.model.client/)" />
     <import index="onis" ref="87f4b21e-a3a5-459e-a54b-408fd9eb7350/java:gnu.trove.set(org.modelix.lib/)" implicit="true" />
   </imports>
   <registry>
@@ -7571,41 +7572,33 @@
                           <ref role="3uigEE" to="v18h:~Unit" resolve="Unit" />
                         </node>
                         <node concept="3clFbS" id="3pKWniXZhfs" role="3clF47">
-                          <node concept="3clFbF" id="3pKWniXZloN" role="3cqZAp">
-                            <node concept="2OqwBi" id="3pKWniXZno0" role="3clFbG">
-                              <node concept="1eOMI4" id="3pKWniXZn8Z" role="2Oq$k0">
-                                <node concept="10QFUN" id="3pKWniXZlTg" role="1eOMHV">
-                                  <node concept="2OqwBi" id="3pKWniXZlTd" role="10QFUP">
-                                    <node concept="1rXfSq" id="3pKWniXZlTe" role="2Oq$k0">
-                                      <ref role="37wK5l" to="5440:~ReplicatedRepository.getBranch()" resolve="getBranch" />
-                                    </node>
-                                    <node concept="liA8E" id="769wvHiy7xB" role="2OqNvi">
-                                      <ref role="37wK5l" to="jks5:~IBranch.getWriteTransaction()" resolve="getWriteTransaction" />
-                                    </node>
-                                  </node>
-                                  <node concept="3uibUv" id="3pKWniXZn0Q" role="10QFUM">
-                                    <ref role="3uigEE" to="yai9:~OTWriteTransaction" resolve="OTWriteTransaction" />
-                                  </node>
+                          <node concept="3clFbF" id="58y98twgmaf" role="3cqZAp">
+                            <node concept="2YIFZM" id="58y98twgmrU" role="3clFbG">
+                              <ref role="37wK5l" to="yai9:~OTWriteTransactionKt.applyOperation(org.modelix.model.api.IWriteTransaction,org.modelix.model.operations.IOperation)" resolve="applyOperation" />
+                              <ref role="1Pybhd" to="yai9:~OTWriteTransactionKt" resolve="OTWriteTransactionKt" />
+                              <node concept="2OqwBi" id="58y98twgmIe" role="37wK5m">
+                                <node concept="1rXfSq" id="58y98twgmIf" role="2Oq$k0">
+                                  <ref role="37wK5l" to="5440:~ReplicatedRepository.getBranch()" resolve="getBranch" />
+                                </node>
+                                <node concept="liA8E" id="58y98twgmIg" role="2OqNvi">
+                                  <ref role="37wK5l" to="jks5:~IBranch.getWriteTransaction()" resolve="getWriteTransaction" />
                                 </node>
                               </node>
-                              <node concept="liA8E" id="3pKWniXZnB_" role="2OqNvi">
-                                <ref role="37wK5l" to="yai9:~OTWriteTransaction.apply(org.modelix.model.operations.IOperation)" resolve="apply" />
-                                <node concept="2ShNRf" id="3pKWniXZoyx" role="37wK5m">
-                                  <node concept="1pGfFk" id="3pKWniXZs7E" role="2ShVmc">
-                                    <ref role="37wK5l" to="yai9:~UndoOp.&lt;init&gt;(org.modelix.model.lazy.KVEntryReference)" resolve="UndoOp" />
-                                    <node concept="2ShNRf" id="DnODQyrVMh" role="37wK5m">
-                                      <node concept="1pGfFk" id="DnODQyrUQ4" role="2ShVmc">
-                                        <ref role="37wK5l" to="xkhl:~KVEntryReference.&lt;init&gt;(org.modelix.model.persistent.IKVValue)" resolve="KVEntryReference" />
-                                        <node concept="3uibUv" id="DnODQyrUQ5" role="1pMfVU">
-                                          <ref role="3uigEE" to="geos:~CPVersion" resolve="CPVersion" />
+                              <node concept="2ShNRf" id="58y98twgmSp" role="37wK5m">
+                                <node concept="1pGfFk" id="58y98twgmSq" role="2ShVmc">
+                                  <ref role="37wK5l" to="yai9:~UndoOp.&lt;init&gt;(org.modelix.model.lazy.KVEntryReference)" resolve="UndoOp" />
+                                  <node concept="2ShNRf" id="58y98twgmSr" role="37wK5m">
+                                    <node concept="1pGfFk" id="58y98twgmSs" role="2ShVmc">
+                                      <ref role="37wK5l" to="xkhl:~KVEntryReference.&lt;init&gt;(org.modelix.model.persistent.IKVValue)" resolve="KVEntryReference" />
+                                      <node concept="3uibUv" id="58y98twgmSt" role="1pMfVU">
+                                        <ref role="3uigEE" to="geos:~CPVersion" resolve="CPVersion" />
+                                      </node>
+                                      <node concept="2OqwBi" id="58y98twgmSu" role="37wK5m">
+                                        <node concept="37vLTw" id="58y98twgmSv" role="2Oq$k0">
+                                          <ref role="3cqZAo" node="3H1ZR7sMJpZ" resolve="version" />
                                         </node>
-                                        <node concept="2OqwBi" id="DnODQyrY5P" role="37wK5m">
-                                          <node concept="37vLTw" id="4_7bDUZc$nV" role="2Oq$k0">
-                                            <ref role="3cqZAo" node="3H1ZR7sMJpZ" resolve="version" />
-                                          </node>
-                                          <node concept="liA8E" id="DnODQyrYoQ" role="2OqNvi">
-                                            <ref role="37wK5l" to="xkhl:~CLVersion.getData()" resolve="getData" />
-                                          </node>
+                                        <node concept="liA8E" id="58y98twgmSw" role="2OqNvi">
+                                          <ref role="37wK5l" to="xkhl:~CLVersion.getData()" resolve="getData" />
                                         </node>
                                       </node>
                                     </node>

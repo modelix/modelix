@@ -434,6 +434,9 @@
       <concept id="8974276187400348181" name="jetbrains.mps.lang.access.structure.ExecuteLightweightCommandStatement" flags="nn" index="1QHqEK" />
     </language>
     <language id="fd392034-7849-419d-9071-12563d152375" name="jetbrains.mps.baseLanguage.closures">
+      <concept id="1199542442495" name="jetbrains.mps.baseLanguage.closures.structure.FunctionType" flags="in" index="1ajhzC">
+        <child id="1199542457201" name="resultType" index="1ajl9A" />
+      </concept>
       <concept id="1199569711397" name="jetbrains.mps.baseLanguage.closures.structure.ClosureLiteral" flags="nn" index="1bVj0M">
         <property id="890797661671409019" name="forceMultiLine" index="3yWfEV" />
         <child id="1199569906740" name="parameter" index="1bW2Oz" />
@@ -3094,11 +3097,11 @@
           <node concept="3cpWsn" id="7jRNnvCero8" role="3cpWs9">
             <property role="TrG5h" value="transientModuleBinding" />
             <node concept="3uibUv" id="6gR8Ep$QlEy" role="1tU5fm">
-              <ref role="3uigEE" to="csg2:7ZZZU$lp6Bz" resolve="_TransientModuleBinding" />
+              <ref role="3uigEE" to="csg2:7ZZZU$lp6Bz" resolve="TransientModuleBinding" />
             </node>
             <node concept="2ShNRf" id="EMWAvBftrk" role="33vP2m">
               <node concept="1pGfFk" id="EMWAvBfSvu" role="2ShVmc">
-                <ref role="37wK5l" to="csg2:7ZZZU$lsLQ7" resolve="_TransientModuleBinding" />
+                <ref role="37wK5l" to="csg2:7ZZZU$lsLQ7" resolve="TransientModuleBinding" />
                 <node concept="2OqwBi" id="EMWAvBgFJD" role="37wK5m">
                   <node concept="1eOMI4" id="EMWAvBgF_o" role="2Oq$k0">
                     <node concept="10QFUN" id="EMWAvBgFgK" role="1eOMHV">
@@ -3185,7 +3188,7 @@
         </node>
       </node>
       <node concept="3uibUv" id="6gR8Ep$QlrK" role="3clF45">
-        <ref role="3uigEE" to="csg2:7ZZZU$lp6Bz" resolve="_TransientModuleBinding" />
+        <ref role="3uigEE" to="csg2:7ZZZU$lp6Bz" resolve="TransientModuleBinding" />
       </node>
       <node concept="37vLTG" id="7jRNnvCbBkh" role="3clF46">
         <property role="TrG5h" value="treeNode" />
@@ -4745,7 +4748,7 @@
                                                 </node>
                                                 <node concept="2ShNRf" id="7ZZZU$kZT1F" role="37wK5m">
                                                   <node concept="1pGfFk" id="7ZZZU$l0epv" role="2ShVmc">
-                                                    <ref role="37wK5l" to="csg2:7ZZZU$ltqnp" resolve="_ProjectBinding" />
+                                                    <ref role="37wK5l" to="csg2:7ZZZU$ltqnp" resolve="ProjectBinding" />
                                                     <node concept="10QFUN" id="7ZZZU$l0I8N" role="37wK5m">
                                                       <node concept="2OqwBi" id="7ZZZU$l0I8K" role="10QFUP">
                                                         <node concept="37vLTw" id="7ZZZU$l0I8L" role="2Oq$k0">
@@ -4914,7 +4917,7 @@
                                     </node>
                                     <node concept="2ShNRf" id="7PIbTorpww9" role="37wK5m">
                                       <node concept="1pGfFk" id="7PIbTorpwwa" role="2ShVmc">
-                                        <ref role="37wK5l" to="csg2:7ZZZU$lsLQ7" resolve="_TransientModuleBinding" />
+                                        <ref role="37wK5l" to="csg2:7ZZZU$lsLQ7" resolve="TransientModuleBinding" />
                                         <node concept="37vLTw" id="7PIbTorpwwc" role="37wK5m">
                                           <ref role="3cqZAo" node="7PIbTorpwvM" resolve="moduleNodeId" />
                                         </node>
@@ -5148,8 +5151,10 @@
       </node>
       <node concept="37vLTG" id="7UL57PetjO0" role="3clF46">
         <property role="TrG5h" value="headVersion" />
-        <node concept="3uibUv" id="7UL57PetjV2" role="1tU5fm">
-          <ref role="3uigEE" to="xkhl:~CLVersion" resolve="CLVersion" />
+        <node concept="1ajhzC" id="b9j8mDeg" role="1tU5fm">
+          <node concept="3uibUv" id="b9j8mDuY" role="1ajl9A">
+            <ref role="3uigEE" to="xkhl:~CLVersion" resolve="CLVersion" />
+          </node>
         </node>
       </node>
       <node concept="3cqZAl" id="7UL57PetjNH" role="3clF45" />
@@ -5326,22 +5331,6 @@
             </node>
           </node>
         </node>
-        <node concept="3cpWs8" id="7UL57Peu1kX" role="3cqZAp">
-          <node concept="3cpWsn" id="7UL57Peu1kY" role="3cpWs9">
-            <property role="TrG5h" value="version" />
-            <node concept="3uibUv" id="7UL57Peu1jz" role="1tU5fm">
-              <ref role="3uigEE" to="xkhl:~CLVersion" resolve="CLVersion" />
-            </node>
-            <node concept="2OqwBi" id="7UL57Peu1kZ" role="33vP2m">
-              <node concept="37vLTw" id="7UL57Peu1l0" role="2Oq$k0">
-                <ref role="3cqZAo" node="7UL57Petz1k" resolve="activeBranch" />
-              </node>
-              <node concept="liA8E" id="7UL57Peu1l1" role="2OqNvi">
-                <ref role="37wK5l" to="5440:~ActiveBranch.getVersion()" resolve="getVersion" />
-              </node>
-            </node>
-          </node>
-        </node>
         <node concept="3clFbF" id="7UL57Peu1vJ" role="3cqZAp">
           <node concept="2OqwBi" id="7UL57Peu2FG" role="3clFbG">
             <node concept="2OqwBi" id="7UL57Peu2cP" role="2Oq$k0">
@@ -5373,8 +5362,19 @@
                   <ref role="37wK5l" to="um17:EMWAvBgmbf" resolve="getRepositoryId" />
                 </node>
               </node>
-              <node concept="37vLTw" id="7UL57Peu2RC" role="2XxRq1">
-                <ref role="3cqZAo" node="7UL57Peu1kY" resolve="version" />
+              <node concept="1bVj0M" id="b9j8mH2B" role="2XxRq1">
+                <node concept="3clFbS" id="b9j8mH2D" role="1bW5cS">
+                  <node concept="3clFbF" id="b9j8mHh8" role="3cqZAp">
+                    <node concept="2OqwBi" id="b9j8mHrX" role="3clFbG">
+                      <node concept="37vLTw" id="b9j8mHh7" role="2Oq$k0">
+                        <ref role="3cqZAo" node="7UL57Petz1k" resolve="activeBranch" />
+                      </node>
+                      <node concept="liA8E" id="b9j8mHH6" role="2OqNvi">
+                        <ref role="37wK5l" to="5440:~ActiveBranch.getVersion()" resolve="getVersion" />
+                      </node>
+                    </node>
+                  </node>
+                </node>
               </node>
             </node>
           </node>
@@ -5644,8 +5644,14 @@
                                 <node concept="37vLTw" id="1me6UesGMu4" role="2XxRq1">
                                   <ref role="3cqZAo" node="1me6UesGMey" resolve="repositoryId" />
                                 </node>
-                                <node concept="37vLTw" id="1me6UesGNT1" role="2XxRq1">
-                                  <ref role="3cqZAo" node="1me6UesGLDJ" resolve="version" />
+                                <node concept="1bVj0M" id="b9j8mIFs" role="2XxRq1">
+                                  <node concept="3clFbS" id="b9j8mIFu" role="1bW5cS">
+                                    <node concept="3clFbF" id="b9j8mIQ_" role="3cqZAp">
+                                      <node concept="37vLTw" id="b9j8mIQ$" role="3clFbG">
+                                        <ref role="3cqZAo" node="1me6UesGLDJ" resolve="version" />
+                                      </node>
+                                    </node>
+                                  </node>
                                 </node>
                               </node>
                             </node>
@@ -7663,12 +7669,12 @@
               <node concept="3cpWsn" id="2zfU5FnVF1A" role="3cpWs9">
                 <property role="TrG5h" value="transientModuleBinding" />
                 <node concept="3uibUv" id="6gR8Ep$ZpqV" role="1tU5fm">
-                  <ref role="3uigEE" to="csg2:7ZZZU$lp6Bz" resolve="_TransientModuleBinding" />
+                  <ref role="3uigEE" to="csg2:7ZZZU$lp6Bz" resolve="TransientModuleBinding" />
                 </node>
                 <node concept="1eOMI4" id="2zfU5FnVFhp" role="33vP2m">
                   <node concept="10QFUN" id="2zfU5FnVFhm" role="1eOMHV">
                     <node concept="3uibUv" id="6gR8Ep$ZpOW" role="10QFUM">
-                      <ref role="3uigEE" to="csg2:7ZZZU$lp6Bz" resolve="_TransientModuleBinding" />
+                      <ref role="3uigEE" to="csg2:7ZZZU$lp6Bz" resolve="TransientModuleBinding" />
                     </node>
                     <node concept="37vLTw" id="2zfU5FnVFhs" role="10QFUP">
                       <ref role="3cqZAo" node="2zfU5FnVtkE" resolve="moduleBinding" />
@@ -7696,7 +7702,7 @@
           </node>
           <node concept="2ZW3vV" id="2zfU5FnVyMy" role="3clFbw">
             <node concept="3uibUv" id="6gR8Ep$Zpj9" role="2ZW6by">
-              <ref role="3uigEE" to="csg2:7ZZZU$lp6Bz" resolve="_TransientModuleBinding" />
+              <ref role="3uigEE" to="csg2:7ZZZU$lp6Bz" resolve="TransientModuleBinding" />
             </node>
             <node concept="37vLTw" id="2zfU5FnVxZ4" role="2ZW6bz">
               <ref role="3cqZAo" node="2zfU5FnVtkE" resolve="moduleBinding" />
@@ -7705,7 +7711,7 @@
           <node concept="3eNFk2" id="2zfU5FnVzys" role="3eNLev">
             <node concept="2ZW3vV" id="2zfU5FnV$$y" role="3eO9$A">
               <node concept="3uibUv" id="6gR8Ep$Z$Za" role="2ZW6by">
-                <ref role="3uigEE" to="csg2:4_k_9wJnPVK" resolve="_ProjectModuleBinding" />
+                <ref role="3uigEE" to="csg2:4_k_9wJnPVK" resolve="ProjectModuleBinding" />
               </node>
               <node concept="37vLTw" id="2zfU5FnVzLw" role="2ZW6bz">
                 <ref role="3cqZAo" node="2zfU5FnVtkE" resolve="moduleBinding" />
@@ -7716,12 +7722,12 @@
                 <node concept="3cpWsn" id="2zfU5FnVHOF" role="3cpWs9">
                   <property role="TrG5h" value="mappedModuleBinding" />
                   <node concept="3uibUv" id="6gR8Ep$Z_82" role="1tU5fm">
-                    <ref role="3uigEE" to="csg2:4_k_9wJnPVK" resolve="_ProjectModuleBinding" />
+                    <ref role="3uigEE" to="csg2:4_k_9wJnPVK" resolve="ProjectModuleBinding" />
                   </node>
                   <node concept="1eOMI4" id="2zfU5FnVHOH" role="33vP2m">
                     <node concept="10QFUN" id="2zfU5FnVHOI" role="1eOMHV">
                       <node concept="3uibUv" id="6gR8Ep$Z_i3" role="10QFUM">
-                        <ref role="3uigEE" to="csg2:4_k_9wJnPVK" resolve="_ProjectModuleBinding" />
+                        <ref role="3uigEE" to="csg2:4_k_9wJnPVK" resolve="ProjectModuleBinding" />
                       </node>
                       <node concept="37vLTw" id="2zfU5FnVHOK" role="10QFUP">
                         <ref role="3cqZAo" node="2zfU5FnVtkE" resolve="moduleBinding" />
@@ -7779,7 +7785,7 @@
       <node concept="37vLTG" id="2zfU5FnVtkE" role="3clF46">
         <property role="TrG5h" value="moduleBinding" />
         <node concept="3uibUv" id="6gR8Ep_0CYC" role="1tU5fm">
-          <ref role="3uigEE" to="csg2:7ZZZU$llGhg" resolve="_ModuleBinding" />
+          <ref role="3uigEE" to="csg2:7ZZZU$llGhg" resolve="ModuleBinding" />
         </node>
       </node>
       <node concept="3Tm1VV" id="2zfU5FnVj5D" role="1B3o_S" />
@@ -7816,7 +7822,7 @@
       <node concept="37vLTG" id="2zfU5FnVYIM" role="3clF46">
         <property role="TrG5h" value="binding" />
         <node concept="3uibUv" id="6gR8Ep_0ll_" role="1tU5fm">
-          <ref role="3uigEE" to="csg2:4_k_9wJnPVK" resolve="_ProjectModuleBinding" />
+          <ref role="3uigEE" to="csg2:4_k_9wJnPVK" resolve="ProjectModuleBinding" />
         </node>
       </node>
     </node>
@@ -9657,7 +9663,7 @@
                                                 <ref role="37wK5l" to="csg2:6gR8Ep_0O7J" resolve="addBinding" />
                                                 <node concept="2ShNRf" id="6gR8Ep_9GMA" role="37wK5m">
                                                   <node concept="1pGfFk" id="6gR8Ep_9I$r" role="2ShVmc">
-                                                    <ref role="37wK5l" to="csg2:4_k_9wJnSqr" resolve="_ProjectModuleBinding" />
+                                                    <ref role="37wK5l" to="csg2:4_k_9wJnSqr" resolve="ProjectModuleBinding" />
                                                     <node concept="2OqwBi" id="6gR8Ep_a5_v" role="37wK5m">
                                                       <node concept="2GrUjf" id="6gR8Ep_aap9" role="2Oq$k0">
                                                         <ref role="2Gs0qQ" node="nzqvuXSRHP" resolve="child" />
@@ -13997,7 +14003,7 @@
       <node concept="37vLTG" id="$SKJo8sHDp" role="3clF46">
         <property role="TrG5h" value="transientModuleBinding" />
         <node concept="3uibUv" id="6gR8Ep_abZ6" role="1tU5fm">
-          <ref role="3uigEE" to="csg2:7ZZZU$lp6Bz" resolve="_TransientModuleBinding" />
+          <ref role="3uigEE" to="csg2:7ZZZU$lp6Bz" resolve="TransientModuleBinding" />
         </node>
       </node>
       <node concept="3Tm1VV" id="$SKJo8sdG0" role="1B3o_S" />
@@ -14573,7 +14579,7 @@
           <node concept="3cpWsn" id="2zfU5FnTgr5" role="3cpWs9">
             <property role="TrG5h" value="binding" />
             <node concept="3uibUv" id="2zfU5FnTgr6" role="1tU5fm">
-              <ref role="3uigEE" to="csg2:2FX9uaKMyso" resolve="_Binding" />
+              <ref role="3uigEE" to="csg2:2FX9uaKMyso" resolve="Binding" />
             </node>
             <node concept="2OqwBi" id="2zfU5FnTgXm" role="33vP2m">
               <node concept="37vLTw" id="2zfU5FnTgtp" role="2Oq$k0">
@@ -14611,12 +14617,12 @@
           <node concept="3cpWsn" id="2zfU5FnTxKl" role="3cpWs9">
             <property role="TrG5h" value="moduleBinding" />
             <node concept="3uibUv" id="6gR8Ep_acBm" role="1tU5fm">
-              <ref role="3uigEE" to="csg2:7ZZZU$llGhg" resolve="_ModuleBinding" />
+              <ref role="3uigEE" to="csg2:7ZZZU$llGhg" resolve="ModuleBinding" />
             </node>
             <node concept="1eOMI4" id="2zfU5FnTxNI" role="33vP2m">
               <node concept="10QFUN" id="2zfU5FnTxNF" role="1eOMHV">
                 <node concept="3uibUv" id="6gR8Ep_acI1" role="10QFUM">
-                  <ref role="3uigEE" to="csg2:7ZZZU$llGhg" resolve="_ModuleBinding" />
+                  <ref role="3uigEE" to="csg2:7ZZZU$llGhg" resolve="ModuleBinding" />
                 </node>
                 <node concept="37vLTw" id="2zfU5FnTxOQ" role="10QFUP">
                   <ref role="3cqZAo" node="2zfU5FnTgr5" resolve="binding" />
@@ -14722,7 +14728,7 @@
           <node concept="3cpWsn" id="2zfU5FnTwI2" role="3cpWs9">
             <property role="TrG5h" value="binding" />
             <node concept="3uibUv" id="2zfU5FnTwI3" role="1tU5fm">
-              <ref role="3uigEE" to="csg2:2FX9uaKMyso" resolve="_Binding" />
+              <ref role="3uigEE" to="csg2:2FX9uaKMyso" resolve="Binding" />
             </node>
             <node concept="2OqwBi" id="2zfU5FnTwI4" role="33vP2m">
               <node concept="37vLTw" id="2zfU5FnTwI5" role="2Oq$k0">
@@ -14759,7 +14765,7 @@
         <node concept="3cpWs6" id="2zfU5FnTwVh" role="3cqZAp">
           <node concept="2ZW3vV" id="2zfU5FnTxa$" role="3cqZAk">
             <node concept="3uibUv" id="6gR8Ep_actm" role="2ZW6by">
-              <ref role="3uigEE" to="csg2:7ZZZU$llGhg" resolve="_ModuleBinding" />
+              <ref role="3uigEE" to="csg2:7ZZZU$llGhg" resolve="ModuleBinding" />
             </node>
             <node concept="37vLTw" id="2zfU5FnTx24" role="2ZW6bz">
               <ref role="3cqZAo" node="2zfU5FnTwI2" resolve="binding" />

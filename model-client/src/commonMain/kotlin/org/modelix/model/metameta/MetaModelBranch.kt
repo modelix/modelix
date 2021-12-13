@@ -13,6 +13,7 @@
  */
 package org.modelix.model.metameta
 
+import org.modelix.model.ITransactionWrapper
 import org.modelix.model.api.*
 import org.modelix.model.lazy.IConceptReferenceSerializer
 
@@ -59,7 +60,9 @@ class MetaModelBranch(val branch: IBranch) : IBranch by branch {
         return PersistedConcept(localConceptId, globalConcept.getUID())
     }
 
-    inner class MMReadTransaction(val transaction: IReadTransaction) : IReadTransaction by transaction {
+    inner class MMReadTransaction(val transaction: IReadTransaction) : IReadTransaction by transaction, ITransactionWrapper {
+        override fun unwrap(): ITransaction = transaction
+
         override val branch: IBranch
             get() = this@MetaModelBranch
         override val tree: ITree
@@ -70,7 +73,9 @@ class MetaModelBranch(val branch: IBranch) : IBranch by branch {
         }
     }
 
-    inner class MMWriteTransaction(val transaction: IWriteTransaction) : IWriteTransaction by transaction {
+    inner class MMWriteTransaction(val transaction: IWriteTransaction) : IWriteTransaction by transaction, ITransactionWrapper {
+        override fun unwrap(): ITransaction = transaction
+
         override val branch: IBranch
             get() = this@MetaModelBranch
         override var tree: ITree

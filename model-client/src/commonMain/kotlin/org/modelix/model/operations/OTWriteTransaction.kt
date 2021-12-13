@@ -15,23 +15,21 @@
 
 package org.modelix.model.operations
 
-import org.modelix.model.api.IBranch
-import org.modelix.model.api.IConcept
-import org.modelix.model.api.IIdGenerator
-import org.modelix.model.api.INodeReference
-import org.modelix.model.api.ITree
-import org.modelix.model.api.IWriteTransaction
-import org.modelix.model.api.logTrace
+import org.modelix.model.ITransactionWrapper
+import org.modelix.model.api.*
 import org.modelix.model.lazy.CLTree
 import org.modelix.model.lazy.DuplicateNodeId
 import org.modelix.model.lazy.IDeserializingKeyValueStore
+import org.modelix.model.unwrapAll
 
 class OTWriteTransaction(
     private val transaction: IWriteTransaction,
     private val otBranch: OTBranch,
     private var idGenerator: IIdGenerator,
     private val store: IDeserializingKeyValueStore
-) : IWriteTransaction {
+) : IWriteTransaction, ITransactionWrapper {
+    override fun unwrap(): ITransaction = transaction
+
     fun apply(op: IOperation) {
         logTrace({ op.toString() }, OTWriteTransaction::class)
         val appliedOp = op.apply(transaction, getStore())
@@ -134,4 +132,8 @@ class OTWriteTransaction(
         set(tree) {
             throw UnsupportedOperationException()
         }
+}
+
+fun IWriteTransaction.applyOperation(op: IOperation) {
+    this.unwrapAll().filterIsInstance<OTWriteTransaction>().first().apply(op)
 }
