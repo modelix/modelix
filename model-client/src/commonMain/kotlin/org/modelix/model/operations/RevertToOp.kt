@@ -51,7 +51,7 @@ class RevertToOp(val latestKnownVersionRef: KVEntryReference<CPVersion>, val ver
         val latestKnownVersion = CLVersion(latestKnownVersionRef.getValue(store), store)
         val versionToRevertTo = CLVersion(versionToRevertToRef.getValue(store), store)
         val result = mutableListOf<IOperation>()
-        val commonBase = VersionMerger.commonBaseVersion(latestKnownVersion, versionToRevertTo);
+        val commonBase = VersionMerger.commonBaseVersion(latestKnownVersion, versionToRevertTo)
         result += getPath(latestKnownVersion, commonBase).map { UndoOp(KVEntryReference(it.data!!)) }
         if (commonBase == null || commonBase.hash != versionToRevertTo.hash) {
             // redo operations on a branch

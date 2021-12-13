@@ -50,7 +50,6 @@ class RevertTest {
         }
     }
 
-
     fun revert(latestKnownVersion: CLVersion, versionToRevertTo: CLVersion, idGenerator: IdGenerator): CLVersion {
         val revertOp = RevertToOp(KVEntryReference(latestKnownVersion.data!!), KVEntryReference(versionToRevertTo.data!!))
         val branch = OTBranch(PBranch(latestKnownVersion.tree, idGenerator), idGenerator, latestKnownVersion.store)
