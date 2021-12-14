@@ -23,8 +23,7 @@ import org.modelix.model.lazy.CLVersion
 import org.modelix.model.lazy.RepositoryId
 import kotlin.jvm.Synchronized
 
-open class ActiveBranch(val client: IModelClient, repository: RepositoryId, branchName: String?, user: () -> String) : IIndirectBranch {
-    private val repository: RepositoryId
+open class ActiveBranch(val client: IModelClient, val repository: RepositoryId, branchName: String?, user: () -> String) : IIndirectBranch {
     var branchName: String
         private set
     private val user: () -> String
@@ -106,7 +105,6 @@ open class ActiveBranch(val client: IModelClient, repository: RepositoryId, bran
     }
 
     init {
-        this.repository = repository
         this.branchName = if (branchName.isNullOrEmpty()) DEFAULT_BRANCH_NAME else branchName
         this.user = user
         replicatedRepository = createReplicatedRepository(client, repository, this.branchName, user)
