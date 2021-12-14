@@ -20,7 +20,7 @@ dependencies {
     compile group: 'org.java-websocket', name: 'Java-WebSocket', version:'1.4.0'
     compile group: 'org.apache.commons', name: 'commons-collections4', version:'4.4'
     compile group: 'io.lettuce', name: 'lettuce-core', version:'5.1.8.RELEASE'
-    compile group: 'log4j', name: 'log4j', version:'1.2.17'
+    compile group: 'ch.qos.logback', name: 'logback-classic', version:'1.2.7'
 
     def igniteVersion = '2.10.0'
     compile group: 'org.apache.ignite', name: 'ignite-core', version: igniteVersion

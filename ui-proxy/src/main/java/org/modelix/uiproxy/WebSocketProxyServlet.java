@@ -1,6 +1,5 @@
 package org.modelix.uiproxy;
 
-import org.apache.log4j.Logger;
 import org.eclipse.jetty.websocket.api.Session;
 import org.eclipse.jetty.websocket.api.WebSocketAdapter;
 import org.eclipse.jetty.websocket.api.WebSocketConnectionListener;
@@ -8,6 +7,8 @@ import org.eclipse.jetty.websocket.api.WebSocketListener;
 import org.eclipse.jetty.websocket.client.ClientUpgradeRequest;
 import org.eclipse.jetty.websocket.client.WebSocketClient;
 import org.eclipse.jetty.websocket.servlet.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.net.URI;
@@ -16,7 +17,7 @@ import java.nio.ByteBuffer;
 import java.util.concurrent.Future;
 
 public abstract class WebSocketProxyServlet extends WebSocketServlet {
-    private static final Logger LOG = Logger.getLogger(WebSocketProxyServlet.class);
+    private static final Logger LOG = LoggerFactory.getLogger(WebSocketProxyServlet.class);
 
     protected abstract URI redirect(ServletUpgradeRequest request);
 

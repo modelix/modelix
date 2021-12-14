@@ -37,10 +37,11 @@ import java.util.List;
 import javax.sql.DataSource;
 import org.apache.commons.io.FileUtils;
 import org.apache.ignite.Ignition;
-import org.apache.log4j.Logger;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.HandlerList;
 import org.eclipse.jetty.servlet.ServletContextHandler;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 class CmdLineArgs {
 
@@ -88,7 +89,7 @@ class CmdLineArgs {
 }
 
 class SqlUtils {
-    private static final Logger LOG = Logger.getLogger(SqlUtils.class);
+    private static final Logger LOG = LoggerFactory.getLogger(SqlUtils.class);
     private Connection connection;
 
     SqlUtils(Connection connection) {
@@ -141,7 +142,7 @@ class SqlUtils {
 }
 
 public class Main {
-    private static final Logger LOG = Logger.getLogger(Main.class);
+    private static final Logger LOG = LoggerFactory.getLogger(Main.class);
     public static final int DEFAULT_PORT = 28101;
     private static final String DEFAULT_DB_USER_NAME = "modelix";
     private static final String DEFAULT_SCHEMA_NAME = "modelix";
