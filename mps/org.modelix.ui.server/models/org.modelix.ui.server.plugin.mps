@@ -80,6 +80,8 @@
     <import index="6t7w" ref="6354ebe7-c22a-4a0f-ac54-50b52ab9b065/java:java.time.format(JDK/)" />
     <import index="5440" ref="0a2651ab-f212-45c2-a2f0-343e76cbc26b/java:org.modelix.model.client(org.modelix.model.client/)" />
     <import index="v18h" ref="cc99dce1-49f3-4392-8dbf-e22ca47bd0af/java:kotlin(org.modelix.model.api/)" />
+    <import index="nhvc" ref="r:38471075-de8a-4a91-a626-13195397f5c5(org.modelix.model.mpsplugin.plugin)" />
+    <import index="ia5i" ref="r:53d14de3-e820-4a3b-9328-a2833dcab0bd(org.modelix.common)" />
     <import index="6sky" ref="fc3c2aa8-0d4b-463f-a774-40d450aa04a0/java:org.eclipse.jetty.util.component(org.modelix.jetty/)" implicit="true" />
     <import index="ubtp" ref="498d89d2-c2e9-11e2-ad49-6cf049e62fe5/java:com.intellij.openapi.fileEditor.impl(MPS.IDEA/)" implicit="true" />
   </imports>
@@ -718,6 +720,21 @@
               </node>
             </node>
             <node concept="3clFbH" id="5Sw$pxbVJ7i" role="3cqZAp" />
+            <node concept="3clFbF" id="3PyXc8TCT0D" role="3cqZAp">
+              <node concept="2OqwBi" id="3PyXc8TCT0E" role="3clFbG">
+                <node concept="37vLTw" id="3PyXc8TCT0F" role="2Oq$k0">
+                  <ref role="3cqZAo" node="1MbrkMIxeOZ" resolve="handlerList" />
+                </node>
+                <node concept="liA8E" id="3PyXc8TCT0G" role="2OqNvi">
+                  <ref role="37wK5l" to="cgcg:~HandlerCollection.addHandler(org.eclipse.jetty.server.Handler)" resolve="addHandler" />
+                  <node concept="2ShNRf" id="3PyXc8TCT0H" role="37wK5m">
+                    <node concept="HV5vD" id="3PyXc8TCT0I" role="2ShVmc">
+                      <ref role="HV5vE" node="3PyXc8TBXq0" resolve="DefaultAuthorHandler" />
+                    </node>
+                  </node>
+                </node>
+              </node>
+            </node>
             <node concept="3clFbF" id="2A42BChq9xT" role="3cqZAp">
               <node concept="2OqwBi" id="2A42BChq9xU" role="3clFbG">
                 <node concept="37vLTw" id="2A42BChq9xV" role="2Oq$k0">
@@ -9704,6 +9721,102 @@
     </node>
     <node concept="3Tm1VV" id="3PyXc8TzGjt" role="1B3o_S" />
     <node concept="3uibUv" id="3PyXc8TzGju" role="1zkMxy">
+      <ref role="3uigEE" to="cgcg:~AbstractHandler" resolve="AbstractHandler" />
+    </node>
+  </node>
+  <node concept="312cEu" id="3PyXc8TBXq0">
+    <property role="TrG5h" value="DefaultAuthorHandler" />
+    <node concept="3clFb_" id="3PyXc8TBXq1" role="jymVt">
+      <property role="TrG5h" value="handle" />
+      <node concept="3Tm1VV" id="3PyXc8TBXq2" role="1B3o_S" />
+      <node concept="3cqZAl" id="3PyXc8TBXq3" role="3clF45" />
+      <node concept="37vLTG" id="3PyXc8TBXq4" role="3clF46">
+        <property role="TrG5h" value="target" />
+        <node concept="17QB3L" id="3PyXc8TBXq5" role="1tU5fm" />
+      </node>
+      <node concept="37vLTG" id="3PyXc8TBXq6" role="3clF46">
+        <property role="TrG5h" value="baseRequest" />
+        <node concept="3uibUv" id="3PyXc8TBXq7" role="1tU5fm">
+          <ref role="3uigEE" to="m2xw:~Request" resolve="Request" />
+        </node>
+      </node>
+      <node concept="37vLTG" id="3PyXc8TBXq8" role="3clF46">
+        <property role="TrG5h" value="request" />
+        <node concept="3uibUv" id="3PyXc8TBXq9" role="1tU5fm">
+          <ref role="3uigEE" to="nwfd:~HttpServletRequest" resolve="HttpServletRequest" />
+        </node>
+      </node>
+      <node concept="37vLTG" id="3PyXc8TBXqa" role="3clF46">
+        <property role="TrG5h" value="response" />
+        <node concept="3uibUv" id="3PyXc8TBXqb" role="1tU5fm">
+          <ref role="3uigEE" to="nwfd:~HttpServletResponse" resolve="HttpServletResponse" />
+        </node>
+      </node>
+      <node concept="3uibUv" id="3PyXc8TBXqc" role="Sfmx6">
+        <ref role="3uigEE" to="guwi:~IOException" resolve="IOException" />
+      </node>
+      <node concept="3uibUv" id="3PyXc8TBXqd" role="Sfmx6">
+        <ref role="3uigEE" to="opgt:~ServletException" resolve="ServletException" />
+      </node>
+      <node concept="3clFbS" id="3PyXc8TBXqe" role="3clF47">
+        <node concept="3clFbJ" id="3PyXc8TCho1" role="3cqZAp">
+          <node concept="3clFbS" id="3PyXc8TCho3" role="3clFbx">
+            <node concept="3cpWs8" id="3PyXc8TCgRw" role="3cqZAp">
+              <node concept="3cpWsn" id="3PyXc8TCgRx" role="3cpWs9">
+                <property role="TrG5h" value="user" />
+                <node concept="17QB3L" id="3PyXc8TCh40" role="1tU5fm" />
+                <node concept="2OqwBi" id="3PyXc8TCgRy" role="33vP2m">
+                  <node concept="37vLTw" id="3PyXc8TCgRz" role="2Oq$k0">
+                    <ref role="3cqZAo" node="3PyXc8TBXq8" resolve="request" />
+                  </node>
+                  <node concept="liA8E" id="3PyXc8TCgR$" role="2OqNvi">
+                    <ref role="37wK5l" to="nwfd:~HttpServletRequest.getHeader(java.lang.String)" resolve="getHeader" />
+                    <node concept="Xl_RD" id="3PyXc8TCgR_" role="37wK5m">
+                      <property role="Xl_RC" value="X-Forwarded-Email" />
+                    </node>
+                  </node>
+                </node>
+              </node>
+            </node>
+            <node concept="3clFbJ" id="3PyXc8TCpuX" role="3cqZAp">
+              <node concept="3clFbS" id="3PyXc8TCpuZ" role="3clFbx">
+                <node concept="3clFbF" id="3PyXc8TCrDS" role="3cqZAp">
+                  <node concept="2YIFZM" id="3PyXc8TCJq3" role="3clFbG">
+                    <ref role="37wK5l" to="ia5i:3PyXc8TCJbF" resolve="setInstanceOwner" />
+                    <ref role="1Pybhc" to="ia5i:5MA9wbc5skS" resolve="AuthorOverride" />
+                    <node concept="37vLTw" id="3PyXc8TCJKk" role="37wK5m">
+                      <ref role="3cqZAo" node="3PyXc8TCgRx" resolve="user" />
+                    </node>
+                  </node>
+                </node>
+              </node>
+              <node concept="2OqwBi" id="3PyXc8TCql9" role="3clFbw">
+                <node concept="37vLTw" id="3PyXc8TCpPt" role="2Oq$k0">
+                  <ref role="3cqZAo" node="3PyXc8TCgRx" resolve="user" />
+                </node>
+                <node concept="17RvpY" id="3PyXc8TCqKw" role="2OqNvi" />
+              </node>
+            </node>
+          </node>
+          <node concept="3clFbC" id="3PyXc8TCoaH" role="3clFbw">
+            <node concept="Rm8GO" id="3PyXc8TCoSP" role="3uHU7w">
+              <ref role="Rm8GQ" to="nhvc:DOf0T7u4WT" resolve="PROJECTOR" />
+              <ref role="1Px2BO" to="nhvc:5Le8ZRJdWor" resolve="EModelixExecutionMode" />
+            </node>
+            <node concept="2YIFZM" id="3PyXc8TCnH8" role="3uHU7B">
+              <ref role="37wK5l" to="nhvc:54meraTAO3V" resolve="getExecutionMode" />
+              <ref role="1Pybhc" to="nhvc:7Qo$o7gTdFI" resolve="ModelixConfigurationSystemProperties" />
+            </node>
+          </node>
+        </node>
+      </node>
+      <node concept="2AHcQZ" id="3PyXc8TBXtg" role="2AJF6D">
+        <ref role="2AI5Lk" to="wyt6:~Override" resolve="Override" />
+      </node>
+    </node>
+    <node concept="2tJIrI" id="3PyXc8TBXth" role="jymVt" />
+    <node concept="3Tm1VV" id="3PyXc8TBXFq" role="1B3o_S" />
+    <node concept="3uibUv" id="3PyXc8TBXFr" role="1zkMxy">
       <ref role="3uigEE" to="cgcg:~AbstractHandler" resolve="AbstractHandler" />
     </node>
   </node>
