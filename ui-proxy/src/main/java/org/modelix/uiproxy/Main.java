@@ -1,7 +1,6 @@
 package org.modelix.uiproxy;
 
 import io.kubernetes.client.openapi.ApiException;
-import org.apache.log4j.Logger;
 import org.eclipse.jetty.proxy.ProxyServlet;
 import org.eclipse.jetty.server.Request;
 import org.eclipse.jetty.server.Server;
@@ -12,6 +11,8 @@ import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
 import org.eclipse.jetty.websocket.servlet.ServletUpgradeRequest;
 import org.eclipse.jetty.websocket.servlet.WebSocketServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -24,7 +25,7 @@ import java.util.Enumeration;
 import java.util.jar.Manifest;
 
 public class Main {
-    private static final Logger LOG = Logger.getLogger(Main.class);
+    private static final Logger LOG = LoggerFactory.getLogger(Main.class);
 
     public static void main(String[] args) {
         try {

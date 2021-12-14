@@ -18,7 +18,6 @@ import io.kubernetes.client.util.ClientBuilder;
 import io.kubernetes.client.util.Yaml;
 import org.apache.commons.collections4.map.HashedMap;
 import org.apache.commons.lang.StringEscapeUtils;
-import org.apache.log4j.Logger;
 import org.eclipse.jetty.server.Request;
 import org.eclipse.jetty.server.handler.AbstractHandler;
 import org.eclipse.jgit.api.Git;
@@ -29,6 +28,8 @@ import org.kohsuke.github.GHPullRequest;
 import org.kohsuke.github.GHRepository;
 import org.kohsuke.github.GitHub;
 import org.kohsuke.github.GitHubBuilder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -42,7 +43,7 @@ import java.util.Map;
 import java.util.function.Supplier;
 
 public class DeploymentManagingHandler extends AbstractHandler {
-    private static final Logger LOG = Logger.getLogger(DeploymentManagingHandler.class);
+    private static final Logger LOG = LoggerFactory.getLogger(DeploymentManagingHandler.class);
     public static final String KUBERNETES_NAMESPACE = "default";
 
     private String dockerImageTag = "latest";

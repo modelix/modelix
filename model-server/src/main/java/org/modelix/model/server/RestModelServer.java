@@ -38,8 +38,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.io.IOUtils;
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
 import org.eclipse.jetty.io.EofException;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
@@ -48,9 +46,11 @@ import org.eclipse.jetty.servlets.EventSourceServlet;
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class RestModelServer {
-    private static final Logger LOG = LogManager.getLogger(RestModelServer.class);
+    private static final Logger LOG = LoggerFactory.getLogger(RestModelServer.class);
     public static final Pattern HASH_PATTERN =
             Pattern.compile("[a-zA-Z0-9\\-_]{5}\\*[a-zA-Z0-9\\-_]{38}");
     public static final String PROTECTED_PREFIX = "$$$";
