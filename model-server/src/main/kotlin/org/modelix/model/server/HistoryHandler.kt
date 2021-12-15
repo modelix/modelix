@@ -1,6 +1,5 @@
 package org.modelix.model.server
 
-import com.google.common.collect.Streams
 import org.apache.commons.lang3.StringEscapeUtils
 import org.eclipse.jetty.server.Request
 import org.eclipse.jetty.server.handler.AbstractHandler
@@ -17,7 +16,6 @@ import org.modelix.model.operations.OTBranch
 import org.modelix.model.operations.RevertToOp
 import org.modelix.model.lazy.KVEntryReference
 import org.modelix.model.lazy.CLTree
-import org.modelix.model.operations.IOperation
 import org.modelix.model.lazy.RepositoryId
 import org.modelix.model.metameta.MetaModelBranch
 import java.io.PrintWriter
