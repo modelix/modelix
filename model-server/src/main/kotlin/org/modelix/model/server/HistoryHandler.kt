@@ -112,102 +112,105 @@ class HistoryHandler(private val client: IModelClient) : AbstractHandler() {
                         }
                     }
                 }
-                Unit
             }
             return result
         }
 
     fun buildMainPage(out: PrintWriter) {
-        out.append("<html>")
-        out.append("<head>")
-        out.append("<style>")
-        out.append("</style>")
-        out.append("</head>")
-        out.append("<body>")
-        out.append("<h1>Choose Repository</h1>")
-        out.append("<ul>")
+        out.append("""
+            <html>
+                <head>
+                    <style>
+                    </style>
+                </head>
+                <body>
+                    <h1>Choose Repository</h1>
+                    <ul>
+            """)
         for (repositoryAndBranch in knownRepositoryIds) {
-            out.append("<li><a href='")
-                .append(escapeURL(repositoryAndBranch.repository))
-                .append("/")
-                .append(escapeURL(repositoryAndBranch.branch))
-                .append("/'>")
-            out.append(escape(repositoryAndBranch.toString()))
-            out.append("</a></li>")
+            out.append("""
+                <li>
+                    <a href='${escapeURL(repositoryAndBranch.toString())}/'>${escape(repositoryAndBranch.toString())}</a>
+                </li>
+                """)
         }
-        out.append("</ul>")
-        out.append("</body>")
-        out.append("</html>")
+        out.append("""
+                    </ul>
+                </body>
+            </html>
+            """)
     }
 
     protected fun buildRepositoryPage(out: PrintWriter, repositoryAndBranch: RepositoryAndBranch, headHash: String?, skip: Int, limit: Int) {
-        out.append("<html>")
-        out.append("<head>")
-        out.append("<style>")
-        out.append("table {")
-        out.append("  border-collapse: collapse;")
-        out.append("  font-family: sans-serif;")
-        out.append("  margin: 25px 0;")
-        out.append("  font-size: 0.9em;")
-        out.append("  border-radius:6px;")
-        out.append("}")
-        out.append("thead tr {")
-        out.append("  background-color: #009879;")
-        out.append("  color: #ffffff;")
-        out.append("  text-align: left;")
-        out.append("}")
-        out.append("th {")
-        out.append("  padding: 12px 15px;")
-        out.append("}")
-        out.append("td {")
-        out.append("  padding: 3px 15px;")
-        out.append("}")
-        out.append("tbody tr {")
-        out.append("  border-bottom: 1px solid #dddddd;")
-        out.append("  border-left: 1px solid #dddddd;")
-        out.append("  border-right: 1px solid #dddddd;")
-        out.append("}")
-        out.append("tbody tr:nth-of-type(even) {")
-        out.append("  background-color: #f3f3f3;")
-        out.append("}")
-        out.append("tbody tr:last-of-type")
-        out.append("  border-bottom: 2px solid #009879;")
-        out.append("}")
-        out.append("tbody tr.active-row {")
-        out.append("  font-weight: bold;")
-        out.append("  color: #009879;")
-        out.append("}")
-        out.append("ul {")
-        out.append("  padding-left: 15px;")
-        out.append("}")
-        out.append(".hash {")
-        out.append("  color: #888;")
-        out.append("}")
-        out.append(".BtnGroup {")
-        out.append("  display: inline-block;")
-        out.append("  vertical-align: middle;")
-        out.append("}")
-        out.append(".BtnGroup-item {")
-        out.append("  background-color: #f6f8fa;")
-        out.append("  border: 1px solid rgba(27,31,36,0.15);")
-        out.append("  padding: 5px 16px;")
-        out.append("  position: relative;")
-        out.append("  float: left;")
-        out.append("  border-right-width: 0;")
-        out.append("  border-radius: 0;")
-        out.append("}")
-        out.append(".BtnGroup-item:first-child {")
-        out.append("  border-top-left-radius: 6px;")
-        out.append("  border-bottom-left-radius: 6px;")
-        out.append("}")
-        out.append(".BtnGroup-item:last-child {")
-        out.append("  border-right-width: 1px;")
-        out.append("  border-top-right-radius: 6px;")
-        out.append("  border-bottom-right-radius: 6px;")
-        out.append("}")
-        out.append("</style>")
-        out.append("</head>")
-        out.append("<body>")
+        out.append("""
+            <html>
+            <head>
+            <style>
+                table {
+                  border-collapse: collapse;
+                  font-family: sans-serif;
+                  margin: 25px 0;
+                  font-size: 0.9em;
+                  border-radius:6px;
+                }
+                thead tr {
+                  background-color: #009879;
+                  color: #ffffff;
+                  text-align: left;
+                }
+                th {
+                  padding: 12px 15px;
+                }
+                td {
+                  padding: 3px 15px;
+                }
+                tbody tr {
+                  border-bottom: 1px solid #dddddd;
+                  border-left: 1px solid #dddddd;
+                  border-right: 1px solid #dddddd;
+                }
+                tbody tr:nth-of-type(even) {
+                  background-color: #f3f3f3;
+                }
+                tbody tr:last-of-type
+                  border-bottom: 2px solid #009879;
+                }
+                tbody tr.active-row {
+                  font-weight: bold;
+                  color: #009879;
+                }
+                ul {
+                  padding-left: 15px;
+                }
+                .hash {
+                  color: #888;
+                }
+                .BtnGroup {
+                  display: inline-block;
+                  vertical-align: middle;
+                }
+                .BtnGroup-item {
+                  background-color: #f6f8fa;
+                  border: 1px solid rgba(27,31,36,0.15);
+                  padding: 5px 16px;
+                  position: relative;
+                  float: left;
+                  border-right-width: 0;
+                  border-radius: 0;
+                }
+                .BtnGroup-item:first-child {
+                  border-top-left-radius: 6px;
+                  border-bottom-left-radius: 6px;
+                }
+                .BtnGroup-item:last-child {
+                  border-right-width: 1px;
+                  border-top-right-radius: 6px;
+                  border-bottom-right-radius: 6px;
+                }
+            </style>
+            </head>
+            <body>
+            """)
         val latestVersion = CLVersion(client[repositoryAndBranch.branchKey]!!, client.storeCache!!)
         val headVersion = if (headHash == null || headHash.length == 0) latestVersion else CLVersion(headHash, client.storeCache!!)
         var version: CLVersion? = headVersion
@@ -254,39 +257,36 @@ class HistoryHandler(private val client: IModelClient) : AbstractHandler() {
     }
 
     fun createTableRow(out: PrintWriter, version: CLVersion, latestVersion: CLVersion) {
-        out.append("<tr>")
-        out.append("<td>")
-        out.append(java.lang.Long.toHexString(version.id))
-        out.append("<br/>")
-        out.append("<span class='hash'>").append(version.hash).append("</span>")
-        out.append("</td>")
-        out.append("<td>")
-        out.append(nbsp(escape(version.author)))
-        out.append("</td>")
-        out.append("<td style='white-space: nowrap;'>")
-        out.append(escape(reformatTime(version.time)))
-        out.append("</td>")
-        out.append("<td>")
-        val opsDescription: String
-        opsDescription = if (version.isMerge()) {
+        out.append("""
+            <tr>
+        <td>
+            ${java.lang.Long.toHexString(version.id)}
+            <br/>
+            <span class='hash'>${version.hash}"</span>
+        </td>
+        <td>${nbsp(escape(version.author))}</td>
+        <td style='white-space: nowrap;'>${escape(reformatTime(version.time))}</td>
+        <td>""")
+        val opsDescription = if (version.isMerge()) {
             "merge " + version.getMergedVersion1()!!.id + " + " + version.getMergedVersion2()!!.id + " (base " + version.baseVersion + ")"
         } else {
             if (version.operationsInlined()) {
-                "<ul><li>" + Streams.stream(version.operations).map { obj: IOperation -> obj.toString() }.collect(Collectors.joining("</li><li>")) + "</li></ul>"
+                "<ul><li>" + version.operations.joinToString("</li><li>") { it.toString() } + "</li></ul>"
             } else {
                 "(" + version.numberOfOperations + ") "
             }
         }
         out.append(opsDescription)
-        out.append("</td>")
-        out.append("<td>")
-        out.append("<form action='revert' method='POST'>")
-        out.append("<input type='hidden' name='from' value='").append(escapeURL(latestVersion.hash)).append("'/>")
-        out.append("<input type='hidden' name='to' value='").append(escapeURL(version.hash)).append("'/>")
-        out.append("<input type='submit' value='Revert To'/>")
-        out.append("</form>")
-        out.append("</td>")
-        out.append("</tr>")
+        out.append("""</td>
+            <td>
+            <form action='revert' method='POST'>
+            <input type='hidden' name='from' value='${escapeURL(latestVersion.hash)}'/>")
+            <input type='hidden' name='to' value='${escapeURL(version.hash)}'/>
+            <input type='submit' value='Revert To'/>
+            </form>
+            </td>
+            </tr>
+        """)
     }
 
     private fun reformatTime(dateTimeStr: String?): String {
