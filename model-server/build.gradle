@@ -4,6 +4,7 @@ plugins {
     id "com.diffplug.gradle.spotless"
     id 'maven-publish'
     id 'com.adarshr.test-logger' version '2.1.0'
+    id "org.jetbrains.kotlin.jvm"
 }
 
 description = 'Model Server offering access to model storage'
