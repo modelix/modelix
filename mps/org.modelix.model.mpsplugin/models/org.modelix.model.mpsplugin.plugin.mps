@@ -2331,69 +2331,53 @@
               </node>
               <node concept="3clFbJ" id="fizU030Hm0" role="3cqZAp">
                 <node concept="3clFbS" id="fizU030Hm2" role="3clFbx">
-                  <node concept="3clFbF" id="fizU030Poi" role="3cqZAp">
-                    <node concept="2YIFZM" id="fizU030Ppg" role="3clFbG">
-                      <ref role="1Pybhc" to="fnpx:~Notifications$Bus" resolve="Notifications.Bus" />
-                      <ref role="37wK5l" to="fnpx:~Notifications$Bus.notify(com.intellij.notification.Notification,com.intellij.openapi.project.Project)" resolve="notify" />
-                      <node concept="2ShNRf" id="fizU030PpG" role="37wK5m">
-                        <node concept="1pGfFk" id="fizU0311e_" role="2ShVmc">
-                          <ref role="37wK5l" to="fnpx:~Notification.&lt;init&gt;(java.lang.String,java.lang.String,java.lang.String,com.intellij.notification.NotificationType)" resolve="Notification" />
-                          <node concept="Xl_RD" id="fizU0311kj" role="37wK5m">
-                            <property role="Xl_RC" value="Modelix" />
-                          </node>
-                          <node concept="Xl_RD" id="fizU0311lH" role="37wK5m">
-                            <property role="Xl_RC" value="Unable to unwrap concept" />
-                          </node>
-                          <node concept="3cpWs3" id="fizU03154L" role="37wK5m">
-                            <node concept="Xl_RD" id="fizU03155u" role="3uHU7w">
-                              <property role="Xl_RC" value=")" />
-                            </node>
-                            <node concept="3cpWs3" id="fizU03131b" role="3uHU7B">
-                              <node concept="3cpWs3" id="fizU0312UL" role="3uHU7B">
-                                <node concept="3cpWs3" id="fizU03121g" role="3uHU7B">
-                                  <node concept="Xl_RD" id="fizU0311rx" role="3uHU7B">
-                                    <property role="Xl_RC" value="We were unable to unwrap concept " />
-                                  </node>
-                                  <node concept="2OqwBi" id="fizU0312lN" role="3uHU7w">
-                                    <node concept="37vLTw" id="fizU03122H" role="2Oq$k0">
-                                      <ref role="3cqZAo" node="4mhRRpyE_IH" resolve="concept" />
-                                    </node>
-                                    <node concept="liA8E" id="fizU0312vk" role="2OqNvi">
-                                      <ref role="37wK5l" to="jks5:~IConcept.getLongName()" resolve="getLongName" />
-                                    </node>
-                                  </node>
-                                </node>
-                                <node concept="Xl_RD" id="fizU0312Vc" role="3uHU7w">
-                                  <property role="Xl_RC" value=" (" />
-                                </node>
+                  <node concept="3clFbF" id="7lOG3NPsDra" role="3cqZAp">
+                    <node concept="2YIFZM" id="7lOG3NPsDvL" role="3clFbG">
+                      <ref role="1Pybhc" to="csg2:7lOG3NPrKOz" resolve="ModelixNotifications" />
+                      <ref role="37wK5l" to="csg2:7lOG3NPs_8z" resolve="notifyError" />
+                      <node concept="Xl_RD" id="7lOG3NPsEce" role="37wK5m">
+                        <property role="Xl_RC" value="Unable to unwrap concept" />
+                      </node>
+                      <node concept="3cpWs3" id="7lOG3NPsEcf" role="37wK5m">
+                        <node concept="Xl_RD" id="7lOG3NPsEcg" role="3uHU7w">
+                          <property role="Xl_RC" value=")" />
+                        </node>
+                        <node concept="3cpWs3" id="7lOG3NPsEch" role="3uHU7B">
+                          <node concept="3cpWs3" id="7lOG3NPsEci" role="3uHU7B">
+                            <node concept="3cpWs3" id="7lOG3NPsEcj" role="3uHU7B">
+                              <node concept="Xl_RD" id="7lOG3NPsEck" role="3uHU7B">
+                                <property role="Xl_RC" value="We were unable to unwrap concept " />
                               </node>
-                              <node concept="2OqwBi" id="fizU0313QJ" role="3uHU7w">
-                                <node concept="2OqwBi" id="fizU0313mE" role="2Oq$k0">
-                                  <node concept="37vLTw" id="fizU03133k" role="2Oq$k0">
-                                    <ref role="3cqZAo" node="4mhRRpyE_IH" resolve="concept" />
-                                  </node>
-                                  <node concept="liA8E" id="fizU0313wD" role="2OqNvi">
-                                    <ref role="37wK5l" to="wyt6:~Object.getClass()" resolve="getClass" />
-                                  </node>
+                              <node concept="2OqwBi" id="7lOG3NPsEcl" role="3uHU7w">
+                                <node concept="37vLTw" id="7lOG3NPsEcm" role="2Oq$k0">
+                                  <ref role="3cqZAo" node="4mhRRpyE_IH" resolve="concept" />
                                 </node>
-                                <node concept="liA8E" id="fizU0314GH" role="2OqNvi">
-                                  <ref role="37wK5l" to="wyt6:~Class.getCanonicalName()" resolve="getCanonicalName" />
+                                <node concept="liA8E" id="7lOG3NPsEcn" role="2OqNvi">
+                                  <ref role="37wK5l" to="jks5:~IConcept.getLongName()" resolve="getLongName" />
                                 </node>
                               </node>
                             </node>
+                            <node concept="Xl_RD" id="7lOG3NPsEco" role="3uHU7w">
+                              <property role="Xl_RC" value=" (" />
+                            </node>
                           </node>
-                          <node concept="Rm8GO" id="fizU0315Nh" role="37wK5m">
-                            <ref role="Rm8GQ" to="fnpx:~NotificationType.ERROR" resolve="ERROR" />
-                            <ref role="1Px2BO" to="fnpx:~NotificationType" resolve="NotificationType" />
+                          <node concept="2OqwBi" id="7lOG3NPsEcp" role="3uHU7w">
+                            <node concept="2OqwBi" id="7lOG3NPsEcq" role="2Oq$k0">
+                              <node concept="37vLTw" id="7lOG3NPsEcr" role="2Oq$k0">
+                                <ref role="3cqZAo" node="4mhRRpyE_IH" resolve="concept" />
+                              </node>
+                              <node concept="liA8E" id="7lOG3NPsEcs" role="2OqNvi">
+                                <ref role="37wK5l" to="wyt6:~Object.getClass()" resolve="getClass" />
+                              </node>
+                            </node>
+                            <node concept="liA8E" id="7lOG3NPsEct" role="2OqNvi">
+                              <ref role="37wK5l" to="wyt6:~Class.getCanonicalName()" resolve="getCanonicalName" />
+                            </node>
                           </node>
                         </node>
                       </node>
-                      <node concept="2YIFZM" id="fizU0316HO" role="37wK5m">
-                        <ref role="37wK5l" to="alof:~ProjectHelper.toIdeaProject(jetbrains.mps.project.Project)" resolve="toIdeaProject" />
-                        <ref role="1Pybhc" to="alof:~ProjectHelper" resolve="ProjectHelper" />
-                        <node concept="37vLTw" id="fizU0316LC" role="37wK5m">
-                          <ref role="3cqZAo" node="4mhRRpyEJ3q" resolve="project" />
-                        </node>
+                      <node concept="37vLTw" id="7lOG3NPsECT" role="37wK5m">
+                        <ref role="3cqZAo" node="4mhRRpyEJ3q" resolve="project" />
                       </node>
                     </node>
                   </node>
