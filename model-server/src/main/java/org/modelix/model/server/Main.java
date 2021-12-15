@@ -272,6 +272,7 @@ public class Main {
             }
 
             RestModelServer modelServer = new RestModelServer(storeClient);
+            LocalModelClient localModelClient = new LocalModelClient(storeClient);
 
             File sharedSecretFile = cmdLineArgs.secretFile;
             if (sharedSecretFile.exists()) {
@@ -283,6 +284,7 @@ public class Main {
             ServletContextHandler servletHandler = new ServletContextHandler();
             modelServer.init(servletHandler);
             HandlerList handlerList = new HandlerList();
+            handlerList.addHandler(new HistoryHandler(localModelClient));
             handlerList.addHandler(servletHandler);
             server.setHandler(handlerList);
             server.start();

@@ -23,16 +23,20 @@ data class RepositoryId(val id: String) {
     fun getBranchKey(branchName: String?): String {
         var branchName = branchName
         if (branchName == null || branchName.isEmpty()) {
-            branchName = "master"
+            branchName = DEFAULT_BRANCH
         }
         return "branch_" + id + "_" + branchName
     }
+
+    fun getBranchKey(): String = getBranchKey(null)
 
     override fun toString(): String {
         return id
     }
 
     companion object {
+        const val DEFAULT_BRANCH = "master"
+
         @JvmStatic
         fun random(): RepositoryId {
             return RepositoryId(randomUUID())
