@@ -571,11 +571,11 @@
             <node concept="3cpWsn" id="6hBdEE_hRAA" role="3cpWs9">
               <property role="TrG5h" value="binding" />
               <node concept="3uibUv" id="6hBdEE_jeho" role="1tU5fm">
-                <ref role="3uigEE" to="csg2:4_k_9wJt0QR" resolve="_ModelBinding" />
+                <ref role="3uigEE" to="csg2:4_k_9wJt0QR" resolve="ModelBinding" />
               </node>
               <node concept="2ShNRf" id="6hBdEE_hVTh" role="33vP2m">
                 <node concept="1pGfFk" id="6hBdEE_hVDL" role="2ShVmc">
-                  <ref role="37wK5l" to="csg2:4_k_9wJtBLu" resolve="_ModelBinding" />
+                  <ref role="37wK5l" to="csg2:4_k_9wJtBLu" resolve="ModelBinding" />
                   <node concept="37vLTw" id="6hBdEE_j8IQ" role="37wK5m">
                     <ref role="3cqZAo" node="6hBdEE_j49l" resolve="modelNodeId" />
                   </node>
@@ -599,7 +599,7 @@
                 <ref role="37wK5l" to="csg2:74bn2Kw$if_" resolve="setOwner" />
                 <node concept="2ShNRf" id="6hBdEE_zE7A" role="37wK5m">
                   <node concept="1pGfFk" id="6hBdEE_zISg" role="2ShVmc">
-                    <ref role="37wK5l" to="csg2:6hBdEE_zKnQ" resolve="_RootBinding" />
+                    <ref role="37wK5l" to="csg2:6hBdEE_zKnQ" resolve="RootBinding" />
                     <node concept="2ShNRf" id="6hBdEE_$q$f" role="37wK5m">
                       <node concept="1pGfFk" id="6hBdEE_$ray" role="2ShVmc">
                         <ref role="37wK5l" to="csg2:6hBdEE_zUqA" resolve="TestCloudRepository" />

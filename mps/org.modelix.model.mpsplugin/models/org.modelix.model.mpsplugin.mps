@@ -3104,36 +3104,24 @@
                   <ref role="3cqZAo" node="cwXJrjMCEw" resolve="t" />
                 </node>
               </node>
-              <node concept="3clFbF" id="1ydTf_swdUI" role="3cqZAp">
-                <node concept="2YIFZM" id="1ydTf_swe5f" role="3clFbG">
-                  <ref role="37wK5l" to="fnpx:~Notifications$Bus.notify(com.intellij.notification.Notification)" resolve="notify" />
-                  <ref role="1Pybhd" to="fnpx:~Notifications$Bus" resolve="Notifications.Bus" />
-                  <node concept="2ShNRf" id="1ydTf_sweuI" role="37wK5m">
-                    <node concept="1pGfFk" id="1ydTf_swFJs" role="2ShVmc">
-                      <ref role="37wK5l" to="fnpx:~Notification.&lt;init&gt;(java.lang.String,java.lang.String,java.lang.String,com.intellij.notification.NotificationType)" resolve="Notification" />
-                      <node concept="Xl_RD" id="1ydTf_swFWG" role="37wK5m">
-                        <property role="Xl_RC" value="Modelix" />
-                      </node>
-                      <node concept="3cpWs3" id="1ydTf_swGJs" role="37wK5m">
-                        <node concept="37vLTw" id="1ydTf_swGJt" role="3uHU7w">
-                          <ref role="3cqZAo" node="1JFLVobfVqM" resolve="url" />
-                        </node>
-                        <node concept="Xl_RD" id="1ydTf_swGJu" role="3uHU7B">
-                          <property role="Xl_RC" value="Failure while adding model server " />
-                        </node>
-                      </node>
-                      <node concept="2OqwBi" id="1ydTf_swHoz" role="37wK5m">
-                        <node concept="37vLTw" id="1ydTf_swH4r" role="2Oq$k0">
-                          <ref role="3cqZAo" node="cwXJrjMCEw" resolve="t" />
-                        </node>
-                        <node concept="liA8E" id="1ydTf_swHKo" role="2OqNvi">
-                          <ref role="37wK5l" to="wyt6:~Throwable.getMessage()" resolve="getMessage" />
-                        </node>
-                      </node>
-                      <node concept="Rm8GO" id="1ydTf_swIBL" role="37wK5m">
-                        <ref role="Rm8GQ" to="fnpx:~NotificationType.ERROR" resolve="ERROR" />
-                        <ref role="1Px2BO" to="fnpx:~NotificationType" resolve="NotificationType" />
-                      </node>
+              <node concept="3clFbF" id="7lOG3NPsvBz" role="3cqZAp">
+                <node concept="2YIFZM" id="7lOG3NPsvDH" role="3clFbG">
+                  <ref role="37wK5l" node="7lOG3NPsfuK" resolve="notifyError" />
+                  <ref role="1Pybhd" node="7lOG3NPrKOz" resolve="ModelixNotifications" />
+                  <node concept="3cpWs3" id="7lOG3NPsvEu" role="37wK5m">
+                    <node concept="37vLTw" id="7lOG3NPsvEv" role="3uHU7w">
+                      <ref role="3cqZAo" node="1JFLVobfVqM" resolve="url" />
+                    </node>
+                    <node concept="Xl_RD" id="7lOG3NPsvEw" role="3uHU7B">
+                      <property role="Xl_RC" value="Failure while adding model server " />
+                    </node>
+                  </node>
+                  <node concept="2OqwBi" id="7lOG3NPsvEx" role="37wK5m">
+                    <node concept="37vLTw" id="7lOG3NPsvEy" role="2Oq$k0">
+                      <ref role="3cqZAo" node="cwXJrjMCEw" resolve="t" />
+                    </node>
+                    <node concept="liA8E" id="7lOG3NPsvEz" role="2OqNvi">
+                      <ref role="37wK5l" to="wyt6:~Throwable.getMessage()" resolve="getMessage" />
                     </node>
                   </node>
                 </node>
@@ -4178,41 +4166,28 @@
                           <node concept="3Tm1VV" id="46h4oXMtHnn" role="1B3o_S" />
                           <node concept="3cqZAl" id="46h4oXMtHno" role="3clF45" />
                           <node concept="3clFbS" id="46h4oXMtHnp" role="3clF47">
-                            <node concept="3clFbF" id="75_St3$ZyQz" role="3cqZAp">
-                              <node concept="2YIFZM" id="75_St3$ZEVU" role="3clFbG">
-                                <ref role="1Pybhd" to="fnpx:~Notifications$Bus" resolve="Notifications.Bus" />
-                                <ref role="37wK5l" to="fnpx:~Notifications$Bus.notify(com.intellij.notification.Notification)" resolve="notify" />
-                                <node concept="2ShNRf" id="75_St3$ZEVV" role="37wK5m">
-                                  <node concept="1pGfFk" id="75_St3$ZEVW" role="2ShVmc">
-                                    <ref role="37wK5l" to="fnpx:~Notification.&lt;init&gt;(java.lang.String,java.lang.String,java.lang.String,com.intellij.notification.NotificationType)" resolve="Notification" />
-                                    <node concept="Xl_RD" id="75_St3$ZEVX" role="37wK5m">
-                                      <property role="Xl_RC" value="Modelix" />
+                            <node concept="3clFbF" id="7lOG3NPsqEP" role="3cqZAp">
+                              <node concept="2YIFZM" id="7lOG3NPsrDA" role="3clFbG">
+                                <ref role="37wK5l" node="7lOG3NPsfuK" resolve="notifyError" />
+                                <ref role="1Pybhd" node="7lOG3NPrKOz" resolve="ModelixNotifications" />
+                                <node concept="Xl_RD" id="7lOG3NPsrF3" role="37wK5m">
+                                  <property role="Xl_RC" value="Forbidden Access" />
+                                </node>
+                                <node concept="3cpWs3" id="7lOG3NPsrF4" role="37wK5m">
+                                  <node concept="3cpWs3" id="7lOG3NPsrF5" role="3uHU7B">
+                                    <node concept="Xl_RD" id="7lOG3NPsrF6" role="3uHU7B">
+                                      <property role="Xl_RC" value="Unauthorized to connect to Model Server " />
                                     </node>
-                                    <node concept="Xl_RD" id="75_St3$ZEVY" role="37wK5m">
-                                      <property role="Xl_RC" value="Forbidden Access" />
+                                    <node concept="37vLTw" id="7lOG3NPsrF7" role="3uHU7w">
+                                      <ref role="3cqZAo" node="46h4oXMu_sX" resolve="baseUrl" />
                                     </node>
-                                    <node concept="3cpWs3" id="75_St3$ZIXK" role="37wK5m">
-                                      <node concept="3cpWs3" id="75_St3$ZIXL" role="3uHU7B">
-                                        <node concept="Xl_RD" id="75_St3$ZIXM" role="3uHU7B">
-                                          <property role="Xl_RC" value="Unauthorized to connect to Model Server " />
-                                        </node>
-                                        <node concept="37vLTw" id="75_St3$ZIXN" role="3uHU7w">
-                                          <ref role="3cqZAo" node="46h4oXMu_sX" resolve="baseUrl" />
-                                        </node>
-                                      </node>
-                                      <node concept="Xl_RD" id="75_St3$ZIXO" role="3uHU7w">
-                                        <property role="Xl_RC" value=". Check you are logged in and have the right to access that Model Server" />
-                                      </node>
-                                    </node>
-                                    <node concept="Rm8GO" id="75_St3$ZEW0" role="37wK5m">
-                                      <ref role="1Px2BO" to="fnpx:~NotificationType" resolve="NotificationType" />
-                                      <ref role="Rm8GQ" to="fnpx:~NotificationType.ERROR" resolve="ERROR" />
-                                    </node>
+                                  </node>
+                                  <node concept="Xl_RD" id="7lOG3NPsrF8" role="3uHU7w">
+                                    <property role="Xl_RC" value=". Check you are logged in and have the right to access that Model Server" />
                                   </node>
                                 </node>
                               </node>
                             </node>
-                            <node concept="3clFbH" id="75_St3$Zy_d" role="3cqZAp" />
                           </node>
                           <node concept="2AHcQZ" id="46h4oXMtHny" role="2AJF6D">
                             <ref role="2AI5Lk" to="wyt6:~Override" resolve="Override" />
@@ -11242,35 +11217,23 @@
         </node>
         <node concept="3clFbJ" id="7PLbr3VCxL4" role="3cqZAp">
           <node concept="3clFbS" id="7PLbr3VCxL6" role="3clFbx">
-            <node concept="3clFbF" id="4S9EsdAOLoO" role="3cqZAp">
-              <node concept="2YIFZM" id="4S9EsdAOLO$" role="3clFbG">
-                <ref role="37wK5l" to="fnpx:~Notifications$Bus.notify(com.intellij.notification.Notification)" resolve="notify" />
-                <ref role="1Pybhd" to="fnpx:~Notifications$Bus" resolve="Notifications.Bus" />
-                <node concept="2ShNRf" id="4S9EsdAOM2j" role="37wK5m">
-                  <node concept="1pGfFk" id="4S9EsdAPmEt" role="2ShVmc">
-                    <ref role="37wK5l" to="fnpx:~Notification.&lt;init&gt;(java.lang.String,java.lang.String,java.lang.String,com.intellij.notification.NotificationType)" resolve="Notification" />
-                    <node concept="Xl_RD" id="4S9EsdAPpnE" role="37wK5m">
-                      <property role="Xl_RC" value="modelix" />
+            <node concept="3clFbF" id="7lOG3NPscgG" role="3cqZAp">
+              <node concept="2YIFZM" id="7lOG3NPsh9b" role="3clFbG">
+                <ref role="37wK5l" node="7lOG3NPsfuK" resolve="notifyError" />
+                <ref role="1Pybhd" node="7lOG3NPrKOz" resolve="ModelixNotifications" />
+                <node concept="Xl_RD" id="7lOG3NPsh9A" role="37wK5m">
+                  <property role="Xl_RC" value="Module without ID" />
+                </node>
+                <node concept="3cpWs3" id="7lOG3NPsh9B" role="37wK5m">
+                  <node concept="Xl_RD" id="7lOG3NPsh9C" role="3uHU7w">
+                    <property role="Xl_RC" value=" has been stored without an ID. Please ID and check it out again" />
+                  </node>
+                  <node concept="3cpWs3" id="7lOG3NPsh9D" role="3uHU7B">
+                    <node concept="Xl_RD" id="7lOG3NPsh9E" role="3uHU7B">
+                      <property role="Xl_RC" value="Module " />
                     </node>
-                    <node concept="Xl_RD" id="4S9EsdAPqr_" role="37wK5m">
-                      <property role="Xl_RC" value="Module without ID" />
-                    </node>
-                    <node concept="3cpWs3" id="4S9EsdAPt6E" role="37wK5m">
-                      <node concept="Xl_RD" id="4S9EsdAPtk9" role="3uHU7w">
-                        <property role="Xl_RC" value=" has been stored without an ID. Please ID and check it out again" />
-                      </node>
-                      <node concept="3cpWs3" id="4S9EsdAPs7K" role="3uHU7B">
-                        <node concept="Xl_RD" id="4S9EsdAPqLV" role="3uHU7B">
-                          <property role="Xl_RC" value="Module " />
-                        </node>
-                        <node concept="37vLTw" id="4S9EsdAPsqi" role="3uHU7w">
-                          <ref role="3cqZAo" node="29etMtbjRmI" resolve="name" />
-                        </node>
-                      </node>
-                    </node>
-                    <node concept="Rm8GO" id="4S9EsdAPBGn" role="37wK5m">
-                      <ref role="Rm8GQ" to="fnpx:~NotificationType.ERROR" resolve="ERROR" />
-                      <ref role="1Px2BO" to="fnpx:~NotificationType" resolve="NotificationType" />
+                    <node concept="37vLTw" id="7lOG3NPsh9F" role="3uHU7w">
+                      <ref role="3cqZAo" node="29etMtbjRmI" resolve="name" />
                     </node>
                   </node>
                 </node>
@@ -40411,6 +40374,111 @@
         <ref role="2AI5Lk" to="wyt6:~Override" resolve="Override" />
       </node>
     </node>
+  </node>
+  <node concept="312cEu" id="7lOG3NPrKOz">
+    <property role="3GE5qa" value="util" />
+    <property role="TrG5h" value="ModelixNotifications" />
+    <node concept="Wx3nA" id="7lOG3NPs_Yi" role="jymVt">
+      <property role="TrG5h" value="GROUP_ID" />
+      <property role="3TUv4t" value="true" />
+      <node concept="3Tm6S6" id="7lOG3NPs__p" role="1B3o_S" />
+      <node concept="17QB3L" id="7lOG3NPs_Y3" role="1tU5fm" />
+      <node concept="Xl_RD" id="7lOG3NPsAbv" role="33vP2m">
+        <property role="Xl_RC" value="modelix" />
+      </node>
+    </node>
+    <node concept="2YIFZL" id="7lOG3NPsfuK" role="jymVt">
+      <property role="TrG5h" value="notifyError" />
+      <node concept="3clFbS" id="7lOG3NPsfuM" role="3clF47">
+        <node concept="3clFbF" id="7lOG3NPsfuN" role="3cqZAp">
+          <node concept="2YIFZM" id="7lOG3NPsfuO" role="3clFbG">
+            <ref role="37wK5l" to="fnpx:~Notifications$Bus.notify(com.intellij.notification.Notification)" resolve="notify" />
+            <ref role="1Pybhd" to="fnpx:~Notifications$Bus" resolve="Notifications.Bus" />
+            <node concept="2ShNRf" id="7lOG3NPsfuP" role="37wK5m">
+              <node concept="1pGfFk" id="7lOG3NPsfuQ" role="2ShVmc">
+                <ref role="37wK5l" to="fnpx:~Notification.&lt;init&gt;(java.lang.String,java.lang.String,java.lang.String,com.intellij.notification.NotificationType)" resolve="Notification" />
+                <node concept="37vLTw" id="7lOG3NPsAAh" role="37wK5m">
+                  <ref role="3cqZAo" node="7lOG3NPs_Yi" resolve="GROUP_ID" />
+                </node>
+                <node concept="37vLTw" id="7lOG3NPsfuS" role="37wK5m">
+                  <ref role="3cqZAo" node="7lOG3NPsfuX" resolve="title" />
+                </node>
+                <node concept="37vLTw" id="7lOG3NPsfuT" role="37wK5m">
+                  <ref role="3cqZAo" node="7lOG3NPsfuZ" resolve="message" />
+                </node>
+                <node concept="Rm8GO" id="7lOG3NPsfuU" role="37wK5m">
+                  <ref role="Rm8GQ" to="fnpx:~NotificationType.ERROR" resolve="ERROR" />
+                  <ref role="1Px2BO" to="fnpx:~NotificationType" resolve="NotificationType" />
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+      </node>
+      <node concept="3cqZAl" id="7lOG3NPsfuW" role="3clF45" />
+      <node concept="37vLTG" id="7lOG3NPsfuX" role="3clF46">
+        <property role="TrG5h" value="title" />
+        <node concept="17QB3L" id="7lOG3NPsfuY" role="1tU5fm" />
+      </node>
+      <node concept="37vLTG" id="7lOG3NPsfuZ" role="3clF46">
+        <property role="TrG5h" value="message" />
+        <node concept="17QB3L" id="7lOG3NPsfv0" role="1tU5fm" />
+      </node>
+      <node concept="3Tm1VV" id="7lOG3NPsfuV" role="1B3o_S" />
+    </node>
+    <node concept="2YIFZL" id="7lOG3NPs_8z" role="jymVt">
+      <property role="TrG5h" value="notifyError" />
+      <node concept="3clFbS" id="7lOG3NPs_8$" role="3clF47">
+        <node concept="3clFbF" id="7lOG3NPs_8_" role="3cqZAp">
+          <node concept="2YIFZM" id="7lOG3NPs_8A" role="3clFbG">
+            <ref role="1Pybhd" to="fnpx:~Notifications$Bus" resolve="Notifications.Bus" />
+            <ref role="37wK5l" to="fnpx:~Notifications$Bus.notify(com.intellij.notification.Notification,com.intellij.openapi.project.Project)" resolve="notify" />
+            <node concept="2ShNRf" id="7lOG3NPs_8B" role="37wK5m">
+              <node concept="1pGfFk" id="7lOG3NPs_8C" role="2ShVmc">
+                <ref role="37wK5l" to="fnpx:~Notification.&lt;init&gt;(java.lang.String,java.lang.String,java.lang.String,com.intellij.notification.NotificationType)" resolve="Notification" />
+                <node concept="37vLTw" id="7lOG3NPsACj" role="37wK5m">
+                  <ref role="3cqZAo" node="7lOG3NPs_Yi" resolve="GROUP_ID" />
+                </node>
+                <node concept="37vLTw" id="7lOG3NPs_8E" role="37wK5m">
+                  <ref role="3cqZAo" node="7lOG3NPs_8I" resolve="title" />
+                </node>
+                <node concept="37vLTw" id="7lOG3NPs_8F" role="37wK5m">
+                  <ref role="3cqZAo" node="7lOG3NPs_8K" resolve="message" />
+                </node>
+                <node concept="Rm8GO" id="7lOG3NPs_8G" role="37wK5m">
+                  <ref role="1Px2BO" to="fnpx:~NotificationType" resolve="NotificationType" />
+                  <ref role="Rm8GQ" to="fnpx:~NotificationType.ERROR" resolve="ERROR" />
+                </node>
+              </node>
+            </node>
+            <node concept="2YIFZM" id="fizU0316HO" role="37wK5m">
+              <ref role="1Pybhd" to="alof:~ProjectHelper" resolve="ProjectHelper" />
+              <ref role="37wK5l" to="alof:~ProjectHelper.toIdeaProject(jetbrains.mps.project.Project)" resolve="toIdeaProject" />
+              <node concept="37vLTw" id="7lOG3NPsFZl" role="37wK5m">
+                <ref role="3cqZAo" node="7lOG3NPs_aQ" resolve="mpsProject" />
+              </node>
+            </node>
+          </node>
+        </node>
+      </node>
+      <node concept="3cqZAl" id="7lOG3NPs_8H" role="3clF45" />
+      <node concept="37vLTG" id="7lOG3NPs_8I" role="3clF46">
+        <property role="TrG5h" value="title" />
+        <node concept="17QB3L" id="7lOG3NPs_8J" role="1tU5fm" />
+      </node>
+      <node concept="37vLTG" id="7lOG3NPs_8K" role="3clF46">
+        <property role="TrG5h" value="message" />
+        <node concept="17QB3L" id="7lOG3NPs_8L" role="1tU5fm" />
+      </node>
+      <node concept="37vLTG" id="7lOG3NPs_aQ" role="3clF46">
+        <property role="TrG5h" value="mpsProject" />
+        <node concept="3uibUv" id="7lOG3NPs_sc" role="1tU5fm">
+          <ref role="3uigEE" to="z1c4:~MPSProject" resolve="MPSProject" />
+        </node>
+      </node>
+      <node concept="3Tm1VV" id="7lOG3NPs_8M" role="1B3o_S" />
+    </node>
+    <node concept="3Tm1VV" id="7lOG3NPrKO$" role="1B3o_S" />
   </node>
 </model>
 
