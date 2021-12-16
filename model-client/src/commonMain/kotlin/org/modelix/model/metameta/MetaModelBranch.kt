@@ -62,6 +62,53 @@ class MetaModelBranch(val branch: IBranch) : IBranch by branch {
         return PersistedConcept(localConceptId, globalConcept.getUID())
     }
 
+    private fun prefetch() {
+        // prefetch only for the root transaction, not for all nested ones
+        if (!branch.canRead()) {
+            metaModelSynchronizer.prefetch()
+        }
+    }
+
+    override fun <T> computeRead(computable: () -> T): T {
+        prefetch()
+        return branch.computeRead(computable)
+    }
+
+    override fun <T> computeReadT(computable: (IReadTransaction) -> T): T {
+        prefetch()
+        return branch.computeReadT { computable(MMReadTransaction(it)) }
+    }
+
+    override fun <T> computeWrite(computable: () -> T): T {
+        prefetch()
+        return branch.computeWrite(computable)
+    }
+
+    override fun <T> computeWriteT(computable: (IWriteTransaction) -> T): T {
+        prefetch()
+        return branch.computeWriteT { computable(MMWriteTransaction(it)) }
+    }
+
+    override fun runRead(runnable: () -> Unit) {
+        prefetch()
+        return branch.runRead(runnable)
+    }
+
+    override fun runReadT(f: (IReadTransaction) -> Unit) {
+        prefetch()
+        return branch.runReadT { f(MMReadTransaction(it)) }
+    }
+
+    override fun runWrite(runnable: () -> Unit) {
+        prefetch()
+        return branch.runWrite(runnable)
+    }
+
+    override fun runWriteT(f: (IWriteTransaction) -> Unit) {
+        prefetch()
+        return branch.runWriteT { f(MMWriteTransaction(it)) }
+    }
+
     fun wrapTree(tree: ITree) = if (tree is IBulkTree) MMBulkTree(tree) else MMTree(tree)
 
     inner class MMReadTransaction(val transaction: IReadTransaction) : IReadTransaction by transaction, ITransactionWrapper {

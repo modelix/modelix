@@ -14,6 +14,7 @@
 package org.modelix.model.metameta
 
 import org.modelix.model.api.*
+import org.modelix.model.lazy.IBulkTree
 
 class MetaModelSynchronizer(val branch: IBranch) {
     private var cachedIndex: MetaModelIndex? = null
@@ -35,6 +36,14 @@ class MetaModelSynchronizer(val branch: IBranch) {
         }
         cachedIndex = idx
         return idx
+    }
+
+    fun prefetch() {
+        val tree = branch.computeReadT { it.tree }
+        if (tree is IBulkTree) {
+            tree.getChildren(ITree.ROOT_ID, MetaModelIndex.LANGUAGES_ROLE)
+                .map { tree.getDescendants(it, false) }
+        }
     }
 
     fun getLanguageId(lang: ILanguage): Long {
