@@ -26,7 +26,7 @@ import org.modelix.model.persistent.CPNodeRef.Companion.foreign
 import org.modelix.model.persistent.CPNodeRef.Companion.global
 import org.modelix.model.persistent.CPNodeRef.Companion.local
 
-class CLTree : ITree {
+class CLTree : ITree, IBulkTree {
     val store: IDeserializingKeyValueStore
     val data: CPTree
 
@@ -267,7 +267,7 @@ class CLTree : ITree {
         return children.map { it.id }
     }
 
-    fun getDescendants(root: Long, includeSelf: Boolean): Iterable<CLNode> {
+    override fun getDescendants(root: Long, includeSelf: Boolean): Iterable<CLNode> {
         val parent = resolveElement(root)
         return parent!!.getDescendants(BulkQuery(store), includeSelf).execute()
     }

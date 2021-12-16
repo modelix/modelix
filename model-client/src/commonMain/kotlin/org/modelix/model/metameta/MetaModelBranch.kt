@@ -15,6 +15,8 @@ package org.modelix.model.metameta
 
 import org.modelix.model.ITransactionWrapper
 import org.modelix.model.api.*
+import org.modelix.model.lazy.CLNode
+import org.modelix.model.lazy.IBulkTree
 import org.modelix.model.lazy.IConceptReferenceSerializer
 
 class MetaModelBranch(val branch: IBranch) : IBranch by branch {
@@ -60,13 +62,15 @@ class MetaModelBranch(val branch: IBranch) : IBranch by branch {
         return PersistedConcept(localConceptId, globalConcept.getUID())
     }
 
+    fun wrapTree(tree: ITree) = if (tree is IBulkTree) MMBulkTree(tree) else MMTree(tree)
+
     inner class MMReadTransaction(val transaction: IReadTransaction) : IReadTransaction by transaction, ITransactionWrapper {
         override fun unwrap(): ITransaction = transaction
 
         override val branch: IBranch
             get() = this@MetaModelBranch
         override val tree: ITree
-            get() = MMTree(transaction.tree)
+            get() = wrapTree(transaction.tree)
 
         override fun getConcept(nodeId: Long): IConcept? {
             return transaction.getConcept(nodeId)?.let { toGlobalConcept(it, transaction.tree) }
@@ -79,7 +83,7 @@ class MetaModelBranch(val branch: IBranch) : IBranch by branch {
         override val branch: IBranch
             get() = this@MetaModelBranch
         override var tree: ITree
-            get() = MMTree(transaction.tree)
+            get() = wrapTree(transaction.tree)
             set(value) {
                 transaction.tree = if (value is MMTree) value.tree else tree
             }
@@ -96,7 +100,7 @@ class MetaModelBranch(val branch: IBranch) : IBranch by branch {
         }
     }
 
-    inner class MMTree(val tree: ITree) : ITree by tree {
+    open inner class MMTree(open val tree: ITree) : ITree by tree {
         override fun getConcept(nodeId: Long): IConcept? {
             return tree.getConcept(nodeId)?.let { toGlobalConcept(it, tree) }
         }
@@ -107,31 +111,31 @@ class MetaModelBranch(val branch: IBranch) : IBranch by branch {
         }
 
         override fun addNewChild(parentId: Long, role: String?, index: Int, childId: Long, concept: IConcept?): ITree {
-            return MMTree(tree.addNewChild(parentId, role, index, childId, concept))
+            return wrapTree(tree.addNewChild(parentId, role, index, childId, concept))
         }
 
         override fun addNewChildren(parentId: Long, role: String?, index: Int, newIds: LongArray, concepts: Array<IConcept?>): ITree {
-            return MMTree(tree.addNewChildren(parentId, role, index, newIds, concepts))
+            return wrapTree(tree.addNewChildren(parentId, role, index, newIds, concepts))
         }
 
         override fun deleteNode(nodeId: Long): ITree {
-            return MMTree(tree.deleteNode(nodeId))
+            return wrapTree(tree.deleteNode(nodeId))
         }
 
         override fun deleteNodes(nodeIds: LongArray): ITree {
-            return MMTree(tree.deleteNodes(nodeIds))
+            return wrapTree(tree.deleteNodes(nodeIds))
         }
 
         override fun moveChild(newParentId: Long, newRole: String?, newIndex: Int, childId: Long): ITree {
-            return MMTree(tree.moveChild(newParentId, newRole, newIndex, childId))
+            return wrapTree(tree.moveChild(newParentId, newRole, newIndex, childId))
         }
 
         override fun setProperty(nodeId: Long, role: String, value: String?): ITree {
-            return MMTree(tree.setProperty(nodeId, role, value))
+            return wrapTree(tree.setProperty(nodeId, role, value))
         }
 
         override fun setReferenceTarget(sourceId: Long, role: String, target: INodeReference?): ITree {
-            return MMTree(tree.setReferenceTarget(sourceId, role, target))
+            return wrapTree(tree.setReferenceTarget(sourceId, role, target))
         }
 
         override fun equals(other: Any?): Boolean {
@@ -154,9 +158,15 @@ class MetaModelBranch(val branch: IBranch) : IBranch by branch {
         }
     }
 
+    inner class MMBulkTree(override val tree: IBulkTree): MMTree(tree), IBulkTree {
+        override fun getDescendants(root: Long, includeSelf: Boolean): Iterable<CLNode> {
+            return tree.getDescendants(root, includeSelf)
+        }
+    }
+
     inner class MMBranchListener(val listener: IBranchListener) : IBranchListener {
         override fun treeChanged(oldTree: ITree?, newTree: ITree) {
-            listener.treeChanged(oldTree?.let { MMTree(it) }, MMTree(newTree))
+            listener.treeChanged(oldTree?.let { wrapTree(it) }, wrapTree(newTree))
         }
     }
 }
