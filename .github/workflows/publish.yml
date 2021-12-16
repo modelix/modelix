@@ -23,4 +23,4 @@ jobs:
         NEXUS_USERNAME: ${{ secrets.NEXUS_USERNAME }}
         NEXUS_PASSWORD: ${{ secrets.NEXUS_PASSWORD }}
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      run: ./gradlew build publish && ./docker-ci.sh
+      run: ./gradlew assemble publish && ./docker-ci.sh
