@@ -8,6 +8,7 @@ import jetbrains.mps.tool.environment.Environment;
 import jetbrains.mps.tool.environment.EnvironmentConfig;
 import jetbrains.mps.tool.environment.IdeaEnvironment;
 import jetbrains.mps.util.PathManager;
+import jetbrains.mps.tool.common.PluginData;
 
 import java.io.File;
 
@@ -37,18 +38,27 @@ public class EnvironmentLoader {
                     .withDefaultSamples()
                     //.withDevkitPlugin()
                     .withGit4IdeaPlugin()
+                    .withGit4IdeaStubsPlugin()
+                    //.withDebuggerPlugin()
                     .withJavaPlugin()
                     //.withMakePlugin()
                     .withMigrationPlugin()
                     //.withTestingPlugin()
                     .withVcsPlugin()
                     .withWorkbenchPath()
-                    .addPlugin("org.modelix.model", "org.modelix.model")
-                    .addPlugin("org.modelix.common", "org.modelix.common")
+                    .addPlugin(PathManager.getHomePath()+"/plugins/org.modelix.model", "org.modelix.model")
+                    .addPlugin(PathManager.getHomePath()+"/plugins/org.modelix.common", "org.modelix.common")
                     ;
+
             if (gitRepoDir != null) {
                 config.addLib(gitRepoDir.getAbsolutePath());
             }
+
+            System.out.println("<Environment - Plugins start>");
+            for (PluginData pd : config.getPlugins()) {
+                System.out.println(" Plugin Data " + pd.path+" " + pd.id);
+            }
+            System.out.println("<Environment - Plugins end>");
 
 //            for (IdeaPluginDescriptorImpl plugin : PluginManagerCore.loadDescriptors(null, new ArrayList<String>())) {
 //                System.out.println("addPlugin(" + plugin.getPath() + ", " + plugin.getPluginId().getIdString() + ")");
@@ -59,9 +69,13 @@ public class EnvironmentLoader {
             loadLangJars(config, new File(homePath,"languages"));
             loadLangJars(config, new File(homePath,"plugins"));
             environment = new IdeaEnvironment(config);
+            System.out.println("IdeaEnvironment created");
             RuntimeFlags.setTestMode(TestMode.NONE);
+            System.out.println("Test mode set to None");
             ((IdeaEnvironment) environment).init();
+            System.out.println("IdeaEnvironment initialized");
             ourProject = environment.createEmptyProject();
+            System.out.println("Empty project created");
         }
 
         return ourProject;
