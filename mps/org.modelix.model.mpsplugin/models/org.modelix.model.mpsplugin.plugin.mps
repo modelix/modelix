@@ -903,8 +903,14 @@
                           </node>
                           <node concept="liA8E" id="5Le8ZRJerV5" role="2OqNvi">
                             <ref role="37wK5l" to="guwi:~PrintStream.println(java.lang.String)" resolve="println" />
-                            <node concept="Xl_RD" id="5Le8ZRJesqG" role="37wK5m">
-                              <property role="Xl_RC" value="modelix.export.path not provided" />
+                            <node concept="3cpWs3" id="4D52TXxAFrZ" role="37wK5m">
+                              <node concept="10M0yZ" id="4D52TXxAFKO" role="3uHU7B">
+                                <ref role="3cqZAo" node="4D52TXxAE_p" resolve="STARTED" />
+                                <ref role="1PxDUh" node="4D52TXxApUP" resolve="ModelixExportConfiguration" />
+                              </node>
+                              <node concept="Xl_RD" id="5Le8ZRJesqG" role="3uHU7w">
+                                <property role="Xl_RC" value=" not provided" />
+                              </node>
                             </node>
                           </node>
                         </node>
@@ -1025,8 +1031,9 @@
                                                 <node concept="2YIFZM" id="5$aoTsoylhD" role="3clFbG">
                                                   <ref role="37wK5l" to="wyt6:~System.setProperty(java.lang.String,java.lang.String)" resolve="setProperty" />
                                                   <ref role="1Pybhc" to="wyt6:~System" resolve="System" />
-                                                  <node concept="Xl_RD" id="5$aoTsoylhE" role="37wK5m">
-                                                    <property role="Xl_RC" value="modelix.export.started" />
+                                                  <node concept="10M0yZ" id="4D52TXxAH9V" role="37wK5m">
+                                                    <ref role="3cqZAo" node="4D52TXxAE_p" resolve="STARTED" />
+                                                    <ref role="1PxDUh" node="4D52TXxApUP" resolve="ModelixExportConfiguration" />
                                                   </node>
                                                   <node concept="Xl_RD" id="5$aoTsoylqn" role="37wK5m">
                                                     <property role="Xl_RC" value="true" />
@@ -1041,22 +1048,25 @@
                                                       <node concept="2YIFZM" id="5wsTsVez30q" role="37wK5m">
                                                         <ref role="37wK5l" to="ia5i:3xX$Vyo0aHz" resolve="get" />
                                                         <ref role="1Pybhc" to="ia5i:3xX$Vyo038N" resolve="PropertyOrEnv" />
-                                                        <node concept="Xl_RD" id="rF2pzCbcAX" role="37wK5m">
-                                                          <property role="Xl_RC" value="modelix.export.serverUrl" />
+                                                        <node concept="10M0yZ" id="4D52TXxAMh0" role="37wK5m">
+                                                          <ref role="3cqZAo" node="4D52TXxALbd" resolve="SERVER_URL" />
+                                                          <ref role="1PxDUh" node="4D52TXxApUP" resolve="ModelixExportConfiguration" />
                                                         </node>
                                                       </node>
                                                       <node concept="2YIFZM" id="5wsTsVez30r" role="37wK5m">
                                                         <ref role="37wK5l" to="ia5i:3xX$Vyo0aHz" resolve="get" />
                                                         <ref role="1Pybhc" to="ia5i:3xX$Vyo038N" resolve="PropertyOrEnv" />
-                                                        <node concept="Xl_RD" id="rF2pzCbcJ5" role="37wK5m">
-                                                          <property role="Xl_RC" value="modelix.export.treeId" />
+                                                        <node concept="10M0yZ" id="4D52TXxAIyT" role="37wK5m">
+                                                          <ref role="3cqZAo" node="4D52TXxAHxx" resolve="REPOSITORY_ID" />
+                                                          <ref role="1PxDUh" node="4D52TXxApUP" resolve="ModelixExportConfiguration" />
                                                         </node>
                                                       </node>
                                                       <node concept="2YIFZM" id="5wsTsVez30s" role="37wK5m">
                                                         <ref role="37wK5l" to="ia5i:3xX$Vyo0aHz" resolve="get" />
                                                         <ref role="1Pybhc" to="ia5i:3xX$Vyo038N" resolve="PropertyOrEnv" />
-                                                        <node concept="Xl_RD" id="rF2pzCbcQX" role="37wK5m">
-                                                          <property role="Xl_RC" value="modelix.export.branchName" />
+                                                        <node concept="10M0yZ" id="4D52TXxAJRk" role="37wK5m">
+                                                          <ref role="3cqZAo" node="4D52TXxAIMW" resolve="BRANCH_NAME" />
+                                                          <ref role="1PxDUh" node="4D52TXxApUP" resolve="ModelixExportConfiguration" />
                                                         </node>
                                                       </node>
                                                     </node>
@@ -1074,8 +1084,9 @@
                                                 <node concept="2YIFZM" id="5$aoTsoyl$k" role="3clFbG">
                                                   <ref role="37wK5l" to="wyt6:~System.setProperty(java.lang.String,java.lang.String)" resolve="setProperty" />
                                                   <ref role="1Pybhc" to="wyt6:~System" resolve="System" />
-                                                  <node concept="Xl_RD" id="5$aoTsoyl$l" role="37wK5m">
-                                                    <property role="Xl_RC" value="modelix.export.done" />
+                                                  <node concept="10M0yZ" id="4D52TXxAKWJ" role="37wK5m">
+                                                    <ref role="3cqZAo" node="4D52TXxAIKy" resolve="DONE" />
+                                                    <ref role="1PxDUh" node="4D52TXxApUP" resolve="ModelixExportConfiguration" />
                                                   </node>
                                                   <node concept="Xl_RD" id="5$aoTsoyl$m" role="37wK5m">
                                                     <property role="Xl_RC" value="true" />
@@ -16278,6 +16289,121 @@
         </node>
       </node>
     </node>
+  </node>
+  <node concept="312cEu" id="4D52TXxApUP">
+    <property role="3GE5qa" value="init" />
+    <property role="TrG5h" value="ModelixExportConfiguration" />
+    <node concept="Wx3nA" id="4D52TXxABGO" role="jymVt">
+      <property role="TrG5h" value="PREFIX" />
+      <property role="3TUv4t" value="true" />
+      <node concept="3Tm6S6" id="4D52TXxA_uE" role="1B3o_S" />
+      <node concept="Xl_RD" id="4D52TXxABYP" role="33vP2m">
+        <property role="Xl_RC" value="modelix.export." />
+      </node>
+      <node concept="17QB3L" id="4D52TXxABML" role="1tU5fm" />
+    </node>
+    <node concept="Wx3nA" id="4D52TXxAG9P" role="jymVt">
+      <property role="TrG5h" value="PATH" />
+      <property role="3TUv4t" value="true" />
+      <node concept="3Tm1VV" id="4D52TXxAG9Q" role="1B3o_S" />
+      <node concept="17QB3L" id="4D52TXxAG9R" role="1tU5fm" />
+      <node concept="3cpWs3" id="4D52TXxAG9S" role="33vP2m">
+        <node concept="Xl_RD" id="4D52TXxAG9T" role="3uHU7w">
+          <property role="Xl_RC" value="path" />
+        </node>
+        <node concept="37vLTw" id="4D52TXxAG9W" role="3uHU7B">
+          <ref role="3cqZAo" node="4D52TXxABGO" resolve="PREFIX" />
+        </node>
+      </node>
+    </node>
+    <node concept="Wx3nA" id="4D52TXxAE_p" role="jymVt">
+      <property role="TrG5h" value="STARTED" />
+      <property role="3TUv4t" value="true" />
+      <node concept="3Tm1VV" id="4D52TXxAEjO" role="1B3o_S" />
+      <node concept="17QB3L" id="4D52TXxAE_e" role="1tU5fm" />
+      <node concept="3cpWs3" id="4D52TXxAF3f" role="33vP2m">
+        <node concept="Xl_RD" id="4D52TXxAF8Z" role="3uHU7w">
+          <property role="Xl_RC" value="started" />
+        </node>
+        <node concept="37vLTw" id="4D52TXxAEFv" role="3uHU7B">
+          <ref role="3cqZAo" node="4D52TXxABGO" resolve="PREFIX" />
+        </node>
+      </node>
+    </node>
+    <node concept="Wx3nA" id="4D52TXxAIKy" role="jymVt">
+      <property role="TrG5h" value="DONE" />
+      <property role="3TUv4t" value="true" />
+      <node concept="3Tm1VV" id="4D52TXxAIKz" role="1B3o_S" />
+      <node concept="17QB3L" id="4D52TXxAIK$" role="1tU5fm" />
+      <node concept="3cpWs3" id="4D52TXxAIK_" role="33vP2m">
+        <node concept="Xl_RD" id="4D52TXxAIKA" role="3uHU7w">
+          <property role="Xl_RC" value="done" />
+        </node>
+        <node concept="37vLTw" id="4D52TXxAIKD" role="3uHU7B">
+          <ref role="3cqZAo" node="4D52TXxABGO" resolve="PREFIX" />
+        </node>
+      </node>
+    </node>
+    <node concept="Wx3nA" id="4D52TXxAIMW" role="jymVt">
+      <property role="TrG5h" value="BRANCH_NAME" />
+      <property role="3TUv4t" value="true" />
+      <node concept="3Tm1VV" id="4D52TXxAIMX" role="1B3o_S" />
+      <node concept="17QB3L" id="4D52TXxAIMY" role="1tU5fm" />
+      <node concept="3cpWs3" id="4D52TXxAIMZ" role="33vP2m">
+        <node concept="Xl_RD" id="4D52TXxAIN0" role="3uHU7w">
+          <property role="Xl_RC" value="branchName" />
+        </node>
+        <node concept="37vLTw" id="4D52TXxAIN3" role="3uHU7B">
+          <ref role="3cqZAo" node="4D52TXxABGO" resolve="PREFIX" />
+        </node>
+      </node>
+    </node>
+    <node concept="Wx3nA" id="4D52TXxAHxx" role="jymVt">
+      <property role="TrG5h" value="REPOSITORY_ID" />
+      <property role="3TUv4t" value="true" />
+      <node concept="3Tm1VV" id="4D52TXxAHxy" role="1B3o_S" />
+      <node concept="17QB3L" id="4D52TXxAHxz" role="1tU5fm" />
+      <node concept="3cpWs3" id="4D52TXxAHx$" role="33vP2m">
+        <node concept="Xl_RD" id="4D52TXxAHx_" role="3uHU7w">
+          <property role="Xl_RC" value="repositoryId" />
+        </node>
+        <node concept="37vLTw" id="4D52TXxAHxC" role="3uHU7B">
+          <ref role="3cqZAo" node="4D52TXxABGO" resolve="PREFIX" />
+        </node>
+      </node>
+    </node>
+    <node concept="Wx3nA" id="4D52TXxALbd" role="jymVt">
+      <property role="TrG5h" value="SERVER_URL" />
+      <property role="3TUv4t" value="true" />
+      <node concept="3Tm1VV" id="4D52TXxALbe" role="1B3o_S" />
+      <node concept="17QB3L" id="4D52TXxALbf" role="1tU5fm" />
+      <node concept="3cpWs3" id="4D52TXxALbg" role="33vP2m">
+        <node concept="Xl_RD" id="4D52TXxALbh" role="3uHU7w">
+          <property role="Xl_RC" value="serverUrl" />
+        </node>
+        <node concept="37vLTw" id="4D52TXxALbk" role="3uHU7B">
+          <ref role="3cqZAo" node="4D52TXxABGO" resolve="PREFIX" />
+        </node>
+      </node>
+    </node>
+    <node concept="2tJIrI" id="4D52TXxAMEl" role="jymVt" />
+    <node concept="3clFbW" id="4D52TXxANhN" role="jymVt">
+      <node concept="3cqZAl" id="4D52TXxANhQ" role="3clF45" />
+      <node concept="3Tm6S6" id="4D52TXxANjh" role="1B3o_S" />
+      <node concept="3clFbS" id="4D52TXxANhS" role="3clF47">
+        <node concept="3SKdUt" id="4D52TXxANtx" role="3cqZAp">
+          <node concept="1PaTwC" id="4D52TXxANty" role="1aUNEU">
+            <node concept="3oM_SD" id="4D52TXxANtz" role="1PaTwD">
+              <property role="3oM_SC" value="prevent" />
+            </node>
+            <node concept="3oM_SD" id="4D52TXxANtK" role="1PaTwD">
+              <property role="3oM_SC" value="instantiation" />
+            </node>
+          </node>
+        </node>
+      </node>
+    </node>
+    <node concept="3Tm1VV" id="4D52TXxApUQ" role="1B3o_S" />
   </node>
 </model>
 
