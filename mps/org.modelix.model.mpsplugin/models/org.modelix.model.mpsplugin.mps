@@ -11315,59 +11315,6 @@
             </node>
           </node>
         </node>
-        <node concept="3clFbJ" id="5cWpYFRA58Y" role="3cqZAp">
-          <node concept="3clFbS" id="5cWpYFRA590" role="3clFbx">
-            <node concept="2Gpval" id="5cWpYFRAksg" role="3cqZAp">
-              <node concept="2GrKxI" id="5cWpYFRAksi" role="2Gsz3X">
-                <property role="TrG5h" value="child" />
-              </node>
-              <node concept="3clFbS" id="5cWpYFRAksm" role="2LFqv$">
-                <node concept="3clFbJ" id="5cWpYFRCZB5" role="3cqZAp">
-                  <node concept="3clFbS" id="5cWpYFRCZB7" role="3clFbx">
-                    <node concept="2Gpval" id="5cWpYFRD0Au" role="3cqZAp">
-                      <node concept="2GrKxI" id="5cWpYFRD0Aw" role="2Gsz3X">
-                        <property role="TrG5h" value="child2" />
-                      </node>
-                      <node concept="2OqwBi" id="5cWpYFRD0Uc" role="2GsD0m">
-                        <node concept="2GrUjf" id="5cWpYFRD0Ix" role="2Oq$k0">
-                          <ref role="2Gs0qQ" node="5cWpYFRAksi" resolve="child" />
-                        </node>
-                        <node concept="liA8E" id="5cWpYFRD1nT" role="2OqNvi">
-                          <ref role="37wK5l" to="3ju5:~IFile.getChildren()" resolve="getChildren" />
-                        </node>
-                      </node>
-                      <node concept="3clFbS" id="5cWpYFRD0A$" role="2LFqv$" />
-                    </node>
-                  </node>
-                  <node concept="2OqwBi" id="5cWpYFRCZSo" role="3clFbw">
-                    <node concept="2GrUjf" id="5cWpYFRCZIo" role="2Oq$k0">
-                      <ref role="2Gs0qQ" node="5cWpYFRAksi" resolve="child" />
-                    </node>
-                    <node concept="liA8E" id="5cWpYFRD0a9" role="2OqNvi">
-                      <ref role="37wK5l" to="3ju5:~IFile.isDirectory()" resolve="isDirectory" />
-                    </node>
-                  </node>
-                </node>
-              </node>
-              <node concept="2OqwBi" id="5cWpYFRAjza" role="2GsD0m">
-                <node concept="37vLTw" id="5cWpYFRAiPx" role="2Oq$k0">
-                  <ref role="3cqZAo" node="27OZ2T4lRsK" resolve="outputFolder" />
-                </node>
-                <node concept="liA8E" id="5cWpYFRAk3J" role="2OqNvi">
-                  <ref role="37wK5l" to="3ju5:~IFile.getChildren()" resolve="getChildren" />
-                </node>
-              </node>
-            </node>
-          </node>
-          <node concept="2OqwBi" id="5cWpYFRAb7m" role="3clFbw">
-            <node concept="37vLTw" id="5cWpYFRA9_a" role="2Oq$k0">
-              <ref role="3cqZAo" node="27OZ2T4lRsK" resolve="outputFolder" />
-            </node>
-            <node concept="liA8E" id="5cWpYFRAfru" role="2OqNvi">
-              <ref role="37wK5l" to="3ju5:~IFile.exists()" resolve="exists" />
-            </node>
-          </node>
-        </node>
         <node concept="3clFbJ" id="5Ns9HDw2nqK" role="3cqZAp">
           <node concept="3clFbS" id="5Ns9HDw2nqM" role="3clFbx">
             <node concept="3clFbF" id="29etMtbjRne" role="3cqZAp">
