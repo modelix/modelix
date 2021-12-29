@@ -13,12 +13,84 @@
  */
 package org.modelix.gradle.model;
 
+import org.gradle.api.artifacts.Configuration;
+
+import java.io.File;
+import java.util.List;
+import java.util.LinkedList;
+import java.util.Collections;
+
 public class ModelixModelSettings {
+
+    private Configuration mpsConfig = null;
+    private Configuration pluginsConfig = null;
+
+    public void setMpsConfig(Configuration mpsConfig) {
+        this.mpsConfig = mpsConfig;
+    }
+
+    public Configuration getMpsConfig() {
+        return this.mpsConfig;
+    }
+
+    public void setPluginsConfig(Configuration pluginsConfig) {
+        this.pluginsConfig = pluginsConfig;
+    }
+
+    public Configuration getPluginsConfig() {
+        return this.pluginsConfig;
+    }
+
+    private class PluginsEntry {
+        File dir;
+        List<String> idsToExclude;
+        PluginsEntry(File dir, List<String> idsToExclude) {
+            this.dir = dir;
+            this.idsToExclude = idsToExclude;
+        }
+    }
+
+    private class PluginConf {
+        public String path;
+        public String id;
+    }
+
+    private String mpsPath = null;
+    private String mpsExtensionsArtifactsPath = null;
+    private String modelixArtifactsPath = null;
     private String serverUrl = "http://localhost:28101/";
     private String repositoryId = "default";
     private String branchName = "master";
     private boolean debug = false;
     private int timeoutSeconds = 120;
+
+    List<Object> additionalLibraries = new LinkedList<Object>();
+    List<PluginConf> additionalPlugins = new LinkedList<PluginConf>();
+    List<PluginsEntry> additionalPluginsDirs = new LinkedList<PluginsEntry>();
+
+    public String getMpsPath() {
+        return this.mpsPath;
+    }
+
+    public void setMpsPath(String mps) {
+        this.mpsPath = mpsPath;
+    }
+
+    public String getMpsExtensionsArtifactsPath() {
+        return this.mpsExtensionsArtifactsPath;
+    }
+
+    public void setMpsExtensionsArtifactsPath(String mpsExtensionsArtifactsPath) {
+        this.mpsExtensionsArtifactsPath = mpsExtensionsArtifactsPath;
+    }
+
+    public String getModelixArtifactsPath() {
+        return this.modelixArtifactsPath;
+    }
+
+    public void setModelixArtifactsPath(String modelixArtifactsPath) {
+        this.modelixArtifactsPath = modelixArtifactsPath;
+    }
 
     public String getServerUrl() {
         return serverUrl;
@@ -58,5 +130,28 @@ public class ModelixModelSettings {
 
     public void setDebug(boolean debug) {
         this.debug = debug;
+    }
+
+    public void addLibrary(String library) {
+        additionalLibraries.add(library);
+    }
+
+    public void addPluginDir(File dir) {
+        addPluginDir(dir, Collections.emptyList());
+    }
+
+    public void addPluginDir(File dir, List<String> idsToExclude) {
+        additionalPluginsDirs.add(new PluginsEntry(dir, idsToExclude));
+    }
+
+    public void addPlugin(String path, String id) {
+        PluginConf pc = new PluginConf();
+        pc.path = path;
+        pc.id = id;
+        additionalPlugins.add(pc);
+    }
+
+    public void addLibraryDir(File dir) {
+        additionalLibraries.add(dir);
     }
 }

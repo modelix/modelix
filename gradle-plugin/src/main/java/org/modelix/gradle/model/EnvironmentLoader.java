@@ -46,9 +46,74 @@ public class EnvironmentLoader {
                     //.withTestingPlugin()
                     .withVcsPlugin()
                     .withWorkbenchPath()
-                    .addPlugin(PathManager.getHomePath()+"/plugins/org.modelix.model", "org.modelix.model")
-                    .addPlugin(PathManager.getHomePath()+"/plugins/org.modelix.common", "org.modelix.common")
                     ;
+
+            // Add MPS extensions and Modelix
+            File extensionsPath = new File(System.getProperty("modelix.export.mpsExtensionsPath"));
+            if (!extensionsPath.exists()) {
+                throw new RuntimeException("MPS Extensions path is not valid: " + extensionsPath);
+            }
+
+
+            // Add Modelix
+            File modelixPath = new File(System.getProperty("modelix.export.modelixPath"));
+            if (!modelixPath.exists()) {
+                throw new RuntimeException("Modelix path is not valid: " + modelixPath);
+            }
+            //.addPlugin(PathManager.getHomePath()+"/plugins/org.modelix.model", "org.modelix.model")
+            //.addPlugin(PathManager.getHomePath()+"/plugins/org.modelix.common", "org.modelix.common")
+
+//            extension.additionalPlugins.forEach {
+//                                    def f = new File(it.path)
+//                                    if (f.exists()) {
+//                                        plugin(path: it.path, id: it.id)
+//                                    } else {
+//                                        logger.warn("Provided plugin does not exist: ${it.path} (${it.id})")
+//                                    }
+//                                }
+//
+//                                extension.additionalPluginsDirs.forEach { entry ->
+//                                    if (entry.dir.exists()) {
+//                                        entry.dir.eachFileRecurse(groovy.io.FileType.FILES) { file ->
+//                                            if (file.name == "plugin.xml") {
+//                                                def xmlCode = new XmlSlurper().parseText(file.getText())
+//                                                def id = xmlCode.id.text()
+//                                                if (!entry.idsToExclude.contains(id)) {
+//                                                    def dir = file.getParentFile().getParentFile()
+//                                                    plugin(path: dir.getAbsolutePath(), id: id)
+//                                                }
+//                                            }
+//                                        }
+//                                    } else {
+//                                        logger.warn("Provided plugin dir does not exist: ${it}")
+//                                    }
+//                                }
+//
+//
+//                                extension.additionalLibraries.forEach {
+//                                    if (it instanceof String){
+//                                        logger.info(" -> library ${it}")
+//                                        def f = new File(it)
+//                                        if (f.exists()) {
+//                                            library(file: it)
+//                                        } else {
+//                                            logger.warn("Provided library does not exist: ${f.absolutePath}")
+//                                        }
+//                                    } else if (it instanceof File) {
+//                                        if (it.exists()) {
+//                                            it.eachFileRecurse { file ->
+//                                                logger.info(" -> considering library dir ${file} in ${it}")
+//                                                if (file.getName().endsWith(".jar")) {
+//                                                    library(file: "${file.getAbsolutePath()}")
+//                                                }
+//                                            }
+//                                        } else {
+//                                            logger.warn("Provided library does not exist: ${it.absolutePath}")
+//                                        }
+//                                    } else {
+//                                        logger.error("ignoring additionalLibraries ${it}, as they are not a String or a File")
+//                                    }
+//                                }
 
             if (gitRepoDir != null) {
                 config.addLib(gitRepoDir.getAbsolutePath());
