@@ -48,6 +48,14 @@ public class EnvironmentLoader {
                     .withWorkbenchPath()
                     ;
 
+            config.addPlugin(PathManager.getHomePath() + "/plugins/mps-console", "jetbrains.mps.console");
+            config.addPlugin(PathManager.getHomePath() + "/plugins/mps-debugger-api", "jetbrains.mps.debugger.api");
+            config.addPlugin(PathManager.getHomePath() + "/plugins/mps-debugger-java", "jetbrains.mps.debugger.java");
+            config.addPlugin(PathManager.getHomePath() + "/plugins/mps-devkit", "jetbrains.mps.ide.devkit");
+            config.addPlugin(PathManager.getHomePath() + "/plugins/mps-httpsupport", "jetbrains.mps.ide.httpsupport");
+            config.addPlugin(PathManager.getHomePath() + "/plugins/mps-execution-languages", "jetbrains.mps.execution.languages");
+
+
             // Add MPS extensions and Modelix
             File extensionsPath = new File(System.getProperty("modelix.export.mpsExtensionsPath"));
             if (!extensionsPath.exists()) {
