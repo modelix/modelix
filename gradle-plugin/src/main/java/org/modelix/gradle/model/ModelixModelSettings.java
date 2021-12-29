@@ -21,6 +21,7 @@ import java.io.File;
 import java.util.List;
 import java.util.LinkedList;
 import java.util.Collections;
+import java.util.stream.Collectors;
 
 public class ModelixModelSettings {
 
@@ -66,7 +67,8 @@ public class ModelixModelSettings {
     private boolean debug = false;
     private int timeoutSeconds = 120;
 
-    List<Object> additionalLibraries = new LinkedList<Object>();
+    List<String> additionalLibraries = new LinkedList<String>();
+    List<String> additionalLibraryDirs = new LinkedList<String>();
     List<PluginConf> additionalPlugins = new LinkedList<PluginConf>();
     List<PluginsEntry> additionalPluginsDirs = new LinkedList<PluginsEntry>();
 
@@ -188,6 +190,22 @@ public class ModelixModelSettings {
     }
 
     public void addLibraryDir(File dir) {
-        additionalLibraries.add(dir);
+        additionalLibraryDirs.add(dir.getAbsolutePath());
+    }
+
+    public String getAdditionalLibrariesAsString() {
+        return this.additionalLibraries.stream().map(o -> o.toString()).collect(Collectors.joining(","));
+    }
+
+    public String getAdditionalPluginDirsAsString() {
+        return this.additionalPluginsDirs.stream().map(o -> o.dir.getPath()+"#"+o.idsToExclude.stream().collect(Collectors.joining(","))).collect(Collectors.joining("$"));
+    }
+
+    public String getAdditionalPluginsAsString() {
+        return this.additionalPlugins.stream().map(o -> o.id+"#"+o.path).collect(Collectors.joining(","));
+    }
+
+    public String getAdditionalLibraryDirsAsString() {
+        return this.additionalLibraryDirs.stream().map(o -> o.toString()).collect(Collectors.joining(","));
     }
 }

@@ -96,6 +96,10 @@ public class ModelPlugin implements Plugin<Project> {
                 System.out.println("  server URL              : " + settings.getServerUrl());
                 System.out.println("  repository ID           : " + settings.getRepositoryId());
                 System.out.println("  branch name             : " + settings.getBranchName());
+                System.out.println("  additional libraries    : " + settings.getAdditionalLibrariesAsString());
+                System.out.println("  additional library dirs : " + settings.getAdditionalLibraryDirsAsString());
+                System.out.println("  additional plugins      : " + settings.getAdditionalPluginsAsString());
+                System.out.println("  additional plugin dirs  : " + settings.getAdditionalPluginDirsAsString());
                 if (usingExistingMPS) {
                     // no dependencies
                 } else {
@@ -109,7 +113,11 @@ public class ModelPlugin implements Plugin<Project> {
                         "repositoryId", settings.getRepositoryId(),
                         "branchName", settings.getBranchName(),
                         "mpsExtensionsPath", settings.getMpsExtensionsArtifactsPath(),
-                        "modelixPath", settings.getModelixArtifactsPath()
+                        "modelixPath", settings.getModelixArtifactsPath(),
+                        "additionalLibraries", settings.getAdditionalLibrariesAsString(),
+                        "additionalLibraryDirs", settings.getAdditionalLibraryDirsAsString(),
+                        "additionalPlugins", settings.getAdditionalPluginsAsString(),
+                        "additionalPluginDirs", settings.getAdditionalPluginDirsAsString()
                 );
                 if (settings.isDebug()) javaExec.setDebug(true);
                 javaExec.getTimeout().set(Duration.ofSeconds(settings.getTimeout()));
