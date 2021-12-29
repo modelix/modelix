@@ -14,6 +14,8 @@
 package org.modelix.gradle.model;
 
 import org.gradle.api.artifacts.Configuration;
+import org.gradle.api.internal.provider.DefaultProperty;
+import org.gradle.api.provider.Property;
 
 import java.io.File;
 import java.util.List;
@@ -68,11 +70,45 @@ public class ModelixModelSettings {
     List<PluginConf> additionalPlugins = new LinkedList<PluginConf>();
     List<PluginsEntry> additionalPluginsDirs = new LinkedList<PluginsEntry>();
 
+    public boolean usingExistingMps() {
+        return getMpsPath() != null;
+    }
+
+    public void validate() {
+        boolean valid = true;
+        if (usingExistingMps()) {
+            if (this.mpsExtensionsArtifactsPath == null) {
+                System.err.println("When specifying MPS path also MPS extensions path must be specified");
+                valid = false;
+            }
+            if (this.modelixArtifactsPath == null) {
+                System.err.println("When specifying MPS path also Modelix path must be specified");
+                valid = false;
+            }
+        }
+        if (!valid) {
+            throw new RuntimeException("Invalid Modelix Plugin configuration");
+        }
+    }
+
+    public File getMpsLocation() {
+        return this.usingExistingMps() ? new File(getMpsPath()) : new File("mpsForModelixExport");
+    }
+
+    public File getMpsExtensionsLocation() {
+        return this.usingExistingMps() ? new File(getMpsExtensionsArtifactsPath()) : new File(new File("mpsForModelixExport"), "plugins");
+    }
+
+    public File getModelixLocation() {
+        return this.usingExistingMps() ? new File(getModelixArtifactsPath()) : new File(new File("mpsForModelixExport"), "plugins");
+    }
+
     public String getMpsPath() {
         return this.mpsPath;
     }
 
-    public void setMpsPath(String mps) {
+    public void setMpsPath(String mpsPath) {
+        System.out.println("setting MPS Path");
         this.mpsPath = mpsPath;
     }
 
