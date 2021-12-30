@@ -13337,6 +13337,20 @@
         </node>
         <node concept="3J1_TO" id="3BReYNsI3nt" role="3cqZAp">
           <node concept="3clFbS" id="3BReYNsI3nv" role="1zxBo7">
+            <node concept="3clFbF" id="7Wy7hsBuS13" role="3cqZAp">
+              <node concept="2OqwBi" id="7Wy7hsBuS14" role="3clFbG">
+                <node concept="10M0yZ" id="7Wy7hsBuS15" role="2Oq$k0">
+                  <ref role="1PxDUh" to="wyt6:~System" resolve="System" />
+                  <ref role="3cqZAo" to="wyt6:~System.out" resolve="out" />
+                </node>
+                <node concept="liA8E" id="7Wy7hsBuS16" role="2OqNvi">
+                  <ref role="37wK5l" to="guwi:~PrintStream.println(java.lang.String)" resolve="println" />
+                  <node concept="Xl_RD" id="7Wy7hsBuS1a" role="37wK5m">
+                    <property role="Xl_RC" value="ModelCloudExporter about to create SModel" />
+                  </node>
+                </node>
+              </node>
+            </node>
             <node concept="3cpWs8" id="3BReYNsHbX2" role="3cqZAp">
               <node concept="3cpWsn" id="3BReYNsHbX3" role="3cpWs9">
                 <property role="TrG5h" value="smodel" />
@@ -13362,6 +13376,20 @@
                   </node>
                   <node concept="3uibUv" id="3BReYNsHbXj" role="10QFUM">
                     <ref role="3uigEE" to="mhbf:~EditableSModel" resolve="EditableSModel" />
+                  </node>
+                </node>
+              </node>
+            </node>
+            <node concept="3clFbF" id="7Wy7hsBvd_J" role="3cqZAp">
+              <node concept="2OqwBi" id="7Wy7hsBvd_K" role="3clFbG">
+                <node concept="10M0yZ" id="7Wy7hsBvd_L" role="2Oq$k0">
+                  <ref role="3cqZAo" to="wyt6:~System.out" resolve="out" />
+                  <ref role="1PxDUh" to="wyt6:~System" resolve="System" />
+                </node>
+                <node concept="liA8E" id="7Wy7hsBvd_M" role="2OqNvi">
+                  <ref role="37wK5l" to="guwi:~PrintStream.println(java.lang.String)" resolve="println" />
+                  <node concept="Xl_RD" id="7Wy7hsBvd_N" role="37wK5m">
+                    <property role="Xl_RC" value="ModelCloudExporter SModel created" />
                   </node>
                 </node>
               </node>
@@ -13423,6 +13451,20 @@
                   </node>
                   <node concept="3clFbT" id="5Ns9HDw2j_R" role="37wK5m">
                     <property role="3clFbU" value="true" />
+                  </node>
+                </node>
+              </node>
+            </node>
+            <node concept="3clFbF" id="7Wy7hsBvep7" role="3cqZAp">
+              <node concept="2OqwBi" id="7Wy7hsBvep8" role="3clFbG">
+                <node concept="10M0yZ" id="7Wy7hsBvep9" role="2Oq$k0">
+                  <ref role="3cqZAo" to="wyt6:~System.out" resolve="out" />
+                  <ref role="1PxDUh" to="wyt6:~System" resolve="System" />
+                </node>
+                <node concept="liA8E" id="7Wy7hsBvepa" role="2OqNvi">
+                  <ref role="37wK5l" to="guwi:~PrintStream.println(java.lang.String)" resolve="println" />
+                  <node concept="Xl_RD" id="7Wy7hsBvepb" role="37wK5m">
+                    <property role="Xl_RC" value="ModelCloudExporter synchronization completed" />
                   </node>
                 </node>
               </node>
@@ -29945,12 +29987,45 @@
       <node concept="3cqZAl" id="4_k_9wJ_0eg" role="3clF45" />
       <node concept="3Tm1VV" id="4_k_9wJ_0eh" role="1B3o_S" />
       <node concept="3clFbS" id="4_k_9wJ_0ei" role="3clF47">
+        <node concept="3clFbF" id="7Wy7hsBvvvz" role="3cqZAp">
+          <node concept="2OqwBi" id="7Wy7hsBvvv$" role="3clFbG">
+            <node concept="10M0yZ" id="7Wy7hsBvvv_" role="2Oq$k0">
+              <ref role="3cqZAo" to="wyt6:~System.out" resolve="out" />
+              <ref role="1PxDUh" to="wyt6:~System" resolve="System" />
+            </node>
+            <node concept="liA8E" id="7Wy7hsBvvvA" role="2OqNvi">
+              <ref role="37wK5l" to="guwi:~PrintStream.println(java.lang.String)" resolve="println" />
+              <node concept="3cpWs3" id="7Wy7hsBvysd" role="37wK5m">
+                <node concept="37vLTw" id="7Wy7hsBvz4u" role="3uHU7w">
+                  <ref role="3cqZAo" node="4_k_9wJ_0ee" resolve="withInitialRemoval" />
+                </node>
+                <node concept="Xl_RD" id="7Wy7hsBvvvB" role="3uHU7B">
+                  <property role="Xl_RC" value="syncModelToMPS starting. withInitialRemoval=" />
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
         <node concept="3clFbF" id="4_k_9wJ_0ej" role="3cqZAp">
           <node concept="2OqwBi" id="4_k_9wJ_0ek" role="3clFbG">
             <node concept="liA8E" id="4_k_9wJ_0el" role="2OqNvi">
               <ref role="37wK5l" to="qvpu:~PArea.executeRead(kotlin.jvm.functions.Function0)" resolve="executeRead" />
               <node concept="1bVj0M" id="4_k_9wJ_0em" role="37wK5m">
                 <node concept="3clFbS" id="4_k_9wJ_0en" role="1bW5cS">
+                  <node concept="3clFbF" id="7Wy7hsBvw1y" role="3cqZAp">
+                    <node concept="2OqwBi" id="7Wy7hsBvw1z" role="3clFbG">
+                      <node concept="10M0yZ" id="7Wy7hsBvw1$" role="2Oq$k0">
+                        <ref role="3cqZAo" to="wyt6:~System.out" resolve="out" />
+                        <ref role="1PxDUh" to="wyt6:~System" resolve="System" />
+                      </node>
+                      <node concept="liA8E" id="7Wy7hsBvw1_" role="2OqNvi">
+                        <ref role="37wK5l" to="guwi:~PrintStream.println(java.lang.String)" resolve="println" />
+                        <node concept="Xl_RD" id="7Wy7hsBvw1A" role="37wK5m">
+                          <property role="Xl_RC" value="syncModelToMPS in execute read" />
+                        </node>
+                      </node>
+                    </node>
+                  </node>
                   <node concept="RRSsy" id="4_k_9wJ_0eo" role="3cqZAp">
                     <property role="RRSoG" value="gZ5frni/trace" />
                     <node concept="3cpWs3" id="4_k_9wJ_0ep" role="RRSoy">
@@ -30044,11 +30119,39 @@
                       <ref role="3cqZAo" node="4_k_9wJ_0ee" resolve="withInitialRemoval" />
                     </node>
                   </node>
+                  <node concept="3clFbF" id="7Wy7hsBv_2A" role="3cqZAp">
+                    <node concept="2OqwBi" id="7Wy7hsBv_2B" role="3clFbG">
+                      <node concept="10M0yZ" id="7Wy7hsBv_2C" role="2Oq$k0">
+                        <ref role="1PxDUh" to="wyt6:~System" resolve="System" />
+                        <ref role="3cqZAo" to="wyt6:~System.out" resolve="out" />
+                      </node>
+                      <node concept="liA8E" id="7Wy7hsBv_2D" role="2OqNvi">
+                        <ref role="37wK5l" to="guwi:~PrintStream.println(java.lang.String)" resolve="println" />
+                        <node concept="Xl_RD" id="7Wy7hsBv_2E" role="37wK5m">
+                          <property role="Xl_RC" value="syncModelToMPS about to prefetch" />
+                        </node>
+                      </node>
+                    </node>
+                  </node>
                   <node concept="3clFbF" id="bErqUx3Lhc" role="3cqZAp">
                     <node concept="1rXfSq" id="bErqUx3Lha" role="3clFbG">
                       <ref role="37wK5l" node="bErqUx3kqW" resolve="prefetchModelContent" />
                       <node concept="37vLTw" id="bErqUx4axK" role="37wK5m">
                         <ref role="3cqZAo" node="4_k_9wJ_0ec" resolve="tree" />
+                      </node>
+                    </node>
+                  </node>
+                  <node concept="3clFbF" id="7Wy7hsBvANr" role="3cqZAp">
+                    <node concept="2OqwBi" id="7Wy7hsBvANs" role="3clFbG">
+                      <node concept="10M0yZ" id="7Wy7hsBvANt" role="2Oq$k0">
+                        <ref role="3cqZAo" to="wyt6:~System.out" resolve="out" />
+                        <ref role="1PxDUh" to="wyt6:~System" resolve="System" />
+                      </node>
+                      <node concept="liA8E" id="7Wy7hsBvANu" role="2OqNvi">
+                        <ref role="37wK5l" to="guwi:~PrintStream.println(java.lang.String)" resolve="println" />
+                        <node concept="Xl_RD" id="7Wy7hsBvANv" role="37wK5m">
+                          <property role="Xl_RC" value="syncModelToMPS prefetch completed" />
+                        </node>
                       </node>
                     </node>
                   </node>
@@ -30075,9 +30178,37 @@
                       </node>
                     </node>
                   </node>
+                  <node concept="3clFbF" id="7Wy7hsBvCEG" role="3cqZAp">
+                    <node concept="2OqwBi" id="7Wy7hsBvCEH" role="3clFbG">
+                      <node concept="10M0yZ" id="7Wy7hsBvCEI" role="2Oq$k0">
+                        <ref role="1PxDUh" to="wyt6:~System" resolve="System" />
+                        <ref role="3cqZAo" to="wyt6:~System.out" resolve="out" />
+                      </node>
+                      <node concept="liA8E" id="7Wy7hsBvCEJ" role="2OqNvi">
+                        <ref role="37wK5l" to="guwi:~PrintStream.println(java.lang.String)" resolve="println" />
+                        <node concept="Xl_RD" id="7Wy7hsBvCEK" role="37wK5m">
+                          <property role="Xl_RC" value="syncModelToMPS children sync-ed" />
+                        </node>
+                      </node>
+                    </node>
+                  </node>
                   <node concept="3clFbF" id="4_k_9wJ_0f9" role="3cqZAp">
                     <node concept="1rXfSq" id="4_k_9wJ_0fa" role="3clFbG">
                       <ref role="37wK5l" node="4_k_9wJ_0K8" resolve="processPendingReferences" />
+                    </node>
+                  </node>
+                  <node concept="3clFbF" id="7Wy7hsBvE9l" role="3cqZAp">
+                    <node concept="2OqwBi" id="7Wy7hsBvE9m" role="3clFbG">
+                      <node concept="10M0yZ" id="7Wy7hsBvE9n" role="2Oq$k0">
+                        <ref role="3cqZAo" to="wyt6:~System.out" resolve="out" />
+                        <ref role="1PxDUh" to="wyt6:~System" resolve="System" />
+                      </node>
+                      <node concept="liA8E" id="7Wy7hsBvE9o" role="2OqNvi">
+                        <ref role="37wK5l" to="guwi:~PrintStream.println(java.lang.String)" resolve="println" />
+                        <node concept="Xl_RD" id="7Wy7hsBvE9p" role="37wK5m">
+                          <property role="Xl_RC" value="syncModelToMPS pending references processed" />
+                        </node>
+                      </node>
                     </node>
                   </node>
                   <node concept="3clFbF" id="4_k_9wJ_0fb" role="3cqZAp">
@@ -30085,6 +30216,20 @@
                       <ref role="37wK5l" node="4_k_9wJ_0fk" resolve="syncModelPropertiesToMPS" />
                       <node concept="37vLTw" id="4_k_9wJ_0fd" role="37wK5m">
                         <ref role="3cqZAo" node="4_k_9wJ_0ec" resolve="tree" />
+                      </node>
+                    </node>
+                  </node>
+                  <node concept="3clFbF" id="7Wy7hsBvFOK" role="3cqZAp">
+                    <node concept="2OqwBi" id="7Wy7hsBvFOL" role="3clFbG">
+                      <node concept="10M0yZ" id="7Wy7hsBvFOM" role="2Oq$k0">
+                        <ref role="3cqZAo" to="wyt6:~System.out" resolve="out" />
+                        <ref role="1PxDUh" to="wyt6:~System" resolve="System" />
+                      </node>
+                      <node concept="liA8E" id="7Wy7hsBvFON" role="2OqNvi">
+                        <ref role="37wK5l" to="guwi:~PrintStream.println(java.lang.String)" resolve="println" />
+                        <node concept="Xl_RD" id="7Wy7hsBvFOO" role="37wK5m">
+                          <property role="Xl_RC" value="syncModelToMPS model properties sync-ed" />
+                        </node>
                       </node>
                     </node>
                   </node>
