@@ -54,7 +54,7 @@
   </appender>
 
 
-  <appender name="DIALOG" class="jetbrains.mps.diagnostic.MPSDialogAppender">
+  <appender name="DIALOG" class="org.apache.log4j.ConsoleAppender">
       <filter class="org.apache.log4j.varia.LevelRangeFilter">
           <param name="LevelMin" value="ERROR"/>
       </filter>

@@ -665,7 +665,7 @@
             <node concept="liA8E" id="4D52TXxE5fV" role="2OqNvi">
               <ref role="37wK5l" to="guwi:~PrintStream.println(java.lang.String)" resolve="println" />
               <node concept="Xl_RD" id="4D52TXxE5fY" role="37wK5m">
-                <property role="Xl_RC" value="Modelix Application Plugin" />
+                <property role="Xl_RC" value="Modelix Application Plugin - Started" />
               </node>
             </node>
           </node>
@@ -714,7 +714,7 @@
                       <ref role="3cqZAo" node="5Le8ZRJdYgt" resolve="executionMode" />
                     </node>
                     <node concept="Xl_RD" id="5Le8ZRJeuUE" role="3uHU7B">
-                      <property role="Xl_RC" value="modelix execution mode: " />
+                      <property role="Xl_RC" value="Modelix Application Plugin - execution mode: " />
                     </node>
                   </node>
                 </node>
@@ -926,6 +926,25 @@
                       </node>
                     </node>
                   </node>
+                  <node concept="3clFbF" id="OmBhSVJT8o" role="3cqZAp">
+                    <node concept="2OqwBi" id="OmBhSVJT8p" role="3clFbG">
+                      <node concept="10M0yZ" id="OmBhSVJT8q" role="2Oq$k0">
+                        <ref role="1PxDUh" to="wyt6:~System" resolve="System" />
+                        <ref role="3cqZAo" to="wyt6:~System.out" resolve="out" />
+                      </node>
+                      <node concept="liA8E" id="OmBhSVJT8r" role="2OqNvi">
+                        <ref role="37wK5l" to="guwi:~PrintStream.println(java.lang.String)" resolve="println" />
+                        <node concept="3cpWs3" id="OmBhSVJT8s" role="37wK5m">
+                          <node concept="37vLTw" id="OmBhSVJUNc" role="3uHU7w">
+                            <ref role="3cqZAo" node="29etMtbjEs5" resolve="exportPath" />
+                          </node>
+                          <node concept="Xl_RD" id="OmBhSVJT8u" role="3uHU7B">
+                            <property role="Xl_RC" value="Modelix Application Plugin - export path: " />
+                          </node>
+                        </node>
+                      </node>
+                    </node>
+                  </node>
                   <node concept="3clFbJ" id="5Le8ZRJeoQZ" role="3cqZAp">
                     <node concept="3clFbS" id="5Le8ZRJeoR1" role="3clFbx">
                       <node concept="3clFbF" id="5Le8ZRJerV6" role="3cqZAp">
@@ -978,7 +997,9 @@
                       <node concept="3clFbS" id="5$aoTsovoEx" role="1zc67A">
                         <node concept="RRSsy" id="5$aoTsovprY" role="3cqZAp">
                           <property role="RRSoG" value="gZ5fh_4/error" />
-                          <node concept="Xl_RD" id="5$aoTsovps0" role="RRSoy" />
+                          <node concept="Xl_RD" id="5$aoTsovps0" role="RRSoy">
+                            <property role="Xl_RC" value="Modelix Application Plugin Failure" />
+                          </node>
                           <node concept="37vLTw" id="5$aoTsovpv3" role="RRSow">
                             <ref role="3cqZAo" node="5$aoTsovoEv" resolve="ex" />
                           </node>
@@ -995,353 +1016,391 @@
                       </node>
                     </node>
                     <node concept="3clFbS" id="5$aoTsovo1n" role="1zxBo7">
-                      <node concept="3clFbF" id="27OZ2T4kTtp" role="3cqZAp">
-                        <node concept="2OqwBi" id="27OZ2T4kU8m" role="3clFbG">
-                          <node concept="2YIFZM" id="27OZ2T4kTPB" role="2Oq$k0">
-                            <ref role="37wK5l" to="bd8o:~ApplicationManager.getApplication()" resolve="getApplication" />
-                            <ref role="1Pybhc" to="bd8o:~ApplicationManager" resolve="ApplicationManager" />
+                      <node concept="3clFbF" id="rF2pzCbuFc" role="3cqZAp">
+                        <node concept="2OqwBi" id="rF2pzCbuFd" role="3clFbG">
+                          <node concept="10M0yZ" id="rF2pzCbuFe" role="2Oq$k0">
+                            <ref role="1PxDUh" to="wyt6:~System" resolve="System" />
+                            <ref role="3cqZAo" to="wyt6:~System.out" resolve="out" />
                           </node>
-                          <node concept="liA8E" id="27OZ2T4kV2W" role="2OqNvi">
-                            <ref role="37wK5l" to="bd8o:~Application.invokeLater(java.lang.Runnable)" resolve="invokeLater" />
-                            <node concept="1bVj0M" id="27OZ2T4kV61" role="37wK5m">
-                              <property role="3yWfEV" value="true" />
-                              <node concept="3clFbS" id="27OZ2T4kV62" role="1bW5cS">
-                                <node concept="3clFbF" id="27OZ2T4l9ms" role="3cqZAp">
-                                  <node concept="2OqwBi" id="27OZ2T4lak0" role="3clFbG">
-                                    <node concept="2YIFZM" id="27OZ2T4l9Fz" role="2Oq$k0">
-                                      <ref role="37wK5l" to="bd8o:~ApplicationManager.getApplication()" resolve="getApplication" />
-                                      <ref role="1Pybhc" to="bd8o:~ApplicationManager" resolve="ApplicationManager" />
+                          <node concept="liA8E" id="rF2pzCbuFf" role="2OqNvi">
+                            <ref role="37wK5l" to="guwi:~PrintStream.println(java.lang.String)" resolve="println" />
+                            <node concept="Xl_RD" id="rF2pzCbuFg" role="37wK5m">
+                              <property role="Xl_RC" value="Modelix Application Plugin - Starting model export ..." />
+                            </node>
+                          </node>
+                        </node>
+                      </node>
+                      <node concept="3clFbF" id="5$aoTsoyl4W" role="3cqZAp">
+                        <node concept="2YIFZM" id="5$aoTsoylhD" role="3clFbG">
+                          <ref role="37wK5l" to="wyt6:~System.setProperty(java.lang.String,java.lang.String)" resolve="setProperty" />
+                          <ref role="1Pybhc" to="wyt6:~System" resolve="System" />
+                          <node concept="10M0yZ" id="4D52TXxAH9V" role="37wK5m">
+                            <ref role="3cqZAo" node="4D52TXxAE_p" resolve="STARTED" />
+                            <ref role="1PxDUh" node="4D52TXxApUP" resolve="ModelixExportConfiguration" />
+                          </node>
+                          <node concept="Xl_RD" id="5$aoTsoylqn" role="37wK5m">
+                            <property role="Xl_RC" value="true" />
+                          </node>
+                        </node>
+                      </node>
+                      <node concept="3cpWs8" id="4D52TXxGpho" role="3cqZAp">
+                        <node concept="3cpWsn" id="4D52TXxGphr" role="3cpWs9">
+                          <property role="TrG5h" value="modelServerURL" />
+                          <node concept="17QB3L" id="4D52TXxGphm" role="1tU5fm" />
+                          <node concept="2YIFZM" id="4D52TXxGqgr" role="33vP2m">
+                            <ref role="1Pybhc" to="ia5i:3xX$Vyo038N" resolve="PropertyOrEnv" />
+                            <ref role="37wK5l" to="ia5i:3xX$Vyo0aHz" resolve="get" />
+                            <node concept="10M0yZ" id="4D52TXxGqgs" role="37wK5m">
+                              <ref role="3cqZAo" node="4D52TXxALbd" resolve="SERVER_URL" />
+                              <ref role="1PxDUh" node="4D52TXxApUP" resolve="ModelixExportConfiguration" />
+                            </node>
+                          </node>
+                        </node>
+                      </node>
+                      <node concept="3cpWs8" id="d9jdlYVi9E" role="3cqZAp">
+                        <node concept="3cpWsn" id="d9jdlYVi9F" role="3cpWs9">
+                          <property role="TrG5h" value="modelServerConnection" />
+                          <node concept="3uibUv" id="d9jdlYVi9G" role="1tU5fm">
+                            <ref role="3uigEE" to="csg2:6aRQr1WOV$v" resolve="ModelServerConnection" />
+                          </node>
+                          <node concept="2OqwBi" id="4D52TXxGopd" role="33vP2m">
+                            <node concept="2YIFZM" id="729BXr3OVHE" role="2Oq$k0">
+                              <ref role="1Pybhc" to="csg2:1LVcV5Kxxi$" resolve="ModelServerConnections" />
+                              <ref role="37wK5l" to="csg2:1LVcV5Kxxmz" resolve="getInstance" />
+                            </node>
+                            <node concept="liA8E" id="4D52TXxGoWu" role="2OqNvi">
+                              <ref role="37wK5l" to="csg2:7$Qv9nI5XRu" resolve="ensureModelServerIsPresent" />
+                              <node concept="37vLTw" id="4D52TXxGqvZ" role="37wK5m">
+                                <ref role="3cqZAo" node="4D52TXxGphr" resolve="modelServerURL" />
+                              </node>
+                            </node>
+                          </node>
+                        </node>
+                      </node>
+                      <node concept="3clFbF" id="2pMrK1Si01V" role="3cqZAp">
+                        <node concept="2OqwBi" id="2pMrK1Si01W" role="3clFbG">
+                          <node concept="10M0yZ" id="2pMrK1Si01X" role="2Oq$k0">
+                            <ref role="1PxDUh" to="wyt6:~System" resolve="System" />
+                            <ref role="3cqZAo" to="wyt6:~System.out" resolve="out" />
+                          </node>
+                          <node concept="liA8E" id="2pMrK1Si01Y" role="2OqNvi">
+                            <ref role="37wK5l" to="guwi:~PrintStream.println(java.lang.String)" resolve="println" />
+                            <node concept="Xl_RD" id="2pMrK1Si01Z" role="37wK5m">
+                              <property role="Xl_RC" value="Modelix Application Plugin - Waiting for Model Server Connection" />
+                            </node>
+                          </node>
+                        </node>
+                      </node>
+                      <node concept="3clFbF" id="d9jdlYWJKG" role="3cqZAp">
+                        <node concept="2OqwBi" id="d9jdlYWKfo" role="3clFbG">
+                          <node concept="37vLTw" id="d9jdlYWJKE" role="2Oq$k0">
+                            <ref role="3cqZAo" node="d9jdlYVi9F" resolve="modelServerConnection" />
+                          </node>
+                          <node concept="liA8E" id="d9jdlYWKAi" role="2OqNvi">
+                            <ref role="37wK5l" to="csg2:d9jdlYVXac" resolve="whenConnected" />
+                            <node concept="2ShNRf" id="d9jdlYWKYs" role="37wK5m">
+                              <node concept="YeOm9" id="d9jdlYWMwb" role="2ShVmc">
+                                <node concept="1Y3b0j" id="d9jdlYWMwe" role="YeSDq">
+                                  <property role="2bfB8j" value="true" />
+                                  <ref role="1Y3XeK" to="82uw:~Consumer" resolve="Consumer" />
+                                  <ref role="37wK5l" to="wyt6:~Object.&lt;init&gt;()" resolve="Object" />
+                                  <node concept="3Tm1VV" id="d9jdlYWMwf" role="1B3o_S" />
+                                  <node concept="3clFb_" id="d9jdlYWMwl" role="jymVt">
+                                    <property role="TrG5h" value="accept" />
+                                    <node concept="3Tm1VV" id="d9jdlYWMwm" role="1B3o_S" />
+                                    <node concept="3cqZAl" id="d9jdlYWMwo" role="3clF45" />
+                                    <node concept="37vLTG" id="d9jdlYWMwp" role="3clF46">
+                                      <property role="TrG5h" value="connection" />
+                                      <node concept="3uibUv" id="d9jdlYWMwz" role="1tU5fm">
+                                        <ref role="3uigEE" to="csg2:6aRQr1WOV$v" resolve="ModelServerConnection" />
+                                      </node>
                                     </node>
-                                    <node concept="liA8E" id="27OZ2T4lbe$" role="2OqNvi">
-                                      <ref role="37wK5l" to="bd8o:~Application.runWriteAction(java.lang.Runnable)" resolve="runWriteAction" />
-                                      <node concept="1bVj0M" id="27OZ2T4lbyN" role="37wK5m">
-                                        <node concept="3clFbS" id="27OZ2T4lbyO" role="1bW5cS">
-                                          <node concept="3J1_TO" id="27OZ2T4lrvj" role="3cqZAp">
-                                            <node concept="3uVAMA" id="27OZ2T4lrQh" role="1zxBo5">
-                                              <node concept="XOnhg" id="27OZ2T4lrQi" role="1zc67B">
-                                                <property role="TrG5h" value="ex" />
-                                                <node concept="nSUau" id="27OZ2T4lrQj" role="1tU5fm">
-                                                  <node concept="3uibUv" id="27OZ2T4lsj4" role="nSUat">
-                                                    <ref role="3uigEE" to="wyt6:~Exception" resolve="Exception" />
-                                                  </node>
-                                                </node>
-                                              </node>
-                                              <node concept="3clFbS" id="27OZ2T4lrQk" role="1zc67A">
-                                                <node concept="RRSsy" id="27OZ2T4ltTf" role="3cqZAp">
-                                                  <property role="RRSoG" value="gZ5fh_4/error" />
-                                                  <node concept="Xl_RD" id="27OZ2T4ltTg" role="RRSoy" />
-                                                  <node concept="37vLTw" id="27OZ2T4ltTh" role="RRSow">
-                                                    <ref role="3cqZAo" node="27OZ2T4lrQi" resolve="ex" />
-                                                  </node>
-                                                </node>
-                                                <node concept="3clFbF" id="27OZ2T4ltTi" role="3cqZAp">
-                                                  <node concept="2YIFZM" id="27OZ2T4ltTj" role="3clFbG">
-                                                    <ref role="37wK5l" to="wyt6:~System.exit(int)" resolve="exit" />
-                                                    <ref role="1Pybhc" to="wyt6:~System" resolve="System" />
-                                                    <node concept="3cmrfG" id="27OZ2T4ltTk" role="37wK5m">
-                                                      <property role="3cmrfH" value="1" />
-                                                    </node>
-                                                  </node>
-                                                </node>
-                                              </node>
+                                    <node concept="3clFbS" id="d9jdlYWMwr" role="3clF47">
+                                      <node concept="3clFbF" id="2pMrK1Sibbd" role="3cqZAp">
+                                        <node concept="2OqwBi" id="2pMrK1Sibbe" role="3clFbG">
+                                          <node concept="10M0yZ" id="2pMrK1Sibbf" role="2Oq$k0">
+                                            <ref role="3cqZAo" to="wyt6:~System.out" resolve="out" />
+                                            <ref role="1PxDUh" to="wyt6:~System" resolve="System" />
+                                          </node>
+                                          <node concept="liA8E" id="2pMrK1Sibbg" role="2OqNvi">
+                                            <ref role="37wK5l" to="guwi:~PrintStream.println(java.lang.String)" resolve="println" />
+                                            <node concept="Xl_RD" id="2pMrK1Sibbh" role="37wK5m">
+                                              <property role="Xl_RC" value="Modelix Application Plugin - Connected, starting ModelCloudExporter" />
                                             </node>
-                                            <node concept="3clFbS" id="27OZ2T4lrvl" role="1zxBo7">
-                                              <node concept="3clFbF" id="rF2pzCbuFc" role="3cqZAp">
-                                                <node concept="2OqwBi" id="rF2pzCbuFd" role="3clFbG">
-                                                  <node concept="10M0yZ" id="rF2pzCbuFe" role="2Oq$k0">
-                                                    <ref role="1PxDUh" to="wyt6:~System" resolve="System" />
-                                                    <ref role="3cqZAo" to="wyt6:~System.out" resolve="out" />
-                                                  </node>
-                                                  <node concept="liA8E" id="rF2pzCbuFf" role="2OqNvi">
-                                                    <ref role="37wK5l" to="guwi:~PrintStream.println(java.lang.String)" resolve="println" />
-                                                    <node concept="Xl_RD" id="rF2pzCbuFg" role="37wK5m">
-                                                      <property role="Xl_RC" value="Starting model export ..." />
-                                                    </node>
-                                                  </node>
-                                                </node>
-                                              </node>
-                                              <node concept="3clFbF" id="5$aoTsoyl4W" role="3cqZAp">
-                                                <node concept="2YIFZM" id="5$aoTsoylhD" role="3clFbG">
-                                                  <ref role="37wK5l" to="wyt6:~System.setProperty(java.lang.String,java.lang.String)" resolve="setProperty" />
-                                                  <ref role="1Pybhc" to="wyt6:~System" resolve="System" />
-                                                  <node concept="10M0yZ" id="4D52TXxAH9V" role="37wK5m">
-                                                    <ref role="3cqZAo" node="4D52TXxAE_p" resolve="STARTED" />
-                                                    <ref role="1PxDUh" node="4D52TXxApUP" resolve="ModelixExportConfiguration" />
-                                                  </node>
-                                                  <node concept="Xl_RD" id="5$aoTsoylqn" role="37wK5m">
-                                                    <property role="Xl_RC" value="true" />
-                                                  </node>
-                                                </node>
-                                              </node>
-                                              <node concept="3cpWs8" id="4D52TXxGpho" role="3cqZAp">
-                                                <node concept="3cpWsn" id="4D52TXxGphr" role="3cpWs9">
-                                                  <property role="TrG5h" value="modelServerURL" />
-                                                  <node concept="17QB3L" id="4D52TXxGphm" role="1tU5fm" />
-                                                  <node concept="2YIFZM" id="4D52TXxGqgr" role="33vP2m">
-                                                    <ref role="1Pybhc" to="ia5i:3xX$Vyo038N" resolve="PropertyOrEnv" />
-                                                    <ref role="37wK5l" to="ia5i:3xX$Vyo0aHz" resolve="get" />
-                                                    <node concept="10M0yZ" id="4D52TXxGqgs" role="37wK5m">
-                                                      <ref role="3cqZAo" node="4D52TXxALbd" resolve="SERVER_URL" />
-                                                      <ref role="1PxDUh" node="4D52TXxApUP" resolve="ModelixExportConfiguration" />
-                                                    </node>
-                                                  </node>
-                                                </node>
-                                              </node>
-                                              <node concept="3cpWs8" id="d9jdlYVi9E" role="3cqZAp">
-                                                <node concept="3cpWsn" id="d9jdlYVi9F" role="3cpWs9">
-                                                  <property role="TrG5h" value="modelServerConnection" />
-                                                  <node concept="3uibUv" id="d9jdlYVi9G" role="1tU5fm">
-                                                    <ref role="3uigEE" to="csg2:6aRQr1WOV$v" resolve="ModelServerConnection" />
-                                                  </node>
-                                                  <node concept="2OqwBi" id="4D52TXxGopd" role="33vP2m">
-                                                    <node concept="2YIFZM" id="729BXr3OVHE" role="2Oq$k0">
-                                                      <ref role="1Pybhc" to="csg2:1LVcV5Kxxi$" resolve="ModelServerConnections" />
-                                                      <ref role="37wK5l" to="csg2:1LVcV5Kxxmz" resolve="getInstance" />
-                                                    </node>
-                                                    <node concept="liA8E" id="4D52TXxGoWu" role="2OqNvi">
-                                                      <ref role="37wK5l" to="csg2:7$Qv9nI5XRu" resolve="ensureModelServerIsPresent" />
-                                                      <node concept="37vLTw" id="4D52TXxGqvZ" role="37wK5m">
-                                                        <ref role="3cqZAo" node="4D52TXxGphr" resolve="modelServerURL" />
-                                                      </node>
-                                                    </node>
-                                                  </node>
-                                                </node>
-                                              </node>
-                                              <node concept="3clFbF" id="2pMrK1Si01V" role="3cqZAp">
-                                                <node concept="2OqwBi" id="2pMrK1Si01W" role="3clFbG">
-                                                  <node concept="10M0yZ" id="2pMrK1Si01X" role="2Oq$k0">
-                                                    <ref role="1PxDUh" to="wyt6:~System" resolve="System" />
-                                                    <ref role="3cqZAo" to="wyt6:~System.out" resolve="out" />
-                                                  </node>
-                                                  <node concept="liA8E" id="2pMrK1Si01Y" role="2OqNvi">
-                                                    <ref role="37wK5l" to="guwi:~PrintStream.println(java.lang.String)" resolve="println" />
-                                                    <node concept="Xl_RD" id="2pMrK1Si01Z" role="37wK5m">
-                                                      <property role="Xl_RC" value="Waiting for Model Server Connection" />
-                                                    </node>
-                                                  </node>
-                                                </node>
-                                              </node>
-                                              <node concept="3clFbH" id="2pMrK1ShZ$k" role="3cqZAp" />
-                                              <node concept="3clFbF" id="d9jdlYWJKG" role="3cqZAp">
-                                                <node concept="2OqwBi" id="d9jdlYWKfo" role="3clFbG">
-                                                  <node concept="37vLTw" id="d9jdlYWJKE" role="2Oq$k0">
-                                                    <ref role="3cqZAo" node="d9jdlYVi9F" resolve="modelServerConnection" />
-                                                  </node>
-                                                  <node concept="liA8E" id="d9jdlYWKAi" role="2OqNvi">
-                                                    <ref role="37wK5l" to="csg2:d9jdlYVXac" resolve="whenConnected" />
-                                                    <node concept="2ShNRf" id="d9jdlYWKYs" role="37wK5m">
-                                                      <node concept="YeOm9" id="d9jdlYWMwb" role="2ShVmc">
-                                                        <node concept="1Y3b0j" id="d9jdlYWMwe" role="YeSDq">
-                                                          <property role="2bfB8j" value="true" />
-                                                          <ref role="1Y3XeK" to="82uw:~Consumer" resolve="Consumer" />
-                                                          <ref role="37wK5l" to="wyt6:~Object.&lt;init&gt;()" resolve="Object" />
-                                                          <node concept="3Tm1VV" id="d9jdlYWMwf" role="1B3o_S" />
-                                                          <node concept="3clFb_" id="d9jdlYWMwl" role="jymVt">
-                                                            <property role="TrG5h" value="accept" />
-                                                            <node concept="3Tm1VV" id="d9jdlYWMwm" role="1B3o_S" />
-                                                            <node concept="3cqZAl" id="d9jdlYWMwo" role="3clF45" />
-                                                            <node concept="37vLTG" id="d9jdlYWMwp" role="3clF46">
-                                                              <property role="TrG5h" value="connection" />
-                                                              <node concept="3uibUv" id="d9jdlYWMwz" role="1tU5fm">
-                                                                <ref role="3uigEE" to="csg2:6aRQr1WOV$v" resolve="ModelServerConnection" />
-                                                              </node>
-                                                            </node>
-                                                            <node concept="3clFbS" id="d9jdlYWMwr" role="3clF47">
-                                                              <node concept="3clFbF" id="2pMrK1Sibbd" role="3cqZAp">
-                                                                <node concept="2OqwBi" id="2pMrK1Sibbe" role="3clFbG">
-                                                                  <node concept="10M0yZ" id="2pMrK1Sibbf" role="2Oq$k0">
-                                                                    <ref role="3cqZAo" to="wyt6:~System.out" resolve="out" />
-                                                                    <ref role="1PxDUh" to="wyt6:~System" resolve="System" />
-                                                                  </node>
-                                                                  <node concept="liA8E" id="2pMrK1Sibbg" role="2OqNvi">
-                                                                    <ref role="37wK5l" to="guwi:~PrintStream.println(java.lang.String)" resolve="println" />
-                                                                    <node concept="Xl_RD" id="2pMrK1Sibbh" role="37wK5m">
-                                                                      <property role="Xl_RC" value="Connected, starting ModelCloudExporter" />
+                                          </node>
+                                        </node>
+                                      </node>
+                                      <node concept="3clFbF" id="OmBhSVLna0" role="3cqZAp">
+                                        <node concept="2OqwBi" id="OmBhSVLo6I" role="3clFbG">
+                                          <node concept="2YIFZM" id="OmBhSVLna2" role="2Oq$k0">
+                                            <ref role="1Pybhc" to="bd8o:~ApplicationManager" resolve="ApplicationManager" />
+                                            <ref role="37wK5l" to="bd8o:~ApplicationManager.getApplication()" resolve="getApplication" />
+                                          </node>
+                                          <node concept="liA8E" id="OmBhSVLp0T" role="2OqNvi">
+                                            <ref role="37wK5l" to="bd8o:~Application.invokeLaterOnWriteThread(java.lang.Runnable)" resolve="invokeLaterOnWriteThread" />
+                                            <node concept="2ShNRf" id="OmBhSVLprA" role="37wK5m">
+                                              <node concept="YeOm9" id="OmBhSVLCbB" role="2ShVmc">
+                                                <node concept="1Y3b0j" id="OmBhSVLCbE" role="YeSDq">
+                                                  <property role="2bfB8j" value="true" />
+                                                  <ref role="1Y3XeK" to="wyt6:~Runnable" resolve="Runnable" />
+                                                  <ref role="37wK5l" to="wyt6:~Object.&lt;init&gt;()" resolve="Object" />
+                                                  <node concept="3Tm1VV" id="OmBhSVLCbF" role="1B3o_S" />
+                                                  <node concept="3clFb_" id="OmBhSVLCbK" role="jymVt">
+                                                    <property role="TrG5h" value="run" />
+                                                    <node concept="3Tm1VV" id="OmBhSVLCbL" role="1B3o_S" />
+                                                    <node concept="3cqZAl" id="OmBhSVLCbN" role="3clF45" />
+                                                    <node concept="3clFbS" id="OmBhSVLCbO" role="3clF47">
+                                                      <node concept="3clFbF" id="27OZ2T4l9ms" role="3cqZAp">
+                                                        <node concept="2OqwBi" id="27OZ2T4lak0" role="3clFbG">
+                                                          <node concept="2YIFZM" id="27OZ2T4l9Fz" role="2Oq$k0">
+                                                            <ref role="37wK5l" to="bd8o:~ApplicationManager.getApplication()" resolve="getApplication" />
+                                                            <ref role="1Pybhc" to="bd8o:~ApplicationManager" resolve="ApplicationManager" />
+                                                          </node>
+                                                          <node concept="liA8E" id="27OZ2T4lbe$" role="2OqNvi">
+                                                            <ref role="37wK5l" to="bd8o:~Application.runWriteAction(java.lang.Runnable)" resolve="runWriteAction" />
+                                                            <node concept="1bVj0M" id="27OZ2T4lbyN" role="37wK5m">
+                                                              <node concept="3clFbS" id="27OZ2T4lbyO" role="1bW5cS">
+                                                                <node concept="3J1_TO" id="27OZ2T4lrvj" role="3cqZAp">
+                                                                  <node concept="3uVAMA" id="27OZ2T4lrQh" role="1zxBo5">
+                                                                    <node concept="XOnhg" id="27OZ2T4lrQi" role="1zc67B">
+                                                                      <property role="TrG5h" value="ex" />
+                                                                      <node concept="nSUau" id="27OZ2T4lrQj" role="1tU5fm">
+                                                                        <node concept="3uibUv" id="27OZ2T4lsj4" role="nSUat">
+                                                                          <ref role="3uigEE" to="wyt6:~Exception" resolve="Exception" />
+                                                                        </node>
+                                                                      </node>
                                                                     </node>
-                                                                  </node>
-                                                                </node>
-                                                              </node>
-                                                              <node concept="3cpWs8" id="2pMrK1Sm$Iu" role="3cqZAp">
-                                                                <node concept="3cpWsn" id="2pMrK1Sm$Iv" role="3cpWs9">
-                                                                  <property role="TrG5h" value="modelCloudExporter" />
-                                                                  <node concept="3uibUv" id="2pMrK1Sm$Iw" role="1tU5fm">
-                                                                    <ref role="3uigEE" to="csg2:29etMtbjIgR" resolve="ModelCloudExporter" />
-                                                                  </node>
-                                                                  <node concept="2OqwBi" id="2pMrK1Sm_8H" role="33vP2m">
-                                                                    <node concept="2ShNRf" id="2pMrK1Sm_8I" role="2Oq$k0">
-                                                                      <node concept="1pGfFk" id="2pMrK1Sm_8J" role="2ShVmc">
-                                                                        <ref role="37wK5l" to="csg2:rF2pzCaPsq" resolve="ModelCloudExporter" />
-                                                                        <node concept="37vLTw" id="2pMrK1Sm_8K" role="37wK5m">
-                                                                          <ref role="3cqZAo" node="4D52TXxGphr" resolve="modelServerURL" />
+                                                                    <node concept="3clFbS" id="27OZ2T4lrQk" role="1zc67A">
+                                                                      <node concept="RRSsy" id="27OZ2T4ltTf" role="3cqZAp">
+                                                                        <property role="RRSoG" value="gZ5fh_4/error" />
+                                                                        <node concept="Xl_RD" id="27OZ2T4ltTg" role="RRSoy">
+                                                                          <property role="Xl_RC" value="Modelix Application Plugin Failure" />
                                                                         </node>
-                                                                        <node concept="2YIFZM" id="2pMrK1Sm_8L" role="37wK5m">
-                                                                          <ref role="37wK5l" to="ia5i:3xX$Vyo0aHz" resolve="get" />
-                                                                          <ref role="1Pybhc" to="ia5i:3xX$Vyo038N" resolve="PropertyOrEnv" />
-                                                                          <node concept="10M0yZ" id="2pMrK1Sm_8M" role="37wK5m">
-                                                                            <ref role="3cqZAo" node="4D52TXxAHxx" resolve="REPOSITORY_ID" />
-                                                                            <ref role="1PxDUh" node="4D52TXxApUP" resolve="ModelixExportConfiguration" />
-                                                                          </node>
+                                                                        <node concept="37vLTw" id="27OZ2T4ltTh" role="RRSow">
+                                                                          <ref role="3cqZAo" node="27OZ2T4lrQi" resolve="ex" />
                                                                         </node>
-                                                                        <node concept="2YIFZM" id="2pMrK1Sm_8N" role="37wK5m">
-                                                                          <ref role="37wK5l" to="ia5i:3xX$Vyo0aHz" resolve="get" />
-                                                                          <ref role="1Pybhc" to="ia5i:3xX$Vyo038N" resolve="PropertyOrEnv" />
-                                                                          <node concept="10M0yZ" id="2pMrK1Sm_8O" role="37wK5m">
-                                                                            <ref role="1PxDUh" node="4D52TXxApUP" resolve="ModelixExportConfiguration" />
-                                                                            <ref role="3cqZAo" node="4D52TXxAIMW" resolve="BRANCH_NAME" />
+                                                                      </node>
+                                                                      <node concept="3clFbF" id="27OZ2T4ltTi" role="3cqZAp">
+                                                                        <node concept="2YIFZM" id="27OZ2T4ltTj" role="3clFbG">
+                                                                          <ref role="37wK5l" to="wyt6:~System.exit(int)" resolve="exit" />
+                                                                          <ref role="1Pybhc" to="wyt6:~System" resolve="System" />
+                                                                          <node concept="3cmrfG" id="27OZ2T4ltTk" role="37wK5m">
+                                                                            <property role="3cmrfH" value="1" />
                                                                           </node>
                                                                         </node>
                                                                       </node>
                                                                     </node>
-                                                                    <node concept="liA8E" id="2pMrK1Sm_8P" role="2OqNvi">
-                                                                      <ref role="37wK5l" to="csg2:5Ns9HDw2eiE" resolve="setCheckoutMode" />
-                                                                    </node>
                                                                   </node>
-                                                                </node>
-                                                              </node>
-                                                              <node concept="3cpWs8" id="2pMrK1SnYtc" role="3cqZAp">
-                                                                <node concept="3cpWsn" id="2pMrK1SnYtd" role="3cpWs9">
-                                                                  <property role="TrG5h" value="stuffToDoOnceWeGetAProject" />
-                                                                  <node concept="3uibUv" id="2pMrK1SnYta" role="1tU5fm">
-                                                                    <ref role="3uigEE" to="82uw:~Consumer" resolve="Consumer" />
-                                                                    <node concept="3uibUv" id="2pMrK1SnZQF" role="11_B2D">
-                                                                      <ref role="3uigEE" to="z1c4:~Project" resolve="Project" />
-                                                                    </node>
-                                                                  </node>
-                                                                  <node concept="2ShNRf" id="2pMrK1So1CT" role="33vP2m">
-                                                                    <node concept="YeOm9" id="2pMrK1So3DT" role="2ShVmc">
-                                                                      <node concept="1Y3b0j" id="2pMrK1So3DW" role="YeSDq">
-                                                                        <property role="2bfB8j" value="true" />
-                                                                        <ref role="1Y3XeK" to="82uw:~Consumer" resolve="Consumer" />
-                                                                        <ref role="37wK5l" to="wyt6:~Object.&lt;init&gt;()" resolve="Object" />
-                                                                        <node concept="3Tm1VV" id="2pMrK1So3DX" role="1B3o_S" />
-                                                                        <node concept="3clFb_" id="2pMrK1So3E3" role="jymVt">
-                                                                          <property role="TrG5h" value="accept" />
-                                                                          <node concept="3Tm1VV" id="2pMrK1So3E4" role="1B3o_S" />
-                                                                          <node concept="3cqZAl" id="2pMrK1So3E6" role="3clF45" />
-                                                                          <node concept="37vLTG" id="2pMrK1So3E7" role="3clF46">
-                                                                            <property role="TrG5h" value="mpsProject" />
-                                                                            <node concept="3uibUv" id="2pMrK1So3Ef" role="1tU5fm">
-                                                                              <ref role="3uigEE" to="z1c4:~Project" resolve="Project" />
+                                                                  <node concept="3clFbS" id="27OZ2T4lrvl" role="1zxBo7">
+                                                                    <node concept="3cpWs8" id="2pMrK1Sm$Iu" role="3cqZAp">
+                                                                      <node concept="3cpWsn" id="2pMrK1Sm$Iv" role="3cpWs9">
+                                                                        <property role="TrG5h" value="modelCloudExporter" />
+                                                                        <node concept="3uibUv" id="2pMrK1Sm$Iw" role="1tU5fm">
+                                                                          <ref role="3uigEE" to="csg2:29etMtbjIgR" resolve="ModelCloudExporter" />
+                                                                        </node>
+                                                                        <node concept="2OqwBi" id="2pMrK1Sm_8H" role="33vP2m">
+                                                                          <node concept="2ShNRf" id="2pMrK1Sm_8I" role="2Oq$k0">
+                                                                            <node concept="1pGfFk" id="2pMrK1Sm_8J" role="2ShVmc">
+                                                                              <ref role="37wK5l" to="csg2:rF2pzCaPsq" resolve="ModelCloudExporter" />
+                                                                              <node concept="37vLTw" id="2pMrK1Sm_8K" role="37wK5m">
+                                                                                <ref role="3cqZAo" node="4D52TXxGphr" resolve="modelServerURL" />
+                                                                              </node>
+                                                                              <node concept="2YIFZM" id="2pMrK1Sm_8L" role="37wK5m">
+                                                                                <ref role="37wK5l" to="ia5i:3xX$Vyo0aHz" resolve="get" />
+                                                                                <ref role="1Pybhc" to="ia5i:3xX$Vyo038N" resolve="PropertyOrEnv" />
+                                                                                <node concept="10M0yZ" id="2pMrK1Sm_8M" role="37wK5m">
+                                                                                  <ref role="3cqZAo" node="4D52TXxAHxx" resolve="REPOSITORY_ID" />
+                                                                                  <ref role="1PxDUh" node="4D52TXxApUP" resolve="ModelixExportConfiguration" />
+                                                                                </node>
+                                                                              </node>
+                                                                              <node concept="2YIFZM" id="2pMrK1Sm_8N" role="37wK5m">
+                                                                                <ref role="37wK5l" to="ia5i:3xX$Vyo0aHz" resolve="get" />
+                                                                                <ref role="1Pybhc" to="ia5i:3xX$Vyo038N" resolve="PropertyOrEnv" />
+                                                                                <node concept="10M0yZ" id="2pMrK1Sm_8O" role="37wK5m">
+                                                                                  <ref role="1PxDUh" node="4D52TXxApUP" resolve="ModelixExportConfiguration" />
+                                                                                  <ref role="3cqZAo" node="4D52TXxAIMW" resolve="BRANCH_NAME" />
+                                                                                </node>
+                                                                              </node>
                                                                             </node>
                                                                           </node>
-                                                                          <node concept="3clFbS" id="2pMrK1So3E9" role="3clF47">
-                                                                            <node concept="1QHqEO" id="2pMrK1SmBa1" role="3cqZAp">
-                                                                              <node concept="1QHqEC" id="2pMrK1SmBa3" role="1QHqEI">
-                                                                                <node concept="3clFbS" id="2pMrK1SmBa5" role="1bW5cS">
-                                                                                  <node concept="3clFbF" id="5$aoTsovmc3" role="3cqZAp">
-                                                                                    <node concept="2OqwBi" id="5$aoTsovnma" role="3clFbG">
-                                                                                      <node concept="2OqwBi" id="2pMrK1SmtBq" role="2Oq$k0">
-                                                                                        <node concept="37vLTw" id="2pMrK1SmCcg" role="2Oq$k0">
-                                                                                          <ref role="3cqZAo" node="2pMrK1Sm$Iv" resolve="modelCloudExporter" />
-                                                                                        </node>
-                                                                                        <node concept="liA8E" id="2pMrK1Smu4A" role="2OqNvi">
-                                                                                          <ref role="37wK5l" to="csg2:5Ns9HDw2eiE" resolve="setCheckoutMode" />
-                                                                                        </node>
+                                                                          <node concept="liA8E" id="2pMrK1Sm_8P" role="2OqNvi">
+                                                                            <ref role="37wK5l" to="csg2:5Ns9HDw2eiE" resolve="setCheckoutMode" />
+                                                                          </node>
+                                                                        </node>
+                                                                      </node>
+                                                                    </node>
+                                                                    <node concept="3cpWs8" id="2pMrK1SnYtc" role="3cqZAp">
+                                                                      <node concept="3cpWsn" id="2pMrK1SnYtd" role="3cpWs9">
+                                                                        <property role="TrG5h" value="stuffToDoOnceWeGetAProject" />
+                                                                        <node concept="3uibUv" id="2pMrK1SnYta" role="1tU5fm">
+                                                                          <ref role="3uigEE" to="82uw:~Consumer" resolve="Consumer" />
+                                                                          <node concept="3uibUv" id="2pMrK1SnZQF" role="11_B2D">
+                                                                            <ref role="3uigEE" to="z1c4:~Project" resolve="Project" />
+                                                                          </node>
+                                                                        </node>
+                                                                        <node concept="2ShNRf" id="2pMrK1So1CT" role="33vP2m">
+                                                                          <node concept="YeOm9" id="2pMrK1So3DT" role="2ShVmc">
+                                                                            <node concept="1Y3b0j" id="2pMrK1So3DW" role="YeSDq">
+                                                                              <property role="2bfB8j" value="true" />
+                                                                              <ref role="1Y3XeK" to="82uw:~Consumer" resolve="Consumer" />
+                                                                              <ref role="37wK5l" to="wyt6:~Object.&lt;init&gt;()" resolve="Object" />
+                                                                              <node concept="3Tm1VV" id="2pMrK1So3DX" role="1B3o_S" />
+                                                                              <node concept="3clFb_" id="2pMrK1So3E3" role="jymVt">
+                                                                                <property role="TrG5h" value="accept" />
+                                                                                <node concept="3Tm1VV" id="2pMrK1So3E4" role="1B3o_S" />
+                                                                                <node concept="3cqZAl" id="2pMrK1So3E6" role="3clF45" />
+                                                                                <node concept="37vLTG" id="2pMrK1So3E7" role="3clF46">
+                                                                                  <property role="TrG5h" value="mpsProject" />
+                                                                                  <node concept="3uibUv" id="2pMrK1So3Ef" role="1tU5fm">
+                                                                                    <ref role="3uigEE" to="z1c4:~Project" resolve="Project" />
+                                                                                  </node>
+                                                                                </node>
+                                                                                <node concept="3clFbS" id="2pMrK1So3E9" role="3clF47">
+                                                                                  <node concept="3clFbF" id="OmBhSVK3Wz" role="3cqZAp">
+                                                                                    <node concept="2OqwBi" id="OmBhSVK3W$" role="3clFbG">
+                                                                                      <node concept="10M0yZ" id="OmBhSVK3W_" role="2Oq$k0">
+                                                                                        <ref role="1PxDUh" to="wyt6:~System" resolve="System" />
+                                                                                        <ref role="3cqZAo" to="wyt6:~System.out" resolve="out" />
                                                                                       </node>
-                                                                                      <node concept="liA8E" id="5$aoTsovnwB" role="2OqNvi">
-                                                                                        <ref role="37wK5l" to="csg2:1OzsJtar7Ca" resolve="export" />
-                                                                                        <node concept="37vLTw" id="5$aoTsovnC_" role="37wK5m">
-                                                                                          <ref role="3cqZAo" node="29etMtbjEs5" resolve="exportPath" />
-                                                                                        </node>
-                                                                                        <node concept="37vLTw" id="2pMrK1SmRQt" role="37wK5m">
-                                                                                          <ref role="3cqZAo" node="2pMrK1So3E7" resolve="mpsProject" />
+                                                                                      <node concept="liA8E" id="OmBhSVK3WA" role="2OqNvi">
+                                                                                        <ref role="37wK5l" to="guwi:~PrintStream.println(java.lang.String)" resolve="println" />
+                                                                                        <node concept="Xl_RD" id="OmBhSVK3WB" role="37wK5m">
+                                                                                          <property role="Xl_RC" value="Modelix Application Plugin - Got the project" />
                                                                                         </node>
                                                                                       </node>
                                                                                     </node>
                                                                                   </node>
-                                                                                </node>
-                                                                              </node>
-                                                                              <node concept="2OqwBi" id="2pMrK1SmQ3y" role="ukAjM">
-                                                                                <node concept="37vLTw" id="2pMrK1SmOV9" role="2Oq$k0">
-                                                                                  <ref role="3cqZAo" node="2pMrK1So3E7" resolve="mpsProject" />
-                                                                                </node>
-                                                                                <node concept="liA8E" id="2pMrK1SmRak" role="2OqNvi">
-                                                                                  <ref role="37wK5l" to="z1c4:~Project.getRepository()" resolve="getRepository" />
-                                                                                </node>
-                                                                              </node>
-                                                                            </node>
-                                                                            <node concept="3clFbF" id="5$aoTsoyl$j" role="3cqZAp">
-                                                                              <node concept="2YIFZM" id="5$aoTsoyl$k" role="3clFbG">
-                                                                                <ref role="37wK5l" to="wyt6:~System.setProperty(java.lang.String,java.lang.String)" resolve="setProperty" />
-                                                                                <ref role="1Pybhc" to="wyt6:~System" resolve="System" />
-                                                                                <node concept="10M0yZ" id="4D52TXxAKWJ" role="37wK5m">
-                                                                                  <ref role="3cqZAo" node="4D52TXxAIKy" resolve="DONE" />
-                                                                                  <ref role="1PxDUh" node="4D52TXxApUP" resolve="ModelixExportConfiguration" />
-                                                                                </node>
-                                                                                <node concept="Xl_RD" id="5$aoTsoyl$m" role="37wK5m">
-                                                                                  <property role="Xl_RC" value="true" />
-                                                                                </node>
-                                                                              </node>
-                                                                            </node>
-                                                                            <node concept="3clFbF" id="2pMrK1SicCv" role="3cqZAp">
-                                                                              <node concept="2OqwBi" id="2pMrK1SicCw" role="3clFbG">
-                                                                                <node concept="10M0yZ" id="2pMrK1SicCx" role="2Oq$k0">
-                                                                                  <ref role="3cqZAo" to="wyt6:~System.out" resolve="out" />
-                                                                                  <ref role="1PxDUh" to="wyt6:~System" resolve="System" />
-                                                                                </node>
-                                                                                <node concept="liA8E" id="2pMrK1SicCy" role="2OqNvi">
-                                                                                  <ref role="37wK5l" to="guwi:~PrintStream.println(java.lang.String)" resolve="println" />
-                                                                                  <node concept="Xl_RD" id="2pMrK1SicCz" role="37wK5m">
-                                                                                    <property role="Xl_RC" value="Starting shut down of Application" />
+                                                                                  <node concept="1QHqEO" id="2pMrK1SmBa1" role="3cqZAp">
+                                                                                    <node concept="1QHqEC" id="2pMrK1SmBa3" role="1QHqEI">
+                                                                                      <node concept="3clFbS" id="2pMrK1SmBa5" role="1bW5cS">
+                                                                                        <node concept="3clFbF" id="OmBhSVK56R" role="3cqZAp">
+                                                                                          <node concept="2OqwBi" id="OmBhSVK56S" role="3clFbG">
+                                                                                            <node concept="10M0yZ" id="OmBhSVK56T" role="2Oq$k0">
+                                                                                              <ref role="1PxDUh" to="wyt6:~System" resolve="System" />
+                                                                                              <ref role="3cqZAo" to="wyt6:~System.out" resolve="out" />
+                                                                                            </node>
+                                                                                            <node concept="liA8E" id="OmBhSVK56U" role="2OqNvi">
+                                                                                              <ref role="37wK5l" to="guwi:~PrintStream.println(java.lang.String)" resolve="println" />
+                                                                                              <node concept="Xl_RD" id="OmBhSVK56V" role="37wK5m">
+                                                                                                <property role="Xl_RC" value="Modelix Application Plugin - In Command, ready to export" />
+                                                                                              </node>
+                                                                                            </node>
+                                                                                          </node>
+                                                                                        </node>
+                                                                                        <node concept="3clFbF" id="5$aoTsovmc3" role="3cqZAp">
+                                                                                          <node concept="2OqwBi" id="5$aoTsovnma" role="3clFbG">
+                                                                                            <node concept="2OqwBi" id="2pMrK1SmtBq" role="2Oq$k0">
+                                                                                              <node concept="37vLTw" id="2pMrK1SmCcg" role="2Oq$k0">
+                                                                                                <ref role="3cqZAo" node="2pMrK1Sm$Iv" resolve="modelCloudExporter" />
+                                                                                              </node>
+                                                                                              <node concept="liA8E" id="2pMrK1Smu4A" role="2OqNvi">
+                                                                                                <ref role="37wK5l" to="csg2:5Ns9HDw2eiE" resolve="setCheckoutMode" />
+                                                                                              </node>
+                                                                                            </node>
+                                                                                            <node concept="liA8E" id="5$aoTsovnwB" role="2OqNvi">
+                                                                                              <ref role="37wK5l" to="csg2:1OzsJtar7Ca" resolve="export" />
+                                                                                              <node concept="37vLTw" id="5$aoTsovnC_" role="37wK5m">
+                                                                                                <ref role="3cqZAo" node="29etMtbjEs5" resolve="exportPath" />
+                                                                                              </node>
+                                                                                              <node concept="37vLTw" id="2pMrK1SmRQt" role="37wK5m">
+                                                                                                <ref role="3cqZAo" node="2pMrK1So3E7" resolve="mpsProject" />
+                                                                                              </node>
+                                                                                            </node>
+                                                                                          </node>
+                                                                                        </node>
+                                                                                      </node>
+                                                                                    </node>
+                                                                                    <node concept="2OqwBi" id="2pMrK1SmQ3y" role="ukAjM">
+                                                                                      <node concept="37vLTw" id="2pMrK1SmOV9" role="2Oq$k0">
+                                                                                        <ref role="3cqZAo" node="2pMrK1So3E7" resolve="mpsProject" />
+                                                                                      </node>
+                                                                                      <node concept="liA8E" id="2pMrK1SmRak" role="2OqNvi">
+                                                                                        <ref role="37wK5l" to="z1c4:~Project.getRepository()" resolve="getRepository" />
+                                                                                      </node>
+                                                                                    </node>
+                                                                                  </node>
+                                                                                  <node concept="3clFbF" id="5$aoTsoyl$j" role="3cqZAp">
+                                                                                    <node concept="2YIFZM" id="5$aoTsoyl$k" role="3clFbG">
+                                                                                      <ref role="37wK5l" to="wyt6:~System.setProperty(java.lang.String,java.lang.String)" resolve="setProperty" />
+                                                                                      <ref role="1Pybhc" to="wyt6:~System" resolve="System" />
+                                                                                      <node concept="10M0yZ" id="4D52TXxAKWJ" role="37wK5m">
+                                                                                        <ref role="3cqZAo" node="4D52TXxAIKy" resolve="DONE" />
+                                                                                        <ref role="1PxDUh" node="4D52TXxApUP" resolve="ModelixExportConfiguration" />
+                                                                                      </node>
+                                                                                      <node concept="Xl_RD" id="5$aoTsoyl$m" role="37wK5m">
+                                                                                        <property role="Xl_RC" value="true" />
+                                                                                      </node>
+                                                                                    </node>
+                                                                                  </node>
+                                                                                  <node concept="3clFbF" id="2pMrK1SicCv" role="3cqZAp">
+                                                                                    <node concept="2OqwBi" id="2pMrK1SicCw" role="3clFbG">
+                                                                                      <node concept="10M0yZ" id="2pMrK1SicCx" role="2Oq$k0">
+                                                                                        <ref role="3cqZAo" to="wyt6:~System.out" resolve="out" />
+                                                                                        <ref role="1PxDUh" to="wyt6:~System" resolve="System" />
+                                                                                      </node>
+                                                                                      <node concept="liA8E" id="2pMrK1SicCy" role="2OqNvi">
+                                                                                        <ref role="37wK5l" to="guwi:~PrintStream.println(java.lang.String)" resolve="println" />
+                                                                                        <node concept="Xl_RD" id="2pMrK1SicCz" role="37wK5m">
+                                                                                          <property role="Xl_RC" value="Starting shut down of Application" />
+                                                                                        </node>
+                                                                                      </node>
+                                                                                    </node>
+                                                                                  </node>
+                                                                                  <node concept="3clFbF" id="27OZ2T4lcOp" role="3cqZAp">
+                                                                                    <node concept="2OqwBi" id="27OZ2T4ldKT" role="3clFbG">
+                                                                                      <node concept="2YIFZM" id="27OZ2T4ldaZ" role="2Oq$k0">
+                                                                                        <ref role="1Pybhc" to="bd8o:~ApplicationManager" resolve="ApplicationManager" />
+                                                                                        <ref role="37wK5l" to="bd8o:~ApplicationManager.getApplication()" resolve="getApplication" />
+                                                                                      </node>
+                                                                                      <node concept="liA8E" id="27OZ2T4lerB" role="2OqNvi">
+                                                                                        <ref role="37wK5l" to="bd8o:~Application.exit(boolean,boolean,boolean)" resolve="exit" />
+                                                                                        <node concept="3clFbT" id="27OZ2T4lCXy" role="37wK5m">
+                                                                                          <property role="3clFbU" value="true" />
+                                                                                        </node>
+                                                                                        <node concept="3clFbT" id="27OZ2T4lDw4" role="37wK5m">
+                                                                                          <property role="3clFbU" value="true" />
+                                                                                        </node>
+                                                                                        <node concept="3clFbT" id="27OZ2T4lEoa" role="37wK5m" />
+                                                                                      </node>
+                                                                                    </node>
                                                                                   </node>
                                                                                 </node>
-                                                                              </node>
-                                                                            </node>
-                                                                            <node concept="3clFbF" id="27OZ2T4lcOp" role="3cqZAp">
-                                                                              <node concept="2OqwBi" id="27OZ2T4ldKT" role="3clFbG">
-                                                                                <node concept="2YIFZM" id="27OZ2T4ldaZ" role="2Oq$k0">
-                                                                                  <ref role="1Pybhc" to="bd8o:~ApplicationManager" resolve="ApplicationManager" />
-                                                                                  <ref role="37wK5l" to="bd8o:~ApplicationManager.getApplication()" resolve="getApplication" />
-                                                                                </node>
-                                                                                <node concept="liA8E" id="27OZ2T4lerB" role="2OqNvi">
-                                                                                  <ref role="37wK5l" to="bd8o:~Application.exit(boolean,boolean,boolean)" resolve="exit" />
-                                                                                  <node concept="3clFbT" id="27OZ2T4lCXy" role="37wK5m">
-                                                                                    <property role="3clFbU" value="true" />
-                                                                                  </node>
-                                                                                  <node concept="3clFbT" id="27OZ2T4lDw4" role="37wK5m">
-                                                                                    <property role="3clFbU" value="true" />
-                                                                                  </node>
-                                                                                  <node concept="3clFbT" id="27OZ2T4lEoa" role="37wK5m" />
+                                                                                <node concept="2AHcQZ" id="2pMrK1So3Eb" role="2AJF6D">
+                                                                                  <ref role="2AI5Lk" to="wyt6:~Override" resolve="Override" />
                                                                                 </node>
                                                                               </node>
+                                                                              <node concept="3uibUv" id="2pMrK1So3Ee" role="2Ghqu4">
+                                                                                <ref role="3uigEE" to="z1c4:~Project" resolve="Project" />
+                                                                              </node>
                                                                             </node>
-                                                                          </node>
-                                                                          <node concept="2AHcQZ" id="2pMrK1So3Eb" role="2AJF6D">
-                                                                            <ref role="2AI5Lk" to="wyt6:~Override" resolve="Override" />
                                                                           </node>
                                                                         </node>
-                                                                        <node concept="3uibUv" id="2pMrK1So3Ee" role="2Ghqu4">
-                                                                          <ref role="3uigEE" to="z1c4:~Project" resolve="Project" />
+                                                                      </node>
+                                                                    </node>
+                                                                    <node concept="3clFbF" id="2pMrK1So$oj" role="3cqZAp">
+                                                                      <node concept="2OqwBi" id="2pMrK1So_U0" role="3clFbG">
+                                                                        <node concept="2YIFZM" id="2pMrK1So_Aa" role="2Oq$k0">
+                                                                          <ref role="1Pybhc" to="4nm9:~ProjectManager" resolve="ProjectManager" />
+                                                                          <ref role="37wK5l" to="4nm9:~ProjectManager.getInstance()" resolve="getInstance" />
+                                                                        </node>
+                                                                        <node concept="AQDAd" id="2pMrK1SoF6h" role="2OqNvi">
+                                                                          <ref role="37wK5l" node="2pMrK1SotOq" resolve="withTheOnlyProject" />
+                                                                          <node concept="37vLTw" id="2pMrK1SoLjX" role="37wK5m">
+                                                                            <ref role="3cqZAo" node="2pMrK1SnYtd" resolve="stuffToDoOnceWeGetAProject" />
+                                                                          </node>
                                                                         </node>
                                                                       </node>
                                                                     </node>
                                                                   </node>
                                                                 </node>
                                                               </node>
-                                                              <node concept="3clFbF" id="2pMrK1So$oj" role="3cqZAp">
-                                                                <node concept="2OqwBi" id="2pMrK1So_U0" role="3clFbG">
-                                                                  <node concept="2YIFZM" id="2pMrK1So_Aa" role="2Oq$k0">
-                                                                    <ref role="1Pybhc" to="4nm9:~ProjectManager" resolve="ProjectManager" />
-                                                                    <ref role="37wK5l" to="4nm9:~ProjectManager.getInstance()" resolve="getInstance" />
-                                                                  </node>
-                                                                  <node concept="AQDAd" id="2pMrK1SoF6h" role="2OqNvi">
-                                                                    <ref role="37wK5l" node="2pMrK1SotOq" resolve="withTheOnlyProject" />
-                                                                    <node concept="37vLTw" id="2pMrK1SoLjX" role="37wK5m">
-                                                                      <ref role="3cqZAo" node="2pMrK1SnYtd" resolve="stuffToDoOnceWeGetAProject" />
-                                                                    </node>
-                                                                  </node>
-                                                                </node>
-                                                              </node>
                                                             </node>
-                                                            <node concept="2AHcQZ" id="d9jdlYWMwt" role="2AJF6D">
-                                                              <ref role="2AI5Lk" to="wyt6:~Override" resolve="Override" />
-                                                            </node>
-                                                          </node>
-                                                          <node concept="3uibUv" id="d9jdlYWMwy" role="2Ghqu4">
-                                                            <ref role="3uigEE" to="csg2:6aRQr1WOV$v" resolve="ModelServerConnection" />
                                                           </node>
                                                         </node>
                                                       </node>
+                                                    </node>
+                                                    <node concept="2AHcQZ" id="OmBhSVLCbQ" role="2AJF6D">
+                                                      <ref role="2AI5Lk" to="wyt6:~Override" resolve="Override" />
                                                     </node>
                                                   </node>
                                                 </node>
@@ -1351,6 +1410,12 @@
                                         </node>
                                       </node>
                                     </node>
+                                    <node concept="2AHcQZ" id="d9jdlYWMwt" role="2AJF6D">
+                                      <ref role="2AI5Lk" to="wyt6:~Override" resolve="Override" />
+                                    </node>
+                                  </node>
+                                  <node concept="3uibUv" id="d9jdlYWMwy" role="2Ghqu4">
+                                    <ref role="3uigEE" to="csg2:6aRQr1WOV$v" resolve="ModelServerConnection" />
                                   </node>
                                 </node>
                               </node>

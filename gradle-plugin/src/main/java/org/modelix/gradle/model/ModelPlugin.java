@@ -1,5 +1,6 @@
 package org.modelix.gradle.model;
 
+import kotlin.text.Charsets;
 import org.gradle.api.Action;
 import org.gradle.api.DefaultTask;
 import org.gradle.api.Plugin;
@@ -9,7 +10,9 @@ import org.gradle.api.artifacts.Configuration;
 import org.gradle.api.file.RelativePath;
 import org.gradle.api.tasks.Copy;
 import org.gradle.api.tasks.JavaExec;
+import org.gradle.process.ExecResult;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
@@ -105,6 +108,7 @@ public class ModelPlugin implements Plugin<Project> {
                 } else {
                     javaExec.dependsOn(copyMpsTask, copyMpsModelPluginTask);
                 }
+                //javaExec.setJvmArgs(Arrays.asList("-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=*:5072"));
                 javaExec.setDescription("Export models from modelix model server to MPS files");
                 javaExec.classpath(project.fileTree(new File(mpsLocation, "lib")).include("**/*.jar"));
                 javaExec.classpath(genConfig);
@@ -121,7 +125,32 @@ public class ModelPlugin implements Plugin<Project> {
                 );
                 if (settings.isDebug()) javaExec.setDebug(true);
                 javaExec.getTimeout().set(Duration.ofSeconds(settings.getTimeout()));
+                javaExec.setIgnoreExitValue(true);
+                ByteArrayOutputStream stdOutput = new ByteArrayOutputStream();
+                ByteArrayOutputStream errorOutput = new ByteArrayOutputStream();
+//                javaExec.setStandardOutput(stdOutput);
+//                javaExec.setErrorOutput(errorOutput);
                 javaExec.setMain(ExportMain.class.getName());
+                javaExec.doLast(task -> {
+                    System.out.println("After execution");
+                    ExecResult execResult = javaExec.getExecutionResult().get();
+                    int exitValue = execResult.getExitValue();
+                    if (exitValue != 0) {
+                        System.err.println("Execution of ExportMain failed. Exit code: " + exitValue);
+
+                        System.out.println("=======================");
+                        System.out.println("Export main err output ");
+                        System.out.println("=======================");
+                        System.err.println(errorOutput.toString(Charsets.UTF_8));
+                        System.out.println();
+
+                        System.out.println("=======================");
+                        System.out.println("Export main std output ");
+                        System.out.println("=======================");
+                        System.out.println(stdOutput.toString(Charsets.UTF_8));
+                        System.out.println();
+                    }
+                });
             });
         });
     }

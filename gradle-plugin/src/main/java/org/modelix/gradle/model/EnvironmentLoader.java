@@ -71,6 +71,7 @@ public class EnvironmentLoader {
             for (String additionalLibrary: additionalLibraries) {
                 File f = new File(additionalLibrary);
                 if (f.exists()) {
+                    System.out.println("Loading library " + f.getAbsolutePath());
                     config.addLib(f.getAbsolutePath());
                 } else {
                     throw new RuntimeException("Provided library does not exist: " + f.getAbsolutePath());
@@ -87,6 +88,7 @@ public class EnvironmentLoader {
                         Files.find(Paths.get(f.getAbsolutePath()), 999,
                                     (p, bfa) -> bfa.isRegularFile() && p.getFileName().toString().matches(".*\\.jar"))
                             .forEach( file -> {
+                                System.out.println("Loading library " + file);
                                 config.addLib(file.toString());
                             });
                     } catch (IOException e) {
@@ -105,6 +107,7 @@ public class EnvironmentLoader {
                 String id = parts[0];
                 File f = new File(parts[1]);
                 if (f.exists()) {
+                    System.out.println("Loading plugin " + f.getAbsolutePath() + "(id: "+ id+")");
                     config.addPlugin(f.getAbsolutePath(), id);
                 } else {
                     throw new RuntimeException("Provided plugin does not exist: " + f.getAbsolutePath());
@@ -134,19 +137,12 @@ public class EnvironmentLoader {
                                         String id = idElement.getTextContent();
                                         if (!idsToExclude.contains(id)) {
                                             File dir = file.toFile().getParentFile().getParentFile();
+                                            System.out.println("Loading plugin " + dir.getAbsolutePath() + "(id: "+ id+")");
                                             config.addPlugin(dir.getAbsolutePath(), id);
                                         }
                                     } catch (Exception e) {
                                         throw new RuntimeException(e);
                                     }
-
-//                                                def xmlCode = new XmlSlurper().parseText(file.getText())
-//                                                def id = xmlCode.id.text()
-//                                                if (!entry.idsToExclude.contains(id)) {
-//                                                    def dir = file.getParentFile().getParentFile()
-//                                                    plugin(path: dir.getAbsolutePath(), id: id)
-//                                                }
-//                                            }
                                 });
                     } catch (IOException e) {
                         throw new RuntimeException(e);
@@ -170,57 +166,6 @@ public class EnvironmentLoader {
             //.addPlugin(PathManager.getHomePath()+"/plugins/org.modelix.model", "org.modelix.model")
             //.addPlugin(PathManager.getHomePath()+"/plugins/org.modelix.common", "org.modelix.common")
 
-//            extension.additionalPlugins.forEach {
-//                                    def f = new File(it.path)
-//                                    if (f.exists()) {
-//                                        plugin(path: it.path, id: it.id)
-//                                    } else {
-//                                        logger.warn("Provided plugin does not exist: ${it.path} (${it.id})")
-//                                    }
-//                                }
-//
-//                                extension.additionalPluginsDirs.forEach { entry ->
-//                                    if (entry.dir.exists()) {
-//                                        entry.dir.eachFileRecurse(groovy.io.FileType.FILES) { file ->
-//                                            if (file.name == "plugin.xml") {
-//                                                def xmlCode = new XmlSlurper().parseText(file.getText())
-//                                                def id = xmlCode.id.text()
-//                                                if (!entry.idsToExclude.contains(id)) {
-//                                                    def dir = file.getParentFile().getParentFile()
-//                                                    plugin(path: dir.getAbsolutePath(), id: id)
-//                                                }
-//                                            }
-//                                        }
-//                                    } else {
-//                                        logger.warn("Provided plugin dir does not exist: ${it}")
-//                                    }
-//                                }
-//
-//
-//                                extension.additionalLibraries.forEach {
-//                                    if (it instanceof String){
-//                                        logger.info(" -> library ${it}")
-//                                        def f = new File(it)
-//                                        if (f.exists()) {
-//                                            library(file: it)
-//                                        } else {
-//                                            logger.warn("Provided library does not exist: ${f.absolutePath}")
-//                                        }
-//                                    } else if (it instanceof File) {
-//                                        if (it.exists()) {
-//                                            it.eachFileRecurse { file ->
-//                                                logger.info(" -> considering library dir ${file} in ${it}")
-//                                                if (file.getName().endsWith(".jar")) {
-//                                                    library(file: "${file.getAbsolutePath()}")
-//                                                }
-//                                            }
-//                                        } else {
-//                                            logger.warn("Provided library does not exist: ${it.absolutePath}")
-//                                        }
-//                                    } else {
-//                                        logger.error("ignoring additionalLibraries ${it}, as they are not a String or a File")
-//                                    }
-//                                }
 
             if (gitRepoDir != null) {
                 config.addLib(gitRepoDir.getAbsolutePath());
@@ -244,10 +189,16 @@ public class EnvironmentLoader {
             System.out.println("IdeaEnvironment created");
             RuntimeFlags.setTestMode(TestMode.NONE);
             System.out.println("Test mode set to None");
-            ((IdeaEnvironment) environment).init();
-            System.out.println("IdeaEnvironment initialized");
-            ourProject = environment.createEmptyProject();
-            System.out.println("Empty project created");
+            try {
+                System.out.println("About to init environment " + environment);
+                ((IdeaEnvironment) environment).init();
+                System.out.println("IdeaEnvironment initialized");
+                ourProject = environment.createEmptyProject();
+                System.out.println("Empty project created");
+            } catch (Throwable e) {
+                e.printStackTrace();
+                throw new RuntimeException(e);
+            }
         }
 
         return ourProject;
