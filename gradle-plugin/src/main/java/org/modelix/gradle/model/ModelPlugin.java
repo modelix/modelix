@@ -46,7 +46,11 @@ public class ModelPlugin implements Plugin<Project> {
             if (settings.usingExistingMps()) {
                 mpsConfig = null;
                 pluginsConfig = null;
+                // We are using an existing MPS. We also expect the user to add the version of MPS Extensions and
+                // Modelix that they intend to use
             } else {
+                // We are not using an existing MPS, therefore we will add one and we will add dependencies
+                // to MPS Extensions and Modelix as well
                 String mpsVersion = manifest.getMainAttributes().getValue("MPS-Version");
                 String extensionsVersion = manifest.getMainAttributes().getValue("MPS-extensions-Version");
                 mpsConfig = project.getConfigurations().detachedConfiguration(
@@ -62,7 +66,9 @@ public class ModelPlugin implements Plugin<Project> {
             if (settings.usingExistingMps()) {
                 copyMpsTask = null;
                 copyMpsModelPluginTask = null;
+                // When using an existing MPS we do not need to copy plugins
             } else {
+                // When not using an existing MPS we do need to copy plugins under the downloaded MPS
                 copyMpsTask = project.getTasks().create("copyMpsForModelixExport", Copy.class, copy -> {
                     copy.from(mpsConfig.resolve().stream().map(project::zipTree).collect(Collectors.toList()));
                     copy.into(new File("mpsForModelixExport"));
@@ -104,7 +110,6 @@ public class ModelPlugin implements Plugin<Project> {
                 } else {
                     javaExec.dependsOn(copyMpsTask, copyMpsModelPluginTask);
                 }
-                //javaExec.setJvmArgs(Arrays.asList("-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=*:5072"));
                 javaExec.setDescription("Export models from modelix model server to MPS files");
                 javaExec.classpath(project.fileTree(new File(mpsLocation, "lib")).include("**/*.jar"));
                 javaExec.classpath(genConfig);
@@ -122,10 +127,6 @@ public class ModelPlugin implements Plugin<Project> {
                 if (settings.isDebug()) javaExec.setDebug(true);
                 javaExec.getTimeout().set(Duration.ofSeconds(settings.getTimeout()));
                 javaExec.setIgnoreExitValue(true);
-                ByteArrayOutputStream stdOutput = new ByteArrayOutputStream();
-                ByteArrayOutputStream errorOutput = new ByteArrayOutputStream();
-//                javaExec.setStandardOutput(stdOutput);
-//                javaExec.setErrorOutput(errorOutput);
                 javaExec.setMain(ExportMain.class.getName());
                 javaExec.doLast(task -> {
                     System.out.println("After execution");
@@ -133,18 +134,6 @@ public class ModelPlugin implements Plugin<Project> {
                     int exitValue = execResult.getExitValue();
                     if (exitValue != 0) {
                         System.err.println("Execution of ExportMain failed. Exit code: " + exitValue);
-
-                        System.out.println("=======================");
-                        System.out.println("Export main err output ");
-                        System.out.println("=======================");
-                        System.err.println(errorOutput.toString(Charsets.UTF_8));
-                        System.out.println();
-
-                        System.out.println("=======================");
-                        System.out.println("Export main std output ");
-                        System.out.println("=======================");
-                        System.out.println(stdOutput.toString(Charsets.UTF_8));
-                        System.out.println();
                     }
                 });
             });
@@ -171,4 +160,3 @@ public class ModelPlugin implements Plugin<Project> {
         throw new RuntimeException("No MANIFEST.MF found containing 'modelix-Version'");
     }
 }
-
