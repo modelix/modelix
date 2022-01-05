@@ -38113,18 +38113,223 @@
                           </node>
                         </node>
                       </node>
-                      <node concept="abc8K" id="27nwHiBTaMD" role="3cqZAp">
-                        <node concept="Xl_RD" id="27nwHiBTaME" role="abp_N">
+                      <node concept="abc8K" id="27nwHiBVaI6" role="3cqZAp">
+                        <node concept="Xl_RD" id="27nwHiBVaI7" role="abp_N">
                           <property role="Xl_RC" value="before check " />
                         </node>
-                        <node concept="1eOMI4" id="27nwHiBTaMF" role="abp_N">
-                          <node concept="3cpWsd" id="27nwHiBTaMG" role="1eOMHV">
-                            <node concept="37vLTw" id="27nwHiBTaMH" role="3uHU7w">
+                        <node concept="1eOMI4" id="27nwHiBVaI8" role="abp_N">
+                          <node concept="3cpWsd" id="27nwHiBVaI9" role="1eOMHV">
+                            <node concept="37vLTw" id="27nwHiBVaIa" role="3uHU7w">
                               <ref role="3cqZAo" node="axNgCaO0qD" resolve="timeZero" />
                             </node>
-                            <node concept="2YIFZM" id="27nwHiBTaMI" role="3uHU7B">
+                            <node concept="2YIFZM" id="27nwHiBVaIb" role="3uHU7B">
                               <ref role="1Pybhd" to="wyt6:~System" resolve="System" />
                               <ref role="37wK5l" to="wyt6:~System.currentTimeMillis()" resolve="currentTimeMillis" />
+                            </node>
+                          </node>
+                        </node>
+                      </node>
+                      <node concept="3clFbJ" id="27nwHiBUAu9" role="3cqZAp">
+                        <node concept="3clFbS" id="27nwHiBUAub" role="3clFbx">
+                          <node concept="3cpWs8" id="27nwHiBUFft" role="3cqZAp">
+                            <node concept="3cpWsn" id="27nwHiBUFfu" role="3cpWs9">
+                              <property role="TrG5h" value="mmrt" />
+                              <node concept="3uibUv" id="27nwHiBUFfv" role="1tU5fm">
+                                <ref role="3uigEE" to="kxov:~MetaModelBranch$MMReadTransaction" resolve="MetaModelBranch.MMReadTransaction" />
+                              </node>
+                              <node concept="1eOMI4" id="27nwHiBUGAP" role="33vP2m">
+                                <node concept="10QFUN" id="27nwHiBUGAM" role="1eOMHV">
+                                  <node concept="3uibUv" id="27nwHiBUGAR" role="10QFUM">
+                                    <ref role="3uigEE" to="kxov:~MetaModelBranch$MMReadTransaction" resolve="MetaModelBranch.MMReadTransaction" />
+                                  </node>
+                                  <node concept="2OqwBi" id="27nwHiBUGAS" role="10QFUP">
+                                    <node concept="37vLTw" id="27nwHiBUGAT" role="2Oq$k0">
+                                      <ref role="3cqZAo" node="1pu7lttGncS" resolve="branch2" />
+                                    </node>
+                                    <node concept="liA8E" id="27nwHiBUGAU" role="2OqNvi">
+                                      <ref role="37wK5l" to="jks5:~IBranch.getTransaction()" resolve="getTransaction" />
+                                    </node>
+                                  </node>
+                                </node>
+                              </node>
+                            </node>
+                          </node>
+                          <node concept="abc8K" id="27nwHiBUHB$" role="3cqZAp">
+                            <node concept="Xl_RD" id="27nwHiBUImT" role="abp_N">
+                              <property role="Xl_RC" value="MMReadTransaction.transaction " />
+                            </node>
+                            <node concept="2OqwBi" id="27nwHiBUL9z" role="abp_N">
+                              <node concept="37vLTw" id="27nwHiBUKjL" role="2Oq$k0">
+                                <ref role="3cqZAo" node="27nwHiBUFfu" resolve="mmrt" />
+                              </node>
+                              <node concept="liA8E" id="27nwHiBUL_J" role="2OqNvi">
+                                <ref role="37wK5l" to="kxov:~MetaModelBranch$MMReadTransaction.getTransaction()" resolve="getTransaction" />
+                              </node>
+                            </node>
+                            <node concept="Xl_RD" id="27nwHiBUMkU" role="abp_N">
+                              <property role="Xl_RC" value=" " />
+                            </node>
+                            <node concept="2OqwBi" id="27nwHiBUNJt" role="abp_N">
+                              <node concept="2OqwBi" id="27nwHiBUMYU" role="2Oq$k0">
+                                <node concept="2OqwBi" id="27nwHiBUMD4" role="2Oq$k0">
+                                  <node concept="37vLTw" id="27nwHiBUMD5" role="2Oq$k0">
+                                    <ref role="3cqZAo" node="27nwHiBUFfu" resolve="mmrt" />
+                                  </node>
+                                  <node concept="liA8E" id="27nwHiBUMD6" role="2OqNvi">
+                                    <ref role="37wK5l" to="kxov:~MetaModelBranch$MMReadTransaction.getTransaction()" resolve="getTransaction" />
+                                  </node>
+                                </node>
+                                <node concept="liA8E" id="27nwHiBUNlA" role="2OqNvi">
+                                  <ref role="37wK5l" to="wyt6:~Object.getClass()" resolve="getClass" />
+                                </node>
+                              </node>
+                              <node concept="liA8E" id="27nwHiBUR50" role="2OqNvi">
+                                <ref role="37wK5l" to="wyt6:~Class.getCanonicalName()" resolve="getCanonicalName" />
+                              </node>
+                            </node>
+                          </node>
+                          <node concept="abc8K" id="27nwHiBURmG" role="3cqZAp">
+                            <node concept="Xl_RD" id="27nwHiBURmH" role="abp_N">
+                              <property role="Xl_RC" value="MMReadTransaction.tree " />
+                            </node>
+                            <node concept="2OqwBi" id="27nwHiBURmI" role="abp_N">
+                              <node concept="37vLTw" id="27nwHiBURmJ" role="2Oq$k0">
+                                <ref role="3cqZAo" node="27nwHiBUFfu" resolve="mmrt" />
+                              </node>
+                              <node concept="liA8E" id="27nwHiBUUw1" role="2OqNvi">
+                                <ref role="37wK5l" to="kxov:~MetaModelBranch$MMReadTransaction.getTree()" resolve="getTree" />
+                              </node>
+                            </node>
+                            <node concept="Xl_RD" id="27nwHiBURmL" role="abp_N">
+                              <property role="Xl_RC" value=" " />
+                            </node>
+                            <node concept="2OqwBi" id="27nwHiBURmM" role="abp_N">
+                              <node concept="2OqwBi" id="27nwHiBURmN" role="2Oq$k0">
+                                <node concept="2OqwBi" id="27nwHiBURmO" role="2Oq$k0">
+                                  <node concept="37vLTw" id="27nwHiBURmP" role="2Oq$k0">
+                                    <ref role="3cqZAo" node="27nwHiBUFfu" resolve="mmrt" />
+                                  </node>
+                                  <node concept="liA8E" id="27nwHiBUUH_" role="2OqNvi">
+                                    <ref role="37wK5l" to="kxov:~MetaModelBranch$MMReadTransaction.getTree()" resolve="getTree" />
+                                  </node>
+                                </node>
+                                <node concept="liA8E" id="27nwHiBURmR" role="2OqNvi">
+                                  <ref role="37wK5l" to="wyt6:~Object.getClass()" resolve="getClass" />
+                                </node>
+                              </node>
+                              <node concept="liA8E" id="27nwHiBURmS" role="2OqNvi">
+                                <ref role="37wK5l" to="wyt6:~Class.getCanonicalName()" resolve="getCanonicalName" />
+                              </node>
+                            </node>
+                          </node>
+                          <node concept="3clFbJ" id="27nwHiBUVSD" role="3cqZAp">
+                            <node concept="3clFbS" id="27nwHiBUVSF" role="3clFbx">
+                              <node concept="3cpWs8" id="27nwHiBUY_c" role="3cqZAp">
+                                <node concept="3cpWsn" id="27nwHiBUY_d" role="3cpWs9">
+                                  <property role="TrG5h" value="mmbt" />
+                                  <node concept="3uibUv" id="27nwHiBUY_e" role="1tU5fm">
+                                    <ref role="3uigEE" to="kxov:~MetaModelBranch$MMBulkTree" resolve="MetaModelBranch.MMBulkTree" />
+                                  </node>
+                                  <node concept="1eOMI4" id="27nwHiBV04i" role="33vP2m">
+                                    <node concept="10QFUN" id="27nwHiBV04f" role="1eOMHV">
+                                      <node concept="3uibUv" id="27nwHiBV04k" role="10QFUM">
+                                        <ref role="3uigEE" to="kxov:~MetaModelBranch$MMBulkTree" resolve="MetaModelBranch.MMBulkTree" />
+                                      </node>
+                                      <node concept="2OqwBi" id="27nwHiBV04l" role="10QFUP">
+                                        <node concept="37vLTw" id="27nwHiBV04m" role="2Oq$k0">
+                                          <ref role="3cqZAo" node="27nwHiBUFfu" resolve="mmrt" />
+                                        </node>
+                                        <node concept="liA8E" id="27nwHiBV04n" role="2OqNvi">
+                                          <ref role="37wK5l" to="kxov:~MetaModelBranch$MMReadTransaction.getTree()" resolve="getTree" />
+                                        </node>
+                                      </node>
+                                    </node>
+                                  </node>
+                                </node>
+                              </node>
+                              <node concept="abc8K" id="27nwHiBV16m" role="3cqZAp">
+                                <node concept="Xl_RD" id="27nwHiBV1QU" role="abp_N">
+                                  <property role="Xl_RC" value="MetaModelBranch.MMBulkTree " />
+                                </node>
+                                <node concept="37vLTw" id="27nwHiBV3ld" role="abp_N">
+                                  <ref role="3cqZAo" node="27nwHiBUY_d" resolve="mmbt" />
+                                </node>
+                                <node concept="Xl_RD" id="27nwHiBV3Z9" role="abp_N">
+                                  <property role="Xl_RC" value=" " />
+                                </node>
+                                <node concept="2OqwBi" id="27nwHiBV790" role="abp_N">
+                                  <node concept="2OqwBi" id="27nwHiBV6i7" role="2Oq$k0">
+                                    <node concept="37vLTw" id="27nwHiBV5ub" role="2Oq$k0">
+                                      <ref role="3cqZAo" node="27nwHiBUY_d" resolve="mmbt" />
+                                    </node>
+                                    <node concept="liA8E" id="27nwHiBV6Jg" role="2OqNvi">
+                                      <ref role="37wK5l" to="wyt6:~Object.getClass()" resolve="getClass" />
+                                    </node>
+                                  </node>
+                                  <node concept="liA8E" id="27nwHiBVapV" role="2OqNvi">
+                                    <ref role="37wK5l" to="wyt6:~Class.getCanonicalName()" resolve="getCanonicalName" />
+                                  </node>
+                                </node>
+                              </node>
+                              <node concept="3clFbF" id="27nwHiBVfB2" role="3cqZAp">
+                                <node concept="2OqwBi" id="27nwHiBVgFs" role="3clFbG">
+                                  <node concept="37vLTw" id="27nwHiBVfB0" role="2Oq$k0">
+                                    <ref role="3cqZAo" node="27nwHiBUY_d" resolve="mmbt" />
+                                  </node>
+                                  <node concept="liA8E" id="27nwHiBVh9q" role="2OqNvi">
+                                    <ref role="37wK5l" to="kxov:~MetaModelBranch$MMTree.getProperty(long,java.lang.String)" resolve="getProperty" />
+                                    <node concept="37vLTw" id="27nwHiBVhUb" role="37wK5m">
+                                      <ref role="3cqZAo" node="4_k_9wJ_0ME" resolve="id" />
+                                    </node>
+                                    <node concept="Xl_RD" id="27nwHiBVj7y" role="37wK5m">
+                                      <property role="Xl_RC" value="#mpsNodeId#" />
+                                    </node>
+                                  </node>
+                                </node>
+                              </node>
+                              <node concept="abc8K" id="27nwHiBTaMD" role="3cqZAp">
+                                <node concept="Xl_RD" id="27nwHiBTaME" role="abp_N">
+                                  <property role="Xl_RC" value="verifying performance equivalence " />
+                                </node>
+                                <node concept="1eOMI4" id="27nwHiBTaMF" role="abp_N">
+                                  <node concept="3cpWsd" id="27nwHiBTaMG" role="1eOMHV">
+                                    <node concept="37vLTw" id="27nwHiBTaMH" role="3uHU7w">
+                                      <ref role="3cqZAo" node="axNgCaO0qD" resolve="timeZero" />
+                                    </node>
+                                    <node concept="2YIFZM" id="27nwHiBTaMI" role="3uHU7B">
+                                      <ref role="1Pybhd" to="wyt6:~System" resolve="System" />
+                                      <ref role="37wK5l" to="wyt6:~System.currentTimeMillis()" resolve="currentTimeMillis" />
+                                    </node>
+                                  </node>
+                                </node>
+                              </node>
+                            </node>
+                            <node concept="2ZW3vV" id="27nwHiBUWsV" role="3clFbw">
+                              <node concept="3uibUv" id="27nwHiBUX9Q" role="2ZW6by">
+                                <ref role="3uigEE" to="kxov:~MetaModelBranch$MMBulkTree" resolve="MetaModelBranch.MMBulkTree" />
+                              </node>
+                              <node concept="2OqwBi" id="27nwHiBUWc$" role="2ZW6bz">
+                                <node concept="37vLTw" id="27nwHiBUWc_" role="2Oq$k0">
+                                  <ref role="3cqZAo" node="27nwHiBUFfu" resolve="mmrt" />
+                                </node>
+                                <node concept="liA8E" id="27nwHiBUWcA" role="2OqNvi">
+                                  <ref role="37wK5l" to="kxov:~MetaModelBranch$MMReadTransaction.getTree()" resolve="getTree" />
+                                </node>
+                              </node>
+                            </node>
+                          </node>
+                          <node concept="3clFbH" id="27nwHiBVdgq" role="3cqZAp" />
+                        </node>
+                        <node concept="2ZW3vV" id="27nwHiBUCD4" role="3clFbw">
+                          <node concept="3uibUv" id="27nwHiBUDGq" role="2ZW6by">
+                            <ref role="3uigEE" to="kxov:~MetaModelBranch$MMReadTransaction" resolve="MetaModelBranch.MMReadTransaction" />
+                          </node>
+                          <node concept="2OqwBi" id="27nwHiBUC2A" role="2ZW6bz">
+                            <node concept="37vLTw" id="27nwHiBUB3N" role="2Oq$k0">
+                              <ref role="3cqZAo" node="1pu7lttGncS" resolve="branch2" />
+                            </node>
+                            <node concept="liA8E" id="27nwHiBUCjM" role="2OqNvi">
+                              <ref role="37wK5l" to="jks5:~IBranch.getTransaction()" resolve="getTransaction" />
                             </node>
                           </node>
                         </node>
