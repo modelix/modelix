@@ -24,12 +24,147 @@ import java.util.Set;
 
 public class EnvironmentLoader {
 
+    public enum Key {
+        SERVER_URL("serverUrl"),
+        REPOSITORY_ID("repositoryId"),
+        BRANCH_NAME("branchName"),
+        ADDITIONAL_LIBRARIES("additionalLibraries"),
+        ADDITIONAL_LIBRARY_DIRS("additionalLibraryDirs"),
+        ADDITIONAL_PLUGINS("additionalPlugins"),
+        ADDITIONAL_PLUGIN_DIRS("additionalPluginDirs"),
+        MPS_EXTENSIONS_PATH("mpsExtensionsPath"),
+        MODELIX_PATH("modelixPath");
+
+        private String code;
+
+        Key(String code) {
+            this.code = code;
+        }
+
+        public String getCode() {
+            return this.code;
+        }
+
+        public String getPropertyKey() {
+            return ExportMain.PROPERTY_PREFIX + this.code;
+        }
+
+        public String readProperty() {
+            return System.getProperty(getPropertyKey());
+        }
+
+        public File readPropertyAsFile() {
+            return new File(System.getProperty(getPropertyKey()));
+        }
+    }
+
+
     private static Environment environment;
     private static Project ourProject;
 
     public static void loadEnvironment(Project project) {
         if (ourProject != null) return;
         ourProject = project;
+    }
+
+    /**
+     * The user of the plugin can indicate single libraries to import or entire dirs to explore and import recursively.
+     * The exploration is done at this time and not earlier because the directories could be filled by other tasks that
+     * could have not yet been completed at configuration time.
+     */
+    private static void loadAdditionalLibraries(EnvironmentConfig config) {
+        String additionalLibrariesStr = Key.ADDITIONAL_LIBRARIES.readProperty();
+        String[] additionalLibraries = additionalLibrariesStr.isBlank() ? new String[]{}
+                : additionalLibrariesStr.split(",");
+        for (String additionalLibrary: additionalLibraries) {
+            File f = new File(additionalLibrary);
+            if (f.exists()) {
+                System.out.println("Loading library " + f.getAbsolutePath());
+                config.addLib(f.getAbsolutePath());
+            } else {
+                throw new RuntimeException("Provided library does not exist: " + f.getAbsolutePath());
+            }
+        }
+
+        String additionalLibraryDirsStr = Key.ADDITIONAL_LIBRARY_DIRS.readProperty();
+        String[] additionalLibraryDirs = additionalLibraryDirsStr.isBlank() ? new String[]{}
+                : additionalLibraryDirsStr.split(",");
+        for (String additionalLibraryDir: additionalLibraryDirs) {
+            File f = new File(additionalLibraryDir);
+            if (f.exists()) {
+                try {
+                    Files.find(Paths.get(f.getAbsolutePath()), 999,
+                                    (p, bfa) -> bfa.isRegularFile() && p.getFileName().toString()
+                                            .matches(".*\\.jar"))
+                            .forEach( file -> {
+                                System.out.println("Loading library " + file);
+                                config.addLib(file.toString());
+                            });
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            } else {
+                throw new RuntimeException("Provided library dir does not exist: " + f.getAbsolutePath());
+            }
+        }
+    }
+
+    /**
+     * The user of the plugin can indicate single plugins to import or entire dirs to explore and import recursively.
+     * The exploration is done at this time and not earlier because the directories could be filled by other tasks that
+     * could have not yet been completed at configuration time.
+     */
+    private static void loadAdditionalPlugins(EnvironmentConfig config) {
+        String additionalPluginsStr = Key.ADDITIONAL_PLUGINS.readProperty();
+        String[] additionalPlugins = additionalPluginsStr.isBlank() ? new String[]{} : additionalPluginsStr.split(",");
+        for (String additionalPlugin: additionalPlugins) {
+            String[] parts = additionalPlugin.split("#");
+            String id = parts[0];
+            File f = new File(parts[1]);
+            if (f.exists()) {
+                System.out.println("Loading plugin " + f.getAbsolutePath() + "(id: "+ id+")");
+                config.addPlugin(f.getAbsolutePath(), id);
+            } else {
+                throw new RuntimeException("Provided plugin does not exist: " + f.getAbsolutePath());
+            }
+        }
+
+        String additionalPluginDirsStr = Key.ADDITIONAL_PLUGIN_DIRS.readProperty();
+        String[] additionalPluginDirs = additionalPluginDirsStr.isBlank() ? new String[]{} : additionalPluginDirsStr.split("\\$");
+        for (String additionalPluginDir: additionalPluginDirs) {
+            String[] parts = additionalPluginDir.split("#");
+            String path = parts[0];
+            File f = new File(path);
+            String[] idsToExcludeArray = (parts.length == 1 || parts[1].isBlank()) ? new String[]{} : parts[1].split(",");
+            Set<String> idsToExclude = new HashSet<String>(Arrays.asList(idsToExcludeArray));
+            if (f.exists()) {
+                try {
+                    Files.find(Paths.get(f.getAbsolutePath()), 999,
+                                    (p, bfa) -> bfa.isRegularFile() && p.getFileName().toString().matches("plugin.xml"))
+                            .forEach( file -> {
+                                DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+                                try {
+                                    DocumentBuilder db = dbf.newDocumentBuilder();
+                                    Document doc = db.parse(file.toFile());
+                                    Element element = (Element)doc.getFirstChild();
+                                    Element idElement = (Element)element.getElementsByTagName("id").item(0);
+                                    String id = idElement.getTextContent();
+                                    if (!idsToExclude.contains(id)) {
+                                        File dir = file.toFile().getParentFile().getParentFile();
+                                        System.out.println("Loading plugin " + dir.getAbsolutePath() + "(id: "+ id+")");
+                                        config.addPlugin(dir.getAbsolutePath(), id);
+                                    }
+                                } catch (Exception e) {
+                                    throw new RuntimeException(e);
+                                }
+                            });
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            } else {
+                throw new RuntimeException("Provided plugin dir does not exist: " + f.getAbsolutePath());
+            }
+        }
     }
 
     public static Project loadEnvironment(File gitRepoDir) {
@@ -46,14 +181,10 @@ public class EnvironmentLoader {
                     .withCorePlugin()
                     .withDefaultPlugins()
                     .withDefaultSamples()
-                    //.withDevkitPlugin()
                     .withGit4IdeaPlugin()
                     .withGit4IdeaStubsPlugin()
-                    //.withDebuggerPlugin()
                     .withJavaPlugin()
-                    //.withMakePlugin()
                     .withMigrationPlugin()
-                    //.withTestingPlugin()
                     .withVcsPlugin()
                     .withWorkbenchPath()
                     ;
@@ -65,101 +196,17 @@ public class EnvironmentLoader {
             config.addPlugin(PathManager.getHomePath() + "/plugins/mps-httpsupport", "jetbrains.mps.ide.httpsupport");
             config.addPlugin(PathManager.getHomePath() + "/plugins/mps-execution-languages", "jetbrains.mps.execution.languages");
 
-            // Add additionalLibraries
-            String additionalLibrariesStr = System.getProperty("modelix.export.additionalLibraries");
-            String[] additionalLibraries = additionalLibrariesStr.isBlank() ? new String[]{} : additionalLibrariesStr.split(",");
-            for (String additionalLibrary: additionalLibraries) {
-                File f = new File(additionalLibrary);
-                if (f.exists()) {
-                    System.out.println("Loading library " + f.getAbsolutePath());
-                    config.addLib(f.getAbsolutePath());
-                } else {
-                    throw new RuntimeException("Provided library does not exist: " + f.getAbsolutePath());
-                }
-            }
-
-            // Add additionalLibraryDirs
-            String additionalLibraryDirsStr = System.getProperty("modelix.export.additionalLibraryDirs");
-            String[] additionalLibraryDirs = additionalLibraryDirsStr.isBlank() ? new String[]{} : additionalLibraryDirsStr.split(",");
-            for (String additionalLibraryDir: additionalLibraryDirs) {
-                File f = new File(additionalLibraryDir);
-                if (f.exists()) {
-                    try {
-                        Files.find(Paths.get(f.getAbsolutePath()), 999,
-                                    (p, bfa) -> bfa.isRegularFile() && p.getFileName().toString().matches(".*\\.jar"))
-                            .forEach( file -> {
-                                System.out.println("Loading library " + file);
-                                config.addLib(file.toString());
-                            });
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
-                    } else {
-                        throw new RuntimeException("Provided library dir does not exist: " + f.getAbsolutePath());
-                    }
-            }
-
-            // Add additionalPlugins
-            String additionalPluginsStr = System.getProperty("modelix.export.additionalPlugins");
-            String[] additionalPlugins = additionalPluginsStr.isBlank() ? new String[]{} : additionalPluginsStr.split(",");
-            for (String additionalPlugin: additionalPlugins) {
-                String[] parts = additionalPlugin.split("#");
-                String id = parts[0];
-                File f = new File(parts[1]);
-                if (f.exists()) {
-                    System.out.println("Loading plugin " + f.getAbsolutePath() + "(id: "+ id+")");
-                    config.addPlugin(f.getAbsolutePath(), id);
-                } else {
-                    throw new RuntimeException("Provided plugin does not exist: " + f.getAbsolutePath());
-                }
-            }
-
-            // Add additionalPluginDirs
-            String additionalPluginDirsStr = System.getProperty("modelix.export.additionalPluginDirs");
-            String[] additionalPluginDirs = additionalPluginDirsStr.isBlank() ? new String[]{} : additionalPluginDirsStr.split("\\$");
-            for (String additionalPluginDir: additionalPluginDirs) {
-                String[] parts = additionalPluginDir.split("#");
-                String path = parts[0];
-                File f = new File(path);
-                String[] idsToExcludeArray = (parts.length == 1 || parts[1].isBlank()) ? new String[]{} : parts[1].split(",");
-                Set<String> idsToExclude = new HashSet<String>(Arrays.asList(idsToExcludeArray));
-                if (f.exists()) {
-                    try {
-                        Files.find(Paths.get(f.getAbsolutePath()), 999,
-                                        (p, bfa) -> bfa.isRegularFile() && p.getFileName().toString().matches("plugin.xml"))
-                                .forEach( file -> {
-                                    DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-                                    try {
-                                        DocumentBuilder db = dbf.newDocumentBuilder();
-                                        Document doc = db.parse(file.toFile());
-                                        Element element = (Element)doc.getFirstChild();
-                                        Element idElement = (Element)element.getElementsByTagName("id").item(0);
-                                        String id = idElement.getTextContent();
-                                        if (!idsToExclude.contains(id)) {
-                                            File dir = file.toFile().getParentFile().getParentFile();
-                                            System.out.println("Loading plugin " + dir.getAbsolutePath() + "(id: "+ id+")");
-                                            config.addPlugin(dir.getAbsolutePath(), id);
-                                        }
-                                    } catch (Exception e) {
-                                        throw new RuntimeException(e);
-                                    }
-                                });
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
-                } else {
-                    throw new RuntimeException("Provided plugin dir does not exist: " + f.getAbsolutePath());
-                }
-            }
+            loadAdditionalLibraries(config);
+            loadAdditionalPlugins(config);
 
             // Add MPS extensions and Modelix
-            File extensionsPath = new File(System.getProperty("modelix.export.mpsExtensionsPath"));
+            File extensionsPath = Key.MPS_EXTENSIONS_PATH.readPropertyAsFile();
             if (!extensionsPath.exists()) {
                 throw new RuntimeException("MPS Extensions path is not valid: " + extensionsPath);
             }
 
             // Add Modelix
-            File modelixPath = new File(System.getProperty("modelix.export.modelixPath"));
+            File modelixPath = Key.MODELIX_PATH.readPropertyAsFile();
             if (!modelixPath.exists()) {
                 throw new RuntimeException("Modelix path is not valid: " + modelixPath);
             }

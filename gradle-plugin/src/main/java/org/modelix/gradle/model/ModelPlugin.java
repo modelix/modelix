@@ -1,26 +1,22 @@
 package org.modelix.gradle.model;
 
 import kotlin.text.Charsets;
-import org.gradle.api.Action;
-import org.gradle.api.DefaultTask;
 import org.gradle.api.Plugin;
 import org.gradle.api.Project;
-import org.gradle.api.Task;
 import org.gradle.api.artifacts.Configuration;
 import org.gradle.api.file.RelativePath;
 import org.gradle.api.tasks.Copy;
 import org.gradle.api.tasks.JavaExec;
 import org.gradle.process.ExecResult;
+import org.modelix.gradle.model.EnvironmentLoader.Key;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
 import java.net.URL;
 import java.time.Duration;
 import java.util.Arrays;
 import java.util.Enumeration;
-import java.util.Properties;
 import java.util.jar.Manifest;
 import java.util.stream.Collectors;
 
@@ -113,15 +109,15 @@ public class ModelPlugin implements Plugin<Project> {
                 javaExec.classpath(project.fileTree(new File(mpsLocation, "lib")).include("**/*.jar"));
                 javaExec.classpath(genConfig);
                 javaExec.args(
-                        "serverUrl", settings.getServerUrl(),
-                        "repositoryId", settings.getRepositoryId(),
-                        "branchName", settings.getBranchName(),
-                        "mpsExtensionsPath", settings.getMpsExtensionsArtifactsPath(),
-                        "modelixPath", settings.getModelixArtifactsPath(),
-                        "additionalLibraries", settings.getAdditionalLibrariesAsString(),
-                        "additionalLibraryDirs", settings.getAdditionalLibraryDirsAsString(),
-                        "additionalPlugins", settings.getAdditionalPluginsAsString(),
-                        "additionalPluginDirs", settings.getAdditionalPluginDirsAsString()
+                        Key.SERVER_URL, settings.getServerUrl(),
+                        Key.REPOSITORY_ID, settings.getRepositoryId(),
+                        Key.BRANCH_NAME, settings.getBranchName(),
+                        Key.MPS_EXTENSIONS_PATH, settings.getMpsExtensionsArtifactsPath(),
+                        Key.MODELIX_PATH, settings.getModelixArtifactsPath(),
+                        Key.ADDITIONAL_LIBRARIES.getCode(), settings.getAdditionalLibrariesAsString(),
+                        Key.ADDITIONAL_LIBRARY_DIRS.getCode(), settings.getAdditionalLibraryDirsAsString(),
+                        Key.ADDITIONAL_PLUGINS, settings.getAdditionalPluginsAsString(),
+                        Key.ADDITIONAL_PLUGIN_DIRS, settings.getAdditionalPluginDirsAsString()
                 );
                 if (settings.isDebug()) javaExec.setDebug(true);
                 javaExec.getTimeout().set(Duration.ofSeconds(settings.getTimeout()));

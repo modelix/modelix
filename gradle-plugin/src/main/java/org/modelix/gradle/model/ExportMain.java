@@ -24,7 +24,7 @@ import java.util.Map;
 
 public class ExportMain {
 
-    private static final String PROPERTY_PREFIX = "modelix.export.";
+    public static final String PROPERTY_PREFIX = "modelix.export.";
 
     public static void main(String[] args) {
         try {
