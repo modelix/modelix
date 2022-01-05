@@ -90,7 +90,7 @@ kotlin {
     }
 }
 
-jvmTest.dependsOn ":model-server:fatJar"
+jvmTest.dependsOn ":model-server:shadowJar"
 
 tasks.jacocoTestReport {
 

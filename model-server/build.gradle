@@ -5,6 +5,7 @@ plugins {
     id 'maven-publish'
     id 'com.adarshr.test-logger' version '2.1.0'
     id "org.jetbrains.kotlin.jvm"
+    id 'com.github.johnrengelman.shadow' version '6.1.0'
 }
 
 description = 'Model Server offering access to model storage'
@@ -57,6 +58,12 @@ configurations {
     }
 }
 
+jar {
+    manifest {
+        attributes 'Main-Class': 'org.modelix.model.server.Main'
+    }
+}
+
 task fatJar(type: Jar) {
     manifest {
         attributes 'Main-Class': 'org.modelix.model.server.Main'
@@ -67,14 +74,20 @@ task fatJar(type: Jar) {
     with jar
 }
 
+shadowJar {
+    archiveBaseName.set('model-server-fatJar')
+    archiveClassifier.set('')
+    archiveVersion.set('latest')
+}
+
 def fatJarFile = file("$buildDir/libs/model-server-fatJar-latest.jar")
 def fatJarArtifact = artifacts.add('archives', fatJarFile) {
     type 'jar'
-    builtBy 'fatJar'
+    builtBy 'shadowJar'
 }
 
 task cucumber() {
-    dependsOn fatJar, compileTestJava
+    dependsOn shadowJar, compileTestJava
     doLast {
         javaexec {
             main = "io.cucumber.core.cli.Main"
