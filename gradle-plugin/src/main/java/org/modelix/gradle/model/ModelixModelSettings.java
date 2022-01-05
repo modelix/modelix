@@ -79,20 +79,7 @@ public class ModelixModelSettings {
     }
 
     public void validate() {
-        boolean valid = true;
-        if (usingExistingMps()) {
-            if (this.mpsExtensionsArtifactsPath == null) {
-                System.err.println("When specifying MPS path also MPS extensions path must be specified");
-                valid = false;
-            }
-            if (this.modelixArtifactsPath == null) {
-                System.err.println("When specifying MPS path also Modelix path must be specified");
-                valid = false;
-            }
-        }
-        if (!valid) {
-            throw new RuntimeException("Invalid Modelix Plugin configuration");
-        }
+        // nothing to check at the moment
     }
 
     public File getMpsLocation() {
@@ -100,11 +87,29 @@ public class ModelixModelSettings {
     }
 
     public File getMpsExtensionsLocation() {
-        return this.usingExistingMps() ? new File(getMpsExtensionsArtifactsPath()) : new File(new File("mpsForModelixExport"), "plugins");
+        if (this.usingExistingMps()) {
+            String path = getMpsExtensionsArtifactsPath();
+            if (path == null) {
+                return null;
+            } else {
+                return new File(path);
+            }
+        } else {
+            return new File(new File("mpsForModelixExport"), "plugins");
+        }
     }
 
     public File getModelixLocation() {
-        return this.usingExistingMps() ? new File(getModelixArtifactsPath()) : new File(new File("mpsForModelixExport"), "plugins");
+        if (this.usingExistingMps()) {
+            String path = getModelixArtifactsPath();
+            if (path == null) {
+                return null;
+            } else {
+                return new File(path);
+            }
+        } else {
+            return new File(new File("mpsForModelixExport"), "plugins");
+        }
     }
 
     public String getMpsPath() {

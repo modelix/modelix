@@ -17,6 +17,8 @@ import java.net.URL;
 import java.time.Duration;
 import java.util.Arrays;
 import java.util.Enumeration;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.jar.Manifest;
 import java.util.stream.Collectors;
 
@@ -117,13 +119,17 @@ public class ModelPlugin implements Plugin<Project> {
                         Key.SERVER_URL.getCode(), settings.getServerUrl(),
                         Key.REPOSITORY_ID.getCode(), settings.getRepositoryId(),
                         Key.BRANCH_NAME.getCode(), settings.getBranchName(),
-                        Key.MPS_EXTENSIONS_PATH.getCode(), settings.getMpsExtensionsArtifactsPath(),
-                        Key.MODELIX_PATH.getCode(), settings.getModelixArtifactsPath(),
                         Key.ADDITIONAL_LIBRARIES.getCode(), settings.getAdditionalLibrariesAsString(),
                         Key.ADDITIONAL_LIBRARY_DIRS.getCode(), settings.getAdditionalLibraryDirsAsString(),
                         Key.ADDITIONAL_PLUGINS.getCode(), settings.getAdditionalPluginsAsString(),
                         Key.ADDITIONAL_PLUGIN_DIRS.getCode(), settings.getAdditionalPluginDirsAsString()
                 );
+                if (settings.getMpsExtensionsArtifactsPath() != null) {
+                    javaExec.args(Key.MPS_EXTENSIONS_PATH.getCode(), settings.getMpsExtensionsArtifactsPath());
+                }
+                if (settings.getModelixArtifactsPath() != null) {
+                    javaExec.args(Key.MODELIX_PATH.getCode(), settings.getModelixArtifactsPath());
+                }
                 if (settings.isDebug()) javaExec.setDebug(true);
                 javaExec.getTimeout().set(Duration.ofSeconds(settings.getTimeout()));
                 javaExec.setIgnoreExitValue(true);

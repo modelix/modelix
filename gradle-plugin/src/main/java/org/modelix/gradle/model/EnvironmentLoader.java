@@ -218,8 +218,13 @@ public class EnvironmentLoader {
 
             // Add MPS extensions and Modelix
             File extensionsPath = Key.MPS_EXTENSIONS_PATH.readPropertyAsFile();
-            if (extensionsPath == null || !extensionsPath.exists()) {
-                throw new RuntimeException("MPS Extensions path is not valid: " + extensionsPath);
+            if (extensionsPath == null) {
+                System.out.println("WARNING: MPS extensions path was not specified, therefore we expect that MPS extensions plugins have been added explicitly.");
+            } else {
+                if (!extensionsPath.exists()) {
+                    throw new RuntimeException("MPS Extensions path is not valid: " + extensionsPath);
+                }
+                loadLangJars(config, extensionsPath);
             }
 
             // Add Modelix
@@ -245,6 +250,7 @@ public class EnvironmentLoader {
 //            }
 
             File homePath = new File(PathManager.getHomePath());
+            System.out.println("Loading languages and plugins from " + homePath.getAbsolutePath());
             loadLangJars(config, new File(homePath,"languages"));
             loadLangJars(config, new File(homePath,"plugins"));
             environment = new IdeaEnvironment(config);
