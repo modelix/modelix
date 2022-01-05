@@ -224,22 +224,20 @@ public class EnvironmentLoader {
 
             // Add Modelix
             File modelixPath = Key.MODELIX_PATH.readPropertyAsFile();
-            if (!modelixPath.exists()) {
-                throw new RuntimeException("Modelix path is not valid: " + modelixPath);
+            // If the path is null we expect the plugins to be added manually
+            if (modelixPath == null) {
+                System.out.println("WARNING: modelix path was not specified, therefore we expect that Modelix plugins have been added explicitly.");
+            } else {
+                if (!modelixPath.exists()) {
+                    throw new RuntimeException("Modelix path is not valid: " + modelixPath);
+                }
+                config.addPlugin(modelixPath.getAbsolutePath() + "/plugins/org.modelix.model", "org.modelix.model");
+                config.addPlugin(modelixPath.getAbsolutePath() + "/plugins/org.modelix.common", "org.modelix.common");
             }
-            //.addPlugin(PathManager.getHomePath()+"/plugins/org.modelix.model", "org.modelix.model")
-            //.addPlugin(PathManager.getHomePath()+"/plugins/org.modelix.common", "org.modelix.common")
-
 
             if (gitRepoDir != null) {
                 config.addLib(gitRepoDir.getAbsolutePath());
             }
-
-            System.out.println("<Environment - Plugins start>");
-            for (PluginData pd : config.getPlugins()) {
-                System.out.println(" Plugin Data " + pd.path+" " + pd.id);
-            }
-            System.out.println("<Environment - Plugins end>");
 
 //            for (IdeaPluginDescriptorImpl plugin : PluginManagerCore.loadDescriptors(null, new ArrayList<String>())) {
 //                System.out.println("addPlugin(" + plugin.getPath() + ", " + plugin.getPluginId().getIdString() + ")");
@@ -250,26 +248,16 @@ public class EnvironmentLoader {
             loadLangJars(config, new File(homePath,"languages"));
             loadLangJars(config, new File(homePath,"plugins"));
             environment = new IdeaEnvironment(config);
-            System.out.println("IdeaEnvironment created");
             RuntimeFlags.setTestMode(TestMode.NONE);
-            System.out.println("Test mode set to None");
             try {
-                System.out.println("About to init environment " + environment);
                 ((IdeaEnvironment) environment).init();
-                System.out.println("IdeaEnvironment initialized");
                 ourProject = environment.createEmptyProject();
-                System.out.println("Empty project created");
             } catch (Throwable e) {
-                e.printStackTrace();
-                throw new RuntimeException(e);
+                throw new RuntimeException("Issue with initializing environment and creating empty project", e);
             }
         }
 
         return ourProject;
-    }
-
-    static {
-
     }
 
     protected static void loadLangJars(EnvironmentConfig config, File folder) {
