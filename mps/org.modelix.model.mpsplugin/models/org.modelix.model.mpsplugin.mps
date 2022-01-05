@@ -107,7 +107,6 @@
     <import index="r1fg" ref="87f4b21e-a3a5-459e-a54b-408fd9eb7350/java:gnu.trove.iterator(org.modelix.lib/)" />
     <import index="j8aq" ref="6ed54515-acc8-4d1e-a16c-9fd6cfe951ea/java:jetbrains.mps.module(MPS.Core/)" />
     <import index="hvt5" ref="0a2651ab-f212-45c2-a2f0-343e76cbc26b/java:org.modelix.model(org.modelix.model.client/)" />
-    <import index="37hx" ref="f:diff_old#r:b0cc4f86-cf49-4ffc-b138-1f9973329ce1(org.modelix.model.mpsplugin@old)" implicit="true" />
     <import index="onis" ref="87f4b21e-a3a5-459e-a54b-408fd9eb7350/java:gnu.trove.set(org.modelix.lib/)" implicit="true" />
   </imports>
   <registry>
@@ -11924,12 +11923,12 @@
           <node concept="3clFbS" id="29etMtbjRnT" role="2LFqv$">
             <node concept="3clFbF" id="29etMtbjRnU" role="3cqZAp">
               <node concept="1rXfSq" id="29etMtbjRnV" role="3clFbG">
-                <ref role="37wK5l" to="37hx:5Ns9HDw2j$S" resolve="createModel" />
-                <node concept="37vLTw" id="29etMtbjRnW" role="37wK5m">
-                  <ref role="3cqZAo" to="37hx:29etMtbjRnF" resolve="solution" />
+                <ref role="37wK5l" node="5Ns9HDw2j$S" resolve="createModel" />
+                <node concept="37vLTw" id="27nwHiBWzBv" role="37wK5m">
+                  <ref role="3cqZAo" node="29etMtbjRnF" resolve="solution" />
                 </node>
-                <node concept="37vLTw" id="29etMtbjRnX" role="37wK5m">
-                  <ref role="3cqZAo" to="37hx:29etMtbjRnY" resolve="model" />
+                <node concept="37vLTw" id="27nwHiBWzUZ" role="37wK5m">
+                  <ref role="3cqZAo" node="29etMtbjRnY" resolve="model" />
                 </node>
               </node>
             </node>
@@ -37295,11 +37294,11 @@
                               <node concept="3clFbS" id="4_k_9wJ_0OB" role="1bW5cS">
                                 <node concept="3clFbF" id="4_k_9wJ_0OC" role="3cqZAp">
                                   <node concept="2OqwBi" id="4_k_9wJ_0OD" role="3clFbG">
-                                    <node concept="37vLTw" id="4_k_9wJ_0OE" role="2Oq$k0">
-                                      <ref role="3cqZAo" to="37hx:4_k_9wJ_0Oe" resolve="iNode" />
+                                    <node concept="37vLTw" id="27nwHiBWpl_" role="2Oq$k0">
+                                      <ref role="3cqZAo" node="4_k_9wJ_0Oe" resolve="iNode" />
                                     </node>
                                     <node concept="AQDAd" id="4_k_9wJ_0OF" role="2OqNvi">
-                                      <ref role="37wK5l" to="37hx:6dTx9S5u7xa" resolve="mappedMpsNodeID" />
+                                      <ref role="37wK5l" node="6dTx9S5u7xa" resolve="mappedMpsNodeID" />
                                     </node>
                                   </node>
                                 </node>
@@ -37324,11 +37323,11 @@
                           </node>
                         </node>
                         <node concept="2OqwBi" id="4_k_9wJ_0OM" role="3K4E3e">
-                          <node concept="37vLTw" id="4_k_9wJ_0ON" role="2Oq$k0">
-                            <ref role="3cqZAo" to="37hx:4_k_9wJ_0Oe" resolve="iNode" />
+                          <node concept="37vLTw" id="27nwHiBWoBq" role="2Oq$k0">
+                            <ref role="3cqZAo" node="4_k_9wJ_0Oe" resolve="iNode" />
                           </node>
                           <node concept="AQDAd" id="4_k_9wJ_0OO" role="2OqNvi">
-                            <ref role="37wK5l" to="37hx:6dTx9S5u7xa" resolve="mappedMpsNodeID" />
+                            <ref role="37wK5l" node="6dTx9S5u7xa" resolve="mappedMpsNodeID" />
                           </node>
                         </node>
                       </node>
