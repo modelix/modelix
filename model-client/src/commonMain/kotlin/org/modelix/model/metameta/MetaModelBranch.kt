@@ -205,7 +205,7 @@ class MetaModelBranch(val branch: IBranch) : IBranch by branch {
         }
     }
 
-    inner class MMBulkTree(override val tree: IBulkTree): MMTree(tree), IBulkTree {
+    inner class MMBulkTree(override val tree: IBulkTree) : MMTree(tree), IBulkTree {
         override fun getDescendants(root: Long, includeSelf: Boolean): Iterable<CLNode> {
             return tree.getDescendants(root, includeSelf)
         }
