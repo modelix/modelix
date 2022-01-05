@@ -13,6 +13,8 @@
  */
 package org.modelix.gradle.model;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 import org.gradle.api.artifacts.Configuration;
 import org.gradle.api.internal.provider.DefaultProperty;
 import org.gradle.api.provider.Property;
@@ -198,11 +200,27 @@ public class ModelixModelSettings {
     }
 
     public String getAdditionalPluginDirsAsString() {
-        return this.additionalPluginsDirs.stream().map(o -> o.dir.getPath()+"#"+o.idsToExclude.stream().collect(Collectors.joining(","))).collect(Collectors.joining("$"));
+        JsonArray ja = new JsonArray();
+        this.additionalPluginsDirs.stream().forEach(o -> {
+            JsonObject entry = new JsonObject();
+            entry.addProperty("path", o.dir.getPath());
+            JsonArray idsToExcludeJA = new JsonArray();
+            o.idsToExclude.stream().forEach(id -> idsToExcludeJA.add(id));
+            entry.add("idsToExclude", idsToExcludeJA);
+            ja.add(entry);
+        });
+        return ja.toString();
     }
 
     public String getAdditionalPluginsAsString() {
-        return this.additionalPlugins.stream().map(o -> o.id+"#"+o.path).collect(Collectors.joining(","));
+        JsonArray ja = new JsonArray();
+        this.additionalPlugins.stream().forEach(o -> {
+            JsonObject entry = new JsonObject();
+            entry.addProperty("path", o.path);
+            entry.addProperty("id", o.id);
+            ja.add(entry);
+        });
+        return ja.toString();
     }
 
     public String getAdditionalLibraryDirsAsString() {

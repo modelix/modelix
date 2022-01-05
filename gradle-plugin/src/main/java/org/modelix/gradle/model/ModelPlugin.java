@@ -109,15 +109,15 @@ public class ModelPlugin implements Plugin<Project> {
                 javaExec.classpath(project.fileTree(new File(mpsLocation, "lib")).include("**/*.jar"));
                 javaExec.classpath(genConfig);
                 javaExec.args(
-                        Key.SERVER_URL, settings.getServerUrl(),
-                        Key.REPOSITORY_ID, settings.getRepositoryId(),
-                        Key.BRANCH_NAME, settings.getBranchName(),
-                        Key.MPS_EXTENSIONS_PATH, settings.getMpsExtensionsArtifactsPath(),
-                        Key.MODELIX_PATH, settings.getModelixArtifactsPath(),
+                        Key.SERVER_URL.getCode(), settings.getServerUrl(),
+                        Key.REPOSITORY_ID.getCode(), settings.getRepositoryId(),
+                        Key.BRANCH_NAME.getCode(), settings.getBranchName(),
+                        Key.MPS_EXTENSIONS_PATH.getCode(), settings.getMpsExtensionsArtifactsPath(),
+                        Key.MODELIX_PATH.getCode(), settings.getModelixArtifactsPath(),
                         Key.ADDITIONAL_LIBRARIES.getCode(), settings.getAdditionalLibrariesAsString(),
                         Key.ADDITIONAL_LIBRARY_DIRS.getCode(), settings.getAdditionalLibraryDirsAsString(),
-                        Key.ADDITIONAL_PLUGINS, settings.getAdditionalPluginsAsString(),
-                        Key.ADDITIONAL_PLUGIN_DIRS, settings.getAdditionalPluginDirsAsString()
+                        Key.ADDITIONAL_PLUGINS.getCode(), settings.getAdditionalPluginsAsString(),
+                        Key.ADDITIONAL_PLUGIN_DIRS.getCode(), settings.getAdditionalPluginDirsAsString()
                 );
                 if (settings.isDebug()) javaExec.setDebug(true);
                 javaExec.getTimeout().set(Duration.ofSeconds(settings.getTimeout()));
