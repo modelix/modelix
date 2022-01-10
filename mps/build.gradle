@@ -161,7 +161,7 @@ task runIntegrationTestsWithoutRebuildingModelix(dependsOn: [justBuildIntegratio
 
 }
 
-task runIntegrationTests(dependsOn: [":model-server:fatJar", buildMpsModules, justBuildIntegrationTests, justRunIntegrationTests]) {
+task runIntegrationTests(dependsOn: [":model-server:shadowJar", buildMpsModules, justBuildIntegrationTests, justRunIntegrationTests]) {
 
 }
 

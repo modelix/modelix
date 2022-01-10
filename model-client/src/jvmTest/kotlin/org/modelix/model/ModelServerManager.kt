@@ -78,28 +78,27 @@ class ModelServerManager {
                 "${System.getProperty("java.home")}/bin/java -jar ../model-server/build/libs/model-server-fatJar-latest.jar -inmemory" +
                     argsToSetValues
                 )
+            println("commandLine " + commandLine)
             p = Runtime.getRuntime().exec(commandLine)
             val stdInput = BufferedReader(InputStreamReader(p!!.inputStream))
             val stdError = BufferedReader(InputStreamReader(p!!.errorStream))
-            Thread(
-                Runnable {
-                    try {
-                        var s: String?
-                        while (stdInput.readLine().also { s = it } != null) {
-                            if (VERBOSE_SERVER) {
-                                println("SERVER OUT $s")
-                            }
+            Thread {
+                try {
+                    var s: String?
+                    while (stdInput.readLine().also { s = it } != null) {
+                        if (VERBOSE_SERVER) {
+                            println("SERVER OUT $s")
                         }
-                        while (stdError.readLine().also { s = it } != null) {
-                            if (VERBOSE_SERVER) {
-                                println("SERVER ERR $s")
-                            }
-                        }
-                    } catch (e: IOException) {
-                        // this may happen when closing
                     }
+                    while (stdError.readLine().also { s = it } != null) {
+                        if (VERBOSE_SERVER) {
+                            println("SERVER ERR $s")
+                        }
+                    }
+                } catch (e: IOException) {
+                    // this may happen when closing
                 }
-            )
+            }
                 .start()
             try {
                 Thread.sleep(1000)
