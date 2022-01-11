@@ -272,6 +272,13 @@ class CLTree : ITree, IBulkTree {
         return parent!!.getDescendants(BulkQuery(store), includeSelf).execute()
     }
 
+    override fun getDescendants(rootIds: Iterable<Long>, includeSelf: Boolean): Iterable<CLNode> {
+        val bulkQuery = BulkQuery(store)
+        val roots: IBulkQuery.Value<List<CLNode>> = resolveElements(rootIds.toList(), bulkQuery)
+        val descendants = roots.mapBulk { bulkQuery.map(it) { it.getDescendants(bulkQuery, includeSelf) } }
+        return descendants.execute().flatten()
+    }
+
     override fun getChildren(parentId: Long, role: String?): Iterable<Long> {
         val parent = resolveElement(parentId)
         val children = parent!!.getChildren(BulkQuery(store)).execute()

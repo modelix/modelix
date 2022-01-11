@@ -209,6 +209,10 @@ class MetaModelBranch(val branch: IBranch) : IBranch by branch {
         override fun getDescendants(root: Long, includeSelf: Boolean): Iterable<CLNode> {
             return tree.getDescendants(root, includeSelf)
         }
+
+        override fun getDescendants(roots: Iterable<Long>, includeSelf: Boolean): Iterable<CLNode> {
+            return tree.getDescendants(roots, includeSelf)
+        }
     }
 
     inner class MMBranchListener(val listener: IBranchListener) : IBranchListener {

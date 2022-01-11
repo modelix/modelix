@@ -27,6 +27,7 @@ import org.modelix.model.api.IIdGenerator
 import org.modelix.model.client.SharedExecutors.fixDelay
 import org.modelix.model.lazy.IDeserializingKeyValueStore
 import org.modelix.model.lazy.ObjectStoreCache
+import org.modelix.model.lazy.PrefetchCache
 import org.modelix.model.persistent.HashUtil
 import org.modelix.model.sleep
 import org.modelix.model.util.StreamUtils.toStream
@@ -147,7 +148,7 @@ class RestWebModelClient @JvmOverloads constructor(
     private val sseClient: Client
     private val listeners: MutableList<SseListener> = ArrayList()
     override val asyncStore: IKeyValueStore = AsyncStore(this)
-    private val cache = ObjectStoreCache(KeyValueStoreCache(asyncStore))
+    private val cache = PrefetchCache.contextIndirectCache(ObjectStoreCache(KeyValueStoreCache(asyncStore)))
     private val pendingWrites = AtomicInteger(0)
 
     @get:Synchronized

@@ -132,6 +132,14 @@ class OTWriteTransaction(
         set(tree) {
             throw UnsupportedOperationException()
         }
+
+    override fun getUserObject(key: Any): Any? {
+        return transaction.getUserObject(key)
+    }
+
+    override fun putUserObject(key: Any, value: Any?) {
+        transaction.putUserObject(key, value)
+    }
 }
 
 fun IWriteTransaction.applyOperation(op: IOperation) {
