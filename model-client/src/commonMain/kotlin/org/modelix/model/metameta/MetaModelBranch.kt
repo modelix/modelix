@@ -18,6 +18,7 @@ import org.modelix.model.api.*
 import org.modelix.model.lazy.CLNode
 import org.modelix.model.lazy.IBulkTree
 import org.modelix.model.lazy.IConceptReferenceSerializer
+import org.modelix.model.lazy.ITreeWrapper
 
 class MetaModelBranch(val branch: IBranch) : IBranch by branch {
     private val metaModelSynchronizer = MetaModelSynchronizer(branch)
@@ -205,13 +206,17 @@ class MetaModelBranch(val branch: IBranch) : IBranch by branch {
         }
     }
 
-    inner class MMBulkTree(override val tree: IBulkTree) : MMTree(tree), IBulkTree {
+    inner class MMBulkTree(override val tree: IBulkTree) : MMTree(tree), IBulkTree, ITreeWrapper {
         override fun getDescendants(root: Long, includeSelf: Boolean): Iterable<CLNode> {
             return tree.getDescendants(root, includeSelf)
         }
 
         override fun getDescendants(roots: Iterable<Long>, includeSelf: Boolean): Iterable<CLNode> {
             return tree.getDescendants(roots, includeSelf)
+        }
+
+        override fun getWrappedTree(): ITree {
+            return tree
         }
     }
 

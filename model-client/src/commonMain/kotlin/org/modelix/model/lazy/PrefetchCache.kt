@@ -75,7 +75,7 @@ class PrefetchCache(private val store: IDeserializingKeyValueStore) : IDeseriali
         }
 
         fun <T> with(tree: ITree, f: () -> T): T {
-            return with((tree as CLTree).store, f)
+            return with((tree.unwrap() as CLTree).store, f)
         }
 
         fun unwrap(store: IDeserializingKeyValueStore): IDeserializingKeyValueStore {
