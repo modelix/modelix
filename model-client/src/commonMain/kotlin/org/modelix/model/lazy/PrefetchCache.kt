@@ -15,7 +15,6 @@ package org.modelix.model.lazy
 
 import org.modelix.model.IKeyValueStore
 import org.modelix.model.api.ContextValue
-import org.modelix.model.api.ITransaction
 import org.modelix.model.api.ITree
 
 /**
@@ -102,6 +101,4 @@ class PrefetchCache(private val store: IDeserializingKeyValueStore) : IDeseriali
             }
         }
     }
-
-
 }
