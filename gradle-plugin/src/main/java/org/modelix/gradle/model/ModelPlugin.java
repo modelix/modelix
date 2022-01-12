@@ -115,6 +115,7 @@ public class ModelPlugin implements Plugin<Project> {
                 javaExec.setDescription("Export models from modelix model server to MPS files");
                 javaExec.classpath(project.fileTree(new File(mpsLocation, "lib")).include("**/*.jar"));
                 javaExec.classpath(genConfig);
+                javaExec.jvmArgs("-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5072");
                 javaExec.args(
                         Key.SERVER_URL.getCode(), settings.getServerUrl(),
                         Key.REPOSITORY_ID.getCode(), settings.getRepositoryId(),
