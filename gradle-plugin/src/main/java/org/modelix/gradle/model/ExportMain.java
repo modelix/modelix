@@ -41,7 +41,9 @@ public class ExportMain {
             for (IdeaPluginDescriptor p : PluginManager.getPlugins()) {
                 System.out.println("    " + p.getName() + " (" + p.getPluginId() + ")");
             }
+            System.out.println("Export main returned");
         } catch (Exception ex) {
+            System.out.println("Export main exception");
             System.out.println(ex.getMessage());
             ex.printStackTrace();
             System.exit(1);
