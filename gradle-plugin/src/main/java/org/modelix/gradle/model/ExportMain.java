@@ -15,12 +15,8 @@ package org.modelix.gradle.model;
 
 import com.intellij.ide.plugins.IdeaPluginDescriptor;
 import com.intellij.ide.plugins.PluginManager;
-import org.apache.log4j.Logger;
 
-import javax.swing.*;
 import java.io.File;
-import java.util.HashMap;
-import java.util.Map;
 
 public class ExportMain {
 
@@ -41,9 +37,7 @@ public class ExportMain {
             for (IdeaPluginDescriptor p : PluginManager.getPlugins()) {
                 System.out.println("    " + p.getName() + " (" + p.getPluginId() + ")");
             }
-            System.out.println("Export main returned");
         } catch (Exception ex) {
-            System.out.println("Export main exception");
             System.out.println(ex.getMessage());
             ex.printStackTrace();
             System.exit(1);

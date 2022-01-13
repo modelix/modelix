@@ -1,6 +1,5 @@
 package org.modelix.gradle.model;
 
-import kotlin.text.Charsets;
 import org.gradle.api.Plugin;
 import org.gradle.api.Project;
 import org.gradle.api.artifacts.Configuration;
@@ -10,14 +9,12 @@ import org.gradle.api.tasks.JavaExec;
 import org.gradle.process.ExecResult;
 import org.modelix.gradle.model.EnvironmentLoader.Key;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.time.Duration;
 import java.util.Arrays;
 import java.util.Enumeration;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.jar.Manifest;
 import java.util.stream.Collectors;
@@ -113,16 +110,11 @@ public class ModelPlugin implements Plugin<Project> {
                     javaExec.dependsOn(copyMpsTask, copyMpsModelPluginTask);
                 }
 
-//                OutputStream standardOutput = new ByteArrayOutputStream();
-//                javaExec.setStandardOutput(standardOutput);
-
-
-                StreamGobbler sg = StreamGobbler.go(javaExec, System.out);
+                StreamContentCapture sg = StreamContentCapture.go(javaExec, System.out);
 
                 javaExec.setDescription("Export models from modelix model server to MPS files");
                 javaExec.classpath(project.fileTree(new File(mpsLocation, "lib")).include("**/*.jar"));
                 javaExec.classpath(genConfig);
-                // javaExec.jvmArgs("-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5072");
                 javaExec.args(
                         Key.SERVER_URL.getCode(), settings.getServerUrl(),
                         Key.REPOSITORY_ID.getCode(), settings.getRepositoryId(),
