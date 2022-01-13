@@ -1496,20 +1496,6 @@
                                                                                             </node>
                                                                                           </node>
                                                                                           <node concept="3clFbS" id="5mIc0gCoAMJ" role="1zxBo7">
-                                                                                            <node concept="3clFbF" id="OmBhSVK56R" role="3cqZAp">
-                                                                                              <node concept="2OqwBi" id="OmBhSVK56S" role="3clFbG">
-                                                                                                <node concept="10M0yZ" id="OmBhSVK56T" role="2Oq$k0">
-                                                                                                  <ref role="1PxDUh" to="wyt6:~System" resolve="System" />
-                                                                                                  <ref role="3cqZAo" to="wyt6:~System.out" resolve="out" />
-                                                                                                </node>
-                                                                                                <node concept="liA8E" id="OmBhSVK56U" role="2OqNvi">
-                                                                                                  <ref role="37wK5l" to="guwi:~PrintStream.println(java.lang.String)" resolve="println" />
-                                                                                                  <node concept="Xl_RD" id="OmBhSVK56V" role="37wK5m">
-                                                                                                    <property role="Xl_RC" value="Modelix Application Plugin - In Command, ready to export" />
-                                                                                                  </node>
-                                                                                                </node>
-                                                                                              </node>
-                                                                                            </node>
                                                                                             <node concept="3clFbF" id="5$aoTsovmc3" role="3cqZAp">
                                                                                               <node concept="2OqwBi" id="5$aoTsovnma" role="3clFbG">
                                                                                                 <node concept="2OqwBi" id="2pMrK1SmtBq" role="2Oq$k0">
@@ -1527,20 +1513,6 @@
                                                                                                   </node>
                                                                                                   <node concept="37vLTw" id="2pMrK1SmRQt" role="37wK5m">
                                                                                                     <ref role="3cqZAo" node="2pMrK1So3E7" resolve="mpsProject" />
-                                                                                                  </node>
-                                                                                                </node>
-                                                                                              </node>
-                                                                                            </node>
-                                                                                            <node concept="3clFbF" id="5mIc0gCox1f" role="3cqZAp">
-                                                                                              <node concept="2OqwBi" id="5mIc0gCoxp$" role="3clFbG">
-                                                                                                <node concept="10M0yZ" id="5mIc0gCox1_" role="2Oq$k0">
-                                                                                                  <ref role="3cqZAo" to="wyt6:~System.out" resolve="out" />
-                                                                                                  <ref role="1PxDUh" to="wyt6:~System" resolve="System" />
-                                                                                                </node>
-                                                                                                <node concept="liA8E" id="5mIc0gCoykT" role="2OqNvi">
-                                                                                                  <ref role="37wK5l" to="guwi:~PrintStream.println(java.lang.String)" resolve="println" />
-                                                                                                  <node concept="Xl_RD" id="5mIc0gCozqh" role="37wK5m">
-                                                                                                    <property role="Xl_RC" value="CHECKOUT COMPLETED" />
                                                                                                   </node>
                                                                                                 </node>
                                                                                               </node>
@@ -1646,6 +1618,19 @@
                                                                                       </node>
                                                                                     </node>
                                                                                   </node>
+                                                                                  <node concept="3clFbF" id="5$aoTsoyl$j" role="3cqZAp">
+                                                                                    <node concept="2YIFZM" id="5$aoTsoyl$k" role="3clFbG">
+                                                                                      <ref role="1Pybhc" to="wyt6:~System" resolve="System" />
+                                                                                      <ref role="37wK5l" to="wyt6:~System.setProperty(java.lang.String,java.lang.String)" resolve="setProperty" />
+                                                                                      <node concept="10M0yZ" id="5mIc0gCr3ki" role="37wK5m">
+                                                                                        <ref role="3cqZAo" node="4D52TXxAIKy" resolve="DONE" />
+                                                                                        <ref role="1PxDUh" node="4D52TXxApUP" resolve="ModelixExportConfiguration" />
+                                                                                      </node>
+                                                                                      <node concept="Xl_RD" id="5$aoTsoyl$m" role="37wK5m">
+                                                                                        <property role="Xl_RC" value="true" />
+                                                                                      </node>
+                                                                                    </node>
+                                                                                  </node>
                                                                                   <node concept="3clFbF" id="2pMrK1SicCv" role="3cqZAp">
                                                                                     <node concept="2OqwBi" id="2pMrK1SicCw" role="3clFbG">
                                                                                       <node concept="10M0yZ" id="2pMrK1SicCx" role="2Oq$k0">
@@ -1678,20 +1663,6 @@
                                                                                       </node>
                                                                                     </node>
                                                                                   </node>
-                                                                                  <node concept="3clFbF" id="5mIc0gCoXOu" role="3cqZAp">
-                                                                                    <node concept="2OqwBi" id="5mIc0gCoXOv" role="3clFbG">
-                                                                                      <node concept="10M0yZ" id="5mIc0gCoXOw" role="2Oq$k0">
-                                                                                        <ref role="3cqZAo" to="wyt6:~System.out" resolve="out" />
-                                                                                        <ref role="1PxDUh" to="wyt6:~System" resolve="System" />
-                                                                                      </node>
-                                                                                      <node concept="liA8E" id="5mIc0gCoXOx" role="2OqNvi">
-                                                                                        <ref role="37wK5l" to="guwi:~PrintStream.println(java.lang.String)" resolve="println" />
-                                                                                        <node concept="Xl_RD" id="5mIc0gCoXOy" role="37wK5m">
-                                                                                          <property role="Xl_RC" value="Application exit completed" />
-                                                                                        </node>
-                                                                                      </node>
-                                                                                    </node>
-                                                                                  </node>
                                                                                 </node>
                                                                                 <node concept="2AHcQZ" id="2pMrK1So3Eb" role="2AJF6D">
                                                                                   <ref role="2AI5Lk" to="wyt6:~Override" resolve="Override" />
@@ -1719,37 +1690,9 @@
                                                                         </node>
                                                                       </node>
                                                                     </node>
-                                                                    <node concept="3clFbF" id="5mIc0gCoZ2a" role="3cqZAp">
-                                                                      <node concept="2OqwBi" id="5mIc0gCoZ2b" role="3clFbG">
-                                                                        <node concept="10M0yZ" id="5mIc0gCoZ2c" role="2Oq$k0">
-                                                                          <ref role="3cqZAo" to="wyt6:~System.out" resolve="out" />
-                                                                          <ref role="1PxDUh" to="wyt6:~System" resolve="System" />
-                                                                        </node>
-                                                                        <node concept="liA8E" id="5mIc0gCoZ2d" role="2OqNvi">
-                                                                          <ref role="37wK5l" to="guwi:~PrintStream.println(java.lang.String)" resolve="println" />
-                                                                          <node concept="Xl_RD" id="5mIc0gCoZ2e" role="37wK5m">
-                                                                            <property role="Xl_RC" value="Returned from withTheOnlyProject" />
-                                                                          </node>
-                                                                        </node>
-                                                                      </node>
-                                                                    </node>
                                                                   </node>
                                                                 </node>
                                                               </node>
-                                                            </node>
-                                                          </node>
-                                                        </node>
-                                                      </node>
-                                                      <node concept="3clFbF" id="5mIc0gCp2uR" role="3cqZAp">
-                                                        <node concept="2OqwBi" id="5mIc0gCp2uS" role="3clFbG">
-                                                          <node concept="10M0yZ" id="5mIc0gCp2uT" role="2Oq$k0">
-                                                            <ref role="3cqZAo" to="wyt6:~System.out" resolve="out" />
-                                                            <ref role="1PxDUh" to="wyt6:~System" resolve="System" />
-                                                          </node>
-                                                          <node concept="liA8E" id="5mIc0gCp2uU" role="2OqNvi">
-                                                            <ref role="37wK5l" to="guwi:~PrintStream.println(java.lang.String)" resolve="println" />
-                                                            <node concept="Xl_RD" id="5mIc0gCp2uV" role="37wK5m">
-                                                              <property role="Xl_RC" value="Returned from ApplicationManager runWriteAction" />
                                                             </node>
                                                           </node>
                                                         </node>
@@ -1765,21 +1708,6 @@
                                           </node>
                                         </node>
                                       </node>
-                                      <node concept="3clFbF" id="5mIc0gCp5E5" role="3cqZAp">
-                                        <node concept="2OqwBi" id="5mIc0gCp5E6" role="3clFbG">
-                                          <node concept="10M0yZ" id="5mIc0gCp5E7" role="2Oq$k0">
-                                            <ref role="3cqZAo" to="wyt6:~System.out" resolve="out" />
-                                            <ref role="1PxDUh" to="wyt6:~System" resolve="System" />
-                                          </node>
-                                          <node concept="liA8E" id="5mIc0gCp5E8" role="2OqNvi">
-                                            <ref role="37wK5l" to="guwi:~PrintStream.println(java.lang.String)" resolve="println" />
-                                            <node concept="Xl_RD" id="5mIc0gCp5E9" role="37wK5m">
-                                              <property role="Xl_RC" value="Returned from ApplicationManager invokeLaterOnWriteThread" />
-                                            </node>
-                                          </node>
-                                        </node>
-                                      </node>
-                                      <node concept="3clFbH" id="5mIc0gCp5lA" role="3cqZAp" />
                                     </node>
                                     <node concept="2AHcQZ" id="d9jdlYWMwt" role="2AJF6D">
                                       <ref role="2AI5Lk" to="wyt6:~Override" resolve="Override" />
@@ -1790,20 +1718,6 @@
                                   </node>
                                 </node>
                               </node>
-                            </node>
-                          </node>
-                        </node>
-                      </node>
-                      <node concept="3clFbF" id="5mIc0gCp6ZZ" role="3cqZAp">
-                        <node concept="2OqwBi" id="5mIc0gCp700" role="3clFbG">
-                          <node concept="10M0yZ" id="5mIc0gCp701" role="2Oq$k0">
-                            <ref role="1PxDUh" to="wyt6:~System" resolve="System" />
-                            <ref role="3cqZAo" to="wyt6:~System.out" resolve="out" />
-                          </node>
-                          <node concept="liA8E" id="5mIc0gCp702" role="2OqNvi">
-                            <ref role="37wK5l" to="guwi:~PrintStream.println(java.lang.String)" resolve="println" />
-                            <node concept="Xl_RD" id="5mIc0gCp703" role="37wK5m">
-                              <property role="Xl_RC" value="Returned from whenConnected" />
                             </node>
                           </node>
                         </node>
