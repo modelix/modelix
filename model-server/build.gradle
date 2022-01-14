@@ -86,6 +86,10 @@ application {
     mainClassName = "org.modelix.model.server.Main"
 }
 
+shadowJar {
+    archiveVersion.set('latest')
+}
+
 publishing {
     repositories {
         maven {

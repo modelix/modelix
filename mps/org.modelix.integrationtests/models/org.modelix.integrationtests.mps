@@ -1615,7 +1615,7 @@
                   <ref role="3cqZAo" node="5yNJPA6tJXu" resolve="modelServerBuildLibsDir" />
                 </node>
                 <node concept="Xl_RD" id="5yNJPA6tLdv" role="37wK5m">
-                  <property role="Xl_RC" value="model-server-fatJar-latest.jar" />
+                  <property role="Xl_RC" value="model-server-latest-all.jar" />
                 </node>
               </node>
             </node>
