@@ -17,13 +17,13 @@ These tests are used to verify that these five use cases work as expected:
 * Start a model-server using in-memory storage. From the root of the project run:
 
 ```
-java -jar model-server/build/libs/model-server-latest-all.jar -inmemory -port 8899
+java -jar model-server/build/libs/model-server-fatJar-latest.jar -inmemory -port 8899
 ```
 
 If the instructions specify to load a dump use this command:
 
 ```
-java -jar model-server/build/libs/model-server-latest-all.jar -inmemory -dumpin <DUMP NAME> -port 8899
+java -jar model-server/build/libs/model-server-fatJar-latest.jar -inmemory -dumpin <DUMP NAME> -port 8899
 ```
 
 

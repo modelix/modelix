@@ -17,13 +17,13 @@ These tests are used to verify that these five use cases work as expected:
 * Start a model-server using in-memory storage. From the root of the project run:
 
 ```
-java -jar model-server/build/libs/model-server-latest-all.jar -inmemory -port 8899
+java -jar model-server/build/libs/model-server-fatJar-latest.jar -inmemory -port 8899
 ```
 
 If the instructions specify to load a dump use this command:
 
 ```
-java -jar model-server/build/libs/model-server-latest-all.jar -inmemory -dumpin <DUMP NAME> -port 8899
+java -jar model-server/build/libs/model-server-fatJar-latest.jar -inmemory -dumpin <DUMP NAME> -port 8899
 ```
 
 
@@ -113,7 +113,7 @@ In that version open the project PBUC-2. I should see an existing solution.
 I start the modelix server with dump model-server-dump-MBUC-1 by running this command from the root of the project:
 
 ```
-java -jar model-server/build/libs/model-server-latest-all.jar -inmemory -dumpin manual-tests/dump_with_a_project1 -port 8899
+java -jar model-server/build/libs/model-server-fatJar-latest.jar -inmemory -dumpin manual-tests/dump_with_a_project1 -port 8899
 ```
 
 ### Test execution

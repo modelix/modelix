@@ -107,7 +107,7 @@ public class Stepdefs {
                             .map(e -> " -set " + e.getKey() + " " + e.getValue())
                             .collect(Collectors.joining());
             String commandLine =
-                    "java -jar build/libs/model-server-latest-all.jar -inmemory"
+                    "java -jar build/libs/model-server-fatJar-latest.jar -inmemory"
                             + argsToSetValues;
             p = Runtime.getRuntime().exec(commandLine);
             BufferedReader stdInput = new BufferedReader(new InputStreamReader(p.getInputStream()));

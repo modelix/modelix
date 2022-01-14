@@ -75,7 +75,7 @@ class ModelServerManager {
                 .map { e: Map.Entry<String, String> -> " -set " + e.key + " " + e.value }
                 .collect(Collectors.joining())
             val commandLine = (
-                "${System.getProperty("java.home")}/bin/java -jar ../model-server/build/libs/model-server-latest-all.jar -inmemory" +
+                "${System.getProperty("java.home")}/bin/java -jar ../model-server/build/libs/model-server-fatJar-latest.jar -inmemory" +
                     argsToSetValues
                 )
             println("commandLine " + commandLine)
