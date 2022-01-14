@@ -129,12 +129,12 @@ publishing {
         }*/
     }
     publications {
-        modelServer(MavenPublication) {
+/*        modelServer(MavenPublication) {
             groupId project.group
             version project.version
 
             from components.java
-        }
+        }*/
         modelServerFatJar(MavenPublication) {
             groupId project.group
             artifactId 'model-server-fatjar'
