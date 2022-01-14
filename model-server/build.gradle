@@ -76,7 +76,7 @@ task fatJar(type: Jar) {
 
 shadowJar {
     archiveBaseName.set('model-server-fatJar')
-    archiveClassifier.set('fatJar')
+    archiveClassifier.set('')
     archiveVersion.set('latest')
 }
 
