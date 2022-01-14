@@ -64,28 +64,6 @@ jar {
     }
 }
 
-task fatJar(type: Jar) {
-    manifest {
-        attributes 'Main-Class': 'org.modelix.model.server.Main'
-    }
-    archiveBaseName = 'model-server-fatJar'
-    archiveVersion = 'latest'
-    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
-    with jar
-}
-
-shadowJar {
-    archiveBaseName.set('model-server-fatJar')
-    archiveClassifier.set('fatJar')
-    archiveVersion.set('latest')
-}
-
-def fatJarFile = file("$buildDir/libs/model-server-fatJar-latest.jar")
-def fatJarArtifact = artifacts.add('archives', fatJarFile) {
-    type 'jar'
-    builtBy 'shadowJar'
-}
-
 task cucumber() {
     dependsOn shadowJar, compileTestJava
     doLast {
@@ -135,12 +113,10 @@ publishing {
 
             from components.java
         }
-        modelServerFatJar(MavenPublication) {
+        modelServerFatJar(MavenPublication) { publication ->
             groupId project.group
-            artifactId 'model-server-fatjar'
             version project.version
-
-            artifact fatJarArtifact
+            project.shadow.component(publication)
         }
     }
 }
