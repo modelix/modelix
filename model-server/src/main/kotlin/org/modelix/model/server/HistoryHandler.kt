@@ -278,7 +278,7 @@ class HistoryHandler(private val client: IModelClient) : AbstractHandler() {
         out.append("""</td>
             <td>
             <form action='revert' method='POST'>
-            <input type='hidden' name='from' value='${escapeURL(latestVersion.hash)}'/>")
+            <input type='hidden' name='from' value='${escapeURL(latestVersion.hash)}'/>
             <input type='hidden' name='to' value='${escapeURL(version.hash)}'/>
             <input type='submit' value='Revert To'/>
             </form>
