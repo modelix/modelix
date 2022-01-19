@@ -28,6 +28,7 @@ import io.cucumber.java.en.When;
 import io.cucumber.messages.internal.com.google.gson.JsonElement;
 import io.cucumber.messages.internal.com.google.gson.JsonParser;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.ConnectException;
@@ -106,8 +107,15 @@ public class Stepdefs {
                     presetValues.entrySet().stream()
                             .map(e -> " -set " + e.getKey() + " " + e.getValue())
                             .collect(Collectors.joining());
+            File modelServerJar = new File("build/libs/model-server-latest-fatJar.jar");
+            if (!modelServerJar.exists()) {
+                throw new RuntimeException(
+                        "Model server jar not found at " + modelServerJar.getAbsolutePath());
+            }
             String commandLine =
-                    "java -jar build/libs/model-server-fatJar-latest.jar -inmemory"
+                    "java -jar "
+                            + modelServerJar.getAbsolutePath()
+                            + " -inmemory"
                             + argsToSetValues;
             p = Runtime.getRuntime().exec(commandLine);
             BufferedReader stdInput = new BufferedReader(new InputStreamReader(p.getInputStream()));

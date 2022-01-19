@@ -1,6 +1,5 @@
 package org.modelix.gradle.model;
 
-import kotlin.text.Charsets;
 import org.gradle.api.Plugin;
 import org.gradle.api.Project;
 import org.gradle.api.artifacts.Configuration;
@@ -10,14 +9,12 @@ import org.gradle.api.tasks.JavaExec;
 import org.gradle.process.ExecResult;
 import org.modelix.gradle.model.EnvironmentLoader.Key;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.time.Duration;
 import java.util.Arrays;
 import java.util.Enumeration;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.jar.Manifest;
 import java.util.stream.Collectors;
@@ -112,6 +109,9 @@ public class ModelPlugin implements Plugin<Project> {
                 } else {
                     javaExec.dependsOn(copyMpsTask, copyMpsModelPluginTask);
                 }
+
+                StreamContentCapture sg = StreamContentCapture.go(javaExec, System.out);
+
                 javaExec.setDescription("Export models from modelix model server to MPS files");
                 javaExec.classpath(project.fileTree(new File(mpsLocation, "lib")).include("**/*.jar"));
                 javaExec.classpath(genConfig);
@@ -130,16 +130,34 @@ public class ModelPlugin implements Plugin<Project> {
                 if (settings.getModelixArtifactsPath() != null) {
                     javaExec.args(Key.MODELIX_PATH.getCode(), settings.getModelixArtifactsPath());
                 }
-                if (settings.isDebug()) javaExec.setDebug(true);
+                if (settings.isDebug()) {
+                    javaExec.setDebug(true);
+                }
                 javaExec.getTimeout().set(Duration.ofSeconds(settings.getTimeout()));
                 javaExec.setIgnoreExitValue(true);
                 javaExec.setMain(ExportMain.class.getName());
+                System.out.println("  JVM Args                : " + javaExec.getJvmArgs());
+                System.out.println("  all JVM Args            : " + javaExec.getAllJvmArgs());
+                System.out.println("  Args                    : " + javaExec.getArgs());
                 javaExec.doLast(task -> {
-                    System.out.println("After execution");
+                    System.out.println("After execution of export main");
                     ExecResult execResult = javaExec.getExecutionResult().get();
                     int exitValue = execResult.getExitValue();
+                    System.out.println("Exit value was " + exitValue);
+                    List<String> outputLines = sg.getContent();
+                    boolean success = outputLines.contains("<MODEL EXPORT COMPLETED SUCCESSFULLY>");
+                    boolean failure = outputLines.contains("<MODEL EXPORT NOT COMPLETED SUCCESSFULLY>");
+                    if (failure) {
+                        System.err.println("Execution of ExportMain failed");
+                        throw new RuntimeException();
+                    }
+                    if (!success) {
+                        System.err.println("Execution of ExportMain does not indicate success");
+                        throw new RuntimeException();
+                    }
                     if (exitValue != 0) {
                         System.err.println("Execution of ExportMain failed. Exit code: " + exitValue);
+                        throw new RuntimeException();
                     }
                 });
             });

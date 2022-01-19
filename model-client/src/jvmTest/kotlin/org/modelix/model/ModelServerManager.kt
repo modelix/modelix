@@ -2,6 +2,7 @@ package org.modelix.model
 
 import com.google.common.base.Charsets
 import java.io.BufferedReader
+import java.io.File
 import java.io.IOException
 import java.io.InputStreamReader
 import java.net.ConnectException
@@ -74,11 +75,15 @@ class ModelServerManager {
             val argsToSetValues = presetValues.entries.stream()
                 .map { e: Map.Entry<String, String> -> " -set " + e.key + " " + e.value }
                 .collect(Collectors.joining())
+            val modelServerJar = File("../model-server/build/libs/model-server-latest-fatJar.jar")
+            if (!modelServerJar.exists()) {
+                throw RuntimeException("Cannot start Model Server as the JAR was not found at ${modelServerJar.absolutePath}")
+            }
             val commandLine = (
-                "${System.getProperty("java.home")}/bin/java -jar ../model-server/build/libs/model-server-fatJar-latest.jar -inmemory" +
+                "${System.getProperty("java.home")}/bin/java -jar ${modelServerJar.path} -inmemory" +
                     argsToSetValues
                 )
-            println("commandLine " + commandLine)
+            println("commandLine: $commandLine")
             p = Runtime.getRuntime().exec(commandLine)
             val stdInput = BufferedReader(InputStreamReader(p!!.inputStream))
             val stdError = BufferedReader(InputStreamReader(p!!.errorStream))

@@ -1615,7 +1615,7 @@
                   <ref role="3cqZAo" node="5yNJPA6tJXu" resolve="modelServerBuildLibsDir" />
                 </node>
                 <node concept="Xl_RD" id="5yNJPA6tLdv" role="37wK5m">
-                  <property role="Xl_RC" value="model-server-fatJar-latest.jar" />
+                  <property role="Xl_RC" value="model-server-latest-fatJar.jar" />
                 </node>
               </node>
             </node>
@@ -2897,7 +2897,7 @@
                           </node>
                           <node concept="17R0WA" id="4vX$i39b2dT" role="3clFbw">
                             <node concept="10M0yZ" id="4vX$i39bi4V" role="3uHU7w">
-                              <ref role="1PxDUh" to="csg2:4_k_9wJ_0cZ" resolve="_ModelSynchronizer" />
+                              <ref role="1PxDUh" to="csg2:4_k_9wJ_0cZ" resolve="ModelSynchronizer" />
                               <ref role="3cqZAo" to="csg2:4_k_9wJ_0d6" resolve="MPS_NODE_ID_PROPERTY_NAME" />
                             </node>
                             <node concept="2GrUjf" id="4vX$i39aY3Y" role="3uHU7B">
@@ -5297,7 +5297,7 @@
                         <ref role="2Gs0qQ" node="7jRNnvCa0e$" resolve="key" />
                       </node>
                       <node concept="10M0yZ" id="7C8dhLie1m4" role="3uHU7w">
-                        <ref role="1PxDUh" to="csg2:4_k_9wJ_0cZ" resolve="_ModelSynchronizer" />
+                        <ref role="1PxDUh" to="csg2:4_k_9wJ_0cZ" resolve="ModelSynchronizer" />
                         <ref role="3cqZAo" to="csg2:4_k_9wJ_0d6" resolve="MPS_NODE_ID_PROPERTY_NAME" />
                       </node>
                     </node>
@@ -8383,7 +8383,7 @@
                           </node>
                         </node>
                         <node concept="10M0yZ" id="7C8dhLie1m5" role="37wK5m">
-                          <ref role="1PxDUh" to="csg2:4_k_9wJ_0cZ" resolve="_ModelSynchronizer" />
+                          <ref role="1PxDUh" to="csg2:4_k_9wJ_0cZ" resolve="ModelSynchronizer" />
                           <ref role="3cqZAo" to="csg2:4_k_9wJ_0d6" resolve="MPS_NODE_ID_PROPERTY_NAME" />
                         </node>
                       </node>
@@ -11734,7 +11734,7 @@
           <node concept="3cpWsn" id="7jRNnvCez9i" role="3cpWs9">
             <property role="TrG5h" value="transientModuleBinding" />
             <node concept="3uibUv" id="6hBdEE_4QwX" role="1tU5fm">
-              <ref role="3uigEE" to="csg2:7ZZZU$lp6Bz" resolve="_TransientModuleBinding" />
+              <ref role="3uigEE" to="csg2:7ZZZU$lp6Bz" resolve="TransientModuleBinding" />
             </node>
             <node concept="2YIFZM" id="7ZZZU$lgqF7" role="33vP2m">
               <ref role="1Pybhc" to="csg2:i0AVAFXWm5" resolve="ModelCloudImportUtils" />

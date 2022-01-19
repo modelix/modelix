@@ -498,12 +498,27 @@
                       <node concept="2ShNRf" id="4AFVQRWaBD8" role="YScLw">
                         <node concept="1pGfFk" id="4AFVQRWaC23" role="2ShVmc">
                           <ref role="37wK5l" to="wyt6:~RuntimeException.&lt;init&gt;(java.lang.String)" resolve="RuntimeException" />
-                          <node concept="3cpWs3" id="4AFVQRWaCG_" role="37wK5m">
-                            <node concept="37vLTw" id="4AFVQRWaCKZ" role="3uHU7w">
-                              <ref role="3cqZAo" node="2wa1BbcP8L9" resolve="sconceptId" />
+                          <node concept="3cpWs3" id="5mIc0gCosM3" role="37wK5m">
+                            <node concept="Xl_RD" id="5mIc0gCosME" role="3uHU7w">
+                              <property role="Xl_RC" value=")" />
                             </node>
-                            <node concept="Xl_RD" id="4AFVQRWaC49" role="3uHU7B">
-                              <property role="Xl_RC" value="MPs concept not found: " />
+                            <node concept="3cpWs3" id="5mIc0gCosmg" role="3uHU7B">
+                              <node concept="3cpWs3" id="5mIc0gCorGw" role="3uHU7B">
+                                <node concept="3cpWs3" id="4AFVQRWaCG_" role="3uHU7B">
+                                  <node concept="Xl_RD" id="4AFVQRWaC49" role="3uHU7B">
+                                    <property role="Xl_RC" value="MPS concept not found: " />
+                                  </node>
+                                  <node concept="37vLTw" id="4AFVQRWaCKZ" role="3uHU7w">
+                                    <ref role="3cqZAo" node="2wa1BbcP8L9" resolve="sconceptId" />
+                                  </node>
+                                </node>
+                                <node concept="Xl_RD" id="5mIc0gCorML" role="3uHU7w">
+                                  <property role="Xl_RC" value=" (serialized as: " />
+                                </node>
+                              </node>
+                              <node concept="37vLTw" id="5mIc0gCospG" role="3uHU7w">
+                                <ref role="3cqZAo" node="2lTt2KMwuc9" resolve="serialized" />
+                              </node>
                             </node>
                           </node>
                         </node>

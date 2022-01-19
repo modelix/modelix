@@ -15,12 +15,8 @@ package org.modelix.gradle.model;
 
 import com.intellij.ide.plugins.IdeaPluginDescriptor;
 import com.intellij.ide.plugins.PluginManager;
-import org.apache.log4j.Logger;
 
-import javax.swing.*;
 import java.io.File;
-import java.util.HashMap;
-import java.util.Map;
 
 public class ExportMain {
 
