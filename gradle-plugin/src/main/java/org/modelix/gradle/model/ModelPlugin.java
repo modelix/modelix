@@ -131,7 +131,6 @@ public class ModelPlugin implements Plugin<Project> {
                     javaExec.args(Key.MODELIX_PATH.getCode(), settings.getModelixArtifactsPath());
                 }
                 if (settings.isDebug()) {
-                    javaExec.args(Key.DEBUG.getCode(), Boolean.toString(settings.isDebug()));
                     javaExec.setDebug(true);
                 }
                 javaExec.getTimeout().set(Duration.ofSeconds(settings.getTimeout()));
