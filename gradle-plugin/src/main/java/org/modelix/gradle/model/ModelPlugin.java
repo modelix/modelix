@@ -137,6 +137,9 @@ public class ModelPlugin implements Plugin<Project> {
                 javaExec.getTimeout().set(Duration.ofSeconds(settings.getTimeout()));
                 javaExec.setIgnoreExitValue(true);
                 javaExec.setMain(ExportMain.class.getName());
+                System.out.println("  JVM Args                : " + javaExec.getJvmArgs());
+                System.out.println("  all JVM Args            : " + javaExec.getAllJvmArgs());
+                System.out.println("  Args                    : " + javaExec.getArgs());
                 javaExec.doLast(task -> {
                     System.out.println("After execution of export main");
                     ExecResult execResult = javaExec.getExecutionResult().get();
