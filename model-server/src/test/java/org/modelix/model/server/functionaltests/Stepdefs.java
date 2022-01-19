@@ -109,10 +109,13 @@ public class Stepdefs {
                             .collect(Collectors.joining());
             File modelServerJar = new File("build/libs/model-server-latest-fatJar.jar");
             if (!modelServerJar.exists()) {
-                throw new RuntimeException("Model server jar not found at " + modelServerJar.getAbsolutePath());
+                throw new RuntimeException(
+                        "Model server jar not found at " + modelServerJar.getAbsolutePath());
             }
             String commandLine =
-                    "java -jar " + modelServerJar.getAbsolutePath() + " -inmemory"
+                    "java -jar "
+                            + modelServerJar.getAbsolutePath()
+                            + " -inmemory"
                             + argsToSetValues;
             p = Runtime.getRuntime().exec(commandLine);
             BufferedReader stdInput = new BufferedReader(new InputStreamReader(p.getInputStream()));
