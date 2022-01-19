@@ -1057,6 +1057,21 @@
                           </node>
                         </node>
                       </node>
+                      <node concept="3cpWs8" id="7dRdZSjKm1M" role="3cqZAp">
+                        <node concept="3cpWsn" id="7dRdZSjKm1P" role="3cpWs9">
+                          <property role="TrG5h" value="debug" />
+                          <node concept="10P_77" id="7dRdZSjKm1K" role="1tU5fm" />
+                          <node concept="2YIFZM" id="7dRdZSjKpaW" role="33vP2m">
+                            <ref role="37wK5l" to="ia5i:7dRdZSjKnO4" resolve="getOrElseBoolean" />
+                            <ref role="1Pybhc" to="ia5i:3xX$Vyo038N" resolve="PropertyOrEnv" />
+                            <node concept="10M0yZ" id="7dRdZSjKpaX" role="37wK5m">
+                              <ref role="3cqZAo" node="7dRdZSjKk3O" resolve="DEBUG" />
+                              <ref role="1PxDUh" node="4D52TXxApUP" resolve="ModelixExportConfiguration" />
+                            </node>
+                            <node concept="3clFbT" id="7dRdZSjKp_5" role="37wK5m" />
+                          </node>
+                        </node>
+                      </node>
                       <node concept="3cpWs8" id="d9jdlYVi9E" role="3cqZAp">
                         <node concept="3cpWsn" id="d9jdlYVi9F" role="3cpWs9">
                           <property role="TrG5h" value="modelServerConnection" />
@@ -16951,6 +16966,20 @@
           <property role="Xl_RC" value="serverUrl" />
         </node>
         <node concept="37vLTw" id="4D52TXxALbk" role="3uHU7B">
+          <ref role="3cqZAo" node="4D52TXxABGO" resolve="PREFIX" />
+        </node>
+      </node>
+    </node>
+    <node concept="Wx3nA" id="7dRdZSjKk3O" role="jymVt">
+      <property role="TrG5h" value="DEBUG" />
+      <property role="3TUv4t" value="true" />
+      <node concept="3Tm1VV" id="7dRdZSjKk3P" role="1B3o_S" />
+      <node concept="17QB3L" id="7dRdZSjKk3Q" role="1tU5fm" />
+      <node concept="3cpWs3" id="7dRdZSjKk3R" role="33vP2m">
+        <node concept="Xl_RD" id="7dRdZSjKk3S" role="3uHU7w">
+          <property role="Xl_RC" value="debug" />
+        </node>
+        <node concept="37vLTw" id="7dRdZSjKk3V" role="3uHU7B">
           <ref role="3cqZAo" node="4D52TXxABGO" resolve="PREFIX" />
         </node>
       </node>

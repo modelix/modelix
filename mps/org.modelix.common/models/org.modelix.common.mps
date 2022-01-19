@@ -33,6 +33,7 @@
         <reference id="1144433194310" name="classConcept" index="1Pybhc" />
       </concept>
       <concept id="1070534058343" name="jetbrains.mps.baseLanguage.structure.NullLiteral" flags="nn" index="10Nm6u" />
+      <concept id="1070534644030" name="jetbrains.mps.baseLanguage.structure.BooleanType" flags="in" index="10P_77" />
       <concept id="1068390468198" name="jetbrains.mps.baseLanguage.structure.ClassConcept" flags="ig" index="312cEu" />
       <concept id="1068431474542" name="jetbrains.mps.baseLanguage.structure.VariableDeclaration" flags="ng" index="33uBYm">
         <child id="1068431790190" name="initializer" index="33vP2m" />
@@ -405,6 +406,54 @@
       </node>
       <node concept="17QB3L" id="5wsTsVezpQE" role="3clF45" />
       <node concept="3Tm1VV" id="5wsTsVezpAO" role="1B3o_S" />
+    </node>
+    <node concept="2tJIrI" id="7dRdZSjKoDI" role="jymVt" />
+    <node concept="2YIFZL" id="7dRdZSjKnO4" role="jymVt">
+      <property role="TrG5h" value="getOrElseBoolean" />
+      <node concept="3clFbS" id="7dRdZSjKnO5" role="3clF47">
+        <node concept="3cpWs8" id="7dRdZSjKnO6" role="3cqZAp">
+          <node concept="3cpWsn" id="7dRdZSjKnO7" role="3cpWs9">
+            <property role="TrG5h" value="value" />
+            <node concept="17QB3L" id="7dRdZSjKnO8" role="1tU5fm" />
+            <node concept="1rXfSq" id="7dRdZSjKnO9" role="33vP2m">
+              <ref role="37wK5l" node="3xX$Vyo0aHz" resolve="get" />
+              <node concept="37vLTw" id="7dRdZSjKnOa" role="37wK5m">
+                <ref role="3cqZAo" node="7dRdZSjKnOi" resolve="name" />
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="3clFbF" id="7dRdZSjKnOb" role="3cqZAp">
+          <node concept="3K4zz7" id="7dRdZSjKnOc" role="3clFbG">
+            <node concept="2YIFZM" id="7dRdZSjKoBr" role="3K4E3e">
+              <ref role="37wK5l" to="wyt6:~Boolean.parseBoolean(java.lang.String)" resolve="parseBoolean" />
+              <ref role="1Pybhc" to="wyt6:~Boolean" resolve="Boolean" />
+              <node concept="37vLTw" id="7dRdZSjKoCS" role="37wK5m">
+                <ref role="3cqZAo" node="7dRdZSjKnO7" resolve="value" />
+              </node>
+            </node>
+            <node concept="37vLTw" id="7dRdZSjKnOe" role="3K4GZi">
+              <ref role="3cqZAo" node="7dRdZSjKnOk" resolve="defaultValue" />
+            </node>
+            <node concept="2OqwBi" id="7dRdZSjKnOf" role="3K4Cdx">
+              <node concept="37vLTw" id="7dRdZSjKnOg" role="2Oq$k0">
+                <ref role="3cqZAo" node="7dRdZSjKnO7" resolve="value" />
+              </node>
+              <node concept="17RvpY" id="7dRdZSjKnOh" role="2OqNvi" />
+            </node>
+          </node>
+        </node>
+      </node>
+      <node concept="37vLTG" id="7dRdZSjKnOi" role="3clF46">
+        <property role="TrG5h" value="name" />
+        <node concept="17QB3L" id="7dRdZSjKnOj" role="1tU5fm" />
+      </node>
+      <node concept="37vLTG" id="7dRdZSjKnOk" role="3clF46">
+        <property role="TrG5h" value="defaultValue" />
+        <node concept="10P_77" id="7dRdZSjKnUt" role="1tU5fm" />
+      </node>
+      <node concept="10P_77" id="7dRdZSjKovk" role="3clF45" />
+      <node concept="3Tm1VV" id="7dRdZSjKnOn" role="1B3o_S" />
     </node>
     <node concept="3Tm1VV" id="3xX$Vyo038O" role="1B3o_S" />
   </node>
