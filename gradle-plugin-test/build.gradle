@@ -1,11 +1,12 @@
 buildscript {
     repositories {
+        mavenCentral()
         maven { url 'https://projects.itemis.de/nexus/content/repositories/mbeddr' }
         mavenLocal()
     }
 
     dependencies {
-        classpath group: 'org.modelix', name: 'gradle-plugin', version: '0.0.30'
+        classpath group: 'org.modelix', name: 'gradle-plugin', version: '2020.3.5-202112171217-SNAPSHOT'
     }
 }
 
@@ -17,14 +18,47 @@ repositories {
 
 apply plugin: 'modelix-gradle-plugin'
 
-compileJava {
-    sourceCompatibility = '11'
-    targetCompatibility = '11'
-}
+
+def artifactsDir = project.file("artifacts") 
+def mpsDir = project.hasProperty('mpsPath') ? new File(project.property('mpsPath')) : new File(artifactsDir, 'mps')
+def mpsExtensionsDir = new File("./artifacts/de.itemis.mps.extensions")
+def mbeddrDir = new File("./artifacts/com.mbeddr.platform")
+def modelixDir = new File("./modelix/plugins")
+def iets3Dir = new File("./artifacts/org.iets3.opensource")
+
+def pluginsDirFromExtensions = [
+        "de.60.mps.libs", 
+        "de.q60.shadowmodels", 
+        "de.q60.shadowmodels.examples", 
+        "org.modelix.model.api", 
+        "mps-apache-commons"]
 
 modelixModel {
-    serverUrl = "http://localhost:28101/"
-    treeId = "default"
-    debug = false
-    timeout = 120
+    serverUrl = "https://mymodelserver.com"
+    repositoryId = "repo3"
+    timeout = 1800
+
+    // MPS Extensions
+    addLibraryDir(new File("${mpsExtensionsDir.getAbsolutePath()}/mps-apache-commons"))
+    addLibraryDir(new File("${mpsExtensionsDir.getAbsolutePath()}/de.60.mps.libs"))
+    addLibraryDir(new File("${mpsExtensionsDir.getAbsolutePath()}/de.q60.shadowmodels"))
+    addLibraryDir(new File("${mpsExtensionsDir.getAbsolutePath()}/org.modelix.model.api"))
+    addPlugin("${mpsExtensionsDir.getAbsolutePath()}/mps-apache-commons", "org.apache.commons")
+    addPlugin("${mpsExtensionsDir.getAbsolutePath()}/de.60.mps.libs", "de.q60.mps.libs")
+    addPlugin("${mpsExtensionsDir.getAbsolutePath()}/de.q60.shadowmodels", "de.q60.shadowmodels")
+    addPlugin("${mpsExtensionsDir.getAbsolutePath()}/org.modelix.model.api", "org.modelix.model.api")
+
+    // Mbeddr platform
+    addPluginDir(mbeddrDir, ["org.modelix.model.api"])
+
+    // Iets3
+    addPluginDir(iets3Dir)
+
+    // Modelix
+    addLibraryDir(new File(modelixDir, "org.modelix.common"))
+    addLibraryDir(new File(modelixDir, "org.modelix.model"))
+    addPluginDir(new File(modelixDir, "org.modelix.common"))
+    addPluginDir(new File(modelixDir, "org.modelix.model"))
+
+    // Add languages specific for the project
 }
