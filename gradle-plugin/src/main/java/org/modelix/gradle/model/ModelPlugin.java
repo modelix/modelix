@@ -26,13 +26,6 @@ public class ModelPlugin implements Plugin<Project> {
     public void apply(Project project_) {
         ModelixModelSettings settings = project_.getExtensions().create("modelixModel", ModelixModelSettings.class);
         project_.afterEvaluate((Project project) -> {
-//            System.out.println("===========================");
-//            System.out.println("Modelix model plugin loaded");
-//            System.out.println("===========================");
-//            System.out.println("  settings loaded from modelixModel.");
-//            System.out.println("  mps path            : " + settings.getMpsPath());
-//            System.out.println("  mps extensions path : " + settings.getMpsExtensionsArtifactsPath());
-//            System.out.println("  modelix path        : " + settings.getModelixArtifactsPath());
             settings.validate();
 
             Manifest manifest = readManifest();
@@ -128,21 +121,6 @@ public class ModelPlugin implements Plugin<Project> {
                 javaExec.setIgnoreExitValue(true);
                 javaExec.setMain(ExportMain.class.getName());
                 javaExec.doLast(task -> {
-                    System.out.println("=========================================");
-                    System.out.println("Modelix model plugin: Download model task");
-                    System.out.println("=========================================");
-                    System.out.println("  using existing MPS      : " + usingExistingMPS);
-                    System.out.println("  mps location            : " + mpsLocation);
-                    System.out.println("  mps extensions location : " + mpsExtensionsLocation);
-                    System.out.println("  modelix location        : " + modelixLocation);
-                    System.out.println("  server URL              : " + settings.getServerUrl());
-                    System.out.println("  repository ID           : " + settings.getRepositoryId());
-                    System.out.println("  branch name             : " + settings.getBranchName());
-                    System.out.println("  additional libraries    : " + settings.getAdditionalLibrariesAsString());
-                    System.out.println("  additional library dirs : " + settings.getAdditionalLibraryDirsAsString());
-                    System.out.println("  additional plugins      : " + settings.getAdditionalPluginsAsString());
-                    System.out.println("  additional plugin dirs  : " + settings.getAdditionalPluginDirsAsString());
-                    System.out.println("  project path            : " + settings.getProjectFile().getAbsolutePath());
                     System.out.println("  JVM Args                : " + javaExec.getJvmArgs());
                     System.out.println("  all JVM Args            : " + javaExec.getAllJvmArgs());
                     System.out.println("  Args                    : " + javaExec.getArgs());
