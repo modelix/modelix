@@ -2,6 +2,7 @@ package org.modelix.gradle.model;
 
 import org.gradle.api.Plugin;
 import org.gradle.api.Project;
+import org.gradle.api.Task;
 import org.gradle.api.artifacts.Configuration;
 import org.gradle.api.file.RelativePath;
 import org.gradle.api.tasks.Copy;
@@ -25,13 +26,13 @@ public class ModelPlugin implements Plugin<Project> {
     public void apply(Project project_) {
         ModelixModelSettings settings = project_.getExtensions().create("modelixModel", ModelixModelSettings.class);
         project_.afterEvaluate((Project project) -> {
-            System.out.println("===========================");
-            System.out.println("Modelix model plugin loaded");
-            System.out.println("===========================");
-            System.out.println("  settings loaded from modelixModel.");
-            System.out.println("  mps path            : " + settings.getMpsPath());
-            System.out.println("  mps extensions path : " + settings.getMpsExtensionsArtifactsPath());
-            System.out.println("  modelix path        : " + settings.getModelixArtifactsPath());
+//            System.out.println("===========================");
+//            System.out.println("Modelix model plugin loaded");
+//            System.out.println("===========================");
+//            System.out.println("  settings loaded from modelixModel.");
+//            System.out.println("  mps path            : " + settings.getMpsPath());
+//            System.out.println("  mps extensions path : " + settings.getMpsExtensionsArtifactsPath());
+//            System.out.println("  modelix path        : " + settings.getModelixArtifactsPath());
             settings.validate();
 
             Manifest manifest = readManifest();
@@ -85,25 +86,12 @@ public class ModelPlugin implements Plugin<Project> {
                 });
             }
 
-            project.getTasks().create("downloadModel", JavaExec.class, javaExec -> {
+            Task downloadModel = project.getTasks().create("downloadModel", JavaExec.class, javaExec -> {
                 final boolean usingExistingMPS = settings.usingExistingMps();
                 File mpsLocation = settings.getMpsLocation();
                 File mpsExtensionsLocation = settings.getMpsExtensionsLocation();
                 File modelixLocation = settings.getModelixLocation();
-                System.out.println("=========================================");
-                System.out.println("Modelix model plugin: Download model task");
-                System.out.println("=========================================");
-                System.out.println("  using existing MPS      : " + usingExistingMPS);
-                System.out.println("  mps location            : " + mpsLocation);
-                System.out.println("  mps extensions location : " + mpsExtensionsLocation);
-                System.out.println("  modelix location        : " + modelixLocation);
-                System.out.println("  server URL              : " + settings.getServerUrl());
-                System.out.println("  repository ID           : " + settings.getRepositoryId());
-                System.out.println("  branch name             : " + settings.getBranchName());
-                System.out.println("  additional libraries    : " + settings.getAdditionalLibrariesAsString());
-                System.out.println("  additional library dirs : " + settings.getAdditionalLibraryDirsAsString());
-                System.out.println("  additional plugins      : " + settings.getAdditionalPluginsAsString());
-                System.out.println("  additional plugin dirs  : " + settings.getAdditionalPluginDirsAsString());
+
                 if (usingExistingMPS) {
                     // no dependencies
                 } else {
@@ -124,6 +112,9 @@ public class ModelPlugin implements Plugin<Project> {
                         Key.ADDITIONAL_PLUGINS.getCode(), settings.getAdditionalPluginsAsString(),
                         Key.ADDITIONAL_PLUGIN_DIRS.getCode(), settings.getAdditionalPluginDirsAsString()
                 );
+                if (settings.getProjectFile() != null) {
+                    javaExec.args(Key.PROJECT.getCode(), settings.getProjectFile().getAbsolutePath());
+                }
                 if (settings.getMpsExtensionsArtifactsPath() != null) {
                     javaExec.args(Key.MPS_EXTENSIONS_PATH.getCode(), settings.getMpsExtensionsArtifactsPath());
                 }
@@ -136,10 +127,25 @@ public class ModelPlugin implements Plugin<Project> {
                 javaExec.getTimeout().set(Duration.ofSeconds(settings.getTimeout()));
                 javaExec.setIgnoreExitValue(true);
                 javaExec.setMain(ExportMain.class.getName());
-                System.out.println("  JVM Args                : " + javaExec.getJvmArgs());
-                System.out.println("  all JVM Args            : " + javaExec.getAllJvmArgs());
-                System.out.println("  Args                    : " + javaExec.getArgs());
                 javaExec.doLast(task -> {
+                    System.out.println("=========================================");
+                    System.out.println("Modelix model plugin: Download model task");
+                    System.out.println("=========================================");
+                    System.out.println("  using existing MPS      : " + usingExistingMPS);
+                    System.out.println("  mps location            : " + mpsLocation);
+                    System.out.println("  mps extensions location : " + mpsExtensionsLocation);
+                    System.out.println("  modelix location        : " + modelixLocation);
+                    System.out.println("  server URL              : " + settings.getServerUrl());
+                    System.out.println("  repository ID           : " + settings.getRepositoryId());
+                    System.out.println("  branch name             : " + settings.getBranchName());
+                    System.out.println("  additional libraries    : " + settings.getAdditionalLibrariesAsString());
+                    System.out.println("  additional library dirs : " + settings.getAdditionalLibraryDirsAsString());
+                    System.out.println("  additional plugins      : " + settings.getAdditionalPluginsAsString());
+                    System.out.println("  additional plugin dirs  : " + settings.getAdditionalPluginDirsAsString());
+                    System.out.println("  project path            : " + settings.getProjectFile().getAbsolutePath());
+                    System.out.println("  JVM Args                : " + javaExec.getJvmArgs());
+                    System.out.println("  all JVM Args            : " + javaExec.getAllJvmArgs());
+                    System.out.println("  Args                    : " + javaExec.getArgs());
                     System.out.println("After execution of export main");
                     ExecResult execResult = javaExec.getExecutionResult().get();
                     int exitValue = execResult.getExitValue();
@@ -160,6 +166,27 @@ public class ModelPlugin implements Plugin<Project> {
                         throw new RuntimeException();
                     }
                 });
+            });
+            downloadModel.doFirst(task -> {
+                final boolean usingExistingMPS = settings.usingExistingMps();
+                File mpsLocation = settings.getMpsLocation();
+                File mpsExtensionsLocation = settings.getMpsExtensionsLocation();
+                File modelixLocation = settings.getModelixLocation();
+                System.out.println("=========================================");
+                System.out.println("Modelix model plugin: Download model task");
+                System.out.println("=========================================");
+                System.out.println("  using existing MPS      : " + usingExistingMPS);
+                System.out.println("  mps location            : " + mpsLocation);
+                System.out.println("  mps extensions location : " + mpsExtensionsLocation);
+                System.out.println("  modelix location        : " + modelixLocation);
+                System.out.println("  server URL              : " + settings.getServerUrl());
+                System.out.println("  repository ID           : " + settings.getRepositoryId());
+                System.out.println("  branch name             : " + settings.getBranchName());
+                System.out.println("  additional libraries    : " + settings.getAdditionalLibrariesAsString());
+                System.out.println("  additional library dirs : " + settings.getAdditionalLibraryDirsAsString());
+                System.out.println("  additional plugins      : " + settings.getAdditionalPluginsAsString());
+                System.out.println("  additional plugin dirs  : " + settings.getAdditionalPluginDirsAsString());
+                System.out.println("  project path            : " + settings.getProjectFile().getAbsolutePath());
             });
         });
     }
