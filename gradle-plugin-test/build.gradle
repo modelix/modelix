@@ -6,7 +6,7 @@ buildscript {
     }
 
     dependencies {
-        classpath group: 'org.modelix', name: 'gradle-plugin', version: '2020.3.5-202112171217-SNAPSHOT'
+        classpath group: 'org.modelix', name: 'gradle-plugin', version: '2020.3.5-202201200839-SNAPSHOT'
     }
 }
 
@@ -34,31 +34,31 @@ def pluginsDirFromExtensions = [
         "mps-apache-commons"]
 
 modelixModel {
-    serverUrl = "https://mymodelserver.com"
-    repositoryId = "repo3"
-    timeout = 1800
+    serverUrl = "https://myserver.com/"
+    repositoryId = "repo4"
+    timeout = 25000
 
-    // MPS Extensions
-    addLibraryDir(new File("${mpsExtensionsDir.getAbsolutePath()}/mps-apache-commons"))
-    addLibraryDir(new File("${mpsExtensionsDir.getAbsolutePath()}/de.60.mps.libs"))
-    addLibraryDir(new File("${mpsExtensionsDir.getAbsolutePath()}/de.q60.shadowmodels"))
-    addLibraryDir(new File("${mpsExtensionsDir.getAbsolutePath()}/org.modelix.model.api"))
-    addPlugin("${mpsExtensionsDir.getAbsolutePath()}/mps-apache-commons", "org.apache.commons")
-    addPlugin("${mpsExtensionsDir.getAbsolutePath()}/de.60.mps.libs", "de.q60.mps.libs")
-    addPlugin("${mpsExtensionsDir.getAbsolutePath()}/de.q60.shadowmodels", "de.q60.shadowmodels")
-    addPlugin("${mpsExtensionsDir.getAbsolutePath()}/org.modelix.model.api", "org.modelix.model.api")
-
-    // Mbeddr platform
-    addPluginDir(mbeddrDir, ["org.modelix.model.api"])
-
-    // Iets3
-    addPluginDir(iets3Dir)
-
-    // Modelix
-    addLibraryDir(new File(modelixDir, "org.modelix.common"))
-    addLibraryDir(new File(modelixDir, "org.modelix.model"))
-    addPluginDir(new File(modelixDir, "org.modelix.common"))
-    addPluginDir(new File(modelixDir, "org.modelix.model"))
+//    // MPS Extensions
+//    addLibraryDir(new File("${mpsExtensionsDir.getAbsolutePath()}/mps-apache-commons"))
+//    addLibraryDir(new File("${mpsExtensionsDir.getAbsolutePath()}/de.60.mps.libs"))
+//    addLibraryDir(new File("${mpsExtensionsDir.getAbsolutePath()}/de.q60.shadowmodels"))
+//    addLibraryDir(new File("${mpsExtensionsDir.getAbsolutePath()}/org.modelix.model.api"))
+//    addPlugin("${mpsExtensionsDir.getAbsolutePath()}/mps-apache-commons", "org.apache.commons")
+//    addPlugin("${mpsExtensionsDir.getAbsolutePath()}/de.60.mps.libs", "de.q60.mps.libs")
+//    addPlugin("${mpsExtensionsDir.getAbsolutePath()}/de.q60.shadowmodels", "de.q60.shadowmodels")
+//    addPlugin("${mpsExtensionsDir.getAbsolutePath()}/org.modelix.model.api", "org.modelix.model.api")
+//
+//    // Mbeddr platform
+//    addPluginDir(mbeddrDir, ["org.modelix.model.api"])
+//
+//    // Iets3
+//    addPluginDir(iets3Dir)
+//
+//    // Modelix
+//    addLibraryDir(new File(modelixDir, "org.modelix.common"))
+//    addLibraryDir(new File(modelixDir, "org.modelix.model"))
+//    addPluginDir(new File(modelixDir, "org.modelix.common"))
+//    addPluginDir(new File(modelixDir, "org.modelix.model"))
 
     // Add languages specific for the project
 }
