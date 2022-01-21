@@ -27,13 +27,17 @@ import io.ktor.routing.post
 import io.ktor.routing.routing
 
 fun Application.workspaceManagerModule() {
+
+    val manager = WorkspaceManager()
+
     install(Routing)
 
     routing {
         defaultResource("html/index.html")
 
         post("new") {
-            this.call.respondText("{id:12345}", ContentType.Application.Json, HttpStatusCode.Created)
+            val id = manager.newWorkspaceId()
+            this.call.respondText("{id:$id}", ContentType.Application.Json, HttpStatusCode.Created)
         }
     }
 

@@ -13,6 +13,15 @@
  */
 package org.modelix.workspace.manager
 
+import org.modelix.model.client.RestWebModelClient
+import org.modelix.model.lazy.ObjectStoreCache
+import org.modelix.model.persistent.SerializationUtil
+
 class WorkspaceManager {
 
+    private val modelClient: RestWebModelClient = RestWebModelClient("http://localhost:31963/model/")
+
+    fun newWorkspaceId(): String {
+        return SerializationUtil.longToHex(modelClient.idGenerator.generate())
+    }
 }
