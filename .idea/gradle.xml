@@ -13,6 +13,7 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/gradle-plugin" />
+            <option value="$PROJECT_DIR$/graphql-server" />
             <option value="$PROJECT_DIR$/instances-manager" />
             <option value="$PROJECT_DIR$/manual-tests" />
             <option value="$PROJECT_DIR$/model-client" />

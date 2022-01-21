@@ -1,9 +1,9 @@
 
 plugins {
     id 'maven-publish'
-    id 'org.jetbrains.kotlin.multiplatform'
+    id 'org.jetbrains.kotlin.multiplatform' version "${kotlinVersion}"
     id "com.diffplug.gradle.spotless"
-    id "org.jlleitschuh.gradle.ktlint"
+    id "org.jlleitschuh.gradle.ktlint" version "9.3.0"
     id "java-library"
     id 'jacoco'
 }
