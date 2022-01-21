@@ -13,19 +13,17 @@
  */
 package org.modelix.workspace.manager
 
-import org.modelix.model.client.RestWebModelClient
-import org.modelix.model.persistent.SerializationUtil
+import kotlinx.serialization.Serializable
 
-class WorkspaceManager {
+@Serializable
+data class Workspace(val id: String,
+                     val mpsVersion: String?,
+                     val modelRepositories: List<ModelRepository>?)
 
-    private val modelClient: RestWebModelClient = RestWebModelClient("http://localhost:31963/model/")
+@Serializable
+data class ModelRepository(val id: String,
+                           val bindings: List<Binding>?)
 
-    fun newWorkspace(): Workspace {
-        return Workspace(
-            id = SerializationUtil.longToHex(modelClient.idGenerator.generate()),
-            mpsVersion = "2020.3.5",
-            modelRepositories = listOf(ModelRepository(id = "default", bindings = null))
-        )
-    }
-}
-
+@Serializable
+data class Binding(val project: String?,
+                   val module: String?)

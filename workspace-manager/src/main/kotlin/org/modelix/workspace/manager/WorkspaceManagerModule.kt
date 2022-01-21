@@ -14,17 +14,20 @@
 
 package org.modelix.workspace.manager
 
+import com.charleskorn.kaml.Yaml
 import io.ktor.application.Application
 import io.ktor.application.call
 import io.ktor.application.install
 import io.ktor.features.*
 import io.ktor.http.*
 import io.ktor.http.content.*
+import io.ktor.request.*
 import io.ktor.response.*
 import io.ktor.routing.Routing
-import io.ktor.routing.get
 import io.ktor.routing.post
 import io.ktor.routing.routing
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
 
 fun Application.workspaceManagerModule() {
 
@@ -36,8 +39,12 @@ fun Application.workspaceManagerModule() {
         defaultResource("html/index.html")
 
         post("new") {
-            val id = manager.newWorkspaceId()
-            this.call.respondText("{id:$id}", ContentType.Application.Json, HttpStatusCode.Created)
+            val workspace = manager.newWorkspace()
+            val resultText = when(this.call.receiveParameters()["format"]) {
+                "yaml" -> Yaml.default.encodeToString(workspace)
+                else -> Json.encodeToString(workspace)
+            }
+            this.call.respondText(resultText, ContentType.Application.Json, HttpStatusCode.Created)
         }
     }
 
