@@ -11472,13 +11472,25 @@
           </node>
           <node concept="9aQIb" id="5mIc0gCniGb" role="9aQIa">
             <node concept="3clFbS" id="5mIc0gCniGc" role="9aQI4">
-              <node concept="3clFbF" id="32pQaardmhE" role="3cqZAp">
-                <node concept="2OqwBi" id="32pQaardmms" role="3clFbG">
-                  <node concept="37vLTw" id="32pQaardmhC" role="2Oq$k0">
+              <node concept="3clFbJ" id="1UvRDkP6Raf" role="3cqZAp">
+                <node concept="3clFbS" id="1UvRDkP6Rah" role="3clFbx">
+                  <node concept="3clFbF" id="32pQaardmhE" role="3cqZAp">
+                    <node concept="2OqwBi" id="32pQaardmms" role="3clFbG">
+                      <node concept="37vLTw" id="32pQaardmhC" role="2Oq$k0">
+                        <ref role="3cqZAo" node="32pQaardcm5" resolve="virtualFile" />
+                      </node>
+                      <node concept="liA8E" id="32pQaardn5P" role="2OqNvi">
+                        <ref role="37wK5l" to="3ju5:~IFile.delete()" resolve="delete" />
+                      </node>
+                    </node>
+                  </node>
+                </node>
+                <node concept="2OqwBi" id="1UvRDkP6T6x" role="3clFbw">
+                  <node concept="37vLTw" id="1UvRDkP6S5C" role="2Oq$k0">
                     <ref role="3cqZAo" node="32pQaardcm5" resolve="virtualFile" />
                   </node>
-                  <node concept="liA8E" id="32pQaardn5P" role="2OqNvi">
-                    <ref role="37wK5l" to="3ju5:~IFile.delete()" resolve="delete" />
+                  <node concept="liA8E" id="1UvRDkP6TUH" role="2OqNvi">
+                    <ref role="37wK5l" to="3ju5:~IFile.exists()" resolve="exists" />
                   </node>
                 </node>
               </node>
