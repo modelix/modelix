@@ -23,11 +23,9 @@ import io.ktor.http.*
 import io.ktor.http.content.*
 import io.ktor.request.*
 import io.ktor.response.*
-import io.ktor.routing.Routing
-import io.ktor.routing.post
-import io.ktor.routing.routing
+import io.ktor.routing.*
+import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
-import kotlinx.serialization.json.Json
 
 fun Application.workspaceManagerModule() {
 
@@ -40,11 +38,49 @@ fun Application.workspaceManagerModule() {
 
         post("new") {
             val workspace = manager.newWorkspace()
-            val resultText = when(this.call.receiveParameters()["format"]) {
-                "yaml" -> Yaml.default.encodeToString(workspace)
-                else -> Json.encodeToString(workspace)
+            call.respondRedirect("edit/${workspace.id}")
+        }
+
+        post("update") {
+            val yamlText = call.receiveParameters()["content"]
+            if (yamlText == null) {
+                call.respond(HttpStatusCode.BadRequest, "Content missing")
+                return@post
             }
-            this.call.respondText(resultText, ContentType.Application.Json, HttpStatusCode.Created)
+            val workspace: Workspace
+            try {
+                workspace = Yaml.default.decodeFromString<Workspace>(yamlText)
+            } catch (e: Exception) {
+                call.respond(HttpStatusCode.BadRequest, e.message ?: "Parse error")
+                return@post
+            }
+            manager.update(workspace)
+            call.respondRedirect("edit/${workspace.id}")
+        }
+
+        get("edit/{workspaceId}") {
+            val id = call.parameters["workspaceId"]
+            if (id == null) {
+                call.respond(HttpStatusCode.BadRequest, "Workspace ID is missing")
+                return@get
+            }
+            val workspace = manager.getWorkspace(id)
+            if (workspace == null) {
+                call.respond(HttpStatusCode.NotFound, "Workspace $id not found")
+                return@get
+            }
+            val yaml = Yaml.default.encodeToString(workspace)
+            val htmlTemplate = Application::class.java.classLoader.getResource("html/edit.html")?.readText()
+            if (htmlTemplate == null) {
+                call.respond(HttpStatusCode.InternalServerError, "HTML template not found")
+                return@get
+            }
+            val html = htmlTemplate.replace("{{content}}", yaml)
+            this.call.respondText(html, ContentType.Text.Html, HttpStatusCode.OK)
+        }
+
+        static {
+            resources("html")
         }
     }
 

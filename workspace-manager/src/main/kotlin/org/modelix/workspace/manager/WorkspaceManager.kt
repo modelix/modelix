@@ -13,6 +13,9 @@
  */
 package org.modelix.workspace.manager
 
+import kotlinx.serialization.decodeFromString
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
 import org.modelix.model.client.RestWebModelClient
 import org.modelix.model.persistent.SerializationUtil
 
@@ -21,11 +24,25 @@ class WorkspaceManager {
     private val modelClient: RestWebModelClient = RestWebModelClient("http://localhost:31963/model/")
 
     fun newWorkspace(): Workspace {
-        return Workspace(
+        val workspace = Workspace(
             id = SerializationUtil.longToHex(modelClient.idGenerator.generate()),
             mpsVersion = "2020.3.5",
             modelRepositories = listOf(ModelRepository(id = "default", bindings = null))
         )
+        modelClient.put(key(workspace.id), Json.encodeToString(workspace))
+        return workspace
+    }
+
+    private fun key(workspaceId: String) = "workspace-$workspaceId"
+
+    fun getWorkspace(id: String): Workspace? {
+        val jsonText = modelClient.get(key(id)) ?: return null
+        return Json.decodeFromString<Workspace>(jsonText)
+    }
+
+    fun update(workspace: Workspace) {
+        val id = workspace.id
+        modelClient.put(key(id), Json.encodeToString(workspace))
     }
 }
 
