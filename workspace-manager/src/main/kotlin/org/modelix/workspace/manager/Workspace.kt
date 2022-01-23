@@ -17,13 +17,23 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class Workspace(val id: String,
-                     val mpsVersion: String?,
-                     val modelRepositories: List<ModelRepository>?)
+                     val mpsVersion: String? = null,
+                     val modelRepositories: List<ModelRepository> = listOf(),
+                     val gitRepositories: List<GitRepository> = listOf())
 
 @Serializable
 data class ModelRepository(val id: String,
-                           val bindings: List<Binding>?)
+                           val bindings: List<Binding> = listOf())
 
 @Serializable
-data class Binding(val project: String?,
-                   val module: String?)
+data class Binding(val project: String? = null,
+                   val module: String? = null)
+
+@Serializable
+data class GitRepository(val url: String,
+                         val name: String? = null,
+                         val branch: String = "master",
+                         val paths: List<String> = listOf(),
+                         val credentialsRef: String? = null)
+
+data class Credentials(val user: String, val password: String)

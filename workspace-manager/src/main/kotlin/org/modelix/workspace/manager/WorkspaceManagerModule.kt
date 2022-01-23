@@ -79,6 +79,12 @@ fun Application.workspaceManagerModule() {
             this.call.respondText(html, ContentType.Text.Html, HttpStatusCode.OK)
         }
 
+        get("download-modules/{workspaceId}") {
+            call.respondOutputStream(ContentType.Application.Zip, HttpStatusCode.OK) {
+                manager.downloadModules(call.parameters["workspaceId"]!!, this)
+            }
+        }
+
         static {
             resources("html")
         }
