@@ -25,7 +25,14 @@ import java.util.zip.ZipOutputStream
 class WorkspaceManager {
     private val modelClient: RestWebModelClient = RestWebModelClient("http://localhost:31963/model/")
     private val activeWorkspaces: MutableMap<String, Workspace> = HashMap()
-    private val directory: File = File("modelix-workspaces").absoluteFile
+    private val directory: File = run {
+        // The workspace will contain git repositories. Avoid cloning them into an existing repository.
+        val ancestors = mutableListOf(File(".").absoluteFile)
+        while (ancestors.last().parentFile != null) ancestors += ancestors.last().parentFile
+        val parentRepoDir = ancestors.lastOrNull { File(it, ".git").exists() }
+        val workspacesDir = if (parentRepoDir != null) File(parentRepoDir.parent, "modelix-workspaces") else File("modelix-workspaces")
+        workspacesDir.absoluteFile
+    }
 
     init {
         println("workspaces directory: $directory")
@@ -65,6 +72,7 @@ class WorkspaceManager {
 
     fun getWorkspaceDirectory(workspace: Workspace) = File(directory, workspace.id)
 
+    @Synchronized
     fun downloadModules(workspaceId: String, stream: OutputStream) {
         val workspace = getWorkspace(workspaceId)!!
         ZipOutputStream(stream).use { zipStream ->
