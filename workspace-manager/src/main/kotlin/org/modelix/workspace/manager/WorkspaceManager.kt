@@ -69,7 +69,7 @@ class WorkspaceManager {
         val workspace = getWorkspace(workspaceId)!!
         ZipOutputStream(stream).use { zipStream ->
             workspace.gitRepositories.forEach { repo ->
-                val repoManager = GitRepositoryManager(repo.url, null, repo.branch, getWorkspaceDirectory(workspace))
+                val repoManager = GitRepositoryManager(repo, null, getWorkspaceDirectory(workspace))
                 repoManager.zip(repo.paths, zipStream)
             }
         }

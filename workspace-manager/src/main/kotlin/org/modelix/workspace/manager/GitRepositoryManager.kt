@@ -21,27 +21,37 @@ import java.lang.IllegalArgumentException
 import java.nio.file.Files
 import java.util.zip.ZipEntry
 import java.util.zip.ZipOutputStream
-import kotlin.io.path.Path
 import kotlin.io.path.isDirectory
 
-class GitRepositoryManager(val url: String, val credentials: Credentials?, val branch: String?, val workspaceDirectory: File) {
-    private val repoDirectory = File(workspaceDirectory, "git-" + HashUtil.sha256("$url $branch").replace("*", ""))
+class GitRepositoryManager(val config: GitRepository, val credentials: Credentials?, val workspaceDirectory: File) {
+    private val repoDirectory = File(workspaceDirectory, "git-" + HashUtil.sha256("${config.url} ${config.branch}").replace("*", ""))
 
-    fun cloneRepo() {
-        if (repoDirectory.exists()) return
+    fun updateRepo() {
+        val existed = repoDirectory.exists()
+        val git = openRepo()
+        if (existed) {
+            git.checkout().setName(config.commitHash ?: config.branch).call()
+            if (config.commitHash == null) {
+                git.pull().call()
+            }
+        }
+    }
 
+    private fun openRepo() = if (repoDirectory.exists()) Git.open(repoDirectory) else cloneRepo()
+
+    private fun cloneRepo(): Git {
         val cmd = Git.cloneRepository()
         if (credentials != null) {
             cmd.setCredentialsProvider(UsernamePasswordCredentialsProvider(credentials.user, credentials.password))
         }
-        cmd.setURI(url)
-        if (branch != null) {
-            cmd.setBranch(branch)
+        cmd.setURI(config.url)
+        if (config.branch != null) {
+            cmd.setBranch(config.branch)
         }
         val directory = repoDirectory
         directory.mkdirs()
         cmd.setDirectory(directory)
-        cmd.call()
+        return cmd.call()
     }
 
     fun zip(roots: List<File>, outputStream: OutputStream) {
@@ -52,7 +62,7 @@ class GitRepositoryManager(val url: String, val credentials: Credentials?, val b
     }
 
     fun zip(subfolders: List<String>?, output: ZipOutputStream) {
-        cloneRepo()
+        updateRepo()
         val roots: List<File> = if (subfolders == null || subfolders.isEmpty()) {
             listOf(repoDirectory)
         } else {
@@ -63,7 +73,6 @@ class GitRepositoryManager(val url: String, val credentials: Credentials?, val b
             Files.walk(root.toPath()).filter { !it.isDirectory() && !it.startsWith(gitDir) }.forEach { inputFile ->
                 FileInputStream(inputFile.toFile()).use { input ->
                     BufferedInputStream(input).use { origin ->
-                        println("adding file $inputFile")
                         val entry = ZipEntry(workspaceDirectory.toPath().relativize(inputFile).toString())
                         output.putNextEntry(entry)
                         origin.copyTo(output, 1024)
