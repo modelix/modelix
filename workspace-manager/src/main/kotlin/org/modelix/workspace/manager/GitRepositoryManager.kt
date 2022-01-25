@@ -70,8 +70,13 @@ class GitRepositoryManager(val config: GitRepository, val credentials: Credentia
             subfolders.map { File(repoDirectory, it) }
         }
         val gitDir = File(repoDirectory, ".git").toPath()
-        roots.forEach { root ->
-            output.copyFiles(root, {!it.startsWith(gitDir)}, { workspaceDirectory.toPath().relativize(it) })
+        roots.filter { it.exists() }.forEach { root ->
+            output.copyFiles(
+                inputDir = root,
+                filter = { !it.startsWith(gitDir) },
+                mapPath = { workspaceDirectory.toPath().relativize(it) },
+                extractZipFiles = false
+            )
         }
     }
 }
