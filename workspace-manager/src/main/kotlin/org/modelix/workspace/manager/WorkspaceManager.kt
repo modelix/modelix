@@ -16,11 +16,16 @@ package org.modelix.workspace.manager
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
+import org.apache.maven.shared.invoker.DefaultInvocationRequest
+import org.apache.maven.shared.invoker.DefaultInvoker
+import org.apache.maven.shared.invoker.InvocationRequest
 import org.modelix.model.client.RestWebModelClient
 import org.modelix.model.persistent.SerializationUtil
 import java.io.File
 import java.io.OutputStream
+import java.util.*
 import java.util.zip.ZipOutputStream
+import kotlin.collections.HashMap
 
 class WorkspaceManager {
     private val modelClient: RestWebModelClient = RestWebModelClient("http://localhost:31963/model/")
@@ -76,11 +81,17 @@ class WorkspaceManager {
     fun downloadModules(workspaceId: String, stream: OutputStream) {
         val workspace = getWorkspace(workspaceId)!!
         ZipOutputStream(stream).use { zipStream ->
+            workspace.mavenDependencies.forEach { coordinates ->
+                val downloadFolder = MavenDownloader(workspace, getWorkspaceDirectory(workspace)).downloadFromMaven(coordinates)
+                zipStream.copyFiles(downloadFolder, mapPath = {getWorkspaceDirectory(workspace).toPath().relativize(it)})
+            }
+
             workspace.gitRepositories.forEach { repo ->
                 val repoManager = GitRepositoryManager(repo, null, getWorkspaceDirectory(workspace))
                 repoManager.zip(repo.paths, zipStream)
             }
         }
     }
+
 }
 

@@ -19,7 +19,9 @@ import kotlinx.serialization.Serializable
 data class Workspace(val id: String,
                      val mpsVersion: String? = null,
                      val modelRepositories: List<ModelRepository> = listOf(),
-                     val gitRepositories: List<GitRepository> = listOf())
+                     val gitRepositories: List<GitRepository> = listOf(),
+                     val mavenRepositories: List<MavenRepository> = listOf(),
+                     val mavenDependencies: List<String> = listOf())
 
 @Serializable
 data class ModelRepository(val id: String,
@@ -37,4 +39,8 @@ data class GitRepository(val url: String,
                          val paths: List<String> = listOf(),
                          val credentialsRef: String? = null)
 
+@Serializable
 data class Credentials(val user: String, val password: String)
+
+@Serializable
+data class MavenRepository(val url: String)

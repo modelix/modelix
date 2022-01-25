@@ -19,6 +19,7 @@ import org.modelix.model.persistent.HashUtil
 import java.io.*
 import java.lang.IllegalArgumentException
 import java.nio.file.Files
+import java.nio.file.Path
 import java.util.zip.ZipEntry
 import java.util.zip.ZipOutputStream
 import kotlin.io.path.isDirectory
@@ -70,15 +71,7 @@ class GitRepositoryManager(val config: GitRepository, val credentials: Credentia
         }
         val gitDir = File(repoDirectory, ".git").toPath()
         roots.forEach { root ->
-            Files.walk(root.toPath()).filter { !it.isDirectory() && !it.startsWith(gitDir) }.forEach { inputFile ->
-                FileInputStream(inputFile.toFile()).use { input ->
-                    BufferedInputStream(input).use { origin ->
-                        val entry = ZipEntry(workspaceDirectory.toPath().relativize(inputFile).toString())
-                        output.putNextEntry(entry)
-                        origin.copyTo(output, 1024)
-                    }
-                }
-            }
+            output.copyFiles(root, {!it.startsWith(gitDir)}, { workspaceDirectory.toPath().relativize(it) })
         }
     }
 }
