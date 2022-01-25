@@ -27,7 +27,7 @@ import kotlin.io.path.isDirectory
 class GitRepositoryManager(val config: GitRepository, val credentials: Credentials?, val workspaceDirectory: File) {
     private val repoDirectory = File(workspaceDirectory, "git-" + HashUtil.sha256("${config.url} ${config.branch}").replace("*", ""))
 
-    fun updateRepo() {
+    fun updateRepo(): String {
         val existed = repoDirectory.exists()
         val git = openRepo()
         if (existed) {
@@ -36,6 +36,7 @@ class GitRepositoryManager(val config: GitRepository, val credentials: Credentia
                 git.pull().call()
             }
         }
+        return git.repository.exactRef("HEAD").objectId.name
     }
 
     private fun openRepo() = if (repoDirectory.exists()) Git.open(repoDirectory) else cloneRepo()

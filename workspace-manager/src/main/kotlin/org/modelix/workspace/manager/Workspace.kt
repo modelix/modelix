@@ -35,7 +35,7 @@ data class Binding(val project: String? = null,
 data class GitRepository(val url: String,
                          val name: String? = null,
                          val branch: String = "master",
-                         val commitHash: String? = null,
+                         var commitHash: String? = null,
                          val paths: List<String> = listOf(),
                          val credentialsRef: String? = null)
 

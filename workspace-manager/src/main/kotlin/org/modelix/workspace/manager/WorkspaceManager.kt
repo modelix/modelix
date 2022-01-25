@@ -16,14 +16,10 @@ package org.modelix.workspace.manager
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
-import org.apache.maven.shared.invoker.DefaultInvocationRequest
-import org.apache.maven.shared.invoker.DefaultInvoker
-import org.apache.maven.shared.invoker.InvocationRequest
 import org.modelix.model.client.RestWebModelClient
 import org.modelix.model.persistent.SerializationUtil
 import java.io.File
 import java.io.OutputStream
-import java.util.*
 import java.util.zip.ZipOutputStream
 import kotlin.collections.HashMap
 
@@ -70,9 +66,22 @@ class WorkspaceManager {
 
     @Synchronized
     fun update(workspace: Workspace) {
+        loadCommitHashes(workspace)
         val id = workspace.id
         modelClient.put(key(id), Json.encodeToString(workspace))
         activeWorkspaces[workspace.id] = workspace
+    }
+
+    @Synchronized
+    private fun loadCommitHashes(workspace: Workspace) {
+        workspace.gitRepositories.forEach { repo ->
+            if (repo.commitHash.isNullOrEmpty()) {
+                // This ensures that all clients work on the same version.
+                // Updating to a new version can be done by setting the commitHash back to null
+                // to re-trigger this code.
+                repo.commitHash = GitRepositoryManager(repo, null, getWorkspaceDirectory(workspace)).updateRepo()
+            }
+        }
     }
 
     fun getWorkspaceDirectory(workspace: Workspace) = File(directory, workspace.id)
