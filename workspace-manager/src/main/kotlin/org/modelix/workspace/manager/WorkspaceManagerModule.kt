@@ -26,6 +26,7 @@ import io.ktor.response.*
 import io.ktor.routing.*
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
+import org.apache.commons.text.StringEscapeUtils
 
 fun Application.workspaceManagerModule() {
 
@@ -75,7 +76,9 @@ fun Application.workspaceManagerModule() {
                 call.respond(HttpStatusCode.InternalServerError, "HTML template not found")
                 return@get
             }
-            val html = htmlTemplate.replace("{{content}}", yaml)
+            val html = htmlTemplate
+                .replace("{{content}}", StringEscapeUtils.escapeHtml4(yaml))
+                .replace("{{workspaceId}}", id)
             this.call.respondText(html, ContentType.Text.Html, HttpStatusCode.OK)
         }
 

@@ -25,5 +25,6 @@ dependencies {
     implementation("org.eclipse.jgit:org.eclipse.jgit:5.8.0.202006091008-r")
     implementation("org.apache.maven.shared:maven-invoker:3.1.0")
     implementation("org.zeroturnaround:zt-zip:1.14")
+    implementation("org.apache.commons:commons-text:1.9")
     implementation(project(":model-client"))
 }
