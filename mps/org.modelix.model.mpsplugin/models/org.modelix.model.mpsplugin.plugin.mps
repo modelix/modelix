@@ -1361,8 +1361,13 @@
                                                                                       </node>
                                                                                       <node concept="liA8E" id="OmBhSVK3WA" role="2OqNvi">
                                                                                         <ref role="37wK5l" to="guwi:~PrintStream.println(java.lang.String)" resolve="println" />
-                                                                                        <node concept="Xl_RD" id="OmBhSVK3WB" role="37wK5m">
-                                                                                          <property role="Xl_RC" value="Modelix Application Plugin - Got the project" />
+                                                                                        <node concept="3cpWs3" id="7WFnR6mbEFu" role="37wK5m">
+                                                                                          <node concept="37vLTw" id="7WFnR6mbGi3" role="3uHU7w">
+                                                                                            <ref role="3cqZAo" node="2pMrK1So3E7" resolve="mpsProject" />
+                                                                                          </node>
+                                                                                          <node concept="Xl_RD" id="OmBhSVK3WB" role="3uHU7B">
+                                                                                            <property role="Xl_RC" value="Modelix Application Plugin - Got the project: " />
+                                                                                          </node>
                                                                                         </node>
                                                                                       </node>
                                                                                     </node>

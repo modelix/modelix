@@ -10531,6 +10531,7 @@
         </node>
       </node>
     </node>
+    <node concept="2tJIrI" id="7WFnR6mbvcL" role="jymVt" />
     <node concept="3clFbW" id="5Ns9HDw1b9V" role="jymVt">
       <node concept="37vLTG" id="5Ns9HDw1b9W" role="3clF46">
         <property role="TrG5h" value="treeInRepository" />
@@ -12037,6 +12038,34 @@
               <node concept="3uibUv" id="29etMtbjRnO" role="10QFUM">
                 <ref role="3uigEE" to="z1c3:~Solution" resolve="Solution" />
               </node>
+            </node>
+          </node>
+        </node>
+        <node concept="3clFbJ" id="7WFnR6mbR9N" role="3cqZAp">
+          <node concept="3clFbS" id="7WFnR6mbR9P" role="3clFbx">
+            <node concept="3clFbF" id="7WFnR6mc7w4" role="3cqZAp">
+              <node concept="2OqwBi" id="7WFnR6mc845" role="3clFbG">
+                <node concept="37vLTw" id="7WFnR6mc7w2" role="2Oq$k0">
+                  <ref role="3cqZAo" node="29etMtbjRnF" resolve="solution" />
+                </node>
+                <node concept="liA8E" id="7WFnR6mc8_T" role="2OqNvi">
+                  <ref role="37wK5l" to="z1c3:~AbstractModule.attach(org.jetbrains.mps.openapi.module.SRepository)" resolve="attach" />
+                  <node concept="2OqwBi" id="7WFnR6mc8Dn" role="37wK5m">
+                    <node concept="37vLTw" id="7WFnR6mc8Do" role="2Oq$k0">
+                      <ref role="3cqZAo" node="Aop38Igauc" resolve="mpsProject" />
+                    </node>
+                    <node concept="liA8E" id="7WFnR6mc8Dp" role="2OqNvi">
+                      <ref role="37wK5l" to="z1c3:~Project.getRepository()" resolve="getRepository" />
+                    </node>
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+          <node concept="3y3z36" id="7WFnR6mbXPD" role="3clFbw">
+            <node concept="10Nm6u" id="7WFnR6mbZXg" role="3uHU7w" />
+            <node concept="37vLTw" id="7WFnR6mbUHB" role="3uHU7B">
+              <ref role="3cqZAo" node="Aop38Igauc" resolve="mpsProject" />
             </node>
           </node>
         </node>
