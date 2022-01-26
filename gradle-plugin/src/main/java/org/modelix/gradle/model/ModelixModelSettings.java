@@ -66,6 +66,7 @@ public class ModelixModelSettings {
     private String serverUrl = "http://localhost:28101/";
     private String repositoryId = "default";
     private String branchName = "master";
+    private String projectPath = null;
     private boolean debug = false;
     private int timeoutSeconds = 120;
 
@@ -116,9 +117,19 @@ public class ModelixModelSettings {
         return this.mpsPath;
     }
 
+    public File getProjectFile() {
+        if (this.projectPath == null) {
+            return null;
+        }
+        return new File(this.projectPath);
+    }
+
     public void setMpsPath(String mpsPath) {
-        System.out.println("setting MPS Path");
         this.mpsPath = mpsPath;
+    }
+
+    public void setProjectPath(String projectPath) {
+        this.projectPath = projectPath;
     }
 
     public String getMpsExtensionsArtifactsPath() {

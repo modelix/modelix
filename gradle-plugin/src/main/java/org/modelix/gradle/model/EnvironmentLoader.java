@@ -11,7 +11,6 @@ import jetbrains.mps.tool.environment.Environment;
 import jetbrains.mps.tool.environment.EnvironmentConfig;
 import jetbrains.mps.tool.environment.IdeaEnvironment;
 import jetbrains.mps.util.PathManager;
-import jetbrains.mps.tool.common.PluginData;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -21,7 +20,6 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -40,7 +38,7 @@ public class EnvironmentLoader {
         ADDITIONAL_PLUGIN_DIRS("additionalPluginDirs"),
         MPS_EXTENSIONS_PATH("mpsExtensionsPath"),
         MODELIX_PATH("modelixPath"),
-        DEBUG("debug");
+        PROJECT("project");
 
         private String code;
 
@@ -257,8 +255,13 @@ public class EnvironmentLoader {
             environment = new IdeaEnvironment(config);
             RuntimeFlags.setTestMode(TestMode.NONE);
             try {
+                File projectFile = Key.PROJECT.readPropertyAsFile();
                 ((IdeaEnvironment) environment).init();
-                ourProject = environment.createEmptyProject();
+                if (projectFile == null) {
+                    ourProject = environment.createEmptyProject();
+                } else {
+                    ourProject = environment.openProject(projectFile);
+                }
             } catch (Throwable e) {
                 throw new RuntimeException("Issue with initializing environment and creating empty project", e);
             }
