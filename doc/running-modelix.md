@@ -2,6 +2,11 @@ In production Modelix uses docker images running in a kubernetes cluster.
 During development you can run the different components without docker/kubernetes.
 You need a PostgreSQL database, the model server and the MPS plugin for the UI server.
 
+## Docker Desktop
+If you use Docker Desktop >= 4.2.0 you have to add the option `"deprecatedCgroupv1": true`
+to the file `~/Library/Group Containers/group.com.docker/settings.json`.
+Otherwise, MPS (the JBR) will not use the correct memory limit.
+
 ## Model Server
 
 - Option 1: Install your own PostgreSQL database and start the model server from the command line.
