@@ -69,6 +69,7 @@ public class ModelixModelSettings {
     private String projectPath = null;
     private boolean debug = false;
     private int timeoutSeconds = 120;
+    private boolean makeProject = false;
 
     List<String> additionalLibraries = new LinkedList<String>();
     List<String> additionalLibraryDirs = new LinkedList<String>();
@@ -115,6 +116,14 @@ public class ModelixModelSettings {
 
     public String getMpsPath() {
         return this.mpsPath;
+    }
+
+    public boolean isMakeProjectSet() {
+        return this.makeProject;
+    }
+
+    public void setMakeProject(boolean newValue) {
+        this.makeProject = newValue;
     }
 
     public File getProjectFile() {

@@ -114,6 +114,9 @@ public class ModelPlugin implements Plugin<Project> {
                 if (settings.getModelixArtifactsPath() != null) {
                     javaExec.args(Key.MODELIX_PATH.getCode(), settings.getModelixArtifactsPath());
                 }
+                if (settings.isMakeProjectSet()) {
+                    javaExec.args(Key.MAKE.getCode(), "project");
+                }
                 if (settings.isDebug()) {
                     javaExec.setDebug(true);
                 }

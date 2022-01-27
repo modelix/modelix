@@ -38,6 +38,7 @@ public class EnvironmentLoader {
         ADDITIONAL_PLUGIN_DIRS("additionalPluginDirs"),
         MPS_EXTENSIONS_PATH("mpsExtensionsPath"),
         MODELIX_PATH("modelixPath"),
+        MAKE("make"),
         PROJECT("project");
 
         private String code;
