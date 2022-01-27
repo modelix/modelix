@@ -11853,41 +11853,72 @@
         </node>
         <node concept="3clFbJ" id="18La5_pa_Tn" role="3cqZAp">
           <node concept="3clFbS" id="18La5_pa_Tp" role="3clFbx">
-            <node concept="3clFbF" id="7dRdZSjIxPp" role="3cqZAp">
-              <node concept="2OqwBi" id="7dRdZSjIy09" role="3clFbG">
-                <node concept="2YIFZM" id="7dRdZSjIxR_" role="2Oq$k0">
-                  <ref role="37wK5l" to="jlff:~VirtualFileManager.getInstance()" resolve="getInstance" />
-                  <ref role="1Pybhd" to="jlff:~VirtualFileManager" resolve="VirtualFileManager" />
+            <node concept="3clFbF" id="7eq8Np3kJm7" role="3cqZAp">
+              <node concept="2OqwBi" id="7eq8Np3kJDx" role="3clFbG">
+                <node concept="2YIFZM" id="7eq8Np3kJm9" role="2Oq$k0">
+                  <ref role="37wK5l" to="bd8o:~ApplicationManager.getApplication()" resolve="getApplication" />
+                  <ref role="1Pybhd" to="bd8o:~ApplicationManager" resolve="ApplicationManager" />
                 </node>
-                <node concept="liA8E" id="7dRdZSjIybK" role="2OqNvi">
-                  <ref role="37wK5l" to="jlff:~VirtualFileManager.syncRefresh()" resolve="syncRefresh" />
-                </node>
-              </node>
-            </node>
-            <node concept="3cpWs8" id="1MKNcGA0ogc" role="3cqZAp">
-              <node concept="3cpWsn" id="1MKNcGA0ogd" role="3cpWs9">
-                <property role="TrG5h" value="modelsDirVirtual" />
-                <node concept="3uibUv" id="1MKNcGA0oge" role="1tU5fm">
-                  <ref role="3uigEE" to="3ju5:~IFile" resolve="IFile" />
-                </node>
-                <node concept="2OqwBi" id="1MKNcGA0qdb" role="33vP2m">
-                  <node concept="37vLTw" id="1MKNcGA0pNU" role="2Oq$k0">
-                    <ref role="3cqZAo" node="18La5_p9Iuw" resolve="solutionDir" />
-                  </node>
-                  <node concept="liA8E" id="1MKNcGA0qpF" role="2OqNvi">
-                    <ref role="37wK5l" to="3ju5:~IFile.findChild(java.lang.String)" resolve="findChild" />
-                    <node concept="Xl_RD" id="1MKNcGA0qEo" role="37wK5m">
-                      <property role="Xl_RC" value="models" />
+                <node concept="liA8E" id="7eq8Np3kJZS" role="2OqNvi">
+                  <ref role="37wK5l" to="bd8o:~Application.invokeAndWait(java.lang.Runnable)" resolve="invokeAndWait" />
+                  <node concept="2ShNRf" id="7eq8Np3kKgg" role="37wK5m">
+                    <node concept="YeOm9" id="7eq8Np3kY6v" role="2ShVmc">
+                      <node concept="1Y3b0j" id="7eq8Np3kY6y" role="YeSDq">
+                        <property role="2bfB8j" value="true" />
+                        <ref role="1Y3XeK" to="wyt6:~Runnable" resolve="Runnable" />
+                        <ref role="37wK5l" to="wyt6:~Object.&lt;init&gt;()" resolve="Object" />
+                        <node concept="3Tm1VV" id="7eq8Np3kY6z" role="1B3o_S" />
+                        <node concept="3clFb_" id="7eq8Np3kY6C" role="jymVt">
+                          <property role="TrG5h" value="run" />
+                          <node concept="3Tm1VV" id="7eq8Np3kY6D" role="1B3o_S" />
+                          <node concept="3cqZAl" id="7eq8Np3kY6F" role="3clF45" />
+                          <node concept="3clFbS" id="7eq8Np3kY6G" role="3clF47">
+                            <node concept="3clFbF" id="7dRdZSjIxPp" role="3cqZAp">
+                              <node concept="2OqwBi" id="7dRdZSjIy09" role="3clFbG">
+                                <node concept="2YIFZM" id="7dRdZSjIxR_" role="2Oq$k0">
+                                  <ref role="37wK5l" to="jlff:~VirtualFileManager.getInstance()" resolve="getInstance" />
+                                  <ref role="1Pybhd" to="jlff:~VirtualFileManager" resolve="VirtualFileManager" />
+                                </node>
+                                <node concept="liA8E" id="7dRdZSjIybK" role="2OqNvi">
+                                  <ref role="37wK5l" to="jlff:~VirtualFileManager.syncRefresh()" resolve="syncRefresh" />
+                                </node>
+                              </node>
+                            </node>
+                            <node concept="3cpWs8" id="1MKNcGA0ogc" role="3cqZAp">
+                              <node concept="3cpWsn" id="1MKNcGA0ogd" role="3cpWs9">
+                                <property role="TrG5h" value="modelsDirVirtual" />
+                                <node concept="3uibUv" id="1MKNcGA0oge" role="1tU5fm">
+                                  <ref role="3uigEE" to="3ju5:~IFile" resolve="IFile" />
+                                </node>
+                                <node concept="2OqwBi" id="1MKNcGA0qdb" role="33vP2m">
+                                  <node concept="37vLTw" id="1MKNcGA0pNU" role="2Oq$k0">
+                                    <ref role="3cqZAo" node="18La5_p9Iuw" resolve="solutionDir" />
+                                  </node>
+                                  <node concept="liA8E" id="1MKNcGA0qpF" role="2OqNvi">
+                                    <ref role="37wK5l" to="3ju5:~IFile.findChild(java.lang.String)" resolve="findChild" />
+                                    <node concept="Xl_RD" id="1MKNcGA0qEo" role="37wK5m">
+                                      <property role="Xl_RC" value="models" />
+                                    </node>
+                                  </node>
+                                </node>
+                              </node>
+                            </node>
+                            <node concept="3clFbF" id="5mIc0gCo2St" role="3cqZAp">
+                              <node concept="1rXfSq" id="5mIc0gCo2Sr" role="3clFbG">
+                                <ref role="37wK5l" node="5mIc0gCmM3I" resolve="ensureDirDeletionAndRecreation" />
+                                <node concept="37vLTw" id="5mIc0gCo4XV" role="37wK5m">
+                                  <ref role="3cqZAo" node="1MKNcGA0ogd" resolve="modelsDirVirtual" />
+                                </node>
+                              </node>
+                            </node>
+                          </node>
+                          <node concept="2AHcQZ" id="7eq8Np3kY6I" role="2AJF6D">
+                            <ref role="2AI5Lk" to="wyt6:~Override" resolve="Override" />
+                          </node>
+                        </node>
+                      </node>
                     </node>
                   </node>
-                </node>
-              </node>
-            </node>
-            <node concept="3clFbF" id="5mIc0gCo2St" role="3cqZAp">
-              <node concept="1rXfSq" id="5mIc0gCo2Sr" role="3clFbG">
-                <ref role="37wK5l" node="5mIc0gCmM3I" resolve="ensureDirDeletionAndRecreation" />
-                <node concept="37vLTw" id="5mIc0gCo4XV" role="37wK5m">
-                  <ref role="3cqZAo" node="1MKNcGA0ogd" resolve="modelsDirVirtual" />
                 </node>
               </node>
             </node>
