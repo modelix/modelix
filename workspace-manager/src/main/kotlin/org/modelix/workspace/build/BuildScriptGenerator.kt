@@ -24,9 +24,15 @@ class BuildScriptGenerator(val inputFolders: List<File>) {
 
     private val modules: MutableMap<String, FoundModule> = LinkedHashMap()
 
-    fun getGenerationOrder(): List<FoundModule> {
+    fun getGenerationOrder(modulesIdsToGenerate: List<String> = modules.keys.toList()): List<FoundModule> {
+        val modulesToGenerate = modulesIdsToGenerate
+            .map { modules[it] ?: throw IllegalArgumentException("module $it not found") }
+        return getGenerationOrder_(modulesToGenerate)
+    }
+
+    private fun getGenerationOrder_(modulesToGenerate: List<FoundModule>): List<FoundModule> {
         val result = LinkedHashMap<String, FoundModule>()
-        for (module in modules.values) {
+        for (module in modulesToGenerate) {
             collectGenerationOrder(module, result)
         }
         return result.values.toList()

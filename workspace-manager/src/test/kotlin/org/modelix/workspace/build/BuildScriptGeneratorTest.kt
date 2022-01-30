@@ -27,7 +27,8 @@ internal class BuildScriptGeneratorTest {
         println("${modules.size} modules found")
         assertTrue(modules.size > 10)
 
-        val generationOrder = generator.getGenerationOrder().map { "${it.name} - ${it.moduleId}" }
+        val org_modelix_ui_server = "39aab22b-473f-4e44-b037-0c602964897d"
+        val generationOrder = generator.getGenerationOrder(listOf(org_modelix_ui_server)).map { "${it.name} - ${it.moduleId}" }
         generationOrder.forEach(::println)
     }
 
