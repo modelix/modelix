@@ -22,36 +22,13 @@ import javax.xml.parsers.DocumentBuilderFactory
 
 class BuildScriptGenerator(val inputFolders: List<File>) {
 
-    private val modules: MutableMap<String, FoundModule> = LinkedHashMap()
+    private val modules: MutableMap<ModuleId, FoundModule> = LinkedHashMap()
 
-    fun getGenerationOrder(modulesIdsToGenerate: List<String> = modules.keys.toList()): List<FoundModule> {
-        val modulesToGenerate = modulesIdsToGenerate
-            .map { modules[it] ?: throw IllegalArgumentException("module $it not found") }
-        return getGenerationOrder_(modulesToGenerate)
-    }
-
-    private fun getGenerationOrder_(modulesToGenerate: List<FoundModule>): List<FoundModule> {
-        val result = LinkedHashMap<String, FoundModule>()
-        for (module in modulesToGenerate) {
-            collectGenerationOrder(module, result)
-        }
-        return result.values.toList()
-    }
-
-    private fun collectGenerationOrder(module: FoundModule, result: MutableMap<String, FoundModule>) {
-        if (result.containsKey(module.moduleId)) return
-
-        // just add it to prevent processing the same module again
-        result[module.moduleId] = module
-
-        for (dep in module.dependsOnModuleId) {
-            val depModule = modules[dep] ?: continue
-            collectGenerationOrder(depModule, result)
-        }
-
-        // move the module itself to the end after all its dependencies
-        result.remove(module.moduleId)
-        result[module.moduleId] = module
+    fun generate(modulesToGenerate: List<ModuleId>): GenerationPlan {
+        collectModules()
+        val planBuilder = GenerationPlanBuilder(modules)
+        planBuilder.build(modulesToGenerate.mapNotNull { modules[it] })
+        return planBuilder.plan
     }
 
     fun getModules(): List<FoundModule> = modules.values.toList()
@@ -66,7 +43,7 @@ class BuildScriptGenerator(val inputFolders: List<File>) {
                 // see jetbrains.mps.project.MPSExtentions
                 "msd", "mpl", "devkit" -> {
                     val module = readModule(parent)
-                    if (module.moduleId.isNotEmpty()) {
+                    if (module.moduleId.id.isNotEmpty()) {
                         modules[module.moduleId] = module
                     }
                 }
@@ -84,7 +61,7 @@ class BuildScriptGenerator(val inputFolders: List<File>) {
         val db = dbf.newDocumentBuilder()
         val xml = db.parse(file)
         val doc: Element = xml.documentElement
-        val uuid = doc.getAttribute("uuid")
+        val uuid = ModuleId(doc.getAttribute("uuid"))
         var name = doc.getAttribute("name")
         if (name.isNullOrEmpty()) name = doc.getAttribute("namespace")
         val module = FoundModule(file, uuid, name)
@@ -111,27 +88,18 @@ class BuildScriptGenerator(val inputFolders: List<File>) {
         return module
     }
 
-    private fun moduleIdFromReference(text: String): String {
+    private fun moduleIdFromReference(text: String): ModuleId {
         // 1ed103c3-3aa6-49b7-9c21-6765ee11f224(MPS.Editor)
         val matchResult = Regex("""~?(.+)\(.+\)""").matchEntire(text)
-        return if (matchResult != null) matchResult.groupValues[1] else text
+        return ModuleId(if (matchResult != null) matchResult.groupValues[1] else text)
     }
 
-    private fun moduleIdFromLanguageRef(text: String): String {
+    private fun moduleIdFromLanguageRef(text: String): ModuleId {
         // l:f3061a53-9226-4cc5-a443-f952ceaf5816:jetbrains.mps.baseLanguage
         val matchResult = Regex("""l:(.+):.+""").matchEntire(text)
-        return if (matchResult != null) matchResult.groupValues[1] else text
+        return ModuleId(if (matchResult != null) matchResult.groupValues[1] else text)
     }
 
-    class FoundModule(val path: File, val moduleId: String, val name: String) {
-        val dependsOnModuleId: MutableSet<String> = LinkedHashSet()
-
-        fun addDependency(moduleId: String) {
-            if (moduleId.isNotEmpty()) {
-                dependsOnModuleId += moduleId
-            }
-        }
-    }
 }
 
 private fun Node.visitAll(visitor: (Node)->Unit) {
