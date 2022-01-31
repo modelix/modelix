@@ -17,10 +17,12 @@ import org.w3c.dom.Document
 import org.w3c.dom.Element
 import org.w3c.dom.Node
 import org.w3c.dom.Text
-import java.io.ByteArrayOutputStream
+import org.zeroturnaround.zip.ZipUtil
 import java.io.File
+import java.io.FileInputStream
+import java.io.InputStream
 import java.io.StringWriter
-import java.nio.charset.StandardCharsets
+import java.util.zip.ZipEntry
 import javax.xml.XMLConstants
 import javax.xml.parsers.DocumentBuilderFactory
 import javax.xml.transform.OutputKeys
@@ -31,7 +33,7 @@ import javax.xml.transform.stream.StreamResult
 
 class BuildScriptGenerator(val inputFolders: List<File>, val modulesToGenerate: List<ModuleId>? = null) {
 
-    private val modules: MutableMap<ModuleId, FoundModule> = LinkedHashMap()
+    private val modules: FoundModules = FoundModules()
 
     fun generateXML(): String {
         val doc = generateAnt()
@@ -46,7 +48,7 @@ class BuildScriptGenerator(val inputFolders: List<File>, val modulesToGenerate: 
     }
 
     fun generateAnt(): Document {
-        val plan = generatePlan(modulesToGenerate ?: modules.keys.toList())
+        val plan = generatePlan(modulesToGenerate ?: modules.modules.keys.toList())
 
         val dbf = DocumentBuilderFactory.newInstance()
         val db = dbf.newDocumentBuilder()
@@ -89,17 +91,21 @@ class BuildScriptGenerator(val inputFolders: List<File>, val modulesToGenerate: 
                     setAttribute("targetJavaVersion", "11")
                     setAttribute("skipUnmodifiedModels", "true")
                     setAttribute("logLevel", "ERROR")
-                    newChild("plugin") {
-                        setAttribute("path", "")
+                    for (plugin in plan.plugins) {
+                        newChild("plugin") {
+                            setAttribute("path", plugin.path.canonicalPath)
+                        }
                     }
-                    newChild("library") {
-                        setAttribute("file", "")
+                    for (library in plan.libraries) {
+                        newChild("library") {
+                            setAttribute("file", library.path.canonicalPath)
+                        }
                     }
                     for (chunk in plan.chunks) {
                         newChild("chunk") {
                             for (module in chunk.modules) {
                                 newChild("module") {
-                                    setAttribute("file", module.path.canonicalPath)
+                                    setAttribute("file", module.owner.path.canonicalPath)
                                 }
                             }
                         }
@@ -137,35 +143,43 @@ class BuildScriptGenerator(val inputFolders: List<File>, val modulesToGenerate: 
     fun generatePlan(modulesToGenerate: List<ModuleId>): GenerationPlan {
         collectModules()
         val planBuilder = GenerationPlanBuilder(modules)
-        planBuilder.build(modulesToGenerate.mapNotNull { modules[it] })
+        planBuilder.build(modulesToGenerate.mapNotNull { modules.modules[it] })
         return planBuilder.plan
     }
 
-    fun getModules(): List<FoundModule> = modules.values.toList()
+    fun getModules(): List<FoundModule> = modules.modules.values.toList()
 
     fun collectModules() {
         inputFolders.forEach { collectModules(it)}
     }
 
-    fun collectModules(parent: File) {
-        if (parent.isFile) {
-            when (parent.extension.lowercase()) {
+    fun collectModules(file: File) {
+        if (file.isFile) {
+            when (file.extension.lowercase()) {
                 // see jetbrains.mps.project.MPSExtentions
                 "msd", "mpl", "devkit" -> {
-                    val module = readModule(parent)
-                    if (module.moduleId.id.isNotEmpty()) {
-                        modules[module.moduleId] = module
+                    modules.addModule(readSourceModule(file))
+                }
+                "jar" -> {
+                    ZipUtil.iterate(file) { stream: InputStream, entry: ZipEntry ->
+                        if (entry.name == "META-INF/module.xml") {
+                            modules.addModule(readModule(stream, LibraryModuleOwner(file)))
+                        }
                     }
                 }
             }
-        } else if (parent.isDirectory) {
-            parent.listFiles()?.forEach { child ->
+        } else if (file.isDirectory) {
+            file.listFiles()?.forEach { child ->
                 collectModules(child)
             }
         }
     }
 
-    private fun readModule(file: File): FoundModule {
+    private fun readSourceModule(file: File): FoundModule {
+        return FileInputStream(file).use { readModule(it, SourceModuleOwner(file)) }
+    }
+
+    private fun readModule(file: InputStream, owner: ModuleOwner): FoundModule {
         val dbf = DocumentBuilderFactory.newInstance()
         dbf.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true)
         val db = dbf.newDocumentBuilder()
@@ -174,7 +188,7 @@ class BuildScriptGenerator(val inputFolders: List<File>, val modulesToGenerate: 
         val uuid = ModuleId(doc.getAttribute("uuid"))
         var name = doc.getAttribute("name")
         if (name.isNullOrEmpty()) name = doc.getAttribute("namespace")
-        val module = FoundModule(file, uuid, name)
+        val module = FoundModule(uuid, name, owner)
         doc.visitAll { node ->
             if (node is Element) {
                 when (node.tagName) {
@@ -185,11 +199,15 @@ class BuildScriptGenerator(val inputFolders: List<File>, val modulesToGenerate: 
                     "module" -> {
                         if (node.parentTagName() == "dependencyVersions") {
                             module.addDependency(moduleIdFromReference(node.getAttribute("reference")))
+                        } else if (node.parentTagName() == "dependencies") {
+                            module.addDependency(moduleIdFromReference(node.getAttribute("ref")))
                         }
                     }
                     "language" -> {
                         if (node.parentTagName() == "languageVersion") {
                             module.addDependency(moduleIdFromLanguageRef(node.getAttribute("slang")))
+                        } else if (node.parentTagName() == "uses") {
+                            module.addDependency(moduleIdFromLanguageRef(node.getAttribute("id")))
                         }
                     }
                 }

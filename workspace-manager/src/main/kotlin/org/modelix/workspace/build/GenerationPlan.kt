@@ -16,6 +16,8 @@
 package org.modelix.workspace.build
 
 class GenerationPlan {
+    val plugins: MutableSet<PluginModuleOwner> = LinkedHashSet()
+    val libraries: MutableSet<LibraryModuleOwner> = LinkedHashSet()
     val chunks: MutableList<GenerationChunk> = ArrayList()
 
     fun getHighestChunkIndex(moduleIds: Iterable<ModuleId>): Int {

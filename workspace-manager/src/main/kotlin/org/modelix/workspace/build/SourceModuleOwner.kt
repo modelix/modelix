@@ -1,6 +1,4 @@
 /*
- * Copyright 2003-2022 JetBrains s.r.o.
- *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -17,16 +15,9 @@ package org.modelix.workspace.build
 
 import java.io.File
 
-class FoundModule(val moduleId: ModuleId, val name: String, val owner: ModuleOwner) {
-    val dependsOnModuleId: MutableSet<ModuleId> = LinkedHashSet()
+/**
+ * A module that needs to be built.
+ */
+class SourceModuleOwner(path: File) : ModuleOwner(path) {
 
-    init {
-        owner.modules += this
-    }
-
-    fun addDependency(moduleId: ModuleId) {
-        if (moduleId.id.isNotEmpty()) {
-            dependsOnModuleId += moduleId
-        }
-    }
 }

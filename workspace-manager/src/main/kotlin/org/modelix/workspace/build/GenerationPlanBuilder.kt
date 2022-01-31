@@ -15,7 +15,7 @@
  */
 package org.modelix.workspace.build
 
-class GenerationPlanBuilder(val availableModules: Map<ModuleId, FoundModule>) {
+class GenerationPlanBuilder(val availableModules: FoundModules) {
     val plan: GenerationPlan = GenerationPlan()
     val processedModules: MutableSet<ModuleId> = HashSet()
 
@@ -27,8 +27,18 @@ class GenerationPlanBuilder(val availableModules: Map<ModuleId, FoundModule>) {
         if (processedModules.contains(module.moduleId)) return
         processedModules += module.moduleId
 
-        module.dependsOnModuleId.mapNotNull { availableModules[it] }.forEach { build(it) }
-        val index = plan.getHighestChunkIndex(module.dependsOnModuleId) + 1
-        plan.insertAt(index, module)
+        for (dependency in module.dependsOnModuleId.mapNotNull { availableModules.modules[it] }) {
+            build(dependency)
+        }
+
+        when (val moduleOwner = module.owner) {
+            is SourceModuleOwner -> {
+                val index = plan.getHighestChunkIndex(module.dependsOnModuleId) + 1
+                plan.insertAt(index, module)
+            }
+            is LibraryModuleOwner -> plan.libraries += moduleOwner
+            is PluginModuleOwner -> plan.plugins += moduleOwner
+            else -> throw RuntimeException("Unknown owner: $moduleOwner")
+        }
     }
 }
