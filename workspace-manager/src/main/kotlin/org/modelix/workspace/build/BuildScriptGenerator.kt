@@ -22,6 +22,7 @@ import java.io.File
 import java.io.FileInputStream
 import java.io.InputStream
 import java.io.StringWriter
+import java.util.*
 import java.util.zip.ZipEntry
 import javax.xml.XMLConstants
 import javax.xml.parsers.DocumentBuilderFactory
@@ -30,6 +31,7 @@ import javax.xml.transform.Transformer
 import javax.xml.transform.TransformerFactory
 import javax.xml.transform.dom.DOMSource
 import javax.xml.transform.stream.StreamResult
+import kotlin.collections.ArrayList
 
 class BuildScriptGenerator(val inputFolders: List<File>, val modulesToGenerate: List<ModuleId>? = null) {
 
@@ -56,9 +58,21 @@ class BuildScriptGenerator(val inputFolders: List<File>, val modulesToGenerate: 
 
         doc.createElement("project").apply {
             doc.appendChild(this)
+            setAttribute("default", "generate")
 
+            val mpsHome = modules.mpsHome
+            if (mpsHome != null) {
+                newChild("property") {
+                    setAttribute("name", "mps.home")
+                    setAttribute("location", mpsHome.canonicalPath)
+                }
+            }
             newChild("property") {
                 setAttribute("name", "mps_home")
+                setAttribute("location", "\${mps.home}")
+            }
+            newChild("property") {
+                setAttribute("name", "artifacts.mps")
                 setAttribute("location", "\${mps.home}")
             }
 
@@ -89,8 +103,8 @@ class BuildScriptGenerator(val inputFolders: List<File>, val modulesToGenerate: 
                     setAttribute("createStaticRefs", "false")
                     setAttribute("fork", "true")
                     setAttribute("targetJavaVersion", "11")
-                    setAttribute("skipUnmodifiedModels", "true")
-                    setAttribute("logLevel", "ERROR")
+                    setAttribute("skipUnmodifiedModels", "false")
+                    setAttribute("logLevel", "warn")
                     for (plugin in plan.plugins) {
                         newChild("plugin") {
                             setAttribute("path", plugin.path.canonicalPath)
@@ -165,6 +179,11 @@ class BuildScriptGenerator(val inputFolders: List<File>, val modulesToGenerate: 
                         if (entry.name == "META-INF/module.xml") {
                             modules.addModule(readModule(stream, LibraryModuleOwner(file)))
                         }
+                    }
+                }
+                "vmoptions" -> {
+                    if (file.nameWithoutExtension == "mps" || file.nameWithoutExtension == "mps64") {
+                        modules.mpsHome = file.parentFile.parentFile
                     }
                 }
             }

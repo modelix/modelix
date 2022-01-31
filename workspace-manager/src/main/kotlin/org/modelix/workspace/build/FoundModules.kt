@@ -13,8 +13,11 @@
  */
 package org.modelix.workspace.build
 
+import java.io.File
+
 class FoundModules {
     val modules: MutableMap<ModuleId, FoundModule> = LinkedHashMap()
+    var mpsHome: File? = null
 
     fun addModule(module: FoundModule) {
         if (module.moduleId.id.isNotEmpty()) {

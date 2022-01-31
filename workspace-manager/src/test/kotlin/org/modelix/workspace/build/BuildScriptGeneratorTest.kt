@@ -13,9 +13,11 @@
  */
 package org.modelix.workspace.build
 
+import org.apache.commons.io.FileUtils
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 import java.io.File
+import java.nio.charset.StandardCharsets
 
 internal class BuildScriptGeneratorTest {
 
@@ -26,7 +28,9 @@ internal class BuildScriptGeneratorTest {
             inputFolders = listOf(File("../mps"), File("../artifacts")),
             modulesToGenerate = listOf(org_modelix_ui_server)
         )
-        println(generator.generateXML())
+        val xml = generator.generateXML()
+        println(xml)
+        FileUtils.writeStringToFile(File("auto-generated-build.xml"), xml, StandardCharsets.UTF_8)
     }
 
 }
