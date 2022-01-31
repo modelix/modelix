@@ -22,7 +22,6 @@ import java.io.File
 import java.io.FileInputStream
 import java.io.InputStream
 import java.io.StringWriter
-import java.util.*
 import java.util.zip.ZipEntry
 import javax.xml.XMLConstants
 import javax.xml.parsers.DocumentBuilderFactory
@@ -39,6 +38,10 @@ class BuildScriptGenerator(val inputFolders: List<File>, val modulesToGenerate: 
 
     fun generateXML(): String {
         val doc = generateAnt()
+        return xmlToString(doc)
+    }
+
+    private fun xmlToString(doc: Document): String {
         val transformerFactory: TransformerFactory = TransformerFactory.newInstance()
         val transformer: Transformer = transformerFactory.newTransformer()
         transformer.setOutputProperty(OutputKeys.INDENT, "yes")
@@ -175,9 +178,15 @@ class BuildScriptGenerator(val inputFolders: List<File>, val modulesToGenerate: 
                     modules.addModule(readSourceModule(file))
                 }
                 "jar" -> {
+                    val libraryModuleOwner = LibraryModuleOwner(file)
                     ZipUtil.iterate(file) { stream: InputStream, entry: ZipEntry ->
                         if (entry.name == "META-INF/module.xml") {
-                            modules.addModule(readModule(stream, LibraryModuleOwner(file)))
+                            modules.addModule(readModule(stream, libraryModuleOwner))
+                        }
+                        when (entry.name.substringAfterLast('.', "").lowercase()) {
+                            "msd", "mpl", "devkit" -> {
+                                modules.addModule(readModule(stream, libraryModuleOwner))
+                            }
                         }
                     }
                 }
@@ -203,36 +212,63 @@ class BuildScriptGenerator(val inputFolders: List<File>, val modulesToGenerate: 
         dbf.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true)
         val db = dbf.newDocumentBuilder()
         val xml = db.parse(file)
+        val missedUUIDs = extractModuleUUIDs(xmlToString(xml)).toMutableSet()
         val doc: Element = xml.documentElement
         val uuid = ModuleId(doc.getAttribute("uuid"))
+        missedUUIDs -= uuid.id
         var name = doc.getAttribute("name")
         if (name.isNullOrEmpty()) name = doc.getAttribute("namespace")
         val module = FoundModule(uuid, name, owner)
+        val addDependency = { moduleId: ModuleId ->
+            missedUUIDs -= moduleId.id
+            module.addDependency(moduleId)
+        }
         doc.visitAll { node ->
             if (node is Element) {
+                // Why not just use the extracted UUIDs? Because there are also foreign IDs that are not UUIDs.
                 when (node.tagName) {
-                    "dependency", "extendedLanguage" -> {
+                    "dependency", "extendedLanguage", "extendedDevKit", "usedLanguage", "exported-solution" -> {
                         val text = node.children().filterIsInstance<Text>().first().wholeText
-                        module.addDependency(moduleIdFromReference(text))
+                        addDependency(moduleIdFromReference(text))
                     }
                     "module" -> {
                         if (node.parentTagName() == "dependencyVersions") {
-                            module.addDependency(moduleIdFromReference(node.getAttribute("reference")))
+                            // The dependencyVersions section often contains old modules that not actually used anymore
+                            //addDependency(moduleIdFromReference(node.getAttribute("reference")))
+                            missedUUIDs -= moduleIdFromReference(node.getAttribute("reference")).id
                         } else if (node.parentTagName() == "dependencies") {
-                            module.addDependency(moduleIdFromReference(node.getAttribute("ref")))
+                            addDependency(moduleIdFromReference(node.getAttribute("ref")))
                         }
                     }
                     "language" -> {
-                        if (node.parentTagName() == "languageVersion") {
-                            module.addDependency(moduleIdFromLanguageRef(node.getAttribute("slang")))
+                        if (node.parentTagName() == "languageVersions") {
+                            addDependency(moduleIdFromLanguageRef(node.getAttribute("slang")))
                         } else if (node.parentTagName() == "uses") {
-                            module.addDependency(moduleIdFromLanguageRef(node.getAttribute("id")))
+                            addDependency(moduleIdFromLanguageRef(node.getAttribute("id")))
                         }
+                    }
+                    "exported-language" -> {
+                        addDependency(moduleIdFromReference(node.getAttribute("name")))
+                    }
+                    "generator" -> {
+                        missedUUIDs -= moduleIdFromReference(node.getAttribute("generatorUID")).id
                     }
                 }
             }
         }
+        if (missedUUIDs.isNotEmpty()) {
+            throw RuntimeException("More dependencies found for module $name: $missedUUIDs")
+        }
         return module
+    }
+
+    private fun extractModuleUUIDs(text: String): Set<String> {
+        return Regex("[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}")
+            .findAll(text).filter {
+                // ignore model IDs
+                val first = it.range.first
+                first < 2 || text.substring(first - 2, first) != "r:"
+            }.map { it.value }.toSet()
     }
 
     private fun moduleIdFromReference(text: String): ModuleId {
@@ -256,7 +292,10 @@ private fun Node.visitAll(visitor: (Node)->Unit) {
 }
 
 private fun Node.parentTagName(): String? {
-    return if (this is Element) this.tagName else null
+    if (this !is Element) return null
+    val parentNode = this.parentNode
+    if (parentNode !is Element) return null
+    return parentNode.tagName
 }
 
 private fun Node.children(): List<Node> {

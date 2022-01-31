@@ -27,7 +27,7 @@ class GenerationPlanBuilder(val availableModules: FoundModules) {
         if (processedModules.contains(module.moduleId)) return
         processedModules += module.moduleId
 
-        for (dependency in module.dependsOnModuleId.mapNotNull { availableModules.modules[it] }) {
+        for (dependency in module.dependsOnModuleId.mapNotNull { resolveModule(it, module) }) {
             build(dependency)
         }
 
@@ -40,5 +40,12 @@ class GenerationPlanBuilder(val availableModules: FoundModules) {
             is PluginModuleOwner -> plan.plugins += moduleOwner
             else -> throw RuntimeException("Unknown owner: $moduleOwner")
         }
+    }
+
+    fun resolveModule(id: ModuleId, usedBy: FoundModule): FoundModule? {
+        // jetbrains.mps.lang.docComment doesn't exist (referenced in jetbrains.mps.lang.text)
+        if (id.id == "261403cf-60c1-4995-856b-0bc032f24218") return null
+        return availableModules.modules[id] ?:
+            throw RuntimeException("Dependency $id not found (used by ${usedBy.name})")
     }
 }

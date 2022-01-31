@@ -21,6 +21,9 @@ class FoundModules {
 
     fun addModule(module: FoundModule) {
         if (module.moduleId.id.isNotEmpty()) {
+            if (modules.containsKey(module.moduleId)) {
+//                throw RuntimeException("Module ${module.moduleId} (${module.name}) already exists")
+            }
             modules[module.moduleId] = module
         }
     }
