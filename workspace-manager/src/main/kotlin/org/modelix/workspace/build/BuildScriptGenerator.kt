@@ -13,18 +13,128 @@
  */
 package org.modelix.workspace.build
 
+import org.w3c.dom.Document
 import org.w3c.dom.Element
 import org.w3c.dom.Node
 import org.w3c.dom.Text
+import java.io.ByteArrayOutputStream
 import java.io.File
+import java.io.StringWriter
+import java.nio.charset.StandardCharsets
 import javax.xml.XMLConstants
 import javax.xml.parsers.DocumentBuilderFactory
+import javax.xml.transform.OutputKeys
+import javax.xml.transform.Transformer
+import javax.xml.transform.TransformerFactory
+import javax.xml.transform.dom.DOMSource
+import javax.xml.transform.stream.StreamResult
 
-class BuildScriptGenerator(val inputFolders: List<File>) {
+class BuildScriptGenerator(val inputFolders: List<File>, val modulesToGenerate: List<ModuleId>? = null) {
 
     private val modules: MutableMap<ModuleId, FoundModule> = LinkedHashMap()
 
-    fun generate(modulesToGenerate: List<ModuleId>): GenerationPlan {
+    fun generateXML(): String {
+        val doc = generateAnt()
+        val transformerFactory: TransformerFactory = TransformerFactory.newInstance()
+        val transformer: Transformer = transformerFactory.newTransformer()
+        transformer.setOutputProperty(OutputKeys.INDENT, "yes")
+        val source = DOMSource(doc)
+        val out = StringWriter()
+        val result = StreamResult(out)
+        transformer.transform(source, result)
+        return out.toString()
+    }
+
+    fun generateAnt(): Document {
+        val plan = generatePlan(modulesToGenerate ?: modules.keys.toList())
+
+        val dbf = DocumentBuilderFactory.newInstance()
+        val db = dbf.newDocumentBuilder()
+        val doc = db.newDocument()
+
+        doc.createElement("project").apply {
+            doc.appendChild(this)
+
+            newChild("property") {
+                setAttribute("name", "mps_home")
+                setAttribute("location", "\${mps.home}")
+            }
+
+            newChild("path") {
+                setAttribute("id", "path.mps.ant.path")
+                newChild("pathelement") {
+                    setAttribute("location", "\${mps.home}/lib/ant/lib/ant-mps.jar")
+                }
+                newChild("pathelement") {
+                    setAttribute("location", "\${mps.home}/lib/log4j.jar")
+                }
+                newChild("pathelement") {
+                    setAttribute("location", "\${mps.home}/lib/jdom.jar")
+                }
+            }
+
+            newChild("target") {
+                setAttribute("name", "generate")
+                setAttribute("depends", "declare-mps-tasks")
+                newChild("echo") {
+                    setAttribute("message", "generating")
+                }
+                newChild("generate") {
+                    setAttribute("strictMode", "false")
+                    setAttribute("parallelMode", "false")
+                    setAttribute("useInplaceTransform", "false")
+                    setAttribute("hideWarnings", "false")
+                    setAttribute("createStaticRefs", "false")
+                    setAttribute("fork", "true")
+                    setAttribute("targetJavaVersion", "11")
+                    setAttribute("skipUnmodifiedModels", "true")
+                    setAttribute("logLevel", "ERROR")
+                    newChild("plugin") {
+                        setAttribute("path", "")
+                    }
+                    newChild("library") {
+                        setAttribute("file", "")
+                    }
+                    for (chunk in plan.chunks) {
+                        newChild("chunk") {
+                            for (module in chunk.modules) {
+                                newChild("module") {
+                                    setAttribute("file", module.path.canonicalPath)
+                                }
+                            }
+                        }
+                    }
+                    newChild("jvmargs") {
+                        newChild("arg") {
+                            setAttribute("value", "-ea")
+                        }
+                        newChild("arg") {
+                            setAttribute("value", "-Xmx1024m")
+                        }
+                    }
+                    newChild("macro") {
+                        setAttribute("name", "")
+                        setAttribute("path", "")
+                    }
+                }
+            }
+
+            newChild("target") {
+                setAttribute("name", "declare-mps-tasks")
+                newChild("taskdef") {
+                    setAttribute("resource", "jetbrains/mps/build/ant/antlib.xml")
+                    setAttribute("classpathref", "path.mps.ant.path")
+
+                }
+            }
+        }
+
+        doc.createElement("target")
+
+        return doc
+    }
+
+    fun generatePlan(modulesToGenerate: List<ModuleId>): GenerationPlan {
         collectModules()
         val planBuilder = GenerationPlanBuilder(modules)
         planBuilder.build(modulesToGenerate.mapNotNull { modules[it] })
@@ -117,4 +227,11 @@ private fun Node.children(): List<Node> {
     val result = ArrayList<Node>(children.length)
     for (i in 0 until children.length) result += children.item(i)
     return result
+}
+
+private fun Element.newChild(tag: String, body: Element.()->Unit): Element {
+    val child = ownerDocument.createElement(tag)
+    appendChild(child)
+    child.apply(body)
+    return child
 }

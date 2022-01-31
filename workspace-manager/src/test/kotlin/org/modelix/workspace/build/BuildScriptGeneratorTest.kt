@@ -28,13 +28,15 @@ internal class BuildScriptGeneratorTest {
         assertTrue(modules.size > 10)
 
         val org_modelix_ui_server = ModuleId("39aab22b-473f-4e44-b037-0c602964897d")
-        val plan = generator.generate(listOf(org_modelix_ui_server))
+        val plan = generator.generatePlan(listOf(org_modelix_ui_server))
         for (chunk in plan.chunks) {
             println("--- Chunk ---")
             for (module in chunk.modules) {
                 println("${module.moduleId} - ${module.name}")
             }
         }
+
+        println(generator.generateXML())
     }
 
 }
