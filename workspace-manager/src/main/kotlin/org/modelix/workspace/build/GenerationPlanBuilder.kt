@@ -17,7 +17,9 @@ package org.modelix.workspace.build
 
 class GenerationPlanBuilder(val availableModules: FoundModules) {
     val plan: GenerationPlan = GenerationPlan()
-    val processedModules: MutableSet<ModuleId> = HashSet()
+    private val processedModules: MutableSet<ModuleId> = HashSet()
+    private val currentProcessingModules: MutableList<ModuleId> = ArrayList()
+    private val forcedChunkIndex: MutableMap<ModuleId, Int> = HashMap()
 
     fun build(modules: Iterable<FoundModule>) {
         modules.forEach { build(it) }
@@ -27,25 +29,45 @@ class GenerationPlanBuilder(val availableModules: FoundModules) {
         if (processedModules.contains(module.moduleId)) return
         processedModules += module.moduleId
 
-        for (dependency in module.dependsOnModuleId.mapNotNull { resolveModule(it, module) }) {
-            build(dependency)
-        }
-
-        when (val moduleOwner = module.owner) {
-            is SourceModuleOwner -> {
-                val index = plan.getHighestChunkIndex(module.dependsOnModuleId) + 1
-                plan.insertAt(index, module)
+        currentProcessingModules += module.moduleId
+        try {
+            var cycleIds: List<ModuleId>? = null
+            for (dependency in module.dependencies.mapNotNull { resolveModule(it, module) }) {
+                if (module.owner is SourceModuleOwner) {
+                    val cycleStart = currentProcessingModules.indexOf(dependency.moduleId)
+                    if (cycleStart != -1) {
+                        cycleIds = currentProcessingModules.drop(cycleStart) + dependency.moduleId
+                        println("Dependency cycle detected: " + cycleIds.map { availableModules.modules[it]?.name }.joinToString(" -> "))
+                        val chunkIndex = plan.getHighestChunkIndex(cycleIds).coerceAtLeast(0)
+                        cycleIds.forEach { forcedChunkIndex[it] = chunkIndex }
+                    }
+                }
+                build(dependency)
             }
-            is LibraryModuleOwner -> plan.libraries += moduleOwner
-            is PluginModuleOwner -> plan.plugins += moduleOwner
-            else -> throw RuntimeException("Unknown owner: $moduleOwner")
+
+            when (val moduleOwner = module.owner) {
+                is SourceModuleOwner -> {
+                    val index = currentProcessingModules.firstNotNullOfOrNull { forcedChunkIndex[module.moduleId] }
+                        ?: (plan.getHighestChunkIndex(module.dependencies.filter { it.type == DependencyType.Generator }.map { it.id }) + 1)
+                    cycleIds?.forEach { forcedChunkIndex[it] = index }
+                    plan.insertAt(index, module)
+                }
+                is LibraryModuleOwner -> plan.libraries += moduleOwner
+                is PluginModuleOwner -> plan.plugins += moduleOwner
+                else -> throw RuntimeException("Unknown owner: $moduleOwner")
+            }
+        } finally {
+            currentProcessingModules.removeLast()
         }
     }
 
-    fun resolveModule(id: ModuleId, usedBy: FoundModule): FoundModule? {
+    fun resolveModule(dep: ModuleDependency, usedBy: FoundModule): FoundModule? {
         // jetbrains.mps.lang.docComment doesn't exist (referenced in jetbrains.mps.lang.text)
-        if (id.id == "261403cf-60c1-4995-856b-0bc032f24218") return null
-        return availableModules.modules[id] ?:
-            throw RuntimeException("Dependency $id not found (used by ${usedBy.name})")
+//        if (dep.id.id == "261403cf-60c1-4995-856b-0bc032f24218") return null
+        val resolved = availableModules.modules[dep.id]
+        if (resolved == null && !dep.ignoreIfMissing) {
+            throw RuntimeException("Dependency ${dep.id} not found (used by ${usedBy.name})")
+        }
+        return resolved
     }
 }

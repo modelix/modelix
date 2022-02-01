@@ -34,7 +34,7 @@ import kotlin.collections.ArrayList
 
 class BuildScriptGenerator(val inputFolders: List<File>, val modulesToGenerate: List<ModuleId>? = null) {
 
-    private val modules: FoundModules = FoundModules()
+    private var modules: FoundModules? = null
 
     fun generateXML(): String {
         val doc = generateAnt()
@@ -53,7 +53,7 @@ class BuildScriptGenerator(val inputFolders: List<File>, val modulesToGenerate: 
     }
 
     fun generateAnt(): Document {
-        val plan = generatePlan(modulesToGenerate ?: modules.modules.keys.toList())
+        val plan = generatePlan(modulesToGenerate ?: collectModules().modules.values.filter { it.owner is SourceModuleOwner }.map { it.moduleId }.toList())
 
         val dbf = DocumentBuilderFactory.newInstance()
         val db = dbf.newDocumentBuilder()
@@ -63,7 +63,7 @@ class BuildScriptGenerator(val inputFolders: List<File>, val modulesToGenerate: 
             doc.appendChild(this)
             setAttribute("default", "generate")
 
-            val mpsHome = modules.mpsHome
+            val mpsHome = collectModules().mpsHome
             if (mpsHome != null) {
                 newChild("property") {
                     setAttribute("name", "mps.home")
@@ -158,35 +158,38 @@ class BuildScriptGenerator(val inputFolders: List<File>, val modulesToGenerate: 
     }
 
     fun generatePlan(modulesToGenerate: List<ModuleId>): GenerationPlan {
-        collectModules()
-        val planBuilder = GenerationPlanBuilder(modules)
-        planBuilder.build(modulesToGenerate.mapNotNull { modules.modules[it] })
+        val planBuilder = GenerationPlanBuilder(collectModules())
+        planBuilder.build(modulesToGenerate.mapNotNull { collectModules().modules[it] })
         return planBuilder.plan
     }
 
-    fun getModules(): List<FoundModule> = modules.modules.values.toList()
+    fun getModules(): List<FoundModule> = collectModules().modules.values.toList()
 
-    fun collectModules() {
-        inputFolders.forEach { collectModules(it)}
+    fun collectModules(): FoundModules {
+        if (modules == null) {
+            modules = FoundModules()
+            inputFolders.forEach { collectModules(it, null)}
+        }
+        return modules!!
     }
 
-    fun collectModules(file: File) {
+    fun collectModules(file: File, owner: ModuleOwner?) {
         if (file.isFile) {
             when (file.extension.lowercase()) {
                 // see jetbrains.mps.project.MPSExtentions
                 "msd", "mpl", "devkit" -> {
-                    modules.addModule(readSourceModule(file))
+                    collectModules().addModule(readModule(file, owner ?: SourceModuleOwner(file)))
                 }
                 "jar" -> {
                     if (!file.nameWithoutExtension.endsWith("-src")) {
-                        val libraryModuleOwner = LibraryModuleOwner(file)
+                        val libraryModuleOwner = owner ?: LibraryModuleOwner(file)
                         ZipUtil.iterate(file) { stream: InputStream, entry: ZipEntry ->
                             if (entry.name == "META-INF/module.xml") {
-                                modules.addModule(readModule(stream, libraryModuleOwner))
+                                collectModules().addModule(readModule(stream, libraryModuleOwner))
                             }
                             when (entry.name.substringAfterLast('.', "").lowercase()) {
                                 "msd", "mpl", "devkit" -> {
-                                    modules.addModule(readModule(stream, libraryModuleOwner))
+                                    collectModules().addModule(readModule(stream, libraryModuleOwner))
                                 }
                             }
                         }
@@ -194,19 +197,21 @@ class BuildScriptGenerator(val inputFolders: List<File>, val modulesToGenerate: 
                 }
                 "vmoptions" -> {
                     if (file.nameWithoutExtension == "mps" || file.nameWithoutExtension == "mps64") {
-                        modules.mpsHome = file.parentFile.parentFile
+                        collectModules().mpsHome = file.parentFile.parentFile
                     }
                 }
             }
         } else if (file.isDirectory) {
+            val isPluginDir = File(File(file, "META-INF"), "plugin.xml").exists()
+            val pluginOwner = if (isPluginDir) PluginModuleOwner(file) else null
             file.listFiles()?.forEach { child ->
-                collectModules(child)
+                collectModules(child, owner ?: pluginOwner)
             }
         }
     }
 
-    private fun readSourceModule(file: File): FoundModule {
-        return FileInputStream(file).use { readModule(it, SourceModuleOwner(file)) }
+    private fun readModule(file: File, owner: ModuleOwner): FoundModule {
+        return FileInputStream(file).use { readModule(it, owner) }
     }
 
     private fun readModule(file: InputStream, owner: ModuleOwner): FoundModule {
@@ -221,9 +226,9 @@ class BuildScriptGenerator(val inputFolders: List<File>, val modulesToGenerate: 
         var name = doc.getAttribute("name")
         if (name.isNullOrEmpty()) name = doc.getAttribute("namespace")
         val module = FoundModule(uuid, name, owner)
-        val addDependency = { moduleId: ModuleId ->
+        val addDependency = { moduleId: ModuleId, type: DependencyType, ignoreIfMissing: Boolean ->
             missedUUIDs -= moduleId.id
-            module.addDependency(moduleId)
+            module.addDependency(ModuleDependency(moduleId, type, ignoreIfMissing))
         }
         doc.visitAll { node ->
             if (node is Element) {
@@ -231,26 +236,25 @@ class BuildScriptGenerator(val inputFolders: List<File>, val modulesToGenerate: 
                 when (node.tagName) {
                     "dependency", "extendedLanguage", "extendedDevKit", "usedLanguage", "exported-solution" -> {
                         val text = node.children().filterIsInstance<Text>().first().wholeText
-                        addDependency(moduleIdFromReference(text))
+                        addDependency(moduleIdFromReference(text), DependencyType.Classpath, false)
                     }
                     "module" -> {
                         if (node.parentTagName() == "dependencyVersions") {
-                            // The dependencyVersions section often contains old modules that not actually used anymore
-                            //addDependency(moduleIdFromReference(node.getAttribute("reference")))
+                            //addDependency(moduleIdFromReference(node.getAttribute("reference")), DependencyType.Model, true)
                             missedUUIDs -= moduleIdFromReference(node.getAttribute("reference")).id
                         } else if (node.parentTagName() == "dependencies") {
-                            addDependency(moduleIdFromReference(node.getAttribute("ref")))
+                            addDependency(moduleIdFromReference(node.getAttribute("ref")), DependencyType.Model, false)
                         }
                     }
                     "language" -> {
                         if (node.parentTagName() == "languageVersions") {
-                            addDependency(moduleIdFromLanguageRef(node.getAttribute("slang")))
+                            addDependency(moduleIdFromLanguageRef(node.getAttribute("slang")), DependencyType.Generator, true)
                         } else if (node.parentTagName() == "uses") {
-                            addDependency(moduleIdFromLanguageRef(node.getAttribute("id")))
+                            addDependency(moduleIdFromLanguageRef(node.getAttribute("id")), DependencyType.Generator, false)
                         }
                     }
                     "exported-language" -> {
-                        addDependency(moduleIdFromReference(node.getAttribute("name")))
+                        addDependency(moduleIdFromReference(node.getAttribute("name")), DependencyType.Classpath, false)
                     }
                     "generator" -> {
                         missedUUIDs -= moduleIdFromReference(node.getAttribute("generatorUID")).id

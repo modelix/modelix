@@ -14,15 +14,15 @@
 package org.modelix.workspace.build
 
 class FoundModule(val moduleId: ModuleId, val name: String, val owner: ModuleOwner) {
-    val dependsOnModuleId: MutableSet<ModuleId> = LinkedHashSet()
+    val dependencies: MutableSet<ModuleDependency> = LinkedHashSet()
 
     init {
-        owner.modules += this
+        owner.modules[moduleId] = this
     }
 
-    fun addDependency(moduleId: ModuleId) {
-        if (moduleId.id.isNotEmpty()) {
-            dependsOnModuleId += moduleId
+    fun addDependency(dep: ModuleDependency) {
+        if (dep.id.id.isNotEmpty()) {
+            dependencies += dep
         }
     }
 
@@ -35,7 +35,7 @@ class FoundModule(val moduleId: ModuleId, val name: String, val owner: ModuleOwn
         if (moduleId != other.moduleId) return false
         if (name != other.name) return false
         if (owner != other.owner) return false
-        if (dependsOnModuleId != other.dependsOnModuleId) return false
+        if (dependencies != other.dependencies) return false
 
         return true
     }
@@ -44,7 +44,7 @@ class FoundModule(val moduleId: ModuleId, val name: String, val owner: ModuleOwn
         var result = moduleId.hashCode()
         result = 31 * result + name.hashCode()
         result = 31 * result + owner.hashCode()
-        result = 31 * result + dependsOnModuleId.hashCode()
+        result = 31 * result + dependencies.hashCode()
         return result
     }
 

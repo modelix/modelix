@@ -27,7 +27,7 @@ class FoundModules {
                     println("Duplicate module ${module.moduleId} in ${module.owner.path.canonicalPath} and ${existing.owner.path.canonicalPath}")
                     // throw RuntimeException("Module ${module.moduleId} (${module.name}) already exists")
                 }
-                existing.dependsOnModuleId += module.dependsOnModuleId
+                existing.dependencies += module.dependencies
             } else {
                 modules[module.moduleId] = module
             }

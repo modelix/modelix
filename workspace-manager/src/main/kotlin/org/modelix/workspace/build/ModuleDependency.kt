@@ -1,4 +1,6 @@
 /*
+ * Copyright 2003-2022 JetBrains s.r.o.
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -13,8 +15,11 @@
  */
 package org.modelix.workspace.build
 
-import java.io.File
+data class ModuleDependency(val id: ModuleId, val type: DependencyType, val ignoreIfMissing: Boolean) {
+}
 
-abstract class ModuleOwner(val path: File) {
-    val modules: MutableMap<ModuleId, FoundModule> = HashMap()
+enum class DependencyType {
+    Classpath,
+    Model,
+    Generator
 }

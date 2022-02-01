@@ -19,6 +19,17 @@ class GenerationPlan {
     val plugins: MutableSet<PluginModuleOwner> = LinkedHashSet()
     val libraries: MutableSet<LibraryModuleOwner> = LinkedHashSet()
     val chunks: MutableList<GenerationChunk> = ArrayList()
+    val allModuleIds: MutableSet<ModuleId> = HashSet()
+
+    fun addPlugin(plugin: PluginModuleOwner) {
+        plugins += plugin
+        allModuleIds += plugin.modules.keys
+    }
+
+    fun addLibrary(lib: LibraryModuleOwner) {
+        libraries += lib
+        allModuleIds += lib.modules.keys
+    }
 
     fun getHighestChunkIndex(moduleIds: Iterable<ModuleId>): Int {
         for (i in (0 until chunks.size).reversed()) {
@@ -32,5 +43,8 @@ class GenerationPlan {
     fun insertAt(chunkIndex: Int, module: FoundModule) {
         while (chunks.size <= chunkIndex) chunks += GenerationChunk()
         chunks[chunkIndex].modules += module
+        allModuleIds += module.moduleId
     }
+
+    fun contains(id: ModuleId) = allModuleIds.contains(id)
 }
