@@ -14,6 +14,7 @@
 package org.modelix.workspace.build
 
 import org.apache.commons.io.FileUtils
+import org.apache.commons.io.IOUtils
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 import java.io.File
@@ -26,12 +27,29 @@ internal class BuildScriptGeneratorTest {
         val org_modelix_ui_server = ModuleId("39aab22b-473f-4e44-b037-0c602964897d")
         val org_modelix_notation_impl_baseLanguage = ModuleId("2db6cf34-1ef5-4ea9-ab56-6511aab61960")
         val generator = BuildScriptGenerator(
-            inputFolders = listOf(File("../mps"), File("../artifacts")),
+            inputFolders = listOf(File("../mps"), File("../artifacts"), File("../samples")),
 //            modulesToGenerate = listOf(org_modelix_ui_server, org_modelix_notation_impl_baseLanguage)
         )
         val xml = generator.generateXML()
         println(xml)
-        FileUtils.writeStringToFile(File("auto-generated-build.xml"), xml, StandardCharsets.UTF_8)
+        val antScriptFile = File("auto-generated-build.xml")
+        FileUtils.writeStringToFile(antScriptFile, xml, StandardCharsets.UTF_8)
+    }
+
+    @Test
+    fun test2() {
+        val generator = BuildScriptGenerator(
+            inputFolders = listOf(File("../artifacts/mps"), File("../generator-test-project"))
+        )
+        val xml = generator.generateXML()
+        println(xml)
+        val antScriptFile = File("generator-test-project-build.xml")
+        FileUtils.writeStringToFile(antScriptFile, xml, StandardCharsets.UTF_8)
+
+        val ant = ProcessBuilder("ant", "-f", antScriptFile.canonicalPath).start()
+        IOUtils.copy(ant.inputStream, System.out)
+        val exitValue = ant.waitFor()
+        assertEquals(0, exitValue)
     }
 
 }

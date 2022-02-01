@@ -135,10 +135,10 @@ class BuildScriptGenerator(val inputFolders: List<File>, val modulesToGenerate: 
                             setAttribute("value", "-Xmx1024m")
                         }
                     }
-                    newChild("macro") {
-                        setAttribute("name", "")
-                        setAttribute("path", "")
-                    }
+//                    newChild("macro") {
+//                        setAttribute("name", "")
+//                        setAttribute("path", "")
+//                    }
                 }
             }
 
