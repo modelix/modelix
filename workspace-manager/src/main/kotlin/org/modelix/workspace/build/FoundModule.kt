@@ -1,6 +1,4 @@
 /*
- * Copyright 2003-2022 JetBrains s.r.o.
- *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -15,8 +13,6 @@
  */
 package org.modelix.workspace.build
 
-import java.io.File
-
 class FoundModule(val moduleId: ModuleId, val name: String, val owner: ModuleOwner) {
     val dependsOnModuleId: MutableSet<ModuleId> = LinkedHashSet()
 
@@ -29,4 +25,28 @@ class FoundModule(val moduleId: ModuleId, val name: String, val owner: ModuleOwn
             dependsOnModuleId += moduleId
         }
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+
+        other as FoundModule
+
+        if (moduleId != other.moduleId) return false
+        if (name != other.name) return false
+        if (owner != other.owner) return false
+        if (dependsOnModuleId != other.dependsOnModuleId) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = moduleId.hashCode()
+        result = 31 * result + name.hashCode()
+        result = 31 * result + owner.hashCode()
+        result = 31 * result + dependsOnModuleId.hashCode()
+        return result
+    }
+
+
 }

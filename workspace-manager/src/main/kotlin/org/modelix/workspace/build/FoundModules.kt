@@ -21,10 +21,17 @@ class FoundModules {
 
     fun addModule(module: FoundModule) {
         if (module.moduleId.id.isNotEmpty()) {
-            if (modules.containsKey(module.moduleId)) {
-//                throw RuntimeException("Module ${module.moduleId} (${module.name}) already exists")
+            val existing = modules[module.moduleId]
+            if (existing != null) {
+                if (existing.owner != module.owner) {
+                    println("Duplicate module ${module.moduleId} in ${module.owner.path.canonicalPath} and ${existing.owner.path.canonicalPath}")
+                    // throw RuntimeException("Module ${module.moduleId} (${module.name}) already exists")
+                }
+                existing.dependsOnModuleId += module.dependsOnModuleId
+            } else {
+                modules[module.moduleId] = module
             }
-            modules[module.moduleId] = module
+
         }
     }
 }

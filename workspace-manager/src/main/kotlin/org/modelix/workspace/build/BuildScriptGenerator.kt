@@ -178,14 +178,16 @@ class BuildScriptGenerator(val inputFolders: List<File>, val modulesToGenerate: 
                     modules.addModule(readSourceModule(file))
                 }
                 "jar" -> {
-                    val libraryModuleOwner = LibraryModuleOwner(file)
-                    ZipUtil.iterate(file) { stream: InputStream, entry: ZipEntry ->
-                        if (entry.name == "META-INF/module.xml") {
-                            modules.addModule(readModule(stream, libraryModuleOwner))
-                        }
-                        when (entry.name.substringAfterLast('.', "").lowercase()) {
-                            "msd", "mpl", "devkit" -> {
+                    if (!file.nameWithoutExtension.endsWith("-src")) {
+                        val libraryModuleOwner = LibraryModuleOwner(file)
+                        ZipUtil.iterate(file) { stream: InputStream, entry: ZipEntry ->
+                            if (entry.name == "META-INF/module.xml") {
                                 modules.addModule(readModule(stream, libraryModuleOwner))
+                            }
+                            when (entry.name.substringAfterLast('.', "").lowercase()) {
+                                "msd", "mpl", "devkit" -> {
+                                    modules.addModule(readModule(stream, libraryModuleOwner))
+                                }
                             }
                         }
                     }
