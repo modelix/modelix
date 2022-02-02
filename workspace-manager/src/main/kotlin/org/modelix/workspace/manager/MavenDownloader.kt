@@ -13,8 +13,10 @@
  */
 package org.modelix.workspace.manager
 
+import org.apache.commons.io.FileUtils
 import org.apache.maven.shared.invoker.DefaultInvocationRequest
 import org.apache.maven.shared.invoker.DefaultInvoker
+import org.zeroturnaround.zip.ZipUtil
 import java.io.File
 import java.util.*
 
@@ -24,6 +26,7 @@ class MavenDownloader(val workspace: Workspace, val workspaceDir: File) {
         val request = DefaultInvocationRequest()
         request.goals = listOf("dependency:get")
         val outputDir = File(workspaceDir, "maven-" + coordinates.replace(Regex("[^a-zA-Z0-9.]"), "_"))
+        if (outputDir.exists()) FileUtils.deleteDirectory(outputDir)
         outputDir.mkdirs()
         val properties = Properties()
         properties["remoteRepositories"] = workspace.mavenRepositories.joinToString(",") { it.url }
@@ -32,6 +35,12 @@ class MavenDownloader(val workspace: Workspace, val workspaceDir: File) {
         request.properties = properties
 
         invokeMaven(request)
+        outputDir.listFiles()?.forEach { child ->
+            if (child.isFile && child.extension.lowercase() == "zip") {
+                ZipUtil.unpack(child, outputDir)
+                FileUtils.deleteQuietly(child)
+            }
+        }
         return outputDir
     }
 

@@ -13,6 +13,8 @@
  */
 package org.modelix.workspace.build
 
+import org.apache.commons.io.FileUtils
+import org.apache.commons.io.IOUtils
 import org.w3c.dom.Document
 import org.w3c.dom.Element
 import org.w3c.dom.Node
@@ -22,6 +24,7 @@ import java.io.File
 import java.io.FileInputStream
 import java.io.InputStream
 import java.io.StringWriter
+import java.nio.charset.StandardCharsets
 import java.util.zip.ZipEntry
 import javax.xml.XMLConstants
 import javax.xml.parsers.DocumentBuilderFactory
@@ -35,6 +38,17 @@ import kotlin.collections.ArrayList
 class BuildScriptGenerator(val inputFolders: List<File>, val modulesToGenerate: List<ModuleId>? = null) {
 
     private var modules: FoundModules? = null
+
+    fun buildModules(antScriptFolder: File = File(".")) {
+        val xml = generateXML()
+        val antScriptFile = File.createTempFile("mps-build-script", ".xml", antScriptFolder)
+        FileUtils.writeStringToFile(antScriptFile, xml, StandardCharsets.UTF_8)
+
+        val ant = ProcessBuilder("ant", "-f", antScriptFile.canonicalPath).start()
+        IOUtils.copy(ant.inputStream, System.out)
+        val exitValue = ant.waitFor()
+        if (exitValue != 0) throw RuntimeException("Generating MPS modules failed with exit value $exitValue")
+    }
 
     fun generateXML(): String {
         val doc = generateAnt()

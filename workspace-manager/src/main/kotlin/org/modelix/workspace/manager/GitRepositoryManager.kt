@@ -16,13 +16,10 @@ package org.modelix.workspace.manager
 import org.eclipse.jgit.api.Git
 import org.eclipse.jgit.transport.UsernamePasswordCredentialsProvider
 import org.modelix.model.persistent.HashUtil
+import org.modelix.workspace.build.BuildScriptGenerator
 import java.io.*
 import java.lang.IllegalArgumentException
-import java.nio.file.Files
-import java.nio.file.Path
-import java.util.zip.ZipEntry
 import java.util.zip.ZipOutputStream
-import kotlin.io.path.isDirectory
 
 class GitRepositoryManager(val config: GitRepository, val credentials: Credentials?, val workspaceDirectory: File) {
     private val repoDirectory = File(workspaceDirectory, "git-" + HashUtil.sha256("${config.url} ${config.branch}").replace("*", ""))
@@ -63,13 +60,10 @@ class GitRepositoryManager(val config: GitRepository, val credentials: Credentia
         }
     }
 
+
     fun zip(subfolders: List<String>?, output: ZipOutputStream) {
         updateRepo()
-        val roots: List<File> = if (subfolders == null || subfolders.isEmpty()) {
-            listOf(repoDirectory)
-        } else {
-            subfolders.map { File(repoDirectory, it) }
-        }
+        val roots: List<File> = getRootFolders(subfolders)
         val gitDir = File(repoDirectory, ".git").toPath()
         roots.filter { it.exists() }.forEach { root ->
             output.copyFiles(
@@ -80,4 +74,11 @@ class GitRepositoryManager(val config: GitRepository, val credentials: Credentia
             )
         }
     }
+
+    fun getRootFolders(subfolders: List<String>?) =
+        if (subfolders == null || subfolders.isEmpty()) {
+            listOf(repoDirectory)
+        } else {
+            subfolders.map { File(repoDirectory, it) }
+        }
 }

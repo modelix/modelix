@@ -13,13 +13,19 @@
  */
 package org.modelix.workspace.manager
 
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.launch
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import org.modelix.model.client.RestWebModelClient
 import org.modelix.model.persistent.SerializationUtil
+import org.modelix.workspace.build.BuildScriptGenerator
 import java.io.File
+import java.io.FileOutputStream
 import java.io.OutputStream
+import java.util.*
+import java.util.concurrent.Executors
 import java.util.zip.ZipOutputStream
 import kotlin.collections.HashMap
 
@@ -34,6 +40,8 @@ class WorkspaceManager {
         val workspacesDir = if (parentRepoDir != null) File(parentRepoDir.parent, "modelix-workspaces") else File("modelix-workspaces")
         workspacesDir.absoluteFile
     }
+    private val buildingWorkspaces: MutableList<String> = Collections.synchronizedList(ArrayList())
+    private val executor = Executors.newSingleThreadExecutor()
 
     init {
         println("workspaces directory: $directory")
@@ -87,20 +95,48 @@ class WorkspaceManager {
     fun getWorkspaceDirectory(workspace: Workspace) = File(directory, workspace.id)
 
     @Synchronized
-    fun downloadModules(workspaceId: String, stream: OutputStream) {
+    fun buildWorkspaceDownloadFile(workspaceId: String): File {
         val workspace = getWorkspace(workspaceId)!!
-        ZipOutputStream(stream).use { zipStream ->
-            workspace.mavenDependencies.forEach { coordinates ->
-                val downloadFolder = MavenDownloader(workspace, getWorkspaceDirectory(workspace)).downloadFromMaven(coordinates)
-                zipStream.copyFiles(downloadFolder, mapPath = {getWorkspaceDirectory(workspace).toPath().relativize(it)})
-            }
+        val downloadFile = getDownloadFile(workspace)
+        if (downloadFile.exists()) return downloadFile
 
-            workspace.gitRepositories.forEach { repo ->
-                val repoManager = GitRepositoryManager(repo, null, getWorkspaceDirectory(workspace))
-                repoManager.zip(repo.paths, zipStream)
+        val mavenFolders = workspace.mavenDependencies.map { MavenDownloader(workspace, getWorkspaceDirectory(workspace)).downloadFromMaven(it) }
+        val gitManagers = workspace.gitRepositories.map { it to GitRepositoryManager(it, null, getWorkspaceDirectory(workspace)) }
+        gitManagers.forEach { it.second.updateRepo() }
+        val moduleFolders = mavenFolders + gitManagers.flatMap { it.second.getRootFolders(it.first.paths) }
+        BuildScriptGenerator(moduleFolders).buildModules(getWorkspaceDirectory(workspace))
+        FileOutputStream(downloadFile).use { fileStream ->
+            ZipOutputStream(fileStream).use { zipStream ->
+                mavenFolders.forEach {
+                    zipStream.copyFiles(it, mapPath = {getWorkspaceDirectory(workspace).toPath().relativize(it)})
+                }
+                gitManagers.forEach { repo ->
+                    repo.second.zip(repo.first.paths, zipStream)
+                }
             }
         }
+        return downloadFile
     }
 
+    private fun getDownloadFile(workspace: Workspace) =
+        File(getWorkspaceDirectory(workspace), "workspace.zip")
+
+    fun buildWorkspaceDownloadFileAsync(workspaceId: String): File? {
+        if (buildingWorkspaces.contains(workspaceId)) return null
+        val workspace = getWorkspace(workspaceId) ?: throw RuntimeException("Workspace $workspaceId not found")
+        val downloadFile = getDownloadFile(workspace)
+        if (downloadFile.exists()) return downloadFile
+
+        buildingWorkspaces += workspaceId
+        executor.execute {
+            try {
+                buildWorkspaceDownloadFile(workspaceId)
+            } finally {
+                buildingWorkspaces -= workspaceId
+            }
+        }
+
+        return null
+    }
 }
 

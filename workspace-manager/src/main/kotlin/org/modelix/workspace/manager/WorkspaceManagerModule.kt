@@ -83,8 +83,12 @@ fun Application.workspaceManagerModule() {
         }
 
         get("download-modules/{workspaceId}") {
-            call.respondOutputStream(ContentType.Application.Zip, HttpStatusCode.OK) {
-                manager.downloadModules(call.parameters["workspaceId"]!!, this)
+            val workspaceId = call.parameters["workspaceId"]!!
+            val downloadFile = manager.buildWorkspaceDownloadFileAsync(workspaceId)
+            if (downloadFile == null) {
+                call.respondText("Downloading and building modules ...", ContentType.Text.Plain, HttpStatusCode.OK)
+            } else {
+                call.respondFile(downloadFile)
             }
         }
 
