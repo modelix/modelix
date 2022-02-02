@@ -9454,6 +9454,27 @@
       </node>
     </node>
     <node concept="2tJIrI" id="28I3pJBZVjU" role="jymVt" />
+    <node concept="3clFb_" id="6eCobXxN3fG" role="jymVt">
+      <property role="TrG5h" value="getLockOrderingPriority" />
+      <node concept="3Tm1VV" id="6eCobXxN3fH" role="1B3o_S" />
+      <node concept="3cpWsb" id="6eCobXxN3fJ" role="3clF45" />
+      <node concept="3clFbS" id="6eCobXxN3fK" role="3clF47">
+        <node concept="3clFbF" id="6eCobXxNcw_" role="3cqZAp">
+          <node concept="2OqwBi" id="6eCobXxNdaD" role="3clFbG">
+            <node concept="37vLTw" id="6eCobXxNcwy" role="2Oq$k0">
+              <ref role="3cqZAo" node="5mRomlpwuYC" resolve="wrappedArea" />
+            </node>
+            <node concept="liA8E" id="6eCobXxNdFs" role="2OqNvi">
+              <ref role="37wK5l" to="qvpu:~IArea.getLockOrderingPriority()" resolve="getLockOrderingPriority" />
+            </node>
+          </node>
+        </node>
+      </node>
+      <node concept="2AHcQZ" id="6eCobXxN3fL" role="2AJF6D">
+        <ref role="2AI5Lk" to="wyt6:~Override" resolve="Override" />
+      </node>
+    </node>
+    <node concept="2tJIrI" id="6eCobXxNe6R" role="jymVt" />
     <node concept="3clFb_" id="2YQpkXLoCo4" role="jymVt">
       <property role="TrG5h" value="resolveConcept" />
       <node concept="3Tm1VV" id="2YQpkXLoCo5" role="1B3o_S" />
