@@ -39,9 +39,8 @@ class BuildScriptGenerator(val inputFolders: List<File>, val modulesToGenerate: 
 
     private var modules: FoundModules? = null
 
-    fun buildModules(antScriptFolder: File = File(".")) {
+    fun buildModules(antScriptFile: File = File.createTempFile("mps-build-script", ".xml", File("."))) {
         val xml = generateXML()
-        val antScriptFile = File.createTempFile("mps-build-script", ".xml", antScriptFolder)
         FileUtils.writeStringToFile(antScriptFile, xml, StandardCharsets.UTF_8)
 
         val ant = ProcessBuilder("ant", "-f", antScriptFile.canonicalPath).start()

@@ -13,23 +13,22 @@
  */
 package org.modelix.workspace.manager
 
-import kotlinx.coroutines.MainScope
-import kotlinx.coroutines.launch
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
+import org.apache.commons.io.FileUtils
 import org.modelix.model.client.RestWebModelClient
 import org.modelix.model.persistent.SerializationUtil
 import org.modelix.workspace.build.BuildScriptGenerator
 import java.io.File
 import java.io.FileOutputStream
-import java.io.OutputStream
 import java.util.*
 import java.util.concurrent.Executors
 import java.util.zip.ZipOutputStream
 import kotlin.collections.HashMap
 
 class WorkspaceManager {
+    private val mpsHome: File = findMpsHome()
     private val modelClient: RestWebModelClient = RestWebModelClient("http://localhost:31963/model/")
     private val activeWorkspaces: MutableMap<String, Workspace> = HashMap()
     private val directory: File = run {
@@ -45,6 +44,21 @@ class WorkspaceManager {
 
     init {
         println("workspaces directory: $directory")
+    }
+
+    private fun findMpsHome(): File {
+        val path = listOf("mps.home", "mps_home")
+            .flatMap { listOf(System.getProperty(it), System.getenv(it)) }
+            .firstOrNull { !it.isNullOrEmpty() }
+        if (!path.isNullOrEmpty()) {
+            val file = File(path)
+            if (!file.exists()) throw RuntimeException("${file.canonicalPath} doesn't exist")
+            return file
+        }
+
+        val file = File("../artifacts/mps")
+        if (!file.exists()) throw RuntimeException("MPS not found at ${file.canonicalPath}")
+        return file
     }
 
     @Synchronized
@@ -74,10 +88,11 @@ class WorkspaceManager {
 
     @Synchronized
     fun update(workspace: Workspace) {
-        loadCommitHashes(workspace)
+        //loadCommitHashes(workspace)
         val id = workspace.id
         modelClient.put(key(id), Json.encodeToString(workspace))
         activeWorkspaces[workspace.id] = workspace
+        FileUtils.deleteQuietly(getDownloadFile(workspace))
     }
 
     @Synchronized
@@ -103,8 +118,8 @@ class WorkspaceManager {
         val mavenFolders = workspace.mavenDependencies.map { MavenDownloader(workspace, getWorkspaceDirectory(workspace)).downloadFromMaven(it) }
         val gitManagers = workspace.gitRepositories.map { it to GitRepositoryManager(it, null, getWorkspaceDirectory(workspace)) }
         gitManagers.forEach { it.second.updateRepo() }
-        val moduleFolders = mavenFolders + gitManagers.flatMap { it.second.getRootFolders(it.first.paths) }
-        BuildScriptGenerator(moduleFolders).buildModules(getWorkspaceDirectory(workspace))
+        val moduleFolders = mavenFolders + gitManagers.flatMap { it.second.getRootFolders(it.first.paths) } + mpsHome
+        BuildScriptGenerator(moduleFolders).buildModules(File(getWorkspaceDirectory(workspace), "mps-build-script.xml"))
         FileOutputStream(downloadFile).use { fileStream ->
             ZipOutputStream(fileStream).use { zipStream ->
                 mavenFolders.forEach {
