@@ -140,7 +140,7 @@ public class ModelPlugin implements Plugin<Project> {
                     }
                     if (!success) {
                         System.err.println("Execution of ExportMain does not indicate success");
-                        throw new RuntimeException();
+                        throw new RuntimeException("We could not find the output lines indicating successful completion");
                     }
                     if (exitValue != 0) {
                         System.err.println("Execution of ExportMain failed. Exit code: " + exitValue);
