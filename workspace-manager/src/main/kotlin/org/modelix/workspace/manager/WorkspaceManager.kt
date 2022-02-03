@@ -112,16 +112,15 @@ class WorkspaceManager {
 
     fun getWorkspaceDirectory(workspace: Workspace) = File(directory, workspace.id)
 
-    private fun buildWorkspaceDownloadFile(workspaceId: String): File {
-        val workspace = getWorkspace(workspaceId)!!
-        val downloadFile = getDownloadFile(workspace)
-        if (downloadFile.exists()) return downloadFile
+    private fun buildWorkspaceDownloadFile(job: WorkspaceBuildJob): File {
+        val workspace = job.workspace
+        val downloadFile = job.downloadFile
 
-        val mavenFolders = workspace.mavenDependencies.map { MavenDownloader(workspace, getWorkspaceDirectory(workspace)).downloadFromMaven(it) }
+        val mavenFolders = workspace.mavenDependencies.map { MavenDownloader(workspace, getWorkspaceDirectory(workspace)).downloadFromMaven(it, job.outputHandler) }
         val gitManagers = workspace.gitRepositories.map { it to GitRepositoryManager(it, null, getWorkspaceDirectory(workspace)) }
         gitManagers.forEach { it.second.updateRepo() }
         val moduleFolders = mavenFolders + gitManagers.flatMap { it.second.getRootFolders(it.first.paths) } + mpsHome
-        BuildScriptGenerator(moduleFolders).buildModules(File(getWorkspaceDirectory(workspace), "mps-build-script.xml"))
+        BuildScriptGenerator(moduleFolders).buildModules(File(getWorkspaceDirectory(workspace), "mps-build-script.xml"), job.outputHandler)
         FileOutputStream(downloadFile).use { fileStream ->
             ZipOutputStream(fileStream).use { zipStream ->
                 mavenFolders.forEach {
@@ -151,7 +150,7 @@ class WorkspaceManager {
                 executor.execute {
                     try {
                         job.status = Status.Running
-                        buildWorkspaceDownloadFile(workspaceId)
+                        buildWorkspaceDownloadFile(job)
                         job.status = Status.Successful
                     } catch (e: Exception) {
                         job.status = Status.Failed

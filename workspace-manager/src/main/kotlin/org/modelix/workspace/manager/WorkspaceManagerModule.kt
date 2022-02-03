@@ -94,6 +94,9 @@ fun Application.workspaceManagerModule() {
                     <head>
                     <body>
                         $text
+                        <br/>
+                        <br/>
+                        <pre>${StringEscapeUtils.escapeHtml4(job.output.joinToString("\n"))}</pre>
                     </body>
                     </html>
                 """.trimIndent()

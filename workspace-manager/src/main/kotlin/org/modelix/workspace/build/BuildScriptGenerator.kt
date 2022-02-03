@@ -20,10 +20,7 @@ import org.w3c.dom.Element
 import org.w3c.dom.Node
 import org.w3c.dom.Text
 import org.zeroturnaround.zip.ZipUtil
-import java.io.File
-import java.io.FileInputStream
-import java.io.InputStream
-import java.io.StringWriter
+import java.io.*
 import java.nio.charset.StandardCharsets
 import java.util.zip.ZipEntry
 import javax.xml.XMLConstants
@@ -33,18 +30,26 @@ import javax.xml.transform.Transformer
 import javax.xml.transform.TransformerFactory
 import javax.xml.transform.dom.DOMSource
 import javax.xml.transform.stream.StreamResult
-import kotlin.collections.ArrayList
 
 class BuildScriptGenerator(val inputFolders: List<File>, val modulesToGenerate: List<ModuleId>? = null) {
 
     private var modules: FoundModules? = null
 
-    fun buildModules(antScriptFile: File = File.createTempFile("mps-build-script", ".xml", File("."))) {
+    fun buildModules(antScriptFile: File = File.createTempFile("mps-build-script", ".xml", File(".")), outputHandler: ((String)->Unit)? = null) {
         val xml = generateXML()
         FileUtils.writeStringToFile(antScriptFile, xml, StandardCharsets.UTF_8)
 
         val ant = ProcessBuilder("ant", "-f", antScriptFile.canonicalPath).start()
-        IOUtils.copy(ant.inputStream, System.out)
+        if (outputHandler != null) {
+            val reader = BufferedReader(InputStreamReader(ant.inputStream))
+            var line = reader.readLine()
+            while (line != null) {
+                outputHandler(line)
+                line = reader.readLine()
+            }
+        } else {
+            IOUtils.copy(ant.inputStream, System.out)
+        }
         val exitValue = ant.waitFor()
         if (exitValue != 0) throw RuntimeException("Generating MPS modules failed with exit value $exitValue")
     }

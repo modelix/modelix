@@ -17,6 +17,8 @@ import java.io.File
 
 class WorkspaceBuildJob(val workspace: Workspace, val downloadFile: File) {
     var status: Status = Status.New
+    val output: MutableList<String> = ArrayList()
+    val outputHandler: (String)->Unit = { output += it }
 }
 
 enum class Status {

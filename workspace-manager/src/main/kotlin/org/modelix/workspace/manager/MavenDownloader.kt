@@ -16,15 +16,17 @@ package org.modelix.workspace.manager
 import org.apache.commons.io.FileUtils
 import org.apache.maven.shared.invoker.DefaultInvocationRequest
 import org.apache.maven.shared.invoker.DefaultInvoker
+import org.apache.maven.shared.invoker.InvocationOutputHandler
 import org.zeroturnaround.zip.ZipUtil
 import java.io.File
 import java.util.*
 
 class MavenDownloader(val workspace: Workspace, val workspaceDir: File) {
 
-    fun downloadFromMaven(coordinates: String): File {
+    fun downloadFromMaven(coordinates: String, outputHandler: ((String)->Unit)? = null): File {
         val request = DefaultInvocationRequest()
         request.goals = listOf("dependency:get")
+        request.isBatchMode = true
         val outputDir = File(workspaceDir, "maven-" + coordinates.replace(Regex("[^a-zA-Z0-9.]"), "_"))
         if (outputDir.exists()) FileUtils.deleteDirectory(outputDir)
         outputDir.mkdirs()
@@ -34,7 +36,7 @@ class MavenDownloader(val workspace: Workspace, val workspaceDir: File) {
         properties["artifact"] = addPackagingIfMissing(coordinates)
         request.properties = properties
 
-        invokeMaven(request)
+        invokeMaven(request, outputHandler?.let { { outputHandler(it) } })
         outputDir.listFiles()?.forEach { child ->
             if (child.isFile && child.extension.lowercase() == "zip") {
                 ZipUtil.unpack(child, outputDir)
@@ -44,9 +46,10 @@ class MavenDownloader(val workspace: Workspace, val workspaceDir: File) {
         return outputDir
     }
 
-    private fun invokeMaven(request: DefaultInvocationRequest) {
+    private fun invokeMaven(request: DefaultInvocationRequest, outputHandler: InvocationOutputHandler?) {
         val invoker = DefaultInvoker()
         invoker.mavenHome = File("/usr/local/Cellar/maven/3.6.3_1/")
+        if (outputHandler != null) invoker.setOutputHandler(outputHandler)
         invoker.execute(request)
     }
 
