@@ -27,6 +27,7 @@ import io.ktor.routing.*
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import org.apache.commons.text.StringEscapeUtils
+import java.awt.SystemColor.text
 
 fun Application.workspaceManagerModule() {
 
@@ -82,13 +83,50 @@ fun Application.workspaceManagerModule() {
             this.call.respondText(html, ContentType.Text.Html, HttpStatusCode.OK)
         }
 
-        get("download-modules/{workspaceId}") {
+        get("download-modules/{workspaceId}/queue") {
             val workspaceId = call.parameters["workspaceId"]!!
-            val downloadFile = manager.buildWorkspaceDownloadFileAsync(workspaceId)
-            if (downloadFile == null) {
-                call.respondText("Downloading and building modules ...", ContentType.Text.Plain, HttpStatusCode.OK)
+            val job = manager.buildWorkspaceDownloadFileAsync(workspaceId)
+            val respondStatus: suspend (String)->Unit = { text ->
+                val html = """
+                    <html>
+                    <head>
+                        <meta http-equiv="refresh" content="3">
+                    <head>
+                    <body>
+                        $text
+                    </body>
+                    </html>
+                """.trimIndent()
+                call.respondText(html, ContentType.Text.Html, HttpStatusCode.OK)
+            }
+            when (job.status) {
+                Status.New, Status.Queued -> respondStatus("Workspace is queued for building ...")
+                Status.Running -> respondStatus("Downloading and building modules ...")
+                Status.Failed -> respondStatus("Failed to build the workspace ...")
+                Status.Successful -> {
+                    val fileName = "workspace-$workspaceId.zip"
+                    call.respondText("""
+                        <html>
+                        <head>
+                            <meta http-equiv="refresh" content="1; url=$fileName">
+                        <head>
+                        <body>
+                            Downloading <a href="$fileName">$fileName</a>
+                        </body>
+                        </html>
+                    """.trimIndent(), ContentType.Text.Html, HttpStatusCode.OK)
+                }
+            }
+        }
+
+        get("download-modules/{workspaceId}/workspace-{workspaceId}.zip") {
+            val id = call.parameters["workspaceId"]!!
+            val workspace = manager.getWorkspace(id)
+            if (workspace == null) {
+                call.respondText("Workspace $id not found", ContentType.Text.Plain, HttpStatusCode.NotFound)
             } else {
-                call.respondFile(downloadFile)
+                val file = manager.getDownloadFile(workspace)
+                call.respondFile(file)
             }
         }
 

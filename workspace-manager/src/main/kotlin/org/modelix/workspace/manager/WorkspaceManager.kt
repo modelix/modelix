@@ -39,7 +39,7 @@ class WorkspaceManager {
         val workspacesDir = if (parentRepoDir != null) File(parentRepoDir.parent, "modelix-workspaces") else File("modelix-workspaces")
         workspacesDir.absoluteFile
     }
-    private val buildingWorkspaces: MutableList<String> = Collections.synchronizedList(ArrayList())
+    private val buildJobs: MutableMap<String, WorkspaceBuildJob> = Collections.synchronizedMap(HashMap())
     private val executor = Executors.newSingleThreadExecutor()
 
     init {
@@ -92,7 +92,10 @@ class WorkspaceManager {
         val id = workspace.id
         modelClient.put(key(id), Json.encodeToString(workspace))
         activeWorkspaces[workspace.id] = workspace
-        FileUtils.deleteQuietly(getDownloadFile(workspace))
+        synchronized(buildJobs) {
+            buildJobs.remove(id)
+            FileUtils.deleteQuietly(getDownloadFile(workspace))
+        }
     }
 
     @Synchronized
@@ -109,8 +112,7 @@ class WorkspaceManager {
 
     fun getWorkspaceDirectory(workspace: Workspace) = File(directory, workspace.id)
 
-    @Synchronized
-    fun buildWorkspaceDownloadFile(workspaceId: String): File {
+    private fun buildWorkspaceDownloadFile(workspaceId: String): File {
         val workspace = getWorkspace(workspaceId)!!
         val downloadFile = getDownloadFile(workspace)
         if (downloadFile.exists()) return downloadFile
@@ -133,25 +135,32 @@ class WorkspaceManager {
         return downloadFile
     }
 
-    private fun getDownloadFile(workspace: Workspace) =
+    fun getDownloadFile(workspace: Workspace) =
         File(getWorkspaceDirectory(workspace), "workspace.zip")
 
-    fun buildWorkspaceDownloadFileAsync(workspaceId: String): File? {
-        if (buildingWorkspaces.contains(workspaceId)) return null
+    fun buildWorkspaceDownloadFileAsync(workspaceId: String): WorkspaceBuildJob {
         val workspace = getWorkspace(workspaceId) ?: throw RuntimeException("Workspace $workspaceId not found")
-        val downloadFile = getDownloadFile(workspace)
-        if (downloadFile.exists()) return downloadFile
 
-        buildingWorkspaces += workspaceId
-        executor.execute {
-            try {
-                buildWorkspaceDownloadFile(workspaceId)
-            } finally {
-                buildingWorkspaces -= workspaceId
+        val job: WorkspaceBuildJob
+        synchronized(buildJobs) {
+            job = buildJobs.getOrPut(workspace.id) { WorkspaceBuildJob(workspace, getDownloadFile(workspace)) }
+        }
+        synchronized(job) {
+            if (job.status == Status.New) {
+                job.status = Status.Queued
+                executor.execute {
+                    try {
+                        job.status = Status.Running
+                        buildWorkspaceDownloadFile(workspaceId)
+                        job.status = Status.Successful
+                    } catch (e: Exception) {
+                        job.status = Status.Failed
+                    }
+                }
             }
         }
 
-        return null
+        return job
     }
 }
 
