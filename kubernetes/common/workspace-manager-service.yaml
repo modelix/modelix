@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+  labels:
+    app: workspace-manager
+  name: workspace-manager
+spec:
+  type: NodePort
+  ports:
+  - name: "28104"
+    port: 28104
+    targetPort: 28104
+  selector:
+    app: workspace-manager

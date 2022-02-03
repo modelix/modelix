@@ -60,6 +60,10 @@ fun Application.workspaceManagerModule() {
             call.respondRedirect("edit/${workspace.id}")
         }
 
+        get("/health") {
+            call.respondText("healthy", ContentType.Text.Plain, HttpStatusCode.OK)
+        }
+
         get("edit/{workspaceId}") {
             val id = call.parameters["workspaceId"]
             if (id == null) {

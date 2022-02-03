@@ -29,7 +29,7 @@ import kotlin.collections.HashMap
 
 class WorkspaceManager {
     private val mpsHome: File = findMpsHome()
-    private val modelClient: RestWebModelClient = RestWebModelClient("http://localhost:31963/model/")
+    private val modelClient: RestWebModelClient = RestWebModelClient(getModelServerUrl())
     private val activeWorkspaces: MutableMap<String, Workspace> = HashMap()
     private val directory: File = run {
         // The workspace will contain git repositories. Avoid cloning them into an existing repository.
@@ -47,6 +47,8 @@ class WorkspaceManager {
     }
 
     private fun findMpsHome(): File {
+        println("env: " + System.getenv())
+        println("properties: " + System.getProperties())
         val path = listOf("mps.home", "mps_home")
             .flatMap { listOf(System.getProperty(it), System.getenv(it)) }
             .firstOrNull { !it.isNullOrEmpty() }
@@ -59,6 +61,13 @@ class WorkspaceManager {
         val file = File("../artifacts/mps")
         if (!file.exists()) throw RuntimeException("MPS not found at ${file.canonicalPath}")
         return file
+    }
+
+    private fun getModelServerUrl(): String {
+        return listOf("model.server.url", "model_server_url")
+            .flatMap { listOf(System.getProperty(it), System.getenv(it)) }
+            .filterNotNull()
+            .firstOrNull() ?: "http://localhost:31963/model/"
     }
 
     @Synchronized
