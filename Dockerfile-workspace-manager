@@ -1,4 +1,10 @@
 FROM openjdk:11
+
+RUN apt update
+RUN apt install maven -y
+RUN apt install git -y
+RUN apt install ant -y
+
 WORKDIR /workspace-manager/
 EXPOSE 28104
 COPY workspace-manager/build/libs/workspace-manager-latest-all.jar /workspace-manager/workspace-manager.jar

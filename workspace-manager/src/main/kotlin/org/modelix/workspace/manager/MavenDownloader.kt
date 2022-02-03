@@ -48,7 +48,9 @@ class MavenDownloader(val workspace: Workspace, val workspaceDir: File) {
 
     private fun invokeMaven(request: DefaultInvocationRequest, outputHandler: InvocationOutputHandler?) {
         val invoker = DefaultInvoker()
-        invoker.mavenHome = File("/usr/local/Cellar/maven/3.6.3_1/")
+        val candidates = mutableListOf(File("/usr/share/maven"))
+        File("/usr/local/Cellar/maven/").listFiles()?.let { candidates += it }
+        invoker.mavenHome = candidates.firstOrNull { it.exists() } ?: throw RuntimeException("maven not found in $candidates")
         if (outputHandler != null) invoker.setOutputHandler(outputHandler)
         invoker.execute(request)
     }
