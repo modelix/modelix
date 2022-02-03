@@ -86,11 +86,11 @@ fun Application.workspaceManagerModule() {
         get("download-modules/{workspaceId}/queue") {
             val workspaceId = call.parameters["workspaceId"]!!
             val job = manager.buildWorkspaceDownloadFileAsync(workspaceId)
-            val respondStatus: suspend (String)->Unit = { text ->
+            val respondStatus: suspend (String, String)->Unit = { text, refresh ->
                 val html = """
                     <html>
                     <head>
-                        <meta http-equiv="refresh" content="3">
+                        <meta http-equiv="refresh" content="$refresh">
                     <head>
                     <body>
                         $text
@@ -100,21 +100,12 @@ fun Application.workspaceManagerModule() {
                 call.respondText(html, ContentType.Text.Html, HttpStatusCode.OK)
             }
             when (job.status) {
-                Status.New, Status.Queued -> respondStatus("Workspace is queued for building ...")
-                Status.Running -> respondStatus("Downloading and building modules ...")
-                Status.Failed -> respondStatus("Failed to build the workspace ...")
+                Status.New, Status.Queued -> respondStatus("Workspace is queued for building ...", "3")
+                Status.Running -> respondStatus("Downloading and building modules ...", "3")
+                Status.Failed -> respondStatus("Failed to build the workspace ...", "3")
                 Status.Successful -> {
                     val fileName = "workspace-$workspaceId.zip"
-                    call.respondText("""
-                        <html>
-                        <head>
-                            <meta http-equiv="refresh" content="1; url=$fileName">
-                        <head>
-                        <body>
-                            Downloading <a href="$fileName">$fileName</a>
-                        </body>
-                        </html>
-                    """.trimIndent(), ContentType.Text.Html, HttpStatusCode.OK)
+                    respondStatus("""Downloading <a href="$fileName">$fileName</a>""", "0; url=$fileName")
                 }
             }
         }
@@ -126,7 +117,11 @@ fun Application.workspaceManagerModule() {
                 call.respondText("Workspace $id not found", ContentType.Text.Plain, HttpStatusCode.NotFound)
             } else {
                 val file = manager.getDownloadFile(workspace)
-                call.respondFile(file)
+                if (file.exists()) {
+                    call.respondFile(file)
+                } else {
+                    call.respondText("""File doesn't exist yet. <a href="queue">Start a build job for the workspace.</a>""", ContentType.Text.Html, HttpStatusCode.NotFound)
+                }
             }
         }
 
