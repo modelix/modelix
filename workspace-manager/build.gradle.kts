@@ -9,10 +9,12 @@ plugins {
     kotlin("jvm") version "1.5.31"
     kotlin("plugin.serialization") version "1.5.31"
     id("application")
+    id("com.github.johnrengelman.shadow") version "6.1.0"
 }
 
 application {
     mainClass.set("io.ktor.server.netty.EngineMain")
+    mainClassName = "io.ktor.server.netty.EngineMain"
 }
 
 dependencies {
