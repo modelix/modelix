@@ -162,6 +162,8 @@ class WorkspaceManager {
                         buildWorkspaceDownloadFile(job)
                         job.status = Status.Successful
                     } catch (e: Exception) {
+                        job.output += e::class.qualifiedName + ": " + e.message
+                        job.output += e.stackTrace.map { "  $it" }
                         job.status = Status.Failed
                     }
                 }
