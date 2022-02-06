@@ -25,7 +25,7 @@ spec:
       - env:
           - name: model_server_url
             value: http://model:28101/
-        image: modelix/modelix-workspace-manager:2020.3.5-202202031506-SNAPSHOT
+        image: modelix/modelix-workspace-manager:2020.3.5-202202031754-SNAPSHOT
         imagePullPolicy: IfNotPresent
         name: workspace-manager
         ports:
@@ -34,10 +34,10 @@ spec:
           name: "jvm-debug"
         resources: 
           requests:
-            memory: "800Mi"
+            memory: "1.5Gi"
             cpu: "0.1"
           limits:
-            memory: "800Mi"
+            memory: "1.5Gi"
             cpu: "1.0"
         readinessProbe:
           httpGet:

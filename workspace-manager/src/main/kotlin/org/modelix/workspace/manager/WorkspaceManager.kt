@@ -154,17 +154,17 @@ class WorkspaceManager {
             job = buildJobs.getOrPut(workspace.id) { WorkspaceBuildJob(workspace, getDownloadFile(workspace)) }
         }
         synchronized(job) {
-            if (job.status == Status.New) {
-                job.status = Status.Queued
+            if (job.status == WorkspaceBuildStatus.New) {
+                job.status = WorkspaceBuildStatus.Queued
                 executor.execute {
                     try {
-                        job.status = Status.Running
+                        job.status = WorkspaceBuildStatus.Running
                         buildWorkspaceDownloadFile(job)
-                        job.status = Status.Successful
+                        job.status = WorkspaceBuildStatus.Successful
                     } catch (e: Exception) {
                         job.output += e::class.qualifiedName + ": " + e.message
                         job.output += e.stackTrace.map { "  $it" }
-                        job.status = Status.Failed
+                        job.status = WorkspaceBuildStatus.Failed
                     }
                 }
             }

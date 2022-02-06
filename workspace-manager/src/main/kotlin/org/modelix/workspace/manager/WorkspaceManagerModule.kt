@@ -27,7 +27,6 @@ import io.ktor.routing.*
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import org.apache.commons.text.StringEscapeUtils
-import java.awt.SystemColor.text
 
 fun Application.workspaceManagerModule() {
 
@@ -107,10 +106,10 @@ fun Application.workspaceManagerModule() {
                 call.respondText(html, ContentType.Text.Html, HttpStatusCode.OK)
             }
             when (job.status) {
-                Status.New, Status.Queued -> respondStatus("Workspace is queued for building ...", "3")
-                Status.Running -> respondStatus("Downloading and building modules ...", "3")
-                Status.Failed -> respondStatus("Failed to build the workspace ...", "3")
-                Status.Successful -> {
+                WorkspaceBuildStatus.New, WorkspaceBuildStatus.Queued -> respondStatus("Workspace is queued for building ...", "3")
+                WorkspaceBuildStatus.Running -> respondStatus("Downloading and building modules ...", "3")
+                WorkspaceBuildStatus.Failed -> respondStatus("Failed to build the workspace ...", "3")
+                WorkspaceBuildStatus.Successful -> {
                     val fileName = "workspace-$workspaceId.zip"
                     respondStatus("""Downloading <a href="$fileName">$fileName</a>""", "0; url=$fileName")
                 }

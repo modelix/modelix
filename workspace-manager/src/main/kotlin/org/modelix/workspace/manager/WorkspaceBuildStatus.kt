@@ -1,4 +1,6 @@
 /*
+ * Copyright 2003-2022 JetBrains s.r.o.
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -13,11 +15,10 @@
  */
 package org.modelix.workspace.manager
 
-import java.io.File
-
-class WorkspaceBuildJob(val workspace: Workspace, val downloadFile: File) {
-    var status: WorkspaceBuildStatus = WorkspaceBuildStatus.New
-    val output: MutableList<String> = ArrayList()
-    val outputHandler: (String)->Unit = { output += it }
+enum class WorkspaceBuildStatus {
+    New,
+    Queued,
+    Running,
+    Failed,
+    Successful
 }
-

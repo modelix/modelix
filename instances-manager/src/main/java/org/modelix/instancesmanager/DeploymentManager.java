@@ -19,6 +19,7 @@ import io.kubernetes.client.openapi.apis.AppsV1Api;
 import io.kubernetes.client.openapi.apis.CoreV1Api;
 import io.kubernetes.client.openapi.models.V1Deployment;
 import io.kubernetes.client.openapi.models.V1DeploymentList;
+import io.kubernetes.client.openapi.models.V1EnvVar;
 import io.kubernetes.client.openapi.models.V1ObjectMeta;
 import io.kubernetes.client.openapi.models.V1Pod;
 import io.kubernetes.client.openapi.models.V1PodList;
@@ -119,22 +120,30 @@ public class DeploymentManager {
         if (redirected == null) return null;
         if (redirected.userId == null) return redirected;
 
+        String originalDeploymentName = redirected.originalDeploymentName;
+        String assignmentKey = originalDeploymentName;
+        String workspaceId = null;
+        if (originalDeploymentName.matches("workspace-[a-fA-F0-9]+")) {
+            workspaceId = originalDeploymentName.substring("workspace-".length());
+            originalDeploymentName = "workspace-client";
+        }
+
         try {
-            V1Deployment originalDeployment = getDeployment(redirected.originalDeploymentName, 3);
+            V1Deployment originalDeployment = getDeployment(originalDeploymentName, 3);
             V1ObjectMeta metadata = originalDeployment.getMetadata();
             Map<String, String> annotations = metadata != null ? metadata.getAnnotations() : null;
             boolean isInstancePerUser = annotations != null && "true".equals(annotations.get(INSTANCE_PER_USER_ANNOTATION_KEY));
             if (!isInstancePerUser) {
                 return null;
             } else {
-                Assignments assignments = getAssignments(redirected.originalDeploymentName);
+                Assignments assignments = getAssignments(assignmentKey);
                 redirected.personalDeploymentName = assignments.getOrCreate(redirected.userId);
                 assignments.setNumberOfUnassigned(originalDeployment);
 
                 reconcileIfDirty();
             }
         } catch (ApiException e) {
-            LOG.error("Failed to get deployment " + redirected.originalDeploymentName, e);
+            LOG.error("Failed to get deployment " + originalDeploymentName, e);
         }
 
         return redirected;
@@ -231,6 +240,12 @@ public class DeploymentManager {
     }
 
     public boolean createDeployment(String originalDeploymentName, String personalDeploymentName) throws IOException, ApiException {
+        String workspaceId = null;
+        if (originalDeploymentName.matches("workspace-[a-fA-F0-9]+")) {
+            workspaceId = originalDeploymentName.substring("workspace-".length());
+            originalDeploymentName = "workspace-client";
+        }
+
         AppsV1Api appsApi = new AppsV1Api();
 
         V1DeploymentList deployments = appsApi.listNamespacedDeployment(KUBERNETES_NAMESPACE, null, null, null, null, null, null, null, 5, false);
@@ -254,6 +269,11 @@ public class DeploymentManager {
             deployment.getSpec().getSelector().putMatchLabelsItem("app", personalDeploymentName);
             deployment.getSpec().getTemplate().getMetadata().putLabelsItem("app", personalDeploymentName);
             deployment.getSpec().replicas(1);
+
+            if (workspaceId != null) {
+                deployment.getSpec().getTemplate().getSpec().getContainers().get(0)
+                        .addEnvItem(new V1EnvVar().name("modelix_workspace_id").value(workspaceId));
+            }
 
             System.out.println("Creating deployment: ");
             System.out.println(Yaml.dump(deployment));

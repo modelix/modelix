@@ -3,13 +3,13 @@ kind: Deployment
 metadata:
   annotations:
     instance-per-user: "true"
-    max-unassigned-instances: "1"
+    max-unassigned-instances: "0"
   labels:
-    app: projector
-  name: projector
+    app: workspace-client
+  name: workspace-client
 spec:
   revisionHistoryLimit: 5
-  replicas: 1
+  replicas: 0
   strategy:
     type: RollingUpdate
     rollingUpdate:
@@ -17,21 +17,21 @@ spec:
       maxSurge: 1
   selector:
     matchLabels:
-      app: projector
+      app: workspace-client
   template:
     metadata:
       labels:
-        app: projector
+        app: workspace-client
     spec:
       containers:
-      - name: projector
-        image: modelix/modelix-projector:2020.3.5-202202031754-SNAPSHOT
+      - name: workspace-client
+        image: modelix/modelix-workspace-client:2020.3.5-202202061327-SNAPSHOT
         imagePullPolicy: IfNotPresent
         env:
-        - name: "MODEL_URI"
-          value: "http://model:28101/"
         - name: "modelix_executionMode"
           value: "PROJECTOR"
+        - name: "modelix_workspace_server"
+          value: "http://workspace-manager:28104/"
         ports:
         - containerPort: 8887
         volumeMounts:
@@ -40,10 +40,10 @@ spec:
             readOnly: true
         resources: 
           requests:
-            memory: "2.0Gi"
+            memory: "3.0Gi"
             cpu: 500m
           limits:
-            memory: "2.5Gi"
+            memory: "3.0Gi"
             cpu: "1.5"
         readinessProbe:
           httpGet:

@@ -11,3 +11,4 @@
 ./docker-build-uiproxy.sh
 ./docker-build-instances-manager.sh
 ./docker-build-workspace-manager.sh
+./docker-build-workspace-client.sh
