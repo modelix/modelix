@@ -114,6 +114,9 @@ public class ModelPlugin implements Plugin<Project> {
                 if (settings.getModelixArtifactsPath() != null) {
                     javaExec.args(Key.MODELIX_PATH.getCode(), settings.getModelixArtifactsPath());
                 }
+                if (settings.isMakeProjectSet()) {
+                    javaExec.args(Key.MAKE.getCode(), settings.getMakeProject());
+                }
                 if (settings.isDebug()) {
                     javaExec.setDebug(true);
                 }
@@ -165,6 +168,7 @@ public class ModelPlugin implements Plugin<Project> {
                 System.out.println("  additional plugins      : " + settings.getAdditionalPluginsAsString());
                 System.out.println("  additional plugin dirs  : " + settings.getAdditionalPluginDirsAsString());
                 System.out.println("  project path            : " + settings.getProjectFile().getAbsolutePath());
+                System.out.println("  make project            : " + settings.getMakeProject());
             });
         });
     }

@@ -9,6 +9,10 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/* \
     && rm -rf /var/cache/apt
 
+RUN echo "-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5071" >> /projector/ide/bin/mps64.vmoptions
+RUN sed -i.bak '/-Xmx/d' /projector/ide/bin/mps64.vmoptions
+RUN echo "-XX:MaxRAMPercentage=85" >> /projector/ide/bin/mps64.vmoptions
+
 RUN mkdir -p /mps-plugins
 RUN mkdir -p /mps-languages
 RUN chown -R projector-user:projector-user /home/projector-user
