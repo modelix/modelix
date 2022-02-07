@@ -34,6 +34,7 @@ dependencies {
     implementation("org.zeroturnaround:zt-zip:1.14")
     implementation("org.apache.commons:commons-text:1.9")
     implementation(project(":model-client"))
+    implementation("io.ktor","ktor-html-builder", ktorVersion)
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.6.0")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
 }

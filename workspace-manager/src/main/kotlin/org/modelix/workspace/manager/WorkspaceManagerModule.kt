@@ -19,11 +19,13 @@ import io.ktor.application.Application
 import io.ktor.application.call
 import io.ktor.application.install
 import io.ktor.features.*
+import io.ktor.html.*
 import io.ktor.http.*
 import io.ktor.http.content.*
 import io.ktor.request.*
 import io.ktor.response.*
 import io.ktor.routing.*
+import kotlinx.html.*
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import org.apache.commons.text.StringEscapeUtils
@@ -35,7 +37,33 @@ fun Application.workspaceManagerModule() {
     install(Routing)
 
     routing {
-        defaultResource("html/index.html")
+        get("/") {
+            call.respondHtml(HttpStatusCode.OK) {
+                head {
+                    title("Workspaces")
+                }
+                body {
+                    ul {
+                        manager.getWorkspaceIds().forEach {
+                            li {
+                                a {
+                                    href = "$it/edit"
+                                    text(it)
+                                }
+                            }
+                        }
+                    }
+                    form {
+                        action = "new"
+                        method = FormMethod.post
+                        input {
+                            type = InputType.submit
+                            value = "Create New Workspace"
+                        }
+                    }
+                }
+            }
+        }
 
         post("new") {
             val workspace = manager.newWorkspace()

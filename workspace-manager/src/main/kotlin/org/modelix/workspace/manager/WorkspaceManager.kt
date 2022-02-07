@@ -28,6 +28,7 @@ import java.util.zip.ZipOutputStream
 import kotlin.collections.HashMap
 
 class WorkspaceManager {
+    private val WORKSPACE_LIST_KEY = "workspaces"
     private val mpsHome: File = findMpsHome()
     private val modelClient: RestWebModelClient = RestWebModelClient(getModelServerUrl())
     private val activeWorkspaces: MutableMap<String, Workspace> = HashMap()
@@ -71,6 +72,18 @@ class WorkspaceManager {
     }
 
     @Synchronized
+    fun getWorkspaceIds(): Set<String> {
+        val idString = modelClient.get(WORKSPACE_LIST_KEY)
+        if (idString.isNullOrEmpty()) return setOf()
+        return idString.split(",").toSet()
+    }
+
+    @Synchronized
+    fun setWorkspaceIds(ids: Set<String>) {
+        modelClient.put(WORKSPACE_LIST_KEY, ids.sorted().joinToString(","))
+    }
+
+    @Synchronized
     fun newWorkspace(): Workspace {
         val workspace = Workspace(
             id = SerializationUtil.longToHex(modelClient.idGenerator.generate()),
@@ -79,6 +92,7 @@ class WorkspaceManager {
         )
         modelClient.put(key(workspace.id), Json.encodeToString(workspace))
         activeWorkspaces[workspace.id] = workspace
+        setWorkspaceIds(getWorkspaceIds() + workspace.id)
         return workspace
     }
 
@@ -101,6 +115,7 @@ class WorkspaceManager {
         val id = workspace.id
         modelClient.put(key(id), Json.encodeToString(workspace))
         activeWorkspaces[workspace.id] = workspace
+        setWorkspaceIds(getWorkspaceIds() + workspace.id)
         synchronized(buildJobs) {
             buildJobs.remove(id)
             FileUtils.deleteQuietly(getDownloadFile(workspace))
