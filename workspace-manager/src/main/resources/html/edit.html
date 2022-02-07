@@ -5,12 +5,13 @@
     <title>Edit Workspace</title>
 </head>
 <body>
-    <form action="../update" method="post">
+    <form action="./update" method="post">
         <input type="submit" value="Save" />
         <br/>
         <textarea name="content" style="width: 800px; height: 500px">{{content}}</textarea>
     </form>
 
-    <div><a href="../download-modules/{{workspaceId}}/queue">Download Modules</a></div>
+    <div><a href="download-modules/queue">Download Modules</a></div>
+    <div><a href="../../workspace-{{workspaceId}}/ide/">Open in MPS</a></div>
 </body>
 </html>

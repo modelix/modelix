@@ -16,7 +16,7 @@ package org.modelix.workspace.manager
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class Workspace(val id: String,
+data class Workspace(var id: String,
                      val mpsVersion: String? = null,
                      val modelRepositories: List<ModelRepository> = listOf(),
                      val gitRepositories: List<GitRepository> = listOf(),

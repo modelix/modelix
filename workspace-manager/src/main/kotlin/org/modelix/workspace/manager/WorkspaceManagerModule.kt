@@ -39,11 +39,12 @@ fun Application.workspaceManagerModule() {
 
         post("new") {
             val workspace = manager.newWorkspace()
-            call.respondRedirect("edit/${workspace.id}")
+            call.respondRedirect("${workspace.id}/edit")
         }
 
-        post("update") {
+        post("{workspaceId}/update") {
             val yamlText = call.receiveParameters()["content"]
+            val id = call.parameters["workspaceId"] ?: throw IllegalArgumentException("workspaceId missing")
             if (yamlText == null) {
                 call.respond(HttpStatusCode.BadRequest, "Content missing")
                 return@post
@@ -55,15 +56,17 @@ fun Application.workspaceManagerModule() {
                 call.respond(HttpStatusCode.BadRequest, e.message ?: "Parse error")
                 return@post
             }
+            // just in case the user copy-pastes a workspace and forgets to change the ID
+            workspace.id = id
             manager.update(workspace)
-            call.respondRedirect("edit/${workspace.id}")
+            call.respondRedirect("./edit")
         }
 
         get("/health") {
             call.respondText("healthy", ContentType.Text.Plain, HttpStatusCode.OK)
         }
 
-        get("edit/{workspaceId}") {
+        get("{workspaceId}/edit") {
             val id = call.parameters["workspaceId"]
             if (id == null) {
                 call.respond(HttpStatusCode.BadRequest, "Workspace ID is missing")
@@ -86,7 +89,7 @@ fun Application.workspaceManagerModule() {
             this.call.respondText(html, ContentType.Text.Html, HttpStatusCode.OK)
         }
 
-        get("download-modules/{workspaceId}/queue") {
+        get("{workspaceId}/download-modules/queue") {
             val workspaceId = call.parameters["workspaceId"]!!
             val job = manager.buildWorkspaceDownloadFileAsync(workspaceId)
             val respondStatus: suspend (String, String)->Unit = { text, refresh ->
@@ -116,13 +119,13 @@ fun Application.workspaceManagerModule() {
             }
         }
 
-        get("download-modules/{workspaceId}/status") {
+        get("{workspaceId}/status") {
             val workspaceId = call.parameters["workspaceId"]!!
             val job = manager.buildWorkspaceDownloadFileAsync(workspaceId)
             call.respondText(job.status.toString(), ContentType.Text.Plain, HttpStatusCode.OK)
         }
 
-        get("download-modules/{workspaceId}/workspace-{workspaceId}.zip") {
+        get("{workspaceId}/download-modules/workspace.zip") {
             val id = call.parameters["workspaceId"]!!
             val workspace = manager.getWorkspace(id)
             if (workspace == null) {

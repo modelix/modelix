@@ -45,7 +45,7 @@ fun main(args: Array<String>) {
     val outputFile = File("workspace.zip").absoluteFile
     runBlocking {
         while (true) {
-            val statusString = httpClient.get<String>(serverUrl + "download-modules/$workspaceId/status")
+            val statusString = httpClient.get<String>(serverUrl + "$workspaceId/status")
             val status = WorkspaceBuildStatus.valueOf(statusString.trim())
             when (status) {
                 WorkspaceBuildStatus.Failed -> throw RuntimeException("Workspace $workspaceId failed to build. Can't download modules.")
@@ -54,7 +54,7 @@ fun main(args: Array<String>) {
             }
         }
 
-        httpClient.downloadFile(outputFile, "${serverUrl}download-modules/$workspaceId/workspace-$workspaceId.zip")
+        httpClient.downloadFile(outputFile, "${serverUrl}$workspaceId/download-modules/workspace.zip")
     }
 
     ZipUtil.explode(outputFile)
