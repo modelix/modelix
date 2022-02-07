@@ -39,7 +39,7 @@ class BuildScriptGenerator(val inputFolders: List<File>, val modulesToGenerate: 
         val xml = generateXML()
         FileUtils.writeStringToFile(antScriptFile, xml, StandardCharsets.UTF_8)
 
-        val ant = ProcessBuilder("ant", "-f", antScriptFile.canonicalPath).start()
+        val ant = ProcessBuilder(getAntPath(), "-f", antScriptFile.canonicalPath).start()
         if (outputHandler != null) {
             val reader = BufferedReader(InputStreamReader(ant.inputStream))
             var line = reader.readLine()
@@ -52,6 +52,10 @@ class BuildScriptGenerator(val inputFolders: List<File>, val modulesToGenerate: 
         }
         val exitValue = ant.waitFor()
         if (exitValue != 0) throw RuntimeException("Generating MPS modules failed with exit value $exitValue")
+    }
+
+    fun getAntPath(): String {
+        return listOf("/usr/local/bin/ant").firstOrNull { File(it).exists() } ?: "ant"
     }
 
     fun generateXML(): String {
