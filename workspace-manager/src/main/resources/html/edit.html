@@ -10,7 +10,14 @@
         <br/>
         <textarea name="content" style="width: 800px; height: 500px">{{content}}</textarea>
     </form>
-
+    <div>
+        Upload file or directory:
+        <form action="./upload" method="post" enctype="multipart/form-data">
+            <input type="file" name="file" multiple />
+            <input type="file" name="folder" webkitdirectory mozdirectory />
+            <input type="submit" value="Upload" />
+        </form>
+    </div>
     <div><a href="download-modules/queue">Download Modules</a></div>
     <div><a href="../../workspace-{{workspaceId}}/ide/">Open in MPS</a></div>
 </body>

@@ -21,7 +21,8 @@ data class Workspace(var id: String,
                      val modelRepositories: List<ModelRepository> = listOf(),
                      val gitRepositories: List<GitRepository> = listOf(),
                      val mavenRepositories: List<MavenRepository> = listOf(),
-                     val mavenDependencies: List<String> = listOf())
+                     val mavenDependencies: List<String> = listOf(),
+                     val uploads: MutableList<String> = ArrayList())
 
 @Serializable
 data class ModelRepository(val id: String,

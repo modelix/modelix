@@ -28,7 +28,10 @@ import io.ktor.routing.*
 import kotlinx.html.*
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
+import org.apache.commons.io.FileUtils
 import org.apache.commons.text.StringEscapeUtils
+import org.zeroturnaround.zip.ZipUtil
+import java.io.File
 
 fun Application.workspaceManagerModule() {
 
@@ -166,6 +169,35 @@ fun Application.workspaceManagerModule() {
                     call.respondText("""File doesn't exist yet. <a href="queue">Start a build job for the workspace.</a>""", ContentType.Text.Html, HttpStatusCode.NotFound)
                 }
             }
+        }
+
+        post("{workspaceId}/upload") {
+            val workspaceId = call.parameters["workspaceId"]!!
+            val workspace = manager.getWorkspace(workspaceId)
+                ?: throw IllegalArgumentException("Workspace $workspaceId not found")
+
+            val outputFolder = manager.newUploadFolder()
+
+            call.receiveMultipart().forEachPart { part ->
+                if (part is PartData.FileItem) {
+                    val name = part.originalFileName
+                    if (!name.isNullOrEmpty()) {
+                        val outputFile = File(outputFolder, name)
+                        part.streamProvider().use {
+                            FileUtils.copyToFile(it, outputFile)
+                        }
+                        if (outputFile.extension.lowercase() == "zip") {
+                            ZipUtil.explode(outputFile)
+                        }
+                    }
+                }
+                part.dispose()
+            }
+
+            workspace.uploads += outputFolder.name
+            manager.update(workspace)
+
+            call.respondRedirect("./edit")
         }
 
         static {

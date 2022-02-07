@@ -136,6 +136,15 @@ class WorkspaceManager {
 
     fun getWorkspaceDirectory(workspace: Workspace) = File(directory, workspace.id)
 
+    fun newUploadFolder(): File {
+        val id = SerializationUtil.longToHex(modelClient.idGenerator.generate())
+        val folder = getUploadFolder(id)
+        folder.mkdirs()
+        return folder
+    }
+
+    fun getUploadFolder(id: String) = File(File(directory, "uploads"), id)
+
     private fun buildWorkspaceDownloadFile(job: WorkspaceBuildJob): File {
         val workspace = job.workspace
         val downloadFile = job.downloadFile
@@ -143,7 +152,10 @@ class WorkspaceManager {
         val mavenFolders = workspace.mavenDependencies.map { MavenDownloader(workspace, getWorkspaceDirectory(workspace)).downloadFromMaven(it, job.outputHandler) }
         val gitManagers = workspace.gitRepositories.map { it to GitRepositoryManager(it, null, getWorkspaceDirectory(workspace)) }
         gitManagers.forEach { it.second.updateRepo() }
-        val moduleFolders = mavenFolders + gitManagers.flatMap { it.second.getRootFolders(it.first.paths) } + mpsHome
+        val moduleFolders = mavenFolders +
+            gitManagers.flatMap { it.second.getRootFolders(it.first.paths) } +
+            workspace.uploads.map { getUploadFolder(it) } +
+            mpsHome
         BuildScriptGenerator(moduleFolders).buildModules(File(getWorkspaceDirectory(workspace), "mps-build-script.xml"), job.outputHandler)
         FileOutputStream(downloadFile).use { fileStream ->
             ZipOutputStream(fileStream).use { zipStream ->
@@ -152,6 +164,9 @@ class WorkspaceManager {
                 }
                 gitManagers.forEach { repo ->
                     repo.second.zip(repo.first.paths, zipStream)
+                }
+                workspace.uploads.forEach { uploadId ->
+                    zipStream.copyFiles(getUploadFolder(uploadId), mapPath = {directory.toPath().relativize(it)})
                 }
             }
         }
