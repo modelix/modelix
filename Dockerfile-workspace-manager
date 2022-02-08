@@ -9,4 +9,4 @@ WORKDIR /workspace-manager/
 EXPOSE 28104
 COPY workspace-manager/build/libs/workspace-manager-latest-all.jar /workspace-manager/workspace-manager.jar
 COPY artifacts/mps /mps
-CMD ["java", "-Dmps.home=/mps", "-XX:MaxRAMPercentage=75","-jar", "/workspace-manager/workspace-manager.jar"]
+CMD ["java", "-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5071", "-Dmps.home=/mps", "-XX:MaxRAMPercentage=75","-jar", "/workspace-manager/workspace-manager.jar"]
