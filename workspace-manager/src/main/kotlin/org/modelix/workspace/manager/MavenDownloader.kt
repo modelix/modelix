@@ -32,6 +32,7 @@ class MavenDownloader(val workspace: Workspace, val workspaceDir: File) {
         outputDir.mkdirs()
         val properties = Properties()
         properties["remoteRepositories"] = workspace.mavenRepositories.joinToString(",") { it.url }
+        properties["transitive"] = "false"
         properties["dest"] = outputDir.absolutePath
         properties["artifact"] = addPackagingIfMissing(coordinates)
         request.properties = properties
