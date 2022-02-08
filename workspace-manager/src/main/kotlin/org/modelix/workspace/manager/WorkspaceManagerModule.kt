@@ -145,8 +145,12 @@ fun Application.workspaceManagerModule() {
                 WorkspaceBuildStatus.FailedBuild -> respondStatus("Failed to build the workspace ...", "3")
                 WorkspaceBuildStatus.FailedZip -> respondStatus("Failed to ZIP the workspace ...", "3")
                 WorkspaceBuildStatus.AllSuccessful, WorkspaceBuildStatus.ZipSuccessful -> {
-                    val fileName = "workspace-$workspaceId.zip"
-                    respondStatus("""Failed to build the workspace. Downloading <a href="$fileName">$fileName</a>""", "0; url=$fileName")
+                    val fileName = "workspace.zip"
+                    var statusText = """Downloading <a href="$fileName">$fileName</a>"""
+                    if (job.status == WorkspaceBuildStatus.ZipSuccessful) {
+                        statusText = "Failed to build the workspace. " + statusText
+                    }
+                    respondStatus(statusText, "0; url=$fileName")
                 }
             }
         }

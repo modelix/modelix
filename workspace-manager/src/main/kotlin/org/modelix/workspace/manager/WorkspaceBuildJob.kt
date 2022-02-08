@@ -17,12 +17,18 @@ import java.io.File
 
 class WorkspaceBuildJob(val workspace: Workspace, val downloadFile: File) {
     var status: WorkspaceBuildStatus = WorkspaceBuildStatus.New
-    val output: MutableList<String> = ArrayList()
-    val outputHandler: (String)->Unit = { output += it }
+    var output: List<String> = ArrayList()
+    val outputHandler: (String)->Unit = { append(it) }
+    var lastOutput: Long = 0
 
-    fun appendException(e: Exception) {
-        output += e::class.qualifiedName + ": " + e.message
-        output += e.stackTrace.map { "  $it" }
+    fun appendException(e: Throwable) {
+        append(e::class.qualifiedName + ": " + e.message)
+        e.stackTrace.map { "  $it" }.forEach { append(it) }
+    }
+
+    fun append(text: String) {
+        output += text
+        lastOutput = System.currentTimeMillis()
     }
 }
 

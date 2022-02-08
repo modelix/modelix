@@ -159,8 +159,8 @@ class WorkspaceManager {
         try {
             BuildScriptGenerator(moduleFolders).buildModules(File(getWorkspaceDirectory(workspace), "mps-build-script.xml"), job.outputHandler)
         } catch (e: Exception) {
-            job.appendException(e)
             job.status = WorkspaceBuildStatus.FailedBuild
+            job.appendException(e)
         }
         FileOutputStream(downloadFile).use { fileStream ->
             ZipOutputStream(fileStream).use { zipStream ->
@@ -199,9 +199,9 @@ class WorkspaceManager {
                                          WorkspaceBuildStatus.ZipSuccessful
                                      else
                                          WorkspaceBuildStatus.AllSuccessful
-                    } catch (e: Exception) {
-                        job.appendException(e)
+                    } catch (e: Throwable) {
                         job.status = WorkspaceBuildStatus.FailedZip
+                        job.appendException(e)
                     }
                 }
             }

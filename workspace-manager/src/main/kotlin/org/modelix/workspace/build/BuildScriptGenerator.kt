@@ -22,6 +22,7 @@ import org.w3c.dom.Text
 import org.zeroturnaround.zip.ZipUtil
 import java.io.*
 import java.nio.charset.StandardCharsets
+import java.util.concurrent.TimeUnit
 import java.util.zip.ZipEntry
 import javax.xml.XMLConstants
 import javax.xml.parsers.DocumentBuilderFactory
@@ -40,17 +41,28 @@ class BuildScriptGenerator(val inputFolders: List<File>, val modulesToGenerate: 
         FileUtils.writeStringToFile(antScriptFile, xml, StandardCharsets.UTF_8)
 
         val ant = ProcessBuilder(getAntPath(), "-f", antScriptFile.canonicalPath).start()
-        if (outputHandler != null) {
+        var lastOutput = System.currentTimeMillis()
+        val outputThread = Thread() {
             val reader = BufferedReader(InputStreamReader(ant.inputStream))
             var line = reader.readLine()
             while (line != null) {
-                outputHandler(line)
+                lastOutput = System.currentTimeMillis()
+                if (outputHandler != null) {
+                    outputHandler(line)
+                } else {
+                    println(line)
+                }
                 line = reader.readLine()
             }
-        } else {
-            IOUtils.copy(ant.inputStream, System.out)
         }
-        val exitValue = ant.waitFor()
+        outputThread.start()
+        while (!ant.waitFor(10, TimeUnit.SECONDS)) {
+            if (System.currentTimeMillis() - lastOutput > 120_000) {
+                outputThread.interrupt()
+                throw RuntimeException("Generating MPS modules timed out")
+            }
+        }
+        val exitValue = ant.exitValue()
         if (exitValue != 0) throw RuntimeException("Generating MPS modules failed with exit value $exitValue")
     }
 
