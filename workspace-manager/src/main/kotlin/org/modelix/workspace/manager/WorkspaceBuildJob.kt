@@ -19,5 +19,10 @@ class WorkspaceBuildJob(val workspace: Workspace, val downloadFile: File) {
     var status: WorkspaceBuildStatus = WorkspaceBuildStatus.New
     val output: MutableList<String> = ArrayList()
     val outputHandler: (String)->Unit = { output += it }
+
+    fun appendException(e: Exception) {
+        output += e::class.qualifiedName + ": " + e.message
+        output += e.stackTrace.map { "  $it" }
+    }
 }
 

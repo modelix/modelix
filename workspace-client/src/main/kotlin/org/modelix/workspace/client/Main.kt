@@ -48,9 +48,9 @@ fun main(args: Array<String>) {
             val statusString = httpClient.get<String>(serverUrl + "$workspaceId/status")
             val status = WorkspaceBuildStatus.valueOf(statusString.trim())
             when (status) {
-                WorkspaceBuildStatus.Failed -> throw RuntimeException("Workspace $workspaceId failed to build. Can't download modules.")
-                WorkspaceBuildStatus.Successful -> break
-                WorkspaceBuildStatus.New, WorkspaceBuildStatus.Queued, WorkspaceBuildStatus.Running -> {}
+                WorkspaceBuildStatus.FailedZip -> throw RuntimeException("Workspace $workspaceId failed to create the ZIP file. Can't download modules.")
+                WorkspaceBuildStatus.AllSuccessful, WorkspaceBuildStatus.ZipSuccessful -> break
+                WorkspaceBuildStatus.New, WorkspaceBuildStatus.Queued, WorkspaceBuildStatus.Running, WorkspaceBuildStatus.FailedBuild -> {}
             }
         }
 

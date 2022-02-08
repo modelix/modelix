@@ -156,7 +156,12 @@ class WorkspaceManager {
             gitManagers.flatMap { it.second.getRootFolders(it.first.paths) } +
             workspace.uploads.map { getUploadFolder(it) } +
             mpsHome
-        BuildScriptGenerator(moduleFolders).buildModules(File(getWorkspaceDirectory(workspace), "mps-build-script.xml"), job.outputHandler)
+        try {
+            BuildScriptGenerator(moduleFolders).buildModules(File(getWorkspaceDirectory(workspace), "mps-build-script.xml"), job.outputHandler)
+        } catch (e: Exception) {
+            job.appendException(e)
+            job.status = WorkspaceBuildStatus.FailedBuild
+        }
         FileOutputStream(downloadFile).use { fileStream ->
             ZipOutputStream(fileStream).use { zipStream ->
                 mavenFolders.forEach {
@@ -190,11 +195,13 @@ class WorkspaceManager {
                     try {
                         job.status = WorkspaceBuildStatus.Running
                         buildWorkspaceDownloadFile(job)
-                        job.status = WorkspaceBuildStatus.Successful
+                        job.status = if (job.status == WorkspaceBuildStatus.FailedBuild)
+                                         WorkspaceBuildStatus.ZipSuccessful
+                                     else
+                                         WorkspaceBuildStatus.AllSuccessful
                     } catch (e: Exception) {
-                        job.output += e::class.qualifiedName + ": " + e.message
-                        job.output += e.stackTrace.map { "  $it" }
-                        job.status = WorkspaceBuildStatus.Failed
+                        job.appendException(e)
+                        job.status = WorkspaceBuildStatus.FailedZip
                     }
                 }
             }

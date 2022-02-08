@@ -142,10 +142,11 @@ fun Application.workspaceManagerModule() {
             when (job.status) {
                 WorkspaceBuildStatus.New, WorkspaceBuildStatus.Queued -> respondStatus("Workspace is queued for building ...", "3")
                 WorkspaceBuildStatus.Running -> respondStatus("Downloading and building modules ...", "3")
-                WorkspaceBuildStatus.Failed -> respondStatus("Failed to build the workspace ...", "3")
-                WorkspaceBuildStatus.Successful -> {
+                WorkspaceBuildStatus.FailedBuild -> respondStatus("Failed to build the workspace ...", "3")
+                WorkspaceBuildStatus.FailedZip -> respondStatus("Failed to ZIP the workspace ...", "3")
+                WorkspaceBuildStatus.AllSuccessful, WorkspaceBuildStatus.ZipSuccessful -> {
                     val fileName = "workspace-$workspaceId.zip"
-                    respondStatus("""Downloading <a href="$fileName">$fileName</a>""", "0; url=$fileName")
+                    respondStatus("""Failed to build the workspace. Downloading <a href="$fileName">$fileName</a>""", "0; url=$fileName")
                 }
             }
         }
