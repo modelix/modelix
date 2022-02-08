@@ -11,5 +11,8 @@ spec:
   - name: "28104"
     port: 28104
     targetPort: 28104
+  - name: "debug"
+    port: 5071
+    targetPort: 5071
   selector:
     app: workspace-manager
