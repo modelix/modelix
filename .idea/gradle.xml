@@ -22,6 +22,7 @@
             <option value="$PROJECT_DIR$/ui-client" />
             <option value="$PROJECT_DIR$/ui-proxy" />
             <option value="$PROJECT_DIR$/ui-server" />
+            <option value="$PROJECT_DIR$/workspace-client" />
             <option value="$PROJECT_DIR$/workspace-manager" />
           </set>
         </option>

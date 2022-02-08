@@ -46,6 +46,7 @@ fun Application.workspaceManagerModule() {
                     title("Workspaces")
                 }
                 body {
+                    h1 { text("Workspaces") }
                     ul {
                         manager.getWorkspaceIds().forEach {
                             li {
@@ -61,7 +62,7 @@ fun Application.workspaceManagerModule() {
                         method = FormMethod.post
                         input {
                             type = InputType.submit
-                            value = "Create New Workspace"
+                            value = "Add New Workspace"
                         }
                     }
                 }
@@ -174,6 +175,10 @@ fun Application.workspaceManagerModule() {
                     call.respondText("""File doesn't exist yet. <a href="queue">Start a build job for the workspace.</a>""", ContentType.Text.Html, HttpStatusCode.NotFound)
                 }
             }
+        }
+
+        get("{workspaceId}/download-modules/modules.xml") {
+
         }
 
         post("{workspaceId}/upload") {

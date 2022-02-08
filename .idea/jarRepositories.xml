@@ -36,5 +36,15 @@
       <option name="name" value="maven3" />
       <option name="url" value="https://projects.itemis.de/nexus/content/repositories/mbeddr" />
     </remote-repository>
+    <remote-repository>
+      <option name="id" value="maven2" />
+      <option name="name" value="maven2" />
+      <option name="url" value="https://maven.pkg.github.com/JetBrains/MPS-extensions" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="maven3" />
+      <option name="name" value="maven3" />
+      <option name="url" value="https://maven.pkg.github.com/mbeddr/build.publish.mps" />
+    </remote-repository>
   </component>
 </project>
