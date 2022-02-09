@@ -18,5 +18,5 @@ import java.io.File
 /**
  * Modules packaged as .jar-Files but without an IDEA plugin such as the ones in the MPS.HOME/languages folder
  */
-class LibraryModuleOwner(path: File) : ModuleOwner(path) {
+class LibraryModuleOwner(path: ModulePath) : ModuleOwner(path) {
 }

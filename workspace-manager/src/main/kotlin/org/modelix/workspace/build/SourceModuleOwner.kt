@@ -18,6 +18,6 @@ import java.io.File
 /**
  * A module that needs to be built.
  */
-class SourceModuleOwner(path: File) : ModuleOwner(path) {
+class SourceModuleOwner(path: ModulePath) : ModuleOwner(path) {
 
 }

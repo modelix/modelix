@@ -21,8 +21,9 @@ import java.io.InputStreamReader
 import java.nio.charset.StandardCharsets
 import java.util.concurrent.TimeUnit
 import javax.xml.parsers.DocumentBuilderFactory
+import kotlin.io.path.pathString
 
-class BuildScriptGenerator(val inputFolders: List<File>, val modulesToGenerate: List<ModuleId>? = null) {
+class BuildScriptGenerator(val inputFolders: List<ModuleOrigin>, val modulesToGenerate: List<ModuleId>? = null) {
 
     val modulesMiner = ModulesMiner(inputFolders)
 
@@ -66,7 +67,7 @@ class BuildScriptGenerator(val inputFolders: List<File>, val modulesToGenerate: 
     }
 
     fun generateAnt(): Document {
-        val plan = generatePlan(modulesToGenerate ?: modulesMiner.collectModules().modules.values.filter { it.owner is SourceModuleOwner }.map { it.moduleId }.toList())
+        val plan = generatePlan(modulesToGenerate ?: modulesMiner.getModules().modules.values.filter { it.owner is SourceModuleOwner }.map { it.moduleId }.toList())
 
         val dbf = DocumentBuilderFactory.newInstance()
         val db = dbf.newDocumentBuilder()
@@ -76,7 +77,7 @@ class BuildScriptGenerator(val inputFolders: List<File>, val modulesToGenerate: 
             doc.appendChild(this)
             setAttribute("default", "generate")
 
-            val mpsHome = modulesMiner.collectModules().mpsHome
+            val mpsHome = modulesMiner.getModules().mpsHome
             if (mpsHome != null) {
                 newChild("property") {
                     setAttribute("name", "mps.home")
@@ -123,19 +124,19 @@ class BuildScriptGenerator(val inputFolders: List<File>, val modulesToGenerate: 
                     setAttribute("logLevel", "warn")
                     for (plugin in plan.plugins) {
                         newChild("plugin") {
-                            setAttribute("path", plugin.path.canonicalPath)
+                            setAttribute("path", plugin.path.getLocalAbsolutePath().pathString)
                         }
                     }
                     for (library in plan.libraries) {
                         newChild("library") {
-                            setAttribute("file", library.path.canonicalPath)
+                            setAttribute("file", library.path.getLocalAbsolutePath().pathString)
                         }
                     }
                     for (chunk in plan.chunks) {
                         newChild("chunk") {
                             for (module in chunk.modules) {
                                 newChild("module") {
-                                    setAttribute("file", module.owner.path.canonicalPath)
+                                    setAttribute("file", module.owner.path.getLocalAbsolutePath().pathString)
                                 }
                             }
                         }
@@ -171,8 +172,8 @@ class BuildScriptGenerator(val inputFolders: List<File>, val modulesToGenerate: 
     }
 
     fun generatePlan(modulesToGenerate: List<ModuleId>): GenerationPlan {
-        val planBuilder = GenerationPlanBuilder(modulesMiner.collectModules())
-        planBuilder.build(modulesToGenerate.mapNotNull { modulesMiner.collectModules().modules[it] })
+        val planBuilder = GenerationPlanBuilder(modulesMiner.getModules())
+        planBuilder.build(modulesToGenerate.mapNotNull { modulesMiner.getModules().modules[it] })
         return planBuilder.plan
     }
 }

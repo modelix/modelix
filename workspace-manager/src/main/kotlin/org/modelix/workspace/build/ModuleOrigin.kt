@@ -14,9 +14,12 @@
 package org.modelix.workspace.build
 
 import java.io.File
+import java.nio.file.Path
 
-/**
- * Modules packaged as an IDEA plugin containing a META-INF/plugin.xml file.
- */
-class PluginModuleOwner(path: ModulePath) : ModuleOwner(path) {
+class ModuleOrigin(val localPath: Path, val workspaceRelativePath: Path) {
+
+    fun localModulePath(file: File): ModulePath {
+        return ModulePath(this, localPath.relativize(file.toPath()))
+    }
+
 }

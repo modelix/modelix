@@ -19,12 +19,18 @@ import kotlinx.serialization.json.Json
 import org.apache.commons.io.FileUtils
 import org.modelix.model.client.RestWebModelClient
 import org.modelix.model.persistent.SerializationUtil
-import org.modelix.workspace.build.BuildScriptGenerator
+import org.modelix.workspace.build.*
+import org.w3c.dom.Document
 import java.io.File
 import java.io.FileOutputStream
+import java.nio.charset.StandardCharsets
+import java.nio.file.Path
+import java.nio.file.Paths
 import java.util.*
 import java.util.concurrent.Executors
+import java.util.zip.ZipEntry
 import java.util.zip.ZipOutputStream
+import javax.xml.parsers.DocumentBuilderFactory
 import kotlin.collections.HashMap
 
 class WorkspaceManager {
@@ -148,16 +154,29 @@ class WorkspaceManager {
     private fun buildWorkspaceDownloadFile(job: WorkspaceBuildJob): File {
         val workspace = job.workspace
         val downloadFile = job.downloadFile
+        val workspacePath = getWorkspaceDirectory(workspace).toPath()
 
-        val mavenFolders = workspace.mavenDependencies.map { MavenDownloader(workspace, getWorkspaceDirectory(workspace)).downloadFromMaven(it, job.outputHandler) }
-        val gitManagers = workspace.gitRepositories.map { it to GitRepositoryManager(it, null, getWorkspaceDirectory(workspace)) }
+        val mavenFolders = workspace.mavenDependencies
+            .map { MavenDownloader(workspace, getWorkspaceDirectory(workspace)).downloadFromMaven(it, job.outputHandler) }
+        val gitManagers = workspace.gitRepositories
+            .map { it to GitRepositoryManager(it, null, getWorkspaceDirectory(workspace)) }
         gitManagers.forEach { it.second.updateRepo() }
-        val moduleFolders = mavenFolders +
-            gitManagers.flatMap { it.second.getRootFolders(it.first.paths) } +
-            workspace.uploads.map { getUploadFolder(it) } +
-            mpsHome
+        val moduleFolders: List<ModuleOrigin> = mavenFolders.map { ModuleOrigin(it.toPath(), workspacePath.relativize(it.toPath())) } +
+            gitManagers.flatMap {
+                it.second.getRootFolders(it.first.paths)
+                    .map { ModuleOrigin(it.toPath(), workspacePath.relativize(it.toPath())) }
+            } +
+            workspace.uploads.map { ModuleOrigin(getUploadFolder(it).toPath(), Path.of("uploads", it)) } +
+            ModuleOrigin(mpsHome.toPath(), Path.of("/projector/ide"))
+        var modulesXml: String? = null
         try {
-            BuildScriptGenerator(moduleFolders).buildModules(File(getWorkspaceDirectory(workspace), "mps-build-script.xml"), job.outputHandler)
+            val buildScriptGenerator = BuildScriptGenerator(moduleFolders)
+            try {
+                modulesXml = xmlToString(buildModulesXml(buildScriptGenerator.modulesMiner.getModules()))
+            } catch (e: Exception) {
+                job.appendException(e)
+            }
+            buildScriptGenerator.buildModules(File(getWorkspaceDirectory(workspace), "mps-build-script.xml"), job.outputHandler)
         } catch (e: Exception) {
             job.status = WorkspaceBuildStatus.FailedBuild
             job.appendException(e)
@@ -165,13 +184,18 @@ class WorkspaceManager {
         FileOutputStream(downloadFile).use { fileStream ->
             ZipOutputStream(fileStream).use { zipStream ->
                 mavenFolders.forEach {
-                    zipStream.copyFiles(it, mapPath = {getWorkspaceDirectory(workspace).toPath().relativize(it)})
+                    zipStream.copyFiles(it, mapPath = { workspacePath.relativize(it)})
                 }
                 gitManagers.forEach { repo ->
                     repo.second.zip(repo.first.paths, zipStream)
                 }
                 workspace.uploads.forEach { uploadId ->
                     zipStream.copyFiles(getUploadFolder(uploadId), mapPath = {directory.toPath().relativize(it)})
+                }
+                if (modulesXml != null) {
+                    val zipEntry = ZipEntry("modules.xml")
+                    zipStream.putNextEntry(zipEntry)
+                    zipStream.write(modulesXml.toByteArray(StandardCharsets.UTF_8))
                 }
             }
         }
@@ -208,6 +232,32 @@ class WorkspaceManager {
         }
 
         return job
+    }
+
+    private fun buildModulesXml(modules: FoundModules): Document {
+        val dbf = DocumentBuilderFactory.newInstance()
+        val db = dbf.newDocumentBuilder()
+        val doc = db.newDocument()
+
+        doc.createElement("project").apply {
+            doc.appendChild(this)
+            setAttribute("version", "4")
+            newChild("component") {
+                setAttribute("name", "MPSProject")
+                newChild("projectModules") {
+                    for (module in modules.modules.values) {
+                        if (module.owner is SourceModuleOwner) {
+                            newChild("modulePath") {
+                                setAttribute("path", module.owner.getWorkspaceRelativePath())
+                                setAttribute("folder", "")
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        return doc
     }
 }
 

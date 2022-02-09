@@ -13,8 +13,12 @@
  */
 package org.modelix.workspace.build
 
-import java.io.File
+import kotlin.io.path.pathString
 
-abstract class ModuleOwner(val path: File) {
+abstract class ModuleOwner(val path: ModulePath) {
     val modules: MutableMap<ModuleId, FoundModule> = HashMap()
+
+    fun getWorkspaceRelativePath(): String {
+        return "\$MODELIX_WORKSPACE\$/" + path.getWorkspaceRelativePath().pathString
+    }
 }

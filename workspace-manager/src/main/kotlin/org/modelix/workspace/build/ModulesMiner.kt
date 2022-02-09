@@ -23,37 +23,36 @@ import java.util.zip.ZipEntry
 import javax.xml.XMLConstants
 import javax.xml.parsers.DocumentBuilderFactory
 
-class ModulesMiner(val inputFolders: List<File>) {
+class ModulesMiner(val inputFolders: List<ModuleOrigin>) {
 
     private var modules: FoundModules? = null
 
-    fun getModules(): List<FoundModule> = collectModules().modules.values.toList()
-
-    fun collectModules(): FoundModules {
+    @Synchronized
+    fun getModules(): FoundModules {
         if (modules == null) {
             modules = FoundModules()
-            inputFolders.forEach { collectModules(it, null)}
+            inputFolders.forEach { collectModules(it.localPath.toFile(), null, it)}
         }
         return modules!!
     }
 
-    fun collectModules(file: File, owner: ModuleOwner?) {
+    private fun collectModules(file: File, owner: ModuleOwner?, origin: ModuleOrigin) {
         if (file.isFile) {
             when (file.extension.lowercase()) {
                 // see jetbrains.mps.project.MPSExtentions
                 "msd", "mpl", "devkit" -> {
-                    collectModules().addModule(readModule(file, owner ?: SourceModuleOwner(file)))
+                    getModules().addModule(readModule(file, owner ?: SourceModuleOwner(origin.localModulePath(file))))
                 }
                 "jar" -> {
                     if (!file.nameWithoutExtension.endsWith("-src")) {
-                        val libraryModuleOwner = owner ?: LibraryModuleOwner(file)
+                        val libraryModuleOwner = owner ?: LibraryModuleOwner(origin.localModulePath(file))
                         ZipUtil.iterate(file) { stream: InputStream, entry: ZipEntry ->
                             if (entry.name == "META-INF/module.xml") {
-                                collectModules().addModule(readModule(stream, libraryModuleOwner))
+                                getModules().addModule(readModule(stream, libraryModuleOwner))
                             }
                             when (entry.name.substringAfterLast('.', "").lowercase()) {
                                 "msd", "mpl", "devkit" -> {
-                                    collectModules().addModule(readModule(stream, libraryModuleOwner))
+                                    getModules().addModule(readModule(stream, libraryModuleOwner))
                                 }
                             }
                         }
@@ -61,15 +60,15 @@ class ModulesMiner(val inputFolders: List<File>) {
                 }
                 "vmoptions" -> {
                     if (file.nameWithoutExtension == "mps" || file.nameWithoutExtension == "mps64") {
-                        collectModules().mpsHome = file.parentFile.parentFile
+                        getModules().mpsHome = file.parentFile.parentFile
                     }
                 }
             }
         } else if (file.isDirectory) {
             val isPluginDir = File(File(file, "META-INF"), "plugin.xml").exists()
-            val pluginOwner = if (isPluginDir) PluginModuleOwner(file) else null
+            val pluginOwner = if (isPluginDir) PluginModuleOwner(origin.localModulePath(file)) else null
             file.listFiles()?.forEach { child ->
-                collectModules(child, owner ?: pluginOwner)
+                collectModules(child, owner ?: pluginOwner, origin)
             }
         }
     }

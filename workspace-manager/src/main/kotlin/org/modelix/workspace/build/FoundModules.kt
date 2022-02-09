@@ -24,7 +24,7 @@ class FoundModules {
             val existing = modules[module.moduleId]
             if (existing != null) {
                 if (existing.owner != module.owner) {
-                    println("Duplicate module ${module.moduleId} in ${module.owner.path.canonicalPath} and ${existing.owner.path.canonicalPath}")
+                    println("Duplicate module ${module.moduleId} in ${module.owner.path.getLocalAbsolutePath()} and ${existing.owner.path.getLocalAbsolutePath()}")
                     // throw RuntimeException("Module ${module.moduleId} (${module.name}) already exists")
                 }
                 existing.dependencies += module.dependencies

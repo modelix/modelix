@@ -178,7 +178,18 @@ fun Application.workspaceManagerModule() {
         }
 
         get("{workspaceId}/download-modules/modules.xml") {
-
+            val id = call.parameters["workspaceId"]!!
+            val workspace = manager.getWorkspace(id)
+            if (workspace == null) {
+                call.respondText("Workspace $id not found", ContentType.Text.Plain, HttpStatusCode.NotFound)
+            } else {
+                val file = manager.getDownloadFile(workspace)
+                if (file.exists()) {
+                    call.respondFile(file)
+                } else {
+                    call.respondText("""File doesn't exist yet. <a href="queue">Start a build job for the workspace.</a>""", ContentType.Text.Html, HttpStatusCode.NotFound)
+                }
+            }
         }
 
         post("{workspaceId}/upload") {
