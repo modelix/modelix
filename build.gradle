@@ -80,7 +80,7 @@ if (System.getenv("TRAVIS_TAG") != null && !System.getenv("TRAVIS_TAG").isEmpty(
 versionFile.write(ext.modelixVersion)
 println("modelix version: " + ext.modelixVersion)
 
-ext.releaseRepository = 'https://projects.itemis.de/nexus/content/repositories/mbeddr'
+ext.releaseRepository = 'https://maven.pkg.github.com/modelix/modelix'
 ext.snapshotRepository = 'https://projects.itemis.de/nexus/content/repositories/mbeddr_snapshots'
 ext.publishingRepository = modelixVersion.endsWith("-SNAPSHOT") ? snapshotRepository : releaseRepository
 
