@@ -3006,7 +3006,7 @@
           <node concept="3clFbS" id="UBWFwB5k4S" role="3clFbx">
             <node concept="abc8K" id="6h4an0SZKfY" role="3cqZAp">
               <node concept="Xl_RD" id="6h4an0SZKl7" role="abp_N">
-                <property role="Xl_RC" value="APPLYING PROJECT PLUGIN - PERSISTED BINDING CONFIGURATION" />
+                <property role="Xl_RC" value="APPLYING PROJECT PLUGIN - PERSISTED BINDING CONFIGURATION. Loading persisted binding is enabled" />
               </node>
             </node>
             <node concept="3clFbF" id="1xehy3SpfNi" role="3cqZAp">
