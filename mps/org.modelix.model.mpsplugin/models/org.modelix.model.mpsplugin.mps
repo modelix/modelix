@@ -5488,6 +5488,62 @@
         </node>
       </node>
     </node>
+    <node concept="2tJIrI" id="6dPmVFxbRrB" role="jymVt" />
+    <node concept="3clFb_" id="6dPmVFxbNHl" role="jymVt">
+      <property role="TrG5h" value="addBinding" />
+      <node concept="37vLTG" id="6dPmVFxbNHm" role="3clF46">
+        <property role="TrG5h" value="repositoryId" />
+        <node concept="3uibUv" id="6dPmVFxbNHn" role="1tU5fm">
+          <ref role="3uigEE" to="xkhl:~RepositoryId" resolve="RepositoryId" />
+        </node>
+      </node>
+      <node concept="37vLTG" id="6dPmVFxbNHo" role="3clF46">
+        <property role="TrG5h" value="binding" />
+        <property role="3TUv4t" value="true" />
+        <node concept="3uibUv" id="6dPmVFxbNHp" role="1tU5fm">
+          <ref role="3uigEE" node="2FX9uaKMyso" resolve="Binding" />
+        </node>
+      </node>
+      <node concept="37vLTG" id="6dPmVFxbVaP" role="3clF46">
+        <property role="TrG5h" value="callback" />
+        <node concept="3uibUv" id="6dPmVFxbYVt" role="1tU5fm">
+          <ref role="3uigEE" to="wyt6:~Runnable" resolve="Runnable" />
+        </node>
+      </node>
+      <node concept="3cqZAl" id="6dPmVFxbNHq" role="3clF45" />
+      <node concept="3Tm1VV" id="6dPmVFxbNHr" role="1B3o_S" />
+      <node concept="3clFbS" id="6dPmVFxbNHs" role="3clF47">
+        <node concept="3clFbF" id="6dPmVFxbNHt" role="3cqZAp">
+          <node concept="2OqwBi" id="6dPmVFxbNHu" role="3clFbG">
+            <node concept="37vLTw" id="6dPmVFxbNHv" role="2Oq$k0">
+              <ref role="3cqZAo" node="6dPmVFxbNHo" resolve="binding" />
+            </node>
+            <node concept="liA8E" id="6dPmVFxbNHw" role="2OqNvi">
+              <ref role="37wK5l" node="74bn2Kw$if_" resolve="setOwner" />
+              <node concept="1rXfSq" id="6dPmVFxbNHx" role="37wK5m">
+                <ref role="37wK5l" node="4_k_9wJUGXs" resolve="getRootBinding" />
+                <node concept="37vLTw" id="6dPmVFxbNHy" role="37wK5m">
+                  <ref role="3cqZAo" node="6dPmVFxbNHm" resolve="repositoryId" />
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="3clFbF" id="6dPmVFxbNHz" role="3cqZAp">
+          <node concept="2OqwBi" id="6dPmVFxbNH$" role="3clFbG">
+            <node concept="37vLTw" id="6dPmVFxbNH_" role="2Oq$k0">
+              <ref role="3cqZAo" node="6dPmVFxbNHo" resolve="binding" />
+            </node>
+            <node concept="liA8E" id="6dPmVFxbNHA" role="2OqNvi">
+              <ref role="37wK5l" node="7ZZZU$llo4u" resolve="activate" />
+              <node concept="37vLTw" id="6dPmVFxbZLZ" role="37wK5m">
+                <ref role="3cqZAo" node="6dPmVFxbVaP" resolve="callback" />
+              </node>
+            </node>
+          </node>
+        </node>
+      </node>
+    </node>
     <node concept="2tJIrI" id="4eX7sil8qij" role="jymVt" />
     <node concept="3clFb_" id="EMWAvBf_zL" role="jymVt">
       <property role="TrG5h" value="addBinding" />
@@ -5507,31 +5563,16 @@
       <node concept="3cqZAl" id="EMWAvBf_zN" role="3clF45" />
       <node concept="3Tm1VV" id="EMWAvBf_zO" role="1B3o_S" />
       <node concept="3clFbS" id="EMWAvBf_zP" role="3clF47">
-        <node concept="3clFbF" id="4_k_9wJWZNA" role="3cqZAp">
-          <node concept="2OqwBi" id="4_k_9wJX002" role="3clFbG">
-            <node concept="37vLTw" id="4_k_9wJWZNw" role="2Oq$k0">
+        <node concept="3clFbF" id="6dPmVFxc0EA" role="3cqZAp">
+          <node concept="1rXfSq" id="6dPmVFxc0E_" role="3clFbG">
+            <ref role="37wK5l" node="6dPmVFxbNHl" resolve="addBinding" />
+            <node concept="37vLTw" id="6dPmVFxc1cS" role="37wK5m">
+              <ref role="3cqZAo" node="6gR8Ep$xidY" resolve="repositoryId" />
+            </node>
+            <node concept="37vLTw" id="6dPmVFxc1Ji" role="37wK5m">
               <ref role="3cqZAo" node="EMWAvBfBs7" resolve="binding" />
             </node>
-            <node concept="liA8E" id="4_k_9wJX0le" role="2OqNvi">
-              <ref role="37wK5l" node="74bn2Kw$if_" resolve="setOwner" />
-              <node concept="1rXfSq" id="4_k_9wJWXvX" role="37wK5m">
-                <ref role="37wK5l" node="4_k_9wJUGXs" resolve="getRootBinding" />
-                <node concept="37vLTw" id="6gR8Ep$xmSu" role="37wK5m">
-                  <ref role="3cqZAo" node="6gR8Ep$xidY" resolve="repositoryId" />
-                </node>
-              </node>
-            </node>
-          </node>
-        </node>
-        <node concept="3clFbF" id="4_k_9wJX14k" role="3cqZAp">
-          <node concept="2OqwBi" id="4_k_9wJX1b3" role="3clFbG">
-            <node concept="37vLTw" id="4_k_9wJX14i" role="2Oq$k0">
-              <ref role="3cqZAo" node="EMWAvBfBs7" resolve="binding" />
-            </node>
-            <node concept="liA8E" id="4_k_9wJX1nz" role="2OqNvi">
-              <ref role="37wK5l" node="7ZZZU$llo4u" resolve="activate" />
-              <node concept="10Nm6u" id="4_k_9wJX1_b" role="37wK5m" />
-            </node>
+            <node concept="10Nm6u" id="6dPmVFxc27V" role="37wK5m" />
           </node>
         </node>
       </node>

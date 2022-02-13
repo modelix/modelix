@@ -18,6 +18,7 @@ import java.io.File
 class FoundModules {
     val modules: MutableMap<ModuleId, FoundModule> = LinkedHashMap()
     var mpsHome: File? = null
+    val projects: MutableList<FoundProject> = ArrayList()
 
     fun addModule(module: FoundModule) {
         if (module.moduleId.id.isNotEmpty()) {
@@ -32,6 +33,21 @@ class FoundModules {
                 modules[module.moduleId] = module
             }
 
+        }
+    }
+
+    fun getWithDependencies(rootModules: Set<ModuleId>): Set<FoundModule> {
+        val result = HashMap<ModuleId, FoundModule>()
+        rootModules.forEach { collectDeps(it, result) }
+        return result.values.toSet()
+    }
+
+    private fun collectDeps(moduleId: ModuleId, result: MutableMap<ModuleId, FoundModule>) {
+        if (result.containsKey(moduleId)) return
+        val module = modules[moduleId] ?: return
+        result[moduleId] = module
+        for (dependency in module.dependencies) {
+            collectDeps(dependency.id, result)
         }
     }
 }

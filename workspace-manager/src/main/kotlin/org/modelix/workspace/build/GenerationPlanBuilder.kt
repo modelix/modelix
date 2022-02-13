@@ -50,8 +50,8 @@ class GenerationPlanBuilder(val availableModules: FoundModules) {
                     cycleIds?.forEach { forcedChunkIndex[it] = index }
                     plan.insertAt(index, module)
                 }
-                is LibraryModuleOwner -> plan.libraries += moduleOwner
-                is PluginModuleOwner -> plan.plugins += moduleOwner
+                is LibraryModuleOwner -> plan.addLibrary(moduleOwner)
+                is PluginModuleOwner -> plan.addPlugin(moduleOwner)
                 else -> throw RuntimeException("Unknown owner: $moduleOwner")
             }
         } finally {

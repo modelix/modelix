@@ -23,36 +23,35 @@ import java.util.zip.ZipEntry
 import javax.xml.XMLConstants
 import javax.xml.parsers.DocumentBuilderFactory
 
-class ModulesMiner(val inputFolders: List<ModuleOrigin>) {
+class ModulesMiner() {
 
-    private var modules: FoundModules? = null
+    private val modules: FoundModules = FoundModules()
 
-    @Synchronized
     fun getModules(): FoundModules {
-        if (modules == null) {
-            modules = FoundModules()
-            inputFolders.forEach { collectModules(it.localPath.toFile(), null, it)}
-        }
-        return modules!!
+        return modules
     }
 
-    private fun collectModules(file: File, owner: ModuleOwner?, origin: ModuleOrigin) {
+    fun searchInFolder(folder: ModuleOrigin) {
+        collectModules(folder.localPath.toFile(), null, folder, modules)
+    }
+
+    private fun collectModules(file: File, owner: ModuleOwner?, origin: ModuleOrigin, result: FoundModules) {
         if (file.isFile) {
             when (file.extension.lowercase()) {
                 // see jetbrains.mps.project.MPSExtentions
                 "msd", "mpl", "devkit" -> {
-                    getModules().addModule(readModule(file, owner ?: SourceModuleOwner(origin.localModulePath(file))))
+                    result.addModule(readModule(file, owner ?: SourceModuleOwner(origin.localModulePath(file))))
                 }
                 "jar" -> {
                     if (!file.nameWithoutExtension.endsWith("-src")) {
                         val libraryModuleOwner = owner ?: LibraryModuleOwner(origin.localModulePath(file))
                         ZipUtil.iterate(file) { stream: InputStream, entry: ZipEntry ->
                             if (entry.name == "META-INF/module.xml") {
-                                getModules().addModule(readModule(stream, libraryModuleOwner))
+                                result.addModule(readModule(stream, libraryModuleOwner))
                             }
                             when (entry.name.substringAfterLast('.', "").lowercase()) {
                                 "msd", "mpl", "devkit" -> {
-                                    getModules().addModule(readModule(stream, libraryModuleOwner))
+                                    result.addModule(readModule(stream, libraryModuleOwner))
                                 }
                             }
                         }
@@ -60,15 +59,19 @@ class ModulesMiner(val inputFolders: List<ModuleOrigin>) {
                 }
                 "vmoptions" -> {
                     if (file.nameWithoutExtension == "mps" || file.nameWithoutExtension == "mps64") {
-                        getModules().mpsHome = file.parentFile.parentFile
+                        result.mpsHome = file.parentFile.parentFile
                     }
                 }
             }
         } else if (file.isDirectory) {
-            val isPluginDir = File(File(file, "META-INF"), "plugin.xml").exists()
-            val pluginOwner = if (isPluginDir) PluginModuleOwner(origin.localModulePath(file)) else null
-            file.listFiles()?.forEach { child ->
-                collectModules(child, owner ?: pluginOwner, origin)
+            if (file.name == ".mps") {
+                result.projects += FoundProject(file.parentFile)
+            } else {
+                val isPluginDir = File(File(file, "META-INF"), "plugin.xml").exists()
+                val pluginOwner = if (isPluginDir) PluginModuleOwner(origin.localModulePath(file)) else null
+                file.listFiles()?.forEach { child ->
+                    collectModules(child, owner ?: pluginOwner, origin, result)
+                }
             }
         }
     }
@@ -79,10 +82,7 @@ class ModulesMiner(val inputFolders: List<ModuleOrigin>) {
     }
 
     private fun readModule(file: InputStream, owner: ModuleOwner): FoundModule {
-        val dbf = DocumentBuilderFactory.newInstance()
-        dbf.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true)
-        val db = dbf.newDocumentBuilder()
-        val xml = db.parse(file)
+        val xml = readXmlFile(file)
         val missedUUIDs = extractModuleUUIDs(xmlToString(xml)).toMutableSet()
         val doc: Element = xml.documentElement
         val uuid = ModuleId(doc.getAttribute("uuid"))

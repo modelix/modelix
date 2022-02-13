@@ -14,8 +14,8 @@
 package org.modelix.workspace.build
 
 class GenerationPlan {
-    val plugins: MutableSet<PluginModuleOwner> = LinkedHashSet()
-    val libraries: MutableSet<LibraryModuleOwner> = LinkedHashSet()
+    private val plugins: MutableSet<PluginModuleOwner> = LinkedHashSet()
+    private val libraries: MutableSet<LibraryModuleOwner> = LinkedHashSet()
     val chunks: MutableList<GenerationChunk> = ArrayList()
     val allModuleIds: MutableSet<ModuleId> = HashSet()
 
@@ -28,6 +28,10 @@ class GenerationPlan {
         libraries += lib
         allModuleIds += lib.modules.keys
     }
+
+    fun getPlugins(): List<PluginModuleOwner> = plugins.toList()
+
+    fun getLibraries(): List<LibraryModuleOwner> = libraries.toList()
 
     fun getHighestChunkIndex(moduleIds: Iterable<ModuleId>): Int {
         for (i in (0 until chunks.size).reversed()) {

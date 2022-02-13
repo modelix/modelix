@@ -23,6 +23,14 @@ tasks.withType<ShadowJar> {
 }
 
 dependencies {
+    compileOnly(fileTree("../artifacts/mps/lib") {
+        include("mps-environment.jar")
+        include("mps-platform.jar")
+        include("mps-core.jar")
+        include("mps-openapi.jar")
+        include("platform-api.jar")
+        include("util.jar")
+    })
     implementation("io.ktor", "ktor-server-core", ktorVersion)
     implementation("io.ktor", "ktor-server-netty", ktorVersion)
     implementation("ch.qos.logback", "logback-classic", logbackVersion)

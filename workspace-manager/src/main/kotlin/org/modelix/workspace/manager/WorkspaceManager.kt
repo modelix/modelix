@@ -20,20 +20,26 @@ import org.apache.commons.io.FileUtils
 import org.modelix.model.client.RestWebModelClient
 import org.modelix.model.persistent.SerializationUtil
 import org.modelix.workspace.build.*
+import org.modelix.workspace.modelimport.*
 import org.w3c.dom.Document
 import java.io.File
 import java.io.FileOutputStream
 import java.nio.charset.StandardCharsets
 import java.nio.file.Path
-import java.nio.file.Paths
 import java.util.*
 import java.util.concurrent.Executors
 import java.util.zip.ZipEntry
 import java.util.zip.ZipOutputStream
 import javax.xml.parsers.DocumentBuilderFactory
+import kotlin.collections.ArrayList
 import kotlin.collections.HashMap
 
 class WorkspaceManager {
+    companion object {
+        val org_modelix_model_mpsplugin = ModuleId("c5e5433e-201f-43e2-ad14-a6cba8c80cd6")
+        val org_modelix_model_api = ModuleId("cc99dce1-49f3-4392-8dbf-e22ca47bd0af")
+    }
+
     private val WORKSPACE_LIST_KEY = "workspaces"
     private val mpsHome: File = findMpsHome()
     private val modelClient: RestWebModelClient = RestWebModelClient(getModelServerUrl())
@@ -161,7 +167,8 @@ class WorkspaceManager {
         val gitManagers = workspace.gitRepositories
             .map { it to GitRepositoryManager(it, null, getWorkspaceDirectory(workspace)) }
         gitManagers.forEach { it.second.updateRepo() }
-        val moduleFolders: List<ModuleOrigin> = mavenFolders.map { ModuleOrigin(it.toPath(), workspacePath.relativize(it.toPath())) } +
+        val moduleFolders: List<ModuleOrigin> =
+            mavenFolders.map { ModuleOrigin(it.toPath(), workspacePath.relativize(it.toPath())) } +
             gitManagers.flatMap {
                 it.second.getRootFolders(it.first.paths)
                     .map { ModuleOrigin(it.toPath(), workspacePath.relativize(it.toPath())) }
@@ -169,17 +176,14 @@ class WorkspaceManager {
             workspace.uploads.map { ModuleOrigin(getUploadFolder(it).toPath(), Path.of("uploads", it)) } +
             ModuleOrigin(mpsHome.toPath(), Path.of("/projector/ide"))
         var modulesXml: String? = null
-        try {
-            val buildScriptGenerator = BuildScriptGenerator(moduleFolders)
-            try {
+        val modulesMiner = ModulesMiner()
+        moduleFolders.forEach { modulesMiner.searchInFolder(it) }
+        job.runSafely(WorkspaceBuildStatus.FailedBuild) {
+            val buildScriptGenerator = BuildScriptGenerator(modulesMiner)
+            job.runSafely {
                 modulesXml = xmlToString(buildModulesXml(buildScriptGenerator.modulesMiner.getModules()))
-            } catch (e: Exception) {
-                job.appendException(e)
             }
             buildScriptGenerator.buildModules(File(getWorkspaceDirectory(workspace), "mps-build-script.xml"), job.outputHandler)
-        } catch (e: Exception) {
-            job.status = WorkspaceBuildStatus.FailedBuild
-            job.appendException(e)
         }
         FileOutputStream(downloadFile).use { fileStream ->
             ZipOutputStream(fileStream).use { zipStream ->
@@ -195,10 +199,23 @@ class WorkspaceManager {
                 if (modulesXml != null) {
                     val zipEntry = ZipEntry("modules.xml")
                     zipStream.putNextEntry(zipEntry)
-                    zipStream.write(modulesXml.toByteArray(StandardCharsets.UTF_8))
+                    zipStream.write(modulesXml!!.toByteArray(StandardCharsets.UTF_8))
                 }
             }
         }
+
+        // Modelix and MPS-extensions are required to run the importer
+        val additionalFolders = ArrayList<File>()
+        if (!modulesMiner.getModules().modules.containsKey(org_modelix_model_mpsplugin)) {
+            additionalFolders += File(File(".."), "mps")
+        }
+        if (!modulesMiner.getModules().modules.containsKey(org_modelix_model_api)) {
+            additionalFolders += File(File(File(".."), "artifacts"), "de.itemis.mps.extensions")
+        }
+        additionalFolders.filter { it.exists() }.forEach { modulesMiner.searchInFolder(ModuleOrigin(it.toPath(), it.toPath())) }
+
+        job.runSafely { importModulesToCloud(modulesMiner, job) }
+
         return downloadFile
     }
 
@@ -258,6 +275,69 @@ class WorkspaceManager {
         }
 
         return doc
+    }
+
+    private fun importModulesToCloud(modulesMiner: ModulesMiner, job: WorkspaceBuildJob) {
+        job.outputHandler("***************************************************")
+        job.outputHandler("*** Importing MPS modules into the model server ***")
+        job.outputHandler("***************************************************")
+
+        val mpsHome = modulesMiner.getModules().mpsHome
+        val mpsClassPath: MutableList<String> = ArrayList()
+        if (mpsHome != null) {
+            visitFiles(File(mpsHome, "lib")) { file ->
+                if (file.isFile && file.extension.lowercase() == "jar") {
+                    mpsClassPath += file.canonicalPath
+                }
+            }
+        }
+
+        val json = buildEnvironmentSpec(modulesMiner.getModules(), mpsClassPath)
+        val envFile = File("mps-environment.json")
+        envFile.writeBytes(json.toByteArray(StandardCharsets.UTF_8))
+
+        JavaProcess(ModelImportMain::class).apply {
+            outputHandler = job.outputHandler
+            args += ModelImportMain.ENVIRONMENT_ARG_KEY
+            args += envFile.canonicalPath
+            jvmArgs += "-Dmodelix.executionMode=MODEL_IMPORT"
+            jvmArgs += "-Dmodelix.import.repositoryId=workspace-${job.workspace.id}"
+            jvmArgs += "-Dmodelix.import.serverUrl=${getModelServerUrl()}"
+            classpath.removeAll { it.contains("model-client") }
+            classpath.addAll(0, mpsClassPath)
+            exec()
+        }
+    }
+
+    private fun buildEnvironmentSpec(modules: FoundModules, classPath: List<String>): String {
+        val mpsHome = modules.mpsHome ?: throw RuntimeException("mps.home not found")
+        val plugins = ArrayList<PluginSpec>()
+        val libraries = ArrayList<LibrarySpec>()
+
+        val rootModuleIds = modules.modules.values.filter { it.owner is SourceModuleOwner }.map { it.moduleId }.toMutableSet()
+        rootModuleIds += org_modelix_model_mpsplugin
+        val modulesToLoad = modules.getWithDependencies(rootModuleIds).map { it.owner }.toSet()
+
+        for (moduleOwner in modulesToLoad) {
+            when (moduleOwner) {
+                is PluginModuleOwner -> {
+                    val pluginId = moduleOwner.pluginId
+                        ?: throw RuntimeException("Plugin has no ID: ${moduleOwner.path.getLocalAbsolutePath()}")
+                    plugins += PluginSpec(moduleOwner.path.getLocalAbsolutePath().toString(), pluginId, moduleOwner.name ?: "")
+                }
+                is LibraryModuleOwner, is SourceModuleOwner -> libraries += LibrarySpec(moduleOwner.path.getLocalAbsolutePath().toString())
+            }
+        }
+        val projects = modules.projects.map { ProjectSpec(it.path.canonicalPath, it.name) }
+        val spec = EnvironmentSpec(mpsHome.absolutePath, plugins, libraries, projects, classPath)
+        return Json.encodeToString(spec)
+    }
+
+    private fun visitFiles(file: File, visitor: (File)->Unit) {
+        visitor(file)
+        if (file.isDirectory) {
+            file.listFiles()?.forEach { visitFiles(it, visitor) }
+        }
     }
 }
 

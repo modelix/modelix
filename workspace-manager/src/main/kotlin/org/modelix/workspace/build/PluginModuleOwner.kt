@@ -19,4 +19,26 @@ import java.io.File
  * Modules packaged as an IDEA plugin containing a META-INF/plugin.xml file.
  */
 class PluginModuleOwner(path: ModulePath) : ModuleOwner(path) {
+    var pluginId: String? = null
+    var name: String? = null
+
+    init {
+        try {
+            val pluginPath = path.getLocalAbsolutePath().toFile()
+            val pluginDescriptorFile = File(File(pluginPath, "META-INF"), "plugin.xml")
+            for (line in pluginDescriptorFile.readLines()) {
+                if (pluginId == null) {
+                    val idMatch = Regex(""".*<id>(.+)</id>.*""").matchEntire(line)
+                    if (idMatch != null) pluginId = idMatch.groupValues[1]
+                }
+                if (name == null) {
+                    val nameMatch = Regex(""".*<name>(.+)</name>.*""").matchEntire(line)
+                    if (nameMatch != null) name = nameMatch.groupValues[1]
+                }
+            }
+        } catch (e: Exception) {
+            println(e.message)
+            e.printStackTrace()
+        }
+    }
 }

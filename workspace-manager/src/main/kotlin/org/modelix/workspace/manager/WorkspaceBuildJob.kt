@@ -26,6 +26,15 @@ class WorkspaceBuildJob(val workspace: Workspace, val downloadFile: File) {
         e.stackTrace.map { "  $it" }.forEach { append(it) }
     }
 
+    inline fun runSafely(statusOnException: WorkspaceBuildStatus? = null, block: () -> Unit) {
+        try {
+            block()
+        } catch (e: Exception) {
+            appendException(e)
+            if (statusOnException != null) status = statusOnException
+        }
+    }
+
     fun append(text: String) {
         output += text
         lastOutput = System.currentTimeMillis()

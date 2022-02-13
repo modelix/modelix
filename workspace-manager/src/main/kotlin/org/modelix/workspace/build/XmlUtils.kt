@@ -16,7 +16,11 @@ package org.modelix.workspace.build
 import org.w3c.dom.Document
 import org.w3c.dom.Element
 import org.w3c.dom.Node
+import java.io.File
+import java.io.InputStream
 import java.io.StringWriter
+import javax.xml.XMLConstants
+import javax.xml.parsers.DocumentBuilderFactory
 import javax.xml.transform.OutputKeys
 import javax.xml.transform.Transformer
 import javax.xml.transform.TransformerFactory
@@ -59,4 +63,18 @@ fun xmlToString(doc: Document): String {
     val result = StreamResult(out)
     transformer.transform(source, result)
     return out.toString()
+}
+
+fun readXmlFile(file: File): Document {
+    val dbf = DocumentBuilderFactory.newInstance()
+    dbf.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true)
+    val db = dbf.newDocumentBuilder()
+    return db.parse(file)
+}
+
+fun readXmlFile(file: InputStream): Document {
+    val dbf = DocumentBuilderFactory.newInstance()
+    dbf.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true)
+    val db = dbf.newDocumentBuilder()
+    return db.parse(file)
 }

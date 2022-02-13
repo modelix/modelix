@@ -23,9 +23,7 @@ import java.util.concurrent.TimeUnit
 import javax.xml.parsers.DocumentBuilderFactory
 import kotlin.io.path.pathString
 
-class BuildScriptGenerator(val inputFolders: List<ModuleOrigin>, val modulesToGenerate: List<ModuleId>? = null) {
-
-    val modulesMiner = ModulesMiner(inputFolders)
+class BuildScriptGenerator(val modulesMiner: ModulesMiner, val modulesToGenerate: List<ModuleId>? = null) {
 
     fun buildModules(antScriptFile: File = File.createTempFile("mps-build-script", ".xml", File(".")), outputHandler: ((String)->Unit)? = null) {
         val xml = generateXML()
@@ -122,12 +120,12 @@ class BuildScriptGenerator(val inputFolders: List<ModuleOrigin>, val modulesToGe
                     setAttribute("targetJavaVersion", "11")
                     setAttribute("skipUnmodifiedModels", "false")
                     setAttribute("logLevel", "warn")
-                    for (plugin in plan.plugins) {
+                    for (plugin in plan.getPlugins()) {
                         newChild("plugin") {
                             setAttribute("path", plugin.path.getLocalAbsolutePath().pathString)
                         }
                     }
-                    for (library in plan.libraries) {
+                    for (library in plan.getLibraries()) {
                         newChild("library") {
                             setAttribute("file", library.path.getLocalAbsolutePath().pathString)
                         }
