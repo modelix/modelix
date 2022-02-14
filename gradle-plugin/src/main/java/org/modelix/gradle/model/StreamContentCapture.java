@@ -43,7 +43,7 @@ class StreamContentCapture {
                 BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(bais));
                 String line;
                 while ((line = bufferedReader.readLine()) != null) {
-                    lines.add(line);
+                    lines.add(line.strip());
                 }
             }
             return this.lines;
