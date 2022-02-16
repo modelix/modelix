@@ -320,6 +320,7 @@
         <child id="8974276187400348171" name="commandClosureLiteral" index="1QHqEI" />
       </concept>
       <concept id="8974276187400348181" name="jetbrains.mps.lang.access.structure.ExecuteLightweightCommandStatement" flags="nn" index="1QHqEK" />
+      <concept id="8974276187400348183" name="jetbrains.mps.lang.access.structure.ExecuteWriteActionStatement" flags="nn" index="1QHqEM" />
       <concept id="8974276187400348177" name="jetbrains.mps.lang.access.structure.ExecuteCommandStatement" flags="nn" index="1QHqEO" />
     </language>
     <language id="fd392034-7849-419d-9071-12563d152375" name="jetbrains.mps.baseLanguage.closures">
@@ -7683,9 +7684,9 @@
             </node>
           </node>
         </node>
-        <node concept="1QHqEK" id="11vVX88tlXB" role="3cqZAp">
-          <node concept="1QHqEC" id="11vVX88tlXD" role="1QHqEI">
-            <node concept="3clFbS" id="11vVX88tlXF" role="1bW5cS">
+        <node concept="1QHqEM" id="2RZSADO5Nyy" role="3cqZAp">
+          <node concept="1QHqEC" id="2RZSADO5Ny$" role="1QHqEI">
+            <node concept="3clFbS" id="2RZSADO5NyA" role="1bW5cS">
               <node concept="3clFbF" id="7ZZZU$lf4Ab" role="3cqZAp">
                 <node concept="2YIFZM" id="7ZZZU$lf4TQ" role="3clFbG">
                   <ref role="37wK5l" to="csg2:74bn2Kw_TNe" resolve="copyInModelixAsIndependentModule" />
@@ -9346,9 +9347,9 @@
             </node>
           </node>
         </node>
-        <node concept="1QHqEK" id="5i$4SBK0d$9" role="3cqZAp">
-          <node concept="1QHqEC" id="5i$4SBK0d$a" role="1QHqEI">
-            <node concept="3clFbS" id="5i$4SBK0d$b" role="1bW5cS">
+        <node concept="1QHqEM" id="2RZSADO5T37" role="3cqZAp">
+          <node concept="1QHqEC" id="2RZSADO5T39" role="1QHqEI">
+            <node concept="3clFbS" id="2RZSADO5T3b" role="1bW5cS">
               <node concept="3cpWs8" id="1QKKVBBDQ03" role="3cqZAp">
                 <node concept="3cpWsn" id="1QKKVBBDQ04" role="3cpWs9">
                   <property role="TrG5h" value="ideaProject" />
