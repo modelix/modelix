@@ -7585,6 +7585,13 @@
                   <node concept="37vLTw" id="11vVX88rM8S" role="37wK5m">
                     <ref role="3cqZAo" node="11vVX88rLeR" resolve="simpleSolution1" />
                   </node>
+                  <node concept="2YIFZM" id="2RZSADO2Pt$" role="37wK5m">
+                    <ref role="37wK5l" to="alof:~ProjectHelper.toIdeaProject(jetbrains.mps.project.Project)" resolve="toIdeaProject" />
+                    <ref role="1Pybhc" to="alof:~ProjectHelper" resolve="ProjectHelper" />
+                    <node concept="37vLTw" id="2RZSADO2PBE" role="37wK5m">
+                      <ref role="3cqZAo" node="11vVX88rChQ" resolve="mpsProject" />
+                    </node>
+                  </node>
                 </node>
               </node>
             </node>
