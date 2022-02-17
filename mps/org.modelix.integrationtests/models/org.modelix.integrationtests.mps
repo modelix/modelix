@@ -320,7 +320,6 @@
         <child id="8974276187400348171" name="commandClosureLiteral" index="1QHqEI" />
       </concept>
       <concept id="8974276187400348181" name="jetbrains.mps.lang.access.structure.ExecuteLightweightCommandStatement" flags="nn" index="1QHqEK" />
-      <concept id="8974276187400348183" name="jetbrains.mps.lang.access.structure.ExecuteWriteActionStatement" flags="nn" index="1QHqEM" />
       <concept id="8974276187400348177" name="jetbrains.mps.lang.access.structure.ExecuteCommandStatement" flags="nn" index="1QHqEO" />
     </language>
     <language id="fd392034-7849-419d-9071-12563d152375" name="jetbrains.mps.baseLanguage.closures">
@@ -7684,9 +7683,9 @@
             </node>
           </node>
         </node>
-        <node concept="1QHqEM" id="2RZSADO5Nyy" role="3cqZAp">
-          <node concept="1QHqEC" id="2RZSADO5Ny$" role="1QHqEI">
-            <node concept="3clFbS" id="2RZSADO5NyA" role="1bW5cS">
+        <node concept="1QHqEK" id="2RZSADOe1sm" role="3cqZAp">
+          <node concept="1QHqEC" id="2RZSADOe1so" role="1QHqEI">
+            <node concept="3clFbS" id="2RZSADOe1sq" role="1bW5cS">
               <node concept="3clFbF" id="7ZZZU$lf4Ab" role="3cqZAp">
                 <node concept="2YIFZM" id="7ZZZU$lf4TQ" role="3clFbG">
                   <ref role="37wK5l" to="csg2:74bn2Kw_TNe" resolve="copyInModelixAsIndependentModule" />
@@ -7698,21 +7697,22 @@
                     <ref role="3cqZAo" node="11vVX88rLeR" resolve="simpleSolution1" />
                   </node>
                   <node concept="2YIFZM" id="2RZSADO2Pt$" role="37wK5m">
-                    <ref role="37wK5l" to="alof:~ProjectHelper.toIdeaProject(jetbrains.mps.project.Project)" resolve="toIdeaProject" />
                     <ref role="1Pybhc" to="alof:~ProjectHelper" resolve="ProjectHelper" />
+                    <ref role="37wK5l" to="alof:~ProjectHelper.toIdeaProject(jetbrains.mps.project.Project)" resolve="toIdeaProject" />
                     <node concept="37vLTw" id="2RZSADO2PBE" role="37wK5m">
                       <ref role="3cqZAo" node="11vVX88rChQ" resolve="mpsProject" />
                     </node>
                   </node>
+                  <node concept="10Nm6u" id="2RZSADOe0CG" role="37wK5m" />
                 </node>
               </node>
             </node>
           </node>
-          <node concept="2OqwBi" id="11vVX88tmu0" role="ukAjM">
-            <node concept="37vLTw" id="11vVX88tmfN" role="2Oq$k0">
+          <node concept="2OqwBi" id="2RZSADOe2zI" role="ukAjM">
+            <node concept="37vLTw" id="2RZSADOe22c" role="2Oq$k0">
               <ref role="3cqZAo" node="11vVX88rChQ" resolve="mpsProject" />
             </node>
-            <node concept="liA8E" id="11vVX88tmFu" role="2OqNvi">
+            <node concept="liA8E" id="2RZSADOe3cr" role="2OqNvi">
               <ref role="37wK5l" to="z1c3:~Project.getRepository()" resolve="getRepository" />
             </node>
           </node>
@@ -9347,9 +9347,9 @@
             </node>
           </node>
         </node>
-        <node concept="1QHqEM" id="2RZSADO5T37" role="3cqZAp">
-          <node concept="1QHqEC" id="2RZSADO5T39" role="1QHqEI">
-            <node concept="3clFbS" id="2RZSADO5T3b" role="1bW5cS">
+        <node concept="1QHqEK" id="2RZSADOdWTE" role="3cqZAp">
+          <node concept="1QHqEC" id="2RZSADOdWTG" role="1QHqEI">
+            <node concept="3clFbS" id="2RZSADOdWTI" role="1bW5cS">
               <node concept="3cpWs8" id="1QKKVBBDQ03" role="3cqZAp">
                 <node concept="3cpWsn" id="1QKKVBBDQ04" role="3cpWs9">
                   <property role="TrG5h" value="ideaProject" />
@@ -9357,8 +9357,8 @@
                     <ref role="3uigEE" to="4nm9:~Project" resolve="Project" />
                   </node>
                   <node concept="2YIFZM" id="1QKKVBBDQhW" role="33vP2m">
-                    <ref role="37wK5l" to="alof:~ProjectHelper.toIdeaProject(jetbrains.mps.project.Project)" resolve="toIdeaProject" />
                     <ref role="1Pybhc" to="alof:~ProjectHelper" resolve="ProjectHelper" />
+                    <ref role="37wK5l" to="alof:~ProjectHelper.toIdeaProject(jetbrains.mps.project.Project)" resolve="toIdeaProject" />
                     <node concept="37vLTw" id="1QKKVBBDQqQ" role="37wK5m">
                       <ref role="3cqZAo" node="1QKKVBBDsMN" resolve="mpsProject" />
                     </node>
@@ -9367,8 +9367,8 @@
               </node>
               <node concept="3clFbF" id="7ZZZU$lglMx" role="3cqZAp">
                 <node concept="2YIFZM" id="7ZZZU$lglP0" role="3clFbG">
-                  <ref role="37wK5l" to="csg2:74bn2Kw_Uv1" resolve="copyAndSyncInModelixAsIndependentModule" />
                   <ref role="1Pybhc" to="csg2:i0AVAFXWm5" resolve="ModelCloudImportUtils" />
+                  <ref role="37wK5l" to="csg2:74bn2Kw_Uv1" resolve="copyAndSyncInModelixAsIndependentModule" />
                   <node concept="37vLTw" id="5i$4SBK0d$h" role="37wK5m">
                     <ref role="3cqZAo" node="5i$4SBK0d$1" resolve="treeInRepository" />
                   </node>
@@ -9378,15 +9378,16 @@
                   <node concept="37vLTw" id="1QKKVBBDQxR" role="37wK5m">
                     <ref role="3cqZAo" node="1QKKVBBDQ04" resolve="ideaProject" />
                   </node>
+                  <node concept="10Nm6u" id="2RZSADOdVvp" role="37wK5m" />
                 </node>
               </node>
             </node>
           </node>
-          <node concept="2OqwBi" id="5i$4SBK0d$j" role="ukAjM">
-            <node concept="37vLTw" id="5i$4SBK0d$k" role="2Oq$k0">
+          <node concept="2OqwBi" id="2RZSADOdXOG" role="ukAjM">
+            <node concept="37vLTw" id="2RZSADOdXOH" role="2Oq$k0">
               <ref role="3cqZAo" node="1QKKVBBDsMN" resolve="mpsProject" />
             </node>
-            <node concept="liA8E" id="5i$4SBK0d$l" role="2OqNvi">
+            <node concept="liA8E" id="2RZSADOdXOI" role="2OqNvi">
               <ref role="37wK5l" to="z1c3:~Project.getRepository()" resolve="getRepository" />
             </node>
           </node>
