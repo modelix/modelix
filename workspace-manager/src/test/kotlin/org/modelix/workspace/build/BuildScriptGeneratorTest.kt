@@ -26,10 +26,10 @@ internal class BuildScriptGeneratorTest {
     fun test() {
         val org_modelix_ui_server = ModuleId("39aab22b-473f-4e44-b037-0c602964897d")
         val org_modelix_notation_impl_baseLanguage = ModuleId("2db6cf34-1ef5-4ea9-ab56-6511aab61960")
-        val generator = BuildScriptGenerator(
-            inputFolders = listOf(File("../mps"), File("../artifacts"), File("../samples")),
-//            modulesToGenerate = listOf(org_modelix_ui_server, org_modelix_notation_impl_baseLanguage)
-        )
+        val modulesMiner = ModulesMiner()
+        val inputFolders = listOf(File("../mps"), File("../artifacts"), File("../samples"))
+        inputFolders.map { it.absoluteFile.toPath() }.forEach { modulesMiner.searchInFolder(ModuleOrigin(it, it)) }
+        val generator = BuildScriptGenerator(modulesMiner)
         val xml = generator.generateXML()
         println(xml)
         val antScriptFile = File("auto-generated-build.xml")
@@ -38,9 +38,10 @@ internal class BuildScriptGeneratorTest {
 
     @Test
     fun test2() {
-        val generator = BuildScriptGenerator(
-            inputFolders = listOf(File("../artifacts/mps"), File("../generator-test-project"))
-        )
+        val modulesMiner = ModulesMiner()
+        val inputFolders = listOf(File("../artifacts/mps"), File("../generator-test-project"))
+        inputFolders.map { it.absoluteFile.toPath() }.forEach { modulesMiner.searchInFolder(ModuleOrigin(it, it)) }
+        val generator = BuildScriptGenerator(modulesMiner)
         val xml = generator.generateXML()
         println(xml)
         val antScriptFile = File("generator-test-project-build.xml")

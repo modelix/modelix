@@ -55,7 +55,7 @@ class WorkspaceManager {
     private val buildJobs: MutableMap<String, WorkspaceBuildJob> = Collections.synchronizedMap(HashMap())
     private val executor = Executors.newSingleThreadExecutor()
     private val headlessMpsFolder = run {
-        val candidates = listOf(File("../headless-mps/build/libs/"))
+        val candidates = listOf(File("../headless-mps/build/libs/"), File("/headless-mps"))
         candidates.firstOrNull { it.exists() }
             ?: throw RuntimeException("headless-mps not found in $candidates")
     }
@@ -213,9 +213,11 @@ class WorkspaceManager {
         val additionalFolders = ArrayList<File>()
         if (!modulesMiner.getModules().modules.containsKey(org_modelix_model_mpsplugin)) {
             additionalFolders += File(File(".."), "mps")
+            additionalFolders += File("/languages/modelix")
         }
         if (!modulesMiner.getModules().modules.containsKey(org_modelix_model_api)) {
             additionalFolders += File(File(File(".."), "artifacts"), "de.itemis.mps.extensions")
+            additionalFolders += File("/languages/mps-extensions")
         }
         additionalFolders.filter { it.exists() }.forEach { modulesMiner.searchInFolder(ModuleOrigin(it.toPath(), it.toPath())) }
 
