@@ -37,6 +37,7 @@ export function addNewRootNode(modelRef: string, callback: (nodeRef: string) => 
                 const closeButton = document.createElement("img");
                 closeButton.onmouseover = () => closeButton.src = "icons/AllIcons/Actions/CloseHovered";
                 closeButton.onmouseout = () => closeButton.src = "icons/AllIcons/Actions/Close";
+                // @ts-ignore
                 closeButton.onclick = () => dialog.close();
                 closeButton.src = "icons/AllIcons/Actions/Close";
                 closeButton.classList.add("close-button");
@@ -55,6 +56,7 @@ export function addNewRootNode(modelRef: string, callback: (nodeRef: string) => 
                             url: "addRootNode?modelRef=" + modelRef + "&conceptId=" + conceptDescriptor.id,
                             async: true,
                             success: response => {
+                                // @ts-ignore
                                 dialog.close();
                                 callback(response);
                             }
@@ -77,6 +79,7 @@ export function addNewRootNode(modelRef: string, callback: (nodeRef: string) => 
                 }
 
                 document.body.append(dialog);
+                // @ts-ignore
                 dialog.showModal();
             } catch (error) {
                 console.log(error);
