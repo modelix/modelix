@@ -7,8 +7,8 @@ val kotlinVersion = "1.5.31"
 val logbackVersion = "1.2.1"
 
 plugins {
-    kotlin("jvm") version "1.5.31"
-    kotlin("plugin.serialization") version "1.5.31"
+    kotlin("jvm")
+    kotlin("plugin.serialization")
     id("application")
     id("com.github.johnrengelman.shadow") version "6.1.0"
 }

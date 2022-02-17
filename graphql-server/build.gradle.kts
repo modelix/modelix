@@ -7,7 +7,7 @@ val logbackVersion = "1.2.1"
 val graphqlKotlinVersion = "5.2.0"
 
 plugins {
-    kotlin("jvm") version "1.5.31"
+    kotlin("jvm")
     id("application")
     id("com.expediagroup.graphql") version "5.2.0"
 }
