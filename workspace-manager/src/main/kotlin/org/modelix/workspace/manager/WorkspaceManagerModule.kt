@@ -162,6 +162,13 @@ fun Application.workspaceManagerModule() {
             call.respondText(job.status.toString(), ContentType.Text.Plain, HttpStatusCode.OK)
         }
 
+        get("{workspaceId}/output") {
+            val workspaceId = call.parameters["workspaceId"]!!
+            val job = manager.buildWorkspaceDownloadFileAsync(workspaceId)
+            call.respondText(job.output.joinToString("\n"), ContentType.Text.Plain, HttpStatusCode.OK)
+        }
+
+
         get("{workspaceId}/download-modules/workspace.zip") {
             val id = call.parameters["workspaceId"]!!
             val workspace = manager.getWorkspace(id)

@@ -13,23 +13,18 @@
  */
 package org.modelix.workspace.client
 
-import com.charleskorn.kaml.Yaml.Companion.default
 import io.ktor.client.*
 import io.ktor.client.call.*
 import io.ktor.client.engine.cio.*
-import io.ktor.client.features.*
 import io.ktor.client.request.*
-import io.ktor.client.response.*
 import io.ktor.client.statement.*
-import io.ktor.client.statement.HttpResponse
 import io.ktor.http.*
-import io.ktor.util.*
-import io.ktor.util.cio.*
-import io.ktor.utils.io.*
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
 import org.modelix.workspace.manager.WorkspaceBuildStatus
 import org.zeroturnaround.zip.ZipUtil
 import java.io.File
+import kotlin.math.sign
 
 fun main(args: Array<String>) {
     println("env: ${System.getenv()}")
@@ -44,13 +39,22 @@ fun main(args: Array<String>) {
     val httpClient = HttpClient(CIO)
     val outputFile = File("workspace.zip").absoluteFile
     runBlocking {
+        var printedLines = 0
         while (true) {
             val statusString = httpClient.get<String>(serverUrl + "$workspaceId/status")
             val status = WorkspaceBuildStatus.valueOf(statusString.trim())
             when (status) {
                 WorkspaceBuildStatus.FailedZip -> throw RuntimeException("Workspace $workspaceId failed to create the ZIP file. Can't download modules.")
                 WorkspaceBuildStatus.AllSuccessful, WorkspaceBuildStatus.ZipSuccessful -> break
-                WorkspaceBuildStatus.New, WorkspaceBuildStatus.Queued, WorkspaceBuildStatus.Running, WorkspaceBuildStatus.FailedBuild -> {}
+                WorkspaceBuildStatus.New, WorkspaceBuildStatus.Queued, WorkspaceBuildStatus.Running, WorkspaceBuildStatus.FailedBuild -> {
+                    val output = httpClient.get<String>(serverUrl + "$workspaceId/output")
+                    val lines = output.split('\n').drop(printedLines)
+                    if (lines.isNotEmpty()) {
+                        printedLines += lines.size
+                        lines.forEach { println("[WORKSPACE] $it") }
+                    }
+                    delay(1000L)
+                }
             }
         }
 
