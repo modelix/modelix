@@ -1,9 +1,9 @@
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 
 description = "Downloads modules from a workspace before starting MPS"
-val ktorVersion = "1.6.5"
-val kotlinCoroutinesVersion = "1.5.2"
-val kotlinVersion = "1.5.31"
+val ktorVersion = "1.6.7"
+val kotlinCoroutinesVersion = "1.6.0"
+val kotlinVersion = "1.6.10"
 val logbackVersion = "1.2.1"
 
 plugins {
