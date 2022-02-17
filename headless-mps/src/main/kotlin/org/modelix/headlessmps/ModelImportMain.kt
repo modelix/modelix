@@ -1,4 +1,4 @@
-package org.modelix.workspace.modelimport
+package org.modelix.headlessmps
 
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json

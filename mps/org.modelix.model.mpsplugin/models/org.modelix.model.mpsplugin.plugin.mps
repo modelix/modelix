@@ -19866,7 +19866,7 @@
                                                           <node concept="liA8E" id="6dPmVFx5Je4" role="2OqNvi">
                                                             <ref role="37wK5l" to="guwi:~PrintStream.println(java.lang.String)" resolve="println" />
                                                             <node concept="Xl_RD" id="6dPmVFx5Je5" role="37wK5m">
-                                                              <property role="Xl_RC" value="&lt;MODEL IMPORT NOT COMPLETED SUCCESSFULLY&gt;" />
+                                                              <property role="Xl_RC" value="&lt;MODEL IMPORT FAILED&gt;" />
                                                             </node>
                                                           </node>
                                                         </node>
@@ -20165,21 +20165,37 @@
                                                                             </node>
                                                                           </node>
                                                                         </node>
-                                                                        <node concept="3clFbF" id="6dPmVFxck$e" role="3cqZAp">
-                                                                          <node concept="2OqwBi" id="6dPmVFxck$f" role="3clFbG">
-                                                                            <node concept="2YIFZM" id="6dPmVFxck$g" role="2Oq$k0">
-                                                                              <ref role="1Pybhc" to="bd8o:~ApplicationManager" resolve="ApplicationManager" />
+                                                                        <node concept="3clFbF" id="2ti6ENSI$I3" role="3cqZAp">
+                                                                          <node concept="2OqwBi" id="2ti6ENSI_Jf" role="3clFbG">
+                                                                            <node concept="2YIFZM" id="2ti6ENSI_4S" role="2Oq$k0">
                                                                               <ref role="37wK5l" to="bd8o:~ApplicationManager.getApplication()" resolve="getApplication" />
+                                                                              <ref role="1Pybhc" to="bd8o:~ApplicationManager" resolve="ApplicationManager" />
                                                                             </node>
-                                                                            <node concept="liA8E" id="6dPmVFxck$h" role="2OqNvi">
-                                                                              <ref role="37wK5l" to="bd8o:~Application.exit(boolean,boolean,boolean)" resolve="exit" />
-                                                                              <node concept="3clFbT" id="6dPmVFxck$i" role="37wK5m">
-                                                                                <property role="3clFbU" value="true" />
+                                                                            <node concept="liA8E" id="2ti6ENSIAui" role="2OqNvi">
+                                                                              <ref role="37wK5l" to="bd8o:~Application.invokeLater(java.lang.Runnable)" resolve="invokeLater" />
+                                                                              <node concept="1bVj0M" id="2ti6ENSIBts" role="37wK5m">
+                                                                                <property role="3yWfEV" value="true" />
+                                                                                <node concept="3clFbS" id="2ti6ENSIBtt" role="1bW5cS">
+                                                                                  <node concept="3clFbF" id="6dPmVFxck$e" role="3cqZAp">
+                                                                                    <node concept="2OqwBi" id="6dPmVFxck$f" role="3clFbG">
+                                                                                      <node concept="2YIFZM" id="6dPmVFxck$g" role="2Oq$k0">
+                                                                                        <ref role="1Pybhc" to="bd8o:~ApplicationManager" resolve="ApplicationManager" />
+                                                                                        <ref role="37wK5l" to="bd8o:~ApplicationManager.getApplication()" resolve="getApplication" />
+                                                                                      </node>
+                                                                                      <node concept="liA8E" id="6dPmVFxck$h" role="2OqNvi">
+                                                                                        <ref role="37wK5l" to="bd8o:~Application.exit(boolean,boolean,boolean)" resolve="exit" />
+                                                                                        <node concept="3clFbT" id="6dPmVFxck$i" role="37wK5m">
+                                                                                          <property role="3clFbU" value="true" />
+                                                                                        </node>
+                                                                                        <node concept="3clFbT" id="6dPmVFxck$j" role="37wK5m">
+                                                                                          <property role="3clFbU" value="true" />
+                                                                                        </node>
+                                                                                        <node concept="3clFbT" id="6dPmVFxck$k" role="37wK5m" />
+                                                                                      </node>
+                                                                                    </node>
+                                                                                  </node>
+                                                                                </node>
                                                                               </node>
-                                                                              <node concept="3clFbT" id="6dPmVFxck$j" role="37wK5m">
-                                                                                <property role="3clFbU" value="true" />
-                                                                              </node>
-                                                                              <node concept="3clFbT" id="6dPmVFxck$k" role="37wK5m" />
                                                                             </node>
                                                                           </node>
                                                                         </node>

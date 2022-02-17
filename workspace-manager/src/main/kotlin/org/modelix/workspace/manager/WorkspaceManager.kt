@@ -20,7 +20,7 @@ import org.apache.commons.io.FileUtils
 import org.modelix.model.client.RestWebModelClient
 import org.modelix.model.persistent.SerializationUtil
 import org.modelix.workspace.build.*
-import org.modelix.workspace.modelimport.*
+import org.modelix.headlessmps.*
 import org.w3c.dom.Document
 import java.io.File
 import java.io.FileOutputStream
@@ -54,6 +54,11 @@ class WorkspaceManager {
     }
     private val buildJobs: MutableMap<String, WorkspaceBuildJob> = Collections.synchronizedMap(HashMap())
     private val executor = Executors.newSingleThreadExecutor()
+    private val headlessMpsFolder = run {
+        val candidates = listOf(File("../headless-mps/build/libs/"))
+        candidates.firstOrNull { it.exists() }
+            ?: throw RuntimeException("headless-mps not found in $candidates")
+    }
 
     init {
         println("workspaces directory: $directory")
@@ -301,10 +306,11 @@ class WorkspaceManager {
             args += ModelImportMain.ENVIRONMENT_ARG_KEY
             args += envFile.canonicalPath
             jvmArgs += "-Dmodelix.executionMode=MODEL_IMPORT"
-            jvmArgs += "-Dmodelix.import.repositoryId=workspace-${job.workspace.id}"
+            jvmArgs += "-Dmodelix.import.repositoryId=workspace_${job.workspace.id}"
             jvmArgs += "-Dmodelix.import.serverUrl=${getModelServerUrl()}"
-            classpath.removeAll { it.contains("model-client") }
-            classpath.addAll(0, mpsClassPath)
+            classpath.clear()
+            classpath += mpsClassPath
+            classpath += (headlessMpsFolder.listFiles() ?: arrayOf()).map { it.canonicalPath }
             exec()
         }
     }
