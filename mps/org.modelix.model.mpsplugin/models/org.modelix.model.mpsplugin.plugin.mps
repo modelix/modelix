@@ -11527,30 +11527,85 @@
     </node>
     <node concept="tnohg" id="nP6bhxN7Q4" role="tncku">
       <node concept="3clFbS" id="nP6bhxN7Q5" role="2VODD2">
-        <node concept="3clFbF" id="74bn2KwAqqr" role="3cqZAp">
-          <node concept="2YIFZM" id="74bn2KwAqrT" role="3clFbG">
-            <ref role="37wK5l" to="csg2:74bn2Kw_Uv1" resolve="copyAndSyncInModelixAsIndependentModule" />
-            <ref role="1Pybhc" to="csg2:i0AVAFXWm5" resolve="ModelCloudImportUtils" />
-            <node concept="2OqwBi" id="74bn2KwAqsn" role="37wK5m">
-              <node concept="2WthIp" id="74bn2KwAqso" role="2Oq$k0" />
-              <node concept="2BZ7hE" id="74bn2KwAqsp" role="2OqNvi">
-                <ref role="2WH_rO" node="1xehy3Sk7sb" resolve="treeInRepository" />
+        <node concept="3clFbF" id="68ebMUMZrzm" role="3cqZAp">
+          <node concept="2OqwBi" id="68ebMUMZJsk" role="3clFbG">
+            <node concept="2ShNRf" id="68ebMUMZrzi" role="2Oq$k0">
+              <node concept="YeOm9" id="68ebMUMZEtm" role="2ShVmc">
+                <node concept="1Y3b0j" id="68ebMUMZEtp" role="YeSDq">
+                  <property role="2bfB8j" value="true" />
+                  <ref role="37wK5l" to="xygl:~Task$Modal.&lt;init&gt;(com.intellij.openapi.project.Project,java.lang.String,boolean)" resolve="Task.Modal" />
+                  <ref role="1Y3XeK" to="xygl:~Task$Modal" resolve="Task.Modal" />
+                  <node concept="3Tm1VV" id="68ebMUMZEtq" role="1B3o_S" />
+                  <node concept="3clFb_" id="68ebMUMZEtx" role="jymVt">
+                    <property role="TrG5h" value="run" />
+                    <node concept="3Tm1VV" id="68ebMUMZEty" role="1B3o_S" />
+                    <node concept="3cqZAl" id="68ebMUMZEt$" role="3clF45" />
+                    <node concept="37vLTG" id="68ebMUMZEt_" role="3clF46">
+                      <property role="TrG5h" value="indicator" />
+                      <node concept="3uibUv" id="68ebMUMZEtA" role="1tU5fm">
+                        <ref role="3uigEE" to="xygl:~ProgressIndicator" resolve="ProgressIndicator" />
+                      </node>
+                      <node concept="2AHcQZ" id="68ebMUMZEtB" role="2AJF6D">
+                        <ref role="2AI5Lk" to="mhfm:~NotNull" resolve="NotNull" />
+                      </node>
+                    </node>
+                    <node concept="3clFbS" id="68ebMUMZEtC" role="3clF47">
+                      <node concept="3clFbF" id="74bn2KwAqqr" role="3cqZAp">
+                        <node concept="2YIFZM" id="74bn2KwAqrT" role="3clFbG">
+                          <ref role="37wK5l" to="csg2:74bn2Kw_Uv1" resolve="copyAndSyncInModelixAsIndependentModule" />
+                          <ref role="1Pybhc" to="csg2:i0AVAFXWm5" resolve="ModelCloudImportUtils" />
+                          <node concept="2OqwBi" id="74bn2KwAqsn" role="37wK5m">
+                            <node concept="2WthIp" id="74bn2KwAqso" role="2Oq$k0" />
+                            <node concept="2BZ7hE" id="74bn2KwAqsp" role="2OqNvi">
+                              <ref role="2WH_rO" node="1xehy3Sk7sb" resolve="treeInRepository" />
+                            </node>
+                          </node>
+                          <node concept="2OqwBi" id="74bn2KwAqsq" role="37wK5m">
+                            <node concept="2WthIp" id="74bn2KwAqsr" role="2Oq$k0" />
+                            <node concept="1DTwFV" id="74bn2KwAqss" role="2OqNvi">
+                              <ref role="2WH_rO" node="i0AVAFY_LO" resolve="module" />
+                            </node>
+                          </node>
+                          <node concept="2OqwBi" id="74bn2KwAqst" role="37wK5m">
+                            <node concept="2WthIp" id="74bn2KwAqsu" role="2Oq$k0" />
+                            <node concept="1DTwFV" id="74bn2KwAqsv" role="2OqNvi">
+                              <ref role="2WH_rO" node="nP6bhxUcuG" resolve="project" />
+                            </node>
+                          </node>
+                          <node concept="2ShNRf" id="2RZSADOdBME" role="37wK5m">
+                            <node concept="1pGfFk" id="2RZSADOdDKI" role="2ShVmc">
+                              <ref role="37wK5l" to="mk8z:~ProgressMonitorAdapter.&lt;init&gt;(com.intellij.openapi.progress.ProgressIndicator)" resolve="ProgressMonitorAdapter" />
+                              <node concept="37vLTw" id="2RZSADOdElc" role="37wK5m">
+                                <ref role="3cqZAo" node="68ebMUMZEt_" resolve="indicator" />
+                              </node>
+                            </node>
+                          </node>
+                        </node>
+                      </node>
+                    </node>
+                    <node concept="2AHcQZ" id="68ebMUMZEtE" role="2AJF6D">
+                      <ref role="2AI5Lk" to="wyt6:~Override" resolve="Override" />
+                    </node>
+                  </node>
+                  <node concept="2OqwBi" id="2RZSADOhVTa" role="37wK5m">
+                    <node concept="2WthIp" id="2RZSADOhVh7" role="2Oq$k0" />
+                    <node concept="1DTwFV" id="2RZSADOhWJ6" role="2OqNvi">
+                      <ref role="2WH_rO" node="nP6bhxUcuG" resolve="project" />
+                    </node>
+                  </node>
+                  <node concept="Xl_RD" id="68ebMUMZIeh" role="37wK5m">
+                    <property role="Xl_RC" value="Copy on Cloud" />
+                  </node>
+                  <node concept="3clFbT" id="68ebMUMZJ6H" role="37wK5m" />
+                </node>
               </node>
             </node>
-            <node concept="2OqwBi" id="74bn2KwAqsq" role="37wK5m">
-              <node concept="2WthIp" id="74bn2KwAqsr" role="2Oq$k0" />
-              <node concept="1DTwFV" id="74bn2KwAqss" role="2OqNvi">
-                <ref role="2WH_rO" node="i0AVAFY_LO" resolve="module" />
-              </node>
-            </node>
-            <node concept="2OqwBi" id="74bn2KwAqst" role="37wK5m">
-              <node concept="2WthIp" id="74bn2KwAqsu" role="2Oq$k0" />
-              <node concept="1DTwFV" id="74bn2KwAqsv" role="2OqNvi">
-                <ref role="2WH_rO" node="nP6bhxUcuG" resolve="project" />
-              </node>
+            <node concept="liA8E" id="68ebMUMZK0u" role="2OqNvi">
+              <ref role="37wK5l" to="xygl:~Task.queue()" resolve="queue" />
             </node>
           </node>
         </node>
+        <node concept="3clFbH" id="2RZSADOd$MK" role="3cqZAp" />
       </node>
     </node>
     <node concept="2ScWuX" id="nP6bhxQlVl" role="tmbBb">
@@ -13583,30 +13638,85 @@
     </node>
     <node concept="tnohg" id="e_REOZbrU6" role="tncku">
       <node concept="3clFbS" id="e_REOZbrU7" role="2VODD2">
-        <node concept="3clFbF" id="74bn2KwAspT" role="3cqZAp">
-          <node concept="2YIFZM" id="74bn2KwAsr7" role="3clFbG">
-            <ref role="37wK5l" to="csg2:74bn2Kw_TNe" resolve="copyInModelixAsIndependentModule" />
-            <ref role="1Pybhc" to="csg2:i0AVAFXWm5" resolve="ModelCloudImportUtils" />
-            <node concept="2OqwBi" id="74bn2KwAsr_" role="37wK5m">
-              <node concept="2WthIp" id="74bn2KwAsrA" role="2Oq$k0" />
-              <node concept="2BZ7hE" id="74bn2KwAsrB" role="2OqNvi">
-                <ref role="2WH_rO" node="1xehy3Sk9_8" resolve="treeInRepository" />
+        <node concept="3clFbF" id="2RZSADOdGIZ" role="3cqZAp">
+          <node concept="2OqwBi" id="2RZSADOdGJ0" role="3clFbG">
+            <node concept="2ShNRf" id="2RZSADOdGJ1" role="2Oq$k0">
+              <node concept="YeOm9" id="2RZSADOdGJ2" role="2ShVmc">
+                <node concept="1Y3b0j" id="2RZSADOdGJ3" role="YeSDq">
+                  <property role="2bfB8j" value="true" />
+                  <ref role="37wK5l" to="xygl:~Task$Modal.&lt;init&gt;(com.intellij.openapi.project.Project,java.lang.String,boolean)" resolve="Task.Modal" />
+                  <ref role="1Y3XeK" to="xygl:~Task$Modal" resolve="Task.Modal" />
+                  <node concept="3Tm1VV" id="2RZSADOdGJ4" role="1B3o_S" />
+                  <node concept="3clFb_" id="2RZSADOdGJ5" role="jymVt">
+                    <property role="TrG5h" value="run" />
+                    <node concept="3Tm1VV" id="2RZSADOdGJ6" role="1B3o_S" />
+                    <node concept="3cqZAl" id="2RZSADOdGJ7" role="3clF45" />
+                    <node concept="37vLTG" id="2RZSADOdGJ8" role="3clF46">
+                      <property role="TrG5h" value="indicator" />
+                      <node concept="3uibUv" id="2RZSADOdGJ9" role="1tU5fm">
+                        <ref role="3uigEE" to="xygl:~ProgressIndicator" resolve="ProgressIndicator" />
+                      </node>
+                      <node concept="2AHcQZ" id="2RZSADOdGJa" role="2AJF6D">
+                        <ref role="2AI5Lk" to="mhfm:~NotNull" resolve="NotNull" />
+                      </node>
+                    </node>
+                    <node concept="3clFbS" id="2RZSADOdGJb" role="3clF47">
+                      <node concept="3clFbF" id="74bn2KwAspT" role="3cqZAp">
+                        <node concept="2YIFZM" id="74bn2KwAsr7" role="3clFbG">
+                          <ref role="37wK5l" to="csg2:74bn2Kw_TNe" resolve="copyInModelixAsIndependentModule" />
+                          <ref role="1Pybhc" to="csg2:i0AVAFXWm5" resolve="ModelCloudImportUtils" />
+                          <node concept="2OqwBi" id="74bn2KwAsr_" role="37wK5m">
+                            <node concept="2WthIp" id="74bn2KwAsrA" role="2Oq$k0" />
+                            <node concept="2BZ7hE" id="74bn2KwAsrB" role="2OqNvi">
+                              <ref role="2WH_rO" node="1xehy3Sk9_8" resolve="treeInRepository" />
+                            </node>
+                          </node>
+                          <node concept="2OqwBi" id="74bn2KwAsrC" role="37wK5m">
+                            <node concept="2WthIp" id="74bn2KwAsrD" role="2Oq$k0" />
+                            <node concept="1DTwFV" id="74bn2KwAsrE" role="2OqNvi">
+                              <ref role="2WH_rO" node="e_REOZbrU4" resolve="module" />
+                            </node>
+                          </node>
+                          <node concept="2OqwBi" id="68ebMUMZU1E" role="37wK5m">
+                            <node concept="2WthIp" id="68ebMUMZTJq" role="2Oq$k0" />
+                            <node concept="1DTwFV" id="68ebMUMZUKt" role="2OqNvi">
+                              <ref role="2WH_rO" node="e_REOZbrU2" resolve="project" />
+                            </node>
+                          </node>
+                          <node concept="2ShNRf" id="2RZSADOdJMt" role="37wK5m">
+                            <node concept="1pGfFk" id="2RZSADOdLKx" role="2ShVmc">
+                              <ref role="37wK5l" to="mk8z:~ProgressMonitorAdapter.&lt;init&gt;(com.intellij.openapi.progress.ProgressIndicator)" resolve="ProgressMonitorAdapter" />
+                              <node concept="37vLTw" id="2RZSADOdMkZ" role="37wK5m">
+                                <ref role="3cqZAo" node="2RZSADOdGJ8" resolve="indicator" />
+                              </node>
+                            </node>
+                          </node>
+                        </node>
+                      </node>
+                    </node>
+                    <node concept="2AHcQZ" id="2RZSADOdGJc" role="2AJF6D">
+                      <ref role="2AI5Lk" to="wyt6:~Override" resolve="Override" />
+                    </node>
+                  </node>
+                  <node concept="2OqwBi" id="2RZSADOhZ_c" role="37wK5m">
+                    <node concept="2WthIp" id="2RZSADOhYV2" role="2Oq$k0" />
+                    <node concept="1DTwFV" id="2RZSADOi0p1" role="2OqNvi">
+                      <ref role="2WH_rO" node="e_REOZbrU2" resolve="project" />
+                    </node>
+                  </node>
+                  <node concept="Xl_RD" id="2RZSADOdGJd" role="37wK5m">
+                    <property role="Xl_RC" value="Copy on Cloud" />
+                  </node>
+                  <node concept="3clFbT" id="2RZSADOdGJe" role="37wK5m" />
+                </node>
               </node>
             </node>
-            <node concept="2OqwBi" id="74bn2KwAsrC" role="37wK5m">
-              <node concept="2WthIp" id="74bn2KwAsrD" role="2Oq$k0" />
-              <node concept="1DTwFV" id="74bn2KwAsrE" role="2OqNvi">
-                <ref role="2WH_rO" node="e_REOZbrU4" resolve="module" />
-              </node>
-            </node>
-            <node concept="2OqwBi" id="68ebMUMZU1E" role="37wK5m">
-              <node concept="2WthIp" id="68ebMUMZTJq" role="2Oq$k0" />
-              <node concept="1DTwFV" id="68ebMUMZUKt" role="2OqNvi">
-                <ref role="2WH_rO" node="e_REOZbrU2" resolve="project" />
-              </node>
+            <node concept="liA8E" id="2RZSADOdGJf" role="2OqNvi">
+              <ref role="37wK5l" to="xygl:~Task.queue()" resolve="queue" />
             </node>
           </node>
         </node>
+        <node concept="3clFbH" id="2RZSADOdGIL" role="3cqZAp" />
       </node>
     </node>
     <node concept="2ScWuX" id="e_REOZbrVA" role="tmbBb">
