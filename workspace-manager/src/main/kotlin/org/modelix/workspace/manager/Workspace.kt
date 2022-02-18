@@ -87,7 +87,7 @@ private val credentialsEncryptor = run {
             kubernetesSecretFile.readLines().first()
         } else {
             println("${kubernetesSecretFile.absolutePath} doesn't exist")
-            val localSecretFile = File("workspace-credentials-key.txt")
+            val localSecretFile = File("../kubernetes/secrets/workspace-credentials-key.txt")
             if (localSecretFile.exists()) {
                 localSecretFile.readLines().first()
             } else {
