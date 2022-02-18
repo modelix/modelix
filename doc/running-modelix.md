@@ -17,11 +17,11 @@ Otherwise, MPS (the JBR) will not use the correct memory limit.
     - `../gradlew run`
 - Option 2: Use Kubernetes and run the existing images.
   Choose this option if you didn't change anything in the model server code.
-  - `./kubernetes-modelsecret.sh`
+  - `./kubernetes-secrets.sh`
   - `./kubernetes-use-latest-tag.sh`
   - `./kubernetes-apply-modelserver.sh`
 - Option 3: Use kubernetes and build your own images. Choose this option while developing the model server.
-  - `./kubernetes-modelsecret.sh`
+  - `./kubernetes-secrets.sh`
   - `./docker-build-db.sh`
   - `./docker-build-model.sh`
   - `./kubernetes-apply-modelserver.sh`
@@ -77,7 +77,7 @@ To connect your local MPS IDE follow these instructions:
 - `./docker-build-all.sh`
 - `./docker-push-hub.sh`
 - `kubectl create secret generic cloudsql-instance-credentials --from-file=./kubernetes/secrets/cloudsql.json`
-- `./kubernetes-modelsecret.sh`
+- `./kubernetes-secrets.sh`
 - SSL certificate (not supported yet)
     - `cd ssl`
     - `./generate.sh`

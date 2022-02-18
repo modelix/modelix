@@ -129,6 +129,7 @@ class WorkspaceManager {
     @Synchronized
     fun update(workspace: Workspace) {
         //loadCommitHashes(workspace)
+        workspace.gitRepositories.forEach { it.credentials = it.credentials?.encrypt() }
         val id = workspace.id
         modelClient.put(key(id), Json.encodeToString(workspace))
         activeWorkspaces[workspace.id] = workspace
@@ -170,7 +171,7 @@ class WorkspaceManager {
         val mavenFolders = workspace.mavenDependencies
             .map { MavenDownloader(workspace, getWorkspaceDirectory(workspace)).downloadFromMaven(it, job.outputHandler) }
         val gitManagers = workspace.gitRepositories
-            .map { it to GitRepositoryManager(it, null, getWorkspaceDirectory(workspace)) }
+            .map { it to GitRepositoryManager(it, it.credentials, getWorkspaceDirectory(workspace)) }
         gitManagers.forEach { it.second.updateRepo() }
         val moduleFolders: List<ModuleOrigin> =
             mavenFolders.map { ModuleOrigin(it.toPath(), workspacePath.relativize(it.toPath())) } +

@@ -41,6 +41,7 @@ dependencies {
     implementation("org.apache.maven.shared:maven-invoker:3.1.0")
     implementation("org.zeroturnaround:zt-zip:1.14")
     implementation("org.apache.commons:commons-text:1.9")
+    implementation("org.jasypt:jasypt:1.9.3")
     implementation(project(":model-client"))
     implementation(project(":headless-mps"))
     implementation("io.ktor","ktor-html-builder", ktorVersion)

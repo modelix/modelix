@@ -14,15 +14,20 @@
 package org.modelix.workspace.manager
 
 import org.eclipse.jgit.api.Git
+import org.eclipse.jgit.errors.RepositoryNotFoundException
 import org.eclipse.jgit.transport.UsernamePasswordCredentialsProvider
 import org.modelix.model.persistent.HashUtil
-import org.modelix.workspace.build.BuildScriptGenerator
 import java.io.*
 import java.lang.IllegalArgumentException
 import java.util.zip.ZipOutputStream
 
-class GitRepositoryManager(val config: GitRepository, val credentials: Credentials?, val workspaceDirectory: File) {
-    private val repoDirectory = File(workspaceDirectory, "git-" + HashUtil.sha256("${config.url} ${config.branch}").replace("*", ""))
+class GitRepositoryManager(val config: GitRepository, val encryptedCredentials: Credentials?, val workspaceDirectory: File) {
+    private val repoDirectory = File(workspaceDirectory, "git-" + toValidFileName(config.url))
+
+    fun toValidFileName(text: String): String {
+        val allowed = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_-., ".toSet()
+        return text.map { if (allowed.contains(it)) it else '_' }.joinToString("")
+    }
 
     fun updateRepo(): String {
         val existed = repoDirectory.exists()
@@ -36,12 +41,23 @@ class GitRepositoryManager(val config: GitRepository, val credentials: Credentia
         return git.repository.exactRef("HEAD").objectId.name
     }
 
-    private fun openRepo() = if (repoDirectory.exists()) Git.open(repoDirectory) else cloneRepo()
+    private fun openRepo(): Git {
+        if (repoDirectory.exists()) {
+            try {
+                return Git.open(repoDirectory)
+            } catch (e: RepositoryNotFoundException) {
+                return cloneRepo()
+            }
+        } else {
+            return cloneRepo()
+        }
+    }
 
     private fun cloneRepo(): Git {
         val cmd = Git.cloneRepository()
-        if (credentials != null) {
-            cmd.setCredentialsProvider(UsernamePasswordCredentialsProvider(credentials.user, credentials.password))
+        if (encryptedCredentials != null) {
+            val decrypted = encryptedCredentials.decrypt()
+            cmd.setCredentialsProvider(UsernamePasswordCredentialsProvider(decrypted.user, decrypted.password))
         }
         cmd.setURI(config.url)
         if (config.branch != null) {

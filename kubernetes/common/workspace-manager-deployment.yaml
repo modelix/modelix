@@ -56,8 +56,14 @@ spec:
         volumeMounts:
           - mountPath: "/workspace-manager/modelix-workspaces/uploads"
             name: workspace-uploads
+          - name: workspacesecret
+            mountPath: /secrets/workspacesecret
+            readOnly: true
       restartPolicy: Always
       volumes:
         - name: workspace-uploads
           persistentVolumeClaim:
             claimName: workspace-uploads
+        - name: workspacesecret
+          secret:
+            secretName: workspacesecret
