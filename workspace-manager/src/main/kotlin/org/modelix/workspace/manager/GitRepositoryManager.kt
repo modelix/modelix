@@ -14,6 +14,8 @@
 package org.modelix.workspace.manager
 
 import org.eclipse.jgit.api.Git
+import org.eclipse.jgit.api.GitCommand
+import org.eclipse.jgit.api.TransportCommand
 import org.eclipse.jgit.errors.RepositoryNotFoundException
 import org.eclipse.jgit.transport.UsernamePasswordCredentialsProvider
 import org.modelix.model.persistent.HashUtil
@@ -35,7 +37,7 @@ class GitRepositoryManager(val config: GitRepository, val encryptedCredentials: 
         if (existed) {
             git.checkout().setName(config.commitHash ?: config.branch).call()
             if (config.commitHash == null) {
-                git.pull().call()
+                applyCredentials(git.pull()).call()
             }
         }
         return git.repository.exactRef("HEAD").objectId.name
@@ -53,12 +55,17 @@ class GitRepositoryManager(val config: GitRepository, val encryptedCredentials: 
         }
     }
 
-    private fun cloneRepo(): Git {
-        val cmd = Git.cloneRepository()
+    private fun <C : GitCommand<T>, T, E : TransportCommand<C, T>> applyCredentials(cmd: E): E {
         if (encryptedCredentials != null) {
             val decrypted = encryptedCredentials.decrypt()
             cmd.setCredentialsProvider(UsernamePasswordCredentialsProvider(decrypted.user, decrypted.password))
         }
+        return cmd
+    }
+
+    private fun cloneRepo(): Git {
+        val cmd = Git.cloneRepository()
+        applyCredentials(cmd)
         cmd.setURI(config.url)
         if (config.branch != null) {
             cmd.setBranch(config.branch)
