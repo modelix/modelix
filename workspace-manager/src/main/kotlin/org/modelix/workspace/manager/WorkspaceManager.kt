@@ -301,6 +301,12 @@ class WorkspaceManager {
             }
         }
 
+        // Avoid connecting to any other model server
+        for (project in modulesMiner.getModules().projects) {
+            val cloudResourcesFile = File(File(project.path, ".mps"), "cloudResources.xml")
+            if (cloudResourcesFile.exists()) cloudResourcesFile.delete()
+        }
+
         val json = buildEnvironmentSpec(modulesMiner.getModules(), mpsClassPath)
         val envFile = File("mps-environment.json")
         envFile.writeBytes(json.toByteArray(StandardCharsets.UTF_8))
