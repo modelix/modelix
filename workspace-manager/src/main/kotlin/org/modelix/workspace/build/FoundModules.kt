@@ -16,13 +16,27 @@ package org.modelix.workspace.build
 import java.io.File
 
 class FoundModules {
-    val modules: MutableMap<ModuleId, FoundModule> = LinkedHashMap()
+    private val modules: MutableMap<ModuleId, FoundModule> = LinkedHashMap()
     var mpsHome: File? = null
     val projects: MutableList<FoundProject> = ArrayList()
+    val plugins: MutableMap<String, PluginModuleOwner> = LinkedHashMap()
+
+    fun getPlugin(id: String): PluginModuleOwner? {
+        return plugins[id]
+    }
+
+    fun getModules(): Map<ModuleId, FoundModule> = modules
+
+    fun addPlugin(plugin: PluginModuleOwner) {
+        val pluginId = plugin.pluginId
+        if (pluginId != null) {
+            plugins += pluginId to plugin
+        }
+    }
 
     fun addModule(module: FoundModule) {
         if (module.moduleId.id.isNotEmpty()) {
-            val existing = modules[module.moduleId]
+            val existing = getModules()[module.moduleId]
             if (existing != null) {
                 if (existing.owner != module.owner) {
                     println("Duplicate module ${module.moduleId} in ${module.owner.path.getLocalAbsolutePath()} and ${existing.owner.path.getLocalAbsolutePath()}")
@@ -31,6 +45,10 @@ class FoundModules {
                 existing.dependencies += module.dependencies
             } else {
                 modules[module.moduleId] = module
+                if (module.owner is PluginModuleOwner) {
+                    val pluginId = module.owner.pluginId
+                    if (pluginId != null) plugins += pluginId to module.owner
+                }
             }
 
         }

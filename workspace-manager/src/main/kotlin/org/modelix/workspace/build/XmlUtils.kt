@@ -40,6 +40,10 @@ fun Node.parentTagName(): String? {
     return parentNode.tagName
 }
 
+fun Node.tagName(): String? {
+    return if (this is Element) this.tagName else null
+}
+
 fun Node.children(): List<Node> {
     val children = childNodes
     val result = ArrayList<Node>(children.length)
@@ -67,7 +71,7 @@ fun xmlToString(doc: Document): String {
 
 fun readXmlFile(file: File): Document {
     val dbf = DocumentBuilderFactory.newInstance()
-    dbf.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true)
+    //dbf.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true)
     val db = dbf.newDocumentBuilder()
     return db.parse(file)
 }

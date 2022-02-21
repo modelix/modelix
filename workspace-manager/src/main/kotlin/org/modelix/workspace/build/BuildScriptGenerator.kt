@@ -65,7 +65,7 @@ class BuildScriptGenerator(val modulesMiner: ModulesMiner, val modulesToGenerate
     }
 
     fun generateAnt(): Document {
-        val plan = generatePlan(modulesToGenerate ?: modulesMiner.getModules().modules.values.filter { it.owner is SourceModuleOwner }.map { it.moduleId }.toList())
+        val plan = generatePlan(modulesToGenerate ?: modulesMiner.getModules().getModules().values.filter { it.owner is SourceModuleOwner }.map { it.moduleId }.toList())
 
         val dbf = DocumentBuilderFactory.newInstance()
         val db = dbf.newDocumentBuilder()
@@ -171,7 +171,7 @@ class BuildScriptGenerator(val modulesMiner: ModulesMiner, val modulesToGenerate
 
     fun generatePlan(modulesToGenerate: List<ModuleId>): GenerationPlan {
         val planBuilder = GenerationPlanBuilder(modulesMiner.getModules())
-        planBuilder.build(modulesToGenerate.mapNotNull { modulesMiner.getModules().modules[it] })
+        planBuilder.build(modulesToGenerate.mapNotNull { modulesMiner.getModules().getModules()[it] })
         return planBuilder.plan
     }
 }

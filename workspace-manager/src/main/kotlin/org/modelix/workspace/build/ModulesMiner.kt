@@ -69,6 +69,7 @@ class ModulesMiner() {
             } else {
                 val isPluginDir = File(File(file, "META-INF"), "plugin.xml").exists()
                 val pluginOwner = if (isPluginDir) PluginModuleOwner(origin.localModulePath(file)) else null
+                if (pluginOwner != null) modules.addPlugin(pluginOwner)
                 file.listFiles()?.forEach { child ->
                     collectModules(child, owner ?: pluginOwner, origin, result)
                 }

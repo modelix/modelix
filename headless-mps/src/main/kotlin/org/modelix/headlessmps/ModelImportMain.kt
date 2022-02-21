@@ -1,7 +1,10 @@
 package org.modelix.headlessmps
 
 import kotlinx.serialization.decodeFromString
+import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.JsonBuilder
+import kotlinx.serialization.json.JsonConfiguration
 import java.io.File
 import java.net.URLClassLoader
 import java.nio.charset.StandardCharsets
@@ -22,7 +25,11 @@ object ModelImportMain {
 
         if (envFile == null) throw IllegalArgumentException("$ENVIRONMENT_ARG_KEY argument is missing")
         val environmentSpec = Json.decodeFromString<EnvironmentSpec>(envFile.readText(StandardCharsets.UTF_8))
-        println("Loading environment")
+        println("*** Loading environment *** ")
+        Json {
+            prettyPrint = true
+        }.encodeToString(environmentSpec).let(::println)
+
         //Thread.currentThread().contextClassLoader = URLClassLoader(environmentSpec.classPath.map { File(it).toURI().toURL() }.toTypedArray())
         val mpsEnvironment = EnvironmentLoader(environmentSpec).loadEnvironment()
     }

@@ -33,6 +33,7 @@ import java.util.zip.ZipOutputStream
 import javax.xml.parsers.DocumentBuilderFactory
 import kotlin.collections.ArrayList
 import kotlin.collections.HashMap
+import kotlin.collections.LinkedHashMap
 
 class WorkspaceManager {
     companion object {
@@ -212,11 +213,11 @@ class WorkspaceManager {
 
         // Modelix and MPS-extensions are required to run the importer
         val additionalFolders = ArrayList<File>()
-        if (!modulesMiner.getModules().modules.containsKey(org_modelix_model_mpsplugin)) {
+        if (!modulesMiner.getModules().getModules().containsKey(org_modelix_model_mpsplugin)) {
             additionalFolders += File(File(".."), "mps")
             additionalFolders += File("/languages/modelix")
         }
-        if (!modulesMiner.getModules().modules.containsKey(org_modelix_model_api)) {
+        if (!modulesMiner.getModules().getModules().containsKey(org_modelix_model_api)) {
             additionalFolders += File(File(File(".."), "artifacts"), "de.itemis.mps.extensions")
             additionalFolders += File("/languages/mps-extensions")
         }
@@ -270,7 +271,7 @@ class WorkspaceManager {
             newChild("component") {
                 setAttribute("name", "MPSProject")
                 newChild("projectModules") {
-                    for (module in modules.modules.values) {
+                    for (module in modules.getModules().values) {
                         if (module.owner is SourceModuleOwner) {
                             newChild("modulePath") {
                                 setAttribute("path", module.owner.getWorkspaceRelativePath())
@@ -320,10 +321,10 @@ class WorkspaceManager {
 
     private fun buildEnvironmentSpec(modules: FoundModules, classPath: List<String>): String {
         val mpsHome = modules.mpsHome ?: throw RuntimeException("mps.home not found")
-        val plugins = ArrayList<PluginSpec>()
+        val plugins: MutableMap<String, PluginSpec> = LinkedHashMap()
         val libraries = ArrayList<LibrarySpec>()
 
-        val rootModuleIds = modules.modules.values.filter { it.owner is SourceModuleOwner }.map { it.moduleId }.toMutableSet()
+        val rootModuleIds = modules.getModules().values.filter { it.owner is SourceModuleOwner }.map { it.moduleId }.toMutableSet()
         rootModuleIds += org_modelix_model_mpsplugin
         val modulesToLoad = modules.getWithDependencies(rootModuleIds).map { it.owner }.toSet()
 
@@ -332,14 +333,25 @@ class WorkspaceManager {
                 is PluginModuleOwner -> {
                     val pluginId = moduleOwner.pluginId
                         ?: throw RuntimeException("Plugin has no ID: ${moduleOwner.path.getLocalAbsolutePath()}")
-                    plugins += PluginSpec(moduleOwner.path.getLocalAbsolutePath().toString(), pluginId, moduleOwner.name ?: "")
+                    pluginWithDependencies(pluginId, modules, plugins)
                 }
                 is LibraryModuleOwner, is SourceModuleOwner -> libraries += LibrarySpec(moduleOwner.path.getLocalAbsolutePath().toString())
             }
         }
         val projects = modules.projects.map { ProjectSpec(it.path.canonicalPath, it.name) }
-        val spec = EnvironmentSpec(mpsHome.absolutePath, plugins, libraries, projects, classPath)
+        val spec = EnvironmentSpec(mpsHome.absolutePath, plugins.values.toList(), libraries, projects, classPath)
         return Json.encodeToString(spec)
+    }
+
+    private fun pluginWithDependencies(pluginId: String, modules: FoundModules, result: MutableMap<String, PluginSpec>) {
+        if (result.containsKey(pluginId)) return
+        val plugin = modules.getPlugin(pluginId)
+        if (plugin != null) {
+            result += pluginId to PluginSpec(plugin.path.getLocalAbsolutePath().toString(), pluginId, plugin.name ?: "")
+            for (dependency in plugin.pluginDependencies) {
+                pluginWithDependencies(dependency, modules, result)
+            }
+        }
     }
 
     private fun visitFiles(file: File, visitor: (File)->Unit) {
