@@ -140,7 +140,7 @@ File | Description
 [kubernetes-apply-gcloud.sh](kubernetes-apply-gcloud.sh) | 
 [kubernetes-apply-local.sh](kubernetes-apply-local.sh) | 
 [kubernetes-gcloud-dbsecret.sh](kubernetes-gcloud-dbsecret.sh) | 
-[kubernetes-modelsecret.sh](kubernetes-modelsecret.sh) | 
+[kubernetes-secrets.sh](kubernetes-secrets.sh) | 
 [kubernetes-open-proxy.sh](kubernetes-open-proxy.sh) | Opens Modelix in the browser after loading the kubernetes configuration in docker desktop
 [kubernetes-use-latest-tag.sh](kubernetes-use-latest-tag.sh) | Use this before [kubernetes-apply-local.sh](kubernetes-apply-local.sh) to update the kubernetes configurations to use the latest Modelix version
 [modelix-version.sh](modelix-version.sh) | Reads or creates a modelix.version file that is used to tag the docker images

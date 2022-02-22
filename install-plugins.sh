@@ -4,6 +4,7 @@
 
 TARGET_FOLDER="${1:-/usr/modelix-ui/mps/plugins/}"
 SOURCE_FOLDER="${2:-/mps-plugins/}"
+DELETE_INPUT_FOLDER="${3:-1}"
 
 #SOURCE_FOLDER=../test_input
 #TARGET_FOLDER=../test_output/
@@ -26,4 +27,6 @@ while IFS= read -r line; do
   echo "Installed plugin from $PLUGIN_DIR"
 done
 
-rm -rf "${SOURCE_FOLDER:?}"/*
+if [ $DELETE_INPUT_FOLDER -eq "1" ]; then
+  rm -rf "${SOURCE_FOLDER:?}"/*
+fi

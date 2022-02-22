@@ -24,13 +24,15 @@ docker login -u "$DOCKER_HUB_USER" -p "$DOCKER_HUB_KEY"
 ./docker-build-proxy.sh
 ./docker-build-uiproxy.sh
 ./docker-build-instances-manager.sh
+./docker-build-workspace-manager.sh
+./docker-build-workspace-client.sh
 
 MODELIX_VERSION=$( ./modelix-version.sh )
 TAGS="$MODELIX_VERSION mps-$mpsVersion"
 if [ "$mpsVersion" != "$mpsMajorVersion" ]; then
     TAGS="$TAGS mps-$mpsMajorVersion"
 fi
-IMAGE_NAMES="db model mps base ui projector proxy uiproxy instances-manager"
+IMAGE_NAMES="db model mps base ui projector proxy uiproxy instances-manager workspace-manager workspace-client"
 for TAG in $TAGS ; do
   echo "Pushing Tag $TAG"
 

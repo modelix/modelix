@@ -13,6 +13,8 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/gradle-plugin" />
+            <option value="$PROJECT_DIR$/graphql-server" />
+            <option value="$PROJECT_DIR$/headless-mps" />
             <option value="$PROJECT_DIR$/instances-manager" />
             <option value="$PROJECT_DIR$/manual-tests" />
             <option value="$PROJECT_DIR$/model-client" />
@@ -21,6 +23,8 @@
             <option value="$PROJECT_DIR$/ui-client" />
             <option value="$PROJECT_DIR$/ui-proxy" />
             <option value="$PROJECT_DIR$/ui-server" />
+            <option value="$PROJECT_DIR$/workspace-client" />
+            <option value="$PROJECT_DIR$/workspace-manager" />
           </set>
         </option>
       </GradleProjectSettings>

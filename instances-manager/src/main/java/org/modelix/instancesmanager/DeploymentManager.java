@@ -1,6 +1,4 @@
 /*
- * Copyright 2003-2021 JetBrains s.r.o.
- *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -21,6 +19,7 @@ import io.kubernetes.client.openapi.apis.AppsV1Api;
 import io.kubernetes.client.openapi.apis.CoreV1Api;
 import io.kubernetes.client.openapi.models.V1Deployment;
 import io.kubernetes.client.openapi.models.V1DeploymentList;
+import io.kubernetes.client.openapi.models.V1EnvVar;
 import io.kubernetes.client.openapi.models.V1ObjectMeta;
 import io.kubernetes.client.openapi.models.V1Pod;
 import io.kubernetes.client.openapi.models.V1PodList;
@@ -73,8 +72,8 @@ public class DeploymentManager {
         }
     };
 
-    private final String managerId = Long.toHexString(System.currentTimeMillis());
-    private final AtomicLong deploymentSuffixSequence = new AtomicLong(0);
+    private final String managerId = Long.toHexString(System.currentTimeMillis() / 1000);
+    private final AtomicLong deploymentSuffixSequence = new AtomicLong(0xf);
     private final Map<String, Assignments> assignments = Collections.synchronizedMap(new HashMap<>());
     private final AtomicBoolean dirty = new AtomicBoolean(true);
 
@@ -94,7 +93,12 @@ public class DeploymentManager {
     }
 
     private String generatePersonalDeploymentName(String originalDeploymentName) {
-        return PERSONAL_DEPLOYMENT_PREFIX + originalDeploymentName + "-" + managerId + "-" + deploymentSuffixSequence.incrementAndGet();
+        String cleanName = originalDeploymentName.toLowerCase().replaceAll("[^a-z0-9-]", "");
+        String deploymentName = PERSONAL_DEPLOYMENT_PREFIX + managerId + "-" + cleanName;
+        String suffix = "-" + Long.toHexString(deploymentSuffixSequence.incrementAndGet());
+        int charsToRemove = deploymentName.length() + suffix.length() - (63 - 16);
+        if (charsToRemove > 0) deploymentName = deploymentName.substring(0, deploymentName.length() - charsToRemove);
+        return deploymentName + suffix;
     }
 
     private void init() {
@@ -121,22 +125,29 @@ public class DeploymentManager {
         if (redirected == null) return null;
         if (redirected.userId == null) return redirected;
 
+        String originalDeploymentName = redirected.originalDeploymentName;
+        String assignmentKey = originalDeploymentName;
+        String workspaceId = null;
+        if (originalDeploymentName.startsWith("workspace-")) {
+            originalDeploymentName = "workspace-client";
+        }
+
         try {
-            V1Deployment originalDeployment = getDeployment(redirected.originalDeploymentName, 3);
+            V1Deployment originalDeployment = getDeployment(originalDeploymentName, 3);
             V1ObjectMeta metadata = originalDeployment.getMetadata();
             Map<String, String> annotations = metadata != null ? metadata.getAnnotations() : null;
             boolean isInstancePerUser = annotations != null && "true".equals(annotations.get(INSTANCE_PER_USER_ANNOTATION_KEY));
             if (!isInstancePerUser) {
                 return null;
             } else {
-                Assignments assignments = getAssignments(redirected.originalDeploymentName);
+                Assignments assignments = getAssignments(assignmentKey);
                 redirected.personalDeploymentName = assignments.getOrCreate(redirected.userId);
                 assignments.setNumberOfUnassigned(originalDeployment);
 
                 reconcileIfDirty();
             }
         } catch (ApiException e) {
-            LOG.error("Failed to get deployment " + redirected.originalDeploymentName, e);
+            LOG.error("Failed to get deployment " + originalDeploymentName, e);
         }
 
         return redirected;
@@ -201,6 +212,7 @@ public class DeploymentManager {
             try {
                 deployment = appsApi.readNamespacedDeployment(name, KUBERNETES_NAMESPACE, null, null, null);
             } catch (ApiException ex) {
+                LOG.error("Failed to read deployment: " + name, ex);
             }
             if (deployment != null) break;
             try {
@@ -233,6 +245,13 @@ public class DeploymentManager {
     }
 
     public boolean createDeployment(String originalDeploymentName, String personalDeploymentName) throws IOException, ApiException {
+        String workspaceId = null;
+        if (originalDeploymentName.startsWith("workspace-")) {
+            workspaceId = originalDeploymentName.substring("workspace-".length());
+            if (!workspaceId.contains("*")) workspaceId = workspaceId.substring(0, 5) + "*" + workspaceId.substring(5);
+            originalDeploymentName = "workspace-client";
+        }
+
         AppsV1Api appsApi = new AppsV1Api();
 
         V1DeploymentList deployments = appsApi.listNamespacedDeployment(KUBERNETES_NAMESPACE, null, null, null, null, null, null, null, 5, false);
@@ -256,6 +275,11 @@ public class DeploymentManager {
             deployment.getSpec().getSelector().putMatchLabelsItem("app", personalDeploymentName);
             deployment.getSpec().getTemplate().getMetadata().putLabelsItem("app", personalDeploymentName);
             deployment.getSpec().replicas(1);
+
+            if (workspaceId != null) {
+                deployment.getSpec().getTemplate().getSpec().getContainers().get(0)
+                        .addEnvItem(new V1EnvVar().name("modelix_workspace_id").value(workspaceId));
+            }
 
             System.out.println("Creating deployment: ");
             System.out.println(Yaml.dump(deployment));

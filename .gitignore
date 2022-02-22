@@ -1,9 +1,10 @@
 **/.mps/workspace.xml
 
 .gradle
-artifacts
-build
-mps/build
+/artifacts
+.idea/artifacts
+/build
+/*/build
 
 test_gen
 test_gen.caches
@@ -11,11 +12,11 @@ classes_gen
 source_gen
 source_gen.caches
 
-kubernetes/secrets
-ssl/cert
-mps/org.modelix.ui.server/lib/ui-client.jar
-mps/org.modelix.model.client/lib
-mps/org.modelix.model.api/lib
+/kubernetes/secrets
+/ssl/cert
+/mps/org.modelix.ui.server/lib/ui-client.jar
+/mps/org.modelix.model.client/lib
+/mps/org.modelix.model.api/lib
 
 # modules are configured by gradle
 .idea/modules

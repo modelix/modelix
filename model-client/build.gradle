@@ -1,9 +1,9 @@
 
 plugins {
     id 'maven-publish'
-    id 'org.jetbrains.kotlin.multiplatform'
+    id "org.jetbrains.kotlin.multiplatform"
     id "com.diffplug.gradle.spotless"
-    id "org.jlleitschuh.gradle.ktlint"
+    id "org.jlleitschuh.gradle.ktlint" version "9.3.0"
     id "java-library"
     id 'jacoco'
 }
@@ -126,7 +126,7 @@ spotless {
 }
 
 task copyModelClientToMps(type: Sync) {
-    from configurations.jvmDefault
+    from configurations.jvmRuntimeClasspath
     from "$buildDir/libs"
     into "$projectDir/../mps/org.modelix.model.client/lib"
     rename { fileName ->
