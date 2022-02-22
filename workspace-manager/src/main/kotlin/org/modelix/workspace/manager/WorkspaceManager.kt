@@ -21,6 +21,7 @@ import org.modelix.model.client.RestWebModelClient
 import org.modelix.model.persistent.SerializationUtil
 import org.modelix.workspace.build.*
 import org.modelix.headlessmps.*
+import org.modelix.model.persistent.HashUtil
 import org.w3c.dom.Document
 import java.io.File
 import java.io.FileOutputStream
@@ -44,7 +45,6 @@ class WorkspaceManager {
     private val WORKSPACE_LIST_KEY = "workspaces"
     private val mpsHome: File = findMpsHome()
     private val modelClient: RestWebModelClient = RestWebModelClient(getModelServerUrl())
-    private val activeWorkspaces: MutableMap<String, Workspace> = HashMap()
     private val directory: File = run {
         // The workspace will contain git repositories. Avoid cloning them into an existing repository.
         val ancestors = mutableListOf(File(".").absoluteFile)
@@ -109,36 +109,64 @@ class WorkspaceManager {
             modelRepositories = listOf(ModelRepository(id = "default"))
         )
         modelClient.put(key(workspace.id), Json.encodeToString(workspace))
-        activeWorkspaces[workspace.id] = workspace
         setWorkspaceIds(getWorkspaceIds() + workspace.id)
         return workspace
     }
 
     private fun key(workspaceId: String) = "workspace-$workspaceId"
 
-    @Synchronized
-    fun getWorkspace(id: String): Workspace? {
-        var workspace = activeWorkspaces[id]
-        if (workspace != null) return workspace
-        val json = modelClient.get(key(id))
-        if (json == null) return null
-        workspace = Json.decodeFromString<Workspace>(json)
-        activeWorkspaces[workspace.id] = workspace
-        return workspace
+    fun getWorkspaceForId(id: String): Pair<Workspace, WorkspaceHash>? {
+        require(id.matches(Regex("[a-f0-9]{9,16}"))) { "Invalid workspace ID: $id" }
+        return getWorkspaceForIdOrHash(id)
     }
 
     @Synchronized
-    fun update(workspace: Workspace) {
+    fun getWorkspaceForIdOrHash(idOrHash: String): Pair<Workspace, WorkspaceHash>? {
+        val hash: WorkspaceHash
+        val json: String
+        if (HashUtil.isSha256(idOrHash)) {
+            hash = WorkspaceHash(idOrHash)
+            json = modelClient.get(hash.toString()) ?: return null
+        } else {
+            val id = idOrHash
+            require(id.matches(Regex("[a-f0-9]{9,16}"))) { "Invalid workspace ID: $id" }
+
+            val hashOrJson = modelClient.get(key(id)) ?: return null
+            if (HashUtil.isSha256(hashOrJson)) {
+                hash = WorkspaceHash(hashOrJson)
+                json = modelClient.get(hash.toString()) ?: return null
+            } else {
+                // migrate old entry
+                json = hashOrJson
+                hash = WorkspaceHash(HashUtil.sha256(json))
+                modelClient.put(hash.toString(), json)
+                modelClient.put(key(id), hash.toString())
+            }
+        }
+        return Json.decodeFromString<Workspace>(json) to hash
+    }
+
+    @Synchronized
+    fun getWorkspaceForHash(hash: WorkspaceHash): Workspace? {
+        val json = modelClient.get(hash.toString()) ?: return null
+        return Json.decodeFromString<Workspace>(json)
+    }
+
+    @Synchronized
+    fun update(workspace: Workspace): WorkspaceHash {
         //loadCommitHashes(workspace)
         workspace.gitRepositories.forEach { it.credentials = it.credentials?.encrypt() }
         val id = workspace.id
-        modelClient.put(key(id), Json.encodeToString(workspace))
-        activeWorkspaces[workspace.id] = workspace
+        val json = Json.encodeToString(workspace)
+        val hash = WorkspaceHash(HashUtil.sha256(json))
+        modelClient.put(hash.toString(), json)
+        modelClient.put(key(id), hash.toString())
         setWorkspaceIds(getWorkspaceIds() + workspace.id)
         synchronized(buildJobs) {
             buildJobs.remove(id)
-            FileUtils.deleteQuietly(getDownloadFile(workspace))
+            FileUtils.deleteQuietly(getDownloadFile(hash))
         }
+        return hash
     }
 
     @Synchronized
@@ -192,6 +220,7 @@ class WorkspaceManager {
             }
             buildScriptGenerator.buildModules(File(getWorkspaceDirectory(workspace), "mps-build-script.xml"), job.outputHandler)
         }
+        downloadFile.parentFile.mkdirs()
         FileOutputStream(downloadFile).use { fileStream ->
             ZipOutputStream(fileStream).use { zipStream ->
                 mavenFolders.forEach {
@@ -228,15 +257,18 @@ class WorkspaceManager {
         return downloadFile
     }
 
-    fun getDownloadFile(workspace: Workspace) =
-        File(getWorkspaceDirectory(workspace), "workspace.zip")
+    fun getDownloadFile(workspaceHash: WorkspaceHash): File {
+        val workspace = getWorkspaceForHash(workspaceHash) ?: throw RuntimeException("Workspace not found: $workspaceHash")
+        val cleanHash = workspaceHash.toString().replace("*", "")
+        return File(File(getWorkspaceDirectory(workspace), cleanHash), "workspace.zip")
+    }
 
-    fun buildWorkspaceDownloadFileAsync(workspaceId: String): WorkspaceBuildJob {
-        val workspace = getWorkspace(workspaceId) ?: throw RuntimeException("Workspace $workspaceId not found")
+    fun buildWorkspaceDownloadFileAsync(workspaceHash: WorkspaceHash): WorkspaceBuildJob {
+        val workspace = getWorkspaceForHash(workspaceHash) ?: throw RuntimeException("Workspace not found: $workspaceHash")
 
         val job: WorkspaceBuildJob
         synchronized(buildJobs) {
-            job = buildJobs.getOrPut(workspace.id) { WorkspaceBuildJob(workspace, getDownloadFile(workspace)) }
+            job = buildJobs.getOrPut(workspace.id) { WorkspaceBuildJob(workspace, getDownloadFile(workspaceHash)) }
         }
         synchronized(job) {
             if (job.status == WorkspaceBuildStatus.New) {

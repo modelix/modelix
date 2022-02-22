@@ -72,8 +72,8 @@ public class DeploymentManager {
         }
     };
 
-    private final String managerId = Long.toHexString(System.currentTimeMillis());
-    private final AtomicLong deploymentSuffixSequence = new AtomicLong(0);
+    private final String managerId = Long.toHexString(System.currentTimeMillis() / 1000);
+    private final AtomicLong deploymentSuffixSequence = new AtomicLong(0xf);
     private final Map<String, Assignments> assignments = Collections.synchronizedMap(new HashMap<>());
     private final AtomicBoolean dirty = new AtomicBoolean(true);
 
@@ -93,7 +93,12 @@ public class DeploymentManager {
     }
 
     private String generatePersonalDeploymentName(String originalDeploymentName) {
-        return PERSONAL_DEPLOYMENT_PREFIX + originalDeploymentName + "-" + managerId + "-" + deploymentSuffixSequence.incrementAndGet();
+        String cleanName = originalDeploymentName.toLowerCase().replaceAll("[^a-z0-9-]", "");
+        String deploymentName = PERSONAL_DEPLOYMENT_PREFIX + managerId + "-" + cleanName;
+        String suffix = "-" + Long.toHexString(deploymentSuffixSequence.incrementAndGet());
+        int charsToRemove = deploymentName.length() + suffix.length() - (63 - 16);
+        if (charsToRemove > 0) deploymentName = deploymentName.substring(0, deploymentName.length() - charsToRemove);
+        return deploymentName + suffix;
     }
 
     private void init() {
@@ -123,8 +128,7 @@ public class DeploymentManager {
         String originalDeploymentName = redirected.originalDeploymentName;
         String assignmentKey = originalDeploymentName;
         String workspaceId = null;
-        if (originalDeploymentName.matches("workspace-[a-fA-F0-9]+")) {
-            workspaceId = originalDeploymentName.substring("workspace-".length());
+        if (originalDeploymentName.startsWith("workspace-")) {
             originalDeploymentName = "workspace-client";
         }
 
@@ -208,6 +212,7 @@ public class DeploymentManager {
             try {
                 deployment = appsApi.readNamespacedDeployment(name, KUBERNETES_NAMESPACE, null, null, null);
             } catch (ApiException ex) {
+                LOG.error("Failed to read deployment: " + name, ex);
             }
             if (deployment != null) break;
             try {
@@ -241,8 +246,9 @@ public class DeploymentManager {
 
     public boolean createDeployment(String originalDeploymentName, String personalDeploymentName) throws IOException, ApiException {
         String workspaceId = null;
-        if (originalDeploymentName.matches("workspace-[a-fA-F0-9]+")) {
+        if (originalDeploymentName.startsWith("workspace-")) {
             workspaceId = originalDeploymentName.substring("workspace-".length());
+            if (!workspaceId.contains("*")) workspaceId = workspaceId.substring(0, 5) + "*" + workspaceId.substring(5);
             originalDeploymentName = "workspace-client";
         }
 

@@ -104,11 +104,12 @@ fun Application.workspaceManagerModule() {
                 call.respond(HttpStatusCode.BadRequest, "Workspace ID is missing")
                 return@get
             }
-            val workspace = manager.getWorkspace(id)
-            if (workspace == null) {
+            val workspaceAndHash = manager.getWorkspaceForId(id)
+            if (workspaceAndHash == null) {
                 call.respond(HttpStatusCode.NotFound, "Workspace $id not found")
                 return@get
             }
+            val (workspace, workspaceHash) = workspaceAndHash
             val yaml = Yaml.default.encodeToString(workspace)
             val htmlTemplate = Application::class.java.classLoader.getResource("html/edit.html")?.readText()
             if (htmlTemplate == null) {
@@ -118,12 +119,13 @@ fun Application.workspaceManagerModule() {
             val html = htmlTemplate
                 .replace("{{content}}", StringEscapeUtils.escapeHtml4(yaml))
                 .replace("{{workspaceId}}", id)
+                .replace("{{workspaceHash}}", workspaceHash.toString())
             this.call.respondText(html, ContentType.Text.Html, HttpStatusCode.OK)
         }
 
-        get("{workspaceId}/download-modules/queue") {
-            val workspaceId = call.parameters["workspaceId"]!!
-            val job = manager.buildWorkspaceDownloadFileAsync(workspaceId)
+        get("{workspaceHash}/download-modules/queue") {
+            val workspaceHash = WorkspaceHash(call.parameters["workspaceHash"]!!)
+            val job = manager.buildWorkspaceDownloadFileAsync(workspaceHash)
             val respondStatus: suspend (String, String)->Unit = { text, refresh ->
                 val html = """
                     <html>
@@ -156,41 +158,35 @@ fun Application.workspaceManagerModule() {
             }
         }
 
-        get("{workspaceId}/status") {
-            val workspaceId = call.parameters["workspaceId"]!!
-            val job = manager.buildWorkspaceDownloadFileAsync(workspaceId)
+        get("{workspaceHash}/status") {
+            val workspaceHash = WorkspaceHash(call.parameters["workspaceHash"]!!)
+            val job = manager.buildWorkspaceDownloadFileAsync(workspaceHash)
             call.respondText(job.status.toString(), ContentType.Text.Plain, HttpStatusCode.OK)
         }
 
-        get("{workspaceId}/output") {
-            val workspaceId = call.parameters["workspaceId"]!!
-            val job = manager.buildWorkspaceDownloadFileAsync(workspaceId)
+        get("{workspaceHash}/output") {
+            val workspaceHash = WorkspaceHash(call.parameters["workspaceHash"]!!)
+            val job = manager.buildWorkspaceDownloadFileAsync(workspaceHash)
             call.respondText(job.output.joinToString("\n"), ContentType.Text.Plain, HttpStatusCode.OK)
         }
 
-
-        get("{workspaceId}/download-modules/workspace.zip") {
-            val id = call.parameters["workspaceId"]!!
-            val workspace = manager.getWorkspace(id)
-            if (workspace == null) {
-                call.respondText("Workspace $id not found", ContentType.Text.Plain, HttpStatusCode.NotFound)
+        get("{workspaceId}/hash") {
+            val workspaceId = call.parameters["workspaceId"]!!
+            val workspaceAndHash = manager.getWorkspaceForId(workspaceId)
+            if (workspaceAndHash == null) {
+                call.respond(HttpStatusCode.NotFound, "Workspace $workspaceId not found")
             } else {
-                val file = manager.getDownloadFile(workspace)
-                if (file.exists()) {
-                    call.respondFile(file)
-                } else {
-                    call.respondText("""File doesn't exist yet. <a href="queue">Start a build job for the workspace.</a>""", ContentType.Text.Html, HttpStatusCode.NotFound)
-                }
+                call.respondText(workspaceAndHash.second.toString(), ContentType.Text.Plain, HttpStatusCode.OK)
             }
         }
 
-        get("{workspaceId}/download-modules/modules.xml") {
-            val id = call.parameters["workspaceId"]!!
-            val workspace = manager.getWorkspace(id)
+        get("{workspaceHash}/download-modules/workspace.zip") {
+            val workspaceHash = WorkspaceHash(call.parameters["workspaceHash"]!!)
+            val workspace = manager.getWorkspaceForHash(workspaceHash)
             if (workspace == null) {
-                call.respondText("Workspace $id not found", ContentType.Text.Plain, HttpStatusCode.NotFound)
+                call.respondText("Workspace $workspaceHash not found", ContentType.Text.Plain, HttpStatusCode.NotFound)
             } else {
-                val file = manager.getDownloadFile(workspace)
+                val file = manager.getDownloadFile(workspaceHash)
                 if (file.exists()) {
                     call.respondFile(file)
                 } else {
@@ -201,8 +197,11 @@ fun Application.workspaceManagerModule() {
 
         post("{workspaceId}/upload") {
             val workspaceId = call.parameters["workspaceId"]!!
-            val workspace = manager.getWorkspace(workspaceId)
-                ?: throw IllegalArgumentException("Workspace $workspaceId not found")
+            val workspaceAndHash = manager.getWorkspaceForId(workspaceId)
+            if (workspaceAndHash == null) {
+                call.respondText("Workspace $workspaceId not found", ContentType.Text.Plain, HttpStatusCode.NotFound)
+                return@post
+            }
 
             val outputFolder = manager.newUploadFolder()
 
@@ -222,8 +221,8 @@ fun Application.workspaceManagerModule() {
                 part.dispose()
             }
 
-            workspace.uploads += outputFolder.name
-            manager.update(workspace)
+            workspaceAndHash.first.uploads += outputFolder.name
+            manager.update(workspaceAndHash.first)
 
             call.respondRedirect("./edit")
         }

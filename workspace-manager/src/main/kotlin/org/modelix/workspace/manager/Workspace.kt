@@ -16,6 +16,7 @@ package org.modelix.workspace.manager
 import kotlinx.serialization.Serializable
 import org.jasypt.salt.RandomSaltGenerator
 import org.jasypt.util.text.AES256TextEncryptor
+import org.modelix.model.persistent.HashUtil
 import java.io.File
 import java.nio.charset.StandardCharsets
 import java.security.SecureRandom
@@ -30,6 +31,16 @@ data class Workspace(var id: String,
                      val mavenRepositories: List<MavenRepository> = listOf(),
                      val mavenDependencies: List<String> = listOf(),
                      val uploads: MutableList<String> = ArrayList())
+
+@JvmInline
+value class WorkspaceHash(val hash: String) {
+    init {
+        require(HashUtil.isSha256(hash)) { "Not a hash: $hash" }
+    }
+    override fun toString(): String {
+        return hash
+    }
+}
 
 @Serializable
 data class ModelRepository(val id: String,

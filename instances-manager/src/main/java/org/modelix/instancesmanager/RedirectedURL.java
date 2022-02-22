@@ -32,6 +32,7 @@ public class RedirectedURL {
         if (indexOfSlash < 0) return null;
 
         String originalDeploymentName = path.substring(1, indexOfSlash);
+//        originalDeploymentName = originalDeploymentName.replace("*", "");
         String remainingPath = path.substring(indexOfSlash);
 
         if (request.getQueryString() != null) remainingPath += "?" + request.getQueryString();
