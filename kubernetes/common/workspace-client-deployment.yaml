@@ -40,10 +40,10 @@ spec:
             readOnly: true
         resources: 
           requests:
-            memory: "3.0Gi"
+            memory: "4.0Gi"
             cpu: 500m
           limits:
-            memory: "3.0Gi"
+            memory: "4.0Gi"
             cpu: "1.5"
         readinessProbe:
           httpGet:
