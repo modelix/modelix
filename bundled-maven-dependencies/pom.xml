@@ -1,0 +1,42 @@
+<project>
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>org.modelix</groupId>
+    <artifactId>bundled-maven-dependencies</artifactId>
+    <version>1</version>
+
+    <repositories>
+        <repository>
+            <id>itemis</id>
+            <name>itemis nexus</name>
+            <url>https://projects.itemis.de/nexus/content/repositories/mbeddr/</url>
+        </repository>
+    </repositories>
+
+    <dependencies>
+        <dependency>
+            <groupId>de.itemis.mps</groupId>
+            <artifactId>extensions</artifactId>
+            <version>2020.3.2227.715a7cf</version>
+            <type>zip</type>
+        </dependency>
+        <dependency>
+            <groupId>com.mbeddr</groupId>
+            <artifactId>platform</artifactId>
+            <version>2020.3.23153.87edbd6</version>
+            <type>zip</type>
+        </dependency>
+        <dependency>
+            <groupId>com.mbeddr</groupId>
+            <artifactId>mbeddr</artifactId>
+            <version>2020.3.23153.87edbd6</version>
+            <type>zip</type>
+        </dependency>
+        <dependency>
+            <groupId>org.iets3</groupId>
+            <artifactId>opensource</artifactId>
+            <version>2020.3.5345.a0a13f6</version>
+            <type>zip</type>
+        </dependency>
+    </dependencies>
+</project>

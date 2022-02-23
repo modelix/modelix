@@ -111,16 +111,119 @@ fun Application.workspaceManagerModule() {
             }
             val (workspace, workspaceHash) = workspaceAndHash
             val yaml = Yaml.default.encodeToString(workspace)
-            val htmlTemplate = Application::class.java.classLoader.getResource("html/edit.html")?.readText()
-            if (htmlTemplate == null) {
-                call.respond(HttpStatusCode.InternalServerError, "HTML template not found")
-                return@get
+
+            this.call.respondHtml(HttpStatusCode.OK) {
+                head {
+                    title { text("Edit Workspace") }
+                }
+                body {
+                    div {
+                        a {
+                            href = "../$workspaceHash/download-modules/queue"
+                            text("Download Modules")
+                        }
+                        a {
+                            style = "margin-left: 24px"
+                            href = "../../workspace-$workspaceHash/ide/"
+                            text("Open in MPS")
+                        }
+                    }
+                    br()
+                    form {
+                        action = "./update"
+                        method = FormMethod.post
+                        textArea {
+                            name = "content"
+                            style = "width: 800px; height: 500px"
+                            text(yaml)
+                        }
+                        br()
+                        input {
+                            type = InputType.submit
+                            value = "Save Changes"
+                        }
+                    }
+                    br()
+                    div {
+                        style = "border: 1px solid black; padding: 10px;"
+                        div { text("Upload file or directory (max ~200 MB):") }
+                        form {
+                            action = "./upload"
+                            method = FormMethod.post
+                            encType = FormEncType.multipartFormData
+                            div {
+                                text("Choose File(s):")
+                                input {
+                                    type = InputType.file
+                                    name = "file"
+                                    multiple = true
+                                }
+                            }
+                            div {
+                                text("Choose Directory: ")
+                                input {
+                                    type = InputType.file
+                                    name = "folder"
+                                    attributes["webkitdirectory"] = "true"
+                                    attributes["mozdirectory"] = "true"
+                                }
+                            }
+                            div {
+                                input {
+                                    type = InputType.submit
+                                    value = "Upload"
+                                }
+                            }
+                        }
+                    }
+                    br()
+                    br()
+                    div {
+                        style = "border: 1px solid black; padding: 10px;"
+                        div {
+                            text("Add Bundled Dependency")
+                        }
+                        ul {
+                            val deps = LocalMavenDependenciesExplorer.getAvailableDependencies()
+                            for (dependency in deps) {
+                                li {
+                                    form {
+                                        action = "./add-maven-dependency"
+                                        method = FormMethod.post
+                                        input {
+                                            type = InputType.submit
+                                            name = "coordinates"
+                                            value = dependency.toString()
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
             }
-            val html = htmlTemplate
-                .replace("{{content}}", StringEscapeUtils.escapeHtml4(yaml))
-                .replace("{{workspaceId}}", id)
-                .replace("{{workspaceHash}}", workspaceHash.toString())
-            this.call.respondText(html, ContentType.Text.Html, HttpStatusCode.OK)
+        }
+
+        post("{workspaceId}/add-maven-dependency") {
+            val id = call.parameters["workspaceId"]
+            if (id == null) {
+                call.respond(HttpStatusCode.BadRequest, "Workspace ID is missing")
+                return@post
+            }
+            val workspaceAndHash = manager.getWorkspaceForId(id)
+            if (workspaceAndHash == null) {
+                call.respond(HttpStatusCode.NotFound, "Workspace $id not found")
+                return@post
+            }
+            val (workspace, workspaceHash) = workspaceAndHash
+            val coordinates = call.receiveParameters()["coordinates"]
+            if (coordinates.isNullOrEmpty()) {
+                call.respond(HttpStatusCode.BadRequest, "coordinates missing")
+            } else {
+                workspace.mavenDependencies += coordinates
+                manager.update(workspace)
+                call.respondRedirect("./edit")
+            }
         }
 
         get("{workspaceHash}/download-modules/queue") {

@@ -44,6 +44,8 @@ fun Node.tagName(): String? {
     return if (this is Element) this.tagName else null
 }
 
+fun Node.findTag(tagName: String): Element? = children().filterIsInstance<Element>().find { it.tagName() == tagName }
+
 fun Node.children(): List<Node> {
     val children = childNodes
     val result = ArrayList<Node>(children.length)

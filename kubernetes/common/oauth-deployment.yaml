@@ -41,6 +41,7 @@ spec:
             - --skip-auth-regex=\/model\/getEmail
             - --skip-auth-regex=^\/$
             - --http-address=0.0.0.0:4180
+            - --pass-user-headers=true
           volumeMounts:
             - name: sslcert
               mountPath: /secrets/sslcert

@@ -10,6 +10,8 @@ sed -i.bak -E "s/(image:.*:).*/\1${TAG}/" kubernetes/common/ui-deployment.yaml
 sed -i.bak -E "s/(image:.*:).*/\1${TAG}/" kubernetes/common/projector-deployment.yaml
 sed -i.bak -E "s/(image:.*:).*/\1${TAG}/" kubernetes/common/uiproxy-deployment.yaml
 sed -i.bak -E "s/(image:.*:).*/\1${TAG}/" kubernetes/common/instances-manager-deployment.yaml
+sed -i.bak -E "s/(image:.*:).*/\1${TAG}/" kubernetes/common/workspace-manager-deployment.yaml
+sed -i.bak -E "s/(image:.*:).*/\1${TAG}/" kubernetes/common/workspace-client-deployment.yaml
 
 rm kubernetes/local/db-deployment.yaml.bak
 rm kubernetes/common/model-deployment.yaml.bak
@@ -18,3 +20,5 @@ rm kubernetes/common/ui-deployment.yaml.bak
 rm kubernetes/common/projector-deployment.yaml.bak
 rm kubernetes/common/uiproxy-deployment.yaml.bak
 rm kubernetes/common/instances-manager-deployment.yaml.bak
+rm kubernetes/common/workspace-manager-deployment.yaml.bak
+rm kubernetes/common/workspace-client-deployment.yaml.bak
