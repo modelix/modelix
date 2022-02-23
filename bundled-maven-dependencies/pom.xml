@@ -7,9 +7,19 @@
 
     <repositories>
         <repository>
-            <id>itemis</id>
-            <name>itemis nexus</name>
-            <url>https://projects.itemis.de/nexus/content/repositories/mbeddr/</url>
+            <id>github.mbeddr</id>
+            <name>mbeddr on github</name>
+            <url>https://maven.pkg.github.com/mbeddr/mbeddr.core</url>
+        </repository>
+        <repository>
+            <id>github.mps-extensions</id>
+            <name>MPS-extensions on github</name>
+            <url>https://maven.pkg.github.com/JetBrains/MPS-extensions</url>
+        </repository>
+        <repository>
+            <id>github.iets3os</id>
+            <name>IETS3 opensource on github</name>
+            <url>https://maven.pkg.github.com/IETS3/iets3.opensource</url>
         </repository>
     </repositories>
 

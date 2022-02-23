@@ -1,5 +1,16 @@
 import java.text.SimpleDateFormat
 
+def getGithubCredentials() {
+    if (project.hasProperty("gpr.user") && project.hasProperty("gpr.key")) {
+        return new Tuple(project.findProperty("gpr.user").toString(), project.findProperty("gpr.key").toString())
+    } else if (System.getenv("GITHUB_ACTOR") != null && System.getenv("GITHUB_TOKEN") != null) {
+        return new Tuple(System.getenv("GITHUB_ACTOR"), System.getenv("GITHUB_TOKEN"))
+    } else {
+        logger.error("Please specify your github username (gpr.user) and access token (gpr.key) in ~/.gradle/gradle.properties")
+        return null
+    }
+}
+
 buildscript {
     ext.kotlinVersion = '1.4.32'
 
@@ -41,6 +52,8 @@ plugins {
     id "org.jetbrains.kotlin.multiplatform" version "1.5.30" apply false
     id "org.jetbrains.kotlin.plugin.serialization" version "1.5.30" apply false
 }
+
+def githubCredentials = getGithubCredentials()
 
 if (System.getenv("NEXUS_USERNAME") != null) ext.nexusUsername = System.getenv("NEXUS_USERNAME")
 if (System.getenv("NEXUS_PASSWORD") != null) ext.nexusPassword = System.getenv("NEXUS_PASSWORD")
@@ -107,34 +120,20 @@ allprojects {
         mavenCentral()
         maven {
             url = uri("https://maven.pkg.github.com/JetBrains/MPS-extensions")
-            if (project.hasProperty("gpr.user") && project.hasProperty("gpr.key")) {
+            if (githubCredentials != null) {
                 credentials {
-                    username = project.findProperty("gpr.user").toString()
-                    password = project.findProperty("gpr.key").toString()
+                    username = githubCredentials[0]
+                    password = githubCredentials[1]
                 }
-            } else if (System.getenv("GITHUB_ACTOR") != null && System.getenv("GITHUB_TOKEN") != null) {
-                credentials {
-                    username = System.getenv("GITHUB_ACTOR")
-                    password = System.getenv("GITHUB_TOKEN")
-                }
-            } else {
-                logger.error("Please specify your github username (gpr.user) and access token (gpr.key) in ~/.gradle/gradle.properties")
             }
         }
         maven {
             url = uri("https://maven.pkg.github.com/mbeddr/build.publish.mps")
-            if (project.hasProperty("gpr.user") && project.hasProperty("gpr.key")) {
+            if (githubCredentials != null) {
                 credentials {
-                    username = project.findProperty("gpr.user").toString()
-                    password = project.findProperty("gpr.key").toString()
+                    username = githubCredentials[0]
+                    password = githubCredentials[1]
                 }
-            } else if (System.getenv("GITHUB_ACTOR") != null && System.getenv("GITHUB_TOKEN") != null) {
-                credentials {
-                    username = System.getenv("GITHUB_ACTOR")
-                    password = System.getenv("GITHUB_TOKEN")
-                }
-            } else {
-                logger.error("Please specify your github username (gpr.user) and access token (gpr.key) in ~/.gradle/gradle.properties")
             }
         }
         //maven { url 'https://projects.itemis.de/nexus/content/repositories/mbeddr' }
@@ -146,3 +145,8 @@ description = "Cloud storage and web UI for MPS"
 
 defaultTasks 'assemble'
 
+def mavenSettingsTemplateFile = new File(new File("bundled-maven-dependencies"), "settings-template.xml")
+def mavenSettingsFile = new File(new File("bundled-maven-dependencies"), "settings.xml")
+mavenSettingsFile.text = mavenSettingsTemplateFile.text
+        .replace("{{username}}", githubCredentials[0])
+        .replace("{{password}}", githubCredentials[1])
