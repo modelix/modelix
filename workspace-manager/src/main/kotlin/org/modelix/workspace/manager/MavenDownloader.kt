@@ -23,17 +23,23 @@ import java.util.*
 
 class MavenDownloader(val workspace: Workspace, val workspaceDir: File) {
 
-    fun downloadFromMaven(coordinates: String, outputHandler: ((String)->Unit)? = null): File {
+    fun downloadAndCopyFromMaven(coordinates: String, outputHandler: ((String)->Unit)? = null): File {
+        if (workspace.mavenRepositories.isNotEmpty()) {
+            downloadFromMaven(coordinates, outputHandler)
+        }
+        return copyArtifacts(coordinates, outputHandler)
+    }
+
+    fun copyArtifacts(coordinates: String, outputHandler: ((String)->Unit)? = null): File {
         val request = DefaultInvocationRequest()
-        request.goals = listOf("dependency:get")
+        request.isOffline = true
+        request.goals = listOf("dependency:copy")
         request.isBatchMode = true
         val outputDir = File(workspaceDir, "maven-" + coordinates.replace(Regex("[^a-zA-Z0-9.]"), "_"))
         if (outputDir.exists()) FileUtils.deleteDirectory(outputDir)
         outputDir.mkdirs()
         val properties = Properties()
-        properties["remoteRepositories"] = workspace.mavenRepositories.joinToString(",") { it.url }
-        properties["transitive"] = "false"
-        properties["dest"] = outputDir.absolutePath
+        properties["outputDirectory"] = outputDir.absolutePath
         properties["artifact"] = addPackagingIfMissing(coordinates)
         request.properties = properties
 
@@ -45,6 +51,19 @@ class MavenDownloader(val workspace: Workspace, val workspaceDir: File) {
             }
         }
         return outputDir
+    }
+
+    fun downloadFromMaven(coordinates: String, outputHandler: ((String)->Unit)? = null) {
+        val request = DefaultInvocationRequest()
+        request.goals = listOf("dependency:get")
+        request.isBatchMode = true
+        val properties = Properties()
+        properties["remoteRepositories"] = workspace.mavenRepositories.joinToString(",") { it.url }
+        properties["transitive"] = "false"
+        properties["artifact"] = addPackagingIfMissing(coordinates)
+        request.properties = properties
+
+        invokeMaven(request, outputHandler?.let { { outputHandler(it) } })
     }
 
     private fun invokeMaven(request: DefaultInvocationRequest, outputHandler: InvocationOutputHandler?) {

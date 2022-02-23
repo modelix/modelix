@@ -198,7 +198,7 @@ class WorkspaceManager {
         val workspacePath = getWorkspaceDirectory(workspace).toPath()
 
         val mavenFolders = workspace.mavenDependencies
-            .map { MavenDownloader(workspace, getWorkspaceDirectory(workspace)).downloadFromMaven(it, job.outputHandler) }
+            .map { MavenDownloader(workspace, getWorkspaceDirectory(workspace)).downloadAndCopyFromMaven(it, job.outputHandler) }
         val gitManagers = workspace.gitRepositories
             .map { it to GitRepositoryManager(it, it.credentials, getWorkspaceDirectory(workspace)) }
         gitManagers.forEach { it.second.updateRepo() }
