@@ -32,6 +32,8 @@ spec:
           value: "PROJECTOR"
         - name: "modelix_workspace_server"
           value: "http://workspace-manager:28104/"
+        - name: MODEL_URI
+          value: http://model:28101/
         ports:
         - containerPort: 8887
         volumeMounts:
@@ -48,14 +50,14 @@ spec:
         readinessProbe:
           httpGet:
             path: /
-            port: 8887
+            port: 33333
           initialDelaySeconds: 10
           periodSeconds: 5
           timeoutSeconds: 3
         livenessProbe:
           httpGet:
             path: /
-            port: 8887
+            port: 33333
           initialDelaySeconds: 120
           periodSeconds: 20
           timeoutSeconds: 10

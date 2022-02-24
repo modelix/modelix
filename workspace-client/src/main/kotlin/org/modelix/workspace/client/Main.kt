@@ -32,6 +32,8 @@ fun main(args: Array<String>) {
 
     val workspaceId = propertyOrEnv("modelix.workspace.id")
         ?: throw RuntimeException("modelix.workspace.id not specified")
+    val workspaceHash = propertyOrEnv("modelix.workspace.hash")
+        ?: throw RuntimeException("modelix.workspace.id not specified")
 
     var serverUrl = propertyOrEnv("modelix.workspace.server", "http://workspace-manager:28104/")
     if (!serverUrl.endsWith("/")) serverUrl += "/"
@@ -41,13 +43,13 @@ fun main(args: Array<String>) {
     runBlocking {
         var printedLines = 0
         while (true) {
-            val statusString = httpClient.get<String>(serverUrl + "$workspaceId/status")
+            val statusString = httpClient.get<String>(serverUrl + "$workspaceHash/status")
             val status = WorkspaceBuildStatus.valueOf(statusString.trim())
             when (status) {
-                WorkspaceBuildStatus.FailedZip -> throw RuntimeException("Workspace $workspaceId failed to create the ZIP file. Can't download modules.")
+                WorkspaceBuildStatus.FailedZip -> throw RuntimeException("Workspace $workspaceId / $workspaceHash failed to create the ZIP file. Can't download modules.")
                 WorkspaceBuildStatus.AllSuccessful, WorkspaceBuildStatus.ZipSuccessful -> break
                 WorkspaceBuildStatus.New, WorkspaceBuildStatus.Queued, WorkspaceBuildStatus.Running, WorkspaceBuildStatus.FailedBuild -> {
-                    val output = httpClient.get<String>(serverUrl + "$workspaceId/output")
+                    val output = httpClient.get<String>(serverUrl + "$workspaceHash/output")
                     val lines = output.split('\n').drop(printedLines)
                     if (lines.isNotEmpty()) {
                         printedLines += lines.size
@@ -58,7 +60,7 @@ fun main(args: Array<String>) {
             }
         }
 
-        httpClient.downloadFile(outputFile, "${serverUrl}$workspaceId/download-modules/workspace.zip")
+        httpClient.downloadFile(outputFile, "${serverUrl}$workspaceHash/download-modules/workspace.zip")
     }
 
     ZipUtil.explode(outputFile)

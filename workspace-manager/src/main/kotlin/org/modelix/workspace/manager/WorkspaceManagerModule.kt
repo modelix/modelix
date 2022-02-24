@@ -124,8 +124,13 @@ fun Application.workspaceManagerModule() {
                         }
                         a {
                             style = "margin-left: 24px"
-                            href = "../../workspace-$workspaceHash/ide/"
-                            text("Open in MPS")
+                            href = "../../workspace-${workspace.id}-$workspaceHash/project"
+                            text("Open Web Interface")
+                        }
+                        a {
+                            style = "margin-left: 24px"
+                            href = "../../workspace-${workspace.id}-$workspaceHash/ide/"
+                            text("Open MPS")
                         }
                     }
                     br()

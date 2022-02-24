@@ -43,6 +43,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicLong;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -53,6 +55,7 @@ public class DeploymentManager {
     public static final String INSTANCE_PER_USER_ANNOTATION_KEY = "instance-per-user";
     public static final String MAX_UNASSIGNED_INSTANCES_ANNOTATION_KEY = "max-unassigned-instances";
     public static final String PERSONAL_DEPLOYMENT_PREFIX = "user-copy-";
+    public static final Pattern WORKSPACE_PATTERN = Pattern.compile("workspace-([a-f0-9]+)-([a-zA-Z0-9\\-_\\*]+)");
 
     private Thread cleanupThread = new Thread() {
         @Override
@@ -127,8 +130,7 @@ public class DeploymentManager {
 
         String originalDeploymentName = redirected.originalDeploymentName;
         String assignmentKey = originalDeploymentName;
-        String workspaceId = null;
-        if (originalDeploymentName.startsWith("workspace-")) {
+        if (WORKSPACE_PATTERN.matcher(originalDeploymentName).matches()) {
             originalDeploymentName = "workspace-client";
         }
 
@@ -246,8 +248,11 @@ public class DeploymentManager {
 
     public boolean createDeployment(String originalDeploymentName, String personalDeploymentName) throws IOException, ApiException {
         String workspaceId = null;
-        if (originalDeploymentName.startsWith("workspace-")) {
-            workspaceId = originalDeploymentName.substring("workspace-".length());
+        String workspaceHash = null;
+        Matcher matcher = WORKSPACE_PATTERN.matcher(originalDeploymentName);
+        if (matcher.matches()) {
+            workspaceId = matcher.group(1);
+            workspaceHash = matcher.group(2);
             if (!workspaceId.contains("*")) workspaceId = workspaceId.substring(0, 5) + "*" + workspaceId.substring(5);
             originalDeploymentName = "workspace-client";
         }
@@ -279,6 +284,12 @@ public class DeploymentManager {
             if (workspaceId != null) {
                 deployment.getSpec().getTemplate().getSpec().getContainers().get(0)
                         .addEnvItem(new V1EnvVar().name("modelix_workspace_id").value(workspaceId));
+                deployment.getSpec().getTemplate().getSpec().getContainers().get(0)
+                        .addEnvItem(new V1EnvVar().name("REPOSITORY_ID").value("workspace_" + workspaceId));
+            }
+            if (workspaceHash != null) {
+                deployment.getSpec().getTemplate().getSpec().getContainers().get(0)
+                        .addEnvItem(new V1EnvVar().name("modelix_workspace_hash").value(workspaceHash));
             }
 
             System.out.println("Creating deployment: ");
