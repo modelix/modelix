@@ -26,9 +26,7 @@ object ModelImportMain {
         if (envFile == null) throw IllegalArgumentException("$ENVIRONMENT_ARG_KEY argument is missing")
         val environmentSpec = Json.decodeFromString<EnvironmentSpec>(envFile.readText(StandardCharsets.UTF_8))
         println("*** Loading environment *** ")
-        Json {
-            prettyPrint = true
-        }.encodeToString(environmentSpec).let(::println)
+        println(environmentSpec.debugString())
 
         //Thread.currentThread().contextClassLoader = URLClassLoader(environmentSpec.classPath.map { File(it).toURI().toURL() }.toTypedArray())
         val mpsEnvironment = EnvironmentLoader(environmentSpec).loadEnvironment()

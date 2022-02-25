@@ -53,6 +53,8 @@ fun Node.children(): List<Node> {
     return result
 }
 
+fun Node.childElements(): List<Element> = children().filterIsInstance<Element>()
+
 fun Element.newChild(tag: String, body: Element.()->Unit): Element {
     val child = ownerDocument.createElement(tag)
     appendChild(child)

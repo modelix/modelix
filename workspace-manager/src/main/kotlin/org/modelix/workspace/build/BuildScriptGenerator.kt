@@ -29,6 +29,8 @@ class BuildScriptGenerator(val modulesMiner: ModulesMiner, val modulesToGenerate
         val xml = generateXML()
         FileUtils.writeStringToFile(antScriptFile, xml, StandardCharsets.UTF_8)
 
+        outputHandler?.let { it(xml) }
+
         val ant = ProcessBuilder(getAntPath(), "-f", antScriptFile.canonicalPath).start()
         var lastOutput = System.currentTimeMillis()
         val outputThread = Thread() {

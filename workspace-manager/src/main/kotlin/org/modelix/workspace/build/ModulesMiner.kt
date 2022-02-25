@@ -40,18 +40,43 @@ class ModulesMiner() {
             when (file.extension.lowercase()) {
                 // see jetbrains.mps.project.MPSExtentions
                 "msd", "mpl", "devkit" -> {
-                    result.addModule(readModule(file, owner ?: SourceModuleOwner(origin.localModulePath(file))))
+                    val module = readModule(file, owner ?: SourceModuleOwner(origin.localModulePath(file)))
+                    dependenciesFromModels(module, file.parentFile)
+                    result.addModule(module)
                 }
                 "jar" -> {
                     if (!file.nameWithoutExtension.endsWith("-src")) {
                         val libraryModuleOwner = owner ?: LibraryModuleOwner(origin.localModulePath(file))
+                        val modules: MutableMap<String, FoundModule> = HashMap()
                         ZipUtil.iterate(file) { stream: InputStream, entry: ZipEntry ->
                             if (entry.name == "META-INF/module.xml") {
-                                result.addModule(readModule(stream, libraryModuleOwner))
+                                val module = readModule(stream, libraryModuleOwner)
+                                result.addModule(module)
+                                modules[""] = module
                             }
                             when (entry.name.substringAfterLast('.', "").lowercase()) {
                                 "msd", "mpl", "devkit" -> {
-                                    result.addModule(readModule(stream, libraryModuleOwner))
+                                    val module = readModule(stream, libraryModuleOwner)
+                                    result.addModule(module)
+                                    modules[entry.name.substringBeforeLast("/", "")] = module
+                                }
+                            }
+                        }
+                        if (modules.isNotEmpty()) {
+                            ZipUtil.iterate(file) { stream: InputStream, entry: ZipEntry ->
+                                when (entry.name.substringAfterLast('.', "").lowercase()) {
+                                    "mps" -> {
+                                        var module: FoundModule? = null
+                                        var parentPath: String = entry.name.substringBeforeLast("/", "")
+                                        while (module == null) {
+                                            module = modules[parentPath]
+                                            if (parentPath == "") break
+                                            parentPath = parentPath.substringBeforeLast("/", "")
+                                        }
+                                        if (module != null) {
+                                            dependenciesFromModel(stream, module)
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -131,6 +156,47 @@ class ModulesMiner() {
             throw RuntimeException("More dependencies found for module $name: $missedUUIDs")
         }
         return module
+    }
+
+    private fun dependenciesFromModels(module: FoundModule, file: File) {
+        if (file.isFile) {
+            if (file.extension == "mps") {
+                FileInputStream(file).use {
+                    dependenciesFromModel(it, module)
+                }
+            }
+        } else {
+            file.listFiles()?.forEach { child ->
+                dependenciesFromModels(module, child)
+            }
+        }
+    }
+
+    /**
+     * DevKits don't appear as a dependency in the module. The module only references languages.
+     * That's why we also have to extract dependencies from the models.
+     */
+    private fun dependenciesFromModel(xmlStream: InputStream, module: FoundModule) {
+        val xml = readXmlFile(xmlStream)
+        val doc: Element = xml.documentElement
+        val languages = doc.findTag("languages") ?: return
+        for (langOrDevkit in languages.childElements()) {
+            when (langOrDevkit.tagName()) {
+                "use" -> {
+                    val id = langOrDevkit.getAttribute("id")
+                    if (id.isNotEmpty()) {
+                        module.addDependency(ModuleDependency(ModuleId(id), DependencyType.Generator, false))
+                    }
+                }
+                "devkit" -> {
+                    val ref = langOrDevkit.getAttribute("ref")
+                    if (ref.isNotEmpty()) {
+                        val id = moduleIdFromReference(ref)
+                        module.addDependency(ModuleDependency(id, DependencyType.Generator, false))
+                    }
+                }
+            }
+        }
     }
 
     private fun extractModuleUUIDs(text: String): Set<String> {

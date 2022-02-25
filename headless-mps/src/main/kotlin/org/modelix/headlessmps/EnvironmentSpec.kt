@@ -22,7 +22,17 @@ data class EnvironmentSpec(
     val libraries: List<LibrarySpec>,
     val projects: List<ProjectSpec>,
     val classPath: List<String>
-    )
+    ) {
+    fun debugString() = """
+        mpsHome: $mpsHome
+        plugins:
+        ${plugins.joinToString("\n") { "    " + it.apply { "id: $id, name: $name, path: $path" } }}
+        libraries:
+        ${libraries.joinToString("\n") { "    " + it.path }}
+        classPath:
+        ${classPath.joinToString("\n") { "    $it" }}
+    """.trimIndent()
+}
 
 @Serializable
 data class PluginSpec(val path: String, val id: String, val name: String)
