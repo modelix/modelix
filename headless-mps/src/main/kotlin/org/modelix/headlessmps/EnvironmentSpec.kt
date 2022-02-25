@@ -26,11 +26,11 @@ data class EnvironmentSpec(
     fun debugString() = """
         mpsHome: $mpsHome
         plugins:
-        ${plugins.joinToString("\n") { "    " + it.apply { "id: $id, name: $name, path: $path" } }}
+        ${plugins.joinToString("\n") { with(it) { "            id: $id, name: $name, path: $path" } }}
         libraries:
-        ${libraries.joinToString("\n") { "    " + it.path }}
+        ${libraries.joinToString("\n") { with(it) { "            $path" } }}
         classPath:
-        ${classPath.joinToString("\n") { "    $it" }}
+        ${classPath.joinToString("\n") { "            $it" }}
     """.trimIndent()
 }
 

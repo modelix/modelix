@@ -14,6 +14,7 @@
 package org.modelix.workspace.build
 
 import org.apache.commons.io.FileUtils
+import org.modelix.headlessmps.ProcessExecutor
 import org.w3c.dom.Document
 import java.io.BufferedReader
 import java.io.File
@@ -31,30 +32,9 @@ class BuildScriptGenerator(val modulesMiner: ModulesMiner, val modulesToGenerate
 
         outputHandler?.let { it(xml) }
 
-        val ant = ProcessBuilder(getAntPath(), "-f", antScriptFile.canonicalPath).start()
-        var lastOutput = System.currentTimeMillis()
-        val outputThread = Thread() {
-            val reader = BufferedReader(InputStreamReader(ant.inputStream))
-            var line = reader.readLine()
-            while (line != null) {
-                lastOutput = System.currentTimeMillis()
-                if (outputHandler != null) {
-                    outputHandler(line)
-                } else {
-                    println(line)
-                }
-                line = reader.readLine()
-            }
-        }
-        outputThread.start()
-        while (!ant.waitFor(10, TimeUnit.SECONDS)) {
-            if (System.currentTimeMillis() - lastOutput > 120_000) {
-                outputThread.interrupt()
-                throw RuntimeException("Generating MPS modules timed out")
-            }
-        }
-        val exitValue = ant.exitValue()
-        if (exitValue != 0) throw RuntimeException("Generating MPS modules failed with exit value $exitValue")
+        val ant = ProcessExecutor()
+        outputHandler?.let { ant.outputHandler = it }
+        ant.exec(listOf(getAntPath(), "-f", antScriptFile.canonicalPath))
     }
 
     fun getAntPath(): String {
@@ -121,7 +101,7 @@ class BuildScriptGenerator(val modulesMiner: ModulesMiner, val modulesToGenerate
                     setAttribute("fork", "true")
                     setAttribute("targetJavaVersion", "11")
                     setAttribute("skipUnmodifiedModels", "false")
-                    setAttribute("logLevel", "warn")
+                    setAttribute("logLevel", "debug")
                     for (plugin in plan.getPlugins()) {
                         newChild("plugin") {
                             setAttribute("path", plugin.path.getLocalAbsolutePath().pathString)

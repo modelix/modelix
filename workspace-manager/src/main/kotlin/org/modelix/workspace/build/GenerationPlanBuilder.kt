@@ -13,8 +13,6 @@
  */
 package org.modelix.workspace.build
 
-import org.modelix.headlessmps.PluginSpec
-
 class GenerationPlanBuilder(val availableModules: FoundModules) {
     val plan: GenerationPlan = GenerationPlan()
     private val processedModules: MutableSet<ModuleId> = HashSet()
