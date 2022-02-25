@@ -253,7 +253,7 @@ public class DeploymentManager {
         if (matcher.matches()) {
             workspaceId = matcher.group(1);
             workspaceHash = matcher.group(2);
-            if (!workspaceId.contains("*")) workspaceId = workspaceId.substring(0, 5) + "*" + workspaceId.substring(5);
+            if (!workspaceHash.contains("*")) workspaceHash = workspaceHash.substring(0, 5) + "*" + workspaceHash.substring(5);
             originalDeploymentName = "workspace-client";
         }
 
