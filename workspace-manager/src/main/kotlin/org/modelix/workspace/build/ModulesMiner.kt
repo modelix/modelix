@@ -182,23 +182,53 @@ class ModulesMiner() {
     private fun dependenciesFromModel(xmlStream: InputStream, module: FoundModule) {
         val xml = readXmlFile(xmlStream)
         val doc: Element = xml.documentElement
-        val languages = doc.findTag("languages") ?: return
-        for (langOrDevkit in languages.childElements()) {
-            when (langOrDevkit.tagName()) {
-                "use" -> {
-                    val id = langOrDevkit.getAttribute("id")
-                    if (id.isNotEmpty()) {
-                        module.addDependency(ModuleDependency(ModuleId(id), DependencyType.Generator, false))
+        val languages = doc.findTag("languages")
+        if (languages != null) {
+            for (langOrDevkit in languages.childElements()) {
+                when (langOrDevkit.tagName()) {
+                    "use" -> {
+                        val id = langOrDevkit.getAttribute("id")
+                        if (id.isNotEmpty()) {
+                            module.addDependency(ModuleDependency(ModuleId(id), DependencyType.Generator, false))
+                        }
                     }
-                }
-                "devkit" -> {
-                    val ref = langOrDevkit.getAttribute("ref")
-                    if (ref.isNotEmpty()) {
-                        val id = moduleIdFromReference(ref)
-                        module.addDependency(ModuleDependency(id, DependencyType.Generator, false))
+                    "devkit" -> {
+                        val ref = langOrDevkit.getAttribute("ref")
+                        if (ref.isNotEmpty()) {
+                            val id = moduleIdFromReference(ref)
+                            module.addDependency(ModuleDependency(id, DependencyType.Generator, false))
+                        }
                     }
                 }
             }
+        }
+
+        val registry = doc.findTag("registry")
+        if (registry != null) {
+            // jetbrains.mps.lang.smodel
+            val smodelLang = registry.childElements().find { it.getAttribute("id") == "7866978e-a0f0-4cc7-81bc-4d213d9375e1" }
+            if (smodelLang != null) {
+                run {
+                    val moduleReferenceExpression = smodelLang.childElements().find { it.getAttribute("id") == "4040588429969021681" } ?: return@run
+                    val conceptIndex = moduleReferenceExpression.getAttribute("index")
+                    val moduleIdProperty = moduleReferenceExpression.childElements().find { it.getAttribute("id") == "4040588429969021683" } ?: return@run
+                    val propertyIndex = moduleIdProperty.getAttribute("index")
+                    visitMPSNodes(doc) { mpsNode ->
+                        if (mpsNode.getAttribute("concept") != conceptIndex) return@visitMPSNodes
+                        val property = mpsNode.childElements().find { it.tagName == "property" && it.getAttribute("role") == propertyIndex } ?: return@visitMPSNodes
+                        val moduleId = property.getAttribute("value")
+                        if (moduleId.isEmpty()) return@visitMPSNodes
+                        module.addDependency(ModuleDependency(ModuleId(moduleId), DependencyType.Model, true))
+                    }
+                }
+            }
+        }
+    }
+
+    private fun visitMPSNodes(parent: Element, visitor: (Element)->Unit) {
+        if (parent.tagName == "node") visitor(parent)
+        for (childElement in parent.childElements()) {
+            visitMPSNodes(childElement, visitor)
         }
     }
 
