@@ -19,6 +19,7 @@ import org.zeroturnaround.zip.ZipUtil
 import java.io.File
 import java.io.FileInputStream
 import java.io.InputStream
+import java.io.InputStreamReader
 import java.util.zip.ZipEntry
 import javax.xml.XMLConstants
 import javax.xml.parsers.DocumentBuilderFactory
@@ -45,7 +46,11 @@ class ModulesMiner() {
                     result.addModule(module)
                 }
                 "jar" -> {
-                    if (!file.nameWithoutExtension.endsWith("-src")) {
+                    if (file.name == "mps-workbench.jar" && file.parentFile.name == "lib") {
+                        // This MPS plugin seems to use some old way of packaging a plugin
+                        // The descriptor declares 'com.intellij' as the ID, but it's actually 'com.intellij.modules.mps'.
+                        result.addPlugin(PluginModuleOwner(origin.localModulePath(file), "com.intellij.modules.mps", "MPS Workbench", setOf()))
+                    } else if (!file.nameWithoutExtension.endsWith("-src")) {
                         val libraryModuleOwner = owner ?: LibraryModuleOwner(origin.localModulePath(file))
                         val modules: MutableMap<String, FoundModule> = HashMap()
                         ZipUtil.iterate(file) { stream: InputStream, entry: ZipEntry ->
@@ -92,8 +97,9 @@ class ModulesMiner() {
             if (file.name == ".mps") {
                 result.projects += FoundProject(file.parentFile)
             } else {
-                val isPluginDir = File(File(file, "META-INF"), "plugin.xml").exists()
-                val pluginOwner = if (isPluginDir) PluginModuleOwner(origin.localModulePath(file)) else null
+                val pluginXml = File(File(file, "META-INF"), "plugin.xml")
+                val isPluginDir = pluginXml.exists()
+                val pluginOwner = if (isPluginDir) PluginModuleOwner.fromPluginFolder(origin.localModulePath(file)) else null
                 if (pluginOwner != null) modules.addPlugin(pluginOwner)
                 file.listFiles()?.forEach { child ->
                     collectModules(child, owner ?: pluginOwner, origin, result)

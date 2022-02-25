@@ -359,7 +359,7 @@ class WorkspaceManager {
 
     private fun buildEnvironmentSpec(modules: FoundModules, classPath: List<String>): String {
         val mpsHome = modules.mpsHome ?: throw RuntimeException("mps.home not found")
-        val plugins: MutableMap<String, PluginSpec> = LinkedHashMap()
+        val plugins: MutableMap<String, PluginModuleOwner> = LinkedHashMap()
         val libraries = ArrayList<LibrarySpec>()
 
         val rootModuleIds = modules.getModules().values.filter { it.owner is SourceModuleOwner }.map { it.moduleId }.toMutableSet()
@@ -370,26 +370,15 @@ class WorkspaceManager {
             when (moduleOwner) {
                 is PluginModuleOwner -> {
                     val pluginId = moduleOwner.pluginId
-                        ?: throw RuntimeException("Plugin has no ID: ${moduleOwner.path.getLocalAbsolutePath()}")
-                    pluginWithDependencies(pluginId, modules, plugins)
+                    modules.getPluginWithDependencies(pluginId, plugins)
                 }
                 is LibraryModuleOwner, is SourceModuleOwner -> libraries += LibrarySpec(moduleOwner.path.getLocalAbsolutePath().toString())
             }
         }
         val projects = modules.projects.map { ProjectSpec(it.path.canonicalPath, it.name) }
-        val spec = EnvironmentSpec(mpsHome.absolutePath, plugins.values.toList(), libraries, projects, classPath)
+        val pluginSpecs = plugins.values.map { PluginSpec(it.path.getLocalAbsolutePath().toString(), it.pluginId, it.name ?: "") }
+        val spec = EnvironmentSpec(mpsHome.absolutePath, pluginSpecs, libraries, projects, classPath)
         return Json.encodeToString(spec)
-    }
-
-    private fun pluginWithDependencies(pluginId: String, modules: FoundModules, result: MutableMap<String, PluginSpec>) {
-        if (result.containsKey(pluginId)) return
-        val plugin = modules.getPlugin(pluginId)
-        if (plugin != null) {
-            result += pluginId to PluginSpec(plugin.path.getLocalAbsolutePath().toString(), pluginId, plugin.name ?: "")
-            for (dependency in plugin.pluginDependencies) {
-                pluginWithDependencies(dependency, modules, result)
-            }
-        }
     }
 
     private fun visitFiles(file: File, visitor: (File)->Unit) {

@@ -25,6 +25,22 @@ class FoundModules {
         return plugins[id]
     }
 
+    fun getPluginWithDependencies(pluginId: String, result: MutableMap<String, PluginModuleOwner>) {
+        if (result.containsKey(pluginId)) return
+        val plugin = getPlugin(pluginId)
+        if (plugin == null) {
+            if (pluginId.startsWith("com.intellij")) {
+                return
+            } else {
+                throw RuntimeException("plugin not found: $pluginId")
+            }
+        }
+        result += pluginId to plugin
+        for (dependency in plugin.pluginDependencies) {
+            getPluginWithDependencies(dependency, result)
+        }
+    }
+
     fun getModules(): Map<ModuleId, FoundModule> = modules
 
     fun addPlugin(plugin: PluginModuleOwner) {

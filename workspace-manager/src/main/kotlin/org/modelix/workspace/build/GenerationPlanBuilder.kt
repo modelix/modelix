@@ -13,6 +13,8 @@
  */
 package org.modelix.workspace.build
 
+import org.modelix.headlessmps.PluginSpec
+
 class GenerationPlanBuilder(val availableModules: FoundModules) {
     val plan: GenerationPlan = GenerationPlan()
     private val processedModules: MutableSet<ModuleId> = HashSet()
@@ -43,6 +45,8 @@ class GenerationPlanBuilder(val availableModules: FoundModules) {
                 build(dependency)
             }
 
+            val plugins: MutableMap<String, PluginModuleOwner> = LinkedHashMap()
+
             when (val moduleOwner = module.owner) {
                 is SourceModuleOwner -> {
                     val index = currentProcessingModules.firstNotNullOfOrNull { forcedChunkIndex[module.moduleId] }
@@ -51,9 +55,11 @@ class GenerationPlanBuilder(val availableModules: FoundModules) {
                     plan.insertAt(index, module)
                 }
                 is LibraryModuleOwner -> plan.addLibrary(moduleOwner)
-                is PluginModuleOwner -> plan.addPlugin(moduleOwner)
+                is PluginModuleOwner -> availableModules.getPluginWithDependencies(moduleOwner.pluginId, plugins)
                 else -> throw RuntimeException("Unknown owner: $moduleOwner")
             }
+
+            plugins.values.forEach { plan.addPlugin(it) }
         } finally {
             currentProcessingModules.removeLast()
         }
