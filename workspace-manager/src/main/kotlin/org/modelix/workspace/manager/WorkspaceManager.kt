@@ -213,6 +213,19 @@ class WorkspaceManager {
         var modulesXml: String? = null
         val modulesMiner = ModulesMiner()
         moduleFolders.forEach { modulesMiner.searchInFolder(it) }
+
+        // Modelix and MPS-extensions are required to run the importer
+        val additionalFolders = ArrayList<File>()
+        if (!modulesMiner.getModules().getModules().containsKey(org_modelix_model_mpsplugin)) {
+            additionalFolders += File(File(".."), "mps")
+            additionalFolders += File("/languages/modelix")
+        }
+        if (!modulesMiner.getModules().getModules().containsKey(org_modelix_model_api)) {
+            additionalFolders += File(File(File(".."), "artifacts"), "de.itemis.mps.extensions")
+            additionalFolders += File("/languages/mps-extensions")
+        }
+        additionalFolders.filter { it.exists() }.forEach { modulesMiner.searchInFolder(ModuleOrigin(it.toPath(), it.toPath())) }
+
         job.runSafely(WorkspaceBuildStatus.FailedBuild) {
             val buildScriptGenerator = BuildScriptGenerator(modulesMiner)
             job.runSafely {
@@ -239,18 +252,6 @@ class WorkspaceManager {
                 }
             }
         }
-
-        // Modelix and MPS-extensions are required to run the importer
-        val additionalFolders = ArrayList<File>()
-        if (!modulesMiner.getModules().getModules().containsKey(org_modelix_model_mpsplugin)) {
-            additionalFolders += File(File(".."), "mps")
-            additionalFolders += File("/languages/modelix")
-        }
-        if (!modulesMiner.getModules().getModules().containsKey(org_modelix_model_api)) {
-            additionalFolders += File(File(File(".."), "artifacts"), "de.itemis.mps.extensions")
-            additionalFolders += File("/languages/mps-extensions")
-        }
-        additionalFolders.filter { it.exists() }.forEach { modulesMiner.searchInFolder(ModuleOrigin(it.toPath(), it.toPath())) }
 
         job.runSafely { importModulesToCloud(modulesMiner, job) }
 
