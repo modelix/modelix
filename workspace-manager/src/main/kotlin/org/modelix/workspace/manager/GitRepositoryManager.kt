@@ -35,10 +35,11 @@ class GitRepositoryManager(val config: GitRepository, val encryptedCredentials: 
         val existed = repoDirectory.exists()
         val git = openRepo()
         if (existed) {
-            git.checkout().setName(config.commitHash ?: config.branch).call()
-            if (config.commitHash == null) {
-                applyCredentials(git.pull()).call()
-            }
+            applyCredentials(git.fetch()).call()
+            git.checkout().setName(config.commitHash ?: ("origin/" + config.branch)).call()
+//            if (config.commitHash == null) {
+//                applyCredentials(git.pull()).call()
+//            }
         }
         return git.repository.exactRef("HEAD").objectId.name
     }
