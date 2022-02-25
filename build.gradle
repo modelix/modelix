@@ -145,8 +145,8 @@ description = "Cloud storage and web UI for MPS"
 
 defaultTasks 'assemble'
 
-def mavenSettingsTemplateFile = new File(new File("bundled-maven-dependencies"), "settings-template.xml")
-def mavenSettingsFile = new File(new File("bundled-maven-dependencies"), "settings.xml")
+def mavenSettingsTemplateFile = new File(new File(project.rootDir, "bundled-maven-dependencies"), "settings-template.xml").absoluteFile
+def mavenSettingsFile = new File(new File(project.rootDir, "bundled-maven-dependencies"), "settings.xml").absoluteFile
 mavenSettingsFile.text = mavenSettingsTemplateFile.text
         .replace("{{username}}", githubCredentials[0])
         .replace("{{password}}", githubCredentials[1])
