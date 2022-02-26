@@ -101,7 +101,7 @@ class BuildScriptGenerator(val modulesMiner: ModulesMiner, val modulesToGenerate
                     setAttribute("fork", "true")
                     setAttribute("targetJavaVersion", "11")
                     setAttribute("skipUnmodifiedModels", "false")
-                    setAttribute("logLevel", "debug")
+                    setAttribute("logLevel", "warn")
                     for (plugin in plan.getPlugins()) {
                         newChild("plugin") {
                             setAttribute("path", plugin.path.getLocalAbsolutePath().pathString)
@@ -126,7 +126,7 @@ class BuildScriptGenerator(val modulesMiner: ModulesMiner, val modulesToGenerate
                             setAttribute("value", "-ea")
                         }
                         newChild("arg") {
-                            setAttribute("value", "-Xmx1024m")
+                            setAttribute("value", "-Xmx2G")
                         }
                     }
 //                    newChild("macro") {

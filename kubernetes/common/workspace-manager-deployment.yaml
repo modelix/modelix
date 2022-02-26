@@ -34,10 +34,10 @@ spec:
           name: "jvm-debug"
         resources: 
           requests:
-            memory: "1.5Gi"
+            memory: "3Gi"
             cpu: "0.1"
           limits:
-            memory: "1.5Gi"
+            memory: "3Gi"
             cpu: "1.0"
         readinessProbe:
           httpGet:
