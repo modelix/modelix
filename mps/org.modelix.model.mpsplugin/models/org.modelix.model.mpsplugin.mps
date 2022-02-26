@@ -619,6 +619,7 @@
         <reference id="1153944258490" name="variable" index="2Gs0qQ" />
       </concept>
       <concept id="1235566554328" name="jetbrains.mps.baseLanguage.collections.structure.AnyOperation" flags="nn" index="2HwmR7" />
+      <concept id="1235566831861" name="jetbrains.mps.baseLanguage.collections.structure.AllOperation" flags="nn" index="2HxqBE" />
       <concept id="1235573135402" name="jetbrains.mps.baseLanguage.collections.structure.SingletonSequenceCreator" flags="nn" index="2HTt$P">
         <child id="1235573175711" name="elementType" index="2HTBi0" />
         <child id="1235573187520" name="singletonValue" index="2HTEbv" />
@@ -21567,6 +21568,56 @@
       </node>
     </node>
     <node concept="2tJIrI" id="y4L82E2Bqa" role="jymVt" />
+    <node concept="3clFb_" id="Vwvkv3TGQf" role="jymVt">
+      <property role="TrG5h" value="isDone" />
+      <node concept="10P_77" id="Vwvkv3TOWL" role="3clF45" />
+      <node concept="3Tm1VV" id="Vwvkv3TGQi" role="1B3o_S" />
+      <node concept="3clFbS" id="Vwvkv3TGQj" role="3clF47">
+        <node concept="3clFbF" id="Vwvkv3TS4r" role="3cqZAp">
+          <node concept="1Wc70l" id="Vwvkv3TZ9v" role="3clFbG">
+            <node concept="2OqwBi" id="Vwvkv3TZZg" role="3uHU7w">
+              <node concept="1rXfSq" id="Vwvkv3TZGP" role="2Oq$k0">
+                <ref role="37wK5l" node="74bn2Kw$LD4" resolve="getOwnedBindings" />
+              </node>
+              <node concept="2HxqBE" id="Vwvkv3U0Bf" role="2OqNvi">
+                <node concept="1bVj0M" id="Vwvkv3U0Bh" role="23t8la">
+                  <node concept="3clFbS" id="Vwvkv3U0Bi" role="1bW5cS">
+                    <node concept="3clFbF" id="Vwvkv3U1ig" role="3cqZAp">
+                      <node concept="2OqwBi" id="Vwvkv3U1t1" role="3clFbG">
+                        <node concept="37vLTw" id="Vwvkv3U1if" role="2Oq$k0">
+                          <ref role="3cqZAo" node="Vwvkv3U0Bj" resolve="it" />
+                        </node>
+                        <node concept="liA8E" id="Vwvkv3U1$C" role="2OqNvi">
+                          <ref role="37wK5l" node="Vwvkv3TGQf" resolve="isDone" />
+                        </node>
+                      </node>
+                    </node>
+                  </node>
+                  <node concept="Rh6nW" id="Vwvkv3U0Bj" role="1bW2Oz">
+                    <property role="TrG5h" value="it" />
+                    <node concept="2jxLKc" id="Vwvkv3U0Bk" role="1tU5fm" />
+                  </node>
+                </node>
+              </node>
+            </node>
+            <node concept="1Wc70l" id="Vwvkv3TW5q" role="3uHU7B">
+              <node concept="3fqX7Q" id="Vwvkv3TVz6" role="3uHU7B">
+                <node concept="37vLTw" id="Vwvkv3TVz8" role="3fr31v">
+                  <ref role="3cqZAo" node="4_k_9wJs5xB" resolve="isSynchronizing" />
+                </node>
+              </node>
+              <node concept="3clFbC" id="Vwvkv3TYz5" role="3uHU7w">
+                <node concept="37vLTw" id="Vwvkv3TWye" role="3uHU7B">
+                  <ref role="3cqZAo" node="y4L82E25Iw" resolve="initialSyncDirection" />
+                </node>
+                <node concept="10Nm6u" id="Vwvkv3TYJk" role="3uHU7w" />
+              </node>
+            </node>
+          </node>
+        </node>
+      </node>
+    </node>
+    <node concept="2tJIrI" id="Vwvkv3TDHa" role="jymVt" />
     <node concept="3clFb_" id="6hBdEE_lC8I" role="jymVt">
       <property role="TrG5h" value="getBranch" />
       <node concept="3uibUv" id="6hBdEE_lKA9" role="3clF45">
