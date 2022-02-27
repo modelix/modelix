@@ -35,7 +35,7 @@ tasks.getByName("jar") {
     dependsOn(copyDependencies)
 }
 
-tasks.getByName("classes") {
+tasks.getByName("compileKotlin") {
     dependsOn(":mps:resolveMps")
 }
 
