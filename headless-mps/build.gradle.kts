@@ -5,6 +5,7 @@ plugins {
     kotlin("jvm")
     kotlin("plugin.serialization")
     id("application")
+    id("maven-publish")
 }
 
 application {
@@ -32,4 +33,26 @@ val copyDependencies = task("copyDependencies", Copy::class) {
 
 tasks.getByName("jar") {
     dependsOn(copyDependencies)
+}
+
+publishing {
+    repositories {
+        maven {
+            name = "GitHubPackages"
+            url = uri("https://maven.pkg.github.com/modelix/modelix")
+            credentials {
+                username = System.getenv("GITHUB_ACTOR")
+                password = System.getenv("GITHUB_TOKEN")
+            }
+        }
+    }
+    publications {
+        create<MavenPublication>("maven") {
+            groupId = "org.modelix"
+            artifactId = "headless-mps"
+            version = "" + rootProject.ext.get("modelixVersion")
+
+            from(components["java"])
+        }
+    }
 }

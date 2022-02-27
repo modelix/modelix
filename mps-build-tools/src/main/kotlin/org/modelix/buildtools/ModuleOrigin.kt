@@ -16,7 +16,7 @@ package org.modelix.buildtools
 import java.io.File
 import java.nio.file.Path
 
-class ModuleOrigin(val localPath: Path, val workspaceRelativePath: Path) {
+class ModuleOrigin(val localPath: Path, val workspaceRelativePath: Path = localPath) {
 
     fun localModulePath(file: File): ModulePath {
         return ModulePath(this, localPath.relativize(file.toPath()))

@@ -12,17 +12,14 @@ compileJava {
 repositories {
     mavenCentral()
     maven { url 'https://projects.itemis.de/nexus/content/repositories/mbeddr' }
-    //maven { url = uri("https://modelix.jfrog.io/artifactory/itemis/") } // caching proxy for the itemis repo
 }
 
 dependencies {
-    compileOnly fileTree(dir: '../artifacts/mps/lib', include: '*.jar')
-    implementation 'com.google.code.gson:gson:2.8.9'
+    implementation project(":mps-build-tools")
+    implementation group: 'commons-io', name: 'commons-io', version: '2.11.0'
     compile gradleApi()
     testCompile group: 'junit', name: 'junit', version: '4.12'
 }
-
-compileJava.dependsOn(":mps:resolveMps")
 
 jar {
     manifest {
@@ -31,7 +28,6 @@ jar {
         attributes("MPS-MajorVersion": mpsMajorVersion)
         attributes("MPS-MinorVersion": mpsMinorVersion)
         attributes("MPS-Version": mpsVersion)
-        attributes("MPS-extensions-Version": mpsExtensionsVersion)
     }
 }
 
@@ -56,7 +52,7 @@ publishing {
         }*/
     }
     publications {
-        modelixGradlePlugin(MavenPublication) {
+        modelixGradleBuildPlugin(MavenPublication) {
             groupId project.group
             version project.version
 

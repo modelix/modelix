@@ -33,6 +33,8 @@ class ModulesMiner() {
         collectModules(folder.localPath.toFile(), null, folder, modules)
     }
 
+    fun searchInFolder(folder: File) = searchInFolder(ModuleOrigin(folder.toPath()))
+
     private fun collectModules(file: File, owner: ModuleOwner?, origin: ModuleOrigin, result: FoundModules) {
         if (file.isFile) {
             when (file.extension.lowercase()) {

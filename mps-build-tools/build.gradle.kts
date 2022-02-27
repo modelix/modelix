@@ -1,4 +1,3 @@
-import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 
 description = "Replacement for the MPS build language"
 val ktorVersion = "1.6.5"
@@ -9,21 +8,40 @@ val logbackVersion = "1.2.1"
 plugins {
     kotlin("jvm")
     id("application")
-    id("com.github.johnrengelman.shadow") version "6.1.0"
-}
-
-tasks.withType<ShadowJar> {
-    archiveVersion.set("latest")
+    id("maven-publish")
 }
 
 dependencies {
     implementation(project(":headless-mps"))
     implementation("org.zeroturnaround:zt-zip:1.14")
     implementation("org.apache.commons:commons-text:1.9")
+    implementation("commons-io:commons-io:2.11.0")
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.6.0")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
 }
 
 tasks.getByName<Test>("test") {
     useJUnitPlatform()
+}
+
+publishing {
+    repositories {
+        maven {
+            name = "GitHubPackages"
+            url = uri("https://maven.pkg.github.com/modelix/modelix")
+            credentials {
+                username = System.getenv("GITHUB_ACTOR")
+                password = System.getenv("GITHUB_TOKEN")
+            }
+        }
+    }
+    publications {
+        create<MavenPublication>("maven") {
+            groupId = "org.modelix"
+            artifactId = "mps-build-tools"
+            version = "" + rootProject.ext.get("modelixVersion")
+
+            from(components["java"])
+        }
+    }
 }

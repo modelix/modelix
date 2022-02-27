@@ -1,0 +1,22 @@
+buildscript {
+    repositories {
+        mavenCentral()
+        mavenLocal()
+    }
+
+    dependencies {
+        classpath group: 'org.modelix', name: 'gradle-build-plugin', version: '2020.3.5-202202271614-SNAPSHOT'
+    }
+}
+
+repositories {
+    mavenCentral()
+    mavenLocal()
+}
+
+
+apply plugin: 'modelix-gradle-build-plugin'
+
+mpsBuild {
+    mpsPath = "../artifacts/mps"
+}

@@ -19,7 +19,7 @@ import kotlinx.serialization.json.Json
 import org.apache.commons.io.FileUtils
 import org.modelix.model.client.RestWebModelClient
 import org.modelix.model.persistent.SerializationUtil
-import org.modelix.workspace.build.*
+import org.modelix.buildtools.*
 import org.modelix.headlessmps.*
 import org.modelix.model.persistent.HashUtil
 import org.w3c.dom.Document
