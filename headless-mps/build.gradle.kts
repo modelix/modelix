@@ -36,7 +36,7 @@ tasks.getByName("jar") {
 }
 
 tasks.getByName("classes") {
-    dependsOn(":resolveMps")
+    dependsOn(":mps:resolveMps")
 }
 
 publishing {
