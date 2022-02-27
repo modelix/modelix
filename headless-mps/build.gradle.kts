@@ -30,6 +30,6 @@ val copyDependencies = task("copyDependencies", Copy::class) {
     into(File(File("build"), "libs"))
 }
 
-tasks.getByName("assemble") {
+tasks.getByName("jar") {
     dependsOn(copyDependencies)
 }
