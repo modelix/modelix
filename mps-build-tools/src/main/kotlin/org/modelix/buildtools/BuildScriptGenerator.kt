@@ -11,9 +11,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.modelix.workspace.build
+package org.modelix.buildtools
 
-import org.apache.commons.io.FileUtils
+import org.modelix.headlessmps.ProcessExecutor
 import org.w3c.dom.Document
 import java.io.BufferedReader
 import java.io.File
@@ -27,32 +27,13 @@ class BuildScriptGenerator(val modulesMiner: ModulesMiner, val modulesToGenerate
 
     fun buildModules(antScriptFile: File = File.createTempFile("mps-build-script", ".xml", File(".")), outputHandler: ((String)->Unit)? = null) {
         val xml = generateXML()
-        FileUtils.writeStringToFile(antScriptFile, xml, StandardCharsets.UTF_8)
+        antScriptFile.writeText(xml)
 
-        val ant = ProcessBuilder(getAntPath(), "-f", antScriptFile.canonicalPath).start()
-        var lastOutput = System.currentTimeMillis()
-        val outputThread = Thread() {
-            val reader = BufferedReader(InputStreamReader(ant.inputStream))
-            var line = reader.readLine()
-            while (line != null) {
-                lastOutput = System.currentTimeMillis()
-                if (outputHandler != null) {
-                    outputHandler(line)
-                } else {
-                    println(line)
-                }
-                line = reader.readLine()
-            }
-        }
-        outputThread.start()
-        while (!ant.waitFor(10, TimeUnit.SECONDS)) {
-            if (System.currentTimeMillis() - lastOutput > 120_000) {
-                outputThread.interrupt()
-                throw RuntimeException("Generating MPS modules timed out")
-            }
-        }
-        val exitValue = ant.exitValue()
-        if (exitValue != 0) throw RuntimeException("Generating MPS modules failed with exit value $exitValue")
+        outputHandler?.let { it(xml) }
+
+        val ant = ProcessExecutor()
+        outputHandler?.let { ant.outputHandler = it }
+        ant.exec(listOf(getAntPath(), "-f", antScriptFile.canonicalPath))
     }
 
     fun getAntPath(): String {
@@ -65,7 +46,7 @@ class BuildScriptGenerator(val modulesMiner: ModulesMiner, val modulesToGenerate
     }
 
     fun generateAnt(): Document {
-        val plan = generatePlan(modulesToGenerate ?: modulesMiner.getModules().modules.values.filter { it.owner is SourceModuleOwner }.map { it.moduleId }.toList())
+        val plan = generatePlan(modulesToGenerate ?: modulesMiner.getModules().getModules().values.filter { it.owner is SourceModuleOwner }.map { it.moduleId }.toList())
 
         val dbf = DocumentBuilderFactory.newInstance()
         val db = dbf.newDocumentBuilder()
@@ -144,7 +125,7 @@ class BuildScriptGenerator(val modulesMiner: ModulesMiner, val modulesToGenerate
                             setAttribute("value", "-ea")
                         }
                         newChild("arg") {
-                            setAttribute("value", "-Xmx1024m")
+                            setAttribute("value", "-Xmx2G")
                         }
                     }
 //                    newChild("macro") {
@@ -171,7 +152,7 @@ class BuildScriptGenerator(val modulesMiner: ModulesMiner, val modulesToGenerate
 
     fun generatePlan(modulesToGenerate: List<ModuleId>): GenerationPlan {
         val planBuilder = GenerationPlanBuilder(modulesMiner.getModules())
-        planBuilder.build(modulesToGenerate.mapNotNull { modulesMiner.getModules().modules[it] })
+        planBuilder.build(modulesToGenerate.mapNotNull { modulesMiner.getModules().getModules()[it] })
         return planBuilder.plan
     }
 }

@@ -1,4 +1,4 @@
-package org.modelix.workspace.build
+package org.modelix.buildtools
 
 import java.nio.file.Path
 

@@ -11,7 +11,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.modelix.workspace.build
+package org.modelix.buildtools
 
 class FoundModule(val moduleId: ModuleId, val name: String, val owner: ModuleOwner) {
     val dependencies: MutableSet<ModuleDependency> = LinkedHashSet()

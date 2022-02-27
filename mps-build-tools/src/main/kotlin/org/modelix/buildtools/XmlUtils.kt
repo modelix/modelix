@@ -11,7 +11,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.modelix.workspace.build
+package org.modelix.buildtools
 
 import org.w3c.dom.Document
 import org.w3c.dom.Element
@@ -40,12 +40,20 @@ fun Node.parentTagName(): String? {
     return parentNode.tagName
 }
 
+fun Node.tagName(): String? {
+    return if (this is Element) this.tagName else null
+}
+
+fun Node.findTag(tagName: String): Element? = children().filterIsInstance<Element>().find { it.tagName() == tagName }
+
 fun Node.children(): List<Node> {
     val children = childNodes
     val result = ArrayList<Node>(children.length)
     for (i in 0 until children.length) result += children.item(i)
     return result
 }
+
+fun Node.childElements(): List<Element> = children().filterIsInstance<Element>()
 
 fun Element.newChild(tag: String, body: Element.()->Unit): Element {
     val child = ownerDocument.createElement(tag)
@@ -67,7 +75,7 @@ fun xmlToString(doc: Document): String {
 
 fun readXmlFile(file: File): Document {
     val dbf = DocumentBuilderFactory.newInstance()
-    dbf.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true)
+    //dbf.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true)
     val db = dbf.newDocumentBuilder()
     return db.parse(file)
 }

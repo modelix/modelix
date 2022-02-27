@@ -11,7 +11,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.modelix.workspace.build
+package org.modelix.buildtools
 
 import org.w3c.dom.Element
 import org.w3c.dom.Text
@@ -20,8 +20,6 @@ import java.io.File
 import java.io.FileInputStream
 import java.io.InputStream
 import java.util.zip.ZipEntry
-import javax.xml.XMLConstants
-import javax.xml.parsers.DocumentBuilderFactory
 
 class ModulesMiner() {
 
@@ -40,18 +38,47 @@ class ModulesMiner() {
             when (file.extension.lowercase()) {
                 // see jetbrains.mps.project.MPSExtentions
                 "msd", "mpl", "devkit" -> {
-                    result.addModule(readModule(file, owner ?: SourceModuleOwner(origin.localModulePath(file))))
+                    val module = readModule(file, owner ?: SourceModuleOwner(origin.localModulePath(file)))
+                    dependenciesFromModels(module, file.parentFile)
+                    result.addModule(module)
                 }
                 "jar" -> {
-                    if (!file.nameWithoutExtension.endsWith("-src")) {
+                    if (file.name == "mps-workbench.jar" && file.parentFile.name == "lib") {
+                        // This MPS plugin seems to use some old way of packaging a plugin
+                        // The descriptor declares 'com.intellij' as the ID, but it's actually 'com.intellij.modules.mps'.
+                        result.addPlugin(PluginModuleOwner(origin.localModulePath(file), "com.intellij.modules.mps", "MPS Workbench", setOf()))
+                    } else if (!file.nameWithoutExtension.endsWith("-src")) {
                         val libraryModuleOwner = owner ?: LibraryModuleOwner(origin.localModulePath(file))
+                        val modules: MutableMap<String, FoundModule> = HashMap()
                         ZipUtil.iterate(file) { stream: InputStream, entry: ZipEntry ->
                             if (entry.name == "META-INF/module.xml") {
-                                result.addModule(readModule(stream, libraryModuleOwner))
+                                val module = readModule(stream, libraryModuleOwner)
+                                result.addModule(module)
+                                modules[""] = module
                             }
                             when (entry.name.substringAfterLast('.', "").lowercase()) {
                                 "msd", "mpl", "devkit" -> {
-                                    result.addModule(readModule(stream, libraryModuleOwner))
+                                    val module = readModule(stream, libraryModuleOwner)
+                                    result.addModule(module)
+                                    modules[entry.name.substringBeforeLast("/", "")] = module
+                                }
+                            }
+                        }
+                        if (modules.isNotEmpty()) {
+                            ZipUtil.iterate(file) { stream: InputStream, entry: ZipEntry ->
+                                when (entry.name.substringAfterLast('.', "").lowercase()) {
+                                    "mps" -> {
+                                        var module: FoundModule? = null
+                                        var parentPath: String = entry.name.substringBeforeLast("/", "")
+                                        while (module == null) {
+                                            module = modules[parentPath]
+                                            if (parentPath == "") break
+                                            parentPath = parentPath.substringBeforeLast("/", "")
+                                        }
+                                        if (module != null) {
+                                            dependenciesFromModel(stream, module)
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -67,8 +94,10 @@ class ModulesMiner() {
             if (file.name == ".mps") {
                 result.projects += FoundProject(file.parentFile)
             } else {
-                val isPluginDir = File(File(file, "META-INF"), "plugin.xml").exists()
-                val pluginOwner = if (isPluginDir) PluginModuleOwner(origin.localModulePath(file)) else null
+                val pluginXml = File(File(file, "META-INF"), "plugin.xml")
+                val isPluginDir = pluginXml.exists()
+                val pluginOwner = if (isPluginDir) PluginModuleOwner.fromPluginFolder(origin.localModulePath(file)) else null
+                if (pluginOwner != null) modules.addPlugin(pluginOwner)
                 file.listFiles()?.forEach { child ->
                     collectModules(child, owner ?: pluginOwner, origin, result)
                 }
@@ -130,6 +159,77 @@ class ModulesMiner() {
             throw RuntimeException("More dependencies found for module $name: $missedUUIDs")
         }
         return module
+    }
+
+    private fun dependenciesFromModels(module: FoundModule, file: File) {
+        if (file.isFile) {
+            if (file.extension == "mps") {
+                FileInputStream(file).use {
+                    dependenciesFromModel(it, module)
+                }
+            }
+        } else {
+            file.listFiles()?.forEach { child ->
+                dependenciesFromModels(module, child)
+            }
+        }
+    }
+
+    /**
+     * DevKits don't appear as a dependency in the module. The module only references languages.
+     * That's why we also have to extract dependencies from the models.
+     */
+    private fun dependenciesFromModel(xmlStream: InputStream, module: FoundModule) {
+        val xml = readXmlFile(xmlStream)
+        val doc: Element = xml.documentElement
+        val languages = doc.findTag("languages")
+        if (languages != null) {
+            for (langOrDevkit in languages.childElements()) {
+                when (langOrDevkit.tagName()) {
+                    "use" -> {
+                        val id = langOrDevkit.getAttribute("id")
+                        if (id.isNotEmpty()) {
+                            module.addDependency(ModuleDependency(ModuleId(id), DependencyType.Generator, false))
+                        }
+                    }
+                    "devkit" -> {
+                        val ref = langOrDevkit.getAttribute("ref")
+                        if (ref.isNotEmpty()) {
+                            val id = moduleIdFromReference(ref)
+                            module.addDependency(ModuleDependency(id, DependencyType.Generator, false))
+                        }
+                    }
+                }
+            }
+        }
+
+        val registry = doc.findTag("registry")
+        if (registry != null) {
+            // jetbrains.mps.lang.smodel
+            val smodelLang = registry.childElements().find { it.getAttribute("id") == "7866978e-a0f0-4cc7-81bc-4d213d9375e1" }
+            if (smodelLang != null) {
+                run {
+                    val moduleReferenceExpression = smodelLang.childElements().find { it.getAttribute("id") == "4040588429969021681" } ?: return@run
+                    val conceptIndex = moduleReferenceExpression.getAttribute("index")
+                    val moduleIdProperty = moduleReferenceExpression.childElements().find { it.getAttribute("id") == "4040588429969021683" } ?: return@run
+                    val propertyIndex = moduleIdProperty.getAttribute("index")
+                    visitMPSNodes(doc) { mpsNode ->
+                        if (mpsNode.getAttribute("concept") != conceptIndex) return@visitMPSNodes
+                        val property = mpsNode.childElements().find { it.tagName == "property" && it.getAttribute("role") == propertyIndex } ?: return@visitMPSNodes
+                        val moduleId = property.getAttribute("value")
+                        if (moduleId.isEmpty()) return@visitMPSNodes
+                        module.addDependency(ModuleDependency(ModuleId(moduleId), DependencyType.Model, true))
+                    }
+                }
+            }
+        }
+    }
+
+    private fun visitMPSNodes(parent: Element, visitor: (Element)->Unit) {
+        if (parent.tagName == "node") visitor(parent)
+        for (childElement in parent.childElements()) {
+            visitMPSNodes(childElement, visitor)
+        }
     }
 
     private fun extractModuleUUIDs(text: String): Set<String> {

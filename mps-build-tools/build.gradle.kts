@@ -17,6 +17,7 @@ tasks.withType<ShadowJar> {
 }
 
 dependencies {
+    implementation(project(":headless-mps"))
     implementation("org.zeroturnaround:zt-zip:1.14")
     implementation("org.apache.commons:commons-text:1.9")
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.6.0")

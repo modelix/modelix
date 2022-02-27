@@ -13,8 +13,8 @@
  */
 package org.modelix.workspace.manager
 
-import org.modelix.workspace.build.findTag
-import org.modelix.workspace.build.readXmlFile
+import org.modelix.buildtools.findTag
+import org.modelix.buildtools.readXmlFile
 import java.io.File
 
 object LocalMavenDependenciesExplorer {
