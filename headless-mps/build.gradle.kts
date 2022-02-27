@@ -35,6 +35,10 @@ tasks.getByName("jar") {
     dependsOn(copyDependencies)
 }
 
+tasks.getByName("classes") {
+    dependsOn(":resolveMps")
+}
+
 publishing {
     repositories {
         maven {
