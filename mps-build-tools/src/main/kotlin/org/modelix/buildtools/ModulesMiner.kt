@@ -129,7 +129,7 @@ class ModulesMiner() {
             if (node is Element) {
                 // Why not just use the extracted UUIDs? Because there are also foreign IDs that are not UUIDs.
                 when (node.tagName) {
-                    "dependency", "extendedLanguage", "extendedDevKit", "usedLanguage", "exported-solution" -> {
+                    "dependency", "extendedLanguage", "extendedDevKit", "usedLanguage", "exported-solution", "usedDevKit" -> {
                         val text = node.children().filterIsInstance<Text>().first().wholeText
                         addDependency(moduleIdFromReference(text), DependencyType.Classpath, false)
                     }
