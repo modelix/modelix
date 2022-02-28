@@ -15,6 +15,7 @@ package org.modelix.gradle.mpsbuild;
 
 import org.apache.commons.io.FileUtils;
 import org.gradle.api.Action;
+import org.gradle.api.GradleException;
 import org.gradle.api.Plugin;
 import org.gradle.api.Project;
 import org.gradle.api.Task;
@@ -68,16 +69,21 @@ public class MPSBuildPlugin implements Plugin<Project> {
             Task generatorAntScript = project.getTasks().create("generatorAntScript");
             Action<Task> action = task -> {
                 ModulesMiner modulesMiner = new ModulesMiner();
-                File modulesFolder = project.getProjectDir();
-                System.out.println("Searching for modules in " + modulesFolder.getAbsolutePath());
-                modulesMiner.searchInFolder(modulesFolder);
-                for (FoundModule module : modulesMiner.getModules().getModules().values()) {
-                    System.out.println("Module found: " + module.getOwner().getPath().getLocalAbsolutePath());
+                for (Path modulePath : settings.resolveModulePaths(project.getProjectDir().toPath())) {
+                    System.out.println("Searching for modules in " + modulePath);
+                    modulesMiner.searchInFolder(modulePath.toFile());
                 }
-                String mpsPath = settings.getMpsPath();
+                System.out.println("Found modules:");
+                for (FoundModule module : modulesMiner.getModules().getModules().values()) {
+                    System.out.println("    " + module.getOwner().getPath().getLocalAbsolutePath());
+                }
+                String mpsPath = settings.getMpsHome();
                 if (mpsPath != null) {
                     File mpsHome = project.getProjectDir().toPath().resolve(Path.of(mpsPath)).normalize().toFile();
                     System.out.println("mps.home = " + mpsHome);
+                    if (!mpsHome.exists()) {
+                        throw new RuntimeException(mpsHome + " doesn't exist");
+                    }
                     modulesMiner.searchInFolder(mpsHome);
                 }
                 BuildScriptGenerator generator = new BuildScriptGenerator(modulesMiner, null);

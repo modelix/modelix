@@ -14,32 +14,39 @@
 package org.modelix.gradle.mpsbuild;
 
 import java.io.File;
+import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public class MPSBuildSettings {
-    private String mpsPath = null;
-    private boolean debug = false;
+    private String mpsHome = null;
+    private List<String> modules = new ArrayList<>();
 
     public boolean usingExistingMps() {
-        return getMpsPath() != null;
+        return getMpsHome() != null;
     }
 
     public void validate() {
         // nothing to check at the moment
     }
 
-    public String getMpsPath() {
-        return this.mpsPath;
+    public String getMpsHome() {
+        return this.mpsHome;
     }
 
-    public void setMpsPath(String mpsPath) {
-        this.mpsPath = mpsPath;
+    public void setMpsHome(String mpsHome) {
+        this.mpsHome = mpsHome;
     }
 
-    public boolean isDebug() {
-        return debug;
+    public void modules(String path) {
+        this.modules.add(path);
     }
 
-    public void setDebug(boolean debug) {
-        this.debug = debug;
+    public List<Path> resolveModulePaths(Path workdir) {
+        if (modules.isEmpty()) return Collections.singletonList(workdir);
+        return modules.stream().map(path -> workdir.resolve(path).normalize()).distinct().collect(Collectors.toList());
     }
 }
