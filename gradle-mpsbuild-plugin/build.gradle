@@ -52,7 +52,7 @@ publishing {
         }*/
     }
     publications {
-        modelixGradleBuildPlugin(MavenPublication) {
+        modelixGradleMPSBuildPlugin(MavenPublication) {
             groupId project.group
             version project.version
 

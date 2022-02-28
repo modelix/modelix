@@ -1,11 +1,22 @@
 buildscript {
     repositories {
+        maven {
+            url = uri("https://maven.pkg.github.com/modelix/modelix")
+            if (project.hasProperty("gpr.user") && project.hasProperty("gpr.key")) {
+                credentials {
+                    username = project.findProperty("gpr.user").toString()
+                    password = project.findProperty("gpr.key").toString()
+                }
+            } else {
+                logger.error("Please specify your github username (gpr.user) and access token (gpr.key) in ~/.gradle/gradle.properties")
+            }
+        }
         mavenCentral()
         mavenLocal()
     }
 
     dependencies {
-        classpath group: 'org.modelix', name: 'gradle-build-plugin', version: '2020.3.5-202202271614-SNAPSHOT'
+        classpath group: 'org.modelix', name: 'gradle-mpsbuild-plugin', version: '0.0.92'
     }
 }
 
@@ -15,8 +26,10 @@ repositories {
 }
 
 
-apply plugin: 'modelix-gradle-build-plugin'
+apply plugin: 'modelix-gradle-mpsbuild-plugin'
 
 mpsBuild {
-    mpsPath = "../artifacts/mps"
+    mpsHome "../artifacts/mps"
+    modules "languages"
+    modules "solutions"
 }
