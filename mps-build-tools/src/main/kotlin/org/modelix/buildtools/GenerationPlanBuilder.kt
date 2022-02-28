@@ -68,7 +68,7 @@ class GenerationPlanBuilder(val availableModules: FoundModules) {
 //        if (dep.id.id == "261403cf-60c1-4995-856b-0bc032f24218") return null
         val resolved = availableModules.getModules()[dep.id]
         if (resolved == null && !dep.ignoreIfMissing) {
-            throw RuntimeException("Dependency ${dep.id} not found (used by ${usedBy.name})")
+            throw RuntimeException("Dependency ${dep.id}(${dep.moduleName}) not found (used by ${usedBy.name})")
         }
         return resolved
     }

@@ -121,9 +121,9 @@ class ModulesMiner() {
         var name = doc.getAttribute("name")
         if (name.isNullOrEmpty()) name = doc.getAttribute("namespace")
         val module = FoundModule(uuid, name, owner)
-        val addDependency = { moduleId: ModuleId, type: DependencyType, ignoreIfMissing: Boolean ->
-            missedUUIDs -= moduleId.id
-            module.addDependency(ModuleDependency(moduleId, type, ignoreIfMissing))
+        val addDependency = { moduleIdAndName: ModuleIdAndName, type: DependencyType, ignoreIfMissing: Boolean ->
+            missedUUIDs -= moduleIdAndName.id.id
+            module.addDependency(ModuleDependency(moduleIdAndName, type, ignoreIfMissing))
         }
         doc.visitAll { node ->
             if (node is Element) {
@@ -136,7 +136,7 @@ class ModulesMiner() {
                     "module" -> {
                         if (node.parentTagName() == "dependencyVersions") {
                             //addDependency(moduleIdFromReference(node.getAttribute("reference")), DependencyType.Model, true)
-                            missedUUIDs -= moduleIdFromReference(node.getAttribute("reference")).id
+                            missedUUIDs -= moduleIdFromReference(node.getAttribute("reference")).id.id
                         } else if (node.parentTagName() == "dependencies") {
                             addDependency(moduleIdFromReference(node.getAttribute("ref")), DependencyType.Model, false)
                         }
@@ -152,7 +152,7 @@ class ModulesMiner() {
                         addDependency(moduleIdFromReference(node.getAttribute("name")), DependencyType.Classpath, false)
                     }
                     "generator" -> {
-                        missedUUIDs -= moduleIdFromReference(node.getAttribute("generatorUID")).id
+                        missedUUIDs -= moduleIdFromReference(node.getAttribute("generatorUID")).id.id
                     }
                 }
             }
@@ -191,14 +191,14 @@ class ModulesMiner() {
                     "use" -> {
                         val id = langOrDevkit.getAttribute("id")
                         if (id.isNotEmpty()) {
-                            module.addDependency(ModuleDependency(ModuleId(id), DependencyType.Generator, false))
+                            module.addDependency(ModuleDependency(ModuleId(id), null, DependencyType.Generator, false))
                         }
                     }
                     "devkit" -> {
                         val ref = langOrDevkit.getAttribute("ref")
                         if (ref.isNotEmpty()) {
-                            val id = moduleIdFromReference(ref)
-                            module.addDependency(ModuleDependency(id, DependencyType.Generator, false))
+                            val idAndName = moduleIdFromReference(ref)
+                            module.addDependency(ModuleDependency(idAndName, DependencyType.Generator, false))
                         }
                     }
                 }
@@ -243,15 +243,17 @@ class ModulesMiner() {
             }.map { it.value }.toSet()
     }
 
-    private fun moduleIdFromReference(text: String): ModuleId {
+    private fun moduleIdFromReference(text: String): ModuleIdAndName {
         // 1ed103c3-3aa6-49b7-9c21-6765ee11f224(MPS.Editor)
-        val matchResult = Regex("""~?(.+)\(.+\)""").matchEntire(text)
-        return ModuleId(if (matchResult != null) matchResult.groupValues[1] else text)
+        val matchResult = Regex("""~?(.+)\((.+)\)""").matchEntire(text)
+        if (matchResult == null) return ModuleIdAndName(ModuleId(text), null)
+        return ModuleIdAndName(ModuleId(matchResult.groupValues[1]), matchResult.groupValues[2])
     }
 
-    private fun moduleIdFromLanguageRef(text: String): ModuleId {
+    private fun moduleIdFromLanguageRef(text: String): ModuleIdAndName {
         // l:f3061a53-9226-4cc5-a443-f952ceaf5816:jetbrains.mps.baseLanguage
-        val matchResult = Regex("""l:(.+):.+""").matchEntire(text)
-        return ModuleId(if (matchResult != null) matchResult.groupValues[1] else text)
+        val matchResult = Regex("""l:(.+):(.+)""").matchEntire(text)
+        if (matchResult == null) return ModuleIdAndName(ModuleId(text), null)
+        return ModuleIdAndName(ModuleId(matchResult.groupValues[1]), matchResult.groupValues[2])
     }
 }
