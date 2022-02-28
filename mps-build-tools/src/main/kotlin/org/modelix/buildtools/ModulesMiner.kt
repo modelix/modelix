@@ -143,7 +143,16 @@ class ModulesMiner() {
                     }
                     "language" -> {
                         if (node.parentTagName() == "languageVersions") {
-                            addDependency(moduleIdFromLanguageRef(node.getAttribute("slang")), DependencyType.Generator, true)
+                            val slang = node.getAttribute("slang")
+                            if (slang.isNotEmpty()) {
+                                addDependency(moduleIdFromLanguageRef(slang), DependencyType.Generator, true)
+                            } else {
+                                val id = node.getAttribute("id")
+                                if (id.isNotEmpty()) {
+                                    val fqName = node.getAttribute("fqName")
+                                    addDependency(ModuleIdAndName(ModuleId(id), fqName), DependencyType.Generator, true)
+                                }
+                            }
                         } else if (node.parentTagName() == "uses") {
                             addDependency(moduleIdFromLanguageRef(node.getAttribute("id")), DependencyType.Generator, false)
                         }
