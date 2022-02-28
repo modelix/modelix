@@ -15,15 +15,11 @@ package org.modelix.buildtools
 
 import org.modelix.headlessmps.ProcessExecutor
 import org.w3c.dom.Document
-import java.io.BufferedReader
 import java.io.File
-import java.io.InputStreamReader
-import java.nio.charset.StandardCharsets
-import java.util.concurrent.TimeUnit
 import javax.xml.parsers.DocumentBuilderFactory
 import kotlin.io.path.pathString
 
-class BuildScriptGenerator(val modulesMiner: ModulesMiner, val modulesToGenerate: List<ModuleId>? = null) {
+class BuildScriptGenerator(val modulesMiner: ModulesMiner, val modulesToGenerate: List<ModuleId>? = null, val ignoredModules: Set<ModuleId> = HashSet()) {
 
     fun buildModules(antScriptFile: File = File.createTempFile("mps-build-script", ".xml", File(".")), outputHandler: ((String)->Unit)? = null) {
         val xml = generateXML()
@@ -46,7 +42,9 @@ class BuildScriptGenerator(val modulesMiner: ModulesMiner, val modulesToGenerate
     }
 
     fun generateAnt(): Document {
-        val plan = generatePlan(modulesToGenerate ?: modulesMiner.getModules().getModules().values.filter { it.owner is SourceModuleOwner }.map { it.moduleId }.toList())
+        val modulesToGenerate_ = modulesToGenerate
+            ?: modulesMiner.getModules().getModules().values.filter { it.owner is SourceModuleOwner }.map { it.moduleId }.toList()
+        val plan = generatePlan(modulesToGenerate_ - ignoredModules.toSet())
 
         val dbf = DocumentBuilderFactory.newInstance()
         val db = dbf.newDocumentBuilder()

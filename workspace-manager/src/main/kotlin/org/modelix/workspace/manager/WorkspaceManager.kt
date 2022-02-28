@@ -227,7 +227,7 @@ class WorkspaceManager {
         additionalFolders.filter { it.exists() }.forEach { modulesMiner.searchInFolder(ModuleOrigin(it.toPath(), it.toPath())) }
 
         job.runSafely(WorkspaceBuildStatus.FailedBuild) {
-            val buildScriptGenerator = BuildScriptGenerator(modulesMiner)
+            val buildScriptGenerator = BuildScriptGenerator(modulesMiner, ignoredModules = workspace.ignoredModules.map { ModuleId(it) }.toSet())
             job.runSafely {
                 modulesXml = xmlToString(buildModulesXml(buildScriptGenerator.modulesMiner.getModules()))
             }

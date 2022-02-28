@@ -29,7 +29,8 @@ data class Workspace(var id: String,
                      val gitRepositories: List<GitRepository> = listOf(),
                      val mavenRepositories: List<MavenRepository> = listOf(),
                      var mavenDependencies: List<String> = listOf(),
-                     val uploads: MutableList<String> = ArrayList())
+                     val uploads: MutableList<String> = ArrayList(),
+                     val ignoredModules: List<String> = ArrayList())
 
 @JvmInline
 value class WorkspaceHash(val hash: String) {
