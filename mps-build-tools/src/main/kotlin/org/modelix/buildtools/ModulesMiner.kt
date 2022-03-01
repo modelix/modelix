@@ -40,9 +40,10 @@ class ModulesMiner() {
             when (file.extension.lowercase()) {
                 // see jetbrains.mps.project.MPSExtentions
                 "msd", "mpl", "devkit" -> {
-                    val module = readModule(file, owner ?: SourceModuleOwner(origin.localModulePath(file)))
-                    dependenciesFromModels(module, file.parentFile)
-                    result.addModule(module)
+                    readModule(file, owner ?: SourceModuleOwner(origin.localModulePath(file))).forEach { module ->
+                        dependenciesFromModels(module, file.parentFile)
+                        result.addModule(module)
+                    }
                 }
                 "jar" -> {
                     if (file.name == "mps-workbench.jar" && file.parentFile.name == "lib") {
@@ -54,15 +55,17 @@ class ModulesMiner() {
                         val modules: MutableMap<String, FoundModule> = HashMap()
                         ZipUtil.iterate(file) { stream: InputStream, entry: ZipEntry ->
                             if (entry.name == "META-INF/module.xml") {
-                                val module = readModule(stream, libraryModuleOwner)
-                                result.addModule(module)
-                                modules[""] = module
+                                readModule(stream, libraryModuleOwner).forEach { module ->
+                                    result.addModule(module)
+                                    modules[""] = module
+                                }
                             }
                             when (entry.name.substringAfterLast('.', "").lowercase()) {
                                 "msd", "mpl", "devkit" -> {
-                                    val module = readModule(stream, libraryModuleOwner)
-                                    result.addModule(module)
-                                    modules[entry.name.substringBeforeLast("/", "")] = module
+                                    readModule(stream, libraryModuleOwner).forEach { module ->
+                                        result.addModule(module)
+                                        modules[entry.name.substringBeforeLast("/", "")] = module
+                                    }
                                 }
                             }
                         }
@@ -108,11 +111,11 @@ class ModulesMiner() {
     }
 
 
-    private fun readModule(file: File, owner: ModuleOwner): FoundModule {
+    private fun readModule(file: File, owner: ModuleOwner): List<FoundModule> {
         return FileInputStream(file).use { readModule(it, owner) }
     }
 
-    private fun readModule(file: InputStream, owner: ModuleOwner): FoundModule {
+    private fun readModule(file: InputStream, owner: ModuleOwner): List<FoundModule> {
         val xml = readXmlFile(file)
         val missedUUIDs = extractModuleUUIDs(xmlToString(xml)).toMutableSet()
         val doc: Element = xml.documentElement
@@ -121,55 +124,73 @@ class ModulesMiner() {
         var name = doc.getAttribute("name")
         if (name.isNullOrEmpty()) name = doc.getAttribute("namespace")
         val module = FoundModule(uuid, name, owner)
+        val modules = listOf(module) + readModule(doc, missedUUIDs, module)
+        if (missedUUIDs.isNotEmpty()) {
+            throw RuntimeException("More dependencies found for module $name: $missedUUIDs")
+        }
+        return modules
+    }
+
+    private fun readModule(node: Element, missedUUIDs: MutableSet<String>, module: FoundModule): List<FoundModule> {
         val addDependency = { moduleIdAndName: ModuleIdAndName, type: DependencyType, ignoreIfMissing: Boolean ->
             missedUUIDs -= moduleIdAndName.id.id
             module.addDependency(ModuleDependency(moduleIdAndName, type, ignoreIfMissing))
         }
-        doc.visitAll { node ->
-            if (node is Element) {
-                // Why not just use the extracted UUIDs? Because there are also foreign IDs that are not UUIDs.
-                when (node.tagName) {
-                    "dependency", "extendedLanguage", "extendedDevKit", "usedLanguage", "exported-solution", "usedDevKit" -> {
-                        val text = node.children().filterIsInstance<Text>().first().wholeText
-                        addDependency(moduleIdFromReference(text), DependencyType.Classpath, false)
-                    }
-                    "module" -> {
-                        if (node.parentTagName() == "dependencyVersions") {
-                            //addDependency(moduleIdFromReference(node.getAttribute("reference")), DependencyType.Model, true)
-                            missedUUIDs -= moduleIdFromReference(node.getAttribute("reference")).id.id
-                        } else if (node.parentTagName() == "dependencies") {
-                            addDependency(moduleIdFromReference(node.getAttribute("ref")), DependencyType.Model, false)
+        var moduleForChildren = module
+        var modules: List<FoundModule> = listOf()
+
+        // Why not just use the extracted UUIDs? Because there are also foreign IDs that are not UUIDs.
+        when (node.tagName) {
+            "dependency", "extendedLanguage", "extendedDevKit", "usedLanguage", "exported-solution", "usedDevKit" -> {
+                val text = node.children().filterIsInstance<Text>().first().wholeText
+                addDependency(moduleIdFromReference(text), DependencyType.Classpath, false)
+            }
+            "module" -> {
+                if (node.parentTagName() == "dependencyVersions") {
+                    //addDependency(moduleIdFromReference(node.getAttribute("reference")), DependencyType.Model, true)
+                    missedUUIDs -= moduleIdFromReference(node.getAttribute("reference")).id.id
+                } else if (node.parentTagName() == "dependencies") {
+                    addDependency(moduleIdFromReference(node.getAttribute("ref")), DependencyType.Model, false)
+                }
+            }
+            "language" -> {
+                if (node.parentTagName() == "languageVersions") {
+                    val slang = node.getAttribute("slang")
+                    if (slang.isNotEmpty()) {
+                        addDependency(moduleIdFromLanguageRef(slang), DependencyType.Generator, true)
+                    } else {
+                        val id = node.getAttribute("id")
+                        if (id.isNotEmpty()) {
+                            val fqName = node.getAttribute("fqName")
+                            addDependency(ModuleIdAndName(ModuleId(id), fqName), DependencyType.Generator, true)
                         }
                     }
-                    "language" -> {
-                        if (node.parentTagName() == "languageVersions") {
-                            val slang = node.getAttribute("slang")
-                            if (slang.isNotEmpty()) {
-                                addDependency(moduleIdFromLanguageRef(slang), DependencyType.Generator, true)
-                            } else {
-                                val id = node.getAttribute("id")
-                                if (id.isNotEmpty()) {
-                                    val fqName = node.getAttribute("fqName")
-                                    addDependency(ModuleIdAndName(ModuleId(id), fqName), DependencyType.Generator, true)
-                                }
-                            }
-                        } else if (node.parentTagName() == "uses") {
-                            addDependency(moduleIdFromLanguageRef(node.getAttribute("id")), DependencyType.Generator, false)
-                        }
-                    }
-                    "exported-language" -> {
-                        addDependency(moduleIdFromReference(node.getAttribute("name")), DependencyType.Classpath, false)
-                    }
-                    "generator" -> {
-                        missedUUIDs -= moduleIdFromReference(node.getAttribute("generatorUID")).id.id
-                    }
+                } else if (node.parentTagName() == "uses") {
+                    addDependency(moduleIdFromLanguageRef(node.getAttribute("id")), DependencyType.Generator, false)
+                }
+            }
+            "exported-language" -> {
+                addDependency(moduleIdFromReference(node.getAttribute("name")), DependencyType.Classpath, false)
+            }
+            "generator" -> {
+                var idString = node.getAttribute("generatorUID")
+                if (idString.isEmpty()) idString = node.getAttribute("uuid")
+                if (idString.isNotEmpty()) {
+                    val generatorId = moduleIdFromReference(idString).id
+                    missedUUIDs -= generatorId.id
+                    val generatorName = node.getAttribute("namespace")
+                    val generatorModule = FoundModule(generatorId, generatorName, module.owner)
+                    moduleForChildren = generatorModule
+                    modules += generatorModule
                 }
             }
         }
-        if (missedUUIDs.isNotEmpty()) {
-            throw RuntimeException("More dependencies found for module $name: $missedUUIDs")
+
+        for (childElement in node.childElements()) {
+            modules += readModule(childElement, missedUUIDs, moduleForChildren)
         }
-        return module
+
+        return modules
     }
 
     private fun dependenciesFromModels(module: FoundModule, file: File) {
