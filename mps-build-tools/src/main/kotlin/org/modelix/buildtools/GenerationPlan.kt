@@ -42,6 +42,8 @@ class GenerationPlan {
         return -1
     }
 
+    fun chunkSize(index: Int) = if (index < chunks.size) chunks[index].modules.size else 0
+
     fun insertAt(chunkIndex: Int, module: FoundModule) {
         while (chunks.size <= chunkIndex) chunks += GenerationChunk()
         chunks[chunkIndex].modules += module

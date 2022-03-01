@@ -52,8 +52,14 @@ class GenerationPlanBuilder(val availableModules: FoundModules, val ignoredModul
 
             when (val moduleOwner = module.owner) {
                 is SourceModuleOwner -> {
-                    val index = currentProcessingModules.firstNotNullOfOrNull { forcedChunkIndex[module.moduleId] }
-                        ?: (plan.getHighestChunkIndex(module.dependencies.filter { it.type == DependencyType.Generator }.map { it.id }) + 1)
+                    var index = currentProcessingModules.firstNotNullOfOrNull { forcedChunkIndex[module.moduleId] }
+                    if (index == null) {
+                        index = plan.getHighestChunkIndex(module.dependencies.filter { it.type == DependencyType.Generator }.map { it.id }) + 1
+                        // Too large chunks require too much memory
+                        while (plan.chunkSize(index) > 20) {
+                            index++
+                        }
+                    }
                     cycleIds?.forEach { forcedChunkIndex[it] = index }
                     plan.insertAt(index, module)
                 }
