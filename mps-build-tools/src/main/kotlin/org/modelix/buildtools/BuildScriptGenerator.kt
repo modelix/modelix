@@ -111,9 +111,9 @@ class BuildScriptGenerator(val modulesMiner: ModulesMiner, val modulesToGenerate
                     }
                     for (chunk in plan.chunks) {
                         newChild("chunk") {
-                            for (module in chunk.modules) {
+                            for (module in chunk.modules.map { it.owner.path.getLocalAbsolutePath().pathString }.distinct()) {
                                 newChild("module") {
-                                    setAttribute("file", module.owner.path.getLocalAbsolutePath().pathString)
+                                    setAttribute("file", module)
                                 }
                             }
                         }

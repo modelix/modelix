@@ -40,10 +40,9 @@ class ModulesMiner() {
             when (file.extension.lowercase()) {
                 // see jetbrains.mps.project.MPSExtentions
                 "msd", "mpl", "devkit" -> {
-                    readModule(file, owner ?: SourceModuleOwner(origin.localModulePath(file))).forEach { module ->
-                        dependenciesFromModels(module, file.parentFile)
-                        result.addModule(module)
-                    }
+                    val modules = readModule(file, owner ?: SourceModuleOwner(origin.localModulePath(file)))
+                    dependenciesFromModels(modules.first(), file.parentFile)
+                    modules.forEach { result.addModule(it) }
                 }
                 "jar" -> {
                     if (file.name == "mps-workbench.jar" && file.parentFile.name == "lib") {
