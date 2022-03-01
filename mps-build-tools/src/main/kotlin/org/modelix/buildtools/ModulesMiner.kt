@@ -112,7 +112,14 @@ class ModulesMiner() {
 
 
     private fun readModule(file: File, owner: ModuleOwner): List<FoundModule> {
-        return FileInputStream(file).use { readModule(it, owner) }
+        return FileInputStream(file).use {
+            val modules = readModule(it, owner)
+            val first = modules.first()
+            modules.drop(1).forEach {
+                first.addDependency(ModuleDependency(it.moduleId, it.name, DependencyType.Generator, false))
+            }
+            modules
+        }
     }
 
     private fun readModule(file: InputStream, owner: ModuleOwner): List<FoundModule> {
