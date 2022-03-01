@@ -13,7 +13,7 @@
  */
 package org.modelix.buildtools
 
-class GenerationPlanBuilder(val availableModules: FoundModules) {
+class GenerationPlanBuilder(val availableModules: FoundModules, val ignoredModules: Set<ModuleId>) {
     val plan: GenerationPlan = GenerationPlan()
     private val processedModules: MutableSet<ModuleId> = HashSet()
     private val currentProcessingModules: MutableList<ModuleId> = ArrayList()
@@ -67,7 +67,7 @@ class GenerationPlanBuilder(val availableModules: FoundModules) {
         // jetbrains.mps.lang.docComment doesn't exist (referenced in jetbrains.mps.lang.text)
 //        if (dep.id.id == "261403cf-60c1-4995-856b-0bc032f24218") return null
         val resolved = availableModules.getModules()[dep.id]
-        if (resolved == null && !dep.ignoreIfMissing) {
+        if (resolved == null && !(dep.ignoreIfMissing || ignoredModules.contains(dep.id))) {
             throw RuntimeException("Dependency ${dep.id}(${dep.moduleName}) not found (used by ${usedBy.name}(${usedBy.moduleId}))")
         }
         return resolved

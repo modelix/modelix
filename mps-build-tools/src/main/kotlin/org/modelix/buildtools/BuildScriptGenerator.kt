@@ -149,7 +149,7 @@ class BuildScriptGenerator(val modulesMiner: ModulesMiner, val modulesToGenerate
     }
 
     fun generatePlan(modulesToGenerate: List<ModuleId>): GenerationPlan {
-        val planBuilder = GenerationPlanBuilder(modulesMiner.getModules())
+        val planBuilder = GenerationPlanBuilder(modulesMiner.getModules(), ignoredModules)
         planBuilder.build(modulesToGenerate.mapNotNull { modulesMiner.getModules().getModules()[it] })
         return planBuilder.plan
     }
