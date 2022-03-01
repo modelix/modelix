@@ -143,7 +143,7 @@ spotless {
     java {
         googleJavaFormat("1.8").aosp()
         licenseHeader("/*\n" +
-                """" * Licensed under the Apache License, Version 2.0 (the "License");""" + "\n" +
+                """ * Licensed under the Apache License, Version 2.0 (the "License");""" + "\n" +
                 """ * you may not use this file except in compliance with the License.""" + "\n" +
                 """ * You may obtain a copy of the License at""" + "\n" +
                 """ *""" + "\n" +
@@ -154,7 +154,7 @@ spotless {
                 """ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY""" + "\n" +
                 """ * KIND, either express or implied.  See the License for the""" + "\n" +
                 """ * specific language governing permissions and limitations""" + "\n" +
-                """ * under the License.""" + "\n" +
+                """ * under the License. """ + "\n" +
                 " */\n"+
                 "\n")
         /*licenseHeader '/*\n' +
