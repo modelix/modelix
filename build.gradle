@@ -48,9 +48,9 @@ buildscript {
 
 plugins {
     id "com.diffplug.gradle.spotless" version "4.5.1" apply false
-    id "org.jetbrains.kotlin.jvm" version "1.5.30" apply false
-    id "org.jetbrains.kotlin.multiplatform" version "1.5.30" apply false
-    id "org.jetbrains.kotlin.plugin.serialization" version "1.5.30" apply false
+    id "org.jetbrains.kotlin.jvm" version "1.6.10" apply false
+    id "org.jetbrains.kotlin.multiplatform" version "1.6.10" apply false
+    id "org.jetbrains.kotlin.plugin.serialization" version "1.6.10" apply false
 }
 
 def githubCredentials = getGithubCredentials()
