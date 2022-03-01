@@ -16,7 +16,7 @@ package org.modelix.buildtools
 import kotlin.io.path.pathString
 
 abstract class ModuleOwner(val path: ModulePath) {
-    val modules: MutableMap<ModuleId, FoundModule> = HashMap()
+    val modules: MutableMap<ModuleId, FoundModule> = LinkedHashMap()
 
     fun getWorkspaceRelativePath(): String {
         return "\$MODELIX_WORKSPACE\$/" + path.getWorkspaceRelativePath().pathString

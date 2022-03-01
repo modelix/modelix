@@ -35,9 +35,14 @@ class GenerationPlanBuilder(val availableModules: FoundModules, val ignoredModul
                     val cycleStart = currentProcessingModules.indexOf(dependency.moduleId)
                     if (cycleStart != -1) {
                         cycleIds = currentProcessingModules.drop(cycleStart) + dependency.moduleId
-                        println("Dependency cycle detected: " + cycleIds.map { availableModules.getModules()[it]?.name }.joinToString(" -> "))
-                        val chunkIndex = plan.getHighestChunkIndex(cycleIds).coerceAtLeast(0)
-                        cycleIds.forEach { forcedChunkIndex[it] = chunkIndex }
+                        val isGenerator: (ModuleId)->Boolean = { availableModules.getModules()[it]?.let { it.isGenerator } ?: false }
+                        if (cycleIds.distinct().filter { !isGenerator(it) }.size > 1) {
+                            println("Dependency cycle detected: " + cycleIds.map { availableModules.getModules()[it]?.name }.joinToString(" -> "))
+                            val chunkIndex = plan.getHighestChunkIndex(cycleIds).coerceAtLeast(0)
+                            cycleIds.forEach { forcedChunkIndex[it] = chunkIndex }
+                        } else {
+                            cycleIds = null
+                        }
                     }
                 }
                 build(dependency)

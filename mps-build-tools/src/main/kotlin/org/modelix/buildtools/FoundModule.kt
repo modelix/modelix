@@ -13,7 +13,7 @@
  */
 package org.modelix.buildtools
 
-class FoundModule(val moduleId: ModuleId, val name: String, val owner: ModuleOwner) {
+class FoundModule(val moduleId: ModuleId, val name: String, val owner: ModuleOwner, val isGenerator: Boolean = false) {
     val dependencies: MutableSet<ModuleDependency> = LinkedHashSet()
 
     init {

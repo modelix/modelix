@@ -41,8 +41,10 @@ class ModulesMiner() {
                 // see jetbrains.mps.project.MPSExtentions
                 "msd", "mpl", "devkit" -> {
                     val modules = readModule(file, owner ?: SourceModuleOwner(origin.localModulePath(file)))
-                    dependenciesFromModels(modules.first(), file.parentFile)
-                    modules.forEach { result.addModule(it) }
+                    if (modules.isNotEmpty()) {
+                        dependenciesFromModels(modules.first(), file.parentFile)
+                        modules.forEach { result.addModule(it) }
+                    }
                 }
                 "jar" -> {
                     if (file.name == "mps-workbench.jar" && file.parentFile.name == "lib") {
@@ -111,13 +113,19 @@ class ModulesMiner() {
 
 
     private fun readModule(file: File, owner: ModuleOwner): List<FoundModule> {
-        return FileInputStream(file).use {
-            val modules = readModule(it, owner)
-            val first = modules.first()
-            modules.drop(1).forEach {
-                first.addDependency(ModuleDependency(it.moduleId, it.name, DependencyType.Generator, false))
+        try {
+            return FileInputStream(file).use {
+                val modules = readModule(it, owner)
+                val first = modules.first()
+                modules.drop(1).forEach {
+                    first.addDependency(ModuleDependency(it.moduleId, it.name, DependencyType.Generator, false))
+                }
+                modules
             }
-            modules
+        } catch (e: Exception) {
+            println("Failed to read file $file: " + e.message)
+            e.printStackTrace()
+            return listOf()
         }
     }
 
@@ -179,15 +187,26 @@ class ModulesMiner() {
                 addDependency(moduleIdFromReference(node.getAttribute("name")), DependencyType.Classpath, false)
             }
             "generator" -> {
-                var idString = node.getAttribute("generatorUID")
-                if (idString.isEmpty()) idString = node.getAttribute("uuid")
-                if (idString.isNotEmpty()) {
-                    val generatorId = moduleIdFromReference(idString).id
-                    missedUUIDs -= generatorId.id
-                    val generatorName = node.getAttribute("namespace")
-                    val generatorModule = FoundModule(generatorId, generatorName, module.owner)
-                    moduleForChildren = generatorModule
-                    modules += generatorModule
+                when (node.parentTagName()) {
+                    "generators" -> {
+                        val idString = node.getAttribute("uuid")
+                        if (idString.isNotEmpty()) {
+                            missedUUIDs -= idString
+                            val generatorId = ModuleId(idString)
+                            val generatorName = node.getAttribute("namespace")
+                            val generatorModule = FoundModule(generatorId, generatorName, module.owner, isGenerator = true)
+                            moduleForChildren = generatorModule
+                            modules += generatorModule
+                        }
+                    }
+                    else -> {
+                        val idString = node.getAttribute("generatorUID")
+                        if (idString.isNotEmpty()) {
+                            val idAndName = moduleIdFromReference(idString)
+                            missedUUIDs -= idAndName.id.id
+                            addDependency(idAndName, DependencyType.Generator, false)
+                        }
+                    }
                 }
             }
         }
