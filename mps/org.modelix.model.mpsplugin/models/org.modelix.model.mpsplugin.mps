@@ -38483,26 +38483,17 @@
                     </node>
                     <node concept="9aQIb" id="4_k_9wJ_0Px" role="9aQIa">
                       <node concept="3clFbS" id="4_k_9wJ_0Py" role="9aQI4">
-                        <node concept="3cpWs8" id="4_k_9wJ_0Pz" role="3cqZAp">
-                          <node concept="3cpWsn" id="4_k_9wJ_0P$" role="3cpWs9">
-                            <property role="TrG5h" value="mpsNodeId" />
-                            <node concept="3cpWsb" id="4_k_9wJ_0P_" role="1tU5fm" />
-                            <node concept="2YIFZM" id="4_k_9wJ_0PA" role="33vP2m">
-                              <ref role="1Pybhd" to="wyt6:~Long" resolve="Long" />
-                              <ref role="37wK5l" to="wyt6:~Long.parseLong(java.lang.String)" resolve="parseLong" />
-                              <node concept="37vLTw" id="4_k_9wJ_0PB" role="37wK5m">
-                                <ref role="3cqZAo" node="4_k_9wJ_0Ox" resolve="mpsNodeIdAsString" />
-                              </node>
-                            </node>
-                          </node>
-                        </node>
                         <node concept="3clFbF" id="4_k_9wJ_0PC" role="3cqZAp">
                           <node concept="37vLTI" id="4_k_9wJ_0PD" role="3clFbG">
-                            <node concept="2ShNRf" id="4_k_9wJ_0PE" role="37vLTx">
-                              <node concept="1pGfFk" id="4_k_9wJ_0PF" role="2ShVmc">
-                                <ref role="37wK5l" to="w1kc:~SNodeId$Regular.&lt;init&gt;(long)" resolve="SNodeId.Regular" />
-                                <node concept="37vLTw" id="4_k_9wJ_0PG" role="37wK5m">
-                                  <ref role="3cqZAo" node="4_k_9wJ_0P$" resolve="mpsNodeId" />
+                            <node concept="2OqwBi" id="3bExyWqGF55" role="37vLTx">
+                              <node concept="2YIFZM" id="3bExyWqGEWU" role="2Oq$k0">
+                                <ref role="37wK5l" to="dush:~PersistenceFacade.getInstance()" resolve="getInstance" />
+                                <ref role="1Pybhd" to="dush:~PersistenceFacade" resolve="PersistenceFacade" />
+                              </node>
+                              <node concept="liA8E" id="3bExyWqGFml" role="2OqNvi">
+                                <ref role="37wK5l" to="dush:~PersistenceFacade.createNodeId(java.lang.String)" resolve="createNodeId" />
+                                <node concept="37vLTw" id="3bExyWqGFYd" role="37wK5m">
+                                  <ref role="3cqZAo" node="4_k_9wJ_0Ox" resolve="mpsNodeIdAsString" />
                                 </node>
                               </node>
                             </node>
