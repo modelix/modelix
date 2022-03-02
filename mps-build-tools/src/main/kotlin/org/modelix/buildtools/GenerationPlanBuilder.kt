@@ -56,24 +56,22 @@ class GenerationPlanBuilder(val availableModules: FoundModules, val ignoredModul
 
             when (val moduleOwner = module.owner) {
                 is SourceModuleOwner -> {
-                    if (module.moduleType != ModuleType.Devkit) {
-                        var index = currentProcessingModules.firstNotNullOfOrNull { forcedChunkIndex[module.moduleId] }
-                        if (index == null) {
-                            index = plan.getHighestChunkIndex(module.dependencies.filter { it.type == DependencyType.Generator }.map { it.id }) + 1
-                            // Too large chunks require too much memory
-                            while (plan.chunkSize(index) > 20) {
-                                index++
-                            }
+                    var index = currentProcessingModules.firstNotNullOfOrNull { forcedChunkIndex[module.moduleId] }
+                    if (index == null) {
+                        index = plan.getHighestChunkIndex(module.dependencies.filter { it.type == DependencyType.Generator }.map { it.id }) + 1
+                        // Too large chunks require too much memory
+                        while (plan.chunkSize(index) > 20) {
+                            index++
                         }
-                        cycleIds?.forEach { forcedChunkIndex[it] = index }
-                        var moduleToGenerate = module
-                        if (module.moduleType == ModuleType.Generator) {
-                            val owningLanguage = module.owner.modules.values.find { it.moduleType == ModuleType.Language }
-                            if (owningLanguage != null) moduleToGenerate = owningLanguage
-                        }
-                        if (!plan.contains(moduleToGenerate.moduleId)) {
-                            plan.insertAt(index, module)
-                        }
+                    }
+                    cycleIds?.forEach { forcedChunkIndex[it] = index }
+                    var moduleToGenerate = module
+                    if (module.moduleType == ModuleType.Generator) {
+                        val owningLanguage = module.owner.modules.values.find { it.moduleType == ModuleType.Language }
+                        if (owningLanguage != null) moduleToGenerate = owningLanguage
+                    }
+                    if (!plan.contains(moduleToGenerate.moduleId)) {
+                        plan.insertAt(index, moduleToGenerate)
                     }
                 }
                 is LibraryModuleOwner -> plan.addLibrary(moduleOwner)

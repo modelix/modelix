@@ -29,13 +29,14 @@ class ModulesMiner() {
         return modules
     }
 
-    fun searchInFolder(folder: ModuleOrigin) {
-        collectModules(folder.localPath.toFile(), null, folder, modules)
+    fun searchInFolder(folder: ModuleOrigin, fileFilter: (File)->Boolean = { true }) {
+        collectModules(folder.localPath.toFile(), null, folder, modules, fileFilter)
     }
 
-    fun searchInFolder(folder: File) = searchInFolder(ModuleOrigin(folder.toPath()))
+    fun searchInFolder(folder: File, fileFilter: (File)->Boolean = { true }) = searchInFolder(ModuleOrigin(folder.toPath()), fileFilter)
 
-    private fun collectModules(file: File, owner: ModuleOwner?, origin: ModuleOrigin, result: FoundModules) {
+    private fun collectModules(file: File, owner: ModuleOwner?, origin: ModuleOrigin, result: FoundModules, fileFilter: (File)->Boolean) {
+        if (!fileFilter(file)) return
         if (file.isFile) {
             when (file.extension.lowercase()) {
                 // see jetbrains.mps.project.MPSExtentions
@@ -105,7 +106,7 @@ class ModulesMiner() {
                 val pluginOwner = if (isPluginDir) PluginModuleOwner.fromPluginFolder(origin.localModulePath(file)) else null
                 if (pluginOwner != null) modules.addPlugin(pluginOwner)
                 file.listFiles()?.forEach { child ->
-                    collectModules(child, owner ?: pluginOwner, origin, result)
+                    collectModules(child, owner ?: pluginOwner, origin, result, fileFilter)
                 }
             }
         }
