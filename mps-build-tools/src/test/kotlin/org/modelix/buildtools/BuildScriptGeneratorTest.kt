@@ -65,4 +65,61 @@ internal class BuildScriptGeneratorTest {
         assertEquals(0, exitValue)
     }
 
+    @Test
+    fun testPLSA() {
+        val modulesMiner = ModulesMiner()
+        val inputFolders = listOf(
+            File("../artifacts/mps"),
+            File("../../mbd_msi_hf/languages"),
+            File("../../mbd_msi_hf/solutions"),
+            File("../../mbd_msi_hf/devkits"),
+//            File("../../mbd_plsa/languages"),
+//            File("../../mbd_plsa/solutions"),
+//            File("../../mbd_plsa/devkits"),
+            File("../../iets3.opensource/code/languages"),
+            File("../../iets3.core/code/languages"),
+            File("../../mbeddr.core/code/languages"),
+            File("../../MPS-extensions/code"),
+        )
+        inputFolders.map { it.absoluteFile.toPath() }.forEach { modulesMiner.searchInFolder(ModuleOrigin(it, it)) }
+        val canon_cpp_plsa = ModuleId("b4f7ab87-0673-4cea-bd16-2ecbb84b6ee7")
+        val generator = BuildScriptGenerator(modulesMiner, listOf(canon_cpp_plsa))
+        val xml = generator.generateXML()
+        println(xml)
+        val antScriptFile = File("plsa-build.xml")
+        antScriptFile.writeText(xml)
+
+//        val ant = ProcessBuilder("ant", "-f", antScriptFile.canonicalPath).start()
+//        ant.inputStream.copyTo(System.out)
+//        val exitValue = ant.waitFor()
+//        assertEquals(0, exitValue)
+    }
+
+    @Test
+    fun testMPSExt() {
+        val modulesMiner = ModulesMiner()
+        val inputFolders = listOf(
+            File("../artifacts/mps"),
+//            File("../../iets3.opensource/code/languages"),
+//            File("../../iets3.core/code/languages"),
+//            File("../../mbeddr.core/code/languages"),
+            File("../../MPS-extensions/code"),
+        )
+        inputFolders.map { it.absoluteFile.toPath() }.forEach {
+            modulesMiner.searchInFolder(ModuleOrigin(it, it)) { file ->
+                !file.path.contains("modelmerge") && !file.path.contains("model.merge")
+            }
+        }
+        val generator = BuildScriptGenerator(modulesMiner, ignoredModules = setOf(ModuleId("")))
+        val xml = generator.generateXML()
+        println(xml)
+        val antScriptFile = File("mpsext-build.xml")
+        antScriptFile.writeText(xml)
+
+//        val ant = ProcessBuilder("ant", "-f", antScriptFile.canonicalPath).start()
+//        ant.inputStream.copyTo(System.out)
+//        val exitValue = ant.waitFor()
+//        assertEquals(0, exitValue)
+    }
+
 }

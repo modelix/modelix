@@ -26,26 +26,8 @@ class FoundModule(val moduleId: ModuleId, val name: String, val owner: ModuleOwn
         }
     }
 
-    override fun equals(other: Any?): Boolean {
-        if (this === other) return true
-        if (javaClass != other?.javaClass) return false
-
-        other as FoundModule
-
-        if (moduleId != other.moduleId) return false
-        if (name != other.name) return false
-        if (owner != other.owner) return false
-        if (dependencies != other.dependencies) return false
-
-        return true
-    }
-
-    override fun hashCode(): Int {
-        var result = moduleId.hashCode()
-        result = 31 * result + name.hashCode()
-        result = 31 * result + owner.hashCode()
-        result = 31 * result + dependencies.hashCode()
-        return result
+    override fun toString(): String {
+        return "$moduleId($name)"
     }
 }
 
