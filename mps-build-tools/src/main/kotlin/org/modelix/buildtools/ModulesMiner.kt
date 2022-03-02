@@ -36,7 +36,7 @@ class ModulesMiner() {
     fun searchInFolder(folder: File, fileFilter: (File)->Boolean = { true }) = searchInFolder(ModuleOrigin(folder.toPath()), fileFilter)
 
     private fun collectModules(file: File, owner: ModuleOwner?, origin: ModuleOrigin, result: FoundModules, fileFilter: (File)->Boolean) {
-        if (!fileFilter(file)) return
+        if (!fileFilter(file) || File(file, ".mpsbuild-ignore").exists()) return
         if (file.isFile) {
             when (file.extension.lowercase()) {
                 // see jetbrains.mps.project.MPSExtentions

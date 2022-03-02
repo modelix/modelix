@@ -15,11 +15,9 @@ package org.modelix.buildtools
 
 class ModuleResolver(val availableModules: FoundModules, val ignoredModules: Set<ModuleId>) {
     fun resolveModule(dep: ModuleDependency, usedBy: FoundModule): FoundModule? {
-        // jetbrains.mps.lang.docComment doesn't exist (referenced in jetbrains.mps.lang.text)
-//        if (dep.id.id == "261403cf-60c1-4995-856b-0bc032f24218") return null
         val resolved = availableModules.getModules()[dep.id]
         if (resolved == null && !(dep.ignoreIfMissing || ignoredModules.contains(dep.id))) {
-            throw RuntimeException("Dependency ${dep.id}(${dep.moduleName}) not found (used by ${usedBy.name}(${usedBy.moduleId}))")
+            throw RuntimeException("Dependency ${dep.id}(${dep.moduleName}) not found (used by ${usedBy.moduleId}(${usedBy.name}) in ${usedBy.owner.path.getLocalAbsolutePath()} )")
         }
         return resolved
     }
