@@ -13,7 +13,7 @@
  */
 package org.modelix.buildtools
 
-class FoundModule(val moduleId: ModuleId, val name: String, val owner: ModuleOwner, val isGenerator: Boolean = false) {
+class FoundModule(val moduleId: ModuleId, val name: String, val owner: ModuleOwner, val moduleType: ModuleType) {
     val dependencies: MutableSet<ModuleDependency> = LinkedHashSet()
 
     init {
@@ -47,6 +47,8 @@ class FoundModule(val moduleId: ModuleId, val name: String, val owner: ModuleOwn
         result = 31 * result + dependencies.hashCode()
         return result
     }
+}
 
-
+enum class ModuleType {
+    Solution, Language, Generator, Devkit
 }

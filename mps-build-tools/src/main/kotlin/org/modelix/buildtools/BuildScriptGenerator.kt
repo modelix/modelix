@@ -43,7 +43,10 @@ class BuildScriptGenerator(val modulesMiner: ModulesMiner, val modulesToGenerate
 
     fun generateAnt(): Document {
         val modulesToGenerate_ = modulesToGenerate
-            ?: modulesMiner.getModules().getModules().values.filter { it.owner is SourceModuleOwner }.map { it.moduleId }.toList()
+            ?: modulesMiner.getModules().getModules().values
+                .filter { it.owner is SourceModuleOwner && it.moduleType == ModuleType.Language }
+                .map { it.moduleId }
+                .toList()
         val plan = generatePlan(modulesToGenerate_ - ignoredModules.toSet())
 
         val dbf = DocumentBuilderFactory.newInstance()

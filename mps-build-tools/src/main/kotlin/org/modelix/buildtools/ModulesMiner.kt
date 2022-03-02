@@ -129,6 +129,7 @@ class ModulesMiner() {
         }
     }
 
+    private val typeMap = mapOf("language" to ModuleType.Language, "solution" to ModuleType.Solution, "dev-kit" to ModuleType.Devkit, "devkit" to ModuleType.Devkit, "generator" to ModuleType.Generator)
     private fun readModule(file: InputStream, owner: ModuleOwner): List<FoundModule> {
         val xml = readXmlFile(file)
         val missedUUIDs = extractModuleUUIDs(xmlToString(xml)).toMutableSet()
@@ -137,7 +138,10 @@ class ModulesMiner() {
         missedUUIDs -= uuid.id
         var name = doc.getAttribute("name")
         if (name.isNullOrEmpty()) name = doc.getAttribute("namespace")
-        val module = FoundModule(uuid, name, owner)
+        val typeString = if (doc.tagName == "module") doc.getAttribute("type") else doc.tagName
+        val type = typeMap[typeString]
+            ?: throw RuntimeException("Unknown module type: $typeString")
+        val module = FoundModule(uuid, name, owner, type)
         val modules = listOf(module) + readModule(doc, missedUUIDs, module)
         if (missedUUIDs.isNotEmpty()) {
             throw RuntimeException("More dependencies found for module $name: $missedUUIDs")
@@ -194,7 +198,7 @@ class ModulesMiner() {
                             missedUUIDs -= idString
                             val generatorId = ModuleId(idString)
                             val generatorName = node.getAttribute("namespace")
-                            val generatorModule = FoundModule(generatorId, generatorName, module.owner, isGenerator = true)
+                            val generatorModule = FoundModule(generatorId, generatorName, module.owner, ModuleType.Generator)
                             moduleForChildren = generatorModule
                             modules += generatorModule
                         }

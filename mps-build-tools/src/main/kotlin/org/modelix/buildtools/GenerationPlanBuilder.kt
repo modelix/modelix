@@ -35,8 +35,12 @@ class GenerationPlanBuilder(val availableModules: FoundModules, val ignoredModul
                     val cycleStart = currentProcessingModules.indexOf(dependency.moduleId)
                     if (cycleStart != -1) {
                         cycleIds = currentProcessingModules.drop(cycleStart) + dependency.moduleId
-                        val isGenerator: (ModuleId)->Boolean = { availableModules.getModules()[it]?.let { it.isGenerator } ?: false }
-                        if (cycleIds.distinct().filter { !isGenerator(it) }.size > 1) {
+                        val isLangOrSolution: (ModuleId)->Boolean = { id ->
+                            availableModules.getModules()[id]
+                                ?.let { it.moduleType == ModuleType.Solution || it.moduleType == ModuleType.Language }
+                                ?: false
+                        }
+                        if (cycleIds.distinct().filter { isLangOrSolution(it) }.size > 1) {
                             println("Dependency cycle detected: " + cycleIds.map { availableModules.getModules()[it]?.name }.joinToString(" -> "))
                             val chunkIndex = plan.getHighestChunkIndex(cycleIds).coerceAtLeast(0)
                             cycleIds.forEach { forcedChunkIndex[it] = chunkIndex }
@@ -52,16 +56,25 @@ class GenerationPlanBuilder(val availableModules: FoundModules, val ignoredModul
 
             when (val moduleOwner = module.owner) {
                 is SourceModuleOwner -> {
-                    var index = currentProcessingModules.firstNotNullOfOrNull { forcedChunkIndex[module.moduleId] }
-                    if (index == null) {
-                        index = plan.getHighestChunkIndex(module.dependencies.filter { it.type == DependencyType.Generator }.map { it.id }) + 1
-                        // Too large chunks require too much memory
-                        while (plan.chunkSize(index) > 20) {
-                            index++
+                    if (module.moduleType != ModuleType.Devkit) {
+                        var index = currentProcessingModules.firstNotNullOfOrNull { forcedChunkIndex[module.moduleId] }
+                        if (index == null) {
+                            index = plan.getHighestChunkIndex(module.dependencies.filter { it.type == DependencyType.Generator }.map { it.id }) + 1
+                            // Too large chunks require too much memory
+                            while (plan.chunkSize(index) > 20) {
+                                index++
+                            }
+                        }
+                        cycleIds?.forEach { forcedChunkIndex[it] = index }
+                        var moduleToGenerate = module
+                        if (module.moduleType == ModuleType.Generator) {
+                            val owningLanguage = module.owner.modules.values.find { it.moduleType == ModuleType.Language }
+                            if (owningLanguage != null) moduleToGenerate = owningLanguage
+                        }
+                        if (!plan.contains(moduleToGenerate.moduleId)) {
+                            plan.insertAt(index, module)
                         }
                     }
-                    cycleIds?.forEach { forcedChunkIndex[it] = index }
-                    plan.insertAt(index, module)
                 }
                 is LibraryModuleOwner -> plan.addLibrary(moduleOwner)
                 is PluginModuleOwner -> availableModules.getPluginWithDependencies(moduleOwner.pluginId, plugins)
