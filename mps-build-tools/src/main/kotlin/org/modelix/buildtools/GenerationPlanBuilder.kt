@@ -35,6 +35,13 @@ class GenerationPlanBuilder(val availableModules: FoundModules, val ignoredModul
             chunkIndex++
         }
 
+        // a chunk without any models (e.g. only devkits) makes the generator fail ('Build aborted: nothing to do')
+        val hasNoModels = node.modules.none { it.moduleType != ModuleType.Devkit }
+        if (hasNoModels && chunkIndex > 0) {
+            // a devkit is not generated and therefor doesn't require its dependencies to be generated
+            chunkIndex--
+        }
+
         val plugins: MutableMap<String, PluginModuleOwner> = LinkedHashMap()
 
         for (module in node.modules) {
