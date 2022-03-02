@@ -19,7 +19,10 @@ import java.io.File
 import javax.xml.parsers.DocumentBuilderFactory
 import kotlin.io.path.pathString
 
-class BuildScriptGenerator(val modulesMiner: ModulesMiner, val modulesToGenerate: List<ModuleId>? = null, val ignoredModules: Set<ModuleId> = HashSet()) {
+class BuildScriptGenerator(val modulesMiner: ModulesMiner,
+                           val modulesToGenerate: List<ModuleId>? = null,
+                           val ignoredModules: Set<ModuleId> = HashSet(),
+                           val macros: Map<String, File> = HashMap()) {
 
     fun buildModules(antScriptFile: File = File.createTempFile("mps-build-script", ".xml", File(".")), outputHandler: ((String)->Unit)? = null) {
         val xml = generateXML()
@@ -129,10 +132,12 @@ class BuildScriptGenerator(val modulesMiner: ModulesMiner, val modulesToGenerate
                             setAttribute("value", "-Xmx2G")
                         }
                     }
-//                    newChild("macro") {
-//                        setAttribute("name", "")
-//                        setAttribute("path", "")
-//                    }
+                    for (macro in macros) {
+                        newChild("macro") {
+                            setAttribute("name", macro.key)
+                            setAttribute("path", macro.value.absolutePath)
+                        }
+                    }
                 }
             }
 

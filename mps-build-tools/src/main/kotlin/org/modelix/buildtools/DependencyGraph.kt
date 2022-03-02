@@ -108,6 +108,7 @@ class DependencyGraph(val moduleResolver: ModuleResolver) {
         fun getMergedNode(): DependencyNode = mergedInto?.getMergedNode() ?: this
 
         fun addDependency(dependency: DependencyNode) {
+            if (dependency == this) return
             dependencies += dependency
             dependency.reverseDependencies += this
         }

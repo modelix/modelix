@@ -35,7 +35,7 @@ import java.io.File
 internal class BuildScriptGeneratorTest {
 
     @Test
-    fun test() {
+    fun testModelixMPSModules() {
         val org_modelix_ui_server = ModuleId("39aab22b-473f-4e44-b037-0c602964897d")
         val org_modelix_notation_impl_baseLanguage = ModuleId("2db6cf34-1ef5-4ea9-ab56-6511aab61960")
         val modulesMiner = ModulesMiner()
@@ -49,7 +49,7 @@ internal class BuildScriptGeneratorTest {
     }
 
     @Test
-    fun test2() {
+    fun testGeneratorTestProject() {
         val modulesMiner = ModulesMiner()
         val inputFolders = listOf(File("../artifacts/mps"), File("../generator-test-project"))
         inputFolders.map { it.absoluteFile.toPath() }.forEach { modulesMiner.searchInFolder(ModuleOrigin(it, it)) }
@@ -65,9 +65,10 @@ internal class BuildScriptGeneratorTest {
         assertEquals(0, exitValue)
     }
 
-    @Test
+//    @Test
     fun testPLSA() {
         val modulesMiner = ModulesMiner()
+        val mbeddrHome = File("../../mbeddr.core")
         val inputFolders = listOf(
             File("../artifacts/mps"),
             File("../../mbd_msi_hf/languages"),
@@ -78,12 +79,18 @@ internal class BuildScriptGeneratorTest {
 //            File("../../mbd_plsa/devkits"),
             File("../../iets3.opensource/code/languages"),
             File("../../iets3.core/code/languages"),
-            File("../../mbeddr.core/code/languages"),
+            File(mbeddrHome, "code/languages"),
+            File(mbeddrHome, "tools"),
             File("../../MPS-extensions/code"),
         )
         inputFolders.map { it.absoluteFile.toPath() }.forEach { modulesMiner.searchInFolder(ModuleOrigin(it, it)) }
         val canon_cpp_plsa = ModuleId("b4f7ab87-0673-4cea-bd16-2ecbb84b6ee7")
-        val generator = BuildScriptGenerator(modulesMiner, listOf(canon_cpp_plsa))
+        val generator = BuildScriptGenerator(
+            modulesMiner = modulesMiner,
+            modulesToGenerate = listOf(canon_cpp_plsa),
+            ignoredModules = setOf(ModuleId("ebbc2a81-6618-40a2-b3b8-997fd1520167")),
+            macros = mapOf("mbeddr.github.core.home" to mbeddrHome)
+        )
         val xml = generator.generateXML()
         println(xml)
         val antScriptFile = File("plsa-build.xml")
@@ -95,7 +102,7 @@ internal class BuildScriptGeneratorTest {
 //        assertEquals(0, exitValue)
     }
 
-    @Test
+//    @Test
     fun testMPSExt() {
         val modulesMiner = ModulesMiner()
         val inputFolders = listOf(
@@ -106,9 +113,7 @@ internal class BuildScriptGeneratorTest {
             File("../../MPS-extensions/code"),
         )
         inputFolders.map { it.absoluteFile.toPath() }.forEach {
-            modulesMiner.searchInFolder(ModuleOrigin(it, it)) { file ->
-                !file.path.contains("modelmerge") && !file.path.contains("model.merge")
-            }
+            modulesMiner.searchInFolder(ModuleOrigin(it, it))
         }
         val generator = BuildScriptGenerator(modulesMiner, ignoredModules = setOf(ModuleId("")))
         val xml = generator.generateXML()
