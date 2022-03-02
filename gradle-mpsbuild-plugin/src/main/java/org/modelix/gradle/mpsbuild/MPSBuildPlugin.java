@@ -86,7 +86,8 @@ public class MPSBuildPlugin implements Plugin<Project> {
                     }
                     modulesMiner.searchInFolder(mpsHome);
                 }
-                BuildScriptGenerator generator = new BuildScriptGenerator(modulesMiner, null, Collections.emptySet());
+                BuildScriptGenerator generator = new BuildScriptGenerator(modulesMiner, null,
+                        Collections.emptySet(), Collections.emptyMap());
                 String xml = generator.generateXML();
                 try {
                     FileUtils.writeStringToFile(antScriptFile, xml, StandardCharsets.UTF_8);

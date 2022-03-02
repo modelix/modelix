@@ -29,11 +29,21 @@ class ModulesMiner() {
         return modules
     }
 
-    fun searchInFolder(folder: ModuleOrigin, fileFilter: (File)->Boolean = { true }) {
-        collectModules(folder.localPath.toFile(), null, folder, modules, fileFilter)
+    fun searchInFolder(folder: ModuleOrigin) {
+        searchInFolder(folder) { true }
     }
 
-    fun searchInFolder(folder: File, fileFilter: (File)->Boolean = { true }) = searchInFolder(ModuleOrigin(folder.toPath()), fileFilter)
+    fun searchInFolder(folder: File, fileFilter: (File)->Boolean) {
+        searchInFolder(ModuleOrigin(folder.toPath()), fileFilter)
+    }
+
+    fun searchInFolder(folder: File) {
+        searchInFolder(folder) { true }
+    }
+
+    fun searchInFolder(folder: ModuleOrigin, fileFilter: (File)->Boolean) {
+        collectModules(folder.localPath.toFile(), null, folder, modules, fileFilter)
+    }
 
     private fun collectModules(file: File, owner: ModuleOwner?, origin: ModuleOrigin, result: FoundModules, fileFilter: (File)->Boolean) {
         if (!fileFilter(file) || File(file, ".mpsbuild-ignore").exists()) return
