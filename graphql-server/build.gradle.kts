@@ -22,7 +22,7 @@ dependencies {
     implementation("io.ktor", "ktor-server-netty", ktorVersion)
     implementation("ch.qos.logback", "logback-classic", logbackVersion)
     implementation("org.jetbrains.kotlinx", "kotlinx-coroutines-jdk8", kotlinCoroutinesVersion)
-    implementation(project(":model-client"))
+    implementation(project(":model-client", configuration = "jvmRuntimeElements"))
 }
 
 graphql {
