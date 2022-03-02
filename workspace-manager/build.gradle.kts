@@ -42,7 +42,7 @@ dependencies {
     implementation("org.zeroturnaround:zt-zip:1.14")
     implementation("org.apache.commons:commons-text:1.9")
     implementation("org.jasypt:jasypt:1.9.3")
-    implementation(project(":model-client"))
+    implementation(project(":model-client", configuration = "jvmRuntimeElements"))
     implementation(project(":headless-mps"))
     implementation(project(":mps-build-tools"))
     implementation("io.ktor","ktor-html-builder", ktorVersion)

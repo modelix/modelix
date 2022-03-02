@@ -18,6 +18,12 @@ tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
     }
 }
 
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(11)
+    }
+}
+
 ktlint {
     disabledRules = ["no-wildcard-imports"]
 }
@@ -26,7 +32,7 @@ check.dependsOn ktlintCheck
 
 kotlin {
     jvm()
-    js {
+    js() {
         //browser {}
         nodejs {
             testTask {
@@ -88,6 +94,11 @@ kotlin {
             }
         }
     }
+}
+
+// Workaround for M1 macs. Remove after kotlin 1.6.20 is released.
+rootProject.plugins.withType(Class.forName("org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootPlugin")) {
+    rootProject.extensions.getByType(org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootExtension.class).nodeVersion = "16.0.0"
 }
 
 jvmTest.dependsOn ":model-server:shadowJar"
