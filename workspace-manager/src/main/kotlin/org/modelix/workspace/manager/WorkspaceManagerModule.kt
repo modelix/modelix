@@ -47,6 +47,10 @@ fun Application.workspaceManagerModule() {
                 }
                 body {
                     h1 { text("Workspaces") }
+                    p {
+                        +"A workspace allows to deploy an MPS project and all of its dependencies to Modelix and edit it in the browser."
+                        +"Solutions are synchronized with the model server and between all MPS instances."
+                    }
                     ul {
                         manager.getWorkspaceIds().forEach { workspaceId ->
                             val workspace = manager.getWorkspaceForId(workspaceId)?.first
@@ -140,18 +144,111 @@ fun Application.workspaceManagerModule() {
                         }
                     }
                     br()
-                    form {
-                        action = "./update"
-                        method = FormMethod.post
-                        textArea {
-                            name = "content"
-                            style = "width: 800px; height: 500px"
-                            text(yaml)
+                    div {
+                        style = "display: flex"
+                        div {
+                            form {
+                                action = "./update"
+                                method = FormMethod.post
+                                textArea {
+                                    name = "content"
+                                    style = "width: 800px; height: 500px"
+                                    text(yaml)
+                                }
+                                br()
+                                input {
+                                    type = InputType.submit
+                                    value = "Save Changes"
+                                }
+                            }
                         }
-                        br()
-                        input {
-                            type = InputType.submit
-                            value = "Save Changes"
+                        div {
+                            style = "display: inline-block"
+                            ul {
+                                li {
+                                    b { +"name" }
+                                    +": Is just shown to the user in the workspace list."
+                                }
+                                li {
+                                    b { +"mpsVersion" }
+                                    +": Currently not used."
+                                    +" A workspace is always executed with MPS version that is installed in the Modelix cluster."
+                                }
+                                li {
+                                    b { +"modelRepositories" }
+                                    +": Currently not used. A separate repository on the model server is created for each workspace."
+                                    +" The ID of the repository for this workspace is "
+                                    i { +"workspace_${workspace.id}" }
+                                    +"."
+                                }
+                                li {
+                                    b { +"gitRepositories" }
+                                    +": Git repository containing an MPS project. No build script is required."
+                                    +" Modelix will build all languages including their dependencies after cloning the repository."
+                                    +" If this repository is not public, credentials can be specified."
+                                    +" Alternatively, a project can be uploaded as a .zip file. (see below)"
+                                    ul {
+                                        li {
+                                            b { +"url" }
+                                            +": Address of the Git repository."
+                                        }
+                                        li {
+                                            b { +"name" }
+                                            +": Currently not used."
+                                        }
+                                        li {
+                                            b { +"branch" }
+                                            +": If no commitHash is specified, the latest commit from this branch is used."
+                                        }
+                                        li {
+                                            b { +"commitHash" }
+                                            +": A Git commit hash can be specified to ensure that always the same version is used."
+                                        }
+                                        li {
+                                            b { +"paths" }
+                                            +": If this repository contains additional modules that you don't want to use in Modelix,"
+                                            +" you can specify a list of folders that you want to include."
+                                        }
+                                        li {
+                                            b { +"credentials" }
+                                            +": The credentials are encrypted before they are stored."
+                                            ul {
+                                                li { b { +"user" } }
+                                                li { b { +"password" } }
+                                            }
+                                        }
+                                    }
+                                }
+                                li {
+                                    b { +"mavenRepositories" }
+                                    +": Some artifacts are bundled with Modelix."
+                                    +" If you additional ones, here you can specify maven repositories that contain them."
+                                    ul {
+                                        li {
+                                            b { +"url" }
+                                            +": You probably want to use this one: "
+                                            i { +"https://projects.itemis.de/nexus/content/repositories/mbeddr/" }
+                                        }
+                                    }
+                                }
+                                li {
+                                    b { +"mavenDependencies" }
+                                    +": Maven coordinates to a .zip file containing MPS modules/plugins."
+                                    +" Example: "
+                                    i { +"de.itemis.mps:extensions:2020.3.2179.1ee9c94:zip" }
+                                    +". You can also add one of the bundled artifacts by clicking on it (see below)"
+                                }
+                                li {
+                                    b { +"uploads" }
+                                    +": There is a special section for managing uploads. Directly editing this list is not required."
+                                }
+                                li {
+                                    b { +"ignoredModules" }
+                                    +": A list of MPS module IDs that should be excluding from generation."
+                                    +" Also missing dependencies that should be ignored can be listed here."
+                                    +" This section is usually used when the generation fails and editing the project is not possible."
+                                }
+                            }
                         }
                     }
                     br()
