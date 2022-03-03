@@ -13,6 +13,8 @@
  */
 package org.modelix.buildtools
 
+import kotlin.math.max
+
 class GenerationPlanBuilder(val availableModules: FoundModules, val ignoredModules: Set<ModuleId>) {
     val plan: GenerationPlan = GenerationPlan()
     private val processedNodes: MutableSet<DependencyGraph.DependencyNode> = HashSet()
@@ -29,7 +31,10 @@ class GenerationPlanBuilder(val availableModules: FoundModules, val ignoredModul
         processedNodes += node
 
         node.getDependencies().forEach { build(it) }
-        var chunkIndex = (node.getDependencies().mapNotNull { chunkIndexes[it] }.maxOrNull() ?: -1) + 1
+        var chunkIndex = -1
+        val dependencyChunkIndexes = node.getDependencies().mapNotNull { chunkIndexes[it] }
+            .forEach { chunkIndex = max(it, chunkIndex) }
+        chunkIndex++
         // Too large chunks require too much memory
         while (plan.chunkSize(chunkIndex) > 20) {
             chunkIndex++
