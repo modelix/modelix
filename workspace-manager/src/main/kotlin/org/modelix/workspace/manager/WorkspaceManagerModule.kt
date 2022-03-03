@@ -120,6 +120,11 @@ fun Application.workspaceManagerModule() {
                 body {
                     div {
                         a {
+                            href = "../"
+                            text("Workspace List")
+                        }
+                        a {
+                            style = "margin-left: 24px"
                             href = "../$workspaceHash/download-modules/queue"
                             text("Download Modules")
                         }
