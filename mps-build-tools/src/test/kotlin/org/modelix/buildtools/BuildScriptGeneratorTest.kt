@@ -71,12 +71,7 @@ internal class BuildScriptGeneratorTest {
         val mbeddrHome = File("../../mbeddr.core")
         val inputFolders = listOf(
             File("../artifacts/mps"),
-            File("../../mbd_msi_hf/languages"),
-            File("../../mbd_msi_hf/solutions"),
-            File("../../mbd_msi_hf/devkits"),
-//            File("../../mbd_plsa/languages"),
-//            File("../../mbd_plsa/solutions"),
-//            File("../../mbd_plsa/devkits"),
+            File("../../mbd_plsa"),
             File("../../iets3.opensource/code/languages"),
             File("../../iets3.core/code/languages"),
             File(mbeddrHome, "code/languages"),
@@ -87,8 +82,8 @@ internal class BuildScriptGeneratorTest {
         val canon_cpp_plsa = ModuleId("b4f7ab87-0673-4cea-bd16-2ecbb84b6ee7")
         val generator = BuildScriptGenerator(
             modulesMiner = modulesMiner,
-            modulesToGenerate = listOf(canon_cpp_plsa),
-            ignoredModules = setOf(ModuleId("ebbc2a81-6618-40a2-b3b8-997fd1520167")),
+//            modulesToGenerate = listOf(canon_cpp_plsa),
+            ignoredModules = setOf(ModuleId("ebbc2a81-6618-40a2-b3b8-997fd1520167"), ModuleId("156f433d-6029-4270-8025-144889789b53")),
             macros = mapOf("mbeddr.github.core.home" to mbeddrHome)
         )
         val xml = generator.generateXML()

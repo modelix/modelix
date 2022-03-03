@@ -42,11 +42,11 @@ class ModulesMiner() {
     }
 
     fun searchInFolder(folder: ModuleOrigin, fileFilter: (File)->Boolean) {
-        collectModules(folder.localPath.toFile(), null, folder, modules, fileFilter)
+        collectModules(folder.localPath.normalize().toFile(), null, folder, modules, fileFilter)
     }
 
     private fun collectModules(file: File, owner: ModuleOwner?, origin: ModuleOrigin, result: FoundModules, fileFilter: (File)->Boolean) {
-        if (!fileFilter(file) || File(file, ".mpsbuild-ignore").exists()) return
+        if (isIgnored(file, fileFilter)) return
         if (file.isFile) {
             when (file.extension.lowercase()) {
                 // see jetbrains.mps.project.MPSExtentions
@@ -108,8 +108,18 @@ class ModulesMiner() {
                 }
             }
         } else if (file.isDirectory) {
-            if (file.name == ".mps") {
-                result.projects += FoundProject(file.parentFile)
+            val projectSettingsDir = File(file, ".mps")
+            val isProjectDir = projectSettingsDir.exists() && projectSettingsDir.isDirectory
+            if (isProjectDir) {
+                result.projects += FoundProject(file)
+            }
+            val modulesXmlFile = File(projectSettingsDir, "modules.xml")
+            if (modulesXmlFile.exists() && modulesXmlFile.isFile) {
+                val moduleFiles = readModulesXml(modulesXmlFile, file)
+                    .filter { !isModuleFileIgnored(it, file, fileFilter) }
+                println("MPS project found in $file. Loading only modules that are part of the project:")
+                moduleFiles.forEach { println("    $it") }
+                moduleFiles.forEach { moduleFile -> collectModules(moduleFile, owner, origin, result, fileFilter) }
             } else {
                 val pluginXml = File(File(file, "META-INF"), "plugin.xml")
                 val isPluginDir = pluginXml.exists()
@@ -122,6 +132,31 @@ class ModulesMiner() {
         }
     }
 
+    private fun isIgnored(file: File, fileFilter: (File)->Boolean): Boolean {
+        return !fileFilter(file) || File(file, ".mpsbuild-ignore").exists()
+    }
+
+    private fun isModuleFileIgnored(file: File, projectDir_: File, fileFilter: (File)->Boolean): Boolean {
+        val projectDir = projectDir_.canonicalFile
+        var currentFile: File? = file.canonicalFile
+        while (currentFile != null && currentFile != projectDir) {
+            if (isIgnored(currentFile, fileFilter)) return true
+            currentFile = currentFile.parentFile
+        }
+        return false
+    }
+
+    private fun readModulesXml(modulesXmlFile: File, projectDir: File): List<File> {
+        val xml = readXmlFile(modulesXmlFile)
+        val moduleElements = xml.documentElement
+            .findTag("component")
+            ?.findTag("projectModules")
+            ?.childElements()
+            ?.filter { it.tagName == "modulePath" }
+            ?: return listOf()
+        val paths = moduleElements.map { it.getAttribute("path").replace("\$PROJECT_DIR\$", projectDir.absolutePath) }
+        return paths.map { File(it) }.filter { it.exists() && it.isFile }
+    }
 
     private fun readModule(file: File, owner: ModuleOwner): List<FoundModule> {
         try {
