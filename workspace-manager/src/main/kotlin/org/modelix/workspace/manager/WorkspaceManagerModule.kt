@@ -157,13 +157,61 @@ fun Application.workspaceManagerModule() {
                     br()
                     div {
                         style = "border: 1px solid black; padding: 10px;"
-                        div { text("Upload file or directory (max ~200 MB):") }
+
+                        div { text("Uploads:") }
+                        val allUploads = manager.getExistingUploads().associateBy { it.name }
+                        val uploadContent: (Map.Entry<String, File?>)->String = { uploads ->
+                            val fileNames: List<File> = (uploads.value?.listFiles()?.toList() ?: listOf())
+                            fileNames.joinToString(", ") { it.name }
+                        }
+                        table {
+                            for (upload in allUploads.toSortedMap()) {
+                                tr {
+                                    td { +upload.key }
+                                    td { +uploadContent(upload) }
+                                    td {
+                                        if (workspace.uploads.contains(upload.key)) {
+                                            form {
+                                                action = "./remove-upload"
+                                                method = FormMethod.post
+                                                input {
+                                                    type = InputType.hidden
+                                                    name = "uploadId"
+                                                    value = upload.key
+                                                }
+                                                input {
+                                                    type = InputType.submit
+                                                    value = "Remove"
+                                                }
+                                            }
+                                        } else {
+                                            form {
+                                                action = "./use-upload"
+                                                method = FormMethod.post
+                                                input {
+                                                    type = InputType.hidden
+                                                    name = "uploadId"
+                                                    value = upload.key
+                                                }
+                                                input {
+                                                    type = InputType.submit
+                                                    value = "Add"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        br()
+                        br()
+                        div { text("Upload new file or directory (max ~200 MB):") }
                         form {
                             action = "./upload"
                             method = FormMethod.post
                             encType = FormEncType.multipartFormData
                             div {
-                                text("Choose File(s):")
+                                text("Choose File(s): ")
                                 input {
                                     type = InputType.file
                                     name = "file"
@@ -338,6 +386,24 @@ fun Application.workspaceManagerModule() {
             workspaceAndHash.first.uploads += outputFolder.name
             manager.update(workspaceAndHash.first)
 
+            call.respondRedirect("./edit")
+        }
+
+        post("{workspaceId}/use-upload") {
+            val workspaceId = call.parameters["workspaceId"]!!
+            val uploadId = call.receiveParameters()["uploadId"]!!
+            val workspace = manager.getWorkspaceForId(workspaceId)?.first!!
+            workspace.uploads += uploadId
+            manager.update(workspace)
+            call.respondRedirect("./edit")
+        }
+
+        post("{workspaceId}/remove-upload") {
+            val workspaceId = call.parameters["workspaceId"]!!
+            val uploadId = call.receiveParameters()["uploadId"]!!
+            val workspace = manager.getWorkspaceForId(workspaceId)?.first!!
+            workspace.uploads -= uploadId
+            manager.update(workspace)
             call.respondRedirect("./edit")
         }
 

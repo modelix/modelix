@@ -190,7 +190,11 @@ class WorkspaceManager {
         return folder
     }
 
-    fun getUploadFolder(id: String) = File(File(directory, "uploads"), id)
+    private fun getUploadsFolder() = File(directory, "uploads")
+
+    fun getExistingUploads(): List<File> = getUploadsFolder().listFiles()?.toList() ?: listOf()
+
+    fun getUploadFolder(id: String) = File(getUploadsFolder(), id)
 
     private fun buildWorkspaceDownloadFile(job: WorkspaceBuildJob): File {
         val workspace = job.workspace
