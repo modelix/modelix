@@ -117,8 +117,8 @@ class ModulesMiner() {
             if (modulesXmlFile.exists() && modulesXmlFile.isFile) {
                 val moduleFiles = readModulesXml(modulesXmlFile, file)
                     .filter { !isModuleFileIgnored(it, file, fileFilter) }
-                println("MPS project found in $file. Loading only modules that are part of the project:")
-                moduleFiles.forEach { println("    $it") }
+//                println("MPS project found in $file. Loading only modules that are part of the project:")
+//                moduleFiles.forEach { println("    $it") }
                 moduleFiles.forEach { moduleFile -> collectModules(moduleFile, owner, origin, result, fileFilter) }
             } else {
                 val pluginXml = File(File(file, "META-INF"), "plugin.xml")

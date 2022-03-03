@@ -61,6 +61,16 @@ class DependencyGraph(val moduleResolver: ModuleResolver) {
     private fun mergeCycles() {
         val cycleFinder = CycleFinder()
         module2node.values.forEach { cycleFinder.process(it) }
+
+        for (cycle in cycleFinder.cycles) {
+            val modules = cycle.flatMap { it.modules }
+                .filter { it.moduleType == ModuleType.Language || it.moduleType == ModuleType.Solution }
+            if (!modules.any { it.owner is SourceModuleOwner }) continue
+            if (modules.size > 1) {
+                println("Dependency cycle: " + modules.joinToString(" -> ") { it.name })
+            }
+        }
+
         for (cycle in cycleFinder.cycles) {
             val nodesToMerge = cycle.map { it.getMergedNode() }.distinct()
             if (nodesToMerge.size <= 1) continue
@@ -129,13 +139,13 @@ class DependencyGraph(val moduleResolver: ModuleResolver) {
 
     private inner class CycleFinder {
         val processed = HashSet<DependencyNode>()
-        val cycles: MutableList<List<DependencyNode>> = ArrayList()
+        val cycles: LinkedHashSet<LinkedHashSet<DependencyNode>> = LinkedHashSet()
         val currentStack = ArrayList<DependencyNode>()
 
         fun process(node: DependencyNode) {
             val index = currentStack.indexOf(node)
             if (index != -1) {
-                cycles += currentStack.drop(index)
+                cycles += LinkedHashSet(currentStack.drop(index))
             }
 
             if (processed.contains(node)) return
