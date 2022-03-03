@@ -48,11 +48,12 @@ fun Application.workspaceManagerModule() {
                 body {
                     h1 { text("Workspaces") }
                     ul {
-                        manager.getWorkspaceIds().forEach {
+                        manager.getWorkspaceIds().forEach { workspaceId ->
+                            val workspace = manager.getWorkspaceForId(workspaceId)?.first
                             li {
                                 a {
-                                    href = "$it/edit"
-                                    text(it)
+                                    href = "$workspaceId/edit"
+                                    text((workspace?.name ?: "<no name>") + " ($workspaceId)")
                                 }
                             }
                         }

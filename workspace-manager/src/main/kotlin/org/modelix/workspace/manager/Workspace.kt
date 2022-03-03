@@ -24,6 +24,7 @@ import java.util.*
 
 @Serializable
 data class Workspace(var id: String,
+                     var name: String? = null,
                      val mpsVersion: String? = null,
                      val modelRepositories: List<ModelRepository> = listOf(),
                      val gitRepositories: List<GitRepository> = listOf(),
