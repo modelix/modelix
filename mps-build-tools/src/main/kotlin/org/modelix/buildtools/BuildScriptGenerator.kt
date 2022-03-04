@@ -359,9 +359,16 @@ class BuildScriptGenerator(val modulesMiner: ModulesMiner,
         return doc
     }
 
+    private fun getGeneratorIndex(module: FoundModule): Int {
+        return module.owner.modules.values.filter { it.moduleType == ModuleType.Generator }.indexOf(module)
+    }
+    private fun getGeneratorIndexPart(module: FoundModule): String {
+        val index = getGeneratorIndex(module)
+        return if (index == 0) "" else "-$index"
+    }
     private fun getAssembleTargetName(module: FoundModule): String {
         return if (module.moduleType == ModuleType.Generator) {
-            "assemble.generator.${module.name}"
+            "assemble.generator${getGeneratorIndex(module)}.${module.name}"
         } else {
             "assemble.${module.name}"
         }
@@ -372,14 +379,16 @@ class BuildScriptGenerator(val modulesMiner: ModulesMiner,
     }
     private fun getJarFile(module: FoundModule): File {
         return if (module.moduleType == ModuleType.Generator) {
-            File(getPackagedModulesDir(), getNonGeneratorModule(module).name + "-generator.jar")
+            val indexPart = getGeneratorIndexPart(module)
+            File(getPackagedModulesDir(), getNonGeneratorModule(module).name + "$indexPart-generator.jar")
         } else {
             File(getPackagedModulesDir(), module.name + ".jar")
         }
     }
     private fun getJarTempDir(module: FoundModule): File {
         return if (module.moduleType == ModuleType.Generator) {
-            File(getPackagedModulesTempDir(), module.name + "-generator")
+            val indexPart = getGeneratorIndexPart(module)
+            File(getPackagedModulesTempDir(), module.name + "$indexPart-generator")
         } else {
             File(getPackagedModulesTempDir(), module.name)
         }
@@ -400,7 +409,7 @@ class BuildScriptGenerator(val modulesMiner: ModulesMiner,
     private fun getModelsTempDir() = File(buildDir, "models-tmp")
     private fun getModelsTempDir(module: FoundModule): File {
         return if (module.moduleType == ModuleType.Generator) {
-            File(getModelsTempDir(), module.name + "-generator")
+            File(getModelsTempDir(), module.name + "${getGeneratorIndexPart(module)}-generator")
         } else {
             File(getModelsTempDir(), module.name)
         }
