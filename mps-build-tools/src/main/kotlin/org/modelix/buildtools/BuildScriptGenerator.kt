@@ -231,21 +231,13 @@ class BuildScriptGenerator(val modulesMiner: ModulesMiner,
                 }
             }
             
-            // target: assemble.___.__.___
-            for (sourceModule in sourceModules) {
-                val generatorModule: FoundModule? = (sourceModule.owner.modules.values - sourceModule).firstOrNull()
-                val moduleFolder = sourceModule.owner.path.getLocalAbsolutePath().parent
+            // target: assemble.___.__.___ and assemble.generator.___.__.___
+            for (sourceModule in modulesToCompile) {
                 newChild("target") {
-                    setAttribute("name", "assemble.${sourceModule.name}")
-                    val targetDependencies = sourceModule.owner.modules.values.map { "compile.${it.name}" } + "create-modules-output-dir"
-                    setAttribute("depends", targetDependencies.joinToString(", "))
+                    setAttribute("name", getAssembleTargetName(sourceModule))
+                    setAttribute("depends", "compile.${sourceModule.name}, create-modules-output-dir")
                     newChild("mkdir") {
                         setAttribute("dir", getJarTempDir(sourceModule).absolutePath)
-                    }
-                    if (generatorModule != null) {
-                        newChild("mkdir") {
-                            setAttribute("dir", getJarTempDir(generatorModule).absolutePath)
-                        }
                     }
                     val metaInfFolder = File(getJarTempDir(sourceModule), "META-INF")
                     newChild("mkdir") {
@@ -304,23 +296,14 @@ class BuildScriptGenerator(val modulesMiner: ModulesMiner,
                             setAttribute("includes", "icons/**, resources/**")
                         }
                     }
-                    // ___.__.___-generator.jar
-                    if (generatorModule != null) {
-                        newChild("jar") {
-                            setAttribute("destfile", getJarFile(generatorModule).absolutePath)
-                            setAttribute("duplicate", "preserve")
-                            newChild("fileset") {
-                                setAttribute("dir", getCompileOutputDir(generatorModule).absolutePath)
-                            }
-                            newChild("fileset") {
-                                setAttribute("dir", getJarTempDir(generatorModule).absolutePath)
-                            }
-                            newChild("fileset") {
-                                setAttribute("dir", getSourceGenDir(generatorModule).absolutePath)
-                                setAttribute("includes", "**/trace.info, **/exports, **/*.mps, **/checkpoints")
-                            }
-                        }
-                    }
+                }
+            }
+            for (sourceModule in sourceModules) {
+                val moduleFolder = sourceModule.owner.path.getLocalAbsolutePath().parent
+                newChild("target") {
+                    setAttribute("name", getAssembleTargetName(sourceModule.owner as SourceModuleOwner))
+                    val targetDependencies = sourceModule.owner.modules.values.map { getAssembleTargetName(it) } + "create-modules-output-dir"
+                    setAttribute("depends", targetDependencies.joinToString(", "))
                     // ___.__.___-src.jar
                     val modelFolders = findModelFolders(sourceModule)
                     for (modelFolder in modelFolders) {
@@ -358,7 +341,8 @@ class BuildScriptGenerator(val modulesMiner: ModulesMiner,
             // target: assemble
             newChild("target") {
                 setAttribute("name", "assemble")
-                setAttribute("depends", sourceModules.joinToString(", ") { "assemble.${it.name}" })
+                setAttribute("depends", sourceModules.map { it.owner as SourceModuleOwner }
+                    .joinToString(", ") { getAssembleTargetName(it) })
             }
 
             // target: clean
@@ -375,6 +359,17 @@ class BuildScriptGenerator(val modulesMiner: ModulesMiner,
         return doc
     }
 
+    private fun getAssembleTargetName(module: FoundModule): String {
+        return if (module.moduleType == ModuleType.Generator) {
+            "assemble.generator.${module.name}"
+        } else {
+            "assemble.${module.name}"
+        }
+    }
+    private fun getAssembleTargetName(owner: SourceModuleOwner): String {
+        val module = owner.modules.values.first()
+        return "assemble.all.${module.name}"
+    }
     private fun getJarFile(module: FoundModule): File {
         return if (module.moduleType == ModuleType.Generator) {
             File(getPackagedModulesDir(), module.name + "-generator.jar")
