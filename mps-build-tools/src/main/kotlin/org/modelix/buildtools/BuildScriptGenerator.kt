@@ -182,7 +182,7 @@ class BuildScriptGenerator(val modulesMiner: ModulesMiner,
                         }
                         newChild("src") {
                             newChild("path") {
-                                setAttribute("location", getSourceGenDir(sourceModule).pathString)
+                                setAttribute("location", getSourceGenDir(sourceModule).absolutePath)
                             }
                         }
                         newChild("classpath") {
@@ -235,6 +235,48 @@ class BuildScriptGenerator(val modulesMiner: ModulesMiner,
                 newChild("target") {
                     setAttribute("name", "assemble.${sourceModule.name}")
                     setAttribute("depends", "create-modules-output-dir, compile.${sourceModule.name}")
+                    newChild("mkdir") {
+                        setAttribute("dir", getJarTempDir(sourceModule).absolutePath)
+                    }
+                    val metaInfFolder = File(getJarTempDir(sourceModule), "META-INF")
+                    newChild("mkdir") {
+                        setAttribute("dir", metaInfFolder.absolutePath)
+                    }
+                    newChild("echoxml") {
+                        setAttribute("file", File(metaInfFolder, "module.xml").absolutePath)
+                        newChild("module") {
+                            setAttribute("namespace", sourceModule.name)
+                            val typeString: String = when (sourceModule.moduleType) {
+                                ModuleType.Generator -> "generator"
+                                ModuleType.Solution -> "solution"
+                                ModuleType.Language -> "language"
+                                ModuleType.Devkit -> "devkit"
+                            }
+                            setAttribute("type", typeString)
+                            setAttribute("uuid", sourceModule.moduleId.id)
+                            newChild("dependencies") {
+//                                newChild("module") {
+//                                    setAttribute("ref", "")
+//                                    setAttribute("kind", "rt")
+//                                }
+                            }
+                            newChild("uses") {
+//                                newChild("language") {
+//                                    setAttribute("id", "")
+//                                }
+                            }
+                            newChild("classpath") {
+                                newChild("entry") {
+                                    setAttribute("path", ".")
+                                }
+                            }
+                            newChild("sources") {
+                                setAttribute("jar", "${sourceModule.name}-src.jar")
+                                setAttribute("descriptor", sourceModule.owner.path.getLocalAbsolutePath().toFile().name)
+                            }
+                        }
+                    }
+                    // ___.__.___.jar
                     newChild("jar") {
                         setAttribute("destfile", getJarFile(sourceModule).absolutePath)
                         setAttribute("duplicate", "preserve")
@@ -242,12 +284,42 @@ class BuildScriptGenerator(val modulesMiner: ModulesMiner,
                             setAttribute("dir", getCompileOutputDir(sourceModule).absolutePath)
                         }
                         newChild("fileset") {
-                            setAttribute("dir", getSourceGenDir(sourceModule).pathString)
+                            setAttribute("dir", getJarTempDir(sourceModule).absolutePath)
+                        }
+                        newChild("fileset") {
+                            setAttribute("dir", getSourceGenDir(sourceModule).absolutePath)
                             setAttribute("includes", "**/trace.info, **/exports, **/*.mps, **/checkpoints")
                         }
                         newChild("fileset") {
                             setAttribute("dir", sourceModule.owner.path.getLocalAbsolutePath().parent.pathString)
                             setAttribute("includes", "icons/**, resources/**")
+                        }
+                    }
+                    // ___.__.___-src.jar
+                    newChild("copyModels") {
+                        setAttribute("todir", getModelsTempDir(sourceModule).absolutePath)
+                        newChild("fileset") {
+                            setAttribute("dir", getModelsDir(sourceModule).absolutePath)
+                            setAttribute("includes", "**/*.mps, **/*.mpsr, **/.model")
+                        }
+                    }
+                    newChild("jar") {
+                        setAttribute("destfile", getSrcJarFile(sourceModule).absolutePath)
+                        setAttribute("duplicate", "preserve")
+                        newChild("fileset") {
+                            setAttribute("dir", getSourceGenDir(sourceModule).absolutePath)
+                            newChild("exclude") { setAttribute("name", "**/trace.info") }
+                            newChild("exclude") { setAttribute("name", "**/exports") }
+                            newChild("exclude") { setAttribute("name", "**/checkpoints") }
+                            newChild("exclude") { setAttribute("name", "**/*.mps") }
+                        }
+                        newChild("zipfileset") {
+                            setAttribute("file", sourceModule.owner.path.getLocalAbsolutePath().pathString)
+                            setAttribute("prefix", "module")
+                        }
+                        newChild("zipfileset") {
+                            setAttribute("dir", getModelsTempDir(sourceModule).absolutePath)
+                            setAttribute("prefix", "module/models")
                         }
                     }
                 }
@@ -266,11 +338,16 @@ class BuildScriptGenerator(val modulesMiner: ModulesMiner,
     }
 
     private fun getJarFile(module: FoundModule) = File(getPackagedModulesDir(), module.name + ".jar")
+    private fun getJarTempDir(module: FoundModule) = File(getPackagedModulesTempDir(), module.name)
     private fun getSrcJarFile(module: FoundModule) = File(getPackagedModulesDir(), module.name + "-src.jar")
     private fun getPackagedModulesDir() = File(buildDir, "packaged-modules")
+    private fun getPackagedModulesTempDir() = File(buildDir, "packaged-modules-tmp")
+    private fun getModelsTempDir() = File(buildDir, "models-tmp")
+    private fun getModelsTempDir(module: FoundModule) = File(getModelsTempDir(), module.name)
     private fun getCompileOutputDir() = File(buildDir, "java-out")
     private fun getCompileOutputDir(module: FoundModule) = File(getCompileOutputDir(), module.name)
-    private fun getSourceGenDir(module: FoundModule) = module.owner.path.getLocalAbsolutePath().parent.resolve("source_gen")
+    private fun getSourceGenDir(module: FoundModule) = module.owner.path.getLocalAbsolutePath().parent.resolve("source_gen").toFile()
+    private fun getModelsDir(module: FoundModule) = module.owner.path.getLocalAbsolutePath().parent.resolve("models").toFile()
     private fun getClassPath(module: FoundModule): List<File> {
         return when(val owner = module.owner) {
             is SourceModuleOwner -> {
