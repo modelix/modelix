@@ -16,6 +16,7 @@ package org.modelix.buildtools
 import org.modelix.headlessmps.ProcessExecutor
 import org.w3c.dom.Document
 import java.io.File
+import java.nio.file.Path
 import javax.xml.parsers.DocumentBuilderFactory
 import kotlin.io.path.pathString
 
@@ -231,12 +232,20 @@ class BuildScriptGenerator(val modulesMiner: ModulesMiner,
             }
             
             // target: assemble.___.__.___
-            for (sourceModule in modulesToCompile) {
+            for (sourceModule in sourceModules) {
+                val generatorModule: FoundModule? = (sourceModule.owner.modules.values - sourceModule).firstOrNull()
+                val moduleFolder = sourceModule.owner.path.getLocalAbsolutePath().parent
                 newChild("target") {
                     setAttribute("name", "assemble.${sourceModule.name}")
-                    setAttribute("depends", "create-modules-output-dir, compile.${sourceModule.name}")
+                    val targetDependencies = sourceModule.owner.modules.values.map { "compile.${it.name}" } + "create-modules-output-dir"
+                    setAttribute("depends", targetDependencies.joinToString(", "))
                     newChild("mkdir") {
                         setAttribute("dir", getJarTempDir(sourceModule).absolutePath)
+                    }
+                    if (generatorModule != null) {
+                        newChild("mkdir") {
+                            setAttribute("dir", getJarTempDir(generatorModule).absolutePath)
+                        }
                     }
                     val metaInfFolder = File(getJarTempDir(sourceModule), "META-INF")
                     newChild("mkdir") {
@@ -295,12 +304,33 @@ class BuildScriptGenerator(val modulesMiner: ModulesMiner,
                             setAttribute("includes", "icons/**, resources/**")
                         }
                     }
+                    // ___.__.___-generator.jar
+                    if (generatorModule != null) {
+                        newChild("jar") {
+                            setAttribute("destfile", getJarFile(generatorModule).absolutePath)
+                            setAttribute("duplicate", "preserve")
+                            newChild("fileset") {
+                                setAttribute("dir", getCompileOutputDir(generatorModule).absolutePath)
+                            }
+                            newChild("fileset") {
+                                setAttribute("dir", getJarTempDir(generatorModule).absolutePath)
+                            }
+                            newChild("fileset") {
+                                setAttribute("dir", getSourceGenDir(generatorModule).absolutePath)
+                                setAttribute("includes", "**/trace.info, **/exports, **/*.mps, **/checkpoints")
+                            }
+                        }
+                    }
                     // ___.__.___-src.jar
-                    newChild("copyModels") {
-                        setAttribute("todir", getModelsTempDir(sourceModule).absolutePath)
-                        newChild("fileset") {
-                            setAttribute("dir", getModelsDir(sourceModule).absolutePath)
-                            setAttribute("includes", "**/*.mps, **/*.mpsr, **/.model")
+                    val modelFolders = findModelFolders(sourceModule)
+                    for (modelFolder in modelFolders) {
+                        val modelFolderRelative = moduleFolder.relativize(modelFolder.toPath())
+                        newChild("copyModels") {
+                            setAttribute("todir", getModelsTempDir(sourceModule).toPath().resolve(modelFolderRelative).pathString)
+                            newChild("fileset") {
+                                setAttribute("dir", modelFolder.absolutePath)
+                                setAttribute("includes", "**/*.mps, **/*.mpsr, **/.model")
+                            }
                         }
                     }
                     newChild("jar") {
@@ -319,7 +349,7 @@ class BuildScriptGenerator(val modulesMiner: ModulesMiner,
                         }
                         newChild("zipfileset") {
                             setAttribute("dir", getModelsTempDir(sourceModule).absolutePath)
-                            setAttribute("prefix", "module/models")
+                            setAttribute("prefix", "module")
                         }
                     }
                 }
@@ -328,7 +358,15 @@ class BuildScriptGenerator(val modulesMiner: ModulesMiner,
             // target: assemble
             newChild("target") {
                 setAttribute("name", "assemble")
-                setAttribute("depends", modulesToCompile.joinToString(", ") { "assemble.${it.name}" })
+                setAttribute("depends", sourceModules.joinToString(", ") { "assemble.${it.name}" })
+            }
+
+            // target: clean
+            newChild("target") {
+                setAttribute("name", "clean")
+                newChild("delete") { setAttribute("dir", getPackagedModulesDir().absolutePath) }
+                newChild("delete") { setAttribute("dir", getPackagedModulesTempDir().absolutePath) }
+                newChild("delete") { setAttribute("dir", getCompileOutputDir().absolutePath) }
             }
         }
 
@@ -337,17 +375,70 @@ class BuildScriptGenerator(val modulesMiner: ModulesMiner,
         return doc
     }
 
-    private fun getJarFile(module: FoundModule) = File(getPackagedModulesDir(), module.name + ".jar")
-    private fun getJarTempDir(module: FoundModule) = File(getPackagedModulesTempDir(), module.name)
+    private fun getJarFile(module: FoundModule): File {
+        return if (module.moduleType == ModuleType.Generator) {
+            File(getPackagedModulesDir(), module.name + "-generator.jar")
+        } else {
+            File(getPackagedModulesDir(), module.name + ".jar")
+        }
+    }
+    private fun getJarTempDir(module: FoundModule): File {
+        return if (module.moduleType == ModuleType.Generator) {
+            File(getPackagedModulesTempDir(), module.name + "-generator")
+        } else {
+            File(getPackagedModulesTempDir(), module.name)
+        }
+    }
     private fun getSrcJarFile(module: FoundModule) = File(getPackagedModulesDir(), module.name + "-src.jar")
     private fun getPackagedModulesDir() = File(buildDir, "packaged-modules")
     private fun getPackagedModulesTempDir() = File(buildDir, "packaged-modules-tmp")
     private fun getModelsTempDir() = File(buildDir, "models-tmp")
-    private fun getModelsTempDir(module: FoundModule) = File(getModelsTempDir(), module.name)
+    private fun getModelsTempDir(module: FoundModule): File {
+        return if (module.moduleType == ModuleType.Generator) {
+            File(getModelsTempDir(), module.name + "-generator")
+        } else {
+            File(getModelsTempDir(), module.name)
+        }
+    }
+    private fun findModelFolders(module: FoundModule): List<File> {
+        val moduleFolder = module.owner.path.getLocalAbsolutePath().parent
+        return moduleFolder.toFile().walk()
+            .filter { getParentFolderNames(it).all { name -> name != "classes_gen" } }
+            .filter { it.extension == "mps" || it.extension == "mpsr" || it.name == ".model" }
+            .map { it.parentFile }.distinct()
+            .toList()
+    }
+    private fun getParentFolderNames(file: File): List<String> {
+        var parent: File? = file
+        val result = ArrayList<String>()
+        while (parent != null) {
+            result += parent.name
+            parent = parent.parentFile
+        }
+        return result
+    }
     private fun getCompileOutputDir() = File(buildDir, "java-out")
-    private fun getCompileOutputDir(module: FoundModule) = File(getCompileOutputDir(), module.name)
-    private fun getSourceGenDir(module: FoundModule) = module.owner.path.getLocalAbsolutePath().parent.resolve("source_gen").toFile()
-    private fun getModelsDir(module: FoundModule) = module.owner.path.getLocalAbsolutePath().parent.resolve("models").toFile()
+    private fun getCompileOutputDir(module: FoundModule): File {
+        return if (module.moduleType == ModuleType.Generator) {
+            File(getCompileOutputDir(), module.name + "-generator")
+        } else {
+            File(getCompileOutputDir(), module.name)
+        }
+    }
+    private fun getSourceGenDir(module: FoundModule): File {
+        return if (module.moduleType == ModuleType.Generator) {
+            module.owner.path.getLocalAbsolutePath().parent.resolve("generator").resolve("source_gen").toFile()
+        } else {
+            module.owner.path.getLocalAbsolutePath().parent.resolve("source_gen").toFile()
+        }
+    }
+    private fun getModelsDir(module: FoundModule): File {
+        return if (module.moduleType == ModuleType.Generator) {
+            module.owner.path.getLocalAbsolutePath().parent.resolve("generator").resolve("template").toFile()
+        } else {
+            module.owner.path.getLocalAbsolutePath().parent.resolve("models").toFile()
+        }
+    }
     private fun getClassPath(module: FoundModule): List<File> {
         return when(val owner = module.owner) {
             is SourceModuleOwner -> {
