@@ -19,6 +19,8 @@ class DependencyGraph(val moduleResolver: ModuleResolver) {
 
     fun getRoots() = module2node.values.filter { it.isRoot() }
 
+    fun getNode(moduleId: ModuleId) = module2node[moduleId]
+
     fun load(modules: Iterable<FoundModule>) {
         modules.forEach { load(it) }
         postprocess()
@@ -135,6 +137,14 @@ class DependencyGraph(val moduleResolver: ModuleResolver) {
         fun getReverseDependencies() = HashSet(reverseDependencies)
 
         fun isRoot() = reverseDependencies.isEmpty()
+
+        fun getTransitiveDependencies(result: MutableSet<DependencyNode> = HashSet()): Set<DependencyNode> {
+            if (!result.contains(this)) {
+                result += dependencies
+                dependencies.forEach { it.getTransitiveDependencies(result) }
+            }
+            return result
+        }
     }
 
     private inner class CycleFinder {

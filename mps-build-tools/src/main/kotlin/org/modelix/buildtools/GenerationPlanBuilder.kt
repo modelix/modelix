@@ -20,10 +20,11 @@ class GenerationPlanBuilder(val availableModules: FoundModules, val ignoredModul
     private val processedNodes: MutableSet<DependencyGraph.DependencyNode> = HashSet()
     private val chunkIndexes: MutableMap<DependencyGraph.DependencyNode, Int> = HashMap()
 
-    fun build(modules: Iterable<FoundModule>) {
+    fun build(modules: Iterable<FoundModule>): DependencyGraph {
         val dependencyGraph = DependencyGraph(ModuleResolver(availableModules, ignoredModules))
         dependencyGraph.load(modules)
         dependencyGraph.getRoots().forEach { build(it) }
+        return dependencyGraph
     }
 
     private fun build(node: DependencyGraph.DependencyNode) {
@@ -32,7 +33,7 @@ class GenerationPlanBuilder(val availableModules: FoundModules, val ignoredModul
 
         node.getDependencies().forEach { build(it) }
         var chunkIndex = -1
-        val dependencyChunkIndexes = node.getDependencies().mapNotNull { chunkIndexes[it] }
+        node.getDependencies().mapNotNull { chunkIndexes[it] }
             .forEach { chunkIndex = max(it, chunkIndex) }
         chunkIndex++
         // Too large chunks require too much memory

@@ -65,7 +65,8 @@ public class MPSBuildPlugin implements Plugin<Project> {
                         project.getDependencies().create("org.modelix:mps-model-plugin:" + modelixVersion));
             }
 
-            File antScriptFile = new File(project.getProjectDir(), "mps-generate-script.xml");
+            File buildDir = new File(new File(project.getProjectDir(), "build"), "mpsbuild");
+            File antScriptFile = new File(buildDir, "build-modules.xml");
             Task generatorAntScript = project.getTasks().create("generatorAntScript");
             Action<Task> action = task -> {
                 ModulesMiner modulesMiner = new ModulesMiner();
@@ -87,7 +88,7 @@ public class MPSBuildPlugin implements Plugin<Project> {
                     modulesMiner.searchInFolder(mpsHome);
                 }
                 BuildScriptGenerator generator = new BuildScriptGenerator(modulesMiner, null,
-                        Collections.emptySet(), Collections.emptyMap());
+                        Collections.emptySet(), Collections.emptyMap(), buildDir);
                 String xml = generator.generateXML();
                 try {
                     FileUtils.writeStringToFile(antScriptFile, xml, StandardCharsets.UTF_8);

@@ -22,7 +22,8 @@ import kotlin.io.path.pathString
 class BuildScriptGenerator(val modulesMiner: ModulesMiner,
                            val modulesToGenerate: List<ModuleId>? = null,
                            val ignoredModules: Set<ModuleId> = HashSet(),
-                           val macros: Map<String, File> = HashMap()) {
+                           val macros: Map<String, File> = HashMap(),
+                           val buildDir: File = File(".", "build")) {
 
     fun buildModules(antScriptFile: File = File.createTempFile("mps-build-script", ".xml", File(".")), outputHandler: ((String)->Unit)? = null) {
         val xml = generateXML()
@@ -50,7 +51,7 @@ class BuildScriptGenerator(val modulesMiner: ModulesMiner,
                 .filter { it.owner is SourceModuleOwner && it.moduleType == ModuleType.Language }
                 .map { it.moduleId }
                 .toList()
-        val plan = generatePlan(modulesToGenerate_ - ignoredModules.toSet())
+        val (plan, dependencyGraph) = generatePlan(modulesToGenerate_ - ignoredModules.toSet())
 
         val dbf = DocumentBuilderFactory.newInstance()
         val db = dbf.newDocumentBuilder()
@@ -89,6 +90,7 @@ class BuildScriptGenerator(val modulesMiner: ModulesMiner,
                 }
             }
 
+            // target: generate
             newChild("target") {
                 setAttribute("name", "generate")
                 setAttribute("depends", "declare-mps-tasks")
@@ -141,13 +143,120 @@ class BuildScriptGenerator(val modulesMiner: ModulesMiner,
                 }
             }
 
+            // target: declare-mps-tasks
             newChild("target") {
                 setAttribute("name", "declare-mps-tasks")
                 newChild("taskdef") {
                     setAttribute("resource", "jetbrains/mps/build/ant/antlib.xml")
                     setAttribute("classpathref", "path.mps.ant.path")
-
                 }
+            }
+
+            // target: compile.___.__.___
+            val sourceModules = plan.chunks.flatMap { it.modules }.filter { it.owner is SourceModuleOwner }
+            val generatorModules = sourceModules.flatMap { it.owner.modules.values - it }
+            val modulesToCompile = sourceModules + generatorModules
+            for (sourceModule in modulesToCompile) {
+                newChild("target") {
+                    setAttribute("name", "compile.${sourceModule.name}")
+
+                    val taskDependencies = sourceModule.dependencies
+                        .mapNotNull { modulesMiner.getModules().getModules()[it.id] }
+                        .filter { it.owner is SourceModuleOwner }
+                        .joinToString(", ") { "compile.${it.name}" }
+                    setAttribute("depends", taskDependencies)
+
+                    newChild("mkdir") {
+                        setAttribute("dir", getCompileOutputDir(sourceModule).absolutePath)
+                    }
+                    newChild("javac") {
+                        setAttribute("destdir", getCompileOutputDir(sourceModule).absolutePath)
+                        setAttribute("fork", "false")
+                        setAttribute("encoding", "utf8")
+                        setAttribute("includeantruntime", "false")
+                        setAttribute("debug", "true")
+                        setAttribute("source", "11")
+                        setAttribute("target", "11")
+                        newChild("compilerarg") {
+                            setAttribute("value", "-Xlint:none")
+                        }
+                        newChild("src") {
+                            newChild("path") {
+                                setAttribute("location", getSourceGenDir(sourceModule).pathString)
+                            }
+                        }
+                        newChild("classpath") {
+                            if (mpsHome != null) {
+                                for (jar in File(mpsHome, "lib").walk().filter { it.extension == "jar" }) {
+                                    newChild("fileset") {
+                                        setAttribute("file", jar.absolutePath)
+                                    }
+                                }
+                            }
+
+                            val classPath = dependencyGraph.getNode(sourceModule.moduleId)!!
+                                .getTransitiveDependencies()
+                                .flatMap { it.modules }
+                                .flatMap { getClassPath(it) }
+                                .map { it.canonicalFile }
+                                .distinct()
+                            for (cpItem in classPath) {
+                                if (cpItem.isFile) {
+                                    newChild("fileset") {
+                                        setAttribute("file", cpItem.absolutePath)
+                                    }
+                                } else {
+                                    newChild("pathelement") {
+                                        setAttribute("path", cpItem.absolutePath)
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            // target: compile
+            newChild("target") {
+                setAttribute("depends", modulesToCompile.joinToString(", ") { "compile.${it.name}" })
+                setAttribute("name", "compile")
+            }
+
+            newChild("target") {
+                setAttribute("name", "create-modules-output-dir")
+                setAttribute("depends", "declare-mps-tasks")
+                newChild("mkdir") {
+                    setAttribute("dir", getPackagedModulesDir().absolutePath)
+                }
+            }
+            
+            // target: assemble.___.__.___
+            for (sourceModule in modulesToCompile) {
+                newChild("target") {
+                    setAttribute("name", "assemble.${sourceModule.name}")
+                    setAttribute("depends", "create-modules-output-dir, compile.${sourceModule.name}")
+                    newChild("jar") {
+                        setAttribute("destfile", getJarFile(sourceModule).absolutePath)
+                        setAttribute("duplicate", "preserve")
+                        newChild("fileset") {
+                            setAttribute("dir", getCompileOutputDir(sourceModule).absolutePath)
+                        }
+                        newChild("fileset") {
+                            setAttribute("dir", getSourceGenDir(sourceModule).pathString)
+                            setAttribute("includes", "**/trace.info, **/exports, **/*.mps, **/checkpoints")
+                        }
+                        newChild("fileset") {
+                            setAttribute("dir", sourceModule.owner.path.getLocalAbsolutePath().parent.pathString)
+                            setAttribute("includes", "icons/**, resources/**")
+                        }
+                    }
+                }
+            }
+
+            // target: assemble
+            newChild("target") {
+                setAttribute("name", "assemble")
+                setAttribute("depends", modulesToCompile.joinToString(", ") { "assemble.${it.name}" })
             }
         }
 
@@ -156,9 +265,31 @@ class BuildScriptGenerator(val modulesMiner: ModulesMiner,
         return doc
     }
 
-    fun generatePlan(modulesToGenerate: List<ModuleId>): GenerationPlan {
+    private fun getJarFile(module: FoundModule) = File(getPackagedModulesDir(), module.name + ".jar")
+    private fun getSrcJarFile(module: FoundModule) = File(getPackagedModulesDir(), module.name + "-src.jar")
+    private fun getPackagedModulesDir() = File(buildDir, "packaged-modules")
+    private fun getCompileOutputDir() = File(buildDir, "java-out")
+    private fun getCompileOutputDir(module: FoundModule) = File(getCompileOutputDir(), module.name)
+    private fun getSourceGenDir(module: FoundModule) = module.owner.path.getLocalAbsolutePath().parent.resolve("source_gen")
+    private fun getClassPath(module: FoundModule): List<File> {
+        return when(val owner = module.owner) {
+            is SourceModuleOwner -> {
+                listOf(getCompileOutputDir(module))
+            }
+            is LibraryModuleOwner -> {
+                listOf(owner.path.getLocalAbsolutePath().toFile())
+            }
+            is PluginModuleOwner -> {
+                owner.path.getLocalAbsolutePath().resolve("lib").toFile()
+                    .walk().filter { it.extension == "jar" }.toList()
+            }
+            else -> throw RuntimeException("Unknown owner: $owner")
+        }
+    }
+
+    private fun generatePlan(modulesToGenerate: List<ModuleId>): Pair<GenerationPlan, DependencyGraph> {
         val planBuilder = GenerationPlanBuilder(modulesMiner.getModules(), ignoredModules)
-        planBuilder.build(modulesToGenerate.mapNotNull { modulesMiner.getModules().getModules()[it] })
-        return planBuilder.plan
+        val dependencyGraph = planBuilder.build(modulesToGenerate.mapNotNull { modulesMiner.getModules().getModules()[it] })
+        return planBuilder.plan to dependencyGraph
     }
 }
