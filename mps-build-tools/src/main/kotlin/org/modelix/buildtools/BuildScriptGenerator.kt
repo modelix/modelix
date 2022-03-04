@@ -272,7 +272,7 @@ class BuildScriptGenerator(val modulesMiner: ModulesMiner,
                                 }
                             }
                             newChild("sources") {
-                                setAttribute("jar", "${sourceModule.name}-src.jar")
+                                setAttribute("jar", getSrcJarFile(sourceModule).name)
                                 setAttribute("descriptor", sourceModule.owner.path.getLocalAbsolutePath().toFile().name)
                             }
                         }
@@ -372,7 +372,7 @@ class BuildScriptGenerator(val modulesMiner: ModulesMiner,
     }
     private fun getJarFile(module: FoundModule): File {
         return if (module.moduleType == ModuleType.Generator) {
-            File(getPackagedModulesDir(), module.name + "-generator.jar")
+            File(getPackagedModulesDir(), getNonGeneratorModule(module).name + "-generator.jar")
         } else {
             File(getPackagedModulesDir(), module.name + ".jar")
         }
@@ -384,7 +384,17 @@ class BuildScriptGenerator(val modulesMiner: ModulesMiner,
             File(getPackagedModulesTempDir(), module.name)
         }
     }
-    private fun getSrcJarFile(module: FoundModule) = File(getPackagedModulesDir(), module.name + "-src.jar")
+    private fun getSrcJarFile(module: FoundModule): File {
+        return File(getPackagedModulesDir(), getNonGeneratorModule(module).name + "-src.jar")
+    }
+    private fun getNonGeneratorModule(module: FoundModule): FoundModule {
+        return if (module.moduleType != ModuleType.Generator) {
+            module
+        } else {
+            module.owner.modules.values.find { it.moduleType != ModuleType.Generator }
+                ?: throw RuntimeException("Generator without language in: " + module.owner.path.getLocalAbsolutePath())
+        }
+    }
     private fun getPackagedModulesDir() = File(buildDir, "packaged-modules")
     private fun getPackagedModulesTempDir() = File(buildDir, "packaged-modules-tmp")
     private fun getModelsTempDir() = File(buildDir, "models-tmp")

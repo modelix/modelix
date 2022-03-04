@@ -20,7 +20,6 @@ source_gen.caches
 
 # modules are configured by gradle
 .idea/modules
-modules.xml
 .DS_Store
 .idea/uiDesigner.xml
 
