@@ -159,12 +159,33 @@ class BuildScriptGenerator(val modulesMiner: ModulesMiner,
             val modulesToCompile = sourceModules + generatorModules
             for (sourceModule in modulesToCompile) {
                 newChild("target") {
-                    setAttribute("name", "compile.${sourceModule.name}")
+                    setAttribute("name", getCompileTargetName(sourceModule))
 
+                    val moduleTypeOrdinal: (FoundModule)->Int = {
+                        when (it.moduleType) {
+                            ModuleType.Solution -> 0
+                            ModuleType.Language -> 1
+                            ModuleType.Generator -> 2
+                            ModuleType.Devkit -> 3
+                        }
+                    }
                     val taskDependencies = sourceModule.dependencies
+                        .asSequence()
+                        .filter { it.type == DependencyType.Classpath }
                         .mapNotNull { modulesMiner.getModules().getModules()[it.id] }
                         .filter { it.owner is SourceModuleOwner }
-                        .joinToString(", ") { "compile.${it.name}" }
+                        .plus(sourceModule.owner.modules.values.filter { it.moduleType == ModuleType.Language })
+                        .minus(sourceModule)
+                        // break cycle between language and its runtime solution
+                        .minus(sourceModule.dependencies
+                            .mapNotNull { modulesMiner.getModules().getModules()[it.id] }
+                            .filter { moduleTypeOrdinal(it) > moduleTypeOrdinal(sourceModule) }
+                            .filter { dep -> dep.dependencies.any { it.id == sourceModule.moduleId } }
+                            .toSet()
+                        )
+                        .map { getCompileTargetName(it) }
+                        .minus(getCompileTargetName(sourceModule))
+                        .joinToString(", ")
                     setAttribute("depends", taskDependencies)
 
                     newChild("mkdir") {
@@ -198,6 +219,7 @@ class BuildScriptGenerator(val modulesMiner: ModulesMiner,
                             val classPath = dependencyGraph.getNode(sourceModule.moduleId)!!
                                 .getTransitiveDependencies()
                                 .flatMap { it.modules }
+                                .plus(sourceModule.owner.modules.values.filter { it.moduleType == ModuleType.Language && it != sourceModule })
                                 .flatMap { getClassPath(it) }
                                 .map { it.canonicalFile }
                                 .distinct()
@@ -219,7 +241,7 @@ class BuildScriptGenerator(val modulesMiner: ModulesMiner,
 
             // target: compile
             newChild("target") {
-                setAttribute("depends", modulesToCompile.joinToString(", ") { "compile.${it.name}" })
+                setAttribute("depends", modulesToCompile.joinToString(", ") { getCompileTargetName(it) })
                 setAttribute("name", "compile")
             }
 
@@ -235,7 +257,7 @@ class BuildScriptGenerator(val modulesMiner: ModulesMiner,
             for (sourceModule in modulesToCompile) {
                 newChild("target") {
                     setAttribute("name", getAssembleTargetName(sourceModule))
-                    setAttribute("depends", "compile.${sourceModule.name}, create-modules-output-dir")
+                    setAttribute("depends", "${getCompileTargetName(sourceModule)}, create-modules-output-dir")
                     newChild("mkdir") {
                         setAttribute("dir", getJarTempDir(sourceModule).absolutePath)
                     }
@@ -305,6 +327,9 @@ class BuildScriptGenerator(val modulesMiner: ModulesMiner,
                     val targetDependencies = sourceModule.owner.modules.values.map { getAssembleTargetName(it) } + "create-modules-output-dir"
                     setAttribute("depends", targetDependencies.joinToString(", "))
                     // ___.__.___-src.jar
+                    newChild("mkdir") {
+                        setAttribute("dir", getModelsTempDir(sourceModule).absolutePath)
+                    }
                     val modelFolders = findModelFolders(sourceModule)
                     for (modelFolder in modelFolders) {
                         val modelFolderRelative = moduleFolder.relativize(modelFolder.toPath())
@@ -365,6 +390,13 @@ class BuildScriptGenerator(val modulesMiner: ModulesMiner,
     private fun getGeneratorIndexPart(module: FoundModule): String {
         val index = getGeneratorIndex(module)
         return if (index == 0) "" else "-$index"
+    }
+    private fun getCompileTargetName(module: FoundModule): String {
+        return if (module.moduleType == ModuleType.Generator) {
+            "compile.generator${getGeneratorIndex(module)}.${module.name}"
+        } else {
+            "compile.${module.name}"
+        }
     }
     private fun getAssembleTargetName(module: FoundModule): String {
         return if (module.moduleType == ModuleType.Generator) {

@@ -54,6 +54,7 @@ fun Node.children(): List<Node> {
 }
 
 fun Node.childElements(): List<Element> = children().filterIsInstance<Element>()
+fun Node.childElements(tag: String): List<Element> = children().filterIsInstance<Element>().filter { it.tagName == tag }
 
 fun Element.newChild(tag: String, body: Element.()->Unit): Element {
     val child = ownerDocument.createElement(tag)
@@ -61,6 +62,15 @@ fun Element.newChild(tag: String, body: Element.()->Unit): Element {
     child.apply(body)
     return child
 }
+
+fun Element.getAttribute(name: String, default: String): String {
+    return getAttributeOrNull(name) ?: default
+}
+
+fun Element.getAttributeOrNull(name: String): String? {
+    return getAttribute(name).ifEmpty { null }
+}
+
 
 fun xmlToString(doc: Document): String {
     val transformerFactory: TransformerFactory = TransformerFactory.newInstance()

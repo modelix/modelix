@@ -18,6 +18,10 @@ import kotlin.io.path.pathString
 abstract class ModuleOwner(val path: ModulePath) {
     val modules: MutableMap<ModuleId, FoundModule> = LinkedHashMap()
 
+    fun getOrCreateModule(id: ModuleId, name: String, type: ModuleType): FoundModule {
+        return modules.computeIfAbsent(id) { FoundModule(id, name, this, type) }
+    }
+
     fun getWorkspaceRelativePath(): String {
         return "\$MODELIX_WORKSPACE\$/" + path.getWorkspaceRelativePath().pathString
     }

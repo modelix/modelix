@@ -13,8 +13,15 @@
  */
 package org.modelix.buildtools
 
-class FoundModule(val moduleId: ModuleId, val name: String, val owner: ModuleOwner, val moduleType: ModuleType) {
+import org.w3c.dom.Element
+
+class FoundModule(val moduleId: ModuleId,
+                  var name: String,
+                  val owner: ModuleOwner,
+                  var moduleType: ModuleType) {
     val dependencies: MutableSet<ModuleDependency> = LinkedHashSet()
+    var moduleDescriptor: Element? = null
+    var deploymentDescriptor: Element? = null
 
     init {
         owner.modules[moduleId] = this

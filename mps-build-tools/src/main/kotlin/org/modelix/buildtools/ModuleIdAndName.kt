@@ -13,7 +13,23 @@
  */
 package org.modelix.buildtools
 
-class ModuleIdAndName(val id: ModuleId, val name: String?) {
+data class ModuleIdAndName(val id: ModuleId, val name: String?) {
+    companion object {
+        fun fromReference(text: String): ModuleIdAndName {
+            // 1ed103c3-3aa6-49b7-9c21-6765ee11f224(MPS.Editor)
+            val matchResult = Regex("""~?(.+)\((.+)\)""").matchEntire(text)
+            if (matchResult == null) return ModuleIdAndName(ModuleId(text), null)
+            return ModuleIdAndName(ModuleId(matchResult.groupValues[1]), matchResult.groupValues[2])
+        }
+
+        fun fromLanguageRef(text: String): ModuleIdAndName {
+            // l:f3061a53-9226-4cc5-a443-f952ceaf5816:jetbrains.mps.baseLanguage
+            val matchResult = Regex("""l:(.+):(.+)""").matchEntire(text)
+            if (matchResult == null) return ModuleIdAndName(ModuleId(text), null)
+            return ModuleIdAndName(ModuleId(matchResult.groupValues[1]), matchResult.groupValues[2])
+        }
+    }
+
     override fun toString(): String {
         return "$id($name)"
     }
