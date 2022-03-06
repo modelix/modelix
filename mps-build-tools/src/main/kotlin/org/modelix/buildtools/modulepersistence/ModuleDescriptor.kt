@@ -13,10 +13,7 @@
  */
 package org.modelix.buildtools.modulepersistence
 
-import org.modelix.buildtools.ModuleId
-import org.modelix.buildtools.ModuleIdAndName
-import org.modelix.buildtools.childElements
-import org.modelix.buildtools.getAttribute
+import org.modelix.buildtools.*
 import org.w3c.dom.Element
 import java.nio.file.Path
 
@@ -37,7 +34,9 @@ abstract class ModuleDescriptor(val xml: Element) {
         val idString = xml.getAttribute("uuid")
         require(idString.isNotEmpty()) { "uuid missing" }
         id = ModuleId(idString)
-        name = xml.getAttribute("namespace")
+        name = xml.getAttributeOrNull("namespace")
+            ?: xml.getAttributeOrNull("name")
+            ?: throw RuntimeException("name missing")
         moduleVersion = xml.getAttribute("moduleVersion").toIntOrNull() ?: 0
         generatorOutputPath = Path.of(xml.getAttribute("generatorOutputPath", getDefaultGeneratorOutputPath()))
         moduleDependencies = xml.childElements("dependencies").flatMap { it.childElements("dependency") }

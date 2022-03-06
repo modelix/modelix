@@ -13,8 +13,12 @@
  */
 package org.modelix.buildtools
 
-data class ModuleIdAndName(val id: ModuleId, val name: String?) {
+class ModuleIdAndName(val id: ModuleId, val name: String?) {
     companion object {
+        fun fromString(text: String): ModuleIdAndName {
+            return if (text.startsWith("l:")) fromLanguageRef(text) else fromReference(text)
+        }
+
         fun fromReference(text: String): ModuleIdAndName {
             // 1ed103c3-3aa6-49b7-9c21-6765ee11f224(MPS.Editor)
             val matchResult = Regex("""~?(.+)\((.+)\)""").matchEntire(text)
@@ -32,5 +36,20 @@ data class ModuleIdAndName(val id: ModuleId, val name: String?) {
 
     override fun toString(): String {
         return "$id($name)"
+    }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+
+        other as ModuleIdAndName
+
+        if (id != other.id) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        return id.hashCode()
     }
 }

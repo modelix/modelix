@@ -169,20 +169,18 @@ class BuildScriptGenerator(val modulesMiner: ModulesMiner,
                             ModuleType.Devkit -> 3
                         }
                     }
-                    val taskDependencies = sourceModule.dependencies
+                    val taskDependencies = sourceModule
+                        .getClassPathDependencies(ModuleResolver(modulesMiner.getModules(), ignoredModules))
                         .asSequence()
-                        .filter { it.type == DependencyType.Classpath }
-                        .mapNotNull { modulesMiner.getModules().getModules()[it.id] }
                         .filter { it.owner is SourceModuleOwner }
-                        .plus(sourceModule.owner.modules.values.filter { it.moduleType == ModuleType.Language })
                         .minus(sourceModule)
                         // break cycle between language and its runtime solution
-                        .minus(sourceModule.dependencies
-                            .mapNotNull { modulesMiner.getModules().getModules()[it.id] }
-                            .filter { moduleTypeOrdinal(it) > moduleTypeOrdinal(sourceModule) }
-                            .filter { dep -> dep.dependencies.any { it.id == sourceModule.moduleId } }
-                            .toSet()
-                        )
+//                        .minus(sourceModule.dependencies
+//                            .mapNotNull { modulesMiner.getModules().getModules()[it.id] }
+//                            .filter { moduleTypeOrdinal(it) > moduleTypeOrdinal(sourceModule) }
+//                            .filter { dep -> dep.dependencies.any { it.id == sourceModule.moduleId } }
+//                            .toSet()
+//                        )
                         .map { getCompileTargetName(it) }
                         .minus(getCompileTargetName(sourceModule))
                         .joinToString(", ")

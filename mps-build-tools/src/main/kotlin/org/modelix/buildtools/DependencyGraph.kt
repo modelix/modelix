@@ -34,7 +34,7 @@ class DependencyGraph(val moduleResolver: ModuleResolver) {
         node.modules += module
         module2node[module.moduleId] = node
 
-        for (dependency in module.dependencies) {
+        for (dependency in module.getGenerationDependencies(moduleResolver)) {
             val dependencyModule = moduleResolver.resolveModule(dependency, module)
             if (dependencyModule != null) {
                 node.addDependency(load(dependencyModule))

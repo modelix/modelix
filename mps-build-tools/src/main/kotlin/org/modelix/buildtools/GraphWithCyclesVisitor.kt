@@ -1,4 +1,6 @@
 /*
+ * Copyright 2003-2022 JetBrains s.r.o.
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -13,14 +15,20 @@
  */
 package org.modelix.buildtools
 
-data class ModuleDependency(val id: ModuleId, val moduleName: String?, val type: DependencyType, val ignoreIfMissing: Boolean) {
-    constructor(idAndName: ModuleIdAndName, type: DependencyType, ignoreIfMissing: Boolean): this(idAndName.id, idAndName.name, type, ignoreIfMissing)
-    constructor(id: ModuleId, type: DependencyType, ignoreIfMissing: Boolean): this(id, null, type, ignoreIfMissing)
-}
+abstract class GraphWithCyclesVisitor<E> {
+    private val visited: MutableSet<E> = HashSet()
 
-enum class DependencyType {
-    Classpath,
-    Model,
-    Generator,
-    UseLanguageOrDevkit
+    abstract fun onVisit(element: E)
+
+    fun visit(element: E) {
+        if (visited.contains(element)) return
+        visited += element
+        onVisit(element)
+    }
+
+    fun visit(elements: Iterable<E>) {
+        for (element in elements) {
+            visit(element)
+        }
+    }
 }

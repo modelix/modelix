@@ -15,9 +15,13 @@ package org.modelix.buildtools
 
 class ModuleResolver(val availableModules: FoundModules, val ignoredModules: Set<ModuleId>) {
     fun resolveModule(dep: ModuleDependency, usedBy: FoundModule): FoundModule? {
+        return resolveModule(ModuleIdAndName(dep.id, dep.moduleName), usedBy)
+    }
+
+    fun resolveModule(dep: ModuleIdAndName, usedBy: FoundModule): FoundModule? {
         val resolved = availableModules.getModules()[dep.id]
-        if (resolved == null && !(dep.ignoreIfMissing || ignoredModules.contains(dep.id))) {
-            throw RuntimeException("Dependency ${dep.id}(${dep.moduleName}) not found (used by ${usedBy.moduleId}(${usedBy.name}) in ${usedBy.owner.path.getLocalAbsolutePath()} )")
+        if (resolved == null && !ignoredModules.contains(dep.id)) {
+            throw RuntimeException("Dependency $dep not found (used by ${usedBy.moduleId}(${usedBy.name}) in ${usedBy.owner.path.getLocalAbsolutePath()} )")
         }
         return resolved
     }

@@ -53,6 +53,7 @@ class FoundModules {
     fun addModule(module: FoundModule) {
         if (module.moduleId.id.isNotEmpty()) {
             val existing = getModules()[module.moduleId]
+            if (existing == module) return
             if (existing != null) {
                 if (existing.owner != module.owner) {
                     println("""
@@ -62,7 +63,7 @@ class FoundModules {
                     """.trimIndent())
                     // throw RuntimeException("Module ${module.moduleId} (${module.name}) already exists")
                 }
-                existing.dependencies += module.dependencies
+                //existing.dependencies += module.dependencies
             } else {
                 modules[module.moduleId] = module
                 if (module.owner is PluginModuleOwner) {
@@ -74,18 +75,18 @@ class FoundModules {
         }
     }
 
-    fun getWithDependencies(rootModules: Set<ModuleId>): Set<FoundModule> {
-        val result = HashMap<ModuleId, FoundModule>()
-        rootModules.forEach { collectDeps(it, result) }
-        return result.values.toSet()
-    }
-
-    private fun collectDeps(moduleId: ModuleId, result: MutableMap<ModuleId, FoundModule>) {
-        if (result.containsKey(moduleId)) return
-        val module = modules[moduleId] ?: return
-        result[moduleId] = module
-        for (dependency in module.dependencies) {
-            collectDeps(dependency.id, result)
-        }
-    }
+//    private fun getWithDependencies(rootModules: Set<ModuleId>): Set<FoundModule> {
+//        val result = HashMap<ModuleId, FoundModule>()
+//        rootModules.forEach { collectDeps(it, result) }
+//        return result.values.toSet()
+//    }
+//
+//    private fun collectDeps(moduleId: ModuleId, result: MutableMap<ModuleId, FoundModule>) {
+//        if (result.containsKey(moduleId)) return
+//        val module = modules[moduleId] ?: return
+//        result[moduleId] = module
+//        for (dependency in module.dependencies) {
+//            collectDeps(dependency.id, result)
+//        }
+//    }
 }
