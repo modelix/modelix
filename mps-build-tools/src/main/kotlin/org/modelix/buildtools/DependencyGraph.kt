@@ -24,6 +24,8 @@ abstract class DependencyGraph<ElementT, KeyT> {
 
     fun getNode(moduleId: KeyT) = module2node[moduleId]
 
+    fun getNodes(): Set<DependencyNode> = module2node.values.map { it.getMergedNode() }.toSet()
+
     fun load(modules: Iterable<ElementT>) {
         modules.forEach { load(it) }
         postprocess()

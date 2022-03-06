@@ -15,6 +15,7 @@ package org.modelix.buildtools
 
 import org.modelix.headlessmps.ProcessExecutor
 import org.w3c.dom.Document
+import org.w3c.dom.Element
 import java.io.File
 import java.nio.file.Path
 import javax.xml.parsers.DocumentBuilderFactory
@@ -53,6 +54,7 @@ class BuildScriptGenerator(val modulesMiner: ModulesMiner,
                 .map { it.moduleId }
                 .toList()
         val (plan, dependencyGraph) = generatePlan(modulesToGenerate_ - ignoredModules.toSet())
+        val resolver = ModuleResolver(modulesMiner.getModules(), ignoredModules)
 
         val dbf = DocumentBuilderFactory.newInstance()
         val db = dbf.newDocumentBuilder()
@@ -62,12 +64,10 @@ class BuildScriptGenerator(val modulesMiner: ModulesMiner,
             doc.appendChild(this)
             setAttribute("default", "generate")
 
-            val mpsHome = modulesMiner.getModules().mpsHome
-            if (mpsHome != null) {
-                newChild("property") {
-                    setAttribute("name", "mps.home")
-                    setAttribute("location", mpsHome.canonicalPath)
-                }
+            val mpsHome = modulesMiner.getModules().mpsHome ?: throw RuntimeException("mps.home not found")
+            newChild("property") {
+                setAttribute("name", "mps.home")
+                setAttribute("location", mpsHome.canonicalPath)
             }
             newChild("property") {
                 setAttribute("name", "mps_home")
@@ -157,83 +157,46 @@ class BuildScriptGenerator(val modulesMiner: ModulesMiner,
             val sourceModules = plan.chunks.flatMap { it.modules }.filter { it.owner is SourceModuleOwner }
             val generatorModules = sourceModules.flatMap { it.owner.modules.values - it }
             val modulesToCompile = sourceModules + generatorModules
-            for (sourceModule in modulesToCompile) {
-                newChild("target") {
-                    setAttribute("name", getCompileTargetName(sourceModule))
+            val compileDependencyGraph = CompileDependencyGraph(resolver)
+            compileDependencyGraph.load(modulesToCompile)
+            var cycleIdSequence = 0
+            val cycles = compileDependencyGraph.getNodes().filter { it.modules.any { it.owner is SourceModuleOwner } }
+            val compileTargetNames = cycles.associateWith {
+                if (it.modules.size == 1) {
+                    getCompileTargetName(it.modules.first())
+                } else {
+                    "compile.cycle.${++cycleIdSequence}"
+                }
+            }
+            for (cycle in cycles) {
+                val sourceModules = cycle.modules.filter { it.owner is SourceModuleOwner }
+                var cycleOutputDir: File? = null
+                val isCycle = cycle.modules.size > 1
+                if (isCycle) {
+                    cycleOutputDir = File(getCompileOutputDir(), compileTargetNames[cycle]!!)
+                    createCompileTarget(
+                        modules = sourceModules,
+                        classPath = cycle.getTransitiveDependencies().flatMap { it.modules }.distinct().flatMap { getClassPath(it) },
+                        targetName = compileTargetNames[cycle]!!,
+                        targetDependencies = cycle.getDependencies().mapNotNull { compileTargetNames[it] },
+                        outputDir = cycleOutputDir,
+                        mpsHome = mpsHome
+                    )
+                }
 
-                    val moduleTypeOrdinal: (FoundModule)->Int = {
-                        when (it.moduleType) {
-                            ModuleType.Solution -> 0
-                            ModuleType.Language -> 1
-                            ModuleType.Generator -> 2
-                            ModuleType.Devkit -> 3
-                        }
-                    }
-                    val taskDependencies = sourceModule
-                        .getClassPathDependencies(ModuleResolver(modulesMiner.getModules(), ignoredModules))
-                        .asSequence()
-                        .filter { it.owner is SourceModuleOwner }
-                        .minus(sourceModule)
-                        // break cycle between language and its runtime solution
-//                        .minus(sourceModule.dependencies
-//                            .mapNotNull { modulesMiner.getModules().getModules()[it.id] }
-//                            .filter { moduleTypeOrdinal(it) > moduleTypeOrdinal(sourceModule) }
-//                            .filter { dep -> dep.dependencies.any { it.id == sourceModule.moduleId } }
-//                            .toSet()
-//                        )
-                        .map { getCompileTargetName(it) }
-                        .minus(getCompileTargetName(sourceModule))
-                        .joinToString(", ")
-                    setAttribute("depends", taskDependencies)
-
-                    newChild("mkdir") {
-                        setAttribute("dir", getCompileOutputDir(sourceModule).absolutePath)
-                    }
-                    newChild("javac") {
-                        setAttribute("destdir", getCompileOutputDir(sourceModule).absolutePath)
-                        setAttribute("fork", "false")
-                        setAttribute("encoding", "utf8")
-                        setAttribute("includeantruntime", "false")
-                        setAttribute("debug", "true")
-                        setAttribute("source", "11")
-                        setAttribute("target", "11")
-                        newChild("compilerarg") {
-                            setAttribute("value", "-Xlint:none")
-                        }
-                        newChild("src") {
-                            newChild("path") {
-                                setAttribute("location", getSourceGenDir(sourceModule).absolutePath)
-                            }
-                        }
-                        newChild("classpath") {
-                            if (mpsHome != null) {
-                                for (jar in File(mpsHome, "lib").walk().filter { it.extension == "jar" }) {
-                                    newChild("fileset") {
-                                        setAttribute("file", jar.absolutePath)
-                                    }
-                                }
-                            }
-
-                            val classPath = dependencyGraph.getNode(sourceModule.moduleId)!!
-                                .getTransitiveDependencies()
-                                .flatMap { it.modules }
-                                .plus(sourceModule.owner.modules.values.filter { it.moduleType == ModuleType.Language && it != sourceModule })
-                                .flatMap { getClassPath(it) }
-                                .map { it.canonicalFile }
-                                .distinct()
-                            for (cpItem in classPath) {
-                                if (cpItem.isFile) {
-                                    newChild("fileset") {
-                                        setAttribute("file", cpItem.absolutePath)
-                                    }
-                                } else {
-                                    newChild("pathelement") {
-                                        setAttribute("path", cpItem.absolutePath)
-                                    }
-                                }
-                            }
-                        }
-                    }
+                for (module in sourceModules) {
+                    var cp = cycle.getTransitiveDependencies().flatMap { it.modules }.distinct().flatMap { getClassPath(it) }
+                    if (cycleOutputDir != null) cp += cycleOutputDir
+                    var targetDependencies = cycle.getDependencies().mapNotNull { compileTargetNames[it] }
+                    if (isCycle) targetDependencies += compileTargetNames[cycle]!!
+                    createCompileTarget(
+                        modules = listOf(module),
+                        classPath = cp,
+                        targetName = getCompileTargetName(module),
+                        targetDependencies = targetDependencies,
+                        outputDir = getCompileOutputDir(module),
+                        mpsHome = mpsHome
+                    )
                 }
             }
 
@@ -380,6 +343,62 @@ class BuildScriptGenerator(val modulesMiner: ModulesMiner,
         doc.createElement("target")
 
         return doc
+    }
+
+    private fun Element.createCompileTarget(
+        modules: List<FoundModule>,
+        classPath: List<File>,
+        targetName: String,
+        targetDependencies: List<String>,
+        outputDir: File,
+        mpsHome: File,
+    ) {
+        newChild("target") {
+            setAttribute("name", targetName)
+            setAttribute("depends", targetDependencies.joinToString(", "))
+
+            newChild("mkdir") {
+                setAttribute("dir", outputDir.absolutePath)
+            }
+            newChild("javac") {
+                setAttribute("destdir", outputDir.absolutePath)
+                setAttribute("fork", "false")
+                setAttribute("encoding", "utf8")
+                setAttribute("includeantruntime", "false")
+                setAttribute("debug", "true")
+                setAttribute("source", "11")
+                setAttribute("target", "11")
+                newChild("compilerarg") {
+                    setAttribute("value", "-Xlint:none")
+                }
+                for (module in modules) {
+                    newChild("src") {
+                        newChild("path") {
+                            setAttribute("location", getSourceGenDir(module).absolutePath)
+                        }
+                    }
+                }
+                newChild("classpath") {
+                    for (jar in File(mpsHome, "lib").walk().filter { it.extension == "jar" }) {
+                        newChild("fileset") {
+                            setAttribute("file", jar.absolutePath)
+                        }
+                    }
+
+                    for (cpItem in classPath.map { it.canonicalFile }.distinct()) {
+                        if (cpItem.isFile) {
+                            newChild("fileset") {
+                                setAttribute("file", cpItem.absolutePath)
+                            }
+                        } else {
+                            newChild("pathelement") {
+                                setAttribute("path", cpItem.absolutePath)
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 
     private fun getGeneratorIndex(module: FoundModule): Int {
