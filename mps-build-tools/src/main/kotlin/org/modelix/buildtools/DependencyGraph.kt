@@ -13,64 +13,49 @@
  */
 package org.modelix.buildtools
 
-class DependencyGraph(val moduleResolver: ModuleResolver) {
+abstract class DependencyGraph<ElementT, KeyT> {
 
-    private val module2node: MutableMap<ModuleId, DependencyNode> = HashMap()
+    private val module2node: MutableMap<KeyT, DependencyNode> = HashMap()
+
+    abstract fun getKey(element: ElementT): KeyT
+    abstract fun getDependencies(element: ElementT): Iterable<ElementT>
 
     fun getRoots() = module2node.values.filter { it.isRoot() }
 
-    fun getNode(moduleId: ModuleId) = module2node[moduleId]
+    fun getNode(moduleId: KeyT) = module2node[moduleId]
 
-    fun load(modules: Iterable<FoundModule>) {
+    fun load(modules: Iterable<ElementT>) {
         modules.forEach { load(it) }
         postprocess()
     }
 
-    private fun load(module: FoundModule): DependencyNode {
-        var node = module2node[module.moduleId]
+    private fun load(module: ElementT): DependencyNode {
+        var node = module2node[getKey(module)]
         if (node != null) return node
 
         node = DependencyNode()
         node.modules += module
-        module2node[module.moduleId] = node
+        module2node[getKey(module)] = node
 
-        for (dependency in module.getGenerationDependencies(moduleResolver)) {
-            val dependencyModule = moduleResolver.resolveModule(dependency, module)
-            if (dependencyModule != null) {
-                node.addDependency(load(dependencyModule))
-            }
+        for (dependency in getDependencies(module)) {
+            node.addDependency(load(dependency))
         }
 
         return node
     }
 
-    private fun postprocess() {
-        mergeGeneratorsAndLanguages()
+    protected open fun postprocess() {
         mergeCycles()
     }
 
-    private fun mergeGeneratorsAndLanguages() {
-        val moduleOwners = moduleResolver.availableModules.getModules().values.map { it.owner }.filterIsInstance<SourceModuleOwner>().filter { it.modules.size > 1 }
-        for (moduleOwner in moduleOwners) {
-            val nodesToMerge = moduleOwner.modules.keys.mapNotNull { module2node[it] }.distinct()
-            if (nodesToMerge.size < 2) continue
-            for (source in nodesToMerge.drop(1)) {
-                mergeNodes(source, nodesToMerge.first())
-            }
-        }
-    }
+    protected open fun cycleBeforeMerge(cycle: Set<DependencyNode>) {}
 
-    private fun mergeCycles() {
+    fun mergeCycles() {
         val cycleFinder = CycleFinder()
         module2node.values.forEach { cycleFinder.process(it) }
 
         for (cycle in cycleFinder.cycles) {
-            val modules = cycle.flatMap { it.modules }
-                .filter { it.moduleType == ModuleType.Language || it.moduleType == ModuleType.Solution }
-            if (!modules.any { it.owner is SourceModuleOwner }) continue
-            if (modules.size > 1) {
-                println("Dependency cycle: " + modules.joinToString(" -> ") { it.name })
-            }
+            cycleBeforeMerge(cycle)
         }
 
         for (cycle in cycleFinder.cycles) {
@@ -82,13 +67,13 @@ class DependencyGraph(val moduleResolver: ModuleResolver) {
         }
     }
 
-    private fun mergeNodes(source: DependencyNode, target: DependencyNode) {
+    protected fun mergeNodes(source: DependencyNode, target: DependencyNode) {
         if (source == target) {
             throw RuntimeException("Attempt to merge a node into itself")
         }
         source.mergedInto = target
         for (sourceModule in source.modules) {
-            module2node[sourceModule.moduleId] = target
+            module2node[getKey(sourceModule)] = target
         }
         target.modules += source.modules
         source.modules.clear()
@@ -106,7 +91,7 @@ class DependencyGraph(val moduleResolver: ModuleResolver) {
 
 
     inner class DependencyNode {
-        val modules: MutableSet<FoundModule> = HashSet()
+        val modules: MutableSet<ElementT> = HashSet()
         private val dependencies: MutableSet<DependencyNode> = HashSet()
         private val reverseDependencies: MutableSet<DependencyNode> = HashSet()
         var mergedInto: DependencyNode? = null

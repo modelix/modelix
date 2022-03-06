@@ -499,7 +499,7 @@ class BuildScriptGenerator(val modulesMiner: ModulesMiner,
         }
     }
 
-    private fun generatePlan(modulesToGenerate: List<ModuleId>): Pair<GenerationPlan, DependencyGraph> {
+    private fun generatePlan(modulesToGenerate: List<ModuleId>): Pair<GenerationPlan, GeneratorDependencyGraph> {
         val planBuilder = GenerationPlanBuilder(modulesMiner.getModules(), ignoredModules)
         val dependencyGraph = planBuilder.build(modulesToGenerate.mapNotNull { modulesMiner.getModules().getModules()[it] })
         return planBuilder.plan to dependencyGraph

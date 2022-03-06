@@ -17,17 +17,17 @@ import kotlin.math.max
 
 class GenerationPlanBuilder(val availableModules: FoundModules, val ignoredModules: Set<ModuleId>) {
     val plan: GenerationPlan = GenerationPlan()
-    private val processedNodes: MutableSet<DependencyGraph.DependencyNode> = HashSet()
-    private val chunkIndexes: MutableMap<DependencyGraph.DependencyNode, Int> = HashMap()
+    private val processedNodes: MutableSet<DependencyGraph<FoundModule, ModuleId>.DependencyNode> = HashSet()
+    private val chunkIndexes: MutableMap<DependencyGraph<FoundModule, ModuleId>.DependencyNode, Int> = HashMap()
 
-    fun build(modules: Iterable<FoundModule>): DependencyGraph {
-        val dependencyGraph = DependencyGraph(ModuleResolver(availableModules, ignoredModules))
+    fun build(modules: Iterable<FoundModule>): GeneratorDependencyGraph {
+        val dependencyGraph = GeneratorDependencyGraph(ModuleResolver(availableModules, ignoredModules))
         dependencyGraph.load(modules)
         dependencyGraph.getRoots().forEach { build(it) }
         return dependencyGraph
     }
 
-    private fun build(node: DependencyGraph.DependencyNode) {
+    private fun build(node: DependencyGraph<FoundModule, ModuleId>.DependencyNode) {
         if (processedNodes.contains(node)) return
         processedNodes += node
 
