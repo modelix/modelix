@@ -23,6 +23,31 @@ import java.util.regex.Pattern
  * Modules packaged as an IDEA plugin containing a META-INF/plugin.xml file.
  */
 class PluginModuleOwner(path: ModulePath, val pluginId: String, val name: String?, val pluginDependencies: Set<String>) : ModuleOwner(path) {
+    val libraries: MutableSet<LibraryModuleOwner> = HashSet()
+
+    fun getModuleJarFolders(): List<File> {
+        try {
+            val pluginFolder = path.getLocalAbsolutePath().normalize().toFile()
+            val pluginXml = pluginFolder.resolve("META-INF").resolve("plugin.xml")
+            val xml = readXmlFile(pluginXml)
+            val folders = xml.documentElement.childElements("extensions").flatMap { it.childElements() }
+                .asSequence()
+                .filter { it.tagName.endsWith("LanguageLibrary") }
+                .map { it.getAttribute("dir") }
+                .map { it.trimStart('/', '\\')  }
+                .map { pluginFolder.resolve(it).normalize() }
+                .minus(pluginFolder)
+                .distinct()
+                .toList()
+            return folders.ifEmpty { allSubFolders() }
+        } catch (e: Exception) {
+            println(e.message)
+            return allSubFolders()
+        }
+    }
+
+    private fun allSubFolders() = (path.getLocalAbsolutePath().toFile().listFiles() ?: arrayOf()).toList()
+
     companion object {
         fun fromPluginFolder(path: ModulePath): PluginModuleOwner {
             val pluginPath = path.getLocalAbsolutePath().toFile()

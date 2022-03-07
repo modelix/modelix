@@ -18,7 +18,6 @@ import org.modelix.buildtools.modulepersistence.GeneratorDescriptor
 import org.modelix.buildtools.modulepersistence.LanguageDescriptor
 import org.modelix.buildtools.modulepersistence.SolutionDescriptor
 import org.w3c.dom.Element
-import org.w3c.dom.Text
 import org.zeroturnaround.zip.ZipUtil
 import java.io.File
 import java.io.FileInputStream
@@ -74,10 +73,10 @@ class ModulesMiner() {
                         // This MPS plugin seems to use some old way of packaging a plugin
                         // The descriptor declares 'com.intellij' as the ID, but it's actually 'com.intellij.modules.mps'.
                         modules.addPlugin(PluginModuleOwner(origin.localModulePath(file), "com.intellij.modules.mps", "MPS Workbench", setOf()))
-                    } else if (!file.nameWithoutExtension.endsWith("-src")) {
-                        val libraryModuleOwner = owner ?: LibraryModuleOwner(origin.localModulePath(file))
+                    } else if (!file.nameWithoutExtension.endsWith("-src") && !file.nameWithoutExtension.endsWith("-generator")) {
+                        val libraryModuleOwner = LibraryModuleOwner(origin.localModulePath(file), owner as? PluginModuleOwner)
                         val modules: MutableMap<String, FoundModule> = HashMap()
-                        ZipUtil.iterate(file) { stream: InputStream, entry: ZipEntry ->
+                        val jarContentVisitor = { stream: InputStream, entry: ZipEntry ->
                             if (entry.name == "META-INF/module.xml") {
                                 loadModules(stream, libraryModuleOwner)
                             }
@@ -87,6 +86,21 @@ class ModulesMiner() {
                                 }
                             }
                         }
+                        val srcAndGeneratorNames: Set<String> = (
+                                setOf(file.nameWithoutExtension + "-src." + file.extension) +
+                                (file.nameWithoutExtension + "-generator." + file.extension) +
+                                (0..10).map { file.nameWithoutExtension + "-$it-generator." + file.extension }
+                            )
+                        val srcAndGeneratorJars = srcAndGeneratorNames.map { file.parentFile.resolve(it) }
+                            .filter { it.exists() && it.isFile }
+                        ZipUtil.iterate(file, jarContentVisitor)
+                        for (srcOrGeneratorJar in srcAndGeneratorJars) {
+                            ZipUtil.iterate(srcOrGeneratorJar, jarContentVisitor)
+                        }
+                        if (owner is PluginModuleOwner && libraryModuleOwner.modules.isNotEmpty()) {
+                            owner.libraries += libraryModuleOwner
+                        }
+
 //                        if (modules.isNotEmpty()) {
 //                            ZipUtil.iterate(file) { stream: InputStream, entry: ZipEntry ->
 //                                when (entry.name.substringAfterLast('.', "").lowercase()) {
@@ -131,8 +145,13 @@ class ModulesMiner() {
                 val isPluginDir = pluginXml.exists()
                 val pluginOwner = if (isPluginDir) PluginModuleOwner.fromPluginFolder(origin.localModulePath(file)) else null
                 if (pluginOwner != null) modules.addPlugin(pluginOwner)
-                file.listFiles()?.forEach { child ->
-                    collectModules(child, owner ?: pluginOwner, origin, fileFilter)
+                val subFolders = if (pluginOwner == null) {
+                    (file.listFiles() ?: arrayOf()).asList()
+                } else {
+                    pluginOwner.getModuleJarFolders()
+                }
+                subFolders.forEach { child ->
+                    collectModules(child, pluginOwner ?: owner, origin, fileFilter)
                 }
             }
         }

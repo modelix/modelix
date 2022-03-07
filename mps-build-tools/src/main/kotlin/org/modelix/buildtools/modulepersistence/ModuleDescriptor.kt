@@ -15,6 +15,7 @@ package org.modelix.buildtools.modulepersistence
 
 import org.modelix.buildtools.*
 import org.w3c.dom.Element
+import java.io.File
 import java.nio.file.Path
 
 abstract class ModuleDescriptor(val xml: Element) {
@@ -28,6 +29,7 @@ abstract class ModuleDescriptor(val xml: Element) {
     val runtime: List<ModuleDependency>
     private val modelRoots: List<Element>
     private val facets: List<Element>
+    val javaLibPaths: List<String>
 
     init {
         // see ModuleDescriptorPersistence in MPS
@@ -43,12 +45,25 @@ abstract class ModuleDescriptor(val xml: Element) {
             .map { ModuleDependency(it) }
         runtime = xml.childElements("runtime").flatMap { it.childElements("dependency") }
             .map { ModuleDependency(it) }
-        languageVersions = xml.childElements("languageVersions").flatMap { it.childElements("languageVersion") }
+        languageVersions = xml.childElements("languageVersions").flatMap { it.childElements("language") }
             .map { LanguageVersion(it) }
         dependencyVersions = xml.childElements("dependencyVersions").flatMap { it.childElements("module") }
             .map { DependencyVersion(it) }
         modelRoots = xml.childElements("models").flatMap { it.childElements("modelRoot") }
         facets = xml.childElements("facets").flatMap { it.childElements("facet") }
+        javaLibPaths = xml.childElements("stubModelEntries")
+            .flatMap { it.childElements("stubModelEntry") }
+            .map { it.getAttribute("path") }
+    }
+
+    fun resolveJavaLibs(macros: Map<String, File>): List<Path> {
+        return javaLibPaths.map {
+            var path = it
+            for (macro in macros) {
+                path = path.replace("\${" + macro.key + "}", macro.value.absolutePath)
+            }
+            Path.of(path).normalize()
+        }
     }
 
     protected open fun getDefaultGeneratorOutputPath(): String = "source_gen"

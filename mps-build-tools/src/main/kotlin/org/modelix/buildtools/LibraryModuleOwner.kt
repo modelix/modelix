@@ -18,5 +18,8 @@ import java.io.File
 /**
  * Modules packaged as .jar-Files but without an IDEA plugin such as the ones in the MPS.HOME/languages folder
  */
-class LibraryModuleOwner(path: ModulePath) : ModuleOwner(path) {
+class LibraryModuleOwner(path: ModulePath, val parentPlugin: PluginModuleOwner? = null) : ModuleOwner(path) {
+    override fun getRootOwner(): ModuleOwner {
+        return parentPlugin?.getRootOwner() ?: this
+    }
 }

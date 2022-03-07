@@ -16,9 +16,7 @@ package org.modelix.buildtools
 import org.w3c.dom.Document
 import org.w3c.dom.Element
 import org.w3c.dom.Node
-import java.io.File
-import java.io.InputStream
-import java.io.StringWriter
+import java.io.*
 import javax.xml.XMLConstants
 import javax.xml.parsers.DocumentBuilderFactory
 import javax.xml.transform.OutputKeys
@@ -84,15 +82,19 @@ fun xmlToString(doc: Document): String {
 }
 
 fun readXmlFile(file: File): Document {
-    val dbf = DocumentBuilderFactory.newInstance()
-    //dbf.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true)
-    val db = dbf.newDocumentBuilder()
-    return db.parse(file)
+    try {
+        val dbf = DocumentBuilderFactory.newInstance()
+        //dbf.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true)
+        val db = dbf.newDocumentBuilder()
+        return db.parse(file)
+    } catch (e: Exception) {
+        throw RuntimeException("Failed to read ${file.absoluteFile}", e)
+    }
 }
 
 fun readXmlFile(file: InputStream): Document {
     val dbf = DocumentBuilderFactory.newInstance()
-    dbf.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true)
+    //dbf.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true)
     val db = dbf.newDocumentBuilder()
     return db.parse(file)
 }

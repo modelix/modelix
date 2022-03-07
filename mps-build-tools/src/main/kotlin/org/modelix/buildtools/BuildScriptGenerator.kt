@@ -17,7 +17,6 @@ import org.modelix.headlessmps.ProcessExecutor
 import org.w3c.dom.Document
 import org.w3c.dom.Element
 import java.io.File
-import java.nio.file.Path
 import javax.xml.parsers.DocumentBuilderFactory
 import kotlin.io.path.pathString
 
@@ -55,6 +54,11 @@ class BuildScriptGenerator(val modulesMiner: ModulesMiner,
                 .toList()
         val (plan, dependencyGraph) = generatePlan(modulesToGenerate_ - ignoredModules.toSet())
         val resolver = ModuleResolver(modulesMiner.getModules(), ignoredModules)
+        val mpsHome = modulesMiner.getModules().mpsHome ?: throw RuntimeException("mps.home not found")
+        val macros = mapOf(
+            "platform_lib" to File(mpsHome, "lib"),
+            "mps_home" to mpsHome
+        )
 
         val dbf = DocumentBuilderFactory.newInstance()
         val db = dbf.newDocumentBuilder()
@@ -64,7 +68,6 @@ class BuildScriptGenerator(val modulesMiner: ModulesMiner,
             doc.appendChild(this)
             setAttribute("default", "generate")
 
-            val mpsHome = modulesMiner.getModules().mpsHome ?: throw RuntimeException("mps.home not found")
             newChild("property") {
                 setAttribute("name", "mps.home")
                 setAttribute("location", mpsHome.canonicalPath)
@@ -176,7 +179,8 @@ class BuildScriptGenerator(val modulesMiner: ModulesMiner,
                     cycleOutputDir = File(getCompileOutputDir(), compileTargetNames[cycle]!!)
                     createCompileTarget(
                         modules = sourceModules,
-                        classPath = cycle.getTransitiveDependencies().flatMap { it.modules }.distinct().flatMap { getClassPath(it) },
+                        classPath = cycle.getTransitiveDependencies().flatMap { it.modules }.distinct()
+                            .flatMap { getClassPath(it, macros) } + sourceModules.flatMap { it.getOwnJars(macros) },
                         targetName = compileTargetNames[cycle]!!,
                         targetDependencies = cycle.getDependencies().mapNotNull { compileTargetNames[it] },
                         outputDir = cycleOutputDir,
@@ -185,14 +189,16 @@ class BuildScriptGenerator(val modulesMiner: ModulesMiner,
                 }
 
                 for (module in sourceModules) {
-                    var cp = cycle.getTransitiveDependencies().flatMap { it.modules }.distinct().flatMap { getClassPath(it) }
+                    val targetName = getCompileTargetName(module)
+                    var cp = cycle.getTransitiveDependencies().flatMap { it.modules }.distinct()
+                        .flatMap { getClassPath(it, macros) } + module.getOwnJars(macros)
                     if (cycleOutputDir != null) cp += cycleOutputDir
                     var targetDependencies = cycle.getDependencies().mapNotNull { compileTargetNames[it] }
                     if (isCycle) targetDependencies += compileTargetNames[cycle]!!
                     createCompileTarget(
                         modules = listOf(module),
                         classPath = cp,
-                        targetName = getCompileTargetName(module),
+                        targetName = targetName,
                         targetDependencies = targetDependencies,
                         outputDir = getCompileOutputDir(module),
                         mpsHome = mpsHome
@@ -360,6 +366,11 @@ class BuildScriptGenerator(val modulesMiner: ModulesMiner,
             newChild("mkdir") {
                 setAttribute("dir", outputDir.absolutePath)
             }
+            for (module in modules) {
+                newChild("mkdir") {
+                    setAttribute("dir", getSourceGenDir(module).absolutePath)
+                }
+            }
             newChild("javac") {
                 setAttribute("destdir", outputDir.absolutePath)
                 setAttribute("fork", "false")
@@ -379,13 +390,10 @@ class BuildScriptGenerator(val modulesMiner: ModulesMiner,
                     }
                 }
                 newChild("classpath") {
-                    for (jar in File(mpsHome, "lib").walk().filter { it.extension == "jar" }) {
-                        newChild("fileset") {
-                            setAttribute("file", jar.absolutePath)
-                        }
-                    }
-
-                    for (cpItem in classPath.map { it.canonicalFile }.distinct()) {
+                    val completeClassPath =
+                        (classPath + File(mpsHome, "lib").walk().filter { it.extension == "jar" })
+                        .map { it.absoluteFile.normalize() }.distinct()
+                    for (cpItem in completeClassPath) {
                         if (cpItem.isFile) {
                             newChild("fileset") {
                                 setAttribute("file", cpItem.absolutePath)
@@ -502,7 +510,7 @@ class BuildScriptGenerator(val modulesMiner: ModulesMiner,
             module.owner.path.getLocalAbsolutePath().parent.resolve("models").toFile()
         }
     }
-    private fun getClassPath(module: FoundModule): List<File> {
+    private fun getClassPath(module: FoundModule, macros: Map<String, File>): List<File> {
         return when(val owner = module.owner) {
             is SourceModuleOwner -> {
                 listOf(getCompileOutputDir(module))
@@ -511,11 +519,11 @@ class BuildScriptGenerator(val modulesMiner: ModulesMiner,
                 listOf(owner.path.getLocalAbsolutePath().toFile())
             }
             is PluginModuleOwner -> {
-                owner.path.getLocalAbsolutePath().resolve("lib").toFile()
+                owner.path.getLocalAbsolutePath().toFile()
                     .walk().filter { it.extension == "jar" }.toList()
             }
             else -> throw RuntimeException("Unknown owner: $owner")
-        }
+        } + module.getOwnJars(macros)
     }
 
     private fun generatePlan(modulesToGenerate: List<ModuleId>): Pair<GenerationPlan, GeneratorDependencyGraph> {

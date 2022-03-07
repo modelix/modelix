@@ -19,6 +19,8 @@ import kotlin.io.path.pathString
 abstract class ModuleOwner(val path: ModulePath) {
     val modules: MutableMap<ModuleId, FoundModule> = LinkedHashMap()
 
+    open fun getRootOwner(): ModuleOwner = this
+
     fun getOrCreateModule(descriptor: ModuleDescriptor): FoundModule {
         val type: ModuleType = when (descriptor) {
             is SolutionDescriptor -> ModuleType.Solution

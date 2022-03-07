@@ -14,6 +14,7 @@
 package org.modelix.buildtools
 
 import org.modelix.buildtools.modulepersistence.*
+import java.io.File
 
 class FoundModule(val moduleId: ModuleId,
                   val owner: ModuleOwner,
@@ -61,7 +62,9 @@ class FoundModule(val moduleId: ModuleId,
 
     fun getClassPathDependencies(resolver: ModuleResolver): Set<FoundModule> {
         val result: MutableSet<FoundModule> = HashSet()
-        val runtimes = getAllUsedLanguages(resolver)
+        val allUsedLanguages = getAllUsedLanguages(resolver)
+        result += allUsedLanguages
+        val runtimes = allUsedLanguages
             .map { it to it.moduleDescriptor }
             .filter { it.second is LanguageDescriptor }
             .flatMap { lang -> (lang.second as LanguageDescriptor).runtime
@@ -71,9 +74,24 @@ class FoundModule(val moduleId: ModuleId,
         val moduleDescriptor = moduleDescriptor
         if (moduleDescriptor != null) {
             val moduleDeps = moduleDescriptor.moduleDependencies
-                .mapNotNull { resolver.resolveModule(it.idAndName, this) }
+                .mapNotNull { resolver.resolveModule(it.idAndName, this) } +
+                moduleDescriptor.dependencyVersions
+                    .mapNotNull { resolver.resolveModule(it.idAndName, this, false) }
             result += moduleDeps
             result += moduleDeps.flatMap { it.getReexportedDeps(resolver) }
+        }
+        return result
+    }
+
+    fun getOwnJars(macros: Map<String, File>): Set<File> {
+        val result = HashSet<File>()
+        val moduleDescriptor = moduleDescriptor
+        if (moduleDescriptor != null) {
+            var modulePath = owner.getRootOwner().path.getLocalAbsolutePath().toFile()
+            if (modulePath.isFile) modulePath = modulePath.parentFile
+            val moduleMacro = "module" to modulePath
+            result += moduleDescriptor.resolveJavaLibs(macros + moduleMacro)
+                .map { it.toFile() }.filter { it.exists() }
         }
         return result
     }
@@ -87,9 +105,8 @@ class FoundModule(val moduleId: ModuleId,
 
     fun getAllUsedLanguages(resolver: ModuleResolver): Set<FoundModule> {
         val result = HashSet<FoundModule>()
-        val usedDevkits = HashSet<FoundModule>()
-        val usedInModels = languageOrDevkitUsedInModels
-            .mapNotNull { resolver.resolveModule(it, this) }
+        val usedInModels: MutableSet<FoundModule> = languageOrDevkitUsedInModels
+            .mapNotNull { resolver.resolveModule(it, this) }.toMutableSet()
 
         object : GraphWithCyclesVisitor<FoundModule>() {
             override fun onVisit(element: FoundModule) {
@@ -101,6 +118,10 @@ class FoundModule(val moduleId: ModuleId,
                 }
             }
         }.visit(usedInModels)
+
+        moduleDescriptor?.also { descriptor ->
+            result += descriptor.languageVersions.mapNotNull { resolver.resolveModule(it.idAndName, this, false) }
+        }
 
         return result
     }
