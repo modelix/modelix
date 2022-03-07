@@ -344,7 +344,7 @@ class WorkspaceManager {
             if (cloudResourcesFile.exists()) cloudResourcesFile.delete()
         }
 
-        val json = buildEnvironmentSpec(modulesMiner.getModules(), mpsClassPath)
+        val json = buildEnvironmentSpec(modulesMiner.getModules(), mpsClassPath, job.workspace.ignoredModules.map { ModuleId(it) }.toSet())
         val envFile = File("mps-environment.json")
         envFile.writeBytes(json.toByteArray(StandardCharsets.UTF_8))
 
@@ -362,14 +362,17 @@ class WorkspaceManager {
         }
     }
 
-    private fun buildEnvironmentSpec(modules: FoundModules, classPath: List<String>): String {
+    private fun buildEnvironmentSpec(modules: FoundModules, classPath: List<String>, ignoredModules: Set<ModuleId>): String {
         val mpsHome = modules.mpsHome ?: throw RuntimeException("mps.home not found")
         val plugins: MutableMap<String, PluginModuleOwner> = LinkedHashMap()
         val libraries = ArrayList<LibrarySpec>()
 
-        val rootModuleIds = modules.getModules().values.filter { it.owner is SourceModuleOwner }.map { it.moduleId }.toMutableSet()
+        val rootModules = modules.getModules().values.filter { it.owner is SourceModuleOwner }
+        val rootModuleIds = rootModules.map { it.moduleId }.toMutableSet()
         rootModuleIds += org_modelix_model_mpsplugin
-        val modulesToLoad = modules.getWithDependencies(rootModuleIds).map { it.owner }.toSet()
+        val graph = GeneratorDependencyGraph(ModuleResolver(modules, ignoredModules))
+        graph.load(rootModules)
+        val modulesToLoad = graph.getNodes().flatMap { it.modules }.map { it.owner.getRootOwner() }.toSet()
 
         for (moduleOwner in modulesToLoad) {
             when (moduleOwner) {
