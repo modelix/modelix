@@ -295,15 +295,30 @@ class BuildScriptGenerator(val modulesMiner: ModulesMiner,
                             setAttribute("type", typeString)
                             setAttribute("uuid", sourceModule.moduleId.id)
                             newChild("dependencies") {
-//                                newChild("module") {
-//                                    setAttribute("ref", "")
-//                                    setAttribute("kind", "rt")
-//                                }
+                                for (dep in sourceModule.getGenerationDependencies(resolver)) {
+                                    newChild("module") {
+                                        setAttribute("ref", dep.idAndName.toString())
+                                        setAttribute("kind", "rt")
+                                    }
+                                }
+                                for (dep in sourceModule.getClassPathDependencies(resolver)) {
+                                    newChild("module") {
+                                        setAttribute("ref", dep.idAndName.toString())
+                                        setAttribute("kind", "cl")
+                                    }
+                                }
                             }
                             newChild("uses") {
-//                                newChild("language") {
-//                                    setAttribute("id", "")
-//                                }
+                                for (lang in sourceModule.getAllUsedLanguages(resolver)) {
+                                    newChild("language") {
+                                        setAttribute("id", "l:${lang.moduleId}:${lang.name}")
+                                    }
+                                }
+                            }
+                            for (jar in sourceModule.getOwnJars(macros)) {
+                                newChild("library") {
+                                    setAttribute("jar", "../${getLibsTargetFolderName(sourceModule)}/${jar.name}")
+                                }
                             }
                             newChild("classpath") {
                                 newChild("entry") {
@@ -333,6 +348,18 @@ class BuildScriptGenerator(val modulesMiner: ModulesMiner,
                         newChild("fileset") {
                             setAttribute("dir", sourceModule.owner.path.getLocalAbsolutePath().parent.pathString)
                             setAttribute("includes", "icons/**, resources/**")
+                        }
+                    }
+
+                    val jars = sourceModule.getOwnJars(macros)
+                    if (jars.isNotEmpty()) {
+                        newChild("copy") {
+                            setAttribute("todir", getPackagedModulesDir().resolve(getLibsTargetFolderName(sourceModule)).absolutePath)
+                            for (jar in jars) {
+                                newChild("file") {
+                                    setAttribute("file", jar.absolutePath)
+                                }
+                            }
                         }
                     }
                 }
@@ -504,6 +531,9 @@ class BuildScriptGenerator(val modulesMiner: ModulesMiner,
         } else {
             File(getPackagedModulesDir(), module.name + ".jar")
         }
+    }
+    private fun getLibsTargetFolderName(module: FoundModule): String {
+        return getJarFile(module).nameWithoutExtension + "-lib"
     }
     private fun getJarTempDir(module: FoundModule): File {
         return if (module.moduleType == ModuleType.Generator) {

@@ -28,6 +28,8 @@ class FoundModule(val moduleId: ModuleId,
         get() = moduleDescriptor?.name
             ?: deploymentDescriptor?.name
             ?: throw RuntimeException("module has no descriptor: $moduleId in ${owner.path.getLocalAbsolutePath()}")
+    val idAndName: ModuleIdAndName
+        get() = ModuleIdAndName(moduleId, name)
 
     fun getModuleIdString() = moduleId.id
 
