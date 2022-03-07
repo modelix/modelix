@@ -60,8 +60,10 @@ abstract class DependencyGraph<ElementT, KeyT> {
             cycleBeforeMerge(cycle)
         }
 
-        for (cycle in cycleFinder.cycles) {
-            val nodesToMerge = cycle.map { it.getMergedNode() }.distinct()
+        val cycles: List<List<ElementT>> = cycleFinder.cycles.map { it.flatMap { it.modules } }
+
+        for (cycle in cycles) {
+            val nodesToMerge: List<DependencyNode> = cycle.mapNotNull { getNode(getKey(it)) }.distinct()
             if (nodesToMerge.size <= 1) continue
             for (mergeSource in nodesToMerge.drop(1)) {
                 mergeNodes(mergeSource, nodesToMerge.first())
