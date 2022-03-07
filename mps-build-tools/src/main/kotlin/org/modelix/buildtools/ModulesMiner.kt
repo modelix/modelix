@@ -200,7 +200,7 @@ class ModulesMiner() {
         modules.addModule(owner.getOrCreateModule(descriptor))
         if (descriptor is LanguageDescriptor) {
             for (generator in descriptor.generators) {
-                modules.addModule(owner.getOrCreateModule(descriptor))
+                modules.addModule(owner.getOrCreateModule(generator))
             }
         }
     }

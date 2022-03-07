@@ -93,6 +93,17 @@ class BuildScriptGenerator(val modulesMiner: ModulesMiner,
                     setAttribute("location", "\${mps.home}/lib/jdom.jar")
                 }
             }
+            newChild("path") {
+                setAttribute("id", "path.mps.libs")
+                val cp = File(mpsHome, "lib").walk()
+                    .filter { it.extension == "jar" }
+                    .map { it.absoluteFile.normalize() }
+                for (cpItem in cp) {
+                    newChild("pathelement") {
+                        setAttribute("location", cpItem.absolutePath)
+                    }
+                }
+            }
 
             // target: generate
             newChild("target") {
@@ -390,10 +401,9 @@ class BuildScriptGenerator(val modulesMiner: ModulesMiner,
                     }
                 }
                 newChild("classpath") {
-                    val completeClassPath =
-                        (classPath + File(mpsHome, "lib").walk().filter { it.extension == "jar" })
-                        .map { it.absoluteFile.normalize() }.distinct()
-                    for (cpItem in completeClassPath) {
+                    val normalizedClassPath =
+                        classPath.map { it.absoluteFile.normalize() }.distinct()
+                    for (cpItem in normalizedClassPath) {
                         if (cpItem.isFile) {
                             newChild("fileset") {
                                 setAttribute("file", cpItem.absolutePath)
@@ -403,6 +413,9 @@ class BuildScriptGenerator(val modulesMiner: ModulesMiner,
                                 setAttribute("path", cpItem.absolutePath)
                             }
                         }
+                    }
+                    newChild("path") {
+                        setAttribute("refid", "path.mps.libs")
                     }
                 }
             }
@@ -516,7 +529,7 @@ class BuildScriptGenerator(val modulesMiner: ModulesMiner,
                 listOf(getCompileOutputDir(module))
             }
             is LibraryModuleOwner -> {
-                listOf(owner.path.getLocalAbsolutePath().toFile())
+                owner.getPrimaryAndGeneratorJars()
             }
             is PluginModuleOwner -> {
                 owner.path.getLocalAbsolutePath().toFile()

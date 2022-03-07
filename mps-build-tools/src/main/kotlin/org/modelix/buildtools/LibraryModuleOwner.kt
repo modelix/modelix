@@ -22,4 +22,31 @@ class LibraryModuleOwner(path: ModulePath, val parentPlugin: PluginModuleOwner? 
     override fun getRootOwner(): ModuleOwner {
         return parentPlugin?.getRootOwner() ?: this
     }
+
+    fun getPrimaryAndGeneratorJars(): List<File> = listOf(getPrimaryJar()) + getGeneratorJars()
+
+    fun getPrimaryJar(): File {
+        return path.getLocalAbsolutePath().toFile()
+    }
+
+    fun getSourceJar(): File? {
+        val primaryJar = getPrimaryJar()
+        return primaryJar.parentFile
+            .resolve(primaryJar.nameWithoutExtension + "-src." + primaryJar.extension)
+            .takeIf { it.exists() }
+    }
+
+    fun getGeneratorJars(): List<File> {
+        val primaryJar = getPrimaryJar()
+        val folder = primaryJar.parentFile
+        val baseName = primaryJar.nameWithoutExtension
+        val extension = primaryJar.extension
+        return modules.values
+            .filter { it.moduleType == ModuleType.Generator }
+            .mapIndexed { index, generator ->
+                val indexPart = if (index == 0) "" else "-$index"
+                folder.resolve(baseName + "$indexPart-generator." + extension)
+            }
+            .filter { it.exists() }
+    }
 }
