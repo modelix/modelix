@@ -59,13 +59,11 @@ class ModulesMiner() {
                         loadModules(stream, sourceOwner)
                     }
                     for (module in sourceOwner.modules.values) {
-                        // TODO use model roots declared in the descriptor
-                        val modelsFolder = if (module.moduleType == ModuleType.Generator) {
-                            file.parentFile.resolve("generator")
-                        } else {
-                            file.parentFile.resolve("models")
+                        val descriptor = module.moduleDescriptor ?: continue
+                        val macros = Macros().with("module", file.parentFile.absoluteFile.toPath())
+                        for (modelFolder in descriptor.resolveModelPaths(macros)) {
+                            dependenciesFromModels(module, modelFolder.toFile())
                         }
-                        dependenciesFromModels(module, modelsFolder)
                     }
                 }
                 "jar" -> {

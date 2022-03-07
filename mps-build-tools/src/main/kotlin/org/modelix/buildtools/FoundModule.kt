@@ -29,30 +29,40 @@ class FoundModule(val moduleId: ModuleId,
             ?: deploymentDescriptor?.name
             ?: throw RuntimeException("module has no descriptor: $moduleId in ${owner.path.getLocalAbsolutePath()}")
 
+    fun getModuleIdString() = moduleId.id
+
     init {
         owner.modules[moduleId] = this
     }
 
-    fun getGenerationDependencies(availableModules: ModuleResolver): Set<ModuleIdAndName> {
-        val result = HashSet<ModuleIdAndName>()
-        result += languageOrDevkitUsedInModels
+    fun getGenerationDependencies(resolver: ModuleResolver): Set<FoundModule> {
+        val result = HashSet<FoundModule>()
+        result += languageOrDevkitUsedInModels.mapNotNull { resolver.resolveModule(it, this) }
+        result += getAllUsedLanguages(resolver).map { ModuleIdAndName(it.moduleId, it.name) }
+            .mapNotNull { resolver.resolveModule(it, this) }
 
         val moduleDescriptor = moduleDescriptor
         if (moduleDescriptor != null) {
             result += moduleDescriptor.moduleDependencies.map { it.idAndName }
+                .mapNotNull { resolver.resolveModule(it, this) }
+            result += moduleDescriptor.dependencyVersions.map { it.idAndName }
+                .mapNotNull { resolver.resolveModule(it, this, false) }
             result += moduleDescriptor.runtime.map { it.idAndName }
+                .mapNotNull { resolver.resolveModule(it, this) }
 
             when (moduleDescriptor) {
                 is LanguageDescriptor -> {
-                    result += moduleDescriptor.extendedLanguages
+                    result += moduleDescriptor.extendedLanguages.mapNotNull { resolver.resolveModule(it, this) }
+                    result += moduleDescriptor.generators.map { ModuleIdAndName(it.id, it.name) }
+                        .mapNotNull { resolver.resolveModule(it, this) }
                 }
                 is GeneratorDescriptor -> {
-                    moduleDescriptor.getLanguage()?.let { result += it }
+                    moduleDescriptor.getLanguage()?.let { resolver.resolveModule(it, this) }?.let { result += it }
                 }
                 is DevkitDescriptor -> {
-                    result += moduleDescriptor.exportedLanguages
-                    result += moduleDescriptor.exportedSolutions
-                    result += moduleDescriptor.extendedDevkits
+                    result += moduleDescriptor.exportedLanguages.mapNotNull { resolver.resolveModule(it, this) }
+                    result += moduleDescriptor.exportedSolutions.mapNotNull { resolver.resolveModule(it, this) }
+                    result += moduleDescriptor.extendedDevkits.mapNotNull { resolver.resolveModule(it, this) }
                 }
             }
         }
@@ -83,14 +93,14 @@ class FoundModule(val moduleId: ModuleId,
         return result
     }
 
-    fun getOwnJars(macros: Map<String, File>): Set<File> {
+    fun getOwnJars(macros: Macros): Set<File> {
         val result = HashSet<File>()
         val moduleDescriptor = moduleDescriptor
         if (moduleDescriptor != null) {
             var modulePath = owner.getRootOwner().path.getLocalAbsolutePath().toFile()
             if (modulePath.isFile) modulePath = modulePath.parentFile
-            val moduleMacro = "module" to modulePath
-            result += moduleDescriptor.resolveJavaLibs(macros + moduleMacro)
+            val moduleMacro = "module" to modulePath.toPath()
+            result += moduleDescriptor.resolveJavaLibs(macros.with(moduleMacro))
                 .map { it.toFile() }.filter { it.exists() }
         }
         return result

@@ -20,7 +20,6 @@ class GeneratorDependencyGraph(val moduleResolver: ModuleResolver) : DependencyG
 
     override fun getDependencies(element: FoundModule): Iterable<FoundModule> {
         return element.getGenerationDependencies(moduleResolver)
-            .mapNotNull { moduleResolver.resolveModule(it, element) }
     }
 
     fun mergeGeneratorsAndLanguages() {

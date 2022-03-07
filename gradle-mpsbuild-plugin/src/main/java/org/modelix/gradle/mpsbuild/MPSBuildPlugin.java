@@ -15,13 +15,13 @@ package org.modelix.gradle.mpsbuild;
 
 import org.apache.commons.io.FileUtils;
 import org.gradle.api.Action;
-import org.gradle.api.GradleException;
 import org.gradle.api.Plugin;
 import org.gradle.api.Project;
 import org.gradle.api.Task;
 import org.gradle.api.artifacts.Configuration;
 import org.modelix.buildtools.BuildScriptGenerator;
 import org.modelix.buildtools.FoundModule;
+import org.modelix.buildtools.ModuleId;
 import org.modelix.buildtools.ModulesMiner;
 
 import java.io.File;
@@ -29,8 +29,10 @@ import java.io.IOException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Enumeration;
+import java.util.List;
 import java.util.jar.Manifest;
 
 public class MPSBuildPlugin implements Plugin<Project> {
@@ -87,7 +89,21 @@ public class MPSBuildPlugin implements Plugin<Project> {
                     }
                     modulesMiner.searchInFolder(mpsHome);
                 }
-                BuildScriptGenerator generator = new BuildScriptGenerator(modulesMiner, null,
+
+                List<Path> includedModules = settings.resolveIncludedModules(project.getProjectDir().toPath());
+                List<String> modulesToGenerate = null;
+                if (includedModules != null) {
+                    modulesToGenerate = new ArrayList<>();
+                    for (FoundModule module : modulesMiner.getModules().getModules().values()) {
+                        Path modulePath = module.getOwner().getPath().getLocalAbsolutePath();
+                        if (includedModules.stream().anyMatch(include -> modulePath.startsWith(include))) {
+                            modulesToGenerate.add(module.getModuleIdString());
+                        }
+                    }
+                }
+
+                BuildScriptGenerator generator = new BuildScriptGenerator(
+                        modulesMiner, ModuleId.Companion.fromString(modulesToGenerate),
                         Collections.emptySet(), Collections.emptyMap(), buildDir);
                 String xml = generator.generateXML();
                 try {

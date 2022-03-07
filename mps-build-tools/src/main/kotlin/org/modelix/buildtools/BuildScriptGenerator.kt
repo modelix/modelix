@@ -18,6 +18,7 @@ import org.w3c.dom.Document
 import org.w3c.dom.Element
 import java.io.File
 import javax.xml.parsers.DocumentBuilderFactory
+import kotlin.io.path.absolutePathString
 import kotlin.io.path.pathString
 
 class BuildScriptGenerator(val modulesMiner: ModulesMiner,
@@ -57,10 +58,11 @@ class BuildScriptGenerator(val modulesMiner: ModulesMiner,
         val (plan, dependencyGraph) = generatePlan(modulesToGenerate_ - ignoredModules.toSet())
         val resolver = ModuleResolver(modulesMiner.getModules(), ignoredModules)
         val mpsHome = modulesMiner.getModules().mpsHome ?: throw RuntimeException("mps.home not found")
-        val macros = mapOf(
-            "platform_lib" to File(mpsHome, "lib"),
-            "mps_home" to mpsHome
-        )
+        val macros = Macros(mapOf(
+            "platform_lib" to File(mpsHome, "lib").toPath(),
+            "mps_home" to mpsHome.toPath(),
+            "mps.home" to mpsHome.toPath(),
+        ))
 
         val dbf = DocumentBuilderFactory.newInstance()
         val db = dbf.newDocumentBuilder()
@@ -169,10 +171,10 @@ class BuildScriptGenerator(val modulesMiner: ModulesMiner,
                             setAttribute("value", "-Xmx2G")
                         }
                     }
-                    for (macro in macros) {
+                    for (macro in macros.macros) {
                         newChild("macro") {
                             setAttribute("name", macro.key)
-                            setAttribute("path", macro.value.absolutePath)
+                            setAttribute("path", macro.value.absolutePathString())
                         }
                     }
                 }
@@ -571,7 +573,7 @@ class BuildScriptGenerator(val modulesMiner: ModulesMiner,
             module.owner.path.getLocalAbsolutePath().parent.resolve("models").toFile()
         }
     }
-    private fun getClassPath(module: FoundModule, macros: Map<String, File>): List<File> {
+    private fun getClassPath(module: FoundModule, macros: Macros): List<File> {
         return when(val owner = module.owner) {
             is SourceModuleOwner -> {
                 listOf(getCompileOutputDir(module))

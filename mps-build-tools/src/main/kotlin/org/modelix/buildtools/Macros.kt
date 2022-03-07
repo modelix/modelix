@@ -1,4 +1,6 @@
 /*
+ * Copyright 2003-2022 JetBrains s.r.o.
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -13,13 +15,17 @@
  */
 package org.modelix.buildtools
 
-@JvmInline
-value class ModuleId(val id: String) {
-    companion object {
-        fun fromString(id: String) = ModuleId(id)
-        fun fromString(ids: List<String>) = ids.map { fromString(it) }
-    }
-    override fun toString(): String {
-        return id
+import java.nio.file.Path
+import kotlin.io.path.absolutePathString
+
+class Macros(val macros: Map<String, Path> = mapOf()) {
+    fun with(key: String, value: Path) = with(key to value)
+    fun with(entry: Pair<String, Path>) = Macros(macros + entry)
+    fun resolve(input: String): Path {
+        var path = input
+        for (macro in macros) {
+            path = path.replace("\${" + macro.key + "}", macro.value.absolutePathString())
+        }
+        return Path.of(path).normalize()
     }
 }

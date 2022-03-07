@@ -16,7 +16,7 @@ buildscript {
     }
 
     dependencies {
-        classpath group: 'org.modelix', name: 'gradle-mpsbuild-plugin', version: '0.0.92'
+        classpath group: 'org.modelix', name: 'gradle-mpsbuild-plugin', version: '2020.3.5-202203031233-SNAPSHOT'
     }
 }
 
@@ -30,6 +30,6 @@ apply plugin: 'modelix-gradle-mpsbuild-plugin'
 
 mpsBuild {
     mpsHome "../artifacts/mps"
-    modules "languages"
-    modules "solutions"
+    search "languages"
+    search "solutions"
 }

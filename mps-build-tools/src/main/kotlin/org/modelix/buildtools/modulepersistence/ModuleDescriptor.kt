@@ -28,6 +28,7 @@ abstract class ModuleDescriptor(val xml: Element) {
     val dependencyVersions: List<DependencyVersion>
     val runtime: List<ModuleDependency>
     private val modelRoots: List<Element>
+    private val modelPaths: List<String>
     private val facets: List<Element>
     val javaLibPaths: List<String>
 
@@ -50,19 +51,25 @@ abstract class ModuleDescriptor(val xml: Element) {
         dependencyVersions = xml.childElements("dependencyVersions").flatMap { it.childElements("module") }
             .map { DependencyVersion(it) }
         modelRoots = xml.childElements("models").flatMap { it.childElements("modelRoot") }
+        modelPaths = modelRoots.filter { it.getAttribute("type") == "default" }.flatMap { root ->
+            val contentPath = root.getAttribute("contentPath")
+            root.childElements("sourceRoot").map { contentPath + "/" + it.getAttribute("location") }
+        }
         facets = xml.childElements("facets").flatMap { it.childElements("facet") }
         javaLibPaths = xml.childElements("stubModelEntries")
             .flatMap { it.childElements("stubModelEntry") }
             .map { it.getAttribute("path") }
     }
 
-    fun resolveJavaLibs(macros: Map<String, File>): List<Path> {
-        return javaLibPaths.map {
-            var path = it
-            for (macro in macros) {
-                path = path.replace("\${" + macro.key + "}", macro.value.absolutePath)
-            }
-            Path.of(path).normalize()
+    fun resolveJavaLibs(macros: Macros): List<Path> {
+        return javaLibPaths.map { macros.resolve(it) }
+    }
+
+    fun resolveModelPaths(macros: Macros): List<Path> {
+        return modelPaths.map { macros.resolve(it) }.filter {
+            val exists = it.toFile().exists()
+            if (!exists) println("Model folder doesn't exist: $it")
+            exists
         }
     }
 

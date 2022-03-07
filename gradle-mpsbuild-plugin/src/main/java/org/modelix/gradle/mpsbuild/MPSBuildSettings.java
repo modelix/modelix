@@ -24,6 +24,7 @@ import java.util.stream.Collectors;
 public class MPSBuildSettings {
     private String mpsHome = null;
     private List<String> modules = new ArrayList<>();
+    private List<String> includedModules = new ArrayList<>();
 
     public boolean usingExistingMps() {
         return getMpsHome() != null;
@@ -41,12 +42,21 @@ public class MPSBuildSettings {
         this.mpsHome = mpsHome;
     }
 
-    public void modules(String path) {
+    public void search(String path) {
         this.modules.add(path);
+    }
+
+    public void include(String moduleToInclude) {
+        includedModules.add(moduleToInclude);
     }
 
     public List<Path> resolveModulePaths(Path workdir) {
         if (modules.isEmpty()) return Collections.singletonList(workdir);
         return modules.stream().map(path -> workdir.resolve(path).normalize()).distinct().collect(Collectors.toList());
+    }
+
+    public List<Path> resolveIncludedModules(Path workdir) {
+        if (includedModules.isEmpty()) return null;
+        return includedModules.stream().map(path -> workdir.resolve(path).toAbsolutePath().normalize()).distinct().collect(Collectors.toList());
     }
 }

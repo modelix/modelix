@@ -51,7 +51,7 @@ class GenerationPlanBuilder(val availableModules: FoundModules, val ignoredModul
         val plugins: MutableMap<String, PluginModuleOwner> = LinkedHashMap()
 
         for (module in node.modules) {
-            when (val moduleOwner = module.owner) {
+            when (val moduleOwner = module.owner.getRootOwner()) {
                 is SourceModuleOwner -> {
                     var moduleToGenerate = module
                     if (module.moduleType == ModuleType.Generator) {
