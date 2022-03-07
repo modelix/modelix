@@ -26,6 +26,8 @@ class BuildScriptGenerator(val modulesMiner: ModulesMiner,
                            val macros: Map<String, File> = HashMap(),
                            val buildDir: File = File(".", "build")) {
 
+    private var compileCycleIds: Map<DependencyGraph<FoundModule, ModuleId>.DependencyNode, Int> = HashMap()
+
     fun buildModules(antScriptFile: File = File.createTempFile("mps-build-script", ".xml", File(".")), outputHandler: ((String)->Unit)? = null) {
         val xml = generateXML()
         antScriptFile.writeText(xml)
@@ -104,6 +106,24 @@ class BuildScriptGenerator(val modulesMiner: ModulesMiner,
                     }
                 }
             }
+            for (module in modulesMiner.getModules().getModules().values) {
+                newChild("path") {
+                    setAttribute("id", "path.module.${module.name}")
+                    getClassPath(module, macros)
+                    val cp = getClassPath(module, macros).map { it.absoluteFile.normalize() }
+                    for (cpItem in cp) {
+                        if (cpItem.isFile) {
+                            newChild("fileset") {
+                                setAttribute("file", cpItem.absolutePath)
+                            }
+                        } else {
+                            newChild("pathelement") {
+                                setAttribute("path", cpItem.absolutePath)
+                            }
+                        }
+                    }
+                }
+            }
 
             // target: generate
             newChild("target") {
@@ -173,16 +193,33 @@ class BuildScriptGenerator(val modulesMiner: ModulesMiner,
             val modulesToCompile = sourceModules + generatorModules
             val compileDependencyGraph = CompileDependencyGraph(resolver)
             compileDependencyGraph.load(modulesToCompile)
-            var cycleIdSequence = 0
-            val cycles = compileDependencyGraph.getNodes().filter { it.modules.any { it.owner is SourceModuleOwner } }
-            val compileTargetNames = cycles.associateWith {
-                if (it.modules.size == 1) {
-                    getCompileTargetName(it.modules.first())
+            var compileCycleIdSequence = 0
+            val compileCycles = compileDependencyGraph.getNodes().filter { it.modules.any { it.owner is SourceModuleOwner } }
+            compileCycleIds = compileDependencyGraph.getNodes().filter { it.modules.size > 1 }.associateWith { ++compileCycleIdSequence }
+            val compileTargetNames = compileCycles.associateWith { cycle ->
+                if (cycle.modules.size == 1) {
+                    getCompileTargetName(cycle.modules.first())
                 } else {
-                    "compile.cycle.${++cycleIdSequence}"
+                    "compile.cycle.${compileCycleIds[cycle]}"
                 }
             }
-            for (cycle in cycles) {
+            for (cycle in compileCycleIds) {
+                newChild("path") {
+                    setAttribute("id", "path.cycle${cycle.value}")
+                    for (module in cycle.key.modules) {
+                        newChild("path") {
+                            setAttribute("refid", "path.module.${module.name}")
+                        }
+                    }
+                    for (dep in cycle.key.getDependencies()) {
+                        val depId = compileCycleIds[dep] ?: continue
+                        newChild("path") {
+                            setAttribute("refid", "path.cycle${depId}")
+                        }
+                    }
+                }
+            }
+            for (cycle in compileCycles) {
                 val sourceModules = cycle.modules.filter { it.owner is SourceModuleOwner }
                 var cycleOutputDir: File? = null
                 val isCycle = cycle.modules.size > 1
@@ -190,8 +227,8 @@ class BuildScriptGenerator(val modulesMiner: ModulesMiner,
                     cycleOutputDir = File(getCompileOutputDir(), compileTargetNames[cycle]!!)
                     createCompileTarget(
                         modules = sourceModules,
-                        classPath = cycle.getTransitiveDependencies().flatMap { it.modules }.distinct()
-                            .flatMap { getClassPath(it, macros) } + sourceModules.flatMap { it.getOwnJars(macros) },
+                        classPath = sourceModules.flatMap { it.getOwnJars(macros) },
+                        classPathModules = cycle.getTransitiveDependencies(),
                         targetName = compileTargetNames[cycle]!!,
                         targetDependencies = cycle.getDependencies().mapNotNull { compileTargetNames[it] },
                         outputDir = cycleOutputDir,
@@ -201,14 +238,14 @@ class BuildScriptGenerator(val modulesMiner: ModulesMiner,
 
                 for (module in sourceModules) {
                     val targetName = getCompileTargetName(module)
-                    var cp = cycle.getTransitiveDependencies().flatMap { it.modules }.distinct()
-                        .flatMap { getClassPath(it, macros) } + module.getOwnJars(macros)
+                    var cp = module.getOwnJars(macros).toList()
                     if (cycleOutputDir != null) cp += cycleOutputDir
                     var targetDependencies = cycle.getDependencies().mapNotNull { compileTargetNames[it] }
                     if (isCycle) targetDependencies += compileTargetNames[cycle]!!
                     createCompileTarget(
                         modules = listOf(module),
                         classPath = cp,
+                        classPathModules = cycle.getTransitiveDependencies(),
                         targetName = targetName,
                         targetDependencies = targetDependencies,
                         outputDir = getCompileOutputDir(module),
@@ -365,6 +402,7 @@ class BuildScriptGenerator(val modulesMiner: ModulesMiner,
     private fun Element.createCompileTarget(
         modules: List<FoundModule>,
         classPath: List<File>,
+        classPathModules: Set<DependencyGraph<FoundModule, ModuleId>.DependencyNode>,
         targetName: String,
         targetDependencies: List<String>,
         outputDir: File,
@@ -412,6 +450,16 @@ class BuildScriptGenerator(val modulesMiner: ModulesMiner,
                             newChild("pathelement") {
                                 setAttribute("path", cpItem.absolutePath)
                             }
+                        }
+                    }
+                    for (classPathModule in classPathModules) {
+                        newChild("path") {
+                            val pathName = if (classPathModule.modules.size > 1) {
+                                "path.cycle${compileCycleIds[classPathModule]}"
+                            } else {
+                                "path.module.${classPathModule.modules.first().name}"
+                            }
+                            setAttribute("refid", pathName)
                         }
                     }
                     newChild("path") {
