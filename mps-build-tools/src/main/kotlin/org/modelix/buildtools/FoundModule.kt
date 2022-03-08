@@ -102,8 +102,29 @@ class FoundModule(val moduleId: ModuleId,
             var modulePath = owner.getRootOwner().path.getLocalAbsolutePath().toFile()
             if (modulePath.isFile) modulePath = modulePath.parentFile
             val moduleMacro = "module" to modulePath.toPath()
-            result += moduleDescriptor.resolveJavaLibs(macros.with(moduleMacro))
-                .map { it.toFile() }.filter { it.exists() }
+            val marcosWithModule = macros.with(moduleMacro)
+            result += moduleDescriptor.resolveJavaLibs(marcosWithModule)
+                .map { it.normalize().toFile() }.filter {
+                    val exists = it.exists()
+                    if (!exists && it.name != "classes" && deploymentDescriptor == null) {
+                        println("File not found: $it, usedBy: $name")
+                    }
+                    exists
+                }
+        }
+        val deploymentDescriptor = deploymentDescriptor
+        if (deploymentDescriptor != null) {
+            var moduleHome = owner.path.getLocalAbsolutePath().toFile()
+            if (moduleHome.isFile) moduleHome = moduleHome.parentFile
+            val mpsHome = macros.macros["mps.home"] ?: throw RuntimeException("mps.home not specified")
+            result += deploymentDescriptor.resolveJavaLibs(mpsHome, moduleHome.toPath())
+                .map { it.normalize().toFile() }.filter {
+                    val exists = it.exists()
+                    if (!exists) {
+                        println("File not found: $it, usedBy: $name")
+                    }
+                    exists
+                }
         }
         return result
     }

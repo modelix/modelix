@@ -26,6 +26,7 @@ class DeploymentDescriptor(val xml: Element) {
     val classpath: List<String>
     val sourcesJarName: String
     val descriptorFileName: String
+    val libraries: List<String>
 
     init {
         val idString = xml.getAttribute("uuid")
@@ -47,16 +48,23 @@ class DeploymentDescriptor(val xml: Element) {
             .map { ModuleIdAndName.fromLanguageRef(it.getAttribute("id")) }
         classpath = xml.childElements("classpath").flatMap { it.childElements("entry") }
             .map { it.getAttribute("path") }
+        libraries = xml.childElements("library").mapNotNull { it.getAttributeOrNull("jar") }
         val sources = xml.childElements("sources").first()
         sourcesJarName = sources.getAttribute("jar")
         descriptorFileName = sources.getAttribute("descriptor")
     }
 
+    private fun resolvePath(modulePath: Path, relativePath: String): Path {
+        return modulePath.resolve(relativePath)
+    }
+
     fun resolveSourcesJar(modulePath: Path): Path {
-        return if (sourcesJarName == ".") {
-            modulePath
-        } else {
-            modulePath.parent.resolve(sourcesJarName)
+        return resolvePath(modulePath, sourcesJarName)
+    }
+
+    fun resolveJavaLibs(mpsHome: Path, modulePath: Path): List<Path> {
+        return libraries.map {
+            if (it.startsWith("/")) mpsHome.resolve(it.drop(1)) else modulePath.resolve(it)
         }
     }
 

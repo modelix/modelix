@@ -13,10 +13,7 @@
  */
 package org.modelix.buildtools
 
-import org.modelix.buildtools.modulepersistence.DevkitDescriptor
-import org.modelix.buildtools.modulepersistence.GeneratorDescriptor
-import org.modelix.buildtools.modulepersistence.LanguageDescriptor
-import org.modelix.buildtools.modulepersistence.SolutionDescriptor
+import org.modelix.buildtools.modulepersistence.*
 import org.w3c.dom.Element
 import org.zeroturnaround.zip.ZipUtil
 import java.io.File
@@ -187,18 +184,22 @@ class ModulesMiner() {
 
     private val typeMap = mapOf("language" to ModuleType.Language, "solution" to ModuleType.Solution, "dev-kit" to ModuleType.Devkit, "devkit" to ModuleType.Devkit, "generator" to ModuleType.Generator)
     private fun loadModules(xml: Element, owner: ModuleOwner) {
-        val typeString = if (xml.tagName == "module") xml.getAttribute("type") else xml.tagName
-        val type = typeMap[typeString] ?: throw RuntimeException("Unknown module type: $typeString")
-        val descriptor = when (type) {
-            ModuleType.Solution -> SolutionDescriptor(xml)
-            ModuleType.Language -> LanguageDescriptor(xml)
-            ModuleType.Generator -> GeneratorDescriptor(xml, null)
-            ModuleType.Devkit -> DevkitDescriptor(xml)
-        }
-        modules.addModule(owner.getOrCreateModule(descriptor))
-        if (descriptor is LanguageDescriptor) {
-            for (generator in descriptor.generators) {
-                modules.addModule(owner.getOrCreateModule(generator))
+        if (xml.tagName == "module") {
+            val descriptor = DeploymentDescriptor(xml)
+            modules.addModule(owner.getOrCreateModule(descriptor))
+        } else {
+            val type = typeMap[xml.tagName] ?: throw RuntimeException("Unknown module type: ${xml.tagName}")
+            val descriptor = when (type) {
+                ModuleType.Solution -> SolutionDescriptor(xml)
+                ModuleType.Language -> LanguageDescriptor(xml)
+                ModuleType.Generator -> GeneratorDescriptor(xml, null)
+                ModuleType.Devkit -> DevkitDescriptor(xml)
+            }
+            modules.addModule(owner.getOrCreateModule(descriptor))
+            if (descriptor is LanguageDescriptor) {
+                for (generator in descriptor.generators) {
+                    modules.addModule(owner.getOrCreateModule(generator))
+                }
             }
         }
     }

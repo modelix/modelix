@@ -59,7 +59,8 @@ class BuildScriptGenerator(val modulesMiner: ModulesMiner,
         val resolver = ModuleResolver(modulesMiner.getModules(), ignoredModules)
         val mpsHome = modulesMiner.getModules().mpsHome ?: throw RuntimeException("mps.home not found")
         val macros = Macros(mapOf(
-            "platform_lib" to File(mpsHome, "lib").toPath(),
+            "platform_lib" to mpsHome.toPath().resolve("lib"),
+            "lib_ext" to mpsHome.toPath().resolve("lib").resolve("ext"),
             "mps_home" to mpsHome.toPath(),
             "mps.home" to mpsHome.toPath(),
         ))
