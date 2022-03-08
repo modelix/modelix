@@ -111,7 +111,6 @@ class BuildScriptGenerator(val modulesMiner: ModulesMiner,
             for (module in modulesMiner.getModules().getModules().values) {
                 newChild("path") {
                     setAttribute("id", "path.module.${module.name}")
-                    getClassPath(module, macros)
                     val cp = getClassPath(module, macros).map { it.absoluteFile.normalize() }
                     for (cpItem in cp) {
                         if (cpItem.isFile) {
@@ -247,7 +246,7 @@ class BuildScriptGenerator(val modulesMiner: ModulesMiner,
                     createCompileTarget(
                         modules = listOf(module),
                         classPath = cp,
-                        classPathModules = cycle.getTransitiveDependencies(),
+                        classPathModules = cycle.getTransitiveDependencies() + cycle,
                         targetName = targetName,
                         targetDependencies = targetDependencies,
                         outputDir = getCompileOutputDir(module),
