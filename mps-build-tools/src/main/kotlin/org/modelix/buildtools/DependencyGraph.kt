@@ -20,9 +20,9 @@ abstract class DependencyGraph<ElementT, KeyT> {
     abstract fun getKey(element: ElementT): KeyT
     abstract fun getDependencies(element: ElementT): Iterable<ElementT>
 
-    fun getRoots() = module2node.values.filter { it.isRoot() }
+    fun getRoots() = getNodes().filter { it.isRoot() }
 
-    fun getNode(moduleId: KeyT) = module2node[moduleId]
+    fun getNode(moduleId: KeyT) = module2node[moduleId]?.getMergedNode()
 
     fun getNodes(): Set<DependencyNode> = module2node.values.map { it.getMergedNode() }.toSet()
 
@@ -32,7 +32,7 @@ abstract class DependencyGraph<ElementT, KeyT> {
     }
 
     private fun load(module: ElementT): DependencyNode {
-        var node = module2node[getKey(module)]
+        var node = getNode(getKey(module))
         if (node != null) return node
 
         node = DependencyNode()
@@ -54,7 +54,7 @@ abstract class DependencyGraph<ElementT, KeyT> {
 
     fun mergeCycles() {
         val cycleFinder = CycleFinder()
-        module2node.values.forEach { cycleFinder.process(it) }
+        getNodes().forEach { cycleFinder.process(it) }
 
         for (cycle in cycleFinder.cycles) {
             cycleBeforeMerge(cycle)
@@ -82,12 +82,15 @@ abstract class DependencyGraph<ElementT, KeyT> {
         target.modules += source.modules
         source.modules.clear()
 
-        for (dependency in source.getDependencies()) {
+        val dependenciesToTransfer = source.getDependencies()
+        val reverseDependenciesToTransfer = source.getReverseDependencies()
+
+        for (dependency in dependenciesToTransfer) {
             source.removeDependency(dependency)
             target.addDependency(dependency)
         }
 
-        for (reverseDependency in source.getReverseDependencies()) {
+        for (reverseDependency in reverseDependenciesToTransfer) {
             reverseDependency.removeDependency(source)
             reverseDependency.addDependency(target)
         }
