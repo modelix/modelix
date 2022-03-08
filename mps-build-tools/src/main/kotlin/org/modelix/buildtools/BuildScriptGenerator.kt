@@ -317,7 +317,7 @@ class BuildScriptGenerator(val modulesMiner: ModulesMiner,
                             }
                             for (jar in sourceModule.getOwnJars(macros)) {
                                 newChild("library") {
-                                    setAttribute("jar", "../${getLibsTargetFolderName(sourceModule)}/${jar.name}")
+                                    setAttribute("jar", "./${getLibsTargetFolderName(sourceModule)}/${jar.name}")
                                 }
                             }
                             newChild("classpath") {
@@ -419,6 +419,7 @@ class BuildScriptGenerator(val modulesMiner: ModulesMiner,
                 setAttribute("name", "clean")
                 newChild("delete") { setAttribute("dir", getPackagedModulesDir().absolutePath) }
                 newChild("delete") { setAttribute("dir", getPackagedModulesTempDir().absolutePath) }
+                newChild("delete") { setAttribute("dir", getModelsTempDir().absolutePath) }
                 newChild("delete") { setAttribute("dir", getCompileOutputDir().absolutePath) }
             }
         }
