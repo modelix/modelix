@@ -198,13 +198,6 @@ class BuildScriptGenerator(val modulesMiner: ModulesMiner,
             var compileCycleIdSequence = 0
             val compileCycles = compileDependencyGraph.getNodes().filter { it.modules.any { it.owner is SourceModuleOwner } }
             compileCycleIds = compileDependencyGraph.getNodes().filter { it.modules.size > 1 }.associateWith { ++compileCycleIdSequence }
-            val compileTargetNames = compileCycles.associateWith { cycle ->
-                if (cycle.modules.size == 1) {
-                    getCompileTargetName(cycle.modules.first())
-                } else {
-                    "compile.cycle.${compileCycleIds[cycle]}"
-                }
-            }
             for (cycle in compileCycleIds) {
                 newChild("path") {
                     setAttribute("id", "path.cycle${cycle.value}")
@@ -223,17 +216,15 @@ class BuildScriptGenerator(val modulesMiner: ModulesMiner,
             }
             for (cycle in compileCycles) {
                 val sourceModules = cycle.modules.filter { it.owner is SourceModuleOwner }
-                var cycleOutputDir: File? = null
                 val isCycle = cycle.modules.size > 1
                 if (isCycle) {
-                    cycleOutputDir = File(getCompileOutputDir(), compileTargetNames[cycle]!!)
                     createCompileTarget(
                         modules = sourceModules,
                         classPath = sourceModules.flatMap { it.getOwnJars(macros) },
                         classPathModules = cycle.getTransitiveDependencies(),
-                        targetName = compileTargetNames[cycle]!!,
-                        targetDependencies = cycle.getDependencies().mapNotNull { compileTargetNames[it] },
-                        outputDir = cycleOutputDir,
+                        targetName = getCompileTargetName(cycle)!!,
+                        targetDependencies = cycle.getDependencies().mapNotNull { getCompileTargetName(it) },
+                        outputDir = getCompileOutputDir(cycle)!!,
                         mpsHome = mpsHome
                     )
                 }
@@ -241,9 +232,9 @@ class BuildScriptGenerator(val modulesMiner: ModulesMiner,
                 for (module in sourceModules) {
                     val targetName = getCompileTargetName(module)
                     var cp = module.getOwnJars(macros).toList()
-                    if (cycleOutputDir != null) cp += cycleOutputDir
-                    var targetDependencies = cycle.getDependencies().mapNotNull { compileTargetNames[it] }
-                    if (isCycle) targetDependencies += compileTargetNames[cycle]!!
+                    if (isCycle) cp += getCompileOutputDir(cycle)!!
+                    var targetDependencies = cycle.getDependencies().mapNotNull { getCompileTargetName(it) }
+                    if (isCycle) targetDependencies += getCompileTargetName(cycle)!!
                     createCompileTarget(
                         modules = listOf(module),
                         classPath = cp,
@@ -483,6 +474,11 @@ class BuildScriptGenerator(val modulesMiner: ModulesMiner,
                         }
                     }
                     for (classPathModule in classPathModules) {
+                        getCompileOutputDir(classPathModule)?.let {
+                            newChild("pathelement") {
+                                setAttribute("path", it.absolutePath)
+                            }
+                        }
                         newChild("path") {
                             val pathName = if (classPathModule.modules.size > 1) {
                                 "path.cycle${compileCycleIds[classPathModule]}"
@@ -513,6 +509,13 @@ class BuildScriptGenerator(val modulesMiner: ModulesMiner,
         } else {
             "compile.${module.name}"
         }
+    }
+    private fun getCompileTargetName(cycle: DependencyGraph<FoundModule, ModuleId>.DependencyNode): String? {
+        if (!requiresCompile(cycle)) return null
+        return if (cycle.modules.size == 1)
+            getCompileTargetName(cycle.modules.first())
+        else
+            "compile.cycle.${compileCycleIds[cycle]}"
     }
     private fun getAssembleTargetName(module: FoundModule): String {
         return if (module.moduleType == ModuleType.Generator) {
@@ -589,6 +592,16 @@ class BuildScriptGenerator(val modulesMiner: ModulesMiner,
         } else {
             File(getCompileOutputDir(), module.name)
         }
+    }
+    private fun getCompileOutputDir(cycle: DependencyGraph<FoundModule, ModuleId>.DependencyNode): File? {
+        if (!requiresCompile(cycle)) return null
+        return if (cycle.modules.size == 1)
+            getCompileOutputDir(cycle.modules.first())
+        else
+            File(getCompileOutputDir(), "cycle.${compileCycleIds[cycle]}")
+    }
+    private fun requiresCompile(cycle: DependencyGraph<FoundModule, ModuleId>.DependencyNode): Boolean {
+        return cycle.modules.any { it.owner is SourceModuleOwner }
     }
     private fun getSourceGenDir(module: FoundModule): File {
         return if (module.moduleType == ModuleType.Generator) {

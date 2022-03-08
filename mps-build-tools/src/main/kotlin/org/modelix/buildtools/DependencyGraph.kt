@@ -60,10 +60,10 @@ abstract class DependencyGraph<ElementT, KeyT> {
             cycleBeforeMerge(cycle)
         }
 
-        val cycles: List<List<ElementT>> = cycleFinder.cycles.map { it.flatMap { it.modules } }
+        val cycles: Set<Set<DependencyNode>> = cycleFinder.cycles
 
         for (cycle in cycles) {
-            val nodesToMerge: List<DependencyNode> = cycle.mapNotNull { getNode(getKey(it)) }.distinct()
+            val nodesToMerge: List<DependencyNode> = cycle.map { it.getMergedNode() }.distinct()
             if (nodesToMerge.size <= 1) continue
             for (mergeSource in nodesToMerge.drop(1)) {
                 mergeNodes(mergeSource, nodesToMerge.first())
@@ -75,6 +75,8 @@ abstract class DependencyGraph<ElementT, KeyT> {
         if (source == target) {
             throw RuntimeException("Attempt to merge a node into itself")
         }
+        if (!source.isValid()) throw RuntimeException("source is already merged")
+        if (!target.isValid()) throw RuntimeException("target is already merged")
         source.mergedInto = target
         for (sourceModule in source.modules) {
             module2node[getKey(sourceModule)] = target

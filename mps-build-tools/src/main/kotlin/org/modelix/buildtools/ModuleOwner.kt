@@ -14,6 +14,7 @@
 package org.modelix.buildtools
 
 import org.modelix.buildtools.modulepersistence.*
+import java.io.File
 import kotlin.io.path.pathString
 
 abstract class ModuleOwner(val path: ModulePath) {
