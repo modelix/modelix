@@ -20,7 +20,7 @@ import kotlin.io.path.absolutePathString
 
 class Macros(val macros: Map<String, Path> = mapOf()) {
     fun with(key: String, value: Path) = with(key to value)
-    fun with(entry: Pair<String, Path>) = Macros(macros + entry)
+    fun with(vararg entry: Pair<String, Path>) = Macros(macros + entry)
     fun resolve(input: String): Path {
         var path = input
         for (macro in macros) {

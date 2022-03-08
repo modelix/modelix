@@ -24,7 +24,7 @@ import kotlin.io.path.pathString
 class BuildScriptGenerator(val modulesMiner: ModulesMiner,
                            val modulesToGenerate: List<ModuleId>? = null,
                            val ignoredModules: Set<ModuleId> = HashSet(),
-                           val macros: Map<String, File> = HashMap(),
+                           val initialMacros: Macros = Macros(),
                            val buildDir: File = File(".", "build")) {
 
     private var compileCycleIds: Map<DependencyGraph<FoundModule, ModuleId>.DependencyNode, Int> = HashMap()
@@ -58,12 +58,12 @@ class BuildScriptGenerator(val modulesMiner: ModulesMiner,
         val (plan, dependencyGraph) = generatePlan(modulesToGenerate_ - ignoredModules.toSet())
         val resolver = ModuleResolver(modulesMiner.getModules(), ignoredModules)
         val mpsHome = modulesMiner.getModules().mpsHome ?: throw RuntimeException("mps.home not found")
-        val macros = Macros(mapOf(
+        val macros = initialMacros.with(
             "platform_lib" to mpsHome.toPath().resolve("lib"),
             "lib_ext" to mpsHome.toPath().resolve("lib").resolve("ext"),
             "mps_home" to mpsHome.toPath(),
             "mps.home" to mpsHome.toPath(),
-        ))
+        )
 
         val dbf = DocumentBuilderFactory.newInstance()
         val db = dbf.newDocumentBuilder()

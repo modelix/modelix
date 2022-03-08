@@ -13,18 +13,25 @@
  */
 package org.modelix.gradle.mpsbuild;
 
+import org.modelix.buildtools.Macros;
+
 import java.io.File;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 public class MPSBuildSettings {
     private String mpsHome = null;
     private List<String> modules = new ArrayList<>();
-    private List<String> includedModules = new ArrayList<>();
+    private List<String> includedPaths = new ArrayList<>();
+    private Set<String> includedModuleNames = new HashSet<>();
+    private Map<String, String> macros = new HashMap<>();
 
     public boolean usingExistingMps() {
         return getMpsHome() != null;
@@ -46,8 +53,22 @@ public class MPSBuildSettings {
         this.modules.add(path);
     }
 
-    public void include(String moduleToInclude) {
-        includedModules.add(moduleToInclude);
+    public void include(String pathToInclude) {
+        includePath(pathToInclude);
+    }
+    public void includePath(String pathToInclude) {
+        includedPaths.add(pathToInclude);
+    }
+    public void includeModule(String moduleName) {
+        includedModuleNames.add(moduleName);
+    }
+    public Set<String> getIncludedModuleNames() {
+        if (includedModuleNames.isEmpty()) return null;
+        return includedModuleNames;
+    }
+
+    public void macro(String name, String value) {
+        macros.put(name, value);
     }
 
     public List<Path> resolveModulePaths(Path workdir) {
@@ -56,7 +77,15 @@ public class MPSBuildSettings {
     }
 
     public List<Path> resolveIncludedModules(Path workdir) {
-        if (includedModules.isEmpty()) return null;
-        return includedModules.stream().map(path -> workdir.resolve(path).toAbsolutePath().normalize()).distinct().collect(Collectors.toList());
+        if (includedPaths.isEmpty()) return null;
+        return includedPaths.stream().map(path -> workdir.resolve(path).toAbsolutePath().normalize()).distinct().collect(Collectors.toList());
+    }
+
+    public Macros getMacros(Path workdir) {
+        Map<String, Path> resolvedMacros = new HashMap<>();
+        for (Map.Entry<String, String> macro : macros.entrySet()) {
+            resolvedMacros.put(macro.getKey(), workdir.resolve(macro.getValue()).toAbsolutePath().normalize());
+        }
+        return new Macros(resolvedMacros);
     }
 }

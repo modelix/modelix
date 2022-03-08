@@ -32,8 +32,11 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Enumeration;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.jar.Manifest;
+import java.util.stream.Collectors;
 
 public class MPSBuildPlugin implements Plugin<Project> {
 
@@ -90,21 +93,32 @@ public class MPSBuildPlugin implements Plugin<Project> {
                     modulesMiner.searchInFolder(mpsHome);
                 }
 
-                List<Path> includedModules = settings.resolveIncludedModules(project.getProjectDir().toPath());
+                List<Path> includedPaths = settings.resolveIncludedModules(project.getProjectDir().toPath());
+                Set<String> includedModuleNames = settings.getIncludedModuleNames();
+                Set<String> foundModuleNames = new HashSet<>();
                 List<String> modulesToGenerate = null;
-                if (includedModules != null) {
+                if (includedPaths != null || includedModuleNames != null) {
                     modulesToGenerate = new ArrayList<>();
                     for (FoundModule module : modulesMiner.getModules().getModules().values()) {
-                        Path modulePath = module.getOwner().getPath().getLocalAbsolutePath();
-                        if (includedModules.stream().anyMatch(include -> modulePath.startsWith(include))) {
+                        if (includedModuleNames != null && includedModuleNames.contains(module.getName())) {
                             modulesToGenerate.add(module.getModuleIdString());
+                            foundModuleNames.add(module.getName());
+                        } else if (includedPaths != null) {
+                            Path modulePath = module.getOwner().getPath().getLocalAbsolutePath();
+                            if (includedPaths.stream().anyMatch(include -> modulePath.startsWith(include))) {
+                                modulesToGenerate.add(module.getModuleIdString());
+                            }
                         }
                     }
+                }
+                List<String> missingModuleNames = includedModuleNames.stream().filter(n -> !foundModuleNames.contains(n)).sorted().collect(Collectors.toList());
+                if (!missingModuleNames.isEmpty()) {
+                    throw new RuntimeException("Modules not found: " + missingModuleNames);
                 }
 
                 BuildScriptGenerator generator = new BuildScriptGenerator(
                         modulesMiner, ModuleId.Companion.fromString(modulesToGenerate),
-                        Collections.emptySet(), Collections.emptyMap(), buildDir);
+                        Collections.emptySet(), settings.getMacros(project.getProjectDir().toPath()), buildDir);
                 String xml = generator.generateXML();
                 try {
                     FileUtils.writeStringToFile(antScriptFile, xml, StandardCharsets.UTF_8);
