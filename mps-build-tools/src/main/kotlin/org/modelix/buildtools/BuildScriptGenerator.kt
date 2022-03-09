@@ -28,6 +28,7 @@ class BuildScriptGenerator(val modulesMiner: ModulesMiner,
                            val buildDir: File = File(".", "build")) {
 
     private var compileCycleIds: Map<DependencyGraph<FoundModule, ModuleId>.DependencyNode, Int> = HashMap()
+    val publications: MutableList<Publication> = ArrayList();
 
     fun buildModules(antScriptFile: File = File.createTempFile("mps-build-script", ".xml", File(".")), outputHandler: ((String)->Unit)? = null) {
         val xml = generateXML()
@@ -215,12 +216,12 @@ class BuildScriptGenerator(val modulesMiner: ModulesMiner,
                 }
             }
             for (cycle in compileCycles) {
-                val sourceModules = cycle.modules.filter { it.owner is SourceModuleOwner }
+                val cycleSourceModules = cycle.modules.filter { it.owner is SourceModuleOwner }
                 val isCycle = cycle.modules.size > 1
                 if (isCycle) {
                     createCompileTarget(
-                        modules = sourceModules,
-                        classPath = sourceModules.flatMap { it.getOwnJars(macros) },
+                        modules = cycleSourceModules,
+                        classPath = cycleSourceModules.flatMap { it.getOwnJars(macros) },
                         classPathModules = cycle.getTransitiveDependencies(),
                         targetName = getCompileTargetName(cycle)!!,
                         targetDependencies = cycle.getDependencies().mapNotNull { getCompileTargetName(it) },
@@ -229,7 +230,7 @@ class BuildScriptGenerator(val modulesMiner: ModulesMiner,
                     )
                 }
 
-                for (module in sourceModules) {
+                for (module in cycleSourceModules) {
                     val targetName = getCompileTargetName(module)
                     var cp = module.getOwnJars(macros).toList()
                     if (isCycle) cp += getCompileOutputDir(cycle)!!
@@ -245,6 +246,16 @@ class BuildScriptGenerator(val modulesMiner: ModulesMiner,
                         mpsHome = mpsHome
                     )
                 }
+
+            }
+            publications +=  modulesToCompile.map { it.owner }.distinct().filterIsInstance<SourceModuleOwner>().map { owner ->
+                val nonGen = owner.modules.values.first { it.moduleType != ModuleType.Generator }
+                val gen = owner.modules.values.filter { it.moduleType == ModuleType.Generator }
+                Publication(
+                    nonGen.name,
+                    listOf(PublicationJar(getJarFile(nonGen), ""), PublicationJar(getSrcJarFile(nonGen), "src")) +
+                        gen.mapIndexed { i, m -> PublicationJar(getJarFile(m), if (i == 0) "generator" else "$i-generator") }
+                )
             }
 
             // target: compile
@@ -431,7 +442,7 @@ class BuildScriptGenerator(val modulesMiner: ModulesMiner,
     ) {
         newChild("target") {
             setAttribute("name", targetName)
-            setAttribute("depends", targetDependencies.joinToString(", "))
+            setAttribute("depends", (listOf("generate") + targetDependencies).joinToString(", "))
 
             newChild("mkdir") {
                 setAttribute("dir", outputDir.absolutePath)
@@ -638,4 +649,7 @@ class BuildScriptGenerator(val modulesMiner: ModulesMiner,
         val dependencyGraph = planBuilder.build(modulesToGenerate.mapNotNull { modulesMiner.getModules().getModules()[it] })
         return planBuilder.plan to dependencyGraph
     }
+
+    class Publication(val name: String, val jars: List<PublicationJar>)
+    class PublicationJar(val file: File, val classifier: String)
 }

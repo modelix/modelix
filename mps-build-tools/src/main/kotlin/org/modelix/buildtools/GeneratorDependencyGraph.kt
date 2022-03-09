@@ -38,13 +38,4 @@ class GeneratorDependencyGraph(val moduleResolver: ModuleResolver) : DependencyG
         mergeGeneratorsAndLanguages()
         super.postprocess()
     }
-
-    override fun cycleBeforeMerge(cycle: Set<DependencyNode>) {
-        val modules = cycle.flatMap { it.modules }
-            .filter { it.moduleType == ModuleType.Language || it.moduleType == ModuleType.Solution }
-        if (!modules.any { it.owner is SourceModuleOwner }) return
-        if (modules.size > 1) {
-            println("Dependency cycle: " + modules.joinToString(" -> ") { it.name })
-        }
-    }
 }

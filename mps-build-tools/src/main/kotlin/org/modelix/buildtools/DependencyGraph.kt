@@ -53,21 +53,39 @@ abstract class DependencyGraph<ElementT, KeyT> {
     protected open fun cycleBeforeMerge(cycle: Set<DependencyNode>) {}
 
     fun mergeCycles() {
-        val cycleFinder = CycleFinder()
-        getNodes().forEach { cycleFinder.process(it) }
+        for (i in 0..5) {
+            val cycleFinder = CycleFinder()
+            getNodes().forEach { cycleFinder.process(it) }
 
-        for (cycle in cycleFinder.cycles) {
-            cycleBeforeMerge(cycle)
+            if (cycleFinder.cycles.isEmpty()) break
+
+            for (cycle in cycleFinder.cycles) {
+                cycleBeforeMerge(cycle)
+            }
+
+            val cycles: Set<Set<DependencyNode>> = cycleFinder.cycles
+
+            for (cycle in cycles) {
+                val nodesToMerge: List<DependencyNode> = cycle.map { it.getMergedNode() }.distinct()
+                if (nodesToMerge.size <= 1) continue
+                for (mergeSource in nodesToMerge.drop(1)) {
+                    mergeNodes(mergeSource, nodesToMerge.first())
+                }
+            }
         }
 
-        val cycles: Set<Set<DependencyNode>> = cycleFinder.cycles
-
-        for (cycle in cycles) {
-            val nodesToMerge: List<DependencyNode> = cycle.map { it.getMergedNode() }.distinct()
-            if (nodesToMerge.size <= 1) continue
-            for (mergeSource in nodesToMerge.drop(1)) {
-                mergeNodes(mergeSource, nodesToMerge.first())
+        // check post conditions
+        module2node.forEach { require(it.value.isValid()) { "${it.key} is still pointing to a merged node" } }
+        module2node.values.forEach { node ->
+            node.getDependencies().forEach { dep ->
+                require(dep.isValid()) { "$node is pointing to merged dependency $dep" }
             }
+        }
+        val cycleFinder2 = CycleFinder()
+        getNodes().forEach { cycleFinder2.process(it) }
+        cycleFinder2.cycles.forEach { require(false) { "Still contains cycles: $it" } }
+        getNodes().flatMap { n -> n.modules.map { it to n } }.groupBy { it.first }.forEach {
+            require(it.value.size == 1) { "${it.key} found in multiple nodes" }
         }
     }
 
@@ -106,7 +124,8 @@ abstract class DependencyGraph<ElementT, KeyT> {
         var mergedInto: DependencyNode? = null
 
         override fun toString(): String {
-            return modules.joinToString(", ") { it.toString() }
+            if (modules.size == 1) return modules.first().toString()
+            return "[" + modules.joinToString(", ") { it.toString() } + "]"
         }
 
         fun isValid() = mergedInto == null

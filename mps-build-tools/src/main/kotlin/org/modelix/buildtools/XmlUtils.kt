@@ -61,6 +61,14 @@ fun Element.newChild(tag: String, body: Element.()->Unit): Element {
     return child
 }
 
+fun Element.newChild(tag: String, text: String, body: (Element.()->Unit)? = null): Element {
+    val child = ownerDocument.createElement(tag)
+    appendChild(child)
+    child.appendChild(ownerDocument.createTextNode(text))
+    if (body != null) child.apply(body)
+    return child
+}
+
 fun Element.getAttribute(name: String, default: String): String {
     return getAttributeOrNull(name) ?: default
 }
