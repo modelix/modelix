@@ -81,10 +81,10 @@ class MPSBuildPlugin : Plugin<Project> {
             publishing?.apply {
                 publications {
                     for (publicationData in generator.publications) {
-                        it.create("mpsmodule-${publicationData.name}-all", MavenPublication::class.java) {
+                        it.create("mpsmodule-${publicationData.name}", MavenPublication::class.java) {
                             it.apply {
                                 groupId = project.group.toString()
-                                artifactId = publicationData.name + "-all"
+                                artifactId = publicationData.name
                                 version = (""+project.version).ifEmpty { "0.1" }
                                 pom {
                                     it.withXml {
@@ -92,7 +92,7 @@ class MPSBuildPlugin : Plugin<Project> {
                                             for (jar in publicationData.jars) {
                                                 newChild("dependency") {
                                                     newChild("groupId", groupId)
-                                                    newChild("artifactId", publicationData.name)
+                                                    newChild("artifactId", "mpsmodule-" + publicationData.name)
                                                     newChild("version", version)
                                                     newChild("classifier", jar.classifier)
                                                 }
@@ -103,10 +103,10 @@ class MPSBuildPlugin : Plugin<Project> {
                             }
                         }
 
-                        it.create("mpsmodule-${publicationData.name}", MavenPublication::class.java) {
+                        it.create("mpsmodule-jars-${publicationData.name}", MavenPublication::class.java) {
                             it.apply {
                                 groupId = project.group.toString()
-                                artifactId = publicationData.name
+                                artifactId = "mpsmodule-" + publicationData.name
                                 version = (""+project.version).ifEmpty { "0.1" }
                                 for (jar in publicationData.jars) {
                                     val artifact = project.artifacts.add("mpsmodules", jar.file) {
@@ -122,7 +122,7 @@ class MPSBuildPlugin : Plugin<Project> {
                                             for (dependency in publicationData.dependencies) {
                                                 newChild("dependency") {
                                                     newChild("groupId", project.group.toString())
-                                                    newChild("artifactId", "$dependency-all")
+                                                    newChild("artifactId", "$dependency")
                                                     newChild("version", version)
                                                 }
                                             }
