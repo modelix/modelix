@@ -254,7 +254,13 @@ class BuildScriptGenerator(val modulesMiner: ModulesMiner,
                 Publication(
                     nonGen.name,
                     listOf(PublicationJar(getJarFile(nonGen), ""), PublicationJar(getSrcJarFile(nonGen), "src")) +
-                        gen.mapIndexed { i, m -> PublicationJar(getJarFile(m), if (i == 0) "generator" else "$i-generator") }
+                        gen.mapIndexed { i, m -> PublicationJar(getJarFile(m), if (i == 0) "generator" else "$i-generator") },
+                    owner.modules.values
+                        .flatMap { it.getClassPathDependencies(resolver) }
+                        .map { it.owner }
+                        .filterIsInstance<SourceModuleOwner>()
+                        .distinct()
+                        .map { it.modules.values.first().name }
                 )
             }
 
@@ -650,6 +656,6 @@ class BuildScriptGenerator(val modulesMiner: ModulesMiner,
         return planBuilder.plan to dependencyGraph
     }
 
-    class Publication(val name: String, val jars: List<PublicationJar>)
+    class Publication(val name: String, val jars: List<PublicationJar>, val dependencies: List<String>)
     class PublicationJar(val file: File, val classifier: String)
 }

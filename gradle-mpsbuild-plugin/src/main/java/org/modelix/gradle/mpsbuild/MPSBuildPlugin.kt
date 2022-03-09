@@ -83,7 +83,7 @@ class MPSBuildPlugin : Plugin<Project> {
                     for (publicationData in generator.publications) {
                         it.create("mpsmodule-${publicationData.name}-all", MavenPublication::class.java) {
                             it.apply {
-                                groupId = "org.modelix"
+                                groupId = project.group.toString()
                                 artifactId = publicationData.name + "-all"
                                 version = (""+project.version).ifEmpty { "0.1" }
                                 pom {
@@ -105,7 +105,7 @@ class MPSBuildPlugin : Plugin<Project> {
 
                         it.create("mpsmodule-${publicationData.name}", MavenPublication::class.java) {
                             it.apply {
-                                groupId = "org.modelix"
+                                groupId = project.group.toString()
                                 artifactId = publicationData.name
                                 version = (""+project.version).ifEmpty { "0.1" }
                                 for (jar in publicationData.jars) {
@@ -116,18 +116,19 @@ class MPSBuildPlugin : Plugin<Project> {
                                     }
                                     artifact(artifact)
                                 }
-//                                pom {
-//                                    it.withXml {
-//                                        it.asElement().newChild("dependencies") {
-//                                            newChild("dependency") {
-//                                                newChild("groupId", groupId)
-//                                                newChild("artifactId", "abcd")
-//                                                newChild("version", version)
-//                                                newChild("classifier", "")
-//                                            }
-//                                        }
-//                                    }
-//                                }
+                                pom {
+                                    it.withXml {
+                                        it.asElement().newChild("dependencies") {
+                                            for (dependency in publicationData.dependencies) {
+                                                newChild("dependency") {
+                                                    newChild("groupId", project.group.toString())
+                                                    newChild("artifactId", "$dependency-all")
+                                                    newChild("version", version)
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
                             }
                         }
                     }
