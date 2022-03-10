@@ -253,10 +253,7 @@ class MPSBuildPlugin : Plugin<Project> {
         return outputFiles
     }
 
-    private val libJarPattern = Regex("""mpsmodule-(.+)-lib-.+-lib-(.+)""")
-    private val moduleJarPattern = Regex("""mpsmodule-(.+)-mpsmodule-.+?(-(src|(\d-)?generator))?""")
     private fun copyDependency(file: File, targetFolder: File): File {
-        val nameWithoutExtension = file.nameWithoutExtension
         val targetFile = readPOM(file)?.let { pom ->
             val moduleName = pom.getProperty(MODULE_NAME_PROPERTY) ?: return@let null
             val isLibs = pom.getProperty(IS_LIBS_PROPERTY).toBoolean()
@@ -267,14 +264,6 @@ class MPSBuildPlugin : Plugin<Project> {
                 val classifierSuffix = if (classifier.isEmpty()) "" else "-$classifier"
                 targetFolder.resolve(pom.group).resolve("$moduleName$classifierSuffix.${file.extension}")
             }
-        } ?: libJarPattern.matchEntire(nameWithoutExtension)?.let { match ->
-            val moduleName = match.groupValues[1]
-            val libName = match.groupValues[2]
-            targetFolder.resolve("$moduleName-lib").resolve("$libName.${file.extension}")
-        } ?: moduleJarPattern.matchEntire(nameWithoutExtension)?.let { match ->
-            val moduleName = match.groupValues[1]
-            val classifierSuffix = match.groupValues.getOrElse(2) { "" }
-            targetFolder.resolve("$moduleName$classifierSuffix.${file.extension}")
         } ?: targetFolder.resolve(file.name)
 
         file.copyTo(targetFile, true)
