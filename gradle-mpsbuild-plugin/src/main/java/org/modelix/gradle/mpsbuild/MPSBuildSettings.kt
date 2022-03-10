@@ -26,6 +26,8 @@ open class MPSBuildSettings {
     private val includedPaths: MutableList<String> = ArrayList()
     private val includedModuleNames: MutableSet<String> = HashSet()
     private val macros: MutableMap<String, String> = HashMap()
+    var generatorHeapSize: String = "2G"
+
     fun usingExistingMps(): Boolean {
         return mpsHome != null
     }

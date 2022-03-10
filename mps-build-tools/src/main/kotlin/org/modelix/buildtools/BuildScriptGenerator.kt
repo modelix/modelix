@@ -30,6 +30,7 @@ class BuildScriptGenerator(val modulesMiner: ModulesMiner,
 
     private var compileCycleIds: Map<DependencyGraph<FoundModule, ModuleId>.DependencyNode, Int> = HashMap()
     val publications: MutableList<Publication> = ArrayList();
+    var generatorHeapSize: String = "2G"
 
     fun buildModules(antScriptFile: File = File.createTempFile("mps-build-script", ".xml", File(".")), outputHandler: ((String)->Unit)? = null) {
         val xml = generateXML()
@@ -170,7 +171,7 @@ class BuildScriptGenerator(val modulesMiner: ModulesMiner,
                             setAttribute("value", "-ea")
                         }
                         newChild("arg") {
-                            setAttribute("value", "-Xmx2G")
+                            setAttribute("value", "-Xmx$generatorHeapSize")
                         }
                     }
                     for (macro in macros.macros) {

@@ -247,6 +247,7 @@ class MPSBuildPlugin : Plugin<Project> {
         }
         val generator = BuildScriptGenerator(
             modulesMiner, modulesToGenerate, emptySet(), settings.getMacros(project.projectDir.toPath()), buildDir)
+        generator.generatorHeapSize = settings.generatorHeapSize
         val xml = generator.generateXML()
         try {
             FileUtils.writeStringToFile(antScriptFile, xml, StandardCharsets.UTF_8)
