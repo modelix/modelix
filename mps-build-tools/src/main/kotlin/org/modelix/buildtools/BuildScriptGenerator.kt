@@ -17,6 +17,7 @@ import org.modelix.headlessmps.ProcessExecutor
 import org.w3c.dom.Document
 import org.w3c.dom.Element
 import java.io.File
+import java.nio.file.Path
 import javax.xml.parsers.DocumentBuilderFactory
 import kotlin.io.path.absolutePathString
 import kotlin.io.path.pathString
@@ -258,9 +259,8 @@ class BuildScriptGenerator(val modulesMiner: ModulesMiner,
                     owner.modules.values
                         .flatMap { it.getClassPathDependencies(resolver) }
                         .map { it.owner }
-                        .filterIsInstance<SourceModuleOwner>()
                         .distinct()
-                        .map { it.modules.values.first().name },
+                        .map { PublicationDependency(it.modules.values.first().name, it.path.getLocalAbsolutePath()) },
                     owner.modules.values.flatMap { it.getOwnJars(macros) }
                 )
             }
@@ -657,6 +657,10 @@ class BuildScriptGenerator(val modulesMiner: ModulesMiner,
         return planBuilder.plan to dependencyGraph
     }
 
-    class Publication(val name: String, val jars: List<PublicationJar>, val dependencies: List<String>, val libs: List<File>)
+    class Publication(val name: String,
+                      val jars: List<PublicationJar>,
+                      val dependencies: List<PublicationDependency>,
+                      val libs: List<File>)
     class PublicationJar(val file: File, val classifier: String)
+    class PublicationDependency(val name: String, val path: Path)
 }

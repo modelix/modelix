@@ -46,7 +46,8 @@ class MPSBuildPlugin : Plugin<Project> {
             val buildDir = project.buildDir.resolve("mpsbuild")
 
             val dependenciesDir = buildDir.resolve("dependencies")
-            copyDependencies(dependenciesConfiguration, dependenciesDir)
+            val copiedDependencies = copyDependencies(dependenciesConfiguration, dependenciesDir.normalize())
+            val moduleName2pom: Map<String?, Pom> = copiedDependencies.values.filterNotNull().associateBy { it.getProperty(MODULE_NAME_PROPERTY) }
 
             val manifest = readManifest()
             val modelixVersion = manifest.mainAttributes.getValue("modelix-Version")
@@ -88,6 +89,7 @@ class MPSBuildPlugin : Plugin<Project> {
             val publicationsVersion = ("" + project.version).ifEmpty { "0.1" }
             publishing?.apply {
                 publications {
+                    val ownPublications = generator.publications.map { it.name }.toSet()
                     for (publicationData in generator.publications) {
                         it.create("mpsmodule-${publicationData.name}", MavenPublication::class.java) {
                             it.apply {
@@ -137,10 +139,19 @@ class MPSBuildPlugin : Plugin<Project> {
                                     it.withXml {
                                         it.asElement().newChild("dependencies") {
                                             for (dependency in publicationData.dependencies) {
-                                                newChild("dependency") {
-                                                    newChild("groupId", project.group.toString())
-                                                    newChild("artifactId", "$dependency")
-                                                    newChild("version", version)
+                                                val pom = moduleName2pom[dependency.name]
+                                                if (pom != null) {
+                                                    newChild("dependency") {
+                                                        newChild("artifactId", pom.artifactId)
+                                                        newChild("groupId", pom.group)
+                                                        newChild("version", pom.version)
+                                                    }
+                                                } else if (ownPublications.contains(dependency.name)) {
+                                                    newChild("dependency") {
+                                                        newChild("artifactId", dependency.name)
+                                                        newChild("groupId", project.group.toString())
+                                                        newChild("version", version)
+                                                    }
                                                 }
                                             }
                                         }
@@ -245,16 +256,13 @@ class MPSBuildPlugin : Plugin<Project> {
         return generator
     }
 
-    private fun copyDependencies(dependenciesConfiguration: Configuration, targetFolder: File): Set<File> {
+    private fun copyDependencies(dependenciesConfiguration: Configuration, targetFolder: File): Map<File, Pom?> {
         val files = dependenciesConfiguration.resolve()
-        //val existingFiles = targetFolder.walk().filter { it.isFile }.map { it.normalize() }.toSet()
-        val outputFiles = files.map { copyDependency(it, targetFolder).normalize() }.toSet()
-        //(existingFiles - outputFiles).forEach { it.delete() }
-        return outputFiles
+        return files.map { copyDependency(it, targetFolder) }.associate { it }
     }
 
-    private fun copyDependency(file: File, targetFolder: File): File {
-        val targetFile = readPOM(file)?.let { pom ->
+    private fun copyDependency(file: File, targetFolder: File): Pair<File, Pom?> {
+        val targetFileAndPom = readPOM(file)?.let { pom ->
             val moduleName = pom.getProperty(MODULE_NAME_PROPERTY) ?: return@let null
             val isLibs = pom.getProperty(IS_LIBS_PROPERTY).toBoolean()
             val classifier = pom.getClassifier(file)
@@ -263,11 +271,11 @@ class MPSBuildPlugin : Plugin<Project> {
             } else {
                 val classifierSuffix = if (classifier.isEmpty()) "" else "-$classifier"
                 targetFolder.resolve(pom.group).resolve("$moduleName$classifierSuffix.${file.extension}")
-            }
-        } ?: targetFolder.resolve(file.name)
+            } to pom
+        } ?: (targetFolder.resolve(file.name) to null)
 
-        file.copyTo(targetFile, true)
-        return file
+        file.copyTo(targetFileAndPom.first, true)
+        return targetFileAndPom
     }
 
     private val cachedPomContent: MutableMap<File, Pom?> = HashMap()
