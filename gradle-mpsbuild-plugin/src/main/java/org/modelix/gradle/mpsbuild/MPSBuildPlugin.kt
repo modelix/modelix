@@ -20,11 +20,9 @@ import org.gradle.api.internal.project.DefaultAntBuilder
 import org.gradle.api.internal.project.ant.AntLoggingAdapter
 import org.gradle.api.publish.PublishingExtension
 import org.gradle.api.publish.maven.MavenPublication
+import org.modelix.buildtools.*
 import java.lang.RuntimeException
-import org.modelix.buildtools.BuildScriptGenerator
-import org.modelix.buildtools.ModuleId
-import org.modelix.buildtools.ModulesMiner
-import org.modelix.buildtools.newChild
+import org.w3c.dom.Element
 import java.io.File
 import java.io.IOException
 import java.net.URL
@@ -35,6 +33,9 @@ import java.util.Enumeration
 import java.util.HashSet
 import java.util.jar.Manifest
 import java.util.stream.Collectors
+
+const val MODULE_NAME_PROPERTY = "mps.module.name"
+const val IS_LIBS_PROPERTY = "mps.module.libs"
 
 class MPSBuildPlugin : Plugin<Project> {
     override fun apply(project_: Project) {
@@ -99,7 +100,7 @@ class MPSBuildPlugin : Plugin<Project> {
                                             for (jar in publicationData.jars) {
                                                 newChild("dependency") {
                                                     newChild("groupId", groupId)
-                                                    newChild("artifactId", "mpsmodule-${publicationData.name}-mpsmodule")
+                                                    newChild("artifactId", "mpsmodule-${publicationData.name}")
                                                     newChild("version", version)
                                                     newChild("classifier", jar.classifier)
                                                 }
@@ -109,7 +110,7 @@ class MPSBuildPlugin : Plugin<Project> {
                                                     newChild("groupId", groupId)
                                                     newChild("artifactId", "mpsmodule-${publicationData.name}-lib")
                                                     newChild("version", version)
-                                                    newChild("classifier", "lib-" + jar.nameWithoutExtension)
+                                                    newChild("classifier", jar.nameWithoutExtension)
                                                 }
                                             }
                                         }
@@ -121,7 +122,7 @@ class MPSBuildPlugin : Plugin<Project> {
                         it.create("mpsmodule-jars-${publicationData.name}", MavenPublication::class.java) {
                             it.apply {
                                 groupId = project.group.toString()
-                                artifactId = "mpsmodule-${publicationData.name}-mpsmodule"
+                                artifactId = "mpsmodule-${publicationData.name}"
                                 version = publicationsVersion
                                 for (jar in publicationData.jars) {
                                     val artifact = project.artifacts.add("mpsmodules", jar.file) {
@@ -132,6 +133,7 @@ class MPSBuildPlugin : Plugin<Project> {
                                     artifact(artifact)
                                 }
                                 pom {
+                                    it.properties.put(MODULE_NAME_PROPERTY, publicationData.name)
                                     it.withXml {
                                         it.asElement().newChild("dependencies") {
                                             for (dependency in publicationData.dependencies) {
@@ -152,10 +154,14 @@ class MPSBuildPlugin : Plugin<Project> {
                                     groupId = project.group.toString()
                                     artifactId = "mpsmodule-${publicationData.name}-lib"
                                     version = publicationsVersion
+                                    pom {
+                                        it.properties.put(MODULE_NAME_PROPERTY, publicationData.name)
+                                        it.properties.put(IS_LIBS_PROPERTY, "true")
+                                    }
                                     for (jar in publicationData.libs) {
                                         val artifact = project.artifacts.add("mpsmodules", jar) {
                                             it.type = "jar"
-                                            it.classifier = "lib-${jar.nameWithoutExtension}"
+                                            it.classifier = jar.nameWithoutExtension
                                             it.builtBy("mpsbuild-assemble")
                                         }
                                         artifact(artifact)
@@ -250,12 +256,22 @@ class MPSBuildPlugin : Plugin<Project> {
     private val libJarPattern = Regex("""mpsmodule-(.+)-lib-.+-lib-(.+)""")
     private val moduleJarPattern = Regex("""mpsmodule-(.+)-mpsmodule-.+?(-(src|(\d-)?generator))?""")
     private fun copyDependency(file: File, targetFolder: File): File {
-        val name = file.nameWithoutExtension
-        val targetFile = libJarPattern.matchEntire(name)?.let { match ->
+        val nameWithoutExtension = file.nameWithoutExtension
+        val targetFile = readPOM(file)?.let { pom ->
+            val moduleName = pom.getProperty(MODULE_NAME_PROPERTY) ?: return@let null
+            val isLibs = pom.getProperty(IS_LIBS_PROPERTY).toBoolean()
+            val classifier = pom.getClassifier(file)
+            if (isLibs) {
+                targetFolder.resolve(pom.group).resolve("$moduleName-lib").resolve("$classifier.${file.extension}")
+            } else {
+                val classifierSuffix = if (classifier.isEmpty()) "" else "-$classifier"
+                targetFolder.resolve(pom.group).resolve("$moduleName$classifierSuffix.${file.extension}")
+            }
+        } ?: libJarPattern.matchEntire(nameWithoutExtension)?.let { match ->
             val moduleName = match.groupValues[1]
             val libName = match.groupValues[2]
             targetFolder.resolve("$moduleName-lib").resolve("$libName.${file.extension}")
-        } ?: moduleJarPattern.matchEntire(file.nameWithoutExtension)?.let { match ->
+        } ?: moduleJarPattern.matchEntire(nameWithoutExtension)?.let { match ->
             val moduleName = match.groupValues[1]
             val classifierSuffix = match.groupValues.getOrElse(2) { "" }
             targetFolder.resolve("$moduleName$classifierSuffix.${file.extension}")
@@ -263,6 +279,19 @@ class MPSBuildPlugin : Plugin<Project> {
 
         file.copyTo(targetFile, true)
         return file
+    }
+
+    private val cachedPomContent: MutableMap<File, Pom?> = HashMap()
+    private fun readPOM(jar: File): Pom? {
+        val pomFile = (jar.parentFile.listFiles() ?: arrayOf()).find { it.extension == "pom" } ?: return null
+        return cachedPomContent.computeIfAbsent(pomFile) {
+            try {
+                Pom(readXmlFile(it).documentElement, it)
+            } catch (e : Exception) {
+                println("Failed to read $pomFile")
+                null
+            }
+        }
     }
 
     private fun readManifest(): Manifest {
@@ -283,5 +312,22 @@ class MPSBuildPlugin : Plugin<Project> {
             throw RuntimeException("Failed to read MANIFEST.MF", ex)
         }
         throw RuntimeException("No MANIFEST.MF found containing 'modelix-Version'")
+    }
+
+    class Pom(val content: Element, val file: File) {
+        val group: String = content.findTag("groupId")?.textContent ?: ""
+        val version: String = content.findTag("version")?.textContent ?: ""
+        val artifactId: String = content.findTag("artifactId")?.textContent ?: ""
+        val baseNameWithVersion: String = "$artifactId-$version"
+        fun artifactName(classifier: String) = if (classifier.isEmpty()) baseNameWithVersion else "$baseNameWithVersion-$classifier"
+        fun getClassifier(file: File): String {
+            val prefix = "$baseNameWithVersion-"
+            return if (file.nameWithoutExtension == baseNameWithVersion || !file.nameWithoutExtension.startsWith(prefix)) {
+                ""
+            } else {
+                file.nameWithoutExtension.drop(prefix.length)
+            }
+        }
+        fun getProperty(name: String) = content.findTag("properties")?.findTag(name)?.textContent
     }
 }
