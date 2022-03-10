@@ -260,7 +260,8 @@ class BuildScriptGenerator(val modulesMiner: ModulesMiner,
                         .map { it.owner }
                         .filterIsInstance<SourceModuleOwner>()
                         .distinct()
-                        .map { it.modules.values.first().name }
+                        .map { it.modules.values.first().name },
+                    owner.modules.values.flatMap { it.getOwnJars(macros) }
                 )
             }
 
@@ -656,6 +657,6 @@ class BuildScriptGenerator(val modulesMiner: ModulesMiner,
         return planBuilder.plan to dependencyGraph
     }
 
-    class Publication(val name: String, val jars: List<PublicationJar>, val dependencies: List<String>)
+    class Publication(val name: String, val jars: List<PublicationJar>, val dependencies: List<String>, val libs: List<File>)
     class PublicationJar(val file: File, val classifier: String)
 }

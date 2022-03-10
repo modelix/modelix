@@ -97,6 +97,14 @@ class MPSBuildPlugin : Plugin<Project> {
                                                     newChild("classifier", jar.classifier)
                                                 }
                                             }
+                                            for (jar in publicationData.libs) {
+                                                newChild("dependency") {
+                                                    newChild("groupId", groupId)
+                                                    newChild("artifactId", "mpsmodule-lib-" + publicationData.name)
+                                                    newChild("version", version)
+                                                    newChild("classifier", jar.nameWithoutExtension)
+                                                }
+                                            }
                                         }
                                     }
                                 }
@@ -127,6 +135,23 @@ class MPSBuildPlugin : Plugin<Project> {
                                                 }
                                             }
                                         }
+                                    }
+                                }
+                            }
+                        }
+                        if (publicationData.libs.isNotEmpty()) {
+                            it.create("mpsmodule-libs-${publicationData.name}", MavenPublication::class.java) {
+                                it.apply {
+                                    groupId = project.group.toString()
+                                    artifactId = "mpsmodule-lib-" + publicationData.name
+                                    version = (""+project.version).ifEmpty { "0.1" }
+                                    for (jar in publicationData.libs) {
+                                        val artifact = project.artifacts.add("mpsmodules", jar) {
+                                            it.type = "jar"
+                                            it.classifier = jar.nameWithoutExtension
+                                            it.builtBy("mpsbuild-assemble")
+                                        }
+                                        artifact(artifact)
                                     }
                                 }
                             }
