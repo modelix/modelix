@@ -39,8 +39,14 @@ import java.util.stream.Collectors
 class MPSBuildPlugin : Plugin<Project> {
     override fun apply(project_: Project) {
         val settings = project_.extensions.create("mpsBuild", MPSBuildSettings::class.java)
+        val dependenciesConfiguration =  project_.configurations.create("mpsBuildDependencies")
         project_.afterEvaluate { project: Project ->
             settings.validate()
+            val buildDir = project.buildDir.resolve("mpsbuild")
+
+            val dependenciesDir = buildDir.resolve("dependencies")
+            copyDependencies(dependenciesConfiguration, dependenciesDir)
+
             val manifest = readManifest()
             val modelixVersion = manifest.mainAttributes.getValue("modelix-Version")
             val genConfig = project.configurations.detachedConfiguration(
@@ -63,21 +69,22 @@ class MPSBuildPlugin : Plugin<Project> {
                 pluginsConfig = project.configurations.detachedConfiguration(
                     project.dependencies.create("org.modelix:mps-model-plugin:$modelixVersion"))
             }
-            val buildDir = File(File(project.projectDir, "build"), "mpsbuild")
+
             val antScriptFile = File(buildDir, "build-modules.xml")
             val antScriptTask = project.tasks.create("generatorAntScript")
             val action = Action { task: Task? ->
-                generateAntScript(settings, project, buildDir, antScriptFile)
+                generateAntScript(settings, project, buildDir, antScriptFile, setOf(dependenciesDir))
             }
             antScriptTask.actions = listOf(action)
 
-            val generator = generateAntScript(settings, project, buildDir, antScriptFile)
+            val generator = generateAntScript(settings, project, buildDir, antScriptFile, setOf(dependenciesDir))
             val ant = DefaultAntBuilder(project, AntLoggingAdapter())
             ant.importBuild(antScriptFile) { "mpsbuild-$it" }
 
             project.configurations.create("mpsmodules")
 
             val publishing = project.extensions.findByType(PublishingExtension::class.java)
+            val publicationsVersion = ("" + project.version).ifEmpty { "0.1" }
             publishing?.apply {
                 publications {
                     for (publicationData in generator.publications) {
@@ -85,14 +92,14 @@ class MPSBuildPlugin : Plugin<Project> {
                             it.apply {
                                 groupId = project.group.toString()
                                 artifactId = publicationData.name
-                                version = (""+project.version).ifEmpty { "0.1" }
+                                version = publicationsVersion
                                 pom {
                                     it.withXml {
                                         it.asElement().newChild("dependencies") {
                                             for (jar in publicationData.jars) {
                                                 newChild("dependency") {
                                                     newChild("groupId", groupId)
-                                                    newChild("artifactId", "mpsmodule-" + publicationData.name)
+                                                    newChild("artifactId", "mpsmodule-${publicationData.name}-mpsmodule")
                                                     newChild("version", version)
                                                     newChild("classifier", jar.classifier)
                                                 }
@@ -100,9 +107,9 @@ class MPSBuildPlugin : Plugin<Project> {
                                             for (jar in publicationData.libs) {
                                                 newChild("dependency") {
                                                     newChild("groupId", groupId)
-                                                    newChild("artifactId", "mpsmodule-lib-" + publicationData.name)
+                                                    newChild("artifactId", "mpsmodule-${publicationData.name}-lib")
                                                     newChild("version", version)
-                                                    newChild("classifier", jar.nameWithoutExtension)
+                                                    newChild("classifier", "lib-" + jar.nameWithoutExtension)
                                                 }
                                             }
                                         }
@@ -114,8 +121,8 @@ class MPSBuildPlugin : Plugin<Project> {
                         it.create("mpsmodule-jars-${publicationData.name}", MavenPublication::class.java) {
                             it.apply {
                                 groupId = project.group.toString()
-                                artifactId = "mpsmodule-" + publicationData.name
-                                version = (""+project.version).ifEmpty { "0.1" }
+                                artifactId = "mpsmodule-${publicationData.name}-mpsmodule"
+                                version = publicationsVersion
                                 for (jar in publicationData.jars) {
                                     val artifact = project.artifacts.add("mpsmodules", jar.file) {
                                         it.type = "jar"
@@ -143,15 +150,35 @@ class MPSBuildPlugin : Plugin<Project> {
                             it.create("mpsmodule-libs-${publicationData.name}", MavenPublication::class.java) {
                                 it.apply {
                                     groupId = project.group.toString()
-                                    artifactId = "mpsmodule-lib-" + publicationData.name
-                                    version = (""+project.version).ifEmpty { "0.1" }
+                                    artifactId = "mpsmodule-${publicationData.name}-lib"
+                                    version = publicationsVersion
                                     for (jar in publicationData.libs) {
                                         val artifact = project.artifacts.add("mpsmodules", jar) {
                                             it.type = "jar"
-                                            it.classifier = jar.nameWithoutExtension
+                                            it.classifier = "lib-${jar.nameWithoutExtension}"
                                             it.builtBy("mpsbuild-assemble")
                                         }
                                         artifact(artifact)
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    it.create("allmpsmodules", MavenPublication::class.java) {
+                        it.apply {
+                            groupId = project.group.toString()
+                            artifactId = "allmpsmodules"
+                            version = publicationsVersion
+                            pom {
+                                it.withXml {
+                                    it.asElement().newChild("dependencies") {
+                                        for (publicationData in generator.publications) {
+                                            newChild("dependency") {
+                                                newChild("groupId", groupId)
+                                                newChild("artifactId", publicationData.name)
+                                                newChild("version", version)
+                                            }
+                                        }
                                     }
                                 }
                             }
@@ -163,10 +190,13 @@ class MPSBuildPlugin : Plugin<Project> {
 
     }
 
-    private fun generateAntScript(settings: MPSBuildSettings, project: Project, buildDir: File, antScriptFile: File): BuildScriptGenerator {
+    private fun generateAntScript(settings: MPSBuildSettings, project: Project, buildDir: File, antScriptFile: File, dependencyFiles: Set<File>): BuildScriptGenerator {
         val modulesMiner = ModulesMiner()
         for (modulePath in settings.resolveModulePaths(project.projectDir.toPath())) {
             modulesMiner.searchInFolder(modulePath.toFile())
+        }
+        for (dependencyFile in dependencyFiles) {
+            modulesMiner.searchInFolder(dependencyFile)
         }
         val mpsPath = settings.mpsHome
         if (mpsPath != null) {
@@ -207,6 +237,32 @@ class MPSBuildPlugin : Plugin<Project> {
             throw RuntimeException(e)
         }
         return generator
+    }
+
+    private fun copyDependencies(dependenciesConfiguration: Configuration, targetFolder: File): Set<File> {
+        val files = dependenciesConfiguration.resolve()
+        //val existingFiles = targetFolder.walk().filter { it.isFile }.map { it.normalize() }.toSet()
+        val outputFiles = files.map { copyDependency(it, targetFolder).normalize() }.toSet()
+        //(existingFiles - outputFiles).forEach { it.delete() }
+        return outputFiles
+    }
+
+    private val libJarPattern = Regex("""mpsmodule-(.+)-lib-.+-lib-(.+)""")
+    private val moduleJarPattern = Regex("""mpsmodule-(.+)-mpsmodule-.+?(-(src|(\d-)?generator))?""")
+    private fun copyDependency(file: File, targetFolder: File): File {
+        val name = file.nameWithoutExtension
+        val targetFile = libJarPattern.matchEntire(name)?.let { match ->
+            val moduleName = match.groupValues[1]
+            val libName = match.groupValues[2]
+            targetFolder.resolve("$moduleName-lib").resolve("$libName.${file.extension}")
+        } ?: moduleJarPattern.matchEntire(file.nameWithoutExtension)?.let { match ->
+            val moduleName = match.groupValues[1]
+            val classifierSuffix = match.groupValues.getOrElse(2) { "" }
+            targetFolder.resolve("$moduleName$classifierSuffix.${file.extension}")
+        } ?: targetFolder.resolve(file.name)
+
+        file.copyTo(targetFile, true)
+        return file
     }
 
     private fun readManifest(): Manifest {
