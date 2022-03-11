@@ -18,6 +18,7 @@ repositories {
 dependencies {
     implementation project(":mps-build-tools")
     implementation group: 'commons-io', name: 'commons-io', version: '2.11.0'
+    implementation "org.zeroturnaround:zt-zip:1.14"
     compile gradleApi()
     testCompile group: 'junit', name: 'junit', version: '4.12'
 }

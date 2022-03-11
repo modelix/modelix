@@ -22,6 +22,7 @@ import org.gradle.api.publish.PublishingExtension
 import org.gradle.api.publish.maven.MavenPublication
 import org.modelix.buildtools.*
 import org.w3c.dom.Element
+import org.zeroturnaround.zip.ZipUtil
 import java.io.File
 import java.io.IOException
 import java.net.URL
@@ -35,6 +36,7 @@ import java.util.stream.Collectors
 import kotlin.RuntimeException
 
 const val MODULE_NAME_PROPERTY = "mps.module.name"
+const val IDEA_PLUGIN_ID_PROPERTY = "idea.plugin.id"
 const val IS_LIBS_PROPERTY = "mps.module.libs"
 
 class MPSBuildPlugin : Plugin<Project> {
@@ -47,7 +49,11 @@ class MPSBuildPlugin : Plugin<Project> {
 
             val dependenciesDir = buildDir.resolve("dependencies")
             val copiedDependencies = copyDependencies(dependenciesConfiguration, dependenciesDir.normalize())
-            val moduleName2pom: Map<String?, Pom> = copiedDependencies.values.filterNotNull().associateBy { it.getProperty(MODULE_NAME_PROPERTY) }
+            val moduleName2pom: Map<String, Pom> = copiedDependencies.map { it.getProperty(MODULE_NAME_PROPERTY) to it }
+                .filter { it.first != null }.associate { it.first!! to it.second }
+            val pluginId2pom: Map<String, Pom> = copiedDependencies.map { it.getProperty(IDEA_PLUGIN_ID_PROPERTY) to it }
+                .filter { it.first != null }.associate { it.first!! to it.second }
+            val artifactId2pom: Map<String, Pom> = copiedDependencies.associateBy { it.artifactId }
 
             val manifest = readManifest()
             val modelixVersion = manifest.mainAttributes.getValue("modelix-Version")
@@ -91,100 +97,144 @@ class MPSBuildPlugin : Plugin<Project> {
                 publications {
                     val ownPublications = generator.publications.map { it.name }.toSet()
                     for (publicationData in generator.publications) {
-                        it.create("mpsmodule-${publicationData.name}", MavenPublication::class.java) {
-                            it.apply {
-                                groupId = project.group.toString()
-                                artifactId = publicationData.name
-                                version = publicationsVersion
-                                pom {
-                                    it.withXml {
-                                        it.asElement().newChild("dependencies") {
-                                            for (jar in publicationData.jars) {
-                                                newChild("dependency") {
-                                                    newChild("groupId", groupId)
-                                                    newChild("artifactId", "mpsmodule-${publicationData.name}")
-                                                    newChild("version", version)
-                                                    newChild("classifier", jar.classifier)
+                        when (publicationData) {
+                            is BuildScriptGenerator.ModulePublication -> {
+                                it.create("mpsmodule-${publicationData.name}", MavenPublication::class.java) {
+                                    it.apply {
+                                        groupId = project.group.toString()
+                                        artifactId = publicationData.name
+                                        version = publicationsVersion
+                                        pom {
+                                            it.withXml {
+                                                it.asElement().newChild("dependencies") {
+                                                    for (jar in publicationData.files) {
+                                                        newChild("dependency") {
+                                                            newChild("groupId", groupId)
+                                                            newChild("artifactId", "mpsmodule-${publicationData.name}")
+                                                            newChild("version", version)
+                                                            newChild("classifier", jar.classifier)
+                                                        }
+                                                    }
+                                                    for (jar in publicationData.libs) {
+                                                        newChild("dependency") {
+                                                            newChild("groupId", groupId)
+                                                            newChild("artifactId", "mpsmodule-${publicationData.name}-lib")
+                                                            newChild("version", version)
+                                                            newChild("classifier", jar.nameWithoutExtension)
+                                                        }
+                                                    }
                                                 }
+                                            }
+                                        }
+                                    }
+                                }
+
+                                it.create("mpsmodule-jars-${publicationData.name}", MavenPublication::class.java) {
+                                    it.apply {
+                                        groupId = project.group.toString()
+                                        artifactId = "mpsmodule-${publicationData.name}"
+                                        version = publicationsVersion
+                                        for (jar in publicationData.files) {
+                                            val artifact = project.artifacts.add("mpsmodules", jar.file) {
+                                                it.type = "jar"
+                                                it.classifier = jar.classifier
+                                                it.builtBy("mpsbuild-assemble")
+                                            }
+                                            artifact(artifact)
+                                        }
+                                        pom {
+                                            it.properties.put(MODULE_NAME_PROPERTY, publicationData.name)
+                                            it.withXml {
+                                                it.asElement().newChild("dependencies") {
+                                                    for (dependency in publicationData.dependencies) {
+                                                        val pom = moduleName2pom[dependency.name]
+                                                        if (pom != null) {
+                                                            newChild("dependency") {
+                                                                newChild("artifactId", pom.artifactId)
+                                                                newChild("groupId", pom.group)
+                                                                newChild("version", pom.version)
+                                                            }
+                                                        } else if (ownPublications.contains(dependency.name)) {
+                                                            newChild("dependency") {
+                                                                newChild("artifactId", dependency.name)
+                                                                newChild("groupId", project.group.toString())
+                                                                newChild("version", version)
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                if (publicationData.libs.isNotEmpty()) {
+                                    it.create("mpsmodule-libs-${publicationData.name}", MavenPublication::class.java) {
+                                        it.apply {
+                                            groupId = project.group.toString()
+                                            artifactId = "mpsmodule-${publicationData.name}-lib"
+                                            version = publicationsVersion
+                                            pom {
+                                                it.properties.put(MODULE_NAME_PROPERTY, publicationData.name)
+                                                it.properties.put(IS_LIBS_PROPERTY, "true")
                                             }
                                             for (jar in publicationData.libs) {
-                                                newChild("dependency") {
-                                                    newChild("groupId", groupId)
-                                                    newChild("artifactId", "mpsmodule-${publicationData.name}-lib")
-                                                    newChild("version", version)
-                                                    newChild("classifier", jar.nameWithoutExtension)
+                                                val artifact = project.artifacts.add("mpsmodules", jar) {
+                                                    it.type = "jar"
+                                                    it.classifier = jar.nameWithoutExtension
+                                                    it.builtBy("mpsbuild-assemble")
                                                 }
+                                                artifact(artifact)
                                             }
                                         }
                                     }
                                 }
                             }
-                        }
-
-                        it.create("mpsmodule-jars-${publicationData.name}", MavenPublication::class.java) {
-                            it.apply {
-                                groupId = project.group.toString()
-                                artifactId = "mpsmodule-${publicationData.name}"
-                                version = publicationsVersion
-                                for (jar in publicationData.jars) {
-                                    val artifact = project.artifacts.add("mpsmodules", jar.file) {
-                                        it.type = "jar"
-                                        it.classifier = jar.classifier
-                                        it.builtBy("mpsbuild-assemble")
-                                    }
-                                    artifact(artifact)
-                                }
-                                pom {
-                                    it.properties.put(MODULE_NAME_PROPERTY, publicationData.name)
-                                    it.withXml {
-                                        it.asElement().newChild("dependencies") {
-                                            for (dependency in publicationData.dependencies) {
-                                                val pom = moduleName2pom[dependency.name]
-                                                if (pom != null) {
-                                                    newChild("dependency") {
-                                                        newChild("artifactId", pom.artifactId)
-                                                        newChild("groupId", pom.group)
-                                                        newChild("version", pom.version)
-                                                    }
-                                                } else if (ownPublications.contains(dependency.name)) {
-                                                    newChild("dependency") {
-                                                        newChild("artifactId", dependency.name)
-                                                        newChild("groupId", project.group.toString())
-                                                        newChild("version", version)
+                            is BuildScriptGenerator.IdeaPluginPublication -> {
+                                it.create(publicationData.name, MavenPublication::class.java) {
+                                    it.apply {
+                                        groupId = project.group.toString()
+                                        artifactId = publicationData.name
+                                        version = publicationsVersion
+                                        for (file in publicationData.files) {
+                                            val artifact = project.artifacts.add("mpsmodules", file.file) {
+                                                it.type = "zip"
+                                                it.classifier = file.classifier
+                                                it.builtBy("mpsbuild-assemble")
+                                            }
+                                            artifact(artifact)
+                                        }
+                                        pom {
+                                            it.properties.put(IDEA_PLUGIN_ID_PROPERTY, publicationData.pluginId)
+                                            it.withXml {
+                                                it.asElement().newChild("dependencies") {
+                                                    for (dependency in publicationData.dependencies) {
+                                                        val pom = artifactId2pom[dependency.name]
+                                                        if (pom != null) {
+                                                            newChild("dependency") {
+                                                                newChild("artifactId", pom.artifactId)
+                                                                newChild("groupId", pom.group)
+                                                                newChild("version", pom.version)
+                                                            }
+                                                        } else if (ownPublications.contains(dependency.name)) {
+                                                            newChild("dependency") {
+                                                                newChild("artifactId", dependency.name)
+                                                                newChild("groupId", project.group.toString())
+                                                                newChild("version", version)
+                                                            }
+                                                        }
                                                     }
                                                 }
                                             }
                                         }
-                                    }
-                                }
-                            }
-                        }
-                        if (publicationData.libs.isNotEmpty()) {
-                            it.create("mpsmodule-libs-${publicationData.name}", MavenPublication::class.java) {
-                                it.apply {
-                                    groupId = project.group.toString()
-                                    artifactId = "mpsmodule-${publicationData.name}-lib"
-                                    version = publicationsVersion
-                                    pom {
-                                        it.properties.put(MODULE_NAME_PROPERTY, publicationData.name)
-                                        it.properties.put(IS_LIBS_PROPERTY, "true")
-                                    }
-                                    for (jar in publicationData.libs) {
-                                        val artifact = project.artifacts.add("mpsmodules", jar) {
-                                            it.type = "jar"
-                                            it.classifier = jar.nameWithoutExtension
-                                            it.builtBy("mpsbuild-assemble")
-                                        }
-                                        artifact(artifact)
                                     }
                                 }
                             }
                         }
                     }
-                    it.create("allmpsmodules", MavenPublication::class.java) {
+                    it.create("all", MavenPublication::class.java) {
                         it.apply {
                             groupId = project.group.toString()
-                            artifactId = "allmpsmodules"
+                            artifactId = "all"
                             version = publicationsVersion
                             pom {
                                 it.withXml {
@@ -263,26 +313,36 @@ class MPSBuildPlugin : Plugin<Project> {
         return generator
     }
 
-    private fun copyDependencies(dependenciesConfiguration: Configuration, targetFolder: File): Map<File, Pom?> {
+    private fun copyDependencies(dependenciesConfiguration: Configuration, targetFolder: File): List<Pom> {
         val files = dependenciesConfiguration.resolve()
-        return files.map { copyDependency(it, targetFolder) }.associate { it }
+        return files.mapNotNull { copyDependency(it, targetFolder) }
     }
 
-    private fun copyDependency(file: File, targetFolder: File): Pair<File, Pom?> {
+    private fun copyDependency(file: File, targetFolder: File): Pom? {
         val targetFileAndPom = readPOM(file)?.let { pom ->
-            val moduleName = pom.getProperty(MODULE_NAME_PROPERTY) ?: return@let null
-            val isLibs = pom.getProperty(IS_LIBS_PROPERTY).toBoolean()
-            val classifier = pom.getClassifier(file)
-            if (isLibs) {
-                targetFolder.resolve(pom.group).resolve("$moduleName-lib").resolve("$classifier.${file.extension}")
-            } else {
-                val classifierSuffix = if (classifier.isEmpty()) "" else "-$classifier"
-                targetFolder.resolve(pom.group).resolve("$moduleName$classifierSuffix.${file.extension}")
-            } to pom
+            val moduleName = pom.getProperty(MODULE_NAME_PROPERTY)
+            val ideaPluginId = pom.getProperty(IDEA_PLUGIN_ID_PROPERTY)
+            if (moduleName != null) {
+                val isLibs = pom.getProperty(IS_LIBS_PROPERTY).toBoolean()
+                val classifier = pom.getClassifier(file)
+                if (isLibs) {
+                    targetFolder.resolve(pom.group).resolve("$moduleName-lib").resolve("$classifier.${file.extension}")
+                } else {
+                    val classifierSuffix = if (classifier.isEmpty()) "" else "-$classifier"
+                    targetFolder.resolve(pom.group).resolve("$moduleName$classifierSuffix.${file.extension}")
+                } to pom
+            } else if (ideaPluginId != null) {
+                targetFolder.resolve(pom.group).resolve("plugins").resolve(ideaPluginId) to pom
+            } else null
         } ?: (targetFolder.resolve(file.name) to null)
 
-        file.copyTo(targetFileAndPom.first, true)
-        return targetFileAndPom
+        if (file.extension == "zip") {
+            if (targetFileAndPom.first.exists()) targetFileAndPom.first.deleteRecursively()
+            ZipUtil.unpack(file, targetFileAndPom.first)
+        } else {
+            file.copyTo(targetFileAndPom.first, true)
+        }
+        return targetFileAndPom.second
     }
 
     private val cachedPomContent: MutableMap<File, Pom?> = HashMap()

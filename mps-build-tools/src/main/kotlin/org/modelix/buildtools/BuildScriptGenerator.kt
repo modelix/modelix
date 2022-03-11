@@ -68,6 +68,7 @@ class BuildScriptGenerator(val modulesMiner: ModulesMiner,
             "mps_home" to mpsHome.toPath(),
             "mps.home" to mpsHome.toPath(),
         )
+        val module2ideaPlugin = ideaPlugins.associateBy { it.module }
 
         val dbf = DocumentBuilderFactory.newInstance()
         val db = dbf.newDocumentBuilder()
@@ -251,19 +252,28 @@ class BuildScriptGenerator(val modulesMiner: ModulesMiner,
                 }
 
             }
-            publications +=  modulesToCompile.map { it.owner }.distinct().filterIsInstance<SourceModuleOwner>().map { owner ->
+            publications +=  (modulesToCompile - module2ideaPlugin.keys).map { it.owner }.distinct()
+                .filterIsInstance<SourceModuleOwner>().map { owner ->
                 val nonGen = owner.modules.values.first { it.moduleType != ModuleType.Generator }
                 val gen = owner.modules.values.filter { it.moduleType == ModuleType.Generator }
-                Publication(
+                ModulePublication(
                     nonGen.name,
-                    listOf(PublicationJar(getJarFile(nonGen), ""), PublicationJar(getSrcJarFile(nonGen), "src")) +
-                        gen.mapIndexed { i, m -> PublicationJar(getJarFile(m), if (i == 0) "generator" else "$i-generator") },
+                    listOf(PublicationFile(getJarFile(nonGen), ""), PublicationFile(getSrcJarFile(nonGen), "src")) +
+                        gen.mapIndexed { i, m -> PublicationFile(getJarFile(m), if (i == 0) "generator" else "$i-generator") },
                     owner.modules.values
                         .flatMap { it.getClassPathDependencies(resolver) }
                         .map { it.owner }
                         .distinct()
                         .map { PublicationDependency(it.modules.values.first().name, it.path.getLocalAbsolutePath()) },
                     owner.modules.values.flatMap { it.getOwnJars(macros) }
+                )
+            }
+            publications += ideaPlugins.map { plugin ->
+                IdeaPluginPublication(
+                    "idea.plugin." + plugin.getPluginId(),
+                    plugin.getPluginId(),
+                    listOf(PublicationFile(plugin.getPackagedPlugin(buildDir), "")),
+                    plugin.pluginDependencies(resolver).map { PublicationDependency(it.pluginId, it.path.getLocalAbsolutePath()) }
                 )
             }
 
@@ -453,8 +463,7 @@ class BuildScriptGenerator(val modulesMiner: ModulesMiner,
                     newChild("echoxml") {
                         setAttribute("file", metaInfFolder.resolve("plugin.xml").absolutePath)
                         ideaPlugin.applyXml(this).apply {
-                            val pluginDependencies = ideaPlugin.module.getClassPathDependencies(resolver)
-                                .map { it.owner }.filterIsInstance<PluginModuleOwner>()
+                            val pluginDependencies = ideaPlugin.pluginDependencies(resolver)
                             for (pluginDependency in pluginDependencies) {
                                 newChild("depends", pluginDependency.pluginId)
                             }
@@ -465,6 +474,10 @@ class BuildScriptGenerator(val modulesMiner: ModulesMiner,
                                 }
                             }
                         }
+                    }
+                    newChild("zip") {
+                        setAttribute("destfile", ideaPlugin.getPackagedPlugin(buildDir).absolutePath)
+                        setAttribute("baseDir", ideaPlugin.getPluginDir(buildDir).absolutePath)
                     }
                 }
             }
@@ -715,11 +728,18 @@ class BuildScriptGenerator(val modulesMiner: ModulesMiner,
         return planBuilder.plan to dependencyGraph
     }
 
-    class Publication(val name: String,
-                      val jars: List<PublicationJar>,
-                      val dependencies: List<PublicationDependency>,
-                      val libs: List<File>)
-    class PublicationJar(val file: File, val classifier: String)
+    open class Publication(val name: String,
+                           val files: List<PublicationFile>,
+                           val dependencies: List<PublicationDependency>)
+    class ModulePublication(name: String,
+                            jars: List<PublicationFile>,
+                            dependencies: List<PublicationDependency>,
+                            val libs: List<File>): Publication(name, jars, dependencies)
+    class IdeaPluginPublication(name: String,
+                                val pluginId: String,
+                                files: List<PublicationFile>,
+                                dependencies: List<PublicationDependency>): Publication(name, files, dependencies)
+    class PublicationFile(val file: File, val classifier: String)
     class PublicationDependency(val name: String, val path: Path)
     class IdeaPlugin(val module: FoundModule, val version: String, val pluginXml: Document?) {
         init {
@@ -731,6 +751,7 @@ class BuildScriptGenerator(val modulesMiner: ModulesMiner,
             ?: throw RuntimeException("No idea plugin ID specified in module ${module.name}")
         fun getAssembleTargetName() = "assemble.idea.plugin.${getPluginId()}"
         fun getPluginDir(buildDir: File) = getIdeaPluginsBuildDir(buildDir).resolve(getPluginId())
+        fun getPackagedPlugin(buildDir: File): File = getIdeaPluginsBuildDir(buildDir).resolve(getPluginId() + ".zip")
         fun getLanguagesDir(buildDir: File) = getPluginDir(buildDir).resolve("languages")
         fun getLibDir(buildDir: File) = getPluginDir(buildDir).resolve("lib")
         fun applyXml(targetParent: Element): Element {
@@ -746,6 +767,8 @@ class BuildScriptGenerator(val modulesMiner: ModulesMiner,
             }
             return rootElement
         }
+        fun pluginDependencies(resolver: ModuleResolver) = module.getClassPathDependencies(resolver)
+            .map { it.owner }.filterIsInstance<PluginModuleOwner>()
     }
 }
 
