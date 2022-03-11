@@ -31,6 +31,7 @@ class BuildScriptGenerator(val modulesMiner: ModulesMiner,
     private var compileCycleIds: Map<DependencyGraph<FoundModule, ModuleId>.DependencyNode, Int> = HashMap()
     val publications: MutableList<Publication> = ArrayList();
     var generatorHeapSize: String = "2G"
+    val ideaPlugins: MutableList<IdeaPlugin> = ArrayList()
 
     fun buildModules(antScriptFile: File = File.createTempFile("mps-build-script", ".xml", File(".")), outputHandler: ((String)->Unit)? = null) {
         val xml = generateXML()
@@ -417,11 +418,63 @@ class BuildScriptGenerator(val modulesMiner: ModulesMiner,
                 }
             }
 
+            // target: assemble.idea.plugin.___.___
+            for (ideaPlugin in ideaPlugins) {
+                newChild("target") {
+                    setAttribute("name", ideaPlugin.getAssembleTargetName())
+                    setAttribute("depends", getAssembleTargetName(ideaPlugin.module))
+                    newChild("copy") {
+                        setAttribute("todir", ideaPlugin.getLanguagesDir(buildDir).absolutePath)
+                        // Here the language jar is only used to load the module, but not the classes
+                        for (jar in getAllModuleJarFiles(ideaPlugin.module)) {
+                            newChild("file") {
+                                setAttribute("file", jar.absolutePath)
+                            }
+                        }
+                    }
+                    newChild("copy") {
+                        setAttribute("todir", ideaPlugin.getLibDir(buildDir).absolutePath)
+                        // Here the language jar is used by the class loader of the IDEA plugin
+                        // Separating classes and model files into two different jar would be possible,
+                        // but it's easier like this for now.
+                        newChild("file") {
+                            setAttribute("file", getJarFile(ideaPlugin.module).absolutePath)
+                        }
+                        for (jar in ideaPlugin.module.getOwnJars(macros)) {
+                            newChild("file") {
+                                setAttribute("file", jar.absolutePath)
+                            }
+                        }
+                    }
+                    val metaInfFolder = ideaPlugin.getPluginDir(buildDir).resolve("META-INF")
+                    newChild("mkdir") {
+                        setAttribute("dir", metaInfFolder.absolutePath)
+                    }
+                    newChild("echoxml") {
+                        setAttribute("file", metaInfFolder.resolve("plugin.xml").absolutePath)
+                        ideaPlugin.applyXml(this).apply {
+                            val pluginDependencies = ideaPlugin.module.getClassPathDependencies(resolver)
+                                .map { it.owner }.filterIsInstance<PluginModuleOwner>()
+                            for (pluginDependency in pluginDependencies) {
+                                newChild("depends", pluginDependency.pluginId)
+                            }
+                            newChild("extensions") {
+                                setAttribute("defaultExtensionNs", "com.intellij")
+                                newChild("mps.LanguageLibrary") {
+                                    setAttribute("dir", "/languages")
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
             // target: assemble
             newChild("target") {
                 setAttribute("name", "assemble")
-                setAttribute("depends", sourceModules.map { it.owner as SourceModuleOwner }
-                    .joinToString(", ") { getAssembleTargetName(it) })
+                val targetDeps = sourceModules.map { it.owner as SourceModuleOwner }.map { getAssembleTargetName(it) } +
+                    ideaPlugins.map { it.getAssembleTargetName() }
+                setAttribute("depends", targetDeps.joinToString(", "))
             }
 
             // target: clean
@@ -431,6 +484,7 @@ class BuildScriptGenerator(val modulesMiner: ModulesMiner,
                 newChild("delete") { setAttribute("dir", getPackagedModulesTempDir().absolutePath) }
                 newChild("delete") { setAttribute("dir", getModelsTempDir().absolutePath) }
                 newChild("delete") { setAttribute("dir", getCompileOutputDir().absolutePath) }
+                newChild("delete") { setAttribute("dir", getIdeaPluginsBuildDir(buildDir).absolutePath) }
             }
         }
 
@@ -569,6 +623,9 @@ class BuildScriptGenerator(val modulesMiner: ModulesMiner,
     private fun getSrcJarFile(module: FoundModule): File {
         return File(getPackagedModulesDir(), getNonGeneratorModule(module).name + "-src.jar")
     }
+    private fun getAllModuleJarFiles(module: FoundModule): List<File> {
+        return module.owner.modules.values.map { getJarFile(it) } + getSrcJarFile(module)
+    }
     private fun getNonGeneratorModule(module: FoundModule): FoundModule {
         return if (module.moduleType != ModuleType.Generator) {
             module
@@ -664,4 +721,32 @@ class BuildScriptGenerator(val modulesMiner: ModulesMiner,
                       val libs: List<File>)
     class PublicationJar(val file: File, val classifier: String)
     class PublicationDependency(val name: String, val path: Path)
+    class IdeaPlugin(val module: FoundModule, val version: String, val pluginXml: Document?) {
+        init {
+            require(module.moduleType == ModuleType.Solution) {
+                "Only solutions are allowed for IDEA plugins. ${module.name} is of type ${module.moduleType}."
+            }
+        }
+        fun getPluginId() = module.moduleDescriptor?.ideaPluginId
+            ?: throw RuntimeException("No idea plugin ID specified in module ${module.name}")
+        fun getAssembleTargetName() = "assemble.idea.plugin.${getPluginId()}"
+        fun getPluginDir(buildDir: File) = getIdeaPluginsBuildDir(buildDir).resolve(getPluginId())
+        fun getLanguagesDir(buildDir: File) = getPluginDir(buildDir).resolve("languages")
+        fun getLibDir(buildDir: File) = getPluginDir(buildDir).resolve("lib")
+        fun applyXml(targetParent: Element): Element {
+            val rootElement: Element = if (pluginXml != null) {
+                targetParent.appendChild(targetParent.ownerDocument.importNode(pluginXml.documentElement, true)) as Element
+            } else {
+                targetParent.newChild("idea-plugin") {}
+            }
+            rootElement.apply {
+                newChild("id", getPluginId())
+                newChild("name", getPluginId())
+                newChild("version", version)
+            }
+            return rootElement
+        }
+    }
 }
+
+private fun getIdeaPluginsBuildDir(buildDir: File) = buildDir.resolve("idea-plugins")

@@ -15,7 +15,6 @@ package org.modelix.buildtools.modulepersistence
 
 import org.modelix.buildtools.*
 import org.w3c.dom.Element
-import java.io.File
 import java.nio.file.Path
 
 abstract class ModuleDescriptor(val xml: Element) {
@@ -31,6 +30,7 @@ abstract class ModuleDescriptor(val xml: Element) {
     private val modelPaths: List<String>
     private val facets: List<Element>
     val javaLibPaths: List<String>
+    val ideaPluginId: String?
 
     init {
         // see ModuleDescriptorPersistence in MPS
@@ -59,6 +59,8 @@ abstract class ModuleDescriptor(val xml: Element) {
         javaLibPaths = xml.childElements("stubModelEntries")
             .flatMap { it.childElements("stubModelEntry") }
             .map { it.getAttribute("path") }
+        ideaPluginId = xml.childElements("facets").flatMap { it.childElements("facet") }
+            .find { it.getAttribute("type") == "ideaPlugin" }?.getAttributeOrNull("pluginId")
     }
 
     fun resolveJavaLibs(macros: Macros): List<Path> {

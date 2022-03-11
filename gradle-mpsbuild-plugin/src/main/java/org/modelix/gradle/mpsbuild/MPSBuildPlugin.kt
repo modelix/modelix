@@ -21,7 +21,6 @@ import org.gradle.api.internal.project.ant.AntLoggingAdapter
 import org.gradle.api.publish.PublishingExtension
 import org.gradle.api.publish.maven.MavenPublication
 import org.modelix.buildtools.*
-import java.lang.RuntimeException
 import org.w3c.dom.Element
 import java.io.File
 import java.io.IOException
@@ -33,6 +32,7 @@ import java.util.Enumeration
 import java.util.HashSet
 import java.util.jar.Manifest
 import java.util.stream.Collectors
+import kotlin.RuntimeException
 
 const val MODULE_NAME_PROPERTY = "mps.module.name"
 const val IS_LIBS_PROPERTY = "mps.module.libs"
@@ -248,6 +248,12 @@ class MPSBuildPlugin : Plugin<Project> {
         val generator = BuildScriptGenerator(
             modulesMiner, modulesToGenerate, emptySet(), settings.getMacros(project.projectDir.toPath()), buildDir)
         generator.generatorHeapSize = settings.generatorHeapSize
+        generator.ideaPlugins += settings.ideaPlugins.map { pluginSettings ->
+            val moduleName = pluginSettings.getImplementationModuleName()
+            val module = (modulesMiner.getModules().getModules().values.find { it.name == moduleName }
+                ?: throw RuntimeException("module $moduleName not found"))
+            BuildScriptGenerator.IdeaPlugin(module, "" + project.version, pluginSettings.pluginXml)
+        }
         val xml = generator.generateXML()
         try {
             FileUtils.writeStringToFile(antScriptFile, xml, StandardCharsets.UTF_8)
