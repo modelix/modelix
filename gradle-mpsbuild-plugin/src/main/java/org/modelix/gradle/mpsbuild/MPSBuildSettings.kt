@@ -14,6 +14,8 @@
 package org.modelix.gradle.mpsbuild
 
 import org.gradle.api.Action
+import org.gradle.api.Project
+import org.gradle.api.artifacts.Configuration
 import org.modelix.buildtools.Macros
 import org.modelix.buildtools.readXmlFile
 import org.w3c.dom.Document
@@ -25,6 +27,10 @@ import kotlin.collections.ArrayList
 import kotlin.collections.HashSet
 
 open class MPSBuildSettings {
+    private lateinit var project: Project
+    lateinit var moduleDependenciesConfig: Configuration
+    lateinit var stubsDependenciesConfig: Configuration
+
     var mpsHome: String? = null
     private val modules: MutableList<String> = ArrayList()
     private val includedPaths: MutableList<String> = ArrayList()
@@ -32,6 +38,24 @@ open class MPSBuildSettings {
     private val macros: MutableMap<String, String> = HashMap()
     var generatorHeapSize: String = "2G"
     val ideaPlugins: MutableList<IdeaPluginSettings> = ArrayList()
+
+    fun setProject(p: Project) {
+        project = p
+        moduleDependenciesConfig = project.configurations.create("mpsBuildModules")
+        stubsDependenciesConfig = project.configurations.create("mpsBuildStubs")
+    }
+
+    fun externalModules(coordinates: String) {
+        project.dependencies.add(moduleDependenciesConfig.name, coordinates)
+    }
+
+    fun stubs(coordinates: String) {
+        project.dependencies.add(stubsDependenciesConfig.name, coordinates)
+    }
+
+    fun mpsHome(value: String) {
+        mpsHome = value
+    }
 
     fun usingExistingMps(): Boolean {
         return mpsHome != null

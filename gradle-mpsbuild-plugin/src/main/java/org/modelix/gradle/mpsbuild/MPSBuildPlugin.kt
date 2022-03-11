@@ -42,13 +42,14 @@ const val IS_LIBS_PROPERTY = "mps.module.libs"
 class MPSBuildPlugin : Plugin<Project> {
     override fun apply(project_: Project) {
         val settings = project_.extensions.create("mpsBuild", MPSBuildSettings::class.java)
-        val dependenciesConfiguration =  project_.configurations.create("mpsBuildDependencies")
+        settings.setProject(project_)
+
         project_.afterEvaluate { project: Project ->
             settings.validate()
             val buildDir = project.buildDir.resolve("mpsbuild")
 
             val dependenciesDir = buildDir.resolve("dependencies")
-            val copiedDependencies = copyDependencies(dependenciesConfiguration, dependenciesDir.normalize())
+            val copiedDependencies = copyDependencies(settings.moduleDependenciesConfig, dependenciesDir.normalize())
             val moduleName2pom: Map<String, Pom> = copiedDependencies.map { it.getProperty(MODULE_NAME_PROPERTY) to it }
                 .filter { it.first != null }.associate { it.first!! to it.second }
             val pluginId2pom: Map<String, Pom> = copiedDependencies.map { it.getProperty(IDEA_PLUGIN_ID_PROPERTY) to it }
@@ -78,12 +79,59 @@ class MPSBuildPlugin : Plugin<Project> {
                     project.dependencies.create("org.modelix:mps-model-plugin:$modelixVersion"))
             }
 
-            val antScriptFile = File(buildDir, "build-modules.xml")
-            val antScriptTask = project.tasks.create("generatorAntScript")
-            val action = Action { task: Task? ->
-                generateAntScript(settings, project, buildDir, antScriptFile, setOf(dependenciesDir))
+            val generateStubsTask = project.task("generateStubs") { task ->
+                val action = Action { task: Task? ->
+                    val artifacts = settings.stubsDependenciesConfig.resolvedConfiguration.resolvedArtifacts
+                        .filter { it.file.extension == "jar" }
+                    for (artifact in artifacts) {
+                        val jar = artifact.file
+                        val solutionName = "stubs#" + artifact.moduleVersion.id.toString().replace(":", "#")
+                        val xml = newXmlDocument {
+                            newChild("solution") {
+                                setAttribute("name", solutionName)
+                                setAttribute("pluginKind", "PLUGIN_OTHER")
+                                setAttribute("moduleVersion", "0")
+                                setAttribute("uuid", "~$solutionName")
+                                newChild("facets") {
+                                    newChild("facet") {
+                                        setAttribute("type", "java")
+                                    }
+                                }
+                                newChild("models") {
+                                    newChild("modelRoot") {
+                                        setAttribute("type", "java_classes")
+                                        setAttribute("contentPath", jar.parentFile.absolutePath)
+                                        newChild("sourceRoot") {
+                                            setAttribute("location", jar.name)
+                                        }
+                                    }
+                                }
+                                newChild("dependencies") {
+                                    newChild("dependency", "6354ebe7-c22a-4a0f-ac54-50b52ab9b065(JDK)")
+                                }
+                                newChild("stubModelEntries") {
+                                    newChild("stubModelEntry") {
+                                        setAttribute("path", jar.absolutePath)
+                                    }
+                                }
+                            }
+                        }
+                        val solutionFile = buildDir.resolve("stubs").resolve(solutionName).resolve("$solutionName.msd")
+                        solutionFile.parentFile.mkdirs()
+                        solutionFile.writeText(xmlToString(xml))
+                    }
+                }
+                task.actions = listOf(action)
             }
-            antScriptTask.actions = listOf(action)
+
+            val antScriptFile = File(buildDir, "build-modules.xml")
+            val antScriptTask = project.task("generatorAntScript") { task ->
+                val action = Action { task: Task? ->
+                    generateAntScript(settings, project, buildDir, antScriptFile, setOf(dependenciesDir))
+                }
+                task.actions = listOf(action)
+                task.dependsOn(generateStubsTask)
+            }
 
             val generator = generateAntScript(settings, project, buildDir, antScriptFile, setOf(dependenciesDir))
             val ant = DefaultAntBuilder(project, AntLoggingAdapter())

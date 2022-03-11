@@ -54,17 +54,19 @@ fun Node.children(): List<Node> {
 fun Node.childElements(): List<Element> = children().filterIsInstance<Element>()
 fun Node.childElements(tag: String): List<Element> = children().filterIsInstance<Element>().filter { it.tagName == tag }
 
-fun Element.newChild(tag: String, body: Element.()->Unit): Element {
-    val child = ownerDocument.createElement(tag)
+fun Node.document(): Document = if (this is Document) this else ownerDocument
+
+fun Node.newChild(tag: String, body: Element.()->Unit): Element {
+    val child = document().createElement(tag)
     appendChild(child)
     child.apply(body)
     return child
 }
 
-fun Element.newChild(tag: String, text: String, body: (Element.()->Unit)? = null): Element {
-    val child = ownerDocument.createElement(tag)
+fun Node.newChild(tag: String, text: String, body: (Element.()->Unit)? = null): Element {
+    val child = document().createElement(tag)
     appendChild(child)
-    child.appendChild(ownerDocument.createTextNode(text))
+    child.appendChild(document().createTextNode(text))
     if (body != null) child.apply(body)
     return child
 }
@@ -105,4 +107,15 @@ fun readXmlFile(file: InputStream): Document {
     //dbf.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true)
     val db = dbf.newDocumentBuilder()
     return db.parse(file)
+}
+
+fun newXmlDocument(body: (Document.()->Unit)? = null): Document {
+    val dbf = DocumentBuilderFactory.newInstance()
+    //dbf.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true)
+    val db = dbf.newDocumentBuilder()
+    val doc = db.newDocument()
+    if (body != null) {
+        doc.apply(body)
+    }
+    return doc
 }
