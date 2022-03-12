@@ -21,7 +21,7 @@ class ModuleIdAndName(val id: ModuleId, val name: String?) {
 
         fun fromReference(text: String): ModuleIdAndName {
             // 1ed103c3-3aa6-49b7-9c21-6765ee11f224(MPS.Editor)
-            val matchResult = Regex("""~?(.+)\((.+)\)""").matchEntire(text)
+            val matchResult = Regex("""(~?.+)\((.+)\)""").matchEntire(text)
             if (matchResult == null) return ModuleIdAndName(ModuleId(text), null)
             return ModuleIdAndName(ModuleId(matchResult.groupValues[1]), matchResult.groupValues[2])
         }

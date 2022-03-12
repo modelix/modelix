@@ -48,6 +48,7 @@ class MPSBuildPlugin : Plugin<Project> {
         project_.afterEvaluate { project: Project ->
             settings.validate()
             val buildDir = project.buildDir.resolve("mpsbuild").normalize()
+            val stubsDir = buildDir.resolve("stubs")
             var mpsDir: File? = null
 
             settings.mpsDependenciesConfig?.let {
@@ -58,7 +59,7 @@ class MPSBuildPlugin : Plugin<Project> {
             }
 
             val dependenciesDir = buildDir.resolve("dependencies")
-            val dirsToMine = setOfNotNull(dependenciesDir, mpsDir)
+            val dirsToMine = setOfNotNull(dependenciesDir, stubsDir, mpsDir)
             val copiedDependencies = copyDependencies(settings.moduleDependenciesConfig, dependenciesDir.normalize())
             val moduleName2pom: Map<String, Pom> = copiedDependencies.map { it.getProperty(MODULE_NAME_PROPERTY) to it }
                 .filter { it.first != null }.associate { it.first!! to it.second }
@@ -71,23 +72,6 @@ class MPSBuildPlugin : Plugin<Project> {
             val genConfig = project.configurations.detachedConfiguration(
                 project.dependencies.create("org.modelix:mps-build-tools:$modelixVersion")
             )
-            val mpsConfig: Configuration?
-            val pluginsConfig: Configuration?
-            if (settings.usingExistingMps()) {
-                mpsConfig = null
-                pluginsConfig = null
-                // We are using an existing MPS. We also expect the user to add the version of MPS Extensions and
-                // Modelix that they intend to use
-            } else {
-                // We are not using an existing MPS, therefore we will add one and we will add dependencies
-                // to MPS Extensions and Modelix as well
-                val mpsVersion = manifest.mainAttributes.getValue("MPS-Version")
-                mpsConfig = project.configurations.detachedConfiguration(
-                    project.dependencies.create("com.jetbrains:mps:$mpsVersion")
-                )
-                pluginsConfig = project.configurations.detachedConfiguration(
-                    project.dependencies.create("org.modelix:mps-model-plugin:$modelixVersion"))
-            }
 
             val generateStubsTask = project.task("generateStubs") { task ->
                 val action = Action { task: Task? ->
@@ -152,7 +136,7 @@ class MPSBuildPlugin : Plugin<Project> {
                                 }
                             }
                         }
-                        val solutionFile = buildDir.resolve("stubs").resolve(solutionName).resolve("$solutionName.msd")
+                        val solutionFile = stubsDir.resolve(solutionName).resolve("$solutionName.msd")
                         solutionFile.parentFile.mkdirs()
                         solutionFile.writeText(xmlToString(xml))
                     }
@@ -173,6 +157,7 @@ class MPSBuildPlugin : Plugin<Project> {
             val generator = generateAntScript(settings, project, buildDir, antScriptFile, dirsToMine)
             val ant = DefaultAntBuilder(project, AntLoggingAdapter())
             ant.importBuild(antScriptFile) { "mpsbuild-$it" }
+            project.tasks.getByPath("mpsbuild-generate").dependsOn(antScriptTask)
 
             project.configurations.create("mpsmodules")
 
