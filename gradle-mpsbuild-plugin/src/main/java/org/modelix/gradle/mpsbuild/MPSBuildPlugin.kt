@@ -47,9 +47,18 @@ class MPSBuildPlugin : Plugin<Project> {
 
         project_.afterEvaluate { project: Project ->
             settings.validate()
-            val buildDir = project.buildDir.resolve("mpsbuild")
+            val buildDir = project.buildDir.resolve("mpsbuild").normalize()
+            var mpsDir: File? = null
+
+            settings.mpsDependenciesConfig?.let {
+                mpsDir = buildDir.resolve("mps")
+                for (file in it.resolve()) {
+                    copyAndUnzip(file, mpsDir!!.resolve(file.name))
+                }
+            }
 
             val dependenciesDir = buildDir.resolve("dependencies")
+            val dirsToMine = setOfNotNull(dependenciesDir, mpsDir)
             val copiedDependencies = copyDependencies(settings.moduleDependenciesConfig, dependenciesDir.normalize())
             val moduleName2pom: Map<String, Pom> = copiedDependencies.map { it.getProperty(MODULE_NAME_PROPERTY) to it }
                 .filter { it.first != null }.associate { it.first!! to it.second }
@@ -155,13 +164,13 @@ class MPSBuildPlugin : Plugin<Project> {
             val antScriptFile = File(buildDir, "build-modules.xml")
             val antScriptTask = project.task("generatorAntScript") { task ->
                 val action = Action { task: Task? ->
-                    generateAntScript(settings, project, buildDir, antScriptFile, setOf(dependenciesDir))
+                    generateAntScript(settings, project, buildDir, antScriptFile, dirsToMine)
                 }
                 task.actions = listOf(action)
                 task.dependsOn(generateStubsTask)
             }
 
-            val generator = generateAntScript(settings, project, buildDir, antScriptFile, setOf(dependenciesDir))
+            val generator = generateAntScript(settings, project, buildDir, antScriptFile, dirsToMine)
             val ant = DefaultAntBuilder(project, AntLoggingAdapter())
             ant.importBuild(antScriptFile) { "mpsbuild-$it" }
 
@@ -412,13 +421,17 @@ class MPSBuildPlugin : Plugin<Project> {
             } else null
         } ?: (targetFolder.resolve(file.name) to null)
 
-        if (file.extension == "zip") {
-            if (targetFileAndPom.first.exists()) targetFileAndPom.first.deleteRecursively()
-            ZipUtil.unpack(file, targetFileAndPom.first)
-        } else {
-            file.copyTo(targetFileAndPom.first, true)
-        }
+        copyAndUnzip(file, targetFileAndPom.first)
         return targetFileAndPom.second
+    }
+
+    private fun copyAndUnzip(sourceFile: File, targetFile: File) {
+        if (sourceFile.extension == "zip") {
+            if (targetFile.exists()) targetFile.deleteRecursively()
+            ZipUtil.unpack(sourceFile, targetFile)
+        } else {
+            sourceFile.copyTo(targetFile, true)
+        }
     }
 
     private val cachedPomContent: MutableMap<File, Pom?> = HashMap()

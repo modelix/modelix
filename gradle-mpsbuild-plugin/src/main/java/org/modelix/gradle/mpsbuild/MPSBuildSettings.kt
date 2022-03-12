@@ -30,6 +30,7 @@ open class MPSBuildSettings {
     private lateinit var project: Project
     lateinit var moduleDependenciesConfig: Configuration
     lateinit var stubsDependenciesConfig: Configuration
+    var mpsDependenciesConfig: Configuration? = null
 
     var mpsHome: String? = null
     private val modules: MutableList<String> = ArrayList()
@@ -41,16 +42,23 @@ open class MPSBuildSettings {
 
     fun setProject(p: Project) {
         project = p
-        moduleDependenciesConfig = project.configurations.create("mpsBuildModules")
-        stubsDependenciesConfig = project.configurations.create("mpsBuildStubs")
+        moduleDependenciesConfig = project.configurations.create("mpsBuild-modules")
+        stubsDependenciesConfig = project.configurations.create("mpsBuild-stubs")
     }
 
-    fun externalModules(coordinates: String) {
+    fun externalModules(coordinates: Any) {
         project.dependencies.add(moduleDependenciesConfig.name, coordinates)
     }
 
-    fun stubs(coordinates: String) {
+    fun stubs(coordinates: Any) {
         project.dependencies.add(stubsDependenciesConfig.name, coordinates)
+    }
+
+    fun mps(coordinates: Any) {
+        if (mpsDependenciesConfig == null) {
+            mpsDependenciesConfig = project.configurations.create("mpsBuild-mps")
+        }
+        project.dependencies.add(mpsDependenciesConfig!!.name, coordinates)
     }
 
     fun mpsHome(value: String) {
