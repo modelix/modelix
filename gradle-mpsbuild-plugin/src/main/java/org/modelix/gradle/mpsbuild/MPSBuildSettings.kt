@@ -86,6 +86,10 @@ open class MPSBuildSettings {
     }
 
     fun includeModule(moduleName: String) {
+        publishModule(moduleName)
+    }
+
+    fun publishModule(moduleName: String) {
         includedModuleNames.add(moduleName)
     }
 
