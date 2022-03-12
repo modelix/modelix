@@ -22,6 +22,7 @@ import org.gradle.api.internal.project.DefaultAntBuilder
 import org.gradle.api.internal.project.ant.AntLoggingAdapter
 import org.gradle.api.publish.PublishingExtension
 import org.gradle.api.publish.maven.MavenPublication
+import org.gradle.api.tasks.Exec
 import org.modelix.buildtools.*
 import org.w3c.dom.Element
 import org.zeroturnaround.zip.ZipUtil
@@ -140,29 +141,44 @@ class MPSBuildPlugin : Plugin<Project> {
                 task.actions = listOf(action)
             }
 
+            val generator = createBuildScriptGenerator(settings, project, buildDir, dirsToMine)
             val antScriptFile = File(buildDir, "build-modules.xml")
             val antScriptTask = project.task("generatorAntScript") { task ->
                 val action = Action { task: Task? ->
-                    generateAntScript(settings, project, buildDir, antScriptFile, dirsToMine)
+                    generateAntScript(generator, antScriptFile)
                 }
                 task.actions = listOf(action)
                 task.dependsOn(generateStubsTask)
             }
-
-            val generator = generateAntScript(settings, project, buildDir, antScriptFile, dirsToMine)
-            val ant = DefaultAntBuilder(project, AntLoggingAdapter())
-            ant.importBuild(antScriptFile) { "mpsbuild-$it" }
-            project.tasks.getByPath("mpsbuild-generate").dependsOn(antScriptTask)
-            project.tasks.getByPath("mpsbuild-assemble").dependsOn(antScriptTask)
+//            val assembleMpsTask = project.task("assembleMps") { task ->
+//                val action = Action { task: Task? ->
+//                    val ant = DefaultAntBuilder(project, AntLoggingAdapter())
+//                    ant.importBuild(antScriptFile) { "mpsbuild-$it" }
+//
+//                    project.tasks.getByPath("mpsbuild-assemble").
+//                }
+//                task.actions = listOf(action)
+//                task.dependsOn(antScriptTask)
+//            }
+            val assembleMpsTask = project.tasks.create("assembleMps", Exec::class.java) {
+                it.workingDir = antScriptFile.parentFile
+                it.commandLine = listOf("ant", "-f", antScriptFile.absolutePath, "assemble")
+                it.standardOutput = System.out
+                it.errorOutput = System.err
+                it.standardInput = System.`in`
+                it.dependsOn(antScriptTask)
+            }
 
             project.configurations.create("mpsmodules")
 
+            val publications = generator.getPublications()
+            println("Publications: " + publications.map { it.name })
             val publishing = project.extensions.findByType(PublishingExtension::class.java)
             val publicationsVersion = ("" + project.version).ifEmpty { "0.1" }
             publishing?.apply {
                 publications {
-                    val ownPublications = generator.publications.map { it.name }.toSet()
-                    for (publicationData in generator.publications) {
+                    val ownPublications = publications.map { it.name }.toSet()
+                    for (publicationData in publications) {
                         when (publicationData) {
                             is BuildScriptGenerator.ModulePublication -> {
                                 it.create("mpsmodule-${publicationData.name}", MavenPublication::class.java) {
@@ -204,7 +220,7 @@ class MPSBuildPlugin : Plugin<Project> {
                                             val artifact = project.artifacts.add("mpsmodules", jar.file) {
                                                 it.type = "jar"
                                                 it.classifier = jar.classifier
-                                                it.builtBy(antScriptTask, "mpsbuild-assemble")
+                                                it.builtBy(assembleMpsTask)
                                             }
                                             artifact(artifact)
                                         }
@@ -247,7 +263,7 @@ class MPSBuildPlugin : Plugin<Project> {
                                                 val artifact = project.artifacts.add("mpsmodules", jar) {
                                                     it.type = "jar"
                                                     it.classifier = jar.nameWithoutExtension
-                                                    it.builtBy(antScriptTask, "mpsbuild-assemble")
+                                                    it.builtBy(assembleMpsTask)
                                                 }
                                                 artifact(artifact)
                                             }
@@ -265,7 +281,7 @@ class MPSBuildPlugin : Plugin<Project> {
                                             val artifact = project.artifacts.add("mpsmodules", file.file) {
                                                 it.type = "zip"
                                                 it.classifier = file.classifier
-                                                it.builtBy(antScriptTask, "mpsbuild-assemble")
+                                                it.builtBy(assembleMpsTask)
                                             }
                                             artifact(artifact)
                                         }
@@ -305,7 +321,7 @@ class MPSBuildPlugin : Plugin<Project> {
                             pom {
                                 it.withXml {
                                     it.asElement().newChild("dependencies") {
-                                        for (publicationData in generator.publications) {
+                                        for (publicationData in publications) {
                                             newChild("dependency") {
                                                 newChild("groupId", groupId)
                                                 newChild("artifactId", publicationData.name)
@@ -336,7 +352,20 @@ class MPSBuildPlugin : Plugin<Project> {
         return allDependencies
     }
 
-    private fun generateAntScript(settings: MPSBuildSettings, project: Project, buildDir: File, antScriptFile: File, dependencyFiles: Set<File>): BuildScriptGenerator {
+    private fun generateAntScript(generator: BuildScriptGenerator, antScriptFile: File): BuildScriptGenerator {
+        val xml = generator.generateXML()
+        try {
+            FileUtils.writeStringToFile(antScriptFile, xml, StandardCharsets.UTF_8)
+        } catch (e: IOException) {
+            throw RuntimeException(e)
+        }
+        return generator
+    }
+
+    private fun createBuildScriptGenerator(settings: MPSBuildSettings,
+                                           project: Project,
+                                           buildDir: File,
+                                           dependencyFiles: Set<File>): BuildScriptGenerator {
         val modulesMiner = ModulesMiner()
         for (modulePath in settings.resolveModulePaths(project.projectDir.toPath())) {
             modulesMiner.searchInFolder(modulePath.toFile())
@@ -382,12 +411,6 @@ class MPSBuildPlugin : Plugin<Project> {
             val module = (modulesMiner.getModules().getModules().values.find { it.name == moduleName }
                 ?: throw RuntimeException("module $moduleName not found"))
             BuildScriptGenerator.IdeaPlugin(module, "" + project.version, pluginSettings.pluginXml)
-        }
-        val xml = generator.generateXML()
-        try {
-            FileUtils.writeStringToFile(antScriptFile, xml, StandardCharsets.UTF_8)
-        } catch (e: IOException) {
-            throw RuntimeException(e)
         }
         return generator
     }

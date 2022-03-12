@@ -15,13 +15,13 @@ package org.modelix.buildtools
 
 import kotlin.math.max
 
-class GenerationPlanBuilder(val availableModules: FoundModules, val ignoredModules: Set<ModuleId>) {
+class GenerationPlanBuilder(val resolver: ModuleResolver) {
     val plan: GenerationPlan = GenerationPlan()
     private val processedNodes: MutableSet<DependencyGraph<FoundModule, ModuleId>.DependencyNode> = HashSet()
     private val chunkIndexes: MutableMap<DependencyGraph<FoundModule, ModuleId>.DependencyNode, Int> = HashMap()
 
     fun build(modules: Iterable<FoundModule>): GeneratorDependencyGraph {
-        val dependencyGraph = GeneratorDependencyGraph(ModuleResolver(availableModules, ignoredModules))
+        val dependencyGraph = GeneratorDependencyGraph(resolver)
         dependencyGraph.load(modules)
         dependencyGraph.getRoots().forEach { build(it) }
         return dependencyGraph
@@ -64,7 +64,7 @@ class GenerationPlanBuilder(val availableModules: FoundModules, val ignoredModul
                     }
                 }
                 is LibraryModuleOwner -> plan.addLibrary(moduleOwner)
-                is PluginModuleOwner -> availableModules.getPluginWithDependencies(moduleOwner.pluginId, plugins)
+                is PluginModuleOwner -> resolver.availableModules.getPluginWithDependencies(moduleOwner.pluginId, plugins)
                 else -> throw RuntimeException("Unknown owner: $moduleOwner")
             }
         }

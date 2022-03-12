@@ -23,13 +23,12 @@ import kotlin.io.path.absolutePathString
 import kotlin.io.path.pathString
 
 class BuildScriptGenerator(val modulesMiner: ModulesMiner,
-                           val modulesToGenerate: List<ModuleId>? = null,
+                           private val modulesToGenerate: List<ModuleId>? = null,
                            val ignoredModules: Set<ModuleId> = HashSet(),
                            val initialMacros: Macros = Macros(),
                            val buildDir: File = File(".", "build")) {
 
     private var compileCycleIds: Map<DependencyGraph<FoundModule, ModuleId>.DependencyNode, Int> = HashMap()
-    val publications: MutableList<Publication> = ArrayList();
     var generatorHeapSize: String = "2G"
     val ideaPlugins: MutableList<IdeaPlugin> = ArrayList()
 
@@ -53,21 +52,23 @@ class BuildScriptGenerator(val modulesMiner: ModulesMiner,
         return xmlToString(doc)
     }
 
-    fun generateAnt(): Document {
-        val modulesToGenerate_ = modulesToGenerate
-            ?: modulesMiner.getModules().getModules().values
-                .filter { it.owner is SourceModuleOwner && it.moduleType == ModuleType.Language }
-                .map { it.moduleId }
-                .toList()
-        val (plan, dependencyGraph) = generatePlan(modulesToGenerate_ - ignoredModules.toSet())
-        val resolver = ModuleResolver(modulesMiner.getModules(), ignoredModules)
-        val mpsHome = modulesMiner.getModules().mpsHome ?: throw RuntimeException("mps.home not found")
-        val macros = initialMacros.with(
+    fun getMpsHome() = modulesMiner.getModules().mpsHome ?: throw RuntimeException("mps.home not found")
+
+    fun getMacros(): Macros {
+        val mpsHome = getMpsHome()
+        return initialMacros.with(
             "platform_lib" to mpsHome.toPath().resolve("lib"),
             "lib_ext" to mpsHome.toPath().resolve("lib").resolve("ext"),
             "mps_home" to mpsHome.toPath(),
             "mps.home" to mpsHome.toPath(),
         )
+    }
+
+    fun generateAnt(): Document {
+        val resolver = ModuleResolver(modulesMiner.getModules(), ignoredModules)
+        val (plan, dependencyGraph) = generatePlan(getModulesToGenerate(), resolver)
+        val mpsHome = getMpsHome()
+        val macros = getMacros()
         val module2ideaPlugin = ideaPlugins.associateBy { it.module }
 
         val dbf = DocumentBuilderFactory.newInstance()
@@ -251,30 +252,6 @@ class BuildScriptGenerator(val modulesMiner: ModulesMiner,
                     )
                 }
 
-            }
-            publications +=  (modulesToCompile - module2ideaPlugin.keys).map { it.owner }.distinct()
-                .filterIsInstance<SourceModuleOwner>().map { owner ->
-                val nonGen = owner.modules.values.first { it.moduleType != ModuleType.Generator }
-                val gen = owner.modules.values.filter { it.moduleType == ModuleType.Generator }
-                ModulePublication(
-                    nonGen.name,
-                    listOf(PublicationFile(getJarFile(nonGen), ""), PublicationFile(getSrcJarFile(nonGen), "src")) +
-                        gen.mapIndexed { i, m -> PublicationFile(getJarFile(m), if (i == 0) "generator" else "$i-generator") },
-                    owner.modules.values
-                        .flatMap { it.getClassPathDependencies(resolver) }
-                        .map { it.owner }
-                        .distinct()
-                        .map { PublicationDependency(it.modules.values.first().name, it.path.getLocalAbsolutePath()) },
-                    owner.modules.values.flatMap { it.getOwnJars(macros) }
-                )
-            }
-            publications += ideaPlugins.map { plugin ->
-                IdeaPluginPublication(
-                    "idea.plugin." + plugin.getPluginId(),
-                    plugin.getPluginId(),
-                    listOf(PublicationFile(plugin.getPackagedPlugin(buildDir), "")),
-                    plugin.pluginDependencies(resolver).map { PublicationDependency(it.pluginId, it.path.getLocalAbsolutePath()) }
-                )
             }
 
             // target: compile
@@ -506,6 +483,52 @@ class BuildScriptGenerator(val modulesMiner: ModulesMiner,
         return doc
     }
 
+    fun getModulesToGenerate(): List<ModuleId> {
+        return (modulesToGenerate
+            ?: modulesMiner.getModules().getModules().values
+                .filter { it.owner is SourceModuleOwner && it.moduleType == ModuleType.Language }
+                .map { it.moduleId }
+                .toList()) - ignoredModules.toSet()
+    }
+
+    fun getPublications(): List<Publication> {
+        val resolver = ModuleResolver(modulesMiner.getModules(), ignoredModules, true)
+        val dependencyGraph = GeneratorDependencyGraph(resolver)
+        dependencyGraph.load(getModulesToGenerate().mapNotNull { modulesMiner.getModules().getModules()[it] })
+        val sourceModules = dependencyGraph.getNodes().flatMap { it.modules }.filter { it.owner is SourceModuleOwner }
+        val generatorModules = sourceModules.flatMap { it.owner.modules.values - it }
+        val modulesToCompile = sourceModules + generatorModules
+        val module2ideaPlugin = ideaPlugins.associateBy { it.module }
+        val macros = getMacros()
+        val publications = ArrayList<Publication>()
+
+        publications +=  (modulesToCompile - module2ideaPlugin.keys).map { it.owner }.distinct()
+            .filterIsInstance<SourceModuleOwner>().map { owner ->
+                val nonGen = owner.modules.values.first { it.moduleType != ModuleType.Generator }
+                val gen = owner.modules.values.filter { it.moduleType == ModuleType.Generator }
+                ModulePublication(
+                    nonGen.name,
+                    listOf(PublicationFile(getJarFile(nonGen), ""), PublicationFile(getSrcJarFile(nonGen), "src")) +
+                        gen.mapIndexed { i, m -> PublicationFile(getJarFile(m), if (i == 0) "generator" else "$i-generator") },
+                    owner.modules.values
+                        .flatMap { it.getClassPathDependencies(resolver) }
+                        .map { it.owner }
+                        .distinct()
+                        .map { PublicationDependency(it.modules.values.first().name, it.path.getLocalAbsolutePath()) },
+                    owner.modules.values.flatMap { it.getOwnJars(macros) }
+                )
+            }
+        publications += ideaPlugins.map { plugin ->
+            IdeaPluginPublication(
+                "idea.plugin." + plugin.getPluginId(),
+                plugin.getPluginId(),
+                listOf(PublicationFile(plugin.getPackagedPlugin(buildDir), "")),
+                plugin.pluginDependencies(resolver).map { PublicationDependency(it.pluginId, it.path.getLocalAbsolutePath()) }
+            )
+        }
+        return publications
+    }
+
     private fun Element.createCompileTarget(
         modules: List<FoundModule>,
         classPath: List<File>,
@@ -722,8 +745,8 @@ class BuildScriptGenerator(val modulesMiner: ModulesMiner,
         } + module.getOwnJars(macros)
     }
 
-    private fun generatePlan(modulesToGenerate: List<ModuleId>): Pair<GenerationPlan, GeneratorDependencyGraph> {
-        val planBuilder = GenerationPlanBuilder(modulesMiner.getModules(), ignoredModules)
+    private fun generatePlan(modulesToGenerate: List<ModuleId>, resolver: ModuleResolver): Pair<GenerationPlan, GeneratorDependencyGraph> {
+        val planBuilder = GenerationPlanBuilder(resolver)
         val dependencyGraph = planBuilder.build(modulesToGenerate.mapNotNull { modulesMiner.getModules().getModules()[it] })
         return planBuilder.plan to dependencyGraph
     }

@@ -13,14 +13,16 @@
  */
 package org.modelix.buildtools
 
-class ModuleResolver(val availableModules: FoundModules, val ignoredModules: Set<ModuleId>) {
+class ModuleResolver(val availableModules: FoundModules,
+                     val ignoredModules: Set<ModuleId>,
+                     val ignoreAllMissing: Boolean = false) {
     fun resolveModule(dep: ModuleDependency, usedBy: FoundModule, required: Boolean = true): FoundModule? {
         return resolveModule(ModuleIdAndName(dep.id, dep.moduleName), usedBy, required)
     }
 
     fun resolveModule(dep: ModuleIdAndName, usedBy: FoundModule, required: Boolean = true): FoundModule? {
         val resolved = availableModules.getModules()[dep.id]
-        if (resolved == null && required && !ignoredModules.contains(dep.id)) {
+        if (!ignoreAllMissing && resolved == null && required && !ignoredModules.contains(dep.id)) {
             throw RuntimeException("Dependency $dep not found (used by ${usedBy.moduleId}(${usedBy.name}) in ${usedBy.owner.path.getLocalAbsolutePath()} )")
         }
         return resolved
