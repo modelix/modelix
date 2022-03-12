@@ -16,6 +16,7 @@ package org.modelix.gradle.mpsbuild
 import org.apache.commons.io.FileUtils
 import org.gradle.api.*
 import org.gradle.api.artifacts.Configuration
+import org.gradle.api.artifacts.ResolvedDependency
 import org.gradle.api.internal.project.DefaultAntBuilder
 import org.gradle.api.internal.project.ant.AntLoggingAdapter
 import org.gradle.api.publish.PublishingExtension
@@ -30,10 +31,10 @@ import java.nio.charset.StandardCharsets
 import java.nio.file.Path
 import java.util.ArrayList
 import java.util.Enumeration
-import java.util.HashSet
 import java.util.jar.Manifest
 import java.util.stream.Collectors
 import kotlin.RuntimeException
+import kotlin.collections.HashSet
 
 const val MODULE_NAME_PROPERTY = "mps.module.name"
 const val IDEA_PLUGIN_ID_PROPERTY = "idea.plugin.id"
@@ -81,11 +82,25 @@ class MPSBuildPlugin : Plugin<Project> {
 
             val generateStubsTask = project.task("generateStubs") { task ->
                 val action = Action { task: Task? ->
-                    val artifacts = settings.stubsDependenciesConfig.resolvedConfiguration.resolvedArtifacts
-                        .filter { it.file.extension == "jar" }
-                    for (artifact in artifacts) {
-                        val jar = artifact.file
-                        val solutionName = "stubs#" + artifact.moduleVersion.id.toString().replace(":", "#")
+                    val resolvedConfiguration = settings.stubsDependenciesConfig.resolvedConfiguration
+                    val allDependencies: MutableSet<ResolvedDependency> = HashSet()
+                    object : GraphWithCyclesVisitor<ResolvedDependency>() {
+                        override fun onVisit(element: ResolvedDependency) {
+                            allDependencies.add(element)
+                            visit(element.children)
+                        }
+                    }.visit(resolvedConfiguration.firstLevelModuleDependencies)
+                    val getSolutionName: (ResolvedDependency)->String = {
+//                        val clean: (String)->String = { it.replace(Regex("[^a-zA-Z0-9]"), "_") }
+//                        val group = clean(it.moduleGroup)
+//                        val artifactId = clean(it.moduleName)
+//                        val version = clean(it.moduleVersion)
+//                        "stubs.$group.$artifactId.$version"
+                        "stubs#" + it.module.id.toString().replace(":", "#")
+                    }
+                    for (dependency in allDependencies) {
+                        val solutionName = getSolutionName(dependency)
+                        val jars = dependency.moduleArtifacts.map { it.file }.filter { it.extension == "jar" }
                         val xml = newXmlDocument {
                             newChild("solution") {
                                 setAttribute("name", solutionName)
@@ -98,20 +113,32 @@ class MPSBuildPlugin : Plugin<Project> {
                                     }
                                 }
                                 newChild("models") {
-                                    newChild("modelRoot") {
-                                        setAttribute("type", "java_classes")
-                                        setAttribute("contentPath", jar.parentFile.absolutePath)
-                                        newChild("sourceRoot") {
-                                            setAttribute("location", jar.name)
+                                    for (jar in jars) {
+                                        newChild("modelRoot") {
+                                            setAttribute("type", "java_classes")
+                                            setAttribute("contentPath", jar.parentFile.absolutePath)
+                                            newChild("sourceRoot") {
+                                                setAttribute("location", jar.name)
+                                            }
                                         }
                                     }
                                 }
                                 newChild("dependencies") {
-                                    newChild("dependency", "6354ebe7-c22a-4a0f-ac54-50b52ab9b065(JDK)")
+                                    newChild("dependency", "6354ebe7-c22a-4a0f-ac54-50b52ab9b065(JDK)") {
+                                        setAttribute("reexport", "true")
+                                    }
+                                    for (transitiveDep in dependency.children) {
+                                        val n = getSolutionName(transitiveDep)
+                                        newChild("dependency", "~$n($n)") {
+                                            setAttribute("reexport", "true")
+                                        }
+                                    }
                                 }
                                 newChild("stubModelEntries") {
-                                    newChild("stubModelEntry") {
-                                        setAttribute("path", jar.absolutePath)
+                                    for (jar in jars) {
+                                        newChild("stubModelEntry") {
+                                            setAttribute("path", jar.absolutePath)
+                                        }
                                     }
                                 }
                             }
@@ -120,6 +147,7 @@ class MPSBuildPlugin : Plugin<Project> {
                         solutionFile.parentFile.mkdirs()
                         solutionFile.writeText(xmlToString(xml))
                     }
+
                 }
                 task.actions = listOf(action)
             }
