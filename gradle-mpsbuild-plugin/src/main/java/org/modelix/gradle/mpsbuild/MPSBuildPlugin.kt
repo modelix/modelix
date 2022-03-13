@@ -30,11 +30,12 @@ import java.io.IOException
 import java.net.URL
 import java.nio.charset.StandardCharsets
 import java.nio.file.Path
-import java.util.ArrayList
-import java.util.Enumeration
+import java.text.SimpleDateFormat
+import java.util.*
 import java.util.jar.Manifest
 import java.util.stream.Collectors
 import kotlin.RuntimeException
+import kotlin.collections.HashMap
 import kotlin.collections.HashSet
 
 const val MODULE_NAME_PROPERTY = "mps.module.name"
@@ -98,7 +99,11 @@ class MPSBuildPlugin : Plugin<Project> {
 
             val publications = generator.getPublications()
             val publishing = project.extensions.findByType(PublishingExtension::class.java)
-            val publicationsVersion = ("" + project.version).ifEmpty { "0.1" }
+            val publicationsVersion = if (project.version == Project.DEFAULT_VERSION) {
+                null
+            } else {
+                ("" + project.version).ifEmpty { null }
+            } ?: generateVersionNumber(generator.modulesMiner.getModules().mpsHome)
             publishing?.apply {
                 publications {
                     val ownPublications = publications.map { it.name }.toSet()
@@ -278,6 +283,38 @@ class MPSBuildPlugin : Plugin<Project> {
         }
 
         return mpsDir
+    }
+
+    private fun generateVersionNumber(mpsHome: File?): String {
+        val mpsVersion = mpsHome?.let { readMPSVersion(it) }
+        val timestamp = SimpleDateFormat("yyyyMMddHHmm").format(Date())
+        return if (mpsVersion == null) timestamp else "$mpsVersion-$timestamp"
+    }
+
+    private fun readMPSVersion(mpsHome: File): String? {
+        val buildPropertiesFiles = mpsHome.resolve("build.properties")
+        if (!buildPropertiesFiles.exists()) return null
+        val buildProperties = Properties()
+        buildPropertiesFiles.inputStream().use { buildProperties.load(it) }
+
+        return listOf(
+            buildProperties["mpsBootstrapCore.version.major"],
+            buildProperties["mpsBootstrapCore.version.minor"],
+            buildProperties["mpsBootstrapCore.version.bugfixNr"],
+            buildProperties["mpsBootstrapCore.version.eap"],
+        ).filterNotNull()
+            .map { it.toString().trim('.') }
+            .filter { it.isNotEmpty() }
+            .joinToString(".")
+
+/*
+mpsBootstrapCore.version.major=2020
+mpsBootstrapCore.version.minor=3
+mpsBootstrapCore.version.bugfixNr=.6
+mpsBootstrapCore.version.eap=
+mpsBootstrapCore.version=2020.3
+
+ */
     }
 
     private fun generateStubsSolution(dependency: ResolvedDependency, stubsDir: File) {

@@ -53,7 +53,7 @@ plugins {
     id "org.jetbrains.kotlin.plugin.serialization" version "1.6.10" apply false
 }
 
-def githubCredentials = getGithubCredentials()
+ext.githubCredentials = getGithubCredentials()
 
 if (System.getenv("NEXUS_USERNAME") != null) ext.nexusUsername = System.getenv("NEXUS_USERNAME")
 if (System.getenv("NEXUS_PASSWORD") != null) ext.nexusPassword = System.getenv("NEXUS_PASSWORD")

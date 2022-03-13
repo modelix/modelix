@@ -38,9 +38,11 @@ publishing {
         maven {
             name = "GitHubPackages"
             url = uri("https://maven.pkg.github.com/modelix/modelix")
-            credentials {
-                username = System.getenv("GITHUB_ACTOR")
-                password = System.getenv("GITHUB_TOKEN")
+            if (githubCredentials != null) {
+                credentials {
+                    username = githubCredentials[0]
+                    password = githubCredentials[1]
+                }
             }
         }
 /*        maven {
