@@ -25,6 +25,7 @@ import org.modelix.buildtools.*
 import org.w3c.dom.Element
 import org.zeroturnaround.zip.ZipUtil
 import java.io.File
+import java.io.FileOutputStream
 import java.io.IOException
 import java.net.URL
 import java.nio.charset.StandardCharsets
@@ -48,16 +49,10 @@ class MPSBuildPlugin : Plugin<Project> {
         project_.afterEvaluate { project: Project ->
             settings.validate()
             val buildDir = project.buildDir.resolve("mpsbuild").normalize()
-            var mpsDir: File? = null
-
-            settings.mpsDependenciesConfig?.let {
-                mpsDir = buildDir.resolve("mps")
-                for (file in it.resolve()) {
-                    copyAndUnzip(file, mpsDir!!.resolve(file.name))
-                }
-            }
-
             val dependenciesDir = buildDir.resolve("dependencies")
+
+            val mpsDir = downloadMps(settings, buildDir.resolve("mps"))
+
             val dirsToMine = setOfNotNull(dependenciesDir, mpsDir)
             val copiedDependencies = copyDependencies(settings.dependenciesConfig, dependenciesDir.normalize())
             val moduleName2pom: Map<String, Pom> = copiedDependencies.map { it.getProperty(MODULE_NAME_PROPERTY) to it }
@@ -248,6 +243,41 @@ class MPSBuildPlugin : Plugin<Project> {
             }
         }
 
+    }
+
+    private fun downloadMps(settings: MPSBuildSettings, targetDir: File): File? {
+        var mpsDir: File? = null
+        settings.mpsDependenciesConfig?.resolvedConfiguration?.lenientConfiguration?.let {
+            for (file in it.files) {
+                val targetFile = targetDir.resolve(file.name)
+                if (!targetFile.exists()) {
+                    copyAndUnzip(file, targetFile)
+                }
+                mpsDir = targetFile
+            }
+        }
+
+        if (mpsDir == null) {
+            val url = settings.getMpsDownloadUrl()
+            if (url != null) {
+                val file = targetDir.resolve(url.toString().substringAfterLast("/"))
+                if (!file.exists()) {
+                    println("Downloading $url")
+                    file.parentFile.mkdirs()
+                    url.openStream().use { istream ->
+                        file.outputStream().use { ostream ->
+                            istream.copyTo(ostream)
+                        }
+                    }
+                }
+                if (file.isFile) {
+                    ZipUtil.explode(file)
+                }
+                mpsDir = file
+            }
+        }
+
+        return mpsDir
     }
 
     private fun generateStubsSolution(dependency: ResolvedDependency, stubsDir: File) {

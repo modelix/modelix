@@ -20,6 +20,7 @@ import org.modelix.buildtools.Macros
 import org.modelix.buildtools.readXmlFile
 import org.w3c.dom.Document
 import java.io.ByteArrayInputStream
+import java.net.URL
 import java.nio.file.Path
 import java.util.HashMap
 import java.util.stream.Collectors
@@ -42,6 +43,7 @@ open class MPSBuildSettings {
     private var mpsMajorVersion: String? = null
     private var mpsMinorVersion: String? = null
     private var mpsFullVersion: String? = null
+    private var mpsDownloadUrl: URL? = null
 
     fun mpsVersion(v: String) {
         require(mpsFullVersion == null) { "MPS version is already set ($mpsFullVersion)" }
@@ -53,8 +55,12 @@ open class MPSBuildSettings {
         mpsFromMaven(getMpsMavenCoordinates())
     }
 
-    fun getMpsDownloadUrl(): String {
-        return "https://download.jetbrains.com/mps/$mpsMajorVersion/MPS-$mpsFullVersion.zip"
+    fun getMpsDownloadUrl(): URL? {
+        if (mpsDownloadUrl != null) return mpsDownloadUrl
+        if (mpsFullVersion != null) {
+            return URL("https://download.jetbrains.com/mps/$mpsMajorVersion/MPS-$mpsFullVersion.zip")
+        }
+        return null
     }
 
     fun getMpsMavenCoordinates(): String {
@@ -77,8 +83,8 @@ open class MPSBuildSettings {
     fun mps(spec: Any) {
         if (spec is String && mpsVersionPattern.matches(spec)) {
             mpsVersion(spec)
-        } else if (spec is String && spec.startsWith("https://")) {
-            TODO("Download URL is not supported yet")
+        } else if (spec is String && spec.contains("://")) {
+            mpsDownloadUrl = URL(spec)
         } else {
             mpsFromMaven(spec)
         }
