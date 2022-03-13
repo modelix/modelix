@@ -307,14 +307,11 @@ class MPSBuildPlugin : Plugin<Project> {
             .filter { it.isNotEmpty() }
             .joinToString(".")
 
-/*
-mpsBootstrapCore.version.major=2020
-mpsBootstrapCore.version.minor=3
-mpsBootstrapCore.version.bugfixNr=.6
-mpsBootstrapCore.version.eap=
-mpsBootstrapCore.version=2020.3
-
- */
+//        mpsBootstrapCore.version.major=2020
+//        mpsBootstrapCore.version.minor=3
+//        mpsBootstrapCore.version.bugfixNr=.6
+//        mpsBootstrapCore.version.eap=
+//        mpsBootstrapCore.version=2020.3
     }
 
     private fun generateStubsSolution(dependency: ResolvedDependency, stubsDir: File) {
@@ -403,7 +400,7 @@ mpsBootstrapCore.version=2020.3
         }
     }
 
-    private fun String.toValidPublicationName() = replace(Regex("[^A-Za-z0-9_\\-.]"), "_")
+    private fun String.toValidPublicationName() = replace(Regex("[^A-Za-z0-9_\\-.]"), "_").toLowerCase()
 
     private fun getStubSolutionName(dependency: ResolvedDependency): String {
 //                        val clean: (String)->String = { it.replace(Regex("[^a-zA-Z0-9]"), "_") }
