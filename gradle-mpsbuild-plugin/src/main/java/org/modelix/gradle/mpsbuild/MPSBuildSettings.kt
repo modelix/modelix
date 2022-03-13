@@ -27,9 +27,9 @@ import kotlin.collections.ArrayList
 import kotlin.collections.HashSet
 
 open class MPSBuildSettings {
+    private val mpsVersionPattern = Regex("(\\d+\\.\\d+)(\\.\\d+)?")
     private lateinit var project: Project
-    lateinit var moduleDependenciesConfig: Configuration
-    lateinit var stubsDependenciesConfig: Configuration
+    lateinit var dependenciesConfig: Configuration
     var mpsDependenciesConfig: Configuration? = null
 
     var mpsHome: String? = null
@@ -39,25 +39,54 @@ open class MPSBuildSettings {
     private val macros: MutableMap<String, String> = HashMap()
     var generatorHeapSize: String = "2G"
     val ideaPlugins: MutableList<IdeaPluginSettings> = ArrayList()
+    private var mpsMajorVersion: String? = null
+    private var mpsMinorVersion: String? = null
+    private var mpsFullVersion: String? = null
+
+    fun mpsVersion(v: String) {
+        require(mpsFullVersion == null) { "MPS version is already set ($mpsFullVersion)" }
+        val match = mpsVersionPattern.matchEntire(v)
+            ?: throw RuntimeException("Not a valid MPS version: $v")
+        mpsFullVersion = v
+        mpsMajorVersion = match.groupValues[1]
+        mpsMinorVersion = match.groupValues.getOrNull(2)
+        mpsFromMaven(getMpsMavenCoordinates())
+    }
+
+    fun getMpsDownloadUrl(): String {
+        return "https://download.jetbrains.com/mps/$mpsMajorVersion/MPS-$mpsFullVersion.zip"
+    }
+
+    fun getMpsMavenCoordinates(): String {
+        return "com.jetbrains:mps:$mpsFullVersion"
+    }
 
     fun setProject(p: Project) {
         project = p
-        moduleDependenciesConfig = project.configurations.create("mpsBuild-modules")
-        stubsDependenciesConfig = project.configurations.create("mpsBuild-stubs")
+        dependenciesConfig = project.configurations.create("mpsBuild-dependencies")
     }
 
     fun externalModules(coordinates: Any) {
-        project.dependencies.add(moduleDependenciesConfig.name, coordinates)
+        project.dependencies.add(dependenciesConfig.name, coordinates)
     }
 
     fun stubs(coordinates: Any) {
-        project.dependencies.add(stubsDependenciesConfig.name, coordinates)
+        project.dependencies.add(dependenciesConfig.name, coordinates)
     }
 
-    fun mps(coordinates: Any) {
-        if (mpsDependenciesConfig == null) {
-            mpsDependenciesConfig = project.configurations.create("mpsBuild-mps")
+    fun mps(spec: Any) {
+        if (spec is String && mpsVersionPattern.matches(spec)) {
+            mpsVersion(spec)
+        } else if (spec is String && spec.startsWith("https://")) {
+            TODO("Download URL is not supported yet")
+        } else {
+            mpsFromMaven(spec)
         }
+    }
+
+    fun mpsFromMaven(coordinates: Any) {
+        require(mpsDependenciesConfig == null) { "MPS dependency is already set" }
+        mpsDependenciesConfig = project.configurations.create("mpsBuild-mps")
         project.dependencies.add(mpsDependenciesConfig!!.name, coordinates)
     }
 
