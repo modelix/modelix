@@ -13,29 +13,8 @@
  */
 package org.modelix.buildtools
 
-class GeneratorDependencyGraph(val moduleResolver: ModuleResolver) : DependencyGraph<FoundModule, ModuleId>() {
-    override fun getKey(element: FoundModule): ModuleId {
-        return element.moduleId
-    }
-
+class GeneratorDependencyGraph(moduleResolver: ModuleResolver) : ModuleDependencyGraph(moduleResolver) {
     override fun getDependencies(element: FoundModule): Iterable<FoundModule> {
         return element.getGenerationDependencies(moduleResolver)
-    }
-
-    fun mergeGeneratorsAndLanguages() {
-        val moduleOwners = moduleResolver.availableModules.getModules().values.map { it.owner }
-            .filterIsInstance<SourceModuleOwner>().filter { it.modules.size > 1 }
-        for (moduleOwner in moduleOwners) {
-            val nodesToMerge = moduleOwner.modules.keys.mapNotNull { getNode(it) }.distinct()
-            if (nodesToMerge.size < 2) continue
-            for (source in nodesToMerge.drop(1)) {
-                mergeNodes(source, nodesToMerge.first())
-            }
-        }
-    }
-
-    override fun postprocess() {
-        mergeGeneratorsAndLanguages()
-        super.postprocess()
     }
 }

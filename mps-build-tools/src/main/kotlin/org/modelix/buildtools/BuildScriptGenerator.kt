@@ -352,7 +352,7 @@ class BuildScriptGenerator(val modulesMiner: ModulesMiner,
                     val jars = sourceModule.getOwnJars(macros)
                     if (jars.isNotEmpty()) {
                         newChild("copy") {
-                            setAttribute("todir", getPackagedModulesDir().resolve(getLibsTargetFolderName(sourceModule)).absolutePath)
+                            setAttribute("todir", getLibsTargetFolder(sourceModule).absolutePath)
                             for (jar in jars) {
                                 newChild("file") {
                                     setAttribute("file", jar.absolutePath)
@@ -493,7 +493,7 @@ class BuildScriptGenerator(val modulesMiner: ModulesMiner,
 
     fun getPublications(): List<Publication> {
         val resolver = ModuleResolver(modulesMiner.getModules(), ignoredModules, true)
-        val dependencyGraph = AllDependencyGraph(resolver)
+        val dependencyGraph = PublicationDependencyGraph(resolver)
         dependencyGraph.load(getModulesToGenerate().mapNotNull { modulesMiner.getModules().getModules()[it] })
         val sourceModules = dependencyGraph.getNodes().flatMap { it.modules }.filter { it.owner is SourceModuleOwner }
         val generatorModules = sourceModules.flatMap { it.owner.modules.values - it }
@@ -527,6 +527,15 @@ class BuildScriptGenerator(val modulesMiner: ModulesMiner,
             )
         }
         return publications
+    }
+
+    fun getGeneratedFiles(owner: SourceModuleOwner): List<File> {
+        val nonGen = owner.modules.values.first { it.moduleType != ModuleType.Generator }
+        val gen = owner.modules.values.filter { it.moduleType == ModuleType.Generator }
+        val moduleJars = listOf(getJarFile(nonGen), getSrcJarFile(nonGen)) + gen.map { getJarFile(it) }
+        val libJars = owner.modules.values.flatMap { it.getOwnJars(getMacros()) }
+            .map { getLibsTargetFolder(nonGen).resolve(it.name) }
+        return moduleJars + libJars
     }
 
     private fun Element.createCompileTarget(
@@ -645,6 +654,9 @@ class BuildScriptGenerator(val modulesMiner: ModulesMiner,
             File(getPackagedModulesDir(), module.name + ".jar")
         }
     }
+    private fun getLibsTargetFolder(module: FoundModule): File {
+        return getPackagedModulesDir().resolve(getLibsTargetFolderName(module))
+    }
     private fun getLibsTargetFolderName(module: FoundModule): String {
         return getJarFile(module).nameWithoutExtension + "-lib"
     }
@@ -670,7 +682,7 @@ class BuildScriptGenerator(val modulesMiner: ModulesMiner,
                 ?: throw RuntimeException("Generator without language in: " + module.owner.path.getLocalAbsolutePath())
         }
     }
-    private fun getPackagedModulesDir() = File(buildDir, "packaged-modules")
+    fun getPackagedModulesDir() = File(buildDir, "packaged-modules")
     private fun getPackagedModulesTempDir() = File(buildDir, "packaged-modules-tmp")
     private fun getModelsTempDir() = File(buildDir, "models-tmp")
     private fun getModelsTempDir(module: FoundModule): File {

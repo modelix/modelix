@@ -19,7 +19,6 @@ import org.gradle.api.artifacts.Configuration
 import org.modelix.buildtools.Macros
 import org.modelix.buildtools.readXmlFile
 import org.w3c.dom.Document
-import java.io.ByteArrayInputStream
 import java.net.URL
 import java.nio.file.Path
 import java.util.HashMap
@@ -32,18 +31,17 @@ open class MPSBuildSettings {
     private lateinit var project: Project
     lateinit var dependenciesConfig: Configuration
     var mpsDependenciesConfig: Configuration? = null
-
+    private val publications: MutableMap<String, PublicationSettings> = LinkedHashMap()
     var mpsHome: String? = null
-    private val modules: MutableList<String> = ArrayList()
-    private val includedPaths: MutableList<String> = ArrayList()
-    private val includedModuleNames: MutableSet<String> = HashSet()
+    private val searchPaths: MutableList<String> = ArrayList()
     private val macros: MutableMap<String, String> = HashMap()
     var generatorHeapSize: String = "2G"
-    val ideaPlugins: MutableList<IdeaPluginSettings> = ArrayList()
     private var mpsMajorVersion: String? = null
     private var mpsMinorVersion: String? = null
-    private var mpsFullVersion: String? = null
+    var mpsFullVersion: String? = null
     private var mpsDownloadUrl: URL? = null
+
+    fun getPublications(): List<PublicationSettings> = publications.values.toList()
 
     fun mpsVersion(v: String) {
         require(mpsFullVersion == null) { "MPS version is already set ($mpsFullVersion)" }
@@ -109,27 +107,7 @@ open class MPSBuildSettings {
     }
 
     fun search(path: String) {
-        modules.add(path)
-    }
-
-    fun include(pathToInclude: String) {
-        includePath(pathToInclude)
-    }
-
-    fun includePath(pathToInclude: String) {
-        includedPaths.add(pathToInclude)
-    }
-
-    fun includeModule(moduleName: String) {
-        publishModule(moduleName)
-    }
-
-    fun publishModule(moduleName: String) {
-        includedModuleNames.add(moduleName)
-    }
-
-    fun getIncludedModuleNames(): Set<String>? {
-        return if (includedModuleNames.isEmpty()) null else includedModuleNames
+        searchPaths.add(path)
     }
 
     fun macro(name: String, value: String) {
@@ -137,11 +115,7 @@ open class MPSBuildSettings {
     }
 
     fun resolveModulePaths(workdir: Path): List<Path> {
-        return if (modules.isEmpty()) listOf(workdir) else modules.stream().map { path: String? -> workdir.resolve(path).normalize() }.distinct().collect(Collectors.toList())
-    }
-
-    fun resolveIncludedModules(workdir: Path): List<Path>? {
-        return if (includedPaths.isEmpty()) null else includedPaths.stream().map { path: String? -> workdir.resolve(path).toAbsolutePath().normalize() }.distinct().collect(Collectors.toList())
+        return if (searchPaths.isEmpty()) listOf(workdir) else searchPaths.stream().map { path: String? -> workdir.resolve(path).normalize() }.distinct().collect(Collectors.toList())
     }
 
     fun getMacros(workdir: Path): Macros {
@@ -152,10 +126,12 @@ open class MPSBuildSettings {
         return Macros(resolvedMacros)
     }
 
-    fun ideaPlugin(action: Action<IdeaPluginSettings>) {
-        val plugin = IdeaPluginSettings()
-        ideaPlugins += plugin
-        action.execute(plugin)
+    fun publication(name: String, action: Action<PublicationSettings>): PublicationSettings {
+        require(!publications.containsKey(name)) { "Duplicate publication '$name'" }
+        val publication = PublicationSettings(name)
+        publications[name] = publication
+        action.execute(publication)
+        return publication
     }
 
     inner class IdeaPluginSettings {
@@ -175,6 +151,34 @@ open class MPSBuildSettings {
         }
         fun pluginXml(content: String) {
             pluginXml = readXmlFile(content.byteInputStream())
+        }
+    }
+
+    inner class PublicationSettings(val name: String) {
+        private val includedPaths: MutableList<String> = ArrayList()
+        private val includedModuleNames: MutableSet<String> = HashSet()
+        val ideaPlugins: MutableList<IdeaPluginSettings> = ArrayList()
+
+        fun includePath(pathToInclude: String) {
+            includedPaths.add(pathToInclude)
+        }
+
+        fun resolveIncludedModules(workdir: Path): List<Path>? {
+            return if (includedPaths.isEmpty()) null else includedPaths.stream().map { path: String? -> workdir.resolve(path).toAbsolutePath().normalize() }.distinct().collect(Collectors.toList())
+        }
+
+        fun getIncludedModuleNames(): Set<String>? {
+            return if (includedModuleNames.isEmpty()) null else includedModuleNames
+        }
+
+        fun module(moduleName: String) {
+            includedModuleNames.add(moduleName)
+        }
+
+        fun ideaPlugin(action: Action<IdeaPluginSettings>) {
+            val plugin = IdeaPluginSettings()
+            ideaPlugins += plugin
+            action.execute(plugin)
         }
     }
 }

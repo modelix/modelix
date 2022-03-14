@@ -52,8 +52,14 @@ abstract class DependencyGraph<ElementT, KeyT> {
 
     protected open fun cycleBeforeMerge(cycle: Set<DependencyNode>) {}
 
-    fun mergeCycles() {
-        for (i in 0..5) {
+    fun findCycles(): Set<Set<DependencyNode>> {
+        val cycleFinder = CycleFinder()
+        getNodes().forEach { cycleFinder.process(it) }
+        return cycleFinder.cycles
+    }
+
+    fun mergeCycles(maxIterations: Int = 5) {
+        for (i in 1..maxIterations) {
             val cycleFinder = CycleFinder()
             getNodes().forEach { cycleFinder.process(it) }
 
@@ -89,7 +95,19 @@ abstract class DependencyGraph<ElementT, KeyT> {
         }
     }
 
-    protected fun mergeNodes(source: DependencyNode, target: DependencyNode) {
+    fun mergeElements(elements: Iterable<ElementT>): DependencyNode {
+        return mergeNodes(elements.mapNotNull { getNode(getKey(it)) }.distinct())
+    }
+
+    fun mergeNodes(nodes: List<DependencyNode>): DependencyNode {
+        val mergeTarget = nodes.first()
+        for (mergeSource in nodes.drop(1)) {
+            mergeNodes(mergeSource, mergeTarget)
+        }
+        return mergeTarget
+    }
+
+    fun mergeNodes(source: DependencyNode, target: DependencyNode) {
         if (source == target) {
             throw RuntimeException("Attempt to merge a node into itself")
         }
@@ -122,6 +140,8 @@ abstract class DependencyGraph<ElementT, KeyT> {
         private val dependencies: MutableSet<DependencyNode> = HashSet()
         private val reverseDependencies: MutableSet<DependencyNode> = HashSet()
         var mergedInto: DependencyNode? = null
+
+        fun getContentKeys() = modules.map { getKey(it) }
 
         override fun toString(): String {
             if (modules.size == 1) return modules.first().toString()
@@ -160,28 +180,17 @@ abstract class DependencyGraph<ElementT, KeyT> {
         }
     }
 
-    private inner class CycleFinder {
-        val processed = HashSet<DependencyNode>()
-        val cycles: LinkedHashSet<LinkedHashSet<DependencyNode>> = LinkedHashSet()
-        val currentStack = ArrayList<DependencyNode>()
-
-        fun process(node: DependencyNode) {
-            val index = currentStack.indexOf(node)
-            if (index != -1) {
-                cycles += LinkedHashSet(currentStack.drop(index))
+    private inner class CycleFinder: CycleDetection<DependencyNode, DependencyNode>() {
+        override fun getOutgoingEdges(element: DependencyNode): Iterable<DependencyNode> {
+            val dependencies = element.getDependencies()
+            for (dependency in dependencies) {
+                require(dependency.isValid())
             }
+            return dependencies
+        }
 
-            if (processed.contains(node)) return
-            processed += node
-
-            try {
-                currentStack += node
-                for (dependency in node.getDependencies()) {
-                    process(dependency)
-                }
-            } finally {
-                currentStack.removeLast()
-            }
+        override fun getCategory(element: DependencyNode): DependencyNode {
+            return element
         }
     }
 }
