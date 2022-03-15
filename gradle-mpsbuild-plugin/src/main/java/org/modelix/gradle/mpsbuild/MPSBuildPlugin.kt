@@ -181,9 +181,12 @@ class MPSBuildPlugin : Plugin<Project> {
             }
 
             val packagedModulesDir = generator.getPackagedModulesDir()
+            val generatedPlugins = generator.getGeneratedPlugins().entries.associate { it.key.name to it.value }
+            val pluginModuleNames = settings.getPublications()
+                .flatMap { it.ideaPlugins }.map { it.getImplementationModuleName() }.toSet()
             for (publication in settings.getPublications()) {
                 val dnode = publication2dnode[publication]!!.getMergedNode()
-                val modulesAndStubs = dnode.modules
+                val modulesAndStubs = dnode.modules.filter { !pluginModuleNames.contains(it.name) }
                 val stubs = modulesAndStubs.filter { it.name.startsWith("stubs#") }.toSet()
                 val modules = modulesAndStubs - stubs
                 val generatedFiles = modules.map { it.owner }.filterIsInstance<SourceModuleOwner>()
@@ -192,15 +195,27 @@ class MPSBuildPlugin : Plugin<Project> {
                 zipFile.parentFile.mkdirs()
                 zipFile.outputStream().use { os ->
                     ZipOutputStream(os).use { zipStream ->
-                        for (file in generatedFiles) {
-                            val path = packagedModulesDir.toPath().relativize(file.toPath()).toString()
-                            require(!path.startsWith("..") && !path.contains("/../")) {
-                                "$file expected to be inside $packagedModulesDir"
+                        val packFile: (File, Path, Path)->Unit = { file, path, parent ->
+                            val relativePath = parent.relativize(path).toString()
+                            require(!path.toString().startsWith("..") && !path.toString().contains("/../")) {
+                                "$file expected to be inside $parent"
                             }
-                            val entry = ZipEntry(path)
+                            val entry = ZipEntry(relativePath)
                             zipStream.putNextEntry(entry)
                             file.inputStream().use { istream -> istream.copyTo(zipStream) }
                             zipStream.closeEntry()
+                        }
+                        for (file in generatedFiles) {
+                            packFile(file, file.toPath(), packagedModulesDir.parentFile.toPath())
+                        }
+                        for (ideaPlugin in publication.ideaPlugins) {
+                            val pluginFolder = generatedPlugins[ideaPlugin.getImplementationModuleName()]
+                                ?: throw RuntimeException("Output for plugin '${ideaPlugin.getImplementationModuleName()}' not found")
+                            for (file in pluginFolder.walk()) {
+                                if (file.isFile) {
+                                    packFile(file, file.toPath(), pluginFolder.parentFile.parentFile.toPath())
+                                }
+                            }
                         }
                     }
                 }

@@ -58,7 +58,7 @@ class FoundModules {
                 if (existing.owner != module.owner) {
                     println("""
                         Duplicate module ${module.moduleId}
-                            in  ${module.owner.path.getLocalAbsolutePath()}
+                            in  ${module.owner.path.getLocalAbsolutePath()} (ignored)
                             and ${existing.owner.path.getLocalAbsolutePath()}
                     """.trimIndent())
                     // throw RuntimeException("Module ${module.moduleId} (${module.name}) already exists")

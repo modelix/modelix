@@ -538,6 +538,10 @@ class BuildScriptGenerator(val modulesMiner: ModulesMiner,
         return moduleJars + libJars
     }
 
+    fun getGeneratedPlugins(): Map<FoundModule, File> {
+        return ideaPlugins.associate { it.module to it.getPluginDir(buildDir) }
+    }
+
     private fun Element.createCompileTarget(
         modules: List<FoundModule>,
         classPath: List<File>,
