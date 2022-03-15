@@ -78,7 +78,7 @@ class MPSBuildPlugin : Plugin<Project> {
         } else {
             ("" + project.version).ifEmpty { null }
         } ?: generateVersionNumber(settings.mpsFullVersion)
-
+        val mavenPublications = HashMap<MPSBuildSettings.PublicationSettings, MavenPublication>()
 
         lateinit var copiedDependencies: List<Pom>
         var mpsDir: File? = null
@@ -190,9 +190,27 @@ class MPSBuildPlugin : Plugin<Project> {
                 require(publication != null) {
                     "Module $modules is used by multiple publications ${node.getReverseDependencies().mapNotNull(getPublication).map { it.name }}, but not part of any publication itself."
                 }
-                println("Publication chunk ${publication?.name}")
+                println("Publication ${publication.name}")
                 for (module in modules) {
                     println("    $module")
+                }
+
+                val dependencies = node.getDependencies().mapNotNull(getPublication)
+                if (dependencies.isNotEmpty()) {
+                    mavenPublications[publication]!!.pom { pom ->
+                        pom.withXml { xml ->
+                            xml.asElement().newChild("dependencies") {
+                                for (dependency in dependencies) {
+                                    newChild("dependency") {
+                                        newChild("groupId", project.group.toString())
+                                        newChild("artifactId", dependency.name.toValidPublicationName())
+                                        newChild("version", publicationsVersion)
+                                        //newChild("classifier", classifier)
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
             }
 
@@ -230,6 +248,7 @@ class MPSBuildPlugin : Plugin<Project> {
         publishing?.publications { publications ->
             for (publicationData in settings.getPublications()) {
                 publications.create(publicationData.name, MavenPublication::class.java) { publication ->
+                    mavenPublications[publicationData] = publication
                     publication.groupId = project.group.toString()
                     publication.artifactId = publicationData.name.toValidPublicationName()
                     publication.version = publicationsVersion
