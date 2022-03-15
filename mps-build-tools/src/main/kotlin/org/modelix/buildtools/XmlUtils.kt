@@ -95,6 +95,7 @@ fun readXmlFile(file: File): Document {
     try {
         val dbf = DocumentBuilderFactory.newInstance()
         //dbf.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true)
+        disableDTD(dbf)
         val db = dbf.newDocumentBuilder()
         return db.parse(file)
     } catch (e: Exception) {
@@ -105,8 +106,18 @@ fun readXmlFile(file: File): Document {
 fun readXmlFile(file: InputStream): Document {
     val dbf = DocumentBuilderFactory.newInstance()
     //dbf.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true)
+    disableDTD(dbf)
     val db = dbf.newDocumentBuilder()
     return db.parse(file)
+}
+
+private fun disableDTD(dbf: DocumentBuilderFactory) {
+    dbf.setValidating(false);
+    dbf.setNamespaceAware(true);
+    dbf.setFeature("http://xml.org/sax/features/namespaces", false);
+    dbf.setFeature("http://xml.org/sax/features/validation", false);
+    dbf.setFeature("http://apache.org/xml/features/nonvalidating/load-dtd-grammar", false);
+    dbf.setFeature("http://apache.org/xml/features/nonvalidating/load-external-dtd", false);
 }
 
 fun newXmlDocument(body: (Document.()->Unit)? = null): Document {
