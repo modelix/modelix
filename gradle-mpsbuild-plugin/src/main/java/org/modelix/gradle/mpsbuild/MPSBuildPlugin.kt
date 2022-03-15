@@ -23,6 +23,8 @@ import org.gradle.api.artifacts.ResolvedConfiguration
 import org.gradle.api.artifacts.ResolvedDependency
 import org.gradle.api.publish.PublishingExtension
 import org.gradle.api.publish.maven.MavenPublication
+import org.gradle.api.publish.maven.tasks.GenerateMavenPom
+import org.gradle.api.publish.maven.tasks.PublishToMavenRepository
 import org.gradle.api.tasks.Exec
 import org.modelix.buildtools.*
 import org.zeroturnaround.zip.ZipUtil
@@ -40,6 +42,7 @@ class MPSBuildPlugin : Plugin<Project> {
     private val stubsPattern = Regex("stubs#([^#]+)#([^#]+)#([^#]+)")
     private lateinit var project: Project
     private lateinit var settings: MPSBuildSettings
+    private val folder2owningDependency = HashMap<Path, ResolvedDependency>()
 
     private fun newTask(name: String, body: ()->Unit): Task {
         return project.task(name) { task ->
@@ -156,8 +159,9 @@ class MPSBuildPlugin : Plugin<Project> {
             while (true) {
                 var anyMerge = false
                 for (n in graph.getNodes().filter { it.getReverseDependencies().size == 1 }) {
+                    if (n.modules.all { it.owner !is SourceModuleOwner }) continue
                     val reverseDependencies = n.getReverseDependencies()
-                    if (reverseDependencies.size != 1) continue
+                    if (reverseDependencies.size != 1) continue // may have changed, because this loop modifies the graph
                     if (publication2dnode.values.map { it.getMergedNode() }.contains(n)) continue
                     graph.mergeNodes(n, reverseDependencies.first())
                     anyMerge = true
@@ -168,7 +172,11 @@ class MPSBuildPlugin : Plugin<Project> {
             ensurePublicationsNotMerged()
 
             for (node in graph.getNodes()) {
-                val modules = node.modules.filter { it.owner is SourceModuleOwner }.map { it.name }.sorted()
+                val modules = node.modules
+                    .filter { it.owner is SourceModuleOwner }
+                    .map { it.name }
+                    .filter { !it.startsWith("stubs#") }
+                    .sorted()
                 if (modules.isEmpty()) continue
                 val publication = getPublication(node)
                 require(publication != null) {
@@ -220,28 +228,38 @@ class MPSBuildPlugin : Plugin<Project> {
                     }
                 }
 
-                val dependencies = dnode.getDependencies().mapNotNull(getPublication)
-                if (dependencies.isNotEmpty() || stubs.isNotEmpty()) {
-                    mavenPublications[publication]!!.pom { pom ->
-                        pom.withXml { xml ->
-                            xml.asElement().newChild("dependencies") {
-                                for (dependency in dependencies) {
-                                    newChild("dependency") {
-                                        newChild("groupId", project.group.toString())
-                                        newChild("artifactId", dependency.name.toValidPublicationName())
-                                        newChild("version", publicationsVersion)
-                                        //newChild("classifier", classifier)
-                                    }
+                mavenPublications[publication]!!.pom { pom ->
+                    pom.withXml { xml ->
+                        xml.asElement().newChild("dependencies") {
+                            // dependencies between own publications
+                            for (dependency in dnode.getDependencies().mapNotNull(getPublication)) {
+                                newChild("dependency") {
+                                    newChild("groupId", project.group.toString())
+                                    newChild("artifactId", dependency.name.toValidPublicationName())
+                                    newChild("version", publicationsVersion)
                                 }
-                                for (stub in stubs) {
-                                    val match = stubsPattern.matchEntire(stub.name)
-                                        ?: throw RuntimeException("Failed to extract maven coordinates from ${stub.name}")
-                                    newChild("dependency") {
-                                        newChild("groupId", match.groupValues[1])
-                                        newChild("artifactId", match.groupValues[2])
-                                        newChild("version", match.groupValues[3])
-                                        //newChild("classifier", classifier)
-                                    }
+                            }
+
+                            // dependencies to downloaded publications
+                            val externalDependencies = (dnode.getDependencies() + dnode).flatMap { it.modules }
+                                .mapNotNull { getOwningDependency(it.owner.path.getLocalAbsolutePath()) }
+                                .distinct()
+                            for (dependency in externalDependencies) {
+                                newChild("dependency") {
+                                    newChild("groupId", dependency.moduleGroup)
+                                    newChild("artifactId", dependency.moduleName)
+                                    newChild("version", dependency.moduleVersion)
+                                }
+                            }
+
+                            // dependencies to java libraries
+                            for (stub in stubs) {
+                                val match = stubsPattern.matchEntire(stub.name)
+                                    ?: throw RuntimeException("Failed to extract maven coordinates from ${stub.name}")
+                                newChild("dependency") {
+                                    newChild("groupId", match.groupValues[1])
+                                    newChild("artifactId", match.groupValues[2])
+                                    newChild("version", match.groupValues[3])
                                 }
                             }
                         }
@@ -258,7 +276,7 @@ class MPSBuildPlugin : Plugin<Project> {
         val publishing = project.extensions.findByType(PublishingExtension::class.java)
         publishing?.publications { publications ->
             for (publicationData in settings.getPublications()) {
-                publications.create(publicationData.name, MavenPublication::class.java) { publication ->
+                publications.create("_"+ publicationData.name + "_", MavenPublication::class.java) { publication ->
                     mavenPublications[publicationData] = publication
                     publication.groupId = project.group.toString()
                     publication.artifactId = publicationData.name.toValidPublicationName()
@@ -272,7 +290,7 @@ class MPSBuildPlugin : Plugin<Project> {
                     publication.artifact(artifact)
                 }
             }
-            publications.create("allmodules", MavenPublication::class.java) { publication ->
+            publications.create("all", MavenPublication::class.java) { publication ->
                 publication.groupId = project.group.toString()
                 publication.artifactId = "all"
                 publication.version = publicationsVersion
@@ -290,6 +308,10 @@ class MPSBuildPlugin : Plugin<Project> {
                     }
                 }
             }
+        }
+
+        project.tasks.withType(GenerateMavenPom::class.java).matching { it.name.matches(Regex(".+_.+_.+")) }.all {
+            it.dependsOn(taskPackagePublications)
         }
     }
 
@@ -530,10 +552,21 @@ class MPSBuildPlugin : Plugin<Project> {
                     .resolve(dependency.moduleGroup)
                     .resolve(dependency.moduleName)
                     //.resolve(file.name)
+                folder2owningDependency[targetFile.absoluteFile.toPath().normalize()] = dependency
                 copyAndUnzip(file, targetFile)
             }
             else -> println("Ignored file $file from dependency ${dependency.module.id}")
         }
+    }
+
+    private fun getOwningDependency(file: Path): ResolvedDependency? {
+        var f: Path? = file.toAbsolutePath().normalize()
+        while (f != null) {
+            val owner = folder2owningDependency[f]
+            if (owner != null) return owner
+            f = f.parent
+        }
+        return null
     }
 
     private fun copyAndUnzip(sourceFile: File, targetFile: File) {
