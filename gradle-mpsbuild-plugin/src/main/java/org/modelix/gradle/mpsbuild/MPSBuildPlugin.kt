@@ -45,6 +45,7 @@ const val IDEA_PLUGIN_ID_PROPERTY = "idea.plugin.id"
 const val IS_LIBS_PROPERTY = "mps.module.libs"
 
 class MPSBuildPlugin : Plugin<Project> {
+    private val stubsPattern = Regex("stubs#([^#]+)#([^#]+)#([^#]+)")
     private lateinit var project: Project
     private lateinit var settings: MPSBuildSettings
 
@@ -194,30 +195,14 @@ class MPSBuildPlugin : Plugin<Project> {
                 for (module in modules) {
                     println("    $module")
                 }
-
-                val dependencies = node.getDependencies().mapNotNull(getPublication)
-                if (dependencies.isNotEmpty()) {
-                    mavenPublications[publication]!!.pom { pom ->
-                        pom.withXml { xml ->
-                            xml.asElement().newChild("dependencies") {
-                                for (dependency in dependencies) {
-                                    newChild("dependency") {
-                                        newChild("groupId", project.group.toString())
-                                        newChild("artifactId", dependency.name.toValidPublicationName())
-                                        newChild("version", publicationsVersion)
-                                        //newChild("classifier", classifier)
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
             }
 
             val packagedModulesDir = generator.getPackagedModulesDir()
             for (publication in settings.getPublications()) {
-                val modules = publication2dnode[publication]!!.getMergedNode().modules
-                    .filter { !it.name.startsWith("stubs#") }
+                val dnode = publication2dnode[publication]!!.getMergedNode()
+                val modulesAndStubs = dnode.modules
+                val stubs = modulesAndStubs.filter { it.name.startsWith("stubs#") }.toSet()
+                val modules = modulesAndStubs - stubs
                 val generatedFiles = modules.map { it.owner }.filterIsInstance<SourceModuleOwner>()
                     .distinct().flatMap { generator.getGeneratedFiles(it) }.map { it.absoluteFile.normalize() }
                 val zipFile = publicationsDir.resolve("${publication.name}.zip")
@@ -233,6 +218,34 @@ class MPSBuildPlugin : Plugin<Project> {
                             zipStream.putNextEntry(entry)
                             file.inputStream().use { istream -> istream.copyTo(zipStream) }
                             zipStream.closeEntry()
+                        }
+                    }
+                }
+
+                val dependencies = dnode.getDependencies().mapNotNull(getPublication)
+                if (dependencies.isNotEmpty() || stubs.isNotEmpty()) {
+                    mavenPublications[publication]!!.pom { pom ->
+                        pom.withXml { xml ->
+                            xml.asElement().newChild("dependencies") {
+                                for (dependency in dependencies) {
+                                    newChild("dependency") {
+                                        newChild("groupId", project.group.toString())
+                                        newChild("artifactId", dependency.name.toValidPublicationName())
+                                        newChild("version", publicationsVersion)
+                                        //newChild("classifier", classifier)
+                                    }
+                                }
+                                for (stub in stubs) {
+                                    val match = stubsPattern.matchEntire(stub.name)
+                                        ?: throw RuntimeException("Failed to extract maven coordinates from ${stub.name}")
+                                    newChild("dependency") {
+                                        newChild("groupId", match.groupValues[1])
+                                        newChild("artifactId", match.groupValues[2])
+                                        newChild("version", match.groupValues[3])
+                                        //newChild("classifier", classifier)
+                                    }
+                                }
+                            }
                         }
                     }
                 }
