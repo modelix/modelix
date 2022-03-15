@@ -21,10 +21,7 @@ import org.modelix.buildtools.readXmlFile
 import org.w3c.dom.Document
 import java.net.URL
 import java.nio.file.Path
-import java.util.HashMap
 import java.util.stream.Collectors
-import kotlin.collections.ArrayList
-import kotlin.collections.HashSet
 
 open class MPSBuildSettings {
     private val mpsVersionPattern = Regex("(\\d+\\.\\d+)(\\.\\d+)?")
@@ -128,6 +125,7 @@ open class MPSBuildSettings {
 
     fun publication(name: String, action: Action<PublicationSettings>): PublicationSettings {
         require(!publications.containsKey(name)) { "Duplicate publication '$name'" }
+        require(name != "all") { "publication name '$name' already exists" }
         val publication = PublicationSettings(name)
         publications[name] = publication
         action.execute(publication)

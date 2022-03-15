@@ -14,7 +14,10 @@
 package org.modelix.gradle.mpsbuild
 
 import org.apache.commons.io.FileUtils
-import org.gradle.api.*
+import org.gradle.api.Action
+import org.gradle.api.Plugin
+import org.gradle.api.Project
+import org.gradle.api.Task
 import org.gradle.api.artifacts.Configuration
 import org.gradle.api.artifacts.ResolvedConfiguration
 import org.gradle.api.artifacts.ResolvedDependency
@@ -22,27 +25,16 @@ import org.gradle.api.publish.PublishingExtension
 import org.gradle.api.publish.maven.MavenPublication
 import org.gradle.api.tasks.Exec
 import org.modelix.buildtools.*
-import org.w3c.dom.Element
 import org.zeroturnaround.zip.ZipUtil
 import java.io.File
 import java.io.IOException
-import java.net.URL
 import java.nio.charset.StandardCharsets
 import java.nio.file.Path
 import java.text.SimpleDateFormat
 import java.util.*
-import java.util.jar.Manifest
 import java.util.stream.Collectors
 import java.util.zip.ZipEntry
 import java.util.zip.ZipOutputStream
-import kotlin.RuntimeException
-import kotlin.collections.ArrayList
-import kotlin.collections.HashMap
-import kotlin.collections.HashSet
-
-const val MODULE_NAME_PROPERTY = "mps.module.name"
-const val IDEA_PLUGIN_ID_PROPERTY = "idea.plugin.id"
-const val IS_LIBS_PROPERTY = "mps.module.libs"
 
 class MPSBuildPlugin : Plugin<Project> {
     private val stubsPattern = Regex("stubs#([^#]+)#([^#]+)#([^#]+)")
@@ -74,18 +66,13 @@ class MPSBuildPlugin : Plugin<Project> {
         val dependenciesDir = buildDir.resolve("dependencies")
         val publicationsDir = buildDir.resolve("publications")
         val antScriptFile = File(buildDir, "build-modules.xml")
-        val publicationsVersion = if (project.version == Project.DEFAULT_VERSION) {
-            null
-        } else {
-            ("" + project.version).ifEmpty { null }
-        } ?: generateVersionNumber(settings.mpsFullVersion)
+        val publicationsVersion = getPublicationsVersion()
         val mavenPublications = HashMap<MPSBuildSettings.PublicationSettings, MavenPublication>()
 
-        lateinit var copiedDependencies: List<Pom>
         var mpsDir: File? = null
 
         val taskCopyDependencies = newTask("copyDependencies") {
-            copiedDependencies = copyDependencies(settings.dependenciesConfig, dependenciesDir.normalize())
+            copyDependencies(settings.dependenciesConfig, dependenciesDir.normalize())
             mpsDir = downloadMps(settings, buildDir.resolve("mps"))
 
         }
@@ -124,10 +111,6 @@ class MPSBuildPlugin : Plugin<Project> {
             val module2publication = publication2modules.flatMap { entry -> entry.value.map { it to entry.key } }.associate { it }
             val getPublication: (DependencyGraph<FoundModule, ModuleId>.DependencyNode)->MPSBuildSettings.PublicationSettings? = {
                 it.modules.mapNotNull { module2publication[it] }.firstOrNull()
-            }
-
-            for (entry in module2publication) {
-                println("${entry.key.name} belongs to ${entry.value.name}")
             }
 
             val checkCyclesBetweenPublications = {
@@ -191,10 +174,10 @@ class MPSBuildPlugin : Plugin<Project> {
                 require(publication != null) {
                     "Module $modules is used by multiple publications ${node.getReverseDependencies().mapNotNull(getPublication).map { it.name }}, but not part of any publication itself."
                 }
-                println("Publication ${publication.name}")
-                for (module in modules) {
-                    println("    $module")
-                }
+//                println("Publication ${publication.name}")
+//                for (module in modules) {
+//                    println("    $module")
+//                }
             }
 
             val packagedModulesDir = generator.getPackagedModulesDir()
@@ -253,8 +236,8 @@ class MPSBuildPlugin : Plugin<Project> {
 
             println("Version $publicationsVersion ready for publishing")
         }
-        //taskPackagePublications.dependsOn(taskAssembleMpsModules)
-        taskPackagePublications.dependsOn(taskGenerateAntScript)
+        taskPackagePublications.dependsOn(taskAssembleMpsModules)
+        //taskPackagePublications.dependsOn(taskGenerateAntScript)
 
         val mpsPublicationsConfig = project.configurations.create("mpsPublications")
         val publishing = project.extensions.findByType(PublishingExtension::class.java)
@@ -272,23 +255,34 @@ class MPSBuildPlugin : Plugin<Project> {
                         it.builtBy(taskPackagePublications)
                     }
                     publication.artifact(artifact)
-
-//                    publication.pom { pom ->
-//                        pom.withXml { xml ->
-//                            xml.asElement().newChild("dependencies") {
-//                                newChild("dependency") {
-//                                    newChild("groupId", project.group.toString())
-//                                    newChild("artifactId", "mpsmodule-${publicationData.name}".toValidPublicationName())
-//                                    newChild("version", publicationsVersion)
-//                                    newChild("classifier", classifier)
-//                                }
-//                            }
-//                        }
-//                    }
+                }
+            }
+            publications.create("allmodules", MavenPublication::class.java) { publication ->
+                publication.groupId = project.group.toString()
+                publication.artifactId = "all"
+                publication.version = publicationsVersion
+                publication.pom { pom ->
+                    pom.withXml { xml ->
+                        xml.asElement().newChild("dependencies") {
+                            for (publicationData in settings.getPublications()) {
+                                newChild("dependency") {
+                                    newChild("groupId", project.group.toString())
+                                    newChild("artifactId", publicationData.name.toValidPublicationName())
+                                    newChild("version", publicationsVersion)
+                                }
+                            }
+                        }
+                    }
                 }
             }
         }
     }
+
+    private fun getPublicationsVersion() = if (project.version == Project.DEFAULT_VERSION) {
+        null
+    } else {
+        ("" + project.version).ifEmpty { null }
+    } ?: generateVersionNumber(settings.mpsFullVersion)
 
     private fun downloadMps(settings: MPSBuildSettings, targetDir: File): File? {
         var mpsDir: File? = null
@@ -336,15 +330,15 @@ class MPSBuildPlugin : Plugin<Project> {
         val buildProperties = Properties()
         buildPropertiesFiles.inputStream().use { buildProperties.load(it) }
 
-        return listOf(
+        return listOfNotNull(
             buildProperties["mpsBootstrapCore.version.major"],
             buildProperties["mpsBootstrapCore.version.minor"],
             buildProperties["mpsBootstrapCore.version.bugfixNr"],
             buildProperties["mpsBootstrapCore.version.eap"],
-        ).filterNotNull()
-            .map { it.toString().trim('.') }
-            .filter { it.isNotEmpty() }
-            .joinToString(".")
+        )
+        .map { it.toString().trim('.') }
+        .filter { it.isNotEmpty() }
+        .joinToString(".")
 
 //        mpsBootstrapCore.version.major=2020
 //        mpsBootstrapCore.version.minor=3
@@ -401,42 +395,6 @@ class MPSBuildPlugin : Plugin<Project> {
         val solutionFile = stubsDir.resolve(solutionName).resolve("$solutionName.msd")
         solutionFile.parentFile.mkdirs()
         solutionFile.writeText(xmlToString(xml))
-    }
-
-    private fun Element.publicationDependenciesToXml(publicationData: BuildScriptGenerator.Publication,
-                                                     moduleName2pom: Map<String, Pom>,
-                                                     ownPublications: Set<String>,
-                                                     project: Project,
-                                                     mavenPublication: MavenPublication,
-                                                     settings: MPSBuildSettings) {
-        newChild("dependencies") {
-            for (dependency in publicationData.dependencies) {
-                val coordinates = Regex("stubs#(.+)#(.+)#(.+)").matchEntire(dependency.name)
-                if (coordinates != null) {
-                    newChild("dependency") {
-                        newChild("groupId", coordinates.groupValues[1])
-                        newChild("artifactId", coordinates.groupValues[2])
-                        newChild("version", coordinates.groupValues[3])
-                    }
-                } else {
-                    val pom = moduleName2pom[dependency.name]
-                    if (pom != null) {
-                        newChild("dependency") {
-                            newChild("artifactId", pom.artifactId)
-                            newChild("groupId", pom.group)
-                            newChild("version", pom.version)
-                        }
-                    } else if (ownPublications.contains(dependency.name)) {
-                        newChild("dependency") {
-                            newChild("artifactId", dependency.name.toValidPublicationName())
-                            newChild("groupId", project.group.toString())
-                            newChild("version", mavenPublication.version)
-                        }
-                    }
-                }
-
-            }
-        }
     }
 
     private fun String.toValidPublicationName() = replace(Regex("[^A-Za-z0-9_\\-.]"), "_").toLowerCase()
@@ -536,103 +494,40 @@ class MPSBuildPlugin : Plugin<Project> {
         return modulesToGenerate
     }
 
-    private fun copyDependencies(dependenciesConfiguration: Configuration, targetFolder: File): List<Pom> {
-        val poms = ArrayList<Pom>()
+    private fun copyDependencies(dependenciesConfiguration: Configuration, targetFolder: File) {
         val dependencies = dependenciesConfiguration.resolvedConfiguration.getAllDependencies()
         for (dependency in dependencies) {
             val files = dependency.moduleArtifacts.map { it.file }
-            val pom = files.filter { it.extension == "pom" }.map { readPOM(it) }.firstOrNull()
-            if (pom != null) poms += pom
-            for (file in files.filter { it.extension != "pom" }) {
-                copyDependency(file, targetFolder, pom, dependency)
+            for (file in files) {
+                copyDependency(file, targetFolder, dependency)
             }
         }
-        return poms
     }
 
-    private fun copyDependency(file: File, targetFolder: File, pom: Pom?, dependency: ResolvedDependency) {
-        if (pom == null) {
-            generateStubsSolution(dependency, targetFolder.resolve("stubs"))
-        } else {
-            val moduleName = pom.getProperty(MODULE_NAME_PROPERTY)
-            val ideaPluginId = pom.getProperty(IDEA_PLUGIN_ID_PROPERTY)
-            val targetFile = if (moduleName != null) {
-                val isLibs = pom.getProperty(IS_LIBS_PROPERTY).toBoolean()
-                val classifier = pom.getClassifier(file)
-                if (isLibs) {
-                    targetFolder.resolve("modules").resolve(pom.group).resolve("$moduleName-lib").resolve("$classifier.${file.extension}")
-                } else {
-                    val classifierSuffix = if (classifier.isEmpty()) "" else "-$classifier"
-                    targetFolder.resolve("modules").resolve(pom.group).resolve("$moduleName$classifierSuffix.${file.extension}")
-                }
-            } else if (ideaPluginId != null) {
-                targetFolder.resolve("plugins").resolve(pom.group).resolve(ideaPluginId)
-            } else null
-            if (targetFile != null) {
-                copyAndUnzip(file, targetFile)
-            } else {
-                println("Ignored file $file from dependency ${dependency.module.id}")
+    private fun copyDependency(file: File, targetFolder: File, dependency: ResolvedDependency) {
+        when (file.extension) {
+            "jar" -> {
+                generateStubsSolution(dependency, targetFolder.resolve("stubs"))
             }
+            "zip" -> {
+                val targetFile = targetFolder
+                    .resolve("modules")
+                    .resolve(dependency.moduleGroup)
+                    .resolve(dependency.moduleName)
+                    //.resolve(file.name)
+                copyAndUnzip(file, targetFile)
+            }
+            else -> println("Ignored file $file from dependency ${dependency.module.id}")
         }
     }
 
     private fun copyAndUnzip(sourceFile: File, targetFile: File) {
+        targetFile.parentFile.mkdirs()
         if (sourceFile.extension == "zip") {
             if (targetFile.exists()) targetFile.deleteRecursively()
             ZipUtil.unpack(sourceFile, targetFile)
         } else {
             sourceFile.copyTo(targetFile, true)
         }
-    }
-
-    private val cachedPomContent: MutableMap<File, Pom?> = HashMap()
-    private fun readPOM(pomFile: File): Pom? {
-        require(pomFile.extension == "pom") { "Not a .pom file: $pomFile" }
-        return cachedPomContent.computeIfAbsent(pomFile) {
-            try {
-                println("Loading POM from $pomFile")
-                Pom(readXmlFile(it).documentElement, it)
-            } catch (e : Exception) {
-                println("Failed to read $pomFile")
-                null
-            }
-        }
-    }
-
-    private fun readManifest(): Manifest {
-        var resources: Enumeration<URL>? = null
-        try {
-            resources = javaClass.classLoader.getResources("META-INF/MANIFEST.MF")
-            while (resources.hasMoreElements()) {
-                try {
-                    val manifest = Manifest(resources.nextElement().openStream())
-                    if (manifest.mainAttributes.getValue("modelix-Version") != null) {
-                        return manifest
-                    }
-                } catch (ex: IOException) {
-                    throw RuntimeException("Failed to read MANIFEST.MF", ex)
-                }
-            }
-        } catch (ex: IOException) {
-            throw RuntimeException("Failed to read MANIFEST.MF", ex)
-        }
-        throw RuntimeException("No MANIFEST.MF found containing 'modelix-Version'")
-    }
-
-    class Pom(val content: Element, val file: File) {
-        val group: String = content.findTag("groupId")?.textContent ?: ""
-        val version: String = content.findTag("version")?.textContent ?: ""
-        val artifactId: String = content.findTag("artifactId")?.textContent ?: ""
-        val baseNameWithVersion: String = "$artifactId-$version"
-        fun artifactName(classifier: String) = if (classifier.isEmpty()) baseNameWithVersion else "$baseNameWithVersion-$classifier"
-        fun getClassifier(file: File): String {
-            val prefix = "$baseNameWithVersion-"
-            return if (file.nameWithoutExtension == baseNameWithVersion || !file.nameWithoutExtension.startsWith(prefix)) {
-                ""
-            } else {
-                file.nameWithoutExtension.drop(prefix.length)
-            }
-        }
-        fun getProperty(name: String) = content.findTag("properties")?.findTag(name)?.textContent
     }
 }

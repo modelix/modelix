@@ -1,6 +1,4 @@
 /*
- * Copyright 2003-2022 JetBrains s.r.o.
- *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -84,7 +82,7 @@ internal class BuildScriptGeneratorTest {
             modulesMiner = modulesMiner,
 //            modulesToGenerate = listOf(canon_cpp_plsa),
             ignoredModules = setOf(ModuleId("ebbc2a81-6618-40a2-b3b8-997fd1520167"), ModuleId("156f433d-6029-4270-8025-144889789b53")),
-            macros = mapOf("mbeddr.github.core.home" to mbeddrHome)
+            initialMacros = Macros().with("mbeddr.github.core.home", mbeddrHome.toPath())
         )
         val xml = generator.generateXML()
         println(xml)
