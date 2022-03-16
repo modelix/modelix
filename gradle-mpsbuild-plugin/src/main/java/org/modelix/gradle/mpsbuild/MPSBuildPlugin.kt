@@ -88,16 +88,9 @@ class MPSBuildPlugin : Plugin<Project> {
         }
         taskGenerateAntScript.dependsOn(taskCopyDependencies)
 
-        val taskAssembleMpsModules = project.tasks.create("assembleMpsModules", Exec::class.java) {
-            it.workingDir = antScriptFile.parentFile
-            it.commandLine = listOf("ant", "-f", antScriptFile.absolutePath, "assemble")
-            it.standardOutput = System.out
-            it.errorOutput = System.err
-            it.standardInput = System.`in`
-        }
-        taskAssembleMpsModules.dependsOn(taskGenerateAntScript)
-
-        val taskPackagePublications = newTask("packageMpsPublications") {
+        lateinit var publication2dnode: Map<MPSBuildSettings.PublicationSettings, DependencyGraph<FoundModule, ModuleId>.DependencyNode>
+        lateinit var getPublication: (DependencyGraph<FoundModule, ModuleId>.DependencyNode)->MPSBuildSettings.PublicationSettings?
+        val taskCheckConfig = newTask("checkMpsbuildConfig") {
             val resolver = ModuleResolver(generator.modulesMiner.getModules(), generator.ignoredModules)
             val graph = PublicationDependencyGraph(resolver)
             val publication2modules = settings.getPublications().associateWith { resolvePublicationModules(it, resolver).toSet() }
@@ -112,7 +105,8 @@ class MPSBuildPlugin : Plugin<Project> {
             }
             graph.load(publication2modules.values.flatten())
             val module2publication = publication2modules.flatMap { entry -> entry.value.map { it to entry.key } }.associate { it }
-            val getPublication: (DependencyGraph<FoundModule, ModuleId>.DependencyNode)->MPSBuildSettings.PublicationSettings? = {
+
+            getPublication = {
                 it.modules.mapNotNull { module2publication[it] }.firstOrNull()
             }
 
@@ -135,7 +129,7 @@ class MPSBuildPlugin : Plugin<Project> {
                 }
             }
             checkCyclesBetweenPublications()
-            val publication2dnode = publication2modules.entries.associate {
+            publication2dnode = publication2modules.entries.associate {
                 it.key to graph.mergeElements(it.value)
             }
             checkCyclesBetweenPublications()
@@ -187,7 +181,19 @@ class MPSBuildPlugin : Plugin<Project> {
 //                    println("    $module")
 //                }
             }
+        }
+        taskCheckConfig.dependsOn(taskGenerateAntScript)
 
+        val taskAssembleMpsModules = project.tasks.create("assembleMpsModules", Exec::class.java) {
+            it.workingDir = antScriptFile.parentFile
+            it.commandLine = listOf("ant", "-f", antScriptFile.absolutePath, "assemble")
+            it.standardOutput = System.out
+            it.errorOutput = System.err
+            it.standardInput = System.`in`
+        }
+        taskAssembleMpsModules.dependsOn(taskGenerateAntScript)
+
+        val taskPackagePublications = newTask("packageMpsPublications") {
             val packagedModulesDir = generator.getPackagedModulesDir()
             val generatedPlugins = generator.getGeneratedPlugins().entries.associate { it.key.name to it.value }
             val pluginModuleNames = settings.getPublications()
@@ -269,8 +275,9 @@ class MPSBuildPlugin : Plugin<Project> {
 
             println("Version $publicationsVersion ready for publishing")
         }
+        taskPackagePublications.dependsOn(taskCheckConfig)
         taskPackagePublications.dependsOn(taskAssembleMpsModules)
-        //taskPackagePublications.dependsOn(taskGenerateAntScript)
+        taskAssembleMpsModules.mustRunAfter(taskCheckConfig) // fail fast
 
         val mpsPublicationsConfig = project.configurations.create("mpsPublications")
         val publishing = project.extensions.findByType(PublishingExtension::class.java)
