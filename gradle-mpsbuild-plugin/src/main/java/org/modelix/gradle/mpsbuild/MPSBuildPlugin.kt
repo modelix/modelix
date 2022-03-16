@@ -193,47 +193,12 @@ class MPSBuildPlugin : Plugin<Project> {
         }
         taskAssembleMpsModules.dependsOn(taskGenerateAntScript)
 
-        val taskPackagePublications = newTask("packageMpsPublications") {
-            val packagedModulesDir = generator.getPackagedModulesDir()
-            val generatedPlugins = generator.getGeneratedPlugins().entries.associate { it.key.name to it.value }
-            val pluginModuleNames = settings.getPublications()
-                .flatMap { it.ideaPlugins }.map { it.getImplementationModuleName() }.toSet()
+        val taskLoadPomDependencies = newTask("loadPomDependencies") {
             for (publication in settings.getPublications()) {
                 val dnode = publication2dnode[publication]!!.getMergedNode()
+                val pluginModuleNames = settings.getPluginModuleNames()
                 val modulesAndStubs = dnode.modules.filter { !pluginModuleNames.contains(it.name) }
                 val stubs = modulesAndStubs.filter { it.name.startsWith("stubs#") }.toSet()
-                val modules = modulesAndStubs - stubs
-                val generatedFiles = modules.map { it.owner }.filterIsInstance<SourceModuleOwner>()
-                    .distinct().flatMap { generator.getGeneratedFiles(it) }.map { it.absoluteFile.normalize() }
-                val zipFile = publicationsDir.resolve("${publication.name}.zip")
-                zipFile.parentFile.mkdirs()
-                zipFile.outputStream().use { os ->
-                    ZipOutputStream(os).use { zipStream ->
-                        val packFile: (File, Path, Path)->Unit = { file, path, parent ->
-                            val relativePath = parent.relativize(path).toString()
-                            require(!path.toString().startsWith("..") && !path.toString().contains("/../")) {
-                                "$file expected to be inside $parent"
-                            }
-                            val entry = ZipEntry(relativePath)
-                            zipStream.putNextEntry(entry)
-                            file.inputStream().use { istream -> istream.copyTo(zipStream) }
-                            zipStream.closeEntry()
-                        }
-                        for (file in generatedFiles) {
-                            packFile(file, file.toPath(), packagedModulesDir.parentFile.toPath())
-                        }
-                        for (ideaPlugin in publication.ideaPlugins) {
-                            val pluginFolder = generatedPlugins[ideaPlugin.getImplementationModuleName()]
-                                ?: throw RuntimeException("Output for plugin '${ideaPlugin.getImplementationModuleName()}' not found")
-                            for (file in pluginFolder.walk()) {
-                                if (file.isFile) {
-                                    packFile(file, file.toPath(), pluginFolder.parentFile.parentFile.toPath())
-                                }
-                            }
-                        }
-                    }
-                }
-
                 mavenPublications[publication]!!.pom { pom ->
                     pom.withXml { xml ->
                         xml.asElement().newChild("dependencies") {
@@ -272,10 +237,54 @@ class MPSBuildPlugin : Plugin<Project> {
                     }
                 }
             }
+        }
+        taskLoadPomDependencies.dependsOn(taskCheckConfig)
+
+        val taskPackagePublications = newTask("packageMpsPublications") {
+            val packagedModulesDir = generator.getPackagedModulesDir()
+            val generatedPlugins = generator.getGeneratedPlugins().entries.associate { it.key.name to it.value }
+            val pluginModuleNames = settings.getPluginModuleNames()
+            for (publication in settings.getPublications()) {
+                val dnode = publication2dnode[publication]!!.getMergedNode()
+                val modulesAndStubs = dnode.modules.filter { !pluginModuleNames.contains(it.name) }
+                val stubs = modulesAndStubs.filter { it.name.startsWith("stubs#") }.toSet()
+                val modules = modulesAndStubs - stubs
+                val generatedFiles = modules.map { it.owner }.filterIsInstance<SourceModuleOwner>()
+                    .distinct().flatMap { generator.getGeneratedFiles(it) }.map { it.absoluteFile.normalize() }
+                val zipFile = publicationsDir.resolve("${publication.name}.zip")
+                zipFile.parentFile.mkdirs()
+                zipFile.outputStream().use { os ->
+                    ZipOutputStream(os).use { zipStream ->
+                        val packFile: (File, Path, Path)->Unit = { file, path, parent ->
+                            val relativePath = parent.relativize(path).toString()
+                            require(!path.toString().startsWith("..") && !path.toString().contains("/../")) {
+                                "$file expected to be inside $parent"
+                            }
+                            val entry = ZipEntry(relativePath)
+                            zipStream.putNextEntry(entry)
+                            file.inputStream().use { istream -> istream.copyTo(zipStream) }
+                            zipStream.closeEntry()
+                        }
+                        for (file in generatedFiles) {
+                            packFile(file, file.toPath(), packagedModulesDir.parentFile.toPath())
+                        }
+                        for (ideaPlugin in publication.ideaPlugins) {
+                            val pluginFolder = generatedPlugins[ideaPlugin.getImplementationModuleName()]
+                                ?: throw RuntimeException("Output for plugin '${ideaPlugin.getImplementationModuleName()}' not found")
+                            for (file in pluginFolder.walk()) {
+                                if (file.isFile) {
+                                    packFile(file, file.toPath(), pluginFolder.parentFile.parentFile.toPath())
+                                }
+                            }
+                        }
+                    }
+                }
+            }
 
             println("Version $publicationsVersion ready for publishing")
         }
         taskPackagePublications.dependsOn(taskCheckConfig)
+        taskPackagePublications.dependsOn(taskLoadPomDependencies)
         taskPackagePublications.dependsOn(taskAssembleMpsModules)
         taskAssembleMpsModules.mustRunAfter(taskCheckConfig) // fail fast
 
@@ -318,7 +327,7 @@ class MPSBuildPlugin : Plugin<Project> {
         }
 
         project.tasks.withType(GenerateMavenPom::class.java).matching { it.name.matches(Regex(".+_.+_.+")) }.all {
-            it.dependsOn(taskPackagePublications)
+            it.dependsOn(taskLoadPomDependencies)
         }
     }
 

@@ -40,6 +40,10 @@ open class MPSBuildSettings {
 
     fun getPublications(): List<PublicationSettings> = publications.values.toList()
 
+    fun getPluginModuleNames(): Set<String> {
+        return getPublications().flatMap { it.ideaPlugins }.map { it.getImplementationModuleName() }.toSet()
+    }
+
     fun mpsVersion(v: String) {
         require(mpsFullVersion == null) { "MPS version is already set ($mpsFullVersion)" }
         val match = mpsVersionPattern.matchEntire(v)
