@@ -358,7 +358,9 @@ class MPSBuildPlugin : Plugin<Project> {
 
     private fun generateVersionNumber(mpsVersion: String?): String {
         val timestamp = SimpleDateFormat("yyyyMMddHHmm").format(Date())
-        return if (mpsVersion == null) timestamp else "$mpsVersion-$timestamp"
+        val version = if (mpsVersion == null) timestamp else "$mpsVersion-$timestamp"
+        println("##teamcity[buildNumber '${version}']")
+        return version
     }
 
     private fun readMPSVersion(mpsHome: File): String? {
