@@ -335,7 +335,7 @@ class MPSBuildPlugin : Plugin<Project> {
         null
     } else {
         ("" + project.version).ifEmpty { null }
-    } ?: generateVersionNumber(settings.mpsFullVersion)
+    } ?: generateVersionNumber(settings.mpsMajorVersion)
 
     private fun downloadMps(settings: MPSBuildSettings, targetDir: File): File? {
         var mpsDir: File? = null
