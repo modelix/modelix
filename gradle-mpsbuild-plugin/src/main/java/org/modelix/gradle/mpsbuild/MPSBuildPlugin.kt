@@ -401,29 +401,6 @@ class MPSBuildPlugin : Plugin<Project> {
         return version
     }
 
-    private fun readMPSVersion(mpsHome: File): String? {
-        val buildPropertiesFiles = mpsHome.resolve("build.properties")
-        if (!buildPropertiesFiles.exists()) return null
-        val buildProperties = Properties()
-        buildPropertiesFiles.inputStream().use { buildProperties.load(it) }
-
-        return listOfNotNull(
-            buildProperties["mpsBootstrapCore.version.major"],
-            buildProperties["mpsBootstrapCore.version.minor"],
-            buildProperties["mpsBootstrapCore.version.bugfixNr"],
-            buildProperties["mpsBootstrapCore.version.eap"],
-        )
-        .map { it.toString().trim('.') }
-        .filter { it.isNotEmpty() }
-        .joinToString(".")
-
-//        mpsBootstrapCore.version.major=2020
-//        mpsBootstrapCore.version.minor=3
-//        mpsBootstrapCore.version.bugfixNr=.6
-//        mpsBootstrapCore.version.eap=
-//        mpsBootstrapCore.version=2020.3
-    }
-
     private fun generateStubsSolution(dependency: ResolvedDependency, stubsDir: File) {
         val solutionName = getStubSolutionName(dependency)
         val jars = dependency.moduleArtifacts.map { it.file }.filter { it.extension == "jar" }

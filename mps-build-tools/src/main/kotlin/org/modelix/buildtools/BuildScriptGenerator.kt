@@ -18,7 +18,11 @@ import org.w3c.dom.Document
 import org.w3c.dom.Element
 import java.io.File
 import java.nio.file.Path
+import java.util.*
 import javax.xml.parsers.DocumentBuilderFactory
+import kotlin.collections.ArrayList
+import kotlin.collections.HashMap
+import kotlin.collections.HashSet
 import kotlin.io.path.absolutePathString
 import kotlin.io.path.pathString
 
@@ -64,10 +68,38 @@ class BuildScriptGenerator(val modulesMiner: ModulesMiner,
         )
     }
 
+    fun getMpsVersion(): String {
+        return readMPSVersion(getMpsHome())
+    }
+
+    private fun readMPSVersion(mpsHome: File): String {
+        val buildPropertiesFiles = mpsHome.resolve("build.properties")
+        require(buildPropertiesFiles.exists()) { "${buildPropertiesFiles.absolutePath} not found" }
+        val buildProperties = Properties()
+        buildPropertiesFiles.inputStream().use { buildProperties.load(it) }
+
+        return listOfNotNull(
+            buildProperties["mpsBootstrapCore.version.major"],
+            buildProperties["mpsBootstrapCore.version.minor"],
+            //buildProperties["mpsBootstrapCore.version.bugfixNr"],
+            buildProperties["mpsBootstrapCore.version.eap"],
+        )
+            .map { it.toString().trim('.') }
+            .filter { it.isNotEmpty() }
+            .joinToString(".")
+
+//        mpsBootstrapCore.version.major=2020
+//        mpsBootstrapCore.version.minor=3
+//        mpsBootstrapCore.version.bugfixNr=.6
+//        mpsBootstrapCore.version.eap=
+//        mpsBootstrapCore.version=2020.3
+    }
+
     fun generateAnt(): Document {
         val resolver = ModuleResolver(modulesMiner.getModules(), ignoredModules)
         val (plan, dependencyGraph) = generatePlan(getModulesToGenerate(), resolver)
         val mpsHome = getMpsHome()
+        val mpsVersion = getMpsVersion()
         val macros = getMacros()
         val module2ideaPlugin = ideaPlugins.associateBy { it.module }
 
@@ -94,14 +126,18 @@ class BuildScriptGenerator(val modulesMiner: ModulesMiner,
 
             newChild("path") {
                 setAttribute("id", "path.mps.ant.path")
-                newChild("pathelement") {
-                    setAttribute("location", "\${mps.home}/lib/ant/lib/ant-mps.jar")
+                val addLib: (String)->Unit = { path ->
+                    newChild("pathelement") {
+                        setAttribute("location", "\${mps.home}/$path")
+                    }
                 }
-                newChild("pathelement") {
-                    setAttribute("location", "\${mps.home}/lib/log4j.jar")
-                }
-                newChild("pathelement") {
-                    setAttribute("location", "\${mps.home}/lib/jdom.jar")
+                if (mpsVersion < "2021.2") {
+                    addLib("lib/ant/lib/ant-mps.jar")
+                    addLib("lib/log4j.jar")
+                    addLib("lib/jdom.jar")
+                } else {
+                    addLib("lib/ant/lib/ant-mps.jar")
+                    addLib("lib/util.jar")
                 }
             }
             newChild("path") {
@@ -175,6 +211,9 @@ class BuildScriptGenerator(val modulesMiner: ModulesMiner,
                         }
                         newChild("arg") {
                             setAttribute("value", "-Xmx$generatorHeapSize")
+                        }
+                        newChild("arg") {
+                            setAttribute("value", "-Dfile.encoding=UTF8")
                         }
                     }
                     for (macro in macros.macros) {
