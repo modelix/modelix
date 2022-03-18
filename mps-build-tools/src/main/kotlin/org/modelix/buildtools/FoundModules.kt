@@ -50,6 +50,10 @@ class FoundModules {
     fun addPlugin(plugin: PluginModuleOwner) {
         val pluginId = plugin.pluginId
         if (pluginId != null) {
+            val existing = plugins[pluginId]
+            require(existing == null) {
+                "Duplicate plugin $pluginId in ${existing!!.path.getLocalAbsolutePath()} and ${plugin.path.getLocalAbsolutePath()}"
+            }
             plugins += pluginId to plugin
         }
     }

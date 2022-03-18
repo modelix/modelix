@@ -79,7 +79,9 @@ class ModulesMiner() {
                                     loadModules(stream, libraryModuleOwner)
                                 }
                                 "META-INF/plugin.xml" -> {
-                                    modules.addPlugin(PluginModuleOwner.fromPluginFolder(origin.localModulePath(file)))
+                                    if (owner == null) {
+                                        modules.addPlugin(PluginModuleOwner.fromPluginFolder(origin.localModulePath(file)))
+                                    }
                                 }
                                 else -> {
                                     when (entry.name.substringAfterLast('.', "").lowercase()) {
