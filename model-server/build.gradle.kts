@@ -105,25 +105,6 @@ application {
 }
 
 publishing {
-    repositories {
-        maven {
-            name = "GitHubPackages"
-            url = uri("https://maven.pkg.github.com/modelix/modelix")
-            credentials {
-                username = System.getenv("GITHUB_ACTOR")
-                password = System.getenv("GITHUB_TOKEN")
-            }
-        }
-/*        maven {
-            url rootProject.publishingRepository
-            if (rootProject.hasProperty('nexusUsername')) {
-                credentials {
-                    username rootProject.nexusUsername
-                    password rootProject.nexusPassword
-                }
-            }
-        }*/
-    }
     publications {
 /*        modelServer(MavenPublication) {
             groupId project.group

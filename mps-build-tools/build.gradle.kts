@@ -25,18 +25,6 @@ tasks.getByName<Test>("test") {
 }
 
 publishing {
-    repositories {
-        maven {
-            name = "GitHubPackages"
-            url = uri("https://maven.pkg.github.com/modelix/modelix")
-            if (rootProject.ext.get("githubCredentials") != null) {
-                credentials {
-                    username = (rootProject.ext.get("githubCredentials") as groovy.lang.Tuple<*>).get(0) as String
-                    password = (rootProject.ext.get("githubCredentials") as groovy.lang.Tuple<*>).get(1) as String
-                }
-            }
-        }
-    }
     publications {
         create<MavenPublication>("maven") {
             groupId = "org.modelix"

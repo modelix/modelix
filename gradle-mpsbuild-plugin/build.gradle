@@ -34,27 +34,6 @@ jar {
 }
 
 publishing {
-    repositories {
-        maven {
-            name = "GitHubPackages"
-            url = uri("https://maven.pkg.github.com/modelix/modelix")
-            if (githubCredentials != null) {
-                credentials {
-                    username = githubCredentials[0]
-                    password = githubCredentials[1]
-                }
-            }
-        }
-/*        maven {
-            url rootProject.publishingRepository
-            if (rootProject.hasProperty('nexusUsername')) {
-                credentials {
-                    username rootProject.nexusUsername
-                    password rootProject.nexusPassword
-                }
-            }
-        }*/
-    }
     publications {
         modelixGradleMPSBuildPlugin(MavenPublication) {
             groupId project.group

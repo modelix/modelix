@@ -20,24 +20,7 @@ buildscript {
         maven { url "https://repo.maven.apache.org/maven2" }
         maven { url 'https://plugins.gradle.org/m2/' }
         mavenCentral()
-        maven {
-            url = uri("https://maven.pkg.github.com/mbeddr/mps-gradle-plugin")
-            if (project.hasProperty("gpr.user") && project.hasProperty("gpr.key")) {
-                credentials {
-                    username = project.findProperty("gpr.user").toString()
-                    password = project.findProperty("gpr.key").toString()
-                }
-            } else if (System.getenv("GITHUB_ACTOR") != null && System.getenv("GITHUB_TOKEN") != null) {
-                credentials {
-                    username = System.getenv("GITHUB_ACTOR")
-                    password = System.getenv("GITHUB_TOKEN")
-                }
-            } else {
-                logger.error("Please specify your github username (gpr.user) and access token (gpr.key) in ~/.gradle/gradle.properties")
-            }
-        }
-        //maven { url 'https://projects.itemis.de/nexus/content/repositories/mbeddr' }
-        //maven { url = uri("https://modelix.jfrog.io/artifactory/itemis/") } // caching proxy for the itemis repo
+        maven { url 'https://projects.itemis.de/nexus/content/repositories/mbeddr' }
     }
 
     dependencies {
@@ -51,6 +34,7 @@ plugins {
     id "org.jetbrains.kotlin.jvm" version "1.6.10" apply false
     id "org.jetbrains.kotlin.multiplatform" version "1.6.10" apply false
     id "org.jetbrains.kotlin.plugin.serialization" version "1.6.10" apply false
+    id "maven-publish"
 }
 
 ext.githubCredentials = getGithubCredentials()
@@ -109,36 +93,48 @@ if (!project.hasProperty("gpr.key") && System.getenv("GITHUB_TOKEN") != null) {
     ext.setProperty("gpr.key", System.getenv("GITHUB_TOKEN"))
 }
 
-allprojects {
+subprojects {
+    apply plugin: 'maven-publish'
+
     group 'org.modelix'
     version modelixVersion
 
     repositories {
         /* It is useful to have the central maven repo before the Itemis's one
            as it is more reliable */
+        mavenLocal()
         maven { url "https://repo.maven.apache.org/maven2" }
         mavenCentral()
-        maven {
-            url = uri("https://maven.pkg.github.com/JetBrains/MPS-extensions")
+        maven { url 'https://projects.itemis.de/nexus/content/repositories/mbeddr' }
+    }
+
+    publishing {
+        repositories {
             if (githubCredentials != null) {
-                credentials {
-                    username = githubCredentials[0]
-                    password = githubCredentials[1]
+                maven {
+                    name = "GitHubPackages"
+                    url = uri("https://maven.pkg.github.com/modelix/modelix")
+                    if (githubCredentials != null) {
+                        credentials {
+                            username = githubCredentials[0]
+                            password = githubCredentials[1]
+                        }
+                    }
+                }
+            }
+            if (project.hasProperty("artifacts.itemis.cloud.user")) {
+                maven {
+                    name = "itemisCloud"
+                    url = modelixVersion.contains("SNAPSHOT")
+                            ? uri("https://artifacts.itemis.cloud/repository/maven-mps-snapshots/")
+                            : uri("https://artifacts.itemis.cloud/repository/maven-mps-releases/")
+                    credentials {
+                        username = project.findProperty("artifacts.itemis.cloud.user").toString()
+                        password = project.findProperty("artifacts.itemis.cloud.pw").toString()
+                    }
                 }
             }
         }
-        maven {
-            url = uri("https://maven.pkg.github.com/mbeddr/build.publish.mps")
-            if (githubCredentials != null) {
-                credentials {
-                    username = githubCredentials[0]
-                    password = githubCredentials[1]
-                }
-            }
-        }
-        //maven { url 'https://projects.itemis.de/nexus/content/repositories/mbeddr' }
-        //maven { url = uri("https://modelix.jfrog.io/artifactory/itemis/") } // caching proxy for the itemis repo
-        mavenLocal()
     }
 }
 description = "Cloud storage and web UI for MPS"
