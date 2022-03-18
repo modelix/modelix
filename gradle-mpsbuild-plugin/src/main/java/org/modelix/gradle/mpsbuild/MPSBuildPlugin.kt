@@ -44,6 +44,14 @@ class MPSBuildPlugin : Plugin<Project> {
     private lateinit var settings: MPSBuildSettings
     private val folder2owningDependency = HashMap<Path, ResolvedDependency>()
 
+    lateinit var taskCopyDependencies: Task
+    lateinit var taskGenerateAntScript: Task
+    lateinit var taskCheckConfig: Task
+    lateinit var taskLoadPomDependencies: Task
+    lateinit var taskPackagePublications: Task
+
+    private fun newTask(name: String): Task = project.task(name)
+
     private fun newTask(name: String, body: ()->Unit): Task {
         return project.task(name) { task ->
             val action = Action { task: Task? ->
@@ -53,10 +61,23 @@ class MPSBuildPlugin : Plugin<Project> {
         }
     }
 
+    private fun taskBody(task: Task, body: ()->Unit) {
+        val action = Action { task: Task? ->
+            body()
+        }
+        task.actions = listOf(action)
+    }
+
     override fun apply(project_: Project) {
         project = project_
         settings = project.extensions.create("mpsBuild", MPSBuildSettings::class.java)
         settings.setProject(project_)
+
+        taskCopyDependencies = newTask("copyDependencies")
+        taskGenerateAntScript = newTask("generateMpsAntScript")
+        taskCheckConfig = newTask("checkMpsbuildConfig")
+        taskLoadPomDependencies = newTask("loadPomDependencies")
+        taskPackagePublications = newTask("packageMpsPublications")
 
         project_.afterEvaluate { project__: Project ->
             settings.validate()
@@ -74,14 +95,14 @@ class MPSBuildPlugin : Plugin<Project> {
 
         var mpsDir: File? = null
 
-        val taskCopyDependencies = newTask("copyDependencies") {
+        taskBody(taskCopyDependencies) {
             copyDependencies(settings.dependenciesConfig, dependenciesDir.normalize())
             mpsDir = downloadMps(settings, buildDir.resolve("mps"))
-
         }
+        settings.getTaskDependencies().forEach { taskCopyDependencies.dependsOn(it) }
 
         lateinit var generator: BuildScriptGenerator
-        val taskGenerateAntScript = newTask("generateMpsAntScript") {
+        taskBody(taskGenerateAntScript) {
             val dirsToMine = setOfNotNull(dependenciesDir, mpsDir)
             generator = createBuildScriptGenerator(settings, project, buildDir, dirsToMine)
             generateAntScript(generator, antScriptFile)
@@ -90,7 +111,8 @@ class MPSBuildPlugin : Plugin<Project> {
 
         lateinit var publication2dnode: Map<MPSBuildSettings.PublicationSettings, DependencyGraph<FoundModule, ModuleId>.DependencyNode>
         lateinit var getPublication: (DependencyGraph<FoundModule, ModuleId>.DependencyNode)->MPSBuildSettings.PublicationSettings?
-        val taskCheckConfig = newTask("checkMpsbuildConfig") {
+
+        taskBody(taskCheckConfig) {
             val resolver = ModuleResolver(generator.modulesMiner.getModules(), generator.ignoredModules)
             val graph = PublicationDependencyGraph(resolver)
             val publication2modules = settings.getPublications().associateWith { resolvePublicationModules(it, resolver).toSet() }
@@ -193,7 +215,7 @@ class MPSBuildPlugin : Plugin<Project> {
         }
         taskAssembleMpsModules.dependsOn(taskGenerateAntScript)
 
-        val taskLoadPomDependencies = newTask("loadPomDependencies") {
+        taskBody(taskLoadPomDependencies) {
             for (publication in settings.getPublications()) {
                 val dnode = publication2dnode[publication]!!.getMergedNode()
                 val pluginModuleNames = settings.getPluginModuleNames()
@@ -240,7 +262,7 @@ class MPSBuildPlugin : Plugin<Project> {
         }
         taskLoadPomDependencies.dependsOn(taskCheckConfig)
 
-        val taskPackagePublications = newTask("packageMpsPublications") {
+        taskBody(taskPackagePublications) {
             val packagedModulesDir = generator.getPackagedModulesDir()
             val generatedPlugins = generator.getGeneratedPlugins().entries.associate { it.key.name to it.value }
             val pluginModuleNames = settings.getPluginModuleNames()

@@ -37,6 +37,13 @@ open class MPSBuildSettings {
     private var mpsMinorVersion: String? = null
     var mpsFullVersion: String? = null
     private var mpsDownloadUrl: URL? = null
+    private val taskDependencies: MutableList<Any> = ArrayList()
+
+    fun getTaskDependencies(): List<Any> = taskDependencies
+
+    fun dependsOn(vararg tasks: Any) {
+        taskDependencies.addAll(tasks)
+    }
 
     fun getPublications(): List<PublicationSettings> = publications.values.toList()
 
