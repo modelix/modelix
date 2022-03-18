@@ -19,7 +19,9 @@ import org.zeroturnaround.zip.ZipUtil
 import java.io.File
 import java.io.FileInputStream
 import java.io.InputStream
+import java.util.*
 import java.util.zip.ZipEntry
+import kotlin.collections.HashMap
 
 class ModulesMiner() {
 
@@ -70,14 +72,21 @@ class ModulesMiner() {
                         modules.addPlugin(PluginModuleOwner(origin.localModulePath(file), "com.intellij.modules.mps", "MPS Workbench", setOf()))
                     } else if (!file.nameWithoutExtension.endsWith("-src") && !file.nameWithoutExtension.endsWith("-generator")) {
                         val libraryModuleOwner = LibraryModuleOwner(origin.localModulePath(file), owner as? PluginModuleOwner)
-                        val modules: MutableMap<String, FoundModule> = HashMap()
+                        val libraryModules: MutableMap<String, FoundModule> = HashMap()
                         val jarContentVisitor = { stream: InputStream, entry: ZipEntry ->
-                            if (entry.name == "META-INF/module.xml") {
-                                loadModules(stream, libraryModuleOwner)
-                            }
-                            when (entry.name.substringAfterLast('.', "").lowercase()) {
-                                "msd", "mpl", "devkit" -> {
+                            when (entry.name) {
+                                "META-INF/module.xml" -> {
                                     loadModules(stream, libraryModuleOwner)
+                                }
+                                "META-INF/plugin.xml" -> {
+                                    modules.addPlugin(PluginModuleOwner.fromPluginFolder(origin.localModulePath(file)))
+                                }
+                                else -> {
+                                    when (entry.name.substringAfterLast('.', "").lowercase()) {
+                                        "msd", "mpl", "devkit" -> {
+                                            loadModules(stream, libraryModuleOwner)
+                                        }
+                                    }
                                 }
                             }
                         }

@@ -15,9 +15,15 @@ package org.modelix.buildtools
 
 import java.io.ByteArrayInputStream
 import java.io.File
+import java.io.FileInputStream
 import java.io.StringReader
+import java.net.URI
+import java.nio.file.FileSystems
+import java.nio.file.Path
 import java.util.regex.Matcher
 import java.util.regex.Pattern
+import java.util.zip.ZipInputStream
+import kotlin.io.path.readLines
 
 /**
  * Modules packaged as an IDEA plugin containing a META-INF/plugin.xml file.
@@ -51,11 +57,22 @@ class PluginModuleOwner(path: ModulePath, val pluginId: String, val name: String
     companion object {
         fun fromPluginFolder(path: ModulePath): PluginModuleOwner {
             val pluginPath = path.getLocalAbsolutePath().toFile()
-            val pluginDescriptorFile = File(File(pluginPath, "META-INF"), "plugin.xml")
+            val lines = if (pluginPath.isFile && pluginPath.extension == "jar") {
+                val uri = URI("jar", pluginPath.toURI().toString(), null)
+                FileSystems.newFileSystem(uri, mapOf<String, Any>(), null).use {
+                    it.getPath("META-INF", "plugin.xml").readLines()
+                }
+            } else {
+                path.getLocalAbsolutePath().resolve("META-INF").resolve("Plugin.xml").readLines()
+            }
+            return fromPluginDescriptor(path, lines)
+        }
+
+        private fun fromPluginDescriptor(path: ModulePath, lines: List<String>): PluginModuleOwner {
             var pluginId: String? = null
             var name: String? = null
             val pluginDependencies: MutableSet<String> = HashSet()
-            for (line in pluginDescriptorFile.readLines()) {
+            for (line in lines) {
                 if (pluginId == null) {
                     val idMatch = Regex(""".*<id>(.+)</id>.*""").matchEntire(line)
                     if (idMatch != null) pluginId = idMatch.groupValues[1]

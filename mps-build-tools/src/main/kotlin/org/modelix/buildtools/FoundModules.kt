@@ -37,7 +37,11 @@ class FoundModules {
         }
         result += pluginId to plugin
         for (dependency in plugin.pluginDependencies) {
-            getPluginWithDependencies(dependency, result)
+            try {
+                getPluginWithDependencies(dependency, result)
+            } catch (e: RuntimeException) {
+                throw RuntimeException("Failed to resolve dependencies for plugin $pluginId in ${plugin.path.getLocalAbsolutePath()}", e)
+            }
         }
     }
 
