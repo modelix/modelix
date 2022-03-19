@@ -1,25 +1,16 @@
 import java.text.SimpleDateFormat
 
-def getGithubCredentials() {
-    if (project.hasProperty("gpr.user") && project.hasProperty("gpr.key")) {
-        return new Tuple(project.findProperty("gpr.user").toString(), project.findProperty("gpr.key").toString())
-    } else if (System.getenv("GITHUB_ACTOR") != null && System.getenv("GITHUB_TOKEN") != null) {
-        return new Tuple(System.getenv("GITHUB_ACTOR"), System.getenv("GITHUB_TOKEN"))
-    } else {
-        logger.error("Please specify your github username (gpr.user) and access token (gpr.key) in ~/.gradle/gradle.properties")
-        return null
-    }
-}
-
 buildscript {
     ext.kotlinVersion = '1.4.32'
 
     repositories {
         /* It is useful to have the central maven repo before the Itemis's one
            as it is more reliable */
+        mavenLocal()
         maven { url "https://repo.maven.apache.org/maven2" }
         maven { url 'https://plugins.gradle.org/m2/' }
         mavenCentral()
+        maven { url 'https://artifacts.itemis.cloud/repository/maven-mps/' }
         maven { url 'https://projects.itemis.de/nexus/content/repositories/mbeddr' }
     }
 
@@ -78,14 +69,6 @@ if (System.getenv("TRAVIS_TAG") != null && !System.getenv("TRAVIS_TAG").isEmpty(
 versionFile.write(ext.modelixVersion)
 println("modelix version: " + ext.modelixVersion)
 
-ext.releaseRepository = 'https://projects.itemis.de/nexus/content/repositories/mbeddr'
-ext.snapshotRepository = 'https://projects.itemis.de/nexus/content/repositories/mbeddr_snapshots'
-ext.publishingRepository = modelixVersion.endsWith("-SNAPSHOT") ? snapshotRepository : releaseRepository
-
-println("gpr.user = " + project.findProperty("gpr.user"))
-println("gpr.key = " + project.findProperty("gpr.key"))
-println("GITHUB_ACTOR = " + System.getenv("GITHUB_ACTOR"))
-println("GITHUB_TOKEN = " + System.getenv("GITHUB_TOKEN"))
 if (!project.hasProperty("gpr.user") && System.getenv("GITHUB_ACTOR") != null) {
     ext.setProperty("gpr.user", System.getenv("GITHUB_ACTOR"))
 }
@@ -105,6 +88,7 @@ subprojects {
         mavenLocal()
         maven { url "https://repo.maven.apache.org/maven2" }
         mavenCentral()
+        maven { url 'https://artifacts.itemis.cloud/repository/maven-mps/' }
         maven { url 'https://projects.itemis.de/nexus/content/repositories/mbeddr' }
     }
 
@@ -124,13 +108,25 @@ subprojects {
             }
             if (project.hasProperty("artifacts.itemis.cloud.user")) {
                 maven {
-                    name = "itemisCloud"
+                    name = "itemisNexus3"
                     url = modelixVersion.contains("SNAPSHOT")
                             ? uri("https://artifacts.itemis.cloud/repository/maven-mps-snapshots/")
                             : uri("https://artifacts.itemis.cloud/repository/maven-mps-releases/")
                     credentials {
                         username = project.findProperty("artifacts.itemis.cloud.user").toString()
                         password = project.findProperty("artifacts.itemis.cloud.pw").toString()
+                    }
+                }
+            }
+            if (project.hasProperty("projects.itemis.de.user")) {
+                maven {
+                    name = "itemisNexus2"
+                    url = modelixVersion.contains("SNAPSHOT")
+                            ? uri("https://projects.itemis.de/nexus/content/repositories/mbeddr_snapshots/")
+                            : uri("https://projects.itemis.de/nexus/content/repositories/mbeddr/")
+                    credentials {
+                        username = project.findProperty("projects.itemis.de.user").toString()
+                        password = project.findProperty("projects.itemis.de.pw").toString()
                     }
                 }
             }
