@@ -80,14 +80,6 @@ if (System.getenv("TRAVIS_TAG") != null && !System.getenv("TRAVIS_TAG").isEmpty(
 versionFile.write(ext.modelixVersion)
 println("modelix version: " + ext.modelixVersion)
 
-ext.releaseRepository = 'https://maven.pkg.github.com/modelix/modelix'
-ext.snapshotRepository = 'https://projects.itemis.de/nexus/content/repositories/mbeddr_snapshots'
-ext.publishingRepository = modelixVersion.endsWith("-SNAPSHOT") ? snapshotRepository : releaseRepository
-
-println("gpr.user = " + project.findProperty("gpr.user"))
-println("gpr.key = " + project.findProperty("gpr.key"))
-println("GITHUB_ACTOR = " + System.getenv("GITHUB_ACTOR"))
-println("GITHUB_TOKEN = " + System.getenv("GITHUB_TOKEN"))
 if (!project.hasProperty("gpr.user") && System.getenv("GITHUB_ACTOR") != null) {
     ext.setProperty("gpr.user", System.getenv("GITHUB_ACTOR"))
 }
