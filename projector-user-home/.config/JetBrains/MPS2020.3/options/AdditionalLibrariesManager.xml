@@ -18,6 +18,14 @@
                         </Library>
                     </value>
                 </entry>
+                <entry key="workspace">
+                    <value>
+                        <Library>
+                            <option name="name" value="workspace" />
+                            <option name="path" value="$USER_HOME$/workspace.zip/" />
+                        </Library>
+                    </value>
+                </entry>
             </map>
         </option>
     </component>

@@ -1,9 +1,9 @@
 
 plugins {
     id 'maven-publish'
-    id 'org.jetbrains.kotlin.multiplatform'
+    id "org.jetbrains.kotlin.multiplatform"
     id "com.diffplug.gradle.spotless"
-    id "org.jlleitschuh.gradle.ktlint"
+    id "org.jlleitschuh.gradle.ktlint" version "9.3.0"
     id "java-library"
     id 'jacoco'
 }
@@ -18,6 +18,12 @@ tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
     }
 }
 
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(11)
+    }
+}
+
 ktlint {
     disabledRules = ["no-wildcard-imports"]
 }
@@ -26,7 +32,7 @@ check.dependsOn ktlintCheck
 
 kotlin {
     jvm()
-    js {
+    js() {
         //browser {}
         nodejs {
             testTask {
@@ -90,6 +96,11 @@ kotlin {
     }
 }
 
+// Workaround for M1 macs. Remove after kotlin 1.6.20 is released.
+rootProject.plugins.withType(Class.forName("org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootPlugin")) {
+    rootProject.extensions.getByType(org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootExtension.class).nodeVersion = "16.0.0"
+}
+
 jvmTest.dependsOn ":model-server:shadowJar"
 
 tasks.jacocoTestReport {
@@ -126,7 +137,7 @@ spotless {
 }
 
 task copyModelClientToMps(type: Sync) {
-    from configurations.jvmDefault
+    from configurations.jvmRuntimeClasspath
     from "$buildDir/libs"
     into "$projectDir/../mps/org.modelix.model.client/lib"
     rename { fileName ->

@@ -46,9 +46,9 @@ object MetaMetaLanguage {
         .addProperty(property_ChildLink_optional)
         .addReferenceLink(referenceLink_ChildLink_childConcept)
 
-    val reference_ConceptReference_concept = SimpleReferenceLink("concept", false, concept_Concept)
+    val referenceLink_ConceptReference_concept = SimpleReferenceLink("concept", false, concept_Concept)
     val concept_ConceptReference = SimpleConcept("ConceptReference", false, listOf(concept_IHasUID))
-        .addReferenceLink(reference_ConceptReference_concept)
+        .addReferenceLink(referenceLink_ConceptReference_concept)
 
     val property_ReferenceLink_name = SimpleProperty("name")
     val property_ReferenceLink_optional = SimpleProperty("optional")

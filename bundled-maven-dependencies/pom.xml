@@ -1,0 +1,52 @@
+<project>
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>org.modelix</groupId>
+    <artifactId>bundled-maven-dependencies</artifactId>
+    <version>1</version>
+
+    <repositories>
+        <repository>
+            <id>github.mbeddr</id>
+            <name>mbeddr on github</name>
+            <url>https://maven.pkg.github.com/mbeddr/mbeddr.core</url>
+        </repository>
+        <repository>
+            <id>github.mps-extensions</id>
+            <name>MPS-extensions on github</name>
+            <url>https://maven.pkg.github.com/JetBrains/MPS-extensions</url>
+        </repository>
+        <repository>
+            <id>github.iets3os</id>
+            <name>IETS3 opensource on github</name>
+            <url>https://maven.pkg.github.com/IETS3/iets3.opensource</url>
+        </repository>
+    </repositories>
+
+    <dependencies>
+        <dependency>
+            <groupId>de.itemis.mps</groupId>
+            <artifactId>extensions</artifactId>
+            <version>2020.3.2227.715a7cf</version>
+            <type>zip</type>
+        </dependency>
+        <dependency>
+            <groupId>com.mbeddr</groupId>
+            <artifactId>platform</artifactId>
+            <version>2020.3.23153.87edbd6</version>
+            <type>zip</type>
+        </dependency>
+        <dependency>
+            <groupId>com.mbeddr</groupId>
+            <artifactId>mbeddr</artifactId>
+            <version>2020.3.23153.87edbd6</version>
+            <type>zip</type>
+        </dependency>
+        <dependency>
+            <groupId>org.iets3</groupId>
+            <artifactId>opensource</artifactId>
+            <version>2020.3.5345.a0a13f6</version>
+            <type>zip</type>
+        </dependency>
+    </dependencies>
+</project>

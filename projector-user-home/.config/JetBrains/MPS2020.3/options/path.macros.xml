@@ -1,0 +1,5 @@
+<application>
+    <component name="PathMacrosImpl">
+        <macro name="MODELIX_WORKSPACE" value="/home/projector-user/workspace.zip" />
+    </component>
+</application>

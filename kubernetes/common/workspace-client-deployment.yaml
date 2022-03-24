@@ -1,0 +1,68 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    instance-per-user: "true"
+    max-unassigned-instances: "0"
+  labels:
+    app: workspace-client
+  name: workspace-client
+spec:
+  revisionHistoryLimit: 5
+  replicas: 0
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0
+      maxSurge: 1
+  selector:
+    matchLabels:
+      app: workspace-client
+  template:
+    metadata:
+      labels:
+        app: workspace-client
+    spec:
+      containers:
+      - name: workspace-client
+        image: modelix/modelix-workspace-client:2020.3.5-202202061327-SNAPSHOT
+        imagePullPolicy: IfNotPresent
+        env:
+        - name: "modelix_executionMode"
+          value: "PROJECTOR"
+        - name: "modelix_workspace_server"
+          value: "http://workspace-manager:28104/"
+        - name: MODEL_URI
+          value: http://model:28101/
+        ports:
+        - containerPort: 8887
+        volumeMounts:
+          - name: modelsecret
+            mountPath: /secrets/modelsecret
+            readOnly: true
+        resources: 
+          requests:
+            memory: "4.0Gi"
+            cpu: 500m
+          limits:
+            memory: "4.0Gi"
+            cpu: "1.5"
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 33333
+          initialDelaySeconds: 10
+          periodSeconds: 5
+          timeoutSeconds: 3
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 33333
+          initialDelaySeconds: 120
+          periodSeconds: 20
+          timeoutSeconds: 10
+      restartPolicy: Always
+      volumes:
+        - name: modelsecret
+          secret:
+            secretName: modelsecret

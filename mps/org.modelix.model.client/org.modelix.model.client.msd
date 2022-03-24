@@ -77,7 +77,6 @@
     <stubModelEntry path="${module}/lib/listenablefuture-empty-to-avoid-conflict-with-guava.jar" />
     <stubModelEntry path="${module}/lib/model-client-js.jar" />
     <stubModelEntry path="${module}/lib/model-client-jvm.jar" />
-    <stubModelEntry path="${module}/lib/model-client-metadata-sources.jar" />
     <stubModelEntry path="${module}/lib/model-client-metadata.jar" />
     <stubModelEntry path="${module}/lib/osgi-resource-locator.jar" />
     <stubModelEntry path="${module}/lib/trove4j.jar" />

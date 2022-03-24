@@ -1,0 +1,27 @@
+FROM openjdk:11
+
+RUN apt update
+RUN apt install maven -y
+RUN apt install git -y
+RUN apt install ant -y
+
+COPY bundled-maven-dependencies/settings.xml /root/.m2/settings.xml
+COPY bundled-maven-dependencies/pom.xml /bundled-maven-dependencies/pom.xml
+WORKDIR /bundled-maven-dependencies
+RUN mvn dependency:go-offline
+
+# Delete all .repositories and.sha1 files to avoid requiring an internet connection
+# https://manios.org/2019/08/21/force-maven-offline-execute-goal-dependencies
+WORKDIR /root/.m2
+RUN find -iname "*.repositories" -exec rm -f {} \;
+RUN find -iname "*.sha1" -exec rm -f {} \;
+RUN rm /root/.m2/settings.xml
+
+WORKDIR /workspace-manager/
+EXPOSE 28104
+COPY workspace-manager/build/libs/workspace-manager-latest-all.jar /workspace-manager/workspace-manager.jar
+COPY artifacts/mps /mps
+COPY headless-mps/build/libs /headless-mps
+COPY artifacts/de.itemis.mps.extensions /languages/mps-extensions
+COPY build/org.modelix/build/artifacts/org.modelix /languages/modelix
+CMD ["java", "-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5071", "-Dmps.home=/mps", "-XX:MaxRAMPercentage=75","-jar", "/workspace-manager/workspace-manager.jar"]

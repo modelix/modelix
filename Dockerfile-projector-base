@@ -1,4 +1,4 @@
-FROM modelix/projector-mps:2020.3.5
+FROM modelix/projector-mps:2020.3.5-202202281349
 
 USER root
 COPY install-plugins.sh /
