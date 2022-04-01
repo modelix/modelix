@@ -68,6 +68,10 @@ data class PersistedConcept(val id: Long, val uid: String?) : IConcept, IConcept
         throw UnsupportedOperationException()
     }
 
+    override fun serialize(): String {
+        TODO("Not yet implemented")
+    }
+
     override fun getAllChildLinks(): List<IChildLink> {
         throw UnsupportedOperationException()
     }

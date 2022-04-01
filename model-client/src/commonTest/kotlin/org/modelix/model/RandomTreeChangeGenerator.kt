@@ -26,7 +26,7 @@ class RandomTreeChangeGenerator(private val idGenerator: IdGenerator, private va
             val childId = idGenerator.generate()
             val role = childRoles[rand.nextInt(childRoles.size)]
             val index = if (rand.nextBoolean()) rand.nextInt(t.getChildren(parent, role).count().toInt() + 1) else -1
-            t.addNewChild(parent, role, index, childId, null)
+            t.addNewChild(parent, role, index, childId, null as IConcept?)
             if (expectedTree != null) {
                 expectedTree.expectedParents[childId] = parent
                 expectedTree.expectedRoles[childId] = role

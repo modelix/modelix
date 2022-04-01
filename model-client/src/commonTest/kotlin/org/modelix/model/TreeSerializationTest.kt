@@ -13,9 +13,9 @@ class TreeSerializationTest {
     fun initTree(branch: IBranch, moreThan10ops: Boolean) {
         branch.runWrite {
             val t = branch.writeTransaction
-            t.addNewChild(ITree.ROOT_ID, "c1", 0, 0x7fffffff00000001, null)
-            t.addNewChild(0x7fffffff00000001, "c2", 0, 0x7fffffff00000002, null)
-            t.addNewChild(ITree.ROOT_ID, "c3", 0, 0x7fffffff00000003, null)
+            t.addNewChild(ITree.ROOT_ID, "c1", 0, 0x7fffffff00000001, null as IConcept?)
+            t.addNewChild(0x7fffffff00000001, "c2", 0, 0x7fffffff00000002, null as IConcept?)
+            t.addNewChild(ITree.ROOT_ID, "c3", 0, 0x7fffffff00000003, null as IConcept?)
             t.moveChild(0x7fffffff00000002, "c3", 0, 0x7fffffff00000003)
             t.deleteNode(0x7fffffff00000003)
             t.moveChild(ITree.ROOT_ID, "c1", 1, 0x7fffffff00000002)
@@ -25,7 +25,7 @@ class TreeSerializationTest {
             t.setReferenceTarget(0x7fffffff00000001, "r2", PNodeReference(0x7fffffff00000002, branch.getId()))
 
             if (moreThan10ops) {
-                t.addNewChild(ITree.ROOT_ID, "bignode", 0, 0x7fffffff00000004, null)
+                t.addNewChild(ITree.ROOT_ID, "bignode", 0, 0x7fffffff00000004, null as IConcept?)
                 for (i in 1..20) {
                     t.setProperty(0x7fffffff00000004, "p$i", "value$i")
                 }
