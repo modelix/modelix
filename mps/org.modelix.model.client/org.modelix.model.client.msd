@@ -34,7 +34,6 @@
       <sourceRoot location="listenablefuture-empty-to-avoid-conflict-with-guava.jar" />
       <sourceRoot location="model-client-js.jar" />
       <sourceRoot location="model-client-jvm.jar" />
-      <sourceRoot location="model-client-metadata-sources.jar" />
       <sourceRoot location="model-client-metadata.jar" />
       <sourceRoot location="osgi-resource-locator.jar" />
       <sourceRoot location="trove4j.jar" />
