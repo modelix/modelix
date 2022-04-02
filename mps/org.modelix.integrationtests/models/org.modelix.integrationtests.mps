@@ -389,6 +389,9 @@
       </concept>
     </language>
     <language id="7866978e-a0f0-4cc7-81bc-4d213d9375e1" name="jetbrains.mps.lang.smodel">
+      <concept id="1204834851141" name="jetbrains.mps.lang.smodel.structure.PoundExpression" flags="ng" index="25Kdxt">
+        <child id="1204834868751" name="expression" index="25KhWn" />
+      </concept>
       <concept id="1177026924588" name="jetbrains.mps.lang.smodel.structure.RefConcept_Reference" flags="nn" index="chp4Y">
         <reference id="1177026940964" name="conceptDeclaration" index="cht4Q" />
       </concept>
@@ -399,6 +402,7 @@
       <concept id="4693937538533521280" name="jetbrains.mps.lang.smodel.structure.OfConceptOperation" flags="ng" index="v3k3i">
         <child id="4693937538533538124" name="requestedConcept" index="v3oSu" />
       </concept>
+      <concept id="7453996997717780434" name="jetbrains.mps.lang.smodel.structure.Node_GetSConceptOperation" flags="nn" index="2yIwOk" />
       <concept id="2396822768958367367" name="jetbrains.mps.lang.smodel.structure.AbstractTypeCastExpression" flags="nn" index="$5XWr">
         <child id="6733348108486823193" name="leftExpression" index="1m5AlR" />
         <child id="3906496115198199033" name="conceptArgument" index="3oSUPX" />
@@ -425,6 +429,9 @@
       <concept id="1144100932627" name="jetbrains.mps.lang.smodel.structure.OperationParm_Inclusion" flags="ng" index="1xIGOp" />
       <concept id="1144101972840" name="jetbrains.mps.lang.smodel.structure.OperationParm_Concept" flags="ng" index="1xMEDy">
         <child id="1207343664468" name="conceptArgument" index="ri$Ld" />
+      </concept>
+      <concept id="1172326502327" name="jetbrains.mps.lang.smodel.structure.Concept_IsExactlyOperation" flags="nn" index="3O6GUB">
+        <child id="1206733650006" name="conceptArgument" index="3QVz_e" />
       </concept>
       <concept id="1140137987495" name="jetbrains.mps.lang.smodel.structure.SNodeTypeCastExpression" flags="nn" index="1PxgMI" />
       <concept id="1138055754698" name="jetbrains.mps.lang.smodel.structure.SNodeType" flags="in" index="3Tqbb2">
@@ -10106,7 +10113,7 @@
                                       <ref role="3cqZAo" node="53_gmpoVjru" resolve="model" />
                                     </node>
                                     <node concept="AQDAd" id="53_gmpoVjrI" role="2OqNvi">
-                                      <ref role="37wK5l" node="nkanButqCU" resolve="getRoot" />
+                                      <ref role="37wK5l" node="5cWpYFRKjMZ" resolve="getExactRoot" />
                                       <node concept="35c_gC" id="nkanButsDs" role="37wK5m">
                                         <ref role="35c_gD" to="tpee:fz12cDA" resolve="ClassConcept" />
                                       </node>
@@ -10877,38 +10884,42 @@
       </node>
       <node concept="3Tm1VV" id="5cWpYFRKjN2" role="1B3o_S" />
       <node concept="3clFbS" id="5cWpYFRKjN3" role="3clF47">
+        <node concept="3cpWs8" id="6dCZbVDxyTx" role="3cqZAp">
+          <node concept="3cpWsn" id="6dCZbVDxyTy" role="3cpWs9">
+            <property role="TrG5h" value="rootNodes" />
+            <node concept="3uibUv" id="6dCZbVDxxrm" role="1tU5fm">
+              <ref role="3uigEE" to="wyt6:~Iterable" resolve="Iterable" />
+              <node concept="3Tqbb2" id="6dCZbVDx_9T" role="11_B2D" />
+            </node>
+            <node concept="2OqwBi" id="6dCZbVDxyTz" role="33vP2m">
+              <node concept="2V_BSl" id="6dCZbVDxyT$" role="2Oq$k0" />
+              <node concept="liA8E" id="6dCZbVDxyT_" role="2OqNvi">
+                <ref role="37wK5l" to="mhbf:~SModel.getRootNodes()" resolve="getRootNodes" />
+              </node>
+            </node>
+          </node>
+        </node>
         <node concept="2Gpval" id="5cWpYFRKjN4" role="3cqZAp">
           <node concept="2GrKxI" id="5cWpYFRKjN5" role="2Gsz3X">
             <property role="TrG5h" value="root" />
           </node>
-          <node concept="2OqwBi" id="5cWpYFRKjN6" role="2GsD0m">
-            <node concept="2V_BSl" id="5cWpYFRKjN7" role="2Oq$k0" />
-            <node concept="liA8E" id="5cWpYFRKjN8" role="2OqNvi">
-              <ref role="37wK5l" to="mhbf:~SModel.getRootNodes()" resolve="getRootNodes" />
-            </node>
+          <node concept="37vLTw" id="6dCZbVDxyTA" role="2GsD0m">
+            <ref role="3cqZAo" node="6dCZbVDxyTy" resolve="rootNodes" />
           </node>
           <node concept="3clFbS" id="5cWpYFRKjN9" role="2LFqv$">
             <node concept="3clFbJ" id="5cWpYFRKjNa" role="3cqZAp">
-              <node concept="17R0WA" id="5cWpYFRKnc8" role="3clFbw">
-                <node concept="2OqwBi" id="5cWpYFRKodK" role="3uHU7w">
-                  <node concept="37vLTw" id="5cWpYFRKnUF" role="2Oq$k0">
-                    <ref role="3cqZAo" node="5cWpYFRKjN0" resolve="concept" />
+              <node concept="2OqwBi" id="6dCZbVDxATP" role="3clFbw">
+                <node concept="2OqwBi" id="5cWpYFRKjNb" role="2Oq$k0">
+                  <node concept="2GrUjf" id="5cWpYFRKjNc" role="2Oq$k0">
+                    <ref role="2Gs0qQ" node="5cWpYFRKjN5" resolve="root" />
                   </node>
-                  <node concept="liA8E" id="5cWpYFRKoUd" role="2OqNvi">
-                    <ref role="37wK5l" to="c17a:~SAbstractConcept.getQualifiedName()" resolve="getQualifiedName" />
-                  </node>
+                  <node concept="2yIwOk" id="6dCZbVDxAmy" role="2OqNvi" />
                 </node>
-                <node concept="2OqwBi" id="5cWpYFRKlEa" role="3uHU7B">
-                  <node concept="2OqwBi" id="5cWpYFRKjNb" role="2Oq$k0">
-                    <node concept="2GrUjf" id="5cWpYFRKjNc" role="2Oq$k0">
-                      <ref role="2Gs0qQ" node="5cWpYFRKjN5" resolve="root" />
+                <node concept="3O6GUB" id="6dCZbVDxClk" role="2OqNvi">
+                  <node concept="25Kdxt" id="6dCZbVDxC_T" role="3QVz_e">
+                    <node concept="37vLTw" id="6dCZbVDxCG3" role="25KhWn">
+                      <ref role="3cqZAo" node="5cWpYFRKjN0" resolve="concept" />
                     </node>
-                    <node concept="liA8E" id="5cWpYFRKl90" role="2OqNvi">
-                      <ref role="37wK5l" to="mhbf:~SNode.getConcept()" resolve="getConcept" />
-                    </node>
-                  </node>
-                  <node concept="liA8E" id="5cWpYFRKmFu" role="2OqNvi">
-                    <ref role="37wK5l" to="c17a:~SAbstractConcept.getQualifiedName()" resolve="getQualifiedName" />
                   </node>
                 </node>
               </node>
