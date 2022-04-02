@@ -1528,7 +1528,7 @@
         </node>
         <node concept="1SiIV0" id="6u4pZj_urO9" role="3bR37C">
           <node concept="3bR9La" id="6u4pZj_urOa" role="1SiIV1">
-            <ref role="3bR37D" to="90a9:6fQhGuklQWU" resolve="de.q60.mps.libs" />
+            <ref role="3bR37D" to="90a9:6fQhGuklQWU" resolve="de.q60.mps.collections.libs" />
           </node>
         </node>
         <node concept="1SiIV0" id="7BujJjZfwQI" role="3bR37C">
@@ -4311,7 +4311,7 @@
         </node>
         <node concept="1SiIV0" id="1ipiwLNqvT6" role="3bR37C">
           <node concept="3bR9La" id="1ipiwLNqvT7" role="1SiIV1">
-            <ref role="3bR37D" to="90a9:6fQhGuklQWU" resolve="de.q60.mps.libs" />
+            <ref role="3bR37D" to="90a9:6fQhGuklQWU" resolve="de.q60.mps.collections.libs" />
           </node>
         </node>
       </node>

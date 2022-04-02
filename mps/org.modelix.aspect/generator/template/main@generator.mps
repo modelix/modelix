@@ -302,7 +302,7 @@
         <child id="3906496115198199033" name="conceptArgument" index="3oSUPX" />
       </concept>
       <concept id="1171315804604" name="jetbrains.mps.lang.smodel.structure.Model_RootsOperation" flags="nn" index="2RRcyG">
-        <reference id="1171315804605" name="concept" index="2RRcyH" />
+        <child id="6750920497477046361" name="conceptArgument" index="3MHsoP" />
       </concept>
       <concept id="1171407110247" name="jetbrains.mps.lang.smodel.structure.Node_GetAncestorOperation" flags="nn" index="2Xjw5R" />
       <concept id="1139613262185" name="jetbrains.mps.lang.smodel.structure.Node_GetParentOperation" flags="nn" index="1mfA1w" />
@@ -404,7 +404,9 @@
                   <node concept="1r8y6K" id="6MQUJsyYGT7" role="2OqNvi" />
                 </node>
                 <node concept="2RRcyG" id="6MQUJsyYH7D" role="2OqNvi">
-                  <ref role="2RRcyH" to="79yt:3XNyhUa8oNE" resolve="HttpPage" />
+                  <node concept="chp4Y" id="7qdMGEwx5wM" role="3MHsoP">
+                    <ref role="cht4Q" to="79yt:3XNyhUa8oNE" resolve="HttpPage" />
+                  </node>
                 </node>
               </node>
               <node concept="3GX2aA" id="6MQUJsyYKGX" role="2OqNvi" />
@@ -1999,7 +2001,9 @@
                   <node concept="1r8y6K" id="6MQUJsyYD$0" role="2OqNvi" />
                 </node>
                 <node concept="2RRcyG" id="6MQUJsyYDQz" role="2OqNvi">
-                  <ref role="2RRcyH" to="79yt:3XNyhUa8oNE" resolve="HttpPage" />
+                  <node concept="chp4Y" id="7qdMGEwx5wN" role="3MHsoP">
+                    <ref role="cht4Q" to="79yt:3XNyhUa8oNE" resolve="HttpPage" />
+                  </node>
                 </node>
               </node>
             </node>

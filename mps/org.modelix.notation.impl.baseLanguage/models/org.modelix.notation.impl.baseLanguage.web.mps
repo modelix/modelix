@@ -3,7 +3,7 @@
   <persistence version="9" />
   <languages>
     <use id="375af171-bd4b-4bfb-bc9f-418fb996740b" name="org.modelix.aspect" version="0" />
-    <use id="7866978e-a0f0-4cc7-81bc-4d213d9375e1" name="jetbrains.mps.lang.smodel" version="17" />
+    <use id="7866978e-a0f0-4cc7-81bc-4d213d9375e1" name="jetbrains.mps.lang.smodel" version="18" />
     <use id="94b64715-a263-4c36-a138-8da14705ffa7" name="de.q60.mps.shadowmodels.transformation" version="1" />
     <use id="774bf8a0-62e5-41e1-af63-f4812e60e48b" name="jetbrains.mps.baseLanguage.checkedDots" version="0" />
     <devkit ref="df4512e0-2de7-456b-8e87-16e2011a3e91(org.modelix.aspect.devkit)" />
