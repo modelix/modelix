@@ -6739,31 +6739,6 @@
       <node concept="3cqZAl" id="7CsUpEQSjJF" role="3clF45" />
       <node concept="3Tm1VV" id="7CsUpEQSjJG" role="1B3o_S" />
       <node concept="3clFbS" id="7CsUpEQSjJH" role="3clF47">
-        <node concept="3clFbF" id="7CsUpEQSGiH" role="3cqZAp">
-          <node concept="2OqwBi" id="7CsUpEQSJGE" role="3clFbG">
-            <node concept="2OqwBi" id="7CsUpEQSHGx" role="2Oq$k0">
-              <node concept="1eOMI4" id="7CsUpEQSGiJ" role="2Oq$k0">
-                <node concept="10QFUN" id="7CsUpEQSGiK" role="1eOMHV">
-                  <node concept="37vLTw" id="7CsUpEQSGiL" role="10QFUP">
-                    <ref role="3cqZAo" node="1xehy3SoLI0" resolve="project" />
-                  </node>
-                  <node concept="3uibUv" id="7CsUpEQSGiM" role="10QFUM">
-                    <ref role="3uigEE" to="z1o6:~ComponentManagerImpl" resolve="ComponentManagerImpl" />
-                  </node>
-                </node>
-              </node>
-              <node concept="1PnCL0" id="7CsUpEQSJ9O" role="2OqNvi">
-                <ref role="2Oxat5" to="z1o6:~ComponentManagerImpl.lightServices" resolve="lightServices" />
-              </node>
-            </node>
-            <node concept="liA8E" id="7CsUpEQSMaU" role="2OqNvi">
-              <ref role="37wK5l" to="33ny:~Map.remove(java.lang.Object)" resolve="remove" />
-              <node concept="3VsKOn" id="7CsUpEQSMpf" role="37wK5m">
-                <ref role="3VsUkX" node="7xblg8lmms7" resolve="CloudResourcesConfigurationComponent" />
-              </node>
-            </node>
-          </node>
-        </node>
         <node concept="3clFbH" id="7CsUpEQSGiy" role="3cqZAp" />
       </node>
     </node>
