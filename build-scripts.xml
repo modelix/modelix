@@ -34,8 +34,7 @@
   
   <path id="path.mps.ant.path">
     <pathelement location="${artifacts.mps}/lib/ant/lib/ant-mps.jar" />
-    <pathelement location="${artifacts.mps}/lib/jdom.jar" />
-    <pathelement location="${artifacts.mps}/lib/log4j.jar" />
+    <pathelement location="${artifacts.mps}/lib/util.jar" />
   </path>
   
   <target name="assemble" depends="classes, declare-mps-tasks">
@@ -57,6 +56,26 @@
         </extensions>
       </idea-plugin>
     </echoxml>
+    <mkdir dir="${build.tmp}/default/org.modelix.zip/org.modelix/lib" />
+    <mkdir dir="${build.tmp}/default/org.modelix.jar" />
+    <mkdir dir="${build.tmp}/default/org.modelix.jar/META-INF" />
+    <echoxml file="${build.tmp}/default/org.modelix.jar/META-INF/plugin.xml">
+      <idea-plugin xmlns:xi="http://www.w3.org/2001/XInclude">
+        <id>org.modelix</id>
+        <name>org.modelix</name>
+        <version>${modelixVersion}</version>
+        <depends>jetbrains.mps.core</depends>
+        <depends>jetbrains.mps.build</depends>
+        <depends>de.itemis.mps.extensions.build</depends>
+        
+        <extensions defaultExtensionNs="com.intellij">
+          <mps.LanguageLibrary dir="/languages" />
+        </extensions>
+      </idea-plugin>
+    </echoxml>
+    <jar destfile="${build.tmp}/default/org.modelix.zip/org.modelix/lib/org.modelix.jar" duplicate="preserve">
+      <fileset dir="${build.tmp}/default/org.modelix.jar" />
+    </jar>
     <mkdir dir="${build.tmp}/default/org.modelix.zip/org.modelix/languages" />
     <mkdir dir="${build.tmp}/default/org.modelix.zip/org.modelix/languages/org.modelix" />
     <mkdir dir="${build.tmp}/default/org.modelix.build.jar" />
