@@ -98,6 +98,9 @@
       <concept id="4903714810883702017" name="jetbrains.mps.build.structure.BuildVarRefStringPart" flags="ng" index="3Mxwey">
         <reference id="4903714810883702018" name="macro" index="3Mxwex" />
       </concept>
+      <concept id="202934866059043946" name="jetbrains.mps.build.structure.BuildLayout_EchoProperties" flags="ng" index="1TblL5">
+        <child id="202934866059043948" name="fileName" index="1TblL3" />
+      </concept>
     </language>
     <language id="427a473d-5177-432c-9905-bcbceb71b996" name="jetbrains.mps.build.mps.runner">
       <concept id="4173297143638950526" name="jetbrains.mps.build.mps.runner.structure.BuildSolutionRunnerAspect" flags="ng" index="_awnq">
@@ -291,6 +294,13 @@
                   <property role="2Ry0Am" value="lib" />
                 </node>
               </node>
+            </node>
+          </node>
+        </node>
+        <node concept="1TblL5" id="5sZaTPjhk26" role="39821P">
+          <node concept="3_J27D" id="5sZaTPjhk28" role="1TblL3">
+            <node concept="3Mxwew" id="5sZaTPjhkmb" role="3MwsjC">
+              <property role="3MwjfP" value=".mpsbuild-ignore" />
             </node>
           </node>
         </node>
