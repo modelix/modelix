@@ -27,25 +27,25 @@
         <dependency>
             <groupId>de.itemis.mps</groupId>
             <artifactId>extensions</artifactId>
-            <version>2020.3.2227.715a7cf</version>
+            <version>2021.1.2315.d07fea4</version>
             <type>zip</type>
         </dependency>
         <dependency>
             <groupId>com.mbeddr</groupId>
             <artifactId>platform</artifactId>
-            <version>2020.3.23153.87edbd6</version>
+            <version>2021.1.23225.0cf9263</version>
             <type>zip</type>
         </dependency>
         <dependency>
             <groupId>com.mbeddr</groupId>
             <artifactId>mbeddr</artifactId>
-            <version>2020.3.23153.87edbd6</version>
+            <version>2021.1.23225.0cf9263</version>
             <type>zip</type>
         </dependency>
         <dependency>
             <groupId>org.iets3</groupId>
             <artifactId>opensource</artifactId>
-            <version>2020.3.5345.a0a13f6</version>
+            <version>2021.1.5415.2e37961</version>
             <type>zip</type>
         </dependency>
     </dependencies>
