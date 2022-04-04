@@ -221,7 +221,7 @@ class WorkspaceManager {
         // Modelix and MPS-extensions are required to run the importer
         val additionalFolders = ArrayList<File>()
         if (!modulesMiner.getModules().getModules().containsKey(org_modelix_model_mpsplugin)) {
-            additionalFolders += File(File(".."), "mps")
+            //additionalFolders += File(File(".."), "mps")
             additionalFolders += File("/languages/modelix")
         }
         if (!modulesMiner.getModules().getModules().containsKey(org_modelix_model_api)) {
