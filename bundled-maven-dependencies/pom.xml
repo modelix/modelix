@@ -27,9 +27,10 @@
         <dependency>
             <groupId>de.itemis.mps</groupId>
             <artifactId>extensions</artifactId>
-            <version>2021.1.2315.d07fea4</version>
+            <version>2021.2.2318.3f43b1c</version>
             <type>zip</type>
         </dependency>
+<!-- These projects are not migrated yet
         <dependency>
             <groupId>com.mbeddr</groupId>
             <artifactId>platform</artifactId>
@@ -48,5 +49,6 @@
             <version>2021.1.5415.2e37961</version>
             <type>zip</type>
         </dependency>
+-->
     </dependencies>
 </project>
