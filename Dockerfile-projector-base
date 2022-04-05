@@ -1,4 +1,6 @@
-FROM modelix/projector-mps:2020.3.5-202202281349
+# the tag is updated by docker-build-projector-base.sh
+# if the required version doesn't exist yet, run docker-build-projector-mps.sh
+FROM modelix/projector-mps:2021.1.4
 
 USER root
 COPY install-plugins.sh /

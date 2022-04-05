@@ -1,5 +1,6 @@
 plugins {
     id 'java'
+    id "com.github.johnrengelman.shadow" version "6.1.0"
 }
 
 group 'org.modelix'
@@ -16,6 +17,10 @@ defaultTasks 'build'
 
 repositories {
     mavenCentral()
+}
+
+shadowJar {
+    archiveVersion.set("latest")
 }
 
 dependencies {
@@ -37,11 +42,8 @@ dependencies {
 
     compile group: 'org.eclipse.jgit', name: 'org.eclipse.jgit', version: '5.8.0.202006091008-r'
     compile group: 'org.kohsuke', name: 'github-api', version: '1.115'
+
+    implementation(project(path: ":model-client", configuration: "jvmRuntimeElements"))
 }
 
-task copyRuntimeLibs(type: Copy) {
-    into "$buildDir/dependencies"
-    from configurations.runtime
-}
-
-assemble.dependsOn copyRuntimeLibs
+assemble.dependsOn shadowJar
