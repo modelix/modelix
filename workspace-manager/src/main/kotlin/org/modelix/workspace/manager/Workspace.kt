@@ -26,6 +26,7 @@ import java.util.*
 data class Workspace(var id: String,
                      var name: String? = null,
                      val mpsVersion: String? = null,
+                     val memoryLimit: String = "2.0Gi",
                      val modelRepositories: List<ModelRepository> = listOf(),
                      val gitRepositories: List<GitRepository> = listOf(),
                      val mavenRepositories: List<MavenRepository> = listOf(),

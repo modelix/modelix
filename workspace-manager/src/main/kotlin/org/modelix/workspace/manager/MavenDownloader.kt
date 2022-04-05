@@ -27,6 +27,7 @@ class MavenDownloader(val workspace: Workspace, val workspaceDir: File) {
         if (workspace.mavenRepositories.isNotEmpty()) {
             downloadFromMaven(coordinates, outputHandler)
         }
+        deleteFilesForcingOnlineMode()
         return copyArtifacts(coordinates, outputHandler)
     }
 
@@ -77,5 +78,14 @@ class MavenDownloader(val workspace: Workspace, val workspaceDir: File) {
 
     private fun addPackagingIfMissing(coordinates: String): String {
         return if (coordinates.split(":").size == 3) coordinates + ":zip" else coordinates
+    }
+
+    private fun deleteFilesForcingOnlineMode() {
+        // Delete all .repositories and.sha1 files to avoid requiring an internet connection
+        // https://manios.org/2019/08/21/force-maven-offline-execute-goal-dependencies
+        val mavenHome = File(System.getProperty("user.home")).resolve(".m2")
+        mavenHome.walk()
+            .filter { it.isFile && (it.extension == "repositories" || it.extension == "sha1") }
+            .forEach { it.delete() }
     }
 }
