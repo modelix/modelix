@@ -18,6 +18,7 @@ import io.kubernetes.client.openapi.ApiException;
 import io.kubernetes.client.openapi.Configuration;
 import io.kubernetes.client.openapi.apis.AppsV1Api;
 import io.kubernetes.client.openapi.apis.CoreV1Api;
+import io.kubernetes.client.openapi.models.V1Container;
 import io.kubernetes.client.openapi.models.V1Deployment;
 import io.kubernetes.client.openapi.models.V1DeploymentList;
 import io.kubernetes.client.openapi.models.V1EnvVar;
@@ -296,7 +297,7 @@ public class DeploymentManager {
                 deployment.getSpec().getTemplate().getSpec().getContainers().get(0)
                         .addEnvItem(new V1EnvVar().name("modelix_workspace_hash").value(workspaceHash));
 
-                loadMemoryLimit(workspaceHash, deployment);
+                loadWorkspaceSpecificValues(workspaceHash, deployment);
             }
 
             System.out.println("Creating deployment: ");
@@ -332,12 +333,23 @@ public class DeploymentManager {
         return true;
     }
 
-    private void loadMemoryLimit(String workspaceHash, V1Deployment deployment) {
+    private void loadWorkspaceSpecificValues(String workspaceHash, V1Deployment deployment) {
         try {
             String workspaceSpecString = modelClient.get(workspaceHash);
             if (workspaceSpecString == null) return;
             JSONObject workspaceSpec = new JSONObject(workspaceSpecString);
-            V1ResourceRequirements resources = deployment.getSpec().getTemplate().getSpec().getContainers().get(0).getResources();
+            V1Container container = deployment.getSpec().getTemplate().getSpec().getContainers().get(0);
+
+            String mpsVersion = workspaceSpec.optString("mpsVersion");
+            if (mpsVersion != null && mpsVersion.matches("20\\d\\d\\.\\d")) {
+                String image = container.getImage();
+                if (image != null) {
+                    image = image.replaceFirst(":20\\d\\d\\.\\d\\.(\\d+)", ":" + mpsVersion + ".$1");
+                    container.setImage(image);
+                }
+            }
+
+            V1ResourceRequirements resources = container.getResources();
             if (resources == null) return;
             Quantity memoryLimit = Quantity.fromString(workspaceSpec.optString("memoryLimit", "2Gi"));
             Map<String, Quantity> limits = resources.getLimits();
@@ -345,7 +357,7 @@ public class DeploymentManager {
             Map<String, Quantity> requests = resources.getRequests();
             if (requests != null) requests.put("memory", memoryLimit);
         } catch (Exception ex) {
-            LOG.error("Failed to load memory limit from workspace " + workspaceHash, ex);
+            LOG.error("Failed to configure the deployment for the workspace " + workspaceHash, ex);
         }
     }
 
