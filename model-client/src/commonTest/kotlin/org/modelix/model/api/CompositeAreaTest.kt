@@ -32,6 +32,10 @@ class MyNode(val name: String) : INode {
         TODO("Not yet implemented")
     }
 
+    override fun getConceptReference(): IConceptReference? {
+        TODO("Not yet implemented")
+    }
+
     override val allChildren: Iterable<INode>
         get() = TODO("Not yet implemented")
 

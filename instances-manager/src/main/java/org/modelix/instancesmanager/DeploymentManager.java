@@ -13,22 +13,27 @@
  */
 package org.modelix.instancesmanager;
 
+import io.kubernetes.client.custom.Quantity;
 import io.kubernetes.client.openapi.ApiException;
 import io.kubernetes.client.openapi.Configuration;
 import io.kubernetes.client.openapi.apis.AppsV1Api;
 import io.kubernetes.client.openapi.apis.CoreV1Api;
+import io.kubernetes.client.openapi.models.V1Container;
 import io.kubernetes.client.openapi.models.V1Deployment;
 import io.kubernetes.client.openapi.models.V1DeploymentList;
 import io.kubernetes.client.openapi.models.V1EnvVar;
 import io.kubernetes.client.openapi.models.V1ObjectMeta;
 import io.kubernetes.client.openapi.models.V1Pod;
 import io.kubernetes.client.openapi.models.V1PodList;
+import io.kubernetes.client.openapi.models.V1ResourceRequirements;
 import io.kubernetes.client.openapi.models.V1Service;
 import io.kubernetes.client.openapi.models.V1ServiceList;
 import io.kubernetes.client.util.ClientBuilder;
 import io.kubernetes.client.util.Yaml;
 import org.apache.log4j.Logger;
 import org.eclipse.jetty.server.Request;
+import org.json.JSONObject;
+import org.modelix.model.client.RestWebModelClient;
 
 import javax.annotation.Nullable;
 import javax.servlet.http.HttpServletRequest;
@@ -79,6 +84,7 @@ public class DeploymentManager {
     private final AtomicLong deploymentSuffixSequence = new AtomicLong(0xf);
     private final Map<String, Assignments> assignments = Collections.synchronizedMap(new HashMap<>());
     private final AtomicBoolean dirty = new AtomicBoolean(true);
+    private RestWebModelClient modelClient = new RestWebModelClient(System.getenv("model_server_url"));
 
     public DeploymentManager() {
         try {
@@ -290,6 +296,8 @@ public class DeploymentManager {
             if (workspaceHash != null) {
                 deployment.getSpec().getTemplate().getSpec().getContainers().get(0)
                         .addEnvItem(new V1EnvVar().name("modelix_workspace_hash").value(workspaceHash));
+
+                loadWorkspaceSpecificValues(workspaceHash, deployment);
             }
 
             System.out.println("Creating deployment: ");
@@ -323,6 +331,34 @@ public class DeploymentManager {
         }
 
         return true;
+    }
+
+    private void loadWorkspaceSpecificValues(String workspaceHash, V1Deployment deployment) {
+        try {
+            String workspaceSpecString = modelClient.get(workspaceHash);
+            if (workspaceSpecString == null) return;
+            JSONObject workspaceSpec = new JSONObject(workspaceSpecString);
+            V1Container container = deployment.getSpec().getTemplate().getSpec().getContainers().get(0);
+
+            String mpsVersion = workspaceSpec.optString("mpsVersion");
+            if (mpsVersion != null && mpsVersion.matches("20\\d\\d\\.\\d")) {
+                String image = container.getImage();
+                if (image != null) {
+                    image = image.replaceFirst(":20\\d\\d\\.\\d\\.(\\d+)", ":" + mpsVersion + ".$1");
+                    container.setImage(image);
+                }
+            }
+
+            V1ResourceRequirements resources = container.getResources();
+            if (resources == null) return;
+            Quantity memoryLimit = Quantity.fromString(workspaceSpec.optString("memoryLimit", "2Gi"));
+            Map<String, Quantity> limits = resources.getLimits();
+            if (limits != null) limits.put("memory", memoryLimit);
+            Map<String, Quantity> requests = resources.getRequests();
+            if (requests != null) requests.put("memory", memoryLimit);
+        } catch (Exception ex) {
+            LOG.error("Failed to configure the deployment for the workspace " + workspaceHash, ex);
+        }
     }
 
     private class Assignments {

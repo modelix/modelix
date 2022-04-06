@@ -105,7 +105,6 @@ class WorkspaceManager {
     fun newWorkspace(): Workspace {
         val workspace = Workspace(
             id = SerializationUtil.longToHex(modelClient.idGenerator.generate()),
-            mpsVersion = "2020.3.5",
             modelRepositories = listOf(ModelRepository(id = "default"))
         )
         modelClient.put(key(workspace.id), Json.encodeToString(workspace))
@@ -155,6 +154,9 @@ class WorkspaceManager {
     @Synchronized
     fun update(workspace: Workspace): WorkspaceHash {
         //loadCommitHashes(workspace)
+        require(workspace.mpsVersion == null || workspace.mpsVersion.matches(Regex("""20\d\d\.\d"""))) {
+            "Invalid major MPS version: '${workspace.mpsVersion}'. Examples for valid values: '2020.3', '2021.1', '2021.2'."
+        }
         workspace.gitRepositories.forEach { it.credentials = it.credentials?.encrypt() }
         val id = workspace.id
         val json = Json.encodeToString(workspace)
@@ -221,7 +223,7 @@ class WorkspaceManager {
         // Modelix and MPS-extensions are required to run the importer
         val additionalFolders = ArrayList<File>()
         if (!modulesMiner.getModules().getModules().containsKey(org_modelix_model_mpsplugin)) {
-            additionalFolders += File(File(".."), "mps")
+            //additionalFolders += File(File(".."), "mps")
             additionalFolders += File("/languages/modelix")
         }
         if (!modulesMiner.getModules().getModules().containsKey(org_modelix_model_api)) {

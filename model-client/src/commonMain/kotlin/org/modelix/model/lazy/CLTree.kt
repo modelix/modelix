@@ -126,8 +126,16 @@ class CLTree : ITree, IBulkTree {
         return newTree
     }
 
+    override fun addNewChild(parentId: Long, role: String?, index: Int, childId: Long, concept: IConceptReference?): ITree {
+        TODO("Not yet implemented")
+    }
+
     override fun addNewChildren(parentId: Long, role: String?, index: Int, newIds: LongArray, concepts: Array<IConcept?>): ITree {
         throw UnsupportedOperationException("Not implemented yet")
+    }
+
+    override fun addNewChildren(parentId: Long, role: String?, index: Int, newIds: LongArray, concepts: Array<IConceptReference?>): ITree {
+        TODO("Not yet implemented")
     }
 
     override fun deleteNodes(nodeIds: LongArray): ITree {
@@ -300,6 +308,12 @@ class CLTree : ITree, IBulkTree {
         } catch (e: RuntimeException) {
             throw RuntimeException("Unable to find concept for node $nodeId", e)
         }
+    }
+
+    override fun getConceptReference(nodeId: Long): IConceptReference? {
+        // TODO this method was introduced to avoid the resolution of concepts, but implementing it correctly
+        // requires some effort to ensure we don't break deserialization of existing models
+        return getConcept(nodeId)?.getReference()
     }
 
     override fun getParent(nodeId: Long): Long {

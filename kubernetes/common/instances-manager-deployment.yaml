@@ -25,6 +25,9 @@ spec:
       - image: modelix/modelix-instances-manager:0.0.72
         imagePullPolicy: IfNotPresent
         name: instances-manager
+        env:
+          - name: model_server_url
+            value: http://model:28101/
         ports:
         - containerPort: 33332
         - containerPort: 5005

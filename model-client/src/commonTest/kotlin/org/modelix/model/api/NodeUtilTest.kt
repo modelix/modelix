@@ -95,6 +95,10 @@ class SimpleTestNode(override val concept: IConcept? = null) : INode {
         return childrenByRole[role] ?: emptyList()
     }
 
+    override fun getConceptReference(): IConceptReference? {
+        TODO("Not yet implemented")
+    }
+
     override val allChildren: Iterable<INode>
         get() = childrenByRole.values.flatten()
 

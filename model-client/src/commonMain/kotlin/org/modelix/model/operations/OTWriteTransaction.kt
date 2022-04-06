@@ -69,6 +69,10 @@ class OTWriteTransaction(
         apply(AddNewChildOp(PositionInRole(parentId, role, index_), childId, concept))
     }
 
+    override fun addNewChild(parentId: Long, role: String?, index: Int, childId: Long, concept: IConceptReference?) {
+        TODO("Not yet implemented")
+    }
+
     override fun deleteNode(nodeId: Long) {
         getAllChildren(nodeId).forEach { deleteNode(it) }
         apply(DeleteNodeOp(nodeId))
@@ -82,6 +86,10 @@ class OTWriteTransaction(
         } catch (dni: DuplicateNodeId) {
             addNewChild(parentId, role, index, concept)
         }
+    }
+
+    override fun addNewChild(parentId: Long, role: String?, index: Int, concept: IConceptReference?): Long {
+        TODO("Not yet implemented")
     }
 
     override fun containsNode(nodeId: Long): Boolean {
@@ -101,6 +109,10 @@ class OTWriteTransaction(
 
     override fun getConcept(nodeId: Long): IConcept? {
         return transaction.getConcept(nodeId)
+    }
+
+    override fun getConceptReference(nodeId: Long): IConceptReference? {
+        return transaction.getConceptReference(nodeId)
     }
 
     override fun getParent(nodeId: Long): Long {
