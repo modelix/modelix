@@ -36,6 +36,7 @@ dependencies {
     implementation("org.jasypt:jasypt:1.9.3")
     implementation(project(":model-client", configuration = "jvmRuntimeElements"))
     implementation(project(":headless-mps"))
+    implementation(project(":workspaces"))
     implementation("org.modelix.mpsbuild:build-tools:1.0.0")
     implementation("io.ktor","ktor-html-builder", ktorVersion)
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.6.0")

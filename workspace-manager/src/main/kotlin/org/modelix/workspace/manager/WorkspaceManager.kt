@@ -154,8 +154,9 @@ class WorkspaceManager {
     @Synchronized
     fun update(workspace: Workspace): WorkspaceHash {
         //loadCommitHashes(workspace)
-        require(workspace.mpsVersion == null || workspace.mpsVersion.matches(Regex("""20\d\d\.\d"""))) {
-            "Invalid major MPS version: '${workspace.mpsVersion}'. Examples for valid values: '2020.3', '2021.1', '2021.2'."
+        val mpsVersion = workspace.mpsVersion
+        require(mpsVersion == null || mpsVersion.matches(Regex("""20\d\d\.\d"""))) {
+            "Invalid major MPS version: '$mpsVersion'. Examples for valid values: '2020.3', '2021.1', '2021.2'."
         }
         workspace.gitRepositories.forEach { it.credentials = it.credentials?.encrypt() }
         val id = workspace.id
