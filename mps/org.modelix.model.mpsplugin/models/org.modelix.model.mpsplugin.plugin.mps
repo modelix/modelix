@@ -1353,24 +1353,41 @@
             </node>
           </node>
         </node>
-        <node concept="abc8K" id="6h4an0SZKfY" role="3cqZAp">
-          <node concept="Xl_RD" id="6h4an0SZKl7" role="abp_N">
-            <property role="Xl_RC" value="APPLYING PROJECT PLUGIN - PERSISTED BINDING CONFIGURATION" />
-          </node>
-        </node>
-        <node concept="3clFbF" id="1xehy3SpfNi" role="3cqZAp">
-          <node concept="2OqwBi" id="1xehy3SpfNj" role="3clFbG">
-            <node concept="2YIFZM" id="1xehy3SpfNk" role="2Oq$k0">
-              <ref role="1Pybhc" node="7f6Tb6nxCKP" resolve="PersistedBindingConfiguration" />
-              <ref role="37wK5l" node="1xehy3Sovth" resolve="getInstance" />
-              <node concept="2YIFZM" id="1xehy3Spg5e" role="37wK5m">
-                <ref role="37wK5l" to="alof:~ProjectHelper.toIdeaProject(jetbrains.mps.project.Project)" resolve="toIdeaProject" />
-                <ref role="1Pybhc" to="alof:~ProjectHelper" resolve="ProjectHelper" />
-                <node concept="1KvdUw" id="1xehy3Spg5f" role="37wK5m" />
+        <node concept="3clFbJ" id="UBWFwB5k4Q" role="3cqZAp">
+          <node concept="3clFbS" id="UBWFwB5k4S" role="3clFbx">
+            <node concept="abc8K" id="6h4an0SZKfY" role="3cqZAp">
+              <node concept="Xl_RD" id="6h4an0SZKl7" role="abp_N">
+                <property role="Xl_RC" value="APPLYING PROJECT PLUGIN - PERSISTED BINDING CONFIGURATION. Loading persisted binding is enabled" />
               </node>
             </node>
-            <node concept="liA8E" id="1xehy3SpfNo" role="2OqNvi">
-              <ref role="37wK5l" node="1xehy3SoPER" resolve="applyToProject" />
+            <node concept="3clFbF" id="1xehy3SpfNi" role="3cqZAp">
+              <node concept="2OqwBi" id="1xehy3SpfNj" role="3clFbG">
+                <node concept="2YIFZM" id="1xehy3SpfNk" role="2Oq$k0">
+                  <ref role="1Pybhc" node="7f6Tb6nxCKP" resolve="PersistedBindingConfiguration" />
+                  <ref role="37wK5l" node="1xehy3Sovth" resolve="getInstance" />
+                  <node concept="2YIFZM" id="1xehy3Spg5e" role="37wK5m">
+                    <ref role="37wK5l" to="alof:~ProjectHelper.toIdeaProject(jetbrains.mps.project.Project)" resolve="toIdeaProject" />
+                    <ref role="1Pybhc" to="alof:~ProjectHelper" resolve="ProjectHelper" />
+                    <node concept="1KvdUw" id="1xehy3Spg5f" role="37wK5m" />
+                  </node>
+                </node>
+                <node concept="liA8E" id="1xehy3SpfNo" role="2OqNvi">
+                  <ref role="37wK5l" node="1xehy3SoPER" resolve="applyToProject" />
+                </node>
+              </node>
+            </node>
+          </node>
+          <node concept="2YIFZM" id="UBWFwB5klS" role="3clFbw">
+            <ref role="37wK5l" node="UBWFwB5foA" resolve="shouldLoadPersistentBinding" />
+            <ref role="1Pybhc" node="7Qo$o7gTdFI" resolve="ModelixConfigurationSystemProperties" />
+          </node>
+          <node concept="9aQIb" id="UBWFwB5kVN" role="9aQIa">
+            <node concept="3clFbS" id="UBWFwB5kVO" role="9aQI4">
+              <node concept="abc8K" id="UBWFwB5kYq" role="3cqZAp">
+                <node concept="Xl_RD" id="UBWFwB5kYr" role="abp_N">
+                  <property role="Xl_RC" value="APPLYING PROJECT PLUGIN - PERSISTED BINDING CONFIGURATION. Loading persisted binding disabled, skipping" />
+                </node>
+              </node>
             </node>
           </node>
         </node>
@@ -13668,6 +13685,14 @@
         <property role="Xl_RC" value="modelix.executionMode" />
       </node>
     </node>
+    <node concept="Wx3nA" id="UBWFwB5ftK" role="jymVt">
+      <property role="TrG5h" value="LOAD_PERSISTENT_BINDIND_SYSPROP" />
+      <node concept="3Tm1VV" id="UBWFwB5ftL" role="1B3o_S" />
+      <node concept="17QB3L" id="UBWFwB5ftM" role="1tU5fm" />
+      <node concept="Xl_RD" id="UBWFwB5ftN" role="33vP2m">
+        <property role="Xl_RC" value="modelix.loadPersistentBinding" />
+      </node>
+    </node>
     <node concept="Wx3nA" id="7Qo$o7gTmKI" role="jymVt">
       <property role="TrG5h" value="EXPORT_PATH_SYSPROP" />
       <node concept="3Tm1VV" id="7Qo$o7gTmKJ" role="1B3o_S" />
@@ -13692,6 +13717,61 @@
       <node concept="Xl_RD" id="7Qo$o7gTQfS" role="33vP2m">
         <property role="Xl_RC" value="modelix.cloud.repos" />
       </node>
+    </node>
+    <node concept="2tJIrI" id="UBWFwB5dtK" role="jymVt" />
+    <node concept="2YIFZL" id="UBWFwB5foA" role="jymVt">
+      <property role="TrG5h" value="shouldLoadPersistentBinding" />
+      <node concept="3clFbS" id="UBWFwB5foD" role="3clF47">
+        <node concept="3cpWs8" id="UBWFwB5frM" role="3cqZAp">
+          <node concept="3cpWsn" id="UBWFwB5frN" role="3cpWs9">
+            <property role="TrG5h" value="flagString" />
+            <node concept="17QB3L" id="UBWFwB5frO" role="1tU5fm" />
+            <node concept="2YIFZM" id="UBWFwB5frP" role="33vP2m">
+              <ref role="37wK5l" to="ia5i:3xX$Vyo0aHz" resolve="get" />
+              <ref role="1Pybhc" to="ia5i:3xX$Vyo038N" resolve="PropertyOrEnv" />
+              <node concept="37vLTw" id="UBWFwB5fFW" role="37wK5m">
+                <ref role="3cqZAo" node="UBWFwB5ftK" resolve="LOAD_PERSISTENT_BINDIND_SYSPROP" />
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="3clFbJ" id="UBWFwB5fUy" role="3cqZAp">
+          <node concept="3clFbS" id="UBWFwB5fU$" role="3clFbx">
+            <node concept="3cpWs6" id="UBWFwB5j2z" role="3cqZAp">
+              <node concept="3clFbT" id="UBWFwB5j8w" role="3cqZAk">
+                <property role="3clFbU" value="true" />
+              </node>
+            </node>
+          </node>
+          <node concept="22lmx$" id="UBWFwB5hb1" role="3clFbw">
+            <node concept="2OqwBi" id="UBWFwB5hNo" role="3uHU7w">
+              <node concept="37vLTw" id="UBWFwB5hne" role="2Oq$k0">
+                <ref role="3cqZAo" node="UBWFwB5frN" resolve="flagString" />
+              </node>
+              <node concept="liA8E" id="UBWFwB5iRh" role="2OqNvi">
+                <ref role="37wK5l" to="wyt6:~String.isEmpty()" resolve="isEmpty" />
+              </node>
+            </node>
+            <node concept="3clFbC" id="UBWFwB5gLV" role="3uHU7B">
+              <node concept="37vLTw" id="UBWFwB5gm3" role="3uHU7B">
+                <ref role="3cqZAo" node="UBWFwB5frN" resolve="flagString" />
+              </node>
+              <node concept="10Nm6u" id="UBWFwB5h4O" role="3uHU7w" />
+            </node>
+          </node>
+        </node>
+        <node concept="3cpWs6" id="UBWFwB5jkI" role="3cqZAp">
+          <node concept="2YIFZM" id="UBWFwB5jux" role="3cqZAk">
+            <ref role="37wK5l" to="wyt6:~Boolean.valueOf(java.lang.String)" resolve="valueOf" />
+            <ref role="1Pybhc" to="wyt6:~Boolean" resolve="Boolean" />
+            <node concept="37vLTw" id="UBWFwB5jGD" role="37wK5m">
+              <ref role="3cqZAo" node="UBWFwB5frN" resolve="flagString" />
+            </node>
+          </node>
+        </node>
+      </node>
+      <node concept="3Tm1VV" id="UBWFwB5dCt" role="1B3o_S" />
+      <node concept="10P_77" id="UBWFwB5fo7" role="3clF45" />
     </node>
     <node concept="2tJIrI" id="54meraTAJhq" role="jymVt" />
     <node concept="2YIFZL" id="54meraTAO3V" role="jymVt">
