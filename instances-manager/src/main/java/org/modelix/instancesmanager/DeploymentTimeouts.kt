@@ -13,38 +13,8 @@
  */
 package org.modelix.instancesmanager
 
-import org.modelix.instancesmanager.DeploymentManager
-import java.lang.InterruptedException
-import java.util.concurrent.atomic.AtomicLong
-import java.util.concurrent.atomic.AtomicBoolean
-import org.modelix.model.client.RestWebModelClient
-import io.kubernetes.client.openapi.apis.AppsV1Api
-import io.kubernetes.client.openapi.models.V1DeploymentList
-import io.kubernetes.client.openapi.models.V1Deployment
-import io.kubernetes.client.openapi.models.V1ObjectMeta
-import io.kubernetes.client.openapi.ApiException
-import javax.servlet.http.HttpServletRequest
-import java.io.IOException
-import java.lang.RuntimeException
-import io.kubernetes.client.openapi.apis.CoreV1Api
-import io.kubernetes.client.openapi.models.V1PodList
-import io.kubernetes.client.openapi.models.V1Pod
-import io.kubernetes.client.openapi.models.V1EnvVar
-import io.kubernetes.client.openapi.models.V1ServiceList
-import io.kubernetes.client.openapi.models.V1Service
-import io.kubernetes.client.openapi.models.V1ServicePort
-import io.kubernetes.client.openapi.models.V1Container
-import io.kubernetes.client.openapi.models.V1ResourceRequirements
 import org.apache.commons.collections4.map.HashedMap
-import org.modelix.instancesmanager.DeploymentTimeouts
-import java.lang.NumberFormatException
-import javax.servlet.http.HttpServletResponse
-import org.modelix.instancesmanager.ProxyServletWithWebsocketSupport
-import java.net.URISyntaxException
-import javax.servlet.ServletException
-import org.eclipse.jetty.proxy.ProxyServlet
 import java.util.*
-import javax.servlet.ServletContext
 
 class DeploymentTimeouts {
     private val timeouts = Collections.synchronizedMap(HashedMap<String?, Long>())
