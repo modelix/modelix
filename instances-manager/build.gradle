@@ -45,6 +45,7 @@ dependencies {
     compile group: 'org.kohsuke', name: 'github-api', version: '1.115'
 
     implementation(project(path: ":model-client", configuration: "jvmRuntimeElements"))
+    implementation(project(path: ":workspaces"))
 }
 
 assemble.dependsOn shadowJar

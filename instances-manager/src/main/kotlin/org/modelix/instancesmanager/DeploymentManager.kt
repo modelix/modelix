@@ -26,6 +26,8 @@ import org.eclipse.jetty.server.Request
 import org.json.JSONObject
 import org.modelix.instancesmanager.DeploymentManager
 import org.modelix.model.client.RestWebModelClient
+import org.modelix.workspaces.WorkspaceHash
+import org.modelix.workspaces.WorkspacePersistence
 import java.io.IOException
 import java.util.*
 import java.util.concurrent.atomic.AtomicBoolean
@@ -56,7 +58,7 @@ class DeploymentManager {
     private val deploymentSuffixSequence = AtomicLong(0xf)
     private val assignments = Collections.synchronizedMap(HashMap<String?, Assignments>())
     private val dirty = AtomicBoolean(true)
-    private val modelClient = RestWebModelClient(System.getenv("model_server_url"))
+    private val workspacePersistence = WorkspacePersistence()
     private fun getAssignments(originalDeploymentName: String?): Assignments {
         return assignments.computeIfAbsent(originalDeploymentName) { originalDeploymentName: String? -> Assignments(originalDeploymentName) }
     }
@@ -286,10 +288,9 @@ class DeploymentManager {
 
     private fun loadWorkspaceSpecificValues(workspaceHash: String, deployment: V1Deployment) {
         try {
-            val workspaceSpecString = modelClient[workspaceHash] ?: return
-            val workspaceSpec = JSONObject(workspaceSpecString)
+            val workspace = workspacePersistence.getWorkspaceForHash(WorkspaceHash(workspaceHash)) ?: return
             val container = deployment.spec!!.template.spec!!.containers[0]
-            val mpsVersion = workspaceSpec.optString("mpsVersion")
+            val mpsVersion = workspace.mpsVersion
             if (mpsVersion != null && mpsVersion.matches("""20\d\d\.\d""".toRegex())) {
                 var image = container.image
                 if (image != null) {
@@ -298,7 +299,7 @@ class DeploymentManager {
                 }
             }
             val resources = container.resources ?: return
-            val memoryLimit = Quantity.fromString(workspaceSpec.optString("memoryLimit", "2Gi"))
+            val memoryLimit = Quantity.fromString(workspace.memoryLimit)
             val limits = resources.limits
             if (limits != null) limits["memory"] = memoryLimit
             val requests = resources.requests

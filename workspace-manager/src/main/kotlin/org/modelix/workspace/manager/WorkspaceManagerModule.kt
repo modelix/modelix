@@ -30,6 +30,8 @@ import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import org.apache.commons.io.FileUtils
 import org.apache.commons.text.StringEscapeUtils
+import org.modelix.workspaces.Workspace
+import org.modelix.workspaces.WorkspaceHash
 import org.zeroturnaround.zip.ZipUtil
 import java.io.File
 

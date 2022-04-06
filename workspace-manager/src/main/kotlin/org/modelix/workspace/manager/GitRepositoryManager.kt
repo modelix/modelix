@@ -19,6 +19,8 @@ import org.eclipse.jgit.api.TransportCommand
 import org.eclipse.jgit.errors.RepositoryNotFoundException
 import org.eclipse.jgit.transport.UsernamePasswordCredentialsProvider
 import org.modelix.model.persistent.HashUtil
+import org.modelix.workspaces.Credentials
+import org.modelix.workspaces.GitRepository
 import java.io.*
 import java.lang.IllegalArgumentException
 import java.util.zip.ZipOutputStream

@@ -13,6 +13,7 @@
  */
 package org.modelix.workspace.manager
 
+import org.modelix.workspaces.Workspace
 import java.io.File
 
 class WorkspaceBuildJob(val workspace: Workspace, val downloadFile: File) {
