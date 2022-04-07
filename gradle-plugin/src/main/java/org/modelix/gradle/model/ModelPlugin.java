@@ -42,6 +42,7 @@ class MyServerSocketThread extends Thread {
         try {
             serverSocket = new ServerSocket(0);
             port = serverSocket.getLocalPort();
+            System.out.println("MyServerSocketThread started on port " + port);
         } catch (IOException e) {
             throw new RuntimeException("Unable to start server socket for communication with download task", e);
         }
@@ -66,19 +67,28 @@ class MyServerSocketThread extends Thread {
     @Override
     public void run() {
         try {
+            System.out.println("MyServerSocketThread waiting for connection on port " + port);
             Socket clientSocket = serverSocket.accept();
             out = new PrintWriter(clientSocket.getOutputStream(), true);
             in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
             System.out.println("MyServerSocketThread is waiting to receive messages");
-            while (!askedToDie) {
+            boolean eof = false;
+            while (!askedToDie && !eof) {
                 String messageReceived = in.readLine();
-                System.out.println("MyServerSocketThread received from Download Task: " + messageReceived);
-                if (!askedToDie) {
-                    this.messagesFromDownloadTask.add(messageReceived.trim());
+                if (messageReceived == null) {
+                    eof = true;
+                    System.out.println("MyServerSocketThread received from Download Task: null");
+                } else {
+                    System.out.println("MyServerSocketThread received from Download Task: " + messageReceived);
+                    if (!askedToDie) {
+                        this.messagesFromDownloadTask.add(messageReceived.trim());
+                    } else {
+                        System.out.println("MyServerSocketThread is ignoring the message because asked to die");
+                    }
                 }
             }
         } catch (IOException e) {
-            throw new RuntimeException("Unable to communicate with client", e);
+            throw new RuntimeException("MyServerSocketThread is unable to communicate with client", e);
         }
     }
 

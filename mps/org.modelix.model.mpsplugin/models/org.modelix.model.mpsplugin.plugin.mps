@@ -18258,6 +18258,25 @@
                 </node>
               </node>
             </node>
+            <node concept="3clFbF" id="1ZcsIWIjaGi" role="3cqZAp">
+              <node concept="2OqwBi" id="1ZcsIWIjaGj" role="3clFbG">
+                <node concept="10M0yZ" id="1ZcsIWIjaGk" role="2Oq$k0">
+                  <ref role="1PxDUh" to="wyt6:~System" resolve="System" />
+                  <ref role="3cqZAo" to="wyt6:~System.out" resolve="out" />
+                </node>
+                <node concept="liA8E" id="1ZcsIWIjaGl" role="2OqNvi">
+                  <ref role="37wK5l" to="guwi:~PrintStream.println(java.lang.String)" resolve="println" />
+                  <node concept="3cpWs3" id="1ZcsIWIjdnU" role="37wK5m">
+                    <node concept="37vLTw" id="1ZcsIWIjdCo" role="3uHU7w">
+                      <ref role="3cqZAo" node="72FvSoAx355" resolve="gradleTaskPort" />
+                    </node>
+                    <node concept="Xl_RD" id="1ZcsIWIjaGm" role="3uHU7B">
+                      <property role="Xl_RC" value="Modelix Application Plugin - connecting to gradle task on port " />
+                    </node>
+                  </node>
+                </node>
+              </node>
+            </node>
             <node concept="3cpWs8" id="72FvSoAxcHh" role="3cqZAp">
               <node concept="3cpWsn" id="72FvSoAxcHi" role="3cpWs9">
                 <property role="TrG5h" value="gradleTaskClient" />
@@ -18853,9 +18872,9 @@
                                                                                                                         <ref role="3cqZAo" node="72FvSoAxtfI" resolve="gradleTaskOut" />
                                                                                                                       </node>
                                                                                                                       <node concept="liA8E" id="72FvSoAxMYJ" role="2OqNvi">
-                                                                                                                        <ref role="37wK5l" to="guwi:~PrintWriter.append(java.lang.CharSequence)" resolve="append" />
+                                                                                                                        <ref role="37wK5l" to="guwi:~PrintWriter.println(java.lang.String)" resolve="println" />
                                                                                                                         <node concept="Xl_RD" id="72FvSoAxMYK" role="37wK5m">
-                                                                                                                          <property role="Xl_RC" value="&lt;MODEL EXPORT NOT COMPLETED SUCCESSFULLY&gt;\n" />
+                                                                                                                          <property role="Xl_RC" value="&lt;MODEL EXPORT NOT COMPLETED SUCCESSFULLY&gt;" />
                                                                                                                         </node>
                                                                                                                       </node>
                                                                                                                     </node>
@@ -18972,9 +18991,9 @@
                                                                                                                       <ref role="3cqZAo" node="72FvSoAxtfI" resolve="gradleTaskOut" />
                                                                                                                     </node>
                                                                                                                     <node concept="liA8E" id="72FvSoAxKss" role="2OqNvi">
-                                                                                                                      <ref role="37wK5l" to="guwi:~PrintWriter.append(java.lang.CharSequence)" resolve="append" />
+                                                                                                                      <ref role="37wK5l" to="guwi:~PrintWriter.println(java.lang.String)" resolve="println" />
                                                                                                                       <node concept="Xl_RD" id="72FvSoAxLYS" role="37wK5m">
-                                                                                                                        <property role="Xl_RC" value="&lt;MODEL EXPORT COMPLETED SUCCESSFULLY&gt;\n" />
+                                                                                                                        <property role="Xl_RC" value="&lt;MODEL EXPORT COMPLETED SUCCESSFULLY&gt;" />
                                                                                                                       </node>
                                                                                                                     </node>
                                                                                                                   </node>
