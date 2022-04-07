@@ -26,8 +26,6 @@ import java.util.List;
 import java.util.jar.Manifest;
 import java.util.stream.Collectors;
 
-import static com.ibm.icu.text.PluralRules.Operand.e;
-
 
 class MyServerSocketThread extends Thread {
     private List<String> messagesFromDownloadTask = new LinkedList<String>();
@@ -215,9 +213,6 @@ public class ModelPlugin implements Plugin<Project> {
 
                     int exitValue = execResult.getExitValue();
                     System.out.println("Exit value was " + exitValue);
-                    //List<String> outputLines = sg.getContent();
-                    //boolean success = outputLines.contains("<MODEL EXPORT COMPLETED SUCCESSFULLY>");
-                    //boolean failure = outputLines.contains("<MODEL EXPORT NOT COMPLETED SUCCESSFULLY>");
                     if (serverSocketThread.failed()) {
                         System.err.println("Execution of ExportMain failed");
                         throw new RuntimeException();
