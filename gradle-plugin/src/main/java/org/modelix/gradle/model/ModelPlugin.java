@@ -55,6 +55,10 @@ class MyServerSocketThread extends Thread {
         return messagesFromDownloadTask.contains("<MODEL EXPORT COMPLETED SUCCESSFULLY>");
     }
 
+    public List<String> getReceivedMessages() {
+        return messagesFromDownloadTask;
+    }
+
     public boolean failed() {
         return messagesFromDownloadTask.contains("<MODEL EXPORT NOT COMPLETED SUCCESSFULLY>");
     }
@@ -65,11 +69,12 @@ class MyServerSocketThread extends Thread {
             Socket clientSocket = serverSocket.accept();
             out = new PrintWriter(clientSocket.getOutputStream(), true);
             in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+            System.out.println("MyServerSocketThread is waiting to receive messages");
             while (!askedToDie) {
                 String messageReceived = in.readLine();
-                System.out.println("Received from Download Task: " + messageReceived);
+                System.out.println("MyServerSocketThread received from Download Task: " + messageReceived);
                 if (!askedToDie) {
-                    this.messagesFromDownloadTask.add(messageReceived);
+                    this.messagesFromDownloadTask.add(messageReceived.trim());
                 }
             }
         } catch (IOException e) {
@@ -209,7 +214,7 @@ public class ModelPlugin implements Plugin<Project> {
                     }
                     if (!serverSocketThread.succedeed()) {
                         System.err.println("Execution of ExportMain does not indicate success");
-                        throw new RuntimeException("We did not receive explicit confirmation that the download operation succeeded");
+                        throw new RuntimeException("We did not receive explicit confirmation that the download operation succeeded. We received this: " + serverSocketThread.getReceivedMessages());
                     }
                     if (exitValue != 0) {
                         System.err.println("Execution of ExportMain failed. Exit code: " + exitValue);
