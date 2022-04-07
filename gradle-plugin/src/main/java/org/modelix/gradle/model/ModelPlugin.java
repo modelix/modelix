@@ -40,7 +40,7 @@ class MyServerSocketThread extends Thread {
     public MyServerSocketThread() {
         super();
         try {
-            ServerSocket serverSocket = new ServerSocket(0);
+            serverSocket = new ServerSocket(0);
             port = serverSocket.getLocalPort();
         } catch (IOException e) {
             throw new RuntimeException("Unable to start server socket for communication with download task", e);
@@ -67,7 +67,7 @@ class MyServerSocketThread extends Thread {
             in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
             while (!askedToDie) {
                 String messageReceived = in.readLine();
-                System.out.println("Received from Download TasK: " + messageReceived);
+                System.out.println("Received from Download Task: " + messageReceived);
                 if (!askedToDie) {
                     this.messagesFromDownloadTask.add(messageReceived);
                 }
@@ -209,7 +209,7 @@ public class ModelPlugin implements Plugin<Project> {
                     }
                     if (!serverSocketThread.succedeed()) {
                         System.err.println("Execution of ExportMain does not indicate success");
-                        throw new RuntimeException("We could not find the output lines indicating successful completion. Lines found: " + outputLines);
+                        throw new RuntimeException("We did not receive explicit confirmation that the download operation succeeded");
                     }
                     if (exitValue != 0) {
                         System.err.println("Execution of ExportMain failed. Exit code: " + exitValue);
