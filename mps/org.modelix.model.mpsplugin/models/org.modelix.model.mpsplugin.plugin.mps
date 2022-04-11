@@ -73,7 +73,7 @@
     <import index="z1c5" ref="86441d7a-e194-42da-81a5-2161ec62a379/java:jetbrains.mps.project(MPS.Workbench/)" />
     <import index="1ctc" ref="6354ebe7-c22a-4a0f-ac54-50b52ab9b065/java:java.util.stream(JDK/)" />
     <import index="hvt5" ref="0a2651ab-f212-45c2-a2f0-343e76cbc26b/java:org.modelix.model(org.modelix.model.client/)" />
-    <import index="guwi" ref="6354ebe7-c22a-4a0f-ac54-50b52ab9b065/java:java.io(JDK/)" implicit="true" />
+    <import index="guwi" ref="6354ebe7-c22a-4a0f-ac54-50b52ab9b065/java:java.io(JDK/)" />
     <import index="71xd" ref="742f6602-5a2f-4313-aa6e-ae1cd4ffdc61/java:jetbrains.mps.ide.tools(MPS.Platform/)" implicit="true" />
     <import index="tprs" ref="r:00000000-0000-4000-0000-011c895904a4(jetbrains.mps.ide.actions)" implicit="true" />
     <import index="tpcu" ref="r:00000000-0000-4000-0000-011c89590282(jetbrains.mps.lang.core.behavior)" implicit="true" />
@@ -16465,6 +16465,20 @@
         </node>
       </node>
     </node>
+    <node concept="Wx3nA" id="72FvSoAwZtY" role="jymVt">
+      <property role="TrG5h" value="GRADLE_PLUGIN_SOCKET_PORT" />
+      <property role="3TUv4t" value="true" />
+      <node concept="3Tm1VV" id="72FvSoAwZtZ" role="1B3o_S" />
+      <node concept="17QB3L" id="72FvSoAwZu0" role="1tU5fm" />
+      <node concept="3cpWs3" id="72FvSoAwZu1" role="33vP2m">
+        <node concept="Xl_RD" id="72FvSoAwZu2" role="3uHU7w">
+          <property role="Xl_RC" value="gradlePluginSocketPort" />
+        </node>
+        <node concept="37vLTw" id="72FvSoAwZu5" role="3uHU7B">
+          <ref role="3cqZAo" node="4D52TXxABGO" resolve="PREFIX" />
+        </node>
+      </node>
+    </node>
     <node concept="Wx3nA" id="25JjLrsBYsb" role="jymVt">
       <property role="TrG5h" value="MAKE" />
       <property role="3TUv4t" value="true" />
@@ -18225,6 +18239,114 @@
                 </node>
               </node>
             </node>
+            <node concept="3clFbH" id="72FvSoAx8E9" role="3cqZAp" />
+            <node concept="3cpWs8" id="72FvSoAx352" role="3cqZAp">
+              <node concept="3cpWsn" id="72FvSoAx355" role="3cpWs9">
+                <property role="TrG5h" value="gradleTaskPort" />
+                <node concept="10Oyi0" id="72FvSoAx350" role="1tU5fm" />
+                <node concept="2YIFZM" id="72FvSoAx5ri" role="33vP2m">
+                  <ref role="1Pybhc" to="wyt6:~Integer" resolve="Integer" />
+                  <ref role="37wK5l" to="wyt6:~Integer.parseInt(java.lang.String)" resolve="parseInt" />
+                  <node concept="2YIFZM" id="72FvSoAx5xV" role="37wK5m">
+                    <ref role="1Pybhc" to="ia5i:3xX$Vyo038N" resolve="PropertyOrEnv" />
+                    <ref role="37wK5l" to="ia5i:3xX$Vyo0aHz" resolve="get" />
+                    <node concept="10M0yZ" id="72FvSoAx5Wz" role="37wK5m">
+                      <ref role="3cqZAo" node="72FvSoAwZtY" resolve="GRADLE_PLUGIN_SOCKET_PORT" />
+                      <ref role="1PxDUh" node="4D52TXxApUP" resolve="ModelixExportConfiguration" />
+                    </node>
+                  </node>
+                </node>
+              </node>
+            </node>
+            <node concept="3clFbF" id="1ZcsIWIjaGi" role="3cqZAp">
+              <node concept="2OqwBi" id="1ZcsIWIjaGj" role="3clFbG">
+                <node concept="10M0yZ" id="1ZcsIWIjaGk" role="2Oq$k0">
+                  <ref role="1PxDUh" to="wyt6:~System" resolve="System" />
+                  <ref role="3cqZAo" to="wyt6:~System.out" resolve="out" />
+                </node>
+                <node concept="liA8E" id="1ZcsIWIjaGl" role="2OqNvi">
+                  <ref role="37wK5l" to="guwi:~PrintStream.println(java.lang.String)" resolve="println" />
+                  <node concept="3cpWs3" id="1ZcsIWIjdnU" role="37wK5m">
+                    <node concept="37vLTw" id="1ZcsIWIjdCo" role="3uHU7w">
+                      <ref role="3cqZAo" node="72FvSoAx355" resolve="gradleTaskPort" />
+                    </node>
+                    <node concept="Xl_RD" id="1ZcsIWIjaGm" role="3uHU7B">
+                      <property role="Xl_RC" value="Modelix Application Plugin - connecting to gradle task on port " />
+                    </node>
+                  </node>
+                </node>
+              </node>
+            </node>
+            <node concept="3cpWs8" id="72FvSoAxcHh" role="3cqZAp">
+              <node concept="3cpWsn" id="72FvSoAxcHi" role="3cpWs9">
+                <property role="TrG5h" value="gradleTaskClient" />
+                <node concept="3uibUv" id="72FvSoAxeK2" role="1tU5fm">
+                  <ref role="3uigEE" to="zf81:~Socket" resolve="Socket" />
+                </node>
+                <node concept="2ShNRf" id="72FvSoAxf6f" role="33vP2m">
+                  <node concept="1pGfFk" id="72FvSoAxf0x" role="2ShVmc">
+                    <ref role="37wK5l" to="zf81:~Socket.&lt;init&gt;(java.lang.String,int)" resolve="Socket" />
+                    <node concept="Xl_RD" id="72FvSoAxfht" role="37wK5m">
+                      <property role="Xl_RC" value="127.0.0.1" />
+                    </node>
+                    <node concept="37vLTw" id="72FvSoAxg2I" role="37wK5m">
+                      <ref role="3cqZAo" node="72FvSoAx355" resolve="gradleTaskPort" />
+                    </node>
+                  </node>
+                </node>
+              </node>
+            </node>
+            <node concept="3cpWs8" id="72FvSoAxtfH" role="3cqZAp">
+              <node concept="3cpWsn" id="72FvSoAxtfI" role="3cpWs9">
+                <property role="TrG5h" value="gradleTaskOut" />
+                <node concept="3uibUv" id="72FvSoAxtfJ" role="1tU5fm">
+                  <ref role="3uigEE" to="guwi:~PrintWriter" resolve="PrintWriter" />
+                </node>
+                <node concept="2ShNRf" id="72FvSoAxmSg" role="33vP2m">
+                  <node concept="1pGfFk" id="72FvSoAxmT8" role="2ShVmc">
+                    <ref role="37wK5l" to="guwi:~PrintWriter.&lt;init&gt;(java.io.OutputStream,boolean)" resolve="PrintWriter" />
+                    <node concept="2OqwBi" id="72FvSoAxn3v" role="37wK5m">
+                      <node concept="37vLTw" id="72FvSoAxnjS" role="2Oq$k0">
+                        <ref role="3cqZAo" node="72FvSoAxcHi" resolve="gradleTaskClient" />
+                      </node>
+                      <node concept="liA8E" id="72FvSoAxn3w" role="2OqNvi">
+                        <ref role="37wK5l" to="zf81:~Socket.getOutputStream()" resolve="getOutputStream" />
+                      </node>
+                    </node>
+                    <node concept="3clFbT" id="72FvSoAxmTa" role="37wK5m">
+                      <property role="3clFbU" value="true" />
+                    </node>
+                  </node>
+                </node>
+              </node>
+            </node>
+            <node concept="3cpWs8" id="72FvSoAx$WH" role="3cqZAp">
+              <node concept="3cpWsn" id="72FvSoAx$WI" role="3cpWs9">
+                <property role="TrG5h" value="gradleTaskIn" />
+                <node concept="3uibUv" id="72FvSoAxBui" role="1tU5fm">
+                  <ref role="3uigEE" to="guwi:~BufferedReader" resolve="BufferedReader" />
+                </node>
+                <node concept="2ShNRf" id="72FvSoAxBDp" role="33vP2m">
+                  <node concept="1pGfFk" id="72FvSoAxqoy" role="2ShVmc">
+                    <ref role="37wK5l" to="guwi:~BufferedReader.&lt;init&gt;(java.io.Reader)" resolve="BufferedReader" />
+                    <node concept="2ShNRf" id="72FvSoAxqoz" role="37wK5m">
+                      <node concept="1pGfFk" id="72FvSoAxqo$" role="2ShVmc">
+                        <ref role="37wK5l" to="guwi:~InputStreamReader.&lt;init&gt;(java.io.InputStream)" resolve="InputStreamReader" />
+                        <node concept="2OqwBi" id="72FvSoAxEaG" role="37wK5m">
+                          <node concept="37vLTw" id="72FvSoAxEt3" role="2Oq$k0">
+                            <ref role="3cqZAo" node="72FvSoAxcHi" resolve="gradleTaskClient" />
+                          </node>
+                          <node concept="liA8E" id="72FvSoAxEaH" role="2OqNvi">
+                            <ref role="37wK5l" to="zf81:~Socket.getInputStream()" resolve="getInputStream" />
+                          </node>
+                        </node>
+                      </node>
+                    </node>
+                  </node>
+                </node>
+              </node>
+            </node>
+            <node concept="3clFbH" id="72FvSoAx6Gj" role="3cqZAp" />
             <node concept="3cpWs8" id="d9jdlYVi9E" role="3cqZAp">
               <node concept="3cpWsn" id="d9jdlYVi9F" role="3cpWs9">
                 <property role="TrG5h" value="modelServerConnection" />
@@ -18736,15 +18858,22 @@
                                                                                                                       </node>
                                                                                                                     </node>
                                                                                                                   </node>
-                                                                                                                  <node concept="3clFbF" id="5mIc0gCpJt7" role="3cqZAp">
-                                                                                                                    <node concept="2OqwBi" id="5mIc0gCpJt8" role="3clFbG">
-                                                                                                                      <node concept="10M0yZ" id="5mIc0gCpJt9" role="2Oq$k0">
-                                                                                                                        <ref role="1PxDUh" to="wyt6:~System" resolve="System" />
-                                                                                                                        <ref role="3cqZAo" to="wyt6:~System.out" resolve="out" />
+                                                                                                                  <node concept="abc8K" id="1ZcsIWIiPbT" role="3cqZAp">
+                                                                                                                    <node concept="Xl_RD" id="1ZcsIWIiPbU" role="abp_N">
+                                                                                                                      <property role="Xl_RC" value="DOWNLOAD TASK WRITING " />
+                                                                                                                    </node>
+                                                                                                                    <node concept="Xl_RD" id="1ZcsIWIiPbV" role="abp_N">
+                                                                                                                      <property role="Xl_RC" value="&lt;MODEL EXPORT NOT COMPLETED SUCCESSFULLY&gt;\n" />
+                                                                                                                    </node>
+                                                                                                                  </node>
+                                                                                                                  <node concept="3clFbF" id="72FvSoAxMYG" role="3cqZAp">
+                                                                                                                    <node concept="2OqwBi" id="72FvSoAxMYH" role="3clFbG">
+                                                                                                                      <node concept="37vLTw" id="72FvSoAxMYI" role="2Oq$k0">
+                                                                                                                        <ref role="3cqZAo" node="72FvSoAxtfI" resolve="gradleTaskOut" />
                                                                                                                       </node>
-                                                                                                                      <node concept="liA8E" id="5mIc0gCpJta" role="2OqNvi">
-                                                                                                                        <ref role="37wK5l" to="guwi:~PrintStream.println(java.lang.String)" resolve="println" />
-                                                                                                                        <node concept="Xl_RD" id="5mIc0gCpJtb" role="37wK5m">
+                                                                                                                      <node concept="liA8E" id="72FvSoAxMYJ" role="2OqNvi">
+                                                                                                                        <ref role="37wK5l" to="guwi:~PrintWriter.println(java.lang.String)" resolve="println" />
+                                                                                                                        <node concept="Xl_RD" id="72FvSoAxMYK" role="37wK5m">
                                                                                                                           <property role="Xl_RC" value="&lt;MODEL EXPORT NOT COMPLETED SUCCESSFULLY&gt;" />
                                                                                                                         </node>
                                                                                                                       </node>
@@ -18848,15 +18977,22 @@
                                                                                                                     </node>
                                                                                                                   </node>
                                                                                                                 </node>
-                                                                                                                <node concept="3clFbF" id="5mIc0gCp$gn" role="3cqZAp">
-                                                                                                                  <node concept="2OqwBi" id="5mIc0gCp$go" role="3clFbG">
-                                                                                                                    <node concept="10M0yZ" id="5mIc0gCp$gp" role="2Oq$k0">
-                                                                                                                      <ref role="1PxDUh" to="wyt6:~System" resolve="System" />
-                                                                                                                      <ref role="3cqZAo" to="wyt6:~System.out" resolve="out" />
+                                                                                                                <node concept="abc8K" id="1ZcsIWIiLPO" role="3cqZAp">
+                                                                                                                  <node concept="Xl_RD" id="1ZcsIWIiNov" role="abp_N">
+                                                                                                                    <property role="Xl_RC" value="DOWNLOAD TASK WRITING " />
+                                                                                                                  </node>
+                                                                                                                  <node concept="Xl_RD" id="1ZcsIWIiO_4" role="abp_N">
+                                                                                                                    <property role="Xl_RC" value="&lt;MODEL EXPORT COMPLETED SUCCESSFULLY&gt;\n" />
+                                                                                                                  </node>
+                                                                                                                </node>
+                                                                                                                <node concept="3clFbF" id="72FvSoAxJ7B" role="3cqZAp">
+                                                                                                                  <node concept="2OqwBi" id="72FvSoAxJxR" role="3clFbG">
+                                                                                                                    <node concept="37vLTw" id="72FvSoAxJ7_" role="2Oq$k0">
+                                                                                                                      <ref role="3cqZAo" node="72FvSoAxtfI" resolve="gradleTaskOut" />
                                                                                                                     </node>
-                                                                                                                    <node concept="liA8E" id="5mIc0gCp$gq" role="2OqNvi">
-                                                                                                                      <ref role="37wK5l" to="guwi:~PrintStream.println(java.lang.String)" resolve="println" />
-                                                                                                                      <node concept="Xl_RD" id="5mIc0gCp$gr" role="37wK5m">
+                                                                                                                    <node concept="liA8E" id="72FvSoAxKss" role="2OqNvi">
+                                                                                                                      <ref role="37wK5l" to="guwi:~PrintWriter.println(java.lang.String)" resolve="println" />
+                                                                                                                      <node concept="Xl_RD" id="72FvSoAxLYS" role="37wK5m">
                                                                                                                         <property role="Xl_RC" value="&lt;MODEL EXPORT COMPLETED SUCCESSFULLY&gt;" />
                                                                                                                       </node>
                                                                                                                     </node>
