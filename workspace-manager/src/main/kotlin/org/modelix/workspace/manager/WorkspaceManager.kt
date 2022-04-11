@@ -171,7 +171,7 @@ class WorkspaceManager {
                     zipStream.copyFiles(it, mapPath = { workspacePath.relativize(it)})
                 }
                 gitManagers.forEach { repo ->
-                    repo.second.zip(repo.first.paths, zipStream)
+                    repo.second.zip(repo.first.paths, zipStream, includeGitDir = true)
                 }
                 workspace.uploads.forEach { uploadId ->
                     zipStream.copyFiles(getUploadFolder(uploadId), mapPath = {directory.toPath().relativize(it)})
