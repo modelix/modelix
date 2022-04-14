@@ -11,7 +11,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.modelix.workspace.manager
+package org.modelix.workspaces
 
 import kotlinx.serialization.Serializable
 import org.jasypt.util.text.AES256TextEncryptor

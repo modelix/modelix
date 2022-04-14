@@ -19,6 +19,8 @@ import org.eclipse.jgit.api.TransportCommand
 import org.eclipse.jgit.errors.RepositoryNotFoundException
 import org.eclipse.jgit.transport.UsernamePasswordCredentialsProvider
 import org.modelix.model.persistent.HashUtil
+import org.modelix.workspaces.Credentials
+import org.modelix.workspaces.GitRepository
 import java.io.*
 import java.lang.IllegalArgumentException
 import java.util.zip.ZipOutputStream
@@ -85,7 +87,7 @@ class GitRepositoryManager(val config: GitRepository, val encryptedCredentials: 
     }
 
 
-    fun zip(subfolders: List<String>?, output: ZipOutputStream) {
+    fun zip(subfolders: List<String>?, output: ZipOutputStream, includeGitDir: Boolean) {
         updateRepo()
         val roots: List<File> = getRootFolders(subfolders)
         val gitDir = File(repoDirectory, ".git").toPath()
@@ -93,6 +95,13 @@ class GitRepositoryManager(val config: GitRepository, val encryptedCredentials: 
             output.copyFiles(
                 inputDir = root,
                 filter = { !it.startsWith(gitDir) },
+                mapPath = { workspaceDirectory.toPath().relativize(it) },
+                extractZipFiles = false
+            )
+        }
+        if (includeGitDir) {
+            output.copyFiles(
+                inputDir = gitDir.toFile(),
                 mapPath = { workspaceDirectory.toPath().relativize(it) },
                 extractZipFiles = false
             )
