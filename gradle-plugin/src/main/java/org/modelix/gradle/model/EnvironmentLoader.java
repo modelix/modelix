@@ -37,6 +37,7 @@ public class EnvironmentLoader {
         ADDITIONAL_PLUGINS("additionalPlugins"),
         ADDITIONAL_PLUGIN_DIRS("additionalPluginDirs"),
         MPS_EXTENSIONS_PATH("mpsExtensionsPath"),
+        GRADLE_PLUGIN_SOCKET_PORT("gradlePluginSocketPort"),
         MODELIX_PATH("modelixPath"),
         MAKE("make"),
         PROJECT("project");

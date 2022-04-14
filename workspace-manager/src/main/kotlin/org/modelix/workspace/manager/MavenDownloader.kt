@@ -17,6 +17,7 @@ import org.apache.commons.io.FileUtils
 import org.apache.maven.shared.invoker.DefaultInvocationRequest
 import org.apache.maven.shared.invoker.DefaultInvoker
 import org.apache.maven.shared.invoker.InvocationOutputHandler
+import org.modelix.workspaces.Workspace
 import org.zeroturnaround.zip.ZipUtil
 import java.io.File
 import java.util.*
