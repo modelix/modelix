@@ -25,6 +25,7 @@
             <option value="$PROJECT_DIR$/ui-server" />
             <option value="$PROJECT_DIR$/workspace-client" />
             <option value="$PROJECT_DIR$/workspace-manager" />
+            <option value="$PROJECT_DIR$/workspaces" />
           </set>
         </option>
       </GradleProjectSettings>

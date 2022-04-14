@@ -10,15 +10,91 @@ import org.gradle.api.tasks.JavaExec;
 import org.gradle.process.ExecResult;
 import org.modelix.gradle.model.EnvironmentLoader.Key;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.net.ServerSocket;
+import java.net.Socket;
 import java.net.URL;
 import java.time.Duration;
 import java.util.Arrays;
 import java.util.Enumeration;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.jar.Manifest;
 import java.util.stream.Collectors;
+
+
+class MyServerSocketThread extends Thread {
+    private List<String> messagesFromDownloadTask = new LinkedList<String>();
+    private ServerSocket serverSocket;
+    private int port;
+    private PrintWriter out;
+    private BufferedReader in;
+    private boolean askedToDie = false;
+
+    public MyServerSocketThread() {
+        super();
+        try {
+            serverSocket = new ServerSocket(0);
+            port = serverSocket.getLocalPort();
+            System.out.println("MyServerSocketThread started on port " + port);
+        } catch (IOException e) {
+            throw new RuntimeException("Unable to start server socket for communication with download task", e);
+        }
+    }
+
+    public int getPort() {
+        return this.port;
+    }
+
+    public boolean succedeed() {
+        return messagesFromDownloadTask.contains("<MODEL EXPORT COMPLETED SUCCESSFULLY>");
+    }
+
+    public List<String> getReceivedMessages() {
+        return messagesFromDownloadTask;
+    }
+
+    public boolean failed() {
+        return messagesFromDownloadTask.contains("<MODEL EXPORT NOT COMPLETED SUCCESSFULLY>");
+    }
+
+    @Override
+    public void run() {
+        try {
+            System.out.println("MyServerSocketThread waiting for connection on port " + port);
+            Socket clientSocket = serverSocket.accept();
+            out = new PrintWriter(clientSocket.getOutputStream(), true);
+            in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+            System.out.println("MyServerSocketThread is waiting to receive messages");
+            boolean eof = false;
+            while (!askedToDie && !eof) {
+                String messageReceived = in.readLine();
+                if (messageReceived == null) {
+                    eof = true;
+                    System.out.println("MyServerSocketThread received from Download Task: null");
+                } else {
+                    System.out.println("MyServerSocketThread received from Download Task: " + messageReceived);
+                    if (!askedToDie) {
+                        this.messagesFromDownloadTask.add(messageReceived.trim());
+                    } else {
+                        System.out.println("MyServerSocketThread is ignoring the message because asked to die");
+                    }
+                }
+            }
+        } catch (IOException e) {
+            throw new RuntimeException("MyServerSocketThread is unable to communicate with client", e);
+        }
+    }
+
+    public void pleaseGracefullyDie() {
+        this.askedToDie = true;
+    }
+
+}
 
 public class ModelPlugin implements Plugin<Project> {
 
@@ -91,7 +167,8 @@ public class ModelPlugin implements Plugin<Project> {
                     javaExec.dependsOn(copyMpsTask, copyMpsModelPluginTask);
                 }
 
-                StreamContentCapture sg = StreamContentCapture.go(javaExec, System.out);
+                MyServerSocketThread serverSocketThread = new MyServerSocketThread();
+                serverSocketThread.start();
 
                 javaExec.setDescription("Export models from modelix model server to MPS files");
                 javaExec.classpath(project.fileTree(new File(mpsLocation, "lib")).include("**/*.jar"));
@@ -103,7 +180,8 @@ public class ModelPlugin implements Plugin<Project> {
                         Key.ADDITIONAL_LIBRARIES.getCode(), settings.getAdditionalLibrariesAsString(),
                         Key.ADDITIONAL_LIBRARY_DIRS.getCode(), settings.getAdditionalLibraryDirsAsString(),
                         Key.ADDITIONAL_PLUGINS.getCode(), settings.getAdditionalPluginsAsString(),
-                        Key.ADDITIONAL_PLUGIN_DIRS.getCode(), settings.getAdditionalPluginDirsAsString()
+                        Key.ADDITIONAL_PLUGIN_DIRS.getCode(), settings.getAdditionalPluginDirsAsString(),
+                        Key.GRADLE_PLUGIN_SOCKET_PORT.getCode(), Integer.toString(serverSocketThread.getPort())
                 );
                 if (settings.getProjectFile() != null) {
                     javaExec.args(Key.PROJECT.getCode(), settings.getProjectFile().getAbsolutePath());
@@ -129,18 +207,19 @@ public class ModelPlugin implements Plugin<Project> {
                     System.out.println("  Args                    : " + javaExec.getArgs());
                     System.out.println("After execution of export main");
                     ExecResult execResult = javaExec.getExecutionResult().get();
+
+                    serverSocketThread.pleaseGracefullyDie();
+                    // now no one is writing on my collection and I can safely read it
+
                     int exitValue = execResult.getExitValue();
                     System.out.println("Exit value was " + exitValue);
-                    List<String> outputLines = sg.getContent();
-                    boolean success = outputLines.contains("<MODEL EXPORT COMPLETED SUCCESSFULLY>");
-                    boolean failure = outputLines.contains("<MODEL EXPORT NOT COMPLETED SUCCESSFULLY>");
-                    if (failure) {
+                    if (serverSocketThread.failed()) {
                         System.err.println("Execution of ExportMain failed");
                         throw new RuntimeException();
                     }
-                    if (!success) {
+                    if (!serverSocketThread.succedeed()) {
                         System.err.println("Execution of ExportMain does not indicate success");
-                        throw new RuntimeException("We could not find the output lines indicating successful completion. Lines found: " + outputLines);
+                        throw new RuntimeException("We did not receive explicit confirmation that the download operation succeeded. We received this: " + serverSocketThread.getReceivedMessages());
                     }
                     if (exitValue != 0) {
                         System.err.println("Execution of ExportMain failed. Exit code: " + exitValue);

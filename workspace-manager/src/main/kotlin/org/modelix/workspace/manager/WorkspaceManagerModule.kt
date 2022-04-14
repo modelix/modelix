@@ -30,6 +30,8 @@ import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import org.apache.commons.io.FileUtils
 import org.apache.commons.text.StringEscapeUtils
+import org.modelix.workspaces.Workspace
+import org.modelix.workspaces.WorkspaceHash
 import org.zeroturnaround.zip.ZipUtil
 import java.io.File
 
@@ -171,8 +173,8 @@ fun Application.workspaceManagerModule() {
                                 }
                                 li {
                                     b { +"mpsVersion" }
-                                    +": Currently not used."
-                                    +" A workspace is always executed with MPS version that is installed in the Modelix cluster."
+                                    +": This is experimental."
+                                    +" The workspace will be executed using a docker image from a Modelix release for a different MPS version."
                                 }
                                 li {
                                     b { +"modelRepositories" }
