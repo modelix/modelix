@@ -28,3 +28,4 @@ source_gen.caches
 
 !/projector-user-home/**/*
 .mps-caches
+.gitattributes
