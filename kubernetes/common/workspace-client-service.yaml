@@ -14,5 +14,8 @@ spec:
   - name: "modelix-ui"
     port: 33333
     targetPort: 33333
+  - name: "debug"
+    port: 5071
+    targetPort: 5071
   selector:
     app: workspace-client

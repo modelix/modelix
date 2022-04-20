@@ -15,9 +15,7 @@
 package org.modelix.workspace.manager
 
 import com.charleskorn.kaml.Yaml
-import io.ktor.application.Application
-import io.ktor.application.call
-import io.ktor.application.install
+import io.ktor.application.*
 import io.ktor.features.*
 import io.ktor.html.*
 import io.ktor.http.*
@@ -30,6 +28,10 @@ import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import org.apache.commons.io.FileUtils
 import org.apache.commons.text.StringEscapeUtils
+import org.modelix.gitui.GIT_REPO_DIR_ATTRIBUTE_KEY
+import org.modelix.gitui.Gitui
+import org.modelix.gitui.MPS_INSTANCE_URL_ATTRIBUTE_KEY
+import org.modelix.gitui.gitui
 import org.modelix.workspaces.Workspace
 import org.modelix.workspaces.WorkspaceHash
 import org.zeroturnaround.zip.ZipUtil
@@ -143,6 +145,14 @@ fun Application.workspaceManagerModule() {
                             style = "margin-left: 24px"
                             href = "../../workspace-${workspace.id}-$workspaceHash/ide/"
                             text("Open MPS")
+                        }
+                        workspace.gitRepositories.forEachIndexed { index, gitRepository ->
+                            a {
+                                style = "margin-left: 24px"
+                                href = "git/$index/"
+                                val suffix = if (gitRepository.name.isNullOrEmpty()) "" else " (${gitRepository.name})"
+                                text("Git History" + suffix)
+                            }
                         }
                     }
                     br()
@@ -506,8 +516,30 @@ fun Application.workspaceManagerModule() {
             call.respondRedirect("./edit")
         }
 
-        static {
-            resources("html")
+        route("{workspaceId}/git/{repoIndex}/") {
+            intercept(ApplicationCallPipeline.Call) {
+                val workspaceId = call.parameters["workspaceId"]!!
+                val repoIndex = call.parameters["repoIndex"]!!.toInt()
+                val workspaceAndHash = manager.getWorkspaceForId(workspaceId)
+                if (workspaceAndHash == null) {
+                    call.respondText("Workspace $workspaceId not found", ContentType.Text.Plain, HttpStatusCode.NotFound)
+                    return@intercept
+                }
+                val (workspace, workspaceHash) = workspaceAndHash
+                val repos = workspace.gitRepositories
+                if (!repos.indices.contains(repoIndex)) {
+                    call.respondText("Git repository with index $repoIndex doesn't exist", ContentType.Text.Plain, HttpStatusCode.NotFound)
+                    return@intercept
+                }
+                val repo = repos[repoIndex]
+                val repoManager = GitRepositoryManager(repo, manager.getWorkspaceDirectory(workspace))
+                if (!repoManager.repoDirectory.exists()) {
+                    repoManager.updateRepo()
+                }
+                call.attributes.put(GIT_REPO_DIR_ATTRIBUTE_KEY, repoManager.repoDirectory)
+                call.attributes.put(MPS_INSTANCE_URL_ATTRIBUTE_KEY, "../../../../workspace-${workspace.id}-$workspaceHash/ide/")
+            }
+            gitui()
         }
     }
 

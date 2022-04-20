@@ -21,9 +21,11 @@ function getCheckedBranchCheckboxes() {
     return checkboxes.filter(e => e.checked);
 }
 
-function openBranchDiff() {
+function openBranchDiff(mpsInstanceUrl) {
     let checkboxes = getCheckedBranchCheckboxes();
     if (checkboxes.length < 2) return;
     let commitHashes = checkboxes.map(e => e.value);
-    window.open("diff/" + commitHashes[0] + "/" + commitHashes[1] + "/", "_blank");
+    if (mpsInstanceUrl === null || mpsInstanceUrl === undefined) mpsInstanceUrl = "";
+    if (!mpsInstanceUrl.endsWith("/")) mpsInstanceUrl += "/";
+    window.open(mpsInstanceUrl + "diff/" + commitHashes[0] + "/" + commitHashes[1] + "/", "_blank");
 }

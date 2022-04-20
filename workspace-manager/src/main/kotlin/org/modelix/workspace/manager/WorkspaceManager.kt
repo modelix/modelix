@@ -103,7 +103,7 @@ class WorkspaceManager {
                 // This ensures that all clients work on the same version.
                 // Updating to a new version can be done by setting the commitHash back to null
                 // to re-trigger this code.
-                repo.commitHash = GitRepositoryManager(repo, null, getWorkspaceDirectory(workspace)).updateRepo()
+                repo.commitHash = GitRepositoryManager(repo, getWorkspaceDirectory(workspace)).updateRepo()
             }
         }
     }
@@ -131,7 +131,7 @@ class WorkspaceManager {
         val mavenFolders = workspace.mavenDependencies
             .map { MavenDownloader(workspace, getWorkspaceDirectory(workspace)).downloadAndCopyFromMaven(it, job.outputHandler) }
         val gitManagers = workspace.gitRepositories
-            .map { it to GitRepositoryManager(it, it.credentials, getWorkspaceDirectory(workspace)) }
+            .map { it to GitRepositoryManager(it, getWorkspaceDirectory(workspace)) }
         gitManagers.forEach { it.second.updateRepo() }
         val moduleFolders: List<ModuleOrigin> =
             mavenFolders.map { ModuleOrigin(it.toPath(), workspacePath.relativize(it.toPath())) } +

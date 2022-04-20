@@ -1,5 +1,7 @@
 #!/bin/sh
 
+set -e
+
 ./docker-build-db.sh
 ./docker-build-model.sh
 ./docker-build-mps.sh
