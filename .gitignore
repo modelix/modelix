@@ -27,3 +27,5 @@ source_gen.caches
 **/.mps/cloudResources.xml
 
 !/projector-user-home/**/*
+.gitattributes
+.mps-caches
