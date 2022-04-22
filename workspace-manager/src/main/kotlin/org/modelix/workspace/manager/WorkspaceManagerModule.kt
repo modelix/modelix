@@ -537,7 +537,7 @@ fun Application.workspaceManagerModule() {
                     repoManager.updateRepo()
                 }
                 call.attributes.put(GIT_REPO_DIR_ATTRIBUTE_KEY, repoManager.repoDirectory)
-                call.attributes.put(MPS_INSTANCE_URL_ATTRIBUTE_KEY, "../../../../workspace-${workspace.id}-$workspaceHash/ide/")
+                call.attributes.put(MPS_INSTANCE_URL_ATTRIBUTE_KEY, "../../../../workspace-${workspace.id}-$workspaceHash/")
             }
             gitui()
         }
