@@ -1,31 +1,18 @@
 
-let lastCheckedBranch = null;
-function branchCheckboxClick(checkbox, branchName, commitHash) {
-    if (checkbox.checked) {
-        let checkedCheckboxes = getCheckedBranchCheckboxes()
-        if (checkedCheckboxes.length > 2) {
-            for (let checkedCheckbox of checkedCheckboxes) {
-                if (lastCheckedBranch !== null && lastCheckedBranch[0] === checkedCheckbox) continue;
-                if (checkedCheckbox === checkbox) continue;
-                checkedCheckbox.checked = false;
-            }
-        }
-        lastCheckedBranch = [checkbox, branchName, commitHash];
-    }
-
-    document.getElementById("showDiffButton").disabled = getCheckedBranchCheckboxes().length < 2
-}
-
-function getCheckedBranchCheckboxes() {
-    let checkboxes = Array.from(document.getElementsByClassName("branchCheckbox"));
+function getCheckedBranchRadioButtons() {
+    let checkboxes = Array.from(document.getElementsByClassName("branchRadio"));
     return checkboxes.filter(e => e.checked);
 }
 
 function openBranchDiff(mpsInstanceUrl) {
-    let checkboxes = getCheckedBranchCheckboxes();
-    if (checkboxes.length < 2) return;
-    let commitHashes = checkboxes.map(e => e.value);
+    let radioButtons = getCheckedBranchRadioButtons();
+    let leftHashes = radioButtons.filter(e => e.name === "left").map(e => e.value);
+    let rightHashes = radioButtons.filter(e => e.name === "right").map(e => e.value);
+    if (leftHashes.length === 0 || rightHashes.length === 0) {
+        alert("Choose a left and right side for the diff first.");
+        return;
+    }
     if (mpsInstanceUrl === null || mpsInstanceUrl === undefined) mpsInstanceUrl = "";
     if (!mpsInstanceUrl.endsWith("/")) mpsInstanceUrl += "/";
-    window.open(mpsInstanceUrl + "diff/" + commitHashes[0] + "/" + commitHashes[1] + "/", "_blank");
+    window.open(mpsInstanceUrl + "diff/" + leftHashes[0] + "/" + rightHashes[0] + "/", "_blank");
 }

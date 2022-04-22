@@ -112,18 +112,24 @@ private suspend fun PipelineContext<Unit, ApplicationCall>.repoPage(repo: GitRep
                     } else {
                         onClick = """openBranchDiff("$mpsInstanceUrl")"""
                     }
-                    disabled = true
                     +"Show Diff"
                 }
             }
             repo.branches().forEach { branch ->
                 div {
-                    checkBoxInput {
-                        onClick = """branchCheckboxClick(this, "${branch.shortName}", "${branch.commitHash}")"""
+                    radioInput {
+                        name = "left"
+                        //onClick = """branchCheckboxClick(this, "${branch.shortName}", "${branch.commitHash}")"""
                         value = branch.commitHash
-                        classes = setOf("branchCheckbox")
-                        +"${branch.shortName}: ${branch.commitHash}"
+                        classes = setOf("branchRadio")
                     }
+                    radioInput {
+                        name = "right"
+                        //onClick = """branchCheckboxClick(this, "${branch.shortName}", "${branch.commitHash}")"""
+                        value = branch.commitHash
+                        classes = setOf("branchRadio")
+                    }
+                    +branch.shortName
                 }
             }
             /*
