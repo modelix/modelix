@@ -1,0 +1,40 @@
+@import "sm";
+
+.smviewer {
+    border: 1px solid #555;
+
+    &.connected {
+        background-color: #424242;
+    }
+
+    .sideTransformCell {
+        background-color: #636363;
+        border: 1px solid #7f7f7f;
+    }
+
+    .placeholderText {
+        color: #656565;
+    }
+
+    .caret {
+        border-color: #fff;
+    }
+
+    .selection {
+        border: 1px solid #aaa;
+        background-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .ccmenu {
+        background-color: #2a2a2a;
+        border: 1px solid #888;
+
+        .ccSelectedEntry {
+            background-color: #707070;
+        }
+    }
+
+    th, td {
+        border: 1px solid #fff;
+    }
+}
