@@ -48,6 +48,17 @@ fun Application.workspaceManagerModule() {
             call.respondHtml(HttpStatusCode.OK) {
                 head {
                     title("Workspaces")
+                    style {
+                        +"""
+                            table {
+                                border-collapse: collapse;
+                            }
+                            td {
+                                border: 1px solid #888;
+                                padding: 3px 12px;
+                            }
+                        """.trimIndent()
+                    }
                 }
                 body {
                     h1 { text("Workspaces") }
@@ -56,13 +67,35 @@ fun Application.workspaceManagerModule() {
                         +" Solutions are synchronized with the model server and between all MPS instances."
                     }
                     table {
-                        manager.getWorkspaceIds().forEach { workspaceId ->
-                            val workspace = manager.getWorkspaceForId(workspaceId)?.first
+                        manager.getWorkspaceIds().mapNotNull { manager.getWorkspaceForId(it) }.forEach { workspaceAndHash ->
+                            val (workspace, workspaceHash) = workspaceAndHash
+                            val workspaceId = workspace.id
                             tr {
                                 td {
                                     a {
                                         href = "$workspaceId/edit"
                                         text((workspace?.name ?: "<no name>") + " ($workspaceId)")
+                                    }
+                                }
+                                td {
+                                    a {
+                                        href = "../workspace-${workspace.id}-$workspaceHash/project"
+                                        text("Open Web Interface")
+                                    }
+                                }
+                                td {
+                                    a {
+                                        href = "../workspace-${workspace.id}-$workspaceHash/ide/"
+                                        text("Open MPS")
+                                    }
+                                }
+                                td {
+                                    workspace.gitRepositories.forEachIndexed { index, gitRepository ->
+                                        a {
+                                            href = "$workspaceId/git/$index/"
+                                            val suffix = if (gitRepository.name.isNullOrEmpty()) "" else " (${gitRepository.name})"
+                                            text("Git History" + suffix)
+                                        }
                                     }
                                 }
                                 td {
@@ -79,13 +112,18 @@ fun Application.workspaceManagerModule() {
                                 }
                             }
                         }
-                    }
-                    form {
-                        action = "new"
-                        method = FormMethod.post
-                        input {
-                            type = InputType.submit
-                            value = "Add New Workspace"
+                        tr {
+                            td {
+                                colSpan = "5"
+                                form {
+                                    action = "new"
+                                    method = FormMethod.post
+                                    input {
+                                        type = InputType.submit
+                                        value = "Add New Workspace"
+                                    }
+                                }
+                            }
                         }
                     }
                 }
