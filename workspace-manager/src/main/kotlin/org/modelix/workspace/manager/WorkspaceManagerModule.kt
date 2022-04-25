@@ -53,7 +53,7 @@ fun Application.workspaceManagerModule() {
                     h1 { text("Workspaces") }
                     p {
                         +"A workspace allows to deploy an MPS project and all of its dependencies to Modelix and edit it in the browser."
-                        +"Solutions are synchronized with the model server and between all MPS instances."
+                        +" Solutions are synchronized with the model server and between all MPS instances."
                     }
                     table {
                         manager.getWorkspaceIds().forEach { workspaceId ->
