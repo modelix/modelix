@@ -216,6 +216,13 @@ class DeploymentManager {
         return null
     }
 
+    fun getEvents(deploymentName: String?): List<V1Event> {
+        if (deploymentName == null) return emptyList()
+        val events: V1EventList = CoreV1Api().listNamespacedEvent(KUBERNETES_NAMESPACE, null, null, null, null, null, null, null, 10, null)
+        return events.items
+            .filter { (it.involvedObject.name ?: "").contains(deploymentName) }
+    }
+
     @Throws(IOException::class, ApiException::class)
     fun createDeployment(originalDeploymentName: String?, personalDeploymentName: String?): Boolean {
         var originalDeploymentName = originalDeploymentName

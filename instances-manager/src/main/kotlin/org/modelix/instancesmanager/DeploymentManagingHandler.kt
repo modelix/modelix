@@ -35,6 +35,7 @@ class DeploymentManagingHandler : AbstractHandler() {
                 response.contentType = "text/html"
                 response.status = HttpServletResponse.SC_OK
                 val podLogs = deploymentManager.getPodLogs(redirectedURL.personalDeploymentName)
+                val events = deploymentManager.getEvents(redirectedURL.personalDeploymentName)
                 response.writer
                     .append("<html>")
                     .append("<head>")
@@ -42,6 +43,26 @@ class DeploymentManagingHandler : AbstractHandler() {
                     .append("</head>")
                     .append("<body>")
                     .append("<div>Starting MPS ...</div>")
+                if (events.isNotEmpty()) {
+                    response.writer.append("<br/><hr/><br/><table>")
+                    for (event in events) {
+                        response.writer.append("<tr>")
+                        response.writer.append("<td>")
+                        StringEscapeUtils.escapeHtml(response.writer, event.type)
+                        response.writer.append("</td>")
+                        response.writer.append("<td>")
+                        StringEscapeUtils.escapeHtml(response.writer, event.reason)
+                        response.writer.append("</td>")
+                        response.writer.append("<td>")
+                        StringEscapeUtils.escapeHtml(response.writer, event.eventTime?.toString() ?: "")
+                        response.writer.append("</td>")
+                        response.writer.append("<td>")
+                        StringEscapeUtils.escapeHtml(response.writer, event.message)
+                        response.writer.append("</td>")
+                        response.writer.append("</tr>")
+                    }
+                    response.writer.append("</table>")
+                }
                 if (podLogs != null) {
                     response.writer.append("<br/><hr/><br/><pre>")
                     StringEscapeUtils.escapeHtml(response.writer, podLogs)
