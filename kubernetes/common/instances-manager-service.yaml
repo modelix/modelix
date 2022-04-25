@@ -13,5 +13,8 @@ spec:
   - name: "jvm-debug"
     port: 5005
     targetPort: 5005
+  - name: "admin"
+    port: 28106
+    targetPort: 28106
   selector:
     app: instances-manager
