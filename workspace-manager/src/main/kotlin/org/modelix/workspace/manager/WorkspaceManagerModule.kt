@@ -309,6 +309,20 @@ fun Application.workspaceManagerModule() {
                                             }
                                         }
                                     }
+                                    td {
+                                        form {
+                                            action = "./delete-upload"
+                                            method = FormMethod.post
+                                            hiddenInput {
+                                                name = "uploadId"
+                                                value = upload.key
+                                            }
+                                            submitInput {
+                                                style = "background-color: red"
+                                                value = "Delete"
+                                            }
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -513,6 +527,17 @@ fun Application.workspaceManagerModule() {
             val workspace = manager.getWorkspaceForId(workspaceId)?.first!!
             workspace.uploads -= uploadId
             manager.update(workspace)
+            call.respondRedirect("./edit")
+        }
+
+        post("{workspaceId}/delete-upload") {
+            val uploadId = call.receiveParameters()["uploadId"]!!
+            val allWorkspaces = manager.getWorkspaceIds().mapNotNull { manager.getWorkspaceForId(it)?.first }
+            for (workspace in allWorkspaces.filter { it.uploads.contains(uploadId) }) {
+                workspace.uploads -= uploadId
+                manager.update(workspace)
+            }
+            manager.deleteUpload(uploadId)
             call.respondRedirect("./edit")
         }
 

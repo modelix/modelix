@@ -123,6 +123,13 @@ class WorkspaceManager {
 
     fun getUploadFolder(id: String) = File(getUploadsFolder(), id)
 
+    fun deleteUpload(id: String) {
+        val folder = getUploadFolder(id)
+        if (folder.exists()) {
+            folder.deleteRecursively()
+        }
+    }
+
     private fun buildWorkspaceDownloadFile(job: WorkspaceBuildJob): File {
         val workspace = job.workspace
         val downloadFile = job.downloadFile
