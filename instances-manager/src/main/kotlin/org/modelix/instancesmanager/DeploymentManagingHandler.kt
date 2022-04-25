@@ -25,24 +25,33 @@ class DeploymentManagingHandler : AbstractHandler() {
         try {
             val deploymentManager: DeploymentManager = DeploymentManager.Companion.INSTANCE
             val redirectedURL = deploymentManager.redirect(baseRequest, request) ?: return
-            if (redirectedURL.personalDeploymentName == null) return
-            DeploymentTimeouts.Companion.INSTANCE.update(redirectedURL.personalDeploymentName)
-            val deployment = deploymentManager.getDeployment(redirectedURL.personalDeploymentName, 3)
-                ?: throw RuntimeException("Failed to create deployment " + redirectedURL.personalDeploymentName + " for user " + redirectedURL.userId)
+            val personalDeploymentName = redirectedURL.personalDeploymentName ?: return
+
+            if (DeploymentManager.INSTANCE.isInstanceDisabled(personalDeploymentName)) {
+                baseRequest.isHandled = true
+                response.contentType = "text/html"
+                response.status = HttpServletResponse.SC_OK
+                response.writer.append("""<html><body>Instance is disabled. (<a href="/instances-manager/" target="_blank">Manage Instances</a>)</body></html>""")
+                return
+            }
+
+            DeploymentTimeouts.INSTANCE.update(personalDeploymentName)
+            val deployment = deploymentManager.getDeployment(personalDeploymentName, 3)
+                ?: throw RuntimeException("Failed to create deployment " + personalDeploymentName + " for user " + redirectedURL.userId)
             val readyReplicas = if (deployment.status != null) deployment.status!!.readyReplicas else null
             if (readyReplicas == null || readyReplicas == 0) {
                 baseRequest.isHandled = true
                 response.contentType = "text/html"
                 response.status = HttpServletResponse.SC_OK
-                val podLogs = deploymentManager.getPodLogs(redirectedURL.personalDeploymentName)
-                val events = deploymentManager.getEvents(redirectedURL.personalDeploymentName)
+                val podLogs = deploymentManager.getPodLogs(personalDeploymentName)
+                val events = deploymentManager.getEvents(personalDeploymentName)
                 response.writer
                     .append("<html>")
                     .append("<head>")
                     .append("<meta http-equiv=\"refresh\" content=\"5\">")
                     .append("</head>")
                     .append("<body>")
-                    .append("<div>Starting MPS ...</div>")
+                    .append("<div>Starting MPS ... (<a href=\"/instances-manager/\" target=\"_blank\">Manage Instances</a>)</div>")
                 if (events.isNotEmpty()) {
                     response.writer.append("<br/><hr/><br/><table>")
                     for (event in events) {

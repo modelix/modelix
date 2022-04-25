@@ -37,8 +37,8 @@ object Main {
     @JvmStatic
     fun main(args: Array<String>) {
         try {
-            io.ktor.server.netty.EngineMain.main(args)
             startServer()
+            io.ktor.server.netty.EngineMain.main(args)
         } catch (ex: ApiException) {
             LOG.error("", ex)
             LOG.error("code: " + ex.code)

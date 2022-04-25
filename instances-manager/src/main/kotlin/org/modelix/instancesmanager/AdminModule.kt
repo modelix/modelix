@@ -15,9 +15,12 @@ package org.modelix.instancesmanager
 
 import io.ktor.application.*
 import io.ktor.features.*
+import io.ktor.html.*
 import io.ktor.http.*
+import io.ktor.request.*
 import io.ktor.response.*
 import io.ktor.routing.*
+import kotlinx.html.*
 
 fun Application.adminModule() {
     install(Routing)
@@ -32,7 +35,75 @@ fun Application.adminModule() {
 
     routing {
         get("/") {
-            call.respondText("Admin", ContentType.Text.Plain, HttpStatusCode.Found)
+            call.respondHtml(HttpStatusCode.OK) {
+                head {
+                    title = "Manage MPS Instances"
+                    style {
+                        +"""
+                            table {
+                                border-collapse: collapse;
+                            }
+                            td, th {
+                                border: 1px solid #888;
+                                padding: 3px 12px;
+                            }
+                        """.trimIndent()
+                    }
+                }
+                body {
+                    table {
+                        thead {
+                            tr {
+                                th { +"Path" }
+                                th { +"User" }
+                                th { +"Instance ID" }
+                            }
+                        }
+                        for (deployment in DeploymentManager.INSTANCE.listDeployments()) {
+                            tr {
+                                td { +deployment.path }
+                                td { +(deployment.user ?: "") }
+                                td { +deployment.id }
+                                td {
+                                    if (deployment.disabled) {
+                                        postForm("enable-instance") {
+                                            hiddenInput {
+                                                name = "instanceId"
+                                                value = deployment.id
+                                            }
+                                            submitInput {
+                                                value = "Enable"
+                                            }
+                                        }
+                                    } else {
+                                        postForm("disable-instance") {
+                                            hiddenInput {
+                                                name = "instanceId"
+                                                value = deployment.id
+                                            }
+                                            submitInput {
+                                                value = "Disable"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        post("disable-instance") {
+            val instanceId = call.receiveParameters()["instanceId"]!!
+            DeploymentManager.INSTANCE.disableInstance(instanceId)
+            call.respondRedirect(".")
+        }
+
+        post("enable-instance") {
+            val instanceId = call.receiveParameters()["instanceId"]!!
+            DeploymentManager.INSTANCE.enableInstance(instanceId)
+            call.respondRedirect(".")
         }
     }
 }
