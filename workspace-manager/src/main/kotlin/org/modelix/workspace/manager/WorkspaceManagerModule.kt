@@ -55,13 +55,27 @@ fun Application.workspaceManagerModule() {
                         +"A workspace allows to deploy an MPS project and all of its dependencies to Modelix and edit it in the browser."
                         +"Solutions are synchronized with the model server and between all MPS instances."
                     }
-                    ul {
+                    table {
                         manager.getWorkspaceIds().forEach { workspaceId ->
                             val workspace = manager.getWorkspaceForId(workspaceId)?.first
-                            li {
-                                a {
-                                    href = "$workspaceId/edit"
-                                    text((workspace?.name ?: "<no name>") + " ($workspaceId)")
+                            tr {
+                                td {
+                                    a {
+                                        href = "$workspaceId/edit"
+                                        text((workspace?.name ?: "<no name>") + " ($workspaceId)")
+                                    }
+                                }
+                                td {
+                                    postForm("./remove-workspace") {
+                                        style = "display: inline-block"
+                                        hiddenInput {
+                                            name = "workspaceId"
+                                            value = workspaceId
+                                        }
+                                        submitInput {
+                                            value = "Remove"
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -539,6 +553,12 @@ fun Application.workspaceManagerModule() {
             }
             manager.deleteUpload(uploadId)
             call.respondRedirect("./edit")
+        }
+
+        post("remove-workspace") {
+            val workspaceId = call.receiveParameters()["workspaceId"]!!
+            manager.removeWorkspace(workspaceId)
+            call.respondRedirect(".")
         }
 
         route("{workspaceId}/git/{repoIndex}/") {

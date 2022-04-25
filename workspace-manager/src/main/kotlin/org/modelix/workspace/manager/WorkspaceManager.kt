@@ -334,5 +334,6 @@ class WorkspaceManager {
     fun getWorkspaceForId(workspaceId: String) = workspacePersistence.getWorkspaceForId(workspaceId)
     fun getWorkspaceForHash(workspaceHash: WorkspaceHash) = workspacePersistence.getWorkspaceForHash(workspaceHash)
     fun newWorkspace() = workspacePersistence.newWorkspace()
+    fun removeWorkspace(workspaceId: String) = workspacePersistence.removeWorkspace(workspaceId)
 }
 
