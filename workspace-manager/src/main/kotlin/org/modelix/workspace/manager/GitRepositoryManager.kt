@@ -25,8 +25,8 @@ import java.io.*
 import java.lang.IllegalArgumentException
 import java.util.zip.ZipOutputStream
 
-class GitRepositoryManager(val config: GitRepository, val encryptedCredentials: Credentials?, val workspaceDirectory: File) {
-    private val repoDirectory = File(workspaceDirectory, "git-" + toValidFileName(config.url))
+class GitRepositoryManager(val config: GitRepository, val workspaceDirectory: File) {
+    val repoDirectory = File(workspaceDirectory, "git-" + toValidFileName(config.url))
 
     fun toValidFileName(text: String): String {
         val allowed = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_-., ".toSet()
@@ -59,6 +59,7 @@ class GitRepositoryManager(val config: GitRepository, val encryptedCredentials: 
     }
 
     private fun <C : GitCommand<T>, T, E : TransportCommand<C, T>> applyCredentials(cmd: E): E {
+        val encryptedCredentials = config.credentials
         if (encryptedCredentials != null) {
             val decrypted = encryptedCredentials.decrypt()
             cmd.setCredentialsProvider(UsernamePasswordCredentialsProvider(decrypted.user, decrypted.password))

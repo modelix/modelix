@@ -29,10 +29,6 @@ a:active {
     padding: 3px 6px;
     background-color: red;
 
-    &.connected {
-        background-color: #424242;
-    }
-
     .relativeLayer {
         position: absolute;
         left: 0;
@@ -46,18 +42,13 @@ a:active {
     }
 
     .sideTransformCell {
-        background-color: #636363;
-        border: 1px solid #7f7f7f;
+        border-width: 1px;
+        border-style: solid;
         position: absolute;
-    }
-
-    .placeholderText {
-        color: #656565;
     }
 
     .caret {
         position: absolute;
-        border-color: #fff;
         border-left: 2px solid;
         width: 3px;
         height: 20px;
@@ -81,23 +72,21 @@ a:active {
     }
 
     .selection {
-        border: 1px solid #aaa;
+        border-width: 1px;
+        border-style: solid;
         position: absolute;
-        background-color: rgba(255, 255, 255, 0.2);
     }
 
     .ccmenu {
         position: absolute;
-        background-color: #2a2a2a;
-        background-color: #2a2a2a;
-        border: 1px solid #888;
+        border-width: 1px;
+        border-style: solid;
         overflow-y: scroll;
         max-height: 200px;
         white-space: nowrap;
         box-shadow: 5px 5px 40px 0 rgba(0,0,0,0.5);
 
         .ccSelectedEntry {
-            background-color: #707070;
             padding: 0;
         }
 
@@ -131,18 +120,8 @@ a:active {
     }
 
     th, td {
-        border: 1px solid #fff;
+        border-width: 1px;
+        border-style: solid;
         padding: 3px 6px;
     }
-}
-
-:focus .caret, .caret.foreign {
-    display: block;
-}
-
-@keyframes blinker {
-    from { opacity: 100%; }
-    49% { opacity: 100%; }
-    50% { opacity: 40%; }
-    to { opacity: 40%; }
 }

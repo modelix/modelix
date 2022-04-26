@@ -380,7 +380,7 @@
     <property role="EcuMT" value="9002232898239389238" />
     <property role="3GE5qa" value="dom.htmlElement" />
     <property role="TrG5h" value="HTMLTableColElement" />
-    <property role="34LRSv" value="col" />
+    <property role="34LRSv" value="td" />
     <ref role="1TJDcQ" node="7NImM04RGAQ" resolve="HTMLElement" />
   </node>
   <node concept="1TIwiD" id="7NImM04TdSR">

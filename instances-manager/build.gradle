@@ -46,6 +46,13 @@ dependencies {
 
     implementation(project(path: ":model-client", configuration: "jvmRuntimeElements"))
     implementation(project(path: ":workspaces"))
+
+    def ktorVersion = "1.6.5"
+    def kotlinCoroutinesVersion = "1.5.2"
+    implementation(group: "io.ktor", name: "ktor-server-core", version: ktorVersion)
+    implementation(group: "io.ktor", name: "ktor-server-netty", version: ktorVersion)
+    implementation(group: "org.jetbrains.kotlinx", name: "kotlinx-coroutines-jdk8", version: kotlinCoroutinesVersion)
+    implementation(group: "io.ktor", name: "ktor-html-builder", version: ktorVersion)
 }
 
 assemble.dependsOn shadowJar

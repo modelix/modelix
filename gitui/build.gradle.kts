@@ -1,6 +1,5 @@
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 
-description = "Allows multiple clients to work on the same set of modules from different sources"
 val ktorVersion = "1.6.5"
 val kotlinCoroutinesVersion = "1.5.2"
 val kotlinVersion = "1.5.31"
@@ -37,9 +36,9 @@ dependencies {
     implementation(project(":model-client", configuration = "jvmRuntimeElements"))
     implementation(project(":headless-mps"))
     implementation(project(":workspaces"))
-    implementation(project(":gitui"))
     implementation("org.modelix.mpsbuild:build-tools:1.0.0")
     implementation("io.ktor","ktor-html-builder", ktorVersion)
+    implementation("commons-codec:commons-codec:1.15")
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.6.0")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
 }
