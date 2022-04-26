@@ -13,10 +13,14 @@
  */
 package org.modelix.instancesmanager
 
+import io.kubernetes.client.openapi.models.V1Event
 import org.apache.commons.lang.StringEscapeUtils
 import org.apache.log4j.Logger
 import org.eclipse.jetty.server.Request
 import org.eclipse.jetty.server.handler.AbstractHandler
+import org.joda.time.DateTime
+import org.joda.time.Duration
+import org.joda.time.ReadableDuration
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
@@ -45,25 +49,42 @@ class DeploymentManagingHandler : AbstractHandler() {
                 response.status = HttpServletResponse.SC_OK
                 val podLogs = deploymentManager.getPodLogs(personalDeploymentName)
                 val events = deploymentManager.getEvents(personalDeploymentName)
-                response.writer
-                    .append("<html>")
-                    .append("<head>")
-                    .append("<meta http-equiv=\"refresh\" content=\"5\">")
-                    .append("</head>")
-                    .append("<body>")
-                    .append("<div>Starting MPS ... (<a href=\"/instances-manager/\" target=\"_blank\">Manage Instances</a>)</div>")
+                val eventTime: (V1Event)-> DateTime? = {
+                    listOfNotNull(
+                        it.eventTime,
+                        it.lastTimestamp,
+                        it.firstTimestamp
+                    ).firstOrNull()
+                }
+                response.writer.append("""
+                        <html>
+                        <head>
+                            <meta http-equiv="refresh" content="5">
+                            <style>
+                                table {
+                                    border-collapse: collapse;
+                                }
+                                td {
+                                    border: 1px solid #aaa;
+                                    padding: 0px 6px;
+                                }
+                            </style>
+                        </head>
+                        <body>
+                            <div>Starting MPS ... (<a href="/instances-manager/" target="_blank">Manage Instances</a>)</div>
+                    """.trimIndent())
                 if (events.isNotEmpty()) {
                     response.writer.append("<br/><hr/><br/><table>")
-                    for (event in events) {
+                    for (event in events.sortedBy(eventTime)) {
                         response.writer.append("<tr>")
+                        response.writer.append("<td>")
+                        StringEscapeUtils.escapeHtml(response.writer, eventTime(event)?.toLocalTime()?.toString("HH:mm:ss") ?: "---")
+                        response.writer.append("</td>")
                         response.writer.append("<td>")
                         StringEscapeUtils.escapeHtml(response.writer, event.type)
                         response.writer.append("</td>")
                         response.writer.append("<td>")
                         StringEscapeUtils.escapeHtml(response.writer, event.reason)
-                        response.writer.append("</td>")
-                        response.writer.append("<td>")
-                        StringEscapeUtils.escapeHtml(response.writer, event.eventTime?.toString() ?: "")
                         response.writer.append("</td>")
                         response.writer.append("<td>")
                         StringEscapeUtils.escapeHtml(response.writer, event.message)
