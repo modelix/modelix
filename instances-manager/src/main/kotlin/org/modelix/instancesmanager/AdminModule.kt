@@ -61,6 +61,9 @@ fun Application.adminModule() {
                         }
                         for (deployment in DeploymentManager.INSTANCE.listDeployments()) {
                             tr {
+                                if (deployment.disabled) {
+                                    style = "color: #aaa"
+                                }
                                 td { +deployment.path }
                                 td { +(deployment.user ?: "") }
                                 td { +deployment.id }
