@@ -48,6 +48,11 @@ class WorkspacePersistence {
         return workspace
     }
 
+    @Synchronized
+    fun removeWorkspace(workspaceId: String) {
+        setWorkspaceIds(getWorkspaceIds() - workspaceId)
+    }
+
     private fun key(workspaceId: String) = "workspace-$workspaceId"
 
     fun getWorkspaceForId(id: String): Pair<Workspace, WorkspaceHash>? {

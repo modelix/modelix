@@ -15,6 +15,7 @@ package org.modelix.instancesmanager
 
 import io.kubernetes.client.openapi.ApiException
 import org.apache.log4j.Logger
+import org.eclipse.jetty.proxy.ProxyServlet
 import org.eclipse.jetty.server.Request
 import org.eclipse.jetty.server.Server
 import org.eclipse.jetty.server.handler.DefaultHandler
@@ -37,6 +38,7 @@ object Main {
     fun main(args: Array<String>) {
         try {
             startServer()
+            io.ktor.server.netty.EngineMain.main(args)
         } catch (ex: ApiException) {
             LOG.error("", ex)
             LOG.error("code: " + ex.code)
