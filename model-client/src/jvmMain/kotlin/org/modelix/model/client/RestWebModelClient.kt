@@ -24,7 +24,6 @@ import org.modelix.model.IKeyListener
 import org.modelix.model.IKeyValueStore
 import org.modelix.model.KeyValueStoreCache
 import org.modelix.model.api.IIdGenerator
-import org.modelix.model.client.SharedExecutors.fixDelay
 import org.modelix.model.lazy.IDeserializingKeyValueStore
 import org.modelix.model.lazy.ObjectStoreCache
 import org.modelix.model.lazy.PrefetchCache
@@ -35,16 +34,8 @@ import java.io.File
 import java.net.URLEncoder
 import java.nio.charset.StandardCharsets
 import java.util.LinkedList
-import java.util.Objects
-import java.util.concurrent.ExecutorService
-import java.util.concurrent.Executors
-import java.util.concurrent.ScheduledFuture
-import java.util.concurrent.TimeUnit
+import java.util.concurrent.*
 import java.util.concurrent.atomic.AtomicInteger
-import java.util.function.Consumer
-import java.util.function.Predicate
-import java.util.function.ToLongFunction
-import java.util.stream.Stream
 import javax.ws.rs.ProcessingException
 import javax.ws.rs.client.Client
 import javax.ws.rs.client.ClientBuilder
@@ -53,7 +44,6 @@ import javax.ws.rs.client.Entity
 import javax.ws.rs.core.HttpHeaders
 import javax.ws.rs.core.MediaType
 import javax.ws.rs.core.Response
-import javax.ws.rs.sse.SseEventSource
 import kotlin.collections.ArrayList
 import kotlin.collections.HashMap
 import kotlin.collections.LinkedHashMap
@@ -143,10 +133,11 @@ class RestWebModelClient @JvmOverloads constructor(
             return field
         }
         private set
-    private val executorService: ExecutorService = Executors.newFixedThreadPool(10)
+    private val requestExecutor: ExecutorService = Executors.newFixedThreadPool(10)
+    private val pollingExecutor: ExecutorService = Executors.newCachedThreadPool()
     private val client: Client
-    private val sseClient: Client
-    private val listeners: MutableList<SseListener> = ArrayList()
+    private val pollingClient: Client
+    private val listeners: MutableList<PollingListener> = ArrayList()
     override val asyncStore: IKeyValueStore = AsyncStore(this)
     private val cache = PrefetchCache.contextIndirectCache(ObjectStoreCache(KeyValueStoreCache(asyncStore)))
     private val pendingWrites = AtomicInteger(0)
@@ -154,7 +145,6 @@ class RestWebModelClient @JvmOverloads constructor(
     @get:Synchronized
     override lateinit var idGenerator: IIdGenerator
         private set
-    private val watchDogTask: ScheduledFuture<*>
     private var authToken = authToken_ ?: defaultToken
 
     override fun toString() = "RestWebModelClient($baseUrl)"
@@ -172,12 +162,12 @@ class RestWebModelClient @JvmOverloads constructor(
     }
 
     fun dispose() {
-        watchDogTask.cancel(false)
         synchronized(listeners) {
-            listeners.forEach(Consumer { obj: SseListener -> obj.dispose() })
+            listeners.forEach { it.dispose() }
             listeners.clear()
         }
-        executorService.shutdown()
+        requestExecutor.shutdown()
+        pollingExecutor.shutdown()
     }
 
     override fun getPendingSize(): Int = pendingWrites.get()
@@ -283,12 +273,19 @@ class RestWebModelClient @JvmOverloads constructor(
         }
 
     override fun listen(key: String, keyListener: IKeyListener) {
-        val sseListener = SseListener(key, keyListener)
-        synchronized(listeners) { listeners.add(sseListener) }
+        val pollingListener = PollingListener(key, keyListener)
+        synchronized(listeners) {
+            listeners.add(pollingListener)
+            pollingListener.start()
+        }
     }
 
     override fun removeListener(key: String, listener: IKeyListener) {
-        synchronized(listeners) { listeners.removeIf { Objects.equals(it.key, key) && it.keyListener === listener } }
+        synchronized(listeners) {
+            val toRemove = listeners.filter { it.key == key && it.keyListener === listener }
+            listeners.removeAll(toRemove)
+            toRemove.forEach { it.dispose() }
+        }
     }
 
     override fun put(key: String, value: String?) {
@@ -407,92 +404,51 @@ class RestWebModelClient @JvmOverloads constructor(
     override val storeCache: IDeserializingKeyValueStore
         get() = cache
 
-    inner class SseListener(val key: String, val keyListener: IKeyListener?) {
-        private val notificationLock = Any()
+    inner class PollingListener(val key: String, val keyListener: IKeyListener) {
         private var lastValue: String? = null
-        private val sse = arrayOfNulls<Sse>(2)
-        private var disposed = false
+        private var future: Future<*>? = null
         fun dispose() {
-            if (disposed) {
-                return
-            }
-            disposed = true
-            for (i in sse.indices) {
-                if (sse[i] != null) {
-                    sse[i]!!.sse.close()
-                    sse[i] = null
-                }
-            }
+            future?.cancel(true)
         }
-
-        @Synchronized
-        fun ensureConnected() {
-            if (disposed) {
-                return
-            }
-            for (i in sse.indices) {
-                if (sse[i] == null) {
-                    continue
-                }
-                if (sse[i]!!.birth > System.currentTimeMillis()) {
-                    sse[i]!!.birth = System.currentTimeMillis()
-                }
-                if (!(sse[i]!!.sse.isOpen)) {
-                    sse[i] = null
-                }
-            }
-            for (i in sse.indices) {
-                // To support rebalancing after scaling the cluster a connection shouldn't be open for too long. 
-                if (sse[i] != null && sse[i]!!.age > 20000) {
-                    sse[i]!!.sse.close()
-                    sse[i] = null
-                }
-            }
-            val youngest = Stream.of(*sse).filter(Predicate<Sse?> { obj: Sse? -> Objects.nonNull(obj) }).mapToLong(ToLongFunction<Sse?> { it: Sse? -> it!!.birth }).reduce(0L) { a: Long, b: Long -> Math.max(a, b) }
-            if (System.currentTimeMillis() - youngest < 5000) {
-                return
-            }
-            for (i in sse.indices) {
-                if (sse[i] != null) {
-                    continue
-                }
-                val url = baseUrl + "subscribe/" + URLEncoder.encode(key, StandardCharsets.UTF_8)
-                if (LOG.isTraceEnabled) {
-                    LOG.trace("Connecting to $url")
-                }
-                val target = sseClient.target(url)
-                sse[i] = Sse(SseEventSource.target(target).reconnectingEvery(1, TimeUnit.SECONDS).build())
-                sse[i]!!.sse.register(
-                    { event ->
-                        val value = event.readData()
-                        synchronized(notificationLock) {
-                            if (!((value == lastValue))) {
-                                lastValue = value
-                                keyListener!!.changed(key, value)
-                            }
-                        }
-                    },
-                    { ex ->
-                        if (LOG.isEnabledFor(Level.ERROR)) {
-                            LOG.error("", ex)
-                        }
+        fun start() {
+            future = pollingExecutor.submit {
+                while (future?.isCancelled != true) {
+                    try {
+                        run()
+                    } catch (e: InterruptedException) {
+                        return@submit
+                    } catch (e: Exception) {
+                        LOG.error("Polling for '$key' failed", e)
+                        sleep(5000)
                     }
-                )
-                if (disposed) {
-                    return
                 }
-                sse[i]!!.sse.open()
-                if (LOG.isTraceEnabled) {
-                    LOG.trace("Connected to $url")
-                }
-                break
             }
         }
+        private fun run() {
+            var url = baseUrl + "poll/" + URLEncoder.encode(key, StandardCharsets.UTF_8)
+            if (lastValue != null) {
+                url += "?lastKnownValue=" + URLEncoder.encode(lastValue, StandardCharsets.UTF_8)
+            }
 
-        inner class Sse(val sse: SseEventSource) {
-            var birth = System.currentTimeMillis()
-            val age: Long
-                get() = System.currentTimeMillis() - birth
+            val response = client.target(url).request().buildGet().invoke()
+            val value = when (response.status) {
+                Response.Status.OK.statusCode -> {
+                    receivedSuccessfulResponse()
+                    response.readEntity(String::class.java)
+                }
+                Response.Status.NOT_FOUND.statusCode -> null
+                else -> {
+                    if (response.forbidden) {
+                        receivedForbiddenResponse()
+                    }
+                    throw RuntimeException("Request for key '" + key + "' failed: " + response.statusInfo)
+                }
+            }
+
+            if (value != lastValue) {
+                lastValue = value
+                keyListener.changed(key, value)
+            }
         }
     }
 
@@ -507,29 +463,13 @@ class RestWebModelClient @JvmOverloads constructor(
         // is useful to recognize when the server is down
         client = ClientBuilder.newBuilder()
             .connectTimeout(1000, TimeUnit.MILLISECONDS)
-            .executorService(executorService)
+            .executorService(requestExecutor)
             // .readTimeout(1000, TimeUnit.MILLISECONDS)
             .register(ClientRequestFilter { ctx -> ctx.headers.add(HttpHeaders.AUTHORIZATION, "Bearer $authToken") }).build()
-        sseClient = ClientBuilder.newBuilder()
+        pollingClient = ClientBuilder.newBuilder()
             .connectTimeout(1000, TimeUnit.MILLISECONDS)
-            .executorService(executorService)
+            .executorService(pollingExecutor)
             .register(ClientRequestFilter { ctx -> ctx.headers.add(HttpHeaders.AUTHORIZATION, "Bearer $authToken") }).build()
         idGenerator = IdGenerator(clientId)
-        watchDogTask = fixDelay(
-            1000,
-            Runnable {
-                var ls: List<SseListener>
-                synchronized(listeners) { ls = ArrayList(listeners) }
-                for (l: SseListener in ls) {
-                    try {
-                        l.ensureConnected()
-                    } catch (ex: Exception) {
-                        if (LOG.isEnabledFor(Level.ERROR)) {
-                            LOG.error("", ex)
-                        }
-                    }
-                }
-            }
-        )
     }
 }
