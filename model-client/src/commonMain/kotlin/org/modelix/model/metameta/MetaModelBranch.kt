@@ -65,9 +65,9 @@ class MetaModelBranch(val branch: IBranch) : IBranch by branch {
 
     private fun prefetch() {
         // prefetch only for the root transaction, not for all nested ones
-        if (!branch.canRead()) {
-            metaModelSynchronizer.prefetch()
-        }
+//        if (!branch.canRead()) {
+//            metaModelSynchronizer.prefetch()
+//        }
     }
 
     override fun <T> computeRead(computable: () -> T): T {
@@ -217,6 +217,10 @@ class MetaModelBranch(val branch: IBranch) : IBranch by branch {
 
         override fun getWrappedTree(): ITree {
             return tree
+        }
+
+        override fun getAncestors(nodeIds: Iterable<Long>, includeSelf: Boolean): Set<Long> {
+            return tree.getAncestors(nodeIds, includeSelf)
         }
     }
 

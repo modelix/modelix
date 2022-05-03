@@ -13,6 +13,7 @@
  */
 package org.modelix.model.metameta
 
+import org.modelix.model.SubtreeChanges
 import org.modelix.model.api.*
 import org.modelix.model.lazy.IBulkTree
 
@@ -23,16 +24,27 @@ class MetaModelSynchronizer(val branch: IBranch) {
         val tree = branch.transaction.tree
         var idx = cachedIndex
         if (idx == null) {
+            prefetch()
             idx = MetaModelIndex.fromTree(tree)
         } else if (idx.tree == tree) {
             return idx
         } else {
-            // Don't use ITree.visitChanges at all and just read the whole meta model
-            // On large models this is faster, because the meta model part is very small compared
-            // to the potentially large changes
+            val oldLanguageNodes = idx.tree.getChildren(ITree.ROOT_ID, MetaModelIndex.LANGUAGES_ROLE).toSet()
+            var anyChange = SubtreeChanges.INSTANCE.getAffectedSubtrees(idx.tree, tree).intersect(oldLanguageNodes).isNotEmpty()
+            if (!anyChange) {
+                val newLanguageNodes = tree.getChildren(ITree.ROOT_ID, MetaModelIndex.LANGUAGES_ROLE).toSet()
+                anyChange = newLanguageNodes.size != oldLanguageNodes.size
+                    || oldLanguageNodes.intersect(newLanguageNodes).size != oldLanguageNodes.size
+            }
+            if (anyChange) {
+                // Don't use ITree.visitChanges at all and just read the whole meta model
+                // On large models this is faster, because the meta model part is very small compared
+                // to the potentially large changes
 
-            // idx = MetaModelIndex.incremental(idx, tree)
-            idx = MetaModelIndex.fromTree(tree)
+                // idx = MetaModelIndex.incremental(idx, tree)
+                prefetch()
+                idx = MetaModelIndex.fromTree(tree)
+            }
         }
         cachedIndex = idx
         return idx
