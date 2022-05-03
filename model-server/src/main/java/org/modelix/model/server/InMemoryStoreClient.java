@@ -31,7 +31,8 @@ import java.util.stream.Collectors;
 public class InMemoryStoreClient implements IStoreClient {
 
     private final Map<String, String> values = new HashMap<>();
-    private final Map<String, List<IKeyListener>> listeners = Collections.synchronizedMap(new HashMap<>());
+    private final Map<String, List<IKeyListener>> listeners =
+            Collections.synchronizedMap(new HashMap<>());
 
     @Override
     public String get(String key) {
