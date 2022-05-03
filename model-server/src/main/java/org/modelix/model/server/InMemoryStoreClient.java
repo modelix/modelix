@@ -31,7 +31,7 @@ import java.util.stream.Collectors;
 public class InMemoryStoreClient implements IStoreClient {
 
     private final Map<String, String> values = new HashMap<>();
-    private final Map<String, List<IKeyListener>> listeners = new HashMap<>();
+    private final Map<String, List<IKeyListener>> listeners = Collections.synchronizedMap(new HashMap<>());
 
     @Override
     public String get(String key) {
@@ -63,18 +63,22 @@ public class InMemoryStoreClient implements IStoreClient {
 
     @Override
     public void listen(String key, IKeyListener listener) {
-        if (!listeners.containsKey(key)) {
-            listeners.put(key, new LinkedList<>());
+        synchronized (listeners) {
+            if (!listeners.containsKey(key)) {
+                listeners.put(key, new LinkedList<>());
+            }
+            listeners.get(key).add(listener);
         }
-        listeners.get(key).add(listener);
     }
 
     @Override
     public void removeListener(String key, IKeyListener listener) {
-        if (!listeners.containsKey(key)) {
-            return;
+        synchronized (listeners) {
+            if (!listeners.containsKey(key)) {
+                return;
+            }
+            listeners.get(key).remove(listener);
         }
-        listeners.get(key).remove(listener);
     }
 
     @Override
