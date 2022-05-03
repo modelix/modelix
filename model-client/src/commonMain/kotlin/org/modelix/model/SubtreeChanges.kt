@@ -40,24 +40,27 @@ class SubtreeChanges(val cacheSize: Int) {
         init {
             require(oldTree is IBulkTree) { "Type of tree is not supported: $oldTree" }
             val affectedNodes = HashSet<Long>()
-            newTree.visitChanges(oldTree, object : ITreeChangeVisitor {
+            newTree.visitChanges(
+                oldTree,
+                object : ITreeChangeVisitor {
 
-                override fun childrenChanged(nodeId: Long, role: String?) {
-                    affectedNodes += nodeId
-                }
+                    override fun childrenChanged(nodeId: Long, role: String?) {
+                        affectedNodes += nodeId
+                    }
 
-                override fun containmentChanged(nodeId: Long) {
-                    // there is always a corresponding childrenChanged event for this
-                }
+                    override fun containmentChanged(nodeId: Long) {
+                        // there is always a corresponding childrenChanged event for this
+                    }
 
-                override fun propertyChanged(nodeId: Long, role: String) {
-                    affectedNodes += nodeId
-                }
+                    override fun propertyChanged(nodeId: Long, role: String) {
+                        affectedNodes += nodeId
+                    }
 
-                override fun referenceChanged(nodeId: Long, role: String) {
-                    affectedNodes += nodeId
+                    override fun referenceChanged(nodeId: Long, role: String) {
+                        affectedNodes += nodeId
+                    }
                 }
-            })
+            )
             affectedSubtrees = oldTree.getAncestors(affectedNodes, true)
         }
     }

@@ -33,8 +33,8 @@ class MetaModelSynchronizer(val branch: IBranch) {
             var anyChange = SubtreeChanges.INSTANCE.getAffectedSubtrees(idx.tree, tree).intersect(oldLanguageNodes).isNotEmpty()
             if (!anyChange) {
                 val newLanguageNodes = tree.getChildren(ITree.ROOT_ID, MetaModelIndex.LANGUAGES_ROLE).toSet()
-                anyChange = newLanguageNodes.size != oldLanguageNodes.size
-                    || oldLanguageNodes.intersect(newLanguageNodes).size != oldLanguageNodes.size
+                anyChange = newLanguageNodes.size != oldLanguageNodes.size ||
+                    oldLanguageNodes.intersect(newLanguageNodes).size != oldLanguageNodes.size
             }
             if (anyChange) {
                 // Don't use ITree.visitChanges at all and just read the whole meta model

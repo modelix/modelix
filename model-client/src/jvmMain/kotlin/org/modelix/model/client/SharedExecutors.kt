@@ -50,13 +50,19 @@ object SharedExecutors {
         }
 
         var workerTask: Future<*>? = null
-        return SCHEDULED.scheduleAtFixedRate({
-            if (workerTask == null || (workerTask?.isDone == true) || (workerTask?.isCancelled == true)) {
-                workerTask = FIXED.submit(body)
-                SCHEDULED.schedule({
-                    workerTask?.cancel(true)
-                }, timeoutMs, TimeUnit.MILLISECONDS)
-            }
-        }, periodMs, periodMs, TimeUnit.MILLISECONDS)
+        return SCHEDULED.scheduleAtFixedRate(
+            {
+                if (workerTask == null || (workerTask?.isDone == true) || (workerTask?.isCancelled == true)) {
+                    workerTask = FIXED.submit(body)
+                    SCHEDULED.schedule(
+                        {
+                            workerTask?.cancel(true)
+                        },
+                        timeoutMs, TimeUnit.MILLISECONDS
+                    )
+                }
+            },
+            periodMs, periodMs, TimeUnit.MILLISECONDS
+        )
     }
 }
