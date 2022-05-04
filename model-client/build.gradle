@@ -76,7 +76,6 @@ kotlin {
         }
         jvmTest {
             dependencies {
-                implementation kotlin('test')
                 implementation kotlin('test-junit')
             }
         }

@@ -287,6 +287,15 @@ class CLTree : ITree, IBulkTree {
         return descendants.execute().flatten()
     }
 
+    override fun getAncestors(nodeIds: Iterable<Long>, includeSelf: Boolean): Set<Long> {
+        val bulkQuery = BulkQuery(store)
+        val nodes: IBulkQuery.Value<List<CLNode>> = resolveElements(nodeIds, bulkQuery)
+        val ancestors = nodes.mapBulk { bulkQuery.map(it) { it.getAncestors(bulkQuery, includeSelf) } }
+        val result = HashSet<Long>()
+        ancestors.execute().forEach { result.addAll(it.map { it.id }) }
+        return result
+    }
+
     override fun getChildren(parentId: Long, role: String?): Iterable<Long> {
         val parent = resolveElement(parentId)
         val children = parent!!.getChildren(BulkQuery(store)).execute()
