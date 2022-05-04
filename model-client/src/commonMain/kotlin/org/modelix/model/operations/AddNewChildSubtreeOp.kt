@@ -40,9 +40,9 @@ class AddNewChildSubtreeOp(val resultTreeHash: KVEntryReference<CPTree>, val pos
         val resultTree = getResultTree(store)
         for (node in resultTree.getDescendants(childId, true)) {
             val pos = PositionInRole(
-                node.parent.id,
+                node.parentId,
                 node.roleInParent,
-                resultTree.getChildren(node.parent.id, node.roleInParent).indexOf(node.id)
+                resultTree.getChildren(node.parentId, node.roleInParent).indexOf(node.id)
             )
             decompressNode(resultTree, node, pos, false, opsVisitor)
         }

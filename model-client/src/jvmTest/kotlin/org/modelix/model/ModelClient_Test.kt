@@ -86,7 +86,13 @@ class ModelClient_Test {
             println(" put $key = $value")
             val client = rand.nextInt(clients.size)
             println(" client is $client")
-            clients[client].put(key, value)
+            try {
+                clients[client].put(key, value)
+            } catch (e: Exception) {
+                System.err.println(e.message)
+                e.printStackTrace(System.err)
+                throw e
+            }
             println(" put to client $client")
             for (client in clients) {
                 Assert.assertEquals(expected[key], client[key])

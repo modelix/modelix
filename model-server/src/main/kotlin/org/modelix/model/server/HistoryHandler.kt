@@ -96,8 +96,8 @@ class HistoryHandler(private val client: IModelClient) : AbstractHandler() {
     val knownRepositoryIds: Set<RepositoryAndBranch>
         get() {
             val result: MutableSet<RepositoryAndBranch> = HashSet()
-            val infoVersionHash = client[RepositoryId("info").getBranchKey()]
-            val infoVersion = CLVersion(infoVersionHash!!, client.storeCache!!)
+            val infoVersionHash = client[RepositoryId("info").getBranchKey()] ?: return emptySet()
+            val infoVersion = CLVersion(infoVersionHash, client.storeCache!!)
             val infoBranch: IBranch = MetaModelBranch(PBranch(infoVersion.tree, IdGeneratorDummy()))
             infoBranch.runReadT { t: IReadTransaction ->
                 for (infoNodeId in t.getChildren(ITree.ROOT_ID, "info")) {
@@ -115,6 +115,19 @@ class HistoryHandler(private val client: IModelClient) : AbstractHandler() {
         }
 
     fun buildMainPage(out: PrintWriter) {
+        val content = if (knownRepositoryIds.isEmpty()) {
+            "<p><i>No repositories available, add one</i></p>"
+        } else {
+            """<ul>
+                | ${knownRepositoryIds.map { repositoryAndBranch -> """
+                <li>
+                    <a href='${escapeURL(repositoryAndBranch.toString())}/'>${escape(repositoryAndBranch.toString())}</a>
+                </li>
+                """ }.joinToString("\n")}
+                |</ul>
+            """.trimMargin()
+        }
+
         out.append("""
             <html>
                 <head>
@@ -123,17 +136,7 @@ class HistoryHandler(private val client: IModelClient) : AbstractHandler() {
                 </head>
                 <body>
                     <h1>Choose Repository</h1>
-                    <ul>
-            """)
-        for (repositoryAndBranch in knownRepositoryIds) {
-            out.append("""
-                <li>
-                    <a href='${escapeURL(repositoryAndBranch.toString())}/'>${escape(repositoryAndBranch.toString())}</a>
-                </li>
-                """)
-        }
-        out.append("""
-                    </ul>
+                    $content
                 </body>
             </html>
             """)

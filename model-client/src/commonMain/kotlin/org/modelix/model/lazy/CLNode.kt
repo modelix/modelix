@@ -55,8 +55,11 @@ class CLNode(private val tree: CLTree, private val data: CPNode) {
         return tree
     }
 
-    val parent: CLNode
-        get() = tree.resolveElement(data.parentId) as CLNode
+    val parent: CLNode?
+        get() = tree.resolveElement(data.parentId)
+
+    val parentId: Long
+        get() = data.parentId
 
     val roleInParent: String?
         get() = data.roleInParent
@@ -83,6 +86,19 @@ class CLNode(private val tree: CLTree, private val data: CPNode) {
                     .map(children) { child: CLNode -> child.getDescendants(bulkQuery, true) }
                     .map { it.flatten() }
                 d
+            }
+        }
+    }
+
+    fun getAncestors(bulkQuery: IBulkQuery, includeSelf: Boolean): IBulkQuery.Value<List<CLNode>> {
+        return if (includeSelf) {
+            getAncestors(bulkQuery, false).map { ancestors -> (listOf(this) + ancestors) }
+        } else {
+            val parentNode = parent
+            if (parentNode == null) {
+                bulkQuery.constant(listOf())
+            } else {
+                parentNode.getAncestors(bulkQuery, true)
             }
         }
     }

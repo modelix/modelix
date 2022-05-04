@@ -155,6 +155,83 @@ public class RestModelServer {
                             @Override
                             protected void doGet(HttpServletRequest req, HttpServletResponse resp)
                                     throws ServletException, IOException {
+                                if (!checkAuthorization(storeClient, req, resp)) return;
+
+                                final String key = req.getPathInfo().substring(1);
+                                final String lastKnownValue = req.getParameter("lastKnownValue");
+
+                                if (key.startsWith(PROTECTED_PREFIX)) {
+                                    resp.setStatus(HttpServletResponse.SC_FORBIDDEN);
+                                    resp.setContentType(TEXT_PLAIN);
+                                    resp.getWriter().print("Protected key.");
+                                    return;
+                                }
+
+                                final String[] valueFromListener = new String[1];
+
+                                Object lock = new Object();
+                                IKeyListener listener =
+                                        (newKey, newValue) -> {
+                                            synchronized (lock) {
+                                                valueFromListener[0] = newValue;
+                                                lock.notifyAll();
+                                            }
+                                        };
+                                try {
+                                    storeClient.listen(key, listener);
+
+                                    if (lastKnownValue != null) {
+                                        // This could be done before registering the listener, but
+                                        // then we have to check it twice,
+                                        // because the value could change between the first read and
+                                        // registering the listener.
+                                        // Most of the time the value will be equal to the last
+                                        // known value.
+                                        // Registering the listener without needing it is less
+                                        // likely to happen.
+                                        String value = storeClient.get(key);
+                                        valueFromListener[0] = value;
+                                        if (!Objects.equals(value, lastKnownValue)) {
+                                            respondValue(resp, value);
+                                            return;
+                                        }
+                                    }
+
+                                    try {
+                                        synchronized (lock) {
+                                            // Long polling. The request returns when the value
+                                            // changes.
+                                            // Then the client will do a new request.
+                                            lock.wait(25_000L);
+                                        }
+                                    } catch (InterruptedException e) {
+                                        throw new RuntimeException(e);
+                                    }
+                                } finally {
+                                    storeClient.removeListener(key, listener);
+                                }
+
+                                respondValue(resp, valueFromListener[0]);
+                            }
+
+                            private void respondValue(HttpServletResponse resp, String value)
+                                    throws IOException {
+                                if (value == null) {
+                                    resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
+                                } else {
+                                    resp.setContentType(TEXT_PLAIN);
+                                    resp.getWriter().print(value);
+                                }
+                            }
+                        }),
+                "/poll/*");
+
+        servletHandler.addServlet(
+                new ServletHolder(
+                        new HttpServlet() {
+                            @Override
+                            protected void doGet(HttpServletRequest req, HttpServletResponse resp)
+                                    throws ServletException, IOException {
                                 String email = req.getHeader("X-Forwarded-Email");
                                 if ((email == null || email.isEmpty()) && isTrustedAddress(req)) {
                                     email = "localhost";
