@@ -23,9 +23,6 @@ import io.kubernetes.client.util.ClientBuilder
 import io.kubernetes.client.util.Yaml
 import org.apache.log4j.Logger
 import org.eclipse.jetty.server.Request
-import org.json.JSONObject
-import org.modelix.instancesmanager.DeploymentManager
-import org.modelix.model.client.RestWebModelClient
 import org.modelix.workspaces.WorkspaceHash
 import org.modelix.workspaces.WorkspacePersistence
 import java.io.IOException
@@ -56,12 +53,35 @@ class DeploymentManager {
     }
     private val managerId = java.lang.Long.toHexString(System.currentTimeMillis() / 1000)
     private val deploymentSuffixSequence = AtomicLong(0xf)
-    private val assignments = Collections.synchronizedMap(HashMap<String?, Assignments>())
+    private val assignments = Collections.synchronizedMap(HashMap<String, Assignments>())
+    private val disabledInstances = HashSet<String>()
     private val dirty = AtomicBoolean(true)
     private val workspacePersistence = WorkspacePersistence()
-    private fun getAssignments(originalDeploymentName: String?): Assignments {
-        return assignments.computeIfAbsent(originalDeploymentName) { originalDeploymentName: String? -> Assignments(originalDeploymentName) }
+    private fun getAssignments(originalDeploymentName: String): Assignments {
+        return assignments.computeIfAbsent(originalDeploymentName) { originalDeploymentName: String -> Assignments(originalDeploymentName) }
     }
+
+    fun listDeployments(): List<InstanceStatus> {
+        return assignments.entries.flatMap { assignment ->
+            assignment.value.listDeployments().map { deployment ->
+                InstanceStatus(assignment.key, deployment.first, deployment.second, disabledInstances.contains(deployment.second))
+            }
+        }
+    }
+
+    fun disableInstance(instanceId: String) {
+        disabledInstances += instanceId
+        dirty.set(true)
+        reconcileDeployments()
+    }
+
+    fun enableInstance(instanceId: String) {
+        disabledInstances -= instanceId
+        dirty.set(true)
+        reconcileDeployments()
+    }
+
+    fun isInstanceDisabled(instanceId: String): Boolean = disabledInstances.contains(instanceId)
 
     private fun generatePersonalDeploymentName(originalDeploymentName: String?): String {
         val cleanName = originalDeploymentName!!.lowercase(Locale.getDefault()).replace("[^a-z0-9-]".toRegex(), "")
@@ -81,7 +101,10 @@ class DeploymentManager {
                 val metadata = deployment.metadata ?: continue
                 val annotations = metadata.annotations ?: continue
                 if ("true" == annotations[INSTANCE_PER_USER_ANNOTATION_KEY]) {
-                    getAssignments(metadata.name).setNumberOfUnassigned(deployment)
+                    val name = metadata.name
+                    if (name != null) {
+                        getAssignments(name).setNumberOfUnassigned(deployment)
+                    }
                 }
             }
         } catch (e: ApiException) {
@@ -140,7 +163,9 @@ class DeploymentManager {
                     for (assignment in assignments.values) {
                         assignment.removeTimedOut()
                         for (deployment in assignment.getAllDeploymentNames()) {
-                            expectedDeployments[deployment] = assignment.originalDeploymentName
+                            if (!disabledInstances.contains(deployment)) {
+                                expectedDeployments[deployment] = assignment.originalDeploymentName
+                            }
                         }
                     }
                 }
@@ -214,6 +239,13 @@ class DeploymentManager {
             return null
         }
         return null
+    }
+
+    fun getEvents(deploymentName: String?): List<V1Event> {
+        if (deploymentName == null) return emptyList()
+        val events: V1EventList = CoreV1Api().listNamespacedEvent(KUBERNETES_NAMESPACE, null, null, null, null, null, null, null, 10, null)
+        return events.items
+            .filter { (it.involvedObject.name ?: "").contains(deploymentName) }
     }
 
     @Throws(IOException::class, ApiException::class)
@@ -309,11 +341,16 @@ class DeploymentManager {
         }
     }
 
-    private inner class Assignments(val originalDeploymentName: String?) {
-        private val userId2deployment: MutableMap<String?, String?> = HashMap()
-        private val unassignedDeployments: MutableList<String?> = LinkedList()
+    private inner class Assignments(val originalDeploymentName: String) {
+        private val userId2deployment: MutableMap<String, String> = HashMap()
+        private val unassignedDeployments: MutableList<String> = LinkedList()
+
+        fun listDeployments(): List<Pair<String?, String>> {
+            return userId2deployment.map { it.key to it.value } + unassignedDeployments.map { null to it }
+        }
+
         @Synchronized
-        fun getOrCreate(userId: String?): String? {
+        fun getOrCreate(userId: String): String {
             var personalDeployment = userId2deployment[userId]
             if (personalDeployment == null) {
                 if (unassignedDeployments.isEmpty()) {
@@ -322,7 +359,7 @@ class DeploymentManager {
                     personalDeployment = unassignedDeployments.removeAt(0)
                     unassignedDeployments.add(generatePersonalDeploymentName(originalDeploymentName))
                 }
-                userId2deployment[userId] = personalDeployment
+                userId2deployment[userId] = personalDeployment!!
                 dirty.set(true)
             }
             DeploymentTimeouts.Companion.INSTANCE.update(personalDeployment)
