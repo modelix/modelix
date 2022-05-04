@@ -34,35 +34,35 @@ public class InMemoryStoreClient implements IStoreClient {
     private final Map<String, List<IKeyListener>> listeners = new HashMap<>();
 
     @Override
-    public String get(String key) {
+    public synchronized String get(String key) {
         return values.get(key);
     }
 
     @Override
-    public List<String> getAll(List<String> keys) {
+    public synchronized List<String> getAll(List<String> keys) {
         return keys.stream().map(this::get).collect(Collectors.toList());
     }
 
     @Override
-    public Map<String, String> getAll(Set<String> keys) {
+    public synchronized Map<String, String> getAll(Set<String> keys) {
         return keys.stream().collect(Collectors.toMap(Function.identity(), this::get));
     }
 
     @Override
-    public void put(String key, String value) {
+    public synchronized void put(String key, String value) {
         values.put(key, value);
         listeners.getOrDefault(key, Collections.emptyList()).forEach(l -> l.changed(key, value));
     }
 
     @Override
-    public void putAll(Map<String, String> entries) {
+    public synchronized void putAll(Map<String, String> entries) {
         for (Map.Entry<String, String> entry : entries.entrySet()) {
             put(entry.getKey(), entry.getValue());
         }
     }
 
     @Override
-    public void listen(String key, IKeyListener listener) {
+    public synchronized void listen(String key, IKeyListener listener) {
         if (!listeners.containsKey(key)) {
             listeners.put(key, new LinkedList<>());
         }
@@ -70,7 +70,7 @@ public class InMemoryStoreClient implements IStoreClient {
     }
 
     @Override
-    public void removeListener(String key, IKeyListener listener) {
+    public synchronized void removeListener(String key, IKeyListener listener) {
         if (!listeners.containsKey(key)) {
             return;
         }
@@ -82,7 +82,7 @@ public class InMemoryStoreClient implements IStoreClient {
         return key.hashCode();
     }
 
-    public void dump(FileWriter fileWriter) throws IOException {
+    public synchronized void dump(FileWriter fileWriter) throws IOException {
         for (String key : values.keySet()) {
             fileWriter.append(key);
             fileWriter.append("#");
@@ -91,7 +91,7 @@ public class InMemoryStoreClient implements IStoreClient {
         }
     }
 
-    public int load(FileReader fileReader) {
+    public synchronized int load(FileReader fileReader) {
         BufferedReader br = new BufferedReader(fileReader);
         int[] n = new int[] {0};
         br.lines()

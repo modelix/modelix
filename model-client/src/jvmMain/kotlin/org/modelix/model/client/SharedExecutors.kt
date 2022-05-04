@@ -18,6 +18,7 @@ package org.modelix.model.client
 import org.apache.log4j.Level
 import org.apache.log4j.LogManager
 import java.util.concurrent.Executors
+import java.util.concurrent.Future
 import java.util.concurrent.ScheduledFuture
 import java.util.concurrent.TimeUnit
 
@@ -32,18 +33,36 @@ object SharedExecutors {
     }
 
     @JvmStatic
-    fun fixDelay(milliSeconds: Int, r: Runnable): ScheduledFuture<*> {
-        return SCHEDULED.scheduleWithFixedDelay(
+    fun fixDelay(periodMs: Long, r: Runnable): ScheduledFuture<*> {
+        return fixDelay(periodMs, periodMs * 3, r)
+    }
+
+    @JvmStatic
+    fun fixDelay(periodMs: Long, timeoutMs: Long, r: Runnable): ScheduledFuture<*> {
+        val body = Runnable {
+            try {
+                r.run()
+            } catch (ex: Exception) {
+                if (LOG.isEnabledFor(Level.ERROR)) {
+                    LOG.error("", ex)
+                }
+            }
+        }
+
+        var workerTask: Future<*>? = null
+        return SCHEDULED.scheduleAtFixedRate(
             {
-                try {
-                    r.run()
-                } catch (ex: Exception) {
-                    if (LOG.isEnabledFor(Level.ERROR)) {
-                        LOG.error("", ex)
-                    }
+                if (workerTask == null || (workerTask?.isDone == true) || (workerTask?.isCancelled == true)) {
+                    workerTask = FIXED.submit(body)
+                    SCHEDULED.schedule(
+                        {
+                            workerTask?.cancel(true)
+                        },
+                        timeoutMs, TimeUnit.MILLISECONDS
+                    )
                 }
             },
-            milliSeconds.toLong(), milliSeconds.toLong(), TimeUnit.MILLISECONDS
+            periodMs, periodMs, TimeUnit.MILLISECONDS
         )
     }
 }
