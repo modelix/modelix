@@ -27,8 +27,8 @@ class JavaProcess(val mainClass: KClass<*>): ProcessExecutor() {
         val javaHome = System.getProperty("java.home")
         val separator = File.separator
         val javaBin = "$javaHome${separator}bin${separator}java"
-        outputHandler("Classpath:")
-        classpath.forEach { outputHandler("  $it") }
+        //outputHandler("Classpath:")
+        //classpath.forEach { outputHandler("  $it") }
         val className = mainClass.qualifiedName ?: throw RuntimeException("mainClass has no qualifiedName")
         val command: MutableList<String> = ArrayList()
         command += javaBin

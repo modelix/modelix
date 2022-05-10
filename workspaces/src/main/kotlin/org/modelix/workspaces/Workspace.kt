@@ -32,7 +32,12 @@ data class Workspace(var id: String,
                      val mavenRepositories: List<MavenRepository> = listOf(),
                      var mavenDependencies: List<String> = listOf(),
                      val uploads: MutableList<String> = ArrayList(),
-                     val ignoredModules: List<String> = ArrayList())
+                     val ignoredModules: List<String> = ArrayList(),
+                     val additionalGenerationDependencies: List<GenerationDependency> = ArrayList(),
+)
+
+@Serializable
+data class GenerationDependency(val from: String, val to: String)
 
 @JvmInline
 value class WorkspaceHash(val hash: String) {
