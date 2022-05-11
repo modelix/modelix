@@ -2,6 +2,8 @@
 <model ref="r:3e059775-23b2-4839-81c4-2e21615d2cf2(org.modelix.model.metametamodel.generator.templates@generator)">
   <persistence version="9" />
   <languages>
+    <use id="d7706f63-9be2-479c-a3da-ae92af1e64d5" name="jetbrains.mps.lang.generator.generationContext" version="2" />
+    <use id="b401a680-8325-4110-8fd3-84331ff25bef" name="jetbrains.mps.lang.generator" version="3" />
     <devkit ref="a2eb3a43-fcc2-4200-80dc-c60110c4862d(jetbrains.mps.devkit.templates)" />
   </languages>
   <imports>

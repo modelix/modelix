@@ -13,6 +13,7 @@
  */
 package org.modelix.workspace.manager
 
+import io.ktor.utils.io.*
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
@@ -165,7 +166,11 @@ class WorkspaceManager {
         additionalFolders.filter { it.exists() }.forEach { modulesMiner.searchInFolder(ModuleOrigin(it.toPath(), it.toPath())) }
 
         job.runSafely(WorkspaceBuildStatus.FailedBuild) {
-            val buildScriptGenerator = BuildScriptGenerator(modulesMiner, ignoredModules = workspace.ignoredModules.map { ModuleId(it) }.toSet())
+            val buildScriptGenerator = BuildScriptGenerator(
+                modulesMiner,
+                ignoredModules = workspace.ignoredModules.map { ModuleId(it) }.toSet(),
+                additionalGenerationDependencies = workspace.additionalGenerationDependenciesAsMap()
+            )
             job.runSafely {
                 modulesXml = xmlToString(buildModulesXml(buildScriptGenerator.modulesMiner.getModules()))
             }
@@ -278,7 +283,12 @@ class WorkspaceManager {
             if (cloudResourcesFile.exists()) cloudResourcesFile.delete()
         }
 
-        val json = buildEnvironmentSpec(modulesMiner.getModules(), mpsClassPath, job.workspace.ignoredModules.map { ModuleId(it) }.toSet())
+        val json = buildEnvironmentSpec(
+            modules = modulesMiner.getModules(),
+            classPath = mpsClassPath,
+            ignoredModules = job.workspace.ignoredModules.map { ModuleId(it) }.toSet(),
+            additionalGenerationDependencies = job.workspace.additionalGenerationDependenciesAsMap()
+        )
         val envFile = File("mps-environment.json")
         envFile.writeBytes(json.toByteArray(StandardCharsets.UTF_8))
 
@@ -296,7 +306,10 @@ class WorkspaceManager {
         }
     }
 
-    private fun buildEnvironmentSpec(modules: FoundModules, classPath: List<String>, ignoredModules: Set<ModuleId>): String {
+    private fun buildEnvironmentSpec(modules: FoundModules,
+                                     classPath: List<String>,
+                                     ignoredModules: Set<ModuleId>,
+                                     additionalGenerationDependencies: Map<ModuleId, Set<ModuleId>>): String {
         val mpsHome = modules.mpsHome ?: throw RuntimeException("mps.home not found")
         val plugins: MutableMap<String, PluginModuleOwner> = LinkedHashMap()
         val libraries = ArrayList<LibrarySpec>()
@@ -304,7 +317,7 @@ class WorkspaceManager {
         val rootModules = modules.getModules().values.filter { it.owner is SourceModuleOwner }
         val rootModuleIds = rootModules.map { it.moduleId }.toMutableSet()
         rootModuleIds += org_modelix_model_mpsplugin
-        val graph = GeneratorDependencyGraph(ModuleResolver(modules, ignoredModules))
+        val graph = GeneratorDependencyGraph(ModuleResolver(modules, ignoredModules), additionalGenerationDependencies)
         graph.load(rootModules)
         val modulesToLoad = graph.getNodes().flatMap { it.modules }.map { it.owner.getRootOwner() }.toSet()
 
@@ -337,3 +350,8 @@ class WorkspaceManager {
     fun removeWorkspace(workspaceId: String) = workspacePersistence.removeWorkspace(workspaceId)
 }
 
+private fun Workspace.additionalGenerationDependenciesAsMap(): Map<ModuleId, Set<ModuleId>> {
+    return additionalGenerationDependencies
+        .groupBy { ModuleId(it.from) }
+        .mapValues { it.value.map { ModuleId(it.to) }.toSet() }
+}

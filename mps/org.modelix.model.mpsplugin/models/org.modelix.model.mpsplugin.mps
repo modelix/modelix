@@ -3949,6 +3949,21 @@
       <node concept="3cqZAl" id="6aRQr1WPiWn" role="3clF45" />
       <node concept="3Tm1VV" id="6aRQr1WPiWo" role="1B3o_S" />
       <node concept="3clFbS" id="6aRQr1WPiWq" role="3clF47">
+        <node concept="RRSsy" id="z7ArF31OTg" role="3cqZAp">
+          <node concept="3cpWs3" id="z7ArF31QFe" role="RRSoy">
+            <node concept="Xl_RD" id="z7ArF31QR_" role="3uHU7w">
+              <property role="Xl_RC" value=")" />
+            </node>
+            <node concept="3cpWs3" id="z7ArF31PIZ" role="3uHU7B">
+              <node concept="Xl_RD" id="z7ArF31CWp" role="3uHU7B">
+                <property role="Xl_RC" value="ModelServerConnection.init(" />
+              </node>
+              <node concept="37vLTw" id="z7ArF31PVq" role="3uHU7w">
+                <ref role="3cqZAo" node="6aRQr1WPiWt" resolve="baseUrl" />
+              </node>
+            </node>
+          </node>
+        </node>
         <node concept="3clFbF" id="7ZZZU$l7GqL" role="3cqZAp">
           <node concept="37vLTI" id="7ZZZU$l7GqN" role="3clFbG">
             <node concept="2OqwBi" id="7ZZZU$l7Gg$" role="37vLTx">
@@ -4609,6 +4624,16 @@
                                 <ref role="3cqZAo" node="2EzI5qKom0t" resolve="ex" />
                               </node>
                             </node>
+                          </node>
+                        </node>
+                      </node>
+                      <node concept="RRSsy" id="z7ArF31CWn" role="3cqZAp">
+                        <node concept="3cpWs3" id="z7ArF31Nb_" role="RRSoy">
+                          <node concept="37vLTw" id="z7ArF31O1N" role="3uHU7w">
+                            <ref role="3cqZAo" node="6aRQr1WPbDO" resolve="baseUrl" />
+                          </node>
+                          <node concept="Xl_RD" id="z7ArF31KW1" role="3uHU7B">
+                            <property role="Xl_RC" value="connected to " />
                           </node>
                         </node>
                       </node>
