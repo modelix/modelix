@@ -29,7 +29,6 @@ import kotlinx.serialization.encodeToString
 import org.apache.commons.io.FileUtils
 import org.apache.commons.text.StringEscapeUtils
 import org.modelix.gitui.GIT_REPO_DIR_ATTRIBUTE_KEY
-import org.modelix.gitui.Gitui
 import org.modelix.gitui.MPS_INSTANCE_URL_ATTRIBUTE_KEY
 import org.modelix.gitui.gitui
 import org.modelix.workspaces.Workspace
@@ -95,6 +94,13 @@ fun Application.workspaceManagerModule() {
                                             href = "$workspaceId/git/$index/"
                                             val suffix = if (gitRepository.name.isNullOrEmpty()) "" else " (${gitRepository.name})"
                                             text("Git History" + suffix)
+                                        }
+                                    }
+                                    workspace.uploads.associateWith { findGitRepo(manager.getUploadFolder(it)) }
+                                        .filter { it.value != null }.forEach { upload ->
+                                        a {
+                                            href = "$workspaceId/git/u${upload.key}/"
+                                            text("Git History")
                                         }
                                     }
                                 }
@@ -206,6 +212,14 @@ fun Application.workspaceManagerModule() {
                                 text("Git History" + suffix)
                             }
                         }
+                        workspace.uploads.associateWith { findGitRepo(manager.getUploadFolder(it)) }
+                            .filter { it.value != null }.forEach { upload ->
+                                a {
+                                    style = "margin-left: 24px"
+                                    href = "git/u${upload.key}/"
+                                    text("Git History")
+                                }
+                            }
                     }
                     br()
                     div {
@@ -599,27 +613,54 @@ fun Application.workspaceManagerModule() {
             call.respondRedirect(".")
         }
 
-        route("{workspaceId}/git/{repoIndex}/") {
+        route("{workspaceId}/git/{repoOrUploadIndex}/") {
             intercept(ApplicationCallPipeline.Call) {
                 val workspaceId = call.parameters["workspaceId"]!!
-                val repoIndex = call.parameters["repoIndex"]!!.toInt()
+                val repoOrUploadIndex = call.parameters["repoOrUploadIndex"]!!
+                var repoIndex: Int? = null
+                var uploadId: String? = null
+                if (repoOrUploadIndex.startsWith("u")) {
+                    uploadId = repoOrUploadIndex.drop(1)
+                } else {
+                    repoIndex = repoOrUploadIndex.toInt()
+                }
                 val workspaceAndHash = manager.getWorkspaceForId(workspaceId)
                 if (workspaceAndHash == null) {
                     call.respondText("Workspace $workspaceId not found", ContentType.Text.Plain, HttpStatusCode.NotFound)
                     return@intercept
                 }
                 val (workspace, workspaceHash) = workspaceAndHash
-                val repos = workspace.gitRepositories
-                if (!repos.indices.contains(repoIndex)) {
-                    call.respondText("Git repository with index $repoIndex doesn't exist", ContentType.Text.Plain, HttpStatusCode.NotFound)
-                    return@intercept
+                val repoDir: File
+                if (repoIndex != null) {
+                    val repos = workspace.gitRepositories
+                    if (!repos.indices.contains(repoIndex)) {
+                        call.respondText("Git repository with index $repoIndex doesn't exist", ContentType.Text.Plain, HttpStatusCode.NotFound)
+                        return@intercept
+                    }
+                    val repo = repos[repoIndex]
+                    val repoManager = GitRepositoryManager(repo, manager.getWorkspaceDirectory(workspace))
+                    if (!repoManager.repoDirectory.exists()) {
+                        repoManager.updateRepo()
+                    }
+                    repoDir = repoManager.repoDirectory
+                } else {
+                    val uploadFolder = manager.getUploadFolder(uploadId!!)
+                    if (!uploadFolder.exists()) {
+                        call.respondText("Upload $uploadId doesn't exist", ContentType.Text.Plain, HttpStatusCode.NotFound)
+                        return@intercept
+                    }
+                    if (uploadFolder.resolve(".git").exists()) {
+                        repoDir = uploadFolder
+                    } else {
+                        val repoDirFromUpload = findGitRepo(uploadFolder)
+                        if (repoDirFromUpload == null) {
+                            call.respondText("No git repository found in upload $uploadId", ContentType.Text.Plain, HttpStatusCode.NotFound)
+                            return@intercept
+                        }
+                        repoDir = repoDirFromUpload
+                    }
                 }
-                val repo = repos[repoIndex]
-                val repoManager = GitRepositoryManager(repo, manager.getWorkspaceDirectory(workspace))
-                if (!repoManager.repoDirectory.exists()) {
-                    repoManager.updateRepo()
-                }
-                call.attributes.put(GIT_REPO_DIR_ATTRIBUTE_KEY, repoManager.repoDirectory)
+                call.attributes.put(GIT_REPO_DIR_ATTRIBUTE_KEY, repoDir)
                 call.attributes.put(MPS_INSTANCE_URL_ATTRIBUTE_KEY, "../../../../workspace-${workspace.id}-$workspaceHash/")
             }
             gitui()
@@ -634,4 +675,15 @@ fun Application.workspaceManagerModule() {
         method(HttpMethod.Put)
         method(HttpMethod.Post)
     }
+}
+
+private fun findGitRepo(folder: File): File? {
+    if (!folder.exists()) return null
+    if (folder.name == ".git") return folder.parentFile
+    if (folder.resolve(".git").exists()) return folder.resolve(".git")
+    val children = (folder.listFiles() ?: emptyArray())
+    if (children.size == 1) {
+        return findGitRepo(children[0])
+    }
+    return null
 }
