@@ -38,7 +38,7 @@ dependencies {
     implementation(project(":headless-mps"))
     implementation(project(":workspaces"))
     implementation(project(":gitui"))
-    implementation("org.modelix.mpsbuild:build-tools:1.0.3")
+    implementation("org.modelix.mpsbuild:build-tools:1.0.5")
     implementation("io.ktor","ktor-html-builder", ktorVersion)
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.6.0")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")

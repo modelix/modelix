@@ -181,7 +181,7 @@ class WorkspaceManager {
         if (workspace.loadUsedModulesOnly) {
             // to reduce the required memory include only those modules in the zip that are actually used
             val resolver = ModuleResolver(modulesMiner.getModules(), workspace.ignoredModules.map { ModuleId(it) }.toSet(), true)
-            val graph = PublicationDependencyGraph(resolver)
+            val graph = PublicationDependencyGraph(resolver, workspace.additionalGenerationDependenciesAsMap())
             graph.load(modulesMiner.getModules().getModules().values)
             val sourceModules: Set<ModuleId> = modulesMiner.getModules().getModules()
                 .filter { it.value.owner is SourceModuleOwner }.keys -
