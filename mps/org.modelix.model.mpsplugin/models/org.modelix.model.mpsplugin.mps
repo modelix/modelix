@@ -40725,7 +40725,7 @@
                       <property role="TrG5h" value="dependenciesInMPS" />
                       <node concept="_YKpA" id="ON_jCg8eo7" role="1tU5fm">
                         <node concept="3uibUv" id="ON_jCg8eo8" role="_ZDj9">
-                          <ref role="3uigEE" to="xxte:25OQfQHQeBK" resolve="LanguageDependencyAsNode" />
+                          <ref role="3uigEE" to="xxte:25OQfQHQeBK" resolve="SingleLanguageDependencyAsNode" />
                         </node>
                       </node>
                       <node concept="2OqwBi" id="ON_jCg8eo9" role="33vP2m">
@@ -40937,8 +40937,8 @@
                                           <ref role="37wK5l" to="xxte:25OQfQHQeFB" resolve="getPropertyValue" />
                                           <node concept="2OqwBi" id="ON_jCg8epq" role="37wK5m">
                                             <node concept="355D3s" id="ON_jCg8epr" role="2Oq$k0">
-                                              <ref role="355D3t" to="jh6v:1UvRDkPap5X" resolve="LanguageDependency" />
-                                              <ref role="355D3u" to="jh6v:1UvRDkPap5Y" resolve="uuid" />
+                                              <ref role="355D3t" to="jh6v:1UvRDkPap5X" resolve="SingleLanguageDependency" />
+                                              <ref role="355D3u" to="jh6v:7LiskgSqGCi" resolve="uuid" />
                                             </node>
                                             <node concept="liA8E" id="ON_jCg8eps" role="2OqNvi">
                                               <ref role="37wK5l" to="c17a:~SProperty.getName()" resolve="getName" />
@@ -40954,8 +40954,8 @@
                                           <ref role="37wK5l" to="jks5:~INode.getPropertyValue(java.lang.String)" resolve="getPropertyValue" />
                                           <node concept="2OqwBi" id="ON_jCg8epw" role="37wK5m">
                                             <node concept="355D3s" id="ON_jCg8epx" role="2Oq$k0">
-                                              <ref role="355D3t" to="jh6v:1UvRDkPap5X" resolve="LanguageDependency" />
-                                              <ref role="355D3u" to="jh6v:1UvRDkPap5Y" resolve="uuid" />
+                                              <ref role="355D3t" to="jh6v:1UvRDkPap5X" resolve="SingleLanguageDependency" />
+                                              <ref role="355D3u" to="jh6v:7LiskgSqGCi" resolve="uuid" />
                                             </node>
                                             <node concept="liA8E" id="ON_jCg8epy" role="2OqNvi">
                                               <ref role="37wK5l" to="c17a:~SProperty.getName()" resolve="getName" />
@@ -41019,8 +41019,8 @@
                                     <ref role="2Gs0qQ" node="ON_jCg8epa" resolve="dependencyInMPS" />
                                   </node>
                                   <node concept="355D3s" id="ON_jCg8epT" role="37wK5m">
-                                    <ref role="355D3t" to="jh6v:1UvRDkPap5X" resolve="LanguageDependency" />
-                                    <ref role="355D3u" to="jh6v:1UvRDkPap60" resolve="name" />
+                                    <ref role="355D3t" to="jh6v:1UvRDkPap5X" resolve="SingleLanguageDependency" />
+                                    <ref role="355D3u" to="jh6v:7LiskgSqGCj" resolve="name" />
                                   </node>
                                 </node>
                               </node>
@@ -41036,7 +41036,7 @@
                                     <ref role="2Gs0qQ" node="ON_jCg8epa" resolve="dependencyInMPS" />
                                   </node>
                                   <node concept="355D3s" id="ON_jCg8epZ" role="37wK5m">
-                                    <ref role="355D3t" to="jh6v:1UvRDkPap5X" resolve="LanguageDependency" />
+                                    <ref role="355D3t" to="jh6v:1UvRDkPap5X" resolve="SingleLanguageDependency" />
                                     <ref role="355D3u" to="jh6v:1UvRDkPap63" resolve="version" />
                                   </node>
                                 </node>
@@ -41107,8 +41107,8 @@
                                           <ref role="37wK5l" to="jks5:~INode.getPropertyValue(java.lang.String)" resolve="getPropertyValue" />
                                           <node concept="2OqwBi" id="ON_jCg8eqs" role="37wK5m">
                                             <node concept="355D3s" id="ON_jCg8eqt" role="2Oq$k0">
-                                              <ref role="355D3t" to="jh6v:1UvRDkPap5X" resolve="LanguageDependency" />
-                                              <ref role="355D3u" to="jh6v:1UvRDkPap5Y" resolve="uuid" />
+                                              <ref role="355D3t" to="jh6v:1UvRDkPap5X" resolve="SingleLanguageDependency" />
+                                              <ref role="355D3u" to="jh6v:7LiskgSqGCi" resolve="uuid" />
                                             </node>
                                             <node concept="liA8E" id="ON_jCg8equ" role="2OqNvi">
                                               <ref role="37wK5l" to="c17a:~SProperty.getName()" resolve="getName" />
@@ -41124,8 +41124,8 @@
                                           <ref role="37wK5l" to="jks5:~INode.getPropertyValue(java.lang.String)" resolve="getPropertyValue" />
                                           <node concept="2OqwBi" id="ON_jCg8eqy" role="37wK5m">
                                             <node concept="355D3s" id="ON_jCg8eqz" role="2Oq$k0">
-                                              <ref role="355D3t" to="jh6v:1UvRDkPap5X" resolve="LanguageDependency" />
-                                              <ref role="355D3u" to="jh6v:1UvRDkPap5Y" resolve="uuid" />
+                                              <ref role="355D3t" to="jh6v:1UvRDkPap5X" resolve="SingleLanguageDependency" />
+                                              <ref role="355D3u" to="jh6v:7LiskgSqGCi" resolve="uuid" />
                                             </node>
                                             <node concept="liA8E" id="ON_jCg8eq$" role="2OqNvi">
                                               <ref role="37wK5l" to="c17a:~SProperty.getName()" resolve="getName" />
@@ -41247,7 +41247,7 @@
                             <property role="TrG5h" value="dependenciesInMPS" />
                             <node concept="_YKpA" id="ON_jCgb8EP" role="1tU5fm">
                               <node concept="3uibUv" id="ON_jCgb8EQ" role="_ZDj9">
-                                <ref role="3uigEE" to="xxte:25OQfQHQeBK" resolve="LanguageDependencyAsNode" />
+                                <ref role="3uigEE" to="xxte:25OQfQHQeBK" resolve="SingleLanguageDependencyAsNode" />
                               </node>
                             </node>
                             <node concept="2OqwBi" id="ON_jCgb8ER" role="33vP2m">
@@ -41464,8 +41464,8 @@
                                                 <ref role="37wK5l" to="jks5:~INode.getPropertyValue(java.lang.String)" resolve="getPropertyValue" />
                                                 <node concept="2OqwBi" id="ON_jCgb8G8" role="37wK5m">
                                                   <node concept="355D3s" id="ON_jCgb8G9" role="2Oq$k0">
-                                                    <ref role="355D3t" to="jh6v:1UvRDkPap5X" resolve="LanguageDependency" />
-                                                    <ref role="355D3u" to="jh6v:1UvRDkPap5Y" resolve="uuid" />
+                                                    <ref role="355D3t" to="jh6v:1UvRDkPap5X" resolve="SingleLanguageDependency" />
+                                                    <ref role="355D3u" to="jh6v:7LiskgSqGCi" resolve="uuid" />
                                                   </node>
                                                   <node concept="liA8E" id="ON_jCgb8Ga" role="2OqNvi">
                                                     <ref role="37wK5l" to="c17a:~SProperty.getName()" resolve="getName" />
@@ -41481,8 +41481,8 @@
                                                 <ref role="37wK5l" to="xxte:25OQfQHQeFB" resolve="getPropertyValue" />
                                                 <node concept="2OqwBi" id="ON_jCgb8Ge" role="37wK5m">
                                                   <node concept="355D3s" id="ON_jCgb8Gf" role="2Oq$k0">
-                                                    <ref role="355D3t" to="jh6v:1UvRDkPap5X" resolve="LanguageDependency" />
-                                                    <ref role="355D3u" to="jh6v:1UvRDkPap5Y" resolve="uuid" />
+                                                    <ref role="355D3t" to="jh6v:1UvRDkPap5X" resolve="SingleLanguageDependency" />
+                                                    <ref role="355D3u" to="jh6v:7LiskgSqGCi" resolve="uuid" />
                                                   </node>
                                                   <node concept="liA8E" id="ON_jCgb8Gg" role="2OqNvi">
                                                     <ref role="37wK5l" to="c17a:~SProperty.getName()" resolve="getName" />
@@ -41546,8 +41546,8 @@
                                           <ref role="2Gs0qQ" node="ON_jCgb8FS" resolve="dependencyInCloud" />
                                         </node>
                                         <node concept="355D3s" id="ON_jCgb8GB" role="37wK5m">
-                                          <ref role="355D3t" to="jh6v:1UvRDkPap5X" resolve="LanguageDependency" />
-                                          <ref role="355D3u" to="jh6v:1UvRDkPap60" resolve="name" />
+                                          <ref role="355D3t" to="jh6v:1UvRDkPap5X" resolve="SingleLanguageDependency" />
+                                          <ref role="355D3u" to="jh6v:7LiskgSqGCj" resolve="name" />
                                         </node>
                                       </node>
                                     </node>
@@ -41563,7 +41563,7 @@
                                           <ref role="2Gs0qQ" node="ON_jCgb8FS" resolve="dependencyInCloud" />
                                         </node>
                                         <node concept="355D3s" id="ON_jCgb8GH" role="37wK5m">
-                                          <ref role="355D3t" to="jh6v:1UvRDkPap5X" resolve="LanguageDependency" />
+                                          <ref role="355D3t" to="jh6v:1UvRDkPap5X" resolve="SingleLanguageDependency" />
                                           <ref role="355D3u" to="jh6v:1UvRDkPap63" resolve="version" />
                                         </node>
                                       </node>
@@ -41634,8 +41634,8 @@
                                                 <ref role="37wK5l" to="xxte:25OQfQHQeFB" resolve="getPropertyValue" />
                                                 <node concept="2OqwBi" id="ON_jCgb8Ha" role="37wK5m">
                                                   <node concept="355D3s" id="ON_jCgb8Hb" role="2Oq$k0">
-                                                    <ref role="355D3t" to="jh6v:1UvRDkPap5X" resolve="LanguageDependency" />
-                                                    <ref role="355D3u" to="jh6v:1UvRDkPap5Y" resolve="uuid" />
+                                                    <ref role="355D3t" to="jh6v:1UvRDkPap5X" resolve="SingleLanguageDependency" />
+                                                    <ref role="355D3u" to="jh6v:7LiskgSqGCi" resolve="uuid" />
                                                   </node>
                                                   <node concept="liA8E" id="ON_jCgb8Hc" role="2OqNvi">
                                                     <ref role="37wK5l" to="c17a:~SProperty.getName()" resolve="getName" />
@@ -41651,8 +41651,8 @@
                                                 <ref role="37wK5l" to="jks5:~INode.getPropertyValue(java.lang.String)" resolve="getPropertyValue" />
                                                 <node concept="2OqwBi" id="ON_jCgb8Hg" role="37wK5m">
                                                   <node concept="355D3s" id="ON_jCgb8Hh" role="2Oq$k0">
-                                                    <ref role="355D3t" to="jh6v:1UvRDkPap5X" resolve="LanguageDependency" />
-                                                    <ref role="355D3u" to="jh6v:1UvRDkPap5Y" resolve="uuid" />
+                                                    <ref role="355D3t" to="jh6v:1UvRDkPap5X" resolve="SingleLanguageDependency" />
+                                                    <ref role="355D3u" to="jh6v:7LiskgSqGCi" resolve="uuid" />
                                                   </node>
                                                   <node concept="liA8E" id="ON_jCgb8Hi" role="2OqNvi">
                                                     <ref role="37wK5l" to="c17a:~SProperty.getName()" resolve="getName" />
