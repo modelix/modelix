@@ -192,7 +192,13 @@ class WorkspaceManager {
                 transitiveDependencies += it
             }
             val usedModuleOwners = transitiveDependencies.flatMap { it.modules }.map { it.owner }.toSet()
-            val includedFolders = usedModuleOwners.map { it.path.getLocalAbsolutePath() }.toSet()
+            val includedFolders: Set<Path> = usedModuleOwners.map { it.getRootOwner() }.distinct().flatMap {
+                when (it) {
+                    is SourceModuleOwner -> listOf(it.path.getLocalAbsolutePath().parent)
+                    is LibraryModuleOwner -> (it.getGeneratorJars() + it.getPrimaryJar() + listOfNotNull(it.getSourceJar())).map { it.toPath() }
+                    else -> listOf(it.path.getLocalAbsolutePath())
+                }
+            }.toSet()
             //job.outputHandler("Included Folders: ")
             //includedFolders.sorted().forEach { job.outputHandler("    $it") }
             val usedModulesOnly: (Path) -> Boolean = { path -> path.ancestorsAndSelf().any { includedFolders.contains(it) } }
