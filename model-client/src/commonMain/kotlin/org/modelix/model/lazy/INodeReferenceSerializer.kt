@@ -16,6 +16,7 @@
 package org.modelix.model.lazy
 
 import org.modelix.model.api.INodeReference
+import org.modelix.model.persistent.SerializedNodeReference
 
 interface INodeReferenceSerializer {
 
@@ -34,6 +35,7 @@ interface INodeReferenceSerializer {
         }
 
         fun serialize(ref: INodeReference): String {
+            if (ref is SerializedNodeReference) return ref.serialized
             return serializers.map { it.serialize(ref) }.firstOrNull { it != null }
                 ?: throw RuntimeException("No serializer found for ${ref::class}")
         }
