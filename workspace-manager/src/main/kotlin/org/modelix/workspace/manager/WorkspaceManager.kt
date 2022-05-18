@@ -177,36 +177,40 @@ class WorkspaceManager {
             buildScriptGenerator.buildModules(File(getWorkspaceDirectory(workspace), "mps-build-script.xml"), job.outputHandler)
         }
 
-        // to reduce the required memory include only those modules in the zip that are actually used
-        val resolver = ModuleResolver(modulesMiner.getModules(), workspace.ignoredModules.map { ModuleId(it) }.toSet(), true)
-        val graph = PublicationDependencyGraph(resolver)
-        graph.load(modulesMiner.getModules().getModules().values)
-        val sourceModules: Set<ModuleId> = modulesMiner.getModules().getModules()
-            .filter { it.value.owner is SourceModuleOwner }.keys -
-            workspace.ignoredModules.map { ModuleId(it) }.toSet()
-        val transitiveDependencies = HashSet<DependencyGraph<FoundModule, ModuleId>.DependencyNode>()
-        sourceModules.mapNotNull { graph.getNode(it) }.forEach {
-            it.getTransitiveDependencies(transitiveDependencies)
-            transitiveDependencies += it
+        var fileFilter: (Path) -> Boolean = { true }
+        if (workspace.loadUsedModulesOnly) {
+            // to reduce the required memory include only those modules in the zip that are actually used
+            val resolver = ModuleResolver(modulesMiner.getModules(), workspace.ignoredModules.map { ModuleId(it) }.toSet(), true)
+            val graph = PublicationDependencyGraph(resolver)
+            graph.load(modulesMiner.getModules().getModules().values)
+            val sourceModules: Set<ModuleId> = modulesMiner.getModules().getModules()
+                .filter { it.value.owner is SourceModuleOwner }.keys -
+                workspace.ignoredModules.map { ModuleId(it) }.toSet()
+            val transitiveDependencies = HashSet<DependencyGraph<FoundModule, ModuleId>.DependencyNode>()
+            sourceModules.mapNotNull { graph.getNode(it) }.forEach {
+                it.getTransitiveDependencies(transitiveDependencies)
+                transitiveDependencies += it
+            }
+            val usedModuleOwners = transitiveDependencies.flatMap { it.modules }.map { it.owner }.toSet()
+            val includedFolders = usedModuleOwners.map { it.path.getLocalAbsolutePath() }.toSet()
+            //job.outputHandler("Included Folders: ")
+            //includedFolders.sorted().forEach { job.outputHandler("    $it") }
+            val usedModulesOnly: (Path) -> Boolean = { path -> path.ancestorsAndSelf().any { includedFolders.contains(it) } }
+            fileFilter = usedModulesOnly
         }
-        val usedModuleOwners = transitiveDependencies.flatMap { it.modules }.map { it.owner }.toSet()
-        val includedFolders = usedModuleOwners.map { it.path.getLocalAbsolutePath() }.toSet()
 
         downloadFile.parentFile.mkdirs()
         FileOutputStream(downloadFile).use { fileStream ->
             ZipOutputStream(fileStream).use { zipStream ->
-                job.outputHandler("Included Folders: ")
-                includedFolders.forEach { job.outputHandler("    $it") }
-                val usedModulesOnly: (Path) -> Boolean = { path -> path.ancestorsAndSelf().any { includedFolders.contains(it) } }
                 mavenFolders.forEach {
-                    zipStream.copyFiles(it, filter = usedModulesOnly, mapPath = { workspacePath.relativize(it)})
+                    zipStream.copyFiles(it, filter = fileFilter, mapPath = { workspacePath.relativize(it)})
                 }
                 gitManagers.forEach { repo ->
                     // no filter required because git repositories usually contain only source modules
                     repo.second.zip(repo.first.paths, zipStream, includeGitDir = true)
                 }
                 workspace.uploads.forEach { uploadId ->
-                    zipStream.copyFiles(getUploadFolder(uploadId), filter = usedModulesOnly, mapPath = {directory.toPath().relativize(it)})
+                    zipStream.copyFiles(getUploadFolder(uploadId), filter = fileFilter, mapPath = {directory.toPath().relativize(it)})
                 }
                 if (modulesXml != null) {
                     val zipEntry = ZipEntry("modules.xml")
