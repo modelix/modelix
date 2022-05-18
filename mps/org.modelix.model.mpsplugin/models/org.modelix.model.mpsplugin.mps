@@ -41257,6 +41257,113 @@
               <ref role="37wK5l" to="qvpu:~PArea.executeRead(kotlin.jvm.functions.Function0)" resolve="executeRead" />
               <node concept="1bVj0M" id="ON_jCgb8E$" role="37wK5m">
                 <node concept="3clFbS" id="ON_jCgb8E_" role="1bW5cS">
+                  <node concept="3cpWs8" id="1C3$AqAWPvY" role="3cqZAp">
+                    <node concept="3cpWsn" id="1C3$AqAWPvZ" role="3cpWs9">
+                      <property role="TrG5h" value="module" />
+                      <node concept="3uibUv" id="1C3$AqAWPw0" role="1tU5fm">
+                        <ref role="3uigEE" to="lui2:~SModule" resolve="SModule" />
+                      </node>
+                      <node concept="2OqwBi" id="1C3$AqAWNMx" role="33vP2m">
+                        <node concept="37vLTw" id="1C3$AqAWNMy" role="2Oq$k0">
+                          <ref role="3cqZAo" node="4_k_9wJ_0gX" resolve="model" />
+                        </node>
+                        <node concept="liA8E" id="1C3$AqAWNMz" role="2OqNvi">
+                          <ref role="37wK5l" to="mhbf:~SModel.getModule()" resolve="getModule" />
+                        </node>
+                      </node>
+                    </node>
+                  </node>
+                  <node concept="3clFbJ" id="1C3$AqAWQIv" role="3cqZAp">
+                    <node concept="3clFbS" id="1C3$AqAWQIx" role="3clFbx">
+                      <node concept="YS8fn" id="1C3$AqAWShw" role="3cqZAp">
+                        <node concept="2ShNRf" id="1C3$AqAWStI" role="YScLw">
+                          <node concept="1pGfFk" id="1C3$AqAWUMc" role="2ShVmc">
+                            <ref role="37wK5l" to="wyt6:~IllegalStateException.&lt;init&gt;(java.lang.String)" resolve="IllegalStateException" />
+                            <node concept="Xl_RD" id="1C3$AqAWV77" role="37wK5m">
+                              <property role="Xl_RC" value="The given model is not inserted in a module" />
+                            </node>
+                          </node>
+                        </node>
+                      </node>
+                    </node>
+                    <node concept="3clFbC" id="1C3$AqAWRBG" role="3clFbw">
+                      <node concept="10Nm6u" id="1C3$AqAWRW1" role="3uHU7w" />
+                      <node concept="37vLTw" id="1C3$AqAWRfq" role="3uHU7B">
+                        <ref role="3cqZAo" node="1C3$AqAWPvZ" resolve="module" />
+                      </node>
+                    </node>
+                  </node>
+                  <node concept="3cpWs8" id="1C3$AqAWNue" role="3cqZAp">
+                    <node concept="3cpWsn" id="1C3$AqAWNuf" role="3cpWs9">
+                      <property role="TrG5h" value="project" />
+                      <node concept="3uibUv" id="1C3$AqAWO32" role="1tU5fm">
+                        <ref role="3uigEE" to="z1c3:~Project" resolve="Project" />
+                      </node>
+                      <node concept="2YIFZM" id="1C3$AqAWNMw" role="33vP2m">
+                        <ref role="37wK5l" to="z1c3:~SModuleOperations.getProjectForModule(org.jetbrains.mps.openapi.module.SModule)" resolve="getProjectForModule" />
+                        <ref role="1Pybhc" to="z1c3:~SModuleOperations" resolve="SModuleOperations" />
+                        <node concept="37vLTw" id="1C3$AqAWQ8C" role="37wK5m">
+                          <ref role="3cqZAo" node="1C3$AqAWPvZ" resolve="module" />
+                        </node>
+                      </node>
+                    </node>
+                  </node>
+                  <node concept="3clFbJ" id="1C3$AqAWWvq" role="3cqZAp">
+                    <node concept="3clFbS" id="1C3$AqAWWvr" role="3clFbx">
+                      <node concept="YS8fn" id="1C3$AqAWWvs" role="3cqZAp">
+                        <node concept="2ShNRf" id="1C3$AqAWWvt" role="YScLw">
+                          <node concept="1pGfFk" id="1C3$AqAWWvu" role="2ShVmc">
+                            <ref role="37wK5l" to="wyt6:~IllegalStateException.&lt;init&gt;(java.lang.String)" resolve="IllegalStateException" />
+                            <node concept="Xl_RD" id="1C3$AqAWWvv" role="37wK5m">
+                              <property role="Xl_RC" value="The module is not associated to a project" />
+                            </node>
+                          </node>
+                        </node>
+                      </node>
+                    </node>
+                    <node concept="3clFbC" id="1C3$AqAWWvw" role="3clFbw">
+                      <node concept="10Nm6u" id="1C3$AqAWWvx" role="3uHU7w" />
+                      <node concept="37vLTw" id="1C3$AqAWWWD" role="3uHU7B">
+                        <ref role="3cqZAo" node="1C3$AqAWNuf" resolve="project" />
+                      </node>
+                    </node>
+                  </node>
+                  <node concept="3cpWs8" id="1C3$AqAWYGK" role="3cqZAp">
+                    <node concept="3cpWsn" id="1C3$AqAWYGL" role="3cpWs9">
+                      <property role="TrG5h" value="repo" />
+                      <node concept="3uibUv" id="1C3$AqAWYGM" role="1tU5fm">
+                        <ref role="3uigEE" to="lui2:~SRepository" resolve="SRepository" />
+                      </node>
+                      <node concept="2OqwBi" id="1C3$AqAWZcn" role="33vP2m">
+                        <node concept="37vLTw" id="1C3$AqAWZco" role="2Oq$k0">
+                          <ref role="3cqZAo" node="1C3$AqAWNuf" resolve="project" />
+                        </node>
+                        <node concept="liA8E" id="1C3$AqAWZcp" role="2OqNvi">
+                          <ref role="37wK5l" to="z1c3:~Project.getRepository()" resolve="getRepository" />
+                        </node>
+                      </node>
+                    </node>
+                  </node>
+                  <node concept="3clFbJ" id="1C3$AqAX0oY" role="3cqZAp">
+                    <node concept="3clFbS" id="1C3$AqAX0p0" role="3clFbx">
+                      <node concept="YS8fn" id="1C3$AqAX1$q" role="3cqZAp">
+                        <node concept="2ShNRf" id="1C3$AqAX1$r" role="YScLw">
+                          <node concept="1pGfFk" id="1C3$AqAX1$s" role="2ShVmc">
+                            <ref role="37wK5l" to="wyt6:~IllegalStateException.&lt;init&gt;(java.lang.String)" resolve="IllegalStateException" />
+                            <node concept="Xl_RD" id="1C3$AqAX1$t" role="37wK5m">
+                              <property role="Xl_RC" value="The project has no associated repository" />
+                            </node>
+                          </node>
+                        </node>
+                      </node>
+                    </node>
+                    <node concept="3clFbC" id="1C3$AqAX19H" role="3clFbw">
+                      <node concept="10Nm6u" id="1C3$AqAX1lW" role="3uHU7w" />
+                      <node concept="37vLTw" id="1C3$AqAX0CN" role="3uHU7B">
+                        <ref role="3cqZAo" node="1C3$AqAWYGL" resolve="repo" />
+                      </node>
+                    </node>
+                  </node>
                   <node concept="1QHqEM" id="ON_jCgbamj" role="3cqZAp">
                     <node concept="1QHqEC" id="ON_jCgbaml" role="1QHqEI">
                       <node concept="3clFbS" id="ON_jCgbamn" role="1bW5cS">
@@ -41754,22 +41861,8 @@
                         </node>
                       </node>
                     </node>
-                    <node concept="2OqwBi" id="ON_jCgbp9g" role="ukAjM">
-                      <node concept="2YIFZM" id="ON_jCgbnk7" role="2Oq$k0">
-                        <ref role="37wK5l" to="z1c3:~SModuleOperations.getProjectForModule(org.jetbrains.mps.openapi.module.SModule)" resolve="getProjectForModule" />
-                        <ref role="1Pybhc" to="z1c3:~SModuleOperations" resolve="SModuleOperations" />
-                        <node concept="2OqwBi" id="ON_jCgboGs" role="37wK5m">
-                          <node concept="37vLTw" id="ON_jCgboo6" role="2Oq$k0">
-                            <ref role="3cqZAo" node="4_k_9wJ_0gX" resolve="model" />
-                          </node>
-                          <node concept="liA8E" id="ON_jCgboTW" role="2OqNvi">
-                            <ref role="37wK5l" to="mhbf:~SModel.getModule()" resolve="getModule" />
-                          </node>
-                        </node>
-                      </node>
-                      <node concept="liA8E" id="ON_jCgbpMm" role="2OqNvi">
-                        <ref role="37wK5l" to="z1c3:~Project.getRepository()" resolve="getRepository" />
-                      </node>
+                    <node concept="37vLTw" id="1C3$AqAWZB$" role="ukAjM">
+                      <ref role="3cqZAo" node="1C3$AqAWYGL" resolve="repo" />
                     </node>
                   </node>
                   <node concept="3cpWs6" id="ON_jCgb8Hv" role="3cqZAp">
@@ -41797,7 +41890,7 @@
           </node>
         </node>
       </node>
-      <node concept="3cqZAl" id="4_k_9wJ_0gU" role="3clF45" />
+      <node concept="3cqZAl" id="1C3$AqAX3It" role="3clF45" />
       <node concept="37vLTG" id="4_k_9wJ_0gV" role="3clF46">
         <property role="TrG5h" value="tree" />
         <node concept="3uibUv" id="4_k_9wJ_0gW" role="1tU5fm">

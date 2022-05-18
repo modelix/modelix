@@ -34,6 +34,8 @@
     <import index="jks5" ref="cc99dce1-49f3-4392-8dbf-e22ca47bd0af/java:org.modelix.model.api(org.modelix.model.api/)" />
     <import index="qvpu" ref="cc99dce1-49f3-4392-8dbf-e22ca47bd0af/java:org.modelix.model.area(org.modelix.model.api/)" />
     <import index="jh6v" ref="r:f2f39a18-fd23-4090-b7f2-ba8da340eec2(org.modelix.model.repositoryconcepts.structure)" />
+    <import index="lui2" ref="8865b7a8-5271-43d3-884c-6fd1d9cfdd34/java:org.jetbrains.mps.openapi.module(MPS.OpenAPI/)" />
+    <import index="g3l6" ref="6ed54515-acc8-4d1e-a16c-9fd6cfe951ea/java:jetbrains.mps.extapi.model(MPS.Core/)" implicit="true" />
   </imports>
   <registry>
     <language id="a247e09e-2435-45ba-b8d2-07e93feba96a" name="jetbrains.mps.baseLanguage.tuples">
@@ -86,6 +88,9 @@
       </concept>
       <concept id="1081236700937" name="jetbrains.mps.baseLanguage.structure.StaticMethodCall" flags="nn" index="2YIFZM">
         <reference id="1144433194310" name="classConcept" index="1Pybhc" />
+      </concept>
+      <concept id="1164991038168" name="jetbrains.mps.baseLanguage.structure.ThrowStatement" flags="nn" index="YS8fn">
+        <child id="1164991057263" name="throwable" index="YScLw" />
       </concept>
       <concept id="1070533707846" name="jetbrains.mps.baseLanguage.structure.StaticFieldReference" flags="nn" index="10M0yZ">
         <reference id="1144433057691" name="classifier" index="1PxDUh" />
@@ -537,6 +542,26 @@
               </node>
             </node>
           </node>
+          <node concept="3cpWs8" id="1C3$AqAZmlm" role="3cqZAp">
+            <node concept="3cpWsn" id="1C3$AqAZmln" role="3cpWs9">
+              <property role="TrG5h" value="webModule" />
+              <node concept="3uibUv" id="1C3$AqAZLr5" role="1tU5fm">
+                <ref role="3uigEE" to="csg2:115Xaa43tZI" resolve="CloudTransientModule" />
+              </node>
+              <node concept="2ShNRf" id="7zuOo8p4r8P" role="33vP2m">
+                <node concept="1pGfFk" id="7zuOo8p4r8Q" role="2ShVmc">
+                  <ref role="37wK5l" to="csg2:115Xaa43tZP" resolve="CloudTransientModule" />
+                  <node concept="Xl_RD" id="7zuOo8p4r8R" role="37wK5m">
+                    <property role="Xl_RC" value="testModule" />
+                  </node>
+                  <node concept="2YIFZM" id="4rrX99ogfg5" role="37wK5m">
+                    <ref role="1Pybhc" to="z1c3:~ModuleId" resolve="ModuleId" />
+                    <ref role="37wK5l" to="z1c3:~ModuleId.regular()" resolve="regular" />
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
           <node concept="3cpWs8" id="7zuOo8p4r8L" role="3cqZAp">
             <node concept="3cpWsn" id="7zuOo8p4r8M" role="3cpWs9">
               <property role="TrG5h" value="webModel" />
@@ -546,17 +571,8 @@
               <node concept="2ShNRf" id="7zuOo8p4r8N" role="33vP2m">
                 <node concept="1pGfFk" id="7zuOo8p4r8O" role="2ShVmc">
                   <ref role="37wK5l" to="csg2:4QZGLsLEOdX" resolve="CloudTransientModel" />
-                  <node concept="2ShNRf" id="7zuOo8p4r8P" role="37wK5m">
-                    <node concept="1pGfFk" id="7zuOo8p4r8Q" role="2ShVmc">
-                      <ref role="37wK5l" to="csg2:115Xaa43tZP" resolve="CloudTransientModule" />
-                      <node concept="Xl_RD" id="7zuOo8p4r8R" role="37wK5m">
-                        <property role="Xl_RC" value="testModule" />
-                      </node>
-                      <node concept="2YIFZM" id="4rrX99ogfg5" role="37wK5m">
-                        <ref role="37wK5l" to="z1c3:~ModuleId.regular()" resolve="regular" />
-                        <ref role="1Pybhc" to="z1c3:~ModuleId" resolve="ModuleId" />
-                      </node>
-                    </node>
+                  <node concept="37vLTw" id="1C3$AqAZDHI" role="37wK5m">
+                    <ref role="3cqZAo" node="1C3$AqAZmln" resolve="webModule" />
                   </node>
                   <node concept="Xl_RD" id="7zuOo8p4r8S" role="37wK5m">
                     <property role="Xl_RC" value="testModule" />
@@ -569,6 +585,44 @@
                     <ref role="1PxDUh" to="jks5:~ITree" resolve="ITree" />
                     <ref role="3cqZAo" to="jks5:~ITree.ROOT_ID" resolve="ROOT_ID" />
                   </node>
+                </node>
+              </node>
+            </node>
+          </node>
+          <node concept="3clFbF" id="1C3$AqB0vxX" role="3cqZAp">
+            <node concept="2OqwBi" id="1C3$AqB0$0h" role="3clFbG">
+              <node concept="37vLTw" id="1C3$AqB0vxV" role="2Oq$k0">
+                <ref role="3cqZAo" node="7zuOo8p4r8M" resolve="webModel" />
+              </node>
+              <node concept="liA8E" id="1C3$AqB0CQK" role="2OqNvi">
+                <ref role="37wK5l" to="g3l6:~SModelBase.setModule(org.jetbrains.mps.openapi.module.SModule)" resolve="setModule" />
+                <node concept="37vLTw" id="1C3$AqB0CTn" role="37wK5m">
+                  <ref role="3cqZAo" node="1C3$AqAZmln" resolve="webModule" />
+                </node>
+              </node>
+            </node>
+          </node>
+          <node concept="3clFbJ" id="1C3$AqAYUJY" role="3cqZAp">
+            <node concept="3clFbS" id="1C3$AqAYUK0" role="3clFbx">
+              <node concept="YS8fn" id="1C3$AqAZd0r" role="3cqZAp">
+                <node concept="2ShNRf" id="1C3$AqAZd12" role="YScLw">
+                  <node concept="1pGfFk" id="1C3$AqAZPLd" role="2ShVmc">
+                    <ref role="37wK5l" to="wyt6:~IllegalStateException.&lt;init&gt;(java.lang.String)" resolve="IllegalStateException" />
+                    <node concept="Xl_RD" id="1C3$AqAZPRn" role="37wK5m">
+                      <property role="Xl_RC" value="The webModel should be inserted in the webModule" />
+                    </node>
+                  </node>
+                </node>
+              </node>
+            </node>
+            <node concept="3clFbC" id="1C3$AqAZ8By" role="3clFbw">
+              <node concept="10Nm6u" id="1C3$AqAZc6j" role="3uHU7w" />
+              <node concept="2OqwBi" id="1C3$AqAZ3t3" role="3uHU7B">
+                <node concept="37vLTw" id="1C3$AqAYYKs" role="2Oq$k0">
+                  <ref role="3cqZAo" node="7zuOo8p4r8M" resolve="webModel" />
+                </node>
+                <node concept="liA8E" id="1C3$AqAZ8uV" role="2OqNvi">
+                  <ref role="37wK5l" to="g3l6:~SModelBase.getModule()" resolve="getModule" />
                 </node>
               </node>
             </node>
