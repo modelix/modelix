@@ -40,6 +40,7 @@ class DeploymentManager {
         override fun run() {
             while (true) {
                 try {
+                    createAssignmentsForAllWorkspaces()
                     reconcileDeployments()
                 } catch (ex: Exception) {
                     LOG.error("", ex)
@@ -63,7 +64,10 @@ class DeploymentManager {
     }
 
     fun getAssignments(): List<AssignmentData> {
-        var hash2workspace = workspacePersistence.getWorkspaceIds().mapNotNull { workspacePersistence.getWorkspaceForId(it) }.associate { it.second to it.first }
+        val latestWorkspaces =
+            workspacePersistence.getWorkspaceIds().mapNotNull { workspacePersistence.getWorkspaceForId(it) }
+        val latestWorkspaceHashes = latestWorkspaces.map { it.second }.toSet()
+        var hash2workspace = latestWorkspaces.associate { it.second to it.first }
 
         var assignmentsCopy: HashMap<WorkspaceHash, Assignments>
         synchronized(assignments) {
@@ -80,7 +84,8 @@ class DeploymentManager {
                 unassignedInstances = assignment?.getNumberOfUnassigned() ?: 0,
                 (assignment?.listDeployments() ?: emptyList()).map { deployment ->
                     InstanceStatus(workspace, deployment.first, deployment.second, disabledInstances.contains(deployment.second))
-                }
+                },
+                isLatest = latestWorkspaceHashes.contains(it.key)
             )
         }
     }
@@ -106,7 +111,7 @@ class DeploymentManager {
     }
 
     fun changeNumberOfAssigned(workspaceHash: WorkspaceHash, newNumber: Int) {
-        getAssignments(workspacePersistence.getWorkspaceForHash(workspaceHash)!!).setNumberOfUnassigned(newNumber)
+        getAssignments(workspacePersistence.getWorkspaceForHash(workspaceHash)!!).setNumberOfUnassigned(newNumber, true)
     }
 
     fun isInstanceDisabled(instanceId: String): Boolean = disabledInstances.contains(instanceId)
@@ -149,6 +154,26 @@ class DeploymentManager {
         init()
         reconcileDeployments()
         cleanupThread.start()
+    }
+
+    private fun createAssignmentsForAllWorkspaces() {
+        val latestVersions = workspacePersistence.getWorkspaceIds()
+            .mapNotNull { workspacePersistence.getWorkspaceForId(it) }.associateBy { it.first.id }
+        val allExistingVersions = assignments.entries.groupBy { it.value.workspace.id }
+
+        for (latestVersion in latestVersions) {
+            val existingVersions: List<MutableMap.MutableEntry<WorkspaceHash, Assignments>>? = allExistingVersions[latestVersion.key]
+            if (existingVersions != null && existingVersions.any { it.key == latestVersion.value.second }) continue
+            val assignment = getAssignments(latestVersion.value.first)
+            val unassigned = existingVersions?.maxOfOrNull { it.value.getNumberOfUnassigned() } ?: 0
+            assignment.setNumberOfUnassigned(unassigned, false)
+            existingVersions?.forEach { it.value.resetNumberOfUnassigned() }
+        }
+
+        val deletedIds = allExistingVersions.keys - latestVersions.keys
+        for (deleted in deletedIds.flatMap { allExistingVersions[it]!! }) {
+            deleted.value.resetNumberOfUnassigned()
+        }
     }
 
     private fun reconcileDeployments() {
@@ -337,7 +362,8 @@ class DeploymentManager {
     private inner class Assignments(val workspace: Workspace) {
         private val userId2deployment: MutableMap<String, String> = HashMap()
         private val unassignedDeployments: MutableList<String> = LinkedList()
-        private var numberOfUnassigned: Int = 1
+        private var numberOfUnassignedAuto: Int? = null
+        private var numberOfUnassignedSetByUser: Int? = null
 
         fun listDeployments(): List<Pair<String?, String>> {
             return userId2deployment.map { it.key to it.value } + unassignedDeployments.map { null to it }
@@ -361,20 +387,31 @@ class DeploymentManager {
         }
 
         @Synchronized
-        fun setNumberOfUnassigned(targetNumber: Int) {
-            numberOfUnassigned = targetNumber
+        fun setNumberOfUnassigned(targetNumber: Int, setByUser: Boolean) {
+            if (setByUser) {
+                numberOfUnassignedSetByUser = targetNumber
+            } else {
+                numberOfUnassignedAuto = targetNumber
+            }
             reconcile()
         }
 
-        fun getNumberOfUnassigned() = numberOfUnassigned
+        @Synchronized
+        fun resetNumberOfUnassigned() {
+            numberOfUnassignedSetByUser = null
+            numberOfUnassignedAuto = null
+            reconcile()
+        }
+
+        fun getNumberOfUnassigned() = numberOfUnassignedSetByUser ?: numberOfUnassignedAuto ?: 0
 
         @Synchronized
         fun reconcile() {
-            while (unassignedDeployments.size > numberOfUnassigned) {
+            while (unassignedDeployments.size > getNumberOfUnassigned()) {
                 unassignedDeployments.removeAt(unassignedDeployments.size - 1)
                 dirty.set(true)
             }
-            while (unassignedDeployments.size < numberOfUnassigned) {
+            while (unassignedDeployments.size < getNumberOfUnassigned()) {
                 unassignedDeployments.add(generatePersonalDeploymentName(workspace))
                 dirty.set(true)
             }

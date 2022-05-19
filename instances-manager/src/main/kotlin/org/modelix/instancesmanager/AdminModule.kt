@@ -75,6 +75,7 @@ fun Application.adminModule() {
                             val assignmentCells: TR.() -> Unit = {
                                 td {
                                     rowSpan = assignment.instances.size.coerceAtLeast(1).toString()
+                                    if (!assignment.isLatest) style = "color: #aaa"
                                     +(assignment.workspace.name ?: "<no name>")
                                     br{}
                                     +assignment.workspace.id

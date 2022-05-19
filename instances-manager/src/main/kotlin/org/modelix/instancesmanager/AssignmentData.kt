@@ -15,5 +15,5 @@ package org.modelix.instancesmanager
 
 import org.modelix.workspaces.Workspace
 
-class AssignmentData(val workspace: Workspace, val unassignedInstances: Int, val instances: List<InstanceStatus>) {
+class AssignmentData(val workspace: Workspace, val unassignedInstances: Int, val instances: List<InstanceStatus>, val isLatest: Boolean) {
 }
