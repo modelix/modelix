@@ -21,6 +21,7 @@ import io.ktor.request.*
 import io.ktor.response.*
 import io.ktor.routing.*
 import kotlinx.html.*
+import org.modelix.workspaces.WorkspaceHash
 
 fun Application.adminModule() {
     install(Routing)
@@ -54,43 +55,94 @@ fun Application.adminModule() {
                     table {
                         thead {
                             tr {
-                                th { +"Path" }
-                                th { +"User" }
+                                th {
+                                    +"Workspace Name"
+                                    br {  }
+                                    +"Workspace ID"
+                                    br {  }
+                                    +"Workspace Hash"
+                                }
+                                th {
+                                    +"Max. Unassigned"
+                                    br {}
+                                    +"Instances"
+                                }
                                 th { +"Instance ID" }
+                                th { +"User" }
                             }
                         }
-                        for (deployment in DeploymentManager.INSTANCE.listDeployments()) {
-                            tr {
-                                if (deployment.disabled) {
-                                    style = "color: #aaa"
-                                }
-                                td { +deployment.path }
-                                td { +(deployment.user ?: "") }
-                                td { +deployment.id }
+                        for (assignment in DeploymentManager.INSTANCE.getAssignments().sortedBy { it.workspace.hash().hash }.sortedBy { it.workspace.id }) {
+                            val assignmentCells: TR.() -> Unit = {
                                 td {
-                                    if (deployment.disabled) {
-                                        postForm("enable-instance") {
-                                            hiddenInput {
-                                                name = "instanceId"
-                                                value = deployment.id
-                                            }
-                                            submitInput {
-                                                value = "Enable"
-                                            }
+                                    rowSpan = assignment.instances.size.coerceAtLeast(1).toString()
+                                    +(assignment.workspace.name ?: "<no name>")
+                                    br{}
+                                    +assignment.workspace.id
+                                    br{}
+                                    +assignment.workspace.hash().hash
+                                }
+                                td {
+                                    rowSpan = assignment.instances.size.coerceAtLeast(1).toString()
+                                    postForm("change-unassigned") {
+                                        hiddenInput {
+                                            name = "workspaceHash"
+                                            value = assignment.workspace.hash().hash
                                         }
-                                    } else {
-                                        postForm("disable-instance") {
-                                            hiddenInput {
-                                                name = "instanceId"
-                                                value = deployment.id
-                                            }
-                                            submitInput {
-                                                value = "Disable"
+                                        numberInput {
+                                            name = "numberOfUnassigned"
+                                            value = assignment.unassignedInstances.toString()
+                                        }
+                                        submitInput {
+                                            value = "Apply"
+                                        }
+                                    }
+                                }
+                            }
+
+                            if (assignment.instances.isEmpty()) {
+                                tr {
+                                    assignmentCells()
+                                }
+                            } else {
+                                for (instanceAndIndex in assignment.instances.withIndex()) {
+                                    val instance = instanceAndIndex.value
+                                    tr {
+                                        if (instanceAndIndex.index == 0) assignmentCells()
+                                        td {
+                                            if (instance.disabled) style = "color: #aaa"
+                                            +instance.id
+                                        }
+                                        td {
+                                            if (instance.disabled) style = "color: #aaa"
+                                            +(instance.user ?: "<unassigned>")
+                                        }
+                                        td {
+                                            if (instance.disabled) {
+                                                postForm("enable-instance") {
+                                                    hiddenInput {
+                                                        name = "instanceId"
+                                                        value = instance.id
+                                                    }
+                                                    submitInput {
+                                                        value = "Enable"
+                                                    }
+                                                }
+                                            } else {
+                                                postForm("disable-instance") {
+                                                    hiddenInput {
+                                                        name = "instanceId"
+                                                        value = instance.id
+                                                    }
+                                                    submitInput {
+                                                        value = "Disable"
+                                                    }
+                                                }
                                             }
                                         }
                                     }
                                 }
                             }
+
                         }
                     }
                 }
@@ -106,6 +158,14 @@ fun Application.adminModule() {
         post("enable-instance") {
             val instanceId = call.receiveParameters()["instanceId"]!!
             DeploymentManager.INSTANCE.enableInstance(instanceId)
+            call.respondRedirect(".")
+        }
+
+        post("change-unassigned") {
+            val parameters = call.receiveParameters()
+            val workspaceHash = parameters["workspaceHash"]!!
+            val numberOfUnassigned = parameters["numberOfUnassigned"]!!
+            DeploymentManager.INSTANCE.changeNumberOfAssigned(WorkspaceHash(workspaceHash), numberOfUnassigned.toInt().coerceIn(0..100))
             call.respondRedirect(".")
         }
     }

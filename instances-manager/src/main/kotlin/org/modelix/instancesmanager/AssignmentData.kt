@@ -1,6 +1,4 @@
 /*
- * Copyright 2003-2022 JetBrains s.r.o.
- *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -17,5 +15,5 @@ package org.modelix.instancesmanager
 
 import org.modelix.workspaces.Workspace
 
-class InstanceStatus(val workspace: Workspace, val user: String?, val id: String, val disabled: Boolean) {
+class AssignmentData(val workspace: Workspace, val unassignedInstances: Int, val instances: List<InstanceStatus>) {
 }
