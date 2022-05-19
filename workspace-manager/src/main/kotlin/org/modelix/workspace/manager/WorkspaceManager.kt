@@ -191,8 +191,14 @@ class WorkspaceManager {
                 it.getTransitiveDependencies(transitiveDependencies)
                 transitiveDependencies += it
             }
-            val usedModuleOwners = transitiveDependencies.flatMap { it.modules }.map { it.owner }.toSet()
-            val includedFolders: Set<Path> = usedModuleOwners.map { it.getRootOwner() }.distinct().flatMap {
+            var usedModuleOwners = transitiveDependencies.flatMap { it.modules }.map { it.owner }.toSet()
+            usedModuleOwners = usedModuleOwners.map { it.getRootOwner() }.toSet()
+            val transitivePlugins = kotlin.collections.HashMap<String, PluginModuleOwner>()
+            usedModuleOwners.filterIsInstance<PluginModuleOwner>().forEach {
+                modulesMiner.getModules().getPluginWithDependencies(it.pluginId, transitivePlugins)
+            }
+            usedModuleOwners += transitivePlugins.map { it.value }
+            val includedFolders: Set<Path> = usedModuleOwners.flatMap {
                 when (it) {
                     is SourceModuleOwner -> listOf(it.path.getLocalAbsolutePath().parent)
                     is LibraryModuleOwner -> (it.getGeneratorJars() + it.getPrimaryJar() + listOfNotNull(it.getSourceJar())).map { it.toPath() }
