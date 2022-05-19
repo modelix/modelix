@@ -5668,6 +5668,7 @@
       </node>
       <node concept="1SiIV0" id="6w3CrGw0wkE" role="3bR37C">
         <node concept="3bR9La" id="6w3CrGw0wkF" role="1SiIV1">
+          <property role="3bR36h" value="true" />
           <ref role="3bR37D" to="ffeo:6aIAM_Qd5ki" resolve="jetbrains.mps.lang.test.matcher" />
         </node>
       </node>
@@ -5698,6 +5699,11 @@
       <node concept="1SiIV0" id="6hBdEE_ImwW" role="3bR37C">
         <node concept="3bR9La" id="6hBdEE_ImwX" role="1SiIV1">
           <ref role="3bR37D" to="90a9:5U8hsWC73Be" resolve="org.modelix.model.repositoryconcepts" />
+        </node>
+      </node>
+      <node concept="1SiIV0" id="2QHBUeOiXcA" role="3bR37C">
+        <node concept="3bR9La" id="2QHBUeOiXcB" role="1SiIV1">
+          <ref role="3bR37D" to="ffeo:44LXwdzyvTi" resolve="Annotations" />
         </node>
       </node>
     </node>
