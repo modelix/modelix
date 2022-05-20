@@ -107,6 +107,7 @@ subprojects {
 
     publishing {
         repositories {
+            /* Disabled because GHP sometimes keeps failing with "Received status code 409 from server: Conflict"
             if (githubCredentials != null) {
                 maven {
                     name = "GitHubPackages"
@@ -119,6 +120,7 @@ subprojects {
                     }
                 }
             }
+            */
             if (project.hasProperty("artifacts.itemis.cloud.user")) {
                 maven {
                     name = "itemisNexus3"
