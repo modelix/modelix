@@ -15,7 +15,7 @@ compileJava {
 
 dependencies {
     compileOnly fileTree(dir: '../artifacts/mps/lib', include: '*.jar')
-    compile group: 'org.eclipse.jgit', name: 'org.eclipse.jgit', version: '5.8.0.202006091008-r'
+    compile group: 'org.eclipse.jgit', name: 'org.eclipse.jgit', version: '6.1.0.202203080745-r'
     compile group: 'commons-io', name: 'commons-io', version: '2.7'
 }
 
