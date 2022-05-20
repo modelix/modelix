@@ -245,12 +245,27 @@ class DeploymentManager {
         return deployment
     }
 
-    fun getPodLogs(deploymentName: String?): String? {
+    fun getPod(deploymentName: String): V1Pod? {
         try {
             val coreApi = CoreV1Api()
             val pods = coreApi.listNamespacedPod(KUBERNETES_NAMESPACE, null, null, null, null, null, null, null, null, null)
             for (pod in pods.items) {
-                if (!pod.metadata!!.name!!.startsWith(deploymentName!!)) continue
+                if (!pod.metadata!!.name!!.startsWith(deploymentName)) continue
+                return pod
+            }
+        } catch (e: Exception) {
+            LOG.error("", e)
+            return null
+        }
+        return null
+    }
+
+    fun getPodLogs(deploymentName: String): String? {
+        try {
+            val coreApi = CoreV1Api()
+            val pods = coreApi.listNamespacedPod(KUBERNETES_NAMESPACE, null, null, null, null, null, null, null, null, null)
+            for (pod in pods.items) {
+                if (!pod.metadata!!.name!!.startsWith(deploymentName)) continue
                 return coreApi.readNamespacedPodLog(
                     pod.metadata!!.name,
                     KUBERNETES_NAMESPACE,
@@ -278,6 +293,12 @@ class DeploymentManager {
         var workspaceHash = matcher.group(2) ?: return null
         if (!workspaceHash.contains("*")) workspaceHash = workspaceHash.substring(0, 5) + "*" + workspaceHash.substring(5)
         return workspacePersistence.getWorkspaceForHash(WorkspaceHash(workspaceHash))
+    }
+
+    @Synchronized
+    fun getWorkspaceForInstance(instanceId: String): Workspace? {
+        return assignments.values.filter { it.getAllDeploymentNames().any { it == instanceId } }
+            .map { it.workspace }.firstOrNull()
     }
 
     @Throws(IOException::class, ApiException::class)
