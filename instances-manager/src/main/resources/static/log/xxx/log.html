@@ -29,8 +29,12 @@
     <script type="application/javascript" src="../../jquery-3.6.0.min.js"></script>
     <script type="application/javascript">
         function updateLog() {
-            $.get("content", (data) => {
-                $("#log").text(data)
+            $.get("content", (newText) => {
+                let logElement = $("#log");
+                let oldText = logElement.text()
+                if (newText != oldText) {
+                    logElement.text(newText)
+                }
             });
             $.getJSON("events", (data) => {
                 let table = document.getElementById("events");
@@ -50,7 +54,9 @@
                         tableRow.lastChild.remove()
                     }
                     for (let x = 0; x < jsonRow.length; x++) {
-                        $(tableRow.children[x]).text(jsonRow[x])
+                        if ($(tableRow.children[x]).text() != jsonRow[x]) {
+                            $(tableRow.children[x]).text(jsonRow[x])
+                        }
                     }
                 }
             });
