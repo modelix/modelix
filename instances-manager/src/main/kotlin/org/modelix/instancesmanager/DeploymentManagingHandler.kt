@@ -27,8 +27,7 @@ import javax.servlet.http.HttpServletResponse
 class DeploymentManagingHandler : AbstractHandler() {
     override fun handle(target: String, baseRequest: Request, request: HttpServletRequest, response: HttpServletResponse) {
         try {
-            val deploymentManager: DeploymentManager = DeploymentManager.Companion.INSTANCE
-            val redirectedURL = deploymentManager.redirect(baseRequest, request) ?: return
+            val redirectedURL = DeploymentManager.INSTANCE.redirect(baseRequest, request) ?: return
             val personalDeploymentName = redirectedURL.personalDeploymentName ?: return
 
             if (DeploymentManager.INSTANCE.isInstanceDisabled(personalDeploymentName)) {
@@ -40,67 +39,44 @@ class DeploymentManagingHandler : AbstractHandler() {
             }
 
             DeploymentTimeouts.INSTANCE.update(personalDeploymentName)
-            val deployment = deploymentManager.getDeployment(personalDeploymentName, 3)
+            val deployment = DeploymentManager.INSTANCE.getDeployment(personalDeploymentName, 3)
                 ?: throw RuntimeException("Failed to create deployment " + personalDeploymentName + " for user " + redirectedURL.userId)
             val readyReplicas = if (deployment.status != null) deployment.status!!.readyReplicas else null
             if (readyReplicas == null || readyReplicas == 0) {
                 baseRequest.isHandled = true
                 response.contentType = "text/html"
                 response.status = HttpServletResponse.SC_OK
-                val podLogs = deploymentManager.getPodLogs(personalDeploymentName)
-                val events = deploymentManager.getEvents(personalDeploymentName)
-                val eventTime: (V1Event)-> DateTime? = {
-                    listOfNotNull(
-                        it.eventTime,
-                        it.lastTimestamp,
-                        it.firstTimestamp
-                    ).firstOrNull()
+                var html = this.javaClass.getResource("/static/status-screen.html")?.readText() ?: ""
+                val workspace = DeploymentManager.INSTANCE.getWorkspaceForInstance(personalDeploymentName)
+
+                var progress: Int = 10
+                if (DeploymentManager.INSTANCE.getPod(personalDeploymentName)?.status?.phase == "Running") {
+                    val log = DeploymentManager.INSTANCE.getPodLogs(personalDeploymentName) ?: ""
+                    val string2progress: List<Pair<String, Int>> = listOf(
+                        "env: " to 25,
+                        "Installed plugin from" to 30,
+                        "./ide-projector-launcher.sh" to 35,
+                        "Found IDE: mps" to 40,
+                        "Listening for transport dt_socket at address" to 45,
+                        "[DEBUG] :: IdeState :: \"Init ProjectorClassLoader\" is done" to 50,
+                        "[DEBUG] :: IdeState :: \"run transformations\" is done" to 55,
+                        "[DEBUG] :: ProjectorBatchTransformer :: Success" to 60,
+                        "execution mode: PROJECTOR" to 70,
+                        "ModelServerConnection - connected to" to 75,
+                        "AutoBindings - trying to bind project:" to 80,
+                        "AutoBindings - adding project binding" to 90,
+                    )
+                    progress = string2progress.lastOrNull { log.contains(it.first) }?.second ?: 20
                 }
-                response.writer.append("""
-                        <html>
-                        <head>
-                            <meta http-equiv="refresh" content="5">
-                            <style>
-                                table {
-                                    border-collapse: collapse;
-                                }
-                                td {
-                                    border: 1px solid #aaa;
-                                    padding: 0px 6px;
-                                }
-                            </style>
-                        </head>
-                        <body>
-                            <div>Starting MPS ... (<a href="/instances-manager/" target="_blank">Manage Instances</a>)</div>
-                    """.trimIndent())
-                if (events.isNotEmpty()) {
-                    response.writer.append("<br/><hr/><br/><table>")
-                    for (event in events.sortedBy(eventTime)) {
-                        response.writer.append("<tr>")
-                        response.writer.append("<td>")
-                        StringEscapeUtils.escapeHtml(response.writer, eventTime(event)?.toLocalTime()?.toString("HH:mm:ss") ?: "---")
-                        response.writer.append("</td>")
-                        response.writer.append("<td>")
-                        StringEscapeUtils.escapeHtml(response.writer, event.type)
-                        response.writer.append("</td>")
-                        response.writer.append("<td>")
-                        StringEscapeUtils.escapeHtml(response.writer, event.reason)
-                        response.writer.append("</td>")
-                        response.writer.append("<td>")
-                        StringEscapeUtils.escapeHtml(response.writer, event.message)
-                        response.writer.append("</td>")
-                        response.writer.append("</tr>")
-                    }
-                    response.writer.append("</table>")
+
+                if (workspace != null) {
+                    html = html.replace("{{workspaceName}}", workspace.name ?: workspace.id)
+                } else {
+                    progress = 0
                 }
-                if (podLogs != null) {
-                    response.writer.append("<br/><hr/><br/><pre>")
-                    StringEscapeUtils.escapeHtml(response.writer, podLogs)
-                    response.writer.append("</pre>")
-                }
-                response.writer
-                    .append("</body>")
-                    .append("</html>")
+                html = html.replace("{{progressPercent}}", progress.toString())
+                html = html.replace("{{instanceId}}", personalDeploymentName)
+                response.writer.append(html)
             }
         } catch (ex: Exception) {
             throw RuntimeException(ex)

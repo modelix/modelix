@@ -14,6 +14,8 @@
 package org.modelix.workspaces
 
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
 import org.jasypt.util.text.AES256TextEncryptor
 import org.modelix.model.persistent.HashUtil
 import java.io.File
@@ -34,7 +36,10 @@ data class Workspace(var id: String,
                      val uploads: MutableList<String> = ArrayList(),
                      val ignoredModules: List<String> = ArrayList(),
                      val additionalGenerationDependencies: List<GenerationDependency> = ArrayList(),
-)
+                     val loadUsedModulesOnly: Boolean = true
+) {
+    fun hash() = WorkspaceHash(HashUtil.sha256(Json.encodeToString(this)))
+}
 
 @Serializable
 data class GenerationDependency(val from: String, val to: String)
