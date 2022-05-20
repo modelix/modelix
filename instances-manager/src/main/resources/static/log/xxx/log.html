@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Log</title>
+    <style>
+        body {
+            background-color: black;
+            color: white;
+            padding: 20px;
+        }
+        #log {
+            color: #28fd13;
+        }
+
+        table {
+            border-collapse: collapse;
+        }
+        td {
+            border: 1px solid #888;
+            padding: 0 6px;
+        }
+    </style>
+</head>
+<body>
+    <table id="events"></table>
+    <br/>
+    <pre id="log"></pre>
+    <script type="application/javascript" src="../../jquery-3.6.0.min.js"></script>
+    <script type="application/javascript">
+        function updateLog() {
+            $.get("content", (data) => {
+                $("#log").text(data)
+            });
+            $.getJSON("events", (data) => {
+                let table = document.getElementById("events");
+                while (table.childElementCount < data.length) {
+                    table.append(document.createElement("tr"))
+                }
+                while (table.childElementCount > data.length) {
+                    table.lastChild.remove()
+                }
+                for (let y = 0; y < data.length; y++) {
+                    let tableRow = table.children[y];
+                    let jsonRow = data[y]
+                    while (tableRow.childElementCount < jsonRow.length) {
+                        tableRow.append(document.createElement("td"))
+                    }
+                    while (tableRow.childElementCount > jsonRow.length) {
+                        tableRow.lastChild.remove()
+                    }
+                    for (let x = 0; x < jsonRow.length; x++) {
+                        $(tableRow.children[x]).text(jsonRow[x])
+                    }
+                }
+            });
+        }
+
+        setInterval(() => {
+            updateLog()
+        }, 1000)
+    </script>
+</body>
+</html>

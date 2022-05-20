@@ -17,10 +17,14 @@ import io.ktor.application.*
 import io.ktor.features.*
 import io.ktor.html.*
 import io.ktor.http.*
+import io.ktor.http.content.*
 import io.ktor.request.*
 import io.ktor.response.*
 import io.ktor.routing.*
+import io.kubernetes.client.openapi.models.V1Event
 import kotlinx.html.*
+import org.joda.time.DateTime
+import org.json.JSONArray
 import org.modelix.workspaces.WorkspaceHash
 
 fun Application.adminModule() {
@@ -111,7 +115,9 @@ fun Application.adminModule() {
                                         if (instanceAndIndex.index == 0) assignmentCells()
                                         td {
                                             if (instance.disabled) style = "color: #aaa"
-                                            +instance.id
+                                            a("log/${instance.id}/", "_blank") {
+                                                +instance.id
+                                            }
                                         }
                                         td {
                                             if (instance.disabled) style = "color: #aaa"
@@ -169,5 +175,46 @@ fun Application.adminModule() {
             DeploymentManager.INSTANCE.changeNumberOfAssigned(WorkspaceHash(workspaceHash), numberOfUnassigned.toInt().coerceIn(0..100))
             call.respondRedirect(".")
         }
+
+        get("log/{instanceId}/content") {
+            val instanceId = call.parameters["instanceId"]!!
+            val log = DeploymentManager.INSTANCE.getPodLogs(instanceId) ?: "Instance $instanceId not found"
+            call.respondText(log, ContentType.Text.Plain, HttpStatusCode.OK)
+        }
+
+        get("log/{instanceId}/events") {
+            val instanceId = call.parameters["instanceId"]!!
+            val events = DeploymentManager.INSTANCE.getEvents(instanceId)
+            val eventTime: (V1Event)-> DateTime? = {
+                listOfNotNull(
+                    it.eventTime,
+                    it.lastTimestamp,
+                    it.firstTimestamp
+                ).firstOrNull()
+            }
+
+            val json = JSONArray()
+            for (event in events) {
+                val row = JSONArray()
+                row.put(eventTime(event)?.toLocalTime()?.toString("HH:mm:ss") ?: "---")
+                row.put(event.type)
+                row.put(event.reason)
+                row.put(event.message)
+                json.put(row)
+            }
+            call.respondText(json.toString(), ContentType.Application.Json, HttpStatusCode.OK)
+        }
+
+        get("log/{instanceId}/") {
+            val resourceName = "/static/log/xxx/log.html"
+            val resource = this.javaClass.getResource(resourceName)
+            if (resource == null) {
+                call.respondText("$resourceName not found", ContentType.Text.Plain, HttpStatusCode.NotFound)
+                return@get
+            }
+            call.respondText(resource.readText(), ContentType.Text.Html)
+        }
+
+        resources("/static")
     }
 }
