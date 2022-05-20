@@ -89,12 +89,12 @@ fun Application.adminModule() {
                                             name = "workspaceHash"
                                             value = assignment.workspace.hash().hash
                                         }
-                                        numberInput {
-                                            name = "numberOfUnassigned"
-                                            value = assignment.unassignedInstances.toString()
-                                        }
-                                        submitInput {
-                                            value = "Apply"
+                                        for (newValue in 0..5) {
+                                            submitInput {
+                                                disabled = newValue == assignment.unassignedInstances
+                                                name = "numberOfUnassigned"
+                                                value = "$newValue"
+                                            }
                                         }
                                     }
                                 }
