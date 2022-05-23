@@ -7,6 +7,10 @@ COPY build/org.modelix/build/artifacts/org.modelix/plugins/ /mps-plugins/modelix
 
 RUN /install-plugins.sh /projector/ide/plugins/
 COPY projector-user-home /home/projector-user
+# rename config directory to match the correct MPS version
+RUN MPS_VERSION=$(grep "mpsBootstrapCore.version=" /projector/ide/build.properties|cut -d'=' -f2) \
+    cd /home/projector-user/.config/JetBrains/ \
+    mv "*" "MPS${MPS_VERSION}"
 COPY log.xml /projector/ide/bin/log.xml
 
 RUN chown -R projector-user:projector-user /home/projector-user
