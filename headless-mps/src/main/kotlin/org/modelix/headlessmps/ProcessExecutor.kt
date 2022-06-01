@@ -19,7 +19,7 @@ import kotlin.math.max
 
 open class ProcessExecutor() {
     var outputHandler: (String)->Unit = { println(it) }
-    var timeoutSeconds: Int = 120
+    var timeoutSeconds: Int = 300
 
     @Throws(IOException::class, InterruptedException::class)
     fun exec(command: List<String>) {

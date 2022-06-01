@@ -23,6 +23,7 @@ import io.kubernetes.client.util.ClientBuilder
 import io.kubernetes.client.util.Yaml
 import org.apache.log4j.Logger
 import org.eclipse.jetty.server.Request
+import org.modelix.workspaces.Workspace
 import org.modelix.workspaces.WorkspaceHash
 import org.modelix.workspaces.WorkspacePersistence
 import java.io.IOException
@@ -39,6 +40,7 @@ class DeploymentManager {
         override fun run() {
             while (true) {
                 try {
+                    createAssignmentsForAllWorkspaces()
                     reconcileDeployments()
                 } catch (ex: Exception) {
                     LOG.error("", ex)
@@ -53,18 +55,45 @@ class DeploymentManager {
     }
     private val managerId = java.lang.Long.toHexString(System.currentTimeMillis() / 1000)
     private val deploymentSuffixSequence = AtomicLong(0xf)
-    private val assignments = Collections.synchronizedMap(HashMap<String, Assignments>())
+    private val assignments = Collections.synchronizedMap(HashMap<WorkspaceHash, Assignments>())
     private val disabledInstances = HashSet<String>()
     private val dirty = AtomicBoolean(true)
     private val workspacePersistence = WorkspacePersistence()
-    private fun getAssignments(originalDeploymentName: String): Assignments {
-        return assignments.computeIfAbsent(originalDeploymentName) { originalDeploymentName: String -> Assignments(originalDeploymentName) }
+    private fun getAssignments(workspace: Workspace): Assignments {
+        return assignments.getOrPut(workspace.hash()) { Assignments(workspace) }
+    }
+
+    fun getAssignments(): List<AssignmentData> {
+        val latestWorkspaces =
+            workspacePersistence.getWorkspaceIds().mapNotNull { workspacePersistence.getWorkspaceForId(it) }
+        val latestWorkspaceHashes = latestWorkspaces.map { it.second }.toSet()
+        var hash2workspace = latestWorkspaces.associate { it.second to it.first }
+
+        var assignmentsCopy: HashMap<WorkspaceHash, Assignments>
+        synchronized(assignments) {
+            assignmentsCopy = HashMap(assignments)
+        }
+
+        hash2workspace += assignmentsCopy.map { it.key to it.value.workspace }
+
+        return hash2workspace.map {
+            val assignment = assignmentsCopy[it.key]
+            val workspace = it.value
+            AssignmentData(
+                workspace = workspace,
+                unassignedInstances = assignment?.getNumberOfUnassigned() ?: 0,
+                (assignment?.listDeployments() ?: emptyList()).map { deployment ->
+                    InstanceStatus(workspace, deployment.first, deployment.second, disabledInstances.contains(deployment.second))
+                },
+                isLatest = latestWorkspaceHashes.contains(it.key)
+            )
+        }
     }
 
     fun listDeployments(): List<InstanceStatus> {
         return assignments.entries.flatMap { assignment ->
             assignment.value.listDeployments().map { deployment ->
-                InstanceStatus(assignment.key, deployment.first, deployment.second, disabledInstances.contains(deployment.second))
+                InstanceStatus(assignment.value.workspace, deployment.first, deployment.second, disabledInstances.contains(deployment.second))
             }
         }
     }
@@ -81,62 +110,36 @@ class DeploymentManager {
         reconcileDeployments()
     }
 
+    fun changeNumberOfAssigned(workspaceHash: WorkspaceHash, newNumber: Int) {
+        getAssignments(workspacePersistence.getWorkspaceForHash(workspaceHash)!!).setNumberOfUnassigned(newNumber, true)
+    }
+
     fun isInstanceDisabled(instanceId: String): Boolean = disabledInstances.contains(instanceId)
 
-    private fun generatePersonalDeploymentName(originalDeploymentName: String?): String {
-        val cleanName = originalDeploymentName!!.lowercase(Locale.getDefault()).replace("[^a-z0-9-]".toRegex(), "")
-        var deploymentName = PERSONAL_DEPLOYMENT_PREFIX + managerId + "-" + cleanName
-        val suffix = "-" + java.lang.Long.toHexString(deploymentSuffixSequence.incrementAndGet())
+    private fun generatePersonalDeploymentName(workspace: Workspace): String {
+        val cleanName = (workspace.id + "-" + workspace.hash()).lowercase(Locale.getDefault()).replace("[^a-z0-9-]".toRegex(), "")
+        var deploymentName = PERSONAL_DEPLOYMENT_PREFIX + cleanName
+        val suffix = "-" + java.lang.Long.toHexString(deploymentSuffixSequence.incrementAndGet()) + "-" + managerId
         val charsToRemove = deploymentName.length + suffix.length - (63 - 16)
         if (charsToRemove > 0) deploymentName = deploymentName.substring(0, deploymentName.length - charsToRemove)
         return deploymentName + suffix
     }
 
     private fun init() {
-        val appsApi = AppsV1Api()
-        var deployments: V1DeploymentList? = null
-        try {
-            deployments = appsApi.listNamespacedDeployment(KUBERNETES_NAMESPACE, null, null, null, null, null, null, null, null, null)
-            for (deployment in deployments.items) {
-                val metadata = deployment.metadata ?: continue
-                val annotations = metadata.annotations ?: continue
-                if ("true" == annotations[INSTANCE_PER_USER_ANNOTATION_KEY]) {
-                    val name = metadata.name
-                    if (name != null) {
-                        getAssignments(name).setNumberOfUnassigned(deployment)
-                    }
-                }
-            }
-        } catch (e: ApiException) {
-            LOG.error("", e)
-        }
+
     }
 
     fun redirect(baseRequest: Request?, request: HttpServletRequest): RedirectedURL? {
-        val redirected: RedirectedURL = RedirectedURL.Companion.redirect(baseRequest, request)
+        val redirected: RedirectedURL = RedirectedURL.redirect(baseRequest, request)
             ?: return null
         if (redirected.userId == null) return redirected
-        var originalDeploymentName = redirected.originalDeploymentName
-        val assignmentKey = originalDeploymentName
-        if (WORKSPACE_PATTERN.matcher(originalDeploymentName).matches()) {
-            originalDeploymentName = "workspace-client"
-        }
-        try {
-            val originalDeployment = getDeployment(originalDeploymentName, 3)
-            val metadata = originalDeployment!!.metadata
-            val annotations = metadata?.annotations
-            val isInstancePerUser = annotations != null && "true" == annotations[INSTANCE_PER_USER_ANNOTATION_KEY]
-            if (!isInstancePerUser) {
-                return null
-            } else {
-                val assignments = getAssignments(assignmentKey)
-                redirected.personalDeploymentName = assignments.getOrCreate(redirected.userId)
-                assignments.setNumberOfUnassigned(originalDeployment)
-                reconcileIfDirty()
-            }
-        } catch (e: ApiException) {
-            LOG.error("Failed to get deployment $originalDeploymentName", e)
-        }
+        val originalDeploymentName = redirected.originalDeploymentName
+        if (!WORKSPACE_PATTERN.matcher(originalDeploymentName).matches()) return null
+        val workspace = getWorkspaceForPath(originalDeploymentName) ?: return null
+        val assignments = getAssignments(workspace)
+        redirected.personalDeploymentName = assignments.getOrCreate(redirected.userId)
+        assignments.reconcile()
+        reconcileIfDirty()
         return redirected
     }
 
@@ -153,18 +156,38 @@ class DeploymentManager {
         cleanupThread.start()
     }
 
+    private fun createAssignmentsForAllWorkspaces() {
+        val latestVersions = workspacePersistence.getWorkspaceIds()
+            .mapNotNull { workspacePersistence.getWorkspaceForId(it) }.associateBy { it.first.id }
+        val allExistingVersions = assignments.entries.groupBy { it.value.workspace.id }
+
+        for (latestVersion in latestVersions) {
+            val existingVersions: List<MutableMap.MutableEntry<WorkspaceHash, Assignments>>? = allExistingVersions[latestVersion.key]
+            if (existingVersions != null && existingVersions.any { it.key == latestVersion.value.second }) continue
+            val assignment = getAssignments(latestVersion.value.first)
+            val unassigned = existingVersions?.maxOfOrNull { it.value.getNumberOfUnassigned() } ?: 0
+            assignment.setNumberOfUnassigned(unassigned, false)
+            existingVersions?.forEach { it.value.resetNumberOfUnassigned() }
+        }
+
+        val deletedIds = allExistingVersions.keys - latestVersions.keys
+        for (deleted in deletedIds.flatMap { allExistingVersions[it]!! }) {
+            deleted.value.resetNumberOfUnassigned()
+        }
+    }
+
     private fun reconcileDeployments() {
         // TODO doesn't work with multiple instances of this proxy
         synchronized(reconcileLock) {
             try {
-                val expectedDeployments: MutableMap<String?, String?> = HashMap()
-                val existingDeployments: MutableSet<String?> = HashSet()
+                val expectedDeployments: MutableMap<String, Workspace> = HashMap()
+                val existingDeployments: MutableSet<String> = HashSet()
                 synchronized(assignments) {
                     for (assignment in assignments.values) {
                         assignment.removeTimedOut()
                         for (deployment in assignment.getAllDeploymentNames()) {
                             if (!disabledInstances.contains(deployment)) {
-                                expectedDeployments[deployment] = assignment.originalDeploymentName
+                                expectedDeployments[deployment] = assignment.workspace
                             }
                         }
                     }
@@ -185,11 +208,11 @@ class DeploymentManager {
                     coreApi.deleteNamespacedService(d, KUBERNETES_NAMESPACE, null, null, null, null, null, null)
                 }
                 for (d in toAdd) {
-                    val originalDeploymentName = expectedDeployments[d]
+                    val workspace = expectedDeployments[d]!!
                     try {
-                        createDeployment(originalDeploymentName, d)
+                        createDeployment(workspace, d)
                     } catch (e: Exception) {
-                        LOG.error("Failed to create deployment $originalDeploymentName / $d", e)
+                        LOG.error("Failed to create deployment for workspace ${workspace.id} / $d", e)
                     }
                 }
             } catch (e: ApiException) {
@@ -222,12 +245,27 @@ class DeploymentManager {
         return deployment
     }
 
-    fun getPodLogs(deploymentName: String?): String? {
+    fun getPod(deploymentName: String): V1Pod? {
         try {
             val coreApi = CoreV1Api()
             val pods = coreApi.listNamespacedPod(KUBERNETES_NAMESPACE, null, null, null, null, null, null, null, null, null)
             for (pod in pods.items) {
-                if (!pod.metadata!!.name!!.startsWith(deploymentName!!)) continue
+                if (!pod.metadata!!.name!!.startsWith(deploymentName)) continue
+                return pod
+            }
+        } catch (e: Exception) {
+            LOG.error("", e)
+            return null
+        }
+        return null
+    }
+
+    fun getPodLogs(deploymentName: String): String? {
+        try {
+            val coreApi = CoreV1Api()
+            val pods = coreApi.listNamespacedPod(KUBERNETES_NAMESPACE, null, null, null, null, null, null, null, null, null)
+            for (pod in pods.items) {
+                if (!pod.metadata!!.name!!.startsWith(deploymentName)) continue
                 return coreApi.readNamespacedPodLog(
                     pod.metadata!!.name,
                     KUBERNETES_NAMESPACE,
@@ -248,18 +286,24 @@ class DeploymentManager {
             .filter { (it.involvedObject.name ?: "").contains(deploymentName) }
     }
 
+    fun getWorkspaceForPath(path: String): Workspace? {
+        val matcher = WORKSPACE_PATTERN.matcher(path)
+        if (!matcher.matches()) return null
+        var workspaceId = matcher.group(1)
+        var workspaceHash = matcher.group(2) ?: return null
+        if (!workspaceHash.contains("*")) workspaceHash = workspaceHash.substring(0, 5) + "*" + workspaceHash.substring(5)
+        return workspacePersistence.getWorkspaceForHash(WorkspaceHash(workspaceHash))
+    }
+
+    @Synchronized
+    fun getWorkspaceForInstance(instanceId: String): Workspace? {
+        return assignments.values.filter { it.getAllDeploymentNames().any { it == instanceId } }
+            .map { it.workspace }.firstOrNull()
+    }
+
     @Throws(IOException::class, ApiException::class)
-    fun createDeployment(originalDeploymentName: String?, personalDeploymentName: String?): Boolean {
-        var originalDeploymentName = originalDeploymentName
-        var workspaceId: String? = null
-        var workspaceHash: String? = null
-        val matcher = WORKSPACE_PATTERN.matcher(originalDeploymentName)
-        if (matcher.matches()) {
-            workspaceId = matcher.group(1)
-            workspaceHash = matcher.group(2)
-            if (!workspaceHash.contains("*")) workspaceHash = workspaceHash.substring(0, 5) + "*" + workspaceHash.substring(5)
-            originalDeploymentName = "workspace-client"
-        }
+    fun createDeployment(workspace: Workspace, personalDeploymentName: String?): Boolean {
+        val originalDeploymentName = WORKSPACE_CLIENT_DEPLOYMENT_NAME
         val appsApi = AppsV1Api()
         val deployments = appsApi.listNamespacedDeployment(KUBERNETES_NAMESPACE, null, null, null, null, null, null, null, 5, false)
         val deploymentExists = deployments.items.stream().anyMatch { d: V1Deployment -> personalDeploymentName == d.metadata!!.name }
@@ -273,24 +317,20 @@ class DeploymentManager {
             deployment.metadata!!.resourceVersion(null)
             deployment.status = null
             deployment.metadata!!.putAnnotationsItem("kubectl.kubernetes.io/last-applied-configuration", null)
-            deployment.metadata!!.putAnnotationsItem(INSTANCE_PER_USER_ANNOTATION_KEY, null)
-            deployment.metadata!!.putAnnotationsItem(MAX_UNASSIGNED_INSTANCES_ANNOTATION_KEY, null)
+            //deployment.metadata!!.putAnnotationsItem(INSTANCE_PER_USER_ANNOTATION_KEY, null)
+            //deployment.metadata!!.putAnnotationsItem(MAX_UNASSIGNED_INSTANCES_ANNOTATION_KEY, null)
             deployment.metadata!!.name(personalDeploymentName)
             deployment.metadata!!.putLabelsItem("app", personalDeploymentName)
             deployment.spec!!.selector.putMatchLabelsItem("app", personalDeploymentName)
             deployment.spec!!.template.metadata!!.putLabelsItem("app", personalDeploymentName)
             deployment.spec!!.replicas(1)
-            if (workspaceId != null) {
-                deployment.spec!!.template.spec!!.containers[0]
-                    .addEnvItem(V1EnvVar().name("modelix_workspace_id").value(workspaceId))
-                deployment.spec!!.template.spec!!.containers[0]
-                    .addEnvItem(V1EnvVar().name("REPOSITORY_ID").value("workspace_$workspaceId"))
-            }
-            if (workspaceHash != null) {
-                deployment.spec!!.template.spec!!.containers[0]
-                    .addEnvItem(V1EnvVar().name("modelix_workspace_hash").value(workspaceHash))
-                loadWorkspaceSpecificValues(workspaceHash, deployment)
-            }
+            deployment.spec!!.template.spec!!.containers[0]
+                .addEnvItem(V1EnvVar().name("modelix_workspace_id").value(workspace.id))
+            deployment.spec!!.template.spec!!.containers[0]
+                .addEnvItem(V1EnvVar().name("REPOSITORY_ID").value("workspace_${workspace.id}"))
+            deployment.spec!!.template.spec!!.containers[0]
+                .addEnvItem(V1EnvVar().name("modelix_workspace_hash").value(workspace.hash().hash))
+            loadWorkspaceSpecificValues(workspace, deployment)
             println("Creating deployment: ")
             println(Yaml.dump(deployment))
             appsApi.createNamespacedDeployment(KUBERNETES_NAMESPACE, deployment, null, null, null)
@@ -318,9 +358,8 @@ class DeploymentManager {
         return true
     }
 
-    private fun loadWorkspaceSpecificValues(workspaceHash: String, deployment: V1Deployment) {
+    private fun loadWorkspaceSpecificValues(workspace: Workspace, deployment: V1Deployment) {
         try {
-            val workspace = workspacePersistence.getWorkspaceForHash(WorkspaceHash(workspaceHash)) ?: return
             val container = deployment.spec!!.template.spec!!.containers[0]
             val mpsVersion = workspace.mpsVersion
             if (mpsVersion != null && mpsVersion.matches("""20\d\d\.\d""".toRegex())) {
@@ -337,13 +376,15 @@ class DeploymentManager {
             val requests = resources.requests
             if (requests != null) requests["memory"] = memoryLimit
         } catch (ex: Exception) {
-            LOG.error("Failed to configure the deployment for the workspace $workspaceHash", ex)
+            LOG.error("Failed to configure the deployment for the workspace ${workspace.id}", ex)
         }
     }
 
-    private inner class Assignments(val originalDeploymentName: String) {
+    private inner class Assignments(val workspace: Workspace) {
         private val userId2deployment: MutableMap<String, String> = HashMap()
         private val unassignedDeployments: MutableList<String> = LinkedList()
+        private var numberOfUnassignedAuto: Int? = null
+        private var numberOfUnassignedSetByUser: Int? = null
 
         fun listDeployments(): List<Pair<String?, String>> {
             return userId2deployment.map { it.key to it.value } + unassignedDeployments.map { null to it }
@@ -354,50 +395,51 @@ class DeploymentManager {
             var personalDeployment = userId2deployment[userId]
             if (personalDeployment == null) {
                 if (unassignedDeployments.isEmpty()) {
-                    personalDeployment = generatePersonalDeploymentName(originalDeploymentName)
+                    personalDeployment = generatePersonalDeploymentName(workspace)
                 } else {
                     personalDeployment = unassignedDeployments.removeAt(0)
-                    unassignedDeployments.add(generatePersonalDeploymentName(originalDeploymentName))
+                    unassignedDeployments.add(generatePersonalDeploymentName(workspace))
                 }
                 userId2deployment[userId] = personalDeployment!!
                 dirty.set(true)
             }
-            DeploymentTimeouts.Companion.INSTANCE.update(personalDeployment)
+            DeploymentTimeouts.INSTANCE.update(personalDeployment)
             return personalDeployment
         }
 
         @Synchronized
-        fun setNumberOfUnassigned(targetNumber: Int) {
-            while (unassignedDeployments.size > targetNumber) {
-                unassignedDeployments.removeAt(unassignedDeployments.size - 1)
-                dirty.set(true)
+        fun setNumberOfUnassigned(targetNumber: Int, setByUser: Boolean) {
+            if (setByUser) {
+                numberOfUnassignedSetByUser = targetNumber
+            } else {
+                numberOfUnassignedAuto = targetNumber
             }
-            while (unassignedDeployments.size < targetNumber) {
-                unassignedDeployments.add(generatePersonalDeploymentName(originalDeploymentName))
-                dirty.set(true)
-            }
-        }
-
-        fun setNumberOfUnassigned(deployment: V1Deployment?) {
-            var maxUnassignedInstances = 1
-            try {
-                val metadata = deployment!!.metadata
-                if (metadata != null) {
-                    val annotations = metadata.annotations
-                    if (annotations != null) {
-                        val maxUnassignedInstancesStr = annotations[MAX_UNASSIGNED_INSTANCES_ANNOTATION_KEY]
-                        if (maxUnassignedInstancesStr != null) {
-                            maxUnassignedInstances = maxUnassignedInstancesStr.toInt()
-                        }
-                    }
-                }
-            } catch (e: NumberFormatException) {
-            }
-            setNumberOfUnassigned(Math.max(0, maxUnassignedInstances))
+            reconcile()
         }
 
         @Synchronized
-        fun getAllDeploymentNames(): List<String?> = userId2deployment.values + unassignedDeployments
+        fun resetNumberOfUnassigned() {
+            numberOfUnassignedSetByUser = null
+            numberOfUnassignedAuto = null
+            reconcile()
+        }
+
+        fun getNumberOfUnassigned() = numberOfUnassignedSetByUser ?: numberOfUnassignedAuto ?: 0
+
+        @Synchronized
+        fun reconcile() {
+            while (unassignedDeployments.size > getNumberOfUnassigned()) {
+                unassignedDeployments.removeAt(unassignedDeployments.size - 1)
+                dirty.set(true)
+            }
+            while (unassignedDeployments.size < getNumberOfUnassigned()) {
+                unassignedDeployments.add(generatePersonalDeploymentName(workspace))
+                dirty.set(true)
+            }
+        }
+
+        @Synchronized
+        fun getAllDeploymentNames(): List<String> = userId2deployment.values + unassignedDeployments
 
         @Synchronized
         fun removeTimedOut() {
@@ -415,9 +457,8 @@ class DeploymentManager {
         private val LOG = Logger.getLogger(DeploymentManager::class.java)
         const val KUBERNETES_NAMESPACE = "default"
         val INSTANCE = DeploymentManager()
-        const val INSTANCE_PER_USER_ANNOTATION_KEY = "instance-per-user"
-        const val MAX_UNASSIGNED_INSTANCES_ANNOTATION_KEY = "max-unassigned-instances"
-        const val PERSONAL_DEPLOYMENT_PREFIX = "user-copy-"
+        const val PERSONAL_DEPLOYMENT_PREFIX = "wsclt-"
+        const val WORKSPACE_CLIENT_DEPLOYMENT_NAME = "workspace-client"
         val WORKSPACE_PATTERN = Pattern.compile("workspace-([a-f0-9]+)-([a-zA-Z0-9\\-_\\*]+)")
     }
 }

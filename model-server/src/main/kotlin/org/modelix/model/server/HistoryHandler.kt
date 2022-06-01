@@ -291,6 +291,7 @@ class HistoryHandler(private val client: IModelClient) : AbstractHandler() {
     }
 
     private fun reformatTime(dateTimeStr: String?): String {
+        if (dateTimeStr == null) return ""
         val dateTime = LocalDateTime.parse(dateTimeStr)
         return dateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"))
     }

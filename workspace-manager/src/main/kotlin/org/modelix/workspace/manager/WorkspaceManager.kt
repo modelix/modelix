@@ -181,7 +181,7 @@ class WorkspaceManager {
         if (workspace.loadUsedModulesOnly) {
             // to reduce the required memory include only those modules in the zip that are actually used
             val resolver = ModuleResolver(modulesMiner.getModules(), workspace.ignoredModules.map { ModuleId(it) }.toSet(), true)
-            val graph = PublicationDependencyGraph(resolver)
+            val graph = PublicationDependencyGraph(resolver, workspace.additionalGenerationDependenciesAsMap())
             graph.load(modulesMiner.getModules().getModules().values)
             val sourceModules: Set<ModuleId> = modulesMiner.getModules().getModules()
                 .filter { it.value.owner is SourceModuleOwner }.keys -
@@ -191,8 +191,20 @@ class WorkspaceManager {
                 it.getTransitiveDependencies(transitiveDependencies)
                 transitiveDependencies += it
             }
-            val usedModuleOwners = transitiveDependencies.flatMap { it.modules }.map { it.owner }.toSet()
-            val includedFolders = usedModuleOwners.map { it.path.getLocalAbsolutePath() }.toSet()
+            var usedModuleOwners = transitiveDependencies.flatMap { it.modules }.map { it.owner }.toSet()
+            usedModuleOwners = usedModuleOwners.map { it.getRootOwner() }.toSet()
+            val transitivePlugins = kotlin.collections.HashMap<String, PluginModuleOwner>()
+            usedModuleOwners.filterIsInstance<PluginModuleOwner>().forEach {
+                modulesMiner.getModules().getPluginWithDependencies(it.pluginId, transitivePlugins)
+            }
+            usedModuleOwners += transitivePlugins.map { it.value }
+            val includedFolders: Set<Path> = usedModuleOwners.flatMap {
+                when (it) {
+                    is SourceModuleOwner -> listOf(it.path.getLocalAbsolutePath().parent)
+                    is LibraryModuleOwner -> (it.getGeneratorJars() + it.getPrimaryJar() + listOfNotNull(it.getSourceJar())).map { it.toPath() }
+                    else -> listOf(it.path.getLocalAbsolutePath())
+                }
+            }.toSet()
             //job.outputHandler("Included Folders: ")
             //includedFolders.sorted().forEach { job.outputHandler("    $it") }
             val usedModulesOnly: (Path) -> Boolean = { path -> path.ancestorsAndSelf().any { includedFolders.contains(it) } }

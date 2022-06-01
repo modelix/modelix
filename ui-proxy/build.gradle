@@ -34,7 +34,7 @@ dependencies {
     compile group: 'org.eclipse.jetty.websocket', name: 'websocket-client', version: jettyVersion
     compile group: 'org.eclipse.jetty.websocket', name: 'websocket-server', version: jettyVersion
 
-    compile group: 'org.eclipse.jgit', name: 'org.eclipse.jgit', version: '5.8.0.202006091008-r'
+    compile group: 'org.eclipse.jgit', name: 'org.eclipse.jgit', version: '6.1.0.202203080745-r'
     compile group: 'org.kohsuke', name: 'github-api', version: '1.115'
 }
 

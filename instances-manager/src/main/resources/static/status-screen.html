@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Loading {{workspaceName}}</title>
+    <meta http-equiv="refresh" content="1"/>
+    <style>
+        body {
+            font-family: "Montserrat", sans-serif;
+            background: black;
+            color: white;
+        }
+
+        .container {
+            margin: 220px auto 100px;
+            width: 400px;
+            text-align: center;
+            position: relative;
+            color: #f3c623;
+        }
+
+        .progress {
+            border-radius: 30px;
+            background-color: #fff;
+        }
+
+        .progress-bar {
+            height: 18px;
+            border-radius: 30px;
+            background-color: #f3c623;
+            width: 50%;
+            box-shadow: 0 0 15px #f3c623;
+        }
+
+        .status-text {
+            margin-bottom: 15px;
+        }
+
+        #detailed-status {
+            margin-top: 50px;
+        }
+
+        #detailed-status a {
+            color: #888;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="status-text">Loading workspace {{workspaceName}} ...</div>
+        <div class="progress">
+            <div class="progress-bar" style="width: {{progressPercent}}%"></div>
+        </div>
+        <div id="detailed-status"><a href="/instances-manager/log/{{instanceId}}/" target="_blank">detailed status</a></div>
+    </div>
+</body>
+</html>
