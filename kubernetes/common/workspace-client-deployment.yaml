@@ -25,7 +25,7 @@ spec:
     spec:
       containers:
       - name: workspace-client
-        image: modelix/modelix-workspace-client:2020.3.5-202202061327-SNAPSHOT
+        image: modelix/modelix-workspace-client:2020.3.5-202205231600-SNAPSHOT
         imagePullPolicy: IfNotPresent
         env:
         - name: "modelix_executionMode"
