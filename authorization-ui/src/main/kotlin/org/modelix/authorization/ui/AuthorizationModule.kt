@@ -14,13 +14,13 @@
 
 package org.modelix.authorization.ui
 
-import io.ktor.application.*
-import io.ktor.features.*
-import io.ktor.html.*
+import io.ktor.server.application.*
+import io.ktor.server.plugins.cors.*
+import io.ktor.server.html.*
 import io.ktor.http.*
-import io.ktor.request.*
-import io.ktor.response.*
-import io.ktor.routing.*
+import io.ktor.server.request.*
+import io.ktor.server.response.*
+import io.ktor.server.routing.*
 import kotlinx.html.*
 import org.modelix.authorization.*
 
@@ -148,10 +148,10 @@ fun Application.authorizationModule() {
 
     install(CORS) {
         anyHost()
-        header(HttpHeaders.ContentType)
-        method(HttpMethod.Options)
-        method(HttpMethod.Get)
-        method(HttpMethod.Put)
-        method(HttpMethod.Post)
+        allowHeader(HttpHeaders.ContentType)
+        allowMethod(HttpMethod.Options)
+        allowMethod(HttpMethod.Get)
+        allowMethod(HttpMethod.Put)
+        allowMethod(HttpMethod.Post)
     }
 }

@@ -13,6 +13,7 @@
  */
 package org.modelix.authorization
 
+import io.ktor.server.auth.*
 import kotlinx.serialization.json.Json
 import org.modelix.model.client.IModelClient
 import org.modelix.model.client.RestWebModelClient
@@ -21,15 +22,17 @@ import kotlinx.serialization.encodeToString
 
 object ModelixAuthorization {
     private val ADMIN_GROUP = "modelix-administrators"
-    private val PUBLIC_GROUP = "modelix-public"
-    private val ANONYMOUS_USER_ID = "modelix-anonymous"
-    private val ANONYMOUS_USER = AuthenticatedUser(ANONYMOUS_USER_ID, setOf(PUBLIC_GROUP))
 
     var persistence: IAuthorizationPersistence = ModelServerAuthorizationPersistence()
 
     fun getData(): AuthorizationData {
         return persistence.loadData()
-            ?: AuthorizationData(setOf(ANONYMOUS_USER_ID), setOf(ADMIN_GROUP, PUBLIC_GROUP), emptySet(), emptyList())
+            ?: AuthorizationData(
+                setOf(AuthenticatedUser.ANONYMOUS_USER_ID),
+                setOf(ADMIN_GROUP, AuthenticatedUser.PUBLIC_GROUP),
+                emptySet(),
+                emptyList()
+            )
     }
 
     fun storeData(data: AuthorizationData) {
@@ -37,13 +40,29 @@ object ModelixAuthorization {
     }
 
     fun getPermissions(user: AuthenticatedUser, permissionId: PermissionId): Set<EPermissionType> {
-        val userAndGroupIds = user.getUserAndGroupIds() + PUBLIC_GROUP
-        return getData().grantedPermissions
+        val userAndGroupIds = user.getUserAndGroupIds() + AuthenticatedUser.PUBLIC_GROUP
+        val data = getData()
+        val result = data.grantedPermissions
             .filter { it.permissionId == permissionId && userAndGroupIds.contains(it.userOrGroupId) }
             .map { it.type }.toSet()
+        if (!data.knownUsers.containsAll(user.userIds) || !data.knownGroups.containsAll(user.groups) || !data.knownPermissions.contains(permissionId)) {
+            storeData(AuthorizationData(
+                data.knownUsers + user.userIds,
+                data.knownGroups + user.groups,
+                data.knownPermissions + permissionId,
+                data.grantedPermissions
+            ))
+        }
+        return result
     }
 
     fun hasPermission(user: AuthenticatedUser, permissionId: PermissionId, type: EPermissionType): Boolean {
         return getPermissions(user, permissionId).any { it.includes(type) }
+    }
+
+    fun checkPermission(user: AuthenticatedUser, permissionId: PermissionId, type: EPermissionType) {
+        if (!hasPermission(user, permissionId, type)) {
+            throw NoPermissionException(user, permissionId, type)
+        }
     }
 }

@@ -13,6 +13,43 @@
  */
 package org.modelix.authorization
 
-class AuthenticatedUser(val userId: String, val groups: Set<String>) {
-    fun getUserAndGroupIds(): Sequence<String> = groups.asSequence() + userId
+import io.ktor.server.auth.*
+
+class AuthenticatedUser(val userIds: Set<String>, val groups: Set<String>) : Principal {
+    fun getUserAndGroupIds(): Sequence<String> = userIds.asSequence() + groups
+
+    override fun toString(): String {
+        val userPart = when (userIds.size) {
+            0 -> "<no user>"
+            1 -> userIds.single()
+            else -> userIds.joinToString("/")
+        }
+        val groupPart = when (groups.size) {
+            0 -> ""
+            else -> " (${groups.joinToString(", ")})"
+        }
+        return userPart + groupPart
+    }
+
+    companion object {
+        val PUBLIC_GROUP = "modelix-public"
+        val ANONYMOUS_USER_ID = "modelix-anonymous"
+        val ANONYMOUS_USER = AuthenticatedUser(setOf(ANONYMOUS_USER_ID), setOf(PUBLIC_GROUP))
+
+        fun fromHttpHeaders(headers: List<Pair<String, String>>): AuthenticatedUser {
+            var users = headers.filter { it.first == "X-Forwarded-Email" || it.first == "X-Forwarded-User" }.map { it.second }
+            var groups = headers.filter { it.first == "X-Forwarded-Groups" }.map { it.second }
+            if (users.isEmpty()) {
+                users = listOf(ANONYMOUS_USER_ID)
+            }
+            groups += PUBLIC_GROUP
+            return AuthenticatedUser(users.toSet(), groups.toSet())
+        }
+        fun fromHttpHeaders(headers: Iterable<Map.Entry<String, List<String>>>): AuthenticatedUser {
+            return fromHttpHeaders(headers.flatMap { entry -> entry.value.map { value -> entry.key to value } })
+        }
+        fun fromHttpHeaders(headers: Map<String, List<String>>): AuthenticatedUser {
+            return fromHttpHeaders(headers.entries)
+        }
+    }
 }

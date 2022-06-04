@@ -15,7 +15,9 @@ package org.modelix.authorization
 
 @JvmInline
 @kotlinx.serialization.Serializable
-value class PermissionId(val id: String)
+value class PermissionId(val id: String) {
+    override fun toString() = id
+}
 
 @kotlinx.serialization.Serializable
 data class AuthorizationData(

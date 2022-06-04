@@ -22,10 +22,11 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.3")
     implementation("com.charleskorn.kaml:kaml:0.44.0")
     implementation(project(":authorization"))
-    val ktorVersion = "1.6.5"
+    val ktorVersion = "2.0.2"
     implementation("io.ktor", "ktor-server-core", ktorVersion)
+    implementation("io.ktor", "ktor-server-cors", ktorVersion)
     implementation("io.ktor", "ktor-server-netty", ktorVersion)
-    implementation("io.ktor", "ktor-html-builder", ktorVersion)
+    implementation("io.ktor", "ktor-server-html-builder", ktorVersion)
     implementation("ch.qos.logback", "logback-classic", "1.2.1")
 }
 
