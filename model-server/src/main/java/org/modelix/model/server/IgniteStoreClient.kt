@@ -93,7 +93,7 @@ class IgniteStoreClient(jdbcConfFile: File?) : IStoreClient {
         }
     }
 
-    override fun listen(key: String?, listener: IKeyListener?) {
+    override fun listen(key: String?, listener: IKeyListener) {
         synchronized(listeners) {
             val wasSubscribed = listeners.containsKey(key)
             listeners.put(key, listener)
@@ -120,7 +120,7 @@ class IgniteStoreClient(jdbcConfFile: File?) : IStoreClient {
         }
     }
 
-    override fun removeListener(key: String?, listener: IKeyListener?) {
+    override fun removeListener(key: String?, listener: IKeyListener) {
         synchronized(listeners) { listeners.remove(key, listener) }
     }
 

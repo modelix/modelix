@@ -49,7 +49,7 @@ fun Application.installAuthentication() {
             when (cause) {
                 is NoPermissionException -> call.respondText(
                     text = cause.message ?: "",
-                    status = io.ktor.http.HttpStatusCode.Unauthorized
+                    status = io.ktor.http.HttpStatusCode.Forbidden
                 )
                 else -> call.respondText(text = "500: $cause", status = io.ktor.http.HttpStatusCode.InternalServerError)
             }

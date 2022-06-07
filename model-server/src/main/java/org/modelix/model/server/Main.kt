@@ -19,6 +19,8 @@ import com.beust.jcommander.Parameter
 import com.beust.jcommander.converters.BooleanConverter
 import com.beust.jcommander.converters.IntegerConverter
 import com.beust.jcommander.converters.StringConverter
+import io.ktor.server.engine.*
+import io.ktor.server.netty.*
 import org.apache.commons.io.FileUtils
 import org.apache.ignite.Ignition
 import org.eclipse.jetty.server.Server
@@ -228,7 +230,7 @@ object Main {
                 storeClient.put(cmdLineArgs.setValues[i], cmdLineArgs.setValues[i + 1])
                 i += 2
             }
-            val modelServer = RestModelServer(storeClient)
+            val modelServer = KtorModelServer(storeClient)
             val localModelClient = LocalModelClient(storeClient)
             val sharedSecretFile = cmdLineArgs.secretFile
             if (sharedSecretFile.exists()) {
@@ -236,25 +238,21 @@ object Main {
                     FileUtils.readFileToString(sharedSecretFile, StandardCharsets.UTF_8)
                 )
             }
-            val server = Server(bindTo)
-            val servletHandler = ServletContextHandler()
-            modelServer.init(servletHandler)
-            val handlerList = HandlerList()
-            handlerList.addHandler(HistoryHandler(localModelClient))
-            handlerList.addHandler(servletHandler)
-            server.handler = handlerList
-            server.start()
+            // TODO handlerList.addHandler(HistoryHandler(localModelClient))
+
+            val ktorServer: NettyApplicationEngine = embeddedServer(Netty, port = 28101) {
+                modelServer.init(this)
+            }
+            ktorServer.start()
             LOG.info("Server started")
-            Runtime.getRuntime()
-                .addShutdownHook(
-                    Thread {
-                        try {
-                            server.stop()
-                        } catch (ex: Exception) {
-                            System.err.println("Exception: " + ex.message)
-                            ex.printStackTrace()
-                        }
-                    })
+            Runtime.getRuntime().addShutdownHook(Thread {
+                try {
+                    ktorServer.stop()
+                } catch (ex: Exception) {
+                    System.err.println("Exception: " + ex.message)
+                    ex.printStackTrace()
+                }
+            })
         } catch (ex: Exception) {
             println("Server failed: " + ex.message)
             ex.printStackTrace()

@@ -41,6 +41,7 @@ dependencies {
     implementation("io.ktor", "ktor-server-html-builder", ktorVersion)
     implementation("io.ktor:ktor-server-auth:$ktorVersion")
     implementation("io.ktor:ktor-server-status-pages:$ktorVersion")
+    implementation("io.ktor:ktor-server-forwarded-header:$ktorVersion")
     implementation(project(":authorization"))
 
     val igniteVersion = "2.13.0"
