@@ -34,7 +34,9 @@ import kotlinx.serialization.encodeToString
 import org.apache.commons.io.FileUtils
 import org.apache.commons.text.StringEscapeUtils
 import org.modelix.authorization.*
+import org.modelix.authorization.ktor.installAuthentication
 import org.modelix.authorization.ktor.oauthProxy
+import org.modelix.authorization.ktor.requiresPermission
 import org.modelix.gitui.GIT_REPO_DIR_ATTRIBUTE_KEY
 import org.modelix.gitui.MPS_INSTANCE_URL_ATTRIBUTE_KEY
 import org.modelix.gitui.gitui
@@ -48,24 +50,10 @@ fun Application.workspaceManagerModule() {
     val manager = WorkspaceManager()
 
     install(Routing)
-    install(Authentication) {
-        oauthProxy("oauth-proxy") {  }
-    }
-    install(StatusPages) {
-        exception<Throwable> { call, cause ->
-            when (cause) {
-                is NoPermissionException -> call.respondText(text = cause.message ?: "" , status = HttpStatusCode.Unauthorized)
-                else -> call.respondText(text = "500: $cause" , status = HttpStatusCode.InternalServerError)
-            }
-        }
-    }
+    installAuthentication()
 
     routing {
-        authenticate("oauth-proxy") {
-            intercept(ApplicationCallPipeline.Call) {
-                ModelixAuthorization.checkPermission(call.principal<AuthenticatedUser>()!!, PermissionId("workspaces"), EPermissionType.READ)
-            }
-
+        requiresPermission(PermissionId("workspaces"), EPermissionType.READ) {
             get("/") {
                 call.respondHtml(HttpStatusCode.OK) {
                     head {
@@ -567,6 +555,61 @@ fun Application.workspaceManagerModule() {
                 }
             }
 
+            route("{workspaceId}/git/{repoOrUploadIndex}/") {
+                intercept(ApplicationCallPipeline.Call) {
+                    val workspaceId = call.parameters["workspaceId"]!!
+                    val repoOrUploadIndex = call.parameters["repoOrUploadIndex"]!!
+                    var repoIndex: Int? = null
+                    var uploadId: String? = null
+                    if (repoOrUploadIndex.startsWith("u")) {
+                        uploadId = repoOrUploadIndex.drop(1)
+                    } else {
+                        repoIndex = repoOrUploadIndex.toInt()
+                    }
+                    val workspaceAndHash = manager.getWorkspaceForId(workspaceId)
+                    if (workspaceAndHash == null) {
+                        call.respondText("Workspace $workspaceId not found", ContentType.Text.Plain, HttpStatusCode.NotFound)
+                        return@intercept
+                    }
+                    val (workspace, workspaceHash) = workspaceAndHash
+                    val repoDir: File
+                    if (repoIndex != null) {
+                        val repos = workspace.gitRepositories
+                        if (!repos.indices.contains(repoIndex)) {
+                            call.respondText("Git repository with index $repoIndex doesn't exist", ContentType.Text.Plain, HttpStatusCode.NotFound)
+                            return@intercept
+                        }
+                        val repo = repos[repoIndex]
+                        val repoManager = GitRepositoryManager(repo, manager.getWorkspaceDirectory(workspace))
+                        if (!repoManager.repoDirectory.exists()) {
+                            repoManager.updateRepo()
+                        }
+                        repoDir = repoManager.repoDirectory
+                    } else {
+                        val uploadFolder = manager.getUploadFolder(uploadId!!)
+                        if (!uploadFolder.exists()) {
+                            call.respondText("Upload $uploadId doesn't exist", ContentType.Text.Plain, HttpStatusCode.NotFound)
+                            return@intercept
+                        }
+                        if (uploadFolder.resolve(".git").exists()) {
+                            repoDir = uploadFolder
+                        } else {
+                            val repoDirFromUpload = findGitRepo(uploadFolder)
+                            if (repoDirFromUpload == null) {
+                                call.respondText("No git repository found in upload $uploadId", ContentType.Text.Plain, HttpStatusCode.NotFound)
+                                return@intercept
+                            }
+                            repoDir = repoDirFromUpload
+                        }
+                    }
+                    call.attributes.put(GIT_REPO_DIR_ATTRIBUTE_KEY, repoDir)
+                    call.attributes.put(MPS_INSTANCE_URL_ATTRIBUTE_KEY, "../../../../workspace-${workspace.id}-$workspaceHash/")
+                }
+                gitui()
+            }
+        }
+
+        requiresPermission(PermissionId("workspaces"), EPermissionType.WRITE) {
             post("{workspaceId}/upload") {
                 call.requiresWrite()
                 val workspaceId = call.parameters["workspaceId"]!!
@@ -637,59 +680,6 @@ fun Application.workspaceManagerModule() {
                 val workspaceId = call.receiveParameters()["workspaceId"]!!
                 manager.removeWorkspace(workspaceId)
                 call.respondRedirect(".")
-            }
-
-            route("{workspaceId}/git/{repoOrUploadIndex}/") {
-                intercept(ApplicationCallPipeline.Call) {
-                    val workspaceId = call.parameters["workspaceId"]!!
-                    val repoOrUploadIndex = call.parameters["repoOrUploadIndex"]!!
-                    var repoIndex: Int? = null
-                    var uploadId: String? = null
-                    if (repoOrUploadIndex.startsWith("u")) {
-                        uploadId = repoOrUploadIndex.drop(1)
-                    } else {
-                        repoIndex = repoOrUploadIndex.toInt()
-                    }
-                    val workspaceAndHash = manager.getWorkspaceForId(workspaceId)
-                    if (workspaceAndHash == null) {
-                        call.respondText("Workspace $workspaceId not found", ContentType.Text.Plain, HttpStatusCode.NotFound)
-                        return@intercept
-                    }
-                    val (workspace, workspaceHash) = workspaceAndHash
-                    val repoDir: File
-                    if (repoIndex != null) {
-                        val repos = workspace.gitRepositories
-                        if (!repos.indices.contains(repoIndex)) {
-                            call.respondText("Git repository with index $repoIndex doesn't exist", ContentType.Text.Plain, HttpStatusCode.NotFound)
-                            return@intercept
-                        }
-                        val repo = repos[repoIndex]
-                        val repoManager = GitRepositoryManager(repo, manager.getWorkspaceDirectory(workspace))
-                        if (!repoManager.repoDirectory.exists()) {
-                            repoManager.updateRepo()
-                        }
-                        repoDir = repoManager.repoDirectory
-                    } else {
-                        val uploadFolder = manager.getUploadFolder(uploadId!!)
-                        if (!uploadFolder.exists()) {
-                            call.respondText("Upload $uploadId doesn't exist", ContentType.Text.Plain, HttpStatusCode.NotFound)
-                            return@intercept
-                        }
-                        if (uploadFolder.resolve(".git").exists()) {
-                            repoDir = uploadFolder
-                        } else {
-                            val repoDirFromUpload = findGitRepo(uploadFolder)
-                            if (repoDirFromUpload == null) {
-                                call.respondText("No git repository found in upload $uploadId", ContentType.Text.Plain, HttpStatusCode.NotFound)
-                                return@intercept
-                            }
-                            repoDir = repoDirFromUpload
-                        }
-                    }
-                    call.attributes.put(GIT_REPO_DIR_ATTRIBUTE_KEY, repoDir)
-                    call.attributes.put(MPS_INSTANCE_URL_ATTRIBUTE_KEY, "../../../../workspace-${workspace.id}-$workspaceHash/")
-                }
-                gitui()
             }
         }
 

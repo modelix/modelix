@@ -8,7 +8,9 @@ plugins {
 dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.2")
     implementation("com.charleskorn.kaml:kaml:0.40.0")
-    implementation("io.ktor:ktor-server-auth:2.0.2")
+    val ktorVersion = "2.0.2"
+    implementation("io.ktor:ktor-server-auth:$ktorVersion")
+    implementation("io.ktor:ktor-server-status-pages:$ktorVersion")
     implementation(project(":model-client", configuration = "jvmRuntimeElements"))
 }
 

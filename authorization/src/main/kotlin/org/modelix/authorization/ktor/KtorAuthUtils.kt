@@ -13,8 +13,13 @@
  */
 package org.modelix.authorization.ktor
 
+import io.ktor.http.*
+import io.ktor.server.application.*
 import io.ktor.server.auth.*
-import org.modelix.authorization.AuthenticatedUser
+import io.ktor.server.plugins.statuspages.*
+import io.ktor.server.response.*
+import io.ktor.server.routing.*
+import org.modelix.authorization.*
 
 class OAuthProxyAuth(authenticationConfig: Config) : AuthenticationProvider(authenticationConfig) {
     override suspend fun onAuthenticate(context: AuthenticationContext) {
@@ -32,4 +37,35 @@ public fun AuthenticationConfig.oauthProxy(
 ) {
     val provider = OAuthProxyAuth(OAuthProxyAuth.Config(name).apply(configure))
     register(provider)
+}
+
+
+fun Application.installAuthentication() {
+    install(Authentication) {
+        oauthProxy("oauth-proxy") { }
+    }
+    install(StatusPages) {
+        exception<Throwable> { call, cause ->
+            when (cause) {
+                is NoPermissionException -> call.respondText(
+                    text = cause.message ?: "",
+                    status = io.ktor.http.HttpStatusCode.Unauthorized
+                )
+                else -> call.respondText(text = "500: $cause", status = io.ktor.http.HttpStatusCode.InternalServerError)
+            }
+        }
+    }
+}
+
+fun Route.requiresPermission(permission: PermissionId, type: EPermissionType, body: Route.()->Unit) {
+    authenticate("oauth-proxy") {
+        intercept(ApplicationCallPipeline.Call) {
+            ModelixAuthorization.checkPermission(
+                call.principal<AuthenticatedUser>()!!,
+                ModelixAuthorization.AUTHORIZATION_DATA_PERMISSION,
+                type
+            )
+        }
+        body()
+    }
 }

@@ -15,6 +15,7 @@ package org.modelix.authorization
 
 object ModelixAuthorization {
     private val ADMIN_GROUP = "modelix-administrators"
+    val AUTHORIZATION_DATA_PERMISSION = PermissionId("authorization-data")
 
     var persistence: IAuthorizationPersistence = ModelServerAuthorizationPersistence()
 
@@ -54,7 +55,14 @@ object ModelixAuthorization {
     }
 
     fun hasPermission(user: AuthenticatedUser, permissionId: PermissionId, type: EPermissionType): Boolean {
-        return getPermissions(user, permissionId).any { it.includes(type) }
+        val result = getPermissions(user, permissionId).any { it.includes(type) }
+        if (permissionId == AUTHORIZATION_DATA_PERMISSION && !result) {
+            if (!getData().grantedPermissions.any { it.permissionId == permissionId && it.type.includes(EPermissionType.WRITE) }) {
+                // if nobody has the permission to edit permissions we would have a problem
+                return true
+            }
+        }
+        return result
     }
 
     fun checkPermission(user: AuthenticatedUser, permissionId: PermissionId, type: EPermissionType) {
