@@ -34,63 +34,59 @@ fun Application.authorizationModule() {
             call.respondHtml {
                 body {
                     form(action = "update", method = FormMethod.post) {
-                        h1 { +"Known Users" }
-                        table {
-                            for (userId in data.knownUsers) {
-                                tr {
-                                    td {
-                                        checkBoxInput(name = "user") { value = userId }
-                                        +userId
-                                    }
-                                }
-                            }
+                    }
+                    h1 { +"Known Users" }
+                    table {
+                        for (userId in data.knownUsers) {
                             tr {
                                 td {
+                                    +userId
+                                }
+                            }
+                        }
+                        tr {
+                            td {
+                                form(action = "add-user", method = FormMethod.post) {
                                     textInput(name = "new-user-id")
-                                    submitInput(name = "add-user") { value = "+" }
+                                    submitInput { value = "+" }
                                 }
                             }
                         }
-                        h1 { +"Known Groups" }
-                        table {
-                            for (groupId in data.knownGroups) {
-                                tr {
-                                    td {
-                                        checkBoxInput(name = "group") { value = groupId }
-                                        +groupId
-                                    }
-                                }
-                            }
+                    }
+                    h1 { +"Known Groups" }
+                    table {
+                        for (groupId in data.knownGroups) {
                             tr {
                                 td {
+                                    +groupId
+                                }
+                            }
+                        }
+                        tr {
+                            td {
+                                form(action = "add-group", method = FormMethod.post) {
                                     textInput(name = "new-group-id")
-                                    submitInput(name = "add-group") { value = "+" }
+                                    submitInput { value = "+" }
                                 }
                             }
                         }
-                        h1 { +"Known Permissions" }
-                        table {
-                            for (permissionId in data.getAllKnownPermissions().sortedBy { it.id }) {
-                                tr {
-                                    td {
-                                        checkBoxInput(name = "permission") { value = permissionId.id }
-                                        +permissionId.id
-                                    }
-                                }
-                            }
+                    }
+                    h1 { +"Known Permissions" }
+                    table {
+                        for (permissionId in data.getAllKnownPermissions().sortedBy { it.id }) {
                             tr {
                                 td {
-                                    textInput(name = "new-permission-id")
-                                    submitInput(name = "add-permission") { value = "+" }
+                                    +permissionId.id
                                 }
                             }
                         }
-                        div {
-                            +"Grant "
-                            for (type in EPermissionType.values()) {
-                                submitInput(name = "type") { value = type.name }
+                        tr {
+                            td {
+                                form(action = "add-permission", method = FormMethod.post) {
+                                    textInput(name = "new-permission-id")
+                                    submitInput { value = "+" }
+                                }
                             }
-                            +" access"
                         }
                     }
                     h1 { +"Granted Permissions" }
@@ -110,47 +106,56 @@ fun Application.authorizationModule() {
                                 }
                             }
                         }
+                        tr {
+                            td {
+                                select {
+                                    name = "userOrGroupId"
+                                    form = "grantPermissionForm"
+                                    multiple = true
+                                    for (userOrGroup in data.knownUsers + data.knownGroups) {
+                                        option {
+                                            value = userOrGroup
+                                            +userOrGroup
+                                        }
+                                    }
+                                }
+                            }
+                            td {
+                                select {
+                                    name = "type"
+                                    form = "grantPermissionForm"
+                                    multiple = true
+                                    for (type in EPermissionType.values()) {
+                                        option {
+                                            value = type.name
+                                            +type.name
+                                        }
+                                    }
+                                }
+                            }
+                            td {
+                                select {
+                                    name = "permission"
+                                    form = "grantPermissionForm"
+                                    multiple = true
+                                    for (permission in data.knownPermissions) {
+                                        option {
+                                            value = permission.id
+                                            +permission.id
+                                        }
+                                    }
+                                }
+                            }
+                            td {
+                                form(action = "grantPermission", method = FormMethod.post) {
+                                    id = "grantPermissionForm"
+                                    submitInput { value = "+" }
+                                }
+                            }
+                        }
                     }
                 }
             }
-        }
-
-        post("update") {
-            val params: Parameters = call.receiveParameters()
-            var data = ModelixAuthorization.getData()
-            if (params.contains("type")) {
-                val users = params.getAll("user") ?: emptyList()
-                val groups = params.getAll("group") ?: emptyList()
-                val permissions = params.getAll("permission")?.map { PermissionId(it) } ?: emptyList()
-                val type = params["type"]?.let { EPermissionType.valueOf(it) }
-                if (type != null) {
-                    for (permission in permissions) {
-                        for (user in users) {
-                            data = data.withGrantedPermission(PermissionData(user, permission, type))
-                        }
-                        for (group in groups) {
-                            data = data.withGrantedPermission(PermissionData(group, permission, type))
-                        }
-                    }
-                }
-            } else if (params.contains("add-user")) {
-                val id = params["new-user-id"]
-                if (id != null) {
-                    data = data.withUser(id)
-                }
-            } else if (params.contains("add-group")) {
-                val id = params["new-group-id"]
-                if (id != null) {
-                    data = data.withGroup(id)
-                }
-            } else if (params.contains("add-permission")) {
-                val id = params["new-permission-id"]
-                if (id != null) {
-                    data = data.withPermission(PermissionId(id))
-                }
-            }
-            ModelixAuthorization.storeData(data)
-            call.respondRedirect(".")
         }
 
         post("removeGrantedPermission") {
@@ -165,6 +170,66 @@ fun Application.authorizationModule() {
                         it.type.name == params["type"] &&
                         it.permissionId.id == params["permission"]
                     }
+                )
+            }
+            call.respondRedirect(".")
+        }
+
+        post("grantPermission") {
+            val params = call.receiveParameters()
+            ModelixAuthorization.updateData { data ->
+                var newPermissions = data.grantedPermissions
+                for (userOrGroupId in params.getAll("userOrGroupId")!!) {
+                    for (type in params.getAll("type")!!) {
+                        for (permission in params.getAll("permission")!!) {
+                            newPermissions += PermissionData(userOrGroupId, PermissionId(permission), EPermissionType.valueOf(type))
+                        }
+                    }
+                }
+                AuthorizationData(
+                    data.knownUsers,
+                    data.knownGroups,
+                    data.knownPermissions,
+                    newPermissions.distinct()
+                )
+            }
+            call.respondRedirect(".")
+        }
+
+        post("add-user") {
+            val params = call.receiveParameters()
+            ModelixAuthorization.updateData { data ->
+                AuthorizationData(
+                    data.knownUsers + params["new-user-id"]!!,
+                    data.knownGroups,
+                    data.knownPermissions,
+                    data.grantedPermissions
+                )
+            }
+            call.respondRedirect(".")
+        }
+
+        post("add-group") {
+            val params = call.receiveParameters()
+            ModelixAuthorization.updateData { data ->
+                AuthorizationData(
+                    data.knownUsers,
+                    data.knownGroups + params["new-group-id"]!!,
+                    data.knownPermissions,
+                    data.grantedPermissions
+                )
+            }
+            call.respondRedirect(".")
+        }
+
+        post("add-permission") {
+            val params = call.receiveParameters()
+            ModelixAuthorization.updateData { data ->
+                AuthorizationData(
+                    data.knownUsers,
+                    data.knownGroups,
+                    data.knownPermissions + PermissionId(params["new-permission-id"]!!),
+                    data.grantedPermissions
                 )
             }
             call.respondRedirect(".")
