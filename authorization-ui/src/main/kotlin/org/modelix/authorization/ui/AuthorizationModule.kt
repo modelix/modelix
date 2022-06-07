@@ -100,6 +100,14 @@ fun Application.authorizationModule() {
                                 td { +grantedPermission.userOrGroupId }
                                 td { +grantedPermission.type.name }
                                 td { +grantedPermission.permissionId.id }
+                                td {
+                                    form(action = "removeGrantedPermission", method = FormMethod.post) {
+                                        hiddenInput(name = "userOrGroupId") { value = grantedPermission.userOrGroupId }
+                                        hiddenInput(name = "type") { value = grantedPermission.type.name }
+                                        hiddenInput(name = "permission") { value = grantedPermission.permissionId.id }
+                                        submitInput { value = "Remove" }
+                                    }
+                                }
                             }
                         }
                     }
@@ -142,6 +150,23 @@ fun Application.authorizationModule() {
                 }
             }
             ModelixAuthorization.storeData(data)
+            call.respondRedirect(".")
+        }
+
+        post("removeGrantedPermission") {
+            val params = call.receiveParameters()
+            ModelixAuthorization.updateData { data ->
+                AuthorizationData(
+                    data.knownUsers,
+                    data.knownGroups,
+                    data.knownPermissions,
+                    data.grantedPermissions.filterNot {
+                        it.userOrGroupId == params["userOrGroupId"] &&
+                        it.type.name == params["type"] &&
+                        it.permissionId.id == params["permission"]
+                    }
+                )
+            }
             call.respondRedirect(".")
         }
     }

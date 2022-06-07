@@ -13,13 +13,6 @@
  */
 package org.modelix.authorization
 
-import io.ktor.server.auth.*
-import kotlinx.serialization.json.Json
-import org.modelix.model.client.IModelClient
-import org.modelix.model.client.RestWebModelClient
-import kotlinx.serialization.decodeFromString
-import kotlinx.serialization.encodeToString
-
 object ModelixAuthorization {
     private val ADMIN_GROUP = "modelix-administrators"
 
@@ -33,6 +26,10 @@ object ModelixAuthorization {
                 emptySet(),
                 emptyList()
             )
+    }
+
+    fun updateData(body: (AuthorizationData)->AuthorizationData) {
+        storeData(body(getData()))
     }
 
     fun storeData(data: AuthorizationData) {
