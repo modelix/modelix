@@ -12,104 +12,67 @@
  * specific language governing permissions and limitations
  * under the License. 
  */
+package org.modelix.model.server
 
-package org.modelix.model.server;
+import org.apache.commons.collections4.IterableUtils
+import org.modelix.model.IKeyListener
+import org.modelix.model.IKeyValueStore
+import org.modelix.model.api.IIdGenerator
+import org.modelix.model.client.IModelClient
+import org.modelix.model.client.IdGenerator
+import org.modelix.model.lazy.IDeserializingKeyValueStore
+import org.modelix.model.lazy.ObjectStoreCache
 
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import org.apache.commons.collections4.IterableUtils;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-import org.modelix.model.IKeyListener;
-import org.modelix.model.IKeyValueStore;
-import org.modelix.model.api.IIdGenerator;
-import org.modelix.model.client.IModelClient;
-import org.modelix.model.client.IdGenerator;
-import org.modelix.model.lazy.IDeserializingKeyValueStore;
-import org.modelix.model.lazy.ObjectStoreCache;
+class LocalModelClient(private val store: IStoreClient) : IModelClient {
+    override val clientId: Int
+    override val idGenerator: IIdGenerator
+    private val objectCache: IDeserializingKeyValueStore = ObjectStoreCache(this)
 
-public class LocalModelClient implements IModelClient {
-
-    private IStoreClient store;
-    private int clientId;
-    private IIdGenerator idGenerator;
-    private IDeserializingKeyValueStore objectCache = new ObjectStoreCache(this);
-
-    public LocalModelClient(IStoreClient store) {
-        this.store = store;
-        this.clientId = ((int) store.generateId("clientId"));
-        this.idGenerator = new IdGenerator(clientId);
+    init {
+        clientId = store.generateId("clientId").toInt()
+        idGenerator = IdGenerator(clientId)
     }
 
-    @Nullable
-    @Override
-    public String get(@NotNull String key) {
-        return store.get(key);
+    override fun get(key: String): String? {
+        return store[key]
     }
 
-    @Override
-    public void put(@NotNull String key, @Nullable String value) {
-        store.put(key, value);
+    override fun put(key: String, value: String?) {
+        store.put(key, value)
     }
 
-    @NotNull
-    @Override
-    public Map<String, String> getAll(@NotNull Iterable<String> keys_) {
-        List<String> keys = IterableUtils.toList(keys_);
-        List<String> values = store.getAll(keys);
-        Map<String, String> result = new LinkedHashMap<>();
-        for (int i = 0; i < keys.size(); i++) {
-            result.put(keys.get(i), values.get(i));
+    override fun getAll(keys_: Iterable<String>): Map<String, String?> {
+        val keys = IterableUtils.toList(keys_)
+        val values = store.getAll(keys)
+        val result: MutableMap<String, String?> = LinkedHashMap()
+        for (i in keys.indices) {
+            result[keys[i]] = values!![i]
         }
-        return result;
+        return result
     }
 
-    @Override
-    public void putAll(@NotNull Map<String, String> entries) {
-        store.putAll(entries);
+    override fun putAll(entries: Map<String, String?>) {
+        store.putAll(entries)
     }
 
-    @Override
-    public void prefetch(@NotNull String key) {
-        throw new UnsupportedOperationException();
+    override fun prefetch(key: String) {
+        throw UnsupportedOperationException()
     }
 
-    @Override
-    public void listen(@NotNull String key, @NotNull IKeyListener listener) {
-        throw new UnsupportedOperationException();
+    override fun listen(key: String, listener: IKeyListener) {
+        throw UnsupportedOperationException()
     }
 
-    @Override
-    public void removeListener(@NotNull String key, @NotNull IKeyListener listener) {
-        throw new UnsupportedOperationException();
+    override fun removeListener(key: String, listener: IKeyListener) {
+        throw UnsupportedOperationException()
     }
 
-    @Override
-    public int getPendingSize() {
-        return 0;
+    override fun getPendingSize(): Int {
+        return 0
     }
 
-    @Override
-    public int getClientId() {
-        return clientId;
-    }
-
-    @NotNull
-    @Override
-    public IIdGenerator getIdGenerator() {
-        return idGenerator;
-    }
-
-    @Nullable
-    @Override
-    public IDeserializingKeyValueStore getStoreCache() {
-        return objectCache;
-    }
-
-    @Nullable
-    @Override
-    public IKeyValueStore getAsyncStore() {
-        return this;
-    }
+    override val storeCache: IDeserializingKeyValueStore?
+        get() = objectCache
+    override val asyncStore: IKeyValueStore?
+        get() = this
 }

@@ -12,95 +12,90 @@
  * specific language governing permissions and limitations
  * under the License. 
  */
+package org.modelix.model.server
 
-package org.modelix.model.server;
+import java.io.BufferedReader
+import java.io.FileReader
+import java.io.FileWriter
+import java.io.IOException
+import java.util.*
+import java.util.function.Consumer
+import java.util.function.Function
+import java.util.stream.Collectors
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.function.Function;
-import java.util.stream.Collectors;
-
-public class InMemoryStoreClient implements IStoreClient {
-
-    private final Map<String, String> values = new HashMap<>();
-    private final Map<String, List<IKeyListener>> listeners = new HashMap<>();
-
-    @Override
-    public synchronized String get(String key) {
-        return values.get(key);
+class InMemoryStoreClient : IStoreClient {
+    private val values: MutableMap<String, String?> = HashMap()
+    private val listeners: MutableMap<String?, MutableList<IKeyListener>> = HashMap()
+    @Synchronized
+    override fun get(key: String): String? {
+        return values[key]
     }
 
-    @Override
-    public synchronized List<String> getAll(List<String> keys) {
-        return keys.stream().map(this::get).collect(Collectors.toList());
+    @Synchronized
+    override fun getAll(keys: List<String>): List<String?> {
+        return keys.stream().map { key: String -> this[key] }.collect(Collectors.toList())
     }
 
-    @Override
-    public synchronized Map<String, String> getAll(Set<String> keys) {
-        return keys.stream().collect(Collectors.toMap(Function.identity(), this::get));
+    @Synchronized
+    override fun getAll(keys: Set<String>): Map<String, String?> {
+        return keys.stream().collect(Collectors.toMap(Function.identity(), Function { key: String -> this[key] }))
     }
 
-    @Override
-    public synchronized void put(String key, String value) {
-        values.put(key, value);
-        listeners.getOrDefault(key, Collections.emptyList()).forEach(l -> l.changed(key, value));
+    @Synchronized
+    override fun put(key: String, value: String?) {
+        values[key] = value
+        listeners.getOrDefault(key, emptyList<IKeyListener>())
+            .forEach(Consumer { l: IKeyListener -> l.changed(key, value) })
     }
 
-    @Override
-    public synchronized void putAll(Map<String, String> entries) {
-        for (Map.Entry<String, String> entry : entries.entrySet()) {
-            put(entry.getKey(), entry.getValue());
+    @Synchronized
+    override fun putAll(entries: Map<String, String?>) {
+        for ((key, value) in entries) {
+            put(key, value)
         }
     }
 
-    @Override
-    public synchronized void listen(String key, IKeyListener listener) {
+    @Synchronized
+    override fun listen(key: String?, listener: IKeyListener) {
         if (!listeners.containsKey(key)) {
-            listeners.put(key, new LinkedList<>());
+            listeners[key] = LinkedList()
         }
-        listeners.get(key).add(listener);
+        listeners[key]!!.add(listener)
     }
 
-    @Override
-    public synchronized void removeListener(String key, IKeyListener listener) {
+    @Synchronized
+    override fun removeListener(key: String?, listener: IKeyListener) {
         if (!listeners.containsKey(key)) {
-            return;
+            return
         }
-        listeners.get(key).remove(listener);
+        listeners[key]!!.remove(listener)
     }
 
-    @Override
-    public long generateId(String key) {
-        return key.hashCode();
+    override fun generateId(key: String): Long {
+        return key.hashCode().toLong()
     }
 
-    public synchronized void dump(FileWriter fileWriter) throws IOException {
-        for (String key : values.keySet()) {
-            fileWriter.append(key);
-            fileWriter.append("#");
-            fileWriter.append(values.get(key));
-            fileWriter.append("\n");
+    @Synchronized
+    @Throws(IOException::class)
+    fun dump(fileWriter: FileWriter) {
+        for (key in values.keys) {
+            fileWriter.append(key)
+            fileWriter.append("#")
+            fileWriter.append(values[key])
+            fileWriter.append("\n")
         }
     }
 
-    public synchronized int load(FileReader fileReader) {
-        BufferedReader br = new BufferedReader(fileReader);
-        int[] n = new int[] {0};
+    @Synchronized
+    fun load(fileReader: FileReader?): Int {
+        val br = BufferedReader(fileReader)
+        val n = intArrayOf(0)
         br.lines()
-                .forEach(
-                        line -> {
-                            String[] parts = line.split("#", 2);
-                            values.put(parts[0], parts[1]);
-                            n[0]++;
-                        });
-        return n[0];
+            .forEach { line: String ->
+                val parts = line.split("#".toRegex(), limit = 2).toTypedArray()
+                values[parts[0]] = parts[1]
+                n[0]++
+            }
+        return n[0]
     }
 }

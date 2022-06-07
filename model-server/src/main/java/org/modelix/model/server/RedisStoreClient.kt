@@ -12,84 +12,71 @@
  * specific language governing permissions and limitations
  * under the License. 
  */
+package org.modelix.model.server
 
-package org.modelix.model.server;
+import io.lettuce.core.RedisClient
+import io.lettuce.core.api.StatefulRedisConnection
+import io.lettuce.core.api.sync.RedisCommands
+import java.util.function.Function
+import java.util.stream.Collectors
 
-import io.lettuce.core.RedisClient;
-import io.lettuce.core.api.StatefulRedisConnection;
-import io.lettuce.core.api.sync.RedisCommands;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.function.Function;
-import java.util.stream.Collectors;
+class RedisStoreClient : IStoreClient {
+    private var redisClient: RedisClient
+    private var connection: StatefulRedisConnection<String, String?>
+    private var syncCommands: RedisCommands<String, String?>? = null
 
-public class RedisStoreClient implements IStoreClient {
-    private RedisClient redisClient;
-    private StatefulRedisConnection<String, String> connection;
-    private RedisCommands<String, String> syncCommands;
-
-    public RedisStoreClient() {
-        Thread thread = Thread.currentThread();
-        ClassLoader prevLoader = thread.getContextClassLoader();
-        thread.setContextClassLoader(getClass().getClassLoader());
+    init {
+        val thread = Thread.currentThread()
+        val prevLoader = thread.contextClassLoader
+        thread.contextClassLoader = javaClass.classLoader
         try {
-            String redisUrl = System.getenv("REDIS_URL");
-            if (redisUrl == null || redisUrl.isEmpty()) redisUrl = "redis://localhost:6379";
-            System.out.println("Connecting to redis using " + redisUrl);
-            redisClient = RedisClient.create(redisUrl);
-            connection = redisClient.connect();
-            syncCommands = connection.sync();
-
+            var redisUrl = System.getenv("REDIS_URL")
+            if (redisUrl == null || redisUrl.isEmpty()) redisUrl = "redis://localhost:6379"
+            println("Connecting to redis using $redisUrl")
+            redisClient = RedisClient.create(redisUrl)
+            connection = redisClient.connect()
+            syncCommands = connection.sync()
         } finally {
-            thread.setContextClassLoader(prevLoader);
+            thread.contextClassLoader = prevLoader
         }
     }
 
-    public void dispose() {
-        connection.close();
-        redisClient.shutdown();
+    fun dispose() {
+        connection.close()
+        redisClient.shutdown()
     }
 
-    @Override
-    public String get(String key) {
-        return syncCommands.get(key);
+    override fun get(key: String): String? {
+        return syncCommands!![key]
     }
 
-    @Override
-    public List<String> getAll(List<String> keys) {
-        return keys.stream().map(this::get).collect(Collectors.toList());
+    override fun getAll(keys: List<String>): List<String?> {
+        return keys.stream().map { key: String -> this[key] }.collect(Collectors.toList())
     }
 
-    @Override
-    public Map<String, String> getAll(Set<String> keys) {
-        return keys.stream().collect(Collectors.toMap(Function.identity(), this::get));
+    override fun getAll(keys: Set<String>): Map<String, String?> {
+        return keys.stream().collect(Collectors.toMap(Function.identity(), Function { key: String -> this[key] }))
     }
 
-    @Override
-    public void put(String key, String value) {
-        syncCommands.set(key, value);
+    override fun put(key: String, value: String?) {
+        syncCommands!![key] = value
     }
 
-    @Override
-    public void putAll(Map<String, String> entries) {
-        for (Map.Entry<String, String> entry : entries.entrySet()) {
-            put(entry.getKey(), entry.getValue());
+    override fun putAll(entries: Map<String, String?>) {
+        for ((key, value) in entries) {
+            put(key, value)
         }
     }
 
-    @Override
-    public void listen(final String key, final IKeyListener listener) {
-        throw new UnsupportedOperationException();
+    override fun listen(key: String?, listener: IKeyListener) {
+        throw UnsupportedOperationException()
     }
 
-    @Override
-    public void removeListener(String key, IKeyListener listener) {
-        throw new UnsupportedOperationException();
+    override fun removeListener(key: String?, listener: IKeyListener) {
+        throw UnsupportedOperationException()
     }
 
-    @Override
-    public long generateId(String key) {
-        return syncCommands.incr(key);
+    override fun generateId(key: String): Long {
+        return syncCommands!!.incr(key)
     }
 }

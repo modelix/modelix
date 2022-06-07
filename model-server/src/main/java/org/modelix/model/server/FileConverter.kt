@@ -12,18 +12,15 @@
  * specific language governing permissions and limitations
  * under the License. 
  */
+package org.modelix.model.server
 
-package org.modelix.model.server;
+import com.beust.jcommander.IStringConverter
+import java.io.File
 
-import com.beust.jcommander.IStringConverter;
-import java.io.File;
-
-public class FileConverter implements IStringConverter<File> {
-    @Override
-    public File convert(String value) {
-        if (value == null) {
-            return null;
-        }
-        return new File(value);
+class FileConverter : IStringConverter<File?> {
+    override fun convert(value: String?): File? {
+        return if (value == null) {
+            null
+        } else File(value)
     }
 }

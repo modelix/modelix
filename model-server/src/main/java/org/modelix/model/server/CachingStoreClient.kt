@@ -12,87 +12,70 @@
  * specific language governing permissions and limitations
  * under the License. 
  */
+package org.modelix.model.server
 
-package org.modelix.model.server;
+import org.apache.commons.collections4.map.LRUMap
+import java.util.*
+import java.util.function.Function
+import java.util.stream.Collectors
 
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Set;
-import java.util.UUID;
-import java.util.function.Function;
-import java.util.stream.Collectors;
-import org.apache.commons.collections4.map.LRUMap;
-
-public class CachingStoreClient implements IStoreClient {
-    private static final String NULL_STRING = UUID.randomUUID().toString();
-
-    private IStoreClient store;
-    private Map<String, String> cache = new LRUMap<>(1000);
-
-    public CachingStoreClient(IStoreClient store) {
-        this.store = store;
-    }
-
-    @Override
-    public String get(String key) {
-        if (allowCaching(key)) {
-            String value = cache.get(key);
+class CachingStoreClient(private val store: IStoreClient) : IStoreClient {
+    private val cache: MutableMap<String, String?> = LRUMap(1000)
+    override fun get(key: String): String? {
+        return if (allowCaching(key)) {
+            var value = cache[key]
             if (value == null) {
-                value = store.get(key);
-                cache.put(key, value);
+                value = store[key]
+                cache[key] = value
             }
-            return (value == CachingStoreClient.NULL_STRING ? null : value);
+            if (value === NULL_STRING) null else value
         } else {
-            return store.get(key);
+            store[key]
         }
     }
 
-    @Override
-    public List<String> getAll(List<String> keys) {
-        return keys.stream().map(this::get).collect(Collectors.toList());
+    override fun getAll(keys: List<String>): List<String?> {
+        return keys.stream().map { key: String -> this[key] }.collect(Collectors.toList())
     }
 
-    @Override
-    public Map<String, String> getAll(Set<String> keys) {
-        return keys.stream().collect(Collectors.toMap(Function.identity(), this::get));
+    override fun getAll(keys: Set<String>): Map<String, String?> {
+        return keys.stream().collect(Collectors.toMap(Function.identity(), Function { key: String -> this[key] }))
     }
 
-    @Override
-    public void put(String key, String value) {
+    override fun put(key: String, value: String?) {
         if (allowCaching(key)) {
-            String existingValue = cache.get(key);
-            if (Objects.equals(existingValue, value)) {
-                return;
+            val existingValue = cache[key]
+            if (existingValue == value) {
+                return
             }
-            cache.put(key, value);
+            cache[key] = value
         }
-        store.put(key, value);
+        store.put(key, value)
     }
 
-    @Override
-    public void putAll(Map<String, String> entries) {
-        for (Map.Entry<String, String> entry : entries.entrySet()) {
-            put(entry.getKey(), entry.getValue());
+    override fun putAll(entries: Map<String, String?>) {
+        for ((key, value) in entries) {
+            put(key, value)
         }
     }
 
-    @Override
-    public void listen(final String key, final IKeyListener listener) {
-        store.listen(key, listener);
+    override fun listen(key: String?, listener: IKeyListener) {
+        store.listen(key, listener)
     }
 
-    @Override
-    public void removeListener(String key, IKeyListener listener) {
-        store.removeListener(key, listener);
+    override fun removeListener(key: String?, listener: IKeyListener) {
+        store.removeListener(key, listener)
     }
 
-    protected boolean allowCaching(String key) {
-        return true;
+    protected fun allowCaching(key: String?): Boolean {
+        return true
     }
 
-    @Override
-    public long generateId(String key) {
-        return store.generateId(key);
+    override fun generateId(key: String): Long {
+        return store.generateId(key)
+    }
+
+    companion object {
+        private val NULL_STRING = UUID.randomUUID().toString()
     }
 }

@@ -12,21 +12,19 @@
  * specific language governing permissions and limitations
  * under the License. 
  */
+package org.modelix.model.server
 
-package org.modelix.model.server;
+import javax.cache.processor.EntryProcessor
+import javax.cache.processor.EntryProcessorException
+import javax.cache.processor.MutableEntry
 
-import javax.cache.processor.EntryProcessor;
-import javax.cache.processor.EntryProcessorException;
-import javax.cache.processor.MutableEntry;
-
-public class ClientIdProcessor implements EntryProcessor<String, String, Long> {
-    @Override
-    public Long process(MutableEntry<String, String> mutableEntry, Object... objects)
-            throws EntryProcessorException {
-        String idStr = mutableEntry.getValue();
-        long id = idStr == null ? 0 : Long.parseLong(idStr);
-        id++;
-        mutableEntry.setValue(Long.toString(id));
-        return id;
+class ClientIdProcessor : EntryProcessor<String?, String?, Long> {
+    @Throws(EntryProcessorException::class)
+    override fun process(mutableEntry: MutableEntry<String?, String?>, vararg objects: Any): Long {
+        val idStr = mutableEntry.value
+        var id = idStr?.toLong() ?: 0
+        id++
+        mutableEntry.value = java.lang.Long.toString(id)
+        return id
     }
 }

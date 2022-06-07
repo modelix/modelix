@@ -12,714 +12,626 @@
  * specific language governing permissions and limitations
  * under the License. 
  */
+package org.modelix.model.server
 
-package org.modelix.model.server;
+import org.apache.commons.io.IOUtils
+import org.eclipse.jetty.io.EofException
+import org.eclipse.jetty.servlet.ServletContextHandler
+import org.eclipse.jetty.servlet.ServletHolder
+import org.eclipse.jetty.servlets.EventSource
+import org.eclipse.jetty.servlets.EventSourceServlet
+import org.json.JSONArray
+import org.json.JSONObject
+import org.slf4j.LoggerFactory
+import java.io.IOException
+import java.net.InetAddress
+import java.net.UnknownHostException
+import java.nio.charset.StandardCharsets
+import java.util.*
+import java.util.regex.Pattern
+import java.util.stream.Collectors
+import java.util.stream.Stream
+import javax.servlet.ServletException
+import javax.servlet.ServletRequest
+import javax.servlet.http.HttpServlet
+import javax.servlet.http.HttpServletRequest
+import javax.servlet.http.HttpServletResponse
 
-import java.io.IOException;
-import java.net.InetAddress;
-import java.net.UnknownHostException;
-import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Set;
-import java.util.UUID;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import org.apache.commons.io.IOUtils;
-import org.eclipse.jetty.io.EofException;
-import org.eclipse.jetty.servlet.ServletContextHandler;
-import org.eclipse.jetty.servlet.ServletHolder;
-import org.eclipse.jetty.servlets.EventSource;
-import org.eclipse.jetty.servlets.EventSourceServlet;
-import org.jetbrains.annotations.NotNull;
-import org.json.JSONArray;
-import org.json.JSONObject;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-public class RestModelServer {
-    private static final Logger LOG = LoggerFactory.getLogger(RestModelServer.class);
-    public static final Pattern HASH_PATTERN =
-            Pattern.compile("[a-zA-Z0-9\\-_]{5}\\*[a-zA-Z0-9\\-_]{38}");
-    public static final String PROTECTED_PREFIX = "$$$";
-    private static final String REPOSITORY_ID_KEY = "repositoryId";
-    private static final String TEXT_PLAIN = "text/plain";
-    private String sharedSecret;
-
-    private IStoreClient storeClient;
-
-    public RestModelServer(IStoreClient storeClient) {
-        this.storeClient = storeClient;
+class RestModelServer(private val storeClient: IStoreClient) {
+    private var sharedSecret: String? = null
+    fun setSharedSecret(sharedSecret: String?) {
+        this.sharedSecret = sharedSecret
     }
 
-    public void setSharedSecret(String sharedSecret) {
-        this.sharedSecret = sharedSecret;
-    }
-
-    public void init(ServletContextHandler servletHandler) {
-        if (storeClient.get(REPOSITORY_ID_KEY) == null) {
-            storeClient.put(REPOSITORY_ID_KEY, randomUUID());
+    fun init(servletHandler: ServletContextHandler) {
+        if (storeClient[REPOSITORY_ID_KEY] == null) {
+            storeClient.put(REPOSITORY_ID_KEY, randomUUID())
         }
-
         servletHandler.addServlet(
-                new ServletHolder(
-                        new HttpServlet() {
-                            private String HEALTH_KEY = PROTECTED_PREFIX + "health2";
+            ServletHolder(
+                object : HttpServlet() {
+                    private val HEALTH_KEY = PROTECTED_PREFIX + "health2"
+                    @Throws(ServletException::class, IOException::class)
+                    override fun doGet(req: HttpServletRequest, resp: HttpServletResponse) {
+                        if (isHealthy) {
+                            resp.status = HttpServletResponse.SC_OK
+                            resp.contentType = TEXT_PLAIN
+                            resp.writer.print("healthy")
+                        } else {
+                            resp.status = HttpServletResponse.SC_INTERNAL_SERVER_ERROR
+                            resp.contentType = TEXT_PLAIN
+                            resp.writer.print("not healthy")
+                        }
+                    }
 
-                            @Override
-                            protected void doGet(HttpServletRequest req, HttpServletResponse resp)
-                                    throws ServletException, IOException {
-                                if (isHealthy()) {
-                                    resp.setStatus(HttpServletResponse.SC_OK);
-                                    resp.setContentType(TEXT_PLAIN);
-                                    resp.getWriter().print("healthy");
-                                } else {
-                                    resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-                                    resp.setContentType(TEXT_PLAIN);
-                                    resp.getWriter().print("not healthy");
+                    private val isHealthy: Boolean
+                        private get() {
+                            val value = toLong(storeClient[HEALTH_KEY]) + 1
+                            storeClient.put(HEALTH_KEY, java.lang.Long.toString(value))
+                            return toLong(storeClient[HEALTH_KEY]) >= value
+                        }
+
+                    private fun toLong(value: String?): Long {
+                        return if (value == null || value.isEmpty()) 0 else value.toLong()
+                    }
+                }),
+            "/health"
+        )
+        servletHandler.addServlet(
+            ServletHolder(
+                object : HttpServlet() {
+                    @Throws(ServletException::class, IOException::class)
+                    override fun doGet(req: HttpServletRequest, resp: HttpServletResponse) {
+                        resp.status = HttpServletResponse.SC_OK
+                        resp.contentType = TEXT_PLAIN
+                        for (headerName in Collections.list(req.headerNames)) {
+                            resp.writer.print(headerName)
+                            resp.writer.print(": ")
+                            resp.writer.println(req.getHeader(headerName))
+                        }
+                    }
+                }),
+            "/headers"
+        )
+        servletHandler.addServlet(
+            ServletHolder(
+                object : HttpServlet() {
+                    @Throws(ServletException::class, IOException::class)
+                    override fun doGet(req: HttpServletRequest, resp: HttpServletResponse) {
+                        if (!checkAuthorization(storeClient, req, resp)) return
+                        val key = req.pathInfo.substring(1)
+                        if (key.startsWith(PROTECTED_PREFIX)) {
+                            resp.status = HttpServletResponse.SC_FORBIDDEN
+                            resp.contentType = TEXT_PLAIN
+                            resp.writer.print("Protected key.")
+                            return
+                        }
+                        val value = storeClient[key]
+                        if (value == null) {
+                            resp.status = HttpServletResponse.SC_NOT_FOUND
+                        } else {
+                            resp.contentType = TEXT_PLAIN
+                            resp.writer.print(value)
+                        }
+                    }
+                }),
+            "/get/*"
+        )
+        servletHandler.addServlet(
+            ServletHolder(
+                object : HttpServlet() {
+                    @Throws(ServletException::class, IOException::class)
+                    override fun doGet(req: HttpServletRequest, resp: HttpServletResponse) {
+                        if (!checkAuthorization(storeClient, req, resp)) return
+                        val key = req.pathInfo.substring(1)
+                        val lastKnownValue = req.getParameter("lastKnownValue")
+                        if (key.startsWith(PROTECTED_PREFIX)) {
+                            resp.status = HttpServletResponse.SC_FORBIDDEN
+                            resp.contentType = TEXT_PLAIN
+                            resp.writer.print("Protected key.")
+                            return
+                        }
+                        val valueFromListener = arrayOfNulls<String>(1)
+                        val lock = Object()
+                        val listener = object : IKeyListener {
+                            override fun changed(key: String?, newValue: String?) {
+                                synchronized(lock) {
+                                    valueFromListener[0] = newValue
+                                    lock.notifyAll()
                                 }
                             }
-
-                            private boolean isHealthy() {
-                                long value = toLong(storeClient.get(HEALTH_KEY)) + 1;
-                                storeClient.put(HEALTH_KEY, Long.toString(value));
-                                boolean healthy = toLong(storeClient.get(HEALTH_KEY)) >= value;
-                                return healthy;
-                            }
-
-                            private long toLong(String value) {
-                                return value == null || value.isEmpty() ? 0 : Long.parseLong(value);
-                            }
-                        }),
-                "/health");
-
-        servletHandler.addServlet(
-                new ServletHolder(
-                        new HttpServlet() {
-                            @Override
-                            protected void doGet(HttpServletRequest req, HttpServletResponse resp)
-                                    throws ServletException, IOException {
-                                resp.setStatus(HttpServletResponse.SC_OK);
-                                resp.setContentType(TEXT_PLAIN);
-
-                                for (String headerName : Collections.list(req.getHeaderNames())) {
-                                    resp.getWriter().print(headerName);
-                                    resp.getWriter().print(": ");
-                                    resp.getWriter().println(req.getHeader(headerName));
+                        }
+                        try {
+                            storeClient.listen(key, listener)
+                            if (lastKnownValue != null) {
+                                // This could be done before registering the listener, but
+                                // then we have to check it twice,
+                                // because the value could change between the first read and
+                                // registering the listener.
+                                // Most of the time the value will be equal to the last
+                                // known value.
+                                // Registering the listener without needing it is less
+                                // likely to happen.
+                                val value = storeClient[key]
+                                valueFromListener[0] = value
+                                if (value != lastKnownValue) {
+                                    respondValue(resp, value)
+                                    return
                                 }
                             }
-                        }),
-                "/headers");
+                            try {
+                                synchronized(lock) {
+                                    // Long polling. The request returns when the value
+                                    // changes.
+                                    // Then the client will do a new request.
+                                    lock.wait(25000L)
+                                }
+                            } catch (e: InterruptedException) {
+                                throw RuntimeException(e)
+                            }
+                        } finally {
+                            storeClient.removeListener(key, listener)
+                        }
+                        respondValue(resp, valueFromListener[0])
+                    }
 
+                    @Throws(IOException::class)
+                    private fun respondValue(resp: HttpServletResponse, value: String?) {
+                        if (value == null) {
+                            resp.status = HttpServletResponse.SC_NOT_FOUND
+                        } else {
+                            resp.contentType = TEXT_PLAIN
+                            resp.writer.print(value)
+                        }
+                    }
+                }),
+            "/poll/*"
+        )
         servletHandler.addServlet(
-                new ServletHolder(
-                        new HttpServlet() {
-                            @Override
-                            protected void doGet(HttpServletRequest req, HttpServletResponse resp)
-                                    throws ServletException, IOException {
-                                if (!checkAuthorization(storeClient, req, resp)) return;
-
-                                String key = req.getPathInfo().substring(1);
+            ServletHolder(
+                object : HttpServlet() {
+                    @Throws(ServletException::class, IOException::class)
+                    override fun doGet(req: HttpServletRequest, resp: HttpServletResponse) {
+                        var email = req.getHeader("X-Forwarded-Email")
+                        if ((email == null || email.isEmpty()) && isTrustedAddress(req)) {
+                            email = "localhost"
+                        }
+                        if (email == null || email.isEmpty()) {
+                            resp.status = HttpServletResponse.SC_FORBIDDEN
+                            resp.contentType = TEXT_PLAIN
+                            resp.writer.print("Not logged in.")
+                            return
+                        }
+                        val token = randomUUID()
+                        storeClient.put(PROTECTED_PREFIX + "_token_email_" + token, email)
+                        storeClient.put(
+                            PROTECTED_PREFIX + "_token_expires_" + token,
+                            java.lang.Long.toString(
+                                System.currentTimeMillis()
+                                    + 7 * 24 * 60 * 60 * 1000
+                            )
+                        )
+                        resp.contentType = TEXT_PLAIN
+                        resp.writer.print(token)
+                    }
+                }),
+            "/generateToken"
+        )
+        servletHandler.addServlet(
+            ServletHolder(
+                object : HttpServlet() {
+                    @Throws(ServletException::class, IOException::class)
+                    override fun doGet(req: HttpServletRequest, resp: HttpServletResponse) {
+                        if (!checkAuthorization(storeClient, req, resp)) {
+                            return
+                        }
+                        val token = extractToken(req)
+                        if (token == null) {
+                            resp.status = HttpServletResponse.SC_NO_CONTENT
+                            return
+                        }
+                        val email = storeClient[PROTECTED_PREFIX + "_token_email_" + token]
+                        resp.contentType = TEXT_PLAIN
+                        // The email could be null because we can authorize also without a
+                        // valid token
+                        resp.writer
+                            .print(Objects.requireNonNullElse(email, "<no email>"))
+                    }
+                }),
+            "/getEmail"
+        )
+        servletHandler.addServlet(
+            ServletHolder(
+                object : HttpServlet() {
+                    @Throws(ServletException::class, IOException::class)
+                    override fun doPost(req: HttpServletRequest, resp: HttpServletResponse) {
+                        if (!checkAuthorization(storeClient, req, resp)) return
+                        val key = req.pathInfo.substring(1)
+                        if (key.startsWith(PROTECTED_PREFIX)) {
+                            resp.status = HttpServletResponse.SC_FORBIDDEN
+                            resp.contentType = TEXT_PLAIN
+                            resp.writer
+                                .print("No permission to access protected keys.")
+                            return
+                        }
+                        val value = storeClient.generateId(key)
+                        resp.contentType = TEXT_PLAIN
+                        resp.characterEncoding = StandardCharsets.UTF_8.toString()
+                        resp.writer.print(java.lang.Long.toString(value))
+                    }
+                }),
+            "/counter/*"
+        )
+        servletHandler.addServlet(
+            ServletHolder(
+                object : HttpServlet() {
+                    @Throws(ServletException::class, IOException::class)
+                    override fun doGet(req: HttpServletRequest, resp: HttpServletResponse) {
+                        if (!checkAuthorization(storeClient, req, resp)) return
+                        val key = req.pathInfo.substring(1)
+                        resp.contentType = "application/json"
+                        resp.writer.print(collect(key).toString(2))
+                    }
+                }),
+            "/getRecursively/*"
+        )
+        servletHandler.addServlet(
+            ServletHolder(
+                object : HttpServlet() {
+                    @Throws(ServletException::class, IOException::class)
+                    override fun doPut(req: HttpServletRequest, resp: HttpServletResponse) {
+                        if (!checkAuthorization(storeClient, req, resp)) return
+                        val key = req.pathInfo.substring(1)
+                        val value = IOUtils.toString(
+                            req.inputStream, StandardCharsets.UTF_8
+                        )
+                        try {
+                            putEntries(Collections.singletonMap(key, value))
+                            resp.status = HttpServletResponse.SC_OK
+                            resp.contentType = TEXT_PLAIN
+                            resp.characterEncoding = StandardCharsets.UTF_8.toString()
+                            resp.writer.print("OK")
+                        } catch (e: NotFoundException) {
+                            resp.status = HttpServletResponse.SC_NOT_FOUND
+                            resp.contentType = TEXT_PLAIN
+                            resp.characterEncoding = StandardCharsets.UTF_8.toString()
+                            resp.writer.print(e.message)
+                        } catch (e: UnauthorizedException) {
+                            resp.status = HttpServletResponse.SC_FORBIDDEN
+                            resp.contentType = TEXT_PLAIN
+                            resp.characterEncoding = StandardCharsets.UTF_8.toString()
+                            resp.writer.print(e.message)
+                        }
+                    }
+                }),
+            "/put/*"
+        )
+        servletHandler.addServlet(
+            ServletHolder(
+                object : HttpServlet() {
+                    @Throws(ServletException::class, IOException::class)
+                    override fun doPut(req: HttpServletRequest, resp: HttpServletResponse) {
+                        try {
+                            if (!checkAuthorization(storeClient, req, resp)) return
+                            val jsonStr = IOUtils.toString(
+                                req.inputStream, StandardCharsets.UTF_8
+                            )
+                            val json = JSONArray(jsonStr)
+                            var entries: MutableMap<String, String?> = LinkedHashMap()
+                            for (entry_ in json) {
+                                val entry = entry_ as JSONObject
+                                val key = entry.getString("key")
+                                val value = entry.optString("value", null)
+                                entries[key] = value
+                            }
+                            entries = sortByDependency(entries)
+                            try {
+                                putEntries(entries)
+                                resp.status = HttpServletResponse.SC_OK
+                                resp.contentType = TEXT_PLAIN
+                                resp.characterEncoding = StandardCharsets.UTF_8.toString()
+                                resp.writer.print(entries.size.toString() + " entries written")
+                            } catch (e: NotFoundException) {
+                                resp.status = HttpServletResponse.SC_BAD_REQUEST
+                                resp.contentType = TEXT_PLAIN
+                                resp.characterEncoding = StandardCharsets.UTF_8.toString()
+                                resp.writer.print(e.message)
+                            } catch (e: UnauthorizedException) {
+                                resp.status = HttpServletResponse.SC_FORBIDDEN
+                                resp.contentType = TEXT_PLAIN
+                                resp.characterEncoding = StandardCharsets.UTF_8.toString()
+                                resp.writer.print(e.message)
+                            }
+                        } catch (ex: Exception) {
+                            println(ex.message)
+                            ex.printStackTrace()
+                            throw ex
+                        }
+                    }
+                }),
+            "/putAll"
+        )
+        servletHandler.addServlet(
+            ServletHolder(
+                object : HttpServlet() {
+                    @Throws(ServletException::class, IOException::class)
+                    override fun doPut(req: HttpServletRequest, resp: HttpServletResponse) {
+                        try {
+                            if (!checkAuthorization(storeClient, req, resp)) return
+                            val reqJsonStr = IOUtils.toString(
+                                req.inputStream, StandardCharsets.UTF_8
+                            )
+                            val reqJson = JSONArray(reqJsonStr)
+                            val respJson = JSONArray()
+                            val keys: MutableList<String> = ArrayList(reqJson.length())
+                            for (entry_ in reqJson) {
+                                val key = entry_ as String
                                 if (key.startsWith(PROTECTED_PREFIX)) {
-                                    resp.setStatus(HttpServletResponse.SC_FORBIDDEN);
-                                    resp.setContentType(TEXT_PLAIN);
-                                    resp.getWriter().print("Protected key.");
-                                    return;
+                                    LOG.warn("No permission to access $key")
+                                    continue
                                 }
-                                String value = storeClient.get(key);
-                                if (value == null) {
-                                    resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
-                                } else {
-                                    resp.setContentType(TEXT_PLAIN);
-                                    resp.getWriter().print(value);
-                                }
+                                keys.add(key)
                             }
-                        }),
-                "/get/*");
-
+                            val values = storeClient.getAll(keys)
+                            for (i in keys.indices) {
+                                val respEntry = JSONObject()
+                                respEntry.put("key", keys[i])
+                                respEntry.put("value", values[i])
+                                respJson.put(respEntry)
+                            }
+                            resp.status = HttpServletResponse.SC_OK
+                            resp.contentType = "application/json"
+                            resp.characterEncoding = StandardCharsets.UTF_8.toString()
+                            resp.writer.print(respJson.toString())
+                        } catch (ex: Exception) {
+                            println(ex.message)
+                            ex.printStackTrace()
+                            throw ex
+                        }
+                    }
+                }),
+            "/getAll"
+        )
         servletHandler.addServlet(
-                new ServletHolder(
-                        new HttpServlet() {
-                            @Override
-                            protected void doGet(HttpServletRequest req, HttpServletResponse resp)
-                                    throws ServletException, IOException {
-                                if (!checkAuthorization(storeClient, req, resp)) return;
+            ServletHolder(
+                object : HttpServlet() {
+                    @Throws(ServletException::class, IOException::class)
+                    override fun doGet(req: HttpServletRequest, resp: HttpServletResponse) {
+                        resp.contentType = TEXT_PLAIN
+                        resp.writer.println("Model Server")
+                    }
+                }),
+            "/"
+        )
+        servletHandler.addServlet(
+            ServletHolder(
+                object : EventSourceServlet() {
+                    @Throws(ServletException::class, IOException::class)
+                    override fun doGet(req: HttpServletRequest, resp: HttpServletResponse) {
+                        if (!checkAuthorization(storeClient, req, resp)) return
+                        val subscribedKey = req.pathInfo.substring(1)
+                        if (subscribedKey.startsWith(PROTECTED_PREFIX)) {
+                            resp.status = HttpServletResponse.SC_FORBIDDEN
+                            resp.contentType = TEXT_PLAIN
+                            resp.writer
+                                .print("No permission to access $subscribedKey")
+                        }
+                        super.doGet(req, resp)
+                    }
 
-                                final String key = req.getPathInfo().substring(1);
-                                final String lastKnownValue = req.getParameter("lastKnownValue");
-
-                                if (key.startsWith(PROTECTED_PREFIX)) {
-                                    resp.setStatus(HttpServletResponse.SC_FORBIDDEN);
-                                    resp.setContentType(TEXT_PLAIN);
-                                    resp.getWriter().print("Protected key.");
-                                    return;
-                                }
-
-                                final String[] valueFromListener = new String[1];
-
-                                Object lock = new Object();
-                                IKeyListener listener =
-                                        (newKey, newValue) -> {
-                                            synchronized (lock) {
-                                                valueFromListener[0] = newValue;
-                                                lock.notifyAll();
-                                            }
-                                        };
-                                try {
-                                    storeClient.listen(key, listener);
-
-                                    if (lastKnownValue != null) {
-                                        // This could be done before registering the listener, but
-                                        // then we have to check it twice,
-                                        // because the value could change between the first read and
-                                        // registering the listener.
-                                        // Most of the time the value will be equal to the last
-                                        // known value.
-                                        // Registering the listener without needing it is less
-                                        // likely to happen.
-                                        String value = storeClient.get(key);
-                                        valueFromListener[0] = value;
-                                        if (!Objects.equals(value, lastKnownValue)) {
-                                            respondValue(resp, value);
-                                            return;
+                    override fun newEventSource(req: HttpServletRequest): EventSource {
+                        val subscribedKey = req.pathInfo.substring(1)
+                        return object : EventSource {
+                            private var emitter: EventSource.Emitter? = null
+                            private val listener = object : IKeyListener {
+                                override fun changed(changedKey: String?, value: String?) {
+                                    if (emitter == null) return
+                                    if (subscribedKey == changedKey) {
+                                        try {
+                                            emitter!!.data(value)
+                                        } catch (e: EofException) {
+                                            System.err.println(
+                                                "The peer has probably closed the connection, therefore we are unable to notify them of changes. We will not retry"
+                                            )
+                                            emitter = null
+                                        } catch (e: IOException) {
+                                            System.err.println(
+                                                "Exception: " + e.message
+                                            )
+                                            e.printStackTrace()
                                         }
                                     }
-
-                                    try {
-                                        synchronized (lock) {
-                                            // Long polling. The request returns when the value
-                                            // changes.
-                                            // Then the client will do a new request.
-                                            lock.wait(25_000L);
-                                        }
-                                    } catch (InterruptedException e) {
-                                        throw new RuntimeException(e);
-                                    }
-                                } finally {
-                                    storeClient.removeListener(key, listener);
-                                }
-
-                                respondValue(resp, valueFromListener[0]);
-                            }
-
-                            private void respondValue(HttpServletResponse resp, String value)
-                                    throws IOException {
-                                if (value == null) {
-                                    resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
-                                } else {
-                                    resp.setContentType(TEXT_PLAIN);
-                                    resp.getWriter().print(value);
                                 }
                             }
-                        }),
-                "/poll/*");
 
-        servletHandler.addServlet(
-                new ServletHolder(
-                        new HttpServlet() {
-                            @Override
-                            protected void doGet(HttpServletRequest req, HttpServletResponse resp)
-                                    throws ServletException, IOException {
-                                String email = req.getHeader("X-Forwarded-Email");
-                                if ((email == null || email.isEmpty()) && isTrustedAddress(req)) {
-                                    email = "localhost";
-                                }
-                                if (email == null || email.isEmpty()) {
-                                    resp.setStatus(HttpServletResponse.SC_FORBIDDEN);
-                                    resp.setContentType(TEXT_PLAIN);
-                                    resp.getWriter().print("Not logged in.");
-                                    return;
-                                }
-
-                                String token = randomUUID();
-                                storeClient.put(PROTECTED_PREFIX + "_token_email_" + token, email);
-                                storeClient.put(
-                                        PROTECTED_PREFIX + "_token_expires_" + token,
-                                        Long.toString(
-                                                System.currentTimeMillis()
-                                                        + 7 * 24 * 60 * 60 * 1000));
-                                resp.setContentType(TEXT_PLAIN);
-                                resp.getWriter().print(token);
-                            }
-                        }),
-                "/generateToken");
-
-        servletHandler.addServlet(
-                new ServletHolder(
-                        new HttpServlet() {
-                            @Override
-                            protected void doGet(HttpServletRequest req, HttpServletResponse resp)
-                                    throws ServletException, IOException {
-                                if (!checkAuthorization(storeClient, req, resp)) {
-                                    return;
-                                }
-
-                                String token = extractToken(req);
-                                if (token == null) {
-                                    resp.setStatus(HttpServletResponse.SC_NO_CONTENT);
-                                    return;
-                                }
-                                String email =
-                                        storeClient.get(PROTECTED_PREFIX + "_token_email_" + token);
-                                resp.setContentType(TEXT_PLAIN);
-                                // The email could be null because we can authorize also without a
-                                // valid token
-                                resp.getWriter()
-                                        .print(Objects.requireNonNullElse(email, "<no email>"));
-                            }
-                        }),
-                "/getEmail");
-
-        servletHandler.addServlet(
-                new ServletHolder(
-                        new HttpServlet() {
-                            @Override
-                            protected void doPost(HttpServletRequest req, HttpServletResponse resp)
-                                    throws ServletException, IOException {
-                                if (!checkAuthorization(storeClient, req, resp)) return;
-
-                                String key = req.getPathInfo().substring(1);
-                                if (key.startsWith(PROTECTED_PREFIX)) {
-                                    resp.setStatus(HttpServletResponse.SC_FORBIDDEN);
-                                    resp.setContentType(TEXT_PLAIN);
-                                    resp.getWriter()
-                                            .print("No permission to access protected keys.");
-                                    return;
-                                }
-                                long value = storeClient.generateId(key);
-                                resp.setContentType(TEXT_PLAIN);
-                                resp.setCharacterEncoding(StandardCharsets.UTF_8.toString());
-                                resp.getWriter().print(Long.toString(value));
-                            }
-                        }),
-                "/counter/*");
-
-        servletHandler.addServlet(
-                new ServletHolder(
-                        new HttpServlet() {
-                            @Override
-                            protected void doGet(HttpServletRequest req, HttpServletResponse resp)
-                                    throws ServletException, IOException {
-                                if (!checkAuthorization(storeClient, req, resp)) return;
-
-                                String key = req.getPathInfo().substring(1);
-                                resp.setContentType("application/json");
-                                resp.getWriter().print(collect(key).toString(2));
-                            }
-                        }),
-                "/getRecursively/*");
-
-        servletHandler.addServlet(
-                new ServletHolder(
-                        new HttpServlet() {
-                            @Override
-                            protected void doPut(HttpServletRequest req, HttpServletResponse resp)
-                                    throws ServletException, IOException {
-                                if (!checkAuthorization(storeClient, req, resp)) return;
-
-                                String key = req.getPathInfo().substring(1);
-                                String value =
-                                        IOUtils.toString(
-                                                req.getInputStream(), StandardCharsets.UTF_8);
-                                try {
-                                    putEntries(Collections.singletonMap(key, value));
-                                    resp.setStatus(HttpServletResponse.SC_OK);
-                                    resp.setContentType(TEXT_PLAIN);
-                                    resp.setCharacterEncoding(StandardCharsets.UTF_8.toString());
-                                    resp.getWriter().print("OK");
-                                } catch (NotFoundException e) {
-                                    resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
-                                    resp.setContentType(TEXT_PLAIN);
-                                    resp.setCharacterEncoding(StandardCharsets.UTF_8.toString());
-                                    resp.getWriter().print(e.getMessage());
-                                } catch (UnauthorizedException e) {
-                                    resp.setStatus(HttpServletResponse.SC_FORBIDDEN);
-                                    resp.setContentType(TEXT_PLAIN);
-                                    resp.setCharacterEncoding(StandardCharsets.UTF_8.toString());
-                                    resp.getWriter().print(e.getMessage());
-                                }
-                            }
-                        }),
-                "/put/*");
-
-        servletHandler.addServlet(
-                new ServletHolder(
-                        new HttpServlet() {
-                            @Override
-                            protected void doPut(HttpServletRequest req, HttpServletResponse resp)
-                                    throws ServletException, IOException {
-                                try {
-                                    if (!checkAuthorization(storeClient, req, resp)) return;
-
-                                    String jsonStr =
-                                            IOUtils.toString(
-                                                    req.getInputStream(), StandardCharsets.UTF_8);
-                                    JSONArray json = new JSONArray(jsonStr);
-                                    Map<String, String> entries = new LinkedHashMap<>();
-                                    for (Object entry_ : json) {
-                                        JSONObject entry = (JSONObject) entry_;
-                                        String key = entry.getString("key");
-                                        String value = entry.optString("value", null);
-                                        entries.put(key, value);
-                                    }
-                                    entries = sortByDependency(entries);
-                                    try {
-                                        putEntries(entries);
-                                        resp.setStatus(HttpServletResponse.SC_OK);
-                                        resp.setContentType(TEXT_PLAIN);
-                                        resp.setCharacterEncoding(
-                                                StandardCharsets.UTF_8.toString());
-                                        resp.getWriter().print(entries.size() + " entries written");
-                                    } catch (NotFoundException e) {
-                                        resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-                                        resp.setContentType(TEXT_PLAIN);
-                                        resp.setCharacterEncoding(
-                                                StandardCharsets.UTF_8.toString());
-                                        resp.getWriter().print(e.getMessage());
-                                    } catch (UnauthorizedException e) {
-                                        resp.setStatus(HttpServletResponse.SC_FORBIDDEN);
-                                        resp.setContentType(TEXT_PLAIN);
-                                        resp.setCharacterEncoding(
-                                                StandardCharsets.UTF_8.toString());
-                                        resp.getWriter().print(e.getMessage());
-                                    }
-                                } catch (Exception ex) {
-                                    System.out.println(ex.getMessage());
-                                    ex.printStackTrace();
-                                    throw ex;
-                                }
-                            }
-                        }),
-                "/putAll");
-
-        servletHandler.addServlet(
-                new ServletHolder(
-                        new HttpServlet() {
-                            @Override
-                            protected void doPut(HttpServletRequest req, HttpServletResponse resp)
-                                    throws ServletException, IOException {
-                                try {
-                                    if (!checkAuthorization(storeClient, req, resp)) return;
-
-                                    String reqJsonStr =
-                                            IOUtils.toString(
-                                                    req.getInputStream(), StandardCharsets.UTF_8);
-                                    JSONArray reqJson = new JSONArray(reqJsonStr);
-                                    JSONArray respJson = new JSONArray();
-                                    List<String> keys = new ArrayList<>(reqJson.length());
-                                    for (Object entry_ : reqJson) {
-                                        String key = (String) entry_;
-
-                                        if (key.startsWith(PROTECTED_PREFIX)) {
-                                            LOG.warn("No permission to access " + key);
-                                            continue;
-                                        }
-                                        keys.add(key);
-                                    }
-
-                                    List<String> values = storeClient.getAll(keys);
-                                    for (int i = 0; i < keys.size(); i++) {
-                                        JSONObject respEntry = new JSONObject();
-                                        respEntry.put("key", keys.get(i));
-                                        respEntry.put("value", values.get(i));
-                                        respJson.put(respEntry);
-                                    }
-
-                                    resp.setStatus(HttpServletResponse.SC_OK);
-                                    resp.setContentType("application/json");
-                                    resp.setCharacterEncoding(StandardCharsets.UTF_8.toString());
-                                    resp.getWriter().print(respJson.toString());
-                                } catch (Exception ex) {
-                                    System.out.println(ex.getMessage());
-                                    ex.printStackTrace();
-                                    throw ex;
-                                }
-                            }
-                        }),
-                "/getAll");
-
-        servletHandler.addServlet(
-                new ServletHolder(
-                        new HttpServlet() {
-                            @Override
-                            protected void doGet(HttpServletRequest req, HttpServletResponse resp)
-                                    throws ServletException, IOException {
-                                resp.setContentType(TEXT_PLAIN);
-                                resp.getWriter().println("Model Server");
-                            }
-                        }),
-                "/");
-
-        servletHandler.addServlet(
-                new ServletHolder(
-                        new EventSourceServlet() {
-                            @Override
-                            protected void doGet(HttpServletRequest req, HttpServletResponse resp)
-                                    throws ServletException, IOException {
-                                if (!checkAuthorization(storeClient, req, resp)) return;
-                                final String subscribedKey = req.getPathInfo().substring(1);
-                                if (subscribedKey.startsWith(PROTECTED_PREFIX)) {
-                                    resp.setStatus(HttpServletResponse.SC_FORBIDDEN);
-                                    resp.setContentType(TEXT_PLAIN);
-                                    resp.getWriter()
-                                            .print("No permission to access " + subscribedKey);
-                                }
-                                super.doGet(req, resp);
+                            @Throws(IOException::class)
+                            override fun onOpen(emitter: EventSource.Emitter) {
+                                this.emitter = emitter
+                                storeClient.listen(subscribedKey, listener)
                             }
 
-                            @Override
-                            protected EventSource newEventSource(HttpServletRequest req) {
-                                final String subscribedKey = req.getPathInfo().substring(1);
-                                return new EventSource() {
-                                    private Emitter emitter;
-                                    private IKeyListener listener =
-                                            new IKeyListener() {
-                                                @Override
-                                                public void changed(
-                                                        String changedKey, String value) {
-                                                    if (emitter == null) return;
-                                                    if (subscribedKey.equals(changedKey)) {
-                                                        try {
-                                                            emitter.data(value);
-                                                        } catch (EofException e) {
-                                                            System.err.println(
-                                                                    "The peer has probably closed the connection, therefore we are unable to notify them of changes. We will not retry");
-                                                            emitter = null;
-                                                        } catch (IOException e) {
-                                                            System.err.println(
-                                                                    "Exception: " + e.getMessage());
-                                                            e.printStackTrace();
-                                                        }
-                                                    }
-                                                }
-                                            };
-
-                                    @Override
-                                    public void onOpen(Emitter emitter) throws IOException {
-                                        this.emitter = emitter;
-                                        storeClient.listen(subscribedKey, listener);
-                                    }
-
-                                    @Override
-                                    public void onClose() {
-                                        storeClient.removeListener(subscribedKey, listener);
-                                        emitter = null;
-                                    }
-                                };
+                            override fun onClose() {
+                                storeClient.removeListener(subscribedKey, listener)
+                                emitter = null
                             }
-                        }),
-                "/subscribe/*");
+                        }
+                    }
+                }),
+            "/subscribe/*"
+        )
     }
 
-    private static class UnauthorizedException extends RuntimeException {
-        public UnauthorizedException(String explanation) {
-            super("Unauthorized because " + explanation);
-        }
-    }
+    private class UnauthorizedException(explanation: String) : RuntimeException("Unauthorized because $explanation")
+    private class NotFoundException(description: String?) : RuntimeException(description)
 
-    private static class NotFoundException extends RuntimeException {
-        public NotFoundException(String description) {
-            super(description);
-        }
-    }
-
-    protected void putEntries(Map<String, String> newEntries) {
-        Set<String> referencedKeys = new HashSet<>();
-        for (Map.Entry<String, String> newEntry : newEntries.entrySet()) {
-            String key = newEntry.getKey();
-            String value = newEntry.getValue();
-            if (REPOSITORY_ID_KEY.equals(key)) {
-                throw new UnauthorizedException("Changing '" + key + "' is not allowed");
+    protected fun putEntries(newEntries: Map<String, String?>) {
+        val referencedKeys: MutableSet<String> = HashSet()
+        for ((key, value) in newEntries) {
+            if (REPOSITORY_ID_KEY == key) {
+                throw UnauthorizedException("Changing '$key' is not allowed")
             }
             if (key.startsWith(PROTECTED_PREFIX)) {
-                throw new UnauthorizedException("No permission to access " + key);
+                throw UnauthorizedException("No permission to access $key")
             }
             if (value != null) {
-                Matcher matcher = HASH_PATTERN.matcher(value);
+                val matcher = HASH_PATTERN.matcher(value)
                 while (matcher.find()) {
-                    String foundKey = matcher.group();
+                    val foundKey = matcher.group()
                     if (!newEntries.containsKey(foundKey)) {
-                        referencedKeys.add(foundKey);
+                        referencedKeys.add(foundKey)
                     }
                 }
             }
         }
-
-        Map<String, String> referencedEntries = storeClient.getAll(referencedKeys);
-        for (String key : referencedKeys) {
-            if (referencedEntries.get(key) == null) {
-                throw new NotFoundException("Referenced key " + key + " not found");
+        val referencedEntries = storeClient.getAll(referencedKeys)
+        for (key in referencedKeys) {
+            if (referencedEntries[key] == null) {
+                throw NotFoundException("Referenced key $key not found")
             }
         }
-
-        storeClient.putAll(newEntries);
+        storeClient.putAll(newEntries)
     }
 
-    public JSONArray collect(String rootKey) {
-        JSONArray result = new JSONArray();
-        Set<String> processed = new HashSet<>();
-        Set<String> pending = new HashSet<>();
-        pending.add(rootKey);
-
+    fun collect(rootKey: String): JSONArray {
+        val result = JSONArray()
+        val processed: MutableSet<String> = HashSet()
+        val pending: MutableSet<String> = HashSet()
+        pending.add(rootKey)
         while (!pending.isEmpty()) {
-            List<String> keys = new ArrayList<>(pending);
-            pending.clear();
-            List<String> values = storeClient.getAll(keys);
-            for (int i = 0; i < keys.size(); i++) {
-                String key = keys.get(i);
-                String value = values.get(i);
-                processed.add(key);
-
-                JSONObject entry = new JSONObject();
-                entry.put("key", key);
-                entry.put("value", value);
-                result.put(entry);
-
-                for (String foundKey : extractHashes(value)) {
+            val keys: List<String> = ArrayList(pending)
+            pending.clear()
+            val values = storeClient.getAll(keys)
+            for (i in keys.indices) {
+                val key = keys[i]
+                val value = values[i]
+                processed.add(key)
+                val entry = JSONObject()
+                entry.put("key", key)
+                entry.put("value", value)
+                result.put(entry)
+                for (foundKey in extractHashes(value)) {
                     if (!processed.contains(foundKey)) {
-                        pending.add(foundKey);
+                        pending.add(foundKey)
                     }
                 }
             }
         }
-
-        return result;
+        return result
     }
 
-    private List<String> extractHashes(String input) {
-        List<String> result = new ArrayList<>();
+    private fun extractHashes(input: String?): List<String> {
+        val result: MutableList<String> = ArrayList()
         if (input != null) {
-            Matcher matcher = HASH_PATTERN.matcher(input);
+            val matcher = HASH_PATTERN.matcher(input)
             while (matcher.find()) {
-                result.add(matcher.group());
+                result.add(matcher.group())
             }
         }
-        return result;
+        return result
     }
 
-    private Map<String, String> sortByDependency(final Map<String, String> unsorted) {
-        Map<String, String> sorted = new LinkedHashMap<>();
-        Set<String> processed = new HashSet<>();
-        new Object() {
-            void fill(String key) {
-                if (processed.contains(key)) return;
-                processed.add(key);
-                String value = unsorted.get(key);
-                for (String referencedKey : extractHashes(value)) {
-                    if (unsorted.containsKey(referencedKey)) fill(referencedKey);
+    private fun sortByDependency(unsorted: Map<String, String?>): MutableMap<String, String?> {
+        val sorted: MutableMap<String, String?> = LinkedHashMap()
+        val processed: MutableSet<String> = HashSet()
+        object : Any() {
+            fun fill(key: String) {
+                if (processed.contains(key)) return
+                processed.add(key)
+                val value = unsorted[key]
+                for (referencedKey in extractHashes(value)) {
+                    if (unsorted.containsKey(referencedKey)) fill(referencedKey)
                 }
-                sorted.put(key, value);
+                sorted[key] = value
             }
 
-            void fill() {
-                for (String key : unsorted.keySet()) {
-                    fill(key);
+            fun fill() {
+                for (key in unsorted.keys) {
+                    fill(key)
                 }
             }
-        }.fill();
-        return sorted;
+        }.fill()
+        return sorted
     }
 
-    private boolean checkAuthorization(
-            IStoreClient store, HttpServletRequest req, HttpServletResponse resp)
-            throws IOException {
-        if (isValidAuthorization(store, req)) {
-            return true;
+    @Throws(IOException::class)
+    private fun checkAuthorization(
+        store: IStoreClient, req: HttpServletRequest, resp: HttpServletResponse
+    ): Boolean {
+        return if (isValidAuthorization(store, req)) {
+            true
         } else {
-            resp.setStatus(HttpServletResponse.SC_FORBIDDEN);
-            resp.setContentType(TEXT_PLAIN);
-            resp.getWriter().print("Not authorized.");
-            return false;
+            resp.status = HttpServletResponse.SC_FORBIDDEN
+            resp.contentType = TEXT_PLAIN
+            resp.writer.print("Not authorized.")
+            false
         }
     }
 
-    private boolean isValidAuthorization(IStoreClient store, HttpServletRequest req) {
+    private fun isValidAuthorization(store: IStoreClient, req: HttpServletRequest): Boolean {
         if (isTrustedAddress(req)
-                && parseXForwardedFor(req.getHeader("X-Forwarded-For")).stream()
-                        .allMatch(RestModelServer::isTrustedAddress)) return true;
-
-        String header = req.getHeader("Authorization");
-        if (header == null) {
-            return false;
-        }
+            && parseXForwardedFor(req.getHeader("X-Forwarded-For")).stream()
+                .allMatch { addr: InetAddress -> isTrustedAddress(addr) }
+        ) return true
+        val header = req.getHeader("Authorization") ?: return false
         if (!header.startsWith("Bearer ")) {
-            return false;
+            return false
         }
-        String token = extractToken(req);
-        if (token == null) {
-            return false;
-        }
+        val token = extractToken(req) ?: return false
 
         // Used by MPS instances running in the same kubernetes cluster
-        if (sharedSecret != null && sharedSecret.length() > 0 && token.equals(sharedSecret)) {
-            return true;
+        if (sharedSecret != null && sharedSecret!!.length > 0 && token == sharedSecret) {
+            return true
         }
-
-        String expiresStr = store.get(PROTECTED_PREFIX + "_token_expires_" + token);
-        if (expiresStr == null) {
-            return false;
-        }
-        if (System.currentTimeMillis() > Long.parseLong(expiresStr)) {
-            return false;
-        }
-        return true;
+        val expiresStr = store[PROTECTED_PREFIX + "_token_expires_" + token] ?: return false
+        return if (System.currentTimeMillis() > expiresStr.toLong()) {
+            false
+        } else true
     }
 
-    private static List<InetAddress> parseXForwardedFor(String value) {
-        List<InetAddress> result = new ArrayList<>();
-        if (value != null) {
-            return Stream.of(value.split(","))
-                    .map(
-                            v -> {
-                                try {
-                                    return InetAddress.getByName(v.trim());
-                                } catch (UnknownHostException e) {
-                                    LOG.warn("Failed to parse IP address: " + v, e);
-                                    return null;
-                                }
-                            })
-                    .filter(Objects::nonNull)
-                    .collect(Collectors.toList());
+    companion object {
+        private val LOG = LoggerFactory.getLogger(RestModelServer::class.java)
+        val HASH_PATTERN = Pattern.compile("[a-zA-Z0-9\\-_]{5}\\*[a-zA-Z0-9\\-_]{38}")
+        const val PROTECTED_PREFIX = "$$$"
+        private const val REPOSITORY_ID_KEY = "repositoryId"
+        private const val TEXT_PLAIN = "text/plain"
+        private fun parseXForwardedFor(value: String?): List<InetAddress> {
+            val result: List<InetAddress> = ArrayList()
+            return if (value != null) {
+                value.split(",".toRegex())
+                    .dropLastWhile { it.isEmpty() }
+                    .mapNotNull { v: String ->
+                        try {
+                            return@mapNotNull InetAddress.getByName(v.trim { it <= ' ' })
+                        } catch (e: UnknownHostException) {
+                            LOG.warn("Failed to parse IP address: $v", e)
+                            return@mapNotNull null
+                        }
+                    }
+                    .toList()
+            } else result
         }
-        return result;
-    }
 
-    private static boolean isTrustedAddress(ServletRequest req) {
-        try {
-            InetAddress addr = InetAddress.getByName(req.getRemoteAddr());
-            return isTrustedAddress(addr);
-        } catch (UnknownHostException e) {
-            LOG.error("", e);
-            return false;
+        private fun isTrustedAddress(req: ServletRequest): Boolean {
+            return try {
+                val addr = InetAddress.getByName(req.remoteAddr)
+                isTrustedAddress(addr)
+            } catch (e: UnknownHostException) {
+                LOG.error("", e)
+                false
+            }
         }
-    }
 
-    private static boolean isTrustedAddress(InetAddress addr) {
-        return addr.isLoopbackAddress() || addr.isLinkLocalAddress() || addr.isSiteLocalAddress();
-    }
+        private fun isTrustedAddress(addr: InetAddress): Boolean {
+            return addr.isLoopbackAddress || addr.isLinkLocalAddress || addr.isSiteLocalAddress
+        }
 
-    private static String extractToken(HttpServletRequest req) {
-        String header = req.getHeader("Authorization");
-        if (header == null) return null;
-        if (!header.startsWith("Bearer ")) return null;
-        String token = header.substring("Bearer ".length());
-        return token;
-    }
+        private fun extractToken(req: HttpServletRequest): String? {
+            val header = req.getHeader("Authorization") ?: return null
+            return if (!header.startsWith("Bearer ")) null else header.substring("Bearer ".length)
+        }
 
-    @NotNull
-    private static String randomUUID() {
-        return UUID.randomUUID().toString().replaceAll("[^a-zA-Z0-9]", "");
+        private fun randomUUID(): String {
+            return UUID.randomUUID().toString().replace("[^a-zA-Z0-9]".toRegex(), "")
+        }
     }
 }

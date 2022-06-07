@@ -12,44 +12,34 @@
  * specific language governing permissions and limitations
  * under the License. 
  */
+package org.modelix.model.server
 
-package org.modelix.model.server;
+import org.apache.ignite.cache.store.jdbc.dialect.BasicJdbcDialect
+import org.apache.ignite.internal.util.typedef.F
 
-import java.util.Collection;
-import org.apache.ignite.cache.store.jdbc.dialect.BasicJdbcDialect;
-import org.apache.ignite.internal.util.typedef.C1;
-import org.apache.ignite.internal.util.typedef.F;
-
-public class PostgresDialect extends BasicJdbcDialect {
-    @Override
-    public boolean hasMerge() {
-        return true;
+class PostgresDialect : BasicJdbcDialect() {
+    override fun hasMerge(): Boolean {
+        return true
     }
 
-    @Override
-    public String mergeQuery(
-            String fullTblName, Collection<String> keyCols, Collection<String> uniqCols) {
-        Collection<String> cols = F.concat(false, keyCols, uniqCols);
-
-        String updPart =
-                mkString(
-                        uniqCols,
-                        new C1<String, String>() {
-                            @Override
-                            public String apply(String col) {
-                                return String.format("%s = excluded.%s", col, col);
-                            }
-                        },
-                        "",
-                        ", ",
-                        "");
-
+    override fun mergeQuery(
+        fullTblName: String, keyCols: Collection<String>, uniqCols: Collection<String>
+    ): String {
+        val cols = F.concat(false, keyCols, uniqCols)
+        val updPart = mkString(
+            uniqCols,
+            { String.format("%s = excluded.%s", it, it) },
+            "",
+            ", ",
+            ""
+        )
         return String.format(
-                "INSERT INTO %s (%s) VALUES (%s) ON CONFLICT (%s) DO UPDATE SET %s",
-                fullTblName,
-                mkString(cols, ", "),
-                repeat("?", cols.size(), "", ",", ""),
-                mkString(keyCols, ", "),
-                updPart);
+            "INSERT INTO %s (%s) VALUES (%s) ON CONFLICT (%s) DO UPDATE SET %s",
+            fullTblName,
+            mkString(cols, ", "),
+            repeat("?", cols.size, "", ",", ""),
+            mkString(keyCols, ", "),
+            updPart
+        )
     }
 }

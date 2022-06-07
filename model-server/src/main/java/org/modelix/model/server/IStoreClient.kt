@@ -12,27 +12,15 @@
  * specific language governing permissions and limitations
  * under the License. 
  */
+package org.modelix.model.server
 
-package org.modelix.model.server;
-
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
-public interface IStoreClient {
-    String get(String key);
-
-    List<String> getAll(List<String> keys);
-
-    Map<String, String> getAll(Set<String> keys);
-
-    void put(String key, String value);
-
-    void putAll(Map<String, String> entries);
-
-    void listen(final String key, final IKeyListener listener);
-
-    void removeListener(final String key, final IKeyListener listener);
-
-    long generateId(String key);
+interface IStoreClient {
+    operator fun get(key: String): String?
+    fun getAll(keys: List<String>): List<String?>
+    fun getAll(keys: Set<String>): Map<String, String?>
+    fun put(key: String, value: String?)
+    fun putAll(entries: Map<String, String?>)
+    fun listen(key: String?, listener: IKeyListener)
+    fun removeListener(key: String?, listener: IKeyListener)
+    fun generateId(key: String): Long
 }
