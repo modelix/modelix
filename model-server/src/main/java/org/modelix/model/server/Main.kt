@@ -238,10 +238,11 @@ object Main {
                     FileUtils.readFileToString(sharedSecretFile, StandardCharsets.UTF_8)
                 )
             }
-            // TODO handlerList.addHandler(HistoryHandler(localModelClient))
 
-            val ktorServer: NettyApplicationEngine = embeddedServer(Netty, port = 28101) {
+            val historyHandler = HistoryHandler(localModelClient)
+            val ktorServer: NettyApplicationEngine = embeddedServer(Netty, port = DEFAULT_PORT) {
                 modelServer.init(this)
+                historyHandler.init(this)
             }
             ktorServer.start()
             LOG.info("Server started")
