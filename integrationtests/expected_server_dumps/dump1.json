@@ -59,10 +59,6 @@
               "version": "11"
             },
             {
-              "$role": "modelImports",
-              "$concept": "org.modelix.model.repositoryconcepts.ModelReference"
-            },            
-            {
               "$role": "rootNodes",
               "$concept": "jetbrains.mps.baseLanguage.ClassConcept",
               "#mpsNodeId#": "6391662687397648300",
