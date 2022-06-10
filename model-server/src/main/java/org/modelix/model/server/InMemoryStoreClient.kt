@@ -56,7 +56,7 @@ class InMemoryStoreClient : IStoreClient {
     }
 
     @Synchronized
-    override fun listen(key: String?, listener: IKeyListener) {
+    override fun listen(key: String, listener: IKeyListener) {
         if (!listeners.containsKey(key)) {
             listeners[key] = LinkedList()
         }
@@ -64,7 +64,7 @@ class InMemoryStoreClient : IStoreClient {
     }
 
     @Synchronized
-    override fun removeListener(key: String?, listener: IKeyListener) {
+    override fun removeListener(key: String, listener: IKeyListener) {
         if (!listeners.containsKey(key)) {
             return
         }

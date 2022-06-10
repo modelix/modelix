@@ -68,11 +68,11 @@ class RedisStoreClient : IStoreClient {
         }
     }
 
-    override fun listen(key: String?, listener: IKeyListener) {
+    override fun listen(key: String, listener: IKeyListener) {
         throw UnsupportedOperationException()
     }
 
-    override fun removeListener(key: String?, listener: IKeyListener) {
+    override fun removeListener(key: String, listener: IKeyListener) {
         throw UnsupportedOperationException()
     }
 

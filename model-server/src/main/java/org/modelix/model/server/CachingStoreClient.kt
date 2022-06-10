@@ -59,11 +59,11 @@ class CachingStoreClient(private val store: IStoreClient) : IStoreClient {
         }
     }
 
-    override fun listen(key: String?, listener: IKeyListener) {
+    override fun listen(key: String, listener: IKeyListener) {
         store.listen(key, listener)
     }
 
-    override fun removeListener(key: String?, listener: IKeyListener) {
+    override fun removeListener(key: String, listener: IKeyListener) {
         store.removeListener(key, listener)
     }
 

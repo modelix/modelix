@@ -23,6 +23,8 @@ import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import io.ktor.util.pipeline.*
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import org.json.JSONArray
 import org.json.JSONObject
 import org.modelix.authorization.*
@@ -131,16 +133,13 @@ class KtorModelServer(val storeClient: IStoreClient) {
 
                 get("/poll/{key}") {
                     checkAuthorization()
-                    val key = call.parameters["key"]!!
+                    val key: String = call.parameters["key"]!!
                     val lastKnownValue = call.request.queryParameters["lastKnownValue"]
                     checkKeyPermission(key)
-                    val valueFromListener = arrayOfNulls<String>(1)
-                    val lock = Object()
                     val listener = object : IKeyListener {
-                        override fun changed(key: String?, newValue: String?) {
-                            synchronized(lock) {
-                                valueFromListener[0] = newValue
-                                lock.notifyAll()
+                        override fun changed(key_: String, newValue: String?) {
+                            launch {
+                                if (!call.response.isCommitted) respondValue(key, newValue)
                             }
                         }
                     }
@@ -156,26 +155,19 @@ class KtorModelServer(val storeClient: IStoreClient) {
                             // Registering the listener without needing it is less
                             // likely to happen.
                             val value = storeClient[key]
-                            valueFromListener[0] = value
                             if (value != lastKnownValue) {
-                                respondValue(key, value)
+                                if (!call.response.isCommitted) respondValue(key, value)
                                 return@get
                             }
                         }
-                        try {
-                            synchronized(lock) {
-                                // Long polling. The request returns when the value
-                                // changes.
-                                // Then the client will do a new request.
-                                lock.wait(25000L)
-                            }
-                        } catch (e: InterruptedException) {
-                            throw RuntimeException(e)
+                        for (i in 1..250) {
+                            if (call.response.isCommitted) break
+                            delay(100L)
                         }
                     } finally {
                         storeClient.removeListener(key, listener)
                     }
-                    respondValue(key, valueFromListener[0])
+                    if (!call.response.isCommitted) respondValue(key, storeClient[key])
                 }
 
                 get("/generateToken") {

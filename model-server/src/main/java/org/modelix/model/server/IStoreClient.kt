@@ -20,7 +20,7 @@ interface IStoreClient {
     fun getAll(keys: Set<String>): Map<String, String?>
     fun put(key: String, value: String?)
     fun putAll(entries: Map<String, String?>)
-    fun listen(key: String?, listener: IKeyListener)
-    fun removeListener(key: String?, listener: IKeyListener)
+    fun listen(key: String, listener: IKeyListener)
+    fun removeListener(key: String, listener: IKeyListener)
     fun generateId(key: String): Long
 }
