@@ -17,6 +17,7 @@ package org.modelix.model.server
 import io.ktor.server.application.*
 import io.ktor.server.plugins.cors.routing.*
 import io.ktor.http.*
+import io.ktor.server.auth.*
 import io.ktor.server.plugins.*
 import io.ktor.server.plugins.forwardedheaders.*
 import io.ktor.server.request.*
@@ -30,6 +31,7 @@ import org.json.JSONObject
 import org.modelix.authorization.*
 import org.modelix.authorization.ktor.installAuthentication
 import org.modelix.authorization.ktor.requiresPermission
+import org.modelix.model.persistent.HashUtil
 import org.slf4j.LoggerFactory
 import java.io.IOException
 import java.net.InetAddress
@@ -44,6 +46,9 @@ private fun toLong(value: String?): Long {
 }
 
 private class NotFoundException(description: String?) : RuntimeException(description)
+
+private typealias CallContext = PipelineContext<Unit, ApplicationCall>
+private fun CallContext.getUser() = call.principal<AuthenticatedUser>() ?: AuthenticatedUser.ANONYMOUS_USER
 
 class KtorModelServer(val storeClient: IStoreClient) {
     companion object {
@@ -357,7 +362,7 @@ class KtorModelServer(val storeClient: IStoreClient) {
         return result
     }
 
-    protected fun putEntries(newEntries: Map<String, String?>) {
+    protected fun CallContext.putEntries(newEntries: Map<String, String?>) {
         val referencedKeys: MutableSet<String> = HashSet()
         for ((key, value) in newEntries) {
             if (SERVER_ID_KEY == key) {
@@ -396,20 +401,27 @@ class KtorModelServer(val storeClient: IStoreClient) {
     }
 
     @Throws(IOException::class)
-    private fun PipelineContext<Unit, ApplicationCall>.checkAuthorization() {
+    private fun CallContext.checkAuthorization() {
         if (!isValidAuthorization()) {
             throw NoPermissionException("Not authorized.")
         }
     }
 
     @Throws(IOException::class)
-    private fun checkKeyPermission(key: String, type: EPermissionType) {
+    private fun CallContext.checkKeyPermission(key: String, type: EPermissionType) {
         if (key.startsWith(PROTECTED_PREFIX)) {
             throw NoPermissionException("Access to keys starting with '$PROTECTED_PREFIX' is only permitted to the model server itself.")
         }
         if ((key == SERVER_ID_KEY || key == LEGACY_SERVER_ID_KEY) && type.includes(EPermissionType.WRITE)) {
             throw NoPermissionException("'$key' is read-only.")
         }
+        if (HashUtil.isSha256(key)) {
+            // Reading entries with a hash key is equivalent to uncompressing data that the user already has access to.
+            // If he isn't allowed to read the entry then he shouldn't be allowed to know the hash.
+            // A permission check has happened somewhere earlier.
+            return
+        }
+        ModelixAuthorization.checkPermission(getUser(), PermissionId("model-server-entry/$key"), type)
     }
 
     private fun PipelineContext<Unit, ApplicationCall>.isValidAuthorization(): Boolean {
