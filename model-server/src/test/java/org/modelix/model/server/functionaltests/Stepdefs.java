@@ -173,7 +173,8 @@ public class Stepdefs {
                             .header("accept", "application/json")
                             .build();
 
-            HttpResponse<String> result = client.send(request, HttpResponse.BodyHandlers.ofString(Charsets.UTF_8));
+            HttpResponse<String> result =
+                    client.send(request, HttpResponse.BodyHandlers.ofString(Charsets.UTF_8));
             allStringResponses.add(result);
             return result.body();
         } catch (ConnectException e) {
@@ -359,6 +360,7 @@ public class Stepdefs {
         }
         assertTrue(longPollResults.stream().anyMatch(e -> Objects.equals(expectedValue, e)));
     }
+
     @Then("Long poll should NOT return {string}")
     public void longPollShouldNOTReturn(String expectedValue) {
         try {
@@ -397,11 +399,12 @@ public class Stepdefs {
         // wait for server to be up
         i_visit("/");
 
-        longPollExecutor.execute(() -> {
-            String value = httpRequest("GET", path);
-            System.out.println("Polling " + path + " returned " + value);
-            longPollResults.add(value);
-        });
+        longPollExecutor.execute(
+                () -> {
+                    String value = httpRequest("GET", path);
+                    System.out.println("Polling " + path + " returned " + value);
+                    longPollResults.add(value);
+                });
     }
 
     @Then("the text of the page should be the same as before")
