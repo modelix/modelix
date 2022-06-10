@@ -51,7 +51,7 @@ class KtorModelServer(val storeClient: IStoreClient) {
         val HASH_PATTERN = Pattern.compile("[a-zA-Z0-9\\-_]{5}\\*[a-zA-Z0-9\\-_]{38}")
         const val PROTECTED_PREFIX = "$$$"
         val HEALTH_KEY = PROTECTED_PREFIX + "health2"
-        private const val REPOSITORY_ID_KEY = "repositoryId"
+        private const val SERVER_ID_KEY = "repositoryId"
         private const val TEXT_PLAIN = "text/plain"
         private fun parseXForwardedFor(value: String?): List<InetAddress> {
             val result: List<InetAddress> = ArrayList()
@@ -95,6 +95,9 @@ class KtorModelServer(val storeClient: IStoreClient) {
     }
 
     fun init(application: Application) {
+        if (storeClient.get(SERVER_ID_KEY) == null) {
+            storeClient.put(SERVER_ID_KEY, randomUUID());
+        }
         application.apply {
             modelServerModule()
         }
@@ -126,7 +129,7 @@ class KtorModelServer(val storeClient: IStoreClient) {
                     checkAuthorization()
 
                     val key = call.parameters["key"]!!
-                    checkKeyPermission(key)
+                    checkKeyPermission(key, EPermissionType.READ)
                     val value = storeClient[key]
                     respondValue(key, value)
                 }
@@ -135,7 +138,7 @@ class KtorModelServer(val storeClient: IStoreClient) {
                     checkAuthorization()
                     val key: String = call.parameters["key"]!!
                     val lastKnownValue = call.request.queryParameters["lastKnownValue"]
-                    checkKeyPermission(key)
+                    checkKeyPermission(key, EPermissionType.READ)
                     val listener = object : IKeyListener {
                         override fun changed(key_: String, newValue: String?) {
                             launch {
@@ -203,7 +206,7 @@ class KtorModelServer(val storeClient: IStoreClient) {
                 post("/counter/{key}") {
                     checkAuthorization()
                     val key = call.parameters["key"]!!
-                    checkKeyPermission(key)
+                    checkKeyPermission(key, EPermissionType.WRITE)
                     val value = storeClient.generateId(key)
                     call.respondText(text = value.toString())
                 }
@@ -256,7 +259,7 @@ class KtorModelServer(val storeClient: IStoreClient) {
                     val keys: MutableList<String> = ArrayList(reqJson.length())
                     for (entry_ in reqJson) {
                         val key = entry_ as String
-                        checkKeyPermission(key)
+                        checkKeyPermission(key, EPermissionType.READ)
                         keys.add(key)
                     }
                     val values = storeClient.getAll(keys)
@@ -353,10 +356,10 @@ class KtorModelServer(val storeClient: IStoreClient) {
     protected fun putEntries(newEntries: Map<String, String?>) {
         val referencedKeys: MutableSet<String> = HashSet()
         for ((key, value) in newEntries) {
-            if (REPOSITORY_ID_KEY == key) {
+            if (SERVER_ID_KEY == key) {
                 throw NoPermissionException("Changing '$key' is not allowed")
             }
-            checkKeyPermission(key)
+            checkKeyPermission(key, EPermissionType.WRITE)
             if (value != null) {
                 val matcher = HASH_PATTERN.matcher(value)
                 while (matcher.find()) {
@@ -396,9 +399,12 @@ class KtorModelServer(val storeClient: IStoreClient) {
     }
 
     @Throws(IOException::class)
-    private fun checkKeyPermission(key: String) {
+    private fun checkKeyPermission(key: String, type: EPermissionType) {
         if (key.startsWith(PROTECTED_PREFIX)) {
             throw NoPermissionException("Access to keys starting with '$PROTECTED_PREFIX' is only permitted to the model server itself.")
+        }
+        if (key == SERVER_ID_KEY && type.includes(EPermissionType.WRITE)) {
+            throw NoPermissionException("'$SERVER_ID_KEY' is read-only.")
         }
     }
 
