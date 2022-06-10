@@ -36,12 +36,16 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import javax.ws.rs.client.Client;
@@ -57,6 +61,9 @@ public class Stepdefs {
     private SseEventSource source;
     private List<InboundSseEvent> events = new LinkedList<InboundSseEvent>();
     private List<HttpResponse<String>> allStringResponses = new LinkedList<>();
+
+    private Executor longPollExecutor = Executors.newCachedThreadPool();
+    private List<String> longPollResults = new ArrayList<String>();
 
     private static final boolean VERBOSE_SERVER = false;
     private static final boolean VERBOSE_CONNECTION = false;
@@ -157,7 +164,7 @@ public class Stepdefs {
         httpRequest("GET", path);
     }
 
-    private void httpRequest(String method, String path) {
+    private String httpRequest(String method, String path) {
         try {
             var client = HttpClient.newHttpClient();
             var request =
@@ -166,8 +173,9 @@ public class Stepdefs {
                             .header("accept", "application/json")
                             .build();
 
-            allStringResponses.add(
-                    client.send(request, HttpResponse.BodyHandlers.ofString(Charsets.UTF_8)));
+            HttpResponse<String> result = client.send(request, HttpResponse.BodyHandlers.ofString(Charsets.UTF_8));
+            allStringResponses.add(result);
+            return result.body();
         } catch (ConnectException e) {
             if (nRetries > 0) {
                 if (VERBOSE_CONNECTION) {
@@ -180,12 +188,13 @@ public class Stepdefs {
                 } catch (InterruptedException e2) {
 
                 }
-                httpRequest(method, path);
+                return httpRequest(method, path);
             } else {
                 throw new RuntimeException(e);
             }
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
+            return null;
         }
     }
 
@@ -341,6 +350,25 @@ public class Stepdefs {
         assertTrue(events.stream().anyMatch(e -> e.readData().equals(expectedEventValue)));
     }
 
+    @Then("Long poll should return {string}")
+    public void longPollShouldReturn(String expectedValue) {
+        try {
+            Thread.sleep(200);
+        } catch (InterruptedException e) {
+
+        }
+        assertTrue(longPollResults.stream().anyMatch(e -> Objects.equals(expectedValue, e)));
+    }
+    @Then("Long poll should NOT return {string}")
+    public void longPollShouldNOTReturn(String expectedValue) {
+        try {
+            Thread.sleep(200);
+        } catch (InterruptedException e) {
+
+        }
+        assertTrue(longPollResults.stream().noneMatch(e -> Objects.equals(expectedValue, e)));
+    }
+
     @Then("I should NOT get an event {string}")
     public void iShouldNOTGetAnEvent(String expectedEventValue) {
         try {
@@ -362,6 +390,18 @@ public class Stepdefs {
         source = SseEventSource.target(target).build();
         source.register(inboundSseEvent -> events.add(inboundSseEvent));
         source.open();
+    }
+
+    @When("I long poll {string}")
+    public void iLongPoll(String path) {
+        // wait for server to be up
+        i_visit("/");
+
+        longPollExecutor.execute(() -> {
+            String value = httpRequest("GET", path);
+            System.out.println("Polling " + path + " returned " + value);
+            longPollResults.add(value);
+        });
     }
 
     @Then("the text of the page should be the same as before")
