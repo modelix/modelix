@@ -185,12 +185,11 @@ object Main {
         }
         try {
             val portStr = System.getenv("MODELIX_SERVER_PORT")
-            var port = portStr?.toInt() ?: 28101
+            var port = portStr?.toInt() ?: DEFAULT_PORT
             if (cmdLineArgs.port != null) {
                 port = cmdLineArgs.port!!
             }
             LOG.info("Port: $port")
-            val bindTo: InetSocketAddress = InetSocketAddress(InetAddress.getByName("0.0.0.0"), port)
             val storeClient: IStoreClient
             if (cmdLineArgs.inmemory) {
                 if (cmdLineArgs.jdbcConfFile != null) {
@@ -240,7 +239,7 @@ object Main {
             }
 
             val historyHandler = HistoryHandler(localModelClient)
-            val ktorServer: NettyApplicationEngine = embeddedServer(Netty, port = DEFAULT_PORT) {
+            val ktorServer: NettyApplicationEngine = embeddedServer(Netty, port = port) {
                 modelServer.init(this)
                 historyHandler.init(this)
             }
