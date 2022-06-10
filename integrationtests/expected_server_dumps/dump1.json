@@ -5,7 +5,46 @@
       "$concept": "org.modelix.model.repositoryconcepts.Module",
       "id": "f2fb433a-7484-46c7-a61e-ec59ba5ea58f",
       "name": "simple.solution1",
+      "moduleVersion": "0",
+      "compileInMPS": "true",
       "$children": [
+        {
+          "$role": "facets",
+          "$concept": "org.modelix.model.repositoryconcepts.JavaModuleFacet",
+          "generated": "true",
+          "path": "${module}/classes_gen"
+        },
+        {
+          "$role": "dependencies",
+          "$concept": "org.modelix.model.repositoryconcepts.ModuleDependency",
+          "explicit": "false",
+          "name": "simple.solution1",
+          "reexport": "false",
+          "scope": "UNSPECIFIED",
+          "uuid": "f2fb433a-7484-46c7-a61e-ec59ba5ea58f",
+          "version": "0"
+        },
+        {
+          "$role": "languageDependencies",
+          "$concept": "org.modelix.model.repositoryconcepts.SingleLanguageDependency",
+          "name": "jetbrains.mps.baseLanguage",
+          "uuid": "f3061a53-9226-4cc5-a443-f952ceaf5816",
+          "version": "11"
+        },
+        {
+          "$role": "languageDependencies",
+          "$concept": "org.modelix.model.repositoryconcepts.SingleLanguageDependency",
+          "name": "jetbrains.mps.lang.core",
+          "uuid": "ceab5195-25ea-4f22-9b92-103b95ca8c0c",
+          "version": "2"
+        },
+        {
+          "$role": "languageDependencies",
+          "$concept": "org.modelix.model.repositoryconcepts.SingleLanguageDependency",
+          "name": "jetbrains.mps.lang.traceable",
+          "uuid": "9ded098b-ad6a-4657-bfd9-48636cfe8bc3",
+          "version": "0"
+        },        
         {
           "$role": "models",
           "$concept": "org.modelix.model.repositoryconcepts.Model",
@@ -14,9 +53,10 @@
           "$children": [
             {
               "$role": "usedLanguages",
-              "$concept": "org.modelix.model.repositoryconcepts.UsedModule",
-              "id": "f3061a53-9226-4cc5-a443-f952ceaf5816",
-              "name": "jetbrains.mps.baseLanguage"
+              "$concept": "org.modelix.model.repositoryconcepts.SingleLanguageDependency",
+              "uuid": "f3061a53-9226-4cc5-a443-f952ceaf5816",
+              "name": "jetbrains.mps.baseLanguage",
+              "version": "11"
             },
             {
               "$role": "rootNodes",
