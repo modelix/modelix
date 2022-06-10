@@ -254,7 +254,9 @@ class KtorModelServer(val storeClient: IStoreClient) {
                     }
                 }
 
-                get("/getAll") {
+                put("/getAll") {
+                    // PUT is used, because a GET is not allowed to have a request body that changes the result of the
+                    // request. It would be legal for an HTTP proxy to cache all /getAll requests and ignore the body.
                     checkAuthorization()
                     val reqJsonStr = call.receiveText()
                     val reqJson = JSONArray(reqJsonStr)
