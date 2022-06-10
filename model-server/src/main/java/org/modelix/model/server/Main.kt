@@ -23,22 +23,18 @@ import io.ktor.server.engine.*
 import io.ktor.server.netty.*
 import org.apache.commons.io.FileUtils
 import org.apache.ignite.Ignition
-import org.eclipse.jetty.server.Server
-import org.eclipse.jetty.server.handler.HandlerList
-import org.eclipse.jetty.servlet.ServletContextHandler
+import org.modelix.authorization.ModelixAuthorization
 import org.slf4j.LoggerFactory
 import java.io.File
 import java.io.FileReader
 import java.io.FileWriter
 import java.io.IOException
-import java.net.InetAddress
-import java.net.InetSocketAddress
 import java.nio.charset.StandardCharsets
 import java.sql.Connection
 import java.sql.DatabaseMetaData
 import java.sql.ResultSet
 import java.sql.SQLException
-import java.util.LinkedList
+import java.util.*
 import javax.sql.DataSource
 
 internal class CmdLineArgs {
@@ -238,16 +234,18 @@ object Main {
                 )
             }
 
+            ModelixAuthorization.init(localModelClient)
             val historyHandler = HistoryHandler(localModelClient)
             val ktorServer: NettyApplicationEngine = embeddedServer(Netty, port = port) {
                 modelServer.init(this)
                 historyHandler.init(this)
             }
-            ktorServer.start()
+            ktorServer.start(wait = true)
             LOG.info("Server started")
             Runtime.getRuntime().addShutdownHook(Thread {
                 try {
                     ktorServer.stop()
+                    LOG.info("Server stopped")
                 } catch (ex: Exception) {
                     System.err.println("Exception: " + ex.message)
                     ex.printStackTrace()

@@ -32,6 +32,7 @@ class ModelServerAuthorizationPersistence(val client: IModelClient, val dataKey:
         : this(RestWebModelClient(modelServerUrl ?: getModelServerUrl()), dataKey)
 
     constructor() : this(null, "authorization-data")
+    constructor(client: IModelClient) : this(client, "authorization-data")
 
     override fun loadData(): AuthorizationData? {
         val serialized = client.get(dataKey) ?: return null

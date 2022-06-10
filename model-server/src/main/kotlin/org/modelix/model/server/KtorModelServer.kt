@@ -15,7 +15,7 @@
 package org.modelix.model.server
 
 import io.ktor.server.application.*
-import io.ktor.server.plugins.cors.*
+import io.ktor.server.plugins.cors.routing.*
 import io.ktor.http.*
 import io.ktor.server.plugins.*
 import io.ktor.server.plugins.forwardedheaders.*
@@ -131,9 +131,8 @@ class KtorModelServer(val storeClient: IStoreClient) {
 
                 get("/poll/{key}") {
                     checkAuthorization()
-                    val params = call.receiveParameters()
                     val key = call.parameters["key"]!!
-                    val lastKnownValue = params["lastKnownValue"]
+                    val lastKnownValue = call.request.queryParameters["lastKnownValue"]
                     checkKeyPermission(key)
                     val valueFromListener = arrayOfNulls<String>(1)
                     val lock = Object()

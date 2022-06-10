@@ -13,11 +13,25 @@
  */
 package org.modelix.authorization
 
+import org.modelix.model.client.IModelClient
+
 object ModelixAuthorization {
     private val ADMIN_GROUP = "modelix-administrators"
     val AUTHORIZATION_DATA_PERMISSION = PermissionId("authorization-data")
 
-    var persistence: IAuthorizationPersistence = ModelServerAuthorizationPersistence()
+    private val defaultPersistence: IAuthorizationPersistence by lazy {
+        ModelServerAuthorizationPersistence()
+    }
+    private var persistenceOverride: IAuthorizationPersistence? = null
+    private val persistence: IAuthorizationPersistence get() { return persistenceOverride ?: defaultPersistence }
+
+    fun init(client: IModelClient? = null) {
+        init(client?.let { ModelServerAuthorizationPersistence(it) })
+    }
+
+    fun init(persistence: IAuthorizationPersistence? = null) {
+        this.persistenceOverride = persistence ?: ModelServerAuthorizationPersistence()
+    }
 
     fun getData(): AuthorizationData {
         return persistence.loadData()
