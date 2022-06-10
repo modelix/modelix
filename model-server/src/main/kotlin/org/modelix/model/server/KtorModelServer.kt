@@ -51,7 +51,8 @@ class KtorModelServer(val storeClient: IStoreClient) {
         val HASH_PATTERN = Pattern.compile("[a-zA-Z0-9\\-_]{5}\\*[a-zA-Z0-9\\-_]{38}")
         const val PROTECTED_PREFIX = "$$$"
         val HEALTH_KEY = PROTECTED_PREFIX + "health2"
-        private const val SERVER_ID_KEY = "repositoryId"
+        private const val LEGACY_SERVER_ID_KEY = "repositoryId"
+        private const val SERVER_ID_KEY = "server-id"
         private const val TEXT_PLAIN = "text/plain"
         private fun parseXForwardedFor(value: String?): List<InetAddress> {
             val result: List<InetAddress> = ArrayList()
@@ -95,8 +96,11 @@ class KtorModelServer(val storeClient: IStoreClient) {
     }
 
     fun init(application: Application) {
-        if (storeClient.get(SERVER_ID_KEY) == null) {
-            storeClient.put(SERVER_ID_KEY, randomUUID());
+        var serverId = storeClient.get(SERVER_ID_KEY)
+        if (serverId == null) {
+            serverId = storeClient.get(LEGACY_SERVER_ID_KEY) ?: randomUUID()
+            storeClient.put(SERVER_ID_KEY, serverId)
+            storeClient.put(LEGACY_SERVER_ID_KEY, serverId)
         }
         application.apply {
             modelServerModule()
@@ -403,8 +407,8 @@ class KtorModelServer(val storeClient: IStoreClient) {
         if (key.startsWith(PROTECTED_PREFIX)) {
             throw NoPermissionException("Access to keys starting with '$PROTECTED_PREFIX' is only permitted to the model server itself.")
         }
-        if (key == SERVER_ID_KEY && type.includes(EPermissionType.WRITE)) {
-            throw NoPermissionException("'$SERVER_ID_KEY' is read-only.")
+        if ((key == SERVER_ID_KEY || key == LEGACY_SERVER_ID_KEY) && type.includes(EPermissionType.WRITE)) {
+            throw NoPermissionException("'$key' is read-only.")
         }
     }
 
