@@ -365,9 +365,6 @@ class KtorModelServer(val storeClient: IStoreClient) {
     protected fun CallContext.putEntries(newEntries: Map<String, String?>) {
         val referencedKeys: MutableSet<String> = HashSet()
         for ((key, value) in newEntries) {
-            if (SERVER_ID_KEY == key) {
-                throw NoPermissionException("Changing '$key' is not allowed")
-            }
             checkKeyPermission(key, EPermissionType.WRITE)
             if (value != null) {
                 val matcher = HASH_PATTERN.matcher(value)
@@ -421,7 +418,7 @@ class KtorModelServer(val storeClient: IStoreClient) {
             // A permission check has happened somewhere earlier.
             return
         }
-        ModelixAuthorization.checkPermission(getUser(), PermissionId("model-server-entry/$key"), type)
+        ModelixAuthorization.checkPermission(getUser(), PermissionId("model-server-entry/$key"), type, publicIfNew = true)
     }
 
     private fun PipelineContext<Unit, ApplicationCall>.isValidAuthorization(): Boolean {

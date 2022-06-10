@@ -51,9 +51,18 @@ object ModelixAuthorization {
         persistence.storeData(data)
     }
 
-    fun getPermissions(user: AuthenticatedUser, permissionId: PermissionId): Set<EPermissionType> {
+    fun getPermissions(user: AuthenticatedUser, permissionId: PermissionId, publicIfNew: Boolean = false): Set<EPermissionType> {
         val userAndGroupIds = user.getUserAndGroupIds() + AuthenticatedUser.PUBLIC_GROUP
-        val data = getData()
+        var data = getData()
+        if (publicIfNew && !data.knownPermissions.contains(permissionId) && !data.getAllKnownPermissions().contains(permissionId)) {
+            data = AuthorizationData(
+                data.knownUsers,
+                data.knownGroups,
+                data.knownPermissions + permissionId,
+                data.grantedPermissions + PermissionData(AuthenticatedUser.PUBLIC_GROUP, permissionId, EPermissionType.WRITE)
+            )
+            storeData(data)
+        }
         val result = data.grantedPermissions
             .filter { it.permissionId == permissionId && userAndGroupIds.contains(it.userOrGroupId) }
             .map { it.type }.toSet()
@@ -68,8 +77,8 @@ object ModelixAuthorization {
         return result
     }
 
-    fun hasPermission(user: AuthenticatedUser, permissionId: PermissionId, type: EPermissionType): Boolean {
-        val result = getPermissions(user, permissionId).any { it.includes(type) }
+    fun hasPermission(user: AuthenticatedUser, permissionId: PermissionId, type: EPermissionType, publicIfNew: Boolean = false): Boolean {
+        val result = getPermissions(user, permissionId, publicIfNew).any { it.includes(type) }
         if (permissionId == AUTHORIZATION_DATA_PERMISSION && !result) {
             if (!getData().grantedPermissions.any { it.permissionId == permissionId && it.type.includes(EPermissionType.WRITE) }) {
                 // if nobody has the permission to edit permissions we would have a problem
@@ -79,8 +88,8 @@ object ModelixAuthorization {
         return result
     }
 
-    fun checkPermission(user: AuthenticatedUser, permissionId: PermissionId, type: EPermissionType) {
-        if (!hasPermission(user, permissionId, type)) {
+    fun checkPermission(user: AuthenticatedUser, permissionId: PermissionId, type: EPermissionType, publicIfNew: Boolean = false) {
+        if (!hasPermission(user, permissionId, type, publicIfNew)) {
             throw NoPermissionException(user, permissionId, type)
         }
     }
