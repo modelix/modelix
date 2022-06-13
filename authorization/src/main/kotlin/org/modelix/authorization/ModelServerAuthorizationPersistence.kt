@@ -16,6 +16,7 @@ package org.modelix.authorization
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
+import org.modelix.model.IKeyListener
 import org.modelix.model.client.IModelClient
 import org.modelix.model.client.RestWebModelClient
 
@@ -28,18 +29,49 @@ private fun getModelServerUrl(): String {
 
 class ModelServerAuthorizationPersistence(val client: IModelClient, val dataKey: String) : IAuthorizationPersistence {
 
+    private var listener: IKeyListener? = null
+    private var cachedData: AuthorizationData? = null
+
     constructor(modelServerUrl: String?, dataKey: String)
         : this(RestWebModelClient(modelServerUrl ?: getModelServerUrl()), dataKey)
 
     constructor() : this(null, "authorization-data")
     constructor(client: IModelClient) : this(client, "authorization-data")
 
+    @Synchronized
+    private fun registerListener() {
+        var l = listener
+        if (l == null) {
+            l = object : IKeyListener {
+                override fun changed(key: String, value: String?) {
+                    if (value == null) return
+                    cachedData = Json.decodeFromString<AuthorizationData>(value)
+                }
+            }
+            listener = l
+            client.listen(dataKey, l)
+        }
+    }
+
     override fun loadData(): AuthorizationData? {
+        registerListener()
+        if (cachedData != null) {
+            return cachedData
+        }
         val serialized = client.get(dataKey) ?: return null
-        return Json.decodeFromString<AuthorizationData>(serialized)
+        val data = Json.decodeFromString<AuthorizationData>(serialized)
+        this.cachedData = data
+        return data
     }
 
     override fun storeData(data: AuthorizationData) {
+        this.cachedData = data
         client.put(dataKey, Json.encodeToString(data))
+    }
+
+    @Synchronized
+    fun dispose() {
+        listener?.let { client.removeListener(dataKey, it) }
+        listener = null
     }
 }
