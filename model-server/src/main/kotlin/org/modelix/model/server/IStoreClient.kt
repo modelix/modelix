@@ -14,6 +14,8 @@
  */
 package org.modelix.model.server
 
+import org.modelix.model.IKeyListener
+
 interface IStoreClient {
     operator fun get(key: String): String?
     fun getAll(keys: List<String>): List<String?>

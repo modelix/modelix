@@ -51,7 +51,14 @@ fun Application.installAuthentication() {
                     text = cause.message ?: "",
                     status = io.ktor.http.HttpStatusCode.Forbidden
                 )
-                else -> call.respondText(text = "500: $cause", status = io.ktor.http.HttpStatusCode.InternalServerError)
+                else -> {
+                    val text = """
+                        |500: $cause
+                        |
+                        |${cause.stackTraceToString()}
+                    """.trimMargin()
+                    call.respondText(text = text, status = io.ktor.http.HttpStatusCode.InternalServerError)
+                }
             }
         }
     }

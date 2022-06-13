@@ -14,6 +14,7 @@
  */
 package org.modelix.model.server
 
+import org.modelix.model.IKeyListener
 import java.io.BufferedReader
 import java.io.FileReader
 import java.io.FileWriter

@@ -23,6 +23,7 @@ import java.util.Set;
 import org.jetbrains.annotations.NotNull;
 import org.junit.Assert;
 import org.junit.Test;
+import org.modelix.model.IKeyListener;
 
 public class CachingStoreClientTest {
 

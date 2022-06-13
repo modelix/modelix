@@ -17,6 +17,7 @@ package org.modelix.model.server
 import io.lettuce.core.RedisClient
 import io.lettuce.core.api.StatefulRedisConnection
 import io.lettuce.core.api.sync.RedisCommands
+import org.modelix.model.IKeyListener
 import java.util.function.Function
 import java.util.stream.Collectors
 

@@ -325,6 +325,11 @@ public class Stepdefs {
         assertEquals(expectedText.strip(), lastStringResponse());
     }
 
+    @Then("the text of the page should contain {string}")
+    public void the_text_of_the_page_should_contain(String expectedText) {
+        assertTrue(lastStringResponse().contains(expectedText.strip()));
+    }
+
     @Then("the text of the page should be {int} characters long")
     public void theTextOfThePageShouldBeCharactersLong(int nLength) {
         assertEquals(nLength, lastStringResponse().length());

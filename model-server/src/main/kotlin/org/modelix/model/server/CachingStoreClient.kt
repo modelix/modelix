@@ -15,6 +15,7 @@
 package org.modelix.model.server
 
 import org.apache.commons.collections4.map.LRUMap
+import org.modelix.model.IKeyListener
 import java.util.*
 import java.util.function.Function
 import java.util.stream.Collectors

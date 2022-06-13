@@ -60,11 +60,11 @@ class LocalModelClient(private val store: IStoreClient) : IModelClient {
     }
 
     override fun listen(key: String, listener: IKeyListener) {
-        throw UnsupportedOperationException()
+        store.listen(key, listener)
     }
 
     override fun removeListener(key: String, listener: IKeyListener) {
-        throw UnsupportedOperationException()
+        store.removeListener(key, listener)
     }
 
     override fun getPendingSize(): Int {

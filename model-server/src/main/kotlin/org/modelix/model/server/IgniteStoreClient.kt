@@ -18,6 +18,7 @@ import com.google.common.collect.MultimapBuilder
 import org.apache.ignite.Ignite
 import org.apache.ignite.IgniteCache
 import org.apache.ignite.Ignition
+import org.modelix.model.IKeyListener
 import java.io.File
 import java.io.FileReader
 import java.io.IOException

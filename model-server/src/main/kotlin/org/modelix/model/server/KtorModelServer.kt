@@ -31,6 +31,7 @@ import org.json.JSONObject
 import org.modelix.authorization.*
 import org.modelix.authorization.ktor.installAuthentication
 import org.modelix.authorization.ktor.requiresPermission
+import org.modelix.model.IKeyListener
 import org.modelix.model.persistent.HashUtil
 import org.slf4j.LoggerFactory
 import java.io.IOException
@@ -48,7 +49,6 @@ private fun toLong(value: String?): Long {
 private class NotFoundException(description: String?) : RuntimeException(description)
 
 private typealias CallContext = PipelineContext<Unit, ApplicationCall>
-private fun CallContext.getUser() = call.principal<AuthenticatedUser>() ?: AuthenticatedUser.ANONYMOUS_USER
 
 class KtorModelServer(val storeClient: IStoreClient) {
     companion object {
@@ -132,8 +132,6 @@ class KtorModelServer(val storeClient: IStoreClient) {
             }
             requiresPermission(PERMISSION_MODEL_SERVER, EPermissionType.READ) {
                 get("/get/{key}") {
-                    checkAuthorization()
-
                     val key = call.parameters["key"]!!
                     checkKeyPermission(key, EPermissionType.READ)
                     val value = storeClient[key]
@@ -141,7 +139,6 @@ class KtorModelServer(val storeClient: IStoreClient) {
                 }
 
                 get("/poll/{key}") {
-                    checkAuthorization()
                     val key: String = call.parameters["key"]!!
                     val lastKnownValue = call.request.queryParameters["lastKnownValue"]
                     checkKeyPermission(key, EPermissionType.READ)
@@ -198,7 +195,6 @@ class KtorModelServer(val storeClient: IStoreClient) {
                 }
 
                 get("/getEmail") {
-                    checkAuthorization()
                     val token = extractToken(call)
                     if (token == null) {
                         call.respond(status = HttpStatusCode.NoContent, "Token missing")
@@ -210,7 +206,6 @@ class KtorModelServer(val storeClient: IStoreClient) {
                 }
 
                 post("/counter/{key}") {
-                    checkAuthorization()
                     val key = call.parameters["key"]!!
                     checkKeyPermission(key, EPermissionType.WRITE)
                     val value = storeClient.generateId(key)
@@ -218,13 +213,11 @@ class KtorModelServer(val storeClient: IStoreClient) {
                 }
 
                 get("/getRecursively/{key}") {
-                    checkAuthorization()
                     val key = call.parameters["key"]!!
                     call.respondText(collect(key).toString(2), contentType = ContentType.Application.Json)
                 }
 
                 put("/put/{key}") {
-                    checkAuthorization()
                     val key = call.parameters["key"]!!
                     val value = call.receiveText()
                     try {
@@ -236,7 +229,6 @@ class KtorModelServer(val storeClient: IStoreClient) {
                 }
 
                 put("/putAll") {
-                    checkAuthorization()
                     val jsonStr = call.receiveText()
                     val json = JSONArray(jsonStr)
                     var entries: MutableMap<String, String?> = LinkedHashMap()
@@ -258,7 +250,6 @@ class KtorModelServer(val storeClient: IStoreClient) {
                 put("/getAll") {
                     // PUT is used, because a GET is not allowed to have a request body that changes the result of the
                     // request. It would be legal for an HTTP proxy to cache all /getAll requests and ignore the body.
-                    checkAuthorization()
                     val reqJsonStr = call.receiveText()
                     val reqJson = JSONArray(reqJsonStr)
                     val respJson = JSONArray()
@@ -395,13 +386,6 @@ class KtorModelServer(val storeClient: IStoreClient) {
     }
 
     @Throws(IOException::class)
-    private fun CallContext.checkAuthorization() {
-        if (!isValidAuthorization()) {
-            throw NoPermissionException("Not authorized.")
-        }
-    }
-
-    @Throws(IOException::class)
     private fun CallContext.checkKeyPermission(key: String, type: EPermissionType) {
         if (key.startsWith(PROTECTED_PREFIX)) {
             throw NoPermissionException("Access to keys starting with '$PROTECTED_PREFIX' is only permitted to the model server itself.")
@@ -415,21 +399,29 @@ class KtorModelServer(val storeClient: IStoreClient) {
             // A permission check has happened somewhere earlier.
             return
         }
-        ModelixAuthorization.checkPermission(getUser(), PermissionId("model-server-entry/$key"), type, publicIfNew = true)
+        //ModelixAuthorization.checkPermission(getUser(), PermissionId("model-server-entry/$key"), type, publicIfNew = true)
     }
 
-    private fun PipelineContext<Unit, ApplicationCall>.isValidAuthorization(): Boolean {
-        if (isTrustedAddress(call.request.origin.remoteHost)) return true
-        val header = call.request.headers.get("Authorization") ?: return false
-        if (!header.startsWith("Bearer ")) return false
-        val token = extractToken(call) ?: return false
+    private fun CallContext.getUser(): AuthenticatedUser {
+        val principal = call.principal<AuthenticatedUser>()
+        if (principal != null) return principal
 
-        // Used by MPS instances running in the same kubernetes cluster
-        if (sharedSecret != null && sharedSecret!!.length > 0 && token == sharedSecret) {
-            return true
+        val token = extractToken(call)
+        if (!token.isNullOrEmpty()) {
+            if (token == sharedSecret) {
+                return AuthenticatedUser(setOf("cluster-internal"), setOf(AuthenticatedUser.PUBLIC_GROUP))
+            } else {
+                val expires = storeClient[PROTECTED_PREFIX + "_token_expires_" + token]?.toLong() ?: 0L
+                if (System.currentTimeMillis() <= expires) {
+                    val email = storeClient[PROTECTED_PREFIX + "_token_email_" + token]
+                    if (!email.isNullOrEmpty()) {
+                        return AuthenticatedUser(setOf(email), setOf(AuthenticatedUser.PUBLIC_GROUP))
+                    }
+                }
+            }
         }
-        val expiresStr = storeClient[PROTECTED_PREFIX + "_token_expires_" + token] ?: return false
-        return System.currentTimeMillis() <= expiresStr.toLong()
+
+        return AuthenticatedUser.ANONYMOUS_USER
     }
 
     fun isHealthy(): Boolean {
