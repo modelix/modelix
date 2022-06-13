@@ -1,7 +1,6 @@
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 
 plugins {
-    java
     application
     id("com.diffplug.gradle.spotless")
     `maven-publish`
@@ -43,6 +42,7 @@ dependencies {
     implementation("io.ktor:ktor-server-status-pages:$ktorVersion")
     implementation("io.ktor:ktor-server-forwarded-header:$ktorVersion")
     implementation(project(":authorization"))
+    implementation(project(":authorization-ui"))
 
     val igniteVersion = "2.13.0"
     implementation("org.apache.ignite:ignite-core:$igniteVersion")

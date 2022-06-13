@@ -119,9 +119,6 @@ class KtorModelServer(val storeClient: IStoreClient) {
         install(ForwardedHeaders)
 
         routing {
-            get("/") {
-                call.respondText("Model Server")
-            }
             get("/health") {
                 if (isHealthy()) {
                     call.respondText(text = "healthy", contentType = ContentType.Text.Plain, status = HttpStatusCode.OK)

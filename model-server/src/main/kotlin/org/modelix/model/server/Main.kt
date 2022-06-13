@@ -19,8 +19,14 @@ import com.beust.jcommander.Parameter
 import com.beust.jcommander.converters.BooleanConverter
 import com.beust.jcommander.converters.IntegerConverter
 import com.beust.jcommander.converters.StringConverter
+import io.ktor.server.application.*
 import io.ktor.server.engine.*
+import io.ktor.server.html.*
 import io.ktor.server.netty.*
+import io.ktor.server.response.*
+import io.ktor.server.routing.*
+import kotlinx.html.*
+import org.modelix.authorization.ui.*
 import org.apache.commons.io.FileUtils
 import org.apache.ignite.Ignition
 import org.modelix.authorization.ModelixAuthorization
@@ -239,6 +245,28 @@ object Main {
             val ktorServer: NettyApplicationEngine = embeddedServer(Netty, port = port) {
                 modelServer.init(this)
                 historyHandler.init(this)
+                routing {
+                    get("/") {
+                        call.respondHtml {
+                            body {
+                                div { +"Model Server" }
+                                br {}
+                                ul {
+                                    li {
+                                        a("authorization/") { +"Manage Permissions" }
+                                    }
+                                    li {
+                                        a("history/") { +"Model History" }
+                                    }
+                                }
+                            }
+                        }
+                        call.respondText("Model Server")
+                    }
+                    route("/authorization") {
+                        authorizationRouting()
+                    }
+                }
             }
             ktorServer.start(wait = true)
             LOG.info("Server started")
