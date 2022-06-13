@@ -5,7 +5,7 @@ Feature: Basic routes
     Given the server has been started with in-memory storage
      When I visit "/"
      Then I should get an OK response
-      And the text of the page should be "Model Server"
+      And the text of the page should contain "Model Server"
 
   Scenario: Heartbeat works
     Given the server has been started with in-memory storage

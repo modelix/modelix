@@ -12,27 +12,15 @@
  * specific language governing permissions and limitations
  * under the License. 
  */
+package org.modelix.model.server
 
-package org.modelix.model.server;
+import com.beust.jcommander.IStringConverter
+import java.io.File
 
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
-public interface IStoreClient {
-    String get(String key);
-
-    List<String> getAll(List<String> keys);
-
-    Map<String, String> getAll(Set<String> keys);
-
-    void put(String key, String value);
-
-    void putAll(Map<String, String> entries);
-
-    void listen(final String key, final IKeyListener listener);
-
-    void removeListener(final String key, final IKeyListener listener);
-
-    long generateId(String key);
+class FileConverter : IStringConverter<File?> {
+    override fun convert(value: String?): File? {
+        return if (value == null) {
+            null
+        } else File(value)
+    }
 }
