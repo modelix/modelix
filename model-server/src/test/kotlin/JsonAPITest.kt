@@ -54,6 +54,19 @@ class JsonAPITest {
         assertEmptyVersion(JSONObject(response.bodyAsText()))
     }
 
+    @Test
+    fun generateIds() = runTest {
+        val quantity = 100
+        val response = client.post("/json/generate-ids?quantity=$quantity")
+        assertEquals(HttpStatusCode.OK, response.status)
+        val text = response.bodyAsText()
+        println(text)
+        val jsonRanges = JSONArray(text)
+        val ranges = jsonRanges.map { it as JSONObject }
+            .map { LongRange(it.getLong("first"), it.getLong("last")) }
+        assertEquals(quantity, ranges.sumOf { it.count() })
+    }
+
 
 
 }

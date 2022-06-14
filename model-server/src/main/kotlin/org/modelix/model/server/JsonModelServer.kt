@@ -19,6 +19,7 @@ import io.ktor.server.auth.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import io.ktor.util.pipeline.*
+import org.json.JSONArray
 import org.json.JSONObject
 import org.modelix.authorization.AuthenticatedUser
 import org.modelix.model.api.INode
@@ -29,6 +30,7 @@ import org.modelix.model.client.IModelClient
 import org.modelix.model.lazy.CLTree
 import org.modelix.model.lazy.CLVersion
 import org.modelix.model.lazy.RepositoryId
+import org.modelix.model.server.CallContext
 import java.util.Date
 
 class JsonModelServer(val client: IModelClient) {
@@ -66,6 +68,34 @@ class JsonModelServer(val client: IModelClient) {
             client.asyncStore!!.put(repositoryId.getBranchKey(), newVersion.hash)
             respondVersion(newVersion)
         }
+        post("/generate-ids") {
+            val quantity = call.request.queryParameters["quantity"]?.toInt() ?: 1000
+            val ranges = ArrayList<Array<Long>>()
+            val firstId = client.idGenerator.generate()
+            var currentRange = arrayOf(firstId, firstId)
+            ranges += currentRange
+            var count = 1
+            while (count < quantity) {
+                // TODO add a method IIdGenerator.generate(quantity: Int): LongRange
+                val id = client.idGenerator.generate()
+                if (id == currentRange[1] + 1) {
+                    currentRange[1] = id
+                } else {
+                    currentRange = arrayOf(id, id)
+                    ranges += currentRange
+                }
+                count++
+            }
+
+            val json = JSONArray()
+            ranges.forEach { range ->
+                json.put(JSONObject().apply {
+                    put("first", range[0])
+                    put("last", range[1])
+                })
+            }
+            respondJson(json)
+        }
     }
 
     private suspend fun CallContext.respondVersion(version: CLVersion) {
@@ -74,6 +104,13 @@ class JsonModelServer(val client: IModelClient) {
         json.put("repositoryId", version.tree.getId())
         json.put("versionHash", version.hash)
         json.put("root", node2json(rootNode))
+        respondJson(json)
+    }
+
+    private suspend fun CallContext.respondJson(json: JSONObject) {
+        call.respondText(json.toString(2), ContentType.Application.Json)
+    }
+    private suspend fun CallContext.respondJson(json: JSONArray) {
         call.respondText(json.toString(2), ContentType.Application.Json)
     }
 
