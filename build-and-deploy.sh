@@ -4,7 +4,7 @@ set -e
 
 rm -f modelix.version
 
-./gradlew :clean :assemble
+./gradlew clean assemble
 ./docker-build-all.sh
 ./kubernetes-secrets.sh
 ./kubernetes-apply-modelserver.sh
