@@ -17,11 +17,11 @@ import io.ktor.client.statement.*
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.testing.*
+import kotlinx.serialization.json.buildJsonObject
 import org.json.JSONArray
 import org.json.JSONObject
-import org.modelix.model.server.InMemoryStoreClient
-import org.modelix.model.server.JsonModelServer
-import org.modelix.model.server.LocalModelClient
+import org.modelix.model.api.ITree
+import org.modelix.model.server.*
 import kotlin.test.*
 
 class JsonAPITest {
@@ -41,7 +41,7 @@ class JsonAPITest {
     }
 
     private fun assertEmptyVersion(json: JSONObject) {
-        assertEquals(json.getJSONObject("root").getLong("modelixId"), 1L)
+        assertEquals(json.getJSONObject("root").getLong("nodeId"), 1L)
         assertEquals(json.getString("repositoryId"), repoId)
         assertNotNull(json.optString("versionHash"), "versionHash missing")
     }
@@ -74,6 +74,28 @@ class JsonAPITest {
         assertEquals(quantity, ids.length())
     }
 
-
+    @Test
+    fun createNodes() = runTest {
+        val versionHash = JSONObject(client.post("/json/$repoId/init").bodyAsText()).getString("versionHash")
+        val ids = JSONArray(client.post("/json/generate-ids?quantity=10&format=list").bodyAsText())
+            .asLongList().toMutableList()
+        val response = client.post("/json/$repoId/$versionHash/update") {
+            contentType(ContentType.Application.Json)
+            setBody(buildJSONArray(
+                buildJSONObject {
+                    put("nodeId", ids.removeFirst())
+                    put("parentId", ITree.ROOT_ID)
+                    put("role", "entities")
+                    put("properties", buildJSONObject {
+                        put("name", "EntityA")
+                    })
+                }
+            ).toString(2))
+        }
+        val bodyAsText = response.bodyAsText()
+        println(bodyAsText)
+        assertEquals(HttpStatusCode.OK, response.status)
+        assertEmptyVersion(JSONObject(bodyAsText))
+    }
 
 }

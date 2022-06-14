@@ -16,21 +16,21 @@ package org.modelix.model.server
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.auth.*
+import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
-import io.ktor.util.pipeline.*
 import org.json.JSONArray
 import org.json.JSONObject
 import org.modelix.authorization.AuthenticatedUser
-import org.modelix.model.api.INode
-import org.modelix.model.api.ITree
-import org.modelix.model.api.PNodeAdapter
-import org.modelix.model.api.TreePointer
+import org.modelix.model.VersionMerger
+import org.modelix.model.api.*
+import org.modelix.model.client.ActiveBranch
 import org.modelix.model.client.IModelClient
+import org.modelix.model.client.ReplicatedRepository
 import org.modelix.model.lazy.CLTree
 import org.modelix.model.lazy.CLVersion
 import org.modelix.model.lazy.RepositoryId
-import org.modelix.model.server.CallContext
+import org.modelix.model.persistent.CPVersion
 import java.util.Date
 
 class JsonModelServer(val client: IModelClient) {
@@ -67,6 +67,32 @@ class JsonModelServer(val client: IModelClient) {
             )
             client.asyncStore!!.put(repositoryId.getBranchKey(), newVersion.hash)
             respondVersion(newVersion)
+        }
+        post("/{repositoryId}/{versionHash}/update") {
+            val updateData = JSONArray(call.receiveText())
+            val baseVersionHash = call.parameters["versionHash"]!!
+            val baseVersionData = getStore().get(baseVersionHash, { CPVersion.deserialize(it) })
+            if (baseVersionData == null) {
+                call.respond(HttpStatusCode.NotFound, "version not found: $baseVersionHash")
+                return@post
+            }
+            val baseVersion = CLVersion(baseVersionData, getStore())
+            val repositoryId = RepositoryId(call.parameters["repositoryId"]!!)
+            val userId = (call.principal<AuthenticatedUser>() ?: AuthenticatedUser.ANONYMOUS_USER).userIds.firstOrNull()
+            // TODO cache ReplicatedRepository instances
+            val repo = ReplicatedRepository(client, repositoryId, RepositoryId.DEFAULT_BRANCH, { userId ?: "<no user>" })
+            try {
+                val branch = repo.branch
+                branch.computeWriteT { t ->
+                    for (nodeData in (0 until updateData.length()).map { updateData.getJSONObject(it) }) {
+                        updateNode(nodeData, containmentData = null, t)
+                    }
+                }
+            } finally {
+                repo.dispose()
+            }
+
+            respondVersion(baseVersion)
         }
         post("/generate-ids") {
             val quantity = call.request.queryParameters["quantity"]?.toInt() ?: 1000
@@ -107,6 +133,63 @@ class JsonModelServer(val client: IModelClient) {
         }
     }
 
+    private fun updateNode(nodeData: JSONObject, containmentData: ContainmentData?, t: IWriteTransaction): Long {
+        var containmentData = containmentData
+        val nodeId = nodeData.getLong("nodeId")
+        if (!t.containsNode(nodeId)) {
+            if (containmentData == null) {
+                containmentData = ContainmentData(nodeData.optLong("parent", ITree.ROOT_ID), nodeData.optString("role", null), nodeData.optInt("index", -1))
+            }
+            t.addNewChild(
+                containmentData.parent,
+                containmentData.role,
+                containmentData.index,
+                nodeId,
+                null as IConcept?
+            )
+        }
+        nodeData.optJSONObject("properties")?.stringEntries()?.forEach { (role, newValue) ->
+            if (t.getProperty(nodeId, role) != newValue) {
+                t.setProperty(nodeId, role, newValue)
+            }
+        }
+        nodeData.optJSONObject("references")?.longEntries()?.forEach { (role, newTargetId) ->
+            val currentTarget = t.getReferenceTarget(nodeId, role)
+            val currentTargetId: Long? = when (currentTarget) {
+                is LocalPNodeReference -> currentTarget.id
+                is PNodeReference -> if (currentTarget.branchId == t.tree.getId()) currentTarget.id else null
+                else -> null
+            }
+            if (newTargetId != currentTargetId) {
+                val newTarget = if (newTargetId == null) null else LocalPNodeReference(newTargetId)
+                t.setReferenceTarget(nodeId, role, newTarget)
+            }
+        }
+        nodeData.optJSONObject("children")?.arrayEntries()?.forEach { (role, childDataArray) ->
+            val expectedChildren = childDataArray.mapIndexed { index, child ->
+                when (child) {
+                    is Number -> child.toLong()
+                    is JSONObject -> updateNode(child, ContainmentData(nodeId, role, index), t)
+                    else -> throw RuntimeException("Unsupported child data: $child")
+                }
+            }
+            val unexpected = (t.getChildren(nodeId, role).toSet() - expectedChildren.toSet())
+            if (unexpected.isNotEmpty()) {
+                unexpected.forEach { child ->
+                    t.moveChild(ITree.ROOT_ID, ITree.DETACHED_NODES_ROLE, -1, child)
+                }
+
+            }
+            val actualChildren = t.getChildren(nodeId, role)
+            if (actualChildren != expectedChildren) {
+                expectedChildren.forEachIndexed { index, child ->
+                    t.moveChild(nodeId, role, index, child)
+                }
+            }
+        }
+        return nodeId
+    }
+
     private suspend fun CallContext.respondVersion(version: CLVersion) {
         val rootNode = PNodeAdapter(ITree.ROOT_ID, TreePointer(version.tree))
         val json = JSONObject()
@@ -126,7 +209,7 @@ class JsonModelServer(val client: IModelClient) {
     private fun node2json(node: INode): JSONObject {
         val json = JSONObject()
         if (node is PNodeAdapter) {
-            json.put("modelixId", node.nodeId)
+            json.put("nodeId", node.nodeId)
         }
         for (role in node.getPropertyRoles()) {
             json.put(role, node.getPropertyValue(role))
@@ -144,10 +227,4 @@ class JsonModelServer(val client: IModelClient) {
     }
 }
 
-private fun Iterable<Any?>.toJsonArray(): JSONArray {
-    val json = JSONArray()
-    for (id in this) {
-        json.put(id)
-    }
-    return json
-}
+private class ContainmentData(val parent: Long, val role: String?, val index: Int)
