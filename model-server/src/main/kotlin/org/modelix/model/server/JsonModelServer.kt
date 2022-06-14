@@ -22,9 +22,7 @@ import io.ktor.server.routing.*
 import org.json.JSONArray
 import org.json.JSONObject
 import org.modelix.authorization.AuthenticatedUser
-import org.modelix.model.VersionMerger
 import org.modelix.model.api.*
-import org.modelix.model.client.ActiveBranch
 import org.modelix.model.client.IModelClient
 import org.modelix.model.client.ReplicatedRepository
 import org.modelix.model.lazy.CLTree
@@ -46,6 +44,13 @@ class JsonModelServer(val client: IModelClient) {
     }
 
     private fun Route.initRouting() {
+        get("/{repositoryId}/") {
+            val repositoryId = RepositoryId(call.parameters["repositoryId"]!!)
+            val versionHash = client.asyncStore?.get(repositoryId.getBranchKey())!!
+            // TODO 404 if it doesn't exist
+            val version = CLVersion.loadFromHash(versionHash, getStore())
+            respondVersion(version)
+        }
         get("/{repositoryId}/{versionHash}/") {
             val versionHash = call.parameters["versionHash"]!!
             // TODO 404 if it doesn't exist
@@ -88,11 +93,11 @@ class JsonModelServer(val client: IModelClient) {
                         updateNode(nodeData, containmentData = null, t)
                     }
                 }
+                respondVersion(repo.endEdit()!!)
             } finally {
                 repo.dispose()
             }
 
-            respondVersion(baseVersion)
         }
         post("/generate-ids") {
             val quantity = call.request.queryParameters["quantity"]?.toInt() ?: 1000
@@ -211,17 +216,24 @@ class JsonModelServer(val client: IModelClient) {
         if (node is PNodeAdapter) {
             json.put("nodeId", node.nodeId)
         }
+        val jsonProperties = JSONObject()
+        val jsonReferences = JSONObject()
+        val jsonChildren = JSONObject()
+        json.put("properties", jsonProperties)
+        json.put("references", jsonReferences)
+        json.put("children", jsonChildren)
+
         for (role in node.getPropertyRoles()) {
-            json.put(role, node.getPropertyValue(role))
+            jsonProperties.put(role, node.getPropertyValue(role))
         }
         for (role in node.getReferenceRoles()) {
             val target = node.getReferenceTarget(role)
             if (target is PNodeAdapter) {
-                json.put(role, target.nodeId)
+                jsonReferences.put(role, target.nodeId)
             }
         }
         for (children in node.allChildren.groupBy { it.roleInParent }) {
-            json.put(children.key ?: "null", children.value.map { node2json(it) })
+            jsonChildren.put(children.key ?: "null", children.value.map { node2json(it) })
         }
         return json
     }

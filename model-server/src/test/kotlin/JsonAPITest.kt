@@ -15,9 +15,7 @@
 import io.ktor.client.request.*
 import io.ktor.client.statement.*
 import io.ktor.http.*
-import io.ktor.server.application.*
 import io.ktor.server.testing.*
-import kotlinx.serialization.json.buildJsonObject
 import org.json.JSONArray
 import org.json.JSONObject
 import org.modelix.model.api.ITree
@@ -54,6 +52,18 @@ class JsonAPITest {
         assertEmptyVersion(JSONObject(response.bodyAsText()))
     }
 
+    private suspend fun ApplicationTestBuilder.getCurrentVersion(): JSONObject {
+        val response = client.get("/json/$repoId/")
+        val bodyAsText = response.bodyAsText()
+        println(bodyAsText)
+        assertEquals(HttpStatusCode.OK, response.status)
+        return JSONObject(bodyAsText)
+    }
+
+    private suspend fun ApplicationTestBuilder.getCurrentVersionHash(): String {
+        return getCurrentVersion().getString("versionHash")
+    }
+
     @Test
     fun generateIds() = runTest {
         val quantity = 100
@@ -76,14 +86,52 @@ class JsonAPITest {
 
     @Test
     fun createNodes() = runTest {
-        val versionHash = JSONObject(client.post("/json/$repoId/init").bodyAsText()).getString("versionHash")
-        val ids = JSONArray(client.post("/json/generate-ids?quantity=10&format=list").bodyAsText())
-            .asLongList().toMutableList()
+        createFirstNode()
+    }
+
+    @Test
+    fun concurrentChange() = runTest {
+        val nodeId = createFirstNode()
+        val v1 = getCurrentVersionHash()
+        val queryAndAssert: suspend (String, String?)->Unit = { role, expectedValue ->
+            val merged = getCurrentVersion()
+            val entity = getFirstEntity(merged)
+            assertEquals(expectedValue, entity.getJSONObject("properties").getString(role))
+        }
+        changeNode(v1, nodeId, "name", "EntityB")
+        changeNode(v1, nodeId, "color", "black")
+        queryAndAssert("name", "EntityB")
+        queryAndAssert("color", "black")
+
+        changeNode(v1, nodeId, "name", "EntityC")
+        queryAndAssert("name", "EntityC")
+        queryAndAssert("color", "black")
+    }
+
+    private suspend fun ApplicationTestBuilder.changeNode(versionHash: String, id: Long, role: String, value: String) {
         val response = client.post("/json/$repoId/$versionHash/update") {
             contentType(ContentType.Application.Json)
             setBody(buildJSONArray(
                 buildJSONObject {
-                    put("nodeId", ids.removeFirst())
+                    put("nodeId", id)
+                    put("properties", buildJSONObject {
+                        put(role, value)
+                    })
+                }
+            ).toString(2))
+        }
+    }
+
+    private suspend fun ApplicationTestBuilder.createFirstNode(): Long {
+        val versionHash = JSONObject(client.post("/json/$repoId/init").bodyAsText()).getString("versionHash")
+        val ids = JSONArray(client.post("/json/generate-ids?quantity=1&format=list").bodyAsText())
+            .asLongList().toMutableList()
+        val id = ids.removeFirst()
+        val response = client.post("/json/$repoId/$versionHash/update") {
+            contentType(ContentType.Application.Json)
+            setBody(buildJSONArray(
+                buildJSONObject {
+                    put("nodeId", id)
                     put("parentId", ITree.ROOT_ID)
                     put("role", "entities")
                     put("properties", buildJSONObject {
@@ -92,10 +140,18 @@ class JsonAPITest {
                 }
             ).toString(2))
         }
-        val bodyAsText = response.bodyAsText()
-        println(bodyAsText)
+        val responseBody = response.bodyAsText()
+        println(responseBody)
         assertEquals(HttpStatusCode.OK, response.status)
-        assertEmptyVersion(JSONObject(bodyAsText))
+        val version = JSONObject(responseBody)
+        val entityJson =
+            getFirstEntity(version)
+        assertEquals(id, entityJson.getLong("nodeId"))
+        assertEquals("EntityA", entityJson.getJSONObject("properties").getString("name"))
+        return id
     }
+
+    private fun getFirstEntity(version: JSONObject) =
+        version.getJSONObject("root").getJSONObject("children").getJSONArray("entities").getJSONObject(0)
 
 }
