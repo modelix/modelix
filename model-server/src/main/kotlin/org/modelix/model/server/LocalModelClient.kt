@@ -71,8 +71,8 @@ class LocalModelClient(private val store: IStoreClient) : IModelClient {
         return 0
     }
 
-    override val storeCache: IDeserializingKeyValueStore?
+    override val storeCache: IDeserializingKeyValueStore
         get() = objectCache
-    override val asyncStore: IKeyValueStore?
+    override val asyncStore: IKeyValueStore
         get() = this
 }

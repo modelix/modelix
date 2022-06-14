@@ -48,7 +48,7 @@ private fun toLong(value: String?): Long {
 
 private class NotFoundException(description: String?) : RuntimeException(description)
 
-private typealias CallContext = PipelineContext<Unit, ApplicationCall>
+typealias CallContext = PipelineContext<Unit, ApplicationCall>
 
 class KtorModelServer(val storeClient: IStoreClient) {
     companion object {
@@ -402,27 +402,7 @@ class KtorModelServer(val storeClient: IStoreClient) {
         //ModelixAuthorization.checkPermission(getUser(), PermissionId("model-server-entry/$key"), type, publicIfNew = true)
     }
 
-    private fun CallContext.getUser(): AuthenticatedUser {
-        val principal = call.principal<AuthenticatedUser>()
-        if (principal != null) return principal
 
-        val token = extractToken(call)
-        if (!token.isNullOrEmpty()) {
-            if (token == sharedSecret) {
-                return AuthenticatedUser(setOf("cluster-internal"), setOf(AuthenticatedUser.PUBLIC_GROUP))
-            } else {
-                val expires = storeClient[PROTECTED_PREFIX + "_token_expires_" + token]?.toLong() ?: 0L
-                if (System.currentTimeMillis() <= expires) {
-                    val email = storeClient[PROTECTED_PREFIX + "_token_email_" + token]
-                    if (!email.isNullOrEmpty()) {
-                        return AuthenticatedUser(setOf(email), setOf(AuthenticatedUser.PUBLIC_GROUP))
-                    }
-                }
-            }
-        }
-
-        return AuthenticatedUser.ANONYMOUS_USER
-    }
 
     fun isHealthy(): Boolean {
         val value = toLong(storeClient[HEALTH_KEY]) + 1
