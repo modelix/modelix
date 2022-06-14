@@ -70,31 +70,40 @@ class JsonModelServer(val client: IModelClient) {
         }
         post("/generate-ids") {
             val quantity = call.request.queryParameters["quantity"]?.toInt() ?: 1000
-            val ranges = ArrayList<Array<Long>>()
-            val firstId = client.idGenerator.generate()
-            var currentRange = arrayOf(firstId, firstId)
-            ranges += currentRange
-            var count = 1
-            while (count < quantity) {
-                // TODO add a method IIdGenerator.generate(quantity: Int): LongRange
-                val id = client.idGenerator.generate()
-                if (id == currentRange[1] + 1) {
-                    currentRange[1] = id
-                } else {
-                    currentRange = arrayOf(id, id)
-                    ranges += currentRange
+            when (val format = call.request.queryParameters["format"]) {
+                "list" -> {
+                    respondJson((1..quantity).map { client.idGenerator.generate() }.toJsonArray())
                 }
-                count++
-            }
+                "ranges", null -> {
+                    val ranges = ArrayList<Array<Long>>()
+                    val firstId = client.idGenerator.generate()
+                    var currentRange = arrayOf(firstId, firstId)
+                    ranges += currentRange
+                    var count = 1
+                    while (count < quantity) {
+                        // TODO add a method IIdGenerator.generate(quantity: Int): LongRange
+                        val id = client.idGenerator.generate()
+                        if (id == currentRange[1] + 1) {
+                            currentRange[1] = id
+                        } else {
+                            currentRange = arrayOf(id, id)
+                            ranges += currentRange
+                        }
+                        count++
+                    }
 
-            val json = JSONArray()
-            ranges.forEach { range ->
-                json.put(JSONObject().apply {
-                    put("first", range[0])
-                    put("last", range[1])
-                })
+                    val json = ranges.map { range ->
+                        JSONObject().apply {
+                            put("first", range[0])
+                            put("last", range[1])
+                        }
+                    }.toJsonArray()
+                    respondJson(json)
+                }
+                else -> {
+                    call.respond(HttpStatusCode.BadRequest, "Invalid format '$format'")
+                }
             }
-            respondJson(json)
         }
     }
 
@@ -133,4 +142,12 @@ class JsonModelServer(val client: IModelClient) {
         }
         return json
     }
+}
+
+private fun Iterable<Any?>.toJsonArray(): JSONArray {
+    val json = JSONArray()
+    for (id in this) {
+        json.put(id)
+    }
+    return json
 }
