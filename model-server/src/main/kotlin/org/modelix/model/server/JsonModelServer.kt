@@ -22,12 +22,14 @@ import io.ktor.server.routing.*
 import org.json.JSONArray
 import org.json.JSONObject
 import org.modelix.authorization.AuthenticatedUser
+import org.modelix.model.VersionMerger
 import org.modelix.model.api.*
 import org.modelix.model.client.IModelClient
 import org.modelix.model.client.ReplicatedRepository
 import org.modelix.model.lazy.CLTree
 import org.modelix.model.lazy.CLVersion
 import org.modelix.model.lazy.RepositoryId
+import org.modelix.model.operations.OTBranch
 import org.modelix.model.persistent.CPVersion
 import java.util.Date
 
@@ -41,6 +43,11 @@ class JsonModelServer(val client: IModelClient) {
                 initRouting()
             }
         }
+    }
+
+    private fun getCurrentVersion(repositoryId: RepositoryId): CLVersion {
+        val versionHash = client.asyncStore?.get(repositoryId.getBranchKey())!!
+        return CLVersion.loadFromHash(versionHash, getStore())
     }
 
     private fun Route.initRouting() {
@@ -83,20 +90,28 @@ class JsonModelServer(val client: IModelClient) {
             }
             val baseVersion = CLVersion(baseVersionData, getStore())
             val repositoryId = RepositoryId(call.parameters["repositoryId"]!!)
+            val branch = OTBranch(PBranch(baseVersion.tree, client.idGenerator), client.idGenerator, client.storeCache!!)
             val userId = (call.principal<AuthenticatedUser>() ?: AuthenticatedUser.ANONYMOUS_USER).userIds.firstOrNull()
-            // TODO cache ReplicatedRepository instances
-            val repo = ReplicatedRepository(client, repositoryId, RepositoryId.DEFAULT_BRANCH, { userId ?: "<no user>" })
-            try {
-                val branch = repo.branch
-                branch.computeWriteT { t ->
-                    for (nodeData in (0 until updateData.length()).map { updateData.getJSONObject(it) }) {
-                        updateNode(nodeData, containmentData = null, t)
-                    }
+            branch.computeWriteT { t ->
+                for (nodeData in (0 until updateData.length()).map { updateData.getJSONObject(it) }) {
+                    updateNode(nodeData, containmentData = null, t)
                 }
-                respondVersion(repo.endEdit()!!)
-            } finally {
-                repo.dispose()
             }
+
+            val operationsAndTree = branch.operationsAndTree
+            val newVersion = CLVersion.createRegularVersion(
+                client.idGenerator.generate(),
+                Date().toString(),
+                userId,
+                operationsAndTree.second as CLTree,
+                baseVersion,
+                operationsAndTree.first.map { it.getOriginalOp() }.toTypedArray()
+            )
+            repositoryId.getBranchKey()
+            val mergedVersion = VersionMerger(client.storeCache!!, client.idGenerator)
+                .mergeChange(getCurrentVersion(repositoryId), newVersion)
+            client.asyncStore!!.put(repositoryId.getBranchKey(), mergedVersion.hash)
+            respondVersion(mergedVersion)
 
         }
         post("/generate-ids") {
