@@ -60,6 +60,10 @@ class JsonAPITest {
         return JSONObject(bodyAsText)
     }
 
+    private suspend fun ApplicationTestBuilder.initVersion(): JSONObject {
+        return JSONObject(client.post("/json/$repoId/init").bodyAsText())
+    }
+
     private suspend fun ApplicationTestBuilder.getCurrentVersionHash(): String {
         return getCurrentVersion().getString("versionHash")
     }
@@ -86,13 +90,19 @@ class JsonAPITest {
 
     @Test
     fun createNodes() = runTest {
-        createFirstNode()
+        val (id, version) = createNode(initVersion().getString("versionHash"), ITree.ROOT_ID, "entities", null) {
+            put("name", "EntityA")
+        }
+        val entityJson = getFirstEntity(version)
+        assertEquals(id, entityJson.getLong("nodeId"))
     }
 
     @Test
-    fun concurrentChange() = runTest {
-        val nodeId = createFirstNode()
-        val v1 = getCurrentVersionHash()
+    fun concurrentPropertyChange() = runTest {
+        val (nodeId, v1json) = createNode(initVersion().getString("versionHash"), ITree.ROOT_ID, "entities", null) {
+            put("name", "EntityA")
+        }
+        val v1 = v1json.getString("versionHash")
         val queryAndAssert: suspend (String, String?)->Unit = { role, expectedValue ->
             val merged = getCurrentVersion()
             val entity = getFirstEntity(merged)
@@ -106,6 +116,27 @@ class JsonAPITest {
         changeNode(v1, nodeId, "name", "EntityC")
         queryAndAssert("name", "EntityC")
         queryAndAssert("color", "black")
+    }
+
+    @Test
+    fun concurrentInsert() = runTest {
+        val (nodeId, v1json) = createNode(initVersion().getString("versionHash"), ITree.ROOT_ID, "entities", null) {
+            put("name", "EntityA")
+        }
+        val v1 = v1json.getString("versionHash")
+        val queryAndAssert: suspend (String, String?)->Unit = { role, expectedValue ->
+            val merged = getCurrentVersion()
+            val entity = getFirstEntity(merged)
+            assertEquals(expectedValue, entity.getJSONObject("properties").getString(role))
+        }
+        val v2a = createNode(v1, nodeId, "properties", null) {
+            put("name", "propertyA1")
+        }
+        val v2b = createNode(v1, nodeId, "properties", null) {
+            put("name", "propertyA2")
+        }
+        val v3 = getCurrentVersion()
+        assertEquals(2, getFirstEntity(v3).getJSONObject("children").getJSONArray("properties").length())
     }
 
     private suspend fun ApplicationTestBuilder.changeNode(versionHash: String, id: Long, role: String, value: String) {
@@ -122,33 +153,29 @@ class JsonAPITest {
         }
     }
 
-    private suspend fun ApplicationTestBuilder.createFirstNode(): Long {
-        val versionHash = JSONObject(client.post("/json/$repoId/init").bodyAsText()).getString("versionHash")
+    private suspend fun ApplicationTestBuilder.createNode(baseVersionHash: String, parentId: Long, role: String?, index: Int?, content: JSONObject.()->Unit): Pair<Long, JSONObject> {
         val ids = JSONArray(client.post("/json/generate-ids?quantity=1&format=list").bodyAsText())
             .asLongList().toMutableList()
         val id = ids.removeFirst()
-        val response = client.post("/json/$repoId/$versionHash/update") {
+        val response = client.post("/json/$repoId/$baseVersionHash/update") {
             contentType(ContentType.Application.Json)
-            setBody(buildJSONArray(
+            val jsonString = buildJSONArray(
                 buildJSONObject {
                     put("nodeId", id)
-                    put("parentId", ITree.ROOT_ID)
-                    put("role", "entities")
+                    put("parent", parentId)
+                    put("role", role)
+                    if (index != null) put("index", index)
                     put("properties", buildJSONObject {
-                        put("name", "EntityA")
+                        content(this)
                     })
                 }
-            ).toString(2))
+            ).toString(2)
+            setBody(jsonString)
         }
         val responseBody = response.bodyAsText()
         println(responseBody)
         assertEquals(HttpStatusCode.OK, response.status)
-        val version = JSONObject(responseBody)
-        val entityJson =
-            getFirstEntity(version)
-        assertEquals(id, entityJson.getLong("nodeId"))
-        assertEquals("EntityA", entityJson.getJSONObject("properties").getString("name"))
-        return id
+        return id to JSONObject(responseBody)
     }
 
     private fun getFirstEntity(version: JSONObject) =
