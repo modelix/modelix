@@ -1,75 +1,60 @@
 package org.modelix.model.server
 
+import io.ktor.http.*
+import io.ktor.server.application.*
+import io.ktor.server.auth.*
+import io.ktor.server.request.*
+import io.ktor.server.response.*
+import io.ktor.server.routing.*
 import org.apache.commons.lang3.StringEscapeUtils
-import org.eclipse.jetty.server.Request
-import org.eclipse.jetty.server.handler.AbstractHandler
-import org.modelix.model.persistent.CPVersion.Companion.DESERIALIZER
-import org.modelix.model.operations.applyOperation
-import org.modelix.model.lazy.CLVersion.Companion.createRegularVersion
-import org.modelix.model.client.IModelClient
-import java.io.IOException
-import javax.servlet.ServletException
-import javax.servlet.http.HttpServletRequest
-import javax.servlet.http.HttpServletResponse
-import org.modelix.model.lazy.CLVersion
-import org.modelix.model.operations.OTBranch
-import org.modelix.model.operations.RevertToOp
-import org.modelix.model.lazy.KVEntryReference
-import org.modelix.model.lazy.CLTree
-import org.modelix.model.lazy.RepositoryId
-import org.modelix.model.metameta.MetaModelBranch
-import java.io.PrintWriter
-import java.lang.Runnable
+import org.modelix.authorization.AuthenticatedUser
 import org.modelix.model.LinearHistory
 import org.modelix.model.api.*
+import org.modelix.model.client.IModelClient
+import org.modelix.model.lazy.CLTree
+import org.modelix.model.lazy.CLVersion
+import org.modelix.model.lazy.CLVersion.Companion.createRegularVersion
+import org.modelix.model.lazy.KVEntryReference
+import org.modelix.model.lazy.RepositoryId
+import org.modelix.model.metameta.MetaModelBranch
+import org.modelix.model.operations.OTBranch
+import org.modelix.model.operations.RevertToOp
+import org.modelix.model.operations.applyOperation
+import org.modelix.model.persistent.CPVersion.Companion.DESERIALIZER
+import java.io.PrintWriter
 import java.net.URLEncoder
-import java.lang.NumberFormatException
 import java.nio.charset.StandardCharsets
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
-import java.util.*
-import java.util.stream.Collectors
 
-class HistoryHandler(private val client: IModelClient) : AbstractHandler() {
-    @Throws(IOException::class, ServletException::class)
-    override fun handle(target: String, baseRequest: Request, request: HttpServletRequest, response: HttpServletResponse) {
-        if (!target.startsWith("/history/")) {
-            return
-        }
-        val parts = Arrays.stream(target.split("/".toRegex()).toTypedArray())
-            .filter { it: String? -> it != null && it.length > 0 }
-            .collect(Collectors.toList())
-        if (parts.size == 1) {
-            baseRequest.isHandled = true
-            response.status = HttpServletResponse.SC_OK
-            response.contentType = "text/html"
-            buildMainPage(response.writer)
-            return
-        } else if (parts.size == 3) {
-            val repositoryId = parts[1]
-            val branch = parts[2]
-            baseRequest.isHandled = true
-            response.status = HttpServletResponse.SC_OK
-            response.contentType = "text/html"
-            val limit = toInt(request.getParameter("limit"), 500)
-            val skip = toInt(request.getParameter("skip"), 0)
-            buildRepositoryPage(response.writer, RepositoryAndBranch(repositoryId, branch), request.getParameter("head"), skip, limit)
-        } else if (parts.size == 4 && parts[3] == "revert") {
-            if (request.method == "POST") {
-                val repositoryId = parts[1]
-                val branch = parts[2]
-                val fromVersion = request.getParameter("from")
-                val toVersion = request.getParameter("to")
-                if (repositoryId != null && repositoryId.length > 0 && fromVersion != null && fromVersion.length > 0 && toVersion != null && toVersion.length > 0) {
-                    revert(RepositoryAndBranch(repositoryId, branch), fromVersion, toVersion, request.getHeader("X-Forwarded-Email"))
-                    baseRequest.isHandled = true
-                    response.status = HttpServletResponse.SC_OK
-                    response.contentType = "text/html"
-                    response.writer.append("<html><head><meta http-equiv='refresh' content='1; url=./' /></head><body>Revert successful</body></html>")
+class HistoryHandler(private val client: IModelClient) {
+
+    fun init(application: Application) {
+        application.routing {
+            get("/history/") {
+                call.respondTextWriter(contentType = ContentType.Text.Html) {
+                    buildMainPage(PrintWriter(this))
                 }
-            } else {
-                baseRequest.isHandled = true
-                response.status = HttpServletResponse.SC_METHOD_NOT_ALLOWED
+            }
+            get("/history/{repoId}/{branch}/") {
+                val repositoryId = call.parameters["repoId"]!!
+                val branch = call.parameters["branch"]!!
+                val params = call.receiveParameters()
+                val limit = toInt(params["limit"], 500)
+                val skip = toInt(params["skip"], 0)
+                call.respondTextWriter(contentType = ContentType.Text.Html) {
+                    buildRepositoryPage(PrintWriter(this), RepositoryAndBranch(repositoryId, branch), params["head"], skip, limit)
+                }
+            }
+            post("/history/{repoId}/{branch}/revert") {
+                val repositoryId = call.parameters["repoId"]!!
+                val branch = call.parameters["branch"]!!
+                val params = call.receiveParameters()
+                val fromVersion = params["from"]!!
+                val toVersion = params["to"]!!
+                val user = call.principal<AuthenticatedUser>()?.userIds?.firstOrNull()
+                revert(RepositoryAndBranch(repositoryId, branch), fromVersion, toVersion, user)
+                call.respondRedirect(".")
             }
         }
     }
@@ -291,6 +276,7 @@ class HistoryHandler(private val client: IModelClient) : AbstractHandler() {
     }
 
     private fun reformatTime(dateTimeStr: String?): String {
+        if (dateTimeStr == null) return ""
         val dateTime = LocalDateTime.parse(dateTimeStr)
         return dateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"))
     }

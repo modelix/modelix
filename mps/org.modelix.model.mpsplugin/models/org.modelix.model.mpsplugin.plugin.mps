@@ -74,6 +74,7 @@
     <import index="1ctc" ref="6354ebe7-c22a-4a0f-ac54-50b52ab9b065/java:java.util.stream(JDK/)" />
     <import index="hvt5" ref="0a2651ab-f212-45c2-a2f0-343e76cbc26b/java:org.modelix.model(org.modelix.model.client/)" />
     <import index="guwi" ref="6354ebe7-c22a-4a0f-ac54-50b52ab9b065/java:java.io(JDK/)" />
+    <import index="ycmz" ref="r:af3e1a90-527b-4262-8066-857208a4f4fb(de.slisson.mps.reflection.runtime)" />
     <import index="71xd" ref="742f6602-5a2f-4313-aa6e-ae1cd4ffdc61/java:jetbrains.mps.ide.tools(MPS.Platform/)" implicit="true" />
     <import index="tpcu" ref="r:00000000-0000-4000-0000-011c89590282(jetbrains.mps.lang.core.behavior)" implicit="true" />
     <import index="tprs" ref="r:00000000-0000-4000-0000-011c895904a4(jetbrains.mps.ide.actions)" implicit="true" />
@@ -403,6 +404,7 @@
         <property id="521412098689998745" name="nonStatic" index="2bfB8j" />
         <child id="5375687026011219971" name="member" index="jymVt" unordered="true" />
       </concept>
+      <concept id="1171903607971" name="jetbrains.mps.baseLanguage.structure.WildCardType" flags="in" index="3qTvmN" />
       <concept id="1171903916106" name="jetbrains.mps.baseLanguage.structure.UpperBoundType" flags="in" index="3qUE_q">
         <child id="1171903916107" name="bound" index="3qUE_r" />
       </concept>
@@ -7011,6 +7013,68 @@
       <node concept="3cqZAl" id="7CsUpEQSjJF" role="3clF45" />
       <node concept="3Tm1VV" id="7CsUpEQSjJG" role="1B3o_S" />
       <node concept="3clFbS" id="7CsUpEQSjJH" role="3clF47">
+        <node concept="3cpWs8" id="1C3$AqAQLg1" role="3cqZAp">
+          <node concept="3cpWsn" id="1C3$AqAQLg4" role="3cpWs9">
+            <property role="TrG5h" value="lightServices" />
+            <node concept="3uibUv" id="1C3$AqAFMZ5" role="1tU5fm">
+              <ref role="3uigEE" to="5zyv:~ConcurrentMap" resolve="ConcurrentMap" />
+              <node concept="3uibUv" id="1C3$AqAFMZ6" role="11_B2D">
+                <ref role="3uigEE" to="wyt6:~Class" resolve="Class" />
+                <node concept="3qTvmN" id="1C3$AqAFMZ7" role="11_B2D" />
+              </node>
+              <node concept="3uibUv" id="1C3$AqAFMZ8" role="11_B2D">
+                <ref role="3uigEE" to="wyt6:~Object" resolve="Object" />
+              </node>
+            </node>
+            <node concept="1eOMI4" id="1C3$AqAQNjJ" role="33vP2m">
+              <node concept="10QFUN" id="1C3$AqAQNjG" role="1eOMHV">
+                <node concept="3uibUv" id="1C3$AqAQNjL" role="10QFUM">
+                  <ref role="3uigEE" to="5zyv:~ConcurrentMap" resolve="ConcurrentMap" />
+                  <node concept="3uibUv" id="1C3$AqAQNjM" role="11_B2D">
+                    <ref role="3uigEE" to="wyt6:~Class" resolve="Class" />
+                    <node concept="3qTvmN" id="1C3$AqAQNjN" role="11_B2D" />
+                  </node>
+                  <node concept="3uibUv" id="1C3$AqAQNjO" role="11_B2D">
+                    <ref role="3uigEE" to="wyt6:~Object" resolve="Object" />
+                  </node>
+                </node>
+                <node concept="2YIFZM" id="1C3$AqAQwV1" role="10QFUP">
+                  <ref role="37wK5l" to="ycmz:7moa1g0RuMd" resolve="readField" />
+                  <ref role="1Pybhc" to="ycmz:7moa1g0QL5J" resolve="ReflectionUtil" />
+                  <node concept="3VsKOn" id="1C3$AqAQ$lP" role="37wK5m">
+                    <ref role="3VsUkX" to="z1o6:~ComponentManagerImpl" resolve="ComponentManagerImpl" />
+                  </node>
+                  <node concept="1eOMI4" id="1C3$AqAQ$rH" role="37wK5m">
+                    <node concept="10QFUN" id="1C3$AqAQ$rI" role="1eOMHV">
+                      <node concept="37vLTw" id="1C3$AqAQ$rJ" role="10QFUP">
+                        <ref role="3cqZAo" node="1xehy3SoLI0" resolve="project" />
+                      </node>
+                      <node concept="3uibUv" id="1C3$AqAQ$rK" role="10QFUM">
+                        <ref role="3uigEE" to="z1o6:~ComponentManagerImpl" resolve="ComponentManagerImpl" />
+                      </node>
+                    </node>
+                  </node>
+                  <node concept="Xl_RD" id="1C3$AqAQC1p" role="37wK5m">
+                    <property role="Xl_RC" value="lightServices" />
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="3clFbF" id="7CsUpEQSGiH" role="3cqZAp">
+          <node concept="2OqwBi" id="7CsUpEQSJGE" role="3clFbG">
+            <node concept="liA8E" id="7CsUpEQSMaU" role="2OqNvi">
+              <ref role="37wK5l" to="33ny:~Map.remove(java.lang.Object)" resolve="remove" />
+              <node concept="3VsKOn" id="7CsUpEQSMpf" role="37wK5m">
+                <ref role="3VsUkX" node="7xblg8lmms7" resolve="CloudResourcesConfigurationComponent" />
+              </node>
+            </node>
+            <node concept="37vLTw" id="1C3$AqAQRpV" role="2Oq$k0">
+              <ref role="3cqZAo" node="1C3$AqAQLg4" resolve="lightServices" />
+            </node>
+          </node>
+        </node>
         <node concept="3clFbH" id="7CsUpEQSGiy" role="3cqZAp" />
       </node>
     </node>

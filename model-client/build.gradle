@@ -46,7 +46,7 @@ kotlin {
         commonMain {
             dependencies {
                 api group: 'org.modelix', name: 'model-api', version: "$mpsExtensionsVersion"
-                implementation kotlin('stdlib-common')
+                implementation kotlin('stdlib-common:1.4.31')
                 implementation("org.jetbrains.kotlinx:kotlinx-collections-immutable:0.3.4")
             }
         }
@@ -58,7 +58,7 @@ kotlin {
         }
         jvmMain {
             dependencies {
-                implementation kotlin('stdlib-jdk8')
+                implementation kotlin('stdlib-jdk8:1.4.31')
 
                 implementation group: 'io.vavr', name: 'vavr', version: '0.10.3'
                 implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.11'

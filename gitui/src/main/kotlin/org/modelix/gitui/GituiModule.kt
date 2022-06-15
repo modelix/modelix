@@ -14,10 +14,10 @@
 
 package org.modelix.gitui
 
-import io.ktor.application.*
-import io.ktor.features.*
+import io.ktor.server.application.*
+import io.ktor.server.plugins.cors.*
 import io.ktor.http.*
-import io.ktor.routing.*
+import io.ktor.server.routing.*
 import java.io.File
 
 fun Application.gituiModule() {
@@ -31,10 +31,10 @@ fun Application.gituiModule() {
 
     install(CORS) {
         anyHost()
-        header(HttpHeaders.ContentType)
-        method(HttpMethod.Options)
-        method(HttpMethod.Get)
-        method(HttpMethod.Put)
-        method(HttpMethod.Post)
+        allowHeader(io.ktor.http.HttpHeaders.ContentType)
+        allowMethod(io.ktor.http.HttpMethod.Options)
+        allowMethod(io.ktor.http.HttpMethod.Get)
+        allowMethod(io.ktor.http.HttpMethod.Put)
+        allowMethod(io.ktor.http.HttpMethod.Post)
     }
 }
