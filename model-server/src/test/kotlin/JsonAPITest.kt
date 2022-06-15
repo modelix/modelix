@@ -83,7 +83,7 @@ class JsonAPITest {
         val (id, version) = createNode(initVersion().getString("versionHash"), ITree.ROOT_ID, "entities", null) {
             put("name", "EntityA")
         }
-        val entityJson = getFirstEntity(version)
+        val entityJson = version.getJSONArray("nodes").asObjectList().first { it.getString("nodeId") != "1" }
         assertEquals(id, entityJson.getString("nodeId").toLong())
     }
 

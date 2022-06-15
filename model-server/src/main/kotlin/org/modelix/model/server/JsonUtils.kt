@@ -41,6 +41,9 @@ fun jsonNullToJavaNull(value: Any?): Any? = if (value == JSONObject.NULL) null e
 fun JSONArray.asLongList(): List<Long> {
     return (0 until this.length()).map { getLong(it) }
 }
+fun JSONArray.asObjectList(): List<JSONObject> {
+    return (0 until this.length()).map { getJSONObject(it) }
+}
 
 fun buildJSONArray(vararg elements: Any?): JSONArray = elements.toList().toJsonArray()
 
