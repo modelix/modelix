@@ -39,7 +39,7 @@ class JsonAPITest {
     }
 
     private fun assertEmptyVersion(json: JSONObject) {
-        assertEquals(json.getJSONObject("root").getLong("nodeId"), 1L)
+        assertEquals(json.getJSONObject("root").getString("nodeId").toLong(), 1L)
         assertEquals(json.getString("repositoryId"), repoId)
         assertNotNull(json.optString("versionHash"), "versionHash missing")
     }
@@ -84,7 +84,7 @@ class JsonAPITest {
             put("name", "EntityA")
         }
         val entityJson = getFirstEntity(version)
-        assertEquals(id, entityJson.getLong("nodeId"))
+        assertEquals(id, entityJson.getString("nodeId").toLong())
     }
 
     @Test
@@ -134,7 +134,7 @@ class JsonAPITest {
             contentType(ContentType.Application.Json)
             setBody(buildJSONArray(
                 buildJSONObject {
-                    put("nodeId", id)
+                    put("nodeId", id.toString())
                     put("properties", buildJSONObject {
                         put(role, value)
                     })
@@ -149,7 +149,7 @@ class JsonAPITest {
             contentType(ContentType.Application.Json)
             val jsonString = buildJSONArray(
                 buildJSONObject {
-                    put("nodeId", id)
+                    put("nodeId", id.toString())
                     put("parent", parentId)
                     put("role", role)
                     if (index != null) put("index", index)

@@ -157,7 +157,7 @@ class JsonModelServer(val client: IModelClient) {
 
     private fun updateNode(nodeData: JSONObject, containmentData: ContainmentData?, t: IWriteTransaction): Long {
         var containmentData = containmentData
-        val nodeId = nodeData.getLong("nodeId")
+        val nodeId = nodeData.getString("nodeId").toLong()
         if (!t.containsNode(nodeId)) {
             if (containmentData == null) {
                 containmentData = ContainmentData(nodeData.optLong("parent", ITree.ROOT_ID), nodeData.optString("role", null), nodeData.optInt("index", -1))
@@ -231,7 +231,7 @@ class JsonModelServer(val client: IModelClient) {
     private fun node2json(node: INode): JSONObject {
         val json = JSONObject()
         if (node is PNodeAdapter) {
-            json.put("nodeId", node.nodeId)
+            json.put("nodeId", node.nodeId.toString())
         }
         val jsonProperties = JSONObject()
         val jsonReferences = JSONObject()
@@ -246,7 +246,7 @@ class JsonModelServer(val client: IModelClient) {
         for (role in node.getReferenceRoles()) {
             val target = node.getReferenceTarget(role)
             if (target is PNodeAdapter) {
-                jsonReferences.put(role, target.nodeId)
+                jsonReferences.put(role, target.nodeId.toString())
             }
         }
         for (children in node.allChildren.groupBy { it.roleInParent }) {
