@@ -101,7 +101,8 @@ class JsonModelServer(val client: LocalModelClient) {
             val versionHash = call.parameters["versionHash"]!!
             pollEntry(client.store, repositoryId.getBranchKey(), versionHash) { newValue ->
                 val version = CLVersion.loadFromHash(newValue!!, getStore())
-                respondVersion(version)
+                val oldVersion = CLVersion.loadFromHash(versionHash, getStore())
+                respondVersion(version, oldVersion)
             }
         }
         post("/{repositoryId}/init") {
@@ -151,7 +152,7 @@ class JsonModelServer(val client: LocalModelClient) {
             val mergedVersion = VersionMerger(client.storeCache!!, client.idGenerator)
                 .mergeChange(getCurrentVersion(repositoryId), newVersion)
             client.asyncStore!!.put(repositoryId.getBranchKey(), mergedVersion.hash)
-            respondVersion(mergedVersion)
+            respondVersion(mergedVersion, baseVersion)
 
         }
         post("/generate-ids") {
@@ -221,12 +222,41 @@ class JsonModelServer(val client: LocalModelClient) {
         return nodeId
     }
 
-    private suspend fun CallContext.respondVersion(version: CLVersion) {
-        val rootNode = PNodeAdapter(ITree.ROOT_ID, TreePointer(version.tree))
+    private suspend fun CallContext.respondVersion(version: CLVersion, oldVersion: CLVersion? = null) {
+        val branch = TreePointer(version.tree)
+        val rootNode = PNodeAdapter(ITree.ROOT_ID, branch)
         val json = JSONObject()
         json.put("repositoryId", version.tree.getId())
         json.put("versionHash", version.hash)
-        json.put("root", node2json(rootNode))
+        if (oldVersion == null) {
+            json.put("root", node2json(rootNode, true))
+        } else {
+            val nodesToInclude = HashSet<Long>()
+            version.tree.visitChanges(oldVersion.tree, object : ITreeChangeVisitorEx {
+                override fun childrenChanged(nodeId: Long, role: String?) {
+                    nodesToInclude += nodeId
+                }
+
+                override fun containmentChanged(nodeId: Long) {}
+
+                override fun propertyChanged(nodeId: Long, role: String) {
+                    nodesToInclude += nodeId
+                }
+
+                override fun referenceChanged(nodeId: Long, role: String) {
+                    nodesToInclude += nodeId
+                }
+
+                override fun nodeAdded(nodeId: Long) {
+                    nodesToInclude += nodeId
+                }
+
+                override fun nodeRemoved(nodeId: Long) {}
+            })
+            val changedNodes = nodesToInclude.map { node2json(PNodeAdapter(it, branch), false) }.toJsonArray()
+            json.put("nodes", changedNodes)
+            version.tree
+        }
         respondJson(json)
     }
 
@@ -237,7 +267,7 @@ class JsonModelServer(val client: LocalModelClient) {
         call.respondText(json.toString(2), ContentType.Application.Json)
     }
 
-    private fun node2json(node: INode): JSONObject {
+    private fun node2json(node: INode, includeDescendants: Boolean): JSONObject {
         val json = JSONObject()
         if (node is PNodeAdapter) {
             json.put("nodeId", node.nodeId.toString())
@@ -259,7 +289,11 @@ class JsonModelServer(val client: LocalModelClient) {
             }
         }
         for (children in node.allChildren.groupBy { it.roleInParent }) {
-            jsonChildren.put(children.key ?: "null", children.value.map { node2json(it) })
+            if (includeDescendants) {
+                jsonChildren.put(children.key ?: "null", children.value.map { node2json(it, includeDescendants) })
+            } else {
+                jsonChildren.put(children.key ?: "null", children.value.map { (it as PNodeAdapter).nodeId.toString() })
+            }
         }
         return json
     }

@@ -21,18 +21,24 @@ export class ModelService {
   private pollServer() {
     this.http.get<VersionData>(`http://localhost:30761/model/json/angular-sandbox/${this.versionHash}/poll`).subscribe(data => {
       this.versionReceived(data)
+      this.pollServer()
     })
   }
 
   private versionReceived(data: VersionData) {
     this.versionHash = data.versionHash
-    this.loadNode(data.root)
-    this.pollServer()
+    if (data.root !== undefined) this.loadNode(data.root)
+    if (data.nodes !== undefined) {
+      for (let node of data.nodes) {
+        this.loadNode(node)
+      }
+    }
   }
 
   private readFromServer() {
     this.http.get<VersionData>("http://localhost:30761/model/json/angular-sandbox/").subscribe(data => {
       this.versionReceived(data)
+      this.pollServer()
     })
   }
 
@@ -60,7 +66,7 @@ export class ModelService {
     }]
 
     this.http.post<VersionData>(`http://localhost:30761/model/json/angular-sandbox/${this.versionHash}/update`, body).subscribe(data => {
-      this.loadNode(data.root)
+      this.versionReceived(data)
     })
   }
 
@@ -94,7 +100,7 @@ export class ModelService {
     }]
 
     this.http.post<VersionData>(`http://localhost:30761/model/json/angular-sandbox/${this.versionHash}/update`, body).subscribe(data => {
-      this.loadNode(data.root)
+      this.versionReceived(data)
     })
   }
 }
@@ -102,7 +108,8 @@ export class ModelService {
 interface VersionData {
   repositoryId: string,
   versionHash: string,
-  root: NodeData
+  root: NodeData | undefined,
+  nodes: NodeData[] | undefined,
 }
 
 interface NodeData {
