@@ -26,6 +26,15 @@ Otherwise, MPS (the JBR) will not use the correct memory limit.
   - `./docker-build-model.sh`
   - `./kubernetes-apply-modelserver.sh`
 
+## Workspaces
+
+Workspaces allow you to run your MPS projects in the kubernetes cluster.
+
+- In docker desktop ensure that at least one volume exists (Dashboard > Volumes)
+- `./build-and-deploy.sh`
+- `./kubernetes-open-workspaces.sh`
+- Add a new workspace and configure your project and its dependencies.
+
 ## Web Editor
 
 The web editor is an MPS plugin that requires a running MPS instance.

@@ -20,8 +20,10 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import org.jetbrains.annotations.NotNull;
 import org.junit.Assert;
 import org.junit.Test;
+import org.modelix.model.IKeyListener;
 
 public class CachingStoreClientTest {
 
@@ -60,12 +62,12 @@ public class CachingStoreClientTest {
         }
 
         @Override
-        public void listen(String key, IKeyListener listener) {
+        public void listen(@NotNull String key, @NotNull IKeyListener listener) {
             throw new UnsupportedOperationException();
         }
 
         @Override
-        public void removeListener(String key, IKeyListener listener) {
+        public void removeListener(@NotNull String key, @NotNull IKeyListener listener) {
             throw new UnsupportedOperationException();
         }
 

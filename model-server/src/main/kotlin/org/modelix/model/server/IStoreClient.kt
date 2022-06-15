@@ -12,9 +12,17 @@
  * specific language governing permissions and limitations
  * under the License. 
  */
+package org.modelix.model.server
 
-package org.modelix.model.server;
+import org.modelix.model.IKeyListener
 
-public interface IKeyListener {
-    void changed(String key, String value);
+interface IStoreClient {
+    operator fun get(key: String): String?
+    fun getAll(keys: List<String>): List<String?>
+    fun getAll(keys: Set<String>): Map<String, String?>
+    fun put(key: String, value: String?)
+    fun putAll(entries: Map<String, String?>)
+    fun listen(key: String, listener: IKeyListener)
+    fun removeListener(key: String, listener: IKeyListener)
+    fun generateId(key: String): Long
 }

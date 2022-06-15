@@ -1,7 +1,6 @@
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 
 plugins {
-    java
     application
     id("com.diffplug.gradle.spotless")
     `maven-publish`
@@ -28,32 +27,44 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion")
     implementation("org.apache.commons:commons-lang3:3.10")
 
-    implementation("org.json:json:20180813")
-    implementation("org.java-websocket:Java-WebSocket:1.4.0")
+    implementation("org.json:json:20200518")
+    implementation("org.java-websocket:Java-WebSocket:1.5.0")
     implementation("org.apache.commons:commons-collections4:4.4")
     implementation("io.lettuce:lettuce-core:5.1.8.RELEASE")
-    implementation("ch.qos.logback:logback-classic:1.2.7")
+    implementation("ch.qos.logback:logback-classic:1.2.9")
 
-    val igniteVersion = "2.10.0"
+    val ktorVersion = "2.0.2"
+    implementation("io.ktor", "ktor-server-core", ktorVersion)
+    implementation("io.ktor", "ktor-server-cors", ktorVersion)
+    implementation("io.ktor", "ktor-server-netty", ktorVersion)
+    implementation("io.ktor", "ktor-server-html-builder", ktorVersion)
+    implementation("io.ktor:ktor-server-auth:$ktorVersion")
+    implementation("io.ktor:ktor-server-status-pages:$ktorVersion")
+    implementation("io.ktor:ktor-server-forwarded-header:$ktorVersion")
+    implementation(project(":authorization"))
+    implementation(project(":authorization-ui"))
+
+    val igniteVersion = "2.13.0"
     implementation("org.apache.ignite:ignite-core:$igniteVersion")
     implementation("org.apache.ignite:ignite-spring:$igniteVersion")
     implementation("org.apache.ignite:ignite-indexing:$igniteVersion")
 
-    implementation("org.postgresql:postgresql:42.2.14")
+    implementation("org.postgresql:postgresql:42.3.3")
 
-    implementation("org.eclipse.jetty:jetty-server:9.4.21.v20190926")
-    implementation("org.eclipse.jetty.websocket:websocket-servlet:9.4.21.v20190926")
-    implementation("org.eclipse.jetty:jetty-servlet:9.4.21.v20190926")
-    implementation("org.eclipse.jetty.websocket:websocket-server:9.4.21.v20190926")
-    implementation("org.eclipse.jetty:jetty-servlets:9.4.21.v20190926")
+    val jettyVersion = "9.4.43.v20210629"
+    implementation("org.eclipse.jetty:jetty-server:$jettyVersion")
+    implementation("org.eclipse.jetty.websocket:websocket-servlet:$jettyVersion")
+    implementation("org.eclipse.jetty:jetty-servlet:$jettyVersion")
+    implementation("org.eclipse.jetty.websocket:websocket-server:$jettyVersion")
+    implementation("org.eclipse.jetty:jetty-servlets:$jettyVersion")
 
-    implementation("commons-io:commons-io:2.6")
-    implementation("com.google.guava:guava:28.1-jre")
+    implementation("commons-io:commons-io:2.7")
+    implementation("com.google.guava:guava:30.0-jre")
     implementation("com.beust:jcommander:1.7")
     implementation("org.apache.cxf:cxf-rt-rs-sse:3.3.7")
     implementation("org.apache.cxf:cxf-rt-rs-client:3.3.7")
 
-    testImplementation("junit:junit:4.12")
+    testImplementation("junit:junit:4.13.1")
     testImplementation("io.cucumber:cucumber-java:6.2.2")
 }
 

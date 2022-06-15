@@ -12,18 +12,19 @@
  * specific language governing permissions and limitations
  * under the License. 
  */
+package org.modelix.model.server
 
-package org.modelix.model.server;
+import javax.cache.processor.EntryProcessor
+import javax.cache.processor.EntryProcessorException
+import javax.cache.processor.MutableEntry
 
-import com.beust.jcommander.IStringConverter;
-import java.io.File;
-
-public class FileConverter implements IStringConverter<File> {
-    @Override
-    public File convert(String value) {
-        if (value == null) {
-            return null;
-        }
-        return new File(value);
+class ClientIdProcessor : EntryProcessor<String?, String?, Long> {
+    @Throws(EntryProcessorException::class)
+    override fun process(mutableEntry: MutableEntry<String?, String?>, vararg objects: Any): Long {
+        val idStr = mutableEntry.value
+        var id = idStr?.toLong() ?: 0
+        id++
+        mutableEntry.value = java.lang.Long.toString(id)
+        return id
     }
 }
