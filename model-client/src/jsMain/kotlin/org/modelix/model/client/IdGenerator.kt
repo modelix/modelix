@@ -21,14 +21,21 @@ actual class IdGenerator actual constructor(clientId: Int) : IIdGenerator {
     private var idSequence: Long
     private val clientId: Long = clientId.toLong()
     actual override fun generate(): Long {
-        val id = ++idSequence
-        if (id ushr 32 != clientId) {
+        return generate(1).first
+    }
+    actual fun generate(quantity: Int): LongRange {
+        require(quantity >= 1)
+        idSequence += quantity.toLong()
+        val lastId = idSequence
+        if (lastId ushr 32 != clientId) {
             throw RuntimeException("End of ID range")
         }
-        return id
+        val firstId = lastId - quantity + 1
+        return LongRange(firstId, lastId)
     }
 
     init {
         idSequence = this.clientId shl 32
     }
+
 }
