@@ -16,9 +16,11 @@ package org.modelix.model.server
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.auth.*
+import io.ktor.server.html.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
+import kotlinx.html.*
 import org.json.JSONArray
 import org.json.JSONObject
 import org.modelix.authorization.AuthenticatedUser
@@ -53,6 +55,33 @@ class JsonModelServer(val client: IModelClient) {
     }
 
     private fun Route.initRouting() {
+        get("/") {
+            call.respondHtml(HttpStatusCode.OK) {
+                body {
+                    table {
+                        tr {
+                            td { +"GET /{repositoryId}/" }
+                            td { + "Returns the model content of the latest version on the master branch." }
+                        }
+                        tr {
+                            td { +"GET /{repositoryId}/{versionHash}/" }
+                            td { + "Returns the model content of the specified version on the master branch." }
+                        }
+                        tr {
+                            td { +"POST /{repositoryId}/init" }
+                            td { + "Initializes a new repository." }
+                        }
+                        tr {
+                            td { +"POST /{repositoryId}/{versionHash}/update" }
+                            td {
+                                + "Applies the delta to the specified version of the model and merges"
+                                +" it into the master branch. Return the model content after the merge."
+                            }
+                        }
+                    }
+                }
+            }
+        }
         get("/{repositoryId}/") {
             val repositoryId = RepositoryId(call.parameters["repositoryId"]!!)
             val versionHash = client.asyncStore?.get(repositoryId.getBranchKey())!!

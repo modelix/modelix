@@ -24,14 +24,9 @@ import org.modelix.model.lazy.IDeserializingKeyValueStore
 import org.modelix.model.lazy.ObjectStoreCache
 
 class LocalModelClient(private val store: IStoreClient) : IModelClient {
-    override val clientId: Int
-    override val idGenerator: IIdGenerator
+    override val clientId: Int by lazy { store.generateId("clientId").toInt() }
+    override val idGenerator: IIdGenerator by lazy { IdGenerator(clientId) }
     private val objectCache: IDeserializingKeyValueStore = ObjectStoreCache(this)
-
-    init {
-        clientId = store.generateId("clientId").toInt()
-        idGenerator = IdGenerator(clientId)
-    }
 
     override fun get(key: String): String? {
         return store[key]
