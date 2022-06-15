@@ -73,19 +73,9 @@ class JsonAPITest {
         val quantity = 100
         val response = client.post("/json/generate-ids?quantity=$quantity")
         assertEquals(HttpStatusCode.OK, response.status)
-        val jsonRanges = JSONArray(response.bodyAsText())
-        val ranges = jsonRanges.map { it as JSONObject }
-            .map { LongRange(it.getLong("first"), it.getLong("last")) }
-        assertEquals(quantity, ranges.sumOf { it.count() })
-    }
-
-    @Test
-    fun generateIdsAsList() = runTest {
-        val quantity = 100
-        val response = client.post("/json/generate-ids?quantity=$quantity&format=list")
-        assertEquals(HttpStatusCode.OK, response.status)
-        val ids = JSONArray(response.bodyAsText())
-        assertEquals(quantity, ids.length())
+        val jsonRange = JSONObject(response.bodyAsText())
+        val range = jsonRange.let { LongRange(it.getLong("first"), it.getLong("last")) }
+        assertEquals(quantity, range.count())
     }
 
     @Test
@@ -154,9 +144,7 @@ class JsonAPITest {
     }
 
     private suspend fun ApplicationTestBuilder.createNode(baseVersionHash: String, parentId: Long, role: String?, index: Int?, content: JSONObject.()->Unit): Pair<Long, JSONObject> {
-        val ids = JSONArray(client.post("/json/generate-ids?quantity=1&format=list").bodyAsText())
-            .asLongList().toMutableList()
-        val id = ids.removeFirst()
+        val id = JSONObject(client.post("/json/generate-ids?quantity=1").bodyAsText()).getLong("first")
         val response = client.post("/json/$repoId/$baseVersionHash/update") {
             contentType(ContentType.Application.Json)
             val jsonString = buildJSONArray(

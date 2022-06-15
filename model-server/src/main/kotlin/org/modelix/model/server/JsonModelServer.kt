@@ -25,10 +25,12 @@ import org.modelix.authorization.AuthenticatedUser
 import org.modelix.model.VersionMerger
 import org.modelix.model.api.*
 import org.modelix.model.client.IModelClient
+import org.modelix.model.client.IdGenerator
 import org.modelix.model.client.ReplicatedRepository
 import org.modelix.model.lazy.CLTree
 import org.modelix.model.lazy.CLVersion
 import org.modelix.model.lazy.RepositoryId
+import org.modelix.model.metameta.PersistedConcept
 import org.modelix.model.operations.OTBranch
 import org.modelix.model.persistent.CPVersion
 import java.util.Date
@@ -116,40 +118,11 @@ class JsonModelServer(val client: IModelClient) {
         }
         post("/generate-ids") {
             val quantity = call.request.queryParameters["quantity"]?.toInt() ?: 1000
-            when (val format = call.request.queryParameters["format"]) {
-                "list" -> {
-                    respondJson((1..quantity).map { client.idGenerator.generate() }.toJsonArray())
-                }
-                "ranges", null -> {
-                    val ranges = ArrayList<Array<Long>>()
-                    val firstId = client.idGenerator.generate()
-                    var currentRange = arrayOf(firstId, firstId)
-                    ranges += currentRange
-                    var count = 1
-                    while (count < quantity) {
-                        // TODO add a method IIdGenerator.generate(quantity: Int): LongRange
-                        val id = client.idGenerator.generate()
-                        if (id == currentRange[1] + 1) {
-                            currentRange[1] = id
-                        } else {
-                            currentRange = arrayOf(id, id)
-                            ranges += currentRange
-                        }
-                        count++
-                    }
-
-                    val json = ranges.map { range ->
-                        JSONObject().apply {
-                            put("first", range[0])
-                            put("last", range[1])
-                        }
-                    }.toJsonArray()
-                    respondJson(json)
-                }
-                else -> {
-                    call.respond(HttpStatusCode.BadRequest, "Invalid format '$format'")
-                }
-            }
+            val ids = (client.idGenerator as IdGenerator).generate(quantity)
+            respondJson(buildJSONObject {
+                put("first", ids.first)
+                put("last", ids.last)
+            })
         }
     }
 
