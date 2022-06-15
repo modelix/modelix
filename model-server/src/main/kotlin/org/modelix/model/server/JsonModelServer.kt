@@ -24,6 +24,7 @@ import kotlinx.html.*
 import org.json.JSONArray
 import org.json.JSONObject
 import org.modelix.authorization.AuthenticatedUser
+import org.modelix.model.IKeyListener
 import org.modelix.model.VersionMerger
 import org.modelix.model.api.*
 import org.modelix.model.client.IModelClient
@@ -37,7 +38,7 @@ import org.modelix.model.operations.OTBranch
 import org.modelix.model.persistent.CPVersion
 import java.util.Date
 
-class JsonModelServer(val client: IModelClient) {
+class JsonModelServer(val client: LocalModelClient) {
 
     fun getStore() = client.storeCache!!
 
@@ -94,6 +95,14 @@ class JsonModelServer(val client: IModelClient) {
             // TODO 404 if it doesn't exist
             val version = CLVersion.loadFromHash(versionHash, getStore())
             respondVersion(version)
+        }
+        get("/{repositoryId}/{versionHash}/poll") {
+            val repositoryId = RepositoryId(call.parameters["repositoryId"]!!)
+            val versionHash = call.parameters["versionHash"]!!
+            pollEntry(client.store, repositoryId.getBranchKey(), versionHash) { newValue ->
+                val version = CLVersion.loadFromHash(newValue!!, getStore())
+                respondVersion(version)
+            }
         }
         post("/{repositoryId}/init") {
             // TODO error if it already exists

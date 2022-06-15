@@ -24,6 +24,7 @@ import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import io.ktor.util.pipeline.*
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.json.JSONArray
@@ -142,38 +143,9 @@ class KtorModelServer(val storeClient: IStoreClient) {
                     val key: String = call.parameters["key"]!!
                     val lastKnownValue = call.request.queryParameters["lastKnownValue"]
                     checkKeyPermission(key, EPermissionType.READ)
-                    val listener = object : IKeyListener {
-                        override fun changed(key_: String, newValue: String?) {
-                            launch {
-                                if (!call.response.isCommitted) respondValue(key, newValue)
-                            }
-                        }
+                    pollEntry(storeClient, key, lastKnownValue) { newValue ->
+                        respondValue(key, newValue)
                     }
-                    try {
-                        storeClient.listen(key, listener)
-                        if (lastKnownValue != null) {
-                            // This could be done before registering the listener, but
-                            // then we have to check it twice,
-                            // because the value could change between the first read and
-                            // registering the listener.
-                            // Most of the time the value will be equal to the last
-                            // known value.
-                            // Registering the listener without needing it is less
-                            // likely to happen.
-                            val value = storeClient[key]
-                            if (value != lastKnownValue) {
-                                if (!call.response.isCommitted) respondValue(key, value)
-                                return@get
-                            }
-                        }
-                        for (i in 1..250) {
-                            if (call.response.isCommitted) break
-                            delay(100L)
-                        }
-                    } finally {
-                        storeClient.removeListener(key, listener)
-                    }
-                    if (!call.response.isCommitted) respondValue(key, storeClient[key])
                 }
 
                 get("/generateToken") {

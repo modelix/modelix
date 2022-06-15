@@ -25,6 +25,7 @@ val kotlinVersion: String by project
 dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.2")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.1")
 
     implementation("org.modelix:model-api:$mpsExtensionsVersion")
     implementation(project(":model-client", configuration = "jvmRuntimeElements"))

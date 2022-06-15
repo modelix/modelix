@@ -18,10 +18,21 @@ export class ModelService {
     this.readFromServer()
   }
 
-  public readFromServer() {
+  private pollServer() {
+    this.http.get<VersionData>(`http://localhost:30761/model/json/angular-sandbox/${this.versionHash}/poll`).subscribe(data => {
+      this.versionReceived(data)
+    })
+  }
+
+  private versionReceived(data: VersionData) {
+    this.versionHash = data.versionHash
+    this.loadNode(data.root)
+    this.pollServer()
+  }
+
+  private readFromServer() {
     this.http.get<VersionData>("http://localhost:30761/model/json/angular-sandbox/").subscribe(data => {
-      this.versionHash = data.versionHash
-      this.loadNode(data.root)
+      this.versionReceived(data)
     })
   }
 
