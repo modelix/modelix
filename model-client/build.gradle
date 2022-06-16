@@ -33,7 +33,6 @@ check.dependsOn ktlintCheck
 kotlin {
     jvm()
     js(IR) {
-        //browser {}
         nodejs {
             testTask {
                 useMocha {
