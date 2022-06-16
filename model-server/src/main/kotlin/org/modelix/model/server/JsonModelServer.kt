@@ -125,9 +125,11 @@ class JsonModelServer(val client: LocalModelClient) {
             var lastVersion: CLVersion? = null
             val deltaMutex = Mutex()
             val sendDelta: suspend (CLVersion)->Unit = { newVersion ->
-                deltaMutex.withLock {
-                    send(versionAsJson(newVersion, lastVersion).toString())
-                    lastVersion = newVersion
+                if (newVersion.hash != lastVersion?.hash) {
+                    deltaMutex.withLock {
+                        send(versionAsJson(newVersion, lastVersion).toString())
+                        lastVersion = newVersion
+                    }
                 }
             }
 

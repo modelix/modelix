@@ -10,15 +10,11 @@ import {FormControl} from "@angular/forms";
 export class CustomerComponent implements OnInit {
 
   @Input() public nodeId: NodeId | undefined
-  public name = new FormControl('');
 
   constructor(private model: ModelService) { }
 
   ngOnInit(): void {
-    this.name.setValue(this.readName())
-    this.name.registerOnChange(() => {
-      this.writeName(this.name.getRawValue())
-    })
+
   }
 
   public exists(): Boolean {
@@ -29,14 +25,25 @@ export class CustomerComponent implements OnInit {
     this.model.addNewNode("1", "customers", -1, "Customer")
   }
 
-  public readName(): string {
+  public readProperty(role: string): string {
     if (this.nodeId === undefined) return ""
-    let value = this.model.getProperty(this.nodeId, "name")
+    let value = this.model.getProperty(this.nodeId, role)
     return value === undefined ? "" : value
   }
 
-  public writeName(value: string | null) {
+  public readDateProperty(role: string): Date | undefined {
+    if (this.nodeId === undefined) return undefined
+    let value = this.model.getProperty(this.nodeId, role)
+    return value === undefined ? undefined : new Date(value)
+  }
+
+  public writeProperty(role: string, value: string | null | undefined) {
     if (this.nodeId === undefined) return
-    this.model.setProperty(this.nodeId, "name", value)
+    this.model.setProperty(this.nodeId, role, value)
+  }
+
+  public writeDateProperty(role: string, value: Date | null | undefined) {
+    if (this.nodeId === undefined) return
+    this.writeProperty(role, value?.toDateString())
   }
 }

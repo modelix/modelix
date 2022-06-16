@@ -6,7 +6,11 @@ import { AppComponent } from './app.component';
 import { CustomerComponent } from './comp/customer/customer.component';
 import { HttpClientModule } from '@angular/common/http';
 import { CustomersComponent } from './comp/customers/customers.component';
-import {ReactiveFormsModule} from "@angular/forms";
+import { ReactiveFormsModule } from "@angular/forms";
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatInputModule } from '@angular/material/input';
+import {MatDatepickerModule} from "@angular/material/datepicker";
+import {MatNativeDateModule} from "@angular/material/core";
 
 @NgModule({
   declarations: [
@@ -18,9 +22,15 @@ import {ReactiveFormsModule} from "@angular/forms";
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    BrowserAnimationsModule,
+    MatInputModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
   ],
-  providers: [],
+  providers: [
+    MatDatepickerModule,
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

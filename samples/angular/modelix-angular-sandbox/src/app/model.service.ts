@@ -10,16 +10,17 @@ export class ModelService {
   private nodes: Map<NodeId, NodeData> = new Map()
   private versionHash: string | undefined
   private idGenerator: IdGenerator = new IdGenerator(0n, 0n)
+  private websocket: WebSocket
 
   constructor(private http: HttpClient) {
     this.http.post<IdRangeData>("http://localhost:30761/model/json/generate-ids?quantity=10000", undefined).subscribe(data => {
       this.idGenerator = new IdGenerator(BigInt(data.first), BigInt(data.last))
     })
     //this.readFromServer()
-    this.connectWS("ws://localhost:30761/model/json/angular-sandbox/ws")
+    this.websocket = this.connectWS("ws://localhost:30761/model/json/angular-sandbox/ws")
   }
 
-  private connectWS(url: string) {
+  private connectWS(url: string): WebSocket {
     let ws = new WebSocket(url);
     ws.onmessage = (e) => {
       let updateData = JSON.parse(e.data)
@@ -29,8 +30,9 @@ export class ModelService {
       console.log('WebSocket error: ', e);
     }
     ws.onclose = (e) => {
-      setTimeout(() => { this.connectWS(url) }, 1000)
+      setTimeout(() => { this.websocket = this.connectWS(url) }, 1000)
     }
+    return ws
   }
 
   private pollServer() {
@@ -80,9 +82,10 @@ export class ModelService {
       concept: concept
     }]
 
-    this.http.post<VersionData>(`http://localhost:30761/model/json/angular-sandbox/${this.versionHash}/update`, body).subscribe(data => {
-      this.versionReceived(data)
-    })
+    // this.http.post<VersionData>(`http://localhost:30761/model/json/angular-sandbox/${this.versionHash}/update`, body).subscribe(data => {
+    //   this.versionReceived(data)
+    // })
+    this.websocket.send(JSON.stringify(body))
   }
 
   public getChildren(parentId: NodeId, role: string): NodeId[] {
@@ -102,21 +105,23 @@ export class ModelService {
     return node.properties[role];
   }
 
-  public setProperty(nodeId: NodeId, role: string, value: string | null) {
+  public setProperty(nodeId: NodeId, role: string, value: string | null | undefined) {
     console.log(`setProperty(${nodeId}, ${role}, ${value})`)
     let node = this.nodes.get(nodeId);
     if (node === undefined) return
+    if (node.properties[role] === value) return
 
     let body = [<NodeUpdateData>{
       nodeId: nodeId,
       properties: {
-        [role]: value
+        [role]: value === undefined ? null : value
       }
     }]
 
-    this.http.post<VersionData>(`http://localhost:30761/model/json/angular-sandbox/${this.versionHash}/update`, body).subscribe(data => {
-      this.versionReceived(data)
-    })
+    // this.http.post<VersionData>(`http://localhost:30761/model/json/angular-sandbox/${this.versionHash}/update`, body).subscribe(data => {
+    //   this.versionReceived(data)
+    // })
+    this.websocket.send(JSON.stringify(body))
   }
 }
 
