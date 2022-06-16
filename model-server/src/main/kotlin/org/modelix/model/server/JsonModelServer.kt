@@ -14,38 +14,47 @@
 package org.modelix.model.server
 
 import io.ktor.http.*
+import io.ktor.network.sockets.*
 import io.ktor.server.application.*
 import io.ktor.server.auth.*
 import io.ktor.server.html.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
-import kotlinx.html.*
+import io.ktor.server.websocket.*
+import io.ktor.websocket.*
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
+import kotlinx.html.body
+import kotlinx.html.table
+import kotlinx.html.td
+import kotlinx.html.tr
 import org.json.JSONArray
 import org.json.JSONObject
 import org.modelix.authorization.AuthenticatedUser
 import org.modelix.model.IKeyListener
 import org.modelix.model.VersionMerger
 import org.modelix.model.api.*
-import org.modelix.model.client.IModelClient
 import org.modelix.model.client.IdGenerator
-import org.modelix.model.client.ReplicatedRepository
 import org.modelix.model.lazy.CLTree
 import org.modelix.model.lazy.CLVersion
 import org.modelix.model.lazy.RepositoryId
-import org.modelix.model.metameta.PersistedConcept
 import org.modelix.model.operations.OTBranch
 import org.modelix.model.persistent.CPVersion
-import java.util.Date
+import java.util.*
 
 class JsonModelServer(val client: LocalModelClient) {
 
     fun getStore() = client.storeCache!!
 
     fun init(application: Application) {
-        application.routing {
-            route("/json") {
-                initRouting()
+        application.apply {
+            install(WebSockets)
+            routing {
+                route("/json") {
+                    initRouting()
+                }
             }
         }
     }
@@ -67,6 +76,10 @@ class JsonModelServer(val client: LocalModelClient) {
                         tr {
                             td { +"GET /{repositoryId}/{versionHash}/" }
                             td { + "Returns the model content of the specified version on the master branch." }
+                        }
+                        tr {
+                            td { +"GET /{repositoryId}/{versionHash}/poll" }
+                            td { + "" }
                         }
                         tr {
                             td { +"POST /{repositoryId}/init" }
@@ -105,6 +118,46 @@ class JsonModelServer(val client: LocalModelClient) {
                 respondVersion(version, oldVersion)
             }
         }
+        webSocket("/{repositoryId}/ws") {
+            val repositoryId = RepositoryId(call.parameters["repositoryId"]!!)
+            val userId = (call.principal<AuthenticatedUser>() ?: AuthenticatedUser.ANONYMOUS_USER).userIds.firstOrNull()
+
+            var lastVersion: CLVersion? = null
+            val deltaMutex = Mutex()
+            val sendDelta: suspend (CLVersion)->Unit = { newVersion ->
+                deltaMutex.withLock {
+                    send(versionAsJson(newVersion, lastVersion).toString())
+                    lastVersion = newVersion
+                }
+            }
+
+            val listener = object : IKeyListener {
+                override fun changed(key: String, value: String?) {
+                    if (value == null) return
+                    launch {
+                        val newVersion = CLVersion.loadFromHash(value, client.storeCache)
+                        sendDelta(newVersion)
+                    }
+                }
+            }
+
+            client.listen(repositoryId.getBranchKey(), listener)
+            try {
+                sendDelta(getCurrentVersion(repositoryId))
+                for (frame in incoming) {
+                    when (frame) {
+                        is Frame.Text -> {
+                            val updateData = JSONArray(frame.readText())
+                            val mergedVersion = applyUpdate(lastVersion!!, updateData, repositoryId, userId)
+                            sendDelta(mergedVersion)
+                        }
+                        else -> {}
+                    }
+                }
+            } finally {
+                client.removeListener(repositoryId.getBranchKey(), listener)
+            }
+        }
         post("/{repositoryId}/init") {
             // TODO error if it already exists
             val repositoryId = RepositoryId(call.parameters["repositoryId"]!!)
@@ -123,6 +176,8 @@ class JsonModelServer(val client: LocalModelClient) {
         }
         post("/{repositoryId}/{versionHash}/update") {
             val updateData = JSONArray(call.receiveText())
+            val repositoryId = RepositoryId(call.parameters["repositoryId"]!!)
+            val userId = (call.principal<AuthenticatedUser>() ?: AuthenticatedUser.ANONYMOUS_USER).userIds.firstOrNull()
             val baseVersionHash = call.parameters["versionHash"]!!
             val baseVersionData = getStore().get(baseVersionHash, { CPVersion.deserialize(it) })
             if (baseVersionData == null) {
@@ -130,28 +185,7 @@ class JsonModelServer(val client: LocalModelClient) {
                 return@post
             }
             val baseVersion = CLVersion(baseVersionData, getStore())
-            val repositoryId = RepositoryId(call.parameters["repositoryId"]!!)
-            val branch = OTBranch(PBranch(baseVersion.tree, client.idGenerator), client.idGenerator, client.storeCache!!)
-            val userId = (call.principal<AuthenticatedUser>() ?: AuthenticatedUser.ANONYMOUS_USER).userIds.firstOrNull()
-            branch.computeWriteT { t ->
-                for (nodeData in (0 until updateData.length()).map { updateData.getJSONObject(it) }) {
-                    updateNode(nodeData, containmentData = null, t)
-                }
-            }
-
-            val operationsAndTree = branch.operationsAndTree
-            val newVersion = CLVersion.createRegularVersion(
-                client.idGenerator.generate(),
-                Date().toString(),
-                userId,
-                operationsAndTree.second as CLTree,
-                baseVersion,
-                operationsAndTree.first.map { it.getOriginalOp() }.toTypedArray()
-            )
-            repositoryId.getBranchKey()
-            val mergedVersion = VersionMerger(client.storeCache!!, client.idGenerator)
-                .mergeChange(getCurrentVersion(repositoryId), newVersion)
-            client.asyncStore!!.put(repositoryId.getBranchKey(), mergedVersion.hash)
+            val mergedVersion = applyUpdate(baseVersion, updateData, repositoryId, userId)
             respondVersion(mergedVersion, baseVersion)
 
         }
@@ -163,6 +197,36 @@ class JsonModelServer(val client: LocalModelClient) {
                 put("last", ids.last)
             })
         }
+    }
+
+    private fun applyUpdate(
+        baseVersion: CLVersion,
+        updateData: JSONArray,
+        repositoryId: RepositoryId,
+        userId: String?
+    ): CLVersion {
+        val branch = OTBranch(PBranch(baseVersion.tree, client.idGenerator), client.idGenerator, client.storeCache!!)
+        branch.computeWriteT { t ->
+            for (nodeData in (0 until updateData.length()).map { updateData.getJSONObject(it) }) {
+                updateNode(nodeData, containmentData = null, t)
+            }
+        }
+
+        val operationsAndTree = branch.operationsAndTree
+        val newVersion = CLVersion.createRegularVersion(
+            client.idGenerator.generate(),
+            Date().toString(),
+            userId,
+            operationsAndTree.second as CLTree,
+            baseVersion,
+            operationsAndTree.first.map { it.getOriginalOp() }.toTypedArray()
+        )
+        repositoryId.getBranchKey()
+        val mergedVersion = VersionMerger(client.storeCache!!, client.idGenerator)
+            .mergeChange(getCurrentVersion(repositoryId), newVersion)
+        client.asyncStore!!.put(repositoryId.getBranchKey(), mergedVersion.hash)
+        // TODO handle concurrent write to the branchKey, otherwise versions might get lost. See ReplicatedRepository.
+        return mergedVersion
     }
 
     private fun updateNode(nodeData: JSONObject, containmentData: ContainmentData?, t: IWriteTransaction): Long {
@@ -223,6 +287,14 @@ class JsonModelServer(val client: LocalModelClient) {
     }
 
     private suspend fun CallContext.respondVersion(version: CLVersion, oldVersion: CLVersion? = null) {
+        val json = versionAsJson(version, oldVersion)
+        respondJson(json)
+    }
+
+    private fun versionAsJson(
+        version: CLVersion,
+        oldVersion: CLVersion?
+    ): JSONObject {
         val branch = TreePointer(version.tree)
         val rootNode = PNodeAdapter(ITree.ROOT_ID, branch)
         val json = JSONObject()
@@ -257,7 +329,7 @@ class JsonModelServer(val client: LocalModelClient) {
             json.put("nodes", changedNodes)
             version.tree
         }
-        respondJson(json)
+        return json
     }
 
     private suspend fun CallContext.respondJson(json: JSONObject) {

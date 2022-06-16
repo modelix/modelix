@@ -1,6 +1,12 @@
 <div style="border: 1px solid black; background-color: #aaa; padding: 10px; display: inline-block">
   <div *ngIf="this.exists()">
-    <div>Name: <input #nameInput type="text" [value]="readName()" (change)="writeName(nameInput.value)" /></div>
+    <div>Name: <input #nameInput
+                      (change)="writeName(nameInput.value)"
+                      (keydown)="writeName(nameInput.value)"
+                      (keyup)="writeName(nameInput.value)"
+                      (keypress)="writeName(nameInput.value)"
+                      [value]="readName()"
+                      type="text"/></div>
     <div>Name: {{ readName() }}</div>
   </div>
   <button *ngIf="!this.exists()" (click)="this.create()">Create Customer</button>

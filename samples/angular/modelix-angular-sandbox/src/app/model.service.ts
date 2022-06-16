@@ -15,7 +15,22 @@ export class ModelService {
     this.http.post<IdRangeData>("http://localhost:30761/model/json/generate-ids?quantity=10000", undefined).subscribe(data => {
       this.idGenerator = new IdGenerator(BigInt(data.first), BigInt(data.last))
     })
-    this.readFromServer()
+    //this.readFromServer()
+    this.connectWS("ws://localhost:30761/model/json/angular-sandbox/ws")
+  }
+
+  private connectWS(url: string) {
+    let ws = new WebSocket(url);
+    ws.onmessage = (e) => {
+      let updateData = JSON.parse(e.data)
+      this.versionReceived(updateData)
+    }
+    ws.onerror = (e) => {
+      console.log('WebSocket error: ', e);
+    }
+    ws.onclose = (e) => {
+      setTimeout(() => { this.connectWS(url) }, 1000)
+    }
   }
 
   private pollServer() {
@@ -143,6 +158,7 @@ class IdGenerator {
   public generate(): NodeId {
     let id = this.next++;
     if (id > this.last) throw Error("Out of IDs")
+    // TODO get new IDs from the server
     return id.toString()
   }
 }
