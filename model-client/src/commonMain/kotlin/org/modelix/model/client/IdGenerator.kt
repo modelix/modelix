@@ -19,4 +19,5 @@ import org.modelix.model.api.IIdGenerator
 
 expect class IdGenerator(clientId: Int) : IIdGenerator {
     override fun generate(): Long
+    fun generate(quantity: Int): LongRange
 }

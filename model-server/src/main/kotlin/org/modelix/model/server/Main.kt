@@ -242,12 +242,25 @@ object Main {
 
             ModelixAuthorization.init(localModelClient)
             val historyHandler = HistoryHandler(localModelClient)
+            val jsonModelServer = JsonModelServer(localModelClient)
             val ktorServer: NettyApplicationEngine = embeddedServer(Netty, port = port) {
                 modelServer.init(this)
                 historyHandler.init(this)
+                jsonModelServer.init(this)
                 routing {
                     get("/") {
                         call.respondHtml {
+                            head {
+                                style { +"""
+                                    table {
+                                        border-collapse: collapse;
+                                    }
+                                    td, th {
+                                        border: 1px solid #888;
+                                        padding: 3px 12px;
+                                    }
+                                """.trimIndent() }
+                            }
                             body {
                                 div { +"Model Server" }
                                 br {}
@@ -257,6 +270,9 @@ object Main {
                                     }
                                     li {
                                         a("history/") { +"Model History" }
+                                    }
+                                    li {
+                                        a("json/") { +"JSON API for JavaScript clients" }
                                     }
                                 }
                             }

@@ -1,0 +1,29 @@
+<div class="customer-container">
+  <div *ngIf="this.exists()">
+    <div>
+      <mat-form-field appearance="fill">
+        <mat-label>Name</mat-label>
+        <input matInput #nameInput
+                        (change)="writeProperty('name', nameInput.value)"
+                        (keydown)="writeProperty('name', nameInput.value)"
+                        (keyup)="writeProperty('name', nameInput.value)"
+                        (keypress)="writeProperty('name', nameInput.value)"
+                        [value]="readProperty('name')"
+                        type="text"/>
+      </mat-form-field>
+      <br/>
+      <mat-form-field appearance="fill">
+        <mat-label>Birth Date</mat-label>
+        <input matInput
+               [value]="readDateProperty('birth')"
+               [matDatepicker]="picker"
+               (dateInput)="writeDateProperty('birth', $event.value)"
+               (dateChange)="writeDateProperty('birth', $event.value)">
+        <mat-hint>MM/DD/YYYY</mat-hint>
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+    </div>
+  </div>
+  <button *ngIf="!this.exists()" (click)="this.create()">Create Customer</button>
+</div>

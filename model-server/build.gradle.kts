@@ -7,6 +7,7 @@ plugins {
     id("com.adarshr.test-logger") version "2.1.0"
     id("org.jetbrains.kotlin.jvm")
     id("com.github.johnrengelman.shadow") version "6.1.0"
+    kotlin("plugin.serialization")
 }
 
 description = "Model Server offering access to model storage"
@@ -22,9 +23,12 @@ val mpsExtensionsVersion: String by project
 val kotlinVersion: String by project
 
 dependencies {
+    implementation("org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.2")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.1")
+
     implementation("org.modelix:model-api:$mpsExtensionsVersion")
     implementation(project(":model-client", configuration = "jvmRuntimeElements"))
-    implementation("org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion")
     implementation("org.apache.commons:commons-lang3:3.10")
 
     implementation("org.json:json:20200518")
@@ -41,6 +45,7 @@ dependencies {
     implementation("io.ktor:ktor-server-auth:$ktorVersion")
     implementation("io.ktor:ktor-server-status-pages:$ktorVersion")
     implementation("io.ktor:ktor-server-forwarded-header:$ktorVersion")
+    implementation("io.ktor:ktor-server-websockets:$ktorVersion")
     implementation(project(":authorization"))
     implementation(project(":authorization-ui"))
 
@@ -51,13 +56,6 @@ dependencies {
 
     implementation("org.postgresql:postgresql:42.3.3")
 
-    val jettyVersion = "9.4.43.v20210629"
-    implementation("org.eclipse.jetty:jetty-server:$jettyVersion")
-    implementation("org.eclipse.jetty.websocket:websocket-servlet:$jettyVersion")
-    implementation("org.eclipse.jetty:jetty-servlet:$jettyVersion")
-    implementation("org.eclipse.jetty.websocket:websocket-server:$jettyVersion")
-    implementation("org.eclipse.jetty:jetty-servlets:$jettyVersion")
-
     implementation("commons-io:commons-io:2.7")
     implementation("com.google.guava:guava:30.0-jre")
     implementation("com.beust:jcommander:1.7")
@@ -66,6 +64,9 @@ dependencies {
 
     testImplementation("junit:junit:4.13.1")
     testImplementation("io.cucumber:cucumber-java:6.2.2")
+    testImplementation("io.ktor:ktor-server-test-host:$ktorVersion")
+    testImplementation("org.jetbrains.kotlin:kotlin-test:$kotlinVersion")
+    implementation(kotlin("test-junit"))
 }
 
 val cucumberRuntime by configurations.creating {
