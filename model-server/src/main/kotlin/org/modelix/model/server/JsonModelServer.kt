@@ -33,6 +33,10 @@ import kotlinx.html.tr
 import org.json.JSONArray
 import org.json.JSONObject
 import org.modelix.authorization.AuthenticatedUser
+import org.modelix.authorization.EPermissionType
+import org.modelix.authorization.PermissionId
+import org.modelix.authorization.ktor.getUser
+import org.modelix.authorization.ktor.requiresPermission
 import org.modelix.model.IKeyListener
 import org.modelix.model.VersionMerger
 import org.modelix.model.api.*
@@ -52,8 +56,10 @@ class JsonModelServer(val client: LocalModelClient) {
         application.apply {
             install(WebSockets)
             routing {
-                route("/json") {
-                    initRouting()
+                requiresPermission(PermissionId("model-json"), EPermissionType.READ) {
+                    route("/json") {
+                        initRouting()
+                    }
                 }
             }
         }
@@ -120,7 +126,7 @@ class JsonModelServer(val client: LocalModelClient) {
         }
         webSocket("/{repositoryId}/ws") {
             val repositoryId = RepositoryId(call.parameters["repositoryId"]!!)
-            val userId = (call.principal<AuthenticatedUser>() ?: AuthenticatedUser.ANONYMOUS_USER).userIds.firstOrNull()
+            val userId = call.getUser().userIds.firstOrNull()
 
             var lastVersion: CLVersion? = null
             val deltaMutex = Mutex()
@@ -164,7 +170,7 @@ class JsonModelServer(val client: LocalModelClient) {
             // TODO error if it already exists
             val repositoryId = RepositoryId(call.parameters["repositoryId"]!!)
             val newTree = CLTree(repositoryId, getStore())
-            val userId = call.principal<AuthenticatedUser>()?.userIds?.firstOrNull()
+            val userId = call.getUser().userIds.firstOrNull()
             val newVersion = CLVersion.createRegularVersion(
                 client.idGenerator.generate(),
                 Date().toString(),
@@ -179,7 +185,7 @@ class JsonModelServer(val client: LocalModelClient) {
         post("/{repositoryId}/{versionHash}/update") {
             val updateData = JSONArray(call.receiveText())
             val repositoryId = RepositoryId(call.parameters["repositoryId"]!!)
-            val userId = (call.principal<AuthenticatedUser>() ?: AuthenticatedUser.ANONYMOUS_USER).userIds.firstOrNull()
+            val userId = getUser().userIds.firstOrNull()
             val baseVersionHash = call.parameters["versionHash"]!!
             val baseVersionData = getStore().get(baseVersionHash, { CPVersion.deserialize(it) })
             if (baseVersionData == null) {

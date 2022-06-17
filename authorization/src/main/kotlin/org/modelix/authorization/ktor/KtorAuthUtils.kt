@@ -13,12 +13,20 @@
  */
 package org.modelix.authorization.ktor
 
+import com.auth0.jwt.JWT
+import io.ktor.client.*
+import io.ktor.client.engine.cio.*
+import io.ktor.client.request.*
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.auth.*
+import io.ktor.server.plugins.*
+import io.ktor.server.plugins.forwardedheaders.*
 import io.ktor.server.plugins.statuspages.*
+import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
+import io.ktor.util.pipeline.*
 import org.modelix.authorization.*
 
 class OAuthProxyAuth(authenticationConfig: Config) : AuthenticationProvider(authenticationConfig) {
@@ -39,10 +47,30 @@ public fun AuthenticationConfig.oauthProxy(
     register(provider)
 }
 
-
+val keycloakOAuth = "keycloakOAuth"
 fun Application.installAuthentication() {
+    install(XForwardedHeaders)
     install(Authentication) {
-        oauthProxy("oauth-proxy") { }
+        oauth(keycloakOAuth) {
+            client = HttpClient(CIO)
+            providerLookup = {
+                val keycloakAddress = "http://localhost:30761/keycloak"
+                OAuthServerSettings.OAuth2ServerSettings(
+                    name = "keycloak",
+                    authorizeUrl = "http://localhost:31310/realms/modelix/protocol/openid-connect/auth",
+                    accessTokenUrl = "http://keycloak/realms/modelix/protocol/openid-connect/token",
+                    clientId = "modelix",
+                    clientSecret = "jMTF3rOTzXB16hN3qzxp3VKPPSwdTFty",
+                    accessTokenRequiresBasicAuth = false,
+                    requestMethod = HttpMethod.Post, // must POST to token endpoint
+                    defaultScopes = listOf("roles")
+                )
+            }
+            urlProvider = {
+                request.headers["X-Forwarded-Url"] ?:
+                    """${request.origin.scheme}://${request.host()}:${request.port()}${request.uri}"""
+            }
+        }
     }
     install(StatusPages) {
         exception<Throwable> { call, cause ->
@@ -65,14 +93,29 @@ fun Application.installAuthentication() {
 }
 
 fun Route.requiresPermission(permission: PermissionId, type: EPermissionType, body: Route.()->Unit) {
-    authenticate("oauth-proxy") {
+    authenticate(keycloakOAuth) {
         intercept(ApplicationCallPipeline.Call) {
             ModelixAuthorization.checkPermission(
-                call.principal<AuthenticatedUser>()!!,
+                call.getUser(),
                 ModelixAuthorization.AUTHORIZATION_DATA_PERMISSION,
                 type
             )
         }
         body()
     }
+}
+
+fun PipelineContext<Unit, ApplicationCall>.getUser(): AuthenticatedUser {
+    return call.getUser()
+}
+
+fun ApplicationCall.getUser(): AuthenticatedUser {
+    val tokenResponse = principal<OAuthAccessTokenResponse.OAuth2>() ?: return AuthenticatedUser.ANONYMOUS_USER
+    val token = JWT.decode(tokenResponse.accessToken)
+    val name = token.getClaim("name").toString()
+    return AuthenticatedUser(setOf(name), setOf(AuthenticatedUser.PUBLIC_GROUP))
+}
+
+fun RequestConnectionPoint.fullUri(): String {
+    return """$scheme://$host$uri"""
 }
