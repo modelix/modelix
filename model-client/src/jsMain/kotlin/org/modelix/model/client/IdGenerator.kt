@@ -37,5 +37,4 @@ actual class IdGenerator actual constructor(clientId: Int) : IIdGenerator {
     init {
         idSequence = this.clientId shl 32
     }
-
 }
