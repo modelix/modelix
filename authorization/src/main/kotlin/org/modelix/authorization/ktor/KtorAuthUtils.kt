@@ -58,7 +58,7 @@ fun Application.installAuthentication() {
                 OAuthServerSettings.OAuth2ServerSettings(
                     name = "keycloak",
                     authorizeUrl = "http://localhost:31310/realms/modelix/protocol/openid-connect/auth",
-                    accessTokenUrl = "http://keycloak/realms/modelix/protocol/openid-connect/token",
+                    accessTokenUrl = "http://keycloak:8080/realms/modelix/protocol/openid-connect/token",
                     clientId = "modelix",
                     clientSecret = "jMTF3rOTzXB16hN3qzxp3VKPPSwdTFty",
                     accessTokenRequiresBasicAuth = false,
@@ -67,8 +67,8 @@ fun Application.installAuthentication() {
                 )
             }
             urlProvider = {
-                request.headers["X-Forwarded-Url"] ?:
-                    """${request.origin.scheme}://${request.host()}:${request.port()}${request.uri}"""
+                (request.headers["X-Forwarded-Url"] ?:
+                    """${request.origin.scheme}://${request.host()}:${request.port()}${request.uri}""").substringBefore("?")
             }
         }
     }

@@ -60,6 +60,9 @@ class JsonModelServer(val client: LocalModelClient) {
                     route("/json") {
                         initRouting()
                     }
+                    get("/user") {
+                        call.respondText(getUser().userIds.joinToString("\n"))
+                    }
                 }
             }
         }
