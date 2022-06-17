@@ -14,9 +14,9 @@
 package org.modelix.authorization.ktor
 
 import com.auth0.jwt.JWT
+import com.auth0.jwt.interfaces.DecodedJWT
 import io.ktor.client.*
 import io.ktor.client.engine.cio.*
-import io.ktor.client.request.*
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.auth.*
@@ -27,6 +27,7 @@ import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import io.ktor.util.pipeline.*
+import org.json.JSONObject
 import org.modelix.authorization.*
 
 class OAuthProxyAuth(authenticationConfig: Config) : AuthenticationProvider(authenticationConfig) {
@@ -60,7 +61,7 @@ fun Application.installAuthentication() {
                     authorizeUrl = "http://localhost:31310/realms/modelix/protocol/openid-connect/auth",
                     accessTokenUrl = "http://keycloak:8080/realms/modelix/protocol/openid-connect/token",
                     clientId = "modelix",
-                    clientSecret = "jMTF3rOTzXB16hN3qzxp3VKPPSwdTFty",
+                    clientSecret = "VkD4oEhsGQyUCCEyO1ZHgTUV1BLp3gLl",
                     accessTokenRequiresBasicAuth = false,
                     requestMethod = HttpMethod.Post, // must POST to token endpoint
                     defaultScopes = listOf("roles")
@@ -110,10 +111,18 @@ fun PipelineContext<Unit, ApplicationCall>.getUser(): AuthenticatedUser {
 }
 
 fun ApplicationCall.getUser(): AuthenticatedUser {
-    val tokenResponse = principal<OAuthAccessTokenResponse.OAuth2>() ?: return AuthenticatedUser.ANONYMOUS_USER
-    val token = JWT.decode(tokenResponse.accessToken)
-    val name = token.getClaim("name").toString()
-    return AuthenticatedUser(setOf(name), setOf(AuthenticatedUser.PUBLIC_GROUP))
+    val jwt = getJWT() ?: return AuthenticatedUser.ANONYMOUS_USER
+    val name = jwt.getClaim("preferred_username")?.asString() ?: AuthenticatedUser.ANONYMOUS_USER_ID
+    val roles = jwt.getClaim("realm_access")?.asString()?.let {
+        val roles = JSONObject(it).getJSONArray("roles")
+        (0 until roles.length()).map { roles.getString(it) }
+    }?.toSet() ?: emptySet()
+    return AuthenticatedUser(setOf(name), roles + AuthenticatedUser.PUBLIC_GROUP)
+}
+
+fun ApplicationCall.getJWT(): DecodedJWT? {
+    val tokenResponse = principal<OAuthAccessTokenResponse.OAuth2>()
+    return tokenResponse?.let { JWT.decode(it.accessToken) }
 }
 
 fun RequestConnectionPoint.fullUri(): String {
