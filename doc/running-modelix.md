@@ -99,3 +99,19 @@ To connect your local MPS IDE follow these instructions:
     - `./docker-build.sh`
     - `./docker-push.sh`
     - `kubectl apply -f deployment.yaml -f service.yaml`
+
+## Configure Authorization
+
+- `./kubernetes-open-keycloak.sh`
+- Navigate to **Administration Console**
+- Hover over **Master** in the top left corner and choose **Add realm**
+- Name: *modelix*
+- Create
+- **Clients** > Create
+- Client ID: *modelix*
+- Save
+- Valid Redirect URIs: *
+- Save
+- Roles > Add Role
+- Role Name: modelix-admin
+- Save

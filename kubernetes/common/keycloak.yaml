@@ -42,6 +42,14 @@ spec:
           value: "edge"
         - name: PROXY_ADDRESS_FORWARDING
           value: "true"
+        - name: KC_DB
+          value: "postgres"
+        - name: KC_DB_USERNAME
+          value: "modelix"
+        - name: KC_DB_PASSWORD
+          value: "modelix"
+        - name: KC_DB_URL
+          value: "jdbc:postgresql://db:5432/"
         ports:
         - name: http
           containerPort: 8080
