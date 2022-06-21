@@ -114,10 +114,14 @@ fun Application.installAuthentication() {
         }
     }
     install(Sessions) {
-        cookie<UserSession>("modelix_user_session") {
+        cookie<UserSession>("modelix-jwt") {
             cookie.path = "/"
             cookie.maxAgeInSeconds = 14*24*60*60
             cookie.httpOnly = false
+            serializer = object : SessionSerializer<UserSession> {
+                override fun deserialize(text: String) = UserSession(text)
+                override fun serialize(session: UserSession) = session.token
+            }
         }
     }
     routing {
