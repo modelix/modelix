@@ -36,6 +36,7 @@ import org.modelix.authorization.AuthenticatedUser
 import org.modelix.authorization.EPermissionType
 import org.modelix.authorization.PermissionId
 import org.modelix.authorization.ktor.getJWT
+import org.modelix.authorization.ktor.getJWTAsString
 import org.modelix.authorization.ktor.getUser
 import org.modelix.authorization.ktor.requiresPermission
 import org.modelix.model.IKeyListener
@@ -60,14 +61,6 @@ class JsonModelServer(val client: LocalModelClient) {
                 requiresPermission(PermissionId("model-json"), EPermissionType.READ) {
                     route("/json") {
                         initRouting()
-                    }
-                    get("/user") {
-                        val jwt = call.getJWT()
-                        if (jwt == null) {
-                            call.respondText("No token available")
-                        } else {
-                            call.respondText(jwt.claims.map { "${it.key}: ${it.value}" }.joinToString("\n"))
-                        }
                     }
                 }
             }

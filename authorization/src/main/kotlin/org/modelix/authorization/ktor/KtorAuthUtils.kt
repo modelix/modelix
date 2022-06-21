@@ -20,15 +20,21 @@ import io.ktor.client.engine.cio.*
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.auth.*
+import io.ktor.server.auth.jwt.*
 import io.ktor.server.plugins.*
 import io.ktor.server.plugins.forwardedheaders.*
 import io.ktor.server.plugins.statuspages.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
+import io.ktor.server.sessions.*
 import io.ktor.util.pipeline.*
 import org.json.JSONObject
 import org.modelix.authorization.*
+import org.modelix.model.persistent.SerializationUtil
+import java.net.URLEncoder
+import java.nio.charset.StandardCharsets
+import javax.swing.text.html.HTMLDocument.RunElement
 
 class OAuthProxyAuth(authenticationConfig: Config) : AuthenticationProvider(authenticationConfig) {
     override suspend fun onAuthenticate(context: AuthenticationContext) {
@@ -48,17 +54,25 @@ public fun AuthenticationConfig.oauthProxy(
     register(provider)
 }
 
-val keycloakOAuth = "keycloakOAuth"
+const val keycloakOAuth = "keycloakOAuth"
+const val sessionAuth = "sessionAuth"
+val jwtAuth = "jwtAuth"
+private const val callbackEndpointName = "oauth-callback"
+private const val originalUrlParameterName = "originalUrl"
 fun Application.installAuthentication() {
     install(XForwardedHeaders)
     install(Authentication) {
+        session<UserSession>(sessionAuth) {
+            this.validate {
+                it.getUser()
+            }
+        }
         oauth(keycloakOAuth) {
             client = HttpClient(CIO)
             providerLookup = {
-                val keycloakAddress = "http://localhost:30761/keycloak"
                 OAuthServerSettings.OAuth2ServerSettings(
                     name = "keycloak",
-                    authorizeUrl = "http://localhost:31310/realms/modelix/protocol/openid-connect/auth",
+                    authorizeUrl = "http://${request.host()}:${request.port()}/realms/modelix/protocol/openid-connect/auth",
                     accessTokenUrl = "http://keycloak:8080/realms/modelix/protocol/openid-connect/token",
                     clientId = "modelix",
                     clientSecret = "VkD4oEhsGQyUCCEyO1ZHgTUV1BLp3gLl",
@@ -68,8 +82,16 @@ fun Application.installAuthentication() {
                 )
             }
             urlProvider = {
-                (request.headers["X-Forwarded-Url"] ?:
+                val forwardedUrl = request.headers["X-Forwarded-Url"]
+                var originalUrl = (forwardedUrl ?:
                     """${request.origin.scheme}://${request.host()}:${request.port()}${request.uri}""").substringBefore("?")
+                val pathPrefix = if (forwardedUrl == null) "" else {
+                    val forwardedPath = "/" + forwardedUrl.substringBefore("?").substringAfter("://").substringAfter("/")
+                    if (!forwardedPath.endsWith(request.path())) "" else forwardedPath.substringBefore(this.request.path())
+                }
+
+                originalUrl = URLEncoder.encode(originalUrl, StandardCharsets.UTF_8)
+                """${request.origin.scheme}://${request.host()}:${request.port()}$pathPrefix/$callbackEndpointName?$originalUrlParameterName=$originalUrl"""
             }
         }
     }
@@ -91,14 +113,53 @@ fun Application.installAuthentication() {
             }
         }
     }
+    install(Sessions) {
+        cookie<UserSession>("modelix_user_session") {
+            cookie.path = "/"
+            cookie.maxAgeInSeconds = 14*24*60*60
+            cookie.httpOnly = false
+        }
+    }
+    routing {
+        authenticate(sessionAuth, keycloakOAuth) {
+            get("/$callbackEndpointName") {
+                val originalUrl = call.parameters["originalUrl"] ?: "/"
+                val token = call.getJWTAsString()
+                if (token == null) {
+                    call.respondText("Token missing", status = HttpStatusCode.InternalServerError)
+                    return@get
+                }
+                call.sessions.set(UserSession(token))
+                call.respondRedirect(originalUrl)
+            }
+            get("/user") {
+                var jwtString = call.getJWTAsString()
+                if (jwtString == null) {
+                    call.respondText("No token available")
+                } else {
+                    val claims = JWT.decode(jwtString).claims.map { "${it.key}: ${it.value}" }.joinToString("\n")
+                    call.respondText("""
+                                |Token: ${jwtString}
+                                |
+                                |$claims""".trimMargin())
+                }
+            }
+        }
+    }
+
+}
+
+data class UserSession(val token: String) {
+    fun getJWT(): DecodedJWT = JWT.decode(token)
+    fun getUser(): AuthenticatedUser = getJWT().toUser()
 }
 
 fun Route.requiresPermission(permission: PermissionId, type: EPermissionType, body: Route.()->Unit) {
-    authenticate(keycloakOAuth) {
+    authenticate(sessionAuth, keycloakOAuth) {
         intercept(ApplicationCallPipeline.Call) {
             ModelixAuthorization.checkPermission(
                 call.getUser(),
-                ModelixAuthorization.AUTHORIZATION_DATA_PERMISSION,
+                permission,
                 type
             )
         }
@@ -111,7 +172,11 @@ fun PipelineContext<Unit, ApplicationCall>.getUser(): AuthenticatedUser {
 }
 
 fun ApplicationCall.getUser(): AuthenticatedUser {
-    val jwt = getJWT() ?: return AuthenticatedUser.ANONYMOUS_USER
+    return getJWT().toUser()
+}
+
+fun DecodedJWT?.toUser(): AuthenticatedUser {
+    val jwt = this ?: return AuthenticatedUser.ANONYMOUS_USER
     val name = jwt.getClaim("preferred_username")?.asString() ?: AuthenticatedUser.ANONYMOUS_USER_ID
     val roles = jwt.getClaim("realm_access")?.asString()?.let {
         val roles = JSONObject(it).getJSONArray("roles")
@@ -121,8 +186,16 @@ fun ApplicationCall.getUser(): AuthenticatedUser {
 }
 
 fun ApplicationCall.getJWT(): DecodedJWT? {
+    return getJWTAsString()?.let { JWT.decode(it) }
+}
+
+
+fun ApplicationCall.getJWTAsString(): String? {
     val tokenResponse = principal<OAuthAccessTokenResponse.OAuth2>()
-    return tokenResponse?.let { JWT.decode(it.accessToken) }
+    if (tokenResponse != null) return tokenResponse.accessToken
+    val session = sessions.get<UserSession>()
+    // TODO verify signature of the token
+    return session?.token
 }
 
 fun RequestConnectionPoint.fullUri(): String {
