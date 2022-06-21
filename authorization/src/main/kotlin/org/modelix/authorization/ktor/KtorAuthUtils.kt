@@ -101,7 +101,7 @@ fun Application.installAuthentication() {
             }
             urlProvider = {
                 val forwardedUrl = request.headers["X-Forwarded-Url"]
-                var originalUrl = (forwardedUrl ?:
+                var originalUrl = (this.request.queryParameters[originalUrlParameterName] ?: forwardedUrl ?:
                     """${request.origin.scheme}://${request.host()}:${request.port()}${request.uri}""").substringBefore("?")
                 val pathPrefix = if (forwardedUrl == null) "" else {
                     val forwardedPath = "/" + forwardedUrl.substringBefore("?").substringAfter("://").substringAfter("/")
@@ -145,7 +145,7 @@ fun Application.installAuthentication() {
     routing {
         authenticate(jwtAuth, sessionAuth, keycloakOAuth) {
             get("/$callbackEndpointName") {
-                val originalUrl = call.parameters["originalUrl"] ?: "/"
+                val originalUrl = call.parameters[originalUrlParameterName] ?: "/"
                 val token = call.getJWTAsString()
                 if (token == null) {
                     call.respondText("Token missing", status = HttpStatusCode.InternalServerError)
