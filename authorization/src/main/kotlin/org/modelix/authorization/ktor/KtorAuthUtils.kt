@@ -17,11 +17,14 @@ import com.auth0.jwk.JwkProviderBuilder
 import com.auth0.jwt.JWT
 import com.auth0.jwt.algorithms.Algorithm
 import com.auth0.jwt.interfaces.DecodedJWT
+import com.auth0.jwt.interfaces.Payload
 import io.ktor.client.*
 import io.ktor.client.engine.cio.*
 import io.ktor.http.*
+import io.ktor.http.auth.*
 import io.ktor.server.application.*
 import io.ktor.server.auth.*
+import io.ktor.server.auth.jwt.*
 import io.ktor.server.plugins.*
 import io.ktor.server.plugins.forwardedheaders.*
 import io.ktor.server.plugins.statuspages.*
@@ -36,6 +39,16 @@ import java.net.URL
 import java.net.URLEncoder
 import java.nio.charset.StandardCharsets
 import java.security.interfaces.RSAPublicKey
+
+private const val keycloakOAuth = "keycloakOAuth"
+private const val sessionAuth = "sessionAuth"
+private const val jwtAuth = "jwtAuth"
+private const val callbackEndpointName = "oauth-callback"
+private const val originalUrlParameterName = "originalUrl"
+private const val KEYCLOAK_INTERNAL_HOST = "keycloak:8080"
+private const val KEYCLOAK_REALM = "modelix"
+private const val KEYCLOAK_CLIENT = "modelix"
+private val jwkProvider = JwkProviderBuilder(URL("http://$KEYCLOAK_INTERNAL_HOST/realms/$KEYCLOAK_REALM/protocol/openid-connect/certs")).build()
 
 class OAuthProxyAuth(authenticationConfig: Config) : AuthenticationProvider(authenticationConfig) {
     override suspend fun onAuthenticate(context: AuthenticationContext) {
@@ -55,21 +68,21 @@ public fun AuthenticationConfig.oauthProxy(
     register(provider)
 }
 
-const val keycloakOAuth = "keycloakOAuth"
-const val sessionAuth = "sessionAuth"
-val jwtAuth = "jwtAuth"
-private const val callbackEndpointName = "oauth-callback"
-private const val originalUrlParameterName = "originalUrl"
-private const val KEYCLOAK_INTERNAL_HOST = "keycloak:8080"
-private const val KEYCLOAK_REALM = "modelix"
-private const val KEYCLOAK_CLIENT = "modelix"
-
 fun Application.installAuthentication() {
     install(XForwardedHeaders)
     install(Authentication) {
+        jwt(jwtAuth) {
+            verifier(jwkProvider) {
+                acceptLeeway(60L)
+            }
+            challenge { _, _ -> } // login and token generation is done by OAuth
+            this.validate {
+                it.payload.toUser()
+            }
+        }
         session<UserSession>(sessionAuth) {
             this.validate {
-                it.getJWT().nullIfInvalid().toUser()
+                it.getJWT().nullIfInvalid()?.toUser()
             }
         }
         oauth(keycloakOAuth) {
@@ -130,12 +143,16 @@ fun Application.installAuthentication() {
         }
     }
     routing {
-        authenticate(sessionAuth, keycloakOAuth) {
+        authenticate(jwtAuth, sessionAuth, keycloakOAuth) {
             get("/$callbackEndpointName") {
                 val originalUrl = call.parameters["originalUrl"] ?: "/"
                 val token = call.getJWTAsString()
                 if (token == null) {
                     call.respondText("Token missing", status = HttpStatusCode.InternalServerError)
+                    return@get
+                }
+                if (JWT.decode(token).nullIfInvalid() == null) {
+                    call.respondText("Token invalid: $token", status = HttpStatusCode.InternalServerError)
                     return@get
                 }
                 call.sessions.set(UserSession(token))
@@ -160,11 +177,11 @@ fun Application.installAuthentication() {
 
 data class UserSession(val token: String) {
     fun getJWT(): DecodedJWT = JWT.decode(token)
-    fun getUser(): AuthenticatedUser = getJWT().toUser()
+    fun getUser(): AuthenticatedUser? = getJWT().nullIfInvalid()?.toUser()
 }
 
 fun Route.requiresPermission(permission: PermissionId, type: EPermissionType, body: Route.()->Unit) {
-    authenticate(sessionAuth, keycloakOAuth) {
+    authenticate(jwtAuth, sessionAuth, keycloakOAuth) {
         intercept(ApplicationCallPipeline.Call) {
             ModelixAuthorization.checkPermission(
                 call.getUser(),
@@ -181,11 +198,11 @@ fun PipelineContext<Unit, ApplicationCall>.getUser(): AuthenticatedUser {
 }
 
 fun ApplicationCall.getUser(): AuthenticatedUser {
-    return getValidJWT().toUser()
+    return principal<AuthenticatedUser>() ?: getValidJWT().toUser() ?: AuthenticatedUser.ANONYMOUS_USER
 }
 
-fun DecodedJWT?.toUser(): AuthenticatedUser {
-    val jwt = this ?: return AuthenticatedUser.ANONYMOUS_USER
+fun Payload?.toUser(): AuthenticatedUser? {
+    val jwt = this ?: return null
     val name = jwt.getClaim("preferred_username")?.asString() ?: AuthenticatedUser.ANONYMOUS_USER_ID
     val roles = jwt.getClaim("realm_access")?.asString()?.let {
         val roles = JSONObject(it).getJSONArray("roles")
@@ -211,7 +228,16 @@ fun ApplicationCall.getJWTAsString(): String? {
     return tokenString
 }
 
-private val jwkProvider = JwkProviderBuilder(URL("http://$KEYCLOAK_INTERNAL_HOST/realms/$KEYCLOAK_REALM/protocol/openid-connect/certs")).build()
+fun ApplicationCall.jwtFromAuthHeader(): DecodedJWT? {
+    val authHeader = request.parseAuthorizationHeader()
+    if (authHeader == null || authHeader.authScheme != AuthScheme.Bearer) return null
+    val tokenString = when (authHeader) {
+        is HttpAuthHeader.Single -> authHeader.blob
+        else -> return null
+    }
+    return JWT.decode(tokenString)
+}
+
 fun verifyTokenSignature(token: DecodedJWT) {
     val jwk = jwkProvider.get(token.keyId)
     val publicKey = jwk.publicKey as? RSAPublicKey ?: throw RuntimeException("Invalid key type")
@@ -221,7 +247,9 @@ fun verifyTokenSignature(token: DecodedJWT) {
         "RS512" -> Algorithm.RSA512(publicKey, null)
         else -> throw Exception("Unsupported Algorithm")
     }
-    val verifier = JWT.require(algorithm).build()
+    val verifier = JWT.require(algorithm)
+        .acceptLeeway(60L)
+        .build()
     verifier.verify(token)
 }
 
