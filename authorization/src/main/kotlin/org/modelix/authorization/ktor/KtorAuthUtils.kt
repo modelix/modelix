@@ -13,14 +13,15 @@
  */
 package org.modelix.authorization.ktor
 
+import com.auth0.jwk.JwkProviderBuilder
 import com.auth0.jwt.JWT
+import com.auth0.jwt.algorithms.Algorithm
 import com.auth0.jwt.interfaces.DecodedJWT
 import io.ktor.client.*
 import io.ktor.client.engine.cio.*
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.auth.*
-import io.ktor.server.auth.jwt.*
 import io.ktor.server.plugins.*
 import io.ktor.server.plugins.forwardedheaders.*
 import io.ktor.server.plugins.statuspages.*
@@ -31,10 +32,10 @@ import io.ktor.server.sessions.*
 import io.ktor.util.pipeline.*
 import org.json.JSONObject
 import org.modelix.authorization.*
-import org.modelix.model.persistent.SerializationUtil
+import java.net.URL
 import java.net.URLEncoder
 import java.nio.charset.StandardCharsets
-import javax.swing.text.html.HTMLDocument.RunElement
+import java.security.interfaces.RSAPublicKey
 
 class OAuthProxyAuth(authenticationConfig: Config) : AuthenticationProvider(authenticationConfig) {
     override suspend fun onAuthenticate(context: AuthenticationContext) {
@@ -59,12 +60,16 @@ const val sessionAuth = "sessionAuth"
 val jwtAuth = "jwtAuth"
 private const val callbackEndpointName = "oauth-callback"
 private const val originalUrlParameterName = "originalUrl"
+private const val KEYCLOAK_INTERNAL_HOST = "keycloak:8080"
+private const val KEYCLOAK_REALM = "modelix"
+private const val KEYCLOAK_CLIENT = "modelix"
+
 fun Application.installAuthentication() {
     install(XForwardedHeaders)
     install(Authentication) {
         session<UserSession>(sessionAuth) {
             this.validate {
-                it.getUser()
+                it.getJWT().nullIfInvalid().toUser()
             }
         }
         oauth(keycloakOAuth) {
@@ -72,9 +77,9 @@ fun Application.installAuthentication() {
             providerLookup = {
                 OAuthServerSettings.OAuth2ServerSettings(
                     name = "keycloak",
-                    authorizeUrl = "http://${request.host()}:${request.port()}/realms/modelix/protocol/openid-connect/auth",
-                    accessTokenUrl = "http://keycloak:8080/realms/modelix/protocol/openid-connect/token",
-                    clientId = "modelix",
+                    authorizeUrl = "http://${request.host()}:${request.port()}/realms/$KEYCLOAK_REALM/protocol/openid-connect/auth",
+                    accessTokenUrl = "http://$KEYCLOAK_INTERNAL_HOST/realms/$KEYCLOAK_REALM/protocol/openid-connect/token",
+                    clientId = KEYCLOAK_CLIENT,
                     clientSecret = "VkD4oEhsGQyUCCEyO1ZHgTUV1BLp3gLl",
                     accessTokenRequiresBasicAuth = false,
                     requestMethod = HttpMethod.Post, // must POST to token endpoint
@@ -176,7 +181,7 @@ fun PipelineContext<Unit, ApplicationCall>.getUser(): AuthenticatedUser {
 }
 
 fun ApplicationCall.getUser(): AuthenticatedUser {
-    return getJWT().toUser()
+    return getValidJWT().toUser()
 }
 
 fun DecodedJWT?.toUser(): AuthenticatedUser {
@@ -189,17 +194,44 @@ fun DecodedJWT?.toUser(): AuthenticatedUser {
     return AuthenticatedUser(setOf(name), roles + AuthenticatedUser.PUBLIC_GROUP)
 }
 
-fun ApplicationCall.getJWT(): DecodedJWT? {
-    return getJWTAsString()?.let { JWT.decode(it) }
+fun ApplicationCall.getValidJWT(): DecodedJWT? {
+    return getJWTAsString()?.let { JWT.decode(it) }?.nullIfInvalid()
 }
 
 
 fun ApplicationCall.getJWTAsString(): String? {
     val tokenResponse = principal<OAuthAccessTokenResponse.OAuth2>()
-    if (tokenResponse != null) return tokenResponse.accessToken
-    val session = sessions.get<UserSession>()
-    // TODO verify signature of the token
-    return session?.token
+    val tokenString = if (tokenResponse != null) {
+        tokenResponse.accessToken
+    } else {
+        val session = sessions.get<UserSession>()
+        session?.token
+    }
+
+    return tokenString
+}
+
+private val jwkProvider = JwkProviderBuilder(URL("http://$KEYCLOAK_INTERNAL_HOST/realms/$KEYCLOAK_REALM/protocol/openid-connect/certs")).build()
+fun verifyTokenSignature(token: DecodedJWT) {
+    val jwk = jwkProvider.get(token.keyId)
+    val publicKey = jwk.publicKey as? RSAPublicKey ?: throw RuntimeException("Invalid key type")
+    val algorithm = when (jwk.algorithm) {
+        "RS256" -> Algorithm.RSA256(publicKey, null)
+        "RSA384" -> Algorithm.RSA384(publicKey, null)
+        "RS512" -> Algorithm.RSA512(publicKey, null)
+        else -> throw Exception("Unsupported Algorithm")
+    }
+    val verifier = JWT.require(algorithm).build()
+    verifier.verify(token)
+}
+
+fun DecodedJWT.nullIfInvalid(): DecodedJWT? {
+    return try {
+        verifyTokenSignature(this)
+        this
+    } catch (e: Exception) {
+        null
+    }
 }
 
 fun RequestConnectionPoint.fullUri(): String {

@@ -14,9 +14,7 @@
 package org.modelix.model.server
 
 import io.ktor.http.*
-import io.ktor.network.sockets.*
 import io.ktor.server.application.*
-import io.ktor.server.auth.*
 import io.ktor.server.html.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
@@ -32,11 +30,8 @@ import kotlinx.html.td
 import kotlinx.html.tr
 import org.json.JSONArray
 import org.json.JSONObject
-import org.modelix.authorization.AuthenticatedUser
 import org.modelix.authorization.EPermissionType
 import org.modelix.authorization.PermissionId
-import org.modelix.authorization.ktor.getJWT
-import org.modelix.authorization.ktor.getJWTAsString
 import org.modelix.authorization.ktor.getUser
 import org.modelix.authorization.ktor.requiresPermission
 import org.modelix.model.IKeyListener
