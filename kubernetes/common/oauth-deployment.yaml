@@ -25,7 +25,9 @@ spec:
           name: oauth2-proxy
           args:
             - --email-domain=*
+            - --cookie-httponly=false
             - --cookie-secure=false
+            - --cookie-refresh=60s
             - --cookie-secret=jLTKkbMwRJpsS7ZW
             - --provider=keycloak-oidc
             - --client-id=modelix
@@ -39,15 +41,14 @@ spec:
             - --insecure-oidc-allow-unverified-email=true
             - --insecure-oidc-skip-issuer-verification=true
             - --show-debug-on-error=true
-            - --pass-access-token=true
             - --pass-authorization-header=true
             - --prefer-email-to-user=true
             - --provider-display-name=Modelix
             - --set-authorization-header=true
-            - --set-xauthrequest=true
             - --silence-ping-logging=true
             - --upstream=http://proxy/
             - --skip-auth-regex=\/(resources|admin|js|realms|keycloak)\/.*
+            - --skip-jwt-bearer-tokens=true
             - --skip-provider-button=true
             - --http-address=0.0.0.0:4180
             - --pass-user-headers=true
