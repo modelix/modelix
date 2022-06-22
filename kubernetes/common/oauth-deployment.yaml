@@ -27,25 +27,30 @@ spec:
             - --email-domain=*
             - --cookie-secure=false
             - --cookie-secret=jLTKkbMwRJpsS7ZW
-            - --provider=google
-            - --client-secret=G3RfPLig_e0UhROUuf45dKJ3
-            - --client-id=214800094662-35dpgqu2llmn9mr5tt2ao9d7roebmtmm.apps.googleusercontent.com
+            - --provider=keycloak-oidc
+            - --client-id=modelix
+            - --client-secret=9MMUb1aWd9uCKJZ4cfoXCbTx3bgpyJPi
+            - --redirect-url=http://localhost:32728/oauth2/callback
+            - --oidc-issuer-url=http://localhost:32728/realms/modelix
+            - --skip-oidc-discovery=true
+            - --login-url=http://localhost:32728/realms/modelix/protocol/openid-connect/auth
+            - --redeem-url=http://keycloak:8080/realms/modelix/protocol/openid-connect/token
+            - --oidc-jwks-url=http://keycloak:8080/realms/modelix/protocol/openid-connect/certs
+            - --insecure-oidc-allow-unverified-email=true
+            - --insecure-oidc-skip-issuer-verification=true
+            - --show-debug-on-error=true
+            - --pass-access-token=true
+            - --pass-authorization-header=true
+            - --prefer-email-to-user=true
+            - --provider-display-name=Modelix
+            - --set-authorization-header=true
+            - --set-xauthrequest=true
+            - --silence-ping-logging=true
             - --upstream=http://proxy/
-            - --skip-auth-regex=\/model\/get\/.*
-            - --skip-auth-regex=\/model\/getRecursively\/.*
-            - --skip-auth-regex=\/model\/put\/.*
-            - --skip-auth-regex=\/model\/putAll
-            - --skip-auth-regex=\/model\/getAll
-            - --skip-auth-regex=\/model\/counter\/.*
-            - --skip-auth-regex=\/model\/subscribe\/.*
-            - --skip-auth-regex=\/model\/getEmail
-            - --skip-auth-regex=^\/$
+            - --skip-auth-regex=\/(resources|admin|js|realms|keycloak)\/.*
+            - --skip-provider-button=true
             - --http-address=0.0.0.0:4180
             - --pass-user-headers=true
-          volumeMounts:
-            - name: sslcert
-              mountPath: /secrets/sslcert
-              readOnly: true
           readinessProbe:
             httpGet:
               path: /ping
@@ -68,7 +73,3 @@ spec:
               cpu: 100m
             limits:
               memory: "200Mi"
-      volumes:
-        - name: sslcert
-          secret:
-            secretName: sslcert

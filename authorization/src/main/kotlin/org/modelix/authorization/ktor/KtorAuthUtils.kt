@@ -68,9 +68,12 @@ public fun AuthenticationConfig.oauthProxy(
     register(provider)
 }
 
+private const val SESSION_COOKIE_NAME = "modelix-session"
+
 fun Application.installAuthentication() {
     install(XForwardedHeaders)
     install(Authentication) {
+        // REST clients can provide an "Authorization: Bearer ..." header to get access
         jwt(jwtAuth) {
             verifier(jwkProvider) {
                 acceptLeeway(60L)
@@ -80,11 +83,15 @@ fun Application.installAuthentication() {
                 it.payload.toUser()
             }
         }
+        // After a successful OAuth login store the token in a cookie. The token is signed and can be verified without
+        // any state on the ktor server and without any request to the OIDC server.
         session<UserSession>(sessionAuth) {
-            this.validate {
+            validate {
                 it.getJWT().nullIfInvalid()?.toUser()
             }
         }
+        // If no authentication data is provided redirect to keycloak and let the user login. Keycloak may remember the
+        // user and immediately redirect without showing any UI.
         oauth(keycloakOAuth) {
             client = HttpClient(CIO)
             providerLookup = {
@@ -93,9 +100,9 @@ fun Application.installAuthentication() {
                     authorizeUrl = "http://${request.host()}:${request.port()}/realms/$KEYCLOAK_REALM/protocol/openid-connect/auth",
                     accessTokenUrl = "http://$KEYCLOAK_INTERNAL_HOST/realms/$KEYCLOAK_REALM/protocol/openid-connect/token",
                     clientId = KEYCLOAK_CLIENT,
-                    clientSecret = "VkD4oEhsGQyUCCEyO1ZHgTUV1BLp3gLl",
+                    clientSecret = "9MMUb1aWd9uCKJZ4cfoXCbTx3bgpyJPi", // TODO make configurable
                     accessTokenRequiresBasicAuth = false,
-                    requestMethod = HttpMethod.Post, // must POST to token endpoint
+                    requestMethod = HttpMethod.Post,
                     defaultScopes = listOf("roles")
                 )
             }
@@ -112,6 +119,18 @@ fun Application.installAuthentication() {
                 """${request.origin.scheme}://${request.host()}:${request.port()}$pathPrefix/$callbackEndpointName?$originalUrlParameterName=$originalUrl"""
             }
         }
+
+        // If OAuth fails because of an invalid client secret a 401 is returned instead of a 500.
+        // This provider returns the correct status code with a description.
+        register(object : AuthenticationProvider(object : AuthenticationProvider.Config("errorHandler") {}) {
+            override suspend fun onAuthenticate(context: AuthenticationContext) {
+                val error = context.allErrors.firstOrNull()
+                if (error != null) {
+                    throw RuntimeException(error.message)
+                }
+            }
+
+        })
     }
     install(StatusPages) {
         exception<Throwable> { call, cause ->
@@ -132,20 +151,21 @@ fun Application.installAuthentication() {
         }
     }
     install(Sessions) {
-        cookie<UserSession>("modelix-jwt") {
+        cookie<UserSession>(SESSION_COOKIE_NAME) {
             cookie.path = "/"
             cookie.maxAgeInSeconds = 14*24*60*60
             cookie.httpOnly = false
-            serializer = object : SessionSerializer<UserSession> {
-                override fun deserialize(text: String) = UserSession(text)
-                override fun serialize(session: UserSession) = session.token
-            }
+//            serializer = object : SessionSerializer<UserSession> {
+//                override fun deserialize(text: String) = UserSession(text)
+//                override fun serialize(session: UserSession) = session.token
+//            }
         }
     }
     routing {
         authenticate(jwtAuth, sessionAuth, keycloakOAuth) {
             get("/$callbackEndpointName") {
                 val originalUrl = call.parameters[originalUrlParameterName] ?: "/"
+                val oauthResponse = call.principal<OAuthAccessTokenResponse.OAuth2>()
                 val token = call.getJWTAsString()
                 if (token == null) {
                     call.respondText("Token missing", status = HttpStatusCode.InternalServerError)
@@ -155,19 +175,25 @@ fun Application.installAuthentication() {
                     call.respondText("Token invalid: $token", status = HttpStatusCode.InternalServerError)
                     return@get
                 }
-                call.sessions.set(UserSession(token))
+                call.sessions.set(SESSION_COOKIE_NAME, UserSession(token, oauthResponse?.refreshToken))
                 call.respondRedirect(originalUrl)
             }
             get("/user") {
-                var jwtString = call.getJWTAsString()
+                val jwtString = call.getJWTAsString()
                 if (jwtString == null) {
                     call.respondText("No token available")
                 } else {
+                    val refreshToken = call.principal<OAuthAccessTokenResponse.OAuth2>()?.refreshToken
+                        ?: call.sessions.get<UserSession>()?.refreshToken
                     val claims = JWT.decode(jwtString).claims.map { "${it.key}: ${it.value}" }.joinToString("\n")
                     call.respondText("""
-                                |Token: ${jwtString}
+                                |User: ${getUser()} 
                                 |
-                                |$claims""".trimMargin())
+                                |Token: $jwtString
+                                |Refresh Token: $refreshToken
+                                |
+                                |$claims
+                                |""".trimMargin())
                 }
             }
         }
@@ -175,7 +201,7 @@ fun Application.installAuthentication() {
 
 }
 
-data class UserSession(val token: String) {
+data class UserSession(val token: String, val refreshToken: String?) {
     fun getJWT(): DecodedJWT = JWT.decode(token)
     fun getUser(): AuthenticatedUser? = getJWT().nullIfInvalid()?.toUser()
 }
@@ -204,10 +230,7 @@ fun ApplicationCall.getUser(): AuthenticatedUser {
 fun Payload?.toUser(): AuthenticatedUser? {
     val jwt = this ?: return null
     val name = jwt.getClaim("preferred_username")?.asString() ?: AuthenticatedUser.ANONYMOUS_USER_ID
-    val roles = jwt.getClaim("realm_access")?.asString()?.let {
-        val roles = JSONObject(it).getJSONArray("roles")
-        (0 until roles.length()).map { roles.getString(it) }
-    }?.toSet() ?: emptySet()
+    val roles = (jwt.getClaim("realm_access")?.asMap()?.get("roles") as? List<String>)?.toSet() ?: emptySet()
     return AuthenticatedUser(setOf(name), roles + AuthenticatedUser.PUBLIC_GROUP)
 }
 
@@ -248,7 +271,7 @@ fun verifyTokenSignature(token: DecodedJWT) {
         else -> throw Exception("Unsupported Algorithm")
     }
     val verifier = JWT.require(algorithm)
-        .acceptLeeway(60L)
+        .acceptLeeway(0L)
         .build()
     verifier.verify(token)
 }
