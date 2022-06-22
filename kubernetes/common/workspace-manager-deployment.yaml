@@ -25,7 +25,9 @@ spec:
       - env:
           - name: model_server_url
             value: http://model:28101/
-        image: modelix/modelix-workspace-manager:2020.3.5-202202031754-SNAPSHOT
+          - name: CLIENT_SECRET
+            value: 9MMUb1aWd9uCKJZ4cfoXCbTx3bgpyJPi
+        image: modelix/modelix-workspace-manager:2020.3.5-202206221832-SNAPSHOT
         imagePullPolicy: IfNotPresent
         name: workspace-manager
         ports:

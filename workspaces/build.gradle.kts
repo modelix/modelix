@@ -12,4 +12,5 @@ dependencies {
     implementation("org.apache.commons:commons-text:1.9")
     implementation("org.jasypt:jasypt:1.9.3")
     implementation(project(":model-client", configuration = "jvmRuntimeElements"))
+    implementation(project(":authorization"))
 }

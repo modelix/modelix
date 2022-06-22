@@ -16,14 +16,14 @@ package org.modelix.workspaces
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
-import org.apache.commons.io.FileUtils
+import org.modelix.authorization.ktor.serviceAccountTokenProvider
 import org.modelix.model.client.RestWebModelClient
 import org.modelix.model.persistent.HashUtil
 import org.modelix.model.persistent.SerializationUtil
 
-class WorkspacePersistence {
+class WorkspacePersistence() {
     private val WORKSPACE_LIST_KEY = "workspaces"
-    private val modelClient: RestWebModelClient = RestWebModelClient(getModelServerUrl())
+    private val modelClient: RestWebModelClient = RestWebModelClient(getModelServerUrl(), authTokenProvider = serviceAccountTokenProvider)
 
     fun generateId(): String = SerializationUtil.longToHex(modelClient.idGenerator.generate())
 

@@ -16,6 +16,7 @@ package org.modelix.authorization
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
+import org.modelix.authorization.ktor.serviceAccountTokenProvider
 import org.modelix.model.IKeyListener
 import org.modelix.model.client.IModelClient
 import org.modelix.model.client.RestWebModelClient
@@ -33,7 +34,7 @@ class ModelServerAuthorizationPersistence(val client: IModelClient, val dataKey:
     private var cachedData: AuthorizationData? = null
 
     constructor(modelServerUrl: String?, dataKey: String)
-        : this(RestWebModelClient(modelServerUrl ?: getModelServerUrl()), dataKey)
+        : this(RestWebModelClient(modelServerUrl ?: getModelServerUrl(), authTokenProvider = serviceAccountTokenProvider), dataKey)
 
     constructor() : this(null, "authorization-data")
     constructor(client: IModelClient) : this(client, "authorization-data")

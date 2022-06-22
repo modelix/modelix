@@ -67,7 +67,7 @@ interface ConnectionListener {
  */
 class RestWebModelClient @JvmOverloads constructor(
     var baseUrl: String? = null,
-    authToken_: String? = null,
+    val authTokenProvider: (()->String?)? = null,
     initialConnectionListeners: List<ConnectionListener> = emptyList()
 ) : IModelClient {
 
@@ -145,7 +145,7 @@ class RestWebModelClient @JvmOverloads constructor(
     @get:Synchronized
     override lateinit var idGenerator: IIdGenerator
         private set
-    private var authToken = authToken_ ?: defaultToken
+    fun getAuthToken(): String? = authTokenProvider?.invoke() ?: defaultToken
 
     override fun toString() = "RestWebModelClient($baseUrl)"
 
@@ -252,10 +252,6 @@ class RestWebModelClient @JvmOverloads constructor(
         if (json.length() > 0) batch()
 
         return result
-    }
-
-    fun setAuthToken(token: String?) {
-        authToken = token
     }
 
     val email: String
@@ -465,11 +461,17 @@ class RestWebModelClient @JvmOverloads constructor(
             .connectTimeout(1000, TimeUnit.MILLISECONDS)
             .executorService(requestExecutor)
             // .readTimeout(1000, TimeUnit.MILLISECONDS)
-            .register(ClientRequestFilter { ctx -> ctx.headers.add(HttpHeaders.AUTHORIZATION, "Bearer $authToken") }).build()
+            .register(ClientRequestFilter { ctx ->
+                val token = getAuthToken()
+                if (token != null) ctx.headers.add(HttpHeaders.AUTHORIZATION, "Bearer $token")
+            }).build()
         pollingClient = ClientBuilder.newBuilder()
             .connectTimeout(1000, TimeUnit.MILLISECONDS)
             .executorService(pollingExecutor)
-            .register(ClientRequestFilter { ctx -> ctx.headers.add(HttpHeaders.AUTHORIZATION, "Bearer $authToken") }).build()
+            .register(ClientRequestFilter { ctx ->
+                val token = getAuthToken()
+                if (token != null) ctx.headers.add(HttpHeaders.AUTHORIZATION, "Bearer $token")
+            }).build()
         idGenerator = IdGenerator(clientId)
     }
 }

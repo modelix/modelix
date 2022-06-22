@@ -28,6 +28,8 @@ spec:
         env:
           - name: model_server_url
             value: http://model:28101/
+          - name: CLIENT_SECRET
+            value: 9MMUb1aWd9uCKJZ4cfoXCbTx3bgpyJPi
         ports:
         - containerPort: 33332
         - containerPort: 5005
