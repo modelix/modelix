@@ -34,6 +34,8 @@ import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import io.ktor.util.pipeline.*
 import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
 import org.json.JSONObject
 import org.modelix.authorization.*
 import java.net.URL
@@ -147,7 +149,7 @@ fun Payload?.toUser(): AuthenticatedUser? {
         val roles = (resource2roles.value as? Map<String, Object>).readRolesArray()
         roles.map { "resources/$resource/$it" }
     }?.toSet() ?: emptySet()
-    roles += jwt.getClaim("groups")?.asList(String::class.java) ?: emptyList()
+    roles += jwt.getClaim("groups")?.asList(String::class.java)?.map { "groups/" + it.trimStart('/') } ?: emptyList()
     return AuthenticatedUser(setOf(name), roles + AuthenticatedUser.PUBLIC_GROUP)
 }
 
@@ -209,14 +211,17 @@ private suspend fun queryServiceAccountToken(credentials: ServiceAccountCredenti
 data class ServiceAccountCredentials(val clientSecret: String, val clientName: String = "modelix")
 
 private val cachedTokens: MutableMap<ServiceAccountCredentials, String> = HashMap()
+private val cachedTokensMutex = Mutex()
 suspend fun getServiceAccountToken(credentials: ServiceAccountCredentials): String {
-    var tokenString = cachedTokens[credentials]
-    val validToken = tokenString?.let { JWT.decode(it) }?.nullIfInvalid()
-    if (validToken == null || validToken.expiresAt.before(Date(Date().time + 60))) {
-        tokenString = queryServiceAccountToken(credentials)
-        cachedTokens[credentials] = tokenString
+    cachedTokensMutex.withLock {
+        var tokenString = cachedTokens[credentials]
+        val validToken = tokenString?.let { JWT.decode(it) }?.nullIfInvalid()
+        if (validToken == null || validToken.expiresAt.before(Date(Date().time + 60))) {
+            tokenString = queryServiceAccountToken(credentials)
+            cachedTokens[credentials] = tokenString
+        }
+        return tokenString!!
     }
-    return tokenString!!
 }
 
 fun getServiceAccountTokenBlocking(credentials: ServiceAccountCredentials): String {
