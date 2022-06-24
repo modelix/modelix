@@ -130,6 +130,7 @@ fun Route.authorizationRouting() {
                                     name = "userOrGroupId"
                                     form = "grantPermissionForm"
                                     multiple = true
+                                    size = "20"
                                     for (userOrGroup in data.knownUsers + data.knownGroups) {
                                         option {
                                             value = userOrGroup
@@ -143,6 +144,7 @@ fun Route.authorizationRouting() {
                                     name = "type"
                                     form = "grantPermissionForm"
                                     multiple = true
+                                    size = "20"
                                     for (type in EPermissionType.values()) {
                                         option {
                                             value = type.name
@@ -156,6 +158,7 @@ fun Route.authorizationRouting() {
                                     name = "permission"
                                     form = "grantPermissionForm"
                                     multiple = true
+                                    size = "20"
                                     for (permission in data.knownPermissions) {
                                         option {
                                             value = permission.id
