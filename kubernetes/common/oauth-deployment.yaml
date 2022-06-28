@@ -21,6 +21,26 @@ spec:
         app: oauth
     spec:
       containers:
+        - image: redis:7.0.2
+          name: redis
+          resources:
+            requests:
+              memory: "100Mi"
+              cpu: 100m
+            limits:
+              memory: "200Mi"
+          readinessProbe:
+            tcpSocket:
+              port: 6379
+            initialDelaySeconds: 3
+            periodSeconds: 5
+            timeoutSeconds: 3
+          livenessProbe:
+            tcpSocket:
+              port: 6379
+            initialDelaySeconds: 3
+            periodSeconds: 10
+            timeoutSeconds: 5
         - image: quay.io/oauth2-proxy/oauth2-proxy
           name: oauth2-proxy
           args:
@@ -29,6 +49,9 @@ spec:
             - --cookie-secure=false
             - --cookie-refresh=60s
             - --cookie-secret=jLTKkbMwRJpsS7ZW
+            - --session-store-type=redis
+            - --redis-connection-url=redis://localhost/
+            - --session-cookie-minimal=false
             - --provider=keycloak-oidc
             - --client-id=modelix
             - --client-secret=Bz4HAIfb4X2STVGDzAi4A3fDzOvMFugL
