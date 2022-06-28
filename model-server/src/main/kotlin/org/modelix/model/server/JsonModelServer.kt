@@ -53,7 +53,7 @@ class JsonModelServer(val client: LocalModelClient) {
         application.apply {
             install(WebSockets)
             routing {
-                requiresPermission(PermissionId("model-json"), EPermissionType.READ) {
+                requiresPermission(PermissionId("model-json-api"), EPermissionType.READ) {
                     route("/json") {
                         initRouting()
                     }
@@ -93,6 +93,12 @@ class JsonModelServer(val client: LocalModelClient) {
                             td {
                                 + "Applies the delta to the specified version of the model and merges"
                                 +" it into the master branch. Return the model content after the merge."
+                            }
+                        }
+                        tr {
+                            td { +"WEBSOCKET /{repositoryId}/ws" }
+                            td {
+                                + "WebSocket for exchanging model deltas."
                             }
                         }
                     }

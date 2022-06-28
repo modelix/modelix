@@ -34,12 +34,14 @@ spec:
         image: quay.io/keycloak/keycloak:18.0.1
         args: ["start-dev"]
         env:
+        - name: KC_LOG_LEVEL
+          value: "DEBUG"
         - name: KEYCLOAK_ADMIN
           value: "admin"
         - name: KEYCLOAK_ADMIN_PASSWORD
           value: "admin"
         - name: KC_PROXY
-          value: "edge"
+          value: "none"
         - name: PROXY_ADDRESS_FORWARDING
           value: "true"
         - name: KC_DB
@@ -50,6 +52,10 @@ spec:
           value: "modelix"
         - name: KC_DB_URL
           value: "jdbc:postgresql://db:5432/"
+        - name: KC_HOSTNAME
+          value: "172.16.2.56"
+        - name: KC_HOSTNAME_PORT
+          value: "31310"
         ports:
         - name: http
           containerPort: 8080

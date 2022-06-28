@@ -274,6 +274,9 @@ object Main {
                                     li {
                                         a("json/") { +"JSON API for JavaScript clients" }
                                     }
+                                    li {
+                                        a("headers") { +"View HTTP headers" }
+                                    }
                                 }
                             }
                         }

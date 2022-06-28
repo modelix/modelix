@@ -15,7 +15,7 @@ package org.modelix.authorization
 
 import io.ktor.server.auth.*
 
-class AuthenticatedUser(val userIds: Set<String>, val groups: Set<String>) : Principal {
+class AuthenticatedUser(val userIds: Set<String>, val groups: Set<String>, val jwt: String?) : Principal {
     fun getUserAndGroupIds(): Sequence<String> = userIds.asSequence() + groups
 
     override fun toString(): String {
@@ -34,7 +34,7 @@ class AuthenticatedUser(val userIds: Set<String>, val groups: Set<String>) : Pri
     companion object {
         val PUBLIC_GROUP = "modelix-public"
         val ANONYMOUS_USER_ID = "modelix-anonymous"
-        val ANONYMOUS_USER = AuthenticatedUser(setOf(ANONYMOUS_USER_ID), setOf(PUBLIC_GROUP))
+        val ANONYMOUS_USER = AuthenticatedUser(setOf(ANONYMOUS_USER_ID), setOf(PUBLIC_GROUP), null)
 
         fun fromHttpHeaders(headers: List<Pair<String, String>>): AuthenticatedUser {
             var users = headers.filter { it.first == "X-Forwarded-Email" || it.first == "X-Forwarded-User" }.map { it.second }
@@ -43,7 +43,7 @@ class AuthenticatedUser(val userIds: Set<String>, val groups: Set<String>) : Pri
                 users = listOf(ANONYMOUS_USER_ID)
             }
             groups += PUBLIC_GROUP
-            return AuthenticatedUser(users.toSet(), groups.toSet())
+            return AuthenticatedUser(users.toSet(), groups.toSet(), null)
         }
         fun fromHttpHeaders(headers: Iterable<Map.Entry<String, List<String>>>): AuthenticatedUser {
             return fromHttpHeaders(headers.flatMap { entry -> entry.value.map { value -> entry.key to value } })

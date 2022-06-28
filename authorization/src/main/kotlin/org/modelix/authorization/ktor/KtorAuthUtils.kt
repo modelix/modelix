@@ -30,6 +30,7 @@ import io.ktor.server.auth.*
 import io.ktor.server.auth.jwt.*
 import io.ktor.server.plugins.forwardedheaders.*
 import io.ktor.server.plugins.statuspages.*
+import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import io.ktor.util.pipeline.*
@@ -45,7 +46,7 @@ import kotlin.collections.HashMap
 import kotlin.collections.HashSet
 
 private const val jwtAuth = "jwtAuth"
-private const val KEYCLOAK_INTERNAL_HOST = "keycloak:8080"
+private const val KEYCLOAK_INTERNAL_HOST = "172.16.2.56:31310"
 private const val KEYCLOAK_REALM = "modelix"
 private const val KEYCLOAK_CLIENT = "modelix"
 private val jwkProvider = JwkProviderBuilder(URL("http://$KEYCLOAK_INTERNAL_HOST/realms/$KEYCLOAK_REALM/protocol/openid-connect/certs")).build()
@@ -63,6 +64,15 @@ fun Application.installAuthentication() {
                 call.respond(status = HttpStatusCode.Unauthorized, "No or invalid JWT token provided")
             } // login and token generation is done by OAuth proxy. Only validation is required here.
             validate {
+                try {
+                    // OAuth proxy passes the ID token as the bearer token, but we need the access token
+                    val token = request.header("X-Forwarded-Access-Token")
+                        ?: this.getBearerToken()
+                    if (token != null) {
+                        return@validate JWT.decode(token).nullIfInvalid().toUser()
+                    }
+                } catch (e : Exception) {
+                }
                 it.payload.toUser()
             }
         }
@@ -88,8 +98,7 @@ fun Application.installAuthentication() {
     routing {
         authenticate(jwtAuth) {
             get("/user") {
-                val user = call.principal<AuthenticatedUser>()
-                val jwt = call.jwtFromAuthHeader()
+                val jwt = call.principal<AuthenticatedUser>()?.jwt?.let { JWT.decode(it) } ?: call.jwtFromHeaders()
                 if (jwt == null) {
                     call.respondText("No JWT token available")
                 } else {
@@ -108,6 +117,9 @@ fun Application.installAuthentication() {
                                 |Validation result: $validationError
                                 |
                                 |$claims
+                                |
+                                |Permissions:
+                                |${KeycloakUtils.getPermissions(jwt).joinToString("\n") { "    $it" }}
                                 |""".trimMargin())
                 }
             }
@@ -150,7 +162,7 @@ fun Payload?.toUser(): AuthenticatedUser? {
         roles.map { "resources/$resource/$it" }
     }?.toSet() ?: emptySet()
     roles += jwt.getClaim("groups")?.asList(String::class.java)?.map { "groups/" + it.trimStart('/') } ?: emptyList()
-    return AuthenticatedUser(setOf(name), roles + AuthenticatedUser.PUBLIC_GROUP)
+    return AuthenticatedUser(setOf(name), roles + AuthenticatedUser.PUBLIC_GROUP, (this as? DecodedJWT)?.token)
 }
 
 private fun Map<String, Any>?.readRolesArray(): List<String> {
@@ -167,8 +179,8 @@ fun ApplicationCall.getBearerToken(): String? {
     return tokenString
 }
 
-fun ApplicationCall.jwtFromAuthHeader(): DecodedJWT? {
-    return getBearerToken()?.let { JWT.decode(it) }
+fun ApplicationCall.jwtFromHeaders(): DecodedJWT? {
+    return (request.header("X-Forwarded-Access-Token") ?: getBearerToken())?.let { JWT.decode(it) }
 }
 
 fun verifyTokenSignature(token: DecodedJWT) {
@@ -197,7 +209,7 @@ fun DecodedJWT.nullIfInvalid(): DecodedJWT? {
 
 private suspend fun queryServiceAccountToken(credentials: ServiceAccountCredentials): String {
     val response = httpClient.submitForm(
-        url = "http://keycloak:8080/realms/${credentials.clientName}/protocol/openid-connect/token",
+        url = "http://$KEYCLOAK_INTERNAL_HOST/realms/${credentials.clientName}/protocol/openid-connect/token",
         formParameters = Parameters.build {
             append("grant_type", "client_credentials")
         }
@@ -228,8 +240,13 @@ fun getServiceAccountTokenBlocking(credentials: ServiceAccountCredentials): Stri
     return runBlocking { getServiceAccountToken(credentials) }
 }
 val serviceAccountTokenProvider: ()->String = {
+    val clientSecret = getClientSecret()
+    getServiceAccountTokenBlocking(ServiceAccountCredentials(clientSecret))
+}
+
+fun getClientSecret(): String {
     val varName = "CLIENT_SECRET"
     val clientSecret = listOfNotNull(System.getProperty(varName), System.getenv(varName)).firstOrNull()
         ?: throw Exception("Variable $varName is not specified")
-    getServiceAccountTokenBlocking(ServiceAccountCredentials(clientSecret))
+    return clientSecret
 }

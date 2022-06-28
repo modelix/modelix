@@ -1,8 +1,6 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  annotations:
-  creationTimestamp: null
   labels:
     app: model
   name: model
@@ -19,7 +17,6 @@ spec:
       app: model
   template:
     metadata:
-      creationTimestamp: null
       labels:
         app: model
     spec:
@@ -27,7 +24,9 @@ spec:
       - env:
         - name: jdbc_url
           value: jdbc:postgresql://db:5432/
-        image: modelix/modelix-model:0.0.72
+        - name: CLIENT_SECRET
+          value: Bz4HAIfb4X2STVGDzAi4A3fDzOvMFugL
+        image: modelix/modelix-model:2020.3.5-202206280916-SNAPSHOT
         imagePullPolicy: IfNotPresent
         name: model
         ports:
@@ -64,4 +63,3 @@ spec:
         - name: modelsecret
           secret:
             secretName: modelsecret
-status: {}

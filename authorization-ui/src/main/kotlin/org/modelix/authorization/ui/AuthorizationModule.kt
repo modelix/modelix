@@ -131,7 +131,7 @@ fun Route.authorizationRouting() {
                                     form = "grantPermissionForm"
                                     multiple = true
                                     size = "20"
-                                    for (userOrGroup in data.knownUsers + data.knownGroups) {
+                                    for (userOrGroup in data.knownUsers.sorted() + data.knownGroups.sorted()) {
                                         option {
                                             value = userOrGroup
                                             +userOrGroup
@@ -159,7 +159,7 @@ fun Route.authorizationRouting() {
                                     form = "grantPermissionForm"
                                     multiple = true
                                     size = "20"
-                                    for (permission in data.knownPermissions) {
+                                    for (permission in data.knownPermissions.sortedBy { it.id }) {
                                         option {
                                             value = permission.id
                                             +permission.id
