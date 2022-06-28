@@ -24,6 +24,7 @@ import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import io.ktor.util.pipeline.*
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.json.JSONArray
@@ -48,7 +49,7 @@ private fun toLong(value: String?): Long {
 
 private class NotFoundException(description: String?) : RuntimeException(description)
 
-private typealias CallContext = PipelineContext<Unit, ApplicationCall>
+typealias CallContext = PipelineContext<Unit, ApplicationCall>
 
 class KtorModelServer(val storeClient: IStoreClient) {
     companion object {
@@ -142,38 +143,9 @@ class KtorModelServer(val storeClient: IStoreClient) {
                     val key: String = call.parameters["key"]!!
                     val lastKnownValue = call.request.queryParameters["lastKnownValue"]
                     checkKeyPermission(key, EPermissionType.READ)
-                    val listener = object : IKeyListener {
-                        override fun changed(key_: String, newValue: String?) {
-                            launch {
-                                if (!call.response.isCommitted) respondValue(key, newValue)
-                            }
-                        }
+                    pollEntry(storeClient, key, lastKnownValue) { newValue ->
+                        respondValue(key, newValue)
                     }
-                    try {
-                        storeClient.listen(key, listener)
-                        if (lastKnownValue != null) {
-                            // This could be done before registering the listener, but
-                            // then we have to check it twice,
-                            // because the value could change between the first read and
-                            // registering the listener.
-                            // Most of the time the value will be equal to the last
-                            // known value.
-                            // Registering the listener without needing it is less
-                            // likely to happen.
-                            val value = storeClient[key]
-                            if (value != lastKnownValue) {
-                                if (!call.response.isCommitted) respondValue(key, value)
-                                return@get
-                            }
-                        }
-                        for (i in 1..250) {
-                            if (call.response.isCommitted) break
-                            delay(100L)
-                        }
-                    } finally {
-                        storeClient.removeListener(key, listener)
-                    }
-                    if (!call.response.isCommitted) respondValue(key, storeClient[key])
                 }
 
                 get("/generateToken") {
@@ -402,27 +374,7 @@ class KtorModelServer(val storeClient: IStoreClient) {
         //ModelixAuthorization.checkPermission(getUser(), PermissionId("model-server-entry/$key"), type, publicIfNew = true)
     }
 
-    private fun CallContext.getUser(): AuthenticatedUser {
-        val principal = call.principal<AuthenticatedUser>()
-        if (principal != null) return principal
 
-        val token = extractToken(call)
-        if (!token.isNullOrEmpty()) {
-            if (token == sharedSecret) {
-                return AuthenticatedUser(setOf("cluster-internal"), setOf(AuthenticatedUser.PUBLIC_GROUP))
-            } else {
-                val expires = storeClient[PROTECTED_PREFIX + "_token_expires_" + token]?.toLong() ?: 0L
-                if (System.currentTimeMillis() <= expires) {
-                    val email = storeClient[PROTECTED_PREFIX + "_token_email_" + token]
-                    if (!email.isNullOrEmpty()) {
-                        return AuthenticatedUser(setOf(email), setOf(AuthenticatedUser.PUBLIC_GROUP))
-                    }
-                }
-            }
-        }
-
-        return AuthenticatedUser.ANONYMOUS_USER
-    }
 
     fun isHealthy(): Boolean {
         val value = toLong(storeClient[HEALTH_KEY]) + 1

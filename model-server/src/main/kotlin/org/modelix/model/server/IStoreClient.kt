@@ -14,6 +14,9 @@
  */
 package org.modelix.model.server
 
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import org.modelix.model.IKeyListener
 
 interface IStoreClient {
@@ -25,4 +28,44 @@ interface IStoreClient {
     fun listen(key: String, listener: IKeyListener)
     fun removeListener(key: String, listener: IKeyListener)
     fun generateId(key: String): Long
+}
+
+suspend fun CoroutineScope.pollEntry(storeClient: IStoreClient, key: String, lastKnownValue: String?, handler: suspend (String?)->Unit) {
+    var handlerCalled = false
+    val callHandler: suspend (String?)->Unit = {
+        handlerCalled = true
+        handler(it)
+    }
+    val listener = object : IKeyListener {
+        override fun changed(key_: String, newValue: String?) {
+            launch {
+                callHandler(newValue)
+            }
+        }
+    }
+    try {
+        storeClient.listen(key, listener)
+        if (lastKnownValue != null) {
+            // This could be done before registering the listener, but
+            // then we have to check it twice,
+            // because the value could change between the first read and
+            // registering the listener.
+            // Most of the time the value will be equal to the last
+            // known value.
+            // Registering the listener without needing it is less
+            // likely to happen.
+            val value = storeClient[key]
+            if (value != lastKnownValue) {
+                callHandler(value)
+                return
+            }
+        }
+        for (i in 1..250) {
+            if (handlerCalled) break
+            delay(100L)
+        }
+    } finally {
+        storeClient.removeListener(key, listener)
+    }
+    if (!handlerCalled) handler(storeClient[key])
 }
