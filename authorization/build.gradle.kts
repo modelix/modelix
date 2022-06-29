@@ -9,6 +9,7 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.2")
     implementation("com.charleskorn.kaml:kaml:0.40.0")
     implementation("org.keycloak:keycloak-authz-client:18.0.1")
+    implementation("com.google.guava:guava:31.1-jre")
     val ktorVersion = "2.0.2"
     implementation("io.ktor:ktor-server-auth:$ktorVersion")
     implementation("io.ktor:ktor-server-status-pages:$ktorVersion")

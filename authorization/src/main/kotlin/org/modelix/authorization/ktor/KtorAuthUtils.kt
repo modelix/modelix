@@ -131,11 +131,19 @@ fun Application.installAuthentication() {
 fun Route.requiresPermission(permission: PermissionId, type: EPermissionType, body: Route.()->Unit) {
     authenticate(jwtAuth) {
         intercept(ApplicationCallPipeline.Call) {
-            ModelixAuthorization.checkPermission(
-                call.getUser(),
-                permission,
-                type
-            )
+            val jwt = call.jwtFromHeaders()
+            if (jwt == null) {
+                call.respond(HttpStatusCode.Unauthorized, "No JWT token found in the request headers")
+                return@intercept
+            }
+            if (!KeycloakUtils.hasPermission(jwt, permission.id, type.name)) {
+                throw NoPermissionException(call.getUser(), permission, type)
+            }
+//            ModelixAuthorization.checkPermission(
+//                call.getUser(),
+//                permission,
+//                type
+//            )
         }
         body()
     }
