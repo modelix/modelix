@@ -7,8 +7,7 @@ import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import org.apache.commons.lang3.StringEscapeUtils
-import org.modelix.authorization.AuthenticatedUser
-import org.modelix.authorization.ktor.getUser
+import org.modelix.authorization.getUserName
 import org.modelix.model.LinearHistory
 import org.modelix.model.api.*
 import org.modelix.model.client.IModelClient
@@ -53,7 +52,7 @@ class HistoryHandler(private val client: IModelClient) {
                 val params = call.receiveParameters()
                 val fromVersion = params["from"]!!
                 val toVersion = params["to"]!!
-                val user = getUser().userIds.firstOrNull()
+                val user = getUserName()
                 revert(RepositoryAndBranch(repositoryId, branch), fromVersion, toVersion, user)
                 call.respondRedirect(".")
             }

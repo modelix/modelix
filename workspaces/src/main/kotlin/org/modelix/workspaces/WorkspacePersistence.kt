@@ -16,7 +16,7 @@ package org.modelix.workspaces
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
-import org.modelix.authorization.ktor.serviceAccountTokenProvider
+import org.modelix.authorization.serviceAccountTokenProvider
 import org.modelix.model.client.RestWebModelClient
 import org.modelix.model.persistent.HashUtil
 import org.modelix.model.persistent.SerializationUtil

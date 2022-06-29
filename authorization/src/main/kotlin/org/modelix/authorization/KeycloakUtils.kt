@@ -21,7 +21,6 @@ import org.keycloak.representations.idm.authorization.AuthorizationRequest
 import org.keycloak.representations.idm.authorization.Permission
 import org.keycloak.representations.idm.authorization.PermissionRequest
 import org.keycloak.representations.idm.authorization.ResourceRepresentation
-import org.modelix.authorization.ktor.getClientSecret
 import java.util.concurrent.TimeUnit
 
 object KeycloakUtils {

@@ -26,7 +26,6 @@ import io.ktor.server.netty.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import kotlinx.html.*
-import org.modelix.authorization.ui.*
 import org.apache.commons.io.FileUtils
 import org.apache.ignite.Ignition
 import org.modelix.authorization.ModelixAuthorization
@@ -240,7 +239,6 @@ object Main {
                 )
             }
 
-            ModelixAuthorization.init(localModelClient)
             val historyHandler = HistoryHandler(localModelClient)
             val jsonModelServer = JsonModelServer(localModelClient)
             val ktorServer: NettyApplicationEngine = embeddedServer(Netty, port = port) {
@@ -281,9 +279,6 @@ object Main {
                             }
                         }
                         call.respondText("Model Server")
-                    }
-                    route("/authorization") {
-                        authorizationRouting()
                     }
                 }
             }

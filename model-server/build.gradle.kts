@@ -48,7 +48,6 @@ dependencies {
     implementation("io.ktor:ktor-server-forwarded-header:$ktorVersion")
     implementation("io.ktor:ktor-server-websockets:$ktorVersion")
     implementation(project(":authorization"))
-    implementation(project(":authorization-ui"))
 
     val igniteVersion = "2.13.0"
     implementation("org.apache.ignite:ignite-core:$igniteVersion")

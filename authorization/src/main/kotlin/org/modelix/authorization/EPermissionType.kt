@@ -13,11 +13,9 @@
  */
 package org.modelix.authorization
 
-import kotlinx.serialization.decodeFromString
-import kotlinx.serialization.encodeToString
-import kotlinx.serialization.json.Json
+enum class EPermissionType(vararg val includedTypes: EPermissionType) {
+    READ,
+    WRITE(READ);
 
-interface IAuthorizationPersistence {
-    fun loadData(): AuthorizationData?
-    fun storeData(data: AuthorizationData)
+    fun includes(type: EPermissionType): Boolean = type == this || includedTypes.any { it.includes(type) }
 }

@@ -30,8 +30,8 @@ import kotlinx.coroutines.launch
 import org.json.JSONArray
 import org.json.JSONObject
 import org.modelix.authorization.*
-import org.modelix.authorization.ktor.installAuthentication
-import org.modelix.authorization.ktor.requiresPermission
+import org.modelix.authorization.installAuthentication
+import org.modelix.authorization.requiresPermission
 import org.modelix.model.IKeyListener
 import org.modelix.model.persistent.HashUtil
 import org.slf4j.LoggerFactory
@@ -41,7 +41,7 @@ import java.net.UnknownHostException
 import java.util.*
 import java.util.regex.Pattern
 
-val PERMISSION_MODEL_SERVER = PermissionId("model-server")
+val PERMISSION_MODEL_SERVER = "model-server"
 
 private fun toLong(value: String?): Long {
     return if (value == null || value.isEmpty()) 0 else value.toLong()
@@ -131,7 +131,7 @@ class KtorModelServer(val storeClient: IStoreClient) {
                 val headers = call.request.headers.entries().flatMap { e -> e.value.map { e.key to it } }
                 call.respondText(headers.joinToString("\n") { "${it.first}: ${it.second}" })
             }
-            requiresPermission(PERMISSION_MODEL_SERVER, EPermissionType.READ) {
+            requiresPermission(PERMISSION_MODEL_SERVER, EPermissionType.READ.name) {
                 get("/get/{key}") {
                     val key = call.parameters["key"]!!
                     checkKeyPermission(key, EPermissionType.READ)
@@ -241,7 +241,7 @@ class KtorModelServer(val storeClient: IStoreClient) {
                     call.respondText(respJson.toString(), contentType = ContentType.Application.Json)
                 }
             }
-            requiresPermission(PERMISSION_MODEL_SERVER, EPermissionType.WRITE) {
+            requiresPermission(PERMISSION_MODEL_SERVER, "write") {
 
             }
         }

@@ -11,7 +11,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package org.modelix.authorization
 
-package org.modelix.authorization.ui
+import com.auth0.jwt.interfaces.DecodedJWT
+import io.ktor.server.auth.*
 
-fun main(args: Array<String>): Unit = io.ktor.server.netty.EngineMain.main(args)
+class AccessTokenPrincipal(val jwt: DecodedJWT) : Principal {
+    fun getUserName(): String? = jwt.getClaim("email")?.asString()
+        ?: jwt.getClaim("preferred_username")?.asString()
+}

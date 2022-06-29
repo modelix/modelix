@@ -11,13 +11,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.modelix.authorization.ktor
+package org.modelix.authorization
 
 import com.auth0.jwk.JwkProviderBuilder
 import com.auth0.jwt.JWT
 import com.auth0.jwt.algorithms.Algorithm
 import com.auth0.jwt.interfaces.DecodedJWT
-import com.auth0.jwt.interfaces.Payload
 import io.ktor.client.*
 import io.ktor.client.engine.cio.*
 import io.ktor.client.request.*
@@ -43,7 +42,6 @@ import java.net.URL
 import java.security.interfaces.RSAPublicKey
 import java.util.*
 import kotlin.collections.HashMap
-import kotlin.collections.HashSet
 
 private const val jwtAuth = "jwtAuth"
 private const val KEYCLOAK_INTERNAL_HOST = "172.16.2.56:31310"
@@ -66,14 +64,13 @@ fun Application.installAuthentication() {
             validate {
                 try {
                     // OAuth proxy passes the ID token as the bearer token, but we need the access token
-                    val token = request.header("X-Forwarded-Access-Token")
-                        ?: this.getBearerToken()
+                    val token = jwtFromHeaders()
                     if (token != null) {
-                        return@validate JWT.decode(token).nullIfInvalid().toUser()
+                        return@validate token.nullIfInvalid()?.let { AccessTokenPrincipal(it) }
                     }
                 } catch (e : Exception) {
                 }
-                it.payload.toUser()
+                null
             }
         }
     }
@@ -98,7 +95,7 @@ fun Application.installAuthentication() {
     routing {
         authenticate(jwtAuth) {
             get("/user") {
-                val jwt = call.principal<AuthenticatedUser>()?.jwt?.let { JWT.decode(it) } ?: call.jwtFromHeaders()
+                val jwt = call.principal<AccessTokenPrincipal>()?.jwt ?: call.jwtFromHeaders()
                 if (jwt == null) {
                     call.respondText("No JWT token available")
                 } else {
@@ -110,8 +107,6 @@ fun Application.installAuthentication() {
                         e.message
                     }
                     call.respondText("""
-                                |User: ${jwt.toUser()} 
-                                |
                                 |Token: ${jwt.token}
                                 |
                                 |Validation result: $validationError
@@ -128,16 +123,16 @@ fun Application.installAuthentication() {
 
 }
 
-fun Route.requiresPermission(permission: PermissionId, type: EPermissionType, body: Route.()->Unit) {
+fun Route.requiresPermission(resourceName: String, scope: String, body: Route.()->Unit) {
     authenticate(jwtAuth) {
         intercept(ApplicationCallPipeline.Call) {
-            val jwt = call.jwtFromHeaders()
+            val jwt = call.principal<AccessTokenPrincipal>()?.jwt ?: call.jwtFromHeaders()
             if (jwt == null) {
                 call.respond(HttpStatusCode.Unauthorized, "No JWT token found in the request headers")
                 return@intercept
             }
-            if (!KeycloakUtils.hasPermission(jwt, permission.id, type.name)) {
-                throw NoPermissionException(call.getUser(), permission, type)
+            if (!KeycloakUtils.hasPermission(jwt, resourceName, scope)) {
+                throw NoPermissionException(AccessTokenPrincipal(jwt), resourceName, scope)
             }
 //            ModelixAuthorization.checkPermission(
 //                call.getUser(),
@@ -147,30 +142,6 @@ fun Route.requiresPermission(permission: PermissionId, type: EPermissionType, bo
         }
         body()
     }
-}
-
-fun PipelineContext<Unit, ApplicationCall>.getUser(): AuthenticatedUser {
-    return call.getUser()
-}
-
-fun ApplicationCall.getUser(): AuthenticatedUser {
-    return principal<AuthenticatedUser>() ?: AuthenticatedUser.ANONYMOUS_USER
-}
-
-fun Payload?.toUser(): AuthenticatedUser? {
-    val jwt = this ?: return null
-    val name = jwt.getClaim("email")?.asString()
-        ?: jwt.getClaim("preferred_username")?.asString()
-        ?: AuthenticatedUser.ANONYMOUS_USER_ID
-    var roles: MutableSet<String> = HashSet()
-    roles += jwt.getClaim("realm_access")?.asMap().readRolesArray().toSet()
-    roles += jwt.getClaim("resource_access")?.asMap()?.flatMap { resource2roles ->
-        val resource = resource2roles.key
-        val roles = (resource2roles.value as? Map<String, Object>).readRolesArray()
-        roles.map { "resources/$resource/$it" }
-    }?.toSet() ?: emptySet()
-    roles += jwt.getClaim("groups")?.asList(String::class.java)?.map { "groups/" + it.trimStart('/') } ?: emptyList()
-    return AuthenticatedUser(setOf(name), roles + AuthenticatedUser.PUBLIC_GROUP, (this as? DecodedJWT)?.token)
 }
 
 private fun Map<String, Any>?.readRolesArray(): List<String> {
@@ -188,7 +159,18 @@ fun ApplicationCall.getBearerToken(): String? {
 }
 
 fun ApplicationCall.jwtFromHeaders(): DecodedJWT? {
+    // OAuth proxy passes the ID token as the bearer token, but we need the access token.
     return (request.header("X-Forwarded-Access-Token") ?: getBearerToken())?.let { JWT.decode(it) }
+}
+
+fun PipelineContext<Unit, ApplicationCall>.getUserName(): String? {
+    return call.getUserName()
+}
+
+fun ApplicationCall.getUserName(): String? {
+    val principal: AccessTokenPrincipal? = (principal<AccessTokenPrincipal>()
+        ?: jwtFromHeaders()?.let { AccessTokenPrincipal(it) })
+    return principal?.getUserName()
 }
 
 fun verifyTokenSignature(token: DecodedJWT) {
