@@ -32,16 +32,15 @@ import io.ktor.server.plugins.statuspages.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
+import io.ktor.util.*
 import io.ktor.util.pipeline.*
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import org.json.JSONObject
-import org.modelix.authorization.*
 import java.net.URL
 import java.security.interfaces.RSAPublicKey
 import java.util.*
-import kotlin.collections.HashMap
 
 private const val jwtAuth = "jwtAuth"
 private const val KEYCLOAK_INTERNAL_HOST = "172.16.2.56:31310"
@@ -49,28 +48,41 @@ private const val KEYCLOAK_REALM = "modelix"
 private const val KEYCLOAK_CLIENT = "modelix"
 private val jwkProvider = JwkProviderBuilder(URL("http://$KEYCLOAK_INTERNAL_HOST/realms/$KEYCLOAK_REALM/protocol/openid-connect/certs")).build()
 private val httpClient = HttpClient(CIO)
+private val UNIT_TEST_MODE_KEY = AttributeKey<Boolean>("unit-test-mode")
 
-fun Application.installAuthentication() {
+fun Application.installAuthentication(unitTestMode: Boolean = false) {
     install(XForwardedHeaders)
     install(Authentication) {
-        // "Authorization: Bearer ..." header is provided in the header by OAuth proxy
-        jwt(jwtAuth) {
-            verifier(jwkProvider) {
-                acceptLeeway(60L)
-            }
-            challenge { _, _ ->
-                call.respond(status = HttpStatusCode.Unauthorized, "No or invalid JWT token provided")
-            } // login and token generation is done by OAuth proxy. Only validation is required here.
-            validate {
-                try {
-                    // OAuth proxy passes the ID token as the bearer token, but we need the access token
-                    val token = jwtFromHeaders()
-                    if (token != null) {
-                        return@validate token.nullIfInvalid()?.let { AccessTokenPrincipal(it) }
-                    }
-                } catch (e : Exception) {
+        if (unitTestMode) {
+            register(object : AuthenticationProvider(object : Config(jwtAuth) {}) {
+                override suspend fun onAuthenticate(context: AuthenticationContext) {
+                    context.call.attributes.put(UNIT_TEST_MODE_KEY, true)
+                    val token = JWT.create()
+                        .withClaim("email", "unit-tests@example.com")
+                        .sign(Algorithm.HMAC256("unit-tests"))
+                    context.principal(AccessTokenPrincipal(JWT.decode(token)))
                 }
-                null
+            })
+        } else {
+            // "Authorization: Bearer ..." header is provided in the header by OAuth proxy
+            jwt(jwtAuth) {
+                verifier(jwkProvider) {
+                    acceptLeeway(60L)
+                }
+                challenge { _, _ ->
+                    call.respond(status = HttpStatusCode.Unauthorized, "No or invalid JWT token provided")
+                } // login and token generation is done by OAuth proxy. Only validation is required here.
+                validate {
+                    try {
+                        // OAuth proxy passes the ID token as the bearer token, but we need the access token
+                        val token = jwtFromHeaders()
+                        if (token != null) {
+                            return@validate token.nullIfInvalid()?.let { AccessTokenPrincipal(it) }
+                        }
+                    } catch (e : Exception) {
+                    }
+                    null
+                }
             }
         }
     }
@@ -79,7 +91,11 @@ fun Application.installAuthentication() {
             when (cause) {
                 is NoPermissionException -> call.respondText(
                     text = cause.message ?: "",
-                    status = io.ktor.http.HttpStatusCode.Forbidden
+                    status = HttpStatusCode.Forbidden
+                )
+                is NotLoggedInException -> call.respondText(
+                    text = cause.message ?: "",
+                    status = HttpStatusCode.Unauthorized
                 )
                 else -> {
                     val text = """
@@ -87,7 +103,7 @@ fun Application.installAuthentication() {
                         |
                         |${cause.stackTraceToString()}
                     """.trimMargin()
-                    call.respondText(text = text, status = io.ktor.http.HttpStatusCode.InternalServerError)
+                    call.respondText(text = text, status = HttpStatusCode.InternalServerError)
                 }
             }
         }
@@ -126,21 +142,17 @@ fun Application.installAuthentication() {
 fun Route.requiresPermission(resourceName: String, scope: String, body: Route.()->Unit) {
     authenticate(jwtAuth) {
         intercept(ApplicationCallPipeline.Call) {
-            val jwt = call.principal<AccessTokenPrincipal>()?.jwt ?: call.jwtFromHeaders()
-            if (jwt == null) {
-                call.respond(HttpStatusCode.Unauthorized, "No JWT token found in the request headers")
-                return@intercept
-            }
-            if (!KeycloakUtils.hasPermission(jwt, resourceName, scope)) {
-                throw NoPermissionException(AccessTokenPrincipal(jwt), resourceName, scope)
-            }
-//            ModelixAuthorization.checkPermission(
-//                call.getUser(),
-//                permission,
-//                type
-//            )
+            call.checkPermission(resourceName, scope)
         }
         body()
+    }
+}
+
+fun ApplicationCall.checkPermission(resourceName: String, scope: String) {
+    if (attributes.getOrNull(UNIT_TEST_MODE_KEY) == true) return
+    val principal = principal<AccessTokenPrincipal>() ?: throw NotLoggedInException()
+    if (!KeycloakUtils.hasPermission(principal.jwt, resourceName, scope)) {
+        throw NoPermissionException(principal, resourceName, scope)
     }
 }
 
@@ -168,9 +180,7 @@ fun PipelineContext<Unit, ApplicationCall>.getUserName(): String? {
 }
 
 fun ApplicationCall.getUserName(): String? {
-    val principal: AccessTokenPrincipal? = (principal<AccessTokenPrincipal>()
-        ?: jwtFromHeaders()?.let { AccessTokenPrincipal(it) })
-    return principal?.getUserName()
+    return principal<AccessTokenPrincipal>()?.getUserName()
 }
 
 fun verifyTokenSignature(token: DecodedJWT) {

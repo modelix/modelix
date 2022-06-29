@@ -115,10 +115,6 @@ class KtorModelServer(val storeClient: IStoreClient) {
 
     private fun Application.modelServerModule() {
 
-        install(Routing)
-        installAuthentication()
-        install(ForwardedHeaders)
-
         routing {
             get("/health") {
                 if (isHealthy()) {

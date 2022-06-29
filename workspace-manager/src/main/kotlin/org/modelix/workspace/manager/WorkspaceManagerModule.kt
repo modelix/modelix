@@ -29,10 +29,7 @@ import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import org.apache.commons.io.FileUtils
 import org.apache.commons.text.StringEscapeUtils
-import org.modelix.authorization.AccessTokenPrincipal
-import org.modelix.authorization.ModelixAuthorization
-import org.modelix.authorization.installAuthentication
-import org.modelix.authorization.requiresPermission
+import org.modelix.authorization.*
 import org.modelix.gitui.GIT_REPO_DIR_ATTRIBUTE_KEY
 import org.modelix.gitui.MPS_INSTANCE_URL_ATTRIBUTE_KEY
 import org.modelix.gitui.gitui
@@ -707,5 +704,5 @@ private fun findGitRepo(folder: File): File? {
 }
 
 private fun ApplicationCall.requiresWrite() {
-    ModelixAuthorization.checkPermission(principal()!!, "workspaces", "write")
+    checkPermission("workspaces", "write")
 }

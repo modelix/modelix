@@ -23,12 +23,13 @@ import io.ktor.server.application.*
 import io.ktor.server.engine.*
 import io.ktor.server.html.*
 import io.ktor.server.netty.*
+import io.ktor.server.plugins.forwardedheaders.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import kotlinx.html.*
 import org.apache.commons.io.FileUtils
 import org.apache.ignite.Ignition
-import org.modelix.authorization.ModelixAuthorization
+import org.modelix.authorization.installAuthentication
 import org.slf4j.LoggerFactory
 import java.io.File
 import java.io.FileReader
@@ -242,6 +243,10 @@ object Main {
             val historyHandler = HistoryHandler(localModelClient)
             val jsonModelServer = JsonModelServer(localModelClient)
             val ktorServer: NettyApplicationEngine = embeddedServer(Netty, port = port) {
+                install(Routing)
+                installAuthentication(unitTestMode = cmdLineArgs.inmemory)
+                install(ForwardedHeaders)
+
                 modelServer.init(this)
                 historyHandler.init(this)
                 jsonModelServer.init(this)
