@@ -67,7 +67,7 @@ interface ConnectionListener {
  */
 class RestWebModelClient @JvmOverloads constructor(
     var baseUrl: String? = null,
-    val authTokenProvider: (()->String?)? = null,
+    val authTokenProvider: (() -> String?)? = null,
     initialConnectionListeners: List<ConnectionListener> = emptyList()
 ) : IModelClient {
 
@@ -461,17 +461,21 @@ class RestWebModelClient @JvmOverloads constructor(
             .connectTimeout(1000, TimeUnit.MILLISECONDS)
             .executorService(requestExecutor)
             // .readTimeout(1000, TimeUnit.MILLISECONDS)
-            .register(ClientRequestFilter { ctx ->
-                val token = getAuthToken()
-                if (token != null) ctx.headers.add(HttpHeaders.AUTHORIZATION, "Bearer $token")
-            }).build()
+            .register(
+                ClientRequestFilter { ctx ->
+                    val token = getAuthToken()
+                    if (token != null) ctx.headers.add(HttpHeaders.AUTHORIZATION, "Bearer $token")
+                }
+            ).build()
         pollingClient = ClientBuilder.newBuilder()
             .connectTimeout(1000, TimeUnit.MILLISECONDS)
             .executorService(pollingExecutor)
-            .register(ClientRequestFilter { ctx ->
-                val token = getAuthToken()
-                if (token != null) ctx.headers.add(HttpHeaders.AUTHORIZATION, "Bearer $token")
-            }).build()
+            .register(
+                ClientRequestFilter { ctx ->
+                    val token = getAuthToken()
+                    if (token != null) ctx.headers.add(HttpHeaders.AUTHORIZATION, "Bearer $token")
+                }
+            ).build()
         idGenerator = IdGenerator(clientId)
     }
 }
