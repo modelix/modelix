@@ -6888,7 +6888,7 @@
             </node>
             <node concept="2ShNRf" id="53_gmpoSDxM" role="33vP2m">
               <node concept="1pGfFk" id="53_gmpoSDxN" role="2ShVmc">
-                <ref role="37wK5l" to="5440:~RestWebModelClient.&lt;init&gt;(java.lang.String,java.lang.String)" resolve="RestWebModelClient" />
+                <ref role="37wK5l" to="5440:~RestWebModelClient.&lt;init&gt;(java.lang.String,kotlin.jvm.functions.Function0)" resolve="RestWebModelClient" />
                 <node concept="3cpWs3" id="53_gmpoSDxO" role="37wK5m">
                   <node concept="37vLTw" id="53_gmpoSDxP" role="3uHU7w">
                     <ref role="3cqZAo" node="5yNJPA6tDT1" resolve="port" />
@@ -6950,7 +6950,7 @@
             </node>
             <node concept="2ShNRf" id="53_gmpoSKII" role="33vP2m">
               <node concept="1pGfFk" id="53_gmpoSKIJ" role="2ShVmc">
-                <ref role="37wK5l" to="5440:~RestWebModelClient.&lt;init&gt;(java.lang.String,java.lang.String)" resolve="RestWebModelClient" />
+                <ref role="37wK5l" to="5440:~RestWebModelClient.&lt;init&gt;(java.lang.String,kotlin.jvm.functions.Function0)" resolve="RestWebModelClient" />
                 <node concept="3cpWs3" id="53_gmpoSKIK" role="37wK5m">
                   <node concept="37vLTw" id="53_gmpoSKIL" role="3uHU7w">
                     <ref role="3cqZAo" node="5yNJPA6tDT1" resolve="port" />
