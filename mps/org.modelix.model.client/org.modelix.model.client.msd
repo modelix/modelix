@@ -32,7 +32,6 @@
       <sourceRoot location="json.jar" />
       <sourceRoot location="jsr305.jar" />
       <sourceRoot location="listenablefuture-empty-to-avoid-conflict-with-guava.jar" />
-      <sourceRoot location="model-client-js.jar" />
       <sourceRoot location="model-client-jvm.jar" />
       <sourceRoot location="model-client-metadata.jar" />
       <sourceRoot location="osgi-resource-locator.jar" />
@@ -74,7 +73,6 @@
     <stubModelEntry path="${module}/lib/json.jar" />
     <stubModelEntry path="${module}/lib/jsr305.jar" />
     <stubModelEntry path="${module}/lib/listenablefuture-empty-to-avoid-conflict-with-guava.jar" />
-    <stubModelEntry path="${module}/lib/model-client-js.jar" />
     <stubModelEntry path="${module}/lib/model-client-jvm.jar" />
     <stubModelEntry path="${module}/lib/model-client-metadata.jar" />
     <stubModelEntry path="${module}/lib/osgi-resource-locator.jar" />

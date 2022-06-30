@@ -4469,12 +4469,18 @@
                             <node concept="37vLTI" id="2EzI5qKrki7" role="3clFbG">
                               <node concept="2ShNRf" id="2EzI5qKrki8" role="37vLTx">
                                 <node concept="1pGfFk" id="2EzI5qKrki9" role="2ShVmc">
-                                  <ref role="37wK5l" to="5440:~RestWebModelClient.&lt;init&gt;(java.lang.String,java.lang.String,java.util.List)" resolve="RestWebModelClient" />
+                                  <ref role="37wK5l" to="5440:~RestWebModelClient.&lt;init&gt;(java.lang.String,kotlin.jvm.functions.Function0,java.util.List)" resolve="RestWebModelClient" />
                                   <node concept="37vLTw" id="2EzI5qKrkia" role="37wK5m">
                                     <ref role="3cqZAo" node="6aRQr1WPbDO" resolve="baseUrl" />
                                   </node>
-                                  <node concept="37vLTw" id="4DbirjtxD0V" role="37wK5m">
-                                    <ref role="3cqZAo" node="2EzI5qKmJsA" resolve="authToken" />
+                                  <node concept="1bVj0M" id="9XHMVcN0or" role="37wK5m">
+                                    <node concept="3clFbS" id="9XHMVcN0ot" role="1bW5cS">
+                                      <node concept="3clFbF" id="9XHMVcN1$y" role="3cqZAp">
+                                        <node concept="37vLTw" id="9XHMVcN1$x" role="3clFbG">
+                                          <ref role="3cqZAo" node="2EzI5qKmJsA" resolve="authToken" />
+                                        </node>
+                                      </node>
+                                    </node>
                                   </node>
                                   <node concept="2YIFZM" id="57hSI$27imt" role="37wK5m">
                                     <ref role="37wK5l" to="33ny:~Arrays.asList(java.lang.Object...)" resolve="asList" />
