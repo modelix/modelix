@@ -458,7 +458,7 @@ class DeploymentManager {
         const val KUBERNETES_NAMESPACE = "default"
         val INSTANCE = DeploymentManager()
         const val PERSONAL_DEPLOYMENT_PREFIX = "wsclt-"
-        const val WORKSPACE_CLIENT_DEPLOYMENT_NAME = "workspace-client"
+        val WORKSPACE_CLIENT_DEPLOYMENT_NAME = System.getenv("WORKSPACE_CLIENT_DEPLOYMENT_NAME") ?: "workspace-client"
         val WORKSPACE_PATTERN = Pattern.compile("workspace-([a-f0-9]+)-([a-zA-Z0-9\\-_\\*]+)")
     }
 }

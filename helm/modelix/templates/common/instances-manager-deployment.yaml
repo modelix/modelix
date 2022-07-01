@@ -36,6 +36,8 @@ spec:
               configMapKeyRef:
                 key: keycloak-client-secret
                 name: "{{ include "modelix.fullname" . }}-config"
+          - name: WORKSPACE_CLIENT_DEPLOYMENT_NAME
+            value: "{{ include "modelix.fullname" . }}-workspace-client"
         ports:
         - containerPort: 33332
         - containerPort: 5005
