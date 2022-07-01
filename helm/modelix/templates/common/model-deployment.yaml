@@ -26,12 +26,9 @@ spec:
       containers:
         - env:
             - name: jdbc_url
-              value: jdbc:postgresql://db:5432/
+              value: jdbc:postgresql://{{ include "modelix.fullname" . }}-db:5432/
             - name: CLIENT_SECRET
-              valueFrom:
-                configMapKeyRef:
-                  key: keycloak-client-secret
-                  name: "{{ include "modelix.fullname" . }}-config"
+              value: "{{ .Values.keycloak.clientSecret }}"
           image: "modelix/modelix-model:{{ .Values.imageTags.model | default .Chart.AppVersion }}"
           imagePullPolicy: IfNotPresent
           name: model

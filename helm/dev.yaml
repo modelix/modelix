@@ -1,7 +1,11 @@
-imageTags.db: ""
-imageTags.instancesManager: ""
-imageTags.model: ""
-imageTags.oauth: ""
-imageTags.proxy: ""
-imageTags.wsClient: ""
-imageTags.wsManager: ""
+imageTags:
+  db: ""
+  instancesManager: ""
+  model: ""
+  oauth: ""
+  proxy: ""
+  wsClient: ""
+  wsManager: ""
+external:
+  hostname: "kubernetes.docker.internal"
+  port: "80"

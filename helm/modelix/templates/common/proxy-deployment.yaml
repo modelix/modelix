@@ -27,6 +27,11 @@ spec:
       - name: proxy
         image: "modelix/modelix-proxy:{{ .Values.imageTags.proxy | default .Chart.AppVersion }}"
         imagePullPolicy: IfNotPresent
+        env:
+          - name: KUBERNETES_NAMESPACE
+            value: "{{ .Release.Namespace }}"
+          - name: KUBERNETES_INSTANCE_PREFIX
+            value: "{{ include "modelix.fullname" . }}-"
         ports:
         - containerPort: 80
         resources: 

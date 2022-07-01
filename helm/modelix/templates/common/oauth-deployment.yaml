@@ -59,7 +59,7 @@ spec:
             - --client-id=modelix
             - --client-secret={{ .Values.keycloak.clientSecret }}
             - --redirect-url={{ include "modelix.externalUrl" . }}oauth2/callback
-            - --oidc-issuer-url={{ include "modelix.externalUrl" . }}keycloak/realms/modelix
+            - --oidc-issuer-url={{ include "modelix.externalUrl" . }}keycloak/realms/{{ .Values.keycloak.realm }}
             - --skip-oidc-discovery=true
             - --login-url={{ include "modelix.externalUrl" . }}keycloak/realms/{{ .Values.keycloak.realm }}/protocol/openid-connect/auth
             - --redeem-url={{ include "modelix.externalUrl" . }}keycloak/realms/{{ .Values.keycloak.realm }}/protocol/openid-connect/token

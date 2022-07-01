@@ -12,3 +12,6 @@ TAG=$( ./modelix-version.sh )
 docker tag modelix/modelix-proxy:latest "modelix/modelix-proxy:${TAG}"
 sed -i.bak -E "s/(image:.*:).*/\1${TAG}/" kubernetes/common/proxy-deployment.yaml
 rm kubernetes/common/proxy-deployment.yaml.bak
+
+sed -i.bak -E "s/  proxy: \".*\"/  proxy: \"${TAG}\"/" helm/dev.yaml
+rm helm/dev.yaml.bak

@@ -27,10 +27,7 @@ spec:
         - name: KEYCLOAK_ADMIN
           value: "admin"
         - name: KEYCLOAK_ADMIN_PASSWORD
-          valueFrom:
-            configMapKeyRef:
-              name: "{{ include "modelix.fullname" . }}-config"
-              key: keycloak-admin-password
+          value: "{{ .Values.keycloak.adminPassword }}"
         - name: KC_PROXY
           value: "none"
         - name: PROXY_ADDRESS_FORWARDING
@@ -38,27 +35,15 @@ spec:
         - name: KC_DB
           value: "postgres"
         - name: KC_DB_USERNAME
-          valueFrom:
-            configMapKeyRef:
-              name: "{{ include "modelix.fullname" . }}-config"
-              key: db-user
+          value: "{{ .Values.db.user }}"
         - name: KC_DB_PASSWORD
-          valueFrom:
-            configMapKeyRef:
-              name: "{{ include "modelix.fullname" . }}-config"
-              key: db-password
+          value: "{{ .Values.db.password }}"
         - name: KC_DB_URL
-          value: "jdbc:postgresql://db:5432/"
+          value: "jdbc:postgresql://{{ include "modelix.fullname" . }}-db:5432/"
         - name: KC_HOSTNAME
-          valueFrom:
-            configMapKeyRef:
-              name: "{{ include "modelix.fullname" . }}-config"
-              key: external-hostname
+          value: "{{ .Values.external.hostname }}"
         - name: KC_HOSTNAME_PORT
-          valueFrom:
-            configMapKeyRef:
-              name: "{{ include "modelix.fullname" . }}-config"
-              key: external-port
+          value: "{{ .Values.external.port}}"
         ports:
         - name: http
           containerPort: 8080

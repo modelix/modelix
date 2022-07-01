@@ -28,10 +28,7 @@ spec:
           - name: model_server_url
             value: http://model:28101/
           - name: CLIENT_SECRET
-            valueFrom:
-              configMapKeyRef:
-                key: keycloak-client-secret
-                name: "{{ include "modelix.fullname" . }}-config"
+            value: "{{ .Values.keycloak.clientSecret }}"
         image: "modelix/modelix-workspace-manager:{{ .Values.imageTags.wsManager | default .Chart.AppVersion }}"
         imagePullPolicy: IfNotPresent
         name: workspace-manager

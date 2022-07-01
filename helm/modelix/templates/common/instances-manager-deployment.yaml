@@ -32,10 +32,7 @@ spec:
           - name: model_server_url
             value: http://model:28101/
           - name: CLIENT_SECRET
-            valueFrom:
-              configMapKeyRef:
-                key: keycloak-client-secret
-                name: "{{ include "modelix.fullname" . }}-config"
+            value: "{{ .Values.keycloak.clientSecret }}"
           - name: WORKSPACE_CLIENT_DEPLOYMENT_NAME
             value: "{{ include "modelix.fullname" . }}-workspace-client"
         ports:

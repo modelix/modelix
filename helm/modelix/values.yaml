@@ -28,6 +28,9 @@ external:
 
 db:
   useGCloud: false
+  user: "modelix"
+  password: "modelix"
+  db: "modelix"
 
 
 replicaCount: 1

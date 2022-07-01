@@ -23,20 +23,11 @@ spec:
       containers:
       - env:
         - name: POSTGRES_PASSWORD
-          valueFrom:
-            configMapKeyRef:
-              name: "{{ include "modelix.fullname" . }}-config"
-              key: db-password
+          value: "{{ .Values.db.password }}"
         - name: POSTGRES_USER
-          valueFrom:
-            configMapKeyRef:
-              name: "{{ include "modelix.fullname" . }}-config"
-              key: db-user
+          value: "{{ .Values.db.useGCloud }}"
         - name: POSTGRES_DB
-          valueFrom:
-            configMapKeyRef:
-              name: "{{ include "modelix.fullname" . }}-config"
-              key: db-db
+          value: "{{ .Values.db.db }}"
         - name: PGDATA
           value: /var/lib/postgresql/data/pgdata
         image: "modelix/modelix-db:{{ .Values.imageTags.db | default .Chart.AppVersion }}"
