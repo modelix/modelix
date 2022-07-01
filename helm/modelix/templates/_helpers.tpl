@@ -64,3 +64,19 @@ Create the name of the service account to use
 {{- define "modelix.externalUrl" -}}
 {{ .Values.external.proto }}://{{ .Values.external.hostname }}:{{ .Values.external.port }}/
 {{- end }}
+
+{{- define "modelix.externalKeycloakUrl" -}}
+{{ .Values.external.proto }}://{{ .Values.external.hostname }}:{{ .Values.external.keycloak.port }}/
+{{- end }}
+
+{{- define "modelix.keycloakEnv" -}}
+- name: KEYCLOAK_CLIENT_SECRET
+  value: "{{ .Values.keycloak.clientSecret }}"
+- name: KEYCLOAK_CLIENT_ID
+  value: "{{ .Values.keycloak.clientId }}"
+- name: KEYCLOAK_REALM
+  value: "{{ .Values.keycloak.realm }}"
+- name: KEYCLOAK_BASE_URL
+  value: "{{ include "modelix.externalKeycloakUrl" . }}"
+{{- end }}
+

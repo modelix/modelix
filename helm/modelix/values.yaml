@@ -24,7 +24,9 @@ keycloak:
 external:
   proto: "http"
   hostname: "172.16.2.53"
-  port: "32728"
+  port: "80"
+  keycloak:
+    port: "32728"
 
 db:
   useGCloud: false

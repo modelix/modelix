@@ -24,11 +24,16 @@ import org.keycloak.representations.idm.authorization.ResourceRepresentation
 import java.util.concurrent.TimeUnit
 
 object KeycloakUtils {
+    val BASE_URL = System.getenv("KEYCLOAK_BASE_URL")
+    val REALM = System.getenv("KEYCLOAK_REALM")
+    val CLIENT_ID = System.getenv("KEYCLOAK_CLIENT_ID")
+    val CLIENT_SECRET = System.getenv("KEYCLOAK_CLIENT_SECRET")
+
     val authzClient = AuthzClient.create(Configuration(
-        "http://172.16.2.56:31310/",
-        "modelix",
-        "modelix",
-        mapOf("secret" to getClientSecret()),
+        BASE_URL,
+        REALM,
+        CLIENT_ID,
+        mapOf("secret" to CLIENT_SECRET),
         null
     ))
 

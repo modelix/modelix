@@ -27,8 +27,7 @@ spec:
         - env:
             - name: jdbc_url
               value: jdbc:postgresql://{{ include "modelix.fullname" . }}-db:5432/
-            - name: CLIENT_SECRET
-              value: "{{ .Values.keycloak.clientSecret }}"
+            {{- include "modelix.keycloakEnv" . | nindent 12 }}
           image: "modelix/modelix-model:{{ .Values.imageTags.model | default .Chart.AppVersion }}"
           imagePullPolicy: IfNotPresent
           name: model

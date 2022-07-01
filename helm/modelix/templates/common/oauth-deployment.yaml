@@ -59,11 +59,11 @@ spec:
             - --client-id=modelix
             - --client-secret={{ .Values.keycloak.clientSecret }}
             - --redirect-url={{ include "modelix.externalUrl" . }}oauth2/callback
-            - --oidc-issuer-url={{ include "modelix.externalUrl" . }}keycloak/realms/{{ .Values.keycloak.realm }}
+            - --oidc-issuer-url={{ include "modelix.externalKeycloakUrl" . }}realms/{{ .Values.keycloak.realm }}
             - --skip-oidc-discovery=true
-            - --login-url={{ include "modelix.externalUrl" . }}keycloak/realms/{{ .Values.keycloak.realm }}/protocol/openid-connect/auth
-            - --redeem-url={{ include "modelix.externalUrl" . }}keycloak/realms/{{ .Values.keycloak.realm }}/protocol/openid-connect/token
-            - --oidc-jwks-url={{ include "modelix.externalUrl" . }}keycloak/realms/{{ .Values.keycloak.realm }}/protocol/openid-connect/certs
+            - --login-url={{ include "modelix.externalKeycloakUrl" . }}realms/{{ .Values.keycloak.realm }}/protocol/openid-connect/auth
+            - --redeem-url={{ include "modelix.externalKeycloakUrl" . }}realms/{{ .Values.keycloak.realm }}/protocol/openid-connect/token
+            - --oidc-jwks-url={{ include "modelix.externalKeycloakUrl" . }}realms/{{ .Values.keycloak.realm }}/protocol/openid-connect/certs
             - --insecure-oidc-allow-unverified-email=true
             - --insecure-oidc-skip-issuer-verification=true
             - --show-debug-on-error=true

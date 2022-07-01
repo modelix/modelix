@@ -43,10 +43,7 @@ import java.security.interfaces.RSAPublicKey
 import java.util.*
 
 private const val jwtAuth = "jwtAuth"
-private const val KEYCLOAK_INTERNAL_HOST = "172.16.2.56:31310"
-private const val KEYCLOAK_REALM = "modelix"
-private const val KEYCLOAK_CLIENT = "modelix"
-private val jwkProvider = JwkProviderBuilder(URL("http://$KEYCLOAK_INTERNAL_HOST/realms/$KEYCLOAK_REALM/protocol/openid-connect/certs")).build()
+private val jwkProvider = JwkProviderBuilder(URL("${KeycloakUtils.BASE_URL}realms/${KeycloakUtils.REALM}/protocol/openid-connect/certs")).build()
 private val httpClient = HttpClient(CIO)
 private val UNIT_TEST_MODE_KEY = AttributeKey<Boolean>("unit-test-mode")
 
@@ -209,7 +206,7 @@ fun DecodedJWT.nullIfInvalid(): DecodedJWT? {
 
 private suspend fun queryServiceAccountToken(credentials: ServiceAccountCredentials): String {
     val response = httpClient.submitForm(
-        url = "http://$KEYCLOAK_INTERNAL_HOST/realms/${credentials.clientName}/protocol/openid-connect/token",
+        url = "${KeycloakUtils.BASE_URL}realms/${credentials.clientName}/protocol/openid-connect/token",
         formParameters = Parameters.build {
             append("grant_type", "client_credentials")
         }

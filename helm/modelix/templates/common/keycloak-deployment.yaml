@@ -43,7 +43,7 @@ spec:
         - name: KC_HOSTNAME
           value: "{{ .Values.external.hostname }}"
         - name: KC_HOSTNAME_PORT
-          value: "{{ .Values.external.port}}"
+          value: "{{ .Values.external.keycloak.port}}"
         ports:
         - name: http
           containerPort: 8080
