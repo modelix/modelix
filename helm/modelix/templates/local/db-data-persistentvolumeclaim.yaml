@@ -1,0 +1,14 @@
+{{- if not .Values.db.useGCloud }}
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  labels:
+    component: db-data
+  name: "{{ include "modelix.fullname" . }}-db-data"
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: {{ .Values.modelStorageSize }}
+{{- end }}

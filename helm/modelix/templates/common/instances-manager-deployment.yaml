@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    component: instances-manager
+    {{- include "modelix.labels" . | nindent 4 }}
+  name: "{{ include "modelix.fullname" . }}-instances-manager"
+spec:
+  revisionHistoryLimit: 5
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 0
+  selector:
+    matchLabels:
+      component: instances-manager
+      {{- include "modelix.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        component: instances-manager
+        {{- include "modelix.selectorLabels" . | nindent 8 }}
+    spec:
+      serviceAccountName: "{{ include "modelix.fullname" . }}-sa"
+      containers:
+      - image: "modelix/modelix-instances-manager:{{ .Values.imageTags.instancesManager | default .Chart.AppVersion }}"
+        imagePullPolicy: IfNotPresent
+        name: instances-manager
+        env:
+          - name: model_server_url
+            value: http://model:28101/
+          - name: CLIENT_SECRET
+            valueFrom:
+              configMapKeyRef:
+                key: keycloak-client-secret
+                name: "{{ include "modelix.fullname" . }}-config"
+        ports:
+        - containerPort: 33332
+        - containerPort: 5005
+        resources:
+          requests:
+            memory: "300Mi"
+            cpu: "0.1"
+          limits:
+            memory: "500Mi"
+            cpu: "1.0"           
+      restartPolicy: Always

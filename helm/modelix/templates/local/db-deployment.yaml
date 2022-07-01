@@ -1,0 +1,63 @@
+{{- if not .Values.db.useGCloud }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    component: db
+    {{- include "modelix.labels" . | nindent 4 }}
+  name: "{{ include "modelix.fullname" . }}-db"
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      component: db
+      {{- include "modelix.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        component: db
+        {{- include "modelix.selectorLabels" . | nindent 8 }}
+    spec:
+      containers:
+      - env:
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            configMapKeyRef:
+              name: "{{ include "modelix.fullname" . }}-config"
+              key: db-password
+        - name: POSTGRES_USER
+          valueFrom:
+            configMapKeyRef:
+              name: "{{ include "modelix.fullname" . }}-config"
+              key: db-user
+        - name: POSTGRES_DB
+          valueFrom:
+            configMapKeyRef:
+              name: "{{ include "modelix.fullname" . }}-config"
+              key: db-db
+        - name: PGDATA
+          value: /var/lib/postgresql/data/pgdata
+        image: "modelix/modelix-db:{{ .Values.imageTags.db | default .Chart.AppVersion }}"
+        imagePullPolicy: IfNotPresent
+        name: db
+        volumeMounts:
+        - mountPath: /var/lib/postgresql/data
+          name: db-data
+        readinessProbe:
+          tcpSocket:
+            port: 5432
+          initialDelaySeconds: 1
+          periodSeconds: 3
+        livenessProbe:
+          tcpSocket:
+            port: 5432
+          initialDelaySeconds: 30
+          periodSeconds: 10
+      restartPolicy: Always
+      volumes:
+      - name: db-data
+        persistentVolumeClaim:
+          claimName: "{{ include "modelix.fullname" . }}-db-data"
+{{- end }}

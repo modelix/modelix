@@ -1,0 +1,60 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    component: workspace-client
+    {{- include "modelix.labels" . | nindent 4 }}
+  name: "{{ include "modelix.fullname" . }}-workspace-client"
+spec:
+  revisionHistoryLimit: 5
+  replicas: 0
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0
+      maxSurge: 1
+  selector:
+    matchLabels:
+      component: workspace-client
+      {{- include "modelix.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        component: workspace-client
+        {{- include "modelix.selectorLabels" . | nindent 8 }}
+    spec:
+      containers:
+      - name: workspace-client
+        image: "modelix/modelix-workspace-client:{{ .Values.imageTags.wsClient | default .Chart.AppVersion }}"
+        imagePullPolicy: IfNotPresent
+        env:
+        - name: "modelix_executionMode"
+          value: "PROJECTOR"
+        - name: "modelix_workspace_server"
+          value: "http://{{ include "modelix.fullname" . }}-workspace-manager:28104/"
+        - name: MODEL_URI
+          value: "http://{{ include "modelix.fullname" . }}-model:28101/"
+        ports:
+        - containerPort: 8887
+        resources: 
+          requests:
+            memory: "4.0Gi" # is replaced with the value in the workspace configuration
+            cpu: 500m
+          limits:
+            memory: "4.0Gi" # is replaced with the value in the workspace configuration
+            cpu: "1.5"
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 33333
+          initialDelaySeconds: 10
+          periodSeconds: 5
+          timeoutSeconds: 3
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 33333
+          initialDelaySeconds: 120
+          periodSeconds: 20
+          timeoutSeconds: 10
+      restartPolicy: Always

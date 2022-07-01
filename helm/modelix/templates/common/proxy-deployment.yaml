@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    component: proxy
+    {{- include "modelix.labels" . | nindent 4 }}
+  name: "{{ include "modelix.fullname" . }}-proxy"
+spec:
+  revisionHistoryLimit: 5
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0
+      maxSurge: 1
+  selector:
+    matchLabels:
+      component: proxy
+      {{- include "modelix.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        component: proxy
+        {{- include "modelix.selectorLabels" . | nindent 8 }}
+    spec:
+      containers:
+      - name: proxy
+        image: "modelix/modelix-proxy:{{ .Values.imageTags.proxy | default .Chart.AppVersion }}"
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 80
+        resources: 
+          requests:
+            memory: "100Mi"
+            cpu: "0.1"
+          limits:
+            memory: "500Mi"
+            cpu: "1.0"
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 80
+          initialDelaySeconds: 3
+          periodSeconds: 3
+          timeoutSeconds: 3
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 80
+          initialDelaySeconds: 10
+          periodSeconds: 10
+          timeoutSeconds: 10
+      restartPolicy: Always

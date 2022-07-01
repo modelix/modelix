@@ -1,0 +1,63 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    component: model
+    {{- include "modelix.labels" . | nindent 4 }}
+  name: "{{ include "modelix.fullname" . }}-model"
+spec:
+  revisionHistoryLimit: 5
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 0
+  selector:
+    matchLabels:
+      component: model
+      {{- include "modelix.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        component: model
+        {{- include "modelix.selectorLabels" . | nindent 8 }}
+    spec:
+      containers:
+        - env:
+            - name: jdbc_url
+              value: jdbc:postgresql://db:5432/
+            - name: CLIENT_SECRET
+              valueFrom:
+                configMapKeyRef:
+                  key: keycloak-client-secret
+                  name: "{{ include "modelix.fullname" . }}-config"
+          image: "modelix/modelix-model:{{ .Values.imageTags.model | default .Chart.AppVersion }}"
+          imagePullPolicy: IfNotPresent
+          name: model
+          ports:
+            - containerPort: 28101
+            - containerPort: 5071
+              name: "jvm-debug"
+          resources:
+            requests:
+              memory: "800Mi"
+              cpu: "0.1"
+            limits:
+              memory: "800Mi"
+              cpu: "1.0"
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 28101
+            initialDelaySeconds: 5
+            periodSeconds: 5
+            timeoutSeconds: 3
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 28101
+            initialDelaySeconds: 60
+            periodSeconds: 15
+            timeoutSeconds: 10
+      restartPolicy: Always

@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  labels:
+    component: workspace-uploads
+  name: "{{ include "modelix.fullname" . }}-workspace-uploads"
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: {{ .Values.uploadsStorageSize }}
