@@ -66,7 +66,7 @@ Create the name of the service account to use
 {{- end }}
 
 {{- define "modelix.externalKeycloakUrl" -}}
-{{ .Values.external.proto }}://{{ .Values.external.hostname }}:{{ .Values.external.keycloak.port }}/
+{{ .Values.external.proto }}://{{ .Values.external.keycloak.hostname }}:{{ .Values.external.keycloak.port }}/
 {{- end }}
 
 {{- define "modelix.keycloakEnv" -}}

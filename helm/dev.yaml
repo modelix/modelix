@@ -1,11 +1,14 @@
 imageTags:
   db: ""
   instancesManager: ""
-  model: ""
+  model: "2020.3.5-202207012021-SNAPSHOT"
   oauth: ""
-  proxy: ""
+  proxy: "2020.3.5-202207012028-SNAPSHOT"
   wsClient: ""
   wsManager: ""
 external:
-  hostname: "kubernetes.docker.internal"
-  port: "80"
+  hostname: "172.16.2.52.nip.io"
+  keycloak:
+    hostname: "kc.172.16.2.52.nip.io"
+keycloak:
+  clientSecret: "fzEj6AmIPwtKDs9D0KmWnk9CPyoLj5OS"

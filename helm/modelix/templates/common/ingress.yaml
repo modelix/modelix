@@ -15,4 +15,14 @@ spec:
                 port:
                   number: 4180
             path: /
+    - host: "{{ .Values.external.keycloak.hostname }}"
+      http:
+        paths:
+          - pathType: Prefix
+            backend:
+              service:
+                name: "{{ include "modelix.fullname" . }}-keycloak"
+                port:
+                  number: 8080
+            path: /
 

@@ -23,10 +23,11 @@ keycloak:
 
 external:
   proto: "http"
-  hostname: "172.16.2.53"
+  hostname: "172.16.2.52.nip.io"
   port: "80"
   keycloak:
-    port: "32728"
+    hostname: "kc.172.16.2.52.nip.io"
+    port: "80"
 
 db:
   useGCloud: false
