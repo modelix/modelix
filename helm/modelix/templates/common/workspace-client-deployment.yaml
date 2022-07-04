@@ -1,3 +1,4 @@
+{{- if .Values.workspaces.enabled  -}}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -58,3 +59,4 @@ spec:
           periodSeconds: 20
           timeoutSeconds: 10
       restartPolicy: Always
+{{- end -}}

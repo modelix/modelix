@@ -23,6 +23,9 @@ keycloak:
   loglevel: "warn"
   debug: false
 
+workspaces:
+  enabled: true
+
 external:
   proto: "http"
   hostname: "172.16.2.52.nip.io"

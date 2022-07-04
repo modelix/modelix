@@ -1,3 +1,4 @@
+{{- if .Values.workspaces.enabled  -}}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -46,3 +47,4 @@ spec:
             memory: "500Mi"
             cpu: "1.0"           
       restartPolicy: Always
+{{- end -}}
