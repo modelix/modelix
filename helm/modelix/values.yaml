@@ -30,7 +30,7 @@ workspaces:
 ingress:
   proto: "http"
   hostname: "localhost"
-  port: "80"
+  port: ""
 
 db:
   useGCloud: false

@@ -116,16 +116,16 @@ class RestWebModelClient @JvmOverloads constructor(
                 val targetUri = baseUrl + "counter/clientId"
                 try {
                     val response = client.target(targetUri).request().post(Entity.text(""))
+                    val body = response.readEntity(String::class.java)
                     if (response.unsuccessful) {
                         if (response.forbidden) {
                             receivedForbiddenResponse()
                         }
-                        throw RuntimeException("Unable to get the clientId by querying $targetUri")
+                        throw RuntimeException("Unable to get the clientId by querying $targetUri: ${response.statusInfo}\n$body")
                     } else {
                         receivedSuccessfulResponse()
                     }
-                    val idStr = response.readEntity(String::class.java)
-                    field = idStr.toInt()
+                    field = body.toInt()
                 } catch (e: ProcessingException) {
                     throw RuntimeException("Unable to get the clientId by querying $targetUri", e)
                 }

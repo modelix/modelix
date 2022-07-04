@@ -54,6 +54,10 @@ spec:
           value: "{{ include "modelix.externalKeycloakUrl" . }}auth"
         - name: REALM_FRONTEND_URL
           value: "{{ include "modelix.externalKeycloakUrl" . }}"
+        - name: REALM_BACKEND_URL
+          value: "{{ include "modelix.internalKeycloakUrl" . }}"
+        - name: KC_HOSTNAME_STRICT
+          value: "false"
         - name: REALM_CLIENT_SECRET
           value: "{{ .Values.keycloak.clientSecret }}"
         {{ if .Values.keycloak.debug }}

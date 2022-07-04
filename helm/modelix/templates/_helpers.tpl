@@ -62,11 +62,11 @@ Create the name of the service account to use
 {{- end }}
 
 {{- define "modelix.externalUrl" -}}
-{{ .Values.ingress.proto }}://{{ .Values.ingress.hostname }}:{{ .Values.ingress.port }}/
+{{ .Values.ingress.proto }}://{{ .Values.ingress.hostname }}{{ if .Values.ingress.port }}:{{ .Values.ingress.port }}{{ end }}/
 {{- end }}
 
 {{- define "modelix.externalKeycloakUrl" -}}
-{{ .Values.ingress.proto }}://{{ .Values.ingress.hostname }}:{{ .Values.ingress.port }}/
+{{ include "modelix.externalUrl" . }}
 {{- end }}
 {{- define "modelix.internalKeycloakUrl" -}}
 http://{{ include "modelix.fullname" . }}-keycloak:8080/

@@ -27,9 +27,8 @@ spec:
       containers:
       - env:
           - name: model_server_url
-            value: http://model:28101/
-          - name: CLIENT_SECRET
-            value: "{{ .Values.keycloak.clientSecret }}"
+            value: http://{{ include "modelix.fullname" . }}-model:28101/
+          {{- include "modelix.keycloakEnv" . | nindent 10 }}
         image: "modelix/modelix-workspace-manager:{{ .Values.imageTags.wsManager | default .Chart.AppVersion }}"
         imagePullPolicy: IfNotPresent
         name: workspace-manager

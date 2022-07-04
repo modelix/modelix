@@ -242,7 +242,7 @@ val serviceAccountTokenProvider: ()->String = {
 }
 
 fun getClientSecret(): String {
-    val varName = "CLIENT_SECRET"
+    val varName = "KEYCLOAK_CLIENT_SECRET"
     val clientSecret = listOfNotNull(System.getProperty(varName), System.getenv(varName)).firstOrNull()
         ?: throw Exception("Variable $varName is not specified")
     return clientSecret

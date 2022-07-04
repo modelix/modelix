@@ -116,6 +116,6 @@ class WorkspacePersistence() {
         return listOf("model.server.url", "model_server_url")
             .flatMap { listOf(System.getProperty(it), System.getenv(it)) }
             .filterNotNull()
-            .firstOrNull() ?: "http://localhost:31963/model/"
+            .firstOrNull() ?: "http://localhost:28101/"
     }
 }

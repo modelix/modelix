@@ -29,18 +29,47 @@ object KeycloakUtils {
     val CLIENT_ID = System.getenv("KEYCLOAK_CLIENT_ID")
     val CLIENT_SECRET = System.getenv("KEYCLOAK_CLIENT_SECRET")
 
-    val authzClient = AuthzClient.create(Configuration(
+    val authzClient = patchUrls(AuthzClient.create(Configuration(
         BASE_URL,
         REALM,
         CLIENT_ID,
         mapOf("secret" to CLIENT_SECRET),
         null
-    ))
+    )))
 
     private val cache = CacheBuilder.newBuilder()
         .expireAfterWrite(1, TimeUnit.MINUTES)
         .build<String, List<Permission>>()
     private val existingResources = HashSet<String>()
+
+    private fun patchUrls(c: AuthzClient): AuthzClient {
+        patchObject(c.serverConfiguration)
+        patchObject(c.configuration)
+        return c
+    }
+
+    private fun patchObject(obj: Any) {
+        obj.javaClass.superclass
+        var cls: Class<Any>? = obj.javaClass
+        while (cls != null) {
+            for (field in cls.declaredFields) {
+                field.trySetAccessible()
+                val value = field.get(obj)
+                if (value is String && value.contains("://")) {
+                    field.set(obj, patchUrl(value))
+                }
+            }
+            cls = cls.superclass
+        }
+    }
+
+    private fun patchUrl(url: String): String {
+        return if (url.contains("/realms/")) {
+            BASE_URL + "realms/" + url.substringAfter("/realms/")
+        } else {
+            url
+        }
+    }
 
     @Synchronized
     fun getPermissions(accessToken: DecodedJWT): List<Permission> {
