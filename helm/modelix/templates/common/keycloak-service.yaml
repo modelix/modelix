@@ -10,6 +10,11 @@ spec:
   - name: http
     port: 8080
     targetPort: 8080
+  {{ if .Values.keycloak.debug }}
+  - name: debug
+    port: 8787
+    targetPort: 8787
+  {{ end }}
   selector:
     component: keycloak
     {{- include "modelix.selectorLabels" . | nindent 4 }}

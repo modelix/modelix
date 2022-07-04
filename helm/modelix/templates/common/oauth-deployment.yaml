@@ -58,12 +58,12 @@ spec:
             - --provider=keycloak-oidc
             - --client-id=modelix
             - --client-secret={{ .Values.keycloak.clientSecret }}
-            - --redirect-url={{ include "modelix.externalUrl" . }}oauth2/callback
-            - --oidc-issuer-url={{ include "modelix.externalKeycloakUrl" . }}realms/{{ .Values.keycloak.realm }}
+            #- --redirect-url={{ include "modelix.externalUrl" . }}oauth2/callback
+            - --oidc-issuer-url={{ include "modelix.internalKeycloakUrl" . }}realms/{{ .Values.keycloak.realm }}
             - --skip-oidc-discovery=true
             - --login-url={{ include "modelix.externalKeycloakUrl" . }}realms/{{ .Values.keycloak.realm }}/protocol/openid-connect/auth
-            - --redeem-url={{ include "modelix.externalKeycloakUrl" . }}realms/{{ .Values.keycloak.realm }}/protocol/openid-connect/token
-            - --oidc-jwks-url={{ include "modelix.externalKeycloakUrl" . }}realms/{{ .Values.keycloak.realm }}/protocol/openid-connect/certs
+            - --redeem-url={{ include "modelix.internalKeycloakUrl" . }}realms/{{ .Values.keycloak.realm }}/protocol/openid-connect/token
+            - --oidc-jwks-url={{ include "modelix.internalKeycloakUrl" . }}realms/{{ .Values.keycloak.realm }}/protocol/openid-connect/certs
             - --insecure-oidc-allow-unverified-email=true
             - --insecure-oidc-skip-issuer-verification=true
             - --show-debug-on-error=true

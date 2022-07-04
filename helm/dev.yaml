@@ -12,3 +12,5 @@ external:
     hostname: "kc.172.16.2.52.nip.io"
 keycloak:
   clientSecret: "fzEj6AmIPwtKDs9D0KmWnk9CPyoLj5OS"
+  loglevel: "debug"
+  debug: true

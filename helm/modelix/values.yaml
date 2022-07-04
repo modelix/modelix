@@ -20,6 +20,8 @@ keycloak:
   realm: "modelix"
   clientId: "modelix"
   clientSecret: "Bz4HAIfb4X2STVGDzAi4A3fDzOvMFugL"
+  loglevel: "warn"
+  debug: false
 
 external:
   proto: "http"

@@ -23,15 +23,15 @@ spec:
         args: ["start-dev"]
         env:
         - name: KC_LOG_LEVEL
-          value: "warn"
+          value: "{{ .Values.keycloak.loglevel }}"
         - name: KEYCLOAK_ADMIN
           value: "admin"
         - name: KEYCLOAK_ADMIN_PASSWORD
           value: "{{ .Values.keycloak.adminPassword }}"
         #- name: KC_PROXY
         #  value: "edge"
-        #- name: PROXY_ADDRESS_FORWARDING
-        #  value: "true"
+        - name: PROXY_ADDRESS_FORWARDING
+          value: "true"
         - name: KC_DB
           value: "postgres"
         - name: KC_DB_USERNAME
@@ -50,9 +50,21 @@ spec:
         #  value: "/"
         #- name: KC_HOSTNAME_PORT
         #  value: "{{ .Values.external.port }}"
+        - name: KEYCLOAK_FRONTEND_URL
+          value: "{{ include "modelix.externalKeycloakUrl" . }}auth"
+        {{ if .Values.keycloak.debug }}
+        - name: DEBUG
+          value: "true"
+        - name: DEBUG_PORT
+          value: "*:8787"
+        {{ end }}
         ports:
         - name: http
           containerPort: 8080
+        {{ if .Values.keycloak.debug }}
+        - name: debug
+          containerPort: 8787
+        {{ end }}
         readinessProbe:
           httpGet:
             path: /realms/master
