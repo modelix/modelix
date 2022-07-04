@@ -20,7 +20,7 @@ spec:
       containers:
       - name: keycloak
         image: quay.io/keycloak/keycloak:18.0.1
-        args: ["start-dev"]
+        args: ["start-dev", "--import-realm"]
         env:
         - name: KC_LOG_LEVEL
           value: "{{ .Values.keycloak.loglevel }}"
@@ -40,8 +40,6 @@ spec:
           value: "{{ .Values.db.password }}"
         - name: KC_DB_URL
           value: "jdbc:postgresql://{{ include "modelix.fullname" . }}-db:5432/"
-        - name: KEYCLOAK_IMPORT
-          value: /import/realm.json
         #- name: KC_HOSTNAME_ADMIN
         #  value: "kcadmin.{{ .Values.external.hostname }}"
         #- name: KC_HOSTNAME
@@ -73,7 +71,7 @@ spec:
             port: 8080
         volumeMounts:
           - name: keycloak-volume
-            mountPath: /import
+            mountPath: /opt/keycloak/data/import
       volumes:
         - name: keycloak-volume
           configMap:
