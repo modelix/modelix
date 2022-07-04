@@ -2318,7 +2318,7 @@
     "oauth2DeviceCodeLifespan": "600",
     "parRequestUriLifespan": "60",
     "clientSessionMaxLifespan": "0",
-    "frontendUrl": "http://kc.172.16.2.52.nip.io/"
+    "frontendUrl": "${REALM_FRONTEND_URL}"
   },
   "keycloakVersion": "18.0.1",
   "userManagedAccessAllowed": true,

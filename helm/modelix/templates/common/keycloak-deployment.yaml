@@ -41,15 +41,15 @@ spec:
         - name: KC_DB_URL
           value: "jdbc:postgresql://{{ include "modelix.fullname" . }}-db:5432/"
         #- name: KC_HOSTNAME_ADMIN
-        #  value: "kcadmin.{{ .Values.external.hostname }}"
+        #  value: "kcadmin.{{ .Values.ingress.hostname }}"
         #- name: KC_HOSTNAME
-        #  value: "kc.{{ .Values.external.hostname }}"
+        #  value: "kc.{{ .Values.ingress.hostname }}"
         #- name: KC_HOSTNAME_STRICT
         #  value: "true"
         #- name: KC_HOSTNAME_PATH
         #  value: "/"
         #- name: KC_HOSTNAME_PORT
-        #  value: "{{ .Values.external.port }}"
+        #  value: "{{ .Values.ingress.port }}"
         - name: KEYCLOAK_FRONTEND_URL
           value: "{{ include "modelix.externalKeycloakUrl" . }}auth"
         - name: REALM_FRONTEND_URL

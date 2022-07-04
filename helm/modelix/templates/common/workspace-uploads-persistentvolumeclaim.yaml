@@ -10,5 +10,5 @@ spec:
   - ReadWriteOnce
   resources:
     requests:
-      storage: {{ .Values.uploadsStorageSize }}
+      storage: {{ .Values.workspaces.uploadsStorageSize }}
 {{- end -}}

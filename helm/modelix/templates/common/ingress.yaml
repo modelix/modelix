@@ -2,20 +2,12 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: "{{ include "modelix.fullname" . }}-ingress"
+  annotations:
+    nginx.ingress.kubernetes.io/use-regex: "true"
 spec:
   ingressClassName: nginx
   rules:
-    - host: "{{ .Values.external.hostname }}"
-      http:
-        paths:
-          - pathType: Prefix
-            backend:
-              service:
-                name: "{{ include "modelix.fullname" . }}-oauth"
-                port:
-                  number: 4180
-            path: /
-    - host: "{{ .Values.external.keycloak.hostname }}"
+    - host: "{{ .Values.ingress.hostname }}"
       http:
         paths:
           - pathType: Prefix
@@ -24,5 +16,12 @@ spec:
                 name: "{{ include "modelix.fullname" . }}-keycloak"
                 port:
                   number: 8080
+            path: /(resources|admin|js|realms)/.*
+          - pathType: Prefix
+            backend:
+              service:
+                name: "{{ include "modelix.fullname" . }}-oauth"
+                port:
+                  number: 4180
             path: /
 

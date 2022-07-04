@@ -10,5 +10,5 @@ spec:
   - ReadWriteOnce
   resources:
     requests:
-      storage: {{ .Values.modelStorageSize }}
+      storage: {{ .Values.db.storage }}
 {{- end }}
