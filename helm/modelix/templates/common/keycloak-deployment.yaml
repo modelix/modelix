@@ -52,6 +52,10 @@ spec:
         #  value: "{{ .Values.external.port }}"
         - name: KEYCLOAK_FRONTEND_URL
           value: "{{ include "modelix.externalKeycloakUrl" . }}auth"
+        - name: REALM_FRONTEND_URL
+          value: "{{ include "modelix.externalKeycloakUrl" . }}"
+        - name: REALM_CLIENT_SECRET
+          value: "{{ .Values.keycloak.clientSecret }}"
         {{ if .Values.keycloak.debug }}
         - name: DEBUG
           value: "true"
