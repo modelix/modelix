@@ -25,7 +25,7 @@ spec:
         - name: POSTGRES_PASSWORD
           value: "{{ .Values.db.password }}"
         - name: POSTGRES_USER
-          value: "{{ .Values.db.useGCloud }}"
+          value: "{{ .Values.db.user }}"
         - name: POSTGRES_DB
           value: "{{ .Values.db.db }}"
         - name: PGDATA

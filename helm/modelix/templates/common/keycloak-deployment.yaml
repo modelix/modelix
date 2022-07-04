@@ -40,6 +40,8 @@ spec:
           value: "{{ .Values.db.password }}"
         - name: KC_DB_URL
           value: "jdbc:postgresql://{{ include "modelix.fullname" . }}-db:5432/"
+        - name: KEYCLOAK_IMPORT
+          value: /import/realm.json
         #- name: KC_HOSTNAME_ADMIN
         #  value: "kcadmin.{{ .Values.external.hostname }}"
         #- name: KC_HOSTNAME
@@ -69,3 +71,10 @@ spec:
           httpGet:
             path: /realms/master
             port: 8080
+        volumeMounts:
+          - name: keycloak-volume
+            mountPath: /import
+      volumes:
+        - name: keycloak-volume
+          configMap:
+            name: "{{ include "modelix.fullname" . }}-keycloak-configmap"
