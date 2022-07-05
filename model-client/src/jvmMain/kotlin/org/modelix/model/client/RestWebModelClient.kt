@@ -23,7 +23,7 @@ import io.ktor.client.plugins.auth.providers.*
 import io.ktor.client.request.*
 import io.ktor.client.statement.*
 import io.ktor.http.*
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.*
 import org.apache.commons.io.FileUtils
 import org.apache.log4j.Level
 import org.apache.log4j.LogManager
@@ -48,6 +48,8 @@ import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 import java.util.concurrent.Future
 import java.util.concurrent.atomic.AtomicInteger
+import kotlin.time.Duration
+import kotlin.time.Duration.Companion.seconds
 
 val HttpResponse.successful: Boolean
     get() = this.status.value in 200..299
@@ -136,8 +138,7 @@ class RestWebModelClient @JvmOverloads constructor(
             return field
         }
         private set
-    private val requestExecutor: ExecutorService = Executors.newFixedThreadPool(10)
-    private val pollingExecutor: ExecutorService = Executors.newCachedThreadPool()
+    private val coroutineScope = CoroutineScope(Dispatchers.Default)
     private val client = HttpClient(CIO) {
         this.followRedirects = false
         install(HttpTimeout) {
@@ -189,8 +190,7 @@ class RestWebModelClient @JvmOverloads constructor(
             listeners.forEach { it.dispose() }
             listeners.clear()
         }
-        requestExecutor.shutdown()
-        pollingExecutor.shutdown()
+        coroutineScope.cancel("model client disposed")
     }
 
     override fun getPendingSize(): Int = pendingWrites.get()
@@ -443,41 +443,37 @@ class RestWebModelClient @JvmOverloads constructor(
 
     inner class PollingListener(val key: String, val keyListener: IKeyListener) {
         private var lastValue: String? = null
-        private var future: Future<*>? = null
+        private var job: Job? = null
         fun dispose() {
-            future?.cancel(true)
+            job?.cancel("listener disposed")
         }
         fun start() {
-            future = pollingExecutor.submit {
-                while (future?.isCancelled != true) {
+            job = coroutineScope.launch {
+                while (job?.isActive == true) {
                     try {
                         run()
-                    } catch (e: InterruptedException) {
-                        return@submit
                     } catch (e: Exception) {
                         LOG.error("Polling for '$key' failed", e)
-                        sleep(5000)
+                        delay(5.seconds)
                     }
                 }
             }
         }
-        private fun run() {
+        private suspend fun run() {
             var url = baseUrl + "poll/" + URLEncoder.encode(key, StandardCharsets.UTF_8)
             if (lastValue != null) {
                 url += "?lastKnownValue=" + URLEncoder.encode(lastValue, StandardCharsets.UTF_8)
             }
 
             val value: String
-            runBlocking {
-                val response = client.get(url)
-                if (response.unsuccessful) {
-                    if (response.forbidden) {
-                        receivedForbiddenResponse()
-                    }
-                    throw RuntimeException("Request for key '" + key + "' failed: " + response.status)
+            val response = client.get(url)
+            if (response.unsuccessful) {
+                if (response.forbidden) {
+                    receivedForbiddenResponse()
                 }
-                value = response.bodyAsText()
+                throw RuntimeException("Request for key '" + key + "' failed: " + response.status)
             }
+            value = response.bodyAsText()
 
             if (value != lastValue) {
                 lastValue = value

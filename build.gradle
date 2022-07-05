@@ -14,7 +14,7 @@ def getGithubCredentials() {
 }
 
 buildscript {
-    ext.kotlinVersion = '1.4.32'
+    ext.kotlinVersion = '1.6.21'
 
     repositories {
         /* It is useful to have the central maven repo before the Itemis's one

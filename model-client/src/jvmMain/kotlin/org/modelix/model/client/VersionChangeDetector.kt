@@ -15,18 +15,18 @@
 
 package org.modelix.model.client
 
+import kotlinx.coroutines.*
 import org.apache.log4j.Level
 import org.apache.log4j.LogManager
 import org.modelix.model.IKeyListener
 import org.modelix.model.IKeyValueStore
-import org.modelix.model.client.SharedExecutors.fixDelay
-import java.util.concurrent.ScheduledFuture
 
 abstract class VersionChangeDetector(private val store: IKeyValueStore, private val key: String) {
     private val keyListener: IKeyListener
     var lastVersionHash: String? = null
         private set
-    private val pollingTask: ScheduledFuture<*>
+    private var job: Job? = null
+    private val coroutineScope = CoroutineScope(Dispatchers.Default)
 
     @Synchronized
     private fun versionChanged(newVersion: String?) {
@@ -45,7 +45,8 @@ abstract class VersionChangeDetector(private val store: IKeyValueStore, private 
 
     protected abstract fun processVersionChange(oldVersion: String?, newVersion: String?)
     fun dispose() {
-        pollingTask.cancel(false)
+        job?.cancel("disposed")
+        coroutineScope.cancel("disposed")
         store.removeListener(key, keyListener)
     }
 
@@ -62,21 +63,19 @@ abstract class VersionChangeDetector(private val store: IKeyValueStore, private 
                 versionChanged(versionHash)
             }
         }
+
         SharedExecutors.FIXED.execute { store.listen(key, keyListener) }
-        pollingTask = fixDelay(
-            3000,
-            object : Runnable {
-                override fun run() {
-                    val version = store[key]
-                    if (version == lastVersionHash) {
-                        return
-                    }
+        job = coroutineScope.launch {
+            while (isActive) {
+                val version = store[key]
+                if (version != lastVersionHash) {
                     if (LOG.isDebugEnabled) {
                         LOG.debug("New version detected by polling: $version")
                     }
                     versionChanged(version)
                 }
+                delay(3000)
             }
-        )
+        }
     }
 }

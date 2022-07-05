@@ -45,9 +45,10 @@ kotlin {
     sourceSets {
         commonMain {
             dependencies {
-                api group: 'org.modelix', name: 'model-api', version: "$mpsExtensionsVersion"
-                implementation kotlin('stdlib-common:1.4.31')
+                api group: 'org.modelix', name: 'model-api', version: "1.0-SNAPSHOT"
+                implementation kotlin('stdlib-common:1.6.21')
                 implementation("org.jetbrains.kotlinx:kotlinx-collections-immutable:0.3.4")
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0")
             }
         }
         commonTest {
@@ -58,7 +59,7 @@ kotlin {
         }
         jvmMain {
             dependencies {
-                implementation kotlin('stdlib-jdk8:1.4.31')
+                implementation kotlin('stdlib-jdk8:1.6.21')
 
                 implementation group: 'io.vavr', name: 'vavr', version: '0.10.3'
                 implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.11'
@@ -83,6 +84,7 @@ kotlin {
                 implementation("io.ktor:ktor-client-auth:$ktor_version")
                 implementation("io.ktor:ktor-client-content-negotiation:$ktor_version")
                 implementation("io.ktor:ktor-serialization-kotlinx-json:$ktor_version")
+
             }
         }
         jvmTest {
