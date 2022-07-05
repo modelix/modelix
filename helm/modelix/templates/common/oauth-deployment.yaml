@@ -74,7 +74,8 @@ spec:
             - --set-authorization-header=true
             - --silence-ping-logging=true
             - --upstream=http://{{ include "modelix.fullname" . }}-proxy/
-            - --skip-auth-regex=\/(resources|admin|js|realms|keycloak)\/.*
+            - --skip-auth-regex=\/(resources|admin|js|realms|keycloak)\/.* # keycloak
+            - --skip-auth-regex=\/model\/.* # Model server checks there bearer token itself. Model client need the 401.
             - --skip-jwt-bearer-tokens=true
             - --skip-provider-button=true
             - --http-address=0.0.0.0:4180

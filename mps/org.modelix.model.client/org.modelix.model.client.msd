@@ -38,6 +38,8 @@
       <sourceRoot location="trove4j.jar" />
       <sourceRoot location="vavr-match.jar" />
       <sourceRoot location="vavr.jar" />
+      <sourceRoot location="opencensus-api.jar" />
+      <sourceRoot location="opencensus-contrib-http-util.jar" />
     </modelRoot>
   </models>
   <facets>
@@ -48,14 +50,26 @@
   <stubModelEntries>
     <stubModelEntry path="${module}/lib/aopalliance-repackaged.jar" />
     <stubModelEntry path="${module}/lib/checker-qual.jar" />
+    <stubModelEntry path="${module}/lib/commons-codec.jar" />
     <stubModelEntry path="${module}/lib/commons-collections4.jar" />
     <stubModelEntry path="${module}/lib/commons-io.jar" />
     <stubModelEntry path="${module}/lib/commons-lang3.jar" />
+    <stubModelEntry path="${module}/lib/commons-logging.jar" />
     <stubModelEntry path="${module}/lib/error_prone_annotations.jar" />
     <stubModelEntry path="${module}/lib/failureaccess.jar" />
+    <stubModelEntry path="${module}/lib/google-http-client-gson.jar" />
+    <stubModelEntry path="${module}/lib/google-http-client.jar" />
+    <stubModelEntry path="${module}/lib/google-oauth-client-java6.jar" />
+    <stubModelEntry path="${module}/lib/google-oauth-client-jetty.jar" />
+    <stubModelEntry path="${module}/lib/google-oauth-client.jar" />
+    <stubModelEntry path="${module}/lib/grpc-context.jar" />
+    <stubModelEntry path="${module}/lib/gson.jar" />
+    <stubModelEntry path="${module}/lib/guava-android.jar" />
     <stubModelEntry path="${module}/lib/hk2-api.jar" />
     <stubModelEntry path="${module}/lib/hk2-locator.jar" />
     <stubModelEntry path="${module}/lib/hk2-utils.jar" />
+    <stubModelEntry path="${module}/lib/httpclient.jar" />
+    <stubModelEntry path="${module}/lib/httpcore.jar" />
     <stubModelEntry path="${module}/lib/j2objc-annotations.jar" />
     <stubModelEntry path="${module}/lib/jakarta.annotation-api.jar" />
     <stubModelEntry path="${module}/lib/jakarta.inject.jar" />
@@ -72,6 +86,28 @@
     <stubModelEntry path="${module}/lib/jersey-server.jar" />
     <stubModelEntry path="${module}/lib/json.jar" />
     <stubModelEntry path="${module}/lib/jsr305.jar" />
+    <stubModelEntry path="${module}/lib/kotlinx-collections-immutable-jvm.jar" />
+    <stubModelEntry path="${module}/lib/kotlinx-coroutines-core-jvm.jar" />
+    <stubModelEntry path="${module}/lib/kotlinx-coroutines-jdk8.jar" />
+    <stubModelEntry path="${module}/lib/kotlinx-coroutines-slf4j.jar" />
+    <stubModelEntry path="${module}/lib/kotlinx-serialization-core-jvm.jar" />
+    <stubModelEntry path="${module}/lib/kotlinx-serialization-json-jvm.jar" />
+    <stubModelEntry path="${module}/lib/ktor-client-auth-jvm.jar" />
+    <stubModelEntry path="${module}/lib/ktor-client-cio-jvm.jar" />
+    <stubModelEntry path="${module}/lib/ktor-client-content-negotiation-jvm.jar" />
+    <stubModelEntry path="${module}/lib/ktor-client-core-jvm.jar" />
+    <stubModelEntry path="${module}/lib/ktor-events-jvm.jar" />
+    <stubModelEntry path="${module}/lib/ktor-http-cio-jvm.jar" />
+    <stubModelEntry path="${module}/lib/ktor-http-jvm.jar" />
+    <stubModelEntry path="${module}/lib/ktor-io-jvm.jar" />
+    <stubModelEntry path="${module}/lib/ktor-network-jvm.jar" />
+    <stubModelEntry path="${module}/lib/ktor-network-tls-jvm.jar" />
+    <stubModelEntry path="${module}/lib/ktor-serialization-jvm.jar" />
+    <stubModelEntry path="${module}/lib/ktor-serialization-kotlinx-json-jvm.jar" />
+    <stubModelEntry path="${module}/lib/ktor-serialization-kotlinx-jvm.jar" />
+    <stubModelEntry path="${module}/lib/ktor-utils-jvm.jar" />
+    <stubModelEntry path="${module}/lib/ktor-websocket-serialization-jvm.jar" />
+    <stubModelEntry path="${module}/lib/ktor-websockets-jvm.jar" />
     <stubModelEntry path="${module}/lib/listenablefuture-empty-to-avoid-conflict-with-guava.jar" />
     <stubModelEntry path="${module}/lib/model-client-jvm.jar" />
     <stubModelEntry path="${module}/lib/model-client-metadata.jar" />
@@ -79,6 +115,8 @@
     <stubModelEntry path="${module}/lib/trove4j.jar" />
     <stubModelEntry path="${module}/lib/vavr-match.jar" />
     <stubModelEntry path="${module}/lib/vavr.jar" />
+    <stubModelEntry path="${module}/lib/opencensus-api.jar" />
+    <stubModelEntry path="${module}/lib/opencensus-contrib-http-util.jar" />
   </stubModelEntries>
   <sourcePath />
   <dependencies>

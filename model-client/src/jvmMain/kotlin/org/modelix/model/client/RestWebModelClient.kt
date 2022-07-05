@@ -15,6 +15,15 @@
 
 package org.modelix.model.client
 
+import io.ktor.client.*
+import io.ktor.client.engine.cio.*
+import io.ktor.client.plugins.*
+import io.ktor.client.plugins.auth.*
+import io.ktor.client.plugins.auth.providers.*
+import io.ktor.client.request.*
+import io.ktor.client.statement.*
+import io.ktor.http.*
+import kotlinx.coroutines.runBlocking
 import org.apache.commons.io.FileUtils
 import org.apache.log4j.Level
 import org.apache.log4j.LogManager
@@ -27,35 +36,27 @@ import org.modelix.model.api.IIdGenerator
 import org.modelix.model.lazy.IDeserializingKeyValueStore
 import org.modelix.model.lazy.ObjectStoreCache
 import org.modelix.model.lazy.PrefetchCache
+import org.modelix.model.oauth.ModelixOAuthClient
 import org.modelix.model.persistent.HashUtil
 import org.modelix.model.sleep
 import org.modelix.model.util.StreamUtils.toStream
 import java.io.File
 import java.net.URLEncoder
 import java.nio.charset.StandardCharsets
-import java.util.LinkedList
-import java.util.concurrent.*
+import java.util.*
+import java.util.concurrent.ExecutorService
+import java.util.concurrent.Executors
+import java.util.concurrent.Future
 import java.util.concurrent.atomic.AtomicInteger
-import javax.ws.rs.ProcessingException
-import javax.ws.rs.client.Client
-import javax.ws.rs.client.ClientBuilder
-import javax.ws.rs.client.ClientRequestFilter
-import javax.ws.rs.client.Entity
-import javax.ws.rs.core.HttpHeaders
-import javax.ws.rs.core.MediaType
-import javax.ws.rs.core.Response
-import kotlin.collections.ArrayList
-import kotlin.collections.HashMap
-import kotlin.collections.LinkedHashMap
 
-val Response.successful: Boolean
-    get() = this.status in 200..299
+val HttpResponse.successful: Boolean
+    get() = this.status.value in 200..299
 
-val Response.unsuccessful: Boolean
+val HttpResponse.unsuccessful: Boolean
     get() = !successful
 
-val Response.forbidden: Boolean
-    get() = status == Response.Status.FORBIDDEN.statusCode
+val HttpResponse.forbidden: Boolean
+    get() = status == HttpStatusCode.Forbidden
 
 interface ConnectionListener {
     fun receivedForbiddenResponse()
@@ -66,7 +67,7 @@ interface ConnectionListener {
  * We need to specify the connection listeners right into the constructor because connection is started in the constructor.
  */
 class RestWebModelClient @JvmOverloads constructor(
-    var baseUrl: String? = null,
+    var baseUrl: String = defaultUrl,
     val authTokenProvider: (() -> String?)? = null,
     initialConnectionListeners: List<ConnectionListener> = emptyList()
 ) : IModelClient {
@@ -113,21 +114,23 @@ class RestWebModelClient @JvmOverloads constructor(
     override var clientId = 0
         get() {
             if (field == 0) {
-                val targetUri = baseUrl + "counter/clientId"
-                try {
-                    val response = client.target(targetUri).request().post(Entity.text(""))
-                    val body = response.readEntity(String::class.java)
-                    if (response.unsuccessful) {
-                        if (response.forbidden) {
-                            receivedForbiddenResponse()
+                runBlocking {
+                    val targetUri = baseUrl + "counter/clientId"
+                    try {
+                        val response = client.post(targetUri)
+                        val body = response.bodyAsText()
+                        if (response.unsuccessful) {
+                            if (response.forbidden) {
+                                receivedForbiddenResponse()
+                            }
+                            throw RuntimeException("Unable to get the clientId by querying $targetUri: ${response.status}\n$body")
+                        } else {
+                            receivedSuccessfulResponse()
                         }
-                        throw RuntimeException("Unable to get the clientId by querying $targetUri: ${response.statusInfo}\n$body")
-                    } else {
-                        receivedSuccessfulResponse()
+                        field = body.toInt()
+                    } catch (e: Exception) {
+                        throw RuntimeException("Unable to get the clientId by querying $targetUri", e)
                     }
-                    field = body.toInt()
-                } catch (e: ProcessingException) {
-                    throw RuntimeException("Unable to get the clientId by querying $targetUri", e)
                 }
             }
             return field
@@ -135,8 +138,28 @@ class RestWebModelClient @JvmOverloads constructor(
         private set
     private val requestExecutor: ExecutorService = Executors.newFixedThreadPool(10)
     private val pollingExecutor: ExecutorService = Executors.newCachedThreadPool()
-    private val client: Client
-    private val pollingClient: Client
+    private val client = HttpClient(CIO) {
+        this.followRedirects = false
+        install(HttpTimeout) {
+            connectTimeoutMillis = 1000
+        }
+        install(Auth) {
+            bearer {
+                loadTokens {
+                    LOG.debug("loadTokens")
+                    ModelixOAuthClient.getTokens()?.let { BearerTokens(it.accessToken, it.refreshToken) }
+                }
+                refreshTokens {
+                    LOG.debug("refreshTokens")
+                    var url = baseUrl
+                    if (!url.endsWith("/")) url += "/"
+                    if (url.endsWith("/model/")) url = url.substringBeforeLast("/model/")
+                    val tokens = ModelixOAuthClient.authorize(url)
+                    BearerTokens(tokens.accessToken, tokens.refreshToken)
+                }
+            }
+        }
+    }
     private val listeners: MutableList<PollingListener> = ArrayList()
     override val asyncStore: IKeyValueStore = AsyncStore(this)
     private val cache = PrefetchCache.contextIndirectCache(ObjectStoreCache(KeyValueStoreCache(asyncStore)))
@@ -179,34 +202,36 @@ class RestWebModelClient @JvmOverloads constructor(
                 LOG.debug("GET $key")
             }
         }
-        val start = System.currentTimeMillis()
-        val uri = baseUrl + "get/" + URLEncoder.encode(key, StandardCharsets.UTF_8)
-        try {
-            val response = client.target(uri).request().buildGet().invoke()
-            return when (response.status) {
-                Response.Status.OK.statusCode -> {
-                    receivedSuccessfulResponse()
-                    val value = response.readEntity(String::class.java)
-                    val end = System.currentTimeMillis()
-                    if (isHash) {
-                        if (LOG.isDebugEnabled) {
-                            LOG.debug("GET " + key + " took " + (end - start) + " ms: " + value)
+        return runBlocking {
+            val start = System.currentTimeMillis()
+            val uri = baseUrl + "get/" + URLEncoder.encode(key, StandardCharsets.UTF_8)
+            try {
+                val response = client.get(uri)
+                return@runBlocking when (response.status) {
+                    HttpStatusCode.OK -> {
+                        receivedSuccessfulResponse()
+                        val value = response.bodyAsText()
+                        val end = System.currentTimeMillis()
+                        if (isHash) {
+                            if (LOG.isDebugEnabled) {
+                                LOG.debug("GET " + key + " took " + (end - start) + " ms: " + value)
+                            }
                         }
+                        value
                     }
-                    value
-                }
-                Response.Status.NOT_FOUND.statusCode -> {
-                    null
-                }
-                else -> {
-                    if (response.forbidden) {
-                        receivedForbiddenResponse()
+                    HttpStatusCode.NotFound -> {
+                        null
                     }
-                    throw RuntimeException("Request for key '" + key + "' failed: " + response.statusInfo)
+                    else -> {
+                        if (response.forbidden) {
+                            receivedForbiddenResponse()
+                        }
+                        throw RuntimeException("Request for key '" + key + "' failed: " + response.status)
+                    }
                 }
+            } catch (e: Exception) {
+                throw RuntimeException("Unable to connect to '$uri' to get key $key", e)
             }
-        } catch (e: java.lang.Exception) {
-            throw RuntimeException("Unable to connect to '$uri' to get key $key", e)
         }
     }
 
@@ -215,56 +240,62 @@ class RestWebModelClient @JvmOverloads constructor(
             return HashMap()
         }
 
-        val result: MutableMap<String, String?> = LinkedHashMap(16, 0.75.toFloat(), false)
-        var json = JSONArray()
-        val batch = {
-            val body = json.toString()
-            val response = client.target(baseUrl + "getAll").request(MediaType.APPLICATION_JSON).put(Entity.text(body))
-            if (response.status == Response.Status.OK.statusCode) {
-                receivedSuccessfulResponse()
-                val jsonStr = response.readEntity(String::class.java)
-                val responseJson = JSONArray(jsonStr)
-                for (entry_: Any in responseJson) {
-                    val entry = entry_ as JSONObject
-                    result[entry.getString("key")] = entry.optString("value", null)
+        return runBlocking {
+            val result: MutableMap<String, String?> = LinkedHashMap(16, 0.75.toFloat(), false)
+            var json = JSONArray()
+            val batch = suspend {
+                val response = client.put(baseUrl + "getAll") {
+                    setBody(json.toString())
+                    contentType(ContentType.Application.Json)
                 }
-                json = JSONArray()
-            } else {
-                if (response.forbidden) {
-                    receivedForbiddenResponse()
-                }
-                throw RuntimeException(
-                    String.format(
-                        "Request for %d keys failed (%s, ...): %s",
-                        keys.spliterator().exactSizeIfKnown,
-                        toStream(keys).findFirst().orElse(null),
-                        response.statusInfo
+                if (response.status == HttpStatusCode.OK) {
+                    receivedSuccessfulResponse()
+                    val jsonStr = response.bodyAsText()
+                    val responseJson = JSONArray(jsonStr)
+                    for (entry_: Any in responseJson) {
+                        val entry = entry_ as JSONObject
+                        result[entry.getString("key")] = entry.optString("value", null)
+                    }
+                    json = JSONArray()
+                } else {
+                    if (response.forbidden) {
+                        receivedForbiddenResponse()
+                    }
+                    throw RuntimeException(
+                        String.format(
+                            "Request for %d keys failed (%s, ...): %s",
+                            keys.spliterator().exactSizeIfKnown,
+                            toStream(keys).findFirst().orElse(null),
+                            response.status
+                        )
                     )
-                )
+                }
             }
+
+            for (key in keys) {
+                json.put(key)
+                if (json.length() >= 5000) batch()
+            }
+
+            if (json.length() > 0) batch()
+
+            return@runBlocking result
         }
-
-        for (key in keys) {
-            json.put(key)
-            if (json.length() >= 5000) batch()
-        }
-
-        if (json.length() > 0) batch()
-
-        return result
     }
 
     val email: String
         get() {
-            val response = client.target(baseUrl + "getEmail").request().buildGet().invoke()
-            return if (response.status == Response.Status.OK.statusCode) {
-                receivedSuccessfulResponse()
-                response.readEntity(String::class.java)
-            } else {
-                if (response.forbidden) {
-                    receivedForbiddenResponse()
+            return runBlocking {
+                val response = client.get(baseUrl + "getEmail")
+                if (response.successful) {
+                    receivedSuccessfulResponse()
+                    response.bodyAsText()
+                } else {
+                    if (response.forbidden) {
+                        receivedForbiddenResponse()
+                    }
+                    throw RuntimeException("Request for e-mail address failed: " + response.status)
                 }
-                throw RuntimeException("Request for e-mail address failed: " + response.statusInfo)
             }
         }
 
@@ -290,19 +321,24 @@ class RestWebModelClient @JvmOverloads constructor(
                 LOG.debug("PUT $key = $value")
             }
         }
-        val url = baseUrl + "put/" + URLEncoder.encode(key, StandardCharsets.UTF_8)
-        try {
-            val response = client.target(url).request(MediaType.TEXT_PLAIN).put(Entity.text(value))
-            if (response.statusInfo.family != Response.Status.Family.SUCCESSFUL) {
-                if (response.forbidden) {
-                    receivedForbiddenResponse()
+        runBlocking {
+            val url = baseUrl + "put/" + URLEncoder.encode(key, StandardCharsets.UTF_8)
+            try {
+                val response = client.put(url) {
+                    setBody(value)
+                    contentType(ContentType.Text.Plain)
                 }
-                throw RuntimeException("Failed to store entry (${response.statusInfo} ${response.status}) $key = $value. " + response.readEntity(String::class.java))
-            } else {
-                receivedSuccessfulResponse()
+                if (response.unsuccessful) {
+                    if (response.forbidden) {
+                        receivedForbiddenResponse()
+                    }
+                    throw RuntimeException("Failed to store entry (${response.status} ${response.status}) $key = $value. " + response.bodyAsText())
+                } else {
+                    receivedSuccessfulResponse()
+                }
+            } catch (e: Exception) {
+                throw RuntimeException("Failed executing a put to $url", e)
             }
-        } catch (e: Exception) {
-            throw RuntimeException("Failed executing a put to $url", e)
         }
     }
 
@@ -333,25 +369,28 @@ class RestWebModelClient @JvmOverloads constructor(
 
     override fun putAll(entries_: Map<String, String?>) {
         val entries = sortEntriesByDependency(entries_)
-        val sendBatch = sendBatch@{ json: JSONArray, remaining: Int ->
+        val sendBatch: suspend (JSONArray, Int) -> Unit = sendBatch@{ json: JSONArray, remaining: Int ->
             for (attempt in 1..3) {
                 if (LOG.isDebugEnabled) {
                     LOG.debug("PUT batch of ${json.length()} entries, $remaining remaining")
                 }
-                val response = client.target(baseUrl + "putAll").request(MediaType.TEXT_PLAIN).put(Entity.text(json.toString()))
+                val response = client.put(baseUrl + "putAll") {
+                    setBody(json.toString())
+                    contentType(ContentType.Application.Json)
+                }
                 if (response.forbidden) {
                     receivedForbiddenResponse()
                 }
-                if (response.statusInfo.family == Response.Status.Family.SUCCESSFUL) {
+                if (response.successful) {
                     receivedSuccessfulResponse()
                     return@sendBatch
                 }
                 val message = String.format(
                     "Failed to store %d entries (%s) %s: %s (attempt %d)",
                     entries.size,
-                    response.statusInfo,
+                    response.status,
                     entries.entries.stream().map { e: Map.Entry<String?, String?> -> e.key.toString() + " = " + e.value + ", ..." }.findFirst().orElse(""),
-                    response.readEntity(String::class.java),
+                    response.bodyAsText(),
                     attempt
                 )
                 if (attempt == 3) throw RuntimeException(message) else LOG.warn(message)
@@ -362,36 +401,38 @@ class RestWebModelClient @JvmOverloads constructor(
             LOG.debug("PUT " + entries.size + " entries")
         }
 
-        var remainingEntries = entries.size
-        try {
-            pendingWrites.addAndGet(remainingEntries)
-            var json = JSONArray()
-            var approxSize = 0
-            for ((key, value) in entries) {
-                val jsonEntry = JSONObject()
-                jsonEntry.put("key", key)
-                jsonEntry.put("value", value)
-                approxSize += key.length
-                approxSize += value!!.length
-                json.put(jsonEntry)
-                if (!key.matches(HashUtil.HASH_PATTERN)) {
-                    if (LOG.isDebugEnabled) {
-                        LOG.debug("PUT $key = $value")
+        runBlocking {
+            var remainingEntries = entries.size
+            try {
+                pendingWrites.addAndGet(remainingEntries)
+                var json = JSONArray()
+                var approxSize = 0
+                for ((key, value) in entries) {
+                    val jsonEntry = JSONObject()
+                    jsonEntry.put("key", key)
+                    jsonEntry.put("value", value)
+                    approxSize += key.length
+                    approxSize += value!!.length
+                    json.put(jsonEntry)
+                    if (!key.matches(HashUtil.HASH_PATTERN)) {
+                        if (LOG.isDebugEnabled) {
+                            LOG.debug("PUT $key = $value")
+                        }
+                    }
+                    if (json.length() >= 5000 || approxSize > 10000000) {
+                        sendBatch(json, remainingEntries)
+                        remainingEntries -= json.length()
+                        pendingWrites.addAndGet(-json.length())
+                        json = JSONArray()
+                        approxSize = 0
                     }
                 }
-                if (json.length() >= 5000 || approxSize > 10000000) {
+                if (json.length() > 0) {
                     sendBatch(json, remainingEntries)
-                    remainingEntries -= json.length()
-                    pendingWrites.addAndGet(-json.length())
-                    json = JSONArray()
-                    approxSize = 0
                 }
+            } finally {
+                pendingWrites.addAndGet(-remainingEntries)
             }
-            if (json.length() > 0) {
-                sendBatch(json, remainingEntries)
-            }
-        } finally {
-            pendingWrites.addAndGet(-remainingEntries)
         }
     }
 
@@ -426,19 +467,16 @@ class RestWebModelClient @JvmOverloads constructor(
                 url += "?lastKnownValue=" + URLEncoder.encode(lastValue, StandardCharsets.UTF_8)
             }
 
-            val response = client.target(url).request().buildGet().invoke()
-            val value = when (response.status) {
-                Response.Status.OK.statusCode -> {
-                    receivedSuccessfulResponse()
-                    response.readEntity(String::class.java)
-                }
-                Response.Status.NOT_FOUND.statusCode -> null
-                else -> {
+            val value: String
+            runBlocking {
+                val response = client.get(url)
+                if (response.unsuccessful) {
                     if (response.forbidden) {
                         receivedForbiddenResponse()
                     }
-                    throw RuntimeException("Request for key '" + key + "' failed: " + response.statusInfo)
+                    throw RuntimeException("Request for key '" + key + "' failed: " + response.status)
                 }
+                value = response.bodyAsText()
             }
 
             if (value != lastValue) {
@@ -449,33 +487,12 @@ class RestWebModelClient @JvmOverloads constructor(
     }
 
     init {
-        if (baseUrl.isNullOrEmpty()) {
+        if (baseUrl.isEmpty()) {
             baseUrl = defaultUrl
         }
-        if (!(baseUrl!!.endsWith("/"))) {
+        if (!(baseUrl.endsWith("/"))) {
             baseUrl += "/"
         }
-        // a read timeout could be an issue for the usage of SSE but a connect timeout
-        // is useful to recognize when the server is down
-        client = ClientBuilder.newBuilder()
-            .connectTimeout(1000, TimeUnit.MILLISECONDS)
-            .executorService(requestExecutor)
-            // .readTimeout(1000, TimeUnit.MILLISECONDS)
-            .register(
-                ClientRequestFilter { ctx ->
-                    val token = getAuthToken()
-                    if (token != null) ctx.headers.add(HttpHeaders.AUTHORIZATION, "Bearer $token")
-                }
-            ).build()
-        pollingClient = ClientBuilder.newBuilder()
-            .connectTimeout(1000, TimeUnit.MILLISECONDS)
-            .executorService(pollingExecutor)
-            .register(
-                ClientRequestFilter { ctx ->
-                    val token = getAuthToken()
-                    if (token != null) ctx.headers.add(HttpHeaders.AUTHORIZATION, "Bearer $token")
-                }
-            ).build()
         idGenerator = IdGenerator(clientId)
     }
 }
