@@ -14,25 +14,20 @@
 
 package org.modelix.model.server
 
-import io.ktor.server.application.*
-import io.ktor.server.plugins.cors.routing.*
 import io.ktor.http.*
-import io.ktor.server.auth.*
+import io.ktor.server.application.*
 import io.ktor.server.plugins.*
-import io.ktor.server.plugins.forwardedheaders.*
+import io.ktor.server.plugins.cors.routing.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import io.ktor.util.pipeline.*
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 import org.json.JSONArray
 import org.json.JSONObject
-import org.modelix.authorization.*
-import org.modelix.authorization.installAuthentication
+import org.modelix.authorization.EPermissionType
+import org.modelix.authorization.NoPermissionException
+import org.modelix.authorization.checkPermission
 import org.modelix.authorization.requiresPermission
-import org.modelix.model.IKeyListener
 import org.modelix.model.persistent.HashUtil
 import org.slf4j.LoggerFactory
 import java.io.IOException
@@ -59,7 +54,6 @@ class KtorModelServer(val storeClient: IStoreClient) {
         val HEALTH_KEY = PROTECTED_PREFIX + "health2"
         private const val LEGACY_SERVER_ID_KEY = "repositoryId"
         private const val SERVER_ID_KEY = "server-id"
-        private const val TEXT_PLAIN = "text/plain"
         private fun parseXForwardedFor(value: String?): List<InetAddress> {
             val result: List<InetAddress> = ArrayList()
             return if (value != null) {
@@ -345,7 +339,7 @@ class KtorModelServer(val storeClient: IStoreClient) {
         return isTrustedAddress(call.request.origin.remoteHost)
     }
 
-    private suspend fun PipelineContext<Unit, ApplicationCall>.respondValue(key: String, value: String?) {
+    private suspend fun CallContext.respondValue(key: String, value: String?) {
         if (value == null) {
             call.respondText("key '$key' not found", status = HttpStatusCode.NotFound)
         } else {
@@ -367,7 +361,7 @@ class KtorModelServer(val storeClient: IStoreClient) {
             // A permission check has happened somewhere earlier.
             return
         }
-        //ModelixAuthorization.checkPermission(getUser(), PermissionId("model-server-entry/$key"), type, publicIfNew = true)
+        call.checkPermission("model-server-entry/$key", type.name)
     }
 
 
