@@ -24,7 +24,7 @@ buildscript {
         maven { url 'https://plugins.gradle.org/m2/' }
         mavenCentral()
         maven { url 'https://artifacts.itemis.cloud/repository/maven-mps/' }
-        maven { url 'https://projects.itemis.de/nexus/content/repositories/mbeddr' }
+        //maven { url 'https://projects.itemis.de/nexus/content/repositories/mbeddr' }
     }
 
     dependencies {
@@ -102,7 +102,6 @@ subprojects {
         maven { url "https://repo.maven.apache.org/maven2" }
         mavenCentral()
         maven { url 'https://artifacts.itemis.cloud/repository/maven-mps/' }
-        maven { url 'https://projects.itemis.de/nexus/content/repositories/mbeddr' }
     }
 
     publishing {
@@ -133,18 +132,18 @@ subprojects {
                     }
                 }
             }
-            if (project.hasProperty("projects.itemis.de.user")) {
-                maven {
-                    name = "itemisNexus2"
-                    url = modelixVersion.contains("SNAPSHOT")
-                            ? uri("https://projects.itemis.de/nexus/content/repositories/mbeddr_snapshots/")
-                            : uri("https://projects.itemis.de/nexus/content/repositories/mbeddr/")
-                    credentials {
-                        username = project.findProperty("projects.itemis.de.user").toString()
-                        password = project.findProperty("projects.itemis.de.pw").toString()
-                    }
-                }
-            }
+//            if (project.hasProperty("projects.itemis.de.user")) {
+//                maven {
+//                    name = "itemisNexus2"
+//                    url = modelixVersion.contains("SNAPSHOT")
+//                            ? uri("https://projects.itemis.de/nexus/content/repositories/mbeddr_snapshots/")
+//                            : uri("https://projects.itemis.de/nexus/content/repositories/mbeddr/")
+//                    credentials {
+//                        username = project.findProperty("projects.itemis.de.user").toString()
+//                        password = project.findProperty("projects.itemis.de.pw").toString()
+//                    }
+//                }
+//            }
         }
     }
 }
