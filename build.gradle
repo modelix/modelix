@@ -24,7 +24,7 @@ buildscript {
         maven { url 'https://plugins.gradle.org/m2/' }
         mavenCentral()
         maven { url 'https://artifacts.itemis.cloud/repository/maven-mps/' }
-        //maven { url 'https://projects.itemis.de/nexus/content/repositories/mbeddr' }
+        maven { url 'https://projects.itemis.de/nexus/content/repositories/mbeddr' }
     }
 
     dependencies {
