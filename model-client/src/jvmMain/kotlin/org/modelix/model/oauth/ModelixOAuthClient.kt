@@ -24,7 +24,6 @@ import com.google.api.client.json.gson.GsonFactory
 import com.google.api.client.util.store.DataStoreFactory
 import com.google.api.client.util.store.MemoryDataStoreFactory
 
-
 object ModelixOAuthClient {
     private var DATA_STORE_FACTORY: DataStoreFactory = MemoryDataStoreFactory()
     private val SCOPE = "email"

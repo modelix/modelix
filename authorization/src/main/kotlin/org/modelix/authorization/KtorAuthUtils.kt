@@ -43,7 +43,6 @@ import java.security.interfaces.RSAPublicKey
 import java.util.*
 
 private const val jwtAuth = "jwtAuth"
-private val jwkProvider = JwkProviderBuilder(URL("${KeycloakUtils.BASE_URL}realms/${KeycloakUtils.REALM}/protocol/openid-connect/certs")).build()
 private val httpClient = HttpClient(CIO)
 private val UNIT_TEST_MODE_KEY = AttributeKey<Boolean>("unit-test-mode")
 
@@ -63,7 +62,7 @@ fun Application.installAuthentication(unitTestMode: Boolean = false) {
         } else {
             // "Authorization: Bearer ..." header is provided in the header by OAuth proxy
             jwt(jwtAuth) {
-                verifier(jwkProvider) {
+                verifier(KeycloakUtils.jwkProvider) {
                     acceptLeeway(60L)
                 }
                 challenge { _, _ ->
@@ -181,7 +180,7 @@ fun ApplicationCall.getUserName(): String? {
 }
 
 fun verifyTokenSignature(token: DecodedJWT) {
-    val jwk = jwkProvider.get(token.keyId)
+    val jwk = KeycloakUtils.jwkProvider.get(token.keyId)
     val publicKey = jwk.publicKey as? RSAPublicKey ?: throw RuntimeException("Invalid key type")
     val algorithm = when (jwk.algorithm) {
         "RS256" -> Algorithm.RSA256(publicKey, null)

@@ -13,6 +13,7 @@
  */
 package org.modelix.authorization
 
+import com.auth0.jwk.JwkProviderBuilder
 import com.auth0.jwt.interfaces.DecodedJWT
 import com.google.common.cache.CacheBuilder
 import org.keycloak.authorization.client.AuthzClient
@@ -21,6 +22,7 @@ import org.keycloak.representations.idm.authorization.AuthorizationRequest
 import org.keycloak.representations.idm.authorization.Permission
 import org.keycloak.representations.idm.authorization.PermissionRequest
 import org.keycloak.representations.idm.authorization.ResourceRepresentation
+import java.net.URL
 import java.util.concurrent.TimeUnit
 
 object KeycloakUtils {
@@ -36,6 +38,8 @@ object KeycloakUtils {
         mapOf("secret" to CLIENT_SECRET),
         null
     )))
+
+    val jwkProvider = JwkProviderBuilder(URL("${BASE_URL}realms/$REALM/protocol/openid-connect/certs")).build()
 
     private val cache = CacheBuilder.newBuilder()
         .expireAfterWrite(1, TimeUnit.MINUTES)

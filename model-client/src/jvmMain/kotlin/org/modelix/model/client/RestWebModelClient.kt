@@ -44,11 +44,7 @@ import java.io.File
 import java.net.URLEncoder
 import java.nio.charset.StandardCharsets
 import java.util.*
-import java.util.concurrent.ExecutorService
-import java.util.concurrent.Executors
-import java.util.concurrent.Future
 import java.util.concurrent.atomic.AtomicInteger
-import kotlin.time.Duration
 import kotlin.time.Duration.Companion.seconds
 
 val HttpResponse.successful: Boolean
@@ -142,22 +138,40 @@ class RestWebModelClient @JvmOverloads constructor(
     private val client = HttpClient(CIO) {
         this.followRedirects = false
         install(HttpTimeout) {
-            connectTimeoutMillis = 1000
+            connectTimeoutMillis = 1.seconds.inWholeMilliseconds
+            requestTimeoutMillis = 30.seconds.inWholeMilliseconds
         }
         install(Auth) {
             bearer {
                 loadTokens {
                     LOG.debug("loadTokens")
-                    ModelixOAuthClient.getTokens()?.let { BearerTokens(it.accessToken, it.refreshToken) }
+                    getAuthToken()?.let { BearerTokens(it, "") }
+                        ?: ModelixOAuthClient.getTokens()?.let { BearerTokens(it.accessToken, it.refreshToken) }
                 }
                 refreshTokens {
                     LOG.debug("refreshTokens")
-                    var url = baseUrl
-                    if (!url.endsWith("/")) url += "/"
-                    if (url.endsWith("/model/")) url = url.substringBeforeLast("/model/")
-                    val tokens = ModelixOAuthClient.authorize(url)
-                    BearerTokens(tokens.accessToken, tokens.refreshToken)
+                    val providedToken = getAuthToken()
+                    if (providedToken != null && providedToken != this.oldTokens?.accessToken) {
+                        BearerTokens(providedToken, "")
+                    } else {
+                        var url = baseUrl
+                        if (!url.endsWith("/")) url += "/"
+                        if (url.endsWith("/model/")) url = url.substringBeforeLast("/model/")
+                        val tokens = ModelixOAuthClient.authorize(url)
+                        BearerTokens(tokens.accessToken, tokens.refreshToken)
+                    }
                 }
+            }
+        }
+        install(HttpRequestRetry) {
+            retryOnExceptionOrServerErrors(maxRetries = 3)
+            exponentialDelay()
+            modifyRequest {
+                try {
+                    runBlocking {
+                        response?.let { println(it.bodyAsText()) }
+                    }
+                } catch (_: Exception) {}
             }
         }
     }
@@ -299,8 +313,8 @@ class RestWebModelClient @JvmOverloads constructor(
             }
         }
 
-    override fun listen(key: String, keyListener: IKeyListener) {
-        val pollingListener = PollingListener(key, keyListener)
+    override fun listen(key: String, listener: IKeyListener) {
+        val pollingListener = PollingListener(key, listener)
         synchronized(listeners) {
             listeners.add(pollingListener)
             pollingListener.start()
@@ -449,12 +463,14 @@ class RestWebModelClient @JvmOverloads constructor(
         }
         fun start() {
             job = coroutineScope.launch {
-                while (job?.isActive == true) {
+                while (isActive) {
                     try {
                         run()
+                    } catch (e: CancellationException) {
+                        break
                     } catch (e: Exception) {
                         LOG.error("Polling for '$key' failed", e)
-                        delay(5.seconds)
+                        delay(1.seconds)
                     }
                 }
             }
@@ -465,19 +481,26 @@ class RestWebModelClient @JvmOverloads constructor(
                 url += "?lastKnownValue=" + URLEncoder.encode(lastValue, StandardCharsets.UTF_8)
             }
 
-            val value: String
-            val response = client.get(url)
-            if (response.unsuccessful) {
-                if (response.forbidden) {
-                    receivedForbiddenResponse()
+            val value: String?
+            val response = client.get(url) {
+                timeout {
+                    requestTimeoutMillis = 60.seconds.inWholeMilliseconds // long polling
                 }
-                throw RuntimeException("Request for key '" + key + "' failed: " + response.status)
             }
-            value = response.bodyAsText()
-
-            if (value != lastValue) {
-                lastValue = value
-                keyListener.changed(key, value)
+            if (response.status == HttpStatusCode.NotFound) {
+                delay(1.seconds)
+            } else {
+                if (response.unsuccessful) {
+                    if (response.forbidden) {
+                        receivedForbiddenResponse()
+                    }
+                    throw RuntimeException("Request for key '" + key + "' failed: " + response.status)
+                }
+                value = response.bodyAsText()
+                if (value != lastValue) {
+                    lastValue = value
+                    keyListener.changed(key, value)
+                }
             }
         }
     }
