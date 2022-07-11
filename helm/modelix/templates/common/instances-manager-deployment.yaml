@@ -31,9 +31,13 @@ spec:
         name: instances-manager
         env:
           - name: model_server_url
-            value: http://model:28101/
+            value: http://{{ include "modelix.fullname" . }}-model:28101/
           - name: WORKSPACE_CLIENT_DEPLOYMENT_NAME
             value: "{{ include "modelix.fullname" . }}-workspace-client"
+          - name: WORKSPACE_CLIENT_NAMESPACE
+            value: "{{ .Release.Namespace }}"
+          - name: WORKSPACE_CLIENT_PREFIX
+            value: "{{ include "modelix.fullname" . }}-wsclt-"
           {{- include "modelix.keycloakEnv" . | nindent 10 }}
         ports:
         - containerPort: 33332
@@ -44,6 +48,20 @@ spec:
             cpu: "0.1"
           limits:
             memory: "500Mi"
-            cpu: "1.0"           
+            cpu: "1.0"
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 28106
+          initialDelaySeconds: 5
+          periodSeconds: 5
+          timeoutSeconds: 3
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 28106
+          initialDelaySeconds: 60
+          periodSeconds: 15
+          timeoutSeconds: 10
       restartPolicy: Always
 {{- end -}}

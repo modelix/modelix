@@ -196,16 +196,24 @@ class DeploymentManager {
                 val coreApi = CoreV1Api()
                 val deployments = appsApi.listNamespacedDeployment(KUBERNETES_NAMESPACE, null, null, null, null, null, null, null, null, null)
                 for (deployment in deployments.items) {
-                    val name = deployment.metadata!!.name
-                    if (name!!.startsWith(PERSONAL_DEPLOYMENT_PREFIX)) {
+                    val name = deployment.metadata!!.name!!
+                    if (name.startsWith(PERSONAL_DEPLOYMENT_PREFIX)) {
                         existingDeployments.add(name)
                     }
                 }
                 val toAdd = expectedDeployments.keys.stream().filter { d: String? -> !existingDeployments.contains(d) }.collect(Collectors.toList())
                 val toRemove = existingDeployments.stream().filter { d: String? -> !expectedDeployments.containsKey(d) }.collect(Collectors.toList())
                 for (d in toRemove) {
-                    appsApi.deleteNamespacedDeployment(d, KUBERNETES_NAMESPACE, null, null, null, null, null, null)
-                    coreApi.deleteNamespacedService(d, KUBERNETES_NAMESPACE, null, null, null, null, null, null)
+                    try {
+                        appsApi.deleteNamespacedDeployment(d, KUBERNETES_NAMESPACE, null, null, null, null, null, null)
+                    } catch (e: Exception) {
+                        LOG.error("Failed to delete deployment $d", e)
+                    }
+                    try {
+                        coreApi.deleteNamespacedService(d, KUBERNETES_NAMESPACE, null, null, null, null, null, null)
+                    } catch (e: Exception) {
+                        LOG.error("Failed to delete service $d", e)
+                    }
                 }
                 for (d in toAdd) {
                     val workspace = expectedDeployments[d]!!
@@ -455,10 +463,10 @@ class DeploymentManager {
 
     companion object {
         private val LOG = Logger.getLogger(DeploymentManager::class.java)
-        const val KUBERNETES_NAMESPACE = "default"
-        val INSTANCE = DeploymentManager()
-        const val PERSONAL_DEPLOYMENT_PREFIX = "wsclt-"
+        val KUBERNETES_NAMESPACE = System.getenv("WORKSPACE_CLIENT_NAMESPACE") ?: "default"
+        val PERSONAL_DEPLOYMENT_PREFIX = System.getenv("WORKSPACE_CLIENT_PREFIX") ?: "wsclt-"
         val WORKSPACE_CLIENT_DEPLOYMENT_NAME = System.getenv("WORKSPACE_CLIENT_DEPLOYMENT_NAME") ?: "workspace-client"
         val WORKSPACE_PATTERN = Pattern.compile("workspace-([a-f0-9]+)-([a-zA-Z0-9\\-_\\*]+)")
+        val INSTANCE = DeploymentManager()
     }
 }

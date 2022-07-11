@@ -1,9 +1,9 @@
 description = "An Example GraphQL service served by Ktor"
 
-val ktorVersion = "1.6.5"
-val kotlinCoroutinesVersion = "1.5.2"
-val kotlinVersion = "1.5.31"
-val logbackVersion = "1.2.1"
+val ktorVersion: String by rootProject
+val kotlinCoroutinesVersion: String by rootProject
+val kotlinVersion: String by rootProject
+val logbackVersion: String by rootProject
 val graphqlKotlinVersion = "5.2.0"
 
 plugins {

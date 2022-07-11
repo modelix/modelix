@@ -5,8 +5,8 @@ set -e
 TAG=$( ./modelix-version.sh )
 
 (
-  cd proxy
-  docker build --no-cache -t modelix/modelix-proxy .
+#  cd proxy
+  docker build -f Dockerfile-proxy --no-cache -t modelix/modelix-proxy .
 )
 
 docker tag modelix/modelix-proxy:latest "modelix/modelix-proxy:${TAG}"

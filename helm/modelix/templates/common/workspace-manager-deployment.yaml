@@ -29,6 +29,8 @@ spec:
           - name: model_server_url
             value: http://{{ include "modelix.fullname" . }}-model:28101/
           {{- include "modelix.keycloakEnv" . | nindent 10 }}
+          - name: WORKSPACE_CLIENT_IMAGE
+            value: "modelix/modelix-workspace-client:{{ .Values.imageTags.wsClient | default .Chart.AppVersion }}"
         image: "modelix/modelix-workspace-manager:{{ .Values.imageTags.wsManager | default .Chart.AppVersion }}"
         imagePullPolicy: IfNotPresent
         name: workspace-manager

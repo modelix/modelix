@@ -13,8 +13,11 @@
  */
 package org.modelix.instancesmanager
 
+import com.auth0.jwt.JWT
 import org.eclipse.jetty.http.HttpCookie
 import org.eclipse.jetty.server.Request
+import org.modelix.authorization.AccessTokenPrincipal
+import org.modelix.authorization.nullIfInvalid
 import java.util.*
 import javax.servlet.http.HttpServletRequest
 
@@ -46,21 +49,36 @@ class RedirectedURL(val remainingPath: String, val originalDeploymentName: Strin
             var remainingPath = path.substring(indexOfSlash)
             if (request.queryString != null) remainingPath += "?" + request.queryString
 
-            // TODO use the ID of an authenticated user instead (or in addition)
-            var cookieValue: String? = null
-            val cookies = request.cookies
-            if (cookies != null) {
-                for (cookie in cookies) {
-                    if (COOKIE_NAME == cookie.name) {
-                        cookieValue = cookie.value
+            val userId = getUserIdFromAuthHeader(request) ?: run {
+                // TODO use the ID of an authenticated user instead (or in addition)
+                var cookieValue: String? = null
+                val cookies = request.cookies
+                if (cookies != null) {
+                    for (cookie in cookies) {
+                        if (COOKIE_NAME == cookie.name) {
+                            cookieValue = cookie.value
+                        }
                     }
                 }
+                baseRequest?.response?.addCookie(HttpCookie(COOKIE_NAME, cookieValue
+                    ?: UUID.randomUUID().toString(), null, "/", 30 * 24 * 60 * 60, false, false))
+                cookieValue
             }
-            baseRequest?.response?.addCookie(HttpCookie(COOKIE_NAME, cookieValue
-                ?: UUID.randomUUID().toString(), null, "/", 30 * 24 * 60 * 60, false, false))
-            return if (cookieValue == null) {
-                RedirectedURL(remainingPath, originalDeploymentName, null, null)
-            } else RedirectedURL(remainingPath, originalDeploymentName, null, cookieValue)
+
+            return RedirectedURL(remainingPath, originalDeploymentName, null, userId)
+        }
+
+        fun getUserIdFromAuthHeader(request: HttpServletRequest): String? {
+            val tokenString = request.getHeader("X-Forwarded-Access-Token") ?: run {
+                val headerValue: String? = request.getHeader("Authorization")
+                val prefix = "Bearer "
+                if (headerValue?.startsWith(prefix) == true) {
+                    headerValue.drop(prefix.length)
+                } else {
+                    null
+                }
+            } ?: return null
+            return JWT.decode(tokenString).nullIfInvalid()?.let { AccessTokenPrincipal(it) }?.getUserName()
         }
     }
 }
