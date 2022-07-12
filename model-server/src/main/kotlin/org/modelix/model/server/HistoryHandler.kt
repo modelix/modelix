@@ -39,7 +39,7 @@ class HistoryHandler(private val client: IModelClient) {
             get("/history/{repoId}/{branch}/") {
                 val repositoryId = call.parameters["repoId"]!!
                 val branch = call.parameters["branch"]!!
-                val params = call.receiveParameters()
+                val params = call.request.queryParameters
                 val limit = toInt(params["limit"], 500)
                 val skip = toInt(params["skip"], 0)
                 call.respondTextWriter(contentType = ContentType.Text.Html) {
@@ -106,7 +106,7 @@ class HistoryHandler(private val client: IModelClient) {
             """<ul>
                 | ${knownRepositoryIds.map { repositoryAndBranch -> """
                 <li>
-                    <a href='${escapeURL(repositoryAndBranch.toString())}/'>${escape(repositoryAndBranch.toString())}</a>
+                    <a href='${escapeURL(repositoryAndBranch.repository)}/${escapeURL(repositoryAndBranch.branch)}/'>${escape(repositoryAndBranch.toString())}</a>
                 </li>
                 """ }.joinToString("\n")}
                 |</ul>
