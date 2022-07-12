@@ -150,25 +150,27 @@ class RestWebModelClient @JvmOverloads constructor(
             requestTimeoutMillis = 30.seconds.inWholeMilliseconds
         }
         install(ContentNegotiation) {
-            this.register(ContentType.Application.Json, object : ContentConverter {
-                override suspend fun deserialize(charset: Charset, typeInfo: TypeInfo, content: ByteReadChannel): Any {
-                    lateinit var str: String
-                    content.read {
-                        str = it.decodeString(charset)
+            this.register(
+                ContentType.Application.Json,
+                object : ContentConverter {
+                    override suspend fun deserialize(charset: Charset, typeInfo: TypeInfo, content: ByteReadChannel): Any {
+                        lateinit var str: String
+                        content.read {
+                            str = it.decodeString(charset)
+                        }
+                        return if (typeInfo.type == JSONArray::class) JSONArray(str) else JSONObject(str)
                     }
-                    return if (typeInfo.type == JSONArray::class) JSONArray(str) else JSONObject(str)
-                }
 
-                override suspend fun serialize(
-                    contentType: ContentType,
-                    charset: Charset,
-                    typeInfo: TypeInfo,
-                    value: Any
-                ): OutgoingContent {
-                    return TextContent(value.toString(), contentType)
+                    override suspend fun serialize(
+                        contentType: ContentType,
+                        charset: Charset,
+                        typeInfo: TypeInfo,
+                        value: Any
+                    ): OutgoingContent {
+                        return TextContent(value.toString(), contentType)
+                    }
                 }
-
-            })
+            )
         }
         install(Auth) {
             bearer {
