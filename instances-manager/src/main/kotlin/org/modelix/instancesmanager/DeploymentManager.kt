@@ -21,6 +21,7 @@ import io.kubernetes.client.openapi.apis.CoreV1Api
 import io.kubernetes.client.openapi.models.*
 import io.kubernetes.client.util.ClientBuilder
 import io.kubernetes.client.util.Yaml
+import org.apache.commons.collections4.map.LRUMap
 import org.apache.log4j.Logger
 import org.eclipse.jetty.server.Request
 import org.modelix.workspaces.Workspace
@@ -294,13 +295,16 @@ class DeploymentManager {
             .filter { (it.involvedObject.name ?: "").contains(deploymentName) }
     }
 
+    private val workspaceCache = LRUMap<WorkspaceHash, Workspace?>(100)
     fun getWorkspaceForPath(path: String): Workspace? {
         val matcher = WORKSPACE_PATTERN.matcher(path)
         if (!matcher.matches()) return null
         var workspaceId = matcher.group(1)
         var workspaceHash = matcher.group(2) ?: return null
         if (!workspaceHash.contains("*")) workspaceHash = workspaceHash.substring(0, 5) + "*" + workspaceHash.substring(5)
-        return workspacePersistence.getWorkspaceForHash(WorkspaceHash(workspaceHash))
+        return workspaceCache.computeIfAbsent(WorkspaceHash(workspaceHash)) {
+            workspacePersistence.getWorkspaceForHash(it)
+        }
     }
 
     @Synchronized
@@ -328,9 +332,9 @@ class DeploymentManager {
             //deployment.metadata!!.putAnnotationsItem(INSTANCE_PER_USER_ANNOTATION_KEY, null)
             //deployment.metadata!!.putAnnotationsItem(MAX_UNASSIGNED_INSTANCES_ANNOTATION_KEY, null)
             deployment.metadata!!.name(personalDeploymentName)
-            deployment.metadata!!.putLabelsItem("app", personalDeploymentName)
-            deployment.spec!!.selector.putMatchLabelsItem("app", personalDeploymentName)
-            deployment.spec!!.template.metadata!!.putLabelsItem("app", personalDeploymentName)
+            deployment.metadata!!.putLabelsItem("component", personalDeploymentName)
+            deployment.spec!!.selector.putMatchLabelsItem("component", personalDeploymentName)
+            deployment.spec!!.template.metadata!!.putLabelsItem("component", personalDeploymentName)
             deployment.spec!!.replicas(1)
             deployment.spec!!.template.spec!!.containers[0]
                 .addEnvItem(V1EnvVar().name("modelix_workspace_id").value(workspace.id))
@@ -356,9 +360,9 @@ class DeploymentManager {
             service.spec!!.ports!!.forEach(Consumer { p: V1ServicePort -> p.nodePort(null) })
             service.status = null
             service.metadata!!.name(personalDeploymentName)
-            service.metadata!!.putLabelsItem("app", personalDeploymentName)
+            service.metadata!!.putLabelsItem("component", personalDeploymentName)
             service.metadata!!.name(personalDeploymentName)
-            service.spec!!.putSelectorItem("app", personalDeploymentName)
+            service.spec!!.putSelectorItem("component", personalDeploymentName)
             println("Creating service: ")
             println(Yaml.dump(service))
             coreApi.createNamespacedService(KUBERNETES_NAMESPACE, service, null, null, null)

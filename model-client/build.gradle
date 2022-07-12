@@ -78,7 +78,7 @@ kotlin {
                 implementation("com.google.oauth-client:google-oauth-client:$oauthVersion")
                 implementation("com.google.oauth-client:google-oauth-client-jetty:$oauthVersion")
 
-                def ktor_version = "2.0.3"
+                def ktor_version = rootProject.ktorVersion
                 implementation("io.ktor:ktor-client-core:$ktor_version")
                 implementation("io.ktor:ktor-client-cio:$ktor_version")
                 implementation("io.ktor:ktor-client-auth:$ktor_version")
