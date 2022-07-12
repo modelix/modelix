@@ -20,10 +20,18 @@ import io.ktor.client.engine.cio.*
 import io.ktor.client.plugins.*
 import io.ktor.client.plugins.auth.*
 import io.ktor.client.plugins.auth.providers.*
+import io.ktor.client.plugins.contentnegotiation.*
 import io.ktor.client.request.*
 import io.ktor.client.statement.*
 import io.ktor.http.*
+import io.ktor.http.content.*
+import io.ktor.serialization.*
+import io.ktor.util.*
+import io.ktor.util.reflect.*
+import io.ktor.utils.io.*
+import io.ktor.utils.io.charsets.*
 import kotlinx.coroutines.*
+import kotlinx.coroutines.CancellationException
 import org.apache.commons.io.FileUtils
 import org.apache.log4j.Level
 import org.apache.log4j.LogManager
@@ -141,6 +149,27 @@ class RestWebModelClient @JvmOverloads constructor(
             connectTimeoutMillis = 1.seconds.inWholeMilliseconds
             requestTimeoutMillis = 30.seconds.inWholeMilliseconds
         }
+        install(ContentNegotiation) {
+            this.register(ContentType.Application.Json, object : ContentConverter {
+                override suspend fun deserialize(charset: Charset, typeInfo: TypeInfo, content: ByteReadChannel): Any {
+                    lateinit var str: String
+                    content.read {
+                        str = it.decodeString(charset)
+                    }
+                    return if (typeInfo.type == JSONArray::class) JSONArray(str) else JSONObject(str)
+                }
+
+                override suspend fun serialize(
+                    contentType: ContentType,
+                    charset: Charset,
+                    typeInfo: TypeInfo,
+                    value: Any
+                ): OutgoingContent {
+                    return TextContent(value.toString(), contentType)
+                }
+
+            })
+        }
         install(Auth) {
             bearer {
                 loadTokens {
@@ -257,8 +286,7 @@ class RestWebModelClient @JvmOverloads constructor(
             var json = JSONArray()
             val batch = suspend {
                 val response = client.put(baseUrl + "getAll") {
-                    setBody(json.toString())
-                    contentType(ContentType.Application.Json)
+                    setBody(json)
                 }
                 if (response.status == HttpStatusCode.OK) {
                     receivedSuccessfulResponse()
@@ -338,7 +366,6 @@ class RestWebModelClient @JvmOverloads constructor(
             try {
                 val response = client.put(url) {
                     setBody(value)
-                    contentType(ContentType.Text.Plain)
                 }
                 if (response.unsuccessful) {
                     if (response.forbidden) {
@@ -387,8 +414,7 @@ class RestWebModelClient @JvmOverloads constructor(
                     LOG.debug("PUT batch of ${json.length()} entries, $remaining remaining")
                 }
                 val response = client.put(baseUrl + "putAll") {
-                    setBody(json.toString())
-                    contentType(ContentType.Application.Json)
+                    setBody(json)
                 }
                 if (response.forbidden) {
                     receivedForbiddenResponse()
