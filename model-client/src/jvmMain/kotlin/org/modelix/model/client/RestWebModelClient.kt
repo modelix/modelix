@@ -30,6 +30,7 @@ import io.ktor.util.*
 import io.ktor.util.reflect.*
 import io.ktor.utils.io.*
 import io.ktor.utils.io.charsets.*
+import io.ktor.utils.io.core.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.CancellationException
 import org.apache.commons.io.FileUtils
@@ -154,10 +155,7 @@ class RestWebModelClient @JvmOverloads constructor(
                 ContentType.Application.Json,
                 object : ContentConverter {
                     override suspend fun deserialize(charset: Charset, typeInfo: TypeInfo, content: ByteReadChannel): Any {
-                        lateinit var str: String
-                        content.read {
-                            str = it.decodeString(charset)
-                        }
+                        val str = content.readRemaining().readText(charset)
                         return if (typeInfo.type == JSONArray::class) JSONArray(str) else JSONObject(str)
                     }
 
@@ -289,6 +287,7 @@ class RestWebModelClient @JvmOverloads constructor(
             val batch = suspend {
                 val response = client.put(baseUrl + "getAll") {
                     setBody(json)
+                    contentType(ContentType.Application.Json)
                 }
                 if (response.status == HttpStatusCode.OK) {
                     receivedSuccessfulResponse()
@@ -417,6 +416,7 @@ class RestWebModelClient @JvmOverloads constructor(
                 }
                 val response = client.put(baseUrl + "putAll") {
                     setBody(json)
+                    contentType(ContentType.Application.Json)
                 }
                 if (response.forbidden) {
                     receivedForbiddenResponse()
