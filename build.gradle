@@ -121,27 +121,27 @@ subprojects {
                 }
             }
             */
-            if (project.hasProperty("artifacts.itemis.cloud.user")) {
+            if (rootProject.hasProperty("artifacts.itemis.cloud.user")) {
                 maven {
                     name = "itemisNexus3"
                     url = modelixVersion.contains("SNAPSHOT")
                             ? uri("https://artifacts.itemis.cloud/repository/maven-mps-snapshots/")
                             : uri("https://artifacts.itemis.cloud/repository/maven-mps-releases/")
                     credentials {
-                        username = project.findProperty("artifacts.itemis.cloud.user").toString()
-                        password = project.findProperty("artifacts.itemis.cloud.pw").toString()
+                        username = rootProject.findProperty("artifacts.itemis.cloud.user").toString()
+                        password = rootProject.findProperty("artifacts.itemis.cloud.pw").toString()
                     }
                 }
             }
-            if (project.hasProperty("projects.itemis.de.user")) {
+            if (rootProject.hasProperty("projects.itemis.de.user")) {
                 maven {
                     name = "itemisNexus2"
                     url = modelixVersion.contains("SNAPSHOT")
                             ? uri("https://projects.itemis.de/nexus/content/repositories/mbeddr_snapshots/")
                             : uri("https://projects.itemis.de/nexus/content/repositories/mbeddr/")
                     credentials {
-                        username = project.findProperty("projects.itemis.de.user").toString()
-                        password = project.findProperty("projects.itemis.de.pw").toString()
+                        username = rootProject.findProperty("projects.itemis.de.user").toString()
+                        password = rootProject.findProperty("projects.itemis.de.pw").toString()
                     }
                 }
             }
