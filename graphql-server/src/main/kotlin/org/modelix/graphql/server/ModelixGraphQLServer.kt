@@ -14,7 +14,6 @@
 
 package org.modelix.graphql.server
 
-import com.expediagroup.graphql.generator.extensions.deepName
 import com.expediagroup.graphql.server.extensions.toGraphQLError
 import com.expediagroup.graphql.server.extensions.toGraphQLKotlinType
 import com.expediagroup.graphql.server.extensions.toGraphQLResponse
@@ -22,19 +21,15 @@ import com.expediagroup.graphql.server.types.*
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import graphql.ExecutionInput
 import graphql.GraphQL
-import graphql.Scalars
-import graphql.schema.*
-import io.ktor.application.*
 import io.ktor.http.*
-import io.ktor.request.*
-import io.ktor.response.*
+import io.ktor.server.application.*
+import io.ktor.server.request.*
+import io.ktor.server.response.*
 import kotlinx.coroutines.future.await
 import org.modelix.model.api.ITree
 import org.modelix.model.client.ReplicatedRepository
 import org.modelix.model.client.RestWebModelClient
 import org.modelix.model.lazy.RepositoryId
-import org.modelix.model.metameta.MetaMetaLanguage
-import org.modelix.model.metameta.MetaModelIndex
 import java.io.IOException
 
 class ModelixGraphQLServer {

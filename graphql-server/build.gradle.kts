@@ -20,6 +20,7 @@ dependencies {
     implementation("com.expediagroup", "graphql-kotlin-server", graphqlKotlinVersion)
     implementation("io.ktor", "ktor-server-core", ktorVersion)
     implementation("io.ktor", "ktor-server-netty", ktorVersion)
+    implementation("io.ktor:ktor-server-cors:$ktorVersion")
     implementation("ch.qos.logback", "logback-classic", logbackVersion)
     implementation("org.jetbrains.kotlinx", "kotlinx-coroutines-jdk8", kotlinCoroutinesVersion)
     implementation(project(":model-client", configuration = "jvmRuntimeElements"))
