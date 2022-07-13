@@ -4476,8 +4476,9 @@
                                   <node concept="1bVj0M" id="9XHMVcN0or" role="37wK5m">
                                     <node concept="3clFbS" id="9XHMVcN0ot" role="1bW5cS">
                                       <node concept="3clFbF" id="9XHMVcN1$y" role="3cqZAp">
-                                        <node concept="37vLTw" id="9XHMVcN1$x" role="3clFbG">
-                                          <ref role="3cqZAo" node="2EzI5qKmJsA" resolve="authToken" />
+                                        <node concept="10M0yZ" id="2yaYJyvQwYy" role="3clFbG">
+                                          <ref role="3cqZAo" to="ia5i:2yaYJyvOFDc" resolve="token" />
+                                          <ref role="1PxDUh" to="ia5i:2yaYJyvOFA7" resolve="InstanceJwtToken" />
                                         </node>
                                       </node>
                                     </node>

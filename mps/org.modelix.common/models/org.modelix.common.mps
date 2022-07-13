@@ -457,5 +457,15 @@
     </node>
     <node concept="3Tm1VV" id="3xX$Vyo038O" role="1B3o_S" />
   </node>
+  <node concept="312cEu" id="2yaYJyvOFA7">
+    <property role="TrG5h" value="InstanceJwtToken" />
+    <node concept="Wx3nA" id="2yaYJyvOFDc" role="jymVt">
+      <property role="TrG5h" value="token" />
+      <node concept="17QB3L" id="2yaYJyvOFBR" role="1tU5fm" />
+      <node concept="3Tm1VV" id="2yaYJyvOFCg" role="1B3o_S" />
+      <node concept="10Nm6u" id="2yaYJyvOFCR" role="33vP2m" />
+    </node>
+    <node concept="3Tm1VV" id="2yaYJyvOFA8" role="1B3o_S" />
+  </node>
 </model>
 

@@ -10082,6 +10082,124 @@
                 <node concept="17RvpY" id="3PyXc8TCqKw" role="2OqNvi" />
               </node>
             </node>
+            <node concept="3clFbH" id="2yaYJyvOV06" role="3cqZAp" />
+            <node concept="3cpWs8" id="2yaYJyvPcKV" role="3cqZAp">
+              <node concept="3cpWsn" id="2yaYJyvPcKY" role="3cpWs9">
+                <property role="TrG5h" value="token" />
+                <node concept="17QB3L" id="2yaYJyvPcKT" role="1tU5fm" />
+                <node concept="2OqwBi" id="2yaYJyvPdkm" role="33vP2m">
+                  <node concept="37vLTw" id="2yaYJyvPcZW" role="2Oq$k0">
+                    <ref role="3cqZAo" node="3PyXc8TBXq8" resolve="request" />
+                  </node>
+                  <node concept="liA8E" id="2yaYJyvPd$C" role="2OqNvi">
+                    <ref role="37wK5l" to="nwfd:~HttpServletRequest.getHeader(java.lang.String)" resolve="getHeader" />
+                    <node concept="Xl_RD" id="2yaYJyvPdJT" role="37wK5m">
+                      <property role="Xl_RC" value="X-Forwarded-Access-Token" />
+                    </node>
+                  </node>
+                </node>
+              </node>
+            </node>
+            <node concept="3clFbJ" id="2yaYJyvPe85" role="3cqZAp">
+              <node concept="3clFbS" id="2yaYJyvPe87" role="3clFbx">
+                <node concept="3clFbF" id="2yaYJyvPg9q" role="3cqZAp">
+                  <node concept="37vLTI" id="2yaYJyvPg_B" role="3clFbG">
+                    <node concept="37vLTw" id="2yaYJyvPgLW" role="37vLTx">
+                      <ref role="3cqZAo" node="2yaYJyvPcKY" resolve="token" />
+                    </node>
+                    <node concept="10M0yZ" id="2yaYJyvPgcx" role="37vLTJ">
+                      <ref role="3cqZAo" to="ia5i:2yaYJyvOFDc" resolve="token" />
+                      <ref role="1PxDUh" to="ia5i:2yaYJyvOFA7" resolve="InstanceJwtToken" />
+                    </node>
+                  </node>
+                </node>
+              </node>
+              <node concept="3y3z36" id="2yaYJyvPfkT" role="3clFbw">
+                <node concept="10Nm6u" id="2yaYJyvPfIf" role="3uHU7w" />
+                <node concept="37vLTw" id="2yaYJyvPePb" role="3uHU7B">
+                  <ref role="3cqZAo" node="2yaYJyvPcKY" resolve="token" />
+                </node>
+              </node>
+              <node concept="9aQIb" id="2yaYJyvPgPg" role="9aQIa">
+                <node concept="3clFbS" id="2yaYJyvPgPh" role="9aQI4">
+                  <node concept="3cpWs8" id="2yaYJyvPyFK" role="3cqZAp">
+                    <node concept="3cpWsn" id="2yaYJyvPyFL" role="3cpWs9">
+                      <property role="TrG5h" value="auth" />
+                      <node concept="17QB3L" id="2yaYJyvPyUc" role="1tU5fm" />
+                      <node concept="2OqwBi" id="2yaYJyvPyFM" role="33vP2m">
+                        <node concept="37vLTw" id="2yaYJyvPyFN" role="2Oq$k0">
+                          <ref role="3cqZAo" node="3PyXc8TBXq8" resolve="request" />
+                        </node>
+                        <node concept="liA8E" id="2yaYJyvPyFO" role="2OqNvi">
+                          <ref role="37wK5l" to="nwfd:~HttpServletRequest.getHeader(java.lang.String)" resolve="getHeader" />
+                          <node concept="Xl_RD" id="2yaYJyvPyFP" role="37wK5m">
+                            <property role="Xl_RC" value="Authorization" />
+                          </node>
+                        </node>
+                      </node>
+                    </node>
+                  </node>
+                  <node concept="3clFbJ" id="2yaYJyvYhuR" role="3cqZAp">
+                    <node concept="3clFbS" id="2yaYJyvYhuT" role="3clFbx">
+                      <node concept="3cpWs8" id="2yaYJyvP$XY" role="3cqZAp">
+                        <node concept="3cpWsn" id="2yaYJyvP$XZ" role="3cpWs9">
+                          <property role="TrG5h" value="prefix" />
+                          <node concept="17QB3L" id="2yaYJyvP$XX" role="1tU5fm" />
+                          <node concept="Xl_RD" id="2yaYJyvP$Y0" role="33vP2m">
+                            <property role="Xl_RC" value="Bearer " />
+                          </node>
+                        </node>
+                      </node>
+                      <node concept="3clFbJ" id="2yaYJyvPzgU" role="3cqZAp">
+                        <node concept="3clFbS" id="2yaYJyvPzgW" role="3clFbx">
+                          <node concept="3clFbF" id="2yaYJyvPCX$" role="3cqZAp">
+                            <node concept="37vLTI" id="2yaYJyvPDkn" role="3clFbG">
+                              <node concept="10M0yZ" id="2yaYJyvPCXA" role="37vLTJ">
+                                <ref role="3cqZAo" to="ia5i:2yaYJyvOFDc" resolve="token" />
+                                <ref role="1PxDUh" to="ia5i:2yaYJyvOFA7" resolve="InstanceJwtToken" />
+                              </node>
+                              <node concept="2OqwBi" id="2yaYJyvPDwG" role="37vLTx">
+                                <node concept="37vLTw" id="2yaYJyvPDwH" role="2Oq$k0">
+                                  <ref role="3cqZAo" node="2yaYJyvPyFL" resolve="auth" />
+                                </node>
+                                <node concept="liA8E" id="2yaYJyvPDwI" role="2OqNvi">
+                                  <ref role="37wK5l" to="wyt6:~String.substring(int)" resolve="substring" />
+                                  <node concept="2OqwBi" id="2yaYJyvPDwJ" role="37wK5m">
+                                    <node concept="37vLTw" id="2yaYJyvPDwK" role="2Oq$k0">
+                                      <ref role="3cqZAo" node="2yaYJyvP$XZ" resolve="prefix" />
+                                    </node>
+                                    <node concept="liA8E" id="2yaYJyvPDwL" role="2OqNvi">
+                                      <ref role="37wK5l" to="wyt6:~String.length()" resolve="length" />
+                                    </node>
+                                  </node>
+                                </node>
+                              </node>
+                            </node>
+                          </node>
+                        </node>
+                        <node concept="2OqwBi" id="2yaYJyvPzXo" role="3clFbw">
+                          <node concept="37vLTw" id="2yaYJyvPzrn" role="2Oq$k0">
+                            <ref role="3cqZAo" node="2yaYJyvPyFL" resolve="auth" />
+                          </node>
+                          <node concept="liA8E" id="2yaYJyvP$FS" role="2OqNvi">
+                            <ref role="37wK5l" to="wyt6:~String.startsWith(java.lang.String)" resolve="startsWith" />
+                            <node concept="37vLTw" id="2yaYJyvP$Y1" role="37wK5m">
+                              <ref role="3cqZAo" node="2yaYJyvP$XZ" resolve="prefix" />
+                            </node>
+                          </node>
+                        </node>
+                      </node>
+                    </node>
+                    <node concept="3y3z36" id="2yaYJyvYidu" role="3clFbw">
+                      <node concept="10Nm6u" id="2yaYJyvYiAQ" role="3uHU7w" />
+                      <node concept="37vLTw" id="2yaYJyvYhHJ" role="3uHU7B">
+                        <ref role="3cqZAo" node="2yaYJyvPyFL" resolve="auth" />
+                      </node>
+                    </node>
+                  </node>
+                </node>
+              </node>
+            </node>
           </node>
           <node concept="3clFbC" id="3PyXc8TCoaH" role="3clFbw">
             <node concept="Rm8GO" id="3PyXc8TCoSP" role="3uHU7w">

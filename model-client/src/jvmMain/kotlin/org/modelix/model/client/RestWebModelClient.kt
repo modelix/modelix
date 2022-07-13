@@ -82,7 +82,6 @@ class RestWebModelClient @JvmOverloads constructor(
     companion object {
         private val LOG = LogManager.getLogger(RestWebModelClient::class.java)
         const val MODEL_URI_VAR_NAME = "MODEL_URI"
-        private var defaultToken: String? = null
         val modelUrlFromEnv: String?
             get() {
                 var url = System.getProperty(MODEL_URI_VAR_NAME)
@@ -102,18 +101,6 @@ class RestWebModelClient @JvmOverloads constructor(
                 }
             }
 
-        init {
-            try {
-                val sharedSecretFile = File("/secrets/modelsecret/modelsecret.txt")
-                if (sharedSecretFile.exists()) {
-                    defaultToken = FileUtils.readFileToString(sharedSecretFile, StandardCharsets.UTF_8)
-                }
-            } catch (ex: Exception) {
-                if (LOG.isEnabledFor(Level.ERROR)) {
-                    LOG.error("Failed to load default token", ex)
-                }
-            }
-        }
     }
 
     private val connectionListeners = LinkedList(initialConnectionListeners)
@@ -173,19 +160,28 @@ class RestWebModelClient @JvmOverloads constructor(
         install(Auth) {
             bearer {
                 loadTokens {
-                    getAuthToken()?.let { BearerTokens(it, "") }
-                        ?: ModelixOAuthClient.getTokens()?.let { BearerTokens(it.accessToken, it.refreshToken) }
+                    val tp = authTokenProvider
+                    if (tp == null) {
+                        ModelixOAuthClient.getTokens()?.let { BearerTokens(it.accessToken, it.refreshToken) }
+                    } else {
+                        tp()?.let { BearerTokens(it, "") }
+                    }
                 }
                 refreshTokens {
-                    val providedToken = getAuthToken()
-                    if (providedToken != null && providedToken != this.oldTokens?.accessToken) {
-                        BearerTokens(providedToken, "")
-                    } else {
+                    val tp = authTokenProvider
+                    if (tp == null) {
                         var url = baseUrl
                         if (!url.endsWith("/")) url += "/"
                         if (url.endsWith("/model/")) url = url.substringBeforeLast("/model/")
                         val tokens = ModelixOAuthClient.authorize(url)
                         BearerTokens(tokens.accessToken, tokens.refreshToken)
+                    } else {
+                        val providedToken = tp()
+                        if (providedToken != null && providedToken != this.oldTokens?.accessToken) {
+                            BearerTokens(providedToken, "")
+                        } else {
+                            null
+                        }
                     }
                 }
             }
@@ -210,7 +206,6 @@ class RestWebModelClient @JvmOverloads constructor(
     @get:Synchronized
     override lateinit var idGenerator: IIdGenerator
         private set
-    fun getAuthToken(): String? = authTokenProvider?.invoke() ?: defaultToken
 
     override fun toString() = "RestWebModelClient($baseUrl)"
 

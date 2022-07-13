@@ -38,6 +38,8 @@ spec:
             value: "{{ .Release.Namespace }}"
           - name: WORKSPACE_CLIENT_PREFIX
             value: "{{ include "modelix.fullname" . }}-wsclt-"
+          - name: WORKSPACE_CLIENT_IMAGE
+            value: "modelix/modelix-workspace-client:{{ .Values.imageTags.wsClient | default .Chart.AppVersion }}"
           {{- include "modelix.keycloakEnv" . | nindent 10 }}
         ports:
         - containerPort: 33332

@@ -109,6 +109,12 @@ fun Application.workspaceManagerModule() {
                                             }
                                     }
                                     td {
+                                        a {
+                                            href = "../model/history/workspace_$workspaceId/master/"
+                                            text("Model History")
+                                        }
+                                    }
+                                    td {
                                         postForm("./remove-workspace") {
                                             style = "display: inline-block"
                                             hiddenInput {
