@@ -50,6 +50,8 @@ import java.net.URLEncoder
 import java.nio.charset.StandardCharsets
 import java.util.*
 import java.util.concurrent.atomic.AtomicInteger
+import kotlin.time.Duration
+import kotlin.time.Duration.Companion.minutes
 import kotlin.time.Duration.Companion.seconds
 
 val HttpResponse.successful: Boolean
@@ -539,6 +541,7 @@ class RestWebModelClient @JvmOverloads constructor(
     inner class PollingListener(val key: String, val keyListener: IKeyListener) {
         private var lastValue: String? = null
         private var job: Job? = null
+        var nextDelay: Duration = 1.seconds
         fun dispose() {
             job?.cancel("listener disposed")
         }
@@ -547,11 +550,13 @@ class RestWebModelClient @JvmOverloads constructor(
                 while (isActive) {
                     try {
                         run()
+                        nextDelay = 1.seconds
                     } catch (e: CancellationException) {
                         break
                     } catch (e: Exception) {
                         LOG.error("Polling for '$key' failed", e)
-                        delay(1.seconds)
+                        delay(nextDelay)
+                        nextDelay = (nextDelay * 1.2).coerceAtMost(2.minutes)
                     }
                 }
             }

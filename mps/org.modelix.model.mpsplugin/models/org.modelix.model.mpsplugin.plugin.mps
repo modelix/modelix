@@ -3830,6 +3830,14 @@
       <node concept="3Tm6S6" id="7ZZZU$kYUPw" role="1B3o_S" />
       <node concept="10P_77" id="7ZZZU$kYX3Y" role="1tU5fm" />
     </node>
+    <node concept="312cEg" id="4HuY4YRqO2j" role="jymVt">
+      <property role="TrG5h" value="updateJob" />
+      <node concept="3Tm6S6" id="4HuY4YRqO2k" role="1B3o_S" />
+      <node concept="3uibUv" id="4HuY4YRoNp$" role="1tU5fm">
+        <ref role="3uigEE" to="5zyv:~ScheduledFuture" resolve="ScheduledFuture" />
+        <node concept="3qTvmN" id="4HuY4YRoNpB" role="11_B2D" />
+      </node>
+    </node>
     <node concept="2tJIrI" id="4rrX99oiFE5" role="jymVt" />
     <node concept="3clFbW" id="2dy3jLYrgKf" role="jymVt">
       <node concept="37vLTG" id="2dy3jLYrjrT" role="3clF46">
@@ -3966,36 +3974,41 @@
             <ref role="37wK5l" node="4rrX99okXWz" resolve="updateBindingsLater" />
           </node>
         </node>
-        <node concept="3clFbF" id="3qO8C$8o_i0" role="3cqZAp">
-          <node concept="2YIFZM" id="3qO8C$8o_lB" role="3clFbG">
-            <ref role="37wK5l" to="csg2:4qNw5QU$ess" resolve="fixDelay" />
-            <ref role="1Pybhc" to="csg2:Onv88ZNSEL" resolve="SharedExecutors" />
-            <node concept="3cmrfG" id="3qO8C$8o_GB" role="37wK5m">
-              <property role="3cmrfH" value="500" />
-            </node>
-            <node concept="1bVj0M" id="3qO8C$8oANo" role="37wK5m">
-              <node concept="3clFbS" id="3qO8C$8oANq" role="1bW5cS">
-                <node concept="3clFbJ" id="3qO8C$8oBlk" role="3cqZAp">
-                  <node concept="3clFbS" id="3qO8C$8oBlm" role="3clFbx">
-                    <node concept="3clFbF" id="3qO8C$8oD_C" role="3cqZAp">
-                      <node concept="37vLTI" id="3qO8C$8oEiA" role="3clFbG">
-                        <node concept="3clFbT" id="3qO8C$8oEDO" role="37vLTx" />
-                        <node concept="37vLTw" id="3qO8C$8oD_A" role="37vLTJ">
-                          <ref role="3cqZAo" node="3qO8C$8ox6o" resolve="requiresUpdate" />
+        <node concept="3clFbF" id="4HuY4YRqMQl" role="3cqZAp">
+          <node concept="37vLTI" id="4HuY4YRqMQn" role="3clFbG">
+            <node concept="2YIFZM" id="4HuY4YRqKC_" role="37vLTx">
+              <ref role="37wK5l" to="csg2:4qNw5QU$ess" resolve="fixDelay" />
+              <ref role="1Pybhc" to="csg2:Onv88ZNSEL" resolve="SharedExecutors" />
+              <node concept="3cmrfG" id="4HuY4YRqKCA" role="37wK5m">
+                <property role="3cmrfH" value="500" />
+              </node>
+              <node concept="1bVj0M" id="4HuY4YRqKCB" role="37wK5m">
+                <node concept="3clFbS" id="4HuY4YRqKCC" role="1bW5cS">
+                  <node concept="3clFbJ" id="4HuY4YRqKCD" role="3cqZAp">
+                    <node concept="3clFbS" id="4HuY4YRqKCE" role="3clFbx">
+                      <node concept="3clFbF" id="4HuY4YRqKCF" role="3cqZAp">
+                        <node concept="37vLTI" id="4HuY4YRqKCG" role="3clFbG">
+                          <node concept="3clFbT" id="4HuY4YRqKCH" role="37vLTx" />
+                          <node concept="37vLTw" id="4HuY4YRqKCI" role="37vLTJ">
+                            <ref role="3cqZAo" node="3qO8C$8ox6o" resolve="requiresUpdate" />
+                          </node>
+                        </node>
+                      </node>
+                      <node concept="3clFbF" id="4HuY4YRqKCJ" role="3cqZAp">
+                        <node concept="1rXfSq" id="4HuY4YRqKCK" role="3clFbG">
+                          <ref role="37wK5l" node="4rrX99ojhAZ" resolve="updateBindings" />
                         </node>
                       </node>
                     </node>
-                    <node concept="3clFbF" id="3qO8C$8oFCx" role="3cqZAp">
-                      <node concept="1rXfSq" id="3qO8C$8oFCv" role="3clFbG">
-                        <ref role="37wK5l" node="4rrX99ojhAZ" resolve="updateBindings" />
-                      </node>
+                    <node concept="37vLTw" id="4HuY4YRqKCL" role="3clFbw">
+                      <ref role="3cqZAo" node="3qO8C$8ox6o" resolve="requiresUpdate" />
                     </node>
-                  </node>
-                  <node concept="37vLTw" id="3qO8C$8oCHS" role="3clFbw">
-                    <ref role="3cqZAo" node="3qO8C$8ox6o" resolve="requiresUpdate" />
                   </node>
                 </node>
               </node>
+            </node>
+            <node concept="37vLTw" id="4HuY4YRqR88" role="37vLTJ">
+              <ref role="3cqZAo" node="4HuY4YRqO2j" resolve="updateJob" />
             </node>
           </node>
         </node>
@@ -4863,8 +4876,8 @@
                                               <node concept="37vLTw" id="6Dx7QU9XDeM" role="2Oq$k0">
                                                 <ref role="3cqZAo" node="7ZZZU$kZuUd" resolve="firstProject" />
                                               </node>
-                                              <node concept="3Tsc0h" id="6Dx7QU9XIrH" role="2OqNvi">
-                                                <ref role="3TtcxE" to="jh6v:3DfUugBU39C" resolve="projectModules" />
+                                              <node concept="3Tsc0h" id="6$4WyL1l9sR" role="2OqNvi">
+                                                <ref role="3TtcxE" to="jh6v:3uw$nPCBuBy" resolve="modules" />
                                               </node>
                                             </node>
                                             <node concept="1v1jN8" id="6Dx7QU9XTUw" role="2OqNvi" />
@@ -5252,6 +5265,17 @@
       <node concept="3cqZAl" id="4rrX99ojsxj" role="3clF45" />
       <node concept="3Tm1VV" id="4rrX99ojsxk" role="1B3o_S" />
       <node concept="3clFbS" id="4rrX99ojsxl" role="3clF47">
+        <node concept="3clFbF" id="4HuY4YRqVN2" role="3cqZAp">
+          <node concept="2EnYce" id="4HuY4YRqYcy" role="3clFbG">
+            <node concept="37vLTw" id="4HuY4YRqVN0" role="2Oq$k0">
+              <ref role="3cqZAo" node="4HuY4YRqO2j" resolve="updateJob" />
+            </node>
+            <node concept="liA8E" id="4HuY4YRqZ02" role="2OqNvi">
+              <ref role="37wK5l" to="5zyv:~Future.cancel(boolean)" resolve="cancel" />
+              <node concept="3clFbT" id="4HuY4YRr0aj" role="37wK5m" />
+            </node>
+          </node>
+        </node>
         <node concept="2Gpval" id="4rrX99ojwbX" role="3cqZAp">
           <node concept="2GrKxI" id="4rrX99ojwbY" role="2Gsz3X">
             <property role="TrG5h" value="repo" />
