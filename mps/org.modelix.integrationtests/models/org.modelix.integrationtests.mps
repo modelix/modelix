@@ -2583,7 +2583,7 @@
                 <ref role="1Pybhc" to="csg2:1LVcV5Kxxi$" resolve="ModelServerConnections" />
               </node>
               <node concept="liA8E" id="1QKKVBBCEAK" role="2OqNvi">
-                <ref role="37wK5l" to="csg2:7$Qv9nI5XRu" resolve="ensureModelServerIsPresent" />
+                <ref role="37wK5l" to="csg2:5rz8NqPS7qi" resolve="ensureModelServerIsPresent" />
                 <node concept="3cpWs3" id="1QKKVBBCEAL" role="37wK5m">
                   <node concept="1rXfSq" id="1QKKVBBCFqL" role="3uHU7w">
                     <ref role="37wK5l" node="7JjSHvQ4ewY" resolve="getOwnModelServerPort" />

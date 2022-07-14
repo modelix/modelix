@@ -157,6 +157,7 @@ task copyModelClientToMps(type: Sync) {
     }
     exclude 'log4j*.jar'
     exclude 'annotations*.jar'
+    exclude 'model-api*.jar'
 }
 
 assemble.finalizedBy(copyModelClientToMps)

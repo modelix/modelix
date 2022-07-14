@@ -23,6 +23,8 @@ import com.google.api.client.json.JsonFactory
 import com.google.api.client.json.gson.GsonFactory
 import com.google.api.client.util.store.DataStoreFactory
 import com.google.api.client.util.store.MemoryDataStoreFactory
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 object ModelixOAuthClient {
     private var DATA_STORE_FACTORY: DataStoreFactory = MemoryDataStoreFactory()
@@ -34,24 +36,25 @@ object ModelixOAuthClient {
         return StoredCredential.getDefaultDataStore(DATA_STORE_FACTORY).get("user")
     }
 
-    fun authorize(modelixServerUrl: String): Credential {
-        val oidcUrl = modelixServerUrl.trimEnd('/') + "/realms/modelix/protocol/openid-connect"
-        val clientId = "external-mps"
-        val flow = AuthorizationCodeFlow.Builder(
-            BearerToken.authorizationHeaderAccessMethod(),
-            HTTP_TRANSPORT,
-            JSON_FACTORY,
-            GenericUrl("$oidcUrl/token"),
-            ClientParametersAuthentication(clientId, null),
-            clientId,
-            "$oidcUrl/auth"
-        )
-            .setScopes(listOf(SCOPE))
-            .enablePKCE()
-            .setDataStoreFactory(DATA_STORE_FACTORY)
-            .build()
-
-        val receiver: LocalServerReceiver = LocalServerReceiver.Builder().setHost("127.0.0.1").build()
-        return AuthorizationCodeInstalledApp(flow, receiver).authorize("user")
+    suspend fun authorize(modelixServerUrl: String): Credential {
+        return withContext(Dispatchers.IO) {
+            val oidcUrl = modelixServerUrl.trimEnd('/') + "/realms/modelix/protocol/openid-connect"
+            val clientId = "external-mps"
+            val flow = AuthorizationCodeFlow.Builder(
+                BearerToken.authorizationHeaderAccessMethod(),
+                HTTP_TRANSPORT,
+                JSON_FACTORY,
+                GenericUrl("$oidcUrl/token"),
+                ClientParametersAuthentication(clientId, null),
+                clientId,
+                "$oidcUrl/auth"
+            )
+                .setScopes(listOf(SCOPE))
+                .enablePKCE()
+                .setDataStoreFactory(DATA_STORE_FACTORY)
+                .build()
+            val receiver: LocalServerReceiver = LocalServerReceiver.Builder().setHost("127.0.0.1").build()
+            AuthorizationCodeInstalledApp(flow, receiver).authorize("user")
+        }
     }
 }

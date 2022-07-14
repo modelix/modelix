@@ -16,6 +16,7 @@ package org.modelix.model.server
 
 import io.ktor.http.*
 import io.ktor.server.application.*
+import io.ktor.server.auth.*
 import io.ktor.server.plugins.*
 import io.ktor.server.plugins.cors.routing.*
 import io.ktor.server.request.*
@@ -24,10 +25,7 @@ import io.ktor.server.routing.*
 import io.ktor.util.pipeline.*
 import org.json.JSONArray
 import org.json.JSONObject
-import org.modelix.authorization.EPermissionType
-import org.modelix.authorization.NoPermissionException
-import org.modelix.authorization.checkPermission
-import org.modelix.authorization.requiresPermission
+import org.modelix.authorization.*
 import org.modelix.model.persistent.HashUtil
 import org.slf4j.LoggerFactory
 import java.io.IOException
@@ -157,14 +155,7 @@ class KtorModelServer(val storeClient: IStoreClient) {
                 }
 
                 get("/getEmail") {
-                    val token = extractToken(call)
-                    if (token == null) {
-                        call.respond(status = HttpStatusCode.NoContent, "Token missing")
-                        return@get
-                    }
-                    val email = storeClient[PROTECTED_PREFIX + "_token_email_" + token]
-                    // The email could be null because we can authorize also without a valid token
-                    call.respondText(email ?: "<no email>")
+                    call.respondText(call.getUserName() ?: "<no email>")
                 }
 
                 post("/counter/{key}") {

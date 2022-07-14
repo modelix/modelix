@@ -26,15 +26,12 @@ import io.ktor.client.statement.*
 import io.ktor.http.*
 import io.ktor.http.content.*
 import io.ktor.serialization.*
-import io.ktor.util.*
 import io.ktor.util.reflect.*
 import io.ktor.utils.io.*
 import io.ktor.utils.io.charsets.*
 import io.ktor.utils.io.core.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.CancellationException
-import org.apache.commons.io.FileUtils
-import org.apache.log4j.Level
 import org.apache.log4j.LogManager
 import org.json.JSONArray
 import org.json.JSONObject
@@ -49,7 +46,6 @@ import org.modelix.model.oauth.ModelixOAuthClient
 import org.modelix.model.persistent.HashUtil
 import org.modelix.model.sleep
 import org.modelix.model.util.StreamUtils.toStream
-import java.io.File
 import java.net.URLEncoder
 import java.nio.charset.StandardCharsets
 import java.util.*
@@ -69,6 +65,8 @@ interface ConnectionListener {
     fun receivedForbiddenResponse()
     fun receivedSuccessfulResponse()
 }
+
+typealias ConnectionStatusListener = (oldValue: RestWebModelClient.ConnectionStatus, newValue: RestWebModelClient.ConnectionStatus)->Unit
 
 /**
  * We need to specify the connection listeners right into the constructor because connection is started in the constructor.
@@ -95,7 +93,7 @@ class RestWebModelClient @JvmOverloads constructor(
             get() {
                 val urlFromEnv = modelUrlFromEnv
                 return if (urlFromEnv.isNullOrEmpty()) {
-                    "http://modelix.q60.de:80/model/"
+                    "http://localhost:28101/"
                 } else {
                     urlFromEnv
                 }
@@ -103,33 +101,17 @@ class RestWebModelClient @JvmOverloads constructor(
 
     }
 
+    @Deprecated("Replaced by connectionStatusListeners")
     private val connectionListeners = LinkedList(initialConnectionListeners)
 
-    override var clientId = 0
+    override val clientId: Int
         get() {
-            if (field == 0) {
-                runBlocking {
-                    val targetUri = baseUrl + "counter/clientId"
-                    try {
-                        val response = client.post(targetUri)
-                        val body = response.bodyAsText()
-                        if (response.unsuccessful) {
-                            if (response.forbidden) {
-                                receivedForbiddenResponse()
-                            }
-                            throw RuntimeException("Unable to get the clientId by querying $targetUri: ${response.status}\n$body")
-                        } else {
-                            receivedSuccessfulResponse()
-                        }
-                        field = body.toInt()
-                    } catch (e: Exception) {
-                        throw RuntimeException("Unable to get the clientId by querying $targetUri", e)
-                    }
-                }
+            if (clientIdInternal == 0) {
+                throw IllegalStateException("Client ID is not initialized yet. Client state: $connectionStatus")
             }
-            return field
+            return clientIdInternal
         }
-        private set
+    private var clientIdInternal: Int = 0
     private val coroutineScope = CoroutineScope(Dispatchers.Default)
     private val client = HttpClient(CIO) {
         this.followRedirects = false
@@ -164,7 +146,13 @@ class RestWebModelClient @JvmOverloads constructor(
                     if (tp == null) {
                         ModelixOAuthClient.getTokens()?.let { BearerTokens(it.accessToken, it.refreshToken) }
                     } else {
-                        tp()?.let { BearerTokens(it, "") }
+                        val token = tp()
+                        if (token == null) {
+                            connectionStatus = ConnectionStatus.WAITING_FOR_TOKEN
+                            null
+                        } else {
+                            BearerTokens(token, "")
+                        }
                     }
                 }
                 refreshTokens {
@@ -173,6 +161,7 @@ class RestWebModelClient @JvmOverloads constructor(
                         var url = baseUrl
                         if (!url.endsWith("/")) url += "/"
                         if (url.endsWith("/model/")) url = url.substringBeforeLast("/model/")
+                        connectionStatus = ConnectionStatus.WAITING_FOR_TOKEN
                         val tokens = ModelixOAuthClient.authorize(url)
                         BearerTokens(tokens.accessToken, tokens.refreshToken)
                     } else {
@@ -180,6 +169,7 @@ class RestWebModelClient @JvmOverloads constructor(
                         if (providedToken != null && providedToken != this.oldTokens?.accessToken) {
                             BearerTokens(providedToken, "")
                         } else {
+                            connectionStatus = ConnectionStatus.WAITING_FOR_TOKEN
                             null
                         }
                     }
@@ -191,21 +181,113 @@ class RestWebModelClient @JvmOverloads constructor(
             exponentialDelay()
             modifyRequest {
                 try {
+                    connectionStatus = ConnectionStatus.SERVER_ERROR
                     runBlocking {
                         response?.let { println(it.bodyAsText()) }
                     }
-                } catch (_: Exception) {}
+                } catch (e: Exception) {
+                    LOG.error("", e)
+                }
             }
+        }
+    }.apply {
+        plugin(HttpSend).intercept { request ->
+            val call = execute(request)
+            val response = call.response
+            if (response.unsuccessful) {
+                if (response.forbidden) {
+                    receivedForbiddenResponse()
+                } else {
+                    connectionStatus = ConnectionStatus.SERVER_ERROR
+                }
+            } else {
+                receivedSuccessfulResponse()
+            }
+            call
         }
     }
     private val listeners: MutableList<PollingListener> = ArrayList()
     override val asyncStore: IKeyValueStore = AsyncStore(this)
     private val cache = PrefetchCache.contextIndirectCache(ObjectStoreCache(KeyValueStoreCache(asyncStore)))
     private val pendingWrites = AtomicInteger(0)
+    var connectionStatus: ConnectionStatus = ConnectionStatus.NEW
+        private set(value) {
+            val oldValue = field
+            field = value
+            if (oldValue == value) return
 
-    @get:Synchronized
-    override lateinit var idGenerator: IIdGenerator
-        private set
+            for (listener in connectionStatusListeners) {
+                try {
+                    listener(oldValue, value)
+                } catch (e: Exception) {
+                    LOG.error("Exception in status listener", e)
+                }
+            }
+        }
+    private var connectionStatusListeners: Set<ConnectionStatusListener> = emptySet()
+
+    private fun startConnectionWatchdog() {
+        coroutineScope.launch {
+            while (isActive) {
+                try {
+                    val response = client.get(baseUrl + "getEmail")
+                    if (response.successful || response.status == HttpStatusCode.NotFound) {
+                        if (clientIdInternal == 0) {
+                            loadClientId()
+                        }
+                        if (clientIdInternal != 0) {
+                            idGeneratorInternal = IdGenerator(clientIdInternal)
+                        }
+                        connectionStatus = ConnectionStatus.CONNECTED
+                    }
+                    if (connectionStatus == ConnectionStatus.CONNECTED) {
+                        delay(10.seconds)
+                    } else {
+                        delay(3.seconds)
+                    }
+                } catch (e: CancellationException) {
+                    break
+                } catch (e: Exception) {
+                    LOG.debug("", e)
+                    if (connectionStatus == ConnectionStatus.CONNECTED) {
+                        connectionStatus = ConnectionStatus.DISCONNECTED
+                    }
+                    delay(3.seconds)
+                }
+            }
+        }
+    }
+
+    fun addStatusListener(listener: ConnectionStatusListener) {
+        connectionStatusListeners += listener
+    }
+    fun removeStatusListener(listener: ConnectionStatusListener) {
+        connectionStatusListeners -= listener
+    }
+
+    private suspend fun loadClientId() {
+        val targetUri = baseUrl + "counter/clientId"
+        try {
+            val response = client.post(targetUri)
+            val body = response.bodyAsText()
+            if (response.unsuccessful) {
+                throw RuntimeException("Unable to get the clientId by querying $targetUri: ${response.status}\n$body")
+            }
+            clientIdInternal = body.toInt()
+            LOG.info("Client ID received: $clientIdInternal")
+        } catch (e: Exception) {
+            throw RuntimeException("Unable to get the clientId by querying $targetUri", e)
+        }
+    }
+
+    override val idGenerator: IIdGenerator = object : IIdGenerator {
+        override fun generate(): Long {
+            val gen = idGeneratorInternal ?: throw IllegalStateException("Not connected yet")
+            return gen.generate()
+        }
+    }
+
+    private var idGeneratorInternal: IIdGenerator? = null
 
     override fun toString() = "RestWebModelClient($baseUrl)"
 
@@ -245,7 +327,6 @@ class RestWebModelClient @JvmOverloads constructor(
                 val response = client.get(uri)
                 return@runBlocking when (response.status) {
                     HttpStatusCode.OK -> {
-                        receivedSuccessfulResponse()
                         val value = response.bodyAsText()
                         val end = System.currentTimeMillis()
                         if (isHash) {
@@ -259,9 +340,6 @@ class RestWebModelClient @JvmOverloads constructor(
                         null
                     }
                     else -> {
-                        if (response.forbidden) {
-                            receivedForbiddenResponse()
-                        }
                         throw RuntimeException("Request for key '" + key + "' failed: " + response.status)
                     }
                 }
@@ -285,7 +363,6 @@ class RestWebModelClient @JvmOverloads constructor(
                     contentType(ContentType.Application.Json)
                 }
                 if (response.status == HttpStatusCode.OK) {
-                    receivedSuccessfulResponse()
                     val jsonStr = response.bodyAsText()
                     val responseJson = JSONArray(jsonStr)
                     for (entry_: Any in responseJson) {
@@ -294,9 +371,6 @@ class RestWebModelClient @JvmOverloads constructor(
                     }
                     json = JSONArray()
                 } else {
-                    if (response.forbidden) {
-                        receivedForbiddenResponse()
-                    }
                     throw RuntimeException(
                         String.format(
                             "Request for %d keys failed (%s, ...): %s",
@@ -319,21 +393,16 @@ class RestWebModelClient @JvmOverloads constructor(
         }
     }
 
-    val email: String
-        get() {
-            return runBlocking {
-                val response = client.get(baseUrl + "getEmail")
-                if (response.successful) {
-                    receivedSuccessfulResponse()
-                    response.bodyAsText()
-                } else {
-                    if (response.forbidden) {
-                        receivedForbiddenResponse()
-                    }
-                    throw RuntimeException("Request for e-mail address failed: " + response.status)
-                }
+    fun getEmail(): String {
+        return runBlocking {
+            val response = client.get(baseUrl + "getEmail")
+            if (response.successful) {
+                response.bodyAsText()
+            } else {
+                throw RuntimeException("Request for e-mail address failed: " + response.status)
             }
         }
+    }
 
     override fun listen(key: String, listener: IKeyListener) {
         val pollingListener = PollingListener(key, listener)
@@ -364,12 +433,7 @@ class RestWebModelClient @JvmOverloads constructor(
                     setBody(value)
                 }
                 if (response.unsuccessful) {
-                    if (response.forbidden) {
-                        receivedForbiddenResponse()
-                    }
                     throw RuntimeException("Failed to store entry (${response.status} ${response.status}) $key = $value. " + response.bodyAsText())
-                } else {
-                    receivedSuccessfulResponse()
                 }
             } catch (e: Exception) {
                 throw RuntimeException("Failed executing a put to $url", e)
@@ -413,11 +477,7 @@ class RestWebModelClient @JvmOverloads constructor(
                     setBody(json)
                     contentType(ContentType.Application.Json)
                 }
-                if (response.forbidden) {
-                    receivedForbiddenResponse()
-                }
                 if (response.successful) {
-                    receivedSuccessfulResponse()
                     return@sendBatch
                 }
                 val message = String.format(
@@ -512,9 +572,6 @@ class RestWebModelClient @JvmOverloads constructor(
                 delay(1.seconds)
             } else {
                 if (response.unsuccessful) {
-                    if (response.forbidden) {
-                        receivedForbiddenResponse()
-                    }
                     throw RuntimeException("Request for key '" + key + "' failed: " + response.status)
                 }
                 value = response.bodyAsText()
@@ -533,6 +590,14 @@ class RestWebModelClient @JvmOverloads constructor(
         if (!(baseUrl.endsWith("/"))) {
             baseUrl += "/"
         }
-        idGenerator = IdGenerator(clientId)
+        startConnectionWatchdog()
+    }
+
+    enum class ConnectionStatus {
+        NEW,
+        WAITING_FOR_TOKEN,
+        DISCONNECTED,
+        SERVER_ERROR,
+        CONNECTED;
     }
 }
