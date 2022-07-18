@@ -68,7 +68,7 @@ interface ConnectionListener {
     fun receivedSuccessfulResponse()
 }
 
-typealias ConnectionStatusListener = (oldValue: RestWebModelClient.ConnectionStatus, newValue: RestWebModelClient.ConnectionStatus)->Unit
+typealias ConnectionStatusListener = (oldValue: RestWebModelClient.ConnectionStatus, newValue: RestWebModelClient.ConnectionStatus) -> Unit
 
 /**
  * We need to specify the connection listeners right into the constructor because connection is started in the constructor.
@@ -100,7 +100,6 @@ class RestWebModelClient @JvmOverloads constructor(
                     urlFromEnv
                 }
             }
-
     }
 
     @Deprecated("Replaced by connectionStatusListeners")
