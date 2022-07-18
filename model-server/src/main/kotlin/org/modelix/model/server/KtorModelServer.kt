@@ -52,41 +52,6 @@ class KtorModelServer(val storeClient: IStoreClient) {
         val HEALTH_KEY = PROTECTED_PREFIX + "health2"
         private const val LEGACY_SERVER_ID_KEY = "repositoryId"
         private const val SERVER_ID_KEY = "server-id"
-        private fun parseXForwardedFor(value: String?): List<InetAddress> {
-            val result: List<InetAddress> = ArrayList()
-            return if (value != null) {
-                value.split(",".toRegex())
-                    .dropLastWhile { it.isEmpty() }
-                    .mapNotNull { v: String ->
-                        try {
-                            return@mapNotNull InetAddress.getByName(v.trim { it <= ' ' })
-                        } catch (e: UnknownHostException) {
-                            LOG.warn("Failed to parse IP address: $v", e)
-                            return@mapNotNull null
-                        }
-                    }
-                    .toList()
-            } else result
-        }
-
-        private fun isTrustedAddress(addrString: String): Boolean {
-            return try {
-                val addr = InetAddress.getByName(addrString)
-                isTrustedAddress(addr)
-            } catch (e: UnknownHostException) {
-                LOG.error("", e)
-                false
-            }
-        }
-
-        private fun isTrustedAddress(addr: InetAddress): Boolean {
-            return addr.isLoopbackAddress || addr.isLinkLocalAddress || addr.isSiteLocalAddress
-        }
-
-        private fun extractToken(call: ApplicationCall): String? {
-            val header = call.request.header("Authorization") ?: return null
-            return if (!header.startsWith("Bearer ")) null else header.substring("Bearer ".length)
-        }
 
         private fun randomUUID(): String {
             return UUID.randomUUID().toString().replace("[^a-zA-Z0-9]".toRegex(), "")
@@ -134,24 +99,6 @@ class KtorModelServer(val storeClient: IStoreClient) {
                     pollEntry(storeClient, key, lastKnownValue) { newValue ->
                         respondValue(key, newValue)
                     }
-                }
-
-                get("/generateToken") {
-                    var email = call.request.header("X-Forwarded-Email")
-                    if ((email == null || email.isEmpty()) && isTrustedAddress()) {
-                        email = "localhost"
-                    }
-                    if (email == null || email.isEmpty()) {
-                        call.respondText(text = "Not logged in.", status = HttpStatusCode.Unauthorized)
-                        return@get
-                    }
-                    val token = randomUUID()
-                    storeClient.put(PROTECTED_PREFIX + "_token_email_" + token, email)
-                    storeClient.put(
-                        PROTECTED_PREFIX + "_token_expires_" + token,
-                        (System.currentTimeMillis() + 7 * 24 * 60 * 60 * 1000).toString()
-                    )
-                    call.respondText(text = token)
                 }
 
                 get("/getEmail") {
@@ -324,10 +271,6 @@ class KtorModelServer(val storeClient: IStoreClient) {
             }
         }
         storeClient.putAll(newEntries)
-    }
-
-    private fun PipelineContext<Unit, ApplicationCall>.isTrustedAddress(): Boolean {
-        return isTrustedAddress(call.request.origin.remoteHost)
     }
 
     private suspend fun CallContext.respondValue(key: String, value: String?) {
