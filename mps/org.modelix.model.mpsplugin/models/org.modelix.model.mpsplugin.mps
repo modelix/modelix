@@ -4008,9 +4008,142 @@
             </node>
           </node>
         </node>
-        <node concept="3clFbF" id="2EzI5qKmpcj" role="3cqZAp">
-          <node concept="1rXfSq" id="2EzI5qKmpch" role="3clFbG">
-            <ref role="37wK5l" node="2EzI5qKmj_D" resolve="reconnect" />
+        <node concept="3clFbF" id="2EzI5qKrki6" role="3cqZAp">
+          <node concept="37vLTI" id="2EzI5qKrki7" role="3clFbG">
+            <node concept="2ShNRf" id="2EzI5qKrki8" role="37vLTx">
+              <node concept="1pGfFk" id="2EzI5qKrki9" role="2ShVmc">
+                <ref role="37wK5l" to="5440:~RestWebModelClient.&lt;init&gt;(java.lang.String,kotlin.jvm.functions.Function0,java.util.List)" resolve="RestWebModelClient" />
+                <node concept="37vLTw" id="2EzI5qKrkia" role="37wK5m">
+                  <ref role="3cqZAo" node="6aRQr1WPiWt" resolve="baseUrl" />
+                </node>
+                <node concept="1bVj0M" id="9XHMVcN0or" role="37wK5m">
+                  <node concept="3clFbS" id="9XHMVcN0ot" role="1bW5cS">
+                    <node concept="3clFbF" id="9XHMVcN1$y" role="3cqZAp">
+                      <node concept="10M0yZ" id="2yaYJyvQwYy" role="3clFbG">
+                        <ref role="1PxDUh" to="ia5i:2yaYJyvOFA7" resolve="InstanceJwtToken" />
+                        <ref role="3cqZAo" to="ia5i:2yaYJyvOFDc" resolve="token" />
+                      </node>
+                    </node>
+                  </node>
+                </node>
+                <node concept="2YIFZM" id="57hSI$27imt" role="37wK5m">
+                  <ref role="37wK5l" to="33ny:~Arrays.asList(java.lang.Object...)" resolve="asList" />
+                  <ref role="1Pybhc" to="33ny:~Arrays" resolve="Arrays" />
+                  <node concept="2ShNRf" id="57hSI$27iVV" role="37wK5m">
+                    <node concept="1pGfFk" id="46h4oXMuxes" role="2ShVmc">
+                      <ref role="37wK5l" node="46h4oXMuwd3" resolve="ModelServerConnection.ConnectionListenerForForbiddenMessage" />
+                      <node concept="37vLTw" id="46h4oXMwxkz" role="37wK5m">
+                        <ref role="3cqZAo" node="6aRQr1WPiWt" resolve="baseUrl" />
+                      </node>
+                    </node>
+                  </node>
+                </node>
+              </node>
+            </node>
+            <node concept="37vLTw" id="2EzI5qKrkib" role="37vLTJ">
+              <ref role="3cqZAo" node="6aRQr1WVnku" resolve="client" />
+            </node>
+          </node>
+        </node>
+        <node concept="3cpWs8" id="1zWHbGosRjk" role="3cqZAp">
+          <node concept="3cpWsn" id="1zWHbGosRjn" role="3cpWs9">
+            <property role="TrG5h" value="connectedFirstTime" />
+            <node concept="10P_77" id="1zWHbGosRji" role="1tU5fm" />
+            <node concept="3clFbT" id="1zWHbGosXfk" role="33vP2m">
+              <property role="3clFbU" value="true" />
+            </node>
+          </node>
+        </node>
+        <node concept="3clFbF" id="1zWHbGogIeU" role="3cqZAp">
+          <node concept="2OqwBi" id="1zWHbGogJlr" role="3clFbG">
+            <node concept="37vLTw" id="1zWHbGogIeS" role="2Oq$k0">
+              <ref role="3cqZAo" node="6aRQr1WVnku" resolve="client" />
+            </node>
+            <node concept="liA8E" id="1zWHbGogKhs" role="2OqNvi">
+              <ref role="37wK5l" to="5440:~RestWebModelClient.addStatusListener(kotlin.jvm.functions.Function2)" resolve="addStatusListener" />
+              <node concept="1bVj0M" id="1zWHbGogLb7" role="37wK5m">
+                <node concept="37vLTG" id="1zWHbGogM6Q" role="1bW2Oz">
+                  <property role="TrG5h" value="oldStatus" />
+                  <node concept="3uibUv" id="1zWHbGogMOc" role="1tU5fm">
+                    <ref role="3uigEE" to="5440:~RestWebModelClient$ConnectionStatus" resolve="RestWebModelClient.ConnectionStatus" />
+                  </node>
+                </node>
+                <node concept="37vLTG" id="1zWHbGogOvD" role="1bW2Oz">
+                  <property role="TrG5h" value="newStatus" />
+                  <node concept="3uibUv" id="1zWHbGogOvE" role="1tU5fm">
+                    <ref role="3uigEE" to="5440:~RestWebModelClient$ConnectionStatus" resolve="RestWebModelClient.ConnectionStatus" />
+                  </node>
+                </node>
+                <node concept="3clFbS" id="1zWHbGogLb8" role="1bW5cS">
+                  <node concept="3clFbJ" id="1zWHbGosYvg" role="3cqZAp">
+                    <node concept="3clFbS" id="1zWHbGosYvi" role="3clFbx">
+                      <node concept="3clFbF" id="1zWHbGot83O" role="3cqZAp">
+                        <node concept="37vLTI" id="1zWHbGot9fB" role="3clFbG">
+                          <node concept="3clFbT" id="1zWHbGotae3" role="37vLTx" />
+                          <node concept="37vLTw" id="1zWHbGot83N" role="37vLTJ">
+                            <ref role="3cqZAo" node="1zWHbGosRjn" resolve="connectedFirstTime" />
+                          </node>
+                        </node>
+                      </node>
+                      <node concept="3clFbF" id="1zWHbGotc9E" role="3cqZAp">
+                        <node concept="1rXfSq" id="1zWHbGotc9C" role="3clFbG">
+                          <ref role="37wK5l" node="1zWHbGosAQY" resolve="onConnect" />
+                        </node>
+                      </node>
+                    </node>
+                    <node concept="1Wc70l" id="1zWHbGot5nB" role="3clFbw">
+                      <node concept="37vLTw" id="1zWHbGot6kz" role="3uHU7w">
+                        <ref role="3cqZAo" node="1zWHbGosRjn" resolve="connectedFirstTime" />
+                      </node>
+                      <node concept="3clFbC" id="1zWHbGot0TI" role="3uHU7B">
+                        <node concept="37vLTw" id="1zWHbGosZ_g" role="3uHU7B">
+                          <ref role="3cqZAo" node="1zWHbGogOvD" resolve="newStatus" />
+                        </node>
+                        <node concept="Rm8GO" id="1zWHbGot2eE" role="3uHU7w">
+                          <ref role="1Px2BO" to="5440:~RestWebModelClient$ConnectionStatus" resolve="RestWebModelClient.ConnectionStatus" />
+                          <ref role="Rm8GQ" to="5440:~RestWebModelClient$ConnectionStatus.CONNECTED" resolve="CONNECTED" />
+                        </node>
+                      </node>
+                    </node>
+                  </node>
+                  <node concept="2Gpval" id="1zWHbGogSGz" role="3cqZAp">
+                    <node concept="2GrKxI" id="1zWHbGogSG$" role="2Gsz3X">
+                      <property role="TrG5h" value="l" />
+                    </node>
+                    <node concept="37vLTw" id="1zWHbGogSG_" role="2GsD0m">
+                      <ref role="3cqZAo" node="1JFLVobh1_5" resolve="listeners" />
+                    </node>
+                    <node concept="3clFbS" id="1zWHbGogSGA" role="2LFqv$">
+                      <node concept="3clFbF" id="1zWHbGogSGB" role="3cqZAp">
+                        <node concept="2OqwBi" id="1zWHbGogSGC" role="3clFbG">
+                          <node concept="2GrUjf" id="1zWHbGogSGD" role="2Oq$k0">
+                            <ref role="2Gs0qQ" node="1zWHbGogSG$" resolve="l" />
+                          </node>
+                          <node concept="liA8E" id="1zWHbGogSGE" role="2OqNvi">
+                            <ref role="37wK5l" node="1JFLVobh0$a" resolve="connectionStatusChanged" />
+                            <node concept="3clFbC" id="1zWHbGogVmA" role="37wK5m">
+                              <node concept="Rm8GO" id="1zWHbGogZ7C" role="3uHU7w">
+                                <ref role="1Px2BO" to="5440:~RestWebModelClient$ConnectionStatus" resolve="RestWebModelClient.ConnectionStatus" />
+                                <ref role="Rm8GQ" to="5440:~RestWebModelClient$ConnectionStatus.CONNECTED" resolve="CONNECTED" />
+                              </node>
+                              <node concept="37vLTw" id="1zWHbGogU1s" role="3uHU7B">
+                                <ref role="3cqZAo" node="1zWHbGogOvD" resolve="newStatus" />
+                              </node>
+                            </node>
+                          </node>
+                        </node>
+                      </node>
+                    </node>
+                  </node>
+                  <node concept="3cpWs6" id="1zWHbGogQKP" role="3cqZAp">
+                    <node concept="10M0yZ" id="1zWHbGogS4w" role="3cqZAk">
+                      <ref role="3cqZAo" to="v18h:~Unit.INSTANCE" resolve="INSTANCE" />
+                      <ref role="1PxDUh" to="v18h:~Unit" resolve="Unit" />
+                    </node>
+                  </node>
+                </node>
+              </node>
+            </node>
           </node>
         </node>
       </node>
@@ -4308,201 +4441,9 @@
       <property role="TrG5h" value="reconnect" />
       <node concept="3cqZAl" id="2EzI5qKmj_F" role="3clF45" />
       <node concept="3Tm1VV" id="2EzI5qKmj_G" role="1B3o_S" />
-      <node concept="3clFbS" id="2EzI5qKmj_H" role="3clF47">
-        <node concept="3clFbF" id="Onv88ZP1Dg" role="3cqZAp">
-          <node concept="2OqwBi" id="Onv88ZP2lD" role="3clFbG">
-            <node concept="10M0yZ" id="Onv88ZP210" role="2Oq$k0">
-              <ref role="3cqZAo" node="Onv88ZOFFp" resolve="FIXED" />
-              <ref role="1PxDUh" node="Onv88ZNSEL" resolve="SharedExecutors" />
-            </node>
-            <node concept="liA8E" id="Onv88ZP2HL" role="2OqNvi">
-              <ref role="37wK5l" to="5zyv:~Executor.execute(java.lang.Runnable)" resolve="execute" />
-              <node concept="1bVj0M" id="1JFLVobhp3Y" role="37wK5m">
-                <node concept="3clFbS" id="1JFLVobhp3Z" role="1bW5cS">
-                  <node concept="3J1_TO" id="1JFLVobhAFc" role="3cqZAp">
-                    <node concept="3clFbS" id="1JFLVobhAFe" role="1zxBo7">
-                      <node concept="3clFbJ" id="2EzI5qKn79l" role="3cqZAp">
-                        <node concept="3clFbS" id="2EzI5qKn79n" role="3clFbx">
-                          <node concept="3clFbF" id="2EzI5qKrki6" role="3cqZAp">
-                            <node concept="37vLTI" id="2EzI5qKrki7" role="3clFbG">
-                              <node concept="2ShNRf" id="2EzI5qKrki8" role="37vLTx">
-                                <node concept="1pGfFk" id="2EzI5qKrki9" role="2ShVmc">
-                                  <ref role="37wK5l" to="5440:~RestWebModelClient.&lt;init&gt;(java.lang.String,kotlin.jvm.functions.Function0,java.util.List)" resolve="RestWebModelClient" />
-                                  <node concept="37vLTw" id="2EzI5qKrkia" role="37wK5m">
-                                    <ref role="3cqZAo" node="6aRQr1WPbDO" resolve="baseUrl" />
-                                  </node>
-                                  <node concept="1bVj0M" id="9XHMVcN0or" role="37wK5m">
-                                    <node concept="3clFbS" id="9XHMVcN0ot" role="1bW5cS">
-                                      <node concept="3clFbF" id="9XHMVcN1$y" role="3cqZAp">
-                                        <node concept="10M0yZ" id="2yaYJyvQwYy" role="3clFbG">
-                                          <ref role="3cqZAo" to="ia5i:2yaYJyvOFDc" resolve="token" />
-                                          <ref role="1PxDUh" to="ia5i:2yaYJyvOFA7" resolve="InstanceJwtToken" />
-                                        </node>
-                                      </node>
-                                    </node>
-                                  </node>
-                                  <node concept="2YIFZM" id="57hSI$27imt" role="37wK5m">
-                                    <ref role="37wK5l" to="33ny:~Arrays.asList(java.lang.Object...)" resolve="asList" />
-                                    <ref role="1Pybhc" to="33ny:~Arrays" resolve="Arrays" />
-                                    <node concept="2ShNRf" id="57hSI$27iVV" role="37wK5m">
-                                      <node concept="1pGfFk" id="46h4oXMuxes" role="2ShVmc">
-                                        <ref role="37wK5l" node="46h4oXMuwd3" resolve="ModelServerConnection.ConnectionListenerForForbiddenMessage" />
-                                        <node concept="37vLTw" id="46h4oXMwxkz" role="37wK5m">
-                                          <ref role="3cqZAo" node="6aRQr1WPbDO" resolve="baseUrl" />
-                                        </node>
-                                      </node>
-                                    </node>
-                                  </node>
-                                </node>
-                              </node>
-                              <node concept="37vLTw" id="2EzI5qKrkib" role="37vLTJ">
-                                <ref role="3cqZAo" node="6aRQr1WVnku" resolve="client" />
-                              </node>
-                            </node>
-                          </node>
-                          <node concept="3cpWs8" id="1zWHbGosRjk" role="3cqZAp">
-                            <node concept="3cpWsn" id="1zWHbGosRjn" role="3cpWs9">
-                              <property role="TrG5h" value="connectedFirstTime" />
-                              <node concept="10P_77" id="1zWHbGosRji" role="1tU5fm" />
-                              <node concept="3clFbT" id="1zWHbGosXfk" role="33vP2m">
-                                <property role="3clFbU" value="true" />
-                              </node>
-                            </node>
-                          </node>
-                          <node concept="3clFbF" id="1zWHbGogIeU" role="3cqZAp">
-                            <node concept="2OqwBi" id="1zWHbGogJlr" role="3clFbG">
-                              <node concept="37vLTw" id="1zWHbGogIeS" role="2Oq$k0">
-                                <ref role="3cqZAo" node="6aRQr1WVnku" resolve="client" />
-                              </node>
-                              <node concept="liA8E" id="1zWHbGogKhs" role="2OqNvi">
-                                <ref role="37wK5l" to="5440:~RestWebModelClient.addStatusListener(kotlin.jvm.functions.Function2)" resolve="addStatusListener" />
-                                <node concept="1bVj0M" id="1zWHbGogLb7" role="37wK5m">
-                                  <node concept="37vLTG" id="1zWHbGogM6Q" role="1bW2Oz">
-                                    <property role="TrG5h" value="oldStatus" />
-                                    <node concept="3uibUv" id="1zWHbGogMOc" role="1tU5fm">
-                                      <ref role="3uigEE" to="5440:~RestWebModelClient$ConnectionStatus" resolve="RestWebModelClient.ConnectionStatus" />
-                                    </node>
-                                  </node>
-                                  <node concept="37vLTG" id="1zWHbGogOvD" role="1bW2Oz">
-                                    <property role="TrG5h" value="newStatus" />
-                                    <node concept="3uibUv" id="1zWHbGogOvE" role="1tU5fm">
-                                      <ref role="3uigEE" to="5440:~RestWebModelClient$ConnectionStatus" resolve="RestWebModelClient.ConnectionStatus" />
-                                    </node>
-                                  </node>
-                                  <node concept="3clFbS" id="1zWHbGogLb8" role="1bW5cS">
-                                    <node concept="3clFbJ" id="1zWHbGosYvg" role="3cqZAp">
-                                      <node concept="3clFbS" id="1zWHbGosYvi" role="3clFbx">
-                                        <node concept="3clFbF" id="1zWHbGot83O" role="3cqZAp">
-                                          <node concept="37vLTI" id="1zWHbGot9fB" role="3clFbG">
-                                            <node concept="3clFbT" id="1zWHbGotae3" role="37vLTx" />
-                                            <node concept="37vLTw" id="1zWHbGot83N" role="37vLTJ">
-                                              <ref role="3cqZAo" node="1zWHbGosRjn" resolve="connectedFirstTime" />
-                                            </node>
-                                          </node>
-                                        </node>
-                                        <node concept="3clFbF" id="1zWHbGotc9E" role="3cqZAp">
-                                          <node concept="1rXfSq" id="1zWHbGotc9C" role="3clFbG">
-                                            <ref role="37wK5l" node="1zWHbGosAQY" resolve="onConnect" />
-                                          </node>
-                                        </node>
-                                      </node>
-                                      <node concept="1Wc70l" id="1zWHbGot5nB" role="3clFbw">
-                                        <node concept="37vLTw" id="1zWHbGot6kz" role="3uHU7w">
-                                          <ref role="3cqZAo" node="1zWHbGosRjn" resolve="connectedFirstTime" />
-                                        </node>
-                                        <node concept="3clFbC" id="1zWHbGot0TI" role="3uHU7B">
-                                          <node concept="37vLTw" id="1zWHbGosZ_g" role="3uHU7B">
-                                            <ref role="3cqZAo" node="1zWHbGogOvD" resolve="newStatus" />
-                                          </node>
-                                          <node concept="Rm8GO" id="1zWHbGot2eE" role="3uHU7w">
-                                            <ref role="1Px2BO" to="5440:~RestWebModelClient$ConnectionStatus" resolve="RestWebModelClient.ConnectionStatus" />
-                                            <ref role="Rm8GQ" to="5440:~RestWebModelClient$ConnectionStatus.CONNECTED" resolve="CONNECTED" />
-                                          </node>
-                                        </node>
-                                      </node>
-                                    </node>
-                                    <node concept="2Gpval" id="1zWHbGogSGz" role="3cqZAp">
-                                      <node concept="2GrKxI" id="1zWHbGogSG$" role="2Gsz3X">
-                                        <property role="TrG5h" value="l" />
-                                      </node>
-                                      <node concept="37vLTw" id="1zWHbGogSG_" role="2GsD0m">
-                                        <ref role="3cqZAo" node="1JFLVobh1_5" resolve="listeners" />
-                                      </node>
-                                      <node concept="3clFbS" id="1zWHbGogSGA" role="2LFqv$">
-                                        <node concept="3clFbF" id="1zWHbGogSGB" role="3cqZAp">
-                                          <node concept="2OqwBi" id="1zWHbGogSGC" role="3clFbG">
-                                            <node concept="2GrUjf" id="1zWHbGogSGD" role="2Oq$k0">
-                                              <ref role="2Gs0qQ" node="1zWHbGogSG$" resolve="l" />
-                                            </node>
-                                            <node concept="liA8E" id="1zWHbGogSGE" role="2OqNvi">
-                                              <ref role="37wK5l" node="1JFLVobh0$a" resolve="connectionStatusChanged" />
-                                              <node concept="3clFbC" id="1zWHbGogVmA" role="37wK5m">
-                                                <node concept="Rm8GO" id="1zWHbGogZ7C" role="3uHU7w">
-                                                  <ref role="Rm8GQ" to="5440:~RestWebModelClient$ConnectionStatus.CONNECTED" resolve="CONNECTED" />
-                                                  <ref role="1Px2BO" to="5440:~RestWebModelClient$ConnectionStatus" resolve="RestWebModelClient.ConnectionStatus" />
-                                                </node>
-                                                <node concept="37vLTw" id="1zWHbGogU1s" role="3uHU7B">
-                                                  <ref role="3cqZAo" node="1zWHbGogOvD" resolve="newStatus" />
-                                                </node>
-                                              </node>
-                                            </node>
-                                          </node>
-                                        </node>
-                                      </node>
-                                    </node>
-                                    <node concept="3cpWs6" id="1zWHbGogQKP" role="3cqZAp">
-                                      <node concept="10M0yZ" id="1zWHbGogS4w" role="3cqZAk">
-                                        <ref role="3cqZAo" to="v18h:~Unit.INSTANCE" resolve="INSTANCE" />
-                                        <ref role="1PxDUh" to="v18h:~Unit" resolve="Unit" />
-                                      </node>
-                                    </node>
-                                  </node>
-                                </node>
-                              </node>
-                            </node>
-                          </node>
-                        </node>
-                        <node concept="3clFbC" id="2EzI5qKrj7G" role="3clFbw">
-                          <node concept="37vLTw" id="2EzI5qKn7S6" role="3uHU7B">
-                            <ref role="3cqZAo" node="6aRQr1WVnku" resolve="client" />
-                          </node>
-                          <node concept="10Nm6u" id="2EzI5qKn8DK" role="3uHU7w" />
-                        </node>
-                      </node>
-                    </node>
-                    <node concept="3uVAMA" id="1JFLVobhAFf" role="1zxBo5">
-                      <node concept="XOnhg" id="1JFLVobhAFh" role="1zc67B">
-                        <property role="3TUv4t" value="false" />
-                        <property role="TrG5h" value="ex" />
-                        <node concept="nSUau" id="f1N348ZqTf_" role="1tU5fm">
-                          <node concept="3uibUv" id="1JFLVobhAPI" role="nSUat">
-                            <ref role="3uigEE" to="wyt6:~Exception" resolve="Exception" />
-                          </node>
-                        </node>
-                      </node>
-                      <node concept="3clFbS" id="1JFLVobhAFl" role="1zc67A">
-                        <node concept="RRSsy" id="1JFLVobhBcV" role="3cqZAp">
-                          <property role="RRSoG" value="gZ5fh_4/error" />
-                          <node concept="3cpWs3" id="1JFLVobhB_R" role="RRSoy">
-                            <node concept="37vLTw" id="1JFLVobhBLy" role="3uHU7w">
-                              <ref role="3cqZAo" node="6aRQr1WPbDO" resolve="baseUrl" />
-                            </node>
-                            <node concept="Xl_RD" id="1JFLVobhBcX" role="3uHU7B">
-                              <property role="Xl_RC" value="Failed to connected to " />
-                            </node>
-                          </node>
-                          <node concept="37vLTw" id="1JFLVobhBcZ" role="RRSow">
-                            <ref role="3cqZAo" node="1JFLVobhAFh" resolve="ex" />
-                          </node>
-                        </node>
-                      </node>
-                    </node>
-                  </node>
-                </node>
-              </node>
-            </node>
-          </node>
-        </node>
+      <node concept="3clFbS" id="2EzI5qKmj_H" role="3clF47" />
+      <node concept="2AHcQZ" id="492eNAL6UL2" role="2AJF6D">
+        <ref role="2AI5Lk" to="wyt6:~Deprecated" resolve="Deprecated" />
       </node>
     </node>
     <node concept="2tJIrI" id="1zWHbGoswwX" role="jymVt" />
@@ -4793,18 +4734,40 @@
       <node concept="10P_77" id="1JFLVobhmjx" role="3clF45" />
       <node concept="3Tm1VV" id="1JFLVobhm7W" role="1B3o_S" />
       <node concept="3clFbS" id="1JFLVobhm7X" role="3clF47">
-        <node concept="3clFbF" id="1zWHbGoh4pD" role="3cqZAp">
-          <node concept="3clFbC" id="1zWHbGoh5KH" role="3clFbG">
-            <node concept="Rm8GO" id="1zWHbGoh6PP" role="3uHU7w">
-              <ref role="Rm8GQ" to="5440:~RestWebModelClient$ConnectionStatus.CONNECTED" resolve="CONNECTED" />
-              <ref role="1Px2BO" to="5440:~RestWebModelClient$ConnectionStatus" resolve="RestWebModelClient.ConnectionStatus" />
+        <node concept="3cpWs8" id="492eNAL4Esu" role="3cqZAp">
+          <node concept="3cpWsn" id="492eNAL4Esv" role="3cpWs9">
+            <property role="TrG5h" value="status" />
+            <node concept="3uibUv" id="492eNAL4Efb" role="1tU5fm">
+              <ref role="3uigEE" to="5440:~RestWebModelClient$ConnectionStatus" resolve="RestWebModelClient.ConnectionStatus" />
             </node>
-            <node concept="2EnYce" id="1zWHbGorAKb" role="3uHU7B">
-              <node concept="37vLTw" id="1zWHbGoh4pC" role="2Oq$k0">
+            <node concept="2EnYce" id="492eNAL4Esw" role="33vP2m">
+              <node concept="37vLTw" id="492eNAL4Esx" role="2Oq$k0">
                 <ref role="3cqZAo" node="6aRQr1WVnku" resolve="client" />
               </node>
-              <node concept="liA8E" id="1zWHbGoh5k0" role="2OqNvi">
+              <node concept="liA8E" id="492eNAL4Esy" role="2OqNvi">
                 <ref role="37wK5l" to="5440:~RestWebModelClient.getConnectionStatus()" resolve="getConnectionStatus" />
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="3clFbF" id="1zWHbGoh4pD" role="3cqZAp">
+          <node concept="1Wc70l" id="492eNAL4DZs" role="3clFbG">
+            <node concept="3y3z36" id="492eNAL5d3v" role="3uHU7w">
+              <node concept="37vLTw" id="492eNAL5bWk" role="3uHU7B">
+                <ref role="3cqZAo" node="492eNAL4Esv" resolve="status" />
+              </node>
+              <node concept="Rm8GO" id="492eNAL5dQG" role="3uHU7w">
+                <ref role="Rm8GQ" to="5440:~RestWebModelClient$ConnectionStatus.WAITING_FOR_TOKEN" resolve="WAITING_FOR_TOKEN" />
+                <ref role="1Px2BO" to="5440:~RestWebModelClient$ConnectionStatus" resolve="RestWebModelClient.ConnectionStatus" />
+              </node>
+            </node>
+            <node concept="3y3z36" id="492eNAL4C$K" role="3uHU7B">
+              <node concept="37vLTw" id="492eNAL4Esz" role="3uHU7B">
+                <ref role="3cqZAo" node="492eNAL4Esv" resolve="status" />
+              </node>
+              <node concept="Rm8GO" id="492eNAL4D8C" role="3uHU7w">
+                <ref role="Rm8GQ" to="5440:~RestWebModelClient$ConnectionStatus.NEW" resolve="NEW" />
+                <ref role="1Px2BO" to="5440:~RestWebModelClient$ConnectionStatus" resolve="RestWebModelClient.ConnectionStatus" />
               </node>
             </node>
           </node>

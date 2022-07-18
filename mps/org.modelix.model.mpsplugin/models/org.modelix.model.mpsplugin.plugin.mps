@@ -4189,26 +4189,36 @@
                 </node>
               </node>
             </node>
-            <node concept="3clFbF" id="4rrX99om2C0" role="3cqZAp">
-              <node concept="2OqwBi" id="4rrX99om2C1" role="3clFbG">
-                <node concept="37vLTw" id="4rrX99om2C2" role="2Oq$k0">
-                  <ref role="3cqZAo" node="4rrX99om2BV" resolve="infoBranch" />
+            <node concept="3clFbJ" id="492eNAL7fuH" role="3cqZAp">
+              <node concept="3clFbS" id="492eNAL7fuJ" role="3clFbx">
+                <node concept="3clFbF" id="4rrX99om2C0" role="3cqZAp">
+                  <node concept="2OqwBi" id="4rrX99om2C1" role="3clFbG">
+                    <node concept="37vLTw" id="4rrX99om2C2" role="2Oq$k0">
+                      <ref role="3cqZAo" node="4rrX99om2BV" resolve="infoBranch" />
+                    </node>
+                    <node concept="liA8E" id="4rrX99om2C3" role="2OqNvi">
+                      <ref role="37wK5l" to="jks5:~IBranch.addListener(org.modelix.model.api.IBranchListener)" resolve="addListener" />
+                      <node concept="Xjq3P" id="4rrX99om2C4" role="37wK5m" />
+                    </node>
+                  </node>
                 </node>
-                <node concept="liA8E" id="4rrX99om2C3" role="2OqNvi">
-                  <ref role="37wK5l" to="jks5:~IBranch.addListener(org.modelix.model.api.IBranchListener)" resolve="addListener" />
-                  <node concept="Xjq3P" id="4rrX99om2C4" role="37wK5m" />
+                <node concept="3clFbF" id="4rrX99om2C5" role="3cqZAp">
+                  <node concept="2OqwBi" id="4rrX99om2C6" role="3clFbG">
+                    <node concept="37vLTw" id="4rrX99om2C7" role="2Oq$k0">
+                      <ref role="3cqZAo" node="4rrX99oiUA6" resolve="subscribedInfoBranches" />
+                    </node>
+                    <node concept="TSZUe" id="4rrX99om2C8" role="2OqNvi">
+                      <node concept="2GrUjf" id="4rrX99om2C9" role="25WWJ7">
+                        <ref role="2Gs0qQ" node="4rrX99om2BS" resolve="repo" />
+                      </node>
+                    </node>
+                  </node>
                 </node>
               </node>
-            </node>
-            <node concept="3clFbF" id="4rrX99om2C5" role="3cqZAp">
-              <node concept="2OqwBi" id="4rrX99om2C6" role="3clFbG">
-                <node concept="37vLTw" id="4rrX99om2C7" role="2Oq$k0">
-                  <ref role="3cqZAo" node="4rrX99oiUA6" resolve="subscribedInfoBranches" />
-                </node>
-                <node concept="TSZUe" id="4rrX99om2C8" role="2OqNvi">
-                  <node concept="2GrUjf" id="4rrX99om2C9" role="25WWJ7">
-                    <ref role="2Gs0qQ" node="4rrX99om2BS" resolve="repo" />
-                  </node>
+              <node concept="3y3z36" id="492eNAL7h2p" role="3clFbw">
+                <node concept="10Nm6u" id="492eNAL7hrZ" role="3uHU7w" />
+                <node concept="37vLTw" id="492eNAL7g$Q" role="3uHU7B">
+                  <ref role="3cqZAo" node="4rrX99om2BV" resolve="infoBranch" />
                 </node>
               </node>
             </node>

@@ -183,7 +183,7 @@ class RestWebModelClient @JvmOverloads constructor(
             exponentialDelay()
             modifyRequest {
                 try {
-                    connectionStatus = ConnectionStatus.SERVER_ERROR
+//                    connectionStatus = ConnectionStatus.SERVER_ERROR
                     runBlocking {
                         response?.let { println(it.bodyAsText()) }
                     }
@@ -196,14 +196,12 @@ class RestWebModelClient @JvmOverloads constructor(
         plugin(HttpSend).intercept { request ->
             val call = execute(request)
             val response = call.response
-            if (response.unsuccessful) {
-                if (response.forbidden) {
-                    receivedForbiddenResponse()
-                } else {
-                    connectionStatus = ConnectionStatus.SERVER_ERROR
-                }
-            } else {
+            if (response.successful) {
                 receivedSuccessfulResponse()
+            } else {
+                if (response.status == HttpStatusCode.Unauthorized) {
+                    receivedForbiddenResponse()
+                }
             }
             call
         }
@@ -241,6 +239,8 @@ class RestWebModelClient @JvmOverloads constructor(
                             idGeneratorInternal = IdGenerator(clientIdInternal)
                         }
                         connectionStatus = ConnectionStatus.CONNECTED
+                    } else if (response.status == HttpStatusCode.Unauthorized) {
+                        connectionStatus = ConnectionStatus.WAITING_FOR_TOKEN
                     }
                     if (connectionStatus == ConnectionStatus.CONNECTED) {
                         delay(10.seconds)
@@ -549,7 +549,11 @@ class RestWebModelClient @JvmOverloads constructor(
             job = coroutineScope.launch {
                 while (isActive) {
                     try {
-                        run()
+                        if (connectionStatus == ConnectionStatus.CONNECTED) {
+                            run()
+                        } else {
+                            delay(1.seconds)
+                        }
                         nextDelay = 1.seconds
                     } catch (e: CancellationException) {
                         break
@@ -602,7 +606,7 @@ class RestWebModelClient @JvmOverloads constructor(
         NEW,
         WAITING_FOR_TOKEN,
         DISCONNECTED,
-        SERVER_ERROR,
+//        SERVER_ERROR,
         CONNECTED;
     }
 }
