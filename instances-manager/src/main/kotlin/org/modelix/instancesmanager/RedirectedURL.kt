@@ -14,14 +14,12 @@
 package org.modelix.instancesmanager
 
 import com.auth0.jwt.JWT
-import org.eclipse.jetty.http.HttpCookie
 import org.eclipse.jetty.server.Request
 import org.modelix.authorization.AccessTokenPrincipal
 import org.modelix.authorization.nullIfInvalid
-import java.util.*
 import javax.servlet.http.HttpServletRequest
 
-class RedirectedURL(val remainingPath: String, val originalDeploymentName: String, var personalDeploymentName: String?, val userId: String?) {
+class RedirectedURL(val remainingPath: String, val originalDeploymentName: String, var personalDeploymentName: String?, val userToken: AccessTokenPrincipal?) {
     fun noPersonalDeployment() {
         personalDeploymentName = null
     }
@@ -49,26 +47,11 @@ class RedirectedURL(val remainingPath: String, val originalDeploymentName: Strin
             var remainingPath = path.substring(indexOfSlash)
             if (request.queryString != null) remainingPath += "?" + request.queryString
 
-            val userId = getUserIdFromAuthHeader(request) ?: run {
-                // TODO use the ID of an authenticated user instead (or in addition)
-                var cookieValue: String? = null
-                val cookies = request.cookies
-                if (cookies != null) {
-                    for (cookie in cookies) {
-                        if (COOKIE_NAME == cookie.name) {
-                            cookieValue = cookie.value
-                        }
-                    }
-                }
-                baseRequest?.response?.addCookie(HttpCookie(COOKIE_NAME, cookieValue
-                    ?: UUID.randomUUID().toString(), null, "/", 30 * 24 * 60 * 60, false, false))
-                cookieValue
-            }
-
+            val userId = getUserIdFromAuthHeader(request)
             return RedirectedURL(remainingPath, originalDeploymentName, null, userId)
         }
 
-        fun getUserIdFromAuthHeader(request: HttpServletRequest): String? {
+        fun getUserIdFromAuthHeader(request: HttpServletRequest): AccessTokenPrincipal? {
             val tokenString = request.getHeader("X-Forwarded-Access-Token") ?: run {
                 val headerValue: String? = request.getHeader("Authorization")
                 val prefix = "Bearer "
@@ -78,7 +61,7 @@ class RedirectedURL(val remainingPath: String, val originalDeploymentName: Strin
                     null
                 }
             } ?: return null
-            return JWT.decode(tokenString).nullIfInvalid()?.let { AccessTokenPrincipal(it) }?.getUserName()
+            return JWT.decode(tokenString).nullIfInvalid()?.let { AccessTokenPrincipal(it) }
         }
     }
 }

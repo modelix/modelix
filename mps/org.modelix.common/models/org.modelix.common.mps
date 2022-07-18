@@ -463,7 +463,13 @@
       <property role="TrG5h" value="token" />
       <node concept="17QB3L" id="2yaYJyvOFBR" role="1tU5fm" />
       <node concept="3Tm1VV" id="2yaYJyvOFCg" role="1B3o_S" />
-      <node concept="10Nm6u" id="2yaYJyvOFCR" role="33vP2m" />
+      <node concept="2YIFZM" id="492eNAL8xHC" role="33vP2m">
+        <ref role="1Pybhc" to="wyt6:~System" resolve="System" />
+        <ref role="37wK5l" to="wyt6:~System.getenv(java.lang.String)" resolve="getenv" />
+        <node concept="Xl_RD" id="492eNAL8xMR" role="37wK5m">
+          <property role="Xl_RC" value="INITIAL_JWT_TOKEN" />
+        </node>
+      </node>
     </node>
     <node concept="3Tm1VV" id="2yaYJyvOFA8" role="1B3o_S" />
   </node>
