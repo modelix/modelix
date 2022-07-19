@@ -4008,6 +4008,50 @@
             </node>
           </node>
         </node>
+        <node concept="3cpWs8" id="1VUIoKfAz0w" role="3cqZAp">
+          <node concept="3cpWsn" id="1VUIoKfAz0x" role="3cpWs9">
+            <property role="TrG5h" value="workspaceTokenProvider" />
+            <node concept="3uibUv" id="1VUIoKfAz0u" role="1tU5fm">
+              <ref role="3uigEE" to="ouht:~Function0" resolve="Function0" />
+              <node concept="17QB3L" id="1VUIoKfAzWB" role="11_B2D" />
+            </node>
+            <node concept="1bVj0M" id="1VUIoKfA$vQ" role="33vP2m">
+              <node concept="3clFbS" id="1VUIoKfA$vS" role="1bW5cS">
+                <node concept="3clFbF" id="1VUIoKf$fVl" role="3cqZAp">
+                  <node concept="10M0yZ" id="1VUIoKf$fVm" role="3clFbG">
+                    <ref role="3cqZAo" to="ia5i:2yaYJyvOFDc" resolve="token" />
+                    <ref role="1PxDUh" to="ia5i:2yaYJyvOFA7" resolve="InstanceJwtToken" />
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="3cpWs8" id="1VUIoKf$fVh" role="3cqZAp">
+          <node concept="3cpWsn" id="1VUIoKf$fVi" role="3cpWs9">
+            <property role="TrG5h" value="tokenProvider" />
+            <node concept="3uibUv" id="1VUIoKf$pLf" role="1tU5fm">
+              <ref role="3uigEE" to="ouht:~Function0" resolve="Function0" />
+              <node concept="17QB3L" id="1VUIoKf$qv5" role="11_B2D" />
+            </node>
+            <node concept="3K4zz7" id="1VUIoKf$Akg" role="33vP2m">
+              <node concept="37vLTw" id="1VUIoKfA_kw" role="3K4GZi">
+                <ref role="3cqZAo" node="1VUIoKfAz0x" resolve="workspaceTokenProvider" />
+              </node>
+              <node concept="10Nm6u" id="1VUIoKf$Bis" role="3K4E3e" />
+              <node concept="3clFbC" id="1VUIoKf$AXw" role="3K4Cdx">
+                <node concept="Rm8GO" id="1VUIoKf$AXx" role="3uHU7w">
+                  <ref role="Rm8GQ" to="nhvc:5Le8ZRJdWMd" resolve="DEFAULT" />
+                  <ref role="1Px2BO" to="nhvc:5Le8ZRJdWor" resolve="EModelixExecutionMode" />
+                </node>
+                <node concept="2YIFZM" id="1VUIoKf$AXy" role="3uHU7B">
+                  <ref role="1Pybhc" to="nhvc:7Qo$o7gTdFI" resolve="ModelixConfigurationSystemProperties" />
+                  <ref role="37wK5l" to="nhvc:54meraTAO3V" resolve="getExecutionMode" />
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
         <node concept="3clFbF" id="2EzI5qKrki6" role="3cqZAp">
           <node concept="37vLTI" id="2EzI5qKrki7" role="3clFbG">
             <node concept="2ShNRf" id="2EzI5qKrki8" role="37vLTx">
@@ -4016,15 +4060,8 @@
                 <node concept="37vLTw" id="2EzI5qKrkia" role="37wK5m">
                   <ref role="3cqZAo" node="6aRQr1WPiWt" resolve="baseUrl" />
                 </node>
-                <node concept="1bVj0M" id="9XHMVcN0or" role="37wK5m">
-                  <node concept="3clFbS" id="9XHMVcN0ot" role="1bW5cS">
-                    <node concept="3clFbF" id="9XHMVcN1$y" role="3cqZAp">
-                      <node concept="10M0yZ" id="2yaYJyvQwYy" role="3clFbG">
-                        <ref role="1PxDUh" to="ia5i:2yaYJyvOFA7" resolve="InstanceJwtToken" />
-                        <ref role="3cqZAo" to="ia5i:2yaYJyvOFDc" resolve="token" />
-                      </node>
-                    </node>
-                  </node>
+                <node concept="37vLTw" id="1VUIoKf$fVn" role="37wK5m">
+                  <ref role="3cqZAo" node="1VUIoKf$fVi" resolve="tokenProvider" />
                 </node>
                 <node concept="2YIFZM" id="57hSI$27imt" role="37wK5m">
                   <ref role="37wK5l" to="33ny:~Arrays.asList(java.lang.Object...)" resolve="asList" />
@@ -6191,11 +6228,6 @@
       </node>
       <node concept="3Tm1VV" id="6aRQr1X24wM" role="1B3o_S" />
       <node concept="3clFbS" id="6aRQr1X24wN" role="3clF47">
-        <node concept="3clFbF" id="1JFLVobhxEV" role="3cqZAp">
-          <node concept="1rXfSq" id="1JFLVobhxEW" role="3clFbG">
-            <ref role="37wK5l" node="1JFLVobhv9H" resolve="checkConnected" />
-          </node>
-        </node>
         <node concept="1HWtB8" id="6aRQr1X285Y" role="3cqZAp">
           <node concept="37vLTw" id="6aRQr1X28si" role="1HWFw0">
             <ref role="3cqZAo" node="6aRQr1X1X4Z" resolve="activeBranches" />
