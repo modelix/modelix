@@ -248,6 +248,10 @@ class RestWebModelClient @JvmOverloads constructor(
         }
     }
 
+    fun reconnect() {
+        runBlocking { connectNow() }
+    }
+
     private suspend fun connectNow() {
         val response = client.get(baseUrl + "getEmail")
         if (response.successful || response.status == HttpStatusCode.NotFound) {

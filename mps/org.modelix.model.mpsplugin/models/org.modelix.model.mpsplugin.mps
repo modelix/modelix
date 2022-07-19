@@ -4787,6 +4787,29 @@
             </node>
           </node>
         </node>
+        <node concept="3clFbJ" id="31DRblkmySN" role="3cqZAp">
+          <node concept="3clFbS" id="31DRblkmySP" role="3clFbx">
+            <node concept="3clFbF" id="31DRblkm_hi" role="3cqZAp">
+              <node concept="2OqwBi" id="31DRblkm_Qx" role="3clFbG">
+                <node concept="37vLTw" id="31DRblkm_hg" role="2Oq$k0">
+                  <ref role="3cqZAo" node="6aRQr1WVnku" resolve="client" />
+                </node>
+                <node concept="liA8E" id="2bQvfO0nvAI" role="2OqNvi">
+                  <ref role="37wK5l" to="5440:~RestWebModelClient.reconnect()" resolve="reconnect" />
+                </node>
+              </node>
+            </node>
+          </node>
+          <node concept="3clFbC" id="31DRblkmzTM" role="3clFbw">
+            <node concept="Rm8GO" id="31DRblkm_0j" role="3uHU7w">
+              <ref role="Rm8GQ" to="5440:~RestWebModelClient$ConnectionStatus.NEW" resolve="NEW" />
+              <ref role="1Px2BO" to="5440:~RestWebModelClient$ConnectionStatus" resolve="RestWebModelClient.ConnectionStatus" />
+            </node>
+            <node concept="37vLTw" id="31DRblkmzhZ" role="3uHU7B">
+              <ref role="3cqZAo" node="492eNAL4Esv" resolve="status" />
+            </node>
+          </node>
+        </node>
         <node concept="3clFbF" id="1zWHbGoh4pD" role="3cqZAp">
           <node concept="1Wc70l" id="492eNAL4DZs" role="3clFbG">
             <node concept="3y3z36" id="492eNAL5d3v" role="3uHU7w">
