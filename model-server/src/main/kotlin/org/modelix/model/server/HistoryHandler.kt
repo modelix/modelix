@@ -8,6 +8,7 @@ import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import org.apache.commons.lang3.StringEscapeUtils
 import org.modelix.authorization.getUserName
+import org.modelix.authorization.requiresPermission
 import org.modelix.model.LinearHistory
 import org.modelix.model.api.*
 import org.modelix.model.client.IModelClient
@@ -46,15 +47,23 @@ class HistoryHandler(private val client: IModelClient) {
                     buildRepositoryPage(PrintWriter(this), RepositoryAndBranch(repositoryId, branch), params["head"], skip, limit)
                 }
             }
-            post("/history/{repoId}/{branch}/revert") {
-                val repositoryId = call.parameters["repoId"]!!
-                val branch = call.parameters["branch"]!!
-                val params = call.receiveParameters()
-                val fromVersion = params["from"]!!
-                val toVersion = params["to"]!!
-                val user = getUserName()
-                revert(RepositoryAndBranch(repositoryId, branch), fromVersion, toVersion, user)
-                call.respondRedirect(".")
+            requiresPermission("history", "WRITE") {
+                post("/history/{repoId}/{branch}/revert") {
+                    val repositoryId = call.parameters["repoId"]!!
+                    val branch = call.parameters["branch"]!!
+                    val params = call.receiveParameters()
+                    val fromVersion = params["from"]!!
+                    val toVersion = params["to"]!!
+                    val user = getUserName()
+                    revert(RepositoryAndBranch(repositoryId, branch), fromVersion, toVersion, user)
+                    call.respondRedirect(".")
+                }
+                post("/history/{repoId}/{branch}/delete") {
+                    val repositoryId = call.parameters["repoId"]!!
+                    val branch = call.parameters["branch"]!!
+                    client.put(RepositoryId(repositoryId).getBranchKey(branch), null)
+                    call.respondRedirect(".")
+                }
             }
         }
     }
@@ -204,6 +213,15 @@ class HistoryHandler(private val client: IModelClient) {
         out.append("<h1>History for Repository ")
         out.append(escape(repositoryAndBranch.toString()))
         out.append("</h1>")
+
+        out.append("""
+            <div>
+            <form action='delete' method='POST'>
+            <input type='submit' value='Delete'/>
+            </form>
+            </div>
+        """)
+
         val buttons = Runnable {
             out.append("<div class='BtnGroup'>")
             if (skip == 0) {
