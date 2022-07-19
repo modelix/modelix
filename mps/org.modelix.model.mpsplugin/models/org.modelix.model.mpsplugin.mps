@@ -4787,29 +4787,6 @@
             </node>
           </node>
         </node>
-        <node concept="3clFbJ" id="31DRblkmySN" role="3cqZAp">
-          <node concept="3clFbS" id="31DRblkmySP" role="3clFbx">
-            <node concept="3clFbF" id="31DRblkm_hi" role="3cqZAp">
-              <node concept="2OqwBi" id="31DRblkm_Qx" role="3clFbG">
-                <node concept="37vLTw" id="31DRblkm_hg" role="2Oq$k0">
-                  <ref role="3cqZAo" node="6aRQr1WVnku" resolve="client" />
-                </node>
-                <node concept="liA8E" id="2bQvfO0nvAI" role="2OqNvi">
-                  <ref role="37wK5l" to="5440:~RestWebModelClient.reconnect()" resolve="reconnect" />
-                </node>
-              </node>
-            </node>
-          </node>
-          <node concept="3clFbC" id="31DRblkmzTM" role="3clFbw">
-            <node concept="Rm8GO" id="31DRblkm_0j" role="3uHU7w">
-              <ref role="Rm8GQ" to="5440:~RestWebModelClient$ConnectionStatus.NEW" resolve="NEW" />
-              <ref role="1Px2BO" to="5440:~RestWebModelClient$ConnectionStatus" resolve="RestWebModelClient.ConnectionStatus" />
-            </node>
-            <node concept="37vLTw" id="31DRblkmzhZ" role="3uHU7B">
-              <ref role="3cqZAo" node="492eNAL4Esv" resolve="status" />
-            </node>
-          </node>
-        </node>
         <node concept="3clFbF" id="1zWHbGoh4pD" role="3cqZAp">
           <node concept="1Wc70l" id="492eNAL4DZs" role="3clFbG">
             <node concept="3y3z36" id="492eNAL5d3v" role="3uHU7w">
@@ -4856,14 +4833,58 @@
       <node concept="3cqZAl" id="1JFLVobhv9J" role="3clF45" />
       <node concept="3Tmbuc" id="1JFLVobhvhS" role="1B3o_S" />
       <node concept="3clFbS" id="1JFLVobhv9L" role="3clF47">
+        <node concept="3cpWs8" id="2bQvfO0puIF" role="3cqZAp">
+          <node concept="3cpWsn" id="2bQvfO0puIG" role="3cpWs9">
+            <property role="TrG5h" value="connectionStatus" />
+            <node concept="3uibUv" id="2bQvfO0ps61" role="1tU5fm">
+              <ref role="3uigEE" to="5440:~RestWebModelClient$ConnectionStatus" resolve="RestWebModelClient.ConnectionStatus" />
+            </node>
+            <node concept="2EnYce" id="2bQvfO0puIH" role="33vP2m">
+              <node concept="37vLTw" id="2bQvfO0puII" role="2Oq$k0">
+                <ref role="3cqZAo" node="6aRQr1WVnku" resolve="client" />
+              </node>
+              <node concept="liA8E" id="2bQvfO0puIJ" role="2OqNvi">
+                <ref role="37wK5l" to="5440:~RestWebModelClient.getConnectionStatus()" resolve="getConnectionStatus" />
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="3clFbJ" id="2bQvfO0pvwF" role="3cqZAp">
+          <node concept="3clFbS" id="2bQvfO0pvwH" role="3clFbx">
+            <node concept="3clFbF" id="2bQvfO0px_h" role="3cqZAp">
+              <node concept="2OqwBi" id="2bQvfO0pxXk" role="3clFbG">
+                <node concept="37vLTw" id="2bQvfO0px_f" role="2Oq$k0">
+                  <ref role="3cqZAo" node="6aRQr1WVnku" resolve="client" />
+                </node>
+                <node concept="liA8E" id="2bQvfO0pyyc" role="2OqNvi">
+                  <ref role="37wK5l" to="5440:~RestWebModelClient.reconnect()" resolve="reconnect" />
+                </node>
+              </node>
+            </node>
+          </node>
+          <node concept="3y3z36" id="2bQvfO0pwzQ" role="3clFbw">
+            <node concept="Rm8GO" id="2bQvfO0pxjX" role="3uHU7w">
+              <ref role="Rm8GQ" to="5440:~RestWebModelClient$ConnectionStatus.CONNECTED" resolve="CONNECTED" />
+              <ref role="1Px2BO" to="5440:~RestWebModelClient$ConnectionStatus" resolve="RestWebModelClient.ConnectionStatus" />
+            </node>
+            <node concept="37vLTw" id="2bQvfO0pvVs" role="3uHU7B">
+              <ref role="3cqZAo" node="2bQvfO0puIG" resolve="connectionStatus" />
+            </node>
+          </node>
+        </node>
         <node concept="3clFbJ" id="1JFLVobhvhV" role="3cqZAp">
           <node concept="3clFbS" id="1JFLVobhvhW" role="3clFbx">
             <node concept="YS8fn" id="1JFLVobhvhX" role="3cqZAp">
               <node concept="2ShNRf" id="1JFLVobhvhY" role="YScLw">
                 <node concept="1pGfFk" id="1JFLVobhvhZ" role="2ShVmc">
                   <ref role="37wK5l" to="wyt6:~IllegalStateException.&lt;init&gt;(java.lang.String)" resolve="IllegalStateException" />
-                  <node concept="Xl_RD" id="1JFLVobhvi0" role="37wK5m">
-                    <property role="Xl_RC" value="Not connected." />
+                  <node concept="3cpWs3" id="2bQvfO0prOM" role="37wK5m">
+                    <node concept="Xl_RD" id="1JFLVobhvi0" role="3uHU7B">
+                      <property role="Xl_RC" value="Not connected. Client is in status " />
+                    </node>
+                    <node concept="37vLTw" id="2bQvfO0puIK" role="3uHU7w">
+                      <ref role="3cqZAo" node="2bQvfO0puIG" resolve="connectionStatus" />
+                    </node>
                   </node>
                 </node>
               </node>
