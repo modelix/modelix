@@ -229,18 +229,7 @@ class RestWebModelClient @JvmOverloads constructor(
         coroutineScope.launch {
             while (isActive) {
                 try {
-                    val response = client.get(baseUrl + "getEmail")
-                    if (response.successful || response.status == HttpStatusCode.NotFound) {
-                        if (clientIdInternal == 0) {
-                            loadClientId()
-                        }
-                        if (clientIdInternal != 0) {
-                            idGeneratorInternal = IdGenerator(clientIdInternal)
-                        }
-                        connectionStatus = ConnectionStatus.CONNECTED
-                    } else if (response.status == HttpStatusCode.Unauthorized) {
-                        connectionStatus = ConnectionStatus.WAITING_FOR_TOKEN
-                    }
+                    connectNow()
                     if (connectionStatus == ConnectionStatus.CONNECTED) {
                         delay(10.seconds)
                     } else {
@@ -256,6 +245,21 @@ class RestWebModelClient @JvmOverloads constructor(
                     delay(3.seconds)
                 }
             }
+        }
+    }
+
+    private suspend fun connectNow() {
+        val response = client.get(baseUrl + "getEmail")
+        if (response.successful || response.status == HttpStatusCode.NotFound) {
+            if (clientIdInternal == 0) {
+                loadClientId()
+            }
+            if (clientIdInternal != 0) {
+                idGeneratorInternal = IdGenerator(clientIdInternal)
+            }
+            connectionStatus = ConnectionStatus.CONNECTED
+        } else if (response.status == HttpStatusCode.Unauthorized) {
+            connectionStatus = ConnectionStatus.WAITING_FOR_TOKEN
         }
     }
 
@@ -283,6 +287,11 @@ class RestWebModelClient @JvmOverloads constructor(
 
     override val idGenerator: IIdGenerator = object : IIdGenerator {
         override fun generate(): Long {
+            if (idGeneratorInternal == null) {
+                runBlocking {
+                    connectNow()
+                }
+            }
             val gen = idGeneratorInternal ?: throw IllegalStateException("Not connected yet")
             return gen.generate()
         }
