@@ -19,6 +19,13 @@ jobs:
         java-version: '11'
     - name: Use tag as version
       run: echo "${GITHUB_REF#refs/*/}" > modelix.version
+    - name: Package Helm Chart
+      run: ./helm/publish.sh
+    - name: Upload Helm Chart
+      uses: actions/upload-artifact@v3
+      with:
+        name: helm-chart
+        path: helm/repo/
     - name: Build and Publish
       env:
         DOCKER_HUB_USER: ${{ secrets.DOCKER_HUB_USER }}
@@ -27,20 +34,3 @@ jobs:
         NEXUS_PASSWORD: ${{ secrets.NEXUS_PASSWORD }}
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: ./gradlew assemble publish && ./docker-ci.sh
-
-    - name: Configure Git
-      run: |
-        git config user.name "$GITHUB_ACTOR"
-        git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
-
-    - name: Install Helm
-      uses: azure/setup-helm@v1
-      with:
-        version: v3.8.1
-
-    - name: Run chart-releaser
-      uses: helm/chart-releaser-action@v1.4.0
-      with:
-        charts_dir: helm
-      env:
-        CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"

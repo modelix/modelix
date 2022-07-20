@@ -1,5 +1,8 @@
 #!/bin/sh
 
+set -e
+cd "$(dirname "$0")"
+
 while IFS='=' read -r key value
 do
     eval "${key}"=\${value}
