@@ -4,6 +4,7 @@ kind: PersistentVolumeClaim
 metadata:
   labels:
     component: workspace-uploads
+    {{- include "modelix.labels" . | nindent 4 }}
   name: "{{ include "modelix.fullname" . }}-workspace-uploads"
 spec:
   accessModes:

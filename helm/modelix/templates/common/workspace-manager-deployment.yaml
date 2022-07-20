@@ -59,16 +59,16 @@ spec:
           timeoutSeconds: 10
         volumeMounts:
           - mountPath: "/workspace-manager/modelix-workspaces/uploads"
-            name: workspace-uploads
-          - name: workspacesecret
-            mountPath: /secrets/workspacesecret
+            name: "{{ include "modelix.fullname" . }}-workspace-uploads"
+          - name: "{{ include "modelix.fullname" . }}-workspace-secret"
+            mountPath: /secrets/workspacesecret/workspace-credentials-key.txt
             readOnly: true
       restartPolicy: Always
       volumes:
-        - name: workspace-uploads
+        - name: "{{ include "modelix.fullname" . }}-workspace-uploads"
           persistentVolumeClaim:
-            claimName: workspace-uploads
-        - name: workspacesecret
+            claimName: "{{ include "modelix.fullname" . }}-workspace-uploads"
+        - name: "{{ include "modelix.fullname" . }}-workspace-secret"
           secret:
-            secretName: workspacesecret
+            secretName: "{{ include "modelix.fullname" . }}-workspace-secret"
 {{- end -}}

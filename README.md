@@ -196,3 +196,9 @@ To use them in your gradle script add this repository:
 To make a new release you will simply need to push a new tag. Everything is automated: it means that no version number have to be changed manually.
 Code in master can be released under tags indicating the version numbers, without qualifiers. 
 For example, if the last tag from master branch has been "0.0.1", the next tag should be "0.0.2".
+
+# Publishing a new version
+
+Creating a new tag is enough to publish a new version.
+The tag is used as the version number.
+See https://semver.org/ for valid version numbers.
