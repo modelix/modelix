@@ -57,14 +57,11 @@ imagePullSecrets:
 {{- end }}
 {{- end }}
 
-{{/*
-Create the name of the service account to use
-*/}}
 {{- define "modelix.serviceAccountName" -}}
-{{- if .Values.serviceAccount.create }}
-{{- default (include "modelix.fullname" .) .Values.serviceAccount.name }}
+{{- if .Values.serviceAccount }}
+{{- .Values.serviceAccount }}
 {{- else }}
-{{- default "default" .Values.serviceAccount.name }}
+{{ include "modelix.fullname" . }}-sa
 {{- end }}
 {{- end }}
 

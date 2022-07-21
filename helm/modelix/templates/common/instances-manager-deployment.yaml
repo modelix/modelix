@@ -24,7 +24,7 @@ spec:
         component: instances-manager
         {{- include "modelix.selectorLabels" . | nindent 8 }}
     spec:
-      serviceAccountName: "{{ include "modelix.fullname" . }}-sa"
+      serviceAccountName: "{{ include "modelix.serviceAccountName" . }}"
       containers:
       - image: "{{ .Values.dockerProxy.prefix }}modelix/modelix-instances-manager:{{ .Values.imageTags.instancesManager | default .Chart.AppVersion }}"
         imagePullPolicy: IfNotPresent
