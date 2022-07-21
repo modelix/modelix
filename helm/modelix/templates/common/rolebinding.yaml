@@ -2,11 +2,11 @@ kind: ClusterRoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
  name: "{{ include "modelix.fullname" . }}-sa-edit"
- namespace: default
+ namespace: "{{ .Release.Namespace }}"
 subjects:
 - kind: ServiceAccount
   name: "{{ include "modelix.fullname" . }}-sa"
-  namespace: default
+  namespace: "{{ .Release.Namespace }}"
 roleRef:
  kind: ClusterRole
  name: edit

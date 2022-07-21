@@ -50,6 +50,13 @@ app.kubernetes.io/name: {{ include "modelix.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
 
+{{- define "modelix.pullSecret" -}}
+{{- if .Values.dockerProxy.secret }}
+imagePullSecrets:
+- name: mbd-artifactory
+{{- end }}
+{{- end }}
+
 {{/*
 Create the name of the service account to use
 */}}

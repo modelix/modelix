@@ -26,7 +26,7 @@ spec:
     spec:
       serviceAccountName: "{{ include "modelix.fullname" . }}-sa"
       containers:
-      - image: "modelix/modelix-instances-manager:{{ .Values.imageTags.instancesManager | default .Chart.AppVersion }}"
+      - image: "{{ .Values.dockerProxy.prefix }}modelix/modelix-instances-manager:{{ .Values.imageTags.instancesManager | default .Chart.AppVersion }}"
         imagePullPolicy: IfNotPresent
         name: instances-manager
         env:
@@ -66,4 +66,5 @@ spec:
           periodSeconds: 15
           timeoutSeconds: 10
       restartPolicy: Always
+      {{- include "modelix.pullSecret" . | nindent 6 }}
 {{- end -}}

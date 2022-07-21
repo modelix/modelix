@@ -38,3 +38,7 @@ db:
   password: "modelix"
   db: "modelix"
   storage: 3000Mi
+
+dockerProxy:
+  prefix: ""
+  secret: ""

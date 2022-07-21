@@ -26,7 +26,7 @@ spec:
     spec:
       containers:
       - name: workspace-client
-        image: "modelix/modelix-workspace-client:{{ .Values.imageTags.wsClient | default .Chart.AppVersion }}"
+        image: "{{ .Values.dockerProxy.prefix }}modelix/modelix-workspace-client:{{ .Values.imageTags.wsClient | default .Chart.AppVersion }}"
         imagePullPolicy: IfNotPresent
         env:
         - name: "modelix_executionMode"
@@ -59,4 +59,5 @@ spec:
           periodSeconds: 20
           timeoutSeconds: 10
       restartPolicy: Always
+      {{- include "modelix.pullSecret" . | nindent 6 }}
 {{- end -}}

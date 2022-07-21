@@ -30,7 +30,7 @@ spec:
           value: "{{ .Values.db.db }}"
         - name: PGDATA
           value: /var/lib/postgresql/data/pgdata
-        image: "modelix/modelix-db:{{ .Values.imageTags.db | default .Chart.AppVersion }}"
+        image: "{{ .Values.dockerProxy.prefix }}modelix/modelix-db:{{ .Values.imageTags.db | default .Chart.AppVersion }}"
         imagePullPolicy: IfNotPresent
         name: db
         volumeMounts:
@@ -51,4 +51,5 @@ spec:
       - name: db-data
         persistentVolumeClaim:
           claimName: "{{ include "modelix.fullname" . }}-db-data"
+      {{- include "modelix.pullSecret" . | nindent 6 }}
 {{- end }}

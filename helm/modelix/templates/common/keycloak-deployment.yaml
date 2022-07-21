@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
       - name: keycloak
-        image: quay.io/keycloak/keycloak:18.0.1
+        image: "{{ .Values.dockerProxy.prefix }}quay.io/keycloak/keycloak:18.0.1"
         args: ["start-dev", "--import-realm"]
         env:
         - name: KC_LOG_LEVEL
@@ -84,3 +84,4 @@ spec:
         - name: keycloak-volume
           configMap:
             name: "{{ include "modelix.fullname" . }}-keycloak-configmap"
+      {{- include "modelix.pullSecret" . | nindent 6 }}
