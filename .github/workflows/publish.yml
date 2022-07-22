@@ -20,12 +20,15 @@ jobs:
     - name: Use tag as version
       run: echo "${GITHUB_REF#refs/*/}" > modelix.version
     - name: Package Helm Chart
+      env:
+        ARTIFACTS_ITEMIS_CLOUD_USER: ${{secrets.ARTIFACTS_ITEMIS_CLOUD_USER}}
+        ARTIFACTS_ITEMIS_CLOUD_PW: ${{secrets.ARTIFACTS_ITEMIS_CLOUD_PW}}
       run: ./helm/publish.sh
-    - name: Upload Helm Chart
-      uses: actions/upload-artifact@v3
-      with:
-        name: helm-chart
-        path: helm/repo/
+#    - name: Upload Helm Chart
+#      uses: actions/upload-artifact@v3
+#      with:
+#        name: helm-chart
+#        path: helm/repo/
     - name: Build and Publish
       env:
         DOCKER_HUB_USER: ${{ secrets.DOCKER_HUB_USER }}
