@@ -58,12 +58,12 @@ imagePullSecrets:
 {{- end }}
 
 {{- define "modelix.serviceAccountName" -}}
-{{- if .Values.serviceAccount }}
-{{- .Values.serviceAccount }}
-{{- else }}
-{{ include "modelix.fullname" . }}-sa
-{{- end }}
-{{- end }}
+{{- if .Values.serviceAccount -}}
+{{- .Values.serviceAccount -}}
+{{- else -}}
+{{- include "modelix.fullname" . -}}-sa
+{{- end -}}
+{{- end -}}
 
 {{- define "modelix.externalUrl" -}}
 {{ .Values.ingress.proto }}://{{ .Values.ingress.hostname }}{{ if .Values.ingress.port }}:{{ .Values.ingress.port }}{{ end }}/
