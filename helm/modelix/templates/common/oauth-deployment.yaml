@@ -44,7 +44,7 @@ spec:
             initialDelaySeconds: 3
             periodSeconds: 10
             timeoutSeconds: 5
-        - image: "{{ .Values.dockerProxy.prefix }}quay.io/oauth2-proxy/oauth2-proxy"
+        - image: "{{ default .Values.dockerProxy.prefix "quay.io/" }}oauth2-proxy/oauth2-proxy"
           name: oauth2-proxy
           args:
             - --email-domain=*
