@@ -19,21 +19,20 @@ jobs:
         java-version: '11'
     - name: Use tag as version
       run: echo "${GITHUB_REF#refs/*/}" > modelix.version
-    - name: Package Helm Chart
+    - name: Build and Publish Maven
       env:
-        ARTIFACTS_ITEMIS_CLOUD_USER: ${{secrets.ARTIFACTS_ITEMIS_CLOUD_USER}}
-        ARTIFACTS_ITEMIS_CLOUD_PW: ${{secrets.ARTIFACTS_ITEMIS_CLOUD_PW}}
-      run: ./helm/publish.sh
-#    - name: Upload Helm Chart
-#      uses: actions/upload-artifact@v3
-#      with:
-#        name: helm-chart
-#        path: helm/repo/
-    - name: Build and Publish
-      env:
-        DOCKER_HUB_USER: ${{ secrets.DOCKER_HUB_USER }}
-        DOCKER_HUB_KEY: ${{ secrets.DOCKER_HUB_KEY }}
         NEXUS_USERNAME: ${{ secrets.NEXUS_USERNAME }}
         NEXUS_PASSWORD: ${{ secrets.NEXUS_PASSWORD }}
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: ./gradlew assemble publish -Partifacts.itemis.cloud.user=${{secrets.ARTIFACTS_ITEMIS_CLOUD_USER}} -Partifacts.itemis.cloud.pw=${{secrets.ARTIFACTS_ITEMIS_CLOUD_PW}} && ./docker-ci.sh
+    - name: Build and Publish Docker
+      env:
+        DOCKER_HUB_USER: ${{ secrets.DOCKER_HUB_USER }}
+        DOCKER_HUB_KEY: ${{ secrets.DOCKER_HUB_KEY }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: ./docker-ci.sh
+    - name: Publish Helm Chart
+      env:
+        ARTIFACTS_ITEMIS_CLOUD_USER: ${{secrets.ARTIFACTS_ITEMIS_CLOUD_USER}}
+        ARTIFACTS_ITEMIS_CLOUD_PW: ${{secrets.ARTIFACTS_ITEMIS_CLOUD_PW}}
+      run: ./helm/publish.sh
