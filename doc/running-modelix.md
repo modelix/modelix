@@ -9,14 +9,11 @@ Otherwise, MPS (the JBR) will not use the correct memory limit.
 
 ## Install using Helm
 
-- Download packaged helm chart
-  - Navigate to https://github.com/modelix/modelix/actions/workflows/publish.yml
-  - Choose the latest successful workflow run
-  - Download the "helm-chart" artifact
-- run `helm install xyz helm-chart/modelix-0000.0.000.tgz --set ingress.hostname=xyz.127.0.0.1.nip.io`
+- Add the chart repository to helm
+  - `helm repo add modelix https://artifacts.itemis.cloud/repository/helm-modelix/`
+- run `helm install --repo https://artifacts.itemis.cloud/repository/helm-modelix/ xyz modelix --set ingress.hostname=xyz.127.0.0.1.nip.io`
   - "xyz" is the name of your modelix instance.
     You can install modelix multiple times by running this command with different names.
-  - "helm-chart/modelix-0000.0.000.tgz" is the packaged helm chart that you downloaded in the previous step.
   - "xyz.127.0.0.1.nip.io" is the hostname used to access the modelix instance.
     In a development environment this can just be localhost or use nip.io if you want to run multiple instances.
 - If you are using docker desktop you have to run the following command to enable ingresses:
