@@ -10266,7 +10266,7 @@
   </node>
   <node concept="312cEu" id="29etMtbjIgR">
     <property role="TrG5h" value="ModelCloudExporter" />
-    <property role="3GE5qa" value="exportFromCloud" />
+    <property role="3GE5qa" value="sync.exportFromCloud" />
     <node concept="Wx3nA" id="729BXr3OFrn" role="jymVt">
       <property role="TrG5h" value="DEFAULT_BRANCH_NAME" />
       <property role="3TUv4t" value="true" />
@@ -14497,7 +14497,7 @@
   </node>
   <node concept="312cEu" id="i0AVAFXWm5">
     <property role="TrG5h" value="ModelCloudImportUtils" />
-    <property role="3GE5qa" value="importToCloud" />
+    <property role="3GE5qa" value="sync.importToCloud" />
     <node concept="2tJIrI" id="7jRNnvCbw48" role="jymVt" />
     <node concept="2YIFZL" id="74bn2Kw_RwV" role="jymVt">
       <property role="TrG5h" value="checkoutAndSync" />
@@ -20766,7 +20766,7 @@
   </node>
   <node concept="312cEu" id="17f8AZmAhJV">
     <property role="TrG5h" value="PhysicalToCloudModelMapping" />
-    <property role="3GE5qa" value="synchronization" />
+    <property role="3GE5qa" value="sync.synchronization" />
     <node concept="312cEg" id="17f8AZmAhJW" role="jymVt">
       <property role="TrG5h" value="physicalModel" />
       <node concept="3Tm6S6" id="17f8AZmAhJX" role="1B3o_S" />
@@ -21411,7 +21411,7 @@
     <node concept="3Tm1VV" id="aVVeoQvUyj" role="1B3o_S" />
   </node>
   <node concept="312cEu" id="1OzsJtaqwaW">
-    <property role="3GE5qa" value="exportFromCloud" />
+    <property role="3GE5qa" value="sync.exportFromCloud" />
     <property role="TrG5h" value="ModuleCheckout" />
     <node concept="2tJIrI" id="1OzsJtaqwbK" role="jymVt" />
     <node concept="312cEg" id="1OzsJtaqEm2" role="jymVt">
@@ -21721,7 +21721,7 @@
     <node concept="3Tm1VV" id="1OzsJtaqwaX" role="1B3o_S" />
   </node>
   <node concept="KRBjq" id="5cWpYFRFSrj">
-    <property role="3GE5qa" value="exportFromCloud" />
+    <property role="3GE5qa" value="sync.exportFromCloud" />
     <property role="TrG5h" value="ModuleUtils" />
     <node concept="ATzpf" id="5cWpYFRFSyD" role="a7sos">
       <property role="TrG5h" value="printModulesNames" />
@@ -22529,7 +22529,7 @@
   <node concept="312cEu" id="2FX9uaKMyso">
     <property role="TrG5h" value="Binding" />
     <property role="1sVAO0" value="true" />
-    <property role="3GE5qa" value="binding" />
+    <property role="3GE5qa" value="sync.binding" />
     <node concept="312cEg" id="74bn2KwzJcC" role="jymVt">
       <property role="TrG5h" value="owner" />
       <node concept="3Tm6S6" id="74bn2KwzJcD" role="1B3o_S" />
@@ -24641,7 +24641,7 @@
     <node concept="3Tm1VV" id="P$XCSQP$MA" role="1B3o_S" />
   </node>
   <node concept="KRBjq" id="6dTx9S5u7ho">
-    <property role="3GE5qa" value="importToCloud" />
+    <property role="3GE5qa" value="sync.importToCloud" />
     <property role="TrG5h" value="MPSNodeMapping" />
     <node concept="1gCC9z" id="6dTx9S5u8tx" role="1gQj7b">
       <property role="TrG5h" value="MPS_NODE_ID_PROPERTY_NAME" />
@@ -25880,7 +25880,7 @@
     <node concept="3Tm1VV" id="1K2Zpq8w3Vh" role="1B3o_S" />
   </node>
   <node concept="312cEu" id="7ZZZU$llgJy">
-    <property role="3GE5qa" value="binding" />
+    <property role="3GE5qa" value="sync.binding" />
     <property role="TrG5h" value="RootBinding" />
     <node concept="2tJIrI" id="7ZZZU$llgOq" role="jymVt" />
     <node concept="312cEg" id="7ZZZU$lrpyT" role="jymVt">
@@ -26399,7 +26399,7 @@
     </node>
   </node>
   <node concept="312cEu" id="7ZZZU$llGhg">
-    <property role="3GE5qa" value="binding" />
+    <property role="3GE5qa" value="sync.binding" />
     <property role="TrG5h" value="ModuleBinding" />
     <property role="1sVAO0" value="true" />
     <node concept="312cEg" id="7ZZZU$lnh9j" role="jymVt">
@@ -27312,7 +27312,7 @@
     </node>
   </node>
   <node concept="312cEu" id="7ZZZU$lmmAS">
-    <property role="3GE5qa" value="binding" />
+    <property role="3GE5qa" value="sync.binding" />
     <property role="TrG5h" value="TreeChangeMulticaster" />
     <node concept="312cEg" id="7ZZZU$lmn7w" role="jymVt">
       <property role="TrG5h" value="visitors" />
@@ -27635,7 +27635,7 @@
     </node>
   </node>
   <node concept="312cEu" id="7ZZZU$lp6Bz">
-    <property role="3GE5qa" value="binding" />
+    <property role="3GE5qa" value="sync.binding" />
     <property role="TrG5h" value="TransientModuleBinding" />
     <node concept="Wx3nA" id="7ZZZU$lt8WG" role="jymVt">
       <property role="TrG5h" value="NAME_SEQUENCE" />
@@ -28189,7 +28189,7 @@
     </node>
   </node>
   <node concept="312cEu" id="7ZZZU$ltp0c">
-    <property role="3GE5qa" value="binding" />
+    <property role="3GE5qa" value="sync.binding" />
     <property role="TrG5h" value="ProjectBinding" />
     <node concept="2tJIrI" id="7ZZZU$ltp5o" role="jymVt" />
     <node concept="312cEg" id="7ZZZU$ltpeh" role="jymVt">
@@ -29393,7 +29393,7 @@
     </node>
   </node>
   <node concept="312cEu" id="4_k_9wJnPVK">
-    <property role="3GE5qa" value="binding" />
+    <property role="3GE5qa" value="sync.binding" />
     <property role="TrG5h" value="ProjectModuleBinding" />
     <node concept="2tJIrI" id="4_k_9wJnRbz" role="jymVt" />
     <node concept="312cEg" id="4_k_9wJnRrH" role="jymVt">
@@ -29472,7 +29472,7 @@
     </node>
   </node>
   <node concept="312cEu" id="4_k_9wJt0QR">
-    <property role="3GE5qa" value="binding" />
+    <property role="3GE5qa" value="sync.binding" />
     <property role="TrG5h" value="ModelBinding" />
     <node concept="2tJIrI" id="4_k_9wJtB2a" role="jymVt" />
     <node concept="312cEg" id="4_k_9wJtBag" role="jymVt">
@@ -32020,7 +32020,7 @@
   </node>
   <node concept="312cEu" id="4_k_9wJ_0cZ">
     <property role="TrG5h" value="ModelSynchronizer" />
-    <property role="3GE5qa" value="binding" />
+    <property role="3GE5qa" value="sync.binding" />
     <node concept="Wx3nA" id="4_k_9wJ_0d1" role="jymVt">
       <property role="TrG5h" value="USED_DEVKITS" />
       <property role="3TUv4t" value="true" />
@@ -37726,7 +37726,7 @@
   </node>
   <node concept="312cEu" id="7ZZZU$lwQ4b">
     <property role="TrG5h" value="ModelsSynchronizer" />
-    <property role="3GE5qa" value="binding" />
+    <property role="3GE5qa" value="sync.binding" />
     <node concept="2tJIrI" id="7ZZZU$lwQ5M" role="jymVt" />
     <node concept="312cEg" id="7ZZZU$lwQdD" role="jymVt">
       <property role="TrG5h" value="module" />
@@ -38645,7 +38645,7 @@
   </node>
   <node concept="312cEu" id="4_k_9wJm9Lz">
     <property role="TrG5h" value="ProjectModulesSynchronizer" />
-    <property role="3GE5qa" value="binding" />
+    <property role="3GE5qa" value="sync.binding" />
     <node concept="2tJIrI" id="4_k_9wJm9L$" role="jymVt" />
     <node concept="312cEg" id="4_k_9wJm9L_" role="jymVt">
       <property role="TrG5h" value="project" />
@@ -39658,7 +39658,7 @@
   <node concept="312cEu" id="7ZZZU$ltW6S">
     <property role="TrG5h" value="Synchronizer" />
     <property role="1sVAO0" value="true" />
-    <property role="3GE5qa" value="binding" />
+    <property role="3GE5qa" value="sync.binding" />
     <node concept="312cEg" id="7ZZZU$lupS0" role="jymVt">
       <property role="TrG5h" value="cloudParentId" />
       <node concept="3Tm6S6" id="7ZZZU$lupS1" role="1B3o_S" />
@@ -40308,7 +40308,7 @@
   </node>
   <node concept="312cEu" id="4_k_9wJjb38">
     <property role="TrG5h" value="TransientModelsSynchronizer" />
-    <property role="3GE5qa" value="binding" />
+    <property role="3GE5qa" value="sync.binding" />
     <node concept="2tJIrI" id="4_k_9wJjc4x" role="jymVt" />
     <node concept="2tJIrI" id="4_k_9wJjZBZ" role="jymVt" />
     <node concept="3clFbW" id="4_k_9wJjjRj" role="jymVt">
@@ -40436,7 +40436,7 @@
   </node>
   <node concept="Qs71p" id="4_k_9wJhes5">
     <property role="TrG5h" value="SyncDirection" />
-    <property role="3GE5qa" value="binding" />
+    <property role="3GE5qa" value="sync.binding" />
     <node concept="QsSxf" id="4_k_9wJhfRm" role="Qtgdg">
       <property role="TrG5h" value="TO_MPS" />
       <ref role="37wK5l" to="wyt6:~Object.&lt;init&gt;()" resolve="Object" />
@@ -40871,7 +40871,7 @@
     <node concept="3Tm1VV" id="7lOG3NPrKO$" role="1B3o_S" />
   </node>
   <node concept="312cEu" id="ON_jCg7cIJ">
-    <property role="3GE5qa" value="binding" />
+    <property role="3GE5qa" value="sync.binding" />
     <property role="TrG5h" value="ModelPropertiesSynchronizer" />
     <node concept="312cEg" id="ON_jCg7sAu" role="jymVt">
       <property role="TrG5h" value="model" />
@@ -44897,7 +44897,7 @@
   <node concept="312cEu" id="4_k_9wJ_0Kp">
     <property role="TrG5h" value="NodeMap" />
     <property role="2bfB8j" value="true" />
-    <property role="3GE5qa" value="binding" />
+    <property role="3GE5qa" value="sync.binding" />
     <node concept="2tJIrI" id="4_k_9wJ_0Kq" role="jymVt" />
     <node concept="3HP615" id="ON_jCgeCjN" role="jymVt">
       <property role="2bfB8j" value="true" />
