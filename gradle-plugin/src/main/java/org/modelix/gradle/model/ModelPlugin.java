@@ -99,6 +99,18 @@ class MyServerSocketThread extends Thread {
 
 public class ModelPlugin implements Plugin<Project> {
 
+    private void addIfNotNullOrBlank(JavaExec javaExec, Key key, String value) {
+        if (value != null && !value.isBlank()) {
+            javaExec.args(key.getCode(), value);
+        }
+    }
+
+    private void addIfNotNullOrBlank(JavaExec javaExec, Key key, File value) {
+        if (value != null) {
+            addIfNotNullOrBlank(javaExec, key, value.getAbsolutePath());
+        }
+    }
+
     @Override
     public void apply(Project project_) {
         ModelixModelSettings settings = project_.getExtensions().create("modelixModel", ModelixModelSettings.class);
@@ -189,22 +201,17 @@ public class ModelPlugin implements Plugin<Project> {
                         Key.SERVER_URL.getCode(), settings.getServerUrl(),
                         Key.REPOSITORY_ID.getCode(), settings.getRepositoryId(),
                         Key.BRANCH_NAME.getCode(), settings.getBranchName(),
-                        Key.ADDITIONAL_LIBRARIES.getCode(), settings.getAdditionalLibrariesAsString(),
-                        Key.ADDITIONAL_LIBRARY_DIRS.getCode(), settings.getAdditionalLibraryDirsAsString(),
-                        Key.ADDITIONAL_PLUGINS.getCode(), settings.getAdditionalPluginsAsString(),
-                        Key.ADDITIONAL_PLUGIN_DIRS.getCode(), settings.getAdditionalPluginDirsAsString(),
                         Key.GRADLE_PLUGIN_SOCKET_PORT.getCode(), Integer.toString(serverSocketThread.getPort()),
                         Key.DEBUG.getCode(), Boolean.toString(settings.isDebug())
                 );
-                if (settings.getProjectFile() != null) {
-                    javaExec.args(Key.PROJECT.getCode(), settings.getProjectFile().getAbsolutePath());
-                }
-                if (settings.getMpsExtensionsArtifactsPath() != null) {
-                    javaExec.args(Key.MPS_EXTENSIONS_PATH.getCode(), settings.getMpsExtensionsArtifactsPath());
-                }
-                if (settings.getModelixArtifactsPath() != null) {
-                    javaExec.args(Key.MODELIX_PATH.getCode(), settings.getModelixArtifactsPath());
-                }
+                addIfNotNullOrBlank(javaExec, Key.ADDITIONAL_LIBRARIES, settings.getAdditionalLibrariesAsString());
+                addIfNotNullOrBlank(javaExec, Key.ADDITIONAL_LIBRARY_DIRS, settings.getAdditionalLibraryDirsAsString());
+                addIfNotNullOrBlank(javaExec, Key.ADDITIONAL_PLUGINS, settings.getAdditionalPluginsAsString());
+                addIfNotNullOrBlank(javaExec, Key.ADDITIONAL_PLUGIN_DIRS, settings.getAdditionalPluginDirsAsString());
+                addIfNotNullOrBlank(javaExec, Key.PROJECT, settings.getProjectFile());
+                addIfNotNullOrBlank(javaExec, Key.MPS_EXTENSIONS_PATH, settings.getMpsExtensionsArtifactsPath());
+                addIfNotNullOrBlank(javaExec, Key.MODELIX_PATH, settings.getModelixArtifactsPath());
+
                 if (settings.isMakeProjectSet()) {
                     javaExec.args(Key.MAKE.getCode(), settings.getMakeProject());
                 }
