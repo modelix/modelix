@@ -89,7 +89,7 @@ public class EnvironmentLoader {
     private static void loadAdditionalLibraries(EnvironmentConfig config) {
         // We load a list of additional libraries. We expect them to be separated by commas
         String additionalLibrariesStr = Key.ADDITIONAL_LIBRARIES.readProperty();
-        String[] additionalLibraries = additionalLibrariesStr.isBlank() ? new String[]{}
+        String[] additionalLibraries = additionalLibrariesStr == null || additionalLibrariesStr.isBlank() ? new String[]{}
                 : additionalLibrariesStr.split(",");
         for (String additionalLibrary: additionalLibraries) {
             File f = new File(additionalLibrary);
@@ -103,7 +103,7 @@ public class EnvironmentLoader {
 
         // We load a list of directories containing additional libraries. We expect them to be separated by commas
         String additionalLibraryDirsStr = Key.ADDITIONAL_LIBRARY_DIRS.readProperty();
-        String[] additionalLibraryDirs = additionalLibraryDirsStr.isBlank() ? new String[]{}
+        String[] additionalLibraryDirs = additionalLibraryDirsStr == null || additionalLibraryDirsStr.isBlank() ? new String[]{}
                 : additionalLibraryDirsStr.split(",");
         for (String additionalLibraryDir: additionalLibraryDirs) {
             File f = new File(additionalLibraryDir);

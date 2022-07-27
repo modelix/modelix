@@ -23,6 +23,7 @@ import java.util.Arrays;
 import java.util.Enumeration;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.function.Consumer;
 import java.util.jar.Manifest;
 import java.util.stream.Collectors;
 
@@ -156,6 +157,9 @@ public class ModelPlugin implements Plugin<Project> {
             }
 
             Task downloadModel = project.getTasks().create("downloadModel", JavaExec.class, javaExec -> {
+                if (settings.isDebug()) {
+                    System.out.println("Configuring download model - start");
+                }
                 final boolean usingExistingMPS = settings.usingExistingMps();
                 File mpsLocation = settings.getMpsLocation();
                 File mpsExtensionsLocation = settings.getMpsExtensionsLocation();
@@ -167,12 +171,20 @@ public class ModelPlugin implements Plugin<Project> {
                     javaExec.dependsOn(copyMpsTask, copyMpsModelPluginTask);
                 }
 
+                if (settings.isDebug()) {
+                    System.out.println("Configuring download model - starting socket thread");
+                }
                 MyServerSocketThread serverSocketThread = new MyServerSocketThread();
                 serverSocketThread.start();
 
                 javaExec.setDescription("Export models from modelix model server to MPS files");
                 javaExec.classpath(project.fileTree(new File(mpsLocation, "lib")).include("**/*.jar"));
                 javaExec.classpath(genConfig);
+                if (settings.isDebug()) {
+                    System.out.println("Configuring download model - classpath start");
+                    javaExec.getClasspath().forEach(file -> System.out.println(" - " + file.getAbsolutePath()));
+                    System.out.println("Configuring download model - classpath end");
+                }
                 javaExec.args(
                         Key.SERVER_URL.getCode(), settings.getServerUrl(),
                         Key.REPOSITORY_ID.getCode(), settings.getRepositoryId(),
@@ -201,7 +213,16 @@ public class ModelPlugin implements Plugin<Project> {
                 }
                 javaExec.getTimeout().set(Duration.ofSeconds(settings.getTimeout()));
                 javaExec.setIgnoreExitValue(true);
+                if (settings.isDebug()) {
+                    System.out.println("Configuring download model - args " + javaExec.getArgs());
+                }
                 javaExec.setMain(ExportMain.class.getName());
+                if (settings.isDebug()) {
+                    System.out.println("Configuring download model - main " + javaExec.getMain());
+                }
+                if (settings.isDebug()) {
+                    System.out.println("Configuring download model - about to set doLast");
+                }
                 javaExec.doLast(task -> {
                     System.out.println("  JVM Args                : " + javaExec.getJvmArgs());
                     System.out.println("  all JVM Args            : " + javaExec.getAllJvmArgs());
@@ -227,6 +248,9 @@ public class ModelPlugin implements Plugin<Project> {
                         throw new RuntimeException();
                     }
                 });
+                if (settings.isDebug()) {
+                    System.out.println("Configuring download model - ended");
+                }
             });
             downloadModel.doFirst(task -> {
                 final boolean usingExistingMPS = settings.usingExistingMps();
@@ -249,6 +273,8 @@ public class ModelPlugin implements Plugin<Project> {
                 System.out.println("  additional plugin dirs  : " + settings.getAdditionalPluginDirsAsString());
                 System.out.println("  project path            : " + settings.getProjectFile().getAbsolutePath());
                 System.out.println("  make project            : " + settings.getMakeProject());
+                System.out.println("  debug                   : " + settings.isDebug());
+                System.out.println("  timeout                 : " + settings.getTimeout());
             });
         });
     }
