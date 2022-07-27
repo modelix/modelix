@@ -22,22 +22,42 @@ public class ExportMain {
 
     public static final String PROPERTY_PREFIX = "modelix.export.";
 
+    private static boolean DEBUG = false;
+
+    private static void processSetting(String key, String value) {
+        System.out.println("(setting) " + key + " = " + value);
+        System.setProperty(key, value);
+        if (key.equals(PROPERTY_PREFIX + EnvironmentLoader.Key.DEBUG.getCode())) {
+            DEBUG = Boolean.parseBoolean(value);
+        }
+    }
+
+    private static void debugMessage(String message) {
+        if (DEBUG) {
+            System.out.println(message);
+        }
+    }
+
     public static void main(String[] args) {
         try {
             for (int i = 1; i < args.length; i+=2) {
                 String key = PROPERTY_PREFIX + args[i - 1];
                 String value = args[i];
-                System.out.println(key + " = " + value);
-                System.setProperty(key, value);
+                processSetting(key, value);
             }
-            System.setProperty(PROPERTY_PREFIX + "path", new File("exportedModelixModules").getAbsolutePath());
+            String pathKey = PROPERTY_PREFIX + "path";
+            String pathValue = new File("exportedModelixModules").getAbsolutePath();
+            processSetting(pathKey, pathValue);
+            debugMessage("Loading environment");
             EnvironmentLoader.loadEnvironment((File) null);
-            System.out.println("Environment loaded");
-            System.out.println("Loaded plugins:");
+            debugMessage("Environment loaded");
+            debugMessage("Loaded plugins:");
             for (IdeaPluginDescriptor p : PluginManager.getPlugins()) {
-                System.out.println("    " + p.getName() + " (" + p.getPluginId() + ")");
+                debugMessage("    " + p.getName() + " (" + p.getPluginId() + ")");
             }
+            debugMessage("List of loaded plugins ended.");
         } catch (Exception ex) {
+            System.err.println("Exception in ExportMain");
             System.out.println(ex.getMessage());
             ex.printStackTrace();
             System.exit(1);

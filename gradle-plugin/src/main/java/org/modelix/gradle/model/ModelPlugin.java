@@ -181,7 +181,8 @@ public class ModelPlugin implements Plugin<Project> {
                         Key.ADDITIONAL_LIBRARY_DIRS.getCode(), settings.getAdditionalLibraryDirsAsString(),
                         Key.ADDITIONAL_PLUGINS.getCode(), settings.getAdditionalPluginsAsString(),
                         Key.ADDITIONAL_PLUGIN_DIRS.getCode(), settings.getAdditionalPluginDirsAsString(),
-                        Key.GRADLE_PLUGIN_SOCKET_PORT.getCode(), Integer.toString(serverSocketThread.getPort())
+                        Key.GRADLE_PLUGIN_SOCKET_PORT.getCode(), Integer.toString(serverSocketThread.getPort()),
+                        Key.DEBUG.getCode(), Boolean.toString(settings.isDebug())
                 );
                 if (settings.getProjectFile() != null) {
                     javaExec.args(Key.PROJECT.getCode(), settings.getProjectFile().getAbsolutePath());

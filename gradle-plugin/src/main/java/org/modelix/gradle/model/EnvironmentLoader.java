@@ -40,7 +40,9 @@ public class EnvironmentLoader {
         GRADLE_PLUGIN_SOCKET_PORT("gradlePluginSocketPort"),
         MODELIX_PATH("modelixPath"),
         MAKE("make"),
-        PROJECT("project");
+        PROJECT("project"),
+
+        DEBUG("debug");
 
         private String code;
 
