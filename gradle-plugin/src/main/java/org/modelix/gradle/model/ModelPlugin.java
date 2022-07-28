@@ -23,7 +23,6 @@ import java.util.Arrays;
 import java.util.Enumeration;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.function.Consumer;
 import java.util.jar.Manifest;
 import java.util.stream.Collectors;
 
@@ -99,15 +98,15 @@ class MyServerSocketThread extends Thread {
 
 public class ModelPlugin implements Plugin<Project> {
 
-    private void addIfNotNullOrBlank(JavaExec javaExec, Key key, String value) {
+    private void addArgIfNotNullOrBlank(JavaExec javaExec, Key key, String value) {
         if (value != null && !value.isBlank()) {
             javaExec.args(key.getCode(), value);
         }
     }
 
-    private void addIfNotNullOrBlank(JavaExec javaExec, Key key, File value) {
+    private void addArgIfNotNullOrBlank(JavaExec javaExec, Key key, File value) {
         if (value != null) {
-            addIfNotNullOrBlank(javaExec, key, value.getAbsolutePath());
+            addArgIfNotNullOrBlank(javaExec, key, value.getAbsolutePath());
         }
     }
 
@@ -169,9 +168,6 @@ public class ModelPlugin implements Plugin<Project> {
             }
 
             Task downloadModel = project.getTasks().create("downloadModel", JavaExec.class, javaExec -> {
-                if (settings.isDebug()) {
-                    System.out.println("Configuring download model - start");
-                }
                 final boolean usingExistingMPS = settings.usingExistingMps();
                 File mpsLocation = settings.getMpsLocation();
                 File mpsExtensionsLocation = settings.getMpsExtensionsLocation();
@@ -204,13 +200,13 @@ public class ModelPlugin implements Plugin<Project> {
                         Key.GRADLE_PLUGIN_SOCKET_PORT.getCode(), Integer.toString(serverSocketThread.getPort()),
                         Key.DEBUG.getCode(), Boolean.toString(settings.isDebug())
                 );
-                addIfNotNullOrBlank(javaExec, Key.ADDITIONAL_LIBRARIES, settings.getAdditionalLibrariesAsString());
-                addIfNotNullOrBlank(javaExec, Key.ADDITIONAL_LIBRARY_DIRS, settings.getAdditionalLibraryDirsAsString());
-                addIfNotNullOrBlank(javaExec, Key.ADDITIONAL_PLUGINS, settings.getAdditionalPluginsAsString());
-                addIfNotNullOrBlank(javaExec, Key.ADDITIONAL_PLUGIN_DIRS, settings.getAdditionalPluginDirsAsString());
-                addIfNotNullOrBlank(javaExec, Key.PROJECT, settings.getProjectFile());
-                addIfNotNullOrBlank(javaExec, Key.MPS_EXTENSIONS_PATH, settings.getMpsExtensionsArtifactsPath());
-                addIfNotNullOrBlank(javaExec, Key.MODELIX_PATH, settings.getModelixArtifactsPath());
+                addArgIfNotNullOrBlank(javaExec, Key.ADDITIONAL_LIBRARIES, settings.getAdditionalLibrariesAsString());
+                addArgIfNotNullOrBlank(javaExec, Key.ADDITIONAL_LIBRARY_DIRS, settings.getAdditionalLibraryDirsAsString());
+                addArgIfNotNullOrBlank(javaExec, Key.ADDITIONAL_PLUGINS, settings.getAdditionalPluginsAsString());
+                addArgIfNotNullOrBlank(javaExec, Key.ADDITIONAL_PLUGIN_DIRS, settings.getAdditionalPluginDirsAsString());
+                addArgIfNotNullOrBlank(javaExec, Key.PROJECT, settings.getProjectFile());
+                addArgIfNotNullOrBlank(javaExec, Key.MPS_EXTENSIONS_PATH, settings.getMpsExtensionsArtifactsPath());
+                addArgIfNotNullOrBlank(javaExec, Key.MODELIX_PATH, settings.getModelixArtifactsPath());
 
                 if (settings.isMakeProjectSet()) {
                     javaExec.args(Key.MAKE.getCode(), settings.getMakeProject());
@@ -226,9 +222,6 @@ public class ModelPlugin implements Plugin<Project> {
                 javaExec.setMain(ExportMain.class.getName());
                 if (settings.isDebug()) {
                     System.out.println("Configuring download model - main " + javaExec.getMain());
-                }
-                if (settings.isDebug()) {
-                    System.out.println("Configuring download model - about to set doLast");
                 }
                 javaExec.doLast(task -> {
                     System.out.println("  JVM Args                : " + javaExec.getJvmArgs());
@@ -255,9 +248,6 @@ public class ModelPlugin implements Plugin<Project> {
                         throw new RuntimeException();
                     }
                 });
-                if (settings.isDebug()) {
-                    System.out.println("Configuring download model - ended");
-                }
             });
             downloadModel.doFirst(task -> {
                 final boolean usingExistingMPS = settings.usingExistingMps();
