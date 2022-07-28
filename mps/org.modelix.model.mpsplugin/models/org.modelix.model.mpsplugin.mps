@@ -12340,6 +12340,39 @@
                 </node>
               </node>
             </node>
+            <node concept="3clFbJ" id="4h3DzUpbfDH" role="3cqZAp">
+              <node concept="3clFbS" id="4h3DzUpbfDJ" role="3clFbx">
+                <node concept="3clFbF" id="4h3DzUpaEjT" role="3cqZAp">
+                  <node concept="2OqwBi" id="4h3DzUpaHqG" role="3clFbG">
+                    <node concept="37vLTw" id="4h3DzUpaEjR" role="2Oq$k0">
+                      <ref role="3cqZAo" node="29etMtbjRnF" resolve="solution" />
+                    </node>
+                    <node concept="liA8E" id="4h3DzUpaMqt" role="2OqNvi">
+                      <ref role="37wK5l" to="z1c3:~AbstractModule.attach(org.jetbrains.mps.openapi.module.SRepository)" resolve="attach" />
+                      <node concept="2OqwBi" id="4h3DzUpasGG" role="37wK5m">
+                        <node concept="37vLTw" id="4h3DzUpaqwH" role="2Oq$k0">
+                          <ref role="3cqZAo" node="Aop38Igauc" resolve="mpsProject" />
+                        </node>
+                        <node concept="liA8E" id="4h3DzUpaxBq" role="2OqNvi">
+                          <ref role="37wK5l" to="z1c3:~Project.getRepository()" resolve="getRepository" />
+                        </node>
+                      </node>
+                    </node>
+                  </node>
+                </node>
+              </node>
+              <node concept="3clFbC" id="4h3DzUpbqI$" role="3clFbw">
+                <node concept="10Nm6u" id="4h3DzUpbsKs" role="3uHU7w" />
+                <node concept="2OqwBi" id="4h3DzUpbm6y" role="3uHU7B">
+                  <node concept="37vLTw" id="4h3DzUpbjgy" role="2Oq$k0">
+                    <ref role="3cqZAo" node="29etMtbjRnF" resolve="solution" />
+                  </node>
+                  <node concept="liA8E" id="4h3DzUpboXg" role="2OqNvi">
+                    <ref role="37wK5l" to="31cb:~SModuleBase.getRepository()" resolve="getRepository" />
+                  </node>
+                </node>
+              </node>
+            </node>
           </node>
           <node concept="3y3z36" id="Aop38IgVxe" role="3clFbw">
             <node concept="10Nm6u" id="Aop38IgY9h" role="3uHU7w" />
