@@ -28534,6 +28534,14 @@
             </node>
           </node>
         </node>
+        <node concept="abc8K" id="2a9vIDRWfcp" role="3cqZAp">
+          <node concept="3cpWs3" id="2a9vIDRWfmB" role="abp_N">
+            <node concept="Xjq3P" id="2a9vIDRWfmC" role="3uHU7w" />
+            <node concept="Xl_RD" id="2a9vIDRWfmD" role="3uHU7B">
+              <property role="Xl_RC" value="Project binding created: " />
+            </node>
+          </node>
+        </node>
       </node>
       <node concept="37vLTG" id="7ZZZU$ltqnw" role="3clF46">
         <property role="TrG5h" value="mpsProject" />
@@ -28632,6 +28640,14 @@
       <node concept="3cqZAl" id="7ZZZU$ltpCs" role="3clF45" />
       <node concept="3Tmbuc" id="7ZZZU$ltpCt" role="1B3o_S" />
       <node concept="3clFbS" id="7ZZZU$ltpCv" role="3clF47">
+        <node concept="abc8K" id="2a9vIDRWd54" role="3cqZAp">
+          <node concept="3cpWs3" id="2a9vIDRWdUB" role="abp_N">
+            <node concept="Xjq3P" id="2a9vIDRWdUC" role="3uHU7w" />
+            <node concept="Xl_RD" id="2a9vIDRWdUD" role="3uHU7B">
+              <property role="Xl_RC" value="Activating: " />
+            </node>
+          </node>
+        </node>
         <node concept="3cpWs8" id="6nwO_ZKEDeq" role="3cqZAp">
           <node concept="3cpWsn" id="6nwO_ZKEDer" role="3cpWs9">
             <property role="TrG5h" value="branch" />
@@ -28899,6 +28915,14 @@
           <node concept="1rXfSq" id="2a9vIDRKgVt" role="3clFbG">
             <ref role="37wK5l" node="2a9vIDRH9ej" resolve="enqueueSync" />
             <node concept="10Nm6u" id="2a9vIDRMSgY" role="37wK5m" />
+          </node>
+        </node>
+        <node concept="abc8K" id="2a9vIDRWaVI" role="3cqZAp">
+          <node concept="3cpWs3" id="2a9vIDRWba9" role="abp_N">
+            <node concept="Xjq3P" id="2a9vIDRWbaa" role="3uHU7w" />
+            <node concept="Xl_RD" id="2a9vIDRWbab" role="3uHU7B">
+              <property role="Xl_RC" value="Activated: " />
+            </node>
           </node>
         </node>
       </node>
