@@ -16260,17 +16260,43 @@
             </node>
           </node>
         </node>
+        <node concept="3cpWs8" id="2a9vIDRWRrC" role="3cqZAp">
+          <node concept="3cpWsn" id="2a9vIDRWRrD" role="3cpWs9">
+            <property role="TrG5h" value="binding" />
+            <node concept="3uibUv" id="2a9vIDRWPRf" role="1tU5fm">
+              <ref role="3uigEE" to="csg2:7ZZZU$ltp0c" resolve="ProjectBinding" />
+            </node>
+            <node concept="2YIFZM" id="2a9vIDRWRrE" role="33vP2m">
+              <ref role="37wK5l" to="csg2:74bn2Kw_Xa0" resolve="copyAndSyncInModelixAsEntireProject" />
+              <ref role="1Pybhc" to="csg2:i0AVAFXWm5" resolve="ModelCloudImportUtils" />
+              <node concept="37vLTw" id="2a9vIDRWRrF" role="37wK5m">
+                <ref role="3cqZAo" node="lO9TSUBsxI" resolve="treeInRepository" />
+              </node>
+              <node concept="37vLTw" id="2a9vIDRWRrG" role="37wK5m">
+                <ref role="3cqZAo" node="lO9TSUBsvT" resolve="mpsProject" />
+              </node>
+              <node concept="10Nm6u" id="2a9vIDRWRrH" role="37wK5m" />
+            </node>
+          </node>
+        </node>
         <node concept="3clFbF" id="7ZZZU$lgzEl" role="3cqZAp">
-          <node concept="2YIFZM" id="7ZZZU$lg_Fg" role="3clFbG">
-            <ref role="37wK5l" to="csg2:74bn2Kw_Xa0" resolve="copyAndSyncInModelixAsEntireProject" />
-            <ref role="1Pybhc" to="csg2:i0AVAFXWm5" resolve="ModelCloudImportUtils" />
-            <node concept="37vLTw" id="lO9TSUC4Gq" role="37wK5m">
-              <ref role="3cqZAo" node="lO9TSUBsxI" resolve="treeInRepository" />
+          <node concept="2OqwBi" id="2a9vIDRWXqx" role="3clFbG">
+            <node concept="2OqwBi" id="2a9vIDRWVHY" role="2Oq$k0">
+              <node concept="2OqwBi" id="2a9vIDRWTKd" role="2Oq$k0">
+                <node concept="37vLTw" id="2a9vIDRWRrI" role="2Oq$k0">
+                  <ref role="3cqZAo" node="2a9vIDRWRrD" resolve="binding" />
+                </node>
+                <node concept="liA8E" id="2a9vIDRWVzJ" role="2OqNvi">
+                  <ref role="37wK5l" to="csg2:2a9vIDRHoFS" resolve="getRootBinding" />
+                </node>
+              </node>
+              <node concept="liA8E" id="2a9vIDRWXjr" role="2OqNvi">
+                <ref role="37wK5l" to="csg2:2a9vIDRJR0n" resolve="getSyncQueue" />
+              </node>
             </node>
-            <node concept="37vLTw" id="lO9TSUC51C" role="37wK5m">
-              <ref role="3cqZAo" node="lO9TSUBsvT" resolve="mpsProject" />
+            <node concept="liA8E" id="2a9vIDRWZeH" role="2OqNvi">
+              <ref role="37wK5l" to="csg2:2a9vIDRFl_r" resolve="flush" />
             </node>
-            <node concept="10Nm6u" id="lO9TSUC4PT" role="37wK5m" />
           </node>
         </node>
         <node concept="3clFbF" id="5pQ1kvRID1f" role="3cqZAp">
