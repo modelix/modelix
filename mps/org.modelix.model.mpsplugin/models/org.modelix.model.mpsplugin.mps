@@ -342,6 +342,9 @@
         <child id="1154542793668" name="componentType" index="3g7fb8" />
         <child id="1154542803372" name="initValue" index="3g7hyw" />
       </concept>
+      <concept id="1160998861373" name="jetbrains.mps.baseLanguage.structure.AssertStatement" flags="nn" index="1gVbGN">
+        <child id="1160998896846" name="condition" index="1gVkn0" />
+      </concept>
       <concept id="1204053956946" name="jetbrains.mps.baseLanguage.structure.IMethodCall" flags="ng" index="1ndlxa">
         <reference id="1068499141037" name="baseMethodDeclaration" index="37wK5l" />
         <child id="1068499141038" name="actualArgument" index="37wK5m" />
@@ -22682,16 +22685,6 @@
       <node concept="3cqZAl" id="2a9vIDRFZ3L" role="3clF45" />
       <node concept="3Tm1VV" id="2a9vIDRFZ3M" role="1B3o_S" />
       <node concept="3clFbS" id="2a9vIDRFZ3N" role="3clF47">
-        <node concept="3clFbJ" id="6rxBzpc8qBq" role="3cqZAp">
-          <node concept="3clFbS" id="6rxBzpc8qBs" role="3clFbx">
-            <node concept="3cpWs6" id="6rxBzpc8rDt" role="3cqZAp" />
-          </node>
-          <node concept="3fqX7Q" id="6rxBzpc8rl2" role="3clFbw">
-            <node concept="1rXfSq" id="6rxBzpc8rl4" role="3fr31v">
-              <ref role="37wK5l" node="2wwX$bJzuXF" resolve="isActive" />
-            </node>
-          </node>
-        </node>
         <node concept="3clFbJ" id="2a9vIDRG7R6" role="3cqZAp">
           <node concept="3clFbS" id="2a9vIDRG7R8" role="3clFbx">
             <node concept="YS8fn" id="2a9vIDRG9vk" role="3cqZAp">
@@ -22723,6 +22716,25 @@
             </node>
           </node>
           <node concept="3clFbS" id="2a9vIDRG6TI" role="3clFbx">
+            <node concept="3clFbJ" id="6rxBzpc8qBq" role="3cqZAp">
+              <node concept="3clFbS" id="6rxBzpc8qBs" role="3clFbx">
+                <node concept="abc8K" id="6rxBzpca9ZU" role="3cqZAp">
+                  <node concept="Xl_RD" id="6rxBzpcaaco" role="abp_N">
+                    <property role="Xl_RC" value="Skipped synchronization of " />
+                  </node>
+                  <node concept="Xjq3P" id="6rxBzpcaapH" role="abp_N" />
+                  <node concept="Xl_RD" id="6rxBzpcaaAj" role="abp_N">
+                    <property role="Xl_RC" value=", because it's inactive" />
+                  </node>
+                </node>
+                <node concept="3cpWs6" id="6rxBzpc8rDt" role="3cqZAp" />
+              </node>
+              <node concept="3fqX7Q" id="6rxBzpc8rl2" role="3clFbw">
+                <node concept="1rXfSq" id="6rxBzpc8rl4" role="3fr31v">
+                  <ref role="37wK5l" node="2wwX$bJzuXF" resolve="isActive" />
+                </node>
+              </node>
+            </node>
             <node concept="3cpWs8" id="2a9vIDRIiN5" role="3cqZAp">
               <node concept="3cpWsn" id="2a9vIDRIiN6" role="3cpWs9">
                 <property role="TrG5h" value="direction" />
@@ -23062,6 +23074,14 @@
       <node concept="3cqZAl" id="6rxBzpc0fV1" role="3clF45" />
       <node concept="3Tm1VV" id="6rxBzpc0fV2" role="1B3o_S" />
       <node concept="3clFbS" id="6rxBzpc0fV3" role="3clF47">
+        <node concept="3clFbJ" id="6rxBzpcaGux" role="3cqZAp">
+          <node concept="3clFbS" id="6rxBzpcaGuz" role="3clFbx">
+            <node concept="3cpWs6" id="6rxBzpcaHfq" role="3cqZAp" />
+          </node>
+          <node concept="1rXfSq" id="6rxBzpcaGVe" role="3clFbw">
+            <ref role="37wK5l" node="4_k_9wJH2y6" resolve="isSynchronizing" />
+          </node>
+        </node>
         <node concept="3clFbJ" id="6rxBzpc5tyW" role="3cqZAp">
           <property role="TyiWK" value="true" />
           <node concept="3clFbS" id="6rxBzpc5tyY" role="3clFbx">
@@ -26443,6 +26463,19 @@
       <node concept="3cqZAl" id="7ZZZU$lmK$e" role="3clF45" />
       <node concept="3Tm1VV" id="7ZZZU$lmK$f" role="1B3o_S" />
       <node concept="3clFbS" id="7ZZZU$lmK$g" role="3clF47">
+        <node concept="3clFbJ" id="6rxBzpcbuCk" role="3cqZAp">
+          <node concept="3clFbS" id="6rxBzpcbuCm" role="3clFbx">
+            <node concept="3cpWs6" id="6rxBzpcbv_5" role="3cqZAp" />
+          </node>
+          <node concept="2OqwBi" id="6rxBzpcbte$" role="3clFbw">
+            <node concept="37vLTw" id="6rxBzpcbsiR" role="2Oq$k0">
+              <ref role="3cqZAo" node="2a9vIDRJI$o" resolve="syncQueue" />
+            </node>
+            <node concept="liA8E" id="6rxBzpcbtFD" role="2OqNvi">
+              <ref role="37wK5l" node="6rxBzpcbf2p" resolve="isSynchronizing" />
+            </node>
+          </node>
+        </node>
         <node concept="3clFbF" id="1ohdiioAR7n" role="3cqZAp">
           <node concept="37vLTI" id="1ohdiioARZ9" role="3clFbG">
             <node concept="37vLTw" id="1ohdiioASNw" role="37vLTx">
@@ -46678,7 +46711,27 @@
         <node concept="3qTvmN" id="2a9vIDRXk$s" role="11_B2D" />
       </node>
     </node>
-    <node concept="2tJIrI" id="2a9vIDRJzbp" role="jymVt" />
+    <node concept="312cEg" id="6rxBzpcaV2A" role="jymVt">
+      <property role="TrG5h" value="isSynchronizing" />
+      <property role="34CwA1" value="true" />
+      <node concept="3Tm6S6" id="6rxBzpcaV2B" role="1B3o_S" />
+      <node concept="10P_77" id="6rxBzpcb1rp" role="1tU5fm" />
+      <node concept="3clFbT" id="6rxBzpcaXtn" role="33vP2m" />
+    </node>
+    <node concept="312cEg" id="6rxBzpcb3JF" role="jymVt">
+      <property role="TrG5h" value="syncLock" />
+      <property role="3TUv4t" value="true" />
+      <node concept="3Tm6S6" id="6rxBzpcb3JG" role="1B3o_S" />
+      <node concept="3uibUv" id="6rxBzpcb60x" role="1tU5fm">
+        <ref role="3uigEE" to="wyt6:~Object" resolve="Object" />
+      </node>
+      <node concept="2ShNRf" id="6rxBzpcb6GC" role="33vP2m">
+        <node concept="1pGfFk" id="6rxBzpcb6wd" role="2ShVmc">
+          <ref role="37wK5l" to="wyt6:~Object.&lt;init&gt;()" resolve="Object" />
+        </node>
+      </node>
+    </node>
+    <node concept="2tJIrI" id="6rxBzpcaSYH" role="jymVt" />
     <node concept="3clFbW" id="2a9vIDRJCaO" role="jymVt">
       <node concept="3cqZAl" id="2a9vIDRJCaP" role="3clF45" />
       <node concept="3Tm1VV" id="2a9vIDRJCaQ" role="1B3o_S" />
@@ -46992,6 +47045,19 @@
       </node>
     </node>
     <node concept="2tJIrI" id="2a9vIDRXD5J" role="jymVt" />
+    <node concept="3clFb_" id="6rxBzpcbf2p" role="jymVt">
+      <property role="TrG5h" value="isSynchronizing" />
+      <node concept="10P_77" id="6rxBzpcbkEq" role="3clF45" />
+      <node concept="3Tm1VV" id="6rxBzpcbf2s" role="1B3o_S" />
+      <node concept="3clFbS" id="6rxBzpcbf2t" role="3clF47">
+        <node concept="3clFbF" id="6rxBzpcbn7f" role="3cqZAp">
+          <node concept="37vLTw" id="6rxBzpcbn7e" role="3clFbG">
+            <ref role="3cqZAo" node="6rxBzpcaV2A" resolve="isSynchronizing" />
+          </node>
+        </node>
+      </node>
+    </node>
+    <node concept="2tJIrI" id="6rxBzpcbdjb" role="jymVt" />
     <node concept="3clFb_" id="2a9vIDRXxCm" role="jymVt">
       <property role="TrG5h" value="doFlush" />
       <node concept="3cqZAl" id="2a9vIDRXxCn" role="3clF45" />
@@ -47052,119 +47118,155 @@
                 </node>
               </node>
             </node>
-            <node concept="2Gpval" id="2a9vIDRXxDi" role="3cqZAp">
-              <node concept="2GrKxI" id="2a9vIDRXxDj" role="2Gsz3X">
-                <property role="TrG5h" value="binding" />
+            <node concept="1HWtB8" id="6rxBzpcb7Wp" role="3cqZAp">
+              <node concept="37vLTw" id="6rxBzpcb8xB" role="1HWFw0">
+                <ref role="3cqZAo" node="6rxBzpcb3JF" resolve="syncLock" />
               </node>
-              <node concept="37vLTw" id="2a9vIDRXxDk" role="2GsD0m">
-                <ref role="3cqZAo" node="2a9vIDRXxCt" resolve="currentQueue" />
-              </node>
-              <node concept="3clFbS" id="2a9vIDRXxDl" role="2LFqv$">
-                <node concept="3J1_TO" id="2a9vIDRXxDm" role="3cqZAp">
-                  <node concept="3uVAMA" id="2a9vIDRXxDn" role="1zxBo5">
-                    <node concept="XOnhg" id="2a9vIDRXxDo" role="1zc67B">
-                      <property role="TrG5h" value="ex" />
-                      <node concept="nSUau" id="2a9vIDRXxDp" role="1tU5fm">
-                        <node concept="3uibUv" id="2a9vIDRXxDq" role="nSUat">
-                          <ref role="3uigEE" to="wyt6:~Exception" resolve="Exception" />
-                        </node>
-                      </node>
-                    </node>
-                    <node concept="3clFbS" id="2a9vIDRXxDr" role="1zc67A">
-                      <node concept="RRSsy" id="2a9vIDRXxDs" role="3cqZAp">
-                        <property role="RRSoG" value="gZ5fh_4/error" />
-                        <node concept="3cpWs3" id="2a9vIDRXxDt" role="RRSoy">
-                          <node concept="2GrUjf" id="2a9vIDRXxDu" role="3uHU7w">
-                            <ref role="2Gs0qQ" node="2a9vIDRXxDj" resolve="binding" />
-                          </node>
-                          <node concept="Xl_RD" id="2a9vIDRXxDv" role="3uHU7B">
-                            <property role="Xl_RC" value="Failed to sync " />
-                          </node>
-                        </node>
-                        <node concept="37vLTw" id="2a9vIDRXxDw" role="RRSow">
-                          <ref role="3cqZAo" node="2a9vIDRXxDo" resolve="ex" />
-                        </node>
-                      </node>
+              <node concept="3clFbS" id="6rxBzpcb7Wt" role="1HWHxc">
+                <node concept="1gVbGN" id="6rxBzpcbaQZ" role="3cqZAp">
+                  <node concept="3fqX7Q" id="6rxBzpcbbDd" role="1gVkn0">
+                    <node concept="37vLTw" id="6rxBzpcbbDf" role="3fr31v">
+                      <ref role="3cqZAo" node="6rxBzpcaV2A" resolve="isSynchronizing" />
                     </node>
                   </node>
-                  <node concept="3clFbS" id="2a9vIDRXxDx" role="1zxBo7">
-                    <node concept="3cpWs8" id="6rxBzpbVH3k" role="3cqZAp">
-                      <node concept="3cpWsn" id="6rxBzpbVH3l" role="3cpWs9">
-                        <property role="TrG5h" value="lockTypes" />
-                        <node concept="_YKpA" id="6rxBzpbVGZ_" role="1tU5fm">
-                          <node concept="3uibUv" id="6rxBzpbVGZC" role="_ZDj9">
-                            <ref role="3uigEE" node="6rxBzpbTrFb" resolve="ELockType" />
+                </node>
+                <node concept="2Gpval" id="2a9vIDRXxDi" role="3cqZAp">
+                  <node concept="2GrKxI" id="2a9vIDRXxDj" role="2Gsz3X">
+                    <property role="TrG5h" value="binding" />
+                  </node>
+                  <node concept="37vLTw" id="2a9vIDRXxDk" role="2GsD0m">
+                    <ref role="3cqZAo" node="2a9vIDRXxCt" resolve="currentQueue" />
+                  </node>
+                  <node concept="3clFbS" id="2a9vIDRXxDl" role="2LFqv$">
+                    <node concept="3J1_TO" id="2a9vIDRXxDm" role="3cqZAp">
+                      <node concept="3uVAMA" id="2a9vIDRXxDn" role="1zxBo5">
+                        <node concept="XOnhg" id="2a9vIDRXxDo" role="1zc67B">
+                          <property role="TrG5h" value="ex" />
+                          <node concept="nSUau" id="2a9vIDRXxDp" role="1tU5fm">
+                            <node concept="3uibUv" id="2a9vIDRXxDq" role="nSUat">
+                              <ref role="3uigEE" to="wyt6:~Exception" resolve="Exception" />
+                            </node>
                           </node>
                         </node>
-                        <node concept="2OqwBi" id="6rxBzpbVH3m" role="33vP2m">
-                          <node concept="2OqwBi" id="6rxBzpbVH3n" role="2Oq$k0">
-                            <node concept="2OqwBi" id="6rxBzpbVH3o" role="2Oq$k0">
-                              <node concept="2GrUjf" id="6rxBzpbVH3p" role="2Oq$k0">
+                        <node concept="3clFbS" id="2a9vIDRXxDr" role="1zc67A">
+                          <node concept="RRSsy" id="2a9vIDRXxDs" role="3cqZAp">
+                            <property role="RRSoG" value="gZ5fh_4/error" />
+                            <node concept="3cpWs3" id="2a9vIDRXxDt" role="RRSoy">
+                              <node concept="2GrUjf" id="2a9vIDRXxDu" role="3uHU7w">
                                 <ref role="2Gs0qQ" node="2a9vIDRXxDj" resolve="binding" />
                               </node>
-                              <node concept="liA8E" id="6rxBzpbVH3q" role="2OqNvi">
-                                <ref role="37wK5l" node="6rxBzpbTgFM" resolve="getRequiredSyncLocks" />
+                              <node concept="Xl_RD" id="2a9vIDRXxDv" role="3uHU7B">
+                                <property role="Xl_RC" value="Failed to sync " />
                               </node>
                             </node>
-                            <node concept="2S7cBI" id="6rxBzpbVH3r" role="2OqNvi">
-                              <node concept="1bVj0M" id="6rxBzpbVH3s" role="23t8la">
-                                <node concept="3clFbS" id="6rxBzpbVH3t" role="1bW5cS">
-                                  <node concept="3clFbF" id="6rxBzpbVH3u" role="3cqZAp">
-                                    <node concept="2OqwBi" id="6rxBzpbVH3v" role="3clFbG">
-                                      <node concept="37vLTw" id="6rxBzpbVH3w" role="2Oq$k0">
-                                        <ref role="3cqZAo" node="6rxBzpbVH3y" resolve="it" />
+                            <node concept="37vLTw" id="2a9vIDRXxDw" role="RRSow">
+                              <ref role="3cqZAo" node="2a9vIDRXxDo" resolve="ex" />
+                            </node>
+                          </node>
+                        </node>
+                      </node>
+                      <node concept="3clFbS" id="2a9vIDRXxDx" role="1zxBo7">
+                        <node concept="3clFbF" id="6rxBzpcaYyl" role="3cqZAp">
+                          <node concept="37vLTI" id="6rxBzpcaZaF" role="3clFbG">
+                            <node concept="3clFbT" id="6rxBzpcaZof" role="37vLTx">
+                              <property role="3clFbU" value="true" />
+                            </node>
+                            <node concept="37vLTw" id="6rxBzpcaYyj" role="37vLTJ">
+                              <ref role="3cqZAo" node="6rxBzpcaV2A" resolve="isSynchronizing" />
+                            </node>
+                          </node>
+                        </node>
+                        <node concept="3cpWs8" id="6rxBzpbVH3k" role="3cqZAp">
+                          <node concept="3cpWsn" id="6rxBzpbVH3l" role="3cpWs9">
+                            <property role="TrG5h" value="lockTypes" />
+                            <node concept="_YKpA" id="6rxBzpbVGZ_" role="1tU5fm">
+                              <node concept="3uibUv" id="6rxBzpbVGZC" role="_ZDj9">
+                                <ref role="3uigEE" node="6rxBzpbTrFb" resolve="ELockType" />
+                              </node>
+                            </node>
+                            <node concept="2OqwBi" id="6rxBzpbVH3m" role="33vP2m">
+                              <node concept="2OqwBi" id="6rxBzpbVH3n" role="2Oq$k0">
+                                <node concept="2OqwBi" id="6rxBzpbVH3o" role="2Oq$k0">
+                                  <node concept="2GrUjf" id="6rxBzpbVH3p" role="2Oq$k0">
+                                    <ref role="2Gs0qQ" node="2a9vIDRXxDj" resolve="binding" />
+                                  </node>
+                                  <node concept="liA8E" id="6rxBzpbVH3q" role="2OqNvi">
+                                    <ref role="37wK5l" node="6rxBzpbTgFM" resolve="getRequiredSyncLocks" />
+                                  </node>
+                                </node>
+                                <node concept="2S7cBI" id="6rxBzpbVH3r" role="2OqNvi">
+                                  <node concept="1bVj0M" id="6rxBzpbVH3s" role="23t8la">
+                                    <node concept="3clFbS" id="6rxBzpbVH3t" role="1bW5cS">
+                                      <node concept="3clFbF" id="6rxBzpbVH3u" role="3cqZAp">
+                                        <node concept="2OqwBi" id="6rxBzpbVH3v" role="3clFbG">
+                                          <node concept="37vLTw" id="6rxBzpbVH3w" role="2Oq$k0">
+                                            <ref role="3cqZAo" node="6rxBzpbVH3y" resolve="it" />
+                                          </node>
+                                          <node concept="liA8E" id="6rxBzpbVH3x" role="2OqNvi">
+                                            <ref role="37wK5l" to="wyt6:~Enum.ordinal()" resolve="ordinal" />
+                                          </node>
+                                        </node>
                                       </node>
-                                      <node concept="liA8E" id="6rxBzpbVH3x" role="2OqNvi">
-                                        <ref role="37wK5l" to="wyt6:~Enum.ordinal()" resolve="ordinal" />
-                                      </node>
+                                    </node>
+                                    <node concept="Rh6nW" id="6rxBzpbVH3y" role="1bW2Oz">
+                                      <property role="TrG5h" value="it" />
+                                      <node concept="2jxLKc" id="6rxBzpbVH3z" role="1tU5fm" />
+                                    </node>
+                                  </node>
+                                  <node concept="1nlBCl" id="6rxBzpbVH3$" role="2S7zOq">
+                                    <property role="3clFbU" value="true" />
+                                  </node>
+                                </node>
+                              </node>
+                              <node concept="ANE8D" id="6rxBzpbVH3_" role="2OqNvi" />
+                            </node>
+                          </node>
+                        </node>
+                        <node concept="3clFbF" id="6rxBzpbWhIo" role="3cqZAp">
+                          <node concept="1rXfSq" id="6rxBzpbWhIm" role="3clFbG">
+                            <ref role="37wK5l" node="6rxBzpbVJZn" resolve="runWithLocks" />
+                            <node concept="37vLTw" id="6rxBzpbWifk" role="37wK5m">
+                              <ref role="3cqZAo" node="6rxBzpbVH3l" resolve="lockTypes" />
+                            </node>
+                            <node concept="1bVj0M" id="6rxBzpbWiF0" role="37wK5m">
+                              <property role="3yWfEV" value="true" />
+                              <node concept="3clFbS" id="6rxBzpbWiF2" role="1bW5cS">
+                                <node concept="abc8K" id="6rxBzpc5i05" role="3cqZAp">
+                                  <node concept="Xl_RD" id="6rxBzpc5ieZ" role="abp_N">
+                                    <property role="Xl_RC" value="Sync " />
+                                  </node>
+                                  <node concept="2GrUjf" id="6rxBzpc5i$r" role="abp_N">
+                                    <ref role="2Gs0qQ" node="2a9vIDRXxDj" resolve="binding" />
+                                  </node>
+                                  <node concept="Xl_RD" id="6rxBzpc5iPi" role="abp_N">
+                                    <property role="Xl_RC" value=" with locks " />
+                                  </node>
+                                  <node concept="37vLTw" id="6rxBzpc5kzp" role="abp_N">
+                                    <ref role="3cqZAo" node="6rxBzpbVH3l" resolve="lockTypes" />
+                                  </node>
+                                </node>
+                                <node concept="3clFbF" id="2a9vIDRXxDy" role="3cqZAp">
+                                  <node concept="2OqwBi" id="2a9vIDRXxDz" role="3clFbG">
+                                    <node concept="2GrUjf" id="2a9vIDRXxD$" role="2Oq$k0">
+                                      <ref role="2Gs0qQ" node="2a9vIDRXxDj" resolve="binding" />
+                                    </node>
+                                    <node concept="liA8E" id="2a9vIDRXxD_" role="2OqNvi">
+                                      <ref role="37wK5l" node="2a9vIDRFZ3J" resolve="syncIfRequired" />
                                     </node>
                                   </node>
                                 </node>
-                                <node concept="Rh6nW" id="6rxBzpbVH3y" role="1bW2Oz">
-                                  <property role="TrG5h" value="it" />
-                                  <node concept="2jxLKc" id="6rxBzpbVH3z" role="1tU5fm" />
-                                </node>
-                              </node>
-                              <node concept="1nlBCl" id="6rxBzpbVH3$" role="2S7zOq">
-                                <property role="3clFbU" value="true" />
                               </node>
                             </node>
                           </node>
-                          <node concept="ANE8D" id="6rxBzpbVH3_" role="2OqNvi" />
                         </node>
                       </node>
-                    </node>
-                    <node concept="3clFbF" id="6rxBzpbWhIo" role="3cqZAp">
-                      <node concept="1rXfSq" id="6rxBzpbWhIm" role="3clFbG">
-                        <ref role="37wK5l" node="6rxBzpbVJZn" resolve="runWithLocks" />
-                        <node concept="37vLTw" id="6rxBzpbWifk" role="37wK5m">
-                          <ref role="3cqZAo" node="6rxBzpbVH3l" resolve="lockTypes" />
-                        </node>
-                        <node concept="1bVj0M" id="6rxBzpbWiF0" role="37wK5m">
-                          <property role="3yWfEV" value="true" />
-                          <node concept="3clFbS" id="6rxBzpbWiF2" role="1bW5cS">
-                            <node concept="abc8K" id="6rxBzpc5i05" role="3cqZAp">
-                              <node concept="Xl_RD" id="6rxBzpc5ieZ" role="abp_N">
-                                <property role="Xl_RC" value="Sync " />
-                              </node>
-                              <node concept="2GrUjf" id="6rxBzpc5i$r" role="abp_N">
-                                <ref role="2Gs0qQ" node="2a9vIDRXxDj" resolve="binding" />
-                              </node>
-                              <node concept="Xl_RD" id="6rxBzpc5iPi" role="abp_N">
-                                <property role="Xl_RC" value=" with locks " />
-                              </node>
-                              <node concept="37vLTw" id="6rxBzpc5kzp" role="abp_N">
-                                <ref role="3cqZAo" node="6rxBzpbVH3l" resolve="lockTypes" />
-                              </node>
-                            </node>
-                            <node concept="3clFbF" id="2a9vIDRXxDy" role="3cqZAp">
-                              <node concept="2OqwBi" id="2a9vIDRXxDz" role="3clFbG">
-                                <node concept="2GrUjf" id="2a9vIDRXxD$" role="2Oq$k0">
-                                  <ref role="2Gs0qQ" node="2a9vIDRXxDj" resolve="binding" />
-                                </node>
-                                <node concept="liA8E" id="2a9vIDRXxD_" role="2OqNvi">
-                                  <ref role="37wK5l" node="2a9vIDRFZ3J" resolve="syncIfRequired" />
-                                </node>
+                      <node concept="1wplmZ" id="6rxBzpcaXwO" role="1zxBo6">
+                        <node concept="3clFbS" id="6rxBzpcaXwP" role="1wplMD">
+                          <node concept="3clFbF" id="6rxBzpcb00A" role="3cqZAp">
+                            <node concept="37vLTI" id="6rxBzpcb0yj" role="3clFbG">
+                              <node concept="3clFbT" id="6rxBzpcb0JR" role="37vLTx" />
+                              <node concept="37vLTw" id="6rxBzpcb00_" role="37vLTJ">
+                                <ref role="3cqZAo" node="6rxBzpcaV2A" resolve="isSynchronizing" />
                               </node>
                             </node>
                           </node>
