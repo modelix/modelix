@@ -14,6 +14,7 @@
 package org.modelix.authorization
 
 import com.auth0.jwk.JwkProviderBuilder
+import com.auth0.jwt.JWT
 import com.auth0.jwt.interfaces.DecodedJWT
 import com.google.common.cache.CacheBuilder
 import org.keycloak.authorization.client.AuthzClient
@@ -41,7 +42,7 @@ object KeycloakUtils {
 
     val jwkProvider = JwkProviderBuilder(URL("${BASE_URL}realms/$REALM/protocol/openid-connect/certs")).build()
 
-    private val cache = CacheBuilder.newBuilder()
+    private val permissionCache = CacheBuilder.newBuilder()
         .expireAfterWrite(1, TimeUnit.MINUTES)
         .build<String, List<Permission>>()
     private val existingResources = HashSet<String>()
@@ -77,7 +78,11 @@ object KeycloakUtils {
 
     @Synchronized
     fun getPermissions(accessToken: DecodedJWT): List<Permission> {
-        return cache.get(accessToken.token) { queryPermissions(accessToken) }
+        return permissionCache.get(accessToken.token) { queryPermissions(accessToken) }
+    }
+
+    fun getServiceAccountToken(): DecodedJWT {
+        return JWT.decode(authzClient.obtainAccessToken().token)
     }
 
     private fun queryPermissions(accessToken: DecodedJWT): List<Permission> {
@@ -126,7 +131,7 @@ object KeycloakUtils {
         if (existingResources.contains(resourceName)) return
         if (authzClient.protection().resource().findByName(resourceName) == null) {
             authzClient.protection().resource().create(ResourceRepresentation(resourceName))
-            cache.invalidateAll()
+            permissionCache.invalidateAll()
         }
         existingResources += resourceName
     }

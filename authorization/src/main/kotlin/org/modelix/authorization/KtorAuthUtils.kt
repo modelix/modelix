@@ -203,46 +203,12 @@ fun DecodedJWT.nullIfInvalid(): DecodedJWT? {
     }
 }
 
-private suspend fun queryServiceAccountToken(credentials: ServiceAccountCredentials): String {
-    val response = httpClient.submitForm(
-        url = "${KeycloakUtils.BASE_URL}realms/${credentials.clientName}/protocol/openid-connect/token",
-        formParameters = Parameters.build {
-            append("grant_type", "client_credentials")
-        }
-    ) {
-        basicAuth(credentials.clientName, credentials.clientSecret)
-    }
-    val json = JSONObject(response.bodyAsText())
-    return json.getString("access_token")
-}
-
-data class ServiceAccountCredentials(val clientSecret: String, val clientName: String = "modelix")
-
-private val cachedTokens: MutableMap<ServiceAccountCredentials, String> = HashMap()
-private val cachedTokensMutex = Mutex()
-suspend fun getServiceAccountToken(credentials: ServiceAccountCredentials): String {
-    cachedTokensMutex.withLock {
-        var tokenString = cachedTokens[credentials]
-        val validToken = tokenString?.let { JWT.decode(it) }?.nullIfInvalid()
-        if (validToken == null || validToken.expiresAt.before(Date(Date().time + 60))) {
-            tokenString = queryServiceAccountToken(credentials)
-            cachedTokens[credentials] = tokenString
-        }
-        return tokenString!!
-    }
-}
-
-fun getServiceAccountTokenBlocking(credentials: ServiceAccountCredentials): String {
-    return runBlocking { getServiceAccountToken(credentials) }
-}
+private var cachedServiceAccountToken: DecodedJWT? = null
 val serviceAccountTokenProvider: ()->String = {
-    val clientSecret = getClientSecret()
-    getServiceAccountTokenBlocking(ServiceAccountCredentials(clientSecret))
-}
-
-fun getClientSecret(): String {
-    val varName = "KEYCLOAK_CLIENT_SECRET"
-    val clientSecret = listOfNotNull(System.getProperty(varName), System.getenv(varName)).firstOrNull()
-        ?: throw Exception("Variable $varName is not specified")
-    return clientSecret
+    var token: DecodedJWT? = cachedServiceAccountToken?.nullIfInvalid()
+    if (token == null) {
+        token = KeycloakUtils.getServiceAccountToken()
+        cachedServiceAccountToken = token
+    }
+    token.token
 }
