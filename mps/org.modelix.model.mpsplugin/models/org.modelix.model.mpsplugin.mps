@@ -47598,15 +47598,26 @@
               <ref role="1Px2BO" node="6rxBzpbTrFb" resolve="ELockType" />
             </node>
             <node concept="3clFbS" id="5Xacaz_DoG_" role="3Kbo56">
-              <node concept="3clFbF" id="5Xacaz_DoGA" role="3cqZAp">
-                <node concept="2OqwBi" id="5Xacaz_DoGB" role="3clFbG">
-                  <node concept="2OqwBi" id="5Xacaz_DoGC" role="2Oq$k0">
-                    <node concept="37vLTw" id="5Xacaz_DoGD" role="2Oq$k0">
+              <node concept="3cpWs8" id="5XacazA90WN" role="3cqZAp">
+                <node concept="3cpWsn" id="5XacazA90WO" role="3cpWs9">
+                  <property role="TrG5h" value="branch" />
+                  <node concept="3uibUv" id="5XacazA7tWe" role="1tU5fm">
+                    <ref role="3uigEE" to="jks5:~IBranch" resolve="IBranch" />
+                  </node>
+                  <node concept="2OqwBi" id="5XacazA90WP" role="33vP2m">
+                    <node concept="37vLTw" id="5XacazA90WQ" role="2Oq$k0">
                       <ref role="3cqZAo" node="2a9vIDRJA5u" resolve="owner" />
                     </node>
-                    <node concept="liA8E" id="5Xacaz_DoGE" role="2OqNvi">
+                    <node concept="liA8E" id="5XacazA90WR" role="2OqNvi">
                       <ref role="37wK5l" node="6hBdEE_mlsT" resolve="getBranch" />
                     </node>
+                  </node>
+                </node>
+              </node>
+              <node concept="3clFbF" id="5Xacaz_DoGA" role="3cqZAp">
+                <node concept="2OqwBi" id="5Xacaz_DoGB" role="3clFbG">
+                  <node concept="37vLTw" id="5XacazA90WS" role="2Oq$k0">
+                    <ref role="3cqZAo" node="5XacazA90WO" resolve="branch" />
                   </node>
                   <node concept="liA8E" id="5Xacaz_DoGF" role="2OqNvi">
                     <ref role="37wK5l" to="jks5:~IBranch.runWrite(kotlin.jvm.functions.Function0)" resolve="runWrite" />
@@ -47619,6 +47630,81 @@
                             </node>
                             <node concept="liA8E" id="5Xacaz_DrhA" role="2OqNvi">
                               <ref role="37wK5l" to="wyt6:~Runnable.run()" resolve="run" />
+                            </node>
+                          </node>
+                        </node>
+                        <node concept="3cpWs8" id="5XacazA92a0" role="3cqZAp">
+                          <node concept="3cpWsn" id="5XacazA92a1" role="3cpWs9">
+                            <property role="TrG5h" value="t" />
+                            <node concept="3uibUv" id="5XacazA929j" role="1tU5fm">
+                              <ref role="3uigEE" to="jks5:~IWriteTransaction" resolve="IWriteTransaction" />
+                            </node>
+                            <node concept="2OqwBi" id="5XacazA92a2" role="33vP2m">
+                              <node concept="37vLTw" id="5XacazA92a3" role="2Oq$k0">
+                                <ref role="3cqZAo" node="5XacazA90WO" resolve="branch" />
+                              </node>
+                              <node concept="liA8E" id="5XacazA92a4" role="2OqNvi">
+                                <ref role="37wK5l" to="jks5:~IBranch.getWriteTransaction()" resolve="getWriteTransaction" />
+                              </node>
+                            </node>
+                          </node>
+                        </node>
+                        <node concept="3cpWs8" id="5XacazA96ym" role="3cqZAp">
+                          <node concept="3cpWsn" id="5XacazA96yn" role="3cpWs9">
+                            <property role="TrG5h" value="detachedNodes" />
+                            <node concept="A3Dl8" id="5XacazA97zi" role="1tU5fm">
+                              <node concept="3uibUv" id="5XacazA97zk" role="A3Ik2">
+                                <ref role="3uigEE" to="wyt6:~Long" resolve="Long" />
+                              </node>
+                            </node>
+                            <node concept="2OqwBi" id="5XacazA96yo" role="33vP2m">
+                              <node concept="37vLTw" id="5XacazA96yp" role="2Oq$k0">
+                                <ref role="3cqZAo" node="5XacazA92a1" resolve="t" />
+                              </node>
+                              <node concept="liA8E" id="5XacazA96yq" role="2OqNvi">
+                                <ref role="37wK5l" to="jks5:~ITransaction.getChildren(long,java.lang.String)" resolve="getChildren" />
+                                <node concept="10M0yZ" id="5XacazA96yr" role="37wK5m">
+                                  <ref role="3cqZAo" to="jks5:~ITree.ROOT_ID" resolve="ROOT_ID" />
+                                  <ref role="1PxDUh" to="jks5:~ITree" resolve="ITree" />
+                                </node>
+                                <node concept="10M0yZ" id="5XacazA96ys" role="37wK5m">
+                                  <ref role="3cqZAo" to="jks5:~ITree.DETACHED_NODES_ROLE" resolve="DETACHED_NODES_ROLE" />
+                                  <ref role="1PxDUh" to="jks5:~ITree" resolve="ITree" />
+                                </node>
+                              </node>
+                            </node>
+                          </node>
+                        </node>
+                        <node concept="3clFbF" id="5XacazA91Bn" role="3cqZAp">
+                          <node concept="2OqwBi" id="5XacazA99Gx" role="3clFbG">
+                            <node concept="2OqwBi" id="5XacazA98bJ" role="2Oq$k0">
+                              <node concept="37vLTw" id="5XacazA96yt" role="2Oq$k0">
+                                <ref role="3cqZAo" node="5XacazA96yn" resolve="detachedNodes" />
+                              </node>
+                              <node concept="ANE8D" id="5XacazA98Vp" role="2OqNvi" />
+                            </node>
+                            <node concept="2es0OD" id="5XacazA9bXt" role="2OqNvi">
+                              <node concept="1bVj0M" id="5XacazA9bXv" role="23t8la">
+                                <node concept="3clFbS" id="5XacazA9bXw" role="1bW5cS">
+                                  <node concept="3clFbF" id="5XacazA9cp9" role="3cqZAp">
+                                    <node concept="2OqwBi" id="5XacazA9e3u" role="3clFbG">
+                                      <node concept="37vLTw" id="5XacazA9dQ7" role="2Oq$k0">
+                                        <ref role="3cqZAo" node="5XacazA92a1" resolve="t" />
+                                      </node>
+                                      <node concept="liA8E" id="5XacazA9esR" role="2OqNvi">
+                                        <ref role="37wK5l" to="jks5:~IWriteTransaction.deleteNode(long)" resolve="deleteNode" />
+                                        <node concept="37vLTw" id="5XacazA9g1$" role="37wK5m">
+                                          <ref role="3cqZAo" node="5XacazA9bXx" resolve="it" />
+                                        </node>
+                                      </node>
+                                    </node>
+                                  </node>
+                                </node>
+                                <node concept="Rh6nW" id="5XacazA9bXx" role="1bW2Oz">
+                                  <property role="TrG5h" value="it" />
+                                  <node concept="2jxLKc" id="5XacazA9bXy" role="1tU5fm" />
+                                </node>
+                              </node>
                             </node>
                           </node>
                         </node>
