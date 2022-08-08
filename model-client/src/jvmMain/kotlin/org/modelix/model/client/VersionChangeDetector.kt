@@ -67,12 +67,16 @@ abstract class VersionChangeDetector(private val store: IKeyValueStore, private 
         SharedExecutors.FIXED.execute { store.listen(key, keyListener) }
         job = coroutineScope.launch {
             while (isActive) {
-                val version = store[key]
-                if (version != lastVersionHash) {
-                    if (LOG.isDebugEnabled) {
-                        LOG.debug("New version detected by polling: $version")
+                try {
+                    val version = store[key]
+                    if (version != lastVersionHash) {
+                        if (LOG.isDebugEnabled) {
+                            LOG.debug("New version detected by polling: $version")
+                        }
+                        versionChanged(version)
                     }
-                    versionChanged(version)
+                } catch (e: Exception) {
+                    LOG.warn("Failed to detect version change for $key: ${e.message}")
                 }
                 delay(3000)
             }
