@@ -52,7 +52,7 @@ class MetaModelBranch(val branch: IBranch) : IBranch by branch {
                 uid = tree.getProperty(localConcept.id, MetaMetaLanguage.property_IHasUID_uid.name)
             }
             return IConceptReferenceSerializer.deserializeAll(uid, tree).firstOrNull { it !is PersistedConcept }
-                ?: throw RuntimeException("Cannot find concept $uid")
+                ?: throw RuntimeException("Cannot find concept $uid, id = ${localConcept.id}")
         }
         return localConcept
     }
