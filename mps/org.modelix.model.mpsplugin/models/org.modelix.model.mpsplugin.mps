@@ -30115,6 +30115,36 @@
               </node>
               <node concept="3clFbS" id="4_k_9wJFL1j" role="3clF47">
                 <node concept="3J1_TO" id="4_k_9wJFL1w" role="3cqZAp">
+                  <node concept="3uVAMA" id="2A5zruZXLQC" role="1zxBo5">
+                    <node concept="XOnhg" id="2A5zruZXLQD" role="1zc67B">
+                      <property role="TrG5h" value="ex" />
+                      <node concept="nSUau" id="2A5zruZXLQE" role="1tU5fm">
+                        <node concept="3uibUv" id="2A5zruZXN7t" role="nSUat">
+                          <ref role="3uigEE" to="xkhl:~NodeNotFoundException" resolve="NodeNotFoundException" />
+                        </node>
+                      </node>
+                    </node>
+                    <node concept="3clFbS" id="2A5zruZXLQF" role="1zc67A">
+                      <node concept="RRSsy" id="2A5zruZXOsK" role="3cqZAp">
+                        <property role="RRSoG" value="gZ5fksE/warn" />
+                        <node concept="Xl_RD" id="2A5zruZXP6Q" role="RRSoy">
+                          <property role="Xl_RC" value="" />
+                        </node>
+                        <node concept="37vLTw" id="2A5zruZXPGK" role="RRSow">
+                          <ref role="3cqZAo" node="2A5zruZXLQD" resolve="ex" />
+                        </node>
+                      </node>
+                      <node concept="3clFbF" id="2A5zruZXR0Y" role="3cqZAp">
+                        <node concept="1rXfSq" id="2A5zruZXR0W" role="3clFbG">
+                          <ref role="37wK5l" node="6rxBzpc0fUZ" resolve="enqueueSyncTo" />
+                          <node concept="Rm8GO" id="2A5zruZXTcf" role="37wK5m">
+                            <ref role="Rm8GQ" node="4_k_9wJhglC" resolve="TO_CLOUD" />
+                            <ref role="1Px2BO" node="4_k_9wJhes5" resolve="SyncDirection" />
+                          </node>
+                        </node>
+                      </node>
+                    </node>
+                  </node>
                   <node concept="3uVAMA" id="4_k_9wJFL1x" role="1zxBo5">
                     <node concept="XOnhg" id="4_k_9wJFL1y" role="1zc67B">
                       <property role="TrG5h" value="ex" />
@@ -33174,6 +33204,51 @@
                         </node>
                         <node concept="liA8E" id="2xQ40YD$91t" role="2OqNvi">
                           <ref role="37wK5l" to="jks5:~ITransaction.getTree()" resolve="getTree" />
+                        </node>
+                      </node>
+                    </node>
+                  </node>
+                  <node concept="3clFbJ" id="2A5zruZWS7s" role="3cqZAp">
+                    <node concept="3clFbS" id="2A5zruZWS7u" role="3clFbx">
+                      <node concept="RRSsy" id="2A5zruZWXIb" role="3cqZAp">
+                        <property role="RRSoG" value="gZ5fksE/warn" />
+                        <node concept="3cpWs3" id="2A5zruZX4Ta" role="RRSoy">
+                          <node concept="Xl_RD" id="2A5zruZX55N" role="3uHU7w">
+                            <property role="Xl_RC" value=" doesn't exist in the cloud model" />
+                          </node>
+                          <node concept="3cpWs3" id="2A5zruZX2xx" role="3uHU7B">
+                            <node concept="3cpWs3" id="2A5zruZWZYH" role="3uHU7B">
+                              <node concept="3cpWs3" id="2A5zruZWZ19" role="3uHU7B">
+                                <node concept="Xl_RD" id="2A5zruZWXId" role="3uHU7B">
+                                  <property role="Xl_RC" value="Skipping sync for " />
+                                </node>
+                                <node concept="Xjq3P" id="2A5zruZWZdQ" role="3uHU7w" />
+                              </node>
+                              <node concept="Xl_RD" id="2A5zruZX0bm" role="3uHU7w">
+                                <property role="Xl_RC" value=", because the model node " />
+                              </node>
+                            </node>
+                            <node concept="2YIFZM" id="2A5zruZXg5X" role="3uHU7w">
+                              <ref role="37wK5l" to="wyt6:~Long.toHexString(long)" resolve="toHexString" />
+                              <ref role="1Pybhc" to="wyt6:~Long" resolve="Long" />
+                              <node concept="37vLTw" id="2A5zruZXhGm" role="37wK5m">
+                                <ref role="3cqZAo" node="4_k_9wJ_0ds" resolve="modelNodeId" />
+                              </node>
+                            </node>
+                          </node>
+                        </node>
+                      </node>
+                    </node>
+                    <node concept="3fqX7Q" id="2A5zruZWW0M" role="3clFbw">
+                      <node concept="2OqwBi" id="2A5zruZWW0O" role="3fr31v">
+                        <node concept="37vLTw" id="2A5zruZWW0P" role="2Oq$k0">
+                          <ref role="3cqZAo" node="2xQ40YD$91o" resolve="tree" />
+                        </node>
+                        <node concept="liA8E" id="2A5zruZWW0Q" role="2OqNvi">
+                          <ref role="37wK5l" to="jks5:~ITree.containsNode(long)" resolve="containsNode" />
+                          <node concept="37vLTw" id="2A5zruZWW0R" role="37wK5m">
+                            <ref role="3cqZAo" node="4_k_9wJ_0ds" resolve="modelNodeId" />
+                          </node>
                         </node>
                       </node>
                     </node>
