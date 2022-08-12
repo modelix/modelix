@@ -38211,15 +38211,6 @@
             </node>
           </node>
         </node>
-        <node concept="2ShNRf" id="4_k_9wJ_0do" role="33vP2m">
-          <node concept="Tc6Ow" id="4_k_9wJ_0dp" role="2ShVmc">
-            <node concept="1ajhzC" id="4_k_9wJ_0dq" role="HW$YZ">
-              <node concept="3uibUv" id="7z1ex5oUjaQ" role="1ajl9A">
-                <ref role="3uigEE" to="mhbf:~SNode" resolve="SNode" />
-              </node>
-            </node>
-          </node>
-        </node>
       </node>
       <node concept="2tJIrI" id="2A5zrv0v8Td" role="jymVt" />
       <node concept="3clFb_" id="2A5zrv0vckh" role="jymVt">
