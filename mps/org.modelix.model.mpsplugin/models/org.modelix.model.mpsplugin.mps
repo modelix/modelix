@@ -25302,14 +25302,50 @@
         </node>
       </node>
       <node concept="3clFbS" id="7AjmLChWTxz" role="3clF47">
-        <node concept="3cpWs6" id="1l8LMIRO_lK" role="3cqZAp">
-          <node concept="2OqwBi" id="1l8LMIROA3N" role="3cqZAk">
-            <node concept="37vLTw" id="1l8LMIRO_Ay" role="2Oq$k0">
-              <ref role="3cqZAo" node="7AjmLChWTxw" resolve="area" />
+        <node concept="3cpWs8" id="2A5zrv0EraP" role="3cqZAp">
+          <node concept="3cpWsn" id="2A5zrv0EraQ" role="3cpWs9">
+            <property role="TrG5h" value="repo" />
+            <node concept="3uibUv" id="2A5zrv0Era2" role="1tU5fm">
+              <ref role="3uigEE" to="w1kc:~MPSModuleRepository" resolve="MPSModuleRepository" />
             </node>
-            <node concept="liA8E" id="1l8LMIROAos" role="2OqNvi">
-              <ref role="37wK5l" to="qvpu:~IArea.resolveNode(org.modelix.model.api.INodeReference)" resolve="resolveNode" />
-              <node concept="Xjq3P" id="1l8LMIROAQa" role="37wK5m" />
+            <node concept="2YIFZM" id="2A5zrv0EraR" role="33vP2m">
+              <ref role="37wK5l" to="w1kc:~MPSModuleRepository.getInstance()" resolve="getInstance" />
+              <ref role="1Pybhc" to="w1kc:~MPSModuleRepository" resolve="MPSModuleRepository" />
+            </node>
+          </node>
+        </node>
+        <node concept="3cpWs6" id="2A5zrv0Es6V" role="3cqZAp">
+          <node concept="2YIFZM" id="2A5zrv0Euyw" role="3cqZAk">
+            <ref role="1Pybhc" to="xxte:5gTrVpGjuLg" resolve="SNodeToNodeAdapter" />
+            <ref role="37wK5l" to="xxte:5gTrVpGyMwR" resolve="wrap" />
+            <node concept="2EnYce" id="2A5zrv0Es6X" role="37wK5m">
+              <node concept="1rXfSq" id="2A5zrv0Es6Y" role="2Oq$k0">
+                <ref role="37wK5l" node="1l8LMIRPpWm" resolve="getReference" />
+                <node concept="37vLTw" id="2A5zrv0Es6Z" role="37wK5m">
+                  <ref role="3cqZAo" node="2A5zrv0EraQ" resolve="repo" />
+                </node>
+              </node>
+              <node concept="liA8E" id="2A5zrv0Es70" role="2OqNvi">
+                <ref role="37wK5l" to="mhbf:~SNodeReference.resolve(org.jetbrains.mps.openapi.module.SRepository)" resolve="resolve" />
+                <node concept="37vLTw" id="2A5zrv0Es71" role="37wK5m">
+                  <ref role="3cqZAo" node="2A5zrv0EraQ" resolve="repo" />
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="1X3_iC" id="2A5zrv0EsD_" role="lGtFl">
+          <property role="3V$3am" value="statement" />
+          <property role="3V$3ak" value="f3061a53-9226-4cc5-a443-f952ceaf5816/1068580123136/1068581517665" />
+          <node concept="3cpWs6" id="1l8LMIRO_lK" role="8Wnug">
+            <node concept="2OqwBi" id="1l8LMIROA3N" role="3cqZAk">
+              <node concept="37vLTw" id="1l8LMIRO_Ay" role="2Oq$k0">
+                <ref role="3cqZAo" node="7AjmLChWTxw" resolve="area" />
+              </node>
+              <node concept="liA8E" id="1l8LMIROAos" role="2OqNvi">
+                <ref role="37wK5l" to="qvpu:~IArea.resolveNode(org.modelix.model.api.INodeReference)" resolve="resolveNode" />
+                <node concept="Xjq3P" id="1l8LMIROAQa" role="37wK5m" />
+              </node>
             </node>
           </node>
         </node>
