@@ -61,16 +61,16 @@ class OTWriteTransaction(
         apply(SetReferenceOp(sourceId, role, target))
     }
 
-    override fun addNewChild(parentId: Long, role: String?, index: Int, childId: Long, concept: IConcept?) {
+    override fun addNewChild(parentId: Long, role: String?, index: Int, childId: Long, concept: IConceptReference?) {
         var index_ = index
         if (index_ == -1) {
             index_ = getChildren(parentId, role).count()
         }
-        apply(AddNewChildOp(PositionInRole(parentId, role, index_), childId, concept?.getReference()))
+        apply(AddNewChildOp(PositionInRole(parentId, role, index_), childId, concept))
     }
 
-    override fun addNewChild(parentId: Long, role: String?, index: Int, childId: Long, concept: IConceptReference?) {
-        TODO("Not yet implemented")
+    override fun addNewChild(parentId: Long, role: String?, index: Int, childId: Long, concept: IConcept?) {
+        return  addNewChild(parentId, role, index, childId, concept?.getReference())
     }
 
     override fun deleteNode(nodeId: Long) {

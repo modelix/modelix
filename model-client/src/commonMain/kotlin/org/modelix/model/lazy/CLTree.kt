@@ -114,7 +114,7 @@ class CLTree : ITree, IBulkTree {
         return CLTree(data.id, newIdToHash!!, store)
     }
 
-    override fun addNewChild(parentId: Long, role: String?, index: Int, childId: Long, concept: IConcept?): ITree {
+    override fun addNewChild(parentId: Long, role: String?, index: Int, childId: Long, concept: IConceptReference?): ITree {
         if (containsNode(childId)) {
             throw DuplicateNodeId("Node ID already exists: ${childId.toString(16)}")
         }
@@ -126,8 +126,8 @@ class CLTree : ITree, IBulkTree {
         return newTree
     }
 
-    override fun addNewChild(parentId: Long, role: String?, index: Int, childId: Long, concept: IConceptReference?): ITree {
-        TODO("Not yet implemented")
+    override fun addNewChild(parentId: Long, role: String?, index: Int, childId: Long, concept: IConcept?): ITree {
+        return addNewChild(parentId, role, index, childId, concept?.getReference())
     }
 
     override fun addNewChildren(parentId: Long, role: String?, index: Int, newIds: LongArray, concepts: Array<IConcept?>): ITree {
@@ -145,7 +145,7 @@ class CLTree : ITree, IBulkTree {
     /**
      * Incomplete operation. The node is added to the map, but not attached anywhere in the tree.
      */
-    protected fun createNewNode(nodeId: Long, concept: IConcept?): CLTree {
+    protected fun createNewNode(nodeId: Long, concept: IConceptReference?): CLTree {
         var newIdToHash = nodesMap
         val newChildData = create(
             nodeId,
@@ -320,9 +320,12 @@ class CLTree : ITree, IBulkTree {
     }
 
     override fun getConceptReference(nodeId: Long): IConceptReference? {
-        // TODO this method was introduced to avoid the resolution of concepts, but implementing it correctly
-        // requires some effort to ensure we don't break deserialization of existing models
-        return getConcept(nodeId)?.getReference()
+        try {
+            val node = resolveElement(nodeId)
+            return IConceptReference.deserialize(node!!.concept)
+        } catch (e: RuntimeException) {
+            throw RuntimeException("Unable to find concept for node $nodeId", e)
+        }
     }
 
     override fun getParent(nodeId: Long): Long {
@@ -524,9 +527,8 @@ class CLTree : ITree, IBulkTree {
         }
     }
 
-    protected fun serializeConcept(concept: IConcept?): String? {
-        if (concept == null) return null
-        return IConceptReferenceSerializer.serialize(concept)
+    protected fun serializeConcept(concept: IConceptReference?): String? {
+        return concept?.serialize()
     }
 
     protected fun deserializeConcept(serialized: String?): IConcept? {
