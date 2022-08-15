@@ -258,8 +258,8 @@ class RestWebModelClient @JvmOverloads constructor(
             if (clientIdInternal == 0) {
                 loadClientId()
             }
-            if (clientIdInternal != 0) {
-                idGeneratorInternal = IdGenerator(clientIdInternal)
+            if (clientIdInternal != 0 && idGeneratorInternal == null) {
+                idGeneratorInternal = IdGenerator.getInstance(clientIdInternal)
             }
             connectionStatus = ConnectionStatus.CONNECTED
         } else if (response.status == HttpStatusCode.Unauthorized) {

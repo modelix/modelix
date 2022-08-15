@@ -13,8 +13,8 @@ class RevertTest {
 
     @Test
     fun revert_random() {
-        val idGenerator = IdGenerator(7)
-        val versionIdGenerator = IdGenerator(0)
+        val idGenerator = IdGenerator.newInstance(7)
+        val versionIdGenerator = IdGenerator.newInstance(0)
         val store = ObjectStoreCache(MapBaseStore())
         val baseBranch = OTBranch(PBranch(CLTree(store), idGenerator), idGenerator, store)
         val rand = Random(916306)
