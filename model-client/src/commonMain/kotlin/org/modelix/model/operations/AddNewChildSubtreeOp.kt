@@ -15,7 +15,6 @@
 
 package org.modelix.model.operations
 
-import org.modelix.model.api.IConcept
 import org.modelix.model.api.IConceptReference
 import org.modelix.model.api.ITree
 import org.modelix.model.api.IWriteTransaction

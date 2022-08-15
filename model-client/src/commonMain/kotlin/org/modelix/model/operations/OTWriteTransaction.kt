@@ -70,7 +70,7 @@ class OTWriteTransaction(
     }
 
     override fun addNewChild(parentId: Long, role: String?, index: Int, childId: Long, concept: IConcept?) {
-        return  addNewChild(parentId, role, index, childId, concept?.getReference())
+        return addNewChild(parentId, role, index, childId, concept?.getReference())
     }
 
     override fun deleteNode(nodeId: Long) {

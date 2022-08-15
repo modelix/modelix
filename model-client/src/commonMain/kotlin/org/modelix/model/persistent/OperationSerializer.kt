@@ -16,7 +16,6 @@
 package org.modelix.model.persistent
 
 import org.modelix.model.api.*
-import org.modelix.model.lazy.IConceptReferenceSerializer
 import org.modelix.model.lazy.INodeReferenceSerializer
 import org.modelix.model.lazy.KVEntryReference
 import org.modelix.model.operations.*
