@@ -16,6 +16,7 @@
 package org.modelix.model.operations
 
 import org.modelix.model.api.IConcept
+import org.modelix.model.api.IConceptReference
 import org.modelix.model.api.ITree
 import org.modelix.model.api.IWriteTransaction
 import org.modelix.model.lazy.*
@@ -23,7 +24,7 @@ import org.modelix.model.persistent.CPTree
 import org.modelix.model.persistent.IKVValue
 import org.modelix.model.persistent.SerializationUtil
 
-class AddNewChildSubtreeOp(val resultTreeHash: KVEntryReference<CPTree>, val position: PositionInRole, val childId: Long, val concept: IConcept?) : AbstractOperation() {
+class AddNewChildSubtreeOp(val resultTreeHash: KVEntryReference<CPTree>, val position: PositionInRole, val childId: Long, val concept: IConceptReference?) : AbstractOperation() {
 
     override fun getReferencedEntries(): List<KVEntryReference<IKVValue>> = listOf(resultTreeHash)
 
@@ -59,7 +60,7 @@ class AddNewChildSubtreeOp(val resultTreeHash: KVEntryReference<CPTree>, val pos
                 opsVisitor(SetReferenceOp(node.id, role, tree.getReferenceTarget(node.id, role)))
             }
         } else {
-            opsVisitor(AddNewChildOp(position!!, node.id, tree.getConcept(node.id)))
+            opsVisitor(AddNewChildOp(position!!, node.id, tree.getConceptReference(node.id)))
             for (property in node.getData().propertyRoles) {
                 opsVisitor(SetPropertyOp(node.id, property, node.getData().getPropertyValue(property)))
             }

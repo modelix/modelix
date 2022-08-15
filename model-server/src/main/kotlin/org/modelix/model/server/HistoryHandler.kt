@@ -235,24 +235,28 @@ class HistoryHandler(private val client: IModelClient) {
         buttons.run()
         out.append("<table>")
         out.append("<thead><tr><th>ID<br/>Hash</th><th>Author</th><th>Time</th><th>Operations</th><th></th></tr></thead><tbody>")
-        while (version != null) {
-            if (rowIndex >= skip) {
-                createTableRow(out, version, latestVersion)
-                if (version.isMerge()) {
-                    for (v in LinearHistory(version.baseVersion!!.hash).load(version.getMergedVersion1()!!, version.getMergedVersion2()!!)) {
-                        createTableRow(out, v, latestVersion)
-                        rowIndex++
-                        if (rowIndex >= skip + limit) {
-                            break
+        try {
+            while (version != null) {
+                if (rowIndex >= skip) {
+                    createTableRow(out, version, latestVersion)
+                    if (version.isMerge()) {
+                        for (v in LinearHistory(version.baseVersion!!.hash).load(version.getMergedVersion1()!!, version.getMergedVersion2()!!)) {
+                            createTableRow(out, v, latestVersion)
+                            rowIndex++
+                            if (rowIndex >= skip + limit) {
+                                break
+                            }
                         }
                     }
                 }
+                rowIndex++
+                if (rowIndex >= skip + limit) {
+                    break
+                }
+                version = version.baseVersion
             }
-            rowIndex++
-            if (rowIndex >= skip + limit) {
-                break
-            }
-            version = version.baseVersion
+        } catch (ex: Exception) {
+            out.append("""<tr><td colspan="5"><pre>${escape(ex.toString())}\n${ex.stackTraceToString()}</pre></td></tr>""")
         }
         out.append("</tbody></table>")
         buttons.run()

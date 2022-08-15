@@ -15,10 +15,7 @@
 
 package org.modelix.model.operations
 
-import org.modelix.model.api.IConcept
-import org.modelix.model.api.INodeReference
-import org.modelix.model.api.ITree
-import org.modelix.model.api.IWriteTransaction
+import org.modelix.model.api.*
 import org.modelix.model.lazy.IDeserializingKeyValueStore
 import org.modelix.model.persistent.SerializationUtil
 
@@ -29,7 +26,7 @@ class DeleteNodeOp(val childId: Long) : AbstractOperation(), IOperationIntend {
             throw RuntimeException("Attempt to delete non-leaf node: ${childId.toString(16)}")
         }
 
-        val concept = t.getConcept(childId)
+        val concept = t.getConceptReference(childId)
         val position = getNodePosition(t.tree, childId)
         val properties = t.getPropertyRoles(childId).associateWith { t.getProperty(childId, it) }
         val references = t.getReferenceRoles(childId).associateWith { t.getReferenceTarget(childId, it) }
@@ -66,7 +63,7 @@ class DeleteNodeOp(val childId: Long) : AbstractOperation(), IOperationIntend {
 
     inner class Applied(
         val position: PositionInRole,
-        val concept: IConcept?,
+        val concept: IConceptReference?,
         val properties: Map<String, String?>,
         val references: Map<String, INodeReference?>
     ) : AbstractOperation.Applied(), IAppliedOperation {

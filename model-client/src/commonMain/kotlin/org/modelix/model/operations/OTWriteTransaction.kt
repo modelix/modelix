@@ -66,7 +66,7 @@ class OTWriteTransaction(
         if (index_ == -1) {
             index_ = getChildren(parentId, role).count()
         }
-        apply(AddNewChildOp(PositionInRole(parentId, role, index_), childId, concept))
+        apply(AddNewChildOp(PositionInRole(parentId, role, index_), childId, concept?.getReference()))
     }
 
     override fun addNewChild(parentId: Long, role: String?, index: Int, childId: Long, concept: IConceptReference?) {

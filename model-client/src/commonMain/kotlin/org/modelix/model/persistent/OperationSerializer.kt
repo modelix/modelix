@@ -15,10 +15,7 @@
 
 package org.modelix.model.persistent
 
-import org.modelix.model.api.IConcept
-import org.modelix.model.api.INodeReference
-import org.modelix.model.api.LocalPNodeReference
-import org.modelix.model.api.PNodeReference
+import org.modelix.model.api.*
 import org.modelix.model.lazy.IConceptReferenceSerializer
 import org.modelix.model.lazy.INodeReferenceSerializer
 import org.modelix.model.lazy.KVEntryReference
@@ -33,12 +30,12 @@ class OperationSerializer private constructor() {
     companion object {
         val INSTANCE = OperationSerializer()
         private const val SEPARATOR = ";"
-        fun serializeConcept(concept: IConcept?): String {
-            return escape(IConceptReferenceSerializer.serialize(concept))
+        fun serializeConcept(concept: IConceptReference?): String {
+            return escape(concept?.serialize())
         }
 
-        fun deserializeConcept(serialized: String?): IConcept? {
-            return IConceptReferenceSerializer.deserialize(unescape(serialized), null)
+        fun deserializeConcept(serialized: String?): IConceptReference? {
+            return IConceptReference.deserialize(unescape(serialized))
         }
 
         fun serializeReference(obj: INodeReference?): String {
