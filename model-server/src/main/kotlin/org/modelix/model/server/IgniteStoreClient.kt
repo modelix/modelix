@@ -108,7 +108,7 @@ class IgniteStoreClient(jdbcConfFile: File?) : IStoreClient {
                     ) { nodeId: UUID?, value: Any? ->
                         if (value is String) {
                             synchronized(listeners) {
-                                for (l in listeners[key]) {
+                                for (l in listeners[key].toList()) {
                                     try {
                                         l.changed(key, if (value == IKeyListener.NULL_VALUE) null else value)
                                     } catch (ex: Exception) {
