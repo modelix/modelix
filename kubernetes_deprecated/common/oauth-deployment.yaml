@@ -1,0 +1,100 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: oauth
+  name: oauth
+spec:
+  replicas: 1
+  revisionHistoryLimit: 5
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0
+      maxSurge: 1
+  selector:
+    matchLabels:
+      app: oauth
+  template:
+    metadata:
+      labels:
+        app: oauth
+    spec:
+      containers:
+        - image: redis:7.0.2
+          name: redis
+          resources:
+            requests:
+              memory: "100Mi"
+              cpu: 100m
+            limits:
+              memory: "200Mi"
+          readinessProbe:
+            tcpSocket:
+              port: 6379
+            initialDelaySeconds: 3
+            periodSeconds: 5
+            timeoutSeconds: 3
+          livenessProbe:
+            tcpSocket:
+              port: 6379
+            initialDelaySeconds: 3
+            periodSeconds: 10
+            timeoutSeconds: 5
+        - image: quay.io/oauth2-proxy/oauth2-proxy
+          name: oauth2-proxy
+          args:
+            - --email-domain=*
+            - --cookie-httponly=false
+            - --cookie-secure=false
+            - --cookie-refresh=60s
+            - --cookie-secret=jLTKkbMwRJpsS7ZW
+            - --session-store-type=redis
+            - --redis-connection-url=redis://localhost/
+            - --session-cookie-minimal=false
+            - --provider=keycloak-oidc
+            - --client-id=modelix
+            - --client-secret=Bz4HAIfb4X2STVGDzAi4A3fDzOvMFugL
+            - --redirect-url=http://172.16.2.56:32728/oauth2/callback
+            - --oidc-issuer-url=http://172.16.2.56:31310/realms/modelix
+            - --skip-oidc-discovery=true
+            - --login-url=http://172.16.2.56:31310/realms/modelix/protocol/openid-connect/auth
+            - --redeem-url=http://172.16.2.56:31310/realms/modelix/protocol/openid-connect/token
+            - --oidc-jwks-url=http://172.16.2.56:31310/realms/modelix/protocol/openid-connect/certs
+            - --insecure-oidc-allow-unverified-email=true
+            - --insecure-oidc-skip-issuer-verification=true
+            - --show-debug-on-error=true
+            - --pass-authorization-header=true
+            - --pass-access-token=true
+            - --prefer-email-to-user=true
+            - --provider-display-name=Modelix
+            - --set-authorization-header=true
+            - --silence-ping-logging=true
+            - --upstream=http://proxy/
+            - --skip-auth-regex=\/(resources|admin|js|realms|keycloak)\/.*
+            - --skip-jwt-bearer-tokens=true
+            - --skip-provider-button=true
+            - --http-address=0.0.0.0:4180
+            - --pass-user-headers=true
+          readinessProbe:
+            httpGet:
+              path: /ping
+              port: 4180
+              scheme: HTTP
+            initialDelaySeconds: 3
+            periodSeconds: 5
+            timeoutSeconds: 3
+          livenessProbe:
+            httpGet:
+              path: /ping
+              port: 4180
+              scheme: HTTP
+            initialDelaySeconds: 3
+            periodSeconds: 10
+            timeoutSeconds: 5
+          resources:
+            requests:
+              memory: "100Mi"
+              cpu: 100m
+            limits:
+              memory: "200Mi"

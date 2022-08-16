@@ -88,9 +88,12 @@ class IgniteStoreClient(jdbcConfFile: File?) : IStoreClient {
     }
 
     override fun putAll(entries: Map<String, String?>) {
-        cache.putAll(entries)
+        val deletes = entries.filterValues { it == null }
+        val puts = entries.filterValues { it != null }
+        if (deletes.isNotEmpty()) cache.removeAll(deletes.keys)
+        if (puts.isNotEmpty()) cache.putAll(puts)
         for ((key, value) in entries) {
-            ignite.message().send(key, value)
+            ignite.message().send(key, value ?: IKeyListener.NULL_VALUE)
         }
     }
 
@@ -105,9 +108,9 @@ class IgniteStoreClient(jdbcConfFile: File?) : IStoreClient {
                     ) { nodeId: UUID?, value: Any? ->
                         if (value is String) {
                             synchronized(listeners) {
-                                for (l in listeners[key]) {
+                                for (l in listeners[key].toList()) {
                                     try {
-                                        l.changed(key, value as String?)
+                                        l.changed(key, if (value == IKeyListener.NULL_VALUE) null else value)
                                     } catch (ex: Exception) {
                                         println(ex.message)
                                         ex.printStackTrace()

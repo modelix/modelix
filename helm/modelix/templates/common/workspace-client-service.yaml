@@ -1,0 +1,24 @@
+{{- if .Values.workspaces.enabled  -}}
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    component: workspace-client
+    {{- include "modelix.labels" . | nindent 4 }}
+  name: "{{ include "modelix.fullname" . }}-workspace-client"
+spec:
+  type: NodePort
+  ports:
+  - name: "projector"
+    port: 8887
+    targetPort: 8887
+  - name: "modelix-ui"
+    port: 33333
+    targetPort: 33333
+  - name: "debug"
+    port: 5071
+    targetPort: 5071
+  selector:
+    component: workspace-client
+    {{- include "modelix.selectorLabels" . | nindent 4 }}
+{{- end -}}

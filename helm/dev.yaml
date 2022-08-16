@@ -1,0 +1,16 @@
+imageTags:
+  db: ""
+  instancesManager: "2020.3.6-202207111647-SNAPSHOT"
+  model: "2020.3.6-202207111405-SNAPSHOT"
+  oauth: ""
+  proxy: "2020.3.6-202207111114-SNAPSHOT"
+  wsClient: "2020.3.6-202207111654-SNAPSHOT"
+  wsManager: "2020.3.6-202207111117-SNAPSHOT"
+ingress:
+  hostname: "localhost"
+keycloak:
+  clientSecret: "fzEj6AmIPwtKDs9D0KmWnk9CPyoLj5OS"
+  loglevel: "warn"
+  debug: true
+workspaces:
+  enabled: true

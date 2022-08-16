@@ -14,7 +14,7 @@ def getGithubCredentials() {
 }
 
 buildscript {
-    ext.kotlinVersion = '1.4.32'
+    ext.kotlinVersion = '1.6.21'
 
     repositories {
         /* It is useful to have the central maven repo before the Itemis's one
@@ -102,7 +102,6 @@ subprojects {
         maven { url "https://repo.maven.apache.org/maven2" }
         mavenCentral()
         maven { url 'https://artifacts.itemis.cloud/repository/maven-mps/' }
-        maven { url 'https://projects.itemis.de/nexus/content/repositories/mbeddr' }
     }
 
     publishing {
@@ -133,18 +132,18 @@ subprojects {
                     }
                 }
             }
-            if (rootProject.hasProperty("projects.itemis.de.user")) {
-                maven {
-                    name = "itemisNexus2"
-                    url = modelixVersion.contains("SNAPSHOT")
-                            ? uri("https://projects.itemis.de/nexus/content/repositories/mbeddr_snapshots/")
-                            : uri("https://projects.itemis.de/nexus/content/repositories/mbeddr/")
-                    credentials {
-                        username = rootProject.findProperty("projects.itemis.de.user").toString()
-                        password = rootProject.findProperty("projects.itemis.de.pw").toString()
-                    }
-                }
-            }
+//            if (rootProject.hasProperty("projects.itemis.de.user")) {
+//                maven {
+//                    name = "itemisNexus2"
+//                    url = modelixVersion.contains("SNAPSHOT")
+//                            ? uri("https://projects.itemis.de/nexus/content/repositories/mbeddr_snapshots/")
+//                            : uri("https://projects.itemis.de/nexus/content/repositories/mbeddr/")
+//                    credentials {
+//                        username = rootProject.findProperty("projects.itemis.de.user").toString()
+//                        password = rootProject.findProperty("projects.itemis.de.pw").toString()
+//                    }
+//                }
+//            }
         }
     }
 }

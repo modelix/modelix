@@ -14,19 +14,22 @@
  */
 package org.modelix.model.server
 
+import ch.qos.logback.classic.Logger
 import org.modelix.model.IKeyListener
+import org.slf4j.LoggerFactory
 import java.io.BufferedReader
 import java.io.FileReader
 import java.io.FileWriter
 import java.io.IOException
 import java.util.*
-import java.util.function.Consumer
-import java.util.function.Function
-import java.util.stream.Collectors
 
 class InMemoryStoreClient : IStoreClient {
+    companion object {
+        private val LOG = LoggerFactory.getLogger(InMemoryStoreClient::class.java)
+    }
+
     private val values: MutableMap<String, String?> = HashMap()
-    private val listeners: MutableMap<String?, MutableList<IKeyListener>> = HashMap()
+    private val listeners: MutableMap<String?, MutableSet<IKeyListener>> = HashMap()
     @Synchronized
     override fun get(key: String): String? {
         return values[key]
@@ -34,19 +37,26 @@ class InMemoryStoreClient : IStoreClient {
 
     @Synchronized
     override fun getAll(keys: List<String>): List<String?> {
-        return keys.stream().map { key: String -> this[key] }.collect(Collectors.toList())
+        return keys.map { values[it] }
     }
 
     @Synchronized
     override fun getAll(keys: Set<String>): Map<String, String?> {
-        return keys.stream().collect(Collectors.toMap(Function.identity(), Function { key: String -> this[key] }))
+        return keys.associateWith { values[it] }
     }
 
     @Synchronized
     override fun put(key: String, value: String?) {
         values[key] = value
-        listeners.getOrDefault(key, emptyList<IKeyListener>())
-            .forEach(Consumer { l: IKeyListener -> l.changed(key, value) })
+        listeners[key]?.toList()?.forEach {
+            try {
+                it.changed(key, value)
+            } catch (ex : Exception) {
+                println(ex.message)
+                ex.printStackTrace()
+                LOG.error("Failed to notify listeners after put '$key' = '$value'", ex)
+            }
+        }
     }
 
     @Synchronized
@@ -58,22 +68,23 @@ class InMemoryStoreClient : IStoreClient {
 
     @Synchronized
     override fun listen(key: String, listener: IKeyListener) {
-        if (!listeners.containsKey(key)) {
-            listeners[key] = LinkedList()
-        }
-        listeners[key]!!.add(listener)
+        listeners.getOrPut(key) { LinkedHashSet() }.add(listener)
     }
 
     @Synchronized
     override fun removeListener(key: String, listener: IKeyListener) {
-        if (!listeners.containsKey(key)) {
-            return
-        }
-        listeners[key]!!.remove(listener)
+        listeners[key]?.remove(listener)
     }
 
+    @Synchronized
     override fun generateId(key: String): Long {
-        return key.hashCode().toLong()
+        val id = try {
+            get(key)?.toLong() ?: 0L
+        } catch (e : NumberFormatException) {
+            0L
+        } + 1L
+        put(key, id.toString())
+        return id
     }
 
     @Synchronized

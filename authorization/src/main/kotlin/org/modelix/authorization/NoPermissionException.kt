@@ -15,12 +15,12 @@
  */
 package org.modelix.authorization
 
-class NoPermissionException(val user: AuthenticatedUser?, val permissionId: PermissionId?, val type: EPermissionType?, message: String)
-    : RuntimeException("$user has no $type permission on '$permissionId'") {
+class NoPermissionException(val user: AccessTokenPrincipal?, val resourceId: String?, val scope: String?, message: String)
+    : RuntimeException(message) {
 
         constructor(message: String)
             : this(null, null, null, message)
-        constructor(user: AuthenticatedUser, permissionId: PermissionId, type: EPermissionType)
-            : this(user, permissionId, type, "$user has no $type permission on '$permissionId'")
+        constructor(user: AccessTokenPrincipal, permissionId: String, type: String)
+            : this(user, permissionId, type, "${user.getUserName()} has no $type permission on '$permissionId'")
 
     }

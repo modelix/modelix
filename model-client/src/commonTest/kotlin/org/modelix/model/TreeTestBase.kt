@@ -31,7 +31,7 @@ open class TreeTestBase {
     protected var rand: Random = Random(83569)
     protected var store: MapBaseStore = MapBaseStore()
     protected var storeCache: ObjectStoreCache = ObjectStoreCache(store)
-    protected var idGenerator: IdGenerator = IdGenerator(3)
+    protected var idGenerator: IdGenerator = IdGenerator.newInstance(3)
     protected var initialTree: CLTree = CLTree(storeCache)
 
     @BeforeTest
@@ -39,7 +39,7 @@ open class TreeTestBase {
         rand = Random(83569)
         store = MapBaseStore()
         storeCache = ObjectStoreCache(store)
-        idGenerator = IdGenerator(255)
+        idGenerator = IdGenerator.newInstance(255)
         initialTree = CLTree(storeCache)
     }
 

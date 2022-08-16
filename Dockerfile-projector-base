@@ -1,6 +1,6 @@
 # the tag is updated by docker-build-projector-base.sh
 # if the required version doesn't exist yet, run docker-build-projector-mps.sh
-FROM modelix/projector-mps:2021.1.4
+FROM modelix/projector-mps:2020.3.6
 
 USER root
 COPY install-plugins.sh /
@@ -11,7 +11,7 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/* \
     && rm -rf /var/cache/apt
 
-RUN echo "-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5071" >> /projector/ide/bin/mps64.vmoptions
+RUN echo "-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5071" >> /projector/ide/bin/mps64.vmoptions
 RUN sed -i.bak '/-Xmx/d' /projector/ide/bin/mps64.vmoptions
 RUN echo "-XX:MaxRAMPercentage=85" >> /projector/ide/bin/mps64.vmoptions
 

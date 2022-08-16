@@ -14,16 +14,11 @@
 
 package org.modelix.graphql.server
 
-import io.ktor.application.Application
-import io.ktor.application.call
-import io.ktor.application.install
-import io.ktor.features.*
 import io.ktor.http.*
-import io.ktor.response.respondText
-import io.ktor.routing.Routing
-import io.ktor.routing.get
-import io.ktor.routing.post
-import io.ktor.routing.routing
+import io.ktor.server.application.*
+import io.ktor.server.plugins.cors.routing.*
+import io.ktor.server.response.*
+import io.ktor.server.routing.*
 
 fun Application.graphQLModule() {
     install(Routing)
@@ -41,11 +36,11 @@ fun Application.graphQLModule() {
 
     install(CORS) {
         anyHost()
-        header(HttpHeaders.ContentType)
-        method(HttpMethod.Options)
-        method(HttpMethod.Get)
-        method(HttpMethod.Put)
-        method(HttpMethod.Post)
+        allowHeader(HttpHeaders.ContentType)
+        allowMethod(HttpMethod.Options)
+        allowMethod(HttpMethod.Get)
+        allowMethod(HttpMethod.Put)
+        allowMethod(HttpMethod.Post)
     }
 }
 

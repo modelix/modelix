@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    component: oauth
+    {{- include "modelix.labels" . | nindent 4 }}
+  name: "{{ include "modelix.fullname" . }}-oauth"
+spec:
+  type: NodePort
+  ports:
+    - port: 4180
+      name: "http"
+      protocol: TCP
+      targetPort: 4180
+  selector:
+    component: oauth
+    {{- include "modelix.selectorLabels" . | nindent 4 }}

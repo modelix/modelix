@@ -1,0 +1,15 @@
+{{ if not .Values.serviceAccount }}
+kind: ClusterRoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+ name: "{{ include "modelix.fullname" . }}-sa-edit"
+ namespace: "{{ .Release.Namespace }}"
+subjects:
+- kind: ServiceAccount
+  name: "{{ include "modelix.fullname" . }}-sa"
+  namespace: "{{ .Release.Namespace }}"
+roleRef:
+ kind: ClusterRole
+ name: edit
+ apiGroup: rbac.authorization.k8s.io
+{{ end }}

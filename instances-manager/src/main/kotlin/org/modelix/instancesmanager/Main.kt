@@ -15,7 +15,6 @@ package org.modelix.instancesmanager
 
 import io.kubernetes.client.openapi.ApiException
 import org.apache.log4j.Logger
-import org.eclipse.jetty.proxy.ProxyServlet
 import org.eclipse.jetty.server.Request
 import org.eclipse.jetty.server.Server
 import org.eclipse.jetty.server.handler.DefaultHandler
@@ -82,7 +81,7 @@ object Main {
             override fun handle(target: String, baseRequest: Request, request: HttpServletRequest, response: HttpServletResponse) {
                 val redirect: RedirectedURL = DeploymentManager.Companion.INSTANCE.redirect(baseRequest, request)
                     ?: return
-                if (redirect.userId == null) {
+                if (redirect.userToken == null) {
                     baseRequest.isHandled = true
                     response.status = HttpServletResponse.SC_UNAUTHORIZED
                     response.contentType = "text/plain"

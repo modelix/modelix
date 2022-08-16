@@ -45,8 +45,9 @@ kotlin {
         commonMain {
             dependencies {
                 api group: 'org.modelix', name: 'model-api', version: "$mpsExtensionsVersion"
-                implementation kotlin('stdlib-common:1.4.31')
+                implementation kotlin('stdlib-common:1.6.21')
                 implementation("org.jetbrains.kotlinx:kotlinx-collections-immutable:0.3.4")
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0")
             }
         }
         commonTest {
@@ -57,7 +58,7 @@ kotlin {
         }
         jvmMain {
             dependencies {
-                implementation kotlin('stdlib-jdk8:1.4.31')
+                implementation kotlin('stdlib-jdk8:1.6.21')
 
                 implementation group: 'io.vavr', name: 'vavr', version: '0.10.3'
                 implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.11'
@@ -71,6 +72,18 @@ kotlin {
                 implementation group: 'org.json', name: 'json', version: '20200518'
                 implementation group: 'net.sf.trove4j', name: 'trove4j', version: '3.0.3'
                 implementation group: 'org.apache.commons', name: 'commons-collections4', version: '4.4'
+
+                def oauthVersion = "1.34.1"
+                implementation("com.google.oauth-client:google-oauth-client:$oauthVersion")
+                implementation("com.google.oauth-client:google-oauth-client-jetty:$oauthVersion")
+
+                def ktor_version = rootProject.ktorVersion
+                implementation("io.ktor:ktor-client-core:$ktor_version")
+                implementation("io.ktor:ktor-client-cio:$ktor_version")
+                implementation("io.ktor:ktor-client-auth:$ktor_version")
+                implementation("io.ktor:ktor-client-content-negotiation:$ktor_version")
+                implementation("io.ktor:ktor-serialization-kotlinx-json:$ktor_version")
+
             }
         }
         jvmTest {
@@ -143,6 +156,7 @@ task copyModelClientToMps(type: Sync) {
     }
     exclude 'log4j*.jar'
     exclude 'annotations*.jar'
+    exclude 'model-api*.jar'
 }
 
 assemble.finalizedBy(copyModelClientToMps)

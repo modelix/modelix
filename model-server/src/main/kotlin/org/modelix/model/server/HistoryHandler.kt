@@ -7,7 +7,8 @@ import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import org.apache.commons.lang3.StringEscapeUtils
-import org.modelix.authorization.AuthenticatedUser
+import org.modelix.authorization.getUserName
+import org.modelix.authorization.requiresPermission
 import org.modelix.model.LinearHistory
 import org.modelix.model.api.*
 import org.modelix.model.client.IModelClient
@@ -39,22 +40,30 @@ class HistoryHandler(private val client: IModelClient) {
             get("/history/{repoId}/{branch}/") {
                 val repositoryId = call.parameters["repoId"]!!
                 val branch = call.parameters["branch"]!!
-                val params = call.receiveParameters()
+                val params = call.request.queryParameters
                 val limit = toInt(params["limit"], 500)
                 val skip = toInt(params["skip"], 0)
                 call.respondTextWriter(contentType = ContentType.Text.Html) {
                     buildRepositoryPage(PrintWriter(this), RepositoryAndBranch(repositoryId, branch), params["head"], skip, limit)
                 }
             }
-            post("/history/{repoId}/{branch}/revert") {
-                val repositoryId = call.parameters["repoId"]!!
-                val branch = call.parameters["branch"]!!
-                val params = call.receiveParameters()
-                val fromVersion = params["from"]!!
-                val toVersion = params["to"]!!
-                val user = call.principal<AuthenticatedUser>()?.userIds?.firstOrNull()
-                revert(RepositoryAndBranch(repositoryId, branch), fromVersion, toVersion, user)
-                call.respondRedirect(".")
+            requiresPermission("history", "WRITE") {
+                post("/history/{repoId}/{branch}/revert") {
+                    val repositoryId = call.parameters["repoId"]!!
+                    val branch = call.parameters["branch"]!!
+                    val params = call.receiveParameters()
+                    val fromVersion = params["from"]!!
+                    val toVersion = params["to"]!!
+                    val user = getUserName()
+                    revert(RepositoryAndBranch(repositoryId, branch), fromVersion, toVersion, user)
+                    call.respondRedirect(".")
+                }
+                post("/history/{repoId}/{branch}/delete") {
+                    val repositoryId = call.parameters["repoId"]!!
+                    val branch = call.parameters["branch"]!!
+                    client.put(RepositoryId(repositoryId).getBranchKey(branch), null)
+                    call.respondRedirect(".")
+                }
             }
         }
     }
@@ -106,7 +115,7 @@ class HistoryHandler(private val client: IModelClient) {
             """<ul>
                 | ${knownRepositoryIds.map { repositoryAndBranch -> """
                 <li>
-                    <a href='${escapeURL(repositoryAndBranch.toString())}/'>${escape(repositoryAndBranch.toString())}</a>
+                    <a href='${escapeURL(repositoryAndBranch.repository)}/${escapeURL(repositoryAndBranch.branch)}/'>${escape(repositoryAndBranch.toString())}</a>
                 </li>
                 """ }.joinToString("\n")}
                 |</ul>
@@ -204,6 +213,15 @@ class HistoryHandler(private val client: IModelClient) {
         out.append("<h1>History for Repository ")
         out.append(escape(repositoryAndBranch.toString()))
         out.append("</h1>")
+
+        out.append("""
+            <div>
+            <form action='delete' method='POST'>
+            <input type='submit' value='Delete'/>
+            </form>
+            </div>
+        """)
+
         val buttons = Runnable {
             out.append("<div class='BtnGroup'>")
             if (skip == 0) {
@@ -217,24 +235,28 @@ class HistoryHandler(private val client: IModelClient) {
         buttons.run()
         out.append("<table>")
         out.append("<thead><tr><th>ID<br/>Hash</th><th>Author</th><th>Time</th><th>Operations</th><th></th></tr></thead><tbody>")
-        while (version != null) {
-            if (rowIndex >= skip) {
-                createTableRow(out, version, latestVersion)
-                if (version.isMerge()) {
-                    for (v in LinearHistory(version.baseVersion!!.hash).load(version.getMergedVersion1()!!, version.getMergedVersion2()!!)) {
-                        createTableRow(out, v, latestVersion)
-                        rowIndex++
-                        if (rowIndex >= skip + limit) {
-                            break
+        try {
+            while (version != null) {
+                if (rowIndex >= skip) {
+                    createTableRow(out, version, latestVersion)
+                    if (version.isMerge()) {
+                        for (v in LinearHistory(version.baseVersion!!.hash).load(version.getMergedVersion1()!!, version.getMergedVersion2()!!)) {
+                            createTableRow(out, v, latestVersion)
+                            rowIndex++
+                            if (rowIndex >= skip + limit) {
+                                break
+                            }
                         }
                     }
                 }
+                rowIndex++
+                if (rowIndex >= skip + limit) {
+                    break
+                }
+                version = version.baseVersion
             }
-            rowIndex++
-            if (rowIndex >= skip + limit) {
-                break
-            }
-            version = version.baseVersion
+        } catch (ex: Exception) {
+            out.append("""<tr><td colspan="5"><pre>${escape(ex.toString())}\n${ex.stackTraceToString()}</pre></td></tr>""")
         }
         out.append("</tbody></table>")
         buttons.run()

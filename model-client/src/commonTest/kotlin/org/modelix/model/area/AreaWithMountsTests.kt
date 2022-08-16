@@ -38,7 +38,7 @@ class AreaWithMountsTests {
         rand = Random(83569)
         store = MapBaseStore()
         storeCache = ObjectStoreCache(store)
-        idGenerator = IdGenerator(255)
+        idGenerator = IdGenerator.newInstance(255)
         emptyTree = CLTree(storeCache)
     }
 

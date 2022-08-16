@@ -13,14 +13,9 @@
  */
 package org.modelix.instancesmanager
 
-import io.kubernetes.client.openapi.models.V1Event
-import org.apache.commons.lang.StringEscapeUtils
 import org.apache.log4j.Logger
 import org.eclipse.jetty.server.Request
 import org.eclipse.jetty.server.handler.AbstractHandler
-import org.joda.time.DateTime
-import org.joda.time.Duration
-import org.joda.time.ReadableDuration
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
@@ -40,7 +35,7 @@ class DeploymentManagingHandler : AbstractHandler() {
 
             DeploymentTimeouts.INSTANCE.update(personalDeploymentName)
             val deployment = DeploymentManager.INSTANCE.getDeployment(personalDeploymentName, 3)
-                ?: throw RuntimeException("Failed to create deployment " + personalDeploymentName + " for user " + redirectedURL.userId)
+                ?: throw RuntimeException("Failed to create deployment " + personalDeploymentName + " for user " + redirectedURL.userToken)
             val readyReplicas = if (deployment.status != null) deployment.status!!.readyReplicas else null
             if (readyReplicas == null || readyReplicas == 0) {
                 baseRequest.isHandled = true

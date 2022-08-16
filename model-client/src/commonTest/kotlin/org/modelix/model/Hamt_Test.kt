@@ -110,7 +110,7 @@ class Hamt_Test {
         val rand = Random(123456789L)
         val entries = HashMap<Long, KVEntryReference<CPNode>>()
         for (i in 1..10) {
-            for (k in 1..1000) {
+            for (k in 1..500) {
                 val id = i * 1_000_000L + k
                 entries[id] = createEntry(id)
             }

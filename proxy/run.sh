@@ -6,7 +6,7 @@ fi
 echo "Nameserver is: $NAMESERVER"
 
 echo "Copying nginx config"
-envsubst '$NAMESERVER' < /etc/nginx/nginx.conf.template > /etc/nginx/nginx.conf
+envsubst '$NAMESERVER,$KUBERNETES_NAMESPACE,$KUBERNETES_INSTANCE_PREFIX' < /etc/nginx/nginx.conf.template > /etc/nginx/nginx.conf
 
 echo "Using nginx config:"
 cat /etc/nginx/nginx.conf

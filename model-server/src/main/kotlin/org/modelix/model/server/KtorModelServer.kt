@@ -14,25 +14,18 @@
 
 package org.modelix.model.server
 
-import io.ktor.server.application.*
-import io.ktor.server.plugins.cors.routing.*
 import io.ktor.http.*
+import io.ktor.server.application.*
 import io.ktor.server.auth.*
 import io.ktor.server.plugins.*
-import io.ktor.server.plugins.forwardedheaders.*
+import io.ktor.server.plugins.cors.routing.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import io.ktor.util.pipeline.*
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 import org.json.JSONArray
 import org.json.JSONObject
 import org.modelix.authorization.*
-import org.modelix.authorization.ktor.installAuthentication
-import org.modelix.authorization.ktor.requiresPermission
-import org.modelix.model.IKeyListener
 import org.modelix.model.persistent.HashUtil
 import org.slf4j.LoggerFactory
 import java.io.IOException
@@ -41,7 +34,7 @@ import java.net.UnknownHostException
 import java.util.*
 import java.util.regex.Pattern
 
-val PERMISSION_MODEL_SERVER = PermissionId("model-server")
+val PERMISSION_MODEL_SERVER = "model-server"
 
 private fun toLong(value: String?): Long {
     return if (value == null || value.isEmpty()) 0 else value.toLong()
@@ -59,42 +52,6 @@ class KtorModelServer(val storeClient: IStoreClient) {
         val HEALTH_KEY = PROTECTED_PREFIX + "health2"
         private const val LEGACY_SERVER_ID_KEY = "repositoryId"
         private const val SERVER_ID_KEY = "server-id"
-        private const val TEXT_PLAIN = "text/plain"
-        private fun parseXForwardedFor(value: String?): List<InetAddress> {
-            val result: List<InetAddress> = ArrayList()
-            return if (value != null) {
-                value.split(",".toRegex())
-                    .dropLastWhile { it.isEmpty() }
-                    .mapNotNull { v: String ->
-                        try {
-                            return@mapNotNull InetAddress.getByName(v.trim { it <= ' ' })
-                        } catch (e: UnknownHostException) {
-                            LOG.warn("Failed to parse IP address: $v", e)
-                            return@mapNotNull null
-                        }
-                    }
-                    .toList()
-            } else result
-        }
-
-        private fun isTrustedAddress(addrString: String): Boolean {
-            return try {
-                val addr = InetAddress.getByName(addrString)
-                isTrustedAddress(addr)
-            } catch (e: UnknownHostException) {
-                LOG.error("", e)
-                false
-            }
-        }
-
-        private fun isTrustedAddress(addr: InetAddress): Boolean {
-            return addr.isLoopbackAddress || addr.isLinkLocalAddress || addr.isSiteLocalAddress
-        }
-
-        private fun extractToken(call: ApplicationCall): String? {
-            val header = call.request.header("Authorization") ?: return null
-            return if (!header.startsWith("Bearer ")) null else header.substring("Bearer ".length)
-        }
 
         private fun randomUUID(): String {
             return UUID.randomUUID().toString().replace("[^a-zA-Z0-9]".toRegex(), "")
@@ -115,10 +72,6 @@ class KtorModelServer(val storeClient: IStoreClient) {
 
     private fun Application.modelServerModule() {
 
-        install(Routing)
-        installAuthentication()
-        install(ForwardedHeaders)
-
         routing {
             get("/health") {
                 if (isHealthy()) {
@@ -131,7 +84,7 @@ class KtorModelServer(val storeClient: IStoreClient) {
                 val headers = call.request.headers.entries().flatMap { e -> e.value.map { e.key to it } }
                 call.respondText(headers.joinToString("\n") { "${it.first}: ${it.second}" })
             }
-            requiresPermission(PERMISSION_MODEL_SERVER, EPermissionType.READ) {
+            requiresPermission(PERMISSION_MODEL_SERVER, EPermissionType.READ.name) {
                 get("/get/{key}") {
                     val key = call.parameters["key"]!!
                     checkKeyPermission(key, EPermissionType.READ)
@@ -148,33 +101,8 @@ class KtorModelServer(val storeClient: IStoreClient) {
                     }
                 }
 
-                get("/generateToken") {
-                    var email = call.request.header("X-Forwarded-Email")
-                    if ((email == null || email.isEmpty()) && isTrustedAddress()) {
-                        email = "localhost"
-                    }
-                    if (email == null || email.isEmpty()) {
-                        call.respondText(text = "Not logged in.", status = HttpStatusCode.Unauthorized)
-                        return@get
-                    }
-                    val token = randomUUID()
-                    storeClient.put(PROTECTED_PREFIX + "_token_email_" + token, email)
-                    storeClient.put(
-                        PROTECTED_PREFIX + "_token_expires_" + token,
-                        (System.currentTimeMillis() + 7 * 24 * 60 * 60 * 1000).toString()
-                    )
-                    call.respondText(text = token)
-                }
-
                 get("/getEmail") {
-                    val token = extractToken(call)
-                    if (token == null) {
-                        call.respond(status = HttpStatusCode.NoContent, "Token missing")
-                        return@get
-                    }
-                    val email = storeClient[PROTECTED_PREFIX + "_token_email_" + token]
-                    // The email could be null because we can authorize also without a valid token
-                    call.respondText(email ?: "<no email>")
+                    call.respondText(call.getUserName() ?: "<no email>")
                 }
 
                 post("/counter/{key}") {
@@ -241,7 +169,7 @@ class KtorModelServer(val storeClient: IStoreClient) {
                     call.respondText(respJson.toString(), contentType = ContentType.Application.Json)
                 }
             }
-            requiresPermission(PERMISSION_MODEL_SERVER, EPermissionType.WRITE) {
+            requiresPermission(PERMISSION_MODEL_SERVER, "write") {
 
             }
         }
@@ -345,11 +273,7 @@ class KtorModelServer(val storeClient: IStoreClient) {
         storeClient.putAll(newEntries)
     }
 
-    private fun PipelineContext<Unit, ApplicationCall>.isTrustedAddress(): Boolean {
-        return isTrustedAddress(call.request.origin.remoteHost)
-    }
-
-    private suspend fun PipelineContext<Unit, ApplicationCall>.respondValue(key: String, value: String?) {
+    private suspend fun CallContext.respondValue(key: String, value: String?) {
         if (value == null) {
             call.respondText("key '$key' not found", status = HttpStatusCode.NotFound)
         } else {
@@ -371,7 +295,7 @@ class KtorModelServer(val storeClient: IStoreClient) {
             // A permission check has happened somewhere earlier.
             return
         }
-        //ModelixAuthorization.checkPermission(getUser(), PermissionId("model-server-entry/$key"), type, publicIfNew = true)
+        call.checkPermission("model-server-entry/$key", type.name)
     }
 
 

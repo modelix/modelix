@@ -1,10 +1,10 @@
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 
 description = "Downloads modules from a workspace before starting MPS"
-val ktorVersion = "1.6.7"
-val kotlinCoroutinesVersion = "1.6.0"
-val kotlinVersion = "1.6.21"
-val logbackVersion = "1.2.1"
+val ktorVersion: String by rootProject
+val kotlinCoroutinesVersion: String by rootProject
+val kotlinVersion: String by rootProject
+val logbackVersion: String by rootProject
 
 plugins {
     kotlin("jvm")
@@ -37,6 +37,7 @@ dependencies {
     implementation("org.zeroturnaround:zt-zip:1.14")
     implementation("org.apache.commons:commons-text:1.9")
     implementation(project(":workspace-manager"))
+    implementation("io.ktor:ktor-client-auth:$ktorVersion")
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.6.0")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
 }

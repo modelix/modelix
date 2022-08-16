@@ -21,6 +21,7 @@ import org.modelix.model.lazy.IConceptReferenceSerializer
 import org.modelix.model.lazy.ITreeWrapper
 
 class MetaModelBranch(val branch: IBranch) : IBranch by branch {
+    var disabled: Boolean = true
     private val metaModelSynchronizer = MetaModelSynchronizer(branch)
     private val listenerWrappers: MutableMap<IBranchListener, MMBranchListener> = HashMap()
     override val readTransaction: IReadTransaction
@@ -52,12 +53,13 @@ class MetaModelBranch(val branch: IBranch) : IBranch by branch {
                 uid = tree.getProperty(localConcept.id, MetaMetaLanguage.property_IHasUID_uid.name)
             }
             return IConceptReferenceSerializer.deserializeAll(uid, tree).firstOrNull { it !is PersistedConcept }
-                ?: throw RuntimeException("Cannot find concept $uid")
+                ?: throw RuntimeException("Cannot find concept $uid, id = ${localConcept.id}")
         }
         return localConcept
     }
 
     fun toLocalConcept(globalConcept: IConcept): IConcept {
+        if (disabled) return globalConcept
         val localConceptId = metaModelSynchronizer.getConceptId(globalConcept)
         if (localConceptId == 0L) return globalConcept
         return PersistedConcept(localConceptId, globalConcept.getUID())
