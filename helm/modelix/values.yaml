@@ -32,6 +32,9 @@ ingress:
   hostname: "localhost"
   port: ""
 
+ingress-nginx:
+  enabled: true
+
 db:
   useGCloud: false
   user: "modelix"

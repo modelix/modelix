@@ -16,8 +16,6 @@ Otherwise, MPS (the JBR) will not use the correct memory limit.
     You can install modelix multiple times by running this command with different names.
   - "xyz.127.0.0.1.nip.io" is the hostname used to access the modelix instance.
     In a development environment this can just be localhost or use nip.io if you want to run multiple instances.
-- If you are using docker desktop you have to run the following command to enable ingresses:
-  - `helm upgrade --install ingress-nginx ingress-nginx --repo https://kubernetes.github.io/ingress-nginx --namespace ingress-nginx --create-namespace`
 
 ## Model Server
 

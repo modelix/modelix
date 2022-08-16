@@ -24,8 +24,6 @@ Otherwise, MPS (the JBR) will not use the correct memory limit.
 
 - [Install helm](https://helm.sh/docs/intro/install/)
 - run `helm install --repo https://artifacts.itemis.cloud/repository/helm-modelix/ dev modelix`
-- If you are using docker desktop you have to run the following command to enable ingresses:
-  - `helm upgrade --install ingress-nginx ingress-nginx --repo https://kubernetes.github.io/ingress-nginx --namespace ingress-nginx --create-namespace`
 - Helm allows you to deploy multiple instances of modelix to the same cluster.
   You could have one instance for testing and one production instance.
   Just specify a different instance name and hostname when running helm:
