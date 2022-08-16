@@ -18318,58 +18318,32 @@
               </node>
             </node>
             <node concept="3clFbH" id="72FvSoAx8E9" role="3cqZAp" />
-            <node concept="3cpWs8" id="72FvSoAx352" role="3cqZAp">
-              <node concept="3cpWsn" id="72FvSoAx355" role="3cpWs9">
-                <property role="TrG5h" value="gradleTaskPort" />
-                <node concept="10Oyi0" id="72FvSoAx350" role="1tU5fm" />
-                <node concept="2YIFZM" id="72FvSoAx5ri" role="33vP2m">
-                  <ref role="1Pybhc" to="wyt6:~Integer" resolve="Integer" />
-                  <ref role="37wK5l" to="wyt6:~Integer.parseInt(java.lang.String)" resolve="parseInt" />
-                  <node concept="2YIFZM" id="72FvSoAx5xV" role="37wK5m">
-                    <ref role="1Pybhc" to="ia5i:3xX$Vyo038N" resolve="PropertyOrEnv" />
-                    <ref role="37wK5l" to="ia5i:3xX$Vyo0aHz" resolve="get" />
-                    <node concept="10M0yZ" id="72FvSoAx5Wz" role="37wK5m">
-                      <ref role="3cqZAo" node="72FvSoAwZtY" resolve="GRADLE_PLUGIN_SOCKET_PORT" />
-                      <ref role="1PxDUh" node="4D52TXxApUP" resolve="ModelixExportConfiguration" />
-                    </node>
-                  </node>
-                </node>
-              </node>
-            </node>
-            <node concept="3clFbF" id="1ZcsIWIjaGi" role="3cqZAp">
-              <node concept="2OqwBi" id="1ZcsIWIjaGj" role="3clFbG">
-                <node concept="10M0yZ" id="1ZcsIWIjaGk" role="2Oq$k0">
+            <node concept="3clFbF" id="4h3DzUoOQT_" role="3cqZAp">
+              <node concept="2OqwBi" id="4h3DzUoOQTA" role="3clFbG">
+                <node concept="10M0yZ" id="4h3DzUoOQTB" role="2Oq$k0">
                   <ref role="1PxDUh" to="wyt6:~System" resolve="System" />
                   <ref role="3cqZAo" to="wyt6:~System.out" resolve="out" />
                 </node>
-                <node concept="liA8E" id="1ZcsIWIjaGl" role="2OqNvi">
+                <node concept="liA8E" id="4h3DzUoOQTC" role="2OqNvi">
                   <ref role="37wK5l" to="guwi:~PrintStream.println(java.lang.String)" resolve="println" />
-                  <node concept="3cpWs3" id="1ZcsIWIjdnU" role="37wK5m">
-                    <node concept="37vLTw" id="1ZcsIWIjdCo" role="3uHU7w">
-                      <ref role="3cqZAo" node="72FvSoAx355" resolve="gradleTaskPort" />
-                    </node>
-                    <node concept="Xl_RD" id="1ZcsIWIjaGm" role="3uHU7B">
-                      <property role="Xl_RC" value="Modelix Application Plugin - connecting to gradle task on port " />
-                    </node>
+                  <node concept="Xl_RD" id="4h3DzUoOQTD" role="37wK5m">
+                    <property role="Xl_RC" value="Modelix Application Plugin - consider gradle task connection" />
                   </node>
                 </node>
               </node>
             </node>
-            <node concept="3cpWs8" id="72FvSoAxcHh" role="3cqZAp">
-              <node concept="3cpWsn" id="72FvSoAxcHi" role="3cpWs9">
-                <property role="TrG5h" value="gradleTaskClient" />
-                <node concept="3uibUv" id="72FvSoAxeK2" role="1tU5fm">
-                  <ref role="3uigEE" to="zf81:~Socket" resolve="Socket" />
+            <node concept="3cpWs8" id="4h3DzUoN1Pz" role="3cqZAp">
+              <node concept="3cpWsn" id="4h3DzUoN1P$" role="3cpWs9">
+                <property role="TrG5h" value="socketPortStr" />
+                <node concept="3uibUv" id="4h3DzUoN1P_" role="1tU5fm">
+                  <ref role="3uigEE" to="wyt6:~String" resolve="String" />
                 </node>
-                <node concept="2ShNRf" id="72FvSoAxf6f" role="33vP2m">
-                  <node concept="1pGfFk" id="72FvSoAxf0x" role="2ShVmc">
-                    <ref role="37wK5l" to="zf81:~Socket.&lt;init&gt;(java.lang.String,int)" resolve="Socket" />
-                    <node concept="Xl_RD" id="72FvSoAxfht" role="37wK5m">
-                      <property role="Xl_RC" value="127.0.0.1" />
-                    </node>
-                    <node concept="37vLTw" id="72FvSoAxg2I" role="37wK5m">
-                      <ref role="3cqZAo" node="72FvSoAx355" resolve="gradleTaskPort" />
-                    </node>
+                <node concept="2YIFZM" id="4h3DzUoN4GQ" role="33vP2m">
+                  <ref role="1Pybhc" to="ia5i:3xX$Vyo038N" resolve="PropertyOrEnv" />
+                  <ref role="37wK5l" to="ia5i:3xX$Vyo0aHz" resolve="get" />
+                  <node concept="10M0yZ" id="4h3DzUoN4GR" role="37wK5m">
+                    <ref role="3cqZAo" node="72FvSoAwZtY" resolve="GRADLE_PLUGIN_SOCKET_PORT" />
+                    <ref role="1PxDUh" node="4D52TXxApUP" resolve="ModelixExportConfiguration" />
                   </node>
                 </node>
               </node>
@@ -18380,46 +18354,187 @@
                 <node concept="3uibUv" id="72FvSoAxtfJ" role="1tU5fm">
                   <ref role="3uigEE" to="guwi:~PrintWriter" resolve="PrintWriter" />
                 </node>
-                <node concept="2ShNRf" id="72FvSoAxmSg" role="33vP2m">
-                  <node concept="1pGfFk" id="72FvSoAxmT8" role="2ShVmc">
-                    <ref role="37wK5l" to="guwi:~PrintWriter.&lt;init&gt;(java.io.OutputStream,boolean)" resolve="PrintWriter" />
-                    <node concept="2OqwBi" id="72FvSoAxn3v" role="37wK5m">
-                      <node concept="37vLTw" id="72FvSoAxnjS" role="2Oq$k0">
-                        <ref role="3cqZAo" node="72FvSoAxcHi" resolve="gradleTaskClient" />
-                      </node>
-                      <node concept="liA8E" id="72FvSoAxn3w" role="2OqNvi">
-                        <ref role="37wK5l" to="zf81:~Socket.getOutputStream()" resolve="getOutputStream" />
+              </node>
+            </node>
+            <node concept="3clFbJ" id="4h3DzUoNa1Y" role="3cqZAp">
+              <node concept="3clFbS" id="4h3DzUoNa20" role="3clFbx">
+                <node concept="3clFbF" id="1ZcsIWIjaGi" role="3cqZAp">
+                  <node concept="2OqwBi" id="1ZcsIWIjaGj" role="3clFbG">
+                    <node concept="10M0yZ" id="1ZcsIWIjaGk" role="2Oq$k0">
+                      <ref role="1PxDUh" to="wyt6:~System" resolve="System" />
+                      <ref role="3cqZAo" to="wyt6:~System.out" resolve="out" />
+                    </node>
+                    <node concept="liA8E" id="1ZcsIWIjaGl" role="2OqNvi">
+                      <ref role="37wK5l" to="guwi:~PrintStream.println(java.lang.String)" resolve="println" />
+                      <node concept="3cpWs3" id="1ZcsIWIjdnU" role="37wK5m">
+                        <node concept="37vLTw" id="1ZcsIWIjdCo" role="3uHU7w">
+                          <ref role="3cqZAo" node="4h3DzUoN1P$" resolve="socketPortStr" />
+                        </node>
+                        <node concept="Xl_RD" id="1ZcsIWIjaGm" role="3uHU7B">
+                          <property role="Xl_RC" value="Modelix Application Plugin - connecting to gradle task on port " />
+                        </node>
                       </node>
                     </node>
-                    <node concept="3clFbT" id="72FvSoAxmTa" role="37wK5m">
-                      <property role="3clFbU" value="true" />
+                  </node>
+                </node>
+                <node concept="3cpWs8" id="72FvSoAx352" role="3cqZAp">
+                  <node concept="3cpWsn" id="72FvSoAx355" role="3cpWs9">
+                    <property role="TrG5h" value="gradleTaskPort" />
+                    <node concept="10Oyi0" id="72FvSoAx350" role="1tU5fm" />
+                    <node concept="2YIFZM" id="72FvSoAx5ri" role="33vP2m">
+                      <ref role="1Pybhc" to="wyt6:~Integer" resolve="Integer" />
+                      <ref role="37wK5l" to="wyt6:~Integer.parseInt(java.lang.String)" resolve="parseInt" />
+                      <node concept="37vLTw" id="4h3DzUoOvSv" role="37wK5m">
+                        <ref role="3cqZAo" node="4h3DzUoN1P$" resolve="socketPortStr" />
+                      </node>
+                    </node>
+                  </node>
+                </node>
+                <node concept="3cpWs8" id="72FvSoAxcHh" role="3cqZAp">
+                  <node concept="3cpWsn" id="72FvSoAxcHi" role="3cpWs9">
+                    <property role="TrG5h" value="gradleTaskClient" />
+                    <node concept="3uibUv" id="72FvSoAxeK2" role="1tU5fm">
+                      <ref role="3uigEE" to="zf81:~Socket" resolve="Socket" />
+                    </node>
+                    <node concept="2ShNRf" id="72FvSoAxf6f" role="33vP2m">
+                      <node concept="1pGfFk" id="72FvSoAxf0x" role="2ShVmc">
+                        <ref role="37wK5l" to="zf81:~Socket.&lt;init&gt;(java.lang.String,int)" resolve="Socket" />
+                        <node concept="Xl_RD" id="72FvSoAxfht" role="37wK5m">
+                          <property role="Xl_RC" value="127.0.0.1" />
+                        </node>
+                        <node concept="37vLTw" id="72FvSoAxg2I" role="37wK5m">
+                          <ref role="3cqZAo" node="72FvSoAx355" resolve="gradleTaskPort" />
+                        </node>
+                      </node>
+                    </node>
+                  </node>
+                </node>
+                <node concept="3clFbF" id="4h3DzUoNU5p" role="3cqZAp">
+                  <node concept="37vLTI" id="4h3DzUoNU5r" role="3clFbG">
+                    <node concept="2ShNRf" id="72FvSoAxmSg" role="37vLTx">
+                      <node concept="1pGfFk" id="72FvSoAxmT8" role="2ShVmc">
+                        <ref role="37wK5l" to="guwi:~PrintWriter.&lt;init&gt;(java.io.OutputStream,boolean)" resolve="PrintWriter" />
+                        <node concept="2OqwBi" id="72FvSoAxn3v" role="37wK5m">
+                          <node concept="37vLTw" id="72FvSoAxnjS" role="2Oq$k0">
+                            <ref role="3cqZAo" node="72FvSoAxcHi" resolve="gradleTaskClient" />
+                          </node>
+                          <node concept="liA8E" id="72FvSoAxn3w" role="2OqNvi">
+                            <ref role="37wK5l" to="zf81:~Socket.getOutputStream()" resolve="getOutputStream" />
+                          </node>
+                        </node>
+                        <node concept="3clFbT" id="72FvSoAxmTa" role="37wK5m">
+                          <property role="3clFbU" value="true" />
+                        </node>
+                      </node>
+                    </node>
+                    <node concept="37vLTw" id="4h3DzUoNU5v" role="37vLTJ">
+                      <ref role="3cqZAo" node="72FvSoAxtfI" resolve="gradleTaskOut" />
+                    </node>
+                  </node>
+                </node>
+                <node concept="3cpWs8" id="72FvSoAx$WH" role="3cqZAp">
+                  <node concept="3cpWsn" id="72FvSoAx$WI" role="3cpWs9">
+                    <property role="TrG5h" value="gradleTaskIn" />
+                    <node concept="3uibUv" id="72FvSoAxBui" role="1tU5fm">
+                      <ref role="3uigEE" to="guwi:~BufferedReader" resolve="BufferedReader" />
+                    </node>
+                    <node concept="2ShNRf" id="72FvSoAxBDp" role="33vP2m">
+                      <node concept="1pGfFk" id="72FvSoAxqoy" role="2ShVmc">
+                        <ref role="37wK5l" to="guwi:~BufferedReader.&lt;init&gt;(java.io.Reader)" resolve="BufferedReader" />
+                        <node concept="2ShNRf" id="72FvSoAxqoz" role="37wK5m">
+                          <node concept="1pGfFk" id="72FvSoAxqo$" role="2ShVmc">
+                            <ref role="37wK5l" to="guwi:~InputStreamReader.&lt;init&gt;(java.io.InputStream)" resolve="InputStreamReader" />
+                            <node concept="2OqwBi" id="72FvSoAxEaG" role="37wK5m">
+                              <node concept="37vLTw" id="72FvSoAxEt3" role="2Oq$k0">
+                                <ref role="3cqZAo" node="72FvSoAxcHi" resolve="gradleTaskClient" />
+                              </node>
+                              <node concept="liA8E" id="72FvSoAxEaH" role="2OqNvi">
+                                <ref role="37wK5l" to="zf81:~Socket.getInputStream()" resolve="getInputStream" />
+                              </node>
+                            </node>
+                          </node>
+                        </node>
+                      </node>
+                    </node>
+                  </node>
+                </node>
+              </node>
+              <node concept="1Wc70l" id="4h3DzUoNi5W" role="3clFbw">
+                <node concept="3fqX7Q" id="4h3DzUoNkc0" role="3uHU7w">
+                  <node concept="2OqwBi" id="4h3DzUoNpAU" role="3fr31v">
+                    <node concept="37vLTw" id="4h3DzUoNnFS" role="2Oq$k0">
+                      <ref role="3cqZAo" node="4h3DzUoN1P$" resolve="socketPortStr" />
+                    </node>
+                    <node concept="17RlXB" id="4h3DzUoNt$M" role="2OqNvi" />
+                  </node>
+                </node>
+                <node concept="3y3z36" id="4h3DzUoNelQ" role="3uHU7B">
+                  <node concept="37vLTw" id="4h3DzUoNc7T" role="3uHU7B">
+                    <ref role="3cqZAo" node="4h3DzUoN1P$" resolve="socketPortStr" />
+                  </node>
+                  <node concept="10Nm6u" id="4h3DzUoNgdh" role="3uHU7w" />
+                </node>
+              </node>
+              <node concept="9aQIb" id="4h3DzUoN$ee" role="9aQIa">
+                <node concept="3clFbS" id="4h3DzUoN$ef" role="9aQI4">
+                  <node concept="3clFbF" id="4h3DzUoNBy8" role="3cqZAp">
+                    <node concept="2OqwBi" id="4h3DzUoNBy9" role="3clFbG">
+                      <node concept="10M0yZ" id="4h3DzUoNBya" role="2Oq$k0">
+                        <ref role="1PxDUh" to="wyt6:~System" resolve="System" />
+                        <ref role="3cqZAo" to="wyt6:~System.out" resolve="out" />
+                      </node>
+                      <node concept="liA8E" id="4h3DzUoNByb" role="2OqNvi">
+                        <ref role="37wK5l" to="guwi:~PrintStream.println(java.lang.String)" resolve="println" />
+                        <node concept="Xl_RD" id="4h3DzUoNBye" role="37wK5m">
+                          <property role="Xl_RC" value="Modelix Application Plugin - connecting to gradle task not requested" />
+                        </node>
+                      </node>
+                    </node>
+                  </node>
+                  <node concept="3cpWs8" id="4h3DzUoOc3R" role="3cqZAp">
+                    <node concept="3cpWsn" id="4h3DzUoOc3S" role="3cpWs9">
+                      <property role="TrG5h" value="sw" />
+                      <node concept="3uibUv" id="4h3DzUoOc3T" role="1tU5fm">
+                        <ref role="3uigEE" to="guwi:~StringWriter" resolve="StringWriter" />
+                      </node>
+                      <node concept="2ShNRf" id="4h3DzUoOhoZ" role="33vP2m">
+                        <node concept="1pGfFk" id="4h3DzUoOhjh" role="2ShVmc">
+                          <ref role="37wK5l" to="guwi:~StringWriter.&lt;init&gt;()" resolve="StringWriter" />
+                        </node>
+                      </node>
+                    </node>
+                  </node>
+                  <node concept="3clFbF" id="4h3DzUoO0Rf" role="3cqZAp">
+                    <node concept="37vLTI" id="4h3DzUoO0Rg" role="3clFbG">
+                      <node concept="2ShNRf" id="4h3DzUoO0Rh" role="37vLTx">
+                        <node concept="1pGfFk" id="4h3DzUoO0Ri" role="2ShVmc">
+                          <ref role="37wK5l" to="guwi:~PrintWriter.&lt;init&gt;(java.io.Writer,boolean)" resolve="PrintWriter" />
+                          <node concept="37vLTw" id="4h3DzUoOkTE" role="37wK5m">
+                            <ref role="3cqZAo" node="4h3DzUoOc3S" resolve="sw" />
+                          </node>
+                          <node concept="3clFbT" id="4h3DzUoO0Rm" role="37wK5m">
+                            <property role="3clFbU" value="true" />
+                          </node>
+                        </node>
+                      </node>
+                      <node concept="37vLTw" id="4h3DzUoO0Rn" role="37vLTJ">
+                        <ref role="3cqZAo" node="72FvSoAxtfI" resolve="gradleTaskOut" />
+                      </node>
                     </node>
                   </node>
                 </node>
               </node>
             </node>
-            <node concept="3cpWs8" id="72FvSoAx$WH" role="3cqZAp">
-              <node concept="3cpWsn" id="72FvSoAx$WI" role="3cpWs9">
-                <property role="TrG5h" value="gradleTaskIn" />
-                <node concept="3uibUv" id="72FvSoAxBui" role="1tU5fm">
-                  <ref role="3uigEE" to="guwi:~BufferedReader" resolve="BufferedReader" />
+            <node concept="3clFbF" id="4h3DzUoP1uN" role="3cqZAp">
+              <node concept="2OqwBi" id="4h3DzUoP1uO" role="3clFbG">
+                <node concept="10M0yZ" id="4h3DzUoP1uP" role="2Oq$k0">
+                  <ref role="1PxDUh" to="wyt6:~System" resolve="System" />
+                  <ref role="3cqZAo" to="wyt6:~System.out" resolve="out" />
                 </node>
-                <node concept="2ShNRf" id="72FvSoAxBDp" role="33vP2m">
-                  <node concept="1pGfFk" id="72FvSoAxqoy" role="2ShVmc">
-                    <ref role="37wK5l" to="guwi:~BufferedReader.&lt;init&gt;(java.io.Reader)" resolve="BufferedReader" />
-                    <node concept="2ShNRf" id="72FvSoAxqoz" role="37wK5m">
-                      <node concept="1pGfFk" id="72FvSoAxqo$" role="2ShVmc">
-                        <ref role="37wK5l" to="guwi:~InputStreamReader.&lt;init&gt;(java.io.InputStream)" resolve="InputStreamReader" />
-                        <node concept="2OqwBi" id="72FvSoAxEaG" role="37wK5m">
-                          <node concept="37vLTw" id="72FvSoAxEt3" role="2Oq$k0">
-                            <ref role="3cqZAo" node="72FvSoAxcHi" resolve="gradleTaskClient" />
-                          </node>
-                          <node concept="liA8E" id="72FvSoAxEaH" role="2OqNvi">
-                            <ref role="37wK5l" to="zf81:~Socket.getInputStream()" resolve="getInputStream" />
-                          </node>
-                        </node>
-                      </node>
-                    </node>
+                <node concept="liA8E" id="4h3DzUoP1uQ" role="2OqNvi">
+                  <ref role="37wK5l" to="guwi:~PrintStream.println(java.lang.String)" resolve="println" />
+                  <node concept="Xl_RD" id="4h3DzUoP1uR" role="37wK5m">
+                    <property role="Xl_RC" value="Modelix Application Plugin - gradle task considered" />
                   </node>
                 </node>
               </node>
