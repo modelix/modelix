@@ -1,0 +1,7 @@
+apiVersion: v1
+data:
+  realm.json: |-
+{{ .Files.Get "keycloak-realm.json" | indent 4 }}
+kind: ConfigMap
+metadata:
+  name: "{{ include "modelix.fullname" . }}-keycloak-configmap"

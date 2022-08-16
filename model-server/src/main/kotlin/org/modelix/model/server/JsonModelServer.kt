@@ -14,9 +14,7 @@
 package org.modelix.model.server
 
 import io.ktor.http.*
-import io.ktor.network.sockets.*
 import io.ktor.server.application.*
-import io.ktor.server.auth.*
 import io.ktor.server.html.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
@@ -32,7 +30,8 @@ import kotlinx.html.td
 import kotlinx.html.tr
 import org.json.JSONArray
 import org.json.JSONObject
-import org.modelix.authorization.AuthenticatedUser
+import org.modelix.authorization.getUserName
+import org.modelix.authorization.requiresPermission
 import org.modelix.model.IKeyListener
 import org.modelix.model.VersionMerger
 import org.modelix.model.api.*
@@ -52,8 +51,10 @@ class JsonModelServer(val client: LocalModelClient) {
         application.apply {
             install(WebSockets)
             routing {
-                route("/json") {
-                    initRouting()
+                requiresPermission("model-json-api", "read") {
+                    route("/json") {
+                        initRouting()
+                    }
                 }
             }
         }
@@ -92,6 +93,12 @@ class JsonModelServer(val client: LocalModelClient) {
                                 +" it into the master branch. Return the model content after the merge."
                             }
                         }
+                        tr {
+                            td { +"WEBSOCKET /{repositoryId}/ws" }
+                            td {
+                                + "WebSocket for exchanging model deltas."
+                            }
+                        }
                     }
                 }
             }
@@ -120,7 +127,7 @@ class JsonModelServer(val client: LocalModelClient) {
         }
         webSocket("/{repositoryId}/ws") {
             val repositoryId = RepositoryId(call.parameters["repositoryId"]!!)
-            val userId = (call.principal<AuthenticatedUser>() ?: AuthenticatedUser.ANONYMOUS_USER).userIds.firstOrNull()
+            val userId = call.getUserName()
 
             var lastVersion: CLVersion? = null
             val deltaMutex = Mutex()
@@ -164,7 +171,7 @@ class JsonModelServer(val client: LocalModelClient) {
             // TODO error if it already exists
             val repositoryId = RepositoryId(call.parameters["repositoryId"]!!)
             val newTree = CLTree(repositoryId, getStore())
-            val userId = call.principal<AuthenticatedUser>()?.userIds?.firstOrNull()
+            val userId = call.getUserName()
             val newVersion = CLVersion.createRegularVersion(
                 client.idGenerator.generate(),
                 Date().toString(),
@@ -179,7 +186,6 @@ class JsonModelServer(val client: LocalModelClient) {
         post("/{repositoryId}/{versionHash}/update") {
             val updateData = JSONArray(call.receiveText())
             val repositoryId = RepositoryId(call.parameters["repositoryId"]!!)
-            val userId = (call.principal<AuthenticatedUser>() ?: AuthenticatedUser.ANONYMOUS_USER).userIds.firstOrNull()
             val baseVersionHash = call.parameters["versionHash"]!!
             val baseVersionData = getStore().get(baseVersionHash, { CPVersion.deserialize(it) })
             if (baseVersionData == null) {
@@ -187,7 +193,7 @@ class JsonModelServer(val client: LocalModelClient) {
                 return@post
             }
             val baseVersion = CLVersion(baseVersionData, getStore())
-            val mergedVersion = applyUpdate(baseVersion, updateData, repositoryId, userId)
+            val mergedVersion = applyUpdate(baseVersion, updateData, repositoryId, getUserName())
             respondVersion(mergedVersion, baseVersion)
 
         }

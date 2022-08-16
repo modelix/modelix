@@ -1,0 +1,71 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+  labels:
+    app: workspace-manager
+  name: workspace-manager
+spec:
+  revisionHistoryLimit: 5
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 0
+  selector:
+    matchLabels:
+      app: workspace-manager
+  template:
+    metadata:
+      labels:
+        app: workspace-manager
+    spec:
+      containers:
+      - env:
+          - name: model_server_url
+            value: http://model:28101/
+          - name: CLIENT_SECRET
+            value: Bz4HAIfb4X2STVGDzAi4A3fDzOvMFugL
+        image: modelix/modelix-workspace-manager:2020.3.5-202206221832-SNAPSHOT
+        imagePullPolicy: IfNotPresent
+        name: workspace-manager
+        ports:
+        - containerPort: 28104
+        - containerPort: 5071
+          name: "jvm-debug"
+        resources: 
+          requests:
+            memory: "3Gi"
+            cpu: "0.1"
+          limits:
+            memory: "3Gi"
+            cpu: "1.0"
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 28104
+          initialDelaySeconds: 5
+          periodSeconds: 5
+          timeoutSeconds: 3
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 28104
+          initialDelaySeconds: 60
+          periodSeconds: 15
+          timeoutSeconds: 10
+        volumeMounts:
+          - mountPath: "/workspace-manager/modelix-workspaces/uploads"
+            name: workspace-uploads
+          - name: workspacesecret
+            mountPath: /secrets/workspacesecret
+            readOnly: true
+      restartPolicy: Always
+      volumes:
+        - name: workspace-uploads
+          persistentVolumeClaim:
+            claimName: workspace-uploads
+        - name: workspacesecret
+          secret:
+            secretName: workspacesecret

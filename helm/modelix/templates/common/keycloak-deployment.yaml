@@ -1,0 +1,87 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: "{{ include "modelix.fullname" . }}-keycloak"
+  labels:
+    component: keycloak
+    {{- include "modelix.labels" . | nindent 4 }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      component: keycloak
+      {{- include "modelix.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        component: keycloak
+        {{- include "modelix.selectorLabels" . | nindent 8 }}
+    spec:
+      containers:
+      - name: keycloak
+        image: "{{ default .Values.dockerProxy.prefix "quay.io/" }}keycloak/keycloak:18.0.1"
+        args: ["start-dev", "--import-realm"]
+        env:
+        - name: KC_LOG_LEVEL
+          value: "{{ .Values.keycloak.loglevel }}"
+        - name: KEYCLOAK_ADMIN
+          value: "admin"
+        - name: KEYCLOAK_ADMIN_PASSWORD
+          value: "{{ .Values.keycloak.adminPassword }}"
+        #- name: KC_PROXY
+        #  value: "edge"
+        - name: PROXY_ADDRESS_FORWARDING
+          value: "true"
+        - name: KC_DB
+          value: "postgres"
+        - name: KC_DB_USERNAME
+          value: "{{ .Values.db.user }}"
+        - name: KC_DB_PASSWORD
+          value: "{{ .Values.db.password }}"
+        - name: KC_DB_URL
+          value: "jdbc:postgresql://{{ include "modelix.fullname" . }}-db:5432/"
+        #- name: KC_HOSTNAME_ADMIN
+        #  value: "kcadmin.{{ .Values.ingress.hostname }}"
+        #- name: KC_HOSTNAME
+        #  value: "kc.{{ .Values.ingress.hostname }}"
+        #- name: KC_HOSTNAME_STRICT
+        #  value: "true"
+        #- name: KC_HOSTNAME_PATH
+        #  value: "/"
+        #- name: KC_HOSTNAME_PORT
+        #  value: "{{ .Values.ingress.port }}"
+        - name: KEYCLOAK_FRONTEND_URL
+          value: "{{ include "modelix.externalKeycloakUrl" . }}auth"
+        - name: REALM_FRONTEND_URL
+          value: "{{ include "modelix.externalKeycloakUrl" . }}"
+        - name: REALM_BACKEND_URL
+          value: "{{ include "modelix.internalKeycloakUrl" . }}"
+        - name: KC_HOSTNAME_STRICT
+          value: "false"
+        - name: REALM_CLIENT_SECRET
+          value: "{{ .Values.keycloak.clientSecret }}"
+        {{ if .Values.keycloak.debug }}
+        - name: DEBUG
+          value: "true"
+        - name: DEBUG_PORT
+          value: "*:8787"
+        {{ end }}
+        ports:
+        - name: http
+          containerPort: 8080
+        {{ if .Values.keycloak.debug }}
+        - name: debug
+          containerPort: 8787
+        {{ end }}
+        readinessProbe:
+          httpGet:
+            path: /realms/master
+            port: 8080
+        volumeMounts:
+          - name: keycloak-volume
+            mountPath: /opt/keycloak/data/import
+      volumes:
+        - name: keycloak-volume
+          configMap:
+            name: "{{ include "modelix.fullname" . }}-keycloak-configmap"
+      {{- include "modelix.pullSecret" . | nindent 6 }}

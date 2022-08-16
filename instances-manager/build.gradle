@@ -24,6 +24,11 @@ shadowJar {
     archiveVersion.set("latest")
 }
 
+def ktorVersion = rootProject.ktorVersion
+def kotlinCoroutinesVersion = rootProject.kotlinCoroutinesVersion
+def kotlinVersion = rootProject.kotlinVersion
+def logbackVersion = rootProject.logbackVersion
+
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
     compile 'io.kubernetes:client-java:8.0.2'
@@ -46,13 +51,14 @@ dependencies {
 
     implementation(project(path: ":model-client", configuration: "jvmRuntimeElements"))
     implementation(project(path: ":workspaces"))
+    implementation(project(path: ":authorization"))
+    implementation("com.auth0:java-jwt:3.19.2")
 
-    def ktorVersion = "1.6.5"
-    def kotlinCoroutinesVersion = "1.5.2"
     implementation(group: "io.ktor", name: "ktor-server-core", version: ktorVersion)
     implementation(group: "io.ktor", name: "ktor-server-netty", version: ktorVersion)
     implementation(group: "org.jetbrains.kotlinx", name: "kotlinx-coroutines-jdk8", version: kotlinCoroutinesVersion)
-    implementation(group: "io.ktor", name: "ktor-html-builder", version: ktorVersion)
+    implementation("io.ktor:ktor-server-cors:$ktorVersion")
+    implementation("io.ktor:ktor-server-html-builder:$ktorVersion")
 }
 
 assemble.dependsOn shadowJar

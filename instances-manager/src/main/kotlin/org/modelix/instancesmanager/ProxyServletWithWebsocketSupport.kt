@@ -14,6 +14,7 @@
 package org.modelix.instancesmanager
 
 import org.apache.log4j.Logger
+import org.eclipse.jetty.client.HttpClient
 import org.eclipse.jetty.proxy.ProxyServlet
 import org.eclipse.jetty.websocket.api.Session
 import org.eclipse.jetty.websocket.api.WebSocketBehavior
@@ -184,6 +185,14 @@ abstract class ProxyServletWithWebsocketSupport : ProxyServlet() {
                     LOG.error("", cause)
                 }
             }
+        }
+    }
+
+    override fun createHttpClient(): HttpClient {
+        return super.createHttpClient().apply {
+            // JWT tokens are big
+            requestBufferSize = 32 * 1024
+            responseBufferSize = 32 * 1024
         }
     }
 

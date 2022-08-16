@@ -7,95 +7,39 @@ The Modelix project develops a next generation language workbench that is native
 * Database/Cloud storage for MPS models with realtime collaboration
 * Server-based execution of MPS and browser-based editors
 
-
-# Access to Github Packages
-
-Modelix itself and some of its dependencies are published to Github Packages Repositories.
-To access these repositories from gradle you have to add your GitHub credentials to `~/.gradle/gradle.properties`:
-
-```
-gpr.user=YOUR_USER_NAME
-gpr.key=TOKEN_WITH_PACKAGES_READ_ACCESS
-```
-
-`gpr.key` is an access token that you can generate at https://github.com/settings/tokens.
-This token needs the `read:packages` permission.
-
 # How to run Modelix
 
-- At this time there are no builds or releases available. You have to clone the repo to use Modelix.
-- You can run Modelix locally and in the Google cloud. The details are described in [Running Modelix](doc/running-modelix.md).
-- Then check out some of the [samples](doc/samples.md).
-- Or check out the [tutorials](doc/tutorials.md).
+You need to install a Kubernetes cluster.
+For development or evaluation [Docker Desktop](https://www.docker.com/products/docker-desktop/) might be the easiest option.
+
+## Docker Desktop
+Make sure to enable Kubernetes in the preferences.
+Under _Resources_ change the memory limit to 8 GB or more.
+
+If you use Docker Desktop >= 4.2.0 you have to add the option `"deprecatedCgroupv1": true`
+to the file `~/Library/Group Containers/group.com.docker/settings.json`.
+Otherwise, MPS (the JBR) will not use the correct memory limit.
+
+## Deploy with Helm
+
+- [Install helm](https://helm.sh/docs/intro/install/)
+- run `helm install --repo https://artifacts.itemis.cloud/repository/helm-modelix/ dev modelix`
+- If you are using docker desktop you have to run the following command to enable ingresses:
+  - `helm upgrade --install ingress-nginx ingress-nginx --repo https://kubernetes.github.io/ingress-nginx --namespace ingress-nginx --create-namespace`
+- Helm allows you to deploy multiple instances of modelix to the same cluster.
+  You could have one instance for testing and one production instance.
+  Just specify a different instance name and hostname when running helm:
+  - `helm install --repo https://artifacts.itemis.cloud/repository/helm-modelix/ xyz modelix --set ingress.hostname=xyz.127.0.0.1.nip.io`
+    - "xyz" is the name of your modelix instance.
+    - "xyz.127.0.0.1.nip.io" is the hostname used to access the modelix instance.
+      In a development environment you can use nip.io to get different hostnames that resolve to 127.0.0.1.
+
 
 # Editing the sources
 
 - run `gradlew` in the main directory to download dependencies and build the project
-- While the MPS that is used for the build is downloaded automatically, you have to install MPS yourself to use it as the client. Currently we rely on MPS 2020.1 which you can get from https://www.jetbrains.com/mps/
+- While the MPS that is used for the build is downloaded automatically, you have to install MPS yourself to use it as the client.
 - open the project in the folder "mps" with MPS
-
-# Architecture
-
-![Architecture Overview](doc/images/overview.svg "Architecture Overview")
-
-The image above shows the components that Modelix currently consists of.
-
-MPS is running in headless mode on the server with an HTTP server installed as a plugin.
-The browser connects to that server and receives the HTML and JavaScript code required for the interactive model editor.
-
-A second plugin connects to a model server and replicates the data into MPS' internal module repository.
-All MPS instances connected to that model server will stay synchronized.
-This can also be a local MPS instance without a web editor.
-Both options are supported at the same time.
-
-The next image gives an overview over the different docker images running in the kubernetes cluster. 
-
-![Kubernetes](doc/images/kubernetes.svg "Kubernetes")
-
-The model server uses an Apache Ignite cluster and just provides a REST API on top of it.
-A high load can be distributed over multiple instances.
-
-Running multiple MPS instances for scalability is possible,
-because the model has the same state on all instances.
-
-If you want to run MPS instances with different configurations (languages, plugins)
-or allow external instances to connect to the model server,
-a reverse proxy is used to forward the request to the correct instance.
-
-To access the web editor a user has to login in with a google account first.
-An OAuth proxy takes care of that and adds an HTTP header with the users e-mail address to the request. 
-
-## Editor
-Modelix provides an editor in the browser for the languages implemented in MPS.
-This can be an image based editor that renders the editor in MPS using the default editor definition
-or an HTML based editor that requires a separate editor definition in a language provided by Modelix.
-
-Common to both approaches is that the user input (keyboard, mouse) is processed on the server
-and the update of the projection after a model change also happens on the server.
-Even in case of the HTML based editor the resulting HTML is computed on the server side.
-This removes the need to replicate the model into the browser, which would result in a bad performance in case of big models.
-
-## Model
-
-Running MPS in the cloud requires an alternative to the file system for storing models.
-Modelix implements a data structure that allows replication between all MPS instances connected to the same model server.
-It is very similar to the [git storage format](https://git-scm.com/book/en/v2/Git-Internals-Git-Objects),
-but instead of files it stores nodes in its key-value data store.
-
-To support realtime collaboration, in addition to the snapshot of a version it also stores the operations that were applied on the previous version to produce the new version.
-Conflicts between concurrent modification are resolved using [operational transformation](https://en.wikipedia.org/wiki/Operational_transformation) (OT).
-The usually hard part of OT is to guarantee convergence, meaning that all clients end up with the same result indepent of the order in which they receive changes.
-This problem becomes trivial, because versions are identified by a hash over all the content.
-Any divergence will result in a different hash which can easily be detected.
-
-The remaining problem is what to do when a divergence is detected.
-From git we know that switching between versions is fast, because it only has to apply the difference between these versions.
-The same is true here.
-Fixing a divergence is as easy as switching to the correct version.
-If a client doesn't have any local changes it doesn't even need to apply the change operations itself.
-It can just switch to the new version.
-So in the rare case of a divergence fixing it is nothing special.
-It's an operation that happens all the time.
 
 # Content of the root directory
 
@@ -150,49 +94,16 @@ It's an operation that happens all the time.
 | [update-gcloud.sh](update-gcloud.sh)                           | If you want to build and run your own images inside you cluster.                                                                                                                                                                                                                                             |
 | [update-minikube.sh](update-minikube.sh)                       | If you want to build and run your own images inside you cluster.                                                                                                                                                                                                                                             |
 
-# Roadmap
+# Publishing a new version
 
-Here are some open topics that we may work on in the future. The order doesn't have any meaning.
-
-- CI integration
-  - Gradle plugin for downloading models from the model server
-- Code review tool based on Modelix
-  - Git integration: Allow to specify a repository and a branch/version that is then loaded into an MPS instance running in kubernetes
-- Collaborative editing in MPS
-  - Show list of active users working on the same model
-  - Show cursors/selection of other users
-- Editor
-  - Graphical notation: The current text based notation only uses very little code in the browser. All user input is processed on the server and they client receives an update of the changed HTML elements. A graphical notation based on existing JavaScript libraries would require a different API provided by the server.
-
-# Testing
-
-Testing that all the features of Modelix works is not an easy task, because it is such a large projects with different moving parts.
-
-We have different kinds of tests:
-
-* Unit Tests, as typical. In general we have very few of those and we should increase them
-* Integration Tests, which runs as part of the CI. They verify the different parts of the systems work together
-* Manual Tests, to be performed after major changes. They are necessary to catch errors we are unable to catch with automated tests. They are described in the directory _manual_tests_
-
-# Using Maven Packages
-
-Maven packages are published to GitHub Packages.
-To use them in your gradle script add this repository:
-
-```
-    maven {
-        url = uri("https://maven.pkg.github.com/modelix/modelix")
-        if (project.hasProperty("gpr.user") && project.hasProperty("gpr.key")) {
-            credentials {
-                username = project.findProperty("gpr.user").toString()
-                password = project.findProperty("gpr.key").toString()
-            }
-        } else {
-            logger.error("Please specify your github username (gpr.user) and access token (gpr.key) in ~/.gradle/gradle.properties")
-        }
-    }
-```
-
-To make a new release you will simply need to push a new tag. Everything is automated: it means that no version number have to be changed manually.
-Code in master can be released under tags indicating the version numbers, without qualifiers. 
+To make a new release you will simply need to push a new tag.
+Everything is automated: it means that no version number have to be changed manually.
+Code in master can be released under tags indicating the version numbers, without qualifiers.
 For example, if the last tag from master branch has been "0.0.1", the next tag should be "0.0.2".
+
+See https://semver.org/ for valid version numbers. Helm will fail if the version is not in this format.
+
+The artifacts are published to
+- Maven: https://artifacts.itemis.cloud/repository/maven-mps/
+- Helm: https://artifacts.itemis.cloud/repository/helm-modelix/
+- Docker: https://hub.docker.com/u/modelix

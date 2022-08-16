@@ -68,7 +68,7 @@ class TreeSerializationTest {
             baseVersion = null,
             operations = arrayOf()
         )
-        val idGenerator = IdGenerator(Int.MAX_VALUE)
+        val idGenerator = IdGenerator.newInstance(Int.MAX_VALUE)
         val branch = OTBranch(PBranch(initialTree, idGenerator), idGenerator, objectStore)
         initTree(branch, moreThan10ops)
         val (ops, tree) = branch.operationsAndTree
@@ -315,7 +315,7 @@ class TreeSerializationTest {
         val deserializedTree = deserializedVersion.tree
         assertTree(deserializedTree)
 
-        val branch = PBranch(CLTree(RepositoryId("tree01"), ObjectStoreCache(MapBaseStore())), IdGenerator(2))
+        val branch = PBranch(CLTree(RepositoryId("tree01"), ObjectStoreCache(MapBaseStore())), IdGenerator.newInstance(2))
         branch.runWrite {
             for (operation in deserializedVersion.operations) {
                 operation.apply(branch.writeTransaction, deserializedVersion.store)

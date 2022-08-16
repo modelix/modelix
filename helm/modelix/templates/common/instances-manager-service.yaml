@@ -1,0 +1,24 @@
+{{- if .Values.workspaces.enabled  -}}
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    component: instances-manager
+    {{- include "modelix.labels" . | nindent 4 }}
+  name: "{{ include "modelix.fullname" . }}-instances-manager"
+spec:
+  type: NodePort
+  ports:
+  - name: "33332"
+    port: 33332
+    targetPort: 33332
+  - name: "jvm-debug"
+    port: 5005
+    targetPort: 5005
+  - name: "admin"
+    port: 28106
+    targetPort: 28106
+  selector:
+    component: instances-manager
+    {{- include "modelix.selectorLabels" . | nindent 4 }}
+{{- end -}}

@@ -21,8 +21,10 @@ import io.kubernetes.client.openapi.apis.CoreV1Api
 import io.kubernetes.client.openapi.models.*
 import io.kubernetes.client.util.ClientBuilder
 import io.kubernetes.client.util.Yaml
+import org.apache.commons.collections4.map.LRUMap
 import org.apache.log4j.Logger
 import org.eclipse.jetty.server.Request
+import org.modelix.authorization.AccessTokenPrincipal
 import org.modelix.workspaces.Workspace
 import org.modelix.workspaces.WorkspaceHash
 import org.modelix.workspaces.WorkspacePersistence
@@ -59,6 +61,7 @@ class DeploymentManager {
     private val disabledInstances = HashSet<String>()
     private val dirty = AtomicBoolean(true)
     private val workspacePersistence = WorkspacePersistence()
+    private val tokens: MutableMap<String, AccessTokenPrincipal> = Collections.synchronizedMap(HashMap())
     private fun getAssignments(workspace: Workspace): Assignments {
         return assignments.getOrPut(workspace.hash()) { Assignments(workspace) }
     }
@@ -129,15 +132,21 @@ class DeploymentManager {
 
     }
 
+    @Synchronized
     fun redirect(baseRequest: Request?, request: HttpServletRequest): RedirectedURL? {
         val redirected: RedirectedURL = RedirectedURL.redirect(baseRequest, request)
             ?: return null
-        if (redirected.userId == null) return redirected
+        val userToken: AccessTokenPrincipal? = redirected.userToken
+        if (userToken == null) return redirected
+        val userId = userToken.getUserName()
+        if (userId != null) {
+            tokens[userId] = userToken
+        }
         val originalDeploymentName = redirected.originalDeploymentName
         if (!WORKSPACE_PATTERN.matcher(originalDeploymentName).matches()) return null
         val workspace = getWorkspaceForPath(originalDeploymentName) ?: return null
         val assignments = getAssignments(workspace)
-        redirected.personalDeploymentName = assignments.getOrCreate(redirected.userId)
+        redirected.personalDeploymentName = assignments.getOrCreate(userToken)
         assignments.reconcile()
         reconcileIfDirty()
         return redirected
@@ -180,14 +189,15 @@ class DeploymentManager {
         // TODO doesn't work with multiple instances of this proxy
         synchronized(reconcileLock) {
             try {
-                val expectedDeployments: MutableMap<String, Workspace> = HashMap()
+                val expectedDeployments: MutableMap<String, Pair<Workspace, AccessTokenPrincipal?>> = HashMap()
                 val existingDeployments: MutableSet<String> = HashSet()
                 synchronized(assignments) {
                     for (assignment in assignments.values) {
                         assignment.removeTimedOut()
-                        for (deployment in assignment.getAllDeploymentNames()) {
-                            if (!disabledInstances.contains(deployment)) {
-                                expectedDeployments[deployment] = assignment.workspace
+                        for (deployment in assignment.getAllDeploymentNamesAndUserIds()) {
+                            if (!disabledInstances.contains(deployment.first)) {
+                                expectedDeployments[deployment.first] =
+                                    assignment.workspace to deployment.second?.let { tokens[it] }
                             }
                         }
                     }
@@ -196,21 +206,29 @@ class DeploymentManager {
                 val coreApi = CoreV1Api()
                 val deployments = appsApi.listNamespacedDeployment(KUBERNETES_NAMESPACE, null, null, null, null, null, null, null, null, null)
                 for (deployment in deployments.items) {
-                    val name = deployment.metadata!!.name
-                    if (name!!.startsWith(PERSONAL_DEPLOYMENT_PREFIX)) {
+                    val name = deployment.metadata!!.name!!
+                    if (name.startsWith(PERSONAL_DEPLOYMENT_PREFIX)) {
                         existingDeployments.add(name)
                     }
                 }
                 val toAdd = expectedDeployments.keys.stream().filter { d: String? -> !existingDeployments.contains(d) }.collect(Collectors.toList())
                 val toRemove = existingDeployments.stream().filter { d: String? -> !expectedDeployments.containsKey(d) }.collect(Collectors.toList())
                 for (d in toRemove) {
-                    appsApi.deleteNamespacedDeployment(d, KUBERNETES_NAMESPACE, null, null, null, null, null, null)
-                    coreApi.deleteNamespacedService(d, KUBERNETES_NAMESPACE, null, null, null, null, null, null)
+                    try {
+                        appsApi.deleteNamespacedDeployment(d, KUBERNETES_NAMESPACE, null, null, null, null, null, null)
+                    } catch (e: Exception) {
+                        LOG.error("Failed to delete deployment $d", e)
+                    }
+                    try {
+                        coreApi.deleteNamespacedService(d, KUBERNETES_NAMESPACE, null, null, null, null, null, null)
+                    } catch (e: Exception) {
+                        LOG.error("Failed to delete service $d", e)
+                    }
                 }
                 for (d in toAdd) {
-                    val workspace = expectedDeployments[d]!!
+                    val (workspace, token) = expectedDeployments[d]!!
                     try {
-                        createDeployment(workspace, d)
+                        createDeployment(workspace, d, token)
                     } catch (e: Exception) {
                         LOG.error("Failed to create deployment for workspace ${workspace.id} / $d", e)
                     }
@@ -286,13 +304,16 @@ class DeploymentManager {
             .filter { (it.involvedObject.name ?: "").contains(deploymentName) }
     }
 
+    private val workspaceCache = LRUMap<WorkspaceHash, Workspace?>(100)
     fun getWorkspaceForPath(path: String): Workspace? {
         val matcher = WORKSPACE_PATTERN.matcher(path)
         if (!matcher.matches()) return null
         var workspaceId = matcher.group(1)
         var workspaceHash = matcher.group(2) ?: return null
         if (!workspaceHash.contains("*")) workspaceHash = workspaceHash.substring(0, 5) + "*" + workspaceHash.substring(5)
-        return workspacePersistence.getWorkspaceForHash(WorkspaceHash(workspaceHash))
+        return workspaceCache.computeIfAbsent(WorkspaceHash(workspaceHash)) {
+            workspacePersistence.getWorkspaceForHash(it)
+        }
     }
 
     @Synchronized
@@ -302,7 +323,7 @@ class DeploymentManager {
     }
 
     @Throws(IOException::class, ApiException::class)
-    fun createDeployment(workspace: Workspace, personalDeploymentName: String?): Boolean {
+    fun createDeployment(workspace: Workspace, personalDeploymentName: String?, userToken: AccessTokenPrincipal?): Boolean {
         val originalDeploymentName = WORKSPACE_CLIENT_DEPLOYMENT_NAME
         val appsApi = AppsV1Api()
         val deployments = appsApi.listNamespacedDeployment(KUBERNETES_NAMESPACE, null, null, null, null, null, null, null, 5, false)
@@ -320,9 +341,9 @@ class DeploymentManager {
             //deployment.metadata!!.putAnnotationsItem(INSTANCE_PER_USER_ANNOTATION_KEY, null)
             //deployment.metadata!!.putAnnotationsItem(MAX_UNASSIGNED_INSTANCES_ANNOTATION_KEY, null)
             deployment.metadata!!.name(personalDeploymentName)
-            deployment.metadata!!.putLabelsItem("app", personalDeploymentName)
-            deployment.spec!!.selector.putMatchLabelsItem("app", personalDeploymentName)
-            deployment.spec!!.template.metadata!!.putLabelsItem("app", personalDeploymentName)
+            deployment.metadata!!.putLabelsItem("component", personalDeploymentName)
+            deployment.spec!!.selector.putMatchLabelsItem("component", personalDeploymentName)
+            deployment.spec!!.template.metadata!!.putLabelsItem("component", personalDeploymentName)
             deployment.spec!!.replicas(1)
             deployment.spec!!.template.spec!!.containers[0]
                 .addEnvItem(V1EnvVar().name("modelix_workspace_id").value(workspace.id))
@@ -330,6 +351,10 @@ class DeploymentManager {
                 .addEnvItem(V1EnvVar().name("REPOSITORY_ID").value("workspace_${workspace.id}"))
             deployment.spec!!.template.spec!!.containers[0]
                 .addEnvItem(V1EnvVar().name("modelix_workspace_hash").value(workspace.hash().hash))
+            if (userToken != null) {
+                deployment.spec!!.template.spec!!.containers[0]
+                    .addEnvItem(V1EnvVar().name("INITIAL_JWT_TOKEN").value(userToken.jwt.token))
+            }
             loadWorkspaceSpecificValues(workspace, deployment)
             println("Creating deployment: ")
             println(Yaml.dump(deployment))
@@ -348,9 +373,9 @@ class DeploymentManager {
             service.spec!!.ports!!.forEach(Consumer { p: V1ServicePort -> p.nodePort(null) })
             service.status = null
             service.metadata!!.name(personalDeploymentName)
-            service.metadata!!.putLabelsItem("app", personalDeploymentName)
+            service.metadata!!.putLabelsItem("component", personalDeploymentName)
             service.metadata!!.name(personalDeploymentName)
-            service.spec!!.putSelectorItem("app", personalDeploymentName)
+            service.spec!!.putSelectorItem("component", personalDeploymentName)
             println("Creating service: ")
             println(Yaml.dump(service))
             coreApi.createNamespacedService(KUBERNETES_NAMESPACE, service, null, null, null)
@@ -391,7 +416,8 @@ class DeploymentManager {
         }
 
         @Synchronized
-        fun getOrCreate(userId: String): String {
+        fun getOrCreate(userToken: AccessTokenPrincipal): String {
+            val userId: String = userToken.getUserName() ?: throw RuntimeException("Token doesn't contain a user ID")
             var personalDeployment = userId2deployment[userId]
             if (personalDeployment == null) {
                 if (unassignedDeployments.isEmpty()) {
@@ -442,6 +468,10 @@ class DeploymentManager {
         fun getAllDeploymentNames(): List<String> = userId2deployment.values + unassignedDeployments
 
         @Synchronized
+        fun getAllDeploymentNamesAndUserIds(): List<Pair<String, String?>> =
+            userId2deployment.map { it.value to it.key } + unassignedDeployments.map { it to null }
+
+        @Synchronized
         fun removeTimedOut() {
             val entries = ArrayList<Map.Entry<String?, String?>>(userId2deployment.entries)
             for ((key, value) in entries) {
@@ -455,10 +485,10 @@ class DeploymentManager {
 
     companion object {
         private val LOG = Logger.getLogger(DeploymentManager::class.java)
-        const val KUBERNETES_NAMESPACE = "default"
-        val INSTANCE = DeploymentManager()
-        const val PERSONAL_DEPLOYMENT_PREFIX = "wsclt-"
-        const val WORKSPACE_CLIENT_DEPLOYMENT_NAME = "workspace-client"
+        val KUBERNETES_NAMESPACE = System.getenv("WORKSPACE_CLIENT_NAMESPACE") ?: "default"
+        val PERSONAL_DEPLOYMENT_PREFIX = System.getenv("WORKSPACE_CLIENT_PREFIX") ?: "wsclt-"
+        val WORKSPACE_CLIENT_DEPLOYMENT_NAME = System.getenv("WORKSPACE_CLIENT_DEPLOYMENT_NAME") ?: "workspace-client"
         val WORKSPACE_PATTERN = Pattern.compile("workspace-([a-f0-9]+)-([a-zA-Z0-9\\-_\\*]+)")
+        val INSTANCE = DeploymentManager()
     }
 }

@@ -11,32 +11,37 @@ export class ModelService {
   private versionHash: string | undefined
   private idGenerator: IdGenerator = new IdGenerator(0n, 0n)
   private websocket: WebSocket
+  private reconnectDelay: number = 1000
 
   constructor(private http: HttpClient) {
-    this.http.post<IdRangeData>("http://localhost:30761/model/json/generate-ids?quantity=10000", undefined).subscribe(data => {
+    this.http.post<IdRangeData>("http://localhost/model/json/generate-ids?quantity=10000", undefined).subscribe(data => {
       this.idGenerator = new IdGenerator(BigInt(data.first), BigInt(data.last))
     })
     //this.readFromServer()
-    this.websocket = this.connectWS("ws://localhost:30761/model/json/angular-sandbox/ws")
+    this.websocket = this.connectWS("ws://localhost/model/json/angular-sandbox/ws");
   }
 
   private connectWS(url: string): WebSocket {
     let ws = new WebSocket(url);
     ws.onmessage = (e) => {
-      let updateData = JSON.parse(e.data)
-      this.versionReceived(updateData)
+      let updateData = JSON.parse(e.data);
+      this.versionReceived(updateData);
     }
     ws.onerror = (e) => {
       console.log('WebSocket error: ', e);
     }
     ws.onclose = (e) => {
-      setTimeout(() => { this.websocket = this.connectWS(url) }, 1000)
+      setTimeout(() => { this.websocket = this.connectWS(url) }, this.reconnectDelay);
+      this.reconnectDelay = Math.min(this.reconnectDelay * 1.2, 60000);
+    }
+    ws.onopen = (e) => {
+      this.reconnectDelay = 1000;
     }
     return ws
   }
 
   private pollServer() {
-    this.http.get<VersionData>(`http://localhost:30761/model/json/angular-sandbox/${this.versionHash}/poll`).subscribe(data => {
+    this.http.get<VersionData>(`http://localhost/model/json/angular-sandbox/${this.versionHash}/poll`).subscribe(data => {
       this.versionReceived(data)
       this.pollServer()
     })

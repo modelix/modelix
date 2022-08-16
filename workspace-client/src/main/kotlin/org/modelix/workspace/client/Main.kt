@@ -19,6 +19,11 @@ import io.ktor.client.engine.cio.*
 import io.ktor.client.request.*
 import io.ktor.client.statement.*
 import io.ktor.http.*
+import io.ktor.util.*
+import io.ktor.util.cio.*
+import io.ktor.utils.io.*
+import io.ktor.utils.io.jvm.javaio.*
+import io.ktor.utils.io.jvm.javaio.copyTo
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
 import org.modelix.workspace.manager.WorkspaceBuildStatus
@@ -43,13 +48,13 @@ fun main(args: Array<String>) {
     runBlocking {
         var printedLines = 0
         while (true) {
-            val statusString = httpClient.get<String>(serverUrl + "$workspaceHash/status")
+            val statusString = httpClient.get(serverUrl + "$workspaceHash/status").bodyAsText()
             val status = WorkspaceBuildStatus.valueOf(statusString.trim())
             when (status) {
                 WorkspaceBuildStatus.FailedZip -> throw RuntimeException("Workspace $workspaceId / $workspaceHash failed to create the ZIP file. Can't download modules.")
                 WorkspaceBuildStatus.AllSuccessful, WorkspaceBuildStatus.ZipSuccessful -> break
                 WorkspaceBuildStatus.New, WorkspaceBuildStatus.Queued, WorkspaceBuildStatus.Running, WorkspaceBuildStatus.FailedBuild -> {
-                    val output = httpClient.get<String>(serverUrl + "$workspaceHash/output")
+                    val output = httpClient.get(serverUrl + "$workspaceHash/output").bodyAsText()
                     val lines = output.split('\n').drop(printedLines)
                     if (lines.isNotEmpty()) {
                         printedLines += lines.size
@@ -79,7 +84,7 @@ fun propertyOrEnv(key: String): String? {
 suspend fun HttpClient.downloadFile(file: File, url: String) {
     val response: HttpResponse = this.get(url)
     if (response.status == HttpStatusCode.OK) {
-        val data: ByteArray = response.receive()
-        file.writeBytes(data)
+        val data = response.bodyAsChannel()
+        data.copyTo(file.writeChannel())
     }
 }

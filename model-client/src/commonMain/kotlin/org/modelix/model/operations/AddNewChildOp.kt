@@ -15,15 +15,15 @@
 
 package org.modelix.model.operations
 
-import org.modelix.model.api.IConcept
+import org.modelix.model.api.IConceptReference
 import org.modelix.model.api.ITree
 import org.modelix.model.api.IWriteTransaction
 import org.modelix.model.lazy.IDeserializingKeyValueStore
 import org.modelix.model.persistent.SerializationUtil
 
-class AddNewChildOp(val position: PositionInRole, val childId: Long, val concept: IConcept?) : AbstractOperation() {
+class AddNewChildOp(val position: PositionInRole, val childId: Long, val concept: IConceptReference?) : AbstractOperation() {
 
-    fun withConcept(newConcept: IConcept?): AddNewChildOp {
+    fun withConcept(newConcept: IConceptReference?): AddNewChildOp {
         return if (concept == newConcept) this else AddNewChildOp(position, childId, newConcept)
     }
 

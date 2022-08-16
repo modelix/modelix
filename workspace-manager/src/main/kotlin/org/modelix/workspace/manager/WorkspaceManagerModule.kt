@@ -15,28 +15,21 @@
 package org.modelix.workspace.manager
 
 import com.charleskorn.kaml.Yaml
-import io.ktor.server.application.*
-import io.ktor.server.html.*
-import io.ktor.server.plugins.cors.*
 import io.ktor.http.*
 import io.ktor.http.content.*
+import io.ktor.server.application.*
 import io.ktor.server.auth.*
-import io.ktor.server.plugins.statuspages.*
+import io.ktor.server.html.*
+import io.ktor.server.plugins.cors.routing.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
-import kotlinx.html.body
-import kotlinx.html.style
-import kotlinx.html.title
 import kotlinx.html.*
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import org.apache.commons.io.FileUtils
 import org.apache.commons.text.StringEscapeUtils
 import org.modelix.authorization.*
-import org.modelix.authorization.ktor.installAuthentication
-import org.modelix.authorization.ktor.oauthProxy
-import org.modelix.authorization.ktor.requiresPermission
 import org.modelix.gitui.GIT_REPO_DIR_ATTRIBUTE_KEY
 import org.modelix.gitui.MPS_INSTANCE_URL_ATTRIBUTE_KEY
 import org.modelix.gitui.gitui
@@ -53,7 +46,7 @@ fun Application.workspaceManagerModule() {
     installAuthentication()
 
     routing {
-        requiresPermission(PermissionId("workspaces"), EPermissionType.READ) {
+        requiresPermission("workspaces", "read") {
             get("/") {
                 call.respondHtml(HttpStatusCode.OK) {
                     head {
@@ -114,6 +107,12 @@ fun Application.workspaceManagerModule() {
                                                     text("Git History")
                                                 }
                                             }
+                                    }
+                                    td {
+                                        a {
+                                            href = "../model/history/workspace_$workspaceId/master/"
+                                            text("Model History")
+                                        }
                                     }
                                     td {
                                         postForm("./remove-workspace") {
@@ -483,53 +482,6 @@ fun Application.workspaceManagerModule() {
                 }
             }
 
-            get("{workspaceHash}/download-modules/queue") {
-                val workspaceHash = WorkspaceHash(call.parameters["workspaceHash"]!!)
-                val job = manager.buildWorkspaceDownloadFileAsync(workspaceHash)
-                val respondStatus: suspend (String, String)->Unit = { text, refresh ->
-                    val html = """
-                    <html>
-                    <head>
-                        <meta http-equiv="refresh" content="$refresh">
-                    <head>
-                    <body>
-                        $text
-                        <br/>
-                        <br/>
-                        <pre>${StringEscapeUtils.escapeHtml4(job.output.joinToString("\n"))}</pre>
-                    </body>
-                    </html>
-                """.trimIndent()
-                    call.respondText(html, ContentType.Text.Html, HttpStatusCode.OK)
-                }
-                when (job.status) {
-                    WorkspaceBuildStatus.New, WorkspaceBuildStatus.Queued -> respondStatus("Workspace is queued for building ...", "3")
-                    WorkspaceBuildStatus.Running -> respondStatus("Downloading and building modules ...", "3")
-                    WorkspaceBuildStatus.FailedBuild -> respondStatus("Failed to build the workspace ...", "3")
-                    WorkspaceBuildStatus.FailedZip -> respondStatus("Failed to ZIP the workspace ...", "3")
-                    WorkspaceBuildStatus.AllSuccessful, WorkspaceBuildStatus.ZipSuccessful -> {
-                        val fileName = "workspace.zip"
-                        var statusText = """Downloading <a href="$fileName">$fileName</a>"""
-                        if (job.status == WorkspaceBuildStatus.ZipSuccessful) {
-                            statusText = "Failed to build the workspace. " + statusText
-                        }
-                        respondStatus(statusText, "0; url=$fileName")
-                    }
-                }
-            }
-
-            get("{workspaceHash}/status") {
-                val workspaceHash = WorkspaceHash(call.parameters["workspaceHash"]!!)
-                val job = manager.buildWorkspaceDownloadFileAsync(workspaceHash)
-                call.respondText(job.status.toString(), ContentType.Text.Plain, HttpStatusCode.OK)
-            }
-
-            get("{workspaceHash}/output") {
-                val workspaceHash = WorkspaceHash(call.parameters["workspaceHash"]!!)
-                val job = manager.buildWorkspaceDownloadFileAsync(workspaceHash)
-                call.respondText(job.output.joinToString("\n"), ContentType.Text.Plain, HttpStatusCode.OK)
-            }
-
             get("{workspaceId}/hash") {
                 val workspaceId = call.parameters["workspaceId"]!!
                 val workspaceAndHash = manager.getWorkspaceForId(workspaceId)
@@ -537,21 +489,6 @@ fun Application.workspaceManagerModule() {
                     call.respond(HttpStatusCode.NotFound, "Workspace $workspaceId not found")
                 } else {
                     call.respondText(workspaceAndHash.second.toString(), ContentType.Text.Plain, HttpStatusCode.OK)
-                }
-            }
-
-            get("{workspaceHash}/download-modules/workspace.zip") {
-                val workspaceHash = WorkspaceHash(call.parameters["workspaceHash"]!!)
-                val workspace = manager.getWorkspaceForHash(workspaceHash)
-                if (workspace == null) {
-                    call.respondText("Workspace $workspaceHash not found", ContentType.Text.Plain, HttpStatusCode.NotFound)
-                } else {
-                    val file = manager.getDownloadFile(workspaceHash)
-                    if (file.exists()) {
-                        call.respondFile(file)
-                    } else {
-                        call.respondText("""File doesn't exist yet. <a href="queue">Start a build job for the workspace.</a>""", ContentType.Text.Html, HttpStatusCode.NotFound)
-                    }
                 }
             }
 
@@ -609,7 +546,7 @@ fun Application.workspaceManagerModule() {
             }
         }
 
-        requiresPermission(PermissionId("workspaces"), EPermissionType.WRITE) {
+        requiresPermission("workspaces", "write") {
             post("{workspaceId}/upload") {
                 call.requiresWrite()
                 val workspaceId = call.parameters["workspaceId"]!!
@@ -687,6 +624,67 @@ fun Application.workspaceManagerModule() {
             call.respondText("healthy", ContentType.Text.Plain, HttpStatusCode.OK)
         }
 
+        get("{workspaceHash}/download-modules/queue") {
+            val workspaceHash = WorkspaceHash(call.parameters["workspaceHash"]!!)
+            val job = manager.buildWorkspaceDownloadFileAsync(workspaceHash)
+            val respondStatus: suspend (String, String)->Unit = { text, refresh ->
+                val html = """
+                    <html>
+                    <head>
+                        <meta http-equiv="refresh" content="$refresh">
+                    <head>
+                    <body>
+                        $text
+                        <br/>
+                        <br/>
+                        <pre>${StringEscapeUtils.escapeHtml4(job.output.joinToString("\n"))}</pre>
+                    </body>
+                    </html>
+                """.trimIndent()
+                call.respondText(html, ContentType.Text.Html, HttpStatusCode.OK)
+            }
+            when (job.status) {
+                WorkspaceBuildStatus.New, WorkspaceBuildStatus.Queued -> respondStatus("Workspace is queued for building ...", "3")
+                WorkspaceBuildStatus.Running -> respondStatus("Downloading and building modules ...", "3")
+                WorkspaceBuildStatus.FailedBuild -> respondStatus("Failed to build the workspace ...", "3")
+                WorkspaceBuildStatus.FailedZip -> respondStatus("Failed to ZIP the workspace ...", "3")
+                WorkspaceBuildStatus.AllSuccessful, WorkspaceBuildStatus.ZipSuccessful -> {
+                    val fileName = "workspace.zip"
+                    var statusText = """Downloading <a href="$fileName">$fileName</a>"""
+                    if (job.status == WorkspaceBuildStatus.ZipSuccessful) {
+                        statusText = "Failed to build the workspace. " + statusText
+                    }
+                    respondStatus(statusText, "0; url=$fileName")
+                }
+            }
+        }
+
+        get("{workspaceHash}/status") {
+            val workspaceHash = WorkspaceHash(call.parameters["workspaceHash"]!!)
+            val job = manager.buildWorkspaceDownloadFileAsync(workspaceHash)
+            call.respondText(job.status.toString(), ContentType.Text.Plain, HttpStatusCode.OK)
+        }
+
+        get("{workspaceHash}/output") {
+            val workspaceHash = WorkspaceHash(call.parameters["workspaceHash"]!!)
+            val job = manager.buildWorkspaceDownloadFileAsync(workspaceHash)
+            call.respondText(job.output.joinToString("\n"), ContentType.Text.Plain, HttpStatusCode.OK)
+        }
+
+        get("{workspaceHash}/download-modules/workspace.zip") {
+            val workspaceHash = WorkspaceHash(call.parameters["workspaceHash"]!!)
+            val workspace = manager.getWorkspaceForHash(workspaceHash)
+            if (workspace == null) {
+                call.respondText("Workspace $workspaceHash not found", ContentType.Text.Plain, HttpStatusCode.NotFound)
+            } else {
+                val file = manager.getDownloadFile(workspaceHash)
+                if (file.exists()) {
+                    call.respondFile(file)
+                } else {
+                    call.respondText("""File doesn't exist yet. <a href="queue">Start a build job for the workspace.</a>""", ContentType.Text.Html, HttpStatusCode.NotFound)
+                }
+            }
+        }
     }
 
     install(CORS) {
@@ -711,5 +709,5 @@ private fun findGitRepo(folder: File): File? {
 }
 
 private fun ApplicationCall.requiresWrite() {
-    ModelixAuthorization.checkPermission(principal<AuthenticatedUser>()!!, PermissionId("workspaces"), EPermissionType.WRITE)
+    checkPermission("workspaces", "write")
 }

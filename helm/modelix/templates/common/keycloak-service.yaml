@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: "{{ include "modelix.fullname" . }}-keycloak"
+  labels:
+    component: keycloak
+    {{- include "modelix.labels" . | nindent 4 }}
+spec:
+  ports:
+  - name: http
+    port: 8080
+    targetPort: 8080
+  {{ if .Values.keycloak.debug }}
+  - name: debug
+    port: 8787
+    targetPort: 8787
+  {{ end }}
+  selector:
+    component: keycloak
+    {{- include "modelix.selectorLabels" . | nindent 4 }}
+  type: NodePort

@@ -516,10 +516,14 @@
                       </node>
                     </node>
                   </node>
-                  <node concept="2ShNRf" id="1ZljNrEqscW" role="37wK5m">
-                    <node concept="1pGfFk" id="1ZljNrEqxab" role="2ShVmc">
-                      <ref role="37wK5l" to="5440:~IdGenerator.&lt;init&gt;(int)" resolve="IdGenerator" />
-                      <node concept="3cmrfG" id="1ZljNrEq_9l" role="37wK5m">
+                  <node concept="2OqwBi" id="2A5zrv0JRlf" role="37wK5m">
+                    <node concept="10M0yZ" id="2A5zrv0JMQS" role="2Oq$k0">
+                      <ref role="3cqZAo" to="5440:~IdGenerator.Companion" resolve="Companion" />
+                      <ref role="1PxDUh" to="5440:~IdGenerator" resolve="IdGenerator" />
+                    </node>
+                    <node concept="liA8E" id="2A5zrv0JVsc" role="2OqNvi">
+                      <ref role="37wK5l" to="5440:~IdGenerator$Companion.newInstance(int)" resolve="newInstance" />
+                      <node concept="3cmrfG" id="2A5zrv0JZ68" role="37wK5m">
                         <property role="3cmrfH" value="1" />
                       </node>
                     </node>

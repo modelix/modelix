@@ -20,7 +20,10 @@ defaultTasks.add("build")
 }*/
 
 val mpsExtensionsVersion: String by project
-val kotlinVersion: String by project
+val ktorVersion: String by rootProject
+val kotlinCoroutinesVersion: String by rootProject
+val kotlinVersion: String by rootProject
+val logbackVersion: String by rootProject
 
 dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion")
@@ -37,17 +40,16 @@ dependencies {
     implementation("io.lettuce:lettuce-core:5.1.8.RELEASE")
     implementation("ch.qos.logback:logback-classic:1.2.9")
 
-    val ktorVersion = "2.0.2"
     implementation("io.ktor", "ktor-server-core", ktorVersion)
     implementation("io.ktor", "ktor-server-cors", ktorVersion)
     implementation("io.ktor", "ktor-server-netty", ktorVersion)
     implementation("io.ktor", "ktor-server-html-builder", ktorVersion)
     implementation("io.ktor:ktor-server-auth:$ktorVersion")
+    implementation("io.ktor:ktor-server-auth-jwt:$ktorVersion")
     implementation("io.ktor:ktor-server-status-pages:$ktorVersion")
     implementation("io.ktor:ktor-server-forwarded-header:$ktorVersion")
     implementation("io.ktor:ktor-server-websockets:$ktorVersion")
     implementation(project(":authorization"))
-    implementation(project(":authorization-ui"))
 
     val igniteVersion = "2.13.0"
     implementation("org.apache.ignite:ignite-core:$igniteVersion")

@@ -14,10 +14,11 @@
  */
 package org.modelix.model.server
 
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.sync.Semaphore
 import org.modelix.model.IKeyListener
+import kotlin.time.Duration.Companion.seconds
 
 interface IStoreClient {
     operator fun get(key: String): String?
@@ -30,42 +31,47 @@ interface IStoreClient {
     fun generateId(key: String): Long
 }
 
-suspend fun CoroutineScope.pollEntry(storeClient: IStoreClient, key: String, lastKnownValue: String?, handler: suspend (String?)->Unit) {
-    var handlerCalled = false
-    val callHandler: suspend (String?)->Unit = {
-        handlerCalled = true
-        handler(it)
-    }
-    val listener = object : IKeyListener {
-        override fun changed(key_: String, newValue: String?) {
-            launch {
-                callHandler(newValue)
+suspend fun pollEntry(storeClient: IStoreClient, key: String, lastKnownValue: String?, handler: suspend (String?)->Unit) {
+    coroutineScope {
+        var handlerCalled = false
+        val callHandler: suspend (String?)->Unit = {
+            handlerCalled = true
+            handler(it)
+        }
+
+        val channel = Channel<Unit>(Channel.RENDEZVOUS)
+
+        val listener = object : IKeyListener {
+            override fun changed(key_: String, newValue: String?) {
+                launch {
+                    callHandler(newValue)
+                    channel.trySend(Unit)
+                }
             }
         }
-    }
-    try {
-        storeClient.listen(key, listener)
-        if (lastKnownValue != null) {
-            // This could be done before registering the listener, but
-            // then we have to check it twice,
-            // because the value could change between the first read and
-            // registering the listener.
-            // Most of the time the value will be equal to the last
-            // known value.
-            // Registering the listener without needing it is less
-            // likely to happen.
-            val value = storeClient[key]
-            if (value != lastKnownValue) {
-                callHandler(value)
-                return
+        try {
+            storeClient.listen(key, listener)
+            if (lastKnownValue != null) {
+                // This could be done before registering the listener, but
+                // then we have to check it twice,
+                // because the value could change between the first read and
+                // registering the listener.
+                // Most of the time the value will be equal to the last
+                // known value.
+                // Registering the listener without needing it is less
+                // likely to happen.
+                val value = storeClient[key]
+                if (value != lastKnownValue) {
+                    callHandler(value)
+                    return@coroutineScope
+                }
             }
+            withTimeoutOrNull(25.seconds) {
+                channel.receive() // wait until the listener is called
+            }
+        } finally {
+            storeClient.removeListener(key, listener)
         }
-        for (i in 1..250) {
-            if (handlerCalled) break
-            delay(100L)
-        }
-    } finally {
-        storeClient.removeListener(key, listener)
+        if (!handlerCalled) handler(storeClient[key])
     }
-    if (!handlerCalled) handler(storeClient[key])
 }

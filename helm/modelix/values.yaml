@@ -1,0 +1,46 @@
+
+nameOverride: ""
+fullnameOverride: ""
+
+imageTags:
+  db: ""
+  instancesManager: ""
+  model: ""
+  oauth: ""
+  proxy: ""
+  wsClient: ""
+  wsManager: ""
+
+modelStorageSize: 3000Mi
+
+developmentMode: false
+
+keycloak:
+  adminPassword: "modelix"
+  realm: "modelix"
+  clientId: "modelix"
+  clientSecret: "Bz4HAIfb4X2STVGDzAi4A3fDzOvMFugL"
+  loglevel: "warn"
+  debug: false
+
+workspaces:
+  enabled: true
+  uploadsStorageSize: 5000Mi
+
+ingress:
+  proto: "http"
+  hostname: "localhost"
+  port: ""
+
+db:
+  useGCloud: false
+  user: "modelix"
+  password: "modelix"
+  db: "modelix"
+  storage: 3000Mi
+
+dockerProxy:
+  prefix: ""
+  secret: ""
+
+serviceAccount: ""

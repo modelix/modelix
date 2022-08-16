@@ -1,0 +1,105 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    component: oauth
+    {{- include "modelix.labels" . | nindent 4 }}
+  name: "{{ include "modelix.fullname" . }}-oauth"
+spec:
+  replicas: 1
+  revisionHistoryLimit: 5
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0
+      maxSurge: 1
+  selector:
+    matchLabels:
+      component: oauth
+      {{- include "modelix.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        component: oauth
+        {{- include "modelix.selectorLabels" . | nindent 8 }}
+    spec:
+      containers:
+        - image: "{{ .Values.dockerProxy.prefix }}redis:7.0.2"
+          name: redis
+          resources:
+            requests:
+              memory: "100Mi"
+              cpu: 100m
+            limits:
+              memory: "200Mi"
+          readinessProbe:
+            tcpSocket:
+              port: 6379
+            initialDelaySeconds: 3
+            periodSeconds: 5
+            timeoutSeconds: 3
+          livenessProbe:
+            tcpSocket:
+              port: 6379
+            initialDelaySeconds: 3
+            periodSeconds: 10
+            timeoutSeconds: 5
+        - image: "{{ default .Values.dockerProxy.prefix "quay.io/" }}oauth2-proxy/oauth2-proxy"
+          name: oauth2-proxy
+          args:
+            - --email-domain=*
+            - --cookie-httponly=false
+            - --cookie-secure=false
+            - --cookie-refresh=60s
+            - --cookie-secret=jLTKkbMwRJpsS7ZW
+            - --session-store-type=redis
+            - --redis-connection-url=redis://localhost/
+            - --session-cookie-minimal=false
+            - --provider=keycloak-oidc
+            - --client-id=modelix
+            - --client-secret={{ .Values.keycloak.clientSecret }}
+            #- --redirect-url={{ include "modelix.externalUrl" . }}oauth2/callback
+            - --oidc-issuer-url={{ include "modelix.internalKeycloakUrl" . }}realms/{{ .Values.keycloak.realm }}
+            - --skip-oidc-discovery=true
+            - --login-url={{ include "modelix.externalKeycloakUrl" . }}realms/{{ .Values.keycloak.realm }}/protocol/openid-connect/auth
+            - --redeem-url={{ include "modelix.internalKeycloakUrl" . }}realms/{{ .Values.keycloak.realm }}/protocol/openid-connect/token
+            - --oidc-jwks-url={{ include "modelix.internalKeycloakUrl" . }}realms/{{ .Values.keycloak.realm }}/protocol/openid-connect/certs
+            - --insecure-oidc-allow-unverified-email=true
+            - --insecure-oidc-skip-issuer-verification=true
+            - --show-debug-on-error=true
+            - --pass-authorization-header=true
+            - --pass-access-token=true
+            - --prefer-email-to-user=true
+            - --provider-display-name="Modelix ({{ include "modelix.fullname" . }})"
+            - --set-authorization-header=true
+            - --silence-ping-logging=true
+            - --upstream=http://{{ include "modelix.fullname" . }}-proxy/
+            - --skip-auth-regex=\/(resources|admin|js|realms|keycloak)\/.* # keycloak
+            - --skip-auth-regex=\/model\/.* # Model server checks there bearer token itself. Model client need the 401.
+            - --skip-jwt-bearer-tokens=true
+            - --skip-provider-button=true
+            - --http-address=0.0.0.0:4180
+            - --pass-user-headers=true
+          readinessProbe:
+            httpGet:
+              path: /ping
+              port: 4180
+              scheme: HTTP
+            initialDelaySeconds: 3
+            periodSeconds: 5
+            timeoutSeconds: 3
+          livenessProbe:
+            httpGet:
+              path: /ping
+              port: 4180
+              scheme: HTTP
+            initialDelaySeconds: 3
+            periodSeconds: 10
+            timeoutSeconds: 5
+          resources:
+            requests:
+              memory: "100Mi"
+              cpu: 100m
+            limits:
+              memory: "200Mi"
+      {{- include "modelix.pullSecret" . | nindent 6 }}

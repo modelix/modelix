@@ -17,7 +17,7 @@ package org.modelix.model.client
 
 import org.modelix.model.api.IIdGenerator
 
-actual class IdGenerator actual constructor(clientId: Int) : IIdGenerator {
+actual class IdGenerator internal actual constructor(clientId: Int) : IIdGenerator {
     private var idSequence: Long
     private val clientId: Long = clientId.toLong()
     actual override fun generate(): Long {
@@ -36,5 +36,13 @@ actual class IdGenerator actual constructor(clientId: Int) : IIdGenerator {
 
     init {
         idSequence = this.clientId shl 32
+    }
+
+    actual companion object {
+        private val instances: MutableMap<Int, IdGenerator> = HashMap()
+        actual fun getInstance(clientId: Int): IdGenerator {
+            return instances.getOrPut(clientId) { IdGenerator(clientId) }
+        }
+        actual fun newInstance(clientId: Int): IdGenerator = IdGenerator(clientId)
     }
 }

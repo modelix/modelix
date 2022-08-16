@@ -18,6 +18,7 @@ import io.ktor.http.*
 import io.ktor.server.testing.*
 import org.json.JSONArray
 import org.json.JSONObject
+import org.modelix.authorization.installAuthentication
 import org.modelix.model.api.ITree
 import org.modelix.model.server.*
 import kotlin.test.*
@@ -25,6 +26,7 @@ import kotlin.test.*
 class JsonAPITest {
     private fun runTest(block: suspend ApplicationTestBuilder.() -> Unit) = testApplication {
         application {
+            installAuthentication(unitTestMode = true)
             JsonModelServer(LocalModelClient(InMemoryStoreClient())).init(this)
         }
         block()
@@ -46,7 +48,7 @@ class JsonAPITest {
 
     @Test
     fun getByVersionHash() = runTest {
-        val versionHash = JSONObject(client.post("/json/$repoId/init").bodyAsText()).getString("versionHash")
+        val versionHash = JSONObject(client.post("/json/$repoId/init").assertOK().bodyAsText()).getString("versionHash")
         val response = client.get("/json/$repoId/$versionHash/")
         assertEquals(HttpStatusCode.OK, response.status)
         assertEmptyVersion(JSONObject(response.bodyAsText()))
@@ -61,7 +63,13 @@ class JsonAPITest {
     }
 
     private suspend fun ApplicationTestBuilder.initVersion(): JSONObject {
-        return JSONObject(client.post("/json/$repoId/init").bodyAsText())
+        val response = client.post("/json/$repoId/init").assertOK()
+        return JSONObject(response.bodyAsText())
+    }
+
+    fun HttpResponse.assertOK(): HttpResponse {
+        assertEquals(HttpStatusCode.OK, status)
+        return this
     }
 
     private suspend fun ApplicationTestBuilder.getCurrentVersionHash(): String {

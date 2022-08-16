@@ -1,9 +1,9 @@
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 
-val ktorVersion = "2.0.2"
-val kotlinCoroutinesVersion = "1.5.2"
-val kotlinVersion = "1.6.21"
-val logbackVersion = "1.2.1"
+val ktorVersion: String by rootProject
+val kotlinCoroutinesVersion: String by rootProject
+val kotlinVersion: String by rootProject
+val logbackVersion: String by rootProject
 
 plugins {
     kotlin("jvm")
