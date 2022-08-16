@@ -98,6 +98,18 @@ class MyServerSocketThread extends Thread {
 
 public class ModelPlugin implements Plugin<Project> {
 
+    private void addArgIfNotNullOrBlank(JavaExec javaExec, Key key, String value) {
+        if (value != null && !value.isBlank()) {
+            javaExec.args(key.getCode(), value);
+        }
+    }
+
+    private void addArgIfNotNullOrBlank(JavaExec javaExec, Key key, File value) {
+        if (value != null) {
+            addArgIfNotNullOrBlank(javaExec, key, value.getAbsolutePath());
+        }
+    }
+
     @Override
     public void apply(Project project_) {
         ModelixModelSettings settings = project_.getExtensions().create("modelixModel", ModelixModelSettings.class);
@@ -167,31 +179,35 @@ public class ModelPlugin implements Plugin<Project> {
                     javaExec.dependsOn(copyMpsTask, copyMpsModelPluginTask);
                 }
 
+                if (settings.isDebug()) {
+                    System.out.println("Configuring download model - starting socket thread");
+                }
                 MyServerSocketThread serverSocketThread = new MyServerSocketThread();
                 serverSocketThread.start();
 
                 javaExec.setDescription("Export models from modelix model server to MPS files");
                 javaExec.classpath(project.fileTree(new File(mpsLocation, "lib")).include("**/*.jar"));
                 javaExec.classpath(genConfig);
+                if (settings.isDebug()) {
+                    System.out.println("Configuring download model - classpath start");
+                    javaExec.getClasspath().forEach(file -> System.out.println(" - " + file.getAbsolutePath()));
+                    System.out.println("Configuring download model - classpath end");
+                }
                 javaExec.args(
                         Key.SERVER_URL.getCode(), settings.getServerUrl(),
                         Key.REPOSITORY_ID.getCode(), settings.getRepositoryId(),
                         Key.BRANCH_NAME.getCode(), settings.getBranchName(),
-                        Key.ADDITIONAL_LIBRARIES.getCode(), settings.getAdditionalLibrariesAsString(),
-                        Key.ADDITIONAL_LIBRARY_DIRS.getCode(), settings.getAdditionalLibraryDirsAsString(),
-                        Key.ADDITIONAL_PLUGINS.getCode(), settings.getAdditionalPluginsAsString(),
-                        Key.ADDITIONAL_PLUGIN_DIRS.getCode(), settings.getAdditionalPluginDirsAsString(),
-                        Key.GRADLE_PLUGIN_SOCKET_PORT.getCode(), Integer.toString(serverSocketThread.getPort())
+                        Key.GRADLE_PLUGIN_SOCKET_PORT.getCode(), Integer.toString(serverSocketThread.getPort()),
+                        Key.DEBUG.getCode(), Boolean.toString(settings.isDebug())
                 );
-                if (settings.getProjectFile() != null) {
-                    javaExec.args(Key.PROJECT.getCode(), settings.getProjectFile().getAbsolutePath());
-                }
-                if (settings.getMpsExtensionsArtifactsPath() != null) {
-                    javaExec.args(Key.MPS_EXTENSIONS_PATH.getCode(), settings.getMpsExtensionsArtifactsPath());
-                }
-                if (settings.getModelixArtifactsPath() != null) {
-                    javaExec.args(Key.MODELIX_PATH.getCode(), settings.getModelixArtifactsPath());
-                }
+                addArgIfNotNullOrBlank(javaExec, Key.ADDITIONAL_LIBRARIES, settings.getAdditionalLibrariesAsString());
+                addArgIfNotNullOrBlank(javaExec, Key.ADDITIONAL_LIBRARY_DIRS, settings.getAdditionalLibraryDirsAsString());
+                addArgIfNotNullOrBlank(javaExec, Key.ADDITIONAL_PLUGINS, settings.getAdditionalPluginsAsString());
+                addArgIfNotNullOrBlank(javaExec, Key.ADDITIONAL_PLUGIN_DIRS, settings.getAdditionalPluginDirsAsString());
+                addArgIfNotNullOrBlank(javaExec, Key.PROJECT, settings.getProjectFile());
+                addArgIfNotNullOrBlank(javaExec, Key.MPS_EXTENSIONS_PATH, settings.getMpsExtensionsArtifactsPath());
+                addArgIfNotNullOrBlank(javaExec, Key.MODELIX_PATH, settings.getModelixArtifactsPath());
+
                 if (settings.isMakeProjectSet()) {
                     javaExec.args(Key.MAKE.getCode(), settings.getMakeProject());
                 }
@@ -200,7 +216,13 @@ public class ModelPlugin implements Plugin<Project> {
                 }
                 javaExec.getTimeout().set(Duration.ofSeconds(settings.getTimeout()));
                 javaExec.setIgnoreExitValue(true);
+                if (settings.isDebug()) {
+                    System.out.println("Configuring download model - args " + javaExec.getArgs());
+                }
                 javaExec.setMain(ExportMain.class.getName());
+                if (settings.isDebug()) {
+                    System.out.println("Configuring download model - main " + javaExec.getMain());
+                }
                 javaExec.doLast(task -> {
                     System.out.println("  JVM Args                : " + javaExec.getJvmArgs());
                     System.out.println("  all JVM Args            : " + javaExec.getAllJvmArgs());
@@ -248,6 +270,8 @@ public class ModelPlugin implements Plugin<Project> {
                 System.out.println("  additional plugin dirs  : " + settings.getAdditionalPluginDirsAsString());
                 System.out.println("  project path            : " + settings.getProjectFile().getAbsolutePath());
                 System.out.println("  make project            : " + settings.getMakeProject());
+                System.out.println("  debug                   : " + settings.isDebug());
+                System.out.println("  timeout                 : " + settings.getTimeout());
             });
         });
     }
