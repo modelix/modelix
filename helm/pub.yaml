@@ -1,0 +1,10 @@
+ingress:
+  hostname: "server.modelix.org"
+keycloak:
+  clientSecret: "xxx"
+  loglevel: "warn"
+  debug: false
+workspaces:
+  enabled: true
+ingress-nginx:
+  enabled: true

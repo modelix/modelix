@@ -269,9 +269,6 @@ object Main {
                                 br {}
                                 ul {
                                     li {
-                                        a("authorization/") { +"Manage Permissions" }
-                                    }
-                                    li {
                                         a("history/") { +"Model History" }
                                     }
                                     li {
@@ -279,6 +276,9 @@ object Main {
                                     }
                                     li {
                                         a("headers") { +"View HTTP headers" }
+                                    }
+                                    li {
+                                        a("user") { +"View JWT token and permissions" }
                                     }
                                 }
                             }
