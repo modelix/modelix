@@ -19,7 +19,7 @@ keycloak:
   adminPassword: "modelix"
   realm: "modelix"
   clientId: "modelix"
-  clientSecret: "Bz4HAIfb4X2STVGDzAi4A3fDzOvMFugL"
+  clientSecret: ""
   loglevel: "warn"
   debug: false
 
@@ -31,6 +31,10 @@ ingress:
   proto: "http"
   hostname: "localhost"
   port: ""
+  certSecret: ""
+  tls:
+    crt: ""
+    key: ""
 
 ingress-nginx:
   enabled: true
@@ -45,5 +49,6 @@ db:
 dockerProxy:
   prefix: ""
   secret: ""
+  secret64: ""
 
 serviceAccount: ""

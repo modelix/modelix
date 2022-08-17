@@ -46,6 +46,12 @@ spec:
             timeoutSeconds: 5
         - image: "{{ default .Values.dockerProxy.prefix "quay.io/" }}oauth2-proxy/oauth2-proxy"
           name: oauth2-proxy
+          env:
+          - name: OAUTH2_PROXY_CLIENT_SECRET
+            valueFrom:
+              secretKeyRef:
+                key: keycloak-client-secret
+                name: "{{ include "modelix.fullname" . }}-keycloak-client-secret"
           args:
             - --email-domain=*
             - --cookie-httponly=false
@@ -57,7 +63,6 @@ spec:
             - --session-cookie-minimal=false
             - --provider=keycloak-oidc
             - --client-id=modelix
-            - --client-secret={{ .Values.keycloak.clientSecret }}
             #- --redirect-url={{ include "modelix.externalUrl" . }}oauth2/callback
             - --oidc-issuer-url={{ include "modelix.internalKeycloakUrl" . }}realms/{{ .Values.keycloak.realm }}
             - --skip-oidc-discovery=true
