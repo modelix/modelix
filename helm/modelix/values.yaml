@@ -45,5 +45,6 @@ db:
 dockerProxy:
   prefix: ""
   secret: ""
+  secret64: ""
 
 serviceAccount: ""
