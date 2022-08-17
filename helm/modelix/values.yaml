@@ -19,7 +19,7 @@ keycloak:
   adminPassword: "modelix"
   realm: "modelix"
   clientId: "modelix"
-  clientSecret: "Bz4HAIfb4X2STVGDzAi4A3fDzOvMFugL"
+  clientSecret: ""
   loglevel: "warn"
   debug: false
 

@@ -78,7 +78,10 @@ http://{{ include "modelix.fullname" . }}-keycloak:8080/
 
 {{- define "modelix.keycloakEnv" -}}
 - name: KEYCLOAK_CLIENT_SECRET
-  value: "{{ .Values.keycloak.clientSecret }}"
+  valueFrom:
+    secretKeyRef:
+      key: keycloak-client-secret
+      name: "{{ include "modelix.fullname" . }}-keycloak-client-secret"
 - name: KEYCLOAK_CLIENT_ID
   value: "{{ .Values.keycloak.clientId }}"
 - name: KEYCLOAK_REALM

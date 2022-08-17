@@ -59,7 +59,10 @@ spec:
         - name: KC_HOSTNAME_STRICT
           value: "false"
         - name: REALM_CLIENT_SECRET
-          value: "{{ .Values.keycloak.clientSecret }}"
+          valueFrom:
+            secretKeyRef:
+              key: keycloak-client-secret
+              name: "{{ include "modelix.fullname" . }}-keycloak-client-secret"
         {{ if .Values.keycloak.debug }}
         - name: DEBUG
           value: "true"
