@@ -7,6 +7,12 @@ metadata:
     nginx.ingress.kubernetes.io/proxy-body-size: 200m
 spec:
   ingressClassName: nginx
+  {{ if .Values.ingress.certSecret }}
+  tls:
+  - hosts:
+    - "{{ .Values.ingress.hostname }}"
+    secretName: "{{ .Values.ingress.certSecret }}"
+  {{ end }}
   rules:
     - host: "{{ .Values.ingress.hostname }}"
       http:
