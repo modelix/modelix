@@ -32,6 +32,25 @@ Otherwise, MPS (the JBR) will not use the correct memory limit.
     - "xyz.127.0.0.1.nip.io" is the hostname used to access the modelix instance.
       In a development environment you can use nip.io to get different hostnames that resolve to 127.0.0.1.
 
+## Additional Configuration
+
+### Admin password
+
+After Modelix is deployed make sure to change the password of the admin account.
+- Open http://localhost/admin/master/console/#/realms/master/users
+- The default password for the user **admin** is **modelix**.
+- Navigate to Edit > Credentials > Reset Password
+- Enter a new password and disable *Temporary*
+
+### Node Pools
+
+If you are using a cloud provider that supports auto-scaling create a separate node pool for the MPS instances.
+Add a taint "**workspace-client**" with the value "**true**" and the type "**NoExecute**".
+This taint ensures that the pool can be scaled down after Modelix stopped the MPS instances
+and the nodes don't keep running because some other small pod was scheduled to them.
+
+An MPS instances with a lot of languages and plugins can require ~8 GB of memory.
+16 GB of memory for a node is a reasonable size.
 
 # Editing the sources
 
