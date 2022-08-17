@@ -24,6 +24,10 @@ spec:
         component: workspace-client
         {{- include "modelix.selectorLabels" . | nindent 8 }}
     spec:
+      tolerations:
+        - key: "workspace-client"
+          operator: "Exists"
+          effect: "NoExecute"
       containers:
       - name: workspace-client
         image: "{{ .Values.dockerProxy.prefix }}modelix/modelix-workspace-client:{{ .Values.imageTags.wsClient | default .Chart.AppVersion }}"
