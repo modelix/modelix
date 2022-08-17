@@ -32,6 +32,9 @@ ingress:
   hostname: "localhost"
   port: ""
   certSecret: ""
+  tls:
+    crt: ""
+    key: ""
 
 ingress-nginx:
   enabled: true
