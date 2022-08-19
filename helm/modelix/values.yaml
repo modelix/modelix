@@ -28,16 +28,13 @@ workspaces:
   uploadsStorageSize: 5000Mi
 
 ingress:
-  proto: "http"
+  installController: true
   hostname: "localhost"
   port: ""
   certSecret: ""
   tls:
     crt: ""
     key: ""
-
-ingress-nginx:
-  enabled: true
 
 db:
   useGCloud: false
