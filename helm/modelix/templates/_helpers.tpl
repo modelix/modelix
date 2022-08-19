@@ -71,7 +71,7 @@ imagePullSecrets:
 {{- end -}}
 
 {{- define "modelix.externalUrl" -}}
-{{ .Values.ingress.proto }}://{{ .Values.ingress.hostname }}{{ if .Values.ingress.port }}:{{ .Values.ingress.port }}{{ end }}/
+https://{{ .Values.ingress.hostname }}{{ if .Values.ingress.port }}:{{ .Values.ingress.port }}{{ end }}/
 {{- end }}
 
 {{- define "modelix.externalKeycloakUrl" -}}

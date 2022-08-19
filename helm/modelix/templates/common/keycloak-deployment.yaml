@@ -28,8 +28,8 @@ spec:
           value: "admin"
         - name: KEYCLOAK_ADMIN_PASSWORD
           value: "{{ .Values.keycloak.adminPassword }}"
-        #- name: KC_PROXY
-        #  value: "edge"
+        - name: KC_PROXY
+          value: "edge"
         - name: PROXY_ADDRESS_FORWARDING
           value: "true"
         - name: KC_DB
@@ -50,6 +50,8 @@ spec:
         #  value: "/"
         #- name: KC_HOSTNAME_PORT
         #  value: "{{ .Values.ingress.port }}"
+        - name: KC_HOSTNAME_STRICT_HTTPS
+          value: "true"
         - name: KEYCLOAK_FRONTEND_URL
           value: "{{ include "modelix.externalKeycloakUrl" . }}auth"
         - name: REALM_FRONTEND_URL

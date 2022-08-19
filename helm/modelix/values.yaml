@@ -28,7 +28,6 @@ workspaces:
   uploadsStorageSize: 5000Mi
 
 ingress:
-  proto: "http"
   hostname: "localhost"
   port: ""
   certSecret: ""
