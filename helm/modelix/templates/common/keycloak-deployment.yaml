@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
       - name: keycloak
-        image: "{{ default .Values.dockerProxy.prefix "quay.io/" }}keycloak/keycloak:18.0.1"
+        image: "{{ default .Values.dockerProxy.prefix "quay.io/" }}keycloak/keycloak:19.0.1"
         args: ["start-dev", "--import-realm"]
         env:
         - name: KC_LOG_LEVEL
@@ -28,8 +28,8 @@ spec:
           value: "admin"
         - name: KEYCLOAK_ADMIN_PASSWORD
           value: "{{ .Values.keycloak.adminPassword }}"
-        #- name: KC_PROXY
-        #  value: "edge"
+        - name: KC_PROXY
+          value: "edge"
         - name: PROXY_ADDRESS_FORWARDING
           value: "true"
         - name: KC_DB
@@ -50,6 +50,8 @@ spec:
         #  value: "/"
         #- name: KC_HOSTNAME_PORT
         #  value: "{{ .Values.ingress.port }}"
+        - name: KC_HOSTNAME_STRICT_HTTPS
+          value: "true"
         - name: KEYCLOAK_FRONTEND_URL
           value: "{{ include "modelix.externalKeycloakUrl" . }}auth"
         - name: REALM_FRONTEND_URL
@@ -59,7 +61,10 @@ spec:
         - name: KC_HOSTNAME_STRICT
           value: "false"
         - name: REALM_CLIENT_SECRET
-          value: "{{ .Values.keycloak.clientSecret }}"
+          valueFrom:
+            secretKeyRef:
+              key: keycloak-client-secret
+              name: "{{ include "modelix.fullname" . }}-keycloak-client-secret"
         {{ if .Values.keycloak.debug }}
         - name: DEBUG
           value: "true"

@@ -19,7 +19,7 @@ keycloak:
   adminPassword: "modelix"
   realm: "modelix"
   clientId: "modelix"
-  clientSecret: "Bz4HAIfb4X2STVGDzAi4A3fDzOvMFugL"
+  clientSecret: ""
   loglevel: "warn"
   debug: false
 
@@ -28,12 +28,13 @@ workspaces:
   uploadsStorageSize: 5000Mi
 
 ingress:
-  proto: "http"
+  installController: true
   hostname: "localhost"
   port: ""
-
-ingress-nginx:
-  enabled: true
+  certSecret: ""
+  tls:
+    crt: ""
+    key: ""
 
 db:
   useGCloud: false
@@ -45,5 +46,6 @@ db:
 dockerProxy:
   prefix: ""
   secret: ""
+  secret64: ""
 
 serviceAccount: ""

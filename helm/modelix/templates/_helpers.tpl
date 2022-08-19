@@ -53,7 +53,12 @@ app.kubernetes.io/instance: {{ .Release.Name }}
 {{- define "modelix.pullSecret" -}}
 {{- if .Values.dockerProxy.secret }}
 imagePullSecrets:
-- name: mbd-artifactory
+- name: {{ .Values.dockerProxy.secret }}
+{{- else -}}
+{{- if .Values.dockerProxy.secret64 }}
+imagePullSecrets:
+- name: "{{ include "modelix.fullname" . }}-docker-secret"
+{{- end }}
 {{- end }}
 {{- end }}
 
@@ -66,7 +71,7 @@ imagePullSecrets:
 {{- end -}}
 
 {{- define "modelix.externalUrl" -}}
-{{ .Values.ingress.proto }}://{{ .Values.ingress.hostname }}{{ if .Values.ingress.port }}:{{ .Values.ingress.port }}{{ end }}/
+https://{{ .Values.ingress.hostname }}{{ if .Values.ingress.port }}:{{ .Values.ingress.port }}{{ end }}/
 {{- end }}
 
 {{- define "modelix.externalKeycloakUrl" -}}
@@ -78,7 +83,10 @@ http://{{ include "modelix.fullname" . }}-keycloak:8080/
 
 {{- define "modelix.keycloakEnv" -}}
 - name: KEYCLOAK_CLIENT_SECRET
-  value: "{{ .Values.keycloak.clientSecret }}"
+  valueFrom:
+    secretKeyRef:
+      key: keycloak-client-secret
+      name: "{{ include "modelix.fullname" . }}-keycloak-client-secret"
 - name: KEYCLOAK_CLIENT_ID
   value: "{{ .Values.keycloak.clientId }}"
 - name: KEYCLOAK_REALM
