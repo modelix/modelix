@@ -1,6 +1,7 @@
 {
   "id": "modelix",
   "realm": "modelix",
+  "displayNameHtml": "<img src=\"../../../../public/logo.svg\" style=\"max-width:300px\" />",
   "notBefore": 0,
   "defaultSignatureAlgorithm": "RS256",
   "revokeRefreshToken": false,

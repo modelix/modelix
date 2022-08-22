@@ -82,6 +82,7 @@ spec:
             - --skip-auth-regex=\/(resources|admin|js|realms|keycloak)\/.* # keycloak
             - --skip-auth-regex=\/model\/.* # Model server checks there bearer token itself. Model client needs the 401.
             - --skip-auth-regex=^\/$
+            - --skip-auth-regex=^\/public\/.*$
             - --skip-jwt-bearer-tokens=true
             - --skip-provider-button=true
             - --http-address=0.0.0.0:4180
