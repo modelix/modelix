@@ -17,12 +17,17 @@ import org.eclipse.jgit.api.Git
 import org.eclipse.jgit.api.GitCommand
 import org.eclipse.jgit.api.TransportCommand
 import org.eclipse.jgit.errors.RepositoryNotFoundException
+import org.eclipse.jgit.transport.Transport
+import org.eclipse.jgit.transport.TransportHttp
 import org.eclipse.jgit.transport.UsernamePasswordCredentialsProvider
-import org.modelix.model.persistent.HashUtil
-import org.modelix.workspaces.Credentials
+import org.eclipse.jgit.transport.http.HttpConnection
+import org.eclipse.jgit.transport.http.HttpConnectionFactory
+import org.eclipse.jgit.transport.http.JDKHttpConnection
+import org.eclipse.jgit.transport.http.JDKHttpConnectionFactory
 import org.modelix.workspaces.GitRepository
-import java.io.*
-import java.lang.IllegalArgumentException
+import java.io.File
+import java.io.OutputStream
+import java.net.*
 import java.util.zip.ZipOutputStream
 
 class GitRepositoryManager(val config: GitRepository, val workspaceDirectory: File) {
@@ -63,8 +68,42 @@ class GitRepositoryManager(val config: GitRepository, val workspaceDirectory: Fi
         if (encryptedCredentials != null) {
             val decrypted = encryptedCredentials.decrypt()
             cmd.setCredentialsProvider(UsernamePasswordCredentialsProvider(decrypted.user, decrypted.password))
+            cmd.setTransportConfigCallback { transport ->
+                transport?.setAuthenticator(object : Authenticator() {
+                    override fun getPasswordAuthentication(): PasswordAuthentication {
+                        return PasswordAuthentication(decrypted.user, decrypted.password.toCharArray())
+                    }
+                })
+            }
         }
         return cmd
+    }
+
+    /**
+     * The credentialsProvider only works with WWW-Authenticate: Basic, but not with WWW-Authenticate: Negotiate.
+     * This is handled by the JDK.
+     */
+    private fun Transport.setAuthenticator(authenticator: Authenticator) {
+        val transport = this as TransportHttp
+        val originalFactory = transport.httpConnectionFactory as JDKHttpConnectionFactory
+        transport.httpConnectionFactory = object : HttpConnectionFactory {
+            override fun create(url: URL?): HttpConnection {
+                return modify(originalFactory.create(url))
+            }
+
+            override fun create(url: URL?, proxy: Proxy?): HttpConnection {
+                return modify(originalFactory.create(url, proxy))
+            }
+
+            fun modify(conn: HttpConnection): HttpConnection {
+                val jdkConn = conn as JDKHttpConnection
+                val field = jdkConn.javaClass.getDeclaredField("wrappedUrlConnection")
+                field.isAccessible = true
+                val wrapped = field.get(jdkConn) as HttpURLConnection
+                wrapped.setAuthenticator(authenticator)
+                return conn
+            }
+        }
     }
 
     private fun cloneRepo(): Git {

@@ -1,0 +1,32 @@
+<svg width="1200" height="300" xmlns="http://www.w3.org/2000/svg">
+ <g transform="translate(-70, -100)">
+<!--  <rect fill="#343434" stroke-width="4" x="0" y="0" width="2150" height="500" id="svg_42" stroke="#343434"/>-->
+<!--  <path fill="#343434" stroke-width="4" stroke="#adeee3" d="M22,2 h2106 a20,20 0 0 1 20,20 v456 a20,20 0 0 1 -20,20 h-2106 a20,20 0 0 1 -20,-20 v-456 a20,20 0 0 1 20,-20 z" />-->
+   <g transform="scale(0.6, 0.6) translate(100, 180)">
+     <line fill="none" stroke="#444" x1="425" y1="250" x2="275" y2="50" id="svg_41" stroke-width="10"/>
+     <line fill="none" stroke="#444" x1="275" y1="50" x2="325" y2="250" id="svg_40" stroke-width="10"/>
+     <line fill="none" stroke="#444" x1="275" y1="50" x2="225" y2="150" id="svg_38" stroke-width="10"/>
+     <line fill="none" stroke="#444" x1="125" y1="150" x2="275" y2="50" id="svg_35" stroke-width="10"/>
+     <ellipse fill="#444" cx="275" cy="50" id="svg_33" rx="20" ry="20"/>
+     <ellipse fill="#6290c3" cx="75" cy="350" id="svg_12" rx="20" ry="20"/>
+     <ellipse fill="#6290c3" cx="175" cy="350" id="svg_13" rx="20" ry="20"/>
+     <ellipse fill="#6290c3" cx="275" cy="350" id="svg_14" rx="20" ry="20"/>
+     <ellipse fill="#6290c3" cx="125" cy="150" id="svg_15" rx="20" ry="20"/>
+     <ellipse fill="#6290c3" cx="225" cy="150" id="svg_16" rx="20" ry="20"/>
+     <line fill="none" stroke="#6290c3" x1="75" y1="350" x2="125" y2="150" id="svg_17" stroke-width="10"/>
+     <line fill="none" stroke="#6290c3" stroke-width="10" x1="125" y1="150" x2="175" y2="350" id="svg_18"/>
+     <line fill="none" stroke="#6290c3" stroke-width="10" x1="225" y1="150" x2="175" y2="350" id="svg_19"/>
+     <line fill="none" stroke="#6290c3" stroke-width="10" x1="275" y1="350" x2="225" y2="150" id="svg_20"/>
+     <ellipse fill="#adeee3" cx="375" cy="350" id="svg_23" rx="20" ry="20"/>
+     <ellipse fill="#adeee3" cx="325" cy="250" id="svg_24" rx="20" ry="20"/>
+     <ellipse fill="#adeee3" cx="425" cy="250" id="svg_25" rx="20" ry="20"/>
+     <ellipse fill="#adeee3" cx="325" cy="450" id="svg_26" rx="20" ry="20"/>
+     <ellipse fill="#adeee3" cx="425" cy="450" id="svg_27" rx="20" ry="20"/>
+     <line fill="none" stroke="#adeee3" x1="325" y1="250" x2="375" y2="350" id="svg_28" stroke-width="10"/>
+     <line fill="none" stroke="#adeee3" x1="425" y1="250" x2="375" y2="350" id="svg_29" stroke-width="10"/>
+     <line fill="none" stroke="#adeee3" x1="325" y1="450" x2="375" y2="350" id="svg_30" stroke-width="10"/>
+     <line fill="none" stroke="#adeee3" x1="425" y1="450" x2="375" y2="350" id="svg_31" stroke-width="10"/>
+   </g>
+  <text transform="scale(1.2, 1)" xml:space="preserve" font-family="Arial" font-weight="bold" font-size="200" id="svg_2" y="330" x="300" stroke-width="0" stroke="#343434" fill="#6290c3">Modelix</text>
+ </g>
+</svg>
