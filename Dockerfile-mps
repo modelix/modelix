@@ -13,8 +13,18 @@ RUN { echo '#/bin/sh'; echo 'echo "$JAVA_HOME"'; } > /usr/local/bin/docker-java-
 ENV PATH $JAVA_HOME/bin:$PATH
 
 RUN set -eux; \
+  arch="$(dpkg --print-architecture)"; \
+  echo $arch; \
+  case "$arch" in \
+		'amd64') \
+	    downloadUrl='https://cache-redirector.jetbrains.com/intellij-jbr/jbr_jcef-11_0_10-linux-x64-b1145.96.tar.gz'; \
+			;; \
+		'arm64') \
+      downloadUrl='https://cache-redirector.jetbrains.com/intellij-jbr/jbrsdk-11_0_11-linux-aarch64-b1504.16.tar.gz'; \
+			;; \
+		*) echo >&2 "error: unsupported architecture: '$arch'"; exit 1 ;; \
+	esac; \
 	\
-	downloadUrl='https://cache-redirector.jetbrains.com/intellij-jbr/jbr_jcef-11_0_10-linux-x64-b1145.96.tar.gz'; \
 	\
 	savedAptMark="$(apt-mark showmanual)"; \
 	apt-get update; \
