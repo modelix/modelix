@@ -19859,6 +19859,20 @@
                                                                                                   </node>
                                                                                                 </node>
                                                                                               </node>
+                                                                                              <node concept="3clFbF" id="5Jo3VWr2TZs" role="3cqZAp">
+                                                                                                <node concept="2OqwBi" id="5Jo3VWr2TZt" role="3clFbG">
+                                                                                                  <node concept="10M0yZ" id="5Jo3VWr2TZu" role="2Oq$k0">
+                                                                                                    <ref role="3cqZAo" to="wyt6:~System.out" resolve="out" />
+                                                                                                    <ref role="1PxDUh" to="wyt6:~System" resolve="System" />
+                                                                                                  </node>
+                                                                                                  <node concept="liA8E" id="5Jo3VWr2TZv" role="2OqNvi">
+                                                                                                    <ref role="37wK5l" to="guwi:~PrintStream.println(java.lang.String)" resolve="println" />
+                                                                                                    <node concept="Xl_RD" id="5Jo3VWr2TZw" role="37wK5m">
+                                                                                                      <property role="Xl_RC" value="  make message should follow:" />
+                                                                                                    </node>
+                                                                                                  </node>
+                                                                                                </node>
+                                                                                              </node>
                                                                                               <node concept="3clFbF" id="7eq8Np3pYih" role="3cqZAp">
                                                                                                 <node concept="2OqwBi" id="7eq8Np3pYii" role="3clFbG">
                                                                                                   <node concept="10M0yZ" id="7eq8Np3pYij" role="2Oq$k0">
@@ -19923,6 +19937,45 @@
                                                                                                       </node>
                                                                                                     </node>
                                                                                                   </node>
+                                                                                                  <node concept="3clFbF" id="5Jo3VWr39It" role="3cqZAp">
+                                                                                                    <node concept="2OqwBi" id="5Jo3VWr3bx4" role="3clFbG">
+                                                                                                      <node concept="10M0yZ" id="5Jo3VWr39IL" role="2Oq$k0">
+                                                                                                        <ref role="3cqZAo" to="wyt6:~System.out" resolve="out" />
+                                                                                                        <ref role="1PxDUh" to="wyt6:~System" resolve="System" />
+                                                                                                      </node>
+                                                                                                      <node concept="liA8E" id="5Jo3VWr3dJb" role="2OqNvi">
+                                                                                                        <ref role="37wK5l" to="guwi:~PrintStream.println(java.lang.String)" resolve="println" />
+                                                                                                        <node concept="3cpWs3" id="5Jo3VWr3pfL" role="37wK5m">
+                                                                                                          <node concept="3cpWs3" id="5Jo3VWr3pfM" role="3uHU7B">
+                                                                                                            <node concept="3cpWs3" id="5Jo3VWr3pfN" role="3uHU7B">
+                                                                                                              <node concept="Xl_RD" id="5Jo3VWr3pfO" role="3uHU7B">
+                                                                                                                <property role="Xl_RC" value="  &lt;MAKE&gt; " />
+                                                                                                              </node>
+                                                                                                              <node concept="2OqwBi" id="5Jo3VWr3pfP" role="3uHU7w">
+                                                                                                                <node concept="2GrUjf" id="5Jo3VWr3pfQ" role="2Oq$k0">
+                                                                                                                  <ref role="2Gs0qQ" node="25JjLrsDtzD" resolve="message" />
+                                                                                                                </node>
+                                                                                                                <node concept="liA8E" id="5Jo3VWr3pfR" role="2OqNvi">
+                                                                                                                  <ref role="37wK5l" to="et5u:~IMessage.getKind()" resolve="getKind" />
+                                                                                                                </node>
+                                                                                                              </node>
+                                                                                                            </node>
+                                                                                                            <node concept="Xl_RD" id="5Jo3VWr3pfS" role="3uHU7w">
+                                                                                                              <property role="Xl_RC" value=" " />
+                                                                                                            </node>
+                                                                                                          </node>
+                                                                                                          <node concept="2OqwBi" id="5Jo3VWr3pfT" role="3uHU7w">
+                                                                                                            <node concept="2GrUjf" id="5Jo3VWr3pfU" role="2Oq$k0">
+                                                                                                              <ref role="2Gs0qQ" node="25JjLrsDtzD" resolve="message" />
+                                                                                                            </node>
+                                                                                                            <node concept="liA8E" id="5Jo3VWr3pfV" role="2OqNvi">
+                                                                                                              <ref role="37wK5l" to="et5u:~IMessage.getText()" resolve="getText" />
+                                                                                                            </node>
+                                                                                                          </node>
+                                                                                                        </node>
+                                                                                                      </node>
+                                                                                                    </node>
+                                                                                                  </node>
                                                                                                 </node>
                                                                                               </node>
                                                                                               <node concept="RRSsy" id="25JjLrsDtzU" role="3cqZAp">
@@ -19942,34 +19995,6 @@
                                                                                                 </node>
                                                                                               </node>
                                                                                               <node concept="3clFbH" id="7eq8Np3q0p6" role="3cqZAp" />
-                                                                                              <node concept="3clFbF" id="7eq8Np3q0Ng" role="3cqZAp">
-                                                                                                <node concept="2OqwBi" id="7eq8Np3q0Nh" role="3clFbG">
-                                                                                                  <node concept="10M0yZ" id="7eq8Np3q0Ni" role="2Oq$k0">
-                                                                                                    <ref role="1PxDUh" to="wyt6:~System" resolve="System" />
-                                                                                                    <ref role="3cqZAo" to="wyt6:~System.out" resolve="out" />
-                                                                                                  </node>
-                                                                                                  <node concept="liA8E" id="7eq8Np3q0Nj" role="2OqNvi">
-                                                                                                    <ref role="37wK5l" to="guwi:~PrintStream.println(java.lang.String)" resolve="println" />
-                                                                                                    <node concept="Xl_RD" id="7eq8Np3q0Nk" role="37wK5m">
-                                                                                                      <property role="Xl_RC" value="========================================" />
-                                                                                                    </node>
-                                                                                                  </node>
-                                                                                                </node>
-                                                                                              </node>
-                                                                                              <node concept="3clFbF" id="7eq8Np3q0OK" role="3cqZAp">
-                                                                                                <node concept="2OqwBi" id="7eq8Np3q0OL" role="3clFbG">
-                                                                                                  <node concept="10M0yZ" id="7eq8Np3q0OM" role="2Oq$k0">
-                                                                                                    <ref role="1PxDUh" to="wyt6:~System" resolve="System" />
-                                                                                                    <ref role="3cqZAo" to="wyt6:~System.out" resolve="out" />
-                                                                                                  </node>
-                                                                                                  <node concept="liA8E" id="7eq8Np3q0ON" role="2OqNvi">
-                                                                                                    <ref role="37wK5l" to="guwi:~PrintStream.println(java.lang.String)" resolve="println" />
-                                                                                                    <node concept="Xl_RD" id="7eq8Np3q0OO" role="37wK5m">
-                                                                                                      <property role="Xl_RC" value="Modelix Application Plugin - Make failed" />
-                                                                                                    </node>
-                                                                                                  </node>
-                                                                                                </node>
-                                                                                              </node>
                                                                                               <node concept="3clFbF" id="7eq8Np3q0Qg" role="3cqZAp">
                                                                                                 <node concept="2OqwBi" id="7eq8Np3q0Qh" role="3clFbG">
                                                                                                   <node concept="10M0yZ" id="7eq8Np3q0Qi" role="2Oq$k0">
