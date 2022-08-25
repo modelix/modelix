@@ -4080,7 +4080,7 @@
           <node concept="37vLTI" id="2EzI5qKrki7" role="3clFbG">
             <node concept="2ShNRf" id="2EzI5qKrki8" role="37vLTx">
               <node concept="1pGfFk" id="2EzI5qKrki9" role="2ShVmc">
-                <ref role="37wK5l" to="5440:~RestWebModelClient.&lt;init&gt;(java.lang.String,kotlin.jvm.functions.Function0,java.util.List)" resolve="RestWebModelClient" />
+                <ref role="37wK5l" to="5440:~RestWebModelClient.&lt;init&gt;(java.lang.String,java.lang.String,java.util.List)" resolve="RestWebModelClient" />
                 <node concept="37vLTw" id="2EzI5qKrkia" role="37wK5m">
                   <ref role="3cqZAo" node="6aRQr1WPiWt" resolve="baseUrl" />
                 </node>
