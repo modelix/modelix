@@ -4076,33 +4076,33 @@
             </node>
           </node>
         </node>
-        <node concept="3clFbF" id="2EzI5qKrki6" role="3cqZAp">
-          <node concept="37vLTI" id="2EzI5qKrki7" role="3clFbG">
-            <node concept="2ShNRf" id="2EzI5qKrki8" role="37vLTx">
-              <node concept="1pGfFk" id="2EzI5qKrki9" role="2ShVmc">
-                <ref role="37wK5l" to="5440:~RestWebModelClient.&lt;init&gt;(java.lang.String,java.lang.String,java.util.List)" resolve="RestWebModelClient" />
-                <node concept="37vLTw" id="2EzI5qKrkia" role="37wK5m">
+        <node concept="3clFbF" id="1zxr641Tpak" role="3cqZAp">
+          <node concept="37vLTI" id="1zxr641Tscc" role="3clFbG">
+            <node concept="37vLTw" id="1zxr641Tpai" role="37vLTJ">
+              <ref role="3cqZAo" node="6aRQr1WVnku" resolve="client" />
+            </node>
+            <node concept="2ShNRf" id="1zxr641Twwt" role="37vLTx">
+              <node concept="1pGfFk" id="1zxr641Twwu" role="2ShVmc">
+                <ref role="37wK5l" to="5440:~RestWebModelClient.&lt;init&gt;(java.lang.String,kotlin.jvm.functions.Function0,java.util.List)" resolve="RestWebModelClient" />
+                <node concept="37vLTw" id="1zxr641Twwv" role="37wK5m">
                   <ref role="3cqZAo" node="6aRQr1WPiWt" resolve="baseUrl" />
                 </node>
-                <node concept="37vLTw" id="1VUIoKf$fVn" role="37wK5m">
+                <node concept="37vLTw" id="1zxr641Twww" role="37wK5m">
                   <ref role="3cqZAo" node="1VUIoKf$fVi" resolve="tokenProvider" />
                 </node>
-                <node concept="2YIFZM" id="57hSI$27imt" role="37wK5m">
+                <node concept="2YIFZM" id="1zxr641Twwx" role="37wK5m">
                   <ref role="37wK5l" to="33ny:~Arrays.asList(java.lang.Object...)" resolve="asList" />
                   <ref role="1Pybhc" to="33ny:~Arrays" resolve="Arrays" />
-                  <node concept="2ShNRf" id="57hSI$27iVV" role="37wK5m">
-                    <node concept="1pGfFk" id="46h4oXMuxes" role="2ShVmc">
+                  <node concept="2ShNRf" id="1zxr641Twwy" role="37wK5m">
+                    <node concept="1pGfFk" id="1zxr641Twwz" role="2ShVmc">
                       <ref role="37wK5l" node="46h4oXMuwd3" resolve="ModelServerConnection.ConnectionListenerForForbiddenMessage" />
-                      <node concept="37vLTw" id="46h4oXMwxkz" role="37wK5m">
+                      <node concept="37vLTw" id="1zxr641Tww$" role="37wK5m">
                         <ref role="3cqZAo" node="6aRQr1WPiWt" resolve="baseUrl" />
                       </node>
                     </node>
                   </node>
                 </node>
               </node>
-            </node>
-            <node concept="37vLTw" id="2EzI5qKrkib" role="37vLTJ">
-              <ref role="3cqZAo" node="6aRQr1WVnku" resolve="client" />
             </node>
           </node>
         </node>
