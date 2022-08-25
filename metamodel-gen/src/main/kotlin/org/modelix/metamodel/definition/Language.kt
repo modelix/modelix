@@ -11,6 +11,7 @@ data class Language(
 @Serializable
 data class Concept(
     val name: String,
+    val abstract: Boolean = false,
     val properties: List<Property> = emptyList(),
     val children: List<Child> = emptyList(),
     val references: List<Reference> = emptyList(),

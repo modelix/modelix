@@ -1,11 +1,10 @@
+package org.modelix.metamodel.generator
+
 import com.charleskorn.kaml.Yaml
 import kotlinx.serialization.decodeFromString
-import kotlinx.serialization.json.Json
 import org.junit.Test
 import org.modelix.metamodel.definition.Language
-import org.modelix.metamodel.generator.KotlinGenerator
 import java.io.File
-import kotlin.io.path.Path
 
 class KotlinGeneratorTest {
 
@@ -38,7 +37,8 @@ class KotlinGeneratorTest {
         """.trimIndent()
 
         val language = Yaml.default.decodeFromString<Language>(input)
-        val outputDir = File(".").toPath().resolve("build").resolve("test-generator-output")
+        //val outputDir = File(".").toPath().resolve("build").resolve("test-generator-output")
+        val outputDir = File(".").toPath().resolve("src/test/kotlin/org/modelix/metamodel/generator/out")
         KotlinGenerator(outputDir).generate(listOf(language))
     }
 
