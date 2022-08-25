@@ -38,7 +38,8 @@ class KotlinGeneratorTest {
         """.trimIndent()
 
         val language = Yaml.default.decodeFromString<Language>(input)
-        KotlinGenerator(File(".").toPath().resolve("languages_gen")).generate(listOf(language))
+        val outputDir = File(".").toPath().resolve("build").resolve("test-generator-output")
+        KotlinGenerator(outputDir).generate(listOf(language))
     }
 
 }

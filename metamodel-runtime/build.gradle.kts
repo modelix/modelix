@@ -4,6 +4,7 @@ plugins {
 }
 
 val kotlinVersion: String by rootProject
+val mpsExtensionsVersion: String by rootProject
 
 kotlin {
     jvm()
@@ -23,6 +24,7 @@ kotlin {
             dependencies {
                 implementation(kotlin("stdlib-common"))
                 implementation("io.github.microutils:kotlin-logging:2.1.21")
+                api("org.modelix:model-api:1.0+")
             }
         }
         val commonTest by getting {
