@@ -75,7 +75,7 @@ class MyServerSocketThread extends Thread {
                 String messageReceived = in.readLine();
                 if (messageReceived == null) {
                     eof = true;
-                    System.out.println("MyServerSocketThread received from Download Task: null");
+                    System.out.println("MyServerSocketThread received from Download Task a null message");
                 } else {
                     System.out.println("MyServerSocketThread received from Download Task: " + messageReceived);
                     if (!askedToDie) {
