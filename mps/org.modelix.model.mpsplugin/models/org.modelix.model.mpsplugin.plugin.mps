@@ -422,7 +422,6 @@
       <concept id="1178549954367" name="jetbrains.mps.baseLanguage.structure.IVisible" flags="ng" index="1B3ioH">
         <child id="1178549979242" name="visibility" index="1B3o_S" />
       </concept>
-      <concept id="1208623485264" name="jetbrains.mps.baseLanguage.structure.AbstractOperation" flags="nn" index="1B$H19" />
       <concept id="5351203823916750322" name="jetbrains.mps.baseLanguage.structure.TryUniversalStatement" flags="nn" index="3J1_TO">
         <child id="8276990574886367510" name="catchClause" index="1zxBo5" />
         <child id="8276990574886367508" name="body" index="1zxBo7" />
@@ -18415,14 +18414,6 @@
                         </node>
                       </node>
                     </node>
-                  </node>
-                </node>
-                <node concept="3clFbF" id="1v_p$ogtP7P" role="3cqZAp">
-                  <node concept="2OqwBi" id="1v_p$ogtSzW" role="3clFbG">
-                    <node concept="37vLTw" id="1v_p$ogtP7N" role="2Oq$k0">
-                      <ref role="3cqZAo" node="72FvSoAxcHi" resolve="gradleTaskClient" />
-                    </node>
-                    <node concept="1B$H19" id="1v_p$ogtS$1" role="2OqNvi" />
                   </node>
                 </node>
                 <node concept="3clFbF" id="4h3DzUoNU5p" role="3cqZAp">
