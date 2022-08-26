@@ -38,7 +38,7 @@ class KotlinGeneratorTest {
 
         val language = Yaml.default.decodeFromString<Language>(input)
         //val outputDir = File(".").toPath().resolve("build").resolve("test-generator-output")
-        val outputDir = File("../metamodel-sandbox/src/main/kotlin").toPath()
+        val outputDir = File("../metamodel-sandbox/src/main/kotlin_gen").toPath()
         KotlinGenerator(outputDir).generate(listOf(language))
     }
 
