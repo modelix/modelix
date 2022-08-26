@@ -15,14 +15,30 @@ import kotlin.reflect.KClass
 
 class KotlinGenerator(val outputDir: Path) {
 
+    private fun FileSpec.write() {
+        writeTo(outputDir)
+    }
+
+    private fun Language.packageDir(): Path {
+        val packageName = name
+        var packageDir = outputDir
+        if (packageName.isNotEmpty()) {
+            for (packageComponent in packageName.split('.').dropLastWhile { it.isEmpty() }) {
+                packageDir = packageDir.resolve(packageComponent)
+            }
+        }
+        return packageDir
+    }
+
     fun generate(languages: List<Language>) {
         for (language in languages) {
+            language.packageDir().toFile().listFiles()?.filter { it.isFile }?.forEach { it.delete() }
             val builder = FileSpec.builder(language.generatedClassName().packageName, language.generatedClassName().simpleName)
             val file = builder.addType(generateLanguage(language)).build()
             for (concept in language.concepts) {
                 generateConceptInstanceClass(language, concept)
             }
-            file.writeTo(outputDir)
+            file.write()
         }
     }
 
@@ -114,7 +130,7 @@ class KotlinGenerator(val outputDir: Path) {
             }
         }.build()
         fileBuilder.addType(cls)
-        fileBuilder.build().writeTo(outputDir)
+        fileBuilder.build().write()
     }
 
     private fun Language.generatedClassName()  = ClassName(name, "L_" + name.replace(".", "_"))
