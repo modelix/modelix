@@ -1,5 +1,4 @@
-import org.modelix.metamodel.definition.Language
-import org.modelix.metamodel.generator.KotlinGenerator
+import org.modelix.metamodel.generator.*
 
 buildscript {
     repositories {
@@ -27,13 +26,27 @@ dependencies {
 val generatorOutputDir = file("src/main/kotlin_gen")
 sourceSets["main"].java.srcDir(generatorOutputDir)
 
+val entitiesLanguage = newLanguage("org.modelix.entities2") {
+    concept("INamedConcept") {
+        property("name")
+    }
+    concept("Entity") {
+        extends("INamedConcept")
+        child0n("properties", "Property")
+    }
+    concept("Property") {
+        extends("INamedConcept")
+    }
+}
+
 val generateMetaModelSources = tasks.create("generateMetaModelSources") {
     val languageFile = file("src/main/resources/EntitiesLanguage.yaml")
     inputs.file(languageFile)
     outputs.dir(generatorOutputDir)
     doLast {
-        KotlinGenerator(generatorOutputDir.toPath()).generate(listOf(
-            Language.fromFile(languageFile)
+        MetaModelGenerator(generatorOutputDir.toPath()).generate(listOf(
+            Language.fromFile(languageFile),
+            entitiesLanguage
         ))
     }
 }
