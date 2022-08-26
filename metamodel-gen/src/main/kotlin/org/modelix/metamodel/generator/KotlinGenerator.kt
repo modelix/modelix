@@ -17,7 +17,7 @@ class KotlinGenerator(val outputDir: Path) {
 
     fun generate(languages: List<Language>) {
         for (language in languages) {
-            val builder = FileSpec.builder(language.name, "Language")
+            val builder = FileSpec.builder(language.generatedClassName().packageName, language.generatedClassName().simpleName)
             val file = builder.addType(generateLanguage(language)).build()
             for (concept in language.concepts) {
                 generateConceptInstanceClass(language, concept)
@@ -27,7 +27,7 @@ class KotlinGenerator(val outputDir: Path) {
     }
 
     private fun generateLanguage(language: Language): TypeSpec {
-        val builder = TypeSpec.objectBuilder(ClassName(language.name, "Language"))
+        val builder = TypeSpec.objectBuilder(language.generatedClassName())
         val conceptNamesList = language.concepts.joinToString(", ") { it.name }
         builder.addFunction(FunSpec.builder("getConcepts")
             .addModifiers(KModifier.OVERRIDE)
@@ -49,7 +49,7 @@ class KotlinGenerator(val outputDir: Path) {
                 .initializer(concept.name + "Instance::class")
                 .build())
             addProperty(PropertySpec.builder("language", ILanguage::class, KModifier.OVERRIDE)
-                .initializer("Language")
+                .initializer(language.generatedClassName().simpleName)
                 .build())
             addFunction(FunSpec.builder("wrap")
                 .addModifiers(KModifier.OVERRIDE)
@@ -82,8 +82,8 @@ class KotlinGenerator(val outputDir: Path) {
     private fun generateConceptInstanceClass(language: Language, concept: Concept) {
         val fileBuilder = FileSpec.builder(language.name, concept.name + "Instance")
         val cls = TypeSpec.classBuilder(ClassName(language.name, concept.name + "Instance")).apply {
-            addProperty(PropertySpec.builder("concept", ClassName(language.name, "Language." + concept.name), KModifier.OVERRIDE)
-                .initializer(language.name + ".Language." + concept.name)
+            addProperty(PropertySpec.builder("concept", language.generatedClassName().nestedClass(concept.name), KModifier.OVERRIDE)
+                .initializer(language.generatedClassName().nestedClass(concept.name).canonicalName)
                 .build())
             primaryConstructor(FunSpec.constructorBuilder().addParameter("node", INode::class).build())
             superclass(GeneratedConceptInstance::class)
@@ -107,12 +107,15 @@ class KotlinGenerator(val outputDir: Path) {
                     .parameterizedBy(
                         ClassName(language.name, concept.name + "Instance"),
                         ClassName(language.name, link.type + "Instance"))
+                val childConceptClassName = language.generatedClassName().nestedClass(link.type).canonicalName
                 addProperty(PropertySpec.builder(link.name, type)
-                    .initializer("""NodeChildren(this, "${link.name}", ${language.name}.Language.${link.type}, ${link.type}Instance::class)""")
+                    .initializer("""NodeChildren(this, "${link.name}", $childConceptClassName, ${link.type}Instance::class)""")
                     .build())
             }
         }.build()
         fileBuilder.addType(cls)
         fileBuilder.build().writeTo(outputDir)
     }
+
+    private fun Language.generatedClassName()  = ClassName(name, "L_" + name.replace(".", "_"))
 }
