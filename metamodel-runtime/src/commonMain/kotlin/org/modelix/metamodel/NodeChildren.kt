@@ -15,7 +15,7 @@ class NodeChildren<ParentT : GeneratedConceptInstance, ChildT : GeneratedConcept
         return parent.node.getChildren(role).map {
             val wrapped = when (childConcept) {
                 is GeneratedConcept<*> -> childConcept.wrap(it)
-                else -> throw RuntimeException("Unsupported concept type: ${childConcept::class.qualifiedName} (${childConcept.getLongName()})")
+                else -> throw RuntimeException("Unsupported concept type: ${childConcept::class} (${childConcept.getLongName()})")
             }
             childType.cast(wrapped)
         }.iterator()

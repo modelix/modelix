@@ -50,6 +50,7 @@ class KotlinGenerator(val outputDir: Path) {
             .addStatement("return listOf($conceptNamesList)")
             .build())
         builder.superclass(GeneratedLanguage::class)
+        builder.addSuperclassConstructorParameter("\"${language.name}\"")
         for (concept in language.concepts) {
             builder.addType(generateConceptObject(language, concept))
         }

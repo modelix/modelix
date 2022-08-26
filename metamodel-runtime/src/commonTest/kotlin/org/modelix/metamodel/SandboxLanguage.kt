@@ -2,7 +2,7 @@ package org.modelix.metamodel
 
 import org.modelix.model.api.*
 
-object SandboxLanguage : GeneratedLanguage() {
+object SandboxLanguage : GeneratedLanguage("org.modelix.metamodel.sandboxlanguage") {
     override fun getConcepts(): List<IConcept> {
         return listOf(Concept1)
     }

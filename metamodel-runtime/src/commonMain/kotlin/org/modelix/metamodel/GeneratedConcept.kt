@@ -57,7 +57,7 @@ abstract class GeneratedConcept<InstanceT : GeneratedConceptInstance>(private va
     }
 
     override fun getLongName(): String {
-        return this::class.qualifiedName!!
+        return language!!.getName() + "." + getShortName()
     }
 
     override fun getOwnChildLinks(): List<IChildLink> {
@@ -69,7 +69,7 @@ abstract class GeneratedConcept<InstanceT : GeneratedConceptInstance>(private va
     }
 
     override fun getUID(): String {
-        return this::class.qualifiedName!!
+        return GeneratedConceptReference.PREFIX + getLongName()
     }
 
     override fun isExactly(concept: IConcept?): Boolean {

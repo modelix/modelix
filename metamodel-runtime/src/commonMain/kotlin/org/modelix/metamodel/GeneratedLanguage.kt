@@ -2,7 +2,7 @@ package org.modelix.metamodel
 
 import org.modelix.model.api.ILanguage
 
-abstract class GeneratedLanguage : ILanguage {
+abstract class GeneratedLanguage(private val name: String) : ILanguage {
     fun register() {
         LanguageRegistry.register(this)
     }
@@ -20,7 +20,7 @@ abstract class GeneratedLanguage : ILanguage {
     }
 
     override fun getName(): String {
-        return this::class.qualifiedName!!
+        return name
     }
 
     override fun getUID(): String {

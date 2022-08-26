@@ -11,7 +11,7 @@ import org.modelix.model.api.INode
 import org.modelix.model.api.IProperty
 import org.modelix.model.api.IReferenceLink
 
-public object L_org_modelix_entities : GeneratedLanguage() {
+public object L_org_modelix_entities : GeneratedLanguage("org.modelix.entities") {
   public override fun getConcepts() = listOf(Entity, Property, Type, EntityType)
 
   public object Entity : GeneratedConcept<EntityInstance>(false) {

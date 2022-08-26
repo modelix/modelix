@@ -10,7 +10,7 @@ object LanguageRegistry {
     init {
         IConceptReference.registerDeserializer(this) { serialized ->
             if (serialized.startsWith(GeneratedConceptReference.PREFIX)) {
-                GeneratedConceptReference(serialized.drop(GeneratedConceptReference.PREFIX.length))
+                GeneratedConceptReference(serialized)
             } else {
                 null
             }
