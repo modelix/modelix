@@ -5,7 +5,7 @@ import org.modelix.model.api.INode
 import kotlin.reflect.KClass
 import kotlin.reflect.cast
 
-class NodeChildren<ParentT : BaseConceptInstance, ChildT : BaseConceptInstance>(
+class NodeChildren<ParentT : GeneratedConceptInstance, ChildT : GeneratedConceptInstance>(
     val parent: ParentT,
     val role: String,
     val childConcept: IConcept,
@@ -14,8 +14,7 @@ class NodeChildren<ParentT : BaseConceptInstance, ChildT : BaseConceptInstance>(
     override fun iterator(): Iterator<ChildT> {
         return parent.node.getChildren(role).map {
             val wrapped = when (childConcept) {
-                is GeneratedConcept -> childConcept.wrap(it)
-                BaseConcept -> BaseConceptInstance(it)
+                is GeneratedConcept<*> -> childConcept.wrap(it)
                 else -> throw RuntimeException("Unsupported concept type: ${childConcept::class.qualifiedName} (${childConcept.getLongName()})")
             }
             childType.cast(wrapped)
@@ -30,7 +29,7 @@ class NodeChildren<ParentT : BaseConceptInstance, ChildT : BaseConceptInstance>(
         parent.node.removeChild(child)
     }
 
-    fun remove(child: BaseConceptInstance) {
+    fun remove(child: GeneratedConceptInstance) {
         remove(child.node)
     }
 }

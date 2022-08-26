@@ -1,17 +1,14 @@
 package org.modelix.metamodel.generator
 
 import com.squareup.kotlinpoet.*
-import com.squareup.kotlinpoet.MemberName.Companion.member
 import com.squareup.kotlinpoet.ParameterizedTypeName.Companion.parameterizedBy
-import org.modelix.metamodel.BaseConceptInstance
+import org.modelix.metamodel.GeneratedConceptInstance
 import org.modelix.metamodel.GeneratedConcept
 import org.modelix.metamodel.GeneratedLanguage
 import org.modelix.metamodel.NodeChildren
 import org.modelix.metamodel.definition.Concept
 import org.modelix.metamodel.definition.Language
-import org.modelix.model.api.IConcept
-import org.modelix.model.api.ILanguage
-import org.modelix.model.api.INode
+import org.modelix.model.api.*
 import java.nio.file.Path
 import kotlin.reflect.KClass
 
@@ -45,7 +42,7 @@ class KotlinGenerator(val outputDir: Path) {
 
     private fun generateConceptObject(language: Language, concept: Concept): TypeSpec {
         return TypeSpec.objectBuilder(concept.name).apply {
-            superclass(GeneratedConcept::class)
+            superclass(GeneratedConcept::class.asTypeName().parameterizedBy(ClassName(language.name, concept.name + "Instance")))
             addSuperclassConstructorParameter(concept.abstract.toString())
             val instanceClassType = KClass::class.asClassName().parameterizedBy(ClassName(language.name, concept.name + "Instance"))
             addProperty(PropertySpec.builder("instanceClass", instanceClassType, KModifier.OVERRIDE)
@@ -64,6 +61,21 @@ class KotlinGenerator(val outputDir: Path) {
                 .addStatement("return listOf(${concept.extends.joinToString(", ")})")
                 .returns(List::class.asTypeName().parameterizedBy(IConcept::class.asTypeName()))
                 .build())
+            for (property in concept.properties) {
+                addProperty(PropertySpec.builder(property.name, IProperty::class)
+                    .initializer("""newProperty("${property.name}")""")
+                    .build())
+            }
+            for (link in concept.references) {
+                addProperty(PropertySpec.builder(link.name, IReferenceLink::class)
+                    .initializer("""newReferenceLink("${link.name}", ${link.optional}, ${link.type})""")
+                    .build())
+            }
+            for (link in concept.children) {
+                addProperty(PropertySpec.builder(link.name, IChildLink::class)
+                    .initializer("""newChildLink("${link.name}", ${link.multiple}, ${link.optional}, ${link.type})""")
+                    .build())
+            }
         }.build()
     }
 
@@ -74,14 +86,19 @@ class KotlinGenerator(val outputDir: Path) {
                 .initializer(language.name + ".Language." + concept.name)
                 .build())
             primaryConstructor(FunSpec.constructorBuilder().addParameter("node", INode::class).build())
-            superclass(BaseConceptInstance::class)
+            superclass(GeneratedConceptInstance::class)
             addSuperclassConstructorParameter("node")
             for (property in concept.properties) {
                 val optionalString = String::class.asTypeName().copy(nullable = true)
                 addProperty(PropertySpec.builder(property.name, optionalString)
                     .mutable(true)
-                    .getter(FunSpec.getterBuilder().addStatement("""return node.getPropertyValue("${property.name}")""").build())
-                    .setter(FunSpec.setterBuilder().addParameter("v", optionalString).addStatement("""node.setPropertyValue("${property.name}", v)""").build())
+                    .delegate("""PropertyAccessor("${property.name}")""")
+                    .build())
+            }
+            for (link in concept.references) {
+                addProperty(PropertySpec.builder(link.name, ClassName(language.name, link.type + "Instance").copy(nullable = true))
+                    .mutable(true)
+                    .delegate("""ReferenceAccessor("${link.name}", ${link.type}Instance::class)""")
                     .build())
             }
             for (link in concept.children) {

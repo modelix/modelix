@@ -3,13 +3,13 @@ package org.modelix.metamodel
 import org.modelix.model.api.*
 import kotlin.reflect.KClass
 
-abstract class GeneratedConcept(private val is_abstract: Boolean) : IConcept {
-    abstract val instanceClass: KClass<out BaseConceptInstance>
+abstract class GeneratedConcept<InstanceT : GeneratedConceptInstance>(private val is_abstract: Boolean) : IConcept {
+    abstract val instanceClass: KClass<InstanceT>
     private val propertiesMap: MutableMap<String, GeneratedProperty> = LinkedHashMap()
     private val childLinksMap: MutableMap<String, GeneratedChildLink> = LinkedHashMap()
     private val referenceLinksMap: MutableMap<String, GeneratedReferenceLink> = LinkedHashMap()
 
-    abstract fun wrap(node: INode): BaseConceptInstance
+    abstract fun wrap(node: INode): InstanceT
 
     override fun isAbstract(): Boolean {
         return is_abstract
@@ -49,7 +49,7 @@ abstract class GeneratedConcept(private val is_abstract: Boolean) : IConcept {
     }
 
     override fun getReference(): IConceptReference {
-        return UIDConceptReference(getUID())
+        return GeneratedConceptReference(getUID())
     }
 
     override fun getShortName(): String {
