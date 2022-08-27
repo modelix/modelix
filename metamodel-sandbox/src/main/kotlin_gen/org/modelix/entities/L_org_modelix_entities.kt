@@ -1,64 +1,20 @@
 package org.modelix.entities
 
-import kotlin.collections.List
-import kotlin.reflect.KClass
-import org.modelix.metamodel.GeneratedConcept
 import org.modelix.metamodel.GeneratedLanguage
-import org.modelix.model.api.IChildLink
-import org.modelix.model.api.IConcept
-import org.modelix.model.api.ILanguage
-import org.modelix.model.api.INode
-import org.modelix.model.api.IProperty
-import org.modelix.model.api.IReferenceLink
 
 public object L_org_modelix_entities : GeneratedLanguage("org.modelix.entities") {
-  public override fun getConcepts() = listOf(Entity, Property, Type, EntityType)
+  public val INamedConcept: C_INamedConcept = org.modelix.entities.C_INamedConcept
 
-  public object Entity : GeneratedConcept<EntityInstance>(false) {
-    public override val instanceClass: KClass<EntityInstance> = EntityInstance::class
+  public val Concept1: C_Concept1 = org.modelix.entities.C_Concept1
 
-    public override val language: ILanguage = L_org_modelix_entities
+  public val Entity: C_Entity = org.modelix.entities.C_Entity
 
-    public val name: IProperty = newProperty("name")
+  public val Property: C_Property = org.modelix.entities.C_Property
 
-    public val properties: IChildLink = newChildLink("properties", true, true, Property)
+  public val Type: C_Type = org.modelix.entities.C_Type
 
-    public override fun wrap(node: INode) = EntityInstance(node)
+  public val EntityType: C_EntityType = org.modelix.entities.C_EntityType
 
-    public override fun getDirectSuperConcepts(): List<IConcept> = listOf()
-  }
-
-  public object Property : GeneratedConcept<PropertyInstance>(false) {
-    public override val instanceClass: KClass<PropertyInstance> = PropertyInstance::class
-
-    public override val language: ILanguage = L_org_modelix_entities
-
-    public val type: IChildLink = newChildLink("type", false, false, Type)
-
-    public override fun wrap(node: INode) = PropertyInstance(node)
-
-    public override fun getDirectSuperConcepts(): List<IConcept> = listOf()
-  }
-
-  public object Type : GeneratedConcept<TypeInstance>(false) {
-    public override val instanceClass: KClass<TypeInstance> = TypeInstance::class
-
-    public override val language: ILanguage = L_org_modelix_entities
-
-    public override fun wrap(node: INode) = TypeInstance(node)
-
-    public override fun getDirectSuperConcepts(): List<IConcept> = listOf()
-  }
-
-  public object EntityType : GeneratedConcept<EntityTypeInstance>(false) {
-    public override val instanceClass: KClass<EntityTypeInstance> = EntityTypeInstance::class
-
-    public override val language: ILanguage = L_org_modelix_entities
-
-    public val entity: IReferenceLink = newReferenceLink("entity", false, Entity)
-
-    public override fun wrap(node: INode) = EntityTypeInstance(node)
-
-    public override fun getDirectSuperConcepts(): List<IConcept> = listOf(Type)
-  }
+  public override fun getConcepts() = listOf(INamedConcept, Concept1, Entity, Property, Type,
+      EntityType)
 }

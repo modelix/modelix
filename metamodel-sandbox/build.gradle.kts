@@ -46,7 +46,8 @@ val generateMetaModelSources = tasks.create("generateMetaModelSources") {
     doLast {
         MetaModelGenerator(generatorOutputDir.toPath()).generate(listOf(
             Language.fromFile(languageFile),
-            entitiesLanguage
+            entitiesLanguage,
+            org.modelix.languages.Expressions.lang
         ))
     }
 }
