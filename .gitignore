@@ -29,3 +29,5 @@ source_gen.caches
 !/projector-user-home/**/*
 .gitattributes
 .mps-caches
+
+**/src/*/kotlin_gen

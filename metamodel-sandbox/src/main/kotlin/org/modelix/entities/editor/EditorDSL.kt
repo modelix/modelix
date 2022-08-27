@@ -3,10 +3,7 @@ package org.modelix.entities.editor
 import org.modelix.metamodel.GeneratedConcept
 import org.modelix.metamodel.GeneratedConceptInstance
 import org.modelix.metamodel.IConceptWrapper
-import org.modelix.model.api.IConcept
-import org.modelix.model.api.ILanguage
-import org.modelix.model.api.IProperty
-import org.modelix.model.api.IReferenceLink
+import org.modelix.model.api.*
 
 
 fun <LanguageT : ILanguage> languageEditors(language: LanguageT, body: LanguageEditors<LanguageT>.()->Unit): LanguageEditors<LanguageT> {
@@ -68,6 +65,22 @@ class CellBuilder<CellT : Cell, NodeT, ConceptT : IConceptWrapper>(val node: Nod
     }
 
     fun property(property: IProperty): Cell {
+        TODO("Not implemented yet")
+    }
+
+    fun property(getter: ConceptT.()->IProperty) {
+        TODO("Not implemented yet")
+    }
+
+    fun IProperty.cell(body: CellBuilder<TextCell, NodeT, ConceptT>.()->Unit = {}) {
+        TODO("Not implemented yet")
+    }
+
+    fun IReferenceLink.cell(body: CellBuilder<TextCell, NodeT, ConceptT>.()->Unit = {}): Cell {
+        TODO("Not implemented yet")
+    }
+
+    fun IChildLink.cell(body: CellBuilder<Cell, NodeT, ConceptT>.()->Unit = {}): Cell {
         TODO("Not implemented yet")
     }
 

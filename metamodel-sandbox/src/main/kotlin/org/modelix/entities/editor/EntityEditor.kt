@@ -1,6 +1,7 @@
 package org.modelix.entities.editor
 
 import org.modelix.entities.L_org_modelix_entities
+import kotlin.reflect.KMutableProperty0
 
 class EntityEditor {
 
@@ -9,7 +10,7 @@ class EntityEditor {
             vertical {
                 horizontal {
                     constant("entity")
-                    property(concept.name)
+                    concept.name.cell()
                     curlyBrackets {
 
                     }
