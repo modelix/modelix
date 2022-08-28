@@ -11,7 +11,7 @@ class EntityEditor {
                 horizontal {
                     constant("entity")
                     concept.name.cell()
-                    curlyBrackets {
+                    curlyBrackets() {
 
                     }
                     constant("{")

@@ -1,8 +1,8 @@
 package org.modelix.entities.editor
 
 import org.modelix.metamodel.GeneratedConcept
-import org.modelix.metamodel.GeneratedConceptInstance
-import org.modelix.metamodel.IConceptWrapper
+import org.modelix.metamodel.ITypedConcept
+import org.modelix.metamodel.ITypedNode
 import org.modelix.model.api.*
 
 
@@ -12,7 +12,7 @@ fun <LanguageT : ILanguage> languageEditors(language: LanguageT, body: LanguageE
 
 class LanguageEditors<LanguageT : ILanguage>(val language: LanguageT) {
 
-    fun <NodeT : GeneratedConceptInstance, ConceptT : GeneratedConcept<NodeT, WrapperT>, WrapperT : IConceptWrapper> conceptEditor(concept: ConceptT, body: CellBuilder<Cell, NodeT, WrapperT>.()->Unit): CellBuilder<Cell, NodeT, WrapperT> {
+    fun <NodeT : ITypedNode, ConceptT : GeneratedConcept<NodeT, TypedConceptT>, TypedConceptT : ITypedConcept> conceptEditor(concept: ConceptT, body: CellBuilder<Cell, NodeT, TypedConceptT>.()->Unit): CellBuilder<Cell, NodeT, TypedConceptT> {
         TODO("Not implemented yet")
     }
 
@@ -21,7 +21,7 @@ class LanguageEditors<LanguageT : ILanguage>(val language: LanguageT) {
     }
 }
 
-class CellBuilder<CellT : Cell, NodeT, ConceptT : IConceptWrapper>(val node: NodeT, val concept: ConceptT) {
+class CellBuilder<CellT : Cell, NodeT : ITypedNode, ConceptT : ITypedConcept>(val node: NodeT, val concept: ConceptT) {
     val properties = CellProperties()
 
     fun constant(text: String, body: CellBuilder<TextCell, NodeT, ConceptT>.()->Unit = {}) {
@@ -52,7 +52,7 @@ class CellBuilder<CellT : Cell, NodeT, ConceptT : IConceptWrapper>(val node: Nod
         brackets("(", ")", body)
     }
 
-    fun curlyBrackets(body: CellBuilder<Cell, NodeT, ConceptT>.()->Unit = {}) {
+    fun curlyBrackets(singleLine: Boolean = false, body: CellBuilder<Cell, NodeT, ConceptT>.()->Unit = {}) {
         brackets("{", "}", body)
     }
 
