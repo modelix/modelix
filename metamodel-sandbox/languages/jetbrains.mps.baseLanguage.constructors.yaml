@@ -1,0 +1,117 @@
+name: "jetbrains.mps.baseLanguage.constructors"
+concepts:
+- name: "CustomConstructorContainer"
+  abstract: false
+  properties: []
+  children:
+  - name: "constructors"
+    type: "jetbrains.mps.baseLanguage.constructors.CustomConstructor"
+    multiple: true
+    optional: true
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+  - "jetbrains.mps.lang.core.INamedConcept"
+- name: "CustomConstructor"
+  abstract: false
+  properties:
+  - name: "description"
+    type: "STRING"
+  - name: "separator"
+    type: "STRING"
+  - name: "leftParenthesis"
+    type: "STRING"
+  - name: "rightParenthesis"
+    type: "STRING"
+  children:
+  - name: "returnType"
+    type: "jetbrains.mps.baseLanguage.Type"
+    multiple: false
+    optional: false
+  - name: "arguments"
+    type: "jetbrains.mps.baseLanguage.constructors.ArgumentClause"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.ConceptFunction"
+  - "jetbrains.mps.lang.core.INamedConcept"
+- name: "CustomConstructorUsage"
+  abstract: false
+  properties: []
+  children:
+  - name: "element"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: true
+    optional: true
+  references:
+  - name: "customConstructor"
+    type: "jetbrains.mps.baseLanguage.constructors.CustomConstructor"
+    optional: false
+  extends:
+  - "jetbrains.mps.baseLanguage.Expression"
+- name: "ArgumentClause"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+- name: "ListArgumentsClause"
+  abstract: false
+  properties: []
+  children:
+  - name: "list"
+    type: "jetbrains.mps.baseLanguage.constructors.ListCustomParameter"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.constructors.ArgumentClause"
+- name: "CustomArgumentClause"
+  abstract: false
+  properties: []
+  children:
+  - name: "parameter"
+    type: "jetbrains.mps.baseLanguage.constructors.CustomConstructorParameter"
+    multiple: true
+    optional: true
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.constructors.ArgumentClause"
+- name: "CustomConstructorParameter"
+  abstract: false
+  properties: []
+  children:
+  - name: "type"
+    type: "jetbrains.mps.baseLanguage.Type"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+  - "jetbrains.mps.lang.core.INamedConcept"
+- name: "CustomConstructorParameterReference"
+  abstract: false
+  properties: []
+  children: []
+  references:
+  - name: "parameter"
+    type: "jetbrains.mps.baseLanguage.constructors.CustomConstructorParameter"
+    optional: false
+  extends:
+  - "jetbrains.mps.baseLanguage.Expression"
+- name: "ListParameterReference"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.constructors.CustomConstructorParameterReference"
+- name: "ListCustomParameter"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.constructors.CustomConstructorParameter"

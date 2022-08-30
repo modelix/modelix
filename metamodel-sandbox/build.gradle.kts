@@ -40,15 +40,15 @@ val entitiesLanguage = newLanguage("org.modelix.entities2") {
 }
 
 val generateMetaModelSources = tasks.create("generateMetaModelSources") {
-    val languageFile = file("src/main/resources/EntitiesLanguage.yaml")
-    inputs.file(languageFile)
+    val languagesDir = file("languages")
+    inputs.dir(languagesDir)
     outputs.dir(generatorOutputDir)
     doLast {
-        MetaModelGenerator(generatorOutputDir.toPath()).generate(listOf(
-            Language.fromFile(languageFile),
-            entitiesLanguage,
-            org.modelix.languages.Expressions.lang
-        ))
+        val languages = languagesDir.walk()
+            .filter { it.extension.toLowerCase() == "yaml" }
+            .map { Language.fromFile(it) }
+            .toList()
+        MetaModelGenerator(generatorOutputDir.toPath()).generate(languages + entitiesLanguage + org.modelix.languages.Expressions.lang)
     }
 }
 

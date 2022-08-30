@@ -1,0 +1,221 @@
+name: "jetbrains.mps.baseLanguage.closures"
+concepts:
+- name: "FunctionType"
+  abstract: false
+  properties: []
+  children:
+  - name: "parameterType"
+    type: "jetbrains.mps.baseLanguage.Type"
+    multiple: true
+    optional: true
+  - name: "resultType"
+    type: "jetbrains.mps.baseLanguage.Type"
+    multiple: false
+    optional: false
+  - name: "throwsType"
+    type: "jetbrains.mps.baseLanguage.Type"
+    multiple: true
+    optional: true
+  references:
+  - name: "runtimeIface"
+    type: "jetbrains.mps.baseLanguage.Interface"
+    optional: true
+  extends:
+  - "jetbrains.mps.baseLanguage.Type"
+  - "jetbrains.mps.baseLanguage.IGenericType"
+- name: "InvokeFunctionExpression"
+  abstract: false
+  properties: []
+  children:
+  - name: "function"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: false
+    optional: false
+  - name: "parameter"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: true
+    optional: true
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.Expression"
+  - "jetbrains.mps.lang.core.IDeprecatable"
+- name: "ClosureLiteral"
+  abstract: false
+  properties:
+  - name: "forceMultiLine"
+    type: "STRING"
+  children:
+  - name: "parameter"
+    type: "jetbrains.mps.baseLanguage.ParameterDeclaration"
+    multiple: true
+    optional: true
+  - name: "body"
+    type: "jetbrains.mps.baseLanguage.StatementList"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.Expression"
+  - "jetbrains.mps.baseLanguage.IStatementListContainer"
+  - "jetbrains.mps.baseLanguage.IContainsStatementList"
+  - "jetbrains.mps.baseLanguage.IMethodLike"
+  - "jetbrains.mps.baseLanguage.IFinalWrapper"
+  - "jetbrains.mps.baseLanguage.IControlFlowInterrupter"
+  - "jetbrains.mps.lang.core.ScopeProvider"
+- name: "InvokeExpression"
+  abstract: false
+  properties: []
+  children:
+  - name: "parameter"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: true
+    optional: true
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.Expression"
+- name: "YieldStatement"
+  abstract: false
+  properties: []
+  children:
+  - name: "expression"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.Statement"
+- name: "UnboundClosureParameterDeclaration"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.ParameterDeclaration"
+- name: "PairOfInts"
+  abstract: false
+  properties:
+  - name: "first"
+    type: "STRING"
+  - name: "second"
+    type: "STRING"
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+- name: "StringPropertyHolder"
+  abstract: false
+  properties:
+  - name: "value"
+    type: "STRING"
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+- name: "InvokeFunctionOperation"
+  abstract: false
+  properties: []
+  children:
+  - name: "parameter"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: true
+    optional: true
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+  - "jetbrains.mps.baseLanguage.IOperation"
+- name: "YieldAllStatement"
+  abstract: false
+  properties: []
+  children:
+  - name: "expression"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.Statement"
+- name: "ControlAbstractionContainer"
+  abstract: false
+  properties: []
+  children:
+  - name: "controlAbstraction"
+    type: "jetbrains.mps.baseLanguage.closures.ControlAbstractionDeclaration"
+    multiple: true
+    optional: true
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.Classifier"
+- name: "ControlAbstractionDeclaration"
+  abstract: false
+  properties: []
+  children:
+  - name: "parameter"
+    type: "jetbrains.mps.baseLanguage.ParameterDeclaration"
+    multiple: true
+    optional: true
+  - name: "body"
+    type: "jetbrains.mps.baseLanguage.StatementList"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.GenericDeclaration"
+  - "jetbrains.mps.baseLanguage.ClassifierMember"
+  - "jetbrains.mps.lang.core.IResolveInfo"
+  - "jetbrains.mps.baseLanguage.HasAnnotation"
+- name: "CompactInvokeFunctionExpression"
+  abstract: false
+  properties: []
+  children:
+  - name: "function"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: false
+    optional: false
+  - name: "parameter"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: true
+    optional: true
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.Expression"
+- name: "FunctionMethodDeclaration"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.InstanceMethodDeclaration"
+- name: "AbstractFunctionType"
+  abstract: false
+  properties: []
+  children:
+  - name: "parameterType"
+    type: "jetbrains.mps.baseLanguage.Type"
+    multiple: true
+    optional: true
+  - name: "resultType"
+    type: "jetbrains.mps.baseLanguage.Type"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.Type"
+- name: "ClosureArgReference"
+  abstract: false
+  properties: []
+  children:
+  - name: "original"
+    type: "jetbrains.mps.baseLanguage.VariableReference"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.Expression"
+- name: "ClosureLiteralType"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.closures.FunctionType"
+  - "jetbrains.mps.baseLanguage.IInternalType"

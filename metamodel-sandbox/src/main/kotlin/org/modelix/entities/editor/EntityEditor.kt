@@ -1,5 +1,6 @@
 package org.modelix.entities.editor
 
+import jetbrains.mps.baseLanguage.L_jetbrains_mps_baseLanguage
 import org.modelix.entities.L_org_modelix_entities
 import kotlin.reflect.KMutableProperty0
 
@@ -31,6 +32,19 @@ class EntityEditor {
         }
         conceptEditor(L_org_modelix_entities.EntityType) {
             reference(concept.entity)
+        }
+
+        conceptEditor(L_jetbrains_mps_baseLanguage.ClassConcept) {
+            concept.isFinal.flagCell()
+            "class".cell()
+            angleBrackets {
+                concept.typeVariableDeclaration.horizontal(",")
+            }
+            concept.name.propertyCell()
+
+            curlyBrackets {
+                concept.member.vertical()
+            }
         }
     }
 

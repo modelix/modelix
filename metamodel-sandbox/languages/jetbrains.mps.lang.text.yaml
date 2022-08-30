@@ -1,0 +1,69 @@
+name: "jetbrains.mps.lang.text"
+concepts:
+- name: "TextElement"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+- name: "Word"
+  abstract: false
+  properties:
+  - name: "value"
+    type: "STRING"
+  - name: "bold"
+    type: "STRING"
+  - name: "italic"
+    type: "STRING"
+  - name: "underlined"
+    type: "STRING"
+  - name: "url"
+    type: "STRING"
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.text.TextElement"
+- name: "Text"
+  abstract: false
+  properties: []
+  children:
+  - name: "lines"
+    type: "jetbrains.mps.lang.text.Line"
+    multiple: true
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+  - "jetbrains.mps.lang.core.IPlaceholderContent"
+  - "jetbrains.mps.lang.text.IHoldLines"
+- name: "Line"
+  abstract: false
+  properties: []
+  children:
+  - name: "elements"
+    type: "jetbrains.mps.lang.text.TextElement"
+    multiple: true
+    optional: true
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+- name: "NodeWrapperElement"
+  abstract: false
+  properties: []
+  children:
+  - name: "node"
+    type: "jetbrains.mps.lang.core.BaseConcept"
+    multiple: false
+    optional: true
+  references: []
+  extends:
+  - "jetbrains.mps.lang.text.TextElement"
+  - "jetbrains.mps.lang.core.ISkipConstraintsChecking"
+  - "jetbrains.mps.lang.core.IDontApplyTypesystemRules"
+- name: "IHoldLines"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends: []

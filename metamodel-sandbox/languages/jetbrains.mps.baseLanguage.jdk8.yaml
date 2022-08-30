@@ -1,0 +1,19 @@
+name: "jetbrains.mps.baseLanguage.jdk8"
+concepts:
+- name: "SuperInterfaceMethodCall_old"
+  abstract: false
+  properties: []
+  children: []
+  references:
+  - name: "classifier_old"
+    type: "jetbrains.mps.baseLanguage.Classifier"
+    optional: true
+  extends:
+  - "jetbrains.mps.baseLanguage.SuperMethodCall"
+- name: "DefaultModifier_old"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.JavaModifier"

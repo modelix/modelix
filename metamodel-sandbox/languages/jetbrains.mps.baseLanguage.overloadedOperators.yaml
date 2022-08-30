@@ -1,0 +1,113 @@
+name: "jetbrains.mps.baseLanguage.overloadedOperators"
+concepts:
+- name: "OverloadedBinaryOperator"
+  abstract: false
+  properties:
+  - name: "commutative"
+    type: "STRING"
+  children:
+  - name: "returnType"
+    type: "jetbrains.mps.baseLanguage.Type"
+    multiple: false
+    optional: false
+  - name: "leftType"
+    type: "jetbrains.mps.baseLanguage.Type"
+    multiple: false
+    optional: false
+  - name: "rightType"
+    type: "jetbrains.mps.baseLanguage.Type"
+    multiple: false
+    optional: false
+  - name: "operator"
+    type: "jetbrains.mps.baseLanguage.overloadedOperators.Operator"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.ConceptFunction"
+- name: "OverloadedOperatorContainer"
+  abstract: false
+  properties: []
+  children:
+  - name: "operators"
+    type: "jetbrains.mps.baseLanguage.overloadedOperators.OverloadedBinaryOperator"
+    multiple: true
+    optional: true
+  - name: "customOperators"
+    type: "jetbrains.mps.baseLanguage.overloadedOperators.CustomOperatorDeclaration"
+    multiple: true
+    optional: true
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+  - "jetbrains.mps.lang.core.INamedConcept"
+- name: "LeftOperand"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.ConceptFunctionParameter"
+  - "jetbrains.mps.lang.core.INamedConcept"
+- name: "RightOperand"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.ConceptFunctionParameter"
+- name: "Operator"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+- name: "BinaryOperationReference"
+  abstract: false
+  properties: []
+  children: []
+  references:
+  - name: "binaryOperation"
+    type: "jetbrains.mps.lang.structure.ConceptDeclaration"
+    optional: false
+  extends:
+  - "jetbrains.mps.baseLanguage.overloadedOperators.Operator"
+- name: "CustomOperator"
+  abstract: false
+  properties: []
+  children: []
+  references:
+  - name: "declaration"
+    type: "jetbrains.mps.baseLanguage.overloadedOperators.CustomOperatorDeclaration"
+    optional: false
+  extends:
+  - "jetbrains.mps.baseLanguage.overloadedOperators.Operator"
+- name: "CustomOperatorUsage"
+  abstract: false
+  properties: []
+  children: []
+  references:
+  - name: "operator"
+    type: "jetbrains.mps.baseLanguage.overloadedOperators.CustomOperatorDeclaration"
+    optional: false
+  extends:
+  - "jetbrains.mps.baseLanguage.BinaryOperation"
+- name: "CustomOperatorDeclaration"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+  - "jetbrains.mps.lang.core.INamedConcept"
+- name: "ContainerImport"
+  abstract: false
+  properties: []
+  children: []
+  references:
+  - name: "container"
+    type: "jetbrains.mps.baseLanguage.overloadedOperators.OverloadedOperatorContainer"
+    optional: false
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"

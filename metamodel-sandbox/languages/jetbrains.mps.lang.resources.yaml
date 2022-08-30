@@ -1,0 +1,244 @@
+name: "jetbrains.mps.lang.resources"
+concepts:
+- name: "FileIcon"
+  abstract: false
+  properties:
+  - name: "file"
+    type: "STRING"
+  children:
+  - name: "iconExpression"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: false
+    optional: true
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+  - "jetbrains.mps.lang.resources.Icon"
+- name: "OldIconBundle"
+  abstract: false
+  properties: []
+  children:
+  - name: "icons"
+    type: "jetbrains.mps.lang.resources.OldIconDeclaration"
+    multiple: true
+    optional: true
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+  - "jetbrains.mps.lang.core.INamedConcept"
+- name: "OldIconDeclaration"
+  abstract: false
+  properties: []
+  children:
+  - name: "iconExpression"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+  - "jetbrains.mps.lang.core.INamedConcept"
+- name: "IconExpression"
+  abstract: false
+  properties: []
+  children:
+  - name: "icon"
+    type: "jetbrains.mps.lang.resources.Icon"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.Expression"
+- name: "OldIconReference"
+  abstract: false
+  properties: []
+  children: []
+  references:
+  - name: "declaration"
+    type: "jetbrains.mps.lang.resources.OldIconDeclaration"
+    optional: false
+  extends:
+  - "jetbrains.mps.baseLanguage.Expression"
+- name: "Resource"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends: []
+- name: "IconResourceExpression"
+  abstract: false
+  properties: []
+  children:
+  - name: "icon"
+    type: "jetbrains.mps.lang.resources.Icon"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.Expression"
+- name: "Icon"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.resources.Resource"
+- name: "TextIcon"
+  abstract: false
+  properties:
+  - name: "iconId"
+    type: "STRING"
+  children:
+  - name: "layers"
+    type: "jetbrains.mps.lang.resources.IconLayerDescription"
+    multiple: true
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+  - "jetbrains.mps.lang.resources.Icon"
+- name: "Circle"
+  abstract: false
+  properties:
+  - name: "r"
+    type: "STRING"
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.resources.Primitive"
+- name: "Rect"
+  abstract: false
+  properties:
+  - name: "r"
+    type: "STRING"
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.resources.Primitive"
+- name: "IconLayerDescription"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends: []
+- name: "Primitive"
+  abstract: true
+  properties: []
+  children:
+  - name: "fillColor"
+    type: "jetbrains.mps.lang.resources.Color"
+    multiple: false
+    optional: false
+  - name: "borderColor"
+    type: "jetbrains.mps.lang.resources.Color"
+    multiple: false
+    optional: true
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+  - "jetbrains.mps.lang.resources.IconLayerDescription"
+- name: "Text"
+  abstract: false
+  properties:
+  - name: "text"
+    type: "STRING"
+  children:
+  - name: "color"
+    type: "jetbrains.mps.lang.resources.Color"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+  - "jetbrains.mps.lang.resources.IconLayerDescription"
+- name: "Image"
+  abstract: false
+  properties:
+  - name: "file"
+    type: "STRING"
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+  - "jetbrains.mps.lang.resources.IconLayerDescription"
+- name: "ColorLiteral"
+  abstract: false
+  properties:
+  - name: "val"
+    type: "STRING"
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+  - "jetbrains.mps.lang.resources.Color"
+- name: "Color"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends: []
+- name: "ConceptIconResourceExpression"
+  abstract: false
+  properties: []
+  children:
+  - name: "concept"
+    type: "jetbrains.mps.lang.smodel.IRefConceptArg"
+    multiple: false
+    optional: true
+  references:
+  - name: "concept_old"
+    type: "jetbrains.mps.lang.structure.AbstractConceptDeclaration"
+    optional: true
+  extends:
+  - "jetbrains.mps.baseLanguage.Expression"
+- name: "NodeIconResourceExpression"
+  abstract: false
+  properties: []
+  children:
+  - name: "node"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: false
+    optional: true
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.Expression"
+- name: "HelpURL"
+  abstract: false
+  properties:
+  - name: "url"
+    type: "STRING"
+  children: []
+  references:
+  - name: "baseURL"
+    type: "jetbrains.mps.lang.resources.BaseURL"
+    optional: true
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+- name: "BaseURLFunction"
+  abstract: false
+  properties: []
+  children:
+  - name: "calculator"
+    type: "jetbrains.mps.baseLanguage.closures.ClosureLiteral"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.lang.resources.BaseURL"
+- name: "BaseURL"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+  - "jetbrains.mps.lang.structure.INamedAspect"
+- name: "BaseURLLiteral"
+  abstract: false
+  properties:
+  - name: "url"
+    type: "STRING"
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.resources.BaseURL"

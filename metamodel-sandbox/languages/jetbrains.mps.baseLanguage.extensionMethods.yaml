@@ -1,0 +1,86 @@
+name: "jetbrains.mps.baseLanguage.extensionMethods"
+concepts:
+- name: "TypeExtension"
+  abstract: false
+  properties: []
+  children:
+  - name: "type"
+    type: "jetbrains.mps.baseLanguage.Type"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.extensionMethods.BaseExtensionMethodContainer"
+- name: "ExtensionMethodCall"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+  - "jetbrains.mps.baseLanguage.IOperation"
+  - "jetbrains.mps.baseLanguage.IMethodCall"
+- name: "ExtensionMethodDeclaration"
+  abstract: false
+  properties: []
+  children:
+  - name: "extendedType"
+    type: "jetbrains.mps.baseLanguage.Type"
+    multiple: false
+    optional: true
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.BaseMethodDeclaration"
+  - "jetbrains.mps.baseLanguage.ClassifierMember"
+- name: "ThisExtensionExpression"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.Expression"
+- name: "SimpleExtensionMethodsContainer"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.extensionMethods.BaseExtensionMethodContainer"
+- name: "BaseExtensionMethodContainer"
+  abstract: true
+  properties: []
+  children:
+  - name: "methods"
+    type: "jetbrains.mps.baseLanguage.extensionMethods.ExtensionMethodDeclaration"
+    multiple: true
+    optional: true
+  - name: "staticFields"
+    type: "jetbrains.mps.baseLanguage.extensionMethods.ExtensionStaticFieldDeclaration"
+    multiple: true
+    optional: true
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.GenericDeclaration"
+  - "jetbrains.mps.baseLanguage.IVisible"
+  - "jetbrains.mps.baseLanguage.IMemberContainer"
+- name: "ExtensionStaticFieldReference"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.VariableReference"
+- name: "ExtensionStaticFieldDeclaration"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.VariableDeclaration"
+- name: "LocalExtendedMethodCall"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.BaseMethodCall"

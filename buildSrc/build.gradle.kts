@@ -11,6 +11,6 @@ repositories {
 }
 
 dependencies {
-    val modelApiVersion = "1.0.2-5-g1b258b7.dirty-SNAPSHOT"
+    val modelApiVersion = "1.0.2-36-gda67783.dirty-SNAPSHOT"
     implementation("org.modelix:metamodel-generator:$modelApiVersion")
 }
