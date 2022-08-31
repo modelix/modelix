@@ -1,7 +1,11 @@
+import java.util.Properties
 
+val properties: Properties = file("${rootDir.parentFile}/gradle.properties")
+    .inputStream().use { stream -> Properties().also { it.load(stream) } }
 
 plugins {
-    kotlin("jvm") version "1.6.21"
+    val kotlinVersion = "1.6.21"
+    kotlin("jvm") version kotlinVersion
 }
 
 repositories {
@@ -11,6 +15,6 @@ repositories {
 }
 
 dependencies {
-    val modelApiVersion = "1.0.2-36-gda67783.dirty-SNAPSHOT"
+    val modelApiVersion: String by properties
     implementation("org.modelix:metamodel-generator:$modelApiVersion")
 }
