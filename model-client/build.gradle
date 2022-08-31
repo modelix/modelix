@@ -147,25 +147,3 @@ spotless {
                 '\n'
     }
 }
-
-task copyModelClientToMps(type: Sync) {
-    from configurations.jvmRuntimeClasspath
-    from "$buildDir/libs"
-    into "$projectDir/../mps/org.modelix.model.client/lib"
-    rename { fileName ->
-        stripVersion(fileName)
-    }
-    exclude 'log4j*.jar'
-    exclude 'annotations*.jar'
-    exclude 'model-api*.jar'
-}
-
-assemble.finalizedBy(copyModelClientToMps)
-
-String stripVersion(String fileNameWithVersion) {
-    String name = fileNameWithVersion
-    if (version != null && version.length() > 0) name = name.replace("-" + version, "")
-    name = name.replaceAll(/-\d+(\.\d+)*(-SNAPSHOT)?/, "")
-    println "stripVersion($fileNameWithVersion) -> $name"
-    return name
-}

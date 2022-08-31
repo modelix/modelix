@@ -20,7 +20,6 @@
       <sourceRoot location="jakarta.inject.jar" />
       <sourceRoot location="jakarta.validation-api.jar" />
       <sourceRoot location="jakarta.ws.rs-api.jar" />
-      <sourceRoot location="javassist-GA.jar" />
       <sourceRoot location="javax.activation-api.jar" />
       <sourceRoot location="jaxb-api.jar" />
       <sourceRoot location="jersey-client.jar" />
@@ -31,9 +30,6 @@
       <sourceRoot location="jersey-server.jar" />
       <sourceRoot location="json.jar" />
       <sourceRoot location="jsr305.jar" />
-      <sourceRoot location="listenablefuture-empty-to-avoid-conflict-with-guava.jar" />
-      <sourceRoot location="model-client-jvm.jar" />
-      <sourceRoot location="model-client-metadata.jar" />
       <sourceRoot location="osgi-resource-locator.jar" />
       <sourceRoot location="trove4j.jar" />
       <sourceRoot location="vavr-match.jar" />
@@ -41,11 +37,43 @@
       <sourceRoot location="opencensus-api.jar" />
       <sourceRoot location="opencensus-contrib-http-util.jar" />
       <sourceRoot location="model-client.jar" />
-      <sourceRoot location="model-client-kotlin-sources.jar" />
       <sourceRoot location="ktor-client-auth-jvm.jar" />
-      <sourceRoot location="kotlin-stdlib-jdk7.jar" />
-      <sourceRoot location="kotlin-stdlib-jdk8.jar" />
-      <sourceRoot location="kotlin-stdlib.jar" />
+      <sourceRoot location="commons-codec.jar" />
+      <sourceRoot location="commons-logging.jar" />
+      <sourceRoot location="google-http-client-gson.jar" />
+      <sourceRoot location="google-http-client.jar" />
+      <sourceRoot location="google-oauth-client-java6.jar" />
+      <sourceRoot location="google-oauth-client-jetty.jar" />
+      <sourceRoot location="google-oauth-client.jar" />
+      <sourceRoot location="grpc-context.jar" />
+      <sourceRoot location="gson.jar" />
+      <sourceRoot location="guava.jar" />
+      <sourceRoot location="httpclient.jar" />
+      <sourceRoot location="httpcore.jar" />
+      <sourceRoot location="javassist.jar" />
+      <sourceRoot location="kotlinx-collections-immutable-jvm.jar" />
+      <sourceRoot location="kotlinx-coroutines-core-jvm.jar" />
+      <sourceRoot location="kotlinx-coroutines-jdk8.jar" />
+      <sourceRoot location="kotlinx-coroutines-slf4j.jar" />
+      <sourceRoot location="kotlinx-serialization-core-jvm.jar" />
+      <sourceRoot location="kotlinx-serialization-json-jvm.jar" />
+      <sourceRoot location="ktor-client-cio-jvm.jar" />
+      <sourceRoot location="ktor-client-content-negotiation-jvm.jar" />
+      <sourceRoot location="ktor-client-core-jvm.jar" />
+      <sourceRoot location="ktor-events-jvm.jar" />
+      <sourceRoot location="ktor-http-cio-jvm.jar" />
+      <sourceRoot location="ktor-http-jvm.jar" />
+      <sourceRoot location="ktor-io-jvm.jar" />
+      <sourceRoot location="ktor-network-jvm.jar" />
+      <sourceRoot location="ktor-network-tls-jvm.jar" />
+      <sourceRoot location="ktor-serialization-jvm.jar" />
+      <sourceRoot location="ktor-serialization-kotlinx-json-jvm.jar" />
+      <sourceRoot location="ktor-serialization-kotlinx-jvm.jar" />
+      <sourceRoot location="ktor-utils-jvm.jar" />
+      <sourceRoot location="ktor-websocket-serialization-jvm.jar" />
+      <sourceRoot location="ktor-websockets-jvm.jar" />
+      <sourceRoot location="listenablefuture.jar" />
+      <sourceRoot location="slf4j-api.jar" />
     </modelRoot>
   </models>
   <facets>
@@ -70,7 +98,7 @@
     <stubModelEntry path="${module}/lib/google-oauth-client.jar" />
     <stubModelEntry path="${module}/lib/grpc-context.jar" />
     <stubModelEntry path="${module}/lib/gson.jar" />
-    <stubModelEntry path="${module}/lib/guava-android.jar" />
+    <stubModelEntry path="${module}/lib/guava.jar" />
     <stubModelEntry path="${module}/lib/hk2-api.jar" />
     <stubModelEntry path="${module}/lib/hk2-locator.jar" />
     <stubModelEntry path="${module}/lib/hk2-utils.jar" />
@@ -81,7 +109,7 @@
     <stubModelEntry path="${module}/lib/jakarta.inject.jar" />
     <stubModelEntry path="${module}/lib/jakarta.validation-api.jar" />
     <stubModelEntry path="${module}/lib/jakarta.ws.rs-api.jar" />
-    <stubModelEntry path="${module}/lib/javassist-GA.jar" />
+    <stubModelEntry path="${module}/lib/javassist.jar" />
     <stubModelEntry path="${module}/lib/javax.activation-api.jar" />
     <stubModelEntry path="${module}/lib/jaxb-api.jar" />
     <stubModelEntry path="${module}/lib/jersey-client.jar" />
@@ -114,10 +142,7 @@
     <stubModelEntry path="${module}/lib/ktor-utils-jvm.jar" />
     <stubModelEntry path="${module}/lib/ktor-websocket-serialization-jvm.jar" />
     <stubModelEntry path="${module}/lib/ktor-websockets-jvm.jar" />
-    <stubModelEntry path="${module}/lib/listenablefuture-empty-to-avoid-conflict-with-guava.jar" />
-    <stubModelEntry path="${module}/lib/model-client-jvm.jar" />
-    <stubModelEntry path="${module}/lib/model-client-kotlin-sources.jar" />
-    <stubModelEntry path="${module}/lib/model-client-metadata.jar" />
+    <stubModelEntry path="${module}/lib/listenablefuture.jar" />
     <stubModelEntry path="${module}/lib/model-client.jar" />
     <stubModelEntry path="${module}/lib/opencensus-api.jar" />
     <stubModelEntry path="${module}/lib/opencensus-contrib-http-util.jar" />
