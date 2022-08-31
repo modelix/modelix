@@ -43,6 +43,7 @@ actual open class ReplicatedRepository actual constructor(
     private val branchName: String,
     private val user: () -> String
 ) {
+    private val logger = mu.KotlinLogging.logger {}
     private val localBranch: IBranch
     private val localOTBranch: OTBranch
     private val localMMBranch: IBranch
@@ -219,7 +220,7 @@ actual open class ReplicatedRepository actual constructor(
         try {
             versionChangeDetector.dispose()
         } catch (ex: Exception) {
-            logError("", ex, this::class)
+            logger.error(ex) { "" }
         }
         convergenceWatchdog.cancel(false)
     }

@@ -89,7 +89,7 @@ configurations {
 }
 
 dependencies {
-    modelApi("org.modelix:model-api:$mpsExtensionsVersion")
+    modelApi("org.modelix:model-api:$modelApiVersion")
     modelClient(project(path: ":model-client", configuration: "jvmRuntimeElements"))
 }
 

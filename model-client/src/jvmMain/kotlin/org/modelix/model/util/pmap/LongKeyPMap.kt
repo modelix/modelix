@@ -16,9 +16,9 @@
 package org.modelix.model.util.pmap
 
 import org.apache.commons.lang3.mutable.MutableObject
-import org.modelix.model.api.COWArrays.insert
-import org.modelix.model.api.COWArrays.removeAt
-import org.modelix.model.api.COWArrays.set
+import org.modelix.model.lazy.COWArrays.insert
+import org.modelix.model.lazy.COWArrays.removeAt
+import org.modelix.model.lazy.COWArrays.set
 import java.util.function.BiPredicate
 
 class LongKeyPMap<V> protected constructor(root: INode<V?>?) {
