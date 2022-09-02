@@ -16,9 +16,9 @@
 package org.modelix.model.lazy
 
 import org.modelix.model.api.*
-import org.modelix.model.api.COWArrays.add
-import org.modelix.model.api.COWArrays.insert
-import org.modelix.model.api.COWArrays.remove
+import org.modelix.model.lazy.COWArrays.add
+import org.modelix.model.lazy.COWArrays.insert
+import org.modelix.model.lazy.COWArrays.remove
 import org.modelix.model.lazy.RepositoryId.Companion.random
 import org.modelix.model.persistent.*
 import org.modelix.model.persistent.CPNode.Companion.create

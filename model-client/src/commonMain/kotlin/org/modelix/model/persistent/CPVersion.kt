@@ -15,7 +15,6 @@
 
 package org.modelix.model.persistent
 
-import org.modelix.model.api.logWarning
 import org.modelix.model.lazy.KVEntryReference
 import org.modelix.model.operations.IOperation
 import org.modelix.model.persistent.SerializationUtil.escape
@@ -38,6 +37,7 @@ class CPVersion(
     operationsHash: KVEntryReference<CPOperationsList>?,
     numberOfOperations: Int
 ) : IKVValue {
+    private val logger = mu.KotlinLogging.logger {}
     override var isWritten: Boolean = false
 
     val id: Long
@@ -161,7 +161,7 @@ class CPVersion(
 
     init {
         if (treeHash == null) {
-            logWarning("No tree hash provided", RuntimeException(), CPVersion::class)
+            logger.warn(RuntimeException()) { "No tree hash provided" }
         }
         if ((operations == null) == (operationsHash == null)) {
             throw RuntimeException("Only one of 'operations' and 'operationsHash' can be provided")

@@ -1,0 +1,20 @@
+name: "jetbrains.mps.lang.traceable"
+concepts:
+- name: "ScopeConcept"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends: []
+- name: "TraceableConcept"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends: []
+- name: "UnitConcept"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends: []

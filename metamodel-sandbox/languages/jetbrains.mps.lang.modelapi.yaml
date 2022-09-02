@@ -1,0 +1,94 @@
+name: "jetbrains.mps.lang.modelapi"
+concepts:
+- name: "NodePointer"
+  abstract: false
+  properties:
+  - name: "nodeId"
+    type: "STRING"
+  children:
+  - name: "modelRef"
+    type: "jetbrains.mps.lang.modelapi.ModelIdentity"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+  - "jetbrains.mps.lang.modelapi.NodeIdentity"
+- name: "ModelPointer"
+  abstract: false
+  properties:
+  - name: "modelId"
+    type: "STRING"
+  children:
+  - name: "name"
+    type: "jetbrains.mps.lang.modelapi.ModelName"
+    multiple: false
+    optional: false
+  - name: "moduleRef"
+    type: "jetbrains.mps.lang.modelapi.ModuleIdentity"
+    multiple: false
+    optional: true
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+  - "jetbrains.mps.lang.modelapi.ModelIdentity"
+- name: "ModulePointer"
+  abstract: false
+  properties:
+  - name: "moduleName"
+    type: "STRING"
+  - name: "moduleId"
+    type: "STRING"
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+  - "jetbrains.mps.lang.modelapi.ModuleIdentity"
+- name: "ModelIdentity"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends: []
+- name: "NodeIdentity"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends: []
+- name: "ConceptIdentity"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends: []
+- name: "ModelName"
+  abstract: false
+  properties:
+  - name: "value"
+    type: "STRING"
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+- name: "ModuleIdentity"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends: []
+- name: "NamedNodeReference"
+  abstract: false
+  properties: []
+  children:
+  - name: "child"
+    type: "jetbrains.mps.lang.modelapi.NamedNodeReference"
+    multiple: false
+    optional: true
+  references:
+  - name: "target"
+    type: "jetbrains.mps.lang.core.INamedConcept"
+    optional: false
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+  - "jetbrains.mps.lang.modelapi.NodeIdentity"

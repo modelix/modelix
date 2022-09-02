@@ -1,17 +1,51 @@
 <html>
 <head>
     <title>Modelix</title>
+    <style>
+        body {
+            background: #adeee3;
+            color: #343434;
+            padding: 0;
+            margin: 0;
+        }
+        #logo-container {
+            background-color: #343434;
+        }
+        #logo {
+            max-width: 500px;
+            max-height: 100px;
+            margin: 10px;
+        }
+
+        #links {
+            padding: 50px;
+        }
+
+        #links a {
+            color: #82846d;
+            text-decoration: none;
+            border: 1px solid #ccc;
+            background-color: #fff;
+            display: inline-block;
+            padding: 20px;
+            margin: 10px;
+            font-size: 20px;
+            border-radius: 15px;
+        }
+    </style>
 </head>
 <body>
 
-<h1>Modelix</h1>
+<div id="logo-container">
+    <img id="logo" src="public/logo-with-small-text-dark.svg" alt="Modelix"/>
+</div>
 
-<ul>
-    <li><a href="workspace-manager/">Workspaces</a></li>
-    <li><a href="instances-manager/">Manage running workspaces instances</a></li>
-    <li><a href="model/">Model Server</a></li>
-    <li><a href="admin/">Users and Permissions</a></li>
-</ul>
+<div id="links">
+    <a href="workspace-manager/">Workspaces</a>
+    <a href="instances-manager/">Manage running workspaces instances</a>
+    <a href="model/">Model Server</a>
+    <a href="admin/">Users and Permissions</a>
+</div>
 
 </body>
 </html>

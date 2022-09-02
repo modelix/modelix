@@ -44,10 +44,11 @@ kotlin {
     sourceSets {
         commonMain {
             dependencies {
-                api group: 'org.modelix', name: 'model-api', version: "$mpsExtensionsVersion"
-                implementation kotlin('stdlib-common:1.6.21')
+                api group: 'org.modelix', name: 'model-api', version: "$modelApiVersion"
+                implementation kotlin('stdlib-common')
                 implementation("org.jetbrains.kotlinx:kotlinx-collections-immutable:0.3.4")
-                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0")
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlinCoroutinesVersion")
+                implementation("io.github.microutils:kotlin-logging:2.1.21")
             }
         }
         commonTest {
@@ -145,26 +146,4 @@ spotless {
                 ' */\n' +
                 '\n'
     }
-}
-
-task copyModelClientToMps(type: Sync) {
-    from configurations.jvmRuntimeClasspath
-    from "$buildDir/libs"
-    into "$projectDir/../mps/org.modelix.model.client/lib"
-    rename { fileName ->
-        stripVersion(fileName)
-    }
-    exclude 'log4j*.jar'
-    exclude 'annotations*.jar'
-    exclude 'model-api*.jar'
-}
-
-assemble.finalizedBy(copyModelClientToMps)
-
-String stripVersion(String fileNameWithVersion) {
-    String name = fileNameWithVersion
-    if (version != null && version.length() > 0) name = name.replace("-" + version, "")
-    name = name.replaceAll(/-\d+(\.\d+)*(-SNAPSHOT)?/, "")
-    println "stripVersion($fileNameWithVersion) -> $name"
-    return name
 }

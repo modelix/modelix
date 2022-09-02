@@ -2,6 +2,7 @@ FROM nginx
 COPY proxy/nginx.conf /etc/nginx/nginx.conf.template
 COPY proxy/run.sh /etc/nginx/run.sh
 COPY proxy/index.html /usr/share/nginx/html/
+COPY proxy/public/ /usr/share/nginx/html/public/
 #COPY samples/angular/modelix-angular-sandbox/dist/modelix-angular-sandbox /usr/share/nginx/html/angular
 
 CMD ["/etc/nginx/run.sh"]

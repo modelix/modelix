@@ -28,10 +28,11 @@ class OTWriteTransaction(
     private var idGenerator: IIdGenerator,
     private val store: IDeserializingKeyValueStore
 ) : IWriteTransaction, ITransactionWrapper {
+    private val logger = mu.KotlinLogging.logger {}
     override fun unwrap(): ITransaction = transaction
 
     fun apply(op: IOperation) {
-        logTrace({ op.toString() }, OTWriteTransaction::class)
+        logger.trace { op.toString() }
         val appliedOp = op.apply(transaction, getStore())
         otBranch.operationApplied(appliedOp)
     }

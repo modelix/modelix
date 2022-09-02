@@ -1,0 +1,617 @@
+name: "jetbrains.mps.baseLanguage.regexp"
+concepts:
+- name: "Regexp"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+- name: "StringLiteralRegexp"
+  abstract: false
+  properties:
+  - name: "text"
+    type: "STRING"
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.regexp.Regexp"
+- name: "OrRegexp"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.regexp.BinaryRegexp"
+- name: "PlusRegexp"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.regexp.UnaryRegexp"
+- name: "StarRegexp"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.regexp.UnaryRegexp"
+- name: "RegexpDeclaration"
+  abstract: false
+  properties:
+  - name: "description"
+    type: "STRING"
+  children:
+  - name: "regexp"
+    type: "jetbrains.mps.baseLanguage.regexp.Regexp"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+  - "jetbrains.mps.lang.core.INamedConcept"
+- name: "SeqRegexp"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.regexp.BinaryRegexp"
+- name: "BinaryRegexp"
+  abstract: true
+  properties: []
+  children:
+  - name: "left"
+    type: "jetbrains.mps.baseLanguage.regexp.Regexp"
+    multiple: false
+    optional: false
+  - name: "right"
+    type: "jetbrains.mps.baseLanguage.regexp.Regexp"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.regexp.Regexp"
+- name: "UnaryRegexp"
+  abstract: true
+  properties: []
+  children:
+  - name: "regexp"
+    type: "jetbrains.mps.baseLanguage.regexp.Regexp"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.regexp.Regexp"
+- name: "ParensRegexp"
+  abstract: false
+  properties: []
+  children:
+  - name: "expr"
+    type: "jetbrains.mps.baseLanguage.regexp.Regexp"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.regexp.Regexp"
+- name: "InlineRegexpExpression"
+  abstract: false
+  properties:
+  - name: "dotAll"
+    type: "STRING"
+  - name: "multiLine"
+    type: "STRING"
+  - name: "caseInsensitive"
+    type: "STRING"
+  children:
+  - name: "regexp"
+    type: "jetbrains.mps.baseLanguage.regexp.Regexp"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.regexp.RegexpExpression"
+- name: "MatchRegexpStatement"
+  abstract: false
+  properties: []
+  children:
+  - name: "body"
+    type: "jetbrains.mps.baseLanguage.StatementList"
+    multiple: false
+    optional: false
+  - name: "expr"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.Statement"
+  - "jetbrains.mps.baseLanguage.regexp.RegexpUsingConstruction"
+- name: "QuestionRegexp"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.regexp.UnaryRegexp"
+- name: "SymbolClassRegexp"
+  abstract: true
+  properties: []
+  children:
+  - name: "part"
+    type: "jetbrains.mps.baseLanguage.regexp.SymbolClassPart"
+    multiple: true
+    optional: true
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.regexp.Regexp"
+  - "jetbrains.mps.baseLanguage.regexp.SymbolClassRegexpAndPart"
+- name: "PositiveSymbolClassRegexp"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.regexp.SymbolClassRegexp"
+- name: "NegativeSymbolClassRegexp"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.regexp.SymbolClassRegexp"
+- name: "PredefinedSymbolClassDeclaration"
+  abstract: false
+  properties:
+  - name: "description"
+    type: "STRING"
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+  - "jetbrains.mps.lang.core.INamedConcept"
+- name: "PredefinedSymbolClasses"
+  abstract: false
+  properties: []
+  children:
+  - name: "symbolClass"
+    type: "jetbrains.mps.baseLanguage.regexp.PredefinedSymbolClassDeclaration"
+    multiple: true
+    optional: true
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+  - "jetbrains.mps.lang.core.INamedConcept"
+- name: "PredefinedSymbolClassRegexp"
+  abstract: false
+  properties: []
+  children: []
+  references:
+  - name: "symbolClass"
+    type: "jetbrains.mps.baseLanguage.regexp.PredefinedSymbolClassDeclaration"
+    optional: false
+  extends:
+  - "jetbrains.mps.baseLanguage.regexp.Regexp"
+- name: "DotRegexp"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.regexp.Regexp"
+- name: "SymbolClassPart"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+  - "jetbrains.mps.baseLanguage.regexp.SymbolClassRegexpAndPart"
+- name: "CharacterSymbolClassPart"
+  abstract: false
+  properties:
+  - name: "character"
+    type: "STRING"
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.regexp.SymbolClassPart"
+- name: "IntervalSymbolClassPart"
+  abstract: false
+  properties:
+  - name: "start"
+    type: "STRING"
+  - name: "end"
+    type: "STRING"
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.regexp.SymbolClassPart"
+- name: "PredefinedSymbolClassSymbolClassPart"
+  abstract: false
+  properties: []
+  children: []
+  references:
+  - name: "declaration"
+    type: "jetbrains.mps.baseLanguage.regexp.PredefinedSymbolClassDeclaration"
+    optional: false
+  extends:
+  - "jetbrains.mps.baseLanguage.regexp.SymbolClassPart"
+- name: "MatchParensRegexp"
+  abstract: false
+  properties: []
+  children:
+  - name: "regexp"
+    type: "jetbrains.mps.baseLanguage.regexp.Regexp"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.regexp.Regexp"
+  - "jetbrains.mps.lang.core.INamedConcept"
+  - "jetbrains.mps.baseLanguage.IVariableAssignment"
+- name: "MatchVariableReference"
+  abstract: false
+  properties: []
+  children: []
+  references:
+  - name: "match"
+    type: "jetbrains.mps.baseLanguage.regexp.MatchParensRegexp"
+    optional: false
+  extends:
+  - "jetbrains.mps.baseLanguage.Expression"
+- name: "RegexpUsingConstruction"
+  abstract: true
+  properties: []
+  children:
+  - name: "regexp"
+    type: "jetbrains.mps.baseLanguage.regexp.RegexpExpression"
+    multiple: false
+    optional: false
+  references: []
+  extends: []
+- name: "ReplaceWithRegexpExpression"
+  abstract: false
+  properties: []
+  children:
+  - name: "expr"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: false
+    optional: false
+  - name: "replaceBlock"
+    type: "jetbrains.mps.baseLanguage.regexp.ReplaceBlock"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.Expression"
+  - "jetbrains.mps.baseLanguage.regexp.RegexpUsingConstruction"
+- name: "ReplaceBlock"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.Closure"
+- name: "LazyStarRegexp"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.regexp.UnaryRegexp"
+- name: "LazyPlusRegexp"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.regexp.UnaryRegexp"
+- name: "LazyQuestionRegexp"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.regexp.UnaryRegexp"
+- name: "Regexps"
+  abstract: false
+  properties: []
+  children:
+  - name: "regexp"
+    type: "jetbrains.mps.baseLanguage.regexp.RegexpDeclaration"
+    multiple: true
+    optional: true
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+  - "jetbrains.mps.lang.core.INamedConcept"
+- name: "RegexpDeclarationReferenceRegexp"
+  abstract: false
+  properties: []
+  children: []
+  references:
+  - name: "regexp"
+    type: "jetbrains.mps.baseLanguage.regexp.RegexpDeclaration"
+    optional: false
+  extends:
+  - "jetbrains.mps.baseLanguage.regexp.Regexp"
+- name: "NTimesRegexp"
+  abstract: false
+  properties:
+  - name: "n"
+    type: "STRING"
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.regexp.UnaryRegexp"
+- name: "AtLeastNTimesRegexp"
+  abstract: false
+  properties:
+  - name: "n"
+    type: "STRING"
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.regexp.UnaryRegexp"
+- name: "FromNToMTimesRegexp"
+  abstract: false
+  properties:
+  - name: "n"
+    type: "STRING"
+  - name: "m"
+    type: "STRING"
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.regexp.UnaryRegexp"
+- name: "PositiveLookAheadRegexp"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.regexp.LookRegexp"
+- name: "NegativeLookAheadRegexp"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.regexp.LookRegexp"
+- name: "LookRegexp"
+  abstract: true
+  properties: []
+  children:
+  - name: "regexp"
+    type: "jetbrains.mps.baseLanguage.regexp.Regexp"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.regexp.Regexp"
+- name: "PositiveLookBehindRegexp"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.regexp.LookRegexp"
+- name: "NegativeLookBehindRegexp"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.regexp.LookRegexp"
+- name: "MatchVariableReferenceRegexp"
+  abstract: false
+  properties: []
+  children: []
+  references:
+  - name: "match"
+    type: "jetbrains.mps.baseLanguage.regexp.MatchParensRegexp"
+    optional: false
+  extends:
+  - "jetbrains.mps.baseLanguage.regexp.Regexp"
+- name: "RegexpExpression"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.Expression"
+- name: "ForEachMatchStatement"
+  abstract: false
+  properties: []
+  children:
+  - name: "expr"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: false
+    optional: false
+  - name: "body"
+    type: "jetbrains.mps.baseLanguage.StatementList"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.Statement"
+  - "jetbrains.mps.baseLanguage.regexp.RegexpUsingConstruction"
+- name: "LineStartRegexp"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.regexp.Regexp"
+- name: "LineEndRegexp"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.regexp.Regexp"
+- name: "SplitExpression"
+  abstract: false
+  properties: []
+  children:
+  - name: "expr"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.Expression"
+  - "jetbrains.mps.baseLanguage.regexp.RegexpUsingConstruction"
+- name: "FindMatchStatement"
+  abstract: false
+  properties: []
+  children:
+  - name: "expr"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: false
+    optional: false
+  - name: "body"
+    type: "jetbrains.mps.baseLanguage.StatementList"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.Statement"
+  - "jetbrains.mps.baseLanguage.regexp.RegexpUsingConstruction"
+- name: "MatchRegexpExpression"
+  abstract: false
+  properties: []
+  children:
+  - name: "inputExpression"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.Expression"
+  - "jetbrains.mps.baseLanguage.regexp.RegexpUsingConstruction"
+- name: "UnicodeCharacterRegexp"
+  abstract: false
+  properties:
+  - name: "code"
+    type: "STRING"
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.regexp.Regexp"
+- name: "IntersectionSymbolClassPart"
+  abstract: false
+  properties: []
+  children:
+  - name: "left"
+    type: "jetbrains.mps.baseLanguage.regexp.SymbolClassRegexpAndPart"
+    multiple: false
+    optional: false
+  - name: "right"
+    type: "jetbrains.mps.baseLanguage.regexp.SymbolClassRegexpAndPart"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.regexp.SymbolClassPart"
+- name: "SymbolClassRegexpAndPart"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends: []
+- name: "SplitOperation"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+  - "jetbrains.mps.baseLanguage.IOperation"
+  - "jetbrains.mps.baseLanguage.regexp.RegexpUsingConstruction"
+- name: "MatchRegexpOperation"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+  - "jetbrains.mps.baseLanguage.IOperation"
+  - "jetbrains.mps.baseLanguage.regexp.RegexpUsingConstruction"
+- name: "ReplaceWithRegexpOperation"
+  abstract: false
+  properties: []
+  children:
+  - name: "replaceBlock"
+    type: "jetbrains.mps.baseLanguage.regexp.ReplaceBlock"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+  - "jetbrains.mps.baseLanguage.IOperation"
+  - "jetbrains.mps.baseLanguage.regexp.RegexpUsingConstruction"
+- name: "FindMatchExpression"
+  abstract: false
+  properties: []
+  children:
+  - name: "inputExpression"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.Expression"
+  - "jetbrains.mps.baseLanguage.regexp.RegexpUsingConstruction"
+- name: "ReplaceRegexpOperation"
+  abstract: false
+  properties:
+  - name: "dotAll"
+    type: "STRING"
+  - name: "multiLine"
+    type: "STRING"
+  - name: "caseInsensitive"
+    type: "STRING"
+  - name: "globalReplace"
+    type: "STRING"
+  children:
+  - name: "search"
+    type: "jetbrains.mps.baseLanguage.regexp.Regexp"
+    multiple: false
+    optional: false
+  - name: "replacement"
+    type: "jetbrains.mps.baseLanguage.regexp.Replacement"
+    multiple: true
+    optional: true
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+  - "jetbrains.mps.baseLanguage.IOperation"
+- name: "LiteralReplacement"
+  abstract: false
+  properties:
+  - name: "text"
+    type: "STRING"
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.regexp.Replacement"
+- name: "MatchVariableReferenceReplacement"
+  abstract: false
+  properties: []
+  children: []
+  references:
+  - name: "match"
+    type: "jetbrains.mps.baseLanguage.regexp.MatchParensRegexp"
+    optional: false
+  extends:
+  - "jetbrains.mps.baseLanguage.regexp.Replacement"
+- name: "Replacement"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"

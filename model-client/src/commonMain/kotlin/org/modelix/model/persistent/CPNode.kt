@@ -15,10 +15,10 @@
 
 package org.modelix.model.persistent
 
-import org.modelix.model.api.COWArrays.copy
-import org.modelix.model.api.COWArrays.insert
-import org.modelix.model.api.COWArrays.removeAt
-import org.modelix.model.api.COWArrays.set
+import org.modelix.model.lazy.COWArrays.copy
+import org.modelix.model.lazy.COWArrays.insert
+import org.modelix.model.lazy.COWArrays.removeAt
+import org.modelix.model.lazy.COWArrays.set
 import org.modelix.model.lazy.KVEntryReference
 import org.modelix.model.persistent.CPNodeRef.Companion.fromString
 import org.modelix.model.persistent.SerializationUtil.escape

@@ -10,6 +10,7 @@ import kotlin.test.Test
 import kotlin.test.fail
 
 class ConflictResolutionTest : TreeTestBase() {
+    private val logger = mu.KotlinLogging.logger {}
 
     @Test
     fun randomTest2Branches() {
@@ -38,7 +39,7 @@ class ConflictResolutionTest : TreeTestBase() {
     fun randomTest(baseChanges: Int, numBranches: Int, branchChanges: Int) {
         val merger = VersionMerger(storeCache, idGenerator)
         val baseBranch = OTBranch(PBranch(initialTree, idGenerator), idGenerator, storeCache)
-        logTrace({ "Random changes to base" }, ConflictResolutionTest::class)
+        logger.trace { "Random changes to base" }
         for (i in 0 until baseChanges) {
             RandomTreeChangeGenerator(idGenerator, rand)
                 .addOperationOnly()
@@ -49,7 +50,7 @@ class ConflictResolutionTest : TreeTestBase() {
         val maxIndex = numBranches - 1
         val branches = (0..maxIndex).map { OTBranch(PBranch(baseVersion.tree, idGenerator), idGenerator, storeCache) }.toList()
         val versions = branches.mapIndexed { index, branch ->
-            logTrace({ "Random changes to branch $index" }, ConflictResolutionTest::class)
+            logger.trace { "Random changes to branch $index" }
             for (i in 0 until branchChanges) {
                 applyRandomChange(branch, null)
             }
@@ -59,7 +60,7 @@ class ConflictResolutionTest : TreeTestBase() {
 
         for (i in 0..maxIndex) for (i2 in 0..maxIndex) {
             if (i == i2) continue
-            logTrace({ "Merge branch $i2 into $i" }, ConflictResolutionTest::class)
+            logger.trace { "Merge branch $i2 into $i" }
             mergedVersions[i] = merger.mergeChange(mergedVersions[i], mergedVersions[i2])
         }
 
@@ -73,7 +74,7 @@ class ConflictResolutionTest : TreeTestBase() {
         val baseBranch = OTBranch(PBranch(initialTree, idGenerator), idGenerator, storeCache)
 
         baseBranch.runWrite {
-            logTrace({ "Changes to base branch" }, ConflictResolutionTest::class)
+            logger.trace { "Changes to base branch" }
             baseChanges(baseBranch.writeTransaction)
         }
 
@@ -83,7 +84,7 @@ class ConflictResolutionTest : TreeTestBase() {
         val branches = (0..maxIndex).map { OTBranch(PBranch(baseVersion.tree, idGenerator), idGenerator, storeCache) }.toList()
         for (i in 0..maxIndex) {
             branches[i].runWrite {
-                logTrace({ "Changes to branch $i" }, ConflictResolutionTest::class)
+                logger.trace { "Changes to branch $i" }
                 branchChanges[i](branches[i].writeTransaction)
             }
         }
@@ -95,7 +96,7 @@ class ConflictResolutionTest : TreeTestBase() {
 
         for (i in 0..maxIndex) for (i2 in 0..maxIndex) {
             if (i == i2) continue
-            logTrace({ "Merge branch $i2 into $i" }, ConflictResolutionTest::class)
+            logger.trace { "Merge branch $i2 into $i" }
             mergedVersions[i] = merger.mergeChange(mergedVersions[i], mergedVersions[i2])
         }
 

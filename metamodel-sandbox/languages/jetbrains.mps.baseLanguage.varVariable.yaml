@@ -1,0 +1,17 @@
+name: "jetbrains.mps.baseLanguage.varVariable"
+concepts:
+- name: "VarVariableDeclaration"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.LocalVariableDeclaration"
+  - "jetbrains.mps.lang.core.INamedConcept"
+- name: "VarType"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.UndefinedType"

@@ -18,12 +18,12 @@ package org.modelix.model.client
 import org.modelix.model.api.IBranch
 import org.modelix.model.api.IBranchListener
 import org.modelix.model.api.ITree
-import org.modelix.model.api.logError
 import org.modelix.model.lazy.CLVersion
 import org.modelix.model.lazy.RepositoryId
 import kotlin.jvm.Synchronized
 
 open class ActiveBranch(val client: IModelClient, val repository: RepositoryId, branchName: String?, user: () -> String) : IIndirectBranch {
+    private val logger = mu.KotlinLogging.logger {}
     var branchName: String
         private set
     private val user: () -> String
@@ -87,7 +87,7 @@ open class ActiveBranch(val client: IModelClient, val repository: RepositoryId, 
             try {
                 l.treeChanged(oldTree, newTree)
             } catch (ex: Exception) {
-                logError("", ex, ActiveBranch::class)
+                logger.error(ex) { "" }
             }
         }
     }

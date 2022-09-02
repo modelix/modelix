@@ -1,0 +1,213 @@
+name: "jetbrains.mps.baseLanguage.unitTest"
+concepts:
+- name: "TestMethod"
+  abstract: false
+  properties:
+  - name: "methodName"
+    type: "STRING"
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.InstanceMethodDeclaration"
+  - "jetbrains.mps.baseLanguage.unitTest.ITestMethod"
+- name: "BTestCase"
+  abstract: false
+  properties:
+  - name: "testCaseName"
+    type: "STRING"
+  children:
+  - name: "testMethodList"
+    type: "jetbrains.mps.baseLanguage.unitTest.TestMethodList"
+    multiple: false
+    optional: false
+  - name: "beforeTest"
+    type: "jetbrains.mps.baseLanguage.unitTest.BeforeTest"
+    multiple: false
+    optional: true
+  - name: "afterTest"
+    type: "jetbrains.mps.baseLanguage.unitTest.AfterTest"
+    multiple: false
+    optional: true
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.ClassConcept"
+  - "jetbrains.mps.baseLanguage.unitTest.ITestCase"
+  - "jetbrains.mps.lang.core.ImplementationPart"
+- name: "TestMethodList"
+  abstract: false
+  properties: []
+  children:
+  - name: "testMethod"
+    type: "jetbrains.mps.baseLanguage.unitTest.TestMethod"
+    multiple: true
+    optional: true
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+- name: "AssertEquals"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.unitTest.BinaryAssert"
+- name: "AssertTrue"
+  abstract: false
+  properties: []
+  children:
+  - name: "condition"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.Statement"
+  - "jetbrains.mps.baseLanguage.unitTest.MessageHolder"
+- name: "AssertFalse"
+  abstract: false
+  properties: []
+  children:
+  - name: "condition"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.Statement"
+  - "jetbrains.mps.baseLanguage.unitTest.MessageHolder"
+- name: "AssertSame"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.unitTest.BinaryAssert"
+- name: "Fail"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.Statement"
+  - "jetbrains.mps.baseLanguage.unitTest.MessageHolder"
+- name: "AssertIsNull"
+  abstract: false
+  properties: []
+  children:
+  - name: "expression"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.Statement"
+  - "jetbrains.mps.baseLanguage.unitTest.MessageHolder"
+- name: "AssertThrows"
+  abstract: false
+  properties: []
+  children:
+  - name: "statement"
+    type: "jetbrains.mps.baseLanguage.Statement"
+    multiple: false
+    optional: false
+  - name: "exceptionType"
+    type: "jetbrains.mps.baseLanguage.ClassifierType"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.Statement"
+  - "jetbrains.mps.baseLanguage.unitTest.MessageHolder"
+- name: "Message"
+  abstract: false
+  properties: []
+  children:
+  - name: "message"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: false
+    optional: true
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+- name: "MessageHolder"
+  abstract: true
+  properties: []
+  children:
+  - name: "message"
+    type: "jetbrains.mps.baseLanguage.unitTest.Message"
+    multiple: false
+    optional: true
+  references: []
+  extends: []
+- name: "ITestable"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends: []
+- name: "ITestCase"
+  abstract: true
+  properties:
+  - name: "canNotRunInProcess"
+    type: "STRING"
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.unitTest.ITestable"
+  - "jetbrains.mps.baseLanguage.IValidIdentifier"
+- name: "ITestMethod"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.unitTest.ITestable"
+- name: "AssertIsNotNull"
+  abstract: false
+  properties: []
+  children:
+  - name: "expression"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.Statement"
+  - "jetbrains.mps.baseLanguage.unitTest.MessageHolder"
+- name: "BinaryAssert"
+  abstract: true
+  properties: []
+  children:
+  - name: "expected"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: false
+    optional: false
+  - name: "actual"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.Statement"
+  - "jetbrains.mps.baseLanguage.unitTest.MessageHolder"
+- name: "BeforeTest"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.unitTest.PrepareMethod"
+- name: "AfterTest"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.unitTest.PrepareMethod"
+- name: "PrepareMethod"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.ConceptFunction"

@@ -15,10 +15,10 @@
 
 package org.modelix.model.util.pmap
 
-import org.modelix.model.api.COWArrays.add
-import org.modelix.model.api.COWArrays.indexOf
-import org.modelix.model.api.COWArrays.removeAt
-import org.modelix.model.api.COWArrays.set
+import org.modelix.model.lazy.COWArrays.add
+import org.modelix.model.lazy.COWArrays.indexOf
+import org.modelix.model.lazy.COWArrays.removeAt
+import org.modelix.model.lazy.COWArrays.set
 import org.modelix.model.util.StreamUtils.toStream
 import java.util.stream.Collectors
 import java.util.stream.Stream

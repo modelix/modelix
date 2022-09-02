@@ -1,0 +1,440 @@
+name: "jetbrains.mps.lang.structure"
+concepts:
+- name: "LinkDeclaration"
+  abstract: false
+  properties:
+  - name: "role"
+    type: "STRING"
+  - name: "metaClass"
+    type: "STRING"
+  - name: "sourceCardinality"
+    type: "STRING"
+  - name: "unordered"
+    type: "STRING"
+  - name: "linkId"
+    type: "STRING"
+  children: []
+  references:
+  - name: "specializedLink"
+    type: "jetbrains.mps.lang.structure.LinkDeclaration"
+    optional: true
+  - name: "target"
+    type: "jetbrains.mps.lang.structure.AbstractConceptDeclaration"
+    optional: false
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+  - "jetbrains.mps.lang.core.InterfacePart"
+  - "jetbrains.mps.lang.structure.IStructureDeprecatable"
+  - "jetbrains.mps.lang.structure.INamedStructureElement"
+  - "jetbrains.mps.lang.structure.DocumentationObjective"
+- name: "PropertyDeclaration"
+  abstract: false
+  properties:
+  - name: "propertyId"
+    type: "STRING"
+  children: []
+  references:
+  - name: "dataType"
+    type: "jetbrains.mps.lang.structure.DataTypeDeclaration"
+    optional: false
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+  - "jetbrains.mps.lang.core.InterfacePart"
+  - "jetbrains.mps.lang.structure.INamedStructureElement"
+  - "jetbrains.mps.lang.structure.IStructureDeprecatable"
+  - "jetbrains.mps.lang.structure.DocumentationObjective"
+- name: "DataTypeDeclaration"
+  abstract: true
+  properties:
+  - name: "datatypeId"
+    type: "STRING"
+  - name: "languageId"
+    type: "STRING"
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+  - "jetbrains.mps.lang.structure.INamedStructureElement"
+  - "jetbrains.mps.lang.structure.IStructureDeprecatable"
+- name: "ConstrainedDataTypeDeclaration"
+  abstract: false
+  properties:
+  - name: "constraint"
+    type: "STRING"
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.structure.DataTypeDeclaration"
+- name: "EnumerationMemberDeclaration_Old"
+  abstract: false
+  properties:
+  - name: "internalValue"
+    type: "STRING"
+  - name: "externalValue"
+    type: "STRING"
+  - name: "javaIdentifier"
+    type: "STRING"
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+  - "jetbrains.mps.lang.core.InterfacePart"
+- name: "PrimitiveDataTypeDeclaration"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.structure.DataTypeDeclaration"
+- name: "AbstractConceptDeclaration"
+  abstract: true
+  properties:
+  - name: "oldHelpURL"
+    type: "STRING"
+  - name: "conceptAlias"
+    type: "STRING"
+  - name: "conceptShortDescription"
+    type: "STRING"
+  - name: "abstract"
+    type: "STRING"
+  - name: "final"
+    type: "STRING"
+  - name: "intConceptId"
+    type: "STRING"
+  - name: "conceptId"
+    type: "STRING"
+  - name: "languageId"
+    type: "STRING"
+  children:
+  - name: "linkDeclaration"
+    type: "jetbrains.mps.lang.structure.LinkDeclaration"
+    multiple: true
+    optional: true
+  - name: "propertyDeclaration"
+    type: "jetbrains.mps.lang.structure.PropertyDeclaration"
+    multiple: true
+    optional: true
+  - name: "helpURL"
+    type: "jetbrains.mps.lang.resources.HelpURL"
+    multiple: false
+    optional: true
+  references:
+  - name: "sourceNode"
+    type: "jetbrains.mps.lang.core.BaseConcept"
+    optional: true
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+  - "jetbrains.mps.lang.structure.INamedStructureElement"
+  - "jetbrains.mps.lang.core.InterfacePart"
+  - "jetbrains.mps.lang.structure.IStructureDeprecatable"
+  - "jetbrains.mps.lang.structure.DocumentationObjective"
+- name: "InterfaceConceptDeclaration"
+  abstract: false
+  properties: []
+  children:
+  - name: "extends"
+    type: "jetbrains.mps.lang.structure.InterfaceConceptReference"
+    multiple: true
+    optional: true
+  references: []
+  extends:
+  - "jetbrains.mps.lang.structure.AbstractConceptDeclaration"
+- name: "InterfaceConceptReference"
+  abstract: false
+  properties: []
+  children: []
+  references:
+  - name: "intfc"
+    type: "jetbrains.mps.lang.structure.InterfaceConceptDeclaration"
+    optional: false
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+  - "jetbrains.mps.lang.core.InterfacePart"
+- name: "DeprecatedNodeAnnotation"
+  abstract: false
+  properties:
+  - name: "build"
+    type: "STRING"
+  - name: "comment"
+    type: "STRING"
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.NodeAttribute"
+  - "jetbrains.mps.lang.core.INamedConcept"
+  - "jetbrains.mps.lang.core.InterfacePart"
+- name: "IStructureDeprecatable"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.IDeprecatable"
+- name: "IConceptAspect"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends: []
+- name: "AttributeInfo"
+  abstract: false
+  properties:
+  - name: "role"
+    type: "STRING"
+  children:
+  - name: "multiple"
+    type: "jetbrains.mps.lang.structure.AttributeInfo_IsMultiple"
+    multiple: false
+    optional: true
+  - name: "attributed"
+    type: "jetbrains.mps.lang.structure.AttributeInfo_AttributedConcept"
+    multiple: true
+    optional: true
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.NodeAttribute"
+- name: "AttributeInfo_IsMultiple"
+  abstract: false
+  properties:
+  - name: "value"
+    type: "STRING"
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+- name: "AttributeInfo_AttributedConcept"
+  abstract: false
+  properties: []
+  children: []
+  references:
+  - name: "concept"
+    type: "jetbrains.mps.lang.structure.AbstractConceptDeclaration"
+    optional: false
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+- name: "ReferenceLinkDeclartionScopeKind"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends: []
+- name: "AggregationLinkDeclarationScopeKind"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends: []
+- name: "DocumentationObjectiveRef"
+  abstract: false
+  properties: []
+  children: []
+  references:
+  - name: "target"
+    type: "jetbrains.mps.lang.structure.DocumentationObjective"
+    optional: false
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+- name: "DocumentationObjective"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends: []
+- name: "DocumentedNodeAnnotation"
+  abstract: false
+  properties:
+  - name: "text"
+    type: "STRING"
+  children:
+  - name: "seeAlso"
+    type: "jetbrains.mps.lang.structure.DocumentationObjectiveRef"
+    multiple: true
+    optional: true
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.NodeAttribute"
+- name: "SmartReferenceAttribute"
+  abstract: false
+  properties: []
+  children:
+  - name: "refPresentationTemplate"
+    type: "jetbrains.mps.lang.structure.RefPresentationTemplate"
+    multiple: false
+    optional: true
+  references:
+  - name: "charactersticReference"
+    type: "jetbrains.mps.lang.structure.LinkDeclaration"
+    optional: false
+  extends:
+  - "jetbrains.mps.lang.core.NodeAttribute"
+- name: "RefPresentationTemplate"
+  abstract: false
+  properties:
+  - name: "prefix"
+    type: "STRING"
+  - name: "suffix"
+    type: "STRING"
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+- name: "EnumerationDataTypeDeclaration_Old"
+  abstract: false
+  properties:
+  - name: "memberIdentifierPolicy"
+    type: "STRING"
+  - name: "hasNoDefaultMember"
+    type: "STRING"
+  - name: "noValueText"
+    type: "STRING"
+  children:
+  - name: "member"
+    type: "jetbrains.mps.lang.structure.EnumerationMemberDeclaration_Old"
+    multiple: true
+    optional: false
+  references:
+  - name: "memberDataType"
+    type: "jetbrains.mps.lang.structure.PrimitiveDataTypeDeclaration"
+    optional: false
+  - name: "defaultMember"
+    type: "jetbrains.mps.lang.structure.EnumerationMemberDeclaration_Old"
+    optional: true
+  extends:
+  - "jetbrains.mps.lang.structure.DataTypeDeclaration"
+  - "jetbrains.mps.lang.structure.IEnumeration"
+- name: "ConceptDeclaration"
+  abstract: false
+  properties:
+  - name: "rootable"
+    type: "STRING"
+  - name: "iconPath"
+    type: "STRING"
+  - name: "staticScope"
+    type: "STRING"
+  children:
+  - name: "implements"
+    type: "jetbrains.mps.lang.structure.InterfaceConceptReference"
+    multiple: true
+    optional: true
+  - name: "icon"
+    type: "jetbrains.mps.lang.resources.Icon"
+    multiple: false
+    optional: true
+  references:
+  - name: "extends"
+    type: "jetbrains.mps.lang.structure.ConceptDeclaration"
+    optional: true
+  extends:
+  - "jetbrains.mps.lang.structure.AbstractConceptDeclaration"
+  - "jetbrains.mps.lang.core.ISmartReferent"
+- name: "EnumerationDeclaration"
+  abstract: false
+  properties: []
+  children:
+  - name: "members"
+    type: "jetbrains.mps.lang.structure.EnumerationMemberDeclaration"
+    multiple: true
+    optional: false
+  references:
+  - name: "defaultMember"
+    type: "jetbrains.mps.lang.structure.EnumerationMemberDeclaration"
+    optional: true
+  extends:
+  - "jetbrains.mps.lang.structure.DataTypeDeclaration"
+  - "jetbrains.mps.lang.structure.IEnumeration"
+- name: "EnumerationMemberDeclaration"
+  abstract: false
+  properties:
+  - name: "presentation"
+    type: "STRING"
+  - name: "memberId"
+    type: "STRING"
+  children: []
+  references:
+  - name: "oldMember"
+    type: "jetbrains.mps.lang.structure.EnumerationMemberDeclaration_Old"
+    optional: true
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+  - "jetbrains.mps.lang.structure.INamedStructureElement"
+- name: "IEnumeration"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.INamedConcept"
+- name: "INamedStructureElement"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.INamedConcept"
+  - "jetbrains.mps.lang.structure.IStructureElement"
+- name: "IStructureElement"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends: []
+- name: "EnumMigrationInfo"
+  abstract: false
+  properties:
+  - name: "nameOpMigration"
+    type: "STRING"
+  - name: "valueOpMigration"
+    type: "STRING"
+  children:
+  - name: "oldEnum"
+    type: "jetbrains.mps.lang.structure.EnumerationDataTypeDeclaration_Old"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.NodeAttribute"
+  - "jetbrains.mps.lang.core.ISuppressErrors"
+- name: "EnumPropertyMigrationInfo"
+  abstract: false
+  properties: []
+  children:
+  - name: "oldProperty"
+    type: "jetbrains.mps.lang.structure.PropertyDeclaration"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.NodeAttribute"
+  - "jetbrains.mps.lang.core.ISuppressErrors"
+- name: "EnumCustomMethodReplacementInfo"
+  abstract: false
+  properties:
+  - name: "kind"
+    type: "STRING"
+  children: []
+  references:
+  - name: "enum"
+    type: "jetbrains.mps.lang.structure.EnumerationDeclaration"
+    optional: false
+  extends:
+  - "jetbrains.mps.lang.core.NodeAttribute"
+- name: "ExperimentalAPINodeAttribute"
+  abstract: false
+  properties:
+  - name: "build"
+    type: "STRING"
+  - name: "comment"
+    type: "STRING"
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.NodeAttribute"
+  - "jetbrains.mps.lang.core.INamedConcept"
+  - "jetbrains.mps.lang.core.InterfacePart"
+- name: "INamedAspect"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.INamedConcept"

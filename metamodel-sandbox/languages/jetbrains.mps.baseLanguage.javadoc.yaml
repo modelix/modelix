@@ -1,0 +1,363 @@
+name: "jetbrains.mps.baseLanguage.javadoc"
+concepts:
+- name: "BaseDocComment"
+  abstract: true
+  properties: []
+  children:
+  - name: "body"
+    type: "jetbrains.mps.baseLanguage.javadoc.CommentLine"
+    multiple: true
+    optional: true
+  - name: "tags"
+    type: "jetbrains.mps.baseLanguage.javadoc.BaseBlockDocTag"
+    multiple: true
+    optional: true
+  - name: "author"
+    type: "jetbrains.mps.baseLanguage.javadoc.AuthorBlockDocTag"
+    multiple: true
+    optional: true
+  - name: "since"
+    type: "jetbrains.mps.baseLanguage.javadoc.SinceBlockDocTag"
+    multiple: true
+    optional: true
+  - name: "version"
+    type: "jetbrains.mps.baseLanguage.javadoc.VersionBlockDocTag"
+    multiple: true
+    optional: true
+  - name: "deprecated"
+    type: "jetbrains.mps.baseLanguage.javadoc.DeprecatedBlockDocTag"
+    multiple: false
+    optional: true
+  - name: "see"
+    type: "jetbrains.mps.baseLanguage.javadoc.SeeBlockDocTag"
+    multiple: true
+    optional: true
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.NodeAttribute"
+  - "jetbrains.mps.lang.core.IDeprecatable"
+- name: "BaseBlockDocTag"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+- name: "AuthorBlockDocTag"
+  abstract: false
+  properties:
+  - name: "text"
+    type: "STRING"
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.javadoc.BaseBlockDocTag"
+- name: "MethodDocComment"
+  abstract: false
+  properties: []
+  children:
+  - name: "param"
+    type: "jetbrains.mps.baseLanguage.javadoc.ParameterBlockDocTag"
+    multiple: true
+    optional: true
+  - name: "throwsTag"
+    type: "jetbrains.mps.baseLanguage.javadoc.ThrowsBlockDocTag"
+    multiple: true
+    optional: true
+  - name: "return"
+    type: "jetbrains.mps.baseLanguage.javadoc.ReturnBlockDocTag"
+    multiple: false
+    optional: true
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.javadoc.BaseDocComment"
+- name: "VersionBlockDocTag"
+  abstract: false
+  properties:
+  - name: "text"
+    type: "STRING"
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.javadoc.BaseBlockDocTag"
+- name: "SinceBlockDocTag"
+  abstract: false
+  properties:
+  - name: "text"
+    type: "STRING"
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.javadoc.BaseBlockDocTag"
+- name: "DeprecatedBlockDocTag"
+  abstract: false
+  properties: []
+  children:
+  - name: "text"
+    type: "jetbrains.mps.baseLanguage.javadoc.CommentLine"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.javadoc.BaseBlockDocTag"
+- name: "CommentLine"
+  abstract: false
+  properties: []
+  children:
+  - name: "part"
+    type: "jetbrains.mps.baseLanguage.javadoc.CommentLinePart"
+    multiple: true
+    optional: true
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+- name: "ParameterBlockDocTag"
+  abstract: false
+  properties:
+  - name: "text"
+    type: "STRING"
+  children:
+  - name: "parameter"
+    type: "jetbrains.mps.baseLanguage.javadoc.BaseParameterReference"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.javadoc.BaseBlockDocTag"
+- name: "ThrowsBlockDocTag"
+  abstract: false
+  properties:
+  - name: "text"
+    type: "STRING"
+  children:
+  - name: "exceptionType"
+    type: "jetbrains.mps.baseLanguage.Type"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.javadoc.BaseBlockDocTag"
+- name: "ReturnBlockDocTag"
+  abstract: false
+  properties:
+  - name: "text"
+    type: "STRING"
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.javadoc.BaseBlockDocTag"
+- name: "BaseParameterReference"
+  abstract: true
+  properties: []
+  children: []
+  references:
+  - name: "param"
+    type: "jetbrains.mps.baseLanguage.IValidIdentifier"
+    optional: false
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+- name: "DocMethodParameterReference"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.javadoc.BaseParameterReference"
+- name: "DocTypeParameterReference"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.javadoc.BaseParameterReference"
+- name: "FieldDocComment"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.javadoc.BaseDocComment"
+- name: "ClassifierDocComment"
+  abstract: false
+  properties: []
+  children:
+  - name: "param"
+    type: "jetbrains.mps.baseLanguage.javadoc.ParameterBlockDocTag"
+    multiple: true
+    optional: true
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.javadoc.BaseDocComment"
+- name: "CommentLinePart"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+- name: "TextCommentLinePart"
+  abstract: false
+  properties:
+  - name: "text"
+    type: "STRING"
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.javadoc.CommentLinePart"
+- name: "InlineTagCommentLinePart"
+  abstract: false
+  properties: []
+  children:
+  - name: "tag"
+    type: "jetbrains.mps.baseLanguage.javadoc.BaseInlineDocTag"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.javadoc.CommentLinePart"
+- name: "BaseInlineDocTag"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+- name: "ValueInlineDocTag"
+  abstract: false
+  properties: []
+  children:
+  - name: "variableReference"
+    type: "jetbrains.mps.baseLanguage.javadoc.BaseVariableDocReference"
+    multiple: false
+    optional: true
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.javadoc.BaseInlineDocTag"
+- name: "CodeInlineDocTag"
+  abstract: false
+  properties: []
+  children:
+  - name: "line"
+    type: "jetbrains.mps.baseLanguage.javadoc.CommentLine"
+    multiple: true
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.javadoc.BaseInlineDocTag"
+- name: "BaseDocReference"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+- name: "FieldDocReference"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.javadoc.BaseVariableDocReference"
+- name: "SeeBlockDocTag"
+  abstract: false
+  properties:
+  - name: "text"
+    type: "STRING"
+  children:
+  - name: "reference"
+    type: "jetbrains.mps.baseLanguage.javadoc.BaseDocReference"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.javadoc.BaseBlockDocTag"
+- name: "MethodDocReference"
+  abstract: false
+  properties: []
+  children: []
+  references:
+  - name: "methodDeclaration"
+    type: "jetbrains.mps.baseLanguage.BaseMethodDeclaration"
+    optional: false
+  extends:
+  - "jetbrains.mps.baseLanguage.javadoc.BaseDocReference"
+- name: "ClassifierDocReference"
+  abstract: false
+  properties: []
+  children: []
+  references:
+  - name: "classifier"
+    type: "jetbrains.mps.baseLanguage.Classifier"
+    optional: false
+  extends:
+  - "jetbrains.mps.baseLanguage.javadoc.BaseDocReference"
+- name: "LinkInlineDocTag"
+  abstract: false
+  properties: []
+  children:
+  - name: "line"
+    type: "jetbrains.mps.baseLanguage.javadoc.CommentLine"
+    multiple: true
+    optional: false
+  - name: "reference"
+    type: "jetbrains.mps.baseLanguage.javadoc.BaseDocReference"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.javadoc.BaseInlineDocTag"
+- name: "CodeSnippet"
+  abstract: false
+  properties: []
+  children:
+  - name: "statement"
+    type: "jetbrains.mps.baseLanguage.Statement"
+    multiple: true
+    optional: true
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.javadoc.CommentLine"
+- name: "InheritDocInlineDocTag"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.javadoc.BaseInlineDocTag"
+- name: "BaseVariableDocReference"
+  abstract: true
+  properties: []
+  children: []
+  references:
+  - name: "declaration"
+    type: "jetbrains.mps.baseLanguage.BaseVariableDeclaration"
+    optional: false
+  extends:
+  - "jetbrains.mps.baseLanguage.javadoc.BaseDocReference"
+- name: "StaticFieldDocReference"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.javadoc.BaseVariableDocReference"
+- name: "HTMLElement"
+  abstract: false
+  properties:
+  - name: "name"
+    type: "STRING"
+  children:
+  - name: "line"
+    type: "jetbrains.mps.baseLanguage.javadoc.CommentLine"
+    multiple: true
+    optional: true
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.javadoc.CommentLinePart"
+- name: "EmptyBlockDocTag"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.javadoc.BaseBlockDocTag"
