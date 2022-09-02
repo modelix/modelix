@@ -38,11 +38,14 @@ def pluginsDirFromExtensions = [
         "org.modelix.model.api", 
         "mps-apache-commons"]
 
+def mpsProjectDir = file("$projectDir/downloadedProject")
+mpsProjectDir.mkdirs()
+
 modelixModel {
-    serverUrl = "https://myserver.com/"
-    repositoryId = "repo4"
-    timeout = 25000
-    setProjectPath("$projectDir/downloadedProject")
+    serverUrl = "http://localhost/model/"
+    repositoryId = "default"
+    timeout = 180
+    setProjectPath(mpsProjectDir.path)
 
 //    // MPS Extensions
 //    addLibraryDir(new File("${mpsExtensionsDir.getAbsolutePath()}/mps-apache-commons"))
