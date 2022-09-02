@@ -1,0 +1,3118 @@
+name: "jetbrains.mps.baseLanguage"
+concepts:
+- name: "AssignmentExpression"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.BaseAssignmentExpression"
+  - "jetbrains.mps.baseLanguage.TypeDerivable"
+- name: "BaseMethodCall"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.Expression"
+  - "jetbrains.mps.baseLanguage.IMethodCall"
+- name: "Expression"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+- name: "ClassConcept"
+  abstract: false
+  properties:
+  - name: "abstractClass"
+    type: "STRING"
+  - name: "isFinal"
+    type: "STRING"
+  - name: "isStatic"
+    type: "STRING"
+  children:
+  - name: "field"
+    type: "jetbrains.mps.baseLanguage.FieldDeclaration"
+    multiple: true
+    optional: true
+  - name: "constructor"
+    type: "jetbrains.mps.baseLanguage.ConstructorDeclaration"
+    multiple: true
+    optional: true
+  - name: "staticMethod"
+    type: "jetbrains.mps.baseLanguage.StaticMethodDeclaration"
+    multiple: true
+    optional: true
+  - name: "superclass"
+    type: "jetbrains.mps.baseLanguage.ClassifierType"
+    multiple: false
+    optional: true
+  - name: "implementedInterface"
+    type: "jetbrains.mps.baseLanguage.ClassifierType"
+    multiple: true
+    optional: true
+  - name: "instanceInitializer"
+    type: "jetbrains.mps.baseLanguage.InstanceInitializer"
+    multiple: false
+    optional: true
+  - name: "classInitializer"
+    type: "jetbrains.mps.baseLanguage.StaticInitializer"
+    multiple: false
+    optional: true
+  - name: "staticInitializer"
+    type: "jetbrains.mps.baseLanguage.StatementList"
+    multiple: false
+    optional: true
+  - name: "property"
+    type: "jetbrains.mps.baseLanguage.Property"
+    multiple: true
+    optional: true
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.Classifier"
+  - "jetbrains.mps.baseLanguage.IBLDeprecatable"
+  - "jetbrains.mps.lang.traceable.UnitConcept"
+  - "jetbrains.mps.lang.core.ScopeProvider"
+  - "jetbrains.mps.lang.core.InterfacePart"
+- name: "ParameterDeclaration"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.VariableDeclaration"
+  - "jetbrains.mps.lang.core.IResolveInfo"
+  - "jetbrains.mps.baseLanguage.IVariableAssignment"
+  - "jetbrains.mps.lang.core.InterfacePart"
+- name: "Type"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+  - "jetbrains.mps.lang.core.IType"
+  - "jetbrains.mps.lang.core.InterfacePart"
+- name: "BaseMethodDeclaration"
+  abstract: true
+  properties:
+  - name: "isFinal"
+    type: "STRING"
+  - name: "isSynchronized"
+    type: "STRING"
+  children:
+  - name: "returnType"
+    type: "jetbrains.mps.baseLanguage.Type"
+    multiple: false
+    optional: false
+  - name: "parameter"
+    type: "jetbrains.mps.baseLanguage.ParameterDeclaration"
+    multiple: true
+    optional: true
+  - name: "body"
+    type: "jetbrains.mps.baseLanguage.StatementList"
+    multiple: false
+    optional: false
+  - name: "throwsItem"
+    type: "jetbrains.mps.baseLanguage.Type"
+    multiple: true
+    optional: true
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.GenericDeclaration"
+  - "jetbrains.mps.baseLanguage.IValidIdentifier"
+  - "jetbrains.mps.baseLanguage.HasAnnotation"
+  - "jetbrains.mps.baseLanguage.IBLDeprecatable"
+  - "jetbrains.mps.baseLanguage.IStatementListContainer"
+  - "jetbrains.mps.lang.core.IContainer"
+  - "jetbrains.mps.baseLanguage.IMethodLike"
+  - "jetbrains.mps.baseLanguage.TypeAnnotable"
+  - "jetbrains.mps.lang.traceable.TraceableConcept"
+  - "jetbrains.mps.lang.traceable.ScopeConcept"
+  - "jetbrains.mps.lang.core.ScopeProvider"
+  - "jetbrains.mps.baseLanguage.ITypeApplicable"
+  - "jetbrains.mps.baseLanguage.IHasModifiers"
+  - "jetbrains.mps.lang.core.ImplementationContainer"
+- name: "StatementList"
+  abstract: false
+  properties: []
+  children:
+  - name: "statement"
+    type: "jetbrains.mps.baseLanguage.Statement"
+    multiple: true
+    optional: true
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+  - "jetbrains.mps.lang.core.IContainer"
+  - "jetbrains.mps.baseLanguage.ILocalVariableElementList"
+  - "jetbrains.mps.lang.core.ImplementationWithStubPart"
+  - "jetbrains.mps.lang.traceable.ScopeConcept"
+  - "jetbrains.mps.lang.core.ScopeProvider"
+  - "jetbrains.mps.lang.core.ScopeFacade"
+- name: "EqualsExpression"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.BinaryOperation"
+- name: "ExpressionStatement"
+  abstract: false
+  properties: []
+  children:
+  - name: "expression"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.Statement"
+  - "jetbrains.mps.lang.core.IWrapper"
+- name: "Statement"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+  - "jetbrains.mps.baseLanguage.ILocalVariableElement"
+  - "jetbrains.mps.lang.traceable.TraceableConcept"
+  - "jetbrains.mps.lang.core.ICanSuppressErrors"
+- name: "IfStatement"
+  abstract: false
+  properties:
+  - name: "forceOneLine"
+    type: "STRING"
+  - name: "forceMultiLine"
+    type: "STRING"
+  children:
+  - name: "condition"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: false
+    optional: false
+  - name: "ifFalseStatement"
+    type: "jetbrains.mps.baseLanguage.Statement"
+    multiple: false
+    optional: true
+  - name: "ifTrue"
+    type: "jetbrains.mps.baseLanguage.StatementList"
+    multiple: false
+    optional: false
+  - name: "elsifClauses"
+    type: "jetbrains.mps.baseLanguage.ElsifClause"
+    multiple: true
+    optional: true
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.Statement"
+  - "jetbrains.mps.baseLanguage.IContainsStatementList"
+  - "jetbrains.mps.baseLanguage.IConditional"
+- name: "InstanceMethodDeclaration"
+  abstract: false
+  properties:
+  - name: "isAbstract"
+    type: "STRING"
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.MethodDeclaration"
+  - "jetbrains.mps.baseLanguage.ClassifierMethodMember"
+  - "jetbrains.mps.baseLanguage.ITypeApplicable"
+  - "jetbrains.mps.lang.core.InterfacePart"
+- name: "IntegerConstant"
+  abstract: false
+  properties:
+  - name: "value"
+    type: "STRING"
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.IntegerLiteral"
+- name: "LocalVariableDeclaration"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.VariableDeclaration"
+  - "jetbrains.mps.lang.core.IResolveInfo"
+  - "jetbrains.mps.baseLanguage.IVariableAssignment"
+  - "jetbrains.mps.baseLanguage.IVariableDeclaration"
+  - "jetbrains.mps.baseLanguage.ILocalDeclaration"
+  - "jetbrains.mps.lang.core.ScopeProvider"
+- name: "LocalVariableDeclarationStatement"
+  abstract: false
+  properties: []
+  children:
+  - name: "localVariableDeclaration"
+    type: "jetbrains.mps.baseLanguage.LocalVariableDeclaration"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.Statement"
+  - "jetbrains.mps.lang.core.IWrapper"
+- name: "LongType"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.PrimitiveType"
+- name: "MinusExpression"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.BinaryOperation"
+- name: "PlusExpression"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.BinaryOperation"
+- name: "ReturnStatement"
+  abstract: false
+  properties: []
+  children:
+  - name: "expression"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: false
+    optional: true
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.Statement"
+  - "jetbrains.mps.baseLanguage.TypeDerivable"
+- name: "VoidType"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.PrimitiveType"
+- name: "StaticFieldDeclaration"
+  abstract: false
+  properties:
+  - name: "isVolatile"
+    type: "STRING"
+  - name: "isTransient"
+    type: "STRING"
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.VariableDeclaration"
+  - "jetbrains.mps.baseLanguage.ClassifierMember"
+  - "jetbrains.mps.baseLanguage.StaticKind"
+  - "jetbrains.mps.lang.core.IResolveInfo"
+  - "jetbrains.mps.baseLanguage.IBLDeprecatable"
+  - "jetbrains.mps.lang.traceable.TraceableConcept"
+  - "jetbrains.mps.lang.core.InterfacePart"
+- name: "SuperConstructorInvocation"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.ConstructorInvocationStatement"
+- name: "StringLiteral"
+  abstract: false
+  properties:
+  - name: "value"
+    type: "STRING"
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.Expression"
+- name: "StaticFieldReference"
+  abstract: false
+  properties: []
+  children: []
+  references:
+  - name: "classifier"
+    type: "jetbrains.mps.baseLanguage.Classifier"
+    optional: false
+  extends:
+  - "jetbrains.mps.baseLanguage.VariableReference"
+  - "jetbrains.mps.baseLanguage.QualifiedReference"
+- name: "ShortType"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.PrimitiveType"
+- name: "NullLiteral"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.Expression"
+- name: "IntegerType"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.PrimitiveType"
+- name: "FloatType"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.PrimitiveType"
+- name: "DoubleType"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.PrimitiveType"
+- name: "CharType"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.PrimitiveType"
+- name: "ByteType"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.PrimitiveType"
+- name: "BooleanType"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.PrimitiveType"
+- name: "ArrayType"
+  abstract: false
+  properties: []
+  children:
+  - name: "componentType"
+    type: "jetbrains.mps.baseLanguage.Type"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.Type"
+  - "jetbrains.mps.baseLanguage.IGenericType"
+- name: "CastExpression"
+  abstract: false
+  properties: []
+  children:
+  - name: "type"
+    type: "jetbrains.mps.baseLanguage.Type"
+    multiple: false
+    optional: false
+  - name: "expression"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.Expression"
+  - "jetbrains.mps.baseLanguage.IBinaryLike"
+- name: "SuperMethodCall"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.BaseMethodCall"
+- name: "NotEqualsExpression"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.BinaryOperation"
+- name: "WhileStatement"
+  abstract: false
+  properties: []
+  children:
+  - name: "condition"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.AbstractLoopStatement"
+  - "jetbrains.mps.baseLanguage.IConditional"
+- name: "ParenthesizedExpression"
+  abstract: false
+  properties: []
+  children:
+  - name: "expression"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.Expression"
+  - "jetbrains.mps.baseLanguage.IConditional"
+- name: "AndExpression"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.BinaryOperation"
+  - "jetbrains.mps.baseLanguage.IConditional"
+- name: "OrExpression"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.BinaryOperation"
+  - "jetbrains.mps.baseLanguage.IConditional"
+- name: "StaticMethodCall"
+  abstract: false
+  properties: []
+  children: []
+  references:
+  - name: "classConcept"
+    type: "jetbrains.mps.baseLanguage.Classifier"
+    optional: false
+  extends:
+  - "jetbrains.mps.baseLanguage.BaseMethodCall"
+  - "jetbrains.mps.baseLanguage.QualifiedReference"
+- name: "StaticMethodDeclaration"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.MethodDeclaration"
+  - "jetbrains.mps.baseLanguage.ClassifierMethodMember"
+  - "jetbrains.mps.baseLanguage.StaticKind"
+  - "jetbrains.mps.lang.core.InterfacePart"
+- name: "InstanceOfExpression"
+  abstract: false
+  properties: []
+  children:
+  - name: "leftExpression"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: false
+    optional: false
+  - name: "classType"
+    type: "jetbrains.mps.baseLanguage.Type"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.Expression"
+  - "jetbrains.mps.baseLanguage.IBinaryLike"
+- name: "NotExpression"
+  abstract: false
+  properties: []
+  children:
+  - name: "expression"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.Expression"
+  - "jetbrains.mps.baseLanguage.IBinaryLike"
+  - "jetbrains.mps.baseLanguage.IConditional"
+- name: "BreakStatement"
+  abstract: false
+  properties:
+  - name: "label"
+    type: "STRING"
+  children:
+  - name: "loopLabelReference"
+    type: "jetbrains.mps.baseLanguage.LoopLabelReference"
+    multiple: false
+    optional: true
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.Statement"
+- name: "BinaryOperation"
+  abstract: true
+  properties: []
+  children:
+  - name: "rightExpression"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: false
+    optional: false
+  - name: "leftExpression"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.Expression"
+  - "jetbrains.mps.baseLanguage.IBinaryLike"
+- name: "ContinueStatement"
+  abstract: false
+  properties:
+  - name: "label"
+    type: "STRING"
+  children:
+  - name: "loopLabelReference"
+    type: "jetbrains.mps.baseLanguage.LoopLabelReference"
+    multiple: false
+    optional: true
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.Statement"
+- name: "BlockStatement"
+  abstract: false
+  properties: []
+  children:
+  - name: "statements"
+    type: "jetbrains.mps.baseLanguage.StatementList"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.Statement"
+- name: "EnumClass"
+  abstract: false
+  properties: []
+  children:
+  - name: "enumConstant"
+    type: "jetbrains.mps.baseLanguage.EnumConstantDeclaration"
+    multiple: true
+    optional: true
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.ClassConcept"
+- name: "EnumConstantDeclaration"
+  abstract: false
+  properties: []
+  children:
+  - name: "method"
+    type: "jetbrains.mps.baseLanguage.InstanceMethodDeclaration"
+    multiple: true
+    optional: true
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+  - "jetbrains.mps.baseLanguage.IValidIdentifier"
+  - "jetbrains.mps.lang.core.IResolveInfo"
+  - "jetbrains.mps.baseLanguage.HasAnnotation"
+  - "jetbrains.mps.baseLanguage.ClassifierMember"
+  - "jetbrains.mps.baseLanguage.IMethodCall"
+  - "jetbrains.mps.lang.core.InterfacePart"
+  - "jetbrains.mps.baseLanguage.IMemberContainer"
+  - "jetbrains.mps.lang.core.ScopeProvider"
+- name: "EnumConstantReference"
+  abstract: false
+  properties: []
+  children: []
+  references:
+  - name: "enumClass"
+    type: "jetbrains.mps.baseLanguage.EnumClass"
+    optional: false
+  - name: "enumConstantDeclaration"
+    type: "jetbrains.mps.baseLanguage.EnumConstantDeclaration"
+    optional: false
+  extends:
+  - "jetbrains.mps.baseLanguage.Expression"
+  - "jetbrains.mps.baseLanguage.QualifiedReference"
+  - "jetbrains.mps.lang.core.ScopeProvider"
+- name: "MulExpression"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.BinaryOperation"
+- name: "DivExpression"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.BinaryOperation"
+- name: "ConceptFunctionParameter"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.Expression"
+  - "jetbrains.mps.baseLanguage.IParameter"
+- name: "Classifier"
+  abstract: true
+  properties:
+  - name: "nestedName"
+    type: "STRING"
+  - name: "packageName"
+    type: "STRING"
+  - name: "isDeprecated"
+    type: "STRING"
+  - name: "nonStatic"
+    type: "STRING"
+  children:
+  - name: "member"
+    type: "jetbrains.mps.baseLanguage.ClassifierMember"
+    multiple: true
+    optional: true
+  - name: "staticField"
+    type: "jetbrains.mps.baseLanguage.StaticFieldDeclaration"
+    multiple: true
+    optional: true
+  - name: "method"
+    type: "jetbrains.mps.baseLanguage.InstanceMethodDeclaration"
+    multiple: true
+    optional: true
+  - name: "staticInnerClassifiers"
+    type: "jetbrains.mps.baseLanguage.Classifier"
+    multiple: true
+    optional: true
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.GenericDeclaration"
+  - "jetbrains.mps.baseLanguage.IClassifier"
+  - "jetbrains.mps.baseLanguage.ClassifierMember"
+  - "jetbrains.mps.baseLanguage.HasAnnotation"
+  - "jetbrains.mps.baseLanguage.IMemberContainer"
+  - "jetbrains.mps.lang.core.IResolveInfo"
+  - "jetbrains.mps.baseLanguage.IValidIdentifier"
+  - "jetbrains.mps.baseLanguage.IVisible"
+  - "jetbrains.mps.lang.core.IContainer"
+  - "jetbrains.mps.lang.core.ScopeProvider"
+  - "jetbrains.mps.lang.core.ISmartReferent"
+- name: "ClassifierType"
+  abstract: false
+  properties: []
+  children:
+  - name: "parameter"
+    type: "jetbrains.mps.baseLanguage.Type"
+    multiple: true
+    optional: true
+  references:
+  - name: "classifier"
+    type: "jetbrains.mps.baseLanguage.Classifier"
+    optional: false
+  extends:
+  - "jetbrains.mps.baseLanguage.Type"
+  - "jetbrains.mps.baseLanguage.IClassifierType"
+  - "jetbrains.mps.baseLanguage.IGenericType"
+- name: "Interface"
+  abstract: false
+  properties: []
+  children:
+  - name: "extendedInterface"
+    type: "jetbrains.mps.baseLanguage.ClassifierType"
+    multiple: true
+    optional: true
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.Classifier"
+  - "jetbrains.mps.baseLanguage.IBLDeprecatable"
+  - "jetbrains.mps.lang.traceable.UnitConcept"
+  - "jetbrains.mps.lang.core.InterfacePart"
+- name: "TypeVariableDeclaration"
+  abstract: false
+  properties:
+  - name: "extends"
+    type: "STRING"
+  children:
+  - name: "bound"
+    type: "jetbrains.mps.baseLanguage.Type"
+    multiple: false
+    optional: true
+  - name: "auxBounds"
+    type: "jetbrains.mps.baseLanguage.ClassifierType"
+    multiple: true
+    optional: true
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+  - "jetbrains.mps.baseLanguage.IValidIdentifier"
+  - "jetbrains.mps.lang.core.IResolveInfo"
+- name: "GenericDeclaration"
+  abstract: true
+  properties: []
+  children:
+  - name: "typeVariableDeclaration"
+    type: "jetbrains.mps.baseLanguage.TypeVariableDeclaration"
+    multiple: true
+    optional: true
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+  - "jetbrains.mps.lang.core.INamedConcept"
+  - "jetbrains.mps.lang.core.ScopeProvider"
+- name: "TypeVariableReference"
+  abstract: false
+  properties: []
+  children: []
+  references:
+  - name: "typeVariableDeclaration"
+    type: "jetbrains.mps.baseLanguage.TypeVariableDeclaration"
+    optional: false
+  extends:
+  - "jetbrains.mps.baseLanguage.Type"
+  - "jetbrains.mps.baseLanguage.IGenericType"
+- name: "ClassifierClassExpression"
+  abstract: false
+  properties: []
+  children: []
+  references:
+  - name: "classifier"
+    type: "jetbrains.mps.baseLanguage.Classifier"
+    optional: false
+  extends:
+  - "jetbrains.mps.baseLanguage.Expression"
+  - "jetbrains.mps.baseLanguage.QualifiedReference"
+- name: "ConceptFunction"
+  abstract: true
+  properties: []
+  children:
+  - name: "body"
+    type: "jetbrains.mps.baseLanguage.StatementList"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+  - "jetbrains.mps.baseLanguage.IMethodLike"
+  - "jetbrains.mps.baseLanguage.IStatementListContainer"
+  - "jetbrains.mps.lang.core.ImplementationContainer"
+  - "jetbrains.mps.lang.core.ScopeProvider"
+  - "jetbrains.mps.lang.core.InterfacePart"
+- name: "ForeachStatement"
+  abstract: false
+  properties: []
+  children:
+  - name: "iterable"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.AbstractForStatement"
+  - "jetbrains.mps.lang.traceable.ScopeConcept"
+- name: "AbstractForStatement"
+  abstract: true
+  properties: []
+  children:
+  - name: "variable"
+    type: "jetbrains.mps.baseLanguage.LocalVariableDeclaration"
+    multiple: false
+    optional: true
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.AbstractLoopStatement"
+- name: "ForStatement"
+  abstract: false
+  properties: []
+  children:
+  - name: "condition"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: false
+    optional: true
+  - name: "iteration"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: true
+    optional: true
+  - name: "additionalVar"
+    type: "jetbrains.mps.baseLanguage.AdditionalForLoopVariable"
+    multiple: true
+    optional: true
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.AbstractForStatement"
+  - "jetbrains.mps.lang.traceable.ScopeConcept"
+  - "jetbrains.mps.baseLanguage.IConditional"
+- name: "AbstractCreator"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+- name: "GenericNewExpression"
+  abstract: false
+  properties: []
+  children:
+  - name: "creator"
+    type: "jetbrains.mps.baseLanguage.AbstractCreator"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.Expression"
+- name: "Visibility"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+- name: "PublicVisibility"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.Visibility"
+- name: "PrivateVisibility"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.Visibility"
+- name: "ProtectedVisibility"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.Visibility"
+- name: "Closure"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.ConceptFunction"
+  - "jetbrains.mps.baseLanguage.Closureoid"
+  - "jetbrains.mps.lang.core.ScopeProvider"
+- name: "ClosureParameter"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+  - "jetbrains.mps.lang.core.INamedConcept"
+  - "jetbrains.mps.lang.core.IResolveInfo"
+- name: "ClosureParameterReference"
+  abstract: false
+  properties: []
+  children: []
+  references:
+  - name: "closureParameter"
+    type: "jetbrains.mps.baseLanguage.ClosureParameter"
+    optional: false
+  extends:
+  - "jetbrains.mps.baseLanguage.Expression"
+- name: "TryFinallyStatement"
+  abstract: false
+  properties: []
+  children:
+  - name: "body"
+    type: "jetbrains.mps.baseLanguage.StatementList"
+    multiple: false
+    optional: false
+  - name: "finallyBody"
+    type: "jetbrains.mps.baseLanguage.StatementList"
+    multiple: false
+    optional: false
+  - name: "catchClause"
+    type: "jetbrains.mps.baseLanguage.CatchClause"
+    multiple: true
+    optional: true
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.Statement"
+  - "jetbrains.mps.baseLanguage.IContainsStatementList"
+  - "jetbrains.mps.baseLanguage.ITryCatchStatement"
+- name: "AbstractLoopStatement"
+  abstract: true
+  properties:
+  - name: "label"
+    type: "STRING"
+  children:
+  - name: "body"
+    type: "jetbrains.mps.baseLanguage.StatementList"
+    multiple: false
+    optional: false
+  - name: "loopLabel"
+    type: "jetbrains.mps.baseLanguage.LoopLabel"
+    multiple: false
+    optional: true
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.Statement"
+  - "jetbrains.mps.lang.core.IContainer"
+  - "jetbrains.mps.baseLanguage.IContainsStatementList"
+  - "jetbrains.mps.lang.core.ScopeProvider"
+- name: "ArrayCreatorWithInitializer"
+  abstract: false
+  properties: []
+  children:
+  - name: "componentType"
+    type: "jetbrains.mps.baseLanguage.Type"
+    multiple: false
+    optional: false
+  - name: "initValue"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: true
+    optional: true
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.AbstractCreator"
+- name: "AssertStatement"
+  abstract: false
+  properties: []
+  children:
+  - name: "condition"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: false
+    optional: false
+  - name: "message"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: false
+    optional: true
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.Statement"
+- name: "ThisExpression"
+  abstract: false
+  properties: []
+  children: []
+  references:
+  - name: "classConcept"
+    type: "jetbrains.mps.baseLanguage.Classifier"
+    optional: true
+  extends:
+  - "jetbrains.mps.baseLanguage.Expression"
+  - "jetbrains.mps.baseLanguage.IThisExpression"
+- name: "TernaryOperatorExpression"
+  abstract: false
+  properties: []
+  children:
+  - name: "condition"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: false
+    optional: false
+  - name: "ifTrue"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: false
+    optional: false
+  - name: "ifFalse"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.Expression"
+  - "jetbrains.mps.baseLanguage.IBinaryLike"
+  - "jetbrains.mps.baseLanguage.IConditional"
+- name: "SwitchStatement"
+  abstract: false
+  properties:
+  - name: "label"
+    type: "STRING"
+  children:
+  - name: "expression"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: false
+    optional: false
+  - name: "case"
+    type: "jetbrains.mps.baseLanguage.SwitchCase"
+    multiple: true
+    optional: true
+  - name: "defaultBlock"
+    type: "jetbrains.mps.baseLanguage.StatementList"
+    multiple: false
+    optional: true
+  - name: "switchLabel"
+    type: "jetbrains.mps.baseLanguage.LoopLabel"
+    multiple: false
+    optional: true
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.Statement"
+  - "jetbrains.mps.lang.core.ScopeProvider"
+- name: "SwitchCase"
+  abstract: false
+  properties: []
+  children:
+  - name: "expression"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: false
+    optional: false
+  - name: "body"
+    type: "jetbrains.mps.baseLanguage.StatementList"
+    multiple: false
+    optional: true
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+- name: "PrimitiveType"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.Type"
+- name: "TryCatchStatement"
+  abstract: false
+  properties: []
+  children:
+  - name: "body"
+    type: "jetbrains.mps.baseLanguage.StatementList"
+    multiple: false
+    optional: false
+  - name: "catchClause"
+    type: "jetbrains.mps.baseLanguage.CatchClause"
+    multiple: true
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.Statement"
+  - "jetbrains.mps.baseLanguage.IContainsStatementList"
+  - "jetbrains.mps.baseLanguage.ITryCatchStatement"
+- name: "CatchClause"
+  abstract: false
+  properties: []
+  children:
+  - name: "throwable"
+    type: "jetbrains.mps.baseLanguage.LocalVariableDeclaration"
+    multiple: false
+    optional: false
+  - name: "catchBody"
+    type: "jetbrains.mps.baseLanguage.StatementList"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.AbstractCatchClause"
+  - "jetbrains.mps.lang.traceable.ScopeConcept"
+  - "jetbrains.mps.lang.core.ScopeProvider"
+- name: "ThrowStatement"
+  abstract: false
+  properties: []
+  children:
+  - name: "throwable"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.Statement"
+- name: "RemarkStatement"
+  abstract: false
+  properties:
+  - name: "value"
+    type: "STRING"
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.Statement"
+- name: "SynchronizedStatement"
+  abstract: false
+  properties: []
+  children:
+  - name: "expression"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: false
+    optional: false
+  - name: "block"
+    type: "jetbrains.mps.baseLanguage.StatementList"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.Statement"
+- name: "AnonymousClass"
+  abstract: false
+  properties: []
+  children:
+  - name: "parameter"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: true
+    optional: true
+  - name: "typeParameter"
+    type: "jetbrains.mps.baseLanguage.Type"
+    multiple: true
+    optional: true
+  references:
+  - name: "classifier"
+    type: "jetbrains.mps.baseLanguage.Classifier"
+    optional: false
+  extends:
+  - "jetbrains.mps.baseLanguage.ClassConcept"
+  - "jetbrains.mps.baseLanguage.IMethodCall"
+  - "jetbrains.mps.baseLanguage.IAnonymousClass"
+  - "jetbrains.mps.baseLanguage.IControlFlowInterrupter"
+  - "jetbrains.mps.lang.traceable.UnitConcept"
+  - "jetbrains.mps.lang.core.ScopeProvider"
+- name: "WildCardType"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.Type"
+- name: "LowerBoundType"
+  abstract: false
+  properties: []
+  children:
+  - name: "bound"
+    type: "jetbrains.mps.baseLanguage.Type"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.Type"
+  - "jetbrains.mps.baseLanguage.IGenericType"
+- name: "UpperBoundType"
+  abstract: false
+  properties: []
+  children:
+  - name: "bound"
+    type: "jetbrains.mps.baseLanguage.Type"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.Type"
+  - "jetbrains.mps.baseLanguage.IGenericType"
+- name: "LocalStaticMethodCall"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.LocalMethodCall"
+- name: "ArrayAccessExpression"
+  abstract: false
+  properties: []
+  children:
+  - name: "array"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: false
+    optional: false
+  - name: "index"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.Expression"
+  - "jetbrains.mps.baseLanguage.IBinaryLike"
+- name: "DoWhileStatement"
+  abstract: false
+  properties: []
+  children:
+  - name: "condition"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.AbstractLoopStatement"
+  - "jetbrains.mps.baseLanguage.IConditional"
+- name: "ClassifierMember"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.IVisible"
+  - "jetbrains.mps.baseLanguage.IClassifierMember"
+  - "jetbrains.mps.lang.core.ICanSuppressErrors"
+- name: "ThisConstructorInvocation"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.ConstructorInvocationStatement"
+- name: "IntegerLiteral"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.Expression"
+- name: "AnonymousClassCreator"
+  abstract: false
+  properties: []
+  children:
+  - name: "cls"
+    type: "jetbrains.mps.baseLanguage.AnonymousClass"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.AbstractCreator"
+- name: "ArrayCreator"
+  abstract: false
+  properties: []
+  children:
+  - name: "componentType"
+    type: "jetbrains.mps.baseLanguage.Type"
+    multiple: false
+    optional: false
+  - name: "dimensionExpression"
+    type: "jetbrains.mps.baseLanguage.DimensionExpression"
+    multiple: true
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.AbstractCreator"
+- name: "DimensionExpression"
+  abstract: false
+  properties: []
+  children:
+  - name: "expression"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: false
+    optional: true
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+- name: "Annotation"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.Interface"
+- name: "AnnotationMethodDeclaration"
+  abstract: false
+  properties: []
+  children:
+  - name: "defaultValue"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: false
+    optional: true
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.InstanceMethodDeclaration"
+- name: "AnnotationInstance"
+  abstract: false
+  properties: []
+  children:
+  - name: "value"
+    type: "jetbrains.mps.baseLanguage.AnnotationInstanceValue"
+    multiple: true
+    optional: true
+  references:
+  - name: "annotation"
+    type: "jetbrains.mps.baseLanguage.Annotation"
+    optional: false
+  extends:
+  - "jetbrains.mps.baseLanguage.Expression"
+  - "jetbrains.mps.lang.core.ScopeProvider"
+- name: "AnnotationInstanceExpression"
+  abstract: false
+  properties: []
+  children:
+  - name: "annotationInstance"
+    type: "jetbrains.mps.baseLanguage.AnnotationInstance"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.Expression"
+- name: "AnnotationInstanceValue"
+  abstract: false
+  properties: []
+  children:
+  - name: "value"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: false
+    optional: false
+  references:
+  - name: "key"
+    type: "jetbrains.mps.baseLanguage.AnnotationMethodDeclaration"
+    optional: false
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+- name: "ArrayLiteral"
+  abstract: false
+  properties: []
+  children:
+  - name: "item"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: true
+    optional: true
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.Expression"
+- name: "IMemberContainer"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends: []
+- name: "DotExpression"
+  abstract: false
+  properties: []
+  children:
+  - name: "operand"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: false
+    optional: false
+  - name: "operation"
+    type: "jetbrains.mps.baseLanguage.IOperation"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.Expression"
+  - "jetbrains.mps.baseLanguage.IBinaryLike"
+- name: "IOperation"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends: []
+- name: "FieldReferenceOperation"
+  abstract: false
+  properties: []
+  children: []
+  references:
+  - name: "fieldDeclaration"
+    type: "jetbrains.mps.baseLanguage.FieldDeclaration"
+    optional: false
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+  - "jetbrains.mps.baseLanguage.IOperation"
+- name: "IStatementListContainer"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends: []
+- name: "TypeDerivable"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends: []
+- name: "Property"
+  abstract: false
+  properties:
+  - name: "propertyName"
+    type: "STRING"
+  children:
+  - name: "type"
+    type: "jetbrains.mps.baseLanguage.Type"
+    multiple: false
+    optional: false
+  - name: "propertyImplementation"
+    type: "jetbrains.mps.baseLanguage.PropertyImplementation"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+  - "jetbrains.mps.baseLanguage.ClassifierMember"
+  - "jetbrains.mps.lang.core.INamedConcept"
+  - "jetbrains.mps.lang.core.InterfacePart"
+- name: "PropertyImplementation"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+- name: "DefaultPropertyImplementation"
+  abstract: false
+  properties: []
+  children:
+  - name: "defaultGetAccessor"
+    type: "jetbrains.mps.baseLanguage.DefaultGetAccessor"
+    multiple: false
+    optional: false
+  - name: "defaultSetAccessor"
+    type: "jetbrains.mps.baseLanguage.DefaultSetAccessor"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.PropertyImplementation"
+- name: "PropertyReference"
+  abstract: false
+  properties: []
+  children: []
+  references:
+  - name: "property"
+    type: "jetbrains.mps.baseLanguage.Property"
+    optional: false
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+  - "jetbrains.mps.baseLanguage.IOperation"
+- name: "CustomPropertyImplementation"
+  abstract: false
+  properties: []
+  children:
+  - name: "getAccessor"
+    type: "jetbrains.mps.baseLanguage.GetAccessor"
+    multiple: false
+    optional: false
+  - name: "setAccessor"
+    type: "jetbrains.mps.baseLanguage.SetAccessor"
+    multiple: false
+    optional: true
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.PropertyImplementation"
+- name: "GetAccessor"
+  abstract: false
+  properties: []
+  children:
+  - name: "statementList"
+    type: "jetbrains.mps.baseLanguage.StatementList"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+  - "jetbrains.mps.baseLanguage.IMethodLike"
+  - "jetbrains.mps.baseLanguage.IStatementListContainer"
+- name: "SetAccessor"
+  abstract: false
+  properties: []
+  children:
+  - name: "statementList"
+    type: "jetbrains.mps.baseLanguage.StatementList"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+  - "jetbrains.mps.baseLanguage.IMethodLike"
+  - "jetbrains.mps.baseLanguage.IStatementListContainer"
+- name: "ValueParameter"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.Expression"
+- name: "DefaultGetAccessor"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+- name: "DefaultSetAccessor"
+  abstract: false
+  properties: []
+  children:
+  - name: "visibility"
+    type: "jetbrains.mps.baseLanguage.Visibility"
+    multiple: false
+    optional: true
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+- name: "InstanceMethodCallOperation"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+  - "jetbrains.mps.baseLanguage.IOperation"
+  - "jetbrains.mps.baseLanguage.IMethodCall"
+- name: "IMethodCall"
+  abstract: true
+  properties: []
+  children:
+  - name: "actualArgument"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: true
+    optional: true
+  - name: "typeArgument"
+    type: "jetbrains.mps.baseLanguage.Type"
+    multiple: true
+    optional: true
+  references:
+  - name: "baseMethodDeclaration"
+    type: "jetbrains.mps.baseLanguage.BaseMethodDeclaration"
+    optional: false
+  extends:
+  - "jetbrains.mps.baseLanguage.TypeDerivable"
+  - "jetbrains.mps.baseLanguage.TypeAnnotable"
+- name: "NullType"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.PrimitiveType"
+- name: "IInternalType"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends: []
+- name: "ElsifClause"
+  abstract: false
+  properties: []
+  children:
+  - name: "condition"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: false
+    optional: false
+  - name: "statementList"
+    type: "jetbrains.mps.baseLanguage.StatementList"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+  - "jetbrains.mps.baseLanguage.IConditional"
+- name: "InstanceInitializer"
+  abstract: false
+  properties: []
+  children:
+  - name: "statementList"
+    type: "jetbrains.mps.baseLanguage.StatementList"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+  - "jetbrains.mps.baseLanguage.ClassifierMember"
+  - "jetbrains.mps.baseLanguage.IStatementListContainer"
+  - "jetbrains.mps.lang.core.ImplementationPart"
+- name: "Closureoid"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends: []
+- name: "AbstractOperation"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+  - "jetbrains.mps.baseLanguage.IOperation"
+- name: "ArrayLengthOperation"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+  - "jetbrains.mps.baseLanguage.IOperation"
+- name: "IValidIdentifier"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.INamedConcept"
+- name: "ClassCreator"
+  abstract: false
+  properties: []
+  children:
+  - name: "typeParameter"
+    type: "jetbrains.mps.baseLanguage.Type"
+    multiple: true
+    optional: true
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.AbstractCreator"
+  - "jetbrains.mps.baseLanguage.IMethodCall"
+- name: "PostfixIncrementExpression"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.AbstractUnaryNumberOperation"
+- name: "PostfixDecrementExpression"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.AbstractUnaryNumberOperation"
+- name: "BaseAssignmentExpression"
+  abstract: true
+  properties: []
+  children:
+  - name: "lValue"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: false
+    optional: false
+  - name: "rValue"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.Expression"
+  - "jetbrains.mps.baseLanguage.IBinaryLike"
+- name: "PlusAssignmentExpression"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.OperationAssignmentExpression"
+- name: "MinusAssignmentExpression"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.OperationAssignmentExpression"
+- name: "VariableArityType"
+  abstract: false
+  properties: []
+  children:
+  - name: "componentType"
+    type: "jetbrains.mps.baseLanguage.Type"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.Type"
+- name: "IExtractMethodAvailable"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends: []
+- name: "StaticInitializer"
+  abstract: false
+  properties: []
+  children:
+  - name: "statementList"
+    type: "jetbrains.mps.baseLanguage.StatementList"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+  - "jetbrains.mps.baseLanguage.ClassifierMember"
+  - "jetbrains.mps.baseLanguage.IStatementListContainer"
+  - "jetbrains.mps.lang.core.ImplementationPart"
+- name: "IStaticContainerForMethods"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends: []
+- name: "IVariableAssignment"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends: []
+- name: "AsExpression"
+  abstract: false
+  properties: []
+  children:
+  - name: "expression"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: false
+    optional: false
+  - name: "classifierType"
+    type: "jetbrains.mps.baseLanguage.ClassifierType"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.Expression"
+- name: "UsingStatement"
+  abstract: false
+  properties: []
+  children:
+  - name: "resource"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: true
+    optional: false
+  - name: "body"
+    type: "jetbrains.mps.baseLanguage.StatementList"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.Statement"
+- name: "EnumValuesExpression"
+  abstract: false
+  properties: []
+  children: []
+  references:
+  - name: "enumClass"
+    type: "jetbrains.mps.baseLanguage.EnumClass"
+    optional: false
+  extends:
+  - "jetbrains.mps.baseLanguage.Expression"
+  - "jetbrains.mps.baseLanguage.QualifiedReference"
+- name: "BitwiseXorExpression"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.BinaryBitwiseOperation"
+- name: "EnumValueOfExpression"
+  abstract: false
+  properties: []
+  children:
+  - name: "value"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: false
+    optional: false
+  references:
+  - name: "enumClass"
+    type: "jetbrains.mps.baseLanguage.EnumClass"
+    optional: false
+  extends:
+  - "jetbrains.mps.baseLanguage.Expression"
+  - "jetbrains.mps.baseLanguage.QualifiedReference"
+- name: "BinaryBitwiseOperation"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.BinaryOperation"
+- name: "BitwiseOrExpression"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.BinaryBitwiseOperation"
+- name: "BitwiseAndExpression"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.BinaryBitwiseOperation"
+- name: "IThisExpression"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends: []
+- name: "IBLDeprecatable"
+  abstract: true
+  properties:
+  - name: "isDeprecated"
+    type: "STRING"
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.IDeprecatable"
+- name: "StringType"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.Type"
+- name: "NPENotEqualsExpression"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.BinaryOperation"
+- name: "NPEEqualsExpression"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.BinaryOperation"
+- name: "BaseStringOperation"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+  - "jetbrains.mps.baseLanguage.IOperation"
+- name: "IsEmptyOperation"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.StringBooleanOperation"
+- name: "IsNotEmptyOperation"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.StringBooleanOperation"
+- name: "StringBooleanOperation"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.BaseStringOperation"
+- name: "SubstringExpression"
+  abstract: false
+  properties: []
+  children:
+  - name: "operand"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: false
+    optional: false
+  - name: "startIndex"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: false
+    optional: true
+  - name: "endIndex"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: false
+    optional: true
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.Expression"
+- name: "TrimOperation"
+  abstract: false
+  properties:
+  - name: "trimKind"
+    type: "STRING"
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.BaseStringOperation"
+- name: "IParameter"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends: []
+- name: "BitwiseNotExpression"
+  abstract: false
+  properties: []
+  children:
+  - name: "expression"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.Expression"
+- name: "CommentedStatement"
+  abstract: false
+  properties: []
+  children:
+  - name: "statement"
+    type: "jetbrains.mps.baseLanguage.Statement"
+    multiple: false
+    optional: true
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.Statement"
+- name: "TypeAnnotable"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends: []
+- name: "IContainsStatementList"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends: []
+- name: "ILocalVariableElement"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends: []
+- name: "ILocalVariableElementList"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends: []
+- name: "IMethodLike"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.ISuppressErrors"
+- name: "BinaryCompareOperation"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.BinaryOperation"
+- name: "PrefixIncrementExpression"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.AbstractUnaryNumberOperation"
+- name: "PrefixDecrementExpression"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.AbstractUnaryNumberOperation"
+- name: "AbstractUnaryNumberOperation"
+  abstract: false
+  properties: []
+  children:
+  - name: "expression"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.Expression"
+  - "jetbrains.mps.baseLanguage.IBinaryLike"
+- name: "BLBottomType"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.Type"
+- name: "ConstructorInvocationStatement"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.Statement"
+  - "jetbrains.mps.baseLanguage.IMethodCall"
+- name: "BaseVariableDeclaration"
+  abstract: false
+  properties: []
+  children:
+  - name: "type"
+    type: "jetbrains.mps.baseLanguage.Type"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+  - "jetbrains.mps.baseLanguage.IValidIdentifier"
+- name: "BaseVariableReference"
+  abstract: true
+  properties: []
+  children: []
+  references:
+  - name: "baseVariableDeclaration"
+    type: "jetbrains.mps.baseLanguage.BaseVariableDeclaration"
+    optional: false
+  extends:
+  - "jetbrains.mps.baseLanguage.Expression"
+- name: "LoopLabel"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+  - "jetbrains.mps.baseLanguage.LocalToMethodKind"
+  - "jetbrains.mps.lang.core.INamedConcept"
+- name: "LoopLabelReference"
+  abstract: false
+  properties: []
+  children: []
+  references:
+  - name: "loopLabel"
+    type: "jetbrains.mps.baseLanguage.LoopLabel"
+    optional: false
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+- name: "CommentPart"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+  - "jetbrains.mps.lang.core.ISuppressErrors"
+- name: "MulAssignmentExpression"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.OperationAssignmentExpression"
+- name: "DivAssignmentExpression"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.OperationAssignmentExpression"
+- name: "RemAssignmentExpression"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.OperationAssignmentExpression"
+- name: "OrAssignmentExpression"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.OperationAssignmentExpression"
+- name: "AndAssignmentExpression"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.OperationAssignmentExpression"
+- name: "XorAssignmentExpression"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.OperationAssignmentExpression"
+- name: "LeftShiftAssignmentExpression"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.OperationAssignmentExpression"
+- name: "RightShiftAssignmentExpression"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.OperationAssignmentExpression"
+- name: "AdditionalForLoopVariable"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.LocalVariableDeclaration"
+- name: "AbstractClassifierReference"
+  abstract: false
+  properties: []
+  children: []
+  references:
+  - name: "classifier"
+    type: "jetbrains.mps.baseLanguage.Classifier"
+    optional: false
+  extends:
+  - "jetbrains.mps.baseLanguage.Expression"
+- name: "ImplicitAnnotationInstanceValue"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.AnnotationInstanceValue"
+- name: "PrimitiveClassExpression"
+  abstract: false
+  properties: []
+  children:
+  - name: "primitiveType"
+    type: "jetbrains.mps.baseLanguage.PrimitiveType"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.Expression"
+- name: "IVariableDeclaration"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.INamedConcept"
+- name: "ITryCatchStatement"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends: []
+- name: "LocalInstanceMethodCall"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.LocalMethodCall"
+- name: "ILocalDeclaration"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends: []
+- name: "ILocalReference"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends: []
+- name: "ArrayCloneOperation"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+  - "jetbrains.mps.baseLanguage.IOperation"
+- name: "UnresolvedNameReference"
+  abstract: false
+  properties:
+  - name: "resolveName"
+    type: "STRING"
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.Expression"
+- name: "StubStatementList"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.StatementList"
+  - "jetbrains.mps.lang.core.ISuppressErrors"
+  - "jetbrains.mps.lang.core.IStubForAnotherConcept"
+- name: "OperationAssignmentExpression"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.BaseAssignmentExpression"
+- name: "IControlFlowInterrupter"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends: []
+- name: "IWillBeClassifier"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends: []
+- name: "EscapeOperation"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.BaseStringOperation"
+- name: "UndefinedType"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.Type"
+- name: "IFinalWrapper"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends: []
+- name: "IAnonymousClass"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends: []
+- name: "UnsignedRightShiftAssignmentExpression"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.OperationAssignmentExpression"
+- name: "IVariableReference"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends: []
+- name: "ISkipsReturn"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends: []
+- name: "LocalPropertyReference"
+  abstract: false
+  properties: []
+  children: []
+  references:
+  - name: "property"
+    type: "jetbrains.mps.baseLanguage.Property"
+    optional: false
+  extends:
+  - "jetbrains.mps.baseLanguage.Expression"
+- name: "ContextClassifierKind"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends: []
+- name: "ImplicitAnnotationMethodKind"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends: []
+- name: "SuperMethodKind"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends: []
+- name: "StaticKind"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends: []
+- name: "ThisConstructorKind"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends: []
+- name: "LocalToMethodKind"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends: []
+- name: "SuperConstructorKind"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends: []
+- name: "ArrayClassExpression"
+  abstract: false
+  properties: []
+  children:
+  - name: "arrayType"
+    type: "jetbrains.mps.baseLanguage.ArrayType"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.Expression"
+- name: "IClassifier"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends: []
+- name: "IClassifierMember"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends: []
+- name: "IClassifierType"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends: []
+- name: "FieldDeclaration"
+  abstract: false
+  properties:
+  - name: "isVolatile"
+    type: "STRING"
+  - name: "isTransient"
+    type: "STRING"
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.VariableDeclaration"
+  - "jetbrains.mps.baseLanguage.ClassifierMember"
+  - "jetbrains.mps.lang.core.IResolveInfo"
+  - "jetbrains.mps.baseLanguage.IBLDeprecatable"
+  - "jetbrains.mps.lang.traceable.TraceableConcept"
+  - "jetbrains.mps.lang.core.InterfacePart"
+- name: "ConstructorDeclaration"
+  abstract: false
+  properties:
+  - name: "nestedName"
+    type: "STRING"
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.BaseMethodDeclaration"
+  - "jetbrains.mps.baseLanguage.ClassifierMember"
+  - "jetbrains.mps.lang.core.IResolveInfo"
+  - "jetbrains.mps.lang.core.InterfacePart"
+- name: "LocalStaticFieldReference"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.VariableReference"
+- name: "HasAnnotation"
+  abstract: true
+  properties: []
+  children:
+  - name: "annotation"
+    type: "jetbrains.mps.baseLanguage.AnnotationInstance"
+    multiple: true
+    optional: true
+  references: []
+  extends: []
+- name: "IVisible"
+  abstract: true
+  properties: []
+  children:
+  - name: "visibility"
+    type: "jetbrains.mps.baseLanguage.Visibility"
+    multiple: false
+    optional: true
+  references: []
+  extends: []
+- name: "TextCommentPart"
+  abstract: false
+  properties:
+  - name: "text"
+    type: "STRING"
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.CommentPart"
+- name: "StatementCommentPart"
+  abstract: false
+  properties: []
+  children:
+  - name: "commentedStatement"
+    type: "jetbrains.mps.baseLanguage.Statement"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.CommentPart"
+- name: "SingleLineComment"
+  abstract: false
+  properties: []
+  children:
+  - name: "commentPart"
+    type: "jetbrains.mps.baseLanguage.CommentPart"
+    multiple: true
+    optional: true
+  - name: "text"
+    type: "jetbrains.mps.lang.text.Line"
+    multiple: true
+    optional: true
+  - name: "line"
+    type: "jetbrains.mps.lang.text.Line"
+    multiple: false
+    optional: true
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.Statement"
+  - "jetbrains.mps.lang.core.ScopeProvider"
+  - "jetbrains.mps.baseLanguage.IComment"
+  - "jetbrains.mps.lang.core.IOldCommentContainer"
+- name: "LocalInstanceFieldReference"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.VariableReference"
+- name: "ShiftLeftExpression"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.BinaryBitwiseOperation"
+- name: "ShiftRightExpression"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.BinaryBitwiseOperation"
+- name: "ShiftRightUnsignedExpression"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.BinaryBitwiseOperation"
+- name: "RemExpression"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.BinaryOperation"
+- name: "LessThanExpression"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.BinaryCompareOperation"
+- name: "LessThanOrEqualsExpression"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.BinaryCompareOperation"
+- name: "GreaterThanOrEqualsExpression"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.BinaryCompareOperation"
+- name: "GreaterThanExpression"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.BinaryCompareOperation"
+- name: "UnaryMinus"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.AbstractUnaryNumberOperation"
+- name: "HexIntegerLiteral"
+  abstract: false
+  properties:
+  - name: "value"
+    type: "STRING"
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.IntegerLiteral"
+- name: "LongLiteral"
+  abstract: false
+  properties:
+  - name: "value"
+    type: "STRING"
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.Expression"
+- name: "FloatingPointFloatConstant"
+  abstract: false
+  properties:
+  - name: "value"
+    type: "STRING"
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.Expression"
+- name: "FloatingPointConstant"
+  abstract: false
+  properties:
+  - name: "value"
+    type: "STRING"
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.Expression"
+- name: "BooleanConstant"
+  abstract: false
+  properties:
+  - name: "value"
+    type: "STRING"
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.Expression"
+- name: "CharConstant"
+  abstract: false
+  properties:
+  - name: "charConstant"
+    type: "STRING"
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.Expression"
+- name: "Number"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+- name: "VariableDeclaration"
+  abstract: false
+  properties:
+  - name: "isFinal"
+    type: "STRING"
+  children:
+  - name: "initializer"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: false
+    optional: true
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.BaseVariableDeclaration"
+  - "jetbrains.mps.baseLanguage.HasAnnotation"
+  - "jetbrains.mps.baseLanguage.TypeDerivable"
+  - "jetbrains.mps.baseLanguage.TypeAnnotable"
+  - "jetbrains.mps.baseLanguage.IVariableDeclaration"
+  - "jetbrains.mps.lang.core.IResolveInfo"
+- name: "VariableReference"
+  abstract: false
+  properties: []
+  children: []
+  references:
+  - name: "variableDeclaration"
+    type: "jetbrains.mps.baseLanguage.VariableDeclaration"
+    optional: false
+  extends:
+  - "jetbrains.mps.baseLanguage.Expression"
+  - "jetbrains.mps.baseLanguage.TypeAnnotable"
+  - "jetbrains.mps.baseLanguage.IVariableReference"
+  - "jetbrains.mps.baseLanguage.ILocalReference"
+- name: "IYetUnresolved"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends: []
+- name: "MethodDeclaration"
+  abstract: true
+  properties:
+  - name: "isNative"
+    type: "STRING"
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.BaseMethodDeclaration"
+  - "jetbrains.mps.lang.core.IResolveInfo"
+- name: "ITypeApplicable"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends: []
+- name: "LocalMethodCall"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.BaseMethodCall"
+- name: "UnknownNew"
+  abstract: false
+  properties:
+  - name: "className"
+    type: "STRING"
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.Expression"
+  - "jetbrains.mps.baseLanguage.IMethodCall"
+  - "jetbrains.mps.baseLanguage.IYetUnresolved"
+- name: "UnknownNameRef"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.Expression"
+  - "jetbrains.mps.baseLanguage.Tokens"
+  - "jetbrains.mps.baseLanguage.IYetUnresolved"
+- name: "IGenericType"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends: []
+- name: "StringToken"
+  abstract: true
+  properties:
+  - name: "value"
+    type: "STRING"
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+- name: "UnknownConsCall"
+  abstract: false
+  properties:
+  - name: "isSuper"
+    type: "STRING"
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.Statement"
+  - "jetbrains.mps.baseLanguage.IMethodCall"
+  - "jetbrains.mps.baseLanguage.IYetUnresolved"
+- name: "UnknownLocalCall"
+  abstract: false
+  properties:
+  - name: "callee"
+    type: "STRING"
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.Expression"
+  - "jetbrains.mps.baseLanguage.IMethodCall"
+  - "jetbrains.mps.baseLanguage.IYetUnresolved"
+- name: "UnknownDotCall"
+  abstract: false
+  properties:
+  - name: "callee"
+    type: "STRING"
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.UnknownNameRef"
+  - "jetbrains.mps.baseLanguage.IMethodCall"
+  - "jetbrains.mps.baseLanguage.IYetUnresolved"
+- name: "Modifier"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+- name: "IHasModifiers"
+  abstract: true
+  properties: []
+  children:
+  - name: "modifiers"
+    type: "jetbrains.mps.baseLanguage.Modifier"
+    multiple: true
+    optional: true
+  references: []
+  extends: []
+- name: "PlaceholderMember"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+  - "jetbrains.mps.baseLanguage.ClassifierMember"
+- name: "JavaImports"
+  abstract: false
+  properties: []
+  children:
+  - name: "entries"
+    type: "jetbrains.mps.baseLanguage.JavaImport"
+    multiple: true
+    optional: true
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.NodeAttribute"
+- name: "Tokens"
+  abstract: true
+  properties:
+  - name: "tokens"
+    type: "STRING"
+  children: []
+  references: []
+  extends: []
+- name: "DefaultClassCreator"
+  abstract: false
+  properties: []
+  children:
+  - name: "typeParameter"
+    type: "jetbrains.mps.baseLanguage.Type"
+    multiple: true
+    optional: true
+  references:
+  - name: "classifier"
+    type: "jetbrains.mps.baseLanguage.Classifier"
+    optional: false
+  extends:
+  - "jetbrains.mps.baseLanguage.AbstractCreator"
+- name: "JavaImport"
+  abstract: false
+  properties:
+  - name: "onDemand"
+    type: "STRING"
+  - name: "static"
+    type: "STRING"
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+  - "jetbrains.mps.baseLanguage.Tokens"
+- name: "IncompleteMemberDeclaration"
+  abstract: false
+  properties:
+  - name: "static"
+    type: "STRING"
+  - name: "final"
+    type: "STRING"
+  - name: "abstract"
+    type: "STRING"
+  - name: "synchronized"
+    type: "STRING"
+  - name: "volatile"
+    type: "STRING"
+  - name: "transient"
+    type: "STRING"
+  - name: "native"
+    type: "STRING"
+  children:
+  - name: "type"
+    type: "jetbrains.mps.baseLanguage.Type"
+    multiple: false
+    optional: true
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+  - "jetbrains.mps.baseLanguage.ClassifierMember"
+  - "jetbrains.mps.baseLanguage.IHasModifiers"
+- name: "PropertyValueReference"
+  abstract: false
+  properties: []
+  children: []
+  references:
+  - name: "owningProperty"
+    type: "jetbrains.mps.baseLanguage.Property"
+    optional: false
+  extends:
+  - "jetbrains.mps.baseLanguage.Expression"
+- name: "CustomSetterPropertyImplementation"
+  abstract: false
+  properties: []
+  children:
+  - name: "getAccessor"
+    type: "jetbrains.mps.baseLanguage.DefaultGetAccessor"
+    multiple: false
+    optional: false
+  - name: "setAccessor"
+    type: "jetbrains.mps.baseLanguage.SetAccessor"
+    multiple: false
+    optional: true
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.PropertyImplementation"
+- name: "IncompleteLeftParen"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.NodeAttribute"
+  - "jetbrains.mps.baseLanguage.IIncompleteParen"
+- name: "IncompleteRightParen"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.NodeAttribute"
+  - "jetbrains.mps.baseLanguage.IIncompleteParen"
+- name: "IBinaryLike"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends: []
+- name: "IIncompleteParen"
+  abstract: true
+  properties:
+  - name: "count"
+    type: "STRING"
+  children: []
+  references: []
+  extends: []
+- name: "SuperInerfaceKind"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+- name: "IConditional"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends: []
+- name: "QualifiedSuperMethodCall"
+  abstract: false
+  properties: []
+  children: []
+  references:
+  - name: "classifier"
+    type: "jetbrains.mps.baseLanguage.Classifier"
+    optional: false
+  extends:
+  - "jetbrains.mps.baseLanguage.SuperMethodCall"
+- name: "NestedNewExpression"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.GenericNewExpression"
+  - "jetbrains.mps.baseLanguage.IOperation"
+- name: "JavaModifier"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.Modifier"
+- name: "GenericLValueExpression"
+  abstract: false
+  properties: []
+  children:
+  - name: "type"
+    type: "jetbrains.mps.baseLanguage.Type"
+    multiple: false
+    optional: false
+  - name: "referenceExpression"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: false
+    optional: false
+  - name: "getValueExpression"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: false
+    optional: true
+  - name: "assignValueExression"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: false
+    optional: true
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.Expression"
+- name: "ValueRef"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.Expression"
+- name: "PassByRefExpression"
+  abstract: false
+  properties: []
+  children:
+  - name: "expr"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.Expression"
+- name: "ClassifierMethodMember"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.ClassifierMember"
+- name: "BinaryIntegerLiteral"
+  abstract: false
+  properties:
+  - name: "value"
+    type: "STRING"
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.IntegerLiteral"
+- name: "StubInitializer"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.Expression"
+  - "jetbrains.mps.lang.core.ISuppressErrors"
+  - "jetbrains.mps.lang.core.IStubForAnotherConcept"
+- name: "OctalIntegerLiteral"
+  abstract: false
+  properties:
+  - name: "value"
+    type: "STRING"
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.IntegerLiteral"
+- name: "AbstractCatchClause"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+- name: "QualifiedReference"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends: []
+- name: "MultiLineComment"
+  abstract: false
+  properties: []
+  children:
+  - name: "lines"
+    type: "jetbrains.mps.lang.text.Line"
+    multiple: true
+    optional: true
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.Statement"
+  - "jetbrains.mps.lang.core.ScopeProvider"
+  - "jetbrains.mps.baseLanguage.IComment"
+- name: "AlternativeType"
+  abstract: false
+  properties: []
+  children:
+  - name: "alternative"
+    type: "jetbrains.mps.baseLanguage.Type"
+    multiple: true
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.UndefinedType"
+- name: "CatchVariable"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.LocalVariableDeclaration"
+- name: "MultipleCatchClause"
+  abstract: false
+  properties: []
+  children:
+  - name: "throwable"
+    type: "jetbrains.mps.baseLanguage.CatchVariable"
+    multiple: false
+    optional: false
+  - name: "catchBody"
+    type: "jetbrains.mps.baseLanguage.StatementList"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.AbstractCatchClause"
+  - "jetbrains.mps.lang.traceable.ScopeConcept"
+  - "jetbrains.mps.lang.core.ScopeProvider"
+- name: "ResourceVariable"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.LocalVariableDeclaration"
+- name: "TryUniversalStatement"
+  abstract: false
+  properties: []
+  children:
+  - name: "resource"
+    type: "jetbrains.mps.baseLanguage.ResourceVariable"
+    multiple: true
+    optional: true
+  - name: "body"
+    type: "jetbrains.mps.baseLanguage.StatementList"
+    multiple: false
+    optional: false
+  - name: "catchClause"
+    type: "jetbrains.mps.baseLanguage.MultipleCatchClause"
+    multiple: true
+    optional: true
+  - name: "finallyClause"
+    type: "jetbrains.mps.baseLanguage.FinallyClause"
+    multiple: false
+    optional: true
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.Statement"
+  - "jetbrains.mps.lang.core.ScopeProvider"
+  - "jetbrains.mps.baseLanguage.ITryCatchStatement"
+  - "jetbrains.mps.baseLanguage.IContainsStatementList"
+- name: "DefaultModifier"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.JavaModifier"
+- name: "SuperInterfaceMethodCall"
+  abstract: false
+  properties: []
+  children: []
+  references:
+  - name: "classifier"
+    type: "jetbrains.mps.baseLanguage.Classifier"
+    optional: false
+  extends:
+  - "jetbrains.mps.baseLanguage.SuperMethodCall"
+- name: "FinallyClause"
+  abstract: false
+  properties: []
+  children:
+  - name: "finallyBody"
+    type: "jetbrains.mps.baseLanguage.StatementList"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+- name: "IComment"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.text.IHoldLines"
+- name: "IThrowCheckedExceptions"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends: []
+- name: "SwitchCaseExtension"
+  abstract: false
+  properties: []
+  children:
+  - name: "expression"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+- name: "StaticMethodCallOperation"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+  - "jetbrains.mps.baseLanguage.IOperation"
+  - "jetbrains.mps.baseLanguage.IMethodCall"

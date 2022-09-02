@@ -1,0 +1,9 @@
+name: "jetbrains.mps.baseLanguage.doubleDispatch"
+concepts:
+- name: "DispatchModifier"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.Modifier"

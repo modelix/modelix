@@ -23,6 +23,7 @@ import org.modelix.model.operations.*
 import org.modelix.model.persistent.CPVersion
 
 class VersionMerger(private val storeCache: IDeserializingKeyValueStore, private val idGenerator: IIdGenerator) {
+    private val logger = mu.KotlinLogging.logger {}
     private val mergeLock = Any()
     fun mergeChange(lastMergedVersion: CLVersion, newVersion: CLVersion): CLVersion {
         var lastMergedVersion = lastMergedVersion
@@ -67,14 +68,11 @@ class VersionMerger(private val storeCache: IDeserializingKeyValueStore, private
                 val transformed: List<IOperation>
                 try {
                     transformed = it.restoreIntend(t.tree)
-                    logTrace(
-                        {
-                            if (transformed.size != 1 || transformed[0] != it.getOriginalOp())
-                                "transformed: ${it.getOriginalOp()} --> $transformed"
-                            else ""
-                        },
-                        VersionMerger::class
-                    )
+                    logger.trace {
+                        if (transformed.size != 1 || transformed[0] != it.getOriginalOp())
+                            "transformed: ${it.getOriginalOp()} --> $transformed"
+                        else ""
+                    }
                 } catch (ex: Exception) {
                     throw RuntimeException("Operation intend failed: ${it.getOriginalOp()}", ex)
                 }

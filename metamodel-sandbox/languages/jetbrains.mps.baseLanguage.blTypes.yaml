@@ -1,0 +1,26 @@
+name: "jetbrains.mps.baseLanguage.blTypes"
+concepts:
+- name: "PrimitiveTypeDescriptor"
+  abstract: false
+  properties: []
+  children:
+  - name: "extends"
+    type: "jetbrains.mps.baseLanguage.blTypes.PrimitiveTypeRef"
+    multiple: true
+    optional: true
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+  - "jetbrains.mps.lang.core.INamedConcept"
+  - "jetbrains.mps.lang.core.IType"
+- name: "PrimitiveTypeRef"
+  abstract: false
+  properties: []
+  children: []
+  references:
+  - name: "descriptor"
+    type: "jetbrains.mps.baseLanguage.blTypes.PrimitiveTypeDescriptor"
+    optional: false
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+  - "jetbrains.mps.lang.core.InterfacePart"

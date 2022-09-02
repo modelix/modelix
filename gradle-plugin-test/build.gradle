@@ -1,23 +1,28 @@
 buildscript {
     repositories {
         mavenCentral()
-        maven { url 'https://projects.itemis.de/nexus/content/repositories/mbeddr' }
+        maven { url 'https://artifacts.itemis.cloud/repository/maven-mps/' }
         mavenLocal()
     }
 
+    def versionFile = new File("$rootDir/../modelix.version")
+    if (!versionFile.exists()) {
+        throw new GradleException("$versionFile doesn't exist")
+    }
+    def modelixVersion = versionFile.text.trim()
+
     dependencies {
-        classpath group: 'org.modelix', name: 'gradle-plugin', version: '2020.3.5-202201200839-SNAPSHOT'
+        classpath group: 'org.modelix', name: 'gradle-plugin', version: modelixVersion
     }
 }
 
 repositories {
     mavenCentral()
-    maven { url 'https://projects.itemis.de/nexus/content/repositories/mbeddr' }
+    maven { url 'https://artifacts.itemis.cloud/repository/maven-mps/' }
     mavenLocal()
 }
 
 apply plugin: 'modelix-gradle-plugin'
-
 
 def artifactsDir = project.file("artifacts") 
 def mpsDir = project.hasProperty('mpsPath') ? new File(project.property('mpsPath')) : new File(artifactsDir, 'mps')
@@ -33,10 +38,14 @@ def pluginsDirFromExtensions = [
         "org.modelix.model.api", 
         "mps-apache-commons"]
 
+def mpsProjectDir = file("$projectDir/downloadedProject")
+mpsProjectDir.mkdirs()
+
 modelixModel {
-    serverUrl = "https://myserver.com/"
-    repositoryId = "repo4"
-    timeout = 25000
+    serverUrl = "http://localhost/model/"
+    repositoryId = "default"
+    timeout = 180
+    setProjectPath(mpsProjectDir.path)
 
 //    // MPS Extensions
 //    addLibraryDir(new File("${mpsExtensionsDir.getAbsolutePath()}/mps-apache-commons"))

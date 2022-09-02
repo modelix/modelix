@@ -1,0 +1,121 @@
+name: "jetbrains.mps.baseLanguage.classifiers"
+concepts:
+- name: "IClassifier"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.INamedConcept"
+  - "jetbrains.mps.baseLanguage.IExtractMethodAvailable"
+- name: "IMember"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.INamedConcept"
+- name: "IClassifierPart"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends: []
+- name: "ThisClassifierExpression"
+  abstract: false
+  properties: []
+  children: []
+  references:
+  - name: "classifier"
+    type: "jetbrains.mps.baseLanguage.classifiers.IClassifier"
+    optional: true
+  extends:
+  - "jetbrains.mps.baseLanguage.Expression"
+  - "jetbrains.mps.baseLanguage.IThisExpression"
+- name: "BaseClassifierType"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.Type"
+- name: "DefaultClassifierType"
+  abstract: false
+  properties: []
+  children: []
+  references:
+  - name: "classifier"
+    type: "jetbrains.mps.baseLanguage.classifiers.IClassifier"
+    optional: false
+  extends:
+  - "jetbrains.mps.baseLanguage.classifiers.BaseClassifierType"
+- name: "IMemberOperation"
+  abstract: true
+  properties: []
+  children: []
+  references:
+  - name: "member"
+    type: "jetbrains.mps.baseLanguage.classifiers.IMember"
+    optional: false
+  extends:
+  - "jetbrains.mps.baseLanguage.IOperation"
+- name: "DefaultClassifierMethodDeclaration"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.BaseMethodDeclaration"
+  - "jetbrains.mps.baseLanguage.classifiers.IMember"
+  - "jetbrains.mps.baseLanguage.IVisible"
+- name: "DefaultClassifierMethodCallOperation"
+  abstract: false
+  properties: []
+  children:
+  - name: "actualArgument"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: true
+    optional: true
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+  - "jetbrains.mps.baseLanguage.classifiers.IMemberOperation"
+- name: "DefaultClassifierFieldDeclaration"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.FieldDeclaration"
+  - "jetbrains.mps.baseLanguage.classifiers.IMember"
+- name: "DefaultClassifierFieldAccessOperation"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+  - "jetbrains.mps.baseLanguage.classifiers.IMemberOperation"
+- name: "SuperClassifierExpresson"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.Expression"
+- name: "DefaultClassifier"
+  abstract: false
+  properties: []
+  children:
+  - name: "field"
+    type: "jetbrains.mps.baseLanguage.classifiers.DefaultClassifierFieldDeclaration"
+    multiple: true
+    optional: true
+  - name: "method"
+    type: "jetbrains.mps.baseLanguage.classifiers.DefaultClassifierMethodDeclaration"
+    multiple: true
+    optional: true
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+  - "jetbrains.mps.baseLanguage.classifiers.IClassifier"

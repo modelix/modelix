@@ -1,0 +1,292 @@
+name: "jetbrains.mps.baseLanguage.builders"
+concepts:
+- name: "Builder"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+- name: "BuilderCreator"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.AbstractCreator"
+  - "jetbrains.mps.baseLanguage.builders.BuilderContainer"
+  - "jetbrains.mps.baseLanguage.IControlFlowInterrupter"
+- name: "BuilderStatement"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.Statement"
+  - "jetbrains.mps.baseLanguage.builders.BuilderContainer"
+- name: "ResultExpression"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.Expression"
+- name: "SimpleBuilders"
+  abstract: false
+  properties: []
+  children:
+  - name: "builder"
+    type: "jetbrains.mps.baseLanguage.builders.BaseSimpleBuilderDeclaration"
+    multiple: true
+    optional: true
+  references:
+  - name: "extendsBuilder"
+    type: "jetbrains.mps.baseLanguage.builders.SimpleBuilders"
+    optional: true
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+  - "jetbrains.mps.lang.core.INamedConcept"
+- name: "SimpleBuilderChild"
+  abstract: false
+  properties: []
+  children:
+  - name: "attachStatement"
+    type: "jetbrains.mps.baseLanguage.Statement"
+    multiple: false
+    optional: false
+  references:
+  - name: "child"
+    type: "jetbrains.mps.baseLanguage.builders.SimpleBuilderDeclaration"
+    optional: false
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+- name: "SimpleBuilderParentExpression"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.builders.SimpleBuilderExpression"
+- name: "SimpleBuilderChildExpression"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.builders.SimpleBuilderExpression"
+- name: "SimpleBuilderExpression"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.Expression"
+- name: "SimpleBuilderDeclaration"
+  abstract: false
+  properties:
+  - name: "root"
+    type: "STRING"
+  - name: "leaf"
+    type: "STRING"
+  - name: "isAbstract"
+    type: "STRING"
+  children:
+  - name: "parameter"
+    type: "jetbrains.mps.baseLanguage.builders.SimpleBuilderParameter"
+    multiple: true
+    optional: true
+  - name: "type"
+    type: "jetbrains.mps.baseLanguage.Type"
+    multiple: false
+    optional: false
+  - name: "creator"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: false
+    optional: true
+  - name: "child"
+    type: "jetbrains.mps.baseLanguage.builders.SimpleBuilderChild"
+    multiple: true
+    optional: true
+  - name: "property"
+    type: "jetbrains.mps.baseLanguage.builders.SimpleBuilderProperty"
+    multiple: true
+    optional: true
+  references:
+  - name: "extends"
+    type: "jetbrains.mps.baseLanguage.builders.SimpleBuilderDeclaration"
+    optional: true
+  extends:
+  - "jetbrains.mps.baseLanguage.builders.BaseSimpleBuilderDeclaration"
+  - "jetbrains.mps.lang.core.INamedConcept"
+- name: "SimpleBuilder"
+  abstract: false
+  properties: []
+  children:
+  - name: "argument"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: true
+    optional: true
+  references:
+  - name: "declaration"
+    type: "jetbrains.mps.baseLanguage.builders.SimpleBuilderDeclaration"
+    optional: false
+  extends:
+  - "jetbrains.mps.baseLanguage.builders.Builder"
+- name: "SimpleBuilderParameter"
+  abstract: false
+  properties: []
+  children:
+  - name: "type"
+    type: "jetbrains.mps.baseLanguage.Type"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+  - "jetbrains.mps.lang.core.INamedConcept"
+- name: "SimpleBuilderParameterReference"
+  abstract: false
+  properties: []
+  children: []
+  references:
+  - name: "parameter"
+    type: "jetbrains.mps.baseLanguage.builders.SimpleBuilderParameter"
+    optional: false
+  extends:
+  - "jetbrains.mps.baseLanguage.Expression"
+- name: "AsBuilderStatement"
+  abstract: false
+  properties: []
+  children:
+  - name: "expression"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.Statement"
+  - "jetbrains.mps.baseLanguage.IContainsStatementList"
+  - "jetbrains.mps.baseLanguage.builders.BuilderContainer"
+- name: "BuilderContainer"
+  abstract: true
+  properties: []
+  children:
+  - name: "builder"
+    type: "jetbrains.mps.baseLanguage.builders.Builder"
+    multiple: false
+    optional: false
+  - name: "body"
+    type: "jetbrains.mps.baseLanguage.StatementList"
+    multiple: false
+    optional: false
+  references: []
+  extends: []
+- name: "BeanPropertyBuilder"
+  abstract: false
+  properties: []
+  children:
+  - name: "value"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: false
+    optional: false
+  references:
+  - name: "setter"
+    type: "jetbrains.mps.baseLanguage.InstanceMethodDeclaration"
+    optional: false
+  extends:
+  - "jetbrains.mps.baseLanguage.builders.Builder"
+- name: "BeanBuilder"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.builders.Builder"
+  - "jetbrains.mps.baseLanguage.IMethodCall"
+- name: "AsTypeBuilder"
+  abstract: false
+  properties: []
+  children:
+  - name: "type"
+    type: "jetbrains.mps.baseLanguage.Type"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.builders.Builder"
+- name: "SimpleBuilderProperty"
+  abstract: false
+  properties: []
+  children:
+  - name: "type"
+    type: "jetbrains.mps.baseLanguage.Type"
+    multiple: false
+    optional: false
+  - name: "set"
+    type: "jetbrains.mps.baseLanguage.Statement"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+  - "jetbrains.mps.lang.core.INamedConcept"
+- name: "SimpleBuilderPropertyExpression"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.Expression"
+- name: "SimpleBuilderPropertyParent"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.builders.SimpleBuilderPropertyExpression"
+- name: "SimpleBuilderPropertyValue"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.builders.SimpleBuilderPropertyExpression"
+- name: "SimpleBuilderPropertyBuilder"
+  abstract: false
+  properties: []
+  children:
+  - name: "value"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: false
+    optional: false
+  references:
+  - name: "declaration"
+    type: "jetbrains.mps.baseLanguage.builders.SimpleBuilderProperty"
+    optional: false
+  extends:
+  - "jetbrains.mps.baseLanguage.builders.Builder"
+- name: "BaseSimpleBuilderDeclaration"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+- name: "SimpleBuilderExtensionDeclaration"
+  abstract: false
+  properties: []
+  children:
+  - name: "child"
+    type: "jetbrains.mps.baseLanguage.builders.SimpleBuilderChild"
+    multiple: true
+    optional: true
+  - name: "property"
+    type: "jetbrains.mps.baseLanguage.builders.SimpleBuilderProperty"
+    multiple: true
+    optional: true
+  references:
+  - name: "extended"
+    type: "jetbrains.mps.baseLanguage.builders.SimpleBuilderDeclaration"
+    optional: true
+  extends:
+  - "jetbrains.mps.baseLanguage.builders.BaseSimpleBuilderDeclaration"
