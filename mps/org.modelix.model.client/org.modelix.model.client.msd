@@ -36,7 +36,6 @@
       <sourceRoot location="vavr.jar" />
       <sourceRoot location="opencensus-api.jar" />
       <sourceRoot location="opencensus-contrib-http-util.jar" />
-      <sourceRoot location="model-client.jar" />
       <sourceRoot location="ktor-client-auth-jvm.jar" />
       <sourceRoot location="commons-codec.jar" />
       <sourceRoot location="commons-logging.jar" />
@@ -74,6 +73,7 @@
       <sourceRoot location="ktor-websockets-jvm.jar" />
       <sourceRoot location="listenablefuture.jar" />
       <sourceRoot location="slf4j-api.jar" />
+      <sourceRoot location="model-client-jvm.jar" />
     </modelRoot>
   </models>
   <facets>
@@ -143,7 +143,6 @@
     <stubModelEntry path="${module}/lib/ktor-websocket-serialization-jvm.jar" />
     <stubModelEntry path="${module}/lib/ktor-websockets-jvm.jar" />
     <stubModelEntry path="${module}/lib/listenablefuture.jar" />
-    <stubModelEntry path="${module}/lib/model-client.jar" />
     <stubModelEntry path="${module}/lib/opencensus-api.jar" />
     <stubModelEntry path="${module}/lib/opencensus-contrib-http-util.jar" />
     <stubModelEntry path="${module}/lib/osgi-resource-locator.jar" />
@@ -151,6 +150,7 @@
     <stubModelEntry path="${module}/lib/trove4j.jar" />
     <stubModelEntry path="${module}/lib/vavr-match.jar" />
     <stubModelEntry path="${module}/lib/vavr.jar" />
+    <stubModelEntry path="${module}/lib/model-client-jvm.jar" />
   </stubModelEntries>
   <sourcePath />
   <dependencies>

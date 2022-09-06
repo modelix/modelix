@@ -15,6 +15,6 @@ repositories {
 }
 
 dependencies {
-    val modelApiVersion: String by properties
-    implementation("org.modelix:metamodel-generator:$modelApiVersion")
+    val modelixCoreVersion: String by properties
+    implementation("org.modelix:metamodel-generator:$modelixCoreVersion")
 }

@@ -89,8 +89,8 @@ configurations {
 }
 
 dependencies {
-    modelApi("org.modelix:model-api:$modelApiVersion")
-    modelClient(project(path: ":model-client", configuration: "jvmRuntimeElements"))
+    modelApi("org.modelix:model-api:$modelixCoreVersion")
+    modelClient("org.modelix:model-client:$modelixCoreVersion")
 }
 
 task copyModelClientToMps() {
@@ -125,7 +125,6 @@ task generateMpsBuildScript(type: BuildLanguages, dependsOn: [
         resolveMps,
         resolveMpsArtifacts,
         ':ui-client:packageNpmApp',
-        ':model-client:assemble',
         copyModelClientToMps
 ]) {
     scriptArgs = defaultAntScriptArgs

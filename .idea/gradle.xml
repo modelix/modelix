@@ -20,8 +20,6 @@
             <option value="$PROJECT_DIR$/headless-mps" />
             <option value="$PROJECT_DIR$/instances-manager" />
             <option value="$PROJECT_DIR$/manual-tests" />
-            <option value="$PROJECT_DIR$/metamodel-sandbox" />
-            <option value="$PROJECT_DIR$/model-client" />
             <option value="$PROJECT_DIR$/model-server" />
             <option value="$PROJECT_DIR$/mps" />
             <option value="$PROJECT_DIR$/ui-client" />

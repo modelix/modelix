@@ -2,7 +2,7 @@
  <g>
   <title>Layer 1</title>
 <!--  <rect fill="#e5e5e5" stroke-width="4" x="2" y="2" width="496" height="496" id="svg_42" stroke="#343434"/>-->
-  <path fill="#fff" stroke-width="4"  stroke="#343434" d="M22,2 h456 a20,20 0 0 1 20,20 v456 a20,20 0 0 1 -20,20 h-456 a20,20 0 0 1 -20,-20 v-456 a20,20 0 0 1 20,-20 z" />
+<!--  <path fill="#fff" stroke-width="4"  stroke="#343434" d="M22,2 h456 a20,20 0 0 1 20,20 v456 a20,20 0 0 1 -20,20 h-456 a20,20 0 0 1 -20,-20 v-456 a20,20 0 0 1 20,-20 z" />-->
   <line fill="none" stroke="#adeee3" x1="425" y1="250" x2="275" y2="50" id="svg_41" stroke-width="10"/>
   <line fill="none" stroke="#adeee3" x1="275" y1="50" x2="325" y2="250" id="svg_40" stroke-width="10"/>
   <line fill="none" stroke="#adeee3" x1="275" y1="50" x2="225" y2="150" id="svg_38" stroke-width="10"/>
