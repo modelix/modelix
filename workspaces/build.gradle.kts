@@ -3,6 +3,8 @@ plugins {
     kotlin("plugin.serialization")
 }
 
+val modelixCoreVersion: String by rootProject
+
 dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.2")
     implementation("com.charleskorn.kaml:kaml:0.40.0")
@@ -11,6 +13,6 @@ dependencies {
     implementation("org.zeroturnaround:zt-zip:1.14")
     implementation("org.apache.commons:commons-text:1.9")
     implementation("org.jasypt:jasypt:1.9.3")
-    implementation(project(":model-client", configuration = "jvmRuntimeElements"))
+    implementation("org.modelix:model-client:$modelixCoreVersion")
     implementation(project(":authorization"))
 }
