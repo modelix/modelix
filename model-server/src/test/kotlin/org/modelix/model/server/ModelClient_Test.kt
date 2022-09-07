@@ -31,75 +31,52 @@
 
 package org.modelix.model.server
 
-import org.junit.After
+import io.ktor.server.testing.*
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.withTimeout
 import org.junit.Assert
-import org.junit.Before
 import org.junit.Test
+import org.modelix.authorization.installAuthentication
+import org.modelix.model.IKeyListener
 import org.modelix.model.client.RestWebModelClient
 import java.util.*
 import kotlin.test.fail
+import kotlin.time.Duration.Companion.seconds
 
 class ModelClient_Test {
 
-    private var modelServer = ModelServerManager()
-
-    @Before
-    fun prepare() {
-        if (modelServer.isUp()) {
-            throw IllegalStateException("The model-server is already up")
+    private fun runTest(block: suspend ApplicationTestBuilder.() -> Unit) = testApplication {
+        application {
+            installAuthentication(unitTestMode = true)
+            KtorModelServer(InMemoryStoreClient()).init(this)
         }
-        modelServer.startServerInMemory(emptyMap())
-        modelServer.waitItIsUp()
-
-        Runtime.getRuntime()
-            .addShutdownHook(
-                Thread(
-                    Runnable {
-                        try {
-                            modelServer.kill()
-                        } catch (ex: Exception) {
-                            System.err.println("Exception: " + ex.message)
-                            ex.printStackTrace()
-                        }
-                    }
-                )
-            )
+        block()
     }
 
-    @After
-    fun cleaning() {
-        modelServer.kill()
-    }
-
-    // This test requires a running model server
-    // It should be marked as a slow test and run separately from unit tests
     @Test
-    fun test_t1() {
-        val numClients = 3 * Runtime.getRuntime().availableProcessors() // tests were failing on the CI server, but not locally
+    fun test_t1() = runTest {
+        val numClients = 3
         val numListenersPerClient = 3
         val numKeys = numListenersPerClient * 2
 
         val rand = Random(67845)
-        val url = "http://localhost:28101/"
-        val clients = (0 until numClients).map { RestWebModelClient(url) }
+        val url = "http://localhost/"
+        val clients = (0 until numClients).map { RestWebModelClient(baseUrl = url, providedClient = client) }
         val listeners: MutableList<Listener> = ArrayList()
         val expected: MutableMap<String, String> = HashMap()
         for (client in clients.withIndex()) {
             for (i in 0 until numListenersPerClient) {
                 println("Phase A: client $client i=$i of ${clients.size}")
-//                Thread.sleep(50)
+//                delay(50)
                 val key = "test_$i"
                 val l = Listener(key, client.value, client.index, i)
                 client.value.listen(key, l)
                 listeners.add(l)
             }
         }
-        Thread.sleep(2000)
+        delay(3.seconds)
         for (i in (1..2).flatMap { 0 until numKeys }) {
             println("Phase B: i=$i of $numKeys")
-            if (!modelServer.isUp()) {
-                throw IllegalStateException("The model-server is not up")
-            }
             val key = "test_$i"
             val value = rand.nextLong().toString()
             expected[key] = value
@@ -107,7 +84,7 @@ class ModelClient_Test {
             val writingClientIndex = rand.nextInt(clients.size)
             println(" client is $writingClientIndex")
             try {
-                clients[writingClientIndex].put(key, value)
+                clients[writingClientIndex].putA(key, value)
             } catch (e: Exception) {
                 System.err.println(e.message)
                 e.printStackTrace(System.err)
@@ -115,15 +92,17 @@ class ModelClient_Test {
             }
             println(" put to client $writingClientIndex")
             for (client in clients) {
-                Assert.assertEquals(expected[key], client.get(key))
+                withTimeout(1.seconds) {
+                    Assert.assertEquals(expected[key], client.getA(key))
+                }
             }
             println(" verified")
-            for (timeout in 0..3000) {
+            for (timeout in 0..30) {
                 if (listeners.all { expected[it.key] == it.lastValue }) {
-                    println("All changes received after $timeout ms")
+                    println("All changes received after ${timeout * 100} ms")
                     break
                 }
-                Thread.sleep(1)
+                delay(100)
             }
             val unsuccessfulListeners = listeners.filter { expected[it.key] != it.lastValue }
             if (unsuccessfulListeners.isNotEmpty()) {
