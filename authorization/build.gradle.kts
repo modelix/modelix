@@ -6,6 +6,7 @@ plugins {
 }
 
 val ktorVersion: String by rootProject
+val modelixCoreVersion: String by rootProject
 val kotlinCoroutinesVersion: String by rootProject
 val kotlinVersion: String by rootProject
 val logbackVersion: String by rootProject
@@ -22,7 +23,6 @@ dependencies {
     implementation("io.ktor:ktor-server-sessions:$ktorVersion")
     implementation("io.ktor:ktor-server-forwarded-header:$ktorVersion")
     implementation("io.ktor", "ktor-client-cio", ktorVersion)
-    implementation(project(":model-client", configuration = "jvmRuntimeElements"))
 }
 
 tasks.getByName<Test>("test") {

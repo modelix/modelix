@@ -10984,7 +10984,7 @@
                             <ref role="3cqZAo" node="24uT$44Pnyv" resolve="it" />
                           </node>
                           <node concept="liA8E" id="24uT$44PnXX" role="2OqNvi">
-                            <ref role="37wK5l" to="jks5:~IProperty.getName()" resolve="getName" />
+                            <ref role="37wK5l" to="jks5:~IRole.getName()" resolve="getName" />
                           </node>
                         </node>
                       </node>
@@ -11048,7 +11048,7 @@
                             <ref role="3cqZAo" node="24uT$44PRja" resolve="it" />
                           </node>
                           <node concept="liA8E" id="24uT$44PRJn" role="2OqNvi">
-                            <ref role="37wK5l" to="jks5:~IReferenceLink.getName()" resolve="getName" />
+                            <ref role="37wK5l" to="jks5:~IRole.getName()" resolve="getName" />
                           </node>
                         </node>
                       </node>

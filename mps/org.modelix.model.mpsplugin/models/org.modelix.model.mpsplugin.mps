@@ -20831,7 +20831,7 @@
                       <ref role="2Gs0qQ" node="3XRUK8VgqHb" resolve="property" />
                     </node>
                     <node concept="liA8E" id="3XRUK8VgqHj" role="2OqNvi">
-                      <ref role="37wK5l" to="jks5:~IProperty.getName()" resolve="getName" />
+                      <ref role="37wK5l" to="jks5:~IRole.getName()" resolve="getName" />
                     </node>
                   </node>
                   <node concept="2OqwBi" id="3XRUK8VgqHk" role="37wK5m">
@@ -20845,7 +20845,7 @@
                           <ref role="2Gs0qQ" node="3XRUK8VgqHb" resolve="property" />
                         </node>
                         <node concept="liA8E" id="3XRUK8VgqHp" role="2OqNvi">
-                          <ref role="37wK5l" to="jks5:~IProperty.getName()" resolve="getName" />
+                          <ref role="37wK5l" to="jks5:~IRole.getName()" resolve="getName" />
                         </node>
                       </node>
                     </node>
@@ -20891,7 +20891,7 @@
                       <ref role="2Gs0qQ" node="3XRUK8VgqHu" resolve="childLink" />
                     </node>
                     <node concept="liA8E" id="3XRUK8VgqHE" role="2OqNvi">
-                      <ref role="37wK5l" to="jks5:~IChildLink.getName()" resolve="getName" />
+                      <ref role="37wK5l" to="jks5:~IRole.getName()" resolve="getName" />
                     </node>
                   </node>
                 </node>
@@ -20909,7 +20909,7 @@
                           <ref role="2Gs0qQ" node="3XRUK8VgqHu" resolve="childLink" />
                         </node>
                         <node concept="liA8E" id="3XRUK8VgqHM" role="2OqNvi">
-                          <ref role="37wK5l" to="jks5:~IChildLink.getName()" resolve="getName" />
+                          <ref role="37wK5l" to="jks5:~IRole.getName()" resolve="getName" />
                         </node>
                       </node>
                       <node concept="2GrUjf" id="3XRUK8VgqHN" role="37wK5m">
@@ -20958,7 +20958,7 @@
                         <ref role="2Gs0qQ" node="3XRUK8VgqHP" resolve="refLink" />
                       </node>
                       <node concept="liA8E" id="3XRUK8VgIEu" role="2OqNvi">
-                        <ref role="37wK5l" to="jks5:~IReferenceLink.getName()" resolve="getName" />
+                        <ref role="37wK5l" to="jks5:~IRole.getName()" resolve="getName" />
                       </node>
                     </node>
                   </node>
@@ -20982,7 +20982,7 @@
                             <ref role="2Gs0qQ" node="3XRUK8VgqHP" resolve="refLink" />
                           </node>
                           <node concept="liA8E" id="3XRUK8VgG0q" role="2OqNvi">
-                            <ref role="37wK5l" to="jks5:~IReferenceLink.getName()" resolve="getName" />
+                            <ref role="37wK5l" to="jks5:~IRole.getName()" resolve="getName" />
                           </node>
                         </node>
                         <node concept="37vLTw" id="3XRUK8VgKm8" role="1Lso8e">
@@ -34494,7 +34494,7 @@
                       <ref role="2Gs0qQ" node="4_k_9wJ_0rr" resolve="property" />
                     </node>
                     <node concept="liA8E" id="4_k_9wJ_0rz" role="2OqNvi">
-                      <ref role="37wK5l" to="jks5:~IProperty.getName()" resolve="getName" />
+                      <ref role="37wK5l" to="jks5:~IRole.getName()" resolve="getName" />
                     </node>
                   </node>
                   <node concept="2OqwBi" id="4_k_9wJ_0r$" role="37wK5m">
@@ -34508,7 +34508,7 @@
                           <ref role="2Gs0qQ" node="4_k_9wJ_0rr" resolve="property" />
                         </node>
                         <node concept="liA8E" id="4_k_9wJ_0rD" role="2OqNvi">
-                          <ref role="37wK5l" to="jks5:~IProperty.getName()" resolve="getName" />
+                          <ref role="37wK5l" to="jks5:~IRole.getName()" resolve="getName" />
                         </node>
                       </node>
                     </node>

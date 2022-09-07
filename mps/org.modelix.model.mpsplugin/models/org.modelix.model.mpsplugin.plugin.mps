@@ -13773,7 +13773,7 @@
                                       <ref role="3cqZAo" node="24uT$44VEWA" resolve="it" />
                                     </node>
                                     <node concept="liA8E" id="24uT$44VEW_" role="2OqNvi">
-                                      <ref role="37wK5l" to="jks5:~IProperty.getName()" resolve="getName" />
+                                      <ref role="37wK5l" to="jks5:~IRole.getName()" resolve="getName" />
                                     </node>
                                   </node>
                                 </node>
@@ -14761,7 +14761,7 @@
                                       <ref role="3cqZAo" node="24uT$44XLrK" resolve="it" />
                                     </node>
                                     <node concept="liA8E" id="24uT$44XMUL" role="2OqNvi">
-                                      <ref role="37wK5l" to="jks5:~IReferenceLink.getName()" resolve="getName" />
+                                      <ref role="37wK5l" to="jks5:~IRole.getName()" resolve="getName" />
                                     </node>
                                   </node>
                                 </node>

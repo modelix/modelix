@@ -28,6 +28,7 @@ def ktorVersion = rootProject.ktorVersion
 def kotlinCoroutinesVersion = rootProject.kotlinCoroutinesVersion
 def kotlinVersion = rootProject.kotlinVersion
 def logbackVersion = rootProject.logbackVersion
+def modelixCoreVersion = rootProject.modelixCoreVersion
 
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
@@ -37,6 +38,7 @@ dependencies {
     compile group: 'commons-codec', name: 'commons-codec', version: '1.14'
     compile group: 'commons-io', name: 'commons-io', version: '2.6'
     compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.10'
+    implementation group: 'org.json', name: 'json', version: '20200518'
 
     ext.jettyVersion = '9.4.30.v20200611'
     compile group: 'org.eclipse.jetty', name: 'jetty-server', version: jettyVersion
@@ -49,7 +51,7 @@ dependencies {
     compile group: 'org.eclipse.jgit', name: 'org.eclipse.jgit', version: '6.1.0.202203080745-r'
     compile group: 'org.kohsuke', name: 'github-api', version: '1.115'
 
-    implementation(project(path: ":model-client", configuration: "jvmRuntimeElements"))
+    implementation("org.modelix:model-client:$modelixCoreVersion")
     implementation(project(path: ":workspaces"))
     implementation(project(path: ":authorization"))
     implementation("com.auth0:java-jwt:3.19.2")
