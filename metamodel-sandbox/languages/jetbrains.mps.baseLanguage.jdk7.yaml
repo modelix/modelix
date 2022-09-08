@@ -1,0 +1,9 @@
+name: "jetbrains.mps.baseLanguage.jdk7"
+concepts:
+- name: "StringSwitchStatement"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.SwitchStatement"

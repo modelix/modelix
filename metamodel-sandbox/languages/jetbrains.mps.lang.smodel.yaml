@@ -1,0 +1,1994 @@
+name: "jetbrains.mps.lang.smodel"
+concepts:
+- name: "SNodeType"
+  abstract: false
+  properties: []
+  children: []
+  references:
+  - name: "concept"
+    type: "jetbrains.mps.lang.structure.AbstractConceptDeclaration"
+    optional: true
+  extends:
+  - "jetbrains.mps.baseLanguage.Type"
+- name: "SPropertyAccess"
+  abstract: false
+  properties: []
+  children: []
+  references:
+  - name: "property"
+    type: "jetbrains.mps.lang.structure.PropertyDeclaration"
+    optional: false
+  extends:
+  - "jetbrains.mps.lang.smodel.SNodeOperation"
+- name: "SLinkAccess"
+  abstract: false
+  properties: []
+  children: []
+  references:
+  - name: "link"
+    type: "jetbrains.mps.lang.structure.LinkDeclaration"
+    optional: false
+  extends:
+  - "jetbrains.mps.lang.smodel.SNodeOperation"
+  - "jetbrains.mps.lang.smodel.ILinkAccess"
+- name: "SLinkListAccess"
+  abstract: false
+  properties: []
+  children: []
+  references:
+  - name: "link"
+    type: "jetbrains.mps.lang.structure.LinkDeclaration"
+    optional: false
+  extends:
+  - "jetbrains.mps.lang.smodel.SNodeOperation"
+  - "jetbrains.mps.lang.smodel.ILinkAccess"
+- name: "SNodeOperation"
+  abstract: true
+  properties: []
+  children:
+  - name: "parameter"
+    type: "jetbrains.mps.lang.smodel.AbstractOperationParameter"
+    multiple: true
+    optional: true
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+  - "jetbrains.mps.baseLanguage.IOperation"
+- name: "Property_SetOperation"
+  abstract: false
+  properties: []
+  children:
+  - name: "value"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.lang.smodel.SNodeOperation"
+- name: "EnumMemberReference_Old"
+  abstract: false
+  properties: []
+  children: []
+  references:
+  - name: "enumMember"
+    type: "jetbrains.mps.lang.structure.EnumerationMemberDeclaration_Old"
+    optional: false
+  extends:
+  - "jetbrains.mps.baseLanguage.Expression"
+- name: "Link_SetNewChildOperation"
+  abstract: false
+  properties: []
+  children: []
+  references:
+  - name: "concept"
+    type: "jetbrains.mps.lang.structure.ConceptDeclaration"
+    optional: true
+  extends:
+  - "jetbrains.mps.lang.smodel.SNodeOperation"
+- name: "LinkList_AddNewChildOperation"
+  abstract: false
+  properties: []
+  children: []
+  references:
+  - name: "concept"
+    type: "jetbrains.mps.lang.structure.ConceptDeclaration"
+    optional: true
+  extends:
+  - "jetbrains.mps.lang.smodel.SNodeOperation"
+- name: "Node_GetParentOperation"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.smodel.SNodeOperation"
+- name: "Node_IsInstanceOfOperation"
+  abstract: false
+  properties: []
+  children:
+  - name: "conceptArgument"
+    type: "jetbrains.mps.lang.smodel.IRefConceptArg"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.lang.smodel.SNodeOperation"
+- name: "Node_InsertNewNextSiblingOperation"
+  abstract: false
+  properties: []
+  children: []
+  references:
+  - name: "concept"
+    type: "jetbrains.mps.lang.structure.ConceptDeclaration"
+    optional: false
+  extends:
+  - "jetbrains.mps.lang.smodel.SNodeOperation"
+- name: "Node_ReplaceWithNewOperation"
+  abstract: false
+  properties: []
+  children: []
+  references:
+  - name: "concept"
+    type: "jetbrains.mps.lang.structure.ConceptDeclaration"
+    optional: false
+  extends:
+  - "jetbrains.mps.lang.smodel.SNodeOperation"
+- name: "Node_ReplaceWithAnotherOperation"
+  abstract: false
+  properties: []
+  children:
+  - name: "replacementNode"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.lang.smodel.SNodeOperation"
+- name: "Node_DeleteOperation"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.smodel.SNodeOperation"
+- name: "SNodeTypeCastExpression"
+  abstract: false
+  properties:
+  - name: "asCast"
+    type: "STRING"
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.smodel.AbstractTypeCastExpression"
+- name: "Link_SetTargetOperation"
+  abstract: false
+  properties: []
+  children:
+  - name: "linkTarget"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.lang.smodel.SNodeOperation"
+- name: "Node_InsertNewPrevSiblingOperation"
+  abstract: false
+  properties: []
+  children: []
+  references:
+  - name: "concept"
+    type: "jetbrains.mps.lang.structure.ConceptDeclaration"
+    optional: false
+  extends:
+  - "jetbrains.mps.lang.smodel.SNodeOperation"
+- name: "Node_InsertNextSiblingOperation"
+  abstract: false
+  properties: []
+  children:
+  - name: "insertedNode"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.lang.smodel.SNodeOperation"
+- name: "Node_InsertPrevSiblingOperation"
+  abstract: false
+  properties: []
+  children:
+  - name: "insertedNode"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.lang.smodel.SNodeOperation"
+- name: "SModelType"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.Type"
+- name: "Node_GetModelOperation"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.smodel.SNodeOperation"
+- name: "Model_CreateNewNodeOperation"
+  abstract: false
+  properties: []
+  children:
+  - name: "nodeId"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: false
+    optional: true
+  - name: "prototypeNode"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: false
+    optional: true
+  references:
+  - name: "concept"
+    type: "jetbrains.mps.lang.structure.ConceptDeclaration"
+    optional: false
+  extends:
+  - "jetbrains.mps.lang.smodel.SNodeOperation"
+- name: "Node_GetPrevSiblingOperation"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.smodel.SNodeOperation"
+- name: "Node_GetNextSiblingOperation"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.smodel.SNodeOperation"
+- name: "AbstractOperationParameter"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+- name: "OperationParm_Inclusion"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.smodel.AbstractOperationParameter"
+- name: "OperationParm_Root"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.smodel.AbstractOperationParameter"
+- name: "OperationParm_Concept"
+  abstract: false
+  properties: []
+  children:
+  - name: "conceptArgument"
+    type: "jetbrains.mps.lang.smodel.IRefConceptArg"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.lang.smodel.AbstractOperationParameter"
+- name: "Node_CopyOperation"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.smodel.SNodeOperation"
+- name: "Node_IsRoleOperation"
+  abstract: false
+  properties: []
+  children: []
+  references:
+  - name: "conceptOfParent"
+    type: "jetbrains.mps.lang.structure.AbstractConceptDeclaration"
+    optional: false
+  - name: "linkInParent"
+    type: "jetbrains.mps.lang.structure.LinkDeclaration"
+    optional: false
+  extends:
+  - "jetbrains.mps.lang.smodel.SNodeOperation"
+- name: "SNodeListType"
+  abstract: false
+  properties: []
+  children: []
+  references:
+  - name: "elementConcept"
+    type: "jetbrains.mps.lang.structure.AbstractConceptDeclaration"
+    optional: true
+  extends:
+  - "jetbrains.mps.baseLanguage.Type"
+  - "jetbrains.mps.baseLanguage.IGenericType"
+- name: "SemanticDowncastExpression"
+  abstract: false
+  properties: []
+  children:
+  - name: "leftExpression"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.Expression"
+  - "jetbrains.mps.baseLanguage.IBinaryLike"
+- name: "SNodeListCreator"
+  abstract: false
+  properties: []
+  children:
+  - name: "createdType"
+    type: "jetbrains.mps.lang.smodel.SNodeListType"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.AbstractCreator"
+- name: "Node_GetNextSiblingsOperation"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.smodel.SNodeOperation"
+- name: "Node_GetPrevSiblingsOperation"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.smodel.SNodeOperation"
+- name: "Node_GetAllSiblingsOperation"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.smodel.SNodeOperation"
+- name: "Property_HasValue_Enum"
+  abstract: false
+  properties: []
+  children:
+  - name: "value"
+    type: "jetbrains.mps.lang.smodel.EnumMemberReference_Old"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.lang.smodel.SNodeOperation"
+- name: "Property_HasValue_Simple"
+  abstract: false
+  properties: []
+  children:
+  - name: "value"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.lang.smodel.SNodeOperation"
+- name: "OperationParm_ConceptList"
+  abstract: false
+  properties: []
+  children:
+  - name: "concept"
+    type: "jetbrains.mps.lang.smodel.ConceptReference"
+    multiple: true
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.lang.smodel.AbstractOperationParameter"
+- name: "ConceptReference"
+  abstract: false
+  properties: []
+  children: []
+  references:
+  - name: "concept"
+    type: "jetbrains.mps.lang.structure.AbstractConceptDeclaration"
+    optional: false
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+- name: "Model_CreateNewRootNodeOperation"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.smodel.Model_CreateNewNodeOperation"
+- name: "Node_GetDescendantsOperation"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.smodel.SNodeOperation"
+- name: "Node_GetContainingRootOperation"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.smodel.SNodeOperation"
+- name: "Model_RootsOperation"
+  abstract: false
+  properties: []
+  children: []
+  references:
+  - name: "concept"
+    type: "jetbrains.mps.lang.structure.AbstractConceptDeclaration"
+    optional: true
+  extends:
+  - "jetbrains.mps.lang.smodel.SNodeOperation"
+- name: "Model_NodesOperation"
+  abstract: false
+  properties: []
+  children:
+  - name: "conceptArgument"
+    type: "jetbrains.mps.lang.smodel.IRefConceptArg"
+    multiple: false
+    optional: true
+  references:
+  - name: "concept"
+    type: "jetbrains.mps.lang.structure.AbstractConceptDeclaration"
+    optional: true
+  extends:
+  - "jetbrains.mps.lang.smodel.SNodeOperation"
+- name: "Node_GetAncestorOperation"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.smodel.SNodeOperation"
+- name: "Node_GetChildrenOperation"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.smodel.SNodeOperation"
+- name: "Node_IsNullOperation"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.smodel.SNodeOperation"
+- name: "Node_IsNotNullOperation"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.smodel.SNodeOperation"
+- name: "Node_GetConceptOperation"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.smodel.SNodeOperation"
+- name: "Concept_IsExactlyOperation"
+  abstract: false
+  properties: []
+  children:
+  - name: "conceptArgument"
+    type: "jetbrains.mps.lang.smodel.IRefConceptArg"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.lang.smodel.SNodeOperation"
+- name: "ConceptNodeType"
+  abstract: false
+  properties: []
+  children: []
+  references:
+  - name: "conceptDeclaraton"
+    type: "jetbrains.mps.lang.structure.AbstractConceptDeclaration"
+    optional: true
+  extends:
+  - "jetbrains.mps.baseLanguage.Type"
+- name: "ConceptRefExpression"
+  abstract: false
+  properties: []
+  children: []
+  references:
+  - name: "conceptDeclaration"
+    type: "jetbrains.mps.lang.structure.AbstractConceptDeclaration"
+    optional: false
+  extends:
+  - "jetbrains.mps.baseLanguage.Expression"
+- name: "Node_GetAncestorsOperation"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.smodel.SNodeOperation"
+- name: "Model_RootsIncludingImportedOperation"
+  abstract: false
+  properties: []
+  children: []
+  references:
+  - name: "concept"
+    type: "jetbrains.mps.lang.structure.AbstractConceptDeclaration"
+    optional: true
+  extends:
+  - "jetbrains.mps.lang.smodel.SNodeOperation"
+- name: "RefConcept_Reference"
+  abstract: false
+  properties: []
+  children: []
+  references:
+  - name: "conceptDeclaration"
+    type: "jetbrains.mps.lang.structure.AbstractConceptDeclaration"
+    optional: false
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+  - "jetbrains.mps.lang.smodel.IRefConceptArg"
+- name: "Node_GetIndexInParentOperation"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.smodel.SNodeOperation"
+- name: "Concept_GetDirectSuperConcepts"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.smodel.SNodeOperation"
+- name: "Node_ConceptMethodCall"
+  abstract: false
+  properties:
+  - name: "directCall"
+    type: "STRING"
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.smodel.SNodeOperation"
+  - "jetbrains.mps.baseLanguage.IMethodCall"
+- name: "Concept_IsSuperConceptOfOperation"
+  abstract: false
+  properties: []
+  children:
+  - name: "conceptArgument"
+    type: "jetbrains.mps.lang.smodel.IRefConceptArg"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.lang.smodel.SNodeOperation"
+- name: "Concept_IsSubConceptOfOperation"
+  abstract: false
+  properties: []
+  children:
+  - name: "conceptArgument"
+    type: "jetbrains.mps.lang.smodel.IRefConceptArg"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.lang.smodel.SNodeOperation"
+- name: "Concept_GetAllSuperConcepts"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.smodel.SNodeOperation"
+- name: "SNodeCreator"
+  abstract: false
+  properties: []
+  children:
+  - name: "createdType"
+    type: "jetbrains.mps.lang.smodel.SNodeType"
+    multiple: false
+    optional: false
+  - name: "prototypeNode"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: false
+    optional: true
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.AbstractCreator"
+- name: "Concept_NewInstance"
+  abstract: false
+  properties: []
+  children:
+  - name: "prototypeNode"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: false
+    optional: true
+  references: []
+  extends:
+  - "jetbrains.mps.lang.smodel.SNodeOperation"
+- name: "Concept_GetAllSubConcepts"
+  abstract: false
+  properties: []
+  children:
+  - name: "smodel"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.lang.smodel.SNodeOperation"
+- name: "Model_NodesIncludingImportedOperation"
+  abstract: false
+  properties: []
+  children: []
+  references:
+  - name: "concept"
+    type: "jetbrains.mps.lang.structure.AbstractConceptDeclaration"
+    optional: true
+  extends:
+  - "jetbrains.mps.lang.smodel.SNodeOperation"
+- name: "PoundExpression"
+  abstract: false
+  properties: []
+  children:
+  - name: "expression"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+  - "jetbrains.mps.lang.smodel.IPropertyQualifier"
+  - "jetbrains.mps.lang.smodel.ILinkAccessQualifier"
+  - "jetbrains.mps.lang.smodel.ILinkQualifier"
+  - "jetbrains.mps.lang.smodel.IRefConceptArg"
+  - "jetbrains.mps.lang.smodel.INodePointerArg"
+- name: "ILinkAccessQualifier"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends: []
+- name: "LinkRefQualifier"
+  abstract: false
+  properties: []
+  children: []
+  references:
+  - name: "link"
+    type: "jetbrains.mps.lang.structure.LinkDeclaration"
+    optional: false
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+  - "jetbrains.mps.lang.smodel.ILinkAccessQualifier"
+- name: "Node_IsAttributeOperation"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.smodel.SNodeOperation"
+- name: "Model_AddRootOperation"
+  abstract: false
+  properties: []
+  children:
+  - name: "nodeArgument"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.lang.smodel.SNodeOperation"
+- name: "IRefConceptArg"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends: []
+- name: "Model_GetLongNameOperation"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.smodel.SNodeOperation"
+- name: "Property_RemoveOperation"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.smodel.SNodeOperation"
+- name: "NodeRefExpression"
+  abstract: false
+  properties: []
+  children: []
+  references:
+  - name: "referentNode"
+    type: "jetbrains.mps.lang.core.INamedConcept"
+    optional: false
+  extends:
+  - "jetbrains.mps.lang.smodel.AbstractNodeRefExpression"
+- name: "SearchScopeType"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.Type"
+- name: "SearchScope_ContainsOperation"
+  abstract: false
+  properties: []
+  children:
+  - name: "nodeToCheck"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+  - "jetbrains.mps.baseLanguage.IOperation"
+- name: "LinkRefExpression"
+  abstract: false
+  properties: []
+  children: []
+  references:
+  - name: "conceptDeclaration"
+    type: "jetbrains.mps.lang.structure.AbstractConceptDeclaration"
+    optional: false
+  - name: "linkDeclaration"
+    type: "jetbrains.mps.lang.structure.LinkDeclaration"
+    optional: false
+  extends:
+  - "jetbrains.mps.baseLanguage.Expression"
+- name: "EqualsStructurallyExpression"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.BinaryOperation"
+- name: "Node_DetachOperation"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.smodel.SNodeOperation"
+- name: "SEnumerationMemberType"
+  abstract: false
+  properties: []
+  children: []
+  references:
+  - name: "enum"
+    type: "jetbrains.mps.lang.structure.IEnumeration"
+    optional: true
+  extends:
+  - "jetbrains.mps.baseLanguage.Type"
+- name: "EnumMember_ValueOperation_Old"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+  - "jetbrains.mps.lang.smodel.EnumMemberOperation"
+- name: "EnumMember_NameOperation_Old"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+  - "jetbrains.mps.lang.smodel.EnumMemberOperation"
+- name: "SEnumOperationInvocation"
+  abstract: false
+  properties: []
+  children:
+  - name: "operation"
+    type: "jetbrains.mps.lang.smodel.SEnumOperation_Old"
+    multiple: false
+    optional: false
+  references:
+  - name: "enumDeclaration"
+    type: "jetbrains.mps.lang.structure.EnumerationDataTypeDeclaration_Old"
+    optional: false
+  extends:
+  - "jetbrains.mps.baseLanguage.Expression"
+- name: "SEnumOperation_Old"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends: []
+- name: "SEnum_MemberForNameOperation_Old"
+  abstract: false
+  properties: []
+  children:
+  - name: "nameExpression"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+  - "jetbrains.mps.lang.smodel.SEnumOperation_Old"
+- name: "SEnum_MemberForValueOperation_Old"
+  abstract: false
+  properties: []
+  children:
+  - name: "valueExpression"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+  - "jetbrains.mps.lang.smodel.SEnumOperation_Old"
+- name: "SEnum_MemberOperation_Old"
+  abstract: false
+  properties: []
+  children: []
+  references:
+  - name: "member"
+    type: "jetbrains.mps.lang.structure.EnumerationMemberDeclaration_Old"
+    optional: false
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+  - "jetbrains.mps.lang.smodel.SEnumOperation_Old"
+- name: "SEnum_MembersOperation_Old"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+  - "jetbrains.mps.lang.smodel.SEnumOperation_Old"
+- name: "EnumMemberOperation"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.IOperation"
+- name: "OperationParm_StopConceptList"
+  abstract: false
+  properties: []
+  children:
+  - name: "concept"
+    type: "jetbrains.mps.lang.smodel.ConceptReference"
+    multiple: true
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.lang.smodel.AbstractOperationParameter"
+- name: "ILinkAccess"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends: []
+- name: "SLinkImplicitSelect"
+  abstract: false
+  properties: []
+  children: []
+  references:
+  - name: "link"
+    type: "jetbrains.mps.lang.structure.LinkDeclaration"
+    optional: false
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+  - "jetbrains.mps.baseLanguage.IOperation"
+- name: "Node_GetReferencesOperation"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.smodel.SNodeOperation"
+- name: "SReferenceType"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.Type"
+- name: "Reference_GetTargetOperation"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+  - "jetbrains.mps.lang.smodel.IReferenceOperation"
+- name: "Reference_GetLinkDeclarationOperation"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+  - "jetbrains.mps.lang.smodel.IReferenceOperation"
+- name: "IReferenceOperation"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.IOperation"
+- name: "Reference_GetRoleOperation"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+  - "jetbrains.mps.lang.smodel.IReferenceOperation"
+- name: "Node_GetContainingRoleOperation"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.smodel.SNodeOperation"
+- name: "Node_GetReferenceOperation"
+  abstract: false
+  properties: []
+  children:
+  - name: "linkQualifier"
+    type: "jetbrains.mps.lang.smodel.OperationParm_LinkQualifier"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.lang.smodel.SNodeOperation"
+- name: "ILinkAccessQualifierContainer"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends: []
+- name: "OperationParm_LinkQualifier"
+  abstract: false
+  properties: []
+  children:
+  - name: "linkQualifier"
+    type: "jetbrains.mps.lang.smodel.ILinkAccessQualifier"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.lang.smodel.AbstractOperationParameter"
+  - "jetbrains.mps.lang.smodel.ILinkAccessQualifierContainer"
+- name: "Reference_GetResolveInfo"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+  - "jetbrains.mps.lang.smodel.IReferenceOperation"
+- name: "OperationParm_SameMetaLevel"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.smodel.AbstractOperationParameter"
+- name: "IfInstanceOfStatement"
+  abstract: false
+  properties: []
+  children:
+  - name: "nodeExpression"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: false
+    optional: false
+  - name: "body"
+    type: "jetbrains.mps.baseLanguage.StatementList"
+    multiple: false
+    optional: false
+  - name: "variable"
+    type: "jetbrains.mps.lang.smodel.IfInstanceOfVariable"
+    multiple: false
+    optional: false
+  references:
+  - name: "nodeConcept"
+    type: "jetbrains.mps.lang.structure.AbstractConceptDeclaration"
+    optional: false
+  extends:
+  - "jetbrains.mps.baseLanguage.Statement"
+- name: "IfInstanceOfVariable"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.BaseVariableDeclaration"
+- name: "IfInstanceOfVarReference"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.BaseVariableReference"
+- name: "AttributeAccess"
+  abstract: false
+  properties: []
+  children:
+  - name: "qualifier"
+    type: "jetbrains.mps.lang.smodel.AttributeQualifier"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.lang.smodel.SNodeOperation"
+  - "jetbrains.mps.lang.smodel.ILinkAccess"
+- name: "AttributeQualifier"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+- name: "NodeAttributeQualifier"
+  abstract: false
+  properties: []
+  children: []
+  references:
+  - name: "attributeConcept"
+    type: "jetbrains.mps.lang.structure.ConceptDeclaration"
+    optional: false
+  extends:
+  - "jetbrains.mps.lang.smodel.AttributeQualifier"
+- name: "LinkAttributeQualifier"
+  abstract: false
+  properties: []
+  children:
+  - name: "linkQualifier"
+    type: "jetbrains.mps.lang.smodel.ILinkQualifier"
+    multiple: false
+    optional: false
+  references:
+  - name: "attributeConcept"
+    type: "jetbrains.mps.lang.structure.ConceptDeclaration"
+    optional: false
+  extends:
+  - "jetbrains.mps.lang.smodel.AttributeQualifier"
+- name: "AllAttributeQualifier"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.smodel.AttributeQualifier"
+- name: "PropertyAttributeQualifier"
+  abstract: false
+  properties: []
+  children:
+  - name: "propertyQualifier"
+    type: "jetbrains.mps.lang.smodel.IPropertyQualifier"
+    multiple: false
+    optional: false
+  references:
+  - name: "attributeConcept"
+    type: "jetbrains.mps.lang.structure.ConceptDeclaration"
+    optional: false
+  extends:
+  - "jetbrains.mps.lang.smodel.AttributeQualifier"
+- name: "ILinkQualifier"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends: []
+- name: "IPropertyQualifier"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends: []
+- name: "LinkQualifier"
+  abstract: false
+  properties: []
+  children: []
+  references:
+  - name: "link"
+    type: "jetbrains.mps.lang.structure.LinkDeclaration"
+    optional: false
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+  - "jetbrains.mps.lang.smodel.ILinkQualifier"
+- name: "PropertyQualifier"
+  abstract: false
+  properties: []
+  children: []
+  references:
+  - name: "property"
+    type: "jetbrains.mps.lang.structure.PropertyDeclaration"
+    optional: false
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+  - "jetbrains.mps.lang.smodel.IPropertyQualifier"
+- name: "Model_GetModule"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.smodel.SNodeOperation"
+- name: "ModuleReferenceExpression"
+  abstract: false
+  properties:
+  - name: "name"
+    type: "STRING"
+  - name: "moduleId"
+    type: "STRING"
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.Expression"
+- name: "LanguageReferenceExpression"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.smodel.ModuleReferenceExpression"
+- name: "ModelReferenceExpression"
+  abstract: false
+  properties:
+  - name: "name"
+    type: "STRING"
+  - name: "stereotype"
+    type: "STRING"
+  children:
+  - name: "repo"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: false
+    optional: true
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.Expression"
+- name: "SubconceptCase"
+  abstract: false
+  properties: []
+  children:
+  - name: "concept"
+    type: "jetbrains.mps.lang.smodel.ConceptReference"
+    multiple: false
+    optional: false
+  - name: "body"
+    type: "jetbrains.mps.baseLanguage.StatementList"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+  - "jetbrains.mps.lang.smodel.IConceptSwitchCase"
+- name: "ConceptSwitchStatement"
+  abstract: false
+  properties: []
+  children:
+  - name: "expression"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: false
+    optional: false
+  - name: "case"
+    type: "jetbrains.mps.lang.smodel.IConceptSwitchCase"
+    multiple: true
+    optional: true
+  - name: "defaultBlock"
+    type: "jetbrains.mps.baseLanguage.StatementList"
+    multiple: false
+    optional: true
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.Statement"
+- name: "NodePointerExpression_Old"
+  abstract: false
+  properties:
+  - name: "includeNonRoot"
+    type: "STRING"
+  children: []
+  references:
+  - name: "referentNode"
+    type: "jetbrains.mps.lang.core.INamedConcept"
+    optional: false
+  extends:
+  - "jetbrains.mps.baseLanguage.Expression"
+- name: "AsNodeOperation"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.smodel.SNodeOperation"
+- name: "EnumMemberValueRefExpression"
+  abstract: false
+  properties: []
+  children: []
+  references:
+  - name: "enum"
+    type: "jetbrains.mps.lang.structure.EnumerationDataTypeDeclaration_Old"
+    optional: false
+  - name: "member"
+    type: "jetbrains.mps.lang.structure.EnumerationMemberDeclaration_Old"
+    optional: false
+  extends:
+  - "jetbrains.mps.baseLanguage.Expression"
+- name: "AbstractNodeRefExpression"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.Expression"
+- name: "ChildNodeRefExpression"
+  abstract: false
+  properties: []
+  children:
+  - name: "parent"
+    type: "jetbrains.mps.lang.smodel.AbstractNodeRefExpression"
+    multiple: false
+    optional: false
+  references:
+  - name: "targetNode"
+    type: "jetbrains.mps.lang.core.INamedConcept"
+    optional: false
+  extends:
+  - "jetbrains.mps.lang.smodel.AbstractNodeRefExpression"
+- name: "OfConceptOperation"
+  abstract: false
+  properties: []
+  children:
+  - name: "requestedConcept"
+    type: "jetbrains.mps.lang.smodel.IRefConceptArg"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.collections.SequenceOperation"
+- name: "ConceptIdRefExpression"
+  abstract: false
+  properties: []
+  children: []
+  references:
+  - name: "conceptDeclaration"
+    type: "jetbrains.mps.lang.structure.AbstractConceptDeclaration"
+    optional: false
+  extends:
+  - "jetbrains.mps.baseLanguage.Expression"
+  - "jetbrains.mps.lang.smodel.BootstrapAwareMetaObject"
+- name: "LinkIdRefExpression"
+  abstract: false
+  properties: []
+  children: []
+  references:
+  - name: "conceptDeclaration"
+    type: "jetbrains.mps.lang.structure.AbstractConceptDeclaration"
+    optional: false
+  - name: "linkDeclaration"
+    type: "jetbrains.mps.lang.structure.LinkDeclaration"
+    optional: false
+  extends:
+  - "jetbrains.mps.baseLanguage.Expression"
+  - "jetbrains.mps.lang.smodel.BootstrapAwareMetaObject"
+- name: "PropertyIdRefExpression"
+  abstract: false
+  properties: []
+  children: []
+  references:
+  - name: "conceptDeclaration"
+    type: "jetbrains.mps.lang.structure.AbstractConceptDeclaration"
+    optional: false
+  - name: "propertyDeclaration"
+    type: "jetbrains.mps.lang.structure.PropertyDeclaration"
+    optional: false
+  extends:
+  - "jetbrains.mps.baseLanguage.Expression"
+  - "jetbrains.mps.lang.smodel.BootstrapAwareMetaObject"
+- name: "AsSConcept"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.smodel.SNodeOperation"
+- name: "SConceptType"
+  abstract: false
+  properties: []
+  children: []
+  references:
+  - name: "conceptDeclaraton"
+    type: "jetbrains.mps.lang.structure.AbstractConceptDeclaration"
+    optional: true
+  extends:
+  - "jetbrains.mps.baseLanguage.Type"
+- name: "Node_GetSConceptOperation"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.smodel.SNodeOperation"
+- name: "BootstrapAwareMetaObject"
+  abstract: true
+  properties:
+  - name: "bootstrap"
+    type: "STRING"
+  children: []
+  references: []
+  extends: []
+- name: "SConceptOperation"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+  - "jetbrains.mps.baseLanguage.IOperation"
+- name: "ConceptAliasOperation"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.smodel.SConceptOperation"
+- name: "ConceptShortDescriptionOperation"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.smodel.SConceptOperation"
+- name: "LanguageId"
+  abstract: false
+  properties:
+  - name: "namespace"
+    type: "STRING"
+  - name: "languageId"
+    type: "STRING"
+  - name: "version"
+    type: "STRING"
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+  - "jetbrains.mps.lang.smodel.LanguageIdentity"
+- name: "LanguageRefExpression"
+  abstract: false
+  properties: []
+  children:
+  - name: "languageId"
+    type: "jetbrains.mps.lang.smodel.AbstractLanguageIdentity"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.Expression"
+- name: "LanguageIdentity"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.smodel.AbstractLanguageIdentity"
+- name: "ChildAttributeQualifier"
+  abstract: false
+  properties: []
+  children:
+  - name: "linkQualifier"
+    type: "jetbrains.mps.lang.smodel.ILinkQualifier"
+    multiple: false
+    optional: false
+  references:
+  - name: "attributeConcept"
+    type: "jetbrains.mps.lang.structure.ConceptDeclaration"
+    optional: false
+  extends:
+  - "jetbrains.mps.lang.smodel.AttributeQualifier"
+- name: "ExactConceptCase"
+  abstract: false
+  properties: []
+  children:
+  - name: "concept"
+    type: "jetbrains.mps.lang.smodel.ConceptReference"
+    multiple: false
+    optional: false
+  - name: "body"
+    type: "jetbrains.mps.baseLanguage.StatementList"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+  - "jetbrains.mps.lang.smodel.IConceptSwitchCase"
+- name: "IConceptSwitchCase"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends: []
+- name: "Node_PointerOperation"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.smodel.SNodeOperation"
+- name: "ModulePointer"
+  abstract: false
+  properties:
+  - name: "moduleName"
+    type: "STRING"
+  - name: "moduleId"
+    type: "STRING"
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+  - "jetbrains.mps.lang.smodel.ModuleIdentity"
+- name: "ModuleIdentity"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.modelapi.ModuleIdentity"
+- name: "ModuleRefExpression"
+  abstract: false
+  properties: []
+  children:
+  - name: "moduleId"
+    type: "jetbrains.mps.lang.modelapi.ModuleIdentity"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.Expression"
+- name: "Node_GetChildrenAndChildAttributesOperation"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.smodel.Node_GetChildrenOperation"
+- name: "AbstractTypeCastExpression"
+  abstract: true
+  properties: []
+  children:
+  - name: "leftExpression"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: false
+    optional: false
+  - name: "conceptArgument"
+    type: "jetbrains.mps.lang.smodel.IRefConceptArg"
+    multiple: false
+    optional: false
+  references:
+  - name: "concept"
+    type: "jetbrains.mps.lang.structure.AbstractConceptDeclaration"
+    optional: true
+  extends:
+  - "jetbrains.mps.baseLanguage.Expression"
+  - "jetbrains.mps.baseLanguage.IBinaryLike"
+- name: "PropertyIdentity"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.smodel.ConceptMemberIdentity"
+- name: "ConceptIdentity"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends: []
+- name: "ConceptId"
+  abstract: false
+  properties:
+  - name: "conceptId"
+    type: "STRING"
+  - name: "conceptName"
+    type: "STRING"
+  - name: "isInterface"
+    type: "STRING"
+  children:
+  - name: "languageIdentity"
+    type: "jetbrains.mps.lang.smodel.LanguageIdentity"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+  - "jetbrains.mps.lang.smodel.ConceptIdentity"
+- name: "PropertyId"
+  abstract: false
+  properties:
+  - name: "propertyId"
+    type: "STRING"
+  - name: "propertyName"
+    type: "STRING"
+  children:
+  - name: "conceptIdentity"
+    type: "jetbrains.mps.lang.smodel.ConceptIdentity"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+  - "jetbrains.mps.lang.smodel.PropertyIdentity"
+- name: "SConceptTypeCastExpression"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.smodel.AbstractTypeCastExpression"
+- name: "GeneratorModulePointer"
+  abstract: false
+  properties: []
+  children:
+  - name: "module"
+    type: "jetbrains.mps.lang.smodel.ModulePointer"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+  - "jetbrains.mps.lang.smodel.GeneratorIdentity"
+- name: "GeneratorIdentity"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends: []
+- name: "ContainmentLinkId"
+  abstract: false
+  properties:
+  - name: "linkId"
+    type: "STRING"
+  - name: "linkName"
+    type: "STRING"
+  children:
+  - name: "conceptIdentity"
+    type: "jetbrains.mps.lang.smodel.ConceptIdentity"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+  - "jetbrains.mps.lang.smodel.AggregationIdentity"
+- name: "ReferenceLinkId"
+  abstract: false
+  properties:
+  - name: "referenceId"
+    type: "STRING"
+  - name: "referenceName"
+    type: "STRING"
+  children:
+  - name: "conceptIdentity"
+    type: "jetbrains.mps.lang.smodel.ConceptIdentity"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+  - "jetbrains.mps.lang.smodel.AssociationIdentity"
+- name: "AggregationIdentity"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.smodel.ConceptMemberIdentity"
+- name: "AssociationIdentity"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.smodel.ConceptMemberIdentity"
+- name: "ConceptMemberIdentity"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends: []
+- name: "SConceptTypeLiteral"
+  abstract: false
+  properties: []
+  children: []
+  references:
+  - name: "conceptDeclaraton"
+    type: "jetbrains.mps.lang.structure.AbstractConceptDeclaration"
+    optional: false
+  extends:
+  - "jetbrains.mps.baseLanguage.Type"
+- name: "Node_ContainingLinkOperation"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.smodel.SNodeOperation"
+- name: "Reference_ContainingLinkOperation"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+  - "jetbrains.mps.lang.smodel.IReferenceOperation"
+- name: "AbstractLanguageIdentity"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends: []
+- name: "LanguageIdentityBySourceModule"
+  abstract: false
+  properties: []
+  children:
+  - name: "moduleReference"
+    type: "jetbrains.mps.lang.smodel.ModuleIdentity"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+  - "jetbrains.mps.lang.smodel.AbstractLanguageIdentity"
+- name: "SNodePointerType"
+  abstract: false
+  properties: []
+  children: []
+  references:
+  - name: "concept"
+    type: "jetbrains.mps.lang.structure.AbstractConceptDeclaration"
+    optional: true
+  extends:
+  - "jetbrains.mps.baseLanguage.Type"
+- name: "NodePointerExpression"
+  abstract: false
+  properties: []
+  children:
+  - name: "ref"
+    type: "jetbrains.mps.lang.modelapi.NodeIdentity"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.Expression"
+- name: "NodePointer_ResolveOperation"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.smodel.AbstractPointerResolveOperation"
+- name: "ModelPointer_ResolveOperation"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.smodel.AbstractPointerResolveOperation"
+- name: "AbstractPointerResolveOperation"
+  abstract: true
+  properties: []
+  children:
+  - name: "repositoryArg"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+  - "jetbrains.mps.baseLanguage.IOperation"
+- name: "Model_PointerOperation"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.smodel.SNodeOperation"
+- name: "ModelPointerExpression"
+  abstract: false
+  properties: []
+  children:
+  - name: "modelRef"
+    type: "jetbrains.mps.lang.modelapi.ModelIdentity"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.Expression"
+- name: "DevkitPointer"
+  abstract: false
+  properties:
+  - name: "devkitName"
+    type: "STRING"
+  - name: "devkitId"
+    type: "STRING"
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+  - "jetbrains.mps.lang.smodel.DevkitIdentity"
+- name: "SModelPointerType"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.Type"
+- name: "DevkitIdentity"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends: []
+- name: "Link_SetTargetPointerOperation"
+  abstract: false
+  properties: []
+  children:
+  - name: "linkTarget"
+    type: "jetbrains.mps.lang.smodel.INodePointerArg"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.lang.smodel.SNodeOperation"
+- name: "NodePointerArg_Identity"
+  abstract: false
+  properties: []
+  children:
+  - name: "ref"
+    type: "jetbrains.mps.lang.modelapi.NodeIdentity"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+  - "jetbrains.mps.lang.smodel.INodePointerArg"
+- name: "INodePointerArg"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends: []
+- name: "Node_IsOperation"
+  abstract: false
+  properties: []
+  children:
+  - name: "ref"
+    type: "jetbrains.mps.lang.modelapi.NodeIdentity"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.lang.smodel.SNodeOperation"
+- name: "NodePointer_GetModelOperation"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+  - "jetbrains.mps.baseLanguage.IOperation"
+- name: "EnumMember_NameOperation"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+  - "jetbrains.mps.lang.smodel.EnumMemberOperation"
+- name: "EnumOperation"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.IOperation"
+- name: "Enum_MemberLiteral"
+  abstract: false
+  properties: []
+  children: []
+  references:
+  - name: "memberDeclaration"
+    type: "jetbrains.mps.lang.structure.EnumerationMemberDeclaration"
+    optional: false
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+  - "jetbrains.mps.lang.smodel.EnumOperation"
+- name: "Enum_FromNameOperation"
+  abstract: false
+  properties: []
+  children:
+  - name: "nameExpression"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+  - "jetbrains.mps.lang.smodel.EnumOperation"
+- name: "Enum_MembersOperation"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+  - "jetbrains.mps.lang.smodel.EnumOperation"
+- name: "EnumerationIdRefExpression"
+  abstract: false
+  properties: []
+  children: []
+  references:
+  - name: "enumDeclaration"
+    type: "jetbrains.mps.lang.structure.EnumerationDeclaration"
+    optional: false
+  extends:
+  - "jetbrains.mps.baseLanguage.Expression"
+- name: "SEnumerationType"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.Type"
+- name: "EnumMember_PresentationOperation"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+  - "jetbrains.mps.lang.smodel.EnumMemberOperation"
+- name: "Enum_FromPresentationOperation"
+  abstract: false
+  properties: []
+  children:
+  - name: "presentationExpression"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+  - "jetbrains.mps.lang.smodel.EnumOperation"
+- name: "EnumMemberReference"
+  abstract: false
+  properties: []
+  children: []
+  references:
+  - name: "decl"
+    type: "jetbrains.mps.lang.structure.EnumerationMemberDeclaration"
+    optional: false
+  extends:
+  - "jetbrains.mps.baseLanguage.Expression"
+- name: "EnumMember_IsOperation"
+  abstract: false
+  properties: []
+  children:
+  - name: "member"
+    type: "jetbrains.mps.lang.smodel.EnumMemberReference"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+  - "jetbrains.mps.lang.smodel.EnumMemberOperation"
+- name: "EnumSwitchExpression"
+  abstract: false
+  properties: []
+  children:
+  - name: "enumExpression"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: false
+    optional: false
+  - name: "cases"
+    type: "jetbrains.mps.lang.smodel.EnumSwitchCase"
+    multiple: true
+    optional: true
+  - name: "otherwiseBody"
+    type: "jetbrains.mps.lang.smodel.EnumSwitchCaseBody"
+    multiple: false
+    optional: true
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.Expression"
+- name: "EnumSwitchCase"
+  abstract: false
+  properties: []
+  children:
+  - name: "members"
+    type: "jetbrains.mps.lang.smodel.EnumMemberReference"
+    multiple: true
+    optional: false
+  - name: "body"
+    type: "jetbrains.mps.lang.smodel.EnumSwitchCaseBody"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+- name: "EnumSwitchCaseBody"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+- name: "EnumSwitchCaseBody_Expression"
+  abstract: false
+  properties: []
+  children:
+  - name: "expression"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.lang.smodel.EnumSwitchCaseBody"
+- name: "EnumSwitchCaseBody_StatementList"
+  abstract: false
+  properties: []
+  children:
+  - name: "statementList"
+    type: "jetbrains.mps.baseLanguage.StatementList"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.lang.smodel.EnumSwitchCaseBody"
+  - "jetbrains.mps.baseLanguage.IStatementListContainer"
+- name: "PropertySerializeExpression"
+  abstract: false
+  properties: []
+  children:
+  - name: "parameter"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: false
+    optional: false
+  references:
+  - name: "datatype"
+    type: "jetbrains.mps.lang.structure.DataTypeDeclaration"
+    optional: false
+  extends:
+  - "jetbrains.mps.baseLanguage.Expression"
+- name: "PropertyDeserializeExpression"
+  abstract: false
+  properties: []
+  children:
+  - name: "parameter"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: false
+    optional: false
+  references:
+  - name: "datatype"
+    type: "jetbrains.mps.lang.structure.DataTypeDeclaration"
+    optional: false
+  extends:
+  - "jetbrains.mps.baseLanguage.Expression"
+- name: "Reference_IsDynamic"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+  - "jetbrains.mps.lang.smodel.IReferenceOperation"

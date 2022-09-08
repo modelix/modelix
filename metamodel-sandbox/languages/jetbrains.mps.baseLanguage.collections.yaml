@@ -1,0 +1,1654 @@
+name: "jetbrains.mps.baseLanguage.collections"
+concepts:
+- name: "ListType"
+  abstract: false
+  properties: []
+  children:
+  - name: "elementType"
+    type: "jetbrains.mps.baseLanguage.Type"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.Type"
+  - "jetbrains.mps.baseLanguage.IGenericType"
+- name: "SequenceType"
+  abstract: false
+  properties: []
+  children:
+  - name: "elementType"
+    type: "jetbrains.mps.baseLanguage.Type"
+    multiple: false
+    optional: true
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.Type"
+  - "jetbrains.mps.baseLanguage.IGenericType"
+- name: "SequenceOperation"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+  - "jetbrains.mps.baseLanguage.IOperation"
+- name: "ToListOperation"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.collections.NoArgumentsSequenceOperation"
+- name: "ForEachStatement"
+  abstract: false
+  properties: []
+  children:
+  - name: "variable"
+    type: "jetbrains.mps.baseLanguage.collections.ForEachVariable"
+    multiple: false
+    optional: false
+  - name: "inputSequence"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.AbstractLoopStatement"
+- name: "ForEachVariableReference"
+  abstract: false
+  properties: []
+  children: []
+  references:
+  - name: "variable"
+    type: "jetbrains.mps.baseLanguage.collections.ForEachVariable"
+    optional: false
+  extends:
+  - "jetbrains.mps.baseLanguage.Expression"
+  - "jetbrains.mps.baseLanguage.IVariableReference"
+- name: "ListCreatorWithInit"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.collections.AbstractContainerCreator"
+- name: "AddElementOperation"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.collections.SingleArgumentSequenceOperation"
+  - "jetbrains.mps.baseLanguage.collections.IListOperation"
+  - "jetbrains.mps.baseLanguage.collections.IApplicableToCollection"
+- name: "AddAllElementsOperation"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.collections.SingleArgumentSequenceOperation"
+  - "jetbrains.mps.baseLanguage.collections.IListOperation"
+  - "jetbrains.mps.baseLanguage.collections.IQueueOperation"
+  - "jetbrains.mps.baseLanguage.collections.IStackOperation"
+  - "jetbrains.mps.baseLanguage.collections.IApplicableToCollection"
+  - "jetbrains.mps.baseLanguage.collections.IApplicableToQueue"
+  - "jetbrains.mps.baseLanguage.collections.IApplicableToStack"
+- name: "GetElementOperation"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.collections.SingleArgumentSequenceOperation"
+  - "jetbrains.mps.baseLanguage.collections.IListOperation"
+  - "jetbrains.mps.baseLanguage.collections.IApplicableToList"
+- name: "GetSizeOperation"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.collections.NoArgumentsSequenceOperation"
+- name: "GetFirstOperation"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.collections.NoArgumentsSequenceOperation"
+- name: "IsEmptyOperation"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.collections.NoArgumentsSequenceOperation"
+- name: "GetLastOperation"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.collections.NoArgumentsSequenceOperation"
+- name: "RemoveElementOperation"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.collections.SingleArgumentSequenceOperation"
+  - "jetbrains.mps.baseLanguage.collections.IListOperation"
+  - "jetbrains.mps.baseLanguage.collections.IQueueOperation"
+  - "jetbrains.mps.baseLanguage.collections.IStackOperation"
+  - "jetbrains.mps.baseLanguage.collections.IApplicableToQueue"
+  - "jetbrains.mps.baseLanguage.collections.IApplicableToStack"
+  - "jetbrains.mps.baseLanguage.collections.IApplicableToCollection"
+- name: "GetIndexOfOperation"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.collections.SingleArgumentSequenceOperation"
+- name: "ContainsOperation"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.collections.SingleArgumentSequenceOperation"
+- name: "SkipOperation"
+  abstract: false
+  properties: []
+  children:
+  - name: "elementsToSkip"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.collections.SequenceOperation"
+- name: "TakeOperation"
+  abstract: false
+  properties: []
+  children:
+  - name: "elementsToTake"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.collections.SequenceOperation"
+- name: "PageOperation"
+  abstract: false
+  properties: []
+  children:
+  - name: "fromElement"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: false
+    optional: false
+  - name: "toElement"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.collections.SequenceOperation"
+- name: "RemoveAllElementsOperation"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.collections.SingleArgumentSequenceOperation"
+  - "jetbrains.mps.baseLanguage.collections.IListOperation"
+  - "jetbrains.mps.baseLanguage.collections.IQueueOperation"
+  - "jetbrains.mps.baseLanguage.collections.IStackOperation"
+  - "jetbrains.mps.baseLanguage.collections.IApplicableToCollection"
+  - "jetbrains.mps.baseLanguage.collections.IApplicableToQueue"
+  - "jetbrains.mps.baseLanguage.collections.IApplicableToStack"
+- name: "ReverseOperation"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.collections.NoArgumentsSequenceOperation"
+  - "jetbrains.mps.baseLanguage.collections.IListOperation"
+  - "jetbrains.mps.baseLanguage.collections.IApplicableToList"
+- name: "IsNotEmptyOperation"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.collections.NoArgumentsSequenceOperation"
+- name: "UnionOperation"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.collections.BinaryOperation"
+- name: "BinaryOperation"
+  abstract: true
+  properties: []
+  children:
+  - name: "rightExpression"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.collections.SequenceOperation"
+- name: "IntersectOperation"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.collections.BinaryOperation"
+- name: "ExcludeOperation"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.collections.BinaryOperation"
+- name: "SortDirection"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.BooleanConstant"
+- name: "DistinctOperation"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.collections.NoArgumentsSequenceOperation"
+- name: "ConcatOperation"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.collections.BinaryOperation"
+- name: "ToArrayOperation"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.collections.NoArgumentsSequenceOperation"
+- name: "MapType"
+  abstract: false
+  properties: []
+  children:
+  - name: "keyType"
+    type: "jetbrains.mps.baseLanguage.Type"
+    multiple: false
+    optional: false
+  - name: "valueType"
+    type: "jetbrains.mps.baseLanguage.Type"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.Type"
+  - "jetbrains.mps.baseLanguage.IGenericType"
+- name: "HashMapCreator"
+  abstract: false
+  properties: []
+  children:
+  - name: "keyType"
+    type: "jetbrains.mps.baseLanguage.Type"
+    multiple: false
+    optional: true
+  - name: "valueType"
+    type: "jetbrains.mps.baseLanguage.Type"
+    multiple: false
+    optional: true
+  - name: "initializer"
+    type: "jetbrains.mps.baseLanguage.collections.MapInitializer"
+    multiple: false
+    optional: true
+  - name: "initSize"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: false
+    optional: true
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.AbstractCreator"
+- name: "MapElement"
+  abstract: false
+  properties: []
+  children:
+  - name: "map"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: false
+    optional: false
+  - name: "key"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.Expression"
+- name: "MapOperationExpression"
+  abstract: false
+  properties: []
+  children:
+  - name: "expression"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: false
+    optional: false
+  - name: "mapOperation"
+    type: "jetbrains.mps.baseLanguage.collections.MapOperation"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.Expression"
+- name: "MapOperation"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+  - "jetbrains.mps.baseLanguage.IOperation"
+- name: "ContainsKeyOperation"
+  abstract: false
+  properties: []
+  children:
+  - name: "key"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.collections.MapOperation"
+- name: "GetKeysOperation"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.collections.MapOperation"
+- name: "MapInitializer"
+  abstract: false
+  properties: []
+  children:
+  - name: "entries"
+    type: "jetbrains.mps.baseLanguage.collections.MapEntry"
+    multiple: true
+    optional: true
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+- name: "MapEntry"
+  abstract: false
+  properties: []
+  children:
+  - name: "key"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: false
+    optional: false
+  - name: "value"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+- name: "MapRemoveOperation"
+  abstract: false
+  properties: []
+  children:
+  - name: "key"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.collections.MapOperation"
+- name: "ToIteratorOperation"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.collections.NoArgumentsSequenceOperation"
+- name: "MapClearOperation"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.collections.MapOperation"
+- name: "TranslateOperation"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.collections.InternalSequenceOperation"
+- name: "WhereOperation"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.collections.InternalSequenceOperation"
+- name: "SelectOperation"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.collections.InternalSequenceOperation"
+- name: "SmartClosureParameterDeclaration"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.closures.UnboundClosureParameterDeclaration"
+- name: "InternalSequenceOperation"
+  abstract: true
+  properties: []
+  children:
+  - name: "closure"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.collections.SequenceOperation"
+- name: "VisitAllOperation"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.collections.InternalSequenceOperation"
+- name: "DisjunctOperation"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.collections.BinaryOperation"
+- name: "SortOperation"
+  abstract: false
+  properties: []
+  children:
+  - name: "ascending"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.collections.InternalSequenceOperation"
+- name: "ChunkOperation"
+  abstract: true
+  properties: []
+  children:
+  - name: "length"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.collections.SequenceOperation"
+- name: "CutOperation"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.collections.ChunkOperation"
+- name: "TailOperation"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.collections.ChunkOperation"
+- name: "ComparatorSortOperation"
+  abstract: false
+  properties: []
+  children:
+  - name: "ascending"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: false
+    optional: true
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.collections.InternalSequenceOperation"
+- name: "SequenceCreator"
+  abstract: false
+  properties: []
+  children:
+  - name: "elementType"
+    type: "jetbrains.mps.baseLanguage.Type"
+    multiple: false
+    optional: true
+  - name: "initializer"
+    type: "jetbrains.mps.baseLanguage.closures.ClosureLiteral"
+    multiple: false
+    optional: true
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.AbstractCreator"
+- name: "SkipStatement"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.Statement"
+- name: "StopStatement"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.Statement"
+- name: "InsertElementOperation"
+  abstract: false
+  properties: []
+  children:
+  - name: "index"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: false
+    optional: false
+  - name: "element"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.collections.SequenceOperation"
+  - "jetbrains.mps.baseLanguage.collections.IListOperation"
+  - "jetbrains.mps.baseLanguage.collections.IApplicableToList"
+- name: "SetElementOperation"
+  abstract: false
+  properties: []
+  children:
+  - name: "index"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: false
+    optional: false
+  - name: "element"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.collections.SequenceOperation"
+  - "jetbrains.mps.baseLanguage.collections.IListOperation"
+  - "jetbrains.mps.baseLanguage.collections.IApplicableToList"
+- name: "ListElementAccessExpression"
+  abstract: false
+  properties: []
+  children:
+  - name: "list"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: false
+    optional: false
+  - name: "index"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.Expression"
+- name: "FindFirstOperation"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.collections.InternalSequenceOperation"
+- name: "FindLastOperation"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.collections.InternalSequenceOperation"
+- name: "SetType"
+  abstract: false
+  properties: []
+  children:
+  - name: "elementType"
+    type: "jetbrains.mps.baseLanguage.Type"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.Type"
+  - "jetbrains.mps.baseLanguage.IGenericType"
+- name: "HashSetCreator"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.collections.AbstractContainerCreator"
+- name: "AbstractSetOperation"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.collections.SequenceOperation"
+- name: "AddSetElementOperation"
+  abstract: false
+  properties: []
+  children:
+  - name: "argument"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.collections.AbstractSetOperation"
+- name: "RemoveSetElementOperation"
+  abstract: false
+  properties: []
+  children:
+  - name: "argument"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.collections.AbstractSetOperation"
+- name: "AddAllSetElementsOperation"
+  abstract: false
+  properties: []
+  children:
+  - name: "argument"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.collections.AbstractSetOperation"
+- name: "RemoveAllSetElementsOperation"
+  abstract: false
+  properties: []
+  children:
+  - name: "argument"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.collections.AbstractSetOperation"
+- name: "ClearSetOperation"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.collections.AbstractSetOperation"
+- name: "LinkedListCreator"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.collections.AbstractContainerCreator"
+- name: "AddFirstElementOperation"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.collections.SingleArgumentSequenceOperation"
+  - "jetbrains.mps.baseLanguage.collections.IListOperation"
+  - "jetbrains.mps.baseLanguage.collections.IDequeOperation"
+  - "jetbrains.mps.baseLanguage.collections.IStackOperation"
+  - "jetbrains.mps.baseLanguage.collections.IApplicableToList"
+  - "jetbrains.mps.baseLanguage.collections.IApplicableToStack"
+- name: "AddLastElementOperation"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.collections.SingleArgumentSequenceOperation"
+  - "jetbrains.mps.baseLanguage.collections.IListOperation"
+  - "jetbrains.mps.baseLanguage.collections.IApplicableToList"
+  - "jetbrains.mps.baseLanguage.collections.IApplicableToQueue"
+- name: "RemoveAtElementOperation"
+  abstract: false
+  properties: []
+  children:
+  - name: "index"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.collections.SequenceOperation"
+  - "jetbrains.mps.baseLanguage.collections.IListOperation"
+  - "jetbrains.mps.baseLanguage.collections.IApplicableToList"
+- name: "ClearAllElementsOperation"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.collections.NoArgumentsSequenceOperation"
+  - "jetbrains.mps.baseLanguage.collections.IListOperation"
+  - "jetbrains.mps.baseLanguage.collections.IQueueOperation"
+  - "jetbrains.mps.baseLanguage.collections.IStackOperation"
+  - "jetbrains.mps.baseLanguage.collections.IApplicableToList"
+  - "jetbrains.mps.baseLanguage.collections.IApplicableToQueue"
+  - "jetbrains.mps.baseLanguage.collections.IApplicableToStack"
+- name: "RemoveFirstElementOperation"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.collections.NoArgumentsSequenceOperation"
+  - "jetbrains.mps.baseLanguage.collections.IListOperation"
+  - "jetbrains.mps.baseLanguage.collections.IQueueOperation"
+  - "jetbrains.mps.baseLanguage.collections.IStackOperation"
+  - "jetbrains.mps.baseLanguage.collections.IApplicableToList"
+  - "jetbrains.mps.baseLanguage.collections.IApplicableToQueue"
+  - "jetbrains.mps.baseLanguage.collections.IApplicableToStack"
+- name: "RemoveLastElementOperation"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.collections.NoArgumentsSequenceOperation"
+  - "jetbrains.mps.baseLanguage.collections.IListOperation"
+  - "jetbrains.mps.baseLanguage.collections.IDequeOperation"
+  - "jetbrains.mps.baseLanguage.collections.IApplicableToList"
+  - "jetbrains.mps.baseLanguage.collections.IApplicableToDeque"
+- name: "DowncastExpression"
+  abstract: false
+  properties: []
+  children:
+  - name: "expression"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.Expression"
+- name: "AnyOperation"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.collections.InternalSequenceOperation"
+- name: "AllOperation"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.collections.InternalSequenceOperation"
+- name: "SingletonSequenceCreator"
+  abstract: false
+  properties: []
+  children:
+  - name: "elementType"
+    type: "jetbrains.mps.baseLanguage.Type"
+    multiple: false
+    optional: false
+  - name: "singletonValue"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.AbstractCreator"
+- name: "GetIteratorOperation"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.collections.NoArgumentsSequenceOperation"
+- name: "IteratorType"
+  abstract: false
+  properties: []
+  children:
+  - name: "elementType"
+    type: "jetbrains.mps.baseLanguage.Type"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.Type"
+- name: "AbstractIteratorOperation"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+  - "jetbrains.mps.baseLanguage.IOperation"
+- name: "HasNextOperation"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.collections.AbstractIteratorOperation"
+- name: "GetNextOperation"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.collections.AbstractIteratorOperation"
+- name: "GetCurrentOperation"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.collections.AbstractEnumeratorOperation"
+- name: "MoveNextOperation"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.collections.AbstractEnumeratorOperation"
+- name: "EnumeratorType"
+  abstract: false
+  properties: []
+  children:
+  - name: "elementType"
+    type: "jetbrains.mps.baseLanguage.Type"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.Type"
+- name: "AbstractEnumeratorOperation"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+  - "jetbrains.mps.baseLanguage.IOperation"
+- name: "GetEnumeratorOperation"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.collections.NoArgumentsSequenceOperation"
+- name: "AbstractContainerCreator"
+  abstract: true
+  properties: []
+  children:
+  - name: "elementType"
+    type: "jetbrains.mps.baseLanguage.Type"
+    multiple: false
+    optional: true
+  - name: "initValue"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: true
+    optional: true
+  - name: "copyFrom"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: false
+    optional: true
+  - name: "initSize"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: false
+    optional: true
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.AbstractCreator"
+- name: "AllConstant"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.IntegerLiteral"
+- name: "ContainsValueOperation"
+  abstract: false
+  properties: []
+  children:
+  - name: "value"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.collections.MapOperation"
+- name: "GetValuesOperation"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.collections.MapOperation"
+- name: "ContainerIteratorType"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.collections.IteratorType"
+- name: "RemoveOperation"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.collections.AbstractIteratorOperation"
+- name: "LinkedHashMapCreator"
+  abstract: false
+  properties:
+  - name: "order"
+    type: "STRING"
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.collections.HashMapCreator"
+- name: "LinkedHashSetCreator"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.collections.HashSetCreator"
+- name: "SortedMapType"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.collections.MapType"
+- name: "TreeMapCreator"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.collections.HashMapCreator"
+- name: "SortedMapOperation"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.collections.MapOperation"
+- name: "HeadMapOperation"
+  abstract: false
+  properties: []
+  children:
+  - name: "toKey"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.collections.SortedMapOperation"
+- name: "TailMapOperation"
+  abstract: false
+  properties: []
+  children:
+  - name: "fromKey"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.collections.SortedMapOperation"
+- name: "SubMapOperation"
+  abstract: false
+  properties: []
+  children:
+  - name: "fromKey"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: false
+    optional: false
+  - name: "toKey"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.collections.SortedMapOperation"
+- name: "SortedSetType"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.collections.SetType"
+- name: "TreeSetCreator"
+  abstract: false
+  properties: []
+  children:
+  - name: "comparator"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: false
+    optional: true
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.collections.HashSetCreator"
+- name: "SortedSetOperation"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.collections.AbstractSetOperation"
+- name: "HeadSetOperation"
+  abstract: false
+  properties: []
+  children:
+  - name: "toElement"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.collections.SortedSetOperation"
+- name: "TailSetOperation"
+  abstract: false
+  properties: []
+  children:
+  - name: "fromElement"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.collections.SortedSetOperation"
+- name: "SubSetOperation"
+  abstract: false
+  properties: []
+  children:
+  - name: "fromElement"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: false
+    optional: false
+  - name: "toElement"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.collections.SortedSetOperation"
+- name: "AsSequenceOperation"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.AbstractOperation"
+  - "jetbrains.mps.baseLanguage.IOperation"
+- name: "MappingType"
+  abstract: false
+  properties: []
+  children:
+  - name: "keyType"
+    type: "jetbrains.mps.baseLanguage.Type"
+    multiple: false
+    optional: false
+  - name: "valueType"
+    type: "jetbrains.mps.baseLanguage.Type"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.Type"
+  - "jetbrains.mps.baseLanguage.IGenericType"
+- name: "JoinOperation"
+  abstract: false
+  properties: []
+  children:
+  - name: "delimiter"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: false
+    optional: true
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.collections.SequenceOperation"
+- name: "AbstractMappingOperation"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+  - "jetbrains.mps.baseLanguage.IOperation"
+- name: "ValueAccessOperation"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.collections.AbstractMappingOperation"
+- name: "KeyAccessOperation"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.collections.AbstractMappingOperation"
+- name: "MappingsSetOperation"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.collections.MapOperation"
+- name: "PutAllOperation"
+  abstract: false
+  properties: []
+  children:
+  - name: "map"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.collections.MapOperation"
+- name: "QueueType"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.collections.AbstractContainerType"
+  - "jetbrains.mps.baseLanguage.IGenericType"
+- name: "AbstractContainerType"
+  abstract: true
+  properties: []
+  children:
+  - name: "elementType"
+    type: "jetbrains.mps.baseLanguage.Type"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.Type"
+- name: "DequeType"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.collections.QueueType"
+  - "jetbrains.mps.baseLanguage.IGenericType"
+- name: "IContainerOperation"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.IOperation"
+- name: "IListOperation"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.collections.ICollectionOperation"
+- name: "IQueueOperation"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.collections.IContainerOperation"
+- name: "StackType"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.collections.AbstractContainerType"
+  - "jetbrains.mps.baseLanguage.IGenericType"
+- name: "IDequeOperation"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.collections.IQueueOperation"
+  - "jetbrains.mps.baseLanguage.collections.IStackOperation"
+- name: "IStackOperation"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.collections.IContainerOperation"
+- name: "PopOperation"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.collections.NoArgumentsSequenceOperation"
+  - "jetbrains.mps.baseLanguage.collections.IStackOperation"
+  - "jetbrains.mps.baseLanguage.collections.IDequeOperation"
+  - "jetbrains.mps.baseLanguage.collections.IApplicableToStack"
+- name: "PushOperation"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.collections.SingleArgumentSequenceOperation"
+  - "jetbrains.mps.baseLanguage.collections.IStackOperation"
+  - "jetbrains.mps.baseLanguage.collections.IDequeOperation"
+  - "jetbrains.mps.baseLanguage.collections.IApplicableToStack"
+- name: "PriorityQueueCreator"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.collections.AbstractContainerCreator"
+- name: "LinkedListType"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.collections.ListType"
+- name: "SingleArgumentSequenceOperation"
+  abstract: true
+  properties: []
+  children:
+  - name: "argument"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.collections.SequenceOperation"
+- name: "NoArgumentsSequenceOperation"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.collections.SequenceOperation"
+- name: "RemoveWhereOperation"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.collections.InternalSequenceOperation"
+  - "jetbrains.mps.baseLanguage.collections.IListOperation"
+  - "jetbrains.mps.baseLanguage.collections.IStackOperation"
+  - "jetbrains.mps.baseLanguage.collections.IQueueOperation"
+  - "jetbrains.mps.baseLanguage.collections.IDequeOperation"
+  - "jetbrains.mps.baseLanguage.collections.IApplicableToList"
+  - "jetbrains.mps.baseLanguage.collections.IApplicableToStack"
+  - "jetbrains.mps.baseLanguage.collections.IApplicableToQueue"
+- name: "AlsoSortOperation"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.collections.SortOperation"
+- name: "ContainsAllOperation"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.collections.SingleArgumentSequenceOperation"
+- name: "SubListOperation"
+  abstract: false
+  properties: []
+  children:
+  - name: "fromIndex"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: false
+    optional: false
+  - name: "upToIndex"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.collections.SequenceOperation"
+  - "jetbrains.mps.baseLanguage.collections.IListOperation"
+  - "jetbrains.mps.baseLanguage.collections.IApplicableToList"
+- name: "PeekOperation"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.collections.NoArgumentsSequenceOperation"
+  - "jetbrains.mps.baseLanguage.collections.IStackOperation"
+  - "jetbrains.mps.baseLanguage.collections.IDequeOperation"
+  - "jetbrains.mps.baseLanguage.collections.IApplicableToStack"
+- name: "HeadListOperation"
+  abstract: false
+  properties: []
+  children:
+  - name: "upToIndex"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.collections.SequenceOperation"
+  - "jetbrains.mps.baseLanguage.collections.IListOperation"
+  - "jetbrains.mps.baseLanguage.collections.IApplicableToList"
+- name: "TailListOperation"
+  abstract: false
+  properties: []
+  children:
+  - name: "fromIndex"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.collections.SequenceOperation"
+  - "jetbrains.mps.baseLanguage.collections.IListOperation"
+  - "jetbrains.mps.baseLanguage.collections.IApplicableToList"
+- name: "CustomContainerDeclaration"
+  abstract: false
+  properties: []
+  children:
+  - name: "containerType"
+    type: "jetbrains.mps.baseLanguage.Type"
+    multiple: false
+    optional: false
+  - name: "runtimeType"
+    type: "jetbrains.mps.baseLanguage.ClassifierType"
+    multiple: false
+    optional: false
+  - name: "factory"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: false
+    optional: true
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.GenericDeclaration"
+  - "jetbrains.mps.lang.core.INamedConcept"
+  - "jetbrains.mps.baseLanguage.IVisible"
+- name: "CustomContainers"
+  abstract: false
+  properties: []
+  children:
+  - name: "containerDeclaration"
+    type: "jetbrains.mps.baseLanguage.collections.CustomContainerDeclaration"
+    multiple: true
+    optional: true
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+  - "jetbrains.mps.lang.core.INamedConcept"
+- name: "CustomContainerCreator"
+  abstract: false
+  properties: []
+  children: []
+  references:
+  - name: "containerDeclaration"
+    type: "jetbrains.mps.baseLanguage.collections.CustomContainerDeclaration"
+    optional: false
+  extends:
+  - "jetbrains.mps.baseLanguage.collections.AbstractContainerCreator"
+- name: "CustomMapCreator"
+  abstract: false
+  properties: []
+  children: []
+  references:
+  - name: "containerDeclaration"
+    type: "jetbrains.mps.baseLanguage.collections.CustomContainerDeclaration"
+    optional: false
+  extends:
+  - "jetbrains.mps.baseLanguage.collections.HashMapCreator"
+- name: "ForEachVariable"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+  - "jetbrains.mps.lang.core.INamedConcept"
+  - "jetbrains.mps.baseLanguage.IValidIdentifier"
+  - "jetbrains.mps.baseLanguage.IVariableDeclaration"
+  - "jetbrains.mps.lang.core.IResolveInfo"
+- name: "ReduceLeftOperation"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.collections.InternalSequenceOperation"
+- name: "ReduceRightOperation"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.collections.InternalSequenceOperation"
+- name: "FoldLeftOperation"
+  abstract: false
+  properties: []
+  children:
+  - name: "seed"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.collections.InternalSequenceOperation"
+- name: "FoldRightOperation"
+  abstract: false
+  properties: []
+  children:
+  - name: "seed"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.collections.InternalSequenceOperation"
+- name: "GetLastIndexOfOperation"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.collections.SingleArgumentSequenceOperation"
+- name: "MultiForEachStatement"
+  abstract: false
+  properties: []
+  children:
+  - name: "forEach"
+    type: "jetbrains.mps.baseLanguage.collections.MultiForEachPair"
+    multiple: true
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.AbstractLoopStatement"
+- name: "MultiForEachPair"
+  abstract: false
+  properties: []
+  children:
+  - name: "variable"
+    type: "jetbrains.mps.baseLanguage.collections.MultiForEachVariable"
+    multiple: false
+    optional: false
+  - name: "input"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+- name: "MultiForEachVariable"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+  - "jetbrains.mps.lang.core.INamedConcept"
+  - "jetbrains.mps.baseLanguage.IValidIdentifier"
+  - "jetbrains.mps.baseLanguage.IVariableDeclaration"
+- name: "MultiForEachVariableReference"
+  abstract: false
+  properties: []
+  children: []
+  references:
+  - name: "variable"
+    type: "jetbrains.mps.baseLanguage.collections.MultiForEachVariable"
+    optional: false
+  extends:
+  - "jetbrains.mps.baseLanguage.Expression"
+- name: "CollectionType"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.collections.AbstractContainerType"
+  - "jetbrains.mps.baseLanguage.IGenericType"
+- name: "ICollectionOperation"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.collections.IContainerOperation"
+- name: "AsUnmodifiableOperation"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.collections.NoArgumentsSequenceOperation"
+  - "jetbrains.mps.baseLanguage.collections.ICollectionOperation"
+  - "jetbrains.mps.baseLanguage.collections.IListOperation"
+  - "jetbrains.mps.baseLanguage.collections.IApplicableToCollection"
+- name: "AsSynchronizedOperation"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.collections.NoArgumentsSequenceOperation"
+  - "jetbrains.mps.baseLanguage.collections.ICollectionOperation"
+  - "jetbrains.mps.baseLanguage.collections.IListOperation"
+  - "jetbrains.mps.baseLanguage.collections.IApplicableToCollection"
+- name: "OfTypeOperation"
+  abstract: false
+  properties: []
+  children:
+  - name: "requestedType"
+    type: "jetbrains.mps.baseLanguage.Type"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.collections.SequenceOperation"
+- name: "TestAddElementOperation"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.collections.SingleArgumentSequenceOperation"
+  - "jetbrains.mps.baseLanguage.collections.IListOperation"
+  - "jetbrains.mps.baseLanguage.collections.IApplicableToCollection"
+- name: "TestRemoveElementOperation"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.collections.SingleArgumentSequenceOperation"
+  - "jetbrains.mps.baseLanguage.collections.IListOperation"
+  - "jetbrains.mps.baseLanguage.collections.IApplicableToCollection"
+- name: "IApplicableToNothing"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.IOperation"
+- name: "IApplicableToCollection"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.collections.IApplicableToList"
+- name: "IApplicableToList"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.collections.IApplicableToNothing"
+- name: "IApplicableToDeque"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.collections.IApplicableToNothing"
+- name: "IApplicableToQueue"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.collections.IApplicableToDeque"
+- name: "IApplicableToStack"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.collections.IApplicableToDeque"
+- name: "MapAsSequenceVarRef"
+  abstract: false
+  properties: []
+  children:
+  - name: "original"
+    type: "jetbrains.mps.baseLanguage.VariableReference"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.Expression"
+- name: "SelectNotNullOperation"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.collections.NoArgumentsSequenceOperation"

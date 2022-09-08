@@ -1,0 +1,59 @@
+name: "jetbrains.mps.baseLanguage.logging"
+concepts:
+- name: "PrintStatement"
+  abstract: false
+  properties: []
+  children:
+  - name: "textExpression"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: true
+    optional: true
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.Statement"
+- name: "LogLowLevelStatement"
+  abstract: false
+  properties:
+  - name: "severity"
+    type: "STRING"
+  children:
+  - name: "message"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: false
+    optional: false
+  - name: "throwable"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: false
+    optional: true
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.Statement"
+  - "jetbrains.mps.baseLanguage.logging.IMessage"
+- name: "MsgStatement"
+  abstract: false
+  properties:
+  - name: "severity"
+    type: "STRING"
+  children:
+  - name: "message"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: false
+    optional: false
+  - name: "throwable"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: false
+    optional: true
+  - name: "project"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: false
+    optional: true
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.Statement"
+  - "jetbrains.mps.baseLanguage.logging.IMessage"
+- name: "IMessage"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends: []

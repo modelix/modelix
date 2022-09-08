@@ -4,6 +4,7 @@ val ktorVersion: String by rootProject
 val kotlinCoroutinesVersion: String by rootProject
 val kotlinVersion: String by rootProject
 val logbackVersion: String by rootProject
+val modelixCoreVersion: String by rootProject
 
 plugins {
     kotlin("jvm")
@@ -34,7 +35,7 @@ dependencies {
     implementation("org.zeroturnaround:zt-zip:1.14")
     implementation("org.apache.commons:commons-text:1.9")
     implementation("org.jasypt:jasypt:1.9.3")
-    implementation(project(":model-client", configuration = "jvmRuntimeElements"))
+    implementation("org.modelix:model-client:$modelixCoreVersion")
     implementation(project(":headless-mps"))
     implementation(project(":workspaces"))
     implementation("org.modelix.mpsbuild:build-tools:1.0.0")

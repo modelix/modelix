@@ -1,0 +1,32 @@
+name: org.modelix.entities
+concepts:
+  - name: INamedConcept
+    properties:
+      - name: name
+  - name: Concept1
+    properties:
+      - name: propertyA
+  - name: Entity
+    extends:
+      - INamedConcept
+      - Concept1
+    children:
+      - name: properties
+        type: Property
+        multiple: true
+        optional: true
+  - name: Property
+    extends:
+      - INamedConcept
+    children:
+      - name: type
+        type: Type
+        optional: false
+  - name: Type
+  - name: EntityType
+    extends:
+      - Type
+    references:
+      - name: entity
+        type: Entity
+        optional: false

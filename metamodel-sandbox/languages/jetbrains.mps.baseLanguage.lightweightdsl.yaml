@@ -1,0 +1,286 @@
+name: "jetbrains.mps.baseLanguage.lightweightdsl"
+concepts:
+- name: "MethodInstance"
+  abstract: false
+  properties: []
+  children: []
+  references:
+  - name: "decl"
+    type: "jetbrains.mps.baseLanguage.lightweightdsl.MethodDescriptor"
+    optional: false
+  extends:
+  - "jetbrains.mps.baseLanguage.InstanceMethodDeclaration"
+  - "jetbrains.mps.baseLanguage.lightweightdsl.MemberInstance"
+- name: "DependentTypeDescriptor"
+  abstract: false
+  properties: []
+  children:
+  - name: "getter"
+    type: "jetbrains.mps.baseLanguage.closures.ClosureLiteral"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.Type"
+- name: "DSLDescriptor"
+  abstract: false
+  properties: []
+  children:
+  - name: "initializer"
+    type: "jetbrains.mps.baseLanguage.closures.ClosureLiteral"
+    multiple: false
+    optional: true
+  - name: "classLikeMember"
+    type: "jetbrains.mps.baseLanguage.lightweightdsl.DSLClassMember"
+    multiple: true
+    optional: true
+  - name: "implModel"
+    type: "jetbrains.mps.lang.modelapi.ModelIdentity"
+    multiple: false
+    optional: true
+  references:
+  - name: "preferredConcept"
+    type: "jetbrains.mps.lang.structure.ConceptDeclaration"
+    optional: true
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+  - "jetbrains.mps.baseLanguage.IValidIdentifier"
+- name: "ParameterDescriptor"
+  abstract: false
+  properties: []
+  children:
+  - name: "type"
+    type: "jetbrains.mps.baseLanguage.Type"
+    multiple: false
+    optional: false
+  - name: "condition"
+    type: "jetbrains.mps.baseLanguage.closures.ClosureLiteral"
+    multiple: false
+    optional: true
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+  - "jetbrains.mps.baseLanguage.IValidIdentifier"
+- name: "MethodDescriptor"
+  abstract: false
+  properties: []
+  children:
+  - name: "param"
+    type: "jetbrains.mps.baseLanguage.lightweightdsl.ParameterDescriptor"
+    multiple: true
+    optional: true
+  - name: "retType"
+    type: "jetbrains.mps.baseLanguage.Type"
+    multiple: false
+    optional: true
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+  - "jetbrains.mps.baseLanguage.IValidIdentifier"
+  - "jetbrains.mps.baseLanguage.lightweightdsl.DSLClassMember"
+- name: "DependentTypeInstance"
+  abstract: false
+  properties: []
+  children: []
+  references:
+  - name: "decl"
+    type: "jetbrains.mps.baseLanguage.lightweightdsl.DependentTypeDescriptor"
+    optional: false
+  - name: "point"
+    type: "jetbrains.mps.lang.core.BaseConcept"
+    optional: false
+  extends:
+  - "jetbrains.mps.baseLanguage.Type"
+- name: "DSLAnnotation"
+  abstract: false
+  properties: []
+  children: []
+  references:
+  - name: "descriptor"
+    type: "jetbrains.mps.baseLanguage.lightweightdsl.DSLDescriptor"
+    optional: false
+  extends:
+  - "jetbrains.mps.lang.core.NodeAttribute"
+- name: "MemberModifier"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends: []
+- name: "RequiredModifier"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+  - "jetbrains.mps.baseLanguage.lightweightdsl.MemberModifier"
+- name: "PropertyDescriptor"
+  abstract: false
+  properties: []
+  children: []
+  references:
+  - name: "type"
+    type: "jetbrains.mps.lang.structure.PrimitiveDataTypeDeclaration"
+    optional: false
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+  - "jetbrains.mps.baseLanguage.IValidIdentifier"
+  - "jetbrains.mps.baseLanguage.lightweightdsl.DSLClassMember"
+- name: "DSLClassMember"
+  abstract: true
+  properties: []
+  children:
+  - name: "modifier"
+    type: "jetbrains.mps.baseLanguage.lightweightdsl.MemberModifier"
+    multiple: true
+    optional: true
+  references: []
+  extends: []
+- name: "PlaceholderModifier"
+  abstract: false
+  properties:
+  - name: "caption"
+    type: "STRING"
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+  - "jetbrains.mps.baseLanguage.lightweightdsl.MemberModifier"
+- name: "CustomMemberDescriptor"
+  abstract: false
+  properties: []
+  children: []
+  references:
+  - name: "cncpt"
+    type: "jetbrains.mps.lang.structure.ConceptDeclaration"
+    optional: false
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+  - "jetbrains.mps.baseLanguage.lightweightdsl.DSLClassMember"
+  - "jetbrains.mps.lang.core.INamedConcept"
+- name: "MemberPlaceholder"
+  abstract: false
+  properties:
+  - name: "caption"
+    type: "STRING"
+  children: []
+  references:
+  - name: "decl"
+    type: "jetbrains.mps.baseLanguage.lightweightdsl.DSLClassMember"
+    optional: false
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+  - "jetbrains.mps.baseLanguage.lightweightdsl.MemberInstance"
+  - "jetbrains.mps.baseLanguage.ClassifierMember"
+- name: "PropertyInstance"
+  abstract: true
+  properties: []
+  children: []
+  references:
+  - name: "decl"
+    type: "jetbrains.mps.baseLanguage.lightweightdsl.PropertyDescriptor"
+    optional: false
+  extends:
+  - "jetbrains.mps.baseLanguage.FieldDeclaration"
+  - "jetbrains.mps.baseLanguage.lightweightdsl.MemberInstance"
+- name: "MemberInstance"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends: []
+- name: "StringPropertyInstance"
+  abstract: false
+  properties:
+  - name: "value"
+    type: "STRING"
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.lightweightdsl.PropertyInstance"
+- name: "BooleanPropertyInstance"
+  abstract: false
+  properties:
+  - name: "value"
+    type: "STRING"
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.lightweightdsl.PropertyInstance"
+- name: "IntegerPropertyInstance"
+  abstract: false
+  properties:
+  - name: "value"
+    type: "STRING"
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.lightweightdsl.PropertyInstance"
+- name: "EmptyMemberDescriptor"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+  - "jetbrains.mps.baseLanguage.lightweightdsl.DSLClassMember"
+- name: "GenerateModifier"
+  abstract: false
+  properties:
+  - name: "name"
+    type: "STRING"
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+  - "jetbrains.mps.baseLanguage.lightweightdsl.MemberModifier"
+- name: "MultipleModifier"
+  abstract: false
+  properties:
+  - name: "name"
+    type: "STRING"
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+  - "jetbrains.mps.baseLanguage.lightweightdsl.MemberModifier"
+- name: "AutoInitDSLClass"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends: []
+- name: "MethodParameterInstance"
+  abstract: false
+  properties: []
+  children: []
+  references:
+  - name: "decl"
+    type: "jetbrains.mps.baseLanguage.lightweightdsl.ParameterDescriptor"
+    optional: false
+  extends:
+  - "jetbrains.mps.baseLanguage.ParameterDeclaration"
+- name: "DefaultModifier"
+  abstract: false
+  properties: []
+  children:
+  - name: "value"
+    type: "jetbrains.mps.baseLanguage.lightweightdsl.PropertyInstance"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+  - "jetbrains.mps.baseLanguage.lightweightdsl.MemberModifier"
+- name: "ImplementationCode"
+  abstract: false
+  properties: []
+  children: []
+  references:
+  - name: "descriptor"
+    type: "jetbrains.mps.baseLanguage.lightweightdsl.DSLDescriptor"
+    optional: false
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+  - "jetbrains.mps.lang.core.INamedConcept"

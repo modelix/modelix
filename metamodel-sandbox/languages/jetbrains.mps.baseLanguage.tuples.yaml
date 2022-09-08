@@ -1,0 +1,125 @@
+name: "jetbrains.mps.baseLanguage.tuples"
+concepts:
+- name: "IndexedTupleType"
+  abstract: false
+  properties: []
+  children:
+  - name: "componentType"
+    type: "jetbrains.mps.baseLanguage.Type"
+    multiple: true
+    optional: true
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.Type"
+  - "jetbrains.mps.baseLanguage.IGenericType"
+- name: "IndexedTupleLiteral"
+  abstract: false
+  properties: []
+  children:
+  - name: "component"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: true
+    optional: true
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.Expression"
+- name: "IndexedTupleMemberAccessExpression"
+  abstract: false
+  properties: []
+  children:
+  - name: "tuple"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: false
+    optional: false
+  - name: "index"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.Expression"
+- name: "NamedTupleDeclaration"
+  abstract: false
+  properties: []
+  children:
+  - name: "component"
+    type: "jetbrains.mps.baseLanguage.tuples.NamedTupleComponentDeclaration"
+    multiple: true
+    optional: true
+  - name: "extended"
+    type: "jetbrains.mps.baseLanguage.tuples.NamedTupleType"
+    multiple: false
+    optional: true
+  - name: "implements"
+    type: "jetbrains.mps.baseLanguage.ClassifierType"
+    multiple: true
+    optional: true
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.Classifier"
+  - "jetbrains.mps.baseLanguage.IBLDeprecatable"
+- name: "NamedTupleComponentDeclaration"
+  abstract: false
+  properties:
+  - name: "final"
+    type: "STRING"
+  children:
+  - name: "type"
+    type: "jetbrains.mps.baseLanguage.Type"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+  - "jetbrains.mps.baseLanguage.IValidIdentifier"
+  - "jetbrains.mps.baseLanguage.HasAnnotation"
+  - "jetbrains.mps.baseLanguage.TypeDerivable"
+  - "jetbrains.mps.baseLanguage.TypeAnnotable"
+  - "jetbrains.mps.lang.core.IResolveInfo"
+- name: "NamedTupleType"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.ClassifierType"
+  - "jetbrains.mps.baseLanguage.IGenericType"
+- name: "NamedTupleLiteral"
+  abstract: false
+  properties: []
+  children:
+  - name: "componentRef"
+    type: "jetbrains.mps.baseLanguage.tuples.NamedTupleComponentReference"
+    multiple: true
+    optional: true
+  references:
+  - name: "tupleDeclaration"
+    type: "jetbrains.mps.baseLanguage.tuples.NamedTupleDeclaration"
+    optional: false
+  extends:
+  - "jetbrains.mps.baseLanguage.Expression"
+- name: "NamedTupleComponentReference"
+  abstract: false
+  properties: []
+  children:
+  - name: "value"
+    type: "jetbrains.mps.baseLanguage.Expression"
+    multiple: false
+    optional: false
+  references:
+  - name: "componentDeclaration"
+    type: "jetbrains.mps.baseLanguage.tuples.NamedTupleComponentDeclaration"
+    optional: false
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+- name: "NamedTupleComponentAccessOperation"
+  abstract: false
+  properties: []
+  children: []
+  references:
+  - name: "component"
+    type: "jetbrains.mps.baseLanguage.tuples.NamedTupleComponentDeclaration"
+    optional: false
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+  - "jetbrains.mps.baseLanguage.IOperation"

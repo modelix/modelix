@@ -20,6 +20,7 @@ defaultTasks.add("build")
 }*/
 
 val mpsExtensionsVersion: String by project
+val modelixCoreVersion: String by rootProject
 val ktorVersion: String by rootProject
 val kotlinCoroutinesVersion: String by rootProject
 val kotlinVersion: String by rootProject
@@ -28,10 +29,10 @@ val logbackVersion: String by rootProject
 dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.2")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.1")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlinCoroutinesVersion")
 
-    implementation("org.modelix:model-api:$mpsExtensionsVersion")
-    implementation(project(":model-client", configuration = "jvmRuntimeElements"))
+    implementation("org.modelix:model-api:$modelixCoreVersion")
+    implementation("org.modelix:model-client:$modelixCoreVersion")
     implementation("org.apache.commons:commons-lang3:3.10")
 
     implementation("org.json:json:20200518")

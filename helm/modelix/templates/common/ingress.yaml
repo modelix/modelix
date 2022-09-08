@@ -5,6 +5,10 @@ metadata:
   annotations:
     nginx.ingress.kubernetes.io/use-regex: "true"
     nginx.ingress.kubernetes.io/proxy-body-size: 200m
+    {{ if and (not .Values.ingress.tls.crt) (not .Values.ingress.certSecret) }}
+    # self-signed certificate. Allow http to avoid certificate errors.
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+    {{ end }}
 spec:
   ingressClassName: nginx
   tls:

@@ -1,0 +1,328 @@
+name: "jetbrains.mps.lang.core"
+concepts:
+- name: "BaseConcept"
+  abstract: true
+  properties:
+  - name: "shortDescription"
+    type: "STRING"
+  - name: "virtualPackage"
+    type: "STRING"
+  children:
+  - name: "smodelAttribute"
+    type: "jetbrains.mps.lang.core.Attribute"
+    multiple: true
+    optional: true
+  references: []
+  extends: []
+- name: "INamedConcept"
+  abstract: true
+  properties:
+  - name: "name"
+    type: "STRING"
+  children: []
+  references: []
+  extends: []
+- name: "IResolveInfo"
+  abstract: true
+  properties:
+  - name: "resolveInfo"
+    type: "STRING"
+  children: []
+  references: []
+  extends: []
+- name: "IWrapper"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends: []
+- name: "IDeprecatable"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends: []
+- name: "IContainer"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends: []
+- name: "IType"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends: []
+- name: "IMetaLevelChanger"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends: []
+- name: "Attribute"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"
+- name: "LinkAttribute"
+  abstract: false
+  properties:
+  - name: "role_DebugInfo"
+    type: "STRING"
+  - name: "linkId"
+    type: "STRING"
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.Attribute"
+- name: "NodeAttribute"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.Attribute"
+- name: "PropertyAttribute"
+  abstract: false
+  properties:
+  - name: "name_DebugInfo"
+    type: "STRING"
+  - name: "propertyId"
+    type: "STRING"
+  - name: "enumUsageMigrated"
+    type: "STRING"
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.Attribute"
+- name: "ScopeProvider"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends: []
+- name: "IAntisuppressErrors"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends: []
+- name: "ICanSuppressErrors"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends: []
+- name: "ISuppressErrors"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends: []
+- name: "SuppressErrorsAnnotation"
+  abstract: false
+  properties:
+  - name: "filter"
+    type: "STRING"
+  - name: "message"
+    type: "STRING"
+  - name: "comment"
+    type: "STRING"
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.NodeAttribute"
+  - "jetbrains.mps.lang.core.ISuppressErrors"
+- name: "IDontSubstituteByDefault"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends: []
+- name: "ScopeFacade"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends: []
+- name: "ImplementationPart"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.ScopeFacade"
+- name: "ImplementationContainer"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends: []
+- name: "InterfacePart"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends: []
+- name: "ImplementationWithStubPart"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.ImplementationPart"
+- name: "IStubForAnotherConcept"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.InterfacePart"
+- name: "SideTransformInfo"
+  abstract: false
+  properties:
+  - name: "side"
+    type: "STRING"
+  - name: "cellId"
+    type: "STRING"
+  - name: "anchorTag"
+    type: "STRING"
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.NodeAttribute"
+- name: "BaseCommentAttribute"
+  abstract: false
+  properties: []
+  children:
+  - name: "commentedNode"
+    type: "jetbrains.mps.lang.core.BaseConcept"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.ChildAttribute"
+  - "jetbrains.mps.lang.core.ISkipConstraintsChecking"
+  - "jetbrains.mps.lang.core.IDontApplyTypesystemRules"
+  - "jetbrains.mps.lang.core.ISuppressErrors"
+- name: "ChildAttribute"
+  abstract: false
+  properties:
+  - name: "role_DebugInfo"
+    type: "STRING"
+  - name: "linkId"
+    type: "STRING"
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.Attribute"
+- name: "ISkipConstraintsChecking"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends: []
+- name: "IDontApplyTypesystemRules"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends: []
+- name: "IOldCommentContainer"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends: []
+- name: "ISmartReferent"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends: []
+- name: "ReviewMigration_old"
+  abstract: false
+  properties:
+  - name: "reasonShort"
+    type: "STRING"
+  - name: "todo"
+    type: "STRING"
+  - name: "readableId"
+    type: "STRING"
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.NodeAttribute"
+  - "jetbrains.mps.lang.core.MigrationAnnotation_old"
+- name: "MigrationAnnotation_old"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends: []
+- name: "BasePlaceholder"
+  abstract: false
+  properties: []
+  children:
+  - name: "content"
+    type: "jetbrains.mps.lang.core.IPlaceholderContent"
+    multiple: false
+    optional: true
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.ChildAttribute"
+- name: "IPlaceholderContent"
+  abstract: true
+  properties: []
+  children: []
+  references: []
+  extends: []
+- name: "MigrationDataAnnotation"
+  abstract: false
+  properties: []
+  children:
+  - name: "dataNode"
+    type: "jetbrains.mps.lang.core.BaseConcept"
+    multiple: false
+    optional: false
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.NodeAttribute"
+  - "jetbrains.mps.lang.core.MigrationAnnotation"
+- name: "MigrationAnnotation"
+  abstract: true
+  properties:
+  - name: "createdByScript"
+    type: "STRING"
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.MigrationAnnotation_old"
+- name: "ReviewMigration"
+  abstract: false
+  properties:
+  - name: "reasonShort"
+    type: "STRING"
+  - name: "todo"
+    type: "STRING"
+  - name: "readableId"
+    type: "STRING"
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.NodeAttribute"
+  - "jetbrains.mps.lang.core.MigrationAnnotation"
+- name: "TypeAnnotated"
+  abstract: false
+  properties: []
+  children:
+  - name: "annotation"
+    type: "jetbrains.mps.lang.core.BaseConcept"
+    multiple: false
+    optional: true
+  references: []
+  extends:
+  - "jetbrains.mps.lang.core.BaseConcept"

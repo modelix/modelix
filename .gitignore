@@ -27,5 +27,7 @@ source_gen.caches
 **/.mps/cloudResources.xml
 
 !/projector-user-home/**/*
-.mps-caches
 .gitattributes
+.mps-caches
+
+**/src/*/kotlin_gen

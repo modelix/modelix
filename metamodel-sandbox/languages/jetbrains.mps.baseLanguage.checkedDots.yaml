@@ -1,0 +1,9 @@
+name: "jetbrains.mps.baseLanguage.checkedDots"
+concepts:
+- name: "CheckedDotExpression"
+  abstract: false
+  properties: []
+  children: []
+  references: []
+  extends:
+  - "jetbrains.mps.baseLanguage.DotExpression"
