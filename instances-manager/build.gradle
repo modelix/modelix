@@ -53,7 +53,7 @@ dependencies {
 
     implementation("org.modelix:model-client:$modelixCoreVersion")
     implementation(project(path: ":workspaces"))
-    implementation(project(path: ":authorization"))
+    implementation("org.modelix:authorization:$modelixCoreVersion")
     implementation("com.auth0:java-jwt:3.19.2")
 
     implementation(group: "io.ktor", name: "ktor-server-core", version: ktorVersion)

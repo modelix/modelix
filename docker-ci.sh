@@ -15,7 +15,6 @@ echo "MPS Minor Version: $mpsMinorVersion"
 docker login -u "$DOCKER_HUB_USER" -p "$DOCKER_HUB_KEY"
 
 ./docker-build-db.sh
-./docker-build-model.sh
 ./docker-build-mps.sh
 ./docker-build-base.sh
 ./docker-build-ui.sh
@@ -32,7 +31,7 @@ TAGS="$MODELIX_VERSION mps-$mpsVersion"
 if [ "$mpsVersion" != "$mpsMajorVersion" ]; then
     TAGS="$TAGS mps-$mpsMajorVersion"
 fi
-IMAGE_NAMES="db model mps base ui projector proxy uiproxy instances-manager workspace-manager workspace-client"
+IMAGE_NAMES="db mps base ui projector proxy uiproxy instances-manager workspace-manager workspace-client"
 for TAG in $TAGS ; do
   echo "Pushing Tag $TAG"
 
