@@ -1681,30 +1681,22 @@
             <node concept="3uibUv" id="5yNJPA6tJXv" role="1tU5fm">
               <ref role="3uigEE" to="guwi:~File" resolve="File" />
             </node>
-            <node concept="2ShNRf" id="5yNJPA6tK7e" role="33vP2m">
-              <node concept="1pGfFk" id="5yNJPA6tKk3" role="2ShVmc">
+            <node concept="2ShNRf" id="5yNJPA6tLXV" role="33vP2m">
+              <node concept="1pGfFk" id="5yNJPA6tMjn" role="2ShVmc">
                 <ref role="37wK5l" to="guwi:~File.&lt;init&gt;(java.io.File,java.lang.String)" resolve="File" />
-                <node concept="2ShNRf" id="5yNJPA6tLXV" role="37wK5m">
-                  <node concept="1pGfFk" id="5yNJPA6tMjn" role="2ShVmc">
+                <node concept="2ShNRf" id="5yNJPA6tNaJ" role="37wK5m">
+                  <node concept="1pGfFk" id="5yNJPA6tNwH" role="2ShVmc">
                     <ref role="37wK5l" to="guwi:~File.&lt;init&gt;(java.io.File,java.lang.String)" resolve="File" />
-                    <node concept="2ShNRf" id="5yNJPA6tNaJ" role="37wK5m">
-                      <node concept="1pGfFk" id="5yNJPA6tNwH" role="2ShVmc">
-                        <ref role="37wK5l" to="guwi:~File.&lt;init&gt;(java.io.File,java.lang.String)" resolve="File" />
-                        <node concept="37vLTw" id="5yNJPA6tO6p" role="37wK5m">
-                          <ref role="3cqZAo" node="5yNJPA6tJp2" resolve="modelixRootDir" />
-                        </node>
-                        <node concept="Xl_RD" id="5yNJPA6tOqm" role="37wK5m">
-                          <property role="Xl_RC" value="model-server" />
-                        </node>
-                      </node>
+                    <node concept="37vLTw" id="5yNJPA6tO6p" role="37wK5m">
+                      <ref role="3cqZAo" node="5yNJPA6tJp2" resolve="modelixRootDir" />
                     </node>
-                    <node concept="Xl_RD" id="5yNJPA6tMIY" role="37wK5m">
-                      <property role="Xl_RC" value="build" />
+                    <node concept="Xl_RD" id="5yNJPA6tOqm" role="37wK5m">
+                      <property role="Xl_RC" value="artifacts" />
                     </node>
                   </node>
                 </node>
-                <node concept="Xl_RD" id="5yNJPA6tLAH" role="37wK5m">
-                  <property role="Xl_RC" value="libs" />
+                <node concept="Xl_RD" id="5yNJPA6tMIY" role="37wK5m">
+                  <property role="Xl_RC" value="model-server" />
                 </node>
               </node>
             </node>
@@ -1723,7 +1715,7 @@
                   <ref role="3cqZAo" node="5yNJPA6tJXu" resolve="modelServerBuildLibsDir" />
                 </node>
                 <node concept="Xl_RD" id="5yNJPA6tLdv" role="37wK5m">
-                  <property role="Xl_RC" value="model-server-latest-fatJar.jar" />
+                  <property role="Xl_RC" value="model-server-fatjar.jar" />
                 </node>
               </node>
             </node>
@@ -6156,13 +6148,8 @@
                     <node concept="2OqwBi" id="P$XCSQMSkm" role="37wK5m">
                       <node concept="2OqwBi" id="P$XCSQMRYv" role="2Oq$k0">
                         <node concept="2OqwBi" id="P$XCSQMR6I" role="2Oq$k0">
-                          <node concept="2OqwBi" id="P$XCSQMQha" role="2Oq$k0">
-                            <node concept="37vLTw" id="P$XCSQMQ51" role="2Oq$k0">
-                              <ref role="3cqZAo" node="5yNJPA6tHyo" resolve="pathToJar" />
-                            </node>
-                            <node concept="liA8E" id="P$XCSQMQKo" role="2OqNvi">
-                              <ref role="37wK5l" to="guwi:~File.getParentFile()" resolve="getParentFile" />
-                            </node>
+                          <node concept="37vLTw" id="P$XCSQMQ51" role="2Oq$k0">
+                            <ref role="3cqZAo" node="5yNJPA6tHyo" resolve="pathToJar" />
                           </node>
                           <node concept="liA8E" id="P$XCSQMRB_" role="2OqNvi">
                             <ref role="37wK5l" to="guwi:~File.getParentFile()" resolve="getParentFile" />
