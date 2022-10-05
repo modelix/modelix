@@ -43,7 +43,7 @@ dependencies {
     implementation(project(":headless-mps"))
     implementation(project(":workspaces"))
     implementation(project(":gitui"))
-    implementation(project(":authorization"))
+    implementation("org.modelix:authorization:$modelixCoreVersion")
     implementation("org.modelix.mpsbuild:build-tools:1.0.6")
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.6.0")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
