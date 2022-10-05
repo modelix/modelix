@@ -13,7 +13,6 @@
  */
 package org.modelix.instancesmanager
 
-import org.apache.log4j.Logger
 import org.eclipse.jetty.server.Request
 import org.eclipse.jetty.server.handler.AbstractHandler
 import javax.servlet.http.HttpServletRequest
@@ -79,6 +78,6 @@ class DeploymentManagingHandler : AbstractHandler() {
     }
 
     companion object {
-        private val LOG = Logger.getLogger(DeploymentManagingHandler::class.java)
+        private val LOG = mu.KotlinLogging.logger {}
     }
 }
