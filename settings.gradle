@@ -1,7 +1,6 @@
 rootProject.name = 'modelix'
 
 include 'ui-client'
-include 'model-server'
 include 'mps'
 include 'ui-server'
 include 'ui-proxy'
@@ -14,4 +13,3 @@ include 'workspace-manager'
 include 'workspace-client'
 include 'headless-mps'
 include 'gitui'
-include 'authorization'
