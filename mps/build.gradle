@@ -56,9 +56,11 @@ task resolveMps(type: Copy) {
     }
     into mpsDir
 }
+
 task resolveModelServer(type: Copy) {
+    dependsOn configurations.modelServer
     from {
-        configurations.modelServer.resolve()
+        configurations.modelServer
     }
     into modelServerDir
     rename { String fileName ->
@@ -200,7 +202,8 @@ task setExecutionModeToIntegrationTests() {
     }
 }
 
-task justRunIntegrationTests(type: RunAntScript, dependsOn: [ensurePrintEnvHasRightPermissions, setExecutionModeToIntegrationTests]) {
+task justRunIntegrationTests(type: RunAntScript, dependsOn: [resolveModelServer, ensurePrintEnvHasRightPermissions, setExecutionModeToIntegrationTests]) {
+    dependsOn(":mps:resolveModelServer")
     targets = ['run.org.modelix.integrationtests']
     scriptArgs = (defaultAntScriptArgs + ['-Dmodelix.executionMode=INTEGRATION_TESTS','-Dmps.macro.modelix.executionMode=INTEGRATION_TESTS'])
     scriptClasspath = buildScriptClasspath
