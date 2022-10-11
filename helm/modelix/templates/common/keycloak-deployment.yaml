@@ -82,6 +82,13 @@ spec:
           httpGet:
             path: /realms/master
             port: 8080
+        resources:
+          requests:
+            memory: "500Mi"
+            cpu: "0.1"
+          limits:
+            memory: "500Mi"
+            cpu: "1.0"
         volumeMounts:
           - name: keycloak-volume
             mountPath: /opt/keycloak/data/import

@@ -13,7 +13,6 @@
  */
 package org.modelix.instancesmanager
 
-import org.apache.log4j.Logger
 import org.eclipse.jetty.client.HttpClient
 import org.eclipse.jetty.proxy.ProxyServlet
 import org.eclipse.jetty.websocket.api.Session
@@ -197,7 +196,6 @@ abstract class ProxyServletWithWebsocketSupport : ProxyServlet() {
     }
 
     companion object {
-        // --------------------------- copied from org.modelix.instancesmanager.WebSocketProxyServlet ----------------------
-        private val LOG = Logger.getLogger(WebSocketProxyServlet::class.java)
+        private val LOG = mu.KotlinLogging.logger {}
     }
 }

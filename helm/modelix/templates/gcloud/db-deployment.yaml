@@ -35,7 +35,10 @@ spec:
         resources:
           requests:
             memory: "50Mi"
-            cpu: "0.01"          
+            cpu: "0.01"
+          limits:
+            memory: "100Mi"
+            cpu: "1.0"
         readinessProbe:
           tcpSocket:
             port: 5432
