@@ -6,7 +6,7 @@ cd "$(dirname "$0")"
 
 while IFS='=' read -r key value
 do
-  if [[ "modelixCoreVersion" == "${key}" ]]; then
+  if [ "modelixCoreVersion" = "${key}" ]; then
     eval "${key}"=\${value}
   fi
 done < "../gradle.properties"
