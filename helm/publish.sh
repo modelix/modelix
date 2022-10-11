@@ -5,6 +5,7 @@ set -o xtrace
 
 cd "$(dirname "$0")"
 
+TAG=$( ../modelix-version.sh )
 ./update-versions.sh
 
 mkdir -p repo
