@@ -36,6 +36,13 @@ spec:
         volumeMounts:
         - mountPath: /var/lib/postgresql/data
           name: db-data
+        resources:
+          requests:
+            memory: "500Mi"
+            cpu: "0.1"
+          limits:
+            memory: "500Mi"
+            cpu: "1.0"
         readinessProbe:
           tcpSocket:
             port: 5432

@@ -14,7 +14,6 @@
 package org.modelix.instancesmanager
 
 import io.kubernetes.client.openapi.ApiException
-import org.apache.log4j.Logger
 import org.eclipse.jetty.server.Request
 import org.eclipse.jetty.server.Server
 import org.eclipse.jetty.server.handler.DefaultHandler
@@ -32,7 +31,7 @@ import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
 object Main {
-    private val LOG = Logger.getLogger(Main::class.java)
+    private val LOG = mu.KotlinLogging.logger {}
     @JvmStatic
     fun main(args: Array<String>) {
         try {
