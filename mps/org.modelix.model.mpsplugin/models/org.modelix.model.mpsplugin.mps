@@ -12307,6 +12307,189 @@
             </node>
           </node>
         </node>
+        <node concept="3clFbH" id="4dZVVsUX9aY" role="3cqZAp" />
+        <node concept="2Gpval" id="4dZVVsVVGqV" role="3cqZAp">
+          <node concept="2GrKxI" id="4dZVVsVVGqX" role="2Gsz3X">
+            <property role="TrG5h" value="facet" />
+          </node>
+          <node concept="2OqwBi" id="4dZVVsVW1sx" role="2GsD0m">
+            <node concept="37vLTw" id="4dZVVsVVXDc" role="2Oq$k0">
+              <ref role="3cqZAo" node="29etMtbjRmF" resolve="module" />
+            </node>
+            <node concept="liA8E" id="4dZVVsVW5V5" role="2OqNvi">
+              <ref role="37wK5l" to="jks5:~INode.getChildren(java.lang.String)" resolve="getChildren" />
+              <node concept="Xl_RD" id="4dZVVsVWanR" role="37wK5m">
+                <property role="Xl_RC" value="facets" />
+              </node>
+            </node>
+          </node>
+          <node concept="3clFbS" id="4dZVVsVVGr1" role="2LFqv$">
+            <node concept="3clFbJ" id="4dZVVsVXjmb" role="3cqZAp">
+              <node concept="2OqwBi" id="4dZVVsVXFbR" role="3clFbw">
+                <node concept="2OqwBi" id="4dZVVsVXt$S" role="2Oq$k0">
+                  <node concept="2GrUjf" id="4dZVVsVXnMq" role="2Oq$k0">
+                    <ref role="2Gs0qQ" node="4dZVVsVVGqX" resolve="facet" />
+                  </node>
+                  <node concept="liA8E" id="4dZVVsVXyd6" role="2OqNvi">
+                    <ref role="37wK5l" to="jks5:~INode.getConcept()" resolve="getConcept" />
+                  </node>
+                </node>
+                <node concept="liA8E" id="4dZVVsVXJM9" role="2OqNvi">
+                  <ref role="37wK5l" to="jks5:~IConcept.isSubConceptOf(org.modelix.model.api.IConcept)" resolve="isSubConceptOf" />
+                  <node concept="2YIFZM" id="4dZVVsVXVnb" role="37wK5m">
+                    <ref role="37wK5l" to="xxte:3ECE8iPOmg5" resolve="wrap" />
+                    <ref role="1Pybhc" to="xxte:5gTrVpGjuL2" resolve="SConceptAdapter" />
+                    <node concept="35c_gC" id="4dZVVsVY05a" role="37wK5m">
+                      <ref role="35c_gD" to="jh6v:1UvRDkPap5A" resolve="JavaModuleFacet" />
+                    </node>
+                  </node>
+                </node>
+              </node>
+              <node concept="3clFbS" id="4dZVVsVXjmd" role="3clFbx">
+                <node concept="3cpWs8" id="4dZVVsVKq9q" role="3cqZAp">
+                  <node concept="3cpWsn" id="4dZVVsVKq9r" role="3cpWs9">
+                    <property role="TrG5h" value="javaFacetMemento" />
+                    <node concept="3uibUv" id="4dZVVsVKq9s" role="1tU5fm">
+                      <ref role="3uigEE" to="dush:~Memento" resolve="Memento" />
+                    </node>
+                    <node concept="2ShNRf" id="4dZVVsVKE$E" role="33vP2m">
+                      <node concept="1pGfFk" id="4dZVVsVKS_t" role="2ShVmc">
+                        <ref role="37wK5l" to="pa15:~MementoImpl.&lt;init&gt;()" resolve="MementoImpl" />
+                      </node>
+                    </node>
+                  </node>
+                </node>
+                <node concept="3cpWs8" id="4dZVVsVLwBe" role="3cqZAp">
+                  <node concept="3cpWsn" id="4dZVVsVLwBf" role="3cpWs9">
+                    <property role="TrG5h" value="javaFacetClassesMemento" />
+                    <node concept="3uibUv" id="4dZVVsVLwBg" role="1tU5fm">
+                      <ref role="3uigEE" to="dush:~Memento" resolve="Memento" />
+                    </node>
+                    <node concept="2OqwBi" id="4dZVVsVM74h" role="33vP2m">
+                      <node concept="37vLTw" id="4dZVVsVM4XX" role="2Oq$k0">
+                        <ref role="3cqZAo" node="4dZVVsVKq9r" resolve="javaFacetMemento" />
+                      </node>
+                      <node concept="liA8E" id="4dZVVsVMbPC" role="2OqNvi">
+                        <ref role="37wK5l" to="dush:~Memento.createChild(java.lang.String)" resolve="createChild" />
+                        <node concept="Xl_RD" id="4dZVVsVMfeQ" role="37wK5m">
+                          <property role="Xl_RC" value="classes" />
+                        </node>
+                      </node>
+                    </node>
+                  </node>
+                </node>
+                <node concept="3clFbF" id="4dZVVsVMpeb" role="3cqZAp">
+                  <node concept="2OqwBi" id="4dZVVsVMrTr" role="3clFbG">
+                    <node concept="37vLTw" id="4dZVVsVMpe9" role="2Oq$k0">
+                      <ref role="3cqZAo" node="4dZVVsVLwBf" resolve="javaFacetClassesMemento" />
+                    </node>
+                    <node concept="liA8E" id="4dZVVsVMwEX" role="2OqNvi">
+                      <ref role="37wK5l" to="dush:~Memento.put(java.lang.String,java.lang.String)" resolve="put" />
+                      <node concept="Xl_RD" id="4dZVVsVMz7N" role="37wK5m">
+                        <property role="Xl_RC" value="generated" />
+                      </node>
+                      <node concept="2OqwBi" id="4dZVVsVZrrF" role="37wK5m">
+                        <node concept="2GrUjf" id="4dZVVsVZmWR" role="2Oq$k0">
+                          <ref role="2Gs0qQ" node="4dZVVsVVGqX" resolve="facet" />
+                        </node>
+                        <node concept="liA8E" id="4dZVVsVZwjj" role="2OqNvi">
+                          <ref role="37wK5l" to="jks5:~INode.getPropertyValue(java.lang.String)" resolve="getPropertyValue" />
+                          <node concept="Xl_RD" id="4dZVVsVZz1q" role="37wK5m">
+                            <property role="Xl_RC" value="generated" />
+                          </node>
+                        </node>
+                      </node>
+                    </node>
+                  </node>
+                </node>
+                <node concept="3clFbF" id="4dZVVsVZR3G" role="3cqZAp">
+                  <node concept="2OqwBi" id="4dZVVsVZTAr" role="3clFbG">
+                    <node concept="37vLTw" id="4dZVVsVZR3E" role="2Oq$k0">
+                      <ref role="3cqZAo" node="4dZVVsVLwBf" resolve="javaFacetClassesMemento" />
+                    </node>
+                    <node concept="liA8E" id="4dZVVsVZXQO" role="2OqNvi">
+                      <ref role="37wK5l" to="dush:~Memento.put(java.lang.String,java.lang.String)" resolve="put" />
+                      <node concept="Xl_RD" id="4dZVVsW02HH" role="37wK5m">
+                        <property role="Xl_RC" value="path" />
+                      </node>
+                      <node concept="2OqwBi" id="4dZVVsW195n" role="37wK5m">
+                        <node concept="2OqwBi" id="4dZVVsW0iK6" role="2Oq$k0">
+                          <node concept="2GrUjf" id="4dZVVsW0gck" role="2Oq$k0">
+                            <ref role="2Gs0qQ" node="4dZVVsVVGqX" resolve="facet" />
+                          </node>
+                          <node concept="liA8E" id="4dZVVsW0l9U" role="2OqNvi">
+                            <ref role="37wK5l" to="jks5:~INode.getPropertyValue(java.lang.String)" resolve="getPropertyValue" />
+                            <node concept="Xl_RD" id="4dZVVsW0niG" role="37wK5m">
+                              <property role="Xl_RC" value="path" />
+                            </node>
+                          </node>
+                        </node>
+                        <node concept="liA8E" id="4dZVVsW1f0o" role="2OqNvi">
+                          <ref role="37wK5l" to="wyt6:~String.replaceAll(java.lang.String,java.lang.String)" resolve="replaceAll" />
+                          <node concept="Xl_RD" id="4dZVVsW1knl" role="37wK5m">
+                            <property role="Xl_RC" value="\\$\\{module\\}" />
+                          </node>
+                          <node concept="2OqwBi" id="4dZVVsW21Sh" role="37wK5m">
+                            <node concept="2OqwBi" id="4dZVVsW1X9P" role="2Oq$k0">
+                              <node concept="37vLTw" id="4dZVVsW1UAS" role="2Oq$k0">
+                                <ref role="3cqZAo" node="29etMtbjRng" resolve="solutionFile" />
+                              </node>
+                              <node concept="liA8E" id="4dZVVsW1Zzn" role="2OqNvi">
+                                <ref role="37wK5l" to="3ju5:~IFile.getParent()" resolve="getParent" />
+                              </node>
+                            </node>
+                            <node concept="liA8E" id="4dZVVsW279s" role="2OqNvi">
+                              <ref role="37wK5l" to="3ju5:~IFile.toRealPath()" resolve="toRealPath" />
+                            </node>
+                          </node>
+                        </node>
+                      </node>
+                    </node>
+                  </node>
+                </node>
+                <node concept="3cpWs8" id="4dZVVsVJqoC" role="3cqZAp">
+                  <node concept="3cpWsn" id="4dZVVsVJqoD" role="3cpWs9">
+                    <property role="TrG5h" value="javaFacetDescriptor" />
+                    <node concept="3uibUv" id="4dZVVsVJqoE" role="1tU5fm">
+                      <ref role="3uigEE" to="w0gx:~ModuleFacetDescriptor" resolve="ModuleFacetDescriptor" />
+                    </node>
+                    <node concept="2ShNRf" id="4dZVVsVJCzc" role="33vP2m">
+                      <node concept="1pGfFk" id="4dZVVsVJIP1" role="2ShVmc">
+                        <ref role="37wK5l" to="w0gx:~ModuleFacetDescriptor.&lt;init&gt;(java.lang.String,org.jetbrains.mps.openapi.persistence.Memento)" resolve="ModuleFacetDescriptor" />
+                        <node concept="10M0yZ" id="4dZVVsVK87Q" role="37wK5m">
+                          <ref role="3cqZAo" to="b0pz:~JavaModuleFacet.FACET_TYPE" resolve="FACET_TYPE" />
+                          <ref role="1PxDUh" to="b0pz:~JavaModuleFacet" resolve="JavaModuleFacet" />
+                        </node>
+                        <node concept="37vLTw" id="4dZVVsVNA7x" role="37wK5m">
+                          <ref role="3cqZAo" node="4dZVVsVKq9r" resolve="javaFacetMemento" />
+                        </node>
+                      </node>
+                    </node>
+                  </node>
+                </node>
+                <node concept="3clFbF" id="4dZVVsVNPxt" role="3cqZAp">
+                  <node concept="2OqwBi" id="4dZVVsVO0uk" role="3clFbG">
+                    <node concept="2OqwBi" id="4dZVVsVNS_O" role="2Oq$k0">
+                      <node concept="37vLTw" id="4dZVVsVNPxr" role="2Oq$k0">
+                        <ref role="3cqZAo" node="29etMtbjRnq" resolve="descriptor" />
+                      </node>
+                      <node concept="liA8E" id="4dZVVsVNYeI" role="2OqNvi">
+                        <ref role="37wK5l" to="w0gx:~ModuleDescriptor.getModuleFacetDescriptors()" resolve="getModuleFacetDescriptors" />
+                      </node>
+                    </node>
+                    <node concept="liA8E" id="4dZVVsVO7eS" role="2OqNvi">
+                      <ref role="37wK5l" to="33ny:~Collection.add(java.lang.Object)" resolve="add" />
+                      <node concept="37vLTw" id="4dZVVsVObVf" role="37wK5m">
+                        <ref role="3cqZAo" node="4dZVVsVJqoD" resolve="javaFacetDescriptor" />
+                      </node>
+                    </node>
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="3clFbH" id="4dZVVsVVBBt" role="3cqZAp" />
         <node concept="3cpWs8" id="29etMtbjRnG" role="3cqZAp">
           <node concept="3cpWsn" id="29etMtbjRnF" role="3cpWs9">
             <property role="TrG5h" value="solution" />
