@@ -29,9 +29,10 @@ spec:
           resources:
             requests:
               memory: "100Mi"
-              cpu: 100m
+              cpu: "0.1"
             limits:
               memory: "200Mi"
+              cpu: "1.0"
           readinessProbe:
             tcpSocket:
               port: 6379
@@ -106,7 +107,8 @@ spec:
           resources:
             requests:
               memory: "100Mi"
-              cpu: 100m
+              cpu: "0.1"
             limits:
               memory: "200Mi"
+              cpu: "1.0"
       {{- include "modelix.pullSecret" . | nindent 6 }}

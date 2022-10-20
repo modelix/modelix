@@ -4078,9 +4078,6 @@
         </node>
         <node concept="3clFbF" id="1zxr641Tpak" role="3cqZAp">
           <node concept="37vLTI" id="1zxr641Tscc" role="3clFbG">
-            <node concept="37vLTw" id="1zxr641Tpai" role="37vLTJ">
-              <ref role="3cqZAo" node="6aRQr1WVnku" resolve="client" />
-            </node>
             <node concept="2ShNRf" id="1zxr641Twwt" role="37vLTx">
               <node concept="1pGfFk" id="1zxr641Twwu" role="2ShVmc">
                 <ref role="37wK5l" to="5440:~RestWebModelClient.&lt;init&gt;(java.lang.String,kotlin.jvm.functions.Function0,java.util.List)" resolve="RestWebModelClient" />
@@ -4103,6 +4100,9 @@
                   </node>
                 </node>
               </node>
+            </node>
+            <node concept="37vLTw" id="1zxr641Tpai" role="37vLTJ">
+              <ref role="3cqZAo" node="6aRQr1WVnku" resolve="client" />
             </node>
           </node>
         </node>
@@ -46328,12 +46328,12 @@
                                                 <node concept="3cpWsn" id="66kvSbil853" role="3cpWs9">
                                                   <property role="TrG5h" value="dsmd" />
                                                   <node concept="3uibUv" id="66kvSbil854" role="1tU5fm">
-                                                    <ref role="3uigEE" to="w1kc:~DefaultSModelDescriptor" resolve="DefaultSModelDescriptor" />
+                                                    <ref role="3uigEE" to="g3l6:~SModelDescriptorStub" resolve="SModelDescriptorStub" />
                                                   </node>
                                                   <node concept="1eOMI4" id="66kvSbil855" role="33vP2m">
                                                     <node concept="10QFUN" id="66kvSbil856" role="1eOMHV">
                                                       <node concept="3uibUv" id="66kvSbil857" role="10QFUM">
-                                                        <ref role="3uigEE" to="w1kc:~DefaultSModelDescriptor" resolve="DefaultSModelDescriptor" />
+                                                        <ref role="3uigEE" to="g3l6:~SModelDescriptorStub" resolve="SModelDescriptorStub" />
                                                       </node>
                                                       <node concept="2OqwBi" id="66kvSbil858" role="10QFUP">
                                                         <node concept="37vLTw" id="66kvSbil859" role="2Oq$k0">

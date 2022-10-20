@@ -14,5 +14,5 @@ dependencies {
     implementation("org.apache.commons:commons-text:1.9")
     implementation("org.jasypt:jasypt:1.9.3")
     implementation("org.modelix:model-client:$modelixCoreVersion")
-    implementation(project(":authorization"))
+    implementation("org.modelix:authorization:$modelixCoreVersion")
 }

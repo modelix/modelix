@@ -22,7 +22,6 @@ import io.kubernetes.client.openapi.models.*
 import io.kubernetes.client.util.ClientBuilder
 import io.kubernetes.client.util.Yaml
 import org.apache.commons.collections4.map.LRUMap
-import org.apache.log4j.Logger
 import org.eclipse.jetty.server.Request
 import org.modelix.authorization.AccessTokenPrincipal
 import org.modelix.workspaces.Workspace
@@ -484,7 +483,7 @@ class DeploymentManager {
     }
 
     companion object {
-        private val LOG = Logger.getLogger(DeploymentManager::class.java)
+        private val LOG = mu.KotlinLogging.logger {}
         val KUBERNETES_NAMESPACE = System.getenv("WORKSPACE_CLIENT_NAMESPACE") ?: "default"
         val PERSONAL_DEPLOYMENT_PREFIX = System.getenv("WORKSPACE_CLIENT_PREFIX") ?: "wsclt-"
         val WORKSPACE_CLIENT_DEPLOYMENT_NAME = System.getenv("WORKSPACE_CLIENT_DEPLOYMENT_NAME") ?: "workspace-client"
