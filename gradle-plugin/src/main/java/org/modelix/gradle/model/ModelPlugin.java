@@ -75,7 +75,7 @@ class MyServerSocketThread extends Thread {
                 String messageReceived = in.readLine();
                 if (messageReceived == null) {
                     eof = true;
-                    System.out.println("MyServerSocketThread received from Download Task: null");
+                    System.out.println("MyServerSocketThread received from Download Task a null message");
                 } else {
                     System.out.println("MyServerSocketThread received from Download Task: " + messageReceived);
                     if (!askedToDie) {
@@ -237,7 +237,7 @@ public class ModelPlugin implements Plugin<Project> {
                     System.out.println("Exit value was " + exitValue);
                     if (serverSocketThread.failed()) {
                         System.err.println("Execution of ExportMain failed");
-                        throw new RuntimeException();
+                        throw new RuntimeException("Throwing exception as the Execution of ExportMain failed, as learned from the Server Socket Thread");
                     }
                     if (!serverSocketThread.succedeed()) {
                         System.err.println("Execution of ExportMain does not indicate success");
