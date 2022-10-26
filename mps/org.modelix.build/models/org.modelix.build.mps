@@ -4692,6 +4692,16 @@
             </node>
           </node>
         </node>
+        <node concept="1SiIV0" id="7gnP_P5m4E8" role="3bR37C">
+          <node concept="3bR9La" id="7gnP_P5m4E9" role="1SiIV1">
+            <ref role="3bR37D" to="ffeo:1ia2VB5guYy" resolve="MPS.IDEA" />
+          </node>
+        </node>
+        <node concept="1SiIV0" id="7gnP_P5m4Ea" role="3bR37C">
+          <node concept="3bR9La" id="7gnP_P5m4Eb" role="1SiIV1">
+            <ref role="3bR37D" to="ffeo:1TaHNgiIbJb" resolve="MPS.Platform" />
+          </node>
+        </node>
       </node>
       <node concept="1E1JtA" id="7gF2HTviNPs" role="2G$12L">
         <property role="BnDLt" value="true" />
@@ -5499,14 +5509,14 @@
         <node concept="3LEDTy" id="2lHmTxi0mzK" role="3LEDUa">
           <ref role="3LEDTV" to="90a9:4iIKqJTZ5Hg" resolve="de.q60.mps.shadowmodels.gen.afterPF" />
         </node>
-        <node concept="3LEDTy" id="77LPGLp1bF2" role="3LEDUa">
+        <node concept="3LEDTy" id="7gnP_P5m4Pn" role="3LEDUa">
           <ref role="3LEDTV" to="ffeo:7Kfy9QB6L9c" resolve="jetbrains.mps.lang.quotation" />
         </node>
-        <node concept="3LEDTy" id="77LPGLp1bF3" role="3LEDUa">
-          <ref role="3LEDTV" to="ffeo:7Kfy9QB6KXW" resolve="jetbrains.mps.lang.core" />
-        </node>
-        <node concept="3LEDTy" id="77LPGLp1bF4" role="3LEDUa">
+        <node concept="3LEDTy" id="7gnP_P5m4Po" role="3LEDUa">
           <ref role="3LEDTV" to="ffeo:7Kfy9QB6KZc" resolve="jetbrains.mps.baseLanguage.checkedDots" />
+        </node>
+        <node concept="3LEDTy" id="7gnP_P5m4Pp" role="3LEDUa">
+          <ref role="3LEDTV" to="ffeo:7Kfy9QB6KXW" resolve="jetbrains.mps.lang.core" />
         </node>
       </node>
       <node concept="1E1JtD" id="7BujJjXYVmv" role="2G$12L">

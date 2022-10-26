@@ -1,8 +1,6 @@
 imageTags:
   db: ""
   instancesManager: ""
-  model: ""
-  oauth: ""
   proxy: ""
   wsClient: ""
   wsManager: ""
