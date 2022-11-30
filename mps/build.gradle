@@ -98,37 +98,69 @@ ext.buildScriptClasspath = project.configurations.ant_lib.fileCollection({ true 
 configurations {
     modelApi
     modelClient
+    lightModelServer
 }
 
 dependencies {
     modelApi("org.modelix:model-api:$modelixCoreVersion")
     modelClient("org.modelix:model-client:$modelixCoreVersion")
+    lightModelServer("org.modelix:light-model-server:$modelixCoreVersion")
 }
+
+def artifactNameWithoutVersion(ResolvedArtifact artifact) {
+    return artifact.moduleVersion.id.name + "." + artifact.extension
+}
+
+def copyJarsWithoutModelApi(Configuration conf, File libFolder) {
+    // copy transitive dependencies without version in the file name
+    // otherwise each new version would require a change of the MPS solution
+
+    def jarsFromModelApi = new HashMap<String, File>()
+    configurations.modelApi.resolvedConfiguration.resolvedArtifacts
+            .forEach { jarsFromModelApi.put(artifactNameWithoutVersion(it), it.file) }
+
+    libFolder.deleteDir()
+    libFolder.mkdir()
+    def versionsFile = file("$libFolder/versions.txt")
+
+    def modelClientResolved = conf.resolvedConfiguration
+    for (final def artifact in modelClientResolved.resolvedArtifacts) {
+        def fromModelApi = jarsFromModelApi.get(artifactNameWithoutVersion(artifact))
+        if (fromModelApi != null) {
+            if (fromModelApi.name == artifact.file.name) {
+                versionsFile.append(artifact.file.name + " (already part of org.modelix.model.api)\n")
+            } else {
+                versionsFile.append(artifact.file.name + " (already part of org.modelix.model.api: " + fromModelApi.name + ")\n")
+            }
+            continue
+        }
+        def sourceFile = java.nio.file.Path.of(artifact.file.absolutePath)
+        def targetFile = java.nio.file.Path.of(libFolder.absolutePath).resolve(artifactNameWithoutVersion(artifact))
+        java.nio.file.Files.copy(sourceFile, targetFile)
+        versionsFile.append(artifact.file.name + "\n")
+    }
+}
+
 
 task copyModelClientToMps() {
     dependsOn configurations.modelApi
     dependsOn configurations.modelClient
     doLast {
-        // copy transitive dependencies without version in the file name
-        // otherwise each new version would require a change of the MPS solution
-
-        def jarsFromModelApi = configurations.modelApi.resolvedConfiguration.resolvedArtifacts
-                .collect { it.file }.toSet()
-
-        def libFolder = file("$projectDir/org.modelix.model.client/lib")
-        libFolder.deleteDir()
-        libFolder.mkdir()
-        def versionsFile = file("$libFolder/versions.txt")
-
-        def modelClientResolved = configurations.modelClient.resolvedConfiguration
-        for (final def artifact in modelClientResolved.resolvedArtifacts) {
-            if (jarsFromModelApi.contains(artifact.file)) continue
-            def sourceFile = java.nio.file.Path.of(artifact.file.absolutePath)
-            def targetFile = java.nio.file.Path.of(libFolder.absolutePath).resolve(artifact.moduleVersion.id.name + "." + artifact.extension)
-            java.nio.file.Files.copy(sourceFile, targetFile)
-            versionsFile.append(artifact.file.name + "\n")
-        }
+        copyJarsWithoutModelApi(configurations.modelClient, file("$projectDir/org.modelix.model.client/lib"))
     }
+}
+
+task copyLightModelServerToMps() {
+    dependsOn configurations.modelApi
+    dependsOn configurations.lightModelServer
+    doLast {
+        copyJarsWithoutModelApi(configurations.lightModelServer, file("$projectDir/org.modelix.model.server.mpsplugin/lib"))
+    }
+}
+
+task copyJarsToMps() {
+    dependsOn(copyModelClientToMps)
+    dependsOn(copyLightModelServerToMps)
 }
 
 // -------------------------------------------
@@ -137,7 +169,8 @@ task generateMpsBuildScript(type: BuildLanguages, dependsOn: [
         resolveMps,
         resolveMpsArtifacts,
         ':ui-client:packageNpmApp',
-        copyModelClientToMps
+        copyModelClientToMps,
+        copyLightModelServerToMps
 ]) {
     scriptArgs = defaultAntScriptArgs
     scriptClasspath = buildScriptClasspath
