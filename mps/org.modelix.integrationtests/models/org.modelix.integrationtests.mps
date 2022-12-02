@@ -49,6 +49,7 @@
     <import index="jks5" ref="cc99dce1-49f3-4392-8dbf-e22ca47bd0af/java:org.modelix.model.api(org.modelix.model.api/)" />
     <import index="qvpu" ref="cc99dce1-49f3-4392-8dbf-e22ca47bd0af/java:org.modelix.model.area(org.modelix.model.api/)" />
     <import index="jh6v" ref="r:f2f39a18-fd23-4090-b7f2-ba8da340eec2(org.modelix.model.repositoryconcepts.structure)" />
+    <import index="i5cy" ref="6354ebe7-c22a-4a0f-ac54-50b52ab9b065/java:java.util.concurrent.atomic(JDK/)" />
     <import index="3ju5" ref="6ed54515-acc8-4d1e-a16c-9fd6cfe951ea/java:jetbrains.mps.vfs(MPS.Core/)" implicit="true" />
     <import index="tpek" ref="r:00000000-0000-4000-0000-011c895902c0(jetbrains.mps.baseLanguage.behavior)" implicit="true" />
   </imports>
@@ -468,10 +469,6 @@
       <concept id="540871147943773365" name="jetbrains.mps.baseLanguage.collections.structure.SingleArgumentSequenceOperation" flags="nn" index="25WWJ4">
         <child id="540871147943773366" name="argument" index="25WWJ7" />
       </concept>
-      <concept id="1226511727824" name="jetbrains.mps.baseLanguage.collections.structure.SetType" flags="in" index="2hMVRd">
-        <child id="1226511765987" name="elementType" index="2hN53Y" />
-      </concept>
-      <concept id="1226516258405" name="jetbrains.mps.baseLanguage.collections.structure.HashSetCreator" flags="nn" index="2i4dXS" />
       <concept id="1151688443754" name="jetbrains.mps.baseLanguage.collections.structure.ListType" flags="in" index="_YKpA">
         <child id="1151688676805" name="elementType" index="_ZDj9" />
       </concept>
@@ -522,7 +519,6 @@
         <child id="1197932505799" name="map" index="3ElQJh" />
         <child id="1197932525128" name="key" index="3ElVtu" />
       </concept>
-      <concept id="1172254888721" name="jetbrains.mps.baseLanguage.collections.structure.ContainsOperation" flags="nn" index="3JPx81" />
     </language>
   </registry>
   <node concept="312cEu" id="4ZsvGZupGNR">
@@ -1452,13 +1448,31 @@
     </node>
     <node concept="2tJIrI" id="7JjSHvQ4c5a" role="jymVt" />
     <node concept="Wx3nA" id="7JjSHvQ4ehg" role="jymVt">
-      <property role="TrG5h" value="usedPorts" />
-      <node concept="2hMVRd" id="7JjSHvQ4ehj" role="1tU5fm">
-        <node concept="10Oyi0" id="7JjSHvQ4ehk" role="2hN53Y" />
+      <property role="TrG5h" value="portNumberSequence" />
+      <node concept="3uibUv" id="1oe$moqkTVd" role="1tU5fm">
+        <ref role="3uigEE" to="i5cy:~AtomicInteger" resolve="AtomicInteger" />
       </node>
-      <node concept="2ShNRf" id="7JjSHvQ4ehl" role="33vP2m">
-        <node concept="2i4dXS" id="7JjSHvQ4ehm" role="2ShVmc">
-          <node concept="10Oyi0" id="7JjSHvQ4ehn" role="HW$YZ" />
+      <node concept="2ShNRf" id="1oe$moqkW1T" role="33vP2m">
+        <node concept="1pGfFk" id="1oe$moqkVXF" role="2ShVmc">
+          <ref role="37wK5l" to="i5cy:~AtomicInteger.&lt;init&gt;(int)" resolve="AtomicInteger" />
+          <node concept="3cpWs3" id="1oe$moqm9$j" role="37wK5m">
+            <node concept="3cmrfG" id="1oe$moqm9Cz" role="3uHU7w">
+              <property role="3cmrfH" value="4000" />
+            </node>
+            <node concept="2OqwBi" id="1oe$moqlQ7m" role="3uHU7B">
+              <node concept="2ShNRf" id="1oe$moqlxce" role="2Oq$k0">
+                <node concept="1pGfFk" id="1oe$moql_WT" role="2ShVmc">
+                  <ref role="37wK5l" to="33ny:~Random.&lt;init&gt;()" resolve="Random" />
+                </node>
+              </node>
+              <node concept="liA8E" id="1oe$moqlTMh" role="2OqNvi">
+                <ref role="37wK5l" to="33ny:~Random.nextInt(int)" resolve="nextInt" />
+                <node concept="3cmrfG" id="1oe$moqm0Wd" role="37wK5m">
+                  <property role="3cmrfH" value="1000" />
+                </node>
+              </node>
+            </node>
+          </node>
         </node>
       </node>
       <node concept="3Tm6S6" id="7JjSHvQ4ehi" role="1B3o_S" />
@@ -1467,8 +1481,13 @@
       <property role="TrG5h" value="modelServerPort" />
       <node concept="3Tm6S6" id="7JjSHvQ4eZm" role="1B3o_S" />
       <node concept="10Oyi0" id="7JjSHvQ4fig" role="1tU5fm" />
-      <node concept="3cmrfG" id="7JjSHvQ4fME" role="33vP2m">
-        <property role="3cmrfH" value="-1" />
+      <node concept="2OqwBi" id="1oe$moql9Ie" role="33vP2m">
+        <node concept="37vLTw" id="1oe$moql620" role="2Oq$k0">
+          <ref role="3cqZAo" node="7JjSHvQ4ehg" resolve="portNumberSequence" />
+        </node>
+        <node concept="liA8E" id="1oe$moqleaq" role="2OqNvi">
+          <ref role="37wK5l" to="i5cy:~AtomicInteger.incrementAndGet()" resolve="incrementAndGet" />
+        </node>
       </node>
     </node>
     <node concept="Wx3nA" id="5i$4SBK2X7W" role="jymVt">
@@ -1532,70 +1551,6 @@
     <node concept="3clFb_" id="7JjSHvQ4ewY" role="jymVt">
       <property role="TrG5h" value="getOwnModelServerPort" />
       <node concept="3clFbS" id="7JjSHvQ4ex1" role="3clF47">
-        <node concept="3clFbJ" id="7JjSHvQ4fU_" role="3cqZAp">
-          <node concept="3clFbC" id="7JjSHvQ4gMP" role="3clFbw">
-            <node concept="3cmrfG" id="7JjSHvQ4gQQ" role="3uHU7w">
-              <property role="3cmrfH" value="-1" />
-            </node>
-            <node concept="37vLTw" id="7JjSHvQ4fYK" role="3uHU7B">
-              <ref role="3cqZAo" node="7JjSHvQ4fmh" resolve="modelServerPort" />
-            </node>
-          </node>
-          <node concept="3clFbS" id="7JjSHvQ4fUB" role="3clFbx">
-            <node concept="3cpWs8" id="7JjSHvQ4gZ7" role="3cqZAp">
-              <node concept="3cpWsn" id="7JjSHvQ4gZa" role="3cpWs9">
-                <property role="TrG5h" value="candidate" />
-                <node concept="10Oyi0" id="7JjSHvQ4gZ6" role="1tU5fm" />
-                <node concept="3cmrfG" id="7JjSHvQ4hav" role="33vP2m">
-                  <property role="3cmrfH" value="4000" />
-                </node>
-              </node>
-            </node>
-            <node concept="2$JKZl" id="5i$4SBK3AMJ" role="3cqZAp">
-              <node concept="3clFbS" id="5i$4SBK3AMT" role="2LFqv$">
-                <node concept="3clFbF" id="5i$4SBK3AMM" role="3cqZAp">
-                  <node concept="3uNrnE" id="5i$4SBK3AMN" role="3clFbG">
-                    <node concept="37vLTw" id="5i$4SBK3AMO" role="2$L3a6">
-                      <ref role="3cqZAo" node="7JjSHvQ4gZa" resolve="candidate" />
-                    </node>
-                  </node>
-                </node>
-              </node>
-              <node concept="2OqwBi" id="5i$4SBK3AMV" role="2$JKZa">
-                <node concept="37vLTw" id="5i$4SBK3AMW" role="2Oq$k0">
-                  <ref role="3cqZAo" node="7JjSHvQ4ehg" resolve="usedPorts" />
-                </node>
-                <node concept="3JPx81" id="5i$4SBK3AMX" role="2OqNvi">
-                  <node concept="37vLTw" id="5i$4SBK3AMY" role="25WWJ7">
-                    <ref role="3cqZAo" node="7JjSHvQ4gZa" resolve="candidate" />
-                  </node>
-                </node>
-              </node>
-            </node>
-            <node concept="3clFbF" id="7JjSHvQ4mes" role="3cqZAp">
-              <node concept="37vLTI" id="7JjSHvQ4mpO" role="3clFbG">
-                <node concept="37vLTw" id="7JjSHvQ4mxJ" role="37vLTx">
-                  <ref role="3cqZAo" node="7JjSHvQ4gZa" resolve="candidate" />
-                </node>
-                <node concept="37vLTw" id="7JjSHvQ4meq" role="37vLTJ">
-                  <ref role="3cqZAo" node="7JjSHvQ4fmh" resolve="modelServerPort" />
-                </node>
-              </node>
-            </node>
-            <node concept="3clFbF" id="7JjSHvQ4mPO" role="3cqZAp">
-              <node concept="2OqwBi" id="7JjSHvQ4noo" role="3clFbG">
-                <node concept="37vLTw" id="7JjSHvQ4mPM" role="2Oq$k0">
-                  <ref role="3cqZAo" node="7JjSHvQ4ehg" resolve="usedPorts" />
-                </node>
-                <node concept="TSZUe" id="7JjSHvQ4oop" role="2OqNvi">
-                  <node concept="37vLTw" id="7JjSHvQ4owg" role="25WWJ7">
-                    <ref role="3cqZAo" node="7JjSHvQ4fmh" resolve="modelServerPort" />
-                  </node>
-                </node>
-              </node>
-            </node>
-          </node>
-        </node>
         <node concept="3cpWs6" id="7JjSHvQ4pi$" role="3cqZAp">
           <node concept="37vLTw" id="7JjSHvQ4prP" role="3cqZAk">
             <ref role="3cqZAo" node="7JjSHvQ4fmh" resolve="modelServerPort" />
