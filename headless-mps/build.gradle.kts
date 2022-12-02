@@ -16,7 +16,12 @@ application {
 val kotlinxSerializationVersion: String by rootProject
 dependencies {
     compileOnly(fileTree("../artifacts/mps/lib") {
-        include("*.jar")
+        include("mps-core.jar")
+        include("mps-environment.jar")
+        include("mps-openapi.jar")
+        include("mps-platform.jar")
+        include("platform-api.jar")
+        include("util.jar")
     })
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:$kotlinxSerializationVersion")
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.6.0")
