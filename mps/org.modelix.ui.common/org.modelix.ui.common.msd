@@ -24,8 +24,6 @@
     <dependency reexport="false">6354ebe7-c22a-4a0f-ac54-50b52ab9b065(JDK)</dependency>
     <dependency reexport="false">0a7577d1-d4e5-431d-98b1-fae38f9aee80(org.modelix.model.repositoryconcepts)</dependency>
     <dependency reexport="false">fc3c2aa8-0d4b-463f-a774-40d450aa04a0(org.modelix.jetty)</dependency>
-    <dependency reexport="false">eb8d1040-bff5-4126-8949-fdd95ef4c502(org.modelix.ui.sm.server)</dependency>
-    <dependency reexport="false">cceec75f-de6e-4ee7-bd91-29a3a99bfede(org.modelix.ui.svg)</dependency>
     <dependency reexport="false">acf6d2e2-4f00-4425-b7e9-fbf011feddf1(org.modelix.common)</dependency>
   </dependencies>
   <languageVersions>
@@ -54,7 +52,6 @@
     <module reference="498d89d2-c2e9-11e2-ad49-6cf049e62fe5(MPS.IDEA)" version="0" />
     <module reference="8865b7a8-5271-43d3-884c-6fd1d9cfdd34(MPS.OpenAPI)" version="0" />
     <module reference="742f6602-5a2f-4313-aa6e-ae1cd4ffdc61(MPS.Platform)" version="0" />
-    <module reference="ecfb9949-7433-4db5-85de-0f84d172e4ce(de.q60.mps.collections.libs)" version="0" />
     <module reference="95085166-3236-4dd7-bd8e-e753c8d20885(de.q60.mps.incremental.runtime)" version="0" />
     <module reference="18463265-6d45-4514-82f1-cf7eb1222492(de.q60.mps.polymorphicfunctions.runtime)" version="0" />
     <module reference="e52a4835-844d-46a1-99f8-c06129db796f(de.q60.mps.shadowmodels.runtime)" version="0" />
@@ -69,9 +66,7 @@
     <module reference="c5e5433e-201f-43e2-ad14-a6cba8c80cd6(org.modelix.model.mpsplugin)" version="0" />
     <module reference="0a7577d1-d4e5-431d-98b1-fae38f9aee80(org.modelix.model.repositoryconcepts)" version="0" />
     <module reference="da981293-1ec2-4df0-95e4-df162984154c(org.modelix.ui.common)" version="0" />
-    <module reference="eb8d1040-bff5-4126-8949-fdd95ef4c502(org.modelix.ui.sm.server)" version="0" />
     <module reference="db058d09-86d2-48ce-b33c-595801a97e6c(org.modelix.ui.state)" version="0" />
-    <module reference="cceec75f-de6e-4ee7-bd91-29a3a99bfede(org.modelix.ui.svg)" version="0" />
   </dependencyVersions>
 </solution>
 

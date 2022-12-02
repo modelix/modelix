@@ -1966,6 +1966,11 @@
             <ref role="3bR37D" to="90a9:5U8hsWC70jw" resolve="org.modelix.model.api" />
           </node>
         </node>
+        <node concept="1SiIV0" id="5rdcegMmoUT" role="3bR37C">
+          <node concept="3bR9La" id="5rdcegMmoUU" role="1SiIV1">
+            <ref role="3bR37D" to="ffeo:4m1I2e4jdlp" resolve="MPS.Boot" />
+          </node>
+        </node>
       </node>
       <node concept="1E1JtA" id="5Sw$pxbQPmv" role="2G$12L">
         <property role="BnDLt" value="true" />
@@ -4626,22 +4631,6 @@
             </node>
           </node>
         </node>
-        <node concept="1SiIV0" id="4nxIG0bJc1_" role="3bR37C">
-          <node concept="1BurEX" id="4nxIG0bJc1A" role="1SiIV1">
-            <node concept="398BVA" id="4nxIG0bJc1s" role="1BurEY">
-              <ref role="398BVh" node="3$7Kuaihl5X" resolve="modelix.modules" />
-              <node concept="2Ry0Ak" id="4nxIG0bJc1t" role="iGT6I">
-                <property role="2Ry0Am" value="org.modelix.model.client" />
-                <node concept="2Ry0Ak" id="4nxIG0bJc1u" role="2Ry0An">
-                  <property role="2Ry0Am" value="lib" />
-                  <node concept="2Ry0Ak" id="4nxIG0bJc1v" role="2Ry0An">
-                    <property role="2Ry0Am" value="slf4j-api.jar" />
-                  </node>
-                </node>
-              </node>
-            </node>
-          </node>
-        </node>
         <node concept="1SiIV0" id="3cfNRjMvkmj" role="3bR37C">
           <node concept="1BurEX" id="3cfNRjMvkmk" role="1SiIV1">
             <node concept="398BVA" id="3cfNRjMvkma" role="1BurEY">
@@ -5553,22 +5542,6 @@
                   <property role="2Ry0Am" value="lib" />
                   <node concept="2Ry0Ak" id="7VLV6fKuWz6" role="2Ry0An">
                     <property role="2Ry0Am" value="netty-transport.jar" />
-                  </node>
-                </node>
-              </node>
-            </node>
-          </node>
-        </node>
-        <node concept="1SiIV0" id="7VLV6fKuWzn" role="3bR37C">
-          <node concept="1BurEX" id="7VLV6fKuWzo" role="1SiIV1">
-            <node concept="398BVA" id="7VLV6fKuWze" role="1BurEY">
-              <ref role="398BVh" node="3$7Kuaihl5X" resolve="modelix.modules" />
-              <node concept="2Ry0Ak" id="7VLV6fKuWzf" role="iGT6I">
-                <property role="2Ry0Am" value="org.modelix.model.server.mpsplugin" />
-                <node concept="2Ry0Ak" id="7VLV6fKuWzg" role="2Ry0An">
-                  <property role="2Ry0Am" value="lib" />
-                  <node concept="2Ry0Ak" id="7VLV6fKuWzh" role="2Ry0An">
-                    <property role="2Ry0Am" value="slf4j-api.jar" />
                   </node>
                 </node>
               </node>

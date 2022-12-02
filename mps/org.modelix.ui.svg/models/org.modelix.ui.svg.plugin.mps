@@ -77,6 +77,7 @@
     <import index="gspm" ref="498d89d2-c2e9-11e2-ad49-6cf049e62fe5/java:com.intellij.openapi.ui.popup(MPS.IDEA/)" />
     <import index="dpdm" ref="1ed103c3-3aa6-49b7-9c21-6765ee11f224/java:jetbrains.mps.nodeEditor.caret(MPS.Editor/)" />
     <import index="nhvc" ref="r:38471075-de8a-4a91-a626-13195397f5c5(org.modelix.model.mpsplugin.plugin)" />
+    <import index="18ex" ref="3a8d80d2-32d9-f1f2-4443-6a1111e12ef3/java:jetbrains.mps.util(MPS.Boot/)" />
     <import index="3d38" ref="r:bc160b50-5a4e-4f99-ba07-a7b7116dab7a(de.q60.mps.incremental.util)" implicit="true" />
   </imports>
   <registry>
@@ -7276,8 +7277,8 @@
               <ref role="1PxDUh" to="hyam:~KeyEvent" resolve="KeyEvent" />
             </node>
             <node concept="10M0yZ" id="7WbdMMEcnLC" role="3K4Cdx">
-              <ref role="3cqZAo" to="18ew:~SystemInfo.isMac" resolve="isMac" />
-              <ref role="1PxDUh" to="18ew:~SystemInfo" resolve="SystemInfo" />
+              <ref role="1PxDUh" to="18ex:~SystemInfo" resolve="SystemInfo" />
+              <ref role="3cqZAo" to="18ex:~SystemInfo.isMac" resolve="isMac" />
             </node>
           </node>
         </node>
