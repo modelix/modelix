@@ -72,7 +72,6 @@
       <sourceRoot location="ktor-websocket-serialization-jvm.jar" />
       <sourceRoot location="ktor-websockets-jvm.jar" />
       <sourceRoot location="listenablefuture.jar" />
-      <sourceRoot location="slf4j-api.jar" />
       <sourceRoot location="model-client-jvm.jar" />
     </modelRoot>
   </models>
@@ -146,7 +145,6 @@
     <stubModelEntry path="${module}/lib/opencensus-api.jar" />
     <stubModelEntry path="${module}/lib/opencensus-contrib-http-util.jar" />
     <stubModelEntry path="${module}/lib/osgi-resource-locator.jar" />
-    <stubModelEntry path="${module}/lib/slf4j-api.jar" />
     <stubModelEntry path="${module}/lib/trove4j.jar" />
     <stubModelEntry path="${module}/lib/vavr-match.jar" />
     <stubModelEntry path="${module}/lib/vavr.jar" />
