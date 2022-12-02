@@ -13,11 +13,12 @@ application {
     mainClassName = "org.modelix.headlessmps.ModelImportMain"
 }
 
+val kotlinxSerializationVersion: String by rootProject
 dependencies {
     compileOnly(fileTree("../artifacts/mps/lib") {
         include("*.jar")
     })
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.2")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:$kotlinxSerializationVersion")
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.6.0")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
 }
