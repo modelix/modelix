@@ -3,7 +3,7 @@
   <persistence version="9" />
   <languages>
     <use id="ef7bf5ac-d06c-4342-b11d-e42104eb9343" name="jetbrains.mps.lang.plugin.standalone" version="0" />
-    <use id="f3061a53-9226-4cc5-a443-f952ceaf5816" name="jetbrains.mps.baseLanguage" version="11" />
+    <use id="f3061a53-9226-4cc5-a443-f952ceaf5816" name="jetbrains.mps.baseLanguage" version="12" />
     <use id="83888646-71ce-4f1c-9c53-c54016f6ad4f" name="jetbrains.mps.baseLanguage.collections" version="1" />
     <use id="bc963c22-d419-49b6-8543-ea411eb9d3a1" name="de.q60.mps.polymorphicfunctions" version="0" />
     <use id="63650c59-16c8-498a-99c8-005c7ee9515d" name="jetbrains.mps.lang.access" version="0" />
@@ -11590,15 +11590,15 @@
                                 <node concept="1pGfFk" id="6I9FalZAW8p" role="2ShVmc">
                                   <ref role="37wK5l" to="2qs1:3pn$gDK_lrS" resolve="LiveHtmlServer" />
                                   <node concept="2YIFZM" id="6I9FalZAYBF" role="37wK5m">
-                                    <ref role="37wK5l" node="6I9FalZAWR4" />
-                                    <ref role="1Pybhc" node="5Sw$pxbNu8p" />
+                                    <ref role="37wK5l" node="6I9FalZAWR4" resolve="getSessionId" />
+                                    <ref role="1Pybhc" node="5Sw$pxbNu8p" resolve="SvgUiServlet" />
                                     <node concept="37vLTw" id="6I9FalZAZl6" role="37wK5m">
                                       <ref role="3cqZAo" node="6I9FalZACNo" resolve="request" />
                                     </node>
                                   </node>
                                   <node concept="2YIFZM" id="1Acnoi_ChnO" role="37wK5m">
-                                    <ref role="37wK5l" node="6rcGC6EIpJs" />
-                                    <ref role="1Pybhc" node="5Sw$pxbNu8p" />
+                                    <ref role="37wK5l" node="6rcGC6EIpJs" resolve="getUser" />
+                                    <ref role="1Pybhc" node="5Sw$pxbNu8p" resolve="SvgUiServlet" />
                                     <node concept="37vLTw" id="1Acnoi_Ci8r" role="37wK5m">
                                       <ref role="3cqZAo" node="6I9FalZACNo" resolve="request" />
                                     </node>
