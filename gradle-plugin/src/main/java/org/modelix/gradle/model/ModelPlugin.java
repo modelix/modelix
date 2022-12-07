@@ -1,5 +1,6 @@
 package org.modelix.gradle.model;
 
+import org.apache.commons.text.StringEscapeUtils;
 import org.gradle.api.Plugin;
 import org.gradle.api.Project;
 import org.gradle.api.Task;
@@ -119,7 +120,7 @@ public class ModelPlugin implements Plugin<Project> {
             Manifest manifest = readManifest();
             String modelixVersion = manifest.getMainAttributes().getValue("modelix-Version");
             Configuration genConfig = project.getConfigurations().detachedConfiguration(
-                project.getDependencies().create("org.modelix:gradle-plugin:" + modelixVersion)
+                    project.getDependencies().create("org.modelix:gradle-plugin:" + modelixVersion)
             );
 
             final Configuration mpsConfig;
@@ -135,7 +136,7 @@ public class ModelPlugin implements Plugin<Project> {
                 String mpsVersion = manifest.getMainAttributes().getValue("MPS-Version");
                 String extensionsVersion = manifest.getMainAttributes().getValue("MPS-extensions-Version");
                 mpsConfig = project.getConfigurations().detachedConfiguration(
-                        project.getDependencies().create("com.jetbrains:mps:" + mpsVersion )
+                        project.getDependencies().create("com.jetbrains:mps:" + mpsVersion)
                 );
                 pluginsConfig = project.getConfigurations().detachedConfiguration(
                         project.getDependencies().create("de.itemis.mps:extensions:" + extensionsVersion),
@@ -202,8 +203,8 @@ public class ModelPlugin implements Plugin<Project> {
                 );
                 addArgIfNotNullOrBlank(javaExec, Key.ADDITIONAL_LIBRARIES, settings.getAdditionalLibrariesAsString());
                 addArgIfNotNullOrBlank(javaExec, Key.ADDITIONAL_LIBRARY_DIRS, settings.getAdditionalLibraryDirsAsString());
-                addArgIfNotNullOrBlank(javaExec, Key.ADDITIONAL_PLUGINS, settings.getAdditionalPluginsAsString());
-                addArgIfNotNullOrBlank(javaExec, Key.ADDITIONAL_PLUGIN_DIRS, settings.getAdditionalPluginDirsAsString());
+                addArgIfNotNullOrBlank(javaExec, Key.ADDITIONAL_PLUGINS, StringEscapeUtils.escapeJson(settings.getAdditionalPluginsAsString()));
+                addArgIfNotNullOrBlank(javaExec, Key.ADDITIONAL_PLUGIN_DIRS, StringEscapeUtils.escapeJson(settings.getAdditionalPluginDirsAsString()));
                 addArgIfNotNullOrBlank(javaExec, Key.PROJECT, settings.getProjectFile());
                 addArgIfNotNullOrBlank(javaExec, Key.MPS_EXTENSIONS_PATH, settings.getMpsExtensionsArtifactsPath());
                 addArgIfNotNullOrBlank(javaExec, Key.MODELIX_PATH, settings.getModelixArtifactsPath());
