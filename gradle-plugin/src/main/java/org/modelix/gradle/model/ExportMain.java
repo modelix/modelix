@@ -15,6 +15,7 @@ package org.modelix.gradle.model;
 
 import com.intellij.ide.plugins.IdeaPluginDescriptor;
 import com.intellij.ide.plugins.PluginManager;
+import org.apache.commons.text.StringEscapeUtils;
 
 import java.io.File;
 
@@ -25,11 +26,20 @@ public class ExportMain {
     private static boolean DEBUG = false;
 
     private static void processSetting(String key, String value) {
-        System.out.println("(setting) " + key + " = " + value);
-        System.setProperty(key, value);
+        String settingValue = value;
+        if (isJsonValuedProperty(key)) {
+            settingValue = StringEscapeUtils.unescapeJson(settingValue);
+        }
+        System.out.println("(setting) " + key + " = " + settingValue);
+        System.setProperty(key, settingValue);
         if (key.equals(PROPERTY_PREFIX + EnvironmentLoader.Key.DEBUG.getCode())) {
             DEBUG = Boolean.parseBoolean(value);
         }
+    }
+
+    private static boolean isJsonValuedProperty(String key) {
+        return key.endsWith(EnvironmentLoader.Key.ADDITIONAL_PLUGINS.getPropertyKey())
+                || key.endsWith(EnvironmentLoader.Key.ADDITIONAL_PLUGIN_DIRS.getPropertyKey());
     }
 
     private static void debugMessage(String message) {
@@ -41,7 +51,7 @@ public class ExportMain {
     public static void main(String[] args) {
         System.out.println("[ExportMain]");
         try {
-            for (int i = 1; i < args.length; i+=2) {
+            for (int i = 1; i < args.length; i += 2) {
                 String key = PROPERTY_PREFIX + args[i - 1];
                 String value = args[i];
                 processSetting(key, value);
