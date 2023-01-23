@@ -47,18 +47,34 @@
   "roles": {
     "realm": [
       {
+        "name": "modelix-admin",
+        "description": "",
+        "composite": false,
+        "clientRole": false,
+        "containerId": "modelix",
+        "attributes": {}
+      },
+      {
+        "name": "modelix-user",
+        "description": "",
+        "composite": false,
+        "clientRole": false,
+        "containerId": "modelix",
+        "attributes": {}
+      },
+      {
         "id": "035b6ab5-0db1-4918-bdaa-cf214f92d7d1",
         "name": "default-roles-modelix",
         "description": "${role_default-roles}",
         "composite": true,
         "composites": {
           "realm": [
+            "modelix-user",
             "offline_access",
             "uma_authorization"
           ],
           "client": {
             "modelix": [
-              "modelix-user",
               "uma_protection"
             ],
             "account": [
@@ -307,14 +323,6 @@
       "admin-cli": [],
       "modelix": [
         {
-          "id": "a7019cf7-76c3-4221-8769-e5858ab3e053",
-          "name": "modelix-user",
-          "composite": false,
-          "clientRole": true,
-          "containerId": "42312d86-3a77-42b7-8b99-ebd072931c71",
-          "attributes": {}
-        },
-        {
           "id": "ab3524db-4db2-4ec2-bcf8-891e1256b19d",
           "name": "uma_protection",
           "composite": false,
@@ -475,11 +483,11 @@
       "disableableCredentialTypes": [],
       "requiredActions": [],
       "realmRoles": [
-        "default-roles-modelix"
+        "default-roles-modelix",
+        "modelix-admin"
       ],
       "clientRoles": {
         "modelix": [
-          "modelix-user",
           "uma_protection"
         ]
       },
@@ -867,85 +875,76 @@
       ],
       "authorizationSettings": {
         "allowRemoteResourceManagement": true,
-        "policyEnforcementMode": "PERMISSIVE",
+        "policyEnforcementMode": "ENFORCING",
         "resources": [
           {
-            "name": "model-server-entry/branch_uistate_master",
+            "name": "default/workspace-list",
+            "type": "default",
             "ownerManagedAccess": false,
             "attributes": {},
-            "_id": "d394cd1e-d760-4558-8270-123457918a43",
-            "uris": []
-          },
-          {
-            "name": "model-json-api",
-            "ownerManagedAccess": false,
-            "attributes": {},
-            "_id": "c7845a53-017e-4c40-9759-87525bcddfbe",
-            "uris": []
-          },
-          {
-            "name": "model-server-entry/branch_default_master",
-            "ownerManagedAccess": false,
-            "attributes": {},
-            "_id": "9f8d5921-3748-42a6-86db-9adcc6851918",
-            "uris": []
-          },
-          {
-            "name": "model-server-entry/branch_info_master",
-            "ownerManagedAccess": false,
-            "attributes": {},
-            "_id": "52d8ee0c-f69c-4a30-99de-779211cc32f7",
-            "uris": []
-          },
-          {
-            "name": "model-server-entry/server-id",
-            "ownerManagedAccess": false,
-            "attributes": {},
-            "_id": "c7b15ee6-e59f-45ae-89a7-39cd4b6311ea",
-            "uris": []
-          },
-          {
-            "name": "model-server-entry/clientId",
-            "ownerManagedAccess": false,
-            "attributes": {},
-            "_id": "a25df1df-c784-4d24-9d19-c3472251f700",
-            "uris": []
-          },
-          {
-            "name": "model-server-entry/workspaces",
-            "ownerManagedAccess": false,
-            "attributes": {},
-            "_id": "75ad27b9-19bd-4ded-9123-6db183fa8b61",
-            "uris": []
-          },
-          {
-            "name": "workspaces",
-            "ownerManagedAccess": false,
-            "attributes": {},
-            "_id": "5c2cf492-b9f4-4de3-998c-506094f5ee94",
-            "uris": []
-          },
-          {
-            "name": "model-server",
-            "ownerManagedAccess": false,
-            "attributes": {},
-            "_id": "ea40e226-6390-4e08-8986-36cc59fff8d3",
-            "uris": []
-          },
-          {
-            "name": "Default Resource",
-            "type": "urn:modelix:resources:default",
-            "ownerManagedAccess": false,
-            "attributes": {},
-            "_id": "626562bd-a2ad-490b-b703-fdde9ad9c692",
-            "uris": [
-              "/*"
+            "uris": [],
+            "scopes": [
+              {"name": "add"},
+              {"name": "list"},
+              {"name": "read"},
+              {"name": "delete"},
+              {"name": "write"}
             ]
           }
         ],
-        "policies": [],
-        "scopes": [],
-        "decisionStrategy": "UNANIMOUS"
+        "policies": [
+          {
+            "name": "grant modelix-user",
+            "type": "role",
+            "logic": "POSITIVE",
+            "decisionStrategy": "UNANIMOUS",
+            "config": {
+              "roles": "[{\"id\":\"modelix-user\",\"required\":false}]"
+            }
+          },
+          {
+            "name": "grant modelix-admin",
+            "type": "role",
+            "logic": "POSITIVE",
+            "decisionStrategy": "UNANIMOUS",
+            "config": {
+              "roles": "[{\"id\":\"modelix-admin\",\"required\":false}]"
+            }
+          },
+          {
+            "name": "modelix-user can read workspace-list",
+            "type": "scope",
+            "logic": "POSITIVE",
+            "decisionStrategy": "AFFIRMATIVE",
+            "config": {
+              "resources": "[\"default/workspace-list\"]",
+              "scopes": "[\"read\"]",
+              "applyPolicies": "[\"grant modelix-user\"]"
+            }
+          },
+          {
+            "name": "modelix-admin can modify everything",
+            "type": "scope",
+            "logic": "POSITIVE",
+            "decisionStrategy": "AFFIRMATIVE",
+            "config": {
+              "scopes": "[\"delete\",\"write\",\"read\"]",
+              "applyPolicies": "[\"grant modelix-admin\"]"
+            }
+          }
+        ],
+        "scopes": [
+          {
+            "name": "delete"
+          },
+          {
+            "name": "write"
+          },
+          {
+            "name": "read"
+          }
+        ],
+        "decisionStrategy": "AFFIRMATIVE"
       }
     },
     {
