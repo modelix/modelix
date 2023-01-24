@@ -40,7 +40,8 @@ import org.modelix.workspaces.WorkspaceHash
 import org.zeroturnaround.zip.ZipUtil
 import java.io.File
 
-val WORKSPACE_LIST = KeycloakResourceType.DEFAULT_TYPE.createInstance("workspace-list")
+val WORKSPACE_LIST = KeycloakResourceType("list", setOf(KeycloakScope.ADD, KeycloakScope.READ, KeycloakScope.WRITE))
+    .createInstance("workspace-list")
 val WORKSPACE_UPLOAD = KeycloakResourceType("workspace-upload", setOf(KeycloakScope.READ, KeycloakScope.DELETE))
 
 fun Application.workspaceManagerModule() {
@@ -137,7 +138,7 @@ fun Application.workspaceManagerModule() {
                                     }
                                 }
                             }
-                            if (KeycloakUtils.hasPermission(call.jwt()!!, WORKSPACE_LIST, KeycloakScope.WRITE)) {
+                            if (KeycloakUtils.hasPermission(call.jwt()!!, WORKSPACE_LIST, KeycloakScope.ADD)) {
                                 tr {
                                     td {
                                         colSpan = "5"
@@ -221,7 +222,7 @@ fun Application.workspaceManagerModule() {
             }
         }
 
-        requiresWrite(WORKSPACE_LIST) {
+        requiresPermission(WORKSPACE_LIST, KeycloakScope.ADD) {
             post("new") {
                 val jwt = call.jwt()!!
                 val workspace = manager.newWorkspace()

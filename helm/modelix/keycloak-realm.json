@@ -878,8 +878,8 @@
         "policyEnforcementMode": "ENFORCING",
         "resources": [
           {
-            "name": "default/workspace-list",
-            "type": "default",
+            "name": "list/workspace-list",
+            "type": "list",
             "ownerManagedAccess": false,
             "attributes": {},
             "uris": [],
@@ -912,13 +912,13 @@
             }
           },
           {
-            "name": "modelix-user can read workspace-list",
+            "name": "modelix-user can add to workspace-list",
             "type": "scope",
             "logic": "POSITIVE",
             "decisionStrategy": "AFFIRMATIVE",
             "config": {
-              "resources": "[\"default/workspace-list\"]",
-              "scopes": "[\"read\"]",
+              "resources": "[\"list/workspace-list\"]",
+              "scopes": "[\"read\", \"add\"]",
               "applyPolicies": "[\"grant modelix-user\"]"
             }
           },
