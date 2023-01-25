@@ -77,53 +77,66 @@ fun Application.workspaceManagerModule() {
                         }
                         table {
                             manager.getWorkspaceIds()
-                                .filter { KeycloakUtils.hasPermission(call.jwt()!!, it.workspaceIdAsResource(), KeycloakScope.READ) }
+                                .filter {
+                                    KeycloakUtils.hasPermission(call.jwt()!!, it.workspaceIdAsResource(), KeycloakScope.LIST)
+                                    || KeycloakUtils.hasPermission(call.jwt()!!, it.workspaceIdAsResource(), KeycloakScope.READ)
+                                }
                                 .mapNotNull { manager.getWorkspaceForId(it) }.forEach { workspaceAndHash ->
                                 val (workspace, workspaceHash) = workspaceAndHash
                                 val workspaceId = workspace.id
+                                val canRead = KeycloakUtils.hasPermission(call.jwt()!!, workspaceId.workspaceIdAsResource(), KeycloakScope.READ)
+                                val canDelete = KeycloakUtils.hasPermission(call.jwt()!!, workspaceId.workspaceIdAsResource(), KeycloakScope.DELETE)
                                 tr {
                                     td {
                                         a {
-                                            href = "$workspaceId/edit"
+                                            if (canRead) href = "$workspaceId/edit"
                                             text((workspace?.name ?: "<no name>") + " ($workspaceId)")
                                         }
                                     }
                                     td {
-                                        a {
-                                            href = "../workspace-${workspace.id}-$workspaceHash/project"
-                                            text("Open Web Interface")
-                                        }
-                                    }
-                                    td {
-                                        a {
-                                            href = "../workspace-${workspace.id}-$workspaceHash/ide/"
-                                            text("Open MPS")
-                                        }
-                                    }
-                                    td {
-                                        workspace.gitRepositories.forEachIndexed { index, gitRepository ->
+                                        if (canRead) {
                                             a {
-                                                href = "$workspaceId/git/$index/"
-                                                val suffix = if (gitRepository.name.isNullOrEmpty()) "" else " (${gitRepository.name})"
-                                                text("Git History" + suffix)
+                                                href = "../workspace-${workspace.id}-$workspaceHash/project"
+                                                text("Open Web Interface")
                                             }
                                         }
-                                        workspace.uploads.associateWith { findGitRepo(manager.getUploadFolder(it)) }
-                                            .filter { it.value != null }.forEach { upload ->
+                                    }
+                                    td {
+                                        if (canRead) {
+                                            a {
+                                                href = "../workspace-${workspace.id}-$workspaceHash/ide/"
+                                                text("Open MPS")
+                                            }
+                                        }
+                                    }
+                                    td {
+                                        if (canRead) {
+                                            workspace.gitRepositories.forEachIndexed { index, gitRepository ->
                                                 a {
-                                                    href = "$workspaceId/git/u${upload.key}/"
-                                                    text("Git History")
+                                                    href = "$workspaceId/git/$index/"
+                                                    val suffix = if (gitRepository.name.isNullOrEmpty()) "" else " (${gitRepository.name})"
+                                                    text("Git History" + suffix)
                                                 }
                                             }
-                                    }
-                                    td {
-                                        a {
-                                            href = "../model/history/workspace_$workspaceId/master/"
-                                            text("Model History")
+                                            workspace.uploads.associateWith { findGitRepo(manager.getUploadFolder(it)) }
+                                                .filter { it.value != null }.forEach { upload ->
+                                                    a {
+                                                        href = "$workspaceId/git/u${upload.key}/"
+                                                        text("Git History")
+                                                    }
+                                                }
                                         }
                                     }
                                     td {
-                                        if (KeycloakUtils.hasPermission(call.jwt()!!, workspace.asResource(), KeycloakScope.DELETE)) {
+                                        if (canRead) {
+                                            a {
+                                                href = "../model/history/workspace_$workspaceId/master/"
+                                                text("Model History")
+                                            }
+                                        }
+                                    }
+                                    td {
+                                        if (canDelete) {
                                             postForm("./remove-workspace") {
                                                 style = "display: inline-block"
                                                 hiddenInput {

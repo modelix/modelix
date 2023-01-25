@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
       - name: keycloak
-        image: "{{ default .Values.dockerProxy.prefix "quay.io/" }}keycloak/keycloak:19.0.1"
+        image: "{{ .Values.dockerProxy.prefix }}modelix/keycloak:{{ .Values.imageTags.keycloak | default .Chart.AppVersion }}"
         args: ["start-dev", "--import-realm"]
         env:
         - name: KC_LOG_LEVEL
@@ -78,10 +78,10 @@ spec:
         - name: debug
           containerPort: 8787
         {{ end }}
-        readinessProbe:
-          httpGet:
-            path: /realms/master
-            port: 8080
+#        readinessProbe:
+#          httpGet:
+#            path: /realms/master
+#            port: 8080
         resources:
           requests:
             memory: "500Mi"

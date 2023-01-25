@@ -903,12 +903,28 @@
             }
           },
           {
+            "name": "grant owner",
+            "type": "grant-owner",
+            "logic": "POSITIVE"
+          },
+          {
             "name": "grant modelix-admin",
             "type": "role",
             "logic": "POSITIVE",
             "decisionStrategy": "UNANIMOUS",
             "config": {
               "roles": "[{\"id\":\"modelix-admin\",\"required\":false}]"
+            }
+          },
+          {
+            "name": "owner can access owned workspaces",
+            "type": "scope",
+            "logic": "POSITIVE",
+            "decisionStrategy": "AFFIRMATIVE",
+            "config": {
+              "defaultResourceType": "workspace",
+              "applyPolicies": "[\"grant owner\"]",
+              "scopes": "[\"write\",\"delete\",\"read\",\"list\"]"
             }
           },
           {
