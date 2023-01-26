@@ -254,6 +254,7 @@ fun Application.workspaceManagerModule() {
                     }
                     val (workspace, workspaceHash) = workspaceAndHash
                     val yaml = Yaml.default.encodeToString(workspace)
+                    val canWrite = KeycloakUtils.hasPermission(call.jwt()!!, workspace.asResource(), KeycloakScope.WRITE)
 
                     this.call.respondHtml(HttpStatusCode.OK) {
                         head {
@@ -309,10 +310,12 @@ fun Application.workspaceManagerModule() {
                                             style = "width: 800px; height: 500px"
                                             text(yaml)
                                         }
-                                        br()
-                                        input {
-                                            type = InputType.submit
-                                            value = "Save Changes"
+                                        if (canWrite) {
+                                            br()
+                                            input {
+                                                type = InputType.submit
+                                                value = "Save Changes"
+                                            }
                                         }
                                     }
                                 }
@@ -417,107 +420,116 @@ fun Application.workspaceManagerModule() {
                                 }
                                 table {
                                     for (upload in allUploads.toSortedMap()) {
+                                        val uploadResource = workspaceUploadResourceType.createInstance(upload.key)
                                         tr {
                                             td { +upload.key }
                                             td { +uploadContent(upload) }
                                             td {
-                                                if (workspace.uploads.contains(upload.key)) {
-                                                    form {
-                                                        action = "./remove-upload"
-                                                        method = FormMethod.post
-                                                        input {
-                                                            type = InputType.hidden
-                                                            name = "uploadId"
-                                                            value = upload.key
+                                                if (canWrite) {
+                                                    if (workspace.uploads.contains(upload.key)) {
+                                                        form {
+                                                            action = "./remove-upload"
+                                                            method = FormMethod.post
+                                                            input {
+                                                                type = InputType.hidden
+                                                                name = "uploadId"
+                                                                value = upload.key
+                                                            }
+                                                            input {
+                                                                type = InputType.submit
+                                                                value = "Remove"
+                                                            }
                                                         }
-                                                        input {
-                                                            type = InputType.submit
-                                                            value = "Remove"
-                                                        }
-                                                    }
-                                                } else {
-                                                    form {
-                                                        action = "./use-upload"
-                                                        method = FormMethod.post
-                                                        input {
-                                                            type = InputType.hidden
-                                                            name = "uploadId"
-                                                            value = upload.key
-                                                        }
-                                                        input {
-                                                            type = InputType.submit
-                                                            value = "Add"
+                                                    } else {
+                                                        form {
+                                                            action = "./use-upload"
+                                                            method = FormMethod.post
+                                                            input {
+                                                                type = InputType.hidden
+                                                                name = "uploadId"
+                                                                value = upload.key
+                                                            }
+                                                            input {
+                                                                type = InputType.submit
+                                                                value = "Add"
+                                                            }
                                                         }
                                                     }
                                                 }
                                             }
                                             td {
-                                                form {
-                                                    action = "./delete-upload"
-                                                    method = FormMethod.post
-                                                    hiddenInput {
-                                                        name = "uploadId"
-                                                        value = upload.key
-                                                    }
-                                                    submitInput {
-                                                        style = "background-color: red"
-                                                        value = "Delete"
+                                                if (KeycloakUtils.hasPermission(call.jwt()!!, uploadResource, KeycloakScope.DELETE)) {
+                                                    form {
+                                                        action = "./delete-upload"
+                                                        method = FormMethod.post
+                                                        hiddenInput {
+                                                            name = "uploadId"
+                                                            value = upload.key
+                                                        }
+                                                        submitInput {
+                                                            style = "background-color: red"
+                                                            value = "Delete"
+                                                        }
                                                     }
                                                 }
                                             }
                                         }
                                     }
                                 }
-                                br()
-                                br()
-                                div { text("Upload new file or directory (max ~200 MB):") }
-                                form {
-                                    action = "./upload"
-                                    method = FormMethod.post
-                                    encType = FormEncType.multipartFormData
-                                    div {
-                                        text("Choose File(s): ")
-                                        input {
-                                            type = InputType.file
-                                            name = "file"
-                                            multiple = true
+                                if (canWrite) {
+                                    br()
+                                    br()
+                                    div { text("Upload new file or directory (max ~200 MB):") }
+                                    form {
+                                        action = "./upload"
+                                        method = FormMethod.post
+                                        encType = FormEncType.multipartFormData
+                                        div {
+                                            text("Choose File(s): ")
+                                            input {
+                                                type = InputType.file
+                                                name = "file"
+                                                multiple = true
+                                            }
                                         }
-                                    }
-                                    div {
-                                        text("Choose Directory: ")
-                                        input {
-                                            type = InputType.file
-                                            name = "folder"
-                                            attributes["webkitdirectory"] = "true"
-                                            attributes["mozdirectory"] = "true"
+                                        div {
+                                            text("Choose Directory: ")
+                                            input {
+                                                type = InputType.file
+                                                name = "folder"
+                                                attributes["webkitdirectory"] = "true"
+                                                attributes["mozdirectory"] = "true"
+                                            }
                                         }
-                                    }
-                                    div {
-                                        input {
-                                            type = InputType.submit
-                                            value = "Upload"
+                                        div {
+                                            input {
+                                                type = InputType.submit
+                                                value = "Upload"
+                                            }
                                         }
                                     }
                                 }
                             }
-                            br()
-                            br()
-                            div {
-                                style = "border: 1px solid black; padding: 10px;"
+                            if (canWrite) {
+                                br()
+                                br()
                                 div {
-                                    text("Add Bundled Dependency")
-                                }
-                                ul {
-                                    val deps = LocalMavenDependenciesExplorer.getAvailableDependencies()
-                                    for (dependency in deps) {
-                                        li {
-                                            form {
-                                                action = "./add-maven-dependency"
-                                                method = FormMethod.post
-                                                input {
-                                                    type = InputType.submit
-                                                    name = "coordinates"
-                                                    value = dependency.toString()
+                                    style = "border: 1px solid black; padding: 10px;"
+                                    div {
+                                        text("Add Bundled Dependency")
+                                    }
+                                    ul {
+                                        val deps = LocalMavenDependenciesExplorer.getAvailableDependencies()
+                                        for (dependency in deps) {
+                                            li {
+                                                form {
+                                                    action = "./add-maven-dependency"
+                                                    method = FormMethod.post
+                                                    input {
+                                                        type = InputType.submit
+                                                        name = "coordinates"
+                                                        value = dependency.toString()
+                                                    }
                                                 }
                                             }
                                         }
