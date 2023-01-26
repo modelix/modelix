@@ -939,6 +939,17 @@
             }
           },
           {
+            "name": "modelix-user can read all workspaces",
+            "type": "scope",
+            "logic": "POSITIVE",
+            "decisionStrategy": "AFFIRMATIVE",
+            "config": {
+              "defaultResourceType": "workspace",
+              "scopes": "[\"read\", \"list\"]",
+              "applyPolicies": "[\"grant modelix-user\"]"
+            }
+          },
+          {
             "name": "modelix-admin can modify everything",
             "type": "scope",
             "logic": "POSITIVE",
