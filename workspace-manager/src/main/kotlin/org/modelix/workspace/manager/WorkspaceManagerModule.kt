@@ -20,7 +20,6 @@ import io.ktor.http.content.*
 import io.ktor.server.application.*
 import io.ktor.server.auth.*
 import io.ktor.server.html.*
-import io.ktor.server.html.HtmlContent
 import io.ktor.server.plugins.cors.routing.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
@@ -35,14 +34,9 @@ import org.modelix.authorization.*
 import org.modelix.gitui.GIT_REPO_DIR_ATTRIBUTE_KEY
 import org.modelix.gitui.MPS_INSTANCE_URL_ATTRIBUTE_KEY
 import org.modelix.gitui.gitui
-import org.modelix.workspaces.Workspace
-import org.modelix.workspaces.WorkspaceHash
+import org.modelix.workspaces.*
 import org.zeroturnaround.zip.ZipUtil
 import java.io.File
-
-val WORKSPACE_LIST = KeycloakResourceType("list", setOf(KeycloakScope.ADD, KeycloakScope.READ, KeycloakScope.WRITE))
-    .createInstance("workspace-list")
-val WORKSPACE_UPLOAD = KeycloakResourceType("workspace-upload", setOf(KeycloakScope.READ, KeycloakScope.DELETE))
 
 fun Application.workspaceManagerModule() {
 
@@ -52,7 +46,7 @@ fun Application.workspaceManagerModule() {
     installAuthentication()
 
     routing {
-        requiresPermission(WORKSPACE_LIST, KeycloakScope.READ) {
+        requiresPermission(workspaceListResource, KeycloakScope.READ) {
             get("/") {
                 call.respondHtmlSafe(HttpStatusCode.OK) {
                     head {
@@ -151,7 +145,7 @@ fun Application.workspaceManagerModule() {
                                     }
                                 }
                             }
-                            if (KeycloakUtils.hasPermission(call.jwt()!!, WORKSPACE_LIST, KeycloakScope.ADD)) {
+                            if (KeycloakUtils.hasPermission(call.jwt()!!, workspaceListResource, KeycloakScope.ADD)) {
                                 tr {
                                     td {
                                         colSpan = "5"
@@ -235,11 +229,10 @@ fun Application.workspaceManagerModule() {
             }
         }
 
-        requiresPermission(WORKSPACE_LIST, KeycloakScope.ADD) {
+        requiresPermission(workspaceListResource, KeycloakScope.ADD) {
             post("new") {
                 val jwt = call.jwt()!!
                 val workspace = manager.newWorkspace()
-                KeycloakUtils.grantPermission(jwt, workspace.asResource(), workspace.asResource().type.scopes)
                 call.respondRedirect("${workspace.id}/edit")
             }
         }
@@ -590,7 +583,6 @@ fun Application.workspaceManagerModule() {
                     }
 
                     val outputFolder = manager.newUploadFolder()
-                    KeycloakUtils.grantPermission(call.jwt()!!, WORKSPACE_UPLOAD.createInstance(outputFolder.name), WORKSPACE_UPLOAD.scopes)
 
                     call.receiveMultipart().forEachPart { part ->
                         if (part is PartData.FileItem) {
@@ -618,7 +610,7 @@ fun Application.workspaceManagerModule() {
                     call.checkPermission(call.parameters["workspaceId"]!!.workspaceIdAsResource(), KeycloakScope.WRITE)
                     val workspaceId = call.parameters["workspaceId"]!!
                     val uploadId = call.receiveParameters()["uploadId"]!!
-                    call.checkPermission(WORKSPACE_UPLOAD.createInstance(uploadId), KeycloakScope.READ)
+                    call.checkPermission(workspaceUploadResourceType.createInstance(uploadId), KeycloakScope.READ)
                     val workspace = manager.getWorkspaceForId(workspaceId)?.first!!
                     workspace.uploads += uploadId
                     manager.update(workspace)
@@ -638,7 +630,7 @@ fun Application.workspaceManagerModule() {
                 post("delete-upload") {
                     call.checkPermission(call.parameters["workspaceId"]!!.workspaceIdAsResource(), KeycloakScope.WRITE)
                     val uploadId = call.receiveParameters()["uploadId"]!!
-                    call.checkPermission(WORKSPACE_UPLOAD.createInstance(uploadId), KeycloakScope.DELETE)
+                    call.checkPermission(workspaceUploadResourceType.createInstance(uploadId), KeycloakScope.DELETE)
                     val allWorkspaces = manager.getWorkspaceIds().mapNotNull { manager.getWorkspaceForId(it)?.first }
                     for (workspace in allWorkspaces.filter { it.uploads.contains(uploadId) }) {
                         workspace.uploads -= uploadId
@@ -757,7 +749,7 @@ private fun findGitRepo(folder: File): File? {
 }
 
 fun Workspace.asResource() = id.workspaceIdAsResource()
-fun String.workspaceIdAsResource() = KeycloakResourceType.WORKSPACE.createInstance(this)
+fun String.workspaceIdAsResource() = workspaceResourceType.createInstance(this)
 
 /**
  * respondHtml fails to respond anything if an exception is thrown in the body and an error handler is installed

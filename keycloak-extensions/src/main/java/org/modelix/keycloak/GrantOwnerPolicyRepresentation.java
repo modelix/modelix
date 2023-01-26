@@ -6,7 +6,7 @@ public class GrantOwnerPolicyRepresentation extends AbstractPolicyRepresentation
 
     @Override
     public String getType() {
-        return "grant owner";
+        return "grant-owner";
     }
 
 }
