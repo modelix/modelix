@@ -16,10 +16,17 @@ package org.modelix.workspaces
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
+import org.modelix.authorization.KeycloakResourceType
+import org.modelix.authorization.KeycloakScope
 import org.modelix.authorization.serviceAccountTokenProvider
 import org.modelix.model.client.RestWebModelClient
 import org.modelix.model.persistent.HashUtil
 import org.modelix.model.persistent.SerializationUtil
+
+val workspaceResourceType = KeycloakResourceType("workspace", KeycloakScope.READ_WRITE_DELETE_LIST, createByUser = true)
+val workspaceListResource = KeycloakResourceType("list", setOf(KeycloakScope.ADD, KeycloakScope.READ, KeycloakScope.WRITE))
+    .createInstance("workspace-list")
+val workspaceUploadResourceType = KeycloakResourceType("workspace-upload", setOf(KeycloakScope.READ, KeycloakScope.DELETE), createByUser = true)
 
 class WorkspacePersistence() {
     private val WORKSPACE_LIST_KEY = "workspaces"

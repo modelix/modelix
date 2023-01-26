@@ -54,8 +54,6 @@
       <sourceRoot location="kotlinx-coroutines-core-jvm.jar" />
       <sourceRoot location="kotlinx-coroutines-jdk8.jar" />
       <sourceRoot location="kotlinx-coroutines-slf4j.jar" />
-      <sourceRoot location="kotlinx-serialization-core-jvm.jar" />
-      <sourceRoot location="kotlinx-serialization-json-jvm.jar" />
       <sourceRoot location="ktor-client-cio-jvm.jar" />
       <sourceRoot location="ktor-client-content-negotiation-jvm.jar" />
       <sourceRoot location="ktor-client-core-jvm.jar" />
@@ -123,8 +121,6 @@
     <stubModelEntry path="${module}/lib/kotlinx-coroutines-core-jvm.jar" />
     <stubModelEntry path="${module}/lib/kotlinx-coroutines-jdk8.jar" />
     <stubModelEntry path="${module}/lib/kotlinx-coroutines-slf4j.jar" />
-    <stubModelEntry path="${module}/lib/kotlinx-serialization-core-jvm.jar" />
-    <stubModelEntry path="${module}/lib/kotlinx-serialization-json-jvm.jar" />
     <stubModelEntry path="${module}/lib/ktor-client-auth-jvm.jar" />
     <stubModelEntry path="${module}/lib/ktor-client-cio-jvm.jar" />
     <stubModelEntry path="${module}/lib/ktor-client-content-negotiation-jvm.jar" />
