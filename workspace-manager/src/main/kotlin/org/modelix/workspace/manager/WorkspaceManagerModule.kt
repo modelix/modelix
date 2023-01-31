@@ -20,7 +20,6 @@ import io.ktor.http.content.*
 import io.ktor.server.application.*
 import io.ktor.server.auth.*
 import io.ktor.server.html.*
-import io.ktor.server.html.HtmlContent
 import io.ktor.server.plugins.cors.routing.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
@@ -35,13 +34,9 @@ import org.modelix.authorization.*
 import org.modelix.gitui.GIT_REPO_DIR_ATTRIBUTE_KEY
 import org.modelix.gitui.MPS_INSTANCE_URL_ATTRIBUTE_KEY
 import org.modelix.gitui.gitui
-import org.modelix.workspaces.Workspace
-import org.modelix.workspaces.WorkspaceHash
+import org.modelix.workspaces.*
 import org.zeroturnaround.zip.ZipUtil
 import java.io.File
-
-val WORKSPACE_LIST = KeycloakResourceType.DEFAULT_TYPE.createInstance("workspace-list")
-val WORKSPACE_UPLOAD = KeycloakResourceType("workspace-upload", setOf(KeycloakScope.READ, KeycloakScope.DELETE))
 
 fun Application.workspaceManagerModule() {
 
@@ -51,7 +46,7 @@ fun Application.workspaceManagerModule() {
     installAuthentication()
 
     routing {
-        requiresPermission(WORKSPACE_LIST, KeycloakScope.READ) {
+        requiresPermission(workspaceListResource, KeycloakScope.READ) {
             get("/") {
                 call.respondHtmlSafe(HttpStatusCode.OK) {
                     head {
@@ -76,53 +71,66 @@ fun Application.workspaceManagerModule() {
                         }
                         table {
                             manager.getWorkspaceIds()
-                                .filter { KeycloakUtils.hasPermission(call.jwt()!!, it.workspaceIdAsResource(), KeycloakScope.READ) }
+                                .filter {
+                                    KeycloakUtils.hasPermission(call.jwt()!!, it.workspaceIdAsResource(), KeycloakScope.LIST)
+                                    || KeycloakUtils.hasPermission(call.jwt()!!, it.workspaceIdAsResource(), KeycloakScope.READ)
+                                }
                                 .mapNotNull { manager.getWorkspaceForId(it) }.forEach { workspaceAndHash ->
                                 val (workspace, workspaceHash) = workspaceAndHash
                                 val workspaceId = workspace.id
+                                val canRead = KeycloakUtils.hasPermission(call.jwt()!!, workspaceId.workspaceIdAsResource(), KeycloakScope.READ)
+                                val canDelete = KeycloakUtils.hasPermission(call.jwt()!!, workspaceId.workspaceIdAsResource(), KeycloakScope.DELETE)
                                 tr {
                                     td {
                                         a {
-                                            href = "$workspaceId/edit"
+                                            if (canRead) href = "$workspaceId/edit"
                                             text((workspace?.name ?: "<no name>") + " ($workspaceId)")
                                         }
                                     }
                                     td {
-                                        a {
-                                            href = "../workspace-${workspace.id}-$workspaceHash/project"
-                                            text("Open Web Interface")
-                                        }
-                                    }
-                                    td {
-                                        a {
-                                            href = "../workspace-${workspace.id}-$workspaceHash/ide/"
-                                            text("Open MPS")
-                                        }
-                                    }
-                                    td {
-                                        workspace.gitRepositories.forEachIndexed { index, gitRepository ->
+                                        if (canRead) {
                                             a {
-                                                href = "$workspaceId/git/$index/"
-                                                val suffix = if (gitRepository.name.isNullOrEmpty()) "" else " (${gitRepository.name})"
-                                                text("Git History" + suffix)
+                                                href = "../workspace-${workspace.id}-$workspaceHash/project"
+                                                text("Open Web Interface")
                                             }
                                         }
-                                        workspace.uploads.associateWith { findGitRepo(manager.getUploadFolder(it)) }
-                                            .filter { it.value != null }.forEach { upload ->
+                                    }
+                                    td {
+                                        if (canRead) {
+                                            a {
+                                                href = "../workspace-${workspace.id}-$workspaceHash/ide/"
+                                                text("Open MPS")
+                                            }
+                                        }
+                                    }
+                                    td {
+                                        if (canRead) {
+                                            workspace.gitRepositories.forEachIndexed { index, gitRepository ->
                                                 a {
-                                                    href = "$workspaceId/git/u${upload.key}/"
-                                                    text("Git History")
+                                                    href = "$workspaceId/git/$index/"
+                                                    val suffix = if (gitRepository.name.isNullOrEmpty()) "" else " (${gitRepository.name})"
+                                                    text("Git History" + suffix)
                                                 }
                                             }
-                                    }
-                                    td {
-                                        a {
-                                            href = "../model/history/workspace_$workspaceId/master/"
-                                            text("Model History")
+                                            workspace.uploads.associateWith { findGitRepo(manager.getUploadFolder(it)) }
+                                                .filter { it.value != null }.forEach { upload ->
+                                                    a {
+                                                        href = "$workspaceId/git/u${upload.key}/"
+                                                        text("Git History")
+                                                    }
+                                                }
                                         }
                                     }
                                     td {
-                                        if (KeycloakUtils.hasPermission(call.jwt()!!, workspace.asResource(), KeycloakScope.DELETE)) {
+                                        if (canRead) {
+                                            a {
+                                                href = "../model/history/workspace_$workspaceId/master/"
+                                                text("Model History")
+                                            }
+                                        }
+                                    }
+                                    td {
+                                        if (canDelete) {
                                             postForm("./remove-workspace") {
                                                 style = "display: inline-block"
                                                 hiddenInput {
@@ -137,7 +145,7 @@ fun Application.workspaceManagerModule() {
                                     }
                                 }
                             }
-                            if (KeycloakUtils.hasPermission(call.jwt()!!, WORKSPACE_LIST, KeycloakScope.WRITE)) {
+                            if (KeycloakUtils.hasPermission(call.jwt()!!, workspaceListResource, KeycloakScope.ADD)) {
                                 tr {
                                     td {
                                         colSpan = "5"
@@ -221,11 +229,10 @@ fun Application.workspaceManagerModule() {
             }
         }
 
-        requiresWrite(WORKSPACE_LIST) {
+        requiresPermission(workspaceListResource, KeycloakScope.ADD) {
             post("new") {
                 val jwt = call.jwt()!!
                 val workspace = manager.newWorkspace()
-                KeycloakUtils.grantPermission(jwt, workspace.asResource(), workspace.asResource().type.scopes)
                 call.respondRedirect("${workspace.id}/edit")
             }
         }
@@ -247,6 +254,7 @@ fun Application.workspaceManagerModule() {
                     }
                     val (workspace, workspaceHash) = workspaceAndHash
                     val yaml = Yaml.default.encodeToString(workspace)
+                    val canWrite = KeycloakUtils.hasPermission(call.jwt()!!, workspace.asResource(), KeycloakScope.WRITE)
 
                     this.call.respondHtml(HttpStatusCode.OK) {
                         head {
@@ -302,10 +310,12 @@ fun Application.workspaceManagerModule() {
                                             style = "width: 800px; height: 500px"
                                             text(yaml)
                                         }
-                                        br()
-                                        input {
-                                            type = InputType.submit
-                                            value = "Save Changes"
+                                        if (canWrite) {
+                                            br()
+                                            input {
+                                                type = InputType.submit
+                                                value = "Save Changes"
+                                            }
                                         }
                                     }
                                 }
@@ -410,107 +420,116 @@ fun Application.workspaceManagerModule() {
                                 }
                                 table {
                                     for (upload in allUploads.toSortedMap()) {
+                                        val uploadResource = workspaceUploadResourceType.createInstance(upload.key)
                                         tr {
                                             td { +upload.key }
                                             td { +uploadContent(upload) }
                                             td {
-                                                if (workspace.uploads.contains(upload.key)) {
-                                                    form {
-                                                        action = "./remove-upload"
-                                                        method = FormMethod.post
-                                                        input {
-                                                            type = InputType.hidden
-                                                            name = "uploadId"
-                                                            value = upload.key
+                                                if (canWrite) {
+                                                    if (workspace.uploads.contains(upload.key)) {
+                                                        form {
+                                                            action = "./remove-upload"
+                                                            method = FormMethod.post
+                                                            input {
+                                                                type = InputType.hidden
+                                                                name = "uploadId"
+                                                                value = upload.key
+                                                            }
+                                                            input {
+                                                                type = InputType.submit
+                                                                value = "Remove"
+                                                            }
                                                         }
-                                                        input {
-                                                            type = InputType.submit
-                                                            value = "Remove"
-                                                        }
-                                                    }
-                                                } else {
-                                                    form {
-                                                        action = "./use-upload"
-                                                        method = FormMethod.post
-                                                        input {
-                                                            type = InputType.hidden
-                                                            name = "uploadId"
-                                                            value = upload.key
-                                                        }
-                                                        input {
-                                                            type = InputType.submit
-                                                            value = "Add"
+                                                    } else {
+                                                        form {
+                                                            action = "./use-upload"
+                                                            method = FormMethod.post
+                                                            input {
+                                                                type = InputType.hidden
+                                                                name = "uploadId"
+                                                                value = upload.key
+                                                            }
+                                                            input {
+                                                                type = InputType.submit
+                                                                value = "Add"
+                                                            }
                                                         }
                                                     }
                                                 }
                                             }
                                             td {
-                                                form {
-                                                    action = "./delete-upload"
-                                                    method = FormMethod.post
-                                                    hiddenInput {
-                                                        name = "uploadId"
-                                                        value = upload.key
-                                                    }
-                                                    submitInput {
-                                                        style = "background-color: red"
-                                                        value = "Delete"
+                                                if (KeycloakUtils.hasPermission(call.jwt()!!, uploadResource, KeycloakScope.DELETE)) {
+                                                    form {
+                                                        action = "./delete-upload"
+                                                        method = FormMethod.post
+                                                        hiddenInput {
+                                                            name = "uploadId"
+                                                            value = upload.key
+                                                        }
+                                                        submitInput {
+                                                            style = "background-color: red"
+                                                            value = "Delete"
+                                                        }
                                                     }
                                                 }
                                             }
                                         }
                                     }
                                 }
-                                br()
-                                br()
-                                div { text("Upload new file or directory (max ~200 MB):") }
-                                form {
-                                    action = "./upload"
-                                    method = FormMethod.post
-                                    encType = FormEncType.multipartFormData
-                                    div {
-                                        text("Choose File(s): ")
-                                        input {
-                                            type = InputType.file
-                                            name = "file"
-                                            multiple = true
+                                if (canWrite) {
+                                    br()
+                                    br()
+                                    div { text("Upload new file or directory (max ~200 MB):") }
+                                    form {
+                                        action = "./upload"
+                                        method = FormMethod.post
+                                        encType = FormEncType.multipartFormData
+                                        div {
+                                            text("Choose File(s): ")
+                                            input {
+                                                type = InputType.file
+                                                name = "file"
+                                                multiple = true
+                                            }
                                         }
-                                    }
-                                    div {
-                                        text("Choose Directory: ")
-                                        input {
-                                            type = InputType.file
-                                            name = "folder"
-                                            attributes["webkitdirectory"] = "true"
-                                            attributes["mozdirectory"] = "true"
+                                        div {
+                                            text("Choose Directory: ")
+                                            input {
+                                                type = InputType.file
+                                                name = "folder"
+                                                attributes["webkitdirectory"] = "true"
+                                                attributes["mozdirectory"] = "true"
+                                            }
                                         }
-                                    }
-                                    div {
-                                        input {
-                                            type = InputType.submit
-                                            value = "Upload"
+                                        div {
+                                            input {
+                                                type = InputType.submit
+                                                value = "Upload"
+                                            }
                                         }
                                     }
                                 }
                             }
-                            br()
-                            br()
-                            div {
-                                style = "border: 1px solid black; padding: 10px;"
+                            if (canWrite) {
+                                br()
+                                br()
                                 div {
-                                    text("Add Bundled Dependency")
-                                }
-                                ul {
-                                    val deps = LocalMavenDependenciesExplorer.getAvailableDependencies()
-                                    for (dependency in deps) {
-                                        li {
-                                            form {
-                                                action = "./add-maven-dependency"
-                                                method = FormMethod.post
-                                                input {
-                                                    type = InputType.submit
-                                                    name = "coordinates"
-                                                    value = dependency.toString()
+                                    style = "border: 1px solid black; padding: 10px;"
+                                    div {
+                                        text("Add Bundled Dependency")
+                                    }
+                                    ul {
+                                        val deps = LocalMavenDependenciesExplorer.getAvailableDependencies()
+                                        for (dependency in deps) {
+                                            li {
+                                                form {
+                                                    action = "./add-maven-dependency"
+                                                    method = FormMethod.post
+                                                    input {
+                                                        type = InputType.submit
+                                                        name = "coordinates"
+                                                        value = dependency.toString()
+                                                    }
                                                 }
                                             }
                                         }
@@ -576,7 +595,6 @@ fun Application.workspaceManagerModule() {
                     }
 
                     val outputFolder = manager.newUploadFolder()
-                    KeycloakUtils.grantPermission(call.jwt()!!, WORKSPACE_UPLOAD.createInstance(outputFolder.name), WORKSPACE_UPLOAD.scopes)
 
                     call.receiveMultipart().forEachPart { part ->
                         if (part is PartData.FileItem) {
@@ -604,7 +622,7 @@ fun Application.workspaceManagerModule() {
                     call.checkPermission(call.parameters["workspaceId"]!!.workspaceIdAsResource(), KeycloakScope.WRITE)
                     val workspaceId = call.parameters["workspaceId"]!!
                     val uploadId = call.receiveParameters()["uploadId"]!!
-                    call.checkPermission(WORKSPACE_UPLOAD.createInstance(uploadId), KeycloakScope.READ)
+                    call.checkPermission(workspaceUploadResourceType.createInstance(uploadId), KeycloakScope.READ)
                     val workspace = manager.getWorkspaceForId(workspaceId)?.first!!
                     workspace.uploads += uploadId
                     manager.update(workspace)
@@ -624,7 +642,7 @@ fun Application.workspaceManagerModule() {
                 post("delete-upload") {
                     call.checkPermission(call.parameters["workspaceId"]!!.workspaceIdAsResource(), KeycloakScope.WRITE)
                     val uploadId = call.receiveParameters()["uploadId"]!!
-                    call.checkPermission(WORKSPACE_UPLOAD.createInstance(uploadId), KeycloakScope.DELETE)
+                    call.checkPermission(workspaceUploadResourceType.createInstance(uploadId), KeycloakScope.DELETE)
                     val allWorkspaces = manager.getWorkspaceIds().mapNotNull { manager.getWorkspaceForId(it)?.first }
                     for (workspace in allWorkspaces.filter { it.uploads.contains(uploadId) }) {
                         workspace.uploads -= uploadId
@@ -743,7 +761,7 @@ private fun findGitRepo(folder: File): File? {
 }
 
 fun Workspace.asResource() = id.workspaceIdAsResource()
-fun String.workspaceIdAsResource() = KeycloakResourceType.WORKSPACE.createInstance(this)
+fun String.workspaceIdAsResource() = workspaceResourceType.createInstance(this)
 
 /**
  * respondHtml fails to respond anything if an exception is thrown in the body and an error handler is installed

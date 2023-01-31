@@ -878,8 +878,8 @@
         "policyEnforcementMode": "ENFORCING",
         "resources": [
           {
-            "name": "default/workspace-list",
-            "type": "default",
+            "name": "list/workspace-list",
+            "type": "list",
             "ownerManagedAccess": false,
             "attributes": {},
             "uris": [],
@@ -903,6 +903,11 @@
             }
           },
           {
+            "name": "grant owner",
+            "type": "grant-owner",
+            "logic": "POSITIVE"
+          },
+          {
             "name": "grant modelix-admin",
             "type": "role",
             "logic": "POSITIVE",
@@ -912,13 +917,35 @@
             }
           },
           {
-            "name": "modelix-user can read workspace-list",
+            "name": "owner can access owned workspaces",
             "type": "scope",
             "logic": "POSITIVE",
             "decisionStrategy": "AFFIRMATIVE",
             "config": {
-              "resources": "[\"default/workspace-list\"]",
-              "scopes": "[\"read\"]",
+              "defaultResourceType": "workspace",
+              "applyPolicies": "[\"grant owner\"]",
+              "scopes": "[\"write\",\"delete\",\"read\",\"list\"]"
+            }
+          },
+          {
+            "name": "modelix-user can add to workspace-list",
+            "type": "scope",
+            "logic": "POSITIVE",
+            "decisionStrategy": "AFFIRMATIVE",
+            "config": {
+              "resources": "[\"list/workspace-list\"]",
+              "scopes": "[\"read\", \"add\"]",
+              "applyPolicies": "[\"grant modelix-user\"]"
+            }
+          },
+          {
+            "name": "modelix-user can read all workspaces",
+            "type": "scope",
+            "logic": "POSITIVE",
+            "decisionStrategy": "AFFIRMATIVE",
+            "config": {
+              "defaultResourceType": "workspace",
+              "scopes": "[\"read\", \"list\"]",
               "applyPolicies": "[\"grant modelix-user\"]"
             }
           },

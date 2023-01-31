@@ -11,8 +11,6 @@
       <sourceRoot location="kotlin-reflect.jar" />
       <sourceRoot location="kotlinx-coroutines-core-jvm.jar" />
       <sourceRoot location="kotlinx-coroutines-jdk8.jar" />
-      <sourceRoot location="kotlinx-serialization-core-jvm.jar" />
-      <sourceRoot location="kotlinx-serialization-json-jvm.jar" />
       <sourceRoot location="ktor-events-jvm.jar" />
       <sourceRoot location="ktor-http-cio-jvm.jar" />
       <sourceRoot location="ktor-http-jvm.jar" />
@@ -56,8 +54,6 @@
     <stubModelEntry path="${module}/lib/kotlin-reflect.jar" />
     <stubModelEntry path="${module}/lib/kotlinx-coroutines-core-jvm.jar" />
     <stubModelEntry path="${module}/lib/kotlinx-coroutines-jdk8.jar" />
-    <stubModelEntry path="${module}/lib/kotlinx-serialization-core-jvm.jar" />
-    <stubModelEntry path="${module}/lib/kotlinx-serialization-json-jvm.jar" />
     <stubModelEntry path="${module}/lib/ktor-events-jvm.jar" />
     <stubModelEntry path="${module}/lib/ktor-http-cio-jvm.jar" />
     <stubModelEntry path="${module}/lib/ktor-http-jvm.jar" />
