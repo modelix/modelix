@@ -1,4 +1,5 @@
 FROM debian:buster
+ARG TARGETARCH
 
 RUN set -eux; apt-get update; apt-get install -y --no-install-recommends ca-certificates curl netbase wget; rm -rf /var/lib/apt/lists/*
 
@@ -14,7 +15,16 @@ ENV PATH $JAVA_HOME/bin:$PATH
 
 RUN set -eux; \
 	\
-	downloadUrl='https://cache-redirector.jetbrains.com/intellij-jbr/jbr_jcef-11_0_10-linux-x64-b1145.96.tar.gz'; \
+	case "$TARGETARCH" in \
+	    'amd64' ) \
+	        downloadUrl='https://cache-redirector.jetbrains.com/intellij-jbr/jbr_jcef-11_0_10-linux-x64-b1145.96.tar.gz'; \
+	        ;; \
+	    'arm64' ) \
+	        downloadUrl='https://cache-redirector.jetbrains.com/intellij-jbr/jbr-11_0_11-linux-aarch64-b1341.60.tar.gz'; \
+	        ;; \
+	    * ) \
+	        echo >&2 "error: unsupported target architecture '$TARGETARCH'"; exit 1 ;; \
+	esac; \
 	\
 	savedAptMark="$(apt-mark showmanual)"; \
 	apt-get update; \
