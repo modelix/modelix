@@ -1,3 +1,3 @@
 #!/bin/sh
 
-docker build -f Dockerfile-mps -t modelix/modelix-mps .
+docker buildx build --platform linux/amd64,linux/arm64 -f Dockerfile-mps -t modelix/modelix-mps .

@@ -6,7 +6,7 @@ TAG=$( ./modelix-version.sh )
 
 (
   cd instances-manager
-  docker build --no-cache -t modelix/modelix-instances-manager .
+  docker buildx build --platform linux/amd64,linux/arm64 --no-cache -t modelix/modelix-instances-manager .
 )
 
 docker tag modelix/modelix-instances-manager:latest "modelix/modelix-instances-manager:${TAG}"
