@@ -26,4 +26,4 @@ unzip -d build/branding artifacts/mps/lib/branding.jar
   zip -r ../branding.zip ./*
 )
 
-docker build --no-cache -f Dockerfile-projector-base -t modelix/modelix-projector-base .
+docker build --platform=linux/amd64 --no-cache -f Dockerfile-projector-base -t modelix/modelix-projector-base .

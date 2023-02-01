@@ -3,7 +3,7 @@
 TAG=$( ./modelix-version.sh )
 
 cd db
-docker build --no-cache -f Dockerfile -t modelix/modelix-db .
+docker build --platform=linux/amd64 --no-cache -f Dockerfile -t modelix/modelix-db .
 
 cd ..
 docker tag modelix/modelix-db:latest "modelix/modelix-db:${TAG}"

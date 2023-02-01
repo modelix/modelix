@@ -6,7 +6,7 @@ TAG=$( ./modelix-version.sh )
 
 (
   cd keycloak-extensions
-  docker build -t modelix/keycloak .
+  docker build --platform=linux/amd64 -t modelix/keycloak .
 )
 
 docker tag modelix/keycloak:latest "modelix/keycloak:${TAG}"

@@ -4,7 +4,7 @@ set -e
 
 TAG=$( ./modelix-version.sh )
 
-docker build -f Dockerfile-workspace-client -t modelix/modelix-workspace-client .
+docker build --platform=linux/amd64 -f Dockerfile-workspace-client -t modelix/modelix-workspace-client .
 
 docker tag modelix/modelix-workspace-client:latest "modelix/modelix-workspace-client:${TAG}"
 
