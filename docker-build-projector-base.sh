@@ -2,6 +2,8 @@
 
 set -e
 
+MODELIX_TARGET_PLATFORM="${MODELIX_TARGET_PLATFORM:=linux/amd64}"
+
 # read variables from mps-version.properties
 while IFS='=' read -r key value
 do

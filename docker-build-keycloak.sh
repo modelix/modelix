@@ -3,6 +3,7 @@
 set -e
 
 TAG=$( ./modelix-version.sh )
+MODELIX_TARGET_PLATFORM="${MODELIX_TARGET_PLATFORM:=linux/amd64}"
 
 (
   cd keycloak-extensions
