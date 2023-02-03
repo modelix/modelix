@@ -5,7 +5,6 @@ RUN apt install maven -y
 RUN apt install git -y
 RUN apt install ant -y
 
-COPY bundled-maven-dependencies/settings.xml /root/.m2/settings.xml
 COPY bundled-maven-dependencies/pom.xml /bundled-maven-dependencies/pom.xml
 WORKDIR /bundled-maven-dependencies
 RUN mvn dependency:go-offline
