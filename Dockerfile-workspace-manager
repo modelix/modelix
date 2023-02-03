@@ -14,7 +14,6 @@ RUN mvn dependency:go-offline
 WORKDIR /root/.m2
 RUN find -iname "*.repositories" -exec rm -f {} \;
 RUN find -iname "*.sha1" -exec rm -f {} \;
-RUN rm /root/.m2/settings.xml
 
 WORKDIR /workspace-manager/
 EXPOSE 28104
