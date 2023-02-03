@@ -23,7 +23,7 @@
         <dependency>
             <groupId>com.mbeddr</groupId>
             <artifactId>platform</artifactId>
-            <version>2020.3.23626.2804ee7</version>
+            <version>2020.3.23596.2804ee7</version>
             <type>zip</type>
         </dependency>
         <dependency>
