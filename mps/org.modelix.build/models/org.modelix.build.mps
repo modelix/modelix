@@ -3292,6 +3292,7 @@
         <property role="BnDLt" value="true" />
         <property role="TrG5h" value="org.modelix.ui.diff" />
         <property role="3LESm3" value="25f5c7b1-6312-4074-a012-654b813b8083" />
+        <property role="aoJFB" value="eYcmk9QOlj/sources_and_tests" />
         <node concept="398BVA" id="27MnIrahymz" role="3LF7KH">
           <ref role="398BVh" node="3$7Kuaihl5X" resolve="modelix.modules" />
           <node concept="2Ry0Ak" id="27MnIrahyRF" role="iGT6I">
@@ -6935,6 +6936,9 @@
       </node>
       <node concept="22LTRM" id="6w3CrGw0IB8" role="22LTRK">
         <ref role="22LTRN" node="6w3CrGw0I_A" resolve="test.org.modelix.ui.common" />
+      </node>
+      <node concept="22LTRM" id="5qbHjZpNHt8" role="22LTRK">
+        <ref role="22LTRN" node="27MnIrahxUD" resolve="org.modelix.ui.diff" />
       </node>
       <node concept="24cAiW" id="1yReInEzbz" role="24cAkG" />
     </node>
