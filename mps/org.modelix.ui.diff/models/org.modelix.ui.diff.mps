@@ -45,10 +45,6 @@
     <import index="opgt" ref="fc3c2aa8-0d4b-463f-a774-40d450aa04a0/java:javax.servlet(org.modelix.jetty/)" />
     <import index="exr9" ref="1ed103c3-3aa6-49b7-9c21-6765ee11f224/java:jetbrains.mps.nodeEditor(MPS.Editor/)" />
     <import index="7g4e" ref="498d89d2-c2e9-11e2-ad49-6cf049e62fe5/java:com.intellij.vcsUtil(MPS.IDEA/)" />
-    <import index="5mlj" ref="2d5cd737-852a-4885-95f3-b6f65b8b740d/java:git4idea.repo(org.modelix.git4idea.withJavaFacet/)" />
-    <import index="hr4p" ref="2d5cd737-852a-4885-95f3-b6f65b8b740d/java:git4idea(org.modelix.git4idea.withJavaFacet/)" />
-    <import index="m8n3" ref="2d5cd737-852a-4885-95f3-b6f65b8b740d/java:git4idea.history(org.modelix.git4idea.withJavaFacet/)" />
-    <import index="oy9a" ref="2d5cd737-852a-4885-95f3-b6f65b8b740d/java:git4idea.changes(org.modelix.git4idea.withJavaFacet/)" />
     <import index="fvx8" ref="6354ebe7-c22a-4a0f-ac54-50b52ab9b065/java:sun.awt(JDK/)" />
     <import index="l2n2" ref="6354ebe7-c22a-4a0f-ac54-50b52ab9b065/java:java.awt.peer(JDK/)" />
     <import index="hyam" ref="6354ebe7-c22a-4a0f-ac54-50b52ab9b065/java:java.awt.event(JDK/)" />
@@ -60,6 +56,11 @@
     <import index="z1c3" ref="6ed54515-acc8-4d1e-a16c-9fd6cfe951ea/java:jetbrains.mps.project(MPS.Core/)" />
     <import index="3ju5" ref="6ed54515-acc8-4d1e-a16c-9fd6cfe951ea/java:jetbrains.mps.vfs(MPS.Core/)" />
     <import index="z1c4" ref="742f6602-5a2f-4313-aa6e-ae1cd4ffdc61/java:jetbrains.mps.project(MPS.Platform/)" />
+    <import index="mrnd" ref="f57286e3-4e19-4d8d-8045-3900761f6530/java:git4idea.history.browser(jetbrains.mps.git4idea.stubs/)" />
+    <import index="oy9a" ref="f57286e3-4e19-4d8d-8045-3900761f6530/java:git4idea.changes(jetbrains.mps.git4idea.stubs/)" />
+    <import index="5mlj" ref="f57286e3-4e19-4d8d-8045-3900761f6530/java:git4idea.repo(jetbrains.mps.git4idea.stubs/)" />
+    <import index="hr4p" ref="f57286e3-4e19-4d8d-8045-3900761f6530/java:git4idea(jetbrains.mps.git4idea.stubs/)" />
+    <import index="m8n3" ref="f57286e3-4e19-4d8d-8045-3900761f6530/java:git4idea.history(jetbrains.mps.git4idea.stubs/)" />
     <import index="fglx" ref="498d89d2-c2e9-11e2-ad49-6cf049e62fe5/java:com.intellij.openapi.fileTypes(MPS.IDEA/)" implicit="true" />
   </imports>
   <registry>
@@ -1308,8 +1309,8 @@
                           </node>
                         </node>
                         <node concept="2YIFZM" id="b16MWbL_Pn" role="33vP2m">
-                          <ref role="37wK5l" to="m8n3:~GitHistoryUtils.history(com.intellij.openapi.project.Project,com.intellij.openapi.vfs.VirtualFile,java.lang.String...)" resolve="history" />
                           <ref role="1Pybhc" to="m8n3:~GitHistoryUtils" resolve="GitHistoryUtils" />
+                          <ref role="37wK5l" to="m8n3:~GitHistoryUtils.history(com.intellij.openapi.project.Project,com.intellij.openapi.vfs.VirtualFile,java.lang.String...)" resolve="history" />
                           <node concept="37vLTw" id="b16MWbL_Po" role="37wK5m">
                             <ref role="3cqZAo" node="4kPMkltJPHc" resolve="project" />
                           </node>
@@ -1506,8 +1507,8 @@
                           <node concept="3clFbS" id="7jrnksK$g2t" role="1zxBo7">
                             <node concept="3clFbF" id="7jrnksK$ioO" role="3cqZAp">
                               <node concept="2YIFZM" id="7jrnksK$iHf" role="3clFbG">
-                                <ref role="37wK5l" to="oy9a:~GitChangeUtils.resolveReference(com.intellij.openapi.project.Project,com.intellij.openapi.vfs.VirtualFile,java.lang.String)" resolve="resolveReference" />
                                 <ref role="1Pybhc" to="oy9a:~GitChangeUtils" resolve="GitChangeUtils" />
+                                <ref role="37wK5l" to="oy9a:~GitChangeUtils.resolveReference(com.intellij.openapi.project.Project,com.intellij.openapi.vfs.VirtualFile,java.lang.String)" resolve="resolveReference" />
                                 <node concept="37vLTw" id="7jrnksK$ja9" role="37wK5m">
                                   <ref role="3cqZAo" node="4kPMkltJPHc" resolve="project" />
                                 </node>
@@ -1521,8 +1522,8 @@
                             </node>
                             <node concept="3clFbF" id="7jrnksK$rL0" role="3cqZAp">
                               <node concept="2YIFZM" id="7jrnksK$rL1" role="3clFbG">
-                                <ref role="37wK5l" to="oy9a:~GitChangeUtils.resolveReference(com.intellij.openapi.project.Project,com.intellij.openapi.vfs.VirtualFile,java.lang.String)" resolve="resolveReference" />
                                 <ref role="1Pybhc" to="oy9a:~GitChangeUtils" resolve="GitChangeUtils" />
+                                <ref role="37wK5l" to="oy9a:~GitChangeUtils.resolveReference(com.intellij.openapi.project.Project,com.intellij.openapi.vfs.VirtualFile,java.lang.String)" resolve="resolveReference" />
                                 <node concept="37vLTw" id="7jrnksK$rL2" role="37wK5m">
                                   <ref role="3cqZAo" node="4kPMkltJPHc" resolve="project" />
                                 </node>
