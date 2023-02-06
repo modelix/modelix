@@ -21,7 +21,9 @@
       <concept id="4560297596904469362" name="jetbrains.mps.build.mps.tests.structure.BuildMps_TestModule" flags="nn" index="22LTRM">
         <reference id="4560297596904469363" name="module" index="22LTRN" />
       </concept>
-      <concept id="6593674873639474400" name="jetbrains.mps.build.mps.tests.structure.BuildMps_TestModules_Options" flags="ng" index="24cAiW" />
+      <concept id="6593674873639474400" name="jetbrains.mps.build.mps.tests.structure.BuildMps_TestModules_Options" flags="ng" index="24cAiW">
+        <child id="6593674873639478221" name="haltonfailure" index="24c_eh" />
+      </concept>
       <concept id="4005526075820600484" name="jetbrains.mps.build.mps.tests.structure.BuildModuleTestsPlugin" flags="ng" index="1gjT0q" />
     </language>
     <language id="798100da-4f0a-421a-b991-71f8c50ce5d2" name="jetbrains.mps.build">
@@ -6917,6 +6919,12 @@
         </node>
       </node>
     </node>
+    <node concept="398rNT" id="2_VYLT0eqku" role="1l3spd">
+      <property role="TrG5h" value="mps.macro.modelix.home" />
+      <node concept="398BVA" id="2_VYLT0eqkO" role="398pKh">
+        <ref role="398BVh" node="1yReInD20Y" resolve="modelix.home" />
+      </node>
+    </node>
     <node concept="55IIr" id="1yReInD20W" role="auvoZ" />
     <node concept="1l3spV" id="1yReInD20X" role="1l3spN">
       <node concept="L2wRC" id="6w3CrGw0IBg" role="39821P">
@@ -6940,7 +6948,13 @@
       <node concept="22LTRM" id="5qbHjZpNHt8" role="22LTRK">
         <ref role="22LTRN" node="27MnIrahxUD" resolve="org.modelix.ui.diff" />
       </node>
-      <node concept="24cAiW" id="1yReInEzbz" role="24cAkG" />
+      <node concept="24cAiW" id="1yReInEzbz" role="24cAkG">
+        <node concept="NbPM2" id="5qbHjZpP3MW" role="24c_eh">
+          <node concept="3Mxwew" id="5qbHjZpP3MV" role="3MwsjC">
+            <property role="3MwjfP" value="true" />
+          </node>
+        </node>
+      </node>
     </node>
   </node>
   <node concept="1l3spW" id="2p2ql82Ml$V">
