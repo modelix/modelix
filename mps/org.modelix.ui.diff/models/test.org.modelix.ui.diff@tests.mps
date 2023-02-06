@@ -9,12 +9,14 @@
   <imports>
     <import index="lvkz" ref="r:ab9ceea2-f32a-4ea6-be78-3e6c2d4ef84b(org.modelix.ui.diff)" />
     <import index="5zyv" ref="6354ebe7-c22a-4a0f-ac54-50b52ab9b065/java:java.util.concurrent(JDK/)" />
+    <import index="alof" ref="742f6602-5a2f-4313-aa6e-ae1cd4ffdc61/java:jetbrains.mps.ide.project(MPS.Platform/)" />
   </imports>
   <registry>
     <language id="8585453e-6bfb-4d80-98de-b16074f1d86c" name="jetbrains.mps.lang.test">
       <concept id="5097124989038916362" name="jetbrains.mps.lang.test.structure.TestInfo" flags="ng" index="2XOHcx">
         <property id="5097124989038916363" name="projectPath" index="2XOHcw" />
       </concept>
+      <concept id="1225467090849" name="jetbrains.mps.lang.test.structure.ProjectExpression" flags="nn" index="1jxXqW" />
       <concept id="1216913645126" name="jetbrains.mps.lang.test.structure.NodesTestCase" flags="lg" index="1lH9Xt">
         <child id="1217501895093" name="testMethods" index="1SL9yI" />
       </concept>
@@ -143,7 +145,12 @@
               </node>
               <node concept="2ShNRf" id="5qbHjZpKLrc" role="2Oq$k0">
                 <node concept="1pGfFk" id="5qbHjZpKLrd" role="2ShVmc">
-                  <ref role="37wK5l" to="lvkz:4kPMkltJUzr" resolve="DiffImages" />
+                  <ref role="37wK5l" to="lvkz:4kPMkltJSq1" resolve="DiffImages" />
+                  <node concept="2YIFZM" id="2_VYLT0fb$9" role="37wK5m">
+                    <ref role="37wK5l" to="alof:~ProjectHelper.toIdeaProject(jetbrains.mps.project.Project)" resolve="toIdeaProject" />
+                    <ref role="1Pybhc" to="alof:~ProjectHelper" resolve="ProjectHelper" />
+                    <node concept="1jxXqW" id="2_VYLT0fbVQ" role="37wK5m" />
+                  </node>
                 </node>
               </node>
             </node>
@@ -228,7 +235,7 @@
     </node>
   </node>
   <node concept="2XOHcx" id="5qbHjZpLzBr">
-    <property role="2XOHcw" value="${modelix.home}" />
+    <property role="2XOHcw" value="${modelix.home}/mps" />
   </node>
 </model>
 
