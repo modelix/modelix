@@ -35,7 +35,6 @@
       <modulePath path="$PROJECT_DIR$/org.modelix.ui.state/org.modelix.ui.state.mpl" folder="ui" />
       <modulePath path="$PROJECT_DIR$/org.modelix.ui.svg/org.modelix.ui.svg.msd" folder="ui.image" />
       <modulePath path="$PROJECT_DIR$/org.modelix.ui.svg/org.modelix.ui.svg.msd" folder="ui.svg" />
-      <modulePath path="$PROJECT_DIR$/solutions/org.modelix.git4idea.withJavaFacet/org.modelix.git4idea.withJavaFacet.msd" folder="ui.diff" />
       <modulePath path="$PROJECT_DIR$/test.org.modelix.model.mpsplugin/test.org.modelix.model.mpsplugin.msd" folder="model" />
       <modulePath path="$PROJECT_DIR$/test.org.modelix.ui.common/test.org.modelix.ui.common.msd" folder="ui" />
     </projectModules>
