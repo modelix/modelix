@@ -1,5 +1,6 @@
 #!/bin/sh
 
+# Only used in the modelix/modelix-mps docker image as an easy way to build custom images with additional plugins.
 # Finds and copies all MPS plugins from SOURCE_FOLDER to TARGET_FOLDER. Zip files containing plugins are extracted.
 
 TARGET_FOLDER="${1:-/usr/modelix-ui/mps/plugins/}"
