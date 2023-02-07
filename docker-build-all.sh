@@ -8,7 +8,6 @@ set -e
 ./docker-build-projector-base.sh
 ./docker-build-projector.sh
 ./docker-build-proxy.sh
-./docker-build-uiproxy.sh
 ./docker-build-instances-manager.sh
 ./docker-build-workspace-manager.sh
 ./docker-build-workspace-client.sh
