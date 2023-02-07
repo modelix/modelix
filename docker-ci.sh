@@ -17,7 +17,6 @@ docker login -u "$DOCKER_HUB_USER" -p "$DOCKER_HUB_KEY"
 ./docker-build-db.sh
 ./docker-build-mps.sh
 ./docker-build-base.sh
-./docker-build-ui.sh
 ./docker-build-projector-base.sh
 ./docker-build-projector.sh
 ./docker-build-proxy.sh
@@ -32,7 +31,7 @@ TAGS="$MODELIX_VERSION mps-$mpsVersion"
 if [ "$mpsVersion" != "$mpsMajorVersion" ]; then
     TAGS="$TAGS mps-$mpsMajorVersion"
 fi
-IMAGE_NAMES="modelix-db modelix-mps modelix-base modelix-ui modelix-projector modelix-proxy modelix-uiproxy modelix-instances-manager modelix-workspace-manager modelix-workspace-client keycloak"
+IMAGE_NAMES="modelix-db modelix-mps modelix-base modelix-projector modelix-proxy modelix-uiproxy modelix-instances-manager modelix-workspace-manager modelix-workspace-client keycloak"
 for TAG in $TAGS ; do
   echo "Pushing Tag $TAG"
 
