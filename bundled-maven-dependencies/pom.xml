@@ -7,19 +7,9 @@
 
     <repositories>
         <repository>
-            <id>github.mbeddr</id>
-            <name>mbeddr on github</name>
-            <url>https://maven.pkg.github.com/mbeddr/mbeddr.core</url>
-        </repository>
-        <repository>
-            <id>github.mps-extensions</id>
-            <name>MPS-extensions on github</name>
-            <url>https://maven.pkg.github.com/JetBrains/MPS-extensions</url>
-        </repository>
-        <repository>
-            <id>github.iets3os</id>
-            <name>IETS3 opensource on github</name>
-            <url>https://maven.pkg.github.com/IETS3/iets3.opensource</url>
+            <id>itemis</id>
+            <name>itemis nexus</name>
+            <url>https://artifacts.itemis.cloud/repository/maven-mps/</url>
         </repository>
     </repositories>
 
@@ -27,25 +17,25 @@
         <dependency>
             <groupId>de.itemis.mps</groupId>
             <artifactId>extensions</artifactId>
-            <version>2021.1.2315.d07fea4</version>
+            <version>2021.1.2525.f9792dc</version>
             <type>zip</type>
         </dependency>
         <dependency>
             <groupId>com.mbeddr</groupId>
             <artifactId>platform</artifactId>
-            <version>2021.1.23225.0cf9263</version>
+            <version>2021.1.23654.9290a92</version>
             <type>zip</type>
         </dependency>
         <dependency>
             <groupId>com.mbeddr</groupId>
             <artifactId>mbeddr</artifactId>
-            <version>2021.1.23225.0cf9263</version>
+            <version>2021.1.23649.a0edd62</version>
             <type>zip</type>
         </dependency>
         <dependency>
             <groupId>org.iets3</groupId>
             <artifactId>opensource</artifactId>
-            <version>2021.1.5415.2e37961</version>
+            <version>2021.1.5920.2232947</version>
             <type>zip</type>
         </dependency>
     </dependencies>
