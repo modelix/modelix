@@ -662,7 +662,7 @@ fun Application.workspaceManagerModule() {
                     }
                 }
 
-                get("{workspaceHash}/download-modules/queue") {
+                get("download-modules/queue") {
                     val workspaceHash = WorkspaceHash(call.parameters["workspaceHash"]!!)
                     val job = manager.buildWorkspaceDownloadFileAsync(workspaceHash)
                     val respondStatus: suspend (String, String)->Unit = { text, refresh ->
@@ -697,19 +697,19 @@ fun Application.workspaceManagerModule() {
                     }
                 }
 
-                get("{workspaceHash}/status") {
+                get("status") {
                     val workspaceHash = WorkspaceHash(call.parameters["workspaceHash"]!!)
                     val job = manager.buildWorkspaceDownloadFileAsync(workspaceHash)
                     call.respondText(job.status.toString(), ContentType.Text.Plain, HttpStatusCode.OK)
                 }
 
-                get("{workspaceHash}/output") {
+                get("output") {
                     val workspaceHash = WorkspaceHash(call.parameters["workspaceHash"]!!)
                     val job = manager.buildWorkspaceDownloadFileAsync(workspaceHash)
                     call.respondText(job.output.joinToString("\n"), ContentType.Text.Plain, HttpStatusCode.OK)
                 }
 
-                get("{workspaceHash}/download-modules/workspace.zip") {
+                get("download-modules/workspace.zip") {
                     val workspaceHash = WorkspaceHash(call.parameters["workspaceHash"]!!)
                     val workspace = manager.getWorkspaceForHash(workspaceHash)
                     if (workspace == null) {
