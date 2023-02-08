@@ -14,22 +14,18 @@
 package org.modelix.workspace.client
 
 import io.ktor.client.*
-import io.ktor.client.call.*
 import io.ktor.client.engine.cio.*
+import io.ktor.client.plugins.*
 import io.ktor.client.request.*
 import io.ktor.client.statement.*
 import io.ktor.http.*
-import io.ktor.util.*
 import io.ktor.util.cio.*
 import io.ktor.utils.io.*
-import io.ktor.utils.io.jvm.javaio.*
-import io.ktor.utils.io.jvm.javaio.copyTo
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
 import org.modelix.workspace.manager.WorkspaceBuildStatus
 import org.zeroturnaround.zip.ZipUtil
 import java.io.File
-import kotlin.math.sign
 
 fun main(args: Array<String>) {
     println("env: ${System.getenv()}")
@@ -43,7 +39,12 @@ fun main(args: Array<String>) {
     var serverUrl = propertyOrEnv("modelix.workspace.server", "http://workspace-manager:28104/")
     if (!serverUrl.endsWith("/")) serverUrl += "/"
 
-    val httpClient = HttpClient(CIO)
+    val httpClient = HttpClient(CIO) {
+        defaultRequest {
+            bearerAuth(System.getenv("INITIAL_JWT_TOKEN"))
+        }
+
+    }
     val outputFile = File("workspace.zip").absoluteFile
     runBlocking {
         var printedLines = 0
