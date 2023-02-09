@@ -24,9 +24,13 @@ import io.kubernetes.client.util.Yaml
 import org.apache.commons.collections4.map.LRUMap
 import org.eclipse.jetty.server.Request
 import org.modelix.authorization.AccessTokenPrincipal
+import org.modelix.authorization.KeycloakResourceType
+import org.modelix.authorization.KeycloakScope
+import org.modelix.authorization.KeycloakUtils
 import org.modelix.workspaces.Workspace
 import org.modelix.workspaces.WorkspaceHash
 import org.modelix.workspaces.WorkspacePersistence
+import org.modelix.workspaces.workspaceResourceType
 import java.io.IOException
 import java.util.*
 import java.util.concurrent.atomic.AtomicBoolean
@@ -350,10 +354,12 @@ class DeploymentManager {
                 .addEnvItem(V1EnvVar().name("REPOSITORY_ID").value("workspace_${workspace.id}"))
             deployment.spec!!.template.spec!!.containers[0]
                 .addEnvItem(V1EnvVar().name("modelix_workspace_hash").value(workspace.hash().hash))
-            if (userToken != null) {
-                deployment.spec!!.template.spec!!.containers[0]
-                    .addEnvItem(V1EnvVar().name("INITIAL_JWT_TOKEN").value(userToken.jwt.token))
-            }
+            val token = userToken?.jwt ?: KeycloakUtils.createToken(listOf(
+                workspaceResourceType.createInstance(workspace.id) to setOf(KeycloakScope.READ),
+                KeycloakResourceType.MODEL_SERVER_ENTRY.createInstance("workspace-" + workspace.id) to setOf(KeycloakScope.READ),
+            ))
+            deployment.spec!!.template.spec!!.containers[0]
+                .addEnvItem(V1EnvVar().name("INITIAL_JWT_TOKEN").value(token.token))
             loadWorkspaceSpecificValues(workspace, deployment)
             println("Creating deployment: ")
             println(Yaml.dump(deployment))
