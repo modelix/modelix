@@ -1,13 +1,10 @@
 FROM debian:buster
 ARG TARGETARCH
 
-RUN set -eux; apt-get update; apt-get install -y --no-install-recommends ca-certificates curl netbase wget; rm -rf /var/lib/apt/lists/*
-
-RUN set -ex; if ! command -v gpg > /dev/null; then apt-get update; apt-get install -y --no-install-recommends gnupg dirmngr; rm -rf /var/lib/apt/lists/*; fi
-
-RUN apt-get update && apt-get install -y --no-install-recommends git mercurial openssh-client subversion procps && rm -rf /var/lib/apt/lists/*
-RUN set -eux; apt-get update; apt-get install -y --no-install-recommends bzip2 unzip xz-utils fontconfig libfreetype6 ca-certificates p11-kit; rm -rf /var/lib/apt/lists/*
-
+RUN set -eux \
+    && apt-get update \
+    && apt-get install -y --no-install-recommends ca-certificates curl netbase wget gnupg dirmngr git mercurial openssh-client subversion procps bzip2 unzip xz-utils fontconfig libfreetype6 ca-certificates p11-kit zip\
+    && rm -rf /var/lib/apt/lists/*
 
 ENV JAVA_HOME /usr/local/jbr
 RUN { echo '#/bin/sh'; echo 'echo "$JAVA_HOME"'; } > /usr/local/bin/docker-java-home && chmod +x /usr/local/bin/docker-java-home && [ "$JAVA_HOME" = "$(docker-java-home)" ] # backwards compatibility
@@ -77,6 +74,16 @@ RUN set -eux; \
 
 WORKDIR /usr/modelix-ui
 COPY artifacts/mps/ /usr/modelix-ui/mps/
+
+# Enable error markers in headless mode
+RUN apt update && apt install -y zip
+RUN mkdir -p /tmp/mps-workbench
+RUN unzip /usr/modelix-ui/mps/lib/mps-workbench.jar -d /tmp/mps-workbench/
+RUN sed -i '/jetbrains.mps.nodeEditor.EmptyHighlighter/d' /tmp/mps-workbench/META-INF/MPSEditor.xml
+RUN rm /usr/modelix-ui/mps/lib/mps-workbench.jar
+WORKDIR /tmp/mps-workbench/
+RUN zip -r /usr/modelix-ui/mps/lib/mps-workbench.jar ./*
+RUN rm -rf /tmp/mps-workbench/
 
 COPY install-plugins.sh /
 RUN chmod +x /install-plugins.sh
