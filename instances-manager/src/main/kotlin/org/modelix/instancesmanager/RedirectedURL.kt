@@ -19,14 +19,14 @@ import org.modelix.authorization.AccessTokenPrincipal
 import org.modelix.authorization.nullIfInvalid
 import javax.servlet.http.HttpServletRequest
 
-class RedirectedURL(val remainingPath: String, val originalDeploymentName: String, var personalDeploymentName: String?, val userToken: AccessTokenPrincipal?) {
+class RedirectedURL(val remainingPath: String, val originalDeploymentName: String, var instanceName: InstanceName?, val userToken: AccessTokenPrincipal?) {
     fun noPersonalDeployment() {
-        personalDeploymentName = null
+        instanceName = null
     }
 
     fun getRedirectedUrl(websocket: Boolean): String {
         var url = (if (websocket) "ws" else "http") + "://"
-        url += if (personalDeploymentName != null) personalDeploymentName else originalDeploymentName
+        url += if (instanceName != null) instanceName?.name else originalDeploymentName
         url += if (remainingPath.startsWith("/ide/")) {
             ":8887" + remainingPath.substring("/ide".length)
         } else {
