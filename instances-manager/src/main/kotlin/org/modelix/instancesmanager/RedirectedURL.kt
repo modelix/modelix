@@ -19,14 +19,20 @@ import org.modelix.authorization.AccessTokenPrincipal
 import org.modelix.authorization.nullIfInvalid
 import javax.servlet.http.HttpServletRequest
 
-class RedirectedURL(val remainingPath: String, val originalDeploymentName: String, var instanceName: InstanceName?, val userToken: AccessTokenPrincipal?) {
+class RedirectedURL(
+    val remainingPath: String,
+    val workspaceReference: String,
+    val sharedInstanceName: String,
+    var instanceName: InstanceName?,
+    val userToken: AccessTokenPrincipal?
+) {
     fun noPersonalDeployment() {
         instanceName = null
     }
 
     fun getRedirectedUrl(websocket: Boolean): String {
         var url = (if (websocket) "ws" else "http") + "://"
-        url += if (instanceName != null) instanceName?.name else originalDeploymentName
+        url += if (instanceName != null) instanceName?.name else workspaceReference
         url += if (remainingPath.startsWith("/ide/")) {
             ":8887" + remainingPath.substring("/ide".length)
         } else {
@@ -38,17 +44,17 @@ class RedirectedURL(val remainingPath: String, val originalDeploymentName: Strin
     companion object {
         const val COOKIE_NAME = "modelix-mps-instance"
         fun redirect(baseRequest: Request?, request: HttpServletRequest): RedirectedURL? {
-            val path = request.requestURI
-            if (path[0] != '/') return null
-            val indexOfSlash = path.indexOf('/', 1)
-            if (indexOfSlash < 0) return null
-            val originalDeploymentName = path.substring(1, indexOfSlash)
-            //        originalDeploymentName = originalDeploymentName.replace("*", "");
-            var remainingPath = path.substring(indexOfSlash)
+            var remainingPath = request.requestURI
+            if (!remainingPath.startsWith("/")) return null
+            remainingPath = remainingPath.substring(1)
+            val workspaceReference = remainingPath.substringBefore('/')
+            remainingPath = remainingPath.substringAfter('/')
+            val sharedInstanceName = remainingPath.substringBefore('/')
+            remainingPath = remainingPath.substringAfter('/')
             if (request.queryString != null) remainingPath += "?" + request.queryString
 
             val userId = getUserIdFromAuthHeader(request)
-            return RedirectedURL(remainingPath, originalDeploymentName, null, userId)
+            return RedirectedURL("/" + remainingPath, workspaceReference, sharedInstanceName, null, userId)
         }
 
         fun getUserIdFromAuthHeader(request: HttpServletRequest): AccessTokenPrincipal? {

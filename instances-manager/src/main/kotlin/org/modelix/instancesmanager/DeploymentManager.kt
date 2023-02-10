@@ -149,11 +149,15 @@ class DeploymentManager {
         if (userId != null) {
             userTokens[UserInstanceOwner(userId)] = userToken
         }
-        val originalDeploymentName = redirected.originalDeploymentName
-        if (!WORKSPACE_PATTERN.matcher(originalDeploymentName).matches()) return null
-        val workspace = getWorkspaceForPath(originalDeploymentName) ?: return null
+        val workspaceReference = redirected.workspaceReference
+        if (!WORKSPACE_PATTERN.matcher(workspaceReference).matches()) return null
+        val workspace = getWorkspaceForPath(workspaceReference) ?: return null
         val assignments = getAssignments(workspace)
-        redirected.instanceName = assignments.getOrCreate(userToken)
+        redirected.instanceName = if (redirected.sharedInstanceName == "own") {
+            assignments.getOrCreate(userToken)
+        } else {
+            assignments.getSharedInstance(redirected.sharedInstanceName) ?: return null
+        }
         assignments.reconcile()
         reconcileIfDirty()
         return redirected
@@ -429,6 +433,11 @@ class DeploymentManager {
 
         fun listDeployments(): List<Pair<InstanceOwner, InstanceName>> {
             return owner2deployment.map { it.key to it.value }
+        }
+
+        @Synchronized
+        fun getSharedInstance(name: String): InstanceName? {
+            return owner2deployment.entries.find { (it.key as? SharedInstanceOwner)?.name == name }?.value
         }
 
         @Synchronized
