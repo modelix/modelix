@@ -34,7 +34,7 @@ class DeploymentManagingHandler : AbstractHandler() {
 
             DeploymentTimeouts.update(personalDeploymentName)
             val deployment = DeploymentManager.INSTANCE.getDeployment(personalDeploymentName, 3)
-                ?: throw RuntimeException("Failed to create deployment " + personalDeploymentName + " for user " + redirectedURL.userToken)
+                ?: throw RuntimeException("Failed to create deployment " + personalDeploymentName + " for user " + redirectedURL.userToken?.getUserName())
             val readyReplicas = if (deployment.status != null) deployment.status!!.readyReplicas else null
             if (readyReplicas == null || readyReplicas == 0) {
                 baseRequest.isHandled = true

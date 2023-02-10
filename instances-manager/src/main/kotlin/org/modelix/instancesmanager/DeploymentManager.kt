@@ -152,6 +152,16 @@ class DeploymentManager {
         val workspaceReference = redirected.workspaceReference
         if (!WORKSPACE_PATTERN.matcher(workspaceReference).matches()) return null
         val workspace = getWorkspaceForPath(workspaceReference) ?: return null
+
+        val isSharedInstance = redirected.sharedInstanceName != "own"
+        if (isSharedInstance) {
+            val canWrite = KeycloakUtils.hasPermission(userToken.jwt, workspaceResourceType.createInstance(workspace.id), KeycloakScope.WRITE)
+            if (!canWrite) return null
+        } else {
+            val canRead = KeycloakUtils.hasPermission(userToken.jwt, workspaceResourceType.createInstance(workspace.id), KeycloakScope.READ)
+            if (!canRead) return null
+        }
+
         val assignments = getAssignments(workspace)
         redirected.instanceName = if (redirected.sharedInstanceName == "own") {
             assignments.getOrCreate(userToken)
