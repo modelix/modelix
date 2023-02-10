@@ -3,7 +3,10 @@ ARG TARGETARCH
 
 RUN set -eux \
     && apt-get update \
-    && apt-get install -y --no-install-recommends ca-certificates curl netbase wget gnupg dirmngr git mercurial openssh-client subversion procps bzip2 unzip xz-utils fontconfig libfreetype6 ca-certificates p11-kit zip\
+    && apt-get install -y --no-install-recommends ca-certificates  \
+    curl netbase wget gnupg dirmngr git mercurial openssh-client  \
+    subversion procps bzip2 unzip xz-utils fontconfig libfreetype6  \
+    ca-certificates p11-kit zip \
     && rm -rf /var/lib/apt/lists/*
 
 ENV JAVA_HOME /usr/local/jbr
