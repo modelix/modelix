@@ -22,7 +22,7 @@ class DeploymentManagingHandler : AbstractHandler() {
     override fun handle(target: String, baseRequest: Request, request: HttpServletRequest, response: HttpServletResponse) {
         try {
             val redirectedURL = DeploymentManager.INSTANCE.redirect(baseRequest, request) ?: return
-            val personalDeploymentName = redirectedURL.personalDeploymentName ?: return
+            val personalDeploymentName = redirectedURL.instanceName ?: return
 
             if (DeploymentManager.INSTANCE.isInstanceDisabled(personalDeploymentName)) {
                 baseRequest.isHandled = true
@@ -32,9 +32,9 @@ class DeploymentManagingHandler : AbstractHandler() {
                 return
             }
 
-            DeploymentTimeouts.INSTANCE.update(personalDeploymentName)
+            DeploymentTimeouts.update(personalDeploymentName)
             val deployment = DeploymentManager.INSTANCE.getDeployment(personalDeploymentName, 3)
-                ?: throw RuntimeException("Failed to create deployment " + personalDeploymentName + " for user " + redirectedURL.userToken)
+                ?: throw RuntimeException("Failed to create deployment " + personalDeploymentName + " for user " + redirectedURL.userToken?.getUserName())
             val readyReplicas = if (deployment.status != null) deployment.status!!.readyReplicas else null
             if (readyReplicas == null || readyReplicas == 0) {
                 baseRequest.isHandled = true
@@ -69,7 +69,7 @@ class DeploymentManagingHandler : AbstractHandler() {
                     progress = 0
                 }
                 html = html.replace("{{progressPercent}}", progress.toString())
-                html = html.replace("{{instanceId}}", personalDeploymentName)
+                html = html.replace("{{instanceId}}", personalDeploymentName.name)
                 response.writer.append(html)
             }
         } catch (ex: Exception) {

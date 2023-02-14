@@ -55,12 +55,12 @@ object Main {
         handlerList.addHandler(deploymentManagingHandler)
         val proxyServlet: ProxyServletWithWebsocketSupport = object : ProxyServletWithWebsocketSupport() {
             override fun dataTransferred(clientSession: Session?, proxySession: Session?) {
-                val deploymentName = proxySession!!.upgradeRequest.host
-                DeploymentTimeouts.Companion.INSTANCE.update(deploymentName)
+                val deploymentName = InstanceName(proxySession!!.upgradeRequest.host)
+                DeploymentTimeouts.update(deploymentName)
             }
 
             override fun redirect(request: ServletUpgradeRequest): URI? {
-                val redirectedURL: RedirectedURL = DeploymentManager.Companion.INSTANCE.redirect(null, request.httpServletRequest)
+                val redirectedURL: RedirectedURL = DeploymentManager.INSTANCE.redirect(null, request.httpServletRequest)
                     ?: return null
                 return try {
                     URI(redirectedURL.getRedirectedUrl(true))
@@ -70,7 +70,7 @@ object Main {
             }
 
             override fun rewriteTarget(clientRequest: HttpServletRequest): String? {
-                val redirectedURL: RedirectedURL = DeploymentManager.Companion.INSTANCE.redirect(null, clientRequest)
+                val redirectedURL: RedirectedURL = DeploymentManager.INSTANCE.redirect(null, clientRequest)
                     ?: return null
                 return redirectedURL.getRedirectedUrl(false)
             }
@@ -78,7 +78,7 @@ object Main {
         val proxyHandlerCondition: HandlerWrapper = object : HandlerWrapper() {
             @Throws(IOException::class, ServletException::class)
             override fun handle(target: String, baseRequest: Request, request: HttpServletRequest, response: HttpServletResponse) {
-                val redirect: RedirectedURL = DeploymentManager.Companion.INSTANCE.redirect(baseRequest, request)
+                val redirect: RedirectedURL = DeploymentManager.INSTANCE.redirect(baseRequest, request)
                     ?: return
                 if (redirect.userToken == null) {
                     baseRequest.isHandled = true
@@ -124,6 +124,6 @@ object Main {
         })
 
         // Trigger creation of the instance so that it starts the first MPS instance
-        DeploymentManager.Companion.INSTANCE.toString()
+        DeploymentManager.INSTANCE.toString()
     }
 }

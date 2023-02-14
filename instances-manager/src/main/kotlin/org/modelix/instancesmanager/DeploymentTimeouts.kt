@@ -16,9 +16,9 @@ package org.modelix.instancesmanager
 import org.apache.commons.collections4.map.HashedMap
 import java.util.*
 
-class DeploymentTimeouts {
-    private val timeouts = Collections.synchronizedMap(HashedMap<String?, Long>())
-    fun update(deploymentName: String?) {
+object DeploymentTimeouts {
+    private val timeouts = Collections.synchronizedMap(HashedMap<InstanceName, Long>())
+    fun update(deploymentName: InstanceName) {
         var timeoutStr = System.getProperty("DEPLOYMENT_USER_COPY_TIMEOUT")
         if (timeoutStr == null) timeoutStr = System.getenv("DEPLOYMENT_USER_COPY_TIMEOUT")
         var timeout: Long = 60
@@ -31,16 +31,12 @@ class DeploymentTimeouts {
         timeouts[deploymentName] = System.currentTimeMillis() + timeout * 60L * 1000L
     }
 
-    fun isTimedOut(deploymentName: String?): Boolean {
+    fun isTimedOut(deploymentName: InstanceName): Boolean {
         synchronized(timeouts) {
             val timeout = timeouts[deploymentName] ?: return true
             if (timeout > System.currentTimeMillis()) return false
             timeouts.remove(deploymentName)
             return true
         }
-    }
-
-    companion object {
-        val INSTANCE = DeploymentTimeouts()
     }
 }

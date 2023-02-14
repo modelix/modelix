@@ -79,6 +79,7 @@ fun Application.workspaceManagerModule() {
                                 val (workspace, workspaceHash) = workspaceAndHash
                                 val workspaceId = workspace.id
                                 val canRead = KeycloakUtils.hasPermission(call.jwt()!!, workspaceId.workspaceIdAsResource(), KeycloakScope.READ)
+                                val canWrite = KeycloakUtils.hasPermission(call.jwt()!!, workspaceId.workspaceIdAsResource(), KeycloakScope.READ)
                                 val canDelete = KeycloakUtils.hasPermission(call.jwt()!!, workspaceId.workspaceIdAsResource(), KeycloakScope.DELETE)
                                 tr {
                                     td {
@@ -90,7 +91,7 @@ fun Application.workspaceManagerModule() {
                                     td {
                                         if (canRead) {
                                             a {
-                                                href = "../workspace-${workspace.id}-$workspaceHash/project"
+                                                href = "../${workspaceInstanceUrl(workspace)}/project"
                                                 text("Open Web Interface")
                                             }
                                         }
@@ -98,8 +99,16 @@ fun Application.workspaceManagerModule() {
                                     td {
                                         if (canRead) {
                                             a {
-                                                href = "../workspace-${workspace.id}-$workspaceHash/ide/"
+                                                href = "../${workspaceInstanceUrl(workspace)}/ide/"
                                                 text("Open MPS")
+                                            }
+                                        }
+                                        for (sharedInstance in workspace.sharedInstances) {
+                                            if (sharedInstance.allowWrite && !canWrite) continue
+                                            br {}
+                                            a {
+                                                href = "../${workspaceInstanceUrl(workspace, sharedInstance)}/ide/"
+                                                text("Open MPS [${sharedInstance.name}]")
                                             }
                                         }
                                     }
@@ -223,7 +232,7 @@ fun Application.workspaceManagerModule() {
                         }
                     }
                     call.attributes.put(GIT_REPO_DIR_ATTRIBUTE_KEY, repoDir)
-                    call.attributes.put(MPS_INSTANCE_URL_ATTRIBUTE_KEY, "../../../../workspace-${workspace.id}-$workspaceHash/")
+                    call.attributes.put(MPS_INSTANCE_URL_ATTRIBUTE_KEY, "../../../../${workspaceInstanceUrl(workspace)}/")
                 }
                 gitui()
             }
@@ -273,12 +282,12 @@ fun Application.workspaceManagerModule() {
                                 }
                                 a {
                                     style = "margin-left: 24px"
-                                    href = "../../workspace-${workspace.id}-$workspaceHash/project"
+                                    href = "../../${workspaceInstanceUrl(workspace)}/project"
                                     text("Open Web Interface")
                                 }
                                 a {
                                     style = "margin-left: 24px"
-                                    href = "../../workspace-${workspace.id}-$workspaceHash/ide/"
+                                    href = "../../${workspaceInstanceUrl(workspace)}/ide/"
                                     text("Open MPS")
                                 }
                                 workspace.gitRepositories.forEachIndexed { index, gitRepository ->
@@ -662,7 +671,7 @@ fun Application.workspaceManagerModule() {
                     }
                 }
 
-                get("{workspaceHash}/download-modules/queue") {
+                get("download-modules/queue") {
                     val workspaceHash = WorkspaceHash(call.parameters["workspaceHash"]!!)
                     val job = manager.buildWorkspaceDownloadFileAsync(workspaceHash)
                     val respondStatus: suspend (String, String)->Unit = { text, refresh ->
@@ -697,19 +706,19 @@ fun Application.workspaceManagerModule() {
                     }
                 }
 
-                get("{workspaceHash}/status") {
+                get("status") {
                     val workspaceHash = WorkspaceHash(call.parameters["workspaceHash"]!!)
                     val job = manager.buildWorkspaceDownloadFileAsync(workspaceHash)
                     call.respondText(job.status.toString(), ContentType.Text.Plain, HttpStatusCode.OK)
                 }
 
-                get("{workspaceHash}/output") {
+                get("output") {
                     val workspaceHash = WorkspaceHash(call.parameters["workspaceHash"]!!)
                     val job = manager.buildWorkspaceDownloadFileAsync(workspaceHash)
                     call.respondText(job.output.joinToString("\n"), ContentType.Text.Plain, HttpStatusCode.OK)
                 }
 
-                get("{workspaceHash}/download-modules/workspace.zip") {
+                get("download-modules/workspace.zip") {
                     val workspaceHash = WorkspaceHash(call.parameters["workspaceHash"]!!)
                     val workspace = manager.getWorkspaceForHash(workspaceHash)
                     if (workspace == null) {
@@ -773,3 +782,6 @@ suspend fun ApplicationCall.respondHtmlSafe(status: HttpStatusCode = HttpStatusC
     }
     respondText(htmlText, ContentType.Text.Html, status)
 }
+
+fun workspaceInstanceUrl(workspace: Workspace) = "workspace-${workspace.id}-${workspace.hash()}/own"
+fun workspaceInstanceUrl(workspace: Workspace, instance: SharedInstance) = "workspace-${workspace.id}-${workspace.hash()}/" + instance.name
