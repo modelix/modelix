@@ -68,15 +68,5 @@ RUN set -eux; \
 WORKDIR /usr/modelix-ui
 COPY artifacts/mps/ /usr/modelix-ui/mps/
 
-# Enable error markers in headless mode
-RUN apt update && apt install -y zip
-RUN mkdir -p /tmp/mps-workbench
-RUN unzip /usr/modelix-ui/mps/lib/mps-workbench.jar -d /tmp/mps-workbench/
-RUN sed -i '/jetbrains.mps.nodeEditor.EmptyHighlighter/d' /tmp/mps-workbench/META-INF/MPSEditor.xml
-RUN rm /usr/modelix-ui/mps/lib/mps-workbench.jar
-WORKDIR /tmp/mps-workbench/
-RUN zip -r /usr/modelix-ui/mps/lib/mps-workbench.jar ./*
-RUN rm -rf /tmp/mps-workbench/
-
 COPY install-plugins.sh /
 RUN chmod +x /install-plugins.sh

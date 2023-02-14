@@ -24,16 +24,19 @@ import io.kubernetes.client.util.Yaml
 import org.apache.commons.collections4.map.LRUMap
 import org.eclipse.jetty.server.Request
 import org.modelix.authorization.AccessTokenPrincipal
+import org.modelix.authorization.KeycloakResourceType
+import org.modelix.authorization.KeycloakScope
+import org.modelix.authorization.KeycloakUtils
 import org.modelix.workspaces.Workspace
 import org.modelix.workspaces.WorkspaceHash
 import org.modelix.workspaces.WorkspacePersistence
+import org.modelix.workspaces.workspaceResourceType
 import java.io.IOException
 import java.util.*
 import java.util.concurrent.atomic.AtomicBoolean
 import java.util.concurrent.atomic.AtomicLong
 import java.util.function.Consumer
 import java.util.regex.Pattern
-import java.util.stream.Collectors
 import javax.servlet.http.HttpServletRequest
 
 class DeploymentManager {
@@ -57,10 +60,10 @@ class DeploymentManager {
     private val managerId = java.lang.Long.toHexString(System.currentTimeMillis() / 1000)
     private val deploymentSuffixSequence = AtomicLong(0xf)
     private val assignments = Collections.synchronizedMap(HashMap<WorkspaceHash, Assignments>())
-    private val disabledInstances = HashSet<String>()
+    private val disabledInstances = HashSet<InstanceName>()
     private val dirty = AtomicBoolean(true)
     private val workspacePersistence = WorkspacePersistence()
-    private val tokens: MutableMap<String, AccessTokenPrincipal> = Collections.synchronizedMap(HashMap())
+    private val userTokens: MutableMap<InstanceOwner, AccessTokenPrincipal> = Collections.synchronizedMap(HashMap())
     private fun getAssignments(workspace: Workspace): Assignments {
         return assignments.getOrPut(workspace.hash()) { Assignments(workspace) }
     }
@@ -100,13 +103,13 @@ class DeploymentManager {
         }
     }
 
-    fun disableInstance(instanceId: String) {
+    fun disableInstance(instanceId: InstanceName) {
         disabledInstances += instanceId
         dirty.set(true)
         reconcileDeployments()
     }
 
-    fun enableInstance(instanceId: String) {
+    fun enableInstance(instanceId: InstanceName) {
         disabledInstances -= instanceId
         dirty.set(true)
         reconcileDeployments()
@@ -116,15 +119,15 @@ class DeploymentManager {
         getAssignments(workspacePersistence.getWorkspaceForHash(workspaceHash)!!).setNumberOfUnassigned(newNumber, true)
     }
 
-    fun isInstanceDisabled(instanceId: String): Boolean = disabledInstances.contains(instanceId)
+    fun isInstanceDisabled(instanceId: InstanceName): Boolean = disabledInstances.contains(instanceId)
 
-    private fun generatePersonalDeploymentName(workspace: Workspace): String {
+    private fun generateInstanceName(workspace: Workspace): InstanceName {
         val cleanName = (workspace.id + "-" + workspace.hash()).lowercase(Locale.getDefault()).replace("[^a-z0-9-]".toRegex(), "")
-        var deploymentName = PERSONAL_DEPLOYMENT_PREFIX + cleanName
+        var deploymentName = INSTANCE_PREFIX + cleanName
         val suffix = "-" + java.lang.Long.toHexString(deploymentSuffixSequence.incrementAndGet()) + "-" + managerId
         val charsToRemove = deploymentName.length + suffix.length - (63 - 16)
         if (charsToRemove > 0) deploymentName = deploymentName.substring(0, deploymentName.length - charsToRemove)
-        return deploymentName + suffix
+        return InstanceName(deploymentName + suffix)
     }
 
     private fun init() {
@@ -135,17 +138,36 @@ class DeploymentManager {
     fun redirect(baseRequest: Request?, request: HttpServletRequest): RedirectedURL? {
         val redirected: RedirectedURL = RedirectedURL.redirect(baseRequest, request)
             ?: return null
+        return redirect(redirected)
+    }
+
+    @Synchronized
+    fun redirect(redirected: RedirectedURL): RedirectedURL? {
         val userToken: AccessTokenPrincipal? = redirected.userToken
         if (userToken == null) return redirected
         val userId = userToken.getUserName()
         if (userId != null) {
-            tokens[userId] = userToken
+            userTokens[UserInstanceOwner(userId)] = userToken
         }
-        val originalDeploymentName = redirected.originalDeploymentName
-        if (!WORKSPACE_PATTERN.matcher(originalDeploymentName).matches()) return null
-        val workspace = getWorkspaceForPath(originalDeploymentName) ?: return null
+        val workspaceReference = redirected.workspaceReference
+        if (!WORKSPACE_PATTERN.matcher(workspaceReference).matches()) return null
+        val workspace = getWorkspaceForPath(workspaceReference) ?: return null
+
+        val isSharedInstance = redirected.sharedInstanceName != "own"
+        if (isSharedInstance) {
+            val canWrite = KeycloakUtils.hasPermission(userToken.jwt, workspaceResourceType.createInstance(workspace.id), KeycloakScope.WRITE)
+            if (!canWrite) return null
+        } else {
+            val canRead = KeycloakUtils.hasPermission(userToken.jwt, workspaceResourceType.createInstance(workspace.id), KeycloakScope.READ)
+            if (!canRead) return null
+        }
+
         val assignments = getAssignments(workspace)
-        redirected.personalDeploymentName = assignments.getOrCreate(userToken)
+        redirected.instanceName = if (redirected.sharedInstanceName == "own") {
+            assignments.getOrCreate(userToken)
+        } else {
+            assignments.getSharedInstance(redirected.sharedInstanceName) ?: return null
+        }
         assignments.reconcile()
         reconcileIfDirty()
         return redirected
@@ -188,15 +210,15 @@ class DeploymentManager {
         // TODO doesn't work with multiple instances of this proxy
         synchronized(reconcileLock) {
             try {
-                val expectedDeployments: MutableMap<String, Pair<Workspace, AccessTokenPrincipal?>> = HashMap()
-                val existingDeployments: MutableSet<String> = HashSet()
+                val expectedDeployments: MutableMap<InstanceName, Pair<Workspace, InstanceOwner>> = HashMap()
+                val existingDeployments: MutableSet<InstanceName> = HashSet()
                 synchronized(assignments) {
                     for (assignment in assignments.values) {
                         assignment.removeTimedOut()
                         for (deployment in assignment.getAllDeploymentNamesAndUserIds()) {
                             if (!disabledInstances.contains(deployment.first)) {
                                 expectedDeployments[deployment.first] =
-                                    assignment.workspace to deployment.second?.let { tokens[it] }
+                                    assignment.workspace to deployment.second
                             }
                         }
                     }
@@ -206,28 +228,28 @@ class DeploymentManager {
                 val deployments = appsApi.listNamespacedDeployment(KUBERNETES_NAMESPACE, null, null, null, null, null, null, null, null, null)
                 for (deployment in deployments.items) {
                     val name = deployment.metadata!!.name!!
-                    if (name.startsWith(PERSONAL_DEPLOYMENT_PREFIX)) {
-                        existingDeployments.add(name)
+                    if (name.startsWith(INSTANCE_PREFIX)) {
+                        existingDeployments.add(InstanceName(name))
                     }
                 }
-                val toAdd = expectedDeployments.keys.stream().filter { d: String? -> !existingDeployments.contains(d) }.collect(Collectors.toList())
-                val toRemove = existingDeployments.stream().filter { d: String? -> !expectedDeployments.containsKey(d) }.collect(Collectors.toList())
+                val toAdd = expectedDeployments.keys - existingDeployments
+                val toRemove = existingDeployments - expectedDeployments.keys
                 for (d in toRemove) {
                     try {
-                        appsApi.deleteNamespacedDeployment(d, KUBERNETES_NAMESPACE, null, null, null, null, null, null)
+                        appsApi.deleteNamespacedDeployment(d.name, KUBERNETES_NAMESPACE, null, null, null, null, null, null)
                     } catch (e: Exception) {
                         LOG.error("Failed to delete deployment $d", e)
                     }
                     try {
-                        coreApi.deleteNamespacedService(d, KUBERNETES_NAMESPACE, null, null, null, null, null, null)
+                        coreApi.deleteNamespacedService(d.name, KUBERNETES_NAMESPACE, null, null, null, null, null, null)
                     } catch (e: Exception) {
                         LOG.error("Failed to delete service $d", e)
                     }
                 }
                 for (d in toAdd) {
-                    val (workspace, token) = expectedDeployments[d]!!
+                    val (workspace, owner) = expectedDeployments[d]!!
                     try {
-                        createDeployment(workspace, d, token)
+                        createDeployment(workspace, owner, d, userTokens[owner])
                     } catch (e: Exception) {
                         LOG.error("Failed to create deployment for workspace ${workspace.id} / $d", e)
                     }
@@ -243,12 +265,12 @@ class DeploymentManager {
     }
 
     @Throws(ApiException::class)
-    fun getDeployment(name: String?, attempts: Int): V1Deployment? {
+    fun getDeployment(name: InstanceName, attempts: Int): V1Deployment? {
         val appsApi = AppsV1Api()
         var deployment: V1Deployment? = null
         for (i in 0 until attempts) {
             try {
-                deployment = appsApi.readNamespacedDeployment(name, KUBERNETES_NAMESPACE, null, null, null)
+                deployment = appsApi.readNamespacedDeployment(name.name, KUBERNETES_NAMESPACE, null, null, null)
             } catch (ex: ApiException) {
                 LOG.error("Failed to read deployment: $name", ex)
             }
@@ -262,12 +284,12 @@ class DeploymentManager {
         return deployment
     }
 
-    fun getPod(deploymentName: String): V1Pod? {
+    fun getPod(deploymentName: InstanceName): V1Pod? {
         try {
             val coreApi = CoreV1Api()
             val pods = coreApi.listNamespacedPod(KUBERNETES_NAMESPACE, null, null, null, null, null, null, null, null, null)
             for (pod in pods.items) {
-                if (!pod.metadata!!.name!!.startsWith(deploymentName)) continue
+                if (!pod.metadata!!.name!!.startsWith(deploymentName.name)) continue
                 return pod
             }
         } catch (e: Exception) {
@@ -277,12 +299,12 @@ class DeploymentManager {
         return null
     }
 
-    fun getPodLogs(deploymentName: String): String? {
+    fun getPodLogs(deploymentName: InstanceName): String? {
         try {
             val coreApi = CoreV1Api()
             val pods = coreApi.listNamespacedPod(KUBERNETES_NAMESPACE, null, null, null, null, null, null, null, null, null)
             for (pod in pods.items) {
-                if (!pod.metadata!!.name!!.startsWith(deploymentName)) continue
+                if (!pod.metadata!!.name!!.startsWith(deploymentName.name)) continue
                 return coreApi.readNamespacedPodLog(
                     pod.metadata!!.name,
                     KUBERNETES_NAMESPACE,
@@ -316,17 +338,17 @@ class DeploymentManager {
     }
 
     @Synchronized
-    fun getWorkspaceForInstance(instanceId: String): Workspace? {
+    fun getWorkspaceForInstance(instanceId: InstanceName): Workspace? {
         return assignments.values.filter { it.getAllDeploymentNames().any { it == instanceId } }
             .map { it.workspace }.firstOrNull()
     }
 
     @Throws(IOException::class, ApiException::class)
-    fun createDeployment(workspace: Workspace, personalDeploymentName: String?, userToken: AccessTokenPrincipal?): Boolean {
+    fun createDeployment(workspace: Workspace, owner: InstanceOwner, instanceName: InstanceName, userToken: AccessTokenPrincipal?): Boolean {
         val originalDeploymentName = WORKSPACE_CLIENT_DEPLOYMENT_NAME
         val appsApi = AppsV1Api()
         val deployments = appsApi.listNamespacedDeployment(KUBERNETES_NAMESPACE, null, null, null, null, null, null, null, 5, false)
-        val deploymentExists = deployments.items.stream().anyMatch { d: V1Deployment -> personalDeploymentName == d.metadata!!.name }
+        val deploymentExists = deployments.items.stream().anyMatch { d: V1Deployment -> instanceName.name == d.metadata!!.name }
         if (!deploymentExists) {
 //            long numExisting = deployments.getItems().stream().filter(d -> d.getMetadata().getName().startsWith(personalDeploymentPrefix)).count();
 //            if (numExisting > 10) throw new RuntimeException("Too many existing deployments");
@@ -339,10 +361,10 @@ class DeploymentManager {
             deployment.metadata!!.putAnnotationsItem("kubectl.kubernetes.io/last-applied-configuration", null)
             //deployment.metadata!!.putAnnotationsItem(INSTANCE_PER_USER_ANNOTATION_KEY, null)
             //deployment.metadata!!.putAnnotationsItem(MAX_UNASSIGNED_INSTANCES_ANNOTATION_KEY, null)
-            deployment.metadata!!.name(personalDeploymentName)
-            deployment.metadata!!.putLabelsItem("component", personalDeploymentName)
-            deployment.spec!!.selector.putMatchLabelsItem("component", personalDeploymentName)
-            deployment.spec!!.template.metadata!!.putLabelsItem("component", personalDeploymentName)
+            deployment.metadata!!.name(instanceName.name)
+            deployment.metadata!!.putLabelsItem("component", instanceName.name)
+            deployment.spec!!.selector.putMatchLabelsItem("component", instanceName.name)
+            deployment.spec!!.template.metadata!!.putLabelsItem("component", instanceName.name)
             deployment.spec!!.replicas(1)
             deployment.spec!!.template.spec!!.containers[0]
                 .addEnvItem(V1EnvVar().name("modelix_workspace_id").value(workspace.id))
@@ -350,10 +372,20 @@ class DeploymentManager {
                 .addEnvItem(V1EnvVar().name("REPOSITORY_ID").value("workspace_${workspace.id}"))
             deployment.spec!!.template.spec!!.containers[0]
                 .addEnvItem(V1EnvVar().name("modelix_workspace_hash").value(workspace.hash().hash))
-            if (userToken != null) {
-                deployment.spec!!.template.spec!!.containers[0]
-                    .addEnvItem(V1EnvVar().name("INITIAL_JWT_TOKEN").value(userToken.jwt.token))
+            val token = userToken?.jwt ?: let {
+                val allowWrite  = if (owner is SharedInstanceOwner) {
+                    workspace.sharedInstances.find { it.name == owner.name }?.allowWrite ?: false
+                } else {
+                    false
+                }
+                val scopes = setOfNotNull(KeycloakScope.READ, KeycloakScope.WRITE.takeIf { allowWrite })
+                KeycloakUtils.createToken(listOf(
+                    workspaceResourceType.createInstance(workspace.id) to setOf(KeycloakScope.READ),
+                    KeycloakResourceType.MODEL_SERVER_ENTRY.createInstance("workspace-" + workspace.id) to scopes,
+                ))
             }
+            deployment.spec!!.template.spec!!.containers[0]
+                .addEnvItem(V1EnvVar().name("INITIAL_JWT_TOKEN").value(token.token))
             loadWorkspaceSpecificValues(workspace, deployment)
             println("Creating deployment: ")
             println(Yaml.dump(deployment))
@@ -361,7 +393,7 @@ class DeploymentManager {
         }
         val coreApi = CoreV1Api()
         val services = coreApi.listNamespacedService(KUBERNETES_NAMESPACE, null, null, null, null, null, null, null, 5, false)
-        val serviceExists = services.items.stream().anyMatch { s: V1Service -> personalDeploymentName == s.metadata!!.name }
+        val serviceExists = services.items.stream().anyMatch { s: V1Service -> instanceName.name == s.metadata!!.name }
         if (!serviceExists) {
             val service = coreApi.readNamespacedService(originalDeploymentName, KUBERNETES_NAMESPACE, null, null, null)
             service.metadata!!.putAnnotationsItem("kubectl.kubernetes.io/last-applied-configuration", null)
@@ -371,10 +403,10 @@ class DeploymentManager {
             service.spec!!.clusterIP = null
             service.spec!!.ports!!.forEach(Consumer { p: V1ServicePort -> p.nodePort(null) })
             service.status = null
-            service.metadata!!.name(personalDeploymentName)
-            service.metadata!!.putLabelsItem("component", personalDeploymentName)
-            service.metadata!!.name(personalDeploymentName)
-            service.spec!!.putSelectorItem("component", personalDeploymentName)
+            service.metadata!!.name(instanceName.name)
+            service.metadata!!.putLabelsItem("component", instanceName.name)
+            service.metadata!!.name(instanceName.name)
+            service.spec!!.putSelectorItem("component", instanceName.name)
             println("Creating service: ")
             println(Yaml.dump(service))
             coreApi.createNamespacedService(KUBERNETES_NAMESPACE, service, null, null, null)
@@ -405,31 +437,36 @@ class DeploymentManager {
     }
 
     private inner class Assignments(val workspace: Workspace) {
-        private val userId2deployment: MutableMap<String, String> = HashMap()
-        private val unassignedDeployments: MutableList<String> = LinkedList()
+        private val owner2deployment: MutableMap<InstanceOwner, InstanceName> = HashMap()
         private var numberOfUnassignedAuto: Int? = null
         private var numberOfUnassignedSetByUser: Int? = null
 
-        fun listDeployments(): List<Pair<String?, String>> {
-            return userId2deployment.map { it.key to it.value } + unassignedDeployments.map { null to it }
+        fun listDeployments(): List<Pair<InstanceOwner, InstanceName>> {
+            return owner2deployment.map { it.key to it.value }
         }
 
         @Synchronized
-        fun getOrCreate(userToken: AccessTokenPrincipal): String {
+        fun getSharedInstance(name: String): InstanceName? {
+            return owner2deployment.entries.find { (it.key as? SharedInstanceOwner)?.name == name }?.value
+        }
+
+        @Synchronized
+        fun getOrCreate(userToken: AccessTokenPrincipal): InstanceName {
             val userId: String = userToken.getUserName() ?: throw RuntimeException("Token doesn't contain a user ID")
-            var personalDeployment = userId2deployment[userId]
-            if (personalDeployment == null) {
-                if (unassignedDeployments.isEmpty()) {
-                    personalDeployment = generatePersonalDeploymentName(workspace)
+            var workspaceInstanceId = owner2deployment[UserInstanceOwner(userId)]
+            if (workspaceInstanceId == null) {
+                val unassignedInstanceKey = owner2deployment.keys.filterIsInstance<UnassignedInstanceOwner>().firstOrNull()
+                if (unassignedInstanceKey == null) {
+                    workspaceInstanceId = generateInstanceName(workspace)
                 } else {
-                    personalDeployment = unassignedDeployments.removeAt(0)
-                    unassignedDeployments.add(generatePersonalDeploymentName(workspace))
+                    workspaceInstanceId = owner2deployment.remove(unassignedInstanceKey)!!
+                    owner2deployment[unassignedInstanceKey] = generateInstanceName(workspace)
                 }
-                userId2deployment[userId] = personalDeployment!!
+                owner2deployment[UserInstanceOwner(userId)] = workspaceInstanceId
                 dirty.set(true)
             }
-            DeploymentTimeouts.INSTANCE.update(personalDeployment)
-            return personalDeployment
+            DeploymentTimeouts.update(workspaceInstanceId)
+            return workspaceInstanceId
         }
 
         @Synchronized
@@ -453,29 +490,36 @@ class DeploymentManager {
 
         @Synchronized
         fun reconcile() {
-            while (unassignedDeployments.size > getNumberOfUnassigned()) {
-                unassignedDeployments.removeAt(unassignedDeployments.size - 1)
+            val expectedNumUnassigned = getNumberOfUnassigned()
+
+            val expectedInstances = (
+                    workspace.sharedInstances.map { SharedInstanceOwner(it.name) }
+                    + (0 until expectedNumUnassigned).map { UnassignedInstanceOwner(it) }
+                ).toSet()
+            val existingInstances = owner2deployment.keys.filterNot { it is UserInstanceOwner }.toSet()
+            for (toRemove in (existingInstances - expectedInstances)) {
+                owner2deployment.remove(toRemove)
                 dirty.set(true)
             }
-            while (unassignedDeployments.size < getNumberOfUnassigned()) {
-                unassignedDeployments.add(generatePersonalDeploymentName(workspace))
+            for (toAdd in (expectedInstances - existingInstances)) {
+                owner2deployment[toAdd] = generateInstanceName(workspace)
                 dirty.set(true)
             }
         }
 
         @Synchronized
-        fun getAllDeploymentNames(): List<String> = userId2deployment.values + unassignedDeployments
+        fun getAllDeploymentNames(): List<InstanceName> = owner2deployment.values.toList()
 
         @Synchronized
-        fun getAllDeploymentNamesAndUserIds(): List<Pair<String, String?>> =
-            userId2deployment.map { it.value to it.key } + unassignedDeployments.map { it to null }
+        fun getAllDeploymentNamesAndUserIds(): List<Pair<InstanceName, InstanceOwner>> =
+            owner2deployment.map { it.value to it.key }
 
         @Synchronized
         fun removeTimedOut() {
-            val entries = ArrayList<Map.Entry<String?, String?>>(userId2deployment.entries)
-            for ((key, value) in entries) {
-                if (DeploymentTimeouts.Companion.INSTANCE.isTimedOut(value)) {
-                    userId2deployment.remove(key, value)
+            val entries = owner2deployment.entries.toList()
+            for ((owner, instanceName) in entries) {
+                if (owner is UserInstanceOwner && DeploymentTimeouts.isTimedOut(instanceName)) {
+                    owner2deployment.remove(owner, instanceName)
                     dirty.set(true)
                 }
             }
@@ -485,9 +529,12 @@ class DeploymentManager {
     companion object {
         private val LOG = mu.KotlinLogging.logger {}
         val KUBERNETES_NAMESPACE = System.getenv("WORKSPACE_CLIENT_NAMESPACE") ?: "default"
-        val PERSONAL_DEPLOYMENT_PREFIX = System.getenv("WORKSPACE_CLIENT_PREFIX") ?: "wsclt-"
+        val INSTANCE_PREFIX = System.getenv("WORKSPACE_CLIENT_PREFIX") ?: "wsclt-"
         val WORKSPACE_CLIENT_DEPLOYMENT_NAME = System.getenv("WORKSPACE_CLIENT_DEPLOYMENT_NAME") ?: "workspace-client"
         val WORKSPACE_PATTERN = Pattern.compile("workspace-([a-f0-9]+)-([a-zA-Z0-9\\-_\\*]+)")
         val INSTANCE = DeploymentManager()
     }
 }
+
+@JvmInline
+value class InstanceName(val name: String)

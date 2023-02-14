@@ -117,19 +117,23 @@ fun Application.adminModule() {
                                         td {
                                             if (instance.disabled) style = "color: #aaa"
                                             a("log/${instance.id}/", "_blank") {
-                                                +instance.id
+                                                +instance.id.name
                                             }
                                         }
                                         td {
                                             if (instance.disabled) style = "color: #aaa"
-                                            +(instance.user ?: "<unassigned>")
+                                            +when (val owner = instance.owner) {
+                                                is SharedInstanceOwner -> "[${owner.name}]"
+                                                is UnassignedInstanceOwner -> "<unassigned>"
+                                                is UserInstanceOwner -> owner.userId
+                                            }
                                         }
                                         td {
                                             if (instance.disabled) {
                                                 postForm("enable-instance") {
                                                     hiddenInput {
                                                         name = "instanceId"
-                                                        value = instance.id
+                                                        value = instance.id.name
                                                     }
                                                     submitInput {
                                                         value = "Enable"
@@ -139,7 +143,7 @@ fun Application.adminModule() {
                                                 postForm("disable-instance") {
                                                     hiddenInput {
                                                         name = "instanceId"
-                                                        value = instance.id
+                                                        value = instance.id.name
                                                     }
                                                     submitInput {
                                                         value = "Disable"
@@ -158,13 +162,13 @@ fun Application.adminModule() {
         }
 
         post("disable-instance") {
-            val instanceId = call.receiveParameters()["instanceId"]!!
+            val instanceId = InstanceName(call.receiveParameters()["instanceId"]!!)
             DeploymentManager.INSTANCE.disableInstance(instanceId)
             call.respondRedirect(".")
         }
 
         post("enable-instance") {
-            val instanceId = call.receiveParameters()["instanceId"]!!
+            val instanceId = InstanceName(call.receiveParameters()["instanceId"]!!)
             DeploymentManager.INSTANCE.enableInstance(instanceId)
             call.respondRedirect(".")
         }
@@ -178,7 +182,7 @@ fun Application.adminModule() {
         }
 
         get("log/{instanceId}/content") {
-            val instanceId = call.parameters["instanceId"]!!
+            val instanceId = InstanceName(call.parameters["instanceId"]!!)
             val log = DeploymentManager.INSTANCE.getPodLogs(instanceId) ?: "Instance $instanceId not found"
             call.respondText(log, ContentType.Text.Plain, HttpStatusCode.OK)
         }

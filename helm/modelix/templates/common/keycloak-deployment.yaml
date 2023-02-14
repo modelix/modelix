@@ -86,9 +86,11 @@ spec:
           requests:
             memory: "500Mi"
             cpu: "0.1"
+            ephemeral-storage: 500M
           limits:
             memory: "500Mi"
             cpu: "1.0"
+            ephemeral-storage: 1G
         volumeMounts:
           - name: keycloak-volume
             mountPath: /opt/keycloak/data/import
