@@ -36,7 +36,8 @@ data class Workspace(var id: String,
                      val uploads: MutableList<String> = ArrayList(),
                      val ignoredModules: List<String> = ArrayList(),
                      val additionalGenerationDependencies: List<GenerationDependency> = ArrayList(),
-                     val loadUsedModulesOnly: Boolean = true
+                     val loadUsedModulesOnly: Boolean = true,
+                     val sharedInstances: List<SharedInstance> = emptyList()
 ) {
     fun hash() = WorkspaceHash(HashUtil.sha256(Json.encodeToString(this)))
 }
@@ -100,6 +101,8 @@ data class Credentials(val user: String, val password: String) {
 @Serializable
 data class MavenRepository(val url: String)
 
+@Serializable
+data class SharedInstance(val name: String = "shared", val allowWrite: Boolean = false)
 
 private const val ENCRYPTED_PREFIX = "encrypted:"
 private val credentialsEncryptor = run {
