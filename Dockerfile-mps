@@ -17,7 +17,7 @@ RUN set -eux; \
 	        downloadUrl='https://cache-redirector.jetbrains.com/intellij-jbr/jbr_jcef-11_0_10-linux-x64-b1145.96.tar.gz'; \
 	        ;; \
 	    'arm64' ) \
-	        downloadUrl='https://cache-redirector.jetbrains.com/intellij-jbr/jbr-11_0_11-linux-aarch64-b1341.60.tar.gz'; \
+	        downloadUrl='https://cache-redirector.jetbrains.com/intellij-jbr/jbr-11_0_13-linux-aarch64-b1890.3.tar.gz'; \
 	        ;; \
 	    * ) \
 	        echo >&2 "error: unsupported target architecture '$TARGETARCH'"; exit 1 ;; \
