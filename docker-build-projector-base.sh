@@ -3,6 +3,7 @@
 set -e
 
 MODELIX_TARGET_PLATFORM="${MODELIX_TARGET_PLATFORM:=linux/amd64}"
+MPS_TAG=$( ./mps-version.sh )
 
 # read variables from mps-version.properties
 while IFS='=' read -r key value
@@ -30,8 +31,8 @@ unzip -d build/branding artifacts/mps/lib/branding.jar
 
 if [[ -z "${MODELIX_CI}" ]]; then
   docker build --platform ${MODELIX_TARGET_PLATFORM} --no-cache -f Dockerfile-projector-base \
-  -t modelix/modelix-projector-base .
+  -t modelix/modelix-projector-base:latest -t modelix/modelix-projector-base:${MPS_TAG} .
 else
   docker buildx build --platform linux/amd64,linux/arm64 --push --no-cache -f Dockerfile-projector-base \
-  -t modelix/modelix-projector-base .
+  -t modelix/modelix-projector-base:latest -t modelix/modelix-projector-base:${MPS_TAG} .
 fi
