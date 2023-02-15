@@ -2,6 +2,8 @@
 
 set -e
 
+MODELIX_TARGET_PLATFORM="${MODELIX_TARGET_PLATFORM:=linux/amd64}"
+
 # read variables from mps-version.properties
 while IFS='=' read -r key value
 do
@@ -26,4 +28,10 @@ unzip -d build/branding artifacts/mps/lib/branding.jar
   zip -r ../branding.zip ./*
 )
 
-docker buildx build --platform linux/amd64,linux/arm64 --push --no-cache -f Dockerfile-projector-base -t modelix/modelix-projector-base .
+if [[ -z "${MODELIX_CI}" ]]; then
+  docker build --platform ${MODELIX_TARGET_PLATFORM} --no-cache -f Dockerfile-projector-base \
+  -t modelix/modelix-projector-base .
+else
+  docker buildx build --platform linux/amd64,linux/arm64 --push --no-cache -f Dockerfile-projector-base \
+  -t modelix/modelix-projector-base .
+fi
