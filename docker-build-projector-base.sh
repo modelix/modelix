@@ -29,10 +29,10 @@ unzip -d build/branding artifacts/mps/lib/branding.jar
   zip -r ../branding.zip ./*
 )
 
-if [[ -z "${MODELIX_CI}" ]]; then
-  docker build --platform ${MODELIX_TARGET_PLATFORM} --no-cache -f Dockerfile-projector-base \
-  -t modelix/modelix-projector-base:latest -t modelix/modelix-projector-base:${MPS_TAG} .
-else
+if [ "${CI}" = "true" ]; then
   docker buildx build --platform linux/amd64,linux/arm64 --push --no-cache -f Dockerfile-projector-base \
-  -t modelix/modelix-projector-base:latest -t modelix/modelix-projector-base:${MPS_TAG} .
+  -t modelix/modelix-projector-base:latest -t "modelix/modelix-projector-base:${MPS_TAG}" .
+else
+  docker build --platform "${MODELIX_TARGET_PLATFORM}" --no-cache -f Dockerfile-projector-base \
+  -t modelix/modelix-projector-base:latest -t "modelix/modelix-projector-base:${MPS_TAG}" .
 fi

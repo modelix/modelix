@@ -36,7 +36,6 @@ jobs:
         DOCKER_HUB_USER: ${{ secrets.DOCKER_HUB_USER }}
         DOCKER_HUB_KEY: ${{ secrets.DOCKER_HUB_KEY }}
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        MODELIX_CI: true
       run: ./docker-ci.sh
     - name: Publish Helm Chart
       env:
