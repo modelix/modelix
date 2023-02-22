@@ -24,20 +24,3 @@ docker login -u "$DOCKER_HUB_USER" -p "$DOCKER_HUB_KEY"
 ./docker-build-workspace-manager.sh
 ./docker-build-workspace-client.sh
 ./docker-build-keycloak.sh
-
-MODELIX_VERSION=$( ./modelix-version.sh )
-TAGS="$MODELIX_VERSION mps-$mpsVersion"
-if [ "$mpsVersion" != "$mpsMajorVersion" ]; then
-    TAGS="$TAGS mps-$mpsMajorVersion"
-fi
-IMAGE_NAMES="modelix-db modelix-mps modelix-base modelix-projector modelix-proxy modelix-instances-manager modelix-workspace-manager modelix-workspace-client keycloak"
-for TAG in $TAGS ; do
-  echo "Pushing Tag $TAG"
-
-  for IMAGE_NAME in $IMAGE_NAMES ; do
-    if [ "$TAG" != "latest" ]; then
-      docker tag "modelix/$IMAGE_NAME:latest" "modelix/$IMAGE_NAME:${TAG}"
-    fi
-    docker push "modelix/$IMAGE_NAME:${TAG}"
-  done
-done
