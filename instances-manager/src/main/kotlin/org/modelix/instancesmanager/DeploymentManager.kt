@@ -537,4 +537,8 @@ class DeploymentManager {
 }
 
 @JvmInline
-value class InstanceName(val name: String)
+value class InstanceName(val name: String) {
+    override fun toString(): String {
+        return name
+    }
+}

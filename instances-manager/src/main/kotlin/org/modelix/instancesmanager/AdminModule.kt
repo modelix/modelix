@@ -116,7 +116,7 @@ fun Application.adminModule() {
                                         if (instanceAndIndex.index == 0) assignmentCells()
                                         td {
                                             if (instance.disabled) style = "color: #aaa"
-                                            a("log/${instance.id}/", "_blank") {
+                                            a("log/${instance.id.name}/", "_blank") {
                                                 +instance.id.name
                                             }
                                         }
