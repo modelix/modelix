@@ -505,6 +505,9 @@
       <node concept="m$_yC" id="7KeeG8vthoq" role="m$_yJ">
         <ref role="m$_y1" to="ffeo:6EN03E8oSte" resolve="jetbrains.mps.ide.make" />
       </node>
+      <node concept="m$_yC" id="7XRF0jMBKG$" role="m$_yJ">
+        <ref role="m$_y1" to="ffeo:4wxeloVufXr" resolve="jetbrains.mps.git4idea.stubs" />
+      </node>
     </node>
     <node concept="m$_wf" id="7gF2HTviNPW" role="3989C9">
       <property role="m$_wk" value="org.modelix.model" />
