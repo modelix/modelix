@@ -8,4 +8,11 @@ rm -f /home/projector-user/default-mps-project/.mps/modules.xml
 sed -i.bak -E "s/\\\$MODELIX_WORKSPACE\\\$/\/home\/projector-user\/workspace.zip/" /home/projector-user/workspace.zip/modules.xml
 mv /home/projector-user/workspace.zip/modules.xml /home/projector-user/default-mps-project/.mps/modules.xml
 
+if [ -f "/home/projector-user/workspace.zip/disabled_plugins.txt" ]; then
+  for configDir in /home/projector-user/.config/JetBrains/*/; do
+   rm -f "$configDir/disabled_plugins.txt"
+   cp "/home/projector-user/workspace.zip/disabled_plugins.txt" "$configDir/disabled_plugins.txt"
+  done
+fi
+
 /run.sh

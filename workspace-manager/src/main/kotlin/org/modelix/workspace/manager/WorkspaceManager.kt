@@ -44,6 +44,7 @@ import kotlin.collections.LinkedHashMap
 class WorkspaceManager {
     companion object {
         val org_modelix_model_mpsplugin = ModuleId("c5e5433e-201f-43e2-ad14-a6cba8c80cd6")
+        val org_modelix_ui_server = ModuleId("39aab22b-473f-4e44-b037-0c602964897d")
         val org_modelix_model_api = ModuleId("cc99dce1-49f3-4392-8dbf-e22ca47bd0af")
     }
 
@@ -177,27 +178,46 @@ class WorkspaceManager {
             buildScriptGenerator.buildModules(File(getWorkspaceDirectory(workspace), "mps-build-script.xml"), job.outputHandler)
         }
 
+        var unusedPluginIds: List<String> = emptyList()
         var fileFilter: (Path) -> Boolean = { true }
         if (workspace.loadUsedModulesOnly) {
             // to reduce the required memory include only those modules in the zip that are actually used
             val resolver = ModuleResolver(modulesMiner.getModules(), workspace.ignoredModules.map { ModuleId(it) }.toSet(), true)
             val graph = PublicationDependencyGraph(resolver, workspace.additionalGenerationDependenciesAsMap())
             graph.load(modulesMiner.getModules().getModules().values)
-            val sourceModules: Set<ModuleId> = modulesMiner.getModules().getModules()
+
+            // source modules are the ones from git. We assume that all of them should be loaded, so they are the roots
+            // of the dependency tree.
+            val sourceModules: MutableSet<ModuleId> = (modulesMiner.getModules().getModules()
                 .filter { it.value.owner is SourceModuleOwner }.keys -
-                workspace.ignoredModules.map { ModuleId(it) }.toSet()
+                workspace.ignoredModules.map { ModuleId(it) }.toSet()).toMutableSet()
+
+            // Include modules required by Modelix
+            sourceModules.add(org_modelix_model_mpsplugin)
+            sourceModules.add(org_modelix_ui_server)
+
+            // Include module dependencies
             val transitiveDependencies = HashSet<DependencyGraph<FoundModule, ModuleId>.DependencyNode>()
             sourceModules.mapNotNull { graph.getNode(it) }.forEach {
                 it.getTransitiveDependencies(transitiveDependencies)
                 transitiveDependencies += it
             }
+
+            // If a module is part of a plugin then load the entire plugin.
             var usedModuleOwners = transitiveDependencies.flatMap { it.modules }.map { it.owner }.toSet()
             usedModuleOwners = usedModuleOwners.map { it.getRootOwner() }.toSet()
+
+            // Also load the plugin dependencies. Otherwise, MPS will fail to load them.
             val transitivePlugins = kotlin.collections.HashMap<String, PluginModuleOwner>()
             usedModuleOwners.filterIsInstance<PluginModuleOwner>().forEach {
                 modulesMiner.getModules().getPluginWithDependencies(it.pluginId, transitivePlugins)
             }
             usedModuleOwners += transitivePlugins.map { it.value }
+
+            unusedPluginIds = (modulesMiner.getModules().plugins.values.toSet() - usedModuleOwners.filterIsInstance<PluginModuleOwner>().toSet())
+                .map { it.pluginId }.sorted()
+
+
             val includedFolders: Set<Path> = usedModuleOwners.flatMap {
                 when (it) {
                     is SourceModuleOwner -> listOf(it.path.getLocalAbsolutePath().parent)
@@ -224,15 +244,24 @@ class WorkspaceManager {
                 workspace.uploads.forEach { uploadId ->
                     zipStream.copyFiles(getUploadFolder(uploadId), filter = fileFilter, mapPath = {directory.toPath().relativize(it)})
                 }
+//                additionalFolders.forEach { additionalFolder ->
+//                    zipStream.copyFiles(additionalFolder, filter = fileFilter, mapPath = { additionalFolder.toPath().parent.relativize(it) })
+//                }
                 if (modulesXml != null) {
                     val zipEntry = ZipEntry("modules.xml")
                     zipStream.putNextEntry(zipEntry)
                     zipStream.write(modulesXml!!.toByteArray(StandardCharsets.UTF_8))
                 }
+                if (unusedPluginIds.isNotEmpty()) {
+                    val zipEntry = ZipEntry("disabled_plugins.txt")
+                    zipStream.putNextEntry(zipEntry)
+                    zipStream.write(unusedPluginIds.joinToString("\n").toByteArray())
+                }
             }
         }
 
-        job.runSafely { importModulesToCloud(modulesMiner, job) }
+        job.outputHandler("Model import disabled")
+//        job.runSafely { importModulesToCloud(modulesMiner, job) }
 
         return downloadFile
     }
