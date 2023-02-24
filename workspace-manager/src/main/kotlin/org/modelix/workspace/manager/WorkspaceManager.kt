@@ -13,17 +13,11 @@
  */
 package org.modelix.workspace.manager
 
-import io.ktor.utils.io.*
-import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import org.apache.commons.io.FileUtils
-import org.modelix.model.client.RestWebModelClient
-import org.modelix.model.persistent.SerializationUtil
 import org.modelix.buildtools.*
 import org.modelix.headlessmps.*
-import org.modelix.model.persistent.HashUtil
-import org.modelix.workspaces.ModelRepository
 import org.modelix.workspaces.Workspace
 import org.modelix.workspaces.WorkspaceHash
 import org.modelix.workspaces.WorkspacePersistence
@@ -65,10 +59,13 @@ class WorkspaceManager {
         candidates.firstOrNull { it.exists() }
             ?: throw RuntimeException("headless-mps not found in $candidates")
     }
+    private val knownPlugins: MutableMap<String, String?> = HashMap()
 
     init {
         println("workspaces directory: $directory")
     }
+
+    fun getKnownPlugins(): Map<String, String?> = knownPlugins
 
     private fun findMpsHome(): File {
         println("env: " + System.getenv())
@@ -188,24 +185,32 @@ class WorkspaceManager {
 
             // source modules are the ones from git. We assume that all of them should be loaded, so they are the roots
             // of the dependency tree.
-            val sourceModules: MutableSet<ModuleId> = (modulesMiner.getModules().getModules()
+            val directlyUsedModules: MutableSet<ModuleId> = (modulesMiner.getModules().getModules()
                 .filter { it.value.owner is SourceModuleOwner }.keys -
                 workspace.ignoredModules.map { ModuleId(it) }.toSet()).toMutableSet()
 
             // Include modules required by Modelix
-            sourceModules.add(org_modelix_model_mpsplugin)
-            sourceModules.add(org_modelix_ui_server)
+            directlyUsedModules.add(org_modelix_model_mpsplugin)
+            directlyUsedModules.add(org_modelix_ui_server)
 
             // Include module dependencies
             val transitiveDependencies = HashSet<DependencyGraph<FoundModule, ModuleId>.DependencyNode>()
-            sourceModules.mapNotNull { graph.getNode(it) }.forEach {
+            directlyUsedModules.mapNotNull { graph.getNode(it) }.forEach {
                 it.getTransitiveDependencies(transitiveDependencies)
                 transitiveDependencies += it
             }
 
             // If a module is part of a plugin then load the entire plugin.
-            var usedModuleOwners = transitiveDependencies.flatMap { it.modules }.map { it.owner }.toSet()
-            usedModuleOwners = usedModuleOwners.map { it.getRootOwner() }.toSet()
+            val usedModuleOwners: MutableSet<ModuleOwner> = transitiveDependencies
+                .flatMap { it.modules }
+                .map { it.owner.getRootOwner() }
+                .toMutableSet()
+
+            // The workspace can load additional plugins to provide additional functionality
+            // or to work around any missing dependency.
+            usedModuleOwners += workspace.additionalPlugins.mapNotNull { modulesMiner.getModules().getPlugin(it) }
+
+            knownPlugins += modulesMiner.getModules().plugins.map { it.key to it.value.name }
 
             // Also load the plugin dependencies. Otherwise, MPS will fail to load them.
             val transitivePlugins = kotlin.collections.HashMap<String, PluginModuleOwner>()

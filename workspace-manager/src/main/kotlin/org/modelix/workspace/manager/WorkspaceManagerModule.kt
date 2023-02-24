@@ -544,6 +544,37 @@ fun Application.workspaceManagerModule() {
                                         }
                                     }
                                 }
+                                br()
+                                div {
+                                    style = "border: 1px solid black; padding: 10px;"
+                                    div {
+                                        text("Load Additional Plugin")
+                                    }
+                                    form {
+                                        action = "./add-additional-plugin"
+                                        method = FormMethod.post
+                                        table {
+                                            tr {
+                                                th { +"ID" }
+                                                th { +"Name" }
+                                            }
+                                            for (plugin in manager.getKnownPlugins().toSortedMap()) {
+                                                tr {
+                                                    td {
+                                                        input {
+                                                            type = InputType.submit
+                                                            name = "pluginId"
+                                                            value = plugin.key
+                                                        }
+                                                    }
+                                                    td {
+                                                        text(plugin.value ?: "")
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
                             }
                         }
                     }
@@ -588,6 +619,29 @@ fun Application.workspaceManagerModule() {
                         call.respond(HttpStatusCode.BadRequest, "coordinates missing")
                     } else {
                         workspace.mavenDependencies += coordinates
+                        manager.update(workspace)
+                        call.respondRedirect("./edit")
+                    }
+                }
+
+                post("add-additional-plugin") {
+                    call.checkPermission(call.parameters["workspaceId"]!!.workspaceIdAsResource(), KeycloakScope.WRITE)
+                    val id = call.parameters["workspaceId"]
+                    if (id == null) {
+                        call.respond(HttpStatusCode.BadRequest, "Workspace ID is missing")
+                        return@post
+                    }
+                    val workspaceAndHash = manager.getWorkspaceForId(id)
+                    if (workspaceAndHash == null) {
+                        call.respond(HttpStatusCode.NotFound, "Workspace $id not found")
+                        return@post
+                    }
+                    val (workspace, workspaceHash) = workspaceAndHash
+                    val pluginId = call.receiveParameters()["pluginId"]
+                    if (pluginId.isNullOrEmpty()) {
+                        call.respond(HttpStatusCode.BadRequest, "pluginId missing")
+                    } else {
+                        workspace.additionalPlugins += pluginId
                         manager.update(workspace)
                         call.respondRedirect("./edit")
                     }

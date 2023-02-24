@@ -36,6 +36,7 @@ data class Workspace(var id: String,
                      val uploads: MutableList<String> = ArrayList(),
                      val ignoredModules: List<String> = ArrayList(),
                      val additionalGenerationDependencies: List<GenerationDependency> = ArrayList(),
+                     var additionalPlugins: Set<String> = emptySet(),
                      val loadUsedModulesOnly: Boolean = true,
                      val sharedInstances: List<SharedInstance> = emptyList()
 ) {
