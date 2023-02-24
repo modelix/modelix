@@ -1,7 +1,7 @@
 plugins {
     id "org.jetbrains.kotlin.jvm"
     id 'java'
-//    id "com.github.johnrengelman.shadow" version "6.1.0"
+    id "com.github.johnrengelman.shadow" version "7.1.2"
 }
 
 group 'org.modelix'
@@ -20,9 +20,9 @@ repositories {
     mavenCentral()
 }
 
-//shadowJar {
-//    archiveVersion.set("latest")
-//}
+shadowJar {
+    archiveVersion.set("latest")
+}
 
 def ktorVersion = rootProject.ktorVersion
 def kotlinCoroutinesVersion = rootProject.kotlinCoroutinesVersion
@@ -65,4 +65,4 @@ dependencies {
     runtimeOnly("org.slf4j:slf4j-simple:2.0.6")
 }
 
-//assemble.dependsOn shadowJar
+assemble.dependsOn shadowJar
