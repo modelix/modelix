@@ -1,4 +1,4 @@
-import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
+//import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 
 description = "Downloads modules from a workspace before starting MPS"
 val ktorVersion: String by rootProject
@@ -10,18 +10,17 @@ plugins {
     kotlin("jvm")
     kotlin("plugin.serialization")
     id("application")
-    id("com.github.johnrengelman.shadow") version "6.1.0"
+//    id("com.github.johnrengelman.shadow") version "6.1.0"
 }
 
 application {
     mainClass.set("org.modelix.workspace.client.MainKt")
     applicationDefaultJvmArgs = listOf("-Dmodelix.workspace.server=http://localhost:28104/")
-    mainClassName = mainClass.get()
 }
 
-tasks.withType<ShadowJar> {
-    archiveVersion.set("latest")
-}
+//tasks.withType<ShadowJar> {
+//    archiveVersion.set("latest")
+//}
 
 dependencies {
     implementation("io.ktor", "ktor-server-core", ktorVersion)

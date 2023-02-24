@@ -30,8 +30,8 @@ npm_run_build {
 // pack output of the build into JAR file
 task packageNpmApp(type: Zip) {
     dependsOn npm_run_build
-    archiveName 'ui-client.jar'
-    destinationDir file("${projectDir}/../mps/org.modelix.ui.server/lib/")
+    archiveFileName = 'ui-client.jar'
+    destinationDirectory = file("${projectDir}/../mps/org.modelix.ui.server/lib/")
     from('dist') {
         // optional path under which output will be visible in Java classpath, e.g. static resources path
         into 'org/modelix/ui/client/static'

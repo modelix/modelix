@@ -15,13 +15,13 @@ compileJava {
 
 dependencies {
     compileOnly fileTree(dir: '../artifacts/mps/lib', include: '*.jar')
-    compile group: 'org.eclipse.jgit', name: 'org.eclipse.jgit', version: '6.1.0.202203080745-r'
-    compile group: 'commons-io', name: 'commons-io', version: '2.7'
+    implementation group: 'org.eclipse.jgit', name: 'org.eclipse.jgit', version: '6.1.0.202203080745-r'
+    implementation group: 'commons-io', name: 'commons-io', version: '2.7'
 }
 
-task copyRuntimeLibs(type: Copy) {
-    into "$buildDir/dependencies"
-    from configurations.runtime
-}
+//task copyRuntimeLibs(type: Copy) {
+//    into "$buildDir/dependencies"
+//    from configurations.runtime
+//}
 
-assemble.finalizedBy(copyRuntimeLibs)
+//assemble.finalizedBy(copyRuntimeLibs)

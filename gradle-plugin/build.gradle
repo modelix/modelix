@@ -1,6 +1,5 @@
 plugins {
     id 'java'
-    id 'maven'
     id 'maven-publish'
 }
 
@@ -19,8 +18,8 @@ repositories {
 dependencies {
     compileOnly fileTree(dir: '../artifacts/mps/lib', include: '*.jar')
     implementation 'com.google.code.gson:gson:2.8.9'
-    compile gradleApi()
-    testCompile group: 'junit', name: 'junit', version: '4.12'
+    implementation gradleApi()
+    testImplementation group: 'junit', name: 'junit', version: '4.12'
 }
 
 compileJava.dependsOn(":mps:resolveMps")

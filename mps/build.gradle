@@ -273,20 +273,20 @@ test.dependsOn(checkMpsTestOutput)
 
 
 task packageMpsModelPlugin(type: Zip, dependsOn: buildMpsModules) {
-    baseName 'org.modelix.model.mpsplugin'
+    archiveBaseName = 'org.modelix.model.mpsplugin'
     from "$rootDir/build/org.modelix/build/artifacts/org.modelix/plugins"
     include "org.modelix.model/**"
     include "org.modelix.common/**"
 }
 
 task packageModelixWebEditorsPlugin(type: Zip, dependsOn: buildMpsModules) {
-    baseName 'org.modelix.ui'
+    archiveBaseName = 'org.modelix.ui'
     from "$rootDir/build/org.modelix/build/artifacts/org.modelix/plugins"
     include "org.modelix.ui/**"
 }
 
 task packageBuildScripts(type: Zip, dependsOn: buildMpsModules) {
-    baseName 'org.modelix.buildscripts'
+    archiveBaseName = 'org.modelix.buildscripts'
     from "$rootDir/build/org.modelix/build/artifacts/org.modelix/plugins"
 }
 
