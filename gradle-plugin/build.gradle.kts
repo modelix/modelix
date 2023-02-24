@@ -1,0 +1,57 @@
+
+plugins {
+    java
+    `maven-publish`
+}
+
+tasks.withType<JavaCompile> {
+    dependsOn(":mps:resolveMps")
+    sourceCompatibility = "11"
+    targetCompatibility = "11"
+}
+
+repositories {
+    mavenCentral()
+    maven { url = uri("https://artifacts.itemis.cloud/repository/maven-mps/") }
+    //maven { url 'https://projects.itemis.de/nexus/content/repositories/mbeddr' }
+    //maven { url = uri("https://modelix.jfrog.io/artifactory/itemis/") } // caching proxy for the itemis repo
+}
+
+dependencies {
+    compileOnly(fileTree("../artifacts/mps/lib") {
+        include("*.jar")
+    })
+    implementation("com.google.code.gson:gson:2.8.9")
+    implementation(gradleApi())
+    testImplementation("junit:junit:4.12")
+}
+
+val modelixVersion: String by rootProject
+val mpsMajorVersion: String by rootProject
+val mpsMinorVersion: String by rootProject
+val mpsVersion: String by rootProject
+val mpsExtensionsVersion: String by rootProject
+
+tasks.withType<Jar> {
+    manifest {
+        attributes(mapOf(
+            "Implementation-Version" to modelixVersion,
+            "modelix-Version" to modelixVersion,
+            "MPS-MajorVersion" to mpsMajorVersion,
+            "MPS-MinorVersion" to mpsMinorVersion,
+            "MPS-Version" to mpsVersion,
+            "MPS-extensions-Version" to mpsExtensionsVersion)
+        )
+    }
+}
+
+publishing {
+    publications {
+        create<MavenPublication>("modelixGradlePlugin") {
+            groupId = project.group.toString()
+            version = project.version.toString()
+
+            from(components["java"])
+        }
+    }
+}
