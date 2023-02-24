@@ -60,6 +60,7 @@ class WorkspaceManager {
             ?: throw RuntimeException("headless-mps not found in $candidates")
     }
     private val knownPlugins: MutableMap<String, String?> = HashMap()
+    private val enabledPlugins: MutableMap<String, Set<String>> = HashMap()
 
     init {
         println("workspaces directory: $directory")
@@ -93,6 +94,13 @@ class WorkspaceManager {
             FileUtils.deleteQuietly(getDownloadFile(hash))
         }
         return hash
+    }
+
+    @Synchronized
+    fun getEnabledPluginIds(workspace: Workspace): Set<String> {
+        synchronized(enabledPlugins) {
+            return (enabledPlugins[workspace.id] ?: emptySet()) + workspace.additionalPlugins
+        }
     }
 
     @Synchronized
@@ -219,9 +227,11 @@ class WorkspaceManager {
             }
             usedModuleOwners += transitivePlugins.map { it.value }
 
+            synchronized(enabledPlugins) {
+                enabledPlugins[workspace.id] = usedModuleOwners.filterIsInstance<PluginModuleOwner>().map { it.pluginId }.toSet()
+            }
             unusedPluginIds = (modulesMiner.getModules().plugins.values.toSet() - usedModuleOwners.filterIsInstance<PluginModuleOwner>().toSet())
                 .map { it.pluginId }.sorted()
-
 
             val includedFolders: Set<Path> = usedModuleOwners.flatMap {
                 when (it) {

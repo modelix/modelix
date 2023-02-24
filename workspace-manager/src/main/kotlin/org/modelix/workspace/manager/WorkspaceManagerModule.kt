@@ -558,10 +558,13 @@ fun Application.workspaceManagerModule() {
                                                 th { +"ID" }
                                                 th { +"Name" }
                                             }
+                                            val enabledPlugins = manager.getEnabledPluginIds(workspace)
                                             for (plugin in manager.getKnownPlugins().toSortedMap()) {
+                                                val isEnabled = enabledPlugins.contains(plugin.key)
                                                 tr {
                                                     td {
                                                         input {
+                                                            if (isEnabled) style = "font-weight: bold"
                                                             type = InputType.submit
                                                             name = "pluginId"
                                                             value = plugin.key
