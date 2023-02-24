@@ -332,6 +332,10 @@ fun Application.workspaceManagerModule() {
                                     style = "display: inline-block"
                                     ul {
                                         li {
+                                            b { +"id" }
+                                            +": readonly. Any changes to the ID will be reverted on save."
+                                        }
+                                        li {
                                             b { +"name" }
                                             +": Is just shown to the user in the workspace list."
                                         }
@@ -339,6 +343,16 @@ fun Application.workspaceManagerModule() {
                                             b { +"mpsVersion" }
                                             +": This is experimental."
                                             +" The workspace will be executed using a docker image from a Modelix release for a different MPS version."
+                                        }
+                                        li {
+                                            b { +"memoryLimit" }
+                                            +": The amount of memory assigned to the docker container."
+                                            +" Check the "
+                                            a {
+                                                href = "https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#meaning-of-memory"
+                                                +"kubernetes documentation"
+                                            }
+                                            +" for valid values."
                                         }
                                         li {
                                             b { +"modelRepositories" }
@@ -393,7 +407,7 @@ fun Application.workspaceManagerModule() {
                                                 li {
                                                     b { +"url" }
                                                     +": You probably want to use this one: "
-                                                    i { +"https://projects.itemis.de/nexus/content/repositories/mbeddr/" }
+                                                    i { +"https://artifacts.itemis.cloud/repository/maven-mps/" }
                                                 }
                                             }
                                         }
@@ -413,6 +427,36 @@ fun Application.workspaceManagerModule() {
                                             +": A list of MPS module IDs that should be excluding from generation."
                                             +" Also missing dependencies that should be ignored can be listed here."
                                             +" This section is usually used when the generation fails and editing the project is not possible."
+                                        }
+                                        li {
+                                            b { +"additionalGenerationDependencies" }
+                                            +": In cases Modelix fails to analyze the dependences of your project correctly,"
+                                            +" You can specify them here explicitly."
+                                            +" An entry has to specify a 'from' and a 'to' value, which are both MPS module IDs."
+                                        }
+                                        li {
+                                            b { +"additionalPlugins" }
+                                            +": A list of IDEA plugin IDs that should be loaded in addition to the ones that are automatically detected as required."
+                                            +" Only useful if 'loadUsedModulesOnly' is also enabled, because otherwise all plugins are enabled."
+                                        }
+                                        li {
+                                            b { +"loadUsedModulesOnly" }
+                                            +": Tries to reduce the required amount of memory by disabling unused plugins and modules."
+                                            +" Modules that are not packaged as a library or plugin are considered to be used, including all their dependencies."
+                                        }
+                                        li {
+                                            b { +"sharedInstances" }
+                                            +": A list of named instances that don't belong to a specific user and are running permanently."
+                                            ul {
+                                                li {
+                                                    b { +"name" }
+                                                    +": Some name that describes the purpose of the instance."
+                                                }
+                                                li {
+                                                    b { +"allowWrite" }
+                                                    +": Boolean value. If false then this instance has no permission to write to the model server."
+                                                }
+                                            }
                                         }
                                     }
                                 }
