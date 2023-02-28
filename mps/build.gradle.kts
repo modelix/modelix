@@ -10,11 +10,11 @@ plugins {
     java
     `maven-publish`
 }
-val ant_lib by configurations.creating
-val mps by configurations.creating
-val mpsArtifacts by configurations.creating
-val libs by configurations.creating
-val modelServer by configurations.creating
+val antLib: Configuration by configurations.creating
+val mps: Configuration by configurations.creating
+val mpsArtifacts: Configuration by configurations.creating
+val libs: Configuration by configurations.creating
+val modelServer: Configuration by configurations.creating
 
 fun scriptFile(relativePath: String) {
     File("$rootDir/build/$relativePath")
@@ -30,7 +30,7 @@ val mpsExtensionsVersion: String by rootProject
 val modelixCoreVersion: String by rootProject
 
 dependencies {
-    ant_lib("org.apache.ant:ant-junit:1.10.1")
+    antLib("org.apache.ant:ant-junit:1.10.1")
     mps("com.jetbrains:mps:$mpsVersion")
     mpsArtifacts("de.itemis.mps:extensions:$mpsExtensionsVersion")
     libs("org.jdom:jdom:2.0.2")
@@ -86,14 +86,14 @@ val defaultAntScriptArgs = listOf(
     "-Dant.build.javac.source=11",
     "-Dant.build.javac.target=11"
 )
-val buildScriptClasspath = ant_lib.fileCollection { true }
+val buildScriptClasspath = antLib.fileCollection { true }
 
 
 // -------- Model Client ----------------------
 
-val modelApi by configurations.creating
-val modelClient by configurations.creating
-val lightModelServer by configurations.creating
+val modelApi: Configuration by configurations.creating
+val modelClient: Configuration by configurations.creating
+val lightModelServer: Configuration by configurations.creating
 
 dependencies {
     modelApi("org.modelix:model-api:$modelixCoreVersion")
