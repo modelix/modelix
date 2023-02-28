@@ -99,24 +99,26 @@ configurations {
     modelApi
     modelClient
     lightModelServer
+    lightModelClient
 }
 
 dependencies {
     modelApi("org.modelix:model-api:$modelixCoreVersion")
     modelClient("org.modelix:model-client:$modelixCoreVersion")
     lightModelServer("org.modelix:light-model-server:$modelixCoreVersion")
+    lightModelClient("org.modelix:light-model-client:$modelixCoreVersion")
 }
 
 def artifactNameWithoutVersion(ResolvedArtifact artifact) {
     return artifact.moduleVersion.id.name + "." + artifact.extension
 }
 
-def copyJarsWithoutModelApi(Configuration conf, File libFolder) {
+def copyJarsWithoutModelApi(Configuration conf, Configuration excludedConf, File libFolder) {
     // copy transitive dependencies without version in the file name
     // otherwise each new version would require a change of the MPS solution
 
     def jarsFromModelApi = new HashMap<String, File>()
-    configurations.modelApi.resolvedConfiguration.resolvedArtifacts
+    excludedConf.resolvedConfiguration.resolvedArtifacts
             .forEach { jarsFromModelApi.put(artifactNameWithoutVersion(it), it.file) }
 
     libFolder.deleteDir()
@@ -146,7 +148,7 @@ task copyModelClientToMps() {
     dependsOn configurations.modelApi
     dependsOn configurations.modelClient
     doLast {
-        copyJarsWithoutModelApi(configurations.modelClient, file("$projectDir/org.modelix.model.client/lib"))
+        copyJarsWithoutModelApi(configurations.modelClient, configurations.modelApi, file("$projectDir/org.modelix.model.client/lib"))
     }
 }
 
@@ -154,13 +156,22 @@ task copyLightModelServerToMps() {
     dependsOn configurations.modelApi
     dependsOn configurations.lightModelServer
     doLast {
-        copyJarsWithoutModelApi(configurations.lightModelServer, file("$projectDir/org.modelix.model.server.mpsplugin/lib"))
+        copyJarsWithoutModelApi(configurations.lightModelServer, configurations.modelApi, file("$projectDir/org.modelix.model.server.mpsplugin/lib"))
+    }
+}
+
+task copyLightModelClientToMps() {
+    dependsOn configurations.modelApi
+    dependsOn configurations.lightModelClient
+    doLast {
+        copyJarsWithoutModelApi(configurations.lightModelClient, configurations.lightModelServer, file("$projectDir/test.org.modelix.model.server.mpsplugin/lib"))
     }
 }
 
 task copyJarsToMps() {
     dependsOn(copyModelClientToMps)
     dependsOn(copyLightModelServerToMps)
+    dependsOn(copyLightModelClientToMps)
 }
 
 // -------------------------------------------
