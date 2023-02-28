@@ -26,11 +26,11 @@ dependencies {
     testImplementation("junit:junit:4.12")
 }
 
-val modelixVersion: String by rootProject
-val mpsMajorVersion: String by rootProject
-val mpsMinorVersion: String by rootProject
-val mpsVersion: String by rootProject
-val mpsExtensionsVersion: String by rootProject
+val modelixVersion: String by rootProject.ext
+val mpsMajorVersion: String by rootProject.ext
+val mpsMinorVersion: String by rootProject.ext
+val mpsVersion: String by rootProject.ext
+val mpsExtensionsVersion: String by rootProject.ext
 
 tasks.withType<Jar> {
     manifest {
