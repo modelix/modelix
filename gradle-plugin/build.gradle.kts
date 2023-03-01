@@ -2,6 +2,7 @@
 plugins {
     java
     `maven-publish`
+    `java-gradle-plugin`
 }
 
 tasks.withType<JavaCompile> {
@@ -45,13 +46,13 @@ tasks.withType<Jar> {
     }
 }
 
-publishing {
-    publications {
-        create<MavenPublication>("modelixGradlePlugin") {
-            groupId = project.group.toString()
-            version = project.version.toString()
-
-            from(components["java"])
+gradlePlugin {
+    plugins {
+        create("modelixGradlePlugin") {
+            group = "org.modelix"
+            id = "org.modelix.gradle-plugin"
+            implementationClass = "org.modelix.gradle.model.ModelPlugin"
         }
     }
 }
+
