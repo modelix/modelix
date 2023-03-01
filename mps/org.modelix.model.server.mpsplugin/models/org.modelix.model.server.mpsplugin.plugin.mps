@@ -18,6 +18,7 @@
     <import index="mhfm" ref="3f233e7f-b8a6-46d2-a57f-795d56775243/java:org.jetbrains.annotations(Annotations/)" />
     <import index="jks5" ref="cc99dce1-49f3-4392-8dbf-e22ca47bd0af/java:org.modelix.model.api(org.modelix.model.api/)" />
     <import index="lui2" ref="8865b7a8-5271-43d3-884c-6fd1d9cfdd34/java:org.jetbrains.mps.openapi.module(MPS.OpenAPI/)" />
+    <import index="nvd4" ref="8865b7a8-5271-43d3-884c-6fd1d9cfdd34/java:org.jetbrains.mps.openapi.repository(MPS.OpenAPI/)" />
   </imports>
   <registry>
     <language id="ef7bf5ac-d06c-4342-b11d-e42104eb9343" name="jetbrains.mps.lang.plugin.standalone">
@@ -653,7 +654,44 @@
         </node>
       </node>
     </node>
-    <node concept="2tJIrI" id="3Y5tAPnfkuB" role="jymVt" />
+    <node concept="312cEg" id="6g9f21tFocI" role="jymVt">
+      <property role="TrG5h" value="commandListener" />
+      <node concept="3Tm6S6" id="6g9f21tFocJ" role="1B3o_S" />
+      <node concept="3uibUv" id="6g9f21tFv3t" role="1tU5fm">
+        <ref role="3uigEE" to="nvd4:~CommandListener" resolve="CommandListener" />
+      </node>
+      <node concept="2ShNRf" id="6g9f21tFvxr" role="33vP2m">
+        <node concept="YeOm9" id="6g9f21tFvTQ" role="2ShVmc">
+          <node concept="1Y3b0j" id="6g9f21tFvTT" role="YeSDq">
+            <property role="2bfB8j" value="true" />
+            <ref role="37wK5l" to="w1kc:~CommandListenerAdapter.&lt;init&gt;()" resolve="CommandListenerAdapter" />
+            <ref role="1Y3XeK" to="w1kc:~CommandListenerAdapter" resolve="CommandListenerAdapter" />
+            <node concept="3Tm1VV" id="6g9f21tFvTU" role="1B3o_S" />
+            <node concept="3clFb_" id="6g9f21tFvWB" role="jymVt">
+              <property role="TrG5h" value="commandFinished" />
+              <node concept="3Tm1VV" id="6g9f21tFvWC" role="1B3o_S" />
+              <node concept="3cqZAl" id="6g9f21tFvWE" role="3clF45" />
+              <node concept="3clFbS" id="6g9f21tFvWG" role="3clF47">
+                <node concept="3clFbF" id="6g9f21tFx6o" role="3cqZAp">
+                  <node concept="2OqwBi" id="6g9f21tFxde" role="3clFbG">
+                    <node concept="37vLTw" id="6g9f21tFx6n" role="2Oq$k0">
+                      <ref role="3cqZAo" node="3Y5tAPnfkFU" resolve="server" />
+                    </node>
+                    <node concept="liA8E" id="6g9f21tFxqv" role="2OqNvi">
+                      <ref role="37wK5l" to="rdww:~LightModelServer.sendUpdate()" resolve="sendUpdate" />
+                    </node>
+                  </node>
+                </node>
+              </node>
+              <node concept="2AHcQZ" id="6g9f21tFvWH" role="2AJF6D">
+                <ref role="2AI5Lk" to="wyt6:~Override" resolve="Override" />
+              </node>
+            </node>
+          </node>
+        </node>
+      </node>
+    </node>
+    <node concept="2tJIrI" id="6g9f21tFnK9" role="jymVt" />
     <node concept="3clFbW" id="3Y5tAPnfGJp" role="jymVt">
       <node concept="3cqZAl" id="3Y5tAPnfGJr" role="3clF45" />
       <node concept="3Tm1VV" id="3Y5tAPnfGJs" role="1B3o_S" />
@@ -769,6 +807,16 @@
       <node concept="3cqZAl" id="3Y5tAPnfyMi" role="3clF45" />
       <node concept="3Tm1VV" id="3Y5tAPnfyMj" role="1B3o_S" />
       <node concept="3clFbS" id="3Y5tAPnfyMk" role="3clF47">
+        <node concept="3clFbF" id="3Y5tAPnfEp2" role="3cqZAp">
+          <node concept="2OqwBi" id="3Y5tAPnfEzY" role="3clFbG">
+            <node concept="37vLTw" id="3Y5tAPnfEp0" role="2Oq$k0">
+              <ref role="3cqZAo" node="3Y5tAPnfkFU" resolve="server" />
+            </node>
+            <node concept="liA8E" id="3Y5tAPnfENq" role="2OqNvi">
+              <ref role="37wK5l" to="rdww:~LightModelServer.start()" resolve="start" />
+            </node>
+          </node>
+        </node>
         <node concept="3clFbF" id="3Y5tAPnfSVF" role="3cqZAp">
           <node concept="2OqwBi" id="3Y5tAPnfT4a" role="3clFbG">
             <node concept="37vLTw" id="3Y5tAPnfSVD" role="2Oq$k0">
@@ -782,13 +830,21 @@
             </node>
           </node>
         </node>
-        <node concept="3clFbF" id="3Y5tAPnfEp2" role="3cqZAp">
-          <node concept="2OqwBi" id="3Y5tAPnfEzY" role="3clFbG">
-            <node concept="37vLTw" id="3Y5tAPnfEp0" role="2Oq$k0">
-              <ref role="3cqZAo" node="3Y5tAPnfkFU" resolve="server" />
+        <node concept="3clFbF" id="6g9f21tFpaX" role="3cqZAp">
+          <node concept="2OqwBi" id="6g9f21tFpD1" role="3clFbG">
+            <node concept="2OqwBi" id="6g9f21tFpoS" role="2Oq$k0">
+              <node concept="37vLTw" id="6g9f21tFpaV" role="2Oq$k0">
+                <ref role="3cqZAo" node="3Y5tAPnfJ6P" resolve="repository" />
+              </node>
+              <node concept="liA8E" id="6g9f21tFpyI" role="2OqNvi">
+                <ref role="37wK5l" to="lui2:~SRepository.getModelAccess()" resolve="getModelAccess" />
+              </node>
             </node>
-            <node concept="liA8E" id="3Y5tAPnfENq" role="2OqNvi">
-              <ref role="37wK5l" to="rdww:~LightModelServer.start()" resolve="start" />
+            <node concept="liA8E" id="6g9f21tFpN3" role="2OqNvi">
+              <ref role="37wK5l" to="lui2:~ModelAccess.addCommandListener(org.jetbrains.mps.openapi.repository.CommandListener)" resolve="addCommandListener" />
+              <node concept="37vLTw" id="6g9f21tFxup" role="37wK5m">
+                <ref role="3cqZAo" node="6g9f21tFocI" resolve="commandListener" />
+              </node>
             </node>
           </node>
         </node>
@@ -800,13 +856,21 @@
       <node concept="3cqZAl" id="3Y5tAPnf_nJ" role="3clF45" />
       <node concept="3Tm1VV" id="3Y5tAPnf_nK" role="1B3o_S" />
       <node concept="3clFbS" id="3Y5tAPnf_nL" role="3clF47">
-        <node concept="3clFbF" id="3Y5tAPnfESr" role="3cqZAp">
-          <node concept="2OqwBi" id="3Y5tAPnfEZ7" role="3clFbG">
-            <node concept="37vLTw" id="3Y5tAPnfESp" role="2Oq$k0">
-              <ref role="3cqZAo" node="3Y5tAPnfkFU" resolve="server" />
+        <node concept="3clFbF" id="6g9f21tFxDi" role="3cqZAp">
+          <node concept="2OqwBi" id="6g9f21tFxDj" role="3clFbG">
+            <node concept="2OqwBi" id="6g9f21tFxDk" role="2Oq$k0">
+              <node concept="37vLTw" id="6g9f21tFxDl" role="2Oq$k0">
+                <ref role="3cqZAo" node="3Y5tAPnfJ6P" resolve="repository" />
+              </node>
+              <node concept="liA8E" id="6g9f21tFxDm" role="2OqNvi">
+                <ref role="37wK5l" to="lui2:~SRepository.getModelAccess()" resolve="getModelAccess" />
+              </node>
             </node>
-            <node concept="liA8E" id="3Y5tAPnfFeb" role="2OqNvi">
-              <ref role="37wK5l" to="rdww:~LightModelServer.stop()" resolve="stop" />
+            <node concept="liA8E" id="6g9f21tFxDn" role="2OqNvi">
+              <ref role="37wK5l" to="lui2:~ModelAccess.removeCommandListener(org.jetbrains.mps.openapi.repository.CommandListener)" resolve="removeCommandListener" />
+              <node concept="37vLTw" id="6g9f21tFxDo" role="37wK5m">
+                <ref role="3cqZAo" node="6g9f21tFocI" resolve="commandListener" />
+              </node>
             </node>
           </node>
         </node>
@@ -817,6 +881,16 @@
             </node>
             <node concept="liA8E" id="3Y5tAPnfTW9" role="2OqNvi">
               <ref role="37wK5l" to="slod:5m02zYhGCVO" resolve="stop" />
+            </node>
+          </node>
+        </node>
+        <node concept="3clFbF" id="3Y5tAPnfESr" role="3cqZAp">
+          <node concept="2OqwBi" id="3Y5tAPnfEZ7" role="3clFbG">
+            <node concept="37vLTw" id="3Y5tAPnfESp" role="2Oq$k0">
+              <ref role="3cqZAo" node="3Y5tAPnfkFU" resolve="server" />
+            </node>
+            <node concept="liA8E" id="3Y5tAPnfFeb" role="2OqNvi">
+              <ref role="37wK5l" to="rdww:~LightModelServer.stop()" resolve="stop" />
             </node>
           </node>
         </node>

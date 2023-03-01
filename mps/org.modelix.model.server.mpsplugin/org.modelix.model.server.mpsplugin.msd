@@ -40,6 +40,7 @@
       <sourceRoot location="netty-transport-native-kqueue.jar" />
       <sourceRoot location="netty-transport-native-unix-common.jar" />
       <sourceRoot location="netty-transport.jar" />
+      <sourceRoot location="kotlinx-coroutines-swing.jar" />
     </modelRoot>
   </models>
   <facets>
@@ -83,6 +84,7 @@
     <stubModelEntry path="${module}/lib/netty-transport-native-kqueue.jar" />
     <stubModelEntry path="${module}/lib/netty-transport-native-unix-common.jar" />
     <stubModelEntry path="${module}/lib/netty-transport.jar" />
+    <stubModelEntry path="${module}/lib/kotlinx-coroutines-swing.jar" />
   </stubModelEntries>
   <sourcePath />
   <dependencies>
