@@ -1,64 +1,64 @@
 
 plugins {
-  id "com.github.node-gradle.node" version "2.2.4"
+    id("com.github.node-gradle.node") version "2.2.4"
 }
 
-apply plugin: 'base'
+apply(plugin = "base")
 
 node {
-    if (!rootProject.hasProperty("useInstalledNvm") || !rootProject.useInstalledNvm.toBoolean()) {
+    if (!rootProject.hasProperty("useInstalledNvm") || !rootProject.properties["useInstalledNvm"].toString().toBoolean()) {
         // also change the .nvmrc file
-        version = '17.4.0'
-        npmVersion = '8.3.1'
+        version = "17.4.0"
+        npmVersion = "8.3.1"
         download = true
     }
 }
 
-npm_run_build {
+tasks.named<com.moowork.gradle.node.npm.NpmTask>("npm_run_build") {
     // make sure the build task is executed only when appropriate files change
     //inputs.files fileTree('public')
-    inputs.files fileTree('src')
+    inputs.files(fileTree("src"))
 
     // 'node_modules' appeared not reliable for dependency change detection (the task was rerun without changes)
     // though 'package.json' and 'package-lock.json' should be enough anyway
-    inputs.file 'package.json'
-    inputs.file 'package-lock.json'
+    inputs.file("package.json")
+    inputs.file("package-lock.json")
 
-    outputs.dir 'dist'
+    outputs.dir("dist")
 }
 
 // pack output of the build into JAR file
-task packageNpmApp(type: Zip) {
-    dependsOn npm_run_build
-    archiveFileName = 'ui-client.jar'
-    destinationDirectory = file("${projectDir}/../mps/org.modelix.ui.server/lib/")
-    from('dist') {
+val packageNpmApp by tasks.registering(Zip::class) {
+    dependsOn("npm_run_build")
+    archiveFileName.set("ui-client.jar")
+    destinationDirectory.set(file("${projectDir}/../mps/org.modelix.ui.server/lib/"))
+    from("dist") {
         // optional path under which output will be visible in Java classpath, e.g. static resources path
-        into 'org/modelix/ui/client/static'
+        into("org/modelix/ui/client/static")
     }
 }
 
-clean {
-    delete packageNpmApp.archiveFile
-    delete npm_run_build.outputs
+tasks.named("clean") {
+    delete(packageNpmApp.get().archiveFile)
+    delete(tasks.getByName("npm_run_build").outputs)
 }
 
 // declare a dedicated scope for publishing the packaged JAR
-configurations {
-    npmResources
-}
+val npmResources: Configuration by configurations.creating
 
-configurations.default.extendsFrom(configurations.npmResources)
+configurations.getByName("default").extendsFrom(npmResources)
 
 // expose the artifact created by the packaging task
 artifacts {
-    npmResources(packageNpmApp.archivePath) {
-        builtBy packageNpmApp
-        type 'jar'
+    add(npmResources.name, packageNpmApp.get().archiveFile) {
+        builtBy(packageNpmApp)
+        type = "jar"
     }
 }
 
-assemble.dependsOn packageNpmApp
+tasks.named("assemble") {
+    dependsOn(packageNpmApp)
+}
 
 /*
 String testsExecutedMarkerName = "${projectDir}/.tests.executed"
@@ -70,7 +70,7 @@ task test(type: NpmTask) {
     environment CI: 'true'
 
     args = ['run', 'test']
-    
+
     inputs.files fileTree('src')
     inputs.file 'package.json'
     inputs.file 'package-lock.json'
