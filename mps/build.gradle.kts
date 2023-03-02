@@ -1,8 +1,11 @@
-import de.itemis.mps.gradle.BuildLanguages
-import de.itemis.mps.gradle.RunAntScript
-import de.itemis.mps.gradle.GenerateLibrariesXml
-import de.itemis.mps.gradle.TestLanguages
+
 //import org.apache.tools.ant.taskdefs.condition.Os
+import de.itemis.mps.gradle.BuildLanguages
+import de.itemis.mps.gradle.GenerateLibrariesXml
+import de.itemis.mps.gradle.RunAntScript
+import de.itemis.mps.gradle.TestLanguages
+import groovy.util.Node
+import groovy.xml.XmlParser
 import kotlin.io.path.Path
 import kotlin.io.path.copyTo
 
@@ -211,27 +214,29 @@ val ensurePrintEnvHasRightPermissions by tasks.registering {
     }
 }
 
-//val setExecutionModeToIntegrationTests by tasks.registering {
-//    doLast {
-//        val buildFile = File("$rootDir/build/integrationtests.org.modelix/build-integrationtests.xml")
-//        val xml = groovy.xml.XmlParser().parse(buildFile)
-//        val target = xml.target.find { node -> node.@name == "run.org.modelix.integrationtests"}
-//        val jvmArgs = target.runMPS.jvmargs
-//
-//        val found = jvmArgs.arg.find { node -> node.@value == "-Dmodelix.executionMode=INTEGRATION_TESTS" }
-//        if (found == null) {
-//            val newJvmArg = groovy.util.Node(jvmArgs.getAt(0), "arg", "-Dmodelix.executionMode=INTEGRATION_TESTS")
-//            val printer = groovy.xml.XmlNodePrinter(buildFile.newPrintWriter())
-//            printer.print(xml)
-//        }
-//    }
-//}
+val setExecutionModeToIntegrationTests by tasks.registering {
+    doLast {
+        val buildFile = File("$rootDir/build/integrationtests.org.modelix/build-integrationtests.xml")
+        val xml = XmlParser().parse(buildFile)
+
+        val target = xml.children().find { it is Node && it.attribute("name") == "run.org.modelix.integrationtests" } as Node
+        val runMps = target.children().find { it is Node && it.name() == "runMPS"} as Node
+        val jvmArgs = runMps.children().find { it is Node && it.name() == "jvmargs" } as Node
+
+        val found = jvmArgs.children().find { it is Node && it.attribute("value") == "-Dmodelix.executionMode=INTEGRATION_TESTS" }
+        if (found == null) {
+            val newJvmArg = Node(jvmArgs, "arg", mapOf("value" to "-Dmodelix.executionMode=INTEGRATION_TESTS"))
+            val printer = groovy.xml.XmlNodePrinter(buildFile.printWriter())
+            printer.print(xml)
+        }
+    }
+}
 
 val justRunIntegrationTests by tasks.registering(RunAntScript::class) {
     dependsOn(
         resolveModelServer,
         ensurePrintEnvHasRightPermissions,
-//        setExecutionModeToIntegrationTests
+        setExecutionModeToIntegrationTests
     )
     dependsOn(":mps:resolveModelServer")
     targets = listOf("run.org.modelix.integrationtests")
@@ -253,27 +258,30 @@ val runIntegrationTests by tasks.registering {
     )
 }
 
-//val checkMpsTestOutput by tasks.registering {
-//    dependsOn(runMpsTests)
-//    val testResultFile = file("$rootDir/build/test.org.modelix/TEST-jetbrains.mps.testbench.junit.suites.AntModuleTestSuite0-all.xml")
-//    inputs.file(testResultFile)
-//    doLast {
-//        val testResult = groovy.xml.XmlParser().parse(testResultFile)
-//        val failingTests = testResult.attribute("failures")
-//        val totalTests = testResult.attribute("tests")
-//        if (failingTests != "0") {
-//            val failures = testResult.testcase.failure
-//            for (failure in failures) {
-//                println("Failed test: " + failure.parent().@classname + " " + failure.parent().@name)
-//                println(failure.text())
-//            }
-//            throw RuntimeException("$failingTests of $totalTests MPS tests are failing")
-//        }
-//    }
-//}
+val checkMpsTestOutput by tasks.registering {
+    dependsOn(runMpsTests)
+    val testResultFile = file("$rootDir/build/test.org.modelix/TEST-jetbrains.mps.testbench.junit.suites.AntModuleTestSuite0-all.xml")
+    inputs.file(testResultFile)
+    doLast {
+        val testResult = XmlParser().parse(testResultFile)
+        val failingTests = testResult.attribute("failures")
+        val totalTests = testResult.attribute("tests")
+        if (failingTests != "0") {
+            val testCases = testResult.children().filter { it is Node && it.name() == "testcase" }.filterIsInstance<Node>()
+            for (testCase in testCases) {
+                val failures = testCase.children().filter { it is Node && it.name() == "failure" }.filterIsInstance<Node>()
+                for (failure in failures) {
+                    println("Failed test: ${testCase.attribute("classname")}  ${testCase.attribute("name")}")
+                    println(failure.text())
+                }
+            }
+            throw RuntimeException("$failingTests of $totalTests MPS tests are failing")
+        }
+    }
+}
 
 tasks.named("test") {
-//    dependsOn(checkMpsTestOutput)
+    dependsOn(checkMpsTestOutput)
 }
 
 val packageMpsModelPlugin by tasks.registering(Zip::class) {
