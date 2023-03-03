@@ -6,5 +6,5 @@ pluginManagement {
     }
 }
 
-rootProject.name = 'modelix-gradle-plugin-test'
+rootProject.name = "modelix-gradle-plugin-test"
 
