@@ -2,10 +2,6 @@ FROM openjdk:11
 
 RUN apt update && apt install -y maven git ant
 
-COPY bundled-maven-dependencies/pom.xml /bundled-maven-dependencies/pom.xml
-WORKDIR /bundled-maven-dependencies
-RUN mvn dependency:go-offline
-
 # Delete all .repositories and.sha1 files to avoid requiring an internet connection
 # https://manios.org/2019/08/21/force-maven-offline-execute-goal-dependencies
 WORKDIR /root/.m2
