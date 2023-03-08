@@ -66,6 +66,6 @@ TIMESTAMP="$(date +"%Y%m%d%H%M")"
   fi
 
   cd projector-docker
-  ./build-modelix-projector-mps.sh "${mpsMajorVersion}" "${mpsVersion}" "test"
+  ./build-modelix-projector-mps.sh "${mpsMajorVersion}" "${mpsVersion}" "-test"
 )
 
