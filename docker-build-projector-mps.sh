@@ -27,7 +27,7 @@ TIMESTAMP="$(date +"%Y%m%d%H%M")"
       git pull
     )
   else
-    git clone https://github.com/JetBrains/projector-server.git
+    git clone https://github.com/modelix/projector-server.git
   fi
   (
     cd projector-server
@@ -42,7 +42,7 @@ TIMESTAMP="$(date +"%Y%m%d%H%M")"
       git pull
     )
   else
-    git clone -b "feature/multiarch-build" https://github.com/modelix/projector-docker.git
+    git clone https://github.com/modelix/projector-client.git
   fi
   (
     cd projector-client
@@ -62,7 +62,7 @@ TIMESTAMP="$(date +"%Y%m%d%H%M")"
       git pull
     )
   else
-    git clone https://github.com/modelix/projector-docker.git
+    git clone -b "feature/multiarch-build" https://github.com/modelix/projector-docker.git
   fi
 
   cd projector-docker
