@@ -27,7 +27,7 @@ TIMESTAMP="$(date +"%Y%m%d%H%M")"
       git pull
     )
   else
-    git clone https://github.com/JetBrains/projector-server.git
+    git clone https://github.com/modelix/projector-server.git
   fi
   (
     cd projector-server
@@ -42,7 +42,7 @@ TIMESTAMP="$(date +"%Y%m%d%H%M")"
       git pull
     )
   else
-    git clone https://github.com/JetBrains/projector-client.git
+    git clone https://github.com/modelix/projector-client.git
   fi
   (
     cd projector-client
@@ -62,19 +62,10 @@ TIMESTAMP="$(date +"%Y%m%d%H%M")"
       git pull
     )
   else
-    git clone https://github.com/JetBrains/projector-docker.git
+    git clone -b "feature/multiarch-build" https://github.com/modelix/projector-docker.git
   fi
 
   cd projector-docker
   ./build-container-dev.sh "projector-mps" "https://download.jetbrains.com/mps/${mpsMajorVersion}/MPS-${mpsVersion}.tar.gz"
 )
 
-
-docker tag projector-mps:latest "modelix/projector-mps:${mpsMajorVersion}"
-docker push "modelix/projector-mps:${mpsMajorVersion}"
-docker tag projector-mps:latest "modelix/projector-mps:${mpsVersion}"
-docker push "modelix/projector-mps:${mpsVersion}"
-docker tag projector-mps:latest "modelix/projector-mps:${mpsVersion}-$TIMESTAMP"
-docker push "modelix/projector-mps:${mpsVersion}-$TIMESTAMP"
-#docker tag projector-mps:latest "modelix/projector-mps:${modelixVersion}"
-#docker push "modelix/projector-mps:${modelixVersion}"
