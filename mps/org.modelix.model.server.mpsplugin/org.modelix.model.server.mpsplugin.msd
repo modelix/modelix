@@ -41,6 +41,8 @@
       <sourceRoot location="netty-transport-native-unix-common.jar" />
       <sourceRoot location="netty-transport.jar" />
       <sourceRoot location="kotlinx-coroutines-swing.jar" />
+      <sourceRoot location="incremental-jvm.jar" />
+      <sourceRoot location="kotlinx-benchmark-runtime-jvm.jar" />
     </modelRoot>
   </models>
   <facets>
@@ -51,10 +53,13 @@
   <stubModelEntries>
     <stubModelEntry path="${module}/lib/alpn-api.jar" />
     <stubModelEntry path="${module}/lib/config.jar" />
+    <stubModelEntry path="${module}/lib/incremental-jvm.jar" />
     <stubModelEntry path="${module}/lib/jansi.jar" />
     <stubModelEntry path="${module}/lib/kotlin-reflect.jar" />
+    <stubModelEntry path="${module}/lib/kotlinx-benchmark-runtime-jvm.jar" />
     <stubModelEntry path="${module}/lib/kotlinx-coroutines-core-jvm.jar" />
     <stubModelEntry path="${module}/lib/kotlinx-coroutines-jdk8.jar" />
+    <stubModelEntry path="${module}/lib/kotlinx-coroutines-swing.jar" />
     <stubModelEntry path="${module}/lib/ktor-events-jvm.jar" />
     <stubModelEntry path="${module}/lib/ktor-http-cio-jvm.jar" />
     <stubModelEntry path="${module}/lib/ktor-http-jvm.jar" />
@@ -84,7 +89,6 @@
     <stubModelEntry path="${module}/lib/netty-transport-native-kqueue.jar" />
     <stubModelEntry path="${module}/lib/netty-transport-native-unix-common.jar" />
     <stubModelEntry path="${module}/lib/netty-transport.jar" />
-    <stubModelEntry path="${module}/lib/kotlinx-coroutines-swing.jar" />
   </stubModelEntries>
   <sourcePath />
   <dependencies>
