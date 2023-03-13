@@ -1,44 +1,36 @@
-buildscript {
-    repositories {
-        mavenCentral()
-        maven { url 'https://artifacts.itemis.cloud/repository/maven-mps/' }
-        mavenLocal()
-    }
-
-    def versionFile = new File("$rootDir/../modelix.version")
-    if (!versionFile.exists()) {
-        throw new GradleException("$versionFile doesn't exist")
-    }
-    def modelixVersion = versionFile.text.trim()
-
-    dependencies {
-        classpath group: 'org.modelix', name: 'gradle-plugin', version: modelixVersion
-    }
-}
 
 repositories {
     mavenCentral()
-    maven { url 'https://artifacts.itemis.cloud/repository/maven-mps/' }
+    maven { url = uri("https://artifacts.itemis.cloud/repository/maven-mps/") }
     mavenLocal()
 }
 
-apply plugin: 'modelix-gradle-plugin'
+plugins {
+    val versionFile = File("../modelix.version")
+    if (!versionFile.exists()) {
+        throw GradleException("$versionFile doesn't exist")
+    }
+    val modelixVersion = versionFile.readText().trim()
+    id("org.modelix.gradle-plugin") version "$modelixVersion"
+}
 
-def artifactsDir = project.file("artifacts") 
-def mpsDir = project.hasProperty('mpsPath') ? new File(project.property('mpsPath')) : new File(artifactsDir, 'mps')
-def mpsExtensionsDir = new File("./artifacts/de.itemis.mps.extensions")
-def mbeddrDir = new File("./artifacts/com.mbeddr.platform")
-def modelixDir = new File("./modelix/plugins")
-def iets3Dir = new File("./artifacts/org.iets3.opensource")
+val artifactsDir = project.file("artifacts")
+val mpsDir = if (project.hasProperty("mpsPath"))
+    file(project.property("mpsPath"))
+    else File(artifactsDir, "mps")
+val mpsExtensionsDir = File("./artifacts/de.itemis.mps.extensions")
+val mbeddrDir = File("./artifacts/com.mbeddr.platform")
+val modelixDir = File("./modelix/plugins")
+val iets3Dir = File("./artifacts/org.iets3.opensource")
 
-def pluginsDirFromExtensions = [
+val pluginsDirFromExtensions = listOf(
         "de.60.mps.libs", 
         "de.q60.shadowmodels", 
         "de.q60.shadowmodels.examples", 
         "org.modelix.model.api", 
-        "mps-apache-commons"]
+        "mps-apache-commons")
 
-def mpsProjectDir = file("$projectDir/downloadedProject")
+val mpsProjectDir = file("$projectDir/downloadedProject")
 mpsProjectDir.mkdirs()
 
 modelixModel {
