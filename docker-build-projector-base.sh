@@ -17,7 +17,7 @@ echo "MPS Minor Version: $mpsMinorVersion"
 
 #Disabled for testing
 #sed -i.bak -E "s/FROM modelix\/projector-mps:.+/FROM modelix\/projector-mps:${mpsVersion}/" Dockerfile-projector-base
-rm Dockerfile-projector-base.bak
+#rm Dockerfile-projector-base.bak
 
 # patch branding.jar to not show EULA and data sharing agreement at startup
 rm -rf build/branding
