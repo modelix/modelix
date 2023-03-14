@@ -11,12 +11,11 @@ plugins {
     kotlin("jvm")
     kotlin("plugin.serialization")
     id("application")
-    id("com.github.johnrengelman.shadow") version "6.1.0"
+    id("com.github.johnrengelman.shadow") version "7.1.2"
 }
 
 application {
     mainClass.set("io.ktor.server.netty.EngineMain")
-    mainClassName = "io.ktor.server.netty.EngineMain"
 }
 
 tasks.withType<ShadowJar> {
