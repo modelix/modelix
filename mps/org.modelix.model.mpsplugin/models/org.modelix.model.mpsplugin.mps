@@ -20714,36 +20714,24 @@
             <property role="TrG5h" value="property" />
           </node>
           <node concept="3clFbS" id="3XRUK8VgqHc" role="2LFqv$">
-            <node concept="3clFbF" id="3XRUK8VgqHd" role="3cqZAp">
-              <node concept="2OqwBi" id="3XRUK8VgqHe" role="3clFbG">
-                <node concept="37vLTw" id="3XRUK8VgqHf" role="2Oq$k0">
+            <node concept="3clFbF" id="2nfCOm5nlnJ" role="3cqZAp">
+              <node concept="2YIFZM" id="2nfCOm5nlpU" role="3clFbG">
+                <ref role="37wK5l" to="jks5:~INodeKt.setPropertyValue(org.modelix.model.api.INode,org.modelix.model.api.IProperty,java.lang.String)" resolve="setPropertyValue" />
+                <ref role="1Pybhc" to="jks5:~INodeKt" resolve="INodeKt" />
+                <node concept="37vLTw" id="2nfCOm5nlqY" role="37wK5m">
                   <ref role="3cqZAo" node="3XRUK8VgqH2" resolve="copy" />
                 </node>
-                <node concept="liA8E" id="3XRUK8VgqHg" role="2OqNvi">
-                  <ref role="37wK5l" to="jks5:~INode.setPropertyValue(java.lang.String,java.lang.String)" resolve="setPropertyValue" />
-                  <node concept="2OqwBi" id="3XRUK8VgqHh" role="37wK5m">
-                    <node concept="2GrUjf" id="3XRUK8VgqHi" role="2Oq$k0">
-                      <ref role="2Gs0qQ" node="3XRUK8VgqHb" resolve="property" />
-                    </node>
-                    <node concept="liA8E" id="3XRUK8VgqHj" role="2OqNvi">
-                      <ref role="37wK5l" to="jks5:~IRole.getName()" resolve="getName" />
-                    </node>
+                <node concept="2GrUjf" id="2nfCOm5nlsV" role="37wK5m">
+                  <ref role="2Gs0qQ" node="3XRUK8VgqHb" resolve="property" />
+                </node>
+                <node concept="2YIFZM" id="2nfCOm5nm6d" role="37wK5m">
+                  <ref role="37wK5l" to="jks5:~INodeKt.getPropertyValue(org.modelix.model.api.INode,org.modelix.model.api.IProperty)" resolve="getPropertyValue" />
+                  <ref role="1Pybhc" to="jks5:~INodeKt" resolve="INodeKt" />
+                  <node concept="37vLTw" id="2nfCOm5nmpk" role="37wK5m">
+                    <ref role="3cqZAo" node="3XRUK8VgqGQ" resolve="original" />
                   </node>
-                  <node concept="2OqwBi" id="3XRUK8VgqHk" role="37wK5m">
-                    <node concept="37vLTw" id="3XRUK8VgqHl" role="2Oq$k0">
-                      <ref role="3cqZAo" node="3XRUK8VgqGQ" resolve="original" />
-                    </node>
-                    <node concept="liA8E" id="3XRUK8VgqHm" role="2OqNvi">
-                      <ref role="37wK5l" to="jks5:~INode.getPropertyValue(java.lang.String)" resolve="getPropertyValue" />
-                      <node concept="2OqwBi" id="3XRUK8VgqHn" role="37wK5m">
-                        <node concept="2GrUjf" id="3XRUK8VgqHo" role="2Oq$k0">
-                          <ref role="2Gs0qQ" node="3XRUK8VgqHb" resolve="property" />
-                        </node>
-                        <node concept="liA8E" id="3XRUK8VgqHp" role="2OqNvi">
-                          <ref role="37wK5l" to="jks5:~IRole.getName()" resolve="getName" />
-                        </node>
-                      </node>
-                    </node>
+                  <node concept="2GrUjf" id="2nfCOm5nn5V" role="37wK5m">
+                    <ref role="2Gs0qQ" node="3XRUK8VgqHb" resolve="property" />
                   </node>
                 </node>
               </node>
@@ -20781,12 +20769,14 @@
                 </node>
                 <node concept="AQDAd" id="3XRUK8VgqHB" role="2OqNvi">
                   <ref role="37wK5l" node="24If7DPFqLp" resolve="getChidlrenAsList" />
-                  <node concept="2OqwBi" id="3XRUK8VgqHC" role="37wK5m">
-                    <node concept="2GrUjf" id="3XRUK8VgqHD" role="2Oq$k0">
+                  <node concept="2YIFZM" id="2nfCOm5noa8" role="37wK5m">
+                    <ref role="37wK5l" to="jks5:~INodeKt.key(org.modelix.model.api.IRole,org.modelix.model.api.INode)" resolve="key" />
+                    <ref role="1Pybhc" to="jks5:~INodeKt" resolve="INodeKt" />
+                    <node concept="2GrUjf" id="2nfCOm5nocp" role="37wK5m">
                       <ref role="2Gs0qQ" node="3XRUK8VgqHu" resolve="childLink" />
                     </node>
-                    <node concept="liA8E" id="3XRUK8VgqHE" role="2OqNvi">
-                      <ref role="37wK5l" to="jks5:~IRole.getName()" resolve="getName" />
+                    <node concept="37vLTw" id="2nfCOm5nozV" role="37wK5m">
+                      <ref role="3cqZAo" node="3XRUK8VgqGQ" resolve="original" />
                     </node>
                   </node>
                 </node>
@@ -20799,12 +20789,14 @@
                     </node>
                     <node concept="AQDAd" id="3XRUK8VgqHJ" role="2OqNvi">
                       <ref role="37wK5l" node="3XRUK8VgqGN" resolve="replicateChildHelper" />
-                      <node concept="2OqwBi" id="3XRUK8VgqHK" role="37wK5m">
-                        <node concept="2GrUjf" id="3XRUK8VgqHL" role="2Oq$k0">
+                      <node concept="2YIFZM" id="2nfCOm5npEi" role="37wK5m">
+                        <ref role="37wK5l" to="jks5:~INodeKt.key(org.modelix.model.api.IRole,org.modelix.model.api.INode)" resolve="key" />
+                        <ref role="1Pybhc" to="jks5:~INodeKt" resolve="INodeKt" />
+                        <node concept="2GrUjf" id="2nfCOm5nq0n" role="37wK5m">
                           <ref role="2Gs0qQ" node="3XRUK8VgqHu" resolve="childLink" />
                         </node>
-                        <node concept="liA8E" id="3XRUK8VgqHM" role="2OqNvi">
-                          <ref role="37wK5l" to="jks5:~IRole.getName()" resolve="getName" />
+                        <node concept="37vLTw" id="2nfCOm5nqGI" role="37wK5m">
+                          <ref role="3cqZAo" node="3XRUK8VgqH2" resolve="copy" />
                         </node>
                       </node>
                       <node concept="2GrUjf" id="3XRUK8VgqHN" role="37wK5m">
@@ -20842,20 +20834,14 @@
                 <node concept="3uibUv" id="3XRUK8VgGRu" role="1tU5fm">
                   <ref role="3uigEE" to="jks5:~INode" resolve="INode" />
                 </node>
-                <node concept="2OqwBi" id="3XRUK8VgHVa" role="33vP2m">
-                  <node concept="37vLTw" id="3XRUK8VgHT9" role="2Oq$k0">
+                <node concept="2YIFZM" id="2nfCOm5ntYb" role="33vP2m">
+                  <ref role="37wK5l" to="jks5:~INodeKt.getReferenceTarget(org.modelix.model.api.INode,org.modelix.model.api.IReferenceLink)" resolve="getReferenceTarget" />
+                  <ref role="1Pybhc" to="jks5:~INodeKt" resolve="INodeKt" />
+                  <node concept="37vLTw" id="2nfCOm5nzmN" role="37wK5m">
                     <ref role="3cqZAo" node="3XRUK8VgqGQ" resolve="original" />
                   </node>
-                  <node concept="liA8E" id="3XRUK8VgHWF" role="2OqNvi">
-                    <ref role="37wK5l" to="jks5:~INode.getReferenceTarget(java.lang.String)" resolve="getReferenceTarget" />
-                    <node concept="2OqwBi" id="3XRUK8VgI4a" role="37wK5m">
-                      <node concept="2GrUjf" id="3XRUK8VgHXL" role="2Oq$k0">
-                        <ref role="2Gs0qQ" node="3XRUK8VgqHP" resolve="refLink" />
-                      </node>
-                      <node concept="liA8E" id="3XRUK8VgIEu" role="2OqNvi">
-                        <ref role="37wK5l" to="jks5:~IRole.getName()" resolve="getName" />
-                      </node>
-                    </node>
+                  <node concept="2GrUjf" id="2nfCOm5n$cf" role="37wK5m">
+                    <ref role="2Gs0qQ" node="3XRUK8VgqHP" resolve="refLink" />
                   </node>
                 </node>
               </node>
@@ -20872,12 +20858,14 @@
                         <node concept="37vLTw" id="3XRUK8VgF2n" role="1Lso8e">
                           <ref role="3cqZAo" node="3XRUK8VgqH2" resolve="copy" />
                         </node>
-                        <node concept="2OqwBi" id="3XRUK8VgFk9" role="1Lso8e">
-                          <node concept="2GrUjf" id="3XRUK8VgFc4" role="2Oq$k0">
+                        <node concept="2YIFZM" id="2nfCOm5nrI1" role="1Lso8e">
+                          <ref role="37wK5l" to="jks5:~INodeKt.key(org.modelix.model.api.IRole,org.modelix.model.api.INode)" resolve="key" />
+                          <ref role="1Pybhc" to="jks5:~INodeKt" resolve="INodeKt" />
+                          <node concept="2GrUjf" id="2nfCOm5ns9v" role="37wK5m">
                             <ref role="2Gs0qQ" node="3XRUK8VgqHP" resolve="refLink" />
                           </node>
-                          <node concept="liA8E" id="3XRUK8VgG0q" role="2OqNvi">
-                            <ref role="37wK5l" to="jks5:~IRole.getName()" resolve="getName" />
+                          <node concept="37vLTw" id="2nfCOm5nsGs" role="37wK5m">
+                            <ref role="3cqZAo" node="3XRUK8VgqH2" resolve="copy" />
                           </node>
                         </node>
                         <node concept="37vLTw" id="3XRUK8VgKm8" role="1Lso8e">
@@ -28392,28 +28380,27 @@
                 <ref role="37wK5l" to="qvpu:~PArea.executeRead(kotlin.jvm.functions.Function0)" resolve="executeRead" />
                 <node concept="1bVj0M" id="7ZZZU$lskuF" role="37wK5m">
                   <node concept="3clFbS" id="7ZZZU$lskuG" role="1bW5cS">
-                    <node concept="3clFbF" id="7ZZZU$lskuH" role="3cqZAp">
-                      <node concept="2OqwBi" id="7ZZZU$lskuI" role="3clFbG">
-                        <node concept="2ShNRf" id="7ZZZU$lskuJ" role="2Oq$k0">
-                          <node concept="1pGfFk" id="7ZZZU$lskuK" role="2ShVmc">
+                    <node concept="3clFbF" id="2nfCOm5$vdE" role="3cqZAp">
+                      <node concept="2YIFZM" id="2nfCOm5$vss" role="3clFbG">
+                        <ref role="37wK5l" to="jks5:~INodeKt.getPropertyValue(org.modelix.model.api.INode,org.modelix.model.api.IProperty)" resolve="getPropertyValue" />
+                        <ref role="1Pybhc" to="jks5:~INodeKt" resolve="INodeKt" />
+                        <node concept="2ShNRf" id="2nfCOm5$yUk" role="37wK5m">
+                          <node concept="1pGfFk" id="2nfCOm5$yUl" role="2ShVmc">
                             <ref role="37wK5l" to="jks5:~PNodeAdapter.&lt;init&gt;(long,org.modelix.model.api.IBranch)" resolve="PNodeAdapter" />
-                            <node concept="37vLTw" id="7ZZZU$lt4PQ" role="37wK5m">
+                            <node concept="37vLTw" id="2nfCOm5$yUm" role="37wK5m">
                               <ref role="3cqZAo" node="7ZZZU$lnh9j" resolve="moduleNodeId" />
                             </node>
-                            <node concept="37vLTw" id="7ZZZU$lskuM" role="37wK5m">
+                            <node concept="37vLTw" id="2nfCOm5$yUn" role="37wK5m">
                               <ref role="3cqZAo" node="7ZZZU$lt0Ue" resolve="branch" />
                             </node>
                           </node>
                         </node>
-                        <node concept="liA8E" id="7ZZZU$lskuN" role="2OqNvi">
-                          <ref role="37wK5l" to="jks5:~PNodeAdapter.getPropertyValue(java.lang.String)" resolve="getPropertyValue" />
-                          <node concept="2OqwBi" id="7ZZZU$lskuO" role="37wK5m">
-                            <node concept="355D3s" id="7ZZZU$lskuP" role="2Oq$k0">
+                        <node concept="2ShNRf" id="2nfCOm5$wdX" role="37wK5m">
+                          <node concept="1pGfFk" id="2nfCOm5$yxZ" role="2ShVmc">
+                            <ref role="37wK5l" to="xxte:2ePp5XuOMn2" resolve="SPropertyAdapter" />
+                            <node concept="355D3s" id="2nfCOm5$yLd" role="37wK5m">
                               <ref role="355D3t" to="jh6v:qmkA5fOskf" resolve="Module" />
                               <ref role="355D3u" to="tpck:h0TrG11" resolve="name" />
-                            </node>
-                            <node concept="liA8E" id="7ZZZU$lskuQ" role="2OqNvi">
-                              <ref role="37wK5l" to="c17a:~SProperty.getName()" resolve="getName" />
                             </node>
                           </node>
                         </node>
@@ -28442,28 +28429,27 @@
                 <ref role="37wK5l" to="qvpu:~PArea.executeRead(kotlin.jvm.functions.Function0)" resolve="executeRead" />
                 <node concept="1bVj0M" id="1UvRDkPdMx$" role="37wK5m">
                   <node concept="3clFbS" id="1UvRDkPdMx_" role="1bW5cS">
-                    <node concept="3clFbF" id="1UvRDkPdMxA" role="3cqZAp">
-                      <node concept="2OqwBi" id="1UvRDkPdMxB" role="3clFbG">
-                        <node concept="2ShNRf" id="1UvRDkPdMxC" role="2Oq$k0">
-                          <node concept="1pGfFk" id="1UvRDkPdMxD" role="2ShVmc">
+                    <node concept="3clFbF" id="2nfCOm5$$gD" role="3cqZAp">
+                      <node concept="2YIFZM" id="2nfCOm5$$rv" role="3clFbG">
+                        <ref role="37wK5l" to="jks5:~INodeKt.getPropertyValue(org.modelix.model.api.INode,org.modelix.model.api.IProperty)" resolve="getPropertyValue" />
+                        <ref role="1Pybhc" to="jks5:~INodeKt" resolve="INodeKt" />
+                        <node concept="2ShNRf" id="2nfCOm5$$C$" role="37wK5m">
+                          <node concept="1pGfFk" id="2nfCOm5$$C_" role="2ShVmc">
                             <ref role="37wK5l" to="jks5:~PNodeAdapter.&lt;init&gt;(long,org.modelix.model.api.IBranch)" resolve="PNodeAdapter" />
-                            <node concept="37vLTw" id="1UvRDkPdMxE" role="37wK5m">
+                            <node concept="37vLTw" id="2nfCOm5$$CA" role="37wK5m">
                               <ref role="3cqZAo" node="7ZZZU$lnh9j" resolve="moduleNodeId" />
                             </node>
-                            <node concept="37vLTw" id="1UvRDkPdMxF" role="37wK5m">
+                            <node concept="37vLTw" id="2nfCOm5$$CB" role="37wK5m">
                               <ref role="3cqZAo" node="7ZZZU$lt0Ue" resolve="branch" />
                             </node>
                           </node>
                         </node>
-                        <node concept="liA8E" id="1UvRDkPdMxG" role="2OqNvi">
-                          <ref role="37wK5l" to="jks5:~PNodeAdapter.getPropertyValue(java.lang.String)" resolve="getPropertyValue" />
-                          <node concept="2OqwBi" id="1UvRDkPdMxH" role="37wK5m">
-                            <node concept="355D3s" id="1UvRDkPdMxI" role="2Oq$k0">
+                        <node concept="2ShNRf" id="2nfCOm5$_b7" role="37wK5m">
+                          <node concept="1pGfFk" id="2nfCOm5$B_Q" role="2ShVmc">
+                            <ref role="37wK5l" to="xxte:2ePp5XuOMn2" resolve="SPropertyAdapter" />
+                            <node concept="355D3s" id="2nfCOm5$BKP" role="37wK5m">
                               <ref role="355D3t" to="jh6v:qmkA5fOskf" resolve="Module" />
                               <ref role="355D3u" to="jh6v:3Ezg1fME0bw" resolve="id" />
-                            </node>
-                            <node concept="liA8E" id="1UvRDkPdMxJ" role="2OqNvi">
-                              <ref role="37wK5l" to="c17a:~SProperty.getName()" resolve="getName" />
                             </node>
                           </node>
                         </node>
@@ -29174,13 +29160,20 @@
                                   <node concept="37vLTw" id="6nwO_ZKEUXD" role="37wK5m">
                                     <ref role="3cqZAo" node="7ZZZU$ltpeh" resolve="projectNodeId" />
                                   </node>
-                                  <node concept="2OqwBi" id="6nwO_ZKEWed" role="37wK5m">
-                                    <node concept="355D3s" id="6nwO_ZKEVFs" role="2Oq$k0">
-                                      <ref role="355D3t" to="jh6v:3uw$nPCBu_p" resolve="Project" />
-                                      <ref role="355D3u" to="tpck:h0TrG11" resolve="name" />
+                                  <node concept="2YIFZM" id="2nfCOm5_vFy" role="37wK5m">
+                                    <ref role="37wK5l" to="jks5:~ITransactionKt.key(org.modelix.model.api.IRole,org.modelix.model.api.ITransaction)" resolve="key" />
+                                    <ref role="1Pybhc" to="jks5:~ITransactionKt" resolve="ITransactionKt" />
+                                    <node concept="2ShNRf" id="2nfCOm5_w1C" role="37wK5m">
+                                      <node concept="1pGfFk" id="2nfCOm5_yx$" role="2ShVmc">
+                                        <ref role="37wK5l" to="xxte:2ePp5XuOMn2" resolve="SPropertyAdapter" />
+                                        <node concept="355D3s" id="2nfCOm5_yOw" role="37wK5m">
+                                          <ref role="355D3t" to="jh6v:3uw$nPCBu_p" resolve="Project" />
+                                          <ref role="355D3u" to="tpck:h0TrG11" resolve="name" />
+                                        </node>
+                                      </node>
                                     </node>
-                                    <node concept="liA8E" id="6nwO_ZKEWEd" role="2OqNvi">
-                                      <ref role="37wK5l" to="c17a:~SProperty.getName()" resolve="getName" />
+                                    <node concept="37vLTw" id="2nfCOm5_zqo" role="37wK5m">
+                                      <ref role="3cqZAo" node="6nwO_ZKEFrs" resolve="t" />
                                     </node>
                                   </node>
                                   <node concept="2OqwBi" id="6nwO_ZKEYvv" role="37wK5m">
@@ -29275,13 +29268,20 @@
                                   <node concept="37vLTw" id="6nwO_ZKEnw5" role="37wK5m">
                                     <ref role="3cqZAo" node="7ZZZU$ltpeh" resolve="projectNodeId" />
                                   </node>
-                                  <node concept="2OqwBi" id="6nwO_ZKEnw6" role="37wK5m">
-                                    <node concept="359W_D" id="6nwO_ZKEnw7" role="2Oq$k0">
-                                      <ref role="359W_E" to="jh6v:3uw$nPCBu_p" resolve="Project" />
-                                      <ref role="359W_F" to="jh6v:3uw$nPCBuBy" resolve="modules" />
+                                  <node concept="2YIFZM" id="2nfCOm5_hB2" role="37wK5m">
+                                    <ref role="37wK5l" to="jks5:~ITransactionKt.key(org.modelix.model.api.IRole,org.modelix.model.api.ITransaction)" resolve="key" />
+                                    <ref role="1Pybhc" to="jks5:~ITransactionKt" resolve="ITransactionKt" />
+                                    <node concept="2ShNRf" id="2nfCOm5_hSo" role="37wK5m">
+                                      <node concept="1pGfFk" id="2nfCOm5_kjH" role="2ShVmc">
+                                        <ref role="37wK5l" to="xxte:2ePp5XuONiH" resolve="SContainmentLinkAdapter" />
+                                        <node concept="359W_D" id="2nfCOm5_kvw" role="37wK5m">
+                                          <ref role="359W_E" to="jh6v:3uw$nPCBu_p" resolve="Project" />
+                                          <ref role="359W_F" to="jh6v:3uw$nPCBuBy" resolve="modules" />
+                                        </node>
+                                      </node>
                                     </node>
-                                    <node concept="liA8E" id="6nwO_ZKEnw8" role="2OqNvi">
-                                      <ref role="37wK5l" to="c17a:~SNamedElement.getName()" resolve="getName" />
+                                    <node concept="37vLTw" id="2nfCOm5_kXG" role="37wK5m">
+                                      <ref role="3cqZAo" node="6nwO_ZKEnvV" resolve="t" />
                                     </node>
                                   </node>
                                 </node>
@@ -29478,17 +29478,24 @@
                     <node concept="3clFbJ" id="7ZZZU$ltuQ_" role="3cqZAp">
                       <node concept="1Wc70l" id="7ZZZU$lt$pA" role="3clFbw">
                         <node concept="17R0WA" id="7ZZZU$ltAwd" role="3uHU7w">
-                          <node concept="2OqwBi" id="7ZZZU$ltD3X" role="3uHU7w">
-                            <node concept="359W_D" id="7ZZZU$ltC76" role="2Oq$k0">
-                              <ref role="359W_E" to="jh6v:3uw$nPCBu_p" resolve="Project" />
-                              <ref role="359W_F" to="jh6v:3uw$nPCBuBy" resolve="modules" />
-                            </node>
-                            <node concept="liA8E" id="7ZZZU$ltDNs" role="2OqNvi">
-                              <ref role="37wK5l" to="c17a:~SNamedElement.getName()" resolve="getName" />
-                            </node>
-                          </node>
                           <node concept="37vLTw" id="7ZZZU$lt_7v" role="3uHU7B">
                             <ref role="3cqZAo" node="7ZZZU$ltsLM" resolve="role" />
+                          </node>
+                          <node concept="2YIFZM" id="2nfCOm5_nER" role="3uHU7w">
+                            <ref role="1Pybhc" to="jks5:~ITreeKt" resolve="ITreeKt" />
+                            <ref role="37wK5l" to="jks5:~ITreeKt.key(org.modelix.model.api.IRole,org.modelix.model.api.ITree)" resolve="key" />
+                            <node concept="2ShNRf" id="2nfCOm5_oSg" role="37wK5m">
+                              <node concept="1pGfFk" id="2nfCOm5_sc8" role="2ShVmc">
+                                <ref role="37wK5l" to="xxte:2ePp5XuONiH" resolve="SContainmentLinkAdapter" />
+                                <node concept="359W_D" id="2nfCOm5_scX" role="37wK5m">
+                                  <ref role="359W_E" to="jh6v:3uw$nPCBu_p" resolve="Project" />
+                                  <ref role="359W_F" to="jh6v:3uw$nPCBuBy" resolve="modules" />
+                                </node>
+                              </node>
+                            </node>
+                            <node concept="37vLTw" id="2nfCOm5_tsF" role="37wK5m">
+                              <ref role="3cqZAo" node="4_k_9wJu54I" resolve="oldTree" />
+                            </node>
                           </node>
                         </node>
                         <node concept="3clFbC" id="7ZZZU$ltxhP" role="3uHU7B">
@@ -33572,13 +33579,13 @@
                 <node concept="37vLTw" id="5XacazA1dxD" role="37wK5m">
                   <ref role="3cqZAo" node="4_k_9wJ_0ds" resolve="modelNodeId" />
                 </node>
-                <node concept="2OqwBi" id="5XacazA1dxE" role="37wK5m">
-                  <node concept="359W_D" id="5XacazA1dxF" role="2Oq$k0">
-                    <ref role="359W_E" to="jh6v:qmkA5fOskc" resolve="Model" />
-                    <ref role="359W_F" to="jh6v:qmkA5fOskk" resolve="rootNodes" />
-                  </node>
-                  <node concept="liA8E" id="5XacazA1dxG" role="2OqNvi">
-                    <ref role="37wK5l" to="c17a:~SNamedElement.getName()" resolve="getName" />
+                <node concept="2ShNRf" id="2nfCOm5xv1D" role="37wK5m">
+                  <node concept="1pGfFk" id="2nfCOm5xxuq" role="2ShVmc">
+                    <ref role="37wK5l" to="xxte:2ePp5XuONiH" resolve="SContainmentLinkAdapter" />
+                    <node concept="359W_D" id="5XacazA1dxF" role="37wK5m">
+                      <ref role="359W_E" to="jh6v:qmkA5fOskc" resolve="Model" />
+                      <ref role="359W_F" to="jh6v:qmkA5fOskk" resolve="rootNodes" />
+                    </node>
                   </node>
                 </node>
               </node>
@@ -33654,13 +33661,13 @@
                 <node concept="37vLTw" id="5XacazA9nbY" role="37wK5m">
                   <ref role="3cqZAo" node="4_k_9wJ_0ds" resolve="modelNodeId" />
                 </node>
-                <node concept="2OqwBi" id="5XacazA9nbZ" role="37wK5m">
-                  <node concept="359W_D" id="5XacazA9nc0" role="2Oq$k0">
-                    <ref role="359W_E" to="jh6v:qmkA5fOskc" resolve="Model" />
-                    <ref role="359W_F" to="jh6v:qmkA5fOskk" resolve="rootNodes" />
-                  </node>
-                  <node concept="liA8E" id="5XacazA9nc1" role="2OqNvi">
-                    <ref role="37wK5l" to="c17a:~SNamedElement.getName()" resolve="getName" />
+                <node concept="2ShNRf" id="2nfCOm5xxWW" role="37wK5m">
+                  <node concept="1pGfFk" id="2nfCOm5x$ww" role="2ShVmc">
+                    <ref role="37wK5l" to="xxte:2ePp5XuONiH" resolve="SContainmentLinkAdapter" />
+                    <node concept="359W_D" id="5XacazA9nc0" role="37wK5m">
+                      <ref role="359W_E" to="jh6v:qmkA5fOskc" resolve="Model" />
+                      <ref role="359W_F" to="jh6v:qmkA5fOskk" resolve="rootNodes" />
+                    </node>
                   </node>
                 </node>
               </node>
@@ -34377,36 +34384,24 @@
             <property role="TrG5h" value="property" />
           </node>
           <node concept="3clFbS" id="4_k_9wJ_0rs" role="2LFqv$">
-            <node concept="3clFbF" id="4_k_9wJ_0rt" role="3cqZAp">
-              <node concept="2OqwBi" id="4_k_9wJ_0ru" role="3clFbG">
-                <node concept="37vLTw" id="4_k_9wJ_0rv" role="2Oq$k0">
+            <node concept="3clFbF" id="2nfCOm5nLxt" role="3cqZAp">
+              <node concept="2YIFZM" id="2nfCOm5nLzs" role="3clFbG">
+                <ref role="37wK5l" to="jks5:~INodeKt.setPropertyValue(org.modelix.model.api.INode,org.modelix.model.api.IProperty,java.lang.String)" resolve="setPropertyValue" />
+                <ref role="1Pybhc" to="jks5:~INodeKt" resolve="INodeKt" />
+                <node concept="37vLTw" id="2nfCOm5nLKm" role="37wK5m">
                   <ref role="3cqZAo" node="4_k_9wJ_0rl" resolve="target" />
                 </node>
-                <node concept="liA8E" id="4_k_9wJ_0rw" role="2OqNvi">
-                  <ref role="37wK5l" to="jks5:~INode.setPropertyValue(java.lang.String,java.lang.String)" resolve="setPropertyValue" />
-                  <node concept="2OqwBi" id="4_k_9wJ_0rx" role="37wK5m">
-                    <node concept="2GrUjf" id="4_k_9wJ_0ry" role="2Oq$k0">
-                      <ref role="2Gs0qQ" node="4_k_9wJ_0rr" resolve="property" />
-                    </node>
-                    <node concept="liA8E" id="4_k_9wJ_0rz" role="2OqNvi">
-                      <ref role="37wK5l" to="jks5:~IRole.getName()" resolve="getName" />
-                    </node>
+                <node concept="2GrUjf" id="2nfCOm5nMP1" role="37wK5m">
+                  <ref role="2Gs0qQ" node="4_k_9wJ_0rr" resolve="property" />
+                </node>
+                <node concept="2YIFZM" id="2nfCOm5nNwU" role="37wK5m">
+                  <ref role="37wK5l" to="jks5:~INodeKt.getPropertyValue(org.modelix.model.api.INode,org.modelix.model.api.IProperty)" resolve="getPropertyValue" />
+                  <ref role="1Pybhc" to="jks5:~INodeKt" resolve="INodeKt" />
+                  <node concept="37vLTw" id="2nfCOm5nOKa" role="37wK5m">
+                    <ref role="3cqZAo" node="4_k_9wJ_0rj" resolve="source" />
                   </node>
-                  <node concept="2OqwBi" id="4_k_9wJ_0r$" role="37wK5m">
-                    <node concept="37vLTw" id="4_k_9wJ_0r_" role="2Oq$k0">
-                      <ref role="3cqZAo" node="4_k_9wJ_0rj" resolve="source" />
-                    </node>
-                    <node concept="liA8E" id="4_k_9wJ_0rA" role="2OqNvi">
-                      <ref role="37wK5l" to="jks5:~INode.getPropertyValue(java.lang.String)" resolve="getPropertyValue" />
-                      <node concept="2OqwBi" id="4_k_9wJ_0rB" role="37wK5m">
-                        <node concept="2GrUjf" id="4_k_9wJ_0rC" role="2Oq$k0">
-                          <ref role="2Gs0qQ" node="4_k_9wJ_0rr" resolve="property" />
-                        </node>
-                        <node concept="liA8E" id="4_k_9wJ_0rD" role="2OqNvi">
-                          <ref role="37wK5l" to="jks5:~IRole.getName()" resolve="getName" />
-                        </node>
-                      </node>
-                    </node>
+                  <node concept="2GrUjf" id="2nfCOm5nQ79" role="37wK5m">
+                    <ref role="2Gs0qQ" node="4_k_9wJ_0rr" resolve="property" />
                   </node>
                 </node>
               </node>
@@ -34898,18 +34893,7 @@
       <node concept="3clFbS" id="4_k_9wJ_0uC" role="3clF47">
         <node concept="2Gpval" id="4_k_9wJ_0uK" role="3cqZAp">
           <node concept="2GrKxI" id="4_k_9wJ_0uL" role="2Gsz3X">
-            <property role="TrG5h" value="linkName" />
-          </node>
-          <node concept="2OqwBi" id="5Xacaz_S58E" role="2GsD0m">
-            <node concept="37vLTw" id="5Xacaz_S4Ox" role="2Oq$k0">
-              <ref role="3cqZAo" node="4_k_9wJ_0uy" resolve="tree" />
-            </node>
-            <node concept="liA8E" id="5Xacaz_S5PC" role="2OqNvi">
-              <ref role="37wK5l" to="jks5:~ITree.getChildRoles(long)" resolve="getChildRoles" />
-              <node concept="37vLTw" id="5Xacaz_S65g" role="37wK5m">
-                <ref role="3cqZAo" node="4_k_9wJ_0uw" resolve="nodeId" />
-              </node>
-            </node>
+            <property role="TrG5h" value="link" />
           </node>
           <node concept="3clFbS" id="4_k_9wJ_0uP" role="2LFqv$">
             <node concept="3clFbF" id="4_k_9wJ_0uQ" role="3cqZAp">
@@ -34919,7 +34903,7 @@
                   <ref role="3cqZAo" node="4_k_9wJ_0uw" resolve="nodeId" />
                 </node>
                 <node concept="2GrUjf" id="4_k_9wJ_0uU" role="37wK5m">
-                  <ref role="2Gs0qQ" node="4_k_9wJ_0uL" resolve="linkName" />
+                  <ref role="2Gs0qQ" node="4_k_9wJ_0uL" resolve="link" />
                 </node>
                 <node concept="37vLTw" id="4_k_9wJ_0uW" role="37wK5m">
                   <ref role="3cqZAo" node="4_k_9wJ_0uy" resolve="tree" />
@@ -34928,6 +34912,22 @@
                   <ref role="3cqZAo" node="4_k_9wJ_0u$" resolve="includeDescendants" />
                 </node>
               </node>
+            </node>
+          </node>
+          <node concept="2OqwBi" id="2nfCOm5xGoy" role="2GsD0m">
+            <node concept="2OqwBi" id="2nfCOm5xGoz" role="2Oq$k0">
+              <node concept="37vLTw" id="2nfCOm5xGo$" role="2Oq$k0">
+                <ref role="3cqZAo" node="4_k_9wJ_0uy" resolve="tree" />
+              </node>
+              <node concept="liA8E" id="2nfCOm5xGo_" role="2OqNvi">
+                <ref role="37wK5l" to="jks5:~ITree.getConcept(long)" resolve="getConcept" />
+                <node concept="37vLTw" id="2nfCOm5xGoA" role="37wK5m">
+                  <ref role="3cqZAo" node="4_k_9wJ_0uw" resolve="nodeId" />
+                </node>
+              </node>
+            </node>
+            <node concept="liA8E" id="2nfCOm5xGoB" role="2OqNvi">
+              <ref role="37wK5l" to="jks5:~IConcept.getAllChildLinks()" resolve="getAllChildLinks" />
             </node>
           </node>
         </node>
@@ -34944,7 +34944,9 @@
       <node concept="37vLTG" id="4_k_9wJ_0v2" role="3clF46">
         <property role="TrG5h" value="role" />
         <property role="3TUv4t" value="true" />
-        <node concept="17QB3L" id="4_k_9wJ_0v3" role="1tU5fm" />
+        <node concept="3uibUv" id="2nfCOm5x_3e" role="1tU5fm">
+          <ref role="3uigEE" to="jks5:~IChildLink" resolve="IChildLink" />
+        </node>
       </node>
       <node concept="37vLTG" id="4_k_9wJ_0v4" role="3clF46">
         <property role="TrG5h" value="tree" />
@@ -35081,16 +35083,19 @@
                 <node concept="3uibUv" id="4_k_9wJ_0_H" role="1tU5fm">
                   <ref role="3uigEE" to="c17a:~SContainmentLink" resolve="SContainmentLink" />
                 </node>
-                <node concept="1rXfSq" id="4_k_9wJ_0_I" role="33vP2m">
-                  <ref role="37wK5l" node="4_k_9wJ_0AV" resolve="findContainmentLink" />
-                  <node concept="2OqwBi" id="4_k_9wJ_0_J" role="37wK5m">
-                    <node concept="37vLTw" id="4_k_9wJ_0_K" role="2Oq$k0">
-                      <ref role="3cqZAo" node="4_k_9wJ_0__" resolve="parentNode" />
+                <node concept="2OqwBi" id="2nfCOm5y25j" role="33vP2m">
+                  <node concept="1eOMI4" id="2nfCOm5xZSZ" role="2Oq$k0">
+                    <node concept="10QFUN" id="2nfCOm5xZSW" role="1eOMHV">
+                      <node concept="3uibUv" id="2nfCOm5xZT1" role="10QFUM">
+                        <ref role="3uigEE" to="xxte:2ePp5XuONi_" resolve="SContainmentLinkAdapter" />
+                      </node>
+                      <node concept="37vLTw" id="2nfCOm5y1eL" role="10QFUP">
+                        <ref role="3cqZAo" node="4_k_9wJ_0v2" resolve="role" />
+                      </node>
                     </node>
-                    <node concept="2yIwOk" id="4_k_9wJ_0_L" role="2OqNvi" />
                   </node>
-                  <node concept="37vLTw" id="4_k_9wJ_0_M" role="37wK5m">
-                    <ref role="3cqZAo" node="4_k_9wJ_0v2" resolve="role" />
+                  <node concept="liA8E" id="2nfCOm5y2Zk" role="2OqNvi">
+                    <ref role="37wK5l" to="xxte:4wrAhqcLuj7" resolve="getLink" />
                   </node>
                 </node>
               </node>
@@ -35218,8 +35223,15 @@
                       <node concept="37vLTw" id="4_k_9wJ_0AC" role="37wK5m">
                         <ref role="3cqZAo" node="4_k_9wJ_0v0" resolve="parentId" />
                       </node>
-                      <node concept="37vLTw" id="4_k_9wJ_0AD" role="37wK5m">
-                        <ref role="3cqZAo" node="4_k_9wJ_0v2" resolve="role" />
+                      <node concept="2YIFZM" id="2nfCOm5y5YL" role="37wK5m">
+                        <ref role="37wK5l" to="jks5:~ITreeKt.key(org.modelix.model.api.IRole,org.modelix.model.api.ITree)" resolve="key" />
+                        <ref role="1Pybhc" to="jks5:~ITreeKt" resolve="ITreeKt" />
+                        <node concept="37vLTw" id="2nfCOm5ybg0" role="37wK5m">
+                          <ref role="3cqZAo" node="4_k_9wJ_0v2" resolve="role" />
+                        </node>
+                        <node concept="37vLTw" id="2nfCOm5yceh" role="37wK5m">
+                          <ref role="3cqZAo" node="4_k_9wJ_0v4" resolve="tree" />
+                        </node>
                       </node>
                     </node>
                   </node>
@@ -35291,7 +35303,9 @@
       <node concept="37vLTG" id="5Xacaz_ROVt" role="3clF46">
         <property role="TrG5h" value="role" />
         <property role="3TUv4t" value="true" />
-        <node concept="17QB3L" id="5Xacaz_ROVu" role="1tU5fm" />
+        <node concept="3uibUv" id="2nfCOm5xoKg" role="1tU5fm">
+          <ref role="3uigEE" to="jks5:~IChildLink" resolve="IChildLink" />
+        </node>
       </node>
       <node concept="3clFbS" id="5Xacaz_RORJ" role="3clF47">
         <node concept="3cpWs6" id="5Xacaz_ROVp" role="3cqZAp">
@@ -35720,6 +35734,7 @@
                           <node concept="37vLTw" id="5XacazA7YWZ" role="37wK5m">
                             <ref role="3cqZAo" node="5Xacaz_ROVt" resolve="role" />
                           </node>
+                          <node concept="10Nm6u" id="2nfCOm5$cRQ" role="37wK5m" />
                         </node>
                       </node>
                     </node>
@@ -35769,8 +35784,15 @@
                               <node concept="37vLTw" id="5XacazA8vI_" role="37wK5m">
                                 <ref role="3cqZAo" node="5Xacaz_ROVr" resolve="parentId" />
                               </node>
-                              <node concept="37vLTw" id="5XacazA8xeu" role="37wK5m">
-                                <ref role="3cqZAo" node="5Xacaz_ROVt" resolve="role" />
+                              <node concept="2YIFZM" id="2nfCOm5yw9w" role="37wK5m">
+                                <ref role="37wK5l" to="jks5:~ITransactionKt.key(org.modelix.model.api.IRole,org.modelix.model.api.ITransaction)" resolve="key" />
+                                <ref role="1Pybhc" to="jks5:~ITransactionKt" resolve="ITransactionKt" />
+                                <node concept="37vLTw" id="2nfCOm5z13J" role="37wK5m">
+                                  <ref role="3cqZAo" node="5Xacaz_ROVt" resolve="role" />
+                                </node>
+                                <node concept="37vLTw" id="2nfCOm5yDRv" role="37wK5m">
+                                  <ref role="3cqZAo" node="5Xacaz_ROTU" resolve="t" />
+                                </node>
                               </node>
                               <node concept="3cmrfG" id="5Xacaz_OR7t" role="37wK5m">
                                 <property role="3cmrfH" value="-1" />
@@ -35880,16 +35902,19 @@
                                 <node concept="32TBzR" id="5XacazA0y6A" role="2OqNvi">
                                   <node concept="1aIX9F" id="5XacazA0zjU" role="1xVPHs">
                                     <node concept="25Kdxt" id="5XacazA0zm2" role="1aIX9E">
-                                      <node concept="1rXfSq" id="5XacazA0DK8" role="25KhWn">
-                                        <ref role="37wK5l" node="4_k_9wJ_0AV" resolve="findContainmentLink" />
-                                        <node concept="2OqwBi" id="5XacazA0Khl" role="37wK5m">
-                                          <node concept="37vLTw" id="5XacazA0HLP" role="2Oq$k0">
-                                            <ref role="3cqZAo" node="5XacazA0sRN" resolve="parentMPSNode" />
+                                      <node concept="2OqwBi" id="2nfCOm5yt33" role="25KhWn">
+                                        <node concept="1eOMI4" id="2nfCOm5yqKi" role="2Oq$k0">
+                                          <node concept="10QFUN" id="2nfCOm5yqKf" role="1eOMHV">
+                                            <node concept="3uibUv" id="2nfCOm5yrpX" role="10QFUM">
+                                              <ref role="3uigEE" to="xxte:2ePp5XuONi_" resolve="SContainmentLinkAdapter" />
+                                            </node>
+                                            <node concept="37vLTw" id="2nfCOm5ysgZ" role="10QFUP">
+                                              <ref role="3cqZAo" node="5Xacaz_ROVt" resolve="role" />
+                                            </node>
                                           </node>
-                                          <node concept="2yIwOk" id="5XacazA0KGi" role="2OqNvi" />
                                         </node>
-                                        <node concept="37vLTw" id="5XacazA0ILc" role="37wK5m">
-                                          <ref role="3cqZAo" node="5Xacaz_ROVt" resolve="role" />
+                                        <node concept="liA8E" id="2nfCOm5ytSZ" role="2OqNvi">
+                                          <ref role="37wK5l" to="xxte:4wrAhqcLuj7" resolve="getLink" />
                                         </node>
                                       </node>
                                     </node>
@@ -35995,18 +36020,19 @@
                                 </node>
                                 <node concept="liA8E" id="5Xacaz_VcXC" role="2OqNvi">
                                   <ref role="37wK5l" to="mhbf:~SNode.getChildren(org.jetbrains.mps.openapi.language.SContainmentLink)" resolve="getChildren" />
-                                  <node concept="1rXfSq" id="5Xacaz_VcXD" role="37wK5m">
-                                    <ref role="37wK5l" node="4_k_9wJ_0AV" resolve="findContainmentLink" />
-                                    <node concept="2OqwBi" id="5Xacaz_VcXE" role="37wK5m">
-                                      <node concept="37vLTw" id="5Xacaz_VcXF" role="2Oq$k0">
-                                        <ref role="3cqZAo" node="5Xacaz_ROUJ" resolve="parentNode" />
-                                      </node>
-                                      <node concept="liA8E" id="5Xacaz_VcXG" role="2OqNvi">
-                                        <ref role="37wK5l" to="mhbf:~SNode.getConcept()" resolve="getConcept" />
+                                  <node concept="2OqwBi" id="2nfCOm5zqN0" role="37wK5m">
+                                    <node concept="1eOMI4" id="2nfCOm5z8YQ" role="2Oq$k0">
+                                      <node concept="10QFUN" id="2nfCOm5z8YN" role="1eOMHV">
+                                        <node concept="3uibUv" id="2nfCOm5z8YS" role="10QFUM">
+                                          <ref role="3uigEE" to="xxte:2ePp5XuONi_" resolve="SContainmentLinkAdapter" />
+                                        </node>
+                                        <node concept="37vLTw" id="2nfCOm5zlP$" role="10QFUP">
+                                          <ref role="3cqZAo" node="5Xacaz_ROVt" resolve="role" />
+                                        </node>
                                       </node>
                                     </node>
-                                    <node concept="37vLTw" id="5Xacaz_VcXH" role="37wK5m">
-                                      <ref role="3cqZAo" node="5Xacaz_ROVt" resolve="role" />
+                                    <node concept="liA8E" id="2nfCOm5zwZf" role="2OqNvi">
+                                      <ref role="37wK5l" to="xxte:4wrAhqcLuj7" resolve="getLink" />
                                     </node>
                                   </node>
                                 </node>
@@ -37028,12 +37054,12 @@
                 <node concept="37vLTw" id="5Xacaz_SJ_o" role="37wK5m">
                   <ref role="3cqZAo" node="4_k_9wJ_0FM" resolve="parentNodeId" />
                 </node>
-                <node concept="2OqwBi" id="5Xacaz_SJ_p" role="37wK5m">
-                  <node concept="37vLTw" id="5Xacaz_SJ_q" role="2Oq$k0">
-                    <ref role="3cqZAo" node="4_k_9wJ_0FI" resolve="link" />
-                  </node>
-                  <node concept="liA8E" id="5Xacaz_SJ_r" role="2OqNvi">
-                    <ref role="37wK5l" to="c17a:~SNamedElement.getName()" resolve="getName" />
+                <node concept="2ShNRf" id="2nfCOm5zANL" role="37wK5m">
+                  <node concept="1pGfFk" id="2nfCOm5zEnH" role="2ShVmc">
+                    <ref role="37wK5l" to="xxte:2ePp5XuONiH" resolve="SContainmentLinkAdapter" />
+                    <node concept="37vLTw" id="2nfCOm5zFhw" role="37wK5m">
+                      <ref role="3cqZAo" node="4_k_9wJ_0FI" resolve="link" />
+                    </node>
                   </node>
                 </node>
               </node>
@@ -37290,8 +37316,20 @@
         <node concept="3cpWsb" id="5Xacaz_MTi2" role="1tU5fm" />
       </node>
       <node concept="37vLTG" id="5Xacaz_MxEh" role="3clF46">
-        <property role="TrG5h" value="roleIfCreate" />
-        <node concept="17QB3L" id="5Xacaz_MBL6" role="1tU5fm" />
+        <property role="TrG5h" value="roleLinkIfCreate" />
+        <node concept="3uibUv" id="2nfCOm5yda_" role="1tU5fm">
+          <ref role="3uigEE" to="jks5:~IChildLink" resolve="IChildLink" />
+        </node>
+        <node concept="2AHcQZ" id="2nfCOm5zGup" role="2AJF6D">
+          <ref role="2AI5Lk" to="mhfm:~Nullable" resolve="Nullable" />
+        </node>
+      </node>
+      <node concept="37vLTG" id="2nfCOm5zIQ0" role="3clF46">
+        <property role="TrG5h" value="roleNameIfCreate" />
+        <node concept="17QB3L" id="2nfCOm5zOqp" role="1tU5fm" />
+        <node concept="2AHcQZ" id="2nfCOm5$1IU" role="2AJF6D">
+          <ref role="2AI5Lk" to="mhfm:~Nullable" resolve="Nullable" />
+        </node>
       </node>
       <node concept="3cpWsb" id="5Xacaz_MqAd" role="3clF45" />
       <node concept="3Tmbuc" id="5Xacaz_MqAe" role="1B3o_S" />
@@ -37331,6 +37369,33 @@
         </node>
         <node concept="3clFbJ" id="5Xacaz_MqAn" role="3cqZAp">
           <node concept="3clFbS" id="5Xacaz_MqAo" role="3clFbx">
+            <node concept="3cpWs8" id="2nfCOm5$5dj" role="3cqZAp">
+              <node concept="3cpWsn" id="2nfCOm5$5dm" role="3cpWs9">
+                <property role="TrG5h" value="role" />
+                <node concept="17QB3L" id="2nfCOm5$5dh" role="1tU5fm" />
+                <node concept="3K4zz7" id="2nfCOm5$7Ga" role="33vP2m">
+                  <node concept="37vLTw" id="2nfCOm5$9QY" role="3K4GZi">
+                    <ref role="3cqZAo" node="2nfCOm5zIQ0" resolve="roleNameIfCreate" />
+                  </node>
+                  <node concept="3y3z36" id="2nfCOm5$8i7" role="3K4Cdx">
+                    <node concept="37vLTw" id="2nfCOm5$5GZ" role="3uHU7B">
+                      <ref role="3cqZAo" node="5Xacaz_MxEh" resolve="roleLinkIfCreate" />
+                    </node>
+                    <node concept="10Nm6u" id="2nfCOm5$6Qy" role="3uHU7w" />
+                  </node>
+                  <node concept="2YIFZM" id="2nfCOm5$8RS" role="3K4E3e">
+                    <ref role="1Pybhc" to="jks5:~ITransactionKt" resolve="ITransactionKt" />
+                    <ref role="37wK5l" to="jks5:~ITransactionKt.key(org.modelix.model.api.IRole,org.modelix.model.api.ITransaction)" resolve="key" />
+                    <node concept="37vLTw" id="2nfCOm5$8RT" role="37wK5m">
+                      <ref role="3cqZAo" node="5Xacaz_MxEh" resolve="roleLinkIfCreate" />
+                    </node>
+                    <node concept="37vLTw" id="2nfCOm5$8RU" role="37wK5m">
+                      <ref role="3cqZAo" node="5Xacaz_MqAq" resolve="t" />
+                    </node>
+                  </node>
+                </node>
+              </node>
+            </node>
             <node concept="3clFbF" id="5Xacaz_MqAv" role="3cqZAp">
               <node concept="37vLTI" id="5Xacaz_MqAw" role="3clFbG">
                 <node concept="2OqwBi" id="5Xacaz_MqAx" role="37vLTx">
@@ -37342,8 +37407,8 @@
                     <node concept="37vLTw" id="5Xacaz_N5uf" role="37wK5m">
                       <ref role="3cqZAo" node="5Xacaz_MN2f" resolve="parentIfCreate" />
                     </node>
-                    <node concept="37vLTw" id="5Xacaz_N6AJ" role="37wK5m">
-                      <ref role="3cqZAo" node="5Xacaz_MxEh" resolve="roleIfCreate" />
+                    <node concept="37vLTw" id="2nfCOm5$byR" role="37wK5m">
+                      <ref role="3cqZAo" node="2nfCOm5$5dm" resolve="role" />
                     </node>
                     <node concept="3cmrfG" id="5Xacaz_OL1G" role="37wK5m">
                       <property role="3cmrfH" value="-1" />
@@ -37437,6 +37502,7 @@
               <ref role="3cqZAo" to="jks5:~ITree.ROOT_ID" resolve="ROOT_ID" />
               <ref role="1PxDUh" to="jks5:~ITree" resolve="ITree" />
             </node>
+            <node concept="10Nm6u" id="2nfCOm5$bV1" role="37wK5m" />
             <node concept="10M0yZ" id="5Xacaz_NsY0" role="37wK5m">
               <ref role="1PxDUh" to="jks5:~ITree" resolve="ITree" />
               <ref role="3cqZAo" to="jks5:~ITree.DETACHED_NODES_ROLE" resolve="DETACHED_NODES_ROLE" />
@@ -38832,13 +38898,13 @@
           <node concept="37vLTw" id="7ZZZU$lx6wz" role="37wK5m">
             <ref role="3cqZAo" node="7ZZZU$lx6ww" resolve="cloudParentId" />
           </node>
-          <node concept="2OqwBi" id="7ZZZU$lux0P" role="37wK5m">
-            <node concept="359W_D" id="7ZZZU$lux0Q" role="2Oq$k0">
-              <ref role="359W_E" to="jh6v:qmkA5fOskf" resolve="Module" />
-              <ref role="359W_F" to="jh6v:qmkA5fOski" resolve="models" />
-            </node>
-            <node concept="liA8E" id="7ZZZU$lux0R" role="2OqNvi">
-              <ref role="37wK5l" to="c17a:~SNamedElement.getName()" resolve="getName" />
+          <node concept="2ShNRf" id="2nfCOm5wZx4" role="37wK5m">
+            <node concept="1pGfFk" id="2nfCOm5xeCP" role="2ShVmc">
+              <ref role="37wK5l" to="xxte:2ePp5XuONiH" resolve="SContainmentLinkAdapter" />
+              <node concept="359W_D" id="7ZZZU$lux0Q" role="37wK5m">
+                <ref role="359W_E" to="jh6v:qmkA5fOskf" resolve="Module" />
+                <ref role="359W_F" to="jh6v:qmkA5fOski" resolve="models" />
+              </node>
             </node>
           </node>
         </node>
@@ -39751,13 +39817,13 @@
           <node concept="37vLTw" id="4_k_9wJm9LL" role="37wK5m">
             <ref role="3cqZAo" node="4_k_9wJm9LV" resolve="cloudParentId" />
           </node>
-          <node concept="2OqwBi" id="4_k_9wJm9LM" role="37wK5m">
-            <node concept="359W_D" id="4_k_9wJm9LN" role="2Oq$k0">
-              <ref role="359W_E" to="jh6v:3uw$nPCBu_p" resolve="Project" />
-              <ref role="359W_F" to="jh6v:3uw$nPCBuBy" resolve="modules" />
-            </node>
-            <node concept="liA8E" id="4_k_9wJm9LO" role="2OqNvi">
-              <ref role="37wK5l" to="c17a:~SNamedElement.getName()" resolve="getName" />
+          <node concept="2ShNRf" id="2nfCOm5$fy4" role="37wK5m">
+            <node concept="1pGfFk" id="2nfCOm5$hUY" role="2ShVmc">
+              <ref role="37wK5l" to="xxte:2ePp5XuONiH" resolve="SContainmentLinkAdapter" />
+              <node concept="359W_D" id="4_k_9wJm9LN" role="37wK5m">
+                <ref role="359W_E" to="jh6v:3uw$nPCBu_p" resolve="Project" />
+                <ref role="359W_F" to="jh6v:3uw$nPCBuBy" resolve="modules" />
+              </node>
             </node>
           </node>
         </node>
@@ -40030,13 +40096,20 @@
                 <node concept="37vLTw" id="4_k_9wJm9MM" role="37wK5m">
                   <ref role="3cqZAo" node="4_k_9wJm9Ml" resolve="cloudChildId" />
                 </node>
-                <node concept="2OqwBi" id="4_k_9wJm9MN" role="37wK5m">
-                  <node concept="355D3s" id="4_k_9wJm9MO" role="2Oq$k0">
-                    <ref role="355D3u" to="tpck:h0TrG11" resolve="name" />
-                    <ref role="355D3t" to="jh6v:qmkA5fOskf" resolve="Module" />
+                <node concept="2YIFZM" id="2nfCOm5$KcO" role="37wK5m">
+                  <ref role="37wK5l" to="jks5:~ITreeKt.key(org.modelix.model.api.IRole,org.modelix.model.api.ITree)" resolve="key" />
+                  <ref role="1Pybhc" to="jks5:~ITreeKt" resolve="ITreeKt" />
+                  <node concept="2ShNRf" id="2nfCOm5$Li5" role="37wK5m">
+                    <node concept="1pGfFk" id="2nfCOm5$Oy5" role="2ShVmc">
+                      <ref role="37wK5l" to="xxte:2ePp5XuOMn2" resolve="SPropertyAdapter" />
+                      <node concept="355D3s" id="2nfCOm5$PyT" role="37wK5m">
+                        <ref role="355D3t" to="jh6v:qmkA5fOskf" resolve="Module" />
+                        <ref role="355D3u" to="tpck:h0TrG11" resolve="name" />
+                      </node>
+                    </node>
                   </node>
-                  <node concept="liA8E" id="4_k_9wJm9MP" role="2OqNvi">
-                    <ref role="37wK5l" to="c17a:~SProperty.getName()" resolve="getName" />
+                  <node concept="37vLTw" id="2nfCOm5$RD6" role="37wK5m">
+                    <ref role="3cqZAo" node="4_k_9wJm9Mj" resolve="tree" />
                   </node>
                 </node>
               </node>
@@ -40349,13 +40422,20 @@
                     <node concept="2GrUjf" id="4_k_9wJm9Oe" role="37wK5m">
                       <ref role="2Gs0qQ" node="4_k_9wJm9NZ" resolve="cloudModuleId" />
                     </node>
-                    <node concept="2OqwBi" id="4_k_9wJm9Of" role="37wK5m">
-                      <node concept="355D3s" id="4_k_9wJm9Og" role="2Oq$k0">
-                        <ref role="355D3u" to="tpck:h0TrG11" resolve="name" />
-                        <ref role="355D3t" to="jh6v:qmkA5fOskf" resolve="Module" />
+                    <node concept="2YIFZM" id="2nfCOm5$UWL" role="37wK5m">
+                      <ref role="37wK5l" to="jks5:~ITreeKt.key(org.modelix.model.api.IRole,org.modelix.model.api.ITree)" resolve="key" />
+                      <ref role="1Pybhc" to="jks5:~ITreeKt" resolve="ITreeKt" />
+                      <node concept="2ShNRf" id="2nfCOm5$VuR" role="37wK5m">
+                        <node concept="1pGfFk" id="2nfCOm5$XQT" role="2ShVmc">
+                          <ref role="37wK5l" to="xxte:2ePp5XuOMn2" resolve="SPropertyAdapter" />
+                          <node concept="355D3s" id="2nfCOm5$Y02" role="37wK5m">
+                            <ref role="355D3t" to="jh6v:qmkA5fOskf" resolve="Module" />
+                            <ref role="355D3u" to="tpck:h0TrG11" resolve="name" />
+                          </node>
+                        </node>
                       </node>
-                      <node concept="liA8E" id="4_k_9wJm9Oh" role="2OqNvi">
-                        <ref role="37wK5l" to="c17a:~SProperty.getName()" resolve="getName" />
+                      <node concept="37vLTw" id="2nfCOm5$Yy3" role="37wK5m">
+                        <ref role="3cqZAo" node="4_k_9wJm9Nt" resolve="tree" />
                       </node>
                     </node>
                   </node>
@@ -40563,13 +40643,20 @@
                 <node concept="37vLTw" id="4_k_9wJm9PC" role="37wK5m">
                   <ref role="3cqZAo" node="4_k_9wJm9Pt" resolve="cloudModuleId" />
                 </node>
-                <node concept="2OqwBi" id="4_k_9wJm9PD" role="37wK5m">
-                  <node concept="355D3s" id="4_k_9wJm9PE" role="2Oq$k0">
-                    <ref role="355D3t" to="jh6v:qmkA5fOskf" resolve="Module" />
-                    <ref role="355D3u" to="jh6v:3Ezg1fME0bw" resolve="id" />
+                <node concept="2YIFZM" id="2nfCOm5_0WI" role="37wK5m">
+                  <ref role="37wK5l" to="jks5:~ITreeKt.key(org.modelix.model.api.IRole,org.modelix.model.api.ITree)" resolve="key" />
+                  <ref role="1Pybhc" to="jks5:~ITreeKt" resolve="ITreeKt" />
+                  <node concept="2ShNRf" id="2nfCOm5_2er" role="37wK5m">
+                    <node concept="1pGfFk" id="2nfCOm5_5oj" role="2ShVmc">
+                      <ref role="37wK5l" to="xxte:2ePp5XuOMn2" resolve="SPropertyAdapter" />
+                      <node concept="355D3s" id="2nfCOm5_6o0" role="37wK5m">
+                        <ref role="355D3t" to="jh6v:qmkA5fOskf" resolve="Module" />
+                        <ref role="355D3u" to="jh6v:3Ezg1fME0bw" resolve="id" />
+                      </node>
+                    </node>
                   </node>
-                  <node concept="liA8E" id="4_k_9wJm9PF" role="2OqNvi">
-                    <ref role="37wK5l" to="c17a:~SProperty.getName()" resolve="getName" />
+                  <node concept="37vLTw" id="2nfCOm5_8xF" role="37wK5m">
+                    <ref role="3cqZAo" node="4_k_9wJm9Pr" resolve="tree" />
                   </node>
                 </node>
               </node>
@@ -40636,13 +40723,20 @@
                 <node concept="1rXfSq" id="4_k_9wJm9Q7" role="37wK5m">
                   <ref role="37wK5l" node="4_k_9wJkeD6" resolve="getCloudParentId" />
                 </node>
-                <node concept="2OqwBi" id="4_k_9wJm9Q8" role="37wK5m">
-                  <node concept="359W_D" id="4_k_9wJm9Q9" role="2Oq$k0">
-                    <ref role="359W_E" to="jh6v:3uw$nPCBu_p" resolve="Project" />
-                    <ref role="359W_F" to="jh6v:3uw$nPCBuBy" resolve="modules" />
+                <node concept="2YIFZM" id="2nfCOm5$kLr" role="37wK5m">
+                  <ref role="37wK5l" to="jks5:~ITransactionKt.key(org.modelix.model.api.IRole,org.modelix.model.api.ITransaction)" resolve="key" />
+                  <ref role="1Pybhc" to="jks5:~ITransactionKt" resolve="ITransactionKt" />
+                  <node concept="2ShNRf" id="2nfCOm5$m5_" role="37wK5m">
+                    <node concept="1pGfFk" id="2nfCOm5$pq4" role="2ShVmc">
+                      <ref role="37wK5l" to="xxte:2ePp5XuONiH" resolve="SContainmentLinkAdapter" />
+                      <node concept="359W_D" id="4_k_9wJm9Q9" role="37wK5m">
+                        <ref role="359W_E" to="jh6v:3uw$nPCBu_p" resolve="Project" />
+                        <ref role="359W_F" to="jh6v:3uw$nPCBuBy" resolve="modules" />
+                      </node>
+                    </node>
                   </node>
-                  <node concept="liA8E" id="4_k_9wJm9Qa" role="2OqNvi">
-                    <ref role="37wK5l" to="c17a:~SNamedElement.getName()" resolve="getName" />
+                  <node concept="37vLTw" id="2nfCOm5$sC6" role="37wK5m">
+                    <ref role="3cqZAo" node="4_k_9wJm9PU" resolve="t" />
                   </node>
                 </node>
                 <node concept="3cmrfG" id="4_k_9wJm9Qb" role="37wK5m">
@@ -40669,13 +40763,20 @@
               <node concept="37vLTw" id="4_k_9wJm9Qi" role="37wK5m">
                 <ref role="3cqZAo" node="4_k_9wJm9Q2" resolve="modelNodeId" />
               </node>
-              <node concept="2OqwBi" id="4_k_9wJm9Qj" role="37wK5m">
-                <node concept="355D3s" id="4_k_9wJm9Qk" role="2Oq$k0">
-                  <ref role="355D3t" to="jh6v:qmkA5fOskf" resolve="Module" />
-                  <ref role="355D3u" to="jh6v:3Ezg1fME0bw" resolve="id" />
+              <node concept="2YIFZM" id="2nfCOm5$Dw9" role="37wK5m">
+                <ref role="37wK5l" to="jks5:~ITransactionKt.key(org.modelix.model.api.IRole,org.modelix.model.api.ITransaction)" resolve="key" />
+                <ref role="1Pybhc" to="jks5:~ITransactionKt" resolve="ITransactionKt" />
+                <node concept="2ShNRf" id="2nfCOm5$DLN" role="37wK5m">
+                  <node concept="1pGfFk" id="2nfCOm5$G2o" role="2ShVmc">
+                    <ref role="37wK5l" to="xxte:2ePp5XuOMn2" resolve="SPropertyAdapter" />
+                    <node concept="355D3s" id="4_k_9wJm9Qk" role="37wK5m">
+                      <ref role="355D3t" to="jh6v:qmkA5fOskf" resolve="Module" />
+                      <ref role="355D3u" to="jh6v:3Ezg1fME0bw" resolve="id" />
+                    </node>
+                  </node>
                 </node>
-                <node concept="liA8E" id="4_k_9wJm9Ql" role="2OqNvi">
-                  <ref role="37wK5l" to="c17a:~SProperty.getName()" resolve="getName" />
+                <node concept="37vLTw" id="2nfCOm5$Goc" role="37wK5m">
+                  <ref role="3cqZAo" node="4_k_9wJm9PU" resolve="t" />
                 </node>
               </node>
               <node concept="2OqwBi" id="4_k_9wJm9Qm" role="37wK5m">
@@ -40704,13 +40805,20 @@
               <node concept="37vLTw" id="4_k_9wJm9Qv" role="37wK5m">
                 <ref role="3cqZAo" node="4_k_9wJm9Q2" resolve="modelNodeId" />
               </node>
-              <node concept="2OqwBi" id="4_k_9wJm9Qw" role="37wK5m">
-                <node concept="355D3s" id="4_k_9wJm9Qx" role="2Oq$k0">
-                  <ref role="355D3u" to="tpck:h0TrG11" resolve="name" />
-                  <ref role="355D3t" to="jh6v:qmkA5fOskf" resolve="Module" />
+              <node concept="2YIFZM" id="2nfCOm5$GV6" role="37wK5m">
+                <ref role="37wK5l" to="jks5:~ITransactionKt.key(org.modelix.model.api.IRole,org.modelix.model.api.ITransaction)" resolve="key" />
+                <ref role="1Pybhc" to="jks5:~ITransactionKt" resolve="ITransactionKt" />
+                <node concept="2ShNRf" id="2nfCOm5$GV7" role="37wK5m">
+                  <node concept="1pGfFk" id="2nfCOm5$GV8" role="2ShVmc">
+                    <ref role="37wK5l" to="xxte:2ePp5XuOMn2" resolve="SPropertyAdapter" />
+                    <node concept="355D3s" id="2nfCOm5$Hqj" role="37wK5m">
+                      <ref role="355D3t" to="jh6v:qmkA5fOskf" resolve="Module" />
+                      <ref role="355D3u" to="tpck:h0TrG11" resolve="name" />
+                    </node>
+                  </node>
                 </node>
-                <node concept="liA8E" id="4_k_9wJm9Qy" role="2OqNvi">
-                  <ref role="37wK5l" to="c17a:~SProperty.getName()" resolve="getName" />
+                <node concept="37vLTw" id="2nfCOm5$GVa" role="37wK5m">
+                  <ref role="3cqZAo" node="4_k_9wJm9PU" resolve="t" />
                 </node>
               </node>
               <node concept="2OqwBi" id="4_k_9wJm9Q$" role="37wK5m">
@@ -40747,7 +40855,9 @@
     <node concept="312cEg" id="7ZZZU$luvn9" role="jymVt">
       <property role="TrG5h" value="cloudRole" />
       <node concept="3Tm6S6" id="7ZZZU$luvna" role="1B3o_S" />
-      <node concept="17QB3L" id="7ZZZU$luwSJ" role="1tU5fm" />
+      <node concept="3uibUv" id="2nfCOm5wn1R" role="1tU5fm">
+        <ref role="3uigEE" to="jks5:~IChildLink" resolve="IChildLink" />
+      </node>
     </node>
     <node concept="2tJIrI" id="7ZZZU$ltXOa" role="jymVt" />
     <node concept="3clFbW" id="7ZZZU$lwUCC" role="jymVt">
@@ -40787,7 +40897,9 @@
       </node>
       <node concept="37vLTG" id="7ZZZU$lwUCV" role="3clF46">
         <property role="TrG5h" value="cloudRole" />
-        <node concept="17QB3L" id="7ZZZU$lwUCU" role="1tU5fm" />
+        <node concept="3uibUv" id="2nfCOm5wnMI" role="1tU5fm">
+          <ref role="3uigEE" to="jks5:~IChildLink" resolve="IChildLink" />
+        </node>
       </node>
     </node>
     <node concept="2tJIrI" id="7ZZZU$lx3PS" role="jymVt" />
@@ -40837,8 +40949,15 @@
                 <node concept="37vLTw" id="7ZZZU$lyB9o" role="37wK5m">
                   <ref role="3cqZAo" node="7ZZZU$lupS0" resolve="cloudParentId" />
                 </node>
-                <node concept="37vLTw" id="7ZZZU$lyB9p" role="37wK5m">
-                  <ref role="3cqZAo" node="7ZZZU$luvn9" resolve="cloudRole" />
+                <node concept="2YIFZM" id="2nfCOm5wW1Z" role="37wK5m">
+                  <ref role="37wK5l" to="jks5:~ITreeKt.key(org.modelix.model.api.IRole,org.modelix.model.api.ITree)" resolve="key" />
+                  <ref role="1Pybhc" to="jks5:~ITreeKt" resolve="ITreeKt" />
+                  <node concept="37vLTw" id="2nfCOm5wWsI" role="37wK5m">
+                    <ref role="3cqZAo" node="7ZZZU$luvn9" resolve="cloudRole" />
+                  </node>
+                  <node concept="37vLTw" id="2nfCOm5wXb1" role="37wK5m">
+                    <ref role="3cqZAo" node="7ZZZU$luj3x" resolve="tree" />
+                  </node>
                 </node>
               </node>
             </node>

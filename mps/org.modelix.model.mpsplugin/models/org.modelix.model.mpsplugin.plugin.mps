@@ -13768,12 +13768,14 @@
                             <node concept="1bVj0M" id="24uT$44VEWw" role="23t8la">
                               <node concept="3clFbS" id="24uT$44VEWx" role="1bW5cS">
                                 <node concept="3clFbF" id="24uT$44VEWy" role="3cqZAp">
-                                  <node concept="2OqwBi" id="24uT$44VEWz" role="3clFbG">
-                                    <node concept="37vLTw" id="24uT$44VEW$" role="2Oq$k0">
+                                  <node concept="2YIFZM" id="2nfCOm5ohoL" role="3clFbG">
+                                    <ref role="37wK5l" to="jks5:~INodeKt.key(org.modelix.model.api.IRole,org.modelix.model.api.INode)" resolve="key" />
+                                    <ref role="1Pybhc" to="jks5:~INodeKt" resolve="INodeKt" />
+                                    <node concept="37vLTw" id="2nfCOm5ohMC" role="37wK5m">
                                       <ref role="3cqZAo" node="24uT$44VEWA" resolve="it" />
                                     </node>
-                                    <node concept="liA8E" id="24uT$44VEW_" role="2OqNvi">
-                                      <ref role="37wK5l" to="jks5:~IRole.getName()" resolve="getName" />
+                                    <node concept="37vLTw" id="2nfCOm5oiPG" role="37wK5m">
+                                      <ref role="3cqZAo" node="3rVtQmck$zj" resolve="node" />
                                     </node>
                                   </node>
                                 </node>
@@ -14756,12 +14758,14 @@
                             <node concept="1bVj0M" id="24uT$44XLrI" role="23t8la">
                               <node concept="3clFbS" id="24uT$44XLrJ" role="1bW5cS">
                                 <node concept="3clFbF" id="24uT$44XLLi" role="3cqZAp">
-                                  <node concept="2OqwBi" id="24uT$44XM6z" role="3clFbG">
-                                    <node concept="37vLTw" id="24uT$44XLLh" role="2Oq$k0">
+                                  <node concept="2YIFZM" id="2nfCOm5olTk" role="3clFbG">
+                                    <ref role="37wK5l" to="jks5:~INodeKt.key(org.modelix.model.api.IRole,org.modelix.model.api.INode)" resolve="key" />
+                                    <ref role="1Pybhc" to="jks5:~INodeKt" resolve="INodeKt" />
+                                    <node concept="37vLTw" id="2nfCOm5omme" role="37wK5m">
                                       <ref role="3cqZAo" node="24uT$44XLrK" resolve="it" />
                                     </node>
-                                    <node concept="liA8E" id="24uT$44XMUL" role="2OqNvi">
-                                      <ref role="37wK5l" to="jks5:~IRole.getName()" resolve="getName" />
+                                    <node concept="37vLTw" id="2nfCOm5onkr" role="37wK5m">
+                                      <ref role="3cqZAo" node="2zfU5FnAFYy" resolve="node" />
                                     </node>
                                   </node>
                                 </node>

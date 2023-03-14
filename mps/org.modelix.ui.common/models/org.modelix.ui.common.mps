@@ -11420,13 +11420,13 @@
                   <node concept="1bVj0M" id="24uT$44Pnyt" role="23t8la">
                     <node concept="3clFbS" id="24uT$44Pnyu" role="1bW5cS">
                       <node concept="3clFbF" id="24uT$44PnEd" role="3cqZAp">
-                        <node concept="2OqwBi" id="24uT$44PnML" role="3clFbG">
-                          <node concept="37vLTw" id="24uT$44PnEc" role="2Oq$k0">
+                        <node concept="2YIFZM" id="2nfCOm5outP" role="3clFbG">
+                          <ref role="37wK5l" to="jks5:~INodeKt.key(org.modelix.model.api.IRole,org.modelix.model.api.INode)" resolve="key" />
+                          <ref role="1Pybhc" to="jks5:~INodeKt" resolve="INodeKt" />
+                          <node concept="37vLTw" id="2nfCOm5ouMN" role="37wK5m">
                             <ref role="3cqZAo" node="24uT$44Pnyv" resolve="it" />
                           </node>
-                          <node concept="liA8E" id="24uT$44PnXX" role="2OqNvi">
-                            <ref role="37wK5l" to="jks5:~IRole.getName()" resolve="getName" />
-                          </node>
+                          <node concept="Xjq3P" id="2nfCOm5ovbq" role="37wK5m" />
                         </node>
                       </node>
                     </node>
@@ -11484,13 +11484,13 @@
                   <node concept="1bVj0M" id="24uT$44PRj8" role="23t8la">
                     <node concept="3clFbS" id="24uT$44PRj9" role="1bW5cS">
                       <node concept="3clFbF" id="24uT$44PRqS" role="3cqZAp">
-                        <node concept="2OqwBi" id="24uT$44PR$K" role="3clFbG">
-                          <node concept="37vLTw" id="24uT$44PRqR" role="2Oq$k0">
+                        <node concept="2YIFZM" id="2nfCOm5ovfE" role="3clFbG">
+                          <ref role="37wK5l" to="jks5:~INodeKt.key(org.modelix.model.api.IRole,org.modelix.model.api.INode)" resolve="key" />
+                          <ref role="1Pybhc" to="jks5:~INodeKt" resolve="INodeKt" />
+                          <node concept="37vLTw" id="2nfCOm5ovfF" role="37wK5m">
                             <ref role="3cqZAo" node="24uT$44PRja" resolve="it" />
                           </node>
-                          <node concept="liA8E" id="24uT$44PRJn" role="2OqNvi">
-                            <ref role="37wK5l" to="jks5:~IRole.getName()" resolve="getName" />
-                          </node>
+                          <node concept="Xjq3P" id="2nfCOm5ovfG" role="37wK5m" />
                         </node>
                       </node>
                     </node>
