@@ -97,23 +97,25 @@ val buildScriptClasspath = antLib.fileCollection { true }
 val modelApi: Configuration by configurations.creating
 val modelClient: Configuration by configurations.creating
 val lightModelServer: Configuration by configurations.creating
+val lightModelClient: Configuration by configurations.creating
 
 dependencies {
     modelApi("org.modelix:model-api:$modelixCoreVersion")
     modelClient("org.modelix:model-client:$modelixCoreVersion")
     lightModelServer("org.modelix:light-model-server:$modelixCoreVersion")
+    lightModelClient("org.modelix:light-model-client:$modelixCoreVersion")
 }
 
 fun artifactNameWithoutVersion(artifact: ResolvedArtifact) : String {
     return artifact.moduleVersion.id.name + "." + artifact.extension
 }
 
-fun copyJarsWithoutModelApi(conf: Configuration, libFolder: File) {
+fun copyJarsDelta(conf: Configuration, excludedConf: Configuration, libFolder: File) {
     // copy transitive dependencies without version in the file name
     // otherwise each new version would require a change of the MPS solution
 
     val jarsFromModelApi = HashMap<String, File>()
-    modelApi.resolvedConfiguration.resolvedArtifacts
+    excludedConf.resolvedConfiguration.resolvedArtifacts
             .forEach { jarsFromModelApi[artifactNameWithoutVersion(it)] = it.file }
 
     libFolder.deleteRecursively()
@@ -142,7 +144,7 @@ val copyModelClientToMps by tasks.registering {
     dependsOn(modelApi)
     dependsOn(modelClient)
     doLast {
-        copyJarsWithoutModelApi(modelClient, file("$projectDir/org.modelix.model.client/lib"))
+        copyJarsDelta(modelClient, modelApi, file("$projectDir/org.modelix.model.client/lib"))
     }
 }
 
@@ -150,13 +152,22 @@ val copyLightModelServerToMps by tasks.registering {
     dependsOn(modelApi)
     dependsOn(lightModelServer)
     doLast {
-        copyJarsWithoutModelApi(lightModelServer, file("$projectDir/org.modelix.model.server.mpsplugin/lib"))
+        copyJarsDelta(lightModelServer, modelApi, file("$projectDir/org.modelix.model.server.mpsplugin/lib"))
+    }
+}
+
+val copyLightModelClientToMps by tasks.registering {
+    dependsOn(modelApi)
+    dependsOn(lightModelServer)
+    doLast {
+        copyJarsDelta(lightModelClient, lightModelServer, file("$projectDir/test.org.modelix.model.server.mpsplugin/lib"))
     }
 }
 
 val copyJarsToMps by tasks.registering {
     dependsOn(copyModelClientToMps)
     dependsOn(copyLightModelServerToMps)
+    dependsOn(copyLightModelClientToMps)
 }
 
 // -------------------------------------------
