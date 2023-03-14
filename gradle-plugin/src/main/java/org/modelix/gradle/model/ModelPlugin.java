@@ -220,9 +220,9 @@ public class ModelPlugin implements Plugin<Project> {
                 if (settings.isDebug()) {
                     System.out.println("Configuring download model - args " + javaExec.getArgs());
                 }
-                javaExec.setMain(ExportMain.class.getName());
+                javaExec.getMainClass().set(ExportMain.class.getName());
                 if (settings.isDebug()) {
-                    System.out.println("Configuring download model - main " + javaExec.getMain());
+                    System.out.println("Configuring download model - main " + javaExec.getMainClass());
                 }
                 javaExec.doLast(task -> {
                     System.out.println("  JVM Args                : " + javaExec.getJvmArgs());
