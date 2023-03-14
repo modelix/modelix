@@ -22,9 +22,10 @@ dependencies {
     compileOnly(fileTree("../artifacts/mps/lib") {
         include("*.jar")
     })
-    implementation("com.google.code.gson:gson:2.8.9")
+    implementation("com.google.code.gson:gson:2.10")
+    implementation("org.apache.commons:commons-text:1.10.0")
     implementation(gradleApi())
-    testImplementation("junit:junit:4.12")
+    testImplementation("junit:junit:4.13.1")
 }
 
 val modelixVersion: String by rootProject.ext
