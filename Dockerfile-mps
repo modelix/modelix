@@ -1,12 +1,10 @@
 FROM debian:buster
+ARG TARGETARCH
 
-RUN set -eux; apt-get update; apt-get install -y --no-install-recommends ca-certificates curl netbase wget; rm -rf /var/lib/apt/lists/*
-
-RUN set -ex; if ! command -v gpg > /dev/null; then apt-get update; apt-get install -y --no-install-recommends gnupg dirmngr; rm -rf /var/lib/apt/lists/*; fi
-
-RUN apt-get update && apt-get install -y --no-install-recommends git mercurial openssh-client subversion procps && rm -rf /var/lib/apt/lists/*
-RUN set -eux; apt-get update; apt-get install -y --no-install-recommends bzip2 unzip xz-utils fontconfig libfreetype6 ca-certificates p11-kit; rm -rf /var/lib/apt/lists/*
-
+RUN set -eux \
+    && apt-get update \
+    && apt-get install -y --no-install-recommends ca-certificates curl netbase wget gnupg dirmngr git mercurial openssh-client subversion procps bzip2 unzip xz-utils fontconfig libfreetype6 ca-certificates p11-kit zip\
+    && rm -rf /var/lib/apt/lists/*
 
 ENV JAVA_HOME /usr/local/jbr
 RUN { echo '#/bin/sh'; echo 'echo "$JAVA_HOME"'; } > /usr/local/bin/docker-java-home && chmod +x /usr/local/bin/docker-java-home && [ "$JAVA_HOME" = "$(docker-java-home)" ] # backwards compatibility
@@ -14,7 +12,16 @@ ENV PATH $JAVA_HOME/bin:$PATH
 
 RUN set -eux; \
 	\
-	downloadUrl='https://cache-redirector.jetbrains.com/intellij-jbr/jbr_jcef-11_0_10-linux-x64-b1145.96.tar.gz'; \
+	case "$TARGETARCH" in \
+	    'amd64' ) \
+	        downloadUrl='https://cache-redirector.jetbrains.com/intellij-jbr/jbr_jcef-11_0_10-linux-x64-b1145.96.tar.gz'; \
+	        ;; \
+	    'arm64' ) \
+	        downloadUrl='https://cache-redirector.jetbrains.com/intellij-jbr/jbr-11_0_13-linux-aarch64-b1890.3.tar.gz'; \
+	        ;; \
+	    * ) \
+	        echo >&2 "error: unsupported target architecture '$TARGETARCH'"; exit 1 ;; \
+	esac; \
 	\
 	savedAptMark="$(apt-mark showmanual)"; \
 	apt-get update; \

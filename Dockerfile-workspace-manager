@@ -1,9 +1,6 @@
 FROM openjdk:11
 
-RUN apt update
-RUN apt install maven -y
-RUN apt install git -y
-RUN apt install ant -y
+RUN apt update && apt install -y maven git ant
 
 COPY bundled-maven-dependencies/pom.xml /bundled-maven-dependencies/pom.xml
 WORKDIR /bundled-maven-dependencies

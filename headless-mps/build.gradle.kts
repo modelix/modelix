@@ -10,7 +10,6 @@ plugins {
 
 application {
     mainClass.set("org.modelix.headlessmps.ModelImportMain")
-    mainClassName = "org.modelix.headlessmps.ModelImportMain"
 }
 
 val kotlinxSerializationVersion: String by rootProject
@@ -33,7 +32,7 @@ tasks.getByName<Test>("test") {
 }
 
 val copyDependencies = task("copyDependencies", Copy::class) {
-    from(configurations.default)
+    from(configurations.runtimeClasspath)
     into(File(File("build"), "libs"))
 }
 
