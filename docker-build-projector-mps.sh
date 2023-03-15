@@ -2,6 +2,8 @@
 
 set -e
 
+MODELIX_TARGET_PLATFORM="${MODELIX_TARGET_PLATFORM:=linux/amd64}"
+
 # read variables from mps-version.properties
 while IFS='=' read -r key value
 do
@@ -62,10 +64,31 @@ TIMESTAMP="$(date +"%Y%m%d%H%M")"
       git pull
     )
   else
-    git clone -b "feature/multiarch-build" https://github.com/modelix/projector-docker.git
+    git clone https://github.com/modelix/projector-docker.git
   fi
 
   cd projector-docker
-  ./build-container-dev.sh "projector-mps" "https://download.jetbrains.com/mps/${mpsMajorVersion}/MPS-${mpsVersion}.tar.gz"
+  (
+    cd ../projector-server
+    ./gradlew :projector-server:distZip
+  )
+
+  downloadUrl="https://download.jetbrains.com/mps/${mpsMajorVersion}/MPS-${mpsVersion}.tar.gz"
+
+  if [ "${CI}" = "true" ]; then
+    docker buildx build --platform linux/amd64,linux/arm64 --push \
+    -t "modelix/projector-mps:latest" \
+    -t "modelix/projector-mps:${mpsMajorVersion}" \
+    -t "modelix/projector-mps:${mpsVersion}" \
+    -t "modelix/projector-mps:${mpsVersion}-${TIMESTAMP}" \
+    --build-arg buildGradle=false --build-arg "downloadUrl=${downloadUrl}" -f Dockerfile ..
+  else
+    docker build --platform "${MODELIX_TARGET_PLATFORM}" \
+    -t "modelix/projector-mps:latest" \
+    -t "modelix/projector-mps:${mpsMajorVersion}" \
+    -t "modelix/projector-mps:${mpsVersion}" \
+    -t "modelix/projector-mps:${mpsVersion}-${TIMESTAMP}" \
+    --build-arg buildGradle=false --build-arg "downloadUrl=${downloadUrl}" -f Dockerfile ..
+  fi
 )
 
