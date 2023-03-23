@@ -4,9 +4,9 @@ RUN apt update && apt install -y maven git ant
 
 # Delete all .repositories and.sha1 files to avoid requiring an internet connection
 # https://manios.org/2019/08/21/force-maven-offline-execute-goal-dependencies
-WORKDIR /root/.m2
-RUN find -iname "*.repositories" -exec rm -f {} \;
-RUN find -iname "*.sha1" -exec rm -f {} \;
+#WORKDIR /root/.m2
+#RUN find -iname "*.repositories" -exec rm -f {} \;
+#RUN find -iname "*.sha1" -exec rm -f {} \;
 
 WORKDIR /workspace-manager/
 EXPOSE 28104
