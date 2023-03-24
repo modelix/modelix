@@ -106,17 +106,17 @@ subprojects {
                 }
             }
             */
-            val ghp_username = project.findProperty("gpr.user") as? String ?: System.getenv("GITHUB_ACTOR")
-            val ghp_password = project.findProperty("gpr.key") as? String ?: System.getenv("GITHUB_TOKEN")
             if (rootProject.hasProperty("artifacts.itemis.cloud.user")) {
                 maven {
                     name = "itemisNexus3"
-                    url = if (modelixVersion.contains("SNAPSHOT"))
+                    url = if (modelixVersion.contains("SNAPSHOT")) {
                         uri("https://artifacts.itemis.cloud/repository/maven-mps-snapshots/")
-                    else uri("https://artifacts.itemis.cloud/repository/maven-mps-releases/")
+                    } else {
+                        uri("https://artifacts.itemis.cloud/repository/maven-mps-releases/")
+                    }
                     credentials {
-                        username = ghp_username
-                        password = ghp_password
+                        username = rootProject.findProperty("artifacts.itemis.cloud.user").toString()
+                        password = rootProject.findProperty("artifacts.itemis.cloud.pw").toString()
                     }
                 }
             }
