@@ -13,7 +13,6 @@
  */
 package org.modelix.headlessmps
 
-import com.intellij.ide.GeneralSettings
 import com.intellij.util.ReflectionUtil
 import jetbrains.mps.tool.environment.EnvironmentConfig
 import jetbrains.mps.tool.environment.IdeaEnvironment
@@ -71,7 +70,7 @@ class EnvironmentLoader(private val environmentSpec: EnvironmentSpec) {
                 println("environment.createEmptyProject()")
                 environment.createEmptyProject()
             } else {
-                GeneralSettings.getInstance().confirmOpenNewProject = GeneralSettings.OPEN_PROJECT_NEW_WINDOW
+//                GeneralSettings.getInstance().confirmOpenNewProject = GeneralSettings.OPEN_PROJECT_NEW_WINDOW
                 environmentSpec.projects.forEach {
                     println("environment.openProject(${it.path}) ")
                     environment.openProject(File(it.path))
