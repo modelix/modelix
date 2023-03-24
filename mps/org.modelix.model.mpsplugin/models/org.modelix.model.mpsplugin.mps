@@ -110,6 +110,7 @@
     <import index="yzht" ref="498d89d2-c2e9-11e2-ad49-6cf049e62fe5/java:org.jetbrains.concurrency(MPS.IDEA/)" />
     <import index="xygl" ref="498d89d2-c2e9-11e2-ad49-6cf049e62fe5/java:com.intellij.openapi.progress(MPS.IDEA/)" />
     <import index="ycmz" ref="r:af3e1a90-527b-4262-8066-857208a4f4fb(de.slisson.mps.reflection.runtime)" />
+    <import index="vndm" ref="6ed54515-acc8-4d1e-a16c-9fd6cfe951ea/java:jetbrains.mps.smodel.language(MPS.Core/)" />
     <import index="onis" ref="87f4b21e-a3a5-459e-a54b-408fd9eb7350/java:gnu.trove.set(org.modelix.lib/)" implicit="true" />
   </imports>
   <registry>
@@ -260,6 +261,9 @@
       <concept id="1068431474542" name="jetbrains.mps.baseLanguage.structure.VariableDeclaration" flags="ng" index="33uBYm">
         <property id="1176718929932" name="isFinal" index="3TUv4t" />
         <child id="1068431790190" name="initializer" index="33vP2m" />
+      </concept>
+      <concept id="1513279640923991009" name="jetbrains.mps.baseLanguage.structure.IGenericClassCreator" flags="ng" index="366HgL">
+        <property id="1513279640906337053" name="inferTypeParams" index="373rjd" />
       </concept>
       <concept id="1109279763828" name="jetbrains.mps.baseLanguage.structure.TypeVariableDeclaration" flags="ng" index="16euLQ">
         <child id="1214996921760" name="bound" index="3ztrMU" />
@@ -22704,20 +22708,40 @@
             </node>
           </node>
         </node>
-        <node concept="3clFbF" id="lO9TSUCFr3" role="3cqZAp">
-          <node concept="2OqwBi" id="lO9TSUCFr4" role="3clFbG">
-            <node concept="2ShNRf" id="lO9TSUCFr5" role="2Oq$k0">
-              <node concept="1pGfFk" id="lO9TSUCFr6" role="2ShVmc">
-                <ref role="37wK5l" to="6f4m:5gIiJF05pI8" resolve="VersionFixer" />
-                <node concept="2V_BSl" id="lO9TSUCHES" role="37wK5m" />
-                <node concept="37vLTw" id="lO9TSUCFr8" role="37wK5m">
-                  <ref role="3cqZAo" node="lO9TSUCFqO" resolve="module" />
+        <node concept="3cpWs8" id="6lYQLbpqQ87" role="3cqZAp">
+          <node concept="3cpWsn" id="6lYQLbpqQ88" role="3cpWs9">
+            <property role="TrG5h" value="repository" />
+            <node concept="3uibUv" id="6lYQLbpqQ89" role="1tU5fm">
+              <ref role="3uigEE" to="lui2:~SRepository" resolve="SRepository" />
+            </node>
+            <node concept="Vb5G_" id="6lYQLbpqRXv" role="33vP2m">
+              <ref role="37wK5l" to="z1c3:~Project.getRepository()" resolve="getRepository" />
+            </node>
+          </node>
+        </node>
+        <node concept="3clFbF" id="6lYQLbpqQ8f" role="3cqZAp">
+          <node concept="2OqwBi" id="6lYQLbpqQ8g" role="3clFbG">
+            <node concept="2ShNRf" id="6lYQLbpqQ8h" role="2Oq$k0">
+              <node concept="1pGfFk" id="6lYQLbpqQ8i" role="2ShVmc">
+                <property role="373rjd" value="true" />
+                <ref role="37wK5l" to="w1kc:~ModuleDependencyVersions.&lt;init&gt;(jetbrains.mps.smodel.language.LanguageRegistry,org.jetbrains.mps.openapi.module.SRepository)" resolve="ModuleDependencyVersions" />
+                <node concept="2YIFZM" id="6lYQLbpqQ8j" role="37wK5m">
+                  <ref role="37wK5l" to="vndm:~LanguageRegistry.getInstance(org.jetbrains.mps.openapi.module.SRepository)" resolve="getInstance" />
+                  <ref role="1Pybhc" to="vndm:~LanguageRegistry" resolve="LanguageRegistry" />
+                  <node concept="37vLTw" id="6lYQLbpqQ8k" role="37wK5m">
+                    <ref role="3cqZAo" node="6lYQLbpqQ88" resolve="repository" />
+                  </node>
                 </node>
-                <node concept="3clFbT" id="lO9TSUCFr9" role="37wK5m" />
+                <node concept="37vLTw" id="6lYQLbpqQ8l" role="37wK5m">
+                  <ref role="3cqZAo" node="6lYQLbpqQ88" resolve="repository" />
+                </node>
               </node>
             </node>
-            <node concept="liA8E" id="lO9TSUCFra" role="2OqNvi">
-              <ref role="37wK5l" to="6f4m:2V3ml1v0Uym" resolve="updateImportVersions" />
+            <node concept="liA8E" id="6lYQLbpqQ8m" role="2OqNvi">
+              <ref role="37wK5l" to="w1kc:~ModuleDependencyVersions.update(org.jetbrains.mps.openapi.module.SModule)" resolve="update" />
+              <node concept="37vLTw" id="6lYQLbpqQ8n" role="37wK5m">
+                <ref role="3cqZAo" node="lO9TSUCFqO" resolve="module" />
+              </node>
             </node>
           </node>
         </node>
@@ -39996,27 +40020,48 @@
         </node>
         <node concept="3clFbJ" id="7z1ex5oON_F" role="3cqZAp">
           <node concept="3clFbS" id="7z1ex5oON_H" role="3clFbx">
-            <node concept="3clFbF" id="7z1ex5oM4oJ" role="3cqZAp">
-              <node concept="2OqwBi" id="7z1ex5oMNcR" role="3clFbG">
-                <node concept="2ShNRf" id="7z1ex5oM4oF" role="2Oq$k0">
-                  <node concept="1pGfFk" id="7z1ex5oMpfN" role="2ShVmc">
-                    <ref role="37wK5l" to="6f4m:5gIiJF05pI8" resolve="VersionFixer" />
-                    <node concept="2OqwBi" id="7z1ex5oM$Oa" role="37wK5m">
-                      <node concept="37vLTw" id="7z1ex5oMzQc" role="2Oq$k0">
-                        <ref role="3cqZAo" node="7z1ex5oMz6N" resolve="projects" />
+            <node concept="3cpWs8" id="6lYQLbpn9VU" role="3cqZAp">
+              <node concept="3cpWsn" id="6lYQLbpn9VV" role="3cpWs9">
+                <property role="TrG5h" value="repository" />
+                <node concept="3uibUv" id="6lYQLbpn9lT" role="1tU5fm">
+                  <ref role="3uigEE" to="lui2:~SRepository" resolve="SRepository" />
+                </node>
+                <node concept="2OqwBi" id="6lYQLbpn9VW" role="33vP2m">
+                  <node concept="2OqwBi" id="6lYQLbpn9VX" role="2Oq$k0">
+                    <node concept="37vLTw" id="6lYQLbpn9VY" role="2Oq$k0">
+                      <ref role="3cqZAo" node="7z1ex5oMz6N" resolve="projects" />
+                    </node>
+                    <node concept="1uHKPH" id="6lYQLbpn9VZ" role="2OqNvi" />
+                  </node>
+                  <node concept="liA8E" id="6lYQLbpn9W0" role="2OqNvi">
+                    <ref role="37wK5l" to="z1c3:~Project.getRepository()" resolve="getRepository" />
+                  </node>
+                </node>
+              </node>
+            </node>
+            <node concept="3clFbF" id="6lYQLbpmzOZ" role="3cqZAp">
+              <node concept="2OqwBi" id="6lYQLbpnePh" role="3clFbG">
+                <node concept="2ShNRf" id="6lYQLbpmzOV" role="2Oq$k0">
+                  <node concept="1pGfFk" id="6lYQLbpmQ4j" role="2ShVmc">
+                    <property role="373rjd" value="true" />
+                    <ref role="37wK5l" to="w1kc:~ModuleDependencyVersions.&lt;init&gt;(jetbrains.mps.smodel.language.LanguageRegistry,org.jetbrains.mps.openapi.module.SRepository)" resolve="ModuleDependencyVersions" />
+                    <node concept="2YIFZM" id="6lYQLbpmWMu" role="37wK5m">
+                      <ref role="37wK5l" to="vndm:~LanguageRegistry.getInstance(org.jetbrains.mps.openapi.module.SRepository)" resolve="getInstance" />
+                      <ref role="1Pybhc" to="vndm:~LanguageRegistry" resolve="LanguageRegistry" />
+                      <node concept="37vLTw" id="6lYQLbpn9W1" role="37wK5m">
+                        <ref role="3cqZAo" node="6lYQLbpn9VV" resolve="repository" />
                       </node>
-                      <node concept="1uHKPH" id="7z1ex5oMAHh" role="2OqNvi" />
                     </node>
-                    <node concept="37vLTw" id="7z1ex5oMMcF" role="37wK5m">
-                      <ref role="3cqZAo" node="7ZZZU$lwQdD" resolve="module" />
-                    </node>
-                    <node concept="3clFbT" id="7z1ex5oMMZs" role="37wK5m">
-                      <property role="3clFbU" value="true" />
+                    <node concept="37vLTw" id="6lYQLbpndtF" role="37wK5m">
+                      <ref role="3cqZAo" node="6lYQLbpn9VV" resolve="repository" />
                     </node>
                   </node>
                 </node>
-                <node concept="liA8E" id="7z1ex5oMNXt" role="2OqNvi">
-                  <ref role="37wK5l" to="6f4m:2V3ml1v0Uym" resolve="updateImportVersions" />
+                <node concept="liA8E" id="6lYQLbpnfYa" role="2OqNvi">
+                  <ref role="37wK5l" to="w1kc:~ModuleDependencyVersions.update(org.jetbrains.mps.openapi.module.SModule)" resolve="update" />
+                  <node concept="37vLTw" id="6lYQLbpniLH" role="37wK5m">
+                    <ref role="3cqZAo" node="7ZZZU$lwQdD" resolve="module" />
+                  </node>
                 </node>
               </node>
             </node>
@@ -42578,35 +42623,57 @@
             </node>
             <node concept="3clFbJ" id="ON_jCg8Z_l" role="3cqZAp">
               <node concept="3clFbS" id="ON_jCg8Z_m" role="3clFbx">
-                <node concept="3clFbF" id="ON_jCg8Z_n" role="3cqZAp">
-                  <node concept="2OqwBi" id="ON_jCg8Z_o" role="3clFbG">
-                    <node concept="2ShNRf" id="ON_jCg8Z_p" role="2Oq$k0">
-                      <node concept="1pGfFk" id="ON_jCg8Z_q" role="2ShVmc">
-                        <ref role="37wK5l" to="6f4m:5gIiJF05pI8" resolve="VersionFixer" />
-                        <node concept="2OqwBi" id="ON_jCg8Z_r" role="37wK5m">
-                          <node concept="37vLTw" id="ON_jCg8Z_s" role="2Oq$k0">
-                            <ref role="3cqZAo" node="ON_jCg8Z_f" resolve="projects" />
-                          </node>
-                          <node concept="1uHKPH" id="ON_jCg8Z_t" role="2OqNvi" />
-                        </node>
-                        <node concept="2OqwBi" id="ON_jCg8Z_u" role="37wK5m">
-                          <node concept="37vLTw" id="ON_jCg8Z_v" role="2Oq$k0">
-                            <ref role="3cqZAo" node="ON_jCg8Z_D" resolve="model" />
-                          </node>
-                          <node concept="liA8E" id="ON_jCg8Z_w" role="2OqNvi">
-                            <ref role="37wK5l" to="mhbf:~SModel.getModule()" resolve="getModule" />
-                          </node>
-                        </node>
-                        <node concept="3clFbT" id="ON_jCg8Z_x" role="37wK5m">
-                          <property role="3clFbU" value="true" />
-                        </node>
-                      </node>
+                <node concept="3cpWs8" id="6lYQLbpnzz3" role="3cqZAp">
+                  <node concept="3cpWsn" id="6lYQLbpnzz4" role="3cpWs9">
+                    <property role="TrG5h" value="repository" />
+                    <node concept="3uibUv" id="6lYQLbpnzz5" role="1tU5fm">
+                      <ref role="3uigEE" to="lui2:~SRepository" resolve="SRepository" />
                     </node>
-                    <node concept="liA8E" id="ON_jCg8Z_y" role="2OqNvi">
-                      <ref role="37wK5l" to="6f4m:2V3ml1v0Uym" resolve="updateImportVersions" />
+                    <node concept="2OqwBi" id="6lYQLbpnzz6" role="33vP2m">
+                      <node concept="2OqwBi" id="6lYQLbpnzz7" role="2Oq$k0">
+                        <node concept="37vLTw" id="6lYQLbpnzz8" role="2Oq$k0">
+                          <ref role="3cqZAo" node="ON_jCg8Z_f" resolve="projects" />
+                        </node>
+                        <node concept="1uHKPH" id="6lYQLbpnzz9" role="2OqNvi" />
+                      </node>
+                      <node concept="liA8E" id="6lYQLbpnzza" role="2OqNvi">
+                        <ref role="37wK5l" to="z1c3:~Project.getRepository()" resolve="getRepository" />
+                      </node>
                     </node>
                   </node>
                 </node>
+                <node concept="3clFbF" id="6lYQLbpnzzb" role="3cqZAp">
+                  <node concept="2OqwBi" id="6lYQLbpnzzc" role="3clFbG">
+                    <node concept="2ShNRf" id="6lYQLbpnzzd" role="2Oq$k0">
+                      <node concept="1pGfFk" id="6lYQLbpnzze" role="2ShVmc">
+                        <property role="373rjd" value="true" />
+                        <ref role="37wK5l" to="w1kc:~ModuleDependencyVersions.&lt;init&gt;(jetbrains.mps.smodel.language.LanguageRegistry,org.jetbrains.mps.openapi.module.SRepository)" resolve="ModuleDependencyVersions" />
+                        <node concept="2YIFZM" id="6lYQLbpnzzf" role="37wK5m">
+                          <ref role="37wK5l" to="vndm:~LanguageRegistry.getInstance(org.jetbrains.mps.openapi.module.SRepository)" resolve="getInstance" />
+                          <ref role="1Pybhc" to="vndm:~LanguageRegistry" resolve="LanguageRegistry" />
+                          <node concept="37vLTw" id="6lYQLbpnzzg" role="37wK5m">
+                            <ref role="3cqZAo" node="6lYQLbpnzz4" resolve="repository" />
+                          </node>
+                        </node>
+                        <node concept="37vLTw" id="6lYQLbpnzzh" role="37wK5m">
+                          <ref role="3cqZAo" node="6lYQLbpnzz4" resolve="repository" />
+                        </node>
+                      </node>
+                    </node>
+                    <node concept="liA8E" id="6lYQLbpnzzi" role="2OqNvi">
+                      <ref role="37wK5l" to="w1kc:~ModuleDependencyVersions.update(org.jetbrains.mps.openapi.module.SModule)" resolve="update" />
+                      <node concept="2OqwBi" id="6lYQLbpnE2O" role="37wK5m">
+                        <node concept="37vLTw" id="6lYQLbpnzzj" role="2Oq$k0">
+                          <ref role="3cqZAo" node="ON_jCg8Z_D" resolve="model" />
+                        </node>
+                        <node concept="liA8E" id="6lYQLbpnImZ" role="2OqNvi">
+                          <ref role="37wK5l" to="mhbf:~SModel.getModule()" resolve="getModule" />
+                        </node>
+                      </node>
+                    </node>
+                  </node>
+                </node>
+                <node concept="3clFbH" id="6lYQLbpnxiZ" role="3cqZAp" />
               </node>
               <node concept="2OqwBi" id="ON_jCg8Z_z" role="3clFbw">
                 <node concept="37vLTw" id="ON_jCg8Z_$" role="2Oq$k0">
