@@ -1,4 +1,5 @@
-FROM modelix/modelix-projector
+ARG MODELIX_VERSION
+FROM modelix/modelix-projector:$MODELIX_VERSION
 
 USER root
 
