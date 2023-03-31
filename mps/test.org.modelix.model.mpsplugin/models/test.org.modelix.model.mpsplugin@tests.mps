@@ -564,13 +564,20 @@
                                 <ref role="3cqZAo" to="jks5:~ITree.ROOT_ID" resolve="ROOT_ID" />
                                 <ref role="1PxDUh" to="jks5:~ITree" resolve="ITree" />
                               </node>
-                              <node concept="2OqwBi" id="2QHBUeO8FE7" role="37wK5m">
-                                <node concept="359W_D" id="2QHBUeO8ENi" role="2Oq$k0">
-                                  <ref role="359W_E" to="jh6v:qmkA5fOskm" resolve="Repository" />
-                                  <ref role="359W_F" to="jh6v:qmkA5fOskn" resolve="modules" />
+                              <node concept="2YIFZM" id="1PSXqpPKeim" role="37wK5m">
+                                <ref role="37wK5l" to="jks5:~ITransactionKt.key(org.modelix.model.api.IRole,org.modelix.model.api.ITransaction)" resolve="key" />
+                                <ref role="1Pybhc" to="jks5:~ITransactionKt" resolve="ITransactionKt" />
+                                <node concept="2ShNRf" id="1PSXqpPKein" role="37wK5m">
+                                  <node concept="1pGfFk" id="1PSXqpPKeio" role="2ShVmc">
+                                    <ref role="37wK5l" to="xxte:2ePp5XuONiH" resolve="SContainmentLinkAdapter" />
+                                    <node concept="359W_D" id="1PSXqpPKeip" role="37wK5m">
+                                      <ref role="359W_E" to="jh6v:qmkA5fOskm" resolve="Repository" />
+                                      <ref role="359W_F" to="jh6v:qmkA5fOskn" resolve="modules" />
+                                    </node>
+                                  </node>
                                 </node>
-                                <node concept="liA8E" id="2QHBUeO8Ge5" role="2OqNvi">
-                                  <ref role="37wK5l" to="c17a:~SNamedElement.getName()" resolve="getName" />
+                                <node concept="37vLTw" id="1PSXqpPKeiq" role="37wK5m">
+                                  <ref role="3cqZAo" node="6hBdEE_j49q" resolve="t" />
                                 </node>
                               </node>
                               <node concept="3cmrfG" id="6hBdEE_j49_" role="37wK5m">
@@ -597,13 +604,20 @@
                             <node concept="37vLTw" id="6hBdEE_j49G" role="37wK5m">
                               <ref role="3cqZAo" node="6hBdEE_j49u" resolve="moduleId" />
                             </node>
-                            <node concept="2OqwBi" id="6hBdEE_j49H" role="37wK5m">
-                              <node concept="355D3s" id="6hBdEE_j49I" role="2Oq$k0">
-                                <ref role="355D3t" to="jh6v:qmkA5fOskf" resolve="Module" />
-                                <ref role="355D3u" to="tpck:h0TrG11" resolve="name" />
+                            <node concept="2YIFZM" id="1PSXqpPJU$E" role="37wK5m">
+                              <ref role="37wK5l" to="jks5:~ITransactionKt.key(org.modelix.model.api.IRole,org.modelix.model.api.ITransaction)" resolve="key" />
+                              <ref role="1Pybhc" to="jks5:~ITransactionKt" resolve="ITransactionKt" />
+                              <node concept="2ShNRf" id="1PSXqpPJUKQ" role="37wK5m">
+                                <node concept="1pGfFk" id="1PSXqpPJYiv" role="2ShVmc">
+                                  <ref role="37wK5l" to="xxte:2ePp5XuOMn2" resolve="SPropertyAdapter" />
+                                  <node concept="355D3s" id="6hBdEE_j49I" role="37wK5m">
+                                    <ref role="355D3t" to="jh6v:qmkA5fOskf" resolve="Module" />
+                                    <ref role="355D3u" to="tpck:h0TrG11" resolve="name" />
+                                  </node>
+                                </node>
                               </node>
-                              <node concept="liA8E" id="6hBdEE_j49J" role="2OqNvi">
-                                <ref role="37wK5l" to="c17a:~SProperty.getName()" resolve="getName" />
+                              <node concept="37vLTw" id="1PSXqpPJYV2" role="37wK5m">
+                                <ref role="3cqZAo" node="6hBdEE_j49q" resolve="t" />
                               </node>
                             </node>
                             <node concept="Xl_RD" id="6hBdEE_j49K" role="37wK5m">
@@ -625,13 +639,20 @@
                               <node concept="37vLTw" id="6hBdEE_j49R" role="37wK5m">
                                 <ref role="3cqZAo" node="6hBdEE_j49u" resolve="moduleId" />
                               </node>
-                              <node concept="2OqwBi" id="6hBdEE_j49S" role="37wK5m">
-                                <node concept="359W_D" id="6hBdEE_j49T" role="2Oq$k0">
-                                  <ref role="359W_E" to="jh6v:qmkA5fOskf" resolve="Module" />
-                                  <ref role="359W_F" to="jh6v:qmkA5fOski" resolve="models" />
+                              <node concept="2YIFZM" id="1PSXqpPK0$j" role="37wK5m">
+                                <ref role="37wK5l" to="jks5:~ITransactionKt.key(org.modelix.model.api.IRole,org.modelix.model.api.ITransaction)" resolve="key" />
+                                <ref role="1Pybhc" to="jks5:~ITransactionKt" resolve="ITransactionKt" />
+                                <node concept="2ShNRf" id="1PSXqpPK0$k" role="37wK5m">
+                                  <node concept="1pGfFk" id="1PSXqpPK0$l" role="2ShVmc">
+                                    <ref role="37wK5l" to="xxte:2ePp5XuONiH" resolve="SContainmentLinkAdapter" />
+                                    <node concept="359W_D" id="1PSXqpPK14I" role="37wK5m">
+                                      <ref role="359W_E" to="jh6v:qmkA5fOskf" resolve="Module" />
+                                      <ref role="359W_F" to="jh6v:qmkA5fOski" resolve="models" />
+                                    </node>
+                                  </node>
                                 </node>
-                                <node concept="liA8E" id="6hBdEE_j49U" role="2OqNvi">
-                                  <ref role="37wK5l" to="c17a:~SNamedElement.getName()" resolve="getName" />
+                                <node concept="37vLTw" id="1PSXqpPK0$n" role="37wK5m">
+                                  <ref role="3cqZAo" node="6hBdEE_j49q" resolve="t" />
                                 </node>
                               </node>
                               <node concept="3cmrfG" id="6hBdEE_j49V" role="37wK5m">
