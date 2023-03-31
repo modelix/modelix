@@ -1,4 +1,5 @@
-FROM modelix/modelix-projector-base
+ARG MPS_VERSION
+FROM modelix/modelix-projector-base:$MPS_VERSION
 
 USER root
 
