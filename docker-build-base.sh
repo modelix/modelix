@@ -1,12 +1,11 @@
 #!/bin/sh
 
-TAG=$( ./modelix-version.sh )
-MODELIX_TARGET_PLATFORM="${MODELIX_TARGET_PLATFORM:=linux/amd64}"
+MODELIX_VERSION=$( ./modelix-version.sh )
 
 if [ "${CI}" = "true" ]; then
-  docker buildx build --platform linux/amd64,linux/arm64 --push --no-cache -f Dockerfile-base \
-  -t modelix/modelix-base:latest -t "modelix/modelix-base:${TAG}" .
+  docker buildx build --platform linux/amd64,linux/arm64 --push --build-arg MODELIX_VERSION=${MODELIX_VERSION} -f Dockerfile-base \
+  -t "modelix/modelix-base:${MODELIX_VERSION}" .
 else
-  docker build --platform "${MODELIX_TARGET_PLATFORM}" --no-cache -f Dockerfile-base \
-  -t modelix/modelix-base:latest -t "modelix/modelix-base:${TAG}" .
+  docker buildx build --build-arg MODELIX_VERSION=${MODELIX_VERSION} -f Dockerfile-base \
+  -t "modelix/modelix-base:${MODELIX_VERSION}" .
 fi
