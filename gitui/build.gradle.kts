@@ -37,7 +37,7 @@ dependencies {
     implementation("org.modelix:model-client:$modelixCoreVersion")
     implementation(project(":headless-mps"))
     implementation(project(":workspaces"))
-    implementation("org.modelix.mpsbuild:build-tools:1.0.0")
+    implementation("org.modelix.mps:build-tools-lib:1.0.11")
     implementation("io.ktor","ktor-server-html-builder", ktorVersion)
     implementation("commons-codec:commons-codec:1.15")
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.6.0")
