@@ -366,9 +366,9 @@ publishing {
                 }
             }
         }
-        create<MavenPublication>("modelixBuildScriptsPlugin") {
-            groupId = "org.modelix"
-            artifactId = "build-scripts"
+        create<MavenPublication>("modelixBuildSolutionPlugin") {
+            groupId = "org.modelix.mps"
+            artifactId = "build-solution"
             artifact(packageBuildScripts)
             pom.withXml {
                 val dependenciesNode = asNode().appendNode("dependencies")
