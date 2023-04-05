@@ -319,8 +319,8 @@ val packageBuildScripts by tasks.registering(Zip::class) {
 publishing {
     publications {
         create<MavenPublication>("modelixMpsModelPlugin") {
-            groupId = "org.modelix"
-            artifactId = "mps-model-plugin"
+            groupId = "org.modelix.mps"
+            artifactId = "model-server-sync-plugin"
             artifact(packageMpsModelPlugin)
             pom.withXml {
                 val dependenciesNode = asNode().appendNode("dependencies")
@@ -343,8 +343,8 @@ publishing {
             }
         }
         create<MavenPublication>("modelixWebEditorsPlugin") {
-            groupId = "org.modelix"
-            artifactId = "web-editors"
+            groupId = "org.modelix.mps"
+            artifactId = "web-editors-plugin"
             artifact(packageModelixWebEditorsPlugin)
             pom.withXml {
                 val dependenciesNode = asNode().appendNode("dependencies")
