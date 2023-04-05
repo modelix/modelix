@@ -50,7 +50,7 @@ gradlePlugin {
     plugins {
         create("modelixGradlePlugin") {
             group = "org.modelix"
-            id = "org.modelix.gradle-plugin"
+            id = "org.modelix.model-download-gradle"
             implementationClass = "org.modelix.gradle.model.ModelPlugin"
         }
     }
