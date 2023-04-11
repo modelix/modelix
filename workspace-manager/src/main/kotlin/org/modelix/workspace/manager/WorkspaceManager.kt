@@ -60,9 +60,9 @@ class WorkspaceManager {
     private val buildJobs: MutableMap<String, WorkspaceBuildJob> = Collections.synchronizedMap(HashMap())
     private val executor = Executors.newSingleThreadExecutor()
     private val headlessMpsFolder = run {
-        val candidates = listOf(File("../headless-mps/build/libs/"), File("/headless-mps"))
+        val candidates = listOf(File("../headless-runner/build/libs/"), File("/headless-runner"))
         candidates.firstOrNull { it.exists() }
-            ?: throw RuntimeException("headless-mps not found in $candidates")
+            ?: throw RuntimeException("headless-runner not found in $candidates")
     }
 
     init {

@@ -28,3 +28,5 @@ source_gen.caches
 .mps-caches
 
 **/src/*/kotlin_gen
+**/.ideaconfig
+**/.mpsconfig
