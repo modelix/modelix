@@ -127,7 +127,7 @@ public class ModelPlugin implements Plugin<Project> {
                 );
                 pluginsConfig = project.getConfigurations().detachedConfiguration(
                         project.getDependencies().create("de.itemis.mps:extensions:" + extensionsVersion),
-                        project.getDependencies().create("org.modelix:mps-model-plugin:" + modelixVersion));
+                        project.getDependencies().create("org.modelix:mps.model-server-sync-plugin:" + modelixVersion));
             }
 
             final Copy copyMpsTask;

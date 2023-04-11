@@ -12,7 +12,7 @@ WORKDIR /workspace-manager/
 EXPOSE 28104
 COPY workspace-manager/build/libs/workspace-manager-latest-all.jar /workspace-manager/workspace-manager.jar
 COPY artifacts/mps /mps
-COPY headless-mps/build/libs /headless-mps
+COPY headless-runner/build/libs /headless-runner
 COPY artifacts/de.itemis.mps.extensions /languages/mps-extensions
 COPY build/org.modelix/build/artifacts/org.modelix /languages/modelix
 CMD ["java", "-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5071", "-Dmps.home=/mps", "-XX:MaxRAMPercentage=75","-jar", "/workspace-manager/workspace-manager.jar"]

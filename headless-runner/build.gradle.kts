@@ -42,8 +42,8 @@ tasks.getByName("compileKotlin") {
 publishing {
     publications {
         create<MavenPublication>("maven") {
-            groupId = "org.modelix"
-            artifactId = "headless-mps"
+            groupId = "org.modelix.mps"
+            artifactId = "headless-runner"
             version = "" + rootProject.ext.get("modelixVersion")
 
             from(components["java"])
