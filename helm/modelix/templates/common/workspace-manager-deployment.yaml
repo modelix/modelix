@@ -24,10 +24,19 @@ spec:
         component: workspace-manager
         {{- include "modelix.selectorLabels" . | nindent 8 }}
     spec:
+      serviceAccountName: "{{ include "modelix.serviceAccountName" . }}"
       containers:
       - env:
           - name: model_server_url
             value: http://{{ include "modelix.fullname" . }}-model:28101/
+          - name: "KUBERNETES_NAMESPACE"
+            value: {{ .Release.Namespace }}
+          - name: "WORKSPACE_JOB_IMAGE_NAME"
+            value: "{{ .Values.dockerProxy.prefix }}modelix/workspace-job"
+          - name: "WORKSPACE_JOB_IMAGE_VERSION"
+            value: "{{ .Values.imageTags.wsJob | default .Chart.AppVersion }}"
+          - name: "KUBERNETES_PREFIX"
+            value: "{{ include "modelix.fullname" . }}-"
           {{- include "modelix.keycloakEnv" . | nindent 10 }}
         image: "{{ .Values.dockerProxy.prefix }}modelix/modelix-workspace-manager:{{ .Values.imageTags.wsManager | default .Chart.AppVersion }}"
         imagePullPolicy: IfNotPresent

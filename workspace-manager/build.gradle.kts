@@ -23,20 +23,18 @@ tasks.withType<ShadowJar> {
 }
 
 dependencies {
-    implementation("io.ktor:ktor-server-core:$ktorVersion")
-    implementation("io.ktor:ktor-server-cors:$ktorVersion")
-    implementation("io.ktor","ktor-server-html-builder", ktorVersion)
-    implementation("io.ktor:ktor-server-auth:$ktorVersion")
-    implementation("io.ktor:ktor-server-status-pages:$ktorVersion")
-    implementation("io.ktor", "ktor-server-netty", ktorVersion)
-    implementation("ch.qos.logback", "logback-classic", logbackVersion)
-    implementation("org.jetbrains.kotlinx", "kotlinx-coroutines-jdk8", kotlinCoroutinesVersion)
+    implementation(libs.bundles.kotlin.ktor.server)
+    implementation(libs.logback)
+    implementation(libs.kotlin.logging)
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.2")
     implementation("com.charleskorn.kaml:kaml:0.40.0")
+    implementation("org.jetbrains.kotlinx", "kotlinx-coroutines-jdk8", kotlinCoroutinesVersion)
+
+    implementation("io.kubernetes:client-java:18.0.0")
     implementation("org.eclipse.jgit:org.eclipse.jgit:6.2.0.202206071550-r")
     implementation("org.apache.maven.shared:maven-invoker:3.1.0")
     implementation("org.zeroturnaround:zt-zip:1.14")
-    implementation("org.apache.commons:commons-text:1.9")
+    implementation("org.apache.commons:commons-text:1.10.0")
     implementation("org.jasypt:jasypt:1.9.3")
     implementation("org.modelix:model-client:$modelixCoreVersion")
     implementation(project(":headless-runner"))
@@ -45,7 +43,7 @@ dependencies {
     implementation("org.modelix:authorization:$modelixCoreVersion")
     implementation("org.modelix.mps:build-tools-lib:1.0.11")
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.6.0")
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.6.0")
 }
 
 tasks.getByName<Test>("test") {

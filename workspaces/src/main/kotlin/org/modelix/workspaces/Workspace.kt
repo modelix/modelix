@@ -39,7 +39,8 @@ data class Workspace(var id: String,
                      val loadUsedModulesOnly: Boolean = true,
                      val sharedInstances: List<SharedInstance> = emptyList()
 ) {
-    fun hash() = WorkspaceHash(HashUtil.sha256(Json.encodeToString(this)))
+    fun hash(): WorkspaceHash = WorkspaceHash(HashUtil.sha256(Json.encodeToString(this)))
+    fun uploadIds() = uploads.map { UploadId(it) }
 }
 
 @Serializable

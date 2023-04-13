@@ -4,6 +4,7 @@ imageTags:
   proxy: ""
   wsClient: ""
   wsManager: ""
+  wsJob: ""
   keycloak: ""
 ingress:
   hostname: "localhost"

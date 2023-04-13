@@ -5,12 +5,13 @@ fullnameOverride: ""
 imageTags:
   db: ""
   instancesManager: ""
-  model: "1.5.5"
+  model: "1.11.1"
   oauth: ""
   proxy: ""
   keycloak: ""
   wsClient: ""
   wsManager: ""
+  wsJob: ""
 
 modelStorageSize: 3000Mi
 

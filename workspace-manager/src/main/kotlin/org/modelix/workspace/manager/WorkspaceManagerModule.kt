@@ -17,19 +17,20 @@ package org.modelix.workspace.manager
 import com.charleskorn.kaml.Yaml
 import io.ktor.http.*
 import io.ktor.http.content.*
+import io.ktor.serialization.kotlinx.json.*
 import io.ktor.server.application.*
-import io.ktor.server.auth.*
 import io.ktor.server.html.*
+import io.ktor.server.plugins.contentnegotiation.*
 import io.ktor.server.plugins.cors.routing.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
+import io.ktor.utils.io.jvm.javaio.*
 import kotlinx.html.*
 import kotlinx.html.stream.createHTML
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import org.apache.commons.io.FileUtils
-import org.apache.commons.text.StringEscapeUtils
 import org.modelix.authorization.*
 import org.modelix.gitui.GIT_REPO_DIR_ATTRIBUTE_KEY
 import org.modelix.gitui.MPS_INSTANCE_URL_ATTRIBUTE_KEY
@@ -37,6 +38,8 @@ import org.modelix.gitui.gitui
 import org.modelix.workspaces.*
 import org.zeroturnaround.zip.ZipUtil
 import java.io.File
+import java.io.FileOutputStream
+import java.util.zip.ZipOutputStream
 
 fun Application.workspaceManagerModule() {
 
@@ -44,6 +47,9 @@ fun Application.workspaceManagerModule() {
 
     install(Routing)
     installAuthentication()
+    install(ContentNegotiation) {
+        json()
+    }
 
     routing {
         requiresPermission(workspaceListResource, KeycloakScope.READ) {
@@ -121,7 +127,7 @@ fun Application.workspaceManagerModule() {
                                                     text("Git History" + suffix)
                                                 }
                                             }
-                                            workspace.uploads.associateWith { findGitRepo(manager.getUploadFolder(it)) }
+                                            workspace.uploadIds().associateWith { findGitRepo(manager.getUploadFolder(it)) }
                                                 .filter { it.value != null }.forEach { upload ->
                                                     a {
                                                         href = "$workspaceId/git/u${upload.key}/"
@@ -189,9 +195,9 @@ fun Application.workspaceManagerModule() {
                     val workspaceId = call.parameters["workspaceId"]!!
                     val repoOrUploadIndex = call.parameters["repoOrUploadIndex"]!!
                     var repoIndex: Int? = null
-                    var uploadId: String? = null
+                    var uploadId: UploadId? = null
                     if (repoOrUploadIndex.startsWith("u")) {
-                        uploadId = repoOrUploadIndex.drop(1)
+                        uploadId = UploadId(repoOrUploadIndex.drop(1))
                     } else {
                         repoIndex = repoOrUploadIndex.toInt()
                     }
@@ -246,6 +252,18 @@ fun Application.workspaceManagerModule() {
             }
         }
 
+        route("uploads") {
+            get("{uploadId}") {
+                val uploadId = UploadId(call.parameters["uploadId"]!!)
+                val folder = manager.getUploadFolder(uploadId)
+                call.respondOutputStream(ContentType.Application.Zip) {
+                    ZipOutputStream(this).use { zip ->
+                        zip.copyFiles(folder, mapPath = { folder.toPath().parent.relativize(it)}, extractZipFiles = true)
+                    }
+                }
+            }
+        }
+
         requiresLogin {
 
             route("{workspaceId}") {
@@ -277,8 +295,8 @@ fun Application.workspaceManagerModule() {
                                 }
                                 a {
                                     style = "margin-left: 24px"
-                                    href = "../$workspaceHash/download-modules/queue"
-                                    text("Download Modules")
+                                    href = "../$workspaceHash/buildlog"
+                                    text("Build Log")
                                 }
                                 a {
                                     style = "margin-left: 24px"
@@ -298,7 +316,7 @@ fun Application.workspaceManagerModule() {
                                         text("Git History" + suffix)
                                     }
                                 }
-                                workspace.uploads.associateWith { findGitRepo(manager.getUploadFolder(it)) }
+                                workspace.uploadIds().associateWith { findGitRepo(manager.getUploadFolder(it)) }
                                     .filter { it.value != null }.forEach { upload ->
                                         a {
                                             style = "margin-left: 24px"
@@ -650,11 +668,11 @@ fun Application.workspaceManagerModule() {
 
                 post("delete-upload") {
                     call.checkPermission(call.parameters["workspaceId"]!!.workspaceIdAsResource(), KeycloakScope.WRITE)
-                    val uploadId = call.receiveParameters()["uploadId"]!!
-                    call.checkPermission(workspaceUploadResourceType.createInstance(uploadId), KeycloakScope.DELETE)
+                    val uploadId = UploadId(call.receiveParameters()["uploadId"]!!)
+                    call.checkPermission(workspaceUploadResourceType.createInstance(uploadId.id), KeycloakScope.DELETE)
                     val allWorkspaces = manager.getWorkspaceIds().mapNotNull { manager.getWorkspaceForId(it)?.first }
-                    for (workspace in allWorkspaces.filter { it.uploads.contains(uploadId) }) {
-                        workspace.uploads -= uploadId
+                    for (workspace in allWorkspaces.filter { it.uploadIds().contains(uploadId) }) {
+                        workspace.uploads -= uploadId.id
                         manager.update(workspace)
                     }
                     manager.deleteUpload(uploadId)
@@ -671,37 +689,91 @@ fun Application.workspaceManagerModule() {
                     }
                 }
 
-                get("download-modules/queue") {
+                get {
+                    val workspaceHash = WorkspaceHash(call.parameters["workspaceHash"]!!)
+                    val workspace = manager.getWorkspaceForHash(workspaceHash)
+                    if (workspace == null) {
+                        call.respond(HttpStatusCode.NotFound, "workspace $workspaceHash not found")
+                        return@get
+                    }
+                    val decryptCredentials = call.request.queryParameters["decryptCredentials"] == "true"
+                    val decrypted = if (decryptCredentials) {
+                        // TODO check permission to read decrypted credentials
+                        workspace.copy(
+                            gitRepositories = workspace.gitRepositories.map {
+                                it.copy(
+                                    credentials = it.credentials?.decrypt()
+                                )
+                            }
+                        )
+                    } else {
+                        workspace
+                    }
+                    call.respond(decrypted)
+                }
+
+                get("git/{repoIndex}/repo.zip") {
+                    val workspaceHash = WorkspaceHash(call.parameters["workspaceHash"]!!)
+                    val workspace = manager.getWorkspaceForHash(workspaceHash)
+                    if (workspace == null) {
+                        call.respond(HttpStatusCode.NotFound, "workspace $workspaceHash not found")
+                        return@get
+                    }
+                    val repoIndex = call.parameters["repoIndex"]!!.toInt()
+                    val gitRepo = workspace.gitRepositories.getOrNull(repoIndex)
+                    if (gitRepo == null) {
+                        call.respond(HttpStatusCode.NotFound, "workspace $workspaceHash doesn't contain a git repository with index $repoIndex")
+                        return@get
+                    }
+
+                    val gitRepoManager = GitRepositoryManager(gitRepo, manager.getWorkspaceDirectory(workspace))
+                    gitRepoManager.updateRepo()
+                    call.respondOutputStream(ContentType.Application.Zip) {
+                        ZipOutputStream(this).use { zip ->
+                            gitRepoManager.zip(gitRepo.paths, zip, true)
+                        }
+                    }
+                }
+
+                get("buildlog") {
                     val workspaceHash = WorkspaceHash(call.parameters["workspaceHash"]!!)
                     val job = manager.buildWorkspaceDownloadFileAsync(workspaceHash)
-                    val respondStatus: suspend (String, String)->Unit = { text, refresh ->
-                        val html = """
-                    <html>
-                    <head>
-                        <meta http-equiv="refresh" content="$refresh">
-                    <head>
-                    <body>
-                        $text
-                        <br/>
-                        <br/>
-                        <pre>${StringEscapeUtils.escapeHtml4(job.output.joinToString("\n"))}</pre>
-                    </body>
-                    </html>
-                """.trimIndent()
-                        call.respondText(html, ContentType.Text.Html, HttpStatusCode.OK)
+                    val respondStatus: suspend (String, DIV.() -> Unit)->Unit = { refresh, text ->
+                        call.respondHtmlSafe {
+                            head {
+                                meta {
+                                    httpEquiv = "refresh"
+                                    content = refresh
+                                }
+                            }
+                            body {
+                                div {
+                                    text()
+                                }
+                                br {  }
+                                br {  }
+                                pre {
+                                    +job.getLog()
+                                }
+                            }
+                        }
                     }
                     when (job.status) {
-                        WorkspaceBuildStatus.New, WorkspaceBuildStatus.Queued -> respondStatus("Workspace is queued for building ...", "3")
-                        WorkspaceBuildStatus.Running -> respondStatus("Downloading and building modules ...", "3")
-                        WorkspaceBuildStatus.FailedBuild -> respondStatus("Failed to build the workspace ...", "3")
-                        WorkspaceBuildStatus.FailedZip -> respondStatus("Failed to ZIP the workspace ...", "3")
+                        WorkspaceBuildStatus.New, WorkspaceBuildStatus.Queued -> respondStatus("3") { +"Workspace is queued for building ..." }
+                        WorkspaceBuildStatus.Running -> respondStatus("10") { +"Downloading and building modules ..." }
+                        WorkspaceBuildStatus.FailedBuild -> respondStatus("10") { +"Failed to build the workspace ..." }
+                        WorkspaceBuildStatus.FailedZip -> respondStatus("30") { +"Failed to ZIP the workspace ..." }
                         WorkspaceBuildStatus.AllSuccessful, WorkspaceBuildStatus.ZipSuccessful -> {
-                            val fileName = "workspace.zip"
-                            var statusText = """Downloading <a href="$fileName">$fileName</a>"""
-                            if (job.status == WorkspaceBuildStatus.ZipSuccessful) {
-                                statusText = "Failed to build the workspace. " + statusText
+                            respondStatus("30") {
+                                if (job.status == WorkspaceBuildStatus.ZipSuccessful) {
+                                    +"Failed to build the workspace. "
+                                }
+                                +"Workspace files ready for download: "
+                                val fileName = "workspace.zip"
+                                a(href = fileName) {
+                                    +fileName
+                                }
                             }
-                            respondStatus(statusText, "0; url=$fileName")
                         }
                     }
                 }
@@ -715,10 +787,26 @@ fun Application.workspaceManagerModule() {
                 get("output") {
                     val workspaceHash = WorkspaceHash(call.parameters["workspaceHash"]!!)
                     val job = manager.buildWorkspaceDownloadFileAsync(workspaceHash)
-                    call.respondText(job.output.joinToString("\n"), ContentType.Text.Plain, HttpStatusCode.OK)
+                    call.respondText(job.getLog(), ContentType.Text.Plain, HttpStatusCode.OK)
                 }
 
-                get("download-modules/workspace.zip") {
+                put("workspace.zip") {
+                    // TODO check permission
+                    val workspaceHash = WorkspaceHash(call.parameters["workspaceHash"]!!)
+                    val workspace = manager.getWorkspaceForHash(workspaceHash)
+                    if (workspace == null) {
+                        call.respondText("Workspace $workspaceHash not found", ContentType.Text.Plain, HttpStatusCode.NotFound)
+                    } else {
+                        val file = manager.getDownloadFile(workspaceHash).absoluteFile
+                        file.parentFile.mkdirs()
+                        FileOutputStream(file).use { out ->
+                            call.receiveChannel().copyTo(out)
+                        }
+                        call.respondText("OK")
+                    }
+                }
+
+                get("workspace.zip") {
                     val workspaceHash = WorkspaceHash(call.parameters["workspaceHash"]!!)
                     val workspace = manager.getWorkspaceForHash(workspaceHash)
                     if (workspace == null) {

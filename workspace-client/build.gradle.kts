@@ -36,9 +36,10 @@ dependencies {
     implementation("org.zeroturnaround:zt-zip:1.14")
     implementation("org.apache.commons:commons-text:1.9")
     implementation(project(":workspace-manager"))
+    implementation(project(":workspaces"))
     implementation("io.ktor:ktor-client-auth:$ktorVersion")
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.6.0")
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.6.0")
 }
 
 tasks.getByName<Test>("test") {
