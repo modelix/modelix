@@ -411,7 +411,7 @@ fun Application.workspaceManagerModule() {
                                                 li {
                                                     b { +"url" }
                                                     +": You probably want to use this one: "
-                                                    i { +"https://projects.itemis.de/nexus/content/repositories/mbeddr/" }
+                                                    i { +"https://artifacts.itemis.cloud/repository/maven-mps/" }
                                                 }
                                             }
                                         }
@@ -420,7 +420,6 @@ fun Application.workspaceManagerModule() {
                                             +": Maven coordinates to a .zip file containing MPS modules/plugins."
                                             +" Example: "
                                             i { +"de.itemis.mps:extensions:2020.3.2179.1ee9c94:zip" }
-                                            +". You can also add one of the bundled artifacts by clicking on it (see below)"
                                         }
                                         li {
                                             b { +"uploads" }
@@ -532,32 +531,6 @@ fun Application.workspaceManagerModule() {
                                             input {
                                                 type = InputType.submit
                                                 value = "Upload"
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                            if (canWrite) {
-                                br()
-                                br()
-                                div {
-                                    style = "border: 1px solid black; padding: 10px;"
-                                    div {
-                                        text("Add Bundled Dependency")
-                                    }
-                                    ul {
-                                        val deps = LocalMavenDependenciesExplorer.getAvailableDependencies()
-                                        for (dependency in deps) {
-                                            li {
-                                                form {
-                                                    action = "./add-maven-dependency"
-                                                    method = FormMethod.post
-                                                    input {
-                                                        type = InputType.submit
-                                                        name = "coordinates"
-                                                        value = dependency.toString()
-                                                    }
-                                                }
                                             }
                                         }
                                     }
@@ -768,7 +741,7 @@ fun Application.workspaceManagerModule() {
                                 if (job.status == WorkspaceBuildStatus.ZipSuccessful) {
                                     +"Failed to build the workspace. "
                                 }
-                                +"Workspace files ready for download: "
+                                +"Workspace files ready are for download: "
                                 val fileName = "workspace.zip"
                                 a(href = fileName) {
                                     +fileName

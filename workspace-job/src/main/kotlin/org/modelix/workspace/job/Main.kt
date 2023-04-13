@@ -79,7 +79,7 @@ fun main(args: Array<String>) {
                     }
                 })
             }
-            printNewJobStatus(WorkspaceBuildStatus.ZipSuccessful)
+            job.status = if (job.status == WorkspaceBuildStatus.FailedBuild) WorkspaceBuildStatus.ZipSuccessful else WorkspaceBuildStatus.AllSuccessful
         }
     } catch (ex: Throwable) {
         LOG.error(ex) { "" }

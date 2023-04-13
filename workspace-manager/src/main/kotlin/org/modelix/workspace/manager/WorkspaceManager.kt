@@ -13,38 +13,14 @@
  */
 package org.modelix.workspace.manager
 
-import io.ktor.utils.io.*
-import kotlinx.serialization.decodeFromString
-import kotlinx.serialization.encodeToString
-import kotlinx.serialization.json.Json
 import org.apache.commons.io.FileUtils
-import org.modelix.model.client.RestWebModelClient
-import org.modelix.model.persistent.SerializationUtil
-import org.modelix.buildtools.*
-import org.modelix.headlessmps.*
-import org.modelix.model.persistent.HashUtil
-import org.modelix.workspaces.*
-import org.w3c.dom.Document
+import org.modelix.workspaces.UploadId
+import org.modelix.workspaces.Workspace
+import org.modelix.workspaces.WorkspaceHash
+import org.modelix.workspaces.WorkspacePersistence
 import java.io.File
-import java.io.FileOutputStream
-import java.nio.charset.StandardCharsets
-import java.nio.file.Path
-import java.util.*
-import java.util.concurrent.Executors
-import java.util.zip.ZipEntry
-import java.util.zip.ZipOutputStream
-import javax.xml.parsers.DocumentBuilderFactory
-import kotlin.collections.ArrayList
-import kotlin.collections.HashMap
-import kotlin.collections.LinkedHashMap
 
 class WorkspaceManager {
-    companion object {
-        val org_modelix_model_mpsplugin = ModuleId("c5e5433e-201f-43e2-ad14-a6cba8c80cd6")
-        val org_modelix_model_api = ModuleId("cc99dce1-49f3-4392-8dbf-e22ca47bd0af")
-    }
-
-    private val mpsHome: File = findMpsHome()
     private val workspacePersistence = WorkspacePersistence()
     private val directory: File = run {
         // The workspace will contain git repositories. Avoid cloning them into an existing repository.
@@ -55,31 +31,9 @@ class WorkspaceManager {
         workspacesDir.absoluteFile
     }
     private val buildJobs = WorkspaceJobQueue()
-    private val headlessMpsFolder = run {
-        val candidates = listOf(File("../headless-runner/build/libs/"), File("/headless-runner"))
-        candidates.firstOrNull { it.exists() }
-            ?: throw RuntimeException("headless-runner not found in $candidates")
-    }
 
     init {
         println("workspaces directory: $directory")
-    }
-
-    private fun findMpsHome(): File {
-        println("env: " + System.getenv())
-        println("properties: " + System.getProperties())
-        val path = listOf("mps.home", "mps_home")
-            .flatMap { listOf(System.getProperty(it), System.getenv(it)) }
-            .firstOrNull { !it.isNullOrEmpty() }
-        if (!path.isNullOrEmpty()) {
-            val file = File(path)
-            if (!file.exists()) throw RuntimeException("${file.canonicalPath} doesn't exist")
-            return file
-        }
-
-        val file = File("../artifacts/mps")
-        if (!file.exists()) throw RuntimeException("MPS not found at ${file.canonicalPath}")
-        return file
     }
 
     @Synchronized

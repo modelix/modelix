@@ -37,15 +37,17 @@ dependencies {
     implementation("org.apache.commons:commons-text:1.10.0")
     implementation("org.jasypt:jasypt:1.9.3")
     implementation("org.modelix:model-client:$modelixCoreVersion")
-    implementation(project(":headless-runner"))
     implementation(project(":workspaces"))
     implementation(project(":gitui"))
     implementation("org.modelix:authorization:$modelixCoreVersion")
-    implementation("org.modelix.mps:build-tools-lib:1.0.11")
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.6.0")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.6.0")
 }
 
 tasks.getByName<Test>("test") {
     useJUnitPlatform()
+}
+
+tasks.named("assemble") {
+    dependsOn("installDist")
 }

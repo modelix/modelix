@@ -41,7 +41,7 @@ import kotlin.time.Duration.Companion.minutes
 class WorkspaceBuildJob(val workspace: Workspace, val httpClient: HttpClient, val serverUrl: String) {
     private val workspaceDir = File("workspace-build").absoluteFile
     private val downloadFile = File("workspace.zip").absoluteFile
-    private var status: WorkspaceBuildStatus = WorkspaceBuildStatus.New
+    var status: WorkspaceBuildStatus = WorkspaceBuildStatus.New
         set(value) {
             printNewJobStatus(value)
             field = value
