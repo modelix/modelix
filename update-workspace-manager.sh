@@ -4,7 +4,7 @@ set -e
 
 rm -f modelix.version
 
-./gradlew :headless-runner:clean :workspace-manager:clean :workspace-manager:assemble
+./gradlew :workspace-manager:clean :workspace-manager:assemble
 ./docker-build-workspace-manager.sh
 (
   cd helm

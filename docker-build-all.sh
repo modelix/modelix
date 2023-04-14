@@ -12,5 +12,6 @@ set -x
 ./docker-build-proxy.sh
 ./docker-build-instances-manager.sh
 ./docker-build-workspace-manager.sh
+./docker-build-workspace-job.sh
 ./docker-build-workspace-client.sh
 ./docker-build-keycloak.sh
