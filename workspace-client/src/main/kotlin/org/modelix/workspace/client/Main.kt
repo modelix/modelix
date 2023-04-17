@@ -23,7 +23,7 @@ import io.ktor.util.cio.*
 import io.ktor.utils.io.*
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
-import org.modelix.workspace.manager.WorkspaceBuildStatus
+import org.modelix.workspaces.WorkspaceBuildStatus
 import org.zeroturnaround.zip.ZipUtil
 import java.io.File
 
@@ -43,7 +43,7 @@ fun main(args: Array<String>) {
         defaultRequest {
             bearerAuth(System.getenv("INITIAL_JWT_TOKEN"))
         }
-
+        expectSuccess = true
     }
     val outputFile = File("workspace.zip").absoluteFile
     runBlocking {
@@ -66,7 +66,7 @@ fun main(args: Array<String>) {
             }
         }
 
-        httpClient.downloadFile(outputFile, "${serverUrl}$workspaceHash/download-modules/workspace.zip")
+        httpClient.downloadFile(outputFile, "${serverUrl}$workspaceHash/workspace.zip")
     }
 
     ZipUtil.explode(outputFile)

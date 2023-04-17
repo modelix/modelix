@@ -102,7 +102,7 @@ val lightModelClient: Configuration by configurations.creating
 dependencies {
     modelApi("org.modelix:model-api:$modelixCoreVersion")
     modelClient("org.modelix:model-client:$modelixCoreVersion")
-    lightModelServer("org.modelix:light-model-server:$modelixCoreVersion")
+    lightModelServer("org.modelix:model-server-lib:$modelixCoreVersion")
     lightModelClient("org.modelix:light-model-client:$modelixCoreVersion")
 }
 
