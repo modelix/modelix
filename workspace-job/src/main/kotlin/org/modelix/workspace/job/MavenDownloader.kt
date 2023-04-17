@@ -11,7 +11,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.modelix.workspace.manager
+package org.modelix.workspace.job
 
 import org.apache.commons.io.FileUtils
 import org.apache.maven.shared.invoker.DefaultInvocationRequest

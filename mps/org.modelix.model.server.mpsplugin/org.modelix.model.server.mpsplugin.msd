@@ -25,7 +25,6 @@
       <sourceRoot location="ktor-utils-jvm.jar" />
       <sourceRoot location="ktor-websocket-serialization-jvm.jar" />
       <sourceRoot location="ktor-websockets-jvm.jar" />
-      <sourceRoot location="light-model-server.jar" />
       <sourceRoot location="model-server-api-jvm.jar" />
       <sourceRoot location="netty-buffer.jar" />
       <sourceRoot location="netty-codec-http.jar" />
@@ -43,6 +42,7 @@
       <sourceRoot location="kotlinx-coroutines-swing.jar" />
       <sourceRoot location="incremental-jvm.jar" />
       <sourceRoot location="kotlinx-benchmark-runtime-jvm.jar" />
+      <sourceRoot location="model-server-lib.jar" />
     </modelRoot>
   </models>
   <facets>
@@ -74,7 +74,6 @@
     <stubModelEntry path="${module}/lib/ktor-utils-jvm.jar" />
     <stubModelEntry path="${module}/lib/ktor-websocket-serialization-jvm.jar" />
     <stubModelEntry path="${module}/lib/ktor-websockets-jvm.jar" />
-    <stubModelEntry path="${module}/lib/light-model-server.jar" />
     <stubModelEntry path="${module}/lib/model-server-api-jvm.jar" />
     <stubModelEntry path="${module}/lib/netty-buffer.jar" />
     <stubModelEntry path="${module}/lib/netty-codec-http.jar" />
@@ -89,6 +88,7 @@
     <stubModelEntry path="${module}/lib/netty-transport-native-kqueue.jar" />
     <stubModelEntry path="${module}/lib/netty-transport-native-unix-common.jar" />
     <stubModelEntry path="${module}/lib/netty-transport.jar" />
+    <stubModelEntry path="${module}/lib/model-server-lib.jar" />
   </stubModelEntries>
   <sourcePath />
   <dependencies>

@@ -1,19 +1,12 @@
 ARG MPS_VERSION
 FROM modelix/modelix-projector-base:$MPS_VERSION
 
-USER root
-
-COPY artifacts/de.itemis.mps.extensions/ /mps-plugins/MPS-extensions
-COPY build/org.modelix/build/artifacts/org.modelix/plugins/ /mps-plugins/modelix
+COPY --chown=projector-user:projector-user artifacts/de.itemis.mps.extensions/ /mps-plugins/MPS-extensions
+COPY --chown=projector-user:projector-user build/org.modelix/build/artifacts/org.modelix/plugins/ /mps-plugins/modelix
 
 RUN /install-plugins.sh /projector/ide/plugins/
-COPY projector-user-home /home/projector-user
+COPY --chown=projector-user:projector-user projector-user-home /home/projector-user
+
 # rename config directory to match the correct MPS version
 RUN mv "/home/projector-user/.config/JetBrains/MPSxxxx.x" "/home/projector-user/.config/JetBrains/MPS$(grep "mpsBootstrapCore.version=" /projector/ide/build.properties|cut -d'=' -f2)"
-COPY log.xml /projector/ide/bin/log.xml
-
-RUN chown -R projector-user:projector-user /home/projector-user \
-  && chown -R projector-user:projector-user /mps-plugins \
-  && chown -R projector-user:projector-user /mps-languages \
-  && chown -R projector-user:projector-user /projector/ide/
-USER projector-user
+COPY --chown=projector-user:projector-user log.xml /projector/ide/bin/log.xml
