@@ -79,7 +79,8 @@ class WorkspaceBuildJob(val workspace: Workspace, val httpClient: HttpClient, va
                 }
             }.bodyAsChannel()
             ZipUtil.unpack(data.toInputStream(), repoFolder)
-            repoFolder
+            val childFolders = repoFolder.listFiles()?.toList() ?: emptyList()
+            if (repoFolder.listFiles()?.size == 1) childFolders.first() else repoFolder
         }
 //        return workspace.gitRepositories.flatMap { repo ->
 //            val repoManager = GitRepositoryManager(repo, workspaceDir)
@@ -161,7 +162,7 @@ class WorkspaceBuildJob(val workspace: Workspace, val httpClient: HttpClient, va
                     is LibraryModuleOwner -> (it.getGeneratorJars() + it.getPrimaryJar() + listOfNotNull(it.getSourceJar())).map { it.toPath() }
                     else -> listOf(it.path.getLocalAbsolutePath())
                 }
-            }.toSet()
+            }.toSet() + gitFolders.map { it.toPath().resolve(".git") }
             //job.outputHandler("Included Folders: ")
             //includedFolders.sorted().forEach { job.outputHandler("    $it") }
             val usedModulesOnly: (Path) -> Boolean = { path -> path.ancestorsAndSelf().any { includedFolders.contains(it) } }
