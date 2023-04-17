@@ -1558,7 +1558,7 @@
         </node>
         <node concept="1SiIV0" id="6u4pZj_urO9" role="3bR37C">
           <node concept="3bR9La" id="6u4pZj_urOa" role="1SiIV1">
-            <ref role="3bR37D" to="90a9:6fQhGuklQWU" resolve="de.q60.mps.libs" />
+            <ref role="3bR37D" to="90a9:6fQhGuklQWU" resolve="de.q60.mps.collections.libs" />
           </node>
         </node>
         <node concept="1SiIV0" id="7BujJjZfwQI" role="3bR37C">
@@ -4174,7 +4174,7 @@
         </node>
         <node concept="1SiIV0" id="1ipiwLNqvT6" role="3bR37C">
           <node concept="3bR9La" id="1ipiwLNqvT7" role="1SiIV1">
-            <ref role="3bR37D" to="90a9:6fQhGuklQWU" resolve="de.q60.mps.libs" />
+            <ref role="3bR37D" to="90a9:6fQhGuklQWU" resolve="de.q60.mps.collections.libs" />
           </node>
         </node>
         <node concept="1SiIV0" id="51AkiRkUhJY" role="3bR37C">
@@ -5371,22 +5371,6 @@
             </node>
           </node>
         </node>
-        <node concept="1SiIV0" id="7VLV6fKuWwM" role="3bR37C">
-          <node concept="1BurEX" id="7VLV6fKuWwN" role="1SiIV1">
-            <node concept="398BVA" id="7VLV6fKuWwD" role="1BurEY">
-              <ref role="398BVh" node="3$7Kuaihl5X" resolve="modelix.modules" />
-              <node concept="2Ry0Ak" id="7VLV6fKuWwE" role="iGT6I">
-                <property role="2Ry0Am" value="org.modelix.model.server.mpsplugin" />
-                <node concept="2Ry0Ak" id="7VLV6fKuWwF" role="2Ry0An">
-                  <property role="2Ry0Am" value="lib" />
-                  <node concept="2Ry0Ak" id="7VLV6fKuWwG" role="2Ry0An">
-                    <property role="2Ry0Am" value="light-model-server.jar" />
-                  </node>
-                </node>
-              </node>
-            </node>
-          </node>
-        </node>
         <node concept="1SiIV0" id="7VLV6fKuWwX" role="3bR37C">
           <node concept="1BurEX" id="7VLV6fKuWwY" role="1SiIV1">
             <node concept="398BVA" id="7VLV6fKuWwO" role="1BurEY">
@@ -5717,6 +5701,22 @@
         <node concept="1SiIV0" id="3c186_EdG9i" role="3bR37C">
           <node concept="3bR9La" id="3c186_EdG9j" role="1SiIV1">
             <ref role="3bR37D" to="90a9:5U8hsWC73Be" resolve="org.modelix.model.repositoryconcepts" />
+          </node>
+        </node>
+        <node concept="1SiIV0" id="3yu483ET4uX" role="3bR37C">
+          <node concept="1BurEX" id="3yu483ET4uY" role="1SiIV1">
+            <node concept="398BVA" id="3yu483ET4uO" role="1BurEY">
+              <ref role="398BVh" node="3$7Kuaihl5X" resolve="modelix.modules" />
+              <node concept="2Ry0Ak" id="3yu483ET4uP" role="iGT6I">
+                <property role="2Ry0Am" value="org.modelix.model.server.mpsplugin" />
+                <node concept="2Ry0Ak" id="3yu483ET4uQ" role="2Ry0An">
+                  <property role="2Ry0Am" value="lib" />
+                  <node concept="2Ry0Ak" id="3yu483ET4uR" role="2Ry0An">
+                    <property role="2Ry0Am" value="model-server-lib.jar" />
+                  </node>
+                </node>
+              </node>
+            </node>
           </node>
         </node>
       </node>
@@ -6323,47 +6323,14 @@
         <node concept="3LEDTy" id="7BujJjYSJ9v" role="3LEDUa">
           <ref role="3LEDTV" node="7gF2HTviNPn" resolve="org.modelix.ui.sm" />
         </node>
-        <node concept="3LEDTy" id="3c186_EdGfv" role="3LEDUa">
-          <ref role="3LEDTV" to="90a9:2$QnGbtLXzL" resolve="de.q60.mps.shadowmodels.gen.desugar" />
+        <node concept="3LEDTy" id="3yu483ET4vO" role="3LEDUa">
+          <ref role="3LEDTV" to="ffeo:7Kfy9QB6KXW" resolve="jetbrains.mps.lang.core" />
         </node>
-        <node concept="3LEDTy" id="3c186_EdGfw" role="3LEDUa">
-          <ref role="3LEDTV" to="ffeo:7Kfy9QB6KYb" resolve="jetbrains.mps.baseLanguage" />
+        <node concept="3LEDTy" id="3yu483ET4vP" role="3LEDUa">
+          <ref role="3LEDTV" to="ffeo:7Kfy9QB6KZc" resolve="jetbrains.mps.baseLanguage.checkedDots" />
         </node>
-        <node concept="3LEDTy" id="3c186_EdGfx" role="3LEDUa">
-          <ref role="3LEDTV" to="ffeo:7Kfy9QB6KZ0" resolve="jetbrains.mps.baseLanguageInternal" />
-        </node>
-        <node concept="3LEDTy" id="3c186_EdGfy" role="3LEDUa">
-          <ref role="3LEDTV" to="90a9:4iIKqJTZ5HO" resolve="de.q60.mps.shadowmodels.transformation" />
-        </node>
-        <node concept="3LEDTy" id="3c186_EdGfz" role="3LEDUa">
-          <ref role="3LEDTV" to="ffeo:7Kfy9QB6L4j" resolve="jetbrains.mps.lang.actions" />
-        </node>
-        <node concept="3LEDTy" id="3c186_EdGf$" role="3LEDUa">
-          <ref role="3LEDTV" to="90a9:4iIKqJTZ5Hs" resolve="de.q60.mps.polymorphicfunctions" />
-        </node>
-        <node concept="3LEDTy" id="3c186_EdGf_" role="3LEDUa">
-          <ref role="3LEDTV" to="90a9:7c10t$7lQIA" resolve="de.q60.mps.shadowmodels.gen.typesystem" />
-        </node>
-        <node concept="3LEDTy" id="3c186_EdGfA" role="3LEDUa">
-          <ref role="3LEDTV" to="ffeo:7Kfy9QB6KZG" resolve="jetbrains.mps.baseLanguage.closures" />
-        </node>
-        <node concept="3LEDTy" id="3c186_EdGfB" role="3LEDUa">
-          <ref role="3LEDTV" to="ffeo:7Kfy9QB6L9O" resolve="jetbrains.mps.lang.smodel" />
-        </node>
-        <node concept="3LEDTy" id="3c186_EdGfC" role="3LEDUa">
-          <ref role="3LEDTV" to="ffeo:7Kfy9QB6L0h" resolve="jetbrains.mps.baseLanguage.collections" />
-        </node>
-        <node concept="3LEDTy" id="3c186_EdGfD" role="3LEDUa">
-          <ref role="3LEDTV" to="90a9:4iIKqJTZ5Hg" resolve="de.q60.mps.shadowmodels.gen.afterPF" />
-        </node>
-        <node concept="3LEDTy" id="3c186_EdGfE" role="3LEDUa">
-          <ref role="3LEDTV" to="ffeo:7Kfy9QB6L2l" resolve="jetbrains.mps.baseLanguage.logging" />
-        </node>
-        <node concept="3LEDTy" id="3c186_EdGfF" role="3LEDUa">
-          <ref role="3LEDTV" to="ffeo:7Kfy9QB6L2F" resolve="jetbrains.mps.baseLanguage.tuples" />
-        </node>
-        <node concept="3LEDTy" id="3c186_EdGfG" role="3LEDUa">
-          <ref role="3LEDTV" to="ffeo:14x5$qAUbkb" resolve="jetbrains.mps.lang.access" />
+        <node concept="3LEDTy" id="3yu483ET4vQ" role="3LEDUa">
+          <ref role="3LEDTV" to="ffeo:7Kfy9QB6L9c" resolve="jetbrains.mps.lang.quotation" />
         </node>
       </node>
       <node concept="1E1JtD" id="7BujJjXYVmv" role="2G$12L">
