@@ -119,14 +119,6 @@ class GitRepositoryManager(val config: GitRepository, val workspaceDirectory: Fi
         return cmd.call()
     }
 
-    fun zip(roots: List<File>, outputStream: OutputStream) {
-        if (outputStream is ZipOutputStream) throw IllegalArgumentException()
-        ZipOutputStream(outputStream).use { output ->
-            zip(roots, output)
-        }
-    }
-
-
     fun zip(subfolders: List<String>?, output: ZipOutputStream, includeGitDir: Boolean) {
         updateRepo()
         val roots: List<File> = getRootFolders(subfolders)

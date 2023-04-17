@@ -6,6 +6,7 @@
     </modelRoot>
     <modelRoot contentPath="${module}/lib" type="java_classes">
       <sourceRoot location="." />
+      <sourceRoot location="model-api-gen-runtime-jvm.jar" />
     </modelRoot>
   </models>
   <facets>
@@ -20,9 +21,9 @@
     <stubModelEntry path="${module}/lib/ktor-client-core-jvm.jar" />
     <stubModelEntry path="${module}/lib/ktor-client-websockets-jvm.jar" />
     <stubModelEntry path="${module}/lib/light-model-client-jvm.jar" />
-    <stubModelEntry path="${module}/lib/metamodel-runtime-jvm.jar" />
     <stubModelEntry path="${module}/lib/ktor-client-cio-jvm.jar" />
     <stubModelEntry path="${module}/lib/ktor-network-tls-jvm.jar" />
+    <stubModelEntry path="${module}/lib/model-api-gen-runtime-jvm.jar" />
   </stubModelEntries>
   <sourcePath />
   <dependencies>
