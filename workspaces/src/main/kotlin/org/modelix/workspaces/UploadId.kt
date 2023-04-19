@@ -16,7 +16,7 @@ package org.modelix.workspaces
 
 data class UploadId(val id: String) {
     init {
-        require(id.matches(Regex("""[a-zA-Z0-9]"""))) { "Invalid upload ID: $id" }
+        require(id.matches(Regex("""[a-zA-Z0-9]+"""))) { "Invalid upload ID: $id" }
     }
 
     override fun toString(): String {
