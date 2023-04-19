@@ -37,7 +37,7 @@ dependencies {
     mps("com.jetbrains:mps:$mpsVersion")
     mpsArtifacts("de.itemis.mps:extensions:$mpsExtensionsVersion")
     libs("org.jdom:jdom:2.0.2")
-    modelServer("org.modelix:model-server-fatjar:$modelixCoreVersion")
+    modelServer("org.modelix:model-server-with-dependencies:$modelixCoreVersion")
 }
 
 val generateLibrariesXml by tasks.registering(GenerateLibrariesXml::class) {
@@ -65,7 +65,7 @@ val resolveModelServer by tasks.registering(Copy::class) {
     from(modelServer)
     into(modelServerDir)
     rename {
-        "model-server-fatjar.jar"
+        "model-server-with-dependencies.jar"
     }
 }
 

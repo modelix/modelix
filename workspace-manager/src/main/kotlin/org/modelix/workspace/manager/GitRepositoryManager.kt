@@ -127,14 +127,14 @@ class GitRepositoryManager(val config: GitRepository, val workspaceDirectory: Fi
             output.copyFiles(
                 inputDir = root,
                 filter = { !it.startsWith(gitDir) },
-                mapPath = { workspaceDirectory.toPath().relativize(it) },
+                mapPath = { repoDirectory.toPath().relativize(it) },
                 extractZipFiles = false
             )
         }
         if (includeGitDir) {
             output.copyFiles(
                 inputDir = gitDir.toFile(),
-                mapPath = { workspaceDirectory.toPath().relativize(it) },
+                mapPath = { repoDirectory.toPath().relativize(it) },
                 extractZipFiles = false
             )
         }
