@@ -169,8 +169,10 @@ class WorkspaceJobQueue {
                   name: "$jobName"
                 spec:
                   ttlSecondsAfterFinished: 60
+                  activeDeadlineSeconds: 3600
                   template:
                     spec:
+                      activeDeadlineSeconds: 3600
                       tolerations:
                       - key: "workspace-client"
                         operator: "Exists"
