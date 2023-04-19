@@ -2,8 +2,7 @@
 
 set -e
 
-MODELIX_TARGET_PLATFORM="${MODELIX_TARGET_PLATFORM:=linux/amd64}"
-MPS_TAG=$( ./mps-version.sh )
+MPS_VERSION=$( ./mps-version.sh )
 
 # read variables from mps-version.properties
 while IFS='=' read -r key value
@@ -14,9 +13,6 @@ done < "mps-version.properties"
 echo "MPS Version: $mpsVersion"
 echo "MPS Major Version: $mpsMajorVersion"
 echo "MPS Minor Version: $mpsMinorVersion"
-
-sed -i.bak -E "s/FROM modelix\/projector-mps:.+/FROM modelix\/projector-mps:${mpsVersion}/" Dockerfile-projector-base
-rm Dockerfile-projector-base.bak
 
 # patch branding.jar to not show EULA and data sharing agreement at startup
 rm -rf build/branding
@@ -30,9 +26,9 @@ unzip -d build/branding artifacts/mps/lib/branding.jar
 )
 
 if [ "${CI}" = "true" ]; then
-  docker buildx build --platform linux/amd64,linux/arm64 --push --no-cache -f Dockerfile-projector-base \
-  -t modelix/modelix-projector-base:latest -t "modelix/modelix-projector-base:${MPS_TAG}" .
+  docker buildx build --platform linux/amd64,linux/arm64 --push --build-arg MPS_VERSION=${mpsVersion} -f Dockerfile-projector-base \
+  -t "modelix/modelix-projector-base:${MPS_VERSION}" .
 else
-  docker build --platform "${MODELIX_TARGET_PLATFORM}" --no-cache -f Dockerfile-projector-base \
-  -t modelix/modelix-projector-base:latest -t "modelix/modelix-projector-base:${MPS_TAG}" .
+  docker build --build-arg MPS_VERSION=${mpsVersion} -f Dockerfile-projector-base \
+  -t "modelix/modelix-projector-base:${MPS_VERSION}" .
 fi

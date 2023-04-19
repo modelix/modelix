@@ -24,7 +24,7 @@ dependencies {
     })
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:$kotlinxSerializationVersion")
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.6.0")
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.6.0")
 }
 
 tasks.getByName<Test>("test") {
@@ -47,8 +47,8 @@ tasks.getByName("compileKotlin") {
 publishing {
     publications {
         create<MavenPublication>("maven") {
-            groupId = "org.modelix"
-            artifactId = "headless-mps"
+            groupId = "org.modelix.mps"
+            artifactId = "headless-runner"
             version = "" + rootProject.ext.get("modelixVersion")
 
             from(components["java"])

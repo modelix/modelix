@@ -1,4 +1,5 @@
-FROM modelix/modelix-mps
+ARG MODELIX_VERSION
+FROM modelix/modelix-mps:$MODELIX_VERSION
 WORKDIR /usr/modelix-ui
 
 COPY artifacts/de.itemis.mps.extensions/ /mps-plugins/de.itemis.mps.extensions/

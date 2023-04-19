@@ -37,7 +37,7 @@ dependencies {
     mps("com.jetbrains:mps:$mpsVersion")
     mpsArtifacts("de.itemis.mps:extensions:$mpsExtensionsVersion")
     libs("org.jdom:jdom:2.0.2")
-    modelServer("org.modelix:model-server-fatjar:$modelixCoreVersion")
+    modelServer("org.modelix:model-server-with-dependencies:$modelixCoreVersion")
 }
 
 val generateLibrariesXml by tasks.registering(GenerateLibrariesXml::class) {
@@ -65,7 +65,7 @@ val resolveModelServer by tasks.registering(Copy::class) {
     from(modelServer)
     into(modelServerDir)
     rename {
-        "model-server-fatjar.jar"
+        "model-server-with-dependencies.jar"
     }
 }
 
@@ -102,7 +102,7 @@ val lightModelClient: Configuration by configurations.creating
 dependencies {
     modelApi("org.modelix:model-api:$modelixCoreVersion")
     modelClient("org.modelix:model-client:$modelixCoreVersion")
-    lightModelServer("org.modelix:light-model-server:$modelixCoreVersion")
+    lightModelServer("org.modelix:model-server-lib:$modelixCoreVersion")
     lightModelClient("org.modelix:light-model-client:$modelixCoreVersion")
 }
 
@@ -319,8 +319,8 @@ val packageBuildScripts by tasks.registering(Zip::class) {
 publishing {
     publications {
         create<MavenPublication>("modelixMpsModelPlugin") {
-            groupId = "org.modelix"
-            artifactId = "mps-model-plugin"
+            groupId = "org.modelix.mps"
+            artifactId = "model-server-sync-plugin"
             artifact(packageMpsModelPlugin)
             pom.withXml {
                 val dependenciesNode = asNode().appendNode("dependencies")
@@ -343,8 +343,8 @@ publishing {
             }
         }
         create<MavenPublication>("modelixWebEditorsPlugin") {
-            groupId = "org.modelix"
-            artifactId = "web-editors"
+            groupId = "org.modelix.mps"
+            artifactId = "web-editors-plugin"
             artifact(packageModelixWebEditorsPlugin)
             pom.withXml {
                 val dependenciesNode = asNode().appendNode("dependencies")
@@ -366,9 +366,9 @@ publishing {
                 }
             }
         }
-        create<MavenPublication>("modelixBuildScriptsPlugin") {
-            groupId = "org.modelix"
-            artifactId = "build-scripts"
+        create<MavenPublication>("modelixBuildSolutionPlugin") {
+            groupId = "org.modelix.mps"
+            artifactId = "build-solution"
             artifact(packageBuildScripts)
             pom.withXml {
                 val dependenciesNode = asNode().appendNode("dependencies")

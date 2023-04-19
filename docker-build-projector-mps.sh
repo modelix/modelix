@@ -2,8 +2,6 @@
 
 set -e
 
-MODELIX_TARGET_PLATFORM="${MODELIX_TARGET_PLATFORM:=linux/amd64}"
-
 # read variables from mps-version.properties
 while IFS='=' read -r key value
 do
@@ -77,17 +75,13 @@ TIMESTAMP="$(date +"%Y%m%d%H%M")"
 
   if [ "${CI}" = "true" ]; then
     docker buildx build --platform linux/amd64,linux/arm64 --push \
-    -t "modelix/projector-mps:latest" \
     -t "modelix/projector-mps:${mpsMajorVersion}" \
     -t "modelix/projector-mps:${mpsVersion}" \
-    -t "modelix/projector-mps:${mpsVersion}-${TIMESTAMP}" \
     --build-arg buildGradle=false --build-arg "downloadUrl=${downloadUrl}" -f Dockerfile ..
   else
-    docker build --platform "${MODELIX_TARGET_PLATFORM}" \
-    -t "modelix/projector-mps:latest" \
+    docker buildx build \
     -t "modelix/projector-mps:${mpsMajorVersion}" \
     -t "modelix/projector-mps:${mpsVersion}" \
-    -t "modelix/projector-mps:${mpsVersion}-${TIMESTAMP}" \
     --build-arg buildGradle=false --build-arg "downloadUrl=${downloadUrl}" -f Dockerfile ..
   fi
 )

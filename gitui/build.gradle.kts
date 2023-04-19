@@ -35,13 +35,13 @@ dependencies {
     implementation("org.apache.commons:commons-text:1.9")
     implementation("org.jasypt:jasypt:1.9.3")
     implementation("org.modelix:model-client:$modelixCoreVersion")
-    implementation(project(":headless-mps"))
+    implementation(project(":headless-runner"))
     implementation(project(":workspaces"))
-    implementation("org.modelix.mpsbuild:build-tools:1.0.0")
+    implementation("org.modelix.mps:build-tools-lib:1.0.11")
     implementation("io.ktor","ktor-server-html-builder", ktorVersion)
     implementation("commons-codec:commons-codec:1.15")
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.6.0")
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.6.0")
 }
 
 tasks.getByName<Test>("test") {
