@@ -28,6 +28,8 @@ import io.ktor.utils.io.*
 import kotlinx.coroutines.runBlocking
 import org.modelix.workspaces.Workspace
 import org.modelix.workspaces.WorkspaceBuildStatus
+import org.modelix.workspaces.WorkspaceHash
+import org.modelix.workspaces.withHash
 import kotlin.time.Duration.Companion.minutes
 
 private val LOG = mu.KotlinLogging.logger("main")
@@ -36,7 +38,7 @@ fun main(args: Array<String>) {
     try {
         val workspaceId = propertyOrEnv("modelix.workspace.id")
             ?: throw RuntimeException("modelix.workspace.id not specified")
-        val workspaceHash = propertyOrEnv("modelix.workspace.hash")
+        val workspaceHash = propertyOrEnv("modelix.workspace.hash")?.let { WorkspaceHash(it) }
             ?: throw RuntimeException("modelix.workspace.id not specified")
 
         var serverUrl = propertyOrEnv("modelix.workspace.server") ?: "http://workspace-manager:28104/"
@@ -61,17 +63,17 @@ fun main(args: Array<String>) {
             val workspace: Workspace = httpClient.get {
                 url {
                     takeFrom(serverUrl)
-                    appendPathSegments(workspaceHash)
+                    appendPathSegments(workspaceHash.hash)
                     parameter("decryptCredentials", "true")
                 }
             }.body()
-            val job = WorkspaceBuildJob(workspace, httpClient, serverUrl)
+            val job = WorkspaceBuildJob(workspace.withHash(workspaceHash), httpClient, serverUrl)
             val workspaceZip = job.buildWorkspace()
             LOG.info { "Uploading workspace.zip" }
             httpClient.put {
                 url {
                     takeFrom(serverUrl)
-                    appendPathSegments(workspaceHash, "workspace.zip")
+                    appendPathSegments(workspaceHash.hash, "workspace.zip")
                 }
                 setBody(object : OutgoingContent.WriteChannelContent() {
                     override suspend fun writeTo(channel: ByteWriteChannel) {
