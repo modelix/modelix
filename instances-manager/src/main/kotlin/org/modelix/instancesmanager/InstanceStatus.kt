@@ -15,7 +15,7 @@
  */
 package org.modelix.instancesmanager
 
-import org.modelix.workspaces.Workspace
+import org.modelix.workspaces.WorkspaceAndHash
 
-class InstanceStatus(val workspace: Workspace, val owner: InstanceOwner, val id: InstanceName, val disabled: Boolean) {
+class InstanceStatus(val workspace: WorkspaceAndHash, val owner: InstanceOwner, val id: InstanceName, val disabled: Boolean) {
 }

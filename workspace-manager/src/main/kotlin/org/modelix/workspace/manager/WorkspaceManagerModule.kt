@@ -82,7 +82,7 @@ fun Application.workspaceManagerModule() {
                                     || KeycloakUtils.hasPermission(call.jwt()!!, it.workspaceIdAsResource(), KeycloakScope.READ)
                                 }
                                 .mapNotNull { manager.getWorkspaceForId(it) }.forEach { workspaceAndHash ->
-                                val (workspace, workspaceHash) = workspaceAndHash
+                                val workspace = workspaceAndHash.workspace
                                 val workspaceId = workspace.id
                                 val canRead = KeycloakUtils.hasPermission(call.jwt()!!, workspaceId.workspaceIdAsResource(), KeycloakScope.READ)
                                 val canWrite = KeycloakUtils.hasPermission(call.jwt()!!, workspaceId.workspaceIdAsResource(), KeycloakScope.READ)
@@ -97,7 +97,7 @@ fun Application.workspaceManagerModule() {
                                     td {
                                         if (canRead) {
                                             a {
-                                                href = "../${workspaceInstanceUrl(workspace)}/project"
+                                                href = "../${workspaceInstanceUrl(workspaceAndHash)}/project"
                                                 text("Open Web Interface")
                                             }
                                         }
@@ -105,7 +105,7 @@ fun Application.workspaceManagerModule() {
                                     td {
                                         if (canRead) {
                                             a {
-                                                href = "../${workspaceInstanceUrl(workspace)}/ide/"
+                                                href = "../${workspaceInstanceUrl(workspaceAndHash)}/ide/"
                                                 text("Open MPS")
                                             }
                                         }
@@ -113,7 +113,7 @@ fun Application.workspaceManagerModule() {
                                             if (sharedInstance.allowWrite && !canWrite) continue
                                             br {}
                                             a {
-                                                href = "../${workspaceInstanceUrl(workspace, sharedInstance)}/ide/"
+                                                href = "../${workspaceInstanceUrl(workspaceAndHash, sharedInstance)}/ide/"
                                                 text("Open MPS [${sharedInstance.name}]")
                                             }
                                         }
@@ -186,7 +186,7 @@ fun Application.workspaceManagerModule() {
                 if (workspaceAndHash == null) {
                     call.respond(HttpStatusCode.NotFound, "Workspace $workspaceId not found")
                 } else {
-                    call.respondText(workspaceAndHash.second.toString(), ContentType.Text.Plain, HttpStatusCode.OK)
+                    call.respondText(workspaceAndHash.hash().hash, ContentType.Text.Plain, HttpStatusCode.OK)
                 }
             }
 
@@ -206,7 +206,7 @@ fun Application.workspaceManagerModule() {
                         call.respondText("Workspace $workspaceId not found", ContentType.Text.Plain, HttpStatusCode.NotFound)
                         return@intercept
                     }
-                    val (workspace, workspaceHash) = workspaceAndHash
+                    val workspace = workspaceAndHash.workspace
                     val repoDir: File
                     if (repoIndex != null) {
                         val repos = workspace.gitRepositories
@@ -238,7 +238,7 @@ fun Application.workspaceManagerModule() {
                         }
                     }
                     call.attributes.put(GIT_REPO_DIR_ATTRIBUTE_KEY, repoDir)
-                    call.attributes.put(MPS_INSTANCE_URL_ATTRIBUTE_KEY, "../../../../${workspaceInstanceUrl(workspace)}/")
+                    call.attributes.put(MPS_INSTANCE_URL_ATTRIBUTE_KEY, "../../../../${workspaceInstanceUrl(workspaceAndHash)}/")
                 }
                 gitui()
             }
@@ -279,7 +279,7 @@ fun Application.workspaceManagerModule() {
                         call.respond(HttpStatusCode.NotFound, "Workspace $id not found")
                         return@get
                     }
-                    val (workspace, workspaceHash) = workspaceAndHash
+                    val workspace = workspaceAndHash.workspace
                     val yaml = Yaml.default.encodeToString(workspace)
                     val canWrite = KeycloakUtils.hasPermission(call.jwt()!!, workspace.asResource(), KeycloakScope.WRITE)
 
@@ -295,17 +295,17 @@ fun Application.workspaceManagerModule() {
                                 }
                                 a {
                                     style = "margin-left: 24px"
-                                    href = "../$workspaceHash/buildlog"
+                                    href = "../${workspaceAndHash.hash().hash}/buildlog"
                                     text("Build Log")
                                 }
                                 a {
                                     style = "margin-left: 24px"
-                                    href = "../../${workspaceInstanceUrl(workspace)}/project"
+                                    href = "../../${workspaceInstanceUrl(workspaceAndHash)}/project"
                                     text("Open Web Interface")
                                 }
                                 a {
                                     style = "margin-left: 24px"
-                                    href = "../../${workspaceInstanceUrl(workspace)}/ide/"
+                                    href = "../../${workspaceInstanceUrl(workspaceAndHash)}/ide/"
                                     text("Open MPS")
                                 }
                                 workspace.gitRepositories.forEachIndexed { index, gitRepository ->
@@ -555,9 +555,8 @@ fun Application.workspaceManagerModule() {
                         call.respond(HttpStatusCode.BadRequest, e.message ?: "Parse error")
                         return@post
                     }
-                    // just in case the user copy-pastes a workspace and forgets to change the ID
-                    workspace.id = id
-                    manager.update(workspace)
+                    // set ID just in case the user copy-pastes a workspace and forgets to change the ID
+                    manager.update(workspace.copy(id = id))
                     call.respondRedirect("./edit")
                 }
 
@@ -573,13 +572,12 @@ fun Application.workspaceManagerModule() {
                         call.respond(HttpStatusCode.NotFound, "Workspace $id not found")
                         return@post
                     }
-                    val (workspace, workspaceHash) = workspaceAndHash
+                    val workspace = workspaceAndHash.workspace
                     val coordinates = call.receiveParameters()["coordinates"]
                     if (coordinates.isNullOrEmpty()) {
                         call.respond(HttpStatusCode.BadRequest, "coordinates missing")
                     } else {
-                        workspace.mavenDependencies += coordinates
-                        manager.update(workspace)
+                        manager.update(workspace.copy(mavenDependencies = workspace.mavenDependencies + coordinates))
                         call.respondRedirect("./edit")
                     }
                 }
@@ -588,8 +586,8 @@ fun Application.workspaceManagerModule() {
                     call.checkPermission(call.parameters["workspaceId"]!!.workspaceIdAsResource(), KeycloakScope.WRITE)
                     val workspaceId = call.parameters["workspaceId"]!!
                     call.checkPermission(workspaceId.workspaceIdAsResource(), KeycloakScope.WRITE)
-                    val workspaceAndHash = manager.getWorkspaceForId(workspaceId)
-                    if (workspaceAndHash == null) {
+                    val workspace = manager.getWorkspaceForId(workspaceId)?.workspace
+                    if (workspace == null) {
                         call.respondText("Workspace $workspaceId not found", ContentType.Text.Plain, HttpStatusCode.NotFound)
                         return@post
                     }
@@ -612,8 +610,7 @@ fun Application.workspaceManagerModule() {
                         part.dispose()
                     }
 
-                    workspaceAndHash.first.uploads += outputFolder.name
-                    manager.update(workspaceAndHash.first)
+                    manager.update(workspace.copy(uploads = workspace.uploads + outputFolder.name))
 
                     call.respondRedirect("./edit")
                 }
@@ -623,9 +620,8 @@ fun Application.workspaceManagerModule() {
                     val workspaceId = call.parameters["workspaceId"]!!
                     val uploadId = call.receiveParameters()["uploadId"]!!
                     call.checkPermission(workspaceUploadResourceType.createInstance(uploadId), KeycloakScope.READ)
-                    val workspace = manager.getWorkspaceForId(workspaceId)?.first!!
-                    workspace.uploads += uploadId
-                    manager.update(workspace)
+                    val workspace = manager.getWorkspaceForId(workspaceId)?.workspace!!
+                    manager.update(workspace.copy(uploads = workspace.uploads + uploadId))
                     call.respondRedirect("./edit")
                 }
 
@@ -633,9 +629,8 @@ fun Application.workspaceManagerModule() {
                     call.checkPermission(call.parameters["workspaceId"]!!.workspaceIdAsResource(), KeycloakScope.WRITE)
                     val workspaceId = call.parameters["workspaceId"]!!
                     val uploadId = call.receiveParameters()["uploadId"]!!
-                    val workspace = manager.getWorkspaceForId(workspaceId)?.first!!
-                    workspace.uploads -= uploadId
-                    manager.update(workspace)
+                    val workspace = manager.getWorkspaceForId(workspaceId)?.workspace!!
+                    manager.update(workspace.copy(uploads = workspace.uploads - uploadId))
                     call.respondRedirect("./edit")
                 }
 
@@ -643,10 +638,9 @@ fun Application.workspaceManagerModule() {
                     call.checkPermission(call.parameters["workspaceId"]!!.workspaceIdAsResource(), KeycloakScope.WRITE)
                     val uploadId = UploadId(call.receiveParameters()["uploadId"]!!)
                     call.checkPermission(workspaceUploadResourceType.createInstance(uploadId.id), KeycloakScope.DELETE)
-                    val allWorkspaces = manager.getWorkspaceIds().mapNotNull { manager.getWorkspaceForId(it)?.first }
+                    val allWorkspaces = manager.getWorkspaceIds().mapNotNull { manager.getWorkspaceForId(it)?.workspace }
                     for (workspace in allWorkspaces.filter { it.uploadIds().contains(uploadId) }) {
-                        workspace.uploads -= uploadId.id
-                        manager.update(workspace)
+                        manager.update(workspace.copy(uploads = workspace.uploads - uploadId.id))
                     }
                     manager.deleteUpload(uploadId)
                     call.respondRedirect("./edit")
@@ -656,7 +650,7 @@ fun Application.workspaceManagerModule() {
             route("{workspaceHash}") {
                 intercept(ApplicationCallPipeline.Call) {
                     val workspaceHash = WorkspaceHash(call.parameters["workspaceHash"]!!)
-                    val workspace = manager.getWorkspaceForHash(workspaceHash)
+                    val workspace = manager.getWorkspaceForHash(workspaceHash)?.workspace
                     if (workspace != null) {
                         call.checkPermission(workspace.asResource(), KeycloakScope.READ)
                     }
@@ -664,7 +658,7 @@ fun Application.workspaceManagerModule() {
 
                 get {
                     val workspaceHash = WorkspaceHash(call.parameters["workspaceHash"]!!)
-                    val workspace = manager.getWorkspaceForHash(workspaceHash)
+                    val workspace = manager.getWorkspaceForHash(workspaceHash)?.workspace
                     if (workspace == null) {
                         call.respond(HttpStatusCode.NotFound, "workspace $workspaceHash not found")
                         return@get
@@ -687,7 +681,7 @@ fun Application.workspaceManagerModule() {
 
                 get("git/{repoIndex}/repo.zip") {
                     val workspaceHash = WorkspaceHash(call.parameters["workspaceHash"]!!)
-                    val workspace = manager.getWorkspaceForHash(workspaceHash)
+                    val workspace = manager.getWorkspaceForHash(workspaceHash)?.workspace
                     if (workspace == null) {
                         call.respond(HttpStatusCode.NotFound, "workspace $workspaceHash not found")
                         return@get
@@ -844,5 +838,5 @@ suspend fun ApplicationCall.respondHtmlSafe(status: HttpStatusCode = HttpStatusC
     respondText(htmlText, ContentType.Text.Html, status)
 }
 
-fun workspaceInstanceUrl(workspace: Workspace) = "workspace-${workspace.id}-${workspace.hash()}/own"
-fun workspaceInstanceUrl(workspace: Workspace, instance: SharedInstance) = "workspace-${workspace.id}-${workspace.hash()}/" + instance.name
+fun workspaceInstanceUrl(workspace: WorkspaceAndHash) = "workspace-${workspace.id}-${workspace.hash()}/own"
+fun workspaceInstanceUrl(workspace: WorkspaceAndHash, instance: SharedInstance) = "workspace-${workspace.id}-${workspace.hash()}/" + instance.name
