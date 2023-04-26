@@ -57,119 +57,145 @@ fun Application.workspaceManagerModule() {
                 call.respondHtmlSafe(HttpStatusCode.OK) {
                     head {
                         title("Workspaces")
-                        style {
+                        link("../public/modelix-base.css", rel="stylesheet")
+                        style {unsafe {
                             +"""
-                            table {
-                                border-collapse: collapse;
+                            form {
+                                margin: auto;
                             }
-                            td {
-                                border: 1px solid #888;
-                                padding: 3px 12px;
+                            .workspace-name {
+                                font-weight: bold;
+                                color: #000000;
                             }
                         """.trimIndent()
-                        }
+                        }}
                     }
                     body {
-                        h1 { text("Workspaces") }
-                        p {
-                            +"A workspace allows to deploy an MPS project and all of its dependencies to Modelix and edit it in the browser."
-                            +" Solutions are synchronized with the model server and between all MPS instances."
-                        }
-                        table {
-                            manager.getWorkspaceIds()
-                                .filter {
-                                    KeycloakUtils.hasPermission(call.jwt()!!, it.workspaceIdAsResource(), KeycloakScope.LIST)
-                                    || KeycloakUtils.hasPermission(call.jwt()!!, it.workspaceIdAsResource(), KeycloakScope.READ)
-                                }
-                                .mapNotNull { manager.getWorkspaceForId(it) }.forEach { workspaceAndHash ->
-                                val workspace = workspaceAndHash.workspace
-                                val workspaceId = workspace.id
-                                val canRead = KeycloakUtils.hasPermission(call.jwt()!!, workspaceId.workspaceIdAsResource(), KeycloakScope.READ)
-                                val canWrite = KeycloakUtils.hasPermission(call.jwt()!!, workspaceId.workspaceIdAsResource(), KeycloakScope.READ)
-                                val canDelete = KeycloakUtils.hasPermission(call.jwt()!!, workspaceId.workspaceIdAsResource(), KeycloakScope.DELETE)
-                                tr {
-                                    td {
-                                        a {
-                                            if (canRead) href = "$workspaceId/edit"
-                                            text((workspace?.name ?: "<no name>") + " ($workspaceId)")
-                                        }
-                                    }
-                                    td {
-                                        if (canRead) {
-                                            a {
-                                                href = "../${workspaceInstanceUrl(workspaceAndHash)}/project"
-                                                text("Open Web Interface")
-                                            }
-                                        }
-                                    }
-                                    td {
-                                        if (canRead) {
-                                            a {
-                                                href = "../${workspaceInstanceUrl(workspaceAndHash)}/ide/"
-                                                text("Open MPS")
-                                            }
-                                        }
-                                        for (sharedInstance in workspace.sharedInstances) {
-                                            if (sharedInstance.allowWrite && !canWrite) continue
-                                            br {}
-                                            a {
-                                                href = "../${workspaceInstanceUrl(workspaceAndHash, sharedInstance)}/ide/"
-                                                text("Open MPS [${sharedInstance.name}]")
-                                            }
-                                        }
-                                    }
-                                    td {
-                                        if (canRead) {
-                                            workspace.gitRepositories.forEachIndexed { index, gitRepository ->
-                                                a {
-                                                    href = "$workspaceId/git/$index/"
-                                                    val suffix = if (gitRepository.name.isNullOrEmpty()) "" else " (${gitRepository.name})"
-                                                    text("Git History" + suffix)
-                                                }
-                                            }
-                                            workspace.uploadIds().associateWith { findGitRepo(manager.getUploadFolder(it)) }
-                                                .filter { it.value != null }.forEach { upload ->
-                                                    a {
-                                                        href = "$workspaceId/git/u${upload.key}/"
-                                                        text("Git History")
-                                                    }
-                                                }
-                                        }
-                                    }
-                                    td {
-                                        if (canRead) {
-                                            a {
-                                                href = "../model/history/workspace_$workspaceId/master/"
-                                                text("Model History")
-                                            }
-                                        }
-                                    }
-                                    td {
-                                        if (canDelete) {
-                                            postForm("./remove-workspace") {
-                                                style = "display: inline-block"
-                                                hiddenInput {
-                                                    name = "workspaceId"
-                                                    value = workspaceId
-                                                }
-                                                submitInput {
-                                                    value = "Remove"
-                                                }
-                                            }
-                                        }
-                                    }
+                        style = "display: flex; flex-direction: column; align-items: center;"
+                        div {
+                            style = "display: flex; justify-content: center;"
+                            a("../") {
+                                style = "background-color: #343434; border-radius: 15px; padding: 10px;"
+                                img("Modelix Logo") {
+                                    src = "../public/logo-dark.svg"
+                                    width = "70px"
+                                    height = "70px"
                                 }
                             }
-                            if (KeycloakUtils.hasPermission(call.jwt()!!, workspaceListResource, KeycloakScope.ADD)) {
-                                tr {
-                                    td {
-                                        colSpan = "5"
-                                        form {
-                                            action = "new"
-                                            method = FormMethod.post
-                                            input {
-                                                type = InputType.submit
-                                                value = "Add New Workspace"
+                        }
+                        div {
+                            style = "display: flex; flex-direction: column; justify-content: center;"
+                            h1 { text("Workspaces") }
+                            p {
+                                +"A workspace allows to deploy an MPS project and all of its dependencies to Modelix and edit it in the browser."
+                                br {}
+                                +" Solutions are synchronized with the model server and between all MPS instances."
+                            }
+                            table {
+                                thead {
+                                    tr {
+                                        th { +"Workspace"}
+                                        th {
+                                            colSpan="5"
+                                            +"Actions"
+                                        }
+                                    }
+                                }
+                                manager.getWorkspaceIds()
+                                    .filter {
+                                        KeycloakUtils.hasPermission(call.jwt()!!, it.workspaceIdAsResource(), KeycloakScope.LIST)
+                                            || KeycloakUtils.hasPermission(call.jwt()!!, it.workspaceIdAsResource(), KeycloakScope.READ)
+                                    }
+                                    .mapNotNull { manager.getWorkspaceForId(it) }.forEach { workspaceAndHash ->
+                                        val workspace = workspaceAndHash.workspace
+                                        val workspaceId = workspace.id
+                                        val canRead = KeycloakUtils.hasPermission(call.jwt()!!, workspaceId.workspaceIdAsResource(), KeycloakScope.READ)
+                                        val canWrite = KeycloakUtils.hasPermission(call.jwt()!!, workspaceId.workspaceIdAsResource(), KeycloakScope.READ)
+                                        val canDelete = KeycloakUtils.hasPermission(call.jwt()!!, workspaceId.workspaceIdAsResource(), KeycloakScope.DELETE)
+                                        tr {
+                                            td {
+                                                a(classes = "workspace-name") {
+                                                    if (canRead) href = "$workspaceId/edit"
+                                                    text((workspace?.name ?: "<no name>") + " ($workspaceId)")
+                                                }
+                                            }
+                                            td {
+                                                if (canRead) {
+                                                    a {
+                                                        href = "../${workspaceInstanceUrl(workspaceAndHash)}/project"
+                                                        text("Open Web Interface")
+                                                    }
+                                                }
+                                            }
+                                            td {
+                                                if (canRead) {
+                                                    a {
+                                                        href = "../${workspaceInstanceUrl(workspaceAndHash)}/ide/"
+                                                        text("Open MPS")
+                                                    }
+                                                }
+                                                for (sharedInstance in workspace.sharedInstances) {
+                                                    if (sharedInstance.allowWrite && !canWrite) continue
+                                                    br {}
+                                                    a {
+                                                        href = "../${workspaceInstanceUrl(workspaceAndHash, sharedInstance)}/ide/"
+                                                        text("Open MPS [${sharedInstance.name}]")
+                                                    }
+                                                }
+                                            }
+                                            td {
+                                                if (canRead) {
+                                                    workspace.gitRepositories.forEachIndexed { index, gitRepository ->
+                                                        a {
+                                                            href = "$workspaceId/git/$index/"
+                                                            val suffix = if (gitRepository.name.isNullOrEmpty()) "" else " (${gitRepository.name})"
+                                                            text("Git History$suffix")
+                                                        }
+                                                    }
+                                                    workspace.uploadIds().associateWith { findGitRepo(manager.getUploadFolder(it)) }
+                                                        .filter { it.value != null }.forEach { upload ->
+                                                            a {
+                                                                href = "$workspaceId/git/u${upload.key}/"
+                                                                text("Git History")
+                                                            }
+                                                        }
+                                                }
+                                            }
+                                            td {
+                                                if (canRead) {
+                                                    a {
+                                                        href = "../model/history/workspace_$workspaceId/master/"
+                                                        text("Model History")
+                                                    }
+                                                }
+                                            }
+                                            td {
+                                                if (canDelete) {
+                                                    postForm("./remove-workspace") {
+                                                        style = "display: inline-block"
+                                                        hiddenInput {
+                                                            name = "workspaceId"
+                                                            value = workspaceId
+                                                        }
+                                                        submitInput(classes = "btn") {
+                                                            value = "Remove"
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                if (KeycloakUtils.hasPermission(call.jwt()!!, workspaceListResource, KeycloakScope.ADD)) {
+                                    tr {
+                                        td {
+                                            colSpan = "6"
+                                            form {
+                                                action = "new"
+                                                method = FormMethod.post
+                                                input (classes = "btn") {
+                                                    type = InputType.submit
+                                                    value = "+ New Workspace"
+                                                }
                                             }
                                         }
                                     }
@@ -286,42 +312,45 @@ fun Application.workspaceManagerModule() {
                     this.call.respondHtml(HttpStatusCode.OK) {
                         head {
                             title { text("Edit Workspace") }
+                            link("../../public/modelix-base.css", rel="stylesheet")
+                            link("../../public/menu-bar.css", rel="stylesheet")
                         }
                         body {
-                            div {
-                                a {
-                                    href = "../"
-                                    text("Workspace List")
+                            div("menu") {
+                                a("../../") {
+                                    style = "height: 70px;"
+                                    img("Modelix Logo") {
+                                        src = "../../public/logo-dark.svg"
+                                        width = "70px"
+                                        height = "70px"
+                                    }
                                 }
-                                a {
-                                    style = "margin-left: 24px"
-                                    href = "../${workspaceAndHash.hash().hash}/buildlog"
-                                    text("Build Log")
+                                div("menuItem") {
+                                    a("../") { +"Workspace List" }
                                 }
-                                a {
-                                    style = "margin-left: 24px"
-                                    href = "../../${workspaceInstanceUrl(workspaceAndHash)}/project"
-                                    text("Open Web Interface")
+                                div("menuItem") {
+                                    a("../${workspaceAndHash.hash().hash}/buildlog") { +"Build Log" }
                                 }
-                                a {
-                                    style = "margin-left: 24px"
-                                    href = "../../${workspaceInstanceUrl(workspaceAndHash)}/ide/"
-                                    text("Open MPS")
+                                div("menuItem") {
+                                    a("../../${workspaceInstanceUrl(workspaceAndHash)}/project") { +"Open Web Interface" }
+                                }
+                                div("menuItem") {
+                                    a("../../${workspaceInstanceUrl(workspaceAndHash)}/ide/") { +"Open MPS" }
                                 }
                                 workspace.gitRepositories.forEachIndexed { index, gitRepository ->
-                                    a {
-                                        style = "margin-left: 24px"
-                                        href = "git/$index/"
-                                        val suffix = if (gitRepository.name.isNullOrEmpty()) "" else " (${gitRepository.name})"
-                                        text("Git History" + suffix)
+                                    div("menuItem") {
+                                        a("git/$index/") {
+                                            val suffix = if (gitRepository.name.isNullOrEmpty()) "" else " (${gitRepository.name})"
+                                            text("Git History$suffix")
+                                        }
                                     }
                                 }
                                 workspace.uploadIds().associateWith { findGitRepo(manager.getUploadFolder(it)) }
                                     .filter { it.value != null }.forEach { upload ->
-                                        a {
-                                            style = "margin-left: 24px"
-                                            href = "git/u${upload.key}/"
-                                            text("Git History")
+                                        div("menuItem") {
+                                            a("git/u${upload.key}/") {
+                                                text("Git History")
+                                            }
                                         }
                                     }
                             }
@@ -329,17 +358,18 @@ fun Application.workspaceManagerModule() {
                             div {
                                 style = "display: flex"
                                 div {
+                                    h1 { +"Edit Workspace"}
                                     form {
                                         action = "./update"
                                         method = FormMethod.post
                                         textArea {
                                             name = "content"
-                                            style = "width: 800px; height: 500px"
+                                            style = "width: 800px; height: 500px; border-radius: 4px; padding: 12px;"
                                             text(yaml)
                                         }
                                         if (canWrite) {
                                             br()
-                                            input {
+                                            input(classes = "btn") {
                                                 type = InputType.submit
                                                 value = "Save Changes"
                                             }
@@ -347,8 +377,13 @@ fun Application.workspaceManagerModule() {
                                     }
                                 }
                                 div {
-                                    style = "display: inline-block"
+                                    style = "display: inline-block; margin-top: 15px; padding: 0px 12px;"
+                                    h2 {
+                                        style = "margin-bottom: 10px;"
+                                        +"Explanation"
+                                    }
                                     ul {
+                                        style = "margin-top: 0;"
                                         li {
                                             b { +"name" }
                                             +": Is just shown to the user in the workspace list."
@@ -436,9 +471,8 @@ fun Application.workspaceManagerModule() {
                             }
                             br()
                             div {
-                                style = "border: 1px solid black; padding: 10px;"
-
-                                div { text("Uploads:") }
+                                style = "padding: 3px;"
+                                b { +"Uploads:" }
                                 val allUploads = manager.getExistingUploads().associateBy { it.name }
                                 val uploadContent: (Map.Entry<String, File?>)->String = { uploads ->
                                     val fileNames: List<File> = (uploads.value?.listFiles()?.toList() ?: listOf())
@@ -492,7 +526,7 @@ fun Application.workspaceManagerModule() {
                                                             name = "uploadId"
                                                             value = upload.key
                                                         }
-                                                        submitInput {
+                                                        submitInput (classes = "btn"){
                                                             style = "background-color: red"
                                                             value = "Delete"
                                                         }
@@ -505,13 +539,16 @@ fun Application.workspaceManagerModule() {
                                 if (canWrite) {
                                     br()
                                     br()
-                                    div { text("Upload new file or directory (max ~200 MB):") }
+                                    b { +"Upload new file or directory (max ~200 MB):" }
                                     form {
                                         action = "./upload"
                                         method = FormMethod.post
                                         encType = FormEncType.multipartFormData
                                         div {
-                                            text("Choose File(s): ")
+                                            span {
+                                                style = "display: inline-block; width: 140px;"
+                                                +"Choose File(s): "
+                                            }
                                             input {
                                                 type = InputType.file
                                                 name = "file"
@@ -519,7 +556,10 @@ fun Application.workspaceManagerModule() {
                                             }
                                         }
                                         div {
-                                            text("Choose Directory: ")
+                                            span {
+                                                style = "display: inline-block; width: 147px;"
+                                                +"Choose Directory: "
+                                            }
                                             input {
                                                 type = InputType.file
                                                 name = "folder"
@@ -528,7 +568,7 @@ fun Application.workspaceManagerModule() {
                                             }
                                         }
                                         div {
-                                            input {
+                                            input (classes = "btn") {
                                                 type = InputType.submit
                                                 value = "Upload"
                                             }
