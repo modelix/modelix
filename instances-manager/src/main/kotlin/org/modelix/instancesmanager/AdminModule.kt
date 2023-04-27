@@ -14,19 +14,18 @@
 package org.modelix.instancesmanager
 
 import io.ktor.http.*
-import io.ktor.http.content.*
+import io.ktor.server.application.*
+import io.ktor.server.html.*
+import io.ktor.server.http.content.*
+import io.ktor.server.plugins.cors.routing.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
-import io.ktor.server.application.*
-import io.ktor.server.http.content.*
 import io.kubernetes.client.openapi.models.V1Event
+import kotlinx.html.*
 import org.joda.time.DateTime
 import org.json.JSONArray
 import org.modelix.workspaces.WorkspaceHash
-import io.ktor.server.plugins.cors.routing.*
-import io.ktor.server.html.*
-import kotlinx.html.*
 
 fun Application.adminModule() {
     install(Routing)
@@ -43,110 +42,135 @@ fun Application.adminModule() {
         get("/") {
             call.respondHtml(HttpStatusCode.OK) {
                 head {
-                    title = "Manage MPS Instances"
-                    style {
+                    title("Manage Workspace Instances")
+                    link("../public/modelix-base.css", rel="stylesheet")
+                    style { unsafe {
                         +"""
-                            table {
-                                border-collapse: collapse;
+                            tbody tr {
+                                border: 1px solid #dddddd;
                             }
-                            td, th {
-                                border: 1px solid #888;
-                                padding: 3px 12px;
+                            tbody tr:nth-of-type(even) {
+                                 background: none;
                             }
                         """.trimIndent()
-                    }
+                    }}
                 }
                 body {
-                    table {
-                        thead {
-                            tr {
-                                th {
-                                    +"Workspace Name"
-                                    br {  }
-                                    +"Workspace ID"
-                                    br {  }
-                                    +"Workspace Hash"
-                                }
-                                th {
-                                    +"Max. Unassigned"
-                                    br {}
-                                    +"Instances"
-                                }
-                                th { +"Instance ID" }
-                                th { +"User" }
+                    style = "display: flex; flex-direction: column; align-items: center;"
+                    div {
+                        style = "display: flex; justify-content: center;"
+                        a("../") {
+                            style = "background-color: #343434; border-radius: 15px; padding: 10px;"
+                            img("Modelix Logo") {
+                                src = "../public/logo-dark.svg"
+                                width = "70px"
+                                height = "70px"
                             }
                         }
-                        for (assignment in DeploymentManager.INSTANCE.getAssignments().sortedBy { it.workspace.hash().hash }.sortedBy { it.workspace.id }) {
-                            val assignmentCells: TR.() -> Unit = {
-                                td {
-                                    rowSpan = assignment.instances.size.coerceAtLeast(1).toString()
-                                    if (!assignment.isLatest) style = "color: #aaa"
-                                    +(assignment.workspace.name ?: "<no name>")
-                                    br{}
-                                    +assignment.workspace.id
-                                    br{}
-                                    +assignment.workspace.hash().hash
-                                }
-                                td {
-                                    rowSpan = assignment.instances.size.coerceAtLeast(1).toString()
-                                    postForm("change-unassigned") {
-                                        hiddenInput {
-                                            name = "workspaceHash"
-                                            value = assignment.workspace.hash().hash
-                                        }
-                                        for (newValue in 0..5) {
-                                            submitInput {
-                                                disabled = newValue == assignment.unassignedInstances
-                                                name = "numberOfUnassigned"
-                                                value = "$newValue"
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-
-                            if (assignment.instances.isEmpty()) {
+                    }
+                    div {
+                        style = "display: flex; flex-direction: column; justify-content: center;"
+                        h1 { +"Workspace Instances" }
+                        table {
+                            thead {
                                 tr {
-                                    assignmentCells()
+                                    th {
+                                        +"Workspace Name"
+                                        br {  }
+                                        +"Workspace ID"
+                                        br {  }
+                                        +"Workspace Hash"
+                                    }
+                                    th {
+                                        +"Max. Unassigned"
+                                        br {}
+                                        +"Instances"
+                                    }
+                                    th { +"Instance ID" }
+                                    th { +"User" }
                                 }
-                            } else {
-                                for (instanceAndIndex in assignment.instances.withIndex()) {
-                                    val instance = instanceAndIndex.value
-                                    tr {
-                                        if (instanceAndIndex.index == 0) assignmentCells()
-                                        td {
-                                            if (instance.disabled) style = "color: #aaa"
-                                            a("log/${instance.id}/", "_blank") {
-                                                +instance.id.name
-                                            }
+                            }
+                            for (assignment in DeploymentManager.INSTANCE.getAssignments().sortedBy { it.workspace.hash().hash }.sortedBy { it.workspace.id }) {
+                                val assignmentCells: TR.() -> Unit = {
+                                    td {
+                                        rowSpan = assignment.instances.size.coerceAtLeast(1).toString()
+                                        if (!assignment.isLatest) style = "color: #aaa"
+                                        span {
+                                            style = "font-weight: bold;"
+                                            +(assignment.workspace.name ?: "<no name>")
                                         }
-                                        td {
-                                            if (instance.disabled) style = "color: #aaa"
-                                            +when (val owner = instance.owner) {
-                                                is SharedInstanceOwner -> "[${owner.name}]"
-                                                is UnassignedInstanceOwner -> "<unassigned>"
-                                                is UserInstanceOwner -> owner.userId
-                                            }
+                                        br{}
+                                        span {
+                                            +assignment.workspace.id
                                         }
-                                        td {
-                                            if (instance.disabled) {
-                                                postForm("enable-instance") {
-                                                    hiddenInput {
-                                                        name = "instanceId"
-                                                        value = instance.id.name
-                                                    }
-                                                    submitInput {
-                                                        value = "Enable"
-                                                    }
+                                        br{}
+                                        span {
+                                            style = "color: #888;"
+                                            +assignment.workspace.hash().hash
+                                        }
+                                    }
+                                    td {
+                                        rowSpan = assignment.instances.size.coerceAtLeast(1).toString()
+                                        postForm("change-unassigned") {
+                                            hiddenInput {
+                                                name = "workspaceHash"
+                                                value = assignment.workspace.hash().hash
+                                            }
+                                            for (newValue in 0..5) {
+                                                submitInput(classes = "btn") {
+                                                    style = "margin: 1px; padding: 4px 8px;"
+                                                    disabled = newValue == assignment.unassignedInstances
+                                                    name = "numberOfUnassigned"
+                                                    value = "$newValue"
                                                 }
-                                            } else {
-                                                postForm("disable-instance") {
-                                                    hiddenInput {
-                                                        name = "instanceId"
-                                                        value = instance.id.name
+                                            }
+                                        }
+                                    }
+                                }
+
+                                if (assignment.instances.isEmpty()) {
+                                    tr {
+                                        assignmentCells()
+                                    }
+                                } else {
+                                    for (instanceAndIndex in assignment.instances.withIndex()) {
+                                        val instance = instanceAndIndex.value
+                                        tr {
+                                            if (instanceAndIndex.index == 0) assignmentCells()
+                                            td {
+                                                if (instance.disabled) style = "color: #aaa"
+                                                a("log/${instance.id}/", "_blank") {
+                                                    +instance.id.name
+                                                }
+                                            }
+                                            td {
+                                                if (instance.disabled) style = "color: #aaa"
+                                                +when (val owner = instance.owner) {
+                                                    is SharedInstanceOwner -> "[${owner.name}]"
+                                                    is UnassignedInstanceOwner -> "<unassigned>"
+                                                    is UserInstanceOwner -> owner.userId
+                                                }
+                                            }
+                                            td {
+                                                if (instance.disabled) {
+                                                    postForm("enable-instance") {
+                                                        hiddenInput {
+                                                            name = "instanceId"
+                                                            value = instance.id.name
+                                                        }
+                                                        submitInput(classes = "btn") {
+                                                            value = "Enable"
+                                                        }
                                                     }
-                                                    submitInput {
-                                                        value = "Disable"
+                                                } else {
+                                                    postForm("disable-instance") {
+                                                        hiddenInput {
+                                                            name = "instanceId"
+                                                            value = instance.id.name
+                                                        }
+                                                        submitInput(classes = "btn") {
+                                                            value = "Disable"
+                                                        }
                                                     }
                                                 }
                                             }
@@ -154,7 +178,6 @@ fun Application.adminModule() {
                                     }
                                 }
                             }
-
                         }
                     }
                 }
