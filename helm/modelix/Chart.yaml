@@ -28,3 +28,8 @@ dependencies:
     version: ~4.2.1
     repository: https://kubernetes.github.io/ingress-nginx
     condition: ingress.installController
+  - name: cert-manager
+    alias: certmanager
+    version: v1.11.0
+    repository: https://charts.jetstack.io
+    condition: certmanager.enabled
