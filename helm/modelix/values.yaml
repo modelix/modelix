@@ -38,6 +38,10 @@ ingress:
     crt: ""
     key: ""
 
+certmanager:
+  enabled: false
+  installCRDs: true
+
 db:
   useGCloud: false
   user: "modelix"
