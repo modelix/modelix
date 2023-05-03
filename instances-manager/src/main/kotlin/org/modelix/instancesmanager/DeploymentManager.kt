@@ -27,10 +27,7 @@ import org.modelix.authorization.AccessTokenPrincipal
 import org.modelix.authorization.KeycloakResourceType
 import org.modelix.authorization.KeycloakScope
 import org.modelix.authorization.KeycloakUtils
-import org.modelix.workspaces.Workspace
-import org.modelix.workspaces.WorkspaceHash
-import org.modelix.workspaces.WorkspacePersistence
-import org.modelix.workspaces.workspaceResourceType
+import org.modelix.workspaces.*
 import java.io.IOException
 import java.util.*
 import java.util.concurrent.atomic.AtomicBoolean
@@ -64,15 +61,15 @@ class DeploymentManager {
     private val dirty = AtomicBoolean(true)
     private val workspacePersistence = WorkspacePersistence()
     private val userTokens: MutableMap<InstanceOwner, AccessTokenPrincipal> = Collections.synchronizedMap(HashMap())
-    private fun getAssignments(workspace: Workspace): Assignments {
+    private fun getAssignments(workspace: WorkspaceAndHash): Assignments {
         return assignments.getOrPut(workspace.hash()) { Assignments(workspace) }
     }
 
     fun getAssignments(): List<AssignmentData> {
         val latestWorkspaces =
             workspacePersistence.getWorkspaceIds().mapNotNull { workspacePersistence.getWorkspaceForId(it) }
-        val latestWorkspaceHashes = latestWorkspaces.map { it.second }.toSet()
-        var hash2workspace = latestWorkspaces.associate { it.second to it.first }
+        val latestWorkspaceHashes = latestWorkspaces.map { it.hash() }.toSet()
+        var hash2workspace: Map<WorkspaceHash, WorkspaceAndHash> = latestWorkspaces.associate { it.hash() to it }
 
         var assignmentsCopy: HashMap<WorkspaceHash, Assignments>
         synchronized(assignments) {
@@ -121,7 +118,7 @@ class DeploymentManager {
 
     fun isInstanceDisabled(instanceId: InstanceName): Boolean = disabledInstances.contains(instanceId)
 
-    private fun generateInstanceName(workspace: Workspace): InstanceName {
+    private fun generateInstanceName(workspace: WorkspaceAndHash): InstanceName {
         val cleanName = (workspace.id + "-" + workspace.hash()).lowercase(Locale.getDefault()).replace("[^a-z0-9-]".toRegex(), "")
         var deploymentName = INSTANCE_PREFIX + cleanName
         val suffix = "-" + java.lang.Long.toHexString(deploymentSuffixSequence.incrementAndGet()) + "-" + managerId
@@ -188,13 +185,13 @@ class DeploymentManager {
 
     private fun createAssignmentsForAllWorkspaces() {
         val latestVersions = workspacePersistence.getWorkspaceIds()
-            .mapNotNull { workspacePersistence.getWorkspaceForId(it) }.associateBy { it.first.id }
+            .mapNotNull { workspacePersistence.getWorkspaceForId(it) }.associateBy { it.id }
         val allExistingVersions = assignments.entries.groupBy { it.value.workspace.id }
 
         for (latestVersion in latestVersions) {
             val existingVersions: List<MutableMap.MutableEntry<WorkspaceHash, Assignments>>? = allExistingVersions[latestVersion.key]
-            if (existingVersions != null && existingVersions.any { it.key == latestVersion.value.second }) continue
-            val assignment = getAssignments(latestVersion.value.first)
+            if (existingVersions != null && existingVersions.any { it.key == latestVersion.value.hash() }) continue
+            val assignment = getAssignments(latestVersion.value)
             val unassigned = existingVersions?.maxOfOrNull { it.value.getNumberOfUnassigned() } ?: 0
             assignment.setNumberOfUnassigned(unassigned, false)
             existingVersions?.forEach { it.value.resetNumberOfUnassigned() }
@@ -210,7 +207,7 @@ class DeploymentManager {
         // TODO doesn't work with multiple instances of this proxy
         synchronized(reconcileLock) {
             try {
-                val expectedDeployments: MutableMap<InstanceName, Pair<Workspace, InstanceOwner>> = HashMap()
+                val expectedDeployments: MutableMap<InstanceName, Pair<WorkspaceAndHash, InstanceOwner>> = HashMap()
                 val existingDeployments: MutableSet<InstanceName> = HashSet()
                 synchronized(assignments) {
                     for (assignment in assignments.values) {
@@ -325,8 +322,8 @@ class DeploymentManager {
             .filter { (it.involvedObject.name ?: "").contains(deploymentName) }
     }
 
-    private val workspaceCache = LRUMap<WorkspaceHash, Workspace?>(100)
-    fun getWorkspaceForPath(path: String): Workspace? {
+    private val workspaceCache = LRUMap<WorkspaceHash, WorkspaceAndHash?>(100)
+    fun getWorkspaceForPath(path: String): WorkspaceAndHash? {
         val matcher = WORKSPACE_PATTERN.matcher(path)
         if (!matcher.matches()) return null
         var workspaceId = matcher.group(1)
@@ -338,13 +335,13 @@ class DeploymentManager {
     }
 
     @Synchronized
-    fun getWorkspaceForInstance(instanceId: InstanceName): Workspace? {
+    fun getWorkspaceForInstance(instanceId: InstanceName): WorkspaceAndHash? {
         return assignments.values.filter { it.getAllDeploymentNames().any { it == instanceId } }
             .map { it.workspace }.firstOrNull()
     }
 
     @Throws(IOException::class, ApiException::class)
-    fun createDeployment(workspace: Workspace, owner: InstanceOwner, instanceName: InstanceName, userToken: AccessTokenPrincipal?): Boolean {
+    fun createDeployment(workspace: WorkspaceAndHash, owner: InstanceOwner, instanceName: InstanceName, userToken: AccessTokenPrincipal?): Boolean {
         val originalDeploymentName = WORKSPACE_CLIENT_DEPLOYMENT_NAME
         val appsApi = AppsV1Api()
         val deployments = appsApi.listNamespacedDeployment(KUBERNETES_NAMESPACE, null, null, null, null, null, null, null, 5, false)
@@ -414,7 +411,7 @@ class DeploymentManager {
         return true
     }
 
-    private fun loadWorkspaceSpecificValues(workspace: Workspace, deployment: V1Deployment) {
+    private fun loadWorkspaceSpecificValues(workspace: WorkspaceAndHash, deployment: V1Deployment) {
         try {
             val container = deployment.spec!!.template.spec!!.containers[0]
             val mpsVersion = workspace.mpsVersion
@@ -436,7 +433,7 @@ class DeploymentManager {
         }
     }
 
-    private inner class Assignments(val workspace: Workspace) {
+    private inner class Assignments(val workspace: WorkspaceAndHash) {
         private val owner2deployment: MutableMap<InstanceOwner, InstanceName> = HashMap()
         private var numberOfUnassignedAuto: Int? = null
         private var numberOfUnassignedSetByUser: Int? = null

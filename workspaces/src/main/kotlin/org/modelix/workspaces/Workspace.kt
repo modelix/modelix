@@ -25,23 +25,50 @@ import java.util.*
 
 
 @Serializable
-data class Workspace(var id: String,
-                     var name: String? = null,
+data class Workspace(val id: String,
+                     val name: String? = null,
                      val mpsVersion: String? = null,
                      val memoryLimit: String = "2.0Gi",
                      val modelRepositories: List<ModelRepository> = listOf(),
                      val gitRepositories: List<GitRepository> = listOf(),
                      val mavenRepositories: List<MavenRepository> = listOf(),
-                     var mavenDependencies: List<String> = listOf(),
-                     val uploads: MutableList<String> = ArrayList(),
+                     val mavenDependencies: List<String> = listOf(),
+                     val uploads: List<String> = ArrayList(),
                      val ignoredModules: List<String> = ArrayList(),
                      val additionalGenerationDependencies: List<GenerationDependency> = ArrayList(),
                      val loadUsedModulesOnly: Boolean = true,
                      val sharedInstances: List<SharedInstance> = emptyList()
 ) {
-    fun hash(): WorkspaceHash = WorkspaceHash(HashUtil.sha256(Json.encodeToString(this)))
     fun uploadIds() = uploads.map { UploadId(it) }
 }
+
+/**
+ * The value of Workspace.hash() depends on the JSON serialization, which is not guaranteed to be always the same.
+ * If the workspace data was loaded by using the hash then this original hash should be used instead of recomputing it.
+ * There was an issue in the communication between the workspace-job and the workspace-manager,
+ * because of a hash mismatch.
+ */
+data class WorkspaceAndHash(val workspace: Workspace, private val hash: WorkspaceHash) {
+    fun hash(): WorkspaceHash = hash
+    fun uploadIds() = workspace.uploadIds()
+
+    val id = workspace.id
+    val name = workspace.name
+    val mpsVersion = workspace.mpsVersion
+    val memoryLimit = workspace.memoryLimit
+    val modelRepositories = workspace.modelRepositories
+    val gitRepositories = workspace.gitRepositories
+    val mavenRepositories = workspace.mavenRepositories
+    val mavenDependencies = workspace.mavenDependencies
+    val uploads = workspace.uploads
+    val ignoredModules = workspace.ignoredModules
+    val additionalGenerationDependencies = workspace.additionalGenerationDependencies
+    val loadUsedModulesOnly = workspace.loadUsedModulesOnly
+    val sharedInstances = workspace.sharedInstances
+}
+
+fun Workspace.withHash(hash: WorkspaceHash) = WorkspaceAndHash(this, hash)
+fun Workspace.withHash() = WorkspaceAndHash(this, WorkspaceHash(HashUtil.sha256(Json.encodeToString(this))))
 
 @Serializable
 data class GenerationDependency(val from: String, val to: String)
