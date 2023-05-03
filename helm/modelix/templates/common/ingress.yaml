@@ -9,6 +9,9 @@ metadata:
     # self-signed certificate. Allow http to avoid certificate errors.
     nginx.ingress.kubernetes.io/ssl-redirect: "false"
     {{ end }}
+    {{ if .Values.certmanager.enabled }}
+    cert-manager.io/cluster-issuer: "{{ include "modelix.fullname" . }}-letsencrypt-production"
+    {{ end }}
 spec:
   ingressClassName: nginx
   tls:

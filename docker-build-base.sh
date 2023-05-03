@@ -6,6 +6,6 @@ if [ "${CI}" = "true" ]; then
   docker buildx build --platform linux/amd64,linux/arm64 --push --build-arg MODELIX_VERSION=${MODELIX_VERSION} -f Dockerfile-base \
   -t "modelix/modelix-base:${MODELIX_VERSION}" .
 else
-  docker buildx build --build-arg MODELIX_VERSION=${MODELIX_VERSION} -f Dockerfile-base \
+  docker build --build-arg MODELIX_VERSION=${MODELIX_VERSION} -f Dockerfile-base \
   -t "modelix/modelix-base:${MODELIX_VERSION}" .
 fi

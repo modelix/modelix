@@ -71,7 +71,7 @@ class WorkspaceManager {
     fun getDownloadFile(workspaceHash: WorkspaceHash): File {
         val workspace = workspacePersistence.getWorkspaceForHash(workspaceHash) ?: throw RuntimeException("Workspace not found: $workspaceHash")
         val cleanHash = workspaceHash.toString().replace("*", "")
-        return File(File(getWorkspaceDirectory(workspace), cleanHash), "workspace.zip")
+        return File(File(getWorkspaceDirectory(workspace.workspace), cleanHash), "workspace.zip")
     }
 
     fun buildWorkspaceDownloadFileAsync(workspaceHash: WorkspaceHash): WorkspaceJobQueue.Job {
