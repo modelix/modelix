@@ -177,8 +177,7 @@ val generateMpsBuildScript by tasks.registering(BuildLanguages::class) {
         resolveMps,
         resolveMpsArtifacts,
         ":ui-client:packageNpmApp",
-        copyModelClientToMps,
-        copyLightModelServerToMps
+        copyJarsToMps
     )
     scriptArgs = defaultAntScriptArgs
     scriptClasspath = buildScriptClasspath

@@ -6,7 +6,6 @@
     </modelRoot>
     <modelRoot contentPath="${module}/lib" type="java_classes">
       <sourceRoot location="." />
-      <sourceRoot location="model-api-gen-runtime-jvm.jar" />
     </modelRoot>
   </models>
   <facets>
