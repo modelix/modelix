@@ -47,10 +47,10 @@ spec:
           name: "jvm-debug"
         resources: 
           requests:
-            memory: "300Mi"
+            memory: "{{ .Values.workspaces.manager.memory | default "600Mi" }}""
             cpu: "0.1"
           limits:
-            memory: "300Mi"
+            memory: "{{ .Values.workspaces.manager.memory | default "600Mi" }}"
             cpu: "1.0"
         readinessProbe:
           httpGet:

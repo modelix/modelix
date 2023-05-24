@@ -28,6 +28,8 @@ keycloak:
 workspaces:
   enabled: true
   uploadsStorageSize: 5000Mi
+  manager:
+    memory: 600Mi
 
 ingress:
   installController: true
