@@ -47,7 +47,7 @@ spec:
           name: "jvm-debug"
         resources: 
           requests:
-            memory: "{{ .Values.workspaces.manager.memory | default "600Mi" }}""
+            memory: "{{ .Values.workspaces.manager.memory | default "600Mi" }}"
             cpu: "0.1"
           limits:
             memory: "{{ .Values.workspaces.manager.memory | default "600Mi" }}"
