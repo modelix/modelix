@@ -200,10 +200,11 @@ class WorkspaceBuildJob(val workspace: WorkspaceAndHash, val httpClient: HttpCli
                 setAttribute("name", "MPSProject")
                 newChild("projectModules") {
                     for (module in modules.getModules().values) {
-                        if (module.owner is SourceModuleOwner) {
+                        val owner = module.owner
+                        if (owner is SourceModuleOwner) {
                             newChild("modulePath") {
-                                setAttribute("path", module.owner.getWorkspaceRelativePath())
-                                setAttribute("folder", "")
+                                setAttribute("path", owner.getWorkspaceRelativePath())
+                                setAttribute("folder", owner.virtualFolder ?: "")
                             }
                         }
                     }

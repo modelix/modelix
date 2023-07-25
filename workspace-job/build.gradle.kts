@@ -33,7 +33,7 @@ dependencies {
     implementation("org.zeroturnaround:zt-zip:1.14")
 
     implementation(project(":workspaces"))
-    implementation("org.modelix.mps:build-tools-lib:1.0.11")
+    implementation("org.modelix.mps:build-tools-lib:1.1.0")
 
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.6.0")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.6.0")
