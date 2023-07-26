@@ -5,32 +5,15 @@
       <sourceRoot location="models" />
     </modelRoot>
     <modelRoot contentPath="${module}/lib" type="java_classes">
-      <sourceRoot location="aopalliance-repackaged.jar" />
       <sourceRoot location="checker-qual.jar" />
       <sourceRoot location="commons-collections4.jar" />
       <sourceRoot location="commons-io.jar" />
       <sourceRoot location="commons-lang3.jar" />
       <sourceRoot location="error_prone_annotations.jar" />
       <sourceRoot location="failureaccess.jar" />
-      <sourceRoot location="hk2-api.jar" />
-      <sourceRoot location="hk2-locator.jar" />
-      <sourceRoot location="hk2-utils.jar" />
       <sourceRoot location="j2objc-annotations.jar" />
-      <sourceRoot location="jakarta.annotation-api.jar" />
-      <sourceRoot location="jakarta.inject.jar" />
-      <sourceRoot location="jakarta.validation-api.jar" />
-      <sourceRoot location="jakarta.ws.rs-api.jar" />
-      <sourceRoot location="javax.activation-api.jar" />
-      <sourceRoot location="jaxb-api.jar" />
-      <sourceRoot location="jersey-client.jar" />
-      <sourceRoot location="jersey-common.jar" />
-      <sourceRoot location="jersey-hk2.jar" />
-      <sourceRoot location="jersey-media-jaxb.jar" />
-      <sourceRoot location="jersey-media-sse.jar" />
-      <sourceRoot location="jersey-server.jar" />
       <sourceRoot location="json.jar" />
       <sourceRoot location="jsr305.jar" />
-      <sourceRoot location="osgi-resource-locator.jar" />
       <sourceRoot location="trove4j.jar" />
       <sourceRoot location="vavr-match.jar" />
       <sourceRoot location="vavr.jar" />
@@ -49,7 +32,6 @@
       <sourceRoot location="guava.jar" />
       <sourceRoot location="httpclient.jar" />
       <sourceRoot location="httpcore.jar" />
-      <sourceRoot location="javassist.jar" />
       <sourceRoot location="kotlinx-collections-immutable-jvm.jar" />
       <sourceRoot location="kotlinx-coroutines-core-jvm.jar" />
       <sourceRoot location="kotlinx-coroutines-jdk8.jar" />
@@ -71,6 +53,8 @@
       <sourceRoot location="ktor-websockets-jvm.jar" />
       <sourceRoot location="listenablefuture.jar" />
       <sourceRoot location="model-client-jvm.jar" />
+      <sourceRoot location="model-server-api-jvm.jar" />
+      <sourceRoot location="kotlinx-datetime-jvm.jar" />
     </modelRoot>
   </models>
   <facets>
@@ -79,71 +63,55 @@
     </facet>
   </facets>
   <stubModelEntries>
-    <stubModelEntry path="${module}/lib/aopalliance-repackaged.jar" />
-    <stubModelEntry path="${module}/lib/checker-qual.jar" />
+    <stubModelEntry path="${module}/lib/grpc-context.jar" />
     <stubModelEntry path="${module}/lib/commons-codec.jar" />
-    <stubModelEntry path="${module}/lib/commons-collections4.jar" />
-    <stubModelEntry path="${module}/lib/commons-io.jar" />
-    <stubModelEntry path="${module}/lib/commons-lang3.jar" />
     <stubModelEntry path="${module}/lib/commons-logging.jar" />
+    <stubModelEntry path="${module}/lib/gson.jar" />
+    <stubModelEntry path="${module}/lib/opencensus-api.jar" />
+    <stubModelEntry path="${module}/lib/httpcore.jar" />
+    <stubModelEntry path="${module}/lib/httpclient.jar" />
+    <stubModelEntry path="${module}/lib/j2objc-annotations.jar" />
     <stubModelEntry path="${module}/lib/error_prone_annotations.jar" />
+    <stubModelEntry path="${module}/lib/checker-qual.jar" />
+    <stubModelEntry path="${module}/lib/jsr305.jar" />
+    <stubModelEntry path="${module}/lib/listenablefuture.jar" />
     <stubModelEntry path="${module}/lib/failureaccess.jar" />
-    <stubModelEntry path="${module}/lib/google-http-client-gson.jar" />
+    <stubModelEntry path="${module}/lib/vavr-match.jar" />
+    <stubModelEntry path="${module}/lib/commons-collections4.jar" />
+    <stubModelEntry path="${module}/lib/trove4j.jar" />
+    <stubModelEntry path="${module}/lib/json.jar" />
+    <stubModelEntry path="${module}/lib/commons-io.jar" />
+    <stubModelEntry path="${module}/lib/guava.jar" />
+    <stubModelEntry path="${module}/lib/opencensus-contrib-http-util.jar" />
     <stubModelEntry path="${module}/lib/google-http-client.jar" />
+    <stubModelEntry path="${module}/lib/google-http-client-gson.jar" />
+    <stubModelEntry path="${module}/lib/google-oauth-client.jar" />
     <stubModelEntry path="${module}/lib/google-oauth-client-java6.jar" />
     <stubModelEntry path="${module}/lib/google-oauth-client-jetty.jar" />
-    <stubModelEntry path="${module}/lib/google-oauth-client.jar" />
-    <stubModelEntry path="${module}/lib/grpc-context.jar" />
-    <stubModelEntry path="${module}/lib/gson.jar" />
-    <stubModelEntry path="${module}/lib/guava.jar" />
-    <stubModelEntry path="${module}/lib/hk2-api.jar" />
-    <stubModelEntry path="${module}/lib/hk2-locator.jar" />
-    <stubModelEntry path="${module}/lib/hk2-utils.jar" />
-    <stubModelEntry path="${module}/lib/httpclient.jar" />
-    <stubModelEntry path="${module}/lib/httpcore.jar" />
-    <stubModelEntry path="${module}/lib/j2objc-annotations.jar" />
-    <stubModelEntry path="${module}/lib/jakarta.annotation-api.jar" />
-    <stubModelEntry path="${module}/lib/jakarta.inject.jar" />
-    <stubModelEntry path="${module}/lib/jakarta.validation-api.jar" />
-    <stubModelEntry path="${module}/lib/jakarta.ws.rs-api.jar" />
-    <stubModelEntry path="${module}/lib/javassist.jar" />
-    <stubModelEntry path="${module}/lib/javax.activation-api.jar" />
-    <stubModelEntry path="${module}/lib/jaxb-api.jar" />
-    <stubModelEntry path="${module}/lib/jersey-client.jar" />
-    <stubModelEntry path="${module}/lib/jersey-common.jar" />
-    <stubModelEntry path="${module}/lib/jersey-hk2.jar" />
-    <stubModelEntry path="${module}/lib/jersey-media-jaxb.jar" />
-    <stubModelEntry path="${module}/lib/jersey-media-sse.jar" />
-    <stubModelEntry path="${module}/lib/jersey-server.jar" />
-    <stubModelEntry path="${module}/lib/json.jar" />
-    <stubModelEntry path="${module}/lib/jsr305.jar" />
+    <stubModelEntry path="${module}/lib/commons-lang3.jar" />
+    <stubModelEntry path="${module}/lib/vavr.jar" />
+    <stubModelEntry path="${module}/lib/kotlinx-datetime-jvm.jar" />
     <stubModelEntry path="${module}/lib/kotlinx-collections-immutable-jvm.jar" />
+    <stubModelEntry path="${module}/lib/kotlinx-coroutines-slf4j.jar" />
     <stubModelEntry path="${module}/lib/kotlinx-coroutines-core-jvm.jar" />
     <stubModelEntry path="${module}/lib/kotlinx-coroutines-jdk8.jar" />
-    <stubModelEntry path="${module}/lib/kotlinx-coroutines-slf4j.jar" />
-    <stubModelEntry path="${module}/lib/ktor-client-auth-jvm.jar" />
-    <stubModelEntry path="${module}/lib/ktor-client-cio-jvm.jar" />
-    <stubModelEntry path="${module}/lib/ktor-client-content-negotiation-jvm.jar" />
-    <stubModelEntry path="${module}/lib/ktor-client-core-jvm.jar" />
-    <stubModelEntry path="${module}/lib/ktor-events-jvm.jar" />
-    <stubModelEntry path="${module}/lib/ktor-http-cio-jvm.jar" />
-    <stubModelEntry path="${module}/lib/ktor-http-jvm.jar" />
     <stubModelEntry path="${module}/lib/ktor-io-jvm.jar" />
+    <stubModelEntry path="${module}/lib/ktor-utils-jvm.jar" />
     <stubModelEntry path="${module}/lib/ktor-network-jvm.jar" />
     <stubModelEntry path="${module}/lib/ktor-network-tls-jvm.jar" />
-    <stubModelEntry path="${module}/lib/ktor-serialization-jvm.jar" />
-    <stubModelEntry path="${module}/lib/ktor-serialization-kotlinx-json-jvm.jar" />
-    <stubModelEntry path="${module}/lib/ktor-serialization-kotlinx-jvm.jar" />
-    <stubModelEntry path="${module}/lib/ktor-utils-jvm.jar" />
-    <stubModelEntry path="${module}/lib/ktor-websocket-serialization-jvm.jar" />
+    <stubModelEntry path="${module}/lib/ktor-http-jvm.jar" />
     <stubModelEntry path="${module}/lib/ktor-websockets-jvm.jar" />
-    <stubModelEntry path="${module}/lib/listenablefuture.jar" />
-    <stubModelEntry path="${module}/lib/opencensus-api.jar" />
-    <stubModelEntry path="${module}/lib/opencensus-contrib-http-util.jar" />
-    <stubModelEntry path="${module}/lib/osgi-resource-locator.jar" />
-    <stubModelEntry path="${module}/lib/trove4j.jar" />
-    <stubModelEntry path="${module}/lib/vavr-match.jar" />
-    <stubModelEntry path="${module}/lib/vavr.jar" />
+    <stubModelEntry path="${module}/lib/ktor-serialization-jvm.jar" />
+    <stubModelEntry path="${module}/lib/ktor-serialization-kotlinx-jvm.jar" />
+    <stubModelEntry path="${module}/lib/ktor-http-cio-jvm.jar" />
+    <stubModelEntry path="${module}/lib/ktor-websocket-serialization-jvm.jar" />
+    <stubModelEntry path="${module}/lib/ktor-events-jvm.jar" />
+    <stubModelEntry path="${module}/lib/ktor-serialization-kotlinx-json-jvm.jar" />
+    <stubModelEntry path="${module}/lib/ktor-client-core-jvm.jar" />
+    <stubModelEntry path="${module}/lib/ktor-client-content-negotiation-jvm.jar" />
+    <stubModelEntry path="${module}/lib/ktor-client-auth-jvm.jar" />
+    <stubModelEntry path="${module}/lib/ktor-client-cio-jvm.jar" />
+    <stubModelEntry path="${module}/lib/model-server-api-jvm.jar" />
     <stubModelEntry path="${module}/lib/model-client-jvm.jar" />
   </stubModelEntries>
   <sourcePath />
@@ -154,7 +122,7 @@
     <dependency reexport="false">5622e615-959d-4843-9df6-ef04ee578c18(org.modelix.model.mpsadapters)</dependency>
     <dependency reexport="false">6ed54515-acc8-4d1e-a16c-9fd6cfe951ea(MPS.Core)</dependency>
     <dependency reexport="false">8865b7a8-5271-43d3-884c-6fd1d9cfdd34(MPS.OpenAPI)</dependency>
-    <dependency reexport="false">ecfb9949-7433-4db5-85de-0f84d172e4ce(de.q60.mps.collections.libs)</dependency>
+    <dependency reexport="false">ecfb9949-7433-4db5-85de-0f84d172e4ce(de.q60.mps.libs)</dependency>
     <dependency reexport="false">742f6602-5a2f-4313-aa6e-ae1cd4ffdc61(MPS.Platform)</dependency>
     <dependency reexport="false">498d89d2-c2e9-11e2-ad49-6cf049e62fe5(MPS.IDEA)</dependency>
   </dependencies>
@@ -184,7 +152,7 @@
     <module reference="498d89d2-c2e9-11e2-ad49-6cf049e62fe5(MPS.IDEA)" version="0" />
     <module reference="8865b7a8-5271-43d3-884c-6fd1d9cfdd34(MPS.OpenAPI)" version="0" />
     <module reference="742f6602-5a2f-4313-aa6e-ae1cd4ffdc61(MPS.Platform)" version="0" />
-    <module reference="ecfb9949-7433-4db5-85de-0f84d172e4ce(de.q60.mps.collections.libs)" version="0" />
+    <module reference="ecfb9949-7433-4db5-85de-0f84d172e4ce(de.q60.mps.libs)" version="0" />
     <module reference="cc99dce1-49f3-4392-8dbf-e22ca47bd0af(org.modelix.model.api)" version="0" />
     <module reference="0a2651ab-f212-45c2-a2f0-343e76cbc26b(org.modelix.model.client)" version="0" />
     <module reference="5622e615-959d-4843-9df6-ef04ee578c18(org.modelix.model.mpsadapters)" version="0" />
