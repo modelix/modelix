@@ -14,7 +14,6 @@ tasks.withType<JavaCompile> {
 repositories {
     mavenCentral()
     maven { url = uri("https://artifacts.itemis.cloud/repository/maven-mps/") }
-    //maven { url 'https://projects.itemis.de/nexus/content/repositories/mbeddr' }
     //maven { url = uri("https://modelix.jfrog.io/artifactory/itemis/") } // caching proxy for the itemis repo
 }
 
