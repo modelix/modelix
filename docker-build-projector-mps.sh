@@ -44,15 +44,6 @@ TIMESTAMP="$(date +"%Y%m%d%H%M")"
   else
     git clone https://github.com/modelix/projector-client.git
   fi
-  (
-    cd projector-client
-
-    # If the internet connection is restricted trying to downloading pako.min.js causes the browser to do nothing
-    # until the connection times out. This appears like the link for opening a node in projector is broken.
-    cd projector-client-web/src/main/resources
-    wget https://cdn.jsdelivr.net/pako/1.0.3/pako.min.js
-    sed -i.bak -E "s/https:\/\/cdn.jsdelivr.net\/pako\/1.0.3\/pako.min.js/pako.min.js/" index.html
-  )
 
   if [ -d ./projector-docker ]; then
     (
@@ -73,16 +64,16 @@ TIMESTAMP="$(date +"%Y%m%d%H%M")"
 
   downloadUrl="https://download.jetbrains.com/mps/${mpsMajorVersion}/MPS-${mpsVersion}.tar.gz"
 
-  if [ "${CI}" = "true" ]; then
+#  if [ "${CI}" = "true" ]; then
     docker buildx build --platform linux/amd64,linux/arm64 --push \
     -t "modelix/projector-mps:${mpsMajorVersion}" \
     -t "modelix/projector-mps:${mpsVersion}" \
     --build-arg buildGradle=false --build-arg "downloadUrl=${downloadUrl}" -f Dockerfile ..
-  else
-    docker buildx build \
-    -t "modelix/projector-mps:${mpsMajorVersion}" \
-    -t "modelix/projector-mps:${mpsVersion}" \
-    --build-arg buildGradle=false --build-arg "downloadUrl=${downloadUrl}" -f Dockerfile ..
-  fi
+#  else
+#    docker buildx build \
+#    -t "modelix/projector-mps:${mpsMajorVersion}" \
+#    -t "modelix/projector-mps:${mpsVersion}" \
+#    --build-arg buildGradle=false --build-arg "downloadUrl=${downloadUrl}" -f Dockerfile ..
+#  fi
 )
 
