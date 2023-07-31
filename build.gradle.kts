@@ -25,11 +25,10 @@ buildscript {
         maven { url = uri("https://plugins.gradle.org/m2/") }
         mavenCentral()
         maven { url = uri("https://artifacts.itemis.cloud/repository/maven-mps/") }
-        maven { url = uri("https://projects.itemis.de/nexus/content/repositories/mbeddr") }
     }
 
     dependencies {
-        classpath("de.itemis.mps:mps-gradle-plugin:mps20211.1.5.281.69e6edc")
+        classpath("de.itemis.mps:mps-gradle-plugin:1.17.354.e921726")
         classpath("com.google.googlejavaformat:google-java-format:1.8+")
     }
 }
