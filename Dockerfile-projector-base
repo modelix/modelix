@@ -1,17 +1,23 @@
-# If the version of modelix/projector-mps is missing, run docker-build-projector-mps.sh to build and publish that image
-
 ARG MPS_VERSION
-FROM modelix/projector-mps:$MPS_VERSION
-
+# If the version of modelix/projector-mps is missing, run docker-build-projector-mps.sh to build and publish that image
+FROM modelix/projector-mps:$MPS_VERSION AS with-zip
 USER root
-COPY install-plugins.sh /
-COPY build/branding.zip /projector/ide/lib/branding.jar
-
-RUN apt-get update \
-    && apt-get install unzip -y \
+RUN apt-get update  \
+    && apt-get install unzip zip -y  \
     && rm -rf /var/lib/apt/lists/* \
-    && rm -rf /var/cache/apt \
-    && echo "-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5071" >> /projector/ide/bin/mps64.vmoptions \
+    && rm -rf /var/cache/apt
+
+FROM with-zip AS patch-branding
+
+COPY patch-branding.sh /
+RUN /patch-branding.sh
+
+FROM with-zip
+
+COPY install-plugins.sh /
+COPY --from=patch-branding /branding.zip /projector/ide/lib/branding.jar
+
+RUN echo "-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5071" >> /projector/ide/bin/mps64.vmoptions \
     && sed -i.bak '/-Xmx/d' /projector/ide/bin/mps64.vmoptions \
     && echo "-XX:MaxRAMPercentage=85" >> /projector/ide/bin/mps64.vmoptions \
     && mkdir -p /mps-plugins \
