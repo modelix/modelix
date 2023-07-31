@@ -62,13 +62,13 @@ class WorkspacePersistence() {
 
     private fun key(workspaceId: String) = "workspace-$workspaceId"
 
-    fun getWorkspaceForId(id: String): Pair<Workspace, WorkspaceHash>? {
+    fun getWorkspaceForId(id: String): WorkspaceAndHash? {
         require(id.matches(Regex("[a-f0-9]{9,16}"))) { "Invalid workspace ID: $id" }
         return getWorkspaceForIdOrHash(id)
     }
 
     @Synchronized
-    fun getWorkspaceForIdOrHash(idOrHash: String): Pair<Workspace, WorkspaceHash>? {
+    fun getWorkspaceForIdOrHash(idOrHash: String): WorkspaceAndHash? {
         val hash: WorkspaceHash
         val json: String
         if (HashUtil.isSha256(idOrHash)) {
@@ -90,13 +90,13 @@ class WorkspacePersistence() {
                 modelClient.put(key(id), hash.toString())
             }
         }
-        return Json.decodeFromString<Workspace>(json) to hash
+        return Json.decodeFromString<Workspace>(json).withHash(hash)
     }
 
     @Synchronized
-    fun getWorkspaceForHash(hash: WorkspaceHash): Workspace? {
+    fun getWorkspaceForHash(hash: WorkspaceHash): WorkspaceAndHash? {
         val json = modelClient.get(hash.toString()) ?: return null
-        return Json.decodeFromString<Workspace>(json)
+        return Json.decodeFromString<Workspace>(json).withHash(hash)
     }
 
     @Synchronized

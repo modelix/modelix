@@ -23,7 +23,7 @@ import io.kubernetes.client.util.Yaml
 import kotlinx.coroutines.*
 import org.modelix.authorization.serviceAccountTokenProvider
 import org.modelix.model.persistent.HashUtil
-import org.modelix.workspaces.Workspace
+import org.modelix.workspaces.WorkspaceAndHash
 import org.modelix.workspaces.WorkspaceBuildStatus
 import org.modelix.workspaces.WorkspaceHash
 import java.io.IOException
@@ -67,7 +67,7 @@ class WorkspaceJobQueue {
         }
     }
 
-    fun getOrCreateJob(workspace: Workspace): Job {
+    fun getOrCreateJob(workspace: WorkspaceAndHash): Job {
         synchronized(workspaceHash2job) {
             return workspaceHash2job.getOrPut(workspace.hash()) { Job(workspace) }
         }
@@ -131,7 +131,7 @@ class WorkspaceJobQueue {
         val JOB_PREFIX = HELM_PREFIX + "wsjob-"
     }
 
-    inner class Job(val workspace: Workspace) {
+    inner class Job(val workspace: WorkspaceAndHash) {
         val kubernetesJobName = generateKubernetesJobName()
         var kubernetesJob: V1Job? = null
         var status: WorkspaceBuildStatus = WorkspaceBuildStatus.New

@@ -28,6 +28,8 @@ keycloak:
 workspaces:
   enabled: true
   uploadsStorageSize: 5000Mi
+  manager:
+    memory: 600Mi
 
 ingress:
   installController: true
@@ -37,6 +39,12 @@ ingress:
   tls:
     crt: ""
     key: ""
+
+certmanager:
+  # Setting this to true requires that appropriate cert-manager CRDs are
+  # installed before as described here:
+  # https://cert-manager.io/docs/installation/helm/#option-1-installing-crds-with-kubectl
+  enabled: false
 
 db:
   useGCloud: false

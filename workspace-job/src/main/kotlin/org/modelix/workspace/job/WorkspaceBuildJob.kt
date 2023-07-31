@@ -25,6 +25,7 @@ import io.ktor.utils.io.jvm.javaio.*
 import org.modelix.buildtools.*
 import org.modelix.workspaces.UploadId
 import org.modelix.workspaces.Workspace
+import org.modelix.workspaces.WorkspaceAndHash
 import org.modelix.workspaces.WorkspaceBuildStatus
 import org.w3c.dom.Document
 import org.zeroturnaround.zip.ZipUtil
@@ -38,7 +39,7 @@ import java.util.zip.ZipOutputStream
 import javax.xml.parsers.DocumentBuilderFactory
 import kotlin.time.Duration.Companion.minutes
 
-class WorkspaceBuildJob(val workspace: Workspace, val httpClient: HttpClient, val serverUrl: String) {
+class WorkspaceBuildJob(val workspace: WorkspaceAndHash, val httpClient: HttpClient, val serverUrl: String) {
     private val workspaceDir = File("workspace-build").absoluteFile
     private val downloadFile = File("workspace.zip").absoluteFile
     var status: WorkspaceBuildStatus = WorkspaceBuildStatus.New
@@ -92,7 +93,7 @@ class WorkspaceBuildJob(val workspace: Workspace, val httpClient: HttpClient, va
     private fun copyMavenDependencies(): List<File> {
         return workspace.mavenDependencies.map {  mavenDep ->
             LOG.info { "Resolving $mavenDep" }
-            MavenDownloader(workspace, workspaceDir).downloadAndCopyFromMaven(mavenDep) { println(it) }
+            MavenDownloader(workspace.workspace, workspaceDir).downloadAndCopyFromMaven(mavenDep) { println(it) }
         }
     }
 
@@ -127,7 +128,7 @@ class WorkspaceBuildJob(val workspace: Workspace, val httpClient: HttpClient, va
             val buildScriptGenerator = BuildScriptGenerator(
                 modulesMiner,
                 ignoredModules = workspace.ignoredModules.map { ModuleId(it) }.toSet(),
-                additionalGenerationDependencies = workspace.additionalGenerationDependenciesAsMap()
+                additionalGenerationDependencies = workspace.workspace.additionalGenerationDependenciesAsMap()
             )
             runSafely {
                 modulesXml = xmlToString(buildModulesXml(buildScriptGenerator.modulesMiner.getModules()))
@@ -139,7 +140,7 @@ class WorkspaceBuildJob(val workspace: Workspace, val httpClient: HttpClient, va
         if (workspace.loadUsedModulesOnly) {
             // to reduce the required memory include only those modules in the zip that are actually used
             val resolver = ModuleResolver(modulesMiner.getModules(), workspace.ignoredModules.map { ModuleId(it) }.toSet(), true)
-            val graph = PublicationDependencyGraph(resolver, workspace.additionalGenerationDependenciesAsMap())
+            val graph = PublicationDependencyGraph(resolver, workspace.workspace.additionalGenerationDependenciesAsMap())
             graph.load(modulesMiner.getModules().getModules().values)
             val sourceModules: Set<ModuleId> = modulesMiner.getModules().getModules()
                 .filter { it.value.owner is SourceModuleOwner }.keys -
@@ -199,10 +200,11 @@ class WorkspaceBuildJob(val workspace: Workspace, val httpClient: HttpClient, va
                 setAttribute("name", "MPSProject")
                 newChild("projectModules") {
                     for (module in modules.getModules().values) {
-                        if (module.owner is SourceModuleOwner) {
+                        val owner = module.owner
+                        if (owner is SourceModuleOwner) {
                             newChild("modulePath") {
-                                setAttribute("path", module.owner.getWorkspaceRelativePath())
-                                setAttribute("folder", "")
+                                setAttribute("path", owner.getWorkspaceRelativePath())
+                                setAttribute("folder", owner.virtualFolder ?: "")
                             }
                         }
                     }
