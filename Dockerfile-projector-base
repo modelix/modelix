@@ -1,3 +1,5 @@
+# If the version of modelix/projector-mps is missing, run docker-build-projector-mps.sh to build and publish that image
+
 ARG MPS_VERSION
 FROM modelix/projector-mps:$MPS_VERSION
 

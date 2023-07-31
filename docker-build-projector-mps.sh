@@ -73,16 +73,16 @@ TIMESTAMP="$(date +"%Y%m%d%H%M")"
 
   downloadUrl="https://download.jetbrains.com/mps/${mpsMajorVersion}/MPS-${mpsVersion}.tar.gz"
 
-  if [ "${CI}" = "true" ]; then
+#  if [ "${CI}" = "true" ]; then
     docker buildx build --platform linux/amd64,linux/arm64 --push \
     -t "modelix/projector-mps:${mpsMajorVersion}" \
     -t "modelix/projector-mps:${mpsVersion}" \
     --build-arg buildGradle=false --build-arg "downloadUrl=${downloadUrl}" -f Dockerfile ..
-  else
-    docker buildx build \
-    -t "modelix/projector-mps:${mpsMajorVersion}" \
-    -t "modelix/projector-mps:${mpsVersion}" \
-    --build-arg buildGradle=false --build-arg "downloadUrl=${downloadUrl}" -f Dockerfile ..
-  fi
+#  else
+#    docker buildx build \
+#    -t "modelix/projector-mps:${mpsMajorVersion}" \
+#    -t "modelix/projector-mps:${mpsVersion}" \
+#    --build-arg buildGradle=false --build-arg "downloadUrl=${downloadUrl}" -f Dockerfile ..
+#  fi
 )
 
