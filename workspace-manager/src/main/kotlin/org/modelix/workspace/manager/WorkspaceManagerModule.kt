@@ -44,6 +44,7 @@ import java.util.zip.ZipOutputStream
 fun Application.workspaceManagerModule() {
 
     val manager = WorkspaceManager()
+    val maxBodySize = environment.config.property("modelix.maxBodySize").getString()
 
     install(Routing)
     installAuthentication()
@@ -539,7 +540,7 @@ fun Application.workspaceManagerModule() {
                                 if (canWrite) {
                                     br()
                                     br()
-                                    b { +"Upload new file or directory (max ~200 MB):" }
+                                    b { +"Upload new file or directory (max $maxBodySize MiB):" }
                                     form {
                                         action = "./upload"
                                         method = FormMethod.post

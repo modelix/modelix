@@ -4,7 +4,7 @@ metadata:
   name: "{{ include "modelix.fullname" . }}-ingress"
   annotations:
     nginx.ingress.kubernetes.io/use-regex: "true"
-    nginx.ingress.kubernetes.io/proxy-body-size: 200m
+    nginx.ingress.kubernetes.io/proxy-body-size: {{ .Values.maxBodySize }}m
     {{ if and (not .Values.ingress.tls.crt) (not .Values.ingress.certSecret) }}
     # self-signed certificate. Allow http to avoid certificate errors.
     nginx.ingress.kubernetes.io/ssl-redirect: "false"
