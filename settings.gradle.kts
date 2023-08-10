@@ -53,17 +53,16 @@ pluginManagement {
     }
 }
 
-include("ui-client")
-include("mps")
-include("ui-server")
 include("instances-manager")
 include("keycloak-extensions")
-include("model-download-gradle")
 include("manual-tests")
 include("graphql-server")
 include("workspaces")
-include("workspace-manager")
-include("workspace-client")
 include("workspace-job")
-include("headless-runner")
-include("gitui")
+
+include("ui-server") // mps tasks missing
+//include("model-download-gradle")
+//include("workspace-client")
+//include("workspace-manager")
+//include("gitui")
+//include("headless-runner")

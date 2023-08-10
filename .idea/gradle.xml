@@ -16,8 +16,6 @@
             <option value="$PROJECT_DIR$/keycloak-extensions" />
             <option value="$PROJECT_DIR$/manual-tests" />
             <option value="$PROJECT_DIR$/model-download-gradle" />
-            <option value="$PROJECT_DIR$/mps" />
-            <option value="$PROJECT_DIR$/ui-client" />
             <option value="$PROJECT_DIR$/ui-server" />
             <option value="$PROJECT_DIR$/workspace-client" />
             <option value="$PROJECT_DIR$/workspace-job" />
