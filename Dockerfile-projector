@@ -29,7 +29,6 @@ RUN echo "-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5071" 
 
 USER projector-user
 
-RUN /install-plugins.sh /projector/ide/plugins/
 COPY --chown=projector-user:projector-user projector-user-home /home/projector-user
 # rename config directory to match the correct MPS version
 RUN mv "/home/projector-user/.config/JetBrains/MPSxxxx.x" "/home/projector-user/.config/JetBrains/MPS$(grep "mpsBootstrapCore.version=" /projector/ide/build.properties|cut -d'=' -f2)"
@@ -38,3 +37,5 @@ COPY --chown=projector-user:projector-user log.xml /projector/ide/bin/log.xml
 
 COPY --chown=projector-user:projector-user artifacts/de.itemis.mps.extensions/ /mps-plugins/MPS-extensions
 COPY --chown=projector-user:projector-user build/org.modelix/build/artifacts/org.modelix/plugins/ /mps-plugins/modelix
+
+RUN /install-plugins.sh /projector/ide/plugins/
