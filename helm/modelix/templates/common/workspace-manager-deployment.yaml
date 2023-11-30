@@ -37,6 +37,8 @@ spec:
             value: "{{ .Values.imageTags.wsJob | default .Chart.AppVersion }}"
           - name: "KUBERNETES_PREFIX"
             value: "{{ include "modelix.fullname" . }}-"
+          - name: MODELIX_MAX_BODY_SIZE
+            value: "{{ .Values.maxBodySize }}"
           {{- include "modelix.keycloakEnv" . | nindent 10 }}
         image: "{{ .Values.dockerProxy.prefix }}modelix/modelix-workspace-manager:{{ .Values.imageTags.wsManager | default .Chart.AppVersion }}"
         imagePullPolicy: IfNotPresent
