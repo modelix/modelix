@@ -32,6 +32,8 @@ spec:
             value: "{{ .Release.Namespace }}"
           - name: KUBERNETES_INSTANCE_PREFIX
             value: "{{ include "modelix.fullname" . }}-"
+          - name: MODELIX_MAX_BODY_SIZE
+            value:  "{{ .Values.maxBodySize }}"
         ports:
         - containerPort: 80
         resources: 

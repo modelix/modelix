@@ -1,3 +1,10 @@
+# Regarding MPS based components
+
+⚠ IMPORTANT 
+
+All MPS based components were moved from this repository over to a [new repository called modelix/modelix.mps](https://github.com/modelix/modelix.mps/).
+The publishing workflow of this repository has been disabled for this repository and remaining components will either follow a new versioning and publishing schema and/or move to their own respective repositories.
+
 [![Build Status](https://github.com/modelix/modelix/actions/workflows/overallbuild.yml/badge.svg)](https://github.com/modelix/modelix/actions/workflows/overallbuild.yml)
 
 # The Modelix Project
@@ -6,6 +13,8 @@ The Modelix project develops a next generation language workbench that is native
 
 * Database/Cloud storage for MPS models with realtime collaboration
 * Server-based execution of MPS and browser-based editors
+
+
 
 # How to run Modelix
 
