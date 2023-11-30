@@ -15,6 +15,10 @@ imageTags:
 
 modelStorageSize: 3000Mi
 
+# Maximal size of request body in mebibyte for ingress and proxy.
+# Especially relevant for uploads in the workspace manger.
+maxBodySize: 200
+
 developmentMode: false
 
 keycloak:
