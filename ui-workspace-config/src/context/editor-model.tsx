@@ -1,4 +1,4 @@
-import * as monaco from "monaco-editor";
+import * as monaco from "monaco-editor/esm/vs/editor/editor.api.js";
 import { createContext, useContext } from "solid-js";
 import * as yaml from "yaml";
 import { Upload, UploadId } from "../api/types/upload";

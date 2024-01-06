@@ -1,8 +1,9 @@
-import * as monaco from "monaco-editor";
+import * as monaco from "monaco-editor/esm/vs/editor/editor.api";
 import { configureMonacoYaml, type SchemasSettings } from "monaco-yaml";
 import schema from "../../assets/schema.json";
 import { TAB_SIZE } from "../../constants";
 import { getEmSizeInPx } from "../../util/size-calc";
+import "./monaco-import";
 // eslint-disable-next-line import/no-unresolved
 import YamlWorker from "./yaml-worker?worker";
 
@@ -41,7 +42,6 @@ export function setupEditor(editorContainer, model) {
 
   const theme = style.getPropertyValue("--editor-theme");
 
-  console.log(`${fontSize} ${editorFontSize} ${fontSizeEm} ${emSizeInPix}`);
   const ed = monaco.editor.create(editorContainer, {
     automaticLayout: true,
     model,

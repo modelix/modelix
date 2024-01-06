@@ -1,4 +1,4 @@
-import * as monaco from "monaco-editor";
+import * as monaco from "monaco-editor/esm/vs/editor/editor.api.js";
 import { Show, createEffect, createSignal, onMount } from "solid-js";
 import { useEditorModel } from "../../context/editor-model";
 import { useWorkspaceManagerConfig } from "../../context/workspace-manger-configuration";
