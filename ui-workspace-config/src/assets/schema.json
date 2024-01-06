@@ -1,0 +1,272 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "title": "Workspace configuration",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "title": "your workspace's ID",
+      "markdownDescription": "[Link demo](https://docs.modelix.org/modelix/main/howto/index.html)",
+      "description": "[Link demo](https://docs.modelix.org/modelix/main/howto/index.html)"
+    },
+    "name": {
+      "type": "string",
+      "title": "Workspace Name",
+      "markdownDescription": "Is just shown to the user in the [workspace list](https://server.modelix.org/workspace-manager/)",
+      "description": "Is just shown to the user in the [workspace list](https://server.modelix.org/workspace-manager/)"
+    },
+    "mpsVersion": {
+      "title": "MPS version",
+      "markdownDescription": "TODO: Maybe just restrict via regex? **This is experimental**\nThe workspace will be executed using a docker image from a Modelix release for a different MPS version.",
+      "type": "string",
+      "enum": [
+        "Default",
+        "2018.3",
+        "2019.3",
+        "2019.2",
+        "2019.1",
+        "2020.1",
+        "2020.2",
+        "2020.3",
+        "2021.1",
+        "2021.2",
+        "2021.3"
+      ],
+      "default": "Default",
+      "description": "**This is experimental**\nThe workspace will be executed using a docker image from a Modelix release for a different MPS version."
+    },
+    "memoryLimit": {
+      "title": "Memory Limit",
+      "description": "**TODO** Provide default, info about units -> add RegEx for further validation",
+      "markdownDescription": "**TODO** Provide default, info about units -> add RegEx for further validation",
+      "type": "string",
+      "default": "2.0Gi"
+    },
+    "modelRepositories": {
+      "title": "List of Model Repositories",
+      "markdownDescription": "**Currently not used**\nA separate repository on the model server is created for each workspace. The ID of the repository for this workspace is workspace_200000001.",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "bindings": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "project": {
+                  "type": "string"
+                },
+                "module": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "project",
+                "module"
+              ]
+            }
+          }
+        },
+        "required": [
+          "id"
+        ]
+      },
+      "description": "**Currently not used**\nA separate repository on the model server is created for each workspace. The ID of the repository for this workspace is workspace_200000001."
+    },
+    "gitRepositories": {
+      "title": "Git repositories",
+      "markdownDescription": "List of git repositories containing MPS projects.\nNo build script is required. Modelix will build all languages including their dependencies after cloning the repository.\nIf this repository is not public, credentials can be specified.\n\nAlternatively, a project can be uploaded as a .zip file. (see configuration below)",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "title": "MPS git-project URL",
+            "markdownDescription": "This is the URL you would usually pass to `git clone`",
+            "$ref": "#/definitions/url",
+            "pattern": "(\\w+:\\/\\/)(.+@)*([\\w\\d\\.]+)(:[\\d]+){0,1}\\/*(.*)",
+            "description": "This is the URL you would usually pass to `git clone`"
+          },
+          "name": {
+            "title": "Name (optional)",
+            "markdownDescription": "(Display-)Name of the repository\n**TODO**Currently not used.",
+            "type": "string",
+            "description": "(Display-)Name of the repository\n**TODO**Currently not used."
+          },
+          "branch": {
+            "title": "branch (optional)",
+            "markdownDescription": "If no `commitHash` is specified, the latest commit from this branch is used.\n**TODO** SST: Shouldn't the presence of the two props then be mutually exclusive? From an end user view-point: Why are these separate props? Rev-Parse should take care of this.",
+            "type": "string",
+            "default": "master",
+            "description": "If no `commitHash` is specified, the latest commit from this branch is used.\n**TODO** SST: Shouldn't the presence of the two props then be mutually exclusive? From an end user view-point: Why are these separate props? Rev-Parse should take care of this."
+          },
+          "commitHash": {
+            "title": "Commit Hash (optional)",
+            "markdownDescription": "Hash of the commit to use",
+            "type": "string",
+            "description": "Hash of the commit to use"
+          },
+          "paths": {
+            "title": "additional paths",
+            "markdownDescription": "If this repository contains additional modules that you don't want to use in Modelix, you can specify a list of folders that you want to include.\n**TODO**This description leaves me with more questions than answers..",
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "If this repository contains additional modules that you don't want to use in Modelix, you can specify a list of folders that you want to include.\n**TODO**This description leaves me with more questions than answers.."
+          },
+          "credentials": {
+            "title": "Credentials (optional)",
+            "markdownDescription": "Credentials for accessing the Repo in case it is not publically available\n**TODO** SST assumption\n**TODO**Also: Wouldn't a PAT make more sense?",
+            "type": "object",
+            "properties": {
+              "user": {
+                "title": "User Name",
+                "type": "string"
+              },
+              "password": {
+                "title": "Password",
+                "markdownDescription": "Password for accessing this repository; is encrypted before storage",
+                "type": "string",
+                "format": "password",
+                "description": "Password for accessing this repository; is encrypted before storage"
+              }
+            },
+            "required": [
+              "user",
+              "password"
+            ],
+            "description": "Credentials for accessing the Repo in case it is not publically available\n**TODO** SST assumption\n**TODO**Also: Wouldn't a PAT make more sense?"
+          }
+        },
+        "required": [
+          "url"
+        ]
+      },
+      "description": "List of git repositories containing MPS projects.\nNo build script is required. Modelix will build all languages including their dependencies after cloning the repository.\nIf this repository is not public, credentials can be specified.\n\nAlternatively, a project can be uploaded as a .zip file. (see configuration below)"
+    },
+    "mavenRepositories": {
+      "title": "Maven Repository URLs",
+      "markdownDescription": "Some artifacts are bundled with *Modelix*.\nIf you require additional ones, here you can specify maven repositories that contain them.\n**TODO**Again: Link to dicumentaiton maybe? Again I have more questions after reading.",
+      "type": "array",
+      "additionalItems": false,
+      "default": [
+        "https://artifacts.itemis.cloud/repository/maven-mps/"
+      ],
+      "items": {
+        "$ref": "#/definitions/url"
+      },
+      "description": "Some artifacts are bundled with *Modelix*.\nIf you require additional ones, here you can specify maven repositories that contain them.\n**TODO**Again: Link to dicumentaiton maybe? Again I have more questions after reading."
+    },
+    "mavenDependencies": {
+      "title": "Maven Dependencies",
+      "markdownDescription": "Maven coordinates to a .zip file containing MPS modules/plugins.\n*Example:* `de.itemis.mps:extensions:2020.3.2179.1ee9c94:zip`",
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Maven coordinates to a .zip file containing MPS modules/plugins.\n*Example:* `de.itemis.mps:extensions:2020.3.2179.1ee9c94:zip`"
+    },
+    "uploads": {
+      "title": "Uploads",
+      "markdownDescription": "There is a special section for managing uploads. Directly editing this list is not required.",
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "<your-upload-id-here>"
+        ],
+        "uniqueItems": true
+      },
+      "default": [
+        "<your-upload-id-here>"
+      ],
+      "description": "There is a special section for managing uploads. Directly editing this list is not required."
+    },
+    "ignoredModules": {
+      "title": "Ignored Modules",
+      "markdownDescription": "A list of MPS module IDs that should be excluded from generation.\nAlso missing dependencies that should be ignored can be listed here.\nThis section is usually used when the generation fails and editing the project is not possible.",
+      "type": "array",
+      "items": {
+        "title": "Ignored MPS module ID",
+        "type": "string"
+      },
+      "additionalItems": false,
+      "description": "A list of MPS module IDs that should be excluded from generation.\nAlso missing dependencies that should be ignored can be listed here.\nThis section is usually used when the generation fails and editing the project is not possible."
+    },
+    "additionalGenerationDependencies": {
+      "title": "Additional Generation dependencies",
+      "markdownDescription": "**TODO** tbd",
+      "type": "array",
+      "additionalItems": false,
+      "items": {
+        "type": "object",
+        "properties": {
+          "from": {
+            "title": "from",
+            "markdownDescription": "**TODO** tbd",
+            "type": "string",
+            "description": "**TODO** tbd"
+          },
+          "to": {
+            "title": "to",
+            "markdownDescription": "**TODO** tbd",
+            "type": "string",
+            "description": "**TODO** tbd"
+          }
+        },
+        "required": [
+          "from",
+          "to"
+        ]
+      },
+      "description": "**TODO** tbd"
+    },
+    "loadUsedModulesOnly": {
+      "title": "Load used modules only",
+      "markdownDescription": "**TODO** tbd",
+      "type": "boolean",
+      "description": "**TODO** tbd"
+    },
+    "sharedInstances": {
+      "title": "Shared instances",
+      "markdownDescription": "**TODO** tbd",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "title": "Shared instance",
+        "markdownDescription": "**TODO** tbd",
+        "properties": {
+          "name": {
+            "title": "shared instance name",
+            "markdownDescription": "**TODO** tbd",
+            "type": "string",
+            "description": "**TODO** tbd"
+          },
+          "allowWrite": {
+            "title": "allow write",
+            "markdownDescription": "**TODO** tbd",
+            "type": "boolean",
+            "description": "**TODO** tbd"
+          }
+        },
+        "description": "**TODO** tbd"
+      },
+      "description": "**TODO** tbd"
+    }
+  },
+  "required": [
+    "id"
+  ],
+  "definitions": {
+    "url": {
+      "type": "string",
+      "pattern": "(\\w+:\\/\\/)(.+@)*([\\w\\d\\.]+)(:[\\d]+){0,1}\\/*(.*)"
+    }
+  },
+  "additionalProperties": false
+}

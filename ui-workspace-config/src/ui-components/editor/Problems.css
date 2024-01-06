@@ -1,0 +1,29 @@
+.problems-container {
+  background: var(--editor-background);
+  border-top: 1px solid var(--shadow-color);
+  color: var(--foreground-color);
+  overflow-y: scroll;
+}
+.problem {
+  align-items: center;
+  cursor: pointer;
+  display: flex;
+  padding: 0.25rem;
+}
+
+.problem:hover {
+  background-color: var(--shadow-color);
+}
+
+.problem-text {
+  margin-left: 0.5rem;
+  font-size: small;
+}
+
+.problem .codicon-warning {
+  color: var(--warning-color);
+}
+
+.problem .codicon-error {
+  color: var(--error-color);
+}

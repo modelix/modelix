@@ -1,0 +1,19 @@
+id: 'a00000001'
+name: 'Modelix Samples'
+mpsVersion: '2021.1'
+memoryLimit: '2Gi'
+modelRepositories:
+  - id: 'default'
+    bindings: []
+gitRepositories:
+  - url: 'https://github.com/modelix/modelix.samples.git'
+    branch: 'main'
+    paths: []
+mavenRepositories:
+  - 'https://artifacts.itemis.cloud/repository/maven-mps/'
+mavenDependencies: []
+uploads: ['3800000003']
+ignoredModules: []
+additionalGenerationDependencies: []
+loadUsedModulesOnly: true
+sharedInstances: []

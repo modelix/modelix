@@ -1,0 +1,7 @@
+.ed-box {
+  height: 70vh;
+}
+
+.ed-box > div {
+  height: inherit;
+}

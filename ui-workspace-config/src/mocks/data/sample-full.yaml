@@ -1,0 +1,164 @@
+id: ABCDEFGHIJKLMN
+name: ABCDEFGHIJK
+mpsVersion: '2019.2'
+memoryLimit: ABCD
+modelRepositories:
+  - id: ABCDEFGHIJKLMNOPQRSTU
+    bindings:
+      - project: ABCDEFGHIJKLMNOPQRSTUVWXYZA
+        module: ABCDE
+  - id: ABCDEFGHIJKLMNOPQRSTUVWX
+    bindings:
+      - project: ABCDEFGHIJKLMNOPQ
+        module: ABCDEFGHIJKLMNOPQRSTUVWXYZA
+      - project: ABCDEFGHIJKLMNOPQRSTUV
+        module: ABCDEFGHIJKL
+      - project: ABCDEFGHIJKLMNOPQRST
+        module: ABCDEFGHIJKLMNOPQRSTUVWXYZ
+  - id: ABCDEFGHIJKLMN
+    bindings:
+      - project: ABCDEFGHIJKLM
+        module: ABCDEFGHIJKLM
+  - id: ABCD
+    bindings:
+      - project: ABCDEFGHIJKLMNOPQRSTUVWXYZA
+        module: ABCDEFG
+      - project: ABCDEFGHIJKLMNOPQRS
+        module: ABCDEFGHI
+      - project: ABCDEFGHIJKLMNOPQR
+        module: ABCDEFGHIJKLMNOPQRSTUVWXY
+      - project: ABCDEFGHIJKLM
+        module: ABCDEFGHIJKLMNOPQRSTUVWXYZABC
+  - id: ABCDEFGHIJKLMNOPQR
+    bindings:
+      - project: ABCDEFGHIJK
+        module: ABCDE
+      - project: ABCDEFGHIJKLMNOPQRSTUVW
+        module: ABCDEFGH
+  - id: ABCD
+    bindings:
+      - project: ABCDEFGHIJKLMNOPQRSTUVWXYZA
+        module: ABCDEFGHIJKLMNOPQRSTUVWXYZA
+  - id: ABCDEFGHIJKLMNOPQRS
+    bindings:
+      - project: ABCDEFGHIJKLMNOPQRSTUVWXYZAB
+        module: ABCDEFGHIJKLMNOPQRSTU
+gitRepositories:
+  - url: 'v: //yzq$@d'
+    name: ABCDEFGHIJKLMNOPQRSTUVWXY
+    branch: ABCDEF
+    commitHash: ABCDEFGHIJKLMNOPQR
+    paths:
+      - ABCDEFGHIJKL
+      - ABCDEFGHIJKLM
+    credentials:
+      user: ABCDEFGHIJKLMNOPQRSTUVWXYZAB
+      password: ABCDEFGHIJKLMNOPQRSTUV
+  - url: '_7: //vu{*@w'
+    name: ABCDEFGHIJ
+    branch: ABCDEFGHIJKLMNOPQRSTUVWX
+    commitHash: ABCDEFGHIJKLMNOPQRSTUV
+    paths:
+      - ABCDEFGHIJKLMNO
+      - ABCDE
+      - ABCDEFGHIJKLMNOPQRSTUVWXYZABC
+      - ABCD
+      - ABCD
+      - ABCDEFGHIJKLMNOPQRSTUVW
+    credentials:
+      user: ABCDEFGHIJKLMNOPQR
+      password: ABCDEFGHIJKLMNOPQRS
+  - url: 'L6n2O4_cSL: //.GcSonL'
+    name: ABCDEFGHIJKLMNOPQR
+    branch: ABCDEFGHIJKLMNOPQRSTUVWXYZA
+    commitHash: ABCDEFGHIJKLMNOP
+    paths:
+      - ABCDEFGHIJKLMNOPQ
+      - ABCDEFGHIJKLMNOPQRSTUV
+      - ABCD
+    credentials:
+      user: ABCDEFGHIJK
+      password: ABCDEFGHI
+  - url: '_cc: //P@w'
+    name: ABCDEF
+    branch: ABCDEFGHIJKL
+    commitHash: ABCDEFGHIJKLMNOPQRSTUVWXYZ
+    paths:
+      - ABCDEFGHI
+      - ABCDEFGHIJKLMNOPQR
+      - ABCDEFGHIJKLMN
+      - ABCDEF
+      - ABCDEF
+      - ABCDEFGHIJKLMNOPQRSTUVW
+      - ABCDEFGHIJKLMNOPQRSTUVWXYZAB
+    credentials:
+      user: ABCDEFGHIJKLMNO
+      password: ABCDEFGHIJKLMNOPQRSTUVW
+  - url: '3c: //w`"c'
+    name: ABCDEF
+    branch: ABCDE
+    commitHash: ABCDEFGHIJKLMNOPQRSTUVWXY
+    paths: []
+    credentials:
+      user: ABCDEFG
+      password: ABCDEFGHIJKLMNOPQ
+  - url: '9dsHkO_946Fy___zuLFj: //d2s'
+    name: ABCDEFGHIJKLMNOPQRSTUVWXYZABC
+    branch: ABCDEFGHIJKLMNOPQRSTU
+    commitHash: ABCDEFGHIJKLMNOPQ
+    paths:
+      - ABCDEFGHIJKLMNOPQRSTUV
+      - ABCDEFGHIJKLMNOPQRS
+      - ABCDEFGHIJKLMNOPQRSTU
+      - ABCDEF
+      - ABCDEFGHIJKLMNOPQRSTUVW
+      - ABCDEFGHIJKLMNOPQRSTUVWXY
+    credentials:
+      user: ABCDEFGHIJKLMNOP
+      password: ABCDEFGHIJK
+mavenRepositories:
+  - '__RX5P0: //wa'
+  - 'w_42MA: //}@dF'
+  - '_s: //}u@}@d'
+  - '6187__: //rp *!f1@.'
+  - 'O: //~U@d'
+  - 'C8eU: //x9@t@w'
+mavenDependencies:
+  - ABCDEFG
+  - ABCDEFGHIJKLMNOPQRSTUVW
+  - ABCDEFGHIJKLMNO
+  - ABCDEFGHIJKLMNO
+  - ABCDEFGHI
+  - ABCDE
+  - ABCDEFGHIJKLMNOPQRS
+  - ABCDEFGHIJKLMNOPQRSTUVWXY
+  - ABCDEFGHIJKLMNOPQR
+uploads:
+  - '456'
+  - '123'
+ignoredModules:
+  - ABCDEFGHIJKLMNOPQRSTUV
+  - ABCDEFGHIJKLMNOPQRSTUVWXY
+  - ABCDEFGHIJKLMNOPQRSTU
+  - ABCDEFGHIJKLMNOPQ
+  - ABCDEFGHIJKLMNOPQRSTU
+  - ABCDEFGHIJK
+  - ABCDEFGHIJKLMNOPQRSTUV
+  - ABCDEFGHIJKLMNOPQ
+additionalGenerationDependencies:
+  - from: ABCDEFGHIJKLMNOPQR
+    to: ABCDE
+  - from: ABCDE
+    to: ABCDEFGHIJKLMNOPQRSTUVWXYZAB
+  - from: ABCDEFGHIJK
+    to: ABCDEFGHIJKLMNOPQ
+  - from: ABCDEFGHIJK
+    to: ABCDE
+loadUsedModulesOnly: false
+sharedInstances:
+  - name: ABCDE
+    allowWrite: false
+  - name: ABCDEFGHIJKLMNOPQRSTUVWXYZABC
+    allowWrite: true
+  - name: ABCD
+    allowWrite: false

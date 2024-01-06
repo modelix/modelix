@@ -1,0 +1,50 @@
+{
+  "name": "vite-template-solid",
+  "version": "0.0.0",
+  "description": "",
+  "type": "module",
+  "scripts": {
+    "preinstall": "npx only-allow pnpm",
+    "start": "vite",
+    "dev": "vite",
+    "build": "tsc --noemit && vite build",
+    "serve": "vite preview",
+    "test": "vitest"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "@solidjs/testing-library": "^0.8.5",
+    "@testing-library/jest-dom": "^6.1.6",
+    "@types/eslint": "^8.56.0",
+    "@types/testing-library__jest-dom": "^5.14.9",
+    "@typescript-eslint/eslint-plugin": "^6.17.0",
+    "@typescript-eslint/parser": "^6.17.0",
+    "eslint": "^8.56.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-import": "^2.29.1",
+    "jsdom": "^23.0.1",
+    "prettier-plugin-organize-imports": "^3.2.4",
+    "sass": "^1.69.7",
+    "solid-devtools": "^0.29.2",
+    "tslib": "^2.6.2",
+    "typescript": "~5.2.2",
+    "vite": "^4.5.1",
+    "vite-plugin-eslint": "^1.8.1",
+    "vite-plugin-solid": "^2.8.0",
+    "vite-plugin-svgr": "^4.2.0",
+    "vitest": "^1.1.1"
+  },
+  "dependencies": {
+    "@fortawesome/fontawesome-free": "^6.5.1",
+    "bulma": "^0.9.4",
+    "monaco-editor": "^0.45.0",
+    "monaco-yaml": "^5.1.0",
+    "msw": "^2.0.11",
+    "solid-js": "^1.8.7",
+    "yaml": "^2.3.4"
+  },
+  "msw": {
+    "workerDirectory": "public"
+  }
+}

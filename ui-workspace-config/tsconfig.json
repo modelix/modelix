@@ -1,0 +1,48 @@
+{
+  "compilerOptions": {
+    "outDir": "dist",
+    "strict": true,
+    "target": "ESNext",
+    "module": "ESNext",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext",
+    ],
+    "declaration": true,
+    "declarationMap": true,
+    "allowJs": false,
+    "strictNullChecks": true,
+    "noImplicitAny": false,
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "moduleResolution": "Bundler",
+    "isolatedModules": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "jsx": "preserve",
+    "jsxImportSource": "solid-js",
+    "types": [
+      "vite/client",
+      "vite-plugin-svgr/client",
+      "vitest/globals",
+      "./src/vite-env"
+    ],
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "downlevelIteration": true,
+    "importHelpers": true,
+  },
+  "include": [
+    "src",
+    "./src/vite-env.d.ts",
+    "public"
+  ],
+  "exclude": [
+    "vite.config.ts",
+    "node_modules",
+    "build",
+    "dist"
+  ]
+}

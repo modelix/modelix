@@ -1,0 +1,24 @@
+id: '24f00000002'
+name: 'ChatGPT'
+mpsVersion: '2021.3'
+memoryLimit: '2.0Gi'
+modelRepositories:
+  - id: 'default'
+    bindings: []
+gitRepositories:
+  - url: 'https://github.com/markusvoelter/chatGPTDemo.git'
+    name: null
+    branch: 'main'
+    commitHash: null
+    paths: []
+    credentials: null
+mavenRepositories:
+  - url: 'https://artifacts.itemis.cloud/repository/maven-mps/'
+mavenDependencies:
+  - 'com.mbeddr:platform:2021.3.23887.876a72c:zip'
+  - 'org.iets3:opensource:2021.3.6143.2aca26d:zip'
+uploads: []
+ignoredModules: []
+additionalGenerationDependencies: []
+loadUsedModulesOnly: true
+sharedInstances: []

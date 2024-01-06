@@ -1,0 +1,17 @@
+{
+  "recommendations": [
+    "arcanis.vscode-zipfs",
+    "dbaeumer.vscode-eslint",
+    "esbenp.prettier-vscode",
+    "formulahendry.auto-close-tag",
+    "formulahendry.auto-rename-tag",
+    "kisstkondoros.vscode-gutter-preview",
+    "ms-playwright.playwright",
+    "naumovs.color-highlight",
+    "Orta.vscode-jest",
+    "streetsidesoftware.code-spell-checker",
+    "Tobermory.es6-string-html",
+    "vincaslt.highlight-matching-tag",
+    "wayou.vscode-todo-highlight",
+  ]
+}

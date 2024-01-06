@@ -1,0 +1,19 @@
+.the-editor {
+  background: var(--editor-background);
+  height: inherit;
+  max-height: 98%;
+  display: flex;
+  flex-direction: column;
+}
+.editor-text-container {
+  flex-basis: 98%;
+  flex-grow: 10;
+  flex-shrink: 1;
+  overflow: hidden;
+}
+
+.problems-container {
+  flex-grow: 2;
+  flex-shrink: 1;
+  min-height: 0%;
+}
