@@ -1,11 +1,43 @@
-# Regarding MPS based components
+> [!NOTE]  
+> This repository is archived.
+> Actively developed components where moved to:
+> 
+> * [modelix/modelix.mps](https://github.com/modelix/modelix.mps)
+> * [modelix/modelix.workspaces](https://github.com/modelix/modelix.workspaces)
+> * [modelix/modelix.kubernetes](https://github.com/modelix/modelix.kubernetes)
 
-⚠ IMPORTANT 
+# Moved components
 
-All MPS based components were moved from this repository over to a [new repository called modelix/modelix.mps](https://github.com/modelix/modelix.mps/).
-The publishing workflow of this repository has been disabled for this repository and remaining components will either follow a new versioning and publishing schema and/or move to their own respective repositories.
+The actively developed components were moved.
+The other inactive components have not been moved.
+Their code remains here for possible reuse in future developments.
 
-[![Build Status](https://github.com/modelix/modelix/actions/workflows/overallbuild.yml/badge.svg)](https://github.com/modelix/modelix/actions/workflows/overallbuild.yml)
+| components                                       | new location                                                                                                    |
+|--------------------------------------------------|-----------------------------------------------------------------------------------------------------------------|
+| [db/](db/)                                       | [modelix/modelix.kubernetes](https://github.com/modelix/modelix.kubernetes/tree/main/db/)                       |
+| [doc/](doc/)                                     |                                                                                                                 |
+| [gitui/](gitui/)                                 | [modelix/modelix.workspaces](https://github.com/modelix/modelix.workspaces/tree/main/gitui/)                    |
+| [gradle-plugin-test/](gradle-plugin-test/)       |                                                                                                                 |
+| [graphql-server/](graphql-server/)               |                                                                                                                 |
+| [headless-runner/](headless-runner/)             |                                                                                                                 |
+| [helm/](helm/)                                   | [modelix/modelix.kubernetes](https://github.com/modelix/modelix.kubernetes/tree/main/helm/)                     |
+| [instances-manager/](instances-manager/)         | [modelix/modelix.workspaces](https://github.com/modelix/modelix.workspaces/tree/main/instances-manager/)        |
+| [integrationtests/](integrationtests/)           |                                                                                                                 |
+| [keycloak-extensions/](keycloak-extensions/)     | [modelix/modelix.kubernetes](https://github.com/modelix/modelix.kubernetes/tree/main/keycloak-extensions/)      |
+| [kotlin-js-store/](kotlin-js-store/)             |                                                                                                                 |
+| [manual-tests/](manual-tests/)                   |                                                                                                                 |
+| [metamodel-sandbox/](metamodel-sandbox/)         |                                                                                                                 |
+| [model-download-gradle/](model-download-gradle/) |                                                                                                                 |
+| [mps/](mps/)                                     | [modelix/modelix.mps](https://github.com/modelix/modelix.mps/tree/main/mps/)                                    |
+| [projector-user-home/](projector-user-home/)     | [modelix/modelix.mps](https://github.com/modelix/modelix.mps/tree/mps/2020.3/docker/helper/projector-user-home) |
+| [proxy/](proxy/)                                 | [modelix/modelix.kubernetes](https://github.com/modelix/modelix.kubernetes/tree/main/proxy/)                    |
+| [samples/](samples/)                             |                                                                                                                 |
+| [ui-client/](ui-client/)                         | [modelix/modelix.mps](https://github.com/modelix/modelix.mps/tree/main/ui-client/)                              |
+| [ui-server/](ui-server/)                         |                                                                                                                 |
+| [workspace-client/](workspace-client/)           | [modelix/modelix.workspaces](https://github.com/modelix/modelix.workspaces/tree/main/workspace-client/)         |
+| [workspace-job/](workspace-job/)                 | [modelix/modelix.workspaces](https://github.com/modelix/modelix.workspaces/tree/main/workspace-job/)            |
+| [workspace-manager/](workspace-manager/)         | [modelix/modelix.workspaces](https://github.com/modelix/modelix.workspaces/tree/main/workspace-manager/)        |
+| [workspaces/](workspaces/)                       | [modelix/modelix.workspaces](https://github.com/modelix/modelix.workspaces/tree/main/workspaces/)               |
 
 # The Modelix Project
 
